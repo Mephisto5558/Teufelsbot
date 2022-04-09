@@ -1,0 +1,23 @@
+{
+  "name": "teufelswerk-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Mephisto",
+  "license": "ISC",
+  "dependencies": {
+    "@discordjs/rest": "^0.2.0-canary.0",
+    "chalk": "^4.1.2",
+    "discord-api-types": "^0.31.0",
+    "discord-slash-commands-client": "^1.2.2",
+    "discord.js": "^13.6.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.2.10",
+    "npm": "^8.6.0",
+    "reconlx": "^2.5.6"
+  }
+}
