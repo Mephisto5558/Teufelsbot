@@ -27,7 +27,12 @@ module.exports = (client) => {
       
       if(!err.errorCode) err.errorCode = 'unknown'
       client.interaction?.followUp(`A unknown error occurred, please ping the dev.\nError Code: \`${err.errorCode}\``);
-    
-    })
+    });
+  
+  client
+    .on('rateLimit', (info) => {
+      console.log(`Rate limit hit ${info.timeDifference ? info.timeDifference : info.timeout ? info.timeout: 'Unknown timeout '}`)
+      client.interaction?.followUp(`Rate limit hit ${info.timeDifference ? info.timeDifference : info.timeout ? info.timeout: 'Unknown timeout '}`)
+    });
 
 }
