@@ -18,6 +18,7 @@ module.exports = new Command({
 
     const axios = require('axios')
     var response = {};
+    
     try {
       response = await axios({
         method: 'POST',
@@ -28,7 +29,7 @@ module.exports = new Command({
     catch(error) {
       if(error?.response?.status === 502) { errorCode = "its offline" } else { errorCode = "unknown error" };
       await client.functions.reply(`Music Module cannot be restarted, ${errorCode} (${error?.response?.status + ': ' + error?.response?.statusText || 'no error code returned'}), check the console for more information.`, message)
-      console.log(error)
+      throw error;
     }
     finally {
       if(response.statusCode == 403) await client.functions.reply("Music Module cannot be restarted, permission denied (403)", message)

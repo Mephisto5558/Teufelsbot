@@ -1,11 +1,12 @@
 const { Command } = require("reconlx");
 
 module.exports = new Command({
-  name: 'easteregg',
+  name: 'vinjagostinkt',
   aliases: [],
   description: `just a little easter egg`,
   userPermissions: [],
   category : "Fun",
+  hideInHelp: true,
   slashCommand: false,
   run: async (client, message, interaction) => {
     

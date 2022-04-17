@@ -7,8 +7,8 @@ module.exports = new Command({
   userPermissions: [],
   category : "Fun",
   slashCommand: false,
-  run: async (client, message, interaction) => {
-    if(interaction) return interaction.followUp('ICH BIN DAAAA :D');
+  run: async (client, message) => {
+    
     client.functions.reply('ICH BIN DAAAA :D', message)
     
   }

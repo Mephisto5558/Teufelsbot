@@ -1,15 +1,13 @@
 const { MessageEmbed } = require("discord.js");
 var embed = require("../Settings/embed.json");
-var noPerm = false;
-
 
 module.exports = async (client, interaction) => {
+  interaction.args = [];
 
   if(interaction.isCommand()) {
-    interaction.args = [];
-    await interaction.deferReply({ ephemeral: false });
     const command = client.commands.get(interaction.commandName);
     if(!command) return;
+    await interaction.deferReply();
         
     for (let option of interaction.options.data) {
       if(option.type === "SUB_COMMAND") {
@@ -24,7 +22,6 @@ module.exports = async (client, interaction) => {
     interaction.member = interaction.guild.members.cache.get(interaction.user.id);
     if(interaction.member.id === client.user.id) interaction.followUp(`Its Me...`)
     
-      // checking user perms
     if (!interaction.member.permissions.has('SEND_MESSAGES') || !interaction.member.permissions.has(command.userPermissions)) {
      command.userPermissions.push('SEND_MESSAGES')
      return interaction.followUp({
@@ -36,12 +33,13 @@ module.exports = async (client, interaction) => {
       });
     }
     
-    command.run(client, null, interaction);
+    command.run(client, null, interaction)
   }
 
   if(interaction.isContextMenu()) {
-    await interaction.deferReply({ ephemeral: false });
     const command = client.commands.get(interaction.commandName);
-    if(command) command.run(client, null, interaction);
+    if(command) {
+      command.run(client, null, interaction)
+    }
   }
 }

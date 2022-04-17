@@ -16,17 +16,17 @@ module.exports = new Command({
       return message.delete();
     }
     
-    cmdCreatedTimestamp = Math.abs(Date.now() - interaction.createdTimestamp)
+    ping = Math.abs(Date.now() - interaction.createdTimestamp)
     
     let embed = new MessageEmbed()
       .setColor(embedConfig.embed_color)
       .setTitle('Main Module')
       .setDescription(
-        `Latency: \`${cmdCreatedTimestamp}ms\`\n` + 
+        `Latency: \`${ping}ms\`\n` + 
         `API Latency: \`${Math.round(client.ws.ping)}ms\``
       )
-    
-    interaction.followUp({
+    interaction.
+    interaction.editReply({
       embeds: [embed]
     })
   }
