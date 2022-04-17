@@ -10,9 +10,8 @@ module.exports = new Command({
   run: (client, message, interaction) => {
 
     if(interaction) {
-      console.log(interaction);
+      
     }
-    return;
     
     if(!isNaN(message.args[0])) return client.functions.reply('You forgot to mention a user!')
     userID = message.args[0]

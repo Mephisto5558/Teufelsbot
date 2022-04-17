@@ -3,62 +3,70 @@ const { Command } = require("reconlx");
 module.exports = new Command({
   name: 'ban',
   aliases: [],
-  description: `permamently bans a member from the server`,
+  description: `bans a member from the server`,
   userPermissions: ['BAN_MEMBERS'],
   category : "Moderation",
   slashCommand: false,
+  options: [
+    {
+      name: "user",
+      description: `Who want you to get banned`,
+      type: "USER",
+      required: true
+    },
+    {
+      name: "duration",
+      description: `How long want you to get this user banned, empty for permament`,
+      type: "NUMBER",
+      required: false
+    },
+    {
+      name: "reason",
+      description: `The user will see the reason in a dm`,
+      type: "STRING",
+      required: true
+    }
+  ],
   run: async (client, message, interaction) => {
+    const { MessageEmbed } = require("discord.js");
 
-    if (message.content.toLowerCase().endsWith('--force')) {
-      var force = true
-      message.content = message.content.substring(0, message.content.toLowerCase().lastIndexOf('--force'))
+    if(!interaction) {
+      await client.functions.reply('Please use `/ban` instead of `.ban!`', message, 10000)
+      return message.delete();
     }
 
-    var user = message.mentions.members.first();
-    const reason = message.args.slice(1).join(' ');
-
-    if (!message.member.permissions.has('BAN_MEMBERS')) {
-      return client.functions.reply("You don't have the permission to do that!", message)
-    }
-
-    if (!user) {
-      try {
-        user = message.guild.members.cache.get(message.args.slice(0, 1).join(' '));
-        if(!user) {throw 'User is empty'} else {
-          user = user.user
-          if(!user) {throw 'User is empty'}
-        }
-      }
-      catch {
-        return client.functions.reply(`You forgot to mention a user!`, message)
-      }
-    }
-
+    const user = client.users.fetch(interaction.options.getUser('user'), false);
+    
     if (!user.bannable) {
-      return client.functions.reply("I don't have the permission to do that!", message)
+      return interaction.followUp("I don't have the permission to do that!")
     }
 
     if (user.id === message.author.id && !force) {
-      return client.functions.reply(`You can't ban yourself!`, message)
+      return interaction.followUp(`You can't ban yourself!`)
     }
 
-    if (!reason && !force) {
-      return client.functions.reply('You forgot to enter a reason for this ban!', message)    
-    }
+    var embed = new MessageEmbed()
+      .setTitle(`**banned**`)
+      .setDescription(
+        `You have been banned from ${message.guild.name}.` +
+        `Moderator: ${message.author.tag}` +
+        `Reason   : ${interaction.options.getString('reason')}`
+      )
+
+    try { user.ban({ reason: reason }) }
+    catch { return interaction.followUp("I could'nt ban the user") }
   
-    try {
-      user.send(`You have been banned from ${message.guild.name}.
-Moderator: ${message.author.tag}
-Reason   : ${reason}`)
-    }
-    catch { var noMsg = true }
+    try { user.send({ embeds: [embed] }) }
+    catch { var noMsg = true; }
 
-    message.mentions.members.first().ban({ reason: reason })
-      .then((member) => {
-        client.functions.reply(`:wave: ${member.displayName} has been successfully banned :point_right:`, message)
-        if(noMsg) { client.functions.reply(`I Couldn't dm the user.`, message) }
-        if (user.id === message.author.id) { client.functions.reply('https://tenor.com/view/button-kick-gif-10790675', message) }
-      })
+    description = `:wave: ${member.displayName} has been successfully banned :point_right:`
+    if(noMsg) description = `${description}\nI Couldn't dm the user.`
+        
+    var embed = new MessageEmbed()
+      .setTitle('**Ban**')
+      .setDescription(description)
     
+    
+    interaction.followUp({ embeds: [embed] })
   }
 })

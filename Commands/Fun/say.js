@@ -7,6 +7,7 @@ module.exports = new Command({
   userPermissions: [],
   category: "Fun",
   slashCommand: true,
+  disabled: true,
   options: [{
     name: 'msg',
     description: 'Type your message here',
@@ -17,7 +18,11 @@ module.exports = new Command({
   run: async (client, interaction, message) => {
     
     let msg = interaction.options.getString('msg');
-    interaction.followUP({content: msg, ephemeral: true})
+    interaction.channel.send(msg)
+      .then(async msg => {
+        await client.sleep(200)
+        msg.delete().catch();
+      })
     
   }
 })

@@ -7,7 +7,6 @@ module.exports = new Command({
   userPermissions: [],
   category : "Owner-Only",
   slashCommand: false,
-  disabled: true,
   run: async (client, message, interaction) => {
     
     let permissionGranted = await client.functions.checkBotOwner(client, message)
@@ -17,52 +16,34 @@ module.exports = new Command({
     const path = require("path");
 
     if (!message.args || message.args.length === 0) {
-      var commandCount = 0
-      console.log("Reloading Commands...")
-
-      function registerCommands(path = './../Commands') {
-        const allCommands = fs.readdirSync(path);
-        for (const command of allCommands) {
-          if(fs.statSync(`${path}/${command}`).isDirectory()) {
-            registerCommands(`${path}/${command}`);
-            continue;
-          }
-
-          const loadedCommand = require(`.${path}/${command}`);
-          client.commands.set(loadedCommand.name, loadedCommand);
-            
-          for(const alias of loadedCommand.aliases || []) {
-            commands.set(alias, { ...loadedCommand, alias: true });
-            console.log(`Loaded command ${loadedCommand.name} (${path}/${command})`);
-          }
-          commandCount++
-        }
-      }
-      registerCommands();
-      console.log(`Reloaded ${commandCount} commands\n`)
+      console.log("Reloading Handlers...");
+      var handlerCount = 0;
+      fs.readdirSync("./../Handlers").filter((file) => file.endsWith("_handler.js")).forEach((file) => {
+        delete require.cache[require.resolve(`../../Handlers/${file}`)];
+        require(`./../Handlers/${handler}`)(client);
+        handlerCount++
+      });
+      console.log(`Reloaded ${handlerCount} handlers\n`)
 
       console.log('Reloading events...')
       var eventCount = 0
-      const events = fs.readdirSync("../../Teufelswerk-Bot/Events").filter(file => file.endsWith(".js"));
-      for (const file of events) {
-        eventCount++
+      fs.readdirSync("./../Events").filter(file => file.endsWith(".js")).forEach((file) => {
+        delete require.cache[require.resolve(`../../Events/${file}`)];
+        const event = require(`../../Events/${file}`);
+
         const eventName = file.split(".")[0];
 
-        console.log(`Reloading event ${eventName}...`);
-
-        delete require.cache[require.resolve(`../../Teufelswerk-Bot/Events/${eventName}`)];
-        const event = require(`../../Teufelswerk-Bot/Events/${file}`);
-
-        client.off(eventName, event.bind(null, client));
-        client.on(eventName, event.bind(null, client));
-      }
+        client.events.delete(eventName)
+        client.events.set(eventName, event);
+        console.log(`Reloaded Event ${eventName}`);
+        eventCount++
+      });
       console.log(`Reloaded ${eventCount} events\n`)
 
-      return client.functions.reply(`Reloaded \`${commandCount}\` commands and \`${eventCount}\` events.`, message)
-    }
+      return client.functions.reply(`Reloaded \`${handlerCount}\` handlers, \`${commandCount}\`, \`${slashCommandCount}\` commands and \`${eventCount}\` events.`, message)
+    };
   
-    var command = message.args[0]
-    var commandName = message.args[0].split('/')
+    var commandName = message.args[0].split('/');
     if (!client.commands.has(commandName[commandName.length - 1])) {
       return client.functions.reply(`The command \`${commandName[commandName.length -1]}\` does not exist!`, message)
     }
@@ -70,8 +51,7 @@ module.exports = new Command({
     delete require.cache[require.resolve(`./${commandName}.js`)];
     client.commands.delete(commandName);
 
-    var command = require(`./${command}.js`);
-    client.commands.set(commandName, command);
+    var command = require(`./${message.args[0]}.js`);
 
     console.log(`Reloaded command ${commandName}`)
     client.functions.reply(`The command \`${commandName}\` has been reloaded.`, message)

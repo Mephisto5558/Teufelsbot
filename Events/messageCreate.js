@@ -18,6 +18,5 @@ module.exports = (client, message) => {
   message.args = message.args.slice(0);
   message.content = message.args.join(' ');
   
-  //return client.functions.reply(`Aktuell sind Botcommands deaktiviert.`, message);
   command.run(client, message)
 }

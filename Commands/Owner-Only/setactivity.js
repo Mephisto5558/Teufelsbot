@@ -21,14 +21,12 @@ module.exports = new Command({
     let activity = messageArgs[0]
     var type = messageArgs[1]
 
-    if (!type) var type = "playing";
+    if (!type) type = 0;
 
     const availableTypes = ["playing", "streaming", "listening", "watching", "competing"];
     const numType = type
-      .replace('playing', 0)
-      .replace('streaming', 1)
-      .replace('listening', 2)
-      .replace('watching', 3)
+      .replace('playing', 0).replace('streaming', 1)
+      .replace('listening', 2).replace('watching', 3)
       .replace('competing', 5);
   
     const typeIsAvailable = availableTypes.some(element => {

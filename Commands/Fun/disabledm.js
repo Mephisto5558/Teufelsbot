@@ -9,6 +9,8 @@ module.exports = new Command({
   slashCommand: false,
   disabled: true,
   run: async (client, message, interaction) => {
+
+
     
   }
 })

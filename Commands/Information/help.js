@@ -17,7 +17,7 @@ module.exports = new Command({
   }],
   
   run: async (client, message, interaction) => {
-    if(interaction) args = interaction.options.get('command')
+    if(interaction) args = interaction.options.getString('command')
     else args = message.args[0];
     
     try {
@@ -45,7 +45,7 @@ module.exports = new Command({
         .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
 
         const commands = category => {
-          return client.commands.filter((cmd) => cmd.category === category).map((cmd) => `\`${cmd.name}\``);
+          return client.commands.filter((cmd) => cmd.category === category).filter((cmd) => cmd.hideInHelp != true).map((cmd) => `\`${cmd.name}\``);
         }
         
         try {

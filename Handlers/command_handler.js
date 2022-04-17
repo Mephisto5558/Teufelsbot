@@ -20,4 +20,5 @@ module.exports = (client) => {
     })
   });
   console.log(`Loaded ${commandCount} commands\n`)
+  return commandCount;
 }
