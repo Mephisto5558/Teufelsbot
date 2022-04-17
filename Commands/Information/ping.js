@@ -24,8 +24,8 @@ module.exports = new Command({
       .setDescription(
         `Latency: \`${ping}ms\`\n` + 
         `API Latency: \`${Math.round(client.ws.ping)}ms\``
-      )
-    interaction.
+      );
+    
     interaction.editReply({
       embeds: [embed]
     })
