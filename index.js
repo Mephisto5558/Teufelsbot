@@ -50,7 +50,7 @@ fs.readdirSync("./Handlers").filter((file) => file.endsWith("_handler.js")).forE
   require(`./Handlers/${handler}`)(client);
 });
 
-client.on('debug', console.log);
+//client.on('debug', console.log);
 client.login(process.env.token);
 
 app.listen(1000, () => { console.log("Website is online") })

@@ -17,9 +17,10 @@ module.exports = new Command({
     await function eval(client, message) {
       return Function('return (' + message.args + ')')();
     }
-    
-    eval(message.args);
-    
+    try {
+      eval(message.args);
+    }
+    catch(err) {client.functions.reply(`\`\`\`${err}\`\`\``, message)}
     console.log(`evaluated command '${message.args}'`)
     client.functions.reply(`evaluated command:
 \`\`\`javascript\n${message.args}\`\`\``, message)
