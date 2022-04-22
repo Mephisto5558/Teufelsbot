@@ -13,7 +13,6 @@ module.exports = new Command({
     axios.get('https://v2.jokeapi.dev/joke/Any?lang=de&type=single')
       .then(response => {
         response = response.data.joke
-        console.log(response)
         if(message) return client.functions.reply(response, message);
         interaction.followUp(response)
       })
