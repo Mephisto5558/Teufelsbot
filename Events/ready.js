@@ -5,6 +5,7 @@ module.exports = async (client) => {
       console.log(`Left ${guild.name}(${guild.id}) because it's not in the whitelist`);
     }
   });
+
   const { Client } = require("discord-slash-commands-client");
   const commandClient = new Client(
     process.env.token,
@@ -21,17 +22,21 @@ module.exports = async (client) => {
       .replace('MENTIONABLE',	9).replace('NUMBER', 10)
       .replace('ATTACHMENT', 11)
   }
-  
-  client.slashCommandList.forEach((command) => {
-    if(!command.slashCommand) return;
+
+  for await (command of client.slashCommandList) {
     if(Array.isArray(command.options)) command.options.forEach((option) => { work(option) });
-    else if(command.options) work(command.options)
-    commandClient.createCommand({
-      name: command.name,
-      description: command.description,
-      options: command.options
-    })
-  });
+    else if(command.options) work(command.options);
+
+    await commandClient
+      .createCommand({
+        name: command.name,
+        description: command.description,
+        options: command.options
+      })
+      .then( console.log(`Registered Slash Command ${command.name}`) )
+      .catch( console.error);
+    await client.functions.sleep(10000);
+  };
   
   console.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${client.guilds.cache.map((g) => g.memberCount).reduce((a, c) => a + c)} users.\n`);
   await client.functions.sleep(20000)

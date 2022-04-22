@@ -32,7 +32,7 @@ module.exports = new Command({
       throw error;
     }
     finally {
-      if(response.statusCode == 403) await client.functions.reply("Music Module cannot be restarted, permission denied (403)", message)
+      if(response.statusCode == 403) return client.functions.reply("Music Module cannot be restarted, permission denied (403)", message);
       process.exit(0)
     }
   }
