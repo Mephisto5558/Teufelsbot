@@ -51,10 +51,12 @@ module.exports = new Command({
       averagePing = data[0];
       ping = data[1];
       
+      ping.sort((a, b) => a - b);
+      
       embed.setDescription(
         `Pings: \`${ping.length}\`\n` + 
-        `Lowest Ping: \`${ping[ping.length - 1]}ms\`\n` +
-        `Highest Ping: \`${ping[0]}ms\`\n` +
+        `Lowest Ping: \`${ping[0]}ms\`\n` +
+        `Highest Ping: \`${ping[ping.length - 1]}ms\`\n` +
         `Average Ping: \`${averagePing}ms\``
       )
       interaction.editReply({
