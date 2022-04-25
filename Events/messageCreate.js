@@ -9,7 +9,7 @@ module.exports = (client, message) => {
   }
   else {
     message.args = message.content.replace(/<@!/g, '<@').substring(client.prefix.length).trim().split(/ +/g);
-  }
+  };
   
   const commandName = message.args.shift().toLowerCase()
   const command = client.commands.get(commandName)

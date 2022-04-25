@@ -1,31 +1,46 @@
 const { Command } = require("reconlx");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = new Command({
   name: 'dm',
   aliases: [],
-  description: `sends a user a dm`,
+  description: 'sends a user a dm',
   userPermissions: [],
-  category : "Fun",
+  category : 'Fun',
   slashCommand: true,
-  run: (client, message, interaction) => {
-
-    if(interaction) {
-      
+  options: [
+    {
+      name: 'target',
+      description: 'the user you want to send a dm to',
+      type: 'USER',
+      required: true
+    },
+    {
+      name: 'message',
+      description: 'the message you want to send',
+      type: 'STRING',
+      required: true
     }
+  ],
+  
+  run: async (client, _, interaction) => {
+    if(!interaction) return;
+    console.log(interaction.member.displayAvatarURL());
     
-    if(!isNaN(message.args[0])) return client.functions.reply('You forgot to mention a user!')
-    userID = message.args[0]
-      .replace('<@','')
-      .replace('>','')
-      .replace('!','')
+    let user = interaction.options.getMember('target');
+    let messageToSend = interaction.options.getString('message');
+    let sender;
+    await client.users.fetch(interaction.member.user.id).then(user => { sender = `${user.username}#${user.discriminator}` });
 
-    message.args.shift()
-    message.args = message.args.join(' ')
-    if(message.args.length === 0) return client.functions.reply('You must give me a message to send!', message)
-  
-    client.users.fetch(userID, false).then((user) => {
-      user.send(`${message.args}\n||Message sent by ${message.member.user.tag}. If you don't want to receive user-made dms from me, run .disabledm in any server.||`)
-    });
+    let embed = new MessageEmbed()
+      .setDescription(messageToSend)
+      .setFooter({
+        text: `Message sent by ${sender}. If you don't want to receive user-made dms from me, run /disabledm in any server.`,
+        iconURL: interaction.member.displayAvatarURL()
+      });
+
+    user.send({ embeds: [embed] })
+      .then(interaction.followUp('Message sent!'))
+      .catch(interaction.followUp("I couldn't message this member!"))
   }
-  
 })

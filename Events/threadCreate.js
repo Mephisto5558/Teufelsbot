@@ -1,3 +1,3 @@
 module.exports = (client, thread) => {
-  thread.join().catch(err)
+  thread.join().catch();
 }

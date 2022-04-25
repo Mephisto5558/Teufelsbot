@@ -1,8 +1,8 @@
 const { Command } = require("reconlx");
 
 module.exports = new Command({
-  name: 'runcommand',
-  aliases: ['eval'],
+  name: 'eval',
+  aliases: [],
   description: `inject javascript code directly into the bot`,
   userPermissions: [],
   category : "Owner-Only",

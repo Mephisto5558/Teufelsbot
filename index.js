@@ -1,26 +1,5 @@
 console.log('Starting...')
 
-const chalk = require("chalk");
-const error = chalk.bold.red;
-
-
-process.on('unhandledRejection', (reason, p) => {
-  console.log(error(' [Error Handling] :: Unhandled Rejection/Catch'));
-  console.log(reason, p);
-  console.log(`\n`)
-});
-process.on("uncaughtException", (err, origin) => {
-  console.log(error(' [Error Handling] :: Uncaught Exception/Catch'));
-  console.log(err, origin);
-  console.log(`\n`)
-})
-process.on('uncaughtExceptionMonitor', (err, origin) => {
-  console.log(error(' [Error Handling] :: Uncaught Exception/Catch (MONITOR)'));
-  console.log(err, origin);
-  console.log(`\n`)
-});
-
-
 const express = require("express");
 const Discord = require("discord.js");
 const fs = require("fs");

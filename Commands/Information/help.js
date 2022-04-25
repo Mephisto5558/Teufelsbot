@@ -27,8 +27,8 @@ module.exports = new Command({
       const cmd = client.commands.get(args.toLowerCase())
       if(!cmd) return interaction.followUp({ embeds: [embed.setColor(embed.embed_wrongcolor).setDescription(`No Information found for command **${args.toLowerCase()}**`)] });
       if(cmd.name) {
-        embed.addField("**Command name**", `\`${cmd.name}\``);
         embed.setTitle(`Detailed Information about: \`${cmd.name}\``);
+        embed.addField("**Command name**", `\`${cmd.name}\``);
       }
       if(cmd.alias) embed.addField("Alias", `\`${cmd.alias}\``);
       if(cmd.description) embed.addField("**Description**", `\`${cmd.description}\``);
