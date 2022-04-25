@@ -3,12 +3,19 @@ const { Command } = require("reconlx");
 module.exports = new Command({
   name: '',
   alias: [],
-  description: ``,
+  description: '',
   userPermissions: [],
-  category : "",
+  category : '',
   slashCommand: true,
   disabled: false,
-  run: async ({ client, interaction, args }) => {
+  options: [{
+    name: '',
+    description: '',
+    type: '',
+    required: false
+  }],
+  
+  run: async (client, message, interaction) => {
 
 
     
