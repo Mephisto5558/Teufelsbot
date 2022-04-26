@@ -10,7 +10,7 @@ module.exports = new Command({
   
   run: async (client, message, interaction) => {
     const axios = require('axios');
-    axios.get('https://v2.jokeapi.dev/joke/Any?lang=de&type=single')
+    axios.get('https://v2.jokeapi.dev/joke/Any?lang=en&type=single')
       .then(response => {
         response = response.data.joke
         if(message) return client.functions.reply(response, message);

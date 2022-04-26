@@ -1,4 +1,5 @@
 {
-    "embed_color": "#3498db",
-    "embed_wrongcolor": "#e01e01"
+  "embed_color": "#3498db",
+  "embed_wrongcolor": "#e01e01",
+  "color_red": "#e01e01"
 }

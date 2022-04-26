@@ -1,5 +1,6 @@
 const { Command } = require("reconlx");
 const { MessageEmbed } = require("discord.js");
+const embedConfig = require('../../Settings/embed.json');
 
 module.exports = new Command({
   name: 'kick',
@@ -10,7 +11,7 @@ module.exports = new Command({
   slashCommand: true,
   options: [
     {
-      name: "user",
+      name: "member",
       description: `Who want you to get kicked`,
       type: "USER",
       required: true
@@ -22,46 +23,56 @@ module.exports = new Command({
       required: true
     }
   ],
+  
   run: async (client, _, interaction) => {
 
     if(!interaction) return;
+    let user = interaction.options.getUser('member');
+    let noMsg;
+    user = await interaction.guild.members.fetch(user.id);
+    const moderator = `${interaction.member.user.username}#${interaction.member.user.discriminator}`;
     
-    const user = interaction.options.getUser('user');
-
-    if(user.roles.highest.position > interaction.guild.members.fetch(interaction.member).highest.position) {
+    const reason = interaction.options.getString('reason');
+      
+    if (user.id === interaction.member.id) {
+      return interaction.followUp(`You can't kick yourself!`)
+    };
+    
+    if (user.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1) {
       return interaction.followUp("You don't have the permission to do that!")
     };
     
-    if (!user.kickable) {
+    if (!user.bannable) {
       return interaction.followUp("I don't have the permission to do that!")
     };
 
-    if (user.id === interaction.member.id) {
-      return interaction.followUp(`You can't kick yourself!`)
+    var embed = new MessageEmbed()
+      .setTitle(`Kicked`)
+      .setDescription(
+        `You have been kicked from \`${interaction.guild.name}\`.\n` +
+        `Moderator: ${moderator}\n` +
+        `Reason: ${reason}`
+      )
+    .setColor(embedConfig.color_red);
+
+    try { await user.send({ embeds: [embed] }) }
+    catch(err) { noMsg = true }
+    
+    try { await user.ban({ reason: reason }) }
+    catch(err) {
+      console.log(err);
+      return interaction.followUp("I couldn't kick the user")
     }
 
-    var embed = new MessageEmbed()
-      .setTitle(`**Kicked**`)
-      .setDescription(
-        `You have been kicked from ${message.guild.name}.` +
-        `Moderator: ${message.author.tag}` +
-        `Reason   : ${interaction.options.getString('reason')}`
-      )
-
-    try { user.kick({ reason: reason }) }
-    catch { return interaction.followUp("I couldn't kick that user") }
-  
-    try { user.send({ embeds: [embed] }) }
-    catch { var noMsg = true }
-
-    description = `:wave: ${member.displayName} has been successfully kicked :point_right:`
+    description = `${user.displayName} has been successfully kicked.\nReason: ${reason}`
     if(noMsg) description = `${description}\nI Couldn't dm the user.`
         
     var embed = new MessageEmbed()
-      .setTitle('**Kick**')
+      .setTitle('Kick')
       .setDescription(description)
-    
+      .setColor(embedConfig.color_red);
     
     interaction.followUp({ embeds: [embed] })
   }
+  
 })

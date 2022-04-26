@@ -1,5 +1,6 @@
 const { Command } = require("reconlx");
 const { MessageEmbed } = require("discord.js");
+const embedConfig = require('../../Settings/embed.json');
 
 module.exports = new Command({
   name: 'ban',
@@ -29,16 +30,22 @@ module.exports = new Command({
       disabled: true
     }
   ],
+  
   run: async (client, _, interaction) => {
 
     if(!interaction) return;
-    const user = interaction.options.getUser('user');
-
-    if (user.user.id === interaction.member.id) {
+    let user = interaction.options.getUser('member');
+    let noMsg;
+    user = await interaction.guild.members.fetch(user.id);
+    const moderator = `${interaction.member.user.username}#${interaction.member.user.discriminator}`;
+    
+    const reason = interaction.options.getString('reason');
+      
+    if (user.id === interaction.member.id) {
       return interaction.followUp(`You can't ban yourself!`)
     };
     
-    if (user.roles.highest.position > interaction.member.highest.position) {
+    if (user.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1) {
       return interaction.followUp("You don't have the permission to do that!")
     };
     
@@ -47,26 +54,30 @@ module.exports = new Command({
     };
 
     var embed = new MessageEmbed()
-      .setTitle(`**Banned**`)
+      .setTitle(`Banned`)
       .setDescription(
-        `You have been banned from ${message.guild.name}.` +
-        `Moderator: ${message.author.tag}` +
-        `Reason   : ${interaction.options.getString('reason')}`
+        `You have been banned from \`${interaction.guild.name}\`.\n` +
+        `Moderator: ${moderator}\n` +
+        `Reason: ${reason}`
       )
+    .setColor(embedConfig.color_red);
 
-    try { user.ban({ reason: reason }) }
-    catch { return interaction.followUp("I couldn't ban the user") }
-  
-    try { user.send({ embeds: [embed] }) }
-    catch { var noMsg = true; }
+    try { await user.send({ embeds: [embed] }) }
+    catch(err) { noMsg = true }
+    
+    try { await user.ban({ reason: reason }) }
+    catch(err) {
+      console.log(err);
+      return interaction.followUp("I couldn't ban the user")
+    }
 
-    description = `:wave: ${member.displayName} has been successfully banned :point_right:`
+    description = `${user.displayName} has been successfully banned.\nReason: ${reason}`
     if(noMsg) description = `${description}\nI Couldn't dm the user.`
         
     var embed = new MessageEmbed()
-      .setTitle('**Ban**')
+      .setTitle('Ban')
       .setDescription(description)
-    
+      .setColor(embedConfig.color_red);
     
     interaction.followUp({ embeds: [embed] })
   }
