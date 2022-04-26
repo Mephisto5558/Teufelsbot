@@ -36,10 +36,6 @@ fs.readdirSync("./Handlers").filter((file) => file.endsWith("_handler.js")).forE
 client.login(process.env.token)
   .then(console.log('Logged in'));
 
-app.listen(1000, () => { console.log("Website is online") })
-app.get("/", (req, res) => { res.send("Hello world!") })
-app.use('/website.ico', express.static('./website.ico'));
-
 process.on('exit', () => {
   client.destroy();
 });
