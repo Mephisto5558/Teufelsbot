@@ -4,7 +4,7 @@ module.exports = new Command({
   name: 'setactivity',
   aliases: [],
   description: `sets the bot's activity`,
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category : "Owner-Only",
   slashCommand: false,
   run: async (client, message, interaction) => {

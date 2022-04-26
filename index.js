@@ -1,5 +1,6 @@
 console.log('Starting...')
 
+'use strict';
 const express = require("express");
 const Discord = require("discord.js");
 const fs = require("fs");
@@ -32,7 +33,8 @@ fs.readdirSync("./Handlers").filter((file) => file.endsWith("_handler.js")).forE
   require(`./Handlers/${handler}`)(client);
 });
 
-client.login(process.env.token);
+client.login(process.env.token)
+  .then(console.log('Logged in'));
 
 app.listen(1000, () => { console.log("Website is online") })
 app.get("/", (req, res) => { res.send("Hello world!") })

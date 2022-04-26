@@ -4,7 +4,7 @@ module.exports = new Command({
   name: 'happy',
   aliases: [],
   description: `make the bot send a happy message`,
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category : "Fun",
   slashCommand: false,
   run: async (client, message, interaction) => {

@@ -4,7 +4,7 @@ module.exports = new Command({
   name: '',
   alias: [],
   description: '',
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category : '',
   slashCommand: true,
   disabled: false,

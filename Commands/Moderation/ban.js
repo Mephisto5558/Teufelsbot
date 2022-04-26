@@ -1,52 +1,53 @@
 const { Command } = require("reconlx");
+const { MessageEmbed } = require("discord.js");
 
 module.exports = new Command({
   name: 'ban',
   aliases: [],
   description: `bans a member from the server`,
-  userPermissions: ['BAN_MEMBERS'],
+  permissions: {client: ['BAN_MEMBERS'], user: ['BAN_MEMBERS']},
   category : "Moderation",
-  slashCommand: false,
+  slashCommand: true,
   options: [
     {
-      name: "user",
+      name: "member",
       description: `Who want you to get banned`,
       type: "USER",
       required: true
-    },
-    {
-      name: "duration",
-      description: `How long want you to get this user banned, empty for permament`,
-      type: "NUMBER",
-      required: false
     },
     {
       name: "reason",
       description: `The user will see the reason in a dm`,
       type: "STRING",
       required: true
+    },
+    {
+      name: "duration",
+      description: `COMMING SOON`,//How long want you to get this user banned, empty for permament`,
+      type: "NUMBER",
+      required: false,
+      disabled: true
     }
   ],
-  run: async (client, message, interaction) => {
-    const { MessageEmbed } = require("discord.js");
+  run: async (client, _, interaction) => {
 
-    if(!interaction) {
-      await client.functions.reply('Please use `/ban` instead of `.ban!`', message, 10000)
-      return message.delete();
-    }
+    if(!interaction) return;
+    const user = interaction.options.getUser('user');
 
-    const user = client.users.fetch(interaction.options.getUser('user'), false);
+    if (user.user.id === interaction.member.id) {
+      return interaction.followUp(`You can't ban yourself!`)
+    };
+    
+    if (user.roles.highest.position > interaction.member.highest.position) {
+      return interaction.followUp("You don't have the permission to do that!")
+    };
     
     if (!user.bannable) {
       return interaction.followUp("I don't have the permission to do that!")
-    }
-
-    if (user.id === message.author.id && !force) {
-      return interaction.followUp(`You can't ban yourself!`)
-    }
+    };
 
     var embed = new MessageEmbed()
-      .setTitle(`**banned**`)
+      .setTitle(`**Banned**`)
       .setDescription(
         `You have been banned from ${message.guild.name}.` +
         `Moderator: ${message.author.tag}` +
@@ -54,7 +55,7 @@ module.exports = new Command({
       )
 
     try { user.ban({ reason: reason }) }
-    catch { return interaction.followUp("I could'nt ban the user") }
+    catch { return interaction.followUp("I couldn't ban the user") }
   
     try { user.send({ embeds: [embed] }) }
     catch { var noMsg = true; }

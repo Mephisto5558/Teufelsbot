@@ -6,7 +6,7 @@ module.exports = new Command({
   name: 'help',
   aliases: [],
   description: `Shows all bot commands`,
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category: "Information",
   slashCommand: true,
   options: [{

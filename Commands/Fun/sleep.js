@@ -4,7 +4,7 @@ module.exports = new Command({
   name: 'sleep',
   aliases: [],
   description: `sends a sleep messsage`,
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category : "Fun",
   slashCommand: false,
   run: async (client, message, interaction) => {

@@ -4,7 +4,7 @@ module.exports = new Command({
   name: 'uptime',
   aliases: [],
   description: `shows the bot's uptime`,
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category : "Information",
   slashCommand: false,
   run: async (client, message, interaction) => {
