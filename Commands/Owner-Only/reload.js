@@ -4,7 +4,7 @@ module.exports = new Command({
   name: 'reload',
   aliases: [],
   description: `reloads a command file or all files`,
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category : "Owner-Only",
   slashCommand: false,
   run: async (client, message, interaction) => {

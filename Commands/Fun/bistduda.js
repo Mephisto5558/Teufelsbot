@@ -4,7 +4,7 @@ module.exports = new Command({
   name: 'bistduda',
   aliases: [],
   description: 'the bot will answer you if it is online',
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category : 'Fun',
   slashCommand: false,
   disabled: false,

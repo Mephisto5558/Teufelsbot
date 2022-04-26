@@ -5,7 +5,7 @@ module.exports = new Command({
   name: 'dm',
   aliases: [],
   description: 'sends a user a dm',
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category : 'Fun',
   slashCommand: true,
   options: [
@@ -25,7 +25,6 @@ module.exports = new Command({
   
   run: async (client, _, interaction) => {
     if(!interaction) return;
-    console.log(interaction.member.displayAvatarURL());
     
     let user = interaction.options.getMember('target');
     let messageToSend = interaction.options.getString('message');
@@ -35,12 +34,11 @@ module.exports = new Command({
     let embed = new MessageEmbed()
       .setDescription(messageToSend)
       .setFooter({
-        text: `Message sent by ${sender}. If you don't want to receive user-made dms from me, run /disabledm in any server.`,
-        iconURL: interaction.member.displayAvatarURL()
+        text: `Message sent by [${sender}](). If you don't want to receive user-made dms from me, run /disabledm in any server.`,
       });
 
     user.send({ embeds: [embed] })
       .then(interaction.followUp('Message sent!'))
-      .catch(interaction.followUp("I couldn't message this member!"))
+      .catch(err => { interaction.followUp("I couldn't message this member!") })
   }
 })

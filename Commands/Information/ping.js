@@ -6,7 +6,7 @@ module.exports = new Command({
   name: 'ping',
   aliases: [],
   description: `Show the bot's ping`,
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category : "Information",
   slashCommand: true,
   options: [{

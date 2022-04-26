@@ -4,7 +4,7 @@ module.exports = new Command({
   name: 'prefix',
   aliases: [],
   description: `changes(WIP) or shows the guild prefix`,
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category : "Information",
   slashCommand: false,
   run: async (client, message, interaction) => {

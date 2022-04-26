@@ -4,7 +4,7 @@ module.exports = new Command({
   name: 'purge',
   aliases: [],
   description: `removes a specific number of messages`,
-  userPermissions: ['MANAGE_MESSAGES'],
+  permissions: {client: ['MANAGE_MESSAGES'], user: ['MANAGE_MESSAGES']},
   category : "Moderation",
   slashCommand: false,
   run: async (client, message, interaction) => {

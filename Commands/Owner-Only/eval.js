@@ -4,7 +4,7 @@ module.exports = new Command({
   name: 'eval',
   aliases: [],
   description: `inject javascript code directly into the bot`,
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category : "Owner-Only",
   slashCommand: false,
   run: async (client, message, interaction) => {

@@ -4,7 +4,7 @@ module.exports = new Command({
   name: 'disabledm',
   aliases: [],
   description: 'Disables user-made bot dms',
-  userPermissions: [],
+  permissions: {client: [], user: []},
   category : 'Fun',
   slashCommand: false,
   disabled: true,
