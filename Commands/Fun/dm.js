@@ -34,7 +34,7 @@ module.exports = new Command({
     let embed = new MessageEmbed()
       .setDescription(messageToSend)
       .setFooter({
-        text: `Message sent by [${sender}](). If you don't want to receive user-made dms from me, run /disabledm in any server.`,
+        text: `Message sent by [${sender}](https://discord.com/channels/@me/${user.id}). If you don't want to receive user-made dms from me, run /disabledm in any server.`,
       });
 
     user.send({ embeds: [embed] })

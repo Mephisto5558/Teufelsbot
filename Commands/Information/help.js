@@ -1,6 +1,6 @@
 const { Command } = require("reconlx");
 const { MessageEmbed } = require("discord.js");
-const embed = require('../../Settings/embed.json')
+const embedConfig = require('../../Settings/embed.json');
 
 module.exports = new Command({
   name: 'help',
@@ -25,7 +25,7 @@ module.exports = new Command({
     if(args) {
       const embed = new MessageEmbed();
       const cmd = client.commands.get(args.toLowerCase())
-      if(!cmd) return interaction.followUp({ embeds: [embed.setColor(embed.embed_wrongcolor).setDescription(`No Information found for command **${args.toLowerCase()}**`)] });
+      if(!cmd) return interaction.followUp({ embeds: [embed.setColor(embedConfig.embed_wrongcolor).setDescription(`No Information found for command **${args.toLowerCase()}**`)] });
       if(cmd.name) {
         embed.setTitle(`Detailed Information about: \`${cmd.name}\``);
         embed.addField("**Command name**", `\`${cmd.name}\``);
@@ -37,11 +37,11 @@ module.exports = new Command({
         embed.setFooter("Syntax: <> = required, [] = optional");
       }
         
-      return interaction.followUp({ embeds: [embed.setColor(embed.embed_color)] });
+      return interaction.followUp({ embeds: [embed.setColor(embedConfig.embed_color)] });
     }
     
-    let homeEmbed = new MessageEmbed()
-      .setColor(embed.embed_color)
+    let embed = new MessageEmbed()
+      .setColor(embedConfig.embed_color)
       .setTitle(` 🔰All my commands`)
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
 
@@ -53,9 +53,9 @@ module.exports = new Command({
         const current = client.categories[i];
         const items = commands(current);
         if(items.length === 0) continue;
-        homeEmbed.addField(`**${current.toUpperCase()} [${items.length}]**`, `> ${items.join(", ")}\n`);
+        embed.addField(`**${current.toUpperCase()} [${items.length}]**`, `> ${items.join(", ")}\n`);
       }
 
-    interaction.followUp({ embeds: [homeEmbed], ephemeral: true });
+    interaction.followUp({ embeds: [embed], ephemeral: true });
   }
 })

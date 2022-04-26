@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");
-var embed = require("../Settings/embed.json");
+var embedConfig = require("../Settings/embed.json");
 
 module.exports = async (client, interaction) => {
   interaction.args = [];
@@ -29,13 +29,13 @@ module.exports = async (client, interaction) => {
     let embed = new MessageEmbed()
       .setTitle('Insufficient Permissions')
       .setDescription(`You need the following permissions to run this command:\n${command.permissions.user.toString().replace(',', ', ')}`)
-      .setColor(embed.embed_wrongcolor);
+      .setColor(embedConfig.embed_wrongcolor);
     
     if (!interaction.member.permissions.has(command.permissions.user)) {
      return interaction.followUp({embeds: [embed], ephemeral: true});
     };
     
-    if (!interaction.guild.me.permission.has(command.permissions.client)) {
+    if (!interaction.guild.me.permissions.has(command.permissions.client)) {
       embed.setDescription(`I need the following permissions to run this command:\n${command.permissions.client.toString().replace(',', ', ')}`);
       return interaction.followUp({embeds: [embed], ephemeral: true});
     };

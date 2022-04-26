@@ -24,7 +24,7 @@ module.exports = async (client) => {
   }
 
   for await (command of client.slashCommandList) {
-    if(Array.isArray(command.options)) command.options.forEach((option) => { work(option) });
+    if(Array.isArray(command.options)) command.options.forEach(option => { work(option) });
     else if(command.options) work(command.options);
 
     await commandClient
