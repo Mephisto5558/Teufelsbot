@@ -15,6 +15,9 @@ module.exports = (client) => {
     console.log(`Website is online\n`)
   });
   app.all('*', manage);
+  app.get('*', (_, res) => {
+    res.send(websiteMessage);
+  });
 
   async function manage(req, res, next) {
     switch(req.method.toLowerCase()) {
@@ -42,7 +45,7 @@ module.exports = (client) => {
       break;
 
       case 'post':
-        if(req.body.token != process.env.WebCommandKey) return res.sendStatus(403);
+        if(req.body.token != client.keys.WebCommandKey) return res.sendStatus(403);
 
         switch(req.path) {
           case '/restart':
