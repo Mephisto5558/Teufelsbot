@@ -11,7 +11,7 @@ module.exports = new Command({
   options: [
     {
       name: 'msg',
-      description: 'Type your message here',
+      description: `Type your message here, /n for new line`,
       type: 'STRING',
       required: true
     },
@@ -29,6 +29,7 @@ module.exports = new Command({
     
     let channel = interaction.options.getChannel('channel')
     let msg = interaction.options.getString('msg');
+    msg = msg.replace('/n', `\n`);
 
     if(!channel) channel = interaction.channel
     

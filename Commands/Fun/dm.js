@@ -17,7 +17,7 @@ module.exports = new Command({
     },
     {
       name: 'message',
-      description: 'the message you want to send',
+      description: `the message you want to send, /n for new line`,
       type: 'STRING',
       required: true
     }
@@ -28,6 +28,7 @@ module.exports = new Command({
     
     let user = interaction.options.getMember('target');
     let messageToSend = interaction.options.getString('message');
+    messageToSend = messageToSend.replace('/n', `\n`);
     let sender;
     await client.users.fetch(interaction.member.user.id).then(user => { sender = `${user.username}#${user.discriminator}` });
 

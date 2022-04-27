@@ -26,6 +26,7 @@ client.events = new Discord.Collection();
 client.cooldown = new Discord.Collection();
 client.commands = new Discord.Collection();
 client.categories = fs.readdirSync("./Commands/");
+client.keys = require('./Settings/keys.js')
 
 module.exports = client;
 
@@ -33,7 +34,7 @@ fs.readdirSync("./Handlers").filter((file) => file.endsWith("_handler.js")).forE
   require(`./Handlers/${handler}`)(client);
 });
 
-client.login(process.env.token)
+client.login(client.keys.token)
   .then(console.log('Logged in'));
 
 process.on('exit', () => {

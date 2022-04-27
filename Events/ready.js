@@ -8,7 +8,7 @@ module.exports = async (client) => {
 
   const { Client } = require("discord-slash-commands-client");
   const commandClient = new Client(
-    process.env.token,
+    client.keys.token,
     client.userID
   );
 
