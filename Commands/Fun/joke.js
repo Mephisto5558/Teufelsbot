@@ -17,7 +17,7 @@ module.exports = new Command({
   run: async (client, message, interaction) => {
     
     const axios = require('axios');
-    let APIs = ['v2.jokeapi.dev', 'api.humorapi.com'];
+    let APIs = ['v2.jokeapi.dev', 'api.humorapi.com', 'webknox-jokes'];
     let response; let type;
     if(interaction) { type = interaction.options?.type }
     else { type = message.args[0] };
@@ -25,6 +25,7 @@ module.exports = new Command({
     async function getJoke(APIs) {
       API = APIs[Math.floor(Math.random() * APIs.length)];
       let options;
+      
       try {
         switch(API) {
           case 'v2.jokeapi.dev':
@@ -34,13 +35,12 @@ module.exports = new Command({
               params: { 'lang': 'en' }
             }
             
-            await axios.request(options)
-              .then(r => {
-                if(r.data.type === 'twopart') {
-                  response = r.data.setup +
-                    `\n\n||` + r.data.delivery + '||'
-                } else { response = r.data.joke }
-              })
+            await axios.request(options).then(r => {
+              if(r.data.type === 'twopart') {
+                response = r.data.setup +
+                  `\n\n||` + r.data.delivery + '||'
+              } else { response = r.data.joke }
+            })
             break;
         
           case 'api.humorapi.com':
@@ -49,24 +49,41 @@ module.exports = new Command({
               url: 'https://api.humorapi.com/jokes/random',
               params: {
                 'api-key': client.keys.jokes.humorAPIKey,
-                'max-length': '2000',
-                'min-rating': '7'
+                'min-rating': '7',
+                'max-length': '2000'
               }
             };
             if(type) options.params['include-tags'] = type;
             
-            await axios.request(options)
-              .then(r => {
-                if(r.data.joke.search('Q: ') == -1) { response = r.data.joke }
-                else {
-                  response = r.data.joke
-                    .replace('Q: ','')
-                    .replace('A: ', '\n||') + '||'
-                }
-              })
+            await axios.request(options).then(r => {
+              if(r.data.joke.search('Q: ') == -1) { response = r.data.joke }
+              else {
+                response = r.data.joke
+                  .replace('Q: ','')
+                  .replace('A: ', '\n||') + '||'
+              }
+            })
+            break;
+            
+          case 'webknox-jokes':
+            options = {
+              method: 'GET',
+              url: 'https://webknox-jokes.p.rapidapi.com/jokes/random',
+              params: {
+                minRating: '7',
+                maxLength: '2000'
+              },
+              headers: {
+                'X-RapidAPI-Host': 'webknox-jokes.p.rapidapi.com',
+                'X-RapidAPI-Key': client.keys.jokes.rapidAPIKey
+              }
+            };
+            await axios.request(options).then(r => {
+	           response = r.data.joke
+            });
             break;
         }
-      }
+      })
       catch(err) {
         console.error(err);
         console.error('trying next api');
@@ -78,9 +95,9 @@ module.exports = new Command({
     await getJoke(APIs);
 
     if(!response) {
-      if(message) return client.functions.reply('an error occurred', message);
-      return interaction.followUp('an error occurred');
-    }
+      if(message) return client.functions.reply('Apparently, there is currently no API available. Please try again later.', message);
+      return interaction.followUp('Apparently, there is currently no API available. Please try again later.');
+    };
     response.replace('`', "'");
     
     if(message) return client.functions.reply(response, message);
