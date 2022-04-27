@@ -131,9 +131,16 @@ module.exports = new Command({
           console.error(err.response)
         }
         else {
-          console.error(`joke.js: ${API.url} responded with error ` +
-            err.status + ', ' + err.statusText + ': ' + err.response?.data?.message
-          )
+          if(error.statusText) {
+            console.error(`joke.js: ${API.url} responded with error ` +
+              err.status + ', ' + err.statusText + ': ' + err.response?.data.message
+            )
+          }
+          else {
+            console.error(`joke.js: ${API.url} responded with error ` +
+              err.response.status + ', ' + err.response.statusText + ': ' + err.response.data.message
+            )
+          }
         }
         console.error('Trying next api');
         APIs = APIs.filter(str => str.name !== API.name)
