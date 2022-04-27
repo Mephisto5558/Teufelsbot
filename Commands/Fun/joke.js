@@ -88,7 +88,7 @@ module.exports = new Command({
         if(err.response.status != 402) { console.error(err.response) }
         else {
           console.error(`joke.js: ${API} responded with error:` +
-            err.response.status + ', ' + err.response.statusText + ': ' err.response.data.message
+            err.response.status + ', ' + err.response.statusText + ': ' + err.response.data.message
           )
         }
         console.error('Trying next api');
