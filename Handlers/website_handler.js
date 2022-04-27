@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-module.exports = (client) => {
+module.exports = async client => {
 
   websiteMessages = ['Hilfe der Dominik will mich entführen ahhh\nLG Meph', 'Hello World!', 'Lena is kuhl', 'Flo is kuhl', 'Vinni is auch kuhl', 'huhu', 'What are you doing here?', 'https://www.youtube.com/watch?v=xvFZjo5PgG0']
   websiteMessage = websiteMessages[Math.floor(Math.random() * websiteMessages.length)]
@@ -14,7 +14,7 @@ module.exports = (client) => {
   app.listen(1000, _ => {
     console.log(`Website is online\n`)
   });
-  app.all('*', manage);
+  app.all('*', await manage);
   app.get('*', (_, res) => {
     res.send(websiteMessage);
   });
