@@ -83,7 +83,7 @@ module.exports = new Command({
             });
             break;
         }
-      })
+      }
       catch(err) {
         console.error(err);
         console.error('trying next api');
