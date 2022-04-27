@@ -38,8 +38,8 @@ module.exports = new Command({
             await axios.request(options).then(r => {
               if(r.data.type === 'twopart') {
                 response = r.data.setup +
-                  `\n\n||` + r.data.delivery + '||\n' + 'v2.jokeapi.dev'
-              } else { response = r.data.joke + '\n' + 'v2.jokeapi.dev' }
+                  `\n\n||` + r.data.delivery + '||\nhttps://v2.jokeapi.dev'
+              } else { response = r.data.joke + '\nhttps://v2.jokeapi.dev' }
             })
             break;
         
@@ -56,11 +56,11 @@ module.exports = new Command({
             if(type) options.params['include-tags'] = type;
             
             await axios.request(options).then(r => {
-              if(r.data.joke.search('Q: ') == -1) { response = r.data.joke + '\n' + 'humorapi.com' }
+              if(r.data.joke.search('Q: ') == -1) { response = r.data.joke + '\nhttps://humorapi.com' }
               else {
                 response = r.data.joke
                   .replace('Q: ','')
-                  .replace('A: ', '\n||') + '||\nhumorapi.com'
+                  .replace('A: ', '\n||') + '||\nhttps://humorapi.com'
               }
             })
             break;
@@ -79,7 +79,7 @@ module.exports = new Command({
               }
             };
             await axios.request(options).then(r => {
-	           response = r.data.joke + '\nwebknox-jokes.p.rapidapi.com'
+	           response = r.data.joke + '\nhttps://webknox-jokes.p.rapidapi.com'
             });
             break;
         }
@@ -87,8 +87,7 @@ module.exports = new Command({
       catch(err) {
         if(err.response.status != 402) { console.error(err.response) }
         else {
-          console.error(
-            `joke.js: ${API} responded with error:` +
+          console.error(`joke.js: ${API} responded with error:` +
             err.response.status + ', ' + err.response.statusText + ': ' err.response.data.message
           )
         }
