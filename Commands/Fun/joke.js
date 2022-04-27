@@ -38,8 +38,8 @@ module.exports = new Command({
             await axios.request(options).then(r => {
               if(r.data.type === 'twopart') {
                 response = r.data.setup +
-                  `\n\n||` + r.data.delivery + '||'
-              } else { response = r.data.joke }
+                  `\n\n||` + r.data.delivery + '||\n' + 'v2.jokeapi.dev'
+              } else { response = r.data.joke + '\n' + 'v2.jokeapi.dev' }
             })
             break;
         
@@ -56,11 +56,11 @@ module.exports = new Command({
             if(type) options.params['include-tags'] = type;
             
             await axios.request(options).then(r => {
-              if(r.data.joke.search('Q: ') == -1) { response = r.data.joke }
+              if(r.data.joke.search('Q: ') == -1) { response = r.data.joke + '\n' + 'humorapi.com' }
               else {
                 response = r.data.joke
                   .replace('Q: ','')
-                  .replace('A: ', '\n||') + '||'
+                  .replace('A: ', '\n||') + '||\nhumorapi.com'
               }
             })
             break;
@@ -79,7 +79,7 @@ module.exports = new Command({
               }
             };
             await axios.request(options).then(r => {
-	           response = r.data.joke
+	           response = r.data.joke + '\nwebknox-jokes.p.rapidapi.com'
             });
             break;
         }
