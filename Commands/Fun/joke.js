@@ -85,10 +85,16 @@ module.exports = new Command({
         }
       }
       catch(err) {
-        console.error(err);
-        console.error('trying next api');
+        if(err.response.status != 402) { console.error(err.response) }
+        else {
+          console.error(
+            `joke.js: ${API} responded with error:` +
+            err.response.status + ', ' + err.response.statusText + ': ' err.response.data.message
+          )
+        }
+        console.error('Trying next api');
         APIs = APIs.filter(str => str !== API)
-        await getJoke(APIs);
+        if(APIs) await getJoke(APIs);
       }
     }
 
@@ -98,6 +104,7 @@ module.exports = new Command({
       if(message) return client.functions.reply('Apparently, there is currently no API available. Please try again later.', message);
       return interaction.followUp('Apparently, there is currently no API available. Please try again later.');
     };
+    
     response.replace('`', "'");
     
     if(message) return client.functions.reply(response, message);
