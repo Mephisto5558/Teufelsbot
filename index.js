@@ -35,4 +35,6 @@ fs.readdirSync("./Handlers").filter(file => file.endsWith("_handler.js")).forEac
 client.login(client.keys.token)
   .then(console.log('Logged in'));
 
-process.on('exit', client.destroy());
+process.on('exit', _ => {
+  client.destroy();
+});
