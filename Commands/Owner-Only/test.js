@@ -4,20 +4,14 @@ module.exports = new Command({
   name: 'test',
   aliases: [],
   description: `some testing`,
-  permissions: {client: [], user: []},
-  category : "Owner-Only",
+  permissions: { client: [], user: [] },
+  cooldowns: { global: '', user: '' },
+  category: "Owner-Only",
   slashCommand: false,
-  prefiCommand: true,
-  options : [{
-      name : "number",
-      description : `Give me Number`,
-      required : true,
-      type : "NUMBER"
-    }],
-  run: async (client, message, interaction) => {
-    
- number = interaction.options.getNumber('number')
-    interaction.followUp(number)
-    
+  prefixCommand: true,
+  disabled: true,
+
+  run: async(client, message, interaction) => {
+
   }
 })

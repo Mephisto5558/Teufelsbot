@@ -4,14 +4,17 @@ module.exports = new Command({
   name: 'sleep',
   aliases: [],
   description: `sends a sleep messsage`,
-  permissions: {client: [], user: []},
-  category : "Fun",
+  permissions: { client: [], user: [] },
+  cooldowns: { global: '', user: '' },
+  category: "Fun",
   slashCommand: false,
-  prefiCommand: true,
-  run: async (client, message, interaction) => {
+  prefixCommand: true,
 
-  responseList = ['ist müde und geht jetzt schlafen :3', 'geht jetzt ins Bettchen <:engelchen:725458214044303371>', 'schläft jetzt, hoffentlich schnarcht er/sie nicht <:gucken:725670318164672543>']
-  client.functions.reply(`${message.author.toString()} ${responseList[Math.floor(Math.random() * responseList.length)]}`, message)
-    
+  run: (client, message) => {
+
+    let responseList = ['ist müde und geht jetzt schlafen :3', 'geht jetzt ins Bettchen <:engelchen:725458214044303371>', 'schläft jetzt, hoffentlich schnarcht er/sie nicht <:gucken:725670318164672543>']
+    let response = responseList[Math.floor(Math.random() * responseList.length)];
+    client.functions.reply(`<@${message.author.id}> ${response}`, message)
+
   }
 })

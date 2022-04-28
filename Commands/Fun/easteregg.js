@@ -4,14 +4,16 @@ module.exports = new Command({
   name: 'vinjagostinkt',
   aliases: [],
   description: `just a little easter egg`,
-  permissions: {client: [], user: []},
-  category : "Fun",
+  permissions: { client: [], user: [] },
+  cooldown: { global: '', user: '' },
+  category: "Fun",
   hideInHelp: true,
   slashCommand: false,
-  prefiCommand: true,
-  run: async (client, message, interaction) => {
-    
+  prefixCommand: true,
+
+  run: (client, message) => {
+
     client.functions.reply(':eyes:', message)
-    
+
   }
 })

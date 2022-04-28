@@ -1,26 +1,24 @@
 module.exports = (client, message) => {
-  const botMention = new RegExp(`^(<@!?${client.userId}>)`);
+  client.message = message;
 
   if (message.author.bot) return;
-  if (!message.content.startsWith(client.prefix) && !botMention.test(message.content)) return;
+  message.content = message.content.replace('<@!', '<@');
+  if (!message.content.startsWith(client.prefix) && !message.content.startsWith(`<@${client.user.id}>`)) return;
 
-  if(message.content.startsWith(client.prefix)) {
-    message.args = message.content.slice(client.prefix.length).trim().split(/ +/g)
-  }
-  else {
-    message.args = message.content.replace(/<@!/g, '<@').substring(client.prefix.length).trim().split(/ +/g);
-  };
-  
+  if (message.content.startsWith(client.prefix)) length = client.prefix.length
+  else length = `<@${client.user.id}>`.length;
+
+  message.content = message.content.slice(length).trim();
+  message.args = message.content.split(' ').slice(0);
+
   const commandName = message.args.shift().toLowerCase();
   const commandAlias = client.aliases.get(commandName);
-  let command = client.commands.get(commandName)
+  let command = client.commands.get(commandName);
+
   if (!command) {
-    if(!commandAlias) return;
+    if (!commandAlias) return;
     command = client.commands.get(commandAlias)
   };
 
-  message.args = message.args.slice(0);
-  message.content = message.args.join(' ');
-  
-  command.run(client, message)
+  command.run(client, message).then(client.message = null);
 }

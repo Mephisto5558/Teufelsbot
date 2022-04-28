@@ -5,12 +5,12 @@ module.exports = new Command({
   name: 'dm',
   aliases: [],
   description: 'sends a user a dm',
-  permissions: {client: [], user: []},
-  category : 'Fun',
+  permissions: { client: [], user: [] },
+  cooldown: { global: '', user: '' },
+  category: 'Fun',
   slashCommand: true,
-  prefiCommand: true,
-  options: [
-    {
+  prefixCommand: false,
+  options: [{
       name: 'target',
       description: 'the user you want to send a dm to',
       type: 'USER',
@@ -23,10 +23,9 @@ module.exports = new Command({
       required: true
     }
   ],
-  
-  run: async (client, _, interaction) => {
-    if(!interaction) return;
-    
+
+  run: async(client, _, interaction) => {
+
     let user = interaction.options.getMember('target');
     let messageToSend = interaction.options.getString('message');
     messageToSend = messageToSend.replace('/n', `\n`);
@@ -36,11 +35,12 @@ module.exports = new Command({
     let embed = new MessageEmbed()
       .setDescription(messageToSend)
       .setFooter({
-        text: `Message sent by [${sender}](https://discord.com/channels/@me/${user.id}). If you don't want to receive user-made dms from me, run /disabledm in any server.`,
+        text: `Message sent by [${sender}](https://discord.com/channels/@me/${user.id}).\n` +
+          `If you don't want to receive user-made dms from me, run /disabledm in any server.`,
       });
 
     user.send({ embeds: [embed] })
       .then(interaction.followUp('Message sent!'))
-      .catch(err => { interaction.followUp("I couldn't message this member!") })
+      .catch(_ => { interaction.followUp("I couldn't message this member!") })
   }
 })
