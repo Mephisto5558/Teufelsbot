@@ -1,1 +1,3 @@
-while [ true ]; do node .; done
+while [ true ]
+  do node .
+done

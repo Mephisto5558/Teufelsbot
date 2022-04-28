@@ -5,10 +5,12 @@ module.exports = new Command({
   alias: [],
   description: '',
   permissions: { client: [], user: [] },
-  category : '',
+  cooldowns: { global: 0, user: 0 },
+  category: '',
   slashCommand: true,
   prefixCommand: true,
   disabled: false,
+  showInHelp: true,
   args: {
     option1: [],
     option2: []
@@ -23,10 +25,10 @@ module.exports = new Command({
     name: '',
     value: ''
   }],
-  
-  run: async (client, message, interaction) => {
+
+  run: async(client, message, interaction) => {
 
 
-    
+
   }
 })

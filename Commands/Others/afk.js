@@ -4,14 +4,15 @@ module.exports = new Command({
   name: 'afk',
   aliases: [],
   description: `sends an afk message if you get pinged until you write again`,
-  permissions: {client: [], user: []},
-  category : "Others",
+  permissions: { client: [], user: [] },
+  cooldowns: { global: '', user: '' },
+  category: "Others",
   slashCommand: false,
-  prefiCommand: false,
+  prefixCommand: false,
   disabled: true,
-  run: async (client, message, interaction) => {
+  run: async(client, message, interaction) => {
 
 
-    
+
   }
 })

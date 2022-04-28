@@ -4,15 +4,16 @@ module.exports = new Command({
   name: 'disabledm',
   aliases: [],
   description: 'Disables user-made bot dms',
-  permissions: {client: [], user: []},
-  category : 'Fun',
+  permissions: { client: [], user: [] },
+  cooldowns: { global: '', user: '' },
+  category: 'Fun',
   slashCommand: false,
-  prefiCommand: true,
+  prefixCommand: true,
   disabled: true,
-  
-  run: async (client, message, interaction) => {
+
+  run: async(client, message, interaction) => {
 
 
-    
+
   }
 })
