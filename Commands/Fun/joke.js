@@ -23,7 +23,7 @@ module.exports = new Command({
     },
     {
       name: 'blacklist',
-      description: `blacklist specific joke tags. No warranty this works every time. run /help joke to see posible blacklist options`,
+      description: `blacklist specific joke tags. See /help joke for more information and valid options`,
       type: 'STRING',
       required: false,
     }
