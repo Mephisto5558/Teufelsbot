@@ -1,4 +1,4 @@
-module.exports = (client) => {
+module.exports = client => {
   const fs = require('fs');
   let commandCount = 0;
   
@@ -6,6 +6,7 @@ module.exports = (client) => {
     let commands = fs.readdirSync(`./Commands/${cmd}/`).filter((file) => file.endsWith(".js")).forEach((file) => {
       let pull = require(`../Commands/${cmd}/${file}`);
       if(pull.disabled) return console.log(`Command ${pull.name} is disabled`);
+      if(!pull.prefiCommand) return;
       if(pull.name) {
         client.commands.set(pull.name, pull);
         console.log(`Loaded Command ${pull.name}`)
@@ -13,12 +14,12 @@ module.exports = (client) => {
       }
       if(pull.aliases) {
         pull.aliases.forEach(alias => {
-          client.aliases.set(alias, pull.name)
-          console.log(`Loaded Command ${alias} (alias of ${pull.name})`)
+          client.aliases.set(alias, pull.name);
+          console.log(`Loaded Alias ${alias} of command ${pull.name}`);
+          commandCount++
         })
       }
     })
   });
   console.log(`Loaded ${commandCount} commands\n`)
-  return commandCount;
 }

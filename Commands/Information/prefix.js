@@ -7,6 +7,7 @@ module.exports = new Command({
   permissions: {client: [], user: []},
   category : "Information",
   slashCommand: false,
+  prefiCommand: true,
   run: async (client, message, interaction) => {
     
     return client.functions.reply(`The prefix command is curently disabled (default prefix: '.')`, message);

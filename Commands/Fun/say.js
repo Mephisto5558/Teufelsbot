@@ -7,6 +7,7 @@ module.exports = new Command({
   permissions: {client: [], user: []},
   category: "Fun",
   slashCommand: true,
+  prefiCommand: true,
   disabled: false,
   options: [
     {
