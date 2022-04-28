@@ -8,6 +8,7 @@ module.exports = new Command({
   category : "Fun",
   hideInHelp: true,
   slashCommand: false,
+  prefiCommand: true,
   run: async (client, message, interaction) => {
     
     client.functions.reply(':eyes:', message)

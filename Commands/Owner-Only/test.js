@@ -6,7 +6,8 @@ module.exports = new Command({
   description: `some testing`,
   permissions: {client: [], user: []},
   category : "Owner-Only",
-  slashCommand: true,
+  slashCommand: false,
+  prefiCommand: true,
   options : [{
       name : "number",
       description : `Give me Number`,

@@ -7,6 +7,7 @@ module.exports = new Command({
   permissions: {client: [], user: []},
   category : "Owner-Only",
   slashCommand: false,
+  prefiCommand: true,
   run: async (client, message, interaction) => {
     
     let permissionGranted = await client.functions.checkBotOwner(client, message)

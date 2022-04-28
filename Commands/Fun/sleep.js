@@ -7,6 +7,7 @@ module.exports = new Command({
   permissions: {client: [], user: []},
   category : "Fun",
   slashCommand: false,
+  prefiCommand: true,
   run: async (client, message, interaction) => {
 
   responseList = ['ist müde und geht jetzt schlafen :3', 'geht jetzt ins Bettchen <:engelchen:725458214044303371>', 'schläft jetzt, hoffentlich schnarcht er/sie nicht <:gucken:725670318164672543>']

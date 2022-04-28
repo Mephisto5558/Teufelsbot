@@ -33,7 +33,6 @@ module.exports = new Command({
       }
       if(toDeleteCount !== 0) await client.functions.sleep(1000);
     }
-    client.functions.reply(`Successful deleted messages.`, message, 1000)
     
   }
 })

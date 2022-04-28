@@ -4,9 +4,11 @@ module.exports = new Command({
   name: 'bistduda',
   aliases: [],
   description: 'the bot will answer you if it is online',
-  permissions: {client: [], user: []},
   category : 'Fun',
+  permissions: { client: [], member: [] },
+  cooldowns: { gloabl: [], member: [] },
   slashCommand: false,
+  prefiCommand: true,
   disabled: false,
   
   run: async (client, message) => {

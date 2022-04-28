@@ -9,6 +9,7 @@ module.exports = new Command({
   permissions: {client: ['BAN_MEMBERS'], user: ['BAN_MEMBERS']},
   category : "Moderation",
   slashCommand: true,
+  prefiCommand: false,
   options: [
     {
       name: "member",
@@ -33,7 +34,6 @@ module.exports = new Command({
   
   run: async (client, _, interaction) => {
 
-    if(!interaction) return;
     let user = interaction.options.getUser('member');
     let noMsg;
     user = await interaction.guild.members.fetch(user.id);

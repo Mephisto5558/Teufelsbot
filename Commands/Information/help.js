@@ -9,6 +9,7 @@ module.exports = new Command({
   permissions: {client: [], user: []},
   category: "Information",
   slashCommand: true,
+  prefiCommand: true,
   options: [{
     name: "command",
     description: "Type a command here to search for it",

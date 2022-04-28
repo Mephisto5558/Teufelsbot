@@ -7,6 +7,7 @@ module.exports = new Command({
   permissions: {client: [], user: []},
   category : "Fun",
   slashCommand: false,
+  prefiCommand: true,
   run: async (client, message, interaction) => {
 
     responseList = ['c:', 'C:', ':D', 'uwu', '<:gucken:725670318164672543>', 'https://tenor.com/view/yell-shout-excited-happy-so-happy-gif-17583147']

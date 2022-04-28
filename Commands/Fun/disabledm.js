@@ -7,6 +7,7 @@ module.exports = new Command({
   permissions: {client: [], user: []},
   category : 'Fun',
   slashCommand: false,
+  prefiCommand: true,
   disabled: true,
   
   run: async (client, message, interaction) => {
