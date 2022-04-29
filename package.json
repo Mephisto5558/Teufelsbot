@@ -15,6 +15,7 @@
     "express": "^4.17.3",
     "mongoose": "^6.2.10",
     "npm": "^8.6.0",
-    "reconlx": "^2.5.6"
+    "reconlx": "^2.5.6",
+    "serve-favicon": "^2.5.0"
   }
 }

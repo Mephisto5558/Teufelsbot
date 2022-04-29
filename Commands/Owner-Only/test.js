@@ -9,9 +9,17 @@ module.exports = new Command({
   category: "Owner-Only",
   slashCommand: false,
   prefixCommand: true,
-  disabled: true,
+  disabled: false,
 
   run: async(client, message, interaction) => {
-
+    message.channel.send('OK');
+    function run() {
+      message.channel.send('online!')
+    };
+    
+    while(True) {
+      run()
+      await client.functions.sleep(300000);
+    }
   }
 })
