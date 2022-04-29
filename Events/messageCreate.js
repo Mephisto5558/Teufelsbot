@@ -20,5 +20,6 @@ module.exports = (client, message) => {
     command = client.commands.get(commandAlias)
   };
 
-  command.run(client, message).then(client.message = null);
+  command.run(client, message)
+  client.message = null;
 }
