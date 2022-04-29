@@ -10,6 +10,7 @@ module.exports = client => {
       client.slashCommandList.push(pull)
       console.log(`Loaded Slash Command ${pull.name}`)
       slashCommandCount++
+      client.functions.sleep(10000);
     })
   });
 
