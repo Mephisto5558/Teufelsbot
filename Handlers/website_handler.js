@@ -1,4 +1,5 @@
-const express = require("express");
+const express = require('express');
+const favicon = require('serve-favicon');
 const app = express();
 
 module.exports = async client => {
@@ -7,7 +8,7 @@ module.exports = async client => {
   websiteMessage = websiteMessages[Math.floor(Math.random() * websiteMessages.length)]
 
   app.use(express.urlencoded({ extended: true }));
-  app.use('/website.ico', express.static('./website.ico'));
+  app.use(favicon('./favicon.ico'));
   app.use(express.json());
   app.set('json spaces', 2);
 
