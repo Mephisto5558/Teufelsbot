@@ -7,30 +7,27 @@ module.exports = new Command({
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
   category: "Owner-Only",
-  slashCommand: false,
   prefixCommand: true,
+  slashCommand: false,
 
-  run: async(client, message, _) => {
+  run: async(client, message) => {
 
     let permissionGranted = await client.functions.checkBotOwner(client, message)
-    if (!permissionGranted) return;
-
-    message.args = message.args.join(' ');
-    if (!message.args) return;
+    if (!permissionGranted || !message?.content) return;
 
     function eval(client, message) {
-      return Function('return (' + message.args + ')')();
+      return Function('return (' + message.content + ')')();
     }
 
-    console.log(`evaluated command '${message.args}'`)
+    console.log(`evaluated command '${message.content}'`)
     client.functions.reply(
       'evaluated command:\n' +
       '```javascript\n' +
-      message.args + '```', message)
+      message.content + '```', message)
 
-    try {
-      eval(message.args);
-    } catch (err) { client.functions.reply('```\n' + err + '\n```', message) }
+    //try {
+      eval(message.content);
+    //} catch (err) { client.functions.reply('```\n' + err + '\n```', message) }
 
   }
 })
