@@ -7,10 +7,10 @@ module.exports = async client => {
   websiteMessages = ['Hilfe der Dominik will mich entführen ahhh\nLG Meph', 'Hello World!', 'Lena is kuhl', 'Flo is kuhl', 'Vinni is auch kuhl', 'huhu', 'What are you doing here?', 'https://www.youtube.com/watch?v=xvFZjo5PgG0']
   websiteMessage = websiteMessages[Math.floor(Math.random() * websiteMessages.length)]
 
-  app.use(express.urlencoded({ extended: true }));
-  app.use(favicon('./favicon.ico'));
-  app.use(express.json());
-  app.set('json spaces', 2);
+  await app.use(express.urlencoded({ extended: true }));
+  await app.use(favicon('./favicon.ico'));
+  await app.use(express.json());
+  await app.set('json spaces', 2);
 
   app.listen(1000, _ => {
     console.log(`Website is online\n`)

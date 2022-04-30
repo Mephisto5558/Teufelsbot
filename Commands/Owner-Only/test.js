@@ -17,7 +17,7 @@ module.exports = new Command({
       message.channel.send('online!')
     };
     
-    while(True) {
+    while(true) {
       run()
       await client.functions.sleep(300000);
     }
