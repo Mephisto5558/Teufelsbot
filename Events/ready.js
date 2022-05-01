@@ -1,9 +1,11 @@
 const { Client } = require("discord-slash-commands-client");
+const chalk = require("chalk");
+const errorColor = chalk.bold.red;
 
 module.exports = async client => {
 
   client.guilds.cache.forEach(guild => {
-    if (!client.guildWhitelist.includes(guild.id)) {
+    if(!client.guildWhitelist.includes(guild.id)) {
       guild.leave();
       console.log(`Left ${guild.name}(${guild.id}) because it's not in the whitelist`);
     }
@@ -15,7 +17,7 @@ module.exports = async client => {
   );
 
   function work(option) {
-    if (!option.type) option.type = 1
+    if(!option.type) option.type = 1
     else option.type = option.type.toString()
       .replace('SUB_COMMAND', 1).replace('SUB_COMMAND_GROUP', 2)
       .replace('STRING', 3).replace('INTEGER', 4)
@@ -26,8 +28,8 @@ module.exports = async client => {
   }
 
   for await (command of client.slashCommandList) {
-    if (Array.isArray(command.options)) command.options.forEach(option => { work(option) });
-    else if (command.options)
+    if(Array.isArray(command.options)) command.options.forEach(option => { work(option) });
+    else if(command.options)
       for await (command of command.options) { work(command.options) };
 
     await commandClient.createCommand({
@@ -36,7 +38,12 @@ module.exports = async client => {
         options: command.options
       })
       .then(console.log(`Registered Slash Command ${command.name}`))
-      .catch(console.error);
+      .catch(err => {
+        console.error(errorColor('[Error Handling] :: Unhandled Website Error/Catch'));
+        console.error(err);
+        if(err.data.errors) console.error(err.data.errors);
+      });
+
     await client.functions.sleep(10000);
   };
 
