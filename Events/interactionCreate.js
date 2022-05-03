@@ -8,10 +8,11 @@ module.exports = async(client, interaction) => {
   if (interaction.isCommand()) {
     const command = client.commands.get(interaction.commandName);
     if (!command) return;
-    command.permissions.user.push('SEND_MESSAGES');
-    command.permissions.client.push('SEND_MESSAGES');
 
     await interaction.deferReply();
+    
+    command.permissions.user.push('SEND_MESSAGES');
+    command.permissions.client.push('SEND_MESSAGES');
 
     for (let option of interaction.options.data) {
       if (option.type === "SUB_COMMAND") {

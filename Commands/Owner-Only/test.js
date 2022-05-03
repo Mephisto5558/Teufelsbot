@@ -1,25 +1,18 @@
 const { Command } = require("reconlx");
+const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 
 module.exports = new Command({
   name: 'test',
   aliases: [],
-  description: `some testing`,
+  description: 'Let me say something',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
-  category: "Owner-Only",
-  slashCommand: false,
+  category: 'Fun',
+  slashCommand: true,
   prefixCommand: true,
-  disabled: false,
+  disabled: true,
 
-  run: async(client, message, interaction) => {
-    message.channel.send('OK');
-    function run() {
-      message.channel.send('online!')
-    };
-    
-    while(true) {
-      run()
-      await client.functions.sleep(300000);
-    }
+  run: async(client, _, interaction) => {
+       
   }
 })
