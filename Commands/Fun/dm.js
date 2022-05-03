@@ -42,5 +42,6 @@ module.exports = new Command({
     user.send({ embeds: [embed] })
       .then(interaction.followUp('Message sent!'))
       .catch(_ => { interaction.followUp("I couldn't message this member!") })
+ 
   }
 })

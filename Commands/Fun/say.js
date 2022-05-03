@@ -13,19 +13,19 @@ module.exports = new Command({
   disabled: false,
   options: [{
       name: 'msg',
-      description: `Type your message here, /n for new line`,
+      description: 'Type your message here, /n for new line',
       type: 'STRING',
       required: true
     },
     {
       name: 'guild',
-      descripton: 'The guild the message get sent to',
+      description: 'The guild the message get sent to.',
       type: 'STRING',
-      required: 'false'
+      required: false
     },
     {
       name: 'channel',
-      description: 'The channel the message gets sent to. Let this empty if you choosed guild.',
+      description: 'The channel the message gets sent to.',
       type: 'CHANNEL',
       channel_type: 'GUILD_TEXT',
       required: false
@@ -47,7 +47,7 @@ module.exports = new Command({
       let interaction0;
 
       let guilds = client.guilds.fetch()
-        .filter((guild => guild.name == guild || guild.id == guild) && guild.member(interaction.member.id));
+        .filter(guild => (guild.name == guild || guild.id == guild) && guild.members.search(interaction.member.id));
       
       if(!guilds) return interaction.followUp(
         "I couldn't find the guild you are looking for.\n" +
@@ -87,7 +87,7 @@ module.exports = new Command({
 
 
 
-      
+    /*
     }
 
     if (!channel.permissionsFor(interaction.member).has('SEND_MESSAGES')) {
@@ -102,3 +102,4 @@ module.exports = new Command({
 
   }
 })
+*/
