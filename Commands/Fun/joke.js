@@ -2,6 +2,17 @@ const { Command } = require("reconlx");
 const { MessageEmbed } = require("discord.js");
 const axios = require('axios');
 
+let APIs = [
+  { name: 'jokeAPI', url: 'https://v2.jokeapi.dev' },
+  { name: 'humorAPI', url: 'https://humorapi.com' },
+  { name: 'icanhazdadjoke', url: 'https://icanhazdadjoke.com' }
+];
+let response;
+let type;
+let blacklist;
+let options;
+let API;
+
 module.exports = new Command({
   name: 'joke',
   aliases: [],
@@ -31,23 +42,13 @@ module.exports = new Command({
 
   run: async(client, message, interaction) => {
 
-    let APIs = [
-      { name: 'jokeAPI', url: 'https://v2.jokeapi.dev' },
-      { name: 'humorAPI', url: 'https://humorapi.com' },
-      { name: 'icanhazdadjoke', url: 'https://icanhazdadjoke.com' }
-    ];
-    let response;
-    let type;
-    let blacklist;
-    let options;
-    let API;
     if (interaction) {
       type = interaction.options.getString('type');
       blacklist = interaction.options.getString('blacklist');
     }
 
     async function getJoke(APIs) {
-      API = APIs[Math.floor(Math.random() * APIs.length)];
+      let API = APIs[Math.floor(Math.random() * APIs.length)];
 
       try {
         switch (API.name) {

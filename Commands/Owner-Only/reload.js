@@ -1,6 +1,9 @@
 const { Command } = require("reconlx");
 const fs = require("fs");
 
+let handlerCount = 0;
+let eventCount = 0;
+
 module.exports = new Command({
   name: 'reload',
   aliases: [],
@@ -15,9 +18,6 @@ module.exports = new Command({
     //need to add command reload function
     let permissionGranted = await client.functions.checkBotOwner(client, message)
     if (!permissionGranted) return;
-
-    let handlerCount = 0;
-    let eventCount = 0;
 
     if (!message.args || message.args.length === 0) {
       console.log("Reloading Handlers...");

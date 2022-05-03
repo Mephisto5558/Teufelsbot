@@ -9,11 +9,15 @@ module.exports = new Command({
   category: 'Fun',
   slashCommand: false,
   prefixCommand: true,
-  disabled: true,
+  disabled: false,
 
   run: async(client, message, interaction) => {
 
-
+    client.functions.reply(
+      'This feature will be added soon.\n' +
+      'Please message the dev if you want to block someone.',
+      message
+    )
 
   }
 })

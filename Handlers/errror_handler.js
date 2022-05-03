@@ -1,8 +1,7 @@
 const chalk = require("chalk");
-
+const errorColor = chalk.bold.red;
 
 module.exports = client => {
-  const errorColor = chalk.bold.red;
 
   function sendErrorMsg(msg) {
     if(client.message) {
@@ -11,7 +10,7 @@ module.exports = client => {
       client.interaction.followUp(msg)
     }
   };
-
+  
   process
     .on('unhandledRejection', (err, origin) => {
       console.error(errorColor(' [Error Handling] :: Unhandled Rejection/Catch'));

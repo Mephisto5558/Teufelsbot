@@ -1,4 +1,5 @@
 const { Command } = require("reconlx");
+const availableTypes = ["playing", "streaming", "listening", "watching", "competing"];
 
 module.exports = new Command({
   name: 'setactivity',
@@ -24,7 +25,6 @@ module.exports = new Command({
 
     if (!type) type = 0;
 
-    const availableTypes = ["playing", "streaming", "listening", "watching", "competing"];
     const numType = type
       .replace('playing', 0).replace('streaming', 1)
       .replace('listening', 2).replace('watching', 3)
@@ -34,9 +34,8 @@ module.exports = new Command({
       if (element === type.toLowerCase()) return true;
     });
 
-    if (!typeIsAvailable) {
-      return client.functions.reply(`Syntax error: Invalid type "${type}". Available types are:\n\`${availableTypes.toString().replace(/,/g, "\`, \`")}\``, message)
-    }
+    if (!typeIsAvailable)
+      return client.functions.reply(`Syntax error: Invalid type "${type}". Available types are:\n\`${availableTypes.toString().replace(/,/g, "\`, \`")}\``, message);
 
     client.user.setActivity({ name: activity, type: numType });
     client.functions.reply(`Activity set to \`${activity}\` of type \`${type}\``, message)

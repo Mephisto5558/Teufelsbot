@@ -1,5 +1,8 @@
 const { Command } = require("reconlx");
 
+let responseList = ['ist müde und geht jetzt schlafen :3', 'geht jetzt ins Bettchen <:engelchen:725458214044303371>', 'schläft jetzt, hoffentlich schnarcht er/sie nicht <:gucken:725670318164672543>']
+let response = responseList[Math.floor(Math.random() * responseList.length)];
+
 module.exports = new Command({
   name: 'sleep',
   aliases: [],
@@ -12,9 +15,7 @@ module.exports = new Command({
 
   run: (client, message) => {
 
-    let responseList = ['ist müde und geht jetzt schlafen :3', 'geht jetzt ins Bettchen <:engelchen:725458214044303371>', 'schläft jetzt, hoffentlich schnarcht er/sie nicht <:gucken:725670318164672543>']
-    let response = responseList[Math.floor(Math.random() * responseList.length)];
-    client.functions.reply(`<@${message.author.id}> ${response}`, message)
+   client.functions.reply(`<@${message.author.id}> ${response}`, message)
 
   }
 })

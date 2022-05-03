@@ -4,10 +4,10 @@ const app = express();
 const chalk = require("chalk");
 const errorColor = chalk.bold.red;
 
-module.exports = async client => {
+let websiteMessages = ['Hilfe der Dominik will mich entführen ahhh\nLG Meph', 'Hello World!', 'Lena is kuhl', 'Flo is kuhl', 'Vinni is auch kuhl', 'huhu', 'What are you doing here?', 'https://www.youtube.com/watch?v=xvFZjo5PgG0']
+let websiteMessage = websiteMessages[Math.floor(Math.random() * websiteMessages.length)]
 
-  websiteMessages = ['Hilfe der Dominik will mich entführen ahhh\nLG Meph', 'Hello World!', 'Lena is kuhl', 'Flo is kuhl', 'Vinni is auch kuhl', 'huhu', 'What are you doing here?', 'https://www.youtube.com/watch?v=xvFZjo5PgG0']
-  websiteMessage = websiteMessages[Math.floor(Math.random() * websiteMessages.length)]
+module.exports = async client => {
 
   app.use(express.urlencoded({ extended: true }));
   app.use(favicon('./favicon.ico'));
@@ -19,7 +19,7 @@ module.exports = async client => {
     res.status(500).send('Something broke!');
   });
 
-  app.listen(1000, _ => {
+  app.listen(8000, _ => {
     console.log(`Website is online\n`)
   });
   app.all('*', manage);
@@ -61,13 +61,13 @@ module.exports = async client => {
         switch(req.path) {
           case '/restart':
             res.send(true);
-            console.error("Restart initiated from web server");
+            console.error('Restart initiated from web server');
             process.exit(0);
 
           case '/ping':
             return; //Coming soon
-            console.log("Ping initiated from web server");
-            data = await client.functions.ping;
+            console.log('Ping initiated from web server');
+            let data = await client.functions.ping;
             res.send(data);
             break;
         }
@@ -75,4 +75,5 @@ module.exports = async client => {
     }
     next();
   }
+  
 }

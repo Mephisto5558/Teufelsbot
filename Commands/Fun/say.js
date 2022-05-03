@@ -33,6 +33,7 @@ module.exports = new Command({
   ],
 
   run: async(client, _, interaction) => {
+    return interaction.followUp('This command is currently disabled.');
     
     let guild = interaction.options.getString('guild');
     let channel = interaction.options.getChannel('channel')

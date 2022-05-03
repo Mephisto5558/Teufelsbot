@@ -19,19 +19,18 @@ module.exports = new Command({
   }],
 
   run: (client, message, interaction) => {
+    if (message) return client.functions.reply('Please use `/help`!', message, 10000);
 
-    if (!interaction) return client.functions.reply('Please use `/help`!', message, 10000);
+    query = interaction.options?.getString('command');
 
-    args = interaction.options?.getString('command');
-
-    if (args) {
+    if (query) {
+      const cmd = client.commands.get(query.toLowerCase());
       let embed = new MessageEmbed()
         .setColor(embedConfig.embed_color);
 
-      const cmd = client.commands.get(args.toLowerCase());
       if (!cmd) {
         embed
-          .setDescription(`No Information found for command **${args.toLowerCase()}**`)
+          .setDescription(`No Information found for command **${query.toLowerCase()}**`)
           .setColor(embedConfig.embed_wrongcolor);
         return interaction.followUp({ embeds: [embed] });
       };
