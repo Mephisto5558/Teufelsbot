@@ -11,10 +11,6 @@ module.exports = new Command({
   prefixCommand: true,
   disabled: false,
   showInHelp: true,
-  args: {
-    option1: [],
-    option2: []
-  },
   options: [{
     name: '',
     description: '',

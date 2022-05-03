@@ -1,5 +1,14 @@
 const { Command } = require("reconlx");
 
+let random = Math.random() * 100;
+let response;
+let responseList = [
+  'Naiiiiiin D:',
+  'Ich würde niemals gehen!',
+  'Bananensaft schmeckt lecker',
+  'Ich kann garnicht weg sein, der Meph hält mich in seinem Keller gefangen und zwingt mich hier zu arbeiten! Hilf mir!!!!',
+];   
+
 module.exports = new Command({
   name: 'bistduweg',
   alias: [],
@@ -11,26 +20,12 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: async(client, message) => {
-
-    let response;
-    let responseList = [
-      'Naiiiiiin D:',
-      'Ich würde niemals gehen!',
-      null,
-      'Bananensaft schmeckt lecker',
-      'Ich kann garnicht weg sein, der Meph hält mich in seinem Keller gefangen und zwingt mich hier zu arbeiten! Hilf mir!!!!',
-    ];
+    if (random <= 0.1) response = responseList[4]; //0,1%
+    else if (random <= 10) return; //9,9%
+    else if (random <= 20) response = responseList[2]; //10%
+    else if (random <= 50) response = responseList[1]; //30%
+    else responseList[0]; //70%
     
-    let random = Math.random() * 100;
-    if (random <= 0.1) response = responseList[4];
-    else if (random <= 10) response = responseList[3];
-    else if (random <= 20) response = responseList[2];
-    else if (random <= 60) response = responseList[1];
-    else responseList[0];
-      
-    if(!response) return;
-    
-    message.channel.send(response);
-    
+    client.functions.reply(response, message);
   }
 })

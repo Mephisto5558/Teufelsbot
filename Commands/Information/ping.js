@@ -20,7 +20,7 @@ module.exports = new Command({
 
   run: async(client, message, interaction) => {
 
-    if (!interaction) return client.functions.reply('Please use `/ping`!', message, 10000);
+    if (message) return client.functions.reply('Please use `/ping`!', message, 10000);
     args = interaction.options?.getBoolean('average');
 
     if (args) {
@@ -62,10 +62,9 @@ module.exports = new Command({
         `Average Ping: \`${averagePing}ms\``
       )
 
-      interaction.editReply({
+      return interaction.editReply({
         embeds: [embed]
       })
-      return;
     }
 
     ping = Math.abs(Date.now() - interaction.createdTimestamp)

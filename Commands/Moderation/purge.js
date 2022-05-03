@@ -1,5 +1,8 @@
 const { Command } = require("reconlx");
 
+let deletedCount = 0
+let errorMsg;
+
 module.exports = new Command({
   name: 'purge',
   aliases: [],
@@ -12,18 +15,15 @@ module.exports = new Command({
 
   run: async(client, message, _) => {
 
-    let deletedCount = 0
-
-    if (!message.guild.me.permissions.has('MANAGE_MESSAGES')) {
-      return client.functions.reply("I don't have the permission to do that!", message)
-    }
-
-    if (!message.member.permissions.has('MANAGE_MESSAGES')) {
-      return client.functions.reply("You don't have the permission to do that!", message)
-    }
-
-    if (message.args.length === 0) return client.functions.reply("Please provide a number next time.", message);
-
+    if (!message.guild.me.permissions.has('MANAGE_MESSAGES'))
+      errorMsg = "I don't have the permission to do that!";
+    else if (!message.member.permissions.has('MANAGE_MESSAGES'))
+      errorMsg = "You don't have the permission to do that!";
+    else if (message.args.length === 0)
+      errorMsg "Please provide a number next time.";
+    
+    if(errorMsg) return client.functions.reply(errorMsg, message);
+    
     let toDeleteCount = parseInt(message.args[0]) + 1 //+1 is the command
 
     while (toDeleteCount !== 0) {

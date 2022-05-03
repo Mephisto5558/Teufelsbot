@@ -23,7 +23,7 @@ module.exports = async(client, interaction) => {
       } else if (option.value) interaction.args.push(option.value);
     }
 
-    interaction.member = interaction.guild.members.cache.get(interaction.user.id);
+    interaction.member = interaction.guild.members.fetch(interaction.user.id);
 
     let embed = new MessageEmbed()
       .setTitle('Insufficient Permissions')
@@ -48,8 +48,7 @@ module.exports = async(client, interaction) => {
 
   if (interaction.isContextMenu()) {
     const command = client.commands.get(interaction.commandName);
-    if (command) {
+    if (command) 
       command.run(client, null, interaction).then(client.interaction = null);
-    }
   }
 }

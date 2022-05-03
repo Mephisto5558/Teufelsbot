@@ -2,6 +2,10 @@ const { Command } = require("reconlx");
 const { MessageEmbed } = require("discord.js");
 const embedConfig = require('../../Settings/embed.json');
 
+let noMsg;
+let errorMsg;
+let embed;
+
 module.exports = new Command({
   name: 'ban',
   aliases: [],
@@ -35,25 +39,21 @@ module.exports = new Command({
   run: async(_, __, interaction) => {
 
     let user = interaction.options.getUser('member');
-    const reason = interaction.options.getString('reason');
-    let noMsg;
-    let errorMsg;
-    let embed;
     user = await interaction.guild.members.fetch(user.id);
+    const reason = interaction.options.getString('reason');
     const moderator = `${interaction.member.user.username}#${interaction.member.user.discriminator}`;
 
-    if (user.id === interaction.member.id) {
-      errorMsg = `You can't ban yourself!`
-    } else if (user.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1) {
-      errorMsg = `You don't have the permission to do that!`
-    } else if (!user.bannable) {
-      errorMsg = `I don't have the permission to do that!`
-    }
+    if (user.id === interaction.member.id)
+      errorMsg = `You can't ban yourself!`;
+    else if (user.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1)
+      errorMsg = `You don't have the permission to do that!`;
+    else if (!user.bannable)
+      errorMsg = `I don't have the permission to do that!`;
 
     if (errorMsg) return interaction.followUp(errorMsg);
 
     embed = new MessageEmbed()
-      .setTitle(`Banned`)
+      .setTitle('Banned')
       .setDescription(
         `You have been banned from \`${interaction.guild.name}\`.\n` +
         `Moderator: ${moderator}\n` +
@@ -61,10 +61,14 @@ module.exports = new Command({
       )
       .setColor(embedConfig.color_red);
 
-    try { await user.send({ embeds: [embed] }) } catch (err) { noMsg = true }
+    try {
+      await user.send({ embeds: [embed] })
+    } catch (err) { noMsg = true }
 
-    try { await user.ban({ reason: reason }) } catch (err) {
-      console.log(err);
+    try {
+      await user.ban({ reason: reason }) 
+    } catch (err) {
+      console.error(err);
       return interaction.followUp("I couldn't ban the user")
     }
 

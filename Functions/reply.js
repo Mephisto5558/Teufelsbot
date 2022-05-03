@@ -1,7 +1,6 @@
+let sentMessage;
 module.exports = async function reply(reply, message, deleteTime = false, ping = false) {
   if (!message) return console.error('reply.js: Missing var in code: message')
-  let sentMessage;
-
 
   try {
     if (reply === MessageEmbed) {

@@ -1,4 +1,7 @@
 const { Command } = require("reconlx");
+    
+let responseList = ['c:', 'C:', ':D', 'uwu', '<:gucken:725670318164672543>', 'https://tenor.com/view/yell-shout-excited-happy-so-happy-gif-17583147']
+let response = responseList[Math.floor(Math.random() * responseList.length)];
 
 module.exports = new Command({
   name: 'happy',
@@ -12,8 +15,6 @@ module.exports = new Command({
 
   run: (client, message) => {
 
-    responseList = ['c:', 'C:', ':D', 'uwu', '<:gucken:725670318164672543>', 'https://tenor.com/view/yell-shout-excited-happy-so-happy-gif-17583147']
-    let response = responseList[Math.floor(Math.random() * responseList.length)];
     client.functions.reply(response, message)
 
   }

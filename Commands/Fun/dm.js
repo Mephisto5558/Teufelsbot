@@ -1,6 +1,8 @@
 const { Command } = require("reconlx");
 const { MessageEmbed } = require("discord.js");
 
+let sender;
+
 module.exports = new Command({
   name: 'dm',
   aliases: [],
@@ -27,9 +29,8 @@ module.exports = new Command({
   run: async(client, _, interaction) => {
 
     let user = interaction.options.getMember('target');
-    let messageToSend = interaction.options.getString('message');
-    messageToSend = messageToSend.replace('/n', `\n`);
-    let sender;
+    let messageToSend = interaction.options.getString('message')
+      .replace('/n', `\n`);
     await client.users.fetch(interaction.member.user.id).then(user => { sender = `${user.username}#${user.discriminator}` });
 
     let embed = new MessageEmbed()

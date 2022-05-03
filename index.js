@@ -20,15 +20,14 @@ client.on('debug', debug => fs.appendFileSync('./Logs/debug.log', debug + `\n`))
 
 client.owner = defaultSettings.ownerID;
 client.prefix = defaultSettings.prefix;
-client.slashCommandList = [];
 client.functions = {};
+client.categories = fs.readdirSync("./Commands/");
+client.keys = require('./Settings/keys.js');
 client.guildWhitelist = (fs.readFileSync('./Database/guildWhitelist.db')).toString().split(' ');
 client.aliases = new Discord.Collection();
 client.events = new Discord.Collection();
 client.cooldown = new Discord.Collection();
 client.commands = new Discord.Collection();
-client.categories = fs.readdirSync("./Commands/");
-client.keys = require('./Settings/keys.js');
 
 module.exports = client;
 

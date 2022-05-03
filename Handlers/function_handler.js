@@ -1,8 +1,7 @@
 const fs = require('fs');
+let functionCount = 0;
 
 module.exports = client => {
-  let functionCount = 0;
-
   fs.readdirSync("./Functions").filter(file => file.endsWith(".js")).forEach(file => {
     const functionName = file.split(".")[0];
     const functionFile = require(`../Functions/${file}`);

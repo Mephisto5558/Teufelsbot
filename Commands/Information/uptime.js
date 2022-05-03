@@ -1,6 +1,9 @@
 const { Command } = require("reconlx");
 const axios = require('axios');
 
+let response;
+let data;
+
 module.exports = new Command({
   name: 'uptime',
   aliases: [],
@@ -12,10 +15,6 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: async(client, message, interaction) => {
-
-    let response;
-    let data;
-
     try {
       response = await axios.get('https://Teufelswerk-Music-Bot.mephisto5558.repl.co/uptime');
       response = response.data.total;
