@@ -3,12 +3,8 @@ const { Client } = require("discord-slash-commands-client");
 const chalk = require("chalk");
 const errorColor = chalk.bold.red;
 
-let slashCommandCount = 0;
-let slashCommandList = [];
-const commandClient = new Client(
-  client.keys.token,
-  client.user.id
-);
+let commandCount = 0;
+let commands = [];
   
 function work(option) {
   if(!option.type) option.type = 1
@@ -20,18 +16,16 @@ function work(option) {
     .replace('MENTIONABLE', 9).replace('NUMBER', 10)
     .replace('ATTACHMENT', 11)
 };
-  
-function errorHandling(err) {
-  console.error(errorColor('[Error Handling] :: Unhandled Slash Handler Error/Catch'));
-  console.error(err);
-  if(err.response.data)
-    console.error(err.response.data.errors.options[0].description)
-};
 
 
 module.exports = async client => {
+  await client.functions.sleep(1000);
+  const commandClient = new Client(
+    client.keys.token,
+    require('../Settings/default.json').userID
+  );
   
-  fs.readdirSync('./Commands').forEach(subFolder => {
+  await fs.readdirSync('./Commands').forEach(subFolder => {
     fs.readdirSync(`./Commands/${subFolder}/`).filter(file => file.endsWith(".js")).forEach(file => {
       let command = require(`../Commands/${subFolder}/${file}`);
       if (!command.slashCommand || command.disabled) return;
@@ -39,23 +33,30 @@ module.exports = async client => {
       if(Array.isArray(command.options)) 
         command.options.forEach(option => { work(option) });
       else if(command.options)
-        for await (commandOption of command.options) { work(commandOption.options) };
-      
-      await commandClient.createCommand({
-        name: command.name,
-        description: command.description,
-        options: command.options
-      })
-      .then(_ => {
-        console.log(`Registered Slash Command ${command.name}`);
-        slashCommandCount++
-      }
-      .catch(err => { errorHandling(err) }
-
-      client.functions.sleep(10000);
+        for (commandOption of command.options) { work(commandOption.options) };
+      commands.push(command)
     })
   });
-
-  console.log(`Loaded ${slashCommandCount} Slash commands\n`);
+  
+  for (let command of commands) {
+    await commandClient.createCommand({
+      name: command.name,
+      description: command.description,
+        options: command.options
+    })
+    .then(_ => {
+      console.log(`Registered Slash Command ${command.name}`);
+      commandCount++
+    })
+    .catch(err => {
+      console.error(errorColor('[Error Handling] :: Unhandled Slash Handler Error/Catch'));
+      console.error(err);
+      if(err.response.data)
+        console.error(err.response.data.errors.options[0].description)
+    });
+    await client.functions.sleep(10000);
+  };
+  
+  console.log(`Loaded ${commandCount} Slash commands\n`);
   
 };
