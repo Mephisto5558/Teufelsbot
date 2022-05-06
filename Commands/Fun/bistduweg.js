@@ -1,6 +1,5 @@
 const { Command } = require("reconlx");
 
-let random = Math.random() * 100;
 let response;
 let responseList = [
   'Naiiiiiin D:',
@@ -20,11 +19,12 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: async(client, message) => {
-    if (random <= 0.1) response = responseList[4]; //0,1%
-    else if (random <= 10) return; //9,9%
-    else if (random <= 20) response = responseList[2]; //10%
-    else if (random <= 50) response = responseList[1]; //30%
-    else responseList[0]; //70%
+    let random = Math.random() * 10;
+    
+    if (random <= 0.01)   response = responseList[3]; //0,1%
+    else if (random <= 1) response = responseList[2]; //9,9%
+    else if (random <= 5) response = responseList[1]; //40%
+    else                  response = responseList[0]; //50%
     
     client.functions.reply(response, message);
   }

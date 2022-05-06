@@ -1,17 +1,16 @@
-const { Command } = require("reconlx");
-const { MessageEmbed } = require("discord.js");
-const axios = require('axios');
+const 
+{ Command } = require("reconlx"),
+{ MessageEmbed } = require("discord.js"),
+axios = require('axios');
 
-let APIs = [
-  { name: 'jokeAPI', url: 'https://v2.jokeapi.dev' },
-  { name: 'humorAPI', url: 'https://humorapi.com' },
-  { name: 'icanhazdadjoke', url: 'https://icanhazdadjoke.com' }
-];
-let response;
-let type;
-let blacklist;
-let options;
-let API;
+let
+  APIs = [
+    { name: 'jokeAPI', url: 'https://v2.jokeapi.dev' },
+    { name: 'humorAPI', url: 'https://humorapi.com' },
+    { name: 'icanhazdadjoke', url: 'https://icanhazdadjoke.com' }
+  ],
+  response, type, blacklist,
+  maxLength, options, API;
 
 module.exports = new Command({
   name: 'joke',
@@ -28,7 +27,7 @@ module.exports = new Command({
   },
   options: [{
       name: 'type',
-      description: `The type/tag of the joke (not all apis support types/tags)`,
+      description: `The type/tag of the joke (not all apis support this)`,
       type: 'STRING',
       required: false,
     },
@@ -37,6 +36,14 @@ module.exports = new Command({
       description: `blacklist specific joke tags. See /help joke for more information and valid options`,
       type: 'STRING',
       required: false,
+    },
+    {
+      name: 'max_length',
+      description: 'the max length of the joke (not all apis support this)',
+      type: 'NUMBER',
+      required: false,
+      min_value: 10,
+      max_value: 2000
     }
   ],
 
@@ -45,10 +52,12 @@ module.exports = new Command({
     if (interaction) {
       type = interaction.options.getString('type');
       blacklist = interaction.options.getString('blacklist');
+      maxLength = interaction.options.getNumber('max_length');
+      if(!maxLength) maxLength = 2000;
     }
 
     async function getJoke(APIs) {
-      let API = APIs[Math.floor(Math.random() * APIs.length)];
+      API = APIs[Math.floor(Math.random() * APIs.length)];
 
       try {
         switch (API.name) {
@@ -77,7 +86,7 @@ module.exports = new Command({
               params: {
                 'api-key': client.keys.jokes.humorAPIKey,
                 'min-rating': '7',
-                'max-length': '2000'
+                'max-length': maxLength
               }
             };
             if (type) options.params['include-tags'] = type;
@@ -146,7 +155,7 @@ module.exports = new Command({
       .setTitle('Is this funny?')
       .setDescription(response + `\n- [${API.name}](${API.url})`);
 
-    if (message) client.functions.reply({ embeds: [embed] }, message);
+    if (message) client.functions.reply(embed, message);
     else interaction.followUp({ embeds: [embed] })
   }
 })

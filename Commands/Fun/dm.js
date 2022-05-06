@@ -30,19 +30,20 @@ module.exports = new Command({
 
     let user = interaction.options.getMember('target');
     let messageToSend = interaction.options.getString('message')
-      .replace('/n', `\n`);
-    await client.users.fetch(interaction.member.user.id).then(user => { sender = `${user.username}#${user.discriminator}` });
+      messageToSend = messageToSend.replace('/n', `\n`);
+    await client.users.fetch(interaction.member.user.id)
+      .then(user => { sender = `${user.username}#${user.discriminator}` });
 
     let embed = new MessageEmbed()
       .setDescription(messageToSend)
-      .setFooter({
-        text: `Message sent by [${sender}](https://discord.com/channels/@me/${user.id}).\n` +
-          `If you don't want to receive user-made dms from me, run /disabledm in any server.`,
+      .setFooter({ text:
+        `Message sent by [${sender}](https://discord.com/channels/@me/${user.id}).\n` +
+        `If you don't want to receive user-made dms from me, run /disabledm in any server.`
       });
 
     user.send({ embeds: [embed] })
       .then(interaction.followUp('Message sent!'))
-      .catch(_ => { interaction.followUp("I couldn't message this member!") })
+      .catch(err => { interaction.followUp("I couldn't message this member!") })
  
   }
 })

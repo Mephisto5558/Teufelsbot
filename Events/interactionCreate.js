@@ -4,11 +4,14 @@ const embedConfig = require("../Settings/embed.json");
 module.exports = async(client, interaction) => {
   interaction.args = [];
   client.interaction = interaction;
-
+  
   if (interaction.isCommand()) {
-    const command = client.commands.get(interaction.commandName);
-    if (!command) return;
-
+    
+    let command = client.commands.get(interaction.commandName);
+    if (!command) {
+      command = client.slashCommands.get(interaction.commandName);
+      if(!command) return;
+    }
     await interaction.deferReply();
     
     command.permissions.user.push('SEND_MESSAGES');
@@ -22,8 +25,6 @@ module.exports = async(client, interaction) => {
         });
       } else if (option.value) interaction.args.push(option.value);
     }
-
-    interaction.member = interaction.guild.members.fetch(interaction.user.id);
 
     let embed = new MessageEmbed()
       .setTitle('Insufficient Permissions')
@@ -51,4 +52,5 @@ module.exports = async(client, interaction) => {
     if (command) 
       command.run(client, null, interaction).then(client.interaction = null);
   }
+  if (interaction.isButton()) interaction.deferUpdate();
 }

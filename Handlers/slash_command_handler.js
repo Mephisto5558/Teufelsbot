@@ -19,7 +19,6 @@ function work(option) {
 
 
 module.exports = async client => {
-  await client.functions.sleep(1000);
   const commandClient = new Client(
     client.keys.token,
     require('../Settings/default.json').userID
@@ -35,6 +34,7 @@ module.exports = async client => {
       else if(command.options)
         for (commandOption of command.options) { work(commandOption.options) };
       commands.push(command)
+      client.slashCommands.set(command.name, command)
     })
   });
   
@@ -51,12 +51,19 @@ module.exports = async client => {
     .catch(err => {
       console.error(errorColor('[Error Handling] :: Unhandled Slash Handler Error/Catch'));
       console.error(err);
-      if(err.response.data)
-        console.error(err.response.data.errors.options[0].description)
+      if(err.response.data.errors)
+        console.error(errorColor(JSON.stringify(err.response.data)))
     });
     await client.functions.sleep(10000);
   };
   
   console.log(`Loaded ${commandCount} Slash commands\n`);
+
+  
+  const eventName = 'interactionCreate';
+  const event = require(`../Events/${eventName}.js`);
+
+  client.on(eventName, event.bind(null, client));
+  console.log(`Loaded Event ${eventName}`);
   
 };

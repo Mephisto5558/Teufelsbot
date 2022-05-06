@@ -7,7 +7,7 @@ module.exports = client => {
     if(client.message) {
       client.functions.reply(msg, client.message)
     } else if(client.interaction) {
-      client.interaction.followUp(msg)
+      client.interaction.channel.send(msg)
     }
   };
   

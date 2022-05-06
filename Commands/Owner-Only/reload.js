@@ -15,7 +15,7 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: async(client, message) => {
-    //need to add command reload function
+    //need to add command reload function & function reload function (xd)
     let permissionGranted = await client.functions.checkBotOwner(client, message)
     if (!permissionGranted) return;
 
