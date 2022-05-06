@@ -16,8 +16,6 @@ module.exports = async function reply(reply, message, deleteTime = false, ping =
       }).then(msg => { sentMessage = msg })
     }
   } catch (err) {
-      return message.channel.send('Something wrent wrong.')
-    }
     await message.channel.send(reply)
       .then(msg => { sentMessage = msg })
   }
