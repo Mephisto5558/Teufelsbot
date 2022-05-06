@@ -20,7 +20,7 @@ module.exports = new Command({
     else if (!message.member.permissions.has('MANAGE_MESSAGES'))
       errorMsg = "You don't have the permission to do that!";
     else if (message.args.length === 0)
-      errorMsg "Please provide a number next time.";
+      errorMsg = "Please provide a number next time.";
     
     if(errorMsg) return client.functions.reply(errorMsg, message);
     

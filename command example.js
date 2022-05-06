@@ -15,11 +15,11 @@ module.exports = new Command({
     name: '',
     description: '',
     type: '',
-    required: false
-  }],
-  choices: [{
-    name: '',
-    value: ''
+    required: false,
+    choices: [{
+      name: '',
+      value: ''
+    }],
   }],
 
   run: async(client, message, interaction) => {

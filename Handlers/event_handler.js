@@ -2,7 +2,10 @@ const fs = require('fs');
 let eventCount = 0;
 
 module.exports = client => {
-  fs.readdirSync("./Events").filter(file => file.endsWith(".js")).forEach(file => {
+  //InteractionCreate gets loaded when all slash commands are registred
+  fs.readdirSync("./Events")
+    .filter(file => file.endsWith(".js") && file != 'interactionCreate.js')
+    .forEach(file => {
     const eventName = file.split(".")[0];
     const event = require(`../Events/${file}`);
 

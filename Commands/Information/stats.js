@@ -1,7 +1,6 @@
 const { Command } = require("reconlx");
 const { MessageEmbed } = require("discord.js");
 const fs = require("fs");
-//const path = require('path');
 
 module.exports = new Command({
   name: 'stats',

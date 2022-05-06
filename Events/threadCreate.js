@@ -1,3 +1,3 @@
 module.exports = thread => {
-  thread.join().catch(err) {};
+  if (thread.joinable) thread.join();
 }

@@ -12,12 +12,12 @@ module.exports = new Command({
 
   run: async(client, message) => {
 
-    let permissionGranted = await client.functions.checkBotOwner(client, message)
+    let permissionGranted = await client.functions.checkBotOwner(client, message);
     if (!permissionGranted || !message.args) return;
     message.content = message.args.join(' ');
 
     function eval(client, message) {
-      return Function('return (' + message.content + ')')();
+      return Function(`return ( ${message.content} )`)(client, message);
     }
 
     console.log(`evaluated command '${message.content}'`)
@@ -28,7 +28,7 @@ module.exports = new Command({
 
     try {
       await eval(client, message);
-    } catch (err) { client.functions.reply('```\n' + err + '\n```', message) }
+    } catch (err) { console.error(err);client.functions.reply('```\n' + err + '\n```', message) }
 
   }
 })

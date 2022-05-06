@@ -4,7 +4,7 @@ module.exports = (client, message) => {
   if (message.author.bot) return;
   message.content = message.content.replace('<@!', '<@');
   
-  if(message.content.startsWith(client.prefix) length = client.prefix.length;
+  if(message.content.startsWith(client.prefix)) length = client.prefix.length;
   else if(message.content.startsWith(`<@${client.user.id}>`)) length = `<@${client.user.id}>`.length;
   else return;
 
