@@ -1,4 +1,4 @@
-let json = {
+module.exports = {
   "token": process.env.token,
   "uptimeAPIKey": process.env.uptimeAPIKey,
   "WebCommandKey": process.env.webCommandKey,
@@ -7,4 +7,3 @@ let json = {
     "humorAPIKey": process.env.humorAPIKey
   }
 }
-module.exports = json;

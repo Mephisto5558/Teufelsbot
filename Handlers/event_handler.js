@@ -10,9 +10,9 @@ module.exports = client => {
     const event = require(`../Events/${file}`);
 
     client.on(eventName, event.bind(null, client));
-    console.log(`Loaded Event ${eventName}`);
+    client.log(`Loaded Event ${eventName}`);
     eventCount++
   });
 
-  console.log(`Loaded ${eventCount} Events\n`)
+  client.log(`Loaded ${eventCount} Events\n`)
 }

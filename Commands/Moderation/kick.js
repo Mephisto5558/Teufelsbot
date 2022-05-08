@@ -63,7 +63,7 @@ module.exports = new Command({
     try {
       await user.ban({ reason: reason }) }
     catch (err) {
-      console.log(err);
+      client.log(err);
       return interaction.followUp("I couldn't kick the user")
     }
 

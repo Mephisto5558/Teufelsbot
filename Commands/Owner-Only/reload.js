@@ -20,18 +20,18 @@ module.exports = new Command({
     if (!permissionGranted) return;
 
     if (!message.args || message.args.length === 0) {
-      console.log("Reloading Handlers...");
+      client.log("Reloading Handlers...");
       fs.readdirSync("./../Handlers").filter(file => file.endsWith('_handler.js')).forEach(file => {
         delete require.cache[require.resolve(`../../Handlers/${file}`)];
         require(`./../Handlers/${handler}`)(client);
 
         const handlerName = file.split(".")[0];
-        console.log(`Reloaded Handler ${handlerName}`);
+        client.log(`Reloaded Handler ${handlerName}`);
         handlerCount++
       });
-      console.log(`Reloaded ${handlerCount} Handlers\n`)
+      client.log(`Reloaded ${handlerCount} Handlers\n`)
 
-      console.log('Reloading Events...')
+      client.log('Reloading Events...')
       fs.readdirSync("./../Events").filter(file => file.endsWith('.js')).forEach(file => {
         delete require.cache[require.resolve(`../../Events/${file}`)];
         const event = require(`../../Events/${file}`);
@@ -39,10 +39,10 @@ module.exports = new Command({
 
         client.events.delete(eventName);
         client.events.set(eventName, event);
-        console.log(`Reloaded Event ${eventName}`);
+        client.log(`Reloaded Event ${eventName}`);
         eventCount++
       });
-      console.log(`Reloaded ${eventCount} Events\n`)
+      client.log(`Reloaded ${eventCount} Events\n`)
 
       return client.functions.reply(`Reloaded \`${handlerCount}\` handlers, \`${commandCount}\`, \`${slashCommandCount}\` commands and \`${eventCount}\` events.`, message)
     };
@@ -58,7 +58,7 @@ module.exports = new Command({
     const command = require(`./${message.args[0]}.js`);
     client.commands.set(commandName, command);
 
-    console.log(`Reloaded command ${commandName}`)
+    client.log(`Reloaded command ${commandName}`)
     client.functions.reply(`The command \`${commandName}\` has been reloaded.`, message)
   }
 

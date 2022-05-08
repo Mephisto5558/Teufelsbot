@@ -7,9 +7,9 @@ module.exports = client => {
     const functionFile = require(`../Functions/global/${file}`);
 
     client.functions[functionName] = functionFile
-    console.log(`Loaded Global Function ${functionName}`);
+    client.log(`Loaded Global Function ${functionName}`);
     functionCount++
   });
 
-  console.log(`Loaded ${functionCount} Global Functions\n`)
+  client.log(`Loaded ${functionCount} Global Functions\n`)
 }

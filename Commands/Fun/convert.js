@@ -61,7 +61,7 @@ module.exports = new Command({
     else input.convertSpaces = true;
 
     input.type = await convert.getInputType(input.string);
-      //console.log(input, input.string.length); //debug
+      //client.log(input, input.string.length); //debug
     if(input.type.toLowerCase() == input.convertTo.toLowerCase())
       return interaction.followUp(
         `Converting ${input.type.toUpperCase()} to ${input.convertTo.toUpperCase()} would be a waste of time.\n` +

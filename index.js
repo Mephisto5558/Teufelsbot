@@ -22,8 +22,14 @@ client.events = new Collection();
 client.cooldown = new Collection();
 client.commands = new Collection();
 client.slashCommands = new Collection();
+client.log = function log(...data) {
+  let date = new Date().toLocaleString('en-GB', {
+    hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit'
+  });
+  console.log(`[${date}] ${data}`)
+};
 
-module.exports = client;
+//module.exports = client;
 
 fs.readdirSync('./Handlers')
   .filter(file => file.endsWith('_handler.js'))
@@ -32,7 +38,7 @@ fs.readdirSync('./Handlers')
   });
 
 client.login(client.keys.token)
-  .then(console.log('Logged in'));
+  .then(client.log('Logged in'));
 
 process.on('exit', _ => {
   client.destroy();
