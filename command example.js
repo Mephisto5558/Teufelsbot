@@ -1,4 +1,4 @@
-const { Command } = require("reconlx");
+const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: '',

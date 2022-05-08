@@ -13,7 +13,8 @@ const
 client.owner = defaultSettings.ownerID;
 client.prefix = defaultSettings.prefix;
 client.functions = {};
-client.categories = fs.readdirSync("./Commands/");
+client.startTime = Date.now();
+client.categories = fs.readdirSync('./Commands/');
 client.keys = require('./Settings/keys.js');
 client.guildWhitelist = (fs.readFileSync('./Database/guildWhitelist.db')).toString().split(' ');
 client.aliases = new Collection();
@@ -25,7 +26,7 @@ client.slashCommands = new Collection();
 module.exports = client;
 
 fs.readdirSync('./Handlers')
-  .filter(file => file.endsWith("_handler.js"))
+  .filter(file => file.endsWith('_handler.js'))
   .forEach(handler => {
     require(`./Handlers/${handler}`)(client);
   });

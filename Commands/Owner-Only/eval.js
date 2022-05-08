@@ -17,7 +17,7 @@ module.exports = new Command({
     message.content = message.args.join(' ');
 
     function eval(client, message) {
-      return Function(`return ( ${message.content} )`)(client, message);
+      return new Function(`"use strict"; return ( ${message.content} )`)(client, message);
     }
 
     console.log(`evaluated command '${message.content}'`)
@@ -28,7 +28,10 @@ module.exports = new Command({
 
     try {
       await eval(client, message);
-    } catch (err) { console.error(err);client.functions.reply('```\n' + err + '\n```', message) }
+    } catch (err) {
+      console.error(err);
+      client.functions.reply('```\n' + err + '\n```', message)
+    }
 
   }
 })
