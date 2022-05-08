@@ -20,7 +20,7 @@ module.exports = new Command({
       return new Function(`"use strict"; return ( ${message.content} )`)(client, message);
     }
 
-    console.log(`evaluated command '${message.content}'`)
+    client.log(`evaluated command '${message.content}'`)
     client.functions.reply(
       'evaluated command:\n' +
       '```javascript\n' +

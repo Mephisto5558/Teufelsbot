@@ -1,7 +1,8 @@
-const fs = require('fs');
-const { Client } = require("discord-slash-commands-client");
-const chalk = require("chalk");
-const errorColor = chalk.bold.red;
+const
+  fs = require('fs'),
+  { Client } = require("discord-slash-commands-client"),
+  chalk = require("chalk"),
+  errorColor = chalk.bold.red;
 
 let commandCount = 0;
 let commands = [];
@@ -25,14 +26,14 @@ module.exports = async client => {
   );
   
   await fs.readdirSync('./Commands').forEach(subFolder => {
-    fs.readdirSync(`./Commands/${subFolder}/`).filter(file => file.endsWith(".js")).forEach(file => {
+    fs.readdirSync(`./Commands/${subFolder}/`).filter(file => file.endsWith('.js')).forEach(file => {
       let command = require(`../Commands/${subFolder}/${file}`);
       if (!command.slashCommand || command.disabled) return;
       
       if(Array.isArray(command.options)) 
         command.options.forEach(option => { work(option) });
       else if(command.options)
-        for (commandOption of command.options) { work(commandOption.options) };
+        for (let commandOption of command.options) { work(commandOption.options) };
       commands.push(command)
       client.slashCommands.set(command.name, command)
     })
@@ -42,28 +43,29 @@ module.exports = async client => {
     await commandClient.createCommand({
       name: command.name,
       description: command.description,
-        options: command.options
+      options: command.options
     })
     .then(_ => {
-      console.log(`Registered Slash Command ${command.name}`);
+      client.log(`Registered Slash Command ${command.name}`);
       commandCount++
     })
     .catch(err => {
       console.error(errorColor('[Error Handling] :: Unhandled Slash Handler Error/Catch'));
       console.error(err);
       if(err.response.data.errors)
-        console.error(errorColor(JSON.stringify(err.response.data)))
+        console.error(errorColor(JSON.stringify(err.response.data, null, 2)));
     });
     await client.functions.sleep(10000);
   };
   
-  console.log(`Loaded ${commandCount} Slash commands\n`);
+  client.log(`Loaded ${commandCount} Slash commands\n`);
 
   
   const eventName = 'interactionCreate';
   const event = require(`../Events/${eventName}.js`);
 
   client.on(eventName, event.bind(null, client));
-  console.log(`Loaded Event ${eventName}`);
-  
+  client.log(`Loaded Event ${eventName}`);
+  client.log(`Ready to reveive slash commands\n`);
+  client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${client.guilds.cache.map(g => g.memberCount).reduce((a, c) => a + c)} users.\n`);
 };

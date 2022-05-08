@@ -23,9 +23,9 @@ module.exports = client => {
     })
 
   .on('uncaughtException', (err, origin) => {
-    console.log(errorColor(' [Error Handling] :: Uncaught Exception/Catch'));
-    console.log(err, origin);
-    console.log(`\n`);
+    client.log(errorColor(' [Error Handling] :: Uncaught Exception/Catch'));
+    client.log(err, origin);
+    client.log(`\n`);
 
     if(!err.errorCode) err.errorCode = 'unknown'
     sendErrorMsg(`A unknown error occurred, please ping the dev.\nError Code: \`${err.errorCode}\``);

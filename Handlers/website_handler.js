@@ -1,31 +1,32 @@
-const express = require('express');
-const favicon = require('serve-favicon');
-const app = express();
-const chalk = require("chalk");
-const errorColor = chalk.bold.red;
+const
+  express = require('express'),
+  favicon = require('serve-favicon'),
+  app = express(),
+  chalk = require("chalk"),
+  errorColor = chalk.bold.red;
 
 let websiteMessages = ['Hilfe der Dominik will mich entführen ahhh\nLG Meph', 'Hello World!', 'Lena is kuhl', 'Flo is kuhl', 'Vinni is auch kuhl', 'huhu', 'What are you doing here?', 'https://www.youtube.com/watch?v=xvFZjo5PgG0']
 let websiteMessage = websiteMessages[Math.floor(Math.random() * websiteMessages.length)]
 
 module.exports = async client => {
 
-  app.use(express.urlencoded({ extended: true }));
-  app.use(favicon('./favicon.ico'));
-  app.use(express.json());
-  app.set('json spaces', 2);
+  app.use(express.urlencoded({ extended: true }))
+  app.use(favicon('./favicon.ico')),
+  app.use(express.json()),
+  app.set('json spaces', 2),
   app.use(function(err, _, res, _) {
     console.error(errorColor(' [Error Handling] :: Unhandled Website Error/Catch'));
     console.error(err.stack);
     res.status(500).send('Something broke!');
-  });
+  }),
 
   app.listen(8000, _ => {
-    console.log(`Website is online\n`)
-  });
-  app.all('*', manage);
+    client.log(`Website is online\n`)
+  }),
+  app.all('*', manage),
   app.get('*', (_, res) => {
     res.send(websiteMessage);
-  });
+  }),
   app.post('*', (_, res) => {
     res.status(404);
   });
@@ -66,7 +67,7 @@ module.exports = async client => {
 
           case '/ping':
             return; //Coming soon
-            console.log('Ping initiated from web server');
+            client.log('Ping initiated from web server');
             let data = await client.functions.ping;
             res.send(data);
             break;

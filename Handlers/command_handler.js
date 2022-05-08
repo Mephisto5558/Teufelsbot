@@ -9,18 +9,18 @@ module.exports = client => {
       if (!command.prefixCommand || command.disabled) return;
 
       client.commands.set(command.name, command);
-      console.log(`Loaded Command ${command.name}`)
+      client.log(`Loaded Command ${command.name}`)
       commandCount++
 
       if (command.aliases) {
         command.aliases.forEach(alias => {
           client.aliases.set(alias, command.name);
-          console.log(`Loaded Alias ${alias} of command ${command.name}`);
+          client.log(`Loaded Alias ${alias} of command ${command.name}`);
           commandCount++
         })
       }
     })
   });
-  console.log(`Loaded ${commandCount} commands\n`)
+  client.log(`Loaded ${commandCount} commands\n`)
   
 }
