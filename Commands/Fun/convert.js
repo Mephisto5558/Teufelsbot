@@ -50,7 +50,7 @@ module.exports = new Command({
   run: async(client, _, interaction) => {
 
     let input = {
-      text: interaction.options.getString('input'),
+      string: interaction.options.getString('input'),
       convertTo: interaction.options.getString('convert_to'),
     };
    
@@ -60,11 +60,16 @@ module.exports = new Command({
     if(interaction.options.getString('convert_spaces') == 'no') input.convertSpaces = false;
     else input.convertSpaces = true;
 
-    input.type = await convert.getInputType(input.text);
+    input.type = await convert.getInputType(input.string);
+      //console.log(input, input.string.length); //debug
     if(input.type.toLowerCase() == input.convertTo.toLowerCase())
-      return interaction.followUp(`Converting ${input.type.toUpperCase()} to ${input.convertTo.toUpperCase()} would be a waste of time.\nStop wasting my time.`);
+      return interaction.followUp(
+        `Converting ${input.type.toUpperCase()} to ${input.convertTo.toUpperCase()} would be a waste of time.\n` +
+        `Stop wasting my time.\n` +
+        `||If you input is not ${input.type.toUpperCase()}, than make sure it is valid and if it is, ping the dev.||`
+      );
     
-    let output = `Converted ${input.type.toUpperCase()} to ${input.convertTo.toUpperCase()}:\n`
+    let output = '```' + `Converted ${input.type.toUpperCase()} to ${input.convertTo.toUpperCase()}:` + '```\n'
     output += await convert[input.type][`to${input.convertTo}`](input);
   
     if(output.length > 2000) {

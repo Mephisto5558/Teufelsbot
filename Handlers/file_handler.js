@@ -15,11 +15,12 @@ module.exports = async client => {
     })
   });
 
-  fs.writeFile('./Logs/uptime.log', Date.now().toString(), err => {
-    if(err) console.error(err)
-  })
-
   client.on('debug', debug => {
+    if (
+      debug.includes('Sending a heartbeat.') ||
+      debug.includes('Heartbeat acknowledged')
+    ) return;
+    
     let date = new Date();
     let timestamp = `[${
       ('0' + date.getHours()).slice(-2) }:${
@@ -32,6 +33,6 @@ module.exports = async client => {
       console.error('Hit a 429 while executing a request');
       process.kill(1);
     }
-  });
+  })
   
 }

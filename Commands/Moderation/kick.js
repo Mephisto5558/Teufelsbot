@@ -1,9 +1,12 @@
-const { Command } = require("reconlx");
-const { MessageEmbed } = require("discord.js");
-const embedConfig = require('../../Settings/embed.json');
+const 
+  { Command } = require("reconlx"),
+  { MessageEmbed } = require("discord.js"),
+  embedConfig = require('../../Settings/embed.json');
 
-let noMsg;
-let embed;
+let 
+  errorMsg,
+  noMsg,
+  embed;
 
 module.exports = new Command({
   name: 'kick',

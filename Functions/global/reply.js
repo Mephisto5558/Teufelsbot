@@ -1,7 +1,7 @@
 let sentMessage;
 module.exports = async function reply(reply, message, deleteTime = false, ping = false) {
-  if (!message) return console.error('reply.js: Missing var in code: message')
-  if (!reply) return console.error('reply.js: No reply message provided')
+  if (!message) throw new Error('reply.js: Missing var in code: message')
+  if (!reply) throw new Error('reply.js: No reply message provided')
 
   try {
     if (typeof reply === 'object') {

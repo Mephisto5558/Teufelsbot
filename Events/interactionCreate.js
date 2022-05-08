@@ -1,10 +1,10 @@
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed } = require('discord.js');
 const embedConfig = require("../Settings/embed.json");
 
 module.exports = async(client, interaction) => {
   interaction.args = [];
   client.interaction = interaction;
-  
+
   if (interaction.isCommand()) {
     
     let command = client.commands.get(interaction.commandName);
@@ -44,13 +44,13 @@ module.exports = async(client, interaction) => {
       return interaction.followUp({ embeds: [embed], ephemeral: true });
     };
 
-    command.run(client, null, interaction).then(client.interaction = null);
+    (command.run(client, null, interaction)).then(client.interaction = null);
   }
 
   if (interaction.isContextMenu()) {
     const command = client.commands.get(interaction.commandName);
     if (command) 
-      command.run(client, null, interaction).then(client.interaction = null);
+      (command.run(client, null, interaction)).then(client.interaction = null);
   }
   if (interaction.isButton()) interaction.deferUpdate();
 }

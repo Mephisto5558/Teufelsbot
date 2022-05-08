@@ -1,8 +1,11 @@
-const { Command } = require("reconlx");
-const axios = require('axios');
+const 
+  { Command } = require("reconlx"),
+  axios = require('axios'),
+  fs = require('fs');
 
-let response;
-let data;
+let
+  response,
+  data;
 
 module.exports = new Command({
   name: 'uptime',
@@ -44,7 +47,7 @@ module.exports = new Command({
       data = `The main module has been online for exactly ${data} seconds.`
     };
 
-    formatUptime(client.uptime / 1000);
+    formatUptime( (Date.now() - client.startTime) / 1000);
 
     if(message) client.functions.reply(data, message);
     else interaction.reply(data);
