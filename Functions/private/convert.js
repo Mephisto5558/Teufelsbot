@@ -24,11 +24,11 @@ function main(input, convertFunction, skip) {
   
   for (i=0; i < input.string.length; i++) {
     if(input.string[i] == ' ') {
-      if(input.convertSpaces) output += convertFunction(input, i)
+      if(input.convertSpaces) output += convertFunction(input.string, i)
       else if(input.withSpaces) output += '\n';
       else output += ' '
     }
-    else output += convertFunction(input, i)
+    else output += convertFunction(input.string, i)
     if(input.withSpaces) output += ' ';
     if(skip) i += skip;
   }
@@ -54,20 +54,20 @@ module.exports = {
     toDecimal: function binaryToDecimal(input) {
       return 'this conversion has not been implemented yet.';
       function convertFunction(input, i) {
-        return input[i].text;
+        return input[i];
       }
       return main(input, convertFunction);
     },
     toHex: function binaryToHex(input) {
       return 'this conversion has not been implemented yet.';
       function convertFunction(input, i) {
-        return input[i].text;
+        return input[i];
       }
       return main(input, convertFunction);
     },
     toText: function binaryToText(input) {
       function convertFunction(input, i) {
-         return String.fromCharCode(parseInt(input.string.substring(i, i+8), 2));
+         return String.fromCharCode(parseInt(input.substring(i, i+8), 2));
       }
       return main(input, convertFunction, 7);
     }
@@ -77,42 +77,41 @@ module.exports = {
     toBinary: function decimalToBinary(input) {
       return 'this conversion has not been implemented yet.';
       function convertFunction(input, i) {
-        return input[i].text;
+        return input[i];
       }
       return main(input, convertFunction);
     },
     toHex: function decimalToHex(input) {
       return 'this conversion has not been implemented yet.';
       function convertFunction(input, i) {
-        return input[i].text;
+        return input[i];
       }
       return main(input, convertFunction);
     },
     toText: function decimalToText(input) {
       function convertFunction(input, i) {
-        return String.fromCharCode(input.string[i]);
+        return String.fromCharCode(input[i]);
       }
       return main(input, convertFunction);
     }
   },
 
-  hex: {
+  hex: { //Fully working
     toBinary: function hexToBinary(input) {
-      return 'this conversion has not been implemented yet.';
       function convertFunction(input, i) {
-        return input[i].text;
+        return (parseInt(input.substring(i, i+2), 16).toString(2)).padStart(8, '0');
       }
-      return main(input, convertFunction);
+      return main(input, convertFunction, 1);
     },
     toDecimal: function hexToDecimal(input) {
       function convertFunction(input, i) {
-        return parseInt(input.string.substring(i, i+2), 16);
+        return parseInt(input.substring(i, i+2), 16);
       }
       return main(input, convertFunction, 1);
     },
     toText: function hexToText(input) {
       function convertFunction(input, i) {
-        return String.fromCharCode(parseInt(input.string.substring(i, i+2), 16));
+        return String.fromCharCode(parseInt(input.substring(i, i+2), 16));
       }
       return main(input, convertFunction, 1);
     }
@@ -121,19 +120,19 @@ module.exports = {
   text: { //Fully working
     toBinary: function textToBinary(input) {
       function convertFunction(input, i) {
-        return (0b100000000 + input.string[i].charCodeAt(0)).toString(2).substring(1);
+        return (input[i].charCodeAt(0)).toString(2).padStart(8, '0');
       }
       return main(input, convertFunction);
     },
     toDecimal: function textToDecimal(input) {
       function convertFunction(input, i) {
-        return input.string[i].charCodeAt(0).toString(10);
+        return input[i].charCodeAt(0).toString(10);
       }
       return main(input, convertFunction);
     },
     toHex: function textToHex(input) {
       function convertFunction(input, i) {
-        return input.string[i].charCodeAt(0).toString(16);
+        return input[i].charCodeAt(0).toString(16);
       }
       return main(input, convertFunction);
     }
