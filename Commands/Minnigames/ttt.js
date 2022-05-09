@@ -1,30 +1,28 @@
-const { Command } = require('reconlx');
+const { Command } = require('reconlx'),
+  TicTacToe = require('discord-tictactoe');
 
 module.exports = new Command({
-  name: '',
-  alias: [],
-  description: '',
+  name: 'tictactoe',
+  alias: ['ttt'],
+  description: 'play some ttt against a friend or the bot',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 0 },
   category: '',
   slashCommand: true,
-  prefixCommand: true,
+  prefixCommand: false,
   disabled: false,
-  showInHelp: true,
+  noDefer: true,
   options: [{
-    name: '',
-    description: '',
-    type: '',
-    required: false,
-    choices: [{
-      name: '',
-      value: ''
-    }],
+    name: 'opponent',
+    description: 'who you want to play with',
+    type: 'USER',
+    required: false
   }],
 
-  run: async(client, message, interaction) => {
-
-
+  run: async(_, __, interaction) => {
+    
+    game = new TicTacToe({ language: 'en' });
+    game.handleInteraction(interaction)
 
   }
 })

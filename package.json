@@ -11,6 +11,7 @@
     "chalk": "^4.1.2",
     "discord-api-types": "^0.31.0",
     "discord-slash-commands-client": "^1.2.2",
+    "discord-tictactoe": "^3.0.0",
     "discord.js": "^13.6.0",
     "express": "^4.17.3",
     "mongoose": "^6.2.10",

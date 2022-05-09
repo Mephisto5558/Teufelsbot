@@ -2,29 +2,16 @@ const { MessageEmbed } = require('discord.js');
 const embedConfig = require("../Settings/embed.json");
 
 module.exports = async(client, interaction) => {
-  interaction.args = [];
   client.interaction = interaction;
+  
+  command = client.slashCommands.get(interaction.commandName);
+  if(!command) return;
 
   if (interaction.isCommand()) {
-    
-    let command = client.commands.get(interaction.commandName);
-    if (!command) {
-      command = client.slashCommands.get(interaction.commandName);
-      if(!command) return;
-    }
     await interaction.deferReply();
     
     command.permissions.user.push('SEND_MESSAGES');
     command.permissions.client.push('SEND_MESSAGES');
-
-    for (let option of interaction.options.data) {
-      if (option.type === "SUB_COMMAND") {
-        if (option.name) interaction.args.push(option.name);
-        if (option.options) option.options.forEach(x => {
-          if (x.value) interaction.args.push(x.value);
-        });
-      } else if (option.value) interaction.args.push(option.value);
-    }
 
     let embed = new MessageEmbed()
       .setTitle('Insufficient Permissions')
@@ -49,8 +36,8 @@ module.exports = async(client, interaction) => {
 
   if (interaction.isContextMenu()) {
     const command = client.commands.get(interaction.commandName);
-    if (command) 
-      (command.run(client, null, interaction)).then(client.interaction = null);
+    if (command) command.run(client, null, interaction)
   }
-  if (interaction.isButton()) interaction.deferUpdate();
+  
+  if (interaction.isButton() && !command.noDefer) interaction.deferUpdate();
 }
