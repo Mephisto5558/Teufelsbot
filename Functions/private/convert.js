@@ -2,34 +2,42 @@ const
   InvalidInputError = {
     code: 'InvalidInputError',
     message: `The provided input is invalid. It has to look like this:` +
-      `input: { string: <STRING>, withSpaces: [BOOLEAN], convertSpaces: [BOOLEAN] }`
+      `input: { string: <STRING>, type: <STRING>, options: { convertTo: <STRING>, withSpaces: [BOOLEAN], convertSpaces: [BOOLEAN], convertOnlyLettersDigits: [BOOLEAN](text only) }`
   },
   regex = [
     /^(?:[01]{8})+$/, //binary
     /^(?:[0-9a-f]{2})+$/i, //hex
-    /^(?:[^a-z][\x00-\xFF][^a-z])+[^a-z]*$|^[^a-z]\s[^a-z]$/i //decimal
+    /^(?:[^a-z][\x00-\xFF][^a-z])+[^a-z]*$|^[^a-z]\s[^a-z]$/i, //decimal
+    /^[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x9B\xA1-\xBE]+$/, //matches all spcial chars like "[]" but not something like "äüö"
   ];
 
 function main(input, convertFunction, skip) {
   if(!input.string) throw InvalidInputError
   let output = '';
+  let options = input.options
   
   switch(input.type.toLowerCase()) {
     case 'decimal': input.string = input.string.split(' '); break;
   }
   
-  switch(input.convertTo.toLowerCase()) {
+  switch(options.convertTo.toLowerCase()) {
     case 'decimal': input.withSpaces = true; break;
   }
   
   for (i=0; i < input.string.length; i++) {
-    if(input.string[i] == ' ') {
-      if(input.convertSpaces) output += convertFunction(input.string, i)
-      else if(input.withSpaces) output += '\n';
+    if(
+      input.type == 'text' &&
+      options.convertOnlyLettersDigits &&
+      regex[3].test(input.string[i])
+    ) output += input.string[i];
+    else if(input.string[i] == ' ') {
+      if(options.convertSpaces) output += convertFunction(input.string, i)
+      else if(options.withSpaces) output += '\n';
       else output += ' '
     }
-    else output += convertFunction(input.string, i)
-    if(input.withSpaces) output += ' ';
+    else output += convertFunction(input.string, i);
+    
+    if(options.withSpaces && input.strin[i] != ' ') output += ' ';
     if(skip) i += skip;
   }
   return output;
