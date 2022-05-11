@@ -44,33 +44,45 @@ module.exports = new Command({
       type: 'STRING',
       required: false,
       choices: [{ name: 'no', value: 'no'}]
+    },
+    {
+      name: 'convert_letters_and_digits_only',
+      description: 'Do you want to convert only letters and digits? Default: no',
+      type: 'STRING',
+      required: false,
+      choices: [{ name: 'yes', value: 'yes' }]
     }
   ],
 
   run: async(client, _, interaction) => {
 
-    let input = {
-      string: interaction.options.getString('input'),
-      convertTo: interaction.options.getString('convert_to'),
-    };
-   
-    if(interaction.options.getString('with_spaces') == 'yes') input.withSpaces = true;
-    else input.withSpaces = false;
+    function replace(input, defaultValue) {
+      if(!input) return defaultValue;
+      return input.replace('yes', true).replace('no', false);
+    }
     
-    if(interaction.options.getString('convert_spaces') == 'no') input.convertSpaces = false;
-    else input.convertSpaces = true;
+    let inputStr = interaction.options.getString('input');
 
-    input.type = await convert.getInputType(input.string);
-      //client.log(input, input.string.length); //debug
-    if(input.type.toLowerCase() == input.convertTo.toLowerCase())
+    let input = {
+      string: inputStr,
+      type: await convert.getInputType(inputStr),
+      options: {
+        convertTo: interaction.options.getString('convert_to'),
+        withSpaces: replace(interaction.options.getString('with_spaces'), false),
+        convertSpaces: replace(interaction.options.getString('convert_spaces'), true),
+        convertOnlyLettersDigits: replace(interaction.options.getString('convert_letters_and_digits_only'), false)
+      }
+    };
+    
+    if(input.type.toLowerCase() == input.options.convertTo.toLowerCase())
       return interaction.followUp(
-        `Converting ${input.type.toUpperCase()} to ${input.convertTo.toUpperCase()} would be a waste of time.\n` +
+        `Converting ${input.type.toUpperCase()} to ${input.options.convertTo.toUpperCase()} would be a waste of time.\n` +
         `Stop wasting my time.\n` +
         `||If you input is not ${input.type.toUpperCase()}, than make sure it is valid and if it is, ping the dev.||`
       );
     
-    let output = '```' + `Converted ${input.type.toUpperCase()} to ${input.convertTo.toUpperCase()}:` + '```\n'
-    output += await convert[input.type][`to${input.convertTo}`](input);
+    let output = '```' + `Converted ${input.type.toUpperCase()} to ${input.options.convertTo.toUpperCase()}:` + '```\n'
+    output += await convert[input.type][`to${input.options.convertTo}`](input);
   
     if(output.length > 2000) {
       return;
