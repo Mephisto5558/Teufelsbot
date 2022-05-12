@@ -66,8 +66,10 @@ module.exports = async client => {
   client.log(`Loaded Event interactionCreate`);
   client.log(`Ready to reveive slash commands\n`);
 
-  client.once("ready", __ => {
-    client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${client.guilds.cache.map(g => g.memberCount).reduce((a, c) => a + c)} users.\n`);
-    console.timeEnd('Starting')
-  })
+  do {
+    await client.functions.sleep(100);
+  } while(!client.readyAt)
+  
+  client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${client.guilds.cache.map(g => g.memberCount).reduce((a, c) => a + c)} users.\n`);
+  console.timeEnd('Starting time')
 }

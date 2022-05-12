@@ -1,4 +1,4 @@
-console.time('Starting')
+console.time('Starting time')
 console.log('Starting...');
 
 const { Client, Collection } = require('discord.js'),
@@ -10,7 +10,7 @@ client = new Client({
 });
 
 let defaultSettings = require("./env.json");
-defaultSettings = Object.assign({}, defaultSettings.global, defaultSettings.dev);
+defaultSettings = Object.assign({}, defaultSettings.global, defaultSettings.main);
 //.dev is development, .main is normal
 
 client.owner = defaultSettings.botOwnerID;
