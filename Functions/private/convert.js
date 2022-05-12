@@ -28,7 +28,7 @@ function main(input, convertFunction, skip) {
       else output += ' '
     } else output += convertFunction(input.string, i);
 
-    if(options.withSpaces && input.strin[i] != ' ') output += ' ';
+    if(options.withSpaces && input.string[i] != ' ') output += ' ';
     if(skip) i += skip;
   }
   return output;
