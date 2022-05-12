@@ -28,7 +28,7 @@ module.exports = async client => {
   await fs.readdirSync('./Commands').forEach(subFolder => {
     fs.readdirSync(`./Commands/${subFolder}/`).filter(file => file.endsWith('.js')).forEach(file => {
       let command = require(`../Commands/${subFolder}/${file}`);
-      if(!command.slashCommand || command.disabled) return;
+      if(!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) return;
 
       if(Array.isArray(command.options))
         command.options.forEach(option => { work(option) });
@@ -55,17 +55,18 @@ module.exports = async client => {
         if(err.response.data.errors)
           console.error(errorColor(JSON.stringify(err.response.data, null, 2)));
       });
-    await client.functions.sleep(10000);
+    if(commands[commandCount + 1]) await client.functions.sleep(10000);
   };
 
   client.log(`Loaded ${commandCount} Slash commands\n`);
 
+  const event = require(`../Events/interactionCreate.js`);
 
-  const eventName = 'interactionCreate';
-  const event = require(`../Events/${eventName}.js`);
-
-  client.on(eventName, event.bind(null, client));
-  client.log(`Loaded Event ${eventName}`);
+  client.on('interactionCreate', event.bind(null, client))
+  client.log(`Loaded Event interactionCreate`);
   client.log(`Ready to reveive slash commands\n`);
-  client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${client.guilds.cache.map(g => g.memberCount).reduce((a, c) => a + c)} users.\n`);
-};
+
+  client.once("ready", __ => {
+    client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${client.guilds.cache.map(g => g.memberCount).reduce((a, c) => a + c)} users.\n`);
+  })
+}

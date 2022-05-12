@@ -14,6 +14,7 @@ defaultSettings = Object.assign({}, defaultSettings.global, defaultSettings.dev)
 
 client.owner = defaultSettings.botOwnerID;
 client.userID = defaultSettings.botUserID;
+client.botType = defaultSettings.type;
 client.prefix = defaultSettings.prefix;
 client.functions = {};
 client.startTime = Date.now();
@@ -42,7 +43,7 @@ fs.readdirSync('./Handlers')
   });
 
 client.login(client.keys.token)
-  .then(client.log(`Logged into ${defaultSettings.type}`));
+  .then(client.log(`Logged into ${client.botType}`));
 
 process.on('exit', _ => {
   client.destroy();

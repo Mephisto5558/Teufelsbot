@@ -11,6 +11,7 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: false,
   disabled: false,
+  beta: true,
   options: [{
       name: 'input',
       description: 'the text you want to convert',

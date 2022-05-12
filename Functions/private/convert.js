@@ -6,8 +6,8 @@ const
   },
   regex = [
     /^(?:[01]{8})+$/, //binary
+    /^(?:[0-9]{3}|\s)+$/, //decimal
     /^(?:[0-9a-f]{2})+$/i, //hex
-    /^(?:[^a-z][\x00-\xFF][^a-z])+[^a-z]*$|^[^a-z]\s[^a-z]$/i, //decimal
     /^[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x9B\xA1-\xBE]+$/, //matches all spcial chars like "[]" but not something like "äüö"
   ];
 
@@ -15,16 +15,8 @@ function main(input, convertFunction, skip) {
   if(!input.string) throw InvalidInputError
   let output = '';
   let options = input.options
-  
-  switch(input.type.toLowerCase()) {
-    case 'decimal': input.string = input.string.split(' '); break;
-  }
-  
-  switch(options.convertTo.toLowerCase()) {
-    case 'decimal': input.withSpaces = true; break;
-  }
-  
-  for (i=0; i < input.string.length; i++) {
+
+  for(i = 0; i < input.string.length; i++) {
     if(
       input.type == 'text' &&
       options.convertOnlyLettersDigits &&
@@ -34,9 +26,8 @@ function main(input, convertFunction, skip) {
       if(options.convertSpaces) output += convertFunction(input.string, i)
       else if(options.withSpaces) output += '\n';
       else output += ' '
-    }
-    else output += convertFunction(input.string, i);
-    
+    } else output += convertFunction(input.string, i);
+
     if(options.withSpaces && input.strin[i] != ' ') output += ' ';
     if(skip) i += skip;
   }
@@ -50,10 +41,10 @@ module.exports = {
       code: 'InvalidInputError',
       message: 'You need to provide something as input!'
     };
-    
+
     if(regex[0].test(input)) type = 'binary';
-    else if(regex[1].test(input)) type = 'hex';
-    else if(regex[2].test(input)) type = 'decimal';
+    else if(regex[1].test(input)) type = 'decimal';
+    else if(regex[2].test(input)) type = 'hex';
     else type = 'text';
     return type
   },
@@ -61,6 +52,7 @@ module.exports = {
   binary: {
     toDecimal: function binaryToDecimal(input) {
       return 'this conversion has not been implemented yet.';
+
       function convertFunction(input, i) {
         return input[i];
       }
@@ -68,6 +60,7 @@ module.exports = {
     },
     toHex: function binaryToHex(input) {
       return 'this conversion has not been implemented yet.';
+
       function convertFunction(input, i) {
         return input[i];
       }
@@ -75,15 +68,16 @@ module.exports = {
     },
     toText: function binaryToText(input) {
       function convertFunction(input, i) {
-         return String.fromCharCode(parseInt(input.substring(i, i+8), 2));
+        return String.fromCharCode(parseInt(input.substring(i, i + 8), 2));
       }
       return main(input, convertFunction, 7);
     }
   },
-  
+
   decimal: {
     toBinary: function decimalToBinary(input) {
       return 'this conversion has not been implemented yet.';
+
       function convertFunction(input, i) {
         return input[i];
       }
@@ -91,6 +85,7 @@ module.exports = {
     },
     toHex: function decimalToHex(input) {
       return 'this conversion has not been implemented yet.';
+
       function convertFunction(input, i) {
         return input[i];
       }
@@ -98,28 +93,28 @@ module.exports = {
     },
     toText: function decimalToText(input) {
       function convertFunction(input, i) {
-        return String.fromCharCode(input[i]);
+        return String.fromCharCode(input.substring(i, i + 3));
       }
-      return main(input, convertFunction);
+      return main(input, convertFunction, 2);
     }
   },
 
   hex: { //Fully working
     toBinary: function hexToBinary(input) {
       function convertFunction(input, i) {
-        return (parseInt(input.substring(i, i+2), 16).toString(2)).padStart(8, '0');
+        return(parseInt(input.substring(i, i + 2), 16).toString(2)).padStart(8, '0');
       }
       return main(input, convertFunction, 1);
     },
     toDecimal: function hexToDecimal(input) {
       function convertFunction(input, i) {
-        return parseInt(input.substring(i, i+2), 16);
+        return parseInt(input.substring(i, i + 2), 16).padStart(3, '0');;
       }
       return main(input, convertFunction, 1);
     },
     toText: function hexToText(input) {
       function convertFunction(input, i) {
-        return String.fromCharCode(parseInt(input.substring(i, i+2), 16));
+        return String.fromCharCode(parseInt(input.substring(i, i + 2), 16));
       }
       return main(input, convertFunction, 1);
     }
@@ -128,13 +123,13 @@ module.exports = {
   text: { //Fully working
     toBinary: function textToBinary(input) {
       function convertFunction(input, i) {
-        return (input[i].charCodeAt(0)).toString(2).padStart(8, '0');
+        return(input[i].charCodeAt(0)).toString(2).padStart(8, '0');
       }
       return main(input, convertFunction);
     },
     toDecimal: function textToDecimal(input) {
       function convertFunction(input, i) {
-        return input[i].charCodeAt(0).toString(10);
+        return input[i].charCodeAt(0).toString(10).padStart(3, '0');
       }
       return main(input, convertFunction);
     },
