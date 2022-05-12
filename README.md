@@ -4,4 +4,8 @@
  
  [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
         
-Ein Discord Bot mit verschiedenen Funktionen, gehostet auf replit.com. Discord: https://discord.gg/u6xjqzz
+A discord bot with multiple features, in active developement.
+
+Hosted on [replit.com](https://replit.com)
+
+[My Discord](https://discord.gg/u6xjqzz)
