@@ -11,6 +11,11 @@ const
     /^[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x9B\xA1-\xBE]+$/, //matches all spcial chars like "[]" but not something like "äüö"
   ];
 
+/**
+ * @param {string} input string to convert
+ * @param {function} convertFunction function which converts the input
+ * @param {number} skip number of letters to skip, eg. 7 for binary: 1 worked, 7 skipes
+ */
 function main(input, convertFunction, skip) {
   if(!input.string) throw InvalidInputError
   let output = '';
@@ -36,6 +41,9 @@ function main(input, convertFunction, skip) {
 
 module.exports = {
 
+  /**
+   * @param {string} input string to check the type of.
+   */
   getInputType: function getInputType(input) {
     if(!input) throw {
       code: 'InvalidInputError',
