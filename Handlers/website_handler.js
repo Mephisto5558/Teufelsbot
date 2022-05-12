@@ -9,24 +9,25 @@ let websiteMessages = ['Hilfe der Dominik will mich entführen ahhh\nLG Meph', '
 let websiteMessage = websiteMessages[Math.floor(Math.random() * websiteMessages.length)]
 
 module.exports = async client => {
+  if(client.botType == 'dev') return;
 
   app.use(express.urlencoded({ extended: true }))
-  app.use(favicon('./favicon.ico')),
-  app.use(express.json()),
-  app.set('json spaces', 2),
+  app.use(favicon('./favicon.ico'));
+  app.use(express.json());
+  app.set('json spaces', 2);
   app.use(function(err, _, res, _) {
     console.error(errorColor(' [Error Handling] :: Unhandled Website Error/Catch'));
     console.error(err.stack);
     res.status(500).send('Something broke!');
-  }),
+  });
 
   app.listen(8000, _ => {
     client.log(`Website is online\n`)
-  }),
-  app.all('*', manage),
+  });
+  app.all('*', manage);
   app.get('*', (_, res) => {
     res.send(websiteMessage);
-  }),
+  });
   app.post('*', (_, res) => {
     res.status(404);
   });
@@ -76,5 +77,5 @@ module.exports = async client => {
     }
     next();
   }
-  
+
 }
