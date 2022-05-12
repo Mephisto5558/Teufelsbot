@@ -1,5 +1,4 @@
-const
-  { Command } = require('reconlx'),
+const { Command } = require('reconlx'), { MessageAttachment } = require('discord.js'),
   convert = require('../../Functions/private/convert.js');
 
 module.exports = new Command({
@@ -12,8 +11,7 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: false,
   disabled: false,
-  options: [
-    {
+  options: [{
       name: 'input',
       description: 'the text you want to convert',
       type: 'STRING',
@@ -43,7 +41,7 @@ module.exports = new Command({
       description: 'Do you want to also convert spaces? Default: yes',
       type: 'STRING',
       required: false,
-      choices: [{ name: 'no', value: 'no'}]
+      choices: [{ name: 'no', value: 'no' }]
     },
     {
       name: 'convert_letters_and_digits_only',
@@ -60,7 +58,7 @@ module.exports = new Command({
       if(!input) return defaultValue;
       return input.replace('yes', true).replace('no', false);
     }
-    
+
     let inputStr = interaction.options.getString('input');
 
     let input = {
@@ -73,28 +71,23 @@ module.exports = new Command({
         convertOnlyLettersDigits: replace(interaction.options.getString('convert_letters_and_digits_only'), false)
       }
     };
-    
+
     if(input.type.toLowerCase() == input.options.convertTo.toLowerCase())
       return interaction.followUp(
         `Converting ${input.type.toUpperCase()} to ${input.options.convertTo.toUpperCase()} would be a waste of time.\n` +
         `Stop wasting my time.\n` +
         `||If you input is not ${input.type.toUpperCase()}, than make sure it is valid and if it is, ping the dev.||`
       );
-    
+
     let output = '```' + `Converted ${input.type.toUpperCase()} to ${input.options.convertTo.toUpperCase()}:` + '```\n'
     output += await convert[input.type][`to${input.options.convertTo}`](input);
-  
+
     if(output.length > 2000) {
-      return;
       interaction.followUp({
         content: 'The message is to large to send it in chat.',
-        attachments: [{
-          attachment: Buffer.from(output, 'utf-8'),
-          name: 'message_converted.txt' 
-        }]
+        attachments: [new MessageAttachment(Buffer.from(output), 'message.txt')]
       });
-    }
-    else interaction.followUp(output);
+    } else interaction.followUp(output);
 
   }
 })
