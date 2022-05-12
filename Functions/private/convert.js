@@ -59,12 +59,10 @@ module.exports = {
 
   binary: {
     toDecimal: function binaryToDecimal(input) {
-      return 'this conversion has not been implemented yet.';
-
       function convertFunction(input, i) {
-        return input[i];
+        return input.substring(i, i + 8).toString(10).padStart(3, '0');
       }
-      return main(input, convertFunction);
+      return main(input, convertFunction, 7);
     },
     toHex: function binaryToHex(input) {
       return 'this conversion has not been implemented yet.';
@@ -84,18 +82,14 @@ module.exports = {
 
   decimal: {
     toBinary: function decimalToBinary(input) {
-      return 'this conversion has not been implemented yet.';
-
       function convertFunction(input, i) {
-        return input[i];
+        return parseInt(input.substring(i, i + 3), 10).toString(2).padStart(8, '0');
       }
-      return main(input, convertFunction);
+      return main(input, convertFunction, 2);
     },
     toHex: function decimalToHex(input) {
-      return 'this conversion has not been implemented yet.';
-
       function convertFunction(input, i) {
-        return input[i];
+        return input.substring(i, i + 3).toString(16);
       }
       return main(input, convertFunction);
     },

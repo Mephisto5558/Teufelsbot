@@ -68,5 +68,6 @@ module.exports = async client => {
 
   client.once("ready", __ => {
     client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${client.guilds.cache.map(g => g.memberCount).reduce((a, c) => a + c)} users.\n`);
+    console.timeEnd('Starting')
   })
 }

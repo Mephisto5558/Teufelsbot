@@ -1,3 +1,4 @@
+console.time('Starting')
 console.log('Starting...');
 
 const { Client, Collection } = require('discord.js'),
