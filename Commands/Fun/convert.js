@@ -1,6 +1,5 @@
 const { Command } = require('reconlx'), { MessageAttachment } = require('discord.js'),
-  convert = require('../../Functions/private/convert.js'),
-  crypto = require('crypto-js');
+  convert = require('../../Functions/private/convert.js');
 
 module.exports = new Command({
   name: 'convert',
