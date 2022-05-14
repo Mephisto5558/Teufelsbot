@@ -11,6 +11,11 @@ let commands = [];
 function work(option) {
   if(!option.type) return option.type = 1
   
+  if(/[A-Z]/.test(option.name)) {
+    console.log(errorColor(`${option.name} IS UPPERCASE! UPPERCASE IS INVALID! Fixing.`))
+    option.name = option.name.toLowerCase();
+  };
+
   option.type = option.type.toString()
     .replace('SUB_COMMAND', 1).replace('SUB_COMMAND_GROUP', 2)
     .replace('STRING', 3).replace('INTEGER', 4)
