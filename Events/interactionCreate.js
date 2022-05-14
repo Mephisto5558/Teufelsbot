@@ -8,7 +8,8 @@ module.exports = async(client, interaction) => {
   if(!command) return;
 
   if (interaction.isCommand()) {
-    await interaction.deferReply();
+    if(!command.noDefer)
+      await interaction.deferReply();
     
     command.permissions.user.push('SEND_MESSAGES');
     command.permissions.client.push('SEND_MESSAGES');
