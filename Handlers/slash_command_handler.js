@@ -1,15 +1,17 @@
 const
   fs = require('fs'),
-  { Client } = require("discord-slash-commands-client"),
-  chalk = require("chalk"),
+  { Client } = require('discord-slash-commands-client'),
+  chalk = require('chalk'),
+  event = require('../Events/interactionCreate.js'),
   errorColor = chalk.bold.red;
 
 let commandCount = 0;
 let commands = [];
 
 function work(option) {
-  if(!option.type) option.type = 1
-  else option.type = option.type.toString()
+  if(!option.type) return option.type = 1
+  
+  option.type = option.type.toString()
     .replace('SUB_COMMAND', 1).replace('SUB_COMMAND_GROUP', 2)
     .replace('STRING', 3).replace('INTEGER', 4)
     .replace('BOOLEAN', 5).replace('USER', 6)
@@ -25,15 +27,14 @@ module.exports = async client => {
     client.userID
   );
 
-  await fs.readdirSync('./Commands').forEach(subFolder => {
+  fs.readdirSync('./Commands').forEach(subFolder => {
     fs.readdirSync(`./Commands/${subFolder}/`).filter(file => file.endsWith('.js')).forEach(file => {
       let command = require(`../Commands/${subFolder}/${file}`);
       if(!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) return;
 
       if(Array.isArray(command.options))
         command.options.forEach(option => { work(option) });
-      else if(command.options)
-        for(let commandOption of command.options) { work(commandOption.options) };
+      else if(command.options) work(commandOption.options);
       commands.push(command)
       client.slashCommands.set(command.name, command)
     })
@@ -59,8 +60,6 @@ module.exports = async client => {
   };
 
   client.log(`Loaded ${commandCount} Slash commands\n`);
-
-  const event = require(`../Events/interactionCreate.js`);
 
   client.on('interactionCreate', event.bind(null, client))
   client.log(`Loaded Event interactionCreate`);

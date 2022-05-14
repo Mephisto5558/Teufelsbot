@@ -6,12 +6,12 @@ const
   errorColor = chalk.bold.red;
 
 let websiteMessages = ['Hilfe der Dominik will mich entführen ahhh\nLG Meph', 'Hello World!', 'Lena is kuhl', 'Flo is kuhl', 'Vinni is auch kuhl', 'huhu', 'What are you doing here?', 'https://www.youtube.com/watch?v=xvFZjo5PgG0']
-let websiteMessage = websiteMessages[Math.floor(Math.random() * websiteMessages.length)]
 
 module.exports = async client => {
-  if(client.botType == 'dev') return;
+  if(client.botType == 'dev') return console.log('Disabled website loading due to dev version.');
 
-  app.use(express.urlencoded({ extended: true }))
+  let websiteMessage = websiteMessages[Math.floor(Math.random() * websiteMessages.length)]
+
   app.use(favicon('./favicon.ico'));
   app.use(express.json());
   app.set('json spaces', 2);

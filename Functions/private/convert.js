@@ -17,7 +17,8 @@ const
  * @param {number} skip number of letters to skip, eg. 7 for binary: 1 worked, 7 skipes
  */
 function main(input, convertFunction, skip) {
-  if(!input.string) throw InvalidInputError
+  if(!input.string) throw InvalidInputError;
+  
   let output = '';
   let options = input.options
 
@@ -31,7 +32,8 @@ function main(input, convertFunction, skip) {
       if(options.convertSpaces) output += convertFunction(input.string, i)
       else if(options.withSpaces) output += '\n';
       else output += ' '
-    } else output += convertFunction(input.string, i);
+    }
+    else output += convertFunction(input.string, i);
 
     if(options.withSpaces && input.string[i] != ' ') output += ' ';
     if(skip) i += skip;
@@ -57,7 +59,7 @@ module.exports = {
     return type
   },
 
-  binary: {
+  binary: { //Fully working I believe
     toDecimal: function binaryToDecimal(input) {
       function convertFunction(input, i) {
         return input.substring(i, i + 8).toString(10).padStart(3, '0');
