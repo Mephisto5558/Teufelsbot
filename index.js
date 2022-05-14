@@ -12,8 +12,7 @@ const client = new Client({
 });
 
 let defaultSettings = require("./env.json");
-defaultSettings = Object.assign({}, defaultSettings.global, defaultSettings.main);
-//.dev is development, .main is normal
+defaultSettings = Object.assign({}, defaultSettings.global, defaultSettings[defaultSettings.global.environment]);
 
 client.owner = defaultSettings.botOwnerID;
 client.userID = defaultSettings.botUserID;
@@ -48,4 +47,4 @@ client.login(client.keys.token)
 
 process.on('exit', _ => {
   client.destroy();
-})
+}) 
