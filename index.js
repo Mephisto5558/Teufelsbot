@@ -12,7 +12,7 @@ const client = new Client({
 });
 
 let defaultSettings = require("./env.json");
-defaultSettings = Object.assign({}, defaultSettings.global, defaultSettings.dev);
+defaultSettings = Object.assign({}, defaultSettings.global, defaultSettings.main);
 //.dev is development, .main is normal
 
 client.owner = defaultSettings.botOwnerID;
