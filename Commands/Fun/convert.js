@@ -1,5 +1,6 @@
 const { Command } = require('reconlx'), { MessageAttachment } = require('discord.js'),
-  convert = require('../../Functions/private/convert.js');
+  convert = require('../../Functions/private/convert.js'),
+  crypto = require('crypto-js');
 
 module.exports = new Command({
   name: 'convert',
@@ -11,7 +12,6 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: false,
   disabled: false,
-  beta: true,
   options: [{
       name: 'input',
       description: 'the text you want to convert',
@@ -25,8 +25,9 @@ module.exports = new Command({
       required: true,
       choices: [
         { name: 'binary', value: 'Binary' },
-        { name: 'hexadecimal', value: 'Hex' },
         { name: 'decimal/ASCII', value: 'Decimal' },
+        { name: 'hash', value: 'hash'},
+        { name: 'hexadecimal', value: 'Hex' },
         { name: 'text', value: 'Text' }
       ],
     },
