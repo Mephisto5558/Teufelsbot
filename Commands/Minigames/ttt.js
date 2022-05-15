@@ -1,4 +1,5 @@
-const { Command } = require('reconlx'),
+const
+  { Command } = require('reconlx'),
   { MessageActionRow, MessageButton } = require('discord.js'),
   TicTacToe = require('discord-tictactoe');
 

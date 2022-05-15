@@ -1,7 +1,7 @@
 const 
   { Command } = require("reconlx"),
   { MessageEmbed } = require("discord.js"),
-  embedConfig = require('../../Settings/embed.json');
+  embedConfig = require('../../Settings/embed.json').colors;
 
 let 
   errorMsg,
