@@ -1,6 +1,6 @@
 {
   "global": {
-    "environment": "main",
+    "environment": "the environment this will run (eg. main or dev)",
     "botOwnerID": "YOUR-USER-ID",
     "keys": {
       "webCommandKey": "hash off token used as password to communicate between main bot and music bot",
