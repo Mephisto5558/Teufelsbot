@@ -54,7 +54,7 @@ module.exports = new Command({
         `Moderator: ${moderator}\n` +
         `Reason: ${reason}`
       )
-      .setColor(embedConfig.color_red);
+      .setColor(embedConfig.RED);
 
     try {
       await user.send({ embeds: [embed] })
@@ -73,7 +73,7 @@ module.exports = new Command({
     embed = new MessageEmbed()
       .setTitle('Kick')
       .setDescription(description)
-      .setColor(embedConfig.color_red);
+      .setColor(embedConfig.RED);
 
     interaction.followUp({ embeds: [embed] })
   }

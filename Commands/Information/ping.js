@@ -25,7 +25,7 @@ module.exports = new Command({
 
     if (args) {
       let embed = new MessageEmbed()
-        .setColor(embedConfig.embed_color)
+        .setColor(embedConfig.discord.BURPLE)
         .setTitle('Main Module')
         .setDescription(`Loading (this takes about one minute)`);
 
@@ -70,7 +70,7 @@ module.exports = new Command({
     ping = Math.abs(Date.now() - interaction.createdTimestamp)
 
     let embed = new MessageEmbed()
-      .setColor(embedConfig.embed_color)
+      .setColor(embedConfig.discord.BURPLE)
       .setTitle('Main Module')
       .setDescription(
         `Latency: \`${ping}ms\`\n` +

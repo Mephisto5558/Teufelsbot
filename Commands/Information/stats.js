@@ -1,4 +1,6 @@
-const { Command } = require("reconlx"), { MessageEmbed } = require("discord.js"),
+const
+  { Command } = require("reconlx"),
+  { MessageEmbed } = require("discord.js"),
   fs = require("fs");
 
 let
