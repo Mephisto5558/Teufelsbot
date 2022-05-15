@@ -68,7 +68,7 @@ module.exports = async client => {
 
   client.on('interactionCreate', event.bind(null, client))
   client.log(`Loaded Event interactionCreate`);
-  client.log(`Ready to reveive slash commands\n`);
+  client.log(`Ready to receive slash commands\n`);
 
   do {
     await client.functions.sleep(100);
