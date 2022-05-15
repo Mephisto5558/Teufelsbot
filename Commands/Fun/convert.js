@@ -1,4 +1,6 @@
-const { Command } = require('reconlx'), { MessageAttachment } = require('discord.js'),
+const
+  { Command } = require('reconlx'),
+  { MessageAttachment } = require('discord.js'),
   convert = require('../../Functions/private/convert.js');
 
 module.exports = new Command({

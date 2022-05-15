@@ -1,6 +1,6 @@
 const { Command } = require("reconlx");
 const { MessageEmbed } = require("discord.js");
-const embedConfig = require('../../Settings/embed.json');
+const embedConfig = require('../../Settings/embed.json').colors;
 
 module.exports = new Command({
   name: 'help',
@@ -26,12 +26,12 @@ module.exports = new Command({
     if (query) {
       const cmd = client.commands.get(query.toLowerCase());
       let embed = new MessageEmbed()
-        .setColor(embedConfig.embed_color);
+        .setColor(embedConfig.discord.BURPLE);
 
       if (!cmd) {
         embed
           .setDescription(`No Information found for command **${query.toLowerCase()}**`)
-          .setColor(embedConfig.embed_wrongcolor);
+          .setColor(embedConfig.RED);
         return interaction.followUp({ embeds: [embed] });
       };
 
@@ -53,7 +53,7 @@ module.exports = new Command({
     let embed = new MessageEmbed()
       .setTitle(` 🔰All my commands`)
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
-      .setColor(embedConfig.embed_color);
+      .setColor(embedConfig.discord.BURPLE);
 
     const commands = category => {
       return client.commands
