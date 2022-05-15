@@ -1,0 +1,26 @@
+{
+  "global": {
+    "environment": "main",
+    "botOwnerID": "YOUR-USER-ID",
+    "keys": {
+      "webCommandKey": "hash off token used as password to communicate between main bot and music bot",
+      "uptimeAPIKey": "APIKEY for UptimeRobot for 24/7 bot",
+      "humorAPIKey": "APIKEY for HumorAPI (/joke)",
+      "rapidAPIKey": "APIKEY for RapidAPI (/Joke)"
+    }
+  },
+
+  "main": {
+    "type": "main",
+    "token": "YOUR-BOT-TOKEN",
+    "botUserID": "USER-ID-OF-BOT",
+    "prefix": "BOT-PREFIX"
+  },
+
+  "dev": {
+    "type": "dev",
+    "token": "YOUR-BOT-TOKEN",
+    "botUserID": "USERID-OF-BOT",
+    "prefix": "BOT-PREFIX"
+  }
+}
