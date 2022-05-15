@@ -2,7 +2,7 @@ replit.nix
 logs
 *.log
 test.js
-.package-lock.json
+package-lock.json
 env.json
 node_modules
 README.md
@@ -71,6 +71,4 @@ typings/
 .env.test
 
 package-lock.json
-package.json
-.gitignore
 
