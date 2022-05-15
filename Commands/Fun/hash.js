@@ -37,7 +37,6 @@ module.exports = new Command({
   prefixCommand: false,
   disabled: false,
   noDefer: true,
-  beta: true,
   options: [
     {
       name: 'input',
