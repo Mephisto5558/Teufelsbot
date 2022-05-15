@@ -9,6 +9,7 @@
   "dependencies": {
     "@discordjs/rest": "^0.2.0-canary.0",
     "chalk": "^4.1.2",
+    "crypto-js": "^4.1.1",
     "discord-api-types": "^0.31.0",
     "discord-slash-commands-client": "^1.2.2",
     "discord-tictactoe": "^3.0.0",
