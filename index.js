@@ -4,49 +4,60 @@ console.log('Starting...');
 const
   { Client, Collection } = require('discord.js'),
   { reconDB } = require("reconlx"),
-  fs = require('fs');
+  fs = require('fs'),
+  db = new reconDB(process.env.dbConnectionStr);
 
-const client = new Client({
-  partials: ["MESSAGE", "CHANNEL", "REACTION"],
-  allowedMentions: { parse: ['users', 'roles'] },
-  shards: 'auto',
-  intents: 32767
-});
+let defaultSettings;
 
-let defaultSettings = require("./env.json");
-defaultSettings = Object.assign({}, defaultSettings.global, defaultSettings[defaultSettings.global.environment]);
-
-client.owner = defaultSettings.botOwnerID;
-client.userID = defaultSettings.botUserID;
-client.botType = defaultSettings.type;
-client.functions = {};
-client.startTime = Date.now();
-client.categories = fs.readdirSync('./Commands/');
-client.db = new reconDB(defaultSettings.dbConnectionStr);
-client.keys = Object.assign({}, defaultSettings.keys, { token: defaultSettings.token });
-client.aliases = new Collection();
-client.events = new Collection();
-client.cooldown = new Collection();
-client.commands = new Collection();
-client.slashCommands = new Collection();
-client.guildData = new Collection();
-client.log = function log(...data) {
-  let date = new Date().toLocaleString('en-GB', {
-    hour12: false,
-    hour:   '2-digit',
-    minute: '2-digit',
-    second: '2-digit'
+load()
+async function load() {
+  const client = new Client({
+    partials: ["MESSAGE", "CHANNEL", "REACTION"],
+    allowedMentions: { parse: ['users', 'roles'] },
+    shards: 'auto',
+    intents: 32767
   });
-  console.log(`[${date}] ${data}`)
-};
+  
+  if (fs.existsSync('./env.json')) defaultSettings = require('./env.json');
+  else {
+    await db.ready();
+    defaultSettings = await db.get('env');
+  }
 
-fs.readdirSync('./Handlers').forEach(handler => {
-  require(`./Handlers/${handler}`)(client);
-});
+  defaultSettings = await Object.assign({}, defaultSettings.global, defaultSettings[defaultSettings.global.environment]);
+  
+  client.owner = defaultSettings.botOwnerID;
+  client.userID = defaultSettings.botUserID;
+  client.botType = defaultSettings.type;
+  client.functions = {};
+  client.startTime = Date.now();
+  client.categories = fs.readdirSync('./Commands/');
+  client.db = db;
+  client.keys = Object.assign({}, defaultSettings.keys, { token: defaultSettings.token });
+  client.aliases = new Collection();
+  client.events = new Collection();
+  client.cooldown = new Collection();
+  client.commands = new Collection();
+  client.slashCommands = new Collection();
+  client.guildData = new Collection();
+  client.log = function log(...data) {
+    let date = new Date().toLocaleString('en-GB', {
+      hour12: false,
+      hour:   '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    });
+    console.log(`[${date}] ${data}`)
+  };
 
-client.login(client.keys.token)
-  .then(client.log(`Logged into ${client.botType}`));
+  fs.readdirSync('./Handlers').forEach(handler => {
+    require(`./Handlers/${handler}`)(client);
+  });
 
-process.on('exit', _ => {
-  client.destroy();
-})
+  client.login(client.keys.token)
+    .then(client.log(`Logged into ${client.botType}`));
+
+  process.on('exit', _ => {
+    client.destroy();
+  })
+}
