@@ -1,7 +1,10 @@
 # Teufelswerk-Bot
 <a href="https://github.com/Mephisto5558/Teufelswerk-Bot/pulse" alt="Activity">
-  <img src="https://img.shields.io/github/commit-activity/m/Mephisto5558/Teufelswerk-Bot" /></a>
- 
+  <img src="https://img.shields.io/github/commit-activity/m/Mephisto5558/Teufelswerk-Bot" /> </a>
+<a href="https://github.com/Mephisto5558/Teufelswerk-Bot/blob/main/LICENSE" alt="License">
+  <img src="https://img.shields.io/github/license/Mephisto5558/Teufelswerk-Bot" /></a>
+  
+
  [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
         
 A discord bot with multiple features, in active developement.
