@@ -3,7 +3,7 @@ const { Command } = require("reconlx");
 module.exports = new Command({
   name: 'prefix',
   aliases: [],
-  description: `changes(WIP) or shows the guild prefix`,
+  description: `changes or shows the guild prefix`,
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '10000' },
   category: "Information",
@@ -20,7 +20,7 @@ module.exports = new Command({
 
     if (message) {
       message.args = message.args.join(' ').trim();
-      if(!message.args || !message.member.permissions.has('MANAGE_SERVER'))
+      if(!message.args || !message.member.permissions.has('MANAGE_GUILD'))
         return client.functions.reply(
           `My current prefix is \`${
             client.guildData.get(message.guild.id)?.prefix || client.guildData.get('default')?.prefix || '\n[FATAL ERROR] Please message the dev immediately!\n'
