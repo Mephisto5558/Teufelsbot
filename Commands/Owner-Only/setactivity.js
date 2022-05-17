@@ -10,6 +10,7 @@ module.exports = new Command({
   category: "Owner-Only",
   slashCommand: false,
   prefixCommand: true,
+  beta: true,
 
   run: async (client, message) => {
 
@@ -36,8 +37,8 @@ module.exports = new Command({
 
     type = type.toUpperCase();
     
-    client.user.setActivity(activity, { type: type })
-    
+    client.user.setActivity(activity, { type: type });
+    client.db.set('activity', { name: activity, type: type })
     client.functions.reply(`Activity set to \`${activity}\` of type \`${type}\``, message);
     
   }
