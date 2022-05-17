@@ -19,7 +19,6 @@ defaultSettings = Object.assign({}, defaultSettings.global, defaultSettings[defa
 client.owner = defaultSettings.botOwnerID;
 client.userID = defaultSettings.botUserID;
 client.botType = defaultSettings.type;
-client.prefix = defaultSettings.prefix;
 client.functions = {};
 client.startTime = Date.now();
 client.categories = fs.readdirSync('./Commands/');
@@ -30,6 +29,7 @@ client.events = new Collection();
 client.cooldown = new Collection();
 client.commands = new Collection();
 client.slashCommands = new Collection();
+client.guildData = new Collection();
 client.log = function log(...data) {
   let date = new Date().toLocaleString('en-GB', {
     hour12: false,

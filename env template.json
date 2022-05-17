@@ -14,7 +14,6 @@
     "type": "main",
     "dbConnectionStr": "Connection string to mongodb",
     "botUserID": "USER-ID-OF-BOT",
-    "prefix": "BOT-PREFIX",
     "token": "YOUR-BOT-TOKEN"
   },
 
@@ -22,7 +21,6 @@
     "type": "dev",
     "dbConnectionStr": "Connection string to mongodb",
     "botUserID": "USERID-OF-BOT",
-    "prefix": "BOT-PREFIX",
     "token": "YOUR-BOT-TOKEN"
   }
 }

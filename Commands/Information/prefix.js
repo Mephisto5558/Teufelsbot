@@ -5,26 +5,53 @@ module.exports = new Command({
   aliases: [],
   description: `changes(WIP) or shows the guild prefix`,
   permissions: { client: [], user: [] },
-  cooldowns: { global: '', user: '' },
+  cooldowns: { global: '', user: '10000' },
   category: "Information",
-  slashCommand: false,
+  slashCommand: true,
   prefixCommand: true,
+  options: [{
+    name: 'new_prefix',
+    description: 'the new bot prefix for this server.',
+    type: 'STRING',
+    required: false
+  }],
 
-  run: (client, message, _) => {
+  run: async (client, message, interaction) => {
 
-    return client.functions.reply(`The prefix command is curently disabled (default prefix: '.')`, message);
+    if (message) {
+      message.args = message.args.join(' ').trim();
+      if(!message.args || !message.member.permissions.has('MANAGE_SERVER'))
+        return client.functions.reply(
+          `My current prefix is \`${
+            client.guildData.get(message.guild.id)?.prefix || client.guildData.get('default')?.prefix || '\n[FATAL ERROR] Please message the dev immediately!\n'
+          }\``, message
+        );
+      
+      client.guildData.set(message.guild.id, { prefix: message.args });
 
-    message.args = message.args.toString().trim();
-    if (!message.args) {
-      return client.functions.reply(`My current prefix is \`${prefix.getPrefix(message.guild.id)}\``, message)
+      let oldData = await client.db.get('prefix');
+      newData = await Object.assign({}, oldData, { [message.guild.id]: message.args });
+      await client.db.set('prefix', newData);
+
+      return client.functions.reply(`My prefix has been changed to \`${message.args}\``, message);
     }
 
-    if (!message.member.permissions.has('MANAGE_SERVER')) {
-      return client.functions.reply("You don't have the permission to do that!", message)
+    let newPrefix = interaction.options.getString('new_prefix');
+    if(!newPrefix) {
+      return client.functions.reply(`My current prefix is \`${await client.db.get('prefix'[message.guild.id]) || await client.db.get('prefix.default')})\``, message)
     }
 
-    prefix.setPrefix(message.args, message.guild.id)
-    client.functions.reply(`My prefix has been changed to \`${message.args}\``, message)
+    if (!interaction.member.permissions.has('MANAGE_SERVER')) {
+      return interaction.followUp("You don't have the permission change the prefix!")
+    }
+
+      client.guildData.set(interaction.guild.id, { prefix: newPrefix });
+      
+      let oldData = await client.db.get('prefix');
+      newData = await Object.assign({}, oldData, { [interaction.guild.id]: newPrefix });
+      await client.db.set('prefix', newData);
+
+    interaction.followUp(`My prefix has been changed to \`${newPrefix}\``);
 
   }
 })

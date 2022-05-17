@@ -13,6 +13,7 @@ module.exports = new Command({
   category: "Owner-Only",
   slashCommand: false,
   prefixCommand: true,
+  beta: true,
 
   run: async(client, message) => {
     //need to add command reload function & function reload function (xd)
