@@ -3,6 +3,7 @@ console.log('Starting...');
 
 const
   { Client, Collection } = require('discord.js'),
+  { reconDB } = require("reconlx"),
   fs = require('fs');
 
 const client = new Client({
@@ -22,8 +23,8 @@ client.prefix = defaultSettings.prefix;
 client.functions = {};
 client.startTime = Date.now();
 client.categories = fs.readdirSync('./Commands/');
+client.db = new reconDB(defaultSettings.dbConnectionStr);
 client.keys = Object.assign({}, defaultSettings.keys, { token: defaultSettings.token });
-client.guildWhitelist = (fs.readFileSync('./Database/guildWhitelist.db')).toString().split(' ');
 client.aliases = new Collection();
 client.events = new Collection();
 client.cooldown = new Collection();
@@ -48,4 +49,4 @@ client.login(client.keys.token)
 
 process.on('exit', _ => {
   client.destroy();
-}) 
+})
