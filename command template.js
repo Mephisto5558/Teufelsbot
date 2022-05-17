@@ -16,10 +16,9 @@ module.exports = new Command({
     description: '',
     type: '',
     required: false,
-    choices: [{
-      name: '',
-      value: ''
-    }],
+    choices: [
+      { name: '', value: '' }
+    ],
   }],
 
   run: async(client, message, interaction) => {

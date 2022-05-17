@@ -12,15 +12,15 @@
 
   "main": {
     "type": "main",
-    "token": "YOUR-BOT-TOKEN",
     "botUserID": "USER-ID-OF-BOT",
-    "prefix": "BOT-PREFIX"
+    "prefix": "BOT-PREFIX",
+    "token": "YOUR-BOT-TOKEN"
   },
 
   "dev": {
     "type": "dev",
-    "token": "YOUR-BOT-TOKEN",
     "botUserID": "USERID-OF-BOT",
-    "prefix": "BOT-PREFIX"
+    "prefix": "BOT-PREFIX",
+    "token": "YOUR-BOT-TOKEN"
   }
 }

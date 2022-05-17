@@ -12,6 +12,7 @@ module.exports = new Command({
   category: 'Fun',
   slashCommand: true,
   prefixCommand: false,
+  noDefer: true,
   options: [{
       name: 'target',
       description: 'the user you want to send a dm to',
@@ -23,27 +24,53 @@ module.exports = new Command({
       description: `the message you want to send, /n for new line`,
       type: 'STRING',
       required: true
+    },
+    {
+      name: 'as_mod',
+      description: `shows 'a mod of {server}' instead of your name`,
+      type: 'STRING',
+      required: false,
+      choices: [{ name: 'yes', value: 'yes' }]
     }
   ],
 
   run: async(client, _, interaction) => {
+    await interaction.deferReply({ ephemeral: true });
+    
+    let
+      user = interaction.options.getMember('target'),
+      messageToSend = interaction.options.getString('message'),
+      hideName = interaction.options.getString('as_mod');
+    messageToSend = messageToSend.replace('/n', `\n`);
 
-    let user = interaction.options.getMember('target');
-    let messageToSend = interaction.options.getString('message')
-      messageToSend = messageToSend.replace('/n', `\n`);
-    await client.users.fetch(interaction.member.user.id)
-      .then(user => { sender = `${user.username}#${user.discriminator}` });
-
+    if(hideName == 'yes') {
+      firstLine = `Message sent by a moderator of '${interaction.guild.name}'\n`
+    }
+    else {
+      await client.users.fetch(interaction.member.user.id)
+        .then(user => {
+          firstLine = `Message sent by [${user.username}#${user.discriminator}](https://discord.com/channels/@me/${user.id}).\n`
+        });
+    }
+    
     let embed = new MessageEmbed()
       .setDescription(messageToSend)
       .setFooter({ text:
-        `Message sent by [${sender}](https://discord.com/channels/@me/${user.id}).\n` +
+       firstLine +
         `If you don't want to receive user-made dms from me, run /disabledm in any server.`
       });
 
     user.send({ embeds: [embed] })
-      .then(interaction.followUp('Message sent!'))
-      .catch(err => { interaction.followUp("I couldn't message this member!") })
+      .then(interaction.editReply({
+        content: 'Message sent!',
+        ephemeral: true
+      }))
+      .catch(err => {
+        interaction.editReply({
+          content: "I couldn't message this member!",
+          ephemeral: true
+        })
+      })
  
   }
 })

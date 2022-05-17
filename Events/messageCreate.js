@@ -8,7 +8,6 @@ module.exports = (client, message) => {
   else if(message.content.startsWith(`<@${client.user.id}>`)) length = `<@${client.user.id}>`.length;
   else return;
 
-
   message.content = message.content.slice(length).trim();
   message.args = message.content.split(' ').slice(0);
 
