@@ -1,7 +1,8 @@
 console.time('Starting time')
 console.log('Starting...');
 
-const { Client, Collection } = require('discord.js'),
+const
+  { Client, Collection } = require('discord.js'),
   fs = require('fs');
 
 const client = new Client({
