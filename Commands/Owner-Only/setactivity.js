@@ -1,5 +1,5 @@
 const { Command } = require("reconlx");
-const availableTypes = ["playing", "streaming", "listening", "watching", "competing"];
+const validTypes = ['PLAYING', 'STREAMING', 'LISTENING', 'WATCHING', 'COMPETING'];
 
 module.exports = new Command({
   name: 'setactivity',
@@ -16,29 +16,29 @@ module.exports = new Command({
     let permissionGranted = await client.functions.checkBotOwner(client, message)
     if (!permissionGranted) return;
 
-    const messageArgs = message.content.split(";").map(element => {
-      return element.trim();
-    });
+    const messageArgs = message.args.join(' ')
+      .split(';').map(element => {
+        return element.trim();
+      });
 
     let activity = messageArgs[0];
     let type = messageArgs[1];
 
-    if (!type) type = 0;
+    if (!type) type = 'PLAYING';
 
-    const numType = type
-      .replace('playing', 0).replace('streaming', 1)
-      .replace('listening', 2).replace('watching', 3)
-      .replace('competing', 5);
-
-    const typeIsAvailable = availableTypes.some(element => {
-      if (element === type.toLowerCase()) return true;
+    const typeIsAvailable = validTypes.some(element => {
+      if (element.toLowerCase() == type.toLowerCase()) return true;
+      else if (['1','2','3','5'].includes(element)) return true;
     });
 
     if (!typeIsAvailable)
-      return client.functions.reply(`Syntax error: Invalid type "${type}". Available types are:\n\`${availableTypes.toString().replace(/,/g, "\`, \`")}\``, message);
+      return client.functions.reply(`Syntax error: Invalid type "${type}". Available types are:\n\`${validTypes.join(', ')}.`, message);
 
-    client.user.setActivity({ name: activity, type: numType });
-    client.functions.reply(`Activity set to \`${activity}\` of type \`${type}\``, message)
-
+    type = type.toUpperCase();
+    
+    client.user.setActivity(activity, { type: type })
+    
+    client.functions.reply(`Activity set to \`${activity}\` of type \`${type}\``, message);
+    
   }
 })
