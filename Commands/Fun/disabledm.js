@@ -1,4 +1,8 @@
-const { Command } = require("reconlx");
+const
+  { Command } = require("reconlx"),
+  msg =
+    'You are now blocklisted from the dm command.\n' +
+    'This will not prevent server moderators from sending dms to you.';
 
 module.exports = new Command({
   name: 'disabledm',
@@ -7,17 +11,15 @@ module.exports = new Command({
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
   category: 'Fun',
-  slashCommand: false,
+  slashCommand: true,
   prefixCommand: true,
-  disabled: false,
 
   run: async(client, message, interaction) => {
 
-    client.functions.reply(
-      'This feature will be added soon.\n' +
-      'Please message the dev if you want to block someone.',
-      message
-    )
+    await client.db.push('dmCommandBlocklist', message.author.id);
+
+    if(message) client.functions.reply(msg, message);
+    else interaction.followUp(msg);
 
   }
 })
