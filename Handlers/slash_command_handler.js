@@ -9,6 +9,9 @@ let commandCount = 0;
 let commands = [];
 
 function work(option) {
+  if(Array.isArray(option.options))
+    option.options.forEach(option => { work(option) });
+
   if(!option.type) return option.type = 1
   
   if(/[A-Z]/.test(option.name)) {
@@ -17,7 +20,7 @@ function work(option) {
   };
 
   option.type = option.type.toString()
-    .replace('SUB_COMMAND', 1).replace('SUB_COMMAND_GROUP', 2)
+    .replace('SUB_COMMAND_GROUP', 2).replace('SUB_COMMAND', 1)
     .replace('STRING', 3).replace('INTEGER', 4)
     .replace('BOOLEAN', 5).replace('USER', 6)
     .replace('CHANNEL', 7).replace('ROLE', 8)
