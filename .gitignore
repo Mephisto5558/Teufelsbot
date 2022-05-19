@@ -70,5 +70,3 @@ typings/
 .env
 .env.test
 
-package-lock.json
-
