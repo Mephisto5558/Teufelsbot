@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const embedConfig = require("../Settings/embed.json");
+const embedConfig = require("../Settings/embed.json").colors;
 
 module.exports = async(client, interaction) => {
   client.interaction = interaction;
@@ -16,7 +16,7 @@ module.exports = async(client, interaction) => {
 
     let embed = new MessageEmbed()
       .setTitle('Insufficient Permissions')
-      .setColor(embedConfig.color_red);
+      .setColor(embedConfig.discord.RED);
 
     if (!interaction.member.permissions.has(command.permissions.user)) {
       embed.setDescription(`You need the following permissions to run this command:\n` +
