@@ -3,6 +3,7 @@ let length;
 module.exports = (client, message) => {
   if (message.author.bot) return;
   message.content = message.content.replace('<@!', '<@');
+  
   let guildPrefix = client.guildData.get(message.guild?.id)?.prefix || client.guildData.get('default')?.prefix
 
   if(message.content.startsWith(guildPrefix)) length = guildPrefix.length;
