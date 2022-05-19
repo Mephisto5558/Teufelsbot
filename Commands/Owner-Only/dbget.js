@@ -1,0 +1,32 @@
+const { Command } = require('reconlx');
+
+module.exports = new Command({
+  name: 'dbget',
+  alias: [],
+  description: 'query data from the database',
+  permissions: { client: [], user: [] },
+  cooldowns: { global: 0, user: 0 },
+  category: 'Owner-Only',
+  slashCommand: false,
+  prefixCommand: true,
+  showInHelp: false,
+  beta: true,
+
+  run: async(client, message) => {
+
+    let permissionGranted = await client.functions.checkBotOwner(client, message);
+    if (!permissionGranted || !message.args) return;
+
+    let query = message.args.join(' ');
+    let messageToEdit;
+
+    await message.reply('Loading...')
+      .then(msg => { messageToEdit = msg});
+
+    let result = await client.db.get(query);
+    if(!result) result = 'nothing found'
+
+    messageToEdit.edit('```json\n' + JSON.stringify(result, null, 2) + '\n```');
+
+  }
+})
