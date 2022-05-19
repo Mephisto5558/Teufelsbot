@@ -1,3 +1,4 @@
+const embedConfig = require("../Settings/embed.json").colors;
 let length;
 
 module.exports = (client, message) => {
@@ -9,6 +10,29 @@ module.exports = (client, message) => {
   if(message.content.startsWith(guildPrefix)) length = guildPrefix.length;
   else if(message.content.startsWith(`<@${client.user.id}>`)) length = `<@${client.user.id}>`.length;
   else return;
+
+  command.permissions.user.push('SEND_MESSAGES');
+  command.permissions.client.push('SEND_MESSAGES');
+
+  let embed = new MessageEmbed()
+    .setTitle('Insufficient Permissions')
+    .setColor(embedConfig.discord.RED);
+
+  if (!message.member.permissions.has(command.permissions.user)) {
+    embed.setDescription(
+      `You need the following permissions to run this command:\n` +
+      command.permissions.user.toString().replace(',', ', ')
+    )
+    return interaction.followUp({ embeds: [embed], ephemeral: true });
+  };
+
+  if (!interaction.guild.me.permissions.has(command.permissions.client)) {
+    embed.setDescription(
+      `I need the following permissions to run this command:\n` +
+      command.permissions.client.toString().replace(',', ', ')
+    );
+    return interaction.followUp({ embeds: [embed], ephemeral: true });
+  };
 
   message.content = message.content.slice(length).trim();
   message.args = message.content.split(' ').slice(0);
