@@ -34,7 +34,6 @@ module.exports = async client => {
 
   checkGuilds();
   getGuildPrefix();
-  client.db.collection()
 
   client.log('Ready to receive prefix commands');
   await client.functions.sleep(20000);
