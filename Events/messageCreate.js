@@ -38,14 +38,14 @@ module.exports = (client, message) => {
     )
   };
 
-  if (!interaction.guild.me.permissions.has(command.permissions.client)) {
+  if (!message.guild.me.permissions.has(command.permissions.client)) {
     embed.setDescription(
       `I need the following permissions to run this command:\n` +
       command.permissions.client.toString().replace(',', ', ')
     );
   };
 
-  if(embed.description) return interaction.followUp({ embeds: [embed], ephemeral: true });
+  if(embed.description) return message.reply({ embeds: [embed], ephemeral: true });
   
   client.message = message;
   command.run(client, message);
