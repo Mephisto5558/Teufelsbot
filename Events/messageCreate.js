@@ -1,4 +1,5 @@
-const embedConfig = require("../Settings/embed.json").colors;
+const { MessageEmbed } = require('discord.js');
+const embedConfig = require('../Settings/embed.json').colors;
 let length;
 
 module.exports = (client, message) => {
@@ -43,7 +44,7 @@ module.exports = (client, message) => {
       command.permissions.client.toString().replace(',', ', ')
     );
   };
-  
+
   if(embed.description) return interaction.followUp({ embeds: [embed], ephemeral: true });
   
   client.message = message;
