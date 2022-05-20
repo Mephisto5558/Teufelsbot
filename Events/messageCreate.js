@@ -11,6 +11,18 @@ module.exports = (client, message) => {
   else if(message.content.startsWith(`<@${client.user.id}>`)) length = `<@${client.user.id}>`.length;
   else return;
 
+  message.content = message.content.slice(length).trim();
+  message.args = message.content.split(' ').slice(0);
+
+  const commandName = message.args.shift().toLowerCase();
+  const commandAlias = client.aliases.get(commandName);
+  let command = client.commands.get(commandName);
+
+  if (!command) {
+    if (!commandAlias) return;
+    command = client.commands.get(commandAlias)
+  };
+
   command.permissions.user.push('SEND_MESSAGES');
   command.permissions.client.push('SEND_MESSAGES');
 
@@ -23,7 +35,6 @@ module.exports = (client, message) => {
       `You need the following permissions to run this command:\n` +
       command.permissions.user.toString().replace(',', ', ')
     )
-    return interaction.followUp({ embeds: [embed], ephemeral: true });
   };
 
   if (!interaction.guild.me.permissions.has(command.permissions.client)) {
@@ -31,20 +42,9 @@ module.exports = (client, message) => {
       `I need the following permissions to run this command:\n` +
       command.permissions.client.toString().replace(',', ', ')
     );
-    return interaction.followUp({ embeds: [embed], ephemeral: true });
   };
-
-  message.content = message.content.slice(length).trim();
-  message.args = message.content.split(' ').slice(0);
-
-  const commandName = message.args.shift().toLowerCase();
-  const commandAlias = client.aliases.get(commandName);
-  let command = client.commands.get(commandName);
-
-  if (!command) {
-    if (!commandAlias) return;
-    command = client.commands.get(commandAlias)
-  };
+  
+  if(embed.description) return interaction.followUp({ embeds: [embed], ephemeral: true });
   
   client.message = message;
   command.run(client, message);
