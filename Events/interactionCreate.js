@@ -32,7 +32,7 @@ module.exports = async(client, interaction) => {
       return interaction.followUp({ embeds: [embed], ephemeral: true });
     };
 
-    (command.run(client, null, interaction)).then(client.interaction = null);
+    return (command.run(client, null, interaction)).then(client.interaction = null);
   }
 
   if (interaction.isContextMenu()) {
