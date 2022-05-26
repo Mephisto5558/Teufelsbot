@@ -1,8 +1,5 @@
 const
-  { Command } = require("reconlx"),
-  msg =
-    'You are now blocklisted from the dm command.\n' +
-    'This will not prevent server moderators from sending dms to you.';
+  { Command } = require("reconlx");
 
 module.exports = new Command({
   name: 'disabledm',
@@ -16,7 +13,11 @@ module.exports = new Command({
 
   run: async(client, message, interaction) => {
 
-    await client.db.push('dmCommandBlocklist', message.author.id);
+    await client.db.push('dmCommandBlocklist', message?.author.id || interaction?.member.id);
+//ADD CHECK FOR DOUBLE ENTRY
+    const msg =
+      'You are now blocklisted from the dm command.\n' +
+      'This will not prevent server moderators from sending dms to you.';
 
     if(message) client.functions.reply(msg, message);
     else interaction.followUp(msg);
