@@ -45,7 +45,6 @@ module.exports = new Command({
       ]
     }
   ],
-  beta: true,
 
   run: async (client, _, interaction) => {
     await interaction.deferReply({ ephemeral: true });
