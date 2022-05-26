@@ -44,20 +44,19 @@ module.exports = new Command({
 
     if(!asMod) {
       let blockList = await client.db.get('dmCommandBlocklist');
-      if(blockList.includes(target)) {
-        let errorMsg = "This user does not allow dms from this command.";
+      if(blockList.includes(target.id)) {
+        let errorMsg = 'This user does not allow dms from this command.';
         
         if(interaction.member.permissions.has('MANAGE_MESSAGES'))
-          errorMsg += "\nUse the `as_mod` option to force the message to send."
+          errorMsg += '\nUse the `as_mod` option to force the message to send.';
         
         return interaction.editReply({
           content: errorMsg,
           ephemeral: true
         });
       }
-      else {
-          firstLine = `Message sent by [${interaction.member.user.username}#${interaction.member.user.discriminator}](https://discord.com/channels/@me/${interaction.member.user.id}).\n`
-        };
+      else
+        firstLine = `Message sent by [${interaction.member.user.username}#${interaction.member.user.discriminator}](https://discord.com/channels/@me/${interaction.member.user.id}).\n`;
     }
     else {
       if(interaction.member.permissions.has('MANAGE_MESSAGES')) {
