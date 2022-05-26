@@ -45,10 +45,13 @@ module.exports = new Command({
     if(!asMod) {
       let blockList = await client.db.get('dmCommandBlocklist');
       if(blockList.includes(target)) {
+        let errorMsg = "This user does not allow dms from this command.";
+        
+        if(interaction.member.permissions.has('MANAGE_MESSAGES'))
+          errorMsg += "\nUse the `as_mod` option to force the message to send."
+        
         return interaction.editReply({
-          content:
-            "This user does not allow dms from this command.\n" +
-            "use the `as_mod` option to force the message to send.",
+          content: errorMsg,
           ephemeral: true
         });
       }
