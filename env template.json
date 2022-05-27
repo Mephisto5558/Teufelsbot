@@ -1,9 +1,9 @@
 {
   "global": {
     "environment": "the environment this will run (eg. main or dev)",
-    "botOwnerID": "YOUR-USER-ID",
+    "botOwnerID": "your discord user id",
     "keys": {
-      "webCommandKey": "hash off token used as password to communicate between main bot and music bot",
+      "webCommandKey": "hash off token used as password to communicate between main bot and music bot (or anything else)",
       "uptimeAPIKey": "APIKEY for UptimeRobot for 24/7 bot",
       "humorAPIKey": "APIKEY for HumorAPI (/joke)",
       "rapidAPIKey": "APIKEY for RapidAPI (/Joke)"
@@ -13,14 +13,14 @@
   "main": {
     "type": "main",
     "dbConnectionStr": "Connection string to mongodb",
-    "botUserID": "USER-ID-OF-BOT",
-    "token": "YOUR-BOT-TOKEN"
+    "botUserID": "the discord user id of the bot",
+    "token": "the bot token"
   },
 
   "dev": {
     "type": "dev",
     "dbConnectionStr": "Connection string to mongodb",
-    "botUserID": "USERID-OF-BOT",
-    "token": "YOUR-BOT-TOKEN"
+    "botUserID": "the discord user id of the bot",
+    "token": "the bot token"
   }
 }
