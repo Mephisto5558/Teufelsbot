@@ -8,6 +8,7 @@ const
 let
   commandCount = 0,
   delCommandCount = 0,
+  skipCommandCount = 0,
   commands = [],
   clientCommands = [],
   skip;
@@ -87,7 +88,10 @@ module.exports = async client => {
 
     clientCommands = clientCommands.filter(entry => entry.name != command.name);
 
-    if(skip) continue;
+    if(skip) {
+      skipCommandCount++;
+      continue;
+    }
 
     await commandClient.createCommand({
         name: command.name,
@@ -107,7 +111,8 @@ module.exports = async client => {
     if(commands[commandCount + 1]) await client.functions.sleep(10000);
   }
 
-  client.log(`Loaded ${commandCount} Slash commands\n`);
+  client.log(`Loaded ${commandCount} Slash commands`);
+  client.log(`Skipped ${skipCommandCount} Slash Commands\n`);
 
   for(let clientCommand of clientCommands) {
     await commandClient.deleteCommand(clientCommand.id)
