@@ -5,8 +5,12 @@ const
   event = require('../Events/interactionCreate.js'),
   errorColor = chalk.bold.red;
 
-let commandCount = 0;
-let commands = [];
+let
+  commandCount = 0,
+  delCommandCount = 0,
+  commands = [],
+  clientCommands = [],
+  skip;
 
 function work(option) {
   if(Array.isArray(option.options))
@@ -35,8 +39,11 @@ module.exports = async client => {
     client.userID
   );
 
+    clientCommands = await commandClient.getCommands({});
+
   fs.readdirSync('./Commands').forEach(subFolder => {
     fs.readdirSync(`./Commands/${subFolder}/`).filter(file => file.endsWith('.js')).forEach(file => {
+
       let command = require(`../Commands/${subFolder}/${file}`);
       if(!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) return;
 
@@ -45,10 +52,26 @@ module.exports = async client => {
       else if(command.options) work(commandOption.options);
       commands.push(command)
       client.slashCommands.set(command.name, command)
+
     })
   });
 
   for(let command of commands) {
+    for(let clientCommand of clientCommands) {
+      if(
+        command.name == clientCommand.name &&
+        command.description == clientCommand.description &&
+        command.options == clientCommand.options
+      ) {
+        client.log(`Skipped Slash Command ${command.name} because of no changes`);
+        skip = true;
+        return;
+      }
+    }
+    clientCommands = clientCommands.filter(entry => entry.name != command.name);
+
+    if(skip) continue;
+
     await commandClient.createCommand({
         name: command.name,
         description: command.description,
@@ -65,9 +88,27 @@ module.exports = async client => {
           console.error(errorColor(JSON.stringify(err.response.data, null, 2)));
       });
     if(commands[commandCount + 1]) await client.functions.sleep(10000);
-  };
+  }
 
   client.log(`Loaded ${commandCount} Slash commands\n`);
+
+  for(let clientCommand of clientCommands) {
+    await commandClient.deleteCommand(clientCommand.id)
+    .then(_ => {
+      client.log(`Deleted Slash Command ${clientCommand.name}`);
+      delCommandCount++
+    })
+    .catch(err => {
+      console.error(errorColor('[Error Handling] :: Unhandled Slash Command Handler Error/Catch'));
+      console.error(err);
+      if(err.response.data.errors)
+        console.error(errorColor(JSON.stringify(err.response.data, null, 2)));
+    });
+
+    if(clientCommands[delCommandCount + 1]) await client.functions.sleep(10000);
+  }
+
+  client.log(`Deleted ${delCommandCount} Slash commands\n`);
 
   client.on('interactionCreate', event.bind(null, client))
   client.log(`Loaded Event interactionCreate`);
