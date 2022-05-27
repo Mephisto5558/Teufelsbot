@@ -32,6 +32,27 @@ function work(option) {
     .replace('ATTACHMENT', 11)
 };
 
+async function validate(input1, input2) {
+  if(input1.name == input2.name && input1.description == input2.description) {
+    for(i=0; i < input1.options?.length; i++) {
+      option1 = input1.options[i];
+      option2 = input2.options[i];
+
+      if(option1?.options || option2?.options) {
+        if(!await validate(option1.options, option2.options))
+          return false;
+      }
+
+      if(
+        option1.name == option2.name && option1.type == option2.type &&
+        option1.description == option2.description &&
+        option1.choices == option2.choices &&
+        (option1.required || false) == (option2.required || false)
+      ) return true;
+      else return false;
+    }
+  }
+}
 
 module.exports = async client => {
   const commandClient = new Client(
@@ -39,7 +60,7 @@ module.exports = async client => {
     client.userID
   );
 
-    clientCommands = await commandClient.getCommands({});
+  clientCommands = await commandClient.getCommands({});
 
   fs.readdirSync('./Commands').forEach(subFolder => {
     fs.readdirSync(`./Commands/${subFolder}/`).filter(file => file.endsWith('.js')).forEach(file => {
@@ -58,16 +79,12 @@ module.exports = async client => {
 
   for(let command of commands) {
     for(let clientCommand of clientCommands) {
-      if(
-        command.name == clientCommand.name &&
-        command.description == clientCommand.description &&
-        command.options == clientCommand.options
-      ) {
+      if(await validate(command, clientCommand)) {
         client.log(`Skipped Slash Command ${command.name} because of no changes`);
         skip = true;
-        return;
       }
     }
+
     clientCommands = clientCommands.filter(entry => entry.name != command.name);
 
     if(skip) continue;
