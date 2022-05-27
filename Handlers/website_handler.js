@@ -10,7 +10,7 @@ const
 let websiteMessages = ['Hilfe der Dominik will mich entführen ahhh\nLG Meph', 'Hello World!', 'Lena is kuhl', 'Flo is kuhl', 'Vinni is auch kuhl', 'huhu', 'What are you doing here?', 'https://www.youtube.com/watch?v=xvFZjo5PgG0']
 
 module.exports = async client => {
-  // if(client.botType == 'dev') return console.log('Disabled website loading due to dev version.');
+  if(client.botType == 'dev') return console.log('Disabled website loading due to dev version.');
 
   let websiteMessage = websiteMessages[Math.floor(Math.random() * websiteMessages.length)]
 
