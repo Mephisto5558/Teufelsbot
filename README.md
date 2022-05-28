@@ -5,13 +5,17 @@
 <a href="https://github.com/Mephisto5558/Teufelswerk-Bot/blob/main/LICENSE" alt="License">
   <img src="https://img.shields.io/github/license/Mephisto5558/Teufelswerk-Bot" />
 </a>
-<a href="https://discord.gg/u6xjqzz">
-  <img src="https://discordapp.com/api/guilds/725378451988676609/widget.png?style=shield" alt="Discord Server">
+<a href="https://www.codefactor.io/repository/github/mephisto5558/teufelswerk-bot" alt="CodeFactor">
+  <img src="https://www.codefactor.io/repository/github/mephisto5558/teufelswerk-bot/badge" />
 </a>
-
-[![CodeFactor](https://www.codefactor.io/repository/github/mephisto5558/teufelswerk-bot/badge)](https://www.codefactor.io/repository/github/mephisto5558/teufelswerk-bot)
-
-[![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
+<br>
+<a href="https://discord.gg/u6xjqzz" alt="Discord Server">
+  <img src="https://discordapp.com/api/guilds/725378451988676609/widget.png?style=shield" />
+</a>
+<br><br>
+<a href="https://forthebadge.com" alt="Forthebadge">
+  <img src="https://forthebadge.com/images/badges/made-with-javascript.svg" />
+</a>
 
 A discord bot with multiple features, in active developement.
 
