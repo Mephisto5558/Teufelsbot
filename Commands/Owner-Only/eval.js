@@ -14,7 +14,8 @@ module.exports = new Command({
   run: async(client, message) => {
 
     let permissionGranted = await client.functions.checkBotOwner(client, message);
-    if (!permissionGranted || !message.args) return;
+    if (!permissionGranted || !message.args) return; //DO NET REMOVE THIS LINE
+    
     message.content = message.args.join(' ');
 
     client.log(`evaluated command '${message.content}'`);
