@@ -2,8 +2,6 @@ const { MessageEmbed } = require('discord.js');
 const embedConfig = require("../Settings/embed.json").colors;
 
 module.exports = async(client, interaction) => {
-  client.interaction = interaction;
-  
   command = client.slashCommands.get(interaction.commandName);
   if(!command) return;
 
@@ -22,16 +20,17 @@ module.exports = async(client, interaction) => {
       embed.setDescription(`You need the following permissions to run this command:\n` +
         command.permissions.user.toString().replace(',', ', ')
       )
-      return interaction.followUp({ embeds: [embed], ephemeral: true });
     };
 
     if (!interaction.guild.me.permissions.has(command.permissions.client)) {
       embed.setDescription(`I need the following permissions to run this command:\n` +
         command.permissions.client.toString().replace(',', ', ')
       );
-      return interaction.followUp({ embeds: [embed], ephemeral: true });
     };
 
+    if(embed.description) return interaction.followUp({ embeds: [embed], ephemeral: true });
+    
+    client.interaction = interaction;
     return (command.run(client, null, interaction)).then(client.interaction = null);
   }
 

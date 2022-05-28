@@ -42,7 +42,7 @@ module.exports = (client, message) => {
     embed.setDescription(
       `I need the following permissions to run this command:\n` +
       command.permissions.client.toString().replace(',', ', ')
-    );
+    )
   };
 
   if(embed.description) return message.reply({ embeds: [embed], ephemeral: true });
