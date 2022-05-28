@@ -119,7 +119,7 @@ module.exports = new Command({
         let i = 0;
         let listMessage = [];
 
-        if(data.includes('*'))
+        if(data?.includes('*'))
           listMessage = 'You are blocking all users.'
         else {
           for (entry in data) {
