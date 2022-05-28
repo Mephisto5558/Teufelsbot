@@ -2,13 +2,14 @@ const { Command } = require("reconlx");
 
 module.exports = new Command({
   name: 'eval',
-  aliases: ['runcode'],
+  aliases: [],
   description: `inject javascript code directly into the bot`,
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
   category: "Owner-Only",
   prefixCommand: true,
   slashCommand: false,
+  beta: true,
 
   run: async(client, message) => {
 
@@ -16,22 +17,21 @@ module.exports = new Command({
     if (!permissionGranted || !message.args) return;
     message.content = message.args.join(' ');
 
-    function eval(client, message) {
-      return new Function(`"use strict"; return ( ${message.content} )`)(client, message);
+    client.log(`evaluated command '${message.content}'`);
+
+    try {
+      await eval(message.content);
+    }
+    catch (err) {
+      console.error(err);
+      return client.functions.reply('```\n' + err + '\n```', message);
     }
 
-    client.log(`evaluated command '${message.content}'`)
     client.functions.reply(
       'evaluated command:\n' +
       '```javascript\n' +
-      message.content + '```', message)
-
-    try {
-      await eval(client, message);
-    } catch (err) {
-      console.error(err);
-      client.functions.reply('```\n' + err + '\n```', message)
-    }
+      message.content + '```', message
+    )
 
   }
 })
