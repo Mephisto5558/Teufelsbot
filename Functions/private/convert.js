@@ -8,7 +8,7 @@ const
     /^(?:[01]{8})+$/, //binary
     /^(?:[0-9]{3}|\s)+$/, //decimal
     /^(?:[0-9a-f]{2})+$/i, //hex
-    /^[\x1F\x2F\x3A-\x40\x5B-\x60\x7B-\x9B\xA1-\xBE]+$/, //matches all special chars like "[]" but not something like "äüö"
+    /^[\x2F\x3A-\x40\x5B-\x60\x7B-\x9B\xA1-\xBE]+$/, //matches all special chars like "[]" but not something like "äüö"
   ];
 
 function main(input, convertFunction, skip) {
