@@ -119,8 +119,8 @@ module.exports = new Command({
         let i = 0;
         let listMessage = [];
 
-        if(data?.includes('*'))
-          listMessage = 'You are blocking all users.'
+        if(!data) listMessage = 'You are not blocking any users.';
+        else if(data.includes('*')) listMessage = 'You are blocking all users.'
         else {
           for (entry in data) {
             listMessage += `<@${data}> (${dataFetched[i]})\n`;
@@ -134,8 +134,8 @@ module.exports = new Command({
           .setColor(colorConfig.discord.BURPLE)
           .setFooter({
             text:
-              "run '/dm toggle' without arguments to block all users and\n" +
-              "run '/dm toggle' with the 'user_to_toggle' argument to block a specific user."
+              "run '/dm toggle' without arguments to toggle all users and\n" +
+              "run '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user."
           })
 
         interaction.editReply({ embeds: [listEmbed] });
