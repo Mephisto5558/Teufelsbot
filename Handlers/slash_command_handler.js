@@ -11,7 +11,7 @@ let
   skipCommandCount = 0,
   commands = [],
   clientCommands = [],
-  skip;
+  same = true;
 
 function work(option) {
   if(Array.isArray(option.options))
@@ -33,26 +33,38 @@ function work(option) {
     .replace('ATTACHMENT', 11)
 };
 
-async function validate(input1, input2) {
-  if(input1.name == input2.name && input1.description == input2.description) {
-    for(i=0; i < input1.options?.length; i++) {
-      option1 = input1.options[i];
-      option2 = input2.options[i];
+function compareCommands(input1, input2) {
+  let output = [];
+  let input = [input1, input2];
 
-      if(option1?.options || option2?.options) {
-        if(!await validate(option1.options, option2.options))
-          return false;
-      }
+  for(let i = 0; i < input.length; i++) {
+    let data = input[i];
 
-      if(
-        option1.name == option2.name && option1.type == option2.type &&
-        option1.description == option2.description &&
-        option1.choices == option2.choices &&
-        (option1.required || false) == (option2.required || false)
-      ) return true;
-      else return false;
+    output[i] = {
+      name: data.name,
+      description: data.description,
+      required: data.required || false,
+      choices: data.choices || false
     }
+    if(data.options) output[i].options = formatOptions(data.options);
   }
+  return (JSON.stringify(output[0]) == JSON.stringify(output[1]));
+}
+
+function formatOptions(input) {
+  let output = [];
+  for(let i = 0; i < input?.length; i++) {
+    let data = input[i];
+
+    output[i] = {
+      name: data.name,
+      description: data.description,
+      required: data.required || false,
+      choices: data.choices || false
+    }
+    if(data.options) output[i].options = formatOptions(data.options);
+  }
+  return output;
 }
 
 module.exports = async client => {
@@ -80,18 +92,16 @@ module.exports = async client => {
 
   for(let command of commands) {
     for(let clientCommand of clientCommands) {
-      if(await validate(command, clientCommand)) {
+      same = compareCommands(command, clientCommand);
+      if(same) {
         client.log(`Skipped Slash Command ${command.name} because of no changes`);
-        skip = true;
+        skipCommandCount++;
+        break;
       }
     }
 
     clientCommands = clientCommands.filter(entry => entry.name != command.name);
-
-    if(skip) {
-      skipCommandCount++;
-      continue;
-    }
+    if(same) continue;
 
     await commandClient.createCommand({
         name: command.name,
@@ -140,5 +150,5 @@ module.exports = async client => {
   } while(!client.readyAt)
   
   client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${client.guilds.cache.map(g => g.memberCount).reduce((a, c) => a + c)} users.\n`);
-  console.timeEnd('Starting time')
+  console.timeEnd('Starting time');
 }
