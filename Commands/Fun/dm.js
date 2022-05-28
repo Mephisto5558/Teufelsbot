@@ -13,7 +13,6 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: false,
   noDefer: true,
-  beta: true, //############################
   options: [
     {
       name: 'toggle',
