@@ -42,7 +42,6 @@ module.exports = new Command({
     let user = interaction.options.getUser('member');
     user = await interaction.guild.members.fetch(user.id);
     const reason = interaction.options.getString('reason');
-    const moderator = `${interaction.member.user.username}#${interaction.member.user.discriminator}`;
 
     if (user.id === interaction.member.id)
       errorMsg = `You can't ban yourself!`;
@@ -57,7 +56,7 @@ module.exports = new Command({
       .setTitle('Banned')
       .setDescription(
         `You have been banned from \`${interaction.guild.name}\`.\n` +
-        `Moderator: ${moderator}\n` +
+        `Moderator: ${interaction.user.tag}\n` +
         `Reason: ${reason}`
       )
       .setColor(embedConfig.RED);
