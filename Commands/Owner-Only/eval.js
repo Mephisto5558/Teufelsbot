@@ -24,7 +24,6 @@ module.exports = new Command({
       await eval(message.content);
     }
     catch (err) {
-      console.error(err);
       return client.functions.reply('```\n' + err + '\n```', message);
     }
 
