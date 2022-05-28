@@ -3,9 +3,7 @@ const
   { MessageEmbed } = require("discord.js"),
   fs = require("fs");
 
-let
-  description,
-  data;
+let description;
 
 module.exports = new Command({
   name: 'stats',
@@ -22,7 +20,7 @@ module.exports = new Command({
 
     fs.readFile('./Logs/startCount.log', 'utf8', (err, data) => {
       if(err) {
-        data = 0;
+        var data = 0;
         console.error(err);
       }
       description = `Developer: .̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#8949\n Starts: ${data}`;
