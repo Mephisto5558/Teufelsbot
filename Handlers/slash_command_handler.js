@@ -111,9 +111,6 @@ module.exports = async client => {
     if(commands[commandCount + 1]) await client.functions.sleep(10000);
   }
 
-  client.log(`Loaded ${commandCount} Slash commands`);
-  client.log(`Skipped ${skipCommandCount} Slash Commands\n`);
-
   for(let clientCommand of clientCommands) {
     await commandClient.deleteCommand(clientCommand.id)
     .then(_ => {
@@ -129,7 +126,9 @@ module.exports = async client => {
 
     if(clientCommands[delCommandCount + 1]) await client.functions.sleep(10000);
   }
-
+  
+  client.log(`Loaded ${commandCount} Slash commands`);
+  client.log(`Skipped ${skipCommandCount} Slash Commands`);
   client.log(`Deleted ${delCommandCount} Slash commands\n`);
 
   client.on('interactionCreate', event.bind(null, client))
