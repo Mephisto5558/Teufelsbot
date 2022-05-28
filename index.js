@@ -3,7 +3,7 @@ console.log('Starting...');
 
 const
   { Client, Collection } = require('discord.js'),
-  { reconDB } = require("reconlx"),
+  { reconDB } = require('reconlx'),
   fs = require('fs'),
   db = new reconDB(process.env.dbConnectionStr);
 
@@ -55,7 +55,7 @@ async function load() {
   });
 
   client.login(client.keys.token)
-    .then(client.log(`Logged into ${client.botType}`));
+    .then(client.log(`Logged into ${client.botType}\n`));
 
   process.on('exit', _ => {
     client.destroy();
