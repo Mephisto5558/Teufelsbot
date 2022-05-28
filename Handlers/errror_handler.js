@@ -9,7 +9,7 @@ module.exports = client => {
     } else if(client.interaction) {
       client.interaction.channel.send(msg)
     }
-  };
+  }
   
   process
     .on('unhandledRejection', (err, origin) => {

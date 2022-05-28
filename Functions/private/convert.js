@@ -34,7 +34,7 @@ function main(input, convertFunction, skip) {
     if(skip) i += skip;
   }
   return output;
-};
+}
 
 module.exports = {
 
@@ -102,7 +102,7 @@ module.exports = {
     },
     toDecimal: function hexToDecimal(input) {
       function convertFunction(input, i) {
-        return parseInt(input.substring(i, i + 2), 16).padStart(3, '0');;
+        return parseInt(input.substring(i, i + 2), 16).padStart(3, '0');
       }
       return main(input, convertFunction, 1);
     },
