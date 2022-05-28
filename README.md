@@ -9,6 +9,7 @@
   <img src="https://discordapp.com/api/guilds/725378451988676609/widget.png?style=shield" alt="Discord Server">
 </a>
 
+[![CodeFactor](https://www.codefactor.io/repository/github/mephisto5558/teufelswerk-bot/badge)](https://www.codefactor.io/repository/github/mephisto5558/teufelswerk-bot)
 
 [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
 
