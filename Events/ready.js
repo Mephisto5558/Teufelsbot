@@ -36,15 +36,4 @@ module.exports = async client => {
   getGuildPrefix();
 
   client.log('Ready to receive prefix commands');
-  await client.functions.sleep(20000);
-
-  let activity = await client.db.get('activity');
-  if(activity) 
-    client.user.setActivity(activity);
-  else
-    client.user.setActivity({
-      name: "no one found the easter egg yet! | /help",
-      type: "PLAYING"
-    });
-
 }
