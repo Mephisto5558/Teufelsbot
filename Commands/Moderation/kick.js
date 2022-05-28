@@ -35,7 +35,6 @@ module.exports = new Command({
 
     let user = interaction.options.getUser('member');
     user = await interaction.guild.members.fetch(user.id);
-    const moderator = `${interaction.member.user.username}#${interaction.member.user.discriminator}`;
     const reason = interaction.options.getString('reason');
 
     if (user.id === interaction.member.id)
@@ -51,7 +50,7 @@ module.exports = new Command({
       .setTitle('Kicked')
       .setDescription(
         `You have been kicked from \`${interaction.guild.name}\`.\n` +
-        `Moderator: ${moderator}\n` +
+        `Moderator: ${interaction.user.tag}\n` +
         `Reason: ${reason}`
       )
       .setColor(embedConfig.RED);
