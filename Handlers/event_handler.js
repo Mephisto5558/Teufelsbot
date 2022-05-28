@@ -6,13 +6,13 @@ module.exports = client => {
   fs.readdirSync("./Events")
     .filter(file => file.endsWith(".js") && file != 'interactionCreate.js')
     .forEach(file => {
-    const eventName = file.split(".")[0];
-    const event = require(`../Events/${file}`);
+      const eventName = file.split(".")[0];
+      const event = require(`../Events/${file}`);
 
-    client.on(eventName, event.bind(null, client));
-    client.log(`Loaded Event ${eventName}`);
-    eventCount++
-  });
+      client.on(eventName, event.bind(null, client));
+      client.log(`Loaded Event ${eventName}`);
+      eventCount++
+    });
 
   client.log(`Loaded ${eventCount} Events\n`)
 }
