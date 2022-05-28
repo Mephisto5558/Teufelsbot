@@ -21,8 +21,8 @@ module.exports = new Command({
       type: 'SUB_COMMAND',
       options: [
         {
-          name: 'user_to_block',
-          description: 'the user you want to block, leave this empty to block all users.',
+          name: 'user_to_toggle',
+          description: 'the user you want to toggle, leave this empty to toggle all users ("*").',
           type: 'USER',
           required: false
         }
@@ -52,7 +52,7 @@ module.exports = new Command({
         },
         {
           name: 'as_mod',
-          description: `shows 'a mod of {server}' instead of your name`,
+          description: `shows 'a mod of {guild name}' instead of your name`,
           type: 'BOOLEAN',
           required: false
         }
@@ -64,7 +64,7 @@ module.exports = new Command({
     await interaction.deferReply({ ephemeral: true });
 
     let
-      message, messageSender,
+      message, messageSender, newBlacklist,
       blacklist = await client.db.get('dmCommandBlacklist'),
       userBlacklist = blacklist[interaction.member.id] || [],
       cmd = interaction.options.getSubcommand(),
@@ -78,13 +78,13 @@ module.exports = new Command({
 
     switch (cmd) {
       case 'toggle':
-        if (userToToggle) {
+        if(userToToggle?.id) {
           target = userToToggle.id;
-          targetName = `user ${userToToggle.user.username}#${userToToggle.user.tag}`
+          targetName = `user ${userToToggle.tag}`
         }
         else {
-          target = "*";
-          targetName = 'all users';
+          target = '*';
+          targetName = 'all users'
         }
 
         if (userBlacklist.includes(target)) {
@@ -97,14 +97,16 @@ module.exports = new Command({
         else {
           userBlacklist.push(target);
 
-          message =
-            `Your blacklist entry for \`${targetName}\` has been saved.\n` +
-            `\`${targetName}\` can now not send you dms trough me.\n` +
-            'This will not prevent guild moderators from sending dms to you.';
+          message = `Your blacklist entry for \`${targetName}\` has been saved\n.`;
+          if(target == '*') message += `now \`no one\` will be able to send you dms by me\n.`;
+          else message += `now \`${targetName}\` isn't able to send you dms by me\n.`;
+          message += 'This will not prevent guild moderators from sending dms to you.';
         }
 
-        let newBlacklist = await Object.assign({}, blacklist, { [interaction.member.id]: userBlacklist });
-        await client.db.set('dmCommandBlacklist', newBlacklist);
+        if(userBlacklist?.length > 0) newBlacklist = await Object.assign({}, blacklist, { [interaction.member.id]: userBlacklist });
+        else delete blacklist[interaction.member.id];
+
+        await client.db.set('dmCommandBlacklist', newBlacklist || blacklist);
 
         interaction.editReply({
           content: message,
