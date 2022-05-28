@@ -8,7 +8,7 @@ const
     /^(?:[01]{8})+$/, //binary
     /^(?:[0-9]{3}|\s)+$/, //decimal
     /^(?:[0-9a-f]{2})+$/i, //hex
-    /^[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x9B\xA1-\xBE]+$/, //matches all spcial chars like "[]" but not something like "äüö"
+    /^[\x00-\x2F\x3A-\x40\x5B-\x60\x7B-\x9B\xA1-\xBE]+$/, //matches all special chars like "[]" but not something like "äüö"
   ];
 
 function main(input, convertFunction, skip) {
@@ -51,7 +51,7 @@ module.exports = {
     return type
   },
 
-  binary: { //Fully working I believe
+  binary: { //Fully working
     toDecimal: function binaryToDecimal(input) {
       function convertFunction(input, i) {
         return input.substring(i, i + 8).toString(10).padStart(3, '0');
