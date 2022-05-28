@@ -18,7 +18,7 @@ module.exports = client => {
       console.error(`\n`)
 
       if(!err.errorCode) err.errorCode = 'unknown'
-      if(err.name === 'DiscordAPIError') sendErrorMsg("A Discord API Error occured, please try again and ping the dev if this keeps happening.")
+      if(err.name === 'DiscordAPIError') sendErrorMsg("A Discord API Error occurred, please try again and ping the dev if this keeps happening.")
       else sendErrorMsg(`A unknown error occurred, please ping the dev.\nError Code: \`${err.errorCode}\``);
     })
 
