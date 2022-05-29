@@ -14,7 +14,7 @@ module.exports = async client => {
 
   let websiteMessage = websiteMessages[Math.floor(Math.random() * websiteMessages.length)]
 
-  app.use(favicon('./favicon.ico'));
+  app.use(favicon('../Website/favicon.ico'));
   app.use(express.json());
   app.use(router);
   app.use(function (err, _, res, _) {
