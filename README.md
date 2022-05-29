@@ -19,6 +19,8 @@
 
 A discord bot with multiple features, in active developement.
 
+Known Bugs & ToDo/Feature Requests: [discussion 3](https://github.com/Mephisto5558/Teufelswerk-Bot/discussions/3)
+
 Hosted on [replit.com](https://replit.com)
 
 [My Discord](https://discord.gg/u6xjqzz)
