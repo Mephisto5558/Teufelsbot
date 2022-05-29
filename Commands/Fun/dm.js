@@ -73,7 +73,7 @@ module.exports = new Command({
       perm = interaction.member.permissions.has('MANAGE_MESSAGES'),
       asMod = (interaction.options.getBoolean('as_mod') && perm);
 
-    if (!asMod) messageSender = `\`${interaction.user.username}#${interaction.user.tag}\``;
+    if (!asMod) messageSender = `\`${interaction.user.tag}\``;
 
     switch (cmd) {
       case 'toggle':
