@@ -11,7 +11,7 @@ let
   skipCommandCount = 0,
   commands = [],
   clientCommands = [],
-  same = true;
+  same = false;
 
 function work(option) {
   if(Array.isArray(option.options))
