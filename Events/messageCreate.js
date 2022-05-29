@@ -45,7 +45,7 @@ module.exports = (client, message) => {
     )
   };
 
-  if(embed.description) return message.reply({ embeds: [embed], ephemeral: true });
+  if(embed.description) return message.reply({ embeds: [embed] });
   
   client.message = message;
   command.run(client, message);
