@@ -166,7 +166,7 @@ module.exports = new Command({
               'If someone abuses this command to spam you, please message me.'
           });
 
-        target
+        messageTarget
           .send({ embeds: [embed] })
           .then(
             interaction.editReply({
