@@ -6,7 +6,7 @@ const
 let description;
 
 module.exports = new Command({
-  name: 'stats',
+  name: 'info',
   alias: [],
   description: 'shows some stats of the bot',
   permissions: { client: [], user: [] },
@@ -23,7 +23,7 @@ module.exports = new Command({
         var data = 0;
         console.error(err);
       }
-      description = `Developer: .̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#8949\n Starts: ${data}`;
+      description = `Developer: .̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558\n Starts: ${data}`;
 
       let date = new Date(client.startTime).toLocaleString('de-DE', {
         day: '2-digit',
