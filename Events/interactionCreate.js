@@ -7,7 +7,6 @@ module.exports = async(client, interaction) => {
 
   if (interaction.isCommand()) {
     if(!command.noDefer)
-      await interaction.deferReply();
     
     command.permissions.user.push('SEND_MESSAGES');
     command.permissions.client.push('SEND_MESSAGES');
@@ -28,7 +27,8 @@ module.exports = async(client, interaction) => {
       );
     };
 
-    if(embed.description) return interaction.followUp({ embeds: [embed], ephemeral: true });
+    if(embed.description) return interaction.reply({ embeds: [embed], ephemeral: true });
+    await interaction.deferReply();
     
     client.interaction = interaction;
     return (command.run(client, null, interaction)).then(client.interaction = null);
