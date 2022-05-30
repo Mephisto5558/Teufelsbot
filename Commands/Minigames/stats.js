@@ -68,7 +68,7 @@ module.exports = new Command({
   cooldowns: { global: 0, user: 1000 },
   category: '',
   slashCommand: true,
-  prefixCommand: false, beta: true,
+  prefixCommand: false,
   options: [
     {
       name: 'user',
