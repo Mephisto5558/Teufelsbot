@@ -44,7 +44,7 @@ async function formatTopTen(input, settings, interaction) {
       .then(_ => isInGuild = true)
       .catch(_ => isInGuild = false);
 
-    if( entry[0] == 'AI' || !entry[1].wins || (settings != 'all' && !isInGuild )) continue;
+    if(entry[0] == 'AI' || !entry[1].wins || (settings != 'all' && !isInGuild )) continue;
     if(output.length > 3997) {
       output += '...';
       break;
