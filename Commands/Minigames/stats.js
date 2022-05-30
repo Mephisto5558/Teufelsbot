@@ -32,21 +32,30 @@ async function formatStatCount(input, all) {
 
 async function formatTopTen(input, settings, interaction) {
   let output = '';
+  let i=0;
+  let medals = [':first_place:',':second_place:','third_place'];
+  
   let data = Object.entries(input)
-    .sort(([,a], [,b]) => b.wins - a.wins);
+    .sort(([,a], [,b]) => b.wins - a.wins)
+    .slice(0, 10);
 
   for(entry of data) {
-    if( entry[0] == 'AI' || (settings != 'all' && (await interaction.guild.members.fetch(entry[0])) == false) ) continue;
+    await interaction.guild.members.fetch(entry[0])
+      .then(_ => isInGuild = true)
+      .catch(_ => isInGuild = false);
+
+    if( entry[0] == 'AI' || !entry[1].wins || (settings != 'all' && !isInGuild )) continue;
     if(output.length > 3997) {
       output += '...';
       break;
     }
 
     output +=
-      `<@${entry[0]}>:\n` +
+      `${medals[i] || i}. <@${entry[0]}>\n` +
       `> Wins: ${entry[1].wins || 0}\n` +
       `> Loses: ${entry[1].loses || 0}\n` +
       `> Draws: ${entry[1].draws || 0}\n\n`;
+    i++;
   }
   return output;
 }
@@ -161,8 +170,8 @@ module.exports = new Command({
     }
     else if (stats.type == 'leaderboard') {
       if(stats.data.raw)
-        stats.data.formatted = { top10: formatTopTen(stats.data.raw, stats.settings, interaction) };
-        console.log(!!await (await client.guilds.fetch("732266869549170719")).members.cache.find("778360894908268565"))
+        stats.data.formatted = { top10: await formatTopTen(stats.data.raw, stats.settings, interaction) };
+
       embed
         .setTitle(`Top 10 ${stats.game} players`)
         .setDescription(stats.data.formatted?.top10 || 'looks like no one played yet...');
