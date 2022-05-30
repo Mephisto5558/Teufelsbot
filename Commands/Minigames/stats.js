@@ -30,13 +30,13 @@ async function formatStatCount(input, all) {
   return `\`${input}\` (\`${relative.toFixed(2)}%\`)`;
 }
 
-function formatTopTen(input, settings, interaction) {
+async function formatTopTen(input, settings, interaction) {
   let output = '';
   let data = Object.entries(input)
     .sort(([,a], [,b]) => b.wins - a.wins);
 
   for(entry of data) {
-    if( entry[0] == 'AI' || (settings != 'all' && !interaction.guild.members.fetch(entry[0])) ) continue;
+    if( entry[0] == 'AI' || (settings != 'all' && (await interaction.guild.members.fetch(entry[0])) == false) ) continue;
     if(output.length > 3997) {
       output += '...';
       break;
@@ -59,7 +59,7 @@ module.exports = new Command({
   cooldowns: { global: 0, user: 1000 },
   category: '',
   slashCommand: true,
-  prefixCommand: false,
+  prefixCommand: false, beta: true,
   options: [
     {
       name: 'user',
@@ -162,7 +162,7 @@ module.exports = new Command({
     else if (stats.type == 'leaderboard') {
       if(stats.data.raw)
         stats.data.formatted = { top10: formatTopTen(stats.data.raw, stats.settings, interaction) };
-
+        console.log(!!await (await client.guilds.fetch("732266869549170719")).members.cache.find("778360894908268565"))
       embed
         .setTitle(`Top 10 ${stats.game} players`)
         .setDescription(stats.data.formatted?.top10 || 'looks like no one played yet...');
