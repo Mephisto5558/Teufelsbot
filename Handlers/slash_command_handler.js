@@ -95,7 +95,7 @@ module.exports = async client => {
     for(let clientCommand of clientCommands) {
       same = compareCommands(command, clientCommand);
       if(same) {
-        client.log(`Skipped Slash Command ${command.name} because of no changes`);
+        client.log(`Skipped Registration of Slash Command ${command.name}`);
         skipCommandCount++;
         break;
       }
