@@ -102,6 +102,8 @@ module.exports = async client => {
 
     clientCommands = clientCommands.filter(entry => entry.name != command.name);
     if(same) continue;
+    if(commandCount != 0 && commands[commandCount + 1])
+      await client.functions.sleep(10000);
 
     await commandClient.createCommand({
         name: command.name,
@@ -117,8 +119,7 @@ module.exports = async client => {
         console.error(err);
         if(err.response.data.errors)
           console.error(errorColor(JSON.stringify(err.response.data, null, 2)));
-      });
-    if(commands[commandCount + 1]) await client.functions.sleep(10000);
+      })
   }
 
   for(let clientCommand of clientCommands) {
