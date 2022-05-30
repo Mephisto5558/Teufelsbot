@@ -51,7 +51,7 @@ async function formatTopTen(input, settings, interaction) {
     }
 
     output +=
-      `${medals[i] || i}. <@${entry[0]}>\n` +
+      `${medals[i] || `${i}.`} <@${entry[0]}>\n` +
       `> Wins: ${entry[1].wins || 0}\n` +
       `> Loses: ${entry[1].loses || 0}\n` +
       `> Draws: ${entry[1].draws || 0}\n\n`;
