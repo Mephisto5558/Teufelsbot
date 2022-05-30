@@ -27,7 +27,7 @@ async function formatStatCount(input, all) {
   if (!all) return `\`${input}\``;
 
   let relative = (input / all) * 100;
-  return `\`${input}\` (\`${relative.toFixed(2)}%\`)`;
+  return `\`${input}\` (\`${parseFloat(relative.toFixed(2))}%\`)`;
 }
 
 async function formatTopTen(input, settings, interaction) {
