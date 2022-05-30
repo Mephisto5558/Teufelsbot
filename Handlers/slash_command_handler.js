@@ -47,9 +47,13 @@ function compareCommands(input1, input2) {
       choices: data.choices || false
     }
     if(data.options) output[i].options = formatOptions(data.options);
-    output[i] = JSON.stringify(output[i]).replace(/([0-9]+)([^"0-9"])/g, '"$1"$2') //replaces <NUMBER> with <"NUMBER">
+    output[i] = JSON.stringify(output[i]) //replaces <NUMBER> with <"NUMBER">
   }
-  return (output[0] == output[1]);
+  if (output[0] == output[1]) return true;
+  else {
+    for(entry of output) entry.replace(/([0-9]+)([^"0-9"])/g, '"$1"$2');
+    return output[0] == output[1];
+  }
 }
 
 function formatOptions(input) {
