@@ -47,8 +47,7 @@ function compareCommands(input1, input2) {
       choices: data.choices || false
     }
     if(data.options) output[i].options = formatOptions(data.options);
-    output[i] = JSON.stringify(output[i]).replace(/([0-9]+)/g,'"$1\"').replace(/""/g, '"');
-    //First replace replaces <NUMBER> with <"NUMBER">, second replaces <""> with <">.
+    output[i] = JSON.stringify(output[i]).replace(/([0-9]+)([^"0-9"])/g, '"$1"$2') //replaces <NUMBER> with <"NUMBER">
   }
   return (output[0] == output[1]);
 }
