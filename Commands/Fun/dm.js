@@ -106,10 +106,7 @@ module.exports = new Command({
 
         await client.db.set('dmCommandBlacklist', newBlacklist || blacklist);
 
-        interaction.editReply({
-          content: message,
-          ephemeral: true
-        });
+        interaction.editReply({ content: message });
         break;
 
       case 'list':
@@ -145,10 +142,7 @@ module.exports = new Command({
           let errorMsg = 'You are not allowed to send dms to that user!';
           if (perm) errorMsg += '\nUse the `as_mod` option to force the message to send.';
 
-          return interaction.editReply({
-            content: errorMsg,
-            ephemeral: true
-          });
+          return interaction.editReply({ content: errorMsg });
         }
 
         let embed = new MessageEmbed()
@@ -168,16 +162,10 @@ module.exports = new Command({
         messageTarget
           .send({ embeds: [embed] })
           .then(
-            interaction.editReply({
-              content: 'Message sent!',
-              ephemeral: true
-            })
+            interaction.editReply({ content: 'Message sent!' })
           )
           .catch(_ => {
-            interaction.editReply({
-              content: "I couldn't message this member!",
-              ephemeral: true
-            })
+            interaction.editReply({ content: "I couldn't message this member!" })
           })
         break;
 
