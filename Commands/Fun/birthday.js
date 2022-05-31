@@ -189,7 +189,10 @@ module.exports = new Command({
             iconURL: interaction.member.displayAvatarURL()
           });
 
-        if(dontHide) interaction.channel.send({ embeds: [embed] });
+        if(dontHide) {
+          interaction.channel.send({ embeds: [embed] });
+          interaction.editReply('👍');
+        }
         else interaction.editReply({ embeds: [embed] });
         break;
     }
