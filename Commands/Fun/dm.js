@@ -12,7 +12,7 @@ module.exports = new Command({
   category: 'Fun',
   slashCommand: true,
   prefixCommand: false,
-  noDefer: true,
+  ephemeralDefer: true,
   options: [
     {
       name: 'toggle',
@@ -60,7 +60,6 @@ module.exports = new Command({
   ],
 
   run: async (client, _, interaction) => {
-    await interaction.deferReply({ ephemeral: true });
 
     let
       message, messageSender, newBlacklist,
