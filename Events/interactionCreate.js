@@ -27,7 +27,7 @@ module.exports = async(client, interaction) => {
     };
 
     if(embed.description) return interaction.reply({ embeds: [embed], ephemeral: true });
-    if(!command.noDefer) await interaction.deferReply();
+    if(!command.noDefer) await interaction.deferReply({ephemeral: command.ephemeralDefer || false});
     
     client.interaction = interaction;
     return (command.run(client, null, interaction)).then(client.interaction = null);
