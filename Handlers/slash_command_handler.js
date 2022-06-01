@@ -10,8 +10,7 @@ let
   delCommandCount = 0,
   skipCommandCount = 0,
   commands = [],
-  clientCommands = [],
-  same = false;
+  clientCommands = [];
 
 function work(option) {
   if(Array.isArray(option.options))
@@ -51,7 +50,7 @@ function compareCommands(input1, input2) {
   }
   if (output[0] == output[1]) return true;
   else {
-    for(entry of output) entry.replace(/([0-9]+)([^"0-9"])/g, '"$1"$2');
+    for(let entry of output) entry.replace(/([0-9]+)([^"0-9"])/g, '"$1"$2');
     return output[0] == output[1];
   }
 }
@@ -72,11 +71,12 @@ function formatOptions(input) {
   return output;
 }
 
-module.exports = async client => {
+module.exports = async (client, guildForForceSync) => {
   const commandClient = new Client(
     client.keys.token,
     client.userID
   );
+  let same = false;
 
   clientCommands = await commandClient.getCommands({});
 
@@ -96,12 +96,14 @@ module.exports = async client => {
   });
 
   for(let command of commands) {
-    for(let clientCommand of clientCommands) {
-      same = compareCommands(command, clientCommand);
-      if(same) {
-        client.log(`Skipped Registration of Slash Command ${command.name}`);
-        skipCommandCount++;
-        break;
+    if(!guildForForceSync) {
+      for(let clientCommand of clientCommands) {
+        same = compareCommands(command, clientCommand);
+        if(same) {
+          client.log(`Skipped Registration of Slash Command ${command.name}`);
+          skipCommandCount++;
+          break;
+        }
       }
     }
 
@@ -110,21 +112,24 @@ module.exports = async client => {
     if(commandCount != 0 && commands[commandCount + 1])
       await client.functions.sleep(10000);
 
-    await commandClient.createCommand({
+    await commandClient.createCommand(
+      {
         name: command.name,
         description: command.description,
         options: command.options
-      })
-      .then(_ => {
-        client.log(`Registered Slash Command ${command.name}`);
-        commandCount++
-      })
-      .catch(err => {
-        console.error(errorColor('[Error Handling] :: Unhandled Slash Handler Error/Catch'));
-        console.error(err);
-        if(err.response.data.errors)
-          console.error(errorColor(JSON.stringify(err.response.data, null, 2)));
-      })
+      },
+      guildForForceSync?.id
+    )
+    .then(_ => {
+      client.log(`Registered Slash Command ${command.name}`);
+      commandCount++
+    })
+    .catch(err => {
+      console.error(errorColor('[Error Handling] :: Unhandled Slash Handler Error/Catch'));
+      console.error(err);
+      if(err.response.data.errors)
+        console.error(errorColor(JSON.stringify(err.response.data, null, 2)));
+    })
   }
 
   for(let clientCommand of clientCommands) {
@@ -151,6 +156,8 @@ module.exports = async client => {
   client.log(`Loaded Event interactionCreate`);
   client.log(`Ready to receive slash commands\n`);
 
+  if(guildForForceSync) return;
+  
   do {
     await client.functions.sleep(100);
   } while(!client.readyAt)
