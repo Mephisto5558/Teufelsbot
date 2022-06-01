@@ -12,6 +12,8 @@ module.exports = new Command({
   beta: true,
 
   run: async(client, message) => {
+    message.content = message.args.shift();
+    
     client.log(`evaluated command '${message.content}'`);
 
     try {
