@@ -25,7 +25,7 @@ module.exports = (client, message) => {
   };
   
   if(command.category == 'Owner-Only') {
-    let permissionGranted = await client.functions.checkBotOwner(client, message);
+    let permissionGranted = client.functions.checkBotOwner(client, message);
     if (!permissionGranted) return;
   } //DO NOT REMOVE THIS BLOCK!
 
