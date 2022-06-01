@@ -23,6 +23,11 @@ module.exports = (client, message) => {
     if (!commandAlias) return;
     command = client.commands.get(commandAlias)
   };
+  
+  if(command.category == 'Owner-Only') {
+    let permissionGranted = await client.functions.checkBotOwner(client, message);
+    if (!permissionGranted) return;
+  } //DO NOT REMOVE THIS BLOCK!
 
   command.permissions.user.push('SEND_MESSAGES');
   command.permissions.client.push('SEND_MESSAGES');

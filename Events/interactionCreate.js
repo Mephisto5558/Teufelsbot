@@ -5,6 +5,11 @@ module.exports = async(client, interaction) => {
   command = client.slashCommands.get(interaction.commandName);
   if(!command) return;
 
+  if(command.category == 'Owner-Only') {
+    let permissionGranted = await client.functions.checkBotOwner(client, message);
+    if (!permissionGranted) return;
+  } //DO NOT REMOVE THIS BLOCK!
+
   if (interaction.isCommand()) {
     
     command.permissions.user.push('SEND_MESSAGES');

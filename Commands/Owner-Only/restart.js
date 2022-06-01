@@ -13,11 +13,7 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: async(client, message) => {
-
-    let permissionGranted = await client.functions.checkBotOwner(client, message)
-    if (!permissionGranted) return;
-
-    client.log(`Restart initiated by user '${message.member.user.tag}'`)
+    client.log(`Restart initiated by user '${message.user.tag}'`)
     client.log("Restarting bot...")
     await client.functions.reply("Restarting bot...", message)
 

@@ -12,10 +12,6 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: async (client, message) => {
-
-    let permissionGranted = await client.functions.checkBotOwner(client, message)
-    if (!permissionGranted) return;
-
     const messageArgs = message.args.join(' ')
       .split(';').map(element => {
         return element.trim();
