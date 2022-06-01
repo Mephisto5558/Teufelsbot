@@ -13,17 +13,12 @@ module.exports = new Command({
   beta: true,
 
   run: async(client, message) => {
-
-    let permissionGranted = await client.functions.checkBotOwner(client, message);
-    if (!permissionGranted || !message.args) return;
-
-    let query = message.args.join(' ');
     let messageToEdit;
 
     await message.reply('Loading...')
       .then(msg => { messageToEdit = msg});
 
-    let result = await client.db.get(query);
+    let result = await client.db.get(message.content);
     if(!result) result = 'nothing found'
 
     messageToEdit.edit('```json\n' + JSON.stringify(result, null, 2) + '\n```');
