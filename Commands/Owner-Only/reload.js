@@ -16,10 +16,8 @@ module.exports = new Command({
 
   run: async(client, message) => {
     //need to add command reload function & function reload function (xd)
-    let permissionGranted = await client.functions.checkBotOwner(client, message)
-    if (!permissionGranted) return;
 
-    if (!message.args || message.args.length === 0) {
+    if (!message.args || message.args.length == 0) {
       client.log("Reloading Handlers...");
       fs.readdirSync("./../Handlers").filter(file => file.endsWith('_handler.js')).forEach(file => {
         delete require.cache[require.resolve(`../../Handlers/${file}`)];
