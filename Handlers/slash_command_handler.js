@@ -82,8 +82,11 @@ module.exports = async (client, guildForForceSync) => {
 
   if(guildForForceSync) {
     for(let clientCommand of clientCommands) {
-      await commandClient.deleteCommand(clientCommand.id, guildForForceSync.id);
-      await client.functions.sleep(10000);
+      try {
+        await commandClient.deleteCommand(clientCommand.id, guildForForceSync.id);
+        await client.functions.sleep(10000);
+      }
+      catch { console.error }
     }
   }
 
