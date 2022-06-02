@@ -4,6 +4,10 @@ const embedConfig = require("../Settings/embed.json").colors;
 module.exports = async(client, interaction) => {
   command = client.slashCommands.get(interaction.commandName);
   if(!command) return;
+  
+  let blacklist = client.blacklist;
+  if(!blacklist) blacklist = await client.db.get('blacklist');
+  if(blacklist.includes(interaction.user.id)) return;
 
   if(command.category == 'Owner-Only') {
     let permissionGranted = await client.functions.checkBotOwner(client, message);

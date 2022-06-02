@@ -29,6 +29,7 @@ async function load() {
   client.owner = defaultSettings.botOwnerID;
   client.userID = defaultSettings.botUserID;
   client.botType = defaultSettings.type;
+  client.blacklist = db.get('blacklist');
   client.functions = {};
   client.startTime = Date.now();
   client.categories = fs.readdirSync('./Commands/');
