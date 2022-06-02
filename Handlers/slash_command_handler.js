@@ -80,6 +80,13 @@ module.exports = async (client, guildForForceSync) => {
 
   clientCommands = await commandClient.getCommands({});
 
+  if(guildForForceSync) {
+    for(let clientCommand of clientCommands) {
+      await commandClient.deleteCommand(clientCommand.id, guildForForceSync.id);
+      await client.functions.sleep(10000);
+    }
+  }
+
   fs.readdirSync('./Commands').forEach(subFolder => {
     fs.readdirSync(`./Commands/${subFolder}/`).filter(file => file.endsWith('.js')).forEach(file => {
 
@@ -127,7 +134,7 @@ module.exports = async (client, guildForForceSync) => {
     .catch(err => {
       console.error(errorColor('[Error Handling] :: Unhandled Slash Handler Error/Catch'));
       console.error(err);
-      if(err.response.data.errors)
+      if(err.response?.data.errors)
         console.error(errorColor(JSON.stringify(err.response.data, null, 2)));
     })
   }
