@@ -25,7 +25,6 @@ let command = new Command({
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,
-  beta: true,
   options: [
     {
       name: 'custom',
