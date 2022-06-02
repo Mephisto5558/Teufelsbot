@@ -16,7 +16,8 @@ module.exports = new Command({
   category: "Moderation",
   slashCommand: true,
   prefixCommand: false,
-  options: [{
+  options: [
+    {
       name: "member",
       description: `Who want you to get banned`,
       type: "USER",
