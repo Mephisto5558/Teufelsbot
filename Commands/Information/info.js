@@ -23,7 +23,7 @@ module.exports = new Command({
         var data = 0;
         console.error(err);
       }
-      description = `Developer: .̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558\n Starts: ${data}`;
+      description = `Developer: .̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558\nStarts: ${data}`;
 
       let date = new Date(client.startTime).toLocaleString('de-DE', {
         day: '2-digit',
@@ -39,7 +39,7 @@ module.exports = new Command({
       let embed = new MessageEmbed()
         .setTitle('Stats')
         .setDescription(description)
-        .setFooter({ text: 'More stats are comming soon!' });
+        .setFooter({ text: 'More stats are coming soon!' });
 
       client.functions.reply({ embeds: [embed] }, message);
     });
