@@ -21,5 +21,13 @@
     "npm": "^8.6.0",
     "reconlx": "^2.5.6",
     "serve-favicon": "^2.5.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mephisto5558/Teufelswerk-Bot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Mephisto5558/Teufelswerk-Bot/issues"
+  },
+  "homepage": "https://github.com/Mephisto5558/Teufelswerk-Bot#readme"
 }
