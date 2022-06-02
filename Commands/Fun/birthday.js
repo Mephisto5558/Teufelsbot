@@ -5,28 +5,28 @@ const
   year = new Date().getFullYear();
 
 function formatMonthName(input) {
-  let output;
   switch (input) {
-    case '01': output = 'January'; break;
-    case '02': output = 'February'; break;
-    case '03': output = 'March'; break;
-    case '04': output = 'April'; break;
-    case '05': output = 'May'; break;
-    case '06': output = 'June'; break;
-    case '07': output = 'July'; break;
-    case '08': output = 'August'; break;
-    case '09': output = 'September'; break;
-    case '10': output = 'October'; break;
-    case '11': output = 'November'; break;
-    case '12': output = 'December'; break;
+    case '01': return 'January';
+    case '02': return 'February';
+    case '03': return 'March';
+    case '04': return 'April';
+    case '05': return 'May';
+    case '06': return 'June';
+    case '07': return 'July';
+    case '08': return 'August';
+    case '09': return 'September';
+    case '10': return 'October';
+    case '11': return 'November';
+    case '12': return 'December';
     default: throw new SyntaxError(`invalid month, must be in range 01-12, got ${input}`);
   }
-  return output;
 }
 
-function getAge(input) {
-  if (input < (new Date().getMonth() + 1)) return year - input + 1;
-  else return year - input;
+function getAge(bd) {
+  //bd[0] = year; bd[1] = month; bd[2] = day
+  let now = new Date()
+  if (bd[1] < (now.getMonth() + 1) || (bd[1] == (now.getMonth() + 1) && bd[2] < now.getDate())) return year - bd[0] + 1;
+  else return year - bd[0];
 }
 
 module.exports = new Command({
@@ -38,24 +38,36 @@ module.exports = new Command({
   category: 'FUN',
   slashCommand: true,
   prefixCommand: false,
-  beta: true,
   ephemeralDefer: true,
   options: [
     {
       name: 'set',
       description: 'set your own birthday',
       type: 'SUB_COMMAND',
-      options: [{
-        name: 'date',
-        description: 'when do you have birthday? The valid format is YYYY/MM/DD. "/" can also be ".", "-" or ":".',
-        type: 'STRING',
-        required: true
-      }]
-    },
-    {
-      name: 'remove',
-      description: 'deletes your birthday from the database',
-      type: 'SUB_COMMAND'
+      options: [
+        {
+          name: 'day',
+          description: 'The day you was born in.',
+          type: 'NUMBER',
+          max_value: 31,
+          required: true
+        },
+        {
+          name: 'month',
+          description: 'The month you was born in.',
+          type: 'NUMBER',
+          max_value: 12,
+          required: true
+        },
+        {
+          name: 'year',
+          description: 'The year you was born in.',
+          type: 'NUMBER',
+          min_value: 1900,
+          max_value: year,
+          required: true
+        }
+      ]
     },
     {
       name: 'get',
@@ -75,6 +87,11 @@ module.exports = new Command({
           required: false
         }
       ]
+    },
+    {
+      name: 'remove',
+      description: 'deletes your birthday from the database',
+      type: 'SUB_COMMAND'
     }
   ],
 
@@ -82,7 +99,11 @@ module.exports = new Command({
 
     let
       command = interaction.options.getSubcommand(),
-      birthday = interaction.options.getString('date'),
+      birthday = [
+        interaction.options.getNumber('year'),
+        interaction.options.getNumber('month')?.toString().padStart(2, '0'),
+        interaction.options.getNumber('day')?.toString().padStart(2, '0')
+      ],
       target = interaction.options.getUser('target'),
       dontHide = interaction.options.getBoolean('dont_hide'),
       oldData = await client.db.get('birthdays'),
@@ -90,25 +111,12 @@ module.exports = new Command({
 
     switch (command) {
       case 'set':
-        let regex = /^(?:\d{4}[\/.:-](?:0\d|1[0-2])[\/.:-]\d\d)$/g; //checks YYYY<./:>MM<./:>/DD
-        let check = regex.test(birthday);
+        if (birthday[0] > year) return interaction.editReply(
+          'Are you sure you put the right year in?\n' +
+          `It seems like you will be born in ${birthday[0] - year} years :face_with_raised_eyebrow:`
+        );
 
-        if (!check) {
-          let embed = new MessageEmbed()
-            .setTitle('Invalid Input')
-            .setDescription(
-              'The provided birthday format was not recognized by the bot.\n' +
-              'Your birthday must be formated like this: `YYYY/MM/DD`.\n' +
-              'Example: `2001/09/25`\n' +
-              'The delimiter can be `/`, `.`, `-` or `:`.'
-            )
-            .setColor(embedConfig.discord.RED);
-          return interaction.editReply({ embeds: [embed] });
-        }
-
-        birthday = birthday.replace(/[:.-]/g, '/');
-
-        newData = Object.assign({}, oldData, { [interaction.user.id]: birthday });
+        newData = Object.assign({}, oldData, { [interaction.user.id]: birthday.join('/') });
         await client.db.set('birthdays', newData);
 
         interaction.editReply('Your birthday has been saved.' /*maybe add "your birthday is in <d> days"*/);
@@ -134,9 +142,9 @@ module.exports = new Command({
           embed.setTitle(`${target.tag}'s Birthday`);
           let data = oldData[target.id]?.split('/')
           if (data) {
-            newData =
-              `This user has birthday on **${formatMonthName(data[1])} ${data[2]}**.\n` +
-              `He/she will turn **${getAge(data[0])}** on this day.`
+            let age = getAge(data);
+            newData = `This user has birthday on **${formatMonthName(data[1])} ${data[2]}**.\n`;
+            if (age < year) newData += `He/she will turn **${age}** on this day.`;
           }
           else newData = 'This user has no birthday :(';
         }
@@ -163,17 +171,23 @@ module.exports = new Command({
           data.sort(([, a], [, b]) => {
             const time = new Date().getTime();
 
-            let time1 = new Date(`${year}-${a[0]}-${a[1]}`).setHours(0);
-            let time2 = new Date(`${year}-${b[0]}-${b[1]}`).setHours(0);
+            for (item of [a, b]) {
+              item = new Date(year, item[0] - 1, item[1] + 1);
+              if (item < time) item.setFullYear(year + 1);
+            }
 
-            return (time1 - time) - (time2 - time);
+            return (a - time) - (b - time);
           });
 
           data = data.slice(0, 10);
 
           for (entry of data) {
             let date = `**${formatMonthName(entry[1][0])} ${entry[1][1]}**\n`;
-            let bd = `> <@${entry[0]}> (${getAge(entry[1][2])})\n`;
+            let age = getAge([entry[1][2], entry[1][0], entry[1][1]])
+            if (age >= year) age = undefined;
+            else age = `(${age})`;
+
+            let bd = `> <@${entry[0]}> ${age}\n`;
 
             if (newData.includes(date)) newData += bd;
             else newData += `\n${date}${bd}`;
@@ -189,9 +203,9 @@ module.exports = new Command({
             iconURL: interaction.member.displayAvatarURL()
           });
 
-        if(dontHide) {
+        if (dontHide) {
           interaction.channel.send({ embeds: [embed] });
-          interaction.editReply('👍');
+          interaction.editReply('Message sent!');
         }
         else interaction.editReply({ embeds: [embed] });
         break;
