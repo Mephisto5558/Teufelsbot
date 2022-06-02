@@ -140,6 +140,7 @@ module.exports = new Command({
 
         if (target) {
           embed.setTitle(`${target.tag}'s Birthday`);
+          
           let data = oldData[target.id]?.split('/')
           if (data) {
             let age = getAge(data);
@@ -150,6 +151,7 @@ module.exports = new Command({
         }
         else {
           embed.setTitle('The next birthdays');
+
           let data = Object.entries(oldData);
           let filterList = [];
 
@@ -195,7 +197,6 @@ module.exports = new Command({
         }
 
         embed
-          .setTitle('The next birthdays')
           .setDescription(newData || 'nobody has a birthday set...')
           .setColor(embedConfig.discord.BURPLE)
           .setFooter({
