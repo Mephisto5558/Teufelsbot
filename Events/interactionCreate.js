@@ -6,7 +6,7 @@ module.exports = async(client, interaction) => {
   if(!command) return;
   
   let blacklist = client.blacklist;
-  if(!blacklist) blacklist = await client.db.get('blacklist');
+  if(!blacklist) blacklist = await client.db.get('blacklist') || [];
   if(blacklist.includes(interaction.user.id)) return;
 
   if(command.category == 'Owner-Only') {

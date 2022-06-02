@@ -6,7 +6,7 @@ module.exports = (client, message) => {
   if (message.author.bot) return;
 
   let blacklist = client.blacklist;
-  if(!blacklist) blacklist = await client.db.get('blacklist');
+  if(!blacklist) blacklist = client.db.get('blacklist') || [];
   if(blacklist.includes(interaction.user.id)) return;
   
   message.content = message.content.replace('<@!', '<@');
