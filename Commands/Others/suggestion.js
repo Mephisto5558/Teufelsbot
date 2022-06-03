@@ -49,7 +49,7 @@ module.exports = new Command({
       repo: package[1],
       title: `${interaction.options.getString('title')} | ${interaction.options.getString('importance')} importance`,
       body:
-        `<h3>Sent from ${interaction.user.tag} (${interaction.user.id}) with bot ${client.user.id}\n\n</h3>` +
+        `<h3>Sent from ${interaction.user.tag} (${interaction.user.id}) with bot ${client.user.id}</h3>\n\n` +
         interaction.options.getString('suggestion'),
       assignees: [package[0]],
       labels: ['enhancement']
@@ -58,7 +58,7 @@ module.exports = new Command({
         let embed = new MessageEmbed()
           .setTitle('Success')
           .setDescription('Your suggestion has been sent.\n' +
-            '[Link](https://github.com/Mephisto5558/Teufelswerk-Bot/issues?q=is%3Aopen+is%3Aissue+author%3AMephisto5558+assignee%3AMephisto5558)'
+            `[Suggestion link](https://github.com/${package[0]}/${package[1]}/issues?q=is%3Aopen+is%3Aissue+author%${package[0]}+assignee%${package[0]})`
           );
 
         interaction.editReply({ embeds: [embed] })
