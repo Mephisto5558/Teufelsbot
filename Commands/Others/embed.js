@@ -10,8 +10,7 @@ function pushColors(colorObject) { //is not called in code
 
     if (typeof color[1] == 'object') pushColors(color[1]);
     else if (!/^#[A-F0-9]{6}$/i.test(color[1])) continue;
-    
-    choices.push({ name: color[0], value: color[1].toString() });
+    else choices.push({ name: color[0], value: color[1].toString() });
   }
 }
 
