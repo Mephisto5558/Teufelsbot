@@ -2,7 +2,8 @@ const { MessageEmbed } = require('discord.js');
 const embedConfig = require("../Settings/embed.json").colors;
 
 module.exports = async(client, interaction) => {
-  command = client.slashCommands.get(interaction.commandName);
+
+  let command = client.slashCommands.get(interaction.commandName);
   if(!command) return;
   
   let blacklist = client.blacklist;
@@ -15,7 +16,6 @@ module.exports = async(client, interaction) => {
   } //DO NOT REMOVE THIS BLOCK!
 
   if (interaction.isCommand()) {
-    
     command.permissions.user.push('SEND_MESSAGES');
     command.permissions.client.push('SEND_MESSAGES');
 
@@ -39,7 +39,8 @@ module.exports = async(client, interaction) => {
     if(!command.noDefer) await interaction.deferReply({ephemeral: command.ephemeralDefer || false});
     
     client.interaction = interaction;
-    return (command.run(client, null, interaction)).then(client.interaction = null);
+    await command.run(client, null, interaction);
+    return client.interaction = undefined;
   }
 
   if (interaction.isContextMenu()) {
@@ -48,4 +49,5 @@ module.exports = async(client, interaction) => {
   }
   
   if (interaction.isButton() && !command.noDefer) interaction.deferUpdate();
+
 }
