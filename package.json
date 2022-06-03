@@ -25,10 +25,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Mephisto5558/Teufelswerk-Bot.git"
+    "url": "git+https://github.com/Mephisto5558/Teufelsbot.git"
   },
   "bugs": {
-    "url": "https://github.com/Mephisto5558/Teufelswerk-Bot/issues"
+    "url": "https://github.com/Mephisto5558/Teufelsbot/issues"
   },
-  "homepage": "https://github.com/Mephisto5558/Teufelswerk-Bot#readme"
+  "homepage": "https://github.com/Mephisto5558/Teufelsbot#readme"
 }
