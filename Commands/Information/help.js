@@ -53,6 +53,7 @@ module.exports = new Command({
         if (cmd.name) embed.setTitle(`Detailed Information about: \`${cmd.name}\``);
         if (cmd.description) embed.setDescription(cmd.description);
         if (cmd.aliases.length) embed.addField('Aliases', `\`${listCommands(cmd.aliases, '', 1).replace(/> /g, '')}\``);
+        if (cmd.slashCommand) cmd.usage += '\nSLASH Command: look at the option descriptions';
         if (cmd.usage) embed
           .addField('Usage', `\`${client.guildData.get(message.guild?.id)?.prefix || client.guildData.get('default')?.prefix}${cmd.usage}\``)
           .setFooter({ text: "Syntax: <> = required, [] = optional" });

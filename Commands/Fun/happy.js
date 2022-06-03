@@ -6,6 +6,7 @@ module.exports = new Command({
   name: 'happy',
   aliases: [],
   description: `make the bot send a happy message`,
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
   category: "Fun",

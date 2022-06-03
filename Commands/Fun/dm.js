@@ -7,6 +7,7 @@ module.exports = new Command({
   name: 'dm',
   aliases: [],
   description: 'sends a user a dm',
+  usage: '',
   permissions: { client: [], user: [] },
   cooldown: { global: '', user: '' },
   category: 'Fun',

@@ -6,6 +6,7 @@ module.exports = new Command({
   name: 'restart',
   aliases: [],
   description: `restarts the bot`,
+  usage: 'PREFIX Command: restart',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
   category: "Owner-Only",

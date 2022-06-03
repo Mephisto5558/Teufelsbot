@@ -12,6 +12,7 @@ module.exports = new Command({
   name: 'kick',
   aliases: [],
   description: `kicks a member from the server`,
+  usage: '',
   permissions: { client: ['KICK_MEMBERS'], user: ['KICK_MEMBERS'] },
   cooldowns: { global: '', user: '' },
   category: "Moderation",

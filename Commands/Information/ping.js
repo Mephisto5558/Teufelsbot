@@ -7,6 +7,7 @@ module.exports = new Command({
   name: 'ping',
   aliases: [],
   description: `Show the bot's ping`,
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
   category: "Information",

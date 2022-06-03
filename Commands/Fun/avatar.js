@@ -6,6 +6,7 @@ module.exports = new Command({
   name: 'avatar',
   alias: [],
   description: 'shows the user avatar',
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 0 },
   category: 'FUN',

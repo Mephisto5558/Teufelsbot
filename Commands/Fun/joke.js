@@ -16,6 +16,7 @@ module.exports = new Command({
   name: 'joke',
   aliases: [],
   description: `sends a joke`,
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 100, user: '' },
   slashCommand: true,
