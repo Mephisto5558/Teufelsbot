@@ -1,10 +1,13 @@
 const { Command } = require('reconlx');
-const axios = require('axios').default;
+const { Octokit } = require("@octokit/core");
+const { MessageEmbed } = require('discord.js');
+const package = require('../../package.json')?.repository?.url
+  .replace(/.*\.com\/|\.git/g, '').split('/');
 
 module.exports = new Command({
-  name: 'suggestion',
+  name: 'suggest',
   alias: [],
-  description: 'Suggest a feature for the bot.',
+  description: 'Suggest a feature for the bot on Github.',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 0 },
   category: 'Others',
@@ -36,30 +39,32 @@ module.exports = new Command({
     }
   ],
 
-  run: async (_, _, interaction) => {
+  run: async (client, _, interaction) => {
 
-    axios.post('https://eo4g01d5kqvc5ys.m.pipedream.net', {
-      "event": "newSuggestion",
-      "guild": interaction.guild.id,
-      "user": {
-        "name": interaction.user.tag,
-        "id": interaction.user.id
-      },
-      "content": {
-        "title": interaction.options.getString('title'),
-        "text": interaction.options.getString('suggestion'),
-        "priority": `${interaction.options.getString('importance')} importance`
-      }
+    const octokit = new Octokit({ auth: client.keys.githubKey });
+
+    await octokit.request(`POST /repos/${package[0]}/${package[1]}/issues`, {
+      owner: package[0],
+      repo: package[1],
+      title: `${interaction.options.getString('title')} | ${interaction.options.getString('importance')} importance`,
+      body:
+        `<h3>Sent from ${interaction.user.tag} (${interaction.user.id}) with bot ${client.user.id}\n\n</h3>` +
+        interaction.options.getString('suggestion'),
+      assignees: [package[0]],
+      labels: ['enhancement']
     })
-      .then(res => {
-        interaction.editReply(
-          res.data.body.message +
-          res.data.body.link
-        )
+      .then(_ => {
+        let embed = new MessageEmbed()
+          .setTitle('Success')
+          .setDescription('Your suggestion has been sent.\n' +
+            '[Link](https://github.com/Mephisto5558/Teufelswerk-Bot/issues?q=is%3Aopen+is%3Aissue+author%3AMephisto5558+assignee%3AMephisto5558)'
+          );
+
+        interaction.editReply({ embeds: [embed] })
       })
       .catch(err => {
-        console.error(err.response);
-        interaction.editReply(`An error occurred.\n${res.response.statusText}`)
+        console.error(err);
+        interaction.editReply(`An error occurred.\n${res?.response.statusText}`)
       });
 
   }
