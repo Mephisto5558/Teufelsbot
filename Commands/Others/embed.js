@@ -17,7 +17,8 @@ function pushColors(colorObject) { //is not called in code
 let command = new Command({
   name: 'embed',
   aliases: [],
-  description: 'sends a custom embed: You can do newlines with "/n"',
+  description: 'sends a custom embed; you can do newlines with "/n"',
+  usage: '',
   permissions: { client: [], user: ['EMBED_MESSAGES'] },
   cooldowns: { global: '', user: '' },
   category: "Others",

@@ -11,6 +11,7 @@ module.exports = new Command({
   name: 'ban',
   aliases: [],
   description: `bans a member from the server`,
+  usage: '',
   permissions: { client: ['BAN_MEMBERS'], user: ['BAN_MEMBERS'] },
   cooldowns: { global: '', user: '' },
   category: "Moderation",

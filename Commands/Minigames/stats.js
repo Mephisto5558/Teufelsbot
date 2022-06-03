@@ -64,6 +64,7 @@ module.exports = new Command({
   name: 'stats',
   aliases: [],
   description: 'get stats about one of the minigames',
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 1000 },
   category: '',

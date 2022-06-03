@@ -12,6 +12,7 @@ module.exports = new Command({
   name: 'bistduweg',
   alias: [],
   description: 'sagt nix wenn er weg is',
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 200, user: 0 },
   category: 'FUN',

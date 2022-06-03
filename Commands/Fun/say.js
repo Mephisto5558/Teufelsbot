@@ -5,11 +5,12 @@ module.exports = new Command({
   name: 'say',
   aliases: [],
   description: 'Let me say something',
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
   category: 'Fun',
   slashCommand: true,
-  prefixCommand: true,
+  prefixCommand: false,
   disabled: false,
   options: [{
       name: 'msg',
