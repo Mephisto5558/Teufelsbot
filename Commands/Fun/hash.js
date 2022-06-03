@@ -30,6 +30,7 @@ module.exports = new Command({
   name: 'hash',
   alias: [],
   description: 'encrypt or decrypt your text with various methods',
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 0 },
   category: 'FUN',

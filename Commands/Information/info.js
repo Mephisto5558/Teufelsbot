@@ -9,6 +9,7 @@ module.exports = new Command({
   name: 'info',
   alias: [],
   description: 'shows some stats of the bot',
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 0 },
   category: 'Information',

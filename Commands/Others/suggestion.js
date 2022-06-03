@@ -8,11 +8,12 @@ module.exports = new Command({
   name: 'suggest',
   alias: [],
   description: 'Suggest a feature for the bot on Github.',
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 0 },
   category: 'Others',
   slashCommand: true,
-  prefixCommand: true,
+  prefixCommand: false,
   options: [
     {
       name: 'title',

@@ -7,6 +7,7 @@ module.exports = new Command({
   name: 'convert',
   alias: [],
   description: 'Converts one type of text to another',
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 0 },
   category: 'FUN',

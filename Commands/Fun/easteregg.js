@@ -4,6 +4,7 @@ module.exports = new Command({
   name: 'vinjagostinkt',
   aliases: [],
   description: `just a little easter egg`,
+  usage: '',
   permissions: { client: [], user: [] },
   cooldown: { global: '', user: '' },
   category: "Fun",

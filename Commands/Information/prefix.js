@@ -4,6 +4,7 @@ module.exports = new Command({
   name: 'prefix',
   aliases: [],
   description: `changes or shows the guild prefix`,
+  usage: 'prefix [new prefix]',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '10000' },
   category: "Information",

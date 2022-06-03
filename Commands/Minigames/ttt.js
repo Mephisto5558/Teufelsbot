@@ -117,6 +117,7 @@ module.exports = new Command({
   name: 'tictactoe',
   aliases: ['ttt'],
   description: 'play some ttt against a friend or the bot',
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 1000 },
   category: 'Minigames',

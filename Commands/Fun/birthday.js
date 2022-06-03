@@ -33,6 +33,7 @@ module.exports = new Command({
   name: 'birthday',
   alias: [],
   description: 'save your birthday and get a I will send a message on your birthday',
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 1000 },
   category: 'FUN',

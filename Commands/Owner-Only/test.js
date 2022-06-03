@@ -6,16 +6,16 @@ module.exports = new Command({
   name: 'test',
   aliases: [],
   description: 'testing',
+  usage: 'PREFIX Command: test\n',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
-  category: 'Owner-Only',
+  category: 'aOwner-Only',
   slashCommand: true,
   prefixCommand: true,
   beta: true,
-  disabled: true,
+  disabled: false,
 
-  run: async (client, _, interaction) => {
-  
+  run: async (client, message, interaction) => {
 
   }
 })

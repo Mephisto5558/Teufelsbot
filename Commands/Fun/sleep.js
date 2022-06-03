@@ -6,6 +6,7 @@ module.exports = new Command({
   name: 'sleep',
   aliases: [],
   description: `sends a sleep messsage`,
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
   category: "Fun",

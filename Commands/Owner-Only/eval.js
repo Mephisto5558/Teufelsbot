@@ -4,6 +4,7 @@ module.exports = new Command({
   name: 'eval',
   aliases: [],
   description: `inject javascript code directly into the bot`,
+  usage: 'PREFIX Command: eval <code>',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
   category: "Owner-Only",

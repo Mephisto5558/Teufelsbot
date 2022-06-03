@@ -11,6 +11,7 @@ module.exports = new Command({
   name: 'uptime',
   aliases: [],
   description: `shows the bot's uptime`,
+  usage: 'uptime',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
   category: "Information",
