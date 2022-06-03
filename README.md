@@ -1,12 +1,12 @@
 # Teufelswerk-Bot
-<a href="https://github.com/Mephisto5558/Teufelswerk-Bot/pulse" alt="Activity">
-  <img src="https://img.shields.io/github/commit-activity/m/Mephisto5558/Teufelswerk-Bot" />
+<a href="https://github.com/Mephisto5558/Teufelsbot/pulse" alt="Activity">
+  <img src="https://img.shields.io/github/commit-activity/m/Mephisto5558/Teufelsbot" />
 </a>
-<a href="https://github.com/Mephisto5558/Teufelswerk-Bot/blob/main/LICENSE" alt="License">
-  <img src="https://img.shields.io/github/license/Mephisto5558/Teufelswerk-Bot" />
+<a href="https://github.com/Mephisto5558/Teufelsbot/blob/main/LICENSE" alt="License">
+  <img src="https://img.shields.io/github/license/Mephisto5558/Teufelsbot" />
 </a>
-<a href="https://www.codefactor.io/repository/github/mephisto5558/teufelswerk-bot" alt="CodeFactor">
-  <img src="https://www.codefactor.io/repository/github/mephisto5558/teufelswerk-bot/badge" />
+<a href="https://www.codefactor.io/repository/github/mephisto5558/teufelsbot" alt="CodeFactor">
+  <img src="https://www.codefactor.io/repository/github/mephisto5558/teufelsbot/badge" />
 </a>
 <br>
 <a href="https://discord.gg/u6xjqzz" alt="Discord Server">
@@ -19,7 +19,7 @@
 
 A discord bot with multiple features, in active developement.
 
-Known Bugs & ToDo/Feature Requests: [discussion 3](https://github.com/Mephisto5558/Teufelswerk-Bot/discussions/3)
+Known Bugs & ToDo/Feature Requests: [discussion 3](https://github.com/Mephisto5558/Teufelbot/discussions/3)
 
 Hosted on [replit.com](https://replit.com)
 
