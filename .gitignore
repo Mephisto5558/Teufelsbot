@@ -6,6 +6,7 @@ package-lock.json
 env.json
 node_modules
 README.md
+Temp
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
