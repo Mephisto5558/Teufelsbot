@@ -22,7 +22,7 @@
 
 A discord bot with multiple features, in active developement.
 
-Known Bugs & ToDo/Feature Requests: [Discussion 3](https://github.com/Mephisto5558/Teufelbots/discussions/3)
+[Known Bugs & ToDo/Feature Requests](https://github.com/Mephisto5558/Teufelbots/discussions/3)
 
 Hosted on [replit.com](https://replit.com)
 
