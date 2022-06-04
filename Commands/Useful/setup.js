@@ -7,7 +7,7 @@ module.exports = new Command({
   usage: '',
   permissions: { client: [], user: ['MANAGE_GUILD'] },
   cooldowns: { global: 0, user: 30000 },
-  category: 'Useful',
+  category: 'USEFUL',
   slashCommand: true,
   prefixCommand: false,
   beta: true,

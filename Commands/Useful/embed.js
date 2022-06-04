@@ -21,7 +21,7 @@ let command = new Command({
   usage: '',
   permissions: { client: [], user: ['EMBED_MESSAGES'] },
   cooldowns: { global: '', user: '' },
-  category: 'Useful',
+  category: 'USEFUL',
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,
