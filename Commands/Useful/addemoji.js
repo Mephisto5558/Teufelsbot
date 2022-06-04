@@ -15,7 +15,7 @@ module.exports = new Command({
   cooldowns: { global: 0, user: 1000 },
   category: 'USEFUL',
   slashCommand: true,
-  prefixCommand: false, beta: true,
+  prefixCommand: false,
   options: [
     {
       name: 'input',
