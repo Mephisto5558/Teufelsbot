@@ -7,7 +7,7 @@ module.exports = new Command({
   usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
-  category: "Others",
+  category: "FUN",
   slashCommand: false,
   prefixCommand: false,
   disabled: true,
