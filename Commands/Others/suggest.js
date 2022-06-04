@@ -14,6 +14,7 @@ module.exports = new Command({
   category: 'Others',
   slashCommand: true,
   prefixCommand: false,
+  ephemeralDefer: true,
   options: [
     {
       name: 'title',
