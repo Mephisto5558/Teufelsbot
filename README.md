@@ -8,6 +8,9 @@
 <a href="https://www.codefactor.io/repository/github/mephisto5558/teufelsbot" alt="CodeFactor">
   <img src="https://www.codefactor.io/repository/github/mephisto5558/teufelsbot/badge" />
 </a>
+<a href="https://github.com/Mephisto5558/Teufelsbot/actions/workflows/codeql-analysis.yml" alt="CodeQL">
+  <img src="https://github.com/Mephisto5558/Teufelsbot/actions/workflows/codeql-analysis.yml/badge.svg?branch=main" />
+</a>
 <br>
 <a href="https://discord.gg/u6xjqzz" alt="Discord Server">
   <img src="https://discordapp.com/api/guilds/725378451988676609/widget.png?style=shield" />
