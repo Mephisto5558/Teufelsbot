@@ -7,7 +7,7 @@ module.exports = new Command({
   name: 'addemoji',
   alias: [],
   description: 'adds a emoji to your guild.',
-  usage: 'addemoji <emoji|url> <name>',
+  usage: '',
   permissions: {
     client: ['MANAGE_EMOJIS_AND_STICKERS'],
     user: ['MANAGE_EMOJIS_AND_STICKERS']
