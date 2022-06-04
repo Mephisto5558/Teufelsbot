@@ -1,13 +1,13 @@
 const
   express = require('express'),
   favicon = require('serve-favicon'),
-  RateLimit = require('express-rate-limit'),
+  rateLimit = require('express-rate-limit'),
   app = express(),
   path = require('path'),
   router = express.Router(),
   chalk = require("chalk"),
   errorColor = chalk.bold.red,
-  limiter = new RateLimit({
+  limiter = rateLimit({
     windowMs: 1*60*1000, // 1 minute
     max: 20 // 20 requests per minute
   });
