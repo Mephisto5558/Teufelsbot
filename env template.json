@@ -7,7 +7,8 @@
       "uptimeAPIKey": "APIKEY for UptimeRobot for 24/7 bot",
       "humorAPIKey": "APIKEY for HumorAPI (/joke)",
       "rapidAPIKey": "APIKEY for RapidAPI (/Joke)",
-      "githubKey": "APIKEY for /suggest"
+      "githubKey": "APIKEY for /suggest",
+      "FunFactAPI": "APIKEY for .funfact"
     }
   },
 
