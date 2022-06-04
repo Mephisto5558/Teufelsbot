@@ -7,7 +7,7 @@ env.json
 node_modules
 README.md
 Temp
-.github
+.github/
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -71,4 +71,3 @@ typings/
 # dotenv environment variables file
 .env
 .env.test
-
