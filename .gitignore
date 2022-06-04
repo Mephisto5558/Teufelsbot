@@ -2,7 +2,6 @@ replit.nix
 logs
 *.log
 test.js
-package-lock.json
 env.json
 node_modules
 README.md
