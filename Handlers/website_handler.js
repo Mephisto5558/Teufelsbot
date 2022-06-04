@@ -1,11 +1,16 @@
 const
   express = require('express'),
   favicon = require('serve-favicon'),
+  RateLimit = require('express-rate-limit'),
   app = express(),
   path = require('path'),
   router = express.Router(),
   chalk = require("chalk"),
-  errorColor = chalk.bold.red;
+  errorColor = chalk.bold.red,
+  limiter = new RateLimit({
+    windowMs: 1*60*1000, // 1 minute
+    max: 20 // 20 requests per minute
+  });
 
 let websiteMessages = ['Hilfe der Dominik will mich entführen ahhh\nLG Meph', 'Hello World!', 'Lena is kuhl', 'Flo is kuhl', 'Vinni is auch kuhl', 'huhu', 'What are you doing here?', 'https://www.youtube.com/watch?v=xvFZjo5PgG0']
 
@@ -16,6 +21,7 @@ module.exports = async client => {
 
   app.use(favicon('Website/favicon.ico'));
   app.use(express.json());
+  app.use(limiter);
   app.use(router);
   app.use(function (err, _, res, _) {
     console.error(errorColor(' [Error Handling] :: Unhandled Website Error/Catch'));
