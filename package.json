@@ -9,7 +9,7 @@
   "dependencies": {
     "@discordjs/rest": "^0.5.0",
     "@octokit/core": "^3.6.0",
-    "chalk": "^4.1.2",
+    "chalk": "^5.0.1",
     "cron": "^2.0.0",
     "crypto-js": "^4.1.1",
     "discord-api-types": "^0.33.3",
