@@ -17,9 +17,8 @@ module.exports = client => {
       console.error(err, origin);
       console.error(`\n`)
 
-      if(!err.errorCode) err.errorCode = 'unknown'
       if(err.name === 'DiscordAPIError') sendErrorMsg("A Discord API Error occurred, please try again and ping the dev if this keeps happening.")
-      else sendErrorMsg(`A unknown error occurred, please ping the dev.\nError Code: \`${err.errorCode}\``);
+      else sendErrorMsg(`A unknown error occurred, please ping the dev.\nError Type: \`${err.name  || 'unknown'}\``);
     })
 
   .on('uncaughtException', (err, origin) => {
@@ -27,8 +26,7 @@ module.exports = client => {
     client.log(err, origin);
     client.log(`\n`);
 
-    if(!err.errorCode) err.errorCode = 'unknown'
-    sendErrorMsg(`A unknown error occurred, please ping the dev.\nError Code: \`${err.errorCode}\``);
+    sendErrorMsg(`A unknown error occurred, please ping the dev.\nError Type: \`${err.name  || 'unknown'}\``);
   })
 
   .on('uncaughtExceptionMonitor', (err, origin) => {
@@ -36,14 +34,14 @@ module.exports = client => {
     console.error(err, origin);
     console.error(`\n`);
 
-    if(!err.errorCode) err.errorCode = 'unknown'
-    sendErrorMsg(`A unknown error occurred, please ping the dev.\nError Code: \`${err.errorCode}\``);
+    sendErrorMsg(`A unknown error occurred, please ping the dev.\nError Type: \`${err.name  || 'unknown'}\``);
   });
 
   client
     .on('rateLimit', info => {
       const msg = `Rate limit hit ${info.timeDifference + ': ' + info.timeout || 'Unknown timeout '}`
       console.error(errorColor(msg));
+      console.error(info);
       sendErrorMsg(msg)
     });
 
