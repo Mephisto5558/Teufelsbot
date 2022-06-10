@@ -2,13 +2,14 @@ const
   { Command } = require('reconlx'),
   { parseEmoji } = require('discord.js').Util,
   { request } = require('axios').default,
-  urlRegex = /^(?:https?:\/\/)?(?:www.)?.+\.(?:jpg|jpeg|png|webp|gif|svg)$/i;
+  urlRegex = /^.+\.(?:jpg|jpeg|png|webp|gif|svg)$/i;
 
-async function validateURL(url) {
-  let res;
-  try { res = await request({ url: url }) }
+async function urlExists(url) {
+  try {
+    const res = await request({ url: url });
+    return !/4\d\d/.test(res.status);
+  }
   catch { return }
-  finally { return /4\d\d/.test(res.status) }
 }
 
 module.exports = new Command({
@@ -23,7 +24,7 @@ module.exports = new Command({
   cooldowns: { global: 0, user: 1000 },
   category: 'Useful',
   slashCommand: true,
-  prefixCommand: false,
+  prefixCommand: false, beta: true,
   options: [
     {
       name: 'emoji_or_url',
@@ -53,13 +54,17 @@ module.exports = new Command({
       if (interaction.guild.emojis.cache.has(emoticon?.id)) return interaction.editReply('That emoji is already on this guild');
       else input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`
     }
-    else if (!urlRegex.test(input)) {
-      return interaction.editReply(
-        'The provided argument is not a valid url or emoji!\n' +
-        'The url must end with `jpg`, `jpeg, `png`, `webp`, `gif` or `svg`.\n'
-      )
+    else {
+      if (!input.startsWith('http')) input = `https://${input}`;
+
+      if (!urlRegex.test(input)) {
+        return interaction.editReply(
+          'The provided argument is not a valid url or emoji!\n' +
+          'The url must end with `jpg`, `jpeg`, `png`, `webp`, `gif` or `svg`.\n'
+        )
+      }
+      else if (!await urlExists(input)) return interaction.editReply('The provided url was not found.');
     }
-    else if (!validateURL(input)) return interaction.editReply('The provided url was not found.');
 
     let emoji;
     try {
