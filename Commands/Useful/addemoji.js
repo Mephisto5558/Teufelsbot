@@ -44,8 +44,10 @@ module.exports = new Command({
     let inputName = interaction.options.getString('name');
     const emoticon = parseEmoji(input);
 
-    if (inputName && inputName.length < 2) inputName = null;
-    else if (inputName.length > 32) inputName = inputName.subString(0, 32);
+    if (inputName) {
+      if (inputName.length < 2) inputName = null;
+      else if (inputName.length > 32) inputName = inputName.subString(0, 32);
+    }
 
     if (emoticon.id) {
       if (interaction.guild.emojis.cache.has(emoticon?.id)) return interaction.editReply('That emoji is already on this guild');
@@ -58,7 +60,7 @@ module.exports = new Command({
       )
     }
     else if (!validateURL(input)) return interaction.editReply('The provided url was not found.');
-    
+
     let emoji;
     try {
       emoji = await interaction.guild.emojis.create(
