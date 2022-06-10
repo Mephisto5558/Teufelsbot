@@ -1,66 +1,31 @@
-const 
-  { Command } = require("reconlx"),
-  axios = require('axios'),
-  fs = require('fs');
-
-let
-  response,
-  data;
+const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'uptime',
   aliases: [],
   description: `shows the bot's uptime`,
-  usage: 'uptime',
+  usage: 'PREFIX Command: uptime',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
-  category: "Information",
+  category: 'Information',
   slashCommand: false,
   prefixCommand: true,
 
-  run: async(client, message, interaction) => {
-    try {
-      response = await axios.get('https://Teufelswerk-Music-Bot.mephisto5558.repl.co/uptime');
-      response = response.data.total;
-    } catch { response = false };
+  run: async(client, message) => {
+    let data;
 
-    function formatUptime(totalSeconds) {
-      let days = Math.floor(totalSeconds / 86400);
-      totalSeconds %= 86400;
-      let hours = Math.floor(totalSeconds / 3600);
-      totalSeconds %= 3600;
-      let minutes = Math.floor(totalSeconds / 60);
-      let seconds = Math.floor(totalSeconds % 60);
+    let totalSeconds = (Date.now() - client.startTime) / 1000
+    const days = Math.floor(totalSeconds / 86400);
+    totalSeconds %= 86400;
+    const hours = Math.floor(totalSeconds / 3600);
+    totalSeconds %= 3600;
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = Math.floor(totalSeconds % 60);
 
-      if(!days || days === 0) {
-        data = `${hours} hours, ${minutes} minutes and ${seconds}`;
-        if(!hours || hours === 0) {
-          data = `${minutes} minutes and ${seconds}`;
-          if(!minutes || minutes === 0) {
-            data = `${seconds}`;
-            if(!days) data = false
-            if(days == 0) {
-              data = '0'
-            }
-          }
-        }
-      }
-      data = `The main module has been online for exactly ${data} seconds.`
-    };
+    if(days) data = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds}`;
+    else if(hours) data = `${hours} hours, ${minutes} minutes and ${seconds}`;
+    else if(minutes) data = `${minutes} minutes and ${seconds}`;
 
-    formatUptime( (Date.now() - client.startTime) / 1000);
-
-    if(message) client.functions.reply(data, message);
-    else interaction.reply(data);
-
-    if(!response) return;
-    formatUptime(response / 1000);
-
-    if(!data) data = 'The music module is offline.'
-    else data = data.replace('main module', 'music module');
-
-    if(message) client.functions.reply(data, message);
-    else interaction.reply(data)
-
+    client.functions.reply(`The bot has been online for exactly ${data || seconds || 0} seconds.`, message);
   }
 })
