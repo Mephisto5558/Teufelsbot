@@ -1,5 +1,5 @@
-const { Command } = require("reconlx");
-const validTypes = ['PLAYING', 'STREAMING', 'LISTENING', 'WATCHING', 'COMPETING'];
+const { Command } = require('reconlx');
+const validTypes = ['PLAYING', 'STREAMING', 'LISTENING', 'WATCHING', 'COMPETING', '1', '2', '3', '5'];
 
 module.exports = new Command({
   name: 'setactivity',
@@ -8,34 +8,26 @@ module.exports = new Command({
   usage: 'PREFIX Command: setactivity <activity>;[type]',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
-  category: "Owner-Only",
+  category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
 
   run: async (client, message) => {
-    const messageArgs = message.args.join(' ')
-      .split(';').map(element => {
-        return element.trim();
-      });
+    message.args = message.content.trim().split(';');
 
-    let activity = messageArgs[0];
-    let type = messageArgs[1];
+    const activity = message.args[0];
+    const type = message.args[1].toUpperCase();
 
     if (!type) type = 'PLAYING';
+    else if (!validTypes.includes(type)) {
+      return client.functions.reply(
+        `Syntax error: Invalid type "${type}". Available types are:\n`
+        `\`${validTypes.join(', ')}.`, message
+      )
+    }
 
-    const typeIsAvailable = validTypes.some(element => {
-      if (element.toLowerCase() == type.toLowerCase()) return true;
-      else if (['1','2','3','5'].includes(element)) return true;
-    });
-
-    if (!typeIsAvailable)
-      return client.functions.reply(`Syntax error: Invalid type "${type}". Available types are:\n\`${validTypes.join(', ')}.`, message);
-
-    type = type.toUpperCase();
-    
-    client.user.setActivity(activity, { type: type });
-    client.db.set('activity', { name: activity, type: type })
+    await client.user.setActivity(activity, { type: type });
+    await client.db.set('activity', { name: activity, type: type })
     client.functions.reply(`Activity set to \`${activity}\` of type \`${type}\``, message);
-    
   }
 })

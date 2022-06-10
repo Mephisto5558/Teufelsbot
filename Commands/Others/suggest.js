@@ -42,32 +42,33 @@ module.exports = new Command({
   ],
 
   run: async (client, _, interaction) => {
-
     const octokit = new Octokit({ auth: client.keys.githubKey });
 
-    await octokit.request(`POST /repos/${package[0]}/${package[1]}/issues`, {
-      owner: package[0],
-      repo: package[1],
-      title: `${interaction.options.getString('title')} | ${interaction.options.getString('importance')} importance`,
-      body:
-        `<h3>Sent from ${interaction.user.tag} (${interaction.user.id}) with bot ${client.user.id}</h3>\n\n` +
-        interaction.options.getString('suggestion'),
-      assignees: [package[0]],
-      labels: ['enhancement']
-    })
-      .then(_ => {
-        let embed = new MessageEmbed()
-          .setTitle('Success')
-          .setDescription('Your suggestion has been sent.\n' +
-            `[Suggestion link](https://github.com/${package[0]}/${package[1]}/issues?q=is%3Aopen+is%3Aissue+author%${package[0]}+assignee%${package[0]})`
-          );
-
-        interaction.editReply({ embeds: [embed] })
+    try {
+      await octokit.request(`POST /repos/${package[0]}/${package[1]}/issues`, {
+        owner: package[0],
+        repo: package[1],
+        title: `${interaction.options.getString('title')} | ${interaction.options.getString('importance')} importance`,
+        body:
+          `<h3>Sent by ${interaction.user.tag} (${interaction.user.id}) with bot ${client.user.id}</h3>\n\n` +
+          interaction.options.getString('suggestion'),
+        assignees: [package[0]],
+        labels: ['enhancement']
       })
-      .catch(err => {
-        console.error(err);
-        interaction.editReply(`An error occurred.\n${res?.response.statusText}`)
-      });
+    }
+    catch (err) {
+      interaction.editReply(`An error occurred.\n${res?.response.statusText}`);
+      throw err;
+    }
 
+    let embed = new MessageEmbed()
+      .setTitle('Success')
+      .setDescription(
+        'Your suggestion has been sent.\n' +
+        `[Suggestion link](https://github.com/${package[0]}/${package[1]}/issues?q=is%3Aopen+is%3Aissue+assignee%3A${package[0]}+author%3A${package[0]}+label%3Aenhancement)`
+      );
+
+    interaction.editReply({ embeds: [embed] });
+    
   }
 })
