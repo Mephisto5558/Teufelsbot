@@ -1,4 +1,4 @@
-const errorColor = require("chalk").bold.red;
+const errorColor = require('chalk').bold.red;
 
 function sendErrorMsg(errorName, client, msg) {
   if (!msg) msg =
