@@ -135,7 +135,7 @@ module.exports = async (client, guildForForceSync) => {
     if (clientCommands[delCommandCount + 1]) await client.functions.sleep(10000);
   }
 
-  client.log(`Loaded ${commandCount} Slash commands`);
+  client.log(`Registered ${commandCount} Slash commands`);
   client.log(`Skipped ${skipCommandCount} Slash Commands`);
   client.log(`Deleted ${delCommandCount} Slash commands\n`);
 
