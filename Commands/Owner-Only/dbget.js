@@ -14,15 +14,12 @@ module.exports = new Command({
   beta: true,
 
   run: async(client, message) => {
-    let messageToEdit;
-
-    await message.reply('Loading...')
-      .then(msg => { messageToEdit = msg});
-
-    let result = await client.db.get(message.content);
-    if(!result) result = 'nothing found'
-
-    messageToEdit.edit('```json\n' + JSON.stringify(result, null, 2) + '\n```');
-
+    const result = await client.db.get(message.content);
+    
+    message.channel.send(
+      '```json\n' +
+      JSON.stringify(result || 'nothing found', null, 2) +
+      '\n```'
+    )
   }
 })

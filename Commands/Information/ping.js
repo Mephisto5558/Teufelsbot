@@ -1,86 +1,69 @@
 const
-  { Command } = require("reconlx"),
-  { MessageEmbed } = require("discord.js"),
-  embedConfig = require('../../Settings/embed.json').colors;
+  { Command } = require('reconlx'),
+  { MessageEmbed } = require('discord.js'),
+  { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
   name: 'ping',
   aliases: [],
-  description: `Show the bot's ping`,
+  description: `Get the bot's ping`,
   usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
-  category: "Information",
+  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   options: [{
-    name: "average",
-    description: "Gets the ping average",
-    type: "BOOLEAN",
+    name: 'average',
+    description: 'Gets the ping average',
+    type: 'BOOLEAN',
     required: false
   }],
 
-  run: async(client, message, interaction) => {
-
+  run: async (client, message, interaction) => {
     if (message) return client.functions.reply('Please use `/ping`!', message, 10000);
-    args = interaction.options?.getBoolean('average');
 
-    if (args) {
-      let embed = new MessageEmbed()
-        .setColor(embedConfig.discord.BURPLE)
-        .setTitle('Main Module')
-        .setDescription(`Loading (this takes about one minute)`);
+    if (interaction.options?.getBoolean('average')) {
+      const embed = new MessageEmbed()
+        .setTitle('Pinging...')
+        .setDescription(`Loading (this takes about one minute)`)
+        .setColor(colors.discord.BURPLE);
 
-      interaction.editReply({
-        embeds: [embed]
-      });
+      interaction.editReply({ embeds: [embed] });
 
-      async function getAveragePing() {
-        let ping = [];
-        let averagePing = 0;
-        let i = 0;
+      let pings = [], i;
 
-        for (i; i <= 59; i++) {
-          ping.push(client.ws.ping);
-          averagePing += ping[i];
-          await client.functions.sleep(1000);
-        };
+      for (i = 0; i <= 59; i++) {
+        pings.push(client.ws.ping);
+        await client.functions.sleep(1000);
+      }
 
-        averagePing = averagePing / i
-        averagePing = Math.round((averagePing + Number.EPSILON) * 100) / 100;
-        return [averagePing, ping]
-      };
+      pings.sort((a, b) => a - b);
 
-      const data = await getAveragePing()
-      averagePing = data[0];
-      ping = data[1];
+      const averagePing = Math.round((pings.reduce((a, b) => a + b) / i) * 100) / 100;
 
-      ping.sort((a, b) => a - b);
+      embed
+        .setTitle('Ping')
+        .setDescription(
+          `Pings: \`${pings.length}\`\n` +
+          `Lowest Ping: \`${pings[0]}ms\`\n` +
+          `Highest Ping: \`${pings[pings.length - 1]}ms\`\n` +
+          `Average Ping: \`${averagePing}ms\``
+        )
 
-      embed.setDescription(
-        `Pings: \`${ping.length}\`\n` +
-        `Lowest Ping: \`${ping[0]}ms\`\n` +
-        `Highest Ping: \`${ping[ping.length - 1]}ms\`\n` +
-        `Average Ping: \`${averagePing}ms\``
-      )
-
-      return interaction.editReply({
-        embeds: [embed]
-      })
+      return interaction.editReply({ embeds: [embed] })
     }
 
-    ping = Math.abs(Date.now() - interaction.createdTimestamp)
+    const ping = Math.abs(Date.now() - interaction.createdTimestamp);
 
-    let embed = new MessageEmbed()
-      .setColor(embedConfig.discord.BURPLE)
-      .setTitle('Main Module')
+    const embed = new MessageEmbed()
+      .setTitle('Ping')
       .setDescription(
         `Latency: \`${ping}ms\`\n` +
         `API Latency: \`${Math.round(client.ws.ping)}ms\``
-      );
+      )
+      .setColor(colors.discord.BURPLE);
 
-    interaction.editReply({
-      embeds: [embed]
-    })
+    interaction.editReply({ embeds: [embed] });
   }
 })

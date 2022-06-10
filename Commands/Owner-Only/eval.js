@@ -1,24 +1,22 @@
-const { Command } = require("reconlx");
+const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'eval',
   aliases: [],
-  description: `inject javascript code directly into the bot`,
+  description: 'inject javascript code directly into the bot',
   usage: 'PREFIX Command: eval <code>',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
-  category: "Owner-Only",
+  category: 'Owner-Only',
   prefixCommand: true,
   slashCommand: false,
   beta: true,
 
-  run: async(client, message) => {
-    message.content = message.args.shift();
-    
-    client.log(`evaluated command '${message.content}'`);
+  run: async (client, message) => {
 
     try {
       await eval(message.content);
+      client.log(`evaluated command '${message.content}'`);
     }
     catch (err) {
       return client.functions.reply('```\n' + err + '\n```', message);

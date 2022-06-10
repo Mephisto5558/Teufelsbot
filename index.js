@@ -12,9 +12,10 @@ let defaultSettings;
 load()
 async function load() {
   const client = new Client({
-    partials: ["MESSAGE", "CHANNEL", "REACTION"],
+    partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
     allowedMentions: { parse: ['users', 'roles'] },
     shards: 'auto',
+    retryLimit: 2,
     intents: 32767
   });
   
@@ -30,7 +31,6 @@ async function load() {
   client.userID = defaultSettings.botUserID;
   client.botType = defaultSettings.type;
   client.blacklist = db.get('blacklist');
-  client.functions = {};
   client.startTime = Date.now();
   client.categories = fs.readdirSync('./Commands/');
   client.db = db;
@@ -41,8 +41,8 @@ async function load() {
   client.commands = new Collection();
   client.slashCommands = new Collection();
   client.guildData = new Collection();
-  client.log = function log(...data) {
-    let date = new Date().toLocaleString('en-GB', {
+  client.log = function log(data) {
+    const date = new Date().toLocaleString('en', {
       hour12: false,
       hour:   '2-digit',
       minute: '2-digit',
@@ -51,9 +51,9 @@ async function load() {
     console.log(`[${date}] ${data}`)
   };
 
-  fs.readdirSync('./Handlers').forEach(handler => {
+  for(const handler of fs.readdirSync('./Handlers')) {
     require(`./Handlers/${handler}`)(client);
-  });
+  }
 
   client.login(client.keys.token)
     .then(client.log(`Logged into ${client.botType}\n`));

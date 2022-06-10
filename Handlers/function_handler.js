@@ -2,14 +2,15 @@ const fs = require('fs');
 let functionCount = 0;
 
 module.exports = client => {
-  fs.readdirSync("./Functions/global").filter(file => file.endsWith(".js")).forEach(file => {
-    const functionName = file.split(".")[0];
-    const functionFile = require(`../Functions/global/${file}`);
+  client.functions = {};
 
-    client.functions[functionName] = functionFile
+  for(const file of fs.readdirSync("./Functions/global").filter(file => file.endsWith(".js"))) {
+    const functionName = file.split(".")[0];
+
+    client.functions[functionName] = require(`../Functions/global/${file}`);
     client.log(`Loaded Global Function ${functionName}`);
     functionCount++
-  });
+  }
 
   client.log(`Loaded ${functionCount} Global Functions\n`)
 }

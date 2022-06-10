@@ -1,11 +1,11 @@
-const { Command } = require("reconlx");
+const { Command } = require('reconlx');
 
-let responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/']
+const responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/']
 
 module.exports = new Command({
   name: 'sad',
   aliases: [],
-  description: `sends a sad emojicon`,
+  description: 'sends a sad emojicon',
   usage: 'sad',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
@@ -14,9 +14,7 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: (client, message) => {
-
-    let response = responseList[Math.floor(Math.random() * responseList.length)];
+    const response = responseList[Math.floor(Math.random() * responseList.length)];
     client.functions.reply(response, message)
-
   }
 })

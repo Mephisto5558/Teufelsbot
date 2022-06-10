@@ -1,13 +1,13 @@
-const { Command } = require("reconlx");
+const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'prefix',
   aliases: [],
-  description: `changes or shows the guild prefix`,
-  usage: 'prefix [new prefix]',
+  description: `shows or changes the guild's bot prefix`,
+  usage: 'PREFIX Command: prefix [new prefix]',
   permissions: { client: [], user: [] },
-  cooldowns: { global: '', user: '10000' },
-  category: "Information",
+  cooldowns: { global: '', user: 10000 },
+  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   options: [{
@@ -18,41 +18,27 @@ module.exports = new Command({
   }],
 
   run: async (client, message, interaction) => {
+    if (interaction) {
+      message = interaction;
+      message.content = interaction.options?.getString('new_prefix');
+    }
 
-    if (message) {
-      message.args = message.args.join(' ').trim();
-      if(!message.args || !message.member.permissions.has('MANAGE_GUILD'))
-        return client.functions.reply(
-          `My current prefix is \`${
-            client.guildData.get(message.guild.id)?.prefix || client.guildData.get('default')?.prefix || '\n[FATAL ERROR] Please message the dev immediately!\n'
-          }\``, message
-        );
-      
-      client.guildData.set(message.guild.id, { prefix: message.args });
+    if (message.content && message.member.permissions.has('MANAGE_GUILD')) {
+      client.guildData.set(message.guild.id, { prefix: message.content });
 
-      let oldData = await client.db.get('prefix');
-      newData = await Object.assign({}, oldData, { [message.guild.id]: message.args });
+      const oldData = await client.db.get('prefix');
+      const newData = await Object.assign({}, oldData, { [message.guild.id]: message.content });
       await client.db.set('prefix', newData);
 
-      return client.functions.reply(`My prefix has been changed to \`${message.args}\``, message);
+      if (interaction) interaction.editReply(`My prefix has been changed to \`${message.content}\``);
+      else client.functions.reply(`My prefix has been changed to \`${message.content}\``, message);
     }
+    else {
+        const currentPrefix = client.guildData.get(message.guild.id)?.prefix || client.guildData.get('default')?.prefix
+        const msg = `My current prefix is \`${currentPrefix || '\n[FATAL ERROR] Please message the dev immediately `NoDefPreFound`!\n'}\``;
 
-    let newPrefix = interaction.options.getString('new_prefix');
-    if(!newPrefix) {
-      return client.functions.reply(`My current prefix is \`${await client.db.get('prefix'[message.guild.id]) || await client.db.get('prefix.default')})\``, message)
+        message ? client.functions.reply(msg, message) : interaction.editReply(msg);
     }
-
-    if (!interaction.member.permissions.has('MANAGE_SERVER')) {
-      return interaction.followUp("You don't have the permission change the prefix!")
-    }
-
-      client.guildData.set(interaction.guild.id, { prefix: newPrefix });
-      
-      let oldData = await client.db.get('prefix');
-      newData = await Object.assign({}, oldData, { [interaction.guild.id]: newPrefix });
-      await client.db.set('prefix', newData);
-
-    interaction.followUp(`My prefix has been changed to \`${newPrefix}\``);
 
   }
 })

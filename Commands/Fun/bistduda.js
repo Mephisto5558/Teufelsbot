@@ -1,4 +1,4 @@
-const { Command } = require("reconlx");
+const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'bistduda',
@@ -10,11 +10,8 @@ module.exports = new Command({
   cooldowns: { global: '', user: '' },
   slashCommand: false,
   prefixCommand: true,
-  disabled: false,
 
   run: (client, message) => {
-
-    client.functions.reply('ICH BIN DAAAA :D', message)
-
+    client.functions.reply('ICH BIN DAAAA :D', message);
   }
 })

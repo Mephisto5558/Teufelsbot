@@ -1,9 +1,10 @@
-const { Command } = require("reconlx");
-const { MessageEmbed } = require('discord.js');
-const colorConfig = require('../../Settings/embed.json').colors;
+const
+  { Command } = require('reconlx'),
+  { MessageEmbed } = require('discord.js'),
+  { colors } = require('../../Settings/embed.json');
 
 function pushColors(colorObject) { //is not called in code
-  for (let color of Object.entries(colorObject)) {
+  for (const color of Object.entries(colorObject)) {
     let choices = command.options[0].options[2].choices;
 
     if (choices?.length == 25) break;
@@ -21,7 +22,7 @@ let command = new Command({
   usage: '',
   permissions: { client: [], user: ['EMBED_MESSAGES'] },
   cooldowns: { global: '', user: '' },
-  category: 'USEFUL',
+  category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,
@@ -33,7 +34,7 @@ let command = new Command({
       options: [
         {
           name: 'description',
-          description: 'set the embed text',
+          description: 'set the embed text, use "/n" for newlines',
           type: 'STRING',
           required: true
         },
@@ -47,7 +48,7 @@ let command = new Command({
           name: 'predefined_color',
           description: 'set the embed color from predefined hex codes',
           type: 'STRING',
-          choices: [], //gets dynamically set from colorConfig, must be index 2
+          choices: [], //gets dynamically set from colors, must be index 2
           required: false
         },
         {
@@ -104,12 +105,12 @@ let command = new Command({
           type: 'STRING',
           required: false
         },
-        {
+        /*{
           name: 'fields',
-          description: 'Fields are not supported yet. Tell the dev you want to use this to motivate him.',//'set fields. Format: {"name": "<name here>",<value (text)>;;<inline (boolean)>}&&{next one like first}...',
+          description: 'set fields. Format: {"name": "<name here>",<value (text)>;;<inline (boolean)>}&&{next one like first}...',
           type: 'STRING',
-          required: false //TOOOOOOOOOOODOOOOOOOO
-        }
+          required: false
+        }*/
       ]
     },
     {
@@ -126,26 +127,30 @@ let command = new Command({
   ],
 
   run: async (_, __, interaction) => {
-    function option(name) { return interaction.options.getString(name)?.replace(/\/n/g,'\n') };
-    let custom = option('json');
-    let timestamp;
-    if(interaction.options.getBoolean('timestamp')) timestamp = new Date();
+    function getOption(name) {
+      return interaction.options.getString(name)?.replace(/\/n/g, '\n');
+    }
+
+    const custom = getOption('json');
     let embed;
 
     try {
-
       if (custom) embed = new MessageEmbed(JSON.parse(custom));
       else {
         embed = new MessageEmbed({
-          title: option('title'),
-          description: option('description'),
-          color: option('custom_color') || option('predefined_color'),
-          footer: { text: option('footer_text'), iconURL: option('footer_icon') },
-          image: option('image'),
-          thumbnail: option('thumbnail'),
-          timestamp: timestamp,
-          author: { name: option('author_name'), url: option('author_url'), iconURL: option('author_icon') },
-          //fields: option('fields')
+          title: getOption('title'),
+          description: getOption('description'),
+          color: getOption('custom_color') || getOption('predefined_color'),
+          footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
+          image: getOption('image'),
+          thumbnail: getOption('thumbnail'),
+          timestamp: interaction.options.getBoolean('timestamp') ? timestamp = new Date() : null,
+          author: {
+            name: getOption('author_name'),
+            url: getOption('author_url'),
+            iconURL: getOption('author_icon')
+          },
+          //fields: getOption('fields')
         })
       }
 
@@ -158,20 +163,26 @@ let command = new Command({
       )
     }
 
-    embed = JSON.stringify(
-      Object.fromEntries(
-        Object.entries(embed)
-          .filter(([_, b]) => b != null && b.length)
+    if (custom) interaction.editReply('Your embed has been sent!');
+    else {
+      embed = JSON.stringify(
+        Object.fromEntries(
+          Object.entries(embed).filter(([, a]) => 
+            a?.toString().length && a != 0
+          )
+        )
+      );
+
+      interaction.editReply(
+        'Your embed has been sent! Below is the embed code.\n' +
+        'if you want to send it again, use the `json` subcommand.\n\n' +
+        '```json\n' + embed + '\n```'
       )
-    );
+    }
 
-    interaction.editReply(
-      'Your embed has been sent! below is the embed code.\n' +
-      'if you want to send it again, use the `json` option.\n\n' +
-      '```json\n' + embed + '\n```'
-    )
   }
-})
+});
 
-pushColors(colorConfig);
+
+pushColors(colors);
 module.exports = command;

@@ -10,7 +10,7 @@ const
 
 function workStatsData(firstID, secondID, type, client) {
   if (!secondID || !client) throw new SyntaxError('you need to provide the secondID and client args');
-  let against = {};
+  let against;
   let stats = client.db.get('leaderboards').TicTacToe[firstID];
 
   switch (type) {
@@ -20,7 +20,7 @@ function workStatsData(firstID, secondID, type, client) {
     default: throw new SyntaxError('you need to provide the type: win, lose or draw');
   }
 
-  let typeS = `${type}s`
+  const typeS = `${type}s`
 
   if (!stats) return { games: 1, [typeS]: 1, [against]: { [secondID]: 1 } };
 
@@ -36,7 +36,7 @@ function workStatsData(firstID, secondID, type, client) {
 }
 
 async function gameEnd(input, ids, client) {
-  let oldData = await client.db.get('leaderboards');
+  const oldData = await client.db.get('leaderboards');
 
   let data = Object.assign({},
     { [ids[0]]: input[0] },
@@ -44,14 +44,14 @@ async function gameEnd(input, ids, client) {
   );
 
   data = Object.assign({}, oldData.TicTacToe, data);
-  let newData = Object.assign({}, oldData, { TicTacToe: data });
+  const newData = Object.assign({}, oldData, { TicTacToe: data });
 
   await client.db.set('leaderboards', newData);
 }
 
 async function playAgain(interaction, clientUserID) {
-  let opponent = interaction.options.getUser('opponent');
-  let oldRows = (await interaction.fetchReply()).components;
+  const opponent = interaction.options.getUser('opponent');
+  const oldRows = (await interaction.fetchReply()).components;
   let rows = oldRows;
 
   const filter = i => {
@@ -59,7 +59,7 @@ async function playAgain(interaction, clientUserID) {
       [interaction.member.id, opponent?.id].includes(i.member.id) &&
       i.customId == 'playAgain'
     ) return true;
-  };
+  }
 
   let row = new MessageActionRow().addComponents(
     new MessageButton()
@@ -104,8 +104,8 @@ async function playAgain(interaction, clientUserID) {
   collector.on('end', collected => {
     if (collected.size != 0) return;
 
-    for (row of oldRows) {
-      for (button of row.components) {
+    for (const row of oldRows) {
+      for (const button of row.components) {
         button.setDisabled(true);
       }
     }

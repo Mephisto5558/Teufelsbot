@@ -1,4 +1,4 @@
-const { Command } = require("reconlx");
+const { Command } = require('reconlx');
 
 let response;
 let responseList = [
@@ -15,7 +15,7 @@ module.exports = new Command({
   usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 200, user: 0 },
-  category: 'FUN',
+  category: 'Fun',
   slashCommand: false,
   prefixCommand: true,
 

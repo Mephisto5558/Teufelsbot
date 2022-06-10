@@ -1,28 +1,24 @@
-const { Command } = require("reconlx");
-const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const
+  { Command } = require('reconlx'),
+  { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
 
 module.exports = new Command({
   name: 'say',
   aliases: [],
   description: 'Let me say something',
-  usage: '',
+  usage: 'PREFIX Command: say ',
   permissions: { client: [], user: [] },
   cooldowns: { global: '', user: '' },
   category: 'Fun',
   slashCommand: true,
-  prefixCommand: false,
-  disabled: false,
-  options: [{
+  prefixCommand: true,
+  ephemermalDefer: true,
+  options: [
+    {
       name: 'msg',
       description: 'Type your message here, /n for new line',
       type: 'STRING',
       required: true
-    },
-    {
-      name: 'guild',
-      description: 'The guild the message get sent to.',
-      type: 'STRING',
-      required: false
     },
     {
       name: 'channel',
@@ -33,75 +29,15 @@ module.exports = new Command({
     }
   ],
 
-  run: async(client, _, interaction) => {
-    return interaction.followUp('This command is currently disabled.');
-    
-    let guild = interaction.options.getString('guild');
-    let channel = interaction.options.getChannel('channel')
-    let msg = interaction.options.getString('msg');
+  run: (client, message, interaction) => {
+    const msg = interaction?.options?.getString('msg') || message.args?.[0];
+    const channel = interaction?.options.getChannel('channel') || interaction?.channel || message.channel;
 
-    if (!channel) channel = interaction.channel
+    if (!msg) return client.functions.reply('You need to provide a message to send!', message);
 
-    if(guild) {
-      let rows = [];
-      let row = new MessageActionRow();
-      let description = '**Please press the button corresponding to the wanted guild number.**';
-      let interaction0;
+    channel.send(msg.replace(/\/n/g, '\n'));
 
-      let guilds = client.guilds.fetch()
-        .filter(guild => (guild.name == guild || guild.id == guild) && guild.members.search(interaction.member.id));
-      
-      if(!guilds) return interaction.followUp(
-        "I couldn't find the guild you are looking for.\n" +
-        'We both need to be in it in order to send messages.'
-      );
-
-      guilds.forEach(guild => {
-        if(i >= 25 || description.length >= 2048) return;
-
-        description = `${description}\n${i++} ${guild.name}`
-
-        if(row.components.length == 5) {
-          rows[c++] = row
-          row = new MessageActionRow();
-        };
-        row.addComponents(new MessageButton()
-				  .setCustomId(i.toString())
-				  .setLabel(i.toString())
-				  .setStyle('PRIMARY')
-        )
-      });
-
-      let embed = new MessageEmbed()
-        .setTitle('Guilds found:')
-        .setDescription(description);
-
-
-      await interaction.followUp({ embeds: [embed], components: [rows] })
-        .then(msg => interaction0 = msg);
-    }
+    if (interaction) interaction.editReply('Message sent!');
+    else message.reply('Message sent!');
   }
 })
-      
-
-
-
-
-
-
-    /*
-    }
-
-    if (!channel.permissionsFor(interaction.member).has('SEND_MESSAGES')) {
-      return interaction.followUp({ content: `You dont't have permission to send messages in <#${channel.id}>!`, ephemeral: true });
-    };
-    if (!interaction.guild.me.permissionsIn(channel).has('SEND_MESSAGES')) {
-      return interaction.followUp({ content: `I dont't have permission to send messages in <#${channel.id}>!`, ephemeral: true });
-    };
-
-    channel.send(msg)
-      .then(interaction.followUp({ content: 'Message sent!', ephemeral: true }));
-
-  }
-})
-*/

@@ -1,7 +1,7 @@
 const
-  { Command } = require("reconlx"),
+  { Command } = require('reconlx'),
   { MessageEmbed } = require("discord.js"),
-  colorConfig = require('../../Settings/embed.json').colors;
+  { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
   name: 'dm',
@@ -62,10 +62,7 @@ module.exports = new Command({
 
   run: async (client, _, interaction) => {
 
-    let
-      message, messageSender, newBlacklist,
-      blacklist = await client.db.get('dmCommandBlacklist'),
-      userBlacklist = blacklist[interaction.member.id] || [],
+    const
       cmd = interaction.options.getSubcommand(),
       userToToggle = interaction.options.getUser('user_to_toggle'),
       messageTarget = interaction.options.getMember('target'),
@@ -73,13 +70,18 @@ module.exports = new Command({
       perm = interaction.member.permissions.has('MANAGE_MESSAGES'),
       asMod = (interaction.options.getBoolean('as_mod') && perm);
 
+    let
+      message, messageSender, newBlacklist, userBlacklist,
+      blacklist = await client.db.get('dmCommandBlacklist');
+
     if (!asMod) messageSender = `\`${interaction.user.tag}\``;
 
     switch (cmd) {
       case 'toggle':
-        if(userToToggle?.id) {
+        userBlacklist = blacklist[interaction.member.id] || [];
+        if (userToToggle?.id) {
           target = userToToggle.id;
-          targetName = `user ${userToToggle.tag}`
+          targetName = `user \`${userToToggle.tag}\``
         }
         else {
           target = '*';
@@ -96,52 +98,58 @@ module.exports = new Command({
         else {
           userBlacklist.push(target);
 
-          message = `Your blacklist entry for \`${targetName}\` has been saved\n.`;
-          if(target == '*') message += `now \`no one\` will be able to send you dms by me\n.`;
-          else message += `now \`${targetName}\` isn't able to send you dms by me\n.`;
-          message += 'This will not prevent guild moderators from sending dms to you.';
+          message =
+            `Your blacklist entry for ${targetName} has been saved.\n` +
+            `now ${target == '*' ? '`no one` will be' : `\`${targetName}\` isn't able`} able to send you dms by me.\n` +
+            'This will not prevent guild moderators from sending dms to you.';
         }
 
-        if(userBlacklist?.length > 0) newBlacklist = await Object.assign({}, blacklist, { [interaction.member.id]: userBlacklist });
+        if (userBlacklist?.length > 0) newBlacklist = await Object.assign({}, blacklist, { [interaction.member.id]: userBlacklist });
         else delete blacklist[interaction.member.id];
 
         await client.db.set('dmCommandBlacklist', newBlacklist || blacklist);
 
-        interaction.editReply({ content: message });
+        interaction.editReply(message);
         break;
 
       case 'list':
-        let data = (await client.db.get("dmCommandBlacklist"))[interaction.user.id];
-        let dataFetched = await interaction.guild.members.fetch(data);
-        let i = 0;
-        let listMessage = [];
+        userBlacklist = (await client.db.get('dmCommandBlacklist'))[interaction.user.id],
+          listMessage = [];
 
-        if(!data) listMessage = 'You are not blocking any users.';
-        else if(data.includes('*')) listMessage = 'You are blocking all users.'
+        if (!userBlacklist) listMessage = '> You are not blocking any users.';
+        else if (userBlacklist.includes('*')) listMessage = '> You are blocking all users.'
         else {
-          for (entry in data) {
-            listMessage += `<@${data}> (${dataFetched[i]})\n`;
-            i++;
+          for (const entry of userBlacklist) {
+            try {
+              await interaction.guild.members.fetch(entry);
+            } catch { continue }
+            listMessage += `> <@${entry}> (${entry})\n`;
           }
         }
 
         let listEmbed = new MessageEmbed()
           .setTitle('Your blacklist for the `/dm send` command')
-          .setDescription(listMessage)
-          .setColor(colorConfig.discord.BURPLE)
+          .setDescription(
+            'You are blocking the following guild members:\n' +
+            listMessage
+          )
+          .setColor(colors.discord.BURPLE)
           .setFooter({
             text:
-              "run '/dm toggle' without arguments to toggle all users and\n" +
-              "run '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user."
-          })
+              `run '/dm toggle' without arguments to toggle all users and\n` +
+              `run '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user.`
+          });
 
         interaction.editReply({ embeds: [listEmbed] });
         break;
 
       case 'send':
+        userBlacklist = blacklist[messageTarget.id];
+
         if ((userBlacklist.includes(messageTarget.id) || userBlacklist.includes('*')) && !asMod) {
-          let errorMsg = 'You are not allowed to send dms to that user!';
-          if (perm) errorMsg += '\nUse the `as_mod` option to force the message to send.';
+          const errorMsg =
+            'You are not allowed to send dms to that user!' +
+            `${perm ? '\nUse the `as_mod` option to force the message to send.' : ''}`;
 
           return interaction.editReply({ content: errorMsg });
         }
@@ -153,21 +161,20 @@ module.exports = new Command({
             `Guild: \`${interaction.guild.name}\`\n\n` +
             messageToSend
           )
-          .setColor(colorConfig.discord.BURPLE)
+          .setColor(colors.discord.BURPLE)
           .setFooter({
             text:
-              "If you don't want to receive user-made dms from me, run /dm toggle in any server.\n" +
-              'If someone abuses this command to spam you, please message me.'
+              `If you don't want to receive user-made dms from me, run /dm toggle in any server.\n` +
+              'If someone abuses this command to spam, please message me.'
           });
 
-        messageTarget
-          .send({ embeds: [embed] })
-          .then(
-            interaction.editReply({ content: 'Message sent!' })
-          )
-          .catch(_ => {
-            interaction.editReply({ content: "I couldn't message this member!" })
-          })
+        try {
+          await messageTarget.send({ embeds: [embed] });
+          interaction.editReply('Message sent!');
+        }
+        catch {
+          interaction.editReply(`I couldn't message this member!`)
+        };
         break;
 
       default: throw new SyntaxError(`The arg '${cmd}' of let cmd is not handled`);

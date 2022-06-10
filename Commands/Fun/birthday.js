@@ -1,7 +1,7 @@
 const
   { Command } = require('reconlx'),
   { MessageEmbed } = require('discord.js'),
-  embedConfig = require('../../Settings/embed.json').colors,
+  { colors } = require('../../Settings/embed.json'),
   year = new Date().getFullYear();
 
 function formatMonthName(input) {
@@ -32,7 +32,7 @@ function getAge(bd) {
 module.exports = new Command({
   name: 'birthday',
   alias: [],
-  description: 'save your birthday and get a I will send a message on your birthday',
+  description: 'save your birthday and I will send a message on your birthday',
   usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 1000 },
@@ -98,19 +98,20 @@ module.exports = new Command({
 
   run: async (client, _, interaction) => {
 
-    let
-      command = interaction.options.getSubcommand(),
+    const
+      cmd = interaction.options.getSubcommand(),
+      target = interaction.options.getUser('target'),
+      dontHide = interaction.options.getBoolean('dont_hide'),
+      oldData = await client.db.get('birthdays'),
       birthday = [
         interaction.options.getNumber('year'),
         interaction.options.getNumber('month')?.toString().padStart(2, '0'),
         interaction.options.getNumber('day')?.toString().padStart(2, '0')
-      ],
-      target = interaction.options.getUser('target'),
-      dontHide = interaction.options.getBoolean('dont_hide'),
-      oldData = await client.db.get('birthdays'),
-      newData = '';
+      ];
 
-    switch (command) {
+    let newData = '';
+
+    switch (cmd) {
       case 'set':
         if (birthday[0] > year) return interaction.editReply(
           'Are you sure you put the right year in?\n' +
@@ -124,25 +125,21 @@ module.exports = new Command({
         break;
 
       case 'remove':
-        newData = {};
-        for (let entry of Object.entries(oldData)) {
-          if (entry[0] == interaction.user.id) continue;
-          newData[entry[0]] = entry[1];
-        }
+        newData = Object.entries(oldData).filter(([entry]) => entry == interaction.user.id);
 
         await client.db.set('birthdays', newData);
+
         interaction.editReply('Your birthday has been deleted.');
         break;
 
       case 'get':
-        i = 0;
-        newData = '';
         let embed = new MessageEmbed();
 
         if (target) {
           embed.setTitle(`${target.tag}'s Birthday`);
-          
-          let data = oldData[target.id]?.split('/')
+
+          let data = oldData[target.id]?.split('/');
+
           if (data) {
             let age = getAge(data);
             newData = `This user has birthday on **${formatMonthName(data[1])} ${data[2]}**.\n`;
@@ -186,20 +183,19 @@ module.exports = new Command({
 
           for (entry of data) {
             let date = `**${formatMonthName(entry[1][0])} ${entry[1][1]}**\n`;
-            let age = getAge([entry[1][2], entry[1][0], entry[1][1]])
-            if (age >= year) age = undefined;
-            else age = `(${age})`;
+            let age = getAge([entry[1][2], entry[1][0], entry[1][1]]);
+            age = `(${age >= year ? '0' : age})`;
 
             let bd = `> <@${entry[0]}> ${age}\n`;
 
-            if (newData.includes(date)) newData += bd;
+            if (newData?.includes(date)) newData += bd;
             else newData += `\n${date}${bd}`;
           }
         }
 
         embed
           .setDescription(newData || 'nobody has a birthday set...')
-          .setColor(embedConfig.discord.BURPLE)
+          .setColor(colors.discord.BURPLE)
           .setFooter({
             text: interaction.user.tag,
             iconURL: interaction.member.displayAvatarURL()

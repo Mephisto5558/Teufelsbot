@@ -1,20 +1,20 @@
 const
   { Command } = require('reconlx'),
   { MessageEmbed } = require('discord.js'),
-  embedConfig = require('../../Settings/embed.json').colors;
+  { colors } = require('../../Settings/embed.json');
 
 async function manageData(input, clientID) {
   if (!input) return;
 
   let output = '';
-  let data = Object.entries(input)
-    .sort(([,a], [,b]) => b - a);
+  const data = Object.entries(input)
+    .sort(([, a], [, b]) => b - a);
 
-  for (i = 0; i < data.length && i < 3; i++) {
+  for (let i = 0; i < data.length && i < 3; i++) {
     output += `> <@${data[i][0]}>: \`${data[i][1]}\`\n`;
   }
 
-  return output.replace('AI', clientID);;
+  return output.replace('AI', clientID);
 }
 
 async function formatStatCount(input, all) {
@@ -26,26 +26,29 @@ async function formatStatCount(input, all) {
   if (input != 0 && !input) return '`0`';
   if (!all) return `\`${input}\``;
 
-  let relative = (input / all) * 100;
-  return `\`${input}\` (\`${parseFloat(relative.toFixed(2))}%\`)`;
+  return `\`${input}\` (\`${parseFloat((input / all * 100).toFixed(2))}%\`)`;
 }
 
 async function formatTopTen(input, settings, interaction) {
   let output = '';
-  let i=0;
-  let medals = [':first_place:',':second_place:','third_place'];
-  
-  let data = Object.entries(input)
-    .sort(([,a], [,b]) => b.wins - a.wins)
+  let i = 0;
+  let isInGuild;
+  const medals = [':first_place:', ':second_place:', ':third_place:'];
+
+  const data = Object.entries(input)
+    .filter(a => a[0] != 'AI')
+    .sort(([, a], [, b]) => b.wins - a.wins)
     .slice(0, 10);
 
-  for(entry of data) {
-    await interaction.guild.members.fetch(entry[0])
-      .then(_ => isInGuild = true)
-      .catch(_ => isInGuild = false);
+  for (const entry of data) {
+    try {
+      await interaction.guild.members.fetch(entry[0]);
+      isInGuild = true
+    }
+    catch { isInGuild = false }
 
-    if(entry[0] == 'AI' || !entry[1].wins || (settings != 'all' && !isInGuild )) continue;
-    if(output.length > 3997) {
+    if (!entry[1].wins || (settings != 'all_users' && !isInGuild)) continue;
+    if (output.length > 3997) {
       output += '...';
       break;
     }
@@ -67,7 +70,7 @@ module.exports = new Command({
   usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 1000 },
-  category: '',
+  category: 'Minigames',
   slashCommand: true,
   prefixCommand: false,
   options: [
@@ -109,11 +112,11 @@ module.exports = new Command({
         },
         {
           name: 'settings',
-          description: 'only needed for leaderboard. Filters the leaderboard',
+          description: 'Apply/Disapply filters to the leaderboard',
           type: 'STRING',
           required: false,
           choices: [
-            { name: 'all_users', value: 'all_users' }
+            { name: 'dont_limit_to_guild_members', value: 'all_users' }
           ]
         }
       ]
@@ -121,64 +124,51 @@ module.exports = new Command({
   ],
 
   run: async (client, _, interaction) => {
-    let stats = {
+    const stats = {
       type: interaction.options.getSubcommand(),
       game: interaction.options.getString('game'),
       target: interaction.options.getUser('target') || interaction.user,
       settings: interaction.options.getString('settings')
     }
-    stats.data = { raw: (await client.db.get('leaderboards'))[stats.game] };
+    stats.data = await client.db.get('leaderboards')[stats.game];
 
-    let embed = new MessageEmbed()
-      .setColor(embedConfig.discord.BURPLE)
+    const embed = new MessageEmbed()
+      .setColor(colors.discord.BURPLE)
       .setFooter({
-        text: `${interaction.member.user.tag}`,
+        text: interaction.member.user.tag,
         iconURL: interaction.member.user.displayAvatarURL()
       });
 
     if (stats.type == 'user') {
-      let rawStats = stats.data.raw?.[stats.target.id];
-      let userStats;
+      const rawStats = stats.data?.[stats.target.id];
 
-      if(rawStats) {
-        if(!rawStats.games) rawStats.games = 0;
-        userStats = {
-          wonAgainst: await manageData(rawStats.wonAgainst, client.user.id),
-          lostAgainst: await manageData(rawStats.lostAgainst, client.user.id),
-          drewAgainst: await manageData(rawStats.drewAgainst, client.user.id),
+      embed.setTitle(`\`${stats.target.tag}\`'s ${stats.game} Stats`);
 
-          wins: await formatStatCount(rawStats.wins, rawStats.games),
-          draws: await formatStatCount(rawStats.draws, rawStats.games),
-          loses: await formatStatCount(rawStats.loses, rawStats.games)
-        }
-      }
-
-      embed
-        .setTitle(`\`${stats.target.tag}\`'s ${stats.game} Stats`)
-        .setDescription(
-          `Games: \`${rawStats?.games || 0}\`\n\n` +
-          `Wins:  ${userStats?.wins  || '`0`'}\n` +
-          `Draws: ${userStats?.draws || '`0`'}\n` +
-          `Loses: ${userStats?.loses || '`0`'}\n\n` +
+      if (rawStats && rawStats.games) {
+        embed.setDescription(
+          `Games: \`${rawStats?.games}\`\n\n` +
+          `Wins:  ${await formatStatCount(rawStats.wins, rawStats.games) || '`0`'}\n` +
+          `Draws: ${await formatStatCount(rawStats.draws, rawStats.games) || '`0`'}\n` +
+          `Loses: ${await formatStatCount(rawStats.loses, rawStats.games) || '`0`'}\n\n` +
 
           `Won against:\n` +
-          `${userStats?.wonAgainst || '> no one\n'}\n` +
+          `${await manageData(rawStats.wonAgainst, client.user.id) || '> no one\n'}\n` +
           `Lost against:\n` +
-          `${userStats?.lostAgainst || '> no one\n'}\n` +
+          `${await manageData(rawStats.lostAgainst, client.user.id) || '> no one\n'}\n` +
           `Drew against:\n` +
-          `${userStats?.drewAgainst || '> no one\n'}`
+          `${await manageData(rawStats.drewAgainst, client.user.id) || '> no one\n'}`
         )
+      }
+      else
+        embed.setDescription(`${stats.target.id == interaction.user.id ? 'You have' : `${stats.target.username} has`} not played any ${stats.game} games yet.`);
     }
     else if (stats.type == 'leaderboard') {
-      if(stats.data.raw)
-        stats.data.formatted = { top10: await formatTopTen(stats.data.raw, stats.settings, interaction) };
-
       embed
         .setTitle(`Top 10 ${stats.game} players`)
-        .setDescription(stats.data.formatted?.top10 || 'looks like no one played yet...');
+        .setDescription(await formatTopTen(stats.data, stats.settings, interaction) || 'It looks like no one won yet...');
     }
 
-    return interaction.editReply({ embeds: [embed] });
+    interaction.editReply({ embeds: [embed] });
 
   }
 })

@@ -7,30 +7,34 @@ module.exports = new Command({
   usage: '',
   permissions: { client: [], user: ['MANAGE_GUILD'] },
   cooldowns: { global: 0, user: 30000 },
-  category: 'USEFUL',
+  category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
   beta: true,
-  options: [
-    {
-      name: 'sync',
-      description: 'force syncs my slash commands with your guild',
-      type: 'SUB_COMMAND'
-    }
-  ],
+  options: [{
+    name: 'sync',
+    description: 'force syncs my slash commands with your guild',
+    type: 'SUB_COMMAND'
+  }],
 
   run: async (client, _, interaction) => {
+    const cmd = interaction.options.getSubcommand();
 
-    switch (interaction.options.getSubcommand()) {
-      case 'sync':
-        await interaction.editReply(`Syncing ${client.slashCommands.size} Slash Commands...\nThis takes about 20s per command.`);
-        client.log(`Force syncing slash commands with guild '${interaction.guild.name}', initiated by user ${interaction.user.tag}`);
+    if (cmd == 'sync') {
+      await interaction.editReply(
+        `Syncing ${client.slashCommands.size} Slash Commands...\n` +
+        `This takes about 10 seconds per command (${parseFloat((client.slashCommands.size * 10 / 60).toFixed(2))} min)`
+      );
 
-        await client.off('interactionCreate', client._events.interactionCreate);
-        await require('../../Handlers/slash_command_handler.js')(client, interaction.guild);
+      client.log(`syncing slash commands with guild ${interaction.guild.id}`);
+      await interaction.guild.commands.set([]);
+      await require('../../Handlers/slash_command_handler.js')(client, interaction.guild);
 
-        interaction.followUp(`<@${interaction.user.id}>\nFinished syncing.`);
-        break;
+      interaction.followUp(
+        `<@${interaction.user.id}>\n` +
+        'Finished syncing.'
+      )
     }
+
   }
 })

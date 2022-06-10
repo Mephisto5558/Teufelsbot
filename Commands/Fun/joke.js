@@ -1,42 +1,116 @@
-const 
-{ Command } = require("reconlx"),
-{ MessageEmbed } = require("discord.js"),
-axios = require('axios');
-
-let
+const
+  { Command } = require('reconlx'),
+  { MessageEmbed } = require('discord.js'),
+  axios = require('axios'),
+  package = require('../../package.json')?.repository?.url
+    .replace(/.*\.com\/|\.git/g, '').split('/'),
   APIs = [
     { name: 'jokeAPI', url: 'https://v2.jokeapi.dev' },
     { name: 'humorAPI', url: 'https://humorapi.com' },
     { name: 'icanhazdadjoke', url: 'https://icanhazdadjoke.com' }
-  ],
-  response, type, blacklist,
-  maxLength, options, API;
+  ];
+
+async function getJoke(APIs, type, blacklist, maxLength, client) {
+  let res;
+  const API = APIs[Math.floor(Math.random() * APIs.length)];
+
+  try {
+    switch (API.name) {
+      case 'jokeAPI':
+        res = await axios.get(`${API.url}/joke/Any`, {
+          timeout: 2500,
+          url: 'https://v2.jokeapi.dev/joke/Any',
+          params: {
+            lang: 'en',
+            blacklist: blacklist ? blacklist : null
+          }
+        });
+
+        if (res.data.type == 'twopart') {
+          res.data.joke =
+            `${res.data.setup}\n\n` +
+            `||${res.data.delivery}||`;
+        }
+        break;
+
+      case 'humorAPI':
+        res = await axios.get(`${API.url.replace('://', '://api.')}/jokes/random`, {
+          timeout: 2500,
+          params: {
+            'api-key': client.keys.humorAPIKey,
+            'min-rating': 7,
+            'max-length': maxLength,
+            'include-tags': type ? type : null,
+            'exclude-tags': blacklist ? blacklist : null
+          }
+        });
+
+        if (res.data.joke.includes('Q: ')) {
+          response = res.data.joke
+            .replace('Q: ', '')
+            .replace('A: ', '\n||') + '||\n';
+        }
+        break;
+
+      case 'icanhazdadjoke':
+        res = await axios.get(API.url, {
+          timeout: 2500,
+          headers: {
+            'User-Agent': `My discord bot (https://github.com/${package[0]}/${package[1]})`,
+            Accept: 'application/json'
+          }
+        });
+        break;
+    }
+    return [res.data.joke, API];
+  }
+  catch (err) {
+    if ([402, 403, 522].includes(err.status)) {
+      console.error('joke.js: ')
+      console.error(err.response)
+    }
+    else {
+        console.error(
+          `joke.js: ${API.url} responded with error ` +
+          `${err.status || err.response?.status}, ${err.statusText || err.response?.statusText}: ${err.response?.data.message}`
+        );
+      }
+    }
+
+    APIs = APIs.filter(str => str.name !== API.name)
+    if (APIs) return await getJoke(APIs, type, blacklist, maxLength, client);
+}
 
 module.exports = new Command({
   name: 'joke',
   aliases: [],
-  description: `sends a joke`,
-  usage: '',
+  description: 'sends a joke',
+  usage: 'PREFIX Commands: joke [type]',
   permissions: { client: [], user: [] },
   cooldowns: { global: 100, user: '' },
   slashCommand: true,
   prefixCommand: true,
-  category: "Fun",
-  args: {
-    type: '*',
-    blacklist: ['nsfw', 'religious', 'political', 'racist', 'sexist', 'explicit']
-  },
-  options: [{
+  category: 'Fun',
+  options: [
+    {
       name: 'type',
-      description: `The type/tag of the joke (not all apis support this)`,
+      description: 'The type/tag of the joke (not all apis support this)',
       type: 'STRING',
       required: false,
     },
     {
       name: 'blacklist',
-      description: `blacklist specific joke tags. See /help joke for more information and valid options`,
+      description: 'blacklist specific joke type/tags.',
       type: 'STRING',
       required: false,
+      choices: [
+        { name: 'nsfw', value: 'nsfw' },
+        { name: 'religious', value: 'religious' },
+        { name: 'political', value: 'political' },
+        { name: 'racist', value: 'racist' },
+        { name: 'sexist', value: 'sexist' },
+        { name: 'explicit', value: 'explicit' }
+      ]
     },
     {
       name: 'max_length',
@@ -48,115 +122,38 @@ module.exports = new Command({
     }
   ],
 
-  run: async(client, message, interaction) => {
+  run: async (client, message, interaction) => {
+
+    let
+      type, blacklist,
+      maxLength;
 
     if (interaction) {
       type = interaction.options.getString('type');
       blacklist = interaction.options.getString('blacklist');
-      maxLength = interaction.options.getNumber('max_length');
-      if(!maxLength) maxLength = 2000;
+      maxLength = interaction.options.getNumber('max_length') ||  2000;
     }
+    else type = message.args[0];
 
-    async function getJoke(APIs) {
-      API = APIs[Math.floor(Math.random() * APIs.length)];
+    const data = await getJoke(APIs, type, blacklist, maxLength, client);
+    const joke = data?.[0]?.replace(/`/g, `'`);
+    const API = data[1];
 
-      try {
-        switch (API.name) {
-          case 'jokeAPI':
-            options = {
-              method: 'GET',
-              timeout: 2500,
-              url: 'https://v2.jokeapi.dev/joke/Any',
-              params: { lang: 'en' }
-            }
-            if (blacklist) options.params.blacklistFlags = blacklist
-
-            await axios.request(options).then(r => {
-              if (r.data.type === 'twopart') {
-                response = r.data.setup +
-                  `\n\n||` + r.data.delivery + '||'
-              } else { response = r.data.joke }
-            })
-            break;
-
-          case 'humorAPI':
-            options = {
-              method: 'GET',
-              timeout: 2500,
-              url: 'https://api.humorapi.com/jokes/random',
-              params: {
-                'api-key': client.keys.jokes.humorAPIKey,
-                'min-rating': '7',
-                'max-length': maxLength
-              }
-            };
-            if (type) options.params['include-tags'] = type;
-            if (blacklist) options.params['exclude-tags'] = blacklist;
-
-            await axios.request(options).then(r => {
-              if (r.data.joke.search('Q: ') == -1) { response = r.data.joke } else {
-                response = r.data.joke
-                  .replace('Q: ', '')
-                  .replace('A: ', '\n||') + '||\n'
-              }
-            })
-            break;
-
-          case 'icanhazdadjoke':
-            options = {
-              method: 'GET',
-              timeout: 2500,
-              url: 'https://icanhazdadjoke.com',
-              headers: {
-                'User-Agent': 'My discord bot (https://github.com/Mephisto5558/Teufelswerk-Bot)',
-                Accept: 'application/json'
-              }
-            };
-
-            await axios.request(options).then(r => {
-              response = r.data.joke
-            });
-            break;
-        }
-      } catch (err) {
-        const errorCodes = [402, 403, 522];
-        if (errorCodes.indexOf(err.status) > -1) {
-          console.error('joke.js: ')
-          console.error(err.response)
-        } else {
-          if (err.statusText) {
-            console.error(`joke.js: ${API.url} responded with error ` +
-              err.status + ', ' + err.statusText + ': ' + err.response?.data.message
-            )
-          } else if (err.response) {
-            console.error(`joke.js: ${API.url} responded with error ` +
-              err.response.status + ', ' + err.response.statusText + ': ' + err.response.data.message
-            )
-          } else {
-            console.error('joke.js:');
-            console.error(err)
-          }
-        }
-        console.error('Trying next API');
-        APIs = APIs.filter(str => str.name !== API.name)
-        if (APIs) await getJoke(APIs);
-      }
-    }
-
-    await getJoke(APIs);
-
-    if (!response) {
+    if (!joke) {
       if (message) return client.functions.reply('Apparently, there is currently no API available. Please try again later.', message);
-      else return interaction.followUp('Apparently, there is currently no API available. Please try again later.');
-    };
-
-    response.replace('`', "'");
+      else return interaction.editReply('Apparently, there is currently no API available. Please try again later.');
+    }
 
     let embed = new MessageEmbed()
       .setTitle('Is this funny?')
-      .setDescription(response + `\n- [${API.name}](${API.url})`);
+      .setDescription(
+          `${joke}\n` +
+        `- [${API.name}](${API.url})`
+      )
+      .setColor('RANDOM')
 
-    if (message) client.functions.reply(embed, message);
-    else interaction.followUp({ embeds: [embed] })
+    if (message) client.functions.reply({ embeds: [embed] }, message);
+    else interaction.editReply({ embeds: [embed] });
+    
   }
 })
