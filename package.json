@@ -22,8 +22,7 @@
     "node": "^17.7.2",
     "npm": "^8.6.0",
     "reconlx": "^2.5.6",
-    "serve-favicon": "^2.5.0",
-    "url-exists": "^1.0.3"
+    "serve-favicon": "^2.5.0"
   },
   "repository": {
     "type": "git",
