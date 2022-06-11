@@ -62,7 +62,6 @@ function formatOptions(input) {
 
 module.exports = async (client, guildForForceSync) => {
   const commandClient = new Client(client.keys.token, client.userID);
-  let same = false;
 
   clientCommands = await commandClient.getCommands({});
 
@@ -83,7 +82,9 @@ module.exports = async (client, guildForForceSync) => {
     }
   }
 
-  for (const command of commands) {
+  for (const command of commands) {  
+    let same = false;
+
     if (!guildForForceSync) {
       for (const clientCommand of clientCommands) {
         same = await compareCommands([command, clientCommand]);
