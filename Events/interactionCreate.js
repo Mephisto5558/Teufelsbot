@@ -37,7 +37,7 @@ module.exports = async (client, interaction) => {
     }
 
     if (embed.description) return interaction.reply({ embeds: [embed], ephemeral: true });
-    if (!command.noDefer) await interaction.deferReply({ ephemeral: command.ephemeralDefer || false });
+    if (!command.noDefer && !interation.replied()) await interaction.deferReply({ ephemeral: command.ephemeralDefer || false });
 
     interaction.options._hoistedOptions.forEach(entry => { if(entry.type == 'STRING') entry.value = entry.value.replace(/<@!/g, '<@') });
 
