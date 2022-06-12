@@ -20,7 +20,7 @@ let command = new Command({
   aliases: [],
   description: 'sends a custom embed; you can do newlines with "/n"',
   usage: '',
-  permissions: { client: [], user: ['EMBED_MESSAGES'] },
+  permissions: { client: [], user: ['EMBED_LINKS'] },
   cooldowns: { global: '', user: '' },
   category: 'Useful',
   slashCommand: true,
