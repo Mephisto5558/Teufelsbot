@@ -144,7 +144,7 @@ module.exports = new Command({
         break;
 
       case 'send':
-        userBlacklist = blacklist[messageTarget.id];
+        userBlacklist = blacklist[messageTarget.id] || [];
 
         if ((userBlacklist.includes(messageTarget.id) || userBlacklist.includes('*')) && !asMod) {
           const errorMsg =
