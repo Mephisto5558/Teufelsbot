@@ -11,6 +11,7 @@ module.exports = (client, message) => {
 
   //if(Object.entries(messageTriggers[message.guild.id]).includes(message.content))
   if(/(koi ?pat|pat ?koi|pat ?fish|fish ?pat)/i.test(message.content)) client.functions.reply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7', message);
+  if (message.crosspostable && client.guildData[message.guild.id]?.autoPublish) message.crosspost();
 
   const guildPrefix = client.guildData.get(message.guild?.id)?.prefix || client.guildData.get('default')?.prefix;
   

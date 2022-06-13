@@ -36,9 +36,22 @@ async function getGuildPrefix(client) {
   }
 }
 
+async function getAutoPublishGuilds(client) {
+  await client.db.ready();
+  const publishDB = await client.db.get('autopublish');
+
+  if (!publishDB) return;
+
+  for(const guild of publishDB) {
+    if(client.guildData[guild]) client.guildData[guild].autoPublish = true
+    else client.guildData[guild] = { autoPublish: true };
+  }
+}
+
 module.exports = async client => {
   checkGuilds(client);
   getGuildPrefix(client);
+  getAutoPublishGuilds(client);
 
   const activity = await client.db.get('activity');
 
