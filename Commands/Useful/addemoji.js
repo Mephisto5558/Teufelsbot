@@ -24,7 +24,7 @@ module.exports = new Command({
   cooldowns: { global: 0, user: 1000 },
   category: 'Useful',
   slashCommand: true,
-  prefixCommand: false, beta: true,
+  prefixCommand: false,
   options: [
     {
       name: 'emoji_or_url',
