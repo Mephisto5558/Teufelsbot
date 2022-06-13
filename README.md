@@ -27,7 +27,7 @@ Hosted on <a href="https://replit.com">replit.com.</a>
   <code>npm install</code><br><br>
   Next, you need to create a <code>env.json</code> file. If you are hosting you bot code public,
   so everyone can see it, make sure they can't see this file. You can also use a "env" collection
-  in mongoDB. If you do this, you only need to set the mongoDB connection string to as
+  in mongoDB. If you do this, you only need to set the mongoDB connection string as
   <code>dbConnectionStr</code> to process.env.<br>
   The env file/collection needs to have all keys from the <code>env template.json</code> in order to work.<br>
   You do not need to set the dev stuff, this is for developement.<br><br>
