@@ -3,8 +3,6 @@ const
   { MessageEmbed } = require('discord.js'),
   { colors } = require('../Settings/embed.json');
 
-let jobs = [];
-
 function formatBirthday(msg, user, year) {
   return msg
     .replace(/<user>/g, user.displayName)
@@ -12,11 +10,10 @@ function formatBirthday(msg, user, year) {
 }
 
 module.exports = async client => {
-  const guilds = await client.guilds.fetch();
-
   //Birthday announcer
-  jobs.push(new CronJob('00 00 00 * * *', async _ => {
+  new CronJob('00 00 00 * * *', async _ => {
     const
+      guilds = await client.guilds.fetch(),
       oldData = await client.db.get('birthdays'),
       gSettings = await client.db.get('settings'),
       now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
@@ -74,8 +71,6 @@ module.exports = async client => {
       }
       catch { }
     }
-  }, _ => client.log('finished birthday check')) );
-
-  for (const job of jobs) job.start();
+  }, _ => { client.log('finished birthday check') }, true);
 
 }
