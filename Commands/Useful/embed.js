@@ -15,6 +15,21 @@ function pushColors(colorObject) { //is not called in code
   }
 }
 
+function filterEmptyEntries(obj) {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([k, a]) => {
+      if(!a?.toString().length || k == 'type'|| (typeof a == 'number' && a == 0)) return;
+      
+      if(typeof a == 'object') {
+        a = filterEmptyEntries(a);
+        if(!Object.values(a).length) return;
+      }
+
+      return true;
+    })
+  )
+}
+
 let command = new Command({
   name: 'embed',
   aliases: [],
@@ -25,7 +40,7 @@ let command = new Command({
   category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
-  ephemeralDefer: true,
+  ephemeralDefer: true, beta:true,////////////////
   options: [
     {
       name: 'custom',
@@ -165,13 +180,7 @@ let command = new Command({
 
     if (custom) interaction.editReply('Your embed has been sent!');
     else {
-      embed = JSON.stringify(
-        Object.fromEntries(
-          Object.entries(embed).filter(([, a]) => 
-            a?.toString().length && a != 0
-          )
-        )
-      );
+      embed = JSON.stringify(filterEmptyEntries(embed));
 
       interaction.editReply(
         'Your embed has been sent! Below is the embed code.\n' +
