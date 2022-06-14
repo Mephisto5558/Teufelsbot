@@ -21,9 +21,11 @@ module.exports = new Command({
     const cmd = interaction.options.getSubcommand();
 
     if (cmd == 'sync') {
+      const s = client.slashCommands.size * 10;
+
       await interaction.editReply(
         `Syncing ${client.slashCommands.size} Slash Commands...\n` +
-        `This takes about 10 seconds per command (${parseFloat((client.slashCommands.size * 10 / 60).toFixed(2))} min)`
+        `This will take about ${s > 60 ? (s - (s %= 60)) / 60 + 'm,' : ''} ${s}s.`
       );
 
       client.log(`syncing slash commands with guild ${interaction.guild.id}`);
