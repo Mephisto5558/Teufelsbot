@@ -25,8 +25,8 @@ module.exports = new Command({
 
     if (interaction.options?.getBoolean('average')) {
       const embed = new MessageEmbed()
-        .setTitle('Pinging...')
-        .setDescription(`Loading (this takes about one minute)`)
+        .setTitle('Ping')
+        .setDescription(`Pinging... (this takes about one minute)`)
         .setColor(colors.discord.BURPLE);
 
       interaction.editReply({ embeds: [embed] });
@@ -43,7 +43,6 @@ module.exports = new Command({
       const averagePing = Math.round((pings.reduce((a, b) => a + b) / i) * 100) / 100;
 
       embed
-        .setTitle('Ping')
         .setDescription(
           `Pings: \`${pings.length}\`\n` +
           `Lowest Ping: \`${pings[0]}ms\`\n` +
