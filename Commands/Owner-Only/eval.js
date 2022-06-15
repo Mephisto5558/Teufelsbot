@@ -13,7 +13,8 @@ module.exports = new Command({
   beta: true,
 
   run: async (client, message) => {
-
+    if(!message.content) return;
+    
     try {
       await eval(message.content);
       client.log(`evaluated command '${message.content}'`);
