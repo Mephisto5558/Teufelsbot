@@ -5,10 +5,9 @@ const
 
 function listCommands(list, output, count, category) {
   for (let command of list) {
-    if (category) {
-      command = command[1];
-      if (command.category.toUpperCase() != category.toUpperCase() || command.hideInHelp || command.disabled) continue;
-    }
+    command = command[1];
+    if (!category) throw new Error(`missing category information for command ${command.name}`)
+    if (command.category.toUpperCase() != category.toUpperCase() || command.hideInHelp || command.disabled || output.includes(`\`${command.name}\``)) continue;
 
     if (count % 5 == 0) output += `\`${command.name}\`\n> `
     else output += `\`${command.name}\`, `
@@ -26,7 +25,7 @@ module.exports = new Command({
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
-  ephemeralDefer: true,
+  ephemeralDefer: true, beta: true,///////////////////////////
   options: [{
     name: 'command',
     description: 'Type a command here to get more information about it',
@@ -57,12 +56,12 @@ module.exports = new Command({
         if (cmd.name) embed.setTitle(`Detailed Information about: \`${cmd.name}\``);
         if (cmd.description) embed.setDescription(cmd.description);
         if (cmd.aliases?.length) embed.addField('Aliases', `\`${listCommands(cmd.aliases, '', 1).replace(/> /g, '')}\``);
-        if (cmd.usage) embed.addField('Usage', `${cmd.slashCommand?'SLASH Command: look at the option descriptions.\n':''} ${cmd.usage || ''}`);
-        
+        if (cmd.usage) embed.addField('Usage', `${cmd.slashCommand ? 'SLASH Command: look at the option descriptions.\n' : ''} ${cmd.usage || ''}`);
+
         embed.setFooter({ text: `Syntax: <> = required, [] = optional | Prefix: '${client.guildData.get(message.guild?.id)?.prefix || client.guildData.get('default')?.prefix}'` });
       }
 
-      if(interaction) interaction.editReply({ embeds: [embed] });
+      if (interaction) interaction.editReply({ embeds: [embed] });
       else client.functions.reply({ embeds: [embed] }, message);
       return;
     }
@@ -77,18 +76,21 @@ module.exports = new Command({
 
       let data = listCommands(client.commands, '', 1, category);
       data = listCommands(client.slashCommands, data[0], data[1], category);
-      cmdList = data[0];
 
       if (data[1] == 1) continue;
 
+      let cmdList = data[0];
+
+      if (cmdList.endsWith('\n> ')) cmdList = cmdList.slice(0, -4);
       if (cmdList.endsWith(', ')) cmdList = cmdList.slice(0, -2);
+
       if (cmdList) embed.addField(`**${category} [${data[1] - 1}]**`, `> ${cmdList}\n`);
     }
 
     if (!embed.fields) embed.setDescription('No commands found...');
     else embed.setFooter({ text: `Use the 'command' option to get more information about a specific command.` })
 
-    if(interaction) interaction.editReply({ embeds: [embed] });
+    if (interaction) interaction.editReply({ embeds: [embed] });
     else client.functions.reply({ embeds: [embed] }, message);
 
   }
