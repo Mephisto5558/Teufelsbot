@@ -25,7 +25,7 @@ module.exports = new Command({
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
-  ephemeralDefer: true, beta: true,///////////////////////////
+  ephemeralDefer: true,
   options: [{
     name: 'command',
     description: 'Type a command here to get more information about it',
