@@ -3,10 +3,10 @@ const { colors } = require('../Settings/embed.json');
 
 let length;
 
-module.exports = (client, message) => {
+module.exports = async (client, message) => {
   if (message.author.bot) return;
 
-  const blacklist = client.blacklist || client.db.get('blacklist') || [];
+  const blacklist = client.blacklist || await client.db.get('blacklist') || [];
   if(blacklist.includes(message.author.id)) return;
 
   //if(Object.entries(messageTriggers[message.guild.id]).includes(message.content))
@@ -31,29 +31,31 @@ module.exports = (client, message) => {
 
   message.content = message.args.join(' ');
 
-  if(command.category == 'Owner-Only') { //DO NOT REMOVE THIS BLOCK!
-    const permissionGranted = client.functions.checkBotOwner(client, message);
+  if(command.category.toLowerCase() == 'owner-only') { //DO NOT REMOVE THIS BLOCK!
+    const permissionGranted = await client.functions.checkBotOwner(client, message);
     if (!permissionGranted) return;
   }
 
   command.permissions.user.push('SEND_MESSAGES');
   command.permissions.client.push('SEND_MESSAGES');
 
-  let embed = new MessageEmbed()
+  const userPerms = message.member.permissionsIn(message.channel).missing(command.permissions.user);
+  const botPerms = message.guild.me.permissionsIn(message.channel).missing(command.permissions.client);
+
+  const embed = new MessageEmbed()
     .setTitle('Insufficient Permissions')
     .setColor(colors.discord.RED);
 
-  if (!message.member.permissions.has(command.permissions.user)) {
+  if (userPerms.length) {
     embed.setDescription(
-      `You need the following permissions to run this command:\n\`` +
-      message.member.permissions.missing(command.permissions.user).join('`, `') + '`'
+      `You need the following permissions in this channel to run this command:\n\`` +
+      userPerms.join('`, `') + '`'
     )
   }
-
-  if (!message.guild.me.permissions.has(command.permissions.client)) {
+  else if (botPerms.length) {
     embed.setDescription(
-      `I am missing the following permissions to run this command:\n\`` +
-      message.guild.me.permissions.missing(command.permissions.client).join('`, `') + '`'
+      `I need the following permissions in this channel to run this command:\n\`` +
+      botPerms.join('`, `') + '`'
     )
   }
 

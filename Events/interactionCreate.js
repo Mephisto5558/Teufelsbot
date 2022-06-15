@@ -3,14 +3,14 @@ const { colors } = require('../Settings/embed.json');
 
 module.exports = async (client, interaction) => {
 
-  let command = client.slashCommands.get(interaction.commandName);
+  const command = client.slashCommands.get(interaction.commandName);
   if (!command) return;
 
   const blacklist = client.blacklist || client.db.get('blacklist') || [];
   if (blacklist.includes(interaction.user.id)) return;
 
   if (command.category == 'Owner-Only') { //DO NOT REMOVE THIS BLOCK!
-    let permissionGranted = await client.functions.checkBotOwner(client, message);
+    const permissionGranted = await client.functions.checkBotOwner(client, message);
     if (!permissionGranted) return;
   }
 
@@ -18,33 +18,37 @@ module.exports = async (client, interaction) => {
     command.permissions.user.push('SEND_MESSAGES');
     command.permissions.client.push('SEND_MESSAGES');
 
-    let embed = new MessageEmbed()
+    const userPerms = interaction.member.permissionsIn(interaction.channel).missing(command.permissions.user);
+    const botPerms = interaction.guild.me.permissionsIn(interaction.channel).missing(command.permissions.client);
+
+    const embed = new MessageEmbed()
       .setTitle('Insufficient Permissions')
       .setColor(colors.discord.RED);
 
-    if (!interaction.member.permissions.has(command.permissions.user)) {
+    if (userPerms.length) {
       embed.setDescription(
-        `Your are missing the following permissions to run this command:\n\`` +
-        interaction.member.permissions.missing(command.permissions.user).join('`, `') + '`'
+        `You need the following permissions in this channel to run this command:\n\`` +
+        userPerms.join('`, `') + '`'
       )
     }
-
-    if (!interaction.guild.me.permissions.has(command.permissions.client)) {
+    else if (botPerms.length) {
       embed.setDescription(
-        `I am missing the following permissions to run this command:\n\`` +
-        interaction.guild.me.permissions.missing(command.permissions.client).join('`, `') + '`'
+        `I need the following permissions in this channel to run this command:\n\`` +
+        botPerms.join('`, `') + '`'
       )
     }
 
     if (embed.description) return interaction.reply({ embeds: [embed], ephemeral: true });
     if (!command.noDefer && !interaction.replied) await interaction.deferReply({ ephemeral: command.ephemeralDefer || false });
 
-    interaction.options._hoistedOptions.forEach(entry => { if(entry.type == 'STRING') entry.value = entry.value.replace(/<@!/g, '<@') });
+    for(const entry of interaction.options._hoistedOptions) {
+      if (entry.type == 'STRING') entry.value = entry.value.replace(/<@!/g, '<@')
+    }
 
     client.interaction = interaction;
     await command.run(client, null, interaction);
     return client.interaction = null;
-  }
+  }                                                                                                                                                                                            
 
   /* Not Implemented yet
     if (interaction.isContextMenu()) {
