@@ -7,7 +7,7 @@ const
   fs = require('fs'),
   db = new reconDB(process.env.dbConnectionStr);
 
-let defaultSettings;
+  global.RegExp.timeoutMatch = require('time-limited-regular-expressions')().match;
 
 load()
 async function load() {
