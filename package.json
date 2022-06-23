@@ -20,7 +20,7 @@
     "mongodb": "^4.7.0",
     "mongoose": "^6.4.0",
     "node": "^18.4.0",
-    "npm": "^8.12.2",
+    "npm": "^8.13.0",
     "reconlx": "^2.5.6",
     "serve-favicon": "^2.5.0",
     "time-limited-regular-expressions": "^1.0.0"
