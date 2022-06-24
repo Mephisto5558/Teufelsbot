@@ -18,7 +18,8 @@ module.exports = new Command({
     if (!message.args.length) client.functions.reply('Please specify the number of messages to purge next time.', message);
 
     let toDeleteCount = parseInt(message.args[0]) + 1; //+1 is the command
-    if (toDeleteCount > 1001) toDeleteCount = 1001;
+    if (isNaN(toDeleteCount)) client.functions.reply(`\`${message.args[0]}\` is not a valid number.`, message)
+    else if (toDeleteCount > 1001) toDeleteCount = 1001;
 
     for (let i=0; i < toDeleteCount; i = i + 100) {
       await message.channel.bulkDelete(toDeleteCount - i < 100 ? toDeleteCount - i : 100, true);
