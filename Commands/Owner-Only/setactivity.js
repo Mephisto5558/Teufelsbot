@@ -16,7 +16,7 @@ module.exports = new Command({
     message.args = message.content.trim().split(';');
 
     const activity = message.args[0];
-    const type = message.args[1].toUpperCase();
+    const type = message.args[1]?.toUpperCase();
 
     if (!type) type = 'PLAYING';
     else if (!validTypes.includes(type)) {
