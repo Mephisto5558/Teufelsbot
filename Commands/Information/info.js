@@ -23,7 +23,7 @@ module.exports = new Command({
       description =
         `Developer: ${owner.tag}\n` +
         `Starts: ${startCount}\n` +
-        `Last start: ${startDate}` +
+        `Last start: ${startDate}\n` +
         `[Privacy Policy](https://teufelsbot.mephisto5558.repl.co/privacy)`,
 
       embed = new MessageEmbed()
