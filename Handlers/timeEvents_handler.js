@@ -10,32 +10,42 @@ function formatBirthday(msg, user, year) {
 }
 
 module.exports = async client => {
+  await client.isReady();
+
   //Birthday announcer
-  new CronJob('00 00 00 * * *', async _ => {
+  new CronJob('00 00 00 * * *', async function () {
+    const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
+
+    if (client.db.get('birthdays').lastCheckTS == now) return client.log('Already ran birthday check today');
+
+    client.log('started birthday check');
+
     const
       guilds = await client.guilds.fetch(),
       oldData = await client.db.get('birthdays'),
-      gSettings = await client.db.get('settings'),
-      now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
+      gSettings = await client.db.get('settings');
 
     let dmList = [];
 
     for (let guild of guilds) {
-      const settings = gSettings[guild.id]?.birthday;
-      if (settings?.disabled) continue;
+      const settings = gSettings[guild[0]]?.birthday;
+      if (settings?.disabled)
+        continue;
 
-      guild = await client.guilds.fetch(guild[0]);
+      guild = await guild[1].fetch();
 
-      for (let entry of Object.entries(oldData)) {
-        let mention = '';
+      for (const entry of Object.entries(oldData)) {
+        let mention;
         let channel;
-        let entry0 = entry[1].split('/');
+        const entry0 = entry[1].split('/');
         entry[2] = entry0.shift();
-        if (now != entry0.join('/')) continue;
+        if (now != entry0.join('/') || entry[0] == 'lastCheckTS') continue;
 
         if (settings?.channelAnnouncement?.channel) {
           try { channel = await guild.channels.fetch(settings.channelAnnouncement.channel) }
-          catch { };
+          catch {
+            return (await guild.fetchOwner()).send(`INFO: the channel configured for the birthday feature in guild \`${guild.name}\` does not exist! Please re-configure it so i can send birthday messages!`)
+          }
 
           const user = await guild.members.fetch(entry[0]);
 
@@ -44,8 +54,8 @@ module.exports = async client => {
             .setDescription(formatBirthday(settings.channelAnnouncement?.message, user, entry[2]) || 'We hope you have the wonderful birthday.')
             .setColor(settings.channelAnnouncement.color || colors.discord.BURPLE);
 
-          if (settings.channelAnnouncement?.mentionMember) mention = `<@${user.id}>`
-          await channel.send({ content: mention, embeds: [embed] });
+          if (settings.channelAnnouncement?.mentionMember) mention = `<@${user.id}>`;
+          await channel.send({ content: mention || '', embeds: [embed] });
         }
 
         if (settings?.dmMembers) {
@@ -71,6 +81,15 @@ module.exports = async client => {
       }
       catch { }
     }
-  }, _ => { client.log('finished birthday check') }, true);
+
+    client.log('Finished birthday check');
+    client.db.set('birthdays', Object.assign({}, oldData, { 'lastCheckTS': now }));
+  },
+    null,
+    true,
+    undefined,
+    undefined,
+    true
+  )
 
 }
