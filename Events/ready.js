@@ -1,5 +1,4 @@
 async function checkGuilds(client) {
-  await client.db.ready();
   const guildWhitelist = await client.db.get('guildWhitelist');
 
   if (guildWhitelist) {
@@ -23,7 +22,6 @@ async function checkGuilds(client) {
 }
 
 async function getGuildPrefix(client) {
-  await client.db.ready();
   const prefixDB = await client.db.get('prefix');
 
   if (!prefixDB.default) return console.error('no default prefix in prefixDB found');
@@ -37,7 +35,6 @@ async function getGuildPrefix(client) {
 }
 
 async function getAutoPublishGuilds(client) {
-  await client.db.ready();
   const publishDB = await client.db.get('autopublish');
 
   if (!publishDB) return;

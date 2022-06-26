@@ -1,5 +1,4 @@
 module.exports = async (client, guild) => {
-  await client.db.ready();
   const guildWhitelist = await client.db.get('guildWhitelist');
 
   if (!guildWhitelist.includes(guild.id)) {
