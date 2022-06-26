@@ -150,10 +150,10 @@ module.exports = new Command({
         else {
           embed.setTitle('The next birthdays');
 
-          let data = Object.entries(oldData);
+          let data = Object.entries(oldData).filter(e => e[0] != 'lastCheckTS');
           let filterList = [];
 
-          for (let entry of data) {
+          for (const entry of data) {
             try { await interaction.guild.members.fetch(entry[0]) }
             catch {
               filterList.push(entry[0]);
