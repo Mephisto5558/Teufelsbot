@@ -51,6 +51,8 @@ async function load() {
     console.log(`[${date}] ${data}`)
   };
 
+  await client.db.ready();
+
   for(const handler of fs.readdirSync('./Handlers')) {
     require(`./Handlers/${handler}`)(client);
   }
