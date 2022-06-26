@@ -10,6 +10,8 @@ function formatBirthday(msg, user, year) {
 }
 
 module.exports = async client => {
+  if (client.botType == 'dev') return client.log('Disabled timed events due to dev version.');
+  
   await client.isReady();
 
   //Birthday announcer
