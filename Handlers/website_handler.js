@@ -1,85 +1,59 @@
 const
   express = require('express'),
   favicon = require('serve-favicon'),
+  { existsSync } = require('fs'),
+  { join } = require('path'),
   rateLimit = require('express-rate-limit'),
   errorColor = require('chalk').bold.red,
-  path = require('path'),
   app = express(),
   router = express.Router(),
   websiteMessages = [
     'Hello World!', 'Lena is kuhl',
     'Flo is kuhl', 'Vinni is auch kuhl',
     'huhu', 'What are you doing here?',
-    'https://www.youtube.com/watch?v=xvFZjo5PgG0'
+    '<body style="background-color:black;"><iframe src="https://www.youtube.com/embed/xvFZjo5PgG0?autoplay=1&amp;loop=1&amp;rel=0&amp;controls=0&amp;showinfo=0&amp;mute=1" width="100%" height="100%" scrolling="auto" allowfullscreen frameborder="0"></iframe></body>'
   ];
 
 module.exports = async client => {
-  if (client.botType == 'dev') return client.log('Disabled website loading due to dev version.');
-
-  const websiteMessage = websiteMessages[Math.floor(Math.random() * websiteMessages.length)];
+  // if (client.botType == 'dev') return client.log('Skipped website loading due to dev version.');
 
   app
     .use(favicon('Website/favicon.ico'))
-    .use(express.json())
     .use(rateLimit({
       windowMs: 1 * 60 * 1000, // 1 minute
       max: 20 // 20 requests per minute
     }))
-    .use(router)
-    .use(function (err, _, res, _) {
-      console.error(errorColor(' [Error Handling] :: Unhandled Website Error/Catch'));
-      console.error(err.stack);
-      res.status(500).send('Something broke!');
-    })
+    .use(express.json())
     .set('json spaces', 2)
+    .use((req, res, next) => {
+      if (req.path.endsWith('/') && req.path > 1) res.redirect(301, req.path.slice(0, -1));
+      else next();
+    })
+    .use(router)
+    .use((err, req, res, __) => {
+      console.error(errorColor(' [Error Handling] :: Unhandled Website Error/Catch'));
+      console.error(req, res);
+      console.error(err.stack);
+      res.status(500).send('Something went wrong.\nPlease message the dev.!');
+    })
 
     .listen(8000, _ => {
       client.log(`Website is online\n`)
     });
 
-  router.all('*', async (req, res) => {
-    if (req.method.toLowerCase() == 'get') {
-      switch (req.path) {
-        case '/uptime':
-          let totalSeconds = client.uptime / 1000;
-          let days = Math.floor(totalSeconds / 86400).toString().padStart(2, 0);
-          totalSeconds %= 86400;
-          let hours = Math.floor(totalSeconds / 3600).toString().padStart(2, 0);
-          totalSeconds %= 3600;
-          let minutes = Math.floor(totalSeconds / 60).toString().padStart(2, 0);
-          let seconds = Math.floor(totalSeconds % 60).toString().padStart(2, 0);
+  router.all('*', (req, res) => {
+    if (req.path == '/') return res.send(websiteMessages[Math.floor(Math.random() * websiteMessages.length)]);
 
-          res.send({
-            total: client.uptime,
-            formatted: `${days}:${hours}:${minutes}:${seconds}`
-          });
-          break;
+    const urlPath = join(`${__dirname}/../Website/${req.path}`);
 
-        case '/privacy':
-          res.sendFile(path.join(__dirname + '/../Website/privacy_policy.html'));
-          break;
+    if (existsSync(`${urlPath}.js`)) {
+      const cmd = require(`${urlPath}.js`);
 
-        default: res.send(websiteMessage);
-      }
+      if (cmd.method == '*' || cmd.method?.includes(req.method.toLowerCase())) return cmd.run(res, req, client);
+      return res.sendStatus(405);
     }
-    else if (req.method.toLowerCase() == 'post') {
-      if (req.body.token != client.keys.WebCommandKey) return res.sendStatus(403);
 
-      switch (req.path) {
-        case '/restart':
-          res.send(true);
-          console.error('Restart initiated from web server');
-          process.exit(0);
-
-        /*case '/ping': //Coming soon
-          client.log('Ping initiated from web server');
-          let data = await client.functions.ping;
-          res.send(data);
-          break;
-        */
-        default: res.status(404);
-      }
-    }
-  });
+    return res.sendStatus(404);
+  })
 
 }
