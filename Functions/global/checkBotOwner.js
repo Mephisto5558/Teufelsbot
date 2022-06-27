@@ -1,3 +1,3 @@
-module.exports = async function reply(client, message) {
+module.exports = async (client, message) => {
   if (message.author.id == client.owner) return true;
 }
