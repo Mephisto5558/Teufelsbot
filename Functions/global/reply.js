@@ -1,6 +1,5 @@
-let sentMessage;
-
-module.exports = async function reply(reply, message, deleteTime, ping) {
+module.exports = async (reply, message, deleteTime, ping) => {
+  let sentMessage;
 
   if (!message) throw new SyntaxError('reply.js: Missing var in code: message');
   if (!reply) throw new SyntaxError('reply.js: Missing var in code: reply');
