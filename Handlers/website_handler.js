@@ -15,7 +15,7 @@ const
   ];
 
 module.exports = async client => {
-  // if (client.botType == 'dev') return client.log('Skipped website loading due to dev version.');
+  if (client.botType == 'dev') return client.log('Skipped website loading due to dev version.');
 
   app
     .use(favicon('Website/favicon.ico'))
