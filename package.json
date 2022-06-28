@@ -18,7 +18,7 @@
     "express": "^4.17.3",
     "express-rate-limit": "^6.4.0",
     "mongodb": "^4.7.0",
-    "mongoose": "^6.4.0",
+    "mongoose": "^6.4.1",
     "node": "^18.4.0",
     "npm": "^8.13.1",
     "reconlx": "^2.5.6",
