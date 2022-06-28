@@ -66,7 +66,7 @@ module.exports = new Command({
       cmd = interaction.options.getSubcommand(),
       userToToggle = interaction.options.getUser('user_to_toggle'),
       messageTarget = interaction.options.getMember('target'),
-      messageToSend = interaction.options.getString('message'),
+      messageToSend = interaction.options.getString('message').replace('/n','\n'),
       perm = interaction.member.permissions.has('MANAGE_MESSAGES'),
       asMod = (interaction.options.getBoolean('as_mod') && perm);
 
