@@ -66,7 +66,7 @@ module.exports = new Command({
       cmd = interaction.options.getSubcommand(),
       userToToggle = interaction.options.getUser('user_to_toggle'),
       messageTarget = interaction.options.getMember('target'),
-      messageToSend = interaction.options.getString('message').replace('/n','\n'),
+      messageToSend = interaction.options.getString('message'),
       perm = interaction.member.permissions.has('MANAGE_MESSAGES'),
       asMod = (interaction.options.getBoolean('as_mod') && perm);
 
@@ -159,7 +159,7 @@ module.exports = new Command({
           .setDescription(
             `From: **${messageSender || 'a guild moderator'}**\n` +
             `Guild: \`${interaction.guild.name}\`\n\n` +
-            messageToSend
+            messageToSend.replace(/\/n/g, '\n')
           )
           .setColor(colors.discord.BURPLE)
           .setFooter({
