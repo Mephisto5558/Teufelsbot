@@ -20,15 +20,12 @@ module.exports = new Command({
       const newData = oldData.filter(e => e != message.guild.id);
 
       await client.db.set('autopublish', newData);
-      client.guildData[message.guild.id].autoPublish = false;
 
       if(interaction) interaction.editReply('Disabled autopublishing.');
       else client.functions.reply('Disabled autopublishing.');
     }
     else {
       await client.db.push('autopublish', message.guild.id);
-      if(client.guildData[message.guild.id]) client.guildData[message.guild.id].autoPublish = true;
-      else client.guildData[message.guild.id] = { autoPublish: true };
 
       if(interaction) interaction.editReply('Enabled autopublishing.');
       else client.functions.reply('Enabled autopublishing.');
