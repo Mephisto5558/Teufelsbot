@@ -2,7 +2,7 @@ const
   DBD = require('discord-dashboard'),
   DarkDashboard = require('dbd-dark-dashboard'),
   { readdirSync } = require('fs'),
-  domain = 'http://localhost:8000',
+  package = require('../package.json'),
   rateLimit = {
     windowMs: 15 * 60 * 1000, // 15min
     max: 100,
@@ -92,6 +92,7 @@ async function getAllSettings(client) {
 
 module.exports = async client => {
   const me = client.user || await client.users.fetch(client.userID);
+  const domain = client.botType == 'main' ? `https://${package.name}.${package.author}.repl.co/` : 'http://localhost';
 
   global.embedBuilder = (defaultSettings, themeOptions) => {
     return DBD.formTypes.embedBuilder(

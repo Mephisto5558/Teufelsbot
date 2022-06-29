@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "keywords": [],
-  "author": "Mephisto",
+  "author": "Mephisto5558",
   "license": "ISC",
   "dependencies": {
     "@discordjs/rest": "^0.5.0",
