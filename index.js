@@ -25,7 +25,11 @@ async function load() {
     defaultSettings = await db.get('env');
   }
 
-  defaultSettings = await Object.assign({}, defaultSettings.global, defaultSettings[defaultSettings.global.environment]);
+  defaultSettings = await Object.assign(
+    {}, defaultSettings.global,
+    defaultSettings[defaultSettings.global.environment],
+    { keys: Object.assign({}, defaultSettings.global.keys, defaultSettings[defaultSettings.global.environment].keys) }
+  );
   
   client.owner = defaultSettings.botOwnerID;
   client.userID = defaultSettings.botUserID;
@@ -34,7 +38,7 @@ async function load() {
   client.startTime = Date.now();
   client.categories = fs.readdirSync('./Commands/');
   client.db = db;
-  client.keys = Object.assign({}, defaultSettings.keys, { token: defaultSettings.token });
+  client.keys = defaultSettings.keys;
   client.aliases = new Collection();
   client.events = new Collection();
   client.cooldown = new Collection();
