@@ -1,5 +1,5 @@
 {
-  "name": "teufelswerk-bot",
+  "name": "teufelsbot",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,7 +11,9 @@
     "@octokit/core": "^3.6.0",
     "chalk": "^4.1.2",
     "cron": "^2.0.0",
+    "dbd-dark-dashboard": "^1.6.58",
     "discord-api-types": "^0.35.0",
+    "discord-dashboard": "^2.3.40",
     "discord-slash-commands-client": "^1.2.2",
     "discord-tictactoe": "^3.0.0",
     "discord.js": "^13.8.1",
