@@ -24,9 +24,8 @@ module.exports = new Command({
     }
 
     if (message.content && message.member.permissions.has('MANAGE_GUILD')) {
-      client.guildData.set(message.guild.id, { prefix: message.content });
-
       const oldData = await client.db.get('prefix');
+
       const newData = await Object.assign({}, oldData, { [message.guild.id]: message.content });
       await client.db.set('prefix', newData);
 
@@ -34,8 +33,8 @@ module.exports = new Command({
       else client.functions.reply(`My prefix has been changed to \`${message.content}\``, message);
     }
     else {
-        const currentPrefix = client.guildData.get(message.guild.id)?.prefix || client.guildData.get('default')?.prefix
-        const msg = `My current prefix is \`${currentPrefix || '\n[FATAL ERROR] Please message the dev immediately `NoDefPreFound`!\n'}\``;
+        const currentPrefix = client.db.get('settings')[message.guild.id]?.prefix || client.db.get('settings').default.prefix;
+        const msg = `My current prefix is \`${currentPrefix || '\n[FATAL ERROR] Please message the dev immediately `NoDefaultPrefixFound`!\n'}\``;
 
         message ? client.functions.reply(msg, message) : interaction.editReply(msg);
     }
