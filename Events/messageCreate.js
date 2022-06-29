@@ -4,16 +4,17 @@ const { colors } = require('../Settings/embed.json');
 let length;
 
 module.exports = async (client, message) => {
-  if (message.author.bot) return;
-
   const blacklist = client.blacklist || await client.db.get('blacklist') || [];
   if(blacklist.includes(message.author.id)) return;
 
+  if (message.crosspostable && await client.db.get('settings')[message.guild.id]?.autoPublish) message.crosspost();
+  
+  if (message.author.bot) return;
+
   //if(Object.entries(messageTriggers[message.guild.id]).includes(message.content))
   if(/(koi ?pat|pat ?koi|pat ?fish|fish ?pat)/i.test(message.content)) client.functions.reply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7', message);
-  if (message.crosspostable && client.guildData[message.guild.id]?.autoPublish) message.crosspost();
 
-  const guildPrefix = client.guildData.get(message.guild?.id)?.prefix || client.guildData.get('default')?.prefix;
+  const guildPrefix = await client.db.get('settings')[message.guild.id]?.prefix || await client.db.get('settings').default.prefix;
   
   message.content = message.content.replace(/<@!/g, '<@');
 
