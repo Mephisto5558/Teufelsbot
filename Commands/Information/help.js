@@ -58,7 +58,7 @@ module.exports = new Command({
         if (cmd.aliases?.length) embed.addField('Aliases', `\`${listCommands(cmd.aliases, '', 1).replace(/> /g, '')}\``);
         if (cmd.usage) embed.addField('Usage', `${cmd.slashCommand ? 'SLASH Command: look at the option descriptions.\n' : ''} ${cmd.usage || ''}`);
 
-        embed.setFooter({ text: `Syntax: <> = required, [] = optional | Prefix: '${client.guildData.get(message.guild?.id)?.prefix || client.guildData.get('default')?.prefix}'` });
+        embed.setFooter({ text: `Syntax: <> = required, [] = optional | Prefix: '${client.db.get('settings')[message.guild.id]?.prefix || client.db.get('settings').default.prefix}'` });
       }
 
       if (interaction) interaction.editReply({ embeds: [embed] });
