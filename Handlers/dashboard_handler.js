@@ -61,7 +61,8 @@ async function getAllSettings(client) {
         optionList.push({
           title: setting.name,
           description: setting.description,
-          optionType: setting.type
+          optionType: setting.type,
+          position: setting.position
         })
       }
       else {
@@ -83,16 +84,17 @@ async function getAllSettings(client) {
     categoryOptionList.push({
       categoryId: index.id,
       categoryName: index.name,
+      position: index.position,
       categoryDescription: index.description,
       categoryOptionsList: optionList.sort((a, b) => a.position - b.position)
     })
   }
-  return categoryOptionList;
+  return categoryOptionList.sort((a, b) => a.position - b.position);
 }
 
 module.exports = async client => {
   const me = client.user || await client.users.fetch(client.userID);
-  const domain = client.botType == 'main' ? `https://${package.name}.${package.author}.repl.co/` : 'http://localhost';
+  const domain = client.botType == 'main' ? `https://${package.name}.${package.author}.repl.co/` : 'http://localhost:8000';
 
   global.embedBuilder = (defaultSettings, themeOptions) => {
     return DBD.formTypes.embedBuilder(
