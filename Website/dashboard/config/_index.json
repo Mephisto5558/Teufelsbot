@@ -1,5 +1,6 @@
 {
   "id": "config",
   "name": "Configuration",
-  "description": "Some common settings like the language and prefix"
+  "description": "Some common settings like the language and prefix",
+  "position": 0
 }

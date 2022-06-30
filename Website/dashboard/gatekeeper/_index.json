@@ -1,5 +1,6 @@
 {
   "id": "gatekeeper",
   "name": "Gatekeeper",
-  "description": "Stuff that happens if someone joins or leaves the server"
+  "description": "Stuff that happens if someone joins or leaves the server",
+  "position": 1
 }
