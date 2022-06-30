@@ -165,7 +165,7 @@ module.exports = new Command({
           .setFooter({
             text:
               `If you don't want to receive user-made dms from me, run /dm toggle in any server.\n` +
-              'If someone abuses this command to spam, please message me.'
+              'If someone abuses this command to spam, please message the dev.'
           });
 
         try {
