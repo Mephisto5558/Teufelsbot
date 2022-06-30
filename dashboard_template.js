@@ -8,14 +8,14 @@ module.exports = client => ({
   id: '',
   name: '',
   description: '',
-  position: 0,
+  position: 1,
 
   type: types.input(),
 
-  get: async ({ }) => {
+  get: async ({ guild }) => {
 
   },
-  set: async ({ }) => {
+  set: async ({ guild, newData }) => {
 
 
     return client.db.set('settings', { ...oldData, [guild.id]: guildData });
@@ -30,7 +30,8 @@ module.exports = client => ({
 {
   "id": "",
   "name": "",
-  "description": ""
+  "description": "",
+  "position": 0
 }
 
 
