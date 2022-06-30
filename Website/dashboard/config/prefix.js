@@ -13,10 +13,9 @@ module.exports = client => ({
 
   set: async ({ guild, newData }) => {
     const oldData = await client.db.get('settings');
-    let guildData = oldData[guild.id];
+    const guildData = oldData[guild.id] || { prefix: '' };
 
-    if (!guildData) guildData = { prefix: newData };
-    else guildData.prefix = newData;
+    guildData.prefix = newData;
 
     return client.db.set('settings', { ...oldData, [guild.id]: guildData });
   }

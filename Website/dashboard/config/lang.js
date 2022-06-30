@@ -13,10 +13,9 @@ module.exports = client => ({
   
   set: async ({ guild, newData }) => {
     const oldData = await client.db.get('settings');
-    let guildData = oldData[guild.id];
+    const guildData = oldData[guild.id] || { language: '' };
 
-    if (!guildData) guildData = { language: newData };
-    else guildData.language = newData;
+    guildData.language = newData;
 
     return client.db.set('settings', { ...oldData, [guild.id]: guildData });
   }

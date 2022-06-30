@@ -33,7 +33,7 @@ async function getAllSettings(client) {
         getActualSet: async ({ guild }) => {
           await client.db.get('settings')[guild.id]?.enabledModules?.includes(index.id);
         },
-        setNew: async ({ newData }) => {
+        setNew: async ({ guild, newData }) => {
           const oldData = await client.db.get('settings');
           let guildData = oldData[guild.id];
 
@@ -96,19 +96,14 @@ module.exports = async client => {
   const me = client.user || await client.users.fetch(client.userID);
   const domain = client.botType == 'main' ? `https://${package.name}.${package.author}.repl.co/` : 'http://localhost:8000';
 
-  global.embedBuilder = (defaultSettings, themeOptions) => {
-    return DBD.formTypes.embedBuilder(
-      {
-        username: defaultSettings?.username || me.username,
-        avatarURL: defaultSettings?.avatarURL || me.displayAvatarURL(),
-        defaultJson: defaultSettings?.defaultJSON || {}
-      },
-      themeOptions
-    )
-  }
-
   await DBD.useLicense(client.keys.dbdLicense);
   DBD.Dashboard = DBD.UpdatedClass();
+
+  global.embedBuilder = DBD.formTypes.embedBuilder({
+    username: me.username,
+    avatarURL: me.displayAvatarURL(),
+    defaultJson: {}
+  });
 
   const Dashboard = new DBD.Dashboard({
     acceptPrivacyPolicy: true,

@@ -13,10 +13,9 @@ module.exports = client => ({
 
   set: async ({ guild, newData }) => {
     const oldData = await client.db.get('settings');
-    let guildData = oldData[guild.id];
+    const guildData = oldData[guild.id] || { leave: { channel: '' } };
 
-    if (!guildData) guildData = { leave: { channel: newData.id } };
-    else if (!guildData.leave) guildData.leave = { channel: newData.id };
+    if (!guildData.leave) guildData.leave = { channel: newData.id };
     else guildData.leave.channel = newData.id;
 
     return client.db.set('settings', { ...oldData, [guild.id]: guildData });
