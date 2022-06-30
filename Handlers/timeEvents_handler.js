@@ -3,15 +3,24 @@ const
   { MessageEmbed } = require('discord.js'),
   { colors } = require('../Settings/embed.json');
 
-function formatBirthday(msg, user, year) {
+function formatBirthday(msg, user, year, guild) {
   return msg
-    .replace(/<user>/g, user.displayName)
+    .replace(/<user.nickname>/g, user.nickname)
+    .replace(/<user.username>/g, user.username)
+    .replace(/<user.id>/g, user.id)
+    .replace(/<user.tag>/g, user.tag)
+    .replace(/<user.joinedAt>/g, joinedAt.toLocaleDateString('en'))
+    .replace(/<guild.id>/g, guild.id)
+    .replace(/<guild.memberCount>/g, guild.memberCount)
+    .replace(/<guild.name>/g, guild.name)
+    .replace(/<bornyear>/g, year)
+    .replace(/<date>/g, new Date().toLocaleDateString('en'))
     .replace(/<age>/g, new Date().getFullYear() - year) //<guilds> gets replaced below
 }
 
 module.exports = async client => {
   if (client.botType == 'dev') return client.log('Disabled timed events due to dev version.');
-  
+
   await client.isReady();
 
   //Birthday announcer
@@ -27,8 +36,6 @@ module.exports = async client => {
       oldData = await client.db.get('birthdays'),
       gSettings = await client.db.get('settings');
 
-    let dmList = [];
-
     for (let guild of guilds) {
       const settings = gSettings[guild[0]]?.birthday;
       if (settings?.disabled)
@@ -37,11 +44,12 @@ module.exports = async client => {
       guild = await guild[1].fetch();
 
       for (const entry of Object.entries(oldData)) {
-        let mention;
         let channel;
         const entry0 = entry[1].split('/');
         entry[2] = entry0.shift();
         if (now != entry0.join('/') || entry[0] == 'lastCheckTS') continue;
+
+        const user = await guild.members.fetch(entry[0]);
 
         if (settings?.channelAnnouncement?.channel) {
           try { channel = await guild.channels.fetch(settings.channelAnnouncement.channel) }
@@ -49,39 +57,25 @@ module.exports = async client => {
             return (await guild.fetchOwner()).send(`INFO: the channel configured for the birthday feature in guild \`${guild.name}\` does not exist! Please re-configure it so i can send birthday messages!`)
           }
 
-          const user = await guild.members.fetch(entry[0]);
-
           let embed = new MessageEmbed()
-            .setTitle(formatBirthday(settings.channelAnnouncement?.title, user, entry[2]) || `Happy birthday ${user.displayName}!`)
-            .setDescription(formatBirthday(settings.channelAnnouncement?.message, user, entry[2]) || 'We hope you have the wonderful birthday.')
-            .setColor(settings.channelAnnouncement.color || colors.discord.BURPLE);
+            .setTitle(formatBirthday(settings.channelAnnouncement?.embed?.title, user, entry[2], guild) || gSettings.default.birthday.channelAnnouncement.embed.title)
+            .setDescription(formatBirthday(settings.channelAnnouncement?.embed?.description, user, entry[2], guild) || gSettings.default.birthday.channelAnnouncement.embed.description)
+            .setColor(settings.channelAnnouncement?.embed?.color || gSettings.default.birthday.channelAnnouncement.embed.color);
 
-          if (settings.channelAnnouncement?.mentionMember) mention = `<@${user.id}>`;
-          await channel.send({ content: mention || '', embeds: [embed] });
+          await channel.send({ content: settings.channelAnnouncement?.content || gSettings.channelAnnouncement.content, embeds: [embed] });
         }
 
-        if (settings?.dmMembers) {
+        if (settings?.dmAnnouncement?.enabled) {
           embed = new MessageEmbed()
-            .setTitle(formatBirthday(settings.dmAnnouncement?.title, user, entry[2]) || `Happy birthday!`)
-            .setDescription(
-              `${formatBirthday(settings.dmAnnouncement?.message, user, entry[2]) || 'Happy birthday to you! 🎉'}\n` +
-              `All your friends on the guilds <guilds> wish you a great day`
-            )
-            .setColor(settings.dmAnnouncement?.color || colors.discord.BURPLE);
+            .setTitle(formatBirthday(settings.dmAnnouncement?.embed?.title, user, entry[2]) || gSettings.default.birthday.dmAnnouncement.embed.title)
+            .setDescription(formatBirthday(settings.dmAnnouncement?.embed?.description, user, entry[2]) || gSettings.default.birthday.dmAnnouncement.embed.description)
+            .setColor(settings.dmAnnouncement?.color || gSettings.default.birthday.dmAnnouncement.embed.color);
 
-          dmList[entry[0]].push(guild.name);
+          try {
+            await user.send({ content: settings.dmAnnouncement?.content || gSettings.dmAnnouncement.content, embeds: [embed] });
+          } catch { }
         }
       }
-    }
-
-    for (let user of Object.entries(dmList)) {
-      try {
-        user = await client.users.fetch(user[0]);
-        embed.description.replace('<guilds>', `\`${dmList[user].join('`,` ')}\``);
-
-        await user.send({ embeds: [embed] });
-      }
-      catch { }
     }
 
     client.log('Finished birthday check');
