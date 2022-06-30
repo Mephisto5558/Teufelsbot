@@ -4,6 +4,8 @@ const { colors } = require('../Settings/embed.json');
 let length;
 
 module.exports = async (client, message) => {
+  if(message.channel.type == 'DM') return;
+  
   const blacklist = client.blacklist || await client.db.get('blacklist') || [];
   if(blacklist.includes(message.author.id)) return;
 
