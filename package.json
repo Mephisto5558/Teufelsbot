@@ -12,7 +12,7 @@
     "chalk": "^4.1.2",
     "cron": "^2.0.0",
     "dbd-dark-dashboard": "^1.6.58",
-    "discord-api-types": "^0.35.0",
+    "discord-api-types": "^0.36.0",
     "discord-dashboard": "^2.3.40",
     "discord-slash-commands-client": "^1.2.2",
     "discord-tictactoe": "^3.0.0",
