@@ -17,7 +17,8 @@ module.exports = new Command({
   cooldowns: { global: 0, user: 0 },
   category: 'Fun',
   slashCommand: true,
-  prefixCommand: false, beta: true,////////////////////
+  prefixCommand: false,
+  ephemeralDefer: true,
   options: [
     {
       name: 'input',
