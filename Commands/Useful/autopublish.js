@@ -4,7 +4,9 @@ module.exports = new Command({
   name: 'autopublish',
   alias: [],
   description: 'automatically publishes everything anyone in an announcement channel says.',
-  usage: 'This command publishes all messages send in announcement channels automatically.\nRun the command once to enable it, another time to disable it.',
+  usage:
+    'This command publishes all messages send in announcement channels automatically.\n' +
+    'Run the command once to enable it, another time to disable it.',
   permissions: { client: ['MANAGE_MESSAGES'], user: ['MANAGE_GUILD'] },
   cooldowns: { global: 0, user: 0 },
   category: 'Useful',

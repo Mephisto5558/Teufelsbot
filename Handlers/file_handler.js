@@ -9,7 +9,7 @@ module.exports = async client => {
 
   fs.readFile('./Logs/startCount.log', (err, data) => {
     if (err) throw err;
-    const startCount = parseInt(data) + 1
+    const startCount = parseInt(data) + 1;
 
     fs.writeFile('./Logs/startCount.log', startCount.toString(), err => {
       if (err) throw err;

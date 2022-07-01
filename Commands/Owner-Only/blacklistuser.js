@@ -4,7 +4,7 @@ module.exports = new Command({
   name: 'blacklistuser',
   alias: [],
   description: 'blocks a user from using the bot',
-  usage: 'PREFIX Command: blacklistuser <userID>',
+  usage: 'PREFIX Command: blacklistuser <userID | @user>',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 0 },
   category: 'Owner-Only',

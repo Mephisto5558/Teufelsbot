@@ -48,7 +48,7 @@ let command = new Command({
         `\`${hash}\``,
       embeds: [embed]
     })
-    
+
   }
 });
 

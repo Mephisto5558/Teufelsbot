@@ -11,7 +11,10 @@ module.exports = async (client, message) => {
 
   if (message.crosspostable && await client.db.get('settings')[message.guild.id]?.autoPublish) message.crosspost();
   
-  if (message.author.bot) return;
+  if (
+    message.author.bot ||
+    (command.category.toLowerCase() == 'owner-only' && message.author.id != client.owner)  //DO NOT REMOVE THIS LINE!
+  ) return;
 
   //if(Object.entries(messageTriggers[message.guild.id]).includes(message.content))
   if(/(koi ?pat|pat ?koi|pat ?fish|fish ?pat)/i.test(message.content)) client.functions.reply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7', message);
@@ -34,16 +37,8 @@ module.exports = async (client, message) => {
 
   message.content = message.args.join(' ');
 
-  if(command.category.toLowerCase() == 'owner-only') { //DO NOT REMOVE THIS BLOCK!
-    const permissionGranted = await client.functions.checkBotOwner(client, message);
-    if (!permissionGranted) return;
-  }
-
-  command.permissions.user.push('SEND_MESSAGES');
-  command.permissions.client.push('SEND_MESSAGES');
-
-  const userPerms = message.member.permissionsIn(message.channel).missing(command.permissions.user);
-  const botPerms = message.guild.me.permissionsIn(message.channel).missing(command.permissions.client);
+  const userPerms = message.member.permissionsIn(message.channel).missing([...command.permissions.user, 'SEND_MESSAGES']);
+  const botPerms = message.guild.me.permissionsIn(message.channel).missing([...command.permissions.client, 'SEND_MESSAGES']);
 
   const embed = new MessageEmbed()
     .setTitle('Insufficient Permissions')

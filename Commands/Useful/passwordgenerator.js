@@ -1,15 +1,14 @@
 const
   { Command } = require('reconlx'),
   { randomBytes } = require('crypto'), //https://nodejs.org/api/crypto.html#cryptorandombytessize-callback
-  defaultCharset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\\=*\'"#*(){}[]';
+  defaultCharset = Array.from('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\\=*\'"#*(){}[]');
 
 async function getRandomNumber(oldRandomNumber, length) {
-  let randomNumber = Math.floor( //Rounds the number
-    `0.${randomBytes(3).readUIntBE(0, 3)}` * length //Generate a cryptographically strong random number between 0 and one and multiplies it with the length of the charset
-  );
+  //Generate a cryptographically strong random number between 0 and one and multiplies it with the length of the charset
+  const randomNumber = Math.floor(`0.${randomBytes(3).readUIntBE(0, 3)}` * length);
 
-  if (oldRandomNumber == randomNumber) randomNumber = await getRandomNumber(oldRandomNumber, length); //Checks if the last random number is the same, if yes, run itself again
-  return randomNumber;
+  //Checks if the last random number is the same, if yes, run itself again. If no, returns the random number
+  return oldRandomNumber != randomNumber ? randomNumber : await getRandomNumber(oldRandomNumber, length);
 }
 
 module.exports = new Command({
@@ -62,13 +61,12 @@ module.exports = new Command({
 
     let passwordList = '```';
 
-    let charset = Array.from(defaultCharset) //Converts the charset to an array (list)
+    const charset = [...new Set(defaultCharset //new Set() makes sure there are no duplicate entries
       .filter(char => !exclude.includes(char)) //Remove exclude chars from the charset
       .concat(Array.from(include)) //Add include chars to the charset
+    )].join('');
 
     if (!charset.length) return interaction.editReply('you excluded all chars of the charset...'); //Return if charset is empty
-
-    charset = [...new Set(charset)].join(''); //Removes duplicate entries
 
     for (let i = 0; i < count; i++) {
       let oldRandomNumber;
@@ -86,14 +84,14 @@ module.exports = new Command({
         passwordList += charset[randomNumber]; //Adds one of the chars in the charset to the password, based on the function getRandomNumber
         oldRandomNumber = randomNumber;
       }
-      passwordList += '``````\n'
+      passwordList += '```\n'
     }
 
     if (charset.length > 100) charset = charset.substring(0, 97) + '...' //Limits the *displayed* charset
 
     interaction.editReply(
       'Your secure password(s):\n' +
-      passwordList.trim().replace(/`{6}$/, '```') + '\n\n' +
+      `${passwordList.trim()}\n\n` +
       '||Created with the following charset:\n' +
       '```' + charset + '```\n' +
       'Use the command options to add or remove chars.||'

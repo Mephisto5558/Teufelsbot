@@ -33,10 +33,10 @@ module.exports = new Command({
       else client.functions.reply(`My prefix has been changed to \`${message.content}\``, message);
     }
     else {
-        const currentPrefix = client.db.get('settings')[message.guild.id]?.prefix || client.db.get('settings').default.prefix;
-        const msg = `My current prefix is \`${currentPrefix || '\n[FATAL ERROR] Please message the dev immediately `NoDefaultPrefixFound`!\n'}\``;
+      const currentPrefix = client.db.get('settings')[message.guild.id]?.prefix || client.db.get('settings').default.prefix;
+      const msg = `My current prefix is \`${currentPrefix || '\n[FATAL ERROR] Please message the dev immediately `NoDefaultPrefixFound`!\n'}\``;
 
-        message ? client.functions.reply(msg, message) : interaction.editReply(msg);
+      message ? client.functions.reply(msg, message) : interaction.editReply(msg);
     }
 
   }

@@ -2,24 +2,18 @@ const { MessageEmbed } = require('discord.js');
 const { colors } = require('../Settings/embed.json');
 
 module.exports = async (client, interaction) => {
-
   const command = client.slashCommands.get(interaction.commandName);
   if (!command) return;
 
   const blacklist = client.blacklist || client.db.get('blacklist') || [];
-  if (blacklist.includes(interaction.user.id)) return;
-
-  if (command.category == 'Owner-Only') { //DO NOT REMOVE THIS BLOCK!
-    const permissionGranted = await client.functions.checkBotOwner(client, message);
-    if (!permissionGranted) return;
-  }
+  if (
+    blacklist.includes(interaction.user.id) || 
+    (command.category.toLowerCase() == 'owner-only' && message.author.id != client.owner)  //DO NOT REMOVE THIS LINE!
+  ) return;
 
   if (interaction.isCommand()) {
-    command.permissions.user.push('SEND_MESSAGES');
-    command.permissions.client.push('SEND_MESSAGES');
-
-    const userPerms = interaction.member.permissionsIn(interaction.channel).missing(command.permissions.user);
-    const botPerms = interaction.guild.me.permissionsIn(interaction.channel).missing(command.permissions.client);
+    const userPerms = interaction.member.permissionsIn(interaction.channel).missing([...command.permissions.user, 'SEND_MESSAGES']);
+    const botPerms = interaction.guild.me.permissionsIn(interaction.channel).missing([...command.permissions.client, 'SEND_MESSAGES']);
 
     const embed = new MessageEmbed()
       .setTitle('Insufficient Permissions')
@@ -49,13 +43,4 @@ module.exports = async (client, interaction) => {
     await command.run(client, null, interaction);
     return client.interaction = null;
   }                                                                                                                                                                                            
-
-  /* Not Implemented yet
-    if (interaction.isContextMenu()) {
-      const command = client.commands.get(interaction.commandName);
-      if (command) command.run(client, null, interaction)
-    }
-  
-    if (interaction.isButton() && !command.noDefer) interaction.deferUpdate();
-  */
 }

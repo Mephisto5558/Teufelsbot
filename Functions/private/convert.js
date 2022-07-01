@@ -1,138 +1,69 @@
-const
-  InvalidInputError = {
-    code: 'InvalidInputError',
-    message: `The provided input is invalid. It has to look like this:` +
-      `input: { string: <STRING>, type: <STRING>, options: { convertTo: <STRING>, withSpaces: [BOOLEAN], convertSpaces: [BOOLEAN], convertOnlyLettersDigits: [BOOLEAN](text only) }`
-  },
-  regex = [
-    /^(?:[01]{8})+$/, //binary
-    /^(?:[0-9]{3}|\s)+$/, //decimal
-    /^(?:[0-9a-f]{2})+$/i, //hex
-    /^[\x2F\x3A-\x40\x5B-\x60\x7B-\x9B\xA1-\xBE]+$/, //matches all special chars like "[]" but not something like "äüö"
-  ];
+function main({ string, type, options }, convertFunction, skip) {
+  if (!string) throw new SyntaxError(
+    `The provided input is invalid. It has to look like this:` +
+    `input: { string: <STRING>, type: <STRING>, options: { convertTo: <STRING>, withSpaces: [BOOLEAN], convertSpaces: [BOOLEAN], convertOnlyLettersDigits: [BOOLEAN](for text only) }`
+  );
 
-function main(input, convertFunction, skip) {
-  if (!input.string) throw InvalidInputError;
-
-  const options = input.options
   let output = '';
 
-  for (let i = 0; i < input.string.length; i++) {
-    if (
-      input.type == 'text' &&
-      options.convertOnlyLettersDigits &&
-      regex[3].test(input.string[i])
-    ) output += input.string[i];
-    else if (input.string[i] == ' ') {
-      if (options.convertSpaces) output += convertFunction(input.string, i)
-      else if (options.withSpaces) output += '\n';
-      else output += ' '
+  for (let i = 0; i < string.length; i++) {
+    if (type == 'text' && options.convertOnlyLettersDigits && /^[\x2F\x3A-\x40\x5B-\x60\x7B-\x9B\xA1-\xBE]+$/.test(string[i]))  //the regex matches all special chars like "[]" but not something like "äüö"
+      output += string[i];
+    else if (string[i] == ' ' && !options.convertSpaces) {
+      if (options.withSpaces) output += '\n';
+      else output += string[i];
     }
-    else output += convertFunction(input.string, i);
+    else output += convertFunction(string, i);
 
-    if (options.withSpaces && input.string[i] != ' ') output += ' ';
+    if (options.withSpaces && string[i] != ' ') output += ' ';
     if (skip) i += skip;
   }
   return output;
 }
+/^(0o)?[0-7]+$/i
 
 module.exports = {
-
-  getInputType: function getInputType(input) {
-    if (!input) throw {
-      code: 'InvalidInputError',
-      message: 'You need to provide something as input!'
-    };
-
-    if (regex[0].test(input)) type = 'binary';
-    else if (regex[1].test(input)) type = 'decimal';
-    else if (regex[2].test(input)) type = 'hex';
-    else type = 'text';
-    return type;
+  getInputType: input => {
+    if (!input) return;
+    if (/^(?:[01]{8})+$/.test(input)) return 'binary';
+    if (/^(?:[0-9]{3}|\s)+$/.test(input)) return 'decimal';
+    if (/^(?:[0-9a-f]{2})+$/i.test(input)) return 'hex';
+    //need to find a check for octal string
+    return 'text';
   },
 
   binary: {
-    toDecimal: function binaryToDecimal(input) {
-      function convertFunction(input, i) {
-        return input.substring(i, i + 8).toString(10).padStart(3, '0');
-      }
-      return main(input, convertFunction, 7);
-    },
-    toHex: function binaryToHex(input) {
-      function convertFunction(input, i) {
-        return parseInt(input.substring(i, i + 8), 2).toString(16)
-      }
-      return main(input, convertFunction, 7);
-    },
-    toText: function binaryToText(input) {
-      function convertFunction(input, i) {
-        return String.fromCharCode(parseInt(input.substring(i, i + 8), 2));
-      }
-      return main(input, convertFunction, 7);
-    }
+    toDecimal: input => main(input, (input, i) => input.substring(i, i + 8).toString(10).padStart(3, '0'), 7),
+    toHex: input => main(input, (input, i) => parseInt(input.substring(i, i + 8), 2).toString(16), 7),
+    toOctal: input => main(input, (input, i) => parseInt(input.substring(i, i + 8), 2).toString(8), 7),
+    toText: input => main(input, (input, i) => String.fromCharCode(parseInt(input.substring(i, i + 8), 2)), 7)
   },
 
   decimal: {
-    toBinary: function decimalToBinary(input) {
-      function convertFunction(input, i) {
-        return parseInt(input.substring(i, i + 3), 10).toString(2).padStart(8, '0');
-      }
-      return main(input, convertFunction, 2);
-    },
-    toHex: function decimalToHex(input) {
-      function convertFunction(input, i) {
-        return input.substring(i, i + 3).toString(16);
-      }
-      return main(input, convertFunction);
-    },
-    toText: function decimalToText(input) {
-      function convertFunction(input, i) {
-        return String.fromCharCode(input.substring(i, i + 3));
-      }
-      return main(input, convertFunction, 2);
-    }
+    toBinary: input => main(input, (input, i) => parseInt(input.substring(i, i + 3), 10).toString(2).padStart(8, '0'), 2),
+    toHex: input => main(input, (input, i) => input.substring(i, i + 3).toString(16), 2),
+    toOctal: input => main(input, (input, i) => input.substring(i, i + 3).toString(8), 2),
+    toText: input => main(input, (input, i) => String.fromCharCode(input.substring(i, i + 3)), 2)
   },
 
   hex: {
-    toBinary: function hexToBinary(input) {
-      function convertFunction(input, i) {
-        return (parseInt(input.substring(i, i + 2), 16).toString(2)).padStart(8, '0');
-      }
-      return main(input, convertFunction, 1);
-    },
-    toDecimal: function hexToDecimal(input) {
-      function convertFunction(input, i) {
-        return parseInt(input.substring(i, i + 2), 16).padStart(3, '0');
-      }
-      return main(input, convertFunction, 1);
-    },
-    toText: function hexToText(input) {
-      function convertFunction(input, i) {
-        return String.fromCharCode(parseInt(input.substring(i, i + 2), 16));
-      }
-      return main(input, convertFunction, 1);
-    }
+    toBinary: input => main(input, (input, i) => (parseInt(input.substring(i, i + 2), 16).toString(2)).padStart(8, '0'), 1),
+    toDecimal: input => main(input, (input, i) => parseInt(input.substring(i, i + 2), 16).padStart(3, '0'), 1),
+    toOctal: input => main(input, (input, i) => parseInt(input.substring(i, i + 2 ), 16).toString(8), 1),
+    toText: input => main(input, (input, i) => String.fromCharCode(parseInt(input.substring(i, i + 2), 16)), 1)
+  },
+
+  octal: {
+    toBinary: input => main(input, (input, i) => (parseInt(input.substring(i, i + 3), 8).toString(2)).padStart(8, '0'), 2),
+    toDecimal: input => main(input, (input, i) => parseInt(input.substring(i, i + 3), 8).padStart(3, '0'), 2),
+    toHex: input => main(input, (input, i) => input.substring(i, i + 3).toString(16), 2),
+    toText: input => main(input, (input, i) => String.fromCharCode(parseInt(input.substring(i, i + 3), 8)), 2)
   },
 
   text: {
-    toBinary: function textToBinary(input) {
-      function convertFunction(input, i) {
-        return (input[i].charCodeAt(0)).toString(2).padStart(8, '0');
-      }
-      return main(input, convertFunction);
-    },
-    toDecimal: function textToDecimal(input) {
-      function convertFunction(input, i) {
-        return input[i].charCodeAt(0).toString(10).padStart(3, '0');
-      }
-      return main(input, convertFunction);
-    },
-    toHex: function textToHex(input) {
-      function convertFunction(input, i) {
-        return input[i].charCodeAt(0).toString(16);
-      }
-      return main(input, convertFunction);
-    }
+    toBinary: input => main(input, convertFunction = (input, i) => (input[i].charCodeAt(0)).toString(2).padStart(8, '0')),
+    toDecimal: input => main(input, (input, i) => input.charCodeAt(i).toString(10).padStart(3, '0')),
+    toHex: input => main(input, (input, i) => input.charCodeAt(i).toString(16)),
+    toOctal: input => main(input, (input, i) => input.charCodeAt(i).toString(8))
   }
-
 }

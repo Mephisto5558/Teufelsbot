@@ -1,6 +1,6 @@
 const
-  { Command } = require("reconlx"),
-  { MessageEmbed } = require("discord.js"),
+  { Command } = require('reconlx'),
+  { MessageEmbed } = require('discord.js'),
   { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
