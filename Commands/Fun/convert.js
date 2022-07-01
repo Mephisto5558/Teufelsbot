@@ -4,7 +4,8 @@ const
   convert = require('../../Functions/private/convert.js');
 
 function replace(input, defaultValue) {
-  return input?.replace('yes', true).replace('no', false) || defaultValue;
+  if(!input && input !== false) return defaultValue;
+  return input;
 }
 
 module.exports = new Command({
@@ -16,46 +17,44 @@ module.exports = new Command({
   cooldowns: { global: 0, user: 0 },
   category: 'Fun',
   slashCommand: true,
-  prefixCommand: false,
-  options: [{
-    name: 'input',
-    description: 'the text you want to convert',
-    type: 'STRING',
-    required: true
-  },
-  {
-    name: 'convert_to',
-    description: 'The output type',
-    type: 'STRING',
-    required: true,
-    choices: [
-      { name: 'binary', value: 'Binary' },
-      { name: 'decimal/ASCII', value: 'Decimal' },
-      { name: 'hexadecimal', value: 'Hex' },
-      { name: 'text', value: 'Text' }
-    ],
-  },
-  {
-    name: 'with_spaces',
-    description: 'Do you want to have spaces between the letters? Default: no',
-    type: 'STRING',
-    required: false,
-    choices: [{ name: 'yes', value: 'yes' }]
-  },
-  {
-    name: 'convert_spaces',
-    description: 'Do you want to also convert spaces? Default: yes',
-    type: 'STRING',
-    required: false,
-    choices: [{ name: 'no', value: 'no' }]
-  },
-  {
-    name: 'convert_letters_and_digits_only',
-    description: 'Do you want to convert only letters and digits? Default: no',
-    type: 'STRING',
-    required: false,
-    choices: [{ name: 'yes', value: 'yes' }]
-  }
+  prefixCommand: false, beta: true,////////////////////
+  options: [
+    {
+      name: 'input',
+      description: 'the text you want to convert',
+      type: 'STRING',
+      required: true
+    },
+    {
+      name: 'convert_to',
+      description: 'The output type',
+      type: 'STRING',
+      required: true,
+      choices: [
+        { name: 'binary', value: 'Binary' },
+        { name: 'decimal/ASCII', value: 'Decimal' },
+        { name: 'hexadecimal', value: 'Hex' },
+        { name: 'text', value: 'Text' }
+      ],
+    },
+    {
+      name: 'with_spaces',
+      description: 'Do you want to have spaces between the letters? Default: false',
+      type: 'BOOLEAN',
+      required: false
+    },
+    {
+      name: 'convert_spaces',
+      description: 'Do you want to also convert spaces? Default: true',
+      type: 'BOOLEAN',
+      required: false
+    },
+    {
+      name: 'convert_letters_and_digits_only',
+      description: 'Do you want to convert only letters and digits? Default: false',
+      type: 'BOOLEAN',
+      required: false
+    }
   ],
 
   run: async (_, __, interaction) => {
@@ -65,9 +64,9 @@ module.exports = new Command({
       type: await convert.getInputType(inputStr),
       options: {
         convertTo: interaction.options.getString('convert_to'),
-        withSpaces: replace(interaction.options.getString('with_spaces'), false),
-        convertSpaces: replace(interaction.options.getString('convert_spaces'), true),
-        convertOnlyLettersDigits: replace(interaction.options.getString('convert_letters_and_digits_only'), false)
+        withSpaces: replace(interaction.options.getBoolean('with_spaces'), false),
+        convertSpaces: replace(interaction.options.getBoolean('convert_spaces'), true),
+        convertOnlyLettersDigits: replace(interaction.options.getBoolean('convert_letters_and_digits_only'), false)
       }
     }
 
@@ -79,17 +78,16 @@ module.exports = new Command({
       )
     }
 
-    let output =
-      '```' + `Converted ${input.type.toUpperCase()} to ${input.options.convertTo.toUpperCase()}:` + '```\n' +
-      await convert[input.type][`to${input.options.convertTo}`](input);
+    const output = '```' + `Converted ${input.type.toUpperCase()} to ${input.options.convertTo.toUpperCase()}:` + '```\n'
+    const converted = await convert[input.type][`to${input.options.convertTo}`](input);
 
-    if (output.length < 2000) interaction.followUp(output);
+    if (output.length + converted.length < 2000) interaction.editReply(output);
     else {
       interaction.editReply({
-        content: 'The message is to large to send it in chat.',
-        attachments: [new MessageAttachment(Buffer.from(output), 'message.txt')]
+        content: output,
+        files: [{ attachment: Buffer.from(output.replace(/```/g, '') + converted), name: 'converted.txt' }]
       });
     }
-   
+
   }
 })
