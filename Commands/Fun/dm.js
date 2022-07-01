@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require("discord.js"),
+  { MessageEmbed } = require('discord.js'),
   { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
@@ -68,13 +68,10 @@ module.exports = new Command({
       messageTarget = interaction.options.getMember('target'),
       messageToSend = interaction.options.getString('message'),
       perm = interaction.member.permissions.has('MANAGE_MESSAGES'),
-      asMod = (interaction.options.getBoolean('as_mod') && perm);
-
-    let
-      message, messageSender, newBlacklist, userBlacklist,
+      asMod = (interaction.options.getBoolean('as_mod') && perm),
       blacklist = await client.db.get('dmCommandBlacklist');
 
-    if (!asMod) messageSender = `\`${interaction.user.tag}\``;
+    let message, newBlacklist, userBlacklist;
 
     switch (cmd) {
       case 'toggle':
@@ -157,7 +154,7 @@ module.exports = new Command({
         let embed = new MessageEmbed()
           .setTitle('You got a message!')
           .setDescription(
-            `From: **${messageSender || 'a guild moderator'}**\n` +
+            `From: **${`\`${interaction.user.tag}\`` || 'a guild moderator'}**\n` +
             `Guild: \`${interaction.guild.name}\`\n\n` +
             messageToSend.replace(/\/n/g, '\n')
           )
