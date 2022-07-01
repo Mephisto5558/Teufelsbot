@@ -1,5 +1,5 @@
 const { Command } = require('reconlx');
-const { Octokit } = require("@octokit/core");
+const { Octokit } = require('@octokit/core');
 const { MessageEmbed } = require('discord.js');
 const package = require('../../package.json')?.repository?.url
   .replace(/.*\.com\/|\.git/g, '').split('/');
@@ -69,6 +69,6 @@ module.exports = new Command({
       );
 
     interaction.editReply({ embeds: [embed] });
-    
+
   }
 })

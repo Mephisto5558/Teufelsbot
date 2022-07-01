@@ -38,6 +38,7 @@ async function load() {
   client.startTime = Date.now();
   client.categories = fs.readdirSync('./Commands/');
   client.db = db;
+  client.functions = {};
   client.keys = defaultSettings.keys;
   client.aliases = new Collection();
   client.events = new Collection();

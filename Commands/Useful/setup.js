@@ -21,14 +21,15 @@ module.exports = new Command({
     const cmd = interaction.options.getSubcommand();
 
     if (cmd == 'sync') {
-      const s = client.slashCommands.size * 10;
+      let sec = client.slashCommands.size * 10;
 
       await interaction.editReply(
         `Syncing ${client.slashCommands.size} Slash Commands...\n` +
-        `This will take about ${s > 60 ? (s - (s %= 60)) / 60 + 'm,' : ''} ${s}s.`
+        `This will take about ${sec > 60 ? (sec - (sec %= 60)) / 60 + 'm,' : ''} ${sec}sec.`
       );
 
       client.log(`syncing slash commands with guild ${interaction.guild.id}`);
+      
       await interaction.guild.commands.set([]);
       await require('../../Handlers/slash_command_handler.js')(client, interaction.guild);
 

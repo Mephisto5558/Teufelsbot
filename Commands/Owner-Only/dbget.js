@@ -4,7 +4,7 @@ module.exports = new Command({
   name: 'dbget',
   alias: [],
   description: 'query data from the database',
-  usage: 'PREFIX Command: dbget <database>',
+  usage: 'PREFIX Command: dbget <database name>',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 0 },
   category: 'Owner-Only',
