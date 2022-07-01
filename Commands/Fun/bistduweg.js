@@ -1,12 +1,12 @@
 const { Command } = require('reconlx');
-
-let response;
-let responseList = [
+const responseList = [
   'Naiiiiiin D:',
   'Ich würde niemals gehen!',
   'Bananensaft schmeckt lecker',
   'Ich kann garnicht weg sein, der Meph hält mich in seinem Keller gefangen und zwingt mich hier zu arbeiten! Hilf mir!!!!',
-];   
+];
+
+let response;
 
 module.exports = new Command({
   name: 'bistduweg',
@@ -19,14 +19,14 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async(client, message) => {
-    let random = Math.random() * 10;
-    
-    if (random <= 0.01)   response = responseList[3]; //0,1%
-    else if (random <= 1) response = responseList[2]; //9,9%
-    else if (random <= 5) response = responseList[1]; //40%
-    else                  response = responseList[0]; //50%
-    
+  run: async (client, message) => {
+    const random = Math.random() * 10;
+
+    if(random > 5) response = responseList[0]; //50%
+    else if(random > 1) response = responseList[1]; //40%
+    else if(random > 0.01) response = responseList[2]; //9.99%
+    else response = responseList[3]; //0.01%
+
     client.functions.reply(response, message);
   }
 })
