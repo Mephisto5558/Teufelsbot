@@ -1,6 +1,4 @@
-const
-  { Command } = require('reconlx'),
-  { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'say',
@@ -29,13 +27,13 @@ module.exports = new Command({
     }
   ],
 
-  run: (client, message, interaction) => {
+  run: async (client, message, interaction) => {
     const msg = interaction?.options?.getString('msg') || message.args?.[0];
     const channel = interaction?.options.getChannel('channel') || interaction?.channel || message.channel;
 
     if (!msg) return client.functions.reply('You need to provide a message to send!', message);
 
-    channel.send(msg.replace(/\/n/g, '\n'));
+    await channel.send(msg.replace(/\/n/g, '\n'));
 
     if (interaction) interaction.editReply('Message sent!');
     else message.reply('Message sent!');

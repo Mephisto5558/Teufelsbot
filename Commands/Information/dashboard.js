@@ -1,7 +1,7 @@
 const
   { Command } = require('reconlx'),
   { MessageEmbed } = require('discord.js'),
-  package = require('../../package.json'),
+  { name, author } = require('../../package.json'),
   { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
@@ -18,7 +18,7 @@ module.exports = new Command({
   run: async(client, message, interaction) => {
     const embed = new MessageEmbed()
       .setTitle('Dashboard')
-      .setDescription(`Click [here](https://${package.name}.${package.author}.repl.co/) to open the dashboard.`)
+      .setDescription(`Click [here](https://${name}.${author}.repl.co/) to open the dashboard.`)
       .setColor(colors.discord.BURPLE)
 
     if(interaction) interaction.editReply({ embeds: [embed]});

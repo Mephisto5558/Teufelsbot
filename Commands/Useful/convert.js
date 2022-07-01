@@ -1,10 +1,9 @@
 const
   { Command } = require('reconlx'),
-  { MessageAttachment } = require('discord.js'),
   convert = require('../../Functions/private/convert.js');
 
 function replace(input, defaultValue) {
-  if(!input && input !== false) return defaultValue;
+  if (!input && input !== false) return defaultValue;
   return input;
 }
 
@@ -31,12 +30,16 @@ module.exports = new Command({
       description: 'The output type',
       type: 'STRING',
       required: true,
-      choices: [
-        { name: 'binary', value: 'Binary' },
-        { name: 'decimal/ASCII', value: 'Decimal' },
-        { name: 'hexadecimal', value: 'Hex' },
-        { name: 'text', value: 'Text' }
-      ],
+      choices: [Object.entries(convert).reduce((list, [e]) => {
+        if (e != 'getInputType') list.push({ name: e, value: e.charAt(0).toUpperCase() + e.slice(1) });
+        return list;
+      }, [])],
+    },
+    {
+      name: 'is_octal',
+      description: 'Set this to true if your input is octal or else it will be recognized as decimal.',
+      type: 'BOOLEAN',
+      required: false
     },
     {
       name: 'with_spaces',
@@ -62,7 +65,7 @@ module.exports = new Command({
     const inputStr = interaction.options.getString('input');
     const input = {
       string: inputStr,
-      type: await convert.getInputType(inputStr),
+      type: interaction.options.getBoolean('is_octal') ? 'octal' : convert.getInputType(inputStr),
       options: {
         convertTo: interaction.options.getString('convert_to'),
         withSpaces: replace(interaction.options.getBoolean('with_spaces'), false),

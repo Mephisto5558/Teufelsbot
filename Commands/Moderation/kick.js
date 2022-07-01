@@ -1,6 +1,6 @@
 const
-  { Command } = require("reconlx"),
-  { MessageEmbed } = require("discord.js"),
+  { Command } = require('reconlx'),
+  { MessageEmbed } = require('discord.js'),
   { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
@@ -31,6 +31,7 @@ module.exports = new Command({
   run: async (_, __, interaction) => {
     const member = interaction.options.getMember('member');
     const reason = interaction.options.getString('reason');
+    
     let errorMsg, noMsg;
 
     if (member.id == interaction.member.id)

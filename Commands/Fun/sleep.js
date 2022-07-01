@@ -1,5 +1,4 @@
 const { Command } = require('reconlx');
-
 const responseList = [
   'ist müde und geht jetzt schlafen :3',
   'geht jetzt ins Bettchen <:engelchen:725458214044303371>',

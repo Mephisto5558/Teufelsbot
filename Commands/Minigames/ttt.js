@@ -3,7 +3,6 @@ const
   { MessageButton, MessageActionRow } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
   game = new TicTacToe({
-    language: 'en',
     simultaneousGames: true,
     gameExpireTime: 60
   });
@@ -131,9 +130,10 @@ module.exports = new Command({
   }],
 
   run: async (client, _, interaction) => {
-    let gameTarget = interaction.options.getUser('opponent');
+    const gameTarget = interaction.options.getUser('opponent');
 
     if (gameTarget?.id == client.user.id) game.config.commandOptionName = 'thisOptionWillNotGetUsed';
+    game.config.language = interaction.guild.preferredLocale;
 
     game.handleInteraction(interaction);
 

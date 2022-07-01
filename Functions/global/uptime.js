@@ -10,14 +10,14 @@ module.exports = (client, asMessage) => {
   const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, 0);
 
   if (asMessage) {
-    if (days) data = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
-    else if (hours) data = `${hours} hours, ${minutes} minutes and ${seconds} seconds`;
-    else if (minutes) data = `${minutes} minutes and ${seconds} seconds`;
+    if (Number(days)) data = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
+    else if (Number(hours)) data = `${hours} hours, ${minutes} minutes and ${seconds} seconds`;
+    else if (Number(minutes)) data = `${minutes} minutes and ${seconds} seconds`;
     else data = `${seconds} seconds`;
   }
 
   return {
     total: client.startTime,
-    formatted: data ? data : `${days}:${hours}:${minutes}:${seconds}`
-  }
+    formatted: data || `${days}:${hours}:${minutes}:${seconds}`
+  };
 }

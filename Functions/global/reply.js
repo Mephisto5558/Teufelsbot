@@ -1,11 +1,12 @@
 module.exports = async (reply, message, deleteTime, ping) => {
   let sentMessage;
 
-  if (!message) throw new SyntaxError('reply.js: Missing var in code: message');
-  if (!reply) throw new SyntaxError('reply.js: Missing var in code: reply');
+  if (!message ||! reply) throw new SyntaxError(`reply.js: Missing var in code: ${!message?'message':'reply'}`);
 
   if (typeof reply != 'object') reply.content = reply;
-  reply.allowedMentions = { repliedUser: ping || false };
+
+  if(!reply.allowedMentions) reply.allowedMentions = { repliedUser: ping || false };
+  else reply.allowedMentions.repliedUser = ping || false;
 
   try {
     await message.reply(reply)

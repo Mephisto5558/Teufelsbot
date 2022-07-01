@@ -12,5 +12,5 @@ module.exports = client => {
     eventCount++
   }
 
-  client.log(`Loaded ${eventCount} Events\n`)
+  client.log(`Loaded ${eventCount} Events\n`);
 }

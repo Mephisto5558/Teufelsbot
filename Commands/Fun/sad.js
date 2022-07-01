@@ -1,5 +1,4 @@
 const { Command } = require('reconlx');
-
 const responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/']
 
 module.exports = new Command({

@@ -159,7 +159,7 @@ let command = new Command({
           footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
           image: getOption('image'),
           thumbnail: getOption('thumbnail'),
-          timestamp: interaction.options.getBoolean('timestamp') ? timestamp = new Date() : null,
+          timestamp: interaction.options.getBoolean('timestamp') ?? new Date(),
           author: {
             name: getOption('author_name'),
             url: getOption('author_url'),
