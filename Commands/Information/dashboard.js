@@ -13,7 +13,7 @@ module.exports = new Command({
   cooldowns: { global: 0, user: 0 },
   category: 'Information',
   slashCommand: true,
-  prefixCommand: true, beta: true,
+  prefixCommand: true,
 
   run: async(client, message, interaction) => {
     const embed = new MessageEmbed()
