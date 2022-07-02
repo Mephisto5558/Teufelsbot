@@ -10,7 +10,7 @@ module.exports = new Command({
   category: 'Fun',
   slashCommand: true,
   prefixCommand: true,
-  ephemermalDefer: true,
+  ephemeralDefer: true,
   options: [
     {
       name: 'msg',
