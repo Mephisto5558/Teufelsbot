@@ -23,6 +23,8 @@ module.exports = new Command({
       client.functions.reply(`The blacklist entry about ${message.args[1]} has been deleted.`, message);
     }
     else {
+      if(message.args[0] == client.owner) return client.functions.reply('I cannot blacklist the set owner of the bot.', message);
+
       await client.db.push('blacklist', message.args[0]);
       client.functions.reply(`${message.args[0]} has been blacklisted from using the bot.`, message);
     }
