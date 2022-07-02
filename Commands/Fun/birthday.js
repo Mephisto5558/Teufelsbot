@@ -104,9 +104,9 @@ module.exports = new Command({
       dontHide = interaction.options.getBoolean('dont_hide'),
       oldData = await client.db.get('birthdays'),
       birthday = [
-        interaction.options.getNumber('year'),
-        interaction.options.getNumber('month')?.toString().padStart(2, '0'),
-        interaction.options.getNumber('day')?.toString().padStart(2, '0')
+        Math.abs(interaction.options.getNumber('year')),
+        Math.abs(interaction.options.getNumber('month')?.toString()).padStart(2, '0'),
+        Math.abs(interaction.options.getNumber('day')?.toString()).padStart(2, '0')
       ];
 
     let newData = '';
