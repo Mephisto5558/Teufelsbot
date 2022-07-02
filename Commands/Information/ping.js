@@ -21,9 +21,9 @@ module.exports = new Command({
   }],
 
   run: async (client, message, interaction) => {
-    if (message) return client.functions.reply('Please use `/ping`!', message, 10000);
+    if (interaction) message = interaction;
 
-    if (interaction.options?.getBoolean('average')) {
+    if (interaction?.options?.getBoolean('average')) {
       const embed = new MessageEmbed()
         .setTitle('Ping')
         .setDescription(`Pinging... (this takes about one minute)`)
@@ -53,16 +53,15 @@ module.exports = new Command({
       return interaction.editReply({ embeds: [embed] })
     }
 
-    const ping = Math.abs(Date.now() - interaction.createdTimestamp);
-
     const embed = new MessageEmbed()
       .setTitle('Ping')
       .setDescription(
-        `Latency: \`${ping}ms\`\n` +
+        `Latency: \`${Date.now() - message.createdTimestamp}ms\`\n` +
         `API Latency: \`${Math.round(client.ws.ping)}ms\``
       )
       .setColor(colors.discord.BURPLE);
 
-    interaction.editReply({ embeds: [embed] });
+    if (interaction) interaction.editReply({ embeds: [embed] });
+    else client.functions.reply({ embeds: [embed] }, message);
   }
 })
