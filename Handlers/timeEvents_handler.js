@@ -44,12 +44,18 @@ module.exports = async client => {
       guild = await guild[1].fetch();
 
       for (const entry of Object.entries(oldData)) {
-        let channel;
+        let channel, user;
         const entry0 = entry[1].split('/');
         entry[2] = entry0.shift();
         if (now != entry0.join('/') || entry[0] == 'lastCheckTS') continue;
 
-        const user = await guild.members.fetch(entry[0]);
+        try {
+          user = await guild.members.fetch(entry[0]);
+        }
+        catch(err) {
+          if(err.code == 10007) continue;
+          else throw err;
+        }
 
         if (settings?.channelAnnouncement?.channel) {
           try { channel = await guild.channels.fetch(settings.channelAnnouncement.channel) }
