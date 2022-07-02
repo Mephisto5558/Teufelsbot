@@ -33,13 +33,13 @@ let command = new Command({
 
     const hash = createHash(method).update(input).digest('hex');
 
-    let embed = new MessageEmbed()
-      .setTitle('Hash Function')
-      .setDescription(
+    let embed = new MessageEmbed({
+      title: 'Hash Function',
+      description:
         `Your input: \`${input.length > 500 ? `${input.substring(0, 500)}\n...` : input}\`\n` +
-        `Hash method: \`${method}\``
-      )
-      .setColor(colors.DARK_GOLD);
+        `Hash method: \`${method}\``,
+      color: colors.DARK_GOLD
+    });
 
     interaction.editReply({
       content:
@@ -47,7 +47,6 @@ let command = new Command({
         `\`${hash}\``,
       embeds: [embed]
     })
-
   }
 });
 

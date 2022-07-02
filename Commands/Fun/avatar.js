@@ -49,22 +49,24 @@ module.exports = new Command({
       size = interaction.options?.getNumber('size')
     }
 
-    const avatarURL = await target.avatarURL({ format: 'png', size: size || 2048, dynamic: true});
+    const avatarURL = await target.avatarURL({ format: 'png', size: size || 2048, dynamic: true });
 
-    let embed = new MessageEmbed()
-      .setDescription(`**Avatar of ${target.username}**`)
-      .setColor(colors.WHITE)
-      .setImage(avatarURL)
-      .setFooter({ text: interaction?.user.tag || message?.author.tag });
+    let embed = new MessageEmbed({
+      description: `**Avatar of ${target.username}**`,
+      color: colors.WHITE,
+      image: avatarURL,
+      footer: { text: interaction?.user.tag || message?.author.tag }
+    });
 
-    let row = new MessageActionRow().addComponents(
-      new MessageButton()
-        .setLabel('Download picture')
-        .setURL(avatarURL)
-        .setStyle('LINK')
-    );
+    let row = new MessageActionRow({
+      components: [new MessageButton({
+        label: 'Download picture',
+        url: avatarURL,
+        style: 'LINK'
+      })]
+    })
 
-    if(message) client.functions.reply({ embeds: [embed], components: [row] }, message);
+    if (message) client.functions.reply({ embeds: [embed], components: [row] }, message);
     else interaction.editReply({ embeds: [embed], components: [row] });
 
   }
