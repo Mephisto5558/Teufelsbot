@@ -25,17 +25,17 @@ module.exports = new Command({
 
       await interaction.editReply(
         `Syncing ${client.slashCommands.size} Slash Commands...\n` +
-        `This will take about ${sec > 60 ? (sec - (sec %= 60)) / 60 + 'm,' : ''} ${sec}sec.`
+        `This will take about ${sec > 60 ? (sec - (sec %= 60)) / 60 + 'min,' : ''} ${sec}sec.`
       );
 
-      client.log(`syncing slash commands with guild ${interaction.guild.id}`);
+      client.log(`Syncing Slash Commands with guild ${interaction.guild.id}`);
       
       await interaction.guild.commands.set([]);
       await require('../../Handlers/slash_command_handler.js')(client, interaction.guild);
 
       interaction.followUp(
         `<@${interaction.user.id}>\n` +
-        'Finished syncing.'
+        `Finished syncing. Took ${format(message.createdTimestap - Date.now())}`
       )
     }
 
