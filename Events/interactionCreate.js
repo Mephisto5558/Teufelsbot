@@ -5,9 +5,9 @@ module.exports = async (client, interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
   if (!command) return;
 
-  const blacklist = client.blacklist || client.db.get('blacklist') || [];
+  const blacklist = client.db.get('blacklist');
   if (
-    blacklist.includes(interaction.user.id) || 
+    blacklist?.includes(interaction.user.id) || 
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.owner)  //DO NOT REMOVE THIS LINE!
   ) return;
 
