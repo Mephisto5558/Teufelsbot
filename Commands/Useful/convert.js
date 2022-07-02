@@ -30,10 +30,10 @@ module.exports = new Command({
       description: 'The output type',
       type: 'STRING',
       required: true,
-      choices: [Object.entries(convert).reduce((list, [e]) => {
+      choices: Object.entries(convert).reduce((list, [e]) => {
         if (e != 'getInputType') list.push({ name: e, value: e.charAt(0).toUpperCase() + e.slice(1) });
         return list;
-      }, [])],
+      }, []),
     },
     {
       name: 'is_octal',
@@ -78,7 +78,7 @@ module.exports = new Command({
       return interaction.editReply(
         `Converting \`${input.type.toUpperCase()}\` to \`${input.options.convertTo.toUpperCase()}\` would be a waste of time.\n` +
         `Stop wasting my time.\n` +
-        `||If you input is not ${input.type.toUpperCase()}, than make sure it is valid and if it is, message the dev.||`
+        `||If your input is not ${input.type.toUpperCase()}, than make sure it is valid and if it is, message the dev.||`
       )
     }
 
