@@ -37,7 +37,6 @@ let command = new Command({
       .setTitle('Hash Function')
       .setDescription(
         `Your input: \`${input.length > 500 ? `${input.substring(0, 500)}\n...` : input}\`\n` +
-        `your key/salt: \`${key || 'none'}\`\n` +
         `Hash method: \`${method}\``
       )
       .setColor(colors.DARK_GOLD);
