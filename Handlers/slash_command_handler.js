@@ -109,7 +109,7 @@ module.exports = async (client, guildForForceSync) => {
         options: command.options
       }, guildForForceSync?.id);
 
-      client.log(`Registered Slash Command ${command.name}${guildForForceSync ? ` for guild ${guildForForceSync.id}` : ''}`);
+      client.log(`Registered Slash Command ${command.name}${guildForForceSync?.id ? ` for guild ${guildForForceSync.id}` : ''}`);
       commandCount++
     }
     catch (err) {
