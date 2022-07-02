@@ -55,7 +55,7 @@ module.exports = new Command({
     try { await member.send({ embeds: [embed] }) }
     catch { noMsg = true }
 
-    try { await member.kick({ reason: reason }) }
+    try { await member.kick(reason) }
     catch (err) {
       interaction.editReply("I couldn't kick the target");
       throw new Error("couldn't ban/kick target", err)
