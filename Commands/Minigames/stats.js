@@ -152,20 +152,21 @@ module.exports = new Command({
       interaction ? interaction.editReply(msg) : client.functions.reply(msg, message);
     }
 
-    const embed = new MessageEmbed()
-      .setColor(colors.discord.BURPLE)
-      .setFooter({
+    const embed = new MessageEmbed({
+      color: colors.discord.BURPLE,
+      footer: {
         text: message.member.user.tag,
         iconURL: message.member.user.displayAvatarURL()
-      });
+      }
+    });
 
     if (stats.type == 'user') {
       const rawStats = stats.data?.[stats.target.id];
 
-      embed.setTitle(`\`${stats.target.tag}\`'s ${stats.game} Stats`);
+      embed.title = `\`${stats.target.tag}\`'s ${stats.game} Stats`;
 
       if (rawStats && rawStats.games) {
-        embed.setDescription(
+        embed.description =
           `Games: \`${rawStats?.games}\`\n\n` +
           `Wins:  ${await formatStatCount(rawStats.wins, rawStats.games) || '`0`'}\n` +
           `Draws: ${await formatStatCount(rawStats.draws, rawStats.games) || '`0`'}\n` +
@@ -177,15 +178,13 @@ module.exports = new Command({
           `${await manageData(rawStats.lostAgainst, client.user.id) || '> no one\n'}\n` +
           `Drew against:\n` +
           `${await manageData(rawStats.drewAgainst, client.user.id) || '> no one\n'}`
-        )
       }
       else
-        embed.setDescription(`${stats.target.id == message.user.id ? 'You have' : `${stats.target.username} has`} not played any ${stats.game} games yet.`);
+        embed.description = `${stats.target.id == message.user.id ? 'You have' : `${stats.target.username} has`} not played any ${stats.game} games yet.`;
     }
     else if (stats.type == 'leaderboard') {
-      embed
-        .setTitle(`Top 10 ${stats.game} players`)
-        .setDescription(await formatTopTen(stats.data, stats.settings, message) || 'It looks like no one won yet...');
+      embed.title = `Top 10 ${stats.game} players`;
+      embed.description = await formatTopTen(stats.data, stats.settings, message) || 'It looks like no one won yet...';
     }
 
     interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);

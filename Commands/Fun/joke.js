@@ -70,15 +70,15 @@ async function getJoke(APIList, type, blacklist, maxLength, client) {
       console.error(err.response)
     }
     else {
-        console.error(
-          `joke.js: ${API.url} responded with error ` +
-          `${err.status || err.response?.status}, ${err.statusText || err.response?.statusText}: ${err.response?.data.message}`
-        );
-      }
+      console.error(
+        `joke.js: ${API.url} responded with error ` +
+        `${err.status || err.response?.status}, ${err.statusText || err.response?.statusText}: ${err.response?.data.message}`
+      );
     }
+  }
 
-    APIList = APIList.filter(str => str.name !== API.name)
-    if (APIList) return await getJoke(APIList, type, blacklist, maxLength, client);
+  APIList = APIList.filter(str => str.name !== API.name)
+  if (APIList) return await getJoke(APIList, type, blacklist, maxLength, client);
 }
 
 module.exports = new Command({
@@ -129,7 +129,7 @@ module.exports = new Command({
     if (interaction) {
       type = interaction.options.getString('type');
       blacklist = interaction.options.getString('blacklist');
-      maxLength = interaction.options.getNumber('max_length') ||  2000;
+      maxLength = interaction.options.getNumber('max_length') || 2000;
     }
     else type = message.args[0];
 
@@ -142,16 +142,16 @@ module.exports = new Command({
       else return interaction.editReply('Apparently, there is currently no API available. Please try again later.');
     }
 
-    let embed = new MessageEmbed()
-      .setTitle('Is this funny?')
-      .setDescription(
-          `${joke}\n` +
-        `- [${API.name}](${API.url})`
-      )
-      .setColor('RANDOM')
+    let embed = new MessageEmbed({
+      title: 'Is this funny?',
+      description:
+        `${joke}\n` +
+        `- [${API.name}](${API.url})`,
+      color: 'RANDOM'
+    });
 
     if (message) client.functions.reply({ embeds: [embed] }, message);
     else interaction.editReply({ embeds: [embed] });
-    
+
   }
 })

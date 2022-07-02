@@ -52,8 +52,8 @@ module.exports = async client => {
         try {
           user = await guild.members.fetch(entry[0]);
         }
-        catch(err) {
-          if(err.code == 10007) continue;
+        catch (err) {
+          if (err.code == 10007) continue;
           else throw err;
         }
 
@@ -63,19 +63,21 @@ module.exports = async client => {
             return (await guild.fetchOwner()).send(`INFO: the channel configured for the birthday feature in guild \`${guild.name}\` does not exist! Please re-configure it so i can send birthday messages!`)
           }
 
-          let embed = new MessageEmbed()
-            .setTitle(formatBirthday(settings.channelAnnouncement?.embed?.title, user, entry[2], guild) || gSettings.default.birthday.channelAnnouncement.embed.title)
-            .setDescription(formatBirthday(settings.channelAnnouncement?.embed?.description, user, entry[2], guild) || gSettings.default.birthday.channelAnnouncement.embed.description)
-            .setColor(settings.channelAnnouncement?.embed?.color || gSettings.default.birthday.channelAnnouncement.embed.color);
+          const embed = new MessageEmbed({
+            title: formatBirthday(settings.channelAnnouncement?.embed?.title, user, entry[2], guild) || gSettings.default.birthday.channelAnnouncement.embed.title,
+            description: formatBirthday(settings.channelAnnouncement?.embed?.description, user, entry[2], guild) || gSettings.default.birthday.channelAnnouncement.embed.description,
+            color: settings.channelAnnouncement?.embed?.color || gSettings.default.birthday.channelAnnouncement.embed.color
+          });
 
           await channel.send({ content: settings.channelAnnouncement?.content || gSettings.channelAnnouncement.content, embeds: [embed] });
         }
 
         if (settings?.dmAnnouncement?.enabled) {
-          embed = new MessageEmbed()
-            .setTitle(formatBirthday(settings.dmAnnouncement?.embed?.title, user, entry[2]) || gSettings.default.birthday.dmAnnouncement.embed.title)
-            .setDescription(formatBirthday(settings.dmAnnouncement?.embed?.description, user, entry[2]) || gSettings.default.birthday.dmAnnouncement.embed.description)
-            .setColor(settings.dmAnnouncement?.color || gSettings.default.birthday.dmAnnouncement.embed.color);
+          embed = new MessageEmbed({
+            title: formatBirthday(settings.dmAnnouncement?.embed?.title, user, entry[2]) || gSettings.default.birthday.dmAnnouncement.embed.title,
+            description: formatBirthday(settings.dmAnnouncement?.embed?.description, user, entry[2]) || gSettings.default.birthday.dmAnnouncement.embed.description,
+            color: settings.dmAnnouncement?.color || gSettings.default.birthday.dmAnnouncement.embed.color
+          });
 
           try {
             await user.send({ content: settings.dmAnnouncement?.content || gSettings.dmAnnouncement.content, embeds: [embed] });

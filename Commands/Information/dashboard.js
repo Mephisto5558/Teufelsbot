@@ -16,10 +16,11 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: async(client, message, interaction) => {
-    const embed = new MessageEmbed()
-      .setTitle('Dashboard')
-      .setDescription(`Click [here](https://${name}.${author}.repl.co/) to open the dashboard.`)
-      .setColor(colors.discord.BURPLE)
+    const embed = new MessageEmbed({
+      title: 'Dashboard',
+      description: `Click [here](https://${name}.${author}.repl.co/) to open the dashboard.`,
+      color: colors.discord.BURPLE
+    })
 
     if(interaction) interaction.editReply({ embeds: [embed]});
     else client.functions.reply({embeds: [embed]}, message);

@@ -60,12 +60,13 @@ async function playAgain(interaction, clientUserID) {
     ) return true;
   }
 
-  const row = new MessageActionRow().addComponents(
-    new MessageButton()
-      .setCustomId('playAgain')
-      .setLabel('Play again')
-      .setStyle('SUCCESS')
-  );
+  const row = new MessageActionRow({
+    components: [new MessageButton({
+      customId: 'playAgain',
+      label: 'Play again',
+      style: 'SUCCESS'
+    })]
+  })
 
   if (!rows[3]?.components[0].customId) rows[3] = row;
 
