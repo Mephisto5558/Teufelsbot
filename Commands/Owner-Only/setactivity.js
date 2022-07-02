@@ -27,7 +27,8 @@ module.exports = new Command({
     }
 
     await client.user.setActivity(activity, { type: type });
-    await client.db.set('activity', { name: activity, type: type })
+    await client.db.set('activity', { name: activity, type: type });
+    
     client.functions.reply(`Activity set to \`${activity}\` of type \`${type}\``, message);
   }
 })
