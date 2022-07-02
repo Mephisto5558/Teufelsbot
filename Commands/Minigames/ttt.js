@@ -60,13 +60,14 @@ async function playAgain(interaction, clientUserID) {
     ) return true;
   }
 
-  let row = new MessageActionRow().addComponents(
+  const row = new MessageActionRow().addComponents(
     new MessageButton()
       .setCustomId('playAgain')
       .setLabel('Play again')
       .setStyle('SUCCESS')
   );
-  rows[3] = row;
+
+  if (!rows[3]?.components[0].customId) rows[3] = row;
 
   await interaction.editReply({ components: rows });
 
@@ -95,6 +96,11 @@ async function playAgain(interaction, clientUserID) {
 
       interaction.member = PAInteraction.member;
       interaction.user = PAInteraction.user;
+    }
+
+    if (interaction.options._hoistedOptions[0]?.user) {
+      await interaction.channel.send(`<@${interaction.options._hoistedOptions[0].user.id}}> :crossed_swords: New duel challenge`)
+        .then(msg => msg.delete({ timeout: 5000 }));
     }
 
     game.handleInteraction(interaction);
@@ -134,6 +140,11 @@ module.exports = new Command({
 
     if (gameTarget?.id == client.user.id) game.config.commandOptionName = 'thisOptionWillNotGetUsed';
     game.config.language = interaction.guild.preferredLocale;
+
+    if (gameTarget) {
+      await interaction.channel.send(`<@${gameTarget.id}> :crossed_swords: New duel challenge`)
+        .then(msg => msg.delete({ timeout: 5000 }));
+    }
 
     game.handleInteraction(interaction);
 
