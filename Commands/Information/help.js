@@ -47,7 +47,7 @@ module.exports = new Command({
     if (query) {
       const cmd = client.commands.get(query) || client.slashCommands.get(query);
 
-      if (!cmd?.name || cmd.hideInHelp || cmd.disabled || cmd.category.toUpperCase() == 'OWNER-ONLY') {
+      if (!cmd?.name || cmd.hideInHelp || cmd.disabled || cmd.category.toLowerCase() == 'owner-only') {
         embed
           .setDescription(`No Information found for command \`${query}\``)
           .setColor(colors.RED);
@@ -71,8 +71,8 @@ module.exports = new Command({
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }));
 
     for (let i = 0; i < client.categories.length; i++) {
-      const category = client.categories[i].toUpperCase();
-      if (category == 'OWNER-ONLY') continue;
+      const category = client.categories[i].toLowerCase();
+      if (category == 'owner-only') continue;
 
       let data = listCommands(client.commands, '', 1, category);
       data = listCommands(client.slashCommands, data[0], data[1], category);
@@ -83,12 +83,13 @@ module.exports = new Command({
 
       if (cmdList.endsWith('\n> ')) cmdList = cmdList.slice(0, -4);
       if (cmdList.endsWith(', ')) cmdList = cmdList.slice(0, -2);
+      if (!cmdList.endsWith('`')) cmdList += '`';
 
       if (cmdList) embed.addField(`**${category} [${data[1] - 1}]**`, `> ${cmdList}\n`);
     }
 
     if (!embed.fields) embed.setDescription('No commands found...');
-    else embed.setFooter({ text: `Use the 'command' option to get more information about a specific command.` })
+    else embed.setFooter({ text: `Use the 'command' option to get more information about a specific command.` });
 
     if (interaction) interaction.editReply({ embeds: [embed] });
     else client.functions.reply({ embeds: [embed] }, message);
