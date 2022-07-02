@@ -65,7 +65,7 @@ module.exports = new Command({
       title: 'Success',
       description:
         'Your suggestion has been sent.\n' +
-        `[Suggestion link](https://github.com/${package[0]}/${package[1]}/issues?q=is%3Aopen+is%3Aissue+assignee%3A${package[0]}+author%3A${package[0]}+label%3Aenhancement)`;
+        `[Suggestion link](https://github.com/${package[0]}/${package[1]}/issues?q=is%3Aopen+is%3Aissue+assignee%3A${package[0]}+author%3A${package[0]}+label%3Aenhancement)`
     });
     
     interaction.editReply({ embeds: [embed] });
