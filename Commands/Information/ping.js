@@ -24,10 +24,11 @@ module.exports = new Command({
     if (interaction) message = interaction;
 
     if (interaction?.options?.getBoolean('average')) {
-      const embed = new MessageEmbed()
-        .setTitle('Ping')
-        .setDescription(`Pinging... (this takes about one minute)`)
-        .setColor(colors.discord.BURPLE);
+      const embed = new MessageEmbed({
+        title: 'Ping',
+        description: `Pinging... (this takes about one minute)`,
+        color: colors.discord.BURPLE
+      });
 
       interaction.editReply({ embeds: [embed] });
 
@@ -42,24 +43,22 @@ module.exports = new Command({
 
       const averagePing = Math.round((pings.reduce((a, b) => a + b) / i) * 100) / 100;
 
-      embed
-        .setDescription(
-          `Pings: \`${pings.length}\`\n` +
-          `Lowest Ping: \`${pings[0]}ms\`\n` +
-          `Highest Ping: \`${pings[pings.length - 1]}ms\`\n` +
-          `Average Ping: \`${averagePing}ms\``
-        )
+      embed.description =
+        `Pings: \`${pings.length}\`\n` +
+        `Lowest Ping: \`${pings[0]}ms\`\n` +
+        `Highest Ping: \`${pings[pings.length - 1]}ms\`\n` +
+        `Average Ping: \`${averagePing}ms\``;
 
       return interaction.editReply({ embeds: [embed] })
     }
 
-    const embed = new MessageEmbed()
-      .setTitle('Ping')
-      .setDescription(
+    const embed = new MessageEmbed({
+      title: 'Ping',
+      description:
         `Latency: \`${Date.now() - message.createdTimestamp}ms\`\n` +
-        `API Latency: \`${Math.round(client.ws.ping)}ms\``
-      )
-      .setColor(colors.discord.BURPLE);
+        `API Latency: \`${Math.round(client.ws.ping)}ms\``,
+      color: colors.discord.BURPLE
+    });
 
     if (interaction) interaction.editReply({ embeds: [embed] });
     else client.functions.reply({ embeds: [embed] }, message);

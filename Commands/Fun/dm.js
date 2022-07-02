@@ -124,18 +124,18 @@ module.exports = new Command({
           }
         }
 
-        let listEmbed = new MessageEmbed()
-          .setTitle('Your blacklist for the `/dm send` command')
-          .setDescription(
+        const listEmbed = new MessageEmbed({
+          title: 'Your blacklist for the `/dm send` command',
+          description:
             'You are blocking the following guild members:\n' +
-            listMessage
-          )
-          .setColor(colors.discord.BURPLE)
-          .setFooter({
+            listMessage,
+          color: colors.discord.BURPLE,
+          footer: {
             text:
               `run '/dm toggle' without arguments to toggle all users and\n` +
               `run '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user.`
-          });
+          }
+        });
 
         interaction.editReply({ embeds: [listEmbed] });
         break;
@@ -151,19 +151,19 @@ module.exports = new Command({
           return interaction.editReply({ content: errorMsg });
         }
 
-        let embed = new MessageEmbed()
-          .setTitle('You got a message!')
-          .setDescription(
+        let embed = new MessageEmbed({
+          title: 'You got a message!',
+          description:
             `From: **${`\`${interaction.user.tag}\`` || 'a guild moderator'}**\n` +
             `Guild: \`${interaction.guild.name}\`\n\n` +
-            messageToSend.replace(/\/n/g, '\n')
-          )
-          .setColor(colors.discord.BURPLE)
-          .setFooter({
+            messageToSend.replace(/\/n/g, '\n'),
+          color: colors.discord.BURPLE,
+          footer: {
             text:
               `If you don't want to receive user-made dms from me, run /dm toggle in any server.\n` +
               'If someone abuses this command to spam, please message the dev.'
-          });
+          }
+        });
 
         try {
           await messageTarget.send({ embeds: [embed] });

@@ -27,11 +27,12 @@ module.exports = new Command({
         `[Dashboard](https://teufelsbot.mephisto5558.repl.co/)\n` +
         `[Privacy Policy](https://teufelsbot.mephisto5558.repl.co/privacy)`,
 
-      embed = new MessageEmbed()
-        .setTitle('Stats')
-        .setDescription(description)
-        .setColor(colors.DARK_GOLD)
-        .setFooter({ text: 'More stats are coming soon!' });
+      embed = new MessageEmbed({
+        title: 'Stats',
+        description: description,
+        colors: colors.DARK_GOLD,
+        footer: { text: 'More stats are coming soon!' }
+      });
 
     client.functions.reply({ embeds: [embed] }, message);
   }

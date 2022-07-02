@@ -40,24 +40,15 @@ module.exports = async (client, message) => {
   const userPerms = message.member.permissionsIn(message.channel).missing([...command.permissions.user, 'SEND_MESSAGES']);
   const botPerms = message.guild.me.permissionsIn(message.channel).missing([...command.permissions.client, 'SEND_MESSAGES']);
 
-  const embed = new MessageEmbed()
-    .setTitle('Insufficient Permissions')
-    .setColor(colors.discord.RED);
+  const embed = new MessageEmbed({
+    title: 'Insufficient Permissions',
+    color: colors.discord.RED,
+    description:
+      `${userPerms.length ? 'You' : 'I'} need the following permissions in this channel to run this command:\n\`` +
+      (botPerms.length ? botPerms : userPerms).join('`, `') + '`'
+  });
 
-  if (userPerms.length) {
-    embed.setDescription(
-      `You need the following permissions in this channel to run this command:\n\`` +
-      userPerms.join('`, `') + '`'
-    )
-  }
-  else if (botPerms.length) {
-    embed.setDescription(
-      `I need the following permissions in this channel to run this command:\n\`` +
-      botPerms.join('`, `') + '`'
-    )
-  }
-
-  if (embed.description) return message.reply({ embeds: [embed] });
+  if (botPerms.length || userPerms.length) return message.reply({ embeds: [embed] });
 
   client.message = message;
   command.run(client, message);

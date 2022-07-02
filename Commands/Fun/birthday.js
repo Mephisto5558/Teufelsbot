@@ -136,7 +136,7 @@ module.exports = new Command({
         let embed = new MessageEmbed();
 
         if (target) {
-          embed.setTitle(`${target.tag}'s Birthday`);
+          embed.title = `${target.tag}'s Birthday`;
 
           let data = oldData[target.id]?.split('/');
 
@@ -148,7 +148,7 @@ module.exports = new Command({
           else newData = 'This user has no birthday :(';
         }
         else {
-          embed.setTitle('The next birthdays');
+          embed.title = 'The next birthdays';
 
           let data = Object.entries(oldData).filter(e => e[0] != 'lastCheckTS');
           let filterList = [];
@@ -193,13 +193,12 @@ module.exports = new Command({
           }
         }
 
-        embed
-          .setDescription(newData || 'nobody has a birthday set...')
-          .setColor(colors.discord.BURPLE)
-          .setFooter({
-            text: interaction.user.tag,
-            iconURL: interaction.member.displayAvatarURL()
-          });
+        embed.description = newData || 'nobody has a birthday set...';
+        embed.color = colors.discord.BURPLE;
+        embed.footer = {
+          text: interaction.user.tag,
+          iconURL: interaction.member.displayAvatarURL()
+        };
 
         if (dontHide) {
           interaction.channel.send({ embeds: [embed] });

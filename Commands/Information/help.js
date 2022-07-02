@@ -42,23 +42,22 @@ module.exports = new Command({
       query = interaction.options?.getString('command')?.toLowerCase();
     }
 
-    let embed = new MessageEmbed().setColor(colors.discord.BURPLE);
+    const embed = new MessageEmbed({ color: colors.discord.BURPLE });
 
     if (query) {
       const cmd = client.commands.get(query) || client.slashCommands.get(query);
 
       if (!cmd?.name || cmd.hideInHelp || cmd.disabled || cmd.category.toLowerCase() == 'owner-only') {
-        embed
-          .setDescription(`No Information found for command \`${query}\``)
-          .setColor(colors.RED);
+        embed.description = `No Information found for command \`${query}\``;
+        embed.color = colors.RED;
       }
       else {
-        if (cmd.name) embed.setTitle(`Detailed Information about: \`${cmd.name}\``);
-        if (cmd.description) embed.setDescription(cmd.description);
+        if (cmd.name) embed.title = `Detailed Information about: \`${cmd.name}\``;
+        if (cmd.description) embed.description = cmd.description;
         if (cmd.aliases?.length) embed.addField('Aliases', `\`${listCommands(cmd.aliases, '', 1).replace(/> /g, '')}\``);
         if (cmd.usage) embed.addField('Usage', `${cmd.slashCommand ? 'SLASH Command: look at the option descriptions.\n' : ''} ${cmd.usage || ''}`);
 
-        embed.setFooter({ text: `Syntax: <> = required, [] = optional | Prefix: '${client.db.get('settings')[message.guild.id]?.prefix || client.db.get('settings').default.prefix}'` });
+        embed.footer = { text: `Syntax: <> = required, [] = optional | Prefix: '${client.db.get('settings')[message.guild.id]?.prefix || client.db.get('settings').default.prefix}'` };
       }
 
       if (interaction) interaction.editReply({ embeds: [embed] });
@@ -66,9 +65,8 @@ module.exports = new Command({
       return;
     }
 
-    embed
-      .setTitle(`🔰All my commands`)
-      .setThumbnail(client.user.displayAvatarURL({ dynamic: true }));
+    embed.title = `🔰All my commands`;
+    embed.thumbnail = client.user.displayAvatarURL({ dynamic: true });
 
     for (let i = 0; i < client.categories.length; i++) {
       const category = client.categories[i].toLowerCase();
@@ -88,8 +86,8 @@ module.exports = new Command({
       if (cmdList) embed.addField(`**${category} [${data[1] - 1}]**`, `> ${cmdList}\n`);
     }
 
-    if (!embed.fields) embed.setDescription('No commands found...');
-    else embed.setFooter({ text: `Use the 'command' option to get more information about a specific command.` });
+    if (!embed.fields) embed.description = 'No commands found...';
+    else embed.footer = { text: `Use the 'command' option to get more information about a specific command.` };
 
     if (interaction) interaction.editReply({ embeds: [embed] });
     else client.functions.reply({ embeds: [embed] }, message);

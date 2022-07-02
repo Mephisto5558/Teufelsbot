@@ -104,27 +104,25 @@ module.exports = new Command({
 
     const until = Math.floor(date.getTime() / 1000);
 
-    const embed = new MessageEmbed()
-      .setTitle('Muted')
-      .setDescription(
+    const embed = new MessageEmbed({
+      title: 'Muted',
+      description:
         `You have been muted in \`${interaction.guild.name}\`.\n` +
         `Moderator: ${interaction.user.tag}\n` +
         `Until: <t:${until}>\n` +
-        `Reason: ${reason}`
-      )
-      .setColor(colors.RED);
+        `Reason: ${reason}`,
+      color: colors.RED
+    });
 
     try { await target.send({ embeds: [embed] }) }
     catch { noMsg = true }
 
-    embed
-      .setTitle('Mute')
-      .setDescription(
-        `${target.user.tag} has been successfully muted.\n` +
-        `Reason: ${reason}\n` +
-        `Until: <t:${until}>\n` +
-        `${noMsg ? `\nI couldn't DM the target.` : ''}`
-      );
+    embed.title = 'Mute';
+    embed.description =
+      `${target.user.tag} has been successfully muted.\n` +
+      `Reason: ${reason}\n` +
+      `Until: <t:${until}>\n` +
+      `${noMsg ? `\nI couldn't DM the target.` : ''}`;
 
     interaction.editReply({ embeds: [embed] });
 
