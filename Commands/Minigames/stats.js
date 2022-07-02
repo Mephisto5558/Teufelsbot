@@ -29,7 +29,7 @@ async function formatStatCount(input, all) {
   return `\`${input}\` (\`${parseFloat((input / all * 100).toFixed(2))}%\`)`;
 }
 
-async function formatTopTen(input, settings, interaction) {
+async function formatTopTen(input, settings, message) {
   let output = '';
   let i = 0;
   let isInGuild;
@@ -47,7 +47,7 @@ async function formatTopTen(input, settings, interaction) {
 
   for (const entry of data) {
     try {
-      await interaction.guild.members.fetch(entry[0]);
+      await message.guild.members.fetch(entry[0]);
       isInGuild = true
     }
     catch { isInGuild = false }
@@ -72,12 +72,12 @@ module.exports = new Command({
   name: 'stats',
   aliases: [],
   description: 'get stats about one of the minigames',
-  usage: '',
+  usage: 'PREFIX COMMAND: stats <game> [target]',
   permissions: { client: [], user: [] },
   cooldowns: { global: 0, user: 1000 },
   category: 'Minigames',
   slashCommand: true,
-  prefixCommand: false,
+  prefixCommand: true,
   options: [
     {
       name: 'user',
@@ -128,20 +128,35 @@ module.exports = new Command({
     }
   ],
 
-  run: async (client, _, interaction) => {
-    const stats = {
-      type: interaction.options.getSubcommand(),
-      game: interaction.options.getString('game'),
-      target: interaction.options.getUser('target') || interaction.user,
-      settings: interaction.options.getString('settings')
+  run: async (client, message, interaction) => {
+    const stats = {};
+    if (message) {
+      stats.type = 'user'
+      stats.game = message.args[0].replace(/tictactoe/gi, 'TicTacToe')
+      stats.target = message.mentions.users?.first() || message.author;
     }
+    else {
+      message = interaction
+      stats.type = interaction.options.getSubcommand()
+      stats.game = interaction.options.getString('game')
+      stats.target = interaction.options.getUser('target') || interaction.user
+      stats.settings = interaction.options.getString('settings');
+    }
+
     stats.data = await client.db.get('leaderboards')[stats.game];
+    if (!stats.data) {
+      const msg =
+        'This game has not been found on the database.\n' +
+        'If this game exists on the bot, please message the dev.';
+
+      interaction ? interaction.editReply(msg) : client.functions.reply(msg, message);
+    }
 
     const embed = new MessageEmbed()
       .setColor(colors.discord.BURPLE)
       .setFooter({
-        text: interaction.member.user.tag,
-        iconURL: interaction.member.user.displayAvatarURL()
+        text: message.member.user.tag,
+        iconURL: message.member.user.displayAvatarURL()
       });
 
     if (stats.type == 'user') {
@@ -165,15 +180,14 @@ module.exports = new Command({
         )
       }
       else
-        embed.setDescription(`${stats.target.id == interaction.user.id ? 'You have' : `${stats.target.username} has`} not played any ${stats.game} games yet.`);
+        embed.setDescription(`${stats.target.id == message.user.id ? 'You have' : `${stats.target.username} has`} not played any ${stats.game} games yet.`);
     }
     else if (stats.type == 'leaderboard') {
       embed
         .setTitle(`Top 10 ${stats.game} players`)
-        .setDescription(await formatTopTen(stats.data, stats.settings, interaction) || 'It looks like no one won yet...');
+        .setDescription(await formatTopTen(stats.data, stats.settings, message) || 'It looks like no one won yet...');
     }
 
-    interaction.editReply({ embeds: [embed] });
-
+    interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);
   }
 })
