@@ -15,60 +15,66 @@ module.exports = new Command({
   prefixCommand: false,
   options: [
     {
-      name: 'member',
-      description: 'Who do you want to get kicked?',
-      type: 'USER',
+      name: 'targets',
+      description: 'Mention member(s) or put ID(s) in to kick them. Put a space between each target',
+      type: 'STRING',
       required: true
     },
     {
       name: 'reason',
-      description: 'The member will see the reason in a DM.',
+      description: 'The target(s) will see the reason in DMs.',
       type: 'STRING',
       required: true
     }
   ],
 
   run: async (_, __, interaction) => {
-    const member = interaction.options.getMember('member');
-    const reason = interaction.options.getString('reason');
-    
-    let errorMsg, noMsg;
+    const
+      targets = new Set([...interaction.options.getString('targets').replace(/[^0-9\s]/g, '').split(' ').filter(e => e?.length == 18)]),
+      reason = interaction.options.getString('reason'),
+      embed = new MessageEmbed({
+        title: 'Banned',
+        description:
+          `You have been banned from \`${interaction.guild.name}\`.\n` +
+          `Moderator: ${interaction.user.tag}\n` +
+          `Reason: ${reason}`,
+        color: colors.RED
+      }),
+      resEmbed = new MessageEmbed({
+        title: 'Ban',
+        description:
+          `Moderator: ${interaction.user.tag}\n` +
+          `Reason: ${reason}\n\n`,
+        color: colors.RED
+      });
 
-    if (member.id == interaction.member.id)
-      errorMsg = `You can't kick yourself!`;
-    else if (member.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1 && interaction.guild.ownerId != interaction.user.id)
-      errorMsg = `You don't have the permission to do that!`;
-    else if (!member.kickable)
-      errorMsg = `I don't have the permission to do that!`;
+    for (const rawTarget of targets) {
+      let target, errorMsg, noMsg;
 
-    if (errorMsg) return interaction.editReply(errorMsg);
+      try {
+        target = await interaction.guild.members.fetch(rawTarget);
+      } catch { };
 
-    let embed = new MessageEmbed()
-      .setTitle('Kicked')
-      .setDescription(
-        `You have been kicked from \`${interaction.guild.name}\`.\n` +
-        `Moderator: ${interaction.user.tag}\n` +
-        `Reason: ${reason}`
-      )
-      .setColor(colors.RED);
+      if (!target.id) errorMsg = `I couldn't find that member!`;
+      else if (target.id == interaction.member.id) errorMsg = `You can't kick yourself!`;
+      else if (target.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1 && interaction.guild.ownerId != interaction.user.id)
+        errorMsg = `You don't have the permission to do that!`;
+      else if (!target.kickable) errorMsg = `I don't have the permission to do that!`;
 
-    try { await member.send({ embeds: [embed] }) }
-    catch { noMsg = true }
+      if (errorMsg) {
+        resEmbed.description += `**${target?.user?.tag ?? target.id}** couldn't been banned.\n${errorMsg}\n`;
+        continue;
+      }
 
-    try { await member.kick(reason) }
-    catch (err) {
-      interaction.editReply("I couldn't kick the target");
-      throw new Error("couldn't ban/kick target", err)
+      try { await target.send({ embeds: [embed] }) }
+      catch { noMsg = true }
+
+      await target.kick(reason);
+
+      resEmbed.description +=
+        `**${target?.user?.tag ?? target.id}** has been successfully banned.\n` +
+        `${noMsg ? `\nI couldn't DM the target.` : ''}`;
     }
-
-    embed
-      .setTitle('Kick')
-      .setDescription(
-        `${member.user.tag} has been successfully kicked.\n` +
-        `Reason: ${reason}\n` +
-        `${noMsg ? `\nI couldn't DM the target.` : ''}`
-      )
-
     interaction.editReply({ embeds: [embed] });
 
   }
