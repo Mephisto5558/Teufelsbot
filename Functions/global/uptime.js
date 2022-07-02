@@ -2,12 +2,12 @@ module.exports = (client, asMessage) => {
   let data;
 
   let totalSeconds = (Date.now() - client.startTime) / 1000
-  const days = Math.floor(totalSeconds / 86400).toString().padStart(2, 0);
+  const days = Math.floor(totalSeconds / 86400).toString();
   totalSeconds %= 86400;
-  const hours = Math.floor(totalSeconds / 3600).toString().padStart(2, 0);
+  const hours = Math.floor(totalSeconds / 3600).toString();
   totalSeconds %= 3600;
-  const minutes = Math.floor(totalSeconds / 60).toString().padStart(2, 0);
-  const seconds = Math.floor(totalSeconds % 60).toString().padStart(2, 0);
+  const minutes = Math.floor(totalSeconds / 60).toString();
+  const seconds = Math.floor(totalSeconds % 60).toString();
 
   if (asMessage) {
     if (Number(days)) data = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
@@ -18,6 +18,6 @@ module.exports = (client, asMessage) => {
 
   return {
     total: client.startTime,
-    formatted: data || `${days}:${hours}:${minutes}:${seconds}`
+    formatted: data || `${days.padStart(2, 0)}:${hours.padStart(2, 0)}:${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`
   };
 }
