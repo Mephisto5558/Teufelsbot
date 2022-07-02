@@ -18,13 +18,12 @@ module.exports = new Command({
   run: async (client, message) => {
     const
       startCount = readFileSync('./Logs/startCount.log', 'utf8') || 0,
-      startDate = new Date(client.startTime).toLocaleTimeString('en', { hourCycle: 'h24' }),
       owner = await client.users.fetch(client.owner),
       description =
         `Developer: ${owner.tag}\n` +
         `Shard: ${message.guild.shardId}\n` +
         `Starts: ${startCount}\n` +
-        `Last start: ${startDate}\n` +
+        `Last start: <t:${Math.floor(new Date(client.startTime) / 1000)}>\n` +
         `[Dashboard](https://teufelsbot.mephisto5558.repl.co/)\n` +
         `[Privacy Policy](https://teufelsbot.mephisto5558.repl.co/privacy)`,
 
