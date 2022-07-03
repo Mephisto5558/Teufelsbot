@@ -65,7 +65,7 @@ module.exports = new Command({
     }
 
     embed.title = `🔰All my commands`;
-    embed.thumbnail = client.user.displayAvatarURL({ dynamic: true });
+    embed.setThumbnail(client.user.displayAvatarURL({ dynamic: true }));
 
     for (let i = 0; i < client.categories.length; i++) {
       const category = client.categories[i].toLowerCase();
