@@ -93,6 +93,8 @@ async function getAllSettings(client) {
 }
 
 module.exports = async client => {
+  if(client.botType == 'dev') return client.log('Dashboard loading skipped due to dev version');
+  
   const me = client.user || await client.users.fetch(client.userID);
   const domain = client.botType == 'main' ? `https://${package.name}.${package.author}.repl.co/` : 'http://localhost:8000';
 
