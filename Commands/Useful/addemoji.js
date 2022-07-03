@@ -77,10 +77,9 @@ module.exports = new Command({
         roles: limitToRoles
       });
 
-      embed.thumbnail = input;
       embed.description =
-        `Successfully added **${emoji.name}**!\n` +
-        (limitToRoles.length ? `The emoji has been limited to the following roles: <@&${limitToRoles.join('>, <@&')}>` : '');
+        `Successfully added **${emoji.name}** ${emoji}!\n` +
+        (limitToRoles.length ? `The emoji has been limited to the following roles:\n<@&${limitToRoles.join('>, <@&')}>` : '');
     }
     catch (err) {
       embed.description = `Unable to create the emoji for reason:\n`;
