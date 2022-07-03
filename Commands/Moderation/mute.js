@@ -5,7 +5,7 @@ const
 
 module.exports = new Command({
   name: 'mute',
-  alias: ['timeout', 'unmute'],
+  alias: ['timeout'],
   description: 'timeouts a member of a given time (max 28d), default 1h',
   usage: 'Duration options: you need to use at least one.',
   permissions: { client: ['MUTE_MEMBERS'], user: ['MUTE_MEMBERS'] },
@@ -16,7 +16,7 @@ module.exports = new Command({
   options: [
     {
       name: 'target',
-      description: 'who you want to mute/unmute',
+      description: 'who you want to mute',
       type: 'USER',
       required: true,
     },
@@ -73,14 +73,6 @@ module.exports = new Command({
 
     if (errorMsg) return interaction.editReply(errorMsg);
 
-    if (interaction.commandname == 'unmute') {
-      if (target.isCommunicationDisabled()) {
-        await target.disableCommunicationUntil(null, `${reason}, moderator ${interaction.user.tag}`);
-        return interaction.editReply(`Removed timeout for user ${target.user.tag}`);
-      }
-      else return interaction.editReply('This user is not timed out.');
-    }
-
     for (const option of interaction.options.data) {
       switch (option.name.replace('duration_', '')) {
         case 'days': date.setDate(date.getDate() + (option.value > 27 ? 27 : option.value)); break;
@@ -102,14 +94,12 @@ module.exports = new Command({
       )
     }
 
-    const until = Math.floor(date.getTime() / 1000);
-
     const embed = new MessageEmbed({
       title: 'Muted',
       description:
         `You have been muted in \`${interaction.guild.name}\`.\n` +
         `Moderator: ${interaction.user.tag}\n` +
-        `Until: <t:${until}>\n` +
+        `Until: <t:${target.communicationDisabledUntilTimestamp}>\n` +
         `Reason: ${reason}`,
       color: colors.RED
     });
@@ -121,7 +111,7 @@ module.exports = new Command({
     embed.description =
       `${target.user.tag} has been successfully muted.\n` +
       `Reason: ${reason}\n` +
-      `Until: <t:${until}>\n` +
+      `Until: <t:${target.communicationDisabledUntilTimestamp}>\n` +
       `${noMsg ? `\nI couldn't DM the target.` : ''}`;
 
     interaction.editReply({ embeds: [embed] });
