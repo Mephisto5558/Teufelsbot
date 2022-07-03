@@ -103,7 +103,7 @@ module.exports = async client => {
 
   global.embedBuilder = DBD.formTypes.embedBuilder({
     username: me.username,
-    avatarURL: me.displayAvatarURL(),
+    avatarURL: me.displayAvatarURL({ dynamic: true }),
     defaultJson: {}
   });
 
@@ -133,7 +133,7 @@ module.exports = async client => {
     theme: DarkDashboard({
       information: {
         createdBy: (await client.users.fetch(client.owner)).tag,
-        iconURL: me.displayAvatarURL(),
+        iconURL: me.displayAvatarURL({ dynamic: true }),
         websiteTitle: `${me.username} | Dashboard`,
         websiteName: `${me.username} | Dashboard`,
         websiteUrl: `${domain}/dashboard`,
