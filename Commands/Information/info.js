@@ -23,7 +23,7 @@ module.exports = new Command({
         `Developer: ${owner.tag}\n` +
         `Shard: ${message.guild.shardId}\n` +
         `Starts: ${startCount}\n` +
-        `Last start: <t:${Math.floor(new Date(client.startTime) / 1000)}>\n` +
+        `Last start: <t:${Math.round(new Date(client.startTime) / 1000)}>\n` +
         `[Dashboard](https://teufelsbot.mephisto5558.repl.co/)\n` +
         `[Privacy Policy](https://teufelsbot.mephisto5558.repl.co/privacy)`,
 
