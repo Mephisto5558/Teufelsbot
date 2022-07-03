@@ -1,16 +1,8 @@
 const
   { Command } = require('reconlx'),
-  { parseEmoji } = require('discord.js').Util,
-  { request } = require('axios').default,
-  urlRegex = /^.+\.(?:jpg|jpeg|png|webp|gif|svg)$/i;
-
-async function urlExists(url) {
-  try {
-    const res = await request({ url: url });
-    return !/4\d\d/.test(res.status);
-  }
-  catch { return }
-}
+  { Util, MessageEmbed } = require('discord.js'),
+  { colors } = require('../../Settings/embed.json'),
+  { head } = require('axios').default;
 
 module.exports = new Command({
   name: 'addemoji',
@@ -24,7 +16,7 @@ module.exports = new Command({
   cooldowns: { global: 0, user: 1000 },
   category: 'Useful',
   slashCommand: true,
-  prefixCommand: false,
+  prefixCommand: false, beta: true,//////
   options: [
     {
       name: 'emoji_or_url',
@@ -34,7 +26,13 @@ module.exports = new Command({
     },
     {
       name: 'name',
-      description: 'the name of the new emoji',
+      description: 'the name of the new emoji (min 2, max 32 chars)',
+      type: 'STRING',
+      required: false
+    },
+    {
+      name: 'limit_to_roles',
+      description: 'the role(s) that are allowed to use the emoji. Separate them with spaces',
       type: 'STRING',
       required: false
     }
@@ -42,44 +40,55 @@ module.exports = new Command({
 
   run: async (_, __, interaction) => {
     let input = interaction.options.getString('emoji_or_url');
-    let inputName = interaction.options.getString('name');
-    const emoticon = parseEmoji(input);
 
-    if (inputName) {
-      if (inputName.length < 2) inputName = null;
-      else if (inputName.length > 32) inputName = inputName.subString(0, 32);
-    }
+    const
+      emojiName = interaction.options.getString('name')?.slice(0, 32),
+      limitToRoles = interaction.options.getString('limit_to_roles')?.replace(/[^0-9\s]/g, '').split(' ').filter(e => interaction.guild.roles.cache.has(e)),
+      emoticon = Util.parseEmoji(input),
+      embed = new MessageEmbed({
+        title: 'Add Emoji',
+        color: colors.discord.RED
+      });
 
-    if (emoticon.id) {
-      if (interaction.guild.emojis.cache.has(emoticon?.id)) return interaction.editReply('That emoji is already on this guild');
-      else input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`
-    }
+    if (interaction.guild.emojis.cache.has(emoticon.id)) embed.description = 'That emoji is already on this guild!';
+    else if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
     else {
       if (!input.startsWith('http')) input = `https://${input}`;
-
-      if (!urlRegex.test(input)) {
-        return interaction.editReply(
+      if (!/^.+\.(?:jpg|jpeg|png|webp|gif|svg)$/i.test(input)) {
+        embed.description =
           'The provided argument is not a valid url or emoji!\n' +
-          'The url must end with `jpg`, `jpeg`, `png`, `webp`, `gif` or `svg`.\n'
-        )
+          'The url must end with `jpg`, `jpeg`, `png`, `webp`, `gif` or `svg`.';
       }
-      else if (!await urlExists(input)) return interaction.editReply('The provided url was not found.');
+
+      try {
+        const res = await head(input);
+        if (/4\d\d/.test(res.status)) throw Error();
+      }
+      catch {
+        embed.description = 'The provided url was not found.'
+      }
     }
 
-    let emoji;
+    if (embed.description) return interaction.editReply({ embeds: [embed] });
+
     try {
-      emoji = await interaction.guild.emojis.create(
-        input, inputName || (emoticon.id ? emoticon.name : 'emoji'),
-        { reason: `addemoji command, member ${interaction.user.tag}` }
-      )
+      const emoji = await interaction.guild.emojis.create(input, emojiName?.length < 2 ? 'emoji' : emojiName, {
+        reason: `addemoji command, member ${interaction.user.tag}`,
+        roles: limitToRoles
+      });
+
+      embed.thumbnail = input;
+      embed.description =
+        `Successfully added **${emoji.name}**!\n` +
+        (limitToRoles.length ? `The emoji has been limited to the following roles: <@&${limitToRoles.join('>, <@&')}>` : '');
     }
     catch (err) {
-      return interaction.editReply(
-        `Unable to create the emoji for reason:\n` +
-        '```' + err + '```'
-      )
-    }
-    interaction.editReply(`Successfully added **${emoji.name}**! ${emoji}`);
+      embed.description = `Unable to create the emoji for reason:\n`;
 
+      if (err.name == 'AbortError') embed.description += '> The request timed out. Maybe the image is to large.';
+      else embed.description += '```' + err + '```';
+    }
+
+    interaction.editReply({ embeds: [embed] });
   }
 })
