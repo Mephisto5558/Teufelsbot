@@ -3,16 +3,15 @@ const
   { MessageEmbed } = require('discord.js'),
   { colors } = require('../../Settings/embed.json');
 
-function pushColors(colorObject) { //is not called in code
+function pushColors(colorObject, colorArray = []) {
   for (const color of Object.entries(colorObject)) {
-    let choices = command.options[0].options[2].choices;
+    if (colorArray.length >= 25) break;
 
-    if (choices?.length == 25) break;
-
-    if (typeof color[1] == 'object') pushColors(color[1]);
+    if (typeof color[1] == 'object') pushColors(color[1], colorArray);
     else if (!/^#[A-F0-9]{6}$/i.test(color[1])) continue;
-    else choices.push({ name: color[0], value: color[1].toString() });
+    else colorArray.push({ name: color[0], value: color[1].toString() });
   }
+  return colorArray;
 }
 
 function filterEmptyEntries(obj) {
@@ -30,7 +29,7 @@ function filterEmptyEntries(obj) {
   )
 }
 
-let command = new Command({
+module.exports = new Command({
   name: 'embed',
   aliases: [],
   description: 'sends a custom embed; you can do newlines with "/n"',
@@ -69,7 +68,7 @@ let command = new Command({
           name: 'predefined_color',
           description: 'set the embed color from predefined hex codes',
           type: 'STRING',
-          choices: [], //gets dynamically set from colors, must be index 2
+          choices: pushColors(colors),
           required: false
         },
         {
@@ -198,7 +197,3 @@ let command = new Command({
 
   }
 });
-
-
-pushColors(colors);
-module.exports = command;
