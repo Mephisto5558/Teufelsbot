@@ -18,11 +18,11 @@ function pushColors(colorObject) { //is not called in code
 function filterEmptyEntries(obj) {
   return Object.fromEntries(
     Object.entries(obj).filter(([k, a]) => {
-      if(!a?.toString().length || k == 'type'|| (typeof a == 'number' && a == 0)) return;
-      
-      if(typeof a == 'object') {
+      if (!a?.toString().length || k == 'type' || (typeof a == 'number' && a == 0)) return;
+
+      if (typeof a == 'object') {
         a = filterEmptyEntries(a);
-        if(!Object.values(a).length) return;
+        if (!Object.values(a).length) return;
       }
 
       return true;
@@ -48,10 +48,16 @@ let command = new Command({
       type: 'SUB_COMMAND',
       options: [
         {
+          name: 'content',
+          description: 'set a message outside of the embed',
+          type: 'STRING',
+          required: false
+        },
+        {
           name: 'description',
           description: 'set the embed text, use "/n" for newlines',
           type: 'STRING',
-          required: true
+          required: false
         },
         {
           name: 'title',
@@ -137,7 +143,7 @@ let command = new Command({
         description: 'JSON data to create an embed from',
         type: 'STRING',
         required: true
-      }],
+      }],is
     }
   ],
 
@@ -147,14 +153,15 @@ let command = new Command({
     }
 
     const custom = getOption('json');
+    const content = getOption('content');
     let embed;
 
     try {
-      if (custom) embed = new MessageEmbed(JSON.parse(custom));
+      if (custom) embed = new MessageEmbed(JSON.parse(custom.embeds[0]));
       else {
         embed = new MessageEmbed({
           title: getOption('title'),
-          description: getOption('description'),
+          description: getOption('description') || ' ',
           color: getOption('custom_color') || getOption('predefined_color'),
           footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
           image: getOption('image'),
@@ -169,7 +176,7 @@ let command = new Command({
         })
       }
 
-      await interaction.channel.send({ embeds: [embed] });
+      await interaction.channel.send({ content: content, embeds: [embed] });
     }
     catch (err) {
       return interaction.editReply(
@@ -180,7 +187,7 @@ let command = new Command({
 
     if (custom) interaction.editReply('Your embed has been sent!');
     else {
-      embed = JSON.stringify(filterEmptyEntries(embed));
+      embed = JSON.stringify(filterEmptyEntries({ content: content, embeds: [embed] }));
 
       interaction.editReply(
         'Your embed has been sent! Below is the embed code.\n' +
