@@ -34,6 +34,7 @@ module.exports = new Command({
   }],
 
   run: (client, message, interaction) => {
+    const embed = new MessageEmbed({ color: colors.discord.BURPLE });
     let query;
 
     if (message) query = message.args[0]?.toLowerCase();
@@ -41,8 +42,6 @@ module.exports = new Command({
       message = interaction;
       query = interaction.options?.getString('command')?.toLowerCase();
     }
-
-    const embed = new MessageEmbed({ color: colors.discord.BURPLE });
 
     if (query) {
       const cmd = client.commands.get(query) || client.slashCommands.get(query);
@@ -52,17 +51,17 @@ module.exports = new Command({
         embed.color = colors.RED;
       }
       else {
-        if (cmd.name) embed.title = `Detailed Information about: \`${cmd.name}\``;
-        if (cmd.description) embed.description = cmd.description;
-        if (cmd.aliases?.length) embed.addField('Aliases', `\`${listCommands(cmd.aliases, '', 1).replace(/> /g, '')}\``);
-        if (cmd.usage) embed.addField('Usage', `${cmd.slashCommand ? 'SLASH Command: look at the option descriptions.\n' : ''} ${cmd.usage || ''}`);
-
+        embed.title = `Detailed Information about: \`${cmd.name}\``;
+        embed.description = cmd.description ?? 'No description found';
         embed.footer = { text: `Syntax: <> = required, [] = optional | Prefix: '${client.db.get('settings')[message.guild.id]?.prefix || client.db.get('settings').default.prefix}'` };
+
+        if (cmd.aliases?.length) embed.addField('Aliases', `\`${listCommands(cmd.aliases, '', 1).replace(/> /g, '')}\``);
+        if (cmd.permissions?.client?.length) embed.addField('Required Bot Permissions', '`' + cmd.permissions.client.join('`, `'), true);
+        if (cmd.permissions?.user?.length) embed.addField('Required User Permissions', '`' + cmd.permissions.user.join('`, `'), true);
+        if (cmd.usage) embed.addField('Usage', `${cmd.slashCommand ? 'SLASH Command: look at the option descriptions.\n' : ''} ${cmd.usage || ''}`);
       }
 
-      if (interaction) interaction.editReply({ embeds: [embed] });
-      else client.functions.reply({ embeds: [embed] }, message);
-      return;
+      return interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);
     }
 
     embed.title = `🔰All my commands`;
@@ -89,8 +88,6 @@ module.exports = new Command({
     if (!embed.fields) embed.description = 'No commands found...';
     else embed.footer = { text: `Use the 'command' option to get more information about a specific command.` };
 
-    if (interaction) interaction.editReply({ embeds: [embed] });
-    else client.functions.reply({ embeds: [embed] }, message);
-
+    interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);
   }
 })
