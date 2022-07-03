@@ -17,7 +17,7 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: (client, message) => {
-    const response = responseList[Math.floor(Math.random() * responseList.length)];
+    const response = responseList[Math.round(Math.random() * responseList.length)];
     client.functions.reply(`<@${message.author.id}> ${response}`, message)
   }
 })
