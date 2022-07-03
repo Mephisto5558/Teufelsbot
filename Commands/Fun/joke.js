@@ -12,7 +12,7 @@ const
 
 async function getJoke(APIList, type, blacklist, maxLength, client) {
   let res;
-  const API = APIList[Math.floor(Math.random() * APIList.length)];
+  const API = APIList[Math.round(Math.random() * APIList.length)];
 
   try {
     switch (API.name) {

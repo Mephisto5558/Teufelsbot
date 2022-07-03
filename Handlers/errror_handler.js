@@ -37,7 +37,7 @@ module.exports = client => {
 
   client
     .on('rateLimit', info => {
-      const msg = `Rate limit hit, please wait ${Math.floor(info.timeout / 1000)}s before retrying.`
+      const msg = `Rate limit hit, please wait ${Math.round(info.timeout / 1000)}s before retrying.`
       console.error(errorColor(msg));
       console.error(info);
       console.error('\n');
