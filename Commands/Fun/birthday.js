@@ -197,7 +197,7 @@ module.exports = new Command({
         embed.color = colors.discord.BURPLE;
         embed.footer = {
           text: interaction.user.tag,
-          iconURL: interaction.member.displayAvatarURL()
+          iconURL: interaction.member.displayAvatarURL({ dynamic: true })
         };
 
         if (dontHide) {

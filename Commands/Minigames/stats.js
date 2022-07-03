@@ -156,7 +156,7 @@ module.exports = new Command({
       color: colors.discord.BURPLE,
       footer: {
         text: message.member.user.tag,
-        iconURL: message.member.user.displayAvatarURL()
+        iconURL: message.member.user.displayAvatarURL({ dynamic: true })
       }
     });
 
