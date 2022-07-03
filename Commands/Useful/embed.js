@@ -163,7 +163,7 @@ module.exports = new Command({
           description: getOption('description') || ' ',
           color: getOption('custom_color') || getOption('predefined_color'),
           footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
-          timestamp: interaction.options.getBoolean('timestamp') ?? new Date(),
+          timestamp: interaction.options.getBoolean('timestamp') ? new Date() : null,
           author: {
             name: getOption('author_name'),
             url: getOption('author_url'),
@@ -171,8 +171,8 @@ module.exports = new Command({
           },
           //fields: getOption('fields')
         })
-        .setThumbnail(getOption('thumbnail'))
-        .setImage(getOption('image'));
+          .setThumbnail(getOption('thumbnail'))
+          .setImage(getOption('image'));
       }
 
       await interaction.channel.send({ content: content, embeds: [embed] });
