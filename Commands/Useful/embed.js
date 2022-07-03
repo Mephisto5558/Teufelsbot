@@ -143,7 +143,7 @@ let command = new Command({
         description: 'JSON data to create an embed from',
         type: 'STRING',
         required: true
-      }],is
+      }]
     }
   ],
 
