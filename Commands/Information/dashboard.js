@@ -10,7 +10,7 @@ module.exports = new Command({
   description: 'get the link to the dashboard',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { global: 0, user: 0 },
+  cooldowns: { guild: 0, user: 0 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,

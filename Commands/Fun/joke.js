@@ -87,7 +87,7 @@ module.exports = new Command({
   description: 'sends a joke',
   usage: 'PREFIX Commands: joke [type]',
   permissions: { client: [], user: [] },
-  cooldowns: { global: 100, user: '' },
+  cooldowns: { guild: 100, user: '' },
   slashCommand: true,
   prefixCommand: true,
   category: 'Fun',

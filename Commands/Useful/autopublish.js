@@ -8,7 +8,7 @@ module.exports = new Command({
     'This command publishes all messages send in announcement channels automatically.\n' +
     'Run the command once to enable it, another time to disable it.',
   permissions: { client: ['MANAGE_MESSAGES'], user: ['MANAGE_GUILD'] },
-  cooldowns: { global: 0, user: 0 },
+  cooldowns: { guild: 0, user: 0 },
   category: 'Useful',
   slashCommand: true,
   prefixCommand: true,

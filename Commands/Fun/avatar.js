@@ -9,7 +9,7 @@ module.exports = new Command({
   description: 'shows the user avatar',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { global: 0, user: 0 },
+  cooldowns: { guild: 0, user: 0 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: true,

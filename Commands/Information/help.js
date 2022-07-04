@@ -21,7 +21,7 @@ module.exports = new Command({
   aliases: [],
   description: 'Shows all bot commands',
   permissions: { client: [], user: [] },
-  cooldowns: { global: '', user: '' },
+  cooldowns: { guild: '', user: '' },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,

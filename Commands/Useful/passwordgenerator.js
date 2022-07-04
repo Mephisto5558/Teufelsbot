@@ -17,7 +17,7 @@ module.exports = new Command({
   description: 'generate a strong passoword',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { global: 0, user: 1000 },
+  cooldowns: { guild: 0, user: 1000 },
   category: 'Useful',
   slashCommand: true,
   prefixCommand: false,

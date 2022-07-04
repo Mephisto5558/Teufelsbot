@@ -9,7 +9,7 @@ module.exports = new Command({
   description: 'Get information about this guild',
   usage: 'PREFIX COMMAND: serverinfo',
   permissions: { client: ['EMBED_LINKS'], user: [] },
-  cooldowns: { global: 0, user: 1000 },
+  cooldowns: { guild: 0, user: 1000 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
