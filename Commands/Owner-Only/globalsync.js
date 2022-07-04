@@ -6,7 +6,7 @@ const
 
 module.exports = new Command({
   name: 'globalsync',
-  alias: [],
+  aliases: [],
   description: 'syncs my slash commands on all guilds',
   usage: '',
   permissions: { client: [], user: [] },

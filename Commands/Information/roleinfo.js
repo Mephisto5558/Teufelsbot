@@ -4,7 +4,7 @@ const
 
 module.exports = new Command({
   name: 'roleinfo',
-  alias: ['role-info'],
+  aliases: ['role-info'],
   description: 'Get information about a role',
   usage: 'PREFIX COMMAND: roleinfo <@role | role name | role id>',
   permissions: { client: ['EMBED_LINKS'], user: [] },

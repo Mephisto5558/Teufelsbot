@@ -2,7 +2,7 @@ const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'autopublish',
-  alias: [],
+  aliases: [],
   description: 'automatically publishes everything anyone in an announcement channel says.',
   usage:
     'This command publishes all messages send in announcement channels automatically.\n' +

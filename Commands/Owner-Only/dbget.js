@@ -2,7 +2,7 @@ const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'dbget',
-  alias: [],
+  aliases: [],
   description: 'query data from the database',
   usage: 'PREFIX Command: dbget <database name>',
   permissions: { client: [], user: [] },

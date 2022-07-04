@@ -6,7 +6,7 @@ const
 
 module.exports = new Command({
   name: 'info',
-  alias: [],
+  aliases: [],
   description: 'shows some stats of the bot',
   usage: '',
   permissions: { client: [], user: [] },

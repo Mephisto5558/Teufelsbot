@@ -2,7 +2,7 @@ const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'setup',
-  alias: [],
+  aliases: [],
   description: 'Sets the slash commands up.',
   usage: '',
   permissions: { client: [], user: ['MANAGE_GUILD'] },
