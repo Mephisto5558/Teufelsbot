@@ -9,7 +9,7 @@ module.exports = new Command({
   description: 'timeouts a member of a given time (max 28d), default 1h',
   usage: 'Duration options: you need to use at least one.',
   permissions: { client: ['MUTE_MEMBERS'], user: ['MUTE_MEMBERS'] },
-  cooldowns: { global: 0, user: 0 },
+  cooldowns: { guild: 0, user: 0 },
   category: 'Moderation',
   slashCommand: true,
   prefixCommand: false,

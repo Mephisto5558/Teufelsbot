@@ -10,7 +10,7 @@ module.exports = new Command({
   description: 'shows some stats of the bot',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { global: 0, user: 0 },
+  cooldowns: { guild: 0, user: 0 },
   category: 'Information',
   slashCommand: false,
   prefixCommand: true,

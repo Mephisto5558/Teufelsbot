@@ -6,7 +6,7 @@ module.exports = new Command({
   description: 'sends an afk message if you get pinged until you write again',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { global: '', user: '' },
+  cooldowns: { guild: '', user: '' },
   category: 'Fun',
   slashCommand: false,
   prefixCommand: true,

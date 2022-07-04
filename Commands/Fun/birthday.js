@@ -35,7 +35,7 @@ module.exports = new Command({
   description: 'save your birthday and I will send a message on your birthday',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { global: 0, user: 1000 },
+  cooldowns: { guild: 0, user: 1000 },
   category: 'FUN',
   slashCommand: true,
   prefixCommand: false,
