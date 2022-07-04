@@ -60,9 +60,7 @@ module.exports = new Command({
       errorMsg = 'An error occurred.\n```',
       reloadedArray = [];
 
-    if (!category || category != '*' && !existsSync(`./Commands/${category}`)) errorMsg = `${category ? 'This is not a valid category. ' : ''}Valid categories are:\n\`${readdirSync('./Commands').join('`, `').toLowerCase()}\`, \`*\``;
-    else if (!command && (category != '*' && command != '*') && !existsSync(`./Commands/${category}/${command}.js`)) errorMsg = `${command ? 'This is not a valid command. ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replace(/\.js/g, '')}\`, \`*\``;
-    else if (category == '*') {
+    if (category == '*') {
       try {
         for (const subFolder of readdirSync('./Commands'))
           for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js')))
@@ -77,6 +75,8 @@ module.exports = new Command({
       }
       catch (err) { errorMsg += err.message + '```' }
     }
+    else if (!category && !existsSync(`./Commands/${category}`)) errorMsg = `${category ? 'This is not a valid category. ' : ''}Valid categories are:\n\`${readdirSync('./Commands').join('`, `').toLowerCase()}\`, \`*\``;
+    else if (!command && !existsSync(`./Commands/${category}/${command}.js`)) errorMsg = `${command ? 'This is not a valid command. ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replace(/\.js/g, '')}\`, \`*\``;
     else {
       try { await reloadCommand(client, command, `../../Commands/${category}/${command}`, reloadedArray) }
       catch (err) { errorMsg += err.message + '```' }
@@ -86,7 +86,7 @@ module.exports = new Command({
     if (!reloadedArray.length) return msg.edit('No commands have been reloaded.');
 
     msg.edit(
-      'The following command(s) have been reloaded:\n' +
+      `The following ${reloadedArray.length} file(s) have been reloaded:\n` +
       `\`${reloadedArray.join('`, `')}\``
     );
   }
