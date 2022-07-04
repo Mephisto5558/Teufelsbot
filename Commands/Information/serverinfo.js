@@ -12,7 +12,7 @@ module.exports = new Command({
   cooldowns: { global: 0, user: 1000 },
   category: 'Information',
   slashCommand: true,
-  prefixCommand: true, beta: true,
+  prefixCommand: true,
 
   run: async (client, message, interaction) => {
     if (interaction) message = interaction;
