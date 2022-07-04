@@ -28,7 +28,7 @@ module.exports = async (client, message) => {
   message.args = message.content.split(' ');
 
   const commandName = message.args.shift().toLowerCase();
-  const command = client.commands.get(commandName) || client.commands.get(client.aliases.get(commandName));
+  const command = client.commands.get(commandName);
 
   if ( //DO NOT REMOVE THIS BLOCK!
     !command ||
