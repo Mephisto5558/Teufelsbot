@@ -9,7 +9,7 @@ module.exports = new Command({
   description: 'bans a member from the guild',
   usage: '',
   permissions: { client: ['BAN_MEMBERS'], user: ['BAN_MEMBERS'] },
-  cooldowns: { guild: '', user: '' },
+  cooldowns: { guild: 0, user: 100 },
   category: 'Moderation',
   slashCommand: true,
   prefixCommand: false,

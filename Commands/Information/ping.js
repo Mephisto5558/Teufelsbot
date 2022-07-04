@@ -9,7 +9,7 @@ module.exports = new Command({
   description: `Get the bot's ping`,
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { guild: '', user: '' },
+  cooldowns: { guild: 0, user: 1000 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,

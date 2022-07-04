@@ -9,7 +9,7 @@ module.exports = new Command({
   description: 'sends a user a dm',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldown: { global: '', user: '' },
+  cooldown: { guild: 100, user: 1000 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: false,

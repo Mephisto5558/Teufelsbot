@@ -9,7 +9,7 @@ module.exports = new Command({
   description: 'restarts the bot',
   usage: 'PREFIX Command: restart',
   permissions: { client: [], user: [] },
-  cooldowns: { guild: '', user: '' },
+  cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,

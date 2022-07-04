@@ -13,7 +13,7 @@ module.exports = new Command({
   description: 'Converts one type of text to another',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
+  cooldowns: { guild: 0, user: 500 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: false,

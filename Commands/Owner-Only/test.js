@@ -1,6 +1,6 @@
 const { Command } = require('reconlx');
-const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
-const { colors } = require('../../Settings/embed.json');
+//const { MessageActionRow, MessageButton, MessageEmbed } = require('discord.js');
+//const { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
   name: 'test',
@@ -8,7 +8,7 @@ module.exports = new Command({
   description: 'testing',
   usage: 'PREFIX Command: test',
   permissions: { client: [], user: [] },
-  cooldowns: { global: '', user: '' },
+  cooldowns: { guild: 1000, user: 100000 },
   category: 'Owner-Only',
   slashCommand: true,
   prefixCommand: true,

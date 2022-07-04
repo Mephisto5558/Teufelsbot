@@ -6,7 +6,7 @@ module.exports = new Command({
   description: `shows the bot's uptime`,
   usage: 'PREFIX Command: uptime',
   permissions: { client: [], user: [] },
-  cooldowns: { guild: '', user: '' },
+  cooldowns: { guild: 0, user: 100 },
   category: 'Information',
   slashCommand: false,
   prefixCommand: true,

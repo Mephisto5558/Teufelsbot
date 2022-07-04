@@ -14,7 +14,7 @@ module.exports = new Command({
   description: 'sagt nix wenn er weg is',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { guild: 200, user: 0 },
+  cooldowns: { guild: 0, user: 0 },
   category: 'Fun',
   slashCommand: false,
   prefixCommand: true,

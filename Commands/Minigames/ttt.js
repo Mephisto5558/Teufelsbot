@@ -125,7 +125,7 @@ module.exports = new Command({
   description: 'play some ttt against a friend or the bot',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 1000 },
+  cooldowns: { guild: 0, user: 2000 },
   category: 'Minigames',
   slashCommand: true,
   prefixCommand: false,

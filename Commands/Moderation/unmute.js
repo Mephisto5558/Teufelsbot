@@ -9,7 +9,7 @@ module.exports = new Command({
   description: 'lifts the timeout of a member',
   usage: '',
   permissions: { client: ['MUTE_MEMBERS'], user: ['MUTE_MEMBERS'] },
-  cooldowns: { guild: 0, user: 0 },
+  cooldowns: { guild: 0, user: 100 },
   category: 'Moderation',
   slashCommand: true,
   prefixCommand: false,
