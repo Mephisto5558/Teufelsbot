@@ -40,7 +40,7 @@ module.exports = new Command({
       title: user.tag,
       description: ' ',
       color: color,
-      filter: [
+      fields: [
         ['Mention', user],
         ['Type', type],
         ['Roles', member.roles.cache.size],
