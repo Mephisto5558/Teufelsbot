@@ -1,7 +1,8 @@
-const { Command } = require('reconlx');
-const { Octokit } = require('@octokit/core');
-const { MessageEmbed } = require('discord.js');
-const package = require('../../package.json')?.repository?.url
+const
+  { Command } = require('reconlx'),
+  { Octokit } = require('@octokit/core'),
+  { MessageEmbed } = require('discord.js'),
+  package = require('../../package.json')?.repository?.url
   .replace(/.*\.com\/|\.git/g, '').split('/');
 
 module.exports = new Command({
@@ -9,7 +10,7 @@ module.exports = new Command({
   aliases: [],
   description: 'Suggest a feature for the bot on Github.',
   usage: '',
-  permissions: { client: [], user: [] },
+  permissions: { client: ['EMBED_LINKS'], user: [] },
   cooldowns: { guild: 0, user: 5000 },
   category: 'Others',
   slashCommand: true,

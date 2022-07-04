@@ -5,7 +5,7 @@ module.exports = new Command({
   aliases: [],
   description: `shows or changes the guild's bot prefix`,
   usage: 'PREFIX Command: prefix [new prefix]',
-  permissions: { client: [], user: [] },
+  permissions: { client: ['EMBED_LINKS'], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Information',
   slashCommand: true,
