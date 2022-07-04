@@ -1,9 +1,9 @@
 const
   { CronJob } = require('cron'),
-  { MessageEmbed } = require('discord.js'),
-  { colors } = require('../Settings/embed.json');
+  { MessageEmbed } = require('discord.js');
 
 function formatBirthday(msg, user, year, guild) {
+  if(!msg) return;
   return msg
     .replace(/<user.nickname>/g, user.nickname)
     .replace(/<user.username>/g, user.username)
@@ -19,7 +19,7 @@ function formatBirthday(msg, user, year, guild) {
 }
 
 module.exports = async client => {
-  if (client.botType == 'dev') return client.log('Disabled timed events due to dev version.');
+ // if (client.botType == 'dev') return client.log('Disabled timed events due to dev version.');
 
   await client.isReady();
 
