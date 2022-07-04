@@ -3,7 +3,7 @@ const axios = require('axios');
 
 module.exports = new Command({
   name: 'funfact',
-  alias: ['fact'],
+  aliases: ['fact'],
   description: 'Get some funfacts',
   usage: 'PREFIX Command: funfact',
   permissions: { client: [], user: [] },

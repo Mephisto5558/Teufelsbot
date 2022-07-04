@@ -5,7 +5,7 @@ const
 
 module.exports = new Command({
   name: 'serverinfo',
-  alias: ['server-info', 'guildinfo', 'guild-info'],
+  aliases: ['server-info', 'guildinfo', 'guild-info'],
   description: 'Get information about this guild',
   usage: 'PREFIX COMMAND: serverinfo',
   permissions: { client: ['EMBED_LINKS'], user: [] },

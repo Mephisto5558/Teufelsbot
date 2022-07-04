@@ -31,7 +31,7 @@ function getAge(bd) {
 
 module.exports = new Command({
   name: 'birthday',
-  alias: [],
+  aliases: [],
   description: 'save your birthday and I will send a message on your birthday',
   usage: '',
   permissions: { client: [], user: [] },

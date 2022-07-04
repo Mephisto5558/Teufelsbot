@@ -5,7 +5,7 @@ const
 
 module.exports = new Command({
   name: 'unmute',
-  alias: [],
+  aliases: [],
   description: 'lifts the timeout of a member',
   usage: '',
   permissions: { client: ['MUTE_MEMBERS'], user: ['MUTE_MEMBERS'] },
