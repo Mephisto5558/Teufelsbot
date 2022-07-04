@@ -11,7 +11,7 @@ let command = new Command({
   aliases: [],
   description: 'encrypt or decrypt your text with various methods',
   usage: 'SLASH Command: You only need to provide one method option.',
-  permissions: { client: [], user: [] },
+  permissions: { client: ['EMBED_LINKS'], user: [] },
   cooldowns: { guild: 100, user: 1000 },
   category: 'Fun',
   slashCommand: true,

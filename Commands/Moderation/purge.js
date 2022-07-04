@@ -5,10 +5,7 @@ module.exports = new Command({
   aliases: [],
   description: 'removes a specific number of messages',
   usage: 'PREFIX Command: purge <number>',
-  permissions: {
-    client: ['MANAGE_MESSAGES'],
-    user: ['MANAGE_MESSAGES']
-  },
+  permissions: { client: ['MANAGE_MESSAGES'], user: ['MANAGE_MESSAGES'] },
   cooldowns: { guild: 1000, user: 0 },
   category: 'Moderation',
   slashCommand: false,
