@@ -39,7 +39,6 @@ async function load() {
   client.db = db;
   client.functions = {};
   client.keys = defaultSettings.keys;
-  client.aliases = new Collection();
   client.events = new Collection();
   client.cooldown = new Collection();
   client.commands = new Collection();
