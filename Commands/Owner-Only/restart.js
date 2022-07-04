@@ -1,7 +1,4 @@
 const { Command } = require('reconlx');
-const axios = require('axios');
-
-let response = {};
 
 module.exports = new Command({
   name: 'restart',

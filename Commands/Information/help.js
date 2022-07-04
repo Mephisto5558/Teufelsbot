@@ -20,7 +20,7 @@ module.exports = new Command({
   name: 'help',
   aliases: [],
   description: 'Shows all bot commands',
-  permissions: { client: [], user: [] },
+  permissions: { client: ['EMBED_LINKS'], user: [] },
   cooldowns: { guild: 0, user: 50 },
   category: 'Information',
   slashCommand: true,
@@ -58,6 +58,7 @@ module.exports = new Command({
         if (cmd.aliases?.length) embed.addField('Aliases', `\`${listCommands(cmd.aliases, '', 1).replace(/> /g, '')}\``);
         if (cmd.permissions?.client?.length) embed.addField('Required Bot Permissions', '`' + cmd.permissions.client.join('`, `'), true);
         if (cmd.permissions?.user?.length) embed.addField('Required User Permissions', '`' + cmd.permissions.user.join('`, `'), true);
+        if (cmd.cooldowns?.guild || cmd.cooldowns?.user) embed.addField('Command Cooldowns', `Guild: \`${parseFloat((cmd.cooldowns.guild / 1000).toFixed(2))}\`s, User:\`${parseFloat((cmd.cooldowns.user / 1000).toFixed(2))}\``)
         if (cmd.usage) embed.addField('Usage', `${cmd.slashCommand ? 'SLASH Command: look at the option descriptions.\n' : ''} ${cmd.usage || ''}`);
       }
 

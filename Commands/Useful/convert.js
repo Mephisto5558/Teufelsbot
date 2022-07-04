@@ -1,11 +1,7 @@
 const
   { Command } = require('reconlx'),
-  convert = require('../../Functions/private/convert.js');
-
-function replace(input, defaultValue) {
-  if (!input && input !== false) return defaultValue;
-  return input;
-}
+  convert = require('../../Functions/private/convert.js'),
+  replace = (input, defaultValue) => !input && input !== false ? defaultValue : input;
 
 module.exports = new Command({
   name: 'convert',
