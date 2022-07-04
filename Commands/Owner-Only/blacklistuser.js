@@ -2,7 +2,7 @@ const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'blacklistuser',
-  alias: [],
+  aliases: [],
   description: 'blocks a user from using the bot',
   usage: 'PREFIX Command: blacklistuser <userID | @user>',
   permissions: { client: [], user: [] },

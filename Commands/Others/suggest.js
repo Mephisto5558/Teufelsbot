@@ -6,7 +6,7 @@ const package = require('../../package.json')?.repository?.url
 
 module.exports = new Command({
   name: 'suggest',
-  alias: [],
+  aliases: [],
   description: 'Suggest a feature for the bot on Github.',
   usage: '',
   permissions: { client: [], user: [] },

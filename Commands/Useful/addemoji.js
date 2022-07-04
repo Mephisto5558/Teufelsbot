@@ -6,7 +6,7 @@ const
 
 module.exports = new Command({
   name: 'addemoji',
-  alias: [],
+  aliases: [],
   description: 'adds a emoji to your guild.',
   usage: '',
   permissions: {

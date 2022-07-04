@@ -15,7 +15,7 @@ module.exports = client => {
 
       if (!command.aliases) continue;
       for (const alias of command.aliases) {
-        client.aliases.set(alias, command.name);
+        client.commands.set(alias, command);
         client.log(`Loaded Alias ${alias} of command ${command.name}`);
         commandCount++
       }

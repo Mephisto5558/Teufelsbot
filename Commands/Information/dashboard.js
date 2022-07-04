@@ -6,7 +6,7 @@ const
 
 module.exports = new Command({
   name: 'dashboard',
-  alias: [],
+  aliases: [],
   description: 'get the link to the dashboard',
   usage: '',
   permissions: { client: [], user: [] },

@@ -9,7 +9,7 @@ function replace(input, defaultValue) {
 
 module.exports = new Command({
   name: 'convert',
-  alias: [],
+  aliases: [],
   description: 'Converts one type of text to another',
   usage: '',
   permissions: { client: [], user: [] },

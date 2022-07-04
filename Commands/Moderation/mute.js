@@ -5,7 +5,7 @@ const
 
 module.exports = new Command({
   name: 'mute',
-  alias: ['timeout'],
+  aliases: ['timeout'],
   description: 'timeouts a member of a given time (max 28d), default 1h',
   usage: 'Duration options: you need to use at least one.',
   permissions: { client: ['MUTE_MEMBERS'], user: ['MUTE_MEMBERS'] },

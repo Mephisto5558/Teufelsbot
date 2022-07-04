@@ -10,7 +10,7 @@ let response;
 
 module.exports = new Command({
   name: 'bistduweg',
-  alias: [],
+  aliases: [],
   description: 'sagt nix wenn er weg is',
   usage: '',
   permissions: { client: [], user: [] },
