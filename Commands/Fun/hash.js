@@ -12,7 +12,7 @@ let command = new Command({
   description: 'encrypt or decrypt your text with various methods',
   usage: 'SLASH Command: You only need to provide one method option.',
   permissions: { client: [], user: [] },
-  cooldowns: { global: 0, user: 0 },
+  cooldowns: { guild: 0, user: 0 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: false,

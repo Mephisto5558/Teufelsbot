@@ -7,7 +7,7 @@ module.exports = new Command({
   description: `sets the bot's activity`,
   usage: 'PREFIX Command: setactivity <activity>;[type]',
   permissions: { client: [], user: [] },
-  cooldowns: { global: '', user: '' },
+  cooldowns: { guild: '', user: '' },
   category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,

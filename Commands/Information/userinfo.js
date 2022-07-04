@@ -8,7 +8,7 @@ module.exports = new Command({
   description: 'Get information about a user',
   usage: 'PREFIX COMMAND: roleinfo <@user | user name | user tag | user nickname | user id>',
   permissions: { client: ['EMBED_LINKS'], user: [] },
-  cooldowns: { global: 0, user: 1000 },
+  cooldowns: { guild: 0, user: 1000 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,

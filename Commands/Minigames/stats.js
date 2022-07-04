@@ -74,7 +74,7 @@ module.exports = new Command({
   description: 'get stats about one of the minigames',
   usage: 'PREFIX COMMAND: stats <game> [target]',
   permissions: { client: [], user: [] },
-  cooldowns: { global: 0, user: 1000 },
+  cooldowns: { guild: 0, user: 1000 },
   category: 'Minigames',
   slashCommand: true,
   prefixCommand: true,

@@ -35,7 +35,7 @@ module.exports = new Command({
   description: 'sends a custom embed; you can do newlines with "/n"',
   usage: '',
   permissions: { client: [], user: ['EMBED_LINKS'] },
-  cooldowns: { global: '', user: '' },
+  cooldowns: { guild: '', user: '' },
   category: 'Useful',
   slashCommand: true,
   prefixCommand: false,

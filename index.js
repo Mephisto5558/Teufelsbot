@@ -40,7 +40,7 @@ async function load() {
   client.functions = {};
   client.keys = defaultSettings.keys;
   client.events = new Collection();
-  client.cooldown = new Collection();
+  client.cooldowns = new Collection();
   client.commands = new Collection();
   client.slashCommands = new Collection();
   client.guildData = new Collection();

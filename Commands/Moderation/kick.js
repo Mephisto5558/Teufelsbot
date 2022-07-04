@@ -9,7 +9,7 @@ module.exports = new Command({
   description: 'kicks a member from the server',
   usage: '',
   permissions: { client: ['KICK_MEMBERS'], user: ['KICK_MEMBERS'] },
-  cooldowns: { global: '', user: '' },
+  cooldowns: { guild: '', user: '' },
   category: 'Moderation',
   slashCommand: true,
   prefixCommand: false,

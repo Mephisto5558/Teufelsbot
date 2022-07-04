@@ -10,7 +10,7 @@ module.exports = new Command({
   description: 'syncs my slash commands on all guilds',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { global: 0, user: 0 },
+  cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,

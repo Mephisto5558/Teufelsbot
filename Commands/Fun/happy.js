@@ -11,7 +11,7 @@ module.exports = new Command({
   description: 'make the bot send a happy message',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { global: '', user: '' },
+  cooldowns: { guild: '', user: '' },
   category: 'Fun',
   slashCommand: false,
   prefixCommand: true,

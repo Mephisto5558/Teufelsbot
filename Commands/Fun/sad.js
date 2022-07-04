@@ -7,7 +7,7 @@ module.exports = new Command({
   description: 'sends a sad emojicon',
   usage: 'sad',
   permissions: { client: [], user: [] },
-  cooldowns: { global: '', user: '' },
+  cooldowns: { guild: '', user: '' },
   category: 'Fun',
   slashCommand: false,
   prefixCommand: true,
