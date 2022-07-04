@@ -22,7 +22,7 @@ module.exports = new Command({
 
     client.functions.reply(
       `Globally syncing ${client.slashCommands.size} Slash Commands...\n` +
-      `This will take between ${format(client.slashCommands.size * 10)} and ${format(client.slashCommands.size * 10 + client.guilds.cache.size * 10)}.`,
+      `This will take between ${format(client.slashCommands.size * 10)} and ${format(client.slashCommands.size * 10 + client.guilds.cache.size * 10)}sec.`,
       message
     );
 
@@ -73,7 +73,7 @@ module.exports = new Command({
 
     message.channel.send(
       `<@${message.author.id}>\n` +
-      `Finished syncing. Took ${format((Date.now() - message.createdTimestamp) / 1000)}`
+      `Finished syncing. Took ${format((Date.now() - message.createdTimestamp) / 1000)}sec`
     )
 
   }
