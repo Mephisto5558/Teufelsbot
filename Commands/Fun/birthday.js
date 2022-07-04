@@ -105,8 +105,8 @@ module.exports = new Command({
       oldData = await client.db.get('birthdays'),
       birthday = [
         Math.abs(interaction.options.getNumber('year')),
-        Math.abs(interaction.options.getNumber('month')?.toString()).padStart(2, '0'),
-        Math.abs(interaction.options.getNumber('day')?.toString()).padStart(2, '0')
+        Math.abs(interaction.options.getNumber('month') || '')?.toString().padStart(2, '0'),
+        Math.abs(interaction.options.getNumber('day') || '')?.toString().padStart(2, '0')
       ];
 
     let newData = '';
