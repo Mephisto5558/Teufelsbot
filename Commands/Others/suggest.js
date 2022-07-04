@@ -10,7 +10,7 @@ module.exports = new Command({
   description: 'Suggest a feature for the bot on Github.',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
+  cooldowns: { guild: 0, user: 5000 },
   category: 'Others',
   slashCommand: true,
   prefixCommand: false,

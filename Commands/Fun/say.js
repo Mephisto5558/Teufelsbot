@@ -6,7 +6,7 @@ module.exports = new Command({
   description: 'Let me say something',
   usage: 'PREFIX Command: say ',
   permissions: { client: [], user: [] },
-  cooldowns: { guild: '', user: '' },
+  cooldowns: { guild: 0, user: 200 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: true,

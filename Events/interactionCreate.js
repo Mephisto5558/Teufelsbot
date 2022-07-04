@@ -5,10 +5,13 @@ module.exports = async (client, interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
   if (!command) return;
 
+  const cooldown = await require('../Functions/private/cooldowns.js')(client, interaction.user, command);
+  if(cooldown) return interaction.reply(`This command is on cooldown! Try again in \`${cooldown}\`s.`);
+
   const blacklist = client.db.get('blacklist');
   if (
     blacklist?.includes(interaction.user.id) ||
-    (command.category.toLowerCase() == 'owner-only' && message.author.id != client.owner)  //DO NOT REMOVE THIS LINE!
+    (command.category.toLowerCase() == 'owner-only' && interaction.user.id != client.owner)  //DO NOT REMOVE THIS LINE!
   ) return;
 
   if (interaction.isCommand()) {
