@@ -1,5 +1,6 @@
-const { MessageEmbed } = require('discord.js');
-const { colors } = require('../Settings/embed.json');
+const
+  { MessageEmbed } = require('discord.js'),
+  { colors } = require('../Settings/embed.json');
 
 let length;
 
@@ -34,6 +35,9 @@ module.exports = async (client, message) => {
     !command ||
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.owner)
   ) return;
+
+  const cooldown = await require('../Functions/private/cooldowns.js')(client, message.author, command);
+  if(cooldown) return client.functions.reply(`This command is on cooldown! Try again in \`${cooldown}\`s.`, message);
 
   message.content = message.args.join(' ');
 

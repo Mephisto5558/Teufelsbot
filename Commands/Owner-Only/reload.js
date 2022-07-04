@@ -45,7 +45,7 @@ module.exports = new Command({
   description: 'reloads a command file or all files',
   usage: 'PREFIX Command: reload <category | "*"> <command | "*">',
   permissions: { client: [], user: [] },
-  cooldowns: { guild: '', user: '' },
+  cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,

@@ -13,7 +13,7 @@ module.exports = new Command({
     client: ['MANAGE_EMOJIS_AND_STICKERS'],
     user: ['MANAGE_EMOJIS_AND_STICKERS']
   },
-  cooldowns: { guild: 0, user: 1000 },
+  cooldowns: { guild: 0, user: 2000 },
   category: 'Useful',
   slashCommand: true,
   prefixCommand: false,

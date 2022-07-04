@@ -9,7 +9,7 @@ module.exports = new Command({
     client: ['MANAGE_MESSAGES'],
     user: ['MANAGE_MESSAGES']
   },
-  cooldowns: { guild: '', user: '' },
+  cooldowns: { guild: 1000, user: 0 },
   category: 'Moderation',
   slashCommand: false,
   prefixCommand: true,

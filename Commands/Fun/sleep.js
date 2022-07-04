@@ -11,7 +11,7 @@ module.exports = new Command({
   description: 'sends a sleep messsage',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { guild: '', user: '' },
+  cooldowns: { guild: 0, user: 0 },
   category: 'Fun',
   slashCommand: false,
   prefixCommand: true,
