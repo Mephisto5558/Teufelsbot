@@ -50,7 +50,7 @@ module.exports = async (client, SyncGuild) => {
 
   if (!SyncGuild || SyncGuild == '*') {
     client.slashCommands = new Collection();
-    for (const subFolder of readdirSync('./Commands')) {
+    for (const subFolder of getDirectoriesSync('./Commands')) {
       for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
 
         let command = require(`../Commands/${subFolder}/${file}`);
