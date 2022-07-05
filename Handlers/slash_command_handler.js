@@ -57,7 +57,7 @@ module.exports = async (client, SyncGuild) => {
         if (!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) continue;
         const formatedCommand = format(command);
 
-        for (let option of command.options) option = work(option);
+        if(command.options) for (let option of command.options) option = work(option);
 
         for (const clientCommand of client.application.commands.cache.map(e => format(e))) {
           same = formatedCommand == clientCommand;
