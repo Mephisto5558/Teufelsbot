@@ -21,7 +21,7 @@ module.exports = new Command({
     const cmd = interaction.options.getSubcommand();
 
     if (cmd == 'sync') {
-      await require('../../Handlers/slash_command_handler.js')(client, interaction.guild);
+      await require('../../Handlers/slash_command_handler.js')(client, interaction.guild.id);
 
       interaction.editReply('Finished syncing.');
     }
