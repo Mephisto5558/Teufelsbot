@@ -42,7 +42,6 @@ async function load() {
   client.events = new Collection();
   client.cooldowns = new Collection();
   client.commands = new Collection();
-  client.slashCommands = new Collection();
   client.guildData = new Collection();
   client.log = (...data) => {
     const date = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
