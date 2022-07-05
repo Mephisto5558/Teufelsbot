@@ -18,9 +18,9 @@ module.exports = new Command({
   run: async (client, message) => {
     const
       startCount = readFileSync('./Logs/startCount.log', 'utf8') || 0,
-      owner = await client.users.fetch(client.owner),
+      owner = client.api.applications(client.userID).owner.tag || client.api.applications(client.userID).owner.owner.tag,
       description =
-        `Developer: ${owner.tag}\n` +
+        `Developer: ${owner}\n` +
         `Shard: ${message.guild.shardId}\n` +
         `Starts: ${startCount}\n` +
         `Last start: <t:${Math.round(new Date(client.startTime) / 1000)}>\n` +

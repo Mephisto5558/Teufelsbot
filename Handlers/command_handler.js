@@ -2,7 +2,6 @@ const { readdirSync } = require('fs');
 let commandCount = 0;
 
 module.exports = client => {
-
   for (const subFolder of getDirectoriesSync('./Commands')) {
     for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
       const command = require(`../Commands/${subFolder}/${file}`);
@@ -22,6 +21,5 @@ module.exports = client => {
     }
   }
 
-  client.log(`Loaded ${commandCount} commands\n`)
-
+  client.log(`Loaded ${commandCount} commands\n`);
 }

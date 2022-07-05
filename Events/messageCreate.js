@@ -33,7 +33,7 @@ module.exports = async (client, message) => {
 
   if ( //DO NOT REMOVE THIS BLOCK!
     !command ||
-    (command.category.toLowerCase() == 'owner-only' && message.author.id != client.owner)
+    (command.category.toLowerCase() == 'owner-only' && message.author.id != client.api.applications(client.userID).owner.id)
   ) return;
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, message.author, command);
