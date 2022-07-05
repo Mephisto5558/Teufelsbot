@@ -21,7 +21,7 @@ function formatBirthday(msg, user, year, guild) {
 module.exports = async client => {
  // if (client.botType == 'dev') return client.log('Disabled timed events due to dev version.');
 
-  await client.isReady();
+  await client.ready();
 
   //Birthday announcer
   new CronJob('00 00 00 * * *', async function () {
