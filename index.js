@@ -32,7 +32,6 @@ async function load() {
     { keys: Object.assign({}, defaultSettings.global.keys, defaultSettings[defaultSettings.global.environment].keys) }
   );
   
-  client.owner = defaultSettings.botOwnerID;
   client.userID = defaultSettings.botUserID;
   client.botType = defaultSettings.type;
   client.startTime = Date.now();
@@ -44,17 +43,23 @@ async function load() {
   client.cooldowns = new Collection();
   client.commands = new Collection();
   client.guildData = new Collection();
+  client.ready = async _ => {
+    while(client.ws.status != '0') client.functions.sleep(10);
+    await client.application.fetch();
+    return true;
+  };
   client.log = (...data) => {
     const date = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
     console.log(`[${date}] ${data}`)
   };
-
+  
   await client.db.ready();
 
   for(const handler of readdirSync('./Handlers')) require(`./Handlers/${handler}`)(client);
 
-  await client.login(client.keys.token);
-  client.log(`Logged into ${client.botType}\n`);
+  client.login(client.keys.token)
+    .then(_ => client.log(`Logged into ${client.botType}`));
+  
 
-  process.on('exit', _ => client.destroy());
+  process.on('exit', _ => client.destroy());  
 }
