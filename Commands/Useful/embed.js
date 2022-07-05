@@ -163,7 +163,7 @@ module.exports = new Command({
           description: getOption('description') || ' ',
           color: getOption('custom_color') || getOption('predefined_color'),
           footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
-          timestamp: interaction.options.getBoolean('timestamp') ? new Date() : null,
+          timestamp: interaction.options.getBoolean('timestamp') ? Date.now() / 1000 : null,
           author: {
             name: getOption('author_name'),
             url: getOption('author_url'),

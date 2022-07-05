@@ -4,7 +4,7 @@ console.log('Starting...');
 const
   { Client, Collection } = require('discord.js'),
   { reconDB } = require('reconlx'),
-  fs = require('fs'),
+  { existsSync, readdirSync} = require('fs'),
   db = new reconDB(process.env.dbConnectionStr);
 
   global.RegExp.timeoutMatch = require('time-limited-regular-expressions')().match;
@@ -19,7 +19,7 @@ async function load() {
     intents: 32767
   });
   
-  if (fs.existsSync('./env.json')) defaultSettings = require('./env.json');
+  if (existsSync('./env.json')) defaultSettings = require('./env.json');
   else {
     await db.ready();
     defaultSettings = await db.get('env');
@@ -35,7 +35,7 @@ async function load() {
   client.userID = defaultSettings.botUserID;
   client.botType = defaultSettings.type;
   client.startTime = Date.now();
-  client.categories = fs.readdirSync('./Commands/');
+  client.categories = readdirSync('./Commands/');
   client.db = db;
   client.functions = {};
   client.keys = defaultSettings.keys;
@@ -44,26 +44,17 @@ async function load() {
   client.commands = new Collection();
   client.slashCommands = new Collection();
   client.guildData = new Collection();
-  client.log = function log(data) {
-    const date = new Date().toLocaleString('en', {
-      hour12: false,
-      hour:   '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    });
+  client.log = (...data) => {
+    const date = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
     console.log(`[${date}] ${data}`)
   };
 
   await client.db.ready();
 
-  for(const handler of fs.readdirSync('./Handlers')) {
-    require(`./Handlers/${handler}`)(client);
-  }
+  for(const handler of readdirSync('./Handlers')) require(`./Handlers/${handler}`)(client);
 
-  client.login(client.keys.token)
-    .then(client.log(`Logged into ${client.botType}\n`));
+  await client.login(client.keys.token);
+  client.log(`Logged into ${client.botType}\n`);
 
-  process.on('exit', _ => {
-    client.destroy();
-  })
+  process.on('exit', _ => client.destroy());
 }
