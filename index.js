@@ -44,8 +44,8 @@ async function load() {
   client.commands = new Collection();
   client.guildData = new Collection();
   client.ready = async _ => {
-    while(client.ws.status != '0') client.functions.sleep(10);
-    await client.application.fetch();
+    while(client.ws.status != '0') await client.functions.sleep(10);
+    if(!client.application) await client.application.fetch();
     return true;
   };
   client.log = (...data) => {
