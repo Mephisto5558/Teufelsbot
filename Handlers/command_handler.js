@@ -3,7 +3,7 @@ let commandCount = 0;
 
 module.exports = client => {
 
-  for (const subFolder of readdirSync('./Commands')) {
+  for (const subFolder of getDirectoriesSync('./Commands')) {
     for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
       const command = require(`../Commands/${subFolder}/${file}`);
 

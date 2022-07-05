@@ -8,6 +8,7 @@ const
   db = new reconDB(process.env.dbConnectionStr);
 
   global.RegExp.timeoutMatch = require('time-limited-regular-expressions')().match;
+  global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 
 load()
 async function load() {
@@ -35,7 +36,7 @@ async function load() {
   client.userID = defaultSettings.botUserID;
   client.botType = defaultSettings.type;
   client.startTime = Date.now();
-  client.categories = readdirSync('./Commands/');
+  client.categories = getDirectoriesSync('./Commands');
   client.db = db;
   client.functions = {};
   client.keys = defaultSettings.keys;
