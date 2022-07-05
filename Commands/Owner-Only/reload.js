@@ -62,7 +62,7 @@ module.exports = new Command({
 
     if (category == '*') {
       try {
-        for (const subFolder of readdirSync('./Commands'))
+        for (const subFolder of getDirectoriesSync('./Commands'))
           for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js')))
             await reloadCommand(client, file, `../../Commands/${subFolder}/${file}`, reloadedArray);
       }

@@ -13,7 +13,7 @@ const
 async function getAllSettings(client) {
   const categoryOptionList = [];
 
-  for (const subFolder of readdirSync('./Website/dashboard')) {
+  for (const subFolder of getDirectoriesSync('./Website/dashboard')) {
     const index = require(`../Website/dashboard/${subFolder}/_index.json`);
     const optionList = [{
       title: 'Important!',
