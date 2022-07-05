@@ -1,5 +1,6 @@
 const
   { readdirSync } = require('fs'),
+  { Collection } = require('discord.js'),
   { REST } = require('@discordjs/rest'),
   errorColor = require('chalk').bold.red,
   event = require('../Events/interactionCreate.js'),
@@ -11,8 +12,7 @@ const
 let
   commands = [],
   skipCommandList = [],
-  clientCommands = [],
-  clientCommandList = [];
+  clientCommands = [];
 
 function work(option) {
   if (Array.isArray(option.options))
@@ -44,62 +44,57 @@ function format(command) {
   )
 }
 
-module.exports = async (client, guildForForceSync) => {
-  clientCommands = await rest.get(`/applications/${client.userID}/commands`);
+module.exports = async (client, SyncGuild) => {
   const rest = new REST().setToken(client.keys.token);
+  const clientCommandList = await rest.get(`/applications/${client.userID}/commands`);
 
-  if (!guildForForceSync) {
+  if (!SyncGuild || SyncGuild == '*') {
+    client.slashCommands = new Collection();
     for (const subFolder of readdirSync('./Commands')) {
       for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
 
         let command = require(`../Commands/${subFolder}/${file}`);
         if (!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) continue;
 
-        if (Array.isArray(command.options))
-          for (const option of command.options) work(option);
+        if (Array.isArray(command.options)) for (const option of command.options) work(option);
         else if (command.options) work(commandOption.options);
 
         commands.push(command);
         client.slashCommands.set(command.name, command);
       }
     }
+    for (const guild of client.guilds.cache) rest.put(`/applications/${client.userID}/guilds/${guild.id}/commands`, { body: "[]" });
   }
 
   for (let command of commands) {
     let same = false;
     command = format(command);
 
-    if (!guildForForceSync) {
-      for (const clientCommand of clientCommands) {
+    if (!SyncGuild) {
+      for (const clientCommand of clientCommandList) {
         same = command == format(clientCommand);
-        if(same) {
+        if (same) {
           skipCommandList.push(command);
           break;
         }
       }
     }
 
-    if(same) continue;
-
-    clientCommandList.push(command);
-    clientCommands = clientCommands.filter(entry => entry.name != command.name);
+    if (!same) clientCommands.push(command);
   }
 
-  clientCommandList = clientCommandList.filter(entry => !clientCommands.map(e => e.name).includes(entry.name));
+  clientCommands = clientCommands.filter(entry => !clientCommands.map(e => e.name).includes(entry.name));
 
-  try {
-    await rest.put(`/applications/${client.userID}/commands`, { body: clientCommandList.toJSON() })
-    client.log(`Registered ${clientCommandList.length} Commands: ${clientCommandList.map(a => a.name).join(', ')}`);
-  }
-  catch (err) { console.error(err) }
+  if(clientCommands.length) await rest.put(`/applications/${client.userID}/${SyncGuild && SyncGuild != '*' ? `guilds/${SyncGuild}/` : ''}commands`, { body: JSON.stringify(clientCommands) });
 
+  client.log(`Registered ${clientCommands.length} Commands: ${clientCommands.map(a => a.name).join(', ')}`);
   client.log(`Skipped ${skipCommandList.length} Commands: ${skipCommandList.map(a => a.name).join(', ')}`)
 
   client.on('interactionCreate', event.bind(null, client));
-  client.log(`Loaded Event interactionCreate`);
-  client.log(`Ready to receive slash commands\n`);
+  client.log('Loaded Event interactionCreate');
+  client.log('Ready to receive slash commands\n');
 
-  if (guildForForceSync) return;
+  if (SyncGuild) return;
 
   while (!client.isReady()) await client.functions.sleep(100);
 
