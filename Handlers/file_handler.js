@@ -22,12 +22,7 @@ module.exports = async client => {
       debug.includes('Heartbeat acknowledged')
     ) return;
 
-    const timestamp = new Date().toLocaleString('en', {
-      hour12: false,
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    });
+    const timestamp = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
 
     fs.appendFileSync('./Logs/debug.log', `[${timestamp}] ${debug}\n`);
     if (debug.includes('Hit a 429')) {
