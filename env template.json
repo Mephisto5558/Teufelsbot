@@ -1,7 +1,6 @@
 {
   "global": {
     "environment": "the environment this will run (eg. main or dev)",
-    "botOwnerID": "your discord user id",
     "keys": {
       "webCommandKey": "hash off token used as password to communicate between main bot and music bot (or anything else)",
       "uptimeAPIKey": "APIKEY for UptimeRobot for 24/7 bot",
