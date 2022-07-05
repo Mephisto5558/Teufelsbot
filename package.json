@@ -14,7 +14,6 @@
     "dbd-dark-dashboard": "^1.6.58",
     "discord-api-types": "^0.36.1",
     "discord-dashboard": "^2.3.40",
-    "discord-slash-commands-client": "^1.2.2",
     "discord-tictactoe": "^3.0.0",
     "discord.js": "^13.8.1",
     "express": "^4.17.3",

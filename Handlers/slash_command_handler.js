@@ -1,15 +1,18 @@
 const
   { readdirSync } = require('fs'),
-  { Client } = require('discord-slash-commands-client'),
+  { REST } = require('@discordjs/rest'),
   errorColor = require('chalk').bold.red,
-  event = require('../Events/interactionCreate.js');
+  event = require('../Events/interactionCreate.js'),
+  invalidEntries = [
+    'id', 'run', 'beta', 'usage', 'aliases', 'version', 'category', 'cooldowns', 'permissions', 'slashCommand', 'prefixCommand',
+    'dm_permission', 'application_id', 'default_permission', 'default_permissions', 'default_member_permissions', 'type'
+  ];
 
 let
-  commandCount = 0,
-  delCommandCount = 0,
-  skipCommandCount = 0,
   commands = [],
-  clientCommands = [];
+  skipCommandList = [],
+  clientCommands = [],
+  clientCommandList = [];
 
 function work(option) {
   if (Array.isArray(option.options))
@@ -34,36 +37,16 @@ function work(option) {
     .replace('ATTACHMENT', 11)
 }
 
-async function compareCommands(input) {
-  output = formatOptions(input);
-  for (let i = 0; i < output.length; i++) {
-    output[i] = JSON.stringify(output[i])
-      .replace(/([0-9]+)([^"0-9"])/g, '"$1"$2');
-  }
-
-  return output[0] == output[1];
-}
-
-function formatOptions(input) {
-  let output = [];
-
-  for (const entry of input) {
-    output.push({
-      name: entry.name,
-      description: entry.description,
-      required: entry.required || false,
-      choices: entry.choices || false,
-      options: entry.options ? formatOptions(entry.options) : false
-    })
-  }
-
-  return output;
+function format(command) {
+  return Object.fromEntries(Object.entries(command)
+    .filter(([a]) => !invalidEntries.includes(a))
+    .sort((a, b) => a.toString().localeCompare(b.toString()))
+  )
 }
 
 module.exports = async (client, guildForForceSync) => {
-  const commandClient = new Client(client.keys.token, client.userID);
-
-  clientCommands = await commandClient.getCommands({});
+  clientCommands = await rest.get(`/applications/${client.userID}/commands`);
+  const rest = new REST().setToken(client.keys.token);
 
   if (!guildForForceSync) {
     for (const subFolder of readdirSync('./Commands')) {
@@ -82,63 +65,35 @@ module.exports = async (client, guildForForceSync) => {
     }
   }
 
-  for (const command of commands) {
+  for (let command of commands) {
     let same = false;
+    command = format(command);
 
     if (!guildForForceSync) {
       for (const clientCommand of clientCommands) {
-        same = await compareCommands([command, clientCommand]);
-        if (same) {
-          client.log(`Skipped Registration of Slash Command ${command.name}`);
-          skipCommandCount++;
+        same = command == format(clientCommand);
+        if(same) {
+          skipCommandList.push(command);
           break;
         }
       }
     }
 
+    if(same) continue;
+
+    clientCommandList.push(command);
     clientCommands = clientCommands.filter(entry => entry.name != command.name);
-
-    if (same) continue;
-    if (commandCount && commands[commandCount + 1])
-      await client.functions.sleep(10000);
-
-    try {
-      await commandClient.createCommand({
-        name: command.name,
-        description: command.description,
-        options: command.options
-      }, guildForForceSync?.id);
-
-      client.log(`Registered Slash Command ${command.name}${guildForForceSync?.id ? ` for guild ${guildForForceSync.id}` : ''}`);
-      commandCount++
-    }
-    catch (err) {
-      console.error(errorColor('[Error Handling] :: Unhandled Slash Handler Error/Catch'));
-      console.error(err);
-      if (err.response?.data.errors)
-        console.error(errorColor(JSON.stringify(err.response.data, null, 2)));
-    }
   }
 
-  for (const clientCommand of clientCommands) {
-    try {
-      await commandClient.deleteCommand(clientCommand.id);
-      client.log(`Deleted Slash Command ${clientCommand.name}`);
-      delCommandCount++
-    }
-    catch (err) {
-      console.error(errorColor('[Error Handling] :: Unhandled Slash Command Handler Error/Catch'));
-      console.error(err);
-      if (err.response.data.errors)
-        console.error(errorColor(JSON.stringify(err.response.data, null, 2)));
-    }
+  clientCommandList = clientCommandList.filter(entry => !clientCommands.map(e => e.name).includes(entry.name));
 
-    if (clientCommands[delCommandCount + 1]) await client.functions.sleep(10000);
+  try {
+    await rest.put(`/applications/${client.userID}/commands`, { body: clientCommandList.toJSON() })
+    client.log(`Registered ${clientCommandList.length} Commands: ${clientCommandList.map(a => a.name).join(', ')}`);
   }
+  catch (err) { console.error(err) }
 
-  client.log(`Registered ${commandCount} Slash commands`);
-  client.log(`Skipped ${skipCommandCount} Slash Commands`);
-  client.log(`Deleted ${delCommandCount} Slash commands\n`);
+  client.log(`Skipped ${skipCommandList.length} Commands: ${skipCommandList.map(a => a.name).join(', ')}`)
 
   client.on('interactionCreate', event.bind(null, client));
   client.log(`Loaded Event interactionCreate`);
