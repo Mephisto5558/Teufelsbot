@@ -21,8 +21,12 @@ module.exports = new Command({
 
   run: async (client, message, interaction) => {
     if (interaction) message = interaction;
+    if(message) {
+      message.args = message?.args?.[0].replace(/[<@>]/g, '');
+      message.content = message?.content?.replace(/[<@>]/g, '');
+    }
 
-    const role = interaction?.options.getRole('role') || message.mentions.roles.first() || message.guild.roles.cache.find(e => e.id == message.args[0] || e.name == message.args[0]);
+    const role = interaction?.options.getRole('role') || message.mentions.roles.first() || message.guild.roles.cache.find(e => [message.args, message.content].includes(e.id) || [message.args, message.content].includes(e.name));
     if (!role) return client.functions.reply('You need to provide a role (by id, name or mention)', message);
 
     const color = role.hexColor.slice(1);

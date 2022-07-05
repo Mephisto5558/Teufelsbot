@@ -21,11 +21,12 @@ module.exports = new Command({
 
   run: async (client, message, interaction) => {
     if (interaction) message = interaction;
+    if(message) {
+      message.args = message.args?.[0].replace(/[<@&>]/g, ''),
+      message.content = message.content?.replace(/[<@&>]/g, '')
+    }
     const
-      arg = message?.args?.[0].replace(/[<@>]/g, ''),
-      member =
-        interaction?.options.getUser('target') || interaction?.member ||
-          arg ? message.guild.members.cache.find(e => e.user.id == arg || e.nickname == arg || e.user.username == arg || e.user.tag == arg) : message.member,
+      member = interaction?.options.getUser('target') || interaction?.member || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [message.args, message.content].includes(e))) || message.member,
       user = member.user,
       color = member.displayHexColor.slice(1);
 
