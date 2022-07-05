@@ -1,6 +1,4 @@
-const
-  { Command } = require('reconlx'),
-  { REST } = require('@discordjs/rest');
+const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'globalsync',
@@ -17,8 +15,7 @@ module.exports = new Command({
   run: async (client, message) => {
     client.log(`Syncing Slash Commands globally...`);
 
-    const rest = new REST().setToken(client.keys.token);
-    for (const guild of client.guilds.cache) await rest.put(`/applications/${client.userID}/guilds/${guild.id}/commands`, { body: "[]" });
+    for (const guild of client.guilds.cache) await client.application.commands.set([], guild[0]);
 
     await require('../../Handlers/slash_command_handler.js')(client, '*');
 

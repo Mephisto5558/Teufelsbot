@@ -1,7 +1,6 @@
 const
   { readdirSync } = require('fs'),
   { Collection } = require('discord.js'),
-  { REST } = require('@discordjs/rest'),
   errorColor = require('chalk').bold.red,
   event = require('../Events/interactionCreate.js'),
   invalidEntries = [
@@ -9,32 +8,32 @@ const
     'dm_permission', 'application_id', 'default_permission', 'default_permissions', 'default_member_permissions', 'type'
   ];
 
-let
-  commands = [],
-  skipCommandList = [],
-  clientCommands = [];
+let skipCommandList = [];
 
 function work(option) {
-  if (Array.isArray(option.options))
-    for (const subOption of option.options) work(subOption);
+  if (Array.isArray(option.options)) for (let subOption of option.options) subOption = work(subOption);
 
-  if (!option.type) {
-    console.log(errorColor(`options.type IS MISSING! Fixing.`))
-    return option.type = 1;
+  if (option.type) {
+    option.type = parseInt(option.type.toString()
+      .replace('SUB_COMMAND_GROUP', 2).replace('SUB_COMMAND', 1)
+      .replace('STRING', 3).replace('INTEGER', 4)
+      .replace('BOOLEAN', 5).replace('USER', 6)
+      .replace('CHANNEL', 7).replace('ROLE', 8)
+      .replace('MENTIONABLE', 9).replace('NUMBER', 10)
+      .replace('ATTACHMENT', 11)
+    )
+  }
+  else {
+    console.log(errorColor(`${option.name}: options.type IS MISSING! Fixing.`));
+    option.type = 1;
   }
 
   if (/[A-Z]/.test(option.name)) {
-    console.log(errorColor(`${option.name} IS UPPERCASE! UPPERCASE IS INVALID! Fixing.`))
+    console.log(errorColor(`${option.name} IS UPPERCASE! UPPERCASE IS INVALID! Fixing.`));
     option.name = option.name.toLowerCase();
   }
 
-  option.type = option.type.toString()
-    .replace('SUB_COMMAND_GROUP', 2).replace('SUB_COMMAND', 1)
-    .replace('STRING', 3).replace('INTEGER', 4)
-    .replace('BOOLEAN', 5).replace('USER', 6)
-    .replace('CHANNEL', 7).replace('ROLE', 8)
-    .replace('MENTIONABLE', 9).replace('NUMBER', 10)
-    .replace('ATTACHMENT', 11)
+  return option;
 }
 
 function format(command) {
@@ -45,58 +44,47 @@ function format(command) {
 }
 
 module.exports = async (client, SyncGuild) => {
-  const rest = new REST().setToken(client.keys.token);
-  const clientCommandList = await rest.get(`/applications/${client.userID}/commands`);
+  await client.ready();
 
   if (!SyncGuild || SyncGuild == '*') {
-    client.slashCommands = new Collection();
+    const commands = [];
+
     for (const subFolder of getDirectoriesSync('./Commands')) {
       for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
-
+        let same = false;
         let command = require(`../Commands/${subFolder}/${file}`);
+
         if (!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) continue;
+        const formatedCommand = format(command);
 
-        if (Array.isArray(command.options)) for (const option of command.options) work(option);
-        else if (command.options) work(commandOption.options);
+        for (let option of command.options) option = work(option);
 
-        commands.push(command);
-        client.slashCommands.set(command.name, command);
-      }
-    }
-    for (const guild of client.guilds.cache) rest.put(`/applications/${client.userID}/guilds/${guild.id}/commands`, { body: "[]" });
-  }
-
-  for (let command of commands) {
-    let same = false;
-    command = format(command);
-
-    if (!SyncGuild) {
-      for (const clientCommand of clientCommandList) {
-        same = command == format(clientCommand);
-        if (same) {
-          skipCommandList.push(command);
-          break;
+        for (const clientCommand of client.application.commands.cache.map(e => format(e))) {
+          same = formatedCommand == clientCommand;
+          if (same) {
+            skipCommandList.push(command);
+            break;
+          }
         }
+
+        if (!same) commands.push(command);
       }
     }
 
-    if (!same) clientCommands.push(command);
+    client.slashCommands = new Collection(commands.map(e => [e.name, e]));
+    for (const guild of await client.guilds.fetch()) await client.application.commands.set([], guild[0]);
   }
 
-  clientCommands = clientCommands.filter(entry => !clientCommands.map(e => e.name).includes(entry.name));
+  for (const command of client.slashCommands) await client.application.commands.create(command[1], SyncGuild && SyncGuild != '*' ? SyncGuild : null);
 
-  if(clientCommands.length) await rest.put(`/applications/${client.userID}/${SyncGuild && SyncGuild != '*' ? `guilds/${SyncGuild}/` : ''}commands`, { body: JSON.stringify(clientCommands) });
+  if (SyncGuild) return;
 
-  client.log(`Registered ${clientCommands.length} Commands: ${clientCommands.map(a => a.name).join(', ')}`);
+  client.log(`Registered ${client.slashCommands.size} Commands: ${client.slashCommands.map(a => a.name).join(', ')}`);
   client.log(`Skipped ${skipCommandList.length} Commands: ${skipCommandList.map(a => a.name).join(', ')}`)
 
   client.on('interactionCreate', event.bind(null, client));
   client.log('Loaded Event interactionCreate');
   client.log('Ready to receive slash commands\n');
-
-  if (SyncGuild) return;
-
-  while (!client.isReady()) await client.functions.sleep(100);
 
   client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${client.guilds.cache.map(g => g.memberCount).reduce((a, b) => a + b)} users.\n`);
   console.timeEnd('Starting time');
