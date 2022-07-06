@@ -30,27 +30,27 @@ module.exports = new Command({
       name: 'duration_days',
       description: 'for how much days you want to mute the target',
       type: 'NUMBER',
-      max_value: 27
+      maxValue: 27
     },
     {
       name: 'duration_hours',
       description: 'for how much hours you want to mute the target',
       type: 'NUMBER',
-      max_value: 23,
+      maxValue: 23,
       required: false
     },
     {
       name: 'duration_minutes',
       description: 'for how much minutes you want to mute the target',
       type: 'NUMBER',
-      max_value: 59,
+      maxValue: 59,
       required: false
     },
     {
       name: 'duration_seconds',
       description: 'for how much seconds you want to mute the target',
       type: 'NUMBER',
-      max_value: 59,
+      maxValue: 59,
       required: false
     }
   ],
