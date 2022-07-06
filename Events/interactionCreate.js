@@ -11,7 +11,7 @@ module.exports = async (client, interaction) => {
   const blacklist = client.db.get('blacklist');
   if (
     blacklist?.includes(interaction.user.id) ||
-    (command.category.toLowerCase() == 'owner-only' && interaction.user.id != client.api.applications(client.userID).owner.id)  //DO NOT REMOVE THIS LINE!
+    (command.category.toLowerCase() == 'owner-only' && interaction.user.id != client.api.application.owner.id)  //DO NOT REMOVE THIS LINE!
   ) return;
 
   if (interaction.isCommand()) {
