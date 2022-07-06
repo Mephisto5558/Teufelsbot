@@ -82,6 +82,6 @@ module.exports = new Command({
       `- DB Write ping: \`${endWrite}ms\`\n` +
       `- DB Delete ping: \`${endDelete}ms\``;
 
-    interaction ? interaction.editReply({ embeds: [embed] }) : msg.edit({ content: '', embeds: [embed] }, message);
+    interaction ? interaction.editReply({ embeds: [embed] }) : msg.edit({ embeds: [embed] }, message);
   }
 })
