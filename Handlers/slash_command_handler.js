@@ -58,7 +58,10 @@ module.exports = async (client, SyncGuild) => {
           skipped = true;
           break;
         }
-        if (!skipped) client.slashCommands.set(command.name, command);
+        if (!skipped) {
+          client.slashCommands.set(command.name, command);
+          for(const alias of command.aliases.slash) client.slashCommands.set(alias, command);
+        }
       }
     }
 
