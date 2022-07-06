@@ -64,11 +64,20 @@ async function load() {
     const date = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
     console.log(`[${date}] ${data}`)
   };
+  client.rateLimitCheck = async route => {
+    if (!route) throw new SyntaxError('missing route arg');
+
+    const rateLimit = client.lastRateLimit?.get(route);
+    if (rateLimit?.remaining == 0) {
+      client.log(`Waiting for ratelimit on route ${route} to end`);
+      await client.functions.sleep(rateLimit.resetAfter * 1000);
+    }
+  }
 
   client.on('apiResponse', (req, res) => {
     client.lastRateLimit.set(req.route, Object.assign({}, ...Array.from(res.headers)
       .filter(([a]) => /x-ratelimit/.test(a))
-      .map(([a, b]) => { return { [a.replace('x-ratelimit-','').replace(/-\w/, c => c[1].toUpperCase())]: b } })
+      .map(([a, b]) => { return { [a.replace('x-ratelimit-', '').replace(/-\w/, c => c[1].toUpperCase())]: b } })
     ));
   });
 
