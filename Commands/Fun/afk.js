@@ -2,7 +2,7 @@ const { Command } = require("reconlx");
 
 module.exports = new Command({
   name: 'afk',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'sends an afk message if you get pinged until you write again',
   usage: '',
   permissions: { client: [], user: [] },
@@ -11,7 +11,7 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
   disabled: true,
-  run: async(client, message, interaction) => {
+  run: async (client, message, interaction) => {
 
 
 

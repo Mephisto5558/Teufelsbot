@@ -8,7 +8,7 @@ const
 
 let command = new Command({
   name: 'hash',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'encrypt or decrypt your text with various methods',
   usage: 'SLASH Command: You only need to provide one method option.',
   permissions: { client: ['EMBED_LINKS'], user: [] },

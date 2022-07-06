@@ -5,7 +5,7 @@ const
 
 module.exports = new Command({
   name: 'dm',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'sends a user a dm',
   usage: '',
   permissions: { client: ['EMBED_LINKS'], user: [] },

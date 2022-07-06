@@ -83,7 +83,7 @@ async function getJoke(APIList, type, blacklist, maxLength, client) {
 
 module.exports = new Command({
   name: 'joke',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'sends a joke',
   usage: 'PREFIX Commands: joke [type]',
   permissions: { client: ['EMBED_LINKS'], user: [] },

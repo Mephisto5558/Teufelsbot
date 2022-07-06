@@ -5,7 +5,7 @@ const
 
 module.exports = new Command({
   name: 'kick',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'kicks a member from the server',
   usage: '',
   permissions: { client: ['KICK_MEMBERS'], user: ['KICK_MEMBERS'] },

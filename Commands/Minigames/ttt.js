@@ -121,7 +121,7 @@ async function playAgain(interaction, clientUserID) {
 
 module.exports = new Command({
   name: 'tictactoe',
-  aliases: ['ttt'],
+  aliases: { prefix: ['ttt'], slash: ['ttt'] },
   description: 'play some ttt against a friend or the bot',
   usage: '',
   permissions: { client: ['EMBED_LINKS'], user: [] },

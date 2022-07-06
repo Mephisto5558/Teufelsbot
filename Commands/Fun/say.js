@@ -2,7 +2,7 @@ const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'say',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'Let me say something',
   usage: 'PREFIX Command: say ',
   permissions: { client: [], user: [] },
