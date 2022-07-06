@@ -2,7 +2,7 @@ const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'globalsync',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'syncs my slash commands on all guilds',
   usage: '',
   permissions: { client: [], user: [] },

@@ -2,7 +2,7 @@ const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'uptime',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: `shows the bot's uptime`,
   usage: 'PREFIX Command: uptime',
   permissions: { client: [], user: [] },

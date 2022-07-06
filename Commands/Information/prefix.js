@@ -2,7 +2,7 @@ const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'prefix',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: `shows or changes the guild's bot prefix`,
   usage: 'PREFIX Command: prefix [new prefix]',
   permissions: { client: ['EMBED_LINKS'], user: [] },

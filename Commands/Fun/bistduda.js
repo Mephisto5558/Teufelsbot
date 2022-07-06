@@ -2,7 +2,7 @@ const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'bistduda',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'the bot will answer you if it is online',
   usage: '',
   category: 'Fun',

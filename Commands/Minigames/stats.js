@@ -70,7 +70,7 @@ async function formatTopTen(input, settings, message) {
 
 module.exports = new Command({
   name: 'stats',
-  aliases: [],
+  aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
   description: 'get stats about one of the minigames',
   usage: 'PREFIX COMMAND: stats <game> [target]',
   permissions: { client: ['EMBED_LINKS'], user: [] },

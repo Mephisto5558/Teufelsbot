@@ -6,7 +6,7 @@ const
 
 module.exports = new Command({
   name: 'dashboard',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'get the link to the dashboard',
   usage: '',
   permissions: { client: ['EMBED_LINKS'], user: [] },

@@ -1,11 +1,8 @@
-const
-  { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
-  { colors } = require('../../Settings/embed.json');
+const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'unmute',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'lifts the timeout of a member',
   usage: '',
   permissions: { client: ['MUTE_MEMBERS'], user: ['MUTE_MEMBERS'] },

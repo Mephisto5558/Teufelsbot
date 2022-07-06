@@ -31,7 +31,7 @@ function filterEmptyEntries(obj) {
 
 module.exports = new Command({
   name: 'embed',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'sends a custom embed; you can do newlines with "/n"',
   usage: '',
   permissions: { client: ['EMBED_LINKS'], user: ['EMBED_LINKS'] },

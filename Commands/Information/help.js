@@ -18,7 +18,7 @@ function listCommands(list, output, count, category) {
 
 module.exports = new Command({
   name: 'help',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'Shows all bot commands',
   permissions: { client: ['EMBED_LINKS'], user: [] },
   cooldowns: { guild: 0, user: 50 },
@@ -55,8 +55,9 @@ module.exports = new Command({
         embed.description = cmd.description ?? 'No description found';
         embed.footer = { text: `Syntax: <> = required, [] = optional | Prefix: '${client.db.get('settings')[message.guild.id]?.prefix || client.db.get('settings').default.prefix}'` };
 
-        if (cmd.aliases?.length) embed.addField('Aliases', `\`${listCommands(cmd.aliases, '', 1).replace(/> /g, '')}\``);
-        if (cmd.permissions?.client?.length) embed.addField('Required Bot Permissions', '`' + cmd.permissions.client.join('`, `'), true);
+        if (cmd.aliases?.prefix?.length) embed.addField('Prefix Command Aliases', `\`${listCommands(cmd.aliases.prefix, '', 1).replace(/> /g, '')}\``, true);
+        if (cmd.aliases?.slash?.length) embed.addField('Slash Command Aliases', `\`${listCommands(cmd.aliases.slash, '', 1).replace(/> /g, '')}\``, true);
+        if (cmd.permissions?.client?.length) embed.addField('Required Bot Permissions', '`' + cmd.permissions.client.join('`, `'), false);
         if (cmd.permissions?.user?.length) embed.addField('Required User Permissions', '`' + cmd.permissions.user.join('`, `'), true);
         if (cmd.cooldowns?.guild || cmd.cooldowns?.user) embed.addField('Command Cooldowns', `Guild: \`${parseFloat((cmd.cooldowns.guild / 1000).toFixed(2))}\`s, User:\`${parseFloat((cmd.cooldowns.user / 1000).toFixed(2))}\``)
         if (cmd.usage) embed.addField('Usage', `${cmd.slashCommand ? 'SLASH Command: look at the option descriptions.\n' : ''} ${cmd.usage || ''}`);

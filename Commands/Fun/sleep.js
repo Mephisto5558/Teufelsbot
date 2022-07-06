@@ -7,7 +7,7 @@ const responseList = [
 
 module.exports = new Command({
   name: 'sleep',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'sends a sleep messsage',
   usage: '',
   permissions: { client: [], user: [] },

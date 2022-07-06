@@ -6,7 +6,7 @@ const
 
 module.exports = new Command({
   name: 'info',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'shows some stats of the bot',
   usage: '',
   permissions: { client: ['EMBED_LINKS'], user: [] },
