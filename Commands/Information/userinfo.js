@@ -1,6 +1,7 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js');
+  { MessageEmbed } = require('discord.js'),
+  { getAverageColor } = require('fast-average-color-node');
 
 module.exports = new Command({
   name: 'userinfo',
@@ -28,7 +29,7 @@ module.exports = new Command({
     const
       member = interaction?.options.getUser('target') || interaction?.member || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [message.args, message.content].includes(e))) || message.member,
       user = member.user,
-      color = member.displayHexColor.slice(1);
+      color = (await getAverageColor(member.displayAvatarURL({ dynamic: true }))).hex;
 
     let type = user.bot ? 'Bot, ' : '';
 
