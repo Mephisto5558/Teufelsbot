@@ -30,8 +30,8 @@ module.exports = new Command({
       name: 'delete_days_of_messages',
       description: 'Delete all messages of the targets of the last n days. max. 7d',
       type: 'NUMBER',
-      min_value: 1,
-      max_value: 7,
+      minValue: 1,
+      maxValue: 7,
       required: false
     }
     /*{
