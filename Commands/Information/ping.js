@@ -81,7 +81,8 @@ module.exports = new Command({
       { name: 'DB Fetch', value: `${endGet}ms`, inline: false },
       { name: 'DB Write', value: `${endWrite}ms`, inline: true },
       { name: 'DB Delete', value: `${endDelete}ms`, inline: true }
-    ]
+    ];
+    embed.description = ' ';
 
     interaction ? interaction.editReply({ embeds: [embed] }) : msg.edit({ embeds: [embed] }, message);
   }
