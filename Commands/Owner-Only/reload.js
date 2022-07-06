@@ -6,8 +6,7 @@ const
 async function reloadCommand(client, commandName, path, reloadedArray) {
   commandName = commandName.replace('.js', '');
 
-  delete require.cache[realpathSync.native(join(__dirname, path.endsWith('.js') ? path : `${path}.js`))];
-
+  delete require.cache[path];
   const file = require(path);
 
   if (file.prefixCommand && (client.botType == 'dev' ? file.beta : true)) {
@@ -52,13 +51,14 @@ module.exports = new Command({
   beta: true,
 
   run: async (client, message) => {
-    const category = message.args[0]?.toLowerCase();
-    const command = message.args[1]?.toLowerCase();
+    const category = message.args[0];
+    const command = message.args[1];
     const msg = await message.reply('Reloading...', message);
 
     let
       errorMsg = 'An error occurred.\n```',
-      reloadedArray = [];
+      reloadedArray = [],
+      path;
 
     try {
       if (category == '*') {
@@ -70,9 +70,12 @@ module.exports = new Command({
         for (const file of readdirSync(`./Commands/${category}`).filter(file => file.endsWith('.js')))
           await reloadCommand(client, file, `../../Commands/${category}/${file}`, reloadedArray);
       }
-      else if (!category || !existsSync(`./Commands/${category}`)) errorMsg = `${category ? 'This is not a valid category. ' : ''}Valid categories are:\n\`${readdirSync('./Commands').join('`, `').toLowerCase()}\`, \`*\``;
-      else if (!command || !existsSync(`./Commands/${category}/${command}.js`)) errorMsg = `${command ? 'This is not a valid command. ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replace(/\.js/g, '')}\`, \`*\``;
-      else await reloadCommand(client, command, `../../Commands/${category}/${command}`, reloadedArray);
+
+      if(category && command) path = realpathSync.native(join(__dirname, `./Commands/${category}/${command}.js`));
+
+      if (!category || !existsSync(path)) errorMsg = `${category ? 'This is not a valid category. ' : ''}Valid categories are:\n\`${readdirSync('./Commands').join('`, `').toLowerCase()}\`, \`*\``;
+      else if (!command || !existsSync(path)) errorMsg = `${command ? 'This is not a valid command. ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replace(/\.js/g, '')}\`, \`*\``;
+      else await reloadCommand(client, command, path, reloadedArray);
     }
     catch (err) { errorMsg += err.message + '```' };
 
