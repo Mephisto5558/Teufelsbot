@@ -79,7 +79,7 @@ module.exports = async (client, SyncGuild) => {
     await client.rateLimitCheck('/applications/:id/commands');
 
     await client.application.commands.create(command[1], SyncGuild && SyncGuild != '*' ? SyncGuild : null);
-    client.log(`Registered Slash Comand ${command[1].name}`);
+    client.log(`Registered Slash Comand ${command[0]}`);
   }
 
   const commandNames = client.slashCommands.map(e => e.name);
