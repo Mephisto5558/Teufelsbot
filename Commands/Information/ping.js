@@ -62,25 +62,10 @@ module.exports = new Command({
     const msg = interaction ? await interaction.editReply({ embeds: [embed] }) : await message.channel.send({ embeds: [embed] });
     const endMessagePing = Date.now() - messagePing;
 
-    const startGet = Date.now();
-    await client.db.get('QR=.');
-    const endGet = Date.now() - startGet;
-
-    const startWrite = Date.now();
-    await client.db.set('QR=.', Buffer.from(startWrite.toString()).toString('base64'));
-    const endWrite = Date.now() - startWrite;
-
-    const startDelete = Date.now();
-    await client.db.delete('QR=.');
-    const endDelete = Date.now() - startDelete;
-
     embed.fields = [
-      { name: 'API', value: `${Math.round(client.ws.ping)}ms`, inline: true },
-      { name: 'Bot', value: `${Date.now() - message.createdTimestamp}ms`, inline: true },
-      { name: 'Message Send', value: `${endMessagePing}ms`, inline: true },
-      { name: 'DB Fetch', value: `${endGet}ms`, inline: false },
-      { name: 'DB Write', value: `${endWrite}ms`, inline: true },
-      { name: 'DB Delete', value: `${endDelete}ms`, inline: true }
+      { name: 'API', value: `\`${Math.round(client.ws.ping)}\`ms`, inline: true },
+      { name: 'Bot', value: `\`${Date.now() - message.createdTimestamp}\`ms`, inline: true },
+      { name: 'Message Send', value: `\`${endMessagePing}\`ms`, inline: true }
     ];
     embed.description = ' ';
 
