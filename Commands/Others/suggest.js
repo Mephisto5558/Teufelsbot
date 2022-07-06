@@ -7,7 +7,7 @@ const
 
 module.exports = new Command({
   name: 'suggest',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'Suggest a feature for the bot on Github.',
   usage: '',
   permissions: { client: ['EMBED_LINKS'], user: [] },

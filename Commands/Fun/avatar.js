@@ -5,7 +5,7 @@ const
 
 module.exports = new Command({
   name: 'avatar',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'shows the user avatar',
   usage: '',
   permissions: { client: ['EMBED_LINKS'], user: [] },

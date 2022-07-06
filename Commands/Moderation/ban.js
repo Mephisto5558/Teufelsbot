@@ -5,7 +5,7 @@ const
 
 module.exports = new Command({
   name: 'ban',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'bans a member from the guild',
   usage: '',
   permissions: { client: ['BAN_MEMBERS'], user: ['BAN_MEMBERS'] },

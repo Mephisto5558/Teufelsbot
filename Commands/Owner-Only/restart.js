@@ -2,7 +2,7 @@ const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'restart',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'restarts the bot',
   usage: 'PREFIX Command: restart',
   permissions: { client: [], user: [] },

@@ -5,7 +5,7 @@ const
 
 module.exports = new Command({
   name: 'convert',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'Converts one type of text to another',
   usage: '',
   permissions: { client: [], user: [] },

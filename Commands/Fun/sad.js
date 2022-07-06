@@ -3,7 +3,7 @@ const responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/']
 
 module.exports = new Command({
   name: 'sad',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'sends a sad emojicon',
   usage: 'sad',
   permissions: { client: [], user: [] },

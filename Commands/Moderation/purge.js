@@ -2,7 +2,7 @@ const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'purge',
-  aliases: [],
+  aliases: { prefix: ['clear'], slash: [] },
   description: 'removes a specific number of messages',
   usage: 'PREFIX Command: purge <number>',
   permissions: { client: ['MANAGE_MESSAGES'], user: ['MANAGE_MESSAGES'] },

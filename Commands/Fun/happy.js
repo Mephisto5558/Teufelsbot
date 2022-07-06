@@ -7,7 +7,7 @@ const responseList = [
 
 module.exports = new Command({
   name: 'happy',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'make the bot send a happy message',
   usage: '',
   permissions: { client: [], user: [] },

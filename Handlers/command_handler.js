@@ -13,7 +13,7 @@ module.exports = client => {
       commandCount++
 
       if (!command.aliases) continue;
-      for (const alias of command.aliases) {
+      for (const alias of command.aliases.prefix) {
         client.commands.set(alias, command);
         client.log(`Loaded Alias ${alias} of command ${command.name}`);
         commandCount++

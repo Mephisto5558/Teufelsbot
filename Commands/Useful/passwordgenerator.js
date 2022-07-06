@@ -13,7 +13,7 @@ async function getRandomNumber(oldRandomNumber, length) {
 
 module.exports = new Command({
   name: 'passwordgenerator',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'generate a strong passoword',
   usage: '',
   permissions: { client: [], user: [] },

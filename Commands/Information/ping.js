@@ -5,7 +5,7 @@ const
 
 module.exports = new Command({
   name: 'ping',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: `Get the bot's ping`,
   usage: '',
   permissions: { client: ['EMBED_LINKS'], user: [] },
@@ -53,7 +53,7 @@ module.exports = new Command({
     }
 
     const embed = new MessageEmbed({
-      title: 'Ping',
+      title: 'Latency',
       description: 'Loading...',
       color: colors.GREEN
     });
@@ -74,13 +74,14 @@ module.exports = new Command({
     await client.db.delete('QR=.');
     const endDelete = Date.now() - startDelete;
 
-    embed.description =
-      `- Latency: \`${Date.now() - message.createdTimestamp}ms\`\n` +
-      `- API Latency: \`${Math.round(client.ws.ping)}ms\`` +
-      `- Message ping: \`${endMessagePing}ms\`\`` +
-      `- DB Fetch ping: \`${endGet}ms\`\n` +
-      `- DB Write ping: \`${endWrite}ms\`\n` +
-      `- DB Delete ping: \`${endDelete}ms\``;
+    embed.fields = [
+      { name: 'API', value: `${Math.round(client.ws.ping)}ms`, inline: true },
+      { name: 'Bot', value: `${Date.now() - message.createdTimestamp}ms`, inline: true },
+      { name: 'Message Send', value: `${endMessagePing}ms`, inline: true },
+      { name: 'DB Fetch', value: `${endGet}ms`, inline: false },
+      { name: 'DB Write', value: `${endWrite}ms`, inline: true },
+      { name: 'DB Delete', value: `${endDelete}ms`, inline: true }
+    ]
 
     interaction ? interaction.editReply({ embeds: [embed] }) : msg.edit({ embeds: [embed] }, message);
   }

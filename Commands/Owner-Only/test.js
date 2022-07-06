@@ -4,7 +4,7 @@ const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'test',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'testing',
   usage: 'PREFIX Command: test',
   permissions: { client: [], user: [] },

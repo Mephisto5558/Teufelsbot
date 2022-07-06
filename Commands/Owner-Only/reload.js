@@ -41,7 +41,7 @@ async function reloadCommand(client, commandName, path, reloadedArray) {
 
 module.exports = new Command({
   name: 'reload',
-  aliases: [],
+  aliases: { prefix: [], slash: [] },
   description: 'reloads a command file or all files',
   usage: 'PREFIX Command: reload <category | "*"> <command | "*">',
   permissions: { client: [], user: [] },
