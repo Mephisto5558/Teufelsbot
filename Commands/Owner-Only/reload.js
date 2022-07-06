@@ -15,7 +15,7 @@ async function reloadCommand(client, commandName, path, reloadedArray) {
 
     reloadedArray.push(commandName);
 
-    for (const alias of file.aliases) {
+    for (const alias of file.aliases.prefix) {
       client.commands.delete(alias, file);
       client.commands.set(alias, file);
 
@@ -29,7 +29,7 @@ async function reloadCommand(client, commandName, path, reloadedArray) {
 
     reloadedArray.push(`/${commandName}`);
 
-    for (const alias of file.aliases) {
+    for (const alias of file.aliases.slash) {
       client.slashCommands.delete(alias, file);
       client.slashCommands.set(alias, file);
 
