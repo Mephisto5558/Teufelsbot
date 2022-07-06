@@ -24,7 +24,7 @@ module.exports = new Command({
         `Shard: ${message.guild.shardId}\n` +
         `Starts: ${startCount}\n` +
         `Last start: <t:${Math.round(new Date(client.startTime) / 1000)}>\n` +
-        `Unique guild members: ${new Set([].concat(...client.guilds.cache.map(g => g.members).map(m => m._cache).map(u => Array.from(u).map(u => u[0])))).size}\n` +
+        `Unique guild members: ${new Set(client.guilds.cache.map(g => g.members).map(m => m._cache).map(u => Array.from(u).map(u => u[0]))).flat().size}\n` +
         `[Dashboard](https://teufelsbot.mephisto5558.repl.co/)\n` +
         `[Privacy Policy](https://teufelsbot.mephisto5558.repl.co/privacy)`,
 
