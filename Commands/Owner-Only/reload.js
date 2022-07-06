@@ -71,7 +71,7 @@ module.exports = new Command({
           await reloadCommand(client, file, `../../Commands/${category}/${file}`, reloadedArray);
       }
 
-      if(category && command) path = join(__dirname, `../../Commands/${category}/${command}.js`));
+      if(category && command) path = join(__dirname, `../../Commands/${category}/${command}.js`);
 
       if (!category || !existsSync(path)) errorMsg = `${category ? 'This is not a valid category (needs to be correct case). ' : ''}Valid categories are:\n\`${readdirSync('./Commands').join('`, `')}\`, \`*\``;
       else if (!command || !existsSync(path)) errorMsg = `${command ? 'This is not a valid command (needs to be correct case). ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').replace(/\.js/g, '')}\`, \`*\``;
