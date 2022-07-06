@@ -132,7 +132,7 @@ module.exports = new Command({
     const stats = {};
     if (message) {
       stats.type = 'user'
-      stats.game = message.args[0].replace(/tictactoe/gi, 'TicTacToe')
+      stats.game = message.args[0]?.replace(/tictactoe/gi, 'TicTacToe')
       stats.target = message.mentions.users?.first() || message.author;
     }
     else {
