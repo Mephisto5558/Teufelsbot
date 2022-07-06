@@ -131,7 +131,7 @@ module.exports = new Command({
   run: async (client, message, interaction) => {
     const stats = {};
     if (message) {
-      if(!message.args[0]) return client.functions.reply('You need to give me a game as first argument!');
+      if(!message.args[0]) return client.functions.reply('You need to give me a game as first argument!', message);
       stats.type = 'user'
       stats.game = message.args[0].replace(/tictactoe/gi, 'TicTacToe')
       stats.target = message.mentions.users?.first() || message.author;
