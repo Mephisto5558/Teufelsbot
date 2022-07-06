@@ -69,7 +69,7 @@ async function load() {
 
     const rateLimit = client.lastRateLimit?.get(route);
     if (rateLimit?.remaining == 0) {
-      client.log(`Waiting for ratelimit on route ${route} to end`);
+      client.log(`Waiting for ratelimit on route ${route} to subside`);
       await client.functions.sleep(rateLimit.resetAfter * 1000);
     }
   }
