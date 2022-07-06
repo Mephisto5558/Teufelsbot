@@ -4,11 +4,23 @@ console.log('Starting...');
 const
   { Client, Collection } = require('discord.js'),
   { reconDB } = require('reconlx'),
-  { existsSync, readdirSync} = require('fs'),
+  { existsSync, readdirSync } = require('fs'),
   db = new reconDB(process.env.dbConnectionStr);
 
-  global.RegExp.timeoutMatch = require('time-limited-regular-expressions')().match;
-  global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
+
+
+global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
+
+Array.prototype.equals = array => {
+  if (!array || this.length != array.length) return false;
+
+  for (let i = 0; i < this.length; i++) {
+    if (this[i] instanceof Array && array[i] instanceof Array) if (!this[i].equals(array[i])) return false;
+    else if (this[i] != array[i]) return false;
+  }
+  return true;
+}
+Object.defineProperty(Array.prototype, 'equals', { enumerable: false });
 
 load()
 async function load() {
@@ -19,19 +31,18 @@ async function load() {
     retryLimit: 2,
     intents: 32767
   });
-  
+
   if (existsSync('./env.json')) defaultSettings = require('./env.json');
   else {
     await db.ready();
     defaultSettings = await db.get('env');
   }
 
-  defaultSettings = await Object.assign(
-    {}, defaultSettings.global,
+  defaultSettings = Object.assign({}, defaultSettings.global,
     defaultSettings[defaultSettings.global.environment],
     { keys: Object.assign({}, defaultSettings.global.keys, defaultSettings[defaultSettings.global.environment].keys) }
   );
-  
+
   client.userID = defaultSettings.botUserID;
   client.botType = defaultSettings.type;
   client.startTime = Date.now();
@@ -39,27 +50,34 @@ async function load() {
   client.db = db;
   client.functions = {};
   client.keys = defaultSettings.keys;
+  client.lastRateLimit = new Collection();
   client.events = new Collection();
   client.cooldowns = new Collection();
   client.commands = new Collection();
   client.guildData = new Collection();
   client.ready = async _ => {
-    while(client.ws.status != 0) await client.functions.sleep(10);
-    if(!client.application.name) await client.application.fetch();
+    while (client.ws.status != 0) await client.functions.sleep(10);
+    if (!client.application.name) await client.application.fetch();
     return true;
   };
   client.log = (...data) => {
     const date = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
     console.log(`[${date}] ${data}`)
   };
-  
+
+  client.on('apiResponse', (req, res) => {
+    client.lastRateLimit.set(req.route, Object.assign({}, ...Array.from(res.headers)
+      .filter(([a]) => /x-ratelimit/.test(a))
+      .map(([a, b]) => { return { [a.replace('x-ratelimit-','').replace(/-\w/, c => c[1].toUpperCase())]: b } })
+    ));
+  });
+
   await client.db.ready();
 
-  for(const handler of readdirSync('./Handlers')) require(`./Handlers/${handler}`)(client);
+  for (const handler of readdirSync('./Handlers')) require(`./Handlers/${handler}`)(client);
 
   client.login(client.keys.token)
     .then(_ => client.log(`Logged into ${client.botType}`));
-  
 
-  process.on('exit', _ => client.destroy());  
+  process.on('exit', _ => client.destroy());
 }
