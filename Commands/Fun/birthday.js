@@ -50,22 +50,22 @@ module.exports = new Command({
           name: 'day',
           description: 'The day you was born in.',
           type: 'NUMBER',
-          max_value: 31,
+          maxValue: 31,
           required: true
         },
         {
           name: 'month',
           description: 'The month you was born in.',
           type: 'NUMBER',
-          max_value: 12,
+          maxValue: 12,
           required: true
         },
         {
           name: 'year',
           description: 'The year you was born in.',
           type: 'NUMBER',
-          min_value: 1900,
-          max_value: year,
+          minValue: 1900,
+          maxValue: year,
           required: true
         }
       ]

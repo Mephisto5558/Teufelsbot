@@ -27,14 +27,14 @@ module.exports = new Command({
       name: 'length',
       description: 'the length of your password',
       type: 'NUMBER',
-      max_value: 1750,
+      maxValue: 1750,
       required: false
     },
     {
       name: 'count',
       description: 'How many passwords do you want to generate',
       type: 'NUMBER',
-      max_value: 500,
+      maxValue: 500,
       required: false
     },
     {

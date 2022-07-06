@@ -117,8 +117,8 @@ module.exports = new Command({
       description: 'the max length of the joke (not all APIList support this)',
       type: 'NUMBER',
       required: false,
-      min_value: 10,
-      max_value: 2000
+      minValue: 10,
+      maxValue: 2000
     }
   ],
 
