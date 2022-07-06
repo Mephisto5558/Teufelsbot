@@ -115,7 +115,7 @@ module.exports = async client => {
     domain: `${domain}/dashboard`,
     redirectUri: `${domain}/discord/callback`,
     bot: client,
-    ownerIDs: [client.api.applications(client.userID).owner.id],
+    ownerIDs: [client.api.application.owner.id],
     client: {
       id: client.userID,
       secret: client.keys.secret
@@ -132,7 +132,7 @@ module.exports = async client => {
     },
     theme: DarkDashboard({
       information: {
-        createdBy: client.api.applications(client.userID).owner.tag,
+        createdBy: client.api.application.owner.tag,
         iconURL: me.displayAvatarURL({ dynamic: true }),
         websiteTitle: `${me.username} | Dashboard`,
         websiteName: `${me.username} | Dashboard`,
