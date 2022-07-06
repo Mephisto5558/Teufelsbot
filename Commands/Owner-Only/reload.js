@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { readdirSync, existsSync, realpathSync } = require('fs'),
+  { readdirSync, existsSync } = require('fs'),
   { join } = require('path')
 
 async function reloadCommand(client, commandName, path, reloadedArray) {
@@ -71,10 +71,10 @@ module.exports = new Command({
           await reloadCommand(client, file, `../../Commands/${category}/${file}`, reloadedArray);
       }
 
-      if(category && command) path = realpathSync.native(join(__dirname, `../../Commands/${category}/${command}.js`));
+      if(category && command) path = join(__dirname, `../../Commands/${category}/${command}.js`));
 
-      if (!category || !existsSync(path)) errorMsg = `${category ? 'This is not a valid category. ' : ''}Valid categories are:\n\`${readdirSync('./Commands').join('`, `').toLowerCase()}\`, \`*\``;
-      else if (!command || !existsSync(path)) errorMsg = `${command ? 'This is not a valid command. ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replace(/\.js/g, '')}\`, \`*\``;
+      if (!category || !existsSync(path)) errorMsg = `${category ? 'This is not a valid category (needs to be correct case). ' : ''}Valid categories are:\n\`${readdirSync('./Commands').join('`, `')}\`, \`*\``;
+      else if (!command || !existsSync(path)) errorMsg = `${command ? 'This is not a valid command (needs to be correct case). ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').replace(/\.js/g, '')}\`, \`*\``;
       else await reloadCommand(client, command, path, reloadedArray);
     }
     catch (err) { errorMsg += err.message + '```' };
