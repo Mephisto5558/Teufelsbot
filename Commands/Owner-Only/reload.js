@@ -60,27 +60,21 @@ module.exports = new Command({
       errorMsg = 'An error occurred.\n```',
       reloadedArray = [];
 
-    if (category == '*') {
-      try {
+    try {
+      if (category == '*') {
         for (const subFolder of getDirectoriesSync('./Commands'))
           for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js')))
             await reloadCommand(client, file, `../../Commands/${subFolder}/${file}`, reloadedArray);
       }
-      catch (err) { errorMsg += err.message + '```' }
-    }
-    else if (command == '*') {
-      try {
+      else if (command == '*') {
         for (const file of readdirSync(`./Commands/${category}`).filter(file => file.endsWith('.js')))
           await reloadCommand(client, file, `../../Commands/${category}/${file}`, reloadedArray);
       }
-      catch (err) { errorMsg += err.message + '```' }
+      else if (!category || !existsSync(`./Commands/${category}`)) errorMsg = `${category ? 'This is not a valid category. ' : ''}Valid categories are:\n\`${readdirSync('./Commands').join('`, `').toLowerCase()}\`, \`*\``;
+      else if (!command || !existsSync(`./Commands/${category}/${command}.js`)) errorMsg = `${command ? 'This is not a valid command. ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replace(/\.js/g, '')}\`, \`*\``;
+      else await reloadCommand(client, command, `../../Commands/${category}/${command}`, reloadedArray);
     }
-    else if (!category && !existsSync(`./Commands/${category}`)) errorMsg = `${category ? 'This is not a valid category. ' : ''}Valid categories are:\n\`${readdirSync('./Commands').join('`, `').toLowerCase()}\`, \`*\``;
-    else if (!command && !existsSync(`./Commands/${category}/${command}.js`)) errorMsg = `${command ? 'This is not a valid command. ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replace(/\.js/g, '')}\`, \`*\``;
-    else {
-      try { await reloadCommand(client, command, `../../Commands/${category}/${command}`, reloadedArray) }
-      catch (err) { errorMsg += err.message + '```' }
-    }
+    catch (err) { errorMsg += err.message + '```' };
 
     if (errorMsg.length > 22) return msg.edit(errorMsg);
     if (!reloadedArray.length) return msg.edit('No commands have been reloaded.');
