@@ -39,7 +39,7 @@ module.exports = new Command({
   category: 'FUN',
   slashCommand: true,
   prefixCommand: false,
-  ephemeralDefer: true,
+  ephemeralDefer: true, beta: true,///////
   options: [
     {
       name: 'set',
@@ -160,33 +160,32 @@ module.exports = new Command({
               continue;
             }
 
-            let output = entry[1].split('/');
+            const output = entry[1].split('/');
             output.push(output.shift());
 
             entry[1] = output;
           }
 
-          data = data.filter(item => !filterList.includes(item[0]));
+          const time = new Date().getTime();
 
-          data.sort(([, a], [, b]) => {
-            const time = new Date().getTime();
+          data = data
+            .filter(item => !filterList.includes(item[0]))
+            .sort(([, [month1, day1]], [, [month2, day2]]) => {
+              const time1 = new Date(year, month1 - 1, day1);
+              if (time1 < time) time1.setFullYear(year + 1, month1 - 1, day1);
 
-            for (item of [a, b]) {
-              item = new Date(year, item[0] - 1, item[1] + 1);
-              if (item < time) item.setFullYear(year + 1);
-            }
+              const time2 = new Date(year, month2 - 1, day2);
+              if (time2 < time) time2.setFullYear(year + 1, month2 - 1, day2);
 
-            return (a - time) - (b - time);
-          });
-
-          data = data.slice(0, 10);
+              return time1 - time2;
+            })
+            .slice(0, 10);
 
           for (entry of data) {
-            let date = `**${formatMonthName(entry[1][0])} ${entry[1][1]}**\n`;
+            const date = `**${formatMonthName(entry[1][0])} ${entry[1][1]}**\n`;
             let age = getAge([entry[1][2], entry[1][0], entry[1][1]]);
-            age = `(${age >= year ? '0' : age})`;
 
-            let bd = `> <@${entry[0]}> ${age}\n`;
+            const bd = `> <@${entry[0]}>${age < year ? ` (${age})` : ''}\n`;
 
             if (newData?.includes(date)) newData += bd;
             else newData += `\n${date}${bd}`;
