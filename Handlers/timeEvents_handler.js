@@ -28,8 +28,9 @@ module.exports = async client => {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 
     if (client.db.get('birthdays').lastCheckTS == now) return client.log('Already ran birthday check today');
-
     client.log('started birthday check');
+    
+    await client.rateLimitCheck('/users/@me/guilds');
 
     const
       guilds = await client.guilds.fetch(),
@@ -41,7 +42,7 @@ module.exports = async client => {
       if (settings?.disabled)
         continue;
 
-      guild = await guild[1].fetch();
+      guild = guild[1];
 
       for (const entry of Object.entries(oldData)) {
         let channel, user;
