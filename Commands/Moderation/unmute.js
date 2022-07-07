@@ -21,14 +21,14 @@ module.exports = new Command({
       name: 'reason',
       description: 'why you want to unmute the target',
       type: 'STRING',
-      required: true
+      required: false
     }
   ],
 
   run: async (_, __, interaction) => {
     const
       target = interaction.options.getMember('target'),
-      reason = interaction.options.getString('reason');
+      reason = interaction.options.getString('reason') || 'no reason specified';
 
     let errorMsg;
 
