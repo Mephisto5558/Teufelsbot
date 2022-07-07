@@ -51,8 +51,9 @@ module.exports = new Command({
   beta: true,
 
   run: async (client, message) => {
-    let category = message.args[0];
-    let command = message.args[1];
+    const category = !message.args[0] ? null : message.args[0] == '*' ? '*' : getDirectoriesSync('./Commands').filter(e => e.toLowerCase() == message.args[0].toLowerCase())?.[0];
+    const command = !message.args[1] ? null : message.args[1] == '*' ? '*' : readdirSync(`./Commands/${category}`).filter(e => e.endsWith('.js') && e.toLowerCase() == `${message.args[1].toLowerCase()}.js`)?.[0];
+    const path = join(__dirname, `../../Commands/${category}/${command}`);
 
     let errorMsg, reloadedArray = [];
 
@@ -67,16 +68,12 @@ module.exports = new Command({
           await reloadCommand(client, file, `../../Commands/${category}/${file}`, reloadedArray);
       }
       else {
-        !category ? null : category = getDirectoriesSync('./Commands').filter(e => e.toLowerCase() == category.toLowerCase())?.[0];
-        !command ? null : command = readdirSync(`./Commands/${category}`).filter(e => e.endsWith('.js') && e.toLowerCase() == `${command.toLowerCase()}.js`)?.[0];
-        const path = join(__dirname, `../../Commands/${category}/${command}`);
-
         if (!category && !existsSync(path)) errorMsg = `${message.args[0] ? 'This is not a valid category. ' : ''}Valid categories are:\n\`${getDirectoriesSync('./Commands').join('`, `').toLowerCase()}\`, \`*\``;
         else if (!command && !existsSync(path)) errorMsg = `${message.args[1] ? 'This is not a valid command. ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replace(/\.js/g, '')}\`, \`*\``;
         else await reloadCommand(client, command, path, reloadedArray);
       }
     }
-    catch (err) { errorMsg = `An error occurred.\n\`\`\`${err.message}\`\`\`` };
+    catch (err) { errorMsg = `An error occurred.\n\`\`\`${err.message}\`\`\`` }
 
     client.functions.reply(
       errorMsg || (!reloadedArray.length ? 'No commands have been reloaded.' :
