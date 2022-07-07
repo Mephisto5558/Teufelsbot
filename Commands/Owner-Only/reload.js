@@ -51,14 +51,10 @@ module.exports = new Command({
   beta: true,
 
   run: async (client, message) => {
-    const category = message.args[0];
-    const command = message.args[1];
-    const msg = await message.reply('Reloading...', message);
+    let category = message.args[0];
+    let command = message.args[1];
 
-    let
-      errorMsg = 'An error occurred.\n```',
-      reloadedArray = [],
-      path;
+    let errorMsg, reloadedArray = [];
 
     try {
       if (category == '*') {
@@ -70,21 +66,22 @@ module.exports = new Command({
         for (const file of readdirSync(`./Commands/${category}`).filter(file => file.endsWith('.js')))
           await reloadCommand(client, file, `../../Commands/${category}/${file}`, reloadedArray);
       }
+      else {
+        !category ? null : category = getDirectoriesSync('./Commands').filter(e => e.toLowerCase() == category.toLowerCase())?.[0];
+        !command ? null : command = readdirSync(`./Commands/${category}`).filter(e => e.endsWith('.js') && e.toLowerCase() == `${command.toLowerCase()}.js`)?.[0];
+        const path = join(__dirname, `../../Commands/${category}/${command}`);
 
-      if(category && command) path = join(__dirname, `../../Commands/${category}/${command}.js`);
-
-      if (!category || !existsSync(path)) errorMsg = `${category ? 'This is not a valid category (needs to be correct case). ' : ''}Valid categories are:\n\`${readdirSync('./Commands').join('`, `')}\`, \`*\``;
-      else if (!command || !existsSync(path)) errorMsg = `${command ? 'This is not a valid command (needs to be correct case). ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').replace(/\.js/g, '')}\`, \`*\``;
-      else await reloadCommand(client, command, path, reloadedArray);
+        if (!category && !existsSync(path)) errorMsg = `${message.args[0] ? 'This is not a valid category. ' : ''}Valid categories are:\n\`${getDirectoriesSync('./Commands').join('`, `').toLowerCase()}\`, \`*\``;
+        else if (!command && !existsSync(path)) errorMsg = `${message.args[1] ? 'This is not a valid command. ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replace(/\.js/g, '')}\`, \`*\``;
+        else await reloadCommand(client, command, path, reloadedArray);
+      }
     }
-    catch (err) { errorMsg += err.message + '```' };
+    catch (err) { errorMsg = `An error occurred.\n\`\`\`${err.message}\`\`\`` };
 
-    if (errorMsg.length > 22) return msg.edit(errorMsg);
-    if (!reloadedArray.length) return msg.edit('No commands have been reloaded.');
-
-    msg.edit(
-      `The following ${reloadedArray.length} file(s) have been reloaded:\n` +
-      `\`${reloadedArray.join('`, `')}\``
+    client.functions.reply(
+      errorMsg || (!reloadedArray.length ? 'No commands have been reloaded.' :
+        `The following ${reloadedArray.length} command(s) have been reloaded:\n` +
+        `\`${reloadedArray.join('`, `')}\``), message
     );
   }
 })
