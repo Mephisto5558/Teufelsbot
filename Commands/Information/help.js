@@ -6,8 +6,8 @@ const
 function listCommands(list, output, count, category) {
   for (let command of list) {
     command = command[1];
-    if (!category) throw new Error(`missing category information for command ${command.name}`)
-    if (command.category.toUpperCase() != category.toUpperCase() || command.hideInHelp || command.disabled || output.includes(`\`${command.name}\``)) continue;
+    
+    if (command.category.toUpperCase() != category?.toUpperCase() || command.hideInHelp || command.disabled || output.includes(`\`${command.name}\``)) continue;
 
     if (count % 5 == 0) output += `\`${command.name}\`\n> `
     else output += `\`${command.name}\`, `
@@ -55,8 +55,8 @@ module.exports = new Command({
         embed.description = cmd.description ?? 'No description found';
         embed.footer = { text: `Syntax: <> = required, [] = optional | Prefix: '${client.db.get('settings')[message.guild.id]?.prefix || client.db.get('settings').default.prefix}'` };
 
-        if (cmd.aliases?.prefix?.length) embed.addField('Prefix Command Aliases', `\`${listCommands(cmd.aliases.prefix, '', 1).replace(/> /g, '')}\``, true);
-        if (cmd.aliases?.slash?.length) embed.addField('Slash Command Aliases', `\`${listCommands(cmd.aliases.slash, '', 1).replace(/> /g, '')}\``, true);
+        if (cmd.aliases?.prefix?.length) embed.addField('Prefix Command Aliases', `\`${listCommands(cmd.aliases.prefix, '', 1)[0].replace(/> /g, '')}\``, true);
+        if (cmd.aliases?.slash?.length) embed.addField('Slash Command Aliases', `\`${listCommands(cmd.aliases.slash, '', 1)[0].replace(/> /g, '')}\``, true);
         if (cmd.permissions?.client?.length) embed.addField('Required Bot Permissions', '`' + cmd.permissions.client.join('`, `'), false);
         if (cmd.permissions?.user?.length) embed.addField('Required User Permissions', '`' + cmd.permissions.user.join('`, `'), true);
         if (cmd.cooldowns?.guild || cmd.cooldowns?.user) embed.addField('Command Cooldowns', `Guild: \`${parseFloat((cmd.cooldowns.guild / 1000).toFixed(2))}\`s, User:\`${parseFloat((cmd.cooldowns.user / 1000).toFixed(2))}\``)
