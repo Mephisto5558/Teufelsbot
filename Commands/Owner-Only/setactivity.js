@@ -16,10 +16,9 @@ module.exports = new Command({
     message.args = message.content.trim().split(';');
 
     const activity = message.args[0];
-    const type = message.args[1]?.toUpperCase();
+    const type = message.args[1]?.toUpperCase() || 'PLAYING';
 
-    if (!type) type = 'PLAYING';
-    else if (!validTypes.includes(type)) {
+    if (!validTypes.includes(type)) {
       return client.functions.reply(
         `Syntax error: Invalid type "${type}". Available types are:\n`
         `\`${validTypes.join(', ')}.`, message
