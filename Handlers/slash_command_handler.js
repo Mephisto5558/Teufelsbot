@@ -4,7 +4,7 @@ const
   event = require('../Events/interactionCreate.js');
 
 let
-  skippedCommandCount = 0,
+  skippedCommands = [],
   deletedCommandCount = 0;
 
 function equal(a, b) {
@@ -56,7 +56,7 @@ module.exports = async (client, SyncGuild) => {
           if (!equal(command, applicationCommand[1])) continue;
           client.log(`Skipped Slash Command ${command.name}`);
           skipped = true;
-          skippedCommandCount++
+          skippedCommands.push([command.name]);
           break;
         }
         if (!skipped) {
@@ -83,7 +83,7 @@ module.exports = async (client, SyncGuild) => {
     client.log(`Registered Slash Comand ${command[0]}`);
   }
 
-  const commandNames = client.slashCommands.map(e => e.name);
+  const commandNames = [...client.slashCommands, ...skippedCommands].map(e => e[0]);
   for (const clientCommand of applicationCommands) {
     if (commandNames.includes(clientCommand[1].name)) continue;
 
@@ -97,7 +97,7 @@ module.exports = async (client, SyncGuild) => {
   if (SyncGuild) return;
 
   client.log(`Registered ${client.slashCommands.size} Slash Commands`);
-  client.log(`Skipped ${skippedCommandCount} Slash Commands`);
+  client.log(`Skipped ${skippedCommands.length} Slash Commands`);
   client.log(`Deleted ${deletedCommandCount} Slash Commands`);
 
   client.on('interactionCreate', event.bind(null, client));
