@@ -26,13 +26,13 @@ function equal(a, b) {
 function format(option) {
   if (option.options) for (let subOption of option.options) subOption = format(subOption);
 
-  option.type = option.type?.toString()
+  if(option.type) option.type = parseInt(option.type.toString()
     .replace('SUB_COMMAND_GROUP', 2).replace('SUB_COMMAND', 1)
     .replace('STRING', 3).replace('INTEGER', 4)
     .replace('BOOLEAN', 5).replace('USER', 6)
     .replace('CHANNEL', 7).replace('ROLE', 8)
     .replace('MENTIONABLE', 9).replace('NUMBER', 10)
-    .replace('ATTACHMENT', 11) || 1;
+    .replace('ATTACHMENT', 11));
 
   return option;
 }
@@ -79,7 +79,7 @@ module.exports = async (client, SyncGuild) => {
   for (const command of client.slashCommands) {
     await client.rateLimitCheck('/applications/:id/commands');
 
-    await client.application.commands.create(command[1], SyncGuild && SyncGuild != '*' ? SyncGuild : null);
+    await client.application.commands.create(format(command[1]), SyncGuild && SyncGuild != '*' ? SyncGuild : null);
     client.log(`Registered Slash Comand ${command[0]}`);
   }
 
