@@ -56,6 +56,7 @@ module.exports = async (client, SyncGuild) => {
           if (!equal(command, applicationCommand[1])) continue;
           client.log(`Skipped Slash Command ${command.name}`);
           skipped = true;
+          skippedCommandCount++
           break;
         }
         if (!skipped) {
