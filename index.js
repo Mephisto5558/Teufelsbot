@@ -7,8 +7,6 @@ const
   { existsSync, readdirSync } = require('fs'),
   db = new reconDB(process.env.dbConnectionStr);
 
-
-
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 
 Array.prototype.equals = array => {
