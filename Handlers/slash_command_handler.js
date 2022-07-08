@@ -53,7 +53,7 @@ module.exports = async (client, SyncGuild) => {
         if (!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) continue;
 
         for (const applicationCommand of applicationCommands) {
-          if (!equal(command, applicationCommand)) continue;
+          if (!equal(command, applicationCommand[1])) continue;
           client.log(`Skipped Slash Command ${command.name}`);
           skipped = true;
           break;
