@@ -64,7 +64,7 @@ module.exports = new Command({
 
     embed.fields = [
       { name: 'API', value: `\`${Math.round(client.ws.ping)}\`ms`, inline: true },
-      { name: 'Bot', value: `\`${Date.now() - message.createdTimestamp}\`ms`, inline: true },
+      { name: 'Bot', value: `\`${Math.abs(Date.now() - message.createdTimestamp)}\`ms`, inline: true },
       { name: 'Message Send', value: `\`${endMessagePing}\`ms`, inline: true }
     ];
     embed.description = ' ';
