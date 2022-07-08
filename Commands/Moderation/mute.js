@@ -99,7 +99,7 @@ module.exports = new Command({
       description:
         `You have been muted in \`${interaction.guild.name}\`.\n` +
         `Moderator: ${interaction.user.tag}\n` +
-        `Until: <t:${target.communicationDisabledUntilTimestamp / 1000}>\n` +
+        `Until: <t:${Math.round(target.communicationDisabledUntilTimestamp / 1000)}>\n` +
         `Reason: ${reason}`,
       color: colors.RED
     });
@@ -111,7 +111,7 @@ module.exports = new Command({
     embed.description =
       `${target.user.tag} has been successfully muted.\n` +
       `Reason: ${reason}\n` +
-      `Until: <t:${target.communicationDisabledUntilTimestamp / 1000}>\n` +
+      `Until: <t:${Math.round(target.communicationDisabledUntilTimestamp / 1000)}>\n` +
       `${noMsg ? `\nI couldn't DM the target.` : ''}`;
 
     interaction.editReply({ embeds: [embed] });
