@@ -98,6 +98,7 @@ module.exports = async client => {
   const me = client.user || await client.users.fetch(client.userID);
   const domain = client.botType == 'main' ? `https://${package.name}.${package.author}.repl.co/` : 'http://localhost:8000';
 
+  await client.ready();
   await DBD.useLicense(client.keys.dbdLicense);
   DBD.Dashboard = DBD.UpdatedClass();
 
