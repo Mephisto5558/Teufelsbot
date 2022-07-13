@@ -17,7 +17,7 @@ module.exports = (client, asMessage) => {
   }
 
   return {
-    total: client.startTime,
+    total: (Date.now() - client.startTime),
     formatted: data || `${days.padStart(2, 0)}:${hours.padStart(2, 0)}:${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`
   };
 }
