@@ -39,7 +39,7 @@ module.exports = new Command({
   category: 'FUN',
   slashCommand: true,
   prefixCommand: false,
-  ephemeralDefer: true, beta: true,///////
+  ephemeralDefer: true,
   options: [
     {
       name: 'set',
