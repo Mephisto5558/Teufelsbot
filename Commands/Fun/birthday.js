@@ -182,7 +182,7 @@ module.exports = new Command({
             .slice(0, 10);
 
           for (entry of data) {
-            const date = `**${formatMonthName(entry[1][0])} ${entry[1][1]}**\n`;
+            const date = `**${formatMonthName(entry[1][0])} ${parseInt(entry[1][1])}**\n`;
             let age = getAge([entry[1][2], entry[1][0], entry[1][1]]);
 
             const bd = `> <@${entry[0]}>${age < year ? ` (${age})` : ''}\n`;
