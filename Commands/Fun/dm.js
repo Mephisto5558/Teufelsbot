@@ -117,6 +117,7 @@ module.exports = new Command({
         else if (userBlacklist.includes('*')) listMessage = '> You are blocking all users.'
         else {
           for (const entry of userBlacklist) {
+            await client.lastRateLimitCheck(`/guilds/${interaction.guild.id}/members/:id`);
             try {
               await interaction.guild.members.fetch(entry);
             } catch { continue }
