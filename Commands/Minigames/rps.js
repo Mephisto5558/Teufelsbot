@@ -57,7 +57,7 @@ module.exports = new Command({
       }
 
       if (interaction) interaction.editReply({ embeds: [chooseEmbed], components: [chooseButtons] });
-      else message = await message.reply({ embeds: [chooseEmbed], components: [chooseButtons] });
+      else message.edit({ embeds: [chooseEmbed], components: [chooseButtons] });
     });
 
   }
