@@ -37,12 +37,12 @@ module.exports = client => {
 
   client
     .on('rateLimit', info => {
-      const msg = `${info.route}: ${global?'Global':''} Rate Limit hit, please wait ${Math.round(info.timeout / 1000)}s before retrying.`
+      const msg = `${info.route}: ${global ? 'Global' : ''} Rate Limit hit, please wait ${Math.round(info.timeout / 1000)}s before retrying.`
       console.error(errorColor(msg));
       console.error(info);
       console.error('\n');
 
-      sendErrorMsg(info.name, client, msg);
+      sendErrorMsg(info.name, client, '`' + msg + '`\nPlease message the dev.');
     });
 
 }
