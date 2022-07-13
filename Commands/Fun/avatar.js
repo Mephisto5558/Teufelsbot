@@ -41,7 +41,10 @@ module.exports = new Command({
     let target, size;
 
     if (message) {
-      if (message?.args[0]) target = (await message.guild.members.fetch(message.args[0].replace(/[<@>]/g, ''))).user;
+      if (message?.args[0]) {
+        await client.lastRateLimitCheck(`/guilds/${message.guild.id}/members/:id`);
+        target = (await message.guild.members.fetch(message.args[0].replace(/[<@>]/g, ''))).user;
+      }
       else target = await message.author
     }
     else {

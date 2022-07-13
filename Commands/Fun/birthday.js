@@ -154,6 +154,8 @@ module.exports = new Command({
           let filterList = [];
 
           for (const entry of data) {
+            await client.lastRateLimitCheck(`/guilds/${interaction.guild.id}/members/:id`);
+
             try { await interaction.guild.members.fetch(entry[0]) }
             catch {
               filterList.push(entry[0]);

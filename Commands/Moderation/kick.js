@@ -51,6 +51,7 @@ module.exports = new Command({
     for (const rawTarget of targets) {
       let target, errorMsg, noMsg;
 
+      await client.lastRateLimitCheck(`/guilds/${interaction.guild.id}/members/:id`);
       try {
         target = await interaction.guild.members.fetch(rawTarget);
       } catch { };
