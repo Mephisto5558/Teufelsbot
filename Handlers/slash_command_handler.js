@@ -2,10 +2,8 @@ const
   { readdirSync } = require('fs'),
   { Collection } = require('discord.js'),
   event = require('../Events/interactionCreate.js');
-
-let
-  skippedCommands = [],
-  deletedCommandCount = 0;
+  
+  let deletedCommandCount = 0;
 
 function equal(a, b) {
   v = i => i?.toString();
@@ -26,19 +24,23 @@ function equal(a, b) {
 function format(option) {
   if (option.options) for (let subOption of option.options) subOption = format(subOption);
 
-  if(option.type) option.type = parseInt(option.type.toString()
+  if(option.type) option.type = option.type.toString()
     .replace('SUB_COMMAND_GROUP', 2).replace('SUB_COMMAND', 1)
     .replace('STRING', 3).replace('INTEGER', 4)
     .replace('BOOLEAN', 5).replace('USER', 6)
     .replace('CHANNEL', 7).replace('ROLE', 8)
     .replace('MENTIONABLE', 9).replace('NUMBER', 10)
-    .replace('ATTACHMENT', 11));
+    .replace('ATTACHMENT', 11);
+
+    if(!isNaN(parseInt(option.type))) option.type = parseInt(option.type);
 
   return option;
 }
 
 module.exports = async (client, SyncGuild) => {
   await client.ready();
+
+  const skippedCommands = new Collection();
   const applicationCommands = await client.application.commands.fetch(undefined, { guildId: SyncGuild && SyncGuild != '*' ? SyncGuild : undefined });
 
   if (!SyncGuild || SyncGuild == '*') {
@@ -56,7 +58,7 @@ module.exports = async (client, SyncGuild) => {
           if (!equal(command, applicationCommand[1])) continue;
           client.log(`Skipped Slash Command ${command.name}`);
           skipped = true;
-          skippedCommands.push([command.name]);
+          skippedCommands.set(command.name, command);
           break;
         }
         if (!skipped) {
@@ -69,10 +71,8 @@ module.exports = async (client, SyncGuild) => {
     for (const guild of await client.guilds.fetch()) {
       await client.rateLimitCheck('/applications/:id/commands');
 
-      if (client.application.commands.fetch(undefined, { guildId: guild[0] }).size) {
-        await client.application.commands.set([], guild[0]);
-        client.log(`Cleared Slash Commands for Guild ${guild[0]}`);
-      }
+      await client.application.commands.set([], guild[0]);
+      client.log(`Cleared Slash Commands for Guild ${guild[0]}`);
     }
   }
 
@@ -97,7 +97,10 @@ module.exports = async (client, SyncGuild) => {
   if (SyncGuild) return;
 
   client.log(`Registered ${client.slashCommands.size} Slash Commands`);
-  client.log(`Skipped ${skippedCommands.length} Slash Commands`);
+
+  skippedCommands.forEach((v, k) => client.slashCommands.set(k, v));
+
+  client.log(`Skipped ${skippedCommands.size} Slash Commands`);
   client.log(`Deleted ${deletedCommandCount} Slash Commands`);
 
   client.on('interactionCreate', event.bind(null, client));
