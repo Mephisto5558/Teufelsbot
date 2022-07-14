@@ -90,7 +90,7 @@ module.exports = new Command({
     switch (interaction.options.getSubcommand()) {
       case 'add':
         const data = {
-          id: Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id || 1,
+          id: Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id +1 || 1,
           trigger: interaction.options.getString('trigger'),
           response: interaction.options.getString('response'),
           wildcard: !(interaction.options.getBoolean('wildcard') === false)
@@ -154,10 +154,10 @@ module.exports = new Command({
               if (description.length >= 3800) break;
 
               description +=
-                `> ID: ${id}\n` +
+                `ID: ${id}\n` +
                 `> Trigger: \`${trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...'}\`\n` +
                 `> Response: \`${response.length < 20 ? response : response.substring(0, 17) + '...'}\`\n` +
-                `> Wildcard: \`${!!wildcard}\`\n`;
+                `> Wildcard: \`${!!wildcard}\`\n\n`;
             }
 
             embed.description = description;
