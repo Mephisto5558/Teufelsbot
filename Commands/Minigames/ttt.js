@@ -9,24 +9,15 @@ const
 
 function workStatsData(firstID, secondID, type, client) {
   if (!secondID || !client) throw new SyntaxError('you need to provide the secondID and client args');
-  let against;
-  let stats = client.db.get('leaderboards').TicTacToe[firstID];
-
-  switch (type) {
-    case 'win': against = 'wonAgainst'; break;
-    case 'lose': against = 'lostAgainst'; break;
-    case 'draw': against = 'drewAgainst'; break;
-    default: throw new SyntaxError('you need to provide the type: win, lose or draw');
-  }
-
+  const against = type == 'win' ? 'wonAgainst' : (type == 'lose' ? 'lostAgainst' : 'drewAgainst');
+  const stats = client.db.get('leaderboards').TicTacToe[firstID];
   const typeS = `${type}s`
 
   if (!stats) return { games: 1, [typeS]: 1, [against]: { [secondID]: 1 } };
 
-  if (!stats.games) stats.games = 1;
-  else stats.games = parseInt(stats.games) + 1;
-  if (!stats[typeS]) stats[typeS] = 1;
-  else stats[typeS] = parseInt(stats[typeS]) + 1;
+  stats.games = stats.games ? parseInt(stats.games) + 1 : 1;
+  stats[typeS] = stats[typeS] ? parseInt(stats[typeS]) + 1 : 1;
+  
   if (!stats[against]) stats[against] = { [secondID]: 1 };
   else if (!stats[against][secondID]) stats[against][secondID] = 1;
   else stats[against][secondID] = parseInt(stats[against][secondID]) + 1;
@@ -37,14 +28,7 @@ function workStatsData(firstID, secondID, type, client) {
 async function gameEnd(input, ids, client) {
   const oldData = await client.db.get('leaderboards');
 
-  let data = Object.assign({},
-    { [ids[0]]: input[0] },
-    { [ids[1]]: input[1] }
-  );
-
-  data = Object.assign({}, oldData.TicTacToe, data);
-  const newData = Object.assign({}, oldData, { TicTacToe: data });
-
+  const newData = Object.merge(oldData, { TicTacToe: { [ids[0]]: input[0], [ids[1]]: input[1] } });
   await client.db.set('leaderboards', newData);
 }
 

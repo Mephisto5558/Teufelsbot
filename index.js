@@ -5,7 +5,8 @@ const
   { Client, Collection } = require('discord.js'),
   { reconDB } = require('reconlx'),
   { existsSync, readdirSync } = require('fs'),
-  db = new reconDB(process.env.dbConnectionStr);
+  db = new reconDB(process.env.dbConnectionStr),
+  isObject = item => item && typeof item == 'object' && !Array.isArray(item);
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 
@@ -19,6 +20,24 @@ Array.prototype.equals = array => {
   return true;
 }
 Object.defineProperty(Array.prototype, 'equals', { enumerable: false });
+
+Object.merge = (source, source2, mode) => {
+  let output = source;
+
+  if (isObject(source) && isObject(source2)) for (const key of Object.keys({ ...source, ...source2 })) {
+    if (isObject(source[key])) output[key] = key in source2 ? Object.merge(source[key], source2[key], mode) : source[key];
+    else if (Array.isArray(source[key])) {
+      if (key in source2) {
+        if (mode == 'overwrite') output[key] = source2[key];
+        else if (mode == 'push') for (const e of source2[key]) output[key].push(e);
+        else for (let i = 0; i < source[key].length || i < source2[key].length; i++) output[key][i] = source2[key][i] || source[key][i];
+      }
+      else output[key] = source[key];
+    }
+    else output = { ...output, [key]: source2[key] };
+  }
+  return output;
+}
 
 load()
 async function load() {
@@ -75,7 +94,7 @@ async function load() {
   client.on('apiResponse', (req, res) => {
     client.lastRateLimit.set(req.route, Object.assign({}, ...Array.from(res.headers)
       .filter(([a]) => /x-ratelimit/.test(a))
-      .map(([a, b]) => { return { [a.replace('x-ratelimit-', '').replace(/-\w/, c => c[1].toUpperCase())]: b } })
+      .map(([a, b]) => { return { [a.replace('x-ratelimit-', '').replace(/-\w/, c => c[1].toUpperCase())]: b }; })
     ));
   });
 
