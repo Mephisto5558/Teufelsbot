@@ -155,8 +155,8 @@ module.exports = new Command({
 
               description +=
                 `> ID: ${id}\n` +
-                `> Trigger: \`${trigger.length < 20 ? trigger : trigger.subsstring(0, 17) + '...'}\`\n` +
-                `> Response: \`${response.length < 20 ? response : response.subsstring(0, 17) + '...'}\`\n` +
+                `> Trigger: \`${trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...'}\`\n` +
+                `> Response: \`${response.length < 20 ? response : response.substring(0, 17) + '...'}\`\n` +
                 `> Wildcard: \`${!!wildcard}\`\n`;
             }
 
