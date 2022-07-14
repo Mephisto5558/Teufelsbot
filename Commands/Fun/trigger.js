@@ -131,9 +131,9 @@ module.exports = new Command({
             title: `Trigger ${id}`,
             description:
               `**Trigger:** \n` +
-              '```\n' + (trigger.length < 1900 ? trigger : trigger.subsstring(0, 197) + '...') + '\n```\n' +
+              '```\n' + (trigger.length < 1900 ? trigger : trigger.substring(0, 197) + '...') + '\n```\n' +
               '**Response:** \n' +
-              '```\n' + (response.length < 1900 ? response : response.subsstring(0, 197) + '...') + '\n```\n' +
+              '```\n' + (response.length < 1900 ? response : response.substring(0, 197) + '...') + '\n```\n' +
               `**Wildcard:** \`${!!wildcard}\`\n`,
             color: 'BLUE'
           });
@@ -177,7 +177,7 @@ module.exports = new Command({
                 '**Response:** \n' +
                 '```\n' + (response.length < 200 ? response : response.subsstring(0, 197) + '...') + '\n```\n' +
                 `**Wildcard:** \`${!!wildcard}\`\n`,
-              inline: false
+              inline: true
             });
           }
 
