@@ -34,7 +34,7 @@ Object.merge = (source, source2, mode) => {
       }
       else output[key] = source[key];
     }
-    else output = { ...output, [key]: source2[key] };
+    else output = { ...output, [key]: source2[key] || source[key] };
   }
   return output;
 }
