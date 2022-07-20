@@ -1,8 +1,7 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
-  { readFileSync } = require('fs'),
-  { colors } = require('../../Settings/embed.json');
+  { EmbedBuilder, Colors } = require('discord.js'),
+  { readFileSync } = require('fs');
 
 module.exports = new Command({
   name: 'info',
@@ -31,7 +30,7 @@ module.exports = new Command({
       embed = new EmbedBuilder({
         title: 'Stats',
         description: description,
-        colors: colors.DARK_GOLD,
+        colors: Colors.DarkGold,
         footer: { text: 'More stats are coming soon!' }
       });
 
