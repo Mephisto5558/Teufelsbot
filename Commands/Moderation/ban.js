@@ -1,7 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
-  { colors } = require('../../Settings/embed.json');
+  { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = new Command({
   name: 'ban',
@@ -54,14 +53,14 @@ module.exports = new Command({
           `You have been banned from \`${interaction.guild.name}\`.\n` +
           `Moderator: ${interaction.user.tag}\n` +
           `Reason: ${reason}`,
-        color: colors.RED
+        color: Colors.Red
       }),
       resEmbed = new EmbedBuilder({
         title: 'Ban',
         description:
           `Moderator: ${interaction.user.tag}\n` +
           `Reason: ${reason}\n\n`,
-        color: colors.RED
+        color: Colors.Red
       });
 
     for (const rawTarget of targets) {

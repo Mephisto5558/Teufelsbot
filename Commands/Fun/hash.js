@@ -1,7 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
-  { colors } = require('../../Settings/embed.json'),
+  { EmbedBuilder, Colors } = require('discord.js'),
   { getHashes, createHash } = require('crypto'),
   hashOptions = getHashes()
     .map(entry => { return { name: entry, value: entry } })
@@ -38,7 +37,7 @@ let command = new Command({
       description:
         `Your input: \`${input.length > 500 ? `${input.substring(0, 500)}\n...` : input}\`\n` +
         `Hash method: \`${method}\``,
-      color: colors.DARK_GOLD
+      color: Colors.DarkGold
     });
 
     interaction.editReply({

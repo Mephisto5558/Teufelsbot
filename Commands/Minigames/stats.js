@@ -1,7 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
-  { colors } = require('../../Settings/embed.json');
+  { EmbedBuilder, Colors } = require('discord.js');
 
 async function manageData(input, clientID) {
   if (!input) return;
@@ -155,7 +154,7 @@ module.exports = new Command({
     }
 
     const embed = new EmbedBuilder({
-      color: colors.discord.BURPLE,
+      color: Colors.Blurple,
       footer: {
         text: message.member.user.tag,
         iconURL: message.member.user.displayAvatarURL()

@@ -1,7 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
-  { colors } = require('../../Settings/embed.json');
+  { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = new Command({
   name: 'mute',
@@ -101,7 +100,7 @@ module.exports = new Command({
         `Moderator: ${interaction.user.tag}\n` +
         `Until: <t:${Math.round(target.communicationDisabledUntilTimestamp / 1000)}>\n` +
         `Reason: ${reason}`,
-      color: colors.RED
+      color: Colors.Red
     });
 
     try { await target.send({ embeds: [embed] }) }
