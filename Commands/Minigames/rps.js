@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed, MessageActionRow, MessageButton, Collection } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection } = require('discord.js'),
   hand = new Collection([['Rock', { id: 0, emoji: '✊' }], ['Paper', { id: 1, emoji: '🤚' }], ['Scissors', { id: 2, emoji: '✌️' }]]);
 
 module.exports = new Command({
@@ -19,23 +19,23 @@ module.exports = new Command({
 
     const
       botMove = hand.random(),
-      chooseEmbed = new MessageEmbed({ title: 'Rock Paper Scissors', description: 'Choose a handsign!', color: 'RANDOM' }),
-      chooseButtons = new MessageActionRow({
+      chooseEmbed = new EmbedBuilder({ title: 'Rock Paper Scissors', description: 'Choose a handsign!', color: 'RANDOM' }),
+      chooseButtons = new ActionRowBuilder({
         components: [
-          new MessageButton({
+          new ButtonBuilder({
             customId: '0',
             label: '✊ Rock',
-            style: 'PRIMARY'
+            style: ButtonStyle.Primary
           }),
-          new MessageButton({
+          new ButtonBuilder({
             customId: '1',
             label: '🤚 Paper',
-            style: 'PRIMARY'
+            style: ButtonStyle.Primary
           }),
-          new MessageButton({
+          new ButtonBuilder({
             customId: '2',
             label: '✌️ Scissors',
-            style: 'PRIMARY'
+            style: ButtonStyle.Primary
           }),
         ]
       });
@@ -43,7 +43,7 @@ module.exports = new Command({
     if (interaction) interaction.editReply({ embeds: [chooseEmbed], components: [chooseButtons] });
     else message = await message.reply({ embeds: [chooseEmbed], components: [chooseButtons] });
 
-    const collector = message.channel.createMessageComponentCollector({ max: 1, componentType: 'BUTTON', time: 10000 });
+    const collector = message.channel.createMessageComponentCollector({ max: 1, componentType: 'ButtonBuilder', time: 10000 });
 
     collector.on('collect', async button => {
       await button.deferUpdate();
@@ -52,7 +52,7 @@ module.exports = new Command({
       chooseEmbed.description = `I chose ${[...hand.entries()].find(([,e]) => e.id == botMove.id)[0]}! ${win[0]} (${hand.find(e=> e.id == button.customId).emoji} ${win[1]} ${botMove.emoji})`;
 
       for (const comp of chooseButtons.components) {
-        if (comp.customId == button.customId) comp.style = 'SECONDARY';
+        if (comp.customId == button.customId) comp.style = ButtonStyle.Secondary;
         comp.disabled = true;
       }
 

@@ -26,27 +26,27 @@ module.exports = new Command({
     {
       name: 'length',
       description: 'the length of your password',
-      type: 'NUMBER',
+      type: 'Number',
       maxValue: 1750,
       required: false
     },
     {
       name: 'count',
       description: 'How many passwords do you want to generate',
-      type: 'NUMBER',
+      type: 'Number',
       maxValue: 500,
       required: false
     },
     {
       name: 'exclude_chars',
       description: 'characters you wont have in your password',
-      type: 'STRING',
+      type: 'String',
       required: false
     },
     {
       name: 'include_chars',
       description: 'characters you specificity want in your password',
-      type: 'STRING',
+      type: 'String',
       required: false
     }
   ],

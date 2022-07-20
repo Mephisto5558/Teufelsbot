@@ -15,13 +15,13 @@ module.exports = new Command({
     {
       name: 'msg',
       description: 'Type your message here, /n for new line',
-      type: 'STRING',
+      type: 'String',
       required: true
     },
     {
       name: 'channel',
       description: 'The channel the message gets sent to.',
-      type: 'CHANNEL',
+      type: 'Channel',
       channel_type: 'GUILD_TEXT',
       required: false
     }

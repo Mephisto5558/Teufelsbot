@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { colors } = require('../../Settings/embed.json'),
   year = new Date().getFullYear();
 
@@ -36,7 +36,7 @@ module.exports = new Command({
   usage: '',
   permissions: { client: ['EMBED_LINKS'], user: [] },
   cooldowns: { guild: 0, user: 1000 },
-  category: 'FUN',
+  category: 'Fun',
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,
@@ -44,26 +44,26 @@ module.exports = new Command({
     {
       name: 'set',
       description: 'set your own birthday',
-      type: 'SUB_COMMAND',
+      type: 'Subcommand',
       options: [
         {
           name: 'day',
           description: 'The day you was born in.',
-          type: 'NUMBER',
+          type: 'Number',
           maxValue: 31,
           required: true
         },
         {
           name: 'month',
           description: 'The month you was born in.',
-          type: 'NUMBER',
+          type: 'Number',
           maxValue: 12,
           required: true
         },
         {
           name: 'year',
           description: 'The year you was born in.',
-          type: 'NUMBER',
+          type: 'Number',
           minValue: 1900,
           maxValue: year,
           required: true
@@ -73,18 +73,18 @@ module.exports = new Command({
     {
       name: 'get',
       description: 'get a list of the next birthdays',
-      type: 'SUB_COMMAND',
+      type: 'Subcommand',
       options: [
         {
           name: 'target',
           description: `whose birthday do you want to get? Leave this empty to get the next 10 birthdays.`,
-          type: 'USER',
+          type: 'User',
           required: false
         },
         {
           name: 'dont_hide',
           description: `don't hide the response to other users`,
-          type: 'BOOLEAN',
+          type: 'Boolean',
           required: false
         }
       ]
@@ -92,7 +92,7 @@ module.exports = new Command({
     {
       name: 'remove',
       description: 'deletes your birthday from the database',
-      type: 'SUB_COMMAND'
+      type: 'Subcommand'
     }
   ],
 
@@ -133,7 +133,7 @@ module.exports = new Command({
         break;
 
       case 'get':
-        let embed = new MessageEmbed();
+        let embed = new EmbedBuilder();
 
         if (target) {
           embed.title = `${target.tag}'s Birthday`;
@@ -198,7 +198,7 @@ module.exports = new Command({
         embed.color = colors.discord.BURPLE;
         embed.footer = {
           text: interaction.user.tag,
-          iconURL: interaction.member.displayAvatarURL({ dynamic: true })
+          iconURL: interaction.member.displayAvatarURL()
         };
 
         if (dontHide) {

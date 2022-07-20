@@ -2,7 +2,7 @@ console.time('Starting time')
 console.log('Starting...');
 
 const
-  { Client, Collection } = require('discord.js'),
+  { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'),
   { reconDB } = require('reconlx'),
   { existsSync, readdirSync } = require('fs'),
   db = new reconDB(process.env.dbConnectionStr),
@@ -42,11 +42,11 @@ Object.merge = (source, source2, mode) => {
 load()
 async function load() {
   const client = new Client({
-    partials: ['MESSAGE', 'CHANNEL', 'REACTION'],
+    partials: [Partials.Message, Partials.Channel, Partials.Reaction],
     allowedMentions: { parse: ['users', 'roles'] },
     shards: 'auto',
     retryLimit: 2,
-    intents: 32767
+    intents: 32767 //Represents ALL_INTENTS
   });
 
   if (existsSync('./env.json')) defaultSettings = require('./env.json');
@@ -92,10 +92,10 @@ async function load() {
     }
   }
 
-  client.on('apiResponse', (req, res) => {
-    client.lastRateLimit.set(req.route, Object.assign({}, ...Array.from(res.headers)
-      .filter(([a]) => /x-ratelimit/.test(a))
-      .map(([a, b]) => { return { [a.replace('x-ratelimit-', '').replace(/-\w/, c => c[1].toUpperCase())]: b }; })
+  client.rest.on('response', (req, res) => {
+    client.lastRateLimit.set(req.route, Object.assign({}, ...Object.entries(res.headers)
+      .filter(([a]) => a.includes('x-ratelimit'))
+      .map(([a, b]) => ({ [a.replace('x-ratelimit-', '').replace(/-\w/, c => c[1].toUpperCase())]: b }))
     ));
   });
 

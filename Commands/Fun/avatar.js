@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed, MessageActionRow, MessageButton } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
@@ -17,13 +17,13 @@ module.exports = new Command({
     {
       name: 'target',
       description: 'the user you want to get the avatar of',
-      type: 'USER',
+      type: 'User',
       required: false
     },
     {
       name: 'size',
       description: 'The size of the picture',
-      type: 'NUMBER',
+      type: 'Number',
       required: false,
       choices: [
         { name: 16, value: 16 }, { name: 32, value: 32 },
@@ -54,18 +54,18 @@ module.exports = new Command({
 
     const avatarURL = await target.avatarURL({ format: 'png', size: size || 2048, dynamic: true });
 
-    let embed = new MessageEmbed({
+    let embed = new EmbedBuilder({
       description: `**Avatar of ${target.username}**`,
       color: colors.WHITE,
       image: avatarURL,
       footer: { text: interaction?.user.tag || message?.author.tag }
     });
 
-    let row = new MessageActionRow({
-      components: [new MessageButton({
+    let row = new ActionRowBuilder({
+      components: [new ButtonBuilder({
         label: 'Download picture',
         url: avatarURL,
-        style: 'LINK'
+        style: ButtonStyle.Link
       })]
     })
 

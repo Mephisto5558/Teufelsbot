@@ -1,7 +1,7 @@
 const
   { Command } = require('reconlx'),
   { Octokit } = require('@octokit/core'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   package = require('../../package.json')?.repository?.url
   .replace(/.*\.com\/|\.git/g, '').split('/');
 
@@ -20,19 +20,19 @@ module.exports = new Command({
     {
       name: 'title',
       description: 'the title of your suggestion',
-      type: 'STRING',
+      type: 'String',
       required: true
     },
     {
       name: 'suggestion',
       description: 'your suggestion. Gets send to github.',
-      type: 'STRING',
+      type: 'String',
       required: true
     },
     {
       name: 'importance',
       description: 'how important you think your suggestion is',
-      type: 'STRING',
+      type: 'String',
       required: true,
       choices: [
         { name: 'low', value: 'Low' },
@@ -62,7 +62,7 @@ module.exports = new Command({
       throw err;
     }
 
-    let embed = new MessageEmbed({
+    let embed = new EmbedBuilder({
       title: 'Success',
       description:
         'Your suggestion has been sent.\n' +

@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
@@ -18,12 +18,12 @@ module.exports = new Command({
     {
       name: 'toggle',
       description: 'toggles the ability to send you user-made dms',
-      type: 'SUB_COMMAND',
+      type: 'Subcommand',
       options: [
         {
           name: 'user_to_toggle',
           description: 'the user you want to toggle, leave this empty to toggle all users ("*").',
-          type: 'USER',
+          type: 'User',
           required: false
         }
       ]
@@ -31,29 +31,29 @@ module.exports = new Command({
     {
       name: 'list',
       description: 'lists all users you are currently blocking.',
-      type: 'SUB_COMMAND'
+      type: 'Subcommand'
     },
     {
       name: 'send',
       description: 'send a dm to a user of this guild',
-      type: 'SUB_COMMAND',
+      type: 'Subcommand',
       options: [
         {
           name: 'target',
           description: 'the user you want to send a dm to',
-          type: 'USER',
+          type: 'User',
           required: true
         },
         {
           name: 'message',
           description: `the message you want to send, /n for new line`,
-          type: 'STRING',
+          type: 'String',
           required: true
         },
         {
           name: 'as_mod',
           description: `shows 'a mod of {guild name}' instead of your name`,
-          type: 'BOOLEAN',
+          type: 'Boolean',
           required: false
         }
       ]
@@ -125,7 +125,7 @@ module.exports = new Command({
           }
         }
 
-        const listEmbed = new MessageEmbed({
+        const listEmbed = new EmbedBuilder({
           title: 'Your blacklist for the `/dm send` command',
           description:
             'You are blocking the following guild members:\n' +
@@ -152,7 +152,7 @@ module.exports = new Command({
           return interaction.editReply({ content: errorMsg });
         }
 
-        let embed = new MessageEmbed({
+        let embed = new EmbedBuilder({
           title: 'You got a message!',
           description:
             `From: **${`\`${interaction.user.tag}\`` || 'a guild moderator'}**\n` +

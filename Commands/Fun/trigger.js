@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js');
+  { EmbedBuilder } = require('discord.js');
 
 module.exports = new Command({
   name: 'trigger',
@@ -16,24 +16,24 @@ module.exports = new Command({
     {
       name: 'add',
       description: 'Add a new trigger',
-      type: 'SUB_COMMAND',
+      type: 'Subcommand',
       options: [
         {
           name: 'trigger',
           description: 'The text you want the bot to respond to',
-          type: 'STRING',
+          type: 'String',
           required: true
         },
         {
           name: 'response',
           description: 'The response the bot should send',
-          type: 'STRING',
+          type: 'String',
           required: true
         },
         {
           name: 'wildcard',
           description: 'Find the trigger anywhere in the message (default: true)',
-          type: 'BOOLEAN',
+          type: 'Boolean',
           required: false
         }
       ]
@@ -41,40 +41,40 @@ module.exports = new Command({
     {
       name: 'delete',
       description: 'Delete a trigger. This is irreversible!',
-      type: 'SUB_COMMAND',
+      type: 'Subcommand',
       options: [{
         name: 'id',
         description: 'The trigger id, can be found by using "/trigger get"',
-        type: 'NUMBER',
+        type: 'Number',
         required: true
       }]
     },
     {
       name: 'clear',
       description: 'Delete all triggers. This is irreversible!',
-      type: 'SUB_COMMAND',
+      type: 'Subcommand',
       options: [{
         name: 'confirmation',
         description: 'Write "CLEAR ALL" for confirmation.',
-        type: 'STRING',
+        type: 'String',
         required: true
       }]
     },
     {
       name: 'get',
       description: 'Get one or all added triggers',
-      type: 'SUB_COMMAND',
+      type: 'Subcommand',
       options: [
         {
           name: 'id',
           description: 'The trigger id, can be found by using "/trigger get" (without the "id" arg)',
-          type: 'NUMBER',
+          type: 'Number',
           required: false
         },
         {
           name: 'short',
           description: 'return as many triggers as possible',
-          type: 'BOOLEAN',
+          type: 'Boolean',
           required: false
         }
       ]
@@ -90,7 +90,7 @@ module.exports = new Command({
     switch (interaction.options.getSubcommand()) {
       case 'add':
         const data = {
-          id: Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id +1 || 1,
+          id: parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) + 1 || 1,
           trigger: interaction.options.getString('trigger'),
           response: interaction.options.getString('response'),
           wildcard: !(interaction.options.getBoolean('wildcard') === false)
@@ -127,7 +127,7 @@ module.exports = new Command({
           const { trigger, response, wildcard } = oldData.find(e => e.id == id) || {};
           if (!trigger) return interaction.editReply('There is no trigger with that ID!');
 
-          const embed = new MessageEmbed({
+          const embed = new EmbedBuilder({
             title: `Trigger ${id}`,
             description:
               `**Trigger:** \n` +
@@ -143,7 +143,7 @@ module.exports = new Command({
         else {
           if (!oldData.length) return interaction.editReply('There are no triggers!');
 
-          const embed = new MessageEmbed({
+          const embed = new EmbedBuilder({
             title: 'Triggers',
             color: 'BLUE'
           });

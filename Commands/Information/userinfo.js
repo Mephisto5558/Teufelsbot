@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = new Command({
@@ -16,20 +16,20 @@ module.exports = new Command({
   options: [{
     name: 'target',
     description: 'the user you want to get information about',
-    type: 'USER',
+    type: 'User',
     required: false
   }],
 
   run: async (client, message, interaction) => {
     if (interaction) message = interaction;
-    if(message) {
+    if (message) {
       message.args = message.args?.[0].replace(/[<@&>]/g, ''),
-      message.content = message.content?.replace(/[<@&>]/g, '')
+        message.content = message.content?.replace(/[<@&>]/g, '')
     }
     const
       member = interaction?.options.getUser('target') || interaction?.member || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [message.args, message.content].includes(e))) || message.member,
       user = member.user,
-      color = (await getAverageColor(member.displayAvatarURL({ dynamic: true }))).hex;
+      color = (await getAverageColor(member.displayAvatarURL())).hex;
 
     let type = user.bot ? 'Bot, ' : '';
 
@@ -38,7 +38,7 @@ module.exports = new Command({
     else if (member.permissions.has('MODERATE_MEMBERS')) type += 'Guild Moderator';
     else type += 'Guild Member';
 
-    const embed = new MessageEmbed({
+    const embed = new EmbedBuilder({
       title: user.tag,
       description: ' ',
       color: color,
@@ -51,14 +51,13 @@ module.exports = new Command({
         ['Color', `[${member.displayHexColor}](https://www.color-hex.com/color/${color})`],
         ['Moderatable', member.moderatable],
         ['Created At', `<t:${Math.round(user.createdTimestamp / 1000)}>`],
-        ['Joined At', `<t:${Math.round(member.joinedTimestamp / 1000)}>`]
-      ].map(e => { return { name: e[0], value: e[1].toString(), inline: !(e[2] === false) } })
+        ['Joined At', `<t:${Math.round(member.joinedTimestamp / 1000)}>`],
+        member.isCommunicationDisabled() ? ['Timed Out Until', `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, true] : null,
+        ['Roles with permissions', Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').join(', ')],
+        ['Permissions', `\`${member.permissions.toArray()?.join('`, `') || 'NONE'}\` (${member.permissions.toArray().length})`]
+      ].filter(e => e).map(e => ({ name: e[0], value: e[1].toString(), inline: !(e[2] === false) }))
     })
-      .setThumbnail(member.displayAvatarURL({ dynamic: true }))
-
-    if (member.isCommunicationDisabled()) embed.addField('Timed Out Until', `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, true);
-    embed.addField('Roles with permissions', Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').join(', '));
-    embed.addField('Permissions', `\`${member.permissions.toArray()?.join('`, `') || 'NONE'}\` (${member.permissions.toArray().length})`)
+      .setThumbnail(member.displayAvatarURL())
 
     interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);
   }

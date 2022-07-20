@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageButton, MessageActionRow } = require('discord.js'),
+  { ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
   game = new TicTacToe({
     simultaneousGames: true,
@@ -44,11 +44,11 @@ async function playAgain(interaction, clientUserID) {
     ) return true;
   }
 
-  const row = new MessageActionRow({
-    components: [new MessageButton({
+  const row = new ActionRowBuilder({
+    components: [new ButtonBuilder({
       customId: 'playAgain',
       label: 'Play again',
-      style: 'SUCCESS'
+      style: ButtonStyle.Success
     })]
   })
 
@@ -57,7 +57,7 @@ async function playAgain(interaction, clientUserID) {
   await interaction.editReply({ components: rows });
 
   const collector = interaction.channel.createMessageComponentCollector({
-    filter, max: 1, componentType: 'BUTTON', time: 15000
+    filter, max: 1, componentType: 'Button', time: 15000
   });
 
   collector.on('collect', async PAInteraction => {
@@ -116,7 +116,7 @@ module.exports = new Command({
   options: [{
     name: 'opponent',
     description: 'who you want to play with',
-    type: 'USER',
+    type: 'User',
     required: false
   }],
 

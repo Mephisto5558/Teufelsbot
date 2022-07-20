@@ -8,7 +8,7 @@ module.exports = new Command({
   usage: 'PREFIX Command: funfact',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 0 },
-  category: 'FUN',
+  category: 'Fun',
   slashCommand: false,
   prefixCommand: true,
 

@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
@@ -16,7 +16,7 @@ module.exports = new Command({
   options: [{
     name: 'average',
     description: 'Gets the ping average',
-    type: 'BOOLEAN',
+    type: 'Boolean',
     required: false
   }],
 
@@ -24,7 +24,7 @@ module.exports = new Command({
     if (interaction) message = interaction;
 
     if (interaction?.options?.getBoolean('average')) {
-      const embed = new MessageEmbed({
+      const embed = new EmbedBuilder({
         title: 'Ping',
         description: `Pinging... (this takes about one minute)`,
         color: colors.discord.BURPLE
@@ -52,7 +52,7 @@ module.exports = new Command({
       return interaction.editReply({ embeds: [embed] })
     }
 
-    const embed = new MessageEmbed({
+    const embed = new EmbedBuilder({
       title: 'Latency',
       description: 'Loading...',
       color: colors.GREEN

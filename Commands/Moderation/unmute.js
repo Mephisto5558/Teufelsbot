@@ -14,13 +14,13 @@ module.exports = new Command({
     {
       name: 'target',
       description: 'who you want to unmute',
-      type: 'USER',
+      type: 'User',
       required: true,
     },
     {
       name: 'reason',
       description: 'why you want to unmute the target',
-      type: 'STRING',
+      type: 'String',
       required: false
     }
   ],

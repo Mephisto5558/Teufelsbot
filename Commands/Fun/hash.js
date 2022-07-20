@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { colors } = require('../../Settings/embed.json'),
   { getHashes, createHash } = require('crypto'),
   hashOptions = getHashes()
@@ -20,7 +20,7 @@ let command = new Command({
   options: [{
     name: 'input',
     description: 'the text you want to encrypt or decrypt',
-    type: 'STRING',
+    type: 'String',
     required: true,
   }],
 
@@ -33,7 +33,7 @@ let command = new Command({
 
     const hash = createHash(method).update(input).digest('hex');
 
-    let embed = new MessageEmbed({
+    let embed = new EmbedBuilder({
       title: 'Hash Function',
       description:
         `Your input: \`${input.length > 500 ? `${input.substring(0, 500)}\n...` : input}\`\n` +
@@ -54,7 +54,7 @@ for (let i = 0; i < hashOptions.length; i += 25) {
   command.options.push({
     name: `method${i ? i / 25 + 1 : 1}`,
     description: 'with which method your text should get encrypted (needed only once)',
-    type: 'STRING',
+    type: 'String',
     required: false,
     choices: hashOptions.slice(i, i + 25)
   })

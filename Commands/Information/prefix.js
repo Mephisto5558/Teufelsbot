@@ -13,7 +13,7 @@ module.exports = new Command({
   options: [{
     name: 'new_prefix',
     description: 'the new bot prefix for this server.',
-    type: 'STRING',
+    type: 'String',
     required: false
   }],
 
@@ -33,7 +33,7 @@ module.exports = new Command({
       else client.functions.reply(`My prefix has been changed to \`${message.content}\``, message);
     }
     else {
-      const currentPrefix = client.db.get('settings')[message.guild.id]?.prefix || client.db.get('settings').default.prefix;
+      const currentPrefix = client.db.get('settings')[message.guild.id]?.config?.prefix || client.db.get('settings').default.config.prefix;
       const msg = `My current prefix is \`${currentPrefix || '\n[FATAL ERROR] Please message the dev immediately `NoDefaultPrefixFound`!\n'}\``;
 
       interaction ? interaction.editReply(msg) : client.functions.reply(msg, message);

@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { get } = require('axios').default,
   package = require('../../package.json')?.repository?.url
     .replace(/.*\.com\/|\.git/g, '').split('/'),
@@ -95,13 +95,13 @@ module.exports = new Command({
     {
       name: 'type',
       description: 'The type/tag of the joke (not all APIList support this)',
-      type: 'STRING',
+      type: 'String',
       required: false,
     },
     {
       name: 'blacklist',
       description: 'blacklist specific joke type/tags.',
-      type: 'STRING',
+      type: 'String',
       required: false,
       choices: [
         { name: 'nsfw', value: 'nsfw' },
@@ -115,7 +115,7 @@ module.exports = new Command({
     {
       name: 'max_length',
       description: 'the max length of the joke (not all APIList support this)',
-      type: 'NUMBER',
+      type: 'Number',
       required: false,
       minValue: 10,
       maxValue: 2000
@@ -142,7 +142,7 @@ module.exports = new Command({
       else return interaction.editReply('Apparently, there is currently no API available. Please try again later.');
     }
 
-    let embed = new MessageEmbed({
+    let embed = new EmbedBuilder({
       title: 'Is this funny?',
       description:
         `${joke}\n` +

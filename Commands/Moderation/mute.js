@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
@@ -17,39 +17,39 @@ module.exports = new Command({
     {
       name: 'target',
       description: 'who you want to mute',
-      type: 'USER',
+      type: 'User',
       required: true,
     },
     {
       name: 'reason',
       description: 'The member will see the reason in a DM.',
-      type: 'STRING',
+      type: 'String',
       required: true
     },
     {
       name: 'duration_days',
       description: 'for how much days you want to mute the target',
-      type: 'NUMBER',
+      type: 'Number',
       maxValue: 27
     },
     {
       name: 'duration_hours',
       description: 'for how much hours you want to mute the target',
-      type: 'NUMBER',
+      type: 'Number',
       maxValue: 23,
       required: false
     },
     {
       name: 'duration_minutes',
       description: 'for how much minutes you want to mute the target',
-      type: 'NUMBER',
+      type: 'Number',
       maxValue: 59,
       required: false
     },
     {
       name: 'duration_seconds',
       description: 'for how much seconds you want to mute the target',
-      type: 'NUMBER',
+      type: 'Number',
       maxValue: 59,
       required: false
     }
@@ -94,7 +94,7 @@ module.exports = new Command({
       )
     }
 
-    const embed = new MessageEmbed({
+    const embed = new EmbedBuilder({
       title: 'Muted',
       description:
         `You have been muted in \`${interaction.guild.name}\`.\n` +

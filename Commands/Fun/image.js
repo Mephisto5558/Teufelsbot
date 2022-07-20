@@ -1,8 +1,8 @@
 const
   { Command } = require('reconlx'),
   { get } = require('axios').default,
-  { MessageEmbed } = require('discord.js'),
-  embed = new MessageEmbed({ title: 'Image', color: 'RANDOM', description: ' ' }),
+  { EmbedBuilder } = require('discord.js'),
+  embed = new EmbedBuilder({ title: 'Image', color: 'RANDOM', description: ' ' }),
   endpoints = new Map([
     ['abandon', { text: 'Text to show on the generated image' }],
     ['aborted', { avatars: 'Image URL' }],
@@ -110,7 +110,8 @@ const
   options = Array.from(endpoints).map(([a, b]) => ({
     name: a,
     description: ' ',
-    options: Object.entries(b).filter(([a]) => a != 'info').map(([a, b]) => { return { name: a, description: b } })
+    type: 'Subcommand',
+    options: Object.entries(b).filter(([a]) => a != 'info').map(([a, b]) => ({ name: a, description: b, type: 'String' }))
   }));
 
 module.exports = new Command({

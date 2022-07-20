@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { colors } = require('../../Settings/embed.json');
 
 function pushColors(colorObject, colorArray = []) {
@@ -44,91 +44,91 @@ module.exports = new Command({
     {
       name: 'custom',
       description: 'create your own embed with a bunch of options',
-      type: 'SUB_COMMAND',
+      type: 'Subcommand',
       options: [
         {
           name: 'content',
           description: 'set a message outside of the embed',
-          type: 'STRING',
+          type: 'String',
           required: false
         },
         {
           name: 'description',
           description: 'set the embed text, use "/n" for newlines',
-          type: 'STRING',
+          type: 'String',
           required: false
         },
         {
           name: 'title',
           description: 'set the embed title',
-          type: 'STRING',
+          type: 'String',
           required: false
         },
         {
           name: 'predefined_color',
           description: 'set the embed color from predefined hex codes',
-          type: 'STRING',
+          type: 'String',
           choices: pushColors(colors),
           required: false
         },
         {
           name: 'custom_color',
           description: 'set a custom HEX Code as embed color',
-          type: 'STRING',
+          type: 'String',
           required: false
         },
         {
           name: 'footer_text',
           description: 'set the footer text',
-          type: 'STRING',
+          type: 'String',
           required: false
         },
         {
           name: 'footer_icon',
           description: 'set the footer icon URL',
-          type: 'STRING',
+          type: 'String',
           required: false
         },
         {
           name: 'image',
           description: 'set the embed image URL',
-          type: 'STRING',
+          type: 'String',
           required: false
         },
         {
           name: 'thumbnail',
           description: 'set the thumbnail URL',
-          type: 'STRING',
+          type: 'String',
           required: false
         },
         {
           name: 'timestamp',
           description: 'set the timestamp',
-          type: 'BOOLEAN',
+          type: 'Boolean',
           required: false
         },
         {
           name: 'author_name',
           description: 'set the author name',
-          type: 'STRING',
+          type: 'String',
           required: false
         },
         {
           name: 'author_url',
           description: 'set the author URL',
-          type: 'STRING',
+          type: 'String',
           required: false
         },
         {
           name: 'author_icon',
           description: 'set the author icon URL',
-          type: 'STRING',
+          type: 'String',
           required: false
         },
         /*{
           name: 'fields',
           description: 'set fields. Format: {"name": "<name here>",<value (text)>;;<inline (boolean)>}&&{next one like first}...',
-          type: 'STRING',
+          type: 'String',
           required: false
         }*/
       ]
@@ -136,11 +136,11 @@ module.exports = new Command({
     {
       name: 'json',
       description: 'create an embed from raw JSON data',
-      type: 'SUB_COMMAND',
+      type: 'Subcommand',
       options: [{
         name: 'json',
         description: 'JSON data to create an embed from',
-        type: 'STRING',
+        type: 'String',
         required: true
       }]
     }
@@ -156,9 +156,9 @@ module.exports = new Command({
     let embed;
 
     try {
-      if (custom) embed = new MessageEmbed(JSON.parse(custom.embeds[0]));
+      if (custom) embed = new EmbedBuilder(JSON.parse(custom.embeds[0]));
       else {
-        embed = new MessageEmbed({
+        embed = new EmbedBuilder({
           title: getOption('title'),
           description: getOption('description') || ' ',
           color: getOption('custom_color') || getOption('predefined_color'),
