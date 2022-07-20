@@ -1,18 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
-  { colors } = require('../../Settings/embed.json');
-
-function pushColors(colorObject, colorArray = []) {
-  for (const color of Object.entries(colorObject)) {
-    if (colorArray.length >= 25) break;
-
-    if (typeof color[1] == 'object') pushColors(color[1], colorArray);
-    else if (!/^#[A-F0-9]{6}$/i.test(color[1])) continue;
-    else colorArray.push({ name: color[0], value: color[1].toString() });
-  }
-  return colorArray;
-}
+  { EmbedBuilder, Colors } = require('discord.js');
 
 function filterEmptyEntries(obj) {
   return Object.fromEntries(
@@ -68,12 +56,12 @@ module.exports = new Command({
           name: 'predefined_color',
           description: 'set the embed color from predefined hex codes',
           type: 'String',
-          choices: pushColors(colors),
+          choices: Object.entries(Colors).map(([k, v]) => ({ name: k, value: v.toString() })).slice(0, 25),
           required: false
         },
         {
           name: 'custom_color',
-          description: 'set a custom HEX Code as embed color',
+          description: 'set a custom 6-char HEX Code as embed color (e.g. #ffffff)',
           type: 'String',
           required: false
         },
@@ -161,7 +149,7 @@ module.exports = new Command({
         embed = new EmbedBuilder({
           title: getOption('title'),
           description: getOption('description') || ' ',
-          color: getOption('custom_color') || getOption('predefined_color'),
+          color: getOption('custom_color') || parseInt(getOption('predefined_color').substring(1), 16),
           footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
           timestamp: interaction.options.getBoolean('timestamp') ? Date.now() / 1000 : null,
           author: {

@@ -46,7 +46,12 @@ async function load() {
     allowedMentions: { parse: ['users', 'roles'] },
     shards: 'auto',
     retryLimit: 2,
-    intents: 32767 //Represents ALL_INTENTS
+    intents: [
+      GatewayIntentBits.GuildMembers,
+      GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.MessageContent
+     ]
   });
 
   if (existsSync('./env.json')) defaultSettings = require('./env.json');

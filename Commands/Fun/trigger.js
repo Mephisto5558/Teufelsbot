@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js');
+  { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = new Command({
   name: 'trigger',
@@ -135,7 +135,7 @@ module.exports = new Command({
               '**Response:** \n' +
               '```\n' + (response.length < 1900 ? response : response.substring(0, 197) + '...') + '\n```\n' +
               `**Wildcard:** \`${!!wildcard}\`\n`,
-            color: 'BLUE'
+            color: Colors.Blue
           });
 
           interaction.editReply({ embeds: [embed] });
@@ -145,7 +145,7 @@ module.exports = new Command({
 
           const embed = new EmbedBuilder({
             title: 'Triggers',
-            color: 'BLUE'
+            color: Colors.Blue
           });
 
           if (interaction.options.getBoolean('short')) {

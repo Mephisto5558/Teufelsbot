@@ -1,5 +1,4 @@
-const { EmbedBuilder, InteractionType } = require('discord.js');
-const { colors } = require('../Settings/embed.json');
+const { EmbedBuilder, Colors, InteractionType } = require('discord.js');
 
 module.exports = async (client, interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
@@ -20,7 +19,7 @@ module.exports = async (client, interaction) => {
 
     const embed = new EmbedBuilder({
       title: 'Insufficient Permissions',
-      color: colors.discord.RED,
+      color: Colors.Red,
       description:
         `${userPerms.length ? 'You' : 'I'} need the following permissions in this channel to run this command:\n\`` +
         (botPerms.length ? botPerms : userPerms).join('`, `') + '`'

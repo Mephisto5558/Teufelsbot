@@ -1,7 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
-  { colors } = require('../../Settings/embed.json');
+  { EmbedBuilder, Colors } = require('discord.js');
 
 function listCommands(list, output, count, category) {
   for (let command of list) {
@@ -34,7 +33,7 @@ module.exports = new Command({
   }],
 
   run: (client, message, interaction) => {
-    const embed = new EmbedBuilder({ color: colors.discord.BURPLE });
+    const embed = new EmbedBuilder({ color: Colors.Blurple });
     let query;
 
     if (message) query = message.args[0]?.toLowerCase();
