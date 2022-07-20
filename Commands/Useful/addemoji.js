@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { Util, MessageEmbed } = require('discord.js'),
+  { Util, EmbedBuilder } = require('discord.js'),
   { colors } = require('../../Settings/embed.json'),
   { head } = require('axios').default;
 
@@ -21,19 +21,19 @@ module.exports = new Command({
     {
       name: 'emoji_or_url',
       description: 'provide an emoji or a url to a picture.',
-      type: 'STRING',
+      type: 'String',
       required: true
     },
     {
       name: 'name',
       description: 'the name of the new emoji (min 2, max 32 chars)',
-      type: 'STRING',
+      type: 'String',
       required: false
     },
     {
       name: 'limit_to_roles',
       description: 'the role(s) that are allowed to use the emoji. Separate them with spaces',
-      type: 'STRING',
+      type: 'String',
       required: false
     }
   ],
@@ -45,7 +45,7 @@ module.exports = new Command({
       emojiName = interaction.options.getString('name')?.slice(0, 32),
       limitToRoles = interaction.options.getString('limit_to_roles')?.replace(/[^0-9\s]/g, '').split(' ').filter(e => interaction.guild.roles.cache.has(e)),
       emoticon = Util.parseEmoji(input),
-      embed = new MessageEmbed({
+      embed = new EmbedBuilder({
         title: 'Add Emoji',
         color: colors.discord.RED
       });
@@ -72,7 +72,9 @@ module.exports = new Command({
     if (embed.description) return interaction.editReply({ embeds: [embed] });
 
     try {
-      const emoji = await interaction.guild.emojis.create(input, emojiName?.length < 2 ? 'emoji' : emojiName, {
+      const emoji = await interaction.guild.emojis.create({
+        attachment: input,
+        name: emojiName?.length < 2 ? 'emoji' : emojiName, 
         reason: `addemoji command, member ${interaction.user.tag}`,
         roles: limitToRoles
       });

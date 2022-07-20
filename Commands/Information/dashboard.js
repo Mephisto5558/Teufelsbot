@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { name, author } = require('../../package.json'),
   { colors } = require('../../Settings/embed.json');
 
@@ -16,7 +16,7 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: async(client, message, interaction) => {
-    const embed = new MessageEmbed({
+    const embed = new EmbedBuilder({
       title: 'Dashboard',
       description: `Click [here](https://${name}.${author}.repl.co/) to open the dashboard.`,
       color: colors.discord.BURPLE

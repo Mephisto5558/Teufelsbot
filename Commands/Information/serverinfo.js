@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = new Command({
@@ -27,7 +27,7 @@ module.exports = new Command({
         channels = newChannels;
         return length;
       },
-      embed = new MessageEmbed({
+      embed = new EmbedBuilder({
         title: guild.name,
         description: guild.description,
         color: (await getAverageColor(guild.iconURL({ dynamic: true }))).hex,
@@ -52,16 +52,16 @@ module.exports = new Command({
             `Thread Channels: \`${filter('GUILD_THREAD')}\`, ` +
             `Other Channels: \`${channels.length}\``,
             false
-          ]
-        ].map(e => { return { name: e[0], value: e[1].toString(), inline: !(e[2] === false) } })
+          ],
+          guild.vanityURLCode ? (
+            ['Vanity URL', guild.vanityURLCode, true],
+            ['Vanity URL Uses', guild.vanityURLUses, true]
+          ) : null
+        ].filter(e => e).map(e => ({ name: e[0], value: e[1].toString(), inline: !(e[2] === false) }))
       })
         .setThumbnail(guild.iconURL({ dynamic: true }));
 
     if (guild.banner) embed.setImage(`https://cdn.discordapp.com/banners/${guild.id}/${guild.banner}.webp`);
-    if (guild.vanityURLCode) {
-      embed.addField('Vanity URL', guild.vanityURLCode, true)
-      embed.addField('Vanity URL Uses', guild.vanityURLUses, true)
-    }
 
     interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);
   }

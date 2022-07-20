@@ -1,5 +1,5 @@
 const
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { colors } = require('../Settings/embed.json');
 
 module.exports = async (client, message) => {
@@ -19,7 +19,7 @@ module.exports = async (client, message) => {
     client.functions.reply(trigger.response, message);
   if (/(koi ?pat|pat ?koi|pat ?fish|fish ?pat)/i.test(message.content)) client.functions.reply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7', message);
 
-  const guildPrefix = guildSettings?.prefix || await client.db.get('settings').default.prefix;
+  const guildPrefix = guildSettings?.config?.prefix || await client.db.get('settings').default.config.prefix;
 
   const length = message.content.startsWith(guildPrefix) ? guildPrefix.length : message.content.startsWith(`<@${client.user.id}>`) ? `<@${client.user.id}>`.length : 0;
   if (!length) return;
@@ -41,10 +41,10 @@ module.exports = async (client, message) => {
   message.content = message.args.join(' ');
 
   const userPerms = message.member.permissionsIn(message.channel).missing([...command.permissions.user, 'SEND_MESSAGES']);
-  const botPerms = message.guild.me.permissionsIn(message.channel).missing([...command.permissions.client, 'SEND_MESSAGES']);
+  const botPerms = message.guild.members.me.permissionsIn(message.channel).missing([...command.permissions.client, 'SEND_MESSAGES']);
 
   if (botPerms.length || userPerms.length) {
-    const embed = new MessageEmbed({
+    const embed = new EmbedBuilder({
       title: 'Insufficient Permissions',
       color: colors.discord.RED,
       description:

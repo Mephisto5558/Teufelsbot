@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js');
+  { EmbedBuilder } = require('discord.js');
 
 module.exports = new Command({
   name: 'roleinfo',
@@ -15,13 +15,13 @@ module.exports = new Command({
   options: [{
     name: 'role',
     description: 'the role you want to get information about',
-    type: 'ROLE',
+    type: 'Role',
     required: true
   }],
 
   run: async (client, message, interaction) => {
     if (interaction) message = interaction;
-    if(message) {
+    if (message) {
       message.args = message?.args?.[0].replace(/[<@>]/g, '');
       message.content = message?.content?.replace(/[<@>]/g, '');
     }
@@ -30,7 +30,7 @@ module.exports = new Command({
     if (!role) return client.functions.reply('You need to provide a role (by id, name or mention)', message);
 
     const color = role.hexColor.slice(1);
-    const embed = new MessageEmbed({
+    const embed = new EmbedBuilder({
       title: role.name,
       description: ' ',
       color: color,
@@ -43,13 +43,12 @@ module.exports = new Command({
         ['Managed', role.managed],
         ['Position', role.position],
         ['ID', `\`${role.id}\``],
-        ['Created At', `<t:${Math.round(role.createdTimestamp / 1000)}>`]
-      ].map(e => { return { name: e[0], value: e[1].toString(), inline: !(e[2] === false) } })
+        ['Created At', `<t:${Math.round(role.createdTimestamp / 1000)}>`],
+        role.members.size < 16 ? ['Members', Array.from(role.members.values()).join(', ')] : null,
+        ['Permissions', `\`${role.permissions.toArray()?.join('`, `') || 'NONE'}\` (${role.permissions.toArray().length})`]
+      ].filter(e => e).map(e => ({ name: e[0], value: e[1].toString(), inline: !(e[2] === false) }))
     })
       .setThumbnail(role.icon ? `https://cdn.discordapp.com/role-icons/${role.guild.id}/${role.icon}.webp?size=80&quality=lossless` : `https://dummyimage.com/80x80/${color}/${color}.png`);
-      
-    if (role.members.size < 16) embed.addField('Members', Array.from(role.members.values()).join(', '));
-    embed.addField('Permissions', `\`${role.permissions.toArray()?.join('`, `') || 'NONE'}\` (${role.permissions.toArray().length})`)
 
     interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);
   }

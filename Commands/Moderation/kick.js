@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
@@ -17,13 +17,13 @@ module.exports = new Command({
     {
       name: 'targets',
       description: 'Mention member(s) or put ID(s) in to kick them. Put a space between each target',
-      type: 'STRING',
+      type: 'String',
       required: true
     },
     {
       name: 'reason',
       description: 'The target(s) will see the reason in DMs.',
-      type: 'STRING',
+      type: 'String',
       required: true
     }
   ],
@@ -32,16 +32,16 @@ module.exports = new Command({
     const
       targets = new Set([...interaction.options.getString('targets').replace(/[^0-9\s]/g, '').split(' ').filter(e => e?.length == 18)]),
       reason = interaction.options.getString('reason'),
-      embed = new MessageEmbed({
-        title: 'Banned',
+      embed = new EmbedBuilder({
+        title: 'Kicked',
         description:
-          `You have been banned from \`${interaction.guild.name}\`.\n` +
+          `You have been kicked from \`${interaction.guild.name}\`.\n` +
           `Moderator: ${interaction.user.tag}\n` +
           `Reason: ${reason}`,
         color: colors.RED
       }),
-      resEmbed = new MessageEmbed({
-        title: 'Ban',
+      resEmbed = new EmbedBuilder({
+        title: 'Kick',
         description:
           `Moderator: ${interaction.user.tag}\n` +
           `Reason: ${reason}\n\n`,
@@ -63,7 +63,7 @@ module.exports = new Command({
       else if (!target.kickable) errorMsg = `I don't have the permission to do that!`;
 
       if (errorMsg) {
-        resEmbed.description += `**${target?.user?.tag ?? target.id}** couldn't been banned.\n${errorMsg}\n`;
+        resEmbed.description += `**${target?.user?.tag ?? target.id}** couldn't been kicked.\n${errorMsg}\n`;
         continue;
       }
 
@@ -73,7 +73,7 @@ module.exports = new Command({
       await target.kick(reason);
 
       resEmbed.description +=
-        `**${target?.user?.tag ?? target.id}** has been successfully banned.\n` +
+        `**${target?.user?.tag ?? target.id}** has been successfully kicked.\n` +
         `${noMsg ? `\nI couldn't DM the target.` : ''}`;
     }
     interaction.editReply({ embeds: [embed] });
