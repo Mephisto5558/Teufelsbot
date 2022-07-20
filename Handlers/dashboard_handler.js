@@ -4,10 +4,9 @@ const
   { readdirSync } = require('fs'),
   package = require('../package.json'),
   rateLimit = {
-    windowMs: 15 * 60 * 1000, // 15min
+    windowMs: 1 * 60 * 1000, // 1min
     max: 100,
-    message: '<body style="background-color:#000 color: #fff"><p>Sorry, you have been ratelimited!</p></body>',
-    store: null
+    message: '<body style="background-color:#000 color: #fff"><p>Sorry, you have been ratelimited!</p></body>'
   }
 
 async function getAllSettings(client) {
@@ -17,10 +16,12 @@ async function getAllSettings(client) {
     const index = require(`../Website/dashboard/${subFolder}/_index.json`);
     const optionList = [{
       title: 'Important!',
-      description: 'You need to press the submit button on the bottom of the page!',
+      description: 'You need to press the submit ButtonBuilder on the bottom of the page to save settings!',
       optionType: 'spacer',
       position: -1,
     }];
+
+    client.dashboardOptionCount[index.id] = 0;
 
     if (index.id != 'config') {
       optionList.push({
@@ -30,32 +31,15 @@ async function getAllSettings(client) {
         position: 0,
         optionType: DBD.formTypes.switch(),
 
-        getActualSet: async ({ guild }) => {
-          await client.db.get('settings')[guild.id]?.enabledModules?.includes(index.id);
-        },
-        setNew: async ({ guild, newData }) => {
-          const oldData = await client.db.get('settings');
-          let guildData = oldData[guild.id];
-
-          if (
-            newData && guildData?.enabledModules?.includes(index.id) ||
-            !newData && !guildData?.enabledModules?.includes(index.id)
-          ) return true;
-
-          else if (!newData) guildData.enabledModules = guildData.enabledModules.filter(e => e != index.id);
-          else {
-            if (!guildData) guildData = { enabledModules: [index.id] };
-            else if (!guildData.enabledModules) guildData.enabledModules = [index.id];
-            else guildData.enabledModules.push(index.id);
-          }
-
-          return client.db.set('settings', Object.assign({}, oldData, { [guild.id]: guildData }));
-        }
-      })
+        getActualSet: async ({ guild }) => await client.db.get('settings')[guild.id]?.[index.id]?.enable,
+        setNew: async ({ guild, newData }) => require('../Website/dashboard/saveSettings.js')(client, guild, index.id, 'enable', newData),
+      });
+      client.dashboardOptionCount[index.id]++
     }
 
     for (const file of readdirSync(`./Website/dashboard/${subFolder}`).filter(file => file.endsWith('.js'))) {
-      const setting = require(`../Website/dashboard/${subFolder}/${file}`)(client);
+      let setting = require(`../Website/dashboard/${subFolder}/${file}`);
+      if (typeof setting == 'function') setting = setting(client);
 
       if (setting.type == 'spacer') {
         optionList.push({
@@ -74,10 +58,23 @@ async function getAllSettings(client) {
           optionDescription: setting.description,
           position: setting.position,
           optionType: setting.type,
-          getActualSet: setting.get,
-          setNew: setting.set,
+          getActualSet: setting.get || (async ({ guild }) => {
+            let gSetting = await client.db.get('settings')[guild.id]?.[index.id] || await client.db.get('settings').default?.[index.id];
+            const items = setting.id.replace(/([A-Z])/g, r => `.${r.toLowerCase()}`).split('.');
+
+            for (const entry of items) gSetting = gSetting?.[entry];
+            if (!gSetting) {
+              gSetting = await client.db.get('settings').default?.[index.id];
+              for (const entry of items) gSetting = gSetting?.[entry];
+            }
+
+            return gSetting;
+          }),
+          setNew: setting.set || (async ({ guild, newData }) => require('../Website/dashboard/saveSettings.js')(client, guild, index.id, setting.id, newData)),
           allowedCheck: setting.auth
-        })
+        });
+
+        client.dashboardOptionCount[index.id]++
       }
     }
 
@@ -89,36 +86,72 @@ async function getAllSettings(client) {
       categoryOptionsList: optionList.sort((a, b) => a.position - b.position)
     })
   }
+
   return categoryOptionList.sort((a, b) => a.position - b.position);
 }
 
-module.exports = async client => {
-  if(client.botType == 'dev') return client.log('Dashboard loading skipped due to dev version');
-  
-  const me = client.user || await client.users.fetch(client.userID);
-  const domain = client.botType == 'main' ? `https://${package.name}.${package.author}.repl.co/` : 'http://localhost:8000';
+async function getAllCommands(client) {
+  const categoryCommandList = [];
 
+  for (const subFolder of getDirectoriesSync('./Commands')) {
+    if (subFolder.toLowerCase() == 'owner-only') continue;
+    const commandList = [];
+
+    for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
+      const cmd = require(`../Commands/${subFolder}/${file}`);
+
+      if (!cmd?.name || cmd.hideInHelp || cmd.disabled || (cmd.beta && client.botType != 'dev') || cmd.category.toLowerCase() == 'owner-only') continue;
+
+      commandList.push({
+        commandName: cmd.name.replace(/\n/g, '<br>'),
+        commandUsage:
+          (cmd.slashCommand ? 'SLASH command: Look at the option descriptions.<br>' : '') +
+          (cmd.slashCommand ? cmd.usage?.replace(/slash command/gi, '') : cmd.usage)?.replace(/\n/g, '<br>') || 'No information found',
+        commandDescription: cmd.description.replace(/\n/g, '<br>') || 'No information found',
+        commandAlias:
+          (cmd.aliases.prefix.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}<br>` : '') +
+          (cmd.aliases.slash.length ? `Slash:  ${cmd.aliases.slash.join(', ')}` : '') || 'none'
+      })
+    }
+
+    categoryCommandList.push({
+      category: subFolder,
+      subTitle: '',
+      aliasesDisabled: false,
+      list: commandList
+    })
+  }
+
+  return categoryCommandList;
+}
+
+module.exports = async client => {
+  //if(client.botType == 'dev') return client.log('Dashboard loading skipped due to dev version');
+  
   await client.ready();
   await DBD.useLicense(client.keys.dbdLicense);
   DBD.Dashboard = DBD.UpdatedClass();
 
+  const me = client.user || await client.users.fetch(client.userID);
+  const domain = client.botType == 'main' ? `https://${package.name}.${package.author}.repl.co` : 'http://localhost:8000';
+
   global.embedBuilder = DBD.formTypes.embedBuilder({
     username: me.username,
-    avatarURL: me.displayAvatarURL({ dynamic: true }),
+    avatarURL: me.displayAvatarURL(),
     defaultJson: {}
   });
 
   const Dashboard = new DBD.Dashboard({
     acceptPrivacyPolicy: true,
     useUnderMaintenance: false,
-    minimizedConsoleLogs: client.botType == 'dev' ? false : true,
+    minimizedConsoleLogs: true,
     port: 8000,
-    domain: `${domain}/dashboard`,
+    domain: domain,
     redirectUri: `${domain}/discord/callback`,
     bot: client,
     ownerIDs: [client.application.owner.id],
     client: {
-      id: client.userID,
+      id: me.id,
       secret: client.keys.secret
     },
     invite: {
@@ -134,11 +167,11 @@ module.exports = async client => {
     theme: DarkDashboard({
       information: {
         createdBy: client.application.owner.tag,
-        iconURL: me.displayAvatarURL({ dynamic: true }),
+        iconURL: me.displayAvatarURL(),
         websiteTitle: `${me.username} | Dashboard`,
         websiteName: `${me.username} | Dashboard`,
-        websiteUrl: `${domain}/dashboard`,
-        dashboardUrl: `${domain}/dashboard`,
+        websiteUrl: domain,
+        dashboardUrl: domain,
         supporteMail: 'mephisto5558@gmail.com',
         supportServer: 'https://discord.com/invite/u6xjqzz',
         imageFavicon: '../Website/favicon.ico',
@@ -150,7 +183,7 @@ module.exports = async client => {
       },
       index: {
         card: {
-          category: "Teufelsbot Dashboard - The center of everything",
+          category: 'Teufelsbot Dashboard - The center of everything',
           title: 'Welcome to the Teufelsbot dashboard where you can control the features and settings of the bot.',
           description: 'Look up commands and configurate servers on the left side bar!',
           image: 'https://i.imgur.com/axnP93g.png'
@@ -158,21 +191,7 @@ module.exports = async client => {
         information: {},
         feeds: {},
       },
-      commands: [
-        {
-          category: "Starting Up",
-          subTitle: "All helpful commands",
-          aliasesDisabled: false,
-          list: [
-            {
-              commandName: "bug",
-              commandUsage: ";bug <bug>",
-              commandDescription: "Report a bug to the developers of Wooar.",
-              commandAlias: "No aliases"
-            }
-          ]
-        },
-      ],
+      commands: await getAllCommands(client)
     }),
     underMaintenance: {
       title: 'Under Maintenance',
