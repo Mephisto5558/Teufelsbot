@@ -1,16 +1,14 @@
-const
-  { EmbedBuilder } = require('discord.js'),
-  { colors } = require('../Settings/embed.json');
+const { EmbedBuilder, Colors, ChannelType } = require('discord.js');
 
 module.exports = async (client, message) => {
-  if (message.channel.type == 'DM') return;
+  if (message.channel.type == ChannelType.DM) return;
 
   const blacklist = await client.db.get('blacklist');
   if (blacklist?.includes(message.author.id)) return;
 
   const guildSettings = await client.db.get('settings')[message.guild.id];
 
-  if (message.crosspostable && guildSettings?.autoPublish) message.crosspost();
+  if (message.crosspostable && guildSettings?.config?.autopublish) message.crosspost();
   if (message.author.bot) return;
 
   message.content = message.content.replace(/<@!/g, '<@');
@@ -21,11 +19,11 @@ module.exports = async (client, message) => {
 
   const guildPrefix = guildSettings?.config?.prefix || await client.db.get('settings').default.config.prefix;
 
-  const length = message.content.startsWith(guildPrefix) ? guildPrefix.length : message.content.startsWith(`<@${client.user.id}>`) ? `<@${client.user.id}>`.length : 0;
-  if (!length) return;
+  const prefixLength = message.content.startsWith(guildPrefix) ? guildPrefix.length : message.content.startsWith(`<@${client.user.id}>`) ? `<@${client.user.id}>`.length : 0;
+  if (!prefixLength) return;
 
-  message.content = message.content.slice(length).trim();
-  message.args = message.content.split(' ');
+  message.content = message.content.slice(prefixLength).trim();
+  message.args = message.content.split(' ')
 
   const commandName = message.args.shift().toLowerCase();
   const command = client.commands.get(commandName);
@@ -46,7 +44,7 @@ module.exports = async (client, message) => {
   if (botPerms.length || userPerms.length) {
     const embed = new EmbedBuilder({
       title: 'Insufficient Permissions',
-      color: colors.discord.RED,
+      color: Colors.Red,
       description:
         `${userPerms.length ? 'You' : 'I'} need the following permissions in this channel to run this command:\n\`` +
         (botPerms.length ? botPerms : userPerms).join('`, `') + '`'
