@@ -1,38 +1,24 @@
 const
   { readdirSync } = require('fs'),
-  { Collection } = require('discord.js'),
+  { Collection, ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js'),
   event = require('../Events/interactionCreate.js');
-  
-  let deletedCommandCount = 0;
+
+let deletedCommandCount = 0;
 
 function equal(a, b) {
-  v = i => i?.toString();
-  const subTests = [];
-
   if (
-    a.name != b.name || a.description != b.description || v(a.type) != v(b.type) || a.autocomplete != b.autocomplete || !a.options != !b.options ||
-    a.channelTypes != b.channelTypes || v(a.minValue) != v(b.minValue) || v(a.maxValue) != v(b.maxValue) || a.required != b.required || !a.choices != !b.choices ||
-    a.options?.length != b.options?.length || a.choices?.length != b.choices?.length
-  ) return false;
-
-  for (let i = 0; i < a.options?.length; i++) subTests.push(equal(format(a.options[i]), format(b.options[i])));
-  for (let i = 0; i < a.choices?.length; i++) subTests.push(v(a.choices[i].name) == v(b.choices[i].name) && v(a.choices[i].value) == v(b.choices[i].value));
-
-  return !subTests.includes(false);
+    !a?.toString() && !b?.toString() || a.name == b.name && a.description == b.description && a.type == b.type && a.autocomplete == b.autocomplete &&
+    a.value == b.value && (a.options?.length ?? 0) == (b.options?.length ?? 0) && a.channelTypes == b.channelTypes && equal(a.options, b.options) &&
+    a.minValue == b.minValue && a.maxValue == b.maxValue && a.required == b.required && equal(a.choices, b.choices)
+  ) return true;
 }
 
 function format(option) {
   if (option.options) for (let subOption of option.options) subOption = format(subOption);
+  if (option.run) return option;
 
-  if(option.type) option.type = option.type.toString()
-    .replace('SUB_COMMAND_GROUP', 2).replace('SUB_COMMAND', 1)
-    .replace('STRING', 3).replace('INTEGER', 4)
-    .replace('BOOLEAN', 5).replace('USER', 6)
-    .replace('CHANNEL', 7).replace('ROLE', 8)
-    .replace('MENTIONABLE', 9).replace('NUMBER', 10)
-    .replace('ATTACHMENT', 11);
-
-    if(!isNaN(parseInt(option.type))) option.type = parseInt(option.type);
+  if (!option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or unknown option.type, got ${option.type}`);
+  if (isNaN(option.type)) option.type = ApplicationCommandOptionType[option.type];
 
   return option;
 }
@@ -51,8 +37,8 @@ module.exports = async (client, SyncGuild) => {
         const command = require(`../Commands/${subFolder}/${file}`);
         let skipped = false;
 
-        if (!command.type) command.type = 'CHAT_INPUT';
-        if (!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) continue;
+        command.type = ApplicationCommandType[command.type] || ApplicationCommandType.ChatInput;
+        if (!command.slashCommand || command.disabled /*|| (client.botType == 'dev' && !command.beta)*/) continue;
 
         for (const applicationCommand of applicationCommands) {
           if (!equal(command, applicationCommand[1])) continue;
@@ -63,7 +49,7 @@ module.exports = async (client, SyncGuild) => {
         }
         if (!skipped) {
           client.slashCommands.set(command.name, command);
-          for(const alias of command.aliases.slash) client.slashCommands.set(alias, command);
+          for (const alias of command.aliases.slash) client.slashCommands.set(alias, command);
         }
       }
     }

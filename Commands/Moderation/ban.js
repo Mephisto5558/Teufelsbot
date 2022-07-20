@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { colors } = require('../../Settings/embed.json');
 
 module.exports = new Command({
@@ -17,19 +17,19 @@ module.exports = new Command({
     {
       name: 'targets',
       description: 'Mention member(s) or put ID(s) in to ban them. Put a space between each target',
-      type: 'STRING',
+      type: 'String',
       required: true
     },
     {
       name: 'reason',
       description: 'The target(s) will see the reason in DMs.',
-      type: 'STRING',
+      type: 'String',
       required: true
     },
     {
       name: 'delete_days_of_messages',
       description: 'Delete all messages of the targets of the last n days. max. 7d',
-      type: 'NUMBER',
+      type: 'Number',
       minValue: 1,
       maxValue: 7,
       required: false
@@ -37,7 +37,7 @@ module.exports = new Command({
     /*{
       name: 'duration',
       description: 'How long want you to get the target banned, empty for permament',
-      type: "NUMBER",
+      type: 'Number',
       required: false,
       disabled: true
     }*/
@@ -48,7 +48,7 @@ module.exports = new Command({
       targets = new Set([...interaction.options.getString('targets').replace(/[^0-9\s]/g, '').split(' ').filter(e => e?.length == 18)]),
       reason = interaction.options.getString('reason'),
       days = interaction.options.getNumber('delete_days_of_messages'),
-      embed = new MessageEmbed({
+      embed = new EmbedBuilder({
         title: 'Banned',
         description:
           `You have been banned from \`${interaction.guild.name}\`.\n` +
@@ -56,7 +56,7 @@ module.exports = new Command({
           `Reason: ${reason}`,
         color: colors.RED
       }),
-      resEmbed = new MessageEmbed({
+      resEmbed = new EmbedBuilder({
         title: 'Ban',
         description:
           `Moderator: ${interaction.user.tag}\n` +
@@ -90,7 +90,7 @@ module.exports = new Command({
 
       await interaction.guild.bans.create(target.id, {
         reason: reason,
-        days: days > 7 ? 7 : days < 1 ? 1 : days
+        deleteMessageDays: days > 7 ? 7 : days < 1 ? 1 : days
       });
 
       resEmbed.description +=

@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { readFileSync } = require('fs'),
   { colors } = require('../../Settings/embed.json');
 
@@ -28,7 +28,7 @@ module.exports = new Command({
         `[Dashboard](https://teufelsbot.mephisto5558.repl.co/)\n` +
         `[Privacy Policy](https://teufelsbot.mephisto5558.repl.co/privacy)`,
 
-      embed = new MessageEmbed({
+      embed = new EmbedBuilder({
         title: 'Stats',
         description: description,
         colors: colors.DARK_GOLD,

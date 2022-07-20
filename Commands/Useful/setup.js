@@ -14,7 +14,7 @@ module.exports = new Command({
   options: [{
     name: 'sync',
     description: 'force syncs my slash commands with your guild',
-    type: 'SUB_COMMAND'
+    type: 'Subcommand'
   }],
 
   run: async (client, _, interaction) => {

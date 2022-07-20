@@ -1,9 +1,9 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder, InteractionType } = require('discord.js');
 const { colors } = require('../Settings/embed.json');
 
 module.exports = async (client, interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
-  if (!command) return;
+  if (!command || !interaction.isRepliable()) return;
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, interaction.user, command);
   if(cooldown) return interaction.reply(`This command is on cooldown! Try again in \`${cooldown}\`s.`);
@@ -14,11 +14,11 @@ module.exports = async (client, interaction) => {
     (command.category.toLowerCase() == 'owner-only' && interaction.user.id != client.application.owner.id)  //DO NOT REMOVE THIS LINE!
   ) return;
 
-  if (interaction.isCommand()) {
+  if (interaction.type === InteractionType.ApplicationCommand) {
     const userPerms = interaction.member.permissionsIn(interaction.channel).missing([...command.permissions.user, 'SEND_MESSAGES']);
-    const botPerms = interaction.guild.me.permissionsIn(interaction.channel).missing([...command.permissions.client, 'SEND_MESSAGES']);
+    const botPerms = interaction.guild.members.me.permissionsIn(interaction.channel).missing([...command.permissions.client, 'SEND_MESSAGES']);
 
-    const embed = new MessageEmbed({
+    const embed = new EmbedBuilder({
       title: 'Insufficient Permissions',
       color: colors.discord.RED,
       description:

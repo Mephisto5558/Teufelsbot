@@ -18,13 +18,13 @@ module.exports = new Command({
     {
       name: 'input',
       description: 'the text you want to convert',
-      type: 'STRING',
+      type: 'String',
       required: true
     },
     {
       name: 'convert_to',
       description: 'The output type',
-      type: 'STRING',
+      type: 'String',
       required: true,
       choices: Object.entries(convert).reduce((list, [e]) => {
         if (e != 'getInputType') list.push({ name: e, value: e.charAt(0).toUpperCase() + e.slice(1) });
@@ -34,25 +34,25 @@ module.exports = new Command({
     {
       name: 'is_octal',
       description: 'Set this to true if your input is octal or else it will be recognized as decimal.',
-      type: 'BOOLEAN',
+      type: 'Boolean',
       required: false
     },
     {
       name: 'with_spaces',
       description: 'Do you want to have spaces between the letters? Default: false',
-      type: 'BOOLEAN',
+      type: 'Boolean',
       required: false
     },
     {
       name: 'convert_spaces',
       description: 'Do you want to also convert spaces? Default: true',
-      type: 'BOOLEAN',
+      type: 'Boolean',
       required: false
     },
     {
       name: 'convert_letters_and_digits_only',
       description: 'Do you want to convert only letters and digits? Default: false',
-      type: 'BOOLEAN',
+      type: 'Boolean',
       required: false
     }
   ],

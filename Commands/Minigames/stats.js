@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { MessageEmbed } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { colors } = require('../../Settings/embed.json');
 
 async function manageData(input, clientID) {
@@ -83,12 +83,12 @@ module.exports = new Command({
     {
       name: 'user',
       description: 'get stats about yourself or a specific user',
-      type: 'SUB_COMMAND',
+      type: 'Subcommand',
       options: [
         {
           name: 'game',
           description: 'which game you want to get stats about',
-          type: 'STRING',
+          type: 'String',
           required: true,
           choices: [
             { name: 'TicTacToe', value: 'TicTacToe' }
@@ -97,7 +97,7 @@ module.exports = new Command({
         {
           name: 'target',
           description: 'which user you want to get stats about',
-          type: 'USER',
+          type: 'User',
           required: false
         }
       ]
@@ -105,12 +105,12 @@ module.exports = new Command({
     {
       name: 'leaderboard',
       description: 'get the top 10 players of a game',
-      type: 'SUB_COMMAND',
+      type: 'Subcommand',
       options: [
         {
           name: 'game',
           description: 'which game you want to get stats about',
-          type: 'STRING',
+          type: 'String',
           required: true,
           choices: [
             { name: 'TicTacToe', value: 'TicTacToe' }
@@ -119,7 +119,7 @@ module.exports = new Command({
         {
           name: 'settings',
           description: 'Apply/Disapply filters to the leaderboard',
-          type: 'STRING',
+          type: 'String',
           required: false,
           choices: [
             { name: 'dont_limit_to_guild_members', value: 'all_users' }
@@ -154,11 +154,11 @@ module.exports = new Command({
       interaction ? interaction.editReply(msg) : client.functions.reply(msg, message);
     }
 
-    const embed = new MessageEmbed({
+    const embed = new EmbedBuilder({
       color: colors.discord.BURPLE,
       footer: {
         text: message.member.user.tag,
-        iconURL: message.member.user.displayAvatarURL({ dynamic: true })
+        iconURL: message.member.user.displayAvatarURL()
       }
     });
 
