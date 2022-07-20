@@ -30,11 +30,11 @@ Object.merge = (source, source2, mode) => {
       if (key in source2) {
         if (mode == 'overwrite') output[key] = source2[key];
         else if (mode == 'push') for (const e of source2[key]) output[key].push(e);
-        else for (let i = 0; i < source[key].length || i < source2[key].length; i++) output[key][i] = source2[key][i] || source[key][i];
+        else for (let i = 0; i < source[key].length || i < source2[key].length; i++) output[key][i] = i in source2[key] ? source2[key][i] : source[key][i];
       }
       else output[key] = source[key];
     }
-    else output = { ...output, [key]: source2[key] || source[key] };
+    else output = { ...output, [key]: key in source2 ? source2[key] : source[key] };
   }
   return output;
 }
@@ -66,6 +66,7 @@ async function load() {
   client.categories = getDirectoriesSync('./Commands');
   client.db = db;
   client.functions = {};
+  client.dashboardOptionCount = {};
   client.keys = defaultSettings.keys;
   client.lastRateLimit = new Collection();
   client.events = new Collection();
