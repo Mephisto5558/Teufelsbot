@@ -1,8 +1,7 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
-  { name, author } = require('../../package.json'),
-  { colors } = require('../../Settings/embed.json');
+  { EmbedBuilder, Colors } = require('discord.js'),
+  { name, author } = require('../../package.json');
 
 module.exports = new Command({
   name: 'dashboard',
@@ -19,7 +18,7 @@ module.exports = new Command({
     const embed = new EmbedBuilder({
       title: 'Dashboard',
       description: `Click [here](https://${name}.${author}.repl.co/) to open the dashboard.`,
-      color: colors.discord.BURPLE
+      color: Colors.Blurple
     })
 
     if(interaction) interaction.editReply({ embeds: [embed]});

@@ -1,7 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
-  { colors } = require('../../Settings/embed.json');
+  { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = new Command({
   name: 'ping',
@@ -27,7 +26,7 @@ module.exports = new Command({
       const embed = new EmbedBuilder({
         title: 'Ping',
         description: `Pinging... (this takes about one minute)`,
-        color: colors.discord.BURPLE
+        color: Colors.Blurple
       });
 
       interaction.editReply({ embeds: [embed] });
@@ -55,7 +54,7 @@ module.exports = new Command({
     const embed = new EmbedBuilder({
       title: 'Latency',
       description: 'Loading...',
-      color: colors.GREEN
+      color: Colors.Green
     });
 
     const messagePing = Date.now();

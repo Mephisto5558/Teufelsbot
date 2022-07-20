@@ -6,7 +6,7 @@ module.exports = client => {
     for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
       const command = require(`../Commands/${subFolder}/${file}`);
 
-      if (!command.prefixCommand || command.disabled || (client.botType == 'dev' && !command.beta)) continue;
+      if (!command.prefixCommand || command.disabled /*|| (client.botType == 'dev' && !command.beta)*/) continue;
 
       client.commands.set(command.name, command);
       client.log(`Loaded Command ${command.name}`);

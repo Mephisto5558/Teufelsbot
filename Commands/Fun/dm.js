@@ -1,7 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
-  { colors } = require('../../Settings/embed.json');
+  { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = new Command({
   name: 'dm',
@@ -130,7 +129,7 @@ module.exports = new Command({
           description:
             'You are blocking the following guild members:\n' +
             listMessage,
-          color: colors.discord.BURPLE,
+          color: Colors.Blurple,
           footer: {
             text:
               `run '/dm toggle' without arguments to toggle all users and\n` +
@@ -158,7 +157,7 @@ module.exports = new Command({
             `From: **${`\`${interaction.user.tag}\`` || 'a guild moderator'}**\n` +
             `Guild: \`${interaction.guild.name}\`\n\n` +
             messageToSend.replace(/\/n/g, '\n'),
-          color: colors.discord.BURPLE,
+          color: Colors.Blurple,
           footer: {
             text:
               `If you don't want to receive user-made dms from me, run /dm toggle in any server.\n` +

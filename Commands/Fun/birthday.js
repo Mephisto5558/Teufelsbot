@@ -1,7 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
-  { colors } = require('../../Settings/embed.json'),
+  { EmbedBuilder, Colors } = require('discord.js'),
   year = new Date().getFullYear();
 
 function formatMonthName(input) {

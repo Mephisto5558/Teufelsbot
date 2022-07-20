@@ -1,7 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { Util, EmbedBuilder } = require('discord.js'),
-  { colors } = require('../../Settings/embed.json'),
+  { Util, EmbedBuilder, Colors } = require('discord.js'),
   { head } = require('axios').default;
 
 module.exports = new Command({
@@ -47,7 +46,7 @@ module.exports = new Command({
       emoticon = Util.parseEmoji(input),
       embed = new EmbedBuilder({
         title: 'Add Emoji',
-        color: colors.discord.RED
+        color: Colors.Red
       });
 
     if (interaction.guild.emojis.cache.has(emoticon.id)) embed.description = 'That emoji is already on this guild!';

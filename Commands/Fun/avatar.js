@@ -1,7 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { colors } = require('../../Settings/embed.json');
+  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = new Command({
   name: 'avatar',
@@ -45,18 +44,18 @@ module.exports = new Command({
         await client.lastRateLimitCheck(`/guilds/${message.guild.id}/members/:id`);
         target = (await message.guild.members.fetch(message.args[0].replace(/[<@>]/g, ''))).user;
       }
-      else target = await message.author
+      else target = message.author
     }
     else {
-      target = interaction.options?.getUser('target') || await interaction?.user.fetch();
+      target = interaction.options?.getUser('target') || await interaction?.member
       size = interaction.options?.getNumber('size')
     }
 
-    const avatarURL = await target.avatarURL({ format: 'png', size: size || 2048, dynamic: true });
+    const avatarURL = await target.displayAvatarURL({ size: size || 2048 });
 
     let embed = new EmbedBuilder({
       description: `**Avatar of ${target.username}**`,
-      color: colors.WHITE,
+      color: Colors.White,
       image: avatarURL,
       footer: { text: interaction?.user.tag || message?.author.tag }
     });

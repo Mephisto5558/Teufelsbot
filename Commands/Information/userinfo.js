@@ -27,9 +27,9 @@ module.exports = new Command({
         message.content = message.content?.replace(/[<@&>]/g, '')
     }
     const
-      member = interaction?.options.getUser('target') || interaction?.member || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [message.args, message.content].includes(e))) || message.member,
+      member = interaction?.options.getUser('target') || interaction?.member || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
       user = member.user,
-      color = (await getAverageColor(member.displayAvatarURL())).hex;
+      color = (await getAverageColor(member.displayAvatarURL())).value;
 
     let type = user.bot ? 'Bot, ' : '';
 

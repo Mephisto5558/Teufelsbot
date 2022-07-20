@@ -30,7 +30,7 @@ module.exports = new Command({
       embed = new EmbedBuilder({
         title: guild.name,
         description: guild.description,
-        color: (await getAverageColor(guild.iconURL({ dynamic: true }))).hex,
+        color: (await getAverageColor(guild.iconURL({ dynamic: true }))).value,
         fields: [
           ['Members', `User: \`${guild.members.cache.filter(e => !e.user.bot).size}\`, Bots: \`${guild.members.cache.filter(e => e.user.bot).size}\``],
           ['Verification Level', guild.verificationLevel],
