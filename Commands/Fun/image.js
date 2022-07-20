@@ -117,9 +117,7 @@ module.exports = new Command({
   name: 'image',
   aliases: { prefix: [], slash: [] },
   description: 'Image manipulation',
-  usage:
-    'PREFIX COMMAND: image <subcommand> <args>\n' +
-    `Subcommands: \`${options.map(e => e.name).join('`, `')}\``,
+  usage: 'PREFIX COMMAND: image <subcommand | "help"> <args>',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 500 },
   category: 'Fun',
