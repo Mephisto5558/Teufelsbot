@@ -87,14 +87,14 @@ Object.merge = (source, source2, mode) => {
     console.log(`[${date}] ${data}`)
   };
   client.rateLimitCheck = async route => {
-    if (client.rest.requestManager.globalRemaining == 0) {
+    if (client.rest.requestManager.globalRemaining <= 1) {
       client.log('Waiting for global ratelimit to subside');
       return client.rest.requestManager.globalDelay;
     }
 
     if (!route) return;
     const rateLimit = client.lastRateLimit?.get(route);
-    if (rateLimit?.remaining == 0) {
+    if (rateLimit?.remaining <= 1) {
       client.log(`Waiting for ratelimit on route ${route} to subside`);
       return new Promise(r => setTimeout(r, rateLimit.resetAfter * 1000));
     }
