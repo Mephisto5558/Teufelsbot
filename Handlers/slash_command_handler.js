@@ -58,7 +58,7 @@ module.exports = async (client, SyncGuild) => {
         const command = format(require(`../Commands/${subFolder}/${file}`));
         let skipped = false;
 
-        if (!command.slashCommand || command.disabled /*|| (client.botType == 'dev' && !command.beta)*/) continue;
+        if (!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) continue;
 
         for (const applicationCommand of applicationCommands) {
           if (!equal(command, applicationCommand[1])) continue;
