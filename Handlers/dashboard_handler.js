@@ -118,7 +118,7 @@ async function getAllCommands(client) {
       category: subFolder,
       subTitle: '',
       aliasesDisabled: false,
-      list: commandList.map(e => Object.fromEntries(Object.entries(e).map(([k, v]) => [k, v.trim().replace('\n', '<br>&nbsp')])))
+      list: commandList.map(e => Object.fromEntries(Object.entries(e).map(([k, v]) => [k, v.trim().replace(/\n/g, '<br>&nbsp')])))
     })
   }
 
