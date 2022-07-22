@@ -15,7 +15,7 @@
 <a href="https://discord.gg/u6xjqzz" alt="Discord Server">
   <img src="https://discordapp.com/api/guilds/725378451988676609/widget.png?style=shield" />
 </a>
-<p>A discord bot with multiple features, in active developement.</p>
+<p>A discord.js v14 bot with multiple features, in active developement.</p>
 <a href="https://github.com/Mephisto5558/Teufelbots/discussions/3">Known bugs and ToDo list</a><br>
 Hosted on <a href="https://replit.com">replit.com.</a>
 </p>
