@@ -13,21 +13,20 @@ module.exports = new Command({
   beta: true,
 
   run: async (client, message) => {
-    if(!message.content) return;
-    
+    if (!message.content) return;
+
     try {
-      await eval(message.content);
+      await eval(`(async _ => {${message.content}})()`);
       client.log(`evaluated command '${message.content}'`);
+
+      client.functions.reply(
+        'evaluated command:\n' +
+        '```js\n' +
+        message.content + '```', message
+      )
     }
     catch (err) {
       return client.functions.reply('```\n' + err + '\n```', message);
     }
-
-    client.functions.reply(
-      'evaluated command:\n' +
-      '```javascript\n' +
-      message.content + '```', message
-    )
-
   }
 })

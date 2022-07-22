@@ -1,5 +1,5 @@
 const { Command } = require('reconlx');
-const validTypes = ['PLAYING', 'STREAMING', 'LISTENING', 'WATCHING', 'COMPETING', '1', '2', '3', '5'];
+const { ActivityType } = require('discord.js');
 
 module.exports = new Command({
   name: 'setactivity',
@@ -13,21 +13,21 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: async (client, message) => {
+
     message.args = message.content.trim().split(';');
 
     const activity = message.args[0];
-    const type = message.args[1]?.toUpperCase() || 'PLAYING';
+    let type = !message.args[1] ? 'Playing' : ActivityType[Object.keys(ActivityType).find(e => e.toLowerCase() == message.args[1].toLowerCase())];
+    type = isNaN(type) ? ActivityType[type] : type;
 
-    if (!validTypes.includes(type)) {
-      return client.functions.reply(
-        `Syntax error: Invalid type "${type}". Available types are:\n`
-        `\`${validTypes.join(', ')}.`, message
-      )
-    }
+    if (!type) return client.functions.reply(
+      'This is not a valid type. Valid types are:\n`' +
+      Object.keys(ActivityType).filter(e => isNaN(e)).join('`, `') + '`', message
+    );
 
     await client.user.setActivity(activity, { type: type });
     await client.db.set('activity', { name: activity, type: type });
-    
-    client.functions.reply(`Activity set to \`${activity}\` of type \`${type}\``, message);
+
+    client.functions.reply(`Activity set to \`${activity ? `${activity}\` of type \`${ActivityType[type]}` : 'none'}\`.`, message);
   }
 })

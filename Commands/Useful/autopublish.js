@@ -6,31 +6,23 @@ module.exports = new Command({
   description: 'automatically publishes everything anyone in an announcement channel says.',
   usage:
     'This command publishes all messages send in announcement channels automatically.\n' +
-    'Run the command once to enable it, another time to disable it.',
-  permissions: { client: ['MANAGE_MESSAGES'], user: ['MANAGE_GUILD'] },
-  cooldowns: { guild: 200, user: 0 },
+    'This is a toggle.',
+  permissions: { client: ['ManageGuild'], user: ['ManageGuild'] },
+  cooldowns: { guild: 1000, user: 0 },
   category: 'Useful',
   slashCommand: true,
   prefixCommand: true,
 
-  run: async(client, message, interaction) => {
-    if(interaction) message = interaction;
+  run: async ({ db, functions }, message, interaction) => {
+    if (interaction) message = interaction;
 
-    const oldData = await client.db.get('autopublish');
+    const oldData = await db.get('settings');
+    const setting = oldData[message.guild.id]?.config?.autopublish;
 
-    if(oldData.includes(message.guild.id)) {
-      const newData = oldData.filter(e => e != message.guild.id);
+    const newData = Object.merge(oldData, { [message.guild.id]: { config: { autopublish: !setting } } })
+    await db.set('settings', newData);
 
-      await client.db.set('autopublish', newData);
-
-      if(interaction) interaction.editReply('Disabled autopublishing.');
-      else client.functions.reply('Disabled autopublishing.');
-    }
-    else {
-      await client.db.push('autopublish', message.guild.id);
-
-      if(interaction) interaction.editReply('Enabled autopublishing.');
-      else client.functions.reply('Enabled autopublishing.');
-    }
+    if (interaction) interaction.editReply(`${setting ? 'Disabled' : 'Enabled'} autopublishing.`);
+    else functions.reply(`${setting ? 'Disabled' : 'Enabled'} autopublishing.`, message);
   }
 })

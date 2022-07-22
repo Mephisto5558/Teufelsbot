@@ -1,14 +1,14 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
+  { EmbedBuilder, PermissionFlagsBits } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = new Command({
   name: 'userinfo',
   aliases: { prefix: ['user-info'], slash: [] },
   description: 'Get information about a user',
-  usage: 'PREFIX COMMAND: roleinfo <@user | user name | user tag | user nickname | user id>',
-  permissions: { client: ['EMBED_LINKS'], user: [] },
+  usage: 'PREFIX Command: roleinfo <@user | user name | user tag | user nickname | user id>',
+  permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Information',
   slashCommand: true,
@@ -20,22 +20,23 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async (client, message, interaction) => {
+  run: async ({ functions }, message, interaction) => {
     if (interaction) message = interaction;
-    if (message) {
-      message.args = message.args?.[0].replace(/[<@&>]/g, ''),
-        message.content = message.content?.replace(/[<@&>]/g, '')
+    if (message?.content) {
+      message.args = message?.args[0]?.replace(/[<@&>]/g, '');
+      message.content = message?.content?.replace(/[<@&>]/g, '');
     }
+
     const
-      member = interaction?.options.getUser('target') || interaction?.member || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
+      member = interaction?.options.getMember('target') || interaction?.member || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
       user = member.user,
-      color = (await getAverageColor(member.displayAvatarURL())).value;
+      color = parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16);
 
     let type = user.bot ? 'Bot, ' : '';
 
     if (member.guild.ownerId == member.id) type += 'Guild Owner';
-    else if (member.permissions.has('ADMINISTRATOR')) type += 'Guild Administrator';
-    else if (member.permissions.has('MODERATE_MEMBERS')) type += 'Guild Moderator';
+    else if (member.permissions.has(PermissionFlagsBits.Administrator)) type += 'Guild Administrator';
+    else if (member.permissions.has(PermissionFlagsBits.ModerateMembers)) type += 'Guild Moderator';
     else type += 'Guild Member';
 
     const embed = new EmbedBuilder({
@@ -43,22 +44,21 @@ module.exports = new Command({
       description: ' ',
       color: color,
       fields: [
-        ['Mention', user],
-        ['Type', type],
-        ['Roles', member.roles.cache.size],
-        ['Position', `${member.roles.highest.position}, ${member.roles.highest}`],
-        ['ID', `\`${user.id}\``],
-        ['Color', `[${member.displayHexColor}](https://www.color-hex.com/color/${color})`],
-        ['Moderatable', member.moderatable],
-        ['Created At', `<t:${Math.round(user.createdTimestamp / 1000)}>`],
-        ['Joined At', `<t:${Math.round(member.joinedTimestamp / 1000)}>`],
-        member.isCommunicationDisabled() ? ['Timed Out Until', `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, true] : null,
-        ['Roles with permissions', Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').join(', ')],
-        ['Permissions', `\`${member.permissions.toArray()?.join('`, `') || 'NONE'}\` (${member.permissions.toArray().length})`]
-      ].filter(e => e).map(e => ({ name: e[0], value: e[1].toString(), inline: !(e[2] === false) }))
-    })
-      .setThumbnail(member.displayAvatarURL())
+        { name: 'Mention', value: user.toString(), inline: true },
+        { name: 'Type', value: type, inline: true },
+        { name: 'Roles', value: `\`${member.roles.cache.size}\``, inline: true },
+        { name: 'Position', value: `\`${member.roles.highest.position}\`, ${member.roles.highest}`, inline: true },
+        { name: 'ID', value: `\`${user.id}\``, inline: true },
+        { name: 'Color', value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.substring(1)})`, inline: true },
+        { name: 'Moderatable', value: member.moderatable, inline: true },
+        { name: 'Created At', value: `<t:${Math.round(user.createdTimestamp / 1000)}>`, inline: true },
+        { name: 'Joined At', value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true },
+        member.isCommunicationDisabled() ? { name: 'Timed Out Until', value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true } : null,
+        { name: 'Roles with permissions', value: Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').join(', '), inline: false },
+        { name: 'Permissions', value: `\`${member.permissions.has('Administrator') ? 'Administrator' : member.permissions.toArray()?.join('`, `') || 'NONE'}\` (${member.permissions.toArray().length})`, inline: false }
+      ].filter(e => e)
+    }).setThumbnail(member.displayAvatarURL())
 
-    interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);
+    interaction ? interaction.editReply({ embeds: [embed] }) : functions.reply({ embeds: [embed] }, message);
   }
 })

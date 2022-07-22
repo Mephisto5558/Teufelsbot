@@ -1,16 +1,16 @@
 const
   { Command } = require('reconlx'),
   { Octokit } = require('@octokit/core'),
-  { EmbedBuilder } = require('discord.js'),
+  { EmbedBuilder, Colors } = require('discord.js'),
   package = require('../../package.json')?.repository?.url
-  .replace(/.*\.com\/|\.git/g, '').split('/');
+    .replace(/.*\.com\/|\.git/g, '').split('/');
 
 module.exports = new Command({
   name: 'suggest',
   aliases: { prefix: [], slash: [] },
   description: 'Suggest a feature for the bot on Github.',
   usage: '',
-  permissions: { client: ['EMBED_LINKS'], user: [] },
+  permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 0, user: 5000 },
   category: 'Others',
   slashCommand: true,
@@ -66,9 +66,10 @@ module.exports = new Command({
       title: 'Success',
       description:
         'Your suggestion has been sent.\n' +
-        `[Suggestion link](https://github.com/${package[0]}/${package[1]}/issues?q=is%3Aopen+is%3Aissue+assignee%3A${package[0]}+author%3A${package[0]}+label%3Aenhancement)`
+        `[Suggestion link](https://github.com/${package[0]}/${package[1]}/issues?q=is%3Aopen+is%3Aissue+assignee%3A${package[0]}+author%3A${package[0]}+label%3Aenhancement)`,
+      color: Colors.Green
     });
-    
+
     interaction.editReply({ embeds: [embed] });
 
   }

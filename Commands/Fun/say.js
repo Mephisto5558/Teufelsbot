@@ -22,16 +22,16 @@ module.exports = new Command({
       name: 'channel',
       description: 'The channel the message gets sent to.',
       type: 'Channel',
-      channel_type: 'GUILD_TEXT',
+      channelTypes: ['GuildText'],
       required: false
     }
   ],
 
-  run: async (client, message, interaction) => {
+  run: async ({ functions }, message, interaction) => {
     const msg = interaction?.options?.getString('msg') || message.args?.[0];
-    const channel = interaction?.options.getChannel('channel') || interaction?.channel || message.channel;
+    const channel = interaction?.options.getChannel('channel') || interaction?.channel || message.mentions.channels.first() || message.channel;
 
-    if (!msg) return client.functions.reply('You need to provide a message to send!', message);
+    if (!msg) return functions.reply('You need to provide a message to send!', message);
 
     await channel.send(msg.replace(/\/n/g, '\n'));
 

@@ -1,5 +1,5 @@
 const { Command } = require('reconlx');
-const axios = require('axios');
+const { get } = require('axios').default;
 
 module.exports = new Command({
   name: 'fact',
@@ -12,14 +12,14 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (client, message) => {
+  run: async ({ keys, functions }, message) => {
     try {
-      const res = await axios.get('https://api.api-ninjas.com/v1/facts', {
-        headers: { 'X-Api-Key': client.keys.FunFactAPI },
+      const res = await get('https://api.api-ninjas.com/v1/facts', {
+        headers: { 'X-Api-Key': keys.FunFactAPI },
         contentType: 'application/json',
       });
 
-      client.functions.reply(`${res.data[0].fact}.`, message)
+      functions.reply(`${res.data[0].fact}.`, message)
     }
     catch (err) { console.error(err) }
   }

@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
+  { ButtonBuilder, ButtonStyle, ActionRowBuilder, ComponentType } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
   game = new TicTacToe({
     simultaneousGames: true,
@@ -17,7 +17,7 @@ function workStatsData(firstID, secondID, type, client) {
 
   stats.games = stats.games ? parseInt(stats.games) + 1 : 1;
   stats[typeS] = stats[typeS] ? parseInt(stats[typeS]) + 1 : 1;
-  
+
   if (!stats[against]) stats[against] = { [secondID]: 1 };
   else if (!stats[against][secondID]) stats[against][secondID] = 1;
   else stats[against][secondID] = parseInt(stats[against][secondID]) + 1;
@@ -35,14 +35,9 @@ async function gameEnd(input, ids, client) {
 async function playAgain(interaction, clientUserID) {
   const opponent = interaction.options.getUser('opponent');
   const oldRows = (await interaction.fetchReply()).components;
-  let rows = oldRows;
+  const filter = i => [interaction.member.id, opponent?.id].includes(i.member.id) && i.customId == 'playAgain';
 
-  const filter = i => {
-    if (
-      [interaction.member.id, opponent?.id].includes(i.member.id) &&
-      i.customId == 'playAgain'
-    ) return true;
-  }
+  let rows = oldRows;
 
   const row = new ActionRowBuilder({
     components: [new ButtonBuilder({
@@ -57,7 +52,7 @@ async function playAgain(interaction, clientUserID) {
   await interaction.editReply({ components: rows });
 
   const collector = interaction.channel.createMessageComponentCollector({
-    filter, max: 1, componentType: 'Button', time: 15000
+    filter, max: 1, componentType: ComponentType.Button, time: 15000
   });
 
   collector.on('collect', async PAInteraction => {
@@ -84,21 +79,22 @@ async function playAgain(interaction, clientUserID) {
     }
 
     if (interaction.options._hoistedOptions[0]?.user) {
-      await interaction.channel.send(`<@${interaction.options._hoistedOptions[0].user.id}}> :crossed_swords: New duel challenge`)
-        .then(msg => msg.delete({ timeout: 5000 }));
+      const msg = await interaction.channel.send(`<@${interaction.options._hoistedOptions[0].user.id}}> :crossed_swords: New duel challenge`);
+      msg.delete({ timeout: 5000 });
     }
 
     game.handleInteraction(interaction);
   });
 
   collector.on('end', collected => {
-    if (collected.size != 0) return;
+    if (!collected.size) return;
 
     for (const row of oldRows) {
       for (const button of row.components) {
         button.setDisabled(true);
       }
     }
+
     interaction.editReply({ components: oldRows });
   })
 }
@@ -108,7 +104,7 @@ module.exports = new Command({
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
   description: 'play some ttt against a friend or the bot',
   usage: '',
-  permissions: { client: ['EMBED_LINKS'], user: [] },
+  permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 0, user: 2000 },
   category: 'Minigames',
   slashCommand: true,
@@ -124,11 +120,11 @@ module.exports = new Command({
     const gameTarget = interaction.options.getUser('opponent');
 
     if (gameTarget?.id == client.user.id) game.config.commandOptionName = 'thisOptionWillNotGetUsed';
-    game.config.language = interaction.guild.preferredLocale;
+    game.config.language = client.db.get('settings')[interaction.guild.id]?.config?.lang;
 
     if (gameTarget) {
-      await interaction.channel.send(`<@${gameTarget.id}> :crossed_swords: New duel challenge`)
-        .then(msg => msg.delete({ timeout: 5000 }));
+      const msg = await interaction.channel.send(`<@${gameTarget.id}> :crossed_swords: New duel challenge`);
+      msg.delete({ timeout: 5000 });
     }
 
     game.handleInteraction(interaction);

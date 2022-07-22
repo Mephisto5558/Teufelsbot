@@ -12,8 +12,8 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: (client, message) => {
+  run: ({ functions }, message) => {
     const response = responseList[Math.round(Math.random() * responseList.length)];
-    client.functions.reply(response, message)
+    functions.reply(response, message)
   }
 })

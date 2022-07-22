@@ -9,8 +9,8 @@ module.exports = new Command({
   description: 'adds a emoji to your guild.',
   usage: '',
   permissions: {
-    client: ['MANAGE_EMOJIS_AND_STICKERS', 'EMBED_LINKS'],
-    user: ['MANAGE_EMOJIS_AND_STICKERS']
+    client: ['EmbedLinks', 'ManageEmojisAndStickers'],
+    user: ['ManageEmojisAndStickers']
   },
   cooldowns: { guild: 0, user: 2000 },
   category: 'Useful',
@@ -49,26 +49,27 @@ module.exports = new Command({
         color: Colors.Red
       });
 
-    if (interaction.guild.emojis.cache.has(emoticon.id)) embed.description = 'That emoji is already on this guild!';
+    if (interaction.guild.emojis.cache.has(emoticon.id)) embed.data.description = 'That emoji is already on this guild!';
     else if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
     else {
       if (!input.startsWith('http')) input = `https://${input}`;
       if (!/^.+\.(?:jpg|jpeg|png|webp|gif|svg)$/i.test(input)) {
-        embed.description =
+        embed.data.description =
           'The provided argument is not a valid url or emoji!\n' +
           'The url must end with `jpg`, `jpeg`, `png`, `webp`, `gif` or `svg`.';
       }
 
       try {
         const res = await head(input);
-        if (/4\d\d/.test(res.status)) throw Error();
+        if (/4\d\d/.test(res.status)) throw Error('notFound');
       }
-      catch {
-        embed.description = 'The provided url was not found.'
+      catch(err) {
+        if(err.message == 'notFound') embed.data.description = 'The provided url was not found.';
+        else throw err;
       }
     }
 
-    if (embed.description) return interaction.editReply({ embeds: [embed] });
+    if (embed.data.description) return interaction.editReply({ embeds: [embed] });
 
     try {
       const emoji = await interaction.guild.emojis.create({
@@ -78,15 +79,15 @@ module.exports = new Command({
         roles: limitToRoles
       });
 
-      embed.description =
+      embed.data.description =
         `Successfully added **${emoji.name}** ${emoji}!\n` +
         (limitToRoles.length ? `The emoji has been limited to the following roles:\n<@&${limitToRoles.join('>, <@&')}>` : '');
     }
     catch (err) {
-      embed.description = `Unable to create the emoji for reason:\n`;
+      embed.data.description = `Unable to create the emoji for reason:\n`;
 
-      if (err.name == 'AbortError') embed.description += '> The request timed out. Maybe the image is to large.';
-      else embed.description += '```' + err + '```';
+      if (err.name == 'AbortError') embed.data.description += '> The request timed out. Maybe the image is to large.';
+      else embed.data.description += '```' + err + '```';
     }
 
     interaction.editReply({ embeds: [embed] });

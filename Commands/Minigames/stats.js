@@ -45,7 +45,7 @@ async function formatTopTen(input, settings, message) {
     .slice(0, 10);
 
   for (const entry of data) {
-    await client.lastRateLimitCheck(`/guilds/${message.guild.id}/members/:id`);
+    await client.rateLimitCheck(`/guilds/${message.guild.id}/members/:id`);
     try {
       await message.guild.members.fetch(entry[0]);
       isInGuild = true
@@ -72,8 +72,8 @@ module.exports = new Command({
   name: 'stats',
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
   description: 'get stats about one of the minigames',
-  usage: 'PREFIX COMMAND: stats <game> [target]',
-  permissions: { client: ['EMBED_LINKS'], user: [] },
+  usage: 'PREFIX Command: stats <game> [target]',
+  permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Minigames',
   slashCommand: true,
@@ -121,7 +121,7 @@ module.exports = new Command({
           type: 'String',
           required: false,
           choices: [
-            { name: 'dont_limit_to_guild_members', value: 'all_users' }
+            { name: 'do_not_limit_to_guild_members', value: 'all_users' }
           ]
         }
       ]
@@ -131,7 +131,7 @@ module.exports = new Command({
   run: async (client, message, interaction) => {
     const stats = {};
     if (message) {
-      if(!message.args[0]) return client.functions.reply('You need to give me a game as first argument!', message);
+      if (!message.args[0]) return client.functions.reply('You need to give me a `game` as first argument!', message);
       stats.type = 'user'
       stats.game = message.args[0].replace(/tictactoe/gi, 'TicTacToe')
       stats.target = message.mentions.users?.first() || message.author;
@@ -143,14 +143,16 @@ module.exports = new Command({
       stats.target = interaction.options.getUser('target') || interaction.user
       stats.settings = interaction.options.getString('settings');
     }
+    
+    const leaderboards = await client.db.get('leaderboards');
 
-    stats.data = await client.db.get('leaderboards')[stats.game];
+    stats.data = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == stats.game.toLowerCase())?.[1];
     if (!stats.data) {
       const msg =
-        'This game has not been found on the database.\n' +
-        'If this game exists on the bot, please message the dev.';
+        'This is not a valid game entry. Valid games are:\n`' +
+        Object.keys(leaderboards).join('`, `') + '`';
 
-      interaction ? interaction.editReply(msg) : client.functions.reply(msg, message);
+      return interaction ? interaction.editReply(msg) : client.functions.reply(msg, message);
     }
 
     const embed = new EmbedBuilder({
@@ -164,10 +166,10 @@ module.exports = new Command({
     if (stats.type == 'user') {
       const rawStats = stats.data?.[stats.target.id];
 
-      embed.title = `\`${stats.target.tag}\`'s ${stats.game} Stats`;
+      embed.data.title = `\`${stats.target.tag}\`'s ${stats.game} Stats`;
 
       if (rawStats && rawStats.games) {
-        embed.description =
+        embed.data.description =
           `Games: \`${rawStats?.games}\`\n\n` +
           `Wins:  ${await formatStatCount(rawStats.wins, rawStats.games) || '`0`'}\n` +
           `Draws: ${await formatStatCount(rawStats.draws, rawStats.games) || '`0`'}\n` +
@@ -181,11 +183,11 @@ module.exports = new Command({
           `${await manageData(rawStats.drewAgainst, client.user.id) || '> no one\n'}`
       }
       else
-        embed.description = `${stats.target.id == message.user.id ? 'You have' : `${stats.target.username} has`} not played any ${stats.game} games yet.`;
+        embed.data.description = `${stats.target.id == message.member.id ? 'You have' : `${stats.target.username} has`} not played any ${stats.game} games yet.`;
     }
     else if (stats.type == 'leaderboard') {
-      embed.title = `Top 10 ${stats.game} players`;
-      embed.description = await formatTopTen(stats.data, stats.settings, message) || 'It looks like no one won yet...';
+      embed.data.title = `Top 10 ${stats.game} players`;
+      embed.data.description = await formatTopTen(stats.data, stats.settings, message) || 'It looks like no one won yet...';
     }
 
     interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);

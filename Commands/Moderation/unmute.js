@@ -5,7 +5,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'lifts the timeout of a member',
   usage: '',
-  permissions: { client: ['MUTE_MEMBERS'], user: ['MUTE_MEMBERS'] },
+  permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Moderation',
   slashCommand: true,

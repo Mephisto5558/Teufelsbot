@@ -1,4 +1,4 @@
-const { EmbedBuilder, Colors, ChannelType } = require('discord.js');
+const { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits } = require('discord.js');
 
 module.exports = async (client, message) => {
   if (message.channel.type == ChannelType.DM) return;
@@ -28,18 +28,19 @@ module.exports = async (client, message) => {
   const commandName = message.args.shift().toLowerCase();
   const command = client.commands.get(commandName);
 
+  if(!command && client.slashCommands.get(commandName)) return client.functions.reply('This command is only as slash command available!', message);
   if ( //DO NOT REMOVE THIS BLOCK!
     !command ||
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
   ) return;
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, message.author, command);
-  if (cooldown) return client.functions.reply(`This command is on cooldown! Try again in \`${cooldown}\`s.`, message);
+  if (cooldown && !client.botType == 'dev') return client.functions.reply(`This command is on cooldown! Try again in \`${cooldown}\`s.`, message);
 
   message.content = message.args.join(' ');
 
-  const userPerms = message.member.permissionsIn(message.channel).missing([...command.permissions.user, 'SEND_MESSAGES']);
-  const botPerms = message.guild.members.me.permissionsIn(message.channel).missing([...command.permissions.client, 'SEND_MESSAGES']);
+  const userPerms = message.member.permissionsIn(message.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
+  const botPerms = message.guild.members.me.permissionsIn(message.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages]);
 
   if (botPerms.length || userPerms.length) {
     const embed = new EmbedBuilder({

@@ -7,7 +7,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'bans a member from the guild',
   usage: '',
-  permissions: { client: ['BAN_MEMBERS'], user: ['BAN_MEMBERS'] },
+  permissions: { client: ['BanMembers'], user: ['BanMembers'] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Moderation',
   slashCommand: true,
@@ -66,10 +66,10 @@ module.exports = new Command({
     for (const rawTarget of targets) {
       let target, errorMsg, noMsg;
 
-      await client.lastRateLimitCheck(`/guilds/${interaction.guild.id}/members/:id`);
-      try {
-        target = await interaction.guild.members.fetch(rawTarget);
-      } catch { target = { id: rawTarget } };
+      await client.rateLimitCheck(`/guilds/${interaction.guild.id}/members/:id`);
+
+      try { target = await interaction.guild.members.fetch(rawTarget) }
+      catch { target = { id: rawTarget } };
 
       if (target.id == interaction.member.id) errorMsg = `You can't ban yourself!`;
       else if (target.roles && target.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1 && interaction.guild.ownerId != interaction.user.id)

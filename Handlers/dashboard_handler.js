@@ -6,7 +6,7 @@ const
   rateLimit = {
     windowMs: 1 * 60 * 1000, // 1min
     max: 100,
-    message: '<body style="background-color:#000 color: #fff"><p>Sorry, you have been ratelimited!</p></body>'
+    message: '<body style="background-color:#000 color: #ff0000"><p>Sorry, you have been ratelimited!</p></body>'
   }
 
 async function getAllSettings(client) {
@@ -103,14 +103,14 @@ async function getAllCommands(client) {
       if (!cmd?.name || cmd.hideInHelp || cmd.disabled || (cmd.beta && client.botType != 'dev') || cmd.category.toLowerCase() == 'owner-only') continue;
 
       commandList.push({
-        commandName: cmd.name.replace(/\n/g, '<br>'),
+        commandName: cmd.name,
         commandUsage:
-          (cmd.slashCommand ? 'SLASH command: Look at the option descriptions.<br>' : '') +
-          (cmd.slashCommand ? cmd.usage?.replace(/slash command/gi, '') : cmd.usage)?.replace(/\n/g, '<br>') || 'No information found',
-        commandDescription: cmd.description.replace(/\n/g, '<br>') || 'No information found',
+          (cmd.slashCommand ? 'SLASH Command: Look at the option descriptions.\n' : '') +
+          (cmd.usage?.replace(/slash command:/gi, '') ?? '') || 'No information found',
+        commandDescription: cmd.description || 'No information found',
         commandAlias:
-          (cmd.aliases.prefix.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}<br>` : '') +
-          (cmd.aliases.slash.length ? `Slash:  ${cmd.aliases.slash.join(', ')}` : '') || 'none'
+          (cmd.aliases.prefix.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '') +
+          (cmd.aliases.slash.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || 'none'
       })
     }
 
@@ -118,16 +118,16 @@ async function getAllCommands(client) {
       category: subFolder,
       subTitle: '',
       aliasesDisabled: false,
-      list: commandList
+      list: commandList.map(e => Object.fromEntries(Object.entries(e).map(([k, v]) => [k, v.trim().replace('\n', '<br>&nbsp')])))
     })
   }
 
-  return categoryCommandList;
+  return categoryCommandList.sort((a, b) => a.category.toLowerCase() == 'others' ? 1 : b.list.length - a.list.length);
 }
 
 module.exports = async client => {
   //if(client.botType == 'dev') return client.log('Dashboard loading skipped due to dev version');
-  
+
   await client.ready();
   await DBD.useLicense(client.keys.dbdLicense);
   DBD.Dashboard = DBD.UpdatedClass();

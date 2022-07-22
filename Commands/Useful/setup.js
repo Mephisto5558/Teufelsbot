@@ -5,7 +5,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'Sets the slash commands up.',
   usage: '',
-  permissions: { client: [], user: ['MANAGE_GUILD'] },
+  permissions: { client: [], user: ['ManageGuild'] },
   cooldowns: { guild: 0, user: 10000 },
   category: 'Useful',
   slashCommand: true,

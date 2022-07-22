@@ -11,10 +11,10 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (client, message) => {
-    client.log(`Restarting bot, initiated by user '${message.author.tag}'...`);
-    await client.functions.reply('Restarting bot...', message);
-    
+  run: async ({ log, functions }, message) => {
+    log(`Restarting bot, initiated by user '${message.author.tag}'...`);
+    await functions.reply('Restarting bot...', message);
+
     process.exit(0);
   }
 })

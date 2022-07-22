@@ -7,11 +7,11 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'Manage custom responses to message triggers!',
   usage: '',
-  permissions: { client: [], user: ['MANAGE_MESSAGES'] },
+  permissions: { client: [], user: ['ManageMessages'] },
   cooldowns: { guild: 0, user: 0 },
   category: 'FUN',
   slashCommand: true,
-  prefixCommand: false, beta: true,///////
+  prefixCommand: false,
   options: [
     {
       name: 'add',
@@ -44,9 +44,9 @@ module.exports = new Command({
       type: 'Subcommand',
       options: [{
         name: 'id',
-        description: 'The trigger id, can be found by using "/trigger get"',
+        description: 'The trigger id, can be found by using "/trigger get". Leave this empty to delete the last one',
         type: 'Number',
-        required: true
+        required: false
       }]
     },
     {
@@ -81,10 +81,10 @@ module.exports = new Command({
     }
   ],
 
-  run: async (client, _, interaction) => {
-    const oldData = client.db.get('settings')[interaction.guild.id]?.triggers || [];
-    const settings = client.db.get('settings');
-    const id = interaction.options.getNumber('id');
+  run: async ({ db }, _, interaction) => {
+    const oldData = db.get('settings')[interaction.guild.id]?.triggers || [];
+    const settings = db.get('settings');
+    let id = interaction.options.getNumber('id')
     let newData;
 
     switch (interaction.options.getSubcommand()) {
@@ -97,17 +97,19 @@ module.exports = new Command({
         };
 
         newData = Object.merge(settings, { [interaction.guild.id]: { triggers: [data] } }, 'push');
-        await client.db.set('settings', newData);
+        await db.set('settings', newData);
 
         interaction.editReply(`Added new trigger for \`${data.trigger}\`.`);
         break;
 
       case 'delete':
+        if (!id) id = Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id;
+
         const filtered = oldData.filter(e => e.id != id);
         if (filtered.length == oldData.length) return interaction.editReply('There is no trigger with that ID!');
 
         newData = Object.merge(settings, { [interaction.guild.id]: { triggers: filtered } }, 'overwrite');
-        await client.db.set('settings', newData);
+        await db.set('settings', newData);
 
         interaction.editReply(`I deleted the trigger with id \`${id}\`.`);
         break;
@@ -117,7 +119,7 @@ module.exports = new Command({
         if (!oldData.length) return interaction.editReply('There are no triggers I could clear!');
 
         newData = Object.merge(settings, { [interaction.guild.id]: { triggers: [] } }, 'overwrite');
-        await client.db.set('settings', newData);
+        await db.set('settings', newData);
 
         interaction.editReply(`I deleted all (\`${oldData.length}\`) triggers.`);
         break;
@@ -160,7 +162,7 @@ module.exports = new Command({
                 `> Wildcard: \`${!!wildcard}\`\n\n`;
             }
 
-            embed.description = description;
+            embed.data.description = description;
             return interaction.editReply({ embeds: [embed] });
           }
 
@@ -181,8 +183,8 @@ module.exports = new Command({
             });
           }
 
-          embed.description = oldData.length > 25 ? 'The first 25 triggers. Get more with the `short` option' : ' ';
-          embed.fields = fields;
+          embed.data.description = oldData.length > 25 ? 'The first 25 triggers. Get more with the `short` option' : ' ';
+          embed.data.fields = fields;
 
           interaction.editReply({ embeds: [embed] });
         }

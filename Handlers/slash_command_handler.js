@@ -113,6 +113,6 @@ module.exports = async (client, SyncGuild) => {
   client.log('Loaded Event interactionCreate');
   client.log('Ready to receive slash commands\n');
 
-  client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${new Set([].concat(...client.guilds.cache.map(g => g.members).map(m => m._cache).map(u => Array.from(u).map(u => u[0])))).size} unique users.\n`);
+  client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${new Set(client.guilds.cache.map(g => Array.from(g.members.cache.filter(e => !e.user.bot).keys())).flat()).size} unique users.\n`);
   console.timeEnd('Starting time');
 }

@@ -1,4 +1,4 @@
-const { EmbedBuilder, Colors, InteractionType } = require('discord.js');
+const { EmbedBuilder, Colors, InteractionType, PermissionFlagsBits } = require('discord.js');
 
 module.exports = async (client, interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
@@ -14,8 +14,8 @@ module.exports = async (client, interaction) => {
   ) return;
 
   if (interaction.type === InteractionType.ApplicationCommand) {
-    const userPerms = interaction.member.permissionsIn(interaction.channel).missing([...command.permissions.user, 'SEND_MESSAGES']);
-    const botPerms = interaction.guild.members.me.permissionsIn(interaction.channel).missing([...command.permissions.client, 'SEND_MESSAGES']);
+    const userPerms = interaction.member.permissionsIn(interaction.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
+    const botPerms = interaction.guild.members.me.permissionsIn(interaction.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages]);
 
     const embed = new EmbedBuilder({
       title: 'Insufficient Permissions',
@@ -28,9 +28,8 @@ module.exports = async (client, interaction) => {
     if (botPerms.length || userPerms.length) return interaction.reply({ embeds: [embed], ephemeral: true });
     if (!command.noDefer && !interaction.replied) await interaction.deferReply({ ephemeral: command.ephemeralDefer || false });
 
-    for (const entry of interaction.options._hoistedOptions) {
-      if (entry.type == 'STRING') entry.value = entry.value.replace(/<@!/g, '<@')
-    }
+    for (const entry of interaction.options._hoistedOptions)
+      if (entry.type == 'STRING') entry.value = entry.value.replace(/<@!/g, '<@');
 
     client.interaction = interaction;
     await command.run(client, null, interaction);

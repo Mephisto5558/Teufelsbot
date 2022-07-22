@@ -1,25 +1,25 @@
 const { readdirSync } = require('fs');
 let commandCount = 0;
 
-module.exports = client => {
+module.exports = ({ botType, commands, log }) => {
   for (const subFolder of getDirectoriesSync('./Commands')) {
     for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
       const command = require(`../Commands/${subFolder}/${file}`);
 
-      if (!command.prefixCommand || command.disabled /*|| (client.botType == 'dev' && !command.beta)*/) continue;
+      if (!command.prefixCommand || command.disabled /*|| (botType == 'dev' && !command.beta)*/) continue;
 
-      client.commands.set(command.name, command);
-      client.log(`Loaded Command ${command.name}`);
+      commands.set(command.name, command);
+      log(`Loaded Command ${command.name}`);
       commandCount++
 
       if (!command.aliases) continue;
       for (const alias of command.aliases.prefix) {
-        client.commands.set(alias, command);
-        client.log(`Loaded Alias ${alias} of command ${command.name}`);
+        commands.set(alias, command);
+        log(`Loaded Alias ${alias} of command ${command.name}`);
         commandCount++
       }
     }
   }
 
-  client.log(`Loaded ${commandCount} commands\n`);
+  log(`Loaded ${commandCount} commands\n`);
 }
