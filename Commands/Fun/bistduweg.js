@@ -19,7 +19,7 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (client, message) => {
+  run: async ({ functions}, message) => {
     const random = Math.random() * 10;
 
     if(random > 5) response = responseList[0]; //50%
@@ -27,6 +27,6 @@ module.exports = new Command({
     else if(random > 0.01) response = responseList[2]; //9.99%
     else response = responseList[3]; //0.01%
 
-    client.functions.reply(response, message);
+    functions.reply(response, message);
   }
 })

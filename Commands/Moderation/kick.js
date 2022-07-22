@@ -7,7 +7,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'kicks a member from the server',
   usage: '',
-  permissions: { client: ['KICK_MEMBERS'], user: ['KICK_MEMBERS'] },
+  permissions: { client: ['EmbedLinks', 'KickMembers'], user: ['KickMembers'] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Moderation',
   slashCommand: true,
@@ -50,10 +50,10 @@ module.exports = new Command({
     for (const rawTarget of targets) {
       let target, errorMsg, noMsg;
 
-      await client.lastRateLimitCheck(`/guilds/${interaction.guild.id}/members/:id`);
-      try {
-        target = await interaction.guild.members.fetch(rawTarget);
-      } catch { };
+      await client.rateLimitCheck(`/guilds/${interaction.guild.id}/members/:id`);
+
+      try { target = await interaction.guild.members.fetch(rawTarget) }
+      catch { };
 
       if (!target.id) errorMsg = `I couldn't find that member!`;
       else if (target.id == interaction.member.id) errorMsg = `You can't kick yourself!`;

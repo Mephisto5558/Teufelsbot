@@ -5,7 +5,7 @@ module.exports = async client => {
 
   fs.rm('./Logs/debug.log', { force: true }, err => {
     if (err) throw err;
-  })
+  });
 
   fs.readFile('./Logs/startCount.log', (err, data) => {
     if (err) throw err;

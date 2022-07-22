@@ -7,7 +7,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'shows the user avatar',
   usage: '',
-  permissions: { client: ['EMBED_LINKS'], user: [] },
+  permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 100, user: 1000 },
   category: 'Fun',
   slashCommand: true,
@@ -35,13 +35,13 @@ module.exports = new Command({
     }
   ],
 
-  run: async (client, message, interaction) => {
+  run: async ({ rateLimitCheck, functions }, message, interaction) => {
 
     let target, size;
 
     if (message) {
       if (message?.args[0]) {
-        await client.lastRateLimitCheck(`/guilds/${message.guild.id}/members/:id`);
+        await rateLimitCheck(`/guilds/${message.guild.id}/members/:id`);
         target = (await message.guild.members.fetch(message.args[0].replace(/[<@>]/g, ''))).user;
       }
       else target = message.author
@@ -56,7 +56,7 @@ module.exports = new Command({
     let embed = new EmbedBuilder({
       description: `**Avatar of ${target.username}**`,
       color: Colors.White,
-      image: avatarURL,
+      image: { url: avatarURL },
       footer: { text: interaction?.user.tag || message?.author.tag }
     });
 
@@ -68,7 +68,7 @@ module.exports = new Command({
       })]
     })
 
-    if (message) client.functions.reply({ embeds: [embed], components: [row] }, message);
+    if (message) functions.reply({ embeds: [embed], components: [row] }, message);
     else interaction.editReply({ embeds: [embed], components: [row] });
 
   }

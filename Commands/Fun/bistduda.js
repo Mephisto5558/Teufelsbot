@@ -11,7 +11,7 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: (client, message) => {
-    client.functions.reply('ICH BIN DAAAA :D', message);
+  run: ({ functions }, message) => {
+    functions.reply('ICH BIN DAAAA :D', message);
   }
 })

@@ -11,22 +11,22 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (client, message) => {
+  run: async ({ db, functions, application }, message) => {
     if (!message.args[0]) return;
-    message.args = message.content.replace(/[<@>]/g, '').split(' ');
 
     if (message.args[0] == 'off') {
-      const oldData = await client.db.get('blacklist');
+      const oldData = await db.get('blacklist');
       const newData = oldData.filter(entry => entry != message.args[1]);
 
-      await client.db.set('blacklist', newData);
-      client.functions.reply(`The blacklist entry about ${message.args[1]} has been deleted.`, message);
-    }
-    else {
-      if(message.args[0] == client.application.owner.id) return client.functions.reply('I cannot blacklist the set owner of the bot.', message);
+      if (oldData.length == newData.length) return functions.reply('Found no entry for this id.', message);
 
-      await client.db.push('blacklist', message.args[0]);
-      client.functions.reply(`${message.args[0]} has been blacklisted from using the bot.`, message);
+      await db.set('blacklist', newData);
+      return functions.reply(`The blacklist entry for \`${message.args[1]}\` has been removed.`, message);
     }
+
+    if (message.args[0] == application.owner.id) return functions.reply('I cannot blacklist the owner of the bot.', message);
+
+    await db.push('blacklist', message.args[0]);
+    functions.reply(`${message.args[0]} has been blacklisted from using the bot.`, message);
   }
 })

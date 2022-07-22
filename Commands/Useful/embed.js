@@ -22,7 +22,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'sends a custom embed; you can do newlines with "/n"',
   usage: '',
-  permissions: { client: ['EMBED_LINKS'], user: ['EMBED_LINKS'] },
+  permissions: { client: ['EmbedLinks'], user: ['EmbedLinks'] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Useful',
   slashCommand: true,

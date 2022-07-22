@@ -1,7 +1,7 @@
 const
   { Command } = require('reconlx'),
   { EmbedBuilder, Colors } = require('discord.js'),
-  year = new Date().getFullYear();
+  currentYear = new Date().getFullYear();
 
 function formatMonthName(input) {
   switch (input) {
@@ -24,8 +24,8 @@ function formatMonthName(input) {
 function getAge(bd) {
   //bd[0] = year; bd[1] = month; bd[2] = day
   let now = new Date()
-  if (bd[1] < (now.getMonth() + 1) || (bd[1] == (now.getMonth() + 1) && bd[2] < now.getDate())) return year - bd[0] + 1;
-  else return year - bd[0];
+  if (bd[1] < (now.getMonth() + 1) || (bd[1] == (now.getMonth() + 1) && bd[2] < now.getDate())) return currentYear - bd[0] + 1;
+  else return currentYear - bd[0];
 }
 
 module.exports = new Command({
@@ -33,7 +33,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'save your birthday and I will send a message on your birthday',
   usage: '',
-  permissions: { client: ['EMBED_LINKS'], user: [] },
+  permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Fun',
   slashCommand: true,
@@ -64,7 +64,7 @@ module.exports = new Command({
           description: 'The year you was born in.',
           type: 'Number',
           minValue: 1900,
-          maxValue: year,
+          maxValue: currentYear,
           required: true
         }
       ]
@@ -81,7 +81,7 @@ module.exports = new Command({
           required: false
         },
         {
-          name: 'dont_hide',
+          name: 'do_not_hide',
           description: `don't hide the response to other users`,
           type: 'Boolean',
           required: false
@@ -95,13 +95,12 @@ module.exports = new Command({
     }
   ],
 
-  run: async (client, _, interaction) => {
-
+  run: async ({ db }, _, interaction) => {
     const
       cmd = interaction.options.getSubcommand(),
       target = interaction.options.getUser('target'),
-      dontHide = interaction.options.getBoolean('dont_hide'),
-      oldData = await client.db.get('birthdays'),
+      doNotHide = interaction.options.getBoolean('do_not_hide'),
+      oldData = await db.get('birthdays'),
       birthday = [
         Math.abs(interaction.options.getNumber('year')),
         Math.abs(interaction.options.getNumber('month') || '')?.toString().padStart(2, '0'),
@@ -112,95 +111,73 @@ module.exports = new Command({
 
     switch (cmd) {
       case 'set':
-        if (birthday[0] > year) return interaction.editReply(
-          'Are you sure you put the right year in?\n' +
-          `It seems like you will be born in ${birthday[0] - year} years :face_with_raised_eyebrow:`
-        );
-
         newData = Object.assign({}, oldData, { [interaction.user.id]: birthday.join('/') });
-        await client.db.set('birthdays', newData);
+        await db.set('birthdays', newData);
 
         interaction.editReply('Your birthday has been saved.' /*maybe add "your birthday is in <d> days"*/);
         break;
 
       case 'remove':
-        newData = Object.entries(oldData).filter(([entry]) => entry == interaction.user.id);
+        delete oldData[interaction.user.id];
 
-        await client.db.set('birthdays', newData);
+        await db.set('birthdays', oldData);
 
         interaction.editReply('Your birthday has been deleted.');
         break;
 
       case 'get':
-        let embed = new EmbedBuilder();
+        const embed = new EmbedBuilder({
+          color: Colors.Blurple,
+          footer: {
+            text: interaction.user.tag,
+            iconURL: interaction.member.displayAvatarURL()
+          }
+        });
 
         if (target) {
-          embed.title = `${target.tag}'s Birthday`;
+          embed.data.title = `${target.tag}'s Birthday`;
 
-          let data = oldData[target.id]?.split('/');
+          const data = oldData[target.id]?.split('/');
 
-          if (data) {
-            let age = getAge(data);
+          if (!data) newData = 'This user has no birthday :(';
+          else {
+            const age = getAge(data);
             newData = `This user has birthday on **${formatMonthName(data[1])} ${data[2]}**.\n`;
-            if (age < year) newData += `He/she will turn **${age}** on this day.`;
+            if (age < currentYear) newData += `He/she will turn **${age}** on this day.`;
           }
-          else newData = 'This user has no birthday :(';
         }
         else {
-          embed.title = 'The next birthdays';
+          embed.data.title = 'The next birthdays';
 
-          let data = Object.entries(oldData).filter(e => e[0] != 'lastCheckTS');
-          let filterList = [];
+          const guildMembers = (await interaction.guild.members.fetch()).map(e => e.id);
+          const currentTime = new Date().getTime();
 
-          for (const entry of data) {
-            await client.lastRateLimitCheck(`/guilds/${interaction.guild.id}/members/:id`);
+          const data = Object.entries(oldData)
+            .filter(([e]) => e != 'lastCheckTS' && guildMembers.includes(e))
+            .map(([k, v]) => [k, ...v.split('/')])
+            .sort(([, , month1, day1], [, , month2, day2]) => {
+              const time = [new Date(currentYear, month1 - 1, day1), new Date(currentYear, month2 - 1, day2)];
 
-            try { await interaction.guild.members.fetch(entry[0]) }
-            catch {
-              filterList.push(entry[0]);
-              continue;
-            }
+              if (time[0] < currentTime) time[0].setFullYear(currentYear + 1, month1 - 1, day1);
+              if (time[1] < currentTime) time[1].setFullYear(currentYear + 1, month2 - 1, day2);
 
-            const output = entry[1].split('/');
-            output.push(output.shift());
-
-            entry[1] = output;
-          }
-
-          const time = new Date().getTime();
-
-          data = data
-            .filter(item => !filterList.includes(item[0]))
-            .sort(([, [month1, day1]], [, [month2, day2]]) => {
-              const time1 = new Date(year, month1 - 1, day1);
-              if (time1 < time) time1.setFullYear(year + 1, month1 - 1, day1);
-
-              const time2 = new Date(year, month2 - 1, day2);
-              if (time2 < time) time2.setFullYear(year + 1, month2 - 1, day2);
-
-              return time1 - time2;
+              return time[0] - time[1];
             })
             .slice(0, 10);
 
-          for (entry of data) {
-            const date = `**${formatMonthName(entry[1][0])} ${parseInt(entry[1][1])}**\n`;
-            let age = getAge([entry[1][2], entry[1][0], entry[1][1]]);
+          for (const [id, year, month, day] of data) {
+            const date = `**${formatMonthName(month)} ${parseInt(day)}**\n`;
+            const age = getAge([year, month, day]);
+            const msg = `> <@${id}>${age < currentYear ? ` (${age})` : ''}\n`;
 
-            const bd = `> <@${entry[0]}>${age < year ? ` (${age})` : ''}\n`;
-
-            if (newData?.includes(date)) newData += bd;
-            else newData += `\n${date}${bd}`;
+            if (newData?.includes(date)) newData += msg;
+            else newData += `\n${date}${msg}`;
           }
         }
 
-        embed.description = newData || 'nobody has a birthday set...';
-        embed.color = colors.discord.BURPLE;
-        embed.footer = {
-          text: interaction.user.tag,
-          iconURL: interaction.member.displayAvatarURL()
-        };
+        embed.data.description = newData || 'nobody has a birthday set...';
 
-        if (dontHide) {
+        if (doNotHide) {
           interaction.channel.send({ embeds: [embed] });
           interaction.editReply('Message sent!');
         }

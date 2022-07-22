@@ -2,13 +2,13 @@ module.exports = {
   time: '*/5 * * * *',
   startNow: true,
 
-  onTick: async client => {
-    if(client.botType == 'dev') client.log('started ban check');
+  onTick: async ({ botType, log, db }) => {
+    if (botType == 'dev') log('started ban check');
 
-    const oldData = client.db.get('tempbans');
+    const oldData = db.get('tempbans');
 
-    for(const guild of Object.entries(oldData)) {
-      if(guild[1])
+    for (const guild of Object.entries(oldData)) {
+      if (guild[1])
     }
   },
 

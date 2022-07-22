@@ -10,7 +10,7 @@ const
     { name: 'icanhazdadjoke', url: 'https://icanhazdadjoke.com' }
   ];
 
-async function getJoke(APIList, type, blacklist, maxLength, client) {
+async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
   let res;
   const API = APIList[Math.round(Math.random() * APIList.length)];
 
@@ -37,7 +37,7 @@ async function getJoke(APIList, type, blacklist, maxLength, client) {
         res = await get(`${API.url.replace('://', '://api.')}/jokes/random`, {
           timeout: 2500,
           params: {
-            'api-key': client.keys.humorAPIKey,
+            'api-key': humorAPIKey,
             'min-rating': 7,
             'max-length': maxLength,
             'include-tags': type,
@@ -71,7 +71,7 @@ async function getJoke(APIList, type, blacklist, maxLength, client) {
     }
     else {
       console.error(
-        `joke.js: ${API.url} responded with error ` +
+        `joke.js: ${API?.url ?? JSON.stringify(API)} responded with error ` +
         `${err.status || err.response?.status}, ${err.statusText || err.response?.statusText}: ${err.response?.data.message}`
       );
     }
@@ -86,7 +86,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'sends a joke',
   usage: 'PREFIX Commands: joke [type]',
-  permissions: { client: ['EMBED_LINKS'], user: [] },
+  permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 100, user: 0 },
   slashCommand: true,
   prefixCommand: true,
@@ -122,7 +122,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (client, message, interaction) => {
+  run: async ({ keys, functions }, message, interaction) => {
 
     let type, blacklist, maxLength;
 
@@ -133,12 +133,12 @@ module.exports = new Command({
     }
     else type = message.args[0];
 
-    const data = await getJoke(APIList, type, blacklist, maxLength, client);
+    const data = await getJoke(APIList, type, blacklist, maxLength, keys);
     const joke = data?.[0]?.replace(/`/g, `'`);
     const API = data[1];
 
     if (!joke) {
-      if (message) return client.functions.reply('Apparently, there is currently no API available. Please try again later.', message);
+      if (message) return functions.reply('Apparently, there is currently no API available. Please try again later.', message);
       else return interaction.editReply('Apparently, there is currently no API available. Please try again later.');
     }
 
@@ -146,11 +146,10 @@ module.exports = new Command({
       title: 'Is this funny?',
       description:
         `${joke}\n` +
-        `- [${API.name}](${API.url})`,
-      color: 'RANDOM'
-    });
+        `- [${API.name}](${API.url})`
+    }).setColor('Random');
 
-    if (message) client.functions.reply({ embeds: [embed] }, message);
+    if (message) functions.reply({ embeds: [embed] }, message);
     else interaction.editReply({ embeds: [embed] });
 
   }
