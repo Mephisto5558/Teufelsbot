@@ -1,23 +1,44 @@
 const
+  { Collection, ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
   { readdirSync } = require('fs'),
-  { Collection, ApplicationCommandType, ApplicationCommandOptionType } = require('discord.js'),
   event = require('../Events/interactionCreate.js');
 
 let deletedCommandCount = 0;
 
 function equal(a, b) {
+  if (!a?.toString() && !b?.toString()) return true;
+  if(typeof a == 'string' || typeof b == 'string') return a == b;
   if (
-    !a?.toString() && !b?.toString() || a.name == b.name && a.description == b.description && a.type == b.type && a.autocomplete == b.autocomplete &&
-    a.value == b.value && (a.options?.length ?? 0) == (b.options?.length ?? 0) && a.channelTypes == b.channelTypes && equal(a.options, b.options) &&
-    a.minValue == b.minValue && a.maxValue == b.maxValue && a.required == b.required && equal(a.choices, b.choices)
-  ) return true;
+    a.name != b.name || a.description != b.description || a.type != b.type || a.autocomplete != b.autocomplete ||
+    a.value != b.value || (a.options?.length ?? 0) != (b.options?.length ?? 0) || (a.channelTypes?.length ?? 0) != (b.channelTypes?.length ?? 0) ||
+    a.minValue != b.minValue || a.maxValue != b.maxValue || !!a.required != !!b.required || !equal(a.choices, b.choices) ||
+    a.defaultMemberPermissions?.bitfield != b.defaultMemberPermissions?.bitfield
+  ) return;
+
+  for (let i = 0; i < (a.options?.length || 0); i++) if (!equal(a.options?.[i], b?.options?.[i])) return;
+  for(let i = 0; i < (a.channelTypes?.length || 0); i++) if (!equal(a.channelTypes?.[i], b.channelTypes?.[i])) return;
+
+  return true;
 }
 
 function format(option) {
   if (option.options) for (let subOption of option.options) subOption = format(subOption);
-  if (option.run) return option;
+  if (option.run) {
+    if (!option.type) option.type = ApplicationCommandType.ChatInput;
+    else if (!ApplicationCommandType[option.type]) throw new Error(`Invalid option.type, got ${option.type}`);
+    else if (isNaN(option.type)) option.type = ApplicationCommandType[option.type];
 
-  if (!option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or unknown option.type, got ${option.type}`);
+    if (option.permissions?.user.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions?.user);
+
+    return option;
+  }
+
+  option.channelTypes = option.channelTypes?.map(e => {
+    if (!ChannelType[e] && ChannelType[e] != 0) throw Error(`Invalid option.channelType, got ${e}`);
+    return isNaN(e) ? ChannelType[e] : e;
+  });
+
+  if (!option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or invalid option.type, got ${option.type}`);
   if (isNaN(option.type)) option.type = ApplicationCommandOptionType[option.type];
 
   return option;
@@ -34,10 +55,9 @@ module.exports = async (client, SyncGuild) => {
 
     for (const subFolder of getDirectoriesSync('./Commands')) {
       for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
-        const command = require(`../Commands/${subFolder}/${file}`);
+        const command = format(require(`../Commands/${subFolder}/${file}`));
         let skipped = false;
 
-        command.type = ApplicationCommandType[command.type] || ApplicationCommandType.ChatInput;
         if (!command.slashCommand || command.disabled /*|| (client.botType == 'dev' && !command.beta)*/) continue;
 
         for (const applicationCommand of applicationCommands) {
@@ -65,7 +85,7 @@ module.exports = async (client, SyncGuild) => {
   for (const command of client.slashCommands) {
     await client.rateLimitCheck('/applications/:id/commands');
 
-    await client.application.commands.create(format(command[1]), SyncGuild && SyncGuild != '*' ? SyncGuild : null);
+    await client.application.commands.create(command[1], SyncGuild && SyncGuild != '*' ? SyncGuild : null);
     client.log(`Registered Slash Comand ${command[0]}`);
   }
 
