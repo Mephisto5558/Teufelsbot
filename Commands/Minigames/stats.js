@@ -187,7 +187,7 @@ module.exports = new Command({
     }
     else if (stats.type == 'leaderboard') {
       embed.data.title = `Top 10 ${stats.game} players`;
-      embed.data.description = await formatTopTen(stats.data, stats.settings, message), client || 'It looks like no one won yet...';
+      embed.data.description = await formatTopTen(stats.data, stats.settings, message, client) || 'It looks like no one won yet...';
     }
 
     interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);
