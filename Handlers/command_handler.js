@@ -6,7 +6,7 @@ module.exports = ({ botType, commands, log }) => {
     for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
       const command = require(`../Commands/${subFolder}/${file}`);
 
-      if (!command.prefixCommand || command.disabled /*|| (botType == 'dev' && !command.beta)*/) continue;
+      if (!command.prefixCommand || command.disabled || (botType == 'dev' && !command.beta)) continue;
 
       commands.set(command.name, command);
       log(`Loaded Command ${command.name}`);
