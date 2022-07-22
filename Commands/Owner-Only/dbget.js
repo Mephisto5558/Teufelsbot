@@ -13,11 +13,11 @@ module.exports = new Command({
   showInHelp: false,
   beta: true,
 
-  run: async (client, message) => {
-    const result = await client.db.get(message.content);
+  run: async ({ db }, message) => {
+    const result = await db.get(message.content);
 
-    message.channel.send(
-      ('```json\n' + JSON.stringify(result || 'nothing found', null, 2)).substring(0, 1996) + '\n```'
-    )
+    message.channel.send(!result ? 'nothing found' : (
+      '```json\n' + JSON.stringify(result, null, 2)
+    ).substring(0, 1996) + '\n```');
   }
 })

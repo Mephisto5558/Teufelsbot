@@ -1,7 +1,7 @@
-module.exports = (client, asMessage) => {
+module.exports = ({ startTime }, asMessage) => {
   let data;
 
-  let totalSeconds = (Date.now() - client.startTime) / 1000
+  let totalSeconds = (Date.now() - startTime) / 1000
   const days = Math.round(totalSeconds / 86400).toString();
   totalSeconds %= 86400;
   const hours = Math.round(totalSeconds / 3600).toString();
@@ -17,7 +17,7 @@ module.exports = (client, asMessage) => {
   }
 
   return {
-    total: (Date.now() - client.startTime),
+    total: (Date.now() - startTime),
     formatted: data || `${days.padStart(2, 0)}:${hours.padStart(2, 0)}:${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`
   };
 }

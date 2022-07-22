@@ -9,7 +9,9 @@ async function reloadCommand(client, commandName, path, reloadedArray) {
   delete require.cache[path];
   const file = require(path);
 
-  if (file.prefixCommand && (client.botType == 'dev' ? file.beta : true)) {
+  if (client.botType == 'dev' ? !file.beta : false) return;
+
+  if (file.prefixCommand) {
     client.commands.delete(commandName);
     client.commands.set(commandName, file);
 
@@ -23,7 +25,7 @@ async function reloadCommand(client, commandName, path, reloadedArray) {
     }
   }
 
-  if (file.slashCommand && (client.botType == 'dev' ? file.beta : true)) {
+  if (file.slashCommand) {
     client.slashCommands.delete(commandName);
     client.slashCommands.set(commandName, file);
 

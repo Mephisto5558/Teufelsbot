@@ -8,7 +8,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'shows some stats of the bot',
   usage: '',
-  permissions: { client: ['EMBED_LINKS'], user: [] },
+  permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 0, user: 50 },
   category: 'Information',
   slashCommand: false,
@@ -30,7 +30,7 @@ module.exports = new Command({
       embed = new EmbedBuilder({
         title: 'Stats',
         description: description,
-        colors: Colors.DarkGold,
+        color: Colors.DarkGold,
         footer: { text: 'More stats are coming soon!' }
       });
 

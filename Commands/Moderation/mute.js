@@ -7,7 +7,7 @@ module.exports = new Command({
   aliases: { prefix: ['timeout'], slash: ['timeout'] },
   description: 'timeouts a member of a given time (max 28d), default 1h',
   usage: 'Duration options: you need to use at least one.',
-  permissions: { client: ['MUTE_MEMBERS'], user: ['MUTE_MEMBERS'] },
+  permissions: { client: ['EmbedLinks', 'MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Moderation',
   slashCommand: true,
@@ -29,7 +29,8 @@ module.exports = new Command({
       name: 'duration_days',
       description: 'for how much days you want to mute the target',
       type: 'Number',
-      maxValue: 27
+      maxValue: 27,
+      required: false
     },
     {
       name: 'duration_hours',
@@ -106,8 +107,8 @@ module.exports = new Command({
     try { await target.send({ embeds: [embed] }) }
     catch { noMsg = true }
 
-    embed.title = 'Mute';
-    embed.description =
+    embed.data.title = 'Mute';
+    embed.data.description =
       `${target.user.tag} has been successfully muted.\n` +
       `Reason: ${reason}\n` +
       `Until: <t:${Math.round(target.communicationDisabledUntilTimestamp / 1000)}>\n` +

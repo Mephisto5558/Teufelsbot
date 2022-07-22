@@ -2,15 +2,28 @@ const
   { Command } = require('reconlx'),
   { EmbedBuilder, Colors } = require('discord.js'),
   { getHashes, createHash } = require('crypto'),
-  hashOptions = getHashes()
-    .map(entry => { return { name: entry, value: entry } })
+  hashOptions = [];
 
-let command = new Command({
+for (let i = 0; i < getHashes().length; i = i + 25) {
+  hashOptions.push({
+    name: `method${i ? i / 25 + 1 : 1}`,
+    description: 'with which method your text should get encrypted (needed only once)',
+    type: 'String',
+    required: false,
+    choices: (_ => {
+      const arr = [];
+      for (let a = i; a < i + 25 && a < getHashes().length; a++) arr.push({ name: getHashes()[a], value: getHashes()[a] });
+      return arr;
+    })()
+  })
+}
+
+module.exports = new Command({
   name: 'hash',
   aliases: { prefix: [], slash: [] },
   description: 'encrypt or decrypt your text with various methods',
   usage: 'SLASH Command: You only need to provide one method option.',
-  permissions: { client: ['EMBED_LINKS'], user: [] },
+  permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 100, user: 1000 },
   category: 'Fun',
   slashCommand: true,
@@ -21,7 +34,7 @@ let command = new Command({
     description: 'the text you want to encrypt or decrypt',
     type: 'String',
     required: true,
-  }],
+  }, ...hashOptions],
 
   run: (_, __, interaction) => {
     const
@@ -47,16 +60,4 @@ let command = new Command({
       embeds: [embed]
     })
   }
-});
-
-for (let i = 0; i < hashOptions.length; i += 25) {
-  command.options.push({
-    name: `method${i ? i / 25 + 1 : 1}`,
-    description: 'with which method your text should get encrypted (needed only once)',
-    type: 'String',
-    required: false,
-    choices: hashOptions.slice(i, i + 25)
-  })
-}
-
-module.exports = command;
+})

@@ -1,12 +1,12 @@
 const errorColor = require('chalk').bold.red;
 
-function sendErrorMsg(errorName, client, msg) {
+function sendErrorMsg(errorName, {message, interaction}, msg) {
   if (!msg) msg =
     'A unexpected error occurred, please message the dev.\n' +
     `Error Type: \`${errorName || 'unknown'}\``;
 
-  if (client.message) client.message.channel.send(msg);
-  else if (client.interaction) client.interaction.channel.send(msg);
+  if (message) message.channel.send(msg);
+  else if (interaction) interaction.channel.send(msg);
 }
 
 module.exports = client => {
@@ -36,7 +36,7 @@ module.exports = client => {
     });
 
   client.rest.on('rateLimited', info => {
-      const msg = `${info.route}: ${global ? 'Global' : ''} Rate Limit hit, please wait ${Math.round(info.timeout / 1000)}s before retrying.`
+      const msg = `${info.global ? 'Global' : info.route}: Rate Limit hit, please wait ${parseFloat((info.timeToReset / 1000).toFixed(3))}s before retrying.`
       console.error(errorColor(msg));
       console.error(info);
       console.error('\n');
