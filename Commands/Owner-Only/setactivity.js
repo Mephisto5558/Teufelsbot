@@ -10,17 +10,17 @@ module.exports = new Command({
   cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',
   slashCommand: false,
-  prefixCommand: true,
+  prefixCommand: true, beta: true,
 
   run: async (client, message) => {
 
-    message.args = message.content.trim().split(';');
+    message.args = message.content.split(';');
 
     const activity = message.args[0];
-    let type = !message.args[1] ? 'Playing' : ActivityType[Object.keys(ActivityType).find(e => e.toLowerCase() == message.args[1].toLowerCase())];
+    let type = !message.args[1] ? ActivityType.Playing : ActivityType[Object.keys(ActivityType).find(e => e.toLowerCase() == message.args[1].toLowerCase())];
     type = isNaN(type) ? ActivityType[type] : type;
 
-    if (!type) return client.functions.reply(
+    if (!type && type != 0) return client.functions.reply(
       'This is not a valid type. Valid types are:\n`' +
       Object.keys(ActivityType).filter(e => isNaN(e)).join('`, `') + '`', message
     );
