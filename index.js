@@ -39,8 +39,7 @@ Object.merge = (source, source2, mode) => {
   return output;
 }
 
-load()
-async function load() {
+(async _ => {
   const client = new Client({
     partials: [Partials.Message, Partials.Channel, Partials.Reaction],
     allowedMentions: { parse: ['users', 'roles'] },
@@ -51,7 +50,7 @@ async function load() {
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.Guilds,
       GatewayIntentBits.MessageContent
-     ]
+    ]
   });
 
   if (existsSync('./env.json')) defaultSettings = require('./env.json');
@@ -88,17 +87,21 @@ async function load() {
     console.log(`[${date}] ${data}`)
   };
   client.rateLimitCheck = async route => {
-    if (!route) throw new SyntaxError('missing route arg');
+    if (client.rest.requestManager.globalRemaining == 0) {
+      client.log('Waiting for global ratelimit to subside');
+      return client.rest.requestManager.globalDelay;
+    }
 
+    if (!route) return;
     const rateLimit = client.lastRateLimit?.get(route);
     if (rateLimit?.remaining == 0) {
       client.log(`Waiting for ratelimit on route ${route} to subside`);
-      await client.functions.sleep(rateLimit.resetAfter * 1000);
+      return new Promise(r => setTimeout(r, rateLimit.resetAfter * 1000));
     }
   }
 
-  client.rest.on('response', (req, res) => {
-    client.lastRateLimit.set(req.route, Object.assign({}, ...Object.entries(res.headers)
+  client.rest.on('response', ({ route }, { headers }) => {
+    client.lastRateLimit.set(route, Object.assign({}, ...Object.entries(headers)
       .filter(([a]) => a.includes('x-ratelimit'))
       .map(([a, b]) => ({ [a.replace('x-ratelimit-', '').replace(/-\w/, c => c[1].toUpperCase())]: b }))
     ));
@@ -108,8 +111,8 @@ async function load() {
 
   for (const handler of readdirSync('./Handlers')) require(`./Handlers/${handler}`)(client);
 
-  client.login(client.keys.token)
-    .then(_ => client.log(`Logged into ${client.botType}`));
+  await client.login(client.keys.token);
+  client.log(`Logged into ${client.botType}`);
 
   process.on('exit', _ => client.destroy());
-}
+})();
