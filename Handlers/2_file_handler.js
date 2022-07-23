@@ -1,5 +1,5 @@
 const fs = require('fs');
-const errorColor = require('chalk').bold.red;
+const { red } = require('chalk').bold;
 
 module.exports = async client => {
 
@@ -9,7 +9,7 @@ module.exports = async client => {
 
   fs.readFile('./Logs/startCount.log', (err, data) => {
     if (err) throw err;
-    const startCount = parseInt(data) + 1;
+    const startCount = parseInt(data || 0) + 1;
 
     fs.writeFile('./Logs/startCount.log', startCount.toString(), err => {
       if (err) throw err;
@@ -27,10 +27,10 @@ module.exports = async client => {
     fs.appendFileSync('./Logs/debug.log', `[${timestamp}] ${debug}\n`);
     if (debug.includes('Hit a 429')) {
       if (!client.isReady()) {
-        console.error(errorColor('Hit a 429 while trying to login. Restarting shell.'));
+        console.error(red('Hit a 429 while trying to login. Restarting shell.'));
         process.kill(1);
       }
-      else console.error(errorColor('Hit a 429 while trying to execute a request'));
+      else console.error(red('Hit a 429 while trying to execute a request'));
     }
   });
 

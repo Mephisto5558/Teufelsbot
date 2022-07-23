@@ -35,15 +35,12 @@ module.exports = new Command({
     }
   ],
 
-  run: async ({ rateLimitCheck, functions }, message, interaction) => {
+  run: async ({ functions }, message, interaction) => {
 
     let target, size;
 
     if (message) {
-      if (message?.args[0]) {
-        await rateLimitCheck(`/guilds/${message.guild.id}/members/:id`);
-        target = (await message.guild.members.fetch(message.args[0].replace(/[<@>]/g, ''))).user;
-      }
+      if (message?.args[0]) target = (await message.guild.members.fetch(message.args[0].replace(/[<@>]/g, ''))).user;
       else target = message.author
     }
     else {
