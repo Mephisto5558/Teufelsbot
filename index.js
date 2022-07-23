@@ -53,6 +53,8 @@ Object.merge = (source, source2, mode) => {
     ]
   });
 
+  let defaultSettings;
+
   if (existsSync('./env.json')) defaultSettings = require('./env.json');
   else {
     await db.ready();
@@ -72,7 +74,6 @@ Object.merge = (source, source2, mode) => {
   client.functions = {};
   client.dashboardOptionCount = {};
   client.keys = defaultSettings.keys;
-  client.lastRateLimit = new Collection();
   client.events = new Collection();
   client.cooldowns = new Collection();
   client.commands = new Collection();
@@ -86,26 +87,6 @@ Object.merge = (source, source2, mode) => {
     const date = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
     console.log(`[${date}] ${data}`)
   };
-  client.rateLimitCheck = async route => {
-    if (client.rest.requestManager.globalRemaining <= 1) {
-      client.log('Waiting for global ratelimit to subside');
-      return client.rest.requestManager.globalDelay;
-    }
-
-    if (!route) return;
-    const rateLimit = client.lastRateLimit?.get(route);
-    if (rateLimit?.remaining <= 1) {
-      client.log(`Waiting for ratelimit on route ${route} to subside`);
-      return new Promise(r => setTimeout(r, rateLimit.resetAfter * 1000));
-    }
-  }
-
-  client.rest.on('response', ({ route }, { headers }) => {
-    client.lastRateLimit.set(route, Object.assign({}, ...Object.entries(headers)
-      .filter(([a]) => a.includes('x-ratelimit'))
-      .map(([a, b]) => ({ [a.replace('x-ratelimit-', '').replace(/-\w/, c => c[1].toUpperCase())]: b }))
-    ));
-  });
 
   await client.db.ready();
 

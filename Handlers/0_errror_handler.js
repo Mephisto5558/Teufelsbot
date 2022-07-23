@@ -1,4 +1,4 @@
-const errorColor = require('chalk').bold.red;
+const { red } = require('chalk').bold;
 
 function sendErrorMsg(errorName, {message, interaction}, msg) {
   if (!msg) msg =
@@ -13,7 +13,7 @@ module.exports = client => {
 
   process
     .on('unhandledRejection', (err, origin) => {
-      console.error(errorColor(' [Error Handling] :: Unhandled Rejection/Catch'));
+      console.error(red(' [Error Handling] :: Unhandled Rejection/Catch'));
       console.error(err, origin + '\n');
 
       if (err.name === 'DiscordAPIError')
@@ -22,26 +22,18 @@ module.exports = client => {
     })
 
     .on('uncaughtException', (err, origin) => {
-      client.log(errorColor(' [Error Handling] :: Uncaught Exception/Catch'));
+      client.log(red(' [Error Handling] :: Uncaught Exception/Catch'));
       console.error(err, origin + '\n');
 
       sendErrorMsg(err.name, client);
     })
 
     .on('uncaughtExceptionMonitor', (err, origin) => {
-      console.error(errorColor(' [Error Handling] :: Uncaught Exception/Catch (MONITOR)'))
+      console.error(red(' [Error Handling] :: Uncaught Exception/Catch (MONITOR)'))
       console.error(err, origin + '\n');
 
       sendErrorMsg(err.name, client);
     });
 
-  client.rest.on('rateLimited', info => {
-      const msg = `${info.global ? 'Global' : info.route}: Rate Limit hit, please wait ${parseFloat((info.timeToReset / 1000).toFixed(3))}s before retrying.`
-      console.error(errorColor(msg));
-      console.error(info);
-      console.error('\n');
-
-      sendErrorMsg(info.name, client, '`' + msg + '`\nPlease message the dev.');
-    });
-
+  client.rest.on('rateLimited', info => client.log(`Waiting for ${info.global ? 'global ratelimit' : `ratelimit on ${info.route}`} to subside (${info.timeToReset}ms)`));
 }
