@@ -34,7 +34,7 @@ module.exports = async (client, message) => {
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
   ) return;
 
-  const cooldown = await require('../Functions/private/cooldowns.js')(client, message.author, command);
+  const cooldown = await require('../Functions/private/cooldowns.js')(client, message, command);
   if (cooldown && !client.botType == 'dev') return client.functions.reply(`This command is on cooldown! Try again in \`${cooldown}\`s.`, message);
 
   message.content = message.args.join(' ');
