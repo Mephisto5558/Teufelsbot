@@ -78,11 +78,6 @@ Object.merge = (source, source2, mode) => {
   client.cooldowns = new Collection();
   client.commands = new Collection();
   client.guildData = new Collection();
-  client.ready = async _ => {
-    while (client.ws.status != 0) await client.functions.sleep(10);
-    if (!client.application.name) await client.application.fetch();
-    return true;
-  };
   client.log = (...data) => {
     const date = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
     console.log(`[${date}] ${data}`)

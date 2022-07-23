@@ -45,7 +45,7 @@ function format(option) {
 }
 
 module.exports = async (client, SyncGuild) => {
-  await client.ready();
+  await client.functions.ready(client);
 
   const skippedCommands = new Collection();
   const applicationCommands = await client.application.commands.fetch(undefined, { guildId: SyncGuild && SyncGuild != '*' ? SyncGuild : undefined });
