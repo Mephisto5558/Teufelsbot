@@ -128,7 +128,7 @@ async function getAllCommands(client) {
 module.exports = async client => {
   //if(client.botType == 'dev') return client.log('Dashboard loading skipped due to dev version');
 
-  await client.ready();
+  await client.functions.ready(client);
   await DBD.useLicense(client.keys.dbdLicense);
   DBD.Dashboard = DBD.UpdatedClass();
 
