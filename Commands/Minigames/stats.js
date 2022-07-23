@@ -45,7 +45,6 @@ async function formatTopTen(input, settings, message, client) {
     .slice(0, 10);
 
   for (const entry of data) {
-    await client.rateLimitCheck(`/guilds/${message.guild.id}/members/:id`);
     try {
       await message.guild.members.fetch(entry[0]);
       isInGuild = true

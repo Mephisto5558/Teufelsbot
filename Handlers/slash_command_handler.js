@@ -75,16 +75,12 @@ module.exports = async (client, SyncGuild) => {
     }
 
     for (const guild of await client.guilds.fetch()) {
-      await client.rateLimitCheck('/applications/:id/commands');
-
       await client.application.commands.set([], guild[0]);
       client.log(`Cleared Slash Commands for Guild ${guild[0]}`);
     }
   }
 
   for (const command of client.slashCommands) {
-    await client.rateLimitCheck('/applications/:id/commands');
-
     await client.application.commands.create(command[1], SyncGuild && SyncGuild != '*' ? SyncGuild : null);
     client.log(`Registered Slash Comand ${command[0]}`);
   }
@@ -92,8 +88,6 @@ module.exports = async (client, SyncGuild) => {
   const commandNames = [...client.slashCommands, ...skippedCommands].map(e => e[0]);
   for (const clientCommand of applicationCommands) {
     if (commandNames.includes(clientCommand[1].name)) continue;
-
-    await client.rateLimitCheck('/applications/:id/commands');
 
     await client.application.commands.delete(clientCommand[1], SyncGuild && SyncGuild != '*' ? SyncGuild : null);
     client.log(`Deleted Slash Comand ${clientCommand[1].name}`);
