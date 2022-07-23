@@ -4,7 +4,7 @@ module.exports = async (client, interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
   if (!command || !interaction.isRepliable()) return;
 
-  const cooldown = await require('../Functions/private/cooldowns.js')(client, interaction.user, command);
+  const cooldown = await require('../Functions/private/cooldowns.js')(client, interaction, command);
   if(cooldown) return interaction.reply(`This command is on cooldown! Try again in \`${cooldown}\`s.`);
 
   const blacklist = client.db.get('blacklist');
