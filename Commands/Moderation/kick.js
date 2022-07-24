@@ -60,7 +60,7 @@ module.exports = new Command({
       else if (!target.kickable) errorMsg = `I don't have the permission to do that!`;
 
       if (errorMsg) {
-        resEmbed.description += `**${target?.user?.tag ?? target.id}** couldn't been kicked.\n${errorMsg}\n`;
+        resEmbed.data.description += `**${target?.user?.tag ?? target.id}** couldn't been kicked.\n${errorMsg}\n`;
         continue;
       }
 
@@ -69,11 +69,11 @@ module.exports = new Command({
 
       await target.kick(reason);
 
-      resEmbed.description +=
+      resEmbed.data.description +=
         `**${target?.user?.tag ?? target.id}** has been successfully kicked.\n` +
         `${noMsg ? `\nI couldn't DM the target.` : ''}`;
     }
-    interaction.editReply({ embeds: [embed] });
+    interaction.editReply({ embeds: [resEmbed] });
 
   }
 })

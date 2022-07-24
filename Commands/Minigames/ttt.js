@@ -108,7 +108,7 @@ module.exports = new Command({
   cooldowns: { guild: 0, user: 2000 },
   category: 'Minigames',
   slashCommand: true,
-  prefixCommand: false,
+  prefixCommand: false, disabled: true,
   options: [{
     name: 'opponent',
     description: 'who you want to play with',

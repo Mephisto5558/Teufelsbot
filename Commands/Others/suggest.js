@@ -58,7 +58,7 @@ module.exports = new Command({
       })
     }
     catch (err) {
-      interaction.editReply(`An error occurred.\n${res?.response.statusText}`);
+      interaction.editReply(`An error occurred.\n${err?.response.statusText}`);
       throw err;
     }
 
