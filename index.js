@@ -90,5 +90,9 @@ Object.merge = (source, source2, mode) => {
   await client.login(client.keys.token);
   client.log(`Logged into ${client.botType}`);
 
-  process.on('exit', _ => client.destroy());
+  process
+  .on('unhandledRejection', err => require('./Functions/private/error_handler.js')(null, err))
+  .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js')(null, err))
+  .on('uncaughtException', err => require('./Functions/private/error_handler.js')(null, err))
+  .on('exit', _ => client.destroy());
 })();
