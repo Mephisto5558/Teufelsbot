@@ -63,13 +63,14 @@ module.exports = new Command({
 
     const
       cmd = interaction.options.getSubcommand(),
-      target = interaction.options.getMember('target'),
       messageToSend = interaction.options.getString('message'),
       perm = interaction.member.permissions.has('MANAGE_MESSAGES'),
       asMod = (interaction.options.getBoolean('as_mod') && perm),
       blacklist = await db.get('dmCommandBlacklist');
 
-    let message, newBlacklist, userBlacklist;
+    let
+      message, newBlacklist, userBlacklist, targetName
+      target = interaction.options.getMember('target');
 
     switch (cmd) {
       case 'toggle':
@@ -80,7 +81,7 @@ module.exports = new Command({
         }
         else {
           target = '*';
-          targetName = '`all users`'
+          targetName = '`all users`';
         }
 
         if (userBlacklist.includes(target)) {
