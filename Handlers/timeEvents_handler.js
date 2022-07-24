@@ -21,7 +21,7 @@ function formatBirthday(msg, user, year) {
 module.exports = async client => {
   // if (client.botType == 'dev') return client.log('Disabled timed events due to dev version.');
 
-  await client.ready();
+  await client.functions.ready(client);
 
   //Birthday announcer
   new CronJob('00 00 00 * * *', async function () {
@@ -29,8 +29,6 @@ module.exports = async client => {
 
     //if (client.db.get('birthdays').lastCheckTS == now) return client.log('Already ran birthday check today');
     client.log('started birthday check');
-
-    await client.rateLimitCheck('/users/@me/guilds');
 
     const
       guilds = await client.guilds.fetch(),
@@ -41,7 +39,6 @@ module.exports = async client => {
       const settings = gSettings[guild[0]]?.birthday;
       if (!gSettings[guild[0]]?.enabledModules?.includes('birthday')) continue;
 
-      await client.rateLimitCheck('/users/@me/guilds');
       guild = await client.guilds.fetch(guild[0]);
 
       for (const entry of Object.entries(oldData)) {
