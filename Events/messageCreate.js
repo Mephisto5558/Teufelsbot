@@ -52,7 +52,7 @@ module.exports = async (client, message) => {
     });
     return message.reply({ embeds: [embed] });
   }
-console.log(message);
+
   client.message = message;
   command.run(client, message);
   client.message = null;
