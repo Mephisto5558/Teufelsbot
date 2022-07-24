@@ -1,11 +1,11 @@
-const { EmbedBuilder, Colors, InteractionType, PermissionFlagsBits } = require('discord.js');
+const { EmbedBuilder, Colors, InteractionType, PermissionFlagsBits, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = async (client, interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
   if (!command || !interaction.isRepliable()) return;
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, interaction, command);
-  if(cooldown) return interaction.reply(`This command is on cooldown! Try again in \`${cooldown}\`s.`);
+  if (cooldown) return interaction.reply(`This command is on cooldown! Try again in \`${cooldown}\`s.`);
 
   const blacklist = client.db.get('blacklist');
   if (
@@ -17,19 +17,22 @@ module.exports = async (client, interaction) => {
     const userPerms = interaction.member.permissionsIn(interaction.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
     const botPerms = interaction.guild.members.me.permissionsIn(interaction.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages]);
 
-    const embed = new EmbedBuilder({
-      title: 'Insufficient Permissions',
-      color: Colors.Red,
-      description:
-        `${userPerms.length ? 'You' : 'I'} need the following permissions in this channel to run this command:\n\`` +
-        (botPerms.length ? botPerms : userPerms).join('`, `') + '`'
-    });
+    if (botPerms.length || userPerms.length) {
+      const embed = new EmbedBuilder({
+        title: 'Insufficient Permissions',
+        color: Colors.Red,
+        description:
+          `${userPerms.length ? 'You' : 'I'} need the following permissions in this channel to run this command:\n\`` +
+          (botPerms.length ? botPerms : userPerms).join('`, `') + '`'
+      });
 
-    if (botPerms.length || userPerms.length) return interaction.reply({ embeds: [embed], ephemeral: true });
+      return interaction.reply({ embeds: [embed], ephemeral: true });
+    }
+
     if (!command.noDefer && !interaction.replied) await interaction.deferReply({ ephemeral: command.ephemeralDefer || false });
 
     for (const entry of interaction.options._hoistedOptions)
-      if (entry.type == 'STRING') entry.value = entry.value.replace(/<@!/g, '<@');
+      if (entry.type == ApplicationCommandOptionType.String) entry.value = entry.value.replace(/<@!/g, '<@');
 
     client.interaction = interaction;
     await command.run(client, null, interaction);
