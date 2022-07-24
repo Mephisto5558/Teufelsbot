@@ -30,7 +30,7 @@ module.exports = new Command({
       await db.set('settings', newData);
 
       if (interaction) interaction.editReply(`My prefix has been changed to \`${message.content}\``);
-      else client.functions.reply(`My prefix has been changed to \`${message.content}\``, message);
+      else functions.reply(`My prefix has been changed to \`${message.content}\``, message);
     }
     else {
       const currentPrefix = await db.get('settings')[message.guild.id]?.config?.prefix || await db.get('settings').default.config.prefix;
