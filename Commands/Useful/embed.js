@@ -149,7 +149,7 @@ module.exports = new Command({
         embed = new EmbedBuilder({
           title: getOption('title'),
           description: getOption('description') || ' ',
-          color: getOption('custom_color') || parseInt(getOption('predefined_color').substring(1), 16),
+          color: getOption('custom_color') || parseInt(getOption('predefined_color')?.substring(1), 16),
           footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
           timestamp: interaction.options.getBoolean('timestamp') ? Date.now() / 1000 : null,
           author: {
