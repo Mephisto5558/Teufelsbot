@@ -35,7 +35,7 @@ module.exports = {
       const defaultSettings = await db.get('settings').default?.birthday;
       if (!settings?.enable) continue;
 
-      guild = await guildList.fetch(guild[0]);
+      guild = await guilds.fetch(guild[0]);
 
       for (const entry of Object.entries(oldData)) {
         let channel, user;
