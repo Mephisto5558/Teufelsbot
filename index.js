@@ -1,6 +1,8 @@
 console.time('Starting time')
 console.log('Starting...');
 
+require('./Website/autopull.js');
+
 const
   { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'),
   { reconDB } = require('reconlx'),
