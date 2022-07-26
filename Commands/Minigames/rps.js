@@ -59,7 +59,7 @@ module.exports = new Command({
     if (interaction) interaction.editReply(data);
     else message.editable ? message.edit(data) : message = await message.reply(data);
 
-    const moveCollector = message.channel.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 10000 });
+    const moveCollector = message.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 10000 });
 
     moveCollector.on('collect', async button => {
       await button.deferUpdate();
@@ -95,7 +95,7 @@ module.exports = new Command({
       interaction ? interaction.editReply(data) : message.edit(data);
 
       filter = i => msg.member.id == i.user.id && i.customId == 'playAgain';
-      const playAgainCollector = message.channel.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 15000 });
+      const playAgainCollector = message.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 15000 });
 
       playAgainCollector.on('collect', async button => {
         await button.deferUpdate();
