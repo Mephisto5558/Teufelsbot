@@ -5,12 +5,13 @@ const
   package = require('../../package.json')?.repository?.url
     .replace(/.*\.com\/|\.git/g, '').split('/');
 
-module.exports = async ({ keys }, interaction, err) => {
+module.exports = async (err, { keys } = {}, interaction) => {
   if (!interaction) {
     console.error(red(' [Error Handling] :: Uncaught Error'));
     console.error(err);
     return console.error('\n');
   }
+  
   const
     octokit = new Octokit({ auth: keys.githubKey }),
     embed = new EmbedBuilder({

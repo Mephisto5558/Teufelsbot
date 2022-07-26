@@ -36,7 +36,7 @@ module.exports = async (client, interaction) => {
 
     try { await command.run(client, null, interaction) }
     catch (err) {
-      await require('../Functions/private/error_handler.js')(client, interaction, err);
+      await require('../Functions/private/error_handler.js')(err, client, interaction);
     }
   }
 }
