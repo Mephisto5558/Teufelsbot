@@ -1,8 +1,6 @@
 console.time('Starting time')
 console.log('Starting...');
 
-require('./Website/autopull.js');
-
 const
   { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'),
   { reconDB } = require('reconlx'),
@@ -42,6 +40,8 @@ Object.merge = (source, source2, mode) => {
 }
 
 (async _ => {
+  require('./Website/autopull.js');
+  
   const client = new Client({
     partials: [Partials.Message, Partials.Channel, Partials.Reaction],
     allowedMentions: { parse: ['users', 'roles'] },
