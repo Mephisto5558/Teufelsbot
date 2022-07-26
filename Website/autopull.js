@@ -12,8 +12,8 @@ const pull = _ => exec('git pull', { maxBuffer: 1024 * 600 }, (err, stdout, stde
 
 pull();
 
-app.listen(1337);
-app.post((_, res) => {
+app.listen(8080);
+app.post('/github/hooks/pull', (_, res) => {
   res.sendStatus(200);
   pull();
 });
