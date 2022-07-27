@@ -1,4 +1,5 @@
 const { Command } = require('reconlx');
+const { Message } = require('discord.js');
 
 module.exports = new Command({
   name: 'autopublish',
@@ -13,16 +14,14 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async ({ db, functions }, message, interaction) => {
-    if (interaction) message = interaction;
-
+  run: async ({ db, functions }, message) => {
     const oldData = await db.get('settings');
     const setting = oldData[message.guild.id]?.config?.autopublish;
 
     const newData = Object.merge(oldData, { [message.guild.id]: { config: { autopublish: !setting } } })
     await db.set('settings', newData);
 
-    if (interaction) interaction.editReply(`${setting ? 'Disabled' : 'Enabled'} autopublishing.`);
-    else functions.reply(`${setting ? 'Disabled' : 'Enabled'} autopublishing.`, message);
+    if (message instanceof Message) functions.reply(`${setting ? 'Disabled' : 'Enabled'} autopublishing.`, message);
+    else message.editReply(`${setting ? 'Disabled' : 'Enabled'} autopublishing.`);
   }
 })

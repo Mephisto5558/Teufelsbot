@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, GuildDefaultMessageNotifications, ChannelType, GuildPremiumTier, GuildVerificationLevel } = require('discord.js'),
+  { EmbedBuilder, GuildDefaultMessageNotifications, ChannelType, GuildPremiumTier, GuildVerificationLevel, Message } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = new Command({
@@ -14,30 +14,27 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async ({ functions }, message, interaction) => {
-    if (interaction) message = interaction;
-
+  run: async ({ functions }, message) => {
     const channels = Array.from(message.guild.channels.cache.values());
 
     const
-      guild = interaction?.guild || message.guild,
       embed = new EmbedBuilder({
-        title: guild.name,
-        description: guild.description,
-        color: parseInt((await getAverageColor(guild.iconURL())).hex.substring(1), 16),
+        title: message.guild.name,
+        description: message.guild.description,
+        color: parseInt((await getAverageColor(message.guild.iconURL())).hex.substring(1), 16),
         fields: [
-          { name: 'Members', value: `User: \`${guild.members.cache.filter(e => !e.user.bot).size}\`, Bots: \`${guild.members.cache.filter(e => e.user.bot).size}\``, inline: true },
-          { name: 'Verification Level', value: GuildVerificationLevel[guild.verificationLevel], inline: true },
-          { name: 'ID', value: `\`${guild.id}\``, inline: true },
-          { name: 'Created At', value: `<t:${Math.round(guild.createdTimestamp / 1000)}>`, inline: true },
-          { name: 'Default Notifications', value: GuildDefaultMessageNotifications[guild.defaultMessageNotifications], inline: true },
-          { name: 'Owner', value: `<@${guild.ownerId}>`, inline: true },
-          { name: 'Member Count', value: `\`${guild.memberCount}\``, inline: true },
-          { name: 'Locale', value: guild.preferredLocale, inline: true },
-          { name: 'Partnered', value: guild.partnered, inline: true },
-          { name: 'Emojis', value: `\`${guild.emojis.cache.size}\``, inline: true },
-          { name: 'Roles', value: `\`${guild.roles.cache.size}\``, inline: true },
-          { name: 'Boosts', value: `\`${guild.premiumSubscriptionCount}\`${guild.premiumTier ? `, ${GuildPremiumTier[guild.premiumTier].replace(/(\d)/, ' $1')}` : ''}`, inline: true },
+          { name: 'Members', value: `User: \`${message.guild.members.cache.filter(e => !e.user.bot).size}\`, Bots: \`${message.guild.members.cache.filter(e => e.user.bot).size}\``, inline: true },
+          { name: 'Verification Level', value: GuildVerificationLevel[message.guild.verificationLevel], inline: true },
+          { name: 'ID', value: `\`${message.guild.id}\``, inline: true },
+          { name: 'Created At', value: `<t:${Math.round(message.guild.createdTimestamp / 1000)}>`, inline: true },
+          { name: 'Default Notifications', value: GuildDefaultMessageNotifications[message.guild.defaultMessageNotifications], inline: true },
+          { name: 'Owner', value: `<@${message.guild.ownerId}>`, inline: true },
+          { name: 'Member Count', value: `\`${message.guild.memberCount}\``, inline: true },
+          { name: 'Locale', value: message.guild.preferredLocale, inline: true },
+          { name: 'Partnered', value: message.guild.partnered, inline: true },
+          { name: 'Emojis', value: `\`${message.guild.emojis.cache.size}\``, inline: true },
+          { name: 'Roles', value: `\`${message.guild.roles.cache.size}\``, inline: true },
+          { name: 'Boosts', value: `\`${message.guild.premiumSubscriptionCount}\`${message.guild.premiumTier ? `, ${GuildPremiumTier[guild.premiumTier].replace(/(\d)/, ' $1')}` : ''}`, inline: true },
           {
             name: 'Channels', value: (_ => {
               const sorted = {};
@@ -46,15 +43,15 @@ module.exports = new Command({
             })(),
             inline: false
           },
-          guild.vanityURLCode ? (
-            { name: 'Vanity URL', value: guild.vanityURLCode, inline: true },
-            { name: 'Vanity URL Uses', value: guild.vanityURLUses, inline: true }
+          message.guild.vanityURLCode ? (
+            { name: 'Vanity URL', value: message.guild.vanityURLCode, inline: true },
+            { name: 'Vanity URL Uses', value: message.guild.vanityURLUses, inline: true }
           ) : null
         ].filter(e => e)
-      }).setThumbnail(guild.iconURL());
+      }).setThumbnail(message.guild.iconURL());
 
-    if (guild.banner) embed.setImage(guild.bannerURL());
+    if (message.guild.banner) embed.setImage(message.guild.bannerURL());
 
-    interaction ? interaction.editReply({ embeds: [embed] }) : functions.reply({ embeds: [embed] }, message);
+    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
   }
 })

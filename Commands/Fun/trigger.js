@@ -81,7 +81,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async ({ db }, _, interaction) => {
+  run: async ({ db }, interaction) => {
     const oldData = db.get('settings')[interaction.guild.id]?.triggers || [];
     const settings = db.get('settings');
     let id = interaction.options.getNumber('id')

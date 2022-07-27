@@ -42,7 +42,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (client, _, interaction) => {
+  run: async (client, interaction) => {
     const octokit = new Octokit({ auth: client.keys.githubKey });
 
     try {

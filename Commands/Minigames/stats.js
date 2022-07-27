@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+  { EmbedBuilder, Colors, Message } = require('discord.js');
 
 async function manageData(input, clientID) {
   if (!input) return;
@@ -127,22 +127,16 @@ module.exports = new Command({
     }
   ],
 
-  run: async (client, message, interaction) => {
-    const stats = {};
-    if (message) {
-      if (!message.args[0]) return client.functions.reply('You need to give me a `game` as first argument!', message);
-      stats.type = 'user'
-      stats.game = message.args[0].replace(/tictactoe/gi, 'TicTacToe')
-      stats.target = message.mentions.users?.first() || message.author;
+  run: async (client, message) => {
+    if (message instanceof Message && !message.args[0])
+      return client.functions.reply('You need to give me a `game` as first argument!', message);
+
+    const stats = {
+      type: message.options?.getSubcommand() || 'user',
+      game: message.options?.getString('game') || message.args[0].replace(/tictactoe/gi, 'TicTacToe'),
+      target: message.options?.getUser('target') || message.mentions.users?.first() || message.member,
+      settings: message.options?.getString('settings')
     }
-    else {
-      message = interaction
-      stats.type = interaction.options.getSubcommand()
-      stats.game = interaction.options.getString('game')
-      stats.target = interaction.options.getUser('target') || interaction.user
-      stats.settings = interaction.options.getString('settings');
-    }
-    
     const leaderboards = await client.db.get('leaderboards');
 
     stats.data = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == stats.game.toLowerCase())?.[1];
@@ -151,7 +145,7 @@ module.exports = new Command({
         'This is not a valid game entry. Valid games are:\n`' +
         Object.keys(leaderboards).join('`, `') + '`';
 
-      return interaction ? interaction.editReply(msg) : client.functions.reply(msg, message);
+      return message instanceof Message ? client.functions.reply(msg, message) : message.editReply(msg);
     }
 
     const embed = new EmbedBuilder({
@@ -189,6 +183,6 @@ module.exports = new Command({
       embed.data.description = await formatTopTen(stats.data, stats.settings, message, client) || 'It looks like no one won yet...';
     }
 
-    interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);
+    message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
   }
 })

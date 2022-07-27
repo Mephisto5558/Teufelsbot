@@ -15,18 +15,21 @@ module.exports = new Command({
   run: async (client, message) => {
     if (!message.content) return;
 
+    const msg =  'evaluated command:\n' + '```js\n' + message.content + '```\n';
+
     try {
       await eval(`(async _ => {${message.content}})()`);
-      client.log(`evaluated command '${message.content}'`);
-
-      client.functions.reply(
-        'evaluated command:\n' +
-        '```js\n' +
-        message.content + '```', message
-      )
+      client.functions.reply(`${msg} without errors.`, message);
     }
     catch (err) {
-      return client.functions.reply('```\n' + err + '\n```', message);
+      client.functions.reply(
+        `${msg} with the following error:\n` +
+        '```\n' + `${err.name}: ${err.message}\n` + '```', message
+      );
     }
+    finally {
+      client.log(`evaluated command '${message.content}'`);
+    }
+
   }
 })
