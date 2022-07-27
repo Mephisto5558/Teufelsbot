@@ -1,4 +1,5 @@
 const { Command } = require('reconlx');
+const { Message } = require('discord.js');
 
 module.exports = new Command({
   name: 'say',
@@ -27,15 +28,17 @@ module.exports = new Command({
     }
   ],
 
-  run: async ({ functions }, message, interaction) => {
-    const msg = interaction?.options?.getString('msg') || message.args?.[0];
-    const channel = interaction?.options.getChannel('channel') || interaction?.channel || message.mentions.channels.first() || message.channel;
+  run: async ({ functions }, message) => {
+    const msg = message.args?.[0] || message.options?.getString('msg');
+    const channel = message.options?.getChannel('channel') || message.mentions.channels.first() || message.channel;
 
-    if (!msg) return functions.reply('You need to provide a message to send!', message);
+    if (!msg) {
+      if (message instanceof Message) return functions.reply('You need to provide a message to send!', message);
+      return message.editReply('You need to provide a message to send!');
+    }
 
     await channel.send(msg.replace(/\/n/g, '\n'));
 
-    if (interaction) interaction.editReply('Message sent!');
-    else message.reply('Message sent!');
+    message instanceof Message ? message.reply('Message sent!') : message.editReply('Message sent!');
   }
 })

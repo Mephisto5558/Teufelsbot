@@ -59,7 +59,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async ({ db, application }, _, interaction) => {
+  run: async ({ db, application }, interaction) => {
 
     const
       cmd = interaction.options.getSubcommand(),
@@ -74,7 +74,7 @@ module.exports = new Command({
 
     switch (cmd) {
       case 'toggle':
-        userBlacklist = blacklist[interaction.member.id] || [];
+        userBlacklist = blacklist[interaction.user.id] || [];
         if (target?.id) {
           target = target.id;
           targetName = `user \`${target.tag}\``;
@@ -101,7 +101,7 @@ module.exports = new Command({
         }
 
         if (userBlacklist?.length > 0) newBlacklist = Object.assign({}, blacklist, { [interaction.user.id]: userBlacklist });
-        else delete blacklist[interaction.member.id];
+        else delete blacklist[interaction.user.id];
 
         await db.set('dmCommandBlacklist', newBlacklist || blacklist);
 

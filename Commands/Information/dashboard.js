@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, Message } = require('discord.js'),
   { name, author } = require('../../package.json');
 
 module.exports = new Command({
@@ -14,14 +14,13 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async ({ functions }, message, interaction) => {
+  run: async ({ functions }, message) => {
     const embed = new EmbedBuilder({
       title: 'Dashboard',
       description: `Click [here](https://${name}.${author}.repl.co/) to open the dashboard.`,
       color: Colors.Blurple
     })
 
-    if (interaction) interaction.editReply({ embeds: [embed] });
-    else functions.reply({ embeds: [embed] }, message);
+    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : interaction.editReply({ embeds: [embed] });
   }
 })

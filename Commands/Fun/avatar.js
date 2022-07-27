@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, Message } = require('discord.js');
 
 module.exports = new Command({
   name: 'avatar',
@@ -35,17 +35,17 @@ module.exports = new Command({
     }
   ],
 
-  run: async ({ functions }, message, interaction) => {
+  run: async ({ functions }, message) => {
 
     let target, size;
 
-    if (message) {
+    if (message instanceof Message) {
       if (message?.args[0]) target = (await message.guild.members.fetch(message.args[0].replace(/[<@>]/g, ''))).user;
-      else target = message.author
+      else target = message.author;
     }
     else {
-      target = interaction.options?.getUser('target') || await interaction?.member
-      size = interaction.options?.getNumber('size')
+      target = message.options?.getUser('target') || message.member;
+      size = message.options?.getNumber('size');
     }
 
     const avatarURL = await target.displayAvatarURL({ size: size || 2048 });
@@ -54,7 +54,7 @@ module.exports = new Command({
       description: `**Avatar of ${target.username}**`,
       color: Colors.White,
       image: { url: avatarURL },
-      footer: { text: interaction?.user.tag || message?.author.tag }
+      footer: { text: message.member.tag }
     });
 
     let row = new ActionRowBuilder({
@@ -65,8 +65,7 @@ module.exports = new Command({
       })]
     })
 
-    if (message) functions.reply({ embeds: [embed], components: [row] }, message);
-    else interaction.editReply({ embeds: [embed], components: [row] });
-
+    if (message instanceof Message) functions.reply({ embeds: [embed], components: [row] }, message);
+    else message.editReply({ embeds: [embed], components: [row] });
   }
 })
