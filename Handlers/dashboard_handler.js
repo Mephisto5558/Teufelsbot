@@ -9,7 +9,7 @@ const
     message: '<body style="background-color:#000 color: #ff0000"><p>Sorry, you have been ratelimited!</p></body>'
   }
 
-async function getAllSettings(client) {
+async function getSettings(client) {
   const categoryOptionList = [];
 
   for (const subFolder of getDirectoriesSync('./Website/dashboard')) {
@@ -90,7 +90,7 @@ async function getAllSettings(client) {
   return categoryOptionList.sort((a, b) => a.position - b.position);
 }
 
-async function getAllCommands(client) {
+async function getCommands(client) {
   const categoryCommandList = [];
 
   for (const subFolder of getDirectoriesSync('./Commands')) {
@@ -125,9 +125,22 @@ async function getAllCommands(client) {
   return categoryCommandList.sort((a, b) => a.category.toLowerCase() == 'others' ? 1 : b.list.length - a.list.length);
 }
 
-module.exports = async client => {
-  //if(client.botType == 'dev') return client.log('Dashboard loading skipped due to dev version');
+async function getCustomPages(client, path = './Website/custom') {
+  const pageList = [];
+  const items = readdirSync(path, { withFileTypes: true }).filter(e => e.name.endsWith('.js') || e.isDirectory()).map(e => e.name);
 
+  for (const folder of items.filter(e => !e.endsWith('.js'))) pageList.push(await getCustomPages(client, `${path}/${folder}`));
+
+  for (const file of items.filter(e => e.endsWith('.js'))) {
+    const site = require(`.${path}/${file}`);
+
+    pageList.push(DBD.customPagesTypes[site.type](site.path, site.run));
+  }
+
+  return pageList;
+}
+
+module.exports = async client => {
   await client.functions.ready(client);
   await DBD.useLicense(client.keys.dbdLicense);
   DBD.Dashboard = DBD.UpdatedClass();
@@ -191,7 +204,7 @@ module.exports = async client => {
         information: {},
         feeds: {},
       },
-      commands: await getAllCommands(client)
+      commands: await getCommands(client)
     }),
     underMaintenance: {
       title: 'Under Maintenance',
@@ -212,7 +225,8 @@ module.exports = async client => {
       craneCabinColor: '#8b8b8b',
       craneStandColors: ['#6a6a6a', , '#f29b8b']
     },
-    settings: await getAllSettings(client)
+    settings: await getSettings(client),
+    customPages: (await getCustomPages(client)).flat(Infinity)
   });
 
   Dashboard.init();
