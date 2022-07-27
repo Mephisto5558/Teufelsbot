@@ -15,7 +15,7 @@ module.exports = {
   type: 'renderHtml',
   path: '/git/pull',
 
-  run: async _ => {
+  run: _ => {
     pull();
     return 'OK';
   }
