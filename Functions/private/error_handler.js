@@ -5,13 +5,13 @@ const
   package = require('../../package.json')?.repository?.url
     .replace(/.*\.com\/|\.git/g, '').split('/');
 
-module.exports = async (err, { keys } = {}, interaction) => {
-  if (!interaction) {
+module.exports = async (err, { keys, functions } = {}, message) => {
+  if (!message) {
     console.error(red(' [Error Handling] :: Uncaught Error'));
     console.error(err);
     return console.error('\n');
   }
-  
+
   const
     octokit = new Octokit({ auth: keys.githubKey }),
     embed = new EmbedBuilder({
@@ -19,7 +19,7 @@ module.exports = async (err, { keys } = {}, interaction) => {
       description:
         'A unexpected error occurred!\n\n' +
         `Error Type: \`${err.name}\`\n` +
-        `Command: \`${interaction.commandName}\``,
+        `Command: \`${message.commandName}\``,
       color: Colors.DarkRed
     }),
     comp = new ActionRowBuilder({
@@ -31,7 +31,7 @@ module.exports = async (err, { keys } = {}, interaction) => {
         })
       ]
     }),
-    filter = i => i.member.id == interaction.member.id && i.customId == 'reportError';
+    filter = i => i.member.id == message.user.id && i.customId == 'reportError';
 
   let msg;
 
@@ -45,19 +45,19 @@ module.exports = async (err, { keys } = {}, interaction) => {
       console.error(err);
       console.error('\n');
 
-      msg = await interaction.followUp({ embeds: [embed], components: [comp] });
+      msg = message instanceof Message ? await functions.reply({ embeds: [embed], components: [comp] }) : await interaction.followUp({ embeds: [embed], components: [comp] });
   }
 
   if (!msg) return;
 
-  const collector = interaction.channel.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 60000 });
+  const collector = message.createMessageComponentCollector?.({ filter, max: 1, componentType: ComponentType.Button, time: 60000 }) || message.channel.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 60000 });;
   collector.on('collect', async button => {
     await button.deferUpdate();
     collector.stop();
 
     try {
       const issues = await octokit.request(`GET /repos/${package[0]}/${package[1]}/issues`, {});
-      const title = `${err.name}: "${err.message}" in command "${interaction.commandName}"`;
+      const title = `${err.name}: "${err.message}" in command "${message.commandName}"`;
 
       if (issues.data.filter(e => e.title == title && e.state == 'open').length) {
         embed.data.description = `This issue has already been reported. [Link](${issues.data[0].html_url})\nIt will be fixed soon.`;
@@ -67,7 +67,7 @@ module.exports = async (err, { keys } = {}, interaction) => {
       await octokit.request(`POST /repos/${package[0]}/${package[1]}/issues`, {
         title: title,
         body:
-          `<h3>Reported by ${interaction.user.tag} (${interaction.user.id}) with bot ${interaction.guild.members.me.id}</h3>\n\n` +
+          `<h3>Reported by ${message.user.tag} (${message.user.id}) with bot ${message.guild.members.me.id}</h3>\n\n` +
           err.stack,
         assignees: [package[0]],
         labels: ['bug']
@@ -77,7 +77,8 @@ module.exports = async (err, { keys } = {}, interaction) => {
       msg.edit({ embeds: [embed], components: [comp] });
     }
     catch (err) {
-      interaction.followUp(`An error occurred while trying to send your error report.\n${err?.response.statusText || ''}\nPlease message the dev directly.`);
+      if (message instanceof Message) functions.reply(`An error occurred while trying to send your error report.\n${err?.response.statusText || ''}\nPlease message the dev directly.`, message);
+      else message.followUp(`An error occurred while trying to send your error report.\n${err?.response.statusText || ''}\nPlease message the dev directly.`);
       console.error(err);
     }
   });
