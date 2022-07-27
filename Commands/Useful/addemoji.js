@@ -37,7 +37,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (_, __, interaction) => { return interaction.followUp('Command is off');
+  run: async (_, interaction) => { return interaction.followUp('Command is off');
     let input = interaction.options.getString('emoji_or_url');
 
     const

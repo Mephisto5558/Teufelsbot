@@ -42,7 +42,7 @@ module.exports = new Command({
     }*/
   ],
 
-  run: async (_, __, interaction) => {
+  run: async (_, interaction) => {
     const
       targets = new Set([...interaction.options.getString('targets').replace(/[^0-9\s]/g, '').split(' ').filter(e => e?.length == 18)]),
       reason = interaction.options.getString('reason'),

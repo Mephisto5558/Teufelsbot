@@ -22,7 +22,7 @@ module.exports = new Command({
     ],
   }],
 
-  run: async(client, message, interaction) => {
+  run: async(client, message) => {
 
 
 

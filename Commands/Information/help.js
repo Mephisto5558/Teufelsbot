@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+  { EmbedBuilder, Colors, Message } = require('discord.js');
 
 function listCommands(list, output, count, category) {
   for (let command of list) {
@@ -32,15 +32,9 @@ module.exports = new Command({
     required: false
   }],
 
-  run: (client, message, interaction) => {
+  run: (client, message) => {
     const embed = new EmbedBuilder({ color: Colors.Blurple });
-    let query;
-
-    if (message) query = message.args[0]?.toLowerCase();
-    else {
-      message = interaction;
-      query = interaction.options?.getString('command')?.toLowerCase();
-    }
+    const query = (message.args?.[0] || message.options?.getString('command'))?.toLowerCase();
 
     if (query) {
       const cmd = client.commands.get(query) || client.slashCommands.get(query);
@@ -67,7 +61,7 @@ module.exports = new Command({
         ].filter(e => e);
       }
 
-      return interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);
+      return message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
     }
 
     embed.data.title = `🔰All my commands`;
@@ -94,6 +88,6 @@ module.exports = new Command({
     if (!embed.data.fields) embed.data.description = 'No commands found...';
     else embed.data.footer = { text: `Use the 'command' option to get more information about a specific command.` };
 
-    interaction ? interaction.editReply({ embeds: [embed] }) : client.functions.reply({ embeds: [embed] }, message);
+    message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
   }
 })

@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, PermissionFlagsBits } = require('discord.js'),
+  { EmbedBuilder, PermissionFlagsBits, Message } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = new Command({
@@ -20,15 +20,14 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async ({ functions }, message, interaction) => {
-    if (interaction) message = interaction;
+  run: async ({ functions }, message) => {
     if (message?.content) {
       message.args = message?.args[0]?.replace(/[<@&>]/g, '');
       message.content = message?.content?.replace(/[<@&>]/g, '');
     }
 
     const
-      member = interaction?.options.getMember('target') || interaction?.member || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
+      member = message?.options.getMember('target') || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
       user = member.user,
       color = parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16);
 
@@ -59,6 +58,6 @@ module.exports = new Command({
       ].filter(e => e)
     }).setThumbnail(member.displayAvatarURL())
 
-    interaction ? interaction.editReply({ embeds: [embed] }) : functions.reply({ embeds: [embed] }, message);
+    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
   }
 })

@@ -25,7 +25,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (_, __, interaction) => {
+  run: async (_, interaction) => {
     const
       target = interaction.options.getMember('target'),
       reason = interaction.options.getString('reason') || 'no reason specified';

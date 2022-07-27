@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js'),
+  { EmbedBuilder, Message } = require('discord.js'),
   { get } = require('axios').default,
   package = require('../../package.json')?.repository?.url
     .replace(/.*\.com\/|\.git/g, '').split('/'),
@@ -62,7 +62,7 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
         });
         break;
     }
-    return [res.data.joke, API];
+    return [res.data.joke?.replace(/`/g, `'`), API];
   }
   catch (err) {
     if ([402, 403, 522].includes(err.status)) {
@@ -122,35 +122,26 @@ module.exports = new Command({
     }
   ],
 
-  run: async ({ keys, functions }, message, interaction) => {
-
-    let type, blacklist, maxLength;
-
-    if (interaction) {
-      type = interaction.options.getString('type');
-      blacklist = interaction.options.getString('blacklist');
-      maxLength = interaction.options.getNumber('max_length') || 2000;
-    }
-    else type = message.args[0];
-
-    const data = await getJoke(APIList, type, blacklist, maxLength, keys);
-    const joke = data?.[0]?.replace(/`/g, `'`);
-    const API = data[1];
+  run: async ({ keys, functions }, message) => {
+    const
+      type = message.args?.[0] || message.options.getString('type'),
+      blacklist = message.options?.getString('blacklist'),
+      maxLength = message.options?.getNumber('max_length') || 2000,
+      [joke, API] = await getJoke(APIList, type, blacklist, maxLength, keys);
 
     if (!joke) {
-      if (message) return functions.reply('Apparently, there is currently no API available. Please try again later.', message);
-      else return interaction.editReply('Apparently, there is currently no API available. Please try again later.');
+      if (message instanceof Message) return functions.reply('Apparently, there is currently no API available. Please try again later.', message);
+      return message.editReply('Apparently, there is currently no API available. Please try again later.');
     }
 
-    let embed = new EmbedBuilder({
+    const embed = new EmbedBuilder({
       title: 'Is this funny?',
       description:
         `${joke}\n` +
         `- [${API.name}](${API.url})`
     }).setColor('Random');
 
-    if (message) functions.reply({ embeds: [embed] }, message);
-    else interaction.editReply({ embeds: [embed] });
-
+    if (message instanceof Message) functions.reply({ embeds: [embed] }, message);
+    else message.editReply({ embeds: [embed] });
   }
 })

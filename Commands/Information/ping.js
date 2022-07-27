@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+  { EmbedBuilder, Colors, Message } = require('discord.js');
 
 module.exports = new Command({
   name: 'ping',
@@ -19,17 +19,15 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async ({ ws, functions }, message, interaction) => {
-    if (interaction) message = interaction;
-
-    if (interaction?.options?.getBoolean('average')) {
+  run: async ({ ws, functions }, message) => {
+    if (message.args?.[0] == 'average' || message.options?.getBoolean('average')) {
       const embed = new EmbedBuilder({
         title: 'Ping',
         description: `Pinging... (this takes about one minute)`,
         color: Colors.Blurple
       });
 
-      interaction.editReply({ embeds: [embed] });
+      message.editReply({ embeds: [embed] });
 
       let pings = [], i;
 
@@ -48,7 +46,7 @@ module.exports = new Command({
         `Highest Ping: \`${pings[pings.length - 1]}ms\`\n` +
         `Average Ping: \`${averagePing}ms\``;
 
-      return interaction.editReply({ embeds: [embed] })
+      return message.editReply({ embeds: [embed] })
     }
 
     const embed = new EmbedBuilder({
@@ -58,7 +56,7 @@ module.exports = new Command({
     });
 
     const messagePing = Date.now();
-    const msg = interaction ? await interaction.editReply({ embeds: [embed] }) : await message.channel.send({ embeds: [embed] });
+    const msg = message instanceof Message ? await message.channel.send({ embeds: [embed] }) : await message.editReply({ embeds: [embed] });
     const endMessagePing = Date.now() - messagePing;
 
     embed.data.fields = [
@@ -68,6 +66,6 @@ module.exports = new Command({
     ];
     embed.data.description = ' ';
 
-    interaction ? interaction.editReply({ embeds: [embed] }) : msg.edit({ embeds: [embed] }, message);
+    message instanceof Message ? msg.edit({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
   }
 })

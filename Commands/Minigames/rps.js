@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, ComponentType } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, ComponentType, Message } = require('discord.js'),
   hand = new Collection([['Rock', { id: 0, emoji: '✊' }], ['Paper', { id: 1, emoji: '🤚' }], ['Scissors', { id: 2, emoji: '✌️' }]]);
 
 module.exports = new Command({
@@ -14,12 +14,10 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (_, message, interaction) => {
-    if (interaction) message = interaction;
-    const msg = message;
-
+  run: async (_, message) => {
     let filter = i => msg.member.id == i.user.id;
 
+    const msg = message;
     const
       botMove = hand.random(),
       data = {
@@ -56,8 +54,8 @@ module.exports = new Command({
         ]
       };
 
-    if (interaction) interaction.editReply(data);
-    else message.editable ? message.edit(data) : message = await message.reply(data);
+    if (message instanceof Message) message.editable ? message.edit(data) : message = await message.reply(data);
+    else message.editReply(data);
 
     const moveCollector = message.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 10000 });
 
@@ -92,7 +90,7 @@ module.exports = new Command({
         ]
       });
 
-      interaction ? interaction.editReply(data) : message.edit(data);
+      message instanceof Message ? message.edit(data) : message.editReply(data);
 
       filter = i => msg.member.id == i.user.id && i.customId == 'playAgain';
       const playAgainCollector = message.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 15000 });
@@ -100,7 +98,7 @@ module.exports = new Command({
       playAgainCollector.on('collect', async button => {
         await button.deferUpdate();
 
-        require('./rps.js').run(null, msg, interaction);
+        require('./rps.js').run(null, msg);
       });
 
       playAgainCollector.on('end', collected => {
@@ -108,7 +106,7 @@ module.exports = new Command({
 
         for (const button of data.components[1].components) button.setDisabled(true);
 
-        interaction ? interaction.editReply(data) : message.edit(data);
+        message instanceof Message ? message.edit(data) : message.editReply(data);
       });
     });
 
@@ -116,12 +114,12 @@ module.exports = new Command({
       if (collected.size && collected.first().customId != 'cancel') return;
 
       for (const row of data.components) {
-        for(const button of row.components) button.setDisabled(true);
+        for (const button of row.components) button.setDisabled(true);
       }
-      
+
       data.embeds[0].data.description = 'You lost because you chose to choose nothing!'
 
-      interaction ? interaction.editReply(data) : message.edit(data);
+      message instanceof Message ? message.edit(data) : message.editReply(data);
     })
 
   }
