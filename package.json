@@ -21,7 +21,7 @@
     "fast-average-color-node": "^2.4.0",
     "git-auto-pull": "^1.0.9",
     "mongodb": "^4.8.1",
-    "mongoose": "^6.4.7",
+    "mongoose": "^6.5.0",
     "node": "^18.5.0",
     "npm": "^8.15.0",
     "reconlx": "^2.5.6",
