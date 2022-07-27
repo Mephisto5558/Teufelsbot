@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message } = require('discord.js'),
   { Octokit } = require('@octokit/core'),
   { red } = require('chalk').bold,
   package = require('../../package.json')?.repository?.url
@@ -45,7 +45,7 @@ module.exports = async (err, { keys, functions } = {}, message) => {
       console.error(err);
       console.error('\n');
 
-      msg = message instanceof Message ? await functions.reply({ embeds: [embed], components: [comp] }) : await interaction.followUp({ embeds: [embed], components: [comp] });
+      msg = message instanceof Message ? await functions.reply({ embeds: [embed], components: [comp] }, message) : await interaction.followUp({ embeds: [embed], components: [comp] });
   }
 
   if (!msg) return;
