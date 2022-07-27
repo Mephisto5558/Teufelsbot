@@ -25,10 +25,10 @@ module.exports = async (client, message) => {
   message.content = message.content.slice(prefixLength).trim();
   message.args = message.content.split(' ')
 
-  const commandName = message.args.shift().toLowerCase();
-  const command = client.commands.get(commandName);
+  message.commandName = message.args.shift().toLowerCase();
+  const command = client.commands.get(message.commandName);
 
-  if(!command && client.slashCommands.get(commandName)) return client.functions.reply('This command is only as slash command available!', message);
+  if(!command && client.slashCommands.get(message.commandName)) return client.functions.reply('This command is only as slash command available!', message);
   if ( //DO NOT REMOVE THIS BLOCK!
     !command ||
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
@@ -53,7 +53,8 @@ module.exports = async (client, message) => {
     return message.reply({ embeds: [embed] });
   }
 
-  client.message = message;
-  command.run(client, message);
-  client.message = null;
+  try { await command.run(client, message) }
+  catch (err) {
+    await require('../Functions/private/error_handler.js')(err, client, message);
+  }
 }
