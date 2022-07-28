@@ -67,8 +67,8 @@ module.exports = new Command({
     embed.data.title = `🔰All my commands`;
     embed.setThumbnail(client.user.displayAvatarURL());
 
-    for (let i = 0; i < client.categories.length; i++) {
-      const category = client.categories[i].toLowerCase();
+    for (let category of client.categories) {
+      category = category.toLowerCase();
       if (category == 'owner-only') continue;
 
       let data = listCommands(client.commands, '', 1, category);
