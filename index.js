@@ -1,5 +1,5 @@
 console.time('Starting time')
-console.log('Starting...');
+console.info('Starting...');
 
 const
   { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'),
@@ -42,7 +42,6 @@ Object.merge = (source, source2, mode) => {
 
 (async _ => {
   const client = new Client({
-    partials: [Partials.Message, Partials.Channel, Partials.Reaction],
     allowedMentions: { parse: ['users', 'roles'] },
     shards: 'auto',
     retryLimit: 2,
