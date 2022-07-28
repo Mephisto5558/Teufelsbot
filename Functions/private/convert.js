@@ -20,7 +20,6 @@ function main({ string, type, options }, convertFunction, skip) {
   }
   return output;
 }
-/^(0o)?[0-7]+$/i
 
 module.exports = {
   getInputType: input => {
