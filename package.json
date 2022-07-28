@@ -18,7 +18,6 @@
     "express": "^4.17.3",
     "express-rate-limit": "^6.5.1",
     "fast-average-color-node": "^2.4.0",
-    "git-auto-pull": "^1.0.9",
     "mongodb": "^4.8.1",
     "mongoose": "^6.5.0",
     "node": "^18.5.0",
