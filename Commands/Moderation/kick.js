@@ -51,7 +51,7 @@ module.exports = new Command({
       let target, errorMsg, noMsg;
 
       try { target = await interaction.guild.members.fetch(rawTarget) }
-      catch { };
+      catch { target = { id: rawTarget } }
 
       if (!target.id) errorMsg = `I couldn't find that member!`;
       else if (target.id == interaction.member.id) errorMsg = `You can't kick yourself!`;
