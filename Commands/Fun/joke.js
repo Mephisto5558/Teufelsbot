@@ -77,7 +77,7 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
   }
 
   APIList = APIList.filter(str => str.name !== API.name)
-  if (APIList) return await getJoke(APIList, type, blacklist, maxLength, client);
+  if (APIList) return getJoke(APIList, type, blacklist, maxLength, client);
 }
 
 module.exports = new Command({
