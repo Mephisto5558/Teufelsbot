@@ -8,7 +8,7 @@ async function getRandomNumber(oldRandomNumber, length) {
   const randomNumber = Math.round(`0.${randomBytes(3).readUIntBE(0, 3)}` * length);
 
   //Checks if the last random number is the same, if yes, run itself again. If no, returns the random number
-  return oldRandomNumber != randomNumber ? randomNumber : await getRandomNumber(oldRandomNumber, length);
+  return oldRandomNumber != randomNumber ? randomNumber : getRandomNumber(oldRandomNumber, length);
 }
 
 module.exports = new Command({
