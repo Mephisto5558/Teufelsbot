@@ -93,7 +93,7 @@ module.exports = new Command({
           id: parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) + 1 || 1,
           trigger: interaction.options.getString('trigger'),
           response: interaction.options.getString('response'),
-          wildcard: !(interaction.options.getBoolean('wildcard') === false)
+          wildcard: interaction.options.getBoolean('wildcard') !== false
         };
 
         newData = Object.merge(settings, { [interaction.guild.id]: { triggers: [data] } }, 'push');
