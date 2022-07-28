@@ -4,17 +4,10 @@ const
 
 function filterEmptyEntries(obj) {
   return Object.fromEntries(
-    Object.entries(obj).filter(([k, a]) => {
-      if (!a?.toString().length || k == 'type' || (typeof a == 'number' && a == 0)) return;
-
-      if (typeof a == 'object') {
-        a = filterEmptyEntries(a);
-        if (!Object.values(a).length) return;
-      }
-
-      return true;
-    })
-  )
+    Object.entries(obj)
+      .filter(([, v]) => typeof v == 'object' ? Object.entries(v ?? '').length : v?.toString().length)
+      .map(([k, v]) => [k, typeof v == 'object' && !Array.isArray(v) ? filterEmptyEntries(v) : v])
+  );
 }
 
 module.exports = new Command({
@@ -27,7 +20,7 @@ module.exports = new Command({
   category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
-  ephemeralDefer: true,
+  ephemeralDefer: true, beta: true,
   options: [
     {
       name: 'custom',
@@ -35,14 +28,14 @@ module.exports = new Command({
       type: 'Subcommand',
       options: [
         {
-          name: 'content',
-          description: 'set a message outside of the embed',
-          type: 'String',
-          required: false
-        },
-        {
           name: 'description',
           description: 'set the embed text, use "/n" for newlines',
+          type: 'String',
+          required: true
+        },
+        {
+          name: 'content',
+          description: 'set a message outside of the embed',
           type: 'String',
           required: false
         },
@@ -134,34 +127,28 @@ module.exports = new Command({
     }
   ],
 
-  run: async (_, __, interaction) => {
-    function getOption(name) {
-      return interaction.options.getString(name)?.replace(/\/n/g, '\n');
-    }
-
+  run: async (_, interaction) => {
+    const getOption = name => interaction.options.getString(name)?.replace(/\/n/g, '\n');
     const custom = getOption('json');
     const content = getOption('content');
     let embed;
 
     try {
-      if (custom) embed = new EmbedBuilder(JSON.parse(custom.embeds[0]));
-      else {
-        embed = new EmbedBuilder({
-          title: getOption('title'),
-          description: getOption('description') || ' ',
-          color: getOption('custom_color') || parseInt(getOption('predefined_color')?.substring(1), 16),
-          footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
-          timestamp: interaction.options.getBoolean('timestamp') ? Date.now() / 1000 : null,
-          author: {
-            name: getOption('author_name'),
-            url: getOption('author_url'),
-            iconURL: getOption('author_icon')
-          },
-          //fields: getOption('fields')
-        })
-          .setThumbnail(getOption('thumbnail'))
-          .setImage(getOption('image'));
-      }
+      embed = new EmbedBuilder(custom ? JSON.parse(custom) : {
+        title: getOption('title'),
+        description: getOption('description'),
+        color: parseInt(getOption('custom_color')?.substring(1) ?? 0, 16) || getOption('predefined_color'),
+        footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
+        timestamp: interaction.options.getBoolean('timestamp') ? Date.now() / 1000 : null,
+        author: {
+          name: getOption('author_name'),
+          url: getOption('author_url'),
+          iconURL: getOption('author_icon')
+        },
+        //fields: getOption('fields')
+      })
+        .setThumbnail(getOption('thumbnail'))
+        .setImage(getOption('image'));
 
       await interaction.channel.send({ content: content, embeds: [embed] });
     }
@@ -174,7 +161,7 @@ module.exports = new Command({
 
     if (custom) interaction.editReply('Your embed has been sent!');
     else {
-      embed = JSON.stringify(filterEmptyEntries({ content: content, embeds: [embed] }));
+      embed = JSON.stringify(filterEmptyEntries(embed.data));
 
       interaction.editReply(
         'Your embed has been sent! Below is the embed code.\n' +
@@ -182,6 +169,5 @@ module.exports = new Command({
         '```json\n' + embed + '\n```'
       )
     }
-
   }
 });
