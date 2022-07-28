@@ -48,7 +48,7 @@ module.exports = async (err, { keys, functions } = {}, message) => {
 
   if (!msg) return;
 
-  const collector = message.createMessageComponentCollector?.({ filter, max: 1, componentType: ComponentType.Button, time: 60000 }) || message.channel.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 60000 });;
+  const collector = message.createMessageComponentCollector?.({ filter, max: 1, componentType: ComponentType.Button, time: 60000 }) || message.channel.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 60000 });
   collector.on('collect', async button => {
     await button.deferUpdate();
     collector.stop();
