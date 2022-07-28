@@ -38,7 +38,7 @@ module.exports = new Command({
           {
             name: 'Channels', value: (_ => {
               const sorted = {};
-              channels.map(({ type }) => sorted[type] ? sorted[type]++ : sorted[type] = 1);
+              channels.map(({ type }) => sorted[type] = sorted[type] ? sorted[type] + 1 : 1);
               return Object.entries(sorted).map(([k, v]) => `${ChannelType[k].replace('Guild', '')} Channels: \`${v}\``).join(', ');
             })(),
             inline: false
