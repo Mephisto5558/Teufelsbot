@@ -67,7 +67,7 @@ module.exports = new Command({
       let target, errorMsg, noMsg;
 
       try { target = await interaction.guild.members.fetch(rawTarget) }
-      catch { target = { id: rawTarget } };
+      catch { target = { id: rawTarget } }
 
       if (target.id == interaction.member.id) errorMsg = `You can't ban yourself!`;
       else if (target.roles && target.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1 && interaction.guild.ownerId != interaction.user.id)
