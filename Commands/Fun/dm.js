@@ -112,7 +112,7 @@ module.exports = new Command({
         const guildMembers = (await interaction.guild.members.fetch()).map(e => e.id);
 
         userBlacklist = await db.get('dmCommandBlacklist')[interaction.user.id]?.filter(e => e == '*' || guildMembers.includes(e));
-        listMessage = [];
+        let listMessage = [];
 
         if (!userBlacklist) listMessage = '> You are not blocking any users on this guild.';
         else if (userBlacklist.includes('*')) listMessage = '> You are blocking all users.';
