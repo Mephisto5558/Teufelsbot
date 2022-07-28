@@ -2,8 +2,7 @@ const
   { Command } = require('reconlx'),
   { EmbedBuilder, Message } = require('discord.js'),
   { get } = require('axios').default,
-  package = require('../../package.json')?.repository?.url
-    .replace(/.*\.com\/|\.git/g, '').split('/'),
+  { Github } = require('../../config.json'),
   APIList = [
     { name: 'jokeAPI', url: 'https://v2.jokeapi.dev' },
     { name: 'humorAPI', url: 'https://humorapi.com' },
@@ -56,7 +55,7 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
         res = await get(API.url, {
           timeout: 2500,
           headers: {
-            'User-Agent': `My discord bot (https://github.com/${package[0]}/${package[1]})`,
+            'User-Agent': `My discord bot (${Github.Repo})`,
             Accept: 'application/json'
           }
         });

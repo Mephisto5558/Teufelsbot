@@ -1,7 +1,7 @@
 const
   { Command } = require('reconlx'),
   { EmbedBuilder, Colors, Message } = require('discord.js'),
-  { name, author } = require('../../package.json');
+  { Website } = require('../../config.json');
 
 module.exports = new Command({
   name: 'dashboard',
@@ -17,7 +17,7 @@ module.exports = new Command({
   run: async ({ functions }, message) => {
     const embed = new EmbedBuilder({
       title: 'Dashboard',
-      description: `Click [here](https://${name}.${author}.repl.co/) to open the dashboard.`,
+      description: `Click [here](${Website.Dashboard}) to open the dashboard.`,
       color: Colors.Blurple
     })
 

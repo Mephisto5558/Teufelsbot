@@ -1,0 +1,16 @@
+{
+  "Support": {
+    "Mail": "Your Email here (optional ofc)",
+    "Discord": "Your Support Discord Invite here"
+  },
+  "Website": {
+    "Domain": "Domain URL here",
+    "Dashboard": "Dashboard URL here",
+    "PrivacyPolicy": "Privacy Policy URL here"
+  },
+  "Github": {
+    "Repo": "Repo URL here",
+    "UserName": "Your github username",
+    "RepoName": "Your repo name"
+  }
+}

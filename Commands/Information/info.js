@@ -1,7 +1,8 @@
 const
   { Command } = require('reconlx'),
   { EmbedBuilder, Colors } = require('discord.js'),
-  { readFileSync } = require('fs');
+  { readFileSync } = require('fs'),
+  { Website } = require('../../config.json');
 
 module.exports = new Command({
   name: 'info',
@@ -16,16 +17,16 @@ module.exports = new Command({
 
   run: async (client, message) => {
     const
+      startTime = Math.round(client.startTime / 1000),
       startCount = readFileSync('./Logs/startCount.log', 'utf8') || 0,
       owner = client.application.owner.tag || client.application.owner.owner.tag,
       description =
         `Developer: ${owner}\n` +
         `Shard: ${message.guild.shardId}\n` +
         `Starts: ${startCount}\n` +
-        `Last start: <t:${Math.round(new Date(client.startTime) / 1000)}>\n` +
-        `Unique guild members: \`${new Set([].concat(...client.guilds.cache.map(g => g.members).map(m => m._cache).map(u => Array.from(u).map(u => u[0])))).size}\`\n` +
-        `[Dashboard](https://teufelsbot.mephisto5558.repl.co/)\n` +
-        `[Privacy Policy](https://teufelsbot.mephisto5558.repl.co/privacy)`,
+        `Last start: <t:${startTime}> (<t:${startTime}:R)\n` +
+        `[Dashboard]${Website.Dashboard})\n` +
+        `[Privacy Policy](${Website.PrivacyPolicy})`,
 
       embed = new EmbedBuilder({
         title: 'Stats',
