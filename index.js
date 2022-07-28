@@ -9,6 +9,7 @@ const
   isObject = item => item && typeof item == 'object' && !Array.isArray(item);
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
+global.errorColor = '\x1b[1;31m%s\x1b[0m';
 
 Array.prototype.equals = array => {
   if (!array || this.length != array.length) return false;
@@ -80,7 +81,7 @@ Object.merge = (source, source2, mode) => {
   client.guildData = new Collection();
   client.log = (...data) => {
     const date = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
-    console.log(`[${date}] ${data}`)
+    console.info(`[${date}] ${data}`)
   };
 
   await client.db.ready();
