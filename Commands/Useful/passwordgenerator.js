@@ -61,7 +61,7 @@ module.exports = new Command({
 
     let passwordList = '```';
 
-    const charset = [...new Set(defaultCharset //new Set() makes sure there are no duplicate entries
+    let charset = [...new Set(defaultCharset //new Set() makes sure there are no duplicate entries
       .filter(char => !exclude.includes(char)) //Remove exclude chars from the charset
       .concat(Array.from(include)) //Add include chars to the charset
     )].join('');
