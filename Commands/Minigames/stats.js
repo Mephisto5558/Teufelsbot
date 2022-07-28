@@ -28,7 +28,7 @@ async function formatStatCount(input, all) {
   return `\`${input}\` (\`${parseFloat((input / all * 100).toFixed(2))}%\`)`;
 }
 
-async function formatTopTen(input, settings, message, client) {
+async function formatTopTen(input, settings, message) {
   let output = '';
   let i = 0;
   let isInGuild;
@@ -180,7 +180,7 @@ module.exports = new Command({
     }
     else if (stats.type == 'leaderboard') {
       embed.data.title = `Top 10 ${stats.game} players`;
-      embed.data.description = await formatTopTen(stats.data, stats.settings, message, client) || 'It looks like no one won yet...';
+      embed.data.description = await formatTopTen(stats.data, stats.settings, message) || 'It looks like no one won yet...';
     }
 
     message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
