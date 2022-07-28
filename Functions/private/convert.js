@@ -25,8 +25,8 @@ module.exports = {
   getInputType: input => {
     if (!input) return;
     if (/^(?:[01]{8})+$/.test(input)) return 'binary';
-    if (/^(?:[0-9]{3}|\s)+$/.test(input)) return 'decimal';
-    if (/^(?:[0-9a-f]{2})+$/i.test(input)) return 'hex';
+    if (/^(?:\d{3}|\s)+$/.test(input)) return 'decimal';
+    if (/^(?:[\da-f]{2})+$/i.test(input)) return 'hex';
     //need to find a check for octal string
     return 'text';
   },
