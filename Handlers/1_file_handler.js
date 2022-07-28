@@ -1,5 +1,4 @@
 const fs = require('fs');
-const { red } = require('chalk').bold;
 
 module.exports = async client => {
 
@@ -27,10 +26,10 @@ module.exports = async client => {
     fs.appendFileSync('./Logs/debug.log', `[${timestamp}] ${debug}\n`);
     if (debug.includes('Hit a 429')) {
       if (!client.isReady()) {
-        console.error(red('Hit a 429 while trying to login. Restarting shell.'));
+        console.error(errorColor, 'Hit a 429 while trying to login. Restarting shell.');
         process.kill(1);
       }
-      else console.error(red('Hit a 429 while trying to execute a request'));
+      else console.error(errorColor, 'Hit a 429 while trying to execute a request');
     }
   });
 
