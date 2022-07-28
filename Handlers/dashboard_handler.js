@@ -2,7 +2,7 @@ const
   DBD = require('discord-dashboard'),
   DarkDashboard = require('dbd-dark-dashboard'),
   { readdirSync } = require('fs'),
-  package = require('../package.json'),
+  { Support, Website } = require('../config.json'),
   rateLimit = {
     windowMs: 1 * 60 * 1000, // 1min
     max: 100,
@@ -146,7 +146,7 @@ module.exports = async client => {
   DBD.Dashboard = DBD.UpdatedClass();
 
   const me = client.user || await client.users.fetch(client.userID);
-  const domain = client.botType == 'main' ? `https://${package.name}.${package.author}.repl.co` : 'http://localhost:8000';
+  const domain = client.botType == 'main' ? Website.Domain : 'http://localhost:8000';
 
   global.embedBuilder = DBD.formTypes.embedBuilder({
     username: me.username,
@@ -185,8 +185,8 @@ module.exports = async client => {
         websiteName: `${me.username} | Dashboard`,
         websiteUrl: domain,
         dashboardUrl: domain,
-        supporteMail: 'mephisto5558@gmail.com',
-        supportServer: 'https://discord.com/invite/u6xjqzz',
+        supporteMail: Support.Mail,
+        supportServer: Support.Discord,
         imageFavicon: '../Website/favicon.ico',
         pageBackGround: 'linear-gradient(#2CA8FF, #155b8d)',
         preloader: 'Loading...',

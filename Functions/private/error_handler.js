@@ -2,8 +2,7 @@ const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message } = require('discord.js'),
   { Octokit } = require('@octokit/core'),
   { red } = require('chalk').bold,
-  package = require('../../package.json')?.repository?.url
-    .replace(/.*\.com\/|\.git/g, '').split('/');
+  { Github } = require('../../config.json');
 
 module.exports = async (err, { keys, functions } = {}, message) => {
   if (!message) {
@@ -56,7 +55,7 @@ module.exports = async (err, { keys, functions } = {}, message) => {
     collector.stop();
 
     try {
-      const issues = await octokit.request(`GET /repos/${package[0]}/${package[1]}/issues`, {});
+      const issues = await octokit.request(`GET /repos/${Github.UserName}/${Github.RepoName}/issues`, {});
       const title = `${err.name}: "${err.message}" in command "${message.commandName}"`;
 
       if (issues.data.filter(e => e.title == title && e.state == 'open').length) {
@@ -64,16 +63,16 @@ module.exports = async (err, { keys, functions } = {}, message) => {
         return msg.edit({ embeds: [embed], components: [comp] });
       }
 
-      await octokit.request(`POST /repos/${package[0]}/${package[1]}/issues`, {
+      await octokit.request(`POST /repos/${Github.UserName}/${Github.RepoName}/issues`, {
         title: title,
         body:
           `<h3>Reported by ${message.user.tag} (${message.user.id}) with bot ${message.guild.members.me.id}</h3>\n\n` +
           err.stack,
-        assignees: [package[0]],
+        assignees: [Github.UserName],
         labels: ['bug']
       });
 
-      embed.data.description = `Your issue has been reported. [Link](https://github.com/${package[0]}/${package[1]}/issues?q=is%3Aopen+is%3Aissue+${title} in:title)`;
+      embed.data.description = `Your issue has been reported. [Link](${Github.Repo}/issues?q=is%3Aopen+is%3Aissue+${title} in:title)`;
       msg.edit({ embeds: [embed], components: [comp] });
     }
     catch (err) {
