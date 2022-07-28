@@ -16,7 +16,7 @@
   <img src="https://discordapp.com/api/guilds/725378451988676609/widget.png?style=shield" />
 </a>
 <p>A discord.js v14 bot with multiple features, in active developement.</p>
-<a href="https://github.com/Mephisto5558/Teufelbots/discussions/3">Known bugs and ToDo list</a><br>
+<a href="https://github.com/Mephisto5558/Teufelbots/discussions/3">Known bugs and ToDo list</a> (not well updated)<br>
 Hosted on <a href="https://replit.com">replit.com.</a>
 </p>
 
@@ -29,8 +29,11 @@ Hosted on <a href="https://replit.com">replit.com.</a>
   so everyone can see it, make sure they can't see this file. You can also use a "env" collection
   in mongoDB. If you do this, you only need to set the mongoDB connection string as
   <code>dbConnectionStr</code> to process.env.<br>
-  The env file/collection needs to have all keys from the <code>env template.json</code> in order to work.<br>
-  You do not need to set the dev stuff, this is for developement.<br><br>
+  The env file/collection needs to have all keys from the <code>_env.json</code> from the template folder
+  in order to work.<br>
+  You do not need to set the dev stuff, this is for developement.<br>
+  Then, you need to create a <code>config.json</code> file. The template is in the template folder.<br><br>
+  To run the Bot, you can run the <code>main.sh</code> or directly the <code>index.js</code>.<br><br>
   You should be ready to go!
 </p>
 </body>
