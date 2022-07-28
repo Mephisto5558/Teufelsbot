@@ -9,7 +9,7 @@ const
     { name: 'icanhazdadjoke', url: 'https://icanhazdadjoke.com' }
   ];
 
-async function getJoke(type, blacklist, maxLength, { humorAPIKey }) {
+async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
   let res;
   const API = APIList[Math.round(Math.random() * APIList.length)];
 
@@ -77,7 +77,7 @@ async function getJoke(type, blacklist, maxLength, { humorAPIKey }) {
   }
 
   APIList = APIList.filter(str => str.name !== API.name)
-  if (APIList) return await getJoke(type, blacklist, maxLength, client);
+  if (APIList) return await getJoke(APIList, type, blacklist, maxLength, client);
 }
 
 module.exports = new Command({
@@ -126,7 +126,7 @@ module.exports = new Command({
       type = message.args?.[0] || message.options.getString('type'),
       blacklist = message.options?.getString('blacklist'),
       maxLength = message.options?.getNumber('max_length') || 2000,
-      [joke, API] = await getJoke(type, blacklist, maxLength, keys);
+      [joke, API] = await getJoke(APIList, type, blacklist, maxLength, keys);
 
     if (!joke) {
       if (message instanceof Message) return functions.reply('Apparently, there is currently no API available. Please try again later.', message);
