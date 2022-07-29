@@ -23,6 +23,12 @@ function equal(a, b) {
 
 function format(option) {
   if (option.options) for (let subOption of option.options) subOption = format(subOption);
+  if (!option.description) option.description = ' ';
+  else if (option.description.length > 100) {
+    console.error(`WARN: Description of option ${option} is too long (max length 100)!`);
+    option.description = option.description.substring(0, 100);
+  }
+
   if (option.run) {
     if (!option.type) option.type = ApplicationCommandType.ChatInput;
     else if (!ApplicationCommandType[option.type]) throw new Error(`Invalid option.type, got ${option.type}`);
