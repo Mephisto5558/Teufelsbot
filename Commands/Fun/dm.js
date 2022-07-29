@@ -68,13 +68,13 @@ module.exports = new Command({
       asMod = (interaction.options.getBoolean('as_mod') && perm),
       blacklist = await db.get('dmCommandBlacklist');
 
-    let
-      message, newBlacklist, userBlacklist, targetName
-      target = interaction.options.getMember('target');
+    let target = interaction.options.getMember('target');
 
     switch (cmd) {
-      case 'toggle':
-        userBlacklist = blacklist[interaction.user.id] || [];
+      case 'toggle': {
+        let
+          message, newBlacklist, targetName,
+          userBlacklist = blacklist[interaction.user.id] || [];
         if (target?.id) {
           target = target.id;
           targetName = `user \`${target.tag}\``;
@@ -107,11 +107,12 @@ module.exports = new Command({
 
         interaction.editReply(message);
         break;
+      }
 
-      case 'blacklist':
+      case 'blacklist': {
         const guildMembers = (await interaction.guild.members.fetch()).map(e => e.id);
 
-        userBlacklist = await db.get('dmCommandBlacklist')[interaction.user.id]?.filter(e => e == '*' || guildMembers.includes(e));
+        const userBlacklist = await db.get('dmCommandBlacklist')[interaction.user.id]?.filter(e => e == '*' || guildMembers.includes(e));
         let listMessage = [];
 
         if (!userBlacklist) listMessage = '> You are not blocking any users on this guild.';
@@ -133,12 +134,13 @@ module.exports = new Command({
 
         interaction.editReply({ embeds: [listEmbed] });
         break;
+      }
 
-      case 'send':
+      case 'send': {
         if (target.id == application.id) return interaction.editReply('I cannot send DMs to myself!');
 
-        userBlacklist = blacklist[target.id] || [];
-        if ((userBlacklist.includes(target.id) || userBlacklist.includes('*')) && (!asMod && target.id != interaction.user.id)) {
+        const userBlacklist = blacklist[target.id] || [];
+        if ((userBlacklist.includes(target.id) || userBlacklist.includes('*')) && !asMod && target.id != interaction.user.id) {
           return interaction.editReply({
             content:
               'You are not allowed to send dms to that user!' +
@@ -162,6 +164,7 @@ module.exports = new Command({
         }
         catch { interaction.editReply(`I couldn't message this member!`) }
         break;
+      }
     }
 
   }

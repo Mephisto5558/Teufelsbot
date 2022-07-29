@@ -107,25 +107,26 @@ module.exports = new Command({
         Math.abs(interaction.options.getNumber('day') || '')?.toString().padStart(2, '0')
       ];
 
-    let newData = '';
-
     switch (cmd) {
-      case 'set':
-        newData = Object.assign({}, oldData, { [interaction.user.id]: birthday.join('/') });
+      case 'set': {
+        const newData = Object.assign({}, oldData, { [interaction.user.id]: birthday.join('/') });
         await db.set('birthdays', newData);
 
         interaction.editReply('Your birthday has been saved.' /*maybe add "your birthday is in <d> days"*/);
         break;
+      }
 
-      case 'remove':
+      case 'remove': {
         delete oldData[interaction.user.id];
 
         await db.set('birthdays', oldData);
 
         interaction.editReply('Your birthday has been deleted.');
         break;
+      }
 
-      case 'get':
+      case 'get': {
+        let newData = '';
         const embed = new EmbedBuilder({
           color: Colors.Blurple,
           footer: {
@@ -138,7 +139,7 @@ module.exports = new Command({
           embed.data.title = `${target.tag}'s Birthday`;
 
           const data = oldData[target.id]?.split('/');
-
+          
           if (!data) newData = 'This user has no birthday :(';
           else {
             const age = getAge(data);
@@ -183,6 +184,7 @@ module.exports = new Command({
         }
         else interaction.editReply({ embeds: [embed] });
         break;
+      }
     }
 
   }
