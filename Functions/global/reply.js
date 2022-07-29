@@ -21,4 +21,5 @@ module.exports = async (reply, message, deleteTime, ping) => {
     setTimeout(_ => sentMessage.delete(), deleteTime)
   }
 
+  return sentMessage;
 }
