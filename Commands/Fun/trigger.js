@@ -11,7 +11,7 @@ module.exports = new Command({
   cooldowns: { guild: 0, user: 0 },
   category: 'FUN',
   slashCommand: true,
-  prefixCommand: false, beta: true,
+  prefixCommand: false,
   options: [
     {
       name: 'add',
