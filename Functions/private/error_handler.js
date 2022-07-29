@@ -3,7 +3,7 @@ const
   { Octokit } = require('@octokit/core'),
   { Github } = require('../../config.json');
 
-module.exports = async (err, { keys, functions } = {}, message) => {
+module.exports = async (err, { keys, functions, botType } = {}, message) => {
   if (!message) {
     console.error(errorColor, ' [Error Handling] :: Uncaught Error');
     console.error(err);
@@ -24,9 +24,9 @@ module.exports = async (err, { keys, functions } = {}, message) => {
       components: [
         new ButtonBuilder({
           customId: 'reportError',
-          label: `Report this Error ${client.botType == 'dev' ? '(disabled due to dev version)' : ''}`,
+          label: `Report this Error ${botType == 'dev' ? '(disabled due to dev version)' : ''}`,
           style: ButtonStyle.Danger,
-          disabled: client.botType == 'dev'
+          disabled: botType == 'dev'
         })
       ]
     }),
