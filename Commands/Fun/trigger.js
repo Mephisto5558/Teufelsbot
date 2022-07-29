@@ -91,10 +91,9 @@ module.exports = new Command({
     const
       oldData = db.get('settings')[interaction.guild.id]?.triggers || [],
       settings = db.get('settings'),
-      query = interaction.options.getString('query')?.toLowerCase(),
-      id = interaction.options.getNumber('id');
-
-    let newData;
+      query = interaction.options.getString('query')?.toLowerCase();
+      
+    let id = interaction.options.getNumber('id'), newData;
 
     switch (interaction.options.getSubcommand()) {
       case 'add': {
