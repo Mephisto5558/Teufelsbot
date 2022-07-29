@@ -20,7 +20,7 @@
     "fast-average-color-node": "^2.4.0",
     "mongodb": "^4.8.1",
     "mongoose": "^6.5.0",
-    "node": "^18.5.0",
+    "node": "^18.7.0",
     "npm": "^8.15.1",
     "reconlx": "^2.5.6",
     "serve-favicon": "^2.5.0"
