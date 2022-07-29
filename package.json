@@ -11,7 +11,7 @@
     "@octokit/core": "^4.0.4",
     "cron": "^2.1.0",
     "dbd-dark-dashboard": "^1.6.591",
-    "discord-api-types": "^0.36.3",
+    "discord-api-types": "^0.37.0",
     "discord-dashboard": "^2.3.40",
     "discord-tictactoe": "^3.0.0",
     "discord.js": "^14.1.1",
