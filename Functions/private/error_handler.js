@@ -35,7 +35,7 @@ module.exports = async (err, { keys, functions } = {}, message) => {
 
   switch (err.name) {
     case 'DiscordAPIError':
-      interaction.followUp('An Discord API Error occurred, please try again and message the dev if this keeps happening.');
+      message.followUp('An Discord API Error occurred, please try again and message the dev if this keeps happening.');
       break;
 
     default:
@@ -43,7 +43,7 @@ module.exports = async (err, { keys, functions } = {}, message) => {
       console.error(err);
       console.error('\n');
 
-      msg = message instanceof Message ? await functions.reply({ embeds: [embed], components: [comp] }, message) : await interaction.followUp({ embeds: [embed], components: [comp] });
+      msg = message instanceof Message ? await functions.reply({ embeds: [embed], components: [comp] }, message) : await message.followUp({ embeds: [embed], components: [comp] });
   }
 
   if (!msg) return;
