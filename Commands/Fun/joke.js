@@ -1,3 +1,5 @@
+const { resolve } = require('path');
+
 const
   { Command } = require('reconlx'),
   { EmbedBuilder, Message } = require('discord.js'),
@@ -10,13 +12,13 @@ const
   ];
 
 async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
-  let res;
-  const API = APIList[Math.round(Math.random() * APIList.length)];
+  let response;
+  const API = APIList[Math.round(Math.random() * (APIList.length - 1))];
 
   try {
     switch (API.name) {
-      case 'jokeAPI':
-        res = await get(`${API.url}/joke/Any`, {
+      case 'jokeAPI': {
+        const res = await get(`${API.url}/joke/Any`, {
           timeout: 2500,
           url: 'https://v2.jokeapi.dev/joke/Any',
           params: {
@@ -26,14 +28,17 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
         });
 
         if (res.data.type == 'twopart') {
-          res.data.joke =
+          response =
             `${res.data.setup}\n\n` +
             `||${res.data.delivery}||`;
         }
-        break;
+        else response = res.data;
 
-      case 'humorAPI':
-        res = await get(`${API.url.replace('://', '://api.')}/jokes/random`, {
+        break;
+      }
+
+      case 'humorAPI': {
+        const res = await get(`${API.url.replace('://', '://api.')}/jokes/random`, {
           timeout: 2500,
           params: {
             'api-key': humorAPIKey,
@@ -44,24 +49,24 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
           }
         });
 
-        if (res.data.joke.includes('Q: ')) {
-          response = res.data.joke
-            .replace('Q: ', '')
-            .replace('A: ', '\n||') + '||\n';
-        }
+        response = res.data.joke.includes('Q: ') ? res.data.joke.replace('Q: ', '').replace('A: ', '\n||') + '||\n' : res.data.joke;
         break;
+      }
 
-      case 'icanhazdadjoke':
-        res = await get(API.url, {
+      case 'icanhazdadjoke': {
+        const res = await get(API.url, {
           timeout: 2500,
           headers: {
             'User-Agent': `My discord bot (${Github.Repo})`,
             Accept: 'application/json'
           }
         });
+
+        response = res.data.joke;
         break;
+      }
     }
-    return [res.data.joke?.replace(/`/g, `'`), API];
+    return [response?.replace(/`/g, `'`), API];
   }
   catch (err) {
     if ([402, 403, 522].includes(err.status)) {
@@ -76,8 +81,8 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
     }
   }
 
-  APIList = APIList.filter(str => str.name !== API.name)
-  if (APIList) return getJoke(APIList, type, blacklist, maxLength, client);
+  APIList = APIList.filter(str => str.name !== API.name);
+  if (APIList) return getJoke(APIList, type, blacklist, maxLength, { humorAPIKey });
 }
 
 module.exports = new Command({
@@ -88,7 +93,7 @@ module.exports = new Command({
   permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 100, user: 0 },
   slashCommand: true,
-  prefixCommand: true,
+  prefixCommand: true, beta: true,
   category: 'Fun',
   options: [
     {
@@ -123,7 +128,7 @@ module.exports = new Command({
 
   run: async ({ keys, functions }, message) => {
     const
-      type = message.args?.[0] || message.options.getString('type'),
+      type = message.options?.getString('type') || message.args?.[0],
       blacklist = message.options?.getString('blacklist'),
       maxLength = message.options?.getNumber('max_length') || 2000,
       [joke, API] = await getJoke(APIList, type, blacklist, maxLength, keys);
