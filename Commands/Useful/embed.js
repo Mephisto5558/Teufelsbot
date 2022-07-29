@@ -20,7 +20,7 @@ module.exports = new Command({
   category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
-  ephemeralDefer: true, beta: true,
+  ephemeralDefer: true,
   options: [
     {
       name: 'custom',
