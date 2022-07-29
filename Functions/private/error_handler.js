@@ -24,8 +24,9 @@ module.exports = async (err, { keys, functions } = {}, message) => {
       components: [
         new ButtonBuilder({
           customId: 'reportError',
-          label: 'Report this Error',
-          style: ButtonStyle.Danger
+          label: `Report this Error ${client.botType == 'dev' ? '(disabled due to dev version)' : ''}`,
+          style: ButtonStyle.Danger,
+          disabled: client.botType == 'dev'
         })
       ]
     }),
