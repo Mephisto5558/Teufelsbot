@@ -7,6 +7,3 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    ignore:
-     - dependency-name: "chalk"
-       versions: "5.x"
