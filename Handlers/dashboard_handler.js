@@ -31,7 +31,7 @@ async function getSettings(client) {
         position: 0,
         optionType: DBD.formTypes.switch(),
 
-        getActualSet: async ({ guild }) => await client.db.get('settings')[guild.id]?.[index.id]?.enable,
+        getActualSet: async ({ guild }) => client.db.get('settings')[guild.id]?.[index.id]?.enable,
         setNew: async ({ guild, newData }) => require('../Website/dashboard/saveSettings.js')(client, guild, index.id, 'enable', newData),
       });
       client.dashboardOptionCount[index.id]++
