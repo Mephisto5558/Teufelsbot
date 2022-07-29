@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { Util, EmbedBuilder, Colors } = require('discord.js'),
+  { parseEmoji, EmbedBuilder, Colors } = require('discord.js'),
   { head } = require('axios').default;
 
 module.exports = new Command({
@@ -37,26 +37,27 @@ module.exports = new Command({
     }
   ],
 
-  run: async (_, interaction) => { return interaction.followUp('Command is off');
+  run: async (_, interaction) => {
     let input = interaction.options.getString('emoji_or_url');
 
     const
       emojiName = interaction.options.getString('name')?.slice(0, 32),
-      limitToRoles = interaction.options.getString('limit_to_roles')?.replace(/[^0-9\s]/g, '').split(' ').filter(e => interaction.guild.roles.cache.has(e)),
-      emoticon = Util.parseEmoji(input),
+      limitToRoles = interaction.options.getString('limit_to_roles').split(' ').map(e => e.replace(/[^\d]/g,'')).filter(e => interaction.guild.roles.cache.has(e)),
+      emoticon = parseEmoji(input),
       embed = new EmbedBuilder({
         title: 'Add Emoji',
         color: Colors.Red
       });
 
     if (interaction.guild.emojis.cache.has(emoticon.id)) embed.data.description = 'That emoji is already on this guild!';
-    else if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
+    else if (emoticon.id) input = interaction.guild.emojis.cache.get(emoticon.id).url;
     else {
       if (!input.startsWith('http')) input = `https://${input}`;
-      if (!/^.+\.(?:jpg|jpeg|png|webp|gif|svg)$/i.test(input)) {
+      if (!/^(?:https?:\/\/)?(?:www\.)?.*\.(?:jpg|jpeg|png|webp|svg|gif)(?:\?.*)?$/i.test(input)) {
         embed.data.description =
           'The provided argument is not a valid url or emoji!\n' +
-          'The url must end with `jpg`, `jpeg`, `png`, `webp`, `gif` or `svg`.';
+          'The url must end with `jpg`, `jpeg`, `png`, `webp`, `svg` or `gif`.\n' + 
+          'Example: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png'
       }
 
       try {
