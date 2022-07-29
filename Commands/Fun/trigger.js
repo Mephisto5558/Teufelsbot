@@ -11,7 +11,7 @@ module.exports = new Command({
   cooldowns: { guild: 0, user: 0 },
   category: 'FUN',
   slashCommand: true,
-  prefixCommand: false,
+  prefixCommand: false, beta: true,
   options: [
     {
       name: 'add',
@@ -66,6 +66,12 @@ module.exports = new Command({
       type: 'Subcommand',
       options: [
         {
+          name: 'query',
+          description: 'Search for a trigger by its trigger content',
+          type: 'String',
+          required: false
+        },
+        {
           name: 'id',
           description: 'The trigger id, can be found by using "/trigger get" (without the "id" arg)',
           type: 'Number',
@@ -82,13 +88,16 @@ module.exports = new Command({
   ],
 
   run: async ({ db }, interaction) => {
-    const oldData = db.get('settings')[interaction.guild.id]?.triggers || [];
-    const settings = db.get('settings');
-    let id = interaction.options.getNumber('id')
+    const
+      oldData = db.get('settings')[interaction.guild.id]?.triggers || [],
+      settings = db.get('settings'),
+      query = interaction.options.getString('query')?.toLowerCase(),
+      id = interaction.options.getNumber('id');
+
     let newData;
 
     switch (interaction.options.getSubcommand()) {
-      case 'add':
+      case 'add': {
         const data = {
           id: parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) + 1 || 1,
           trigger: interaction.options.getString('trigger'),
@@ -101,8 +110,9 @@ module.exports = new Command({
 
         interaction.editReply(`Added new trigger for \`${data.trigger}\`.`);
         break;
+      }
 
-      case 'delete':
+      case 'delete': {
         if (!id) id = Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id;
 
         const filtered = oldData.filter(e => e.id != id);
@@ -113,8 +123,9 @@ module.exports = new Command({
 
         interaction.editReply(`I deleted the trigger with id \`${id}\`.`);
         break;
+      }
 
-      case 'clear':
+      case 'clear': {
         if (interaction.options.getString('confirmation').toLowerCase() != 'clear all') return interaction.editReply('You need to confirm this action by writing `CLEAR ALL` as the confirm option!');
         if (!oldData.length) return interaction.editReply('There are no triggers I could clear!');
 
@@ -123,33 +134,32 @@ module.exports = new Command({
 
         interaction.editReply(`I deleted all (\`${oldData.length}\`) triggers.`);
         break;
+      }
 
-      case 'get':
-        if (id || id == 0) {
-          const { trigger, response, wildcard } = oldData.find(e => e.id == id) || {};
-          if (!trigger) return interaction.editReply('There is no trigger with that ID!');
+      case 'get': {
+        if (!oldData.length) return interaction.editReply('There are no triggers!');
 
-          const embed = new EmbedBuilder({
-            title: `Trigger ${id}`,
-            description:
-              `**Trigger:** \n` +
-              '```\n' + (trigger.length < 1900 ? trigger : trigger.substring(0, 197) + '...') + '\n```\n' +
+        const embed = new EmbedBuilder({
+          title: 'Triggers',
+          color: Colors.Blue
+        });
+
+        if (id || id == 0 || query) {
+          const data = oldData.filter(e => query ? e.trigger.toLowerCase().includes(query) : e.id == id);
+          if (!data.trigger) return interaction.editReply('No trigger has been found.');
+
+          embed.data.fields = data.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
+            name: `**Trigger ${id}:**`,
+            value: '```\n' + (trigger.length < 1900 ? trigger : trigger.substring(0, 197) + '...') + '\n```\n' +
               '**Response:** \n' +
               '```\n' + (response.length < 1900 ? response : response.substring(0, 197) + '...') + '\n```\n' +
-              `**Wildcard:** \`${!!wildcard}\`\n`,
-            color: Colors.Blue
-          });
+              `**Wildcard:** \`${!!wildcard}\``,
+            inline: false
+          }));
 
-          interaction.editReply({ embeds: [embed] });
+          return interaction.editReply({ embeds: [embed] });
         }
         else {
-          if (!oldData.length) return interaction.editReply('There are no triggers!');
-
-          const embed = new EmbedBuilder({
-            title: 'Triggers',
-            color: Colors.Blue
-          });
-
           if (interaction.options.getBoolean('short')) {
             let description = '';
             for (const { id, trigger, response, wildcard } of oldData) {
@@ -163,15 +173,10 @@ module.exports = new Command({
             }
 
             embed.data.description = description;
-            return interaction.editReply({ embeds: [embed] });
           }
-
-          const fields = [];
-
-          for (const { id, trigger, response, wildcard } of oldData) {
-            if (fields.length >= 25) break;
-
-            fields.push({
+          else {
+            embed.data.description = oldData.length > 25 ? 'The first 25 triggers. Get more with the `short` option' : ' ';
+            embed.data.fields = oldData.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
               name: `ID: ${id}`,
               value:
                 `**Trigger:** \n` +
@@ -180,15 +185,13 @@ module.exports = new Command({
                 '```\n' + (response.length < 200 ? response : response.subsstring(0, 197) + '...') + '\n```\n' +
                 `**Wildcard:** \`${!!wildcard}\`\n`,
               inline: true
-            });
+            }));
           }
-
-          embed.data.description = oldData.length > 25 ? 'The first 25 triggers. Get more with the `short` option' : ' ';
-          embed.data.fields = fields;
 
           interaction.editReply({ embeds: [embed] });
         }
         break;
+      }
 
       default: throw new SyntaxError('Unexpected value');
     }
