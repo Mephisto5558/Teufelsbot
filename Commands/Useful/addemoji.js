@@ -46,7 +46,7 @@ module.exports = new Command({
       emoticon = parseEmoji(input),
       embed = new EmbedBuilder({
         title: 'Add Emoji',
-        color: Colors.Red
+        color: Colors.Green
       });
 
     if (interaction.guild.emojis.cache.has(emoticon.id)) embed.data.description = 'That emoji is already on this guild!';
@@ -85,6 +85,7 @@ module.exports = new Command({
         (limitToRoles.length ? `The emoji has been limited to the following roles:\n<@&${limitToRoles.join('>, <@&')}>` : '');
     }
     catch (err) {
+      embed.data.color = Colors.Red;
       embed.data.description = `Unable to create the emoji for reason:\n`;
 
       if (err.name == 'AbortError') embed.data.description += '> The request timed out. Maybe the image is to large.';
