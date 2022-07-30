@@ -61,11 +61,7 @@ module.exports = new Command({
       await message.edit({ content: '', embeds: [embed] });
       if (embed.data.description == ' ') return;
 
-      for (let i = 0, a = 0; i < summary.length; i++, a += size) {
-        const size = summary.substring(a, 2048).lastIndexOf('\n');
-        const paragraph = summary.substring(a, size);
-        message.followUp?.(paragraph) || message.reply(paragraph);
-      }
+      for (const paragraph of summary.split('\n')) message.followUp?.(paragraph) || message.reply(paragraph);
     }
     catch (err) {
       functions.reply(`Couldn't talk to Wikipedia: ${err}`, message);
