@@ -1,4 +1,5 @@
 const { Command } = require('reconlx');
+const { Message } = require('discord.js');
 
 module.exports = new Command({
   name: 'purge',
@@ -8,13 +9,20 @@ module.exports = new Command({
   permissions: { client: ['ManageMessages'], user: ['ManageMessages'] },
   cooldowns: { guild: 1000, user: 0 },
   category: 'Moderation',
-  slashCommand: false,
+  slashCommand: true,
   prefixCommand: true,
+  options: [{
+    name: 'amount',
+    description: 'The amount of messages to purge',
+    type: 'Number',
+    minValue: 1,
+    maxValue: 1000
+  }],
 
   run: async ({ functions }, message) => {
-    if (!message.args.length) functions.reply('Please specify the number of messages to purge next time.', message);
+    if (message instanceof Message && !message.args.length) functions.reply('Please specify the number of messages to purge next time.', message);
 
-    let toDeleteCount = parseInt(message.args[0]) + 1; //+1 is the command
+    let toDeleteCount = parseInt(message.args?.[0] || message.options?.getNumber('amount')) + 1; //+1 is the command
     if (isNaN(toDeleteCount) || toDeleteCount <= 1) functions.reply(`\`${message.args[0]}\` is not a valid number.`, message)
     else if (toDeleteCount > 1001) toDeleteCount = 1001;
 
