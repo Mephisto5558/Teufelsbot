@@ -43,18 +43,18 @@ module.exports = new Command({
         page = await Wiki(options).page(data.results[0]),
         { general: info } = await page.fullInfo(),
         image = await page.mainImage(),
-        summary = await page.summary();
-      embed = new EmbedBuilder({
-        title: data.results[0],
-        description: ' ',
-        color: Colors.White,
-        thumbnail: { url: 'https://en.wikipedia.org/static/images/project-logos/enwiki.png' },
-        url: page.url(),
-        image: image ? { url: image } : undefined,
-        fields: Object.entries(info)
-          .filter(([e]) => !['name', 'caption'].includes(e) && !e.includes('image'))
-          .map(([k, v]) => ({ name: k, value: v.toString(), inline: true }))
-      });
+        summary = await page.summary(),
+        embed = new EmbedBuilder({
+          title: data.results[0],
+          description: ' ',
+          color: Colors.White,
+          thumbnail: { url: 'https://en.wikipedia.org/static/images/project-logos/enwiki.png' },
+          url: page.url(),
+          image: image ? { url: image } : undefined,
+          fields: Object.entries(info)
+            .filter(([e]) => !['name', 'caption'].includes(e) && !e.includes('image'))
+            .map(([k, v]) => ({ name: k, value: v.toString(), inline: true }))
+        });
 
       if (summary.length < 2049) embed.data.description = summary.toString();
 
@@ -63,7 +63,7 @@ module.exports = new Command({
 
       let i = 0;
       for (const paragraph of summary.split('\n')) {
-        if(i > 3) {
+        if (i > 3) {
           joined += '**For more information, please visit the Wikipedia page.**';
           break;
         }
