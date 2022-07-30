@@ -75,7 +75,7 @@ module.exports = new Command({
       else if (target.bannable === false) errorMsg = `I don't have the permission to do that!`;
 
       if (errorMsg) {
-        resEmbed.description += `**${target?.user?.tag ?? target.id}** couldn't been banned.\n${errorMsg}\n`;
+        resEmbed.data.description += `**${target?.user?.tag ?? target.id}** couldn't been banned.\n${errorMsg}\n`;
         continue;
       }
 
@@ -90,7 +90,7 @@ module.exports = new Command({
         deleteMessageDays: days > 7 ? 7 : days < 1 ? 1 : days
       });
 
-      resEmbed.description +=
+      resEmbed.data.description +=
         `**${target?.user?.tag ?? target.id}** has been successfully banned.\n` +
         `${noMsg ? `\nI couldn't DM the target.` : ''}`;
     }
