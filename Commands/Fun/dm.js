@@ -64,7 +64,7 @@ module.exports = new Command({
     const
       cmd = interaction.options.getSubcommand(),
       messageToSend = interaction.options.getString('message'),
-      perm = interaction.member.permissions.has('MANAGE_MESSAGES'),
+      perm = interaction.member.permissions.has('ManageMessages'),
       asMod = (interaction.options.getBoolean('as_mod') && perm),
       blacklist = await db.get('dmCommandBlacklist');
 
@@ -96,7 +96,7 @@ module.exports = new Command({
 
           message =
             `Your blacklist entry for ${targetName} has been saved.\n` +
-            `now ${target == '*' ? '`no one` will be' : `${targetName} isn't able`} able to send you dms by me.\n` +
+            `now ${target == '*' ? '`no one` will be' : `${targetName} isn't`} able to send you dms by me.\n` +
             'This will not prevent guild moderators from sending dms to you.';
         }
 

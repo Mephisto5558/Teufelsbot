@@ -1,5 +1,3 @@
-const { resolve } = require('path');
-
 const
   { Command } = require('reconlx'),
   { EmbedBuilder, Message } = require('discord.js'),
