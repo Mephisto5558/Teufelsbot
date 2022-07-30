@@ -26,7 +26,7 @@ module.exports = new Command({
 
   run: async ({ functions }, message) => {
     const query = message.options?.getString('query') || message.content;
-    let data;
+    let data, joined = '';
 
     message = message instanceof Message ? await functions.reply('Loading...', message) : await message.editReply('Loading...');
 
@@ -44,24 +44,38 @@ module.exports = new Command({
         { general: info } = await page.fullInfo(),
         image = await page.mainImage(),
         summary = await page.summary();
-        embed = new EmbedBuilder({
-          title: data.results[0],
-          description: ' ',
-          color: Colors.White,
-          thumbnail: { url: 'https://en.wikipedia.org/static/images/project-logos/enwiki.png' },
-          url: page.url(),
-          image: image ? { url: image } : undefined,
-          fields: Object.entries(info)
-            .filter(([e]) => !['name', 'caption'].includes(e) && !e.includes('image'))
-            .map(([k, v]) => ({ name: k, value: v.toString(), inline: true }))
-        });
+      embed = new EmbedBuilder({
+        title: data.results[0],
+        description: ' ',
+        color: Colors.White,
+        thumbnail: { url: 'https://en.wikipedia.org/static/images/project-logos/enwiki.png' },
+        url: page.url(),
+        image: image ? { url: image } : undefined,
+        fields: Object.entries(info)
+          .filter(([e]) => !['name', 'caption'].includes(e) && !e.includes('image'))
+          .map(([k, v]) => ({ name: k, value: v.toString(), inline: true }))
+      });
 
       if (summary.length < 2049) embed.data.description = summary.toString();
 
       await message.edit({ content: '', embeds: [embed] });
       if (embed.data.description == ' ') return;
 
-      for (const paragraph of summary.split('\n')) message.followUp?.(paragraph) || message.reply(paragraph);
+      let i = 0;
+      for (const paragraph of summary.split('\n')) {
+        if(i > 3) {
+          joined += '**For more information, please visit the Wikipedia page.**';
+          break;
+        }
+        if (joined.length < 10) joined += `${paragraph}\n`;
+        else {
+          message.followUp?.(joined) || message.reply(joined);
+          joined = `${paragraph}\n`;
+          i++
+        }
+      }
+
+      message.followUp?.(joined) || message.reply(joined);
     }
     catch (err) {
       functions.reply(`Couldn't talk to Wikipedia: ${err}`, message);
