@@ -24,8 +24,8 @@ module.exports = new Command({
         `Developer: ${owner}\n` +
         `Shard: ${message.guild.shardId}\n` +
         `Starts: ${startCount}\n` +
-        `Last start: <t:${startTime}> (<t:${startTime}:R)\n` +
-        `[Dashboard]${Website.Dashboard})\n` +
+        `Last start: <t:${startTime}> (<t:${startTime}:R>)\n` +
+        `[Dashboard](${Website.Dashboard})\n` +
         `[Privacy Policy](${Website.PrivacyPolicy})`,
 
       embed = new EmbedBuilder({
