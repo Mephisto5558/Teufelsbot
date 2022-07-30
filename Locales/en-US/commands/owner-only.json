@@ -1,0 +1,46 @@
+{
+  "blacklistuser": {
+    "description": "blocks a user from using the bot",
+    "usage": "PREFIX Command: blacklistuser <user id | @user>",
+    "notFound": "Found no entry for this id.",
+    "saved": "%user has been blacklisted from using the bot.",
+    "removed": "The blacklist entry for `%user` has been removed.",
+    "owner": "I can't blacklist the owner of the bot!"
+  },
+  "dbget": {
+    "description": "query data from the database",
+    "usage": "PREFIX Command: dbget <database name>",
+    "notFound": "nothing found"
+  },
+  "eval": {
+    "description": "inject JavaScript code directly into the bot",
+    "usage": "PREFIX Command: eval <js code>",
+    "finished": "evaluated command:\n```js\n%input\n```\n",
+    "noError": "without errors.",
+    "withError": "%input with the following error:\n```\n%input: %input\n```"
+  },
+  "globalsync": {
+    "description": "syncs the bot's slash commands with all guilds",
+    "finished": "Finished Syncing."
+  },
+  "reload": {
+    "description": "reloads a file or category",
+    "usage": "PREFIX Command: reload <category | \"*\"> <command | \"*\">",
+    "error": "An error occurred.\n```%input```",
+    "none": "No commands have been reloaded.",
+    "reloaded": "The following `%input` command(s) have been reloaded:\n`%input`"
+  },
+  "restart": {
+    "description": "restarts the bot",
+    "message": "Restarting bot..."
+  },
+  "setactivity": {
+    "description": "sets the bot's activity",
+    "usage": "PREFIX Command: setactivity <activity>;[type]",
+    "invalidType": "This is not a valid type. Valid types are:\n`%input`",
+    "success": "Activity set to `%input` of type `%input`."
+  },
+  "test": {
+    "description": "testing stuff"
+  }
+}

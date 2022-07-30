@@ -1,0 +1,113 @@
+{
+  "ban": {
+    "description": "bans a member from the guild",
+    "options": {
+      "targets": {
+        "description": "Mention member(s) or put ID(s) in to ban them. Put a space between each target."
+      },
+      "reason": {
+        "description": "The target(s) will see the reason in DMs"
+      },
+      "duration": {
+        "description": "How long you want to get the target(s) banned."
+      },
+      "delete_days_of_messages": {
+        "description": "Delete all messages of the targets of the last n days."
+      }
+    },
+    "dmEmbed": {
+      "title": "Banned",
+      "description": "You have been banned from `%guild`.\nModerator: %user\nReason: %input"
+    },
+    "infoEmbed": {
+      "title": "Ban",
+      "description": "Moderator: %user\nReason: %input\n\n"
+    },
+    "cantBanSelf": "You can't ban yourself!",
+    "noPerm": "%input don't have the permission to do that!",
+    "error": "**%user** couldn't been banned.\n%input\n",
+    "success": "**%user** has been successfully banned.\n",
+    "noDm": "I couldn't DM the target."
+  },
+  "kick": {
+    "description": "kicks a member from the guild",
+    "options": {
+      "targets": {
+        "description": "Mention member(s) or put ID(s) in to kick them. Put a space between each target."
+      },
+      "reason": {
+        "description": "The target(s) will see the reason in DMs"
+      }
+    },
+    "dmEmbed": {
+      "title": "Kicked",
+      "description": "You have been kicked from `%guild`.\nModerator: %user\nReason: %input"
+    },
+    "infoEmbed": {
+      "title": "Kick",
+      "description": "Moderator: %user\nReason: %input\n\n"
+    },
+    "cantFind": "I couldn't find that member!",
+    "cantKickSelf": "You can't kick yourself!",
+    "noPerm": "%input don't have the permission to do that!",
+    "error": "**%user** couldn't been kicked.\n%input\n",
+    "success": "**%user** has been successfully kicked.\n",
+    "noDm": "I couldn't DM the target."
+  },
+  "mute": {
+    "description": "timeouts a member for a given time (default: 1h).",
+    "usage": "Duration options: you need to provide at least one.",
+    "options": {
+      "target": {
+        "description": "who you want to mute"
+      },
+      "reason": {
+        "description": "The target will see the reason in DMs"
+      },
+      "duration": {
+        "description": "for how much %input you want to mute the target"
+      }
+    },
+    "dmEmbed": {
+      "title": "Muted",
+      "description": "You have been muted from `%guild`.\nModerator: %user\nUntil:<t:%input>\nReason: %input"
+    },
+    "infoEmbed": {
+      "title": "Mute",
+      "description": "%user has been successfully muted.\nReason: %input\nUntil: <t:%input>"
+    },
+    "cantFind": "I couldn't find that member!",
+    "cantMuteSelf": "You can't mute yourself!",
+    "noPerm": "%input don't have the permission to do that!",
+    "error": "I couldn't mute the target:\n%input",
+    "noDm": "I couldn't DM the target."
+  },
+  "purge": {
+    "description": "removes a specific amount of messages",
+    "usage": "PREFIX Command: purge <number>",
+    "options": {
+      "amount": {
+        "description": "The amount of messages to purge"
+      }
+    },
+    "noNumber": "Please specify the number of messages to purge next time.",
+    "invalidNumber": "`%input` is not a valid number!"
+  },
+  "unmute": {
+    "description": "lifts the timeout of a member",
+    "options": {
+      "target": {
+        "description": "who you want to unmute"
+      },
+      "reason": {
+        "description": "why you want to unmute the target"
+      }
+    },
+    "noReason": "no reason specified",
+    "cantFind": "I couldn't find that member!",
+    "notTimedOut": "This member is not timed out!",
+    "noPerm": "%input don't have the permission to do that!",
+    "moderator": "Moderator",
+    "message": "Removed timeout for user %user."
+  }
+}

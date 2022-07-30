@@ -1,0 +1,62 @@
+{
+  "rps": {
+    "description": "Play rock paper scissors against the bot or (coming soon) against your friends",
+    "title": "Rock Paper Scissors",
+    "choose": "Choose a handsign!",
+    "rock": "Rock",
+    "paper": "Paper",
+    "scissors": "Scissors",
+    "win": "You won!",
+    "tie": "We tied!",
+    "lose": "You lost!",
+    "chose": "I chose %input! (%input)",
+    "timedOut": "You lost because you chose to choose nothing!"
+  },
+  "stats": {
+    "description": "get stats about one of the bot's minigames",
+    "usage": "PREFIX Command: stats <game> [user]",
+    "options": {
+      "user": {
+        "description": "get stats about yourself or a specific user",
+        "options": {
+          "game": {
+            "description": "wich game you want to get stats about"
+          },
+          "target": {
+            "description": "wich user you want to get stats about"
+          }
+        }
+      },
+      "leaderboard": {
+        "description": "get the top 10 players of a game",
+        "options": {
+          "game": {
+            "description": "wich game you want to get stats about"
+          },
+          "settings": {
+            "description": "Apply/Disapply filters to the leaderboard"
+          }
+        }
+      }
+    },
+    "games": "Games",
+    "wins": "Wins:",
+    "loses": "Loses:",
+    "draws": "Draws:",
+    "missingGameArg": "You need to give me a `game` as first argument!",
+    "notFound": "This is not a valid game entry. Valid games are:\n`",
+    "wonAgainst": "Won against:",
+    "lostAgainst": "Lost against:",
+    "drewAgainst": "Drew against:",
+    "titleTop10": "Top 10 %input players"
+  },
+  "ttt": {
+    "description": "play some tic tac toe against a friend or the bot",
+    "options": {
+      "opponent": {
+        "description": "Who you want to play against"
+      }
+    },
+    "newChallenge": "<@%user> :crossed_swords: New duel challenge"
+  }
+}

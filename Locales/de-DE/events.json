@@ -1,0 +1,7 @@
+{
+  "cooldown": "Dieser Command ist im Cooldown! Versuche es in `%input`s nochmal.",
+  "permissionDenied": {
+    "title": "Unzureichende Berechtigungen",
+    "description": "%user benötigt die folgenden Berechtigungen in diesem Kanal um diesen Command auszuführen:\n`%input`"
+  }
+}

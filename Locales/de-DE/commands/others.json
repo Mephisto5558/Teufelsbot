@@ -1,0 +1,24 @@
+{
+  "suggest": {
+    "description": "Suggest a feature for the bot on its GitHub",
+    "options": {
+      "title": {
+        "description": "the title of your suggestion"
+      },
+      "suggestion": {
+        "description": "your suggestion for the bot"
+      },
+      "importance": {
+        "description": "how important you think your suggestion is",
+        "choices": {
+          "low": "Low",
+          "medium": "Medium",
+          "hight": "Hight"
+        }
+      }
+    },
+    "error": "An error occurred.\n%input",
+    "title": "Success",
+    "embedDescription": "Your suggestion has been sent.\n[Suggestion Link](%input)"
+  }
+}
