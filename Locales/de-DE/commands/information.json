@@ -1,0 +1,134 @@
+{
+  "avatar": {
+    "description": "show the user's avatar",
+    "options": {
+      "target": {
+        "description": "the user you want to get the avatar of"
+      },
+      "size": {
+        "description": "the size you want to get"
+      }
+    },
+    "embedDescription": "**Avatar of %user**",
+    "downloadButton": "Download picture"
+  },
+  "dashboard": {
+    "description": "get the link to the bots's dashboard",
+    "embedDescription": "Click [here](%input) to open the dashboard."
+  },
+  "help": {
+    "description": "Show all my commands or search for a specific one",
+    "options": {
+      "command": {
+        "description": "Type a command here to get more information about it."
+      }
+    },
+    "one": {
+      "notFound": "No information found for command `%input`.",
+      "title": "Detailed Information about: `%input`",
+      "description": "No description found",
+      "required": "required",
+      "optional": "optional",
+      "reqPerms": "Required %input Permissions",
+      "lookAtDesc": "SLASH Command: look at the option descriptions.\n"
+    },
+    "all": {
+      "title": "🔰All my commands",
+      "notFound": "No commands found...",
+      "footerText": "Use the 'command' option to get more information about a specific command."
+    }
+  },
+  "info": {
+    "description": "shows some stats and infos about the bot.",
+    "developer": "Developer",
+    "lastStart": "Last start:",
+    "PrivacyPolicy": "[Privacy Policy](%input)",
+    "footerText": "More stats are comming soon!"
+  },
+  "ping": {
+    "description": "Get the bot's ping",
+    "options": {
+      "average": {
+        "description": "Get the average ping out of 60 pings."
+      }
+    },
+    "average": {
+    "loading": "Pinging... (this takes about one minute)",
+    "lowest": "Lowest Ping:",
+    "heighest": "Heighest Ping:",
+    "average": "Average Ping:"
+    },
+    "title": "Ping",
+    "messageSend": "Message Send"
+  },
+  "prefix": {
+    "description": "shows or changes the guild's bot prefix",
+    "usage": "PREFIX Command: prefix [new prefix]",
+    "options": {
+      "new_prefix": {
+        "description": "the new bot prefix for this guild"
+      }
+    },
+    "saved": "My prefix has been changed to `%input`.",
+    "get": "My current prefix is `%input`."
+  },
+  "roleinfo": {
+    "description": "Get information about a role",
+    "usage": "PREFIX Command: roleinfo [@role | role name | role id]",
+    "options": {
+      "role": {
+        "description": "the role you want to get information about"
+      }
+    },
+    "members": "Members",
+    "color": "Color",
+    "mentionable": "Mentionable",
+    "hoist": "Hoist",
+    "managed": "Managed",
+    "position": "Position",
+    "createdAt": "Created At",
+    "permissions": "Permissions"
+
+  },
+  "serverinfo": {
+    "description": "Get information about this guild",
+    "members": "Members",
+    "verificationLevel": "Verification Level",
+    "createdAt": "Created At",
+    "defaultNotifications": "Default Notifications",
+    "owner": "Owner",
+    "memberCount": "Member Count",
+    "locale": "Locale",
+    "partnered": "Partnered",
+    "roles": "Roles",
+    "channels": "Channels",
+    "vanityUrl": "Vanity URL",
+    "uses": "Uses"
+  },
+  "uptime": {
+    "description": "Get the bot's uptime",
+    "message": "The bot has been online for exactly %input."
+  },
+  "userinfo": {
+    "description": "Get information about a member",
+    "usage": "PREFIX Command: roleinfo [@user | user name | user tag | user nickname | user id]",
+    "options": {
+      "target": {
+        "description": "the user you want to get informations about"
+      }
+    },
+    "guildOwner": "Guild Owner",
+    "guildAdmin": "Guild Administrator",
+    "guildMod": "Guild Moderator",
+    "guildMember": "Guild Member",
+    "type": "Type",
+    "roles": "Roles",
+    "position": "Position",
+    "color": "Color",
+    "moderatable": "Moderatable",
+    "createdAt":"Created At",
+    "joinedAt": "Joined At",
+    "rolesWithPerms": "Roles with permissions",
+    "perms": "Permissions"
+  }
+}

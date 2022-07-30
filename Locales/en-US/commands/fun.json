@@ -1,0 +1,248 @@
+{
+  "afk": {
+    "description": "sends an afk message if you get pinged until you write again"
+  },
+  "birthday": {
+    "description": "save your birthday and I will send a message on your birthday",
+    "options": {
+      "set": {
+        "description": "set your own birthday",
+        "options": {
+          "day": {
+            "description": "The day you was born in."
+          },
+          "month": {
+            "description": "The month you was born in."
+          },
+          "year": {
+            "description": "The year you was born in."
+          }
+        }
+      },
+      "get": {
+        "description": "get a list of the next birthdays",
+        "options": {
+          "target": {
+            "description": "whose birthday do you want to get? Leave this empty to get the next 10 birthdays."
+          },
+          "do_not_hide": {
+            "description": "don't hide my response to other users"
+          }
+        }
+      },
+      "remove": {
+        "description": "deletes your birthday from the database"
+      }
+    },
+    "months": {
+      "January": "January",
+      "February": "February",
+      "March": "March",
+      "April": "April",
+      "May": "May",
+      "June": "June",
+      "July": "July",
+      "August": "August",
+      "September": "September",
+      "October": "October",
+      "November": "November",
+      "December": "December"
+    },
+    "saved": "Your Birthday has been saved.",
+    "removed": "Your birthday has been removed.",
+    "getUser": {
+      "notFound": "This user has no birthday :(",
+      "title": "%user's Birthday",
+      "date": "This user has birthday on **%input**.\n",
+      "newAge": "He/she will turn **%input** on this day."
+    },
+    "getAll": {
+      "title": "The next birthdays",
+      "notFound": "Nobody has a birthday set..."
+    }
+  },
+  "dm": {
+    "description": "sends a user a dm",
+    "options": {
+      "toggle": {
+        "description": "toggles the ability to send you user-made dms",
+        "options": {
+          "target": {
+            "description": "the user you want to toggle, leave this empty to toggle all users (\"*\")."
+          }
+        }
+      },
+      "blacklist": {
+        "description": "lists all users you are currently blocking."
+      },
+      "send": {
+        "description": "send a dm to a member of this guild",
+        "options": {
+          "target": {
+            "description": "the user you want to send a dm to"
+          },
+          "message": {
+            "description": "the message you want to send, /n for newline"
+          },
+          "as_mod": {
+            "description": "shows 'a mod of {guild name}' instead of your name"
+          }
+        }
+      }
+    },
+    "toggle": {
+      "targetAll": {
+        "saved": "no one will be",
+        "removed": "all users"
+      },
+      "targetOne": "%user isn't",
+      "saved": "Your blacklist entry for %user has been removed.\nYou can now receive dms created by %user from me.",
+      "removed": "Your blacklist entry for %user has been saved.\nNow %input able to send you dms by me.\nThis will not prevent guild moderators from sending dms to you."
+    },
+    "blacklist": {
+      "notFound": "You are not blocking any users on this guild.",
+      "allBlocked": "You are blocking all users.",
+      "title": "Your blacklist for the `/dm send` command",
+      "description": "You are blocking the following guild members:\n%list",
+      "footerText": "run '/dm toggle' without arguments to toggle all users and\nrun '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user."
+    },
+    "send": {
+      "targetIsMe": "I cannot send DMs to myself!",
+      "permissionDenied": "You are not allowed to send dms to that user!",
+      "asModInfo": "Use the `as_mod` option to force the message to send.",
+      "title": "You got a message",
+      "from": "From ***%user**\nGuild: %guild",
+      "fromMod": "a guild moderator",
+      "footerText": "If you don't want to receive user-made dms from me, run '/dm toggle' in any guild.",
+      "error": "I couldn't message this member!"
+    }
+  },
+  "fact": {
+    "description": "get some facts"
+  },
+  "happy": {
+    "description": "make the bot send a happy message"
+  },
+  "hash": {
+    "description": "encrypt or decrypt your text with various methods",
+    "usage": "SLASH Command: You only need to provide one method option.",
+    "options": {
+      "input": {
+        "description": "the text you want to encrypt or decrypt"
+      },
+      "method": {
+        "description": "with which method your text should get encrypted (needed only once)"
+      }
+    },
+    "noMethod": "You need to provide one of the method options!",
+    "title": "Hash Function",
+    "embedDescription": "Your input: %input\nHash method: %input",
+    "text": "Your hashed string:\n`%input`"
+  },
+  "joke": {
+    "description": "sends a funny joke",
+    "usage": "PREFIX Command: joke [type]",
+    "options": {
+      "type": {
+        "description": "The type/tag of the joke (not all APIList support this)"
+      },
+      "blacklist": {
+        "description": "blacklist specific types/tags",
+        "choices": {
+          "nsfw": "NSFW",
+          "religious": "religious",
+          "political": "political",
+          "racist": "racist",
+          "sexist": "sexist",
+          "explicit": "explicit"
+        }
+      },
+      "max_length": {
+        "description": "the max length of the joke (not all APIList support this)"
+      }
+    },
+    "noAPIAvailable": "Apparently, there is currently no API available. Please try again later.",
+    "title": "Is this funny?"
+  },
+  "sad": {
+    "description": "sends a sad emojicon"
+  },
+  "sleep": {
+    "description": "tells your friends that you are going to sleep",
+    "responseList": [
+      "is tired and goes now to sleep :3",
+      "goes now to bed <:engelchen:725458214044303371>",
+      "sleeps now, hopefully he/she doesn't snores <:gucken:725670318164672543>"
+    ]
+  },
+  "trigger": {
+    "description": "Manage custom responses to message triggers",
+    "options": {
+      "add": {
+        "description": "Add a new trigger",
+        "options": {
+          "trigger": {
+            "description": "the text you want the bot to respond to"
+          },
+          "response": {
+            "description": "the response the bot should send"
+          },
+          "wildcard": {
+            "description": "look for the trigger anywhere in the message (default: true)"
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a trigger. This is irreversible!",
+        "options": {
+          "id": {
+            "description": "The trigger id, can be found using \"/trigger get\". Leave this empty to delete the last one."
+          }
+        }
+      },
+      "clear": {
+        "description": "Delete all triggers. This is irreversible!",
+        "options": {
+          "confirmation": {
+            "description": "Write \"CLEAR ALL\" to confirm the deletion of ALL TRIGGERS."
+          }
+        }
+      },
+      "get": {
+        "description": "Get one or all triggers",
+        "options": {
+          "query": {
+            "description": "search for a trigger by its trigger content."
+          },
+          "id": {
+            "description": "the trigger id, can be found using \"/trigger get\""
+          },
+          "short": {
+            "description": "return as many triggers as possible"
+          }
+        }
+      }
+    },
+    "saved": "Added new trigger for `%input`.",
+    "deletedOne": "Deleted the trigger with the ID `%input`",
+    "deletedAll": "I deleted all (`%number`) triggers.",
+    "notFound": "No trigger has been found.",
+    "noneFound": "There are no triggers.",
+    "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
+    "response": "Response",
+    "wildcard": "Wildcard",
+    "first25": "The first 25 triggers. Get more with the `short` option."
+  },
+  "wiki": {
+    "description": "Search for something on Wikipedia, or get a random page if no search terms were specified.",
+    "usage": "wiki <search terms>",
+    "options": {
+      "query": {
+        "description": "What you you want to search?"
+      }
+    },
+    "notFound": "No results found for `%input`.",
+    "visitWiki": "For more information, please visit the Wikipedia page.",
+    "error": "I couldn't talk to Wikipedia: %input"
+  }
+}
