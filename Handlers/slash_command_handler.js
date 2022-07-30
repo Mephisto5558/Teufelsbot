@@ -11,8 +11,8 @@ function equal(a, b) {
   if (
     a.name != b.name || a.description != b.description || a.type != b.type || a.autocomplete != b.autocomplete ||
     a.value != b.value || (a.options?.length ?? 0) != (b.options?.length ?? 0) || (a.channelTypes?.length ?? 0) != (b.channelTypes?.length ?? 0) ||
-    a.minValue != b.minValue || a.maxValue != b.maxValue || !!a.required != !!b.required || !equal(a.choices, b.choices) ||
-    a.defaultMemberPermissions?.bitfield != b.defaultMemberPermissions?.bitfield
+    a.minValue != b.minValue || a.maxValue != b.maxValue || a.minLength != b.minLength || a.maxLength != b.maxLength || !!a.required != !!b.required ||
+    !equal(a.choices, b.choices) || a.defaultMemberPermissions?.bitfield != b.defaultMemberPermissions?.bitfield
   ) return;
 
   for (let i = 0; i < (a.options?.length || 0); i++) if (!equal(a.options?.[i], b?.options?.[i])) return;
