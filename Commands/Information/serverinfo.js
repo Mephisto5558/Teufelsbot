@@ -7,7 +7,7 @@ module.exports = new Command({
   name: 'serverinfo',
   aliases: { prefix: ['server-info', 'guildinfo', 'guild-info'], slash: [] },
   description: 'Get information about this guild',
-  usage: 'PREFIX Command: serverinfo',
+  usage: '',
   permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Information',

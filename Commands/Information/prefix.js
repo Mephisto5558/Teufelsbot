@@ -21,7 +21,7 @@ module.exports = new Command({
   run: async ({ db, functions }, message) => {
     const newPrefix = message.content || message.options?.getString('new_prefix');
 
-    if (newPrefix && message.member.permissions.has('MANAGE_GUILD')) {
+    if (newPrefix && message.member.permissions.has('ManageGuild')) {
       const oldData = await db.get('settings');
 
       const newData = Object.merge(oldData, { [message.guild.id]: { config: { prefix: newPrefix } } });

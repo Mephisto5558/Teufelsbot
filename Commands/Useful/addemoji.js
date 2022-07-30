@@ -27,6 +27,8 @@ module.exports = new Command({
       name: 'name',
       description: 'the name of the new emoji (min 2, max 32 chars)',
       type: 'String',
+      minLength: 2,
+      maxLength: 32,
       required: false
     },
     {
