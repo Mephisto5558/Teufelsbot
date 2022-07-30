@@ -50,7 +50,7 @@ module.exports = new Command({
     }
 
     const embed = new EmbedBuilder({
-      title: 'Latency',
+      title: 'Ping',
       description: 'Loading...',
       color: Colors.Green
     });
