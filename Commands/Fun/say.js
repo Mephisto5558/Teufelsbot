@@ -30,7 +30,7 @@ module.exports = new Command({
 
   run: async (message, { functions }) => {
     const msg = message.args?.[0] || message.options?.getString('msg');
-    const channel = message.options?.getChannel('channel') || message.mentions.channels?.first() || message.channel;
+    const channel = message.options?.getChannel('channel') || message.mentions?.channels.first() || message.channel;
 
     if (!msg) {
       if (message instanceof Message) return functions.reply('You need to provide a message to send!', message);
