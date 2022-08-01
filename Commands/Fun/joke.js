@@ -3,7 +3,7 @@ const
   { EmbedBuilder, Message } = require('discord.js'),
   { get } = require('axios').default,
   { Github } = require('../../config.json'),
-  APIList = [
+  defaultAPIList = [
     { name: 'jokeAPI', url: 'https://v2.jokeapi.dev' },
     { name: 'humorAPI', url: 'https://humorapi.com' },
     { name: 'icanhazdadjoke', url: 'https://icanhazdadjoke.com' }
@@ -129,7 +129,7 @@ module.exports = new Command({
       type = message.options?.getString('type') || message.args?.[0],
       blacklist = message.options?.getString('blacklist'),
       maxLength = message.options?.getNumber('max_length') || 2000,
-      [joke, API] = await getJoke(APIList, type, blacklist, maxLength, keys);
+      [joke, API] = await getJoke(defaultAPIList, type, blacklist, maxLength, keys);
 
     if (!joke) {
       if (message instanceof Message) return functions.reply('Apparently, there is currently no API available. Please try again later.', message);
