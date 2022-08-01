@@ -51,7 +51,7 @@ module.exports = new Command({
         // repo: Github.RepoName,
         title: `${title} | ${interaction.options.getString('importance')} importance`,
         body:
-          `<h3>Sent by ${interaction.user.tag} (${interaction.user.id}) with bot ${client.user.id}</h3>\n\n` +
+          `<h3>Sent by ${interaction.user.tag} (<code>${interaction.user.id}</code>) with bot <code>${client.user.id}</code></h3>\n\n` +
           interaction.options.getString('suggestion'),
         assignees: [Github.UserName],
         labels: ['enhancement']
