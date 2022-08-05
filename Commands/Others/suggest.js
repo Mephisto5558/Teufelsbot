@@ -66,7 +66,7 @@ module.exports = new Command({
       title: 'Success',
       description:
         'Your suggestion has been sent.\n' +
-        `[Suggestion link](${Github.Repo}/issues?q=is%3Aopen+is%3Aissue+${title}%20in%3title)`,
+        `[Suggestion link](${Github.Repo}/issues?q=is%3Aopen+is%3Aissue+${title.replace(/ /g, '%20')}%20in%3Atitle)`,
       color: Colors.Green
     });
 
