@@ -59,7 +59,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async ({ db, application }, interaction) => {
+  run: async (interaction, { db, application }) => {
 
     const
       cmd = interaction.options.getSubcommand(),

@@ -12,7 +12,7 @@ module.exports = new Command({
   prefixCommand: true,
   beta: true,
 
-  run: async (client, message) => {
+  run: async (message, client) => {
     client.log('Syncing Slash Commands globally...');
 
     for (const guild of client.guilds.cache) await client.application.commands.set([], guild[0]);

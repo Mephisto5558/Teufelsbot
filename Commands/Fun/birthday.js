@@ -95,7 +95,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async ({ db }, interaction) => {
+  run: async (interaction, { db }) => {
     const
       cmd = interaction.options.getSubcommand(),
       target = interaction.options.getUser('target'),

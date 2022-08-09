@@ -15,7 +15,7 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (client, message) => {
+  run: async (message, client) => {
     const
       startTime = Math.round(client.startTime / 1000),
       startCount = readFileSync('./Logs/startCount.log', 'utf8') || 0,

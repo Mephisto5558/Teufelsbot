@@ -127,7 +127,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (_, interaction) => {
+  run: async interaction => {
     const getOption = name => interaction.options.getString(name)?.replace(/\/n/g, '\n');
     const custom = getOption('json');
     const content = getOption('content');

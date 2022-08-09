@@ -18,7 +18,7 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async ({ db, functions }, message) => {
+  run: async (message, { db, functions }) => {
     const newPrefix = message.content || message.options?.getString('new_prefix');
 
     if (newPrefix && message.member.permissions.has('ManageGuild')) {
