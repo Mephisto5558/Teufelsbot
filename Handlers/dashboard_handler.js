@@ -188,7 +188,7 @@ module.exports = async client => {
         dashboardUrl: domain,
         supporteMail: Support.Mail,
         supportServer: Support.Discord,
-        imageFavicon: '../Website/favicon.ico',
+        imageFavicon: me.displayAvatarURL(),
         pageBackGround: 'linear-gradient(#2CA8FF, #155b8d)',
         preloader: 'Loading...',
         loggedIn: 'Successfully signed in.',
