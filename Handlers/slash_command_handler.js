@@ -22,7 +22,7 @@ function equal(a, b) {
 }
 
 function format(option) {
-  if (option.options) for (let subOption of option.options) subOption = format(subOption);
+  if (option.options) option.options = option.options.map(e => format(e));
   if (!option.description) option.description = ' ';
   else if (option.description.length > 100) {
     console.error(`WARN: Description of option ${option} is too long (max length 100)!`);
@@ -60,7 +60,7 @@ module.exports = async (client, SyncGuild) => {
     client.slashCommands = new Collection();
 
     for (const subFolder of getDirectoriesSync('./Commands')) {
-      for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
+      for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js'))) {
         const command = format(require(`../Commands/${subFolder}/${file}`));
         let skipped = false;
 

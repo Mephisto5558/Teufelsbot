@@ -1,14 +1,14 @@
-const data = [];
+const updated = [];
 //Dynamically save, mapped by index and setting id
 
-module.exports = async ({ db, dashboardOptionCount }, { id }, index, setting, newData) => {
-  data.push([setting, newData, index]);
-  if (data.length < dashboardOptionCount[index]) return;
+module.exports = async ({ db, dashboardOptionCount }, { id }, index, setting, data) => {
+  updated.push([setting, data, index]);
+  if (updated.length < dashboardOptionCount[index]) return;
 
   const oldData = await db.get('oldData');
   let newData;
 
-  for (let entry of data) {
+  for (let entry of updated) {
     const indexes = [...entry[0].matchAll(/[A-Z]/g)].map(a => ({ index: a.index, value: a[0] }));
     entry[0] = entry[0].split('');
 
@@ -17,10 +17,10 @@ module.exports = async ({ db, dashboardOptionCount }, { id }, index, setting, ne
     if (entry[1].embed && !entry[1].content) entry[1].content = ' ';
     if (entry[1].embed && !entry[1].embed.description) entry.embed.description = ' ';
 
-    entry = `{"${entry[2]}": {"${entry[0].join('')}": ${JSON.stringify(entry[1])}`;
-    entry = entry.padEnd(entry.length + indexes.length + 2, '}');
+    let json = `{"${entry[2]}": {"${entry[0].join('')}": ${JSON.stringify(entry[1])}`;
+    json = json.padEnd(json.length + indexes.length + 2, '}');
     
-    newData = Object.merge(newData || oldData, { [id]: JSON.parse(entry) });
+    newData = Object.merge(newData || oldData, { [id]: JSON.parse(json) });
   }
 
   db.set('guildSettings', newData);

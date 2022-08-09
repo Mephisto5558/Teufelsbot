@@ -3,7 +3,7 @@ let commandCount = 0;
 
 module.exports = ({ botType, commands, log }) => {
   for (const subFolder of getDirectoriesSync('./Commands')) {
-    for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
+    for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js'))) {
       const command = require(`../Commands/${subFolder}/${file}`);
 
       if (!command.prefixCommand || command.disabled || (botType == 'dev' && !command.beta)) continue;
