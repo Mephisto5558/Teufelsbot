@@ -38,7 +38,7 @@ async function getSettings(client) {
       client.dashboardOptionCount[index.id]++
     }
 
-    for (const file of readdirSync(`./Website/dashboard/${subFolder}`).filter(file => file.endsWith('.js'))) {
+    for (const file of readdirSync(`./Website/dashboard/${subFolder}`).filter(e => e.endsWith('.js'))) {
       let setting = require(`../Website/dashboard/${subFolder}/${file}`);
       if (typeof setting == 'function') setting = setting(client);
 
@@ -98,7 +98,7 @@ async function getCommands(client) {
     if (subFolder.toLowerCase() == 'owner-only') continue;
     const commandList = [];
 
-    for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js'))) {
+    for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js'))) {
       const cmd = require(`../Commands/${subFolder}/${file}`);
 
       if (!cmd?.name || cmd.hideInHelp || cmd.disabled || (cmd.beta && client.botType != 'dev') || cmd.category.toLowerCase() == 'owner-only') continue;

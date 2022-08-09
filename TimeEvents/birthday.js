@@ -27,15 +27,13 @@ module.exports = {
     log('started birthday check');
 
     const
-      guildList = await guilds.fetch(),
+      guildList = (await guilds.fetch()).map(([e]) => await guilds.fetch(e)),
       oldData = await db.get('userSettings');
 
-    for (let guild of guildList) {
-      const settings = await db.get('guildSettings')[guild[0]]?.birthday;
+    for (const guild of guildList) {
+      const settings = await db.get('guildSettings')[guild.id]?.birthday;
       const defaultSettings = await db.get('guildSettings').default?.birthday;
       if (!settings?.enable) continue;
-
-      guild = await guilds.fetch(guild[0]);
 
       for (const entry of Object.entries(oldData).map(([k, v]) => ({ [k]: v.birthday }))) {
         let channel, user;

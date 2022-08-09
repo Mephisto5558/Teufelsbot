@@ -54,17 +54,17 @@ module.exports = new Command({
   run: async interaction => {
 
     const
-      length = interaction.options?.getNumber('length') || 12,
       count = interaction.options?.getNumber('count') || 1,
       exclude = interaction.options?.getString('exclude_chars') || '',
       include = interaction.options?.getString('include_chars') || '';
 
-    let passwordList = '```';
-
-    let charset = [...new Set(defaultCharset //new Set() makes sure there are no duplicate entries
-      .filter(char => !exclude.includes(char)) //Remove exclude chars from the charset
-      .concat(Array.from(include)) //Add include chars to the charset
-    )].join('');
+    let
+      passwordList = '```',
+      length = interaction.options?.getNumber('length') || 12,
+      charset = [...new Set(defaultCharset //new Set() makes sure there are no duplicate entries
+        .filter(char => !exclude.includes(char)) //Remove exclude chars from the charset
+        .concat(Array.from(include)) //Add include chars to the charset
+      )].join('');
 
     if (!charset.length) return interaction.editReply('you excluded all chars of the charset...'); //Return if charset is empty
 
@@ -78,7 +78,7 @@ module.exports = new Command({
       for (let i = 0; i < length; i++) {
         const randomNumber = await getRandomNumber(oldRandomNumber, charset.length);
         if (charset[oldRandomNumber] + charset[randomNumber] == '\n') { //'\n' should not appear in the list, it would break stuff
-          i--;
+          length++
           continue;
         }
         passwordList += charset[randomNumber]; //Adds one of the chars in the charset to the password, based on the function getRandomNumber
