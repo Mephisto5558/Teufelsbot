@@ -2,10 +2,9 @@ console.time('Starting time')
 console.info('Starting...');
 
 const
-  { Client, Collection, GatewayIntentBits } = require('discord.js'),
+  { Client, Collection, GatewayIntentBits, AllowedMentionsTypes } = require('discord.js'),
   { reconDB } = require('reconlx'),
   { existsSync, readdirSync } = require('fs'),
-  db = new reconDB(process.env.dbConnectionStr),
   isObject = item => item && typeof item == 'object' && !Array.isArray(item);
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
@@ -21,10 +20,9 @@ Array.prototype.equals = array => {
   return true;
 }
 Array.prototype.random = function random() { return this[Math.round(Math.random() * (this.length - 1))] };
-Object.defineProperty([
-  Array.prototype, 'equals', { enumerable: false },
-  Array.prototype, 'random', { enumerable: false }
-]);
+
+Object.defineProperty(Array.prototype, 'equals', { enumerable: false });
+Object.defineProperty(Array.prototype, 'random', { enumerable: false });
 
 Object.merge = (source, source2, mode) => {
   let output = source;
@@ -46,7 +44,12 @@ Object.merge = (source, source2, mode) => {
 
 (async _ => {
   const client = new Client({
-    allowedMentions: { parse: ['users', 'roles'] },
+    allowedMentions: {
+      parse: [
+        AllowedMentionsTypes.User,
+        AllowedMentionsTypes.Role
+      ]
+    },
     shards: 'auto',
     retryLimit: 2,
     intents: [
@@ -56,6 +59,7 @@ Object.merge = (source, source2, mode) => {
       GatewayIntentBits.MessageContent
     ]
   });
+  const db = new reconDB(process.env.dbConnectionStr);
 
   let env = existsSync('./env.json') ? require('./env.json') : await db.get('botSettings').env;
   env = Object.merge(env.global, env[env.global.environment]);

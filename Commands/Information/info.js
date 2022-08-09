@@ -2,7 +2,7 @@ const
   { Command } = require('reconlx'),
   { EmbedBuilder, Colors } = require('discord.js'),
   { readFileSync } = require('fs'),
-  { Website } = require('../../config.json');
+  { Invite, Dashboard, PrivacyPolicy } = require('../../config.json').Website;
 
 module.exports = new Command({
   name: 'info',
@@ -22,12 +22,11 @@ module.exports = new Command({
       owner = client.application.owner.tag || client.application.owner.owner.tag,
       description =
         `Developer: ${owner}\n` +
-        `Shard: ${message.guild.shardId}\n` +
-        `Guild: ${client.db.get('guildSettings')[message.guild.id]?.position || '0'}`
-        `Starts: ${startCount}\n` +
+        `Shard: \`${message.guild.shardId}\`\n` +
+        `Guild: \`${client.db.get('guildSettings')[message.guild.id]?.position || 0}\n\`` +
+        `Starts: \`${startCount}\`\n` +
         `Last start: <t:${startTime}> (<t:${startTime}:R>)\n` +
-        `[Dashboard](${Website.Dashboard})\n` +
-        `[Privacy Policy](${Website.PrivacyPolicy})`,
+        `**[Invite](${Invite})** | **[Dashboard](${Dashboard})** | **[Privacy Policy](${PrivacyPolicy})**`,
 
       embed = new EmbedBuilder({
         title: 'Stats',
