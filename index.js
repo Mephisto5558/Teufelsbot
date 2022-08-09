@@ -3,6 +3,7 @@ console.info('Starting...');
 
 const
   { Client, Collection, GatewayIntentBits, AllowedMentionsTypes } = require('discord.js'),
+  { randomInt } = require('crypto'),
   { reconDB } = require('reconlx'),
   { existsSync, readdirSync } = require('fs'),
   isObject = item => item && typeof item == 'object' && !Array.isArray(item);
@@ -19,7 +20,7 @@ Array.prototype.equals = array => {
   }
   return true;
 }
-Array.prototype.random = function random() { return this[Math.round(Math.random() * (this.length - 1))] };
+Array.prototype.random = function random() { return this[randomInt(this.length -1)] };
 
 Object.defineProperty(Array.prototype, 'equals', { enumerable: false });
 Object.defineProperty(Array.prototype, 'random', { enumerable: false });
