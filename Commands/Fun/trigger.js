@@ -89,8 +89,8 @@ module.exports = new Command({
 
   run: async (interaction, { db }) => {
     const
-      oldData = db.get('settings')[interaction.guild.id]?.triggers || [],
-      settings = db.get('settings'),
+      settings = db.get('guildSettings'),
+      oldData = settings[interaction.guild.id]?.triggers || [],
       query = interaction.options.getString('query')?.toLowerCase();
 
     let id = interaction.options.getNumber('id'), newData;
@@ -105,7 +105,7 @@ module.exports = new Command({
         };
 
         newData = Object.merge(settings, { [interaction.guild.id]: { triggers: [data] } }, 'push');
-        await db.set('settings', newData);
+        await db.set('guildSettings', newData);
 
         interaction.editReply(`Added new trigger for \`${data.trigger}\`.`);
         break;
@@ -118,7 +118,7 @@ module.exports = new Command({
         if (filtered.length == oldData.length) return interaction.editReply('There is no trigger with that ID!');
 
         newData = Object.merge(settings, { [interaction.guild.id]: { triggers: filtered } }, 'overwrite');
-        await db.set('settings', newData);
+        await db.set('guildSettings', newData);
 
         interaction.editReply(`I deleted the trigger with id \`${id}\`.`);
         break;
@@ -129,7 +129,7 @@ module.exports = new Command({
         if (!oldData.length) return interaction.editReply('There are no triggers I could clear!');
 
         newData = Object.merge(settings, { [interaction.guild.id]: { triggers: [] } }, 'overwrite');
-        await db.set('settings', newData);
+        await db.set('guildSettings', newData);
 
         interaction.editReply(`I deleted all (\`${oldData.length}\`) triggers.`);
         break;

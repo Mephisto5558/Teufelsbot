@@ -5,7 +5,9 @@ module.exports = async ({ db, dashboardOptionCount }, { id }, index, setting, ne
   data.push([setting, newData, index]);
   if (data.length < dashboardOptionCount[index]) return;
 
-  let guildData = await db.get('settings');
+  const oldData = await db.get('oldData');
+  let newData;
+
   for (let entry of data) {
     const indexes = [...entry[0].matchAll(/[A-Z]/g)].map(a => ({ index: a.index, value: a[0] }));
     entry[0] = entry[0].split('');
@@ -18,9 +20,9 @@ module.exports = async ({ db, dashboardOptionCount }, { id }, index, setting, ne
     entry = `{"${entry[2]}": {"${entry[0].join('')}": ${JSON.stringify(entry[1])}`;
     entry = entry.padEnd(entry.length + indexes.length + 2, '}');
     
-    guildData = Object.merge(guildData, { [id]: JSON.parse(entry) });
+    newData = Object.merge(newData || oldData, { [id]: JSON.parse(entry) });
   }
 
-  db.set('settings', guildData);
+  db.set('guildSettings', newData);
   data.length = 0;
 }

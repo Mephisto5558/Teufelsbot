@@ -20,18 +20,17 @@ module.exports = new Command({
 
   run: async (message, { db, functions }) => {
     const newPrefix = message.content || message.options?.getString('new_prefix');
+    const oldData = await db.get('guildSettings');
 
     if (newPrefix && message.member.permissions.has('ManageGuild')) {
-      const oldData = await db.get('settings');
-
       const newData = Object.merge(oldData, { [message.guild.id]: { config: { prefix: newPrefix } } });
-      await db.set('settings', newData);
+      await db.set('guildSettings', newData);
 
       if (message instanceof Message) functions.reply(`My prefix has been changed to \`${newPrefix}\``, message);
       else message.editReply(`My prefix has been changed to \`${newPrefix}\``);
     }
     else {
-      const currentPrefix = await db.get('settings')[message.guild.id]?.config?.prefix || await db.get('settings').default.config.prefix;
+      const currentPrefix = oldData[message.guild.id]?.config?.prefix || oldData.default.config.prefix;
       const msg = currentPrefix ? `My current prefix is \`${currentPrefix}\`` : '[FATAL] Please message the dev immediately `NoDefaultPrefixFound`!';
 
       message instanceof Message ? functions.reply(msg, message) : message.editReply(msg);

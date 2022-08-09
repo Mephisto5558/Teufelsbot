@@ -57,27 +57,17 @@ Object.merge = (source, source2, mode) => {
     ]
   });
 
-  let defaultSettings;
+  let env = existsSync('./env.json') ? require('./env.json') : await db.get('botSettings').env;
+  env = Object.merge(env.global, env[env.global.environment]);
 
-  if (existsSync('./env.json')) defaultSettings = require('./env.json');
-  else {
-    await db.ready();
-    defaultSettings = await db.get('env');
-  }
-
-  defaultSettings = Object.assign({}, defaultSettings.global,
-    defaultSettings[defaultSettings.global.environment],
-    { keys: Object.assign({}, defaultSettings.global.keys, defaultSettings[defaultSettings.global.environment].keys) }
-  );
-
-  client.userID = defaultSettings.botUserID;
-  client.botType = defaultSettings.type;
+  client.userID = env.botUserID;
+  client.botType = env.environment;
   client.startTime = Date.now();
   client.categories = getDirectoriesSync('./Commands');
   client.db = db;
   client.functions = {};
   client.dashboardOptionCount = {};
-  client.keys = defaultSettings.keys;
+  client.keys = env.keys;
   client.events = new Collection();
   client.cooldowns = new Collection();
   client.commands = new Collection();

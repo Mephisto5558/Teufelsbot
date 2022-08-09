@@ -26,7 +26,7 @@ module.exports = new Command({
     );
 
     await client.user.setActivity(activity, { type: type });
-    await client.db.set('activity', { name: activity, type: type });
+    await client.db.set('botSettings', Object.merge(await client.db.get('botSettings'), { activity: { name: activity, type: type } }));
 
     client.functions.reply(`Activity set to \`${activity ? `${activity}\` of type \`${ActivityType[type]}` : 'none'}\`.`, message);
   }

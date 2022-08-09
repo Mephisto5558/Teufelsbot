@@ -3,10 +3,10 @@ const { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits } = require('disc
 module.exports = async (client, message) => {
   if (message.channel.type == ChannelType.DM) return;
 
-  const blacklist = await client.db.get('blacklist');
+  const { blacklist } = await client.db.get('botSettings');
   if (blacklist?.includes(message.author.id)) return;
 
-  const guildSettings = await client.db.get('settings')[message.guild.id];
+  const guildSettings = await client.db.get('guildSettings')[message.guild.id];
 
   if (message.crosspostable && guildSettings?.config?.autopublish) message.crosspost();
   if (message.author.bot) return;
@@ -17,7 +17,7 @@ module.exports = async (client, message) => {
     client.functions.reply(trigger.response, message);
   if (/(koi ?pat|pat ?koi|pat ?fish|fish ?pat)/i.test(message.content)) client.functions.reply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7', message);
 
-  const guildPrefix = guildSettings?.config?.prefix || await client.db.get('settings').default.config.prefix;
+  const guildPrefix = guildSettings?.config?.prefix || await client.db.get('guildSettings').default.config.prefix;
 
   const prefixLength = message.content.startsWith(guildPrefix) ? guildPrefix.length : message.content.startsWith(`<@${client.user.id}>`) ? `<@${client.user.id}>`.length : 0;
   if (!prefixLength) return;
@@ -28,7 +28,7 @@ module.exports = async (client, message) => {
   message.commandName = message.args.shift().toLowerCase();
   const command = client.commands.get(message.commandName);
 
-  if(!command && client.slashCommands.get(message.commandName)) return client.functions.reply('This command is only as slash command available!', message);
+  if (!command && client.slashCommands.get(message.commandName)) return client.functions.reply('This command is only as slash command available!', message);
   if ( //DO NOT REMOVE THIS BLOCK!
     !command ||
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)

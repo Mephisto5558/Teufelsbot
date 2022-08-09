@@ -100,7 +100,7 @@ module.exports = new Command({
       cmd = interaction.options.getSubcommand(),
       target = interaction.options.getUser('target'),
       doNotHide = interaction.options.getBoolean('do_not_hide'),
-      oldData = await db.get('birthdays'),
+      oldData = await db.get('userSettings'),
       birthday = [
         Math.abs(interaction.options.getNumber('year')),
         Math.abs(interaction.options.getNumber('month') || '')?.toString().padStart(2, '0'),
@@ -109,17 +109,17 @@ module.exports = new Command({
 
     switch (cmd) {
       case 'set': {
-        const newData = Object.assign({}, oldData, { [interaction.user.id]: birthday.join('/') });
-        await db.set('birthdays', newData);
+        const newData = Object.merge(oldData, { [interaction.user.id]: { birthday: birthday.join('/') } });
+        await db.set('userSettings', newData);
 
         interaction.editReply('Your birthday has been saved.' /*maybe add "your birthday is in <d> days"*/);
         break;
       }
 
       case 'remove': {
-        delete oldData[interaction.user.id];
+        delete oldData[interaction.user.id].birthday;
 
-        await db.set('birthdays', oldData);
+        await db.set('userSettings', oldData);
 
         interaction.editReply('Your birthday has been deleted.');
         break;
@@ -138,8 +138,8 @@ module.exports = new Command({
         if (target) {
           embed.data.title = `${target.tag}'s Birthday`;
 
-          const data = oldData[target.id]?.split('/');
-          
+          const data = oldData[target.id]?.birthday?.split('/');
+
           if (!data) newData = 'This user has no birthday :(';
           else {
             const age = getAge(data);
@@ -154,8 +154,8 @@ module.exports = new Command({
           const currentTime = new Date().getTime();
 
           const data = Object.entries(oldData)
-            .filter(([e]) => e != 'lastCheckTS' && guildMembers.includes(e))
-            .map(([k, v]) => [k, ...v.split('/')])
+            .filter(([k]) => guildMembers.includes(k))
+            .map(([k, v]) => [k, ...v.birthday.split('/')])
             .sort(([, , month1, day1], [, , month2, day2]) => {
               const time = [new Date(currentYear, month1 - 1, day1), new Date(currentYear, month2 - 1, day2)];
 
