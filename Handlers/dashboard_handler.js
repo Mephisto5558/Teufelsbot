@@ -33,7 +33,7 @@ async function getSettings(client) {
         optionType: DBD.formTypes.switch(),
 
         getActualSet: async ({ guild }) => guildSettings[guild.id]?.[index.id]?.enable,
-        setNew: async ({ guild, newData }) => require('../Website/dashboard/saveSettings.js')(client, guild, index.id, 'enable', newData),
+        setNew: async ({ guild, newData }) => require('../Website/dashboard/saveSettings.js')(client, guild.id, index.id, 'enable', newData),
       });
       client.dashboardOptionCount[index.id]++
     }
@@ -71,7 +71,7 @@ async function getSettings(client) {
 
             return gSetting;
           }),
-          setNew: setting.set || (async ({ guild, newData }) => require('../Website/dashboard/saveSettings.js')(client, guild, index.id, setting.id, newData)),
+          setNew: setting.set || (async ({ guild, newData }) => require('../Website/dashboard/saveSettings.js')(client, guild.id, index.id, setting.id, newData)),
           allowedCheck: setting.auth
         });
 
