@@ -15,7 +15,7 @@ module.exports = new Command({
   run: async (message, client) => {
     if (!message.content) return;
 
-    const msg =  'evaluated command:\n' + '```js\n' + message.content + '```\n';
+    const msg = 'evaluated command:\n' + '```js\n' + message.content + '```\n';
 
     try {
       await eval(`(async _ => {${message.content}})()`);
