@@ -27,7 +27,7 @@ module.exports = {
     log('started birthday check');
 
     const
-      guildList = (await guilds.fetch()).map(([e]) => await guilds.fetch(e)),
+      guildList = (await guilds.fetch()).map(([e]) => guilds.fetch(e)),
       oldData = await db.get('userSettings');
 
     for (const guild of guildList) {
