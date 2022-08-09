@@ -15,11 +15,11 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: async (message, { db, functions }) => {
-    const oldData = await db.get('settings');
+    const oldData = await db.get('guildSettings');
     const setting = oldData[message.guild.id]?.config?.autopublish;
 
     const newData = Object.merge(oldData, { [message.guild.id]: { config: { autopublish: !setting } } })
-    await db.set('settings', newData);
+    await db.set('guildSettings', newData);
 
     if (message instanceof Message) functions.reply(`${setting ? 'Disabled' : 'Enabled'} autopublishing.`, message);
     else message.editReply(`${setting ? 'Disabled' : 'Enabled'} autopublishing.`);
