@@ -36,7 +36,7 @@ module.exports = new Command({
     required: true,
   }, ...hashOptions],
 
-  run: (_, interaction) => {
+  run: interaction => {
     const
       input = interaction.options.getString('input'),
       method = interaction.options.data.filter(entry => entry.name.includes('method'))?.[0]?.value;

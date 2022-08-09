@@ -52,7 +52,7 @@ module.exports = new Command({
   prefixCommand: true,
   beta: true,
 
-  run: async (client, message) => {
+  run: async (message, client) => {
     const category = !message.args[0] ? null : message.args[0] == '*' ? '*' : getDirectoriesSync('./Commands').filter(e => e.toLowerCase() == message.args[0].toLowerCase())?.[0];
     const command = !message.args[1] ? null : message.args[1] == '*' ? '*' : readdirSync(`./Commands/${category}`).filter(e => e.endsWith('.js') && e.toLowerCase() == `${message.args[1].toLowerCase()}.js`)?.[0];
     const path = join(__dirname, `../../Commands/${category}/${command}`);

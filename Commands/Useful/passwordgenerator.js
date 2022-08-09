@@ -1,14 +1,14 @@
 const
   { Command } = require('reconlx'),
   { randomBytes } = require('crypto'), //https://nodejs.org/api/crypto.html#cryptorandombytessize-callback
-  defaultCharset = Array.from('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\\=*\'"#*(){}[]');
+  defaultCharset = ['abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\\=*\'"#*(){}[]'];
 
 async function getRandomNumber(oldRandomNumber, length) {
   //Generate a cryptographically strong random number between 0 and one and multiplies it with the length of the charset
   const randomNumber = Math.round(`0.${randomBytes(3).readUIntBE(0, 3)}` * length);
 
   //Checks if the last random number is the same, if yes, run itself again. If no, returns the random number
-  return oldRandomNumber != randomNumber ? randomNumber : getRandomNumber(oldRandomNumber, length);
+  return oldRandomNumber != randomNumber ? randomNumber : getRandomNumber(randomNumber, length);
 }
 
 module.exports = new Command({
@@ -51,7 +51,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (_, interaction) => {
+  run: async interaction => {
 
     const
       length = interaction.options?.getNumber('length') || 12,

@@ -53,7 +53,7 @@ module.exports = async (client, message) => {
     return message.reply({ embeds: [embed] });
   }
 
-  try { await command.run(client, message) }
+  try { await command.run(message, client) }
   catch (err) {
     await require('../Functions/private/error_handler.js')(err, client, message);
   }

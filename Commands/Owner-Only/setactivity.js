@@ -12,7 +12,7 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true, beta: true,
 
-  run: async (client, message) => {
+  run: async (message, client) => {
 
     message.args = message.content.split(';');
 

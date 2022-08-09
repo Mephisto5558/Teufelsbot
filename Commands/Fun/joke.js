@@ -11,7 +11,7 @@ const
 
 async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
   let response;
-  const API = APIList[Math.round(Math.random() * (APIList.length - 1))];
+  const API = APIList.random();
 
   try {
     switch (API.name) {
@@ -124,7 +124,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async ({ keys, functions }, message) => {
+  run: async (message, { keys, functions }) => {
     const
       type = message.options?.getString('type') || message.args?.[0],
       blacklist = message.options?.getString('blacklist'),

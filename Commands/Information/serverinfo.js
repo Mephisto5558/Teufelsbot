@@ -14,7 +14,7 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async ({ functions }, message) => {
+  run: async (message, { functions }) => {
     const channels = Array.from(message.guild.channels.cache.values());
 
     const

@@ -28,7 +28,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async ({ functions }, message) => {
+  run: async (message, { functions }) => {
     const msg = message.args?.[0] || message.options?.getString('msg');
     const channel = message.options?.getChannel('channel') || message.mentions.channels?.first() || message.channel;
 

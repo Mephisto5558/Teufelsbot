@@ -11,7 +11,7 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async ({ db, functions, application }, message) => {
+  run: async (message, { db, functions, application }) => {
     if (!message.args[0]) return;
 
     if (message.args[0] == 'off') {
