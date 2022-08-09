@@ -1,4 +1,4 @@
-const types = require('discord-dashboard').formTypes;
+const { formTypes } = require('discord-dashboard');
 
 module.exports = {
   id: 'autopublish',
@@ -6,5 +6,5 @@ module.exports = {
   description: 'Automatically publish/crosspost every message a user writes in an announcement channel',
   position: 3,
 
-  type: types.switch()
+  type: formTypes.switch()
 }
