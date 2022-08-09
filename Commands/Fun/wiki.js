@@ -24,7 +24,7 @@ module.exports = new Command({
     required: true
   }],
 
-  run: async ({ functions }, message) => {
+  run: async (message, { functions }) => {
     const query = message.options?.getString('query') || message.content;
     let data, joined = '';
 

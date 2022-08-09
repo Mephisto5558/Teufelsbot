@@ -13,7 +13,7 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
   disabled: true,
-  run: async (client, message) => {
+  run: async (message, client) => {
     if(message instanceof Message) {}
 
 

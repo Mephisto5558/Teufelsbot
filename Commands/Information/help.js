@@ -46,7 +46,7 @@ module.exports = new Command({
       else {
         embed.data.title = `Detailed Information about: \`${cmd.name}\``;
         embed.data.description = cmd.description ?? 'No description found';
-        embed.data.footer = { text: `Syntax: <> = required, [] = optional | Prefix: '${client.db.get('settings')[message.guild.id]?.config?.prefix || client.db.get('settings').default.config.prefix}'` };
+        if(cmd.usage) embed.data.footer = { text: `Syntax: <> = required, [] = optional | Prefix: '${client.db.get('settings')[message.guild.id]?.config?.prefix || client.db.get('settings').default.config.prefix}'` };
         embed.data.fields = [
           cmd.aliases?.prefix?.length ? { name: 'Prefix Command Aliases', value: `\`${listCommands(cmd.aliases.prefix, '', 1)[0].replace(/> /g, '')}\``, inline: true } : null,
           cmd.aliases?.slash?.length ? { name: 'Slash Command Aliases', value: `\`${listCommands(cmd.aliases.slash, '', 1)[0].replace(/> /g, '')}\``, inline: true } : null,

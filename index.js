@@ -2,7 +2,7 @@ console.time('Starting time')
 console.info('Starting...');
 
 const
-  { Client, Collection, GatewayIntentBits, Partials } = require('discord.js'),
+  { Client, Collection, GatewayIntentBits } = require('discord.js'),
   { reconDB } = require('reconlx'),
   { existsSync, readdirSync } = require('fs'),
   db = new reconDB(process.env.dbConnectionStr),
@@ -20,7 +20,11 @@ Array.prototype.equals = array => {
   }
   return true;
 }
-Object.defineProperty(Array.prototype, 'equals', { enumerable: false });
+Array.prototype.random = function random() { return this[Math.round(Math.random() * (this.length - 1))] };
+Object.defineProperty([
+  Array.prototype, 'equals', { enumerable: false },
+  Array.prototype, 'random', { enumerable: false }
+]);
 
 Object.merge = (source, source2, mode) => {
   let output = source;
@@ -91,8 +95,8 @@ Object.merge = (source, source2, mode) => {
   client.log(`Logged into ${client.botType}`);
 
   process
-  .on('unhandledRejection', err => require('./Functions/private/error_handler.js')(err))
-  .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js')(err))
-  .on('uncaughtException', err => require('./Functions/private/error_handler.js')(err))
-  .on('exit', _ => client.destroy());
+    .on('unhandledRejection', err => require('./Functions/private/error_handler.js')(err))
+    .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js')(err))
+    .on('uncaughtException', err => require('./Functions/private/error_handler.js')(err))
+    .on('exit', _ => client.destroy());
 })();

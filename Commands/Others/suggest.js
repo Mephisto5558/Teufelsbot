@@ -41,7 +41,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (client, interaction) => {
+  run: async (interaction, client) => {
     const octokit = new Octokit({ auth: client.keys.githubKey });
     const title = interaction.options.getString('title');
 

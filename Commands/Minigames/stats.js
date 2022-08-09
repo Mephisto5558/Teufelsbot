@@ -127,7 +127,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (client, message) => {
+  run: async (message, client) => {
     if (message instanceof Message && !message.args[0])
       return client.functions.reply('You need to give me a `game` as first argument!', message);
 

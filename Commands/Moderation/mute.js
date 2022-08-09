@@ -55,7 +55,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (_, interaction) => {
+  run: async interaction => {
 
     const
       target = interaction.options.getMember('target'),

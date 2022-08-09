@@ -13,7 +13,7 @@ module.exports = new Command({
   beta: true,
   disabled: true,
 
-  run: async (client, message) => {
+  run: async (message, client) => {
 
   }
 })

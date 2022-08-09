@@ -12,7 +12,7 @@ module.exports = new Command({
   slashCommand: false,
   beta: true,
 
-  run: async (client, message) => {
+  run: async (message, client) => {
     if (!message.content) return;
 
     const msg =  'evaluated command:\n' + '```js\n' + message.content + '```\n';

@@ -14,7 +14,7 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (_, message) => {
+  run: async message => {
     let filter = i => msg.member.id == i.user.id;
 
     const msg = message;

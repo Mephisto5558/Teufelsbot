@@ -39,7 +39,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (_, interaction) => {
+  run: async interaction => {
     let input = interaction.options.getString('emoji_or_url');
 
     const

@@ -116,7 +116,7 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async (client, interaction) => {
+  run: async (interaction, client) => {
     const gameTarget = interaction.options.getUser('opponent');
 
     if (gameTarget?.id == client.user.id) game.config.commandOptionName = 'thisOptionWillNotGetUsed';

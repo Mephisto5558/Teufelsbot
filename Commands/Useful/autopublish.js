@@ -14,7 +14,7 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async ({ db, functions }, message) => {
+  run: async (message, { db, functions }) => {
     const oldData = await db.get('settings');
     const setting = oldData[message.guild.id]?.config?.autopublish;
 

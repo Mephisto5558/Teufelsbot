@@ -19,7 +19,7 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async ({ functions }, message) => {
+  run: async (message, { functions }) => {
     if (message?.content) {
       message.args = message?.args[0]?.replace(/[<@>]/g, '');
       message.content = message?.content?.replace(/[<@>]/g, '');

@@ -19,7 +19,7 @@ module.exports = new Command({
     maxValue: 1000
   }],
 
-  run: async ({ functions }, message) => {
+  run: async (message, { functions }) => {
     if (message instanceof Message && !message.args.length) functions.reply('Please specify the number of messages to purge next time.', message);
 
     let toDeleteCount = parseInt(message.args?.[0] || message.options?.getNumber('amount')) + 1; //+1 is the command

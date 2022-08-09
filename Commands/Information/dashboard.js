@@ -14,7 +14,7 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async ({ functions }, message) => {
+  run: async (message, { functions }) => {
     const embed = new EmbedBuilder({
       title: 'Dashboard',
       description: `Click [here](${Website.Dashboard}) to open the dashboard.`,

@@ -17,7 +17,7 @@ module.exports = new Command({
     type: 'Subcommand'
   }],
 
-  run: async (client, interaction) => {
+  run: async (interaction, client) => {
     const cmd = interaction.options.getSubcommand();
 
     if (cmd == 'sync') {

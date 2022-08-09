@@ -16,8 +16,5 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: ({ functions }, message) => {
-    const response = responseList[Math.round(Math.random() * (responseList.length - 1))];
-    functions.reply(`${message.member.displayName} ${response}`, message)
-  }
+  run: (message, { functions }) => functions.reply(`${message.member.displayName} ${responseList.random()}`, message)
 })

@@ -57,7 +57,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (_, __, interaction) => {
+  run: async interaction => {
     const inputStr = interaction.options.getString('input');
     const input = {
       string: inputStr,
