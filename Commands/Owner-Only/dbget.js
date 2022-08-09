@@ -17,6 +17,6 @@ module.exports = new Command({
     const result = await db.get(message.content);
 
     if(!result) return functions.reply('nothing found', message);
-    functions.reply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```');
+    functions.reply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```', message);
   }
 })
