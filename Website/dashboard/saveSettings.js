@@ -24,5 +24,5 @@ module.exports = async ({ db, dashboardOptionCount }, { id }, index, setting, da
   }
 
   db.set('guildSettings', newData);
-  data.length = 0;
+  updated.length = 0;
 }
