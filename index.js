@@ -61,8 +61,9 @@ Object.merge = (source, source2, mode) => {
     ]
   });
   const db = new reconDB(process.env.dbConnectionStr);
-
-  let env = existsSync('./env.json') ? require('./env.json') : await db.get('botSettings').env;
+  await db.ready();
+  
+  let env = existsSync('./env.json') ? require('./env.json') : (await db.get('botSettings')).env;
   env = Object.merge(env.global, env[env.global.environment]);
 
   client.userID = env.botUserID;
@@ -81,8 +82,6 @@ Object.merge = (source, source2, mode) => {
     const date = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
     console.info(`[${date}] ${data}`)
   };
-
-  await client.db.ready();
 
   for (const handler of readdirSync('./Handlers')) require(`./Handlers/${handler}`)(client);
 
