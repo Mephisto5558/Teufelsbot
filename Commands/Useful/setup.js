@@ -46,7 +46,7 @@ module.exports = new Command({
         const
           module = interaction.options.getString('module'),
           oldData = client.db.get('guildSettings'),
-          setting = oldData?.[module]?.enable,
+          setting = oldData[interaction.guild.id]?.[module]?.enable,
           newData = Object.merge(oldData, { [interaction.guild.id]: { [module]: { enable: !setting } } });
 
         await client.db.set('guildSettings', newData);
