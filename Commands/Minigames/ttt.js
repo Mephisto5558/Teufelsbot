@@ -120,7 +120,7 @@ module.exports = new Command({
     const gameTarget = interaction.options.getUser('opponent');
 
     if (gameTarget?.id == client.user.id) game.config.commandOptionName = 'thisOptionWillNotGetUsed';
-    game.config.language = client.db.get('settings')[interaction.guild.id]?.config?.lang;
+    game.config.language = client.db.get('guildSettings')[interaction.guild.id]?.config?.lang;
 
     if (gameTarget) {
       const msg = await interaction.channel.send(`<@${gameTarget.id}> :crossed_swords: New duel challenge`);

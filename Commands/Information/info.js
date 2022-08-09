@@ -23,6 +23,7 @@ module.exports = new Command({
       description =
         `Developer: ${owner}\n` +
         `Shard: ${message.guild.shardId}\n` +
+        `Guild: ${client.db.get('guildSettings')[message.guild.id]?.position || '0'}`
         `Starts: ${startCount}\n` +
         `Last start: <t:${startTime}> (<t:${startTime}:R>)\n` +
         `[Dashboard](${Website.Dashboard})\n` +

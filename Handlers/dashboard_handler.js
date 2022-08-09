@@ -11,6 +11,7 @@ const
 
 async function getSettings(client) {
   const categoryOptionList = [];
+  const guildSettings = await client.db.get('guildSettings');
 
   for (const subFolder of getDirectoriesSync('./Website/dashboard')) {
     const index = require(`../Website/dashboard/${subFolder}/_index.json`);
@@ -31,7 +32,7 @@ async function getSettings(client) {
         position: 0,
         optionType: DBD.formTypes.switch(),
 
-        getActualSet: async ({ guild }) => client.db.get('settings')[guild.id]?.[index.id]?.enable,
+        getActualSet: async ({ guild }) => guildSettings[guild.id]?.[index.id]?.enable,
         setNew: async ({ guild, newData }) => require('../Website/dashboard/saveSettings.js')(client, guild, index.id, 'enable', newData),
       });
       client.dashboardOptionCount[index.id]++
@@ -59,12 +60,12 @@ async function getSettings(client) {
           position: setting.position,
           optionType: setting.type,
           getActualSet: setting.get || (async ({ guild }) => {
-            let gSetting = await client.db.get('settings')[guild.id]?.[index.id] || await client.db.get('settings').default?.[index.id];
+            let gSetting = guildSettings[guild.id]?.[index.id] || guildSettings.default?.[index.id];
             const items = setting.id.replace(/([A-Z])/g, r => `.${r.toLowerCase()}`).split('.');
 
             for (const entry of items) gSetting = gSetting?.[entry];
             if (!gSetting) {
-              gSetting = await client.db.get('settings').default?.[index.id];
+              gSetting = guildSettings.default?.[index.id];
               for (const entry of items) gSetting = gSetting?.[entry];
             }
 

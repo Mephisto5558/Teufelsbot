@@ -23,25 +23,25 @@ module.exports = {
   onTick: async ({ db, guilds, log }) => {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 
-    if (db.get('birthdays').lastCheckTS == now) return log('Already ran birthday check today');
+    if (db.get('botSettings').lastBirthdayCheck == now) return log('Already ran birthday check today');
     log('started birthday check');
 
     const
       guildList = await guilds.fetch(),
-      oldData = await db.get('birthdays');
+      oldData = await db.get('userSettings');
 
     for (let guild of guildList) {
-      const settings = await db.get('settings')[guild[0]]?.birthday;
-      const defaultSettings = await db.get('settings').default?.birthday;
+      const settings = await db.get('guildSettings')[guild[0]]?.birthday;
+      const defaultSettings = await db.get('guildSettings').default?.birthday;
       if (!settings?.enable) continue;
 
       guild = await guilds.fetch(guild[0]);
 
-      for (const entry of Object.entries(oldData)) {
+      for (const entry of Object.entries(oldData).map(([k, v]) => ({ [k]: v.birthday }))) {
         let channel, user;
         const entry0 = entry[1].split('/');
         entry[2] = entry0.shift();
-        if (now != entry0.join('/') || entry[0] == 'lastCheckTS') continue;
+        if (now != entry0.join('/')) continue;
 
         try { user = await guild.members.fetch(entry[0]) }
         catch (err) {
@@ -79,7 +79,7 @@ module.exports = {
     }
 
     log('Finished birthday check');
-    db.set('birthdays', Object.assign({}, oldData, { 'lastCheckTS': now }));
+    db.set('botSettings', Object.merge(await db.get('botSettings'), { 'lastBirthdayCheck': now }));
   }
 
 }

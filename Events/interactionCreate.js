@@ -7,7 +7,7 @@ module.exports = async (client, interaction) => {
   const cooldown = await require('../Functions/private/cooldowns.js')(client, interaction, command);
   if (cooldown) return interaction.reply(`This command is on cooldown! Try again in \`${cooldown}\`s.`);
 
-  const blacklist = client.db.get('blacklist');
+  const { blacklist } = client.db.get('botSettings');
   if (
     blacklist?.includes(interaction.user.id) ||
     (command.category.toLowerCase() == 'owner-only' && interaction.user.id != client.application.owner.id)  //DO NOT REMOVE THIS LINE!
@@ -34,7 +34,7 @@ module.exports = async (client, interaction) => {
     for (const entry of interaction.options._hoistedOptions)
       if (entry.type == ApplicationCommandOptionType.String) entry.value = entry.value.replace(/<@!/g, '<@');
 
-      command.run(interaction, client)
+    command.run(interaction, client)
       .catch(err => require('../Functions/private/error_handler.js')(err, client, interaction));
   }
 }
