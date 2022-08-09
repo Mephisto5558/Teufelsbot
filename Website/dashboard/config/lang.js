@@ -1,9 +1,10 @@
-const types = require('discord-dashboard').formTypes;
+const { formTypes } = require('discord-dashboard');
 
 module.exports = {
   id: 'lang',
   name: 'Language',
   description: 'The language of the bot',
   position: 1,
-  type: types.select({ 'English': 'en', 'German': 'de' })
+  
+  type: formTypes.select({ 'English': 'en', 'German': 'de' })
 }

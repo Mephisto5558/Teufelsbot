@@ -1,4 +1,5 @@
-const types = require('discord-dashboard').formTypes;
+const { formTypes } = require('discord-dashboard');
+const { ChannelType } = require('discord.js');
 
 module.exports = {
   id: 'joinChannel',
@@ -6,5 +7,5 @@ module.exports = {
   description: 'Select the channel to send the welcome message to',
   position: 1,
 
-  type: types.channelsSelect(false, ['GUILD_TEXT'])
+  type: formTypes.channelsSelect(false, [ChannelType.GuildText, ChannelType.GuildNews])
 }

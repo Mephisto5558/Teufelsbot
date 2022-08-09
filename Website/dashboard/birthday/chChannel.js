@@ -1,4 +1,5 @@
-const types = require('discord-dashboard').formTypes;
+const { formTypes } = require('discord-dashboard');
+const { ChannelType } = require('discord.js');
 
 module.exports = {
   id: 'chChannel',
@@ -6,5 +7,5 @@ module.exports = {
   description: 'The channel to witch the birthday announcement will get send',
   position: 2,
 
-  type: types.channelsSelect(false, ['GUILD_TEXT'])
+  type: formTypes.channelsSelect(false, [ChannelType.GuildText, ChannelType.GuildNews])
 }

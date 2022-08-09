@@ -1,4 +1,4 @@
-const types = require('discord-dashboard').formTypes;
+const { formTypes } = require('discord-dashboard');
 
 module.exports = {
   id: 'dmEnable',
@@ -6,5 +6,5 @@ module.exports = {
   description: 'DM the member on his/her birthday with a custom message',
   position: 4,
 
-  type: types.switch(),
+  type: formTypes.switch(),
 }
