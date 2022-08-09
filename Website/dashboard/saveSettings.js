@@ -1,12 +1,12 @@
 const updated = [];
 //Dynamically save, mapped by index and setting id
 
-module.exports = async ({ db, dashboardOptionCount }, { id }, index, setting, data) => {
+module.exports = async ({ db, dashboardOptionCount }, guildId, index, setting, data) => {
   updated.push([setting, data, index]);
   if (updated.length < dashboardOptionCount[index]) return;
 
-  const oldData = await db.get('oldData');
-  let newData;
+  const oldData = await db.get('guildSettings');
+  let newData = oldData;
 
   for (let entry of updated) {
     const indexes = [...entry[0].matchAll(/[A-Z]/g)].map(a => ({ index: a.index, value: a[0] }));
@@ -20,7 +20,7 @@ module.exports = async ({ db, dashboardOptionCount }, { id }, index, setting, da
     let json = `{"${entry[2]}": {"${entry[0].join('')}": ${JSON.stringify(entry[1])}`;
     json = json.padEnd(json.length + indexes.length + 2, '}');
     
-    newData = Object.merge(newData || oldData, { [id]: JSON.parse(json) });
+    newData = Object.merge(newData, { [guildId]: JSON.parse(json) });
   }
 
   db.set('guildSettings', newData);
