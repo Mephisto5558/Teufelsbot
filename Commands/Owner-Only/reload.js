@@ -62,11 +62,11 @@ module.exports = new Command({
     try {
       if (category == '*') {
         for (const subFolder of getDirectoriesSync('./Commands'))
-          for (const file of readdirSync(`./Commands/${subFolder}`).filter(file => file.endsWith('.js')))
+          for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js')))
             await reloadCommand(client, file, `../../Commands/${subFolder}/${file}`, reloadedArray);
       }
       else if (command == '*') {
-        for (const file of readdirSync(`./Commands/${category}`).filter(file => file.endsWith('.js')))
+        for (const file of readdirSync(`./Commands/${category}`).filter(e => e.endsWith('.js')))
           await reloadCommand(client, file, `../../Commands/${category}/${file}`, reloadedArray);
       }
       else {
