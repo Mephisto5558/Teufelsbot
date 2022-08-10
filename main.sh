@@ -1,3 +1,3 @@
 while [ true ]
-  do npx node .
+  do node .
 done
