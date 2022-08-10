@@ -37,28 +37,28 @@ module.exports = new Command({
       type: 'String',
       required: false
     }
-  ],beta:true,
+  ],
 
   run: async interaction => {
     let input = interaction.options.getString('emoji_or_url');
 
     const
-      emojiName = interaction.options.getString('name')?.slice(0, 32) || '',
-      limitToRoles = interaction.options.getString('limit_to_roles')?.split(' ').map(e => e.replace(/[^\d]/g,'')).filter(e => interaction.guild.roles.cache.has(e)),
+      limitToRoles = interaction.options.getString('limit_to_roles')?.split(' ').map(e => e.replace(/[^\d]/g, '')).filter(e => interaction.guild.roles.cache.has(e)),
       emoticon = parseEmoji(input),
+      emojiName = interaction.options.getString('name')?.slice(0, 32) || emoticon.id ? emoticon.name : 'emoji',
       embed = new EmbedBuilder({
         title: 'Add Emoji',
         color: Colors.Green
       });
 
     if (interaction.guild.emojis.cache.has(emoticon.id)) embed.data.description = 'That emoji is already on this guild!';
-    else if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated?'gif':'png'}`;
+    else if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
     else {
       if (!input.startsWith('http')) input = `https://${input}`;
       if (!/^(?:https?:\/\/)?(?:www\.)?.*\.(?:jpg|jpeg|png|webp|svg|gif)(?:\?.*)?$/i.test(input)) {
         embed.data.description =
           'The provided argument is not a valid url or emoji!\n' +
-          'The url must end with `jpg`, `jpeg`, `png`, `webp`, `svg` or `gif`.\n' + 
+          'The url must end with `jpg`, `jpeg`, `png`, `webp`, `svg` or `gif`.\n' +
           'Example: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png'
       }
 
@@ -66,8 +66,8 @@ module.exports = new Command({
         const res = await head(input);
         if (/4\d\d/.test(res.status)) throw Error('notFound');
       }
-      catch(err) {
-        if(err.message == 'notFound') embed.data.description = 'The provided url was not found.';
+      catch (err) {
+        if (err.message == 'notFound') embed.data.description = 'The provided url was not found.';
         else throw err;
       }
     }
@@ -77,7 +77,7 @@ module.exports = new Command({
     try {
       const emoji = await interaction.guild.emojis.create({
         attachment: input,
-        name: emojiName.length < 2 ? 'emoji' : emojiName, 
+        name: emojiName,
         reason: `addemoji command, member ${interaction.user.tag}`,
         roles: limitToRoles
       });
