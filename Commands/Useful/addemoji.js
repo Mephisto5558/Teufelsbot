@@ -43,7 +43,7 @@ module.exports = new Command({
     let input = interaction.options.getString('emoji_or_url');
 
     const
-      emojiName = interaction.options.getString('name')?.slice(0, 32),
+      emojiName = interaction.options.getString('name')?.slice(0, 32) || '',
       limitToRoles = interaction.options.getString('limit_to_roles')?.split(' ').map(e => e.replace(/[^\d]/g,'')).filter(e => interaction.guild.roles.cache.has(e)),
       emoticon = parseEmoji(input),
       embed = new EmbedBuilder({
@@ -77,7 +77,7 @@ module.exports = new Command({
     try {
       const emoji = await interaction.guild.emojis.create({
         attachment: input,
-        name: emojiName?.length < 2 ? 'emoji' : emojiName, 
+        name: emojiName.length < 2 ? 'emoji' : emojiName, 
         reason: `addemoji command, member ${interaction.user.tag}`,
         roles: limitToRoles
       });
