@@ -68,7 +68,7 @@ module.exports = async (err, { keys, functions, botType } = {}, message) => {
         body:
           `<h3>Reported by ${message.user.tag} (${message.user.id}) with bot ${message.guild.members.me.id}</h3>\n\n` +
           err.stack,
-        assignees: [Github.UserName],
+          assignees: [Github.UserName],
         labels: ['bug']
       });
 
