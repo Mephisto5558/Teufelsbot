@@ -84,7 +84,7 @@ module.exports = new Command({
 
       embed.data.description =
         `Successfully added **${emoji.name}** ${emoji}!\n` +
-        (limitToRoles.length ? `The emoji has been limited to the following roles:\n<@&${limitToRoles.join('>, <@&')}>` : '');
+        (limitToRoles?.length ? `The emoji has been limited to the following roles:\n<@&${limitToRoles.join('>, <@&')}>` : '');
     }
     catch (err) {
       embed.data.color = Colors.Red;
