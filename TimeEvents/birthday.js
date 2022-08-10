@@ -13,7 +13,7 @@ function formatBirthday(msg, user, year) {
     .replace(/<guild.name>/g, user.guild?.name)
     .replace(/<bornyear>/g, year)
     .replace(/<date>/g, new Date().toLocaleDateString('en'))
-    .replace(/<age>/g, parseInt(year) ? new Date().getFullYear() - year : '<age>') //<guilds> gets replaced below
+    .replace(/<age>/g, parseInt(year) ? new Date().getFullYear() - year : '<age>'); //<guilds> gets replaced below
 }
 
 module.exports = {
@@ -27,19 +27,20 @@ module.exports = {
     log('started birthday check');
 
     const
-      guildList = (await guilds.fetch()).map(([e]) => guilds.fetch(e)),
+      guildList = (await guilds.fetch()).map(e => e.fetch()),
       oldData = await db.get('userSettings');
 
-    for (const guild of guildList) {
+    for await (const guild of guildList) {
       const settings = await db.get('guildSettings')[guild.id]?.birthday;
       const defaultSettings = await db.get('guildSettings').default?.birthday;
       if (!settings?.enable) continue;
 
-      for (const entry of Object.entries(oldData).map(([k, v]) => ({ [k]: v.birthday }))) {
+      const userList = Object.entries(oldData)
+        .map(([k, { birthday } = {}]) => [k, birthday?.slice(5)])
+        .filter(([, v]) => v == now);
+
+      for (const entry of userList) {
         let channel, user;
-        const entry0 = entry[1].split('/');
-        entry[2] = entry0.shift();
-        if (now != entry0.join('/')) continue;
 
         try { user = await guild.members.fetch(entry[0]) }
         catch (err) {
