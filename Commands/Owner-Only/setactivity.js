@@ -10,7 +10,7 @@ module.exports = new Command({
   cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',
   slashCommand: false,
-  prefixCommand: true, beta: true,
+  prefixCommand: true,
 
   run: async (message, client) => {
 
