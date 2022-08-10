@@ -154,8 +154,8 @@ module.exports = new Command({
           const currentTime = new Date().getTime();
 
           const data = Object.entries(oldData)
-            .filter(([k]) => guildMembers.includes(k))
-            .map(([k, v]) => [k, ...v.birthday.split('/')])
+            .filter(([k, { birthday } = {}]) => guildMembers.includes(k) && birthday)
+            .map(([k, { birthday }]) => [k, ...birthday.split('/')])
             .sort(([, , month1, day1], [, , month2, day2]) => {
               const time = [new Date(currentYear, month1 - 1, day1), new Date(currentYear, month2 - 1, day2)];
 
