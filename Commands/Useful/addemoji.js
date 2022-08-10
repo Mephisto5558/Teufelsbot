@@ -37,7 +37,7 @@ module.exports = new Command({
       type: 'String',
       required: false
     }
-  ],
+  ],beta:true,
 
   run: async interaction => {
     let input = interaction.options.getString('emoji_or_url');
@@ -52,7 +52,7 @@ module.exports = new Command({
       });
 
     if (interaction.guild.emojis.cache.has(emoticon.id)) embed.data.description = 'That emoji is already on this guild!';
-    else if (emoticon.id) input = interaction.guild.emojis.cache.get(emoticon.id).url;
+    else if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated?'gif':'png'}`;
     else {
       if (!input.startsWith('http')) input = `https://${input}`;
       if (!/^(?:https?:\/\/)?(?:www\.)?.*\.(?:jpg|jpeg|png|webp|svg|gif)(?:\?.*)?$/i.test(input)) {
