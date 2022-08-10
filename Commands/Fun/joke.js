@@ -91,7 +91,7 @@ module.exports = new Command({
   permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 100, user: 0 },
   slashCommand: true,
-  prefixCommand: true, beta: true,
+  prefixCommand: true,
   category: 'Fun',
   options: [
     {

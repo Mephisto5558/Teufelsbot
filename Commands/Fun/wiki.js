@@ -16,7 +16,7 @@ module.exports = new Command({
   cooldowns: { guild: 100, user: 200 },
   category: 'Fun',
   slashCommand: true,
-  prefixCommand: true, beta: true,
+  prefixCommand: true,
   options: [{
     name: 'query',
     description: 'What do you want to search',
