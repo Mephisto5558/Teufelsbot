@@ -7,6 +7,7 @@
   "author": "Mephisto5558",
   "license": "MIT",
   "dependencies": {
+    "@eartharoid/i18n": "^1.0.4",
     "@octokit/core": "^4.0.4",
     "cron": "^2.1.0",
     "dbd-dark-dashboard": "^1.6.591",
