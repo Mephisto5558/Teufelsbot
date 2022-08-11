@@ -15,18 +15,14 @@
         "description": "Delete all messages of the targets of the last n days."
       }
     },
-    "dmEmbed": {
-      "title": "Banned",
-      "description": "You have been banned from `%guild`.\nModerator: %user\nReason: %input"
-    },
-    "infoEmbed": {
-      "title": "Ban",
-      "description": "Moderator: %user\nReason: %input\n\n"
-    },
+    "dmEmbedTitle": "Banned",
+    "dmEmbedDescription": "You have been banned from `%s`.\nModerator: %s\nReason: %s",
+    "infoEmbedTitle": "Ban",
+    "infoEmbedDescription": "Moderator: %s\nReason: %s\n\n",
     "cantBanSelf": "You can't ban yourself!",
-    "noPerm": "%input don't have the permission to do that!",
-    "error": "**%user** couldn't been banned.\n%input\n",
-    "success": "**%user** has been successfully banned.\n",
+    "noPerm": "%s don't have the permission to do that!",
+    "error": "**%s** couldn't been banned.\n%s\n",
+    "success": "**%s** has been successfully banned.\n",
     "noDm": "I couldn't DM the target."
   },
   "kick": {
@@ -39,19 +35,15 @@
         "description": "The target(s) will see the reason in DMs"
       }
     },
-    "dmEmbed": {
-      "title": "Kicked",
-      "description": "You have been kicked from `%guild`.\nModerator: %user\nReason: %input"
-    },
-    "infoEmbed": {
-      "title": "Kick",
-      "description": "Moderator: %user\nReason: %input\n\n"
-    },
+    "dmEmbedTitle": "Kicked",
+    "dmEmbedDescription": "You have been kicked from `%s`.\nModerator: %s\nReason: %s",
+    "infoEmbedTitle": "Kick",
+    "infoEmbedDescription": "Moderator: %s\nReason: %s\n\n",
     "cantFind": "I couldn't find that member!",
     "cantKickSelf": "You can't kick yourself!",
-    "noPerm": "%input don't have the permission to do that!",
-    "error": "**%user** couldn't been kicked.\n%input\n",
-    "success": "**%user** has been successfully kicked.\n",
+    "noPerm": "%s don't have the permission to do that!",
+    "error": "**%s** couldn't been kicked.\n%s\n",
+    "success": "**%s** has been successfully kicked.\n",
     "noDm": "I couldn't DM the target."
   },
   "mute": {
@@ -65,22 +57,32 @@
         "description": "The target will see the reason in DMs"
       },
       "duration": {
-        "description": "for how much %input you want to mute the target"
+        "description": "for how much %s you want to mute the target"
       }
     },
-    "dmEmbed": {
-      "title": "Muted",
-      "description": "You have been muted from `%guild`.\nModerator: %user\nUntil:<t:%input>\nReason: %input"
-    },
-    "infoEmbed": {
-      "title": "Mute",
-      "description": "%user has been successfully muted.\nReason: %input\nUntil: <t:%input>"
-    },
-    "cantFind": "I couldn't find that member!",
+    "dmEmbedTitle": "Muted",
+    "dmEmbedDescription": "You have been muted from `%s`.\nModerator: %s\nUntil:<t:%s>\nReason: %s",
+    "infoEmbedTitle": "Mute",
+    "infoEmbedDescription": "%s has been successfully muted.\nReason: %s\nUntil: <t:%s>",
+    "notFound": "I couldn't find that member!",
     "cantMuteSelf": "You can't mute yourself!",
-    "noPerm": "%input don't have the permission to do that!",
-    "error": "I couldn't mute the target:\n%input",
+    "noPerm": "%s don't have the permission to do that!",
+    "error": "I couldn't mute the target:\n%s",
     "noDm": "I couldn't DM the target."
+  },
+  "nukeChannel": {
+    "description": "Clears all channel messages by duplicating the channel and then deleting the original one",
+    "options": {
+      "confirmation": {
+        "description": "Write \"DELETE CHANNEL\" for confirmation."
+      },
+      "channel": {
+        "description": "The channel to nuke."
+      }
+    },
+    "needsConfirmation": "You need to confirm this action by writing `DELETE CHANNEL` as the confirm option!",
+    "embedDescription": ":radioactive: Channel Nuked!",
+    "embedFooterText": "Nuked by %s"
   },
   "purge": {
     "description": "removes a specific amount of messages",
@@ -91,7 +93,8 @@
       }
     },
     "noNumber": "Please specify the number of messages to purge next time.",
-    "invalidNumber": "`%input` is not a valid number!"
+    "invalidNumber": "`%s` is not a valid number!",
+    "success": "Success!"
   },
   "unmute": {
     "description": "lifts the timeout of a member",
@@ -104,10 +107,10 @@
       }
     },
     "noReason": "no reason specified",
-    "cantFind": "I couldn't find that member!",
+    "notFound": "I couldn't find that member!",
     "notTimedOut": "This member is not timed out!",
-    "noPerm": "%input don't have the permission to do that!",
+    "noPerm": "%s don't have the permission to do that!",
     "moderator": "Moderator",
-    "message": "Removed timeout for user %user."
+    "success": "Removed timeout for user %s."
   }
 }
