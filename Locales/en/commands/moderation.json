@@ -80,7 +80,7 @@
         "description": "The channel to nuke."
       }
     },
-    "needsConfirmation": "You need to confirm this action by writing `DELETE CHANNEL` as the confirm option!",
+    "needConfirm": "You need to confirm this action by writing `DELETE CHANNEL` as the confirm option!",
     "embedDescription": ":radioactive: Channel Nuked!",
     "embedFooterText": "Nuked by %s"
   },
