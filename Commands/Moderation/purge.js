@@ -35,7 +35,7 @@ module.exports = new Command({
       if (toDeleteCount - i > 0) await functions.sleep(2000);
     }
 
-    if (!message instanceof Message) message.editReply(lang('success'));
+    if (!(message instanceof Message)) message.editReply(lang('success'));
   }
 })
 //nachfrage wenn user = admin //nachfrage allgemein;
