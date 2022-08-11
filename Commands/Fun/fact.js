@@ -12,7 +12,7 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (message, { keys, functions }) => {
+  run: async (message, _, { keys, functions }) => {
     try {
       const res = await get('https://api.api-ninjas.com/v1/facts', {
         headers: { 'X-Api-Key': keys.FunFactAPI },

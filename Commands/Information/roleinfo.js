@@ -19,7 +19,7 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async (message, { functions }) => {
+  run: async (message, lang, { functions }) => {
     if (message?.content) {
       message.args = message?.args[0]?.replace(/[<@>]/g, '');
       message.content = message?.content?.replace(/[<@>]/g, '');
@@ -32,17 +32,17 @@ module.exports = new Command({
       title: role.name,
       color: role.color,
       fields: [
-        { name: 'Mention', value: role.toString(), inline: true },
-        { name: 'Members', value: role.members.size, inline: true },
-        { name: 'Color', value: role.color ? `[${role.hexColor}](https://www.color-hex.com/color/${role.displayHexColor.substring(1)})` : 'none', inline: true },
-        { name: 'Mentionable', value: role.mentionable, inline: true },
-        { name: 'Hoist', value: role.hoist, inline: true },
-        { name: 'Managed', value: role.managed, inline: true },
-        { name: 'Position', value: `\`${role.position}\``, inline: true },
+        { name: lang('mention'), value: role.toString(), inline: true },
+        { name: lang('members'), value: role.members.size, inline: true },
+        { name: lang('color'), value: role.color ? `[${role.hexColor}](https://www.color-hex.com/color/${role.displayHexColor.substring(1)})` : lang('none'), inline: true },
+        { name: lang('mentionable'), value: role.mentionable, inline: true },
+        { name: lang('hoist'), value: role.hoist, inline: true },
+        { name: lang('managed'), value: role.managed, inline: true },
+        { name: lang('position'), value: `\`${role.position}\``, inline: true },
         { name: 'ID', value: `\`${role.id}\``, inline: true },
-        { name: 'Created At', value: `<t:${Math.round(role.createdTimestamp / 1000)}>`, inline: true },
-        role.members.size < 16 ? { name: 'Members', value: Array.from(role.members.values()).join(', '), inline: false } : null,
-        { name: 'Permissions', value: `\`${role.permissions.has('Administrator') ? 'Administrator' : role.permissions.toArray()?.join('`, `') || 'none'}\` (\`${role.permissions.toArray().length}\`)`, inline: false }
+        { name: lang('createdAt'), value: `<t:${Math.round(role.createdTimestamp / 1000)}>`, inline: true },
+        role.members.size < 16 ? { name: lang('members'), value: Array.from(role.members.values()).join(', '), inline: false } : null,
+        { name: lang('permissions'), value: `\`${role.permissions.has('Administrator') ? lang('admin') : role.permissions.toArray()?.join('`, `') || lang('none')}\` (\`${role.permissions.toArray().length}\`)`, inline: false }
       ].filter(e => e)
     });
 

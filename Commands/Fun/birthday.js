@@ -3,24 +3,6 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   currentYear = new Date().getFullYear();
 
-function formatMonthName(input) {
-  switch (input) {
-    case '01': return 'January';
-    case '02': return 'February';
-    case '03': return 'March';
-    case '04': return 'April';
-    case '05': return 'May';
-    case '06': return 'June';
-    case '07': return 'July';
-    case '08': return 'August';
-    case '09': return 'September';
-    case '10': return 'October';
-    case '11': return 'November';
-    case '12': return 'December';
-    default: throw new SyntaxError(`invalid month, must be in range 01-12, got ${input}`);
-  }
-}
-
 function getAge(bd) {
   //bd[0] = year; bd[1] = month; bd[2] = day
   let now = new Date()
@@ -95,7 +77,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (interaction, { db }) => {
+  run: async (interaction, lang, { db }) => {
     const
       cmd = interaction.options.getSubcommand(),
       target = interaction.options.getUser('target'),
@@ -107,12 +89,30 @@ module.exports = new Command({
         Math.abs(interaction.options.getNumber('day') || '')?.toString().padStart(2, '0')
       ];
 
+    function formatMonthName(input) {
+      switch (input) {
+        case '01': return lang('months.January');
+        case '02': return lang('months.February');
+        case '03': return lang('months.March');
+        case '04': return lang('months.April');
+        case '05': return lang('months.May');
+        case '06': return lang('months.June');
+        case '07': return lang('months.July');
+        case '08': return lang('months.August');
+        case '09': return lang('months.September');
+        case '10': return lang('months.October');
+        case '11': return lang('months.November');
+        case '12': return lang('months.December');
+        default: throw new SyntaxError(`invalid month, must be in range 01-12, got ${input}`);
+      }
+    }
+
     switch (cmd) {
       case 'set': {
         const newData = Object.merge(oldData, { [interaction.user.id]: { birthday: birthday.join('/') } });
         await db.set('userSettings', newData);
 
-        interaction.editReply('Your birthday has been saved.' /*maybe add "your birthday is in <d> days"*/);
+        interaction.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
         break;
       }
 
@@ -121,7 +121,7 @@ module.exports = new Command({
 
         await db.set('userSettings', oldData);
 
-        interaction.editReply('Your birthday has been deleted.');
+        interaction.editReply(lang('removed'));
         break;
       }
 
@@ -136,19 +136,19 @@ module.exports = new Command({
         });
 
         if (target) {
-          embed.data.title = `${target.tag}'s Birthday`;
+          embed.data.title = lang('getUser.embedTitle', target.tag);
 
           const data = oldData[target.id]?.birthday?.split('/');
 
-          if (!data) newData = 'This user has no birthday :(';
+          if (!data) newData = lang('getUser.notFound');
           else {
             const age = getAge(data);
-            newData = `This user has birthday on **${formatMonthName(data[1])} ${data[2]}**.\n`;
-            if (age < currentYear) newData += `He/she will turn **${age}** on this day.`;
+            newData = lang('getUser.date', { month: formatMonthName(data[1]), day: data[2] });
+            if (age < currentYear) newData += lang('getUser.newAge', age);
           }
         }
         else {
-          embed.data.title = 'The next birthdays';
+          embed.data.title = lang('getAll.embedTitle');
 
           const guildMembers = (await interaction.guild.members.fetch()).map(e => e.id);
           const currentTime = new Date().getTime();
@@ -167,7 +167,7 @@ module.exports = new Command({
             .slice(0, 10);
 
           for (const [id, year, month, day] of data) {
-            const date = `**${formatMonthName(month)} ${parseInt(day)}**\n`;
+            const date = lang('getAll.date', { month: formatMonthName(month), day: parseInt(day) });
             const age = getAge([year, month, day]);
             const msg = `> <@${id}>${age < currentYear ? ` (${age})` : ''}\n`;
 
@@ -176,11 +176,11 @@ module.exports = new Command({
           }
         }
 
-        embed.data.description = newData || 'nobody has a birthday set...';
+        embed.data.description = newData || lang('getAll.notFound');
 
         if (doNotHide) {
           interaction.channel.send({ embeds: [embed] });
-          interaction.editReply('Message sent!');
+          interaction.editReply(lang('general.messageSent'));
         }
         else interaction.editReply({ embeds: [embed] });
         break;

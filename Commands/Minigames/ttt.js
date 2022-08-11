@@ -32,7 +32,7 @@ async function gameEnd(input, ids, client) {
   await client.db.set('leaderboards', newData);
 }
 
-async function playAgain(interaction, clientUserID) {
+async function playAgain(interaction, clientUserID, lang) {
   const opponent = interaction.options.getUser('opponent');
   const oldRows = (await interaction.fetchReply()).components;
   const filter = i => [interaction.member.id, opponent?.id].includes(i.member.id) && i.customId == 'playAgain';
@@ -42,7 +42,7 @@ async function playAgain(interaction, clientUserID) {
   const row = new ActionRowBuilder({
     components: [new ButtonBuilder({
       customId: 'playAgain',
-      label: 'Play again',
+      label: lang('global.playAgain'),
       style: ButtonStyle.Success
     })]
   })
@@ -79,7 +79,7 @@ async function playAgain(interaction, clientUserID) {
     }
 
     if (interaction.options._hoistedOptions[0]?.user) {
-      const msg = await interaction.channel.send(`<@${interaction.options._hoistedOptions[0].user.id}}> :crossed_swords: New duel challenge`);
+      const msg = await interaction.channel.send(lang('newChallenge', interaction.options._hoistedOptions[0].user.id));
       msg.delete({ timeout: 5000 });
     }
 
@@ -116,14 +116,14 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async (interaction, client) => {
+  run: async (interaction, lang, client) => {
     const gameTarget = interaction.options.getUser('opponent');
 
     if (gameTarget?.id == client.user.id) game.config.commandOptionName = 'thisOptionWillNotGetUsed';
     game.config.language = client.db.get('guildSettings')[interaction.guild.id]?.config?.lang;
 
     if (gameTarget) {
-      const msg = await interaction.channel.send(`<@${gameTarget.id}> :crossed_swords: New duel challenge`);
+      const msg = await interaction.channel.send(lang('newChallenge', gameTarget.id));
       msg.delete({ timeout: 5000 });
     }
 
@@ -136,7 +136,7 @@ module.exports = new Command({
       newData[1] = await workStatsData(data.loser.id, data.winner.id, 'lose', client);
 
       await gameEnd(newData, [data.winner.id, data.loser.id], client);
-      playAgain(interaction, client.user.id);
+      playAgain(interaction, client.user.id, lang);
     });
 
     game.on('tie', async data => {
@@ -146,7 +146,7 @@ module.exports = new Command({
       newData[1] = await workStatsData(data.players[1].id, data.players[0].id, 'draw', client);
 
       await gameEnd(newData, [data.players[0].id, data.players[1].id], client);
-      playAgain(interaction, client.user.id);
+      playAgain(interaction, client.user.id, lang);
     })
 
   }

@@ -59,7 +59,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (interaction, { db, application }) => {
+  run: async (interaction, lang, { db, application }) => {
 
     const
       cmd = interaction.options.getSubcommand(),
@@ -77,27 +77,22 @@ module.exports = new Command({
           userBlacklist = blacklist[interaction.user.id] || [];
         if (target?.id) {
           target = target.id;
-          targetName = `user \`${target.tag}\``;
+          targetName = lang('toggle.targetOne.name', target.tag);
         }
         else {
           target = '*';
-          targetName = '`all users`';
+          targetName = lang('toggle.targetAll.removed');
         }
 
         if (userBlacklist.includes(target)) {
           userBlacklist = userBlacklist.filter(entry => entry != target);
 
-          message =
-            `Your blacklist entry for ${targetName} has been removed.\n` +
-            `You can now receive dms created by ${targetName} from me.`;
+          message = lang('toggle.removed', targetName);
         }
         else {
           userBlacklist.push(target);
 
-          message =
-            `Your blacklist entry for ${targetName} has been saved.\n` +
-            `now ${target == '*' ? '`no one` will be' : `${targetName} isn't`} able to send you dms by me.\n` +
-            'This will not prevent guild moderators from sending dms to you.';
+          message = lang('toggle.saved', targetName, target == '*' ? lang('toggle.targetAll.saved') : lang('toggle.targetOne.isnt', targetName));
         }
 
         if (userBlacklist?.length > 0) newBlacklist = Object.assign({}, blacklist, { [interaction.user.id]: userBlacklist });
@@ -115,21 +110,15 @@ module.exports = new Command({
         const userBlacklist = await db.get('dmCommandBlacklist')[interaction.user.id]?.filter(e => e == '*' || guildMembers.includes(e));
         let listMessage = [];
 
-        if (!userBlacklist) listMessage = '> You are not blocking any users on this guild.';
-        else if (userBlacklist.includes('*')) listMessage = '> You are blocking all users.';
+        if (!userBlacklist) listMessage = lang('blacklist.notFound');
+        else if (userBlacklist.includes('*')) listMessage = lang('blacklist.allBlocked');
         else for (const entry of userBlacklist) listMessage += `> <@${entry}> (\`${entry}\`)\n`;
 
         const listEmbed = new EmbedBuilder({
-          title: 'Your blacklist for the `/dm send` command',
-          description:
-            'You are blocking the following guild members:\n' +
-            listMessage,
+          title: lang('blacklist.embedTitle'),
+          description: lang('blacklist.embedDescription', listMessage),
           color: Colors.Blurple,
-          footer: {
-            text:
-              `run '/dm toggle' without arguments to toggle all users and\n` +
-              `run '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user.`
-          }
+          footer: { text: lang('blacklist.embedFooterText') }
         });
 
         interaction.editReply({ embeds: [listEmbed] });
@@ -137,32 +126,24 @@ module.exports = new Command({
       }
 
       case 'send': {
-        if (target.id == application.id) return interaction.editReply('I cannot send DMs to myself!');
+        if (target.id == application.id) return interaction.editReply(lang('send.targetIsMe'));
 
         const userBlacklist = blacklist[target.id] || [];
-        if ((userBlacklist.includes(target.id) || userBlacklist.includes('*')) && !asMod && target.id != interaction.user.id) {
-          return interaction.editReply({
-            content:
-              'You are not allowed to send dms to that user!' +
-              `${perm ? '\nUse the `as_mod` option to force the message to send.' : ''}`
-          });
-        }
+        if ((userBlacklist.includes(target.id) || userBlacklist.includes('*')) && !asMod && target.id != interaction.user.id)
+          return interaction.editReply(lang('send.permissionDenied') + perm ? lang('send.asModInfo') : '');
 
         const embed = new EmbedBuilder({
-          title: 'You got a message!',
-          description:
-            `From: **${`\`${interaction.user.tag}\`` || 'a guild moderator'}**\n` +
-            `Guild: \`${interaction.guild.name}\`\n\n` +
-            messageToSend.replace(/\/n/g, '\n'),
+          title: lang('send.embedTitle'),
+          description: lang('send.embedDescription', asMod ? lang('send.fromMod') : interaction.user.tag, interaction.guild.name) + messageToSend.replace(/\/n/g, '\n'),
           color: Colors.Blurple,
-          footer: { text: "If you don't want to receive user-made dms from me, run '/dm toggle' in any server." }
+          footer: { text: lang('send.embedFooterText') }
         });
 
         try {
           await target.send({ embeds: [embed] });
-          interaction.editReply('Message sent!');
+          interaction.editReply(lang('general.messageSent'));
         }
-        catch { interaction.editReply(`I couldn't message this member!`) }
+        catch { interaction.editReply(lang('send.error')) }
         break;
       }
     }

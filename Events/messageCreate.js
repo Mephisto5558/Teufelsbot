@@ -28,14 +28,14 @@ module.exports = async (client, message) => {
   message.commandName = message.args.shift().toLowerCase();
   const command = client.commands.get(message.commandName);
 
-  if (!command && client.slashCommands.get(message.commandName)) return client.functions.reply('This command is only as slash command available!', message);
+  if (!command && client.slashCommands.get(message.commandName)) return client.functions.reply(client.lang('events.slashCommandOnly'), message);
   if ( //DO NOT REMOVE THIS BLOCK!
     !command ||
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
   ) return;
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, message, command);
-  if (cooldown && !client.botType == 'dev') return client.functions.reply(`This command is on cooldown! Try again in \`${cooldown}\`s.`, message);
+  if (cooldown && !client.botType == 'dev') return client.functions.reply(client.lang('events.cooldown', cooldown), message);
 
   message.content = message.args.join(' ');
 
@@ -44,17 +44,24 @@ module.exports = async (client, message) => {
 
   if (botPerms.length || userPerms.length) {
     const embed = new EmbedBuilder({
-      title: 'Insufficient Permissions',
+      title: client.lang('events.permissionDenied.embedTitle'),
       color: Colors.Red,
-      description:
-        `${userPerms.length ? 'You' : 'I'} need the following permissions in this channel to run this command:\n\`` +
-        (botPerms.length ? botPerms : userPerms).join('`, `') + '`'
+      description: client.lang('events.permissionDenied.embedDescription', userPerms.length ? client.lang('global.you') : client.lang('global.i'), (botPerms.length ? botPerms : userPerms).join('`, `'))
     });
+
     return message.reply({ embeds: [embed] });
   }
 
-  try { await command.run(message, client) }
-  catch (err) {
-    await require('../Functions/private/error_handler.js')(err, client, message);
+  const languageData = client.lang.getLocale(client.db.get('guildSettings')[message.guild.id]?.lang || message.guild.preferredLocale);
+  const lang = (message, ...args) => {
+    let data = languageData(message?.startsWith('global.') ? message : `commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
+    if (data != undefined) return data;
+
+    data = client.lang.getLocale(client.db.get('guildSettings').default.lang)(message?.startsWith('global.') ? message : `commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
+    if (data != undefined) return data;
+    return 'NO_TEXT_FOUND';
   }
+
+  command.run(message, lang, client)
+    .catch(err => { require('../Functions/private/error_handler.js')(err, client, message, lang) });
 }

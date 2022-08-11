@@ -14,30 +14,30 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async message => {
+  run: async (message, lang) => {
     let filter = i => msg.member.id == i.user.id;
 
     const msg = message;
     const
       botMove = hand.random(),
       data = {
-        embeds: [new EmbedBuilder({ title: 'Rock Paper Scissors', description: 'Choose a handsign!' }).setColor('Random')],
+        embeds: [new EmbedBuilder({ title: lang('embedTitle'), description: lang('embedDescription') }).setColor('Random')],
         components: [
           new ActionRowBuilder({
             components: [
               new ButtonBuilder({
                 customId: '0',
-                label: '✊ Rock',
+                label: `✊ ${lang('rock')}`,
                 style: ButtonStyle.Primary
               }),
               new ButtonBuilder({
                 customId: '1',
-                label: '🤚 Paper',
+                label: `🤚 ${lang('paper')}`,
                 style: ButtonStyle.Primary
               }),
               new ButtonBuilder({
                 customId: '2',
-                label: '✌️ Scissors',
+                label: `✌️ ${lang('scissors')}`,
                 style: ButtonStyle.Primary
               })
             ]
@@ -46,7 +46,7 @@ module.exports = new Command({
             components: [
               new ButtonBuilder({
                 customId: 'cancel',
-                label: 'Cancel',
+                label: lang('global.cancel'),
                 style: ButtonStyle.Danger
               })
             ]
@@ -69,12 +69,11 @@ module.exports = new Command({
       }
 
       let win;
-      if (botMove.id == buttonId) win = ['We tied!', '='];
-      else if (botMove.id < buttonId || botMove.id == 2 && !buttonId) win = ['You win!', '>'];
-      else win = ['You lost!', '<'];
+      if (botMove.id == buttonId) win = [lang('tie'), '='];
+      else if (botMove.id < buttonId || botMove.id == 2 && !buttonId) win = [lang('win'), '>'];
+      else win = [lang('lose'), '<'];
 
-      data.embeds[0].data.description = `I chose ${[...hand.entries()].find(([, e]) => e.id == botMove.id)[0]}! ${win[0]} (${hand.find(e => e.id == buttonId).emoji} ${win[1]} ${botMove.emoji})`;
-
+      data.embeds[0].data.description = lang('chose', [...hand.entries()].find(([, e]) => e.id == botMove.id)[0], win[0], hand.find(e => e.id == buttonId).emoji, win[1], botMove.emoji);
       for (const button of data.components[0].components) {
         if (button.data.custom_id == buttonId) button.setStyle(ButtonStyle.Secondary);
         button.setDisabled(true);
@@ -84,7 +83,7 @@ module.exports = new Command({
         components: [
           new ButtonBuilder({
             customId: 'playAgain',
-            label: 'Play Again',
+            label: lang('global.playAgain'),
             style: ButtonStyle.Success
           })
         ]
@@ -117,7 +116,7 @@ module.exports = new Command({
         for (const button of row.components) button.setDisabled(true);
       }
 
-      data.embeds[0].data.description = 'You lost because you chose to choose nothing!'
+      data.embeds[0].data.description = lang('timedOut');
 
       message instanceof Message ? message.edit(data) : message.editReply(data);
     })

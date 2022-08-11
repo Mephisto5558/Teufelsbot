@@ -25,22 +25,22 @@ module.exports = new Command({
     }
   ],
 
-  run: async interaction => {
+  run: async (interaction, lang) => {
     const
       target = interaction.options.getMember('target'),
-      reason = interaction.options.getString('reason') || 'no reason specified';
+      reason = interaction.options.getString('reason') || lang('noReason');
 
     let errorMsg;
 
-    if (!target) errorMsg = 'I cannot find that user.';
-    else if (!target.isCommunicationDisabled()) errorMsg = 'This user is not timed out.'
+    if (!target) errorMsg = lang('notFound');
+    else if (!target.isCommunicationDisabled()) errorMsg = lang('notTimedOut');
     else if (target.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1 && interaction.guild.ownerId != interaction.user.id)
-      errorMsg = `You don't have the permission to do that!`;
-    else if (!target.moderatable) errorMsg = `I don't have the permission to do that!`;
+      errorMsg = lang('noPerm', lang('global.you'));
+    else if (!target.moderatable) errorMsg = lang('noPerm', lang('global.i'));
 
     if (errorMsg) return interaction.editReply(errorMsg);
 
     await target.disableCommunicationUntil(null, `${reason}, moderator ${interaction.user.tag}`);
-    interaction.editReply(`Removed timeout for user ${target.user.tag}`);
+    interaction.editReply(lang('success', target.user.tag));
   }
 })

@@ -1,12 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js'),
-  embed = new EmbedBuilder({
-    description: ':radioactive: Channel Nuked!',
-    color: Colors.Red,
-    image: { url: 'https://media.giphy.com/media/XUFPGrX5Zis6Y/giphy.gif' },
-    footer: { text: '' }
-  });
+  { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = new Command({
   name: 'nukechannel',
@@ -34,12 +28,18 @@ module.exports = new Command({
     }
   ],
 
-  run: async interaction => {
-    if (interaction.options.getString('confirmation')?.toLowerCase() != 'delete channel') return interaction.editReply('You need to confirm this action by writing `DELETE CHANNEL` as the confirm option!');
+  run: async (interaction, lang) => {
+    if (interaction.options.getString('confirmation')?.toLowerCase() != 'delete channel') return interaction.editReply(lang('needConfirm'));
+
+    embed = new EmbedBuilder({
+      description: lang('embedDescription'),
+      color: Colors.Red,
+      image: { url: 'https://media.giphy.com/media/XUFPGrX5Zis6Y/giphy.gif' },
+      footer: { text: lang('embedFooterText', interaction.user.tag) }
+    });
 
     const channel = interaction.options?.getChannel('channel') || interaction.channel;
     const cloned = await channel.clone({ parent: channel.parentId });
-    embed.data.footer.text = `Nuked by ${interaction.user.tag}`;
 
     await channel.delete(`nukechannel command, member ${interaction.user.tag}`);
 

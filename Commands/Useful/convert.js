@@ -57,7 +57,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async interaction => {
+  run: async (interaction, lang) => {
     const inputStr = interaction.options.getString('input');
     const input = {
       string: inputStr,
@@ -70,15 +70,10 @@ module.exports = new Command({
       }
     }
 
-    if (input.type.toLowerCase() == input.options.convertTo.toLowerCase()) {
-      return interaction.editReply(
-        `Converting \`${input.type.toUpperCase()}\` to \`${input.options.convertTo.toUpperCase()}\` would be a waste of time.\n` +
-        `Stop wasting my time.\n` +
-        `||If your input is not ${input.type.toUpperCase()}, than make sure it is valid and if it is, message the dev.||`
-      )
-    }
+    if (input.type.toLowerCase() == input.options.convertTo.toLowerCase())
+      return interaction.editReply(lang('convertToSame', input.type.toUpperCase(), input.options.convertTo.toUpperCase(), input.type.toUpperCase()));
 
-    const output = '```' + `Converted ${input.type.toUpperCase()} to ${input.options.convertTo.toUpperCase()}:` + '```\n'
+    const output = lang('success', input.type.toUpperCase(), input.options.convertTo.toUpperCase());
     const converted = await convert[input.type][`to${input.options.convertTo}`](input);
 
     if (output.length + converted.length < 2000) interaction.editReply(output);

@@ -27,23 +27,18 @@ module.exports = new Command({
     }
   ],
 
-  run: async interaction => {
+  run: async (interaction, lang) => {
     const
       targets = new Set([...interaction.options.getString('targets').replace(/[^0-9\s]/g, '').split(' ').filter(e => e?.length == 18)]),
       reason = interaction.options.getString('reason'),
       embed = new EmbedBuilder({
-        title: 'Kicked',
-        description:
-          `You have been kicked from \`${interaction.guild.name}\`.\n` +
-          `Moderator: ${interaction.user.tag}\n` +
-          `Reason: ${reason}`,
+        title: lang('infoEmbedTitle'),
+        description: lang('dmEmbedDescription', interaction.guild.name, interaction.user.tag, reason),
         color: Colors.Red
       }),
       resEmbed = new EmbedBuilder({
-        title: 'Kick',
-        description:
-          `Moderator: ${interaction.user.tag}\n` +
-          `Reason: ${reason}\n\n`,
+        title: lang('infoEmbedTitle'),
+        description: lang('infoEmbedDescription', interaction.user.tag, reason),
         color: Colors.Red
       });
 
@@ -53,14 +48,13 @@ module.exports = new Command({
       try { target = await interaction.guild.members.fetch(rawTarget) }
       catch { target = { id: rawTarget } }
 
-      if (!target.id) errorMsg = `I couldn't find that member!`;
-      else if (target.id == interaction.member.id) errorMsg = `You can't kick yourself!`;
+      if (target.id == interaction.member.id) errorMsg = lang('cantKickSelf');
       else if (target.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1 && interaction.guild.ownerId != interaction.user.id)
-        errorMsg = `You don't have the permission to do that!`;
-      else if (!target.kickable) errorMsg = `I don't have the permission to do that!`;
+        errorMsg = lang('noPerm', lang('global.you'));
+      else if (!target.kickable) errorMsg = lang('noPerm', lang('global.i'));
 
       if (errorMsg) {
-        resEmbed.data.description += `**${target?.user?.tag ?? target.id}** couldn't been kicked.\n${errorMsg}\n`;
+        resEmbed.data.description += lang('error', target?.user?.tag ?? target.id, errorMsg);
         continue;
       }
 
@@ -69,10 +63,10 @@ module.exports = new Command({
 
       await target.kick(reason);
 
-      resEmbed.data.description +=
-        `**${target?.user?.tag ?? target.id}** has been successfully kicked.\n` +
-        `${noMsg ? `\nI couldn't DM the target.` : ''}`;
+      resEmbed.data.description += lang('success', target?.user?.tag ?? target.id);
+      if (noMsg) resEmbed.data.description += lang('noDM');
     }
+
     interaction.editReply({ embeds: [resEmbed] });
 
   }

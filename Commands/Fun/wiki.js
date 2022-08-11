@@ -24,11 +24,11 @@ module.exports = new Command({
     required: true
   }],
 
-  run: async (message, { functions }) => {
+  run: async (message, lang, { functions }) => {
     const query = message.options?.getString('query') || message.content;
     let data, joined = '';
 
-    message = message instanceof Message ? await functions.reply('Loading...', message) : await message.editReply('Loading...');
+    message = message instanceof Message ? await functions.reply(lang('global.loading'), message) : await message.editReply(lang('global.loading'));
 
     try {
       if (query) data = await Wiki(options).search(query, 1);
@@ -37,7 +37,7 @@ module.exports = new Command({
         data = await Wiki(options).search(results[0], 1);
       }
 
-      if (!data.results.length) return message.edit(`no results found for ${query}`);
+      if (!data.results.length) return message.edit(lang('notFound'));
 
       const
         page = await Wiki(options).page(data.results[0]),
@@ -64,7 +64,7 @@ module.exports = new Command({
       let i = 0;
       for (const paragraph of summary.split('\n')) {
         if (i > 3) {
-          joined += '**For more information, please visit the Wikipedia page.**';
+          joined += lang('visitWiki');
           break;
         }
         if (joined.length < 10) joined += `${paragraph}\n`;
@@ -78,7 +78,7 @@ module.exports = new Command({
       message.followUp?.(joined) || message.reply(joined);
     }
     catch (err) {
-      functions.reply(`Couldn't talk to Wikipedia: ${err}`, message);
+      functions.reply(lang('error', err), message);
     }
   }
 })

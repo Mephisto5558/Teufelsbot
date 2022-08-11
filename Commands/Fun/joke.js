@@ -124,26 +124,22 @@ module.exports = new Command({
     }
   ],
 
-  run: async (message, { keys, functions }) => {
+  run: async (message, lang, { keys, functions }) => {
     const
       type = message.options?.getString('type') || message.args?.[0],
       blacklist = message.options?.getString('blacklist'),
       maxLength = message.options?.getNumber('max_length') || 2000,
       [joke, API] = await getJoke(defaultAPIList, type, blacklist, maxLength, keys);
 
-    if (!joke) {
-      if (message instanceof Message) return functions.reply('Apparently, there is currently no API available. Please try again later.', message);
-      return message.editReply('Apparently, there is currently no API available. Please try again later.');
-    }
+    if (!joke) return message instanceof Message ? functions.reply(lang('noAPIAvailable'), message) : message.editReply(lang('noAPIAvailable'));
 
     const embed = new EmbedBuilder({
-      title: 'Is this funny?',
+      title: lang('embedTitle'),
       description:
         `${joke}\n` +
         `- [${API.name}](${API.url})`
     }).setColor('Random');
 
-    if (message instanceof Message) functions.reply({ embeds: [embed] }, message);
-    else message.editReply({ embeds: [embed] });
+    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
   }
 })

@@ -12,6 +12,8 @@ module.exports = new Command({
   prefixCommand: true,
   disabled: false,
   showInHelp: true,
+  noDefer: false,
+  ephemeralDefer: false,
   options: [{
     name: '',
     description: '',
@@ -22,7 +24,7 @@ module.exports = new Command({
     ],
   }],
 
-  run: async (message, client) => {
+  run: async (message, lang, client) => {
 
 
 

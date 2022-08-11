@@ -1,5 +1,6 @@
-const { Command } = require('reconlx');
-const { Message } = require('discord.js');
+const
+  { Command } = require('reconlx'),
+  { Message } = require('discord.js');
 
 module.exports = new Command({
   name: 'prefix',
@@ -18,7 +19,7 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async (message, { db, functions }) => {
+  run: async (message, lang, { db, functions }) => {
     const newPrefix = message.content || message.options?.getString('new_prefix');
     const oldData = await db.get('guildSettings');
 
@@ -26,14 +27,13 @@ module.exports = new Command({
       const newData = Object.merge(oldData, { [message.guild.id]: { config: { prefix: newPrefix } } });
       await db.set('guildSettings', newData);
 
-      if (message instanceof Message) functions.reply(`My prefix has been changed to \`${newPrefix}\``, message);
-      else message.editReply(`My prefix has been changed to \`${newPrefix}\``);
+      message instanceof Message ? functions.reply(lang('saved', newPrefix), message) : message.editReply(lang('saved', newPrefix));
     }
     else {
       const currentPrefix = oldData[message.guild.id]?.config?.prefix || oldData.default.config.prefix;
-      const msg = currentPrefix ? `My current prefix is \`${currentPrefix}\`` : '[FATAL] Please message the dev immediately `NoDefaultPrefixFound`!';
+      if (!currentPrefix) throw new Error('No Default Prefix Found in DB');
 
-      message instanceof Message ? functions.reply(msg, message) : message.editReply(msg);
+      message instanceof Message ? functions.reply(lang('currentPrefix', currentPrefix), message) : message.editReply(lang('currentPrefix', currentPrefix));
     }
 
   }

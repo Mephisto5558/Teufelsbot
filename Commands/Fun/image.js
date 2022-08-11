@@ -3,14 +3,13 @@ const
   fetch = require('node-fetch').default,
   { EmbedBuilder, Message } = require('discord.js'),
   embed = new EmbedBuilder({ title: 'Image', description: ' ' }).setColor('Random'),
-  twoUsers = { user1: 'User 1\'s avatar', user2: 'User 2\'s avatar' },
   endpoints = new Map([
     ['threats', { url: 'Image URL to add to template.' }],
     ['baguette', { url: 'Any image URL to generate, can be user avatar or anything.' }],
     ['clyde', { string: 'Text to clydify.' }],
-    ['ship', twoUsers],
+    ['ship', { user1: 'User 1\'s avatar', user2: 'User 2\'s avatar' }],
     ['captcha', { url: 'Any image URL to generate, can be user avatar or anything.', string: 'Username or or any other string to show up.' }],
-    ['whowouldwin', twoUsers],
+    ['whowouldwin', { user1: 'User 1\'s avatar', user2: 'User 2\'s avatar' }],
     ['changemymind', { text: 'Change my mind text.' }],
     ['ddlc', { character: 'Can be either monika, yuri, natsuki, sayori or m, y, n , s', background: 'Background of the image, types: `bedroom`, `class`, `closet`, `club`, `corridor`, `house`, `kitchen`, `residential`, `sayori_bedroom`', body: 'Body of the character, there is only 1 or 2 for monika and 1, 1b, 2, 2b for the rest', face: 'Face of the character to go with the body, is best to just see all the types at https://github.com/hibikidesu/NekoBot/blob/master/modules/fun.py#L14 (line 14 to 34)', text: 'Text for the character to say, max length of 140' }],
     ['lolice', { url: 'Lolice chief' }],
@@ -49,7 +48,7 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async (message, { functions }) => {
+  run: async (message, lang, { functions }) => {
     const cmdName = message.args.shift() || message.options?.getString('type'),
       args = message.args.map(e => e.replace(/[<@>]/g, '')),
       cmd = endpoints.get(cmdName?.toLowerCase()),
@@ -60,18 +59,18 @@ module.exports = new Command({
 
     embed.data.footer = { text: message.author.tag };
 
-    if (!cmd) errorMsg = `${cmdName ? 'This is not a valid option. ' : ''}Valid options are:\n\`${options.map(e => e.name).join('`, `')}\``;
-    else if ((args?.length || 0) < option.options.length) errorMsg = `This command requires the following args in order:\n\n${option.options.map(e => `> \`${e.name}\`: ${e.description}`).join('\n')}`;
+    if (!cmd) errorMsg = (cmdName ? lang('notFound') : '') + lang('validOptions', options.map(e => e.name).join('`, `'));
+    else if ((args?.length || 0) < option.options.length) errorMsg = lang('requiresArgs', option.options.map(e => `> \`${e.name}\`: ${e.description}`).join('\n'));
 
     if (errorMsg) return message instanceof Message ? functions.reply(errorMsg, message) : message.editReply(errorMsg);
 
-    if (message instanceof Message) message = await message.reply('Loading...');
-    else message.editReply('Loading...');
+    if (message instanceof Message) message = await message.reply(lang('global.loading'));
+    else message.editReply(lang('global.loading'));
 
     args.map((e, i) => { if (option.options[i]) headers += `${option.options[i].name}=${e}&` });
 
     const data = await fetch(encodeURI(`https://nekobot.xyz/api/imagegen?${headers}`)).then(res => res.json());
-    if (!data.success) return message instanceof Message ? message.edit(`An error occurred:\n\`\`\`${data.message}\`\`\``) : message.editReply(`An error occurred:\n\`\`\`${data.message}\`\`\``);
+    if (!data.success) return message instanceof Message ? message.edit(lang('error', data.message)) : message.editReply(lang('error', data.message));
 
     embed.setImage(data.message);
 

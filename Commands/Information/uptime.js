@@ -11,5 +11,5 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (message, client) => client.functions.reply(`The bot has been online for exactly ${client.functions.uptime(client, true).formatted}.`, message)
+  run: async (message, lang, client) => client.functions.reply(lang('message', client.functions.uptime(client, true).formatted), message)
 })

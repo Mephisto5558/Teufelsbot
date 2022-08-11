@@ -11,9 +11,9 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (message, { log, functions }) => {
+  run: async (message, lang, { log, functions }) => {
     log(`Restarting bot, initiated by user '${message.author.tag}'...`);
-    await functions.reply('Restarting bot...', message);
+    await functions.reply(lang('message'), message);
 
     process.exit(0);
   }

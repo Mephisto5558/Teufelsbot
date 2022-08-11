@@ -1,12 +1,7 @@
 const
   { Command } = require('reconlx'),
   { Message, EmbedBuilder, Colors } = require('discord.js'),
-  { Invite } = require('../../config.json').Website,
-  embed = new EmbedBuilder({
-    title: 'Invite',
-    description: `Thank you for your interest! Click [here](${Invite}) to add me to your guild!`,
-    Color: Colors.Blue
-  });
+  { Invite } = require('../../config.json').Website;
 
 module.exports = new Command({
   name: 'invite',
@@ -19,5 +14,13 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, { functions }) => message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] })
+  run: async (message, lang, { functions }) => {
+    const embed = new EmbedBuilder({
+      title: lang('embedTitle'),
+      description: lang('embedDescription', Invite),
+      Color: Colors.Blue
+    });
+
+    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] })
+  }
 })

@@ -41,14 +41,12 @@ module.exports = new Command({
     }
   ],
 
-  run: async (interaction, client) => {
+  run: async (interaction, lang, client) => {
     const octokit = new Octokit({ auth: client.keys.githubKey });
     const title = interaction.options.getString('title');
 
     try {
       await octokit.request(`POST /repos/${Github.UserName}/${Github.RepoName}/issues`, {
-        // owner: Github.UserName,
-        // repo: Github.RepoName,
         title: `${title} | ${interaction.options.getString('importance')} importance`,
         body:
           `<h3>Sent by ${interaction.user.tag} (<code>${interaction.user.id}</code>) with bot <code>${client.user.id}</code></h3>\n\n` +
@@ -58,15 +56,13 @@ module.exports = new Command({
       })
     }
     catch (err) {
-      interaction.editReply(`An error occurred.\n${err?.response.statusText}`);
+      interaction.editReply(lang('error', err?.response.statusText));
       throw err;
     }
 
     let embed = new EmbedBuilder({
-      title: 'Success',
-      description:
-        'Your suggestion has been sent.\n' +
-        `[Suggestion link](${Github.Repo}/issues?q=is%3Aopen+is%3Aissue+${title.replace(/ /g, '%20')}%20in%3Atitle)`,
+      title: lang('embedTitle'),
+      description: lang('embedDescription', encodeURI(`${Github.Repo}/issues?q=is:open+is:issue+${title} in title`)),
       color: Colors.Green
     });
 

@@ -12,20 +12,17 @@ module.exports = new Command({
   slashCommand: false,
   beta: true,
 
-  run: async (message, client) => {
+  run: async (message, lang, client) => {
     if (!message.content) return;
 
-    const msg = 'evaluated command:\n' + '```js\n' + message.content + '```\n';
+    const msg = lang('finished', message.content);
 
     try {
       await eval(`(async _ => {${message.content}})()`);
-      client.functions.reply(`${msg} without errors.`, message);
+      client.functions.reply(lang('finished', msg) + lang('success'), message);
     }
     catch (err) {
-      client.functions.reply(
-        `${msg} with the following error:\n` +
-        '```\n' + `${err.name}: ${err.message}\n` + '```', message
-      );
+      client.functions.reply(lang('finished', msg) + lang('error', msg, err.name, err.message), message);
     }
     finally {
       client.log(`evaluated command '${message.content}'`);
