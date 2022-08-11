@@ -20,7 +20,7 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async (message, { functions }) => {
+  run: async (message, lang, { functions }) => {
     if (message?.content) {
       message.args = message?.args[0]?.replace(/[<@&>]/g, '');
       message.content = message?.content?.replace(/[<@&>]/g, '');
@@ -33,28 +33,28 @@ module.exports = new Command({
 
     let type = user.bot ? 'Bot, ' : '';
 
-    if (member.guild.ownerId == member.id) type += 'Guild Owner';
-    else if (member.permissions.has(PermissionFlagsBits.Administrator)) type += 'Guild Administrator';
-    else if (member.permissions.has(PermissionFlagsBits.ModerateMembers)) type += 'Guild Moderator';
-    else type += 'Guild Member';
+    if (member.guild.ownerId == member.id) type += lang('guildOwner');
+    else if (member.permissions.has(PermissionFlagsBits.Administrator)) type += lang('guildAdmin');
+    else if (member.permissions.has(PermissionFlagsBits.ModerateMembers)) type += lang('guildMod');
+    else type += lang('guildMember');
 
     const embed = new EmbedBuilder({
       title: user.tag,
       description: ' ',
       color: color,
       fields: [
-        { name: 'Mention', value: user.toString(), inline: true },
-        { name: 'Type', value: type, inline: true },
-        { name: 'Roles', value: `\`${member.roles.cache.size}\``, inline: true },
-        { name: 'Position', value: `\`${member.roles.highest.position}\`, ${member.roles.highest}`, inline: true },
+        { name: lang('mention'), value: user.toString(), inline: true },
+        { name: lang('type'), value: type, inline: true },
+        { name: lang('roles'), value: `\`${member.roles.cache.size}\``, inline: true },
+        { name: lang('position'), value: `\`${member.roles.highest.position}\`, ${member.roles.highest}`, inline: true },
         { name: 'ID', value: `\`${user.id}\``, inline: true },
-        { name: 'Color', value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.substring(1)})`, inline: true },
-        { name: 'Moderatable', value: member.moderatable, inline: true },
-        { name: 'Created At', value: `<t:${Math.round(user.createdTimestamp / 1000)}>`, inline: true },
-        { name: 'Joined At', value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true },
-        member.isCommunicationDisabled() ? { name: 'Timed Out Until', value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true } : null,
+        { name: lang('color'), value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.substring(1)})`, inline: true },
+        { name: lang('moderateable'), value: member.moderatable, inline: true },
+        { name: lang('createdAt'), value: `<t:${Math.round(user.createdTimestamp / 1000)}>`, inline: true },
+        { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true },
+        member.isCommunicationDisabled() ? { name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true } : null,
         { name: 'Roles with permissions', value: Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').join(', '), inline: false },
-        { name: 'Permissions', value: `\`${member.permissions.has('Administrator') ? 'Administrator' : member.permissions.toArray()?.join('`, `') || 'NONE'}\` (${member.permissions.toArray().length})`, inline: false }
+        { name: 'Permissions', value: `\`${member.permissions.has('Administrator') ? lang('admin') : member.permissions.toArray()?.join('`, `') || lang('none')}\` (${member.permissions.toArray().length})`, inline: false }
       ].filter(e => e)
     }).setThumbnail(member.displayAvatarURL())
 

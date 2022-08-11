@@ -14,14 +14,14 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, { db, functions }) => {
+  run: async (message, lang, { db, functions }) => {
     const oldData = await db.get('guildSettings');
     const setting = oldData[message.guild.id]?.config?.autopublish;
 
     const newData = Object.merge(oldData, { [message.guild.id]: { config: { autopublish: !setting } } })
     await db.set('guildSettings', newData);
 
-    if (message instanceof Message) functions.reply(`${setting ? 'Disabled' : 'Enabled'} autopublishing.`, message);
-    else message.editReply(`${setting ? 'Disabled' : 'Enabled'} autopublishing.`);
+    if (message instanceof Message) functions.reply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')), message);
+    else message.editReply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));
   }
 })

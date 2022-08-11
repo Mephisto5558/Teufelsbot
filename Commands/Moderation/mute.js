@@ -55,7 +55,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async interaction => {
+  run: async (interaction, lang) => {
 
     const
       target = interaction.options.getMember('target'),
@@ -65,11 +65,11 @@ module.exports = new Command({
 
     let errorMsg, noMsg;
 
-    if (!target) errorMsg = `I cannot find that user.`;
-    else if (target.id === interaction.member.id) errorMsg = `You can't mute yourself!`;
+    if (!target) errorMsg = lang('notFound');
+    else if (target.id === interaction.member.id) errorMsg = lang('cantMuteSelf');
     else if (target.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1 && interaction.guild.ownerId != interaction.user.id)
-      errorMsg = `You don't have the permission to do that!`;
-    else if (!target.moderatable) errorMsg = `I don't have the permission to do that!`;
+      errorMsg = lang('noPerm', lang('global.you'));
+    else if (!target.moderatable) errorMsg = lang('noPerm', lang('global.i'));
 
     if (errorMsg) return interaction.editReply(errorMsg);
 
@@ -84,35 +84,24 @@ module.exports = new Command({
 
     if (date == oldDate) date.setTime(date.getTime() + 3600000); //1h
 
-    try {
-      await target.disableCommunicationUntil(date.getTime(), `${reason}, moderator ${interaction.user.tag}`);
-    }
-    catch (err) {
-      return interaction.editReply(
-        `I couldn't mute the target:\n` +
-        err
-      )
-    }
+    try { await target.disableCommunicationUntil(date.getTime(), `${reason}, moderator ${interaction.user.tag}`) }
+    catch (err) { return interaction.editReply(lang('error', err)) }
 
     const embed = new EmbedBuilder({
-      title: 'Muted',
-      description:
-        `You have been muted in \`${interaction.guild.name}\`.\n` +
-        `Moderator: ${interaction.user.tag}\n` +
-        `Until: <t:${Math.round(target.communicationDisabledUntilTimestamp / 1000)}>\n` +
-        `Reason: ${reason}`,
+      title: lang('dmEmbedTitle'),
+      description: lang('dmEmbedDescription',
+        interaction.guild.name, interaction.user.tag,
+        Math.round(target.communicationDisabledUntilTimestamp / 1000), reason
+      ),
       color: Colors.Red
     });
 
     try { await target.send({ embeds: [embed] }) }
     catch { noMsg = true }
 
-    embed.data.title = 'Mute';
-    embed.data.description =
-      `${target.user.tag} has been successfully muted.\n` +
-      `Reason: ${reason}\n` +
-      `Until: <t:${Math.round(target.communicationDisabledUntilTimestamp / 1000)}>\n` +
-      `${noMsg ? `\nI couldn't DM the target.` : ''}`;
+    embed.data.title = lang('infoEmbedTitle');
+    embed.data.description = lang('infoEmbedDescription', target.user.tag, reason, Math.round(target.communicationDisabledUntilTimestamp / 1000));
+    if (noMsg) embed.data.description += lang('noDm');
 
     interaction.editReply({ embeds: [embed] });
 

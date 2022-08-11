@@ -39,7 +39,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async interaction => {
+  run: async (interaction, lang) => {
     let input = interaction.options.getString('emoji_or_url');
 
     const
@@ -47,27 +47,23 @@ module.exports = new Command({
       emoticon = parseEmoji(input),
       emojiName = interaction.options.getString('name')?.slice(0, 32) || emoticon.id ? emoticon.name : 'emoji',
       embed = new EmbedBuilder({
-        title: 'Add Emoji',
+        title: lang('embedTitle'),
         color: Colors.Green
       });
 
-    if (interaction.guild.emojis.cache.has(emoticon.id)) embed.data.description = 'That emoji is already on this guild!';
+    if (interaction.guild.emojis.cache.has(emoticon.id)) embed.data.description = lang('isGuildEmoji');
     else if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
     else {
       if (!input.startsWith('http')) input = `https://${input}`;
-      if (!/^(?:https?:\/\/)?(?:www\.)?.*\.(?:jpg|jpeg|png|webp|svg|gif)(?:\?.*)?$/i.test(input)) {
-        embed.data.description =
-          'The provided argument is not a valid url or emoji!\n' +
-          'The url must end with `jpg`, `jpeg`, `png`, `webp`, `svg` or `gif`.\n' +
-          'Example: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png'
-      }
+      if (!/^(?:https?:\/\/)?(?:www\.)?.*\.(?:jpg|jpeg|png|webp|svg|gif)(?:\?.*)?$/i.test(input))
+        embed.data.description = lang('invalidUrl');
 
       try {
         const res = await head(input);
         if (/4\d\d/.test(res.status)) throw Error('notFound');
       }
       catch (err) {
-        if (err.message == 'notFound') embed.data.description = 'The provided url was not found.';
+        if (err.message == 'notFound') embed.data.description = lang('notFound');
         else throw err;
       }
     }
@@ -82,16 +78,12 @@ module.exports = new Command({
         roles: limitToRoles
       });
 
-      embed.data.description =
-        `Successfully added **${emoji.name}** ${emoji}!\n` +
-        (limitToRoles?.length ? `The emoji has been limited to the following roles:\n<@&${limitToRoles.join('>, <@&')}>` : '');
+      embed.data.description = lang('success', emoji.name, emoji);
+      if (limitToRoles?.length) embed.data.description += lang('limitedToRoles', limitToRoles.join('>, <@&'));
     }
     catch (err) {
       embed.data.color = Colors.Red;
-      embed.data.description = `Unable to create the emoji for reason:\n`;
-
-      if (err.name == 'AbortError') embed.data.description += '> The request timed out. Maybe the image is to large.';
-      else embed.data.description += '```' + err + '```';
+      embed.data.description = lang('error', err.name == 'AbortError' ? lang('timedOut') : err);
     }
 
     interaction.editReply({ embeds: [embed] });

@@ -3,7 +3,7 @@ const
   { Octokit } = require('@octokit/core'),
   { Github } = require('../../config.json');
 
-module.exports = async (err, { keys, functions, botType } = {}, message) => {
+module.exports = async (err, { keys, functions, botType } = {}, message, lang) => {
   if (!message) {
     console.error(errorColor, ' [Error Handling] :: Uncaught Error');
     console.error(err);
@@ -13,18 +13,15 @@ module.exports = async (err, { keys, functions, botType } = {}, message) => {
   const
     octokit = new Octokit({ auth: keys.githubKey }),
     embed = new EmbedBuilder({
-      title: 'Whoooops',
-      description:
-        'A unexpected error occurred!\n\n' +
-        `Error Type: \`${err.name}\`\n` +
-        `Command: \`${message.commandName}\``,
+      title: lang('events.errorHandler.embedTitle'),
+      description: lang('events.errorHandler.embedDescription', err.name, message.commandName),
       color: Colors.DarkRed
     }),
     comp = new ActionRowBuilder({
       components: [
         new ButtonBuilder({
           customId: 'reportError',
-          label: `Report this Error ${botType == 'dev' ? '(disabled due to dev version)' : ''}`,
+          label: lang('events.errorHandler.reportButton') + botType == 'dev' ? lang('events.errorHandler.reportButtonDisabled') : '',
           style: ButtonStyle.Danger,
           disabled: botType == 'dev'
         })
@@ -36,7 +33,7 @@ module.exports = async (err, { keys, functions, botType } = {}, message) => {
 
   switch (err.name) {
     case 'DiscordAPIError':
-      message.followUp('An Discord API Error occurred, please try again and message the dev if this keeps happening.');
+      message.followUp(lang('events.errorHandler.discordAPIError'));
       break;
 
     default:
@@ -59,7 +56,7 @@ module.exports = async (err, { keys, functions, botType } = {}, message) => {
       const title = `${err.name}: "${err.message}" in command "${message.commandName}"`;
 
       if (issues.data.filter(e => e.title == title && e.state == 'open').length) {
-        embed.data.description = `This issue has already been reported. [Link](${issues.data[0].html_url})\nIt will be fixed soon.`;
+        embed.data.description = lang('events.errorHandler.alreadyReported', issues.data[0].html_url);
         return msg.edit({ embeds: [embed], components: [comp] });
       }
 
@@ -68,16 +65,16 @@ module.exports = async (err, { keys, functions, botType } = {}, message) => {
         body:
           `<h3>Reported by ${message.user.tag} (${message.user.id}) with bot ${message.guild.members.me.id}</h3>\n\n` +
           err.stack,
-          assignees: [Github.UserName],
+        assignees: [Github.UserName],
         labels: ['bug']
       });
 
-      embed.data.description = `Your issue has been reported. [Link](${Github.Repo}/issues?q=is%3Aopen+is%3Aissue+${title} in:title)`;
+      embed.data.description = lang('events.errorHandler.reportSuccess', encodeURI(`${Github.Repo}/issues?q=is:open+is:issue+${title} in:title)`));
       msg.edit({ embeds: [embed], components: [comp] });
     }
     catch (err) {
-      if (message instanceof Message) functions.reply(`An error occurred while trying to send your error report.\n${err?.response.statusText || ''}\nPlease message the dev directly.`, message);
-      else message.followUp(`An error occurred while trying to send your error report.\n${err?.response.statusText || ''}\nPlease message the dev directly.`);
+      if (message instanceof Message) functions.reply(lang('events.errorHandler.reportFail', err?.response.statusText || 'unknown error'), message);
+      else message.followUp(lang('events.errorHandler.reportFail', err?.response.statusText || 'unknown error'));
       console.error(err);
     }
   });

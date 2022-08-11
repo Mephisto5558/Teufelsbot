@@ -127,7 +127,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async interaction => {
+  run: async (interaction, lang) => {
     const getOption = name => interaction.options.getString(name)?.replace(/\/n/g, '\n');
     const custom = getOption('json');
     const content = getOption('content');
@@ -152,22 +152,9 @@ module.exports = new Command({
 
       await interaction.channel.send({ content: content, embeds: [embed] });
     }
-    catch (err) {
-      return interaction.editReply(
-        '**One of the provided embed options is invalid!**\n\n' +
-        '```' + err + '```'
-      )
-    }
+    catch (err) { return interaction.editReply(lang('invalidOption', err)) }
 
-    if (custom) interaction.editReply('Your embed has been sent!');
-    else {
-      embed = JSON.stringify(filterEmptyEntries(embed.data));
-
-      interaction.editReply(
-        'Your embed has been sent! Below is the embed code.\n' +
-        'if you want to send it again, use the `json` subcommand.\n\n' +
-        '```json\n' + embed + '\n```'
-      )
-    }
+    if (custom) interaction.editReply(lang('successJSON'));
+    else interaction.editReply(lang('success', JSON.stringify(filterEmptyEntries(embed.data))));
   }
 });

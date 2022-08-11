@@ -87,7 +87,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (interaction, { db }) => {
+  run: async (interaction, lang, { db }) => {
     const
       settings = db.get('guildSettings'),
       oldData = settings[interaction.guild.id]?.triggers || [],
@@ -107,7 +107,7 @@ module.exports = new Command({
         newData = Object.merge(settings, { [interaction.guild.id]: { triggers: [data] } }, 'push');
         await db.set('guildSettings', newData);
 
-        interaction.editReply(`Added new trigger for \`${data.trigger}\`.`);
+        interaction.editReply(lang('saved', data.trigger));
         break;
       }
 
@@ -115,44 +115,45 @@ module.exports = new Command({
         if (!id) id = Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id;
 
         const filtered = oldData.filter(e => e.id != id);
-        if (filtered.length == oldData.length) return interaction.editReply('There is no trigger with that ID!');
+        if (filtered.length == oldData.length) return interaction.editReply(lang('idNotFound'));
 
         newData = Object.merge(settings, { [interaction.guild.id]: { triggers: filtered } }, 'overwrite');
         await db.set('guildSettings', newData);
 
-        interaction.editReply(`I deleted the trigger with id \`${id}\`.`);
+        interaction.editReply(lang('deletedOne', id));
         break;
       }
 
       case 'clear': {
-        if (interaction.options.getString('confirmation').toLowerCase() != 'clear all') return interaction.editReply('You need to confirm this action by writing `CLEAR ALL` as the confirm option!');
-        if (!oldData.length) return interaction.editReply('There are no triggers I could clear!');
+        if (interaction.options.getString('confirmation').toLowerCase() != 'clear all') return interaction.editReply(lang('needConfirm'));
+        if (!oldData.length) return interaction.editReply(lang('noneFound'));
 
         newData = Object.merge(settings, { [interaction.guild.id]: { triggers: [] } }, 'overwrite');
         await db.set('guildSettings', newData);
 
-        interaction.editReply(`I deleted all (\`${oldData.length}\`) triggers.`);
+        interaction.editReply(lang('deletedAll', oldData.length));
         break;
       }
 
       case 'get': {
-        if (!oldData.length) return interaction.editReply('There are no triggers!');
+        if (!oldData.length) return interaction.editReply(lang('noneFound'));
 
         const embed = new EmbedBuilder({
-          title: 'Triggers',
+          title: lang('embedTitle'),
           color: Colors.Blue
         });
 
         if (id || id == 0 || query) {
           const data = oldData.filter(e => query ? e.trigger.toLowerCase().includes(query) : e.id == id);
-          if (!data.trigger) return interaction.editReply('No trigger has been found.');
+          if (!data.trigger) return interaction.editReply(lang('notFound'));
 
           embed.data.fields = data.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
-            name: `**Trigger ${id}:**`,
-            value: '```\n' + (trigger.length < 1900 ? trigger : trigger.substring(0, 197) + '...') + '\n```\n' +
-              '**Response:** \n' +
-              '```\n' + (response.length < 1900 ? response : response.substring(0, 197) + '...') + '\n```\n' +
-              `**Wildcard:** \`${!!wildcard}\``,
+            name: lang('fieldName', id),
+            value: lang('fieldValue',
+              (trigger.length < 1900 ? trigger : trigger.substring(0, 197) + '...'),
+              (response.length < 1900 ? response : response.substring(0, 197) + '...'),
+              !!wildcard
+            ),
             inline: false
           }));
 
@@ -164,25 +165,24 @@ module.exports = new Command({
             for (const { id, trigger, response, wildcard } of oldData) {
               if (description.length >= 3800) break;
 
-              description +=
-                `ID: ${id}\n` +
-                `> Trigger: \`${trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...'}\`\n` +
-                `> Response: \`${response.length < 20 ? response : response.substring(0, 17) + '...'}\`\n` +
-                `> Wildcard: \`${!!wildcard}\`\n\n`;
+              description += lang('longEmbedDescription', id,
+                (trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...'),
+                (response.length < 20 ? response : response.substring(0, 17) + '...'),
+                !!wildcard
+              )
             }
 
             embed.data.description = description;
           }
           else {
-            embed.data.description = oldData.length > 25 ? 'The first 25 triggers. Get more with the `short` option' : ' ';
+            embed.data.description = oldData.length > 25 ? lang('first25') : ' ';
             embed.data.fields = oldData.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
-              name: `ID: ${id}`,
-              value:
-                `**Trigger:** \n` +
-                '```\n' + (trigger.length < 200 ? trigger : trigger.subsstring(0, 197) + '...') + '\n```\n' +
-                '**Response:** \n' +
-                '```\n' + (response.length < 200 ? response : response.subsstring(0, 197) + '...') + '\n```\n' +
-                `**Wildcard:** \`${!!wildcard}\`\n`,
+              name: lang('shortFieldName', id),
+              value: lang('shortFieldValue',
+                (trigger.length < 200 ? trigger : trigger.subsstring(0, 197) + '...'),
+                (response.length < 200 ? response : response.subsstring(0, 197) + '...'),
+                !!wildcard
+              ),
               inline: true
             }));
           }

@@ -13,10 +13,10 @@ module.exports = new Command({
   showInHelp: false,
   beta: true,
 
-  run: async (message, { db, functions }) => {
+  run: async (message, lang, { db, functions }) => {
     const result = await db.get(message.content);
 
-    if(!result) return functions.reply('nothing found', message);
+    if (!result) return functions.reply(lang('notFound'), message);
     functions.reply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```', message);
   }
 })

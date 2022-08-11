@@ -35,19 +35,19 @@ module.exports = new Command({
     }
   ],
 
-  run: async (message, { functions }) => {
+  run: async (message, lang, { functions }) => {
     const
       target = message?.options?.getMember('target') || message.mentions?.members?.first() || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
       avatarURL = await target.displayAvatarURL({ size: message.options?.getNumber('size') || 2048 }),
       embed = new EmbedBuilder({
-        description: `**Avatar of ${target.username}**`,
+        description: lang('EmbedDescription', target.username),
         color: Colors.White,
         image: { url: avatarURL },
         footer: { text: message.member.tag }
       }),
       row = new ActionRowBuilder({
         components: [new ButtonBuilder({
-          label: 'Download picture',
+          label: lang('downloadButton'),
           url: avatarURL,
           style: ButtonStyle.Link
         })]

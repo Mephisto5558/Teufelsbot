@@ -30,7 +30,7 @@ module.exports = new Command({
     required: false
   }],
 
-  run: (message, client) => {
+  run: (message, lang, client) => {
     const embed = new EmbedBuilder({ color: Colors.Blurple });
     const query = (message.args?.[0] || message.options?.getString('command'))?.toLowerCase();
 
@@ -38,31 +38,31 @@ module.exports = new Command({
       const cmd = client.commands.get(query) || client.slashCommands.get(query);
 
       if (!cmd?.name || cmd.hideInHelp || cmd.disabled || cmd.category.toLowerCase() == 'owner-only') {
-        embed.data.description = `No Information found for command \`${query}\``;
+        embed.data.description = lang('one.notFound', query);
         embed.data.color = Colors.Red;
       }
       else {
-        embed.data.title = `Detailed Information about: \`${cmd.name}\``;
-        embed.data.description = cmd.description ?? 'No description found';
-        if(cmd.usage) embed.data.footer = { text: `Syntax: <> = required, [] = optional | Prefix: '${client.db.get('guildSettings')[message.guild.id]?.config?.prefix || client.db.get('guildSettings').default.config.prefix}'` };
+        embed.data.title = lang('one.embedTitle', cmd.name);
+        embed.data.description = cmd.description ?? lang('one.noDescription');
+        if (cmd.usage) embed.data.footer = { text: lang('one.embedFooterText', client.db.get('guildSettings')[message.guild.id]?.config?.prefix || client.db.get('guildSettings').default.config.prefix) };
         embed.data.fields = [
-          cmd.aliases?.prefix?.length ? { name: 'Prefix Command Aliases', value: `\`${listCommands(cmd.aliases.prefix, '', 1)[0].replace(/> /g, '')}\``, inline: true } : null,
-          cmd.aliases?.slash?.length ? { name: 'Slash Command Aliases', value: `\`${listCommands(cmd.aliases.slash, '', 1)[0].replace(/> /g, '')}\``, inline: true } : null,
-          cmd.permissions?.client?.length ? { name: 'Required Bot Permissions', value: `\`${cmd.permissions.client.join('`, `')}\``, inline: false } : null,
-          cmd.permissions?.user?.length ? { name: 'Required User Permissions', value: `\`${cmd.permissions.user.join('`, `')}\``, inline: true } : null,
+          cmd.aliases?.prefix?.length ? { name: lang('one.prefixAlias'), value: `\`${listCommands(cmd.aliases.prefix, '', 1)[0].replace(/> /g, '')}\``, inline: true } : null,
+          cmd.aliases?.slash?.length ? { name: lang('one.slashAlias'), value: `\`${listCommands(cmd.aliases.slash, '', 1)[0].replace(/> /g, '')}\``, inline: true } : null,
+          cmd.permissions?.client?.length ? { name: lang('one.botPerms'), value: `\`${cmd.permissions.client.join('`, `')}\``, inline: false } : null,
+          cmd.permissions?.user?.length ? { name: lang('one.userPerms'), value: `\`${cmd.permissions.user.join('`, `')}\``, inline: true } : null,
           cmd.cooldowns?.guild || cmd.cooldowns?.user ? {
-            name: 'Command Cooldowns', inline: false, value:
-              (cmd.cooldowns.guild ? `Guild: \`${parseFloat((cmd.cooldowns.guild / 1000).toFixed(2))}\`s${cmd.cooldowns.user ? ', ' : ''}` : '') +
-              (cmd.cooldowns.user ? `User: \`${parseFloat((cmd.cooldowns.user / 1000).toFixed(2))}\`s` : '')
+            name: lang('one.cooldowns'), inline: false, value:
+              (cmd.cooldowns.guild ? `${lang('global.guild')}: \`${parseFloat((cmd.cooldowns.guild / 1000).toFixed(2))}\`s${cmd.cooldowns.user ? ', ' : ''}` : '') +
+              (cmd.cooldowns.user ? `${lang('global.user')}: \`${parseFloat((cmd.cooldowns.user / 1000).toFixed(2))}\`s` : '')
           } : null,
-          cmd.usage ? { name: 'Usage', value: `${cmd.slashCommand ? 'SLASH Command: look at the option descriptions.\n' : ''} ${cmd.usage || ''}`, inline: false } : null
+          cmd.usage ? { name: lang('usage'), value: `${cmd.slashCommand ? lang('lookAtDesc') : ''} ${cmd.usage || ''}`, inline: false } : null
         ].filter(e => e);
       }
 
       return message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
     }
 
-    embed.data.title = `🔰All my commands`;
+    embed.data.title = lang('all.embedTitle');
     embed.setThumbnail(client.user.displayAvatarURL());
 
     for (const category of client.categories.map(e => e.toUpperCase())) {
@@ -82,8 +82,8 @@ module.exports = new Command({
       if (cmdList) embed.addFields([{ name: `**${category} [${data[1] - 1}]**`, value: `> ${cmdList}\n`, inline: true }]);
     }
 
-    if (!embed.data.fields) embed.data.description = 'No commands found...';
-    else embed.data.footer = { text: `Use the 'command' option to get more information about a specific command.` };
+    if (!embed.data.fields) embed.data.description = lang('all.notFound');
+    else embed.data.footer = { text: lang('embedFooterText') };
 
     message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
   }

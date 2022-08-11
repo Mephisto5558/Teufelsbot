@@ -19,11 +19,11 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async (message, { ws, functions }) => {
+  run: async (message, lang, { ws, functions }) => {
     if (message.args?.[0] == 'average' || message.options?.getBoolean('average')) {
       const embed = new EmbedBuilder({
-        title: 'Ping',
-        description: `Pinging... (this takes about one minute)`,
+        title: lang('embedTitle'),
+        description: lang('average.loading'),
         color: Colors.Blurple
       });
 
@@ -40,18 +40,14 @@ module.exports = new Command({
 
       const averagePing = Math.round((pings.reduce((a, b) => a + b) / i) * 100) / 100;
 
-      embed.data.description =
-        `Pings: \`${pings.length}\`\n` +
-        `Lowest Ping: \`${pings[0]}ms\`\n` +
-        `Highest Ping: \`${pings[pings.length - 1]}ms\`\n` +
-        `Average Ping: \`${averagePing}ms\``;
+      embed.data.description = lang('embedDescription', pings.length, pings[0], pings[pings.length - 1], averagePing);
 
       return message.editReply({ embeds: [embed] })
     }
 
     const embed = new EmbedBuilder({
-      title: 'Ping',
-      description: 'Loading...',
+      title: lang('embedTitle'),
+      description: lang('global.loading'),
       color: Colors.Green
     });
 
@@ -62,7 +58,7 @@ module.exports = new Command({
     embed.data.fields = [
       { name: 'API', value: `\`${Math.round(ws.ping)}\`ms`, inline: true },
       { name: 'Bot', value: `\`${Math.abs(Date.now() - message.createdTimestamp)}\`ms`, inline: true },
-      { name: 'Message Send', value: `\`${endMessagePing}\`ms`, inline: true }
+      { name: lang('messageSend'), value: `\`${endMessagePing}\`ms`, inline: true }
     ];
     embed.data.description = ' ';
 

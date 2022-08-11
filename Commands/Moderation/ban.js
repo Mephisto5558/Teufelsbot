@@ -42,24 +42,19 @@ module.exports = new Command({
     }*/
   ],
 
-  run: async interaction => {
+  run: async (interaction, lang) => {
     const
       targets = new Set([...interaction.options.getString('targets').replace(/[^0-9\s]/g, '').split(' ').filter(e => e?.length == 18)]),
       reason = interaction.options.getString('reason'),
       days = interaction.options.getNumber('delete_days_of_messages'),
       embed = new EmbedBuilder({
-        title: 'Banned',
-        description:
-          `You have been banned from \`${interaction.guild.name}\`.\n` +
-          `Moderator: ${interaction.user.tag}\n` +
-          `Reason: ${reason}`,
+        title: lang('dmEmbedTitle'),
+        description: lang('dmEmbedDescription', interaction.guild.name, interaction.user.tag, reason),
         color: Colors.Red
       }),
       resEmbed = new EmbedBuilder({
-        title: 'Ban',
-        description:
-          `Moderator: ${interaction.user.tag}\n` +
-          `Reason: ${reason}\n\n`,
+        title: lang('infoEmbedTitle'),
+        description: lang('infoEmbedDescription', interaction.user.tag, reason),
         color: Colors.Red
       });
 
@@ -69,13 +64,13 @@ module.exports = new Command({
       try { target = await interaction.guild.members.fetch(rawTarget) }
       catch { target = { id: rawTarget } }
 
-      if (target.id == interaction.member.id) errorMsg = `You can't ban yourself!`;
+      if (target.id == interaction.member.id) errorMsg = lang('cantBanSelf');
       else if (target.roles && target.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1 && interaction.guild.ownerId != interaction.user.id)
-        errorMsg = `You don't have the permission to do that!`;
-      else if (target.bannable === false) errorMsg = `I don't have the permission to do that!`;
+        errorMsg = lang('noPerm', lang('global.you'));
+      else if (target.bannable === false) errorMsg = lang('noPerm', lang('global.i'));
 
       if (errorMsg) {
-        resEmbed.data.description += `**${target?.user?.tag ?? target.id}** couldn't been banned.\n${errorMsg}\n`;
+        resEmbed.data.description += lang('error', target?.user?.tag ?? target.id, errorMsg);
         continue;
       }
 
@@ -90,9 +85,8 @@ module.exports = new Command({
         deleteMessageDays: days > 7 ? 7 : days < 1 ? 1 : days
       });
 
-      resEmbed.data.description +=
-        `**${target?.user?.tag ?? target.id}** has been successfully banned.\n` +
-        `${noMsg ? `\nI couldn't DM the target.` : ''}`;
+      resEmbed.data.description += lang('success', target?.user?.tag ?? target.id);
+      if (noMsg) resEmbed.data.description += lang('noDM');
     }
 
     interaction.editReply({ embeds: [resEmbed] });
