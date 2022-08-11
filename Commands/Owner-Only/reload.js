@@ -75,7 +75,7 @@ module.exports = new Command({
         else await reloadCommand(client, command, path, reloadedArray);
       }
     }
-    catch (err) { errorMsg = lang('error', err.message) };
+    catch (err) { errorMsg = lang('error', err.message) }
 
     client.functions.reply(
       errorMsg || (!reloadedArray.length ? lang('noneReloaded') : lang('reloaded', reloadedArray.length, reloadedArray.join('`, `'))), message
