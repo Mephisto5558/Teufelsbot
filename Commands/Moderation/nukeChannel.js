@@ -31,7 +31,7 @@ module.exports = new Command({
   run: async (interaction, lang) => {
     if (interaction.options.getString('confirmation')?.toLowerCase() != 'delete channel') return interaction.editReply(lang('needConfirm'));
 
-    embed = new EmbedBuilder({
+    const embed = new EmbedBuilder({
       description: lang('embedDescription'),
       color: Colors.Red,
       image: { url: 'https://media.giphy.com/media/XUFPGrX5Zis6Y/giphy.gif' },
