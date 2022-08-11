@@ -1,12 +1,7 @@
 const
   { Command } = require('reconlx'),
   { EmbedBuilder, Colors, Message } = require('discord.js'),
-  { Dashboard } = require('../../config.json').Website,
-  embed = new EmbedBuilder({
-    title: 'Dashboard',
-    description: `Click [here](${Dashboard}) to open the dashboard.`,
-    color: Colors.Blurple
-  });
+  { Dashboard } = require('../../config.json').Website;
 
 module.exports = new Command({
   name: 'dashboard',
@@ -19,5 +14,13 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, { functions }) => message instanceof Message ? functions.reply({ embeds: [embed] }, message) : interaction.editReply({ embeds: [embed] })
+  run: async (message, lang, { functions }) => {
+    const embed = new EmbedBuilder({
+      title: 'Dashboard',
+      description: lang('embedDescription', Dashboard),
+      color: Colors.Blurple
+    });
+
+    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : interaction.editReply({ embeds: [embed] });
+  }
 })

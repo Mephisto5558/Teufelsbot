@@ -34,12 +34,12 @@ module.exports = new Command({
     }
   ],
 
-  run: async (interaction, client) => {
+  run: async (interaction, lang, client) => {
     switch (interaction.options.getSubcommand()) {
       case 'sync': {
         await require('../../Handlers/slash_command_handler.js')(client, interaction.guild.id);
 
-        return interaction.editReply('Finished syncing.');
+        return interaction.editReply(lang('finishedSync'));
       }
 
       case 'toggle_module': {
@@ -50,7 +50,7 @@ module.exports = new Command({
           newData = Object.merge(oldData, { [interaction.guild.id]: { [module]: { enable: !setting } } });
 
         await client.db.set('guildSettings', newData);
-        return interaction.editReply(`The \`${module}\` module has been ${setting ? 'disabled' : 'enabled'}.`);
+        return interaction.editReply(lang('toggledModule', module, setting ? lang('global.disabled') : lang('global.enabled')));
       }
     }
 

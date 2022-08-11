@@ -72,7 +72,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (message, { functions }) => {
+  run: async (message, lang, { functions }) => {
     const
       filterNSFW = (message.options?.getBoolean('filter_nsfw') ?? true) || !message.channel.nsfw,
       type = message.options?.getString('type') ?? message.args?.[1] ?? 'hot';
@@ -85,7 +85,7 @@ module.exports = new Command({
     if (cachedSubreddits.has(`${subreddit}_${type}`)) post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`).data, filterNSFW);
     else {
       const res = await fetch(`https://www.reddit.com/r/${subreddit}/${type}.json`).then(res => res.json());
-      if (res.error) return message instanceof Message ? functions.reply(`An error occurred:\n\`\`\`${res.message}\`\`\``, message) : message.editReply(`An error occurred:\n\`\`\`${res.message}\`\`\``);
+      if (res.error) return message instanceof Message ? functions.reply(lang('error', res.message), message) : message.editReply(lang('error', res.message));
 
       cachedSubreddits.set(`${subreddit}_${type}`, res);
       setTimeout(_ => cachedSubreddits.delete(`${subreddit}_${type}`), 5 * 60 * 1000);
@@ -93,7 +93,7 @@ module.exports = new Command({
       post = fetchPost(res.data, filterNSFW);
     }
 
-    if (!post) return message instanceof Message ? functions.reply('No posts found with your search params.', message) : message.editReply('No posts found with your search params.');
+    if (!post) return message instanceof Message ? functions.reply(lang('notFound'), message) : message.editReply(lang('notFound'));
 
     const embed = new EmbedBuilder({
       author: { name: `${post.author} | r/${post.subreddit}` },

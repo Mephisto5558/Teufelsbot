@@ -36,27 +36,23 @@ module.exports = new Command({
     required: true,
   }, ...hashOptions],
 
-  run: interaction => {
+  run: (interaction, lang) => {
     const
       input = interaction.options.getString('input'),
       method = interaction.options.data.filter(entry => entry.name.includes('method'))?.[0]?.value;
 
-    if (!method) return interaction.editReply('You need to provide one of the method options!');
+    if (!method) return interaction.editReply(lang('noMethod'));
 
     const hash = createHash(method).update(input).digest('hex');
 
     let embed = new EmbedBuilder({
-      title: 'Hash Function',
-      description:
-        `Your input: \`${input.length > 500 ? `${input.substring(0, 500)}\n...` : input}\`\n` +
-        `Hash method: \`${method}\``,
+      title: lang('embedTitle'),
+      description: lang('embedDescription', input.length > 500 ? `${input.substring(0, 500)}\n...` : input, method),
       color: Colors.DarkGold
     });
 
     interaction.editReply({
-      content:
-        `Your hashed string:\n` +
-        `\`${hash}\``,
+      content: lang('text', hash),
       embeds: [embed]
     })
   }

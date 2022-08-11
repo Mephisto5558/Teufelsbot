@@ -1,15 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { randomBytes } = require('crypto'), //https://nodejs.org/api/crypto.html#cryptorandombytessize-callback
   defaultCharset = ['abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\\=*\'"#*(){}[]'];
-
-async function getRandomNumber(oldRandomNumber, length) {
-  //Generate a cryptographically strong random number between 0 and one and multiplies it with the length of the charset
-  const randomNumber = Math.round(`0.${randomBytes(3).readUIntBE(0, 3)}` * length);
-
-  //Checks if the last random number is the same, if yes, run itself again. If no, returns the random number
-  return oldRandomNumber != randomNumber ? randomNumber : getRandomNumber(randomNumber, length);
-}
 
 module.exports = new Command({
   name: 'passwordgenerator',
@@ -51,7 +42,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async interaction => {
+  run: async (interaction, lang) => {
 
     const
       count = interaction.options?.getNumber('count') || 1,
@@ -66,36 +57,30 @@ module.exports = new Command({
         .concat(Array.from(include)) //Add include chars to the charset
       )].join('');
 
-    if (!charset.length) return interaction.editReply('you excluded all chars of the charset...'); //Return if charset is empty
+    if (!charset.length) return interaction.editReply(lang('charsetEmpty')); //Return if charset is empty
 
     for (let i = 0; i < count; i++) {
-      let oldRandomNumber;
+      let oldRandomChar;
       if (passwordList.length > 1750) { //makes sure the pasword list is not to long
         passwordList = passwordList.substring(0, passwordList.lastIndexOf('\n', passwordList.lastIndexOf('\n') - 1));   //removes the last password from the list
         break;
       }
 
       for (let i = 0; i < length; i++) {
-        const randomNumber = await getRandomNumber(oldRandomNumber, charset.length);
-        if (charset[oldRandomNumber] + charset[randomNumber] == '\n') { //'\n' should not appear in the list, it would break stuff
+        const randomChar = await charset.split('').filter(e => e != oldRandomChar).random(); //Filters the last selected entry out and selects a list entry based on a secure random number generator. Defined in index.js.;
+        if (oldRandomChar + randomChar == '\n') { //'\n' should not appear in the list, it would break stuff
           length++
           continue;
         }
-        passwordList += charset[randomNumber]; //Adds one of the chars in the charset to the password, based on the function getRandomNumber
-        oldRandomNumber = randomNumber;
+        passwordList += randomChar; //Adds one of the chars in the charset to the password, based on the function getRandomNumber
+        oldRandomChar = randomChar; //Sets oldRandomChar to the last generated char
       }
       passwordList += '```\n'
     }
 
     if (charset.length > 100) charset = charset.substring(0, 97) + '...' //Limits the *displayed* charset
 
-    interaction.editReply(
-      'Your secure password(s):\n' +
-      `${passwordList.trim()}\n\n` +
-      '||Created with the following charset:\n' +
-      '```' + charset + '```\n' +
-      'Use the command options to add or remove chars.||'
-    );
+    interaction.editReply(lang('success', passwordList.trim(), charset));
 
   }
 })

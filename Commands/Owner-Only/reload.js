@@ -1,7 +1,7 @@
 const
   { Command } = require('reconlx'),
   { readdirSync, existsSync } = require('fs'),
-  { join } = require('path')
+  { join } = require('path');
 
 async function reloadCommand(client, commandName, path, reloadedArray) {
   commandName = commandName.replace('.js', '');
@@ -70,17 +70,15 @@ module.exports = new Command({
           await reloadCommand(client, file, `../../Commands/${category}/${file}`, reloadedArray);
       }
       else {
-        if (!category && !existsSync(path)) errorMsg = `${message.args[0] ? 'This is not a valid category. ' : ''}Valid categories are:\n\`${getDirectoriesSync('./Commands').join('`, `').toLowerCase()}\`, \`*\``;
-        else if (!command && !existsSync(path)) errorMsg = `${message.args[1] ? 'This is not a valid command. ' : ''}Valid commands in this category are:\n\`${readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replace(/\.js/g, '')}\`, \`*\``;
+        if (!category && !existsSync(path)) errorMsg = (message.args[0] ? lang('invalidCategory') : '') + lang('validCategoryList', getDirectoriesSync('./Commands').join('`, `').toLowerCase());
+        else if (!command && !existsSync(path)) errorMsg = (message.args[1] ? lang('invalidCommand') : '') + lang('validCommandList', readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replace(/\.js/g, ''));
         else await reloadCommand(client, command, path, reloadedArray);
       }
     }
-    catch (err) { errorMsg = `An error occurred.\n\`\`\`${err.message}\`\`\`` }
+    catch (err) { errorMsg = lang('error', err.message) };
 
     client.functions.reply(
-      errorMsg || (!reloadedArray.length ? 'No commands have been reloaded.' :
-        `The following ${reloadedArray.length} command(s) have been reloaded:\n` +
-        `\`${reloadedArray.join('`, `')}\``), message
+      errorMsg || (!reloadedArray.length ? lang('noneReloaded') : lang('reloaded', reloadedArray.length, reloadedArray.join('`, `'))), message
     );
   }
 })

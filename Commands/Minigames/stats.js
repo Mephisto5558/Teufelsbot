@@ -28,11 +28,10 @@ async function formatStatCount(input, all) {
   return `\`${input}\` (\`${parseFloat((input / all * 100).toFixed(2))}%\`)`;
 }
 
-async function formatTopTen(input, settings, message) {
+async function formatTopTen(input, settings, message, lang) {
   let output = '';
   let i = 0;
   let isInGuild;
-  const medals = [':first_place:', ':second_place:', ':third_place:'];
 
   const data = Object.entries(input)
     .filter(a => a[0] != 'AI')
@@ -58,10 +57,10 @@ async function formatTopTen(input, settings, message) {
     }
 
     output +=
-      `${medals[i] || `${i}.`} <@${entry[0]}>\n` +
-      `> Wins: ${entry[1].wins || 0}\n` +
-      `> Loses: ${entry[1].loses || 0}\n` +
-      `> Draws: ${entry[1].draws || 0}\n\n`;
+      `${[':first_place:', ':second_place:', ':third_place:'][i] || `${i}.`} <@${entry[0]}>\n` +
+      '> ' + lang('wins', entry[1].wins || 0) +
+      '> ' + lang('loses', entry[1].loses || 0) +
+      '> ' + lang('draws', entry[1].draws || 0);
     i++;
   }
   return output;
@@ -127,9 +126,9 @@ module.exports = new Command({
     }
   ],
 
-  run: async (message, client) => {
+  run: async (message, lang, client) => {
     if (message instanceof Message && !message.args[0])
-      return client.functions.reply('You need to give me a `game` as first argument!', message);
+      return client.functions.reply(lang('missingGameArg'), message);
 
     const stats = {
       type: message.options?.getSubcommand() || 'user',
@@ -141,9 +140,7 @@ module.exports = new Command({
 
     stats.data = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == stats.game.toLowerCase())?.[1];
     if (!stats.data) {
-      const msg =
-        'This is not a valid game entry. Valid games are:\n`' +
-        Object.keys(leaderboards).join('`, `') + '`';
+      const msg = lang('notFound', Object.keys(leaderboards).join('`, `'));
 
       return message instanceof Message ? client.functions.reply(msg, message) : message.editReply(msg);
     }
@@ -163,24 +160,23 @@ module.exports = new Command({
 
       if (rawStats && rawStats.games) {
         embed.data.description =
-          `Games: \`${rawStats?.games}\`\n\n` +
-          `Wins:  ${await formatStatCount(rawStats.wins, rawStats.games) || '`0`'}\n` +
-          `Draws: ${await formatStatCount(rawStats.draws, rawStats.games) || '`0`'}\n` +
-          `Loses: ${await formatStatCount(rawStats.loses, rawStats.games) || '`0`'}\n\n` +
+          lang('games', rawStats?.game) +
+          lang('wins', await formatStatCount(rawStats.wins, rawStats.games) || '`0`') +
+          lang('draws', await formatStatCount(rawStats.draws, rawStats.games) || '`0`') +
+          lang('loses', await formatStatCount(rawStats.loses, rawStats.games) || '`0`') +
 
-          `Won against:\n` +
-          `${await manageData(rawStats.wonAgainst, client.user.id) || '> no one\n'}\n` +
-          `Lost against:\n` +
-          `${await manageData(rawStats.lostAgainst, client.user.id) || '> no one\n'}\n` +
-          `Drew against:\n` +
-          `${await manageData(rawStats.drewAgainst, client.user.id) || '> no one\n'}`
+          `${lang('wonAgainst')}\n` +
+          `${await manageData(rawStats.wonAgainst, client.user.id) || '>' + lang('noOne')}\n` +
+          `${lang('lostAgainst')}\n` +
+          `${await manageData(rawStats.lostAgainst, client.user.id) || '>' + lang('noOne')}\n` +
+          `${lang('drewAgainst')}\n` +
+          `${await manageData(rawStats.drewAgainst, client.user.id) || '>' + lang('noOne')}`
       }
-      else
-        embed.data.description = `${stats.target.id == message.member.id ? 'You have' : `${stats.target.username} has`} not played any ${stats.game} games yet.`;
+      else embed.data.description = stats.target.id == message.member.id ? lang('youNoGamesPlayed', stats.game) : lang('usrNoGamesPlayed', stats.target.username, stats.game);
     }
     else if (stats.type == 'leaderboard') {
-      embed.data.title = `Top 10 ${stats.game} players`;
-      embed.data.description = await formatTopTen(stats.data, stats.settings, message) || 'It looks like no one won yet...';
+      embed.data.title = lang('embedTitleTop10', stats.game);
+      embed.data.description = await formatTopTen(stats.data, stats.settings, message, lang) || lang('noWinners');
     }
 
     message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });

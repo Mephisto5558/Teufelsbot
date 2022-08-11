@@ -16,5 +16,5 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: (message, { functions }) => functions.reply(responseList.random(), message)
+  run: (message, _, { functions }) => functions.reply(responseList.random(), message)
 })

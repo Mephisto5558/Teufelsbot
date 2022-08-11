@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, Message } = require('discord.js'),
   { readFileSync } = require('fs'),
   { Invite, Dashboard, PrivacyPolicy } = require('../../config.json').Website;
 
@@ -12,29 +12,29 @@ module.exports = new Command({
   permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 0, user: 50 },
   category: 'Information',
-  slashCommand: false,
+  slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, client) => {
+  run: async (message, lang, client) => {
     const
       startTime = Math.round(client.startTime / 1000),
       startCount = readFileSync('./Logs/startCount.log', 'utf8') || 0,
       owner = client.application.owner.tag || client.application.owner.owner.tag,
       description =
-        `Developer: ${owner}\n` +
-        `Shard: \`${message.guild.shardId}\`\n` +
-        `Guild: \`${client.db.get('guildSettings')[message.guild.id]?.position || 0}\n\`` +
-        `Starts: \`${startCount}\`\n` +
-        `Last start: <t:${startTime}> (<t:${startTime}:R>)\n` +
-        `**[Invite](${Invite})** | **[Dashboard](${Dashboard})** | **[Privacy Policy](${PrivacyPolicy})**`,
+        `${lang('dev')}: ${owner}\n` +
+        `${lang('shard')}: \`${message.guild.shardId}\`\n` +
+        `${lang('global.guild')}: \`${client.db.get('guildSettings')[message.guild.id]?.position || 0}\n\`` +
+        `${lang('starts')}: \`${startCount}\`\n` +
+        `${lang('lastStart')}: <t:${startTime}> (<t:${startTime}:R>)\n` +
+        lang('links', Invite, Dashboard, PrivacyPolicy),
 
       embed = new EmbedBuilder({
-        title: 'Stats',
+        title: lang('embedTitle'),
         description: description,
         color: Colors.DarkGold,
-        footer: { text: 'More stats are coming soon!' }
+        footer: { text: lang('embedFooterText') }
       });
 
-    client.functions.reply({ embeds: [embed] }, message);
+    message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.edit({ embeds: [embed] });
   }
 })
