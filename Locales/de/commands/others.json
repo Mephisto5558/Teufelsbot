@@ -17,8 +17,8 @@
         }
       }
     },
-    "error": "An error occurred.\n%input",
-    "title": "Success",
-    "embedDescription": "Your suggestion has been sent.\n[Suggestion Link](%input)"
+    "error": "An error occurred.\n%s",
+    "embedTitle": "Success",
+    "embedDescription": "Your suggestion has been sent.\n[Suggestion Link](%s)"
   }
 }
