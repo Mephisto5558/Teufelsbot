@@ -1,15 +1,15 @@
 {
   "rps": {
     "description": "Play rock paper scissors against the bot or (coming soon) against your friends",
-    "title": "Rock Paper Scissors",
-    "choose": "Choose a handsign!",
+    "embedTitle": "Rock Paper Scissors",
+    "embedDescription": "Choose a handsign!",
     "rock": "Rock",
     "paper": "Paper",
     "scissors": "Scissors",
     "win": "You won!",
     "tie": "We tied!",
     "lose": "You lost!",
-    "chose": "I chose %input! (%input)",
+    "chose": "I chose %s! %s (%s %s %s)",
     "timedOut": "You lost because you chose to choose nothing!"
   },
   "stats": {
@@ -39,16 +39,20 @@
         }
       }
     },
-    "games": "Games",
-    "wins": "Wins:",
-    "loses": "Loses:",
-    "draws": "Draws:",
+    "games": "Games: `%s`",
+    "wins": "Wins: %s\n",
+    "loses": "Loses: %s\n",
+    "draws": "Draws: %s\n\n",
+    "noOne": "no one\n",
     "missingGameArg": "You need to give me a `game` as first argument!",
-    "notFound": "This is not a valid game entry. Valid games are:\n`",
+    "notFound": "This is not a valid game entry. Valid games are:\n`%s`",
     "wonAgainst": "Won against:",
     "lostAgainst": "Lost against:",
     "drewAgainst": "Drew against:",
-    "titleTop10": "Top 10 %input players"
+    "embedTitleTop10": "Top 10 %s players",
+    "noWinners": "It looks like no one won yet...",
+    "youNoGamesPlayed": "You have not played any %s games yet.",
+    "usrNoGamesPlayed": "%s has not played any %s games yet."
   },
   "ttt": {
     "description": "play some tic tac toe against a friend or the bot",
@@ -57,6 +61,6 @@
         "description": "Who you want to play against"
       }
     },
-    "newChallenge": "<@%user> :crossed_swords: New duel challenge"
+    "newChallenge": "<@%s> :crossed_swords: New duel challenge"
   }
 }

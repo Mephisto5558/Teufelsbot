@@ -52,12 +52,13 @@
     "removed": "Your birthday has been removed.",
     "getUser": {
       "notFound": "This user has no birthday :(",
-      "title": "%user's Birthday",
-      "date": "This user has birthday on **%input**.\n",
-      "newAge": "He/she will turn **%input** on this day."
+      "embedTitle": "%s's Birthday",
+      "date": "This user has birthday on **{month} {day}**.\n",
+      "newAge": "He/she will turn **%d** on this day."
     },
     "getAll": {
-      "title": "The next birthdays",
+      "embedTitle": "The next birthdays",
+      "date": "**{month} {day}**\n",
       "notFound": "Nobody has a birthday set..."
     }
   },
@@ -85,7 +86,7 @@
             "description": "the message you want to send, /n for newline"
           },
           "as_mod": {
-            "description": "shows 'a mod of {guild name}' instead of your name"
+            "description": "shows 'a mod of %s' instead of your name"
           }
         }
       }
@@ -93,27 +94,30 @@
     "toggle": {
       "targetAll": {
         "saved": "no one will be",
-        "removed": "all users"
+        "removed": "`all users`"
       },
-      "targetOne": "%user isn't",
-      "saved": "Your blacklist entry for %user has been removed.\nYou can now receive dms created by %user from me.",
-      "removed": "Your blacklist entry for %user has been saved.\nNow %input able to send you dms by me.\nThis will not prevent guild moderators from sending dms to you."
+      "targetOne": {
+        "name": "user `%s`",
+        "isnt": "%s isn't"
+      },
+      "saved": "Your blacklist entry for %s has been saved.\nNow %s able to send you dms by me.\nThis will not prevent guild moderators from sending dms to you.",
+      "removed": "Your blacklist entry for %s has been removed.\nYou can now receive dms created by %s from me."
     },
     "blacklist": {
-      "notFound": "You are not blocking any users on this guild.",
-      "allBlocked": "You are blocking all users.",
-      "title": "Your blacklist for the `/dm send` command",
-      "description": "You are blocking the following guild members:\n%list",
-      "footerText": "run '/dm toggle' without arguments to toggle all users and\nrun '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user."
+      "notFound": "> You are not blocking any users on this guild.",
+      "allBlocked": "> You are blocking all users.",
+      "embedTitle": "Your blacklist for the `/dm send` command",
+      "embedDescription": "You are blocking the following guild members:\n%s",
+      "embedFooterText": "run '/dm toggle' without arguments to toggle all users and\nrun '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user."
     },
     "send": {
       "targetIsMe": "I cannot send DMs to myself!",
       "permissionDenied": "You are not allowed to send dms to that user!",
-      "asModInfo": "Use the `as_mod` option to force the message to send.",
-      "title": "You got a message",
-      "from": "From ***%user**\nGuild: %guild",
+      "asModInfo": "\nUse the `as_mod` option to force the message to send.",
+      "embedTitle": "You got a message",
+      "embedDescription": "From ***%s**\nGuild: %s",
       "fromMod": "a guild moderator",
-      "footerText": "If you don't want to receive user-made dms from me, run '/dm toggle' in any guild.",
+      "embedFooterText": "If you don't want to receive user-made dms from me, run '/dm toggle' in any guild.",
       "error": "I couldn't message this member!"
     }
   },
@@ -135,9 +139,22 @@
       }
     },
     "noMethod": "You need to provide one of the method options!",
-    "title": "Hash Function",
-    "embedDescription": "Your input: %input\nHash method: %input",
-    "text": "Your hashed string:\n`%input`"
+    "embedTitle": "Hash Function",
+    "embedDescription": "Your input: `%s`\nHash method: `%s`",
+    "text": "Your hashed string:\n`%s`"
+  },
+  "image": {
+    "description": "Image manipulation",
+    "usage": "PREFIX Command: image <subcommand | \"help\"> <args>",
+    "options": {
+      "type": {
+        "description": "The type you want to use. leave this empty to get al list of types."
+      }
+    },
+    "notFound": "This is not a valid option. ",
+    "validOptions": "Valid options are:\n`%s`",
+    "requiresArgs": "This command requires the following args in order:\n\n%s",
+    "error": "An error occurred:\n```%s```"
   },
   "joke": {
     "description": "sends a funny joke",
@@ -162,10 +179,52 @@
       }
     },
     "noAPIAvailable": "Apparently, there is currently no API available. Please try again later.",
-    "title": "Is this funny?"
+    "embedTitle": "Is this funny?"
+  },
+  "reddit": {
+    "description": "reddit related commands",
+    "usage": "PREFIX Command: reddit [subreddit] [sort type]",
+    "options": {
+      "meme": {
+        "description": "get a random meme",
+        "options": {
+          "filter_nsfw": {
+            "description": "filter all posts tagged as nsfw. Default: true, Enforced on non-nsfw channels"
+          }
+        }
+      },
+      "subreddit": {
+        "description": "get one of the top posts of a subreddit",
+        "options": {
+          "subreddit": {
+            "description": "the subreddit name you want to get posts from. Defaults to a random meme sub."
+          },
+          "type": {
+            "description": "The type to sort for. Default: hot"
+          },
+          "filter_nsfw": {
+            "description": "filter all posts tagged as nsfw. Default: true, Enforced on non-nsfw channels"
+          }
+        }
+      }
+    },
+    "error": "An error occurred:\n```%s```",
+    "notFound": "No posts matched your search."
   },
   "sad": {
     "description": "sends a sad emojicon"
+  },
+  "say": {
+    "description": "Let me say something",
+    "options": {
+      "msg": {
+        "description": "Type your message here, /n for new line"
+      },
+      "channel": {
+        "description": "The channel the message gets sent to"
+      }
+    },
+    "noMsgProvided": "You need to provide a message to send!"
   },
   "sleep": {
     "description": "tells your friends that you are going to sleep",
@@ -223,14 +282,19 @@
         }
       }
     },
-    "saved": "Added new trigger for `%input`.",
-    "deletedOne": "Deleted the trigger with the ID `%input`",
-    "deletedAll": "I deleted all (`%number`) triggers.",
-    "notFound": "No trigger has been found.",
-    "noneFound": "There are no triggers.",
+    "saved": "Added new trigger for `%s`.",
+    "idNotFound": "There is not trigger with that ID!",
+    "deletedOne": "Deleted the trigger with the ID `%s`",
+    "deletedAll": "I deleted all (`%d`) triggers.",
+    "noneFound": "There are no triggers!",
+    "notFound": "No trigger matched your query.",
     "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
-    "response": "Response",
-    "wildcard": "Wildcard",
+    "embedTitle": "Triggers",
+    "fieldName": "**Trigger %d:**",
+    "fieldValue": "```\n%s\n```\n**Response:**\n```\n%s\n```\n**Wildcard:**`%s`",
+    "longEmbedDescription": "ID: %d\n> Trigger: `%s`\n> Response: `%s`\n> Wildcard: `%s`\n\n",
+    "shortFieldName": "ID %d",
+    "shortFieldValue": "**Trigger:**\n```\n%s\n```\n**Response:**\n```\n%s\n```\n**Wildcard:**`%s`\n",
     "first25": "The first 25 triggers. Get more with the `short` option."
   },
   "wiki": {
@@ -241,8 +305,8 @@
         "description": "What you you want to search?"
       }
     },
-    "notFound": "No results found for `%input`.",
-    "visitWiki": "For more information, please visit the Wikipedia page.",
-    "error": "I couldn't talk to Wikipedia: %input"
+    "notFound": "No results found for `%s`.",
+    "visitWiki": "**For more information, please visit the Wikipedia page.**",
+    "error": "Couldn't talk to Wikipedia:\n```%s```"
   }
 }

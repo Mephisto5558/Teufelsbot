@@ -1,7 +1,0 @@
-{
-  "cooldown": "This command is on cooldown! Try again in `%input`s.",
-  "permissionDenied": {
-    "title": "Insufficient Permissions",
-    "description": "%user need the following permissions in this channel to run this command:\n`%input`"
-  }
-}

@@ -3,9 +3,10 @@
   "loading": "Loading...",
   "guild": "Guild",
   "user": "User",
-  "mention": "Mention",
   "cancel": "Cancel",
   "playAgain": "Play Again",
   "enabled": "Enabled",
-  "disabled": "Disabled"
+  "disabled": "Disabled",
+  "you": "You",
+  "i": "I"
 }
