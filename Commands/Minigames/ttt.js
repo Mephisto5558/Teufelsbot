@@ -80,7 +80,7 @@ async function playAgain(interaction, clientUserID, lang) {
 
     if (interaction.options._hoistedOptions[0]?.user) {
       const msg = await interaction.channel.send(lang('newChallenge', interaction.options._hoistedOptions[0].user.id));
-      msg.delete({ timeout: 5000 });
+      setTimeout(_ => msg.delete(), 5000);
     }
 
     game.handleInteraction(interaction);
@@ -124,7 +124,7 @@ module.exports = new Command({
 
     if (gameTarget) {
       const msg = await interaction.channel.send(lang('newChallenge', gameTarget.id));
-      msg.delete({ timeout: 5000 });
+      setTimeout(_ => msg.delete(), 5000);
     }
 
     game.handleInteraction(interaction);
