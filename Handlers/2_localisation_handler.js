@@ -12,11 +12,18 @@ for (const lang of readdirSync('./Locales', { withFileTypes: true }).filter(({ n
     if (e.isDirectory()) {
       for (const e2 of readdirSync(`./Locales/${lang}/${e.name}`).map(e2 => e2.split('.')[0])) {
         if (!locales[lang][e.name]) locales[lang][e.name] = {};
+        delete require.cache[require.resolve(`../Locales/${lang}/${e.name}/${e2}`)];
         locales[lang][e.name][e2] = require(`../Locales/${lang}/${e.name}/${e2}`);
       }
     }
-    else locales[lang][e.name] = require(`../Locales/${lang}/${e.name}`);
+    else {
+      delete require.cache[require.resolve(`../Locales/${lang}/${e.name}`)];
+      locales[lang][e.name] = require(`../Locales/${lang}/${e.name}`);
+    }
   }
 }
 
-module.exports = async client => client.lang = new I18n(client.db.get('guildSettings').default.config.lang, locales);
+module.exports = async client => {
+  client.lang = new I18n(client.db.get('guildSettings').default.config.lang, locales);
+  client.defaultLangData = client.lang.getLocale(client.db.get('guildSettings').default.config.lang);
+}
