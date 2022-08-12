@@ -10,7 +10,7 @@ module.exports = new Command({
   usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 500 },
-  category: 'Fun',
+  category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,
@@ -76,7 +76,7 @@ module.exports = new Command({
     const output = lang('success', input.type.toUpperCase(), input.options.convertTo.toUpperCase());
     const converted = await convert[input.type][`to${input.options.convertTo}`](input);
 
-    if (output.length + converted.length < 2000) interaction.editReply(output);
+    if (output.length + converted.length < 2000) interaction.editReply(output + converted);
     else {
       interaction.editReply({
         content: output,

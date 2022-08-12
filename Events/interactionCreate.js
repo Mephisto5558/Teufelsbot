@@ -4,8 +4,23 @@ module.exports = async (client, interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
   if (!command || !interaction.isRepliable()) return;
 
+  const langData = client.lang.getLocale(client.db.get('guildSettings')[interaction.guild.id]?.config?.lang || interaction.guild.preferredLocale);
+  const lang = (message, ...args) => {
+    let data;
+    if(Object.keys(client.lang.messages[client.lang.default_locale]).includes(message.split('.')[0])) data = langData(message);
+    else data = langData(`commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
+    
+    if (data !== undefined) return data;
+
+    if(Object.keys(client.lang.messages[client.lang.default_locale]).includes(message.split('.')[0])) data = client.defaultLangData(message);
+    else data = client.defaultLangData(`commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
+    
+    if (data !== undefined) return data;
+    return 'NO_TEXT_FOUND';
+  }
+
   const cooldown = await require('../Functions/private/cooldowns.js')(client, interaction, command);
-  if (cooldown) return interaction.reply(client.lang('events.cooldown', cooldown));
+  if (cooldown) return interaction.reply(lang('events.cooldown', cooldown));
 
   const { blacklist } = client.db.get('botSettings');
   if (
@@ -19,22 +34,12 @@ module.exports = async (client, interaction) => {
 
     if (botPerms.length || userPerms.length) {
       const embed = new EmbedBuilder({
-        title: client.lang('events.permissionDenied.embedTitle'),
+        title: lang('events.permissionDenied.embedTitle'),
         color: Colors.Red,
-        description: client.lang('events.permissionDenied.embedDescription', userPerms.length ? client.lang('global.you') : client.lang('global.i'), (botPerms.length ? botPerms : userPerms).join('`, `'))
+        description: lang('events.permissionDenied.embedDescription', userPerms.length ? lang('global.you') : lang('global.i'), (botPerms.length ? botPerms : userPerms).join('`, `'))
       });
 
       return interaction.reply({ embeds: [embed], ephemeral: true });
-    }
-
-    const languageData = client.lang.getLocale(client.db.get('guildSettings')[interaction.guild.id]?.config?.lang || interaction.guild.preferredLocale);
-    const lang = (message, ...args) => {
-      let data = languageData(message?.startsWith('global.') ? message : `commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
-      if (data !== undefined) return data;
-
-      data = client.lang.getLocale(client.db.get('guildSettings').default.config.lang)(message?.startsWith('global.') ? interaction : `commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
-      if (data !== undefined) return data;
-      return 'NO_TEXT_FOUND';
     }
 
     if (!command.noDefer && !interaction.replied) await interaction.deferReply({ ephemeral: command.ephemeralDefer || false });

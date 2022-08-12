@@ -66,15 +66,19 @@ module.exports = new Command({
       messageToSend = interaction.options.getString('message'),
       perm = interaction.member.permissions.has('ManageMessages'),
       asMod = (interaction.options.getBoolean('as_mod') && perm),
-      blacklist = await db.get('dmCommandBlacklist');
+      oldData = await db.get('userSettings'),
+      blacklist = {};
+    
+    Object.entries(oldData).filter(([, v]) => v.dmBlockList).map(([k, v]) => { blacklist[k] = v.dmBlockList });
+
+    const userBlacklist = blacklist[interaction.user.id] || [];
 
     let target = interaction.options.getMember('target');
 
     switch (cmd) {
       case 'toggle': {
-        let
-          message, newBlacklist, targetName,
-          userBlacklist = blacklist[interaction.user.id] || [];
+        let message, targetName;
+
         if (target?.id) {
           target = target.id;
           targetName = lang('toggle.targetOne.name', target.tag);
@@ -85,7 +89,7 @@ module.exports = new Command({
         }
 
         if (userBlacklist.includes(target)) {
-          userBlacklist = userBlacklist.filter(entry => entry != target);
+          delete userBlacklist[target];
 
           message = lang('toggle.removed', targetName);
         }
@@ -95,10 +99,7 @@ module.exports = new Command({
           message = lang('toggle.saved', targetName, target == '*' ? lang('toggle.targetAll.saved') : lang('toggle.targetOne.isnt', targetName));
         }
 
-        if (userBlacklist?.length > 0) newBlacklist = Object.assign({}, blacklist, { [interaction.user.id]: userBlacklist });
-        else delete blacklist[interaction.user.id];
-
-        await db.set('dmCommandBlacklist', newBlacklist || blacklist);
+        await db.set('userSettings', Object.merge(oldData, { [interaction.user.id]: userBlacklist }));
 
         interaction.editReply(message);
         break;
@@ -107,12 +108,12 @@ module.exports = new Command({
       case 'blacklist': {
         const guildMembers = (await interaction.guild.members.fetch()).map(e => e.id);
 
-        const userBlacklist = await db.get('dmCommandBlacklist')[interaction.user.id]?.filter(e => e == '*' || guildMembers.includes(e));
+        const userBlacklistFiltered = userBlacklist.filter(e => e == '*' || guildMembers.includes(e));
         let listMessage = [];
 
-        if (!userBlacklist) listMessage = lang('blacklist.notFound');
-        else if (userBlacklist.includes('*')) listMessage = lang('blacklist.allBlocked');
-        else for (const entry of userBlacklist) listMessage += `> <@${entry}> (\`${entry}\`)\n`;
+        if (!userBlacklistFiltered) listMessage = lang('blacklist.notFound');
+        else if (userBlacklistFiltered.includes('*')) listMessage = lang('blacklist.allBlocked');
+        else for (const entry of userBlacklistFiltered) listMessage += `> <@${entry}> (\`${entry}\`)\n`;
 
         const listEmbed = new EmbedBuilder({
           title: lang('blacklist.embedTitle'),
@@ -128,20 +129,20 @@ module.exports = new Command({
       case 'send': {
         if (target.id == application.id) return interaction.editReply(lang('send.targetIsMe'));
 
-        const userBlacklist = blacklist[target.id] || [];
-        if ((userBlacklist.includes(target.id) || userBlacklist.includes('*')) && !asMod && target.id != interaction.user.id)
+        const targetBlacklist = blacklist[target.id] || [];
+        if ((targetBlacklist.includes(target.id) || targetBlacklist.includes('*')) && !asMod && target.id != interaction.user.id)
           return interaction.editReply(lang('send.permissionDenied') + perm ? lang('send.asModInfo') : '');
 
         const embed = new EmbedBuilder({
           title: lang('send.embedTitle'),
-          description: lang('send.embedDescription', asMod ? lang('send.fromMod') : interaction.user.tag, interaction.guild.name) + messageToSend.replace(/\/n/g, '\n'),
+          description: lang('send.embedDescription', asMod ? lang('send.fromMod') : interaction.user.tag, interaction.guild.name, messageToSend.replace(/\/n/g, '\n')),
           color: Colors.Blurple,
           footer: { text: lang('send.embedFooterText') }
         });
 
         try {
           await target.send({ embeds: [embed] });
-          interaction.editReply(lang('general.messageSent'));
+          interaction.editReply(lang('global.messageSent'));
         }
         catch { interaction.editReply(lang('send.error')) }
         break;
