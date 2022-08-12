@@ -42,7 +42,7 @@ module.exports = async (client, interaction) => {
     for (const entry of interaction.options._hoistedOptions)
       if (entry.type == ApplicationCommandOptionType.String) entry.value = entry.value.replace(/<@!/g, '<@');
 
-    command.run(interaction, lang, client)
-      .catch(err => { require('../Functions/private/error_handler.js')(err, client, interaction, lang) });
+    try { await command.run(interaction, lang, client) }
+    catch(err) { require('../Functions/private/error_handler.js')(err, client, interaction, lang) }
   }
 }

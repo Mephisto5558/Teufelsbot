@@ -62,6 +62,6 @@ module.exports = async (client, message) => {
     return 'NO_TEXT_FOUND';
   }
 
-  command.run(message, lang, client)
-    .catch(err => { require('../Functions/private/error_handler.js')(err, client, message, lang) });
+  try { await command.run(message, lang, client) }
+  catch(err) { require('../Functions/private/error_handler.js')(err, client, message, lang) }
 }
