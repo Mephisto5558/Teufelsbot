@@ -30,10 +30,10 @@ module.exports = async (client, interaction) => {
     const languageData = client.lang.getLocale(client.db.get('guildSettings')[interaction.guild.id]?.config?.lang || interaction.guild.preferredLocale);
     const lang = (message, ...args) => {
       let data = languageData(message?.startsWith('global.') ? message : `commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
-      if (data != undefined) return data;
+      if (data !== undefined) return data;
 
       data = client.lang.getLocale(client.db.get('guildSettings').default.config.lang)(message?.startsWith('global.') ? interaction : `commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
-      if (data != undefined) return data;
+      if (data !== undefined) return data;
       return 'NO_TEXT_FOUND';
     }
 
