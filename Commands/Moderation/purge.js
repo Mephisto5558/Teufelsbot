@@ -22,12 +22,14 @@ module.exports = new Command({
   }],
 
   run: async (message, lang, { functions }) => {
-    if (message instanceof Message && !message.args.length) functions.reply(lang('noNumber'), message);
+    const amount = message.options?.getNumber('amount') || message.args?.[0];
 
-    let toDeleteCount = parseInt(message.args?.[0] || message.options?.getNumber('amount'))
+    if (!amount) return message instanceof Message ? functions.reply(lang('noNumber'), message) : message.editReply(lang('noNumber'));
+
+    let toDeleteCount = parseInt(amount || message.options?.getNumber('amount'))
     if (message instanceof Message) toDeleteCount++; //+1 is the command
 
-    if (isNaN(toDeleteCount) || toDeleteCount <= 1) functions.reply(lang('invalidNumber', message.args[0]), message)
+    if (isNaN(toDeleteCount) || !toDeleteCount) return message instanceof Message ? functions.reply(lang('invalidNumber', amount), message): message.editReply(lang('invalidNumber', amount));
     else if (toDeleteCount > 1001) toDeleteCount = 1001;
 
     for (let i = 0; i < toDeleteCount; i = i + 100) {
@@ -38,4 +40,3 @@ module.exports = new Command({
     if (!(message instanceof Message)) message.editReply(lang('success'));
   }
 })
-//nachfrage wenn user = admin //nachfrage allgemein;
