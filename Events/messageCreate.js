@@ -22,20 +22,35 @@ module.exports = async (client, message) => {
   const prefixLength = message.content.startsWith(guildPrefix) ? guildPrefix.length : message.content.startsWith(`<@${client.user.id}>`) ? `<@${client.user.id}>`.length : 0;
   if (!prefixLength) return;
 
+  const langData = client.lang.getLocale(client.db.get('guildSettings')[message.guild.id]?.config?.lang || message.guild.preferredLocale);
+  const lang = (message, ...args) => {
+    let data;
+    if(Object.keys(client.lang.messages[client.lang.default_locale]).includes(message.split('.')[0])) data = langData(message);
+    else data = langData(`commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
+    
+    if (data !== undefined) return data;
+
+    if(Object.keys(client.lang.messages[client.lang.default_locale]).includes(message.split('.')[0])) data = client.defaultLangData(message);
+    else data = client.defaultLangData(`commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
+    
+    if (data !== undefined) return data;
+    return 'NO_TEXT_FOUND';
+  }
+
   message.content = message.content.slice(prefixLength).trim();
-  message.args = message.content.split(' ')
+  message.args = message.content.split(' ');
 
   message.commandName = message.args.shift().toLowerCase();
   const command = client.commands.get(message.commandName);
 
-  if (!command && client.slashCommands.get(message.commandName)) return client.functions.reply(client.lang('events.slashCommandOnly'), message);
+  if (!command && client.slashCommands.get(message.commandName)) return client.functions.reply(lang('events.slashCommandOnly'), message);
   if ( //DO NOT REMOVE THIS BLOCK!
     !command ||
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
   ) return;
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, message, command);
-  if (cooldown && !client.botType == 'dev') return client.functions.reply(client.lang('events.cooldown', cooldown), message);
+  if (cooldown && !client.botType == 'dev') return client.functions.reply(lang('events.cooldown', cooldown), message);
 
   message.content = message.args.join(' ');
 
@@ -44,24 +59,14 @@ module.exports = async (client, message) => {
 
   if (botPerms.length || userPerms.length) {
     const embed = new EmbedBuilder({
-      title: client.lang('events.permissionDenied.embedTitle'),
+      title: lang('events.permissionDenied.embedTitle'),
       color: Colors.Red,
-      description: client.lang('events.permissionDenied.embedDescription', userPerms.length ? client.lang('global.you') : client.lang('global.i'), (botPerms.length ? botPerms : userPerms).join('`, `'))
+      description: lang('events.permissionDenied.embedDescription', userPerms.length ? lang('global.you') : lang('global.i'), (botPerms.length ? botPerms : userPerms).join('`, `'))
     });
 
     return message.reply({ embeds: [embed] });
   }
 
-  const languageData = client.lang.getLocale(client.db.get('guildSettings')[message.guild.id]?.config?.lang || message.guild.preferredLocale);
-  const lang = (message, ...args) => {
-    let data = languageData(message?.startsWith('global.') ? message : `commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
-    if (data != undefined) return data;
-
-    data = client.lang.getLocale(client.db.get('guildSettings').default.config.lang)(message?.startsWith('global.') ? message : `commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
-    if (data != undefined) return data;
-    return 'NO_TEXT_FOUND';
-  }
-
   try { await command.run(message, lang, client) }
-  catch(err) { require('../Functions/private/error_handler.js')(err, client, message, lang) }
+  catch (err) { require('../Functions/private/error_handler.js')(err, client, message, lang) }
 }

@@ -5,7 +5,7 @@ module.exports = new Command({
   name: 'fact',
   aliases: { prefix: [], slash: [] },
   description: 'Get some facts',
-  usage: 'PREFIX Command: fact',
+  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 0 },
   category: 'Fun',

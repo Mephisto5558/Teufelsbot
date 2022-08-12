@@ -20,13 +20,13 @@ module.exports = new Command({
   }],
 
   run: async (message, lang, { functions }) => {
-    if (message?.content) {
-      message.args = message?.args[0]?.replace(/[<@>]/g, '');
-      message.content = message?.content?.replace(/[<@>]/g, '');
+    if (message.content) {
+      message.args = message.args[0]?.replace(/[<@>]/g, '');
+      message.content = message.content?.replace(/[<@>]/g, '');
     }
-    if (!message?.options.getRole('role') && !message.args?.[0]) message.args = [message.member.roles.highest.id];
+    if (!message.options?.getRole('role') && !message.args?.[0]) message.args = [message.member.roles.highest.id];
 
-    const role = message?.options.getRole('role') || message.mentions.roles.first() || message.guild.roles.cache.find(e => [...message.args, message.content].includes(e.id) || [...message.args, message.content].includes(e.name));
+    const role = message.options?.getRole('role') || message.mentions.roles.first() || message.guild.roles.cache.find(e => [...message.args, message.content].includes(e.id) || [...message.args, message.content].includes(e.name));
 
     const embed = new EmbedBuilder({
       title: role.name,

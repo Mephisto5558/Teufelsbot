@@ -180,7 +180,7 @@ module.exports = new Command({
 
         if (doNotHide) {
           interaction.channel.send({ embeds: [embed] });
-          interaction.editReply(lang('general.messageSent'));
+          interaction.editReply(lang('global.messageSent'));
         }
         else interaction.editReply({ embeds: [embed] });
         break;
