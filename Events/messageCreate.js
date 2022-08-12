@@ -52,12 +52,12 @@ module.exports = async (client, message) => {
     return message.reply({ embeds: [embed] });
   }
 
-  const languageData = client.lang.getLocale(client.db.get('guildSettings')[message.guild.id]?.lang || message.guild.preferredLocale);
+  const languageData = client.lang.getLocale(client.db.get('guildSettings')[message.guild.id]?.config?.lang || message.guild.preferredLocale);
   const lang = (message, ...args) => {
     let data = languageData(message?.startsWith('global.') ? message : `commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
     if (data != undefined) return data;
 
-    data = client.lang.getLocale(client.db.get('guildSettings').default.lang)(message?.startsWith('global.') ? message : `commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
+    data = client.lang.getLocale(client.db.get('guildSettings').default.config.lang)(message?.startsWith('global.') ? message : `commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
     if (data != undefined) return data;
     return 'NO_TEXT_FOUND';
   }

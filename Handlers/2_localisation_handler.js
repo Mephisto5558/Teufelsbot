@@ -19,4 +19,4 @@ for (const lang of readdirSync('./Locales', { withFileTypes: true }).filter(({ n
   }
 }
 
-module.exports = async client => client.lang = new I18n(client.db.get('guildSettings').default.lang, locales);
+module.exports = async client => client.lang = new I18n(client.db.get('guildSettings').default.config.lang, locales);
