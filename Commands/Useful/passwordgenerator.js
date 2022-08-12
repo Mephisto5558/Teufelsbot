@@ -75,12 +75,12 @@ module.exports = new Command({
         passwordList += randomChar; //Adds one of the chars in the charset to the password, based on the function getRandomNumber
         oldRandomChar = randomChar; //Sets oldRandomChar to the last generated char
       }
-      passwordList += '```\n'
+      passwordList += '```\n```'
     }
 
     if (charset.length > 100) charset = charset.substring(0, 97) + '...' //Limits the *displayed* charset
 
-    interaction.editReply(lang('success', passwordList.trim(), charset));
+    interaction.editReply(lang('success', passwordList.slice(0, -4), charset));
 
   }
 })

@@ -34,6 +34,10 @@
     "noneReloaded": "No commands have been reloaded.",
     "reloaded": "The following `%s` command(s) have been reloaded:\n`%s`"
   },
+  "reloadlang": {
+    "description": "Reloads all language files",
+    "success": "Reloaded all language files."
+  },
   "restart": {
     "description": "restarts the bot",
     "message": "Restarting bot..."

@@ -6,7 +6,7 @@ module.exports = new Command({
   name: 'say',
   aliases: { prefix: [], slash: [] },
   description: 'Let me say something',
-  usage: 'PREFIX Command: say ',
+  usage: 'PREFIX Command: say <msg> [channel]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 200 },
   category: 'Fun',
@@ -29,7 +29,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (message, _, { functions }) => {
+  run: async (message, lang, { functions }) => {
     const msg = message.args?.[0] || message.options?.getString('msg');
     const channel = message.options?.getChannel('channel') || message.mentions?.channels.first() || message.channel;
 

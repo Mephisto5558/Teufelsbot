@@ -20,6 +20,7 @@
     "infoEmbedTitle": "Ban",
     "infoEmbedDescription": "Moderator: %s\nReason: %s\n\n",
     "cantBanSelf": "You can't ban yourself!",
+    "noneFound": "No targets have been found.",
     "noPerm": "%s don't have the permission to do that!",
     "error": "**%s** couldn't been banned.\n%s\n",
     "success": "**%s** has been successfully banned.\n",
@@ -39,7 +40,7 @@
     "dmEmbedDescription": "You have been kicked from `%s`.\nModerator: %s\nReason: %s",
     "infoEmbedTitle": "Kick",
     "infoEmbedDescription": "Moderator: %s\nReason: %s\n\n",
-    "cantFind": "I couldn't find that member!",
+    "noneFound": "No targets have been found.",
     "cantKickSelf": "You can't kick yourself!",
     "noPerm": "%s don't have the permission to do that!",
     "error": "**%s** couldn't been kicked.\n%s\n",
@@ -93,7 +94,7 @@
       }
     },
     "noNumber": "Please specify the number of messages to purge next time.",
-    "invalidNumber": "`%s` is not a valid number!",
+    "invalidNumber": "`%d` is not a valid number!",
     "success": "Success!"
   },
   "unmute": {

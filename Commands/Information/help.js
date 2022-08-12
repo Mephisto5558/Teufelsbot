@@ -17,6 +17,7 @@ module.exports = new Command({
   name: 'help',
   aliases: { prefix: [], slash: [] },
   description: 'Shows all bot commands',
+  usage: 'PREFIX Command: help [command]',
   permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 0, user: 50 },
   category: 'Information',
@@ -55,7 +56,7 @@ module.exports = new Command({
               (cmd.cooldowns.guild ? `${lang('global.guild')}: \`${parseFloat((cmd.cooldowns.guild / 1000).toFixed(2))}\`s${cmd.cooldowns.user ? ', ' : ''}` : '') +
               (cmd.cooldowns.user ? `${lang('global.user')}: \`${parseFloat((cmd.cooldowns.user / 1000).toFixed(2))}\`s` : '')
           } : null,
-          cmd.usage ? { name: lang('usage'), value: `${cmd.slashCommand ? lang('lookAtDesc') : ''} ${cmd.usage || ''}`, inline: false } : null
+          cmd.usage ? { name: lang('one.usage'), value: `${cmd.slashCommand ? lang('one.lookAtDesc') : ''} ${cmd.usage || ''}`, inline: false } : null
         ].filter(e => e);
       }
 
@@ -83,7 +84,7 @@ module.exports = new Command({
     }
 
     if (!embed.data.fields) embed.data.description = lang('all.notFound');
-    else embed.data.footer = { text: lang('embedFooterText') };
+    else embed.data.footer = { text: lang('all.embedFooterText') };
 
     message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
   }

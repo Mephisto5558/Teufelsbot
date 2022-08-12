@@ -108,7 +108,7 @@ module.exports = new Command({
   cooldowns: { guild: 0, user: 2000 },
   category: 'Minigames',
   slashCommand: true,
-  prefixCommand: false, disabled: true,
+  prefixCommand: false,
   options: [{
     name: 'opponent',
     description: 'who you want to play with',
@@ -117,10 +117,12 @@ module.exports = new Command({
   }],
 
   run: async (interaction, lang, client) => {
+    return interaction.editReply("'This command is currently disabled due to it not being compatible to the bot's discord.js version.");
+
     const gameTarget = interaction.options.getUser('opponent');
 
     if (gameTarget?.id == client.user.id) game.config.commandOptionName = 'thisOptionWillNotGetUsed';
-    game.config.language = client.db.get('guildSettings')[interaction.guild.id]?.config?.lang;
+    game.config.language = client.db.get('guildSettings')[interaction.guild.id]?.config?.lang || interaction.guild.preferredLocale;
 
     if (gameTarget) {
       const msg = await interaction.channel.send(lang('newChallenge', gameTarget.id));

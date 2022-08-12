@@ -18,6 +18,7 @@
   },
   "help": {
     "description": "Show all my commands or search for a specific one",
+    "usage": "PREFIX Command: help [command]",
     "options": {
       "command": {
         "description": "Type a command here to get more information about it."
@@ -48,7 +49,7 @@
     "dev": "Developer",
     "shard": "Shard",
     "starts": "Starts",
-    "lastStart": "Last start:",
+    "lastStart": "Last start",
     "links": "**[Invite](%s)** | **[Dashboard](%s)** | **[Privacy Policy](%s)**",
     "embedTitle": "Stats",
     "embedFooterText": "More stats are coming soon!"
@@ -113,6 +114,8 @@
     "memberCount": "Member Count",
     "locale": "Locale",
     "partnered": "Partnered",
+    "emojis": "Emojis",
+    "boosts": "Boosts",
     "roles": "Roles",
     "channels": "Channels",
     "vanityUrl": "Vanity URL",

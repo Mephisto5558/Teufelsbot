@@ -21,13 +21,13 @@ module.exports = new Command({
   }],
 
   run: async (message, lang, { functions }) => {
-    if (message?.content) {
-      message.args = message?.args[0]?.replace(/[<@&>]/g, '');
-      message.content = message?.content?.replace(/[<@&>]/g, '');
+    if (message.content) {
+      message.args = message.args[0]?.replace(/[<@&>]/g, '');
+      message.content = message.content?.replace(/[<@&>]/g, '');
     }
 
     const
-      member = message?.options?.getMember('target') || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
+      member = message.options?.getMember('target') || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
       user = member.user,
       color = parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16);
 
@@ -49,7 +49,7 @@ module.exports = new Command({
         { name: lang('position'), value: `\`${member.roles.highest.position}\`, ${member.roles.highest}`, inline: true },
         { name: 'ID', value: `\`${user.id}\``, inline: true },
         { name: lang('color'), value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.substring(1)})`, inline: true },
-        { name: lang('moderateable'), value: member.moderatable, inline: true },
+        { name: lang('moderatable'), value: member.moderatable, inline: true },
         { name: lang('createdAt'), value: `<t:${Math.round(user.createdTimestamp / 1000)}>`, inline: true },
         { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true },
         member.isCommunicationDisabled() ? { name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true } : null,

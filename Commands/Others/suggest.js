@@ -62,7 +62,7 @@ module.exports = new Command({
 
     let embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', encodeURI(`${Github.Repo}/issues?q=is:open+is:issue+${title} in title`)),
+      description: lang('embedDescription', encodeURI(`${Github.Repo}/issues?q=is:open+is:issue+${title} in:title`)),
       color: Colors.Green
     });
 

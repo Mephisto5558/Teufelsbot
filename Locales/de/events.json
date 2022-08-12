@@ -7,7 +7,7 @@
   },
   "errorHandler": {
     "embedTitle": "Whoooops",
-    "embedDescription": "An unexpected error occured!\n\nError Type: `%s`\nCommand: `%s`",
+    "embedDescription": "An unexpected error occurred!\n\nError Type: `%s`\nCommand: `%s`",
     "reportButton": "Report this Error",
     "reportButtonDisabled": " (Disabled due to dev version)",
     "discordAPIErr": "An Discord API Error occurred, please try again and message the dev if this keeps happening.",

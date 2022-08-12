@@ -89,6 +89,8 @@ module.exports = new Command({
       if (noMsg) resEmbed.data.description += lang('noDM');
     }
 
+    if (resEmbed.data.description == lang('infoEmbedDescription', interaction.user.tag, reason)) resEmbed.data.description += lang('noneFound');
+
     interaction.editReply({ embeds: [resEmbed] });
   }
 })

@@ -9,7 +9,7 @@ module.exports = new Command({
   usage: '',
   permissions: { client: ['EmbedLinks'], user: [] },
   cooldowns: { guild: 100, user: 1000 },
-  category: 'Fun',
+  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   options: [
@@ -37,10 +37,10 @@ module.exports = new Command({
 
   run: async (message, lang, { functions }) => {
     const
-      target = message?.options?.getMember('target') || message.mentions?.members?.first() || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
+      target = message.options?.getMember('target') || message.mentions?.members?.first() || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
       avatarURL = await target.displayAvatarURL({ size: message.options?.getNumber('size') || 2048 }),
       embed = new EmbedBuilder({
-        description: lang('EmbedDescription', target.username),
+        description: lang('embedDescription', target.user.username),
         color: Colors.White,
         image: { url: avatarURL },
         footer: { text: message.member.tag }
