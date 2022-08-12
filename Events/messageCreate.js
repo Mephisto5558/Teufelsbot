@@ -39,6 +39,7 @@ module.exports = async (client, message) => {
 
   message.content = message.content.slice(prefixLength).trim();
   message.args = message.content.split(' ');
+  message.user = message.author;
 
   message.commandName = message.args.shift().toLowerCase();
   const command = client.commands.get(message.commandName);
