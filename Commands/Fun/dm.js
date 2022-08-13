@@ -67,11 +67,8 @@ module.exports = new Command({
       perm = interaction.member.permissions.has('ManageMessages'),
       asMod = (interaction.options.getBoolean('as_mod') && perm),
       oldData = await db.get('userSettings'),
-      blacklist = {};
-    
-    Object.entries(oldData).filter(([, v]) => v.dmBlockList).map(([k, v]) => { blacklist[k] = v.dmBlockList });
-
-    const userBlacklist = blacklist[interaction.user.id] || [];
+      blacklist = Object.assign({}, ...Object.entries(oldData).filter(([, v]) => v.dmBlockList).map(([k, v]) => ({[k]: v.dmBlockList }))),
+      userBlacklist = blacklist[interaction.user.id] || [];
 
     let target = interaction.options.getMember('target');
 
