@@ -11,7 +11,7 @@ module.exports = new Command({
   cooldowns: { guild: 0, user: 1000 },
   category: 'Moderation',
   slashCommand: true,
-  prefixCommand: true, beta: true,
+  prefixCommand: true,
   options: [
     {
       name: 'channel',
