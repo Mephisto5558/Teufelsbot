@@ -146,12 +146,11 @@ module.exports = async client => {
   await DBD.useLicense(client.keys.dbdLicense);
   DBD.Dashboard = DBD.UpdatedClass();
 
-  const me = client.user || await client.users.fetch(client.userID);
   const domain = client.botType == 'main' ? Website.Domain : 'http://localhost:8000';
 
   global.embedBuilder = DBD.formTypes.embedBuilder({
-    username: me.username,
-    avatarURL: me.displayAvatarURL(),
+    username: client.user.username,
+    avatarURL: client.user.displayAvatarURL(),
     defaultJson: {}
   });
 
@@ -165,7 +164,7 @@ module.exports = async client => {
     bot: client,
     ownerIDs: [client.application.owner.id],
     client: {
-      id: me.id,
+      id: client.user.id,
       secret: client.keys.secret
     },
     invite: {
@@ -181,14 +180,14 @@ module.exports = async client => {
     theme: DarkDashboard({
       information: {
         createdBy: client.application.owner.tag,
-        iconURL: me.displayAvatarURL(),
-        websiteTitle: `${me.username} | Dashboard`,
-        websiteName: `${me.username} | Dashboard`,
+        iconURL: client.user.displayAvatarURL(),
+        websiteTitle: `${client.user.username} | Dashboard`,
+        websiteName: `${client.user.username} | Dashboard`,
         websiteUrl: domain,
         dashboardUrl: domain,
         supporteMail: Support.Mail,
         supportServer: Support.Discord,
-        imageFavicon: me.displayAvatarURL(),
+        imageFavicon: client.user.displayAvatarURL(),
         pageBackGround: 'linear-gradient(#2CA8FF, #155b8d)',
         preloader: 'Loading...',
         loggedIn: 'Successfully signed in.',

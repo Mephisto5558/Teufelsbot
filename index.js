@@ -20,7 +20,7 @@ Array.prototype.equals = array => {
   }
   return true;
 }
-Array.prototype.random = function random() { return this[randomInt(this.length -1)] };
+Array.prototype.random = function random() { return this[randomInt(this.length - 1)] };
 
 Object.defineProperty(Array.prototype, 'equals', { enumerable: false });
 Object.defineProperty(Array.prototype, 'random', { enumerable: false });
@@ -54,15 +54,16 @@ Object.merge = (source, source2, mode) => {
     shards: 'auto',
     retryLimit: 2,
     intents: [
+      GatewayIntentBits.Guilds,
       GatewayIntentBits.GuildMembers,
       GatewayIntentBits.GuildMessages,
-      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildMessageReactions,
       GatewayIntentBits.MessageContent
     ]
   });
   const db = new reconDB(process.env.dbConnectionStr);
   await db.ready();
-  
+
   let env = existsSync('./env.json') ? require('./env.json') : (await db.get('botSettings')).env;
   env = Object.merge(env.global, env[env.global.environment]);
 
@@ -72,6 +73,7 @@ Object.merge = (source, source2, mode) => {
   client.categories = getDirectoriesSync('./Commands');
   client.db = db;
   client.functions = {};
+  client.giveawaysManager = require('./Functions/private/giveawaysmanager.js')(client);
   client.dashboardOptionCount = {};
   client.keys = env.keys;
   client.events = new Collection();

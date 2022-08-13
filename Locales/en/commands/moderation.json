@@ -71,7 +71,7 @@
     "error": "I couldn't mute the target:\n%s",
     "noDm": "I couldn't DM the target."
   },
-  "nukeChannel": {
+  "nukechannel": {
     "description": "Clears all channel messages by duplicating the channel and then deleting the original one",
     "options": {
       "confirmation": {
