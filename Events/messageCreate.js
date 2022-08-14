@@ -24,7 +24,10 @@ module.exports = async (client, message) => {
   else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3
   else return;
 
-  const langData = client.lang.getLocale(client.db.get('guildSettings')[message.guild.id]?.config?.lang || message.guild.preferredLocale);
+  let guildLang = client.db.get('guildSettings')[message.guild.id]?.config?.lang || message.guild.preferredLocale.slice(0, 2);
+  if(!client.lang.locales.includes(guildLang)) guildLang = client.lang.default_locale;
+  const langData = client.lang.getLocale(guildLang);
+  
   const lang = (message, ...args) => {
     let data;
     if (Object.keys(client.lang.messages[client.lang.default_locale]).includes(message.split('.')[0])) data = langData(message);
