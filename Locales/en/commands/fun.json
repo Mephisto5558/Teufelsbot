@@ -124,6 +124,120 @@
   "fact": {
     "description": "get some facts"
   },
+  "giveaway": {
+    "description": "Giveaway commands",
+    "options": {
+      "create": {
+        "description": "Create a new giveaway",
+        "options": {
+          "prize": {
+            "description": "The prize you are giving away"
+          },
+          "description": {
+            "description": "The giveaway embed description"
+          },
+          "channel": {
+            "description": "The channel this giveaway should get created in"
+          },
+          "duration": {
+            "description": "The giveaway duration: eg. 1w3d2h5min"
+          },
+          "winner_count": {
+            "description": "The number of winners"
+          },
+          "reaction": {
+            "description": "The emoji users have to react with to participate"
+          },
+          "thumbnail": {
+            "description": "The thumbnail url to use"
+          },
+          "image": {
+            "description": "The image url to use"
+          },
+          "exempt_members": {
+            "description": "A list of members who are not allowed to participate."
+          },
+          "required_roles": {
+            "description": "Only members with one of this roles will be able to participate."
+          },
+          "bonus_entries": {
+            "description": "A list of member/role mentions with the amount of bonus entries: eg. @Premium:5 @Normal:2"
+          },
+          "embed_color": {
+            "description": "The hex color of the embed while the giveaway is running."
+          },
+          "embed_color_end": {
+            "description": "The hex color of the embed after the giveaway has ended."
+          }
+        }
+      },
+      "end": {
+        "description": "End a running giveaway",
+        "options": {
+          "id": {
+            "description": "The id of the giveaway embed"
+          }
+        }
+      },
+      "edit": {
+        "description": "Edit a running giveaway",
+        "options": {
+          "id": {
+            "description": "The id of the giveaway embed"
+          },
+          "add_time": {
+            "description": "The number of time added to the giveaway duration. eg. 2h12min or -1h10min"
+          },
+          "winner_count": {
+            "description": "The new number of winners"
+          },
+          "prize": {
+            "description": "The new prize you are giving away"
+          },
+          "thumbnail": {
+            "description": "The new thumbnail url to use"
+          },
+          "image": {
+            "description": "The new image url to use"
+          },
+          "exempt_members": {
+            "description": "Members who are not allowed to participate"
+          },
+          "required_roles": {
+            "description": "Only members with one of this roles will be able to participate."
+          }
+        }
+      },
+      "reroll": {
+        "description": "Reroll a ended giveaway",
+        "options": {
+          "id": {
+            "description": "The id of the giveaway embed"
+          }
+        }
+      }
+    },
+    "notFound": "Your provided message id is not a valid giveaway!",
+    "notHost": "You are not the host of this giveaway!",
+    "buttonLabel": "View Giveaway",
+    "started": "The giveaway has started!",
+    "ended": "The giveaway has been ended!",
+    "edited": "The giveaway has been edited!",
+    "rerolled": "The giveaway has been rerolled!",
+    "newGiveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
+    "giveawayEnded": "'🎉🎉 **GIVEAWAY ENDED** 🎉🎉",
+    "inviteToParticipate": "React with %s to participate!",
+    "winMessage": "Congratulations, {winners}! You won **{this.prize}**!",
+    "drawing": "Drawing: {timestamp}",
+    "dropMessage": "Be the first to react with %s!",
+    "embedFooterText": "{this.winnerCount} winner(s)",
+    "noWinner": "Giveaway cancelled, no valid participations.",
+    "winners": "Winner(s):",
+    "rerollWinners": "🎉 New winner(s): {winners}! Congratulations, you won **{this.prize}**!",
+    "rerollNoWinner": "No valid participations, no new winner(s) can be chosen!",
+    "endedAt": "Ended at",
+    "hostedBy": "Hosted by: {this.hostedBy}"
+  },
   "happy": {
     "description": "make the bot send a happy message"
   },
