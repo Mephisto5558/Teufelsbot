@@ -4,23 +4,7 @@ module.exports = async (client, interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
   if (!command || !interaction.isRepliable()) return;
 
-  let guildLang = client.db.get('guildSettings')[interaction.guild.id]?.config?.lang || interaction.guild.preferredLocale.slice(0, 2);
-  if(!client.lang.locales.includes(guildLang)) guildLang = client.lang.default_locale;
-  const langData = client.lang.getLocale(guildLang);
-  
-  const lang = (message, ...args) => {
-    let data;
-    if(Object.keys(client.lang.messages[client.lang.default_locale]).includes(message.split('.')[0])) data = langData(message);
-    else data = langData(`commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
-    
-    if (data !== undefined) return data;
-
-    if(Object.keys(client.lang.messages[client.lang.default_locale]).includes(message.split('.')[0])) data = client.defaultLangData(message);
-    else data = client.defaultLangData(`commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
-    
-    if (data !== undefined) return data;
-    return 'NO_TEXT_FOUND';
-  }
+  const lang = await require('../Functions/private/lang')(client, interaction);
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, interaction, command);
   if (cooldown) return interaction.reply(lang('events.cooldown', cooldown));
