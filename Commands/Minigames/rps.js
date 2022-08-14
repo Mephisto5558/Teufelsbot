@@ -54,7 +54,10 @@ module.exports = new Command({
         ]
       };
 
-    if (message instanceof Message) message.editable ? message.edit(data) : message = await message.reply(data);
+    if (message instanceof Message) {
+      if (message.editable) message.edit(data);
+      else message = await message.reply(data);
+    }
     else message.editReply(data);
 
     const moveCollector = message.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 10000 });
