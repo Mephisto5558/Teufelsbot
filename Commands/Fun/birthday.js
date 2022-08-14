@@ -168,8 +168,9 @@ module.exports = new Command({
 
           for (const [id, year, month, day] of data) {
             const date = lang('getAll.date', { month: formatMonthName(month), day: parseInt(day) });
-            const age = getAge([year, month, day]);
-            const msg = `> <@${id}>${age < currentYear ? ` (${age})` : ''}\n`;
+            let age = getAge([year, month, day]);
+            age = age < currentYear ? ` (${age})` : '';
+            const msg = `> <@${id}>${age}\n`;
 
             if (newData?.includes(date)) newData += msg;
             else newData += `\n${date}${msg}`;

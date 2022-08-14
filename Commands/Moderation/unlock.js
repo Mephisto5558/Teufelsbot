@@ -29,7 +29,9 @@ module.exports = new Command({
 
   run: async (message, lang, { db }) => {
     let msg;
-    message instanceof Message ? msg = await message.reply(lang('global.loading')) : message.editReply(lang('global.loading'));
+    if (message instanceof Message) msg = await message.reply(lang('global.loading'))
+    else message.editReply(lang('global.loading'));
+
     message.args?.shift();
 
     const

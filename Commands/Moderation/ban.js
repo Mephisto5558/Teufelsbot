@@ -82,7 +82,7 @@ module.exports = new Command({
 
       await interaction.guild.bans.create(target.id, {
         reason: reason,
-        deleteMessageDays: days > 7 ? 7 : days < 1 ? 1 : days
+        deleteMessageDays: days
       });
 
       resEmbed.data.description += lang('success', target?.user?.tag ?? target.id);
