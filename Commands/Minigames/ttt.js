@@ -9,7 +9,13 @@ const
 
 function workStatsData(firstID, secondID, type, client) {
   if (!secondID || !client) throw new SyntaxError('you need to provide the secondID and client args');
-  const against = type == 'win' ? 'wonAgainst' : (type == 'lose' ? 'lostAgainst' : 'drewAgainst');
+  let against;
+  switch (type) {
+    case 'win': against = 'wonAgainst'; break
+    case 'lose': against = 'lostAgainst'; break
+    case 'draw': against = 'drewAgainst';
+  }
+  
   const stats = client.db.get('leaderboards').TicTacToe[firstID];
   const typeS = `${type}s`
 

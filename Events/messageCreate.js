@@ -19,20 +19,22 @@ module.exports = async (client, message) => {
 
   const guildPrefix = guildSettings?.config?.prefix || await client.db.get('guildSettings').default.config.prefix;
 
-  const prefixLength = message.content.startsWith(guildPrefix) ? guildPrefix.length : message.content.startsWith(`<@${client.user.id}>`) ? `<@${client.user.id}>`.length : 0;
-  if (!prefixLength) return;
+  let prefixLength;
+  if (message.content.startsWith(guildPrefix)) prefixLength = guildPrefix.length;
+  else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3
+  else return;
 
   const langData = client.lang.getLocale(client.db.get('guildSettings')[message.guild.id]?.config?.lang || message.guild.preferredLocale);
   const lang = (message, ...args) => {
     let data;
-    if(Object.keys(client.lang.messages[client.lang.default_locale]).includes(message.split('.')[0])) data = langData(message);
+    if (Object.keys(client.lang.messages[client.lang.default_locale]).includes(message.split('.')[0])) data = langData(message);
     else data = langData(`commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
-    
+
     if (data !== undefined) return data;
 
-    if(Object.keys(client.lang.messages[client.lang.default_locale]).includes(message.split('.')[0])) data = client.defaultLangData(message);
+    if (Object.keys(client.lang.messages[client.lang.default_locale]).includes(message.split('.')[0])) data = client.defaultLangData(message);
     else data = client.defaultLangData(`commands.${command.category.toLowerCase()}.${command.name.toLowerCase()}.${message}`, ...args);
-    
+
     if (data !== undefined) return data;
     return 'NO_TEXT_FOUND';
   }
