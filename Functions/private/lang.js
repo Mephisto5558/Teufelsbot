@@ -1,4 +1,4 @@
-module.exports = async (client, { guild }) => {
+module.exports = async (client, { guild }, command) => {
   let guildLang = client.db.get('guildSettings')[guild.id]?.config?.lang || guild.preferredLocale.slice(0, 2);
   if (!client.lang.locales.includes(guildLang)) guildLang = client.lang.default_locale;
   const langData = client.lang.getLocale(guildLang);
