@@ -24,8 +24,6 @@ module.exports = async (client, message) => {
   else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3
   else return;
 
-  const lang = await require('../Functions/private/lang')(client, interaction);
-
   message.content = message.content.slice(prefixLength).trim();
   message.args = message.content.split(' ');
   message.user = message.author;
@@ -38,6 +36,8 @@ module.exports = async (client, message) => {
     !command ||
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
   ) return;
+
+  const lang = await require('../Functions/private/lang')(client, message, command);
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, message, command);
   if (cooldown && !client.botType == 'dev') return client.functions.reply(lang('events.cooldown', cooldown), message);

@@ -4,7 +4,7 @@ module.exports = async (client, interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
   if (!command || !interaction.isRepliable()) return;
 
-  const lang = await require('../Functions/private/lang')(client, interaction);
+  const lang = await require('../Functions/private/lang')(client, interaction, command);
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, interaction, command);
   if (cooldown) return interaction.reply(lang('events.cooldown', cooldown));
