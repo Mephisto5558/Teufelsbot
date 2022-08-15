@@ -44,16 +44,17 @@ module.exports = async (client, message) => {
 
   message.content = message.args.join(' ');
 
-  const userPerms = message.member.permissionsIn(message.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
-  const botPerms = message.guild.members.me.permissionsIn(message.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages]);
+  const userPermsMissing = message.member.permissionsIn(message.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
+  const botPermsMissing = message.guild.members.me.permissionsIn(message.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages]);
 
-  if (botPerms.length || userPerms.length) {
+  if (botPermsMissing.length || userPermsMissing.length) {
     const embed = new EmbedBuilder({
       title: lang('events.permissionDenied.embedTitle'),
       color: Colors.Red,
-      description: lang('events.permissionDenied.embedDescription', userPerms.length ? lang('global.you') : lang('global.i'), (botPerms.length ? botPerms : userPerms).join('`, `'))
+      description: lang('events.permissionDenied.embedDescription', userPermsMissing.length ? lang('global.you') : lang('global.i'), (botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `'))
     });
 
+    if (message.guild.members.me.permissionsIn(message.channel).missing(PermissionFlagsBits.SendMessages)) return message.author.send({ content: `${message.channel.name} in ${message.guild.name}`, embeds: [embed] });
     return message.reply({ embeds: [embed] });
   }
 

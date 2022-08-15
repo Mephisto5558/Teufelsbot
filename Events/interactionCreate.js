@@ -1,4 +1,4 @@
-const { EmbedBuilder, Colors, InteractionType, PermissionFlagsBits, ApplicationCommandOptionType } = require('discord.js');
+const { EmbedBuilder, Colors, InteractionType, ApplicationCommandOptionType } = require('discord.js');
 
 module.exports = async (client, interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
@@ -16,14 +16,14 @@ module.exports = async (client, interaction) => {
   ) return;
 
   if (interaction.type === InteractionType.ApplicationCommand) {
-    const userPerms = interaction.member.permissionsIn(interaction.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
-    const botPerms = interaction.guild.members.me.permissionsIn(interaction.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages]);
+    const userPermsMissing = interaction.member.permissionsIn(interaction.channel).missing(command.permissions.user);
+    const botPermsMissing = interaction.guild.members.me.permissionsIn(interaction.channel).missing(command.permissions.client);
 
-    if (botPerms.length || userPerms.length) {
+    if (botPermsMissing.length || userPermsMissing.length) {
       const embed = new EmbedBuilder({
         title: lang('events.permissionDenied.embedTitle'),
         color: Colors.Red,
-        description: lang('events.permissionDenied.embedDescription', userPerms.length ? lang('global.you') : lang('global.i'), (botPerms.length ? botPerms : userPerms).join('`, `'))
+        description: lang('events.permissionDenied.embedDescription', userPermsMissing.length ? lang('global.you') : lang('global.i'), (botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `'))
       });
 
       return interaction.reply({ embeds: [embed], ephemeral: true });
