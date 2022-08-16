@@ -2,7 +2,8 @@ const { Command } = require('reconlx');
 const responseList = [
   'c:', 'C:', ':D', 'uwu',
   '<:gucken:725670318164672543>',
-  'https://tenor.com/view/yell-shout-excited-happy-so-happy-gif-17583147'
+  'https://tenor.com/view/yell-shout-excited-happy-so-happy-gif-17583147',
+  'https://media.tenor.com/k-tV1c5bCCkAAAPo/cat-smile-happy-cat.mp4'
 ];
 
 module.exports = new Command({
