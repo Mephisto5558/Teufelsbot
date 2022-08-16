@@ -1,4 +1,13 @@
 {
+  "8ball": {
+    "description": "Ask me a question",
+    "options": {
+      "question": {
+        "description": "What do you want my opinion on?"
+      }
+    },
+    "noQuestion": "You didn't ask me anything??"
+  },
   "afk": {
     "description": "sends an afk message if you get pinged until you write again"
   },
