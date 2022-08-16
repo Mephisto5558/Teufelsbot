@@ -42,8 +42,13 @@ module.exports = new Command({
   ],
 
   run: async (interaction, lang, client) => {
-    const octokit = new Octokit({ auth: client.keys.githubKey });
-    const title = interaction.options.getString('title');
+    const
+      octokit = new Octokit({ auth: client.keys.githubKey }),
+      title = interaction.options.getString('title'),
+      issues = await octokit.request(`GET /repos/${Github.UserName}/${Github.RepoName}/issues`, {});
+
+    if (issues.data.filter(e => e.title == title && e.state == 'open').length)
+      return interaction.editReply(lang('alreadySent', issues.data[0].html_url));
 
     try {
       await octokit.request(`POST /repos/${Github.UserName}/${Github.RepoName}/issues`, {
@@ -60,13 +65,12 @@ module.exports = new Command({
       throw err;
     }
 
-    let embed = new EmbedBuilder({
+    const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', encodeURI(`${Github.Repo}/issues?q=is:open+is:issue+${title} in:title`)),
       color: Colors.Green
     });
 
     interaction.editReply({ embeds: [embed] });
-
   }
 })
