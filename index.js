@@ -1,4 +1,4 @@
-console.time('Starting time')
+console.time('Initialising time');
 console.info('Starting...');
 
 const
@@ -43,6 +43,9 @@ Object.merge = (source, source2, mode) => {
   return output;
 }
 
+console.timeEnd('Initialising time');
+console.time('Starting time');
+
 (async _ => {
   const client = new Client({
     allowedMentions: {
@@ -80,12 +83,9 @@ Object.merge = (source, source2, mode) => {
   client.cooldowns = new Collection();
   client.commands = new Collection();
   client.guildData = new Collection();
-  client.log = (...data) => {
-    const date = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
-    console.info(`[${date}] ${data}`)
-  };
 
-  for (const handler of readdirSync('./Handlers')) require(`./Handlers/${handler}`)(client);
+  await require('./Handlers/log_handler.js')(client);
+  for (const handler of readdirSync('./Handlers').filter(e => e != 'log_handler.js')) require(`./Handlers/${handler}`)(client);
 
   await client.login(client.keys.token);
   client.log(`Logged into ${client.botType}`);
@@ -94,5 +94,5 @@ Object.merge = (source, source2, mode) => {
     .on('unhandledRejection', err => require('./Functions/private/error_handler.js')(err))
     .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js')(err))
     .on('uncaughtException', err => require('./Functions/private/error_handler.js')(err))
-    .on('exit', _ => client.destroy());
+    .on('exit', client.destroy);
 })();
