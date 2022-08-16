@@ -1,7 +1,7 @@
 const
   { PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
   { Command } = require('reconlx'),
-  ms = require('ms');
+  { getMilliseconds } = require('better-ms');
 
 module.exports = new Command({
   name: 'giveaway',
@@ -215,10 +215,10 @@ module.exports = new Command({
           })
         ]
       })],
-      durationUnformatted = interaction.options.getString('duration') || interaction.options.getString('add_time'),
-      duration = ms(durationUnformatted);
+      durationUnformatted = interaction.options.getString('duration') || interaction.options.getString('add_time') || 0,
+      duration = getMilliseconds(durationUnformatted);
 
-    if (!duration && durationUnformatted) return interaction.editReply('The provided duration/add_time value is invalid!');
+    if (typeof duration != 'number' && durationUnformatted) return interaction.editReply('The provided duration/add_time value is invalid!');
 
 
     switch (interaction.options.getSubcommand()) {
