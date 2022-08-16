@@ -24,9 +24,9 @@ module.exports = new Command({
     required: true
   }],
 
-  run: async (message, lang, client) => {
+  run: async (message, lang, { functions }) => {
     if (message instanceof Message && !message.content) return functions.reply(lang('noQuestion'), message);
 
-    message instanceof Message ? functions.reply(responseList.random()) : message.editReply(responseList.random());
+    message instanceof Message ? functions.reply(responseList.random(), message) : message.editReply(responseList.random());
   }
 })
