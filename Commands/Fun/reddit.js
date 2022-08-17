@@ -17,7 +17,7 @@ const
       upvotes: post.ups ?? 0,
       downvotes: post.downs ?? 0,
       comments: post.num_comments ?? 0,
-      ratio: post.upvote_ratio,
+      ratio: parseFloat(post.upvote_ratio?.toFixed(2) ?? 0),
       url: `https://www.reddit.com${post.permalink}`,
       imageURL: post.media?.oembed?.thumbnail_url || post.url,
     }
