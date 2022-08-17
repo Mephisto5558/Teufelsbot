@@ -3,7 +3,7 @@
     "description": "blocks a user from using the bot",
     "usage": "PREFIX Command: blacklistuser <user id | @user>",
     "notFound": "Found no entry for this id.",
-    "saved": "%s has been blacklisted from using the bot.",
+    "saved": "`%s` has been blacklisted from using the bot.",
     "removed": "The blacklist entry for `%s` has been removed.",
     "cantBlacklistOwner": "I can't blacklist the owner of the bot!"
   },
