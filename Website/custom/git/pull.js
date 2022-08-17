@@ -1,22 +1,23 @@
-const { exec } = require('child_process');
-const pull = _ => exec('git pull', { maxBuffer: 1024 * 600 }, (err, stdout, stderr) => {
-  if (err) client.error(`GIT PULL\nexec error: ${err}`);
-  console.log(
-    'GIT PULL\n',
-    `out: ${stdout || 'none'}`,
-    `err: ${stderr || 'none'}\n`
-  );
-});
+const exec = require('util').promisify(require('child_process').exec);
 
 console.log('Git auto pull is running');
-pull();
 
 module.exports = {
   type: 'renderHtml',
   path: '/git/pull',
 
-  run: _ => {
-    pull();
+  run: async _ => {
+    let data;
+    
+    try { data = await exec('git pull', { maxBuffer: 1024 * 600 }) }
+    catch (err) { console.error(`GIT PULL\nExec error: ${err}`) }
+
+    console.log(
+      'GIT PULL\n',
+      `out: ${data.stdout?.trim() || 'none'}\n`,
+      `err: ${data.stderr?.trim() || 'none'}\n`
+    );
+
     return 'OK';
   }
 }

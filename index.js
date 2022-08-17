@@ -67,6 +67,8 @@ console.time('Starting time');
   const db = new reconDB(process.env.dbConnectionStr);
   await db.ready();
 
+  await require('./Website/custom/git/pull.js').run();
+
   let env = existsSync('./env.json') ? require('./env.json') : (await db.get('botSettings')).env;
   env = Object.merge(env.global, env[env.global.environment]);
 
