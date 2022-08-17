@@ -57,7 +57,7 @@ module.exports = new Command({
     let headers = `type=${cmdName}&`;
     let errorMsg;
 
-    embed.data.footer = { text: message.author.tag };
+    embed.data.footer = { text: message.user.tag };
 
     if (!cmd) errorMsg = (cmdName ? lang('notFound') : '') + lang('validOptions', options.map(e => e.name).join('`, `'));
     else if ((args?.length || 0) < option.options.length) errorMsg = lang('requiresArgs', option.options.map(e => `> \`${e.name}\`: ${e.description}`).join('\n'));

@@ -12,7 +12,7 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: async (message, lang, { log, functions }) => {
-    log(`Restarting bot, initiated by user '${message.author.tag}'...`);
+    log(`Restarting bot, initiated by user '${message.user.tag}'...`);
     await functions.reply(lang('message'), message);
 
     process.exit(0);

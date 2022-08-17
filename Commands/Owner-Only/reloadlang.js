@@ -14,7 +14,7 @@ module.exports = new Command({
 
   run: async (message, lang, client) => {
     const msg = await message.reply(lang('global.loading'));
-    client.log(`Reloading language files, initiated by user ${message.author.tag}`);
+    client.log(`Reloading language files, initiated by user ${message.user.tag}`);
 
     await require('../../Handlers/2_localisation_handler.js')(client);
 
