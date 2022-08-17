@@ -97,5 +97,4 @@ console.time('Starting time');
     .on('unhandledRejection', err => require('./Functions/private/error_handler.js')(err))
     .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js')(err))
     .on('uncaughtException', err => require('./Functions/private/error_handler.js')(err))
-    .on('exit', client.destroy);
 })();
