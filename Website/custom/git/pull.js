@@ -1,6 +1,6 @@
 const { exec } = require('child_process');
 const pull = _ => exec('git pull', { maxBuffer: 1024 * 600 }, (err, stdout, stderr) => {
-  if (err) console.error(`GIT PULL\nexec error: ${err}`);
+  if (err) client.error(`GIT PULL\nexec error: ${err}`);
   console.log(
     'GIT PULL\n',
     `out: ${stdout || 'none'}`,
