@@ -6,8 +6,7 @@ const
 module.exports = async (err, { keys, functions, botType, error = console.error } = {}, message, lang) => {
   if (!message) {
     error(errorColor, ' [Error Handling] :: Uncaught Error');
-    error(err);
-    return error('\n');
+    return error(err);
   }
 
   const
@@ -39,7 +38,6 @@ module.exports = async (err, { keys, functions, botType, error = console.error }
     default:
       error(errorColor, ' [Error Handling] :: Uncaught Error');
       error(err);
-      error('\n');
 
       msg = message instanceof Message ? await functions.reply({ embeds: [embed], components: [comp] }, message) : await message.followUp({ embeds: [embed], components: [comp] });
   }
