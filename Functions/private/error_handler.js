@@ -3,11 +3,11 @@ const
   { Octokit } = require('@octokit/core'),
   { Github } = require('../../config.json');
 
-module.exports = async (err, { keys, functions, botType } = {}, message, lang) => {
+module.exports = async (err, { keys, functions, botType, error = console.error } = {}, message, lang) => {
   if (!message) {
-    client.error(errorColor, ' [Error Handling] :: Uncaught Error');
-    client.error(err);
-    return client.error('\n');
+    error(errorColor, ' [Error Handling] :: Uncaught Error');
+    error(err);
+    return error('\n');
   }
 
   const
@@ -37,9 +37,9 @@ module.exports = async (err, { keys, functions, botType } = {}, message, lang) =
       break;
 
     default:
-      client.error(errorColor, ' [Error Handling] :: Uncaught Error');
-      client.error(err);
-      client.error('\n');
+      error(errorColor, ' [Error Handling] :: Uncaught Error');
+      error(err);
+      error('\n');
 
       msg = message instanceof Message ? await functions.reply({ embeds: [embed], components: [comp] }, message) : await message.followUp({ embeds: [embed], components: [comp] });
   }
@@ -75,7 +75,7 @@ module.exports = async (err, { keys, functions, botType } = {}, message, lang) =
     catch (err) {
       if (message instanceof Message) functions.reply(lang('events.errorHandler.reportFail', err?.response.statusText || 'unknown error'), message);
       else message.followUp(lang('events.errorHandler.reportFail', err?.response.statusText || 'unknown error'));
-      client.error(err);
+      error(err);
     }
   });
 
