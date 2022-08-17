@@ -78,13 +78,14 @@ console.time('Starting time');
   client.categories = getDirectoriesSync('./Commands');
   client.db = db;
   client.functions = {};
-  client.giveawaysManager = require('./Functions/private/giveawaysmanager.js')(client);
   client.dashboardOptionCount = {};
   client.keys = env.keys;
   client.events = new Collection();
   client.cooldowns = new Collection();
   client.commands = new Collection();
   client.guildData = new Collection();
+
+  if(client.botType != 'dev') client.giveawaysManager = require('./Functions/private/giveawaysmanager.js')(client);
 
   await require('./Handlers/log_handler.js')(client);
   for (const handler of readdirSync('./Handlers').filter(e => e != 'log_handler.js')) require(`./Handlers/${handler}`)(client);
