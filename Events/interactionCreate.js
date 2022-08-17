@@ -12,10 +12,10 @@ module.exports = async (client, interaction) => {
   const { blacklist } = client.db.get('botSettings');
   if (
     blacklist?.includes(interaction.user.id) ||
-    (command.category.toLowerCase() == 'owner-only' && interaction.user.id != client.application.owner.id)  //DO NOT REMOVE THIS LINE!
+    (command.category.toLowerCase() == 'owner-only' && interaction.user.id != client.application.owner.id)  //DO NOT REMOVE THIS STATEMENT!
   ) return;
 
-  if (interaction.type === InteractionType.ApplicationCommand) {
+  if (interaction.type == InteractionType.ApplicationCommand) {
     const userPermsMissing = interaction.member.permissionsIn(interaction.channel).missing(command.permissions.user);
     const botPermsMissing = interaction.guild.members.me.permissionsIn(interaction.channel).missing(command.permissions.client);
 
@@ -29,7 +29,7 @@ module.exports = async (client, interaction) => {
       return interaction.reply({ embeds: [embed], ephemeral: true });
     }
 
-    if (!command.noDefer && !interaction.replied) await interaction.deferReply({ ephemeral: command.ephemeralDefer || false });
+    if (!command.noDefer && !interaction.replied) await interaction.deferReply({ ephemeral: command.ephemeralDefer ?? false });
 
     for (const entry of interaction.options._hoistedOptions)
       if (entry.type == ApplicationCommandOptionType.String) entry.value = entry.value.replace(/<@!/g, '<@');
