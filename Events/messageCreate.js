@@ -6,21 +6,23 @@ module.exports = async (client, message) => {
   const { blacklist } = await client.db.get('botSettings');
   if (blacklist?.includes(message.author.id)) return;
 
-  const guildSettings = await client.db.get('guildSettings')[message.guild.id];
+  const { config, triggers } = await client.db.get('guildSettings')[message.guild.id] || {};
 
-  if (message.crosspostable && guildSettings?.config?.autopublish) message.crosspost();
+  if (message.crosspostable && config?.autopublish) message.crosspost();
   if (message.author.bot) return;
 
   message.content = message.content.replace(/<@!/g, '<@');
 
-  for (const trigger of guildSettings?.triggers?.filter(e => message.content?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
+  for (const trigger of triggers?.filter(e => message.content?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
     client.functions.reply(trigger.response, message);
-  if (/(koi ?pat|pat ?koi|pat ?fish|fish ?pat)/i.test(message.content)) client.functions.reply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7', message);
+    
+    if (/(koi|fish)[_\s]?pat|pat[_\s]?(koi|fish)/i.test(message.content)) client.functions.reply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7', message);
 
-  const guildPrefix = guildSettings?.config?.prefix || await client.db.get('guildSettings').default.config.prefix;
+  const guildPrefix = config?.prefix || await client.db.get('guildSettings').default.config.prefix;
 
   let prefixLength;
-  if (message.content.startsWith(guildPrefix)) prefixLength = guildPrefix.length;
+  if (message.content.startsWith(config?.prefixCaseInsensitive ? guildPrefix.toLowerCase() : guildPrefix))
+    prefixLength = guildPrefix.length;
   else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3
   else return;
 
@@ -54,7 +56,9 @@ module.exports = async (client, message) => {
       description: lang('events.permissionDenied.embedDescription', userPermsMissing.length ? lang('global.you') : lang('global.i'), (botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `'))
     });
 
-    if (message.guild.members.me.permissionsIn(message.channel).missing(PermissionFlagsBits.SendMessages)) return message.author.send({ content: `${message.channel.name} in ${message.guild.name}`, embeds: [embed] });
+    if (message.guild.members.me.permissionsIn(message.channel).missing(PermissionFlagsBits.SendMessages))
+      return message.author.send({ content: `${message.channel.name} in ${message.guild.name}`, embeds: [embed] });
+
     return message.reply({ embeds: [embed] });
   }
 
