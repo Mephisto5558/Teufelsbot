@@ -2,18 +2,21 @@ const
   fs = require('fs'),
   date = new Date().toLocaleDateString('en').replace(/\//g, '-'),
   startCount = parseInt(fs.readFileSync('./Logs/startCount.log') || 0) + 1,
-  writeLogFile = (type, data) => {
-    const time = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
-    fs.appendFileSync(`./Logs/${date}_${type}.log`, `[${time}] ${data}\n`);
-  }
+  getTime = _ => new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false }),
+  writeLogFile = (type, data) => fs.appendFileSync(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data}\n`);
 
 fs.writeFileSync('./Logs/startCount.log', startCount.toString());
 
 module.exports = async client => {
   client.log = (...data) => {
-    const time = new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false });
-    console.info(`[${time}] ${data}`);
+    console.info(`[${getTime()}] ${data}`);
     writeLogFile('log', data);
+  }
+
+  client.error = (...data) => {
+    console.error(errorColor, `[${getTime()}] ${data}`);
+    writeLogFile('log', data);
+    writeLogFile('error', data);
   }
 
   client
@@ -24,10 +27,10 @@ module.exports = async client => {
 
       if (debug.includes('Hit a 429')) {
         if (!client.isReady()) {
-          console.error(errorColor, 'Hit a 429 while trying to login. Restarting shell.');
+          client.error(errorColor, 'Hit a 429 while trying to login. Restarting shell.');
           process.kill(1);
         }
-        else console.error(errorColor, 'Hit a 429 while trying to execute a request');
+        else client.error(errorColor, 'Hit a 429 while trying to execute a request');
       }
     })
     .on('warn', warn => writeLogFile('warn', warn))

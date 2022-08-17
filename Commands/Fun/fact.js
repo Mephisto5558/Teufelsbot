@@ -21,6 +21,6 @@ module.exports = new Command({
 
       functions.reply(`${res.data[0].fact}.`, message)
     }
-    catch (err) { console.error(err) }
+    catch (err) { client.error(err) }
   }
 })

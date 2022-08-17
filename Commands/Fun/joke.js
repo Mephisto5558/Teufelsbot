@@ -68,11 +68,11 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
   }
   catch (err) {
     if ([402, 403, 522].includes(err.status)) {
-      console.error('joke.js: ')
-      console.error(err.response)
+      client.error('joke.js: ')
+      client.error(err.response)
     }
     else {
-      console.error(
+      client.error(
         `joke.js: ${API?.url ?? JSON.stringify(API)} responded with error ` +
         `${err.status || err.response?.status}, ${err.statusText || err.response?.statusText}: ${err.response?.data.message}`
       );

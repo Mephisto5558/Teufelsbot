@@ -5,9 +5,9 @@ const
 
 module.exports = async (err, { keys, functions, botType } = {}, message, lang) => {
   if (!message) {
-    console.error(errorColor, ' [Error Handling] :: Uncaught Error');
-    console.error(err);
-    return console.error('\n');
+    client.error(errorColor, ' [Error Handling] :: Uncaught Error');
+    client.error(err);
+    return client.error('\n');
   }
 
   const
@@ -37,9 +37,9 @@ module.exports = async (err, { keys, functions, botType } = {}, message, lang) =
       break;
 
     default:
-      console.error(errorColor, ' [Error Handling] :: Uncaught Error');
-      console.error(err);
-      console.error('\n');
+      client.error(errorColor, ' [Error Handling] :: Uncaught Error');
+      client.error(err);
+      client.error('\n');
 
       msg = message instanceof Message ? await functions.reply({ embeds: [embed], components: [comp] }, message) : await message.followUp({ embeds: [embed], components: [comp] });
   }
@@ -75,7 +75,7 @@ module.exports = async (err, { keys, functions, botType } = {}, message, lang) =
     catch (err) {
       if (message instanceof Message) functions.reply(lang('events.errorHandler.reportFail', err?.response.statusText || 'unknown error'), message);
       else message.followUp(lang('events.errorHandler.reportFail', err?.response.statusText || 'unknown error'));
-      console.error(err);
+      client.error(err);
     }
   });
 
