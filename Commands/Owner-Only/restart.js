@@ -10,6 +10,7 @@ module.exports = new Command({
   category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
+  beta: true,
 
   run: async (message, lang, { log, functions }) => {
     log(`Restarting bot, initiated by user '${message.user.tag}'...`);
