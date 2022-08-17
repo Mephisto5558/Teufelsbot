@@ -19,7 +19,7 @@ module.exports = new Command({
 
     try {
       await eval(`(async _ => {${message.content}})()`);
-      client.functions.reply(lang('success'), msg);
+      client.functions.reply(lang('success', msg), message);
     }
     catch (err) {
       client.functions.reply(lang('error', msg, err.name, err.message), message);
