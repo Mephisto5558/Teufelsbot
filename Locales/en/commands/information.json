@@ -82,7 +82,8 @@
       }
     },
     "saved": "My prefix has been changed to `%s`.",
-    "currentPrefix": "My current prefix is `%s`."
+    "currentPrefix": "My current prefix is `%s`.",
+    "caseInsensitive": " (case insensitive)"
   },
   "roleinfo": {
     "description": "Get information about a role",
