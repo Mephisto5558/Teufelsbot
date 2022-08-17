@@ -13,7 +13,7 @@ module.exports = new Command({
   beta: true,
 
   run: async (message, lang, { log, db, functions }) => {
-    log(`Reloading db, initiated by user ${message.author.tag}`);
+    log(`Reloading db, initiated by user ${message.user.tag}`);
 
     await db.ready();
 
