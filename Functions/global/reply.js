@@ -8,18 +8,10 @@ module.exports = async (reply, message, deleteTime, ping) => {
   if (!reply.allowedMentions) reply.allowedMentions = { repliedUser: ping || false };
   else reply.allowedMentions.repliedUser = ping || false;
 
-  try {
-    await message.reply(reply)
-      .then(msg => { sentMessage = msg });
-  }
-  catch {
-    await message.channel.send(reply)
-      .then(msg => { sentMessage = msg })
-  }
+  try { sentMessage = await message.reply(reply) }
+  catch { sentMessage = await message.channel.send(reply) }
 
-  if (deleteTime && !isNaN(deleteTime)) {
-    setTimeout(_ => sentMessage.delete(), deleteTime)
-  }
+  if (!isNaN(deleteTime)) return setTimeout(sentMessage.delete, deleteTime);
 
   return sentMessage;
 }
