@@ -18,6 +18,6 @@ module.exports = new Command({
 
     await require('../../Handlers/2_localisation_handler.js')(client);
 
-    msg.edit(lang('success'), message);
+    msg.edit(lang('success'));
   }
 })
