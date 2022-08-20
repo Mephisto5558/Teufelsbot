@@ -3,20 +3,20 @@ const
   date = new Date().toLocaleDateString('en').replace(/\//g, '-'),
   startCount = parseInt(fs.readFileSync('./Logs/startCount.log') || 0) + 1,
   getTime = _ => new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false }),
-  writeLogFile = (type, data) => fs.appendFileSync(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data}\n`);
+  writeLogFile = (type, ...data) => fs.appendFileSync(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data.join(' ')}\n`);
 
 fs.writeFileSync('./Logs/startCount.log', startCount.toString());
 
 module.exports = async client => {
   client.log = (...data) => {
-    console.info(`[${getTime()}] ${data}`);
-    writeLogFile('log', data);
+    console.info(`[${getTime()}] ${data.join(' ')}`);
+    writeLogFile('log', ...data);
   }
 
   client.error = (...data) => {
-    console.error(errorColor, `[${getTime()}] ${data}`);
-    writeLogFile('log', data);
-    writeLogFile('error', data);
+    console.error(errorColor, `[${getTime()}] ${data.join(' ')}`);
+    writeLogFile('log', ...data);
+    writeLogFile('error', ...data);
   }
 
   client
