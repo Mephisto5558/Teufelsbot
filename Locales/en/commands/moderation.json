@@ -68,6 +68,7 @@
     "notFound": "I couldn't find that member!",
     "cantMuteSelf": "You can't mute yourself!",
     "noPerm": "%s don't have the permission to do that!",
+    "targetIsAdmin": "I cannot mute admininstartors!",
     "error": "I couldn't mute the target:\n%s",
     "noDm": "I couldn't DM the target."
   },
