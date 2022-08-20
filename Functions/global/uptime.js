@@ -1,23 +1,25 @@
 module.exports = ({ startTime }, asMessage) => {
+  const now = Date.now();
   let data;
 
-  let totalSeconds = (Date.now() - startTime) / 1000
-  const days = Math.round(totalSeconds / 86400).toString();
-  totalSeconds %= 86400;
-  const hours = Math.round(totalSeconds / 3600).toString();
-  totalSeconds %= 3600;
-  const minutes = Math.round(totalSeconds / 60).toString();
-  const seconds = Math.round(totalSeconds % 60).toString();
+  let s = (now - startTime) / 1000;
+  let m = s / 60;
+  let h = m / 60;
+  const d = Math.round(h / 24).toString();
+
+  s = Math.round(s % 60).toString();
+  m = Math.round(m % 60).toString();
+  h = Math.round(h % 24).toString();
 
   if (asMessage) {
-    if (Number(days)) data = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
-    else if (Number(hours)) data = `${hours} hours, ${minutes} minutes and ${seconds} seconds`;
-    else if (Number(minutes)) data = `${minutes} minutes and ${seconds} seconds`;
-    else data = `${seconds} seconds`;
+    if (parseInt(d)) data = `${d} days, ${h} hours, ${m} minutes and ${s} seconds`;
+    else if (parseInt(h)) data = `${h} hours, ${m} minutes and ${s} seconds`;
+    else if (parseInt(m)) data = `${m} minutes and ${s} seconds`;
+    else data = `${s} seconds`;
   }
 
   return {
-    total: (Date.now() - startTime),
-    formatted: data || `${days.padStart(2, 0)}:${hours.padStart(2, 0)}:${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`
+    total: (now - startTime),
+    formatted: data || `${d.padStart(2, 0)}:${h.padStart(2, 0)}:${m.padStart(2, 0)}:${s.padStart(2, 0)}`
   };
 }
