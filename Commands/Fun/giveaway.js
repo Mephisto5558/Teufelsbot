@@ -188,6 +188,8 @@ module.exports = new Command({
   ],
 
   run: async (interaction, lang, { db, giveawaysManager }) => {
+    if(!giveawaysManager) return 'This feature is disabled or not registered.';
+    
     const giveawayId = interaction.options.getString('id');
     let giveaway;
 
