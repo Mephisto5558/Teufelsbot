@@ -18,7 +18,7 @@ module.exports = new Command({
 
     if (message.args[0] == 'off') {
       if (!oldData.blacklist.includes(message.args[1])) return functions.reply(lang('notFound'), message);
-      db.set('botSettings', Object.merge(oldData, { blacklist: oldData.blacklist.filter(entry => entry != message.args[1]) }));
+      db.set('botSettings', Object.merge(oldData, { blacklist: oldData.blacklist.filter(entry => entry != message.args[1]) }, 'overwrite'));
 
       return functions.reply(lang('removed', message.args[1]), message)
     }
