@@ -20,15 +20,18 @@ module.exports = new Command({
   }],
 
   run: async (message, lang, { ws, functions }) => {
-    if (message.args?.[0] == 'average' || message.options?.getBoolean('average')) {
-      const embed = new EmbedBuilder({
+    const
+      average = message.args?.[0] == 'average' || message.options?.getBoolean('average'),
+      embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: lang('average.loading'),
-        color: Colors.Blurple
-      });
+        description: lang(average ? 'average.loading' : 'global.loading'),
+        color: Colors.Green
+      }),
+      messagePing = Date.now(),
+      msg = message instanceof Message ? await message.channel.send({ embeds: [embed] }) : await message.editReply({ embeds: [embed] }),
+      endMessagePing = Date.now() - messagePing;
 
-      message.editReply({ embeds: [embed] });
-
+    if (average) {
       let pings = [], i;
 
       for (i = 0; i <= 59; i++) {
@@ -38,30 +41,19 @@ module.exports = new Command({
 
       pings.sort((a, b) => a - b);
 
-      const averagePing = Math.round((pings.reduce((a, b) => a + b) / i) * 100) / 100;
+      const averagePing = Math.round(pings.reduce((a, b) => a + b) / i * 100) / 100;
 
-      embed.data.description = lang('embedDescription', pings.length, pings[0], pings[pings.length - 1], averagePing);
-
-      return message.editReply({ embeds: [embed] })
+      embed.data.description = lang('average.embedDescription', pings.length, pings[0], pings[pings.length - 1], averagePing);
+    }
+    else {
+      embed.data.fields = [
+        { name: 'API', value: `\`${Math.round(ws.ping)}\`ms`, inline: true },
+        { name: 'Bot', value: `\`${Math.abs(Date.now() - message.createdTimestamp)}\`ms`, inline: true },
+        { name: lang('messageSend'), value: `\`${endMessagePing}\`ms`, inline: true }
+      ];
+      embed.data.description = ' ';
     }
 
-    const embed = new EmbedBuilder({
-      title: lang('embedTitle'),
-      description: lang('global.loading'),
-      color: Colors.Green
-    });
-
-    const messagePing = Date.now();
-    const msg = message instanceof Message ? await message.channel.send({ embeds: [embed] }) : await message.editReply({ embeds: [embed] });
-    const endMessagePing = Date.now() - messagePing;
-
-    embed.data.fields = [
-      { name: 'API', value: `\`${Math.round(ws.ping)}\`ms`, inline: true },
-      { name: 'Bot', value: `\`${Math.abs(Date.now() - message.createdTimestamp)}\`ms`, inline: true },
-      { name: lang('messageSend'), value: `\`${endMessagePing}\`ms`, inline: true }
-    ];
-    embed.data.description = ' ';
-
-    message instanceof Message ? msg.edit({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+    msg.edit({ embeds: [embed] });
   }
 })
