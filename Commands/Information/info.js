@@ -35,6 +35,6 @@ module.exports = new Command({
         footer: { text: lang('embedFooterText') }
       });
 
-    message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.edit({ embeds: [embed] });
+    message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
   }
 })
