@@ -111,6 +111,19 @@
     "successJSON": "Your embed has been sent!",
     "success": "Your embed has been sent! Below is the embed code.\nif you want to send it again, use the `json` subcommand.\n\n```json\n%s\n```"
   },
+  "math": {
+    "description":"Run some math",
+    "usage": "math [expression]",
+    "options": {
+      "expression": {
+        "description": "What do you want me to solve?"
+      }
+    },
+    "noInput": "You have not given any input.",
+    "error": "An error occurred while trying to solve your expression:\n```%s```",
+    "separated": "Results separated with \"|\":\n%s",
+    "success": "Expression:\n```%s```\nResult:\n```%s```"
+  },
   "passwordgenerator": {
     "description": "generates a cryptographically strong password",
     "options": {

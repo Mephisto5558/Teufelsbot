@@ -17,6 +17,7 @@
     "discord-tictactoe": "^3.0.0",
     "discord.js": "^14.2.0",
     "fast-average-color-node": "^2.4.0",
+    "mathjs": "^11.0.1",
     "mongodb": "^4.9.0",
     "mongoose": "^6.5.2",
     "node": "^18.7.0",
@@ -31,5 +32,8 @@
   "bugs": {
     "url": "https://github.com/Mephisto5558/Teufelsbot/issues"
   },
-  "homepage": "https://github.com/Mephisto5558/Teufelsbot#readme"
+  "homepage": "https://github.com/Mephisto5558/Teufelsbot#readme",
+  "devDependencies": {
+    "@types/mathjs": "^9.4.2"
+  }
 }
