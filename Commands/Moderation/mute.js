@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+  { EmbedBuilder, Colors, PermissionFlagsBits } = require('discord.js');
 
 module.exports = new Command({
   name: 'mute',
@@ -69,6 +69,7 @@ module.exports = new Command({
     else if (target.id === interaction.member.id) errorMsg = lang('cantMuteSelf');
     else if (target.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1 && interaction.guild.ownerId != interaction.user.id)
       errorMsg = lang('noPerm', lang('global.you'));
+    else if (target.permissions.has(PermissionFlagsBits.Administrator)) errorMsg = lang('targetIsAdmin');
     else if (!target.moderatable) errorMsg = lang('noPerm', lang('global.i'));
 
     if (errorMsg) return interaction.editReply(errorMsg);
