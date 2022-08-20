@@ -25,8 +25,7 @@ module.exports = async (err, { keys, functions, botType, error = console.error }
           disabled: botType == 'dev'
         })
       ]
-    }),
-    filter = i => i.member.id == message.user.id && i.customId == 'reportError';
+    });
 
   let msg;
 
@@ -44,7 +43,7 @@ module.exports = async (err, { keys, functions, botType, error = console.error }
 
   if (!msg) return;
 
-  const collector = message.createMessageComponentCollector?.({ filter, max: 1, componentType: ComponentType.Button, time: 60000 }) || message.channel.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 60000 });
+  const collector = message.createMessageComponentCollector?.({ filter: i => i.customId == 'reportError', max: 1, componentType: ComponentType.Button, time: 60000 }) || message.channel.createMessageComponentCollector({ filter: i => i.customId == 'reportError', max: 1, componentType: ComponentType.Button, time: 60000 });
   collector.on('collect', async button => {
     await button.deferUpdate();
     collector.stop();
