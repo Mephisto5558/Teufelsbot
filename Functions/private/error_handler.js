@@ -67,7 +67,7 @@ module.exports = async (err, { keys, functions, botType, error = console.error }
         labels: ['bug']
       });
 
-      embed.data.description = lang('events.errorHandler.reportSuccess', encodeURI(`${Github.Repo}/issues?q=is:open+is:issue+${title} in:title)`));
+      embed.data.description = lang('events.errorHandler.reportSuccess', encodeURI(`${Github.Repo}/issues?q=is:open+is:issue+${title} in:title`));
       msg.edit({ embeds: [embed], components: [comp] });
     }
     catch (err) {
