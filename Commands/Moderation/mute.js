@@ -29,28 +29,28 @@ module.exports = new Command({
       name: 'duration_days',
       description: 'for how much days you want to mute the target',
       type: 'Number',
-      maxValue: 27,
+      maxValue: 28,
       required: false
     },
     {
       name: 'duration_hours',
       description: 'for how much hours you want to mute the target',
       type: 'Number',
-      maxValue: 23,
+      maxValue: 24,
       required: false
     },
     {
       name: 'duration_minutes',
       description: 'for how much minutes you want to mute the target',
       type: 'Number',
-      maxValue: 59,
+      maxValue: 60,
       required: false
     },
     {
       name: 'duration_seconds',
       description: 'for how much seconds you want to mute the target',
       type: 'Number',
-      maxValue: 59,
+      maxValue: 60,
       required: false
     }
   ],
@@ -76,14 +76,15 @@ module.exports = new Command({
 
     for (const option of interaction.options.data) {
       switch (option.name.replace('duration_', '')) {
-        case 'days': date.setDate(date.getDate() + (option.value > 27 ? 27 : option.value)); break;
-        case 'hours': date.setTime(date.getTime() + (option.value > 23 ? 23 : option.value) * 3600000); break;
-        case 'minutes': date.setTime(date.getTime() + (option.value > 59 ? 59 : option.value) * 60000); break;
-        case 'seconds': date.setTime(date.getTime() + (option.value > 59 ? 59 : option.value) * 1000); break;
+        case 'days': date.setDate(date.getDate() + option.value); break;
+        case 'hours': date.setTime(date.getTime() + option.value * 3600000); break;
+        case 'minutes': date.setTime(date.getTime() + option.value * 60000); break;
+        case 'seconds': date.setTime(date.getTime() + option.value * 1000); break;
       }
     }
 
     if (date == oldDate) date.setTime(date.getTime() + 3600000); //1h
+    else if(date - oldDate > 2419000000) date.setTime(date.getTime() + 2419000000); //28d
 
     try { await target.disableCommunicationUntil(date.getTime(), `${reason}, moderator ${interaction.user.tag}`) }
     catch (err) { return interaction.editReply(lang('error', err)) }
