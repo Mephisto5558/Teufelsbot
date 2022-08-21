@@ -71,7 +71,7 @@ module.exports = new Command({
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
   description: 'get stats about one of the minigames',
   usage: 'PREFIX Command: stats <game> [target]',
-  permissions: { client: ['EmbedLinks'], user: [] },
+  permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Minigames',
   slashCommand: true,

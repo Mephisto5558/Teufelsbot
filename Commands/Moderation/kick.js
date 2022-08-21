@@ -7,7 +7,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'kicks a member from the server',
   usage: '',
-  permissions: { client: ['EmbedLinks', 'KickMembers'], user: ['KickMembers'] },
+  permissions: { client: ['KickMembers'], user: ['KickMembers'] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Moderation',
   slashCommand: true,

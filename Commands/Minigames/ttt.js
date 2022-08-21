@@ -110,7 +110,7 @@ module.exports = new Command({
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
   description: 'play some ttt against a friend or the bot',
   usage: '',
-  permissions: { client: ['EmbedLinks'], user: [] },
+  permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 2000 },
   category: 'Minigames',
   slashCommand: true,

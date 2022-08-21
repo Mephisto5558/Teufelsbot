@@ -18,7 +18,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'Shows all bot commands',
   usage: 'PREFIX Command: help [command]',
-  permissions: { client: ['EmbedLinks'], user: [] },
+  permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 50 },
   category: 'Information',
   slashCommand: true,
