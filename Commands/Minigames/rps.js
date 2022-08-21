@@ -8,7 +8,7 @@ module.exports = new Command({
   aliases: { prefix: ['rockpaperscissors'], slash: [] },
   description: 'Play rock paper scissors against the bot or (coming soon) your friends!',
   usage: '',
-  permissions: { client: ['EmbedLinks'], user: [] },
+  permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Minigames',
   slashCommand: true,

@@ -8,7 +8,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'Giveaway Utilitys',
   usage: '',
-  permissions: { client: ['EmbedLinks'], user: ['ManageMessages'] },
+  permissions: { client: [], user: ['ManageMessages'] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Fun',
   slashCommand: true,

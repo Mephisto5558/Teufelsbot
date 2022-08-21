@@ -7,7 +7,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: `Get the bot's ping`,
   usage: '',
-  permissions: { client: ['EmbedLinks'], user: [] },
+  permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Information',
   slashCommand: true,

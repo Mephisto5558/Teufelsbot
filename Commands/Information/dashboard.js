@@ -8,7 +8,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'get the link to the dashboard',
   usage: '',
-  permissions: { client: ['EmbedLinks'], user: [] },
+  permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Information',
   slashCommand: true,

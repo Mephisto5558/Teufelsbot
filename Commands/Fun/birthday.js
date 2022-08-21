@@ -15,7 +15,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'save your birthday and I will send a message on your birthday',
   usage: '',
-  permissions: { client: ['EmbedLinks'], user: [] },
+  permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Fun',
   slashCommand: true,

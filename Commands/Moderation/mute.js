@@ -7,7 +7,7 @@ module.exports = new Command({
   aliases: { prefix: ['timeout'], slash: ['timeout'] },
   description: 'timeouts a member of a given time (max 28d), default 1h',
   usage: 'Duration options: you need to use at least one.',
-  permissions: { client: ['EmbedLinks', 'MuteMembers'], user: ['MuteMembers'] },
+  permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Moderation',
   slashCommand: true,

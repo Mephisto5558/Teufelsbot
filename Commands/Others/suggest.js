@@ -9,7 +9,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'Suggest a feature for the bot on Github.',
   usage: '',
-  permissions: { client: ['EmbedLinks'], user: [] },
+  permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 5000 },
   category: 'Others',
   slashCommand: true,

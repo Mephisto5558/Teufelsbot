@@ -7,7 +7,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'sends a user a dm',
   usage: '',
-  permissions: { client: ['EmbedLinks'], user: [] },
+  permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 1000 },
   category: 'Fun',
   slashCommand: true,
