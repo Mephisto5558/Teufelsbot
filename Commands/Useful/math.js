@@ -3,8 +3,7 @@ const
   { Message, EmbedBuilder, Colors } = require('discord.js'),
   { evaluate, isResultSet } = require('mathjs'),
   embed = new EmbedBuilder({
-    title: 'Calculator',
-    color: Colors.White
+    title: 'Calculator'
   });
 
 module.exports = new Command({
@@ -27,8 +26,8 @@ module.exports = new Command({
   run: (message, lang, { functions }) => {
     const expression = (message.args?.[0] || message.options?.getString('expression'))?.replace('\n', ';');
     if (!expression) return message instanceof Message ? functions.reply(lang('noInput'), message) : message.editReply(lang('noInput'));
-    
-    if(expression == 'help') {
+
+    if (expression == 'help') {
       embed.data.description = lang('help');
       return message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
     }
@@ -41,6 +40,8 @@ module.exports = new Command({
       embed.data.color = Colors.Red;
       return message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
     }
+    
+    embed.data.color = Colors.White
 
     if (isResultSet(data)) {
       if (data.entries.length > 1) data = lang('separated', data.entries.join(' | '));
