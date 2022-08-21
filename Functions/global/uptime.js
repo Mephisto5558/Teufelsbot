@@ -1,15 +1,15 @@
 module.exports = ({ startTime }, asMessage) => {
-  const now = Date.now();
+  const total = Date.now() - startTime;
   let data;
 
-  let s = (now - startTime) / 1000;
+  let s = total / 1000;
   let m = s / 60;
   let h = m / 60;
-  const d = Math.round(h / 24).toString();
+  const d = Math.floor(h / 24).toString();
 
-  s = Math.round(s % 60).toString();
-  m = Math.round(m % 60).toString();
-  h = Math.round(h % 24).toString();
+  s = Math.floor(s % 60).toString();
+  m = Math.floor(m % 60).toString();
+  h = Math.floor(h % 24).toString();
 
   if (asMessage) {
     if (parseInt(d)) data = `${d} days, ${h} hours, ${m} minutes and ${s} seconds`;
@@ -19,7 +19,7 @@ module.exports = ({ startTime }, asMessage) => {
   }
 
   return {
-    total: (now - startTime),
+    total: total,
     formatted: data || `${d.padStart(2, 0)}:${h.padStart(2, 0)}:${m.padStart(2, 0)}:${s.padStart(2, 0)}`
-  };
+  }
 }
