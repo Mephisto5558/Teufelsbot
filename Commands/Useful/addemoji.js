@@ -9,7 +9,7 @@ module.exports = new Command({
   description: 'adds a emoji to your guild.',
   usage: '',
   permissions: {
-    client: ['EmbedLinks', 'ManageEmojisAndStickers'],
+    client: ['ManageEmojisAndStickers'],
     user: ['ManageEmojisAndStickers']
   },
   cooldowns: { guild: 0, user: 2000 },

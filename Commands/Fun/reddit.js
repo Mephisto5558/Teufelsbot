@@ -28,7 +28,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'reddit related commands',
   usage: 'reddit [subreddit] [sort type]',
-  permissions: { client: ['EmbedLinks'], user: [] },
+  permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Fun',
   slashCommand: true,

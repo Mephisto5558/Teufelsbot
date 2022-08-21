@@ -44,7 +44,7 @@ module.exports = async (client, message) => {
   if (cooldown && !client.botType == 'dev') return client.functions.reply(lang('events.cooldown', cooldown), message);
 
   const userPermsMissing = message.member.permissionsIn(message.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
-  const botPermsMissing = message.guild.members.me.permissionsIn(message.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages]);
+  const botPermsMissing = message.guild.members.me.permissionsIn(message.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);
 
   if (botPermsMissing.length || userPermsMissing.length) {
     const embed = new EmbedBuilder({

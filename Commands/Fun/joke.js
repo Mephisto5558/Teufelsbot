@@ -88,7 +88,7 @@ module.exports = new Command({
   aliases: { prefix: [], slash: [] },
   description: 'sends a joke',
   usage: 'PREFIX Commands: joke [type]',
-  permissions: { client: ['EmbedLinks'], user: [] },
+  permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 0 },
   slashCommand: true,
   prefixCommand: true,
