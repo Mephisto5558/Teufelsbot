@@ -37,7 +37,10 @@ module.exports = new Command({
       return message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
     }
 
-    if (isResultSet(data)) data = lang('separated', data.entries.join(' | '));
+    if (isResultSet(data)) {
+      if (data.entries.length > 1) data = lang('separated', data.entries.join(' | '));
+      else data = data.entries
+    }
 
     embed.data.description = lang('success', expression, data);
 
