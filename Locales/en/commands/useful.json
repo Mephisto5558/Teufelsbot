@@ -120,7 +120,7 @@
       }
     },
     "noInput": "You have not given any input.",
-    "help": "Help and Information\n\nThis calculator supports many mathematic operation, not only the basic ones.\nYou can use variables like this: `x=10`.\nYou can use multiple statements by using a new line or a `;`. `x=10;x+10` returns `20`.\nYou need to use `*` for multiplying and `/` for dividing.\nThe calculator suppots outputting multiple results.\nSometimes, unnecessary spaces make the expression error.`",
+    "help": "Help and Information\n\nThis calculator supports many mathematic operation, not only the basic ones.\nYou can use variables like this: `x=10`.\nYou can use multiple statements by using a new line or a `;`. `x=10;x+10` returns `20`.\nYou need to use `*` for multiplying.\nThe calculator suppots outputting multiple results.\nSometimes, unnecessary spaces make the expression error.`",
     "error": "An error occurred while trying to solve your expression:\n```%s```",
     "separated": "Results separated with \"|\":\n%s",
     "success": "Expression:\n```%s```\nResult:\n```%s```"
