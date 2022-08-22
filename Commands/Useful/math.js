@@ -24,7 +24,7 @@ module.exports = new Command({
   }],
 
   run: (message, lang, { functions }) => {
-    const expression = (message.args?.[0] || message.options?.getString('expression'))?.replace('\n', ';').replace('÷', '/');
+    const expression = (message.args?.[0] || message.options?.getString('expression'))?.replace(/\n/g, ';').replace(/÷/g, '/');
     if (!expression) return message instanceof Message ? functions.reply(lang('noInput'), message) : message.editReply(lang('noInput'));
 
     if (expression == 'help') {
