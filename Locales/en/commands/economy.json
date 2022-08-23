@@ -1,0 +1,115 @@
+{
+  "account": {
+    "description": "Show your account and stats!",
+    "usage": "account [@user]",
+    "options": {
+      "user": {
+        "description": "The user you want to get the account of"
+      }
+    },
+    "currency": "Souls: **%s**\n",
+    "dailyStreak": "Daily Streak: **%s**\n",
+    "rank": "Rank: **%s**\n",
+    "none": "none"
+  },
+  "daily": {
+    "description": "Get your daily souls!",
+    "notUnlocked": "You have not researched the daily souls yet! `/research`",
+    "collected": "You have collected %d souls!"
+  },
+  "give": {
+    "description": "Give some souls to someone",
+    "usage": "give [@user] [amount]",
+    "options": {
+      "user": {
+        "description": "The user you want to give souls."
+      },
+      "amount": {
+        "description": "The amount of souls you want to give. (% is supported)"
+      }
+    },
+    "noTarget": "You need to mention someone (not yourself tho)",
+    "embedTitle": "Give",
+    "embedDescription": "You gave %d Souls to %s!\n>>>Your souls: %d\nHis/Her souls: %d"
+  },
+  "research": {
+    "description": "Upgrade your skills and research new ones!",
+    "skills": {
+      "currency_bonus_percentage": {
+        "name": "Soul Bonus (%)",
+        "description": "How much more Souls (in percent) you get from your activities."
+      },
+      "currency_bonus_absolute": {
+        "name": "Soul Bonus",
+        "description": "How much more Souls you get from your activities."
+      },
+      "research_speed_percentage": {
+        "name": "Research Speed (%)",
+        "description": "How much faster (in percent) you can research."
+      },
+      "research_bonus_percentage": {
+        "name": "Research Efficiency (%)",
+        "description": "How big the bonuses are that you get from researching."
+      },
+      "power": {
+        "name": "Power",
+        "description": "One of your most important stats. It protects you from other players in several ways and lets you handle more powerful slaves."
+      },
+      "defense": {
+        "name": "Defense",
+        "description": "Protects you from other players in several ways."
+      },
+      "currency_capacity": {
+        "name": "Soul Capacity",
+        "description": "How much souls you can have at once. If you are 50% over your limit, you lose 75% of your souls!"
+      },
+      "slave_capacity": {
+        "name": "Slave Capacity",
+        "description": "How many slaves you can have at once"
+      }
+    },
+    "embedTitle": "Research"
+  },
+  "stats": {
+    "description": "Get more in-depth stats about a user or yourself",
+    "usage": "stats [@user]",
+    "options": {
+      "user": {
+        "description": "The user you want to get stats about"
+      }
+    },
+    "noStats": "This user is powerless and has no stats which are worth displaying.",
+    "currency": "Souls",
+    "power": "Power",
+    "defense": "Defense",
+    "slaves": "Slaves",
+    "maxSlaves": "Max Slaves",
+    "gaining": {
+      "title": "Gaining Methods",
+      "chat": "Chat Messages",
+      "voice": "Voice Minutes",
+      "work": "Work",
+      "daily": "Daily collection"
+    },
+    "skills": {
+      "currency_bonus_percentage": "Soul Bonus (%)",
+      "currency_bonus_absolute": "Soul Bonus",
+      "research_speed_percentage": "Research Speed (%)",
+      "research_bonus_percentage": "Research Efficiency (%)",
+      "power": "Power",
+      "defense": "Defense",
+      "currency_capacity": "Soul Capacity",
+      "slave_capacity": "Slave Capacity"
+    },
+    "embedTitle": "Stats"
+  },
+  "top": {
+    "description": "Displays the most powerful people on this guild.",
+    "currency": "Souls: **%s**\n",
+    "power": "Power: **%s**",
+    "embedTitle": "Top 10 Members",
+    "embedDescription": "These are the top 10 members, sorted by theire power",
+    "noneFound": "No one here has any power!"
+  },
+  "work": {}
+}
