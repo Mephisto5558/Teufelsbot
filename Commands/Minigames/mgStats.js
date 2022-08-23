@@ -67,10 +67,10 @@ async function formatTopTen(input, settings, message, lang) {
 }
 
 module.exports = new Command({
-  name: 'stats',
+  name: 'mgStats',
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
   description: 'get stats about one of the minigames',
-  usage: 'PREFIX Command: stats <game> [target]',
+  usage: 'PREFIX Command: mgStats <game> [target]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Minigames',
