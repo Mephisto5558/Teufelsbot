@@ -1,7 +1,7 @@
 const
   { Command } = require('reconlx'),
   Wiki = require('wikijs').default,
-  { EmbedBuilder, Colors, Message } = require('discord.js'),
+  { EmbedBuilder, Colors } = require('discord.js'),
   { Repo } = require('../../config.json').Github,
   options = {
     headers: { 'User-Agent': `Discord Bot (${Repo})` }
@@ -28,7 +28,7 @@ module.exports = new Command({
     const query = message.options?.getString('query') || message.content;
     let data, joined = '';
 
-    message = message instanceof Message ? await functions.reply(lang('global.loading'), message) : await message.editReply(lang('global.loading'));
+    message = await functions.reply(lang('global.loading'), message);
 
     try {
       if (query) data = await Wiki(options).search(query, 1);

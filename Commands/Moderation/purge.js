@@ -24,12 +24,12 @@ module.exports = new Command({
   run: async (message, lang, { functions }) => {
     const amount = message.options?.getNumber('amount') || message.args?.[0];
 
-    if (!amount) return message instanceof Message ? functions.reply(lang('noNumber'), message) : message.editReply(lang('noNumber'));
+    if (!amount) return functions.reply(lang('noNumber'), message);
 
     let toDeleteCount = parseInt(amount || message.options?.getNumber('amount'))
     if (message instanceof Message) toDeleteCount++; //+1 is the command
 
-    if (isNaN(toDeleteCount) || !toDeleteCount) return message instanceof Message ? functions.reply(lang('invalidNumber', amount), message): message.editReply(lang('invalidNumber', amount));
+    if (isNaN(toDeleteCount) || !toDeleteCount) return functions.reply(lang('invalidNumber', amount), message);
     else if (toDeleteCount > 1001) toDeleteCount = 1001;
 
     for (let i = 0; i < toDeleteCount; i = i + 100) {

@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Message } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   { get } = require('axios').default,
   { Github } = require('../../config.json'),
   defaultAPIList = [
@@ -131,7 +131,7 @@ module.exports = new Command({
       maxLength = message.options?.getNumber('max_length') || 2000,
       [joke, API] = await getJoke(defaultAPIList, type, blacklist, maxLength, keys);
 
-    if (!joke) return message instanceof Message ? functions.reply(lang('noAPIAvailable'), message) : message.editReply(lang('noAPIAvailable'));
+    if (!joke) return functions.reply(lang('noAPIAvailable'), message);
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
@@ -140,6 +140,6 @@ module.exports = new Command({
         `- [${API.name}](${API.url})`
     }).setColor('Random');
 
-    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+   functions.reply({ embeds: [embed] }, message);
   }
 })

@@ -1,3 +1,5 @@
+const { Interaction } = require('discord.js')
+
 module.exports = async (reply, message, deleteTime, ping) => {
   let sentMessage;
 
@@ -8,10 +10,22 @@ module.exports = async (reply, message, deleteTime, ping) => {
   if (!reply.allowedMentions) reply.allowedMentions = { repliedUser: ping || false };
   else reply.allowedMentions.repliedUser = ping || false;
 
-  try { sentMessage = await message.reply(reply) }
-  catch { sentMessage = await message.channel.send(reply) }
+  if (message instanceof Interaction) {
+    try {
+      if (message.replied) sentMessage = await message.editReply(reply);
+      else throw Error()
+    }
+    catch {
+      try { sentMessage = await message.followUp(reply) }
+      catch { sentMessage = await message.channel.send(reply) }
+    }
+  }
+  else {
+    try { sentMessage = await message.reply(reply) }
+    catch { sentMessage = await message.channel.send(reply) }
+  }
 
-  if (!isNaN(deleteTime)) return setTimeout(sentMessage.delete, deleteTime);
+  if (!isNaN(deleteTime) && sentMessage.deletable !== false && !message.ephemeral) return setTimeout(sentMessage.delete, deleteTime);
 
   return sentMessage;
 }

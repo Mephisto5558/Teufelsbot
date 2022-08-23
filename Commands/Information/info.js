@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors, Message } = require('discord.js'),
+  { EmbedBuilder, Colors } = require('discord.js'),
   { readFileSync } = require('fs'),
   { Invite, Dashboard, PrivacyPolicy } = require('../../config.json').Website;
 
@@ -35,6 +35,6 @@ module.exports = new Command({
         footer: { text: lang('embedFooterText') }
       });
 
-    message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+    client.functions.reply({ embeds: [embed] }, message);
   }
 })

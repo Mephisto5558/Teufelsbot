@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors, Message } = require('discord.js');
+  { EmbedBuilder, Colors } = require('discord.js');
 
 function listCommands(list, output, count, category) {
   for (const command of list.values()) {
@@ -60,7 +60,7 @@ module.exports = new Command({
         ].filter(e => e);
       }
 
-      return message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+      return client.functions.reply({ embeds: [embed] }, message);
     }
 
     embed.data.title = lang('all.embedTitle');
@@ -86,6 +86,6 @@ module.exports = new Command({
     if (!embed.data.fields) embed.data.description = lang('all.notFound');
     else embed.data.footer = { text: lang('all.embedFooterText') };
 
-    message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+    client.functions.reply({ embeds: [embed] }, message);
   }
 })

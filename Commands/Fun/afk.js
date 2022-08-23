@@ -1,6 +1,4 @@
-const
-  { Command } = require('reconlx'),
-  { Message } = require('discord.js');
+const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'afk',
@@ -14,8 +12,6 @@ module.exports = new Command({
   prefixCommand: true,
   disabled: true,
   run: async (message, _, client) => {
-    if(message instanceof Message) {}
-
-
+    
   }
 })

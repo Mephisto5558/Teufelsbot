@@ -1,7 +1,7 @@
 const
   { Command } = require('reconlx'),
   fetch = require('node-fetch').default,
-  { EmbedBuilder, Message } = require('discord.js'),
+  { EmbedBuilder } = require('discord.js'),
   embed = new EmbedBuilder({ title: 'Image', description: ' ' }).setColor('Random'),
   endpoints = new Map([
     ['threats', { url: 'Image URL to add to template.' }],
@@ -62,18 +62,17 @@ module.exports = new Command({
     if (!cmd) errorMsg = (cmdName ? lang('notFound') : '') + lang('validOptions', options.map(e => e.name).join('`, `'));
     else if ((args?.length || 0) < option.options.length) errorMsg = lang('requiresArgs', option.options.map(e => `> \`${e.name}\`: ${e.description}`).join('\n'));
 
-    if (errorMsg) return message instanceof Message ? functions.reply(errorMsg, message) : message.editReply(errorMsg);
+    if (errorMsg) return functions.reply(errorMsg, message);
 
-    if (message instanceof Message) message = await message.reply(lang('global.loading'));
-    else message.editReply(lang('global.loading'));
+    message = functions.reply(lang('global.loading'), message);
 
     args.map((e, i) => { if (option.options[i]) headers += `${option.options[i].name}=${e}&` });
 
     const data = await fetch(encodeURI(`https://nekobot.xyz/api/imagegen?${headers}`)).then(res => res.json());
-    if (!data.success) return message instanceof Message ? message.edit(lang('error', data.message)) : message.editReply(lang('error', data.message));
+    if (!data.success) return message.edit(lang('error', data.message));
 
     embed.setImage(data.message);
 
-    message instanceof Message ? message.edit({ content: '', embeds: [embed] }) : message.editReply({ content: '', embeds: [embed] });
+    message.edit({ content: '', embeds: [embed] });
   }
 })

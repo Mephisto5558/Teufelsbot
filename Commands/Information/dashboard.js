@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors, Message } = require('discord.js'),
+  { EmbedBuilder, Colors } = require('discord.js'),
   { Dashboard } = require('../../config.json').Website;
 
 module.exports = new Command({
@@ -21,6 +21,6 @@ module.exports = new Command({
       color: Colors.Blurple
     });
 
-    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : interaction.editReply({ embeds: [embed] });
+    functions.reply({ embeds: [embed] }, message);
   }
 })

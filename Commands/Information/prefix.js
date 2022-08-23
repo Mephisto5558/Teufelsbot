@@ -1,6 +1,4 @@
-const
-  { Command } = require('reconlx'),
-  { Message } = require('discord.js');
+const { Command } = require('reconlx');
 
 module.exports = new Command({
   name: 'prefix',
@@ -36,7 +34,7 @@ module.exports = new Command({
       const newData = Object.merge(oldData, { [message.guild.id]: { config: { prefix: newPrefix, prefixCaseInsensitive } } });
       await db.set('guildSettings', newData);
 
-      message instanceof Message ? functions.reply(lang('saved', newPrefix), message) : message.editReply(lang('saved', newPrefix));
+      functions.reply(lang('saved', newPrefix), message);
     }
     else {
       const currentPrefix = oldData[message.guild.id]?.config?.prefix || oldData.default.config.prefix;
@@ -44,7 +42,7 @@ module.exports = new Command({
 
       const msg = lang('currentPrefix', currentPrefix) + prefixCaseInsensitive ? lang('caseInsensitive') : '';
 
-      message instanceof Message ? functions.reply(msg, message) : message.editReply(msg, currentPrefix);
+      functions.reply(msg, message);
     }
 
   }
