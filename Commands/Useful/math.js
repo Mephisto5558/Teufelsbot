@@ -15,7 +15,7 @@ module.exports = new Command({
   cooldowns: { guild: 0, user: 100 },
   category: 'Useful',
   slashCommand: true,
-  prefixCommand: true, beta: true,
+  prefixCommand: true,
   options: [{
     name: 'expression',
     description: 'what do you want me to solve? Write "help" for help',
