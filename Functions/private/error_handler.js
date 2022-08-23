@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors } = require('discord.js'),
   { Octokit } = require('@octokit/core'),
   { Github } = require('../../config.json');
 
@@ -38,7 +38,7 @@ module.exports = async (err, { keys, functions, botType, error = console.error }
       error(errorColor, ' [Error Handling] :: Uncaught Error');
       error(err);
 
-      msg = message instanceof Message ? await functions.reply({ embeds: [embed], components: [comp] }, message) : await message.followUp({ embeds: [embed], components: [comp] });
+      msg = await functions.reply({ embeds: [embed], components: [comp] }, message);
   }
 
   if (!msg) return;
@@ -70,8 +70,7 @@ module.exports = async (err, { keys, functions, botType, error = console.error }
       msg.edit({ embeds: [embed], components: [comp] });
     }
     catch (err) {
-      if (message instanceof Message) functions.reply(lang('events.errorHandler.reportFail', err?.response.statusText || 'unknown error'), message);
-      else message.followUp(lang('events.errorHandler.reportFail', err?.response.statusText || 'unknown error'));
+      functions.reply(lang('events.errorHandler.reportFail', err?.response.statusText || 'unknown error'), message);
       error(err);
     }
   });

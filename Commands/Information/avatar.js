@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, Message } = require('discord.js');
+  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = new Command({
   name: 'avatar',
@@ -53,7 +53,6 @@ module.exports = new Command({
         })]
       });
 
-    if (message instanceof Message) functions.reply({ embeds: [embed], components: [row] }, message);
-    else message.editReply({ embeds: [embed], components: [row] });
+    functions.reply({ embeds: [embed], components: [row] }, message);
   }
 })

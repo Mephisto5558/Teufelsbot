@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, PermissionFlagsBits, Message } = require('discord.js'),
+  { EmbedBuilder, PermissionFlagsBits } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = new Command({
@@ -58,6 +58,6 @@ module.exports = new Command({
       ].filter(e => e)
     }).setThumbnail(member.displayAvatarURL())
 
-    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+    functions.reply({ embeds: [embed] }, message);
   }
 })

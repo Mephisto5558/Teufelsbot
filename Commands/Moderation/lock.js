@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors, Message } = require('discord.js');
+  { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = new Command({
   name: 'lock',
@@ -28,10 +28,7 @@ module.exports = new Command({
   ],
 
   run: async (message, lang, { db }) => {
-    let msg;
-
-    if (message instanceof Message) msg = await message.reply(lang('global.loading'));
-    else message.editReply(lang('global.loading'));
+    const msg = await functions.reply(lang('global.loading'), message);
 
     message.args?.shift();
 
@@ -67,6 +64,6 @@ module.exports = new Command({
     });
 
     await channel.send({ embeds: [embed] });
-    message instanceof Message ? msg.edit('The channel has been successfully locked.') : message.editReply('The channel has been successfully locked.');
+    msg.edit('The channel has been successfully locked.');
   }
 })

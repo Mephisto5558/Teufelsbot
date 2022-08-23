@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { Collection, EmbedBuilder, Message } = require('discord.js'),
+  { Collection, EmbedBuilder } = require('discord.js'),
   fetch = require('node-fetch').default,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
   cachedSubreddits = new Collection(),
@@ -85,7 +85,7 @@ module.exports = new Command({
     if (cachedSubreddits.has(`${subreddit}_${type}`)) post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`).data, filterNSFW);
     else {
       const res = await fetch(`https://www.reddit.com/r/${subreddit}/${type}.json`).then(res => res.json());
-      if (res.error) return message instanceof Message ? functions.reply(lang('error', `Error: ${res.message}\nReason:${red.reason}`), message) : message.editReply(lang('error', `Error: ${res.message}\nReason:${res.reason}`));
+      if (res.error) return functions.reply(lang('error', `Error: ${res.message}\nReason:${red.reason}`), message);
 
       cachedSubreddits.set(`${subreddit}_${type}`, res);
       setTimeout(_ => cachedSubreddits.delete(`${subreddit}_${type}`), 5 * 60 * 1000);
@@ -93,7 +93,7 @@ module.exports = new Command({
       post = fetchPost(res.data, filterNSFW);
     }
 
-    if (!post) return message instanceof Message ? functions.reply(lang('notFound'), message) : message.editReply(lang('notFound'));
+    if (!post) return functions.reply(lang('notFound'), message);
 
     const embed = new EmbedBuilder({
       author: { name: `${post.author} | r/${post.subreddit}` },
@@ -103,6 +103,6 @@ module.exports = new Command({
       footer: { text: `Upvotes: ${post.upvotes} (${post.ratio * 100}%) | Downvotes: ${post.downvotes} | Comments: ${post.comments}` }
     }).setColor('Random');
 
-    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+   functions.reply({ embeds: [embed] }, message);
   }
 })

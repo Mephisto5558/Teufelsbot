@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Colors, Message } = require('discord.js');
+  { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = new Command({
   name: 'ping',
@@ -28,7 +28,7 @@ module.exports = new Command({
         color: Colors.Green
       }),
       messagePing = Date.now(),
-      msg = message instanceof Message ? await message.channel.send({ embeds: [embed] }) : await message.editReply({ embeds: [embed] }),
+      msg = await functions.reply({ embeds: [embed] }),
       endMessagePing = Date.now() - messagePing;
 
     if (average) {
