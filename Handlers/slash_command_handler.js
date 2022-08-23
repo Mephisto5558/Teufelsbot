@@ -39,7 +39,7 @@ function format(option) {
     return option;
   }
 
-  option.channelTypes = option.channelTypes?.map(e => {
+  if(option.channelTypes) option.channelTypes = option.channelTypes?.map(e => {
     if (!ChannelType[e] && ChannelType[e] != 0) throw Error(`Invalid option.channelType, got ${e}`);
     return isNaN(e) ? ChannelType[e] : e;
   });
