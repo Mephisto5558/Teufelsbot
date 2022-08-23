@@ -1,4 +1,4 @@
-const { Interaction } = require('discord.js')
+const { CommandInteraction } = require('discord.js')
 
 module.exports = async (reply, message, deleteTime, ping) => {
   let sentMessage;
@@ -10,7 +10,7 @@ module.exports = async (reply, message, deleteTime, ping) => {
   if (!reply.allowedMentions) reply.allowedMentions = { repliedUser: ping || false };
   else reply.allowedMentions.repliedUser = ping || false;
 
-  if (message instanceof Interaction) {
+  if (message instanceof CommandInteraction) {
     try {
       if (message.replied) sentMessage = await message.editReply(reply);
       else throw Error()
