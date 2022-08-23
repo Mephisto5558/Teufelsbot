@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { Message, EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors } = require('discord.js'),
   { evaluate, isResultSet } = require('mathjs'),
   embed = new EmbedBuilder({
     title: 'Calculator'
@@ -25,11 +25,11 @@ module.exports = new Command({
 
   run: (message, lang, { functions }) => {
     const expression = (message.args?.[0] || message.options?.getString('expression'))?.replace(/\n/g, ';').replace(/÷/g, '/');
-    if (!expression) return message instanceof Message ? functions.reply(lang('noInput'), message) : message.editReply(lang('noInput'));
+    if (!expression) return functions.reply(lang('noInput'), message);
 
     if (expression == 'help') {
       embed.data.description = lang('help');
-      return message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+      return functions.reply({ embeds: [embed] }, message);
     }
 
     let data;
@@ -38,9 +38,9 @@ module.exports = new Command({
     catch (err) {
       embed.data.description = lang('error', err.message);
       embed.data.color = Colors.Red;
-      return message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+      return functions.reply({ embeds: [embed] }, message);
     }
-    
+
     embed.data.color = Colors.White
 
     if (isResultSet(data)) {
@@ -49,7 +49,6 @@ module.exports = new Command({
     }
 
     embed.data.description = lang('success', expression, data);
-
-    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+    functions.reply({ embeds: [embed] }, message);
   }
 })

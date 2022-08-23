@@ -139,11 +139,7 @@ module.exports = new Command({
     const leaderboards = await client.db.get('leaderboards');
 
     stats.data = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == stats.game.toLowerCase())?.[1];
-    if (!stats.data) {
-      const msg = lang('notFound', Object.keys(leaderboards).join('`, `'));
-
-      return message instanceof Message ? client.functions.reply(msg, message) : message.editReply(msg);
-    }
+    if (!stats.data) return client.functions.reply(lang('notFound', Object.keys(leaderboards).join('`, `')), message);
 
     const embed = new EmbedBuilder({
       color: Colors.Blurple,
@@ -179,6 +175,6 @@ module.exports = new Command({
       embed.data.description = await formatTopTen(stats.data, stats.settings, message, lang) || lang('noWinners');
     }
 
-    message instanceof Message ? client.functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+    client.functions.reply({ embeds: [embed] }, message);
   }
 })

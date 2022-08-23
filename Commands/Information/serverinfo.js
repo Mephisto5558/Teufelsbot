@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, GuildDefaultMessageNotifications, ChannelType, GuildPremiumTier, GuildVerificationLevel, Message } = require('discord.js'),
+  { EmbedBuilder, GuildDefaultMessageNotifications, ChannelType, GuildPremiumTier, GuildVerificationLevel } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = new Command({
@@ -52,6 +52,6 @@ module.exports = new Command({
 
     if (guild.banner) embed.setImage(guild.bannerURL());
 
-    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+    functions.reply({ embeds: [embed] }, message);
   }
 })

@@ -1,5 +1,4 @@
 const { Command } = require('reconlx');
-const { Message } = require('discord.js');
 
 module.exports = new Command({
   name: 'autopublish',
@@ -21,7 +20,6 @@ module.exports = new Command({
     const newData = Object.merge(oldData, { [message.guild.id]: { config: { autopublish: !setting } } })
     await db.set('guildSettings', newData);
 
-    if (message instanceof Message) functions.reply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')), message);
-    else message.editReply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));
+    functions.reply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')), message);
   }
 })

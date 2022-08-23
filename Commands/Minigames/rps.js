@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, ComponentType, Message } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, ComponentType } = require('discord.js'),
   hand = new Collection([['Rock', { id: 0, emoji: '✊' }], ['Paper', { id: 1, emoji: '🤚' }], ['Scissors', { id: 2, emoji: '✌️' }]]);
 
 module.exports = new Command({
@@ -54,11 +54,8 @@ module.exports = new Command({
         ]
       };
 
-    if (message instanceof Message) {
-      if (message.editable) message.edit(data);
-      else message = await message.reply(data);
-    }
-    else message.editReply(data);
+    if (message.editable) message.edit(data);
+    else message = await functions.reply(data, message);
 
     const moveCollector = message.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 10000 });
 
@@ -92,7 +89,7 @@ module.exports = new Command({
         ]
       });
 
-      message instanceof Message ? message.edit(data) : message.editReply(data);
+      message.edit(data);
 
       filter = i => msg.member.id == i.user.id && i.customId == 'playAgain';
       const playAgainCollector = message.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 15000 });
@@ -108,7 +105,7 @@ module.exports = new Command({
 
         for (const button of data.components[1].components) button.setDisabled(true);
 
-        message instanceof Message ? message.edit(data) : message.editReply(data);
+        message.edit(data);
       });
     });
 
@@ -121,7 +118,7 @@ module.exports = new Command({
 
       data.embeds[0].data.description = lang('timedOut');
 
-      message instanceof Message ? message.edit(data) : message.editReply(data);
+      message.edit(data);
     })
 
   }

@@ -1,6 +1,6 @@
 const
   { Command } = require('reconlx'),
-  { EmbedBuilder, Message } = require('discord.js');
+  { EmbedBuilder } = require('discord.js');
 
 module.exports = new Command({
   name: 'roleinfo',
@@ -48,6 +48,6 @@ module.exports = new Command({
 
     if (role.color || role.icon) embed.setThumbnail(role.icon ? `https://cdn.discordapp.com/role-icons/${role.guild.id}/${role.icon}.webp?size=80&quality=lossless` : `https://dummyimage.com/80x80/${role.color}/${role.color}.png`);
 
-    message instanceof Message ? functions.reply({ embeds: [embed] }, message) : message.editReply({ embeds: [embed] });
+    functions.reply({ embeds: [embed] }, message);
   }
 })
