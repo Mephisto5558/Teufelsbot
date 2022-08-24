@@ -17,7 +17,7 @@ module.exports = new Command({
   run: async (message, lang, { db, functions }) => {
     const embed = new EmbedBuilder({
       color: Colors.White,
-      author: { name: message.user.tag, iconURL: message.user.displayAvatarURL({ forceStatic: true }) }
+      author: { name: message.user.tag, iconURL: message.member.displayAvatarURL({ forceStatic: true }) }
     });
 
     const userData = db.get('guildSettings')[message.guild.id]?.economy?.[message.user.id];
@@ -30,8 +30,8 @@ module.exports = new Command({
       [message.guild.id]: {
         economy: {
           [message.user.id]: {
-            currency: (userData?.currency || 0) + userData?.gaining?.daily,
-            dailyStreak: userData?.dailyStreak + 1
+            currency: (userData?.currency || 0) + userData.gaining.daily,
+            dailyStreak: (userData?.dailyStreak || 0) + 1
           }
         }
       }
