@@ -30,16 +30,30 @@ module.exports = new Command({
 
   run: async (message, lang, { functions, db }) => {
     const target = message.options?.getUser('user') || message.mentions?.users.first();
-    if (!target || target.id == message.user.id) return functions.reply(lang('noTarget'));
-
+    const embed = new EmbedBuilder({
+      title: lang('embedTitle'),
+      color: Colors.White
+    });
     let amount = message.options?.getString('amount') || message.args?.[1];
+
+    if (!target) embed.data.description = lang('error.noTarget');
+    else if (target.id == message.user.id) embed.data.description = lang('error.self');
+    else if (target.bot) embed.data.description = lang('error.bot');
+    else if (!amount) embed.data.description = lang('error.noAmount');
+
+    if (embed.data.description) return functions.reply({ embeds: [embed] }, message);
+
     const
       userData = db.get('guildSettings')[message.guild.id]?.economy?.[message.user.id],
       targetData = db.get('guildSettings')[message.guild.id]?.economy?.[target.id];
 
-    if (isNaN(amount.replace('%', ''))) amount = userData.currency / 10;
+    if (!userData?.currency) {
+      embed.data.description = lang('error.noMoney');
+      return functions.reply({ embeds: [embed] }, message);
+    }
+    else if (isNaN(amount.replace('%', ''))) amount = userData.currency / 10;
     else if (amount.includes('%')) amount = userData.currency * amount.replace(/[^/d]/g, '') / 100;
-    else if (amount > userData.currency) amount = userData.currency;
+    else if (amount > (userData.currency || 0)) amount = userData.currency;
 
     if (amount > targetData.currencyCapacity) amount = targetData.currencyCapacity;
 
@@ -50,12 +64,7 @@ module.exports = new Command({
       [message.guild.id]: { economy: { [message.user.id]: { currency: newUserCurrency }, [target.id]: { currency: newTargetCurrency } } }
     }));
 
-    const embed = new EmbedBuilder({
-      title: lang('embedTitle'),
-      description: lang('embedDescription', amount, target, newUserCurrency, newTargetCurrency),
-      color: Colors.White
-    });
-
-    functions.reply({ content: target.toString(), embed: [embed] });
+    embed.data.description = lang('embedDescription', amount, target, newUserCurrency, newTargetCurrency);
+    functions.reply({ content: target.toString(), embed: [embed] }, message);
   }
 })
