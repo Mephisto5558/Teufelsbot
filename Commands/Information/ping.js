@@ -28,7 +28,7 @@ module.exports = new Command({
         color: Colors.Green
       }),
       messagePing = Date.now(),
-      msg = await functions.reply({ embeds: [embed] }),
+      msg = await functions.reply({ embeds: [embed] }, message),
       endMessagePing = Date.now() - messagePing;
 
     if (average) {
