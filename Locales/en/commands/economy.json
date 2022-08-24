@@ -7,8 +7,8 @@
         "description": "The user you want to get the account of"
       }
     },
-    "currency": "Souls: **%s**\n",
-    "dailyStreak": "Daily Streak: **%s**\n",
+    "currency": "Souls: **%s** <:soul:1011962640349810688>\n",
+    "dailyStreak": "Daily Streak: **%s** <:souls:1011962960840773673>\n",
     "rank": "Rank: **%s**\n",
     "none": "none"
   },
@@ -28,46 +28,55 @@
         "description": "The amount of souls you want to give. (% is supported)"
       }
     },
-    "noTarget": "You need to mention someone (not yourself tho)",
+    "error": {
+      "noTarget": "You need to mention someone!",
+      "self": "You can't give yourself souls...",
+      "bot": "You want to give your souls to a bot?",
+      "noAmount": "You need to specify how much souls you want to give!",
+      "noMoney": "You are too poor to give someone souls..."
+    },
     "embedTitle": "Give",
-    "embedDescription": "You gave %d Souls to %s!\n>>>Your souls: %d\nHis/Her souls: %d"
+    "embedDescription": "You gave %d Souls to %s! <:soul:1011962640349810688>\n>>>Your souls: %d <:soul:1011962640349810688>\nHis/Her souls: %d <:soul:1011962640349810688>"
   },
   "research": {
     "description": "Upgrade your skills and research new ones!",
     "skills": {
       "currency_bonus_percentage": {
-        "name": "Soul Bonus (%)",
+        "name": "Soul Bonus (%) <:soul:1011962640349810688>",
         "description": "How much more Souls (in percent) you get from your activities."
       },
       "currency_bonus_absolute": {
-        "name": "Soul Bonus",
+        "name": "Soul Bonus <:soul:1011962640349810688>",
         "description": "How much more Souls you get from your activities."
       },
       "research_speed_percentage": {
-        "name": "Research Speed (%)",
+        "name": "Research Speed (%) <:research:1011960920609665064>",
         "description": "How much faster (in percent) you can research."
       },
       "research_bonus_percentage": {
-        "name": "Research Efficiency (%)",
+        "name": "Research Efficiency (%) <:research:1011960920609665064>",
         "description": "How big the bonuses are that you get from researching."
       },
       "power": {
-        "name": "Power",
+        "name": "Power <:power:1011965677625671731>",
         "description": "One of your most important stats. It protects you from other players in several ways and lets you handle more powerful slaves."
       },
       "defense": {
-        "name": "Defense",
+        "name": "Defense <:defense:1011971580584263710>",
         "description": "Protects you from other players in several ways."
       },
       "currency_capacity": {
-        "name": "Soul Capacity",
+        "name": "Soul Capacity <:storage:1011973136100642947>",
         "description": "How much souls you can have at once. If you are 50% over your limit, you lose 75% of your souls!"
       },
       "slave_capacity": {
-        "name": "Slave Capacity",
-        "description": "How many slaves you can have at once"
+        "name": "Slave Capacity <:storage:1011973136100642947>",
+        "description": "How many slaves you can have at once."
       }
     },
+    "lvl": "Lv. %d",
+    "selectMenuPlaceholder": "What do you want to research?",
+    "price": "Price: %d <:soul:1011962640349810688>",
     "embedTitle": "Research"
   },
   "stats": {
@@ -79,9 +88,9 @@
       }
     },
     "noStats": "This user is powerless and has no stats which are worth displaying.",
-    "currency": "Souls",
-    "power": "Power",
-    "defense": "Defense",
+    "currency": "Souls <:soul:1011962640349810688>",
+    "power": "Power <:power:1011965677625671731>",
+    "defense": "Defense <:defense:1011971580584263710>",
     "slaves": "Slaves",
     "maxSlaves": "Max Slaves",
     "gaining": {
@@ -92,21 +101,21 @@
       "daily": "Daily collection"
     },
     "skills": {
-      "currency_bonus_percentage": "Soul Bonus (%)",
-      "currency_bonus_absolute": "Soul Bonus",
-      "research_speed_percentage": "Research Speed (%)",
-      "research_bonus_percentage": "Research Efficiency (%)",
-      "power": "Power",
-      "defense": "Defense",
-      "currency_capacity": "Soul Capacity",
-      "slave_capacity": "Slave Capacity"
+      "currency_bonus_percentage": "Soul Bonus (%) <:soul:1011962640349810688>",
+      "currency_bonus_absolute": "Soul Bonus <:soul:1011962640349810688>",
+      "research_speed_percentage": "Research Speed (%) <:research:1011960920609665064>",
+      "research_bonus_percentage": "Research Efficiency (%) <:research:1011960920609665064>",
+      "power": "Power <:power:1011965677625671731>",
+      "defense": "Defense <:defense:1011971580584263710>",
+      "currency_capacity": "Soul Capacity <:storage:1011973136100642947>",
+      "slave_capacity": "Slave Capacity <:storage:1011973136100642947>"
     },
     "embedTitle": "Stats"
   },
   "top": {
     "description": "Displays the most powerful people on this guild.",
-    "currency": "Souls: **%s**\n",
-    "power": "Power: **%s**",
+    "currency": "Souls: **%s** <:soul:1011962640349810688>\n",
+    "power": "Power: **%s** <:power:1011965677625671731>",
     "embedTitle": "Top 10 Members",
     "embedDescription": "These are the top 10 members, sorted by theire power",
     "noneFound": "No one here has any power!"
