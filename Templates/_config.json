@@ -12,5 +12,6 @@
     "Repo": "Repo URL here",
     "UserName": "Your github username",
     "RepoName": "Your repo name"
-  }
+  },
+  "langaugesToImport": ["Language1", "Language2"]
 }
