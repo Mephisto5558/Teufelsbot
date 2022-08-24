@@ -39,6 +39,11 @@ function format(option) {
     return option;
   }
 
+  if(/[A-Z]/.test(option.name)) {
+    console.error(`${option.name} has uppercase letters! Fixing`);
+    option.name = option.name.toLowerCase();
+  }
+
   if(option.channelTypes) option.channelTypes = option.channelTypes?.map(e => {
     if (!ChannelType[e] && ChannelType[e] != 0) throw Error(`Invalid option.channelType, got ${e}`);
     return isNaN(e) ? ChannelType[e] : e;
