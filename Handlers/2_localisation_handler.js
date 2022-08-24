@@ -1,10 +1,10 @@
 const
   { readdirSync } = require('fs'),
   I18n = require('@eartharoid/i18n'),
-  toImport = require('../Locales/import.json'),
+  { langaugesToImport } = require('../config.json'),
   locales = {};
 
-for (const lang of readdirSync('./Locales', { withFileTypes: true }).filter(({ name }) => toImport.includes(name)).map(e => e.name.split('.')[0])) {
+for (const lang of readdirSync('./Locales', { withFileTypes: true }).filter(({ name }) => langaugesToImport.includes(name)).map(e => e.name.split('.')[0])) {
   for (const e of readdirSync(`./Locales/${lang}`, { withFileTypes: true })) {
     if (!locales[lang]) locales[lang] = {};
     e.name = e.name.split('.')[0];
