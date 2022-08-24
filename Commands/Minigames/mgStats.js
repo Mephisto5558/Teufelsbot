@@ -67,7 +67,7 @@ async function formatTopTen(input, settings, message, lang) {
 }
 
 module.exports = new Command({
-  name: 'mgStats',
+  name: 'mgstats',
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
   description: 'get stats about one of the minigames',
   usage: 'PREFIX Command: mgStats <game> [target]',
