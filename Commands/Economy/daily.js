@@ -20,8 +20,8 @@ module.exports = new Command({
       author: { name: message.user.tag, iconURL: message.member.displayAvatarURL({ forceStatic: true }) }
     });
 
-    const userData = db.get('guildSettings')[message.guild.id]?.economy?.[message.user.id];
-    if (!userData?.gaining?.daily) {
+    const userData = db.get('guildSettings')[message.guild.id].economy[message.user.id];
+    if (!userData.gaining.daily) {
       embed.data.description = lang('notUnlocked');
       return functions.reply({ embeds: [embed] }, message);
     }
@@ -30,8 +30,8 @@ module.exports = new Command({
       [message.guild.id]: {
         economy: {
           [message.user.id]: {
-            currency: (userData?.currency || 0) + userData.gaining.daily,
-            dailyStreak: (userData?.dailyStreak || 0) + 1
+            currency: userData.currency + userData.gaining.daily,
+            dailyStreak: userData.dailyStreak + 1
           }
         }
       }

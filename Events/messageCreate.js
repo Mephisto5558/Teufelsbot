@@ -40,6 +40,9 @@ module.exports = async (client, message) => {
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
   ) return;
 
+  if (command.category.toLowerCase() == 'economy' && command.name != 'economy' && !client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id]?.gaining?.chat)
+    return client.functions.reply(lang('events.economyNotInitialized'), message);
+
   const cooldown = await require('../Functions/private/cooldowns.js')(client, message, command);
   if (cooldown && !client.botType == 'dev') return client.functions.reply(lang('events.cooldown', cooldown), message);
 

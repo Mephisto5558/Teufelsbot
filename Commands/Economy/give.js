@@ -44,12 +44,15 @@ module.exports = new Command({
     if (embed.data.description) return functions.reply({ embeds: [embed] }, message);
 
     const
-      userData = db.get('guildSettings')[message.guild.id]?.economy?.[message.user.id],
-      targetData = db.get('guildSettings')[message.guild.id]?.economy?.[target.id];
+      userData = db.get('guildSettings')[message.guild.id].economy[message.user.id],
+      targetData = db.get('guildSettings')[message.guild.id].economy[target.id];
 
-    if (!userData?.currency) {
+    if (!userData.currency) {
       embed.data.description = lang('error.noMoney');
       return functions.reply({ embeds: [embed] }, message);
+    }
+    else if (!targetData?.gaining?.chat) {
+      embed.data.description = lang('error.targetEconomyNotInitialized')
     }
     else if (isNaN(amount.replace('%', ''))) amount = userData.currency / 10;
     else if (amount.includes('%')) amount = userData.currency * amount.replace(/[^/d]/g, '') / 100;
