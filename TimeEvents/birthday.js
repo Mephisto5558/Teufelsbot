@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 
 function formatBirthday(msg, user, year) {
-  return msg?.replace(/<user.nickname>/g, user.nickname)
+  return msg?.replace(/<user.nickname>/g, user.displayName)
     .replace(/<user.username>/g, user.username)
     .replace(/<user.id>/g, user.id)
     .replace(/<user.tag>/g, user.tag)
