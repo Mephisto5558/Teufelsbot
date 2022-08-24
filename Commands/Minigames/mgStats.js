@@ -145,7 +145,7 @@ module.exports = new Command({
       color: Colors.Blurple,
       footer: {
         text: message.member.user.tag,
-        iconURL: message.member.user.displayAvatarURL()
+        iconURL: message.member.displayAvatarURL()
       }
     });
 
