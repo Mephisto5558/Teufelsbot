@@ -19,6 +19,10 @@
     "success": "%s without errors.",
     "error": "%s with the following error:\n```\n%s: %s\n```"
   },
+  "gitpull": {
+    "description": "Run a git pull",
+    "success": "Successfully executed the command."
+  },
   "globalsync": {
     "description": "syncs the bot's slash commands with all guilds",
     "success": "Finished Syncing."
