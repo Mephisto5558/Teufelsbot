@@ -17,6 +17,21 @@
     "notUnlocked": "You have not researched the daily souls yet! `/research`",
     "collected": "You have collected %d souls!"
   },
+  "economy": {
+    "description": "Some Economy Configs",
+    "options": {
+      "start": {
+        "description": "Start using the economy commands!"
+      },
+      "config": {
+        "description": "Configure the economy in this guild."
+      }
+    },
+    "start": {
+      "alreadyInitiated": "You have run this command already! You can use the economy.",
+      "success": "You can now use the economy. Try out `/account`, `/stats` and `/research`!"
+    }
+  },
   "give": {
     "description": "Give some souls to someone",
     "usage": "give [@user] [amount]",
@@ -33,7 +48,8 @@
       "self": "You can't give yourself souls...",
       "bot": "You want to give your souls to a bot?",
       "noAmount": "You need to specify how much souls you want to give!",
-      "noMoney": "You are too poor to give someone souls..."
+      "noMoney": "You are too poor to give someone souls...",
+      "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. He/She has to run `/economy start`"
     },
     "embedTitle": "Give",
     "embedDescription": "You gave %d Souls to %s! <:soul:1011962640349810688>\n>>>Your souls: %d <:soul:1011962640349810688>\nHis/Her souls: %d <:soul:1011962640349810688>"
@@ -77,7 +93,13 @@
     "lvl": "Lv. %d",
     "selectMenuPlaceholder": "What do you want to research?",
     "price": "Price: %d <:soul:1011962640349810688>",
-    "embedTitle": "Research"
+    "embedTitle": "Research",
+    "notEnoughMoney": "You have not enough souls to research this upgrade!",
+    "onCooldown": "You are currently researching this one! It will finish <t:%d:R>.",
+    "maxLevel": "You have already maxed out this skill!",
+    "onMaxConcurrentResearches": "You cannot research even more skills at once!",
+    "success": "The upgrade for **%s** to Level `%d` has started!\nIt will finish <t:%d:R> (<t:%d>)",
+    "timedOut": "This menu timed out."
   },
   "stats": {
     "description": "Get more in-depth stats about a user or yourself",

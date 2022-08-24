@@ -4,7 +4,7 @@ const
 
 module.exports = new Command({
   name: 'account',
-  aliases: { prefix: ['acc', 'a'], slash: [] },
+  aliases: { prefix: ['acc'], slash: [] },
   description: 'show your account and stats',
   usage: 'account [user]',
   permissions: { client: [], user: [] },
@@ -23,16 +23,16 @@ module.exports = new Command({
   run: async (message, lang, { db, functions }) => {
     const
       target = message.options?.getUser('user') || message.mentions?.users.first() || message.user,
-      userData = db.get('guildSettings')[message.guild.id]?.economy?.[target.id],
-      rank = db.get('guildSettings')[message.guild.id]?.economy?.sort((a, b) => b.power - a.power).indexOf(target.id) + 1,
+      userData = db.get('guildSettings')[message.guild.id].economy[target.id],
+      rank = Object.entries(db.get('guildSettings')[message.guild.id].economy).sort(([, a], [, b]) => b.power - a.power).map(([e]) => e).indexOf(target.id) + 1,
       embed = new EmbedBuilder({
         color: Colors.White,
         author: { name: target.name, iconURL: target.displayAvatarURL({ forceStatic: true }) },
         footer: { text: message.user.tag },
         thumbnail: { url: target.displayAvatarURL({ forceStatic: true }) },
         description:
-          lang('currency', userData?.currency ?? 0) +
-          lang('dailyStreak', userData?.dailyStreak ?? 0) +
+          lang('currency', userData.currency ?? 0) +
+          lang('dailyStreak', userData.dailyStreak ?? 0) +
           lang('rank', !isNaN(rank) && rank ? rank : lang('none'))
       });
 

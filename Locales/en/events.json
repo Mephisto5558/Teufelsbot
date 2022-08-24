@@ -5,6 +5,7 @@
     "embedTitle": "Insufficient Permissions",
     "embedDescription": "%s need the following permissions in this channel to run this command:\n`%s`"
   },
+  "economyNotInitialized": "This command is an economy category command. To start using the economy, run `/economy start`.",
   "errorHandler": {
     "embedTitle": "Whoooops",
     "embedDescription": "An unexpected error occurred!\n\nError Type: `%s`\nCommand: `%s`",

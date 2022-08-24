@@ -15,6 +15,9 @@ module.exports = async (client, interaction) => {
     (command.category.toLowerCase() == 'owner-only' && interaction.user.id != client.application.owner.id)  //DO NOT REMOVE THIS STATEMENT!
   ) return;
 
+  if (command.category.toLowerCase() == 'economy' && command.name != 'economy' && !client.db.get('guildSettings')[interaction.guild.id]?.economy?.[interaction.user.id]?.gaining?.chat)
+    return interaction.reply(lang('events.economyNotInitialized'));
+
   if (interaction.type == InteractionType.ApplicationCommand) {
     const userPermsMissing = interaction.member.permissionsIn(interaction.channel).missing(command.permissions.user);
     const botPermsMissing = interaction.guild.members.me.permissionsIn(interaction.channel).missing(command.permissions.client);
@@ -35,6 +38,6 @@ module.exports = async (client, interaction) => {
       if (entry.type == ApplicationCommandOptionType.String) entry.value = entry.value.replace(/<@!/g, '<@');
 
     try { await command.run(interaction, lang, client) }
-    catch(err) { require('../Functions/private/error_handler.js')(err, client, interaction, lang) }
+    catch (err) { require('../Functions/private/error_handler.js')(err, client, interaction, lang) }
   }
 }

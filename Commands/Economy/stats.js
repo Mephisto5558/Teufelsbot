@@ -25,7 +25,7 @@ module.exports = new Command({
       target = message.options?.getUser('user') || message.mentions?.users.first() || message.user,
       userData = db.get('guildSettings')[message.guild.id]?.economy?.[target.id];
       
-      if(!userData || !userData.power) return functions.reply(lang('noStats'), message);
+      if(!userData?.power) return functions.reply(lang('noStats'), message);
       
       const fields = [
         { name: lang('currency'), value: `${userData.currency}/${userData.currencyCapacity}` },
