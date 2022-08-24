@@ -64,7 +64,7 @@ module.exports = new Command({
     }
 
     embed.data.title = lang('all.embedTitle');
-    embed.setThumbnail(client.user.displayAvatarURL());
+    embed.setThumbnail(message.guild.members.me.displayAvatarURL());
 
     for (const category of client.categories.map(e => e.toUpperCase())) {
       if (category == 'OWNER-ONLY') continue;
