@@ -57,7 +57,7 @@ async function formatTopTen(input, settings, message, lang) {
     }
 
     output +=
-      `${[':first_place:', ':second_place:', ':third_place:'][i] || `${i}.`} <@${entry[0]}>\n` +
+      `${[':first_place:', ':second_place:', ':third_place:'][i] || i + '.'} <@${entry[0]}>\n` +
       '> ' + lang('wins', entry[1].wins || 0) +
       '> ' + lang('loses', entry[1].loses || 0) +
       '> ' + lang('draws', entry[1].draws || 0);
