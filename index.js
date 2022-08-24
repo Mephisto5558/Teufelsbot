@@ -63,13 +63,20 @@ console.time('Starting time');
       GatewayIntentBits.MessageContent
     ]
   });
-  const db = new reconDB(process.env.dbConnectionStr);
-  await db.ready();
+  let env, db;
 
   await require('./Website/custom/git/pull.js').run();
+  
+  if (existsSync('./env.json')) env = require('./env.json');
+  else {
+    db = new reconDB(process.env.dbConnectionStr);
+    env = (await db.get('botSettings')).env;
+  }
 
-  let env = existsSync('./env.json') ? require('./env.json') : (await db.get('botSettings')).env;
   env = Object.merge(env.global, env[env.global.environment]);
+
+  if (!db) db = new reconDB(env.dbConnectionStr);
+  await db.ready();
 
   client.userID = env.botUserID;
   client.botType = env.environment;
@@ -84,7 +91,7 @@ console.time('Starting time');
   client.commands = new Collection();
   client.guildData = new Collection();
 
-  if(client.botType != 'dev') client.giveawaysManager = require('./Functions/private/giveawaysmanager.js')(client);
+  if (client.botType != 'dev') client.giveawaysManager = require('./Functions/private/giveawaysmanager.js')(client);
 
   await require('./Handlers/log_handler.js')(client);
   for (const handler of readdirSync('./Handlers').filter(e => e != 'log_handler.js')) require(`./Handlers/${handler}`)(client);
