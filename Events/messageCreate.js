@@ -33,7 +33,7 @@ module.exports = async (client, message) => {
       if (eco.currency + eco.gaining.chat > eco.currencyCapacity) currency = eco.currencyCapacity;
       else currency = eco.currency + eco.gaining.chat;
 
-      await client.db.set('guildSettings', Object.merge(client.db.get('guildSettings'), {
+      await client.db.set('guildSettings', client.db.get('guildSettings').merge({
         [message.guild.id]: { economy: { [message.author.id]: { currency } } }
       }));
     }

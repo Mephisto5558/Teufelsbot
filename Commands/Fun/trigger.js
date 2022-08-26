@@ -104,7 +104,7 @@ module.exports = new Command({
           wildcard: interaction.options.getBoolean('wildcard') !== false
         };
 
-        newData = Object.merge(settings, { [interaction.guild.id]: { triggers: [data] } }, 'push');
+        newData = settings.merge({ [interaction.guild.id]: { triggers: [data] } }, 'push');
         await db.set('guildSettings', newData);
 
         interaction.editReply(lang('saved', data.trigger));
@@ -117,7 +117,7 @@ module.exports = new Command({
         const filtered = oldData.filter(e => e.id != id);
         if (filtered.length == oldData.length) return interaction.editReply(lang('idNotFound'));
 
-        newData = Object.merge(settings, { [interaction.guild.id]: { triggers: filtered } }, 'overwrite');
+        newData = settings.merge({ [interaction.guild.id]: { triggers: filtered } }, 'overwrite');
         await db.set('guildSettings', newData);
 
         interaction.editReply(lang('deletedOne', id));
@@ -128,7 +128,7 @@ module.exports = new Command({
         if (interaction.options.getString('confirmation').toLowerCase() != 'clear all') return interaction.editReply(lang('needConfirm'));
         if (!oldData.length) return interaction.editReply(lang('noneFound'));
 
-        newData = Object.merge(settings, { [interaction.guild.id]: { triggers: [] } }, 'overwrite');
+        newData = settings.merge({ [interaction.guild.id]: { triggers: [] } }, 'overwrite');
         await db.set('guildSettings', newData);
 
         interaction.editReply(lang('deletedAll', oldData.length));
