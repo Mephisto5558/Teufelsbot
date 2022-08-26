@@ -19,7 +19,7 @@ module.exports = new Command({
       userSkills = db.get('guildSettings')[message.guild.id].economy[message.user.id].skills,
       defaultSkills = db.get('guildSettings').default.economy.skills,
       fields = Object.entries(defaultSkills).map(([skill, defaultSkill]) => {
-        const price = userSkills[skill].lastPrice ? Math.round(userSkills[skill].lastPrice * userSkills[skill].percentage / 100) : defaultSkill.firstPrice;
+        const price = userSkills[skill].lastPrice ? userSkills[skill].lastPrice + Math.round(userSkills[skill].lastPrice * userSkills[skill].percentage / 100) : defaultSkill.firstPrice;
 
         return {
           name: lang(`skills.${skill}.name`) + ' ' + lang(`skills.${skill}.emoji`) + ` ${lang('lvl', userSkills[skill].lvl)} | ${lang('price', price)} | ${userSkills[skill].lvlUpCooldown}h <:research:1011960920609665064>`,
@@ -57,7 +57,7 @@ module.exports = new Command({
         skill = button.values[0],
         userData = db.get('guildSettings')[message.guild.id].economy[message.user.id],
         userSkill = userData.skills[skill],
-        price = userSkill.lastPrice ? Math.round(userSkill.lastPrice * userSkill.percentage / 100) : defaultSkills[skill].firstPrice;
+        price = userSkill.lastPrice ? userSkill.lastPrice + Math.round(userSkill.lastPrice * userSkill.percentage / 100) : defaultSkills[skill].firstPrice;
       let errorMsg;
 
       if (Object.values(userSkills).filter(e => e.onCooldownUntil > Date.now()).length > userData.maxConcurrentResearches) errorMsg = lang('onMaxConcurrentResearches');
@@ -66,14 +66,15 @@ module.exports = new Command({
       else if (userSkill.maxLevel && userSkill.lvl > userSkill.maxLevel) errorMsg = lang('maxLevel');
 
       if (errorMsg) return button.editReply(errorMsg);
-      const onCooldownUntil = new Date(Date.now() + userData.skills[skill].lvlUpCooldown * 360000).getTime();
+      const onCooldownUntil = new Date(Date.now() + userSkill.lvlUpCooldown * 360000).getTime();
 
       const newData = {
         currency: userData.currency - price,
         skills: {
           [skill]: {
             lastPrice: price,
-            lvl: userData.skills[skill].lvl + 1,
+            lvl: userSkill.lvl + 1,
+            bonus: userSkill.bonus + userSkill.bonus * (userSkill.percentage - 2 + userData.skills.research_bonus_percentage) / 100,
             onCooldownUntil
           }
         }
