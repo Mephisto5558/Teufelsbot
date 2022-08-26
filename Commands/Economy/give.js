@@ -28,7 +28,7 @@ module.exports = new Command({
   ],
   beta: true,
 
-  run: async (message, lang, { functions, db }) => {
+  run: async (message, lang, { db }) => {
     const target = message.options?.getUser('user') || message.mentions?.users.first();
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
@@ -41,7 +41,7 @@ module.exports = new Command({
     else if (target.bot) embed.data.description = lang('error.bot');
     else if (!amount) embed.data.description = lang('error.noAmount');
 
-    if (embed.data.description) return functions.reply({ embeds: [embed] }, message);
+    if (embed.data.description) return message.customreply({ embeds: [embed] });
 
     const
       userData = db.get('guildSettings')[message.guild.id].economy[message.user.id],
@@ -49,7 +49,7 @@ module.exports = new Command({
 
     if (!userData.currency) {
       embed.data.description = lang('error.noMoney');
-      return functions.reply({ embeds: [embed] }, message);
+      return message.customreply({ embeds: [embed] });
     }
     else if (!targetData?.gaining?.chat) {
       embed.data.description = lang('error.targetEconomyNotInitialized')
@@ -67,6 +67,6 @@ module.exports = new Command({
     }));
 
     embed.data.description = lang('embedDescription', amount, target, newUserCurrency, newTargetCurrency);
-    functions.reply({ content: target.toString(), embed: [embed] }, message);
+    message.customreply({ content: target.toString(), embed: [embed] });
   }
 })

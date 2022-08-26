@@ -48,7 +48,7 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async (message, lang, { functions }) => {
+  run: async (message, lang) => {
     const cmdName = message.args.shift() || message.options?.getString('type'),
       args = message.args.map(e => e.replace(/[<@>]/g, '')),
       cmd = endpoints.get(cmdName?.toLowerCase()),
@@ -62,9 +62,9 @@ module.exports = new Command({
     if (!cmd) errorMsg = (cmdName ? lang('notFound') : '') + lang('validOptions', options.map(e => e.name).join('`, `'));
     else if ((args?.length || 0) < option.options.length) errorMsg = lang('requiresArgs', option.options.map(e => `> \`${e.name}\`: ${e.description}`).join('\n'));
 
-    if (errorMsg) return functions.reply(errorMsg, message);
+    if (errorMsg) return message.customreply(errorMsg);
 
-    message = functions.reply(lang('global.loading'), message);
+    message = message.customreply(lang('global.loading'));
 
     args.map((e, i) => { if (option.options[i]) headers += `${option.options[i].name}=${e}&` });
 

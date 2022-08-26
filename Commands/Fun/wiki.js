@@ -24,11 +24,11 @@ module.exports = new Command({
     required: true
   }],
 
-  run: async (message, lang, { functions }) => {
+  run: async (message, lang) => {
     const query = message.options?.getString('query') || message.content;
     let data, joined = '';
 
-    message = await functions.reply(lang('global.loading'), message);
+    message = await message.customreply(lang('global.loading'));
 
     try {
       if (query) data = await Wiki(options).search(query, 1);
@@ -78,7 +78,7 @@ module.exports = new Command({
       message.followUp?.(joined) || message.reply(joined);
     }
     catch (err) {
-      functions.reply(lang('error', err), message);
+      message.customreply(lang('error', err));
     }
   }
 })

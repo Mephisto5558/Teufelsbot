@@ -72,7 +72,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (message, lang, { functions }) => {
+  run: async (message, lang) => {
     const
       filterNSFW = (message.options?.getBoolean('filter_nsfw') ?? true) || !message.channel.nsfw,
       type = message.options?.getString('type') ?? message.args?.[1] ?? 'hot';
@@ -85,7 +85,7 @@ module.exports = new Command({
     if (cachedSubreddits.has(`${subreddit}_${type}`)) post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`).data, filterNSFW);
     else {
       const res = await fetch(`https://www.reddit.com/r/${subreddit}/${type}.json`).then(res => res.json());
-      if (res.error) return functions.reply(lang('error', `Error: ${res.message}\nReason:${red.reason}`), message);
+      if (res.error) return message.customreply(lang('error', `Error: ${res.message}\nReason:${red.reason}`));
 
       cachedSubreddits.set(`${subreddit}_${type}`, res);
       setTimeout(_ => cachedSubreddits.delete(`${subreddit}_${type}`), 5 * 60 * 1000);
@@ -93,7 +93,7 @@ module.exports = new Command({
       post = fetchPost(res.data, filterNSFW);
     }
 
-    if (!post) return functions.reply(lang('notFound'), message);
+    if (!post) return message.customreply(lang('notFound'));
 
     const embed = new EmbedBuilder({
       author: { name: `${post.author} | r/${post.subreddit}` },
@@ -103,6 +103,6 @@ module.exports = new Command({
       footer: { text: `Upvotes: ${post.upvotes} (${post.ratio * 100}%) | Downvotes: ${post.downvotes} | Comments: ${post.comments}` }
     }).setColor('Random');
 
-   functions.reply({ embeds: [embed] }, message);
+   message.customreply({ embeds: [embed] });
   }
 })

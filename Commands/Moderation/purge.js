@@ -24,7 +24,7 @@ module.exports = new Command({
   run: async (message, lang, { functions }) => {
     let amount = parseInt(message.options?.getNumber('amount') || message.args?.[0]).limit({ max: 1000 });
 
-    if (!amount) return functions.reply(isNaN(amount) ? lang('invalidNumber') : lang('noNumber'), message);
+    if (!amount) return message.customreply(isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
     if (message instanceof Message) amount++; //+1 is the command
 
     for (let i = 0; i <= amount; i += 100) {

@@ -28,7 +28,7 @@ module.exports = new Command({
   ],
 
   run: async (message, lang, { db }) => {
-    const msg = await functions.reply(lang('global.loading'), message);
+    const msg = await message.customreply(lang('global.loading'));
 
     message.args?.shift();
 

@@ -14,7 +14,7 @@ module.exports = new Command({
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, { db, functions }) => {
+  run: async (message, lang, { db }) => {
     const embed = new EmbedBuilder({
       color: Colors.White,
       author: { name: message.user.tag, iconURL: message.member.displayAvatarURL({ forceStatic: true }) }
@@ -23,7 +23,7 @@ module.exports = new Command({
     const userData = db.get('guildSettings')[message.guild.id].economy[message.user.id];
     if (!userData.gaining.daily) {
       embed.data.description = lang('notUnlocked');
-      return functions.reply({ embeds: [embed] }, message);
+      return message.customreply({ embeds: [embed] });
     }
 
     db.set('userSettings', db.get('guildSettings').merge({
@@ -38,6 +38,6 @@ module.exports = new Command({
     }));
 
     embed.data.description = lang('collected', userData.daily);
-    functions.reply({ embeds: [embed] }, message);
+    message.customreply({ embeds: [embed] });
   }
 })

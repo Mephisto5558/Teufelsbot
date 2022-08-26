@@ -19,7 +19,7 @@ module.exports = new Command({
     required: false
   }],
 
-  run: async (message, lang, { functions }) => {
+  run: async (message, lang) => {
     if (message.content) {
       message.args = message.args[0]?.replace(/[<@>]/g, '');
       message.content = message.content?.replace(/[<@>]/g, '');
@@ -48,6 +48,6 @@ module.exports = new Command({
 
     if (role.color || role.icon) embed.setThumbnail(role.icon ? `https://cdn.discordapp.com/role-icons/${role.guild.id}/${role.icon}.webp?size=80&quality=lossless` : `https://dummyimage.com/80x80/${role.color}/${role.color}.png`);
 
-    functions.reply({ embeds: [embed] }, message);
+    message.customreply({ embeds: [embed] });
   }
 })

@@ -20,12 +20,12 @@ module.exports = new Command({
   }],
   beta: true,
 
-  run: async (message, lang, { db, functions }) => {
+  run: async (message, lang, { db }) => {
     const
       target = message.options?.getUser('user') || message.mentions?.users.first() || message.user,
       userData = db.get('guildSettings')[message.guild.id]?.economy?.[target.id];
 
-    if (!userData?.gaining?.chat) return functions.reply(lang('noStats'), message);
+    if (!userData?.gaining?.chat) return message.customreply(lang('noStats'));
 
     const fields = [
       { name: lang('currency'), value: `${userData.currency}/${userData.currencyCapacity}` },
@@ -53,6 +53,6 @@ module.exports = new Command({
         footer: { name: message.user.tag, iconURL: message.member.displayAvatarURL({ forceStatic: true }) },
       });
 
-    functions.reply({ embeds: [embed] }, message)
+    message.customreply({ embeds: [embed] })
   }
 })

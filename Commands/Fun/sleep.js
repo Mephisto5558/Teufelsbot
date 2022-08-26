@@ -17,5 +17,5 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: (message, _, { functions }) => functions.reply(`${message.member.displayName} ${responseList.random()}`, message)
+  run: message => message.customreply(`${message.member.displayName} ${responseList.random()}`)
 })

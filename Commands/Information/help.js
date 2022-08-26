@@ -60,13 +60,13 @@ module.exports = new Command({
         ].filter(e => e);
       }
 
-      return client.functions.reply({ embeds: [embed] }, message);
+      return message.customreply({ embeds: [embed] });
     }
 
     embed.data.title = lang('all.embedTitle');
     embed.setThumbnail(message.guild.members.me.displayAvatarURL());
 
-    for (const category of client.categories.map(e => e.toUpperCase())) {
+    for (const category of getDirectoriesSync('./Commands').map(e => e.toUpperCase())) {
       if (category == 'OWNER-ONLY') continue;
 
       let data = listCommands(client.commands, '', 1, category);
@@ -86,6 +86,6 @@ module.exports = new Command({
     if (!embed.data.fields) embed.data.description = lang('all.notFound');
     else embed.data.footer = { text: lang('all.embedFooterText') };
 
-    client.functions.reply({ embeds: [embed] }, message);
+    message.customreply({ embeds: [embed] });
   }
 })

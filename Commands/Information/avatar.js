@@ -53,6 +53,6 @@ module.exports = new Command({
         })]
       });
 
-    functions.reply({ embeds: [embed], components: [row] }, message);
+    message.customreply({ embeds: [embed], components: [row] });
   }
 })

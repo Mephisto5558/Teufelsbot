@@ -25,7 +25,7 @@ module.exports = new Command({
     }
   ],
 
-  run: async (message, lang, { db, functions }) => {
+  run: async (message, lang, { db }) => {
     const newPrefix = message.content || message.options?.getString('new_prefix');
     const prefixCaseInsensitive = message.options?.getBoolean('case_insensitive') ?? false;
     const oldData = await db.get('guildSettings');
@@ -34,7 +34,7 @@ module.exports = new Command({
       const newData = oldData.merge({ [message.guild.id]: { config: { prefix: newPrefix, prefixCaseInsensitive } } });
       await db.set('guildSettings', newData);
 
-      functions.reply(lang('saved', newPrefix), message);
+      message.customreply(lang('saved', newPrefix));
     }
     else {
       const currentPrefix = oldData[message.guild.id]?.config?.prefix || oldData.default.config.prefix;
@@ -42,7 +42,7 @@ module.exports = new Command({
 
       const msg = lang('currentPrefix', currentPrefix) + prefixCaseInsensitive ? lang('caseInsensitive') : '';
 
-      functions.reply(msg, message);
+      message.customreply(msg);
     }
 
   }

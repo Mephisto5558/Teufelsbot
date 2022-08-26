@@ -12,14 +12,14 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (message, _, { keys, functions }) => {
+  run: async (message, _, { keys }) => {
     try {
       const res = await get('https://api.api-ninjas.com/v1/facts', {
         headers: { 'X-Api-Key': keys.FunFactAPI },
         contentType: 'application/json',
       });
 
-      functions.reply(`${res.data[0].fact}.`, message)
+      message.customreply(`${res.data[0].fact}.`);
     }
     catch (err) { client.error(err) }
   }
