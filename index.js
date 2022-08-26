@@ -2,21 +2,20 @@ console.time('Initialising time');
 console.info('Starting...');
 
 const
-  { Client, Collection, GatewayIntentBits, AllowedMentionsTypes } = require('discord.js'),
-  { randomInt } = require('crypto'),
+  { Client, Collection, GatewayIntentBits, AllowedMentionsTypes, Message, CommandInteraction } = require('discord.js'),
   { reconDB } = require('reconlx'),
+  { randomInt } = require('crypto'),
   { existsSync, readdirSync } = require('fs'),
-  isObject = item => item && typeof item == 'object' && !Array.isArray(item);
+  isObject = item => item && typeof item == 'object' && !Array.isArray(item),
+  customreply = require('./Functions/private/reply.js');
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 
-Array.prototype.equals = array => {
-  if (!array || this.length != array.length) return false;
+Array.prototype.equals = function equals(array) {
+  if (this.length != array?.length) return false;
 
-  for (let i = 0; i < this.length; i++) {
-    if (this[i] instanceof Array && array[i] instanceof Array) if (!this[i].equals(array[i])) return false;
-    else if (this[i] != array[i]) return false;
-  }
+  for (let i = 0; i < this.length; i++)
+    if ((this[i] instanceof Array && array[i] instanceof Array && !this[i].equals(array[i])) || this[i] != array[i]) return false;
   return true;
 }
 Array.prototype.random = function random() { return this[randomInt(this.length - 1)] };
@@ -36,6 +35,8 @@ Object.prototype.merge = function merge(obj, mode, { ...output } = { ...this }) 
   }
   return output;
 }
+CommandInteraction.prototype.customreply = customreply;
+Message.prototype.customreply = customreply;
 
 console.timeEnd('Initialising time');
 console.time('Starting time');
@@ -76,7 +77,6 @@ console.time('Starting time');
   client.userID = env.botUserID;
   client.botType = env.environment;
   client.startTime = Date.now();
-  client.categories = getDirectoriesSync('./Commands');
   client.db = db;
   client.functions = {};
   client.dashboardOptionCount = {};

@@ -14,7 +14,7 @@ module.exports = new Command({
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, { db, functions }) => {
+  run: async (message, lang, { db }) => {
     const description = Object.entries(db.get('guildSettings')[message.guild.id]?.economy || {})
       .sort(([, a], [, b]) => b.power - a.power)
       .slice(0, 10)
@@ -33,6 +33,6 @@ module.exports = new Command({
       description: description ? lang('embedDescription') + description : lang('noneFound')
     });
 
-    functions.reply({ embeds: [embed] }, message);
+    message.customreply({ embeds: [embed] });
   }
 })

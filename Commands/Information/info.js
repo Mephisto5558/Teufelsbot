@@ -35,6 +35,6 @@ module.exports = new Command({
         footer: { text: lang('embedFooterText') }
       });
 
-    client.functions.reply({ embeds: [embed] }, message);
+    message.customreply({ embeds: [embed] });
   }
 })

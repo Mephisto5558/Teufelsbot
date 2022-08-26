@@ -11,24 +11,24 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (message, lang, { db, functions, application }) => {
+  run: async (message, lang, { db, application }) => {
     if (!message.args[0]) return;
 
     const oldData = await db.get('botSettings');
 
     if (message.args[0] == 'off') {
-      if (!oldData.blacklist.includes(message.args[1])) return functions.reply(lang('notFound'), message);
+      if (!oldData.blacklist.includes(message.args[1])) return message.customreply(lang('notFound'));
 
       oldData.blacklist = oldData.blacklist.filter(e => e != message.args[1]);
       await db.set('botSettings', oldData);
 
-      return functions.reply(lang('removed', message.args[1]), message)
+      return message.customreply(lang('removed', message.args[1]))
     }
 
-    if (message.args[0] == application.owner.id) return functions.reply(lang('cantBlacklistOwner'), message);
+    if (message.args[0] == application.owner.id) return message.customreply(lang('cantBlacklistOwner'));
     
     oldData.blacklist.push(message.args[0]);
     await db.set('botSettings', oldData);
-    functions.reply(lang('saved', message.args[0]), message);
+    message.customreply(lang('saved', message.args[0]));
   }
 })

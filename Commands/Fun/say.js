@@ -27,13 +27,13 @@ module.exports = new Command({
     }
   ],
 
-  run: async (message, lang, { functions }) => {
+  run: async (message, lang) => {
     const msg = message.args?.[0] || message.options?.getString('msg');
     const channel = message.options?.getChannel('channel') || message.mentions?.channels.first() || message.channel;
 
-    if (!msg) return functions.reply(lang('noMsgProvided'), message);
+    if (!msg) return message.customreply(lang('noMsgProvided'));
 
     await channel.send(msg.replace(/\/n/g, '\n'));
-    functions.reply(lang('global.messageSent'), message);
+    message.customreply(lang('global.messageSent'));
   }
 })

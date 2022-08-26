@@ -12,9 +12,9 @@ module.exports = new Command({
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, { functions }) => {
+  run: async (message, lang) => {
     await require('../../Website/custom/git/pull.js').run();
-    functions.reply(lang('success'), message);
+    message.customreply(lang('success'));
   }
 })
 
