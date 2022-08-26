@@ -16,14 +16,13 @@ module.exports = new Command({
 
   run: async (message, lang, { db, functions }) => {
     const
-      userSkills = db.get('guildSettings')[message.guild.id]?.economy?.[message.user.id]?.skills || {},
+      userSkills = db.get('guildSettings')[message.guild.id].economy[message.user.id].skills,
       defaultSkills = db.get('guildSettings').default.economy.skills,
       fields = Object.entries(defaultSkills).map(([skill, defaultSkill]) => {
-        const userSkill = userSkills[skill] || {};
-        const price = userSkill.lastPrice ? Math.round(userSkill.lastPrice * userSkill.percentage / 100) : defaultSkill.firstPrice;
+        const price = userSkills[skill].lastPrice ? Math.round(userSkills[skill].lastPrice * userSkills[skill].percentage / 100) : defaultSkill.firstPrice;
 
         return {
-          name: lang(`skills.${skill}.name`) + ' ' + lang(`skills.${skill}.emoji`) + ` ${lang('lvl', userSkill.lvl ?? 0)} | ${lang('price', price)} | ${userSkill.lvlUpCooldown}h <:research:1011960920609665064>`,
+          name: lang(`skills.${skill}.name`) + ' ' + lang(`skills.${skill}.emoji`) + ` ${lang('lvl', userSkills[skill].lvl)} | ${lang('price', price)} | ${userSkills[skill].lvlUpCooldown}h <:research:1011960920609665064>`,
           value: lang(`skills.${skill}.description`),
           inline: false
         }
@@ -53,10 +52,11 @@ module.exports = new Command({
     const collector = msg.createMessageComponentCollector({ filter: i => i.user.id == message.user.id, time: 60000 });
     collector.on('collect', async button => {
       await button.deferReply();
+
       const
         skill = button.values[0],
-        userSkill = userSkills[skill] || {},
-        userData = db.get('guildSettings')[message.guild.id]?.economy?.[message.user.id] || {},
+        userData = db.get('guildSettings')[message.guild.id].economy[message.user.id],
+        userSkill = userData.skills[skill],
         price = userSkill.lastPrice ? Math.round(userSkill.lastPrice * userSkill.percentage / 100) : defaultSkills[skill].firstPrice;
       let errorMsg;
 
