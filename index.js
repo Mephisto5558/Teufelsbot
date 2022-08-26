@@ -20,24 +20,19 @@ Array.prototype.equals = array => {
   return true;
 }
 Array.prototype.random = function random() { return this[randomInt(this.length - 1)] };
-
-Object.defineProperty(Array.prototype, 'equals', { enumerable: false });
-Object.defineProperty(Array.prototype, 'random', { enumerable: false });
-
-Object.merge = (source, source2, mode) => {
-  let output = source;
-
-  if (isObject(source) && isObject(source2)) for (const key of Object.keys({ ...source, ...source2 })) {
-    if (isObject(source[key])) output[key] = key in source2 ? Object.merge(source[key], source2[key], mode) : source[key];
-    else if (Array.isArray(source[key])) {
-      if (key in source2) {
-        if (mode == 'overwrite') output[key] = source2[key];
-        else if (mode == 'push') for (const e of source2[key]) output[key].push(e);
-        else for (let i = 0; i < source[key].length || i < source2[key].length; i++) output[key][i] = i in source2[key] ? source2[key][i] : source[key][i];
+Number.prototype.limit = function limit(min = -Infinity, max = Infinity) { return Math.min(Math.max(parseInt(this), min), max) };
+Object.prototype.merge = function merge(obj, mode, output = this) {
+  if (isObject(this) && isObject(obj)) for (const key of Object.keys({ ...this, ...obj })) {
+    if (isObject(this[key])) output[key] = key in obj ? this[key].merge(obj[key], mode) : this[key];
+    else if (Array.isArray(this[key])) {
+      if (key in obj) {
+        if (mode == 'overwrite') output[key] = obj[key];
+        else if (mode == 'push') for (const e of obj[key]) output[key].push(e);
+        else for (let i = 0; i < this[key].length || i < obj[key].length; i++) output[key][i] = i in obj[key] ? obj[key][i] : this[key][i];
       }
-      else output[key] = source[key];
+      else output[key] = this[key];
     }
-    else output = { ...output, [key]: key in source2 ? source2[key] : source[key] };
+    else output = { ...output, [key]: key in obj ? obj[key] : this[key] };
   }
   return output;
 }
@@ -66,7 +61,7 @@ console.time('Starting time');
   let env, db;
 
   await require('./Website/custom/git/pull.js').run();
-  
+
   if (existsSync('./env.json')) env = require('./env.json');
   else {
     db = new reconDB(process.env.dbConnectionStr);
