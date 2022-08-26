@@ -7,10 +7,10 @@ module.exports = async function customreply(reply, deleteTime, allowedMentions =
   if (!reply.allowedMentions) reply.allowedMentions = allowedMentions;
 
   if (this instanceof CommandInteraction) {
-    try { sentMessage = this.replied ? this.editReply(reply) : this.reply(reply) }
+    try { sentMessage = this.replied ? await this.editReply(reply) : await this.reply(reply) }
     catch {
-      try { sentMessage = this.followUp(reply) }
-      catch { sentMessage = this.channel.send(reply) }
+      try { sentMessage = await this.followUp(reply) }
+      catch { sentMessage = await this.channel.send(reply) }
     }
   }
   else {
@@ -18,7 +18,7 @@ module.exports = async function customreply(reply, deleteTime, allowedMentions =
     catch { sentMessage = await this.channel.send(reply) }
   }
 
-  if (!isNaN(deleteTime) && (await sentMessage).deletable !== false && !this.ephemeral) return setTimeout(sentMessage.delete, deleteTime);
+  if (!isNaN(deleteTime) && sentMessage.deletable !== false && !this.ephemeral) return setTimeout(sentMessage.delete, deleteTime);
 
   return sentMessage;
 }
