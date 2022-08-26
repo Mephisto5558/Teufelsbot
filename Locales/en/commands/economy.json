@@ -148,7 +148,7 @@
     "currency": "Souls: **%s** <:soul:1011962640349810688>\n",
     "power": "Power: **%s** <:power:1011965677625671731>",
     "embedTitle": "Top 10 Members",
-    "embedDescription": "These are the top 10 members, sorted by theire power",
+    "embedDescription": "These are the top 10 members, sorted by their power:\n",
     "noneFound": "No one here has any power!"
   },
   "work": {}
