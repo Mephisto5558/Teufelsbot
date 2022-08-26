@@ -131,6 +131,7 @@
       "daily": "Daily collection"
     },
     "skills": {
+      "name": "Skills",
       "currency_bonus_percentage": "Soul Bonus (%) <:soul:1011962640349810688>",
       "currency_bonus_absolute": "Soul Bonus <:soul:1011962640349810688>",
       "research_speed_percentage": "Research Speed (%) <:research:1011960920609665064>",
