@@ -58,35 +58,43 @@
     "description": "Upgrade your skills and research new ones!",
     "skills": {
       "currency_bonus_percentage": {
-        "name": "Soul Bonus (%) <:soul:1011962640349810688>",
+        "name": "Soul Bonus (%)",
+        "emoji": "<:soul:1011962640349810688>",
         "description": "How much more Souls (in percent) you get from your activities."
       },
       "currency_bonus_absolute": {
-        "name": "Soul Bonus <:soul:1011962640349810688>",
+        "name": "Soul Bonus",
+        "emoji": "<:soul:1011962640349810688>",
         "description": "How much more Souls you get from your activities."
       },
       "research_speed_percentage": {
-        "name": "Research Speed (%) <:research:1011960920609665064>",
+        "name": "Research Speed (%)",
+        "emoji": "<:research:1011960920609665064>",
         "description": "How much faster (in percent) you can research."
       },
       "research_bonus_percentage": {
-        "name": "Research Efficiency (%) <:research:1011960920609665064>",
+        "name": "Research Efficiency (%)",
+        "emoji": "<:research:1011960920609665064>",
         "description": "How big the bonuses are that you get from researching."
       },
       "power": {
-        "name": "Power <:power:1011965677625671731>",
+        "name": "Power",
+        "emoji": "<:power:1011965677625671731>",
         "description": "One of your most important stats. It protects you from other players in several ways and lets you handle more powerful slaves."
       },
       "defense": {
-        "name": "Defense <:defense:1011971580584263710>",
+        "name": "Defense",
+        "emoji": "<:defense:1011971580584263710>",
         "description": "Protects you from other players in several ways."
       },
       "currency_capacity": {
-        "name": "Soul Capacity <:storage:1011973136100642947>",
+        "name": "Soul Capacity",
+        "emoji": "<:storage:1011973136100642947>",
         "description": "How much souls you can have at once. If you are 50% over your limit, you lose 75% of your souls!"
       },
       "slave_capacity": {
-        "name": "Slave Capacity <:storage:1011973136100642947>",
+        "name": "Slave Capacity",
+        "emoji": "<:storage:1011973136100642947>",
         "description": "How many slaves you can have at once."
       }
     },
@@ -98,7 +106,7 @@
     "onCooldown": "You are currently researching this one! It will finish <t:%d:R>.",
     "maxLevel": "You have already maxed out this skill!",
     "onMaxConcurrentResearches": "You cannot research even more skills at once!",
-    "success": "The upgrade for **%s** to Level `%d` has started!\nIt will finish <t:%d:R> (<t:%d>)",
+    "success": "The upgrade for **%s** %s to Level `%d` has started!\nIt will finish <t:%d:R> (<t:%d>)",
     "timedOut": "This menu timed out."
   },
   "stats": {
