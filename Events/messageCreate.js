@@ -17,13 +17,28 @@ module.exports = async (client, message) => {
   message.content = message.content.replace(/<@!/g, '<@');
 
   for (const trigger of triggers?.filter(e => message.content?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
-    client.functions.reply(trigger.response, message);
+    message.customreply(trigger.response);
 
-  if (/(koi|fish)[_\s]?pat|pat[_\s]?(koi|fish)/i.test(message.content)) client.functions.reply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7', message);
+  if (/(koi|fish)[_\s]?pat|pat[_\s]?(koi|fish)/i.test(message.content)) message.customreply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7');
 
   if (message.content.startsWith(config?.prefixCaseInsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
-  else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3
-  else return;
+  else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3;
+  else {
+    const gainingCooldown = await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } });
+    if (message.content.length > 5 && !gainingCooldown) {
+      const eco = client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id];
+      if (!eco?.gaining?.chat || eco.currency == eco.currencyCapacity) return;
+
+      let currency;
+      if (eco.currency + eco.gaining.chat > eco.currencyCapacity) currency = eco.currencyCapacity;
+      else currency = eco.currency + eco.gaining.chat;
+
+      await client.db.set('guildSettings', client.db.get('guildSettings').merge({
+        [message.guild.id]: { economy: { [message.author.id]: { currency } } }
+      }));
+    }
+    return;
+  }
 
   message.content = message.content.slice(prefixLength).trim();
   message.args = message.content.split(' ');
@@ -34,14 +49,17 @@ module.exports = async (client, message) => {
   const command = client.commands.get(message.commandName);
   const lang = await require('../Functions/private/lang')(client, message, command);
 
-  if (!command && client.slashCommands.get(message.commandName)) return client.functions.reply(lang('events.slashCommandOnly'), message);
+  if (!command && client.slashCommands.get(message.commandName)) return message.customreply(lang('events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
     !command ||
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
   ) return;
 
+  if (command.category.toLowerCase() == 'economy' && command.name != 'economy' && !client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id]?.gaining?.chat)
+    return client.functions.reply(lang('events.economyNotInitialized'), message, 15000);
+
   const cooldown = await require('../Functions/private/cooldowns.js')(client, message, command);
-  if (cooldown && !client.botType == 'dev') return client.functions.reply(lang('events.cooldown', cooldown), message);
+  if (cooldown && !client.botType == 'dev') return message.customreply(lang('events.cooldown', cooldown));
 
   const userPermsMissing = message.member.permissionsIn(message.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
   const botPermsMissing = message.guild.members.me.permissionsIn(message.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);

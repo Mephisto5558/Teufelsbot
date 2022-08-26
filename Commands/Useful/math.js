@@ -23,13 +23,13 @@ module.exports = new Command({
     required: true
   }],
 
-  run: (message, lang, { functions }) => {
+  run: (message, lang) => {
     const expression = (message.args?.[0] || message.options?.getString('expression'))?.replace(/\n/g, ';').replace(/÷/g, '/');
-    if (!expression) return functions.reply(lang('noInput'), message);
+    if (!expression) return message.customreply(lang('noInput'));
 
     if (expression == 'help') {
       embed.data.description = lang('help');
-      return functions.reply({ embeds: [embed] }, message);
+      return message.customreply({ embeds: [embed] });
     }
 
     let data;
@@ -38,7 +38,7 @@ module.exports = new Command({
     catch (err) {
       embed.data.description = lang('error', err.message);
       embed.data.color = Colors.Red;
-      return functions.reply({ embeds: [embed] }, message);
+      return message.customreply({ embeds: [embed] });
     }
 
     embed.data.color = Colors.White
@@ -49,6 +49,6 @@ module.exports = new Command({
     }
 
     embed.data.description = lang('success', expression, data);
-    functions.reply({ embeds: [embed] }, message);
+    message.customreply({ embeds: [embed] });
   }
 })

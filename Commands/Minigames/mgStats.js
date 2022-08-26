@@ -57,7 +57,7 @@ async function formatTopTen(input, settings, message, lang) {
     }
 
     output +=
-      `${[':first_place:', ':second_place:', ':third_place:'][i] || `${i}.`} <@${entry[0]}>\n` +
+      `${[':first_place:', ':second_place:', ':third_place:'][i] || i + '.'} <@${entry[0]}>\n` +
       '> ' + lang('wins', entry[1].wins || 0) +
       '> ' + lang('loses', entry[1].loses || 0) +
       '> ' + lang('draws', entry[1].draws || 0);
@@ -70,7 +70,7 @@ module.exports = new Command({
   name: 'mgstats',
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
   description: 'get stats about one of the minigames',
-  usage: 'PREFIX Command: mgStats <game> [target]',
+  usage: 'PREFIX Command: mgstats <game> [target]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Minigames',
@@ -128,7 +128,7 @@ module.exports = new Command({
 
   run: async (message, lang, client) => {
     if (message instanceof Message && !message.args[0])
-      return client.functions.reply(lang('missingGameArg'), message);
+      return message.customreply(lang('missingGameArg'));
 
     const stats = {
       type: message.options?.getSubcommand() || 'user',
@@ -139,13 +139,13 @@ module.exports = new Command({
     const leaderboards = await client.db.get('leaderboards');
 
     stats.data = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == stats.game.toLowerCase())?.[1];
-    if (!stats.data) return client.functions.reply(lang('notFound', Object.keys(leaderboards).join('`, `')), message);
+    if (!stats.data) return message.customreply(lang('notFound', Object.keys(leaderboards).join('`, `')));
 
     const embed = new EmbedBuilder({
       color: Colors.Blurple,
       footer: {
         text: message.member.user.tag,
-        iconURL: message.member.user.displayAvatarURL()
+        iconURL: message.member.displayAvatarURL()
       }
     });
 
@@ -175,6 +175,6 @@ module.exports = new Command({
       embed.data.description = await formatTopTen(stats.data, stats.settings, message, lang) || lang('noWinners');
     }
 
-    client.functions.reply({ embeds: [embed] }, message);
+    message.customreply({ embeds: [embed] });
   }
 })

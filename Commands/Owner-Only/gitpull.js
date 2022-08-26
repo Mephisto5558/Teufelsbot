@@ -9,11 +9,12 @@ module.exports = new Command({
   cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',
   slashCommand: false,
+  prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, { functions }) => {
+  run: async (message, lang) => {
     await require('../../Website/custom/git/pull.js').run();
-    functions.reply(lang('success'), message);
+    message.customreply(lang('success'));
   }
 })
 

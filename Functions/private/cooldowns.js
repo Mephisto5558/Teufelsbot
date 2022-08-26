@@ -12,8 +12,8 @@ module.exports = async (client, { guild, member }, { name, cooldowns }) => {
   if (expirationTimeGuild > now && expirationTimeGuild > expirationTimeUser) return Math.round((expirationTimeGuild - now) / 1000);
   else if (expirationTimeUser > now && expirationTimeUser > expirationTimeGuild) return Math.round((expirationTimeUser - now) / 1000);
   else {
-    timestamps.set(`g:${guild.id}`, now + cooldowns.guild);
-    timestamps.set(`u:${member.id}`, now + cooldowns.user);
+    if (cooldowns.guild) timestamps.set(`g:${guild.id}`, now + cooldowns.guild);
+    if (cooldowns.user) timestamps.set(`u:${member.id}`, now + cooldowns.user);
     return 0;
   }
 }

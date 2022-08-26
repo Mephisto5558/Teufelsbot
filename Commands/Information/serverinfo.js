@@ -14,7 +14,7 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, lang, { functions }) => {
+  run: async (message, lang) => {
     const
       guild = message.guild,
       channels = Array.from(guild.channels.cache.values()),
@@ -52,6 +52,6 @@ module.exports = new Command({
 
     if (guild.banner) embed.setImage(guild.bannerURL());
 
-    functions.reply({ embeds: [embed] }, message);
+    message.customreply({ embeds: [embed] });
   }
 })

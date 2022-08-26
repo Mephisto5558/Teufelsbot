@@ -34,7 +34,7 @@ function workStatsData(firstID, secondID, type, client) {
 async function gameEnd(input, ids, client) {
   const oldData = await client.db.get('leaderboards');
 
-  const newData = Object.merge(oldData, { TicTacToe: { [ids[0]]: input[0], [ids[1]]: input[1] } });
+  const newData = oldData.merge({ TicTacToe: { [ids[0]]: input[0], [ids[1]]: input[1] } });
   await client.db.set('leaderboards', newData);
 }
 

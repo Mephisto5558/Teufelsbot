@@ -13,13 +13,13 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, lang, { db, functions }) => {
+  run: async (message, lang, { db }) => {
     const oldData = await db.get('guildSettings');
     const setting = oldData[message.guild.id]?.config?.autopublish;
 
-    const newData = Object.merge(oldData, { [message.guild.id]: { config: { autopublish: !setting } } })
+    const newData = oldData.merge({ [message.guild.id]: { config: { autopublish: !setting } } })
     await db.set('guildSettings', newData);
 
-    functions.reply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')), message);
+    message.customreply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));
   }
 })
