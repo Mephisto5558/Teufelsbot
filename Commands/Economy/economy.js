@@ -44,9 +44,10 @@ module.exports = new Command({
                 maxSlaves: defaultSettings.maxSlaves,
                 maxConcurrentResearches: defaultSettings.maxConcurrentResearches,
                 gaining: defaultSettings.gaining,
-                skills: Object.fromEntries(Object.entries(defaultSettings.skills).map(([skill, e]) => {
+                skills: Object.fromEntries(Object.entries(defaultSettings.skills).map(([skill, { ...e }]) => {
                   delete e.firstPrice;
                   e.lastPrice = 0;
+                  e.bonus = 0;
 
                   if (!e.onCooldownUntil) e.onCooldownUntil = 0;
                   if (!e.lvl) e.lvl = 0;
