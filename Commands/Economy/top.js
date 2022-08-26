@@ -20,7 +20,7 @@ module.exports = new Command({
       .slice(0, 10)
       .filter(([, e]) => e.currency)
       .map(([k, v], i) => ({
-        title: ([':first_place: ', ':second_place: ', ':third_place: '][i] || `${i}. `) + `<@${k}>`,
+        name: ([':first_place: ', ':second_place: ', ':third_place: '][i] || `${i}. `) + `<@${k}>`,
         value:
           lang('currency', v.currency) +
           lang('power', v.power),

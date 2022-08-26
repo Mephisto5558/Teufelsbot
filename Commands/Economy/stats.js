@@ -18,36 +18,36 @@ module.exports = new Command({
     type: 'User',
     required: false
   }],
-  beta:true,
+  beta: true,
 
   run: async (message, lang, { db, functions }) => {
     const
       target = message.options?.getUser('user') || message.mentions?.users.first() || message.user,
       userData = db.get('guildSettings')[message.guild.id]?.economy?.[target.id];
-      
-      if(!userData?.gaining?.chat) return functions.reply(lang('noStats'), message);
-      
-      const fields = [
-        { name: lang('currency'), value: `${userData.currency}/${userData.currencyCapacity}` },
-        { name: `${lang('power')}/${lang('defense')}`, value: `${userData.power}/${userData.defense}` },
-        { name: `${lang('slaves')}/${lang('maxSlaves')}`, value: `${userData.slaves}/${userData.maxSlaves}` },
-        {
-          name: lang('gaining.title'), value: '>>> ' +
-            Object.entries(userData.gaining)
-              .filter(([, e]) => e)
-              .map(([k, v]) => lang(`gaining.${k}`, v))
-              .join('\n')
-        },
-        {
-          name: lang('skills.name'), value: '>>> ' +
-            Object.entries(userData.skills)
-              .filter(([, e]) => e.lvl)
-              .map(([k, v]) => lang(`skills.${k}`, v.lvl))
-              .join('\n') || 'none'
-        }
-      ],
+
+    if (!userData?.gaining?.chat) return functions.reply(lang('noStats'), message);
+
+    const fields = [
+      { name: lang('currency'), value: `${userData.currency}/${userData.currencyCapacity}` },
+      { name: `${lang('power')}/${lang('defense')}`, value: `${userData.power}/${userData.defense}` },
+      { name: `${lang('slaves')}/${lang('maxSlaves')}`, value: `${userData.slaves}/${userData.maxSlaves}` },
+      {
+        name: lang('gaining.title'), value: '>>> ' +
+          Object.entries(userData.gaining)
+            .filter(([, e]) => e)
+            .map(([k, v]) => lang(`gaining.${k}`, v))
+            .join('\n')
+      },
+      {
+        name: lang('skills.name'), value: '>>> ' +
+          (Object.entries(userData.skills)
+            .filter(([, { lvl }]) => lvl)
+            .map(([k, { lvl }]) => lang(`skills.${k}`, lvl))
+            .join('\n') || 'none')
+      }
+    ],
       embed = new EmbedBuilder({
-        title: lang('embedTitle', target.displayName),
+        title: lang('embedTitle', target.tag),
         fields,
         color: Colors.White,
         footer: { name: message.user.tag, iconURL: message.member.displayAvatarURL({ forceStatic: true }) },
