@@ -23,7 +23,7 @@ module.exports = new Command({
         const price = userSkill.lastPrice ? Math.round(userSkill.lastPrice * userSkill.percentage / 100) : defaultSkill.firstPrice;
 
         return {
-          name: lang(`skills.${skill}.name`) + ` ${lang('lvl', userSkill.lvl ?? 0)} | ${lang('price', price)} | ${userSkill.lvlUpCooldown}h <:research:1011960920609665064>`,
+          name: lang(`skills.${skill}.name`) + ' ' + lang(`skills.${skill}.emoji`) + ` ${lang('lvl', userSkill.lvl ?? 0)} | ${lang('price', price)} | ${userSkill.lvlUpCooldown}h <:research:1011960920609665064>`,
           value: lang(`skills.${skill}.description`),
           inline: false
         }
@@ -40,17 +40,17 @@ module.exports = new Command({
           maxValues: 1,
           placeholder: lang('selectMenuPlaceholder'),
           options: Object.entries(defaultSkills).map(([skill]) => ({
-            label: lang(`skills.${skill}.name`).split('<')[0],
+            label: lang(`skills.${skill}.name`),
             value: skill,
             description: lang(`skills.${skill}.description`).slice(0, 100),
-            emoji: parseEmoji('<' + lang(`skills.${skill}.name`).split('<')[1])
+            emoji: lang(`skills.${skill}.emoji`)
           }))
         })]
       });
 
     const msg = await functions.reply({ embeds: [embed], components: [component] }, message);
 
-    const collector = msg.createMessageComponentCollector({ filter: i => i.user.id == message.user.id, time: 15000 });
+    const collector = msg.createMessageComponentCollector({ filter: i => i.user.id == message.user.id, time: 60000 });
     collector.on('collect', async button => {
       await button.deferReply();
       const
@@ -62,10 +62,11 @@ module.exports = new Command({
 
       if (Object.values(userSkills).filter(e => e.onCooldownUntil > Date.now()).length > userData.maxConcurrentResearches) errorMsg = lang('onMaxConcurrentResearches');
       else if (userData.currency < price) errorMsg = lang('notEnoughMoney');
-      else if (userSkill.onCooldownUntil > Date.now()) errorMsg = lang('onCooldown', userSkill.onCooldownUntil / 1000);
+      else if (userSkill.onCooldownUntil > Date.now()) errorMsg = lang('onCooldown', Math.round(userSkill.onCooldownUntil / 1000));
       else if (userSkill.maxLevel && userSkill.lvl > userSkill.maxLevel) errorMsg = lang('maxLevel');
 
       if (errorMsg) return button.editReply(errorMsg);
+      const onCooldownUntil = new Date(Date.now() + userData.skills[skill].lvlUpCooldown * 360000).getTime();
 
       const newData = {
         currency: userData.currency - price,
@@ -73,13 +74,13 @@ module.exports = new Command({
           [skill]: {
             lastPrice: price,
             lvl: userData.skills[skill].lvl + 1,
-            onCooldownUntil: new Date(Date.now() + userData.skills[skill].lvlUpCooldown * 360000).getTime()
+            onCooldownUntil
           }
         }
       }
       await db.set('guildSettings', Object.merge(db.get('guildSettings'), { [message.guild.id]: { economy: { [message.user.id]: newData } } }));
 
-      button.editReply(lang('success', lang(`skills.${skill}.name`), newData.skills[skill].lvl, newData.skills[skill].onCooldownUntil / 1000, newData.skills[skill].onCooldownUntil / 1000));
+      button.editReply(lang('success', lang(`skills.${skill}.name`), lang(`skills.${skill}.emoji`), newData.skills[skill].lvl, Math.round(onCooldownUntil / 1000), Math.round(onCooldownUntil / 1000)));
     });
 
     collector.on('end', _ => {
