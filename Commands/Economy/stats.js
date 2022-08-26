@@ -43,15 +43,16 @@ module.exports = new Command({
             Object.entries(userData.skills)
               .filter(([, e]) => e.lvl)
               .map(([k, v]) => lang(`skills.${k}`, v.lvl))
-              .join('\n')
+              .join('\n') || 'none'
         }
       ],
       embed = new EmbedBuilder({
-        title: lang('embedTitle'),
+        title: lang('embedTitle', target.displayName),
         fields,
         color: Colors.White,
+        footer: { name: message.user.tag, iconURL: message.member.displayAvatarURL({ forceStatic: true }) },
       });
 
-    functions.reply({ embeds: [embed] })
+    functions.reply({ embeds: [embed] }, message)
   }
 })
