@@ -13,7 +13,7 @@ module.exports = async (reply, message, deleteTime, ping) => {
   if (message instanceof CommandInteraction) {
     try {
       if (message.replied) sentMessage = await message.editReply(reply);
-      else throw Error()
+      else throw Error();
     }
     catch {
       try { sentMessage = await message.followUp(reply) }
