@@ -20,10 +20,14 @@ module.exports = new Command({
   }],
   beta: true,
 
-  run: async (message, lang, { db, functions }) => {
+  run: async (message, lang, { db }) => {
     const
       target = message.options?.getUser('user') || message.mentions?.users.first() || message.user,
-      userData = db.get('guildSettings')[message.guild.id].economy[target.id],
+      userData = db.get('guildSettings')[message.guild.id].economy[target.id];
+
+    if (!userData) return message.customreply(lang('targetEconomyNotInitialized'));
+
+    const
       rank = Object.entries(db.get('guildSettings')[message.guild.id].economy).sort(([, a], [, b]) => b.power - a.power).map(([e]) => e).indexOf(target.id) + 1,
       embed = new EmbedBuilder({
         color: Colors.White,
@@ -31,11 +35,11 @@ module.exports = new Command({
         footer: { text: message.user.tag },
         thumbnail: { url: target.displayAvatarURL({ forceStatic: true }) },
         description:
-          lang('currency', userData.currency ?? 0) +
-          lang('dailyStreak', userData.dailyStreak ?? 0) +
+          lang('currency', userData.currency, userData.currencyCapacity) +
+          lang('dailyStreak', userData.dailyStreak) +
           lang('rank', !isNaN(rank) && rank ? rank : lang('none'))
       });
 
-    functions.reply({ embeds: [embed] }, message);
+    message.customreply({ embeds: [embed] });
   }
 })

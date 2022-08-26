@@ -12,11 +12,11 @@ module.exports = new Command({
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, { log, db, functions }) => {
+  run: async (message, lang, { log, db }) => {
     log(`Reloading db, initiated by user ${message.user.tag}`);
 
     await db.ready();
 
-    functions.reply(lang('success'), message);
+    message.customreply(lang('success'));
   }
 })

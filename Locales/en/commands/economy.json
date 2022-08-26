@@ -7,7 +7,8 @@
         "description": "The user you want to get the account of"
       }
     },
-    "currency": "Souls: **%s** <:soul:1011962640349810688>\n",
+    "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. He/She has to run `/economy start`",
+    "currency": "Souls: **%s**/**%s** <:soul:1011962640349810688>\n",
     "dailyStreak": "Daily Streak: **%s** <:souls:1011962960840773673>\n",
     "rank": "Rank: **%s**\n",
     "none": "none"

@@ -14,13 +14,13 @@ module.exports = new Command({
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, lang, { functions }) => {
+  run: async (message, lang) => {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', Invite),
       Color: Colors.Blue
     });
 
-    functions.reply({ embeds: [embed] }, message);
+    message.customreply({ embeds: [embed] });
   }
 })

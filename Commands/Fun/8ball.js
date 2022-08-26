@@ -24,9 +24,5 @@ module.exports = new Command({
     required: true
   }],
 
-  run: async (message, lang, { functions }) => {
-    if (message instanceof Message && !message.content) return functions.reply(lang('noQuestion'), message);
-    
-    functions.reply(responseList.random(), message);
-  }
+  run: async (message, lang) => message.customreply(message instanceof Message && !message.content ? lang('noQuestion') : responseList.random())
 })

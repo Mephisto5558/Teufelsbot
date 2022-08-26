@@ -14,7 +14,7 @@ module.exports = new Command({
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, { db, functions }) => {
+  run: async (message, lang, { db }) => {
     const
       userSkills = db.get('guildSettings')[message.guild.id].economy[message.user.id].skills,
       defaultSkills = db.get('guildSettings').default.economy.skills,
@@ -47,7 +47,7 @@ module.exports = new Command({
         })]
       });
 
-    const msg = await functions.reply({ embeds: [embed], components: [component] }, message);
+    const msg = await message.customreply({ embeds: [embed], components: [component] });
 
     const collector = msg.createMessageComponentCollector({ filter: i => i.user.id == message.user.id, time: 60000 });
     collector.on('collect', async button => {

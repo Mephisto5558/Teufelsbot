@@ -124,14 +124,14 @@ module.exports = new Command({
     }
   ],
 
-  run: async (message, lang, { keys, functions }) => {
+  run: async (message, lang, { keys }) => {
     const
       type = message.options?.getString('type') || message.args?.[0],
       blacklist = message.options?.getString('blacklist'),
       maxLength = message.options?.getNumber('max_length') || 2000,
       [joke, API] = await getJoke(defaultAPIList, type, blacklist, maxLength, keys);
 
-    if (!joke) return functions.reply(lang('noAPIAvailable'), message);
+    if (!joke) return message.customreply(lang('noAPIAvailable'));
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
@@ -140,6 +140,6 @@ module.exports = new Command({
         `- [${API.name}](${API.url})`
     }).setColor('Random');
 
-   functions.reply({ embeds: [embed] }, message);
+   message.customreply({ embeds: [embed] });
   }
 })
