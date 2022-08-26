@@ -25,7 +25,7 @@ module.exports = new Command({
       target = message.options?.getUser('user') || message.mentions?.users.first() || message.user,
       userData = db.get('guildSettings')[message.guild.id]?.economy?.[target.id];
       
-      if(!userData?.power) return functions.reply(lang('noStats'), message);
+      if(!userData?.gaining?.chat) return functions.reply(lang('noStats'), message);
       
       const fields = [
         { name: lang('currency'), value: `${userData.currency}/${userData.currencyCapacity}` },
@@ -39,7 +39,7 @@ module.exports = new Command({
               .join('\n')
         },
         {
-          name: lang('skills'), value: '>>> ' +
+          name: lang('skills.name'), value: '>>> ' +
             Object.entries(userData.skills)
               .filter(([, e]) => e.lvl)
               .map(([k, v]) => lang(`skills.${k}`, v.lvl))
