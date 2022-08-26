@@ -22,8 +22,23 @@ module.exports = async (client, message) => {
   if (/(koi|fish)[_\s]?pat|pat[_\s]?(koi|fish)/i.test(message.content)) client.functions.reply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7', message);
 
   if (message.content.startsWith(config?.prefixCaseInsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
-  else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3
-  else return;
+  else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3;
+  else {
+    const gainingCooldown = await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } });
+    if (message.content.length > 5 && !gainingCooldown) {
+      const eco = client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id];
+      if (!eco?.gaining?.chat || eco.currency == eco.currencyCapacity) return;
+
+      let currency;
+      if (eco.currency + eco.gaining.chat > eco.currencyCapacity) currency = eco.currencyCapacity;
+      else currency = eco.currency + eco.gaining.chat;
+
+      await client.db.set('guildSettings', Object.merge(client.db.get('guildSettings'), {
+        [message.guild.id]: { economy: { [message.author.id]: { currency } } }
+      }));
+    }
+    return;
+  }
 
   message.content = message.content.slice(prefixLength).trim();
   message.args = message.content.split(' ');
