@@ -6,8 +6,8 @@ const
   { reconDB } = require('reconlx'),
   { randomInt } = require('crypto'),
   { existsSync, readdirSync } = require('fs'),
-  isObject = item => item && typeof item == 'object' && !Array.isArray(item),
-  customreply = require('./Functions/private/reply.js');
+  customreply = require('./Functions/private/reply.js'),
+  isObject = item => item && typeof item == 'object' && !Array.isArray(item);
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 
