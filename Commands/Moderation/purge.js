@@ -19,7 +19,7 @@ module.exports = new Command({
     type: 'Number',
     minValue: 1,
     maxValue: 1000
-  }], beta: true,
+  }],
 
   run: async (message, lang, { functions }) => {
     let amount = parseInt(message.options?.getNumber('amount') || message.args?.[0]).limit({ max: 1000 });
