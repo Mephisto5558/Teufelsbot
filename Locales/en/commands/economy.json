@@ -141,7 +141,7 @@
       "currency_capacity": "Soul Capacity <:storage:1011973136100642947>",
       "slave_capacity": "Slave Capacity <:storage:1011973136100642947>"
     },
-    "embedTitle": "Stats"
+    "embedTitle": "%s's Stats"
   },
   "top": {
     "description": "Displays the most powerful people on this guild.",
