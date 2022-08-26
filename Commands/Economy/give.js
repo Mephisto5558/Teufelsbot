@@ -56,14 +56,13 @@ module.exports = new Command({
     }
     else if (isNaN(amount.replace('%', ''))) amount = userData.currency / 10;
     else if (amount.includes('%')) amount = userData.currency * amount.replace(/[^/d]/g, '') / 100;
-    else if (amount > (userData.currency || 0)) amount = userData.currency;
 
-    if (amount > targetData.currencyCapacity) amount = targetData.currencyCapacity;
+    amount = amount.limit({ min: 1, max: userData.currency }).limit({ min: 1, max: targetData.currencyCapacity });
 
     const newUserCurrency = userData.currency - amount;
     const newTargetCurrency = targetData.currency + amount;
 
-    await db.set('guildSettings', Object.merge(db.get('guildSettings'), {
+    await db.set('guildSettings', db.get('guildSettings').merge({
       [message.guild.id]: { economy: { [message.user.id]: { currency: newUserCurrency }, [target.id]: { currency: newTargetCurrency } } }
     }));
 

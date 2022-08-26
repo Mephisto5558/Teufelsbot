@@ -95,7 +95,7 @@
       }
     },
     "noNumber": "Please specify the number of messages to purge next time.",
-    "invalidNumber": "`%d` is not a valid number!",
+    "invalidNumber": "This is not a valid number!",
     "success": "Success!"
   },
   "unmute": {

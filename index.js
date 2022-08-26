@@ -20,8 +20,8 @@ Array.prototype.equals = array => {
   return true;
 }
 Array.prototype.random = function random() { return this[randomInt(this.length - 1)] };
-Number.prototype.limit = function limit(min = -Infinity, max = Infinity) { return Math.min(Math.max(parseInt(this), min), max) };
-Object.prototype.merge = function merge(obj, mode, output = this) {
+Number.prototype.limit = function limit({ min = -Infinity, max = Infinity }) { return Math.min(Math.max(parseInt(this), min), max) };
+Object.prototype.merge = function merge(obj, mode, { ...output } = { ...this }) {
   if (isObject(this) && isObject(obj)) for (const key of Object.keys({ ...this, ...obj })) {
     if (isObject(this[key])) output[key] = key in obj ? this[key].merge(obj[key], mode) : this[key];
     else if (Array.isArray(this[key])) {
@@ -68,7 +68,7 @@ console.time('Starting time');
     env = (await db.get('botSettings')).env;
   }
 
-  env = Object.merge(env.global, env[env.global.environment]);
+  env = env.global.merge(env[env.global.environment]);
 
   if (!db) db = new reconDB(env.dbConnectionStr);
   await db.ready();

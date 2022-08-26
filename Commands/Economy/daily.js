@@ -26,7 +26,7 @@ module.exports = new Command({
       return functions.reply({ embeds: [embed] }, message);
     }
 
-    db.set('userSettings', Object.merge(db.get('guildSettings'), {
+    db.set('userSettings', db.get('guildSettings').merge({
       [message.guild.id]: {
         economy: {
           [message.user.id]: {

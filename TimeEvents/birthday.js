@@ -76,7 +76,7 @@ module.exports = {
     }
 
     log('Finished birthday check');
-    db.set('botSettings', Object.merge(await db.get('botSettings'), { 'lastBirthdayCheck': now }));
+    db.set('botSettings', db.get('botSettings').merge({ 'lastBirthdayCheck': now }));
   }
 
 }
