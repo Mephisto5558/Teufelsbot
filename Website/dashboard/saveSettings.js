@@ -20,7 +20,7 @@ module.exports = async ({ db, dashboardOptionCount }, guildId, index, setting, d
     let json = `{"${entry[2]}": {"${entry[0].join('')}": ${JSON.stringify(entry[1])}`;
     json = json.padEnd(json.length + indexes.length + 2, '}');
     
-    newData = Object.merge(newData, { [guildId]: JSON.parse(json) });
+    newData = newData.merge({ [guildId]: JSON.parse(json) });
   }
 
   db.set('guildSettings', newData);

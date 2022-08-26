@@ -31,7 +31,7 @@ module.exports = new Command({
         if (db.get('guildSettings')[interaction.guild.id]?.economy?.[interaction.user.id]?.gaining?.chat)
           return interaction.editReply(lang('start.alreadyInitiated'));
 
-        await db.set('guildSettings', Object.merge(db.get('guildSettings'), {
+        await db.set('guildSettings', db.get('guildSettings').merge({
           [interaction.guild.id]: {
             economy: {
               [interaction.user.id]: {

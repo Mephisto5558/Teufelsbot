@@ -79,7 +79,7 @@ module.exports = new Command({
           }
         }
       }
-      await db.set('guildSettings', Object.merge(db.get('guildSettings'), { [message.guild.id]: { economy: { [message.user.id]: newData } } }));
+      await db.set('guildSettings', db.get('guildSettings').merge({ [message.guild.id]: { economy: { [message.user.id]: newData } } }));
 
       button.editReply(lang('success', lang(`skills.${skill}.name`), lang(`skills.${skill}.emoji`), newData.skills[skill].lvl, Math.round(onCooldownUntil / 1000), Math.round(onCooldownUntil / 1000)));
     });

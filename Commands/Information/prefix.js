@@ -31,7 +31,7 @@ module.exports = new Command({
     const oldData = await db.get('guildSettings');
 
     if (newPrefix && message.member.permissions.has('ManageGuild')) {
-      const newData = Object.merge(oldData, { [message.guild.id]: { config: { prefix: newPrefix, prefixCaseInsensitive } } });
+      const newData = oldData.merge({ [message.guild.id]: { config: { prefix: newPrefix, prefixCaseInsensitive } } });
       await db.set('guildSettings', newData);
 
       functions.reply(lang('saved', newPrefix), message);
