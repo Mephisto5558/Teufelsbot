@@ -29,7 +29,7 @@ module.exports = {
     const oldData = db.get('guildSettings');
 
     if (newPrefix && message.member.permissions.has('ManageGuild')) {
-      const newData = oldData.merge({ [message.guild.id]: { config: { prefix: newPrefix, prefixCaseInsensitive } } });
+      const newData = oldData.fMerge({ [message.guild.id]: { config: { prefix: newPrefix, prefixCaseInsensitive } } });
       db.set('guildSettings', newData);
 
       message.customreply(lang('saved', newPrefix));

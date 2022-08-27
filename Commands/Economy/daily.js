@@ -24,7 +24,7 @@ module.exports = {
       return message.customreply({ embeds: [embed] });
     }
 
-    db.set('userSettings', db.get('guildSettings').merge({
+    db.set('userSettings', db.get('guildSettings').fMerge({
       [message.guild.id]: {
         economy: {
           [message.user.id]: {

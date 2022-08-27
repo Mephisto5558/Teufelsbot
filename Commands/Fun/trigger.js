@@ -102,7 +102,7 @@ module.exports = {
           wildcard: interaction.options.getBoolean('wildcard') !== false
         };
 
-        newData = settings.merge({ [interaction.guild.id]: { triggers: [data] } }, 'push');
+        newData = settings.fMerge({ [interaction.guild.id]: { triggers: [data] } }, 'push');
         db.set('guildSettings', newData);
 
         interaction.editReply(lang('saved', data.trigger));
@@ -115,7 +115,7 @@ module.exports = {
         const filtered = oldData.filter(e => e.id != id);
         if (filtered.length == oldData.length) return interaction.editReply(lang('idNotFound'));
 
-        newData = settings.merge({ [interaction.guild.id]: { triggers: filtered } }, 'overwrite');
+        newData = settings.fMerge({ [interaction.guild.id]: { triggers: filtered } }, 'overwrite');
         db.set('guildSettings', newData);
 
         interaction.editReply(lang('deletedOne', id));
@@ -126,7 +126,7 @@ module.exports = {
         if (interaction.options.getString('confirmation').toLowerCase() != 'clear all') return interaction.editReply(lang('needConfirm'));
         if (!oldData.length) return interaction.editReply(lang('noneFound'));
 
-        newData = settings.merge({ [interaction.guild.id]: { triggers: [] } }, 'overwrite');
+        newData = settings.fMerge({ [interaction.guild.id]: { triggers: [] } }, 'overwrite');
         db.set('guildSettings', newData);
 
         interaction.editReply(lang('deletedAll', oldData.length));

@@ -108,7 +108,7 @@ module.exports = {
 
     switch (cmd) {
       case 'set': {
-        const newData = oldData.merge({ [interaction.user.id]: { birthday: birthday.join('/') } });
+        const newData = oldData.fMerge({ [interaction.user.id]: { birthday: birthday.join('/') } });
         db.set('userSettings', newData);
 
         interaction.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
