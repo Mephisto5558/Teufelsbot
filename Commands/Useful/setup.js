@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'setup',
   aliases: { prefix: ['config'], slash: ['config'] },
   description: 'Configure features of the bot.',
@@ -55,4 +53,4 @@ module.exports = new Command({
     }
 
   }
-})
+}

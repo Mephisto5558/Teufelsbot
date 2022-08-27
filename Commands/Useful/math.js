@@ -1,12 +1,11 @@
 const
-  { Command } = require('reconlx'),
   { EmbedBuilder, Colors } = require('discord.js'),
   { evaluate, isResultSet } = require('mathjs'),
   embed = new EmbedBuilder({
     title: 'Calculator'
   });
 
-module.exports = new Command({
+module.exports = {
   name: 'math',
   aliases: { prefix: [], slash: [] },
   description: 'run some basic math',
@@ -51,4 +50,4 @@ module.exports = new Command({
     embed.data.description = lang('success', expression, data);
     message.customreply({ embeds: [embed] });
   }
-})
+}

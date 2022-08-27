@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  defaultCharset = ['abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\\=*\'"#*(){}[]'];
+const defaultCharset = ['abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\\=*\'"#*(){}[]'];
 
-module.exports = new Command({
+module.exports = {
   name: 'passwordgenerator',
   aliases: { prefix: [], slash: [] },
   description: 'generate a strong passoword',
@@ -83,4 +81,4 @@ module.exports = new Command({
     interaction.editReply(lang('success', passwordList.slice(0, -4), charset));
 
   }
-})
+}

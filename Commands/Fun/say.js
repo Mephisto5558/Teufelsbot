@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'say',
   aliases: { prefix: [], slash: [] },
   description: 'Let me say something',
@@ -36,4 +34,4 @@ module.exports = new Command({
     await channel.send(msg.replace(/\/n/g, '\n'));
     message.customreply(lang('global.messageSent'));
   }
-})
+}

@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'reloaddb',
   aliases: { prefix: [], slash: [] },
   description: 'Reloads the database',
@@ -19,4 +17,4 @@ module.exports = new Command({
 
     message.customreply(lang('success'));
   }
-})
+}

@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors } = require('discord.js');
+const { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'lock',
   aliases: { prefix: [], slash: [] },
   description: 'Prevents everyone except administrators from writing in a channel',
@@ -44,7 +42,7 @@ module.exports = new Command({
     if (channel.permissionOverwrites.resolve(message.guild.roles.everyone.id)?.allow.has(PermissionFlagsBits.SendMessages))
       overwrites[message.guild.roles.everyone.id] = OverwriteType.Role;
 
-    await db.set('guildSettings', db.get('guildSettings').merge({ [message.guild.id]: { lockedChannels: { [channel.id]: overwrites } } }));
+    db.set('guildSettings', db.get('guildSettings').merge({ [message.guild.id]: { lockedChannels: { [channel.id]: overwrites } } }));
 
 
     for (const [id, type] of Object.entries(overwrites)) {
@@ -66,4 +64,4 @@ module.exports = new Command({
     await channel.send({ embeds: [embed] });
     msg.edit('The channel has been successfully locked.');
   }
-})
+}

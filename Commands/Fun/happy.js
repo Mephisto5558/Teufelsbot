@@ -1,4 +1,3 @@
-const { Command } = require('reconlx');
 const responseList = [
   'c:', 'C:', ':D', 'uwu',
   '<:gucken:725670318164672543>',
@@ -6,7 +5,7 @@ const responseList = [
   'https://media.tenor.com/k-tV1c5bCCkAAAPo/cat-smile-happy-cat.mp4'
 ];
 
-module.exports = new Command({
+module.exports = {
   name: 'happy',
   aliases: { prefix: [], slash: [] },
   description: 'make the bot send a happy message',
@@ -18,4 +17,4 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: message => message.customreply(responseList.random())
-})
+}

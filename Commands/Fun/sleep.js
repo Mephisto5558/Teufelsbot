@@ -1,12 +1,10 @@
-const
-  { Command } = require('reconlx'),
-  responseList = [
-    'ist müde und geht jetzt schlafen :3',
-    'geht jetzt ins Bettchen <:engelchen:725458214044303371>',
-    'schläft jetzt, hoffentlich schnarcht er/sie nicht <:gucken:725670318164672543>'
-  ];
+const responseList = [
+  'ist müde und geht jetzt schlafen :3',
+  'geht jetzt ins Bettchen <:engelchen:725458214044303371>',
+  'schläft jetzt, hoffentlich schnarcht er/sie nicht <:gucken:725670318164672543>'
+];
 
-module.exports = new Command({
+module.exports = {
   name: 'sleep',
   aliases: { prefix: [], slash: [] },
   description: 'sends a sleep messsage',
@@ -18,4 +16,4 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: message => message.customreply(`${message.member.displayName} ${responseList.random()}`)
-})
+}

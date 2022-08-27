@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'nukechannel',
   aliases: { prefix: ['clearchannel'], slash: ['clearchannel'] },
   description: 'Clears all channel messages by duplicating the channel and then deleting the original one',
@@ -45,4 +43,4 @@ module.exports = new Command({
 
     cloned.send({ embeds: [embed] });
   }
-})
+}

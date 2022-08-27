@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'dbget',
   aliases: { prefix: [], slash: [] },
   description: 'query data from the database',
@@ -14,9 +12,9 @@ module.exports = new Command({
   beta: true,
 
   run: async (message, lang, { db }) => {
-    const result = await db.get(message.content);
+    const result = db.get(message.content);
 
     if (!result) return message.customreply(lang('notFound'));
     message.customreply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```');
   }
-})
+}

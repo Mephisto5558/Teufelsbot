@@ -1,6 +1,4 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
 function filterEmptyEntries(obj) {
   return Object.fromEntries(
@@ -10,7 +8,7 @@ function filterEmptyEntries(obj) {
   );
 }
 
-module.exports = new Command({
+module.exports = {
   name: 'embed',
   aliases: { prefix: [], slash: [] },
   description: 'sends a custom embed; you can do newlines with "/n"',
@@ -157,4 +155,4 @@ module.exports = new Command({
     if (custom) interaction.editReply(lang('successJSON'));
     else interaction.editReply(lang('success', JSON.stringify(filterEmptyEntries(embed.data))));
   }
-});
+}

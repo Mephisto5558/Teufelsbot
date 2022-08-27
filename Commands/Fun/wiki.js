@@ -1,5 +1,4 @@
 const
-  { Command } = require('reconlx'),
   Wiki = require('wikijs').default,
   { EmbedBuilder, Colors } = require('discord.js'),
   { Repo } = require('../../config.json').Github,
@@ -7,7 +6,7 @@ const
     headers: { 'User-Agent': `Discord Bot (${Repo})` }
   };
 
-module.exports = new Command({
+module.exports = {
   name: 'wiki',
   aliases: { prefix: ['wikipedia'], slash: [] },
   description: 'Search for something on Wikipedia, or get a random page if no search terms were specified.',
@@ -81,4 +80,4 @@ module.exports = new Command({
       message.customreply(lang('error', err));
     }
   }
-})
+}
