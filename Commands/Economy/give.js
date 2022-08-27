@@ -63,6 +63,6 @@ module.exports = {
     }));
 
     embed.data.description = lang('embedDescription', amount, target, newUserCurrency, newTargetCurrency);
-    message.customReply({ /*content: target.toString(),*/ embeds: [embed] });
+    message.customReply({ content: target.toString(), embeds: [embed] });
   }
 }
