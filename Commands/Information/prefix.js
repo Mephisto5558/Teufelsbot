@@ -35,10 +35,10 @@ module.exports = {
       message.customReply(lang('saved', newPrefix));
     }
     else {
-      const currentPrefix = oldData[message.guild.id]?.config?.prefix || oldData.default.config.prefix;
+      const currentPrefix = oldData[message.guild.id]?.config?.prefix?.prefix || oldData.default.config.prefix;
       if (!currentPrefix) throw new Error('No Default Prefix Found in DB');
 
-      const msg = lang('currentPrefix', currentPrefix) + prefixCaseInsensitive ? lang('caseInsensitive') : '';
+      const msg = lang('currentPrefix', currentPrefix) + oldData[message.guild.id]?.config?.prefix?.caseinsensitive ? lang('caseInsensitive') : '';
 
       message.customReply(msg);
     }
