@@ -4,7 +4,7 @@
     "Discord": "Your Support Discord Invite here"
   },
   "Website": {
-    "Domain": "Domain URL here",
+    "Domain": "Domain URL here (if empty uses localhost)",
     "Dashboard": "Dashboard URL here",
     "PrivacyPolicy": "Privacy Policy URL here"
   },
