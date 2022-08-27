@@ -12,7 +12,7 @@ module.exports = async (client, message) => {
   if (message.crosspostable && config?.autopublish) message.crosspost();
   if (message.author.bot) return;
 
-  const guildPrefix = config?.prefix || client.db.get('guildSettings').default.config.prefix;
+  const guildPrefix = config?.prefix?.prefix || client.db.get('guildSettings').default.config.prefix;
 
   message.content = message.content.replace(/<@!/g, '<@');
 
@@ -21,22 +21,23 @@ module.exports = async (client, message) => {
 
   if (/(koi|fish)[_\s]?pat|pat[_\s]?(koi|fish)/i.test(message.content)) message.customReply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7');
 
-  if (message.content.startsWith(config?.prefixCaseInsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
+  if (message.content.startsWith(config?.prefix?.caseinsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
   else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3;
   else {
     const gainingCooldown = await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } });
     if (message.content.length > 5 && !gainingCooldown) {
       const eco = client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id];
-      if (eco?.gaining?.chat && eco.currency != eco.currencyCapacity) {
-        let currency;
-        if (eco.currency + eco.gaining.chat > eco.currencyCapacity) currency = eco.currencyCapacity;
-        else currency = eco.currency + eco.gaining.chat;
+      if (!eco?.gaining?.chat || eco.currency == eco.currencyCapacity) return;
 
-        client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
-          [message.guild.id]: { economy: { [message.author.id]: { currency } } }
-        }));
-      }
+      let currency;
+      if (eco.currency + eco.gaining.chat > eco.currencyCapacity) currency = eco.currencyCapacity;
+      else currency = eco.currency + eco.gaining.chat;
+
+      client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
+        [message.guild.id]: { economy: { [message.author.id]: { currency } } }
+      }));
     }
+    return;
   }
 
   message.content = message.content.slice(prefixLength).trim();
