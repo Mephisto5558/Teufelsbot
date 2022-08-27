@@ -131,7 +131,7 @@ module.exports = {
     const stats = {
       type: message.options?.getSubcommand() || 'user',
       game: message.options?.getString('game') || message.args[0].replace(/tictactoe/gi, 'TicTacToe'),
-      target: message.options?.getUser('target') || message.mentions.users?.first() || message.member,
+      target: message.options?.getUser('target') || message.mentions?.users?.first() || message.member,
       settings: message.options?.getString('settings')
     }
     const leaderboards = await client.db.get('leaderboards');
