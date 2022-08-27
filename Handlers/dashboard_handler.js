@@ -145,7 +145,9 @@ module.exports = async client => {
   await client.functions.ready(client);
   await DBD.useLicense(client.keys.dbdLicense);
 
-  const domain = client.botType == 'main' ? Website.Domain : 'http://localhost:8000';
+  let domain;
+  if (client.botType == 'main' && Website.Domain) domain = Website.Domain;
+  else domain = 'http://localhost:' + process.env.PORT ?? process.env.SERVER_PORT ?? '8000';
 
   global.embedBuilder = DBD.formTypes.embedBuilder({
     username: client.user.username,
