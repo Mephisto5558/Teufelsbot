@@ -12,7 +12,7 @@ const
   { existsSync, readdirSync } = require('fs'),
   DB = require('./Functions/private/db.js'),
   customreply = require('./Functions/private/reply.js'),
-  isObject = item => item && typeof item == 'object' && !Array.isArray(item);
+  isObject = item => '[object Object]' == item?.toString();
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 
@@ -25,9 +25,9 @@ Array.prototype.equals = function equals(array) {
 }
 Array.prototype.random = function random() { return this[randomInt(this.length - 1)] };
 Number.prototype.limit = function limit({ min = -Infinity, max = Infinity }) { return Math.min(Math.max(parseInt(this), min), max) };
-Object.prototype.merge = function merge(obj, mode, { ...output } = { ...this }) {
+Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }) {
   if (isObject(this) && isObject(obj)) for (const key of Object.keys({ ...this, ...obj })) {
-    if (isObject(this[key])) output[key] = key in obj ? this[key].merge(obj[key], mode) : this[key];
+    if (isObject(this[key])) output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];
     else if (Array.isArray(this[key])) {
       if (key in obj) {
         if (mode == 'overwrite') output[key] = obj[key];
@@ -74,7 +74,7 @@ console.time('Starting time');
     env = client.db.get('botSettings').env;
   }
 
-  env = env.global.merge(env[env.global.environment]);
+  env = env.global.fMerge(env[env.global.environment]);
 
   if (!client.db) client.db = await new DB(env.dbConnectionStr).ready();
 

@@ -15,7 +15,7 @@ module.exports = {
     const oldData = db.get('guildSettings');
     const setting = oldData[message.guild.id]?.config?.autopublish;
 
-    const newData = oldData.merge({ [message.guild.id]: { config: { autopublish: !setting } } })
+    const newData = oldData.fMerge({ [message.guild.id]: { config: { autopublish: !setting } } })
     db.set('guildSettings', newData);
 
     message.customreply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));

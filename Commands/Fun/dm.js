@@ -94,7 +94,7 @@ module.exports = {
           message = lang('toggle.saved', targetName, target == '*' ? lang('toggle.targetAll.saved') : lang('toggle.targetOne.isnt', targetName));
         }
 
-        db.set('userSettings', oldData.merge({ [interaction.user.id]: userBlacklist }));
+        db.set('userSettings', oldData.fMerge({ [interaction.user.id]: userBlacklist }));
 
         interaction.editReply(message);
         break;

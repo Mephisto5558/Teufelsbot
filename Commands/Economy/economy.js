@@ -29,7 +29,7 @@ module.exports = {
         if (db.get('guildSettings')[interaction.guild.id]?.economy?.[interaction.user.id]?.gaining?.chat)
           return interaction.editReply(lang('start.alreadyInitiated'));
 
-        db.set('guildSettings', db.get('guildSettings').merge({
+        db.set('guildSettings', db.get('guildSettings').fMerge({
           [interaction.guild.id]: {
             economy: {
               [interaction.user.id]: {

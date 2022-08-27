@@ -60,7 +60,7 @@ module.exports = {
     const newUserCurrency = userData.currency - amount;
     const newTargetCurrency = targetData.currency + amount;
 
-    db.set('guildSettings', db.get('guildSettings').merge({
+    db.set('guildSettings', db.get('guildSettings').fMerge({
       [message.guild.id]: { economy: { [message.user.id]: { currency: newUserCurrency }, [target.id]: { currency: newTargetCurrency } } }
     }));
 

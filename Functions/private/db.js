@@ -1,4 +1,3 @@
-"use strict;"
 const
   Mongoose = require('mongoose').default,
   { Collection } = require('discord.js');
