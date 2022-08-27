@@ -147,7 +147,7 @@ module.exports = async client => {
 
   let domain;
   if (client.botType == 'main' && Website.Domain) domain = Website.Domain;
-  else domain = 'http://localhost:' + (process.env.PORT ?? process.env.SERVER_PORT ?? '8000');
+  else domain = (process.env.SERVER_IP ?? 'http://localhost') + ':' + (process.env.PORT ?? process.env.SERVER_PORT ?? '8000');
 
   global.embedBuilder = DBD.formTypes.embedBuilder({
     username: client.user.username,
@@ -159,7 +159,7 @@ module.exports = async client => {
     acceptPrivacyPolicy: true,
     useUnderMaintenance: false,
     minimizedConsoleLogs: true,
-    port: 8000,
+    port: (process.env.PORT ?? process.env.SERVER_PORT ?? 8000),
     domain: domain,
     redirectUri: `${domain}/discord/callback`,
     bot: client,
