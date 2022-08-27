@@ -32,8 +32,5 @@
   "bugs": {
     "url": "https://github.com/Mephisto5558/Teufelsbot/issues"
   },
-  "homepage": "https://github.com/Mephisto5558/Teufelsbot#readme",
-  "devDependencies": {
-    "@types/mathjs": "^9.4.2"
-  }
+  "homepage": "https://github.com/Mephisto5558/Teufelsbot#readme"
 }
