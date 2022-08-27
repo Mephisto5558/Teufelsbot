@@ -23,7 +23,8 @@ module.exports = async client => {
   client
     .on('debug', debug => {
       if (debug.includes('Sending a heartbeat.') || debug.includes('Heartbeat acknowledged')) return;
-      if (debug.includes('Provided token:')) debug = 'Provided token: (CENSORED)';
+
+      for (const match of /(?:Session |token: )(\w*)/gi.exec(debug)?.slice(1) || []) debug = debug.replace(match, '(CENSORED)');
 
       writeLogFile('debug', debug);
 
