@@ -27,7 +27,7 @@ module.exports = {
     const query = message.options?.getString('query') || message.content;
     let data, joined = '';
 
-    message = await message.customreply(lang('global.loading'));
+    message = await message.customReply(lang('global.loading'));
 
     try {
       if (query) data = await Wiki(options).search(query, 1);
@@ -77,7 +77,7 @@ module.exports = {
       message.followUp?.(joined) || message.reply(joined);
     }
     catch (err) {
-      message.customreply(lang('error', err));
+      message.customReply(lang('error', err));
     }
   }
 }

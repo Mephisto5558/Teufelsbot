@@ -11,7 +11,7 @@ const
   { randomInt } = require('crypto'),
   { existsSync, readdirSync } = require('fs'),
   DB = require('./Functions/private/db.js'),
-  customreply = require('./Functions/private/reply.js'),
+  customReply = require('./Functions/private/reply.js'),
   isObject = item => '[object Object]' == item?.toString();
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
@@ -40,8 +40,8 @@ Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }
   }
   return output;
 }
-CommandInteraction.prototype.customreply = customreply;
-Message.prototype.customreply = customreply;
+CommandInteraction.prototype.customReply = customReply;
+Message.prototype.customReply = customReply;
 
 console.timeEnd('Initialising time');
 console.time('Starting time');

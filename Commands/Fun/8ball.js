@@ -23,5 +23,5 @@ module.exports = {
     required: true
   }],
 
-  run: async (message, lang) => message.customreply(message instanceof Message && !message.content ? lang('noQuestion') : responseList.random())
+  run: async (message, lang) => message.customReply(message instanceof Message && !message.content ? lang('noQuestion') : responseList.random())
 }

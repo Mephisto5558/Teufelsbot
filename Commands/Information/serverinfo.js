@@ -51,6 +51,6 @@ module.exports = {
 
     if (guild.banner) embed.setImage(guild.bannerURL());
 
-    message.customreply({ embeds: [embed] });
+    message.customReply({ embeds: [embed] });
   }
 }

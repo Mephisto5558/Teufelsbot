@@ -23,7 +23,7 @@ module.exports = {
       target = message.options?.getUser('user') || message.mentions?.users?.first() || message.user,
       userData = db.get('guildSettings')[message.guild.id].economy[target.id];
 
-    if (!userData) return message.customreply(lang('targetEconomyNotInitialized'));
+    if (!userData) return message.customReply(lang('targetEconomyNotInitialized'));
 
     const
       rank = Object.entries(db.get('guildSettings')[message.guild.id].economy).sort(([, a], [, b]) => b.power - a.power).map(([e]) => e).indexOf(target.id) + 1,
@@ -38,6 +38,6 @@ module.exports = {
           lang('rank', !isNaN(rank) && rank ? rank : lang('none'))
       });
 
-    message.customreply({ embeds: [embed] });
+    message.customReply({ embeds: [embed] });
   }
 }

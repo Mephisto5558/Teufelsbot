@@ -26,7 +26,7 @@ module.exports = {
         color: Colors.Green
       }),
       messagePing = Date.now(),
-      msg = await message.customreply({ embeds: [embed] }),
+      msg = await message.customReply({ embeds: [embed] }),
       endMessagePing = Date.now() - messagePing;
 
     if (average) {

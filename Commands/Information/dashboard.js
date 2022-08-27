@@ -20,6 +20,6 @@ module.exports = {
       color: Colors.Blurple
     });
 
-    message.customreply({ embeds: [embed] });
+    message.customReply({ embeds: [embed] });
   }
 }

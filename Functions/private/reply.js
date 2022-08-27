@@ -1,6 +1,6 @@
 const { CommandInteraction } = require('discord.js')
 
-module.exports = async function customreply(reply, deleteTime, allowedMentions = { repliedUser: false }) {
+module.exports = async function customReply(reply, deleteTime, allowedMentions = { repliedUser: false }) {
   let sentMessage;
 
   if (typeof reply != 'object') reply.content = reply;

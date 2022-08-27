@@ -29,9 +29,9 @@ module.exports = {
     const msg = message.args?.[0] || message.options?.getString('msg');
     const channel = message.options?.getChannel('channel') || message.mentions?.channels.first() || message.channel;
 
-    if (!msg) return message.customreply(lang('noMsgProvided'));
+    if (!msg) return message.customReply(lang('noMsgProvided'));
 
     await channel.send(msg.replace(/\/n/g, '\n'));
-    message.customreply(lang('global.messageSent'));
+    message.customReply(lang('global.messageSent'));
   }
 }

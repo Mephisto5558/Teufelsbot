@@ -18,7 +18,7 @@ module.exports = {
         contentType: 'application/json',
       });
 
-      message.customreply(`${res.data[0].fact}.`);
+      message.customReply(`${res.data[0].fact}.`);
     }
     catch (err) { client.error(err) }
   }

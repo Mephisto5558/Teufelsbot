@@ -17,10 +17,10 @@ module.exports = {
 
     try {
       await eval(`(async _ => {${message.content}})()`);
-      message.customreply(lang('success', msg));
+      message.customReply(lang('success', msg));
     }
     catch (err) {
-      message.customreply(lang('error', msg, err.name, err.message));
+      message.customReply(lang('error', msg, err.name, err.message));
     }
     finally {
       client.log(`evaluated command '${message.content}'`);

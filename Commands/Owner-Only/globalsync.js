@@ -17,6 +17,6 @@ module.exports = {
 
     await require('../../Handlers/slash_command_handler.js')(client, '*');
 
-    message.customreply(lang('success'));
+    message.customReply(lang('success'));
   }
 }

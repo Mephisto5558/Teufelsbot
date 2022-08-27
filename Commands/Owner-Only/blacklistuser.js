@@ -15,18 +15,18 @@ module.exports = {
     const oldData = db.get('botSettings');
 
     if (message.args[0] == 'off') {
-      if (!oldData.blacklist.includes(message.args[1])) return message.customreply(lang('notFound'));
+      if (!oldData.blacklist.includes(message.args[1])) return message.customReply(lang('notFound'));
 
       oldData.blacklist = oldData.blacklist.filter(e => e != message.args[1]);
       db.set('botSettings', oldData);
 
-      return message.customreply(lang('removed', message.args[1]))
+      return message.customReply(lang('removed', message.args[1]))
     }
 
-    if (message.args[0] == application.owner.id) return message.customreply(lang('cantBlacklistOwner'));
+    if (message.args[0] == application.owner.id) return message.customReply(lang('cantBlacklistOwner'));
 
     oldData.blacklist.push(message.args[0]);
     db.set('botSettings', oldData);
-    message.customreply(lang('saved', message.args[0]));
+    message.customReply(lang('saved', message.args[0]));
   }
 }

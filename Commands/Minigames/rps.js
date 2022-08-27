@@ -54,7 +54,7 @@ module.exports = {
       };
 
     if (message.editable) message.edit(data);
-    else message = await message.customreply(data);
+    else message = await message.customReply(data);
 
     const moveCollector = message.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 10000 });
 

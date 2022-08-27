@@ -18,6 +18,6 @@ module.exports = {
     const newData = oldData.fMerge({ [message.guild.id]: { config: { autopublish: !setting } } })
     db.set('guildSettings', newData);
 
-    message.customreply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));
+    message.customReply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));
   }
 }

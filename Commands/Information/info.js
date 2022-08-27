@@ -34,6 +34,6 @@ module.exports = {
         footer: { text: lang('embedFooterText') }
       });
 
-    message.customreply({ embeds: [embed] });
+    message.customReply({ embeds: [embed] });
   }
 }

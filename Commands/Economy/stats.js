@@ -23,7 +23,7 @@ module.exports = {
       target = message.options?.getUser('user') || message.mentions?.users?.first() || message.user,
       userData = db.get('guildSettings')[message.guild.id]?.economy?.[target.id];
 
-    if (!userData?.gaining?.chat) return message.customreply(lang('noStats'));
+    if (!userData?.gaining?.chat) return message.customReply(lang('noStats'));
 
     const fields = [
       { name: lang('currency'), value: `${userData.currency}/${userData.currencyCapacity}` },
@@ -51,6 +51,6 @@ module.exports = {
         footer: { name: message.user.tag, iconURL: message.member.displayAvatarURL({ forceStatic: true }) },
       });
 
-    message.customreply({ embeds: [embed] })
+    message.customReply({ embeds: [embed] })
   }
 }

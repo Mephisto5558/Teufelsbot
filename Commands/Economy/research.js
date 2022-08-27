@@ -45,7 +45,7 @@ module.exports = {
         })]
       });
 
-    const msg = await message.customreply({ embeds: [embed], components: [component] });
+    const msg = await message.customReply({ embeds: [embed], components: [component] });
 
     const collector = msg.createMessageComponentCollector({ filter: i => i.user.id == message.user.id, time: 60000 });
     collector.on('collect', async button => {

@@ -38,7 +38,7 @@ module.exports = async (err, { keys, functions, botType, error = console.error }
       error(' [Error Handling] :: Uncaught Error');
       error(err.stack);
 
-      msg = await message.customreply({ embeds: [embed], components: [comp] });
+      msg = await message.customReply({ embeds: [embed], components: [comp] });
   }
 
   if (!msg) return;
@@ -70,7 +70,7 @@ module.exports = async (err, { keys, functions, botType, error = console.error }
       msg.edit({ embeds: [embed], components: [comp] });
     }
     catch (err) {
-      message.customreply(lang('events.errorHandler.reportFail', err?.response.statusText || 'unknown error'));
+      message.customReply(lang('events.errorHandler.reportFail', err?.response.statusText || 'unknown error'));
       error(err.stack);
     }
   });

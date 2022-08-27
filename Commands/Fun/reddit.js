@@ -84,7 +84,7 @@ module.exports = {
     if (cachedSubreddits.has(`${subreddit}_${type}`)) post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`).data, filterNSFW);
     else {
       const res = await fetch(`https://www.reddit.com/r/${subreddit}/${type}.json`).then(res => res.json());
-      if (res.error) return message.customreply(lang('error', `Error: ${res.message}\nReason:${red.reason}`));
+      if (res.error) return message.customReply(lang('error', `Error: ${res.message}\nReason:${red.reason}`));
 
       cachedSubreddits.set(`${subreddit}_${type}`, res);
       setTimeout(_ => cachedSubreddits.delete(`${subreddit}_${type}`), 5 * 60 * 1000);
@@ -92,7 +92,7 @@ module.exports = {
       post = fetchPost(res.data, filterNSFW);
     }
 
-    if (!post) return message.customreply(lang('notFound'));
+    if (!post) return message.customReply(lang('notFound'));
 
     const embed = new EmbedBuilder({
       author: { name: `${post.author} | r/${post.subreddit}` },
@@ -102,6 +102,6 @@ module.exports = {
       footer: { text: `Upvotes: ${post.upvotes} (${post.ratio * 100}%) | Downvotes: ${post.downvotes} | Comments: ${post.comments}` }
     }).setColor('Random');
 
-    message.customreply({ embeds: [embed] });
+    message.customReply({ embeds: [embed] });
   }
 }

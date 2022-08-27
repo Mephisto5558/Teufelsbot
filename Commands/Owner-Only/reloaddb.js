@@ -15,6 +15,6 @@ module.exports = {
 
     await db.ready();
 
-    message.customreply(lang('success'));
+    message.customReply(lang('success'));
   }
 }

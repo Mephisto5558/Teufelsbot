@@ -24,11 +24,11 @@ module.exports = {
 
   run: (message, lang) => {
     const expression = (message.args?.[0] || message.options?.getString('expression'))?.replace(/\n/g, ';').replace(/÷/g, '/');
-    if (!expression) return message.customreply(lang('noInput'));
+    if (!expression) return message.customReply(lang('noInput'));
 
     if (expression == 'help') {
       embed.data.description = lang('help');
-      return message.customreply({ embeds: [embed] });
+      return message.customReply({ embeds: [embed] });
     }
 
     let data;
@@ -37,7 +37,7 @@ module.exports = {
     catch (err) {
       embed.data.description = lang('error', err.message);
       embed.data.color = Colors.Red;
-      return message.customreply({ embeds: [embed] });
+      return message.customReply({ embeds: [embed] });
     }
 
     embed.data.color = Colors.White
@@ -48,6 +48,6 @@ module.exports = {
     }
 
     embed.data.description = lang('success', expression, data);
-    message.customreply({ embeds: [embed] });
+    message.customReply({ embeds: [embed] });
   }
 }

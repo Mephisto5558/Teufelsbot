@@ -32,7 +32,7 @@ module.exports = {
       const newData = oldData.fMerge({ [message.guild.id]: { config: { prefix: newPrefix, prefixCaseInsensitive } } });
       db.set('guildSettings', newData);
 
-      message.customreply(lang('saved', newPrefix));
+      message.customReply(lang('saved', newPrefix));
     }
     else {
       const currentPrefix = oldData[message.guild.id]?.config?.prefix || oldData.default.config.prefix;
@@ -40,7 +40,7 @@ module.exports = {
 
       const msg = lang('currentPrefix', currentPrefix) + prefixCaseInsensitive ? lang('caseInsensitive') : '';
 
-      message.customreply(msg);
+      message.customReply(msg);
     }
 
   }
