@@ -27,7 +27,7 @@ module.exports = {
   beta: true,
 
   run: async (message, lang, { db }) => {
-    const target = message.options?.getUser('user') || message.mentions?.users.first();
+    const target = message.options?.getUser('user') || message.mentions?.users?.first();
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       color: Colors.White

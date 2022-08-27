@@ -12,7 +12,7 @@
     "chose": "I chose %s! %s (%s %s %s)",
     "timedOut": "You lost because you chose to choose nothing!"
   },
-  "stats": {
+  "mgstats": {
     "description": "get stats about one of the bot's minigames",
     "usage": "PREFIX Command: stats <game> [user]",
     "options": {
