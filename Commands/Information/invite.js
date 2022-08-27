@@ -20,6 +20,6 @@ module.exports = {
       Color: Colors.Blue
     });
 
-    message.customreply({ embeds: [embed] });
+    message.customReply({ embeds: [embed] });
   }
 }

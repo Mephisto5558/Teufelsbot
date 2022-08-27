@@ -31,6 +31,6 @@ module.exports = {
       description: description ? lang('embedDescription') + description : lang('noneFound')
     });
 
-    message.customreply({ embeds: [embed] });
+    message.customReply({ embeds: [embed] });
   }
 }

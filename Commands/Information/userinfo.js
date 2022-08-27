@@ -57,6 +57,6 @@ module.exports = {
       ].filter(e => e)
     }).setThumbnail(member.displayAvatarURL())
 
-    message.customreply({ embeds: [embed] });
+    message.customReply({ embeds: [embed] });
   }
 }

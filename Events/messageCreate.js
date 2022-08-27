@@ -17,9 +17,9 @@ module.exports = async (client, message) => {
   message.content = message.content.replace(/<@!/g, '<@');
 
   for (const trigger of triggers?.filter(e => message.content?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
-    message.customreply(trigger.response);
+    message.customReply(trigger.response);
 
-  if (/(koi|fish)[_\s]?pat|pat[_\s]?(koi|fish)/i.test(message.content)) message.customreply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7');
+  if (/(koi|fish)[_\s]?pat|pat[_\s]?(koi|fish)/i.test(message.content)) message.customReply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7');
 
   if (message.content.startsWith(config?.prefixCaseInsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
   else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3;
@@ -49,17 +49,17 @@ module.exports = async (client, message) => {
   const command = client.commands.get(message.commandName);
   const lang = await require('../Functions/private/lang')(client, message, command);
 
-  if (!command && client.slashCommands.get(message.commandName)) return message.customreply(lang('events.slashCommandOnly'));
+  if (!command && client.slashCommands.get(message.commandName)) return message.customReply(lang('events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
     !command ||
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
   ) return;
 
   if (command.category.toLowerCase() == 'economy' && command.name != 'economy' && !client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id]?.gaining?.chat)
-    return client.functions.reply(lang('events.economyNotInitialized'), message, 15000);
+    return message.customReply(lang('events.economyNotInitialized'), message, 15000);
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, message, command);
-  if (cooldown && !client.botType == 'dev') return message.customreply(lang('events.cooldown', cooldown));
+  if (cooldown && !client.botType == 'dev') return message.customReply(lang('events.cooldown', cooldown));
 
   const userPermsMissing = message.member.permissionsIn(message.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
   const botPermsMissing = message.guild.members.me.permissionsIn(message.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);

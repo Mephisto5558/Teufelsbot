@@ -12,6 +12,6 @@ module.exports = {
 
   run: async (message, lang) => {
     await require('../../Website/custom/git/pull.js').run();
-    message.customreply(lang('success'));
+    message.customReply(lang('success'));
   }
 }

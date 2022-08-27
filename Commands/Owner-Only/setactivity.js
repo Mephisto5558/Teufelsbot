@@ -19,13 +19,11 @@ module.exports = {
     let type = !message.args[1] ? ActivityType.Playing : ActivityType[Object.keys(ActivityType).find(e => e.toLowerCase() == message.args[1].toLowerCase())];
     type = isNaN(type) ? ActivityType[type] : type;
 
-    if (!type && type != 0) return client.functions.reply(
-      lang('invalidType', Object.keys(ActivityType).filter(e => isNaN(e)).join('`, `')), message
-    );
+    if (!type && type != 0) return message.customReply(lang('invalidType', Object.keys(ActivityType).filter(e => isNaN(e)).join('`, `')));
 
     await client.user.setActivity(activity, { type: type });
     await client.db.set('botSettings', await client.db.get('botSettings').fMerge({ activity: { name: activity, type: type } }));
 
-    message.customreply(activity ? lang('success', activity, ActivityType[type]) : lang('reset'));
+    message.customReply(activity ? lang('success', activity, ActivityType[type]) : lang('reset'));
   }
 }

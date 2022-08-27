@@ -39,7 +39,7 @@ module.exports = {
     else if (target.bot) embed.data.description = lang('error.bot');
     else if (!amount) embed.data.description = lang('error.noAmount');
 
-    if (embed.data.description) return message.customreply({ embeds: [embed] });
+    if (embed.data.description) return message.customReply({ embeds: [embed] });
 
     const
       userData = db.get('guildSettings')[message.guild.id].economy[message.user.id],
@@ -47,7 +47,7 @@ module.exports = {
 
     if (!userData.currency) {
       embed.data.description = lang('error.noMoney');
-      return message.customreply({ embeds: [embed] });
+      return message.customReply({ embeds: [embed] });
     }
     else if (!targetData?.gaining?.chat) {
       embed.data.description = lang('error.targetEconomyNotInitialized')
@@ -65,6 +65,6 @@ module.exports = {
     }));
 
     embed.data.description = lang('embedDescription', amount, target, newUserCurrency, newTargetCurrency);
-    message.customreply({ content: target.toString(), embed: [embed] });
+    message.customReply({ content: target.toString(), embed: [embed] });
   }
 }

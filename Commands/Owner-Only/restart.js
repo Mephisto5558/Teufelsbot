@@ -12,7 +12,7 @@ module.exports = {
 
   run: async (message, lang, { log }) => {
     log(`Restarting bot, initiated by user '${message.user.tag}'...`);
-    await message.customreply(lang('message'));
+    await message.customReply(lang('message'));
 
     process.exit(0);
   }

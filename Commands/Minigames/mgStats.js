@@ -126,7 +126,7 @@ module.exports = {
 
   run: async (message, lang, client) => {
     if (message instanceof Message && !message.args[0])
-      return message.customreply(lang('missingGameArg'));
+      return message.customReply(lang('missingGameArg'));
 
     const stats = {
       type: message.options?.getSubcommand() || 'user',
@@ -137,7 +137,7 @@ module.exports = {
     const leaderboards = await client.db.get('leaderboards');
 
     stats.data = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == stats.game.toLowerCase())?.[1];
-    if (!stats.data) return message.customreply(lang('notFound', Object.keys(leaderboards).join('`, `')));
+    if (!stats.data) return message.customReply(lang('notFound', Object.keys(leaderboards).join('`, `')));
 
     const embed = new EmbedBuilder({
       color: Colors.Blurple,
@@ -173,6 +173,6 @@ module.exports = {
       embed.data.description = await formatTopTen(stats.data, stats.settings, message, lang) || lang('noWinners');
     }
 
-    message.customreply({ embeds: [embed] });
+    message.customReply({ embeds: [embed] });
   }
 }
