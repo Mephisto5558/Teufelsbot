@@ -27,15 +27,15 @@ module.exports = async (client, message) => {
     const gainingCooldown = await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } });
     if (message.content.length > 5 && !gainingCooldown) {
       const eco = client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id];
-      if (!eco?.gaining?.chat || eco.currency == eco.currencyCapacity) return;
+      if (eco?.gaining?.chat && eco.currency != eco.currencyCapacity) {
+        let currency;
+        if (eco.currency + eco.gaining.chat > eco.currencyCapacity) currency = eco.currencyCapacity;
+        else currency = eco.currency + eco.gaining.chat;
 
-      let currency;
-      if (eco.currency + eco.gaining.chat > eco.currencyCapacity) currency = eco.currencyCapacity;
-      else currency = eco.currency + eco.gaining.chat;
-
-      client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
-        [message.guild.id]: { economy: { [message.author.id]: { currency } } }
-      }));
+        client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
+          [message.guild.id]: { economy: { [message.author.id]: { currency } } }
+        }));
+      }
     }
   }
 
