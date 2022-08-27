@@ -1,6 +1,4 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
 function listCommands(list, output, count, category) {
   for (const command of list.values()) {
@@ -13,7 +11,7 @@ function listCommands(list, output, count, category) {
   return [output, count];
 }
 
-module.exports = new Command({
+module.exports = {
   name: 'help',
   aliases: { prefix: [], slash: [] },
   description: 'Shows all bot commands',
@@ -88,4 +86,4 @@ module.exports = new Command({
 
     message.customreply({ embeds: [embed] });
   }
-})
+}

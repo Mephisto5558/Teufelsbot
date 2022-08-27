@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors, PermissionFlagsBits } = require('discord.js');
+const { EmbedBuilder, Colors, PermissionFlagsBits } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'mute',
   aliases: { prefix: ['timeout'], slash: ['timeout'] },
   description: 'timeouts a member of a given time (max 28d), default 1h',
@@ -108,4 +106,4 @@ module.exports = new Command({
     interaction.editReply({ embeds: [embed] });
 
   }
-})
+}

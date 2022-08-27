@@ -1,8 +1,6 @@
-const
-  { EmbedBuilder, Colors } = require('discord.js'),
-  { Command } = require('reconlx');
+const { EmbedBuilder, Colors } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'account',
   aliases: { prefix: ['acc'], slash: [] },
   description: 'show your account and stats',
@@ -42,4 +40,4 @@ module.exports = new Command({
 
     message.customreply({ embeds: [embed] });
   }
-})
+}

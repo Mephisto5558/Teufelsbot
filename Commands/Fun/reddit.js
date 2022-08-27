@@ -1,5 +1,4 @@
 const
-  { Command } = require('reconlx'),
   { Collection, EmbedBuilder } = require('discord.js'),
   fetch = require('node-fetch').default,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
@@ -23,7 +22,7 @@ const
     }
   };
 
-module.exports = new Command({
+module.exports = {
   name: 'reddit',
   aliases: { prefix: [], slash: [] },
   description: 'reddit related commands',
@@ -103,6 +102,6 @@ module.exports = new Command({
       footer: { text: `Upvotes: ${post.upvotes} (${post.ratio * 100}%) | Downvotes: ${post.downvotes} | Comments: ${post.comments}` }
     }).setColor('Random');
 
-   message.customreply({ embeds: [embed] });
+    message.customreply({ embeds: [embed] });
   }
-})
+}

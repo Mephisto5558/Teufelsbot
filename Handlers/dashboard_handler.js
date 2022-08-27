@@ -144,7 +144,6 @@ async function getCustomPages(client, path = './Website/custom') {
 module.exports = async client => {
   await client.functions.ready(client);
   await DBD.useLicense(client.keys.dbdLicense);
-  DBD.Dashboard = DBD.UpdatedClass();
 
   const domain = client.botType == 'main' ? Website.Domain : 'http://localhost:8000';
 
@@ -154,7 +153,7 @@ module.exports = async client => {
     defaultJson: {}
   });
 
-  const Dashboard = new DBD.Dashboard({
+  const Dashboard = new (DBD.UpdatedClass())({
     acceptPrivacyPolicy: true,
     useUnderMaintenance: false,
     minimizedConsoleLogs: true,

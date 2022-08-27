@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'give',
   aliases: { prefix: [], slash: [] },
   description: 'give some souls to someone',
@@ -62,11 +60,11 @@ module.exports = new Command({
     const newUserCurrency = userData.currency - amount;
     const newTargetCurrency = targetData.currency + amount;
 
-    await db.set('guildSettings', db.get('guildSettings').merge({
+    db.set('guildSettings', db.get('guildSettings').merge({
       [message.guild.id]: { economy: { [message.user.id]: { currency: newUserCurrency }, [target.id]: { currency: newTargetCurrency } } }
     }));
 
     embed.data.description = lang('embedDescription', amount, target, newUserCurrency, newTargetCurrency);
     message.customreply({ content: target.toString(), embed: [embed] });
   }
-})
+}

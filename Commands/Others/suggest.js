@@ -1,10 +1,9 @@
 const
-  { Command } = require('reconlx'),
   { Octokit } = require('@octokit/core'),
   { EmbedBuilder, Colors } = require('discord.js'),
   { Github } = require('../../config.json');
 
-module.exports = new Command({
+module.exports = {
   name: 'suggest',
   aliases: { prefix: [], slash: [] },
   description: 'Suggest a feature for the bot on Github.',
@@ -73,4 +72,4 @@ module.exports = new Command({
 
     interaction.editReply({ embeds: [embed] });
   }
-})
+}

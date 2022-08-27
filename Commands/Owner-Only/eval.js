@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'eval',
   aliases: { prefix: [], slash: [] },
   description: 'inject javascript code directly into the bot',
@@ -29,4 +27,4 @@ module.exports = new Command({
     }
 
   }
-})
+}

@@ -1,7 +1,6 @@
-const { Command } = require('reconlx');
 const { ActivityType } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'setactivity',
   aliases: { prefix: [], slash: [] },
   description: `sets the bot's activity`,
@@ -29,4 +28,4 @@ module.exports = new Command({
 
     message.customreply(activity ? lang('success', activity, ActivityType[type]) : lang('reset'));
   }
-})
+}

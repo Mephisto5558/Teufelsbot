@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'uptime',
   aliases: { prefix: [], slash: [] },
   description: "shows the bot's uptime",
@@ -11,5 +9,5 @@ module.exports = new Command({
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (message, lang, client) => message.customreply(lang('message', client.functions.uptime(client, true).formatted))
-})
+  run: async (message, lang, { functions }) => message.customreply(lang('message', functions.uptime(true).formatted))
+}

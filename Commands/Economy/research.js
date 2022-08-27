@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors, ActionRowBuilder, SelectMenuBuilder, parseEmoji } = require('discord.js');
+const { EmbedBuilder, Colors, ActionRowBuilder, SelectMenuBuilder, parseEmoji } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'research',
   aliases: { prefix: ['buy', 'b'], slash: [] },
   description: 'Research and upgrade your skills',
@@ -79,7 +77,7 @@ module.exports = new Command({
           }
         }
       }
-      await db.set('guildSettings', db.get('guildSettings').merge({ [message.guild.id]: { economy: { [message.user.id]: newData } } }));
+      db.set('guildSettings', db.get('guildSettings').merge({ [message.guild.id]: { economy: { [message.user.id]: newData } } }));
 
       button.editReply(lang('success', lang(`skills.${skill}.name`), lang(`skills.${skill}.emoji`), newData.skills[skill].lvl, Math.round(onCooldownUntil / 1000), Math.round(onCooldownUntil / 1000)));
     });
@@ -92,4 +90,4 @@ module.exports = new Command({
     });
 
   }
-})
+}

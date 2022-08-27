@@ -1,9 +1,8 @@
 const
-  { Command } = require('reconlx'),
   convert = require('../../Functions/private/convert.js'),
   replace = (input, defaultValue) => !input && input !== false ? defaultValue : input;
 
-module.exports = new Command({
+module.exports = {
   name: 'convert',
   aliases: { prefix: [], slash: [] },
   description: 'Converts one type of text to another',
@@ -85,4 +84,4 @@ module.exports = new Command({
     }
 
   }
-})
+}

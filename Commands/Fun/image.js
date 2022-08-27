@@ -1,5 +1,4 @@
 const
-  { Command } = require('reconlx'),
   fetch = require('node-fetch').default,
   { EmbedBuilder } = require('discord.js'),
   embed = new EmbedBuilder({ title: 'Image', description: ' ' }).setColor('Random'),
@@ -30,7 +29,7 @@ const
     options: Object.entries(b).filter(([a]) => a != 'info').map(([a, b]) => ({ name: a, description: b, type: 'String' }))
   }));
 
-module.exports = new Command({
+module.exports = {
   name: 'image',
   aliases: { prefix: [], slash: [] },
   description: 'Image manipulation',
@@ -75,4 +74,4 @@ module.exports = new Command({
 
     message.edit({ content: '', embeds: [embed] });
   }
-})
+}

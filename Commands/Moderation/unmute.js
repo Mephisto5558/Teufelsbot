@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'unmute',
   aliases: { prefix: [], slash: [] },
   description: 'lifts the timeout of a member',
@@ -43,4 +41,4 @@ module.exports = new Command({
     await target.disableCommunicationUntil(null, `${reason}, moderator ${interaction.user.tag}`);
     interaction.editReply(lang('success', target.user.tag));
   }
-})
+}

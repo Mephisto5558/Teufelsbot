@@ -1,5 +1,4 @@
 const
-  { Command } = require('reconlx'),
   { EmbedBuilder, Colors } = require('discord.js'),
   currentYear = new Date().getFullYear();
 
@@ -10,7 +9,7 @@ function getAge(bd) {
   else return currentYear - bd[0];
 }
 
-module.exports = new Command({
+module.exports = {
   name: 'birthday',
   aliases: { prefix: [], slash: [] },
   description: 'save your birthday and I will send a message on your birthday',
@@ -82,7 +81,7 @@ module.exports = new Command({
       cmd = interaction.options.getSubcommand(),
       target = interaction.options.getUser('target'),
       doNotHide = interaction.options.getBoolean('do_not_hide'),
-      oldData = await db.get('userSettings'),
+      oldData = db.get('userSettings'),
       birthday = [
         Math.abs(interaction.options.getNumber('year')),
         Math.abs(interaction.options.getNumber('month') || '')?.toString().padStart(2, '0'),
@@ -110,7 +109,7 @@ module.exports = new Command({
     switch (cmd) {
       case 'set': {
         const newData = oldData.merge({ [interaction.user.id]: { birthday: birthday.join('/') } });
-        await db.set('userSettings', newData);
+        db.set('userSettings', newData);
 
         interaction.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
         break;
@@ -119,7 +118,7 @@ module.exports = new Command({
       case 'remove': {
         delete oldData[interaction.user.id].birthday;
 
-        await db.set('userSettings', oldData);
+        db.set('userSettings', oldData);
 
         interaction.editReply(lang('removed'));
         break;
@@ -189,4 +188,4 @@ module.exports = new Command({
     }
 
   }
-})
+}

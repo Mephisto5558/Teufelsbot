@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'roleinfo',
   aliases: { prefix: ['role-info'], slash: [] },
   description: 'Get information about a role',
@@ -50,4 +48,4 @@ module.exports = new Command({
 
     message.customreply({ embeds: [embed] });
   }
-})
+}

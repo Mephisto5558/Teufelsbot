@@ -9,6 +9,7 @@
   "dependencies": {
     "@eartharoid/i18n": "^1.0.4",
     "@octokit/core": "^4.0.5",
+    "axios": "^0.27.2",
     "better-ms": "^1.1.7",
     "cron": "^2.1.0",
     "dbd-dark-dashboard": "^1.6.591",
@@ -22,7 +23,6 @@
     "mongoose": "^6.5.3",
     "node": "^18.7.0",
     "npm": "^8.18.0",
-    "reconlx": "^2.5.6",
     "wikijs": "^6.3.3"
   },
   "repository": {

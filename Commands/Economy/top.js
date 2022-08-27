@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'top',
   aliases: { prefix: ['t'], slash: [] },
   description: 'Displays the most powerful members.',
@@ -35,4 +33,4 @@ module.exports = new Command({
 
     message.customreply({ embeds: [embed] });
   }
-})
+}

@@ -1,7 +1,6 @@
-const { Command } = require('reconlx');
 const { get } = require('axios').default;
 
-module.exports = new Command({
+module.exports = {
   name: 'fact',
   aliases: { prefix: [], slash: [] },
   description: 'Get some facts',
@@ -23,4 +22,4 @@ module.exports = new Command({
     }
     catch (err) { client.error(err) }
   }
-})
+}

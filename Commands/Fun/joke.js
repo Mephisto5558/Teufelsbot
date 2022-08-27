@@ -1,5 +1,4 @@
 const
-  { Command } = require('reconlx'),
   { EmbedBuilder } = require('discord.js'),
   { get } = require('axios').default,
   { Github } = require('../../config.json'),
@@ -83,7 +82,7 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
   if (APIList) return getJoke(APIList, type, blacklist, maxLength, { humorAPIKey });
 }
 
-module.exports = new Command({
+module.exports = {
   name: 'joke',
   aliases: { prefix: [], slash: [] },
   description: 'sends a joke',
@@ -142,4 +141,4 @@ module.exports = new Command({
 
    message.customreply({ embeds: [embed] });
   }
-})
+}

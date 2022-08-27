@@ -1,10 +1,9 @@
 const
-  { Command } = require('reconlx'),
   { EmbedBuilder, Colors } = require('discord.js'),
   { readFileSync } = require('fs'),
   { Invite, Dashboard, PrivacyPolicy } = require('../../config.json').Website;
 
-module.exports = new Command({
+module.exports = {
   name: 'info',
   aliases: { prefix: [], slash: [] },
   description: 'shows some stats of the bot',
@@ -17,7 +16,7 @@ module.exports = new Command({
 
   run: async (message, lang, client) => {
     const
-      startTime = Math.round(client.startTime / 1000),
+      startTime = Math.round(Date.now() / 1000 - process.uptime()),
       startCount = readFileSync('./Logs/startCount.log', 'utf8') || 0,
       owner = client.application.owner.tag || client.application.owner.owner.tag,
       description =
@@ -37,4 +36,4 @@ module.exports = new Command({
 
     message.customreply({ embeds: [embed] });
   }
-})
+}

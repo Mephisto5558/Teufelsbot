@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'ban',
   aliases: { prefix: [], slash: [] },
   description: 'bans a member from the guild',
@@ -93,4 +91,4 @@ module.exports = new Command({
 
     interaction.editReply({ embeds: [resEmbed] });
   }
-})
+}

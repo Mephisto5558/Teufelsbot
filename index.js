@@ -1,11 +1,16 @@
 console.time('Initialising time');
 console.info('Starting...');
 
+process
+  .on('unhandledRejection', err => require('./Functions/private/error_handler.js')(err))
+  .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js')(err))
+  .on('uncaughtException', err => require('./Functions/private/error_handler.js')(err));
+
 const
   { Client, Collection, GatewayIntentBits, AllowedMentionsTypes, Message, CommandInteraction } = require('discord.js'),
-  { reconDB } = require('reconlx'),
   { randomInt } = require('crypto'),
   { existsSync, readdirSync } = require('fs'),
+  DB = require('./Functions/private/db.js'),
   customreply = require('./Functions/private/reply.js'),
   isObject = item => item && typeof item == 'object' && !Array.isArray(item);
 
@@ -41,7 +46,7 @@ Message.prototype.customreply = customreply;
 console.timeEnd('Initialising time');
 console.time('Starting time');
 
-(async _ => {
+(async function main() {
   const client = new Client({
     allowedMentions: {
       parse: [
@@ -59,43 +64,31 @@ console.time('Starting time');
       GatewayIntentBits.MessageContent
     ]
   });
-  let env, db;
+  let env;
 
   await require('./Website/custom/git/pull.js').run();
 
   if (existsSync('./env.json')) env = require('./env.json');
   else {
-    db = new reconDB(process.env.dbConnectionStr);
-    env = (await db.get('botSettings')).env;
+    client.db = await new DB(process.env.dbConnectionStr).ready();
+    env = client.db.get('botSettings').env;
   }
 
   env = env.global.merge(env[env.global.environment]);
 
-  if (!db) db = new reconDB(env.dbConnectionStr);
-  await db.ready();
+  if (!client.db) client.db = await new DB(env.dbConnectionStr).ready();
 
-  client.userID = env.botUserID;
   client.botType = env.environment;
-  client.startTime = Date.now();
-  client.db = db;
   client.functions = {};
   client.dashboardOptionCount = {};
   client.keys = env.keys;
-  client.events = new Collection();
   client.cooldowns = new Collection();
   client.commands = new Collection();
-  client.guildData = new Collection();
 
   if (client.botType != 'dev') client.giveawaysManager = require('./Functions/private/giveawaysmanager.js')(client);
 
-  await require('./Handlers/log_handler.js')(client);
-  for (const handler of readdirSync('./Handlers').filter(e => e != 'log_handler.js')) require(`./Handlers/${handler}`)(client);
+  for (const handler of readdirSync('./Handlers').sort(a => a == 'log_handler.js' ? -1 : 1)) require(`./Handlers/${handler}`)(client);
 
   await client.login(client.keys.token);
   client.log(`Logged into ${client.botType}`);
-
-  process
-    .on('unhandledRejection', err => require('./Functions/private/error_handler.js')(err))
-    .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js')(err))
-    .on('uncaughtException', err => require('./Functions/private/error_handler.js')(err))
 })();

@@ -1,9 +1,8 @@
 const
-  { Command } = require('reconlx'),
   { EmbedBuilder, Colors } = require('discord.js'),
   { Dashboard } = require('../../config.json').Website;
 
-module.exports = new Command({
+module.exports = {
   name: 'dashboard',
   aliases: { prefix: [], slash: [] },
   description: 'get the link to the dashboard',
@@ -23,4 +22,4 @@ module.exports = new Command({
 
     message.customreply({ embeds: [embed] });
   }
-})
+}

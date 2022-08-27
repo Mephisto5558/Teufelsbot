@@ -1,9 +1,8 @@
 const
   { PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
-  { Command } = require('reconlx'),
   { getMilliseconds } = require('better-ms');
 
-module.exports = new Command({
+module.exports = {
   name: 'giveaway',
   aliases: { prefix: [], slash: [] },
   description: 'Giveaway Utilitys',
@@ -188,8 +187,8 @@ module.exports = new Command({
   ],
 
   run: async (interaction, lang, { db, giveawaysManager }) => {
-    if(!giveawaysManager) return 'This feature is disabled or not registered.';
-    
+    if (!giveawaysManager) return 'This feature is disabled or not registered.';
+
     const giveawayId = interaction.options.getString('id');
     let giveaway;
 
@@ -239,8 +238,8 @@ module.exports = new Command({
             giveawayEnded: lang('giveawayEnded'),
             inviteToParticipate:
               `${interaction.options.getString('description')}\n\n` +
-              (requiredRoles?.length? lang('requiredRoles', `<@&${requiredRoles.join('>, <@&')}>\n`) :'') +
-              (disallowedMembers?.length? lang('disallowedMembers', `<@${disallowedMembers.join('< <@')}>\n`): '') +
+              (requiredRoles?.length ? lang('requiredRoles', `<@&${requiredRoles.join('>, <@&')}>\n`) : '') +
+              (disallowedMembers?.length ? lang('disallowedMembers', `<@${disallowedMembers.join('< <@')}>\n`) : '') +
               lang('inviteToParticipate', reaction),
             winMessage: { content: lang('winMessage'), components },
             drawing: lang('drawing'),
@@ -307,4 +306,4 @@ module.exports = new Command({
     }
 
   }
-})
+}

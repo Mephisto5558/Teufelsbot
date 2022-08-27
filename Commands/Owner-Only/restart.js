@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'restart',
   aliases: { prefix: [], slash: [] },
   description: 'restarts the bot',
@@ -18,4 +16,4 @@ module.exports = new Command({
 
     process.exit(0);
   }
-})
+}

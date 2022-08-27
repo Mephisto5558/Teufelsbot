@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: '',
   aliases: { prefix: [], slash: [] },
   description: '',
@@ -29,4 +27,4 @@ module.exports = new Command({
 
 
   }
-})
+}

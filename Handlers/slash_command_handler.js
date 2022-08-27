@@ -1,13 +1,12 @@
 const
   { Collection, ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
-  { readdirSync } = require('fs'),
-  event = require('../Events/interactionCreate.js');
+  { readdirSync } = require('fs');
 
 let deletedCommandCount = 0;
 
 function equal(a, b) {
   if (!a?.toString() && !b?.toString()) return true;
-  if(typeof a == 'string' || typeof b == 'string') return a == b;
+  if (typeof a == 'string' || typeof b == 'string') return a == b;
   if (
     a.name != b.name || a.description != b.description || a.type != b.type || a.autocomplete != b.autocomplete ||
     a.value != b.value || (a.options?.length ?? 0) != (b.options?.length ?? 0) || (a.channelTypes?.length ?? 0) != (b.channelTypes?.length ?? 0) ||
@@ -16,7 +15,7 @@ function equal(a, b) {
   ) return;
 
   for (let i = 0; i < (a.options?.length || 0); i++) if (!equal(a.options?.[i], b?.options?.[i])) return;
-  for(let i = 0; i < (a.channelTypes?.length || 0); i++) if (!equal(a.channelTypes?.[i], b.channelTypes?.[i])) return;
+  for (let i = 0; i < (a.channelTypes?.length || 0); i++) if (!equal(a.channelTypes?.[i], b.channelTypes?.[i])) return;
 
   return true;
 }
@@ -39,12 +38,12 @@ function format(option) {
     return option;
   }
 
-  if(/[A-Z]/.test(option.name)) {
+  if (/[A-Z]/.test(option.name)) {
     console.error(`${option.name} has uppercase letters! Fixing`);
     option.name = option.name.toLowerCase();
   }
 
-  if(option.channelTypes) option.channelTypes = option.channelTypes?.map(e => {
+  if (option.channelTypes) option.channelTypes = option.channelTypes?.map(e => {
     if (!ChannelType[e] && ChannelType[e] != 0) throw Error(`Invalid option.channelType, got ${e}`);
     return isNaN(e) ? ChannelType[e] : e;
   });
@@ -55,13 +54,13 @@ function format(option) {
   return option;
 }
 
-module.exports = async (client, SyncGuild) => {
+module.exports = async (client, syncGuild) => {
   await client.functions.ready(client);
 
   const skippedCommands = new Collection();
-  const applicationCommands = await client.application.commands.fetch(undefined, { guildId: SyncGuild && SyncGuild != '*' ? SyncGuild : undefined });
+  const applicationCommands = await client.application.commands.fetch(undefined, { guildId: syncGuild && syncGuild != '*' ? syncGuild : undefined });
 
-  if (!SyncGuild || SyncGuild == '*') {
+  if (!syncGuild || syncGuild == '*') {
     client.slashCommands = new Collection();
 
     for (const subFolder of getDirectoriesSync('./Commands')) {
@@ -71,8 +70,8 @@ module.exports = async (client, SyncGuild) => {
 
         if (!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) continue;
 
-        for (const applicationCommand of applicationCommands) {
-          if (!equal(command, applicationCommand[1])) continue;
+        for (const [, applicationCommand] of applicationCommands) {
+          if (!equal(command, applicationCommand)) continue;
           client.log(`Skipped Slash Command ${command.name}`);
           skipped = true;
           skippedCommands.set(command.name, command);
@@ -91,33 +90,33 @@ module.exports = async (client, SyncGuild) => {
     }
   }
 
-  for (const command of client.slashCommands) {
-    await client.application.commands.create(command[1], SyncGuild && SyncGuild != '*' ? SyncGuild : null);
-    client.log(`Registered Slash Comand ${command[0]}`);
+  for (const [, command] of client.slashCommands) {
+    await client.application.commands.create(command, syncGuild && syncGuild != '*' ? syncGuild : null);
+    client.log(`Registered Slash Comand ${command.name}`);
   }
 
   const commandNames = [...client.slashCommands, ...skippedCommands].map(e => e[0]);
-  for (const clientCommand of applicationCommands) {
-    if (commandNames.includes(clientCommand[1].name)) continue;
+  for (const [, clientCommand] of applicationCommands) {
+    if (commandNames.includes(clientCommand.name)) continue;
 
-    await client.application.commands.delete(clientCommand[1], SyncGuild && SyncGuild != '*' ? SyncGuild : null);
-    client.log(`Deleted Slash Comand ${clientCommand[1].name}`);
+    await client.application.commands.delete(clientCommand, syncGuild && syncGuild != '*' ? syncGuild : null);
+    client.log(`Deleted Slash Comand ${clientCommand.name}`);
     deletedCommandCount++
   }
 
-  if (SyncGuild) return;
+  if (syncGuild) return;
 
   client.log(`Registered ${client.slashCommands.size} Slash Commands`);
 
-  skippedCommands.forEach((v, k) => client.slashCommands.set(k, v));
+  for (const [, skippedCommand] of skippedCommands) client.slashCommands.set(skippedCommand.name, skippedCommand);
 
   client.log(`Skipped ${skippedCommands.size} Slash Commands`);
   client.log(`Deleted ${deletedCommandCount} Slash Commands`);
 
-  client.on('interactionCreate', event.bind(null, client));
+  client.on('interactionCreate', require('../Events/interactionCreate.js').bind(null, client));
   client.log('Loaded Event interactionCreate');
   client.log('Ready to receive slash commands\n');
 
   client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${new Set(client.guilds.cache.map(g => Array.from(g.members.cache.filter(e => !e.user.bot).keys())).flat()).size} unique users.\n`);
-  console.timeEnd('Starting time');
+  console.timeEnd('Starting time'); //(new Set(await client.guilds.fetch()).map((_, e) => Array.from(e.members.cache.filter(e => !e.user.bot).keys())).flat()).size
 }

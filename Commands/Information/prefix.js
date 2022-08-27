@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'prefix',
   aliases: { prefix: [], slash: [] },
   description: `shows or changes the guild's bot prefix`,
@@ -28,11 +26,11 @@ module.exports = new Command({
   run: async (message, lang, { db }) => {
     const newPrefix = message.content || message.options?.getString('new_prefix');
     const prefixCaseInsensitive = message.options?.getBoolean('case_insensitive') ?? false;
-    const oldData = await db.get('guildSettings');
+    const oldData = db.get('guildSettings');
 
     if (newPrefix && message.member.permissions.has('ManageGuild')) {
       const newData = oldData.merge({ [message.guild.id]: { config: { prefix: newPrefix, prefixCaseInsensitive } } });
-      await db.set('guildSettings', newData);
+      db.set('guildSettings', newData);
 
       message.customreply(lang('saved', newPrefix));
     }
@@ -46,4 +44,4 @@ module.exports = new Command({
     }
 
   }
-})
+}

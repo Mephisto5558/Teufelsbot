@@ -1,8 +1,7 @@
-module.exports = ({ startTime }, asMessage) => {
-  const total = Date.now() - startTime;
+module.exports = asMessage => {
   let data;
 
-  let s = total / 1000;
+  let s = process.uptime();
   let m = s / 60;
   let h = m / 60;
   const d = Math.floor(h / 24).toString();
@@ -19,7 +18,7 @@ module.exports = ({ startTime }, asMessage) => {
   }
 
   return {
-    total: total,
+    total: process.uptime() * 1000,
     formatted: data || `${d.padStart(2, 0)}:${h.padStart(2, 0)}:${m.padStart(2, 0)}:${s.padStart(2, 0)}`
   }
 }

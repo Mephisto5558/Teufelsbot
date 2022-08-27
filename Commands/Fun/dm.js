@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'dm',
   aliases: { prefix: [], slash: [] },
   description: 'sends a user a dm',
@@ -66,8 +64,8 @@ module.exports = new Command({
       messageToSend = interaction.options.getString('message'),
       perm = interaction.member.permissions.has('ManageMessages'),
       asMod = (interaction.options.getBoolean('as_mod') && perm),
-      oldData = await db.get('userSettings'),
-      blacklist = Object.assign({}, ...Object.entries(oldData).filter(([, v]) => v.dmBlockList).map(([k, v]) => ({[k]: v.dmBlockList }))),
+      oldData = db.get('userSettings'),
+      blacklist = Object.assign({}, ...Object.entries(oldData).filter(([, v]) => v.dmBlockList).map(([k, v]) => ({ [k]: v.dmBlockList }))),
       userBlacklist = blacklist[interaction.user.id] || [];
 
     let target = interaction.options.getMember('target');
@@ -96,7 +94,7 @@ module.exports = new Command({
           message = lang('toggle.saved', targetName, target == '*' ? lang('toggle.targetAll.saved') : lang('toggle.targetOne.isnt', targetName));
         }
 
-        await db.set('userSettings', oldData.merge({ [interaction.user.id]: userBlacklist }));
+        db.set('userSettings', oldData.merge({ [interaction.user.id]: userBlacklist }));
 
         interaction.editReply(message);
         break;
@@ -147,4 +145,4 @@ module.exports = new Command({
     }
 
   }
-})
+}

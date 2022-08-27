@@ -1,7 +1,6 @@
-const { Command } = require('reconlx');
-const responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/']
+const responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/'];
 
-module.exports = new Command({
+module.exports = {
   name: 'sad',
   aliases: { prefix: [], slash: [] },
   description: 'sends a sad emojicon',
@@ -13,4 +12,4 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: message => message.customreply(responseList.random())
-})
+}

@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'gitpull',
   aliases: { prefix: [], slash: [] },
   description: 'Run a git pull',
@@ -16,5 +14,4 @@ module.exports = new Command({
     await require('../../Website/custom/git/pull.js').run();
     message.customreply(lang('success'));
   }
-})
-
+}

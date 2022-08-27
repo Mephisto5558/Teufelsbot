@@ -1,5 +1,4 @@
 const
-  { Command } = require('reconlx'),
   { readdirSync, existsSync } = require('fs'),
   { join } = require('path');
 
@@ -40,7 +39,7 @@ async function reloadCommand(client, commandName, path, reloadedArray) {
   }
 }
 
-module.exports = new Command({
+module.exports = {
   name: 'reload',
   aliases: { prefix: [], slash: [] },
   description: 'reloads a command file or all files',
@@ -81,4 +80,4 @@ module.exports = new Command({
       errorMsg || (!reloadedArray.length ? lang('noneReloaded') : lang('reloaded', reloadedArray.length, reloadedArray.join('`, `'))), message
     );
   }
-})
+}

@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'globalsync',
   aliases: { prefix: [], slash: [] },
   description: 'syncs my slash commands on all guilds',
@@ -21,4 +19,4 @@ module.exports = new Command({
 
     message.customreply(lang('success'));
   }
-})
+}

@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'trigger',
   aliases: { prefix: [], slash: [] },
   description: 'Manage custom responses to message triggers!',
@@ -105,7 +103,7 @@ module.exports = new Command({
         };
 
         newData = settings.merge({ [interaction.guild.id]: { triggers: [data] } }, 'push');
-        await db.set('guildSettings', newData);
+        db.set('guildSettings', newData);
 
         interaction.editReply(lang('saved', data.trigger));
         break;
@@ -118,7 +116,7 @@ module.exports = new Command({
         if (filtered.length == oldData.length) return interaction.editReply(lang('idNotFound'));
 
         newData = settings.merge({ [interaction.guild.id]: { triggers: filtered } }, 'overwrite');
-        await db.set('guildSettings', newData);
+        db.set('guildSettings', newData);
 
         interaction.editReply(lang('deletedOne', id));
         break;
@@ -129,7 +127,7 @@ module.exports = new Command({
         if (!oldData.length) return interaction.editReply(lang('noneFound'));
 
         newData = settings.merge({ [interaction.guild.id]: { triggers: [] } }, 'overwrite');
-        await db.set('guildSettings', newData);
+        db.set('guildSettings', newData);
 
         interaction.editReply(lang('deletedAll', oldData.length));
         break;
@@ -195,4 +193,4 @@ module.exports = new Command({
       default: throw new SyntaxError('Unexpected value');
     }
   }
-})
+}

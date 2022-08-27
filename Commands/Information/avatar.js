@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'avatar',
   aliases: { prefix: [], slash: [] },
   description: 'shows the user avatar',
@@ -55,4 +53,4 @@ module.exports = new Command({
 
     message.customreply({ embeds: [embed], components: [row] });
   }
-})
+}
