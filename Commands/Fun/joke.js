@@ -130,7 +130,7 @@ module.exports = {
       maxLength = message.options?.getNumber('max_length') || 2000,
       [joke, API] = await getJoke(defaultAPIList, type, blacklist, maxLength, keys);
 
-    if (!joke) return message.customreply(lang('noAPIAvailable'));
+    if (!joke) return message.customReply(lang('noAPIAvailable'));
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
@@ -139,6 +139,6 @@ module.exports = {
         `- [${API.name}](${API.url})`
     }).setColor('Random');
 
-   message.customreply({ embeds: [embed] });
+   message.customReply({ embeds: [embed] });
   }
 }

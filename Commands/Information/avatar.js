@@ -51,6 +51,6 @@ module.exports = {
         })]
       });
 
-    message.customreply({ embeds: [embed], components: [row] });
+    message.customReply({ embeds: [embed], components: [row] });
   }
 }

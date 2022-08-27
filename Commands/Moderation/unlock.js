@@ -26,7 +26,7 @@ module.exports = {
   ],
 
   run: async (message, lang, { db }) => {
-    const msg = await message.customreply(lang('global.loading'));
+    const msg = await message.customReply(lang('global.loading'));
 
     message.args?.shift();
 

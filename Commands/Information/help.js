@@ -58,7 +58,7 @@ module.exports = {
         ].filter(e => e);
       }
 
-      return message.customreply({ embeds: [embed] });
+      return message.customReply({ embeds: [embed] });
     }
 
     embed.data.title = lang('all.embedTitle');
@@ -84,6 +84,6 @@ module.exports = {
     if (!embed.data.fields) embed.data.description = lang('all.notFound');
     else embed.data.footer = { text: lang('all.embedFooterText') };
 
-    message.customreply({ embeds: [embed] });
+    message.customReply({ embeds: [embed] });
   }
 }

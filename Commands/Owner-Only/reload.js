@@ -76,8 +76,6 @@ module.exports = {
     }
     catch (err) { errorMsg = lang('error', err.message) }
 
-    client.functions.reply(
-      errorMsg || (!reloadedArray.length ? lang('noneReloaded') : lang('reloaded', reloadedArray.length, reloadedArray.join('`, `'))), message
-    );
+    message.customReply(errorMsg || (!reloadedArray.length ? lang('noneReloaded') : lang('reloaded', reloadedArray.length, reloadedArray.join('`, `'))));
   }
 }

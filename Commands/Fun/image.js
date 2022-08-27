@@ -61,9 +61,9 @@ module.exports = {
     if (!cmd) errorMsg = (cmdName ? lang('notFound') : '') + lang('validOptions', options.map(e => e.name).join('`, `'));
     else if ((args?.length || 0) < option.options.length) errorMsg = lang('requiresArgs', option.options.map(e => `> \`${e.name}\`: ${e.description}`).join('\n'));
 
-    if (errorMsg) return message.customreply(errorMsg);
+    if (errorMsg) return message.customReply(errorMsg);
 
-    message = message.customreply(lang('global.loading'));
+    message = message.customReply(lang('global.loading'));
 
     args.map((e, i) => { if (option.options[i]) headers += `${option.options[i].name}=${e}&` });
 

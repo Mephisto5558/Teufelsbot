@@ -14,7 +14,7 @@ module.exports = {
   run: async (message, lang, { db }) => {
     const result = db.get(message.content);
 
-    if (!result) return message.customreply(lang('notFound'));
-    message.customreply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```');
+    if (!result) return message.customReply(lang('notFound'));
+    message.customReply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```');
   }
 }
