@@ -1,5 +1,4 @@
 const
-  { Command } = require('reconlx'),
   { Message } = require('discord.js'),
   responseList = [
     'As I see it, yes.', 'It is certain.', 'It is decidedly so.', 'Most likely.', 'Yes.', 'Yes – definitely.', 'You may rely on it.', 'Outlook good.', 'Signs point to yes.', 'Without a doubt.',
@@ -7,7 +6,7 @@ const
     'Don’t count on it.', 'My reply is no.', 'My sources say no.', 'Outlook not so good.', 'Very doubtful.'
   ];
 
-module.exports = new Command({
+module.exports = {
   name: '8ball',
   aliases: { prefix: [], slash: [] },
   description: 'Ask me a question',
@@ -25,4 +24,4 @@ module.exports = new Command({
   }],
 
   run: async (message, lang) => message.customreply(message instanceof Message && !message.content ? lang('noQuestion') : responseList.random())
-})
+}

@@ -1,9 +1,8 @@
 const
-  { Command } = require('reconlx'),
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, ComponentType } = require('discord.js'),
   hand = new Collection([['Rock', { id: 0, emoji: '✊' }], ['Paper', { id: 1, emoji: '🤚' }], ['Scissors', { id: 2, emoji: '✌️' }]]);
 
-module.exports = new Command({
+module.exports = {
   name: 'rps',
   aliases: { prefix: ['rockpaperscissors'], slash: [] },
   description: 'Play rock paper scissors against the bot or (coming soon) your friends!',
@@ -122,4 +121,4 @@ module.exports = new Command({
     })
 
   }
-})
+}

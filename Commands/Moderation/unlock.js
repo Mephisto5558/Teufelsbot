@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors } = require('discord.js');
+const { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'unlock',
   aliases: { prefix: [], slash: [] },
   description: 'Unlocks a channel locked with the lock command.',
@@ -66,4 +64,4 @@ module.exports = new Command({
     await channel.send({ embeds: [embed] });
     msg.edit('The channel has been successfully unlocked.');
   }
-})
+}

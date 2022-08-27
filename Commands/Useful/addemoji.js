@@ -1,9 +1,8 @@
 const
-  { Command } = require('reconlx'),
   { parseEmoji, EmbedBuilder, Colors } = require('discord.js'),
   { head } = require('axios').default;
 
-module.exports = new Command({
+module.exports = {
   name: 'addemoji',
   aliases: { prefix: [], slash: [] },
   description: 'adds a emoji to your guild.',
@@ -88,4 +87,4 @@ module.exports = new Command({
 
     interaction.editReply({ embeds: [embed] });
   }
-})
+}

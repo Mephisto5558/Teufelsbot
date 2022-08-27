@@ -1,9 +1,8 @@
 const
-  { Command } = require('reconlx'),
   { EmbedBuilder, GuildDefaultMessageNotifications, ChannelType, GuildPremiumTier, GuildVerificationLevel } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
-module.exports = new Command({
+module.exports = {
   name: 'serverinfo',
   aliases: { prefix: ['server-info', 'guildinfo', 'guild-info'], slash: [] },
   description: 'Get information about this guild',
@@ -54,4 +53,4 @@ module.exports = new Command({
 
     message.customreply({ embeds: [embed] });
   }
-})
+}

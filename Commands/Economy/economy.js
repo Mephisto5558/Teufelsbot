@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'economy',
   aliases: { prefix: [], slash: [] },
   description: 'Some Economy Configs',
@@ -31,7 +29,7 @@ module.exports = new Command({
         if (db.get('guildSettings')[interaction.guild.id]?.economy?.[interaction.user.id]?.gaining?.chat)
           return interaction.editReply(lang('start.alreadyInitiated'));
 
-        await db.set('guildSettings', db.get('guildSettings').merge({
+        db.set('guildSettings', db.get('guildSettings').merge({
           [interaction.guild.id]: {
             economy: {
               [interaction.user.id]: {
@@ -67,4 +65,4 @@ module.exports = new Command({
     }
 
   }
-})
+}

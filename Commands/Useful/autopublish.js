@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'autopublish',
   aliases: { prefix: [], slash: [] },
   description: 'automatically publishes everything anyone in an announcement channel says.',
@@ -14,12 +12,12 @@ module.exports = new Command({
   prefixCommand: true,
 
   run: async (message, lang, { db }) => {
-    const oldData = await db.get('guildSettings');
+    const oldData = db.get('guildSettings');
     const setting = oldData[message.guild.id]?.config?.autopublish;
 
     const newData = oldData.merge({ [message.guild.id]: { config: { autopublish: !setting } } })
-    await db.set('guildSettings', newData);
+    db.set('guildSettings', newData);
 
     message.customreply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));
   }
-})
+}

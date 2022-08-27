@@ -1,5 +1,4 @@
 const
-  { Command } = require('reconlx'),
   { EmbedBuilder, Colors } = require('discord.js'),
   { getHashes, createHash } = require('crypto'),
   hashOptions = [];
@@ -18,7 +17,7 @@ for (let i = 0; i < getHashes().length; i = i + 25) {
   })
 }
 
-module.exports = new Command({
+module.exports = {
   name: 'hash',
   aliases: { prefix: [], slash: [] },
   description: 'encrypt or decrypt your text with various methods',
@@ -56,4 +55,4 @@ module.exports = new Command({
       embeds: [embed]
     })
   }
-})
+}

@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { Message, CommandInteraction } = require('discord.js');
+const { Message, CommandInteraction } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'purge',
   aliases: { prefix: ['clear'], slash: [] },
   description: 'removes a specific number of messages',
@@ -34,4 +32,4 @@ module.exports = new Command({
 
     if (message instanceof CommandInteraction) message.editReply(lang('success'));
   }
-})
+}

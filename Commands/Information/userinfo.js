@@ -1,9 +1,8 @@
 const
-  { Command } = require('reconlx'),
   { EmbedBuilder, PermissionFlagsBits } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
-module.exports = new Command({
+module.exports = {
   name: 'userinfo',
   aliases: { prefix: ['user-info'], slash: [] },
   description: 'Get information about a user',
@@ -60,4 +59,4 @@ module.exports = new Command({
 
     message.customreply({ embeds: [embed] });
   }
-})
+}

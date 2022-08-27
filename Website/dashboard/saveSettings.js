@@ -5,7 +5,7 @@ module.exports = async ({ db, dashboardOptionCount }, guildId, index, setting, d
   updated.push([setting, data, index]);
   if (updated.length < dashboardOptionCount[index]) return;
 
-  const oldData = await db.get('guildSettings');
+  const oldData = db.get('guildSettings');
   let newData = oldData;
 
   for (let entry of updated) {

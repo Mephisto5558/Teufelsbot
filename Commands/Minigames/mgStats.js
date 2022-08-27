@@ -1,6 +1,4 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors, Message } = require('discord.js');
+const { EmbedBuilder, Colors, Message } = require('discord.js');
 
 async function manageData(input, clientID) {
   if (!input) return;
@@ -66,7 +64,7 @@ async function formatTopTen(input, settings, message, lang) {
   return output;
 }
 
-module.exports = new Command({
+module.exports = {
   name: 'mgstats',
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
   description: 'get stats about one of the minigames',
@@ -177,4 +175,4 @@ module.exports = new Command({
 
     message.customreply({ embeds: [embed] });
   }
-})
+}

@@ -1,9 +1,8 @@
 const
-  { Command } = require('reconlx'),
   { EmbedBuilder, Colors } = require('discord.js'),
   { Invite } = require('../../config.json').Website;
 
-module.exports = new Command({
+module.exports = {
   name: 'invite',
   aliases: { prefix: [], slash: [] },
   description: 'Sends a link to add the bot to your guild!',
@@ -23,4 +22,4 @@ module.exports = new Command({
 
     message.customreply({ embeds: [embed] });
   }
-})
+}

@@ -1,6 +1,4 @@
-const { Command } = require('reconlx');
-
-module.exports = new Command({
+module.exports = {
   name: 'reloadlang',
   aliases: { prefix: [], slash: [] },
   description: 'Reloads all language files.',
@@ -20,4 +18,4 @@ module.exports = new Command({
 
     msg.edit(lang('success'));
   }
-})
+}

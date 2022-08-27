@@ -1,8 +1,6 @@
-const
-  { Command } = require('reconlx'),
-  { EmbedBuilder, Colors } = require('discord.js');
+const { EmbedBuilder, Colors } = require('discord.js');
 
-module.exports = new Command({
+module.exports = {
   name: 'daily',
   aliases: { prefix: ['d'], slash: [] },
   description: 'get your daily bonuses',
@@ -40,4 +38,4 @@ module.exports = new Command({
     embed.data.description = lang('collected', userData.daily);
     message.customreply({ embeds: [embed] });
   }
-})
+}

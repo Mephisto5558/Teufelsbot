@@ -1,5 +1,4 @@
 const
-  { Command } = require('reconlx'),
   { ButtonBuilder, ButtonStyle, ActionRowBuilder, ComponentType } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
   game = new TicTacToe({
@@ -15,7 +14,7 @@ function workStatsData(firstID, secondID, type, client) {
     case 'lose': against = 'lostAgainst'; break
     case 'draw': against = 'drewAgainst';
   }
-  
+
   const stats = client.db.get('leaderboards').TicTacToe[firstID];
   const typeS = `${type}s`
 
@@ -105,7 +104,7 @@ async function playAgain(interaction, clientUserID, lang) {
   })
 }
 
-module.exports = new Command({
+module.exports = {
   name: 'tictactoe',
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
   description: 'play some ttt against a friend or the bot',
@@ -158,4 +157,4 @@ module.exports = new Command({
     })
 
   }
-})
+}
