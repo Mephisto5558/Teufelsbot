@@ -134,7 +134,7 @@ module.exports = {
       target: message.options?.getUser('target') || message.mentions?.users?.first() || message.member,
       settings: message.options?.getString('settings')
     }
-    const leaderboards = await client.db.get('leaderboards');
+    const leaderboards = client.db.get('leaderboards');
 
     stats.data = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == stats.game.toLowerCase())?.[1];
     if (!stats.data) return message.customReply(lang('notFound', Object.keys(leaderboards).join('`, `')));

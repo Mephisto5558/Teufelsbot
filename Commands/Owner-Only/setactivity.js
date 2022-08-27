@@ -22,7 +22,7 @@ module.exports = {
     if (!type && type != 0) return message.customReply(lang('invalidType', Object.keys(ActivityType).filter(e => isNaN(e)).join('`, `')));
 
     await client.user.setActivity(activity, { type: type });
-    await client.db.set('botSettings', await client.db.get('botSettings').fMerge({ activity: { name: activity, type: type } }));
+    client.db.set('botSettings', client.db.get('botSettings').fMerge({ activity: { name: activity, type: type } }));
 
     message.customReply(activity ? lang('success', activity, ActivityType[type]) : lang('reset'));
   }

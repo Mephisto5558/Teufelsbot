@@ -11,7 +11,7 @@ const
 
 async function getSettings(client) {
   const categoryOptionList = [];
-  const guildSettings = await client.db.get('guildSettings');
+  const guildSettings = client.db.get('guildSettings');
 
   for (const subFolder of getDirectoriesSync('./Website/dashboard')) {
     const index = require(`../Website/dashboard/${subFolder}/_index.json`);
