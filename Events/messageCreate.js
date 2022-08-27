@@ -4,15 +4,15 @@ module.exports = async (client, message) => {
   let prefixLength;
   if (message.channel.type == ChannelType.DM) return;
 
-  const { blacklist } = await client.db.get('botSettings');
+  const { blacklist } = client.db.get('botSettings');
   if (blacklist?.includes(message.author.id)) return;
 
-  const { config, triggers } = await client.db.get('guildSettings')[message.guild.id] || {};
+  const { config, triggers } = client.db.get('guildSettings')[message.guild.id] || {};
 
   if (message.crosspostable && config?.autopublish) message.crosspost();
   if (message.author.bot) return;
 
-  const guildPrefix = config?.prefix || await client.db.get('guildSettings').default.config.prefix;
+  const guildPrefix = config?.prefix || client.db.get('guildSettings').default.config.prefix;
 
   message.content = message.content.replace(/<@!/g, '<@');
 
@@ -33,7 +33,7 @@ module.exports = async (client, message) => {
       if (eco.currency + eco.gaining.chat > eco.currencyCapacity) currency = eco.currencyCapacity;
       else currency = eco.currency + eco.gaining.chat;
 
-      await client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
+      client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
         [message.guild.id]: { economy: { [message.author.id]: { currency } } }
       }));
     }
