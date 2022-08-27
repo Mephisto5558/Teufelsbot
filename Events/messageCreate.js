@@ -37,7 +37,6 @@ module.exports = async (client, message) => {
         [message.guild.id]: { economy: { [message.author.id]: { currency } } }
       }));
     }
-    return;
   }
 
   message.content = message.content.slice(prefixLength).trim();
