@@ -149,6 +149,8 @@ module.exports = async client => {
   if (client.botType == 'main' && Website.Domain) domain = Website.Domain;
   else domain = (process.env.SERVER_IP ?? 'http://localhost') + ':' + (process.env.PORT ?? process.env.SERVER_PORT ?? 8000);
 
+  if(!/https?:\/\//.test(domain)) domain = 'http://' + domain;
+
   global.embedBuilder = DBD.formTypes.embedBuilder({
     username: client.user.username,
     avatarURL: client.user.displayAvatarURL(),
