@@ -9,6 +9,7 @@ Temp
 .github
 tw
 config.json
+tw.js
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

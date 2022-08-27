@@ -5,7 +5,7 @@ const
   { Support, Website } = require('../config.json'),
   rateLimit = {
     windowMs: 1 * 60 * 1000, // 1min
-    max: 100,
+    max: 30,
     message: '<body style="background-color:#000 color: #ff0000"><p>Sorry, you have been ratelimited!</p></body>'
   }
 
@@ -162,7 +162,7 @@ module.exports = async client => {
     useUnderMaintenance: false,
     minimizedConsoleLogs: true,
     port: (process.env.PORT ?? process.env.SERVER_PORT ?? 8000),
-    domain: domain,
+    domain,
     redirectUri: `${domain}/discord/callback`,
     bot: client,
     ownerIDs: [client.application.owner.id],
