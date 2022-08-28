@@ -47,7 +47,7 @@ module.exports = async (client, message) => {
   message.user = message.author;
 
   const command = client.commands.get(message.commandName);
-  const lang = await require('../Functions/private/lang')(client, message, command);
+  const lang = require('../Functions/private/lang')(client, message.guild, command);
 
   if (!command && client.slashCommands.get(message.commandName)) return message.customReply(lang('events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
