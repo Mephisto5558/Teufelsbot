@@ -429,7 +429,7 @@
         "description": "What you you want to search?"
       }
     },
-    "notFound": "No results found for `%s`.",
+    "notFound": "No results found.",
     "visitWiki": "**For more information, please visit the Wikipedia page.**",
     "error": "Couldn't talk to Wikipedia:\n```%s```"
   }
