@@ -19,7 +19,7 @@
     "fast-average-color-node": "^2.4.0",
     "i18n": "^0.15.0",
     "mathjs": "^11.1.0",
-    "mongodb": "^4.9.0",
+    "mongodb": "^4.9.1",
     "mongoose": "^6.5.4",
     "node": "^18.7.0",
     "npm": "^8.18.0",
