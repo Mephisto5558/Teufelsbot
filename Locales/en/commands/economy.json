@@ -124,23 +124,24 @@
     "defense": "Defense <:defense:1011971580584263710>",
     "slaves": "Slaves",
     "maxSlaves": "Max Slaves",
+    "level": "> Level **%d**\n",
     "gaining": {
       "title": "Gaining Methods",
-      "chat": "Chat Messages",
-      "voice": "Voice Minutes",
-      "work": "Work",
-      "daily": "Daily collection"
+      "chat": "Chat Messages: **%d**",
+      "voice": "Voice Minutes: **%d**",
+      "work": "Work: **%d**",
+      "daily": "Daily collection: **%d**"
     },
     "skills": {
       "name": "Skills",
-      "currency_bonus_percentage": "Soul Bonus (%) <:soul:1011962640349810688>",
-      "currency_bonus_absolute": "Soul Bonus <:soul:1011962640349810688>",
-      "research_speed_percentage": "Research Speed (%) <:research:1011960920609665064>",
-      "research_bonus_percentage": "Research Efficiency (%) <:research:1011960920609665064>",
-      "power": "Power <:power:1011965677625671731>",
-      "defense": "Defense <:defense:1011971580584263710>",
-      "currency_capacity": "Soul Capacity <:storage:1011973136100642947>",
-      "slave_capacity": "Slave Capacity <:storage:1011973136100642947>"
+      "currency_bonus_percentage": "> Soul Bonus (%) <:soul:1011962640349810688>\n",
+      "currency_bonus_absolute": "> Soul Bonus <:soul:1011962640349810688>\n",
+      "research_speed_percentage": "> Research Speed (%) <:research:1011960920609665064>\n",
+      "research_bonus_percentage": "> Research Efficiency (%) <:research:1011960920609665064>\n",
+      "power": "> Power <:power:1011965677625671731>\n",
+      "defense": "> Defense <:defense:1011971580584263710>\n",
+      "currency_capacity": "> Soul Capacity <:storage:1011973136100642947>\n",
+      "slave_capacity": "> Slave Capacity <:storage:1011973136100642947>\n"
     },
     "embedTitle": "%s's Stats"
   },

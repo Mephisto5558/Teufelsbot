@@ -72,7 +72,6 @@ module.exports = {
           [skill]: {
             lastPrice: price,
             lvl: userSkill.lvl + 1,
-            bonus: userSkill.bonus + userSkill.bonus * (userSkill.percentage - 2 + userData.skills.research_bonus_percentage) / 100,
             onCooldownUntil
           }
         }
