@@ -1,6 +1,6 @@
 const
   fs = require('fs'),
-  date = new Date().toLocaleDateString('en').replace(/\//g, '-'),
+  date = new Date().toLocaleDateString('en').replaceAll('/', '-'),
   startCount = parseInt(fs.readFileSync('./Logs/startCount.log') || 0) + 1,
   errorColor = '\x1b[1;31m%s\x1b[0m',
   getTime = _ => new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false }),

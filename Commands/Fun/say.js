@@ -31,7 +31,7 @@ module.exports = {
 
     if (!msg) return message.customReply(lang('noMsgProvided'));
 
-    await channel.send(msg.replace(/\/n/g, '\n'));
+    await channel.send(msg.replaceAll('/n', '\n'));
     message.customReply(lang('global.messageSent'));
   }
 }

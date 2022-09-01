@@ -63,7 +63,7 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
         break;
       }
     }
-    return [response?.replace(/`/g, `'`), API];
+    return [response?.replaceAll('`', "'"), API];
   }
   catch (err) {
     if ([402, 403, 522].includes(err.status)) {

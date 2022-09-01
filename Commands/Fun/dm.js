@@ -130,7 +130,7 @@ module.exports = {
 
         const embed = new EmbedBuilder({
           title: lang('send.embedTitle'),
-          description: lang('send.embedDescription', asMod ? lang('send.fromMod') : interaction.user.tag, interaction.guild.name, messageToSend.replace(/\/n/g, '\n')),
+          description: lang('send.embedDescription', asMod ? lang('send.fromMod') : interaction.user.tag, interaction.guild.name, messageToSend.replaceAll('/n', '\n')),
           color: Colors.Blurple,
           footer: { text: lang('send.embedFooterText') }
         });

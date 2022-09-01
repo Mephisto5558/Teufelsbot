@@ -70,7 +70,7 @@ module.exports = {
       }
       else {
         if (!category && !existsSync(path)) errorMsg = (message.args[0] ? lang('invalidCategory') : '') + lang('validCategoryList', getDirectoriesSync('./Commands').join('`, `').toLowerCase());
-        else if (!command && !existsSync(path)) errorMsg = (message.args[1] ? lang('invalidCommand') : '') + lang('validCommandList', readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replace(/\.js/g, ''));
+        else if (!command && !existsSync(path)) errorMsg = (message.args[1] ? lang('invalidCommand') : '') + lang('validCommandList', readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replaceAll('.js', ''));
         else await reloadCommand(client, command, path, reloadedArray);
       }
     }

@@ -23,7 +23,7 @@ module.exports = {
   }],
 
   run: (message, lang) => {
-    const expression = (message.args?.[0] || message.options?.getString('expression'))?.replace(/\n/g, ';').replace(/÷/g, '/');
+    const expression = (message.args?.[0] || message.options?.getString('expression'))?.replaceAll('\n', ';').replaceAll('÷', '/');
     if (!expression) return message.customReply(lang('noInput'));
 
     if (expression == 'help') {

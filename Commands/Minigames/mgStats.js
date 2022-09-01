@@ -11,7 +11,7 @@ async function manageData(input, clientID) {
     output += `> <@${data[i][0]}>: \`${data[i][1]}\`\n`;
   }
 
-  return output.replace(/AI/g, clientID);
+  return output.replaceAll('AI', clientID);
 }
 
 async function formatStatCount(input, all) {

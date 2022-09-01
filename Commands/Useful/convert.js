@@ -79,7 +79,7 @@ module.exports = {
     else {
       interaction.editReply({
         content: output,
-        files: [{ attachment: Buffer.from(output.replace(/```/g, '') + converted), name: 'converted.txt' }]
+        files: [{ attachment: Buffer.from(output.replaceAll('```', '') + converted), name: 'converted.txt' }]
       });
     }
 

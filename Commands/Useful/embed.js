@@ -126,7 +126,7 @@ module.exports = {
   ],
 
   run: async (interaction, lang) => {
-    const getOption = name => interaction.options.getString(name)?.replace(/\/n/g, '\n');
+    const getOption = name => interaction.options.getString(name)?.replaceAll('/n', '\n');
     const custom = getOption('json');
     const content = getOption('content');
     let embed;

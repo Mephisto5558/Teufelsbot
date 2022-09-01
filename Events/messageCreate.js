@@ -14,7 +14,7 @@ module.exports = async (client, message) => {
 
   const guildPrefix = config?.prefix?.prefix || client.db.get('guildSettings').default.config.prefix;
 
-  message.content = message.content.replace(/<@!/g, '<@');
+  message.content = message.content.replaceAll('<@!', '<@');
 
   for (const trigger of triggers?.filter(e => message.content?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
     message.customReply(trigger.response);

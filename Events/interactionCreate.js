@@ -35,7 +35,7 @@ module.exports = async (client, interaction) => {
     if (!command.noDefer && !interaction.replied) await interaction.deferReply({ ephemeral: command.ephemeralDefer ?? false });
 
     for (const entry of interaction.options._hoistedOptions)
-      if (entry.type == ApplicationCommandOptionType.String) entry.value = entry.value.replace(/<@!/g, '<@');
+      if (entry.type == ApplicationCommandOptionType.String) entry.value = entry.value.replaceAll('<@!', '<@');
 
     try { await command.run(interaction, lang, client) }
     catch (err) { require('../Functions/private/error_handler.js')(err, client, interaction, lang) }
