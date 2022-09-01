@@ -1,17 +1,17 @@
 const { EmbedBuilder } = require('discord.js');
 
 function formatBirthday(msg, user, year) {
-  return msg?.replace(/<user.nickname>/g, user.displayName)
-    .replace(/<user.username>/g, user.username)
-    .replace(/<user.id>/g, user.id)
-    .replace(/<user.tag>/g, user.tag)
-    .replace(/<user.joinedAt>/g, user.joinedAt.toLocaleDateString('en'))
-    .replace(/<guild.id>/g, user.guild.id)
-    .replace(/<guild.memberCount>/g, user.guild?.memberCount)
-    .replace(/<guild.name>/g, user.guild?.name)
-    .replace(/<bornyear>/g, year)
-    .replace(/<date>/g, new Date().toLocaleDateString('en'))
-    .replace(/<age>/g, parseInt(year) ? new Date().getFullYear() - year : '<age>'); //<guilds> gets replaced below
+  return msg?.replaceAll('<user.nickname>', user.displayName)
+    .replaceAll('<user.username>', user.username)
+    .replaceAll('<user.id>', user.id)
+    .replaceAll('<user.tag>', user.tag)
+    .replaceAll('<user.joinedAt>', user.joinedAt.toLocaleDateString('en'))
+    .replaceALl('<guild.id>', user.guild.id)
+    .replaceAll('<guild.memberCount>', user.guild?.memberCount)
+    .replaceAll('<guild.name>', user.guild?.name)
+    .replaceAll('<bornyear>', year)
+    .replaceAll('<date>', new Date().toLocaleDateString('en'))
+    .replaceAll('<age>', parseInt(year) ? new Date().getFullYear() - year : '<age>'); //<guilds> gets replaced below
 }
 
 module.exports = {
