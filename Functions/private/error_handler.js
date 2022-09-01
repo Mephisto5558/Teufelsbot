@@ -3,7 +3,7 @@ const
   { Octokit } = require('@octokit/core'),
   { Github } = require('../../config.json');
 
-module.exports = async (err, { keys, functions, botType, error = console.error } = {}, message, lang) => {
+module.exports = async (err, { keys, botType, error = console.error } = {}, message, lang) => {
   if (!message) {
     error(' [Error Handling] :: Uncaught Error');
     return error(err.stack);
