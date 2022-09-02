@@ -136,6 +136,6 @@ module.exports = {
         `- [${API.name}](${API.url})`
     }).setColor('Random');
 
-   message.customReply({ embeds: [embed] });
+    message.customReply({ embeds: [embed] });
   }
 }

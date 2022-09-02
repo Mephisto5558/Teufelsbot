@@ -113,7 +113,7 @@
     "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
   },
   "math": {
-    "description":"Run some math",
+    "description": "Run some math",
     "usage": "math [expression]",
     "options": {
       "expression": {
