@@ -14,7 +14,7 @@ module.exports = client => {
     async editGiveaway(messageId, giveawayData) {
       const data = (client.db.get('giveaways')).filter(e => e.messageId != messageId);
       data.push(giveawayData);
-      
+
       client.db.set('giveaways', data);
       return true;
     }
