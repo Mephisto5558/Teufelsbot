@@ -1,0 +1,157 @@
+{
+  "account": {
+    "description": "Show your account and stats!",
+    "usage": "account [@user]",
+    "options": {
+      "user": {
+        "description": "The user you want to get the account of"
+      }
+    },
+    "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. He/She has to run `/economy start`",
+    "currency": "Souls: **{num}**/**{max}** <:soul:1011962640349810688>\n",
+    "dailyStreak": "Daily Streak: **{streak}** <:souls:1011962960840773673>\n",
+    "rank": "Rank: **{rank}**\n",
+    "none": "none"
+  },
+  "daily": {
+    "description": "Get your daily souls!",
+    "notUnlocked": "You have not researched the daily souls yet! `/research`",
+    "collected": "You have collected {count} souls!"
+  },
+  "economy": {
+    "description": "Some Economy Configs",
+    "options": {
+      "start": {
+        "description": "Start using the economy commands!"
+      },
+      "config": {
+        "description": "Configure the economy in this guild."
+      }
+    },
+    "start": {
+      "alreadyInitiated": "You have run this command already! You can use the economy.",
+      "success": "You can now use the economy. Try out `/account`, `/stats` and `/research`!"
+    }
+  },
+  "give": {
+    "description": "Give some souls to someone",
+    "usage": "give [@user] [amount]",
+    "options": {
+      "user": {
+        "description": "The user you want to give souls."
+      },
+      "amount": {
+        "description": "The amount of souls you want to give. (% is supported)"
+      }
+    },
+    "error": {
+      "noTarget": "You need to mention someone!",
+      "self": "You can't give yourself souls...",
+      "bot": "You want to give your souls to a bot?",
+      "noAmount": "You need to specify how much souls you want to give!",
+      "noMoney": "You are too poor to give someone souls...",
+      "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. He/She has to run `/economy start`"
+    },
+    "embedTitle": "Give",
+    "embedDescription": "You gave {amount} Souls to {target}! <:soul:1011962640349810688>\n>>> Your souls: {newUserAmount} <:soul:1011962640349810688>\nHis/Her souls: {newTargetAmount} <:soul:1011962640349810688>"
+  },
+  "research": {
+    "description": "Upgrade your skills and research new ones!",
+    "skills": {
+      "currency_bonus_percentage": {
+        "name": "Soul Bonus (%)",
+        "emoji": "<:soul:1011962640349810688>",
+        "description": "How much more Souls (in percent) you get from your activities."
+      },
+      "currency_bonus_absolute": {
+        "name": "Soul Bonus",
+        "emoji": "<:soul:1011962640349810688>",
+        "description": "How much more Souls you get from your activities."
+      },
+      "research_speed_percentage": {
+        "name": "Research Speed (%)",
+        "emoji": "<:research:1011960920609665064>",
+        "description": "How much faster (in percent) you can research."
+      },
+      "research_bonus_percentage": {
+        "name": "Research Efficiency (%)",
+        "emoji": "<:research:1011960920609665064>",
+        "description": "How big the bonuses are that you get from researching."
+      },
+      "power": {
+        "name": "Power",
+        "emoji": "<:power:1011965677625671731>",
+        "description": "One of your most important stats. It protects you from other players in several ways and lets you handle more powerful slaves."
+      },
+      "defense": {
+        "name": "Defense",
+        "emoji": "<:defense:1011971580584263710>",
+        "description": "Protects you from other players in several ways."
+      },
+      "currency_capacity": {
+        "name": "Soul Capacity",
+        "emoji": "<:storage:1011973136100642947>",
+        "description": "How much souls you can have at once. If you are 50% over your limit, you lose 75% of your souls!"
+      },
+      "slave_capacity": {
+        "name": "Slave Capacity",
+        "emoji": "<:storage:1011973136100642947>",
+        "description": "How many slaves you can have at once."
+      }
+    },
+    "lvl": "Lv. {lvl}",
+    "selectMenuPlaceholder": "What do you want to research?",
+    "price": "Price: {price} <:soul:1011962640349810688>",
+    "embedTitle": "Research",
+    "notEnoughMoney": "You have not enough souls to research this upgrade!",
+    "onCooldown": "You are currently researching this one! It will finish <t:{time}:R>.",
+    "maxLevel": "You have already maxed out this skill!",
+    "onMaxConcurrentResearches": "You cannot research even more skills at once!",
+    "success": "The upgrade for **{skill}** {emoji} to Level `{lvl}` has started!\nIt will finish <t:{time}:R> (<t:{time}>)",
+    "timedOut": "This menu timed out."
+  },
+  "stats": {
+    "description": "Get more in-depth stats about a user or yourself",
+    "usage": "stats [@user]",
+    "options": {
+      "user": {
+        "description": "The user you want to get stats about"
+      }
+    },
+    "noStats": "This user is powerless and has no stats which are worth displaying.",
+    "currency": "Souls <:soul:1011962640349810688>",
+    "power": "Power <:power:1011965677625671731>",
+    "defense": "Defense <:defense:1011971580584263710>",
+    "slaves": "Slaves",
+    "maxSlaves": "Max Slaves",
+    "level": "> Level **{lvl}**\n",
+    "gaining": {
+      "title": "Gaining Methods",
+      "chat": "Chat Messages: **{num}**",
+      "voice": "Voice Minutes: **{num}**",
+      "work": "Work: **{num}**",
+      "daily": "Daily collection: **{num}**"
+    },
+    "skills": {
+      "name": "Skills",
+      "currency_bonus_percentage": "> Soul Bonus (%) <:soul:1011962640349810688>\n",
+      "currency_bonus_absolute": "> Soul Bonus <:soul:1011962640349810688>\n",
+      "research_speed_percentage": "> Research Speed (%) <:research:1011960920609665064>\n",
+      "research_bonus_percentage": "> Research Efficiency (%) <:research:1011960920609665064>\n",
+      "power": "> Power <:power:1011965677625671731>\n",
+      "defense": "> Defense <:defense:1011971580584263710>\n",
+      "currency_capacity": "> Soul Capacity <:storage:1011973136100642947>\n",
+      "slave_capacity": "> Slave Capacity <:storage:1011973136100642947>\n"
+    },
+    "embedTitle": "{user}'s Stats"
+  },
+  "top": {
+    "description": "Displays the most powerful people on this guild.",
+    "currency": "> Souls: **{num}** <:soul:1011962640349810688>\n",
+    "power": "> Power: **{num}** <:power:1011965677625671731>",
+    "embedTitle": "Top 10 Members",
+    "embedDescription": "These are the top 10 members, sorted by their power:\n",
+    "noneFound": "No one here has any power!"
+  },
+  "work": {}
+}
