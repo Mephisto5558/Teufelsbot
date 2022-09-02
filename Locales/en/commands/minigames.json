@@ -50,7 +50,7 @@
     "lostAgainst": "Lost against:",
     "drewAgainst": "Drew against:",
     "embedTitle": "`{user}`'s {game} stats",
-    "embedTitleTop10": "Top 10 %s players",
+    "embedTitleTop10": "Top 10 {game} players",
     "noWinners": "It looks like no one won yet...",
     "youNoGamesPlayed": "You have not played any {game} games yet.",
     "usrNoGamesPlayed": "{user} has not played any {game} games yet."

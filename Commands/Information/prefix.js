@@ -38,7 +38,7 @@ module.exports = {
       const currentPrefix = oldData[message.guild.id]?.config?.prefix?.prefix || oldData.default.config.prefix;
       if (!currentPrefix) throw new Error('No Default Prefix Found in DB');
 
-      const msg = lang('currentPrefix', currentPrefix) + oldData[message.guild.id]?.config?.prefix?.caseinsensitive ? lang('caseInsensitive') : '';
+      const msg = lang('currentPrefix', currentPrefix) + (oldData[message.guild.id]?.config?.prefix?.caseinsensitive ? lang('caseInsensitive') : '');
 
       message.customReply(msg);
     }

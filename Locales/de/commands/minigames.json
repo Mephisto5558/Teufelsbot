@@ -9,10 +9,10 @@
     "win": "You won!",
     "tie": "We tied!",
     "lose": "You lost!",
-    "chose": "I chose %s! %s (%s %s %s)",
+    "chose": "I chose {chose}! {win} ({you} {symbol} {i})",
     "timedOut": "You lost because you chose to choose nothing!"
   },
-  "stats": {
+  "mgstats": {
     "description": "get stats about one of the bot's minigames",
     "usage": "PREFIX Command: stats <game> [user]",
     "options": {
@@ -39,20 +39,21 @@
         }
       }
     },
-    "games": "Games: `%s`",
-    "wins": "Wins: %s\n",
-    "loses": "Loses: %s\n",
-    "draws": "Draws: %s\n\n",
+    "games": "Games: `{games}`",
+    "wins": "Wins: {wins}\n",
+    "loses": "Loses: {loses}\n",
+    "draws": "Draws: {draws}\n\n",
     "noOne": "no one\n",
     "missingGameArg": "You need to give me a `game` as first argument!",
-    "notFound": "This is not a valid game entry. Valid games are:\n`%s`",
+    "notFound": "This is not a valid game entry. Valid games are:\n`{list}`",
     "wonAgainst": "Won against:",
     "lostAgainst": "Lost against:",
     "drewAgainst": "Drew against:",
-    "embedTitleTop10": "Top 10 %s players",
+    "embedTitle": "`{user}`'s {game} stats",
+    "embedTitleTop10": "Top 10 {game} players",
     "noWinners": "It looks like no one won yet...",
-    "youNoGamesPlayed": "You have not played any %s games yet.",
-    "usrNoGamesPlayed": "%s has not played any %s games yet."
+    "youNoGamesPlayed": "You have not played any {game} games yet.",
+    "usrNoGamesPlayed": "{user} has not played any {game} games yet."
   },
   "ttt": {
     "description": "play some tic tac toe against a friend or the bot",
@@ -61,6 +62,6 @@
         "description": "Who you want to play against"
       }
     },
-    "newChallenge": "<@%s> :crossed_swords: New duel challenge"
+    "newChallenge": "<@{user}> :crossed_swords: New duel challenge"
   }
 }
