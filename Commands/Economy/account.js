@@ -36,7 +36,7 @@ module.exports = {
         footer: { text: message.user.tag },
         thumbnail: { url: target.displayAvatarURL({ forceStatic: true }) },
         description:
-          lang('currency', userData.currency, userData.currencyCapacity) +
+          lang('currency', { num: userData.currency, max: userData.currencyCapacity }) +
           lang('dailyStreak', userData.dailyStreak) +
           lang('rank', !isNaN(rank) && rank ? rank : lang('none'))
       });
