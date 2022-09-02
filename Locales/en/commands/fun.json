@@ -373,6 +373,7 @@
         "description": "The channel the message gets sent to"
       }
     },
+    "noPerm": "You don't have the permission to send messages in that channel!",
     "noMsgProvided": "You need to provide a message to send!"
   },
   "sleep": {
