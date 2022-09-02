@@ -12,7 +12,7 @@ const
   { existsSync, readdirSync } = require('fs'),
   DB = require('./Functions/private/db.js'),
   customReply = require('./Functions/private/reply.js'),
-  isObject = item => '[object Object]' == item?.toString();
+  isObject = item => ({}).toString() == item?.toString();
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 
