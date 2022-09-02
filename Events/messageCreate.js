@@ -25,9 +25,8 @@ module.exports = async (client, message) => {
 
   if (message.content.startsWith(config?.prefix?.caseinsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
   else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3;
-  else {
-    const gainingCooldown = await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } });
-    if (message.content.length > 5 && !gainingCooldown) {
+  else if (message.content.length > 5) {
+     if(!(await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } }))) {
       const eco = client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id];
       if (!eco?.gaining?.chat || eco.currency == eco.currencyCapacity) return;
 
