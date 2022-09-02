@@ -9,7 +9,7 @@ module.exports = {
   description: 'Suggest a feature for the bot on Github.',
   usage: '',
   permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 5000 },
+  cooldowns: { guild: 500, user: 30000 },
   category: 'Others',
   slashCommand: true,
   prefixCommand: false,
