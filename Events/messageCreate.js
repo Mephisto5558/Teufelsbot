@@ -25,16 +25,18 @@ module.exports = async (client, message) => {
 
   if (message.content.startsWith(config?.prefix?.caseinsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
   else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3;
-  else if (message.content.length > 5) {
-     if(!(await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } }))) {
-      const eco = client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id];
-      if (!eco?.gaining?.chat || eco.currency == eco.currencyCapacity) return;
+  else {
+    if (message.content.length > 5) {
+      if (!(await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } }))) {
+        const eco = client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id];
+        if (!eco?.gaining?.chat || eco.currency == eco.currencyCapacity) return;
 
-      const currency = (eco.currency + eco.gaining.chat + eco.skills.currency_bonus_absolute + (eco.gaining.chat * eco.skills.currency_bonus_percentage / 100)).limit(0, eco.currencyCapacity);
+        const currency = (eco.currency + eco.gaining.chat + eco.skills.currency_bonus_absolute + (eco.gaining.chat * eco.skills.currency_bonus_percentage / 100)).limit(0, eco.currencyCapacity);
 
-      client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
-        [message.guild.id]: { economy: { [message.author.id]: { currency } } }
-      }));
+        client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
+          [message.guild.id]: { economy: { [message.author.id]: { currency } } }
+        }));
+      }
     }
     return;
   }
@@ -66,14 +68,14 @@ module.exports = async (client, message) => {
     const embed = new EmbedBuilder({
       title: lang('events.permissionDenied.embedTitle'),
       color: Colors.Red,
-      description: lang('events.permissionDenied.embedDescription', { IYou: userPermsMissing.length ? lang('global.you') : lang('global.i'), permissions: (botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `')})
-  });
+      description: lang('events.permissionDenied.embedDescription', { IYou: userPermsMissing.length ? lang('global.you') : lang('global.i'), permissions: (botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') })
+    });
 
-  if (botPermsMissing.includes('SendMessages')) return message.author.send({ content: `${message.channel.name} in ${message.guild.name}`, embeds: [embed] });
+    if (botPermsMissing.includes('SendMessages')) return message.author.send({ content: `${message.channel.name} in ${message.guild.name}`, embeds: [embed] });
 
-  return message.reply({ embeds: [embed] });
-}
+    return message.reply({ embeds: [embed] });
+  }
 
-try { await command.run(message, lang, client) }
-catch (err) { require('../Functions/private/error_handler.js')(err, client, message, lang) }
+  try { await command.run(message, lang, client) }
+  catch (err) { require('../Functions/private/error_handler.js')(err, client, message, lang) }
 }
