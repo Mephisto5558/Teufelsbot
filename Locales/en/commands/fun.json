@@ -146,7 +146,7 @@
       "permissionDenied": "You are not allowed to send dms to that user!",
       "asModInfo": "\nUse the `as_mod` option to force the message to send.",
       "embedTitle": "You got a message",
-      "embedDescription": "From ***{user}**\nGuild: {guild}\n\n{msg}",
+      "embedDescription": "From **{user}**\nGuild: {guild}\n\n{msg}",
       "fromMod": "a guild moderator",
       "embedFooterText": "If you don't want to receive user-made dms from me, run '/dm toggle' in any guild.",
       "error": "I couldn't message this member!"
