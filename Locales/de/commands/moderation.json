@@ -16,14 +16,14 @@
       }
     },
     "dmEmbedTitle": "Banned",
-    "dmEmbedDescription": "You have been banned from `%s`.\nModerator: %s\nReason: %s",
+    "dmEmbedDescription": "You have been banned from `{guild}`.\nModerator: {mod}\nReason: {reason}",
     "infoEmbedTitle": "Ban",
-    "infoEmbedDescription": "Moderator: %s\nReason: %s\n\n",
+    "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
     "cantBanSelf": "You can't ban yourself!",
     "noneFound": "No targets have been found.",
-    "noPerm": "%s don't have the permission to do that!",
-    "error": "**%s** couldn't been banned.\n%s\n",
-    "success": "**%s** has been successfully banned.\n",
+    "noPerm": "{IYou} don't have the permission to do that!",
+    "error": "**{user}** couldn't been banned.\n{err}\n",
+    "success": "**{user}** has been successfully banned.\n",
     "noDm": "I couldn't DM the target."
   },
   "kick": {
@@ -37,18 +37,34 @@
       }
     },
     "dmEmbedTitle": "Kicked",
-    "dmEmbedDescription": "You have been kicked from `%s`.\nModerator: %s\nReason: %s",
+    "dmEmbedDescription": "You have been kicked from `{guild}`.\nModerator: {mod}\nReason: {reason}",
     "infoEmbedTitle": "Kick",
-    "infoEmbedDescription": "Moderator: %s\nReason: %s\n\n",
+    "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
     "noneFound": "No targets have been found.",
     "cantKickSelf": "You can't kick yourself!",
-    "noPerm": "%s don't have the permission to do that!",
-    "error": "**%s** couldn't been kicked.\n%s\n",
-    "success": "**%s** has been successfully kicked.\n",
+    "noPerm": "{IYou} don't have the permission to do that!",
+    "error": "**{user}** couldn't been kicked.\n{err}\n",
+    "success": "**{user}** has been successfully kicked.\n",
     "noDm": "I couldn't DM the target."
   },
+  "lockchannel": {
+    "description": "Prevents everyone except administrators from writing in a channel",
+    "usage": "lock [channel] [reason]",
+    "options": {
+      "channel": {
+        "description": "the channel you want to lock"
+      },
+      "reason": {
+        "description": "The reason for locking the channel"
+      }
+    },
+    "noReason": "no reason specified",
+    "embedTitle": "Channel locked!",
+    "embedDescription": "This channel has been locked.\nModerator: {mod}\nReason: {reason}",
+    "success": "The channel has been locked."
+  },
   "mute": {
-    "description": "timeouts a member for a given time (default: 1h).",
+    "description": "Timeouts a member for a given time (default: 1h).",
     "usage": "Duration options: you need to provide at least one.",
     "options": {
       "target": {
@@ -58,20 +74,21 @@
         "description": "The target will see the reason in DMs"
       },
       "duration": {
-        "description": "for how much %s you want to mute the target"
+        "description": "for how much {timeType} you want to mute the target"
       }
     },
     "dmEmbedTitle": "Muted",
-    "dmEmbedDescription": "You have been muted from `%s`.\nModerator: %s\nUntil:<t:%s>\nReason: %s",
+    "dmEmbedDescription": "You have been muted from `{guild}`.\nModerator: {mod}\nUntil:<t:{time}>\nReason: {reason}",
     "infoEmbedTitle": "Mute",
-    "infoEmbedDescription": "%s has been successfully muted.\nReason: %s\nUntil: <t:%s>",
+    "infoEmbedDescription": "{user} has been successfully muted.\nReason: {reason}\nUntil: <t:{time}>",
     "notFound": "I couldn't find that member!",
     "cantMuteSelf": "You can't mute yourself!",
-    "noPerm": "%s don't have the permission to do that!",
-    "error": "I couldn't mute the target:\n%s",
+    "noPerm": "{IYou} don't have the permission to do that!",
+    "targetIsAdmin": "I cannot mute admininstartors!",
+    "error": "I couldn't mute the target:\n{err}",
     "noDm": "I couldn't DM the target."
   },
-  "nukeChannel": {
+  "nukechannel": {
     "description": "Clears all channel messages by duplicating the channel and then deleting the original one",
     "options": {
       "confirmation": {
@@ -83,7 +100,7 @@
     },
     "needConfirm": "You need to confirm this action by writing `DELETE CHANNEL` as the confirm option!",
     "embedDescription": ":radioactive: Channel Nuked!",
-    "embedFooterText": "Nuked by %s"
+    "embedFooterText": "Nuked by {user}"
   },
   "purge": {
     "description": "removes a specific amount of messages",
@@ -94,8 +111,25 @@
       }
     },
     "noNumber": "Please specify the number of messages to purge next time.",
-    "invalidNumber": "`%d` is not a valid number!",
+    "invalidNumber": "This is not a valid number!",
     "success": "Success!"
+  },
+  "unlock": {
+    "description": "Unlocks a channel locked with the lock command.",
+    "usage": "unlock [channel] [reason]",
+    "options": {
+      "channel": {
+        "description": "The channel you want to unlock"
+      },
+      "reason": {
+        "description": "The reason for unlocking the channel"
+      }
+    },
+    "noReason": "no reason specified",
+    "notLocked": "This channel is not locked.",
+    "embedTitle": "Channel unlocked!",
+    "embedDescription": "This channel has been unlocked.\nModerator: {mod}\nReason: {reason}",
+    "success": "The channel has been unlocked."
   },
   "unmute": {
     "description": "lifts the timeout of a member",
@@ -109,9 +143,9 @@
     },
     "noReason": "no reason specified",
     "notFound": "I couldn't find that member!",
-    "notTimedOut": "This member is not timed out!",
-    "noPerm": "%s don't have the permission to do that!",
+    "notMuted": "This member is not muted!",
+    "noPerm": "{IYou} don't have the permission to do that!",
     "moderator": "Moderator",
-    "success": "Removed timeout for user %s."
+    "success": "Removed timeout for user {user}."
   }
 }
