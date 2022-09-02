@@ -1,11 +1,6 @@
 console.time('Initializing time');
 console.info('Starting...');
 
-process
-  .on('unhandledRejection', err => require('./Functions/private/error_handler.js')(err))
-  .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js')(err))
-  .on('uncaughtException', err => require('./Functions/private/error_handler.js')(err));
-
 const
   { Client, Collection, GatewayIntentBits, AllowedMentionsTypes, Message, CommandInteraction } = require('discord.js'),
   { randomInt } = require('crypto'),
@@ -91,4 +86,9 @@ console.time('Starting time');
 
   await client.login(client.keys.token);
   client.log(`Logged into ${client.botType}`);
+
+  process
+  .on('unhandledRejection', err => require('./Functions/private/error_handler.js')(err, client))
+  .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js')(err, client))
+  .on('uncaughtException', err => require('./Functions/private/error_handler.js')(err, client));
 })();
