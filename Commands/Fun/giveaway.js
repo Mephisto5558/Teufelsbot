@@ -187,7 +187,7 @@ module.exports = {
   ],
 
   run: async (interaction, lang, { db, giveawaysManager }) => {
-    if (!giveawaysManager) return 'This feature is disabled or not registered.';
+    if (!giveawaysManager) return lang('managerNotFound');
 
     const giveawayId = interaction.options.getString('id');
     let giveaway;
@@ -219,7 +219,7 @@ module.exports = {
       durationUnformatted = interaction.options.getString('duration') || interaction.options.getString('add_time') || 0,
       duration = getMilliseconds(durationUnformatted);
 
-    if (typeof duration != 'number' && durationUnformatted) return interaction.editReply('The provided duration/add_time value is invalid!');
+    if (typeof duration != 'number' && durationUnformatted) return interaction.editReply(lang('invalidTime'));
 
 
     switch (interaction.options.getSubcommand()) {

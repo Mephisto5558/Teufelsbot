@@ -32,7 +32,7 @@ module.exports = {
     const embed = new EmbedBuilder({
       description: lang('embedDescription'),
       color: Colors.Red,
-      image: { url: 'https://media.giphy.com/media/XUFPGrX5Zis6Y/giphy.gif' },
+      image: { url: 'https://giphy.com/media/XUFPGrX5Zis6Y/giphy.gif' },
       footer: { text: lang('embedFooterText', interaction.user.tag) }
     });
 

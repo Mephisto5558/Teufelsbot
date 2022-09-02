@@ -16,15 +16,15 @@
     "isGuildEmoji": "That emoji is already on this guild!",
     "invalidUrl": "The provided argument is not a valid url or emoji!\nThe url must end with `jpg`, `jpeg`, `png`, `webp`, `svg` or `gif`.\nExample: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "The provided url was not found.",
-    "success": "Successfully added **%s** %s!\n",
-    "limitedToRoles": "The emoji has been limited to the following roles:\n<@&%s>.",
-    "error": "Unable to create the emoji for reason:\n```\n%s\n```",
+    "success": "Successfully added **{name}** {emoji}!\n",
+    "limitedToRoles": "The emoji has been limited to the following roles:\n<@&{roles}>.",
+    "error": "Unable to create the emoji for reason:\n```\n{err}\n```",
     "timedOut": "The request timed out. Maybe the image is to large."
   },
   "autopublish": {
     "description": "automatically publishes everything anyone in any announcement channel says",
     "usage": "This command publishes all messages send in announcement channels automatically.\nThis is a toggle.",
-    "success": "%s autopublishing."
+    "success": "{toggle} autopublishing."
   },
   "convert": {
     "description": "Converts one type of text to another",
@@ -48,8 +48,8 @@
         "description": "Do you want to convert only letters and digits? Default: false"
       }
     },
-    "convertToSame": "Converting `%s` to `%s` would be a waste of time.\nStop wasting my time.\n||If your input is not %s, than make sure it is valid and if it is, message the dev. Also make sure you selected the `is_octal` option if your input is octal.||",
-    "success": "```Converted %s to %s: ```\n"
+    "convertToSame": "Converting `{inputType}` to `{outputType}` would be a waste of time.\nStop wasting my time.\n||If your input is not {inputType}, than make sure it is valid and if it is, message the dev. Also make sure you selected the `is_octal` option if your input is octal.||",
+    "success": "```Converted {inputType} to {outputType}: ```\n"
   },
   "embed": {
     "description": "sends a custom embed; you can do newlines with \"/n\".",
@@ -107,9 +107,9 @@
         }
       }
     },
-    "invalidOption": "**One of the provided options is invalid!**\n\n```%s```",
+    "invalidOption": "**One of the provided options is invalid!**\n\n```{err}```",
     "successJSON": "Your embed has been sent!",
-    "success": "Your embed has been sent! Below is the embed code.\nif you want to send it again, use the `json` subcommand.\n\n```json\n%s\n```"
+    "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
   },
   "math": {
     "description":"Run some math",
@@ -121,9 +121,9 @@
     },
     "noInput": "You have not given any input.",
     "help": "Help and Information\n\nThis calculator supports many mathematic operations, not only the basic ones.\nYou can use variables like this: `x=10`.\nYou can use multiple statements by using a new line or a `;`. `x=10;x+10` returns `20`.\nYou need to use `*` for multiplying.\nThe calculator suppots outputting multiple results.\nSometimes, unnecessary spaces make the expression error.",
-    "error": "An error occurred while trying to solve your expression:\n```%s```",
-    "separated": "Results separated with \"|\":\n%s",
-    "success": "Expression:\n```%s```\nResult:\n```%s```"
+    "error": "An error occurred while trying to solve your expression:\n```{err}```",
+    "separated": "Results separated with \"|\":\n{results}",
+    "success": "Expression:\n```{expression}```\nResult:\n```{result}```"
   },
   "passwordgenerator": {
     "description": "generates a cryptographically strong password",
@@ -142,7 +142,7 @@
       }
     },
     "charsetEmpty": "you excluded all chars of the charset...",
-    "success": "Your secure password(s):\n%s\n\n||Created with the following charset:\n```%s```\nUse the command options to add or remove chars.||"
+    "success": "Your secure password(s):\n{passwords}\n\n||Created with the following charset:\n```{charset}```\nUse the command options to add or remove chars.||"
   },
   "setup": {
     "description": "Sets the bot up",
@@ -160,6 +160,6 @@
       }
     },
     "finishedSync": "Finished syncing.",
-    "toggledModule": "The `%s` module has been %s."
+    "toggledModule": "The `{name}` module has been {state}."
   }
 }

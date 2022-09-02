@@ -1,9 +1,3 @@
-const responseList = [
-  'ist müde und geht jetzt schlafen :3',
-  'geht jetzt ins Bettchen <:engelchen:725458214044303371>',
-  'schläft jetzt, hoffentlich schnarcht er/sie nicht <:gucken:725670318164672543>'
-];
-
 module.exports = {
   name: 'sleep',
   aliases: { prefix: [], slash: [] },
@@ -15,5 +9,5 @@ module.exports = {
   slashCommand: false,
   prefixCommand: true,
 
-  run: message => message.customReply(`${message.member.displayName} ${responseList.random()}`)
+  run: (message, lang) => message.customReply(lang('responseList', message.member.displayName))
 }

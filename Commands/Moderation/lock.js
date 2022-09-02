@@ -32,7 +32,7 @@ module.exports = {
 
     const
       channel = message.options?.getChannel('channel') || message.mentions?.channels.first() || message.channel,
-      reason = message.options?.getString('reason') || message.args?.join(' ') || 'no reason given',
+      reason = message.options?.getString('reason') || message.args?.join(' ') || lang('noReason'),
       overwrites = Object.assign({}, ...channel.permissionOverwrites.cache.filter(async e => {
         if (!e.allow.has(PermissionFlagsBits.SendMessages) || e.allow.has(PermissionFlagsBits.Administrator)) return;
         if (e.type == OverwriteType.Role) return (await message.guild.roles.fetch(e.id)).comparePositionTo(message.guild.members.me.roles.highest) < 0;
@@ -53,15 +53,12 @@ module.exports = {
     }
 
     const embed = new EmbedBuilder({
-      title: 'Channel locked!',
-      description:
-        'This Channel has been locked.\n' +
-        `Moderator: ${message.user.tag}\n` +
-        `Reason: ${reason}`,
+      title: lang('embedTitle'),
+      description: lang('embedDescription', { mod: message.user.tag, reason }),
       color: Colors.Red
     });
 
     await channel.send({ embeds: [embed] });
-    msg.edit('The channel has been successfully locked.');
+    msg.edit(lang('success'));
   }
 }

@@ -41,7 +41,7 @@ module.exports = {
 
       const averagePing = Math.round(pings.reduce((a, b) => a + b) / i * 100) / 100;
 
-      embed.data.description = lang('average.embedDescription', pings.length, pings[0], pings[pings.length - 1], averagePing);
+      embed.data.description = lang('average.embedDescription', { pings: pings.length, lowest: pings[0], heightest: pings[pings.length - 1], average: averagePing });
     }
     else {
       embed.data.fields = [

@@ -70,9 +70,8 @@ module.exports = {
     }
 
     if (input.type.toLowerCase() == input.options.convertTo.toLowerCase())
-      return interaction.editReply(lang('convertToSame', input.type.toUpperCase(), input.options.convertTo.toUpperCase(), input.type.toUpperCase()));
-
-    const output = lang('success', input.type.toUpperCase(), input.options.convertTo.toUpperCase());
+      return interaction.editReply(lang('convertToSame', { inputType: input.type.toUpperCase(), outputType: input.options.convertTo.toUpperCase() }));
+    const output = lang('success', { inputType: input.type.toUpperCase(), outputType: input.options.convertTo.toUpperCase() });
     const converted = await convert[input.type][`to${input.options.convertTo}`](input);
 
     if (output.length + converted.length < 2000) interaction.editReply(output + converted);

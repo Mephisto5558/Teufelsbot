@@ -1,19 +1,19 @@
 {
-  "cooldown": "This command is on cooldown! Try again in `%s`s.",
+  "cooldown": "This command is on cooldown! Try again in `{time}`s.",
   "slashCommandOnly": "This command is only as slash command available!",
   "permissionDenied": {
     "embedTitle": "Insufficient Permissions",
-    "embedDescription": "%s need the following permissions in this channel to run this command:\n`%s`"
+    "embedDescription": "{IYou} need the following permissions in this channel to run this command:\n`{permissions}`"
   },
   "economyNotInitialized": "This command is an economy category command. To start using the economy, run `/economy start`.",
   "errorHandler": {
     "embedTitle": "Whoooops",
-    "embedDescription": "An unexpected error occurred!\n\nError Type: `%s`\nCommand: `%s`",
+    "embedDescription": "An unexpected error occurred!\n\nError Type: `{name}`\nCommand: `{command}`",
     "reportButton": "Report this Error",
     "reportButtonDisabled": " (Disabled due to dev version)",
     "discordAPIErr": "An Discord API Error occurred, please try again and message the dev if this keeps happening.",
-    "alreadyReported": "This error has already been reported. [Link](%s).\nIt will be fixed soon.",
-    "reportSuccess": "The error has been reported. [Link](%s)",
-    "reportFail": "`An error occurred while trying to send your error report.\n```\n%s\n```\nPlease message the dev directly."
+    "alreadyReported": "This error has already been reported. [Link]({url}).\nIt will be fixed soon.",
+    "reportSuccess": "The error has been reported. [Link]({url})",
+    "reportFail": "`An error occurred while trying to send your error report.\n```\n{err}\n```\nPlease message the dev directly."
   }
 }

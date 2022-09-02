@@ -52,11 +52,12 @@ module.exports = {
   beta: true,
 
   run: async (message, lang, client) => {
-    const category = !message.args[0] ? null : message.args[0] == '*' ? '*' : getDirectoriesSync('./Commands').filter(e => e.toLowerCase() == message.args[0].toLowerCase())?.[0];
-    const command = !category || !message.args[1] ? null : message.args[1] == '*' ? '*' : readdirSync(`./Commands/${category}`).filter(e => e.endsWith('.js') && e.toLowerCase() == `${message.args[1].toLowerCase()}.js`)?.[0];
-    const path = join(__dirname, `../../Commands/${category}/${command}`);
+    let category, command, errorMsg, reloadedArray = [];
 
-    let errorMsg, reloadedArray = [];
+    if (message.args[0]) category = message.args[0] == '*' ? '*' : getDirectoriesSync('./Commands').filter(e => e.toLowerCase() == message.args[0].toLowerCase())?.[0];
+    if (category && message.args[1]) command = message.args[1] == '*' ? '*' : readdirSync(`./Commands/${category}`).filter(e => e.endsWith('.js') && e.toLowerCase() == `${message.args[1].toLowerCase()}.js`)?.[0];
+
+    const path = join(__dirname, `../../Commands/${category}/${command}`);
 
     try {
       if (category == '*') {
@@ -76,6 +77,6 @@ module.exports = {
     }
     catch (err) { errorMsg = lang('error', err.message) }
 
-    message.customReply(errorMsg || (!reloadedArray.length ? lang('noneReloaded') : lang('reloaded', reloadedArray.length, reloadedArray.join('`, `'))));
+    message.customReply(errorMsg || (!reloadedArray.length ? lang('noneReloaded') : lang('reloaded', { count: reloadedArray.length, commands: reloadedArray.join('`, `') })));
   }
 }

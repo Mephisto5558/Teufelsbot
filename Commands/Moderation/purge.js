@@ -27,7 +27,7 @@ module.exports = {
 
     for (let i = 0; i <= amount; i += 100) {
       await message.channel.bulkDelete((amount - i).limit({ max: 100 }), true);
-      if (amount - i) await functions.sleep(2000);
+      if (amount - i < 1) await functions.sleep(2000);
     }
 
     if (message instanceof CommandInteraction) message.editReply(lang('success'));

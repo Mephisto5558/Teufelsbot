@@ -46,7 +46,7 @@ module.exports = {
 
     let embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', input.length > 500 ? `${input.substring(0, 500)}\n...` : input, method),
+      description: lang('embedDescription', { input: input.length > 500 ? `${input.substring(0, 500)}\n...` : input, method }),
       color: Colors.DarkGold
     });
 

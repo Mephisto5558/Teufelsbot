@@ -1,8 +1,8 @@
 const
   fetch = require('node-fetch').default,
-  { EmbedBuilder } = require('discord.js'),
-  embed = new EmbedBuilder({ title: 'Image', description: ' ' }).setColor('Random'),
-  endpoints = new Map([
+  { EmbedBuilder, Collection } = require('discord.js'),
+  embed = new EmbedBuilder({ title: 'Image' }).setColor('Random'),
+  endpoints = new Collection([
     ['threats', { url: 'Image URL to add to template.' }],
     ['baguette', { url: 'Any image URL to generate, can be user avatar or anything.' }],
     ['clyde', { string: 'Text to clydify.' }],
@@ -24,9 +24,8 @@ const
     ['phcomment', { image: 'Users image', text: 'text to comment', username: 'user\'s username' }],
     ['magik', { image: 'Image to magikify', intensity: 'number from 1 to 10' }]
   ]),
-  options = Array.from(endpoints).map(([a, b]) => ({
-    name: a,
-    options: Object.entries(b).filter(([a]) => a != 'info').map(([a, b]) => ({ name: a, description: b, type: 'String' }))
+  options = Array.from(endpoints).map(([name, b]) => ({
+    name, options: Object.entries(b).filter(([a]) => a != 'info').map(([name, description]) => ({ name, description, type: 'String' }))
   }));
 
 module.exports = {

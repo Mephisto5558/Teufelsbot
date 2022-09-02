@@ -18,10 +18,7 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
         const res = await get(`${API.url}/joke/Any`, {
           timeout: 2500,
           url: 'https://v2.jokeapi.dev/joke/Any',
-          params: {
-            lang: 'en',
-            blacklist: blacklist
-          }
+          params: { lang: 'en', blacklist }
         });
 
         if (res.data.type == 'twopart') {
@@ -54,7 +51,7 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
         const res = await get(API.url, {
           timeout: 2500,
           headers: {
-            'User-Agent': `My discord bot (${Github.Repo})`,
+            'User-Agent': `Discord bot (${Github.Repo})`,
             Accept: 'application/json'
           }
         });

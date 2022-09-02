@@ -17,16 +17,12 @@
     "discord-tictactoe": "^3.1.0",
     "discord.js": "^14.3.0",
     "fast-average-color-node": "^2.4.0",
-    "i18n": "^0.15.0",
     "mathjs": "^11.1.0",
     "mongodb": "^4.9.1",
     "mongoose": "^6.5.4",
     "node": "^18.7.0",
     "npm": "^8.19.0",
     "wikijs": "^6.3.3"
-  },
-  "devDependencies": {
-    "@types/i18n": "^0.13.4"
   },
   "repository": {
     "type": "git",

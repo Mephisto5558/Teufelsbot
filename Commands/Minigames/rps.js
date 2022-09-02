@@ -72,7 +72,7 @@ module.exports = {
       else if (botMove.id < buttonId || botMove.id == 2 && !buttonId) win = [lang('win'), '>'];
       else win = [lang('lose'), '<'];
 
-      data.embeds[0].data.description = lang('chose', [...hand.entries()].find(([, e]) => e.id == botMove.id)[0], win[0], hand.find(e => e.id == buttonId).emoji, win[1], botMove.emoji);
+      data.embeds[0].data.description = lang('chose', { chose: [...hand.entries()].find(([, e]) => e.id == botMove.id)[0], win: win[0], you: hand.find(e => e.id == buttonId).emoji, symbol: win[1], i: botMove.emoji });
       for (const button of data.components[0].components) {
         if (button.data.custom_id == buttonId) button.setStyle(ButtonStyle.Secondary);
         button.setDisabled(true);

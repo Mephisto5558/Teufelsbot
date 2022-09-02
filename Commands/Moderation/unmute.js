@@ -31,7 +31,7 @@ module.exports = {
     let errorMsg;
 
     if (!target) errorMsg = lang('notFound');
-    else if (!target.isCommunicationDisabled()) errorMsg = lang('notTimedOut');
+    else if (!target.isCommunicationDisabled()) errorMsg = lang('notMuted');
     else if (target.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1 && interaction.guild.ownerId != interaction.user.id)
       errorMsg = lang('noPerm', lang('global.you'));
     else if (!target.moderatable) errorMsg = lang('noPerm', lang('global.i'));

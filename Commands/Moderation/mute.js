@@ -3,7 +3,7 @@ const { EmbedBuilder, Colors, PermissionFlagsBits } = require('discord.js');
 module.exports = {
   name: 'mute',
   aliases: { prefix: ['timeout'], slash: ['timeout'] },
-  description: 'timeouts a member of a given time (max 28d), default 1h',
+  description: 'timeouts a member of a given time (max 28d, default 1h)',
   usage: 'Duration options: you need to use at least one.',
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { guild: 0, user: 100 },
@@ -82,17 +82,17 @@ module.exports = {
     }
 
     if (date == oldDate) date.setTime(date.getTime() + 3600000); //1h
-    else if(date - oldDate > 2419000000) date.setTime(date.getTime() + 2419000000); //28d
+    else if (date - oldDate > 2419000000) date.setTime(date.getTime() + 2419000000); //28d
 
     try { await target.disableCommunicationUntil(date.getTime(), `${reason}, moderator ${interaction.user.tag}`) }
     catch (err) { return interaction.editReply(lang('error', err)) }
 
     const embed = new EmbedBuilder({
       title: lang('dmEmbedTitle'),
-      description: lang('dmEmbedDescription',
-        interaction.guild.name, interaction.user.tag,
-        Math.round(target.communicationDisabledUntilTimestamp / 1000), reason
-      ),
+      description: lang('dmEmbedDescription', {
+        guild: interaction.guild.name, mod: interaction.user.tag, reason,
+        until: Math.round(target.communicationDisabledUntilTimestamp / 1000)
+      }),
       color: Colors.Red
     });
 
@@ -100,7 +100,7 @@ module.exports = {
     catch { noMsg = true }
 
     embed.data.title = lang('infoEmbedTitle');
-    embed.data.description = lang('infoEmbedDescription', target.user.tag, reason, Math.round(target.communicationDisabledUntilTimestamp / 1000));
+    embed.data.description = lang('infoEmbedDescription', { user: target.user.tag, reason, until: Math.round(target.communicationDisabledUntilTimestamp / 1000) });
     if (noMsg) embed.data.description += lang('noDm');
 
     interaction.editReply({ embeds: [embed] });

@@ -31,12 +31,12 @@ module.exports = {
       reason = interaction.options.getString('reason'),
       embed = new EmbedBuilder({
         title: lang('infoEmbedTitle'),
-        description: lang('dmEmbedDescription', interaction.guild.name, interaction.user.tag, reason),
+        description: lang('dmEmbedDescription', { guild: interaction.guild.name, mod: interaction.user.tag, reason }),
         color: Colors.Red
       }),
       resEmbed = new EmbedBuilder({
         title: lang('infoEmbedTitle'),
-        description: lang('infoEmbedDescription', interaction.user.tag, reason),
+        description: lang('infoEmbedDescription', { mod: interaction.user.tag, reason }),
         color: Colors.Red
       });
 
@@ -52,7 +52,7 @@ module.exports = {
       else if (!target.kickable) errorMsg = lang('noPerm', lang('global.i'));
 
       if (errorMsg) {
-        resEmbed.data.description += lang('error', target?.user?.tag ?? target.id, errorMsg);
+        resEmbed.data.description += lang('error', { user: target?.user?.tag ?? target.id, err: errorMsg });
         continue;
       }
 
@@ -65,9 +65,8 @@ module.exports = {
       if (noMsg) resEmbed.data.description += lang('noDM');
     }
 
-    if (resEmbed.data.description == lang('infoEmbedDescription', interaction.user.tag, reason)) resEmbed.data.description += lang('noneFound');
+    if (resEmbed.data.description == lang('infoEmbedDescription', { user: interaction.user.tag, reason })) resEmbed.data.description += lang('noneFound');
 
     interaction.editReply({ embeds: [resEmbed] });
-
   }
 }

@@ -1,4 +1,6 @@
-const { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits } = require('discord.js');
+const
+  { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits } = require('discord.js'),
+  I18nProvider = require('../Functions/private/I18nProvider.js');
 
 module.exports = async (client, message) => {
   let prefixLength;
@@ -38,20 +40,19 @@ module.exports = async (client, message) => {
     return;
   }
 
-  message.content = message.content.slice(prefixLength).trim();
-  message.args = message.content.split(' ');
+  message.args = message.content.slice(prefixLength).trim().split(' ');
   message.commandName = message.args.shift().toLowerCase();
   message.content = message.args.join(' ');
   message.user = message.author;
 
   const command = client.commands.get(message.commandName);
-  const lang = require('../Functions/private/lang')(client, message.guild, command);
-
   if (!command && client.slashCommands.get(message.commandName)) return message.customReply(lang('events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
     !command ||
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
   ) return;
+
+  const lang = I18nProvider.__.bind(I18nProvider, { locale: client.db.get('guildSettings')[message.guild.id]?.config?.lang || message.guild.preferredLocale.slice(0, 2), backUpPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
   if (command.category.toLowerCase() == 'economy' && command.name != 'economy' && !client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id]?.gaining?.chat)
     return message.customReply(lang('events.economyNotInitialized'), message, 15000);
@@ -66,14 +67,14 @@ module.exports = async (client, message) => {
     const embed = new EmbedBuilder({
       title: lang('events.permissionDenied.embedTitle'),
       color: Colors.Red,
-      description: lang('events.permissionDenied.embedDescription', userPermsMissing.length ? lang('global.you') : lang('global.i'), (botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `'))
-    });
+      description: lang('events.permissionDenied.embedDescription', { IYou: userPermsMissing.length ? lang('global.you') : lang('global.i'), permissions: (botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `')})
+  });
 
-    if (botPermsMissing.includes('SendMessages')) return message.author.send({ content: `${message.channel.name} in ${message.guild.name}`, embeds: [embed] });
+  if (botPermsMissing.includes('SendMessages')) return message.author.send({ content: `${message.channel.name} in ${message.guild.name}`, embeds: [embed] });
 
-    return message.reply({ embeds: [embed] });
-  }
+  return message.reply({ embeds: [embed] });
+}
 
-  try { await command.run(message, lang, client) }
-  catch (err) { require('../Functions/private/error_handler.js')(err, client, message, lang) }
+try { await command.run(message, lang, client) }
+catch (err) { require('../Functions/private/error_handler.js')(err, client, message, lang) }
 }

@@ -48,7 +48,7 @@ module.exports = {
           newData = oldData.fMerge({ [interaction.guild.id]: { [module]: { enable: !setting } } });
 
         client.db.set('guildSettings', newData);
-        return interaction.editReply(lang('toggledModule', module, setting ? lang('global.disabled') : lang('global.enabled')));
+        return interaction.editReply(lang('toggledModule', { name: module, state: setting ? lang('global.disabled') : lang('global.enabled') }));
       }
     }
 

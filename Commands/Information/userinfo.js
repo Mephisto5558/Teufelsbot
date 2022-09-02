@@ -39,7 +39,6 @@ module.exports = {
 
     const embed = new EmbedBuilder({
       title: user.tag,
-      description: ' ',
       color: color,
       fields: [
         { name: lang('mention'), value: user.toString(), inline: true },
