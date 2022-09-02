@@ -48,7 +48,7 @@ class I18nProvider {
     if (!message) return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
     if(Array.isArray(message)) message = message.random();
     
-    if (typeof replacements == 'string') message = message.replace(/{\w+}/, replacements.toString());
+    if (typeof replacements != 'object') message = message.replace(/{\w+}/, replacements.toString());
     else {
       for (const [key, value] of Object.entries(replacements))
         message = message.replaceAll(`{${key}}`, value.toString());
