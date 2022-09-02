@@ -46,8 +46,8 @@ class I18nProvider {
     if (!message && backUpPath) message = this.localeData[locale][`${backUpPath}.${key}`] || this.localeData[this.config.defaultLocale][`${backUpPath}.${key}`];
 
     if (!message) return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
-    if(Array.isArray(message)) message = message.random();
-    
+    if (Array.isArray(message)) message = message.random();
+
     if (typeof replacements != 'object') message = message.replace(/{\w+}/, replacements.toString());
     else {
       for (const [key, value] of Object.entries(replacements))

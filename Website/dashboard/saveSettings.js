@@ -19,7 +19,7 @@ module.exports = async ({ db, dashboardOptionCount }, guildId, index, setting, d
 
     let json = `{"${entry[2]}": {"${entry[0].join('')}": ${JSON.stringify(entry[1])}`;
     json = json.padEnd(json.length + indexes.length + 2, '}');
-    
+
     newData = newData.fMerge({ [guildId]: JSON.parse(json) });
   }
 

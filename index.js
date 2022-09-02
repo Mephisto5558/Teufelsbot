@@ -88,7 +88,7 @@ console.time('Starting time');
   client.log(`Logged into ${client.botType}`);
 
   process
-  .on('unhandledRejection', err => require('./Functions/private/error_handler.js')(err, client))
-  .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js')(err, client))
-  .on('uncaughtException', err => require('./Functions/private/error_handler.js')(err, client));
+    .on('unhandledRejection', err => require('./Functions/private/error_handler.js')(err, client))
+    .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js')(err, client))
+    .on('uncaughtException', err => require('./Functions/private/error_handler.js')(err, client));
 })();

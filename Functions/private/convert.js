@@ -48,7 +48,7 @@ module.exports = {
   hex: {
     toBinary: input => main(input, (input, i) => (parseInt(input.substring(i, i + 2), 16).toString(2)).padStart(8, '0'), 1),
     toDecimal: input => main(input, (input, i) => parseInt(input.substring(i, i + 2), 16).padStart(3, '0'), 1),
-    toOctal: input => main(input, (input, i) => parseInt(input.substring(i, i + 2 ), 16).toString(8), 1),
+    toOctal: input => main(input, (input, i) => parseInt(input.substring(i, i + 2), 16).toString(8), 1),
     toText: input => main(input, (input, i) => String.fromCharCode(parseInt(input.substring(i, i + 2), 16)), 1)
   },
 
@@ -60,7 +60,7 @@ module.exports = {
   },
 
   text: {
-    toBinary: input => main(input, convertFunction = (input, i) => (input[i].charCodeAt(0)).toString(2).padStart(8, '0')),
+    toBinary: input => main(input, (input, i) => (input[i].charCodeAt(0)).toString(2).padStart(8, '0')),
     toDecimal: input => main(input, (input, i) => input.charCodeAt(i).toString(10).padStart(3, '0')),
     toHex: input => main(input, (input, i) => input.charCodeAt(i).toString(16)),
     toOctal: input => main(input, (input, i) => input.charCodeAt(i).toString(8))

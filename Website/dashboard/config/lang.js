@@ -5,6 +5,6 @@ module.exports = {
   name: 'Language',
   description: 'The language of the bot',
   position: 1,
-  
+
   type: formTypes.select({ 'English': 'en', 'German': 'de' })
 }

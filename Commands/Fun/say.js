@@ -1,4 +1,4 @@
-const {PermissionFlagsBits} = require('discord.js');
+const { PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
   name: 'say',
@@ -31,7 +31,7 @@ module.exports = {
     const msg = message.args?.[0] || message.options?.getString('msg');
     const channel = message.options?.getChannel('channel') || message.mentions?.channels.first() || message.channel;
 
-    if(message.member.permissionsIn(channel).missing(PermissionFlagsBits.SendMessages)) return message.customReply(lang('noPerm'));
+    if (message.member.permissionsIn(channel).missing(PermissionFlagsBits.SendMessages)) return message.customReply(lang('noPerm'));
     if (!msg) return message.customReply(lang('noMsgProvided'));
 
     await channel.send(msg.replaceAll('/n', '\n'));
