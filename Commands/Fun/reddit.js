@@ -99,7 +99,7 @@ module.exports = {
       title: post.title,
       url: post.url,
       image: { url: post.imageURL },
-      footer: { text: `Upvotes: ${post.upvotes} (${post.ratio * 100}%) | Downvotes: ${post.downvotes} | Comments: ${post.comments}` }
+      footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * 100, downvotes: post.downvotes, comments: post.comments }) }
     }).setColor('Random');
 
     message.customReply({ embeds: [embed] });

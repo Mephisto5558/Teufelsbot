@@ -152,7 +152,7 @@ module.exports = {
     }
     catch (err) { return interaction.editReply(lang('invalidOption', err)) }
 
-    if (custom) interaction.editReply(lang('successJSON'));
-    else interaction.editReply(lang('success', JSON.stringify(filterEmptyEntries(embed.data))));
+    if (custom) return interaction.editReply(lang('successJSON'));
+    interaction.editReply(lang('success', JSON.stringify(filterEmptyEntries(embed.data))));
   }
 }

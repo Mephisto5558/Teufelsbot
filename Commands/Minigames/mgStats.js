@@ -150,7 +150,7 @@ module.exports = {
     if (stats.type == 'user') {
       const rawStats = stats.data?.[stats.target.id];
 
-      embed.data.title = `\`${stats.target.tag}\`'s ${stats.game} Stats`;
+      embed.data.title = lang('embedTitle', {user: stats.target.tag, game: stats.game});
 
       if (rawStats && rawStats.games) {
         embed.data.description =
@@ -166,7 +166,7 @@ module.exports = {
           `${lang('drewAgainst')}\n` +
           `${await manageData(rawStats.drewAgainst, client.user.id) || '>' + lang('noOne')}`
       }
-      else embed.data.description = stats.target.id == message.member.id ? lang('youNoGamesPlayed', stats.game) : lang('usrNoGamesPlayed', stats.target.username, stats.game);
+      else embed.data.description = stats.target.id == message.member.id ? lang('youNoGamesPlayed', stats.game) : lang('usrNoGamesPlayed', {user: stats.target.username, game: stats.game});
     }
     else if (stats.type == 'leaderboard') {
       embed.data.title = lang('embedTitleTop10', stats.game);

@@ -147,11 +147,11 @@ module.exports = {
 
           embed.data.fields = data.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
             name: lang('fieldName', id),
-            value: lang('fieldValue',
-              (trigger.length < 1900 ? trigger : trigger.substring(0, 197) + '...'),
-              (response.length < 1900 ? response : response.substring(0, 197) + '...'),
-              !!wildcard
-            ),
+            value: lang('fieldValue', {
+              trigger: trigger.length < 1900 ? trigger : trigger.substring(0, 197) + '...',
+              response: response.length < 1900 ? response : response.substring(0, 197) + '...',
+              wildcard: !!wildcard
+            }),
             inline: false
           }));
 
@@ -163,11 +163,11 @@ module.exports = {
             for (const { id, trigger, response, wildcard } of oldData) {
               if (description.length >= 3800) break;
 
-              description += lang('longEmbedDescription', id,
-                (trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...'),
-                (response.length < 20 ? response : response.substring(0, 17) + '...'),
-                !!wildcard
-              )
+              description += lang('longEmbedDescription', {
+                id, wildcard: !!wildcard,
+                trigger: trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...',
+                response: response.length < 20 ? response : response.substring(0, 17) + '...'
+              })
             }
 
             embed.data.description = description;
@@ -176,21 +176,18 @@ module.exports = {
             embed.data.description = oldData.length > 25 ? lang('first25') : ' ';
             embed.data.fields = oldData.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
               name: lang('shortFieldName', id),
-              value: lang('shortFieldValue',
-                (trigger.length < 200 ? trigger : trigger.subsstring(0, 197) + '...'),
-                (response.length < 200 ? response : response.subsstring(0, 197) + '...'),
-                !!wildcard
-              ),
+              value: lang('shortFieldValue', {
+                trigger: trigger.length < 200 ? trigger : trigger.subsstring(0, 197) + '...',
+                response: response.length < 200 ? response : response.subsstring(0, 197) + '...',
+                wildcard: !!wildcard
+              }),
               inline: true
             }));
           }
 
           interaction.editReply({ embeds: [embed] });
         }
-        break;
       }
-
-      default: throw new SyntaxError('Unexpected value');
     }
   }
 }

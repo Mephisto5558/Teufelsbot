@@ -26,7 +26,10 @@ module.exports = {
     if (!userData) return message.customReply(lang('targetEconomyNotInitialized'));
 
     const
-      rank = Object.entries(db.get('guildSettings')[message.guild.id].economy).sort(([, a], [, b]) => b.power - a.power).map(([e]) => e).indexOf(target.id) + 1,
+      rank = Object.entries(db.get('guildSettings')[message.guild.id].economy)
+        .sort(([, a], [, b]) => b.power - a.power || b.currency - a.currency)
+        .map(([e]) => e)
+        .indexOf(target.id) + 1,
       embed = new EmbedBuilder({
         color: Colors.White,
         author: { name: target.name, iconURL: target.displayAvatarURL({ forceStatic: true }) },

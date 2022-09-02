@@ -9,12 +9,13 @@
         "description": "the size you want to get"
       }
     },
-    "embedDescription": "**Avatar of %s**",
+    "embedDescription": "**Avatar of {user}**",
     "downloadButton": "Download picture"
   },
   "dashboard": {
     "description": "get the link to the bots's dashboard",
-    "embedDescription": "Click [here](%s) to open the dashboard."
+    "embedTitle": "Dashboard",
+    "embedDescription": "Click [here]({url}) to open the dashboard."
   },
   "help": {
     "description": "Show all my commands or search for a specific one",
@@ -25,11 +26,11 @@
       }
     },
     "one": {
-      "notFound": "No information found for command `%s`.",
-      "embedTitle": "Detailed Information about: `%s`",
+      "notFound": "No information found for command `{command}`.",
+      "embedTitle": "Detailed Information about: `{command}`",
       "noDescription": "No description found",
-      "embedFooterText": "Syntax: <> = required, [] = optional | Prefix: \"%s\"",
-      "reqPerms": "Required %s Permissions",
+      "embedFooterText": "Syntax: <> = required, [] = optional | Prefix: \"{prefix}\"",
+      "reqPerms": "Required {type} Permissions",
       "lookAtDesc": "SLASH Command: look at the option descriptions.\n",
       "prefixAlias": "Prefix Command Aliases",
       "slashAlias": "Slash Command Aliases",
@@ -50,14 +51,14 @@
     "shard": "Shard",
     "starts": "Starts",
     "lastStart": "Last start",
-    "links": "**[Invite](%s)** | **[Dashboard](%s)** | **[Privacy Policy](%s)**",
+    "links": "**[Invite]({inviteUrl})** | **[Dashboard]({dashboardUrl})** | **[Privacy Policy]({ppUrl})**",
     "embedTitle": "Stats",
     "embedFooterText": "More stats are coming soon!"
   },
   "invite": {
     "description": "Sends a link to add the bot to your guild.",
     "embedTitle": "Invite",
-    "embedDescription": "Thank you for your interest! Click [here](%s) to add me to your guild."
+    "embedDescription": "Thank you for your interest! Click [here]({url}) to add me to your guild."
   },
   "ping": {
     "description": "Get the bot's ping",
@@ -68,7 +69,7 @@
     },
     "average": {
       "loading": "Pinging... (this takes about one minute)",
-      "embedDescription": "Pings: `%d`\nLowest Ping: `%dms`\nHeightest Ping: `%dms`\nAverage Ping: `%dms`"
+      "embedDescription": "Pings: `{pings}`\nLowest Ping: `{lowest}ms`\nHeightest Ping: `{heightest}ms`\nAverage Ping: `{average}ms`"
     },
     "embedTitle": "Ping",
     "messageSend": "Message Send"
@@ -81,8 +82,8 @@
         "description": "the new bot prefix for this guild"
       }
     },
-    "saved": "My prefix has been changed to `%s`.",
-    "currentPrefix": "My current prefix is `%s`.",
+    "saved": "My prefix has been changed to `{prefix}`.",
+    "currentPrefix": "My current prefix is `{prefix}`.",
     "caseInsensitive": " (case insensitive)"
   },
   "roleinfo": {
@@ -124,14 +125,14 @@
   },
   "uptime": {
     "description": "Get the bot's uptime",
-    "message": "The bot has been online for exactly %s."
+    "message": "The bot has been online for exactly {time}."
   },
   "userinfo": {
     "description": "Get information about a member",
     "usage": "PREFIX Command: roleinfo [@user | user name | user tag | user nickname | user id]",
     "options": {
       "target": {
-        "description": "the user you want to get informations about"
+        "description": "the user you want to get information about"
       }
     },
     "guildOwner": "Guild Owner",

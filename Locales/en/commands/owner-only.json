@@ -3,8 +3,8 @@
     "description": "blocks a user from using the bot",
     "usage": "PREFIX Command: blacklistuser <user id | @user>",
     "notFound": "Found no entry for this id.",
-    "saved": "`%s` has been blacklisted from using the bot.",
-    "removed": "The blacklist entry for `%s` has been removed.",
+    "saved": "`{user}` has been blacklisted from using the bot.",
+    "removed": "The blacklist entry for `{user}` has been removed.",
     "cantBlacklistOwner": "I can't blacklist the owner of the bot!"
   },
   "dbget": {
@@ -15,9 +15,9 @@
   "eval": {
     "description": "inject JavaScript code directly into the bot",
     "usage": "PREFIX Command: eval <js code>",
-    "finished": "evaluated command:\n```js\n%s\n```\n",
-    "success": "%s without errors.",
-    "error": "%s with the following error:\n```\n%s: %s\n```"
+    "finished": "evaluated command:\n```js\n{code}\n```\n",
+    "success": "{msg} without errors.",
+    "error": "{msg} with the following error:\n```\n{name}: {err}\n```"
   },
   "gitpull": {
     "description": "Run a git pull",
@@ -32,25 +32,25 @@
     "usage": "PREFIX Command: reload <category | \"*\"> <command | \"*\">",
     "invalidCategory": "This is not a valid category. ",
     "invalidCommand": "This is not a valid command. ",
-    "validCategoryList": "Valid categories are:\n`%s`, `*`",
-    "validCommandList": "Valid commands in this category are:\n`%s`, `*`",
-    "error": "An error occurred.\n```%s```",
+    "validCategoryList": "Valid categories are:\n`{categories}`, `*`",
+    "validCommandList": "Valid commands in this category are:\n`{commands}`, `*`",
+    "error": "An error occurred.\n```{err}```",
     "noneReloaded": "No commands have been reloaded.",
-    "reloaded": "The following `%s` command(s) have been reloaded:\n`%s`"
+    "reloaded": "The following `{count}` command(s) have been reloaded:\n`{commands}`"
   },
   "reloadlang": {
     "description": "Reloads all language files",
     "success": "Reloaded all language files."
   },
   "restart": {
-    "description": "restarts the bot",
+    "description": "Restarts the bot",
     "message": "Restarting bot..."
   },
   "setactivity": {
-    "description": "sets the bot's activity",
+    "description": "Sets the bot's activity",
     "usage": "PREFIX Command: setactivity <activity>;[type]",
-    "invalidType": "This is not a valid type. Valid types are:\n`%s`",
-    "set": "Activity set to `%s` of type `%s`.",
+    "invalidType": "This is not a valid type. Valid types are:\n`{types}`",
+    "set": "Activity set to `{name}` of type `{type}`.",
     "reset": "Activity set to `none`."
   },
   "test": {

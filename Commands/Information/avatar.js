@@ -33,7 +33,7 @@ module.exports = {
     }
   ],
 
-  run: async (message, lang, { functions }) => {
+  run: async (message, lang) => {
     const
       target = message.options?.getMember('target') || message.mentions?.members?.first() || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
       avatarURL = await target.displayAvatarURL({ size: message.options?.getNumber('size') || 2048 }),

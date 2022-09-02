@@ -14,7 +14,7 @@ module.exports = {
 
   run: async (message, lang, { db }) => {
     const description = Object.entries(db.get('guildSettings')[message.guild.id]?.economy || {})
-      .sort(([, a], [, b]) => b.power - a.power)
+      .sort(([, a], [, b]) => b.power - a.power || b.currency - a.currency)
       .slice(0, 10)
       .filter(([, e]) => e.currency)
       .map(([k, v], i) =>

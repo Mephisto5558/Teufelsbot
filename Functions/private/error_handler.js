@@ -13,7 +13,7 @@ module.exports = async (err, { keys, botType, error = console.error } = {}, mess
     octokit = new Octokit({ auth: keys.githubKey }),
     embed = new EmbedBuilder({
       title: lang('events.errorHandler.embedTitle'),
-      description: lang('events.errorHandler.embedDescription', err.name, message.commandName),
+      description: lang('events.errorHandler.embedDescription', { name: err.name, command: message.commandName }),
       color: Colors.DarkRed
     }),
     comp = new ActionRowBuilder({

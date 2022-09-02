@@ -42,7 +42,7 @@ module.exports = {
     let input = interaction.options.getString('emoji_or_url');
 
     const
-      limitToRoles = interaction.options.getString('limit_to_roles')?.split(' ').map(e => e.replace(/[^\d]/g, '')).filter(e => interaction.guild.roles.cache.has(e)),
+      limitToRoles = interaction.options.getString('limit_to_roles')?.split(' ').map(e => e.replace(/\D/g, '')).filter(e => interaction.guild.roles.cache.has(e)),
       emoticon = parseEmoji(input),
       emojiName = interaction.options.getString('name')?.slice(0, 32) || emoticon.id ? emoticon.name : 'emoji',
       embed = new EmbedBuilder({

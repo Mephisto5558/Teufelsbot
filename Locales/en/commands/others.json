@@ -17,9 +17,9 @@
         }
       }
     },
-    "error": "An error occurred.\n%s",
+    "error": "An error occurred.\n{err}",
     "embedTitle": "Success",
-    "alreadySent": "This suggestion has already been sent. [Link](%s).",
-    "embedDescription": "Your suggestion has been sent.\n[Suggestion Link](%s)"
+    "alreadySent": "This suggestion has already been sent. [Link]({url}).",
+    "embedDescription": "Your suggestion has been sent.\n[Suggestion Link]({url})"
   }
 }
