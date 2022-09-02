@@ -109,6 +109,7 @@
     },
     "invalidOption": "**One of the provided options is invalid!**\n\n```{err}```",
     "successJSON": "Your embed has been sent!",
+    "noPerm": "You don't have the permission to send messages in that channel!",
     "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
   },
   "math": {
