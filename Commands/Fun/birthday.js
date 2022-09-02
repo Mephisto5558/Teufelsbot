@@ -30,7 +30,7 @@ module.exports = {
           name: 'day',
           description: 'The day you was born in.',
           type: 'Number',
-          minValue: 1
+          minValue: 1,
           maxValue: 31,
           required: true
         },
