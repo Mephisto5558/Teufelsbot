@@ -1,4 +1,4 @@
-console.time('Initialising time');
+console.time('Initializing time');
 console.info('Starting...');
 
 process
@@ -43,7 +43,7 @@ Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }
 CommandInteraction.prototype.customReply = customReply;
 Message.prototype.customReply = customReply;
 
-console.timeEnd('Initialising time');
+console.timeEnd('Initializing time');
 console.time('Starting time');
 
 (async function main() {
