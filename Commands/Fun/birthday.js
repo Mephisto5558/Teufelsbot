@@ -2,11 +2,11 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   currentYear = new Date().getFullYear();
 
-function getAge(bd) {
-  //bd[0] = year; bd[1] = month; bd[2] = day
-  let now = new Date()
-  if (bd[1] < (now.getMonth() + 1) || (bd[1] == (now.getMonth() + 1) && bd[2] < now.getDate())) return currentYear - bd[0] + 1;
-  else return currentYear - bd[0];
+function getAge([year, month, day]) {
+  const now = new Date();
+  if (month < (now.getMonth() + 1) || (month == now.getMonth() + 1 && day < now.getDate()))
+    return currentYear - year + 1;
+  return currentYear - year;
 }
 
 module.exports = {
@@ -88,24 +88,6 @@ module.exports = {
         Math.abs(interaction.options.getNumber('day') || '')?.toString().padStart(2, '0')
       ];
 
-    function formatMonthName(input) {
-      switch (input) {
-        case '01': return lang('months.January');
-        case '02': return lang('months.February');
-        case '03': return lang('months.March');
-        case '04': return lang('months.April');
-        case '05': return lang('months.May');
-        case '06': return lang('months.June');
-        case '07': return lang('months.July');
-        case '08': return lang('months.August');
-        case '09': return lang('months.September');
-        case '10': return lang('months.October');
-        case '11': return lang('months.November');
-        case '12': return lang('months.December');
-        default: throw new SyntaxError(`invalid month, must be in range 01-12, got ${input}`);
-      }
-    }
-
     switch (cmd) {
       case 'set': {
         const newData = oldData.fMerge({ [interaction.user.id]: { birthday: birthday.join('/') } });
@@ -142,7 +124,7 @@ module.exports = {
           if (!data) newData = lang('getUser.notFound');
           else {
             const age = getAge(data);
-            newData = lang('getUser.date', { month: formatMonthName(data[1]), day: data[2] });
+            newData = lang('getUser.date', { month: lang(`months.${data[1]}`), day: data[2] });
             if (age < currentYear) newData += lang('getUser.newAge', age);
           }
         }
@@ -166,7 +148,7 @@ module.exports = {
             .slice(0, 10);
 
           for (const [id, year, month, day] of data) {
-            const date = lang('getAll.date', { month: formatMonthName(month), day: parseInt(day) });
+            const date = lang('getAll.date', { month: lang(`months.${month}`), day: parseInt(day) });
             let age = getAge([year, month, day]);
             age = age < currentYear ? ` (${age})` : '';
             const msg = `> <@${id}>${age}\n`;
@@ -186,6 +168,5 @@ module.exports = {
         break;
       }
     }
-
   }
 }

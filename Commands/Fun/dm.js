@@ -91,7 +91,7 @@ module.exports = {
         else {
           userBlacklist.push(target);
 
-          message = lang('toggle.saved', targetName, target == '*' ? lang('toggle.targetAll.saved') : lang('toggle.targetOne.isnt', targetName));
+          message = lang('toggle.saved', { user: targetName, state: target == '*' ? lang('toggle.targetAll.saved') : lang('toggle.targetOne.isnt', targetName) });
         }
 
         db.set('userSettings', oldData.fMerge({ [interaction.user.id]: userBlacklist }));
@@ -130,7 +130,7 @@ module.exports = {
 
         const embed = new EmbedBuilder({
           title: lang('send.embedTitle'),
-          description: lang('send.embedDescription', asMod ? lang('send.fromMod') : interaction.user.tag, interaction.guild.name, messageToSend.replaceAll('/n', '\n')),
+          description: lang('send.embedDescription', { user: asMod ? lang('send.fromMod') : interaction.user.tag, guild: interaction.guild.name, msg: messageToSend.replaceAll('/n', '\n') }),
           color: Colors.Blurple,
           footer: { text: lang('send.embedFooterText') }
         });

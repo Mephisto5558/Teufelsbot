@@ -45,9 +45,8 @@ module.exports = {
         summary = await page.summary(),
         embed = new EmbedBuilder({
           title: data.results[0],
-          description: ' ',
           color: Colors.White,
-          thumbnail: { url: 'https://en.wikipedia.org/static/images/project-logos/enwiki.png' },
+          thumbnail: { url: 'https://wikipedia.org/static/images/project-logos/enwiki.png' },
           url: page.url(),
           image: image ? { url: image } : undefined,
           fields: Object.entries(info)
@@ -58,7 +57,7 @@ module.exports = {
       if (summary.length < 2049) embed.data.description = summary.toString();
 
       await message.edit({ content: '', embeds: [embed] });
-      if (embed.data.description == ' ') return;
+      if (!embed.data.description) return;
 
       let i = 0;
       for (const paragraph of summary.split('\n')) {

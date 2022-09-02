@@ -32,6 +32,7 @@ module.exports = {
       title: lang('embedTitle'),
       color: Colors.White
     });
+
     let amount = message.options?.getString('amount') || message.args?.[1];
 
     if (!target) embed.data.description = lang('error.noTarget');
@@ -53,7 +54,7 @@ module.exports = {
     else if (isNaN(amount.replace('%', ''))) amount = userData.currency / 10;
     else if (amount.includes('%')) amount = userData.currency * amount.replace(/[^/d]/g, '') / 100;
 
-    amount = parseInt(amount).limit({ min: 1, max: userData.currency }).limit({ max: targetData.currencyCapacity });
+    amount = parseInt(amount).limit({ min: 0.1, max: userData.currency }).limit({ max: targetData.currencyCapacity });
 
     const newUserCurrency = userData.currency - amount;
     const newTargetCurrency = targetData.currency + amount;
@@ -62,7 +63,7 @@ module.exports = {
       [message.guild.id]: { economy: { [message.user.id]: { currency: newUserCurrency }, [target.id]: { currency: newTargetCurrency } } }
     }));
 
-    embed.data.description = lang('embedDescription', amount, target, newUserCurrency, newTargetCurrency);
+    embed.data.description = lang('embedDescription', { amount, target, newUserAmount: newUserCurrency, newTargetAmount: newTargetCurrency });
     message.customReply({ content: target.toString(), embeds: [embed] });
   }
 }

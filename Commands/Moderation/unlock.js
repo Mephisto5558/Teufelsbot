@@ -32,7 +32,7 @@ module.exports = {
 
     const
       channel = message.options?.getChannel('channel') || message.mentions?.channels.first() || message.channel,
-      reason = message.options?.getString('reason') || message.args?.join(' ') || 'no reason given',
+      reason = message.options?.getString('reason') || message.args?.join(' ') || lang('noReason'),
       oldData = db.get('guildSettings'),
       overwrites = Object.entries(oldData[message.guild.id]?.lockedChannels?.[channel.id] || [])?.filter(async ([k, v]) => {
         if (channel.permissionOverwrites.cache.get(k)?.allow.has(PermissionFlagsBits.SendMessages)) return;
@@ -40,7 +40,7 @@ module.exports = {
         return (await message.guild.members.fetch(k)).manageable;
       });
 
-    if (!overwrites.length) msg.edit('This channel is not locked.');
+    if (!overwrites.length) msg.edit(lang('notLocked'));
 
     for (const [id, type] of overwrites) {
       await channel.permissionOverwrites.edit(id,
@@ -53,15 +53,12 @@ module.exports = {
     db.set('guildSettings', oldData);
 
     const embed = new EmbedBuilder({
-      title: 'Channel unlocked!',
-      description:
-        'This Channel has been unlocked.\n' +
-        `Moderator: ${message.user.tag}\n` +
-        `Reason: ${reason}`,
+      title: lang('embedTitle'),
+      description: lang('embedDescription', { mod: message.user.tag, reason }),
       color: Colors.Red
     });
 
     await channel.send({ embeds: [embed] });
-    msg.edit('The channel has been successfully unlocked.');
+    msg.edit(lang('success'));
   }
 }

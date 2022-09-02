@@ -8,15 +8,15 @@
       }
     },
     "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. He/She has to run `/economy start`",
-    "currency": "Souls: **%s**/**%s** <:soul:1011962640349810688>\n",
-    "dailyStreak": "Daily Streak: **%s** <:souls:1011962960840773673>\n",
-    "rank": "Rank: **%s**\n",
+    "currency": "Souls: **{num}**/**{max}** <:soul:1011962640349810688>\n",
+    "dailyStreak": "Daily Streak: **{streak}** <:souls:1011962960840773673>\n",
+    "rank": "Rank: **{rank}**\n",
     "none": "none"
   },
   "daily": {
     "description": "Get your daily souls!",
     "notUnlocked": "You have not researched the daily souls yet! `/research`",
-    "collected": "You have collected %d souls!"
+    "collected": "You have collected {count} souls!"
   },
   "economy": {
     "description": "Some Economy Configs",
@@ -53,7 +53,7 @@
       "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. He/She has to run `/economy start`"
     },
     "embedTitle": "Give",
-    "embedDescription": "You gave %d Souls to %s! <:soul:1011962640349810688>\n>>> Your souls: %d <:soul:1011962640349810688>\nHis/Her souls: %d <:soul:1011962640349810688>"
+    "embedDescription": "You gave {amount} Souls to {target}! <:soul:1011962640349810688>\n>>> Your souls: {newUserAmount} <:soul:1011962640349810688>\nHis/Her souls: {newTargetAmount} <:soul:1011962640349810688>"
   },
   "research": {
     "description": "Upgrade your skills and research new ones!",
@@ -99,15 +99,15 @@
         "description": "How many slaves you can have at once."
       }
     },
-    "lvl": "Lv. %d",
+    "lvl": "Lv. {lvl}",
     "selectMenuPlaceholder": "What do you want to research?",
-    "price": "Price: %d <:soul:1011962640349810688>",
+    "price": "Price: {price} <:soul:1011962640349810688>",
     "embedTitle": "Research",
     "notEnoughMoney": "You have not enough souls to research this upgrade!",
-    "onCooldown": "You are currently researching this one! It will finish <t:%d:R>.",
+    "onCooldown": "You are currently researching this one! It will finish <t:{time}:R>.",
     "maxLevel": "You have already maxed out this skill!",
     "onMaxConcurrentResearches": "You cannot research even more skills at once!",
-    "success": "The upgrade for **%s** %s to Level `%d` has started!\nIt will finish <t:%d:R> (<t:%d>)",
+    "success": "The upgrade for **{skill}** {emoji} to Level `{lvl}` has started!\nIt will finish <t:{time}:R> (<t:{time}>)",
     "timedOut": "This menu timed out."
   },
   "stats": {
@@ -124,13 +124,13 @@
     "defense": "Defense <:defense:1011971580584263710>",
     "slaves": "Slaves",
     "maxSlaves": "Max Slaves",
-    "level": "> Level **%d**\n",
+    "level": "> Level **{lvl}**\n",
     "gaining": {
       "title": "Gaining Methods",
-      "chat": "Chat Messages: **%d**",
-      "voice": "Voice Minutes: **%d**",
-      "work": "Work: **%d**",
-      "daily": "Daily collection: **%d**"
+      "chat": "Chat Messages: **{num}**",
+      "voice": "Voice Minutes: **{num}**",
+      "work": "Work: **{num}**",
+      "daily": "Daily collection: **{num}**"
     },
     "skills": {
       "name": "Skills",
@@ -143,12 +143,12 @@
       "currency_capacity": "> Soul Capacity <:storage:1011973136100642947>\n",
       "slave_capacity": "> Slave Capacity <:storage:1011973136100642947>\n"
     },
-    "embedTitle": "%s's Stats"
+    "embedTitle": "{user}'s Stats"
   },
   "top": {
     "description": "Displays the most powerful people on this guild.",
-    "currency": "> Souls: **%s** <:soul:1011962640349810688>\n",
-    "power": "> Power: **%s** <:power:1011965677625671731>",
+    "currency": "> Souls: **{num}** <:soul:1011962640349810688>\n",
+    "power": "> Power: **{num}** <:power:1011965677625671731>",
     "embedTitle": "Top 10 Members",
     "embedDescription": "These are the top 10 members, sorted by their power:\n",
     "noneFound": "No one here has any power!"

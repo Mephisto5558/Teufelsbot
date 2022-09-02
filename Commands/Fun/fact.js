@@ -8,18 +8,15 @@ module.exports = {
   permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 0 },
   category: 'Fun',
-  slashCommand: false,
+  slashCommand: true,
   prefixCommand: true,
 
   run: async (message, _, { keys }) => {
-    try {
-      const res = await get('https://api.api-ninjas.com/v1/facts', {
-        headers: { 'X-Api-Key': keys.FunFactAPI },
-        contentType: 'application/json',
-      });
+    const res = await get('https://api.api-ninjas.com/v1/facts', {
+      headers: { 'X-Api-Key': keys.FunFactAPI },
+      contentType: 'application/json',
+    });
 
-      message.customReply(`${res.data[0].fact}.`);
-    }
-    catch (err) { client.error(err) }
+    message.customReply(`${res.data[0].fact}.`);
   }
 }

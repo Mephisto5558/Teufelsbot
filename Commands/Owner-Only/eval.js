@@ -20,7 +20,7 @@ module.exports = {
       message.customReply(lang('success', msg));
     }
     catch (err) {
-      message.customReply(lang('error', msg, err.name, err.message));
+      message.customReply(lang('error', { msg, name: err.name, err: err.message }));
     }
     finally {
       client.log(`evaluated command '${message.content}'`);

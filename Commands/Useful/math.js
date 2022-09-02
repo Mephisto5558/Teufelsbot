@@ -47,7 +47,7 @@ module.exports = {
       else data = data.entries
     }
 
-    embed.data.description = lang('success', expression, data);
+    embed.data.description = lang('success', { expression, result: data });
     message.customReply({ embeds: [embed] });
   }
 }

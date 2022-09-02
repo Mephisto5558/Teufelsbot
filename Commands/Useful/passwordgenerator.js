@@ -65,7 +65,7 @@ module.exports = {
       }
 
       for (let i = 0; i < length; i++) {
-        const randomChar = await charset.split('').filter(e => e != oldRandomChar).random(); //Filters the last selected entry out and selects a list entry based on a secure random number generator. Defined in index.js.;
+        const randomChar = charset.split('').filter(e => e != oldRandomChar).random(); //Filters the last selected entry out and selects a list entry based on a secure random number generator. Defined in index.js.;
         if (oldRandomChar + randomChar == '\n') { //'\n' should not appear in the list, it would break stuff
           length++
           continue;
@@ -78,7 +78,7 @@ module.exports = {
 
     if (charset.length > 100) charset = charset.substring(0, 97) + '...' //Limits the *displayed* charset
 
-    interaction.editReply(lang('success', passwordList.slice(0, -4), charset));
+    interaction.editReply(lang('success', { passwords: passwordList.slice(0, -4), charset }));
 
   }
 }
