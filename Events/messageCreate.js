@@ -31,7 +31,7 @@ module.exports = async (client, message) => {
         const eco = client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id];
         if (!eco?.gaining?.chat || eco.currency == eco.currencyCapacity) return;
 
-        const currency = (eco.currency + eco.gaining.chat + eco.skills.currency_bonus_absolute + (eco.gaining.chat * eco.skills.currency_bonus_percentage / 100)).limit(0, eco.currencyCapacity);
+        const currency = parseInt((eco.currency + eco.gaining.chat + Math.pow(eco.skills.currency_bonus_absolute.lvl, 2) + (eco.gaining.chat * Math.pow(eco.skills.currency_bonus_percentage.lvl, 2) / 100)).limit(0, eco.currencyCapacity).toFixed(3));
 
         client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
           [message.guild.id]: { economy: { [message.author.id]: { currency } } }
