@@ -19,7 +19,7 @@ Array.prototype.equals = function equals(array) {
   return true;
 }
 Array.prototype.random = function random() { return this[randomInt(this.length - 1)] };
-Number.prototype.limit = function limit({ min = -Infinity, max = Infinity }) { return Math.min(Math.max(parseInt(this), min), max) };
+Number.prototype.limit = function limit({ min = -Infinity, max = Infinity }) { return Math.min(Math.max(Number(this), min), max) };
 Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }) {
   if (isObject(this) && isObject(obj)) for (const key of Object.keys({ ...this, ...obj })) {
     if (isObject(this[key])) output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];
