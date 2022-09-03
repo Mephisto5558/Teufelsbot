@@ -1,5 +1,5 @@
 const
-  convert = require('../../Functions/private/convert.js'),
+  Converter = require('../../Functions/private/converter.js'),
   replace = (input, defaultValue) => !input && input !== false ? defaultValue : input;
 
 module.exports = {
@@ -25,8 +25,8 @@ module.exports = {
       description: 'The output type',
       type: 'String',
       required: true,
-      choices: Object.entries(convert).reduce((list, [e]) => {
-        if (e != 'getInputType') list.push({ name: e, value: e.charAt(0).toUpperCase() + e.slice(1) });
+      choices: Object.entries(Converter).reduce((list, [e]) => {
+        list.push({ name: e, value: e.charAt(0).toUpperCase() + e.slice(1) });
         return list;
       }, []),
     },
@@ -60,7 +60,7 @@ module.exports = {
     const inputStr = interaction.options.getString('input');
     const input = {
       string: inputStr,
-      type: interaction.options.getBoolean('is_octal') ? 'octal' : convert.getInputType(inputStr),
+      type: interaction.options.getBoolean('is_octal') ? 'octal' : Converter.getInputType(inputStr),
       options: {
         convertTo: interaction.options.getString('convert_to'),
         withSpaces: replace(interaction.options.getBoolean('with_spaces'), false),
@@ -71,8 +71,8 @@ module.exports = {
 
     if (input.type.toLowerCase() == input.options.convertTo.toLowerCase())
       return interaction.editReply(lang('convertToSame', { inputType: input.type.toUpperCase(), outputType: input.options.convertTo.toUpperCase() }));
+    const converted = await Converter[input.type][`to${input.options.convertTo}`](input);
     const output = lang('success', { inputType: input.type.toUpperCase(), outputType: input.options.convertTo.toUpperCase() });
-    const converted = await convert[input.type][`to${input.options.convertTo}`](input);
 
     if (output.length + converted.length < 2000) interaction.editReply(output + converted);
     else {
