@@ -47,13 +47,14 @@ module.exports = async (client, message) => {
   message.user = message.author;
 
   const command = client.commands.get(message.commandName);
-  const lang = I18nProvider.__.bind(I18nProvider, { locale: client.db.get('guildSettings')[message.guild.id]?.config?.lang || message.guild.preferredLocale.slice(0, 2), backUpPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
-  if (!command && client.slashCommands.get(message.commandName)) return message.customReply(lang('events.slashCommandOnly'));
+  if (!command && client.slashCommands.get(message.commandName)) return message.customReply(I18nProvider.__({ locale: config?.lang || message.guild.preferredLocale.slice(0, 2) }, 'events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
     !command ||
     (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
   ) return;
+
+  const lang = I18nProvider.__.bind(I18nProvider, { locale: config?.lang || message.guild.preferredLocale.slice(0, 2), backUpPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
   if (command.category.toLowerCase() == 'economy' && command.name != 'economy' && !client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id]?.gaining?.chat)
     return message.customReply(lang('events.economyNotInitialized'), message, 15000);
