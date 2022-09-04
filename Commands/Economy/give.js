@@ -63,7 +63,7 @@ module.exports = {
       [message.guild.id]: { economy: { [message.user.id]: { currency: newUserCurrency }, [target.id]: { currency: newTargetCurrency } } }
     }));
 
-    embed.data.description = lang('embedDescription', { amount, target, newUserAmount: newUserCurrency, newTargetAmount: newTargetCurrency });
+    embed.data.description = lang('embedDescription', { amount, target: target.id, newUserAmount: newUserCurrency, newTargetAmount: newTargetCurrency });
     message.customReply({ content: target.toString(), embeds: [embed] });
   }
 }
