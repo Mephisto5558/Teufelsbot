@@ -18,10 +18,10 @@
     "notUnlocked": "You have not researched the daily souls yet! `/research`",
     "collected": "You have collected {count} souls!"
   },
-  "economy": {
+  "economyconfig": {
     "description": "Economy Configuration for users and admins",
     "options": {
-      "config_user": {
+      "user": {
         "description": "Configuration for your economy in this guild.",
         "options": {
           "start": {
@@ -32,7 +32,7 @@
           }
         }
       },
-      "config_admin": {
+      "admin": {
         "description": "Configurate the economy in this guild",
         "options": {
           "toggle": {
