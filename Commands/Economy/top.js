@@ -18,7 +18,7 @@ module.exports = {
       .slice(0, 10)
       .filter(([, e]) => e.currency)
       .map(([k, v], i) =>
-        ([':first_place: ', ':second_place: ', ':third_place: '][i] || `${i}. `) + `<@${k}>\n` +
+        ([':first_place: ', ':second_place: ', ':third_place: '][i] || `${i + 1}. `) + `<@${k}>\n` +
         lang('currency', v.currency) +
         lang('power', v.power)
       )
