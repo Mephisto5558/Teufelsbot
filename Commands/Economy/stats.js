@@ -36,7 +36,7 @@ module.exports = {
             .map(([k, v]) => {
               let amount = v;
               switch (k) {
-                case 'chat': amount = parseFloat((Math.pow(userData.skills.currency_bonus_absolute.lvl, 2) + v * Math.pow(userData.skills.currency_bonus_percentage.lvl, 2) / 100).toFixed(3)); break;
+                case 'chat': amount = parseFloat((v + Math.pow(userData.skills.currency_bonus_absolute.lvl, 2) + v * Math.pow(userData.skills.currency_bonus_percentage.lvl, 2) / 100).toFixed(3)); break;
               }
 
               return lang(`gaining.${k}`, amount);
