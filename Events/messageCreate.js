@@ -25,17 +25,17 @@ module.exports = async (client, message) => {
   if (message.content.startsWith(config?.prefix?.caseinsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
   else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3;
   else {
-    if (message.content.length > 5) {
-      if (!(await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } }))) {
-        const eco = economy?.[message.author.id];
-        if (!eco?.gaining?.chat || eco.currency == eco.currencyCapacity) return;
+    const eco = economy?.[message.author.id];
+    if (
+      economy?.enable && eco?.gaining?.chat && eco.currency < eco.currencyCapacity && message.content.length > 5 &&
+      !(economy.blacklist?.channel?.includes(message.channel.id) || economy.blacklist?.users?.includes(message.user.id) || message.member.roles.cache.hasAny(economy.blacklist?.roles)) &&
+      !(await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } }))
+    ) {
+      const currency = parseFloat((eco.currency + eco.gaining.chat + Math.pow(eco.skills.currency_bonus_absolute.lvl, 2) + eco.gaining.chat * Math.pow(eco.skills.currency_bonus_percentage.lvl, 2) / 100).limit(0, eco.currencyCapacity).toFixed(3));
 
-        const currency = parseFloat((eco.currency + eco.gaining.chat + Math.pow(eco.skills.currency_bonus_absolute.lvl, 2) + eco.gaining.chat * Math.pow(eco.skills.currency_bonus_percentage.lvl, 2) / 100).limit(0, eco.currencyCapacity).toFixed(3));
-
-        client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
-          [message.guild.id]: { economy: { [message.author.id]: { currency } } }
-        }));
-      }
+      client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
+        [message.guild.id]: { economy: { [message.author.id]: { currency } } }
+      }));
     }
     return;
   }
@@ -49,8 +49,7 @@ module.exports = async (client, message) => {
 
   if (!command && client.slashCommands.get(message.commandName)) return message.customReply(I18nProvider.__({ locale: config?.lang || message.guild.preferredLocale.slice(0, 2) }, 'events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
-    !command ||
-    (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
+    !command || (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
   ) return;
 
   const lang = I18nProvider.__.bind(I18nProvider, { locale: config?.lang || message.guild.preferredLocale.slice(0, 2), backUpPath: `commands.${command.category.toLowerCase()}.${command.name}` });
@@ -58,8 +57,10 @@ module.exports = async (client, message) => {
   const cooldown = await require('../Functions/private/cooldowns.js')(client, message, command);
   if (cooldown && !client.botType == 'dev') return message.customReply(lang('events.cooldown', cooldown));
 
-  if (command.requireEconomy && !economy?.[message.author.id]?.gaining?.chat)
-    return message.customReply(lang('events.economyNotInitialized'), message, 15000);
+  if (command.requireEconomy) {
+    if (!economy?.enable) return message.customReply(lang('events.economyDisabled'), 30000);
+    if (!economy?.[message.author.id]?.gaining?.chat) return message.customReply(lang('events.economyNotInitialized'), 30000);
+  }
 
   const userPermsMissing = message.member.permissionsIn(message.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
   const botPermsMissing = message.guild.members.me.permissionsIn(message.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);
