@@ -35,6 +35,6 @@ module.exports = {
     if (!msg) return message.customReply(lang('noMsgProvided'));
 
     await channel.send(msg.replaceAll('/n', '\n'));
-    message instanceof Message ? message.react(':thumbsup:') : message.customReply(lang('global.messageSent'));
+    message instanceof Message ? message.react('👍') : message.customReply(lang('global.messageSent'));
   }
 }
