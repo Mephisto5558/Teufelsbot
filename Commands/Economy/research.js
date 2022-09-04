@@ -67,10 +67,10 @@ module.exports = {
       const onCooldownUntil = new Date(Date.now() + userSkill.lvlUpCooldown * 360000).getTime();
 
       const newData = {
-        currency: userData.currency - price,
+        currency: (userData.currency - price).toFixed(3),
         skills: {
           [skill]: {
-            lastPrice: price,
+            lastPrice: price.toFixed(3),
             lvl: userSkill.lvl + 1,
             onCooldownUntil
           }
