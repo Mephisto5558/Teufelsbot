@@ -21,7 +21,7 @@ module.exports = {
     const userData = db.get('guildSettings')[message.guild.id].economy[message.user.id];
     if (!userData.gaining.daily) {
       embed.data.description = lang('notUnlocked');
-      return message.customReply({ embeds: [embed] });
+      return message.customReply({ embeds: [embed] }, 30000);
     }
 
     db.set('userSettings', db.get('guildSettings').fMerge({
