@@ -58,6 +58,20 @@
                 "description": "Allow or disallow a user from all gaining methods (eg. chat messages in all channels)."
               }
             }
+          },
+          "gaining_rules": {
+            "description": "Rules all about gaining. Use the \"get\" option for the current settings.",
+            "options": {
+              "get": {
+                "description": "Get all settings and their values."
+              },
+              "min_message_length": {
+                "description": "The minimum message length required to get souls."
+              },
+              "max_message_length": {
+                "description": "The maximum message length required to get souls."
+              }
+            } 
           }
         }
       }
@@ -89,6 +103,16 @@
         "listEmbedDescription": "This guild is currently blacklisting the following objects from gaining souls:",
         "setEmbedDescription": "The following changed have been made:\n```diff\nChannel:\n{channel}\n\nRole:\n{role}\n\nUser:\n{user}\n```",
         "setFooterText": "Run this command without arguments to get the whole blacklist."
+      },
+      "gainingRules": {
+        "getEmbedTitle": "Guild Economy Config",
+        "getEmbedDescription": "This are the first 25 entries of the guild's economy config.",
+        "getConfigList": {
+          "min_message_length": "Min. message length",
+          "max_message_length": "Max. message length"
+        },
+        "nothingChanged": "You didn't change any value.",
+        "setSuccess": "Successfully set {count} settings."
       }
     }
   },
