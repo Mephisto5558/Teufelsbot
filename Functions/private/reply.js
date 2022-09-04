@@ -18,7 +18,7 @@ module.exports = async function customReply(reply, deleteTime, allowedMentions =
     catch { sentMessage = await this.channel.send(reply) }
   }
 
-  if (!isNaN(deleteTime) && sentMessage.deletable !== false && !this.ephemeral) return setTimeout(sentMessage.delete.bind(sentMessage), deleteTime);
+  if (!isNaN(deleteTime) && sentMessage?.deletable && !this.ephemeral) return setTimeout(sentMessage.delete.bind(sentMessage), deleteTime);
 
   return sentMessage;
 }

@@ -41,7 +41,7 @@ module.exports = {
     else if (target.bot) embed.data.description = lang('error.bot');
     else if (!amount) embed.data.description = lang('error.noAmount');
 
-    if (embed.data.description) return message.customReply({ embeds: [embed] });
+    if (embed.data.description) return message.customReply({ embeds: [embed] }, 30000);
 
     const
       userData = db.get('guildSettings')[message.guild.id].economy[message.user.id],
