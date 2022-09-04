@@ -7,7 +7,7 @@ module.exports = {
   usage: 'stats [user]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
-  category: 'Economy',
+  category: 'userDatanomy',
   slashCommand: true,
   prefixCommand: true,
   options: [{
@@ -21,19 +21,26 @@ module.exports = {
   run: async (message, lang, { db }) => {
     const
       target = message.options?.getUser('user') || message.mentions?.users?.first() || message.user,
-      userData = db.get('guildSettings')[message.guild.id]?.economy?.[target.id];
+      userData = db.get('guildSettings')[message.guild.id]?.userDatanomy?.[target.id];
 
     if (!userData?.gaining?.chat) return message.customReply(lang('noStats'));
 
     const fields = [
-      { name: lang('currency'), value: `${userData.currency}/${userData.currencyCapacity}` },
-      { name: `${lang('power')}/${lang('defense')}`, value: `${userData.power}/${userData.defense}` },
-      { name: `${lang('slaves')}/${lang('maxSlaves')}`, value: `${userData.slaves}/${userData.maxSlaves}` },
+      { name: lang('currency'), value: `> ${userData.currency}/${userData.currencyCapacity}` },
+      { name: `${lang('power')}/${lang('defense')}`, value: `> ${userData.power}/${userData.defense}` },
+      { name: `${lang('slaves')}/${lang('maxSlaves')}`, value: `> ${userData.slaves}/${userData.maxSlaves}` },
       {
         name: lang('gaining.title'), value: '>>> ' +
           Object.entries(userData.gaining)
             .filter(([, e]) => e)
-            .map(([k, v]) => lang(`gaining.${k}`, v))
+            .map(([k, v]) => {
+              let amount = v;
+              switch (k) {
+                case 'chat': amount = parseFloat((Math.pow(userData.skills.currency_bonus_absolute.lvl, 2) + v * Math.pow(userData.skills.currency_bonus_percentage.lvl, 2) / 100).toFixed(3)); break;
+              }
+
+              return lang(`gaining.${k}`, amount);
+            })
             .join('\n')
       },
       {
