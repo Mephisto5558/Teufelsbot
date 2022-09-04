@@ -18,10 +18,9 @@ module.exports = async (client, message) => {
 
   message.content = message.content.replaceAll('<@!', '<@');
 
-  for (const trigger of triggers?.filter(e => message.content?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
-    message.customReply(trigger.response);
-
-  if (/(koi|fish)[_\s]?pat|pat[_\s]?(koi|fish)/i.test(message.content)) message.customReply('https://giphy.com/gifs/fish-pat-m0bwRip4ArcYEx7ni7');
+  if (client.botType != 'dev')
+    for (const trigger of triggers?.filter(e => message.content?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
+      message.customReply(trigger.response);
 
   if (message.content.startsWith(config?.prefix?.caseinsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
   else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3;
