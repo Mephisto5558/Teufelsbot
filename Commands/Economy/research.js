@@ -10,6 +10,7 @@ module.exports = {
   category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
+  requireEconomy: true,
   beta: true,
 
   run: async (message, lang, { db }) => {

@@ -23,7 +23,7 @@ module.exports = {
       target = message.options?.getUser('user') || message.mentions?.users?.first() || message.user,
       userData = db.get('guildSettings')[message.guild.id].economy[target.id];
 
-    if (!userData) return message.customReply(lang('targetEconomyNotInitialized'));
+    if (!userData?.gaining?.chat) return message.customReply(lang('targetEconomyNotInitialized'));
 
     const
       rank = Object.entries(db.get('guildSettings')[message.guild.id].economy)
