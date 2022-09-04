@@ -9,7 +9,7 @@ module.exports = async (client, interaction) => {
   const lang = I18nProvider.__.bind(I18nProvider, { locale: client.db.get('guildSettings')[interaction.guild.id]?.config?.lang || interaction.guild.preferredLocale.slice(0, 2), backUpPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, interaction, command);
-  if (cooldown) return interaction.reply(lang('events.cooldown', cooldown));
+  if (cooldown) return interaction.reply({ content: lang('events.cooldown', cooldown), ephemeral: true });
 
   const { blacklist } = client.db.get('botSettings');
   if (
@@ -17,8 +17,10 @@ module.exports = async (client, interaction) => {
     (command.category.toLowerCase() == 'owner-only' && interaction.user.id != client.application.owner.id)  //DO NOT REMOVE THIS STATEMENT!
   ) return;
 
-  if (command.category.toLowerCase() == 'economy' && command.name != 'economy' && !client.db.get('guildSettings')[interaction.guild.id]?.economy?.[interaction.user.id]?.gaining?.chat)
-    return interaction.reply(lang('events.economyNotInitialized'));
+  if (command.requireEconomy) {
+    if (!economy?.enable) return interaction.reply({ content: lang('events.economyDisabled'), ephemeral: true });
+    if (!economy?.[interaction.user.id]?.gaining?.chat) return interaction.reply({ content: lang('events.economyNotInitialized'), ephemeral: true });
+  }
 
   if (interaction.type == InteractionType.ApplicationCommand) {
     const userPermsMissing = interaction.member.permissionsIn(interaction.channel).missing(command.permissions.user);
