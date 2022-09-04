@@ -18,6 +18,7 @@ module.exports = async (client, interaction) => {
   ) return;
 
   if (command.requireEconomy) {
+    const economy = client.db.get('guildSettings')[interaction.guild.id]?.economy;
     if (!economy?.enable) return interaction.reply({ content: lang('events.economyDisabled'), ephemeral: true });
     if (!economy?.[interaction.user.id]?.gaining?.chat) return interaction.reply({ content: lang('events.economyNotInitialized'), ephemeral: true });
   }

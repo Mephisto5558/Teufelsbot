@@ -27,8 +27,10 @@ module.exports = async (client, message) => {
   else {
     const eco = economy?.[message.author.id];
     if (
-      economy?.enable && eco?.gaining?.chat && eco.currency < eco.currencyCapacity && message.content.length > 5 &&
-      !(economy.blacklist?.channel?.includes(message.channel.id) || economy.blacklist?.users?.includes(message.user.id) || message.member.roles.cache.hasAny(economy.blacklist?.roles)) &&
+      economy?.enable && eco?.gaining?.chat && eco.currency < eco.currencyCapacity &&
+      message.content.length > (economy.config?.gaining?.chat?.min_message_length ?? client.db.get('guildSettings').default.economy.gaining.chat.min_message_length) &&
+      message.content.length < (economy.config?.gaining?.chat?.max_message_length ?? client.db.get('guildSettings').default.economy.gaining.chat.max_message_length) &&
+      !(economy.config.blacklist?.channel?.includes(message.channel.id) || economy.config.blacklist?.users?.includes(message.user.id) || message.member.roles.cache.hasAny(economy.config.blacklist?.roles)) &&
       !(await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } }))
     ) {
       const currency = parseFloat((eco.currency + eco.gaining.chat + Math.pow(eco.skills.currency_bonus_absolute.lvl, 2) + eco.gaining.chat * Math.pow(eco.skills.currency_bonus_percentage.lvl, 2) / 100).limit(0, eco.currencyCapacity).toFixed(3));

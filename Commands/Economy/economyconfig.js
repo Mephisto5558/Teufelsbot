@@ -80,6 +80,35 @@ module.exports = {
               required: false
             }
           ]
+        },
+        {
+          name: 'gaining_rules',
+          description: 'Rules all about gaining. Use the "get" option for the current settings.',
+          type: 'Subcommand',
+          options: [
+            {
+              name: 'get',
+              description: 'Get all settings and their values.',
+              type: 'Boolean',
+              required: false
+            },
+            {
+              name: 'min_message_length',
+              description: 'The minimum message length required to get souls.',
+              type: 'Number',
+              minValue: 0,
+              maxValue: 5000,
+              required: false
+            },
+            {
+              name: 'max_message_length',
+              description: 'The maximum message length required to get souls.',
+              type: 'Number',
+              minValue: 0,
+              maxValue: 5000,
+              required: false
+            }
+          ]
         }
       ]
     }
@@ -141,7 +170,7 @@ module.exports = {
     }
     else if (interaction.options.getSubcommandGroup() == 'admin') {
       if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild))
-        return interaction.editReply(lang('admin.noPerm'), 30000);
+        return interaction.customReply(lang('admin.noPerm'), 30000);
 
       switch (interaction.options.getSubcommand()) {
         case 'toggle': {
@@ -169,7 +198,7 @@ module.exports = {
             channel = interaction.options.getChannel('channel'),
             role = interaction.options.getRole('role'),
             user = interaction.options.getUser('user'),
-            blacklist = db.get('guildSettings')[interaction.guild.id]?.economy?.blacklist || {};
+            blacklist = db.get('guildSettings')[interaction.guild.id]?.economy?.config?.blacklist || {};
 
           if (!channel && !role && !user) {
             const
@@ -207,7 +236,7 @@ module.exports = {
           blacklist.user = work(user?.id, 'user', blacklist.user);
 
           db.set('guildSettings', db.get('guildSettings').fMerge({
-            [interaction.guild.id]: { economy: { blacklist } }
+            [interaction.guild.id]: { economy: { config: { blacklist } } }
           }, 'overwrite'));
 
           const embed = new EmbedBuilder({
@@ -218,6 +247,35 @@ module.exports = {
           });
 
           return interaction.editReply({ embeds: [embed] });
+        }
+
+        case 'gaining_rules': {
+          const
+            get = interaction.options.getBoolean('get'),
+            oldConfig = db.get('guildSettings')[interaction.guild.id]?.economy?.config || db.get('guildSettings').default.economy.config;
+
+          const config = Object.fromEntries(Object.entries({
+            minMessageLength: interaction.options.getNumber('min_message_length'),
+            maxMessageLength: interaction.options.getNumber('max_message_length')
+          }).filter(([k, v]) => v !== null && v != oldConfig[k]));
+
+          if (get || !config) {
+            const embed = new EmbedBuilder({
+              title: lang('admin.gainingRules.getEmbedTitle'),
+              //description: lang('admin.gainingRules.getEmbedDescription'),
+              color: Colors.White,
+              description: `Good-Looking text coming soon.\n\n\`\`\`json\n${JSON.stringify(db.get('guildSettings').default.economy.config.fMerge(oldConfig), null, 2)}\n\`\`\``
+              //fields: Object.entries(db.get('guildSettings').default.economy.config.fMerge(oldConfig)).slice(0, 25).map(([k, v]) => ({ name: lang(`admin.gainingRules.getConfigList.${k}`), value: v, inline: true }))
+            });
+
+            return interaction.editReply({ embeds: [embed] });
+          }
+
+          if (!Object.keys(config).length) return interaction.customReply(lang('admin.gainingRules.nothingChanged'));
+          return interaction.editReply('WIP');
+          db.set('guildSettings', db.get('guildSettings').fMerge({ [interaction.guild.id]: { economy: { config } } }));
+
+          return interaction.editReply(lang('admin.gainingRules.setSuccess', Object.entries(config).length));
         }
       }
     }
