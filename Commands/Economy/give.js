@@ -56,8 +56,8 @@ module.exports = {
 
     amount = parseInt(amount).limit({ min: 0.1, max: userData.currency }).limit({ max: targetData.currencyCapacity });
 
-    const newUserCurrency = userData.currency - amount;
-    const newTargetCurrency = targetData.currency + amount;
+    const newUserCurrency = (userData.currency - amount).toFixed(3);
+    const newTargetCurrency = (targetData.currency + amount).toFixed(3);
 
     db.set('guildSettings', db.get('guildSettings').fMerge({
       [message.guild.id]: { economy: { [message.user.id]: { currency: newUserCurrency }, [target.id]: { currency: newTargetCurrency } } }
