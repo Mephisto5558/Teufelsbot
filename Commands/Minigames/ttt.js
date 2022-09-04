@@ -1,5 +1,5 @@
 const
-  { ButtonBuilder, ButtonStyle, ActionRowBuilder, ComponentType } = require('discord.js'),
+  { ButtonBuilder, ButtonStyle, ActionRowBuilder, ComponentType, Message } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
   game = new TicTacToe({
     simultaneousGames: true,
@@ -37,10 +37,10 @@ async function gameEnd(input, ids, client) {
   client.db.set('leaderboards', newData);
 }
 
-async function playAgain(interaction, clientUserID, lang) {
-  const opponent = interaction.options.getUser('opponent');
-  const oldRows = (await interaction.fetchReply()).components;
-  const filter = i => [interaction.member.id, opponent?.id].includes(i.member.id) && i.customId == 'playAgain';
+async function playAgain(message, clientUserID, lang) {
+  const opponent = message.options.getUser('opponent') || message.mentions?.users?.first();
+  const oldRows = (await message.fetchReply()).components;
+  const filter = i => [message.member.id, opponent?.id].includes(i.member.id) && i.customId == 'playAgain';
 
   let rows = oldRows;
 
@@ -54,41 +54,47 @@ async function playAgain(interaction, clientUserID, lang) {
 
   if (!rows[3]?.components[0].customId) rows[3] = row;
 
-  await interaction.editReply({ components: rows });
+  await message.customReply({ components: rows });
 
-  const collector = interaction.channel.createMessageComponentCollector({
+  const collector = message.channel.createMessageComponentCollector({
     filter, max: 1, componentType: ComponentType.Button, time: 15000
   });
 
   collector.on('collect', async PAInteraction => {
     await PAInteraction.deferUpdate();
-    await interaction.editReply({ components: [] });
+    await message.customReply({ components: [] });
     collector.stop();
 
-    if (interaction.member.id != PAInteraction.member.id && opponent?.id != clientUserID) {
+    if (message.member.id != PAInteraction.member.id && opponent?.id != clientUserID) {
       if (opponent) {
-        interaction.options._hoistedOptions[0].member = interaction.member;
-        interaction.options._hoistedOptions[0].user = interaction.user;
-        interaction.options._hoistedOptions[0].value = interaction.member.id;
+        if (message instanceof Message) {
+          message.mentions.users.clear();
+          message.mentions.users.set(message.member.id, message.user);
+        }
+        else {
+          message.options._hoistedOptions[0].member = message.member;
+          message.options._hoistedOptions[0].user = message.user;
+          message.options._hoistedOptions[0].value = message.member.id;
 
-        interaction.options.data[0].member = interaction.member;
-        interaction.options.data[0].user = interaction.user;
-        interaction.options.data[0].value = interaction.member.id;
+          message.options.data[0].member = message.member;
+          message.options.data[0].user = message.user;
+          message.options.data[0].value = message.member.id;
 
-        interaction.options.resolved.members.set(interaction.member.id, interaction.member);
-        interaction.options.resolved.users.set(interaction.member.id, interaction.user);
+          message.options.resolved.members.set(message.member.id, message.member);
+          message.options.resolved.users.set(message.member.id, message.user);
+        }
       }
 
-      interaction.member = PAInteraction.member;
-      interaction.user = PAInteraction.user;
+      message.member = PAInteraction.member;
+      message.user = PAInteraction.user;
     }
 
-    if (interaction.options._hoistedOptions[0]?.user) {
-      const msg = await interaction.channel.send(lang('newChallenge', interaction.options._hoistedOptions[0].user.id));
+    if (message.options._hoistedOptions[0]?.user) {
+      const msg = await message.channel.send(lang('newChallenge', message.options._hoistedOptions[0].user.id));
       setTimeout(_ => msg.delete(), 5000);
     }
 
-    game.handleInteraction(interaction);
+    message instanceof Message ? game.handleMessage(message) : game.handleInteraction(message);
   });
 
   collector.on('end', collected => {
@@ -100,7 +106,7 @@ async function playAgain(interaction, clientUserID, lang) {
       }
     }
 
-    interaction.editReply({ components: oldRows });
+    message.customReply({ components: oldRows });
   })
 }
 
@@ -109,11 +115,11 @@ module.exports = {
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
   description: 'play some ttt against a friend or the bot',
   usage: '',
-  permissions: { client: [], user: [] },
+  permissions: { client: ['EmbedLinks', 'ManageMessages'], user: [] },
   cooldowns: { guild: 0, user: 2000 },
   category: 'Minigames',
   slashCommand: true,
-  prefixCommand: false,
+  prefixCommand: true,
   options: [{
     name: 'opponent',
     description: 'who you want to play with',
@@ -121,20 +127,20 @@ module.exports = {
     required: false
   }],
 
-  run: async (interaction, lang, client) => {
+  run: async (message, lang, client) => {
     return interaction.editReply("'This command is currently disabled due to it not being compatible to the bot's discord.js version.");
 
-    const gameTarget = interaction.options.getUser('opponent');
+    const gameTarget = message.options?.getUser('opponent') || message.mentions?.users?.first();
 
     if (gameTarget?.id == client.user.id) game.config.commandOptionName = 'thisOptionWillNotGetUsed';
-    game.config.language = client.db.get('guildSettings')[interaction.guild.id]?.config?.lang || interaction.guild.preferredLocale;
+    game.config.language = client.db.get('guildSettings')[message.guild.id]?.config?.lang || message.guild.preferredLocale.slice(0, 2);
 
     if (gameTarget) {
-      const msg = await interaction.channel.send(lang('newChallenge', gameTarget.id));
-      setTimeout(_ => msg.delete(), 5000);
+      const msg = await message.channel.send(lang('newChallenge', gameTarget.id));
+      setTimeout(msg.delete.bind(msg), 5000);
     }
 
-    game.handleInteraction(interaction);
+    message instanceof Message ? game.handleMessage(message) : game.handleInteraction(message);
 
     game.on('win', async data => {
       let newData = [];
@@ -143,7 +149,7 @@ module.exports = {
       newData[1] = await workStatsData(data.loser.id, data.winner.id, 'lose', client);
 
       await gameEnd(newData, [data.winner.id, data.loser.id], client);
-      playAgain(interaction, client.user.id, lang);
+      playAgain(message, client.user.id, lang);
     });
 
     game.on('tie', async data => {
@@ -153,7 +159,7 @@ module.exports = {
       newData[1] = await workStatsData(data.players[1].id, data.players[0].id, 'draw', client);
 
       await gameEnd(newData, [data.players[0].id, data.players[1].id], client);
-      playAgain(interaction, client.user.id, lang);
+      playAgain(message, client.user.id, lang);
     })
 
   }
