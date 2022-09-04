@@ -39,11 +39,14 @@ class I18nProvider {
   loadAllLocales() {
     this.localeData = {};
     for (const [key] of this.availableLocales) this.loadLocale(key);
+
+    if (!this.localeData[this.config.defaultLocale])
+      throw new Error(`There are no language files for the default locale (${this.config.defaultLocale}) in the supplied locales path!`);
   }
 
   __({ locale = this.config.defaultLocale, backUpPath } = {}, key, replacements = {}) {
-    let message = this.localeData[locale][key] || this.localeData[this.config.defaultLocale][key];
-    if (!message && backUpPath) message = this.localeData[locale][`${backUpPath}.${key}`] || this.localeData[this.config.defaultLocale][`${backUpPath}.${key}`];
+    let message = this.localeData[locale]?.[key] || this.localeData[this.config.defaultLocale][key];
+    if (!message && backUpPath) message = this.localeData[locale]?.[`${backUpPath}.${key}`] || this.localeData[this.config.defaultLocale][`${backUpPath}.${key}`];
 
     if (!message) return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
     if (Array.isArray(message)) message = message.random();
