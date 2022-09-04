@@ -44,14 +44,14 @@ class I18nProvider {
   __({ locale = this.config.defaultLocale, backUpPath } = {}, key, replacements = {}) {
     let message = this.localeData[locale][key] || this.localeData[this.config.defaultLocale][key];
     if (!message && backUpPath) message = this.localeData[locale][`${backUpPath}.${key}`] || this.localeData[this.config.defaultLocale][`${backUpPath}.${key}`];
-    
+
     if (!message) return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
     if (Array.isArray(message)) message = message.random();
 
     if (typeof replacements != 'object') message = message.replace(/{\w+}/, replacements.toString());
     else {
       for (const [key, value] of Object.entries(replacements))
-        message = message.replaceAll(`{${key}}`, value.toString());
+        if (value !== undefined && value !== null) message = message.replaceAll(`{${key}}`, value.toString());
     }
 
     return message;
