@@ -44,7 +44,7 @@ class I18nProvider {
   __({ locale = this.config.defaultLocale, backUpPath } = {}, key, replacements = {}) {
     let message = this.localeData[locale][key] || this.localeData[this.config.defaultLocale][key];
     if (!message && backUpPath) message = this.localeData[locale][`${backUpPath}.${key}`] || this.localeData[this.config.defaultLocale][`${backUpPath}.${key}`];
-
+    
     if (!message) return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
     if (Array.isArray(message)) message = message.random();
 
@@ -61,7 +61,7 @@ class I18nProvider {
     return Object.keys(object).reduce((acc, key) => {
       const newObjectPath = [objectPath, key].filter(Boolean).join(this.config.separator);
 
-      return Object.assign(Object.assign({}, acc), typeof object?.[key] == 'object'
+      return Object.assign(Object.assign({}, acc), typeof object?.[key] == 'object' && !Array.isArray(object[key])
         ? this.flatten(object[key], newObjectPath)
         : { [newObjectPath]: object[key] }
       );
