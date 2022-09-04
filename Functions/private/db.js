@@ -9,11 +9,11 @@ module.exports = class DB {
       Mongoose.connect(dbConnectionString);
     }
 
-    this.ready();
+    this.fetchAll();
   }
 
-  async ready() {
-    await this.schema.find({}).then(data => data.forEach(({ key, value }) => this.collection.set(key, value)));
+  async fetchAll() {
+    for (const { key, value } of await this.schema.find({})) this.collection.set(key, value);
     return this;
   }
 

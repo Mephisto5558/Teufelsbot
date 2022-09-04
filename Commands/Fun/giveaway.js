@@ -47,7 +47,8 @@ module.exports = {
         {
           name: 'channel',
           description: 'the channel the giveaway should get created in',
-          type: 'String',
+          type: 'Channel',
+          channelTypes: ['GuildText', 'GuildNews'],
           required: false
         },
         {

@@ -65,13 +65,13 @@ console.time('Starting time');
 
   if (existsSync('./env.json')) env = require('./env.json');
   else {
-    client.db = await new DB(process.env.dbConnectionStr).ready();
+    client.db = await new DB(process.env.dbConnectionStr).fetchAll();
     env = client.db.get('botSettings').env;
   }
 
   env = env.global.fMerge(env[env.global.environment]);
 
-  if (!client.db) client.db = await new DB(env.dbConnectionStr).ready();
+  if (!client.db) client.db = await new DB(env.dbConnectionStr).fetchAll();
 
   client.botType = env.environment;
   client.functions = {};
