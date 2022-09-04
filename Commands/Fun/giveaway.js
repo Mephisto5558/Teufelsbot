@@ -197,7 +197,7 @@ module.exports = {
       giveaway = giveawaysManager.giveaways.find(g => g.guildId == interaction.guild.id && g.messageId == giveawayId);
 
       if (!giveaway) return interaction.editReply(lang('notFound'));
-      if (giveaway.hostedBy.slice(2, -1) !== interaction.user.id && interaction.member.permissions.missing(PermissionFlagsBits.Administrator))
+      if (giveaway.hostedBy.slice(2, -1) !== interaction.user.id && !interaction.member.permissions.has(PermissionFlagsBits.Administrator))
         return interaction.editReply(lang('notHost'));
     }
 
