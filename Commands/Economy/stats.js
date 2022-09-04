@@ -7,7 +7,7 @@ module.exports = {
   usage: 'stats [user]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
-  category: 'userDatanomy',
+  category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
   options: [{
