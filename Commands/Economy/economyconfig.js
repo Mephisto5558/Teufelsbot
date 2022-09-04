@@ -181,9 +181,9 @@ module.exports = {
                 title: lang('admin.blacklist.embedTitle'),
                 description: lang('admin.blacklist.listEmbedDescription'),
                 fields: [
-                  { name: lang('admin.blacklist.channels'), value: channelList || 'none', inline: false },
-                  { name: lang('admin.blacklist.roles'), value: roleList || 'none', inline: false },
-                  { name: lang('admin.blacklist.user'), value: userList || 'none', inline: false }
+                  { name: lang('admin.blacklist.channels'), value: channelList || lang('global.none'), inline: false },
+                  { name: lang('admin.blacklist.roles'), value: roleList || lang('global.none'), inline: false },
+                  { name: lang('admin.blacklist.user'), value: userList || lang('global.none'), inline: false }
                 ],
                 color: Colors.White
               });
@@ -191,7 +191,7 @@ module.exports = {
             return interaction.editReply({ embeds: [embed] });
           }
           const
-            status = { channel: channel ? `+ ${channel.name}` : 'none', role: role ? `+ ${role.name}` : 'none', user: user ? `+ ${user.tag}` : 'none' },
+            status = { channel: channel ? `+ ${channel.name}` : lang('global.none'), role: role ? `+ ${role.name}` : lang('global.none'), user: user ? `+ ${user.tag}` : lang('global.none') },
             work = (id, type, list = []) => {
               if (list.includes(id)) {
                 list = list.filter(e => e != id);
