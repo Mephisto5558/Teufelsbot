@@ -38,7 +38,7 @@ module.exports = {
         description:
           lang('currency', { num: userData.currency, max: userData.currencyCapacity }) +
           lang('dailyStreak', userData.dailyStreak) +
-          lang('rank', !isNaN(rank) && rank ? rank : lang('none'))
+          lang('rank', !isNaN(rank) && rank ? rank : lang('global.none'))
       });
 
     message.customReply({ embeds: [embed] });

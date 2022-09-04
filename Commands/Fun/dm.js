@@ -1,4 +1,4 @@
-const { EmbedBuilder, Colors } = require('discord.js');
+const { PermissionFlagsBits, EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'dm',
@@ -62,7 +62,7 @@ module.exports = {
     const
       cmd = interaction.options.getSubcommand(),
       messageToSend = interaction.options.getString('message'),
-      perm = interaction.member.permissions.has('ManageMessages'),
+      perm = interaction.member.permissions.has(PermissionFlagsBits.ManageMessages),
       asMod = (interaction.options.getBoolean('as_mod') && perm),
       oldData = db.get('userSettings'),
       blacklist = Object.assign({}, ...Object.entries(oldData).filter(([, v]) => v.dmBlockList).map(([k, v]) => ({ [k]: v.dmBlockList }))),

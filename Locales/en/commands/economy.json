@@ -7,11 +7,10 @@
         "description": "The user you want to get the account of"
       }
     },
-    "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. He/She has to run `/economyconfig user start`",
+    "targetEconomyNotInitialized": "This person has not started playing yet. He/She has to run `/economyconfig user start`",
     "currency": "Souls: **{num}**/**{max}** <:soul:1011962640349810688>\n",
     "dailyStreak": "Daily Streak: **{streak}** <:souls:1011962960840773673>\n",
-    "rank": "Rank: **{rank}**\n",
-    "none": "none"
+    "rank": "Rank: **{rank}**\n"
   },
   "daily": {
     "description": "Get your daily souls!",
