@@ -57,25 +57,25 @@ module.exports = {
         },
         {
           name: 'blacklist',
-          description: 'Blacklist something or someone from all gaining methods. Select nothing to get the current blacklist',
+          description: 'Allow or disallow something or someone for all gaining methods.',
           type: 'Subcommand',
           options: [
             {
               name: 'channel',
-              description: 'Blacklist a channel from all gaining methods (eg. chat messages in a spam channel).',
+              description: 'Allow or disallow a channel from all gaining methods (eg. chat messages in a spam channel).',
               type: 'Channel',
               channelTypes: ['GuildText', 'GuildNews'],
               required: false
             },
             {
               name: 'role',
-              description: 'Blacklist a role from all gaining methods (eg. chat messages in all channels).',
+              description: 'Allow or disallow a role from all gaining methods (eg. chat messages in all channels).',
               type: 'Role',
               required: false
             },
             {
               name: 'user',
-              description: 'Blacklist a user from all gaining methods (eg. chat messages in all channels).',
+              description: 'Allow or disallow a user from all gaining methods (eg. chat messages in all channels).',
               type: 'User',
               required: false
             }
@@ -166,9 +166,9 @@ module.exports = {
 
         case 'blacklist': {
           const
-            channel = interaction.options.getChannel('channel')?.id,
-            role = interaction.options.getRole('role')?.id,
-            user = interaction.options.getUser('user')?.id,
+            channel = interaction.options.getChannel('channel'),
+            role = interaction.options.getRole('role'),
+            user = interaction.options.getUser('user'),
             blacklist = db.get('guildSettings')[interaction.guild.id]?.economy?.blacklist || {};
 
           if (!channel && !role && !user) {
@@ -191,20 +191,20 @@ module.exports = {
             return interaction.editReply({ embeds: [embed] });
           }
           const
-            status = { [channel]: `+ <#${channel}>`, [role]: `+ <&@${role}>`, [user]: `+ <@${user}>` },
-            work = (id, list = []) => {
+            status = { channel: channel ? `+ ${channel.name}` : 'none', role: role ? `+ ${role.name}` : 'none', user: user ? `+ ${user.tag}` : 'none' },
+            work = (id, type, list = []) => {
               if (list.includes(id)) {
                 list = list.filter(e => e != id);
-                status[id][0] = '-';
+                status[type][0] = '-';
               }
               else if (id) list.push(id);
 
               return list;
             }
 
-          blacklist.channels = work(channel, blacklist.channels);
-          blacklist.roles = work(role, blacklist.roles);
-          blacklist.user = work(user, blacklist.user);
+          blacklist.channels = work(channel?.id, 'channel', blacklist.channels);
+          blacklist.roles = work(role?.id, 'role', blacklist.roles);
+          blacklist.user = work(user?.id, 'user', blacklist.user);
 
           db.set('guildSettings', db.get('guildSettings').fMerge({
             [interaction.guild.id]: { economy: { blacklist } }
@@ -212,9 +212,9 @@ module.exports = {
 
           const embed = new EmbedBuilder({
             title: lang('admin.blacklist.embedTitle'),
-            description: lang('admin.blacklist.setEmbedDescription', { a: status.channel, b: status.role, c: status.user }),
+            description: lang('admin.blacklist.setEmbedDescription', { channel: status.channel, role: status.role, user: status.user }),
             footer: { text: lang('admin.blacklist.setFooterText') },
-            Colors: Colors.White
+            color: Colors.White
           });
 
           return interaction.editReply({ embeds: [embed] });

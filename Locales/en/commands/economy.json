@@ -47,16 +47,16 @@
             }
           },
           "blacklist": {
-            "description": "Blacklist something or someone from all gaining methods.",
+            "description": "Allow or disallow something or someone for all gaining methods.",
             "options": {
               "channel": {
-                "description": "Blacklist a channel from all gaining methods (eg. chat messages in a spam channel)."
+                "description": "Allow or disallow a channel from all gaining methods (eg. chat messages in a spam channel)."
               },
               "role": {
-                "description": "Blacklist a role from all gaining methods (eg. chat messages in all channels)."
+                "description": "Allow or disallow a role from all gaining methods (eg. chat messages in all channels)."
               },
               "user": {
-                "description": "Blacklist a user from all gaining methods (eg. chat messages in all channels)."
+                "description": "Allow or disallow a user from all gaining methods (eg. chat messages in all channels)."
               }
             }
           }
@@ -87,9 +87,9 @@
         "roles": "Roles",
         "user": "User",
         "embedTitle": "Economy Gaining Blacklist",
-        "listEmbedDescription": "This guild is currently blacklisting the follwing:",
-        "setEmbedDescription": "The following changed have been made:\n```diff\n{a}\n\n{b}\n\n{c}\n```",
-        "setFooterText": "Run this command withput arguments to get the whole blacklist."
+        "listEmbedDescription": "This guild is currently blacklisting the following objects from gaining souls:",
+        "setEmbedDescription": "The following changed have been made:\n```diff\nChannel:\n{channel}\n\nRole:\n{role}\n\nUser:\n{user}\n```",
+        "setFooterText": "Run this command without arguments to get the whole blacklist."
       }
     }
   },
