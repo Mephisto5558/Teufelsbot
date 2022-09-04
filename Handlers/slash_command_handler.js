@@ -24,7 +24,7 @@ function format(option) {
   if (option.options) option.options = option.options.map(e => format(e));
   if (!option.description) option.description = ' ';
   else if (option.description.length > 100) {
-    client.error(`WARN: Description of option ${option} is too long (max length 100)!`);
+    console.error(`WARN: Description of option ${option.name} is too long (max length 100)!`);
     option.description = option.description.substring(0, 100);
   }
 
