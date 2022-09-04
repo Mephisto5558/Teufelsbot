@@ -56,11 +56,11 @@ module.exports = async (client, message) => {
 
   const lang = I18nProvider.__.bind(I18nProvider, { locale: config?.lang || message.guild.preferredLocale.slice(0, 2), backUpPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
-  if (command.category.toLowerCase() == 'economy' && command.name != 'economy' && !client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id]?.gaining?.chat)
-    return message.customReply(lang('events.economyNotInitialized'), message, 15000);
-
   const cooldown = await require('../Functions/private/cooldowns.js')(client, message, command);
   if (cooldown && !client.botType == 'dev') return message.customReply(lang('events.cooldown', cooldown));
+
+  if (command.category.toLowerCase() == 'economy' && command.name != 'economy' && !client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id]?.gaining?.chat)
+    return message.customReply(lang('events.economyNotInitialized'), message, 15000);
 
   const userPermsMissing = message.member.permissionsIn(message.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
   const botPermsMissing = message.guild.members.me.permissionsIn(message.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);
