@@ -1,3 +1,5 @@
+const { PermissionFlagsBits } = require('discord.js');
+
 module.exports = {
   name: 'prefix',
   aliases: { prefix: [], slash: [] },
@@ -28,7 +30,7 @@ module.exports = {
     const prefixCaseInsensitive = message.options?.getBoolean('case_insensitive') ?? false;
     const oldData = db.get('guildSettings');
 
-    if (newPrefix && message.member.permissions.has('ManageGuild')) {
+    if (newPrefix && message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
       const newData = oldData.fMerge({ [message.guild.id]: { config: { prefix: { prefix: newPrefix, caseinsensitive: prefixCaseInsensitive } } } });
       db.set('guildSettings', newData);
 

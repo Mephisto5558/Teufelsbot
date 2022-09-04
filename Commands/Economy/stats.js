@@ -47,7 +47,7 @@ module.exports = {
         name: lang('skills.name'), value: (Object.entries(userData.skills)
           .filter(([, { lvl }]) => lvl)
           .map(([k, { lvl }]) => lang(`skills.${k}`) + lang('level', lvl))
-          .join('\n') || 'none')
+          .join('\n') || lang('global.none'))
       }
     ],
       embed = new EmbedBuilder({

@@ -103,8 +103,7 @@
     "position": "Position",
     "createdAt": "Created At",
     "permissions": "Permissions",
-    "admin": "Administrator",
-    "none": "none"
+    "admin": "Administrator"
   },
   "serverinfo": {
     "description": "Get information about this guild",
@@ -140,7 +139,6 @@
     "admin": "Administrator",
     "guildMod": "Guild Moderator",
     "guildMember": "Guild Member",
-    "none": "none",
     "mention": "Mention",
     "type": "Type",
     "roles": "Roles",
