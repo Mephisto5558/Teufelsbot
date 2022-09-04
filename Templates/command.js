@@ -12,6 +12,7 @@ module.exports = {
   showInHelp: true,
   noDefer: false,
   ephemeralDefer: false,
+  requireEconomy: false,
   options: [{
     name: '',
     description: '',

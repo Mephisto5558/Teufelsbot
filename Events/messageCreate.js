@@ -9,7 +9,7 @@ module.exports = async (client, message) => {
   const { blacklist } = client.db.get('botSettings');
   if (blacklist?.includes(message.author.id)) return;
 
-  const { config, triggers } = client.db.get('guildSettings')[message.guild.id] || {};
+  const { config, triggers, economy } = client.db.get('guildSettings')[message.guild.id] || {};
 
   if (message.crosspostable && config?.autopublish) message.crosspost();
   if (message.author.bot) return;
@@ -27,7 +27,7 @@ module.exports = async (client, message) => {
   else {
     if (message.content.length > 5) {
       if (!(await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } }))) {
-        const eco = client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id];
+        const eco = economy?.[message.author.id];
         if (!eco?.gaining?.chat || eco.currency == eco.currencyCapacity) return;
 
         const currency = parseFloat((eco.currency + eco.gaining.chat + Math.pow(eco.skills.currency_bonus_absolute.lvl, 2) + eco.gaining.chat * Math.pow(eco.skills.currency_bonus_percentage.lvl, 2) / 100).limit(0, eco.currencyCapacity).toFixed(3));
@@ -58,7 +58,7 @@ module.exports = async (client, message) => {
   const cooldown = await require('../Functions/private/cooldowns.js')(client, message, command);
   if (cooldown && !client.botType == 'dev') return message.customReply(lang('events.cooldown', cooldown));
 
-  if (command.category.toLowerCase() == 'economy' && command.name != 'economy' && !client.db.get('guildSettings')[message.guild.id]?.economy?.[message.author.id]?.gaining?.chat)
+  if (command.requireEconomy && !economy?.[message.author.id]?.gaining?.chat)
     return message.customReply(lang('events.economyNotInitialized'), message, 15000);
 
   const userPermsMissing = message.member.permissionsIn(message.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
