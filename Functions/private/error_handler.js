@@ -41,7 +41,7 @@ module.exports = async (err, { keys, botType, error = console.error } = {}, mess
       msg = await message.customReply({ embeds: [embed], components: [comp] });
   }
 
-  if (!msg) return;
+  if (!msg || botType == 'dev') return;
 
   const collector = message.createMessageComponentCollector?.({ filter: i => i.customId == 'reportError', max: 1, componentType: ComponentType.Button, time: 60000 }) || message.channel.createMessageComponentCollector({ filter: i => i.customId == 'reportError', max: 1, componentType: ComponentType.Button, time: 60000 });
   collector.on('collect', async button => {
