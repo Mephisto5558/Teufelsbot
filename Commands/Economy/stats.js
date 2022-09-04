@@ -21,7 +21,7 @@ module.exports = {
   run: async (message, lang, { db }) => {
     const
       target = message.options?.getUser('user') || message.mentions?.users?.first() || message.user,
-      userData = db.get('guildSettings')[message.guild.id]?.userDatanomy?.[target.id];
+      userData = db.get('guildSettings')[message.guild.id]?.economy?.[target.id];
 
     if (!userData?.gaining?.chat) return message.customReply(lang('noStats'));
 
