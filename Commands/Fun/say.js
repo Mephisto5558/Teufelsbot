@@ -1,4 +1,4 @@
-const { PermissionFlagsBits } = require('discord.js');
+const { PermissionFlagsBits, Message } = require('discord.js');
 
 module.exports = {
   name: 'say',
@@ -25,7 +25,7 @@ module.exports = {
       channelTypes: ['GuildText'],
       required: false
     }
-  ],beta:true,
+  ],
 
   run: async (message, lang) => {
     const msg = message.args?.[0] || message.options?.getString('msg');
@@ -35,6 +35,6 @@ module.exports = {
     if (!msg) return message.customReply(lang('noMsgProvided'));
 
     await channel.send(msg.replaceAll('/n', '\n'));
-    message.customReply(lang('global.messageSent'));
+    message instanceof Message ? message.react(':thumbsup:') : message.customReply(lang('global.messageSent'));
   }
 }
