@@ -1,6 +1,6 @@
 {
   "avatar": {
-    "description": "show the user's avatar",
+    "description": "shows the user's avatar",
     "options": {
       "target": {
         "description": "the user you want to get the avatar of"
@@ -22,7 +22,7 @@
     "usage": "PREFIX Command: help [command]",
     "options": {
       "command": {
-        "description": "Type a command here to get more information about it."
+        "description": "Wich command do you want to get stats about?"
       }
     },
     "one": {
@@ -51,14 +51,15 @@
     "shard": "Shard",
     "starts": "Starts",
     "lastStart": "Last start",
-    "links": "**[Invite]({inviteUrl})** | **[Dashboard]({dashboardUrl})** | **[Privacy Policy]({ppUrl})**",
+    "translation": "Translation:\nEnglish: {en}, German: {de}\n",
+    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Privacy Policy]({PrivacyPolicy})**",
     "embedTitle": "Stats",
     "embedFooterText": "More stats are coming soon!"
   },
   "invite": {
     "description": "Sends a link to add the bot to your guild.",
     "embedTitle": "Invite",
-    "embedDescription": "Thank you for your interest! Click [here]({url}) to add me to your guild."
+    "embedDescription": "Thank you for your interest! Click [here]({url}) to add me to your guild. ^^"
   },
   "ping": {
     "description": "Get the bot's ping",

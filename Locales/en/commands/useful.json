@@ -9,7 +9,7 @@
         "description": "the name of the new emoji"
       },
       "limit_to_roles": {
-        "description": "the role(s) that are allowed to use the emoji. Separate them with spaces."
+        "description": "the role(s) that is/are allowed to use the emoji. Separate them with spaces."
       }
     },
     "embedTitle": "Add Emoji",
@@ -23,7 +23,7 @@
   },
   "autopublish": {
     "description": "automatically publishes everything anyone in any announcement channel says",
-    "usage": "This command publishes all messages send in announcement channels automatically.\nThis is a toggle.",
+    "usage": "This command publishes all messages sent in announcement channels automatically.\nThis is a toggle.",
     "success": "{toggle} autopublishing."
   },
   "convert": {
@@ -48,7 +48,7 @@
         "description": "Do you want to convert only letters and digits? Default: false"
       }
     },
-    "convertToSame": "Converting `{inputType}` to `{outputType}` would be a waste of time.\nStop wasting my time.\n||If your input is not {inputType}, than make sure it is valid and if it is, message the dev. Also make sure you selected the `is_octal` option if your input is octal.||",
+    "convertToSame": "Converting `{inputType}` to `{outputType}` would be a waste of time.\nStop wasting my time D:<\n||If your input is not {inputType}, than make sure it is valid and if it is, message the dev. Also make sure you selected the `is_octal` option if your input is octal.||",
     "success": "```Converted {inputType} to {outputType}: ```\n"
   },
   "embed": {
@@ -113,7 +113,7 @@
     "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
   },
   "math": {
-    "description": "Run some math",
+    "description": "Runs some math",
     "usage": "math [expression]",
     "options": {
       "expression": {
@@ -121,7 +121,7 @@
       }
     },
     "noInput": "You have not given any input.",
-    "help": "Help and Information\n\nThis calculator supports many mathematic operations, not only the basic ones.\nYou can use variables like this: `x=10`.\nYou can use multiple statements by using a new line or a `;`. `x=10;x+10` returns `20`.\nYou need to use `*` for multiplying.\nThe calculator suppots outputting multiple results.\nSometimes, unnecessary spaces make the expression error.",
+    "help": "Help and Information\n\nThis calculator supports many mathematic operations, not only the basic ones.\nYou can use variables like this: `x=10`.\nYou can use multiple statements by using a new line or a `;`. `x=10;x+10` returns `20`.\nYou need to use `*` for multiplying.\nThe calculator suppots outputting multiple results.\nSometimes unnecessary spaces are making the expression error.",
     "error": "An error occurred while trying to solve your expression:\n```{err}```",
     "separated": "Results separated with \"|\":\n{results}",
     "success": "Expression:\n```{expression}```\nResult:\n```{result}```"
@@ -136,10 +136,10 @@
         "description": "How many passwords do you want to generate?"
       },
       "exclude_chars": {
-        "description": "characters you wont have in your password"
+        "description": "characters you won't have in your password"
       },
       "include_chars": {
-        "description": "characters you want have in your password, additional to the default charset."
+        "description": "characters you want to have in your password, additional to the default charset."
       }
     },
     "charsetEmpty": "you excluded all chars of the charset...",

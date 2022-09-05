@@ -6,10 +6,10 @@
         "description": "Mention member(s) or put ID(s) in to ban them. Put a space between each target."
       },
       "reason": {
-        "description": "The target(s) will see the reason in DMs"
+        "description": "The target(s) is/are going to see the reason in DMs"
       },
       "duration": {
-        "description": "How long you want to get the target(s) banned."
+        "description": "How long do you want to get the target(s) banned?"
       },
       "delete_days_of_messages": {
         "description": "Delete all messages of the targets of the last n days."
@@ -22,7 +22,7 @@
     "cantBanSelf": "You can't ban yourself!",
     "noneFound": "No targets have been found.",
     "noPerm": "{IYou} don't have the permission to do that!",
-    "error": "**{user}** couldn't been banned.\n{err}\n",
+    "error": "**{user}** couldn't be banned.\n{err}\n",
     "success": "**{user}** has been successfully banned.\n",
     "noDm": "I couldn't DM the target."
   },
@@ -33,7 +33,7 @@
         "description": "Mention member(s) or put ID(s) in to kick them. Put a space between each target."
       },
       "reason": {
-        "description": "The target(s) will see the reason in DMs"
+        "description": "The target(s) is/are going to see the reason in DMs"
       }
     },
     "dmEmbedTitle": "Kicked",
@@ -43,7 +43,7 @@
     "noneFound": "No targets have been found.",
     "cantKickSelf": "You can't kick yourself!",
     "noPerm": "{IYou} don't have the permission to do that!",
-    "error": "**{user}** couldn't been kicked.\n{err}\n",
+    "error": "**{user}** couldn't be kicked.\n{err}\n",
     "success": "**{user}** has been successfully kicked.\n",
     "noDm": "I couldn't DM the target."
   },
@@ -52,7 +52,7 @@
     "usage": "lock [channel] [reason]",
     "options": {
       "channel": {
-        "description": "the channel you want to lock"
+        "description": "What channel do you want to lock?"
       },
       "reason": {
         "description": "The reason for locking the channel"
@@ -68,13 +68,13 @@
     "usage": "Duration options: you need to provide at least one.",
     "options": {
       "target": {
-        "description": "who you want to mute"
+        "description": "Who do you want to mute?"
       },
       "reason": {
-        "description": "The target will see the reason in DMs"
+        "description": "The target is going to see the reason in DMs"
       },
-      "duration": {
-        "description": "For how long you want to mute the target (eg. 1w3d2h5min, default 1h, max. 28d)"
+      "duration": { 
+        "description": "For how long do you want to mute the target? (eg. 1w3d2h5min, default 1h, max. 28d)"
       }
     },
     "dmEmbedTitle": "Muted",
@@ -120,7 +120,7 @@
     "usage": "unlock [channel] [reason]",
     "options": {
       "channel": {
-        "description": "The channel you want to unlock"
+        "description": "What channel do you want to unlock?"
       },
       "reason": {
         "description": "The reason for unlocking the channel"
@@ -136,10 +136,10 @@
     "description": "lifts the timeout of a member",
     "options": {
       "target": {
-        "description": "who you want to unmute"
+        "description": "who do you want to unmute?"
       },
       "reason": {
-        "description": "why you want to unmute the target"
+        "description": "why do you want to unmute the target?"
       }
     },
     "noReason": "no reason specified",
