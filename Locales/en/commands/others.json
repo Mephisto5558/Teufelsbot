@@ -9,7 +9,7 @@
         "description": "your suggestion for the bot"
       },
       "importance": {
-        "description": "how important you think your suggestion is",
+        "description": "How important is your suggestion?",
         "choices": {
           "low": "Low",
           "medium": "Medium",

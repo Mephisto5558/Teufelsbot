@@ -1,7 +1,7 @@
 {
   "blacklistuser": {
-    "description": "blocks a user from using the bot",
-    "usage": "PREFIX Command: blacklistuser <user id | @user>",
+    "description": "blocks an user from using the bot",
+    "usage": "PREFIX Command: blacklistuser <user id>",
     "notFound": "Found no entry for this id.",
     "saved": "`{user}` has been blacklisted from using the bot.",
     "removed": "The blacklist entry for `{user}` has been removed.",
@@ -36,7 +36,7 @@
     "validCommandList": "Valid commands in this category are:\n`{commands}`, `*`",
     "error": "An error occurred.\n```{err}```",
     "noneReloaded": "No commands have been reloaded.",
-    "reloaded": "The following `{count}` command(s) have been reloaded:\n`{commands}`"
+    "reloaded": "The following `{count}` command(s) has/have been reloaded:\n`{commands}`"
   },
   "reloadlang": {
     "description": "Reloads all language files",

@@ -6,14 +6,17 @@
         "description": "What do you want my opinion on?"
       }
     },
-    "noQuestion": "You didn't ask me anything??",
+    "noQuestion": "You didn't ask me anything???",
     "responseList": [
       "As I see it, yes.",
       "It is certain.",
       "It is decidedly so.",
       "Most likely.",
       "Yes.",
+      "Yesssss", 
+      "Yessss Sir.",
       "Yes – definitely.",
+      "Your question delights me, my answer is: of course", 
       "You may rely on it.",
       "Outlook good.",
       "Signs point to yes.",
@@ -24,10 +27,14 @@
       "Concentrate and ask again.",
       "Reply hazy, try again.",
       "Don’t count on it.",
+      "No.",
+      "Noooooo!",
       "My reply is no.",
       "My sources say no.",
       "Outlook not so good.",
-      "Very doubtful."
+      "Very doubtful." ,
+      "I don't think so.",
+      "Broooooo, you dummy, your question makes no sense?!"
     ]
   },
   "afk": {
@@ -40,13 +47,13 @@
         "description": "set your own birthday",
         "options": {
           "day": {
-            "description": "The day you was born in."
+            "description": "The day you were born."
           },
           "month": {
-            "description": "The month you was born in."
+            "description": "The month you were born."
           },
           "year": {
-            "description": "The year you was born in."
+            "description": "The year you were born."
           }
         }
       },
@@ -79,11 +86,11 @@
       "11": "November",
       "12": "December"
     },
-    "saved": "Your Birthday has been saved.",
+    "saved": "Your birthday has been saved.",
     "removed": "Your birthday has been removed.",
     "getUser": {
       "notFound": "This user has no birthday :(",
-      "embedTitle": "{user}'s Birthday",
+      "embedTitle": "{user}'s birthday",
       "date": "This user has birthday on **{month} {day}**.\n",
       "newAge": "He/she will turn **{age}** on this day."
     },
@@ -94,13 +101,13 @@
     }
   },
   "dm": {
-    "description": "sends a user a dm",
+    "description": "sends an user a dm",
     "options": {
       "toggle": {
         "description": "toggles the ability to send you user-made dms",
         "options": {
           "target": {
-            "description": "the user you want to toggle, leave this empty to toggle all users (\"*\")."
+            "description": "the user you want to toggle; leave this empty to toggle all users (\"*\")."
           }
         }
       },
@@ -135,12 +142,12 @@
       "removed": "Your blacklist entry for {user} has been removed.\nYou can now receive dms created by {user} from me."
     },
     "blacklist": {
-      "notFound": "> You are not blocking any users on this guild.",
-      "allBlocked": "> You are blocking all users.",
+      "notFound": "> You are not blocking any users of this guild.",
+      "allBlocked": "> You are blocking everyone.",
       "embedTitle": "Your blacklist for the `/dm send` command",
       "embedDescription": "You are blocking the following guild members:\n{members}",
       "embedFooterText": "run '/dm toggle' without arguments to toggle all users and\nrun '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user."
-    },
+    }, 
     "send": {
       "targetIsMe": "I cannot send DMs to myself!",
       "permissionDenied": "You are not allowed to send dms to that user!",
@@ -153,7 +160,7 @@
     }
   },
   "fact": {
-    "description": "get some facts"
+    "description": "get some facts, they're really cool and usefull, rely on me :D"
   },
   "giveaway": {
     "description": "Giveaway commands",
@@ -168,7 +175,7 @@
             "description": "The giveaway embed description"
           },
           "channel": {
-            "description": "The channel this giveaway should get created in"
+            "description": "The channel this giveaway should be created in"
           },
           "duration": {
             "description": "The giveaway duration: eg. 1w3d2h5min"
@@ -177,7 +184,7 @@
             "description": "The number of winners"
           },
           "reaction": {
-            "description": "The emoji users have to react with to participate"
+            "description": "The emoji, users have to react with to participate"
           },
           "thumbnail": {
             "description": "The thumbnail url to use"
@@ -240,7 +247,7 @@
         }
       },
       "reroll": {
-        "description": "Reroll a ended giveaway",
+        "description": "Reroll an ended giveaway",
         "options": {
           "id": {
             "description": "The id of the giveaway embed"
@@ -250,7 +257,7 @@
     },
     "managerNotFound": "This feature is disabled or not registered.",
     "notFound": "Your provided message id is not a valid giveaway!",
-    "invalidTime": "he provided duration/add_time value is invalid!",
+    "invalidTime": "The provided duration/add_time value is invalid!",
     "notHost": "You are not the host of this giveaway!",
     "buttonLabel": "View Giveaway",
     "started": "The giveaway has started!",
@@ -262,7 +269,7 @@
     "inviteToParticipate": "React with {emoji} to participate!",
     "winMessage": "Congratulations, {winners}! You won **{this.prize}**!",
     "drawing": "Drawing: {timestamp}",
-    "dropMessage": "Be the first to react with {emoji}!",
+    "dropMessage": "Be the first to react with {emoji}!!",
     "embedFooterText": "{this.winnerCount} winner(s)",
     "noWinner": "Giveaway cancelled, no valid participators.",
     "winners": "Winner(s):",
@@ -272,10 +279,10 @@
     "hostedBy": "Hosted by: {this.hostedBy}"
   },
   "happy": {
-    "description": "make the bot send a happy message"
+    "description": "sends a happy message"
   },
   "hash": {
-    "description": "encrypt or decrypt your text with various methods",
+    "description": "encrypts or decrypts your text with various methods",
     "usage": "SLASH Command: You only need to provide one method option.",
     "options": {
       "input": {
@@ -295,7 +302,7 @@
     "usage": "PREFIX Command: image <subcommand | \"help\"> <args>",
     "options": {
       "type": {
-        "description": "The type you want to use. leave this empty to get al list of types."
+        "description": "The type you want to use. Leave this empty to get a list of types."
       }
     },
     "notFound": "This is not a valid option. ",
@@ -308,7 +315,7 @@
     "usage": "PREFIX Command: joke [type]",
     "options": {
       "type": {
-        "description": "The type/tag of the joke (not all APIList support this)"
+        "description": "The type/tag of the joke (not every API supports this)"
       },
       "blacklist": {
         "description": "blacklist specific types/tags",
@@ -322,12 +329,12 @@
         }
       },
       "max_length": {
-        "description": "the max length of the joke (not all APIList support this)"
+        "description": "the max length of the joke (not every API supports this)"
       }
     },
     "noAPIAvailable": "Apparently, there is currently no API available. Please try again later.",
     "embedTitle": "Is this funny?"
-  },
+  }, 
   "reddit": {
     "description": "reddit related commands",
     "usage": "PREFIX Command: reddit [subreddit] [sort type]",
@@ -336,7 +343,7 @@
         "description": "get a random meme",
         "options": {
           "filter_nsfw": {
-            "description": "filter all posts tagged as nsfw. Default: true, Enforced on non-nsfw channels"
+            "description": "filters all posts tagged as nsfw. Default: true, Enforced on non-nsfw channels"
           }
         }
       },
@@ -344,13 +351,13 @@
         "description": "get one of the top posts of a subreddit",
         "options": {
           "subreddit": {
-            "description": "the subreddit name you want to get posts from. Defaults to a random meme sub."
+            "description": "From wich subreddit do you want to get posts? Defaults to a random meme sub."
           },
           "type": {
             "description": "The type to sort for. Default: hot"
           },
           "filter_nsfw": {
-            "description": "filter all posts tagged as nsfw. Default: true, Enforced on non-nsfw channels"
+            "description": "filters all posts tagged as nsfw. Default: true, Enforced on non-nsfw channels"
           }
         }
       }
@@ -433,7 +440,7 @@
       }
     },
     "saved": "Added new trigger for `{trigger}`.",
-    "idNotFound": "There is not trigger with that ID!",
+    "idNotFound": "There is no trigger with that ID!",
     "deletedOne": "Deleted the trigger with the ID `{id}`",
     "deletedAll": "I deleted all (`{count}`) triggers.",
     "noneFound": "There are no triggers!",
@@ -452,7 +459,7 @@
     "usage": "wiki <search terms>",
     "options": {
       "query": {
-        "description": "What you you want to search?"
+        "description": "What do you want to search?"
       }
     },
     "notFound": "No results found.",
