@@ -33,7 +33,7 @@ module.exports = {
         },
         {
           name: 'duration',
-          description: 'the giveaway duration: eg 1w3d2h5min',
+          description: 'the giveaway duration (eg. 1w3d2h5min)',
           type: 'String',
           required: true
         },
