@@ -1,6 +1,6 @@
 {
   "account": {
-    "description": "Show your account and stats!",
+    "description": "Shows your account and stats",
     "usage": "account [@user]",
     "options": {
       "user": {
@@ -32,13 +32,13 @@
         }
       },
       "admin": {
-        "description": "Configurate the economy in this guild",
+        "description": "Configure the economy in this guild",
         "options": {
           "toggle": {
-            "description": "Enable/Disable the economy for this guild."
+            "description": "Enables/Disables the economy for this guild."
           },
           "clear": {
-            "description": "DELETE ALL ECONOMY DATA (including config). This is irreversible!",
+            "description": "DELETES ALL ECONOMY DATA (including config). This is irreversible!",
             "options": {
               "confirmation": {
                 "description": "Write \"CLEAR ALL\" to confirm deleting the guild's economy data."
@@ -55,7 +55,7 @@
                 "description": "Allow or disallow a role from all gaining methods (eg. chat messages in all channels)."
               },
               "user": {
-                "description": "Allow or disallow a user from all gaining methods (eg. chat messages in all channels)."
+                "description": "Allow or disallow an user from all gaining methods (eg. chat messages in all channels)."
               }
             }
           },
@@ -101,7 +101,7 @@
         "user": "User",
         "embedTitle": "Economy Gaining Blacklist",
         "listEmbedDescription": "This guild is currently blacklisting the following objects from gaining souls:",
-        "setEmbedDescription": "The following changed have been made:\n```diff\nChannel:\n{channel}\n\nRole:\n{role}\n\nUser:\n{user}\n```",
+        "setEmbedDescription": "The following changes have been made:\n```diff\nChannel:\n{channel}\n\nRole:\n{role}\n\nUser:\n{user}\n```",
         "setFooterText": "Run this command without arguments to get the whole blacklist."
       },
       "gainingRules": {
@@ -131,7 +131,7 @@
       "noTarget": "You need to mention someone!",
       "self": "You can't give yourself souls...",
       "bot": "You want to give your souls to a bot?",
-      "noAmount": "You need to specify how much souls you want to give!",
+      "noAmount": "You need to specify how many souls you want to give!",
       "noMoney": "You are too poor to give someone souls...",
       "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. He/She has to run `/economyconfig user start`"
     },
@@ -144,22 +144,22 @@
       "currency_bonus_percentage": {
         "name": "Soul Bonus (%)",
         "emoji": "<:soul:1011962640349810688>",
-        "description": "How much more Souls (in percent) you get from your activities."
+        "description": "How many more Souls (in percent) you're getting for your activities."
       },
       "currency_bonus_absolute": {
         "name": "Soul Bonus",
         "emoji": "<:soul:1011962640349810688>",
-        "description": "How much more Souls you get from your activities."
+        "description": "How many more Souls you're getting for your activities."
       },
       "research_speed_percentage": {
         "name": "Research Speed (%)",
         "emoji": "<:research:1011960920609665064>",
-        "description": "How much faster (in percent) you can research."
+        "description": "How much faster (in percent) you're able to research."
       },
       "research_bonus_percentage": {
         "name": "Research Efficiency (%)",
         "emoji": "<:research:1011960920609665064>",
-        "description": "How big the bonuses are that you get from researching."
+        "description": "How big the bonuses are wich you're getting by researching."
       },
       "power": {
         "name": "Power",
@@ -174,7 +174,7 @@
       "currency_capacity": {
         "name": "Soul Capacity",
         "emoji": "<:storage:1011973136100642947>",
-        "description": "How much souls you can have at once. If you are 50% over your limit, you lose 75% of your souls!"
+        "description": "How many souls you can have at once. If you are 50% over your limit, you will lose 75% of your souls!"
       },
       "slave_capacity": {
         "name": "Slave Capacity",
@@ -187,7 +187,7 @@
     "price": "Price: {price} <:soul:1011962640349810688>",
     "embedTitle": "Research",
     "notEnoughMoney": "You have not enough souls to research this upgrade!",
-    "onCooldown": "You are currently researching this one! It will finish <t:{time}:R>.",
+    "onCooldown": "You are currently researching this one! It will finish in <t:{time}:R>.",
     "maxLevel": "You have already maxed out this skill!",
     "onMaxConcurrentResearches": "You cannot research even more skills at once!",
     "success": "The upgrade for **{skill}** {emoji} to Level `{lvl}` has started!\nIt will finish <t:{time}:R> (<t:{time}>)",
@@ -229,7 +229,7 @@
     "embedTitle": "{user}'s Stats"
   },
   "top": {
-    "description": "Displays the most powerful people on this guild.",
+    "description": "Displays the most powerful people of this guild.",
     "currency": "> Souls: **{num}** <:soul:1011962640349810688>\n",
     "power": "> Power: **{num}** <:power:1011965677625671731>",
     "embedTitle": "Top 10 Members",

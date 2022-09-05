@@ -20,10 +20,10 @@
         "description": "get stats about yourself or a specific user",
         "options": {
           "game": {
-            "description": "wich game you want to get stats about"
+            "description": "Wich game do you want to get stats about?"
           },
           "target": {
-            "description": "wich user you want to get stats about"
+            "description": "Wich user do you want to get stats about?"
           }
         }
       },
@@ -31,7 +31,7 @@
         "description": "get the top 10 players of a game",
         "options": {
           "game": {
-            "description": "wich game you want to get stats about"
+            "description": "Wich game do you want to get stats about?"
           },
           "settings": {
             "description": "Apply/Disapply filters to the leaderboard"
@@ -44,22 +44,22 @@
     "loses": "Loses: {loses}\n",
     "draws": "Draws: {draws}\n\n",
     "noOne": "no one\n",
-    "missingGameArg": "You need to give me a `game` as first argument!",
+    "missingGameArg": "You need to give me a `game` as the first argument!",
     "notFound": "This is not a valid game entry. Valid games are:\n`{list}`",
     "wonAgainst": "Won against:",
     "lostAgainst": "Lost against:",
     "drewAgainst": "Drew against:",
     "embedTitle": "`{user}`'s {game} stats",
     "embedTitleTop10": "Top 10 {game} players",
-    "noWinners": "It looks like no one won yet...",
+    "noWinners": "It looks like no one has won yet...",
     "youNoGamesPlayed": "You have not played any {game} games yet.",
     "usrNoGamesPlayed": "{user} has not played any {game} games yet."
   },
   "ttt": {
-    "description": "play some tic tac toe against a friend or the bot",
+    "description": "play TicTacToe against a friend or the bot",
     "options": {
       "opponent": {
-        "description": "Who you want to play against"
+        "description": "Who do you want to play against?"
       }
     },
     "newChallenge": "<@{user}> :crossed_swords: New duel challenge"
