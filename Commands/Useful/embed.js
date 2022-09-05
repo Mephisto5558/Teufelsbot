@@ -148,9 +148,7 @@ module.exports = {
         .setThumbnail(getOption('thumbnail'))
         .setImage(getOption('image'));
 
-      if (!message.member.permissionsIn(channel).has(PermissionFlagsBits.SendMessages)) return message.customReply(lang('noPerm'));
-
-      await interaction.channel.send({ content: content, embeds: [embed] });
+      await interaction.channel.send({ content, embeds: [embed] });
     }
     catch (err) { return interaction.editReply(lang('invalidOption', err)) }
 

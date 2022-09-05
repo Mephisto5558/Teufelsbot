@@ -47,8 +47,8 @@ module.exports = {
   }],
 
   run: async (message, lang) => {
-    const cmdName = message.args.shift() || message.options?.getString('type'),
-      args = message.args.map(e => e.replace(/[<@>]/g, '')),
+    const cmdName = message.args?.shift() || message.options?.getString('type'),
+      args = message.args?.map(e => e.replace(/[<@>]/g, '')),
       cmd = endpoints.get(cmdName?.toLowerCase()),
       option = options.find(e => e.name == cmdName);
 
