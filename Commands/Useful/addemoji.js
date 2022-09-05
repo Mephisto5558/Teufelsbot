@@ -7,10 +7,7 @@ module.exports = {
   aliases: { prefix: [], slash: [] },
   description: 'adds a emoji to your guild.',
   usage: '',
-  permissions: {
-    client: ['ManageEmojisAndStickers'],
-    user: ['ManageEmojisAndStickers']
-  },
+  permissions: { client: ['ManageEmojisAndStickers'], user: ['ManageEmojisAndStickers'] },
   cooldowns: { guild: 0, user: 2000 },
   category: 'Useful',
   slashCommand: true,
@@ -44,7 +41,7 @@ module.exports = {
     const
       limitToRoles = interaction.options.getString('limit_to_roles')?.split(' ').map(e => e.replace(/\D/g, '')).filter(e => interaction.guild.roles.cache.has(e)),
       emoticon = parseEmoji(input),
-      emojiName = interaction.options.getString('name')?.slice(0, 32) || emoticon.id ? emoticon.name : 'emoji',
+      name = interaction.options.getString('name')?.slice(0, 32) || emoticon.id ? emoticon.name : 'emoji',
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         color: Colors.Green
@@ -57,27 +54,20 @@ module.exports = {
       if (!/^(?:https?:\/\/)?(?:www\.)?.*\.(?:jpg|jpeg|png|webp|svg|gif)(?:\?.*)?$/i.test(input))
         embed.data.description = lang('invalidUrl');
 
-      try {
-        const res = await head(input);
-        if (/4\d\d/.test(res.status)) throw Error('notFound');
-      }
-      catch (err) {
-        if (err.message == 'notFound') embed.data.description = lang('notFound');
-        else throw err;
-      }
+      const res = await head(input);
+      if (/4\d\d/.test(res.status)) embed.data.description = lang('notFound');
     }
 
     if (embed.data.description) return interaction.editReply({ embeds: [embed] });
 
     try {
       const emoji = await interaction.guild.emojis.create({
-        attachment: input,
-        name: emojiName,
+        attachment: input, name,
         reason: `addemoji command, member ${interaction.user.tag}`,
         roles: limitToRoles
       });
 
-      embed.data.description = lang('success', emoji.name, emoji);
+      embed.data.description = lang('success', { name: emoji.name, emoji });
       if (limitToRoles?.length) embed.data.description += lang('limitedToRoles', limitToRoles.join('>, <@&'));
     }
     catch (err) {
