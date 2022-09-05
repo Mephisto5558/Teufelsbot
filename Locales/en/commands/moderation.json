@@ -74,17 +74,18 @@
         "description": "The target will see the reason in DMs"
       },
       "duration": {
-        "description": "for how much {timeType} you want to mute the target"
+        "description": "For how long you want to mute the target (eg. 1w3d2h5min, default 1h, max. 28d)"
       }
     },
     "dmEmbedTitle": "Muted",
-    "dmEmbedDescription": "You have been muted from `{guild}`.\nModerator: {mod}\nUntil:<t:{time}>\nReason: {reason}",
+    "dmEmbedDescription": "You have been muted from `{guild}`.\nModerator: {mod}\nUntil: <t:{time}>\nReason: {reason}",
     "infoEmbedTitle": "Mute",
     "infoEmbedDescription": "{user} has been successfully muted.\nReason: {reason}\nUntil: <t:{time}>",
     "notFound": "I couldn't find that member!",
     "cantMuteSelf": "You can't mute yourself!",
     "noPerm": "{IYou} don't have the permission to do that!",
     "targetIsAdmin": "I cannot mute admininstartors!",
+    "invalidDuration": "The mute duration you provided is invalid!",
     "error": "I couldn't mute the target:\n{err}",
     "noDm": "I couldn't DM the target."
   },
