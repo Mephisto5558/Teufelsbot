@@ -33,12 +33,7 @@ async function formatTopTen(input, settings, message, lang) {
 
   const data = Object.entries(input)
     .filter(a => a[0] != 'AI')
-    .sort(([, a], [, b]) => {
-      if (a.wins != b.wins) return b.wins - a.wins;
-      if (a.loses != b.loses) return a.loses - b.loses;
-      if (a.draws != b.draws) return a.draws - b.draws;
-      return 0;
-    })
+    .sort(([, a], [, b]) => b.wins - a.wins || a.draws - b.draws || a.loses - b.loses)
     .slice(0, 10);
 
   for (const entry of data) {
