@@ -1,4 +1,4 @@
-const { CommandInteraction } = require('discord.js')
+const { CommandInteraction, Message } = require('discord.js')
 
 module.exports = async function customReply(reply, deleteTime, allowedMentions = { repliedUser: false }) {
   let sentMessage;
@@ -13,10 +13,11 @@ module.exports = async function customReply(reply, deleteTime, allowedMentions =
       catch { sentMessage = await this.channel.send(reply) }
     }
   }
-  else {
-    try { sentMessage = await this.reply(reply) }
+  else if (this instanceof Message) {
+    try { sentMessage = this.author.id == this.client.user.id ? await this.edit(reply) : await this.reply(reply) }
     catch { sentMessage = await this.channel.send(reply) }
   }
+  else throw new TypeError(`Unsupported Class! Got ${this.constructor.name}`);
 
   if (!isNaN(deleteTime) && sentMessage?.deletable && !this.ephemeral) return setTimeout(sentMessage.delete.bind(sentMessage), deleteTime);
 
