@@ -25,7 +25,8 @@ module.exports = {
         `${lang('global.guild')}: \`${client.db.get('guildSettings')[message.guild.id]?.position || 0}\n\`` +
         `${lang('starts')}: \`${startCount}\`\n` +
         `${lang('lastStart')}: <t:${startTime}> (<t:${startTime}:R>)\n` +
-        lang('links', Invite, Dashboard, PrivacyPolicy),
+        lang('translation', { de: '.̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558', en: '.̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558' }) +
+        lang('links', { Invite, Dashboard, PrivacyPolicy }),
 
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
