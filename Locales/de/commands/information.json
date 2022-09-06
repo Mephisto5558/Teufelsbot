@@ -109,7 +109,7 @@
     "description": "Erhalte Informationen über diesen Server",
     "members": "Mitglieder",
     "verificationLevel": "Verifizierungsstufe",
-    "createdAt":"Erstellt",
+    "createdAt": "Erstellt",
     "defaultNotifications": "Standart-Benachrichtigungseinstellung",
     "owner": "Eigentümer",
     "memberCount": "Mitgliedsanzahl",

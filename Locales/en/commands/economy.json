@@ -71,7 +71,7 @@
               "max_message_length": {
                 "description": "The maximum message length required to get souls."
               }
-            } 
+            }
           }
         }
       }

@@ -27,8 +27,8 @@ module.exports = {
 
     const
       rank = Object.entries(db.get('guildSettings')[message.guild.id].economy)
+        .map(([, e]) => e)
         .sort(([, a], [, b]) => b.power - a.power || b.currency - a.currency)
-        .map(([e]) => e)
         .indexOf(target.id) + 1,
       embed = new EmbedBuilder({
         color: Colors.White,
@@ -38,7 +38,7 @@ module.exports = {
         description:
           lang('currency', { num: userData.currency, max: userData.currencyCapacity }) +
           lang('dailyStreak', userData.dailyStreak) +
-          lang('rank', !isNaN(rank) && rank ? rank : lang('global.none'))
+          lang('rank', rank ?? lang('global.none'))
       });
 
     message.customReply({ embeds: [embed] });
