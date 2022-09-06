@@ -2,7 +2,7 @@ console.time('Initializing time');
 console.info('Starting...');
 
 const
-  { Client, Collection, GatewayIntentBits, AllowedMentionsTypes, Message, CommandInteraction } = require('discord.js'),
+  { Client, Collection, GatewayIntentBits, AllowedMentionsTypes, Message, CommandInteraction, Partials } = require('discord.js'),
   { randomInt } = require('crypto'),
   { existsSync, readdirSync } = require('fs'),
   DB = require('./Functions/private/db.js'),
@@ -57,6 +57,10 @@ console.time('Starting time');
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.GuildMessageReactions,
       GatewayIntentBits.MessageContent
+    ],
+    partials: [
+      Partials.Message,
+      Partials.Reaction
     ]
   });
   let env;
