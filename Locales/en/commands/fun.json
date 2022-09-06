@@ -13,10 +13,10 @@
       "It is decidedly so.",
       "Most likely.",
       "Yes.",
-      "Yesssss", 
+      "Yesssss",
       "Yessss Sir.",
       "Yes – definitely.",
-      "Your question delights me, my answer is: of course", 
+      "Your question delights me, my answer is: of course",
       "You may rely on it.",
       "Outlook good.",
       "Signs point to yes.",
@@ -32,7 +32,7 @@
       "My reply is no.",
       "My sources say no.",
       "Outlook not so good.",
-      "Very doubtful." ,
+      "Very doubtful.",
       "I don't think so.",
       "Broooooo, you dummy, your question makes no sense?!"
     ]
@@ -147,7 +147,7 @@
       "embedTitle": "Your blacklist for the `/dm send` command",
       "embedDescription": "You are blocking the following guild members:\n{members}",
       "embedFooterText": "run '/dm toggle' without arguments to toggle all users and\nrun '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user."
-    }, 
+    },
     "send": {
       "targetIsMe": "I cannot send DMs to myself!",
       "permissionDenied": "You are not allowed to send dms to that user!",
@@ -334,7 +334,7 @@
     },
     "noAPIAvailable": "Apparently, there is currently no API available. Please try again later.",
     "embedTitle": "Is this funny?"
-  }, 
+  },
   "reddit": {
     "description": "reddit related commands",
     "usage": "PREFIX Command: reddit [subreddit] [sort type]",

@@ -1,8 +1,8 @@
-const { EmbedBuilder, Colors, ActionRowBuilder, SelectMenuBuilder, parseEmoji } = require('discord.js');
+const { EmbedBuilder, Colors, ActionRowBuilder, SelectMenuBuilder } = require('discord.js');
 
 module.exports = {
   name: 'research',
-  aliases: { prefix: ['buy', 'b'], slash: [] },
+  aliases: { prefix: ['buy', 'b'], slash: ['buy'] },
   description: 'Research and upgrade your skills',
   usage: '',
   permissions: { client: [], user: [] },
@@ -29,8 +29,7 @@ module.exports = {
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         footer: { name: message.user.tag, iconURL: message.member.displayAvatarURL({ forceStatic: true }) },
-        fields,
-        color: Colors.White
+        fields, color: Colors.White
       }),
       component = new ActionRowBuilder({
         components: [new SelectMenuBuilder({
@@ -60,9 +59,9 @@ module.exports = {
       let errorMsg;
 
       if (Object.values(userSkills).filter(e => e.onCooldownUntil > Date.now()).length > userData.maxConcurrentResearches) errorMsg = lang('onMaxConcurrentResearches');
-      else if (userData.currency < price) errorMsg = lang('notEnoughMoney');
       else if (userSkill.onCooldownUntil > Date.now()) errorMsg = lang('onCooldown', Math.round(userSkill.onCooldownUntil / 1000));
       else if (userSkill.maxLevel && userSkill.lvl > userSkill.maxLevel) errorMsg = lang('maxLevel');
+      else if (userData.currency < price) errorMsg = lang('notEnoughMoney');
 
       if (errorMsg) return button.editReply(errorMsg);
       const onCooldownUntil = new Date(Date.now() + userSkill.lvlUpCooldown * 360000).getTime();
@@ -77,6 +76,7 @@ module.exports = {
           }
         }
       }
+
       db.set('guildSettings', db.get('guildSettings').fMerge({ [message.guild.id]: { economy: { [message.user.id]: newData } } }));
 
       button.editReply(lang('success', { skill: lang(`skills.${skill}.name`), emoji: lang(`skills.${skill}.emoji`), lvl: newData.skills[skill].lvl, time: Math.round(onCooldownUntil / 1000) }));
