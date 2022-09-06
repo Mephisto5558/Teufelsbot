@@ -1,0 +1,165 @@
+{
+  "addemoji": {
+    "description": "Fügt einen Emoji zu diesem Server hinzu",
+    "options": {
+      "emoji_or_url": {
+        "description": "Gib einen Emoji oder eine URL zu einem Bild an."
+      },
+      "name": {
+        "description": "Der Name, den der Emoji haben soll."
+      },
+      "limit_to_roles": {
+        "description": "Limitiere den Emoji zu bestimmten Rollen. Seperiere sie mit Leertasten."
+      }
+    },
+    "embedTitle": "AddEmoji",
+    "isGuildEmoji": "Dieser Emoji ist bereits auf diesem Server!",
+    "invalidUrl": "Das angegebene Argument ist kein gültiger Emoji oder URL!\nEine gültige URL muss mit einer der folgenden Endungen enden.`jpg`, `jpeg`, `png`, `webp`, `svg` or `gif`.\nBeispiel: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "notFound": "Die angegebene URL wurde nicht gefunden.",
+    "success": "**{name}** wurde erfolgreich hinzugefügt {emoji}!\n",
+    "limitedToRoles": "Der Emoji wurde zu den folgenden Rollen limitiert:\n<@&{roles}>.",
+    "error": "Der Emoji konnte aus folgendem Grund nicht hinzugefügt werden:\n```\n{err}\n```",
+    "timedOut": "Zeitüberschreitung bei der Anfrage. Eventuell ist das Bild zu groß."
+  },
+  "autopublish": {
+    "description": "Veröffentlicht automatisch alles, was jemand in einem News-Channel sagt.",
+    "usage": "Dieser Command veröffentlicht automatisch alle Nachrichten, die in News-Channels gesendet werden.\nDies ist ein Toggle.",
+    "success": "{toggle} Autopublish."
+  },
+  "convert": {
+    "description": "Konvertiert eine Textart zu einer anderen",
+    "options": {
+      "input": {
+        "description": "Den Text, den du konvertiren möchtest"
+      },
+      "convert_to": {
+        "description": "Der Typ, in den du konvertieren möchtest"
+      },
+      "is_octal": {
+        "description": "Setzte dies zu True, wenn dein Text oktal ist, ansonsten wird er als dezimal erkannt."
+      },
+      "with_spaces": {
+        "description": "Möchtest du Leerzeichen zwischen die Zeichen setzten? Standart: False"
+      },
+      "convert_spaces": {
+        "description": "Möchtest du auch Leertasten konvertieren? Standart: True"
+      },
+      "convert_letters_and_digits_only": {
+        "description": "Möchtest du nur Buchstaben und Zahlen konvertieren? Standart: False"
+      }
+    },
+    "convertToSame": "`{inputType}` zu `{outputType}` zu konvertieren wäre Zeitverschwendung.\nHör auf meine zeit zu verschwenden.\n||Wenn dein Text nicht {inputType} war, dann stelle sicher, dass er gültig ist und wenn das der Fall ist, informiere den Dev. Stelle außerdem sicher, dass du die `is_octal` Option aktiviert hast, wenn dein Text oktal ist.||",
+    "success": "```Konvertierte {inputType} zu {outputType}: ```\n"
+  },
+  "embed": {
+    "description": "Sendet ein benutzerdefiniertes Embed; Du kannst Zeilenumbrüche mit \"/n\" machen.",
+    "options": {
+      "custom": {
+        "description": "Erstelle dein eigenes Embed mit vielen verscheiden Optionen",
+        "options": {
+          "description": {
+            "description": "Setze den Embed-Text, nutze \"/n\" für Zeilenumbrüche."
+          },
+          "content": {
+            "description": "Setze eine Nachricht über dem Embed"
+          },
+          "title": {
+            "description": "Setzte den Embed-Titel"
+          },
+          "predefined_color": {
+            "description": "Setzte die Embed-Farbe zu einer von Discord predeifinierten Farbe"
+          },
+          "custom_color": {
+            "description": "Setzte einen eigenen 6-Zeichen HEX-Code als Embed-Farbe (zb. #ffffff)"
+          },
+          "footer_text": {
+            "description": "Setzte den Footer-Text"
+          },
+          "footer_icon": {
+            "description": "Setzte die Footer Icon-URL"
+          },
+          "image": {
+            "description": "Setzte die Embed Bild URL"
+          },
+          "thumbnail": {
+            "description": "Setze die Thumbnail-URL"
+          },
+          "timestamp": {
+            "description": "Setze den Timestamp"
+          },
+          "author_name": {
+            "description": "Setzte den Autor Name"
+          },
+          "author_url": {
+            "description": "Setze die Autor-URL"
+          },
+          "author_icon": {
+            "description": "Setzte die Author Icon-URL"
+          }
+        }
+      },
+      "json": {
+        "description": "Erstelle ein Embed von rohem JSON.",
+        "options": {
+          "json": {
+            "description": "JSON Daten aus denen das Embed erstellt wird."
+          }
+        }
+      }
+    },
+    "invalidOption": "**Eine der angegebenen Optionen ist ungültig!**\n\n```{err}```",
+    "successJSON": "Dein Embed wurde gesendet!",
+    "success": "Dein Embed wurde gesendet! Unten ist der Embed Code.\nWenn du es erneut senden möchtest, nutze den `json` Untercommand.\n\n```json\n{json}\n```"
+  },
+  "math": {
+    "description": "Ein wenig Mathe",
+    "usage": "math [Ausdruck]",
+    "options": {
+      "expression": {
+        "description": "Was möchtest du mich ausrechnen lassen?"
+      }
+    },
+    "noInput": "Du hast mir keinen Audruck gegeben",
+    "help": "Hilfe und Informationen\n\nDieser Rechner unterstützt viele mathematischen Operationen, nicht nur den Standart.\nDu kannst Variablen wie folgt deklarieren: `x=10`.\nDu kannst mehrere Ausdrücke mit einer neuen Zeile oder einem `;` trennen. zb. `x=10;x+10` gibt `20` aus.\nDu musst `*` für Multiplikation nutzen.\nDer Rechner unterstützt die Ausgabe mehrere Ergebnisse.\nManchmal erzeugen unnötige Leertasten Fehler im Rechner.",
+    "error": "Beim Berechnen ist ein Fehler aufgetreten:\n```{err}```",
+    "separated": "Ergebnisse, mit \"|\" separiert:\n{results}",
+    "success": "Ausdruck:\n```{expression}```\nErgebniss:\n```{result}```"
+  },
+  "passwordgenerator": {
+    "description": "Generiert ein kryptographisch starkes Passwort",
+    "options": {
+      "length": {
+        "description": "Die Länge deines Passwortes"
+      },
+      "count": {
+        "description": "Wie viele Passwörter möchtest du generieren?"
+      },
+      "exclude_chars": {
+        "description": "Zeichen die du nicht in deinem Passwort haben möchtest"
+      },
+      "include_chars": {
+        "description": "Zeichen die du in deinem Passwort haben möchtest, zusätzlich zum Standart Zeichensatz."
+      }
+    },
+    "charsetEmpty": "Du hast alle Zeichen aus dem Charset entfernt...",
+    "success": "Deine sichere Passwörter:\n{passwords}\n\n||Erstellt mit dem folgenden Zeichensatz:\n```{charset}```\nNutze die Command-Optionen um zeichen hinzuzufügen oder zu entfernen.||"
+  },
+  "setup": {
+    "description": "Richtet den Bot ein",
+    "options": {
+      "sync": {
+        "description": "Syncronisiere meine Befehle mit deinem Server"
+      },
+      "toggle_module": {
+        "description": "Schaltet das Modul ein/aus",
+        "options": {
+          "module": {
+            "description": "Das Modul, welches du ein- oder ausschalten möchtest"
+          }
+        }
+      }
+    },
+    "finishedSync": "Syncronisierung beendet.",
+    "toggledModule": "Das `{name}` Modul wurde {state}."
+  }
+}

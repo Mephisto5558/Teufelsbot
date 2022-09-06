@@ -1,0 +1,67 @@
+{
+  "rps": {
+    "description": "Spiele Stein Schere Papier gegen den Bot oder (coming soon) gegen andere Member.",
+    "embedTitle": "Stein Schere Papier",
+    "embedDescription": "Wähle ein Handzeichen!",
+    "rock": "Stein",
+    "paper": "Papier",
+    "scissors": "Schere",
+    "win": "Du hast gewonnen!",
+    "tie": "Unentschieden!",
+    "lose": "Du hast verloren!",
+    "chose": "Ich wählte {chose}! {win} ({you} {symbol} {i})",
+    "timedOut": "Du hast verloren, weil du nichts ausgewählt hast!"
+  },
+  "mgstats": {
+    "description": "Erhalte Stats von einem der Minigames des Bots",
+    "usage": "PREFIX Command: stats <game> [user]",
+    "options": {
+      "user": {
+        "description": "Erhalte Stats über dich oder einen anderen Mitglied",
+        "options": {
+          "game": {
+            "description": "Über welches Minigame du Stats möchtest"
+          },
+          "target": {
+            "description": "Über welchen Mitglied du Stats möchtest"
+          }
+        }
+      },
+      "leaderboard": {
+        "description": "Erhalte die 10 besten Spieler eines Mingames",
+        "options": {
+          "game": {
+            "description": "Über welches Minigame du Stats möchtest"
+          },
+          "settings": {
+            "description": "Adde/Entferne Filter zu/aus der Leaderboard-Abfrage"
+          }
+        }
+      }
+    },
+    "games": "Spiele: `{games}`",
+    "wins": "Gewonnen: {wins}\n",
+    "loses": "Verloren: {loses}\n",
+    "draws": "Unentschieden: {draws}\n\n",
+    "noOne": "niemand\n",
+    "missingGameArg": "Du musst mir ein Spiel als erstes Argument geben!",
+    "notFound": "Dies it kein gültiges Spiel. Gültige Spiele sind:\n`{list}`",
+    "wonAgainst": "Gewonnen gegen:",
+    "lostAgainst": "Verloren gegen:",
+    "drewAgainst": "Unentschieden gegen:",
+    "embedTitle": "`{user}`'s {game} Stats",
+    "embedTitleTop10": "Top 10 {game} Spieler",
+    "noWinners": "Es sieht so aus als hätte noch niemand gewonnen...",
+    "youNoGamesPlayed": "Du hast noch nie {game} gespielt.",
+    "usrNoGamesPlayed": "{user} hat noch nie {game} gespielt."
+  },
+  "ttt": {
+    "description": "Spiele TicTacToe gegen ein anderes Mitglied oder den Bot",
+    "options": {
+      "opponent": {
+        "description": "Gegen wen möchtest du spielen?"
+      }
+    },
+    "newChallenge": "<@{user}> :crossed_swords: Neue Duell-Herausforderung"
+  }
+}

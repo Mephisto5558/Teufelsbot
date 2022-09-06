@@ -1,0 +1,20 @@
+{
+  "cooldown": "Dieser Command ist im Cooldown! Versuche es erneut in `{time}`s.",
+  "slashCommandOnly": "Dieser Command ist nur als Slash-Command verfügbar!",
+  "permissionDenied": {
+    "embedTitle": "Unzureichende Berechtigungen",
+    "embedDescription": "{IYou} benötigsts die folgenden Berechtigungen in diesem Kanal um diesen Command auszuführen:\n`{permissions}`"
+  },
+  "economyDisabled": "Dieser Command ist ein Economy Command. Die Economy ist auf diesem Server nicht aktiviert. Um die Economy zu aktivieren, muss ein Admin `/economyconfig admin toggle` ausführen.",
+  "economyNotInitialized": "Dieser Command ist ein Economy Command. Um die Economy zu starten, führe `/economyconfig user start` aus.",
+  "errorHandler": {
+    "embedTitle": "Hupsala",
+    "embedDescription": "Ein unerwarteter Fehler ist aufgetreten!\n\nError Typ: `{name}`\nCommand: `{command}`",
+    "reportButton": "Melde diesen Fehler",
+    "reportButtonDisabled": " (Deaktiviert aufgrund von Dev-Version)",
+    "discordAPIErr": "Ein Fehler in der Discord API ist aufgetreten, bitte versuche es erneut und informiere den Dev, wenn dies weiterhin auftritt.",
+    "alreadyReported": "Dieser Fehler wurde bereits gemeldet. [Link]({url}).\nEs wird bald gefixt.",
+    "reportSuccess": "Der Fehler wurde gemeldet. [Link]({url})",
+    "reportFail": "Ein Fehler beim Versuch, den Fehler zu melden, aufgetreten.\n```\n{err}\n```\nBitte informiere den Dev direkt."
+  }
+}
