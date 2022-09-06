@@ -15,9 +15,9 @@
   "eval": {
     "description": "Führe JavaScript Code mit dem Bot aus",
     "usage": "PREFIX Command: eval <js code>",
-    "finished": "Ausgeführter Code:\n```js\n{code}\n```\n",
-    "success": "{msg} fehlerlos.",
-    "error": "{msg} mit dem folgendem Fehler:\n```\n{name}: {err}\n```"
+    "finished": "Code:\n```js\n{code}\n```\n",
+    "success": "{msg} wurde fehlerlos ausgeführt.",
+    "error": "{msg} wurde mit dem folgendem Fehler ausgeführt:\n```\n{name}: {err}\n```"
   },
   "gitpull": {
     "description": "Führe einen git pull aus",
