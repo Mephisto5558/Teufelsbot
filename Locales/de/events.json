@@ -11,7 +11,7 @@
     "embedTitle": "Hupsala",
     "embedDescription": "Ein unerwarteter Fehler ist aufgetreten!\n\nError Typ: `{name}`\nCommand: `{command}`",
     "reportButton": "Melde diesen Fehler",
-    "reportButtonDisabled": " (Deaktiviert aufgrund von Dev-Version)",
+    "reportButtonDisabled": " (Deaktiviert wegen Dev-Version)",
     "discordAPIErr": "Ein Fehler in der Discord API ist aufgetreten, bitte versuche es erneut und informiere den Dev, wenn dies weiterhin auftritt.",
     "alreadyReported": "Dieser Fehler wurde bereits gemeldet. [Link]({url}).\nEs wird bald gefixt.",
     "reportSuccess": "Der Fehler wurde gemeldet. [Link]({url})",
