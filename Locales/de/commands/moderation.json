@@ -1,0 +1,152 @@
+{
+  "ban": {
+    "description": "Bannt ein oder mehrere Mitglieder vom Server",
+    "options": {
+      "targets": {
+        "description": "Erwähne Member oder gib ID(s) an um sie zu bannen. Seperiere sie mit Leertasten."
+      },
+      "reason": {
+        "description": "Die Ziele werden die Begründung per DMs erhalten."
+      },
+      "duration": {
+        "description": "Wie lange möchtest du das Mitglied bannen?"
+      },
+      "delete_days_of_messages": {
+        "description": "Lösche alle Nachrichten des Mitgliedes von den letzten x Tagen."
+      }
+    },
+    "dmEmbedTitle": "Gebannt",
+    "dmEmbedDescription": "Du wurdest von `{guild}` gebannt.\nModerator: {mod}\nBegründung: {reason}",
+    "infoEmbedTitle": "Bann",
+    "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
+    "cantBanSelf": "Du kannst dich selbst nicht bannen!",
+    "noneFound": "Kein Ziel wurde gefunden.",
+    "noPerm": "{IYou} habe/hast keine Berechtigung dazu!",
+    "error": "Ich konnte **{user}** nicht bannen.\n{err}\n",
+    "success": "**{user}** wurde erfolgreich gebannt.\n",
+    "noDm": "Ich konnte dem Ziel keine DM senden."
+  },
+  "kick": {
+    "description": "Kickt ein oder mehrere Mitglieder vom Server",
+    "options": {
+      "targets": {
+        "description": "Erwähne Member oder gib ID(s) an um sie zu kicken. Seperiere sie mit Leertasten."
+      },
+      "reason": {
+        "description": "Die Ziele werden die Begründung per DMs erhalten."
+      }
+    },
+    "dmEmbedTitle": "Gekickt",
+    "dmEmbedDescription": "Du wurdest von `{guild}` gekickt.\nModerator: {mod}\nBegründung: {reason}",
+    "infoEmbedTitle": "Kick",
+    "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
+    "cantBanSelf": "Du kannst dich selbst nicht kicken!",
+    "noneFound": "Kein Ziel wurde gefunden.",
+    "noPerm": "{IYou} habe/hast keine Berechtigung dazu!",
+    "error": "Ich konnte **{user}** nicht kicken.\n{err}\n",
+    "success": "**{user}** wurde erfolgreich gekickt.\n",
+    "noDm": "Ich konnte dem Ziel keine DM senden."
+  },
+  "lockchannel": {
+    "description": "Verbietet jedem, abgesehen von Administratoren, in einem Kanal Nachrichten zu senden.",
+    "usage": "lock [channel] [reason]",
+    "options": {
+      "channel": {
+        "description": "Den Kanal den du locken möchtest"
+      },
+      "reason": {
+        "description": "Den Grund dafür, den Kanal zu locken"
+      }
+    },
+    "noReason": "Keine Begründung angegeben",
+    "embedTitle": "Kanal gesperrt!",
+    "embedDescription": "Dieser Kanal wurde gesperrt.\nModerator: {mod}\nBegründung: {reason}",
+    "success": "Der Kanal wurde gelockt."
+  },
+  "mute": {
+    "description": "Timeouted ein Mitglied für eine bestimmte Zeit (default: 1h).",
+    "usage": "",
+    "options": {
+      "target": {
+        "description": "Wen du timeouten möchtest"
+      },
+      "reason": {
+        "description": "Das Mitglied wird dies in einer DM sehen."
+      },
+      "duration": {
+        "description": "Wie lange du das Ziel timeouten möchtest (zB. 1w3d2h5min, default 1h, max. 28d)"
+      }
+    },
+    "dmEmbedTitle": "Getimeouted",
+    "dmEmbedDescription": "Du wurdest in `{guild}` gettimeouted.\nModerator: {mod}\nBis: <t:{time}>\nBegründung: {reason}",
+    "infoEmbedTitle": "Timeout",
+    "infoEmbedDescription": "{user} wurde erfolgreich getimeouted.\nBegründung: {reason}\nBis: <t:{time}>",
+    "notFound": "Ich konnte diesen User nicht finden!",
+    "cantMuteSelf": "Du kannst dich selbst nicht timeouten!",
+    "noPerm": "{IYou} habe/hast keine Berechtigung dazu!",
+    "targetIsAdmin": "Ich kann keine Administratoren timeouten!",
+    "invalidDuration": "Die Mutedauer, die du angegeben hast, iszt ungültig!",
+    "error": "Ich konnte das Mitglied nicht muten:\n{err}",
+    "noDm": "Ich konnte dem Ziel keine DM senden."
+  },
+  "nukechannel": {
+    "description": "Löscht alle Nachrichten des Kanals, indem der Kanal dupliziert wird und der alte gelöscht wird",
+    "options": {
+      "confirmation": {
+        "description": "Schreibe \"DELETE CHANNEL\" um die Nuke zu bestätigen."
+      },
+      "channel": {
+        "description": "Den zu nukenden Kanal"
+      }
+    },
+    "needConfirm": "Du musst diese Aktion bestätigen, indem du `DELETE CHANNEL` als confirmation option angibst!",
+    "embedDescription": ":radioactive: Kanal genuked!",
+    "embedFooterText": "Genuked von {user}"
+  },
+  "purge": {
+    "description": "Löscht eine bestimmte Menge an Nachrichten",
+    "usage": "PREFIX Command: purge <number>",
+    "options": {
+      "amount": {
+        "description": "Die Anzahl der zu löschenden Nachrichten"
+      }
+    },
+    "noNumber": "Bitte spezifiziere nächstes mal die Anzahl der zu löschenden Nachrichten.",
+    "invalidNumber": "Das ist keine gültige Zahl!",
+    "success": "Erfolg!"
+  },
+  "unlock": {
+    "description": "Entsperrt einen gelockten Channel.",
+    "usage": "unlock [channel] [reason]",
+    "options": {
+      "channel": {
+        "description": "Den Channel, den du entsperren möchtest"
+      },
+      "reason": {
+        "description": "Den Grund dafür, den Kanal zu entsperren"
+      }
+    },
+    "noReason": "Keine Begründung angegeben",
+    "notLocked": "Dieser Kanal ist nicht gesperrt!",
+    "embedTitle": "Kanal entsperrt!",
+    "embedDescription": "Dieser Kanal wurde entsperrt.\nModerator: {mod}\nBegründung: {reason}",
+    "success": "Der Kanal wurde entsperrt."
+  },
+  "unmute": {
+    "description": "Entfernet den Timeout von einem Mitglied.",
+    "options": {
+      "target": {
+        "description": "Wessen Timeout du entfernen möchtest"
+      },
+      "reason": {
+        "description": "Warum du den Timeout entfernen möchtest"
+      }
+    },
+    "noReason": "Keine Begründung angegeben",
+    "notFound": "Ich konnte dieses Mitglied nicht finden!",
+    "notMuted": "Dieses Mitglied ist nicht gemuted!",
+    "noPerm": "{IYou} habe/hast keine Berechtigung dazu!",
+    "moderator": "Moderator",
+    "success": "Timeout für {user} wurde entfernt."
+  }
+}

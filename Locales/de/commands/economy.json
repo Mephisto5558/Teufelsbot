@@ -1,0 +1,240 @@
+{
+  "account": {
+    "description": "Erhalte deine Account-Informationen",
+    "usage": "account [@user]",
+    "options": {
+      "user": {
+        "description": "Das Mitglied, dessen Account du sehen willst"
+      }
+    },
+    "targetEconomyNotInitialized": "Diese Person hat noch nicht angefangen zu spielen. Er/Sie muss `/economyconfig user start` ausführen, um zu starten.",
+    "currency": "Seelen: **{num}**/**{max}** <:soul:1011962640349810688>\n",
+    "dailyStreak": "Daily Streak: **{streak}** <:souls:1011962960840773673>\n",
+    "rank": "Rang: **{rank}**\n"
+  },
+  "daily": {
+    "description": "Erhalte deine täglichen Seelen!",
+    "notUnlocked": "Du hast dieses Feature noch nicht freigeschaltet! `/research`",
+    "collected": "Du hast {count} Seelen eingesammelt!"
+  },
+  "economyconfig": {
+    "description": "Economy Konfiguration für Mitglieder and Admins",
+    "options": {
+      "user": {
+        "description": "Konfiguration für deine Economy auf diesem Server.",
+        "options": {
+          "start": {
+            "description": "Starte damit, die Economy Commands zu nutzen!"
+          },
+          "delete": {
+            "description": "LÖSCHE alle deine Economy Daten! Dies ist irreversibel!"
+          }
+        }
+      },
+      "admin": {
+        "description": "Konfiguriere die Economy für diesem Server",
+        "options": {
+          "toggle": {
+            "description": "Aktiviere/Deaktiviere die Economy für diesen Server."
+          },
+          "clear": {
+            "description": "LÖSCHE ALLE Economy Daten (inklusive Config). Dies ist irreversibel!",
+            "options": {
+              "confirmation": {
+                "description": "Schreibe \"CLEAR ALL\" um die Löschung der Economy Data dieses Servers zu bestätigen."
+              }
+            }
+          },
+          "blacklist": {
+            "description": "Erlaube/Verbiete ein Objekt für alle Gaining Methoden.",
+            "options": {
+              "channel": {
+                "description": "Erlaube/Verbiete Kanäle von allen Gaining Methoden (zB. Chatnachrichten in einem Spam-Kanal)."
+              },
+              "role": {
+                "description": "Erlaube/Verbiete a role from all gaining methods (zB. Chatnachrichten in einem Spam-Kanal)."
+              },
+              "user": {
+                "description": "Erlaube/Verbiete a user from all gaining methods (zB. Chatnachrichten in allen Kanälen)."
+              }
+            }
+          },
+          "gaining_rules": {
+            "description": "Alle Einstellungen bezüglich Gaining. Nutze die \"get\" Option um die aktuellen Einstellungen zu erhalten.",
+            "options": {
+              "get": {
+                "description": "Erhalte alle Einstellungen und ihre Werte."
+              },
+              "min_message_length": {
+                "description": "Die minimale Nachrichtenlänge, die benötigt wird um Seelen zu erhalten."
+              },
+              "max_message_length": {
+                "description": "Die maximale Nachrichtenlänge, die benötigt wird um Seelen zu erhalten."
+              }
+            }
+          }
+        }
+      }
+    },
+    "user": {
+      "start": {
+        "alreadyInitiated": "Du hast diesen Command bereits ausgeführt! Du kannst die Economy nutzen.",
+        "success": "Du kannst nun die Economy nutzen! Probiere mal `/account`, `/stats` und `/research` aus!"
+      },
+      "delete": {
+        "needConfirm": "Du musst diese Aktion bestätigen, indem du `CLEAR ALL` als confirm Option nutzt!",
+        "success": "Alle deine Economy-Daten (inklusive Konfiguration) für diesen Server wurde gelöscht. Beginne, die Economy zu nutzen, indem du `/economyconfig user start` ausführst."
+      }
+    },
+    "admin": {
+      "noPerm": "Du hast nicht die Berechtigung, Admin Commands auszuführen!",
+      "toggle": {
+        "success": "{state} die Economy für diesen Server."
+      },
+      "clear": {
+        "needConfirm": "Du musst diese Aktion bestätigen, indem du `CLEAR ALL` als confirm Option nutzt!",
+        "success": "Alle Economy-Daten (inklusive Konfiguration) für diesen Server wurden gelöscht und die Economy wurde deaktiviert."
+      },
+      "blacklist": {
+        "channels": "Kanäle",
+        "roles": "Rollen",
+        "user": "Mitglieder",
+        "embedTitle": "Economy Gaining Blacklist",
+        "listEmbedDescription": "Dieser Server blacklistet momentan die folgenden Objekte davon, Seelen zu sammeln:",
+        "setEmbedDescription": "Die folgenden Änderungen wurden gemacht:\n```diff\nKanäle:\n{channel}\n\nRollen:\n{role}\n\nMitglieder:\n{user}\n```",
+        "setFooterText": "Führe diesen Command ohne Argumente aus, um die gesamte Blacklist zu erhalten."
+      },
+      "gainingRules": {
+        "getEmbedTitle": "Server Economy Config",
+        "getEmbedDescription": "Dies sind die ersten 25 Einträge aus der Economy Config dieses Servers.",
+        "getConfigList": {
+          "min_message_length": "Min. Nachrichtenlänge",
+          "max_message_length": "Max. Nachrichtenlänge"
+        },
+        "nothingChanged": "Du hast keine Werte verändert.",
+        "setSuccess": "{count} Einstellungen wurden erfolgreich gesetzt."
+      }
+    }
+  },
+  "give": {
+    "description": "Gib jemanden einige deiner Seelen",
+    "usage": "give [@user] [amount]",
+    "options": {
+      "user": {
+        "description": "Das Mitglied, dem du Seelen geben möchtest."
+      },
+      "amount": {
+        "description": "Die Menge an Seelen, die du geben möchtest. (% wird unterstützt)"
+      }
+    },
+    "error": {
+      "noTarget": "Du musst jemanden erwähnen!",
+      "self": "Du kannst dir nicht selbst Seelen geben...",
+      "bot": "Du willst deine Seelen einem Bot geben?",
+      "noAmount": "Du musst angeben, wie viele Seelen du geben möchtest!",
+      "noMoney": "Du bist zu arm, um jemandem Seelen zu geben...",
+      "targetEconomyNotInitialized": "Der Member, dem du Seelen geben möchtest, hat noch nicht gestartet zu spielen. Er/Sie muss zuerst `/economyconfig user start` ausführen!"
+    },
+    "embedTitle": "Geben",
+    "embedDescription": "Du hast <@{target}> {amount} Seelen gegeben! <:soul:1011962640349810688>\n>>> Deine Seelen: {newUserAmount} <:soul:1011962640349810688>\nSeine/Ihre Seelen: {newTargetAmount} <:soul:1011962640349810688>"
+  },
+  "research": {
+    "description": "Verbessere deine Skills und erforsche neue!",
+    "skills": {
+      "currency_bonus_percentage": {
+        "name": "Seelenbonus (%)",
+        "emoji": "<:soul:1011962640349810688>",
+        "description": "Wie vielen Seelen (in Prozent) du von deinen Aktivitäten erhältst."
+      },
+      "currency_bonus_absolute": {
+        "name": "Seelenbonus",
+        "emoji": "<:soul:1011962640349810688>",
+        "description": "Wie viel mehr Seelen du von deinen Aktivitäten erhältst."
+      },
+      "research_speed_percentage": {
+        "name": "Forschungsgeschwindigkeit (%)",
+        "emoji": "<:research:1011960920609665064>",
+        "description": "Wie viel schneller (in Prozent) du forschst."
+      },
+      "research_bonus_percentage": {
+        "name": "Forschungseffizienz (%)",
+        "emoji": "<:research:1011960920609665064>",
+        "description": "Wie groß der Bonus ist, den du vom Forschen erhältst."
+      },
+      "power": {
+        "name": "Macht",
+        "emoji": "<:power:1011965677625671731>",
+        "description": "Eine deiner wichtigsten Stats. Sie schützt dich vor aggressiven Spielern auf mehreren Wegen and lässt dich mächtigere Sklaven halten."
+      },
+      "defense": {
+        "name": "Verteidigung",
+        "emoji": "<:defense:1011971580584263710>",
+        "description": "Schützt dich vor anderen Spielern auf verschiedene Weisen."
+      },
+      "currency_capacity": {
+        "name": "Seelenkapazität",
+        "emoji": "<:storage:1011973136100642947>",
+        "description": "Wie viele Seelen du auf einmal haben kannst. Wenn du 50% über dem Limit bist, verlierst du 75% deiner Seelen!"
+      },
+      "slave_capacity": {
+        "name": "Sklavenkapazität",
+        "emoji": "<:storage:1011973136100642947>",
+        "description": "Wie viele Sklaven du auf einmal haben kannst."
+      }
+    },
+    "lvl": "Lvl. {lvl}",
+    "selectMenuPlaceholder": "Was möchtest du erforschen?",
+    "price": "Preis: {price} <:soul:1011962640349810688>",
+    "embedTitle": "Forschung",
+    "notEnoughMoney": "Du hast nicht genügend Seelen, um dies zu erforschen!",
+    "onCooldown": "Du erforschst diese aktuell! Es wird <t:{time}:R> fertig sein.",
+    "maxLevel": "Du hast diesen Skill bereits maximiert!",
+    "onMaxConcurrentResearches": "Du kannst nicht noch mehr Skills auf einmal erforschen!",
+    "success": "Das upgrade für **{skill}** {emoji} auf Level `{lvl}` wurde gestartet!\nEs wird enden in <t:{time}:R> (<t:{time}>)",
+    "timedOut": "Das Menü ist abgelaufen."
+  },
+  "stats": {
+    "description": "Erhalte ausführliche Stats über ein Mitglied oder dich selbst.",
+    "usage": "stats [@user]",
+    "options": {
+      "user": {
+        "description": "Das Mitglied, über das du Stats erhalten möchtest"
+      }
+    },
+    "noStats": "Dieser Member ist machtlos und hat keine Stats die es wert sind, sie zu zeigen.",
+    "currency": "Seelen <:soul:1011962640349810688>",
+    "power": "Macht <:power:1011965677625671731>",
+    "defense": "Verteidigung <:defense:1011971580584263710>",
+    "slaves": "Sklaven",
+    "maxSlaves": "Maximale Anzahl an Sklaven",
+    "level": "> Level **{lvl}**\n",
+    "gaining": {
+      "title": "Gaining Methoden",
+      "chat": "Chat Nachrichten: **{num}**",
+      "voice": "Voice Minuten: **{num}**",
+      "work": "Arbeit: **{num}**",
+      "daily": "Tägliches Sammeln: **{num}**"
+    },
+    "skills": {
+      "name": "Skills",
+      "currency_bonus_percentage": "> Seelenbonus (%) <:soul:1011962640349810688>\n",
+      "currency_bonus_absolute": "> Seelenbonus <:soul:1011962640349810688>\n",
+      "research_speed_percentage": "> Forschungsgeschwindigkeit (%) <:research:1011960920609665064>\n",
+      "research_bonus_percentage": "> Forschungseffizienz (%) <:research:1011960920609665064>\n",
+      "power": "> Macht <:power:1011965677625671731>\n",
+      "defense": "> Verteidigung <:defense:1011971580584263710>\n",
+      "currency_capacity": "> Seelenkapazität <:storage:1011973136100642947>\n",
+      "slave_capacity": "> Sklavenkapazität <:storage:1011973136100642947>\n"
+    },
+    "embedTitle": "{user}'s Stats"
+  },
+  "top": {
+    "description": "Zeigt die mächtigsten Members dieses Servers.",
+    "currency": "> Seelen: **{num}** <:soul:1011962640349810688>\n",
+    "power": "> Macht: **{num}** <:power:1011965677625671731>",
+    "embedTitle": "Top 10 Mitglieder",
+    "embedDescription": "Dies sind die Top 10 Mitglieder, sortiert nach ihrer Macht:\n",
+    "noneFound": "Niemand hier hat irgendwelche Macht!"
+  },
+  "work": {}
+}

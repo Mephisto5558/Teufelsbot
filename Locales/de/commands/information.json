@@ -1,0 +1,153 @@
+{
+  "avatar": {
+    "description": "Zeigt den Avater eines Users",
+    "options": {
+      "target": {
+        "description": "Wessen Avatar möchtest du sehen"
+      },
+      "size": {
+        "description": "Wie groß soll das Bild sein?"
+      }
+    },
+    "embedDescription": "**{user}'s Avatar**",
+    "downloadButton": "Herunterladen"
+  },
+  "dashboard": {
+    "description": "Erhalte den Link zum Dashboard",
+    "embedTitle": "Dashboard",
+    "embedDescription": "Clicke [hier]({url}) um das Dashboard zu öffnen."
+  },
+  "help": {
+    "description": "Zeige alle meine Commands oder erhalte Informationen über einen spezifischen.",
+    "usage": "PREFIX Command: help [command]",
+    "options": {
+      "command": {
+        "description": "Über welchen Command möchtest du mehr erfahren?"
+      }
+    },
+    "one": {
+      "notFound": "Keine Informationen über diesen Command gefunden: `{command}`.",
+      "embedTitle": "Detallierte Informationen über: `{command}`",
+      "noDescription": "Keine Beschreibung gefunden",
+      "embedFooterText": "Syntax: <> = erfordert, [] = optional | Prefix: \"{prefix}\"",
+      "lookAtDesc": "SLASH Command: Lies die Beschreibungen der Command Optionen.\n",
+      "prefixAlias": "Prefix Command Aliasse",
+      "slashAlias": "Slash Command Aliasse",
+      "botPerms": "Erforderliche Bot Berechtigungen",
+      "userPerms": "Erforderliche User Berechtigungen",
+      "cooldowns": "Command Cooldowns",
+      "usage": "Nutzung"
+    },
+    "all": {
+      "embedTitle": "🔰Alle meine Commands",
+      "notFound": "keine Commands gefunden...",
+      "embedFooterText": "Nutze die 'command' Option um mehr Informationen über einen spezifischen Comamnd zu erhalten."
+    }
+  },
+  "info": {
+    "description": "Zeigt Stats und Informationen über den Bot",
+    "dev": "Developer",
+    "shard": "Shard",
+    "starts": "Starts",
+    "lastStart": "Letzter Start",
+    "translation": "Übersetzung:\nEnglish: {en}, German: {de}\n",
+    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Datenschutzrichtlinie]({PrivacyPolicy})**",
+    "embedTitle": "Infos",
+    "embedFooterText": "Mehr Infos kommen bald!"
+  },
+  "invite": {
+    "description": "Sendet einen Link um den Bot auf deinen Server zu adden",
+    "embedTitle": "Einladen",
+    "embedDescription": "Vielen Dank für dein Interesse! Clicke [hier]({url}) um mich auf deinen Server hinzuzufügen."
+  },
+  "ping": {
+    "description": "Erhalte den Ping des Bots",
+    "options": {
+      "average": {
+        "description": "Erhalte den Durchschnittsping aus 60 pings über eine Minute."
+      }
+    },
+    "average": {
+      "loading": "Pingen... (dies dauert etwa eine Minute)",
+      "embedDescription": "Pings: `{pings}`\nNiedrigster Ping: `{lowest}ms`\nHöchster Ping: `{heightest}ms`\nDurchschnittlicher Ping: `{average}ms`"
+    },
+    "embedTitle": "Ping",
+    "messageSend": "Nachricht senden"
+  },
+  "prefix": {
+    "description": "Zeigt oder ändert den Prefix des Servers.",
+    "usage": "PREFIX Command: prefix [neuer Prefix]",
+    "options": {
+      "new_prefix": {
+        "description": "Der neue Prefix für diesen Server"
+      }
+    },
+    "saved": "Der Prefix wurde zu `{prefix}` gesetzt.",
+    "currentPrefix": "Mein aktueller Prefix ist `{prefix}`.",
+    "caseInsensitive": " (beachtet Groß/Kleinschreibung)"
+  },
+  "roleinfo": {
+    "description": "Erhalte Informationen über eine Rolle",
+    "usage": "PREFIX Command: roleinfo [@role | role name | role id]",
+    "options": {
+      "role": {
+        "description": "Die Rolle über die du mehr wissen möchtest"
+      }
+    },
+    "mention": "Erwähnung",
+    "members": "Mitglieder",
+    "color": "Frabe",
+    "mentionable": "Erwähnbar",
+    "hoist": "Hoist",
+    "managed": "Verwaltet",
+    "position": "Position",
+    "createdAt": "Erstellt",
+    "permissions": "Berechtigungen",
+    "admin": "Administrator"
+  },
+  "serverinfo": {
+    "description": "Erhalte Informationen über diesen Server",
+    "members": "Mitglieder",
+    "verificationLevel": "Verifizierungsstufe",
+    "createdAt":"Erstellt",
+    "defaultNotifications": "Standart-Benachrichtigungseinstellung",
+    "owner": "Eigentümer",
+    "memberCount": "Mitgliedsanzahl",
+    "locale": "Sprache",
+    "partnered": "Gepartnert",
+    "emojis": "Emojis",
+    "boosts": "Boosts",
+    "roles": "Rollen",
+    "channels": "Kanäle",
+    "vanityUrl": "Vanity URL",
+    "uses": "Nutzungen"
+  },
+  "uptime": {
+    "description": "Erhalte die Uptime des Bots",
+    "message": "Der Bot ist online seit {time}."
+  },
+  "userinfo": {
+    "description": "Erhalte Informationen über ein Mitglied",
+    "usage": "PREFIX Command: roleinfo [@user | user name | user tag | user nickname | user id]",
+    "options": {
+      "target": {
+        "description": "Das Mitglied über das du Informationen möchtest"
+      }
+    },
+    "guildOwner": "Server Eigentümer",
+    "guildAdmin": "Server Administrator",
+    "guildMod": "Server Moderator",
+    "guildMember": "Server Mitglied",
+    "mention": "Erwähnung",
+    "type": "Typ",
+    "roles": "Rollen",
+    "position": "Position",
+    "color": "Frabe",
+    "moderatable": "Moderierbar",
+    "createdAt": "Erstellt",
+    "joinedAt": "Beigetreten",
+    "timedOutUntil": "Getimeouted bis",
+    "rolesWithPerms": "Rollen mit Berechtigungen",
+    "perms": "Berechtigungen"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "suggest": {
+    "description": "Schlage ein Feature für den Bot auf GitHub vor.",
+    "options": {
+      "title": {
+        "description": "Der Titel deines Vorschlages"
+      },
+      "suggestion": {
+        "description": "Dein Vorschlag."
+      },
+      "importance": {
+        "description": "Welche Priorität die Entwicklung deines Vorschlags haben sollte.",
+        "choices": {
+          "low": "Niedrig",
+          "medium": "Mittel",
+          "hight": "Hoch"
+        }
+      }
+    },
+    "error": "Ein Fehler ist aufgetretetn.\n{err}",
+    "embedTitle": "Erfolg!",
+    "alreadySent": "Dies wurde bereits vorgeschlagen. [Link]({url}).",
+    "embedDescription": "Dein Vorschlag wurde gesendet.\n[Link]({url})"
+  }
+}
