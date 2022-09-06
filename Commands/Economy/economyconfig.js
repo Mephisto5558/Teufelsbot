@@ -5,7 +5,7 @@ module.exports = {
   aliases: { prefix: [], slash: [] },
   description: 'Economy Configuration for users and admins',
   usage: '',
-  permissions: { client: ['EmbedLinks'], user: [] },
+  permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Economy',
   prefixCommand: false,
