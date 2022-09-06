@@ -1,462 +1,472 @@
 {
   "8ball": {
-    "description": "Ask me a question",
+    "description": "Stell mir eine Frage.",
     "options": {
       "question": {
-        "description": "What do you want my opinion on?"
+        "description": "Ersuche einen weisen Rat :D"
       }
     },
-    "noQuestion": "You didn't ask me anything??",
+    "noQuestion": "Du hast mir keine Frage gestellt???",
     "responseList": [
-      "As I see it, yes.",
-      "It is certain.",
-      "It is decidedly so.",
-      "Most likely.",
-      "Yes.",
-      "Yes – definitely.",
-      "You may rely on it.",
-      "Outlook good.",
-      "Signs point to yes.",
-      "Without a doubt.",
-      "Ask again later.",
-      "Better not tell you now.",
-      "Cannot predict now.",
-      "Concentrate and ask again.",
-      "Reply hazy, try again.",
-      "Don’t count on it.",
-      "My reply is no.",
-      "My sources say no.",
-      "Outlook not so good.",
-      "Very doubtful."
+      "Meiner Ansicht nach, ja.",
+      "Sicher doch.",
+      "Exakt.",
+      "Joaaa, naja.",
+      "Ja.",
+      "Jaaaaaaa",
+      "Yessss Sir.",
+      "Auf jeden Fall.",
+      "Deine Frage erfreut mich, meine Antwort ist ja",
+      "Darauf kannst du dich verlassen.",
+      "Sieht gut aus.",
+      "Die Zeichen deuten auf ja.",
+      "Ohne Zweifel.",
+      "Frag mich später.",
+      "Das sag ich dir jetzt besser nicht.",
+      "Dies kann ich dir grad nicht beantworten.",
+      "Konzentriere dich und frage noch einmal.",
+      "Meine Sicht ist vernebelt, frage noch einmal.",
+      "Zähl da nicht drauf.",
+      "Ne",
+      "Nö",
+      "Nein",
+      "Naien",
+      "Naiiiiiiin",
+      "Meine Antwort ist nein.",
+      "Meine Quellen sagen nein.",
+      "Sieht nicht so gut aus.",
+      "Das bezweifle ich.",
+      "Ich denke, nicht.",
+      "Broooooo, du Dummi, deine Frage macht keinen Sinn?!"
     ]
   },
   "afk": {
-    "description": "sends an afk message if you get pinged until you write again"
+    "description": "Sendet solange eine AFK-Message, wenn du gepingt wirst, bis du wieder schreibst."
   },
   "birthday": {
-    "description": "save your birthday and I will send a message on your birthday",
+    "description": "Speichere deinen Geburtstag ein und ich werde dir eine Nachricht an diesem bedeutenden Tag senden.",
     "options": {
       "set": {
-        "description": "set your own birthday",
+        "description": "Speichere deinen Geburtstag ein.",
         "options": {
           "day": {
-            "description": "The day you was born in."
+            "description": "An welchem Tag wurdest du geboren?"
           },
           "month": {
-            "description": "The month you was born in."
+            "description": "In welchem Monat wurdest du geboren?"
           },
           "year": {
-            "description": "The year you was born in."
+            "description": "In welchem Jahr wurdest du geboren?"
           }
         }
       },
       "get": {
-        "description": "Get a list of the next birthdays",
+        "description": "Erhalte eine Liste der nächsten Geburtstage.",
         "options": {
           "target": {
-            "description": "Whose birthday do you want to get? Leave this empty to get the next 10 birthdays."
+            "description": "Wessen Geburtstag willst du einsehen? Lass dieses Feld frei, um die nächsten 10 Geburtstage zu sehen"
           },
           "do_not_hide": {
-            "description": "Don't hide my response to other users"
+            "description": "Verstecke meine Antwort nicht vor anderen Usern."
           }
         }
       },
       "remove": {
-        "description": "Deletes your birthday from the database"
+        "description": "Löscht deinen Geburtstag aus der Database"
       }
     },
     "months": {
-      "01": "January",
-      "02": "February",
-      "03": "March",
+      "01": "Januar",
+      "02": "Februar",
+      "03": "März",
       "04": "April",
-      "05": "May",
-      "06": "June",
-      "07": "July",
+      "05": "Mai",
+      "06": "Juni",
+      "07": "Juli",
       "08": "August",
       "09": "September",
-      "10": "October",
+      "10": "Oktober",
       "11": "November",
-      "12": "December"
+      "12": "Dezember"
     },
-    "saved": "Your Birthday has been saved.",
-    "removed": "Your birthday has been removed.",
+    "saved": "Dein Geburtstag wurde gespeichert.",
+    "removed": "Dein Geburtstag wurde entfernt.",
     "getUser": {
-      "notFound": "This user has no birthday :(",
-      "embedTitle": "{user}'s Birthday",
-      "date": "This user has birthday on **{month} {day}**.\n",
-      "newAge": "He/she will turn **{age}** on this day."
+      "notFound": "Dieses Mitglied User hat kein Geburtstag :(",
+      "embedTitle": "{user}'s Geburtstag",
+      "date": "Dieses Mitglied hat am **{day}. {month}.** Geburtstag.\n",
+      "newAge": "Er/sie wird **{age}** Jahre alt."
     },
     "getAll": {
-      "embedTitle": "The next birthdays",
-      "date": "**{month} {day}**\n",
-      "notFound": "Nobody has a birthday set..."
+      "embedTitle": "Die nächsten Geburtstage",
+      "date": "**{day}. {month}.**\n",
+      "notFound": "Niemand hat seinen Geburtstag angegeben..."
     }
   },
   "dm": {
-    "description": "sends a user a dm",
+    "description": "Sendet jemandem eine DM",
     "options": {
       "toggle": {
-        "description": "toggles the ability to send you user-made dms",
+        "description": "Schaltet ein/aus, dass dir jemand per Bot DMs senden kann.",
         "options": {
           "target": {
-            "description": "the user you want to toggle, leave this empty to toggle all users (\"*\")."
+            "description": "Verhindere, dass bestimmte Mitglieder dir DMs senden können; Freilassen = alle Mitglieder (\"*\")."
           }
         }
       },
       "blacklist": {
-        "description": "lists all users you are currently blocking."
+        "description": "Auflistung aller Mitglieder, die geblockt werden."
       },
       "send": {
-        "description": "send a dm to a member of this guild",
+        "description": "Sendet einem Mitglied dieses Servers eine DM.",
         "options": {
           "target": {
-            "description": "the user you want to send a dm to"
+            "description": "Wem möchtest du eine DM senden?"
           },
           "message": {
-            "description": "the message you want to send, /n for newline"
+            "description": "Das möchtest du dem Mitglied schreiben? Nutze \"/n\" für einen Absatz."
           },
           "as_mod": {
-            "description": "shows 'a mod of [guild]' instead of your name"
+            "description": "an Stelle deines Namens wird der Absender als 'einem Moderator aus [server]' angezeigt."
           }
         }
       }
     },
     "toggle": {
       "targetAll": {
-        "saved": "no one will be",
-        "removed": "`all users`"
+        "saved": "niemand kann",
+        "removed": "`alle Mitglieder`"
       },
       "targetOne": {
-        "name": "user `{user}`",
-        "isnt": "{user} isn't"
+        "name": "Mitglied `{user}`",
+        "isnt": "{user} keine"
       },
-      "saved": "Your blacklist entry for {user} has been saved.\nNow {state} able to send you dms by me.\nThis will not prevent guild moderators from sending dms to you.",
-      "removed": "Your blacklist entry for {user} has been removed.\nYou can now receive dms created by {user} from me."
+      "saved": "Dein Blacklist-Eintrag für {user} wurde gespeichert.\nJetzt kann dir {state} DMs per Bot senden.\nDas verhindert nicht, dass Servermoderatoren dir DMs senden können.",
+      "removed": "Dein Blacklist-Eintrag für {user} wurde entfernt.\n Du kannst ab jetzt DMs von {user} per Bot erhalten."
     },
     "blacklist": {
-      "notFound": "> You are not blocking any users on this guild.",
-      "allBlocked": "> You are blocking all users.",
-      "embedTitle": "Your blacklist for the `/dm send` command",
-      "embedDescription": "You are blocking the following guild members:\n{members}",
-      "embedFooterText": "run '/dm toggle' without arguments to toggle all users and\nrun '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user."
+      "notFound": "> Du blockst keine Mitglieder dieses Servers.",
+      "allBlocked": "> Du blockst alle Mitglieder auf diesem Server.",
+      "embedTitle": "Deine Blacklist für den `/dm send` Command",
+      "embedDescription": "Du blockst folgende Mitglieder:\n{members}",
+      "embedFooterText": "Führe '/dm toggle' ohne Argumente aus, um DMs von Mitgliedern zu (ent-)blocken und führe '/dm toggle' mit dem 'user_to_toggle' Argument aus; um jemand Bestimmtes zu (ent-)blocken."
     },
     "send": {
-      "targetIsMe": "I cannot send DMs to myself!",
-      "permissionDenied": "You are not allowed to send dms to that user!",
-      "asModInfo": "\nUse the `as_mod` option to force the message to send.",
-      "embedTitle": "You got a message",
-      "embedDescription": "From **{user}**\nGuild: {guild}\n\n{msg}",
-      "fromMod": "a guild moderator",
-      "embedFooterText": "If you don't want to receive user-made dms from me, run '/dm toggle' in any guild.",
-      "error": "I couldn't message this member!"
+      "targetIsMe": "Ich möchte nicht mit mir selbst reden :C",
+      "permissionDenied": "Du kannst diesem Mitglied keine DMs senden!",
+      "asModInfo": "\nNutze die `as_mod` Option um das Senden der DM zu erzwingen.",
+      "embedTitle": "Du hast eine neue Nachricht!",
+      "embedDescription": "Von **{user}**\nServer: {guild}\n\n{msg}",
+      "fromMod": "einem Moderator",
+      "embedFooterText": " Wenn du per Bot keine DMs von Mitgliedern erhalten möchtest, nutze '/dm toggle' auf einem beliebigen Server.",
+      "error": "Ich konnte die Nachricht nicht zustellen!"
     }
   },
   "fact": {
-    "description": "get some facts"
+    "description": "Ein paar interresante Fakten, absolut cool und nützlich, definitiv."
   },
   "giveaway": {
-    "description": "Giveaway commands",
+    "description": "Giveaway Command",
     "options": {
       "create": {
-        "description": "Create a new giveaway",
+        "description": "Setze ein neues Giveaway auf.",
         "options": {
           "prize": {
-            "description": "The prize you are giving away"
+            "description": "Was kann man gewinnen?"
           },
           "description": {
-            "description": "The giveaway embed description"
+            "description": "Beschreibe das Giveaway."
           },
           "channel": {
-            "description": "The channel this giveaway should get created in"
+            "description": "In welchem Kanal soll das Giveaway stattfinden?"
           },
           "duration": {
-            "description": "The giveaway duration: eg. 1w3d2h5min"
+            "description": "Wie lang soll das Giveaway dauern: zB. 1w3d2h5min"
           },
           "winner_count": {
-            "description": "The number of winners"
+            "description": "Wie viele Gewinner gibt es?"
           },
           "reaction": {
-            "description": "The emoji users have to react with to participate"
+            "description": "Mit welchem Emoji sollen Mitglieder reagieren?"
           },
           "thumbnail": {
-            "description": "The thumbnail url to use"
+            "description": "Das zu nutzende Thumbnail (URL)"
           },
           "image": {
-            "description": "The image url to use"
+            "description": "Das zu nutzende Bild (URL)"
           },
           "exempt_members": {
-            "description": "A list of members who are not allowed to participate."
+            "description": "Eine Liste von allen Mitgliedern, die nicht teilnehmen dürfen."
           },
           "required_roles": {
-            "description": "Only members with one of this roles will be able to participate."
+            "description": "Nur jemand mit einer dieser Rollen kann am Giveaway teilnehmen."
           },
           "bonus_entries": {
-            "description": "A list of member/role mentions with the amount of bonus entries: eg. @Premium:5 @Normal:2"
+            "description": "Erwähnungen von Mitgliedern/Rollen und der Anzahl deren Bonuseinträge: z.B. @Premium:5 @Normal:2"
           },
           "embed_color": {
-            "description": "The hex color of the embed while the giveaway is running."
+            "description": "Der Hex-Farbcode des Embeds während des Giveaways"
           },
           "embed_color_end": {
-            "description": "The hex color of the embed after the giveaway has ended."
+            "description": "Der Hex-Farbcode des Embeds nach Ende des Giveaways"
           }
         }
       },
       "end": {
-        "description": "End a running giveaway",
+        "description": "Beende ein laufendes Giveaway.",
         "options": {
           "id": {
-            "description": "The id of the giveaway embed"
+            "description": "Die ID der Giveaways-NachrichtGiveaways-Nachricht"
           }
         }
       },
       "edit": {
-        "description": "Edit a running giveaway",
+        "description": "Bearbeite ein laufendes Giveaway.",
         "options": {
           "id": {
-            "description": "The id of the giveaway embed"
+            "description": "Die ID der Giveaways-Nachricht"
           },
           "add_time": {
-            "description": "The number of time added to the giveaway duration. eg. 2h12min or -1h10min"
+            "description": "Zeitverlängerungen bzw. -Abzüge z.B. 2h12min or -1h10min"
           },
           "winner_count": {
-            "description": "The new number of winners"
+            "description": "Die neue Anzahl Gewinner*innen"
           },
           "prize": {
-            "description": "The new prize you are giving away"
+            "description": "Der neue Preis, welcher vergeben wird"
           },
           "thumbnail": {
-            "description": "The new thumbnail url to use"
+            "description": "Das neue zu benutzende Thumbnail (URL)"
           },
           "image": {
-            "description": "The new image url to use"
+            "description": "Das neue zu benutzende Bild (URL)"
           },
           "exempt_members": {
-            "description": "Members who are not allowed to participate"
+            "description": "Mitglieder, welche nicht teilnehmen dürfen"
           },
           "required_roles": {
-            "description": "Only members with one of this roles will be able to participate."
+            "description": "Nur Mitglieder mit einer dieser Rollen dürfen teilnehmen"
           }
         }
       },
       "reroll": {
-        "description": "Reroll a ended giveaway",
+        "description": "Wiederhole die Gewinner-Auslosung ein beendetes Giveaway.",
         "options": {
           "id": {
-            "description": "The id of the giveaway embed"
+            "description": "Die ID der Giveaway-Nachricht"
           }
         }
       }
     },
-    "managerNotFound": "This feature is disabled or not registered.",
-    "notFound": "Your provided message id is not a valid giveaway!",
-    "invalidTime": "he provided duration/add_time value is invalid!",
-    "notHost": "You are not the host of this giveaway!",
-    "buttonLabel": "View Giveaway",
-    "started": "The giveaway has started!",
-    "ended": "The giveaway has been ended!",
-    "edited": "The giveaway has been edited!",
-    "rerolled": "The giveaway has been rerolled!",
+    "managerNotFound": "Dieses Feature ist deaktiviert oder nicht registriert.",
+    "notFound": "Die angegebene Nachrichten-ID ist kein gültiges Giveaway!",
+    "invalidTime": "Die angegebene Dauer/der `add_time` Wert ist ungültig!",
+    "notHost": "Du bist nicht der Veranstalter dieses Giveaways!",
+    "buttonLabel": "Giveaway ansehen",
+    "started": "Das Giveaway wurde gestartet!",
+    "ended": "Das Giveaway wurde beendet!",
+    "edited": "Das Giveaway wurde bearbeitet!",
+    "rerolled": "Das Gewinner-Auslosung wurde wiederholt!",
     "newGiveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
-    "giveawayEnded": "'🎉🎉 **GIVEAWAY ENDED** 🎉🎉",
-    "inviteToParticipate": "React with {emoji} to participate!",
-    "winMessage": "Congratulations, {winners}! You won **{this.prize}**!",
-    "drawing": "Drawing: {timestamp}",
-    "dropMessage": "Be the first to react with {emoji}!",
-    "embedFooterText": "{this.winnerCount} winner(s)",
-    "noWinner": "Giveaway cancelled, no valid participators.",
-    "winners": "Winner(s):",
-    "rerollWinners": "🎉 New winner(s): {winners}! Congratulations, you won **{this.prize}**!",
-    "rerollNoWinner": "No valid participators, no new winner(s) can be chosen!",
-    "endedAt": "Ended at",
-    "hostedBy": "Hosted by: {this.hostedBy}"
+    "giveawayEnded": "'🎉🎉 **GIVEAWAY BEENDET** 🎉🎉",
+    "inviteToParticipate": "Reagiere mit {emoji} um teilzunehmen!",
+    "winMessage": "Gratulation, {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
+    "drawing": "Gewinner-Auslosung: {timestamp}",
+    "dropMessage": "Sei die/der Erste, die/der mit {emoji} reagiert!!",
+    "embedFooterText": "{this.winnerCount} Gewinner*innen",
+    "noWinner": "Das Giveaway wurde abgebrochen da es keine gültigen Teilnehmer gab.",
+    "winners": "Gewinner*innen:",
+    "rerollWinners": "🎉 Neue Gewinner*innen: {winners}! Du/Ihr hast/habt **{this.prize}** gewonnen!",
+    "rerollNoWinner": "Keine gültigen Teilnehmer; keine neuen Gewinner*innen wurden gefunden!",
+    "endedAt": "Endete am",
+    "hostedBy": "Veranstaltet von: {this.hostedBy}"
   },
   "happy": {
-    "description": "make the bot send a happy message"
+    "description": "Lass den Bot eine fröhliche Nachricht senden :D"
   },
   "hash": {
-    "description": "encrypt or decrypt your text with various methods",
-    "usage": "SLASH Command: You only need to provide one method option.",
+    "description": "Ver-/Endschlüssel einen Text mit verschiedenen Methoden.",
+    "usage": "SLASH Command: Du musst nur eine der möglichen Methode angeben.",
     "options": {
       "input": {
-        "description": "the text you want to encrypt or decrypt"
+        "description": "Der Text, welchen du verschlüsseln oder entschlüsseln möchtest."
       },
       "method": {
-        "description": "with which method your text should get encrypted (needed only once)"
+        "description": "Mit welcher Methode soll dein Text verschlüsselt werden? (nur eine Angabe benötigt)"
       }
     },
-    "noMethod": "You need to provide one of the method options!",
-    "embedTitle": "Hash Function",
-    "embedDescription": "Your input: `{input}`\nHash method: `{method}`",
-    "text": "Your hashed string:\n`{hash}`"
+    "noMethod": "Du musst noch eine `method` Option angeben!",
+    "embedTitle": "Hash Funktion",
+    "embedDescription": "Dein Input: `{input}`\nHash Methode: `{method}`",
+    "text": "Dein gehashter Text:\n`{hash}`"
   },
   "image": {
-    "description": "Image manipulation",
+    "description": "Bildbearbeitung",
     "usage": "PREFIX Command: image <subcommand | \"help\"> <args>",
     "options": {
       "type": {
-        "description": "The type you want to use. leave this empty to get al list of types."
+        "description": "Die Art der Bildbearbeitung, die du nutzen möchtest. Lasse dies leer um alle Möglichkeiten zu sehen."
       }
     },
-    "notFound": "This is not a valid option. ",
-    "validOptions": "Valid options are:\n`{options}`",
-    "requiresArgs": "This command requires the following args in order:\n\n{args}",
-    "error": "An error occurred:\n```{err}```"
+    "notFound": "Das ist keine gültige Option.",
+    "validOptions": "Mögliche Optionen sind:\n`{options}`",
+    "requiresArgs": "Dieser Command benötigt folgende Argumente in Reihenfolge:\n\n{args}",
+    "error": "Ein Fehler ist aufgetreten:\n```{err}```"
   },
   "joke": {
-    "description": "sends a funny joke",
+    "description": "Lasse den Bot einen Witz senden",
     "usage": "PREFIX Command: joke [type]",
     "options": {
       "type": {
-        "description": "The type/tag of the joke (not all APIList support this)"
+        "description": "Die Art/Der Tag des Witzes (nicht von jeder API unterstützt)"
       },
       "blacklist": {
-        "description": "blacklist specific types/tags",
+        "description": "Arten/Tags von Witzen, die nicht gezeigt werden sollen",
         "choices": {
           "nsfw": "NSFW",
-          "religious": "religious",
-          "political": "political",
-          "racist": "racist",
-          "sexist": "sexist",
-          "explicit": "explicit"
+          "religious": "religiös",
+          "political": "politisch",
+          "racist": "rassistisch",
+          "sexist": "sexistisch",
+          "explicit": "explizit"
         }
       },
       "max_length": {
-        "description": "the max length of the joke (not all APIList support this)"
+        "description": "Die maximale Länge des Witzes (nicht von jeder API unterstützt)"
       }
     },
-    "noAPIAvailable": "Apparently, there is currently no API available. Please try again later.",
-    "embedTitle": "Is this funny?"
+    "noAPIAvailable": "Leider ist zur Zeit keine API verfügbar. Bitte versuche es später nochmal.",
+    "embedTitle": "Ist das witzig?"
   },
   "reddit": {
-    "description": "reddit related commands",
-    "usage": "PREFIX Command: reddit [subreddit] [sort type]",
+    "description": "Verschiedene Reddit-Commands",
+    "usage": "PREFIX Command: reddit [subreddit] [sortierung]",
     "options": {
       "meme": {
-        "description": "get a random meme",
+        "description": "Lasse dir ein zufälliges Meme zeigen.",
         "options": {
           "filter_nsfw": {
-            "description": "filter all posts tagged as nsfw. Default: true, Enforced on non-nsfw channels"
+            "description": "Entfernt alle NSFW-Posts. Standart: True, Erzwungen bei Nicht-NSFW-Kanälen"
           }
         }
       },
       "subreddit": {
-        "description": "get one of the top posts of a subreddit",
+        "description": "Erhalte einen der Top-Posts eines Subreddits.",
         "options": {
           "subreddit": {
-            "description": "the subreddit name you want to get posts from. Defaults to a random meme sub."
+            "description": "Gib den Subreddit an, von dem du Posts erhalten möchtest. Standart: zufälliger Meme-Subreddit."
           },
           "type": {
-            "description": "The type to sort for. Default: hot"
+            "description": "Der Typ nach dem sortiert wird. Standart: Heiß"
           },
           "filter_nsfw": {
-            "description": "filter all posts tagged as nsfw. Default: true, Enforced on non-nsfw channels"
+            "description": "Entfernt alle NSFW-Posts. Standart: true, Erzwungen bei Nicht-NSFW-Kanälen "
           }
         }
       }
     },
-    "error": "An error occurred:\n```{err}```",
-    "notFound": "No posts matched your search.",
-    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) | Downvotes: {downvotes} | Comments: {comments}"
+    "error": "Ein Fehler ist aufgetreten:\n```{err}```",
+    "notFound": "Kein Post passte zu deiner Suche.",
+    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) | Downvotes: {downvotes} | Kommentare: {comments}"
   },
   "sad": {
-    "description": "sends a sad emojicon"
+    "description": "Lasse den Bot einen traurigen Emoji senden."
   },
   "say": {
-    "description": "Let me say something",
+    "description": "Lasse mich etwas sagen.",
     "usage": "PREFIX Command: say <msg> [channel]",
     "options": {
       "msg": {
-        "description": "Type your message here, /n for new line"
+        "description": "Was soll ich sagen? Nutze /n für einen Absatz."
       },
       "channel": {
-        "description": "The channel the message gets sent to"
+        "description": "In welchen Kanal soll ich die Nachricht senden?"
       }
     },
-    "noPerm": "You don't have the permission to send messages in that channel!",
-    "noMsgProvided": "You need to provide a message to send!"
+    "noPerm": "Du hast nicht die Berechtigung, Nachrichten in diesem Kanal zu senden!",
+    "noMsgProvided": "Du musst mir sagen was ich senden soll!"
   },
   "sleep": {
-    "description": "tells your friends that you are going to sleep",
+    "description": "Sage deinen Freunden, dass du schlafen gehst",
     "responseList": [
-      "{user} is tired and goes now to sleep :3",
-      "{user} goes now to bed <:engelchen:725458214044303371>",
-      "{user} sleeps now, hopefully he/she doesn't snores <:gucken:725670318164672543>"
+      "{user} ist müde und geht jetzt schlafen",
+      "{user} geht jetzt in's Bettchen <:engelchen:725458214044303371>",
+      "{user} schläft jetzt, hoffentlich schnarcht er/sie nicht <:gucken:725670318164672543>"
     ]
   },
   "trigger": {
-    "description": "Manage custom responses to message triggers",
+    "description": "Manage individuelle Antworten für die Nachrichtenten-Trigger",
     "options": {
       "add": {
-        "description": "Add a new trigger",
+        "description": "Füge einen neuen Trigger hinzu",
         "options": {
           "trigger": {
-            "description": "the text you want the bot to respond to"
+            "description": "Auf was soll der Bot reagieren?"
           },
           "response": {
-            "description": "the response the bot should send"
+            "description": "Was soll der Bot auf den Trigger antworten?"
           },
           "wildcard": {
-            "description": "look for the trigger anywhere in the message (default: true)"
+            "description": "Sucht den Trigger in der gesamten Nachricht (Standart: True)"
           }
         }
       },
       "delete": {
-        "description": "Delete a trigger. This is irreversibel!",
+        "description": "Lösche einen Trigger. Dies ist unumkehrbar!",
         "options": {
           "id": {
-            "description": "The trigger id, can be found using \"/trigger get\". Leave this empty to delete the last one."
+            "description": "Nutze \"/trigger get\" um die Trigger-ID zu erhalten. Lasse dies leer um die letzte ID zu löschen."
           }
         }
       },
       "clear": {
-        "description": "Delete all triggers. This is irreversibel!",
+        "description": "Lösche alle Trigger. Dies ist unumkehrbar!",
         "options": {
           "confirmation": {
-            "description": "Write \"CLEAR ALL\" to confirm the deletion of ALL TRIGGERS."
+            "description": "Schreibe \"CLEAR ALL\" um die Löschung ALLER TRIGGER zu bestätigen."
           }
         }
       },
       "get": {
-        "description": "Get one or all triggers",
+        "description": "Erhalte einen oder alle Trigger.",
         "options": {
           "query": {
-            "description": "search for a trigger by its trigger content."
+            "description": "Sucht einen Trigger nach seinem Auslöser."
           },
           "id": {
-            "description": "the trigger id, can be found using \"/trigger get\""
+            "description": "Die Trigger-ID kann mit \"/trigger get\" gefunden werden."
           },
           "short": {
-            "description": "return as many triggers as possible"
+            "description": "Gibt so viele Trigger wie möglich wieder"
           }
         }
       }
     },
-    "saved": "Added new trigger for `{trigger}`.",
-    "idNotFound": "There is not trigger with that ID!",
-    "deletedOne": "Deleted the trigger with the ID `{id}`",
-    "deletedAll": "I deleted all (`{count}`) triggers.",
-    "noneFound": "There are no triggers!",
-    "notFound": "No trigger matched your query.",
-    "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
-    "embedTitle": "Triggers",
+    "saved": "Ein neuer Trigger für `{trigger}` wurde hinzugefügt.",
+    "idNotFound": "Es existiert kein Trigger mit dieser ID!",
+    "deletedOne": "Der Trigger mit der ID `{id}` wurde gelöscht.",
+    "deletedAll": "Ich habe alle (`{count}`) Trigger gelöscht.",
+    "noneFound": "Es gibt keine Trigger!",
+    "notFound": "Kein Trigger passt zu deiner Suchanfrage.",
+    "needConfirm": "Du musst diese Aktion durch Eingabe von `CLEAR ALL` in der confirm Option bestätigen!",
+    "embedTitle": "Trigger",
     "fieldName": "**Trigger {id}:**",
-    "fieldValue": "```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard:**`{wildcard}`",
-    "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Response: `{response}`\n> Wildcard: `{wildcard}`\n\n",
+    "fieldValue": "```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:**`{wildcard}`",
+    "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Ausgabe: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard:**`{wildcard}`\n",
-    "first25": "The first 25 triggers. Get more with the `short` option."
+    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:**`{wildcard}`\n",
+    "first25": "Die Ersten 25 Trigger. Erhalte mehr per `short` Option."
   },
   "wiki": {
-    "description": "Search for something on Wikipedia, or get a random page if no search terms were specified.",
-    "usage": "wiki <search terms>",
+    "description": "Suche nach etwas auf Wikipedia oder erhalte Infos über etwas Zufälliges.",
+    "usage": "Wiki <Suchbegriff(e)>",
     "options": {
       "query": {
-        "description": "What you you want to search?"
+        "description": "Was möchtest du suchen?"
       }
     },
-    "notFound": "No results found.",
-    "visitWiki": "**For more information, please visit the Wikipedia page.**",
-    "error": "Couldn't talk to Wikipedia:\n```{err}```"
+    "notFound": "Es wurden keine Suchergebnisse gefunden.",
+    "visitWiki": "**Für mehr Informationen, besuche bitte Wikipedia.**",
+    "error": "Ich konnte nicht mit Wikipedia kommunizieren:\n```{err}```"
   }
 }
