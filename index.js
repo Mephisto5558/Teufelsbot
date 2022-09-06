@@ -50,7 +50,7 @@ console.time('Starting time');
       ]
     },
     shards: 'auto',
-    retryLimit: 2,
+    rest: { retries: 2 },
     intents: [
       GatewayIntentBits.Guilds,
       GatewayIntentBits.GuildMembers,
