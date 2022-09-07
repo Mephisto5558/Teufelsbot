@@ -119,6 +119,7 @@
         "description": "Was möchtest du mich ausrechnen lassen?"
       }
     },
+    "embedTitle": "Rechner",
     "noInput": "Du hast mir keinen Audruck gegeben",
     "embedTitle": "Rechner",
     "help": "Hilfe und Informationen\n\nDieser Rechner unterstützt viele mathematischen Operationen, nicht nur den Standart.\nDu kannst Variablen wie folgt deklarieren: `x=10`.\nDu kannst mehrere Ausdrücke mit einer neuen Zeile oder einem `;` trennen. zb. `x=10;x+10` gibt `20` aus.\nDu musst `*` für Multiplikation nutzen.\nDer Rechner unterstützt die Ausgabe mehrere Ergebnisse.\nManchmal erzeugen unnötige Leertasten Fehler im Rechner.",

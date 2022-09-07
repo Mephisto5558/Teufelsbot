@@ -120,6 +120,7 @@
         "description": "What do you want me to solve?"
       }
     },
+    "embedTitle": "Rechner",
     "noInput": "You have not given any input.",
     "embedTitle": "Rechner",
     "help": "Help and Information\n\nThis calculator supports many mathematic operations, not only the basic ones.\nYou can use variables like this: `x=10`.\nYou can use multiple statements by using a new line or a `;`. `x=10;x+10` returns `20`.\nYou need to use `*` for multiplying.\nThe calculator suppots outputting multiple results.\nSometimes unnecessary spaces are making the expression error.",
