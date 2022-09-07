@@ -123,7 +123,7 @@ module.exports = {
       }
 
       case 'clear': {
-        if (interaction.options.getString('confirmation').toLowerCase() != 'clear all') return interaction.editReply(lang('needConfirm'));
+        if (interaction.options.getString('confirmation').toLowerCase() != lang('confirmation')) return interaction.editReply(lang('needConfirm'));
         if (!oldData.length) return interaction.editReply(lang('noneFound'));
 
         newData = settings.fMerge({ [interaction.guild.id]: { triggers: [] } }, 'overwrite');
