@@ -1,9 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { evaluate, isResultSet } = require('mathjs'),
-  embed = new EmbedBuilder({
-    title: 'Calculator'
-  });
+  { evaluate, isResultSet } = require('mathjs');
 
 module.exports = {
   name: 'math',
@@ -25,6 +22,10 @@ module.exports = {
   run: (message, lang) => {
     const expression = (message.args?.[0] || message.options?.getString('expression'))?.replaceAll('\n', ';').replaceAll('÷', '/');
     if (!expression) return message.customReply(lang('noInput'));
+
+    const embed = new EmbedBuilder({
+      title: lang('embedTitle')
+    });
 
     if (expression == 'help') {
       embed.data.description = lang('help');
