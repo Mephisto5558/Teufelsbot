@@ -24,6 +24,6 @@ module.exports = {
     await client.user.setActivity(activity, { type: type });
     client.db.set('botSettings', client.db.get('botSettings').fMerge({ activity: { name: activity, type: type } }));
 
-    message.customReply(activity ? lang('success', { name: activity, type: ActivityType[type] }) : lang('reset'));
+    message.customReply(activity ? lang('set', { name: activity, type: ActivityType[type] }) : lang('reset'));
   }
 }
