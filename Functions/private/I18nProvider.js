@@ -1,6 +1,6 @@
 const
   { Collection } = require('discord.js'),
-  { readdirSync } = require('fs'),
+  { readdirSync, readFileSync } = require('fs'),
   path = require('path');
 
 class I18nProvider {
@@ -24,11 +24,11 @@ class I18nProvider {
 
     if (filePath) {
       for (const item of readdirSync(filePath, { withFileTypes: true })) {
-        if (item.isFile() && item.name.endsWith('.json')) data[item.name.replace('.json', '')] = require(`${filePath}/${item.name}`);
+        if (item.isFile() && item.name.endsWith('.json')) data[item.name.replace('.json', '')] = JSON.parse(readFileSync(`${filePath}/${item.name}`, 'utf8'));
         else {
           data[item.name] = {};
           for (const file of readdirSync(`${filePath}/${item.name}`).filter(e => e.endsWith('.json')))
-            data[item.name][file.replace('.json', '')] = require(`${filePath}/${item.name}/${file}`);
+            data[item.name][file.replace('.json', '')] = JSON.parse(readFileSync(`${filePath}/${item.name}/${file}`, 'utf8'));
         }
       }
 
