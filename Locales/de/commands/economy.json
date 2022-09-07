@@ -41,7 +41,7 @@
             "description": "LÖSCHE ALLE Economy Daten (inklusive Config). Dies ist irreversibel!",
             "options": {
               "confirmation": {
-                "description": "Schreibe \"CLEAR ALL\" um die Löschung der Economy Data dieses Servers zu bestätigen."
+                "description": "Schreibe \"LÖSCHE ALLES\" um die Löschung der Economy Data dieses Servers zu bestätigen."
               }
             }
           },
@@ -76,13 +76,14 @@
         }
       }
     },
+    "confirmation": "lösche alles",
     "user": {
       "start": {
         "alreadyInitiated": "Du hast diesen Command bereits ausgeführt! Du kannst die Economy nutzen.",
         "success": "Du kannst nun die Economy nutzen! Probiere mal `/account`, `/stats` und `/research` aus!"
       },
       "delete": {
-        "needConfirm": "Du musst diese Aktion bestätigen, indem du `CLEAR ALL` als confirm Option nutzt!",
+        "needConfirm": "Du musst diese Aktion bestätigen, indem du `LÖSCHE ALLES` als confirm Option nutzt!",
         "success": "Alle deine Economy-Daten (inklusive Konfiguration) für diesen Server wurde gelöscht. Beginne, die Economy zu nutzen, indem du `/economyconfig user start` ausführst."
       }
     },
@@ -92,7 +93,7 @@
         "success": "{state} die Economy für diesen Server."
       },
       "clear": {
-        "needConfirm": "Du musst diese Aktion bestätigen, indem du `CLEAR ALL` als confirm Option nutzt!",
+        "needConfirm": "Du musst diese Aktion bestätigen, indem du `LÖSCHE ALLES` als confirm Option nutzt!",
         "success": "Alle Economy-Daten (inklusive Konfiguration) für diesen Server wurden gelöscht und die Economy wurde deaktiviert."
       },
       "blacklist": {

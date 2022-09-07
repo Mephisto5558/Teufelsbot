@@ -445,6 +445,7 @@
     "deletedAll": "I deleted all (`{count}`) triggers.",
     "noneFound": "There are no triggers!",
     "notFound": "No trigger matched your query.",
+    "confirmation": "clear all",
     "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
     "embedTitle": "Triggers",
     "fieldName": "**Trigger {id}:**",
