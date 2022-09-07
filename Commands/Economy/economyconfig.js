@@ -156,7 +156,7 @@ module.exports = {
         }
 
         case 'delete': {
-          if (!interaction.options.getString('confirmation')?.toLowerCase() == 'clear all')
+          if (!interaction.options.getString('confirmation')?.toLowerCase() == lang('confirmation'))
             return interaction.editReply(lang('user.delete.needConfirm'));
 
           const oldData = db.get('guildSettings');
@@ -183,7 +183,7 @@ module.exports = {
         }
 
         case 'clear': {
-          if (!interaction.options.getString('confirmation')?.toLowerCase() == 'clear all')
+          if (!interaction.options.getString('confirmation')?.toLowerCase() == lang('confirmation'))
             return interaction.editReply(lang('admin.clear.needConfirm'));
 
           const oldData = db.get('guildSettings');

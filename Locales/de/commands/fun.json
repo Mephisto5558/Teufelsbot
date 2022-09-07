@@ -423,7 +423,7 @@
         "description": "Lösche alle Trigger. Dies ist unumkehrbar!",
         "options": {
           "confirmation": {
-            "description": "Schreibe \"CLEAR ALL\" um die Löschung ALLER TRIGGER zu bestätigen."
+            "description": "Schreibe \"LÖSCHE ALLES\" um die Löschung ALLER TRIGGER zu bestätigen."
           }
         }
       },
@@ -448,7 +448,8 @@
     "deletedAll": "Ich habe alle (`{count}`) Trigger gelöscht.",
     "noneFound": "Es gibt keine Trigger!",
     "notFound": "Kein Trigger passt zu deiner Suchanfrage.",
-    "needConfirm": "Du musst diese Aktion durch Eingabe von `CLEAR ALL` in der confirm Option bestätigen!",
+    "confirmation": "lösche alles",
+    "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!",
     "embedTitle": "Trigger",
     "fieldName": "**Trigger {id}:**",
     "fieldValue": "```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:**`{wildcard}`",
