@@ -458,6 +458,37 @@
     "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:**`{wildcard}`\n",
     "first25": "Die Ersten 25 Trigger. Erhalte mehr per `short` Option."
   },
+  "vote": {
+    "description": "Erstelle eine Umfrage",
+    "usage": "vote <Kanal> [Frage] | [Option 1] | [Option 2] | <Option 3> ... <Option 9>",
+    "options": {
+      "question": {
+        "description": "Worüber soll abgestimmt werden?"
+      },
+      "option_n": {
+        "description": "Die {num}. Antwort zu dieser Umfrage"
+      },
+      "type": {
+        "description": "Welche Abstimmungsart möchtest du nutzen?",
+        "choices": {
+          "normal": "Normal",
+          "anonymous": "Anonym"
+        }
+      },
+      "channel": {
+        "description": "In welchen Kanal soll ich die Abstimmung senden?"
+      }
+    },
+    "noPerm": "Du hast nicht die Berechtigung, Nachrichten in diesem Kanal zu senden!",
+    "noQuestion": "Du musst eine Frage stellen!",
+    "notEnoughOptions": "Du musst mindestens zwei Optionen angeben (separiere sie mit `|`)!",
+    "embedTitle": "Abstimmung",
+    "embedFooterText": "Der Ersteller dieser Abstimmung kann mit ❌ reagieren, um sie zu beenden.",
+    "buttonEmbedFooterText": "Der Ersteller dieser Abstimmung kann den ❌ Button drücken, um sie zu beenden.",
+    "fieldsQuestion": "Thema",
+    "fieldsOptions": "Antworten",
+    "ended": "Die Abstimmung ist beendet!"
+  },
   "wiki": {
     "description": "Suche nach etwas auf Wikipedia oder erhalte Infos über etwas Zufälliges.",
     "usage": "Wiki <Suchbegriff(e)>",
