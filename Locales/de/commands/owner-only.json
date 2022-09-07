@@ -51,7 +51,7 @@
     "usage": "PREFIX Command: setactivity <activity>;[type]",
     "invalidType": "Das ist kein gültiger Aktivitäts-Typ. Gültige Typen sind:\n`{types}`",
     "set": "Aktivität wurde zu `{name}` vom Typ `{type}`. gesetzt",
-    "reset": "Aktiviät wurde zu `nichts` gesetzt."
+    "reset": "Aktivität wurde zu `nichts` gesetzt."
   },
   "test": {
     "description": "testing stuff"
