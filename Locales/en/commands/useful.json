@@ -12,7 +12,7 @@
         "description": "the role(s) that is/are allowed to use the emoji. Separate them with spaces."
       }
     },
-    "embedTitle": "Add Emoji",
+    "embedTitle": "AddEmoji",
     "isGuildEmoji": "That emoji is already on this guild!",
     "invalidUrl": "The provided argument is not a valid url or emoji!\nThe url must end with `jpg`, `jpeg`, `png`, `webp`, `svg` or `gif`.\nExample: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "The provided url was not found.",
@@ -120,6 +120,7 @@
         "description": "What do you want me to solve?"
       }
     },
+    "embedTitle": "Rechner",
     "noInput": "You have not given any input.",
     "help": "Help and Information\n\nThis calculator supports many mathematic operations, not only the basic ones.\nYou can use variables like this: `x=10`.\nYou can use multiple statements by using a new line or a `;`. `x=10;x+10` returns `20`.\nYou need to use `*` for multiplying.\nThe calculator suppots outputting multiple results.\nSometimes unnecessary spaces are making the expression error.",
     "error": "An error occurred while trying to solve your expression:\n```{err}```",
