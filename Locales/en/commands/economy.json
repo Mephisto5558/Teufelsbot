@@ -31,6 +31,7 @@
           }
         }
       },
+      "confirmation": "clear all",
       "admin": {
         "description": "Configure the economy in this guild",
         "options": {
