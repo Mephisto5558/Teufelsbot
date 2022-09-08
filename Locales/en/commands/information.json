@@ -51,7 +51,7 @@
     "shard": "Shard",
     "starts": "Starts",
     "lastStart": "Last start",
-    "translation": "Translation:\nEnglish: {en}, German: {de}\n",
+    "translation": "Translations:\n> English: {en}\n> German: {de}\n",
     "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Privacy Policy]({PrivacyPolicy})**",
     "embedTitle": "Stats",
     "embedFooterText": "More stats are coming soon!"
@@ -81,6 +81,9 @@
     "options": {
       "new_prefix": {
         "description": "the new bot prefix for this guild"
+      },
+      "case_insensitive": {
+        "description": "Should the case of the prefix be ignored?"
       }
     },
     "saved": "My prefix has been changed to `{prefix}`.",

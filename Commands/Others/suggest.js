@@ -27,7 +27,7 @@ module.exports = {
       name: 'importance',
       type: 'String',
       required: true,
-      choices: ['Low', 'Medium', 'High']
+      choices: ['low', 'medium', 'hight']
     }
   ],
 

@@ -47,7 +47,7 @@
     "success": "**{user}** wurde erfolgreich gekickt.\n",
     "noDm": "Ich konnte dem Ziel keine DM senden."
   },
-  "lockchannel": {
+  "lock": {
     "description": "Verbietet jedem, abgesehen von Administratoren, in einem Kanal Nachrichten zu senden.",
     "usage": "lock [channel] [reason]",
     "options": {

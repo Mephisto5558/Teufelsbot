@@ -249,6 +249,9 @@
           },
           "required_roles": {
             "description": "Nur Mitglieder mit einer dieser Rollen dürfen teilnehmen"
+          },
+          "bonus_entries": {
+            "description": "Erwähnungen von Mitgliedern/Rollen und der Anzahl deren Bonuseinträge, z.B. @Premium:5 @Normal:2"
           }
         }
       },
