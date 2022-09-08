@@ -47,7 +47,7 @@
     "success": "**{user}** has been successfully kicked.\n",
     "noDm": "I couldn't DM the target."
   },
-  "lockchannel": {
+  "lock": {
     "description": "Prevents everyone except administrators from writing in a channel",
     "usage": "lock [channel] [reason]",
     "options": {

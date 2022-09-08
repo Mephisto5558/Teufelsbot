@@ -24,23 +24,23 @@ function equal(a, b) {
 
 function format(option, path) {
   if (option.options) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`));
-  if (!option.description) {
-    option.description = I18nProvider.__(undefined, `${path}.description`);
-    if (!option.description) throw new Error(`Missing option description for option ${option.name}! Expected it in ${path}.description.`);
-  }
+  if (!option.description) option.description = I18nProvider.__({ errorNotFound: true }, `${path}.description`);
 
   if (option.description.length > 100) {
-    console.error(`WARN: Description of option ${option.name} (${path}) is too long (max length is 100)! Slicing.`);
+    console.error(`WARN: Description of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
     option.description = option.description.substring(0, 100);
   }
 
-  if (option.choices?.length) option.choices = option.choices.map(e => ({ name: typeof e == 'string' ? I18nProvider.__(undefined, `${path}.choices.${e}`) || e : e, value: e }));
+  if (option.choices?.length) option.choices = option.choices.map(e => { return typeof e != 'string' ? e : { name: I18nProvider.__({ errorNotFound: true }, `${path}.choices.${e}`) || e, value: e } });
 
   if (option.run) {
-    if (!option.usage) option.usage = I18nProvider.__(undefined, `${path}.usage`);
+    if (!option.usage) {
+      try { option.usage = I18nProvider.__({ errorNotFound: true }, `${path}.usage`) }
+      catch { }
+    }
 
     if (!option.type) option.type = ApplicationCommandType.ChatInput;
-    else if (!ApplicationCommandType[option.type]) throw new Error(`Invalid option.type, got ${option.type} (${path})`);
+    else if (!ApplicationCommandType[option.type]) throw new Error(`Invalid option.type, got "${option.type}" (${path})`);
     else if (isNaN(option.type)) option.type = ApplicationCommandType[option.type];
 
     if (option.permissions?.user.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions?.user);
@@ -54,11 +54,11 @@ function format(option, path) {
   }
 
   if (option.channelTypes) option.channelTypes = option.channelTypes?.map(e => {
-    if (!ChannelType[e] && ChannelType[e] != 0) throw Error(`Invalid option.channelType, got ${e} (${path})`);
+    if (!ChannelType[e] && ChannelType[e] != 0) throw Error(`Invalid option.channelType, got "${e}" (${path})`);
     return isNaN(e) ? ChannelType[e] : e;
   });
 
-  if (!option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or invalid option.type, got ${option.type} (${path})`);
+  if (!option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or invalid option.type, got "${option.type}" (${path})`);
   if (isNaN(option.type)) option.type = ApplicationCommandOptionType[option.type];
 
   return option;

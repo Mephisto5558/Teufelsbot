@@ -171,7 +171,11 @@
         "description": "Schaltet das Modul ein/aus",
         "options": {
           "module": {
-            "description": "Das Modul, welches du ein- oder ausschalten möchtest"
+            "description": "Das Modul, welches du ein- oder ausschalten möchtest",
+            "choices": {
+              "gatekeeper": "Willkommen",
+              "birthday": "Geburtstage"
+            }
           }
         }
       }

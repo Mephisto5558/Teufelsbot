@@ -20,7 +20,10 @@
         "description": "get stats about yourself or a specific user",
         "options": {
           "game": {
-            "description": "Wich game do you want to get stats about?"
+            "description": "Wich game do you want to get stats about?",
+            "choices": {
+              "tictactoe": "TicTacToe"
+            }
           },
           "target": {
             "description": "Wich user do you want to get stats about?"
@@ -31,10 +34,16 @@
         "description": "get the top 10 players of a game",
         "options": {
           "game": {
-            "description": "Wich game do you want to get stats about?"
+            "description": "Wich game do you want to get stats about?",
+            "choices": {
+              "tictactoe": "TicTacToe"
+            }
           },
           "settings": {
-            "description": "Apply/Disapply filters to the leaderboard"
+            "description": "Apply/Disapply filters to the leaderboard",
+            "choices": {
+              "all_users": "All Users globally"
+            }
           }
         }
       }
