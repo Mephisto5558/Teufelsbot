@@ -1,8 +1,8 @@
 const
   { Client, MessageReaction, User } = require('discord.js'),
+  I18nProvider = require('../Functions/private/I18nProvider.js'),
   pollReactionEmojis = ['🇦', '🇧', '🇨', '🇩', '🇪', '🇫', '🇬', '🇭', '🇮', '🇯', '❌'],
-  defaultBar = '░░░░░░░░░░░░░░░',
-  I18nProvider = require('../Functions/private/I18nProvider.js');
+  defaultBar = '░░░░░░░░░░░░░░░';
 
 /**
  * 
@@ -36,7 +36,7 @@ module.exports = async (client, reaction, user) => {
       return message.edit({ embeds: [embed], components: [] });
     }
     
-    if(reaction.users.cache.has(user.id)) return reaction.remove();
+    if(message.reactions.cache.find(e => e.users.cache.has(user.id))) return reaction.remove();
 
     const reactions = message.reactions.cache.filter(e => e.count > 1);
     const reactionCount = reactions.reduce((acc, e) => { return acc + e.count - 1 }, 0);
