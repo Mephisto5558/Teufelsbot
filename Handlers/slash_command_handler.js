@@ -30,11 +30,11 @@ function format(option, path) {
   }
 
   if (option.description.length > 100) {
-    console.error(`WARN: Description of option ${option.name} is too long (max length 100)! Slicing.`);
+    console.error(`WARN: Description of option ${option.name} is too long (max length is 100)! Slicing.`);
     option.description = option.description.substring(0, 100);
   }
 
-  if (option.choices?.length) option.choices = option.choices.map(e => typeof e == 'string' ? I18nProvider.__(undefined, `${path}.choices.${e}`) || e : e);
+  if (option.choices?.length) option.choices = option.choices.map(e => ({ name: typeof e == 'string' ? I18nProvider.__(undefined, `${path}.choices.${e}`) || e : e, value: e }));
 
   if (option.run) {
     if (!option.usage) option.usage = I18nProvider.__(undefined, `${path}.usage`);
