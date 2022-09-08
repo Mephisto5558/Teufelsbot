@@ -4,7 +4,7 @@ const
 
 function listCommands(list, output, count, category) {
   for (const command of list.values()) {
-    if (command.category.toLowerCase() != category?.toLowerCase() || command.hideInHelp || command.disabled || output.includes(`\`${command.name}\``)) continue;
+    if (command.category?.toLowerCase() != category?.toLowerCase() || command.hideInHelp || command.disabled || output.includes(`\`${command.name}\``)) continue;
 
     if (count % 5 == 0) output += `\`${command.name}\`\n> `
     else output += `\`${command.name}\`, `
