@@ -1,4 +1,6 @@
-const { EmbedBuilder, Colors } = require('discord.js');
+const
+  { EmbedBuilder, Colors } = require('discord.js'),
+  I18nProvider = require('../../Functions/private/I18nProvider.js');
 
 function listCommands(list, output, count, category) {
   for (const command of list.values()) {
@@ -23,8 +25,9 @@ module.exports = {
   options: [{ name: 'command', type: 'String' }],
 
   run: (message, lang, client) => {
-    const embed = new EmbedBuilder({ color: Colors.Blurple });
-    const query = (message.args?.[0] || message.options?.getString('command'))?.toLowerCase();
+    const
+      embed = new EmbedBuilder({ color: Colors.Blurple }),
+      query = (message.args?.[0] || message.options?.getString('command'))?.toLowerCase();
 
     if (query) {
       const cmd = client.commands.get(query) || client.slashCommands.get(query);
@@ -34,8 +37,10 @@ module.exports = {
         embed.data.color = Colors.Red;
       }
       else {
+        const helpLang = I18nProvider.__.bind(I18nProvider, { undefinedNotFound: true, locale: client.db.get('guildSettings')[message.guild.id]?.lang || message.guild.preferredLocale.slice(0, 2), backUpPath: `commands.${cmd.category.toLowerCase()}.${cmd.name}` });
+
         embed.data.title = lang('one.embedTitle', cmd.name);
-        embed.data.description = cmd.description ?? lang('one.noDescription');
+        embed.data.description = helpLang('description') ?? lang('one.noDescription');
         if (cmd.usage) embed.data.footer = { text: lang('one.embedFooterText', client.db.get('guildSettings')[message.guild.id]?.config?.prefix || client.db.get('guildSettings').default.config.prefix) };
         embed.data.fields = [
           cmd.aliases?.prefix?.length ? { name: lang('one.prefixAlias'), value: `\`${listCommands(cmd.aliases.prefix, '', 1)[0].replaceAll('> ', '')}\``, inline: true } : null,
@@ -47,7 +52,7 @@ module.exports = {
               (cmd.cooldowns.guild ? `${lang('global.guild')}: \`${parseFloat((cmd.cooldowns.guild / 1000).toFixed(2))}\`s${cmd.cooldowns.user ? ', ' : ''}` : '') +
               (cmd.cooldowns.user ? `${lang('global.user')}: \`${parseFloat((cmd.cooldowns.user / 1000).toFixed(2))}\`s` : '')
           } : null,
-          cmd.usage ? { name: lang('one.usage'), value: `${cmd.slashCommand ? lang('one.lookAtDesc') : ''} ${cmd.usage || ''}`, inline: false } : null
+          cmd.usage ? { name: lang('one.usage'), value: `${cmd.slashCommand ? lang('one.lookAtDesc') : ''} ${helpLang('usage') || ''}`, inline: false } : null
         ].filter(e => e);
       }
 
