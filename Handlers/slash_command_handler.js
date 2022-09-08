@@ -30,7 +30,7 @@ function format(option, path) {
   }
 
   if (option.description.length > 100) {
-    console.error(`WARN: Description of option ${option.name} (${option.path}) is too long (max length is 100)! Slicing.`);
+    console.error(`WARN: Description of option ${option.name} (${path}) is too long (max length is 100)! Slicing.`);
     option.description = option.description.substring(0, 100);
   }
 
@@ -40,7 +40,7 @@ function format(option, path) {
     if (!option.usage) option.usage = I18nProvider.__(undefined, `${path}.usage`);
 
     if (!option.type) option.type = ApplicationCommandType.ChatInput;
-    else if (!ApplicationCommandType[option.type]) throw new Error(`Invalid option.type, got ${option.type} (${option.path})`);
+    else if (!ApplicationCommandType[option.type]) throw new Error(`Invalid option.type, got ${option.type} (${path})`);
     else if (isNaN(option.type)) option.type = ApplicationCommandType[option.type];
 
     if (option.permissions?.user.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions?.user);
@@ -49,16 +49,16 @@ function format(option, path) {
   }
 
   if (/[A-Z]/.test(option.name)) {
-    console.error(`${option.name} (${option.path})has uppercase letters! Fixing`);
+    console.error(`${option.name} (${path})has uppercase letters! Fixing`);
     option.name = option.name.toLowerCase();
   }
 
   if (option.channelTypes) option.channelTypes = option.channelTypes?.map(e => {
-    if (!ChannelType[e] && ChannelType[e] != 0) throw Error(`Invalid option.channelType, got ${e} (${option.path})`);
+    if (!ChannelType[e] && ChannelType[e] != 0) throw Error(`Invalid option.channelType, got ${e} (${path})`);
     return isNaN(e) ? ChannelType[e] : e;
   });
 
-  if (!option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or invalid option.type, got ${option.type} (${option.path})`);
+  if (!option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or invalid option.type, got ${option.type} (${path})`);
   if (isNaN(option.type)) option.type = ApplicationCommandOptionType[option.type];
 
   return option;
