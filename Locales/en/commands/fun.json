@@ -16,7 +16,7 @@
       "Yesssss",
       "Yessss Sir.",
       "Yes – definitely.",
-      "Your question delights me, my answer is: of course",
+      "Your question delights me, my answer is: of course.",
       "You may rely on it.",
       "Outlook good.",
       "Signs point to yes.",
@@ -26,7 +26,10 @@
       "Cannot predict now.",
       "Concentrate and ask again.",
       "Reply hazy, try again.",
-      "Don’t count on it.",
+      "You ask to much.",
+      "That's a secret.",
+      "Don't count on it.",
+      "No",
       "No.",
       "Noooooo!",
       "My reply is no.",
@@ -280,22 +283,6 @@
   },
   "happy": {
     "description": "sends a happy message"
-  },
-  "hash": {
-    "description": "encrypts or decrypts your text with various methods",
-    "usage": "SLASH Command: You only need to provide one method option.",
-    "options": {
-      "input": {
-        "description": "the text you want to encrypt or decrypt"
-      },
-      "method": {
-        "description": "with which method your text should get encrypted (needed only once)"
-      }
-    },
-    "noMethod": "You need to provide one of the method options!",
-    "embedTitle": "Hash Function",
-    "embedDescription": "Your input: `{input}`\nHash method: `{method}`",
-    "text": "Your hashed string:\n`{hash}`"
   },
   "image": {
     "description": "Image manipulation",
