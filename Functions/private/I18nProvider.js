@@ -6,9 +6,9 @@ const
 class I18nProvider {
   constructor({
     localesPath = './locales', defaultLocale = 'en',
-    separator = '.', notFoundMessage
+    separator = '.', notFoundMessage, errorNotFound = false
   }) {
-    this.config = { separator, notFoundMessage, defaultLocale };
+    this.config = { defaultLocale, separator, errorNotFound, notFoundMessage};
     this.availableLocales = new Collection(readdirSync(localesPath)
       .map(e => [path.basename(e, '.json'), path.resolve(localesPath, e)])
     );
@@ -48,7 +48,10 @@ class I18nProvider {
     let message = this.localeData[locale]?.[key] || this.localeData[this.config.defaultLocale][key];
     if (!message && backUpPath) message = this.localeData[locale]?.[`${backUpPath}.${key}`] || this.localeData[this.config.defaultLocale][`${backUpPath}.${key}`];
 
-    if (!message) return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
+    if (!message) {
+      if(this.config.errorNotFound) throw new Error(`Key not found: "${key}"`);
+      return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
+    }
     if (Array.isArray(message)) message = message.random();
 
     if (typeof replacements != 'object') message = message.replace(/{\w+}/, replacements.toString());
