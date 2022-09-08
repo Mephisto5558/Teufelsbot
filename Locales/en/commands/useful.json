@@ -119,7 +119,13 @@
       "input": {
         "description": "the text you want to encrypt or decrypt"
       },
-      "method": {
+      "method1": {
+        "description": "with which method your text should get encrypted (needed only once)"
+      },
+      "method2": {
+        "description": "with which method your text should get encrypted (needed only once)"
+      },
+      "method3": {
         "description": "with which method your text should get encrypted (needed only once)"
       }
     },

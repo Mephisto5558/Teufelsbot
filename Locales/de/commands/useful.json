@@ -118,7 +118,13 @@
       "input": {
         "description": "Der Text, welchen du verschlüsseln oder entschlüsseln möchtest."
       },
-      "method": {
+      "method1": {
+        "description": "Mit welcher Methode soll dein Text verschlüsselt werden? (nur eine Angabe benötigt)"
+      },
+      "method2": {
+        "description": "Mit welcher Methode soll dein Text verschlüsselt werden? (nur eine Angabe benötigt)"
+      },
+      "method3": {
         "description": "Mit welcher Methode soll dein Text verschlüsselt werden? (nur eine Angabe benötigt)"
       }
     },
