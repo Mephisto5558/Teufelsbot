@@ -44,12 +44,12 @@ class I18nProvider {
       throw new Error(`There are no language files for the default locale (${this.config.defaultLocale}) in the supplied locales path!`);
   }
 
-  __({ locale = this.config.defaultLocale, backUpPath } = {}, key, replacements = {}) {
+  __({ locale = this.config.defaultLocale, errorNotFound = false, backUpPath } = {}, key, replacements = {}) {
     let message = this.localeData[locale]?.[key] || this.localeData[this.config.defaultLocale][key];
     if (!message && backUpPath) message = this.localeData[locale]?.[`${backUpPath}.${key}`] || this.localeData[this.config.defaultLocale][`${backUpPath}.${key}`];
 
     if (!message) {
-      if(this.config.errorNotFound) throw new Error(`Key not found: "${key}"`);
+      if(errorNotFound || this.config.errorNotFound) throw new Error(`Key not found: "${key}"`);
       return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
     }
     if (Array.isArray(message)) message = message.random();
