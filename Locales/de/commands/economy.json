@@ -65,7 +65,7 @@
             }
           },
           "gaining_rules": {
-            "description": "Alle Einstellungen bezüglich Gaining. Nutze die \"get\" Option um die aktuellen Einstellungen zu erhalten.",
+            "description": "Alle Einstellungen bezüglich Gaining.",
             "options": {
               "get": {
                 "description": "Erhalte alle Einstellungen und ihre Werte."

@@ -66,7 +66,7 @@
             }
           },
           "gaining_rules": {
-            "description": "Rules all about gaining. Use the \"get\" option for the current settings.",
+            "description": "Rules all about gaining.",
             "options": {
               "get": {
                 "description": "Get all settings and their values."
