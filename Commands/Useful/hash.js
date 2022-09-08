@@ -8,7 +8,6 @@ for (let i = 0; i < getHashes().length; i = i + 25) {
     name: `method${i ? i / 25 + 1 : 1}`,
     description: 'with which method your text should get encrypted (needed only once)',
     type: 'String',
-    required: false,
     choices: (_ => {
       const arr = [];
       for (let a = i; a < i + 25 && a < getHashes().length; a++) arr.push({ name: getHashes()[a], value: getHashes()[a] });
@@ -20,17 +19,14 @@ for (let i = 0; i < getHashes().length; i = i + 25) {
 module.exports = {
   name: 'hash',
   aliases: { prefix: [], slash: [] },
-  description: 'encrypt or decrypt your text with various methods',
-  usage: 'SLASH Command: You only need to provide one method option.',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 1000 },
-  category: 'Fun',
+  category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,
   options: [{
     name: 'input',
-    description: 'the text you want to encrypt or decrypt',
     type: 'String',
     required: true,
   }, ...hashOptions],

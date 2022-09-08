@@ -16,7 +16,7 @@
       "Jaaaaaaa",
       "Yessss Sir.",
       "Auf jeden Fall.",
-      "Deine Frage erfreut mich, meine Antwort ist ja",
+      "Deine Frage erfreut mich, meine Antwort ist ja.",
       "Darauf kannst du dich verlassen.",
       "Sieht gut aus.",
       "Die Zeichen deuten auf ja.",
@@ -26,13 +26,16 @@
       "Dies kann ich dir grad nicht beantworten.",
       "Konzentriere dich und frage noch einmal.",
       "Meine Sicht ist vernebelt, frage noch einmal.",
+      "Du stellst zu viele Fragen.",
+      "Das ist ein Geheimnis.",
       "Zähl da nicht drauf.",
       "Ne",
       "Nö",
       "Nein",
+      "Nein.",
       "Naien",
-      "Naiiiiiiin",
-      "Meine Antwort ist nein.",
+      "Naiiiiiiin!",
+      "Meine Antwort lautet nein.",
       "Meine Quellen sagen nein.",
       "Sieht nicht so gut aus.",
       "Das bezweifle ich.",
@@ -283,22 +286,6 @@
   },
   "happy": {
     "description": "Lass den Bot eine fröhliche Nachricht senden :D"
-  },
-  "hash": {
-    "description": "Ver-/Endschlüssel einen Text mit verschiedenen Methoden.",
-    "usage": "SLASH Command: Du musst nur eine der möglichen Methode angeben.",
-    "options": {
-      "input": {
-        "description": "Der Text, welchen du verschlüsseln oder entschlüsseln möchtest."
-      },
-      "method": {
-        "description": "Mit welcher Methode soll dein Text verschlüsselt werden? (nur eine Angabe benötigt)"
-      }
-    },
-    "noMethod": "Du musst noch eine `method` Option angeben!",
-    "embedTitle": "Hash Funktion",
-    "embedDescription": "Dein Input: `{input}`\nHash Methode: `{method}`",
-    "text": "Dein gehashter Text:\n`{hash}`"
   },
   "image": {
     "description": "Bildbearbeitung",

@@ -112,6 +112,22 @@
     "noPerm": "You don't have the permission to send messages in that channel!",
     "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
   },
+  "hash": {
+    "description": "encrypts or decrypts your text with various methods",
+    "usage": "SLASH Command: You only need to provide one method option.",
+    "options": {
+      "input": {
+        "description": "the text you want to encrypt or decrypt"
+      },
+      "method": {
+        "description": "with which method your text should get encrypted (needed only once)"
+      }
+    },
+    "noMethod": "You need to provide one of the method options!",
+    "embedTitle": "Hash Function",
+    "embedDescription": "Your input: `{input}`\nHash method: `{method}`",
+    "text": "Your hashed string:\n`{hash}`"
+  },
   "math": {
     "description": "Runs some math",
     "usage": "math [expression]",
@@ -121,8 +137,7 @@
       }
     },
     "embedTitle": "Rechner",
-    "noInput": "You have not given any input.",
-    "embedTitle": "Rechner",
+    "noInput": "You have not given any input!",
     "help": "Help and Information\n\nThis calculator supports many mathematic operations, not only the basic ones.\nYou can use variables like this: `x=10`.\nYou can use multiple statements by using a new line or a `;`. `x=10;x+10` returns `20`.\nYou need to use `*` for multiplying.\nThe calculator suppots outputting multiple results.\nSometimes unnecessary spaces are making the expression error.",
     "error": "An error occurred while trying to solve your expression:\n```{err}```",
     "separated": "Results separated with \"|\":\n{results}",
