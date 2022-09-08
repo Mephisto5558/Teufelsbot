@@ -27,7 +27,12 @@
             "description": "Starte damit, die Economy Commands zu nutzen!"
           },
           "delete": {
-            "description": "LÖSCHE alle deine Economy Daten! Dies ist irreversibel!"
+            "description": "LÖSCHE alle deine Economy Daten! Dies ist irreversibel!",
+            "options": {
+              "confirmation": {
+                "description": "Schreibe \"LÖSCHE ALLES\" um die Löschung deiner Economy-Daten zu bestätigen."
+              }
+            }
           }
         }
       },
@@ -41,7 +46,7 @@
             "description": "LÖSCHE ALLE Economy Daten (inklusive Config). Dies ist irreversibel!",
             "options": {
               "confirmation": {
-                "description": "Schreibe \"LÖSCHE ALLES\" um die Löschung der Economy Data dieses Servers zu bestätigen."
+                "description": "Schreibe \"LÖSCHE ALLES\" um die Löschung der Economy-Daten dieses Servers zu bestätigen."
               }
             }
           },

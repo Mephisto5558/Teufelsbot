@@ -27,7 +27,12 @@
             "description": "Start using the economy commands!"
           },
           "delete": {
-            "description": "DELETE all your economy data! This is irreversible!"
+            "description": "DELETE all your economy data! This is irreversible!",
+            "options": {
+              "confirmation": {
+                "description": "Write \"CLEAR ALL\" to confirm deleting your economy data."
+              }
+            }
           }
         }
       },
