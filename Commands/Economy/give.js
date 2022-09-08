@@ -3,8 +3,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'give',
   aliases: { prefix: [], slash: [] },
-  description: 'give some souls to someone',
-  usage: 'give [user] [amount]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Economy',
@@ -13,14 +11,12 @@ module.exports = {
   requireEconomy: true,
   options: [
     {
-      name: 'user',
-      description: 'the user you want to give money',
+      name: 'target',
       type: 'User',
       required: true
     },
     {
       name: 'amount',
-      description: 'how much do you want to give? The minimum is one.',
       type: 'String',
       required: true
     }
@@ -28,7 +24,7 @@ module.exports = {
   beta: true,
 
   run: async (message, lang, { db }) => {
-    const target = message.options?.getUser('user') || message.mentions?.users?.first();
+    const target = message.options?.getUser('target') || message.mentions?.users?.first();
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       color: Colors.White

@@ -1,8 +1,6 @@
 module.exports = {
   name: 'setup',
   aliases: { prefix: ['config'], slash: ['config'] },
-  description: 'Configure features of the bot.',
-  usage: '',
   permissions: { client: [], user: ['ManageGuild'] },
   cooldowns: { guild: 0, user: 10000 },
   category: 'Useful',
@@ -10,24 +8,15 @@ module.exports = {
   prefixCommand: false,
   beta: true,
   options: [
-    {
-      name: 'sync',
-      description: 'force syncs my slash commands with your guild',
-      type: 'Subcommand'
-    },
+    { name: 'sync', type: 'Subcommand' },
     {
       name: 'toggle_module',
-      description: 'toggles a module',
       type: 'Subcommand',
       options: [{
         name: 'module',
-        description: 'the module you want to toggle',
         type: 'String',
         required: true,
-        choices: [
-          { name: 'gatekeeper', value: 'gatekeeper' },
-          { name: 'birthday', value: 'birthday' }
-        ]
+        choices: ['gatekeeper', 'birthday']
       }]
     }
   ],

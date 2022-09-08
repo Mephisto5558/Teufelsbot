@@ -1,8 +1,6 @@
 module.exports = {
   name: 'blacklistuser',
   aliases: { prefix: [], slash: [] },
-  description: 'blocks a user from using the bot',
-  usage: 'PREFIX Command: blacklistuser <user id>',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',

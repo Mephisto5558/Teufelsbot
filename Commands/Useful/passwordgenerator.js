@@ -3,8 +3,6 @@ const defaultCharset = ['abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012
 module.exports = {
   name: 'passwordgenerator',
   aliases: { prefix: [], slash: [] },
-  description: 'generate a strong passoword',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Useful',
@@ -14,29 +12,19 @@ module.exports = {
   options: [
     {
       name: 'length',
-      description: 'the length of your password',
       type: 'Number',
-      maxValue: 1750,
-      required: false
+      maxValue: 1750
     },
     {
       name: 'count',
-      description: 'How many passwords do you want to generate',
       type: 'Number',
-      maxValue: 500,
-      required: false
+      maxValue: 500
     },
-    {
-      name: 'exclude_chars',
-      description: 'characters you wont have in your password',
-      type: 'String',
-      required: false
-    },
+    { name: 'exclude_chars', type: 'String' },
     {
       name: 'include_chars',
-      description: 'characters you specificity want in your password',
-      type: 'String',
-      required: false
+      description: 'characters you additionally want in your password',
+      type: 'String'
     }
   ],
 

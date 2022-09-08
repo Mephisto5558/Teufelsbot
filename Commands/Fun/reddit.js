@@ -25,8 +25,6 @@ const
 module.exports = {
   name: 'reddit',
   aliases: { prefix: [], slash: [] },
-  description: 'reddit related commands',
-  usage: 'reddit [subreddit] [sort type]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Fun',
@@ -35,38 +33,16 @@ module.exports = {
   options: [
     {
       name: 'meme',
-      description: 'get a random meme',
       type: 'Subcommand',
-      options: [{
-        name: 'filter_nsfw',
-        description: 'filter all posts tagged as nsfw. Default: true, Enforced on non-nsfw channels',
-        type: 'Boolean',
-        required: false
-      }]
+      options: [{ name: 'filter_nsfw', type: 'Boolean' }]
     },
     {
       name: 'subreddit',
-      description: 'get one of the top posts of a subreddit',
       type: 'Subcommand',
       options: [
-        {
-          name: 'subreddit',
-          description: 'the subreddit name you want to get posts from. Defaults to a random meme sub.',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'type',
-          description: 'the type to sort. Default: hot',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'filter_nsfw',
-          description: 'filter all posts tagged as nsfw. Default: true, Enforced on non-nsfw channels',
-          type: 'Boolean',
-          required: false
-        }
+        { name: 'subreddit', type: 'String' },
+        { name: 'type', type: 'String' },
+        { name: 'filter_nsfw', type: 'Boolean' }
       ]
     }
   ],

@@ -6,8 +6,6 @@ const
 module.exports = {
   name: 'suggest',
   aliases: { prefix: [], slash: [] },
-  description: 'Suggest a feature for the bot on Github.',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 500, user: 30000 },
   category: 'Others',
@@ -17,26 +15,19 @@ module.exports = {
   options: [
     {
       name: 'title',
-      description: 'the title of your suggestion',
       type: 'String',
       required: true
     },
     {
       name: 'suggestion',
-      description: 'your suggestion. Gets send to github.',
       type: 'String',
       required: true
     },
     {
       name: 'importance',
-      description: 'how important you think your suggestion is',
       type: 'String',
       required: true,
-      choices: [
-        { name: 'low', value: 'Low' },
-        { name: 'medium', value: 'Medium' },
-        { name: 'high', value: 'High' }
-      ]
+      choices: ['Low', 'Medium', 'High']
     }
   ],
 

@@ -8,8 +8,6 @@ const responseList = [
 module.exports = {
   name: 'happy',
   aliases: { prefix: [], slash: [] },
-  description: 'make the bot send a happy message',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Fun',

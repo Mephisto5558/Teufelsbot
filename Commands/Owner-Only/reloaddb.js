@@ -1,8 +1,6 @@
 module.exports = {
   name: 'reloaddb',
   aliases: { prefix: [], slash: [] },
-  description: 'Reloads the database',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',

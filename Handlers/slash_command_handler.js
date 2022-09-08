@@ -1,6 +1,8 @@
 const
   { Collection, ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
-  { readdirSync } = require('fs');
+  { readdirSync } = require('fs'),
+  I18nProvider = require('../Functions/private/I18nProvider.js');
+const { options } = require('../Commands/Economy/account.js');
 
 let deletedCommandCount = 0;
 
@@ -20,15 +22,23 @@ function equal(a, b) {
   return true;
 }
 
-function format(option) {
-  if (option.options) option.options = option.options.map(e => format(e));
-  if (!option.description) option.description = ' ';
-  else if (option.description.length > 100) {
-    console.error(`WARN: Description of option ${option.name} is too long (max length 100)!`);
+function format(option, path) {
+  if (option.options) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`));
+  if (!option.description) {
+    option.description = I18nProvider.__(undefined, `${path}.description`);
+    if (!option.description) throw new Error(`Missing option description for option ${option.name}! Expected it in ${path}.description.`);
+  }
+
+  if (option.description.length > 100) {
+    console.error(`WARN: Description of option ${option.name} is too long (max length 100)! Slicing.`);
     option.description = option.description.substring(0, 100);
   }
 
+  if (option.choices?.length) option.choices = option.choices.map(e => typeof e == 'string' ? I18nProvider.__(undefined, `${path}.choices.${e}`) || e : e);
+
   if (option.run) {
+    if (!option.usage) option.usage = I18nProvider.__(undefined, `${path}.usage`);
+
     if (!option.type) option.type = ApplicationCommandType.ChatInput;
     else if (!ApplicationCommandType[option.type]) throw new Error(`Invalid option.type, got ${option.type}`);
     else if (isNaN(option.type)) option.type = ApplicationCommandType[option.type];
@@ -65,7 +75,7 @@ module.exports = async (client, syncGuild) => {
 
     for (const subFolder of getDirectoriesSync('./Commands')) {
       for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js'))) {
-        const command = format(require(`../Commands/${subFolder}/${file}`));
+        const command = format(require(`../Commands/${subFolder}/${file}`), `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`);
         let skipped = false;
 
         if (!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) continue;

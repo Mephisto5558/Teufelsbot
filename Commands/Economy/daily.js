@@ -3,8 +3,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'daily',
   aliases: { prefix: ['d'], slash: [] },
-  description: 'get your daily bonuses',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 86400000 }, //1d
   category: 'Economy',

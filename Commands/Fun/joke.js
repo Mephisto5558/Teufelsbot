@@ -82,39 +82,21 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
 module.exports = {
   name: 'joke',
   aliases: { prefix: [], slash: [] },
-  description: 'sends a joke',
-  usage: 'PREFIX Commands: joke [type]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 0 },
   slashCommand: true,
   prefixCommand: true,
   category: 'Fun',
   options: [
-    {
-      name: 'type',
-      description: 'The type/tag of the joke (not all APIList support this)',
-      type: 'String',
-      required: false,
-    },
+    { name: 'type', type: 'String' },
     {
       name: 'blacklist',
-      description: 'blacklist specific joke type/tags.',
       type: 'String',
-      required: false,
-      choices: [
-        { name: 'nsfw', value: 'nsfw' },
-        { name: 'religious', value: 'religious' },
-        { name: 'political', value: 'political' },
-        { name: 'racist', value: 'racist' },
-        { name: 'sexist', value: 'sexist' },
-        { name: 'explicit', value: 'explicit' }
-      ]
+      choices: ['nsfw', 'religious', 'political', 'racist', 'sexist', 'explicit']
     },
     {
       name: 'max_length',
-      description: 'the max length of the joke (not all APIList support this)',
       type: 'Number',
-      required: false,
       minValue: 10,
       maxValue: 2000
     }

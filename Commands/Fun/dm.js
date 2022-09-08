@@ -3,8 +3,6 @@ const { PermissionFlagsBits, EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'dm',
   aliases: { prefix: [], slash: [] },
-  description: 'sends a user a dm',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 1000 },
   category: 'Fun',
@@ -14,45 +12,27 @@ module.exports = {
   options: [
     {
       name: 'toggle',
-      description: 'toggles the ability to send you user-made dms',
       type: 'Subcommand',
       options: [
-        {
-          name: 'target',
-          description: 'the user you want to toggle, leave this empty to toggle all users ("*").',
-          type: 'User',
-          required: false
-        }
+        { name: 'target', type: 'User' }
       ]
     },
-    {
-      name: 'blacklist',
-      description: 'lists all users you are currently blocking.',
-      type: 'Subcommand'
-    },
+    { name: 'blacklist', type: 'Subcommand' },
     {
       name: 'send',
-      description: 'send a dm to a user of this guild',
       type: 'Subcommand',
       options: [
         {
           name: 'target',
-          description: 'the user you want to send a dm to',
           type: 'User',
           required: true
         },
         {
           name: 'message',
-          description: `the message you want to send, /n for new line`,
           type: 'String',
           required: true
         },
-        {
-          name: 'as_mod',
-          description: `shows 'a mod of {guild name}' instead of your name`,
-          type: 'Boolean',
-          required: false
-        }
+        { name: 'as_mod', type: 'Boolean' }
       ]
     }
   ],

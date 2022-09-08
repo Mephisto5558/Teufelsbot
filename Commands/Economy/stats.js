@@ -3,24 +3,17 @@ const { EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'stats',
   aliases: { prefix: [], slash: [] },
-  description: 'Get more in-depth stats',
-  usage: 'stats [user]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
-  options: [{
-    name: 'user',
-    description: 'The user you want to get data about',
-    type: 'User',
-    required: false
-  }],
+  options: [{ name: 'target', type: 'User' }],
   beta: true,
 
   run: async (message, lang, { db }) => {
     const
-      target = message.options?.getUser('user') || message.mentions?.users?.first() || message.user,
+      target = message.options?.getUser('target') || message.mentions?.users?.first() || message.user,
       userData = db.get('guildSettings')[message.guild.id]?.economy?.[target.id];
 
     if (!userData?.gaining?.chat) return message.customReply(lang('noStats'));

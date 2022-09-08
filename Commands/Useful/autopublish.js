@@ -1,10 +1,6 @@
 module.exports = {
   name: 'autopublish',
   aliases: { prefix: [], slash: [] },
-  description: 'automatically publishes everything anyone in an announcement channel says.',
-  usage:
-    'This command publishes all messages send in announcement channels automatically.\n' +
-    'This is a toggle.',
   permissions: { client: ['ManageGuild'], user: ['ManageGuild'] },
   cooldowns: { guild: 1000, user: 0 },
   category: 'Useful',

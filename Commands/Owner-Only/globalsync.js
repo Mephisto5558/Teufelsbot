@@ -1,8 +1,6 @@
 module.exports = {
   name: 'globalsync',
   aliases: { prefix: [], slash: [] },
-  description: 'syncs my slash commands on all guilds',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',

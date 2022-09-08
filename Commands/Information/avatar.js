@@ -3,25 +3,16 @@ const { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = r
 module.exports = {
   name: 'avatar',
   aliases: { prefix: [], slash: [] },
-  description: 'shows the user avatar',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 1000 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   options: [
-    {
-      name: 'target',
-      description: 'the user you want to get the avatar of',
-      type: 'User',
-      required: false
-    },
+    { name: 'target', type: 'User' },
     {
       name: 'size',
-      description: 'The size of the picture',
       type: 'Number',
-      required: false,
       choices: [
         { name: 16, value: 16 }, { name: 32, value: 32 },
         { name: 56, value: 56 }, { name: 64, value: 64 },

@@ -3,19 +3,12 @@ const { EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'ping',
   aliases: { prefix: [], slash: [] },
-  description: `Get the bot's ping`,
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
-  options: [{
-    name: 'average',
-    description: 'Gets the ping average',
-    type: 'Boolean',
-    required: false
-  }],
+  options: [{ name: 'average', type: 'Boolean' }],
 
   run: async (message, lang, { ws, functions }) => {
     const

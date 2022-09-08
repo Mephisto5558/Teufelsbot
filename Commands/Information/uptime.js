@@ -1,8 +1,6 @@
 module.exports = {
   name: 'uptime',
   aliases: { prefix: [], slash: [] },
-  description: "shows the bot's uptime",
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Information',

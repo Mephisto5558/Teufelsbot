@@ -1,8 +1,6 @@
 module.exports = {
   name: 'unmute',
   aliases: { prefix: [], slash: [] },
-  description: 'lifts the timeout of a member',
-  usage: '',
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Moderation',
@@ -11,16 +9,10 @@ module.exports = {
   options: [
     {
       name: 'target',
-      description: 'who you want to unmute',
       type: 'User',
       required: true,
     },
-    {
-      name: 'reason',
-      description: 'why you want to unmute the target',
-      type: 'String',
-      required: false
-    }
+    { name: 'reason', type: 'String' }
   ],
 
   run: async (interaction, lang) => {

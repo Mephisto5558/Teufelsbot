@@ -5,8 +5,6 @@ const
 module.exports = {
   name: 'dashboard',
   aliases: { prefix: [], slash: [] },
-  description: 'get the link to the dashboard',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Information',

@@ -5,8 +5,6 @@ const
 module.exports = {
   name: 'invite',
   aliases: { prefix: [], slash: [] },
-  description: 'Sends a link to add the bot to your guild!',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Information',
