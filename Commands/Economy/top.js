@@ -3,8 +3,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'top',
   aliases: { prefix: ['t'], slash: [] },
-  description: 'Displays the most powerful members.',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Economy',

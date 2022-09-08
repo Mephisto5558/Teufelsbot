@@ -11,8 +11,6 @@ function filterEmptyEntries(obj) {
 module.exports = {
   name: 'embed',
   aliases: { prefix: [], slash: [] },
-  description: 'sends a custom embed; you can do newlines with "/n"',
-  usage: '',
   permissions: { client: [], user: ['EmbedLinks'] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Useful',
@@ -22,103 +20,37 @@ module.exports = {
   options: [
     {
       name: 'custom',
-      description: 'create your own embed with a bunch of options',
       type: 'Subcommand',
       options: [
         {
           name: 'description',
-          description: 'set the embed text, use "/n" for newlines',
           type: 'String',
           required: true
         },
-        {
-          name: 'content',
-          description: 'set a message outside of the embed',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'title',
-          description: 'set the embed title',
-          type: 'String',
-          required: false
-        },
+        { name: 'content', type: 'String' },
+        { name: 'title', type: 'String' },
         {
           name: 'predefined_color',
-          description: 'set the embed color from predefined hex codes',
           type: 'String',
           choices: Object.entries(Colors).map(([k, v]) => ({ name: k, value: v.toString() })).slice(0, 25),
-          required: false
         },
-        {
-          name: 'custom_color',
-          description: 'set a custom 6-char HEX Code as embed color (e.g. #ffffff)',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'footer_text',
-          description: 'set the footer text',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'footer_icon',
-          description: 'set the footer icon URL',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'image',
-          description: 'set the embed image URL',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'thumbnail',
-          description: 'set the thumbnail URL',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'timestamp',
-          description: 'set the timestamp',
-          type: 'Boolean',
-          required: false
-        },
-        {
-          name: 'author_name',
-          description: 'set the author name',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'author_url',
-          description: 'set the author URL',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'author_icon',
-          description: 'set the author icon URL',
-          type: 'String',
-          required: false
-        },
-        /*{
-          name: 'fields',
-          description: 'set fields. Format: {"name": "<name here>",<value (text)>;;<inline (boolean)>}&&{next one like first}...',
-          type: 'String',
-          required: false
-        }*/
+        { name: 'custom_color', type: 'String' },
+        { name: 'footer_text', type: 'String' },
+        { name: 'footer_icon', type: 'String' },
+        { name: 'image', type: 'String' },
+        { name: 'thumbnail', type: 'String' },
+        { name: 'timestamp', type: 'Boolean' },
+        { name: 'author_name', type: 'String' },
+        { name: 'author_url', type: 'String' },
+        { name: 'author_icon', type: 'String' },
+        //{ name: 'fields', type: 'String' }
       ]
     },
     {
       name: 'json',
-      description: 'create an embed from raw JSON data',
       type: 'Subcommand',
       options: [{
         name: 'json',
-        description: 'JSON data to create an embed from',
         type: 'String',
         required: true
       }]

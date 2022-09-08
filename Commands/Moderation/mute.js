@@ -5,8 +5,6 @@ const
 module.exports = {
   name: 'mute',
   aliases: { prefix: ['timeout'], slash: ['timeout'] },
-  description: 'timeouts a member of a given time (max 28d, default 1h)',
-  usage: '',
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Moderation',
@@ -15,22 +13,15 @@ module.exports = {
   options: [
     {
       name: 'target',
-      description: 'who you want to mute',
       type: 'User',
       required: true,
     },
     {
       name: 'reason',
-      description: 'The member will see the reason in a DM.',
       type: 'String',
       required: true
     },
-    {
-      name: 'duration',
-      description: 'for how long you want to mute the target (eg. 1w3d2h5min10s)',
-      type: 'String',
-      required: false
-    }
+    { name: 'duration', type: 'String' }
   ],
 
   run: async (interaction, lang) => {

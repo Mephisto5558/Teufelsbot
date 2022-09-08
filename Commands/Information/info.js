@@ -6,8 +6,6 @@ const
 module.exports = {
   name: 'info',
   aliases: { prefix: [], slash: [] },
-  description: 'shows some stats of the bot',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 50 },
   category: 'Information',

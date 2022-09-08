@@ -14,20 +14,13 @@ function listCommands(list, output, count, category) {
 module.exports = {
   name: 'help',
   aliases: { prefix: [], slash: [] },
-  description: 'Shows all bot commands',
-  usage: 'PREFIX Command: help [command]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 50 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   ephemeralDefer: true,
-  options: [{
-    name: 'command',
-    description: 'Type a command here to get more information about it',
-    type: 'String',
-    required: false
-  }],
+  options: [{ name: 'command', type: 'String' }],
 
   run: (message, lang, client) => {
     const embed = new EmbedBuilder({ color: Colors.Blurple });

@@ -111,6 +111,22 @@
     "successJSON": "Dein Embed wurde gesendet!",
     "success": "Dein Embed wurde gesendet! Unten ist der Embed Code.\nWenn du es erneut senden möchtest, nutze den `json` Untercommand.\n\n```json\n{json}\n```"
   },
+  "hash": {
+    "description": "Ver-/Endschlüssel einen Text mit verschiedenen Methoden.",
+    "usage": "SLASH Command: Du musst nur eine der möglichen Methode angeben.",
+    "options": {
+      "input": {
+        "description": "Der Text, welchen du verschlüsseln oder entschlüsseln möchtest."
+      },
+      "method": {
+        "description": "Mit welcher Methode soll dein Text verschlüsselt werden? (nur eine Angabe benötigt)"
+      }
+    },
+    "noMethod": "Du musst noch eine `method` Option angeben!",
+    "embedTitle": "Hash Funktion",
+    "embedDescription": "Dein Input: `{input}`\nHash Methode: `{method}`",
+    "text": "Dein gehashter Text:\n`{hash}`"
+  },
   "math": {
     "description": "Ein wenig Mathe",
     "usage": "math [Ausdruck]",
@@ -120,11 +136,11 @@
       }
     },
     "embedTitle": "Rechner",
-    "noInput": "Du hast mir keinen Audruck gegeben",
+    "noInput": "Du hast mir keinen Audruck gegeben!",
     "help": "Hilfe und Informationen\n\nDieser Rechner unterstützt viele mathematischen Operationen, nicht nur den Standart.\nDu kannst Variablen wie folgt deklarieren: `x=10`.\nDu kannst mehrere Ausdrücke mit einer neuen Zeile oder einem `;` trennen. zb. `x=10;x+10` gibt `20` aus.\nDu musst `*` für Multiplikation nutzen.\nDer Rechner unterstützt die Ausgabe mehrere Ergebnisse.\nManchmal erzeugen unnötige Leertasten Fehler im Rechner.",
     "error": "Beim Berechnen ist ein Fehler aufgetreten:\n```{err}```",
     "separated": "Ergebnisse, mit \"|\" separiert:\n{results}",
-    "success": "Ausdruck:\n```{expression}```\nErgebniss:\n```{result}```"
+    "success": "Ausdruck:\n```{expression}```\nErgebnis:\n```{result}```"
   },
   "passwordgenerator": {
     "description": "Generiert ein kryptographisch starkes Passwort",

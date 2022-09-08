@@ -3,8 +3,6 @@ const { Message, CommandInteraction } = require('discord.js');
 module.exports = {
   name: 'purge',
   aliases: { prefix: ['clear'], slash: [] },
-  description: 'removes a specific number of messages',
-  usage: 'PREFIX Command: purge <number>',
   permissions: { client: ['ManageMessages'], user: ['ManageMessages'] },
   cooldowns: { guild: 1000, user: 0 },
   category: 'Moderation',
@@ -13,10 +11,10 @@ module.exports = {
   ephemeralDefer: true,
   options: [{
     name: 'amount',
-    description: 'The amount of messages to purge',
     type: 'Number',
     minValue: 1,
-    maxValue: 1000
+    maxValue: 1000,
+    required: true
   }],
 
   run: async (message, lang, { functions }) => {

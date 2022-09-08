@@ -16,7 +16,7 @@
       "Yesssss",
       "Yessss Sir.",
       "Yes – definitely.",
-      "Your question delights me, my answer is: of course",
+      "Your question delights me, my answer is: of course.",
       "You may rely on it.",
       "Outlook good.",
       "Signs point to yes.",
@@ -26,7 +26,10 @@
       "Cannot predict now.",
       "Concentrate and ask again.",
       "Reply hazy, try again.",
-      "Don’t count on it.",
+      "You ask to much.",
+      "That's a secret.",
+      "Don't count on it.",
+      "No",
       "No.",
       "Noooooo!",
       "My reply is no.",
@@ -281,22 +284,6 @@
   "happy": {
     "description": "sends a happy message"
   },
-  "hash": {
-    "description": "encrypts or decrypts your text with various methods",
-    "usage": "SLASH Command: You only need to provide one method option.",
-    "options": {
-      "input": {
-        "description": "the text you want to encrypt or decrypt"
-      },
-      "method": {
-        "description": "with which method your text should get encrypted (needed only once)"
-      }
-    },
-    "noMethod": "You need to provide one of the method options!",
-    "embedTitle": "Hash Function",
-    "embedDescription": "Your input: `{input}`\nHash method: `{method}`",
-    "text": "Your hashed string:\n`{hash}`"
-  },
   "image": {
     "description": "Image manipulation",
     "usage": "PREFIX Command: image <subcommand | \"help\"> <args>",
@@ -454,6 +441,37 @@
     "shortFieldName": "ID {id}",
     "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard:**`{wildcard}`\n",
     "first25": "The first 25 triggers. Get more with the `short` option."
+  },
+  "vote": {
+    "description": "Create a poll for something",
+    "usage": "vote <channel> [question] | [option 1] | [option 2] | <option 3> ... <option 9>",
+    "options": {
+      "question": {
+        "description": "What do you want people to vote about?"
+      },
+      "option_n": {
+        "description": "The {num} answer to this poll"
+      },
+      "type": {
+        "description": "What kind of vote do you want?",
+        "choices": {
+          "normal": "normal",
+          "anonymous": "anonymous"
+        }
+      },
+      "channel": {
+        "description": "Where should I post the poll?"
+      }
+    },
+    "noPerm": "You don't have the permission to send messages in that channel!",
+    "noQuestion": "You need to provide a question for a poll...",
+    "notEnoughOptions": "You need to provide at least two options (split them with an `|`) for a poll...",
+    "embedTitle": "Poll",
+    "embedFooterText": "The creator of this poll can react with ❌ to close the poll.",
+    "buttonEmbedFooterText": "The creator of this poll can press the ❌ Button to close the poll.",
+    "fieldsQuestion": "Question",
+    "fieldsOptions": "Options",
+    "ended": "The poll has ended!"
   },
   "wiki": {
     "description": "Search for something on Wikipedia, or get a random page if no search terms were specified.",

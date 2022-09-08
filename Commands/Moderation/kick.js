@@ -3,8 +3,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'kick',
   aliases: { prefix: [], slash: [] },
-  description: 'kicks a member from the server',
-  usage: '',
   permissions: { client: ['KickMembers'], user: ['KickMembers'] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Moderation',
@@ -13,13 +11,11 @@ module.exports = {
   options: [
     {
       name: 'targets',
-      description: 'Mention member(s) or put ID(s) in to kick them. Put a space between each target',
       type: 'String',
       required: true
     },
     {
       name: 'reason',
-      description: 'The target(s) will see the reason in DMs.',
       type: 'String',
       required: true
     }

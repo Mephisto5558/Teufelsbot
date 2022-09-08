@@ -5,8 +5,6 @@ const
 module.exports = {
   name: 'giveaway',
   aliases: { prefix: [], slash: [] },
-  description: 'Giveaway Utilitys',
-  usage: '',
   permissions: { client: [], user: ['ManageMessages'] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Fun',
@@ -16,171 +14,81 @@ module.exports = {
   options: [
     {
       name: 'create',
-      description: 'Create a new giveaway.',
       type: 'Subcommand',
       options: [
         {
           name: 'prize',
-          description: 'the prize you are giving away',
           type: 'String',
           required: true
         },
         {
           name: 'description',
-          description: 'the giveaway embed description',
           type: 'String',
           required: true
         },
         {
           name: 'duration',
-          description: 'the giveaway duration (eg. 1w3d2h5min)',
           type: 'String',
           required: true
         },
         {
           name: 'winner_count',
-          description: 'The number of winners',
           type: 'Number',
           minValue: 1,
           required: true
         },
         {
           name: 'channel',
-          description: 'the channel the giveaway should get created in',
           type: 'Channel',
-          channelTypes: ['GuildText', 'GuildNews'],
-          required: false
+          channelTypes: ['GuildText', 'GuildNews']
         },
-        {
-          name: 'reaction',
-          description: 'the emoji users have to react with to participate',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'thumbnail',
-          description: 'the thumbnail url to use',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'image',
-          description: 'the image url to use',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'exempt_members',
-          description: 'Members who are not allowed to participate in this giveaway',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'required_roles',
-          description: 'Only members with one of this roles will be able to participate.',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'bonus_entries',
-          description: 'a list of members/roles with the amount of bonus entries: eg. @Premium:5 @Normal:1',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'embed_color',
-          description: "The hex color of the embed while the giveaway is running.",
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'embed_color_end',
-          description: "The hex color of the embed after the giveaway has ended.",
-          type: 'String',
-          required: false
-        }
+        { name: 'reaction', type: 'String' },
+        { name: 'thumbnail', type: 'String' },
+        { name: 'image', type: 'String' },
+        { name: 'exempt_members', type: 'String' },
+        { name: 'required_roles', type: 'String' },
+        { name: 'bonus_entries', type: 'String' },
+        { name: 'embed_color', type: 'String' },
+        { name: 'embed_color_end', type: 'String' }
       ]
     },
     {
       name: 'end',
-      description: 'end a running giveaway',
       type: 'Subcommand',
       options: [{
         name: 'id',
-        description: 'the id of the giveaway embed',
         type: 'String',
         required: true
       }]
     },
     {
       name: 'edit',
-      description: 'edit a running giveaway',
       type: 'Subcommand',
       options: [
         {
           name: 'id',
-          description: 'the id of the giveaway embed',
           type: 'String',
           required: true
         },
-        {
-          name: 'add_time',
-          description: 'the number of time added to the giveaway duration. eg 2h12min or -1h10min',
-          type: 'String',
-          required: false
-        },
+        { name: 'add_time', type: 'String' },
         {
           name: 'winner_count',
-          description: 'the new number of winners',
           type: 'String',
           minValue: 1,
-          required: false
         },
-        {
-          name: 'prize',
-          description: 'the new prize you are giving away',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'thumbnail',
-          description: 'the new thumbnail url to use',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'image',
-          description: 'the new image url to use',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'exempt_members',
-          description: 'Members who are not allowed to participate in this giveaway',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'required_roles',
-          description: 'Only members with one of this roles will be able to participate.',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'bonus_entries',
-          description: 'a new list of members/roles with the amount of bonus entries: eg. @Premium:5 @Normal:1',
-          type: 'String',
-          required: false
-        }
+        { name: 'prize', type: 'String' },
+        { name: 'thumbnail', type: 'String' },
+        { name: 'image', type: 'String' },
+        { name: 'exempt_members', type: 'String' },
+        { name: 'required_roles', type: 'String' },
+        { name: 'bonus_entries', type: 'String' }
       ]
     },
     {
       name: 'reroll',
-      description: 'reroll a ended giveaway',
       type: 'Subcommand',
       options: [{
         name: 'id',
-        description: 'the id of the giveaway embed',
         type: 'String',
         required: true
       }]

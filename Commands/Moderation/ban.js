@@ -3,8 +3,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'ban',
   aliases: { prefix: [], slash: [] },
-  description: 'bans a member from the guild',
-  usage: '',
   permissions: { client: ['BanMembers'], user: ['BanMembers'] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Moderation',
@@ -13,31 +11,21 @@ module.exports = {
   options: [
     {
       name: 'targets',
-      description: 'Mention member(s) or put ID(s) in to ban them. Put a space between each target',
       type: 'String',
       required: true
     },
     {
       name: 'reason',
-      description: 'The target(s) will see the reason in DMs.',
       type: 'String',
       required: true
     },
     {
       name: 'delete_days_of_messages',
-      description: 'Delete all messages of the targets of the last n days. max. 7d',
       type: 'Number',
       minValue: 1,
-      maxValue: 7,
-      required: false
+      maxValue: 7
     }
-    /*{
-      name: 'duration',
-      description: 'How long want you to get the target banned, empty for permament',
-      type: 'Number',
-      required: false,
-      disabled: true
-    }*/
+    //{ name: 'duration', type: 'Number' }
   ],
 
   run: async (interaction, lang) => {
