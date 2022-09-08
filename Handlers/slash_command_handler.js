@@ -13,7 +13,7 @@ function equal(a, b) {
     a.value != b.value || (a.options?.length ?? 0) != (b.options?.length ?? 0) || (a.channelTypes?.length ?? 0) != (b.channelTypes?.length ?? 0) ||
     a.minValue != b.minValue || a.maxValue != b.maxValue || a.minLength != b.minLength || a.maxLength != b.maxLength || !!a.required != !!b.required ||
     !equal(a.choices, b.choices) || a.defaultMemberPermissions?.bitfield != b.defaultMemberPermissions?.bitfield ||
-    !equal(a.name_localizations, b.name_localizations) || !equal(a.description_localizations, b.description_localizations)
+    !equal(a.nameLocalizations, b.nameLocalizations) || !equal(a.description_localizations, b.description_localizations)
   ) return;
 
   for (let i = 0; i < (a.options?.length || 0); i++) if (!equal(a.options?.[i], b?.options?.[i])) return;
@@ -34,11 +34,11 @@ function format(option, path) {
   }
 
   for (const [locale] of [...I18nProvider.availableLocales].filter(([e]) => e != I18nProvider.config.defaultLocale)) {
-    if (!option.description_localizations) option.description_localizations = {};
+    if (!option.descriptionLocalizations) option.descriptionLocalizations = {};
     let localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.description`);
     if (localeText?.length > 100) console.warn(`WARN: "${locale}" Description localization of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
 
-    if (localeText) option.description_localizations[locale] = localeText?.slice(0, 100);
+    if (localeText) option.descriptionLocalizations[locale] = localeText?.slice(0, 100);
     else console.warn(`WARN: Missing "${locale}" description localization for option "${option.name}" (${path}.description)`);
 
     if (option.choices?.length) option.choices.map(e => {
@@ -47,12 +47,12 @@ function format(option, path) {
         return e;
       }
 
-      if (!e.name_localizations) e.name_localizations = {};
+      if (!e.nameLocalizations) e.nameLocalizations = {};
       let localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
       if (localeText?.length > 32) console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too long (max length is 32)! Slicing.`);
       else if (localeText?.length < 2) console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too short (min length is 2)! Using undefined.`);
 
-      if (localeText && localeText?.length > 2) e.name_localizations[locale] = localeText?.slice(0, 32);
+      if (localeText && localeText?.length > 2) e.nameLocalizations[locale] = localeText?.slice(0, 32);
       else console.warn(`WARN: Missing "${locale}" choice name localization for "${e.name}" in option "${option.name}" (${path}.choices.${e.name})`);
 
       return e;
@@ -91,19 +91,21 @@ module.exports = async (client, syncGuild) => {
   await client.functions.ready(client);
 
   const skippedCommands = new Collection();
-  const applicationCommands = await client.application.commands.fetch(undefined, { guildId: syncGuild && syncGuild != '*' ? syncGuild : undefined });
+  const applicationCommands = client.application.commands.fetch(undefined, { guildId: syncGuild && syncGuild != '*' ? syncGuild : undefined });
 
   if (!syncGuild || syncGuild == '*') {
     client.slashCommands = new Collection();
 
     for (const subFolder of getDirectoriesSync('./Commands')) {
       for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js'))) {
-        const command = format(require(`../Commands/${subFolder}/${file}`), `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`);
+        let command = require(`../Commands/${subFolder}/${file}`);
         let skipped = false;
 
         if (!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) continue;
 
-        for (const [, applicationCommand] of applicationCommands) {
+        command = format(command, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`);
+
+        for (const [, applicationCommand] of await applicationCommands) {
           if (!equal(command, applicationCommand)) continue;
           client.log(`Skipped Slash Command ${command.name}`);
           skipped = true;
@@ -129,7 +131,7 @@ module.exports = async (client, syncGuild) => {
   }
 
   const commandNames = [...client.slashCommands, ...skippedCommands].map(e => e[0]);
-  for (const [, clientCommand] of applicationCommands) {
+  for (const [, clientCommand] of await applicationCommands) {
     if (commandNames.includes(clientCommand.name)) continue;
 
     await client.application.commands.delete(clientCommand, syncGuild && syncGuild != '*' ? syncGuild : null);
