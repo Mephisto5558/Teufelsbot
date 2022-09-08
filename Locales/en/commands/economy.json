@@ -126,7 +126,7 @@
     "description": "Give some souls to someone",
     "usage": "give [@user] [amount]",
     "options": {
-      "user": {
+      "target": {
         "description": "The user you want to give souls."
       },
       "amount": {
@@ -203,7 +203,7 @@
     "description": "Get more in-depth stats about a user or yourself",
     "usage": "stats [@user]",
     "options": {
-      "user": {
+      "target": {
         "description": "The user you want to get stats about"
       }
     },

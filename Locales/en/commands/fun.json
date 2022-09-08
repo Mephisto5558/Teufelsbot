@@ -246,6 +246,9 @@
           },
           "required_roles": {
             "description": "Only members with one of this roles will be able to participate."
+          },
+          "bonus_entries": {
+            "description": "A new list of member/role mentions with the amount of bonus entries: eg. @Premium:5 @Normal:2"
           }
         }
       },

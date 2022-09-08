@@ -172,7 +172,11 @@
         "description": "toggles a module",
         "options": {
           "module": {
-            "description": "The module you want to toggle"
+            "description": "The module you want to toggle",
+            "choices": {
+              "gatekeeper": "Gatekeeper",
+              "birthday": "Birthdays"
+            }
           }
         }
       }

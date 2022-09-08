@@ -73,7 +73,7 @@ module.exports = {
           name: 'game',
           type: 'String',
           required: true,
-          choices: ['TicTacToe']
+          choices: ['tictactoe']
         },
         { name: 'target', type: 'User' }
       ]
@@ -86,7 +86,7 @@ module.exports = {
           name: 'game',
           type: 'String',
           required: true,
-          choices: ['TicTacToe']
+          choices: ['tictactoe']
         },
         {
           name: 'settings',

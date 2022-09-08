@@ -50,7 +50,7 @@
     "shard": "Shard",
     "starts": "Starts",
     "lastStart": "Letzter Start",
-    "translation": "Übersetzung:\nEnglish: {en}, German: {de}\n",
+    "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n",
     "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Datenschutzrichtlinie]({PrivacyPolicy})**",
     "embedTitle": "Infos",
     "embedFooterText": "Mehr Infos kommen bald!"
@@ -80,6 +80,9 @@
     "options": {
       "new_prefix": {
         "description": "Der neue Prefix für diesen Server"
+      },
+      "case_insensitive": {
+        "description": "Soll die Groß/Kleinschreibung des Prefixes ignoriert werden?"
       }
     },
     "saved": "Der Prefix wurde zu `{prefix}` gesetzt.",

@@ -126,7 +126,7 @@
     "description": "Gib jemanden einige deiner Seelen",
     "usage": "give [@user] [amount]",
     "options": {
-      "user": {
+      "target": {
         "description": "Das Mitglied, dem du Seelen geben möchtest."
       },
       "amount": {
@@ -203,7 +203,7 @@
     "description": "Erhalte ausführliche Stats über ein Mitglied oder dich selbst.",
     "usage": "stats [@user]",
     "options": {
-      "user": {
+      "target": {
         "description": "Das Mitglied, über das du Stats erhalten möchtest"
       }
     },

@@ -20,7 +20,10 @@
         "description": "Erhalte Stats über dich oder einen anderen Mitglied",
         "options": {
           "game": {
-            "description": "Über welches Minigame du Stats möchtest"
+            "description": "Über welches Minigame du Stats möchtest",
+            "choices": {
+              "tictactoe": "TicTacToe"
+            }
           },
           "target": {
             "description": "Über welchen Mitglied du Stats möchtest"
@@ -31,10 +34,16 @@
         "description": "Erhalte die 10 besten Spieler eines Mingames",
         "options": {
           "game": {
-            "description": "Über welches Minigame du Stats möchtest"
+            "description": "Über welches Minigame du Stats möchtest",
+            "choices": {
+              "tictactoe": "TicTacToe"
+            }
           },
           "settings": {
-            "description": "Adde/Entferne Filter zu/aus der Leaderboard-Abfrage"
+            "description": "Adde/Entferne Filter zu/aus der Leaderboard-Abfrage",
+            "choices": {
+              "all_users": "Alle User global"
+            }
           }
         }
       }
