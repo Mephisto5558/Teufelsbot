@@ -2,7 +2,6 @@ const
   { Collection, ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
   { readdirSync } = require('fs'),
   I18nProvider = require('../Functions/private/I18nProvider.js');
-const { options } = require('../Commands/Economy/account.js');
 
 let deletedCommandCount = 0;
 
@@ -10,10 +9,11 @@ function equal(a, b) {
   if (!a?.toString() && !b?.toString()) return true;
   if (typeof a == 'string' || typeof b == 'string') return a == b;
   if (
-    a.name != b.name || a.description != b.description || a.type != b.type || a.autocomplete != b.autocomplete ||
+    !!a != !!b || a.name != b.name || a.description != b.description || a.type != b.type || a.autocomplete != b.autocomplete ||
     a.value != b.value || (a.options?.length ?? 0) != (b.options?.length ?? 0) || (a.channelTypes?.length ?? 0) != (b.channelTypes?.length ?? 0) ||
     a.minValue != b.minValue || a.maxValue != b.maxValue || a.minLength != b.minLength || a.maxLength != b.maxLength || !!a.required != !!b.required ||
-    !equal(a.choices, b.choices) || a.defaultMemberPermissions?.bitfield != b.defaultMemberPermissions?.bitfield
+    !equal(a.choices, b.choices) || a.defaultMemberPermissions?.bitfield != b.defaultMemberPermissions?.bitfield ||
+    !equal(a.name_localizations, b.name_localizations) || !equal(a.description_localizations, b.description_localizations)
   ) return;
 
   for (let i = 0; i < (a.options?.length || 0); i++) if (!equal(a.options?.[i], b?.options?.[i])) return;
@@ -24,20 +24,43 @@ function equal(a, b) {
 
 function format(option, path) {
   if (option.options) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`));
+
   if (!option.description) option.description = I18nProvider.__({ errorNotFound: true }, `${path}.description`);
+  if (option.choices?.length) option.choices = option.choices.map(e => { return typeof e != 'string' ? e.fMerge({ __SCHandlerCustom: true }) : { name: I18nProvider.__({ errorNotFound: true }, `${path}.choices.${e}`) || e, value: e } });
 
   if (option.description.length > 100) {
-    console.error(`WARN: Description of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
+    console.warn(`WARN: Description of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
     option.description = option.description.substring(0, 100);
   }
 
-  if (option.choices?.length) option.choices = option.choices.map(e => { return typeof e != 'string' ? e : { name: I18nProvider.__({ errorNotFound: true }, `${path}.choices.${e}`) || e, value: e } });
+  for (const [locale] of [...I18nProvider.availableLocales].filter(([e]) => e != I18nProvider.config.defaultLocale)) {
+    if (!option.description_localizations) option.description_localizations = {};
+    let localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.description`);
+    if (localeText?.length > 100) console.warn(`WARN: "${locale}" Description localization of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
+
+    if (localeText) option.description_localizations[locale] = localeText?.slice(0, 100);
+    else console.warn(`WARN: Missing "${locale}" description localization for option "${option.name}" (${path}.description)`);
+
+    if (option.choices?.length) option.choices.map(e => {
+      if (e.__SCHandlerCustom) {
+        delete e.__SCHandlerCustom;
+        return e;
+      }
+
+      if (!e.name_localizations) e.name_localizations = {};
+      let localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
+      if (localeText?.length > 32) console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too long (max length is 32)! Slicing.`);
+      else if (localeText?.length < 2) console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too short (min length is 2)! Using undefined.`);
+
+      if (localeText && localeText?.length > 2) e.name_localizations[locale] = localeText?.slice(0, 32);
+      else console.warn(`WARN: Missing "${locale}" choice name localization for "${e.name}" in option "${option.name}" (${path}.choices.${e.name})`);
+
+      return e;
+    });
+  }
 
   if (option.run) {
-    if (!option.usage) {
-      try { option.usage = I18nProvider.__({ errorNotFound: true }, `${path}.usage`) }
-      catch { }
-    }
+    if (!option.usage) option.usage = I18nProvider.__({ undefinedNotFound: true }, `${path}.usage`);
 
     if (!option.type) option.type = ApplicationCommandType.ChatInput;
     else if (!ApplicationCommandType[option.type]) throw new Error(`Invalid option.type, got "${option.type}" (${path})`);
@@ -127,6 +150,6 @@ module.exports = async (client, syncGuild) => {
   client.log('Loaded Event interactionCreate');
   client.log('Ready to receive slash commands\n');
 
-  client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers, for a total of ${new Set(client.guilds.cache.map(g => Array.from(g.members.cache.filter(e => !e.user.bot).keys())).flat()).size} unique users.\n`);
-  console.timeEnd('Starting time'); //(new Set(await client.guilds.fetch()).map((_, e) => Array.from(e.members.cache.filter(e => !e.user.bot).keys())).flat()).size
+  client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers.\n`);
+  console.timeEnd('Starting time');
 }
