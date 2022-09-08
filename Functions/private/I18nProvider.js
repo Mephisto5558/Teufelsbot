@@ -6,9 +6,10 @@ const
 class I18nProvider {
   constructor({
     localesPath = './locales', defaultLocale = 'en',
-    separator = '.', notFoundMessage, errorNotFound = false
+    separator = '.', notFoundMessage,
+    errorNotFound = false, undefinedNotFound = false
   }) {
-    this.config = { defaultLocale, separator, errorNotFound, notFoundMessage};
+    this.config = { defaultLocale, separator, errorNotFound, undefinedNotFound, notFoundMessage };
     this.availableLocales = new Collection(readdirSync(localesPath)
       .map(e => [path.basename(e, '.json'), path.resolve(localesPath, e)])
     );
@@ -44,12 +45,13 @@ class I18nProvider {
       throw new Error(`There are no language files for the default locale (${this.config.defaultLocale}) in the supplied locales path!`);
   }
 
-  __({ locale = this.config.defaultLocale, errorNotFound = false, backUpPath } = {}, key, replacements = {}) {
+  __({ locale = this.config.defaultLocale, backUpPath, errorNotFound = false, undefinedNotFound = false } = {}, key, replacements = {}) {
     let message = this.localeData[locale]?.[key] || this.localeData[this.config.defaultLocale][key];
     if (!message && backUpPath) message = this.localeData[locale]?.[`${backUpPath}.${key}`] || this.localeData[this.config.defaultLocale][`${backUpPath}.${key}`];
 
     if (!message) {
-      if(errorNotFound || this.config.errorNotFound) throw new Error(`Key not found: "${key}"`);
+      if (undefinedNotFound || this.config.undefinedNotFound) return;
+      if (errorNotFound || this.config.errorNotFound) throw new Error(`Key not found: "${key}"`);
       return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
     }
     if (Array.isArray(message)) message = message.random();
