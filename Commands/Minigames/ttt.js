@@ -113,19 +113,12 @@ async function playAgain(message, clientUserID, lang) {
 module.exports = {
   name: 'tictactoe',
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
-  description: 'play some ttt against a friend or the bot',
-  usage: '',
-  permissions: { client: ['EmbedLinks', 'ManageMessages'], user: [] },
+  permissions: { client: ['ManageMessages'], user: [] },
   cooldowns: { guild: 0, user: 2000 },
   category: 'Minigames',
   slashCommand: true,
   prefixCommand: true,
-  options: [{
-    name: 'opponent',
-    description: 'who you want to play with',
-    type: 'User',
-    required: false
-  }],
+  options: [{ name: 'opponent', type: 'User' }],
 
   run: async (message, lang, client) => {
     return interaction.editReply("'This command is currently disabled due to it not being compatible to the bot's discord.js version.");

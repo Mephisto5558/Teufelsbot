@@ -12,8 +12,6 @@ function getAge([year, month, day]) {
 module.exports = {
   name: 'birthday',
   aliases: { prefix: [], slash: [] },
-  description: 'save your birthday and I will send a message on your birthday',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Fun',
@@ -23,12 +21,10 @@ module.exports = {
   options: [
     {
       name: 'set',
-      description: 'set your own birthday',
       type: 'Subcommand',
       options: [
         {
           name: 'day',
-          description: 'The day you was born in.',
           type: 'Number',
           minValue: 1,
           maxValue: 31,
@@ -36,7 +32,6 @@ module.exports = {
         },
         {
           name: 'month',
-          description: 'The month you was born in.',
           type: 'Number',
           minValue: 1,
           maxValue: 12,
@@ -44,7 +39,6 @@ module.exports = {
         },
         {
           name: 'year',
-          description: 'The year you was born in.',
           type: 'Number',
           minValue: 1900,
           maxValue: currentYear,
@@ -54,28 +48,13 @@ module.exports = {
     },
     {
       name: 'get',
-      description: 'get a list of the next birthdays',
       type: 'Subcommand',
       options: [
-        {
-          name: 'target',
-          description: `whose birthday do you want to get? Leave this empty to get the next 10 birthdays.`,
-          type: 'User',
-          required: false
-        },
-        {
-          name: 'do_not_hide',
-          description: `don't hide the response to other users`,
-          type: 'Boolean',
-          required: false
-        }
+        { name: 'target', type: 'User' },
+        { name: 'do_not_hide', type: 'Boolean' }
       ]
     },
-    {
-      name: 'remove',
-      description: 'deletes your birthday from the database',
-      type: 'Subcommand'
-    }
+    { name: 'remove', type: 'Subcommand' }
   ],
 
   run: async (interaction, lang, { db }) => {

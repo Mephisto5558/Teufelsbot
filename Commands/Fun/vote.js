@@ -5,8 +5,6 @@ const
 module.exports = {
   name: 'vote',
   aliases: { prefix: [], slash: [] },
-  description: 'Create a poll for something',
-  usage: 'vote <channel> [question] | [option 1] | [option 2] | <option 3> ... <option 9>',
   permissions: { client: ['AddReactions'], user: [] },
   cooldowns: { guild: 0, user: 500 },
   category: 'Fun',
@@ -16,80 +14,35 @@ module.exports = {
   options: [
     {
       name: 'question',
-      description: 'What do you want people to vote about?',
       type: 'String',
       required: true
     },
     {
       name: 'option_1',
-      description: 'The 1st answer of this poll',
       type: 'String',
       required: true
     },
     {
       name: 'option_2',
-      description: 'The 2nd answer of this poll',
       type: 'String',
       required: true
     },
-    {
-      name: 'option_3',
-      description: 'The 3rd answer of this poll',
-      type: 'String',
-      required: false
-    },
-    {
-      name: 'option_4',
-      description: 'The 4th answer of this poll',
-      type: 'String',
-      required: false
-    },
-    {
-      name: 'option_5',
-      description: 'The 5th answer of this poll',
-      type: 'String',
-      required: false
-    },
-    {
-      name: 'option_6',
-      description: 'The 6th answer of this poll',
-      type: 'String',
-      required: false
-    },
-    {
-      name: 'option_7',
-      description: 'The 7th answer of this poll',
-      type: 'String',
-      required: false
-    },
-    {
-      name: 'option_8',
-      description: 'The 8th answer of this poll',
-      type: 'String',
-      required: false
-    },
-    {
-      name: 'option_9',
-      description: 'The 9th answer of this poll',
-      type: 'String',
-      required: false
-    },
+    { name: 'option_3', type: 'String' },
+    { name: 'option_4', type: 'String' },
+    { name: 'option_5', type: 'String' },
+    { name: 'option_6', type: 'String' },
+    { name: 'option_7', type: 'String' },
+    { name: 'option_8', type: 'String' },
+    { name: 'option_9', type: 'String' },
     {
       name: 'type',
-      description: 'What kind of vote do you want?',
       type: 'String',
-      choices: [
-        { name: 'normal', value: 'normal' },
-        { name: 'anonymous', value: 'anonymous' }
-      ],
-      required: false
+      choices: ['normal', 'anonymous']
     },
     {
       name: 'channel',
-      description: 'Where should I post the poll?',
       type: 'Channel',
-      channelTypes: ['GuildText', 'GuildNews'],
-      required: false
+      channelTypes: ['GuildText', 'GuildNews']
     }
   ], beta: true,
 

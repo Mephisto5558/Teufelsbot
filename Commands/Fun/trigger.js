@@ -3,8 +3,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'trigger',
   aliases: { prefix: [], slash: [] },
-  description: 'Manage custom responses to message triggers!',
-  usage: '',
   permissions: { client: [], user: ['ManageMessages'] },
   cooldowns: { guild: 0, user: 0 },
   category: 'FUN',
@@ -13,74 +11,42 @@ module.exports = {
   options: [
     {
       name: 'add',
-      description: 'Add a new trigger',
       type: 'Subcommand',
       options: [
         {
           name: 'trigger',
-          description: 'The text you want the bot to respond to',
           type: 'String',
           required: true
         },
         {
           name: 'response',
-          description: 'The response the bot should send',
           type: 'String',
           required: true
         },
-        {
-          name: 'wildcard',
-          description: 'Find the trigger anywhere in the message (default: true)',
-          type: 'Boolean',
-          required: false
-        }
+        { name: 'wildcard', type: 'Boolean' }
       ]
     },
     {
       name: 'delete',
-      description: 'Delete a trigger. This is irreversible!',
       type: 'Subcommand',
-      options: [{
-        name: 'id',
-        description: 'The trigger id, can be found by using "/trigger get". Leave this empty to delete the last one',
-        type: 'Number',
-        required: false
-      }]
+      options: [{ name: 'id', type: 'Number' }]
     },
     {
       name: 'clear',
-      description: 'Delete all triggers. This is irreversible!',
       type: 'Subcommand',
       options: [{
         name: 'confirmation',
-        description: 'Write "CLEAR ALL" for confirmation.',
         type: 'String',
         required: true
       }]
     },
     {
       name: 'get',
-      description: 'Get one or all added triggers',
       type: 'Subcommand',
       options: [
-        {
-          name: 'query',
-          description: 'Search for a trigger by its trigger content',
-          type: 'String',
-          required: false
-        },
-        {
-          name: 'id',
-          description: 'The trigger id, can be found by using "/trigger get" (without the "id" arg)',
-          type: 'Number',
-          required: false
-        },
-        {
-          name: 'short',
-          description: 'return as many triggers as possible',
-          type: 'Boolean',
-          required: false
-        }
+        { name: 'query', type: 'String' },
+        { name: 'id', type: 'Number' },
+        { name: 'short', type: 'Boolean' }
       ]
     }
   ],

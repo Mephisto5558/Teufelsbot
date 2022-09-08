@@ -3,26 +3,14 @@ const { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors } = require('di
 module.exports = {
   name: 'unlock',
   aliases: { prefix: [], slash: [] },
-  description: 'Unlocks a channel locked with the lock command.',
-  usage: 'unlock [channel] [reason]',
   permissions: { client: ['ManageRoles'], user: ['ManageRoles'] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Moderation',
   slashCommand: true,
   prefixCommand: true,
   options: [
-    {
-      name: 'channel',
-      description: 'the channel you want to unlock',
-      type: 'Channel',
-      required: false
-    },
-    {
-      name: 'reason',
-      description: 'the reason for unlocking the channel',
-      type: 'String',
-      required: false
-    }
+    { name: 'channel', type: 'Channel' },
+    { name: 'reason', type: 'String' }
   ],
 
   run: async (message, lang, { db }) => {

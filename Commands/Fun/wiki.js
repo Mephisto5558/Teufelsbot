@@ -9,8 +9,6 @@ const
 module.exports = {
   name: 'wiki',
   aliases: { prefix: ['wikipedia'], slash: [] },
-  description: 'Search for something on Wikipedia, or get a random page if no search terms were specified.',
-  usage: 'wiki <search terms>',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 200 },
   category: 'Fun',
@@ -18,7 +16,6 @@ module.exports = {
   prefixCommand: true,
   options: [{
     name: 'query',
-    description: 'What do you want to search',
     type: 'String',
     required: true
   }],

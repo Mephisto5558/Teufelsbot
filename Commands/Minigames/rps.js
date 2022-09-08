@@ -5,8 +5,6 @@ const
 module.exports = {
   name: 'rps',
   aliases: { prefix: ['rockpaperscissors'], slash: [] },
-  description: 'Play rock paper scissors against the bot or (coming soon) your friends!',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Minigames',

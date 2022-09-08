@@ -5,8 +5,6 @@ const
 module.exports = {
   name: 'math',
   aliases: { prefix: [], slash: [] },
-  description: 'run some basic math',
-  usage: 'math [expression | "help"]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 100 },
   category: 'Useful',
@@ -14,7 +12,6 @@ module.exports = {
   prefixCommand: true,
   options: [{
     name: 'expression',
-    description: 'what do you want me to solve? Write "help" for help',
     type: 'String',
     required: true
   }],

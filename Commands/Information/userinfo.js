@@ -5,19 +5,12 @@ const
 module.exports = {
   name: 'userinfo',
   aliases: { prefix: ['user-info'], slash: [] },
-  description: 'Get information about a user',
-  usage: 'PREFIX Command: roleinfo <@user | user name | user tag | user nickname | user id>',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
-  options: [{
-    name: 'target',
-    description: 'the user you want to get information about',
-    type: 'User',
-    required: false
-  }],
+  options: [{ name: 'target', type: 'User' }],
 
   run: async (message, lang) => {
     if (message.content) {

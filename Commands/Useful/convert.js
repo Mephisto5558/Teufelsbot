@@ -5,8 +5,6 @@ const
 module.exports = {
   name: 'convert',
   aliases: { prefix: [], slash: [] },
-  description: 'Converts one type of text to another',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 500 },
   category: 'Useful',
@@ -16,13 +14,11 @@ module.exports = {
   options: [
     {
       name: 'input',
-      description: 'the text you want to convert',
       type: 'String',
       required: true
     },
     {
       name: 'convert_to',
-      description: 'The output type',
       type: 'String',
       required: true,
       choices: Object.entries(Converter).reduce((list, [e]) => {
@@ -30,30 +26,10 @@ module.exports = {
         return list;
       }, []),
     },
-    {
-      name: 'is_octal',
-      description: 'Set this to true if your input is octal or else it will be recognized as decimal.',
-      type: 'Boolean',
-      required: false
-    },
-    {
-      name: 'with_spaces',
-      description: 'Do you want to have spaces between the letters? Default: false',
-      type: 'Boolean',
-      required: false
-    },
-    {
-      name: 'convert_spaces',
-      description: 'Do you want to also convert spaces? Default: true',
-      type: 'Boolean',
-      required: false
-    },
-    {
-      name: 'convert_letters_and_digits_only',
-      description: 'Do you want to convert only letters and digits? Default: false',
-      type: 'Boolean',
-      required: false
-    }
+    { name: 'is_octal', type: 'Boolean' },
+    { name: 'with_spaces', type: 'Boolean' },
+    { name: 'convert_spaces', type: 'Boolean' },
+    { name: 'convert_letters_and_digits_only', type: 'Boolean' }
   ],
 
   run: async (interaction, lang) => {

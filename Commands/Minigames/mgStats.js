@@ -4,12 +4,9 @@ async function manageData(input, clientID) {
   if (!input) return;
 
   let output = '';
-  const data = Object.entries(input)
-    .sort(([, a], [, b]) => b - a);
+  const data = Object.entries(input).sort(([, a], [, b]) => b - a);
 
-  for (let i = 0; i < data.length && i < 3; i++) {
-    output += `> <@${data[i][0]}>: \`${data[i][1]}\`\n`;
-  }
+  for (let i = 0; i < data.length && i < 3; i++) output += `> <@${data[i][0]}>: \`${data[i][1]}\`\n`;
 
   return output.replaceAll('AI', clientID);
 }
@@ -62,8 +59,6 @@ async function formatTopTen(input, settings, message, lang) {
 module.exports = {
   name: 'mgstats',
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
-  description: 'get stats about one of the minigames',
-  usage: 'PREFIX Command: mgstats <game> [target]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Minigames',
@@ -72,48 +67,31 @@ module.exports = {
   options: [
     {
       name: 'user',
-      description: 'get stats about yourself or a specific user',
       type: 'Subcommand',
       options: [
         {
           name: 'game',
-          description: 'which game you want to get stats about',
           type: 'String',
           required: true,
-          choices: [
-            { name: 'TicTacToe', value: 'TicTacToe' }
-          ]
+          choices: ['TicTacToe']
         },
-        {
-          name: 'target',
-          description: 'which user you want to get stats about',
-          type: 'User',
-          required: false
-        }
+        { name: 'target', type: 'User' }
       ]
     },
     {
       name: 'leaderboard',
-      description: 'get the top 10 players of a game',
       type: 'Subcommand',
       options: [
         {
           name: 'game',
-          description: 'which game you want to get stats about',
           type: 'String',
           required: true,
-          choices: [
-            { name: 'TicTacToe', value: 'TicTacToe' }
-          ]
+          choices: ['TicTacToe']
         },
         {
           name: 'settings',
-          description: 'Apply/Disapply filters to the leaderboard',
           type: 'String',
-          required: false,
-          choices: [
-            { name: 'do_not_limit_to_guild_members', value: 'all_users' }
-          ]
+          choices: ['all_users']
         }
       ]
     }
