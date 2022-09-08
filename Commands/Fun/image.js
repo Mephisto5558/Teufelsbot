@@ -31,20 +31,13 @@ const
 module.exports = {
   name: 'image',
   aliases: { prefix: [], slash: [] },
-  description: 'Image manipulation',
-  usage: 'PREFIX COMMAND: image <subcommand | "help"> <args>',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 500 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: true,
   beta: true,
-  options: [{
-    name: 'type',
-    description: 'the type you want to use. leave this empty to get a list of types',
-    type: 'String',
-    required: false
-  }],
+  options: [{ name: 'type', type: 'String' }],
 
   run: async (message, lang) => {
     const cmdName = message.args?.shift() || message.options?.getString('type'),

@@ -3,19 +3,12 @@ const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 module.exports = {
   name: 'roleinfo',
   aliases: { prefix: ['role-info'], slash: [] },
-  description: 'Get information about a role',
-  usage: 'PREFIX Command: roleinfo <@role | role name | role id>',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
-  options: [{
-    name: 'role',
-    description: 'the role you want to get information about',
-    type: 'Role',
-    required: false
-  }],
+  options: [{ name: 'role', type: 'Role' }],
 
   run: async (message, lang) => {
     if (message.content) {

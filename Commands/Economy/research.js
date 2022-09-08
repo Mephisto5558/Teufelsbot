@@ -3,8 +3,6 @@ const { EmbedBuilder, Colors, ActionRowBuilder, SelectMenuBuilder } = require('d
 module.exports = {
   name: 'research',
   aliases: { prefix: ['buy', 'b'], slash: ['buy'] },
-  description: 'Research and upgrade your skills',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Economy',

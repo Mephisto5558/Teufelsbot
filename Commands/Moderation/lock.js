@@ -3,26 +3,14 @@ const { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors } = require('di
 module.exports = {
   name: 'lock',
   aliases: { prefix: [], slash: [] },
-  description: 'Prevents everyone except administrators from writing in a channel',
-  usage: 'lock [channel] [reason]',
   permissions: { client: ['ManageRoles'], user: ['ManageRoles'] },
   cooldowns: { guild: 0, user: 1000 },
   category: 'Moderation',
   slashCommand: true,
   prefixCommand: true, beta: true,
   options: [
-    {
-      name: 'channel',
-      description: 'the channel you want to lock',
-      type: 'Channel',
-      required: false
-    },
-    {
-      name: 'reason',
-      description: 'the reason for locking the channel',
-      type: 'String',
-      required: false
-    }
+    { name: 'channel', type: 'Channel' },
+    { name: 'reason', type: 'String' }
   ],
 
   run: async (message, lang, { db }) => {

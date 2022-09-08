@@ -3,19 +3,12 @@ const { EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'account',
   aliases: { prefix: ['acc'], slash: [] },
-  description: 'show your account and stats',
-  usage: 'account [user]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
-  options: [{
-    name: 'user',
-    description: 'The user you want to get the account of',
-    type: 'User',
-    required: false
-  }],
+  options: [{ name: 'user', type: 'User' }],
   beta: true,
 
   run: async (message, lang, { db }) => {

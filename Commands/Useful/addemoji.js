@@ -5,8 +5,6 @@ const
 module.exports = {
   name: 'addemoji',
   aliases: { prefix: [], slash: [] },
-  description: 'adds a emoji to your guild.',
-  usage: '',
   permissions: { client: ['ManageEmojisAndStickers'], user: ['ManageEmojisAndStickers'] },
   cooldowns: { guild: 0, user: 2000 },
   category: 'Useful',
@@ -15,24 +13,16 @@ module.exports = {
   options: [
     {
       name: 'emoji_or_url',
-      description: 'provide an emoji or a url to a picture.',
       type: 'String',
       required: true
     },
     {
       name: 'name',
-      description: 'the name of the new emoji (min 2, max 32 chars)',
       type: 'String',
       minLength: 2,
-      maxLength: 32,
-      required: false
+      maxLength: 32
     },
-    {
-      name: 'limit_to_roles',
-      description: 'the role(s) that are allowed to use the emoji. Separate them with spaces',
-      type: 'String',
-      required: false
-    }
+    { name: 'limit_to_roles', type: 'String' }
   ],
 
   run: async (interaction, lang) => {

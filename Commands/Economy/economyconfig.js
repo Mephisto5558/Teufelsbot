@@ -3,8 +3,6 @@ const { PermissionFlagsBits, EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'economyconfig',
   aliases: { prefix: [], slash: [] },
-  description: 'Economy Configuration for users and admins',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Economy',
@@ -13,21 +11,14 @@ module.exports = {
   options: [
     {
       name: 'user',
-      description: 'Configuration for your economy in this guild.',
       type: 'SubcommandGroup',
       options: [
-        {
-          name: 'start',
-          description: 'Start using the economy commands!',
-          type: 'Subcommand',
-        },
+        { name: 'start', type: 'Subcommand' },
         {
           name: 'delete',
-          description: "DELETE all your economy data! This is irreversible!",
           type: 'Subcommand',
           options: [{
             name: 'confirmation',
-            description: 'Write "CLEAR ALL" to confirm deleting your economy data for this guild.',
             type: 'String',
             required: true
           }]
@@ -36,65 +27,37 @@ module.exports = {
     },
     {
       name: 'admin',
-      description: 'Configurate the economy in this guild.',
       type: 'SubcommandGroup',
       options: [
-        {
-          name: 'toggle',
-          description: 'Enable/Disable the economy for this guild.',
-          type: 'Subcommand'
-        },
+        { name: 'toggle', type: 'Subcommand' },
         {
           name: 'clear',
-          description: 'DELETE ALL ECONOMY DATA (including config). This is irreversible!',
           type: 'Subcommand',
           options: [{
             name: 'confirmation',
-            description: 'Write "CLEAR ALL" to confirm deleting the guild\'s economy data.',
             type: 'String',
             required: true
           }]
         },
         {
           name: 'blacklist',
-          description: 'Allow or disallow something or someone for all gaining methods.',
           type: 'Subcommand',
           options: [
             {
-              name: 'channel',
-              description: 'Allow or disallow a channel from all gaining methods (eg. chat messages in a spam channel).',
-              type: 'Channel',
-              channelTypes: ['GuildText', 'GuildNews'],
-              required: false
+              name: 'channel', type: 'Channel',
+              channelTypes: ['GuildText', 'GuildNews']
             },
-            {
-              name: 'role',
-              description: 'Allow or disallow a role from all gaining methods (eg. chat messages in all channels).',
-              type: 'Role',
-              required: false
-            },
-            {
-              name: 'user',
-              description: 'Allow or disallow a user from all gaining methods (eg. chat messages in all channels).',
-              type: 'User',
-              required: false
-            }
+            { name: 'role', type: 'Role' },
+            { name: 'user', type: 'User' }
           ]
         },
         {
           name: 'gaining_rules',
-          description: 'Rules all about gaining. Use the "get" option for the current settings.',
           type: 'Subcommand',
           options: [
-            {
-              name: 'get',
-              description: 'Get all settings and their values.',
-              type: 'Boolean',
-              required: false
-            },
+            { name: 'get', type: 'Boolean' },
             {
               name: 'min_message_length',
-              description: 'The minimum message length required to get souls.',
               type: 'Number',
               minValue: 0,
               maxValue: 5000,
@@ -102,7 +65,6 @@ module.exports = {
             },
             {
               name: 'max_message_length',
-              description: 'The maximum message length required to get souls.',
               type: 'Number',
               minValue: 0,
               maxValue: 5000,

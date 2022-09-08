@@ -1,8 +1,6 @@
 module.exports = {
   name: 'dbget',
   aliases: { prefix: [], slash: [] },
-  description: 'query data from the database',
-  usage: 'PREFIX Command: dbget <database name>',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',

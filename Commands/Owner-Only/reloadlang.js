@@ -3,8 +3,6 @@ const I18nProvider = require('../../Functions/private/I18nProvider.js');
 module.exports = {
   name: 'reloadlang',
   aliases: { prefix: [], slash: [] },
-  description: 'Reloads all language files.',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',

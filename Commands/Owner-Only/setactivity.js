@@ -3,8 +3,6 @@ const { ActivityType } = require('discord.js');
 module.exports = {
   name: 'setactivity',
   aliases: { prefix: [], slash: [] },
-  description: `sets the bot's activity`,
-  usage: 'PREFIX Command: setactivity <activity>;[type]',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',
