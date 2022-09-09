@@ -14,7 +14,7 @@
     "dbd-dark-dashboard": "^1.6.591",
     "discord-dashboard": "^2.3.41",
     "discord-giveaways": "^6.0.1",
-    "discord-tictactoe": "^3.1.0",
+    "discord-tictactoe": "^4.0.0",
     "discord.js": "^14.3.0",
     "fast-average-color-node": "^2.4.0",
     "mathjs": "^11.1.0",
