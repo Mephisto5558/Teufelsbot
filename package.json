@@ -20,7 +20,7 @@
     "mathjs": "^11.1.0",
     "mongodb": "^4.9.1",
     "mongoose": "^6.6.0",
-    "node": "^18.8.0",
+    "node": "^18.9.0",
     "wikijs": "^6.3.3"
   },
   "repository": {
