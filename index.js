@@ -11,13 +11,6 @@ const
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 
-Array.prototype.equals = function equals(array) {
-  if (this.length != array?.length) return false;
-
-  for (let i = 0; i < this.length; i++)
-    if ((this[i] instanceof Array && array[i] instanceof Array && !this[i].equals(array[i])) || this[i] != array[i]) return false;
-  return true;
-}
 Array.prototype.random = function random() { return this[randomInt(this.length - 1)] };
 Number.prototype.limit = function limit({ min = -Infinity, max = Infinity }) { return Math.min(Math.max(Number(this), min), max) };
 Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }) {
@@ -83,6 +76,7 @@ console.time('Starting time');
   client.keys = env.keys;
   client.cooldowns = new Collection();
   client.commands = new Collection();
+  client.voiceManager = new Collection();
 
   if (client.botType != 'dev') client.giveawaysManager = require('./Functions/private/giveawaysmanager.js')(client);
 
