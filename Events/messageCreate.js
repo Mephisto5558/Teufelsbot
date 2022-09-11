@@ -33,7 +33,7 @@ module.exports = async (client, message) => {
       !(economy.config.blacklist?.channel?.includes(message.channel.id) || economy.config.blacklist?.users?.includes(message.user.id) || message.member.roles.cache.hasAny(economy.config.blacklist?.roles)) &&
       !(await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } }))
     ) {
-      const currency = parseFloat((eco.currency + eco.gaining.chat + Math.pow(eco.skills.currency_bonus_absolute.lvl, 2) + eco.gaining.chat * Math.pow(eco.skills.currency_bonus_percentage.lvl, 2) / 100).limit(0, eco.currencyCapacity).toFixed(3));
+      const currency = parseFloat((eco.currency + eco.gaining.chat + eco.skills.currency_bonus_absolute.lvl ** 2 + eco.gaining.chat * eco.skills.currency_bonus_percentage.lvl ** 2 / 100).limit(0, eco.currencyCapacity).toFixed(3));
 
       client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
         [message.guild.id]: { economy: { [message.author.id]: { currency } } }
