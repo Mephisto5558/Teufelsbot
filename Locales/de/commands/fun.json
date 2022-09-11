@@ -95,7 +95,7 @@
     "saved": "Dein Geburtstag wurde gespeichert.",
     "removed": "Dein Geburtstag wurde entfernt.",
     "getUser": {
-      "notFound": "Dieses Mitglied User hat kein Geburtstag :(",
+      "notFound": "Dieses Mitglied hat kein Geburtstag :(",
       "embedTitle": "{user}'s Geburtstag",
       "date": "Dieses Mitglied hat am **{day}. {month}.** Geburtstag.\n",
       "newAge": "Er/sie wird **{age}** Jahre alt."
