@@ -11,7 +11,7 @@
     "axios": "^0.27.2",
     "better-ms": "^1.1.7",
     "cron": "^2.1.0",
-    "dbd-dark-dashboard": "^1.6.591",
+    "dbd-dark-dashboard": "^1.6.592",
     "discord-dashboard": "^2.3.41",
     "discord-giveaways": "^6.0.1",
     "discord-tictactoe": "^4.0.0",
