@@ -47,13 +47,20 @@ class I18nProvider {
 
   __({ locale = this.config.defaultLocale, backUpPath, errorNotFound = false, undefinedNotFound = false } = {}, key, replacements = {}) {
     let message = this.localeData[locale]?.[key] || this.localeData[this.config.defaultLocale][key];
-    if (!message && backUpPath) message = this.localeData[locale]?.[`${backUpPath}.${key}`] || this.localeData[this.config.defaultLocale][`${backUpPath}.${key}`];
-
     if (!message) {
-      if (undefinedNotFound || this.config.undefinedNotFound) return;
-      if (errorNotFound || this.config.errorNotFound) throw new Error(`Key not found: "${key}"`);
-      return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
+      if (backUpPath) message = this.localeData[locale]?.[`${backUpPath}.${key}`];
+      if (!message) {
+        console.warn(`Missing "${locale}" localization for ${key}!`);
+        message = this.localeData[this.config.defaultLocale][`${backUpPath}.${key}`];
+
+        if (!message) {
+          if (undefinedNotFound || this.config.undefinedNotFound) return;
+          if (errorNotFound || this.config.errorNotFound) throw new Error(`Key not found: "${key}"`);
+          return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
+        }
+      }
     }
+
     if (Array.isArray(message)) message = message.random();
 
     if (typeof replacements != 'object') message = message.replace(/{\w+}/, replacements.toString());
