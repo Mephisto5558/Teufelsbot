@@ -19,7 +19,7 @@
     "discord.js": "^14.3.0",
     "fast-average-color-node": "^2.4.0",
     "ffmpeg-static": "^5.1.0",
-    "mathjs": "^11.2.0",
+    "mathjs": "^11.2.1",
     "mongodb": "^4.9.1",
     "mongoose": "^6.6.0",
     "node": "^18.9.0",
