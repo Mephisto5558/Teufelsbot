@@ -168,6 +168,8 @@ module.exports = {
             if (!existsSync(`./VoiceRecords/raw/${filename}.ogg`)) {
               pauseStopCollector.stop();
               embed.data.description = lang('notFound');
+              embed.data.color = Colors.Green;
+              
               return msg.edit({ embeds: [embed], components: [] });
             }
 
