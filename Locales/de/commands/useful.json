@@ -188,5 +188,41 @@
     },
     "finishedSync": "Syncronisierung beendet.",
     "toggledModule": "Das `{name}` Modul wurde {state}."
+  },
+  "record": {
+    "description": "Nimmt einen Sprachkanal auf. Benötigt Bestätigung von Mitgliedern.",
+    "options": {
+      "target": {
+        "description": "Nimm nur ein bestimmtes Mitglied auf."
+      },
+      "channel": {
+        "description": "Welchen Sprachkanal möchtest du aufnehmen?"
+      },
+      "public": {
+        "description": "Mache die Aufnahme für alle Servermitglieder abrufbar."
+      }
+    },
+    "noTarget": "Es gibt niemanden zum aufnehmen! Entweder sind alle Ziele Bots oder sie sind nicht in Sprachkanal! Wenn du einen Sprachkanal angeben hast, stelle sicher, dass es der richtige ist!",
+    "needVoiceChannel": "Du musst einen Sprachkanal angeben oder in einem sein!",
+    "cannotJoin": "Ich kann diesem Sprachkanal nicht beitreten! Stelle sicher, dass der Kanal nicht voll ist und ich die benötigten Berechtigungen habe, um ihm beizutreten.",
+    "deaf": "Ich bin momentan taubgeschaltet und ich kann das nicht ändern!",
+    "embedTitle": "VoiceRecorder",
+    "embedDescription": "<@{user}> möchte dich/euch in <#{channel}> aufnehmen.\n**{publicOrPrivate}**\nBitte drücke einen Button um die Aufnahme deiner Stimme zu erlauben oder zu verbieten.",
+    "isPublic": "Die Aufnahme wird für alle Servermitglieder verfügbar sein.",
+    "isPrivate": "Die Aufnahme wird nur für die Mitglieder zugänglich sein, die der Aufnahme zugestimmt haben.",
+    "cantConnect": "Ich konnte mich nicht mit dem Sprachkanal verbinden! Bitte versuche es erneut.",
+    "denied": "Niemand möchte aufgenommen werden.",
+    "allow": "Erlaube Aufnahme",
+    "deny": "Verbiete Aufnahme",
+    "pause": "Pausiere Aufnahme",
+    "resume": "Setze Aufnahme fort",
+    "stop": "Stoppe Aufnahme",
+    "get": "Erhalte die Aufnahme",
+    "updated": "Deine Antwort wurde zu `{permission}` gesetzt. Ich warte auf die Antworten der anderen Mitglieder.",
+    "paused": "🔇 Ich habe die Aufnahme von {channel} pausiert.",
+    "recording": "🎙️ Ich nehme nun {channel} ({users}) auf!",
+    "notFound": "Deine Aufnahme wurde nicht gefunden!",
+    "privateReady": "Drücke den `Erhalte die Aufnahme` Button um die Aufnahme zu erhalten.",
+    "success": "🔉 Hier ist deine Aufnahme!"
   }
 }
