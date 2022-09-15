@@ -146,7 +146,7 @@ module.exports = {
         switch (button.customId) {
           case 'pause': {
             const deaf = button.guild.members.me.voice.selfDeaf;
-            button.guild.members.me.voice.setSelfDeaf(!deaf);
+            button.guild.members.me.voice.setDeaf(!deaf);
 
             if (deaf) {
               embed.data.description = lang('recording', { channel: voiceChannel, users: `<@${[...allowed].join('>, <@')}>` });
@@ -201,7 +201,7 @@ module.exports = {
           }
 
           case 'get': {
-            button.reply({
+            button.editReply({
               content: lang('success'),
               files: [`./VoiceRecords/${filename}.mp3`],
               ephemeral: true
