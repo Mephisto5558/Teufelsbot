@@ -50,12 +50,12 @@ class I18nProvider {
     if (!message) {
       if (backUpPath) message = this.localeData[locale]?.[`${backUpPath}.${key}`];
       if (!message) {
-        console.warn(`Missing "${locale}" localization for ${key}!`);
+        console.warn(`Missing "${locale}" localization for ${key} (${backUpPath}.${key})!`);
         message = this.localeData[this.config.defaultLocale][`${backUpPath}.${key}`];
 
         if (!message) {
           if (undefinedNotFound || this.config.undefinedNotFound) return;
-          if (errorNotFound || this.config.errorNotFound) throw new Error(`Key not found: "${key}"`);
+          if (errorNotFound || this.config.errorNotFound) throw new Error(`Key not found: "${key}" (${backUpPath}.${key})`);
           return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
         }
       }
