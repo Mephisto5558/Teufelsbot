@@ -13,7 +13,7 @@ module.exports = {
   time: '0 0 * * *',
   startNow: true,
 
-  onTick: async ({ log }) => {
+  onTick: async ({ log, db }) => {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 
     if (db.get('botSettings').lastRecDelete == now) return log('Already ran voiceRecord deletion today');
