@@ -189,5 +189,42 @@
     },
     "finishedSync": "Finished syncing.",
     "toggledModule": "The `{name}` module has been {state}."
+  },
+  "record": {
+    "description": "Record a voice channel. Needs approval from users.",
+    "options": {
+      "target": {
+        "description": "Record only one specific user."
+      },
+      "channel": {
+        "description": "Wich voice channel do you want to record?"
+      },
+      "public": {
+        "description": "Make the recording public, so any guild member can hear it."
+      }
+    },
+    "noTarget": "There is no one to record! Either all targets are bots or they are not in a voice channel! If you supplied a channel, make sure it is the one the target is in!",
+    "needVoiceChannel": "You need to supply a voice channel or be in one!",
+    "cannotJoin": "I can not join that voice channel! Make sure the channel is not full and I have the needed permissions.",
+    "deaf": "I am currently deafened and i cannot undeaf myself!",
+    "embedTitle": "VoiceRecorder",
+    "embedDescription": "<@{user}> wants to record you in voice channel <#{channel}>.\n**{publicOrPrivate}**\nPlease press a button to allow or deny the recording of your voice.",
+    "isPublic": "This recording will be available to every member of the guild. You can make it private at any time.",
+    "isPrivate": "This recording will be only available for the current members of the voice channel.",
+    "cantConnect": "I could not connect to the voice channel! Please try again.",
+    "denied": "No one wants to get recorded.",
+    "allow": "Allow Recording",
+    "deny": "Deny Recording",
+    "pause": "Pause Recording",
+    "resume": "Resume Recording",
+    "stop": "Stop Recording",
+    "get": "Get Recording",
+    "updated": "Your response has been set to `{permission}`. I am waiting for the other members to reply.",
+    "paused": "🔇 I paused recording {channel}.",
+    "recording": "🎙️ I am now recording {channel} ({users})!",
+    "notFound": "Your recording has not been found!",
+    "privateReady": "Press the `Get Recording` button to get the recording.",
+    "noPerm": "You don't have the permission to use this button!",
+    "success": "🔉 Here is your recording!"
   }
 }
