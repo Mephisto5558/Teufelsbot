@@ -49,6 +49,7 @@ console.time('Starting time');
       GatewayIntentBits.GuildMembers,
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.GuildMessageReactions,
+      GatewayIntentBits.GuildVoiceStates,
       GatewayIntentBits.MessageContent
     ],
     partials: [
@@ -76,7 +77,6 @@ console.time('Starting time');
   client.keys = env.keys;
   client.cooldowns = new Collection();
   client.commands = new Collection();
-  client.voiceManager = new Collection();
 
   if (client.botType != 'dev') client.giveawaysManager = require('./Functions/private/giveawaysmanager.js')(client);
 
