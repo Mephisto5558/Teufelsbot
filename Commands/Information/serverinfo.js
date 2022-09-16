@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, GuildDefaultMessageNotifications, ChannelType, GuildPremiumTier, GuildVerificationLevel } = require('discord.js'),
+  { EmbedBuilder, GuildDefaultMessageNotifications, ChannelType, GuildPremiumTier, GuildVerificationLevel, Colors } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = {
@@ -9,7 +9,7 @@ module.exports = {
   cooldowns: { guild: 0, user: 1000 },
   category: 'Information',
   slashCommand: true,
-  prefixCommand: true,
+  prefixCommand: true, beta: true,
 
   run: async (message, lang) => {
     const
@@ -18,7 +18,7 @@ module.exports = {
       embed = new EmbedBuilder({
         title: guild.name,
         description: guild.description,
-        color: parseInt((await getAverageColor(guild.iconURL())).hex.substring(1), 16),
+        color: /*parseInt((await getAverageColor(guild.iconURL())).hex.substring(1), 16) does not work*/ Colors.White,
         fields: [
           { name: lang('members'), value: `${lang('global.user')}: \`${guild.members.cache.filter(e => !e.user.bot).size}\`, Bots: \`${guild.members.cache.filter(e => e.user.bot).size}\``, inline: true },
           { name: lang('verificationLevel'), value: GuildVerificationLevel[guild.verificationLevel], inline: true },
