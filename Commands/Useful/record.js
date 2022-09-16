@@ -145,7 +145,7 @@ module.exports = {
 
         switch (button.customId) {
           case 'pause': {
-            const deaf = button.guild.members.me.voice.selfDeaf;
+            const deaf = button.guild.members.me.voice.deaf;
             button.guild.members.me.voice.setDeaf(!deaf);
 
             if (deaf) {
