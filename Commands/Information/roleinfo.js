@@ -34,7 +34,7 @@ module.exports = {
         { name: lang('createdAt'), value: `<t:${Math.round(role.createdTimestamp / 1000)}>`, inline: true },
         role.members.size < 16 ? { name: lang('members'), value: Array.from(role.members.values()).join(', '), inline: false } : null,
         { name: lang('permissions'), value: `\`${role.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : role.permissions.toArray()?.join('`, `') || lang('global.none')}\` (\`${role.permissions.toArray().length}\`)`, inline: false }
-      ].filter(e => e)
+      ].filter(Boolean)
     });
 
     if (role.color || role.icon) embed.setThumbnail(role.icon ? `https://cdn.discordapp.com/role-icons/${role.guild.id}/${role.icon}.webp?size=80&quality=lossless` : `https://dummyimage.com/80x80/${role.color}/${role.color}.png`);
