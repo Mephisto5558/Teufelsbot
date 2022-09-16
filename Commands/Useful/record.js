@@ -203,7 +203,7 @@ module.exports = {
           }
 
           case 'get': {
-            button.editReply({
+            button.channel.send({
               content: lang('success'),
               files: [`./VoiceRecords/${filename}.mp3`],
               ephemeral: true
