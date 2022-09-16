@@ -46,15 +46,15 @@ class I18nProvider {
   }
 
   __({ locale = this.config.defaultLocale, errorNotFound = this.config.errorNotFound, undefinedNotFound = this.config.undefinedNotFound, backupPath } = {}, key, replacements) {
-    let message = this.localeData[locale]?.[key] || this.localeData[this.config.defaultLocale][key] || backupPath ? this.localeData[locale]?.[`${backupPath}.${key}`] : null;
+    let message = this.localeData[locale]?.[key] || this.localeData[this.config.defaultLocale][key] || (backupPath ? this.localeData[locale]?.[`${backupPath}.${key}`] : null);
 
     if (Array.isArray(message)) message = message.random();
     if (!message) {
-      if (!undefinedNotFound) console.warn(`Missing "${locale}" localization for ${key}` + backupPath ? ` (${backupPath}.${key})!` : '!');
+      if (!undefinedNotFound) console.warn(`Missing "${locale}" localization for ${key}` + (backupPath ? ` (${backupPath}.${key})!` : '!'));
       if (backupPath) message = this.localeData[this.config.defaultLocale][`${backupPath}.${key}`];
 
       if (!message) {
-        if (errorNotFound) throw new Error(`Key not found: "${key}"` + backupPath ? ` (${backupPath}.${key})!` : '!');
+        if (errorNotFound) throw new Error(`Key not found: "${key}"` + (backupPath ? ` (${backupPath}.${key})!` : '!'));
         return undefinedNotFound ? undefined : this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
       }
     }
