@@ -9,7 +9,7 @@ module.exports = {
   cooldowns: { guild: 0, user: 1000 },
   category: 'Information',
   slashCommand: true,
-  prefixCommand: true, beta: true,
+  prefixCommand: true,
 
   run: async (message, lang) => {
     const
