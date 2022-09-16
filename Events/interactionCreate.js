@@ -6,7 +6,7 @@ module.exports = async (client, interaction) => {
   const command = client.slashCommands.get(interaction.commandName);
   if (!command || !interaction.isRepliable()) return;
 
-  const lang = I18nProvider.__.bind(I18nProvider, { locale: client.db.get('guildSettings')[interaction.guild.id]?.config?.lang || interaction.guild.preferredLocale.slice(0, 2), backUpPath: `commands.${command.category.toLowerCase()}.${command.name}` });
+  const lang = I18nProvider.__.bind(I18nProvider, { locale: client.db.get('guildSettings')[interaction.guild.id]?.config?.lang || interaction.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, interaction, command);
   if (cooldown) return interaction.reply({ content: lang('events.cooldown', cooldown), ephemeral: true });
