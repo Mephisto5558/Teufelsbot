@@ -23,7 +23,7 @@ module.exports = {
       maxLength: 32
     },
     { name: 'limit_to_roles', type: 'String' }
-  ], beta: true,
+  ],
 
   run: async (interaction, lang) => {
     let input = interaction.options.getString('emoji_or_url');
