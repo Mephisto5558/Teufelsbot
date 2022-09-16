@@ -1,5 +1,5 @@
 const
-  { PermissionFlagsBits, EmbedBuilder } = require('discord.js'),
+  { PermissionFlagsBits, EmbedBuilder, Colors } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
     const
       member = message.options?.getMember('target') || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
       user = member.user,
-      color = parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16);
+      color = /*parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16) does not work*/ Colors.White;
 
     let type = user.bot ? 'Bot, ' : '';
 
