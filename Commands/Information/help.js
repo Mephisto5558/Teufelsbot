@@ -53,7 +53,7 @@ module.exports = {
               (cmd.cooldowns.user ? `${lang('global.user')}: \`${parseFloat((cmd.cooldowns.user / 1000).toFixed(2))}\`s` : '')
           } : null,
           cmd.usage ? { name: lang('one.usage'), value: `${cmd.slashCommand ? lang('one.lookAtDesc') : ''} ${helpLang('usage') || ''}`, inline: false } : null
-        ].filter(e => e);
+        ].filter(Boolean);
       }
 
       return message.customReply({ embeds: [embed] });
