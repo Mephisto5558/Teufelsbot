@@ -54,7 +54,7 @@ module.exports = async (client, message) => {
     !command || (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
   ) return;
 
-  const lang = I18nProvider.__.bind(I18nProvider, { locale: config?.lang || message.guild.preferredLocale.slice(0, 2), backUpPath: `commands.${command.category.toLowerCase()}.${command.name}` });
+  const lang = I18nProvider.__.bind(I18nProvider, { locale: config?.lang || message.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
   const cooldown = await require('../Functions/private/cooldowns.js')(client, message, command);
   if (cooldown && !client.botType == 'dev') return message.customReply(lang('events.cooldown', cooldown));
