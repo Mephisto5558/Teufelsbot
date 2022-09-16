@@ -62,7 +62,7 @@ module.exports = {
 
     embed.data.title = lang('infoEmbedTitle');
     embed.data.description = lang('infoEmbedDescription', { user: target.user.tag, reason, time: Math.round(target.communicationDisabledUntilTimestamp / 1000) });
-    if (noMsg) embed.data.description += lang('noDm');
+    if (noMsg) embed.data.description += lang('noDM');
 
     interaction.editReply({ embeds: [embed] });
   }

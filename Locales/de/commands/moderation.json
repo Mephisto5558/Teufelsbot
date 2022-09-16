@@ -24,7 +24,7 @@
     "noPerm": "{IYou} habe/hast keine Berechtigung dazu!",
     "error": "Ich konnte **{user}** nicht bannen.\n{err}\n",
     "success": "**{user}** wurde erfolgreich gebannt.\n",
-    "noDm": "Ich konnte dem Ziel keine DM senden."
+    "noDM": "Ich konnte dem Ziel keine DM senden."
   },
   "kick": {
     "description": "Kickt ein oder mehrere Mitglieder vom Server",
@@ -45,7 +45,7 @@
     "noPerm": "{IYou} habe/hast keine Berechtigung dazu!",
     "error": "Ich konnte **{user}** nicht kicken.\n{err}\n",
     "success": "**{user}** wurde erfolgreich gekickt.\n",
-    "noDm": "Ich konnte dem Ziel keine DM senden."
+    "noDM": "Ich konnte dem Ziel keine DM senden."
   },
   "lock": {
     "description": "Verbietet jedem, abgesehen von Administratoren, in einem Kanal Nachrichten zu senden.",
@@ -87,7 +87,7 @@
     "targetIsAdmin": "Ich kann keine Administratoren timeouten!",
     "invalidDuration": "Die Mutedauer, die du angegeben hast, iszt ungültig!",
     "error": "Ich konnte das Mitglied nicht muten:\n{err}",
-    "noDm": "Ich konnte dem Ziel keine DM senden."
+    "noDM": "Ich konnte dem Ziel keine DM senden."
   },
   "nukechannel": {
     "description": "Löscht alle Nachrichten des Kanals, indem der Kanal dupliziert wird und der alte gelöscht wird",
