@@ -22,7 +22,7 @@ module.exports = {
       channelTypes: ['GuildVoice', 'GuildStageVoice']
     },
     { name: 'public', type: 'Boolean' }
-  ], beta: true,
+  ],
 
   run: async (interaction, lang) => {
     const
@@ -169,7 +169,7 @@ module.exports = {
               pauseStopCollector.stop();
               embed.data.description = lang('notFound');
               embed.data.color = Colors.Green;
-              
+
               return msg.edit({ embeds: [embed], components: [] });
             }
 
