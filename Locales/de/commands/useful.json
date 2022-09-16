@@ -222,7 +222,7 @@
     "paused": "🔇 Ich habe die Aufnahme von {channel} pausiert.",
     "recording": "🎙️ Ich nehme nun {channel} ({users}) auf!",
     "notFound": "Deine Aufnahme wurde nicht gefunden!",
-    "privateReady": "Drücke den `Erhalte die Aufnahme` Button um die Aufnahme zu erhalten.",
+    "privateReady": "Drücke den Button um die Aufnahme zu erhalten.",
     "success": "🔉 Hier ist deine Aufnahme!"
   }
 }
