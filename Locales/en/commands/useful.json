@@ -223,7 +223,7 @@
     "paused": "🔇 I paused recording {channel}.",
     "recording": "🎙️ I am now recording {channel} ({users})!",
     "notFound": "Your recording has not been found!",
-    "privateReady": "Press the `Get Recording` button to get the recording.",
+    "privateReady": "Press the button to get the recording.",
     "success": "🔉 Here is your recording!"
   }
 }
