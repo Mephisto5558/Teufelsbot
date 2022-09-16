@@ -44,7 +44,7 @@ module.exports = {
             { name: 'Vanity URL', value: guild.vanityURLCode, inline: true },
             { name: `Vanity URL ${lang('uses')}`, value: guild.vanityURLUses, inline: true }
           ) : null
-        ].filter(e => e)
+        ].filter(Boolean)
       }).setThumbnail(guild.iconURL());
 
     if (guild.banner) embed.setImage(guild.bannerURL());

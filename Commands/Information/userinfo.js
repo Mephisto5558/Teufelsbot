@@ -46,7 +46,7 @@ module.exports = {
         member.isCommunicationDisabled() ? { name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true } : null,
         { name: 'Roles with permissions', value: Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').join(', '), inline: false },
         { name: 'Permissions', value: `\`${member.permissions.has(PermissionFlagsBits.Administrator) ? '`Administrator`' : member.permissions.toArray()?.join('`, `') || lang('global.none')}\` (${member.permissions.toArray().length})`, inline: false }
-      ].filter(e => e)
+      ].filter(Boolean)
     }).setThumbnail(member.displayAvatarURL())
 
     message.customReply({ embeds: [embed] });
