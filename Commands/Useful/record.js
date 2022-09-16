@@ -141,8 +141,6 @@ module.exports = {
 
       const pauseStopCollector = msg.createMessageComponentCollector({ filter: i => allowed.has(i.user.id), componentType: ComponentType.Button });
       pauseStopCollector.on('collect', async button => {
-        await button.deferUpdate();
-
         switch (button.customId) {
           case 'pause': {
             const deaf = button.guild.members.me.voice.deaf;
@@ -159,7 +157,7 @@ module.exports = {
               buttons.components[0].data.label = lang('resume');
             }
 
-            return msg.edit({ embeds: [embed], components: [buttons] });
+            return button.update({ embeds: [embed], components: [buttons] });
           }
 
           case 'stop': {
@@ -170,11 +168,11 @@ module.exports = {
               embed.data.description = lang('notFound');
               embed.data.color = Colors.Green;
 
-              return msg.edit({ embeds: [embed], components: [] });
+              return button.update({ embeds: [embed], components: [] });
             }
 
             embed.data.description = lang('global.loading');
-            msg.edit({ embeds: [embed], components: [] });
+            button.update({ embeds: [embed], components: [] });
 
             await exec(`"${ffmpeg}" -f s16le -ar 48k -ac 2 -i "./VoiceRecords/raw/${filename}.ogg" "./VoiceRecords/${filename}.mp3"`);
             unlinkSync(`./VoiceRecords/raw/${filename}.ogg`);
@@ -203,7 +201,7 @@ module.exports = {
           }
 
           case 'get': {
-            button.channel.send({
+            button.reply({
               content: lang('success'),
               files: [`./VoiceRecords/${filename}.mp3`],
               ephemeral: true
