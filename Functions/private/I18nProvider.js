@@ -45,30 +45,25 @@ class I18nProvider {
       throw new Error(`There are no language files for the default locale (${this.config.defaultLocale}) in the supplied locales path!`);
   }
 
-  __({ locale = this.config.defaultLocale, backUpPath, errorNotFound = false, undefinedNotFound = false } = {}, key, replacements = {}) {
-    let message = this.localeData[locale]?.[key] || this.localeData[this.config.defaultLocale][key];
-    if (!message) {
-      if (backUpPath) message = this.localeData[locale]?.[`${backUpPath}.${key}`];
-      if (!message) {
-        console.warn(`Missing "${locale}" localization for ${key} (${backUpPath}.${key})!`);
-        message = this.localeData[this.config.defaultLocale][`${backUpPath}.${key}`];
+  __({ locale = this.config.defaultLocale, errorNotFound = this.config.errorNotFound, undefinedNotFound = this.config.undefinedNotFound, backupPath } = {}, key, replacements) {
+    let message = this.localeData[locale]?.[key] || this.localeData[this.config.defaultLocale][key] || backupPath ? this.localeData[locale]?.[`${backupPath}.${key}`] : null;
 
-        if (!message) {
-          if (undefinedNotFound || this.config.undefinedNotFound) return;
-          if (errorNotFound || this.config.errorNotFound) throw new Error(`Key not found: "${key}" (${backUpPath}.${key})`);
-          return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
-        }
+    if (Array.isArray(message)) message = message.random();
+    if (!message) {
+      if (!undefinedNotFound) console.warn(`Missing "${locale}" localization for ${key}` + backupPath ? ` (${backupPath}.${key})!` : '!');
+      if (backupPath) message = this.localeData[this.config.defaultLocale][`${backupPath}.${key}`];
+
+      if (!message) {
+        if (errorNotFound) throw new Error(`Key not found: "${key}"` + backupPath ? ` (${backupPath}.${key})!` : '!');
+        return undefinedNotFound ? undefined : this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
       }
     }
 
-    if (Array.isArray(message)) message = message.random();
+    if (!replacements) return message;
 
-    if (typeof replacements != 'object') message = message.replace(/{\w+}/, replacements.toString());
-    else {
-      for (const [key, value] of Object.entries(replacements))
-        if (value !== undefined && value !== null) message = message.replaceAll(`{${key}}`, value.toString());
-    }
+    if (typeof replacements != 'object') return message.replace(/{\w+}/, replacements.toString());
 
+    for (const [key, value] of Object.entries(replacements)) message = message.replaceAll(`{${key}}`, value?.toString());
     return message;
   }
 
