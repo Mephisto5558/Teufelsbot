@@ -23,7 +23,7 @@ module.exports = {
       maxLength: 32
     },
     { name: 'limit_to_roles', type: 'String' }
-  ],
+  ], beta: true,
 
   run: async (interaction, lang) => {
     let input = interaction.options.getString('emoji_or_url');
@@ -61,8 +61,10 @@ module.exports = {
       if (limitToRoles?.length) embed.data.description += lang('limitedToRoles', limitToRoles.join('>, <@&'));
     }
     catch (err) {
+      if(err.name != 'DiscordAPIError[30008]') throw err;
+
       embed.data.color = Colors.Red;
-      embed.data.description = lang('error', err.name == 'AbortError' ? lang('timedOut') : err);
+      embed.data.description = lang('error', err.name == 'AbortError' ? lang('timedOut') : err.message);
     }
 
     interaction.editReply({ embeds: [embed] });
