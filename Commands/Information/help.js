@@ -47,11 +47,11 @@ module.exports = {
           cmd.aliases?.slash?.length ? { name: lang('one.slashAlias'), value: `\`${listCommands(cmd.aliases.slash, '', 1)[0].replaceAll('> ', '')}\``, inline: true } : null,
           cmd.permissions?.client?.length ? { name: lang('one.botPerms'), value: `\`${cmd.permissions.client.join('`, `')}\``, inline: false } : null,
           cmd.permissions?.user?.length ? { name: lang('one.userPerms'), value: `\`${cmd.permissions.user.join('`, `')}\``, inline: true } : null,
-          cmd.cooldowns?.guild || cmd.cooldowns?.user ? {
+          cmd.cooldowns?.guild || (cmd.cooldowns?.user ? {
             name: lang('one.cooldowns'), inline: false, value:
               (cmd.cooldowns.guild ? `${lang('global.guild')}: \`${parseFloat((cmd.cooldowns.guild / 1000).toFixed(2))}\`s${cmd.cooldowns.user ? ', ' : ''}` : '') +
               (cmd.cooldowns.user ? `${lang('global.user')}: \`${parseFloat((cmd.cooldowns.user / 1000).toFixed(2))}\`s` : '')
-          } : null,
+          } : null),
           cmd.usage ? { name: lang('one.usage'), value: `${cmd.slashCommand ? lang('one.lookAtDesc') : ''} ${helpLang('usage') || ''}`, inline: false } : null
         ].filter(Boolean);
       }
