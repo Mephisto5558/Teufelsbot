@@ -442,10 +442,10 @@
     "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!",
     "embedTitle": "Trigger",
     "fieldName": "**Trigger {id}:**",
-    "fieldValue": "```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:**`{wildcard}`",
+    "fieldValue": "```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Ausgabe: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:**`{wildcard}`\n",
+    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`\n",
     "first25": "Die Ersten 25 Trigger. Erhalte mehr per `short` Option."
   },
   "vote": {

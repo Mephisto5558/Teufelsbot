@@ -439,10 +439,10 @@
     "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
     "embedTitle": "Triggers",
     "fieldName": "**Trigger {id}:**",
-    "fieldValue": "```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard:**`{wildcard}`",
+    "fieldValue": "```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Response: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard:**`{wildcard}`\n",
+    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`\n",
     "first25": "The first 25 triggers. Get more with the `short` option."
   },
   "vote": {
