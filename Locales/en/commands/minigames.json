@@ -64,7 +64,7 @@
     "youNoGamesPlayed": "You have not played any {game} games yet.",
     "usrNoGamesPlayed": "{user} has not played any {game} games yet."
   },
-  "ttt": {
+  "tictactoe": {
     "description": "play TicTacToe against a friend or the bot",
     "options": {
       "opponent": {
