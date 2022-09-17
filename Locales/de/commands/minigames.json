@@ -64,7 +64,7 @@
     "youNoGamesPlayed": "Du hast noch nie {game} gespielt.",
     "usrNoGamesPlayed": "{user} hat noch nie {game} gespielt."
   },
-  "ttt": {
+  "tictactoe": {
     "description": "Spiele TicTacToe gegen ein anderes Mitglied oder den Bot",
     "options": {
       "opponent": {
