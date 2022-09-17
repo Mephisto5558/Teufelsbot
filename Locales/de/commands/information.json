@@ -17,6 +17,28 @@
     "embedTitle": "Dashboard",
     "embedDescription": "Clicke [hier]({url}) um das Dashboard zu öffnen."
   },
+  "emojiinfo": {
+    "description": "Erhalte Informationen über einen Emoji",
+    "usage": "PREFIX Command: emojiinfo [emoji | emoji id]",
+    "options": {
+      "emoji": {
+        "description": "Den Emoji oder die ID des Emojis, über den du Informationen erhalten möchtest."
+      }
+    },
+    "notFound": "Es wurden keine Informationen über diesen Emoji gefunden.",
+    "embedTitle": "Infos über \"{emoji}\"",
+    "unknown": "unbekannt",
+    "name": "Name",
+    "id": "ID",
+    "url": "URL",
+    "guild": "Server",
+    "animated": "Animiert",
+    "creator": "Ersteller",
+    "available": "Verfügbar",
+    "createdAt": "Erstellt",
+    "requiresColons": "Benötigt Doppelpunkte",
+    "allowedRoles": "Erlaubte Rollen"
+  },
   "help": {
     "description": "Zeige alle meine Commands oder erhalte Informationen über einen spezifischen.",
     "usage": "PREFIX Command: help [command]",
