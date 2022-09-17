@@ -39,7 +39,8 @@
     "reloaded": "The following `{count}` command(s) has/have been reloaded:\n`{commands}`"
   },
   "reloaddb": {
-    "description": "Reloads the database"
+    "description": "Reloads the database",
+    "success": "Reloaded the db."
   },
   "reloadlang": {
     "description": "Reloads all language files",

@@ -39,7 +39,8 @@
     "reloaded": "Die folgenden `{count}` Command wurden neu geladen:\n`{commands}`"
   },
   "reloaddb": {
-    "description": "Läd die Database neu."
+    "description": "Läd die Database neu.",
+    "success": "Die Database wurde neu geladen."
   },
   "reloadlang": {
     "description": "Läd alle Sprachdateien neu",
