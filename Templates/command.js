@@ -1,8 +1,6 @@
 module.exports = {
   name: '',
   aliases: { prefix: [], slash: [] },
-  description: '',
-  usage: '',
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
   category: '',
@@ -15,17 +13,12 @@ module.exports = {
   requireEconomy: false,
   options: [{
     name: '',
-    description: '',
     type: '',
     required: false,
-    choices: [
-      { name: '', value: '' }
-    ],
+    choices: [{ value: '' }],
   }],
 
   run: async (message, lang, client) => {
-
-
-
+    
   }
 }
