@@ -20,7 +20,7 @@
     "fast-average-color-node": "^2.4.0",
     "ffmpeg-static": "^5.1.0",
     "mathjs": "^11.2.1",
-    "mongodb": "^4.9.1",
+    "mongodb": "^4.10.0",
     "mongoose": "^6.6.1",
     "node": "^18.9.0",
     "sodium": "^3.0.2",
