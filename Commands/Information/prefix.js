@@ -9,28 +9,28 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   options: [
-    { name: 'new_prefix',  type: 'String' },
+    { name: 'new_prefix', type: 'String' },
     { name: 'case_insensitive', type: 'Boolean' }
   ],
 
-  run: async (message, lang, { db }) => {
-    const newPrefix = message.content || message.options?.getString('new_prefix');
-    const prefixCaseInsensitive = message.options?.getBoolean('case_insensitive') ?? false;
+  run: function (lang, { db }) {
+    const newPrefix = this.content || this.options?.getString('new_prefix');
+    const prefixCaseInsensitive = this.options?.getBoolean('case_insensitive') ?? false;
     const oldData = db.get('guildSettings');
 
-    if (newPrefix && message.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
-      const newData = oldData.fMerge({ [message.guild.id]: { config: { prefix: { prefix: newPrefix, caseinsensitive: prefixCaseInsensitive } } } });
+    if (newPrefix && this.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
+      const newData = oldData.fMerge({ [this.guild.id]: { config: { prefix: { prefix: newPrefix, caseinsensitive: prefixCaseInsensitive } } } });
       db.set('guildSettings', newData);
 
-      message.customReply(lang('saved', newPrefix));
+      this.customReply(lang('saved', newPrefix));
     }
     else {
-      const currentPrefix = oldData[message.guild.id]?.config?.prefix?.prefix || oldData.default.config.prefix;
+      const currentPrefix = oldData[this.guild.id]?.config?.prefix?.prefix || oldData.default.config.prefix;
       if (!currentPrefix) throw new Error('No Default Prefix Found in DB');
 
-      const msg = lang('currentPrefix', currentPrefix) + (oldData[message.guild.id]?.config?.prefix?.caseinsensitive ? lang('caseInsensitive') : '');
+      const msg = lang('currentPrefix', currentPrefix) + (oldData[this.guild.id]?.config?.prefix?.caseinsensitive ? lang('caseInsensitive') : '');
 
-      message.customReply(msg);
+      this.customReply(msg);
     }
 
   }

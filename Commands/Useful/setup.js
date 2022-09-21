@@ -21,23 +21,23 @@ module.exports = {
     }
   ],
 
-  run: async (interaction, lang, client) => {
-    switch (interaction.options.getSubcommand()) {
+  run: async function (lang, client) {
+    switch (this.options.getSubcommand()) {
       case 'sync': {
-        await require('../../Handlers/slash_command_handler.js')(client, interaction.guild.id);
+        await require('../../Handlers/slash_command_handler.js').call(client, this.guild.id);
 
-        return interaction.editReply(lang('finishedSync'));
+        return this.editReply(lang('finishedSync'));
       }
 
       case 'toggle_module': {
         const
-          module = interaction.options.getString('module'),
+          module = this.options.getString('module'),
           oldData = client.db.get('guildSettings'),
-          setting = oldData[interaction.guild.id]?.[module]?.enable,
-          newData = oldData.fMerge({ [interaction.guild.id]: { [module]: { enable: !setting } } });
+          setting = oldData[this.guild.id]?.[module]?.enable,
+          newData = oldData.fMerge({ [this.guild.id]: { [module]: { enable: !setting } } });
 
         client.db.set('guildSettings', newData);
-        return interaction.editReply(lang('toggledModule', { name: module, state: setting ? lang('global.disabled') : lang('global.enabled') }));
+        return this.editReply(lang('toggledModule', { name: module, state: setting ? lang('global.disabled') : lang('global.enabled') }));
       }
     }
 

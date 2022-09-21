@@ -28,32 +28,29 @@ module.exports = {
     }
   ],
 
-  run: async (interaction, lang) => {
+  run: function (lang) {
 
     const
-      count = interaction.options?.getNumber('count') || 1,
-      exclude = interaction.options?.getString('exclude_chars') || '',
-      include = interaction.options?.getString('include_chars') || '';
+      count = this.options?.getNumber('count') || 1,
+      exclude = this.options?.getString('exclude_chars') || '',
+      include = this.options?.getString('include_chars') || '';
 
     let
       passwordList = '```',
-      length = interaction.options?.getNumber('length') || 12,
+      length = this.options?.getNumber('length') || 12,
       charset = [...new Set(defaultCharset //new Set() makes sure there are no duplicate entries
         .filter(char => !exclude.includes(char)) //Remove exclude chars from the charset
         .concat(Array.from(include)) //Add include chars to the charset
       )].join('');
 
-    if (!charset.length) return interaction.editReply(lang('charsetEmpty')); //Return if charset is empty
+    if (!charset.length) return this.editReply(lang('charsetEmpty')); //Return if charset is empty
 
     for (let i = 0; i < count; i++) {
       let oldRandomChar;
-      if (passwordList.length > 1750) { //makes sure the pasword list is not to long
-        passwordList = passwordList.substring(0, passwordList.lastIndexOf('\n', passwordList.lastIndexOf('\n') - 1));   //removes the last password from the list
-        break;
-      }
+      if ((passwordList.length + length) > 1743) break;
 
       for (let i = 0; i < length; i++) {
-        const randomChar = charset.split('').filter(e => e != oldRandomChar).random(); //Filters the last selected entry out and selects a list entry based on a secure random number generator. Defined in index.js.;
+        const randomChar = charset.split('').filter(e => e != oldRandomChar).random(); //Filters the last selected entry out and selects a list entry based on a secure random number generator. Defined in index.js.
         if (oldRandomChar + randomChar == '\n') { //'\n' should not appear in the list, it would break stuff
           length++
           continue;
@@ -64,9 +61,8 @@ module.exports = {
       passwordList += '```\n```'
     }
 
-    if (charset.length > 100) charset = charset.substring(0, 97) + '...' //Limits the *displayed* charset
+    if (charset.length > 100) charset = charset.substring(0, 97) + '...' //Limits the *displayed* charset length
 
-    interaction.editReply(lang('success', { passwords: passwordList.slice(0, -4), charset }));
-
+    this.editReply(lang('success', { passwords: passwordList.slice(0, -4), charset }));
   }
 }

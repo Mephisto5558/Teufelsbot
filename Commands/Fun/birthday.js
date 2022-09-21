@@ -57,33 +57,33 @@ module.exports = {
     { name: 'remove', type: 'Subcommand' }
   ],
 
-  run: async (interaction, lang, { db }) => {
+  run: async function (lang, { db }) {
     const
-      cmd = interaction.options.getSubcommand(),
-      target = interaction.options.getUser('target'),
-      doNotHide = interaction.options.getBoolean('do_not_hide'),
+      cmd = this.options.getSubcommand(),
+      target = this.options.getUser('target'),
+      doNotHide = this.options.getBoolean('do_not_hide'),
       oldData = db.get('userSettings'),
       birthday = [
-        Math.abs(interaction.options.getNumber('year')),
-        Math.abs(interaction.options.getNumber('month') || '')?.toString().padStart(2, '0'),
-        Math.abs(interaction.options.getNumber('day') || '')?.toString().padStart(2, '0')
+        Math.abs(this.options.getNumber('year')),
+        Math.abs(this.options.getNumber('month') || '')?.toString().padStart(2, '0'),
+        Math.abs(this.options.getNumber('day') || '')?.toString().padStart(2, '0')
       ];
 
     switch (cmd) {
       case 'set': {
-        const newData = oldData.fMerge({ [interaction.user.id]: { birthday: birthday.join('/') } });
+        const newData = oldData.fMerge({ [this.user.id]: { birthday: birthday.join('/') } });
         db.set('userSettings', newData);
 
-        interaction.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
+        this.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
         break;
       }
 
       case 'remove': {
-        delete oldData[interaction.user.id].birthday;
+        delete oldData[this.user.id].birthday;
 
         db.set('userSettings', oldData);
 
-        interaction.editReply(lang('removed'));
+        this.editReply(lang('removed'));
         break;
       }
 
@@ -92,8 +92,8 @@ module.exports = {
         const embed = new EmbedBuilder({
           color: Colors.Blurple,
           footer: {
-            text: interaction.user.tag,
-            iconURL: interaction.member.displayAvatarURL()
+            text: this.user.tag,
+            iconURL: this.member.displayAvatarURL()
           }
         });
 
@@ -112,7 +112,7 @@ module.exports = {
         else {
           embed.data.title = lang('getAll.embedTitle');
 
-          const guildMembers = (await interaction.guild.members.fetch()).map(e => e.id);
+          const guildMembers = (await this.guild.members.fetch()).map(e => e.id);
           const currentTime = new Date().getTime();
 
           const data = Object.entries(oldData)
@@ -142,11 +142,10 @@ module.exports = {
         embed.data.description = newData || lang('getAll.notFound');
 
         if (doNotHide) {
-          interaction.channel.send({ embeds: [embed] });
-          interaction.editReply(lang('global.messageSent'));
+          this.channel.send({ embeds: [embed] });
+          return this.editReply(lang('global.messageSent'));
         }
-        else interaction.editReply({ embeds: [embed] });
-        break;
+        return this.editReply({ embeds: [embed] });
       }
     }
   }

@@ -7,7 +7,7 @@ module.exports = async function customReply(reply, deleteTime, allowedMentions =
   if (!reply.allowedMentions) reply.allowedMentions = allowedMentions;
 
   if (this instanceof CommandInteraction) {
-    try { sentMessage = this.replied ? await this.editReply(reply) : await this.reply(reply) }
+    try { sentMessage = (this.replied || this.deferred) ? await this.editReply(reply) : await this.reply(reply) }
     catch {
       try { sentMessage = await this.followUp(reply) }
       catch { sentMessage = await this.channel.send(reply) }

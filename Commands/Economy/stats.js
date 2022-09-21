@@ -11,12 +11,12 @@ module.exports = {
   options: [{ name: 'target', type: 'User' }],
   beta: true,
 
-  run: async (message, lang, { db }) => {
+  run: function (lang, { db }) {
     const
-      target = message.options?.getUser('target') || message.mentions?.users?.first() || message.user,
-      userData = db.get('guildSettings')[message.guild.id]?.economy?.[target.id];
+      target = this.options?.getUser('target') || this.mentions?.users?.first() || this.user,
+      userData = db.get('guildSettings')[this.guild.id]?.economy?.[target.id];
 
-    if (!userData?.gaining?.chat) return message.customReply(lang('noStats'));
+    if (!userData?.gaining?.chat) return this.customReply(lang('noStats'));
 
     const fields = [
       { name: lang('currency'), value: `> ${userData.currency}/${userData.currencyCapacity}` },
@@ -27,12 +27,10 @@ module.exports = {
           Object.entries(userData.gaining)
             .filter(([, e]) => e)
             .map(([k, v]) => {
-              let amount = v;
-              switch (k) {
-                case 'chat': amount = parseFloat((v + userData.skills.currency_bonus_absolute.lvl ** 2 + v * userData.skills.currency_bonus_percentage.lvl ** 2 / 100).toFixed(3)); break;
-              }
+              let amount;
+              if (k == 'chat') amount = parseFloat((v + userData.skills.currency_bonus_absolute.lvl ** 2 + v * userData.skills.currency_bonus_percentage.lvl ** 2 / 100).toFixed(3));
 
-              return lang(`gaining.${k}`, amount);
+              return lang(`gaining.${k}`, amount ?? v);
             })
             .join('\n')
       },
@@ -47,9 +45,9 @@ module.exports = {
         title: lang('embedTitle', target.tag),
         fields,
         color: Colors.White,
-        footer: { name: message.user.tag, iconURL: message.member.displayAvatarURL({ forceStatic: true }) },
+        footer: { name: this.user.tag, iconURL: this.member.displayAvatarURL({ forceStatic: true }) },
       });
 
-    message.customReply({ embeds: [embed] })
+    this.customReply({ embeds: [embed] })
   }
 }

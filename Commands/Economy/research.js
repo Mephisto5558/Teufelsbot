@@ -11,9 +11,9 @@ module.exports = {
   requireEconomy: true,
   beta: true,
 
-  run: async (message, lang, { db }) => {
+  run: async function (lang, { db }) {
     const
-      userSkills = db.get('guildSettings')[message.guild.id].economy[message.user.id].skills,
+      userSkills = db.get('guildSettings')[this.guild.id].economy[this.user.id].skills,
       defaultSkills = db.get('guildSettings').default.economy.skills,
       fields = Object.entries(defaultSkills).map(([skill, defaultSkill]) => {
         const price = userSkills[skill].lastPrice ? userSkills[skill].lastPrice + Math.round(userSkills[skill].lastPrice * userSkills[skill].percentage / 100) : defaultSkill.firstPrice;
@@ -26,7 +26,7 @@ module.exports = {
       }),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        footer: { name: message.user.tag, iconURL: message.member.displayAvatarURL({ forceStatic: true }) },
+        footer: { name: this.user.tag, iconURL: this.member.displayAvatarURL({ forceStatic: true }) },
         fields, color: Colors.White
       }),
       component = new ActionRowBuilder({
@@ -43,15 +43,15 @@ module.exports = {
         })]
       });
 
-    const msg = await message.customReply({ embeds: [embed], components: [component] });
+    const msg = await this.customReply({ embeds: [embed], components: [component] });
 
-    const collector = msg.createMessageComponentCollector({ filter: i => i.user.id == message.user.id, time: 60000 });
+    const collector = msg.createMessageComponentCollector({ filter: i => i.user.id == this.user.id, idle: 60000 });
     collector.on('collect', async button => {
       await button.deferReply();
 
       const
         skill = button.values[0],
-        userData = db.get('guildSettings')[message.guild.id].economy[message.user.id],
+        userData = db.get('guildSettings')[this.guild.id].economy[this.user.id],
         userSkill = userData.skills[skill],
         price = userSkill.lastPrice ? userSkill.lastPrice + Math.round(userSkill.lastPrice * userSkill.percentage / 100) : defaultSkills[skill].firstPrice;
       let errorMsg;
@@ -75,7 +75,7 @@ module.exports = {
         }
       }
 
-      db.set('guildSettings', db.get('guildSettings').fMerge({ [message.guild.id]: { economy: { [message.user.id]: newData } } }));
+      db.set('guildSettings', db.get('guildSettings').fMerge({ [this.guild.id]: { economy: { [this.user.id]: newData } } }));
 
       button.editReply(lang('success', { skill: lang(`skills.${skill}.name`), emoji: lang(`skills.${skill}.emoji`), lvl: newData.skills[skill].lvl, time: Math.round(onCooldownUntil / 1000) }));
     });
@@ -84,7 +84,7 @@ module.exports = {
       component.components[0].data.disabled = true;
       component.components[0].data.placeholder = lang('timedOut');
 
-      msg.edit({ embeds: [embed], components: [component] }, message);
+      msg.edit({ embeds: [embed], components: [component] });
     });
 
   }

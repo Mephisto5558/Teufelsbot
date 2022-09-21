@@ -1,5 +1,6 @@
-const { formTypes } = require('discord-dashboard');
-const { ChannelType } = require('discord.js');
+const
+  { formTypes } = require('discord-dashboard'),
+  { ChannelType } = require('discord.js');
 
 module.exports = {
   id: 'joinChannel',

@@ -22,8 +22,8 @@
     "timedOut": "Zeitüberschreitung bei der Anfrage. Eventuell ist das Bild zu groß."
   },
   "autopublish": {
-    "description": "Veröffentlicht automatisch alles, was jemand in einem News-Channel sagt.",
-    "usage": "Dieser Command veröffentlicht automatisch alle Nachrichten, die in News-Channels gesendet werden.\nDies ist ein Toggle.",
+    "description": "Veröffentlicht automatisch alles, was jemand in einem Announcement-Channel sagt.",
+    "usage": "Dieser Command veröffentlicht automatisch alle Nachrichten, die in Announcement-Channels gesendet werden.\nDies ist ein Toggle.",
     "success": "{toggle} Autopublish."
   },
   "convert": {
@@ -107,28 +107,21 @@
         }
       }
     },
-    "invalidOption": "**Eine der angegebenen Optionen ist ungültig!**\n\n```{err}```",
+    "invalidOption": "**Dein JSON ist ungültig!**\n\n```{err}```",
     "successJSON": "Dein Embed wurde gesendet!",
     "success": "Dein Embed wurde gesendet! Unten ist der Embed Code.\nWenn du es erneut senden möchtest, nutze den `json` Untercommand.\n\n```json\n{json}\n```"
   },
   "hash": {
-    "description": "Ver-/Endschlüssel einen Text mit verschiedenen Methoden.",
+    "description": "Ver-/Entschlüssle einen Text mit verschiedenen Methoden.",
     "usage": "SLASH Command: Du musst nur eine der möglichen Methode angeben.",
     "options": {
       "input": {
         "description": "Der Text, welchen du verschlüsseln oder entschlüsseln möchtest."
       },
-      "method1": {
-        "description": "Mit welcher Methode soll dein Text verschlüsselt werden? (nur eine Angabe benötigt)"
-      },
-      "method2": {
-        "description": "Mit welcher Methode soll dein Text verschlüsselt werden? (nur eine Angabe benötigt)"
-      },
-      "method3": {
-        "description": "Mit welcher Methode soll dein Text verschlüsselt werden? (nur eine Angabe benötigt)"
+      "method": {
+        "description": "Mit welcher Methode soll dein Text verschlüsselt werden?"
       }
     },
-    "noMethod": "Du musst noch eine `method` Option angeben!",
     "embedTitle": "Hash Funktion",
     "embedDescription": "Dein Input: `{input}`\nHash Methode: `{method}`",
     "text": "Dein gehashter Text:\n`{hash}`"
@@ -165,7 +158,7 @@
       }
     },
     "charsetEmpty": "Du hast alle Zeichen aus dem Charset entfernt...",
-    "success": "Deine sichere Passwörter:\n{passwords}\n\n||Erstellt mit dem folgenden Zeichensatz:\n```{charset}```\nNutze die Command-Optionen um zeichen hinzuzufügen oder zu entfernen.||"
+    "success": "Deine sichere Passwörter:\n{passwords}\n\n||Erstellt mit dem folgenden Zeichensatz:\n```{charset}```\nNutze die Command-Optionen um Zeichen hinzuzufügen oder zu entfernen.||"
   },
   "setup": {
     "description": "Richtet den Bot ein",

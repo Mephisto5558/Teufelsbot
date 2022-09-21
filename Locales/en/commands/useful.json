@@ -107,7 +107,7 @@
         }
       }
     },
-    "invalidOption": "**One of the provided options is invalid!**\n\n```{err}```",
+    "invalidOption": "**Your JSON is invalid!**\n\n```{err}```",
     "successJSON": "Your embed has been sent!",
     "noPerm": "You don't have the permission to send messages in that channel!",
     "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
@@ -119,17 +119,10 @@
       "input": {
         "description": "the text you want to encrypt or decrypt"
       },
-      "method1": {
-        "description": "with which method your text should get encrypted (needed only once)"
-      },
-      "method2": {
-        "description": "with which method your text should get encrypted (needed only once)"
-      },
-      "method3": {
-        "description": "with which method your text should get encrypted (needed only once)"
+      "method": {
+        "description": "with which method your text should get encrypted"
       }
     },
-    "noMethod": "You need to provide one of the method options!",
     "embedTitle": "Hash Function",
     "embedDescription": "Your input: `{input}`\nHash method: `{method}`",
     "text": "Your hashed string:\n`{hash}`"

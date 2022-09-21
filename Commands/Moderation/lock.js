@@ -13,36 +13,36 @@ module.exports = {
     { name: 'reason', type: 'String' }
   ],
 
-  run: async (message, lang, { db }) => {
-    const msg = await message.customReply(lang('global.loading'));
+  run: async function (lang, { db }) {
+    const msg = await this.customReply(lang('global.loading'));
 
-    message.args?.shift();
+    this.args?.shift();
 
     const
-      channel = message.options?.getChannel('channel') || message.mentions?.channels.first() || message.channel,
-      reason = message.options?.getString('reason') || message.args?.join(' ') || lang('noReason'),
+      channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,
+      reason = this.options?.getString('reason') || this.args?.join(' ') || lang('noReason'),
       overwrites = Object.assign({}, ...channel.permissionOverwrites.cache.filter(async e => {
         if (!e.allow.has(PermissionFlagsBits.SendMessages) || e.allow.has(PermissionFlagsBits.Administrator)) return;
-        if (e.type == OverwriteType.Role) return (await message.guild.roles.fetch(e.id)).comparePositionTo(message.guild.members.me.roles.highest) < 0;
-        return (await message.guild.members.fetch(e.id)).manageable;
+        if (e.type == OverwriteType.Role) return (await this.guild.roles.fetch(e.id)).comparePositionTo(this.guild.members.me.roles.highest) < 0;
+        return (await this.guild.members.fetch(e.id)).manageable;
       }).map(e => ({ [e.id]: e.type })));
 
-    if (channel.permissionOverwrites.resolve(message.guild.roles.everyone.id)?.allow.has(PermissionFlagsBits.SendMessages))
-      overwrites[message.guild.roles.everyone.id] = OverwriteType.Role;
+    if (channel.permissionOverwrites.resolve(this.guild.roles.everyone.id)?.allow.has(PermissionFlagsBits.SendMessages))
+      overwrites[this.guild.roles.everyone.id] = OverwriteType.Role;
 
-    db.set('guildSettings', db.get('guildSettings').fMerge({ [message.guild.id]: { lockedChannels: { [channel.id]: overwrites } } }));
+    db.set('guildSettings', db.get('guildSettings').fMerge({ [this.guild.id]: { lockedChannels: { [channel.id]: overwrites } } }));
 
 
     for (const [id, type] of Object.entries(overwrites)) {
       await channel.permissionOverwrites.edit(id,
         { [PermissionFlagsBits.SendMessages]: false },
-        { type, reason: `lock command, moderator ${message.user.tag}` }
+        { type, reason: `lock command, moderator ${this.user.tag}` }
       )
     }
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { mod: message.user.tag, reason }),
+      description: lang('embedDescription', { mod: this.user.tag, reason }),
       color: Colors.Red
     });
 

@@ -2,25 +2,22 @@
   "global": {
     "environment": "the environment this will run (eg. main or dev)",
     "keys": {
-      "webCommandKey": "hash off token used as password to communicate between main bot and music bot (or anything else)",
       "humorAPIKey": "APIKEY for HumorAPI (/joke)",
       "rapidAPIKey": "APIKEY for RapidAPI (/Joke)",
       "githubKey": "APIKEY for /suggest",
       "FunFactAPI": "APIKEY for .funfact"
     }
   },
-
   "main": {
     "type": "main",
     "dbConnectionStr": "Connection string to mongodb",
-    "botUserID": "the discord user id of the bot",
+    "botUserID": "the bot's client id",
     "token": "the bot token"
   },
-
   "dev": {
     "type": "dev",
     "dbConnectionStr": "Connection string to mongodb",
-    "botUserID": "the discord user id of the bot",
+    "botUserID": "the bot's client id",
     "token": "the bot token"
   }
 }

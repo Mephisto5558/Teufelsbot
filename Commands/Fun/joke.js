@@ -8,7 +8,7 @@ const
     { name: 'icanhazdadjoke', url: 'https://icanhazdadjoke.com' }
   ];
 
-async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
+async function getJoke(APIList, type, blacklist, maxLength) {
   let response;
   const API = APIList.random();
 
@@ -35,7 +35,7 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
         const res = await get(`${API.url.replace('://', '://api.')}/jokes/random`, {
           timeout: 2500,
           params: {
-            'api-key': humorAPIKey,
+            'api-key': this.keys.humorAPIKey,
             'min-rating': 7,
             'max-length': maxLength,
             'include-tags': type,
@@ -64,19 +64,19 @@ async function getJoke(APIList, type, blacklist, maxLength, { humorAPIKey }) {
   }
   catch (err) {
     if ([402, 403, 522].includes(err.status)) {
-      client.error('joke.js: ')
-      client.error(err.response)
+      this.error('joke.js: ')
+      this.error(err.response)
     }
-    else {
-      client.error(
+    else if (err.code != 'ECONNABORTED') {
+      this.error(
         `joke.js: ${API?.url ?? JSON.stringify(API)} responded with error ` +
-        `${err.status || err.response?.status}, ${err.statusText || err.response?.statusText}: ${err.response?.data.message}`
+        `${err.status ?? err.response?.status ?? err.name}, ${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`
       );
     }
   }
 
   APIList = APIList.filter(str => str.name !== API.name);
-  if (APIList) return getJoke(APIList, type, blacklist, maxLength, { humorAPIKey });
+  if (APIList.length) return getJoke.call(this, APIList, type, blacklist, maxLength);
 }
 
 module.exports = {
@@ -102,14 +102,14 @@ module.exports = {
     }
   ],
 
-  run: async (message, lang, { keys }) => {
+  run: async function (lang, client) {
     const
-      type = message.options?.getString('type') || message.args?.[0],
-      blacklist = message.options?.getString('blacklist'),
-      maxLength = message.options?.getNumber('max_length') || 2000,
-      [joke, API] = await getJoke(defaultAPIList, type, blacklist, maxLength, keys);
+      type = this.options?.getString('type') || this.args?.[0],
+      blacklist = this.options?.getString('blacklist'),
+      maxLength = this.options?.getNumber('max_length') || 2000,
+      [joke, API] = await getJoke.call(client, defaultAPIList, type, blacklist, maxLength);
 
-    if (!joke) return message.customReply(lang('noAPIAvailable'));
+    if (!joke) return this.customReply(lang('noAPIAvailable'));
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
@@ -118,6 +118,6 @@ module.exports = {
         `- [${API.name}](${API.url})`
     }).setColor('Random');
 
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

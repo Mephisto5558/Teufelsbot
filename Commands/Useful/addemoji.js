@@ -25,19 +25,19 @@ module.exports = {
     { name: 'limit_to_roles', type: 'String' }
   ],
 
-  run: async (interaction, lang) => {
-    let input = interaction.options.getString('emoji_or_url');
+  run: async function (lang) {
+    let input = this.options.getString('emoji_or_url');
 
     const
-      limitToRoles = interaction.options.getString('limit_to_roles')?.split(' ').map(e => e.replace(/\D/g, '')).filter(e => interaction.guild.roles.cache.has(e)),
+      limitToRoles = this.options.getString('limit_to_roles')?.split(' ').map(e => e.replace(/\D/g, '')).filter(e => this.guild.roles.cache.has(e)),
       emoticon = parseEmoji(input),
-      name = interaction.options.getString('name')?.slice(0, 32) || emoticon.id ? emoticon.name : 'emoji',
+      name = this.options.getString('name')?.slice(0, 32) || emoticon.id ? emoticon.name : 'emoji',
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         color: Colors.Green
       });
 
-    if (interaction.guild.emojis.cache.has(emoticon.id)) embed.data.description = lang('isGuildEmoji');
+    if (this.guild.emojis.cache.has(emoticon.id)) embed.data.description = lang('isGuildEmoji');
     else if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
     else {
       if (!input.startsWith('http')) input = `https://${input}`;
@@ -48,12 +48,12 @@ module.exports = {
       if (/4\d\d/.test(res.status)) embed.data.description = lang('notFound');
     }
 
-    if (embed.data.description) return interaction.editReply({ embeds: [embed] });
+    if (embed.data.description) return this.editReply({ embeds: [embed] });
 
     try {
-      const emoji = await interaction.guild.emojis.create({
+      const emoji = await this.guild.emojis.create({
         attachment: input, name,
-        reason: `addemoji command, member ${interaction.user.tag}`,
+        reason: `addemoji command, member ${this.user.tag}`,
         roles: limitToRoles
       });
 
@@ -61,12 +61,12 @@ module.exports = {
       if (limitToRoles?.length) embed.data.description += lang('limitedToRoles', limitToRoles.join('>, <@&'));
     }
     catch (err) {
-      if(err.name != 'DiscordAPIError[30008]') throw err;
+      if (err.name != 'DiscordAPIError[30008]') throw err;
 
       embed.data.color = Colors.Red;
       embed.data.description = lang('error', err.name == 'AbortError' ? lang('timedOut') : err.message);
     }
 
-    interaction.editReply({ embeds: [embed] });
+    this.editReply({ embeds: [embed] });
   }
 }

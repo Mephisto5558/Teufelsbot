@@ -7,14 +7,15 @@ const
   { existsSync, readdirSync } = require('fs'),
   DB = require('./Functions/private/db.js'),
   customReply = require('./Functions/private/reply.js'),
-  isObject = item => ({}).toString() == item?.toString();
+  isObject = item => ({}).toString() == item;
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 
 Array.prototype.random = function random() { return this[randomInt(this.length - 1)] };
 Number.prototype.limit = function limit({ min = -Infinity, max = Infinity }) { return Math.min(Math.max(Number(this), min), max) };
 Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }) {
-  if (isObject(this) && isObject(obj)) for (const key of Object.keys({ ...this, ...obj })) {
+  if (!isObject(this) || !isObject(obj)) return output;
+  for (const key of Object.keys({ ...this, ...obj })) {
     if (isObject(this[key])) output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];
     else if (Array.isArray(this[key])) {
       if (key in obj) {
@@ -35,6 +36,8 @@ console.timeEnd('Initializing time');
 console.time('Starting time');
 
 (async function main() {
+  require('./Website/custom/git/pull.js').run();
+
   const client = new Client({
     allowedMentions: {
       parse: [
@@ -43,7 +46,6 @@ console.time('Starting time');
       ]
     },
     shards: 'auto',
-    rest: { retries: 2 },
     intents: [
       GatewayIntentBits.Guilds,
       GatewayIntentBits.GuildMembers,
@@ -59,8 +61,6 @@ console.time('Starting time');
   });
   let env;
 
-  await require('./Website/custom/git/pull.js').run();
-
   if (existsSync('./env.json')) env = require('./env.json');
   else {
     client.db = await new DB(process.env.dbConnectionStr).fetchAll();
@@ -72,21 +72,21 @@ console.time('Starting time');
   if (!client.db) client.db = await new DB(env.dbConnectionStr).fetchAll();
 
   client.botType = env.environment;
+  client.keys = env.keys;
   client.functions = {};
   client.dashboardOptionCount = {};
-  client.keys = env.keys;
+  client.prefixCommands = new Collection();
   client.cooldowns = new Collection();
-  client.commands = new Collection();
 
   if (client.botType != 'dev') client.giveawaysManager = require('./Functions/private/giveawaysmanager.js')(client);
 
-  for (const handler of readdirSync('./Handlers').sort(a => a == 'log_handler.js' ? -1 : 1)) require(`./Handlers/${handler}`)(client);
+  for (const handler of readdirSync('./Handlers')) require(`./Handlers/${handler}`).call(client);
 
   await client.login(client.keys.token);
   client.log(`Logged into ${client.botType}`);
 
   process
-    .on('unhandledRejection', err => require('./Functions/private/error_handler.js')(err, client))
-    .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js')(err, client))
-    .on('uncaughtException', err => require('./Functions/private/error_handler.js')(err, client));
+    .on('unhandledRejection', err => require('./Functions/private/error_handler.js').call(client, err))
+    .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js').call(client, err))
+    .on('uncaughtException', err => require('./Functions/private/error_handler.js').call(client, err))
 })();

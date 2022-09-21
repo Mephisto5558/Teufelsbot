@@ -1,5 +1,6 @@
-module.exports = async client => {
-  while (client.ws.status != 0) await client.functions.sleep(10);
-  if (!client.application.name) await client.application.fetch();
-  return true;
+const { Status } = require('discord.js');
+
+module.exports = async function ready() {
+  while (this.ws.status != Status.Ready) await this.functions.sleep(10);
+  return !this.application.name ? this.application.fetch() : this.application;
 };

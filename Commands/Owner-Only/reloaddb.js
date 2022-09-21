@@ -8,11 +8,11 @@ module.exports = {
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, { log, db }) => {
-    log(`Reloading db, initiated by user ${message.user.tag}`);
+  run: async function (lang, { log, db }) {
+    log(`Reloading db, initiated by user ${this.user.tag}`);
 
     await db.fetchAll();
 
-    message.customReply(lang('success'));
+    this.customReply(lang('success'));
   }
 }

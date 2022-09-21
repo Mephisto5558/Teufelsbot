@@ -10,16 +10,16 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'average', type: 'Boolean' }],
 
-  run: async (message, lang, { ws, functions }) => {
+  run: async function (lang, { ws, functions }) {
     const
-      average = message.args?.[0] == 'average' || message.options?.getBoolean('average'),
+      average = this.args?.[0] == 'average' || this.options?.getBoolean('average'),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: lang(average ? 'average.loading' : 'global.loading'),
         color: Colors.Green
       }),
       messagePing = Date.now(),
-      msg = await message.customReply({ embeds: [embed] }),
+      msg = await this.customReply({ embeds: [embed] }),
       endMessagePing = Date.now() - messagePing;
 
     if (average) {
@@ -39,7 +39,7 @@ module.exports = {
     else {
       embed.data.fields = [
         { name: 'API', value: `\`${Math.round(ws.ping)}\`ms`, inline: true },
-        { name: 'Bot', value: `\`${Math.abs(Date.now() - message.createdTimestamp)}\`ms`, inline: true },
+        { name: 'Bot', value: `\`${Math.abs(Date.now() - this.createdTimestamp)}\`ms`, inline: true },
         { name: lang('messageSend'), value: `\`${endMessagePing}\`ms`, inline: true }
       ];
       embed.data.description = ' ';

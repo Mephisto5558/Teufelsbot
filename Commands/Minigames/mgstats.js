@@ -1,6 +1,6 @@
 const { EmbedBuilder, Colors, Message } = require('discord.js');
 
-async function manageData(input, clientID) {
+function manageData(input, clientID) {
   if (!input) return;
 
   let output = '';
@@ -11,7 +11,7 @@ async function manageData(input, clientID) {
   return output.replaceAll('AI', clientID);
 }
 
-async function formatStatCount(input, all) {
+function formatStatCount(input, all) {
   input = parseInt(input);
   all = parseInt(all);
 
@@ -23,7 +23,7 @@ async function formatStatCount(input, all) {
   return `\`${input}\` (\`${parseFloat((input / all * 100).toFixed(2))}%\`)`;
 }
 
-async function formatTopTen(input, settings, message, lang) {
+async function formatTopTen(input, settings, lang) {
   let output = '';
   let i = 0;
   let isInGuild;
@@ -35,7 +35,7 @@ async function formatTopTen(input, settings, message, lang) {
 
   for (const entry of data) {
     try {
-      await message.guild.members.fetch(entry[0]);
+      await this.guild.members.fetch(entry[0]);
       isInGuild = true
     }
     catch { isInGuild = false }
@@ -97,26 +97,26 @@ module.exports = {
     }
   ],
 
-  run: async (message, lang, client) => {
-    if (message instanceof Message && !message.args[0])
-      return message.customReply(lang('missingGameArg'));
+  run: async function (lang, client) {
+    if (this instanceof Message && !this.args[0])
+      return this.customReply(lang('missingGameArg'));
 
     const stats = {
-      type: message.options?.getSubcommand() || 'user',
-      game: message.options?.getString('game') || message.args[0].replace(/tictactoe/gi, 'TicTacToe'),
-      target: message.options?.getUser('target') || message.mentions?.users?.first() || message.member,
-      settings: message.options?.getString('settings')
+      type: this.options?.getSubcommand() || 'user',
+      game: this.options?.getString('game') || this.args[0].replace(/tictactoe/gi, 'TicTacToe'),
+      target: this.options?.getUser('target') || this.mentions?.users?.first() || this.user,
+      settings: this.options?.getString('settings')
     }
     const leaderboards = client.db.get('leaderboards');
 
     stats.data = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == stats.game.toLowerCase())?.[1];
-    if (!stats.data) return message.customReply(lang('notFound', Object.keys(leaderboards).join('`, `')));
+    if (!stats.data) return this.customReply(lang('notFound', Object.keys(leaderboards).join('`, `')));
 
     const embed = new EmbedBuilder({
       color: Colors.Blurple,
       footer: {
-        text: message.member.user.tag,
-        iconURL: message.member.displayAvatarURL()
+        text: this.member.user.tag,
+        iconURL: this.member.displayAvatarURL()
       }
     });
 
@@ -127,25 +127,22 @@ module.exports = {
 
       if (rawStats && rawStats.games) {
         embed.data.description =
-          lang('games', rawStats?.game) +
-          lang('wins', await formatStatCount(rawStats.wins, rawStats.games) || '`0`') +
-          lang('draws', await formatStatCount(rawStats.draws, rawStats.games) || '`0`') +
-          lang('loses', await formatStatCount(rawStats.loses, rawStats.games) || '`0`') +
+          lang('games', rawStats.games) +
+          lang('wins', formatStatCount(rawStats.wins, rawStats.games) || '`0`') +
+          lang('draws', formatStatCount(rawStats.draws, rawStats.games) || '`0`') +
+          lang('loses', formatStatCount(rawStats.loses, rawStats.games) || '`0`');
 
-          `${lang('wonAgainst')}\n` +
-          `${await manageData(rawStats.wonAgainst, client.user.id) || '>' + lang('noOne')}\n` +
-          `${lang('lostAgainst')}\n` +
-          `${await manageData(rawStats.lostAgainst, client.user.id) || '>' + lang('noOne')}\n` +
-          `${lang('drewAgainst')}\n` +
-          `${await manageData(rawStats.drewAgainst, client.user.id) || '>' + lang('noOne')}`
+        if (rawStats.wonAgainst) embed.data.description += lang('wonAgainst') + (manageData(rawStats.wonAgainst, client.user.id) || '> ' + lang('noOne')) + '\n';
+        if (rawStats.lostAgainst) embed.data.description += lang('lostAgainst') + (manageData(rawStats.lostAgainst, client.user.id) || '> ' + lang('noOne')) + '\n';
+        if (rawStats.drewAgainst) embed.data.description += lang('drewAgainst') + (manageData(rawStats.drewAgainst, client.user.id) || '> ' + lang('noOne'));
       }
-      else embed.data.description = stats.target.id == message.member.id ? lang('youNoGamesPlayed', stats.game) : lang('usrNoGamesPlayed', { user: stats.target.username, game: stats.game });
+      else embed.data.description = stats.target.id == this.member.id ? lang('youNoGamesPlayed', stats.game) : lang('usrNoGamesPlayed', { user: stats.target.username, game: stats.game });
     }
     else if (stats.type == 'leaderboard') {
       embed.data.title = lang('embedTitleTop10', stats.game);
-      embed.data.description = await formatTopTen(stats.data, stats.settings, message, lang) || lang('noWinners');
+      embed.data.description = await formatTopTen.call(this, stats.data, stats.settings, lang) || lang('noWinners');
     }
 
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

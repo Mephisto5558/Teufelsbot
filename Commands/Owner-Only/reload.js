@@ -2,38 +2,28 @@ const
   { readdirSync, existsSync } = require('fs'),
   { join } = require('path');
 
-async function reloadCommand(client, commandName, path, reloadedArray) {
-  commandName = commandName.replace('.js', '');
-
+async function reloadCommand(commandName, path, reloadedArray) {
   delete require.cache[path];
   const file = require(path);
 
-  if (client.botType == 'dev' ? !file.beta : file.disabled) return;
+  if (this.botType == 'dev' ? !file.beta : file.disabled) return;
 
   if (file.prefixCommand) {
-    client.commands.delete(commandName);
-    client.commands.set(commandName, file);
-
+    this.prefixCommands.set(commandName, file);
     reloadedArray.push(commandName);
 
     for (const alias of file.aliases.prefix) {
-      client.commands.delete(alias, file);
-      client.commands.set(alias, file);
-
+      this.prefixCommands.set(alias, file);
       reloadedArray.push(alias);
     }
   }
 
   if (file.slashCommand) {
-    client.slashCommands.delete(commandName);
-    client.slashCommands.set(commandName, file);
-
+    this.slashCommands.set(commandName, file);
     reloadedArray.push(`/${commandName}`);
 
     for (const alias of file.aliases.slash) {
-      client.slashCommands.delete(alias, file);
-      client.slashCommands.set(alias, file);
-
+      this.slashCommands.set(alias, file);
       reloadedArray.push(`/${alias}`);
     }
   }
@@ -49,11 +39,16 @@ module.exports = {
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, client) => {
+  run: async function (lang, client) {
     let category, command, errorMsg, reloadedArray = [];
 
-    if (message.args[0]) category = message.args[0] == '*' ? '*' : getDirectoriesSync('./Commands').filter(e => e.toLowerCase() == message.args[0].toLowerCase())?.[0];
-    if (category && message.args[1]) command = message.args[1] == '*' ? '*' : readdirSync(`./Commands/${category}`).filter(e => e.endsWith('.js') && e.toLowerCase() == `${message.args[1].toLowerCase()}.js`)?.[0];
+    if (this.args[0] == '*') category = '*';
+    else if (this.args[0]) category = getDirectoriesSync('./Commands').filter(e => e.toLowerCase() == this.args[0].toLowerCase())?.[0];
+
+    if (category && category != '*') {
+      if (this.args[1] == '*') command = '*';
+      else if (this.args[1]) command = readdirSync(`./Commands/${category}`).filter(e => e.endsWith('.js') && e.toLowerCase() == `${this.args[1].toLowerCase()}.js`)?.[0];
+    }
 
     const path = join(__dirname, `../../Commands/${category}/${command}`);
 
@@ -61,20 +56,20 @@ module.exports = {
       if (category == '*') {
         for (const subFolder of getDirectoriesSync('./Commands'))
           for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js')))
-            await reloadCommand(client, file, `../../Commands/${subFolder}/${file}`, reloadedArray);
+            await reloadCommand.call(client, file.slice(0, -3), `../../Commands/${subFolder}/${file}`, reloadedArray);
       }
       else if (command == '*') {
         for (const file of readdirSync(`./Commands/${category}`).filter(e => e.endsWith('.js')))
-          await reloadCommand(client, file, `../../Commands/${category}/${file}`, reloadedArray);
+          await reloadCommand.call(client, file.slice(0, -3), `../../Commands/${category}/${file}`, reloadedArray);
       }
       else {
-        if (!category && !existsSync(path)) errorMsg = (message.args[0] ? lang('invalidCategory') : '') + lang('validCategoryList', getDirectoriesSync('./Commands').join('`, `').toLowerCase());
-        else if (!command && !existsSync(path)) errorMsg = (message.args[1] ? lang('invalidCommand') : '') + lang('validCommandList', readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replaceAll('.js', ''));
-        else await reloadCommand(client, command, path, reloadedArray);
+        if (!category && !existsSync(path)) errorMsg = (this.args[0] ? lang('invalidCategory') : '') + lang('validCategoryList', getDirectoriesSync('./Commands').join('`, `').toLowerCase());
+        else if (!command && !existsSync(path)) errorMsg = (this.args[1] ? lang('invalidCommand') : '') + lang('validCommandList', readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replaceAll('.js', ''));
+        else await reloadCommand.call(client, command.slice(0, -3), path, reloadedArray);
       }
     }
     catch (err) { errorMsg = lang('error', err.message) }
 
-    message.customReply(errorMsg || (!reloadedArray.length ? lang('noneReloaded') : lang('reloaded', { count: reloadedArray.length, commands: reloadedArray.join('`, `') })));
+    this.customReply(errorMsg || (!reloadedArray.length ? lang('noneReloaded') : lang('reloaded', { count: reloadedArray.length, commands: reloadedArray.join('`, `') })));
   }
 }

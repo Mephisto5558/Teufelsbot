@@ -11,9 +11,9 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, lang) => {
+  run: function (lang) {
     const
-      guild = message.guild,
+      guild = this.guild,
       channels = Array.from(guild.channels.cache.values()),
       embed = new EmbedBuilder({
         title: guild.name,
@@ -31,7 +31,7 @@ module.exports = {
           { name: lang('partnered'), value: guild.partnered, inline: true },
           { name: lang('emojis'), value: `\`${guild.emojis.cache.size}\``, inline: true },
           { name: lang('roles'), value: `\`${guild.roles.cache.size}\``, inline: true },
-          { name: lang('boosts'), value: `\`${guild.premiumSubscriptionCount}\`${guild.premiumTier ? `, ${GuildPremiumTier[guild.premiumTier].replace(/(\d)/, ' $1')}` : ''}`, inline: true },
+          { name: lang('boosts'), value: `\`${guild.premiumSubscriptionCount}\`${guild.premiumTier ? ', ' + GuildPremiumTier[guild.premiumTier].replace(/(\d)/, ' $1') : ''}`, inline: true },
           {
             name: lang('channels'), value: (_ => {
               const sorted = {};
@@ -49,6 +49,6 @@ module.exports = {
 
     if (guild.banner) embed.setImage(guild.bannerURL());
 
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

@@ -7,5 +7,5 @@ module.exports = {
   slashCommand: false,
   prefixCommand: true,
 
-  run: (message, lang) => message.customReply(lang('responseList', message.member.displayName))
+  run: function (lang) { this.customReply(lang('responseList', this.member.displayName)) }
 }

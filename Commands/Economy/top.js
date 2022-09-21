@@ -10,8 +10,8 @@ module.exports = {
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, { db }) => {
-    const description = Object.entries(db.get('guildSettings')[message.guild.id]?.economy || {})
+  run: function (lang, { db }) {
+    const description = Object.entries(db.get('guildSettings')[this.guild.id]?.economy || {})
       .sort(([, a], [, b]) => b.power - a.power || b.currency - a.currency)
       .slice(0, 10)
       .filter(([, e]) => e.currency)
@@ -25,10 +25,10 @@ module.exports = {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       color: Colors.White,
-      footer: { text: message.user.tag },
+      footer: { text: this.user.tag },
       description: description ? lang('embedDescription') + description : lang('noneFound')
     });
 
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

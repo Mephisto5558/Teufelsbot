@@ -7,24 +7,24 @@ module.exports = {
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (message, lang, { db, application }) => {
-    if (!message.args[0]) return;
+  run: function (lang, { db, application }) {
+    if (!this.args[0]) return;
 
     const oldData = db.get('botSettings');
 
-    if (message.args[0] == 'off') {
-      if (!oldData.blacklist.includes(message.args[1])) return message.customReply(lang('notFound'));
+    if (this.args[0] == 'off') {
+      if (!oldData.blacklist.includes(this.args[1])) return this.customReply(lang('notFound'));
 
-      oldData.blacklist = oldData.blacklist.filter(e => e != message.args[1]);
+      oldData.blacklist = oldData.blacklist.filter(e => e != this.args[1]);
       db.set('botSettings', oldData);
 
-      return message.customReply(lang('removed', message.args[1]))
+      return this.customReply(lang('removed', this.args[1]))
     }
 
-    if (message.args[0] == application.owner.id) return message.customReply(lang('cantBlacklistOwner'));
+    if (this.args[0] == application.owner.id) return this.customReply(lang('cantBlacklistOwner'));
 
-    oldData.blacklist.push(message.args[0]);
+    oldData.blacklist.push(this.args[0]);
     db.set('botSettings', oldData);
-    message.customReply(lang('saved', message.args[0]));
+    this.customReply(lang('saved', this.args[0]));
   }
 }

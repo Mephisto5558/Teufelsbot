@@ -7,5 +7,5 @@ module.exports = {
   slashCommand: false,
   prefixCommand: true,
 
-  run: async (message, lang, { functions }) => message.customReply(lang('message', functions.uptime(true).formatted))
+  run: function (lang, { functions }) { this.customReply(lang('message', functions.uptime(true).formatted)) }
 }

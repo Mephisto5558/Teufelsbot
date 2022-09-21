@@ -24,15 +24,15 @@ module.exports = {
     }
   ],
 
-  run: async (message, lang) => {
+  run: async function (lang) {
     const
-      target = message.options?.getMember('target') || message.mentions?.members?.first() || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
-      avatarURL = await target.displayAvatarURL({ size: message.options?.getNumber('size') || 2048 }),
+      target = this.options?.getMember('target') || this.mentions?.members?.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...this.args, this.content].includes(e))) || this.member,
+      avatarURL = await target.displayAvatarURL({ size: this.options?.getNumber('size') || 2048 }),
       embed = new EmbedBuilder({
         description: lang('embedDescription', target.user.username),
         color: Colors.White,
         image: { url: avatarURL },
-        footer: { text: message.member.tag }
+        footer: { text: this.member.tag }
       }),
       row = new ActionRowBuilder({
         components: [new ButtonBuilder({
@@ -42,6 +42,6 @@ module.exports = {
         })]
       });
 
-    message.customReply({ embeds: [embed], components: [row] });
+    this.customReply({ embeds: [embed], components: [row] });
   }
 }

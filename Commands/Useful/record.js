@@ -24,26 +24,26 @@ module.exports = {
     { name: 'public', type: 'Boolean' }
   ],
 
-  run: async (interaction, lang) => {
+  run: async function (lang) {
     const
       allowed = new Set(),
       collected = new Set(),
-      voiceChannel = interaction.options.getChannel('channel') || interaction.options.getMember('target')?.voice.channel || interaction.member.voice.channel,
-      target = voiceChannel?.members.get(interaction.options.getMember('target')?.id),
+      voiceChannel = this.options.getChannel('channel') || this.options.getMember('target')?.voice.channel || this.member.voice.channel,
+      target = voiceChannel?.members.get(this.options.getMember('target')?.id),
       targets = (target ? [target] : [...(voiceChannel?.members?.values() ?? [])]).filter(e => e?.voice.channel && !e.user.bot),
-      isPublic = interaction.options.getBoolean('public');
+      isPublic = this.options.getBoolean('public');
 
-    if (!voiceChannel) return interaction.editReply(lang('needVoiceChannel'));
-    if (!voiceChannel.joinable) return interaction.editReply(lang('cannotJoin'));
-    if (!targets.length) return interaction.editReply(lang('noTarget'));
+    if (!voiceChannel) return this.editReply(lang('needVoiceChannel'));
+    if (!voiceChannel.joinable) return this.editReply(lang('cannotJoin'));
+    if (!targets.length) return this.editReply(lang('noTarget'));
 
-    interaction.deleteReply();
+    this.deleteReply();
 
     const
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: lang('embedDescription', { user: interaction.user.id, channel: voiceChannel.id, publicOrPrivate: isPublic ? lang('isPublic') : lang('isPrivate') }),
-        footer: { text: interaction.user.tag, iconURL: interaction.member.displayAvatarURL({ forceStatic: true }) },
+        description: lang('embedDescription', { user: this.user.id, channel: voiceChannel.id, publicOrPrivate: isPublic ? lang('isPublic') : lang('isPrivate') }),
+        footer: { text: this.user.tag, iconURL: this.member.displayAvatarURL({ forceStatic: true }) },
         color: Colors.Red
       }),
       component = new ActionRowBuilder({
@@ -60,7 +60,7 @@ module.exports = {
           })
         ]
       }),
-      msg = await interaction.channel.send({
+      msg = await this.channel.send({
         content: targets.reduce((e, acc) => `${acc}, ${e}`).toString(),
         embeds: [embed], components: [component]
       }),
@@ -80,12 +80,12 @@ module.exports = {
         return msg.edit({ content: '', embeds: [embed], components: [] });
       }
 
-      if (interaction.guild.members.me.voice.serverDeaf) {
-        if (interaction.guild.members.me.permissionsIn(voiceChannel).missing(PermissionFlagsBits.DeafenMembers)) {
+      if (this.guild.members.me.voice.serverDeaf) {
+        if (this.guild.members.me.permissionsIn(voiceChannel).missing(PermissionFlagsBits.DeafenMembers)) {
           embed.data.description = lang('deaf');
           return msg.edit({ embeds: [embed], components: [] });
         }
-        interaction.guild.members.me.voice.setDeaf(false, `Record start command, member ${interaction.user.tag}`);
+        this.guild.members.me.voice.setDeaf(false, `Record start command, member ${this.user.tag}`);
       }
 
       const buttons = new ActionRowBuilder({

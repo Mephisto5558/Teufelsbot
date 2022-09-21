@@ -1,5 +1,6 @@
-const { formTypes } = require('discord-dashboard');
-const { ChannelType } = require('discord.js');
+const
+  { formTypes } = require('discord-dashboard'),
+  { ChannelType } = require('discord.js');
 
 module.exports = {
   id: 'leaveChannel',
@@ -7,5 +8,5 @@ module.exports = {
   description: 'Select the channel to send the leave message to',
   position: 3,
 
-  type: formTypes.channelsSelect(false, [ChannelType.GuildText, ChannelType.GuildNews])
+  type: formTypes.channelsSelect(false, [ChannelType.GuildText, ChannelType.GuildAnnouncement])
 }

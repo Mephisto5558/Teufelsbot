@@ -11,22 +11,23 @@ module.exports = {
   options: [{ name: 'user', type: 'User' }],
   beta: true,
 
-  run: async (message, lang, { db }) => {
+  run: function (lang, { db }) {
     const
-      target = message.options?.getUser('user') || message.mentions?.users?.first() || message.user,
-      userData = db.get('guildSettings')[message.guild.id].economy[target.id];
+      target = this.options?.getUser('user') || this.mentions?.users?.first() || this.user,
+      userData = db.get('guildSettings')[this.guild.id].economy[target.id];
 
-    if (!userData?.gaining?.chat) return message.customReply(lang('targetEconomyNotInitialized'), 30000);
+    if (!userData?.gaining?.chat) return this.customReply(lang('targetEconomyNotInitialized'), 30000);
 
     const
-      rank = Object.entries(db.get('guildSettings')[message.guild.id].economy)
-        .map(([, e]) => e)
+      rank = Object.entries(db.get('guildSettings')[this.guild.id].economy)
+        .filter(e => typeof e[1] == 'object')
         .sort(([, a], [, b]) => b.power - a.power || b.currency - a.currency)
+        .map(e => e[0])
         .indexOf(target.id) + 1,
       embed = new EmbedBuilder({
         color: Colors.White,
         author: { name: target.name, iconURL: target.displayAvatarURL({ forceStatic: true }) },
-        footer: { text: message.user.tag },
+        footer: { text: this.user.tag },
         thumbnail: { url: target.displayAvatarURL({ forceStatic: true }) },
         description:
           lang('currency', { num: userData.currency, max: userData.currencyCapacity }) +
@@ -34,6 +35,6 @@ module.exports = {
           lang('rank', rank ?? lang('global.none'))
       });
 
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

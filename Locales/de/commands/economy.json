@@ -142,7 +142,7 @@
       "targetEconomyNotInitialized": "Der Member, dem du Seelen geben möchtest, hat noch nicht gestartet zu spielen. Er/Sie muss zuerst `/economyconfig user start` ausführen!"
     },
     "embedTitle": "Geben",
-    "embedDescription": "Du hast <@{target}> {amount} Seelen gegeben! <:soul:1011962640349810688>\n>>> Deine Seelen: {newUserAmount} <:soul:1011962640349810688>\nSeine/Ihre Seelen: {newTargetAmount} <:soul:1011962640349810688>"
+    "embedDescription": "Du hast <@{target}> **{amount}** Seelen gegeben! <:soul:1011962640349810688>\n>>> Deine Seelen: **{newUserAmount}** <:soul:1011962640349810688>\nSeine/Ihre Seelen: **{newTargetAmount}** <:soul:1011962640349810688>"
   },
   "research": {
     "description": "Verbessere deine Skills und erforsche neue!",
@@ -196,7 +196,7 @@
     "onCooldown": "Du erforschst diese aktuell! Es wird <t:{time}:R> fertig sein.",
     "maxLevel": "Du hast diesen Skill bereits maximiert!",
     "onMaxConcurrentResearches": "Du kannst nicht noch mehr Skills auf einmal erforschen!",
-    "success": "Das upgrade für **{skill}** {emoji} auf Level `{lvl}` wurde gestartet!\nEs wird enden in <t:{time}:R> (<t:{time}>)",
+    "success": "Das upgrade für **{skill}** {emoji} auf Level `{lvl}` wurde gestartet!\nEs wird enden <t:{time}:R> (<t:{time}>)",
     "timedOut": "Das Menü ist abgelaufen."
   },
   "stats": {

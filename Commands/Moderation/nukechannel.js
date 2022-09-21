@@ -21,20 +21,20 @@ module.exports = {
     }
   ],
 
-  run: async (interaction, lang) => {
-    if (interaction.options.getString('confirmation')?.toLowerCase() != 'delete channel') return interaction.editReply(lang('needConfirm'));
+  run: async function (lang) {
+    if (this.options.getString('confirmation')?.toLowerCase() != 'delete channel') return this.editReply(lang('needConfirm'));
 
     const embed = new EmbedBuilder({
       description: lang('embedDescription'),
       color: Colors.Red,
       image: { url: 'https://giphy.com/media/XUFPGrX5Zis6Y/giphy.gif' },
-      footer: { text: lang('embedFooterText', interaction.user.tag) }
+      footer: { text: lang('embedFooterText', this.user.tag) }
     });
 
-    const channel = interaction.options?.getChannel('channel') || interaction.channel;
+    const channel = this.options?.getChannel('channel') || this.channel;
     const cloned = await channel.clone({ parent: channel.parentId });
 
-    await channel.delete(`nukechannel command, member ${interaction.user.tag}`);
+    await channel.delete(`nukechannel command, member ${this.user.tag}`);
 
     cloned.send({ embeds: [embed] });
   }

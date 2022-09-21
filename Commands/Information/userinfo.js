@@ -12,14 +12,14 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'target', type: 'User' }],
 
-  run: async (message, lang) => {
-    if (message.content) {
-      message.args = message.args[0]?.replace(/[<@&>]/g, '');
-      message.content = message.content?.replace(/[<@&>]/g, '');
+  run: function (lang) {
+    if (this.content) {
+      this.args = this.args[0]?.replace(/[<@&>]/g, '');
+      this.content = this.content?.replace(/[<@&>]/g, '');
     }
 
     const
-      member = message.options?.getMember('target') || message.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...message.args, message.content].includes(e))) || message.member,
+      member = this.options?.getMember('target') || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...this.args, this.content].includes(e))) || this.member,
       user = member.user,
       color = /*parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16) does not work*/ Colors.White;
 
@@ -47,8 +47,8 @@ module.exports = {
         { name: 'Roles with permissions', value: Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').join(', '), inline: false },
         { name: 'Permissions', value: `\`${member.permissions.has(PermissionFlagsBits.Administrator) ? '`Administrator`' : member.permissions.toArray()?.join('`, `') || lang('global.none')}\` (${member.permissions.toArray().length})`, inline: false }
       ].filter(Boolean)
-    }).setThumbnail(member.displayAvatarURL())
+    }).setThumbnail(member.displayAvatarURL());
 
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

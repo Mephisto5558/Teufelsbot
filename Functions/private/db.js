@@ -11,12 +11,6 @@ module.exports = class DB {
 
     this.fetchAll();
   }
-
-  async fetchAll() {
-    for (const { key, value } of await this.schema.find({})) this.collection.set(key, value);
-    return this;
-  }
-
   schema = Mongoose.model('db-collection', new Mongoose.Schema({
     key: String,
     value: Mongoose.SchemaTypes.Mixed
@@ -24,12 +18,17 @@ module.exports = class DB {
 
   collection = new Collection();
 
+  async fetchAll() {
+    for (const { key, value } of await this.schema.find({})) this.collection.set(key, value);
+    return this;
+  }
+
   get = key => this.collection.get(key);
 
   set(key, value) {
-    if (!key || !value) return;
+    if (!key) return;
 
-    this.schema.findOne({ key }, async (err, data) => {
+    this.schema.findOne({ key }, (err, data) => {
       if (err) throw err;
       if (data) data.value = value;
       else data = new this.schema({ key, value });

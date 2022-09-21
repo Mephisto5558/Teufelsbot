@@ -10,12 +10,11 @@ module.exports = {
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, { log }) => {
-    const msg = await message.reply(lang('global.loading'));
-    log(`Reloading language files, initiated by user ${message.user.tag}`);
+  run: function (lang, { log }) {
+    log(`Reloading language files, initiated by user ${this.user.tag}`);
 
     I18nProvider.loadAllLocales();
 
-    msg.edit(lang('success'));
+    this.customReply(lang('success'));
   }
 }

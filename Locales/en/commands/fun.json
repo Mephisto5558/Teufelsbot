@@ -272,6 +272,7 @@
     "rerolled": "The giveaway has been rerolled!",
     "newGiveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
     "giveawayEnded": "'🎉🎉 **GIVEAWAY ENDED** 🎉🎉",
+    "requiredRoles": "You need to have at least one of this roles in order to win: {roles}",
     "inviteToParticipate": "React with {emoji} to participate!",
     "winMessage": "Congratulations, {winners}! You won **{this.prize}**!",
     "drawing": "Drawing: {timestamp}",

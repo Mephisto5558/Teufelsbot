@@ -1,3 +1,3 @@
-module.exports = thread => {
-  if (thread.joinable) thread.join();
+module.exports = function threadCreate() {
+  if (this.joinable) this.join();
 }

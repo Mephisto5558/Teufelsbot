@@ -28,30 +28,30 @@ module.exports = {
     //{ name: 'duration', type: 'Number' }
   ],
 
-  run: async (interaction, lang) => {
+  run: async function (lang) {
     const
-      targets = new Set([...interaction.options.getString('targets').replace(/[^0-9\s]/g, '').split(' ').filter(e => e?.length == 18)]),
-      reason = interaction.options.getString('reason'),
-      days = interaction.options.getNumber('delete_days_of_messages'),
+      targets = new Set([...this.options.getString('targets').replace(/[^0-9\s]/g, '').split(' ').filter(e => e?.length == 18)]),
+      reason = this.options.getString('reason'),
+      days = this.options.getNumber('delete_days_of_messages'),
       embed = new EmbedBuilder({
         title: lang('dmEmbedTitle'),
-        description: lang('dmEmbedDescription', { guild: interaction.guild.name, mod: interaction.user.tag, reason }),
+        description: lang('dmEmbedDescription', { guild: this.guild.name, mod: this.user.tag, reason }),
         color: Colors.Red
       }),
       resEmbed = new EmbedBuilder({
         title: lang('infoEmbedTitle'),
-        description: lang('infoEmbedDescription', { mod: interaction.user.tag, reason }),
+        description: lang('infoEmbedDescription', { mod: this.user.tag, reason }),
         color: Colors.Red
       });
 
     for (const rawTarget of targets) {
       let target, errorMsg, noMsg;
 
-      try { target = await interaction.guild.members.fetch(rawTarget) }
+      try { target = await this.guild.members.fetch(rawTarget) }
       catch { target = { id: rawTarget } }
 
-      if (target.id == interaction.member.id) errorMsg = lang('cantBanSelf');
-      else if (target.roles && target.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1 && interaction.guild.ownerId != interaction.user.id)
+      if (target.id == this.member.id) errorMsg = lang('cantBanSelf');
+      else if (target.roles && target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
         errorMsg = lang('noPerm', lang('global.you'));
       else if (target.bannable === false) errorMsg = lang('noPerm', lang('global.i'));
 
@@ -66,7 +66,7 @@ module.exports = {
       }
       catch { noMsg = true }
 
-      await interaction.guild.bans.create(target.id, {
+      await this.guild.bans.create(target.id, {
         reason, deleteMessageDays: days
       });
 
@@ -74,8 +74,8 @@ module.exports = {
       if (noMsg) resEmbed.data.description += lang('noDM');
     }
 
-    if (resEmbed.data.description == lang('infoEmbedDescription', { mod: interaction.user.tag, reason })) resEmbed.data.description += lang('noneFound');
+    if (resEmbed.data.description == lang('infoEmbedDescription', { mod: this.user.tag, reason })) resEmbed.data.description += lang('noneFound');
 
-    interaction.editReply({ embeds: [resEmbed] });
+    this.editReply({ embeds: [resEmbed] });
   }
 }

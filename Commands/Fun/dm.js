@@ -37,18 +37,18 @@ module.exports = {
     }
   ],
 
-  run: async (interaction, lang, { db, application }) => {
+  run: async function (lang, { db, application }) {
 
     const
-      cmd = interaction.options.getSubcommand(),
-      messageToSend = interaction.options.getString('message'),
-      perm = interaction.member.permissions.has(PermissionFlagsBits.ManageMessages),
-      asMod = (interaction.options.getBoolean('as_mod') && perm),
+      cmd = this.options.getSubcommand(),
+      messageToSend = this.options.getString('message'),
+      perm = this.member.permissions.has(PermissionFlagsBits.ManageMessages),
+      asMod = (this.options.getBoolean('as_mod') && perm),
       oldData = db.get('userSettings'),
       blacklist = Object.assign({}, ...Object.entries(oldData).filter(([, v]) => v.dmBlockList).map(([k, v]) => ({ [k]: v.dmBlockList }))),
-      userBlacklist = blacklist[interaction.user.id] || [];
+      userBlacklist = blacklist[this.user.id] || [];
 
-    let target = interaction.options.getMember('target');
+    let target = this.options.getMember('target');
 
     switch (cmd) {
       case 'toggle': {
@@ -74,14 +74,14 @@ module.exports = {
           message = lang('toggle.saved', { user: targetName, state: target == '*' ? lang('toggle.targetAll.saved') : lang('toggle.targetOne.isnt', targetName) });
         }
 
-        db.set('userSettings', oldData.fMerge({ [interaction.user.id]: userBlacklist }));
+        db.set('userSettings', oldData.fMerge({ [this.user.id]: userBlacklist }));
 
-        interaction.editReply(message);
+        this.editReply(message);
         break;
       }
 
       case 'blacklist': {
-        const guildMembers = (await interaction.guild.members.fetch()).map(e => e.id);
+        const guildMembers = (await this.guild.members.fetch()).map(e => e.id);
 
         const userBlacklistFiltered = userBlacklist.filter(e => e == '*' || guildMembers.includes(e));
         let listMessage = [];
@@ -97,29 +97,29 @@ module.exports = {
           footer: { text: lang('blacklist.embedFooterText') }
         });
 
-        interaction.editReply({ embeds: [listEmbed] });
+        this.editReply({ embeds: [listEmbed] });
         break;
       }
 
       case 'send': {
-        if (target.id == application.id) return interaction.editReply(lang('send.targetIsMe'));
+        if (target.id == application.id) return this.editReply(lang('send.targetIsMe'));
 
         const targetBlacklist = blacklist[target.id] || [];
-        if ((targetBlacklist.includes(target.id) || targetBlacklist.includes('*')) && !asMod && target.id != interaction.user.id)
-          return interaction.editReply(lang('send.permissionDenied') + perm ? lang('send.asModInfo') : '');
+        if ((targetBlacklist.includes(target.id) || targetBlacklist.includes('*')) && !asMod && target.id != this.user.id)
+          return this.editReply(lang('send.permissionDenied') + perm ? lang('send.asModInfo') : '');
 
         const embed = new EmbedBuilder({
           title: lang('send.embedTitle'),
-          description: lang('send.embedDescription', { user: asMod ? lang('send.fromMod') : interaction.user.tag, guild: interaction.guild.name, msg: messageToSend.replaceAll('/n', '\n') }),
+          description: lang('send.embedDescription', { user: asMod ? lang('send.fromMod') : this.user.tag, guild: this.guild.name, msg: messageToSend.replaceAll('/n', '\n') }),
           color: Colors.Blurple,
           footer: { text: lang('send.embedFooterText') }
         });
 
         try {
           await target.send({ embeds: [embed] });
-          interaction.editReply(lang('global.messageSent'));
+          this.editReply(lang('global.messageSent'));
         }
-        catch { interaction.editReply(lang('send.error')) }
+        catch { this.editReply(lang('send.error')) }
         break;
       }
     }
