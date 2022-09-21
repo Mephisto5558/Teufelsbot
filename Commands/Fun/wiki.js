@@ -20,11 +20,11 @@ module.exports = {
     required: true
   }],
 
-  run: async (message, lang) => {
-    const query = message.options?.getString('query') || message.content;
+  run: async function (lang) {
+    const query = this.options?.getString('query') || this.content;
     let data, joined = '';
 
-    message = await message.customReply(lang('global.loading'));
+    const message = await this.customReply(lang('global.loading'));
 
     try {
       if (query) data = await Wiki(options).search(query, 1);
@@ -62,18 +62,18 @@ module.exports = {
           joined += lang('visitWiki');
           break;
         }
-        if (joined.length < 10) joined += `${paragraph}\n`;
+        if (joined.length < 2000) joined += `${paragraph}\n`;
         else {
-          message.followUp?.(joined) || message.reply(joined);
+          this.customReply(joined);
           joined = `${paragraph}\n`;
           i++
         }
       }
 
-      message.followUp?.(joined) || message.reply(joined);
+      this.customReply(joined);
     }
     catch (err) {
-      message.customReply(lang('error', err));
+      this.customReply(lang('error', err.message));
     }
   }
 }

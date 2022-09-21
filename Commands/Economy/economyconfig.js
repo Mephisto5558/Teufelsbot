@@ -45,7 +45,7 @@ module.exports = {
           options: [
             {
               name: 'channel', type: 'Channel',
-              channelTypes: ['GuildText', 'GuildNews']
+              channelTypes: ['GuildText', 'GuildAnnouncement']
             },
             { name: 'role', type: 'Role' },
             { name: 'user', type: 'User' }
@@ -76,19 +76,19 @@ module.exports = {
     }
   ], beta: true,
 
-  run: async (interaction, lang, { db }) => {
-    if (interaction.options.getSubcommandGroup() == 'user') {
-      switch (interaction.options.getSubcommand()) {
+  run: function (lang, { db }) {
+    if (this.options.getSubcommandGroup() == 'user') {
+      switch (this.options.getSubcommand()) {
         case 'start': {
           const defaultSettings = db.get('guildSettings').default.economy;
 
-          if (db.get('guildSettings')[interaction.guild.id]?.economy?.[interaction.user.id]?.gaining?.chat)
-            return interaction.editReply(lang('start.alreadyInitiated'));
+          if (db.get('guildSettings')[this.guild.id]?.economy?.[this.user.id]?.gaining?.chat)
+            return this.editReply(lang('start.alreadyInitiated'));
 
           db.set('guildSettings', db.get('guildSettings').fMerge({
-            [interaction.guild.id]: {
+            [this.guild.id]: {
               economy: {
-                [interaction.user.id]: {
+                [this.user.id]: {
                   currency: defaultSettings.currency ?? 0,
                   currencyCapacity: defaultSettings.currencyCapacity,
                   power: defaultSettings.power ?? 0,
@@ -114,53 +114,53 @@ module.exports = {
             }
           }));
 
-          return interaction.editReply(lang('start.success'));
+          return this.editReply(lang('start.success'));
         }
 
         case 'delete': {
-          if (!interaction.options.getString('confirmation')?.toLowerCase() == lang('confirmation'))
-            return interaction.editReply(lang('user.delete.needConfirm'));
+          if (!this.options.getString('confirmation')?.toLowerCase() == lang('confirmation'))
+            return this.editReply(lang('user.delete.needConfirm'));
 
           const oldData = db.get('guildSettings');
-          delete oldData[interaction.guild.id]?.economy?.[interaction.user.id];
+          delete oldData[this.guild.id]?.economy?.[this.user.id];
 
           db.set('guildSettings', oldData);
 
-          return interaction.editReply(lang('user.delete.success'));
+          return this.editReply(lang('user.delete.success'));
         }
       }
     }
-    else if (interaction.options.getSubcommandGroup() == 'admin') {
-      if (!interaction.member.permissions.has(PermissionFlagsBits.ManageGuild))
-        return interaction.customReply(lang('admin.noPerm'), 30000);
+    else if (this.options.getSubcommandGroup() == 'admin') {
+      if (!this.member.permissions.has(PermissionFlagsBits.ManageGuild))
+        return this.customReply(lang('admin.noPerm'), 30000);
 
-      switch (interaction.options.getSubcommand()) {
+      switch (this.options.getSubcommand()) {
         case 'toggle': {
           const
             oldData = db.get('guildSettings'),
-            enable = oldData[interaction.guild.id]?.economy?.enable;
+            enable = oldData[this.guild.id]?.economy?.enable;
 
-          db.set('guildSettings', oldData.fMerge({ [interaction.guild.id]: { economy: { enable: !enable } } }));
-          return interaction.editReply(lang('admin.toggle.success', enable ? lang('global.disabled') : lang('global.enabled')));
+          db.set('guildSettings', oldData.fMerge({ [this.guild.id]: { economy: { enable: !enable } } }));
+          return this.editReply(lang('admin.toggle.success', enable ? lang('global.disabled') : lang('global.enabled')));
         }
 
         case 'clear': {
-          if (!interaction.options.getString('confirmation')?.toLowerCase() == lang('confirmation'))
-            return interaction.editReply(lang('admin.clear.needConfirm'));
+          if (!this.options.getString('confirmation')?.toLowerCase() == lang('confirmation'))
+            return this.editReply(lang('admin.clear.needConfirm'));
 
           const oldData = db.get('guildSettings');
-          oldData[interaction.guild.id].economy = { enable: false };
+          oldData[this.guild.id].economy = { enable: false };
 
           db.set('guildSettings', oldData);
-          return interaction.editReply(lang('admin.clear.success'));
+          return this.editReply(lang('admin.clear.success'));
         }
 
         case 'blacklist': {
           const
-            channel = interaction.options.getChannel('channel'),
-            role = interaction.options.getRole('role'),
-            user = interaction.options.getUser('user'),
-            blacklist = db.get('guildSettings')[interaction.guild.id]?.economy?.config?.blacklist || {};
+            channel = this.options.getChannel('channel'),
+            role = this.options.getRole('role'),
+            user = this.options.getUser('user'),
+            blacklist = db.get('guildSettings')[this.guild.id]?.economy?.config?.blacklist || {};
 
           if (!channel && !role && !user) {
             const
@@ -179,7 +179,7 @@ module.exports = {
                 color: Colors.White
               });
 
-            return interaction.editReply({ embeds: [embed] });
+            return this.editReply({ embeds: [embed] });
           }
           const
             status = { channel: channel ? `+ ${channel.name}` : lang('global.none'), role: role ? `+ ${role.name}` : lang('global.none'), user: user ? `+ ${user.tag}` : lang('global.none') },
@@ -198,7 +198,7 @@ module.exports = {
           blacklist.user = work(user?.id, 'user', blacklist.user);
 
           db.set('guildSettings', db.get('guildSettings').fMerge({
-            [interaction.guild.id]: { economy: { config: { blacklist } } }
+            [this.guild.id]: { economy: { config: { blacklist } } }
           }, 'overwrite'));
 
           const embed = new EmbedBuilder({
@@ -208,17 +208,17 @@ module.exports = {
             color: Colors.White
           });
 
-          return interaction.editReply({ embeds: [embed] });
+          return this.editReply({ embeds: [embed] });
         }
 
         case 'gaining_rules': {
           const
-            get = interaction.options.getBoolean('get'),
-            oldConfig = db.get('guildSettings')[interaction.guild.id]?.economy?.config || db.get('guildSettings').default.economy.config;
+            get = this.options.getBoolean('get'),
+            oldConfig = db.get('guildSettings')[this.guild.id]?.economy?.config || db.get('guildSettings').default.economy.config;
 
           const config = Object.fromEntries(Object.entries({
-            minMessageLength: interaction.options.getNumber('min_message_length'),
-            maxMessageLength: interaction.options.getNumber('max_message_length')
+            minMessageLength: this.options.getNumber('min_message_length'),
+            maxMessageLength: this.options.getNumber('max_message_length')
           }).filter(([k, v]) => v !== null && v != oldConfig[k]));
 
           if (get || !config) {
@@ -230,14 +230,14 @@ module.exports = {
               //fields: Object.entries(db.get('guildSettings').default.economy.config.fMerge(oldConfig)).slice(0, 25).map(([k, v]) => ({ name: lang(`admin.gainingRules.getConfigList.${k}`), value: v, inline: true }))
             });
 
-            return interaction.editReply({ embeds: [embed] });
+            return this.editReply({ embeds: [embed] });
           }
 
-          if (!Object.keys(config).length) return interaction.customReply(lang('admin.gainingRules.nothingChanged'));
-          return interaction.editReply('WIP');
-          db.set('guildSettings', db.get('guildSettings').fMerge({ [interaction.guild.id]: { economy: { config } } }));
+          if (!Object.keys(config).length) return this.customReply(lang('admin.gainingRules.nothingChanged'));
+          return this.editReply('WIP');
+          db.set('guildSettings', db.get('guildSettings').fMerge({ [this.guild.id]: { economy: { config } } }));
 
-          return interaction.editReply(lang('admin.gainingRules.setSuccess', Object.entries(config).length));
+          return this.editReply(lang('admin.gainingRules.setSuccess', Object.entries(config).length));
         }
       }
     }

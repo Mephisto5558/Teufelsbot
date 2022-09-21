@@ -5,7 +5,7 @@ module.exports = {
   aliases: { prefix: [], slash: [] },
   permissions: { client: [], user: ['ManageMessages'] },
   cooldowns: { guild: 0, user: 0 },
-  category: 'FUN',
+  category: 'Fun',
   slashCommand: true,
   prefixCommand: false,
   options: [
@@ -51,27 +51,27 @@ module.exports = {
     }
   ],
 
-  run: async (interaction, lang, { db }) => {
+  run: function (lang, { db }) {
     const
       settings = db.get('guildSettings'),
-      oldData = settings[interaction.guild.id]?.triggers || [],
-      query = interaction.options.getString('query')?.toLowerCase();
+      oldData = settings[this.guild.id]?.triggers || [],
+      query = this.options.getString('query')?.toLowerCase();
 
-    let id = interaction.options.getNumber('id'), newData;
+    let id = this.options.getNumber('id'), newData;
 
-    switch (interaction.options.getSubcommand()) {
+    switch (this.options.getSubcommand()) {
       case 'add': {
         const data = {
           id: parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) + 1 || 1,
-          trigger: interaction.options.getString('trigger'),
-          response: interaction.options.getString('response'),
-          wildcard: interaction.options.getBoolean('wildcard') !== false
+          trigger: this.options.getString('trigger'),
+          response: this.options.getString('response'),
+          wildcard: this.options.getBoolean('wildcard') !== false
         };
 
-        newData = settings.fMerge({ [interaction.guild.id]: { triggers: [data] } }, 'push');
+        newData = settings.fMerge({ [this.guild.id]: { triggers: [data] } }, 'push');
         db.set('guildSettings', newData);
 
-        interaction.editReply(lang('saved', data.trigger));
+        this.editReply(lang('saved', data.trigger));
         break;
       }
 
@@ -79,28 +79,28 @@ module.exports = {
         if (!id) id = Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id;
 
         const filtered = oldData.filter(e => e.id != id);
-        if (filtered.length == oldData.length) return interaction.editReply(lang('idNotFound'));
+        if (filtered.length == oldData.length) return this.editReply(lang('idNotFound'));
 
-        newData = settings.fMerge({ [interaction.guild.id]: { triggers: filtered } }, 'overwrite');
+        newData = settings.fMerge({ [this.guild.id]: { triggers: filtered } }, 'overwrite');
         db.set('guildSettings', newData);
 
-        interaction.editReply(lang('deletedOne', id));
+        this.editReply(lang('deletedOne', id));
         break;
       }
 
       case 'clear': {
-        if (interaction.options.getString('confirmation').toLowerCase() != lang('confirmation')) return interaction.editReply(lang('needConfirm'));
-        if (!oldData.length) return interaction.editReply(lang('noneFound'));
+        if (this.options.getString('confirmation').toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
+        if (!oldData.length) return this.editReply(lang('noneFound'));
 
-        newData = settings.fMerge({ [interaction.guild.id]: { triggers: [] } }, 'overwrite');
+        newData = settings.fMerge({ [this.guild.id]: { triggers: [] } }, 'overwrite');
         db.set('guildSettings', newData);
 
-        interaction.editReply(lang('deletedAll', oldData.length));
+        this.editReply(lang('deletedAll', oldData.length));
         break;
       }
 
       case 'get': {
-        if (!oldData.length) return interaction.editReply(lang('noneFound'));
+        if (!oldData.length) return this.editReply(lang('noneFound'));
 
         const embed = new EmbedBuilder({
           title: lang('embedTitle'),
@@ -109,7 +109,7 @@ module.exports = {
 
         if (id || id == 0 || query) {
           const data = oldData.filter(e => query ? e.trigger.toLowerCase().includes(query) : e.id == id);
-          if (!data.trigger) return interaction.editReply(lang('notFound'));
+          if (!data.trigger) return this.editReply(lang('notFound'));
 
           embed.data.fields = data.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
             name: lang('fieldName', id),
@@ -121,10 +121,10 @@ module.exports = {
             inline: false
           }));
 
-          return interaction.editReply({ embeds: [embed] });
+          return this.editReply({ embeds: [embed] });
         }
         else {
-          if (interaction.options.getBoolean('short')) {
+          if (this.options.getBoolean('short')) {
             let description = '';
             for (const { id, trigger, response, wildcard } of oldData) {
               if (description.length >= 3800) break;
@@ -151,7 +151,7 @@ module.exports = {
             }));
           }
 
-          interaction.editReply({ embeds: [embed] });
+          this.editReply({ embeds: [embed] });
         }
       }
     }

@@ -1,6 +1,6 @@
 const
-  Converter = require('../../Functions/private/converter.js'),
-  replace = (input, defaultValue) => !input && input !== false ? defaultValue : input;
+  { AttachmentBuilder } = require('discord.js'),
+  Converter = require('../../Functions/private/converter.js');
 
 module.exports = {
   name: 'convert',
@@ -32,29 +32,25 @@ module.exports = {
     { name: 'convert_letters_and_digits_only', type: 'Boolean' }
   ],
 
-  run: async (interaction, lang) => {
-    const inputStr = interaction.options.getString('input');
-    const input = {
-      string: inputStr,
-      type: interaction.options.getBoolean('is_octal') ? 'octal' : Converter.getInputType(inputStr),
-      options: {
-        convertTo: interaction.options.getString('convert_to'),
-        withSpaces: replace(interaction.options.getBoolean('with_spaces'), false),
-        convertSpaces: replace(interaction.options.getBoolean('convert_spaces'), true),
-        convertOnlyLettersDigits: replace(interaction.options.getBoolean('convert_letters_and_digits_only'), false)
-      }
-    }
+  run: async function (lang) {
+    const convertTo = this.options.getString('convert_to');
+    const converter = new Converter(this.options.getString('input'), {
+      withSpaces: this.options.getBoolean('with_spaces'),
+      convertSpaces: this.options.getBoolean('convert_spaces'),
+      convertOnlyLettersDigits: this.options.getBoolean('convert_letters_and_digits_only'),
+      type: this.options.getBoolean('is_octal') ? 'octal' : undefined
+    });
 
-    if (input.type.toLowerCase() == input.options.convertTo.toLowerCase())
-      return interaction.editReply(lang('convertToSame', { inputType: input.type.toUpperCase(), outputType: input.options.convertTo.toUpperCase() }));
-    const converted = await Converter[input.type][`to${input.options.convertTo}`](input);
-    const output = lang('success', { inputType: input.type.toUpperCase(), outputType: input.options.convertTo.toUpperCase() });
+    if (converter.type.toLowerCase() == convertTo.toLowerCase())
+      return this.editReply(lang('convertToSame', { inputType: converter.type.toUpperCase(), outputType: convertTo.toUpperCase() }));
+    const converted = await converter[`to${convertTo}`](input);
+    const output = lang('success', { inputType: converter.type.toUpperCase(), outputType: convertTo.toUpperCase() });
 
-    if (output.length + converted.length < 2000) interaction.editReply(output + converted);
+    if (output.length + converted.length < 2000) this.editReply(output + converted);
     else {
-      interaction.editReply({
+      this.editReply({
         content: output,
-        files: [{ attachment: Buffer.from(output.replaceAll('```', '') + converted), name: 'converted.txt' }]
+        files: [new AttachmentBuilder(Buffer.from(output.replaceAll('```', '') + converted), { name: 'converted.txt' })]
       });
     }
 

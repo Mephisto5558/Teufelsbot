@@ -7,18 +7,20 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   disabled: false,
-  showInHelp: true,
+  hideInHelp: false,
   noDefer: false,
   ephemeralDefer: false,
   requireEconomy: false,
   options: [{
     name: '',
     type: '',
+    autocomplete: false,
+    autocompleteOptions: [],
     required: false,
     choices: [{ value: '' }],
   }],
 
-  run: async (message, lang, client) => {
-    
+  run: function (lang, client) {
+
   }
 }

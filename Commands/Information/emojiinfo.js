@@ -14,11 +14,11 @@ module.exports = {
     required: true,
   }],
 
-  run: async (message, lang, { emojis }) => {
-    const parsedEmoji = parseEmoji(message.options?.getString('emoji') || message.args?.[0] || '');
+  run: async function (lang, { emojis }) {
+    const parsedEmoji = parseEmoji(this.options?.getString('emoji') || this.args?.[0] || '');
     const emoji = emojis.cache.get(parsedEmoji.id) || parsedEmoji;
 
-    if (!emoji.id) return message.customReply(lang('notFound'));
+    if (!emoji.id) return this.customReply(lang('notFound'));
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle', `<:${emoji.name}:${emoji.id}>`),
@@ -37,6 +37,6 @@ module.exports = {
       ].filter(Boolean)
     }).setThumbnail(emoji.url);
 
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

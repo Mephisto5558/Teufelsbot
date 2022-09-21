@@ -16,9 +16,9 @@ module.exports = {
     required: true
   }],
 
-  run: (message, lang) => {
-    const expression = (message.args?.[0] || message.options?.getString('expression'))?.replaceAll('\n', ';').replaceAll('÷', '/');
-    if (!expression) return message.customReply(lang('noInput'));
+  run: function (lang) {
+    const expression = (this.args?.[0] || this.options?.getString('expression'))?.replaceAll('\n', ';').replaceAll('÷', '/');
+    if (!expression) return this.customReply(lang('noInput'));
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle')
@@ -26,7 +26,7 @@ module.exports = {
 
     if (expression == 'help') {
       embed.data.description = lang('help');
-      return message.customReply({ embeds: [embed] });
+      return this.customReply({ embeds: [embed] });
     }
 
     let data;
@@ -35,7 +35,7 @@ module.exports = {
     catch (err) {
       embed.data.description = lang('error', err.message);
       embed.data.color = Colors.Red;
-      return message.customReply({ embeds: [embed] });
+      return this.customReply({ embeds: [embed] });
     }
 
     embed.data.color = Colors.White
@@ -46,6 +46,6 @@ module.exports = {
     }
 
     embed.data.description = lang('success', { expression, result: data });
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

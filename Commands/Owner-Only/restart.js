@@ -8,9 +8,9 @@ module.exports = {
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, { log }) => {
-    log(`Restarting bot, initiated by user '${message.user.tag}'...`);
-    await message.customReply(lang('message'));
+  run: async function (lang, { log }) {
+    log(`Restarting bot, initiated by user '${this.user.tag}'...`);
+    await this.customReply(lang('message'));
 
     process.exit(0);
   }

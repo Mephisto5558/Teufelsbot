@@ -17,17 +17,17 @@ module.exports = {
     required: true
   }],
 
-  run: async (message, lang, { functions }) => {
-    let amount = parseInt(message.options?.getNumber('amount') || message.args?.[0]).limit({ max: 1000 });
+  run: async function (lang, { functions }) {
+    const amount = parseInt(this.options?.getNumber('amount') || this.args?.[0]).limit({ max: 1000 });
 
-    if (!amount) return message.customReply(isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
-    if (message instanceof Message) amount++; //+1 is the command
+    if (!amount) return this.customReply(isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
+    if (this instanceof Message) await this.delete();
 
     for (let i = 0; i <= amount; i += 100) {
-      await message.channel.bulkDelete((amount - i).limit({ max: 100 }), true);
+      await this.channel.bulkDelete((amount - i).limit({ max: 100 }), true);
       if (amount - i < 1) await functions.sleep(2000);
     }
 
-    if (message instanceof CommandInteraction) message.editReply(lang('success'));
+    if (this instanceof CommandInteraction) this.editReply(lang('success'));
   }
 }

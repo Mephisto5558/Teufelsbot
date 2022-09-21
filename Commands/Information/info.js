@@ -12,15 +12,15 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, lang, client) => {
+  run: function (lang, client) {
     const
       startTime = Math.round(Date.now() / 1000 - process.uptime()),
       startCount = readFileSync('./Logs/startCount.log', 'utf8') || 0,
       owner = client.application.owner.tag || client.application.owner.owner.tag,
       description =
         `${lang('dev')}: ${owner}\n` +
-        `${lang('shard')}: \`${message.guild.shardId}\`\n` +
-        `${lang('global.guild')}: \`${client.db.get('guildSettings')[message.guild.id]?.position || 0}\n\`` +
+        `${lang('shard')}: \`${this.guild.shardId}\`\n` +
+        `${lang('global.guild')}: \`${client.db.get('guildSettings')[this.guild.id]?.position || 0}\n\`` +
         `${lang('starts')}: \`${startCount}\`\n` +
         `${lang('lastStart')}: <t:${startTime}> (<t:${startTime}:R>)\n` +
         lang('translation', { de: '.̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558 & Koikarpfen#4992', en: '.̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558' }) +
@@ -33,6 +33,6 @@ module.exports = {
         footer: { text: lang('embedFooterText') }
       });
 
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

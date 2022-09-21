@@ -22,14 +22,14 @@ module.exports = {
     }
   ],
 
-  run: async (message, lang) => {
-    const msg = message.args?.[0] || message.options?.getString('msg');
-    const channel = message.options?.getChannel('channel') || message.mentions?.channels.first() || message.channel;
+  run: async function (lang) {
+    const msg = this.args?.[0] || this.options?.getString('msg');
+    const channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel;
 
-    if (!message.member.permissionsIn(channel).has(PermissionFlagsBits.SendMessages)) return message.customReply(lang('noPerm'));
-    if (!msg) return message.customReply(lang('noMsgProvided'));
+    if (!this.member.permissionsIn(channel).has(PermissionFlagsBits.SendMessages)) return this.customReply(lang('noPerm'));
+    if (!msg) return this.customReply(lang('noMsgProvided'));
 
     await channel.send(msg.replaceAll('/n', '\n'));
-    message instanceof Message ? message.react('👍') : message.customReply(lang('global.messageSent'));
+    this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent'));
   }
 }

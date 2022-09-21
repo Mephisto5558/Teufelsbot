@@ -8,8 +8,8 @@ module.exports = {
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang) => {
+  run: async function (lang) {
     await require('../../Website/custom/git/pull.js').run();
-    message.customReply(lang('success'));
+    this.customReply(lang('success'));
   }
 }

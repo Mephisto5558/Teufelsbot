@@ -9,9 +9,9 @@ const
     message: '<body style="background-color:#000 color: #ff0000"><p>Sorry, you have been ratelimited!</p></body>'
   }
 
-async function getSettings(client) {
+async function getSettings() {
   const categoryOptionList = [];
-  const guildSettings = client.db.get('guildSettings');
+  const guildSettings = this.db.get('guildSettings');
 
   for (const subFolder of getDirectoriesSync('./Website/dashboard')) {
     const index = require(`../Website/dashboard/${subFolder}/_index.json`);
@@ -22,7 +22,7 @@ async function getSettings(client) {
       position: -1,
     }];
 
-    client.dashboardOptionCount[index.id] = 0;
+    this.dashboardOptionCount[index.id] = 0;
 
     if (index.id != 'config') {
       optionList.push({
@@ -33,14 +33,14 @@ async function getSettings(client) {
         optionType: DBD.formTypes.switch(),
 
         getActualSet: async ({ guild }) => guildSettings[guild.id]?.[index.id]?.enable,
-        setNew: async ({ guild, newData }) => require('../Website/dashboard/saveSettings.js')(client, guild.id, index.id, 'enable', newData),
+        setNew: async ({ guild, newData }) => require('../Website/dashboard/saveSettings.js').call(this, guild.id, index.id, 'enable', newData),
       });
-      client.dashboardOptionCount[index.id]++
+      this.dashboardOptionCount[index.id]++
     }
 
     for (const file of readdirSync(`./Website/dashboard/${subFolder}`).filter(e => e.endsWith('.js'))) {
       let setting = require(`../Website/dashboard/${subFolder}/${file}`);
-      if (typeof setting == 'function') setting = setting(client);
+      if (typeof setting == 'function') setting = setting.call(this);
 
       if (setting.type == 'spacer') {
         optionList.push({
@@ -51,7 +51,7 @@ async function getSettings(client) {
         })
       }
       else {
-        if (typeof setting.type == 'function') setting.type = await setting.type(client);
+        if (typeof setting.type == 'function') setting.type = await setting.type.call(this);
 
         optionList.push({
           optionId: `${index.id}.${setting.id}`,
@@ -71,11 +71,11 @@ async function getSettings(client) {
 
             return gSetting;
           }),
-          setNew: setting.set || (async ({ guild, newData }) => require('../Website/dashboard/saveSettings.js')(client, guild.id, index.id, setting.id, newData)),
+          setNew: setting.set || (async ({ guild, newData }) => require('../Website/dashboard/saveSettings.js').call(this, guild.id, index.id, setting.id, newData)),
           allowedCheck: setting.auth
         });
 
-        client.dashboardOptionCount[index.id]++
+        this.dashboardOptionCount[index.id]++
       }
     }
 
@@ -91,7 +91,7 @@ async function getSettings(client) {
   return categoryOptionList.sort((a, b) => a.position - b.position);
 }
 
-async function getCommands(client) {
+async function getCommands() {
   const categoryCommandList = [];
 
   for (const subFolder of getDirectoriesSync('./Commands')) {
@@ -101,7 +101,7 @@ async function getCommands(client) {
     for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js'))) {
       const cmd = require(`../Commands/${subFolder}/${file}`);
 
-      if (!cmd?.name || cmd.hideInHelp || cmd.disabled || (cmd.beta && client.botType != 'dev') || cmd.category.toLowerCase() == 'owner-only') continue;
+      if (!cmd?.name || cmd.hideInHelp || cmd.disabled || (cmd.beta && this.botType != 'dev') || cmd.category.toLowerCase() == 'owner-only') continue;
 
       commandList.push({
         commandName: cmd.name,
@@ -126,11 +126,11 @@ async function getCommands(client) {
   return categoryCommandList.sort((a, b) => a.category.toLowerCase() == 'others' ? 1 : b.list.length - a.list.length);
 }
 
-async function getCustomPages(client, path = './Website/custom') {
+async function getCustomPages(path = './Website/custom') {
   const pageList = [];
   const items = readdirSync(path, { withFileTypes: true }).filter(e => e.name.endsWith('.js') || e.isDirectory()).map(e => e.name);
 
-  for (const folder of items.filter(e => !e.endsWith('.js'))) pageList.push(await getCustomPages(client, `${path}/${folder}`));
+  for (const folder of items.filter(e => !e.endsWith('.js'))) pageList.push(await getCustomPages.call(this, `${path}/${folder}`));
 
   for (const file of items.filter(e => e.endsWith('.js'))) {
     const site = require(`.${path}/${file}`);
@@ -141,12 +141,12 @@ async function getCustomPages(client, path = './Website/custom') {
   return pageList;
 }
 
-module.exports = async client => {
-  await client.functions.ready(client);
-  await DBD.useLicense(client.keys.dbdLicense);
+module.exports = async function dashboardHandler() {
+  await this.functions.ready();
+  await DBD.useLicense(this.keys.dbdLicense);
 
   let domain;
-  if (client.botType == 'main' && Website.Domain) domain = Website.Domain;
+  if (this.botType == 'main' && Website.Domain) domain = Website.Domain;
   else domain = (process.env.SERVER_IP ?? 'http://localhost') + ':' + (process.env.PORT ?? process.env.SERVER_PORT ?? 8000);
 
   if (!/^https?:\/\//.test(domain)) {
@@ -155,8 +155,8 @@ module.exports = async client => {
   }
 
   global.embedBuilder = DBD.formTypes.embedBuilder({
-    username: client.user.username,
-    avatarURL: client.user.displayAvatarURL(),
+    username: this.user.username,
+    avatarURL: this.user.displayAvatarURL({ forceStatic: true }),
     defaultJson: {}
   });
 
@@ -167,11 +167,11 @@ module.exports = async client => {
     port: (process.env.PORT ?? process.env.SERVER_PORT ?? 8000),
     domain,
     redirectUri: `${domain}/discord/callback`,
-    bot: client,
-    ownerIDs: [client.application.owner.id],
+    bot: this,
+    ownerIDs: [this.application.owner.id],
     client: {
-      id: client.user.id,
-      secret: client.keys.secret
+      id: this.user.id,
+      secret: this.keys.secret
     },
     invite: {
       scopes: ['bot', 'applications.commands'],
@@ -185,15 +185,15 @@ module.exports = async client => {
     },
     theme: DarkDashboard({
       information: {
-        createdBy: client.application.owner.tag,
-        iconURL: client.user.displayAvatarURL(),
-        websiteTitle: `${client.user.username} | Dashboard`,
-        websiteName: `${client.user.username} | Dashboard`,
+        createdBy: this.application.owner.tag,
+        iconURL: this.user.displayAvatarURL(),
+        websiteTitle: `${this.user.username} | Dashboard`,
+        websiteName: `${this.user.username} | Dashboard`,
         websiteUrl: domain,
         dashboardUrl: domain,
         supporteMail: Support.Mail,
         supportServer: Support.Discord,
-        imageFavicon: client.user.displayAvatarURL(),
+        imageFavicon: this.user.displayAvatarURL(),
         pageBackGround: 'linear-gradient(#2CA8FF, #155b8d)',
         preloader: 'Loading...',
         loggedIn: 'Successfully signed in.',
@@ -210,7 +210,7 @@ module.exports = async client => {
         information: {},
         feeds: {},
       },
-      commands: await getCommands(client)
+      commands: await getCommands.call(this)
     }),
     underMaintenance: {
       title: 'Under Maintenance',
@@ -231,8 +231,8 @@ module.exports = async client => {
       craneCabinColor: '#8b8b8b',
       craneStandColors: ['#6a6a6a', , '#f29b8b']
     },
-    settings: await getSettings(client),
-    customPages: (await getCustomPages(client)).flat(Infinity)
+    settings: await getSettings.call(this),
+    customPages: (await getCustomPages.call(this)).flat(Infinity)
   });
 
   Dashboard.init();

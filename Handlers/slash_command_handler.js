@@ -87,71 +87,71 @@ function format(option, path) {
   return option;
 }
 
-module.exports = async (client, syncGuild) => {
-  await client.functions.ready(client);
+module.exports = async function slashCommandHandler(syncGuild) {
+  await this.functions.ready();
 
   const skippedCommands = new Collection();
-  const applicationCommands = client.application.commands.fetch(undefined, { guildId: syncGuild && syncGuild != '*' ? syncGuild : undefined });
+  const applicationCommands = this.application.commands.fetch(undefined, { guildId: syncGuild && syncGuild != '*' ? syncGuild : undefined });
 
   if (!syncGuild || syncGuild == '*') {
-    client.slashCommands = new Collection();
+    this.slashCommands = new Collection();
 
     for (const subFolder of getDirectoriesSync('./Commands')) {
       for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js'))) {
         let command = require(`../Commands/${subFolder}/${file}`);
         let skipped = false;
 
-        if (!command.slashCommand || command.disabled || (client.botType == 'dev' && !command.beta)) continue;
+        if (!command.slashCommand || command.disabled || (this.botType == 'dev' && !command.beta)) continue;
 
         command = format(command, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`);
 
         for (const [, applicationCommand] of await applicationCommands) {
           if (!equal(command, applicationCommand)) continue;
-          client.log(`Skipped Slash Command ${command.name}`);
+          this.log(`Skipped Slash Command ${command.name}`);
           skipped = true;
           skippedCommands.set(command.name, command);
           break;
         }
         if (!skipped) {
-          client.slashCommands.set(command.name, command);
-          for (const alias of command.aliases.slash) client.slashCommands.set(alias, command);
+          this.slashCommands.set(command.name, command);
+          for (const alias of command.aliases.slash) this.slashCommands.set(alias, command);
         }
       }
     }
 
-    for (const guild of await client.guilds.fetch()) {
-      await client.application.commands.set([], guild[0]);
-      client.log(`Cleared Slash Commands for Guild ${guild[0]}`);
+    for (const guild of await this.guilds.fetch()) {
+      await this.application.commands.set([], guild[0]);
+      this.log(`Cleared Slash Commands for Guild ${guild[0]}`);
     }
   }
 
-  for (const [, command] of client.slashCommands) {
-    await client.application.commands.create(command, syncGuild && syncGuild != '*' ? syncGuild : null);
-    client.log(`Registered Slash Comand ${command.name}`);
+  for (const [commandName, command] of this.slashCommands) {
+    await this.application.commands.create(command, syncGuild && syncGuild != '*' ? syncGuild : null);
+    this.log(`Registered Slash Comand ${commandName}`);
   }
 
-  const commandNames = [...client.slashCommands, ...skippedCommands].map(e => e[0]);
-  for (const [, clientCommand] of await applicationCommands) {
-    if (commandNames.includes(clientCommand.name)) continue;
+  const commandNames = [...this.slashCommands, ...skippedCommands].map(e => e[0]);
+  for (const [, command] of await applicationCommands) {
+    if (commandNames.includes(command.name)) continue;
 
-    await client.application.commands.delete(clientCommand, syncGuild && syncGuild != '*' ? syncGuild : null);
-    client.log(`Deleted Slash Comand ${clientCommand.name}`);
+    await this.application.commands.delete(thisCommand, syncGuild && syncGuild != '*' ? syncGuild : null);
+    this.log(`Deleted Slash Comand ${thisCommand.name}`);
     deletedCommandCount++
   }
 
   if (syncGuild) return;
 
-  client.log(`Registered ${client.slashCommands.size} Slash Commands`);
+  this.log(`Registered ${this.slashCommands.size} Slash Commands`);
 
-  for (const [, skippedCommand] of skippedCommands) client.slashCommands.set(skippedCommand.name, skippedCommand);
+  for (const skippedCommand of skippedCommands) this.slashCommands.set(...skippedCommand);
 
-  client.log(`Skipped ${skippedCommands.size} Slash Commands`);
-  client.log(`Deleted ${deletedCommandCount} Slash Commands`);
+  this.log(`Skipped ${skippedCommands.size} Slash Commands`);
+  this.log(`Deleted ${deletedCommandCount} Slash Commands`);
 
-  client.on('interactionCreate', require('../Events/interactionCreate.js').bind(null, client));
-  client.log('Loaded Event interactionCreate');
-  client.log('Ready to receive slash commands\n');
+  this.on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[].concat(args ?? this)));
+  this.log('Loaded Event interactionCreate');
+  this.log('Ready to receive slash commands\n');
 
-  client.log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers.\n`);
+  this.log(`Ready to serve in ${this.channels.cache.size} channels on ${this.guilds.cache.size} servers.\n`);
   console.timeEnd('Starting time');
 }

@@ -142,7 +142,7 @@
       "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. He/She has to run `/economyconfig user start`"
     },
     "embedTitle": "Give",
-    "embedDescription": "You gave {amount} Souls to <@{target}>! <:soul:1011962640349810688>\n>>> Your souls: {newUserAmount} <:soul:1011962640349810688>\nHis/Her souls: {newTargetAmount} <:soul:1011962640349810688>"
+    "embedDescription": "You gave **{amount}** Souls to <@{target}>! <:soul:1011962640349810688>\n>>> Your souls: **{newUserAmount}** <:soul:1011962640349810688>\nHis/Her souls: **{newTargetAmount}** <:soul:1011962640349810688>"
   },
   "research": {
     "description": "Upgrade your skills and research new ones!",

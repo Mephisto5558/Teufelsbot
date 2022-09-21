@@ -6,13 +6,12 @@ module.exports = {
   category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
-  showInHelp: false,
   beta: true,
 
-  run: async (message, lang, { db }) => {
-    const result = db.get(message.content);
+  run: function (lang, { db }) {
+    const result = db.get(this.content);
 
-    if (!result) return message.customReply(lang('notFound'));
-    message.customReply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```');
+    if (!result) return this.customReply(lang('notFound'));
+    this.customReply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```');
   }
 }

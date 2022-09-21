@@ -15,22 +15,22 @@ module.exports = {
     { name: 'reason', type: 'String' }
   ],
 
-  run: async (interaction, lang) => {
+  run: async function (lang) {
     const
-      target = interaction.options.getMember('target'),
-      reason = interaction.options.getString('reason') || lang('noReason');
+      target = this.options.getMember('target'),
+      reason = this.options.getString('reason') || lang('noReason');
 
     let errorMsg;
 
     if (!target) errorMsg = lang('notFound');
     else if (!target.isCommunicationDisabled()) errorMsg = lang('notMuted');
-    else if (target.roles.highest.comparePositionTo(interaction.member.roles.highest) > -1 && interaction.guild.ownerId != interaction.user.id)
+    else if (target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
       errorMsg = lang('noPerm', lang('global.you'));
     else if (!target.moderatable) errorMsg = lang('noPerm', lang('global.i'));
 
-    if (errorMsg) return interaction.editReply(errorMsg);
+    if (errorMsg) return this.editReply(errorMsg);
 
-    await target.disableCommunicationUntil(null, `${reason}, moderator ${interaction.user.tag}`);
-    interaction.editReply(lang('success', target.user.tag));
+    await target.disableCommunicationUntil(null, `${reason}, moderator ${this.user.tag}`);
+    this.editReply(lang('success', target.user.tag));
   }
 }

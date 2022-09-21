@@ -8,13 +8,13 @@ module.exports = {
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, client) => {
+  run: async function (lang, client) {
     client.log('Syncing Slash Commands globally...');
 
     for (const guild of client.guilds.cache) await client.application.commands.set([], guild[0]);
 
-    await require('../../Handlers/slash_command_handler.js')(client, '*');
+    await require('../../Handlers/slash_command_handler.js').call(client, '*');
 
-    message.customReply(lang('success'));
+    this.customReply(lang('success'));
   }
 }

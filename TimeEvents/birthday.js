@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 
-function formatBirthday(msg, user, year) {
-  return msg?.replaceAll('<user.nickname>', user.displayName)
+function formatBirthday(user, year) {
+  return this?.replaceAll('<user.nickname>', user.displayName)
     .replaceAll('<user.username>', user.username)
     .replaceAll('<user.id>', user.id)
     .replaceAll('<user.tag>', user.tag)
@@ -11,26 +11,27 @@ function formatBirthday(msg, user, year) {
     .replaceAll('<guild.name>', user.guild?.name)
     .replaceAll('<bornyear>', year)
     .replaceAll('<date>', new Date().toLocaleDateString('en'))
-    .replaceAll('<age>', parseInt(year) ? new Date().getFullYear() - year : '<age>'); //<guilds> gets replaced below
+    .replaceAll('<age>', parseInt(year) ? new Date().getFullYear() - year : '<age>')
+    .replace(/<age>\.?/g, ''); //<guilds> gets replaced below
 }
 
 module.exports = {
   time: '00 00 00 * * *',
   startNow: true,
 
-  onTick: async ({ db, guilds, log }) => {
+  onTick: async function () {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 
-    if (db.get('botSettings').lastBirthdayCheck == now) return log('Already ran birthday check today');
-    log('started birthday check');
+    if (this.db.get('botSettings').lastBirthdayCheck == now) return this.log('Already ran birthday check today');
+    this.log('started birthday check');
 
     const
-      guildList = (await guilds.fetch()).map(e => e.fetch()),
-      oldData = db.get('userSettings');
+      guildList = (await this.guilds.fetch()).map(e => e.fetch()),
+      oldData = this.db.get('userSettings');
 
     for await (const guild of guildList) {
-      const settings = db.get('guildSettings')[guild.id]?.birthday;
-      const defaultSettings = db.get('guildSettings').default.birthday;
+      const settings = this.db.get('guildSettings')[guild.id]?.birthday;
+      const defaultSettings = this.db.get('guildSettings').default.birthday;
       if (!settings?.enable) continue;
 
       const userList = Object.entries(oldData)
@@ -53,29 +54,29 @@ module.exports = {
           }
 
           const embed = new EmbedBuilder({
-            title: formatBirthday(settings.ch?.msg?.embed?.title || defaultSettings.ch.msg.embed?.title, user, entry[2])?.replace(/<age>\.?/g, ''),
-            description: formatBirthday(settings.ch?.msg?.embed?.description || defaultSettings.ch.msg.embed?.description, user, entry[2])?.replace(/<age>\.?/g, ''),
-            color: settings.ch?.msg?.embed?.color || defaultSettings.ch.msg.embed?.color
+            title: formatBirthday.call(settings.ch?.msg?.embed?.title || defaultSettings.ch.msg.embed.title, user, entry[2]),
+            description: formatBirthday.call(settings.ch?.msg?.embed?.description || defaultSettings.ch.msg.embed.description, user, entry[2]),
+            color: settings.ch?.msg?.embed?.color || defaultSettings.ch.msg.embed.color
           });
 
-          await channel.send({ content: settings.ch?.msg?.content?.replace(/<age>\.?/g, '') || defaultSettings.ch.msg.content, embeds: [embed] });
+          await channel.send({ content: formatBirthday.call(settings.ch?.msg?.content || defaultSettings.ch.msg.content, user, entry[2]), embeds: [embed] });
         }
 
         if (settings?.dm?.enable) {
           const embed = new EmbedBuilder({
-            title: formatBirthday(settings.dm?.msg?.embed?.title || defaultSettings.dm.msg.embed?.title, user, entry[2])?.replace(/<age>\.?/g, ''),
-            description: formatBirthday(settings.dm?.msg?.embed?.description || defaultSettings.dm.msg.embed?.description, user, entry[2])?.replace(/<age>\.?/g, ''),
-            color: settings.dm?.msg?.embed?.color || defaultSettings.dm.msg.embed?.color
+            title: formatBirthday.call(settings.dm?.msg?.embed?.title || defaultSettings.dm.msg.embed.title, user, entry[2]),
+            description: formatBirthday.call(settings.dm?.msg?.embed?.description || defaultSettings.dm.msg.embed.description, user, entry[2]),
+            color: settings.dm?.msg?.embed?.color || defaultSettings.dm.msg.embed.color
           });
 
           try {
-            await user.send({ content: settings.dm?.msg?.content?.replace(/<age>\.?/g, '') || defaultSettings.dm.msg.content, embeds: [embed] });
+            await user.send({ content: formatBirthday.call(settings.dm?.msg?.content || defaultSettings.dm.msg.content, user, entry[2]), embeds: [embed] });
           } catch { }
         }
       }
     }
 
-    db.set('botSettings', db.get('botSettings').fMerge({ lastBirthdayCheck: now }));
-    log('Finished birthday check');
+    this.db.set('botSettings', this.db.get('botSettings').fMerge({ lastBirthdayCheck: now }));
+    this.log('Finished birthday check');
   }
 }
