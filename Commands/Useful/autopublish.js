@@ -7,13 +7,13 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, lang, { db }) => {
+  run: function (lang, { db }) {
     const oldData = db.get('guildSettings');
-    const setting = oldData[message.guild.id]?.config?.autopublish;
+    const setting = oldData[this.guild.id]?.config?.autopublish;
 
-    const newData = oldData.fMerge({ [message.guild.id]: { config: { autopublish: !setting } } })
+    const newData = oldData.fMerge({ [this.guild.id]: { config: { autopublish: !setting } } })
     db.set('guildSettings', newData);
 
-    message.customReply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));
+    this.customReply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));
   }
 }

@@ -4,7 +4,7 @@
 
 const types = require('discord-dashboard').formTypes;
 
-module.exports = client => ({
+module.exports = {
   id: '',
   name: '',
   description: '',
@@ -12,10 +12,10 @@ module.exports = client => ({
 
   type: types.input(),
   
-  auth: async ({ }) => {
+  auth: async _ => {
 
   }
-})
+}
 
 // index.json:
 

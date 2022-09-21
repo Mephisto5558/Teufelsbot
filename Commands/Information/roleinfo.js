@@ -10,14 +10,14 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'role', type: 'Role' }],
 
-  run: async (message, lang) => {
-    if (message.content) {
-      message.args = message.args[0]?.replace(/[<@>]/g, '');
-      message.content = message.content?.replace(/[<@>]/g, '');
+  run: function (lang) {
+    if (this.content) {
+      this.args = this.args[0]?.replace(/[<@>]/g, '');
+      this.content = this.content?.replace(/[<@>]/g, '');
     }
-    if (!message.options?.getRole('role') && !message.args?.[0]) message.args = [message.member.roles.highest.id];
+    if (!this.options?.getRole('role') && !this.args?.[0]) this.args = [this.member.roles.highest.id];
 
-    const role = message.options?.getRole('role') || message.mentions.roles.first() || message.guild.roles.cache.find(e => [...message.args, message.content].includes(e.id) || [...message.args, message.content].includes(e.name));
+    const role = this.options?.getRole('role') || this.mentions.roles.first() || this.guild.roles.cache.find(e => [...this.args, this.content].includes(e.id) || [...this.args, this.content].includes(e.name));
 
     const embed = new EmbedBuilder({
       title: role.name,
@@ -39,6 +39,6 @@ module.exports = {
 
     if (role.color || role.icon) embed.setThumbnail(role.icon ? `https://cdn.discordapp.com/role-icons/${role.guild.id}/${role.icon}.webp?size=80&quality=lossless` : `https://dummyimage.com/80x80/${role.color}/${role.color}.png`);
 
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

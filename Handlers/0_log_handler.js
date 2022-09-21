@@ -8,19 +8,19 @@ const
 
 fs.writeFileSync('./Logs/startCount.log', startCount.toString());
 
-module.exports = async client => {
-  client.log = (...data) => {
+module.exports = async function logHandler() {
+  this.log = (...data) => {
     console.info(`[${getTime()}] ${data.join(' ')}`);
     writeLogFile('log', ...data);
   }
 
-  client.error = (...data) => {
+  this.error = (...data) => {
     console.error(errorColor, `[${getTime()}] ${data.join(' ')}`);
     writeLogFile('log', ...data);
     writeLogFile('error', ...data);
   }
 
-  client
+  this
     .on('debug', debug => {
       if (debug.includes('Sending a heartbeat.') || debug.includes('Heartbeat acknowledged')) return;
 
@@ -29,11 +29,11 @@ module.exports = async client => {
       writeLogFile('debug', debug);
 
       if (debug.includes('Hit a 429')) {
-        if (!client.isReady()) {
-          client.error(errorColor, 'Hit a 429 while trying to login. Restarting shell.');
+        if (!this.isReady()) {
+          this.error(errorColor, 'Hit a 429 while trying to login. Restarting shell.');
           process.kill(1);
         }
-        else client.error(errorColor, 'Hit a 429 while trying to execute a request');
+        else this.error(errorColor, 'Hit a 429 while trying to execute a request');
       }
     })
     .on('warn', warn => writeLogFile('warn', warn))

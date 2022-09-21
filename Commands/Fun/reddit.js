@@ -7,7 +7,7 @@ const
     if (filterNSFW) children = children.filter(e => !e.data.over_18);
     if (!children[0]) return;
 
-    const post = children.slice(0, 25).random().data;
+    const post = children.slice(0, 100).random().data;
 
     return {
       title: post.title,
@@ -47,12 +47,12 @@ module.exports = {
     }
   ],
 
-  run: async (message, lang) => {
+  run: async function (lang) {
     const
-      filterNSFW = (message.options?.getBoolean('filter_nsfw') ?? true) || !message.channel.nsfw,
-      type = message.options?.getString('type') ?? message.args?.[1] ?? 'hot';
+      filterNSFW = (this.options?.getBoolean('filter_nsfw') ?? true) || !this.channel.nsfw,
+      type = this.options?.getString('type') ?? this.args?.[1] ?? 'hot';
 
-    let subreddit = message.options?.getString('subreddit') ?? message.args?.[0] ?? memeSubreddits.random();
+    let subreddit = this.options?.getString('subreddit') ?? this.args?.[0] ?? memeSubreddits.random();
     if (subreddit.startsWith('r/')) subreddit = subreddit.slice(2);
 
     let post;
@@ -60,7 +60,7 @@ module.exports = {
     if (cachedSubreddits.has(`${subreddit}_${type}`)) post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`).data, filterNSFW);
     else {
       const res = await fetch(`https://www.reddit.com/r/${subreddit}/${type}.json`).then(res => res.json());
-      if (res.error) return message.customReply(lang('error', `Error: ${res.message}\nReason:${red.reason}`));
+      if (res.error) return this.customReply(lang('error', `Error: ${res.message}\nReason:${red.reason}`));
 
       cachedSubreddits.set(`${subreddit}_${type}`, res);
       setTimeout(_ => cachedSubreddits.delete(`${subreddit}_${type}`), 5 * 60 * 1000);
@@ -68,7 +68,7 @@ module.exports = {
       post = fetchPost(res.data, filterNSFW);
     }
 
-    if (!post) return message.customReply(lang('notFound'));
+    if (!post) return this.customReply(lang('notFound'));
 
     const embed = new EmbedBuilder({
       author: { name: `${post.author} | r/${post.subreddit}` },
@@ -78,6 +78,6 @@ module.exports = {
       footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * 100, downvotes: post.downvotes, comments: post.comments }) }
     }).setColor('Random');
 
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

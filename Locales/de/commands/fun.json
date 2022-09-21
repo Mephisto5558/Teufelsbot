@@ -275,6 +275,7 @@
     "rerolled": "Das Gewinner-Auslosung wurde wiederholt!",
     "newGiveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
     "giveawayEnded": "'🎉🎉 **GIVEAWAY BEENDET** 🎉🎉",
+    "requiredRoles": "Du musst mindestens eine dieser Rollen haben, um zu gewinnen: {roles}",
     "inviteToParticipate": "Reagiere mit {emoji} um teilzunehmen!",
     "winMessage": "Gratulation, {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
     "drawing": "Gewinner-Auslosung: {timestamp}",

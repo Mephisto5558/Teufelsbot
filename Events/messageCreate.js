@@ -2,70 +2,70 @@ const
   { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits } = require('discord.js'),
   I18nProvider = require('../Functions/private/I18nProvider.js');
 
-module.exports = async (client, message) => {
+module.exports = async function messageCreate() {
   let prefixLength;
-  if (message.channel.type == ChannelType.DM) return;
+  if (this.channel.type == ChannelType.DM) return;
 
-  const { blacklist } = client.db.get('botSettings');
-  if (blacklist?.includes(message.author.id)) return;
+  const { blacklist } = this.client.db.get('botSettings');
+  if (blacklist?.includes(this.author.id)) return;
 
-  const { config, triggers, economy } = client.db.get('guildSettings')[message.guild.id] || {};
+  const { config, triggers, economy } = this.client.db.get('guildSettings')[this.guild.id] || {};
 
-  if (message.crosspostable && config?.autopublish) message.crosspost();
-  if (message.author.bot) return;
+  if (this.crosspostable && config?.autopublish) this.crosspost();
+  if (this.author.bot) return;
 
-  const guildPrefix = config?.prefix?.prefix || client.db.get('guildSettings').default.config.prefix;
+  const guildPrefix = config?.prefix?.prefix || this.client.db.get('guildSettings').default.config.prefix;
 
-  message.content = message.content.replaceAll('<@!', '<@');
+  this.content = this.content.replaceAll('<@!', '<@');
 
-  if (client.botType != 'dev')
-    for (const trigger of triggers?.filter(e => message.content?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
-      message.customReply(trigger.response);
+  if (this.client.botType != 'dev')
+    for (const trigger of triggers?.filter(e => this.content?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
+      this.customReply(trigger.response);
 
-  if (message.content.startsWith(config?.prefix?.caseinsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
-  else if (message.content.startsWith(`<@${client.user.id}>`)) prefixLength = client.user.id.length + 3;
+  if (this.content.startsWith(config?.prefix?.caseinsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
+  else if (this.content.startsWith(`<@${this.client.user.id}>`)) prefixLength = this.client.user.id.length + 3;
   else {
-    const eco = economy?.[message.author.id];
+    const eco = economy?.[this.author.id];
     if (
       economy?.enable && eco?.gaining?.chat && eco.currency < eco.currencyCapacity &&
-      message.content.length > (economy.config?.gaining?.chat?.min_message_length ?? client.db.get('guildSettings').default.economy.gaining.chat.min_message_length) &&
-      message.content.length < (economy.config?.gaining?.chat?.max_message_length ?? client.db.get('guildSettings').default.economy.gaining.chat.max_message_length) &&
-      !(economy.config.blacklist?.channel?.includes(message.channel.id) || economy.config.blacklist?.users?.includes(message.user.id) || message.member.roles.cache.hasAny(economy.config.blacklist?.roles)) &&
-      !(await require('../Functions/private/cooldowns.js')(client, message, { name: 'economy', cooldowns: { user: 20000 } }))
+      this.content.length > (economy.config?.gaining?.chat?.min_message_length ?? this.client.db.get('guildSettings').default.economy.gaining.chat.min_message_length) &&
+      this.content.length < (economy.config?.gaining?.chat?.max_message_length ?? this.client.db.get('guildSettings').default.economy.gaining.chat.max_message_length) &&
+      !(economy.config.blacklist?.channel?.includes(this.channel.id) || economy.config.blacklist?.users?.includes(this.user.id) || this.member.roles.cache.hasAny(economy.config.blacklist?.roles)) &&
+      !(await require('../Functions/private/cooldowns.js').call(this, { name: 'economy', cooldowns: { user: 20000 } }))
     ) {
       const currency = parseFloat((eco.currency + eco.gaining.chat + eco.skills.currency_bonus_absolute.lvl ** 2 + eco.gaining.chat * eco.skills.currency_bonus_percentage.lvl ** 2 / 100).limit(0, eco.currencyCapacity).toFixed(3));
 
-      client.db.set('guildSettings', client.db.get('guildSettings').fMerge({
-        [message.guild.id]: { economy: { [message.author.id]: { currency } } }
+      this.client.db.set('guildSettings', this.client.db.get('guildSettings').fMerge({
+        [this.guild.id]: { economy: { [this.author.id]: { currency } } }
       }));
     }
     return;
   }
 
-  message.args = message.content.slice(prefixLength).trim().split(' ');
-  message.commandName = message.args.shift().toLowerCase();
-  message.content = message.args.join(' ');
-  message.user = message.author;
+  this.args = this.content.slice(prefixLength).trim().split(' ');
+  this.commandName = this.args.shift().toLowerCase();
+  this.content = this.args.join(' ');
+  this.user = this.author;
 
-  const command = client.commands.get(message.commandName);
+  const command = this.client.prefixCommands.get(this.commandName);
 
-  if (!command && client.slashCommands.get(message.commandName)) return message.customReply(I18nProvider.__({ locale: config?.lang || message.guild.preferredLocale.slice(0, 2) }, 'events.slashCommandOnly'));
+  if (!command && this.client.slashCommands.get(this.commandName)) return this.customReply(I18nProvider.__({ locale: config?.lang || this.guild.preferredLocale.slice(0, 2) }, 'events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
-    !command || (command.category.toLowerCase() == 'owner-only' && message.author.id != client.application.owner.id)
+    !command || (command.category.toLowerCase() == 'owner-only' && this.author.id != this.client.application.owner.id)
   ) return;
 
-  const lang = I18nProvider.__.bind(I18nProvider, { locale: config?.lang || message.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
+  const lang = I18nProvider.__.bind(I18nProvider, { locale: config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
-  const cooldown = await require('../Functions/private/cooldowns.js')(client, message, command);
-  if (cooldown && !client.botType == 'dev') return message.customReply(lang('events.cooldown', cooldown));
+  const cooldown = await require('../Functions/private/cooldowns.js').call(this, command);
+  if (cooldown && !this.client.botType == 'dev') return this.customReply(lang('events.cooldown', cooldown));
 
   if (command.requireEconomy) {
-    if (!economy?.enable) return message.customReply(lang('events.economyDisabled'), 30000);
-    if (!economy?.[message.author.id]?.gaining?.chat) return message.customReply(lang('events.economyNotInitialized'), 30000);
+    if (!economy?.enable) return this.customReply(lang('events.economyDisabled'), 30000);
+    if (!economy?.[this.author.id]?.gaining?.chat) return this.customReply(lang('events.economyNotInitialized'), 30000);
   }
 
-  const userPermsMissing = message.member.permissionsIn(message.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
-  const botPermsMissing = message.guild.members.me.permissionsIn(message.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);
+  const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
+  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);
 
   if (botPermsMissing.length || userPermsMissing.length) {
     const embed = new EmbedBuilder({
@@ -74,11 +74,11 @@ module.exports = async (client, message) => {
       description: lang('events.permissionDenied.embedDescription', { IYou: userPermsMissing.length ? lang('global.you') : lang('global.i'), permissions: (botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') })
     });
 
-    if (botPermsMissing.includes('SendMessages')) return message.author.send({ content: `${message.channel.name} in ${message.guild.name}`, embeds: [embed] });
+    if (botPermsMissing.includes('SendMessages')) return this.author.send({ content: `${this.channel.name} in ${this.guild.name}`, embeds: [embed] });
 
-    return message.reply({ embeds: [embed] });
+    return this.reply({ embeds: [embed] });
   }
 
-  try { await command.run(message, lang, client) }
-  catch (err) { require('../Functions/private/error_handler.js')(err, client, message, lang) }
+  try { await command.run.call(this, lang, this.client) }
+  catch (err) { require('../Functions/private/error_handler.js').call(this.client, err, this, lang) }
 }

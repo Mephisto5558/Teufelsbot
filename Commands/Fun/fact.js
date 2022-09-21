@@ -9,12 +9,12 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, _, { keys }) => {
+  run: async function (_, { keys }) {
     const res = await get('https://api.api-ninjas.com/v1/facts', {
       headers: { 'X-Api-Key': keys.FunFactAPI },
       contentType: 'application/json',
     });
 
-    message.customReply(`${res.data[0].fact}.`);
+    this.customReply(`${res.data[0].fact}.`);
   }
 }

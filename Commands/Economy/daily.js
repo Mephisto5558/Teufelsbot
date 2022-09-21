@@ -10,22 +10,22 @@ module.exports = {
   prefixCommand: true,
   beta: true,
 
-  run: async (message, lang, { db }) => {
+  run: function (lang, { db }) {
     const embed = new EmbedBuilder({
       color: Colors.White,
-      author: { name: message.user.tag, iconURL: message.member.displayAvatarURL({ forceStatic: true }) }
+      author: { name: this.user.tag, iconURL: this.member.displayAvatarURL({ forceStatic: true }) }
     });
 
-    const userData = db.get('guildSettings')[message.guild.id].economy[message.user.id];
+    const userData = db.get('guildSettings')[this.guild.id].economy[this.user.id];
     if (!userData.gaining.daily) {
       embed.data.description = lang('notUnlocked');
-      return message.customReply({ embeds: [embed] }, 30000);
+      return this.customReply({ embeds: [embed] }, 30000);
     }
 
     db.set('userSettings', db.get('guildSettings').fMerge({
-      [message.guild.id]: {
+      [this.guild.id]: {
         economy: {
-          [message.user.id]: {
+          [this.user.id]: {
             currency: userData.currency + userData.gaining.daily,
             dailyStreak: userData.dailyStreak + 1
           }
@@ -34,6 +34,6 @@ module.exports = {
     }));
 
     embed.data.description = lang('collected', userData.daily);
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

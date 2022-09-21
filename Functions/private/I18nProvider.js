@@ -23,18 +23,18 @@ class I18nProvider {
     const data = {};
     const filePath = this.availableLocales.get(locale);
 
-    if (filePath) {
-      for (const item of readdirSync(filePath, { withFileTypes: true })) {
-        if (item.isFile() && item.name.endsWith('.json')) data[item.name.replace('.json', '')] = JSON.parse(readFileSync(`${filePath}/${item.name}`, 'utf8'));
-        else {
-          data[item.name] = {};
-          for (const file of readdirSync(`${filePath}/${item.name}`).filter(e => e.endsWith('.json')))
-            data[item.name][file.replace('.json', '')] = JSON.parse(readFileSync(`${filePath}/${item.name}/${file}`, 'utf8'));
-        }
-      }
+    if (!filePath) return;
 
-      this.localeData[locale] = this.flatten(data);
+    for (const item of readdirSync(filePath, { withFileTypes: true })) {
+      if (item.isFile() && item.name.endsWith('.json')) data[item.name.replace('.json', '')] = JSON.parse(readFileSync(`${filePath}/${item.name}`, 'utf8'));
+      else {
+        data[item.name] = {};
+        for (const file of readdirSync(`${filePath}/${item.name}`).filter(e => e.endsWith('.json')))
+          data[item.name][file.replace('.json', '')] = JSON.parse(readFileSync(`${filePath}/${item.name}/${file}`, 'utf8'));
+      }
     }
+
+    this.localeData[locale] = this.flatten(data);
   }
 
   loadAllLocales() {
@@ -46,7 +46,7 @@ class I18nProvider {
   }
 
   __({ locale = this.config.defaultLocale, errorNotFound = this.config.errorNotFound, undefinedNotFound = this.config.undefinedNotFound, backupPath } = {}, key, replacements) {
-    let message = this.localeData[locale]?.[key] || this.localeData[this.config.defaultLocale][key] || (backupPath ? this.localeData[locale]?.[`${backupPath}.${key}`] : null);
+    let message = this.localeData[locale]?.[key] ?? this.localeData[this.config.defaultLocale][key] ?? (backupPath ? this.localeData[locale]?.[`${backupPath}.${key}`] : null);
 
     if (Array.isArray(message)) message = message.random();
     if (!message) {
@@ -59,7 +59,7 @@ class I18nProvider {
       }
     }
 
-    if (!replacements) return message;
+    if (!replacements?.toString()) return message;
 
     if (typeof replacements != 'object') return message.replace(/{\w+}/, replacements.toString());
 
@@ -71,7 +71,7 @@ class I18nProvider {
     return Object.keys(object).reduce((acc, key) => {
       const newObjectPath = [objectPath, key].filter(Boolean).join(this.config.separator);
 
-      return Object.assign(Object.assign({}, acc), typeof object?.[key] == 'object' && !Array.isArray(object[key])
+      return Object.assign(Object.assign({}, acc), ({}).toString() == object?.[key]
         ? this.flatten(object[key], newObjectPath)
         : { [newObjectPath]: object[key] }
       );

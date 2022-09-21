@@ -1,6 +1,4 @@
-const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, ComponentType } = require('discord.js'),
-  hand = new Collection([['Rock', { id: 0, emoji: '✊' }], ['Paper', { id: 1, emoji: '🤚' }], ['Scissors', { id: 2, emoji: '✌️' }]]);
+const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, ComponentType } = require('discord.js');
 
 module.exports = {
   name: 'rps',
@@ -11,13 +9,10 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, lang) => {
-    let filter = i => msg.member.id == i.user.id;
-
-    const msg = message;
+  run: async function (lang) {
     const
-      botMove = hand.random(),
-      data = {
+      hand = new Collection([[lang('rock'), { id: 0, emoji: '✊' }], [lang('paper'), { id: 1, emoji: '🤚' }], [lang('scissors'), { id: 2, emoji: '✌️' }]]),
+      originalData = {
         embeds: [new EmbedBuilder({ title: lang('embedTitle'), description: lang('embedDescription') }).setColor('Random')],
         components: [
           new ActionRowBuilder({
@@ -49,74 +44,62 @@ module.exports = {
             ]
           })
         ]
-      };
+      },
+      msg = await this.customReply(originalData),
+      collector = msg.createMessageComponentCollector({ filter: i => this.member.id == i.user.id, componentType: ComponentType.Button, idle: 15000 });
 
-    if (message.editable) message.edit(data);
-    else message = await message.customReply(data);
+    let botMove = hand.random();
+    let win;
 
-    const moveCollector = message.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 10000 });
-
-    moveCollector.on('collect', async button => {
+    collector.on('collect', async button => {
       await button.deferUpdate();
-      const buttonId = button.customId;
+      switch (button.customId) {
+        case 'cancel': return collector.stop();
+        case 'playAgain': {
+          collector.empty();
+          botMove = hand.random();
+          msg.edit(originalData);
+          break;
+        }
+        case '0':
+        case '1':
+        case '2': {
+          const data = JSON.parse(JSON.stringify(originalData));
 
-      if (buttonId == 'cancel') {
-        moveCollector.stop();
-        return;
+          if (botMove.id == button.customId) win = [lang('tie'), '='];
+          else if (botMove.id < button.customId || botMove.id == 2 && !button.customId) win = [lang('win'), '>'];
+          else win = [lang('lose'), '<'];
+
+          data.embeds[0].description = lang('chose', { chose: [...hand.entries()].find(([, e]) => e.id == botMove.id)[0], win: win[0], you: hand.find(e => e.id == button.customId).emoji, symbol: win[1], i: botMove.emoji });
+          for (const button of data.components[0].components) {
+            if (button.custom_id == button.customId) button.style = ButtonStyle.Secondary;
+            button.disabled = true;
+          }
+
+          data.components[1] = new ActionRowBuilder({
+            components: [
+              new ButtonBuilder({
+                customId: 'playAgain',
+                label: lang('global.playAgain'),
+                style: ButtonStyle.Success
+              })
+            ]
+          });
+
+          msg.edit(data);
+          break;
+        }
       }
-
-      let win;
-      if (botMove.id == buttonId) win = [lang('tie'), '='];
-      else if (botMove.id < buttonId || botMove.id == 2 && !buttonId) win = [lang('win'), '>'];
-      else win = [lang('lose'), '<'];
-
-      data.embeds[0].data.description = lang('chose', { chose: [...hand.entries()].find(([, e]) => e.id == botMove.id)[0], win: win[0], you: hand.find(e => e.id == buttonId).emoji, symbol: win[1], i: botMove.emoji });
-      for (const button of data.components[0].components) {
-        if (button.data.custom_id == buttonId) button.setStyle(ButtonStyle.Secondary);
-        button.setDisabled(true);
-      }
-
-      data.components[1] = new ActionRowBuilder({
-        components: [
-          new ButtonBuilder({
-            customId: 'playAgain',
-            label: lang('global.playAgain'),
-            style: ButtonStyle.Success
-          })
-        ]
-      });
-
-      message.edit(data);
-
-      filter = i => msg.member.id == i.user.id && i.customId == 'playAgain';
-      const playAgainCollector = message.createMessageComponentCollector({ filter, max: 1, componentType: ComponentType.Button, time: 15000 });
-
-      playAgainCollector.on('collect', async button => {
-        await button.deferUpdate();
-
-        require('./rps.js').run(null, msg);
-      });
-
-      playAgainCollector.on('end', collected => {
-        if (collected.size) return;
-
-        for (const button of data.components[1].components) button.setDisabled(true);
-
-        message.edit(data);
-      });
     });
 
-    moveCollector.on('end', collected => {
-      if (collected.size && collected.first().customId != 'cancel') return;
+    collector.on('end', collected => {
+      if (!collected.size || collected.last().customId == 'cancel') originalData.embeds[0].data.description = lang('timedOut');
 
-      for (const row of data.components) {
+      for (const row of originalData.components) {
         for (const button of row.components) button.setDisabled(true);
       }
 
-      data.embeds[0].data.description = lang('timedOut');
-
-      message.edit(data);
-    })
-
+      msg.edit(originalData);
+    });
   }
 }

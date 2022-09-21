@@ -1,15 +1,15 @@
 {
   "Support": {
-    "Mail": "Your Email here (optional ofc)",
-    "Discord": "Your Support Discord Invite here"
+    "Mail": "Your Email (optional)",
+    "Discord": "Your Support Discord Invite"
   },
   "Website": {
-    "Domain": "Domain URL here (if empty uses localhost)",
-    "Dashboard": "Dashboard URL here",
-    "PrivacyPolicy": "Privacy Policy URL here"
+    "Domain": "Domain URL (if empty uses localhost)",
+    "Dashboard": "Dashboard URL",
+    "PrivacyPolicy": "Privacy Policy URL"
   },
   "Github": {
-    "Repo": "Repo URL here",
+    "Repo": "Repo URL",
     "UserName": "Your github username",
     "RepoName": "Your repo name"
   }

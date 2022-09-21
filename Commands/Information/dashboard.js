@@ -11,13 +11,13 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
 
-  run: async (message, lang) => {
+  run: function (lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', Dashboard),
       color: Colors.Blurple
     });
 
-    message.customReply({ embeds: [embed] });
+    this.customReply({ embeds: [embed] });
   }
 }

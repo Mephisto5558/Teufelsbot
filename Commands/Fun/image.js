@@ -39,31 +39,33 @@ module.exports = {
   beta: true,
   options: [{ name: 'type', type: 'String' }],
 
-  run: async (message, lang) => {
-    const cmdName = message.args?.shift() || message.options?.getString('type'),
-      args = message.args?.map(e => e.replace(/[<@>]/g, '')),
+  run: async function (lang) {
+    const
+      cmdName = this.args?.shift() || this.options?.getString('type'),
+      args = this.args?.map(e => e.replace(/[<@>]/g, '')),
       cmd = endpoints.get(cmdName?.toLowerCase()),
       option = options.find(e => e.name == cmdName);
 
-    let headers = `type=${cmdName}&`;
     let errorMsg;
 
-    embed.data.footer = { text: message.user.tag };
+    embed.data.footer = { text: this.user.tag };
 
     if (!cmd) errorMsg = (cmdName ? lang('notFound') : '') + lang('validOptions', options.map(e => e.name).join('`, `'));
     else if ((args?.length || 0) < option.options.length) errorMsg = lang('requiresArgs', option.options.map(e => `> \`${e.name}\`: ${e.description}`).join('\n'));
 
-    if (errorMsg) return message.customReply(errorMsg);
+    if (errorMsg) return this.customReply(errorMsg);
 
-    message = message.customReply(lang('global.loading'));
+    const msg = await this.customReply(lang('global.loading'));
 
-    args.map((e, i) => { if (option.options[i]) headers += `${option.options[i].name}=${e}&` });
+    const url = args.reduce((acc, e, i) => {
+      if (option.options[i]) return `${acc}${option.options[i].name}=${e}&`
+    }, `https://nekobot.xyz/api/imagegen?type=${cmdName}&`);
 
-    const data = await fetch(encodeURI(`https://nekobot.xyz/api/imagegen?${headers}`)).then(res => res.json());
-    if (!data.success) return message.edit(lang('error', data.message));
+    const data = await fetch(encodeURI(url)).then(res => res.json());
+    if (!data.success) return msg.edit(lang('error', data.message));
 
     embed.setImage(data.message);
 
-    message.edit({ content: '', embeds: [embed] });
+    msg.edit({ content: '', embeds: [embed] });
   }
 }

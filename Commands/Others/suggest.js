@@ -31,27 +31,27 @@ module.exports = {
     }
   ],
 
-  run: async (interaction, lang, client) => {
+  run: async function (lang, client) {
     const
       octokit = new Octokit({ auth: client.keys.githubKey }),
-      title = interaction.options.getString('title'),
+      title = this.options.getString('title'),
       issues = await octokit.request(`GET /repos/${Github.UserName}/${Github.RepoName}/issues`, {});
 
     if (issues.data.filter(e => e.title == title && e.state == 'open').length)
-      return interaction.editReply(lang('alreadySent', issues.data[0].html_url));
+      return this.editReply(lang('alreadySent', issues.data[0].html_url));
 
     try {
       await octokit.request(`POST /repos/${Github.UserName}/${Github.RepoName}/issues`, {
-        title: `${title} | ${interaction.options.getString('importance')} importance`,
+        title: `${title} | ${this.options.getString('importance')} importance`,
         body:
-          `<h3>Sent by ${interaction.user.tag} (<code>${interaction.user.id}</code>) with bot <code>${client.user.id}</code></h3>\n\n` +
-          interaction.options.getString('suggestion'),
+          `<h3>Sent by ${this.user.tag} (<code>${this.user.id}</code>) with bot <code>${client.user.id}</code></h3>\n\n` +
+          this.options.getString('suggestion'),
         assignees: [Github.UserName],
         labels: ['enhancement']
       })
     }
     catch (err) {
-      interaction.editReply(lang('error', err?.response.statusText));
+      this.editReply(lang('error', err?.response.statusText));
       throw err;
     }
 
@@ -61,6 +61,6 @@ module.exports = {
       color: Colors.Green
     });
 
-    interaction.editReply({ embeds: [embed] });
+    this.editReply({ embeds: [embed] });
   }
 }

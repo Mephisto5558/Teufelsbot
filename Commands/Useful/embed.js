@@ -1,12 +1,8 @@
 const { EmbedBuilder, Colors } = require('discord.js');
 
-function filterEmptyEntries(obj) {
-  return Object.fromEntries(
-    Object.entries(obj)
-      .filter(([, v]) => typeof v == 'object' ? Object.entries(v ?? '').length : v?.toString().length)
-      .map(([k, v]) => [k, typeof v == 'object' && !Array.isArray(v) ? filterEmptyEntries(v) : v])
-  );
-}
+const call = (fn, ...args) => fn(...args);
+const filterEmpty = obj => Object(obj) !== obj ? obj
+  : Object.fromEntries(Object.entries(obj).flatMap(([k, v]) => call((val = filterEmpty(v)) => !(val == null || (Object(val) === val && Object.keys(val).length == 0)) ? [[k, val]] : [])));
 
 module.exports = {
   name: 'embed',
@@ -57,8 +53,8 @@ module.exports = {
     }
   ],
 
-  run: async (interaction, lang) => {
-    const getOption = name => interaction.options.getString(name)?.replaceAll('/n', '\n');
+  run: async function (lang) {
+    const getOption = name => this.options.getString(name)?.replaceAll('/n', '\n');
     const custom = getOption('json');
     const content = getOption('content');
     let embed;
@@ -69,7 +65,7 @@ module.exports = {
         description: getOption('description'),
         color: parseInt(getOption('custom_color')?.substring(1) ?? 0, 16) || getOption('predefined_color'),
         footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
-        timestamp: interaction.options.getBoolean('timestamp') ? Date.now() / 1000 : null,
+        timestamp: this.options.getBoolean('timestamp') ? Math.round(Date.now() / 1000) : null,
         author: {
           name: getOption('author_name'),
           url: getOption('author_url'),
@@ -80,11 +76,11 @@ module.exports = {
         .setThumbnail(getOption('thumbnail'))
         .setImage(getOption('image'));
 
-      await interaction.channel.send({ content, embeds: [embed] });
+      await this.channel.send({ content, embeds: [embed] });
     }
-    catch (err) { return interaction.editReply(lang('invalidOption', err)) }
+    catch (err) { return this.editReply(lang('invalidOption', err.message)) }
 
-    if (custom) return interaction.editReply(lang('successJSON'));
-    interaction.editReply(lang('success', JSON.stringify(filterEmptyEntries(embed.data))));
+    if (custom) return this.editReply(lang('successJSON'));
+    this.editReply(lang('success', JSON.stringify(filterEmpty(embed.data))));
   }
 }
