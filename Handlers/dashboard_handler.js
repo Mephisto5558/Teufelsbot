@@ -3,6 +3,8 @@ const
   DarkDashboard = require('dbd-dark-dashboard'),
   { readdirSync } = require('fs'),
   { Support, Website } = require('../config.json'),
+  I18nProvider = require('../Functions/private/I18nProvider.js'),
+  lang = I18nProvider.__.bind(I18nProvider, { locale: 'en', undefinedNotFound: true }),
   rateLimit = {
     windowMs: 1 * 60 * 1000, // 1min
     max: 30,
@@ -98,21 +100,21 @@ async function getCommands() {
     if (subFolder.toLowerCase() == 'owner-only') continue;
     const commandList = [];
 
-    for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js'))) {
-      const cmd = require(`../Commands/${subFolder}/${file}`);
-
-      if (!cmd?.name || cmd.hideInHelp || cmd.disabled || (cmd.beta && this.botType != 'dev') || cmd.category.toLowerCase() == 'owner-only') continue;
-
+    for (
+      const cmd of readdirSync(`./Commands/${subFolder}`)
+        .map(e => e.endsWith('.js') ? require(`../Commands/${subFolder}/${e}`) : null)
+        .filter(e => e?.name && !e.hideInHelp && !e.disabled && (cmd.beta ? this.botType != 'dev' : true) && cmd.category.toLowerCase() != 'owner-only')
+    ) {
       commandList.push({
         commandName: cmd.name,
         commandUsage:
           (cmd.slashCommand ? 'SLASH Command: Look at the option descriptions.\n' : '') +
-          (cmd.usage?.replace(/slash command:/gi, '') ?? '') || 'No information found',
-        commandDescription: cmd.description || 'No information found',
+          ((cmd.usage || lang(`commands.${subFolder}.${cmd.name}.usage`))?.replace(/slash command:/gi, '') ?? '') || 'No information found',
+        commandDescription: cmd.description || lang(`commands.${subFolder}.${cmd.name}.description`) || 'No information found',
         commandAlias:
           (cmd.aliases.prefix.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '') +
-          (cmd.aliases.slash.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || 'none'
-      })
+          (cmd.aliases.slash.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || lang('global.none')
+      });
     }
 
     categoryCommandList.push({
@@ -120,7 +122,7 @@ async function getCommands() {
       subTitle: '',
       aliasesDisabled: false,
       list: commandList.map(e => Object.fromEntries(Object.entries(e).map(([k, v]) => [k, v.trim().replaceAll('\n', '<br>&nbsp')])))
-    })
+    });
   }
 
   return categoryCommandList.sort((a, b) => a.category.toLowerCase() == 'others' ? 1 : b.list.length - a.list.length);
