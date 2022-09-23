@@ -17,7 +17,7 @@ module.exports = {
     this.content = this.content?.replace(/[<@&>]/g, '');
 
     const
-      member = this.options?.getMember('target') || this.mentions?.users.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...this.args, this.content].includes(e))) || this.member,
+      member = this.options?.getMember('target') || this.mentions?.members.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...this.args, this.content].includes(e))) || this.member,
       user = member.user,
       color = /*parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16) does not work*/ Colors.White;
 

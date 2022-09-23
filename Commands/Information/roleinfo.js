@@ -14,9 +14,7 @@ module.exports = {
     this.args = this.args?.map(e => e.replace(/[<@>]/g, '')) || [];
     this.content = this.content?.replace(/[<@>]/g, '');
 
-    if (!this.options?.getRole('role') && !this.args?.[0]) this.args = [this.member.roles.highest.id];
-
-    const role = this.options?.getRole('role') || this.mentions?.roles.first() || this.guild.roles.cache.find(e => [...this.args, this.content].includes(e.id) || [...this.args, this.content].includes(e.name));
+    const role = this.options?.getRole('role') || !this.args?.[0] ? this.member.roles.highest : this.mentions?.roles.first() || this.guild.roles.cache.find(e => [...this.args, this.content].includes(e.id) || [...this.args, this.content].includes(e.name));
 
     const embed = new EmbedBuilder({
       title: role.name,
@@ -24,7 +22,7 @@ module.exports = {
       fields: [
         { name: lang('mention'), value: role.toString(), inline: true },
         { name: lang('members'), value: role.members.size, inline: true },
-        { name: lang('color'), value: role.color ? `[${role.hexColor}](https://www.color-hex.com/color/${role.displayHexColor.substring(1)})` : lang('global.none'), inline: true },
+        { name: lang('color'), value: role.color ? `[${role.hexColor}](https://www.color-hex.com/color/${role.hexColor.substring(1)})` : lang('global.none'), inline: true },
         { name: lang('mentionable'), value: role.mentionable, inline: true },
         { name: lang('hoist'), value: role.hoist, inline: true },
         { name: lang('managed'), value: role.managed, inline: true },
