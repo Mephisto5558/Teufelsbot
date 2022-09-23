@@ -24,7 +24,7 @@
   "autopublish": {
     "description": "Veröffentlicht automatisch alles, was jemand in einem Announcement-Channel sagt.",
     "usage": "Dieser Command veröffentlicht automatisch alle Nachrichten, die in Announcement-Channels gesendet werden.\nDies ist ein Toggle.",
-    "success": "{toggle} Autopublish."
+    "success": "Autopublish wurde {toggle}."
   },
   "convert": {
     "description": "Konvertiert eine Textart zu einer anderen",
