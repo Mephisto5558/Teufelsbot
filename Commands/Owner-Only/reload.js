@@ -3,7 +3,7 @@ const
   { join } = require('path');
 
 async function reloadCommand(commandName, path, reloadedArray) {
-  delete require.cache[path];
+  delete require.cache[require.resolve(path)];
   const file = require(path);
 
   if (this.botType == 'dev' ? !file.beta : file.disabled) return;
