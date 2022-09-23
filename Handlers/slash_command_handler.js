@@ -134,8 +134,8 @@ module.exports = async function slashCommandHandler(syncGuild) {
   for (const [, command] of await applicationCommands) {
     if (commandNames.includes(command.name)) continue;
 
-    await this.application.commands.delete(thisCommand, syncGuild && syncGuild != '*' ? syncGuild : null);
-    this.log(`Deleted Slash Comand ${thisCommand.name}`);
+    await this.application.commands.delete(command, syncGuild && syncGuild != '*' ? syncGuild : null);
+    this.log(`Deleted Slash Comand ${command.name}`);
     deletedCommandCount++
   }
 
