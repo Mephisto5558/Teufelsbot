@@ -24,7 +24,7 @@ module.exports = {
   beta: true,
 
   run: function (lang, { db }) {
-    const target = this.options?.getUser('target') || this.mentions?.users?.first();
+    const target = this.options?.getUser('target') || this.mentions?.users.first();
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       color: Colors.White
