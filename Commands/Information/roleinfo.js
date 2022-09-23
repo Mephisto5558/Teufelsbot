@@ -11,10 +11,9 @@ module.exports = {
   options: [{ name: 'role', type: 'Role' }],
 
   run: function (lang) {
-    if (this.content) {
-      this.args = this.args[0]?.replace(/[<@>]/g, '');
+      this.args = this.args?.map(e => e.replace(/[<@>]/g, '')) || [];
       this.content = this.content?.replace(/[<@>]/g, '');
-    }
+      
     if (!this.options?.getRole('role') && !this.args?.[0]) this.args = [this.member.roles.highest.id];
 
     const role = this.options?.getRole('role') || this.mentions.roles.first() || this.guild.roles.cache.find(e => [...this.args, this.content].includes(e.id) || [...this.args, this.content].includes(e.name));
