@@ -13,7 +13,7 @@ module.exports = {
 
   run: function (lang, { db }) {
     const
-      target = this.options?.getUser('user') || this.mentions?.users?.first() || this.user,
+      target = this.options?.getUser('user') || this.mentions?.users.first() || this.user,
       userData = db.get('guildSettings')[this.guild.id].economy[target.id];
 
     if (!userData?.gaining?.chat) return this.customReply(lang('targetEconomyNotInitialized'), 30000);

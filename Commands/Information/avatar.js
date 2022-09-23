@@ -26,7 +26,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      target = this.options?.getMember('target') || this.mentions?.members?.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...this.args, this.content].includes(e))) || this.member,
+      target = this.options?.getMember('target') || this.mentions?.members.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...(this.args || []), this.content].includes(e))) || this.member,
       avatarURL = await target.displayAvatarURL({ size: this.options?.getNumber('size') || 2048 }),
       embed = new EmbedBuilder({
         description: lang('embedDescription', target.user.username),

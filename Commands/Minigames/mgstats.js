@@ -104,7 +104,7 @@ module.exports = {
     const stats = {
       type: this.options?.getSubcommand() || 'user',
       game: this.options?.getString('game') || this.args[0].replace(/tictactoe/gi, 'TicTacToe'),
-      target: this.options?.getUser('target') || this.mentions?.users?.first() || this.user,
+      target: this.options?.getUser('target') || this.mentions?.users.first() || this.user,
       settings: this.options?.getString('settings')
     }
     const leaderboards = client.db.get('leaderboards');
