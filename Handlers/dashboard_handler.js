@@ -103,7 +103,7 @@ async function getCommands() {
     for (
       const cmd of readdirSync(`./Commands/${subFolder}`)
         .map(e => e.endsWith('.js') ? require(`../Commands/${subFolder}/${e}`) : null)
-        .filter(e => e?.name && !e.hideInHelp && !e.disabled && (cmd.beta ? this.botType != 'dev' : true) && cmd.category.toLowerCase() != 'owner-only')
+        .filter(e => e?.name && !e.hideInHelp && !e.disabled && (e.beta ? this.botType == 'dev' : true) && e.category.toLowerCase() != 'owner-only')
     ) {
       commandList.push({
         commandName: cmd.name,
