@@ -6,17 +6,16 @@ const
   { randomInt } = require('crypto'),
   { existsSync, readdirSync } = require('fs'),
   DB = require('./Functions/private/db.js'),
-  customReply = require('./Functions/private/reply.js'),
-  isObject = item => ({}).toString() == item;
+  customReply = require('./Functions/private/reply.js');
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 
 Array.prototype.random = function random() { return this[randomInt(this.length - 1)] };
 Number.prototype.limit = function limit({ min = -Infinity, max = Infinity }) { return Math.min(Math.max(Number(this), min), max) };
 Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }) {
-  if (!isObject(this) || !isObject(obj)) return output;
+  if (`${{}}` != this || `${{}}` != obj) return output;
   for (const key of Object.keys({ ...this, ...obj })) {
-    if (isObject(this[key])) output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];
+    if (`${{}}` == this[key]) output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];
     else if (Array.isArray(this[key])) {
       if (key in obj) {
         if (mode == 'overwrite') output[key] = obj[key];
