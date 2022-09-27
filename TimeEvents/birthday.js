@@ -6,7 +6,7 @@ function formatBirthday(user, year) {
     .replaceAll('<user.id>', user.id)
     .replaceAll('<user.tag>', user.tag)
     .replaceAll('<user.joinedAt>', user.joinedAt.toLocaleDateString('en'))
-    .replaceALl('<guild.id>', user.guild.id)
+    .replaceAll('<guild.id>', user.guild.id)
     .replaceAll('<guild.memberCount>', user.guild?.memberCount)
     .replaceAll('<guild.name>', user.guild?.name)
     .replaceAll('<bornyear>', year)
