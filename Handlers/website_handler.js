@@ -3,6 +3,7 @@ const
   app = require('express')(),
   rateLimit = require('express-rate-limit').default,
   I18nProvider = require('../Functions/private/I18nProvider.js'),
+  gitpull = require('../Functions/private/gitpull.js'),
   lang = I18nProvider.__.bind(I18nProvider, { locale: 'en', undefinedNotFound: true });
 
 async function getCommands() {
@@ -54,5 +55,6 @@ module.exports = function websiteHandler() {
       if (req.query.key != this.keys.WebsiteKey) return res.status(403).send('You need to provide a valid "key" url parameter to access this information.');
       return res.send(req.query.fetch ? await getCommands() : commands);
     })
+    .post('/git/pull', async (_, res) => res.send(await gitpull.run()))
     .listen(process.env.PORT ?? process.env.SERVER_PORT ?? 8000);
 };
