@@ -1,8 +1,4 @@
 {
-  "Support": {
-    "Mail": "Your Email (optional)",
-    "Discord": "Your Support Discord Invite"
-  },
   "Website": {
     "Domain": "Domain URL (if empty uses localhost)",
     "Dashboard": "Dashboard URL",
