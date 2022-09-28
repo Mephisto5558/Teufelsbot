@@ -54,6 +54,6 @@ module.exports = function websiteHandler() {
       if (req.query.key != this.keys.WebsiteKey) return res.status(403).send('You need to provide a valid "key" url parameter to access this information.');
       return res.send(await (req.query.fetch ? getCommands() : commands));
     })
-    .all('/git/pull', async (_, res) => res.send(await gitpull.run()))
+    .all('/git/pull', async (_, res) => res.send(await gitpull()))
     .listen(process.env.PORT ?? process.env.SERVER_PORT ?? 8000);
 };
