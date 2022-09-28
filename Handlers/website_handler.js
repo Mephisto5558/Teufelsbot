@@ -43,6 +43,7 @@ const commands = getCommands();
 
 module.exports = function websiteHandler() {
   app
+    .disable('x-powered-by')
     .use(rateLimit({
       windowMs: 1000,
       max: 10, // 10 per sec
