@@ -9,7 +9,7 @@ module.exports = {
   beta: true,
 
   run: async function (lang) {
-    await require('../../Website/custom/git/pull.js').run();
+    await require('../../Functions/private/gitpull.js').run();
     this.customReply(lang('success'));
   }
 }
