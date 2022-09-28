@@ -35,7 +35,7 @@ console.timeEnd('Initializing time');
 console.time('Starting time');
 
 (async function main() {
-  require('./Functions/private/gitpull').run();
+  require('./Functions/private/gitpull')();
 
   const client = new Client({
     allowedMentions: {
