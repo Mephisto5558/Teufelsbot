@@ -9,21 +9,20 @@ const
 async function getCommands() {
   const categoryCommandList = [];
 
-  for (const subFolder of getDirectoriesSync('./Commands')) {
-    if (subFolder.toLowerCase() == 'owner-only') continue;
+  for (const subFolder of getDirectoriesSync('./Commands').filter(e => e.toLowerCase() != 'owner-only')) {
     const commandList = [];
 
     for (
       const cmd of readdirSync(`./Commands/${subFolder}`)
         .map(e => e.endsWith('.js') ? require(`../Commands/${subFolder}/${e}`) : null)
-        .filter(e => e?.name && !e.hideInHelp && !e.disabled && (!e.beta ?? this.botType == 'dev') && e.category.toLowerCase() != 'owner-only')
+        .filter(e => e?.name && !e.hideInHelp && !e.disabled && e.category.toLowerCase() != 'owner-only')
     ) {
       commandList.push({
         commandName: cmd.name,
         commandUsage:
           (cmd.slashCommand ? 'SLASH Command: Look at the option descriptions.\n' : '') +
-          ((cmd.usage || lang(`commands.${subFolder}.${cmd.name}.usage`))?.replace(/slash command:/gi, '') ?? '') || 'No information found',
-        commandDescription: cmd.description || lang(`commands.${subFolder}.${cmd.name}.description`) || 'No information found',
+          ((cmd.usage || lang(`commands.${cmd.category.toLowerCase()}.${cmd.name}.usage`))?.replace(/slash command:/gi, '') ?? '') || 'No information found',
+        commandDescription: cmd.description || lang(`commands.${cmd.category.toLowerCase()}.${cmd.name}.description`) || 'No information found',
         commandAlias:
           (cmd.aliases.prefix.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '') +
           (cmd.aliases.slash.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || lang('global.none')
