@@ -17,7 +17,7 @@ module.exports = {
   }],
 
   run: function (lang) {
-    const expression = (this.args?.[0] || this.options?.getString('expression'))?.replaceAll('\n', ';').replaceAll('÷', '/');
+    const expression = (this.content || this.options?.getString('expression'))?.replaceAll('\n', ';').replaceAll('÷', '/');
     if (!expression) return this.customReply(lang('noInput'));
 
     const embed = new EmbedBuilder({
