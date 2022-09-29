@@ -16,14 +16,14 @@ module.exports = {
     const
       startTime = Math.round(Date.now() / 1000 - process.uptime()),
       startCount = readFileSync('./Logs/startCount.log', 'utf8') || 0,
-      owner = client.application.owner.tag || client.application.owner.owner.tag,
+      owner = client.application.owner || client.application.owner.owner,
       description =
-        `${lang('dev')}: ${owner}\n` +
+        `${lang('dev')}: [${owner.tag}](https://discord.com/users/${owner.id})\n` +
         `${lang('shard')}: \`${this.guild.shardId}\`\n` +
         `${lang('global.guild')}: \`${client.db.get('guildSettings')[this.guild.id]?.position || 0}\n\`` +
         `${lang('starts')}: \`${startCount}\`\n` +
         `${lang('lastStart')}: <t:${startTime}> (<t:${startTime}:R>)\n` +
-        lang('translation', { de: '.̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558 & Koikarpfen#4992', en: '.̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558' }) +
+        lang('translation', { de: '[.̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558](https://discord.com/users/691550551825055775) & [Koikarpfen#4992](https://discord.com/users/636196723852705822)', en: '[.̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558](https://discord.com/users/691550551825055775)' }) +
         lang('links', { Invite, Dashboard, PrivacyPolicy }),
 
       embed = new EmbedBuilder({
