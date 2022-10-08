@@ -69,4 +69,4 @@ module.exports = {
 
     this.editReply({ embeds: [embed] });
   }
-}
+};

@@ -6,9 +6,9 @@ function listCommands(list, output, count, category) {
   for (const [, command] of list) {
     if (command.category?.toLowerCase() != category?.toLowerCase() || command.hideInHelp || command.disabled || output.includes(`\`${command.name}\``)) continue;
 
-    if (count % 5 == 0) output += `\`${command.name ?? command}\`\n> `
-    else output += `\`${command.name ?? command}\`, `
-    count++
+    if (count % 5 == 0) output += `\`${command.name ?? command}\`\n> `;
+    else output += `\`${command.name ?? command}\`, `;
+    count++;
   }
   return [output, count];
 }
@@ -26,7 +26,7 @@ module.exports = {
     name: 'command',
     type: 'String',
     autocomplete: true,
-    autocompleteOptions: function () { return [...new Set([...this.prefixCommands.keys(), ...this.slashCommands.keys()])] }
+    autocompleteOptions: function () { return [...new Set([...this.prefixCommands.keys(), ...this.slashCommands.keys()])]; }
   }],
 
   run: function (lang, client) {
@@ -88,4 +88,4 @@ module.exports = {
 
     this.customReply({ embeds: [embed] });
   }
-}
+};

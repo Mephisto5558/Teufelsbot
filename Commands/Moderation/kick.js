@@ -39,8 +39,8 @@ module.exports = {
     for (const rawTarget of targets) {
       let target, errorMsg, noMsg;
 
-      try { target = await this.guild.members.fetch(rawTarget) }
-      catch { target = { id: rawTarget } }
+      try { target = await this.guild.members.fetch(rawTarget); }
+      catch { target = { id: rawTarget }; }
 
       if (target.id == this.member.id) errorMsg = lang('cantKickSelf');
       else if (target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
@@ -52,8 +52,8 @@ module.exports = {
         continue;
       }
 
-      try { await target.send({ embeds: [embed] }) }
-      catch { noMsg = true }
+      try { await target.send({ embeds: [embed] }); }
+      catch { noMsg = true; }
 
       await target.kick(reason);
 
@@ -65,4 +65,4 @@ module.exports = {
 
     this.editReply({ embeds: [resEmbed] });
   }
-}
+};

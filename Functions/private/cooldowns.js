@@ -16,4 +16,4 @@ module.exports = function cooldown({ name, cooldowns }) {
     if (cooldowns.user) timestamps.set(`u:${this.member.id}`, now + cooldowns.user);
     return 0;
   }
-}
+};

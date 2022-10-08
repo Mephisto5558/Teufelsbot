@@ -133,7 +133,7 @@ module.exports = {
                 id, wildcard: !!wildcard,
                 trigger: trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...',
                 response: response.length < 20 ? response : response.substring(0, 17) + '...'
-              })
+              });
             }
 
             embed.data.description = description;
@@ -156,4 +156,4 @@ module.exports = {
       }
     }
   }
-}
+};

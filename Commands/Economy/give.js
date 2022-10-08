@@ -67,4 +67,4 @@ module.exports = {
     embed.data.description = lang('embedDescription', { amount, target: target.id, newUserAmount: newUserCurrency, newTargetAmount: newTargetCurrency });
     this.customReply({ content: target.toString(), embeds: [embed] });
   }
-}
+};

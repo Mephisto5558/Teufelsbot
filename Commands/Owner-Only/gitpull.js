@@ -12,4 +12,4 @@ module.exports = {
     await require('../../Functions/private/gitpull.js')();
     this.customReply(lang('success'));
   }
-}
+};

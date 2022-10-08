@@ -58,7 +58,7 @@ module.exports = {
     const msg = await this.customReply(lang('global.loading'));
 
     const url = args.reduce((acc, e, i) => {
-      if (option.options[i]) return `${acc}${option.options[i].name}=${e}&`
+      if (option.options[i]) return `${acc}${option.options[i].name}=${e}&`;
     }, `https://nekobot.xyz/api/imagegen?type=${cmdName}&`);
 
     const data = await fetch(encodeURI(url)).then(res => res.json());
@@ -68,4 +68,4 @@ module.exports = {
 
     msg.edit({ content: '', embeds: [embed] });
   }
-}
+};
