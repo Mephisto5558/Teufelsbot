@@ -150,7 +150,7 @@
   "uptime": {
     "description": "Erhalte die Uptime des Bots",
     "embedDescription": "Der Bot ist [online]({Domain}/uptime) seit {time}.",
-    "dhms": "{d} Tage, {h} Stunden, {m} Minuten und {s} Sekunden",
+    "dhms": "{d} Tagen, {h} Stunden, {m} Minuten und {s} Sekunden",
     "hms": "{h} Stunden, {m} Minuten und {s} Sekunden",
     "ms": "{m} Minuten und {s} Sekunden",
     "s": "{s} Sekunden"
