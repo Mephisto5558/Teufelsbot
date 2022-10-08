@@ -102,4 +102,4 @@ module.exports = {
       msg.edit(originalData);
     });
   }
-}
+};

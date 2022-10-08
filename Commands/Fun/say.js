@@ -32,4 +32,4 @@ module.exports = {
     await channel.send(msg.replaceAll('/n', '\n'));
     this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent'));
   }
-}
+};

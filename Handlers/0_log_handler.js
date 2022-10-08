@@ -12,13 +12,13 @@ module.exports = async function logHandler() {
   this.log = (...data) => {
     console.info(`[${getTime()}] ${data.join(' ')}`);
     writeLogFile('log', ...data);
-  }
+  };
 
   this.error = (...data) => {
     console.error(errorColor, `[${getTime()}] ${data.join(' ')}`);
     writeLogFile('log', ...data);
     writeLogFile('error', ...data);
-  }
+  };
 
   this
     .on('debug', debug => {
@@ -38,4 +38,4 @@ module.exports = async function logHandler() {
     })
     .on('warn', warn => writeLogFile('warn', warn))
     .on('error', error => writeLogFile('error', error));
-}
+};

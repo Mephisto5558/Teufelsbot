@@ -52,17 +52,17 @@ module.exports = {
       for (let i = 0; i < length; i++) {
         const randomChar = charset.split('').filter(e => e != oldRandomChar).random(); //Filters the last selected entry out and selects a list entry based on a secure random number generator. Defined in index.js.
         if (oldRandomChar + randomChar == '\n') { //'\n' should not appear in the list, it would break stuff
-          length++
+          length++;
           continue;
         }
         passwordList += randomChar; //Adds one of the chars in the charset to the password, based on the function getRandomNumber
         oldRandomChar = randomChar; //Sets oldRandomChar to the last generated char
       }
-      passwordList += '```\n```'
+      passwordList += '```\n```';
     }
 
-    if (charset.length > 100) charset = charset.substring(0, 97) + '...' //Limits the *displayed* charset length
+    if (charset.length > 100) charset = charset.substring(0, 97) + '...'; //Limits the *displayed* charset length
 
     this.editReply(lang('success', { passwords: passwordList.slice(0, -4), charset }));
   }
-}
+};

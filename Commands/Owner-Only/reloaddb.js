@@ -15,4 +15,4 @@ module.exports = {
 
     this.customReply(lang('success'));
   }
-}
+};

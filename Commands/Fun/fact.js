@@ -17,4 +17,4 @@ module.exports = {
 
     this.customReply(`${res.data[0].fact}.`);
   }
-}
+};

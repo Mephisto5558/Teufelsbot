@@ -24,4 +24,4 @@ module.exports = {
 
     this.customReply(activity ? lang('set', { name: activity, type: ActivityType[type] }) : lang('reset'));
   }
-}
+};

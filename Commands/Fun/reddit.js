@@ -19,7 +19,7 @@ const
       ratio: parseFloat(post.upvote_ratio?.toFixed(2) ?? 0),
       url: `https://www.reddit.com${post.permalink}`,
       imageURL: post.media?.oembed?.thumbnail_url || post.url,
-    }
+    };
   };
 
 module.exports = {
@@ -80,4 +80,4 @@ module.exports = {
 
     this.customReply({ embeds: [embed] });
   }
-}
+};

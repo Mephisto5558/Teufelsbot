@@ -47,4 +47,4 @@ module.exports = {
 
     msg.edit({ embeds: [embed] });
   }
-}
+};

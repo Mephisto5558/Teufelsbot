@@ -31,21 +31,21 @@ module.exports = {
 
     let data;
 
-    try { data = evaluate(expression) }
+    try { data = evaluate(expression); }
     catch (err) {
       embed.data.description = lang('error', err.message);
       embed.data.color = Colors.Red;
       return this.customReply({ embeds: [embed] });
     }
 
-    embed.data.color = Colors.White
+    embed.data.color = Colors.White;
 
     if (isResultSet(data)) {
       if (data.entries.length > 1) data = lang('separated', data.entries.join(' | '));
-      else data = data.entries
+      else data = data.entries;
     }
 
     embed.data.description = lang('success', { expression, result: data });
     this.customReply({ embeds: [embed] });
   }
-}
+};

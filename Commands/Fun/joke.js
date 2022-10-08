@@ -64,8 +64,8 @@ async function getJoke(APIList, type, blacklist, maxLength) {
   }
   catch (err) {
     if ([402, 403, 522].includes(err.status)) {
-      this.error('joke.js: ')
-      this.error(err.response)
+      this.error('joke.js: ');
+      this.error(err.response);
     }
     else if (err.code != 'ECONNABORTED') {
       this.error(
@@ -120,4 +120,4 @@ module.exports = {
 
     this.customReply({ embeds: [embed] });
   }
-}
+};

@@ -23,4 +23,4 @@ module.exports = {
   run: function (lang, client) {
 
   }
-}
+};

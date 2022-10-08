@@ -60,4 +60,4 @@ module.exports = class DB {
       res.save();
     });
   }
-}
+};

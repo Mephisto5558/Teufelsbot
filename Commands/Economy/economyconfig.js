@@ -191,7 +191,7 @@ module.exports = {
               else if (id) list.push(id);
 
               return list;
-            }
+            };
 
           blacklist.channels = work(channel?.id, 'channel', blacklist.channels);
           blacklist.roles = work(role?.id, 'role', blacklist.roles);
@@ -242,4 +242,4 @@ module.exports = {
       }
     }
   }
-}
+};

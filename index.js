@@ -10,8 +10,8 @@ const
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 
-Array.prototype.random = function random() { return this[randomInt(this.length - 1)] };
-Number.prototype.limit = function limit({ min = -Infinity, max = Infinity }) { return Math.min(Math.max(Number(this), min), max) };
+Array.prototype.random = function random() { return this[randomInt(this.length - 1)]; };
+Number.prototype.limit = function limit({ min = -Infinity, max = Infinity }) { return Math.min(Math.max(Number(this), min), max); };
 Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }) {
   if (`${{}}` != this || `${{}}` != obj) return output;
   for (const key of Object.keys({ ...this, ...obj })) {
@@ -27,7 +27,7 @@ Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }
     else output = { ...output, [key]: key in obj ? obj[key] : this[key] };
   }
   return output;
-}
+};
 CommandInteraction.prototype.customReply = customReply;
 Message.prototype.customReply = customReply;
 
@@ -88,5 +88,5 @@ console.time('Starting time');
   process
     .on('unhandledRejection', err => require('./Functions/private/error_handler.js').call(client, err))
     .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js').call(client, err))
-    .on('uncaughtException', err => require('./Functions/private/error_handler.js').call(client, err))
+    .on('uncaughtException', err => require('./Functions/private/error_handler.js').call(client, err));
 })();

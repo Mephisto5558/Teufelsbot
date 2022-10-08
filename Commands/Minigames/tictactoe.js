@@ -72,15 +72,15 @@ if (!TicTacToe.prototype.playAgain) TicTacToe.prototype.playAgain = async functi
 
     this.editReply({ components: oldRows });
   });
-}
+};
 
 function updateStats(firstID, secondID, type, { db }) {
   const stats = db.get('leaderboards').TicTacToe[firstID] || {};
   let against;
 
   switch (type) {
-    case 'win': against = 'wonAgainst'; break
-    case 'lose': against = 'lostAgainst'; break
+    case 'win': against = 'wonAgainst'; break;
+    case 'lose': against = 'lostAgainst'; break;
     case 'draw': against = 'drewAgainst';
   }
 
@@ -125,4 +125,4 @@ module.exports = {
     game.on('win', data => eventCallback.call(this, [data.winner, data.loser], ['win', 'lose'], lang, game));
     game.on('tie', data => eventCallback.call(this, data.players, ['draw'], lang, game));
   }
-}
+};
