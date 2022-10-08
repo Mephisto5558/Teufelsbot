@@ -78,9 +78,9 @@ module.exports = {
 
       await this.channel.send({ content, embeds: [embed] });
     }
-    catch (err) { return this.editReply(lang('invalidOption', err.message)) }
+    catch (err) { return this.editReply(lang('invalidOption', err.message)); }
 
     if (custom) return this.editReply(lang('successJSON'));
     this.editReply(lang('success', JSON.stringify(filterEmpty(embed.data))));
   }
-}
+};

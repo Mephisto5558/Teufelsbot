@@ -119,10 +119,10 @@ module.exports = {
           await target.send({ embeds: [embed] });
           this.editReply(lang('global.messageSent'));
         }
-        catch { this.editReply(lang('send.error')) }
+        catch { this.editReply(lang('send.error')); }
         break;
       }
     }
 
   }
-}
+};

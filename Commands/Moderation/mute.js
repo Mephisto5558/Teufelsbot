@@ -49,8 +49,8 @@ module.exports = {
 
     date.setTime(date.getTime() + duration);
 
-    try { await target.disableCommunicationUntil(date.getTime(), `${reason}, moderator ${this.user.tag}`) }
-    catch (err) { return this.editReply(lang('error', err)) }
+    try { await target.disableCommunicationUntil(date.getTime(), `${reason}, moderator ${this.user.tag}`); }
+    catch (err) { return this.editReply(lang('error', err)); }
 
     const embed = new EmbedBuilder({
       title: lang('dmEmbedTitle'),
@@ -61,8 +61,8 @@ module.exports = {
       color: Colors.Red
     });
 
-    try { await target.send({ embeds: [embed] }) }
-    catch { noMsg = true }
+    try { await target.send({ embeds: [embed] }); }
+    catch { noMsg = true; }
 
     embed.data.title = lang('infoEmbedTitle');
     embed.data.description = lang('infoEmbedDescription', { user: target.user.tag, reason, time: Math.round(target.communicationDisabledUntilTimestamp / 1000) });
@@ -70,4 +70,4 @@ module.exports = {
 
     this.editReply({ embeds: [embed] });
   }
-}
+};

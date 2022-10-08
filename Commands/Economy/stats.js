@@ -48,6 +48,6 @@ module.exports = {
         footer: { name: this.user.tag, iconURL: this.member.displayAvatarURL({ forceStatic: true }) },
       });
 
-    this.customReply({ embeds: [embed] })
+    this.customReply({ embeds: [embed] });
   }
-}
+};

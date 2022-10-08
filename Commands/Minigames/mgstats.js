@@ -36,9 +36,9 @@ async function formatTopTen(input, settings, lang) {
   for (const entry of data) {
     try {
       await this.guild.members.fetch(entry[0]);
-      isInGuild = true
+      isInGuild = true;
     }
-    catch { isInGuild = false }
+    catch { isInGuild = false; }
 
     if (!entry[1].wins || (settings != 'all_users' && !isInGuild)) continue;
     if (output.length > 3997) {
@@ -106,7 +106,7 @@ module.exports = {
       game: this.options?.getString('game') || this.args[0].replace(/tictactoe/gi, 'TicTacToe'),
       target: this.options?.getUser('target') || this.mentions?.users.first() || this.user,
       settings: this.options?.getString('settings')
-    }
+    };
     const leaderboards = client.db.get('leaderboards');
 
     stats.data = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == stats.game.toLowerCase())?.[1];
@@ -145,4 +145,4 @@ module.exports = {
 
     this.customReply({ embeds: [embed] });
   }
-}
+};

@@ -47,8 +47,8 @@ module.exports = {
     for (const rawTarget of targets) {
       let target, errorMsg, noMsg;
 
-      try { target = await this.guild.members.fetch(rawTarget) }
-      catch { target = { id: rawTarget } }
+      try { target = await this.guild.members.fetch(rawTarget); }
+      catch { target = { id: rawTarget }; }
 
       if (target.id == this.member.id) errorMsg = lang('cantBanSelf');
       else if (target.roles && target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
@@ -62,9 +62,9 @@ module.exports = {
 
       try {
         if (!target.send) noMsg = true;
-        else await target.send({ embeds: [embed] })
+        else await target.send({ embeds: [embed] });
       }
-      catch { noMsg = true }
+      catch { noMsg = true; }
 
       await this.guild.bans.create(target.id, {
         reason, deleteMessageDays: days
@@ -78,4 +78,4 @@ module.exports = {
 
     this.editReply({ embeds: [resEmbed] });
   }
-}
+};

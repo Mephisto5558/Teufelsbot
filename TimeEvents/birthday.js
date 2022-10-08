@@ -41,16 +41,16 @@ module.exports = {
       for (const entry of userList) {
         let channel, user;
 
-        try { user = await guild.members.fetch(entry[0]) }
+        try { user = await guild.members.fetch(entry[0]); }
         catch (err) {
           if (err.code == 10007) continue;
           else throw err;
         }
 
         if (settings?.ch?.channel) {
-          try { channel = await guild.channels.fetch(settings.ch.channel) }
+          try { channel = await guild.channels.fetch(settings.ch.channel); }
           catch {
-            return (await guild.fetchOwner()).send(`INFO: the channel configured for the birthday feature in guild \`${guild.name}\` does not exist! Please re-configure it so i can send birthday messages!`)
+            return (await guild.fetchOwner()).send(`INFO: the channel configured for the birthday feature in guild \`${guild.name}\` does not exist! Please re-configure it so i can send birthday messages!`);
           }
 
           const embed = new EmbedBuilder({
@@ -79,4 +79,4 @@ module.exports = {
     this.db.set('botSettings', this.db.get('botSettings').fMerge({ lastBirthdayCheck: now }));
     this.log('Finished birthday check');
   }
-}
+};

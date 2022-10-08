@@ -24,4 +24,4 @@ module.exports = {
     this.db.set('botSettings', this.db.get('botSettings').fMerge({ lastFileClear: now }));
     this.log('Finished file deletion');
   }
-}
+};

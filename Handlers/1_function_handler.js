@@ -7,8 +7,8 @@ module.exports = function functionHandler() {
 
     this.functions[functionName] = require(`../Functions/global/${file}`).bind(this);
     this.log(`Loaded Global Function ${functionName}`);
-    functionCount++
+    functionCount++;
   }
 
   this.log(`Loaded ${functionCount} Global Functions\n`);
-}
+};

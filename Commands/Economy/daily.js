@@ -36,4 +36,4 @@ module.exports = {
     embed.data.description = lang('collected', userData.daily);
     this.customReply({ embeds: [embed] });
   }
-}
+};

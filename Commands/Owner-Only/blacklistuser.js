@@ -18,7 +18,7 @@ module.exports = {
       oldData.blacklist = oldData.blacklist.filter(e => e != this.args[1]);
       db.set('botSettings', oldData);
 
-      return this.customReply(lang('removed', this.args[1]))
+      return this.customReply(lang('removed', this.args[1]));
     }
 
     if (this.args[0] == application.owner.id) return this.customReply(lang('cantBlacklistOwner'));
@@ -27,4 +27,4 @@ module.exports = {
     db.set('botSettings', oldData);
     this.customReply(lang('saved', this.args[0]));
   }
-}
+};

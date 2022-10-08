@@ -22,7 +22,7 @@ module.exports = {
           name: lang(`skills.${skill}.name`) + ' ' + lang(`skills.${skill}.emoji`) + ` ${lang('lvl', userSkills[skill].lvl)} | ${lang('price', price)} | ${userSkills[skill].lvlUpCooldown}h <:research:1011960920609665064>`,
           value: lang(`skills.${skill}.description`),
           inline: false
-        }
+        };
       }),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
@@ -73,7 +73,7 @@ module.exports = {
             onCooldownUntil
           }
         }
-      }
+      };
 
       db.set('guildSettings', db.get('guildSettings').fMerge({ [this.guild.id]: { economy: { [this.user.id]: newData } } }));
 
@@ -88,4 +88,4 @@ module.exports = {
     });
 
   }
-}
+};

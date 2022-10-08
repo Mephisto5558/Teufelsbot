@@ -115,7 +115,7 @@ module.exports = {
         selfMute: true,
         adapterCreator: voiceChannel.guild.voiceAdapterCreator
       });
-      try { await entersState(connection, VoiceConnectionStatus.Ready, 20000) }
+      try { await entersState(connection, VoiceConnectionStatus.Ready, 20000); }
       catch {
         embed.data.description = lang('cantConnect');
         return msg.edit({ embeds: [embed] });
@@ -208,7 +208,7 @@ module.exports = {
             });
           }
         }
-      })
-    })
+      });
+    });
   }
-}
+};

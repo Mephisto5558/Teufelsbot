@@ -37,7 +37,7 @@ module.exports = {
       await channel.permissionOverwrites.edit(id,
         { [PermissionFlagsBits.SendMessages]: false },
         { type, reason: `lock command, moderator ${this.user.tag}` }
-      )
+      );
     }
 
     const embed = new EmbedBuilder({
@@ -49,4 +49,4 @@ module.exports = {
     await channel.send({ embeds: [embed] });
     msg.edit(lang('success'));
   }
-}
+};

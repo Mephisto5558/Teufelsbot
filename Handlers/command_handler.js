@@ -10,16 +10,16 @@ module.exports = function commandHandler() {
     ) {
       this.prefixCommands.set(command.name, command);
       this.log(`Loaded Prefix Command ${command.name}`);
-      commandCount++
+      commandCount++;
 
       if (!command.aliases) continue;
       for (const alias of command.aliases.prefix) {
         this.prefixCommands.set(alias, command);
         this.log(`Loaded Alias ${alias} of Prefix Command ${command.name}`);
-        commandCount++
+        commandCount++;
       }
     }
   }
 
   this.log(`Loaded ${commandCount} Prefix Commands\n`);
-}
+};

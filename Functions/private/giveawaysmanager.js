@@ -23,7 +23,7 @@ module.exports = client => {
       client.db.set('giveaways', (client.db.get('giveaways')).filter(e => e.messageId != messageId));
       return true;
     }
-  }
+  };
 
   return new GiveawayManagerWithOwnDatabase(client);
-}
+};

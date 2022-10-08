@@ -14,4 +14,4 @@ module.exports = {
     if (!result) return this.customReply(lang('notFound'));
     this.customReply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```');
   }
-}
+};

@@ -38,4 +38,4 @@ module.exports = {
 
     cloned.send({ embeds: [embed] });
   }
-}
+};

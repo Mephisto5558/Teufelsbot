@@ -48,7 +48,7 @@ module.exports = {
           this.options.getString('suggestion'),
         assignees: [Github.UserName],
         labels: ['enhancement']
-      })
+      });
     }
     catch (err) {
       this.editReply(lang('error', err?.response.statusText));
@@ -63,4 +63,4 @@ module.exports = {
 
     this.editReply({ embeds: [embed] });
   }
-}
+};

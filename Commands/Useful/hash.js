@@ -41,6 +41,6 @@ module.exports = {
     this.editReply({
       content: lang('text', hash),
       embeds: [embed]
-    })
+    });
   }
-}
+};

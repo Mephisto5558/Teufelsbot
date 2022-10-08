@@ -49,4 +49,4 @@ module.exports = {
     await channel.send({ embeds: [embed] });
     msg.edit(lang('success'));
   }
-}
+};

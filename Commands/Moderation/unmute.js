@@ -33,4 +33,4 @@ module.exports = {
     await target.disableCommunicationUntil(null, `${reason}, moderator ${this.user.tag}`);
     this.editReply(lang('success', target.user.tag));
   }
-}
+};

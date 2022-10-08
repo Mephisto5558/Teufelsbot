@@ -20,4 +20,4 @@ module.exports = {
 
     this.customReply({ embeds: [embed] });
   }
-}
+};

@@ -11,9 +11,9 @@ module.exports = {
     const oldData = db.get('guildSettings');
     const setting = oldData[this.guild.id]?.config?.autopublish;
 
-    const newData = oldData.fMerge({ [this.guild.id]: { config: { autopublish: !setting } } })
+    const newData = oldData.fMerge({ [this.guild.id]: { config: { autopublish: !setting } } });
     db.set('guildSettings', newData);
 
     this.customReply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));
   }
-}
+};

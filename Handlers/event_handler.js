@@ -9,8 +9,8 @@ module.exports = function eventHandler() {
 
     this.on(eventName, args => event.call(...[].concat(args ?? this)));
     this.log(`Loaded Event ${eventName}`);
-    eventCount++
+    eventCount++;
   }
 
   this.log(`Loaded ${eventCount} Events\n`);
-}
+};

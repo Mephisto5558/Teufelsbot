@@ -31,4 +31,4 @@ module.exports = {
 
     this.showModal(modal);
   }
-}
+};

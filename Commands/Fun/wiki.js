@@ -66,7 +66,7 @@ module.exports = {
         else {
           this.customReply(joined);
           joined = `${paragraph}\n`;
-          i++
+          i++;
         }
       }
 
@@ -76,4 +76,4 @@ module.exports = {
       this.customReply(lang('error', err.message));
     }
   }
-}
+};

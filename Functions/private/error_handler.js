@@ -74,4 +74,4 @@ module.exports = async function (err, message, lang) {
     comp.components[0].setDisabled(true);
     msg.edit({ embeds: [embed], components: [comp] });
   });
-}
+};

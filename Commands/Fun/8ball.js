@@ -14,5 +14,5 @@ module.exports = {
     required: true
   }],
 
-  run: function (lang) { this.customReply(this instanceof Message && !this.content ? lang('noQuestion') : lang('responseList')) }
-}
+  run: function (lang) { this.customReply(this instanceof Message && !this.content ? lang('noQuestion') : lang('responseList')); }
+};

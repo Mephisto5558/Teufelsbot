@@ -7,5 +7,5 @@ module.exports = {
   slashCommand: false,
   prefixCommand: true,
 
-  run: function (lang) { this.customReply(lang('responseList', this.member.displayName)) }
-}
+  run: function (lang) { this.customReply(lang('responseList', this.member.displayName)); }
+};
