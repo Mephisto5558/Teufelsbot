@@ -6,7 +6,7 @@ module.exports = async function messageCreate() {
   let prefixLength;
   if (this.channel.type == ChannelType.DM) return;
 
-  const { blacklist } = this.client.db.get('botSettings');
+  const { blacklist, stats = {} } = this.client.db.get('botSettings');
   if (blacklist?.includes(this.author.id)) return;
 
   const { config, triggers, economy } = this.client.db.get('guildSettings')[this.guild.id] || {};
@@ -18,13 +18,16 @@ module.exports = async function messageCreate() {
 
   this.content = this.content.replaceAll('<@!', '<@');
 
-  if (this.client.botType != 'dev')
-    for (const trigger of triggers?.filter(e => this.content?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
-      this.customReply(trigger.response);
+  const runTriggers = () => {
+    if (this.client.botType != 'dev')
+      for (const trigger of triggers?.filter(e => this.content?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
+        this.customReply(trigger.response);
+  };
 
   if (this.content.startsWith(config?.prefix?.caseinsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
   else if (this.content.startsWith(`<@${this.client.user.id}>`)) prefixLength = this.client.user.id.length + 3;
   else {
+    runTriggers();
     const eco = economy?.[this.author.id];
     if (
       economy?.enable && eco?.gaining?.chat && eco.currency < eco.currencyCapacity &&
@@ -52,7 +55,7 @@ module.exports = async function messageCreate() {
   if (!command && this.client.slashCommands.get(this.commandName)) return this.customReply(I18nProvider.__({ locale: config?.lang || this.guild.preferredLocale.slice(0, 2) }, 'events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
     !command || (command.category.toLowerCase() == 'owner-only' && this.author.id != this.client.application.owner.id)
-  ) return;
+  ) return runTriggers();
 
   const lang = I18nProvider.__.bind(I18nProvider, { locale: config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
@@ -79,6 +82,7 @@ module.exports = async function messageCreate() {
     return this.reply({ embeds: [embed] });
   }
 
-  try { await command.run.call(this, lang, this.client) }
-  catch (err) { require('../Functions/private/error_handler.js').call(this.client, err, this, lang) }
-}
+  command.run.call(this, lang, this.client)
+    .then(() => this.client.db.set('botSettings', this.client.db.get('botSettings').fMerge({ stats: { [command.name]: stats[command.name] + 1 || 1 } })))
+    .catch(err => require('../Functions/private/error_handler.js').call(this.client, err, this, lang));
+};

@@ -6,7 +6,7 @@ async function reloadCommand(commandName, path, reloadedArray) {
   delete require.cache[require.resolve(path)];
   const file = require(path);
 
-  if (this.botType == 'dev' ? !file.beta : file.disabled) return;
+  if ((this.botType == 'dev' && !file.beta) || file.disabled) return;
 
   if (file.prefixCommand) {
     this.prefixCommands.set(commandName, file);
@@ -68,8 +68,8 @@ module.exports = {
         else await reloadCommand.call(client, command.slice(0, -3), path, reloadedArray);
       }
     }
-    catch (err) { errorMsg = lang('error', err.message) }
+    catch (err) { errorMsg = lang('error', err.message); }
 
     this.customReply(errorMsg || (!reloadedArray.length ? lang('noneReloaded') : lang('reloaded', { count: reloadedArray.length, commands: reloadedArray.join('`, `') })));
   }
-}
+};

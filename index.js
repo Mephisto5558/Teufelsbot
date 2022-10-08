@@ -38,13 +38,14 @@ console.time('Starting time');
   require('./Functions/private/gitpull')();
 
   const client = new Client({
+    shards: 'auto',
+    failIfNotExists: false,
     allowedMentions: {
       parse: [
         AllowedMentionsTypes.User,
         AllowedMentionsTypes.Role
       ]
     },
-    shards: 'auto',
     intents: [
       GatewayIntentBits.Guilds,
       GatewayIntentBits.GuildMembers,

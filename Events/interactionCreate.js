@@ -4,7 +4,7 @@ const
 
 module.exports = async function interactionCreate() {
   const command = this.client.slashCommands.get(this.commandName);
-  const { blacklist } = this.client.db.get('botSettings');
+  const { blacklist, stats = {} } = this.client.db.get('botSettings');
 
   if (
     !command || blacklist?.includes(this.user.id) ||
@@ -55,7 +55,8 @@ module.exports = async function interactionCreate() {
     for (const entry of this.options._hoistedOptions)
       if (entry.type == ApplicationCommandOptionType.String) entry.value = entry.value.replaceAll('<@!', '<@');
 
-    try { await command.run.call(this, lang, this.client) }
-    catch (err) { require('../Functions/private/error_handler.js').call(this.client, err, this, lang) }
+    command.run.call(this, lang, this.client)
+      .then(() => this.client.db.set('botSettings', this.client.db.get('botSettings').fMerge({ stats: { [command.name]: stats[command.name] + 1 || 1 } })))
+      .catch(err => require('../Functions/private/error_handler.js').call(this.client, err, this, lang));
   }
-}
+};
