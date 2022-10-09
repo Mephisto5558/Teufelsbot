@@ -25,7 +25,7 @@
   },
   "globalsync": {
     "description": "Synchronisiert die Slash Commands des Bots mit allen Servern",
-    "success": "Synchronisiertung beendet."
+    "success": "Synchronisierung beendet."
   },
   "reload": {
     "description": "Läd einen Command oder eine Kategorie neu",
