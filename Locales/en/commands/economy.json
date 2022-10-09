@@ -36,7 +36,6 @@
           }
         }
       },
-      "confirmation": "clear all",
       "admin": {
         "description": "Configure the economy in this guild",
         "options": {
@@ -82,6 +81,7 @@
         }
       }
     },
+    "confirmation": "clear all",
     "user": {
       "start": {
         "alreadyInitiated": "You have run this command already! You can use the economy.",

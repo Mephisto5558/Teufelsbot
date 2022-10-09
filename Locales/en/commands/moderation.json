@@ -65,7 +65,6 @@
   },
   "mute": {
     "description": "Timeouts a member for a given time (default: 1h).",
-    "usage": "Duration options: you need to provide at least one.",
     "options": {
       "target": {
         "description": "Who do you want to mute?"

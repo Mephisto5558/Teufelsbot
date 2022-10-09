@@ -165,6 +165,7 @@
     },
     "guildOwner": "Server Eigentümer",
     "guildAdmin": "Server Administrator",
+    "admin": "`Administrator`",
     "guildMod": "Server Moderator",
     "guildMember": "Server Mitglied",
     "mention": "Erwähnung",
