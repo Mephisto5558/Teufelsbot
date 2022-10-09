@@ -40,7 +40,7 @@
     "dmEmbedDescription": "Du wurdest von `{guild}` gekickt.\nModerator: {mod}\nBegründung: {reason}",
     "infoEmbedTitle": "Kick",
     "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
-    "cantBanSelf": "Du kannst dich selbst nicht kicken!",
+    "cantKickSelf": "Du kannst dich selbst nicht kicken!",
     "noneFound": "Kein Ziel wurde gefunden.",
     "noPerm": "{IYou} habe/hast keine Berechtigung dazu!",
     "error": "Ich konnte **{user}** nicht kicken.\n{err}\n",
@@ -65,7 +65,6 @@
   },
   "mute": {
     "description": "Timeouted ein Mitglied für eine bestimmte Zeit (default: 1h).",
-    "usage": "",
     "options": {
       "target": {
         "description": "Wen du timeouten möchtest"
