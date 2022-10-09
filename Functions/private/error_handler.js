@@ -70,7 +70,7 @@ module.exports = async function (err, message, lang) {
     }
   });
 
-  collector.on('end', _ => {
+  collector.on('end', () => {
     comp.components[0].setDisabled(true);
     msg.edit({ embeds: [embed], components: [comp] });
   });

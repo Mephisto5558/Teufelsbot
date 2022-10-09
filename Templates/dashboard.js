@@ -12,7 +12,7 @@ module.exports = {
 
   type: types.input(),
   
-  auth: async _ => {
+  auth: async () => {
 
   }
 }
