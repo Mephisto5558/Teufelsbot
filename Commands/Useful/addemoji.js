@@ -31,7 +31,7 @@ module.exports = {
     const
       limitToRoles = this.options.getString('limit_to_roles')?.split(' ').map(e => e.replace(/\D/g, '')).filter(e => this.guild.roles.cache.has(e)),
       emoticon = parseEmoji(input),
-      name = this.options.getString('name')?.slice(0, 32) || emoticon.id ? emoticon.name : 'emoji',
+      name = this.options.getString('name')?.slice(0, 32) || (emoticon.id ? emoticon.name : 'emoji'),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         color: Colors.Green
