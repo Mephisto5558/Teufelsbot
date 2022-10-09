@@ -299,7 +299,7 @@
         "description": "Die Art der Bildbearbeitung, die du nutzen möchtest. Lasse dies leer um alle Möglichkeiten zu sehen."
       }
     },
-    "notFound": "Das ist keine gültige Option.",
+    "notFound": "Das ist keine gültige Option. ",
     "validOptions": "Mögliche Optionen sind:\n`{options}`",
     "requiresArgs": "Dieser Command benötigt folgende Argumente in Reihenfolge:\n\n{args}",
     "error": "Ein Fehler ist aufgetreten:\n```{err}```"
