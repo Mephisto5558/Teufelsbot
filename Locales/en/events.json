@@ -1,6 +1,7 @@
 {
   "cooldown": "This command is on cooldown! Try it again in `{time}`s.",
-  "slashCommandOnly": "This command is only as a slash command available!",
+  "slashCommandOnly": "This command is only available as a slash command!",
+  "guildCommandOnly": "This command is only available in guilds!",
   "permissionDenied": {
     "embedTitle": "Insufficient Permissions",
     "embedDescription": "{IYou} need the following permissions in this channel to run this command:\n`{permissions}`"

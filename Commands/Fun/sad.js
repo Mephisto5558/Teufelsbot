@@ -8,6 +8,7 @@ module.exports = {
   category: 'Fun',
   slashCommand: false,
   prefixCommand: true,
+  dmPermission: true,
 
   run: function () { this.customReply(responseList.random()); }
 };

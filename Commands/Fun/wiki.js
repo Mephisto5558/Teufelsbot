@@ -14,6 +14,7 @@ module.exports = {
   category: 'Fun',
   slashCommand: true,
   prefixCommand: true,
+  dmPermission: true,
   options: [{
     name: 'query',
     type: 'String',

@@ -21,6 +21,7 @@ module.exports = {
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
+  dmPermission: true,
   ephemeralDefer: true,
   options: [{
     name: 'command',

@@ -6,6 +6,7 @@ module.exports = {
   category: '',
   slashCommand: true,
   prefixCommand: true,
+  dmPermission: false,
   disabled: false,
   hideInHelp: false,
   noDefer: false,

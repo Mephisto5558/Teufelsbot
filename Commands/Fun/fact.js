@@ -8,6 +8,7 @@ module.exports = {
   category: 'Fun',
   slashCommand: true,
   prefixCommand: true,
+  dmPermission: true,
 
   run: async function (_, { keys }) {
     const res = await get('https://api.api-ninjas.com/v1/facts', {
