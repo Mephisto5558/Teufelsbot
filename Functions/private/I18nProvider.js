@@ -77,10 +77,18 @@ class I18nProvider {
       );
     }, {});
   }
+
+  findMissing() {
+    const defaultKeys = Object.keys(this.localeData[this.config.defaultLocale]);
+    const missing = {};
+
+    for (const lang of this.availableLocales.keys()) missing[lang] = defaultKeys.filter(k => !this.localeData[lang][k]);
+    return Object.fromEntries(Object.entries(missing).filter(([, e]) => e.length));
+  }
 }
 
 const provider = new I18nProvider({
-  defaultLocale: 'en', notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: path.join(__dirname, '../../Locales')
+  notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: path.join(__dirname, '../../Locales')
 });
 
 module.exports = provider;
