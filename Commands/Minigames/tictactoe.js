@@ -58,7 +58,7 @@ if (!TicTacToe.prototype.playAgain) TicTacToe.prototype.playAgain = async functi
 
     if (this.options._hoistedOptions[0]?.user) {
       const msg = await this.channel.send(lang('newChallenge', this.options._hoistedOptions[0].user.id));
-      setTimeout(_ => msg.delete(), 5000);
+      setTimeout(() => msg.delete(), 5000);
     }
 
     game.handleInteraction(this);
@@ -117,7 +117,7 @@ module.exports = {
 
     if (gameTarget) {
       const msg = await this.channel.send(lang('newChallenge', gameTarget.id));
-      setTimeout(_ => msg.delete(), 5000);
+      setTimeout(() => msg.delete(), 5000);
     }
 
     game.handleInteraction(this);
