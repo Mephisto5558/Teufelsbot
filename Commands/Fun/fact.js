@@ -1,4 +1,4 @@
-const { get } = require('axios').default;
+const { get } = require('axios');
 
 module.exports = {
   name: 'fact',
