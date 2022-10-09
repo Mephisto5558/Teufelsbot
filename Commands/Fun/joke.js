@@ -1,6 +1,6 @@
 const
   { EmbedBuilder } = require('discord.js'),
-  { get } = require('axios').default,
+  { get } = require('axios'),
   { Github } = require('../../config.json'),
   defaultAPIList = [
     { name: 'jokeAPI', url: 'https://v2.jokeapi.dev' },

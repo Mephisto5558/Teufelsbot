@@ -1,6 +1,6 @@
 const
   { parseEmoji, EmbedBuilder, Colors } = require('discord.js'),
-  { head } = require('axios').default;
+  { head } = require('axios');
 
 module.exports = {
   name: 'addemoji',
