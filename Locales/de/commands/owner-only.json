@@ -36,7 +36,7 @@
     "validCommandList": "Gültige Commands in dieser Kategorie sind:\n`{commands}`, `*`",
     "error": "Ein Fehler ist aufgetreten.\n```{err}```",
     "noneReloaded": "Keine Commands wurden neu geladen.",
-    "reloaded": "Die folgenden `{count}` Command wurden neu geladen:\n`{commands}`"
+    "reloaded": "Die folgenden `{count}` Commands wurden neu geladen:\n`{commands}`"
   },
   "reloaddb": {
     "description": "Läd die Database neu.",
