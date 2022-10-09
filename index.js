@@ -52,9 +52,11 @@ console.time('Starting time');
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.GuildMessageReactions,
       GatewayIntentBits.GuildVoiceStates,
-      GatewayIntentBits.MessageContent
+      GatewayIntentBits.MessageContent,
+      GatewayIntentBits.DirectMessages
     ],
     partials: [
+      Partials.Channel,
       Partials.Message,
       Partials.Reaction
     ]

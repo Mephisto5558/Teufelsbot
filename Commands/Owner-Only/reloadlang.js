@@ -8,6 +8,7 @@ module.exports = {
   category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
+  dmPermission: true,
   beta: true,
 
   run: function (lang, { log }) {

@@ -4,17 +4,18 @@ const
 
 module.exports = async function messageCreate() {
   let prefixLength;
-  if (this.channel.type == ChannelType.DM) return;
 
+  const defaultSettings = this.client.db.get('guildSettings').default;
   const { blacklist, stats = {} } = this.client.db.get('botSettings');
   if (blacklist?.includes(this.author.id)) return;
 
-  const { config, triggers, economy } = this.client.db.get('guildSettings')[this.guild.id] || {};
+  const { config, triggers, economy } = this.client.db.get('guildSettings')[this.guild?.id] || {};
+  const locale = config?.lang || this.guild?.preferredLocale.slice(0, 2) || defaultSettings.config.lang;
 
   if (this.crosspostable && config?.autopublish) this.crosspost();
   if (this.author.bot) return;
 
-  const guildPrefix = config?.prefix?.prefix || this.client.db.get('guildSettings').default.config.prefix;
+  const guildPrefix = config?.prefix?.prefix || defaultSettings.config.prefix;
 
   this.content = this.content.replaceAll('<@!', '<@');
 
@@ -30,9 +31,9 @@ module.exports = async function messageCreate() {
     runTriggers();
     const eco = economy?.[this.author.id];
     if (
-      economy?.enable && eco?.gaining?.chat && eco.currency < eco.currencyCapacity &&
-      this.content.length > (economy.config?.gaining?.chat?.min_message_length ?? this.client.db.get('guildSettings').default.economy.gaining.chat.min_message_length) &&
-      this.content.length < (economy.config?.gaining?.chat?.max_message_length ?? this.client.db.get('guildSettings').default.economy.gaining.chat.max_message_length) &&
+      this.channel.type != ChannelType.DM && economy?.enable && eco?.gaining?.chat && eco.currency < eco.currencyCapacity &&
+      this.content.length > (economy.config?.gaining?.chat?.min_message_length ?? defaultSettings.economy.gaining.chat.min_message_length) &&
+      this.content.length < (economy.config?.gaining?.chat?.max_message_length ?? defaultSettings.economy.gaining.chat.max_message_length) &&
       !(economy.config.blacklist?.channel?.includes(this.channel.id) || economy.config.blacklist?.users?.includes(this.user.id) || this.member.roles.cache.hasAny(economy.config.blacklist?.roles)) &&
       !(await require('../Functions/private/cooldowns.js').call(this, { name: 'economy', cooldowns: { user: 20000 } }))
     ) {
@@ -52,12 +53,13 @@ module.exports = async function messageCreate() {
 
   const command = this.client.prefixCommands.get(this.commandName);
 
-  if (!command && this.client.slashCommands.get(this.commandName)) return this.customReply(I18nProvider.__({ locale: config?.lang || this.guild.preferredLocale.slice(0, 2) }, 'events.slashCommandOnly'));
+  if (!command && this.client.slashCommands.get(this.commandName)) return this.customReply(I18nProvider.__({ locale }, 'events.slashCommandOnly'));
+  if (!command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply(I18nProvider.__({ locale }, 'events.guildCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
     !command || (command.category.toLowerCase() == 'owner-only' && this.author.id != this.client.application.owner.id)
   ) return runTriggers();
 
-  const lang = I18nProvider.__.bind(I18nProvider, { locale: config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
+  const lang = I18nProvider.__.bind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
   const cooldown = await require('../Functions/private/cooldowns.js').call(this, command);
   if (cooldown && !this.client.botType == 'dev') return this.customReply(lang('events.cooldown', cooldown));

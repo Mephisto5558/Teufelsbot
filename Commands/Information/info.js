@@ -11,6 +11,7 @@ module.exports = {
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
+  dmPermission: true,
 
   run: function (lang, client) {
     const

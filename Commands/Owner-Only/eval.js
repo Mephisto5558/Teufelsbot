@@ -6,6 +6,7 @@ module.exports = {
   category: 'Owner-Only',
   prefixCommand: true,
   slashCommand: false,
+  dmPermission: true,
   beta: true,
 
   run: async function (lang) {
