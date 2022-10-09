@@ -80,7 +80,7 @@ module.exports = {
       button.editReply(lang('success', { skill: lang(`skills.${skill}.name`), emoji: lang(`skills.${skill}.emoji`), lvl: newData.skills[skill].lvl, time: Math.round(onCooldownUntil / 1000) }));
     });
 
-    collector.on('end', _ => {
+    collector.on('end', () => {
       component.components[0].data.disabled = true;
       component.components[0].data.placeholder = lang('timedOut');
 

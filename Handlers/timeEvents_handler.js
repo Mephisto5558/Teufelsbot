@@ -10,7 +10,7 @@ module.exports = async function timeEventsHandler() {
   for (const file of readdirSync('./TimeEvents').filter(e => e.endsWith('.js'))) {
     const job = require(`../TimeEvents/${file}`);
 
-    new CronJob(job.time, _ => job.onTick.call(this), job.onComplete?.bind(this), true, job.timeZone, this, job.startNow, job.utcOffset);
+    new CronJob(job.time, () => job.onTick.call(this), job.onComplete?.bind(this), true, job.timeZone, this, job.startNow, job.utcOffset);
     this.log(`Loaded Cron Job ${file}`);
   }
 };

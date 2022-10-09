@@ -74,7 +74,7 @@ module.exports = {
       if (collected.size == targets.length) collector.stop();
     });
 
-    collector.on('end', async _ => {
+    collector.on('end', async () => {
       if (!allowed.size) {
         embed.data.description = lang('denied');
         return msg.edit({ content: '', embeds: [embed], components: [] });

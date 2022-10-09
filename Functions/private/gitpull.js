@@ -2,7 +2,7 @@ const exec = require('util').promisify(require('child_process').exec);
 
 console.log('Git auto pull is running');
 
-module.exports = async _ => {
+module.exports = async () => {
   let data;
 
   try { data = await exec('git pull', { maxBuffer: 1024 * 600 }); }

@@ -33,7 +33,7 @@ module.exports = {
           { name: lang('roles'), value: `\`${guild.roles.cache.size}\``, inline: true },
           { name: lang('boosts'), value: `\`${guild.premiumSubscriptionCount}\`${guild.premiumTier ? ', ' + GuildPremiumTier[guild.premiumTier].replace(/(\d)/, ' $1') : ''}`, inline: true },
           {
-            name: lang('channels'), value: (_ => {
+            name: lang('channels'), value: (() => {
               const sorted = {};
               channels.map(({ type }) => sorted[type] = sorted[type] ? sorted[type] + 1 : 1);
               return Object.entries(sorted).map(([k, v]) => `${ChannelType[k].replace('Guild', '')} ${lang('channels')}: \`${v}\``).join(', ');
