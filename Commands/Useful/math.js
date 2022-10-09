@@ -10,6 +10,7 @@ module.exports = {
   category: 'Useful',
   slashCommand: true,
   prefixCommand: true,
+  dmPermission: true,
   options: [{
     name: 'expression',
     type: 'String',

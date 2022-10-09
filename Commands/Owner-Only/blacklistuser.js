@@ -6,6 +6,7 @@ module.exports = {
   category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
+  dmPermission: true,
 
   run: function (lang, { db, application }) {
     if (!this.args[0]) return;

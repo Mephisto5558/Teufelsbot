@@ -8,6 +8,7 @@ module.exports = {
   category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
+  dmPermission: true,
 
   run: async function (lang, client) {
     const args = this.content.split(';');

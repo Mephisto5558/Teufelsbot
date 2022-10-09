@@ -86,6 +86,7 @@ module.exports = {
   cooldowns: { guild: 100, user: 0 },
   slashCommand: true,
   prefixCommand: true,
+  dmPermission: true,
   category: 'Fun',
   options: [
     { name: 'type', type: 'String' },

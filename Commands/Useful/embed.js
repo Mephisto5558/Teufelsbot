@@ -12,6 +12,7 @@ module.exports = {
   category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
+  dmPermission: true,
   ephemeralDefer: true,
   options: [
     {

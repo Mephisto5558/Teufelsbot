@@ -8,6 +8,7 @@ module.exports = {
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
+  dmPermission: true,
   options: [{ name: 'average', type: 'Boolean' }],
 
   run: async function (lang, { ws, functions }) {

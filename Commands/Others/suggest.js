@@ -12,6 +12,7 @@ module.exports = {
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,
+  dmPermission: true,
   options: [
     {
       name: 'title',
