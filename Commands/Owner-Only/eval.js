@@ -13,10 +13,13 @@ module.exports = {
     if (!this.content) return;
 
     const msg = lang('finished', this.content);
+    const err = err => this.customReply(lang('error', { msg, name: err.name, err: err.message }));
 
-    Promise.resolve(eval(`(async () => { ${this.content} })()`))
-      .then(() => this.customReply(lang('success', msg)))
-      .catch(err => this.customReply(lang('error', { msg, name: err.name, err: err.message })));
+    try {
+      Promise.resolve(eval(`(async () => { ${this.content} })()`))
+        .then(() => this.customReply(lang('success', msg)))
+        .catch(err);
+    } catch (error) { err(error); };
 
     this.client.log(`evaluated command '${this.content}'`);
   }
