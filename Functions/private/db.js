@@ -24,7 +24,7 @@ module.exports = class DB {
   }
 
   async fetch(key) {
-    this.collection.set(key, await this.schema.find({ key }));
+    this.collection.set(key, (await this.schema.find({ key })).value);
     return this.collection.get(key);
   }
 
