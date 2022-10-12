@@ -3,6 +3,7 @@ const
   { Collection } = require('discord.js');
 
 module.exports = class DB {
+  /** @param {string}dbConnectionString MongoDB connection string*/
   constructor(dbConnectionString) {
     if (Mongoose.connection.readyState !== 1) {
       if (!dbConnectionString) throw new Error('A Connection String is required!');
@@ -11,21 +12,26 @@ module.exports = class DB {
 
     this.fetchAll();
   }
+
   schema = Mongoose.model('db-collection', new Mongoose.Schema({
     key: String,
     value: Mongoose.SchemaTypes.Mixed
   }));
 
+  /**Cache*/
   collection = new Collection();
 
+  /** @returns {DB}DB*/
   async fetchAll() {
-    for (const { key, value } of await this.schema.find({})) this.collection.set(key, value);
+    for (const { key, value } of await this.schema.find()) this.collection.set(key, value);
     return this;
   }
 
+  /** @returns value of collection*/
   async fetch(key) {
-    this.collection.set(key, (await this.schema.find({ key })).value);
-    return this.collection.get(key);
+    const { value } = await this.schema.findOne({ key }) || {};
+    this.collection.set(key, value);
+    return value;
   }
 
   get = key => this.collection.get(key);
