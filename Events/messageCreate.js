@@ -53,8 +53,8 @@ module.exports = async function messageCreate() {
 
   const command = this.client.prefixCommands.get(this.commandName);
 
+  if (command && !command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply(I18nProvider.__({ locale }, 'events.guildCommandOnly'));
   if (!command && this.client.slashCommands.get(this.commandName)) return this.customReply(I18nProvider.__({ locale }, 'events.slashCommandOnly'));
-  if (!command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply(I18nProvider.__({ locale }, 'events.guildCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
     !command || (command.category.toLowerCase() == 'owner-only' && this.author.id != this.client.application.owner.id)
   ) return runTriggers();
