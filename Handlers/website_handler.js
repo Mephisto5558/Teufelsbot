@@ -6,6 +6,14 @@ const
   gitpull = require('../Functions/private/gitpull.js'),
   lang = I18nProvider.__.bind(I18nProvider, { locale: 'en', undefinedNotFound: true });
 
+function validate(key, res, WebsiteKey) {
+  if (key != WebsiteKey) {
+    res.status(403).send('You need to provide a valid "key" url parameter to access this information.');
+    return false;
+  }
+  return true;
+}
+
 async function getCommands() {
   const categoryCommandList = [];
 
@@ -49,11 +57,20 @@ module.exports = function websiteHandler() {
       max: 10, // 10 per sec
       message: '<body style="background-color:#000; color: #ff0000"><p style="text-align: center;top: 50%;position: relative;font-size: 40;">Sorry, you have been ratelimited!</p></body>'
     }))
-    .get('/', (_, res) => res.sendStatus(200))
-    .get('/commands', async (req, res) => {
-      if (req.query.key != this.keys.WebsiteKey) return res.status(403).send('You need to provide a valid "key" url parameter to access this information.');
-      return res.send(await (req.query.fetch ? getCommands() : commands));
+    .all('*', async (req, res) => {
+      switch (req.path) {
+        case '/commands': {
+          if (validate(req.query.key, res, this.keys.WebsiteKey)) return res.send(await (req.query.fetch ? getCommands() : commands));
+          break;
+        }
+        case '/reloadDB': {
+          if (validate(req.query.key, res, this.keys.WebsiteKey)) this.db.fetch(req.query.db);
+          return res.sendStatus(200);
+        }
+        case '/git/pull': return res.send(await gitpull());
+        case '/': return res.sendStatus(200);
+        default: res.sendStatus(404);
+      }
     })
-    .all('/git/pull', async (_, res) => res.send(await gitpull()))
     .listen(process.env.PORT ?? process.env.SERVER_PORT ?? 8000);
 };
