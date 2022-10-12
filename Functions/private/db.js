@@ -23,6 +23,11 @@ module.exports = class DB {
     return this;
   }
 
+  async fetch(key) {
+    this.collection.set(key, await this.schema.find({ key }));
+    return this.collection.get(key);
+  }
+
   get = key => this.collection.get(key);
 
   set(key, value) {
