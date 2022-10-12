@@ -64,7 +64,8 @@ module.exports = function websiteHandler() {
           break;
         }
         case '/reloadDB': {
-          if (validate(req.query.key, res, this.keys.WebsiteKey)) this.db.fetch(req.query.db);
+          if (!validate(req.query.key, res, this.keys.WebsiteKey)) return;
+          this.db.fetch(req.query.db);
           return res.sendStatus(200);
         }
         case '/git/pull': return res.send(await gitpull());
