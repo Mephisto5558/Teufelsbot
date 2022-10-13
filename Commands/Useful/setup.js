@@ -32,11 +32,9 @@ module.exports = {
       case 'toggle_module': {
         const
           module = this.options.getString('module'),
-          oldData = client.db.get('guildSettings'),
-          setting = oldData[this.guild.id]?.[module]?.enable,
-          newData = oldData.fMerge({ [this.guild.id]: { [module]: { enable: !setting } } });
+          setting = client.db.get('guildSettings')[this.guild.id]?.[module]?.enable;
 
-        client.db.set('guildSettings', newData);
+        client.db.update('guildSettings', `${this.guild.id}.${module}.enable`, !setting);
         return this.editReply(lang('toggledModule', { name: module, state: setting ? lang('global.disabled') : lang('global.enabled') }));
       }
     }

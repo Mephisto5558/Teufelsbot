@@ -30,8 +30,7 @@ module.exports = {
     if (channel.permissionOverwrites.resolve(this.guild.roles.everyone.id)?.allow.has(PermissionFlagsBits.SendMessages))
       overwrites[this.guild.roles.everyone.id] = OverwriteType.Role;
 
-    db.set('guildSettings', db.get('guildSettings').fMerge({ [this.guild.id]: { lockedChannels: { [channel.id]: overwrites } } }));
-
+    db.update('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`, overwrites);
 
     for (const [id, type] of Object.entries(overwrites)) {
       await channel.permissionOverwrites.edit(id,

@@ -74,7 +74,7 @@ module.exports = {
           message = lang('toggle.saved', { user: targetName, state: target == '*' ? lang('toggle.targetAll.saved') : lang('toggle.targetOne.isnt', targetName) });
         }
 
-        db.set('userSettings', oldData.fMerge({ [this.user.id]: userBlacklist }));
+        db.update('userSettings', this.user.id, userBlacklist);
 
         this.editReply(message);
         break;

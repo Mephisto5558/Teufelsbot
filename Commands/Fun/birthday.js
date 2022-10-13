@@ -71,17 +71,14 @@ module.exports = {
 
     switch (cmd) {
       case 'set': {
-        const newData = oldData.fMerge({ [this.user.id]: { birthday: birthday.join('/') } });
-        db.set('userSettings', newData);
+        db.update('userSettings', `${this.user.id}.birthday`, birthday.join('/'));
 
         this.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
         break;
       }
 
       case 'remove': {
-        delete oldData[this.user.id].birthday;
-
-        db.set('userSettings', oldData);
+        db.update('userSettings', `${this.user.id}.birthday`, undefined);
 
         this.editReply(lang('removed'));
         break;

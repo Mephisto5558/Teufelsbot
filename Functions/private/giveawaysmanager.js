@@ -12,7 +12,7 @@ module.exports = client => {
     }
 
     editGiveaway(messageId, giveawayData) {
-      const data = (client.db.get('giveaways')).filter(e => e.messageId != messageId);
+      const data = client.db.get('giveaways').filter(e => e.messageId != messageId);
       data.push(giveawayData);
 
       client.db.set('giveaways', data);
@@ -20,7 +20,7 @@ module.exports = client => {
     }
 
     deleteGiveaway(messageId) {
-      client.db.set('giveaways', (client.db.get('giveaways')).filter(e => e.messageId != messageId));
+      client.db.set('giveaways', client.db.get('giveaways').filter(e => e.messageId != messageId));
       return true;
     }
   };

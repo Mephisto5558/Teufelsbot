@@ -37,8 +37,7 @@ module.exports = {
       );
     }
 
-    delete oldData[this.guild.id].lockedChannels[channel.id];
-    db.set('guildSettings', oldData);
+    db.update('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`, undefined);
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),

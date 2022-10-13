@@ -22,16 +22,10 @@ module.exports = {
       return this.customReply({ embeds: [embed] }, 30000);
     }
 
-    db.set('userSettings', db.get('guildSettings').fMerge({
-      [this.guild.id]: {
-        economy: {
-          [this.user.id]: {
-            currency: userData.currency + userData.gaining.daily,
-            dailyStreak: userData.dailyStreak + 1
-          }
-        }
-      }
-    }));
+    db.update('userSettings', `${this.guild.id}.economy.${this.user.id}`, {
+      currency: userData.currency + userData.gaining.daily,
+      dailyStreak: userData.dailyStreak + 1
+    });
 
     embed.data.description = lang('collected', userData.daily);
     this.customReply({ embeds: [embed] });
