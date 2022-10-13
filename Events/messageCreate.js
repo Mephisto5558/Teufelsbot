@@ -39,9 +39,7 @@ module.exports = async function messageCreate() {
     ) {
       const currency = parseFloat((eco.currency + eco.gaining.chat + eco.skills.currency_bonus_absolute.lvl ** 2 + eco.gaining.chat * eco.skills.currency_bonus_percentage.lvl ** 2 / 100).limit(0, eco.currencyCapacity).toFixed(3));
 
-      this.client.db.set('guildSettings', this.client.db.get('guildSettings').fMerge({
-        [this.guild.id]: { economy: { [this.author.id]: { currency } } }
-      }));
+      this.client.db.update('guildSettings', `${this.guild.id}.economy.${this.author.id}`, { currency });
     }
     return;
   }
@@ -85,6 +83,6 @@ module.exports = async function messageCreate() {
   }
 
   command.run.call(this, lang, this.client)
-    .then(() => this.client.db.set('botSettings', this.client.db.get('botSettings').fMerge({ stats: { [command.name]: stats[command.name] + 1 || 1 } })))
+    .then(() => this.client.db.update('botSettings', `stats.${command.name}`, stats[command.name] + 1 || 1))
     .catch(err => require('../Functions/private/error_handler.js').call(this.client, err, this, lang));
 };

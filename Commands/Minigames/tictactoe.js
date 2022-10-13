@@ -84,15 +84,11 @@ function updateStats(firstID, secondID, type, { db }) {
     case 'draw': against = 'drewAgainst';
   }
 
-  db.set('leaderboards', db.get('leaderboards').fMerge({
-    TicTacToe: {
-      [firstID]: {
-        games: stats.games + 1 || 1,
-        [`${type}s`]: stats[`${type}s`] + 1 || 1,
-        [against]: { [secondID]: stats[against]?.[secondID] + 1 || 1 }
-      }
-    }
-  }));
+  db.update('leaderboards', `TicTacToe.${firstID}`, {
+    games: stats.games + 1 || 1,
+    [`${type}s`]: stats[`${type}s`] + 1 || 1,
+    [against]: { [secondID]: stats[against]?.[secondID] + 1 || 1 }
+  });
 }
 
 module.exports = {

@@ -57,7 +57,7 @@ module.exports = {
       oldData = settings[this.guild.id]?.triggers || [],
       query = this.options.getString('query')?.toLowerCase();
 
-    let id = this.options.getNumber('id'), newData;
+    let id = this.options.getNumber('id');
 
     switch (this.options.getSubcommand()) {
       case 'add': {
@@ -68,8 +68,7 @@ module.exports = {
           wildcard: this.options.getBoolean('wildcard') !== false
         };
 
-        newData = settings.fMerge({ [this.guild.id]: { triggers: [data] } }, 'push');
-        db.set('guildSettings', newData);
+        db.update('guildSettings', `${this.guild.id}.triggers`, [...oldData, data]);
 
         this.editReply(lang('saved', data.trigger));
         break;
@@ -81,8 +80,7 @@ module.exports = {
         const filtered = oldData.filter(e => e.id != id);
         if (filtered.length == oldData.length) return this.editReply(lang('idNotFound'));
 
-        newData = settings.fMerge({ [this.guild.id]: { triggers: filtered } }, 'overwrite');
-        db.set('guildSettings', newData);
+        db.update('guildSettings', `${this.guild.id}.triggers`, filtered);
 
         this.editReply(lang('deletedOne', id));
         break;
@@ -92,8 +90,7 @@ module.exports = {
         if (this.options.getString('confirmation').toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
         if (!oldData.length) return this.editReply(lang('noneFound'));
 
-        newData = settings.fMerge({ [this.guild.id]: { triggers: [] } }, 'overwrite');
-        db.set('guildSettings', newData);
+        db.update('guildSettings', `${this.guild.id}.triggers`, []);
 
         this.editReply(lang('deletedAll', oldData.length));
         break;

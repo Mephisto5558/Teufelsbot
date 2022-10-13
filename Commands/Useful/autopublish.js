@@ -8,11 +8,9 @@ module.exports = {
   prefixCommand: true,
 
   run: function (lang, { db }) {
-    const oldData = db.get('guildSettings');
-    const setting = oldData[this.guild.id]?.config?.autopublish;
+    const setting = db.get('guildSettings')[this.guild.id]?.config?.autopublish;
 
-    const newData = oldData.fMerge({ [this.guild.id]: { config: { autopublish: !setting } } });
-    db.set('guildSettings', newData);
+    db.update('guildSettings', `${this.guid.id}.config.autopublish`, !setting);
 
     this.customReply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));
   }

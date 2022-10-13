@@ -49,14 +49,20 @@ module.exports = class DB {
     });
   }
 
-  delete(key) {
+  /** @param {string}db@param {string}key*/
+  update(db, key, value) {
     if (!key) return;
-    this.schema.findOne({ key }, async (err, data) => {
-      if (err) throw err;
-      if (data) await data.delete();
-    });
+    if (typeof key != 'string') throw new Error(`key must be typeof string! Got ${typeof key}.`);
 
-    this.collection.delete(key);
+    this.schema.findOne({ key: db }, (err, data) => {
+      if (err) throw err;
+      if (data && typeof data.value != 'object') throw new Error(`data.value in db must be typeof object! Found ${typeof data.value}.`);
+      if (!data) data = new this.schema({ key, value: {} });
+      data.value = DB.mergeWithFlat(data.value, key, value);
+
+      data.save();
+      this.collection.set(db, data.value);
+    });
   }
 
   push(key, ...pushValue) {
@@ -70,5 +76,22 @@ module.exports = class DB {
       res.value = [...res.value, ...values];
       res.save();
     });
+  }
+
+  delete(key) {
+    if (!key) return;
+    this.schema.findOne({ key }, async (err, data) => {
+      if (err) throw err;
+      if (data) await data.delete();
+    });
+
+    this.collection.delete(key);
+  }
+
+  /** @param {{}}obj@param {string}key@example DB.mergeWithFlat({a: {b:1} }, 'a.c', 2):{a: {b:1, c:2}} */
+  static mergeWithFlat(obj, key, val) {
+    const keys = key.split('.');
+    keys.reduce((acc, k, i) => acc[k] || (acc[k] = isNaN(keys[i + 1]) ? (keys.length - 1 == i ? val : {}) : []), obj);
+    return obj;
   }
 };
