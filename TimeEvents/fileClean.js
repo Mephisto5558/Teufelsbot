@@ -21,7 +21,7 @@ module.exports = {
     deleteOld('./VoiceRecords');
     deleteOld('./Logs');
 
-    this.db.set('botSettings', this.db.get('botSettings').fMerge({ lastFileClear: now }));
+    this.db.update('botSettings', 'lastFileClear', now);
     this.log('Finished file deletion');
   }
 };

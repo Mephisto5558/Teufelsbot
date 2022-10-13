@@ -76,7 +76,7 @@ module.exports = {
       }
     }
 
-    this.db.set('botSettings', this.db.get('botSettings').fMerge({ lastBirthdayCheck: now }));
+    this.db.update('botSettings', 'lastBirthdayCheck', now);
     this.log('Finished birthday check');
   }
 };

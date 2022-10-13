@@ -19,9 +19,7 @@ module.exports = {
     const oldData = db.get('guildSettings');
 
     if (newPrefix && this.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
-      const newData = oldData.fMerge({ [this.guild.id]: { config: { prefix: { prefix: newPrefix, caseinsensitive: prefixCaseInsensitive } } } });
-      db.set('guildSettings', newData);
-
+      db.update('guildSettings', `${this.guild.id}.config.prefix`, { prefix: newPrefix, caseinsensitive: prefixCaseInsensitive });
       this.customReply(lang('saved', newPrefix));
     }
     else {

@@ -60,9 +60,7 @@ module.exports = {
     const newUserCurrency = parseFloat((userData.currency - amount).toFixed(3));
     const newTargetCurrency = parseFloat((targetData.currency + amount).toFixed(3));
 
-    db.set('guildSettings', db.get('guildSettings').fMerge({
-      [this.guild.id]: { economy: { [this.user.id]: { currency: newUserCurrency }, [target.id]: { currency: newTargetCurrency } } }
-    }));
+    db.update('guildSettings', `${this.guild.id}.economy`, { [this.user.id]: { currency: newUserCurrency }, [target.id]: { currency: newTargetCurrency } });
 
     embed.data.description = lang('embedDescription', { amount, target: target.id, newUserAmount: newUserCurrency, newTargetAmount: newTargetCurrency });
     this.customReply({ content: target.toString(), embeds: [embed] });

@@ -85,34 +85,28 @@ module.exports = {
           if (db.get('guildSettings')[this.guild.id]?.economy?.[this.user.id]?.gaining?.chat)
             return this.editReply(lang('start.alreadyInitiated'));
 
-          db.set('guildSettings', db.get('guildSettings').fMerge({
-            [this.guild.id]: {
-              economy: {
-                [this.user.id]: {
-                  currency: defaultSettings.currency ?? 0,
-                  currencyCapacity: defaultSettings.currencyCapacity,
-                  power: defaultSettings.power ?? 0,
-                  defense: defaultSettings.defense ?? 0,
-                  dailyStreak: 0,
-                  slaves: 0,
-                  maxSlaves: defaultSettings.maxSlaves,
-                  maxConcurrentResearches: defaultSettings.maxConcurrentResearches,
-                  gaining: defaultSettings.gaining,
-                  skills: Object.fromEntries(Object.entries(defaultSettings.skills).map(([skill, { ...e }]) => {
-                    delete e.firstPrice;
-                    e.lastPrice = 0;
+          db.update('guildSettings', `${this.guild.id}.economy${this.user.id}`, {
+            currency: defaultSettings.currency ?? 0,
+            currencyCapacity: defaultSettings.currencyCapacity,
+            power: defaultSettings.power ?? 0,
+            defense: defaultSettings.defense ?? 0,
+            dailyStreak: 0,
+            slaves: 0,
+            maxSlaves: defaultSettings.maxSlaves,
+            maxConcurrentResearches: defaultSettings.maxConcurrentResearches,
+            gaining: defaultSettings.gaining,
+            skills: Object.fromEntries(Object.entries(defaultSettings.skills).map(([skill, { ...e }]) => {
+              delete e.firstPrice;
+              e.lastPrice = 0;
 
-                    if (!e.onCooldownUntil) e.onCooldownUntil = 0;
-                    if (!e.lvl) e.lvl = 0;
-                    if (!e.maxLvl) e.maxLvl = 0;
-                    if (!e.percentage) e.percentage = 18;
+              if (!e.onCooldownUntil) e.onCooldownUntil = 0;
+              if (!e.lvl) e.lvl = 0;
+              if (!e.maxLvl) e.maxLvl = 0;
+              if (!e.percentage) e.percentage = 18;
 
-                    return [skill, e];
-                  }))
-                }
-              }
-            }
-          }));
+              return [skill, e];
+            }))
+          });
 
           return this.editReply(lang('start.success'));
         }
@@ -121,10 +115,7 @@ module.exports = {
           if (!this.options.getString('confirmation')?.toLowerCase() == lang('confirmation'))
             return this.editReply(lang('user.delete.needConfirm'));
 
-          const oldData = db.get('guildSettings');
-          delete oldData[this.guild.id]?.economy?.[this.user.id];
-
-          db.set('guildSettings', oldData);
+          db.update('guildSettings', `${this.guild.id}.economy.${this.user.id}`, undefined);
 
           return this.editReply(lang('user.delete.success'));
         }
@@ -140,7 +131,7 @@ module.exports = {
             oldData = db.get('guildSettings'),
             enable = oldData[this.guild.id]?.economy?.enable;
 
-          db.set('guildSettings', oldData.fMerge({ [this.guild.id]: { economy: { enable: !enable } } }));
+          db.update('guildSettings', `${this.guild.id}.economy.enable`, !enable);
           return this.editReply(lang('admin.toggle.success', enable ? lang('global.disabled') : lang('global.enabled')));
         }
 
@@ -148,10 +139,7 @@ module.exports = {
           if (!this.options.getString('confirmation')?.toLowerCase() == lang('confirmation'))
             return this.editReply(lang('admin.clear.needConfirm'));
 
-          const oldData = db.get('guildSettings');
-          oldData[this.guild.id].economy = { enable: false };
-
-          db.set('guildSettings', oldData);
+          db.update('guildSettings', `${this.guild.id}.economy.enable`, false);
           return this.editReply(lang('admin.clear.success'));
         }
 
@@ -197,9 +185,7 @@ module.exports = {
           blacklist.roles = work(role?.id, 'role', blacklist.roles);
           blacklist.user = work(user?.id, 'user', blacklist.user);
 
-          db.set('guildSettings', db.get('guildSettings').fMerge({
-            [this.guild.id]: { economy: { config: { blacklist } } }
-          }, 'overwrite'));
+          db.update('guildSettings', `${this.guild.id}.economy.config`, { blacklist });
 
           const embed = new EmbedBuilder({
             title: lang('admin.blacklist.embedTitle'),
@@ -235,7 +221,7 @@ module.exports = {
 
           if (!Object.keys(config).length) return this.customReply(lang('admin.gainingRules.nothingChanged'));
           return this.editReply('WIP');
-          db.set('guildSettings', db.get('guildSettings').fMerge({ [this.guild.id]: { economy: { config } } }));
+          db.update('guildSettings', `${this.guild.id}.economy`, { config });
 
           return this.editReply(lang('admin.gainingRules.setSuccess', Object.entries(config).length));
         }

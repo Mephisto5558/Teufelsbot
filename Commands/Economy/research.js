@@ -75,7 +75,7 @@ module.exports = {
         }
       };
 
-      db.set('guildSettings', db.get('guildSettings').fMerge({ [this.guild.id]: { economy: { [this.user.id]: newData } } }));
+      db.update('guildSettings', `${this.guild.id}.economy.${this.user.id}`, newData);
 
       button.editReply(lang('success', { skill: lang(`skills.${skill}.name`), emoji: lang(`skills.${skill}.emoji`), lvl: newData.skills[skill].lvl, time: Math.round(onCooldownUntil / 1000) }));
     });
