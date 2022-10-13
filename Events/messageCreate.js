@@ -83,6 +83,6 @@ module.exports = async function messageCreate() {
   }
 
   command.run.call(this, lang, this.client)
-    .then(() => this.client.db.update('botSettings', `stats.${command.name}`, stats[command.name] + 1 || 1))
+    .then(() => { if (this.client.botType != 'dev') this.client.db.update('botSettings', `stats.${command.name}`, stats[command.name] + 1 || 1); })
     .catch(err => require('../Functions/private/error_handler.js').call(this.client, err, this, lang));
 };
