@@ -9,18 +9,21 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  run: async function (lang) {
+  run: async function (lang, client) {
     if (!this.content) return;
 
     const msg = lang('finished', this.content);
-    const err = err => this.customReply(lang('error', { msg, name: err.name, err: err.message }));
 
     try {
-      Promise.resolve(eval(`(async () => { ${this.content} })()`))
-        .then(() => this.customReply(lang('success', msg)))
-        .catch(err);
-    } catch (error) { err(error); };
+      if (this.content.includes('await')) await eval(`with(this) { (async _ => { ${this.content} })() }`);
+      else await eval(`with(this) { (_ => { ${this.content} })() }`);
+      
+      this.customReply(lang('success', msg));
+    }
+    catch (err) {
+      this.customReply(lang('error', { msg, name: err.name, err: err.message }));
+    }
 
-    this.client.log(`evaluated command '${this.content}'`);
+    client.log(`evaluated command '${this.content}'`);
   }
-};
+}
