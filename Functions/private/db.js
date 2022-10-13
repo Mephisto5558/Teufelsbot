@@ -21,7 +21,7 @@ module.exports = class DB {
   /**Cache*/
   collection = new Collection();
 
-  /** @returns {DB}DB*/
+  /** @returns {Promise<DB>}DB*/
   async fetchAll() {
     for (const { key, value } of await this.schema.find()) this.collection.set(key, value);
     return this;
