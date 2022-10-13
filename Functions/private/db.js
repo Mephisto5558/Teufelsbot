@@ -99,8 +99,3 @@ module.exports = class DB {
     return obj;
   }
 };
-
-// function mergeWithFlat(obj, key, val) {
-//   keys.reduce((acc, k, i) => acc[k] || (acc[k] = isNaN(keys[i + 1]) ? (keys.length - 1 == i ? val : {}) : []), obj);
-//   return obj;
-// }
