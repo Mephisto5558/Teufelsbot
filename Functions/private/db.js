@@ -91,7 +91,16 @@ module.exports = class DB {
   /** @param {{}}obj@param {string}key@example DB.mergeWithFlat({a: {b:1} }, 'a.c', 2):{a: {b:1, c:2}} */
   static mergeWithFlat(obj, key, val) {
     const keys = key.split('.');
-    keys.reduce((acc, k, i) => acc[k] || (acc[k] = isNaN(keys[i + 1]) ? (keys.length - 1 == i ? val : {}) : []), obj);
+    keys.reduce((acc, k, i) => {
+      if (acc[k]) return acc[k];
+      if (isNaN(keys[i + 1])) acc[k] = keys.length - 1 == i ? val : {};
+      else acc[k] = [];
+    }, obj);
     return obj;
   }
 };
+
+// function mergeWithFlat(obj, key, val) {
+//   keys.reduce((acc, k, i) => acc[k] || (acc[k] = isNaN(keys[i + 1]) ? (keys.length - 1 == i ? val : {}) : []), obj);
+//   return obj;
+// }
