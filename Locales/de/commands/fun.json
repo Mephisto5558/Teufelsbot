@@ -54,7 +54,7 @@
         "description": "Setzt deinen AFK-Status für alle Server. Er wird entfernt, sobald du irgendwo schreibst."
       }
     },
-    "globalSuccess": "Dein AFK wurde auf allen Server zu \"{message}\" gesetzt.",
+    "globalSuccess": "Dein AFK wurde auf allen Servern zu \"{message}\" gesetzt.",
     "success": "Dein AFK wurde zu \"{message}\" gesetzt."
   },
   "birthday": {
