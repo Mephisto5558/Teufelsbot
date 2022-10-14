@@ -78,7 +78,7 @@ module.exports = {
       }
 
       case 'remove': {
-        db.update('userSettings', `${this.user.id}.birthday`, undefined);
+        db.update('userSettings', `${this.user.id}.birthday`, null);
 
         this.editReply(lang('removed'));
         break;

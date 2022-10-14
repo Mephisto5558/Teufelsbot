@@ -115,7 +115,7 @@ module.exports = {
           if (!this.options.getString('confirmation')?.toLowerCase() == lang('confirmation'))
             return this.editReply(lang('user.delete.needConfirm'));
 
-          db.update('guildSettings', `${this.guild.id}.economy.${this.user.id}`, undefined);
+          db.update('guildSettings', `${this.guild.id}.economy.${this.user.id}`, null);
 
           return this.editReply(lang('user.delete.success'));
         }
