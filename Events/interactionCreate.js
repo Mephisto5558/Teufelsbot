@@ -55,8 +55,9 @@ module.exports = async function interactionCreate() {
     for (const entry of this.options._hoistedOptions)
       if (entry.type == ApplicationCommandOptionType.String) entry.value = entry.value.replaceAll('<@!', '<@');
 
-    command.run.call(this, lang, this.client)
-      .then(() => { if (this.client.botType != 'dev') this.client.db.update('botSettings', `stats.${command.name}`, stats[command.name] + 1 || 1); })
-      .catch(err => require('../Functions/private/error_handler.js').call(this.client, err, this, lang));
+    try {
+      command.run.call(this, lang, this.client)?.catch(err => require('../Functions/private/error_handler.js').call(this.client, err, this, lang));
+      if (this.client.botType != 'dev') this.client.db.update('botSettings', `stats.${command.name}`, stats[command.name] + 1 || 1);
+    } catch (err) { require('../Functions/private/error_handler.js').call(this.client, err, this, lang); }
   }
 };
