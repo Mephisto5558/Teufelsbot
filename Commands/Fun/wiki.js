@@ -46,7 +46,7 @@ module.exports = {
           color: Colors.White,
           thumbnail: { url: 'https://wikipedia.org/static/images/project-logos/enwiki.png' },
           url: page.url(),
-          image: image ? { url: image } : undefined,
+          image: image ? { url: image } : null,
           fields: Object.entries(info)
             .filter(([e]) => !['name', 'caption'].includes(e) && !e.includes('image'))
             .map(([k, v]) => ({ name: k, value: v.toString(), inline: true }))

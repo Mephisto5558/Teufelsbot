@@ -37,7 +37,7 @@ module.exports = {
       );
     }
 
-    db.update('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`, undefined);
+    db.update('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`, null);
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
