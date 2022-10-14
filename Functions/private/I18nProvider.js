@@ -6,7 +6,7 @@ const
 class I18nProvider {
   constructor({
     localesPath = './locales', defaultLocale = 'en',
-    separator = '.', notFoundMessage,
+    separator = '.', notFoundMessage = '',
     errorNotFound = false, undefinedNotFound = false
   }) {
     this.config = { defaultLocale, separator, errorNotFound, undefinedNotFound, notFoundMessage };
@@ -17,6 +17,7 @@ class I18nProvider {
     this.loadAllLocales();
   }
 
+  /**@param {string}locale*/
   loadLocale(locale) {
     if (!locale) return;
 
@@ -45,7 +46,8 @@ class I18nProvider {
       throw new Error(`There are no language files for the default locale (${this.config.defaultLocale}) in the supplied locales path!`);
   }
 
-  __({ locale = this.config.defaultLocale, errorNotFound = this.config.errorNotFound, undefinedNotFound = this.config.undefinedNotFound, backupPath } = {}, key, replacements) {
+  /**@param {string}key @param {string|object}replacements @returns {string}the message*/
+  __({ locale = this.config.defaultLocale, errorNotFound = this.config.errorNotFound, undefinedNotFound = this.config.undefinedNotFound, backupPath = '' } = {}, key, replacements) {
     let message = this.localeData[locale]?.[key] ?? this.localeData[this.config.defaultLocale][key] ?? (backupPath ? this.localeData[locale]?.[`${backupPath}.${key}`] : null);
 
     if (Array.isArray(message)) message = message.random();
@@ -67,6 +69,7 @@ class I18nProvider {
     return message;
   }
 
+  /**@param {{}}object@param {string}objectPath@returns {{}}flatted object*/
   flatten(object, objectPath) {
     return Object.keys(object).reduce((acc, key) => {
       const newObjectPath = [objectPath, key].filter(Boolean).join(this.config.separator);
@@ -78,6 +81,7 @@ class I18nProvider {
     }, {});
   }
 
+  /**@returns {{}}list of missing entries*/
   findMissing() {
     const defaultKeys = Object.keys(this.localeData[this.config.defaultLocale]);
     const missing = {};
