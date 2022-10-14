@@ -3,7 +3,7 @@ const
   { Collection } = require('discord.js');
 
 module.exports = class DB {
-  /** @param {string}dbConnectionString MongoDB connection string*/
+  /**@param {string}dbConnectionString MongoDB connection string*/
   constructor(dbConnectionString) {
     if (Mongoose.connection.readyState !== 1) {
       if (!dbConnectionString) throw new Error('A Connection String is required!');
@@ -27,7 +27,7 @@ module.exports = class DB {
     return this;
   }
 
-  /** @returns value of collection*/
+  /**@returns value of collection*/
   async fetch(key) {
     const { value } = await this.schema.findOne({ key }) || {};
     this.collection.set(key, value);
@@ -49,7 +49,7 @@ module.exports = class DB {
     });
   }
 
-  /** @param {string}db@param {string}key*/
+  /**@param {string}db@param {string}key*/
   update(db, key, value) {
     if (!key) return;
     if (typeof key != 'string') throw new Error(`key must be typeof string! Got ${typeof key}.`);
@@ -88,14 +88,10 @@ module.exports = class DB {
     this.collection.delete(key);
   }
 
-  /** @param {{}}obj@param {string}key@example DB.mergeWithFlat({a: {b:1} }, 'a.c', 2):{a: {b:1, c:2}} */
+  /**@param {{}}obj@param {string}key@example DB.mergeWithFlat({a: {b:1} }, 'a.c', 2):{a: {b:1, c:2}}*/
   static mergeWithFlat(obj, key, val) {
     const keys = key.split('.');
-    keys.reduce((acc, k, i) => {
-      if (acc[k]) return acc[k];
-      if (isNaN(keys[i + 1])) acc[k] = keys.length - 1 == i ? val : {};
-      else acc[k] = [];
-    }, obj);
+    keys.reduce((acc, e, i) => acc[e] || (acc[e] = keys.length - 1 == i ? val : {}), obj);
     return obj;
   }
 };
