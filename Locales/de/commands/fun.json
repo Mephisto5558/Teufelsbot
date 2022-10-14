@@ -44,7 +44,18 @@
     ]
   },
   "afk": {
-    "description": "Sendet solange eine AFK-Message, wenn du gepingt wirst, bis du wieder schreibst."
+    "description": "Setzte einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
+    "usage": "afk [message]",
+    "options": {
+      "message": {
+        "description": "Die zu setzende Nachricht"
+      },
+      "global": {
+        "description": "Setzt deinen AFK-Status für alle Server. Er wird entfernt, sobald du irgendwo schreibst."
+      }
+    },
+    "globalSuccess": "Dein AFK wurde auf allen Server zu \"{message}\" gesetzt.",
+    "success": "Dein AFK wurde zu \"{message}\" gesetzt."
   },
   "birthday": {
     "description": "Speichere deinen Geburtstag ein und ich werde dir eine Nachricht an diesem bedeutenden Tag senden.",

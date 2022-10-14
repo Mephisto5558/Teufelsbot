@@ -41,7 +41,18 @@
     ]
   },
   "afk": {
-    "description": "sends an afk message if you get pinged until you write again"
+    "description": "Set an AFK status shown when you are mentioned.",
+    "usage": "afk [message]",
+    "options": {
+      "message": {
+        "description": "The message to set"
+      },
+      "global": {
+        "description": "Set your AFK for all guilds you are in. Resets if you write in any guild."
+      }
+    },
+    "globalSuccess": "Your AFK has been set to \"{message}\" across all guilds.",
+    "success": "Your AFK has been set to \"{message}\"."
   },
   "birthday": {
     "description": "save your birthday and I will send a message on your birthday",
