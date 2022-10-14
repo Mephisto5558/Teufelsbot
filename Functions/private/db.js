@@ -58,7 +58,7 @@ module.exports = class DB {
       if (err) throw err;
       if (data && typeof data.value != 'object') throw new Error(`data.value in db must be typeof object! Found ${typeof data.value}.`);
       if (!data) data = new this.schema({ key, value: {} });
-      data.value = DB.mergeWithFlat(data.value, key, value);
+      DB.mergeWithFlat(data.value, key, value);
 
       data.save();
       this.collection.set(db, data.value);
@@ -69,7 +69,7 @@ module.exports = class DB {
     const data = this.collection.get(key);
     const values = pushValue.flat();
 
-    if (!Array.isArray(data)) throw Error(`You cant push data to a ${typeof data} value!`);
+    if (!Array.isArray(data)) throw Error(`You can't push data to a ${typeof data} value!`);
     data.push(pushValue);
 
     this.schema.findOne({ key }, (_, res) => {
@@ -88,10 +88,10 @@ module.exports = class DB {
     this.collection.delete(key);
   }
 
-  /**@param {{}}obj@param {string}key@example DB.mergeWithFlat({a: {b:1} }, 'a.c', 2):{a: {b:1, c:2}}*/
+  /**@param {{}}obj gets mutated! @param {string}key@example DB.mergeWithFlat({a: {b:1} }, 'a.c', 2):{a: {b:1, c:2}}*/
   static mergeWithFlat(obj, key, val) {
     const keys = key.split('.');
-    keys.reduce((acc, e, i) => acc[e] || (acc[e] = keys.length - 1 == i ? val : {}), obj);
+    keys.reduce((acc, e, i) => acc[e] = keys.length - 1 == i ? val : acc[e] ?? {}, obj);
     return obj;
   }
 };
