@@ -1,5 +1,7 @@
 {
   "cooldown": "Dieser Command ist im Cooldown! Versuche es erneut in `{time}`s.",
+  "afkMsg": "`{member}` ist AFK: {message} - <t:{timestamp}:R>",
+  "afkEnd": "Willkommen zurück, ich habe deinen AFK-Status entfernt.",
   "slashCommandOnly": "Dieser Command ist nur als Slash-Command verfügbar!",
   "guildCommandOnly": "Dieser Command ist nur auf Servern verfügbar!",
   "permissionDenied": {
