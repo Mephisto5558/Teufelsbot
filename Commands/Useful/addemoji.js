@@ -35,20 +35,18 @@ module.exports = {
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         color: Colors.Green
-      });
+      }),
+      sendEmbed = desc => {
+        embed.data.description = desc;
+        this.editReply({ embeds: [embed] });
+      };
 
-    if (this.guild.emojis.cache.has(emoticon.id)) embed.data.description = lang('isGuildEmoji');
-    else if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
-    else {
-      if (!input.startsWith('http')) input = `https://${input}`;
-      if (!/^(?:https?:\/\/)?(?:www\.)?.*\.(?:jpg|jpeg|png|webp|svg|gif)(?:\?.*)?$/i.test(input))
-        embed.data.description = lang('invalidUrl');
-
-      const res = await head(input);
-      if (/4\d\d/.test(res.status)) embed.data.description = lang('notFound');
-    }
-
-    if (embed.data.description) return this.editReply({ embeds: [embed] });
+    if (this.guild.emojis.cache.has(emoticon.id)) return sendEmbed(lang('isGuildEmoji'));
+    if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
+    else if (!/^(?:https?:\/\/)?(?:www\.)?.*\.(?:jpg|jpeg|png|webp|svg|gif)(?:\?.*)?$/i.test(input))
+      return sendEmbed(lang('invalidUrl'));
+    if (!input.startsWith('http')) input = `https://${input}`;
+    if (/4\d\d/.test((await head(input)).status)) return sendEmbed(lang('notFound'));
 
     try {
       const emoji = await this.guild.emojis.create({
