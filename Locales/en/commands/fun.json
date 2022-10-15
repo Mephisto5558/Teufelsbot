@@ -42,7 +42,7 @@
   },
   "afk": {
     "description": "Set an AFK status shown when you are mentioned.",
-    "usage": "afk [message]",
+    "usage": "PREFIX Command: afk [message]",
     "options": {
       "message": {
         "description": "The message to set"

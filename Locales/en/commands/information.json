@@ -12,6 +12,18 @@
     "embedDescription": "**Avatar of {user}**",
     "downloadButton": "Download picture"
   },
+  "cmdstats": {
+    "description": "See how often a specific command has been run or get the top 10.",
+    "usage": "PREFIX Command: cmdstats [command]",
+    "options": {
+      "command": {
+        "description": "The command you want to get stats for."
+      }
+    },
+    "embedTitle": "Command Stats",
+    "embedDescriptionOne": "The `{command}` command has been run **{count}** times.",
+    "embedDescriptionMany": "These are 10 most used commands:\n"
+  },
   "dashboard": {
     "description": "get the link to the bots's dashboard",
     "embedTitle": "Dashboard",

@@ -12,6 +12,18 @@
     "embedDescription": "**{user}'s Avatar**",
     "downloadButton": "Herunterladen"
   },
+  "cmdstats": {
+    "description": "Zeigt an, wie oft ein spezifischer Command oder die Top 10 genutzt wurden.",
+    "usage": "PREFIX Command: cmdstats [command]",
+    "options": {
+      "command": {
+        "description": "Für welchen Command möchtest du Stats erhalten?"
+      }
+    },
+    "embedTitle": "Command Stats",
+    "embedDescriptionOne": "Der `{command}`-Command wurde **{count}** male ausgeführt.",
+    "embedDescriptionMany": "Dies sind die 10 am meisten genutzten Commands:\n"
+  },
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",
     "embedTitle": "Dashboard",
