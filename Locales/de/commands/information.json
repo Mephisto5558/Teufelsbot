@@ -22,7 +22,7 @@
     },
     "embedTitle": "Command Stats",
     "embedDescriptionOne": "Der {command}-Command wurde **{count}** male ausgeführt.",
-    "embedDescriptionMany": "Dies sind die 10 am meisten genutzten Commands:\n"
+    "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Commands:\n"
   },
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",
