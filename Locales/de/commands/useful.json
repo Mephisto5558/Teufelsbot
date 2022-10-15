@@ -218,5 +218,16 @@
     "notFound": "Deine Aufnahme wurde nicht gefunden!",
     "privateReady": "Drücke den Button um die Aufnahme zu erhalten.",
     "success": "🔉 Hier ist deine Aufnahme!"
+  },
+  "timestamp": {
+    "description": "Erhalte einen Timestamp für die Zukunft (oder Vergangenheit indem du - nutzt)",
+    "usage": "PREFIX Command: timestamp [time]",
+    "options": {
+      "time": {
+        "description": "Die Zeit von diesem Moment an (zB. 1w3d2h5min): 3min = jetzt+3min, -3min = jetzt-3min"
+      }
+    },
+    "invalid": "Die angegebene Zeit ist ungültig! Nutze {command} und suche nach `timestamp` für mehr Infos.",
+    "success": "Das ist <t:{time}:R>."
   }
 }
