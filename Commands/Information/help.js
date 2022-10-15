@@ -6,7 +6,7 @@ function listCommands(list, output, count, category) {
   for (const [, command] of list) {
     if (command.category?.toLowerCase() != category?.toLowerCase() || command.hideInHelp || command.disabled || output.includes(`\`${command.name}\``)) continue;
 
-    if (count % 5 == 0) output += `\`${command.name ?? command}\`\n> `;
+    if (!(count % 5)) output += `\`${command.name ?? command}\`\n> `;
     else output += `\`${command.name ?? command}\`, `;
     count++;
   }
