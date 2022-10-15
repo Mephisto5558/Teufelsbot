@@ -34,7 +34,7 @@ module.exports = {
       embed.data.fields = Object.entries(stats)
         .sort(([, a], [, b]) => b - a).slice(0, 10).map(([k, v]) => {
           const id = this.client.application.commands.cache.find(e => e.name == k)?.id;
-          return { name: id ? `</${k}:${id}>` : `\`${k}\``, value: `**${v}**`, inline: true };
+          return { name: id ? `</${k}:${id}>` : `/${k}`, value: `**${v}**`, inline: true };
         });
     }
 
