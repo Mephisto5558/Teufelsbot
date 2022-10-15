@@ -14,7 +14,7 @@ module.exports = {
     type: 'String',
     autocomplete: true,
     autocompleteOptions: function () { return [...new Set([...this.prefixCommands.keys(), ...this.slashCommands.keys()])]; }
-  }],
+  }], beta: true,
 
   run: function (lang) {
     const
@@ -25,8 +25,17 @@ module.exports = {
         color: Colors.White
       });
 
-    if (command) embed.data.description = lang('embedDescriptionOne', { command, count: stats[command] ?? 0 });
-    else embed.data.description = lang('embedDescriptionMany') + Object.entries(stats).sort(([, a], [, b]) => b - a).slice(0, 10).map(([k, v]) => `\`${k}\`: ${v}`).join('\n');
+    if (command) {
+      const id = this.client.application.commands.cache.find(e => e.name == k)?.id;
+      embed.data.description = lang('embedDescriptionOne', { command: id ? `</${command}:id>` : `\`${command}\``, count: stats[command] ?? 0 });
+    }
+    else {
+      embed.data.description = lang('embedDescriptionMany') + Object.entries(stats)
+        .sort(([, a], [, b]) => b - a).slice(0, 10).map(([k, v]) => {
+          const id = this.client.application.commands.cache.find(e => e.name == k)?.id;
+          return (id ? `</${k}:${id}>` : `\`${k}\``) + `: ${v}`;
+        }).join('\n');
+    }
 
     this.customReply({ embeds: [embed] });
   }
