@@ -61,7 +61,7 @@ module.exports = {
     if (cachedSubreddits.has(`${subreddit}_${type}`)) post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`).data, filterNSFW);
     else {
       const res = await fetch(`https://www.reddit.com/r/${subreddit}/${type}.json`).then(res => res.json());
-      if (res.error) return this.customReply(lang('error', `Error: ${res.message}\nReason:${res.reason}`));
+      if (res.error) return this.customReply(lang('error', `Error: ${res.message}\nReason: ${res.reason}`));
 
       cachedSubreddits.set(`${subreddit}_${type}`, res);
       setTimeout(() => cachedSubreddits.delete(`${subreddit}_${type}`), 5 * 60 * 1000);
