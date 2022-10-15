@@ -10,7 +10,7 @@ const
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 
-Array.prototype.random = function random() { return this[randomInt(this.length - 1)]; };
+Array.prototype.random = function random() { return this[randomInt(this.length)]; };
 Number.prototype.limit = function limit({ min = -Infinity, max = Infinity }) { return Math.min(Math.max(Number(this), min), max); };
 Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }) {
   if (`${{}}` != this || `${{}}` != obj) return output;
