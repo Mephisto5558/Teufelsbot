@@ -45,7 +45,7 @@
   },
   "afk": {
     "description": "Setzte einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
-    "usage": "afk [message]",
+    "usage": "PREFIX Command: afk [message]",
     "options": {
       "message": {
         "description": "Die zu setzende Nachricht"
