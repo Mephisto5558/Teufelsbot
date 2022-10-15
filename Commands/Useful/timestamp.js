@@ -9,7 +9,7 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  options: [{ name: 'time', type: 'String' }], beta: true,
+  options: [{ name: 'time', type: 'String' }],
 
   run: function (lang) {
     const ms = new Duration(this.options?.getString('time') || this.args?.[0] || '0.1ms');
