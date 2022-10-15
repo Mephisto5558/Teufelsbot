@@ -218,5 +218,16 @@
     "notFound": "Your recording has not been found!",
     "privateReady": "Press the button to get the recording.",
     "success": "🔉 Here is your recording!"
+  },
+  "timestamp": {
+    "description": "Get a timestamp for the future (or past by putting a - in front)",
+    "usage": "PREFIX Command: timestamp [time]",
+    "options": {
+      "time": {
+        "description": "The time from now (eg. 1w3d2h5min): 3min returns now+3min, -3min returns now-3min"
+      }
+    },
+    "invalid": "The time you provided is invalid! Use {command} and search for `timestamp` for mor information.",
+    "success": "That's <t:{time}:R>."
   }
 }
