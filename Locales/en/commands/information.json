@@ -21,7 +21,7 @@
       }
     },
     "embedTitle": "Command Stats",
-    "embedDescriptionOne": "The `{command}` command has been run **{count}** times.",
+    "embedDescriptionOne": "The {command} command has been run **{count}** times.",
     "embedDescriptionMany": "These are 10 most used commands:\n"
   },
   "dashboard": {
