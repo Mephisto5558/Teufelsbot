@@ -12,7 +12,7 @@ module.exports = {
     name: 'channel',
     type: 'Channel',
     channelTypes: ['GuildText', 'GuildVoice', 'GuildAnnouncement', 'GuildPublicThread', 'GuildPrivateThread']
-  }], beta: true,
+  }],
 
   run: async function (lang) {
     const channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel;
