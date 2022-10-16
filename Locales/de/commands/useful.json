@@ -133,6 +133,9 @@
     "options": {
       "channel": {
         "description": "In welchem Kanal möchtest du nach Erwähnungen suchen? Standart: dieser Kanal."
+      },
+      "member": {
+        "description": "Möchtest du nur nach Erwähnungen suchen, welche von einem spezifischen Mitglied stammen?"
       }
     },
     "unknown": "unbekannt",
