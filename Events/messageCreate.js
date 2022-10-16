@@ -38,7 +38,7 @@ module.exports = async function messageCreate() {
     if (!(await cooldowns.call(this, { name: 'afkMsg', cooldowns: { user: 1000 } }))) {
       for (const member of this.mentions.members.filter((_, e) => (afkMessages?.[e]?.message || userSettings[e]?.afkMessage?.message) && e != this.author.id).values()) {
         const afkMsg = afkMessages?.[member.id] || userSettings[member.id]?.afkMessage;
-        this.customReply(I18nProvider.__({ locale }, 'events.afkMsg', { member: member.displayName, message: afkMsg.message, timestamp: afkMsg.createdAt }));
+        this.customReply(I18nProvider.__({ locale }, 'events.afkMsg', { member: member.displayName.startsWith('[AFK] ') ? member.displayName.substring(6) : member.displayName, message: afkMsg.message, timestamp: afkMsg.createdAt }));
       }
     }
   };
