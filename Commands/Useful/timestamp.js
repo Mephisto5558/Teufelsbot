@@ -17,6 +17,6 @@ module.exports = {
       const helpcmd = this.client.application.commands.cache.find(e => e.name == 'help')?.id;
       return this.customReply(lang('invalid', helpcmd ? `</help:${helpcmd}>` : '/help'));
     }
-    this.customReply(lang('success', Math.round(ms.dateFrom(this.createdAt) / 1000)));
+    this.customReply(lang('success', { time: Math.round(ms.dateFrom(this.createdAt) / 1000) }));
   }
 };
