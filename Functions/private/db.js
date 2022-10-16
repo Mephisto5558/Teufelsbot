@@ -60,6 +60,7 @@ module.exports = class DB {
       if (!data) data = new this.schema({ key, value: {} });
       DB.mergeWithFlat(data.value, key, value);
 
+      data.markModified(`value.${key}`);
       data.save();
       this.collection.set(db, data.value);
     });
