@@ -228,6 +228,6 @@
       }
     },
     "invalid": "Die angegebene Zeit ist ungültig! Nutze {command} und suche nach `timestamp` für mehr Infos.",
-    "success": "Das ist <t:{time}:R>."
+    "success": "Das ist <t:{time}:R> (`<t:{time}:R>`)."
   }
 }
