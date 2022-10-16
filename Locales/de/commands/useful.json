@@ -127,6 +127,20 @@
     "embedDescription": "Dein Input: `{input}`\nHash Methode: `{method}`",
     "text": "Dein gehashter Text:\n`{hash}`"
   },
+  "lastping": {
+    "description": "Finde heraus, wer dich zuletzt erwähnt hat.",
+    "usage": "PREFIX Command: lastping [#channel]",
+    "options": {
+      "channel": {
+        "description": "In welchem Kanal möchtest du nach Erwähnungen suchen? Standart: dieser Kanal."
+      }
+    },
+    "unknown": "unbekannt",
+    "invalid": "Der angegebene Kanal unterstützt keine Textnachrichten!",
+    "noneFound": "Du wurdest in diesem Kanal in den letzten 100 Nachrichten nicht erwähnt.",
+    "embedTitle": "Letzter Ping",
+    "embedDescription": "Das letzte mal, dass du in diesem Kanal erwähnt wurdest, war [hier]({url}) von {author}.\n>>> {content}"
+  },
   "math": {
     "description": "Ein wenig Mathe",
     "usage": "math [Ausdruck]",
