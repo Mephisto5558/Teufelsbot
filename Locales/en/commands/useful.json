@@ -127,6 +127,20 @@
     "embedDescription": "Your input: `{input}`\nHash method: `{method}`",
     "text": "Your hashed string:\n`{hash}`"
   },
+  "lastping": {
+    "description": "Shows you where you got last mentioned.",
+    "usage": "PREFIX Command: lastping [#channel]",
+    "options": {
+      "channel": {
+        "description": "The channel you want to look for mentions in. Defaults to this channel."
+      }
+    },
+    "unknown": "unknown",
+    "invalid": "This is not a channel with text messages!",
+    "noneFound": "You haven't been mentioned in this channel in the last 100 messages.",
+    "embedTitle": "Last Ping",
+    "embedDescription": "The last time you were mentioned in that channel was [here]({url}) from {author}.\n>>> {content}"
+  },
   "math": {
     "description": "Runs some math",
     "usage": "math [expression]",
