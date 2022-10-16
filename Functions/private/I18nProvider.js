@@ -56,7 +56,7 @@ class I18nProvider {
       if (backupPath) message = this.localeData[this.config.defaultLocale][`${backupPath}.${key}`];
 
       if (!message) {
-        if (errorNotFound) throw new Error(`Key not found: "${key}"` + (backupPath ? ` (${backupPath}.${key})!` : '!'));
+        if (errorNotFound) throw new Error(`Key not found: "${key}"` + (backupPath ? ` (${backupPath}.${key})` : ''));
         return undefinedNotFound ? undefined : this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
       }
     }
