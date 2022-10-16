@@ -228,6 +228,6 @@
       }
     },
     "invalid": "The time you provided is invalid! Use {command} and search for `timestamp` for mor information.",
-    "success": "That's <t:{time}:R>."
+    "success": "That's <t:{time}:R> (`<t:{time}:R>`)."
   }
 }
