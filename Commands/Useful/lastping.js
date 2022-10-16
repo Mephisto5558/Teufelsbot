@@ -30,7 +30,7 @@ module.exports = {
       title: lang('embedTitle'),
       description: lang('embedDescription', { url, content: content.substring(0, 200), author }),
       color: Colors.White,
-      footer: { text: createdAt?.toLocaleString(this.locale) }
+      footer: { text: createdAt?.toLocaleString(this.locale, { month: '2-digit', day: '2-digit' }) }
     });
 
     this.customReply({ embeds: [embed] });
