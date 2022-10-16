@@ -133,6 +133,9 @@
     "options": {
       "channel": {
         "description": "The channel you want to look for mentions in. Defaults to this channel."
+      },
+      "member": {
+        "description": "Do you just want to search for mentions that come from a specific member?"
       }
     },
     "unknown": "unknown",
