@@ -1,8 +1,6 @@
-const { ChatInputCommandInteraction, BaseGuildTextChannel } = require('discord.js');
 const { EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'lastping',
-  description: 'Shows you where you got pinged.',
   aliases: { prefix: [], slash: [] },
   permissions: { client: [], user: [] },
   cooldowns: { guild: 200, user: 1000 },
@@ -12,13 +10,11 @@ module.exports = {
   ephemeralDefer: true,
   options: [{
     name: 'channel',
-    type: 'Channel', description: 'The channel you want to check.',
+    type: 'Channel',
     channelTypes: ['GuildText', 'GuildVoice', 'GuildAnnouncement', 'GuildPublicThread', 'GuildPrivateThread']
   }], beta: true,
 
-  /**@this {ChatInputCommandInteraction} */
-  run: async function (lang, client) {
-    /**@type {BaseGuildTextChannel} */
+  run: async function (lang) {
     const channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel;
     if (!channel.isTextBased()) return this.customReply(lang('invalid'));
 
