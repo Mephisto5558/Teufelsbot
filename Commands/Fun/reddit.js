@@ -45,7 +45,7 @@ module.exports = {
           name: 'subreddit',
           type: 'String',
           autocomplete: true,
-          autocompleteOptions: function () { return this.options.getFocused(true).value.replace(/[^\w]/g, ''); }
+          autocompleteOptions: function () { return this.options.getFocused(true).value.replace(/\W/g, ''); }
         },
         { name: 'type', type: 'String' },
         { name: 'filter_nsfw', type: 'Boolean' }
@@ -60,7 +60,7 @@ module.exports = {
 
     let subreddit = this.options?.getString('subreddit') ?? this.args?.[0] ?? memeSubreddits.random();
     if (subreddit.startsWith('r/')) subreddit = subreddit.slice(2);
-    subreddit = subreddit.replace(/[^\w]/g, '');
+    subreddit = subreddit.replace(/\W/g, '');
 
     let post;
 
