@@ -17,7 +17,7 @@ module.exports = async function interactionCreate() {
       focused = this.options.getFocused(true);
 
     let autocompleteOptions = command.options.find(e => e.name == focused.name).autocompleteOptions;
-    if (typeof autocompleteOptions == 'function') autocompleteOptions = await autocompleteOptions.call(this.client);
+    if (typeof autocompleteOptions == 'function') autocompleteOptions = await autocompleteOptions.call(this);
     const filtered = autocompleteOptions.filter(e => e.toLowerCase().includes(focused.value.toLowerCase()));
 
     return this.respond(filtered.map(e => ({ name: lang(`options.${this.options.getSubcommand(false) ? this.options.getSubcommand(false) + '.' : ''}${focused.name}.choices.${e}`) ?? e, value: e })).slice(0, 25));
