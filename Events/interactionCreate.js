@@ -14,13 +14,21 @@ module.exports = async function interactionCreate() {
   if (this.type == InteractionType.ApplicationCommandAutocomplete) {
     const
       lang = I18nProvider.__.bind(I18nProvider, { locale: this.client.db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}`, undefinedNotFound: true }),
-      focused = this.options.getFocused(true);
+      focused = this.options.getFocused(true),
+      response = v => ({ name: lang(`options.${this.options._group ? this.options._group + '.' : ''}${this.options._subcommand ? this.options._subcommand + '.' : ''}${focused.name}.choices.${v}`) ?? v, value: v });
 
-    let autocompleteOptions = command.options.find(e => e.name == focused.name).autocompleteOptions;
-    if (typeof autocompleteOptions == 'function') autocompleteOptions = await autocompleteOptions.call(this);
-    const filtered = autocompleteOptions.filter(e => e.toLowerCase().includes(focused.value.toLowerCase()));
+    let { options } = command.fMerge();
+    if (this.options._group) options = options.find(e => e.name == this.options._group);
+    if (this.options._subcommand) options = options.find(e => e.name == this.options._subcommand).options;
+    options = options.find(e => e.name == focused.name).autocompleteOptions;
+    if (typeof options == 'function') options = await options.call(this);
 
-    return this.respond(filtered.map(e => ({ name: lang(`options.${this.options.getSubcommand(false) ? this.options.getSubcommand(false) + '.' : ''}${focused.name}.choices.${e}`) ?? e, value: e })).slice(0, 25));
+    return this.respond(
+      typeof options == 'string' ? [response(options)] : options
+        .filter(e => e.toLowerCase().includes(focused.value.toLowerCase()))
+        .slice(0, 25)
+        .map(response)
+    );
   }
 
   if (!this.isRepliable()) return;
