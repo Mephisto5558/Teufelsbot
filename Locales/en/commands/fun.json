@@ -364,8 +364,9 @@
         }
       }
     },
-    "error": "An error occurred:\n```{err}```",
     "notFound": "No posts matched your search.",
+    "private": "This subreddit is private.",
+    "error": "An error occurred:\n```{err}```",
     "embedFooterText": "Upvotes: {upvotes} ({ratio}%) | Downvotes: {downvotes} | Comments: {comments}"
   },
   "sad": {

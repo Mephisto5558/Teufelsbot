@@ -45,7 +45,7 @@ module.exports = {
           name: 'subreddit',
           type: 'String',
           autocomplete: true,
-          autocompleteOptions: function () { return this.options.getFocused(true).value.replace(/\W/g, ''); }
+          autocompleteOptions: function () { const val = this.options.getFocused(true).value; return (val.startsWith('r/') ? val.slice(2) : val).replace(/\W/g, ''); }
         },
         { name: 'type', type: 'String' },
         { name: 'filter_nsfw', type: 'Boolean' }
@@ -74,6 +74,7 @@ module.exports = {
       }
 
       if (res.error == 404) return this.customReply(lang('notFound'));
+      if (res.reason == 'private') return this.customReply(lang('private'));
       if (res.error) return this.customReply(lang('error', `Error: ${res.message}\nReason: ${res.reason}`));
 
       cachedSubreddits.set(`${subreddit}_${type}`, res.data);
