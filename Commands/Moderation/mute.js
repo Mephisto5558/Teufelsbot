@@ -50,7 +50,7 @@ module.exports = {
     date.setTime(date.getTime() + duration);
 
     try { await target.disableCommunicationUntil(date.getTime(), `${reason}, moderator ${this.user.tag}`); }
-    catch (err) { return this.editReply(lang('error', err)); }
+    catch (err) { return this.editReply(lang('error', err.message)); }
 
     const embed = new EmbedBuilder({
       title: lang('dmEmbedTitle'),
