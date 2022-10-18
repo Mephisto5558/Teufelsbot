@@ -43,7 +43,7 @@ module.exports = {
       errorMsg = lang('noPerm', lang('global.you'));
     else if (target.permissions.has(PermissionFlagsBits.Administrator)) errorMsg = lang('targetIsAdmin');
     else if (!target.moderatable) errorMsg = lang('noPerm', lang('global.i'));
-    else if (typeof duration == 'string') errorMsg = lang('invalidDuration');
+    else if (!duration || typeof duration == 'string') errorMsg = lang('invalidDuration');
 
     if (errorMsg) return this.editReply(errorMsg);
 
