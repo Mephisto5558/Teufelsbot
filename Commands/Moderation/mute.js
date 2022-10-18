@@ -32,7 +32,7 @@ module.exports = {
     const
       target = this.options.getMember('target'),
       reason = this.options.getString('reason'),
-      duration = getMilliseconds(this.options.getString('duration'))?.limit({ min: 3600000, max: 2419000000 }),
+      duration = getMilliseconds(this.options.getString('duration'))?.limit?.({ min: 3600000, max: 2419000000 }),
       date = new Date();
 
     let errorMsg, noMsg;
