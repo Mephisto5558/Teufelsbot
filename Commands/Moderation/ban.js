@@ -23,7 +23,12 @@ module.exports = {
       minValue: 1,
       maxValue: 7
     }
-    //{ name: 'duration', type: 'Number' }
+    /* {
+      name: 'duration',
+      type: 'Number',
+      autocomplete: true,
+      autocompleteOptions: function () { return this.client.functions.timeValidator(this.focused.value); } }
+    */
   ],
 
   run: require('../../Functions/private/bankick.js')
