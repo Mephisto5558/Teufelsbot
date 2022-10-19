@@ -9,6 +9,10 @@ ignorePatterns:
 parserOptions:
   ecmaVersion: latest
 rules:
+  quotes:
+    - warn
+  no-fallthrough:
+    - warn
   no-empty:
     - error
     - allowEmptyCatch: true
