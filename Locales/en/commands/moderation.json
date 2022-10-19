@@ -21,7 +21,6 @@
     "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
     "cantPunishSelf": "You can't ban yourself!",
     "noneFound": "No targets have been found.",
-    "noPerm": "{IYou} don't have the permission to do that!",
     "error": "**{user}** couldn't be banned.\n{err}\n",
     "success": "**{user}** has been successfully banned.\n",
     "noDM": "I couldn't DM the target."
@@ -42,7 +41,6 @@
     "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
     "noneFound": "No targets have been found.",
     "cantPunishSelf": "You can't kick yourself!",
-    "noPerm": "{IYou} don't have the permission to do that!",
     "error": "**{user}** couldn't be kicked.\n{err}\n",
     "success": "**{user}** has been successfully kicked.\n",
     "noDM": "I couldn't DM the target."
@@ -82,7 +80,6 @@
     "infoEmbedDescription": "{user} has been successfully muted.\nReason: {reason}\nUntil: <t:{time}>",
     "notFound": "I couldn't find that member!",
     "cantMuteSelf": "You can't mute yourself!",
-    "noPerm": "{IYou} don't have the permission to do that!",
     "targetIsAdmin": "I cannot mute admininstartors!",
     "invalidDuration": "The mute duration you provided is invalid!",
     "error": "I couldn't mute the target:\n{err}",
@@ -144,7 +141,6 @@
     "noReason": "no reason specified",
     "notFound": "I couldn't find that member!",
     "notMuted": "This member is not muted!",
-    "noPerm": "{IYou} don't have the permission to do that!",
     "moderator": "Moderator",
     "success": "Removed timeout for user {user}."
   }

@@ -7,7 +7,7 @@
   "playAgain": "Play Again",
   "enabled": "Enabled",
   "disabled": "Disabled",
-  "you": "You",
-  "i": "I",
-  "none": "none"
+  "none": "none",
+  "noPermUser": "You don't have the permission to do that!",
+  "noPermBot": "I don't have the permission to do that!"
 }
