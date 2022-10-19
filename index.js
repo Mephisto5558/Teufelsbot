@@ -2,7 +2,7 @@ console.time('Initializing time');
 console.info('Starting...');
 
 const
-  { Client, Collection, GatewayIntentBits, AllowedMentionsTypes, Message, CommandInteraction, Partials } = require('discord.js'),
+  { Client, Collection, GatewayIntentBits, AllowedMentionsTypes, Message, CommandInteraction, Partials, AutocompleteInteraction } = require('discord.js'),
   { randomInt } = require('crypto'),
   { existsSync, readdirSync } = require('fs'),
   DB = require('./Functions/private/db.js'),
@@ -30,6 +30,7 @@ Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }
 };
 CommandInteraction.prototype.customReply = customReply;
 Message.prototype.customReply = customReply;
+Object.defineProperty(AutocompleteInteraction.prototype, 'focused', { get() { return this.options.getFocused(true); } });
 
 console.timeEnd('Initializing time');
 console.time('Starting time');
