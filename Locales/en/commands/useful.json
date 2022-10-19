@@ -245,6 +245,7 @@
       }
     },
     "invalid": "The time you provided is invalid! Use {command} and search for `timestamp` for mor information.",
+    "outOfRange": "The time you provided is greater than 200,000 years!",
     "success": "That's <t:{time}:R> (`<t:{time}:R>`)."
   }
 }
