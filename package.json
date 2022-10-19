@@ -26,6 +26,9 @@
     "sodium": "^3.0.2",
     "wikijs": "^6.3.3"
   },
+  "overrides": {
+    "sharp": "^0.31.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Mephisto5558/Teufelsbot.git"
