@@ -26,7 +26,7 @@ module.exports = {
       });
 
     if (command) {
-      const id = this.client.application.commands.cache.find(e => e.name == k)?.id;
+      const id = this.client.application.commands.cache.find(e => e.name == command)?.id;
       embed.data.description = lang('embedDescriptionOne', { command: id ? `</${command}:id>` : `\`${command}\``, count: stats[command] ?? 0 });
     }
     else {

@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits, Message } = require('discord.js'),
+  { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits, Message } = require('discord.js'), // eslint-disable-line no-unused-vars
   I18nProvider = require('../Functions/private/I18nProvider.js'),
   cooldowns = require('../Functions/private/cooldowns.js');
 

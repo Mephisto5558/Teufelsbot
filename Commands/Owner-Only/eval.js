@@ -17,7 +17,7 @@ module.exports = {
     try {
       if (this.content.includes('await')) await eval(`with(this) { (async _ => { ${this.content} })() }`);
       else await eval(`with(this) { (_ => { ${this.content} })() }`);
-      
+
       this.customReply(lang('success', msg));
     }
     catch (err) {
@@ -26,4 +26,4 @@ module.exports = {
 
     client.log(`evaluated command '${this.content}'`);
   }
-}
+};
