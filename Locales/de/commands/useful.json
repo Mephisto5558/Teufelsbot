@@ -245,6 +245,7 @@
       }
     },
     "invalid": "Die angegebene Zeit ist ungültig! Nutze {command} und suche nach `timestamp` für mehr Infos.",
+    "outOfRange": "Die angegebene Zeit ist größer als 200.000 Jahre!",
     "success": "Das ist <t:{time}:R> (`<t:{time}:R>`)."
   }
 }
