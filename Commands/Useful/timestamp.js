@@ -1,4 +1,6 @@
-const { Duration } = require('better-ms');
+const
+  { Duration } = require('better-ms'),
+  yearLimit = 6249223180800000; //200000y
 
 module.exports = {
   name: 'timestamp',
@@ -17,6 +19,10 @@ module.exports = {
       const helpcmd = this.client.application.commands.cache.find(e => e.name == 'help')?.id;
       return this.customReply(lang('invalid', helpcmd ? `</help:${helpcmd}>` : '/help'));
     }
-    this.customReply(lang('success', { time: Math.round(ms.dateFrom(this.createdAt) / 1000) }));
+
+    const time = this.createdTimestamp + ms.offset;
+    if (time != time.limit({ min: -yearLimit, max: yearLimit })) return this.customReply(lang('outOfRange'));
+
+    this.customReply(lang('success', { time: Math.round(time / 1000) }));
   }
 };
