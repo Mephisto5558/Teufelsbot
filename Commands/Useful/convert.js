@@ -44,7 +44,7 @@ module.exports = {
 
     if (converter.type.toLowerCase() == convertTo.toLowerCase())
       return this.editReply(lang('convertToSame', { inputType: converter.type.toUpperCase(), outputType: convertTo.toUpperCase() }));
-    const converted = await converter[`to${convertTo}`](input);
+    const converted = await converter[`to${convertTo}`]();
     const output = lang('success', { inputType: converter.type.toUpperCase(), outputType: convertTo.toUpperCase() });
 
     if (output.length + converted.length < 2000) this.editReply(output + converted);
