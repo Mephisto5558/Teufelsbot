@@ -29,7 +29,9 @@ module.exports = {
         {
           name: 'duration',
           type: 'String',
-          required: true
+          required: true,
+          autocomplete: true,
+          autocompleteOptions: function () { return this.client.functions.timeValidator(this.focused.value); }
         },
         {
           name: 'winner_count',
@@ -70,7 +72,12 @@ module.exports = {
           type: 'String',
           required: true
         },
-        { name: 'add_time', type: 'String' },
+        {
+          name: 'add_time',
+          type: 'String',
+          autocomplete: true,
+          autocompleteOptions: function () { return this.client.functions.timeValidator(this.focused.value); }
+        },
         {
           name: 'winner_count',
           type: 'String',

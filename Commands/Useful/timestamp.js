@@ -11,7 +11,12 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  options: [{ name: 'time', type: 'String' }],
+  options: [{
+    name: 'time',
+    type: 'String',
+    autocomplete: true,
+    autocompleteOptions: function () { return this.client.functions.timeValidator(this.focused.value); }
+  }],
 
   run: function (lang) {
     const ms = new Duration(this.options?.getString('time') || this.args?.[0] || '0.1ms');
