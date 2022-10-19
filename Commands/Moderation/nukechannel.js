@@ -22,7 +22,7 @@ module.exports = {
   ],
 
   run: async function (lang) {
-    if (this.options.getString('confirmation')?.toLowerCase() != 'delete channel') return this.editReply(lang('needConfirm'));
+    if (this.options.getString('confirmation')?.toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
 
     const embed = new EmbedBuilder({
       description: lang('embedDescription'),
