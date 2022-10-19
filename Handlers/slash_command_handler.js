@@ -26,7 +26,7 @@ function format(option, path) {
   if (option.options) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`));
 
   if (!option.description) option.description = I18nProvider.__({ errorNotFound: true }, `${path}.description`);
-  if (option.choices?.length) option.choices = option.choices.map(e => { return typeof e != 'string' ? e.fMerge({ __SCHandlerCustom: true }) : { name: I18nProvider.__({ errorNotFound: true }, `${path}.choices.${e}`) || e, value: e }; });
+  if (option.choices?.length) option.choices = option.choices.map(e => { return typeof e == 'object' ? e.fMerge({ __SCHandlerCustom: true }) : { name: I18nProvider.__({ errorNotFound: true }, `${path}.choices.${e}`) || e, value: e }; });
 
   if (option.description.length > 100) {
     console.warn(`WARN: Description of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);

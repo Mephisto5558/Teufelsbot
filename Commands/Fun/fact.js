@@ -10,9 +10,9 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: async function (_, { keys }) {
+  run: async function () {
     const res = await get('https://api.api-ninjas.com/v1/facts', {
-      headers: { 'X-Api-Key': keys.FunFactAPI },
+      headers: { 'X-Api-Key': this.client.keys.FunFactAPI },
       contentType: 'application/json',
     });
 
