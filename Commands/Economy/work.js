@@ -11,7 +11,7 @@ module.exports = {
   requireEconomy: true,
   beta: true,
 
-  run: function (lang, client) {
+  run: function () {
 
 
 

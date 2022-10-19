@@ -12,7 +12,7 @@ module.exports = {
   beta: true,
   disabled: true,
 
-  run: async (lang, client) => {
+  run: async () => {
     const modal = new ModalBuilder({
       title: 'This is a test!',
       customId: 'hax',

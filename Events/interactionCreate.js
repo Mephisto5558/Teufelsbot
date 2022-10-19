@@ -7,11 +7,11 @@ module.exports = async function interactionCreate() {
   const { blacklist, stats = {} } = this.client.db.get('botSettings');
 
   if (
-    !command || blacklist?.includes(this.user.id)||
+    !command || blacklist?.includes(this.user.id) ||
     (command.category.toLowerCase() == 'owner-only' && this.user.id != this.client.application.owner.id)  //DO NOT REMOVE THIS STATEMENT!
   ) return;
 
-  if (this.type == InteractionType.ApplicationCommandAutocomplete) { 
+  if (this.type == InteractionType.ApplicationCommandAutocomplete) {
     const
       lang = I18nProvider.__.bind(I18nProvider, { locale: this.client.db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}`, undefinedNotFound: true }),
       response = v => ({ name: lang(`options.${this.options._group ? this.options._group + '.' : ''}${this.options._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });

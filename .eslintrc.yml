@@ -1,0 +1,30 @@
+env:
+  commonjs: true
+  es2021: true
+  node: true
+extends: eslint:recommended
+overrides: []
+ignorePatterns: 
+  - Templates/*
+parserOptions:
+  ecmaVersion: latest
+rules:
+  no-empty:
+    - error
+    - allowEmptyCatch: true
+  indent:
+    - error
+    - 2
+    - SwitchCase: 1
+      VariableDeclarator: 1
+  linebreak-style:
+    - error
+    - windows
+  quotes:
+    - error
+    - single
+  semi:
+    - error
+    - always
+globals:
+  getDirectoriesSync: writeable
