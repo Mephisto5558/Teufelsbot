@@ -6,7 +6,8 @@
   "guildCommandOnly": "This command is only available in guilds!",
   "permissionDenied": {
     "embedTitle": "Insufficient Permissions",
-    "embedDescription": "{IYou} need the following permissions in this channel to run this command:\n`{permissions}`"
+    "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n`{permissions}`",
+    "embedDescriptionBot": "I need the following permissions in this channel to run this command:\n`{permissions}`"
   },
   "economyDisabled": "This command is an economy category command. The economy is not enabled in this guild. To start using the economy, an admin has to run `/economyconfig admin toggle`.",
   "economyNotInitialized": "This command is an economy category command. To start using the economy, run `/economyconfig user start`.",

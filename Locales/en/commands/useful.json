@@ -237,7 +237,7 @@
     "success": "🔉 Here is your recording!"
   },
   "timestamp": {
-    "description": "Get a timestamp for the future (or past by putting a - in front)",
+    "description": "Get a timestamp for the future (or past by putting a \"-\" in front)",
     "usage": "PREFIX Command: timestamp [time]",
     "options": {
       "time": {

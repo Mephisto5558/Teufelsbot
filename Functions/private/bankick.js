@@ -25,8 +25,8 @@ module.exports = async function bankick(lang) {
 
     if (target.id == this.member.id) errMsg = lang('cantPunishSelf');
     else if (target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
-      errMsg = lang('noPerm', lang('global.you'));
-    else if (!target.manageable) errMsg = lang('noPerm', lang('global.i'));
+      errMsg = lang('global.noPermUser');
+    else if (!target.manageable) errMsg = lang('global.noPermBot');
 
     if (errMsg) {
       resEmbed.data.description += lang('error', { user: target?.user?.tag ?? target.id, err: errMsg });

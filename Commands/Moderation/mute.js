@@ -40,9 +40,9 @@ module.exports = {
     if (!target) errorMsg = lang('notFound');
     else if (target.id === this.member.id) errorMsg = lang('cantMuteSelf');
     else if (target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
-      errorMsg = lang('noPerm', lang('global.you'));
+      errorMsg = lang('global.noPermUser');
     else if (target.permissions.has(PermissionFlagsBits.Administrator)) errorMsg = lang('targetIsAdmin');
-    else if (!target.moderatable) errorMsg = lang('noPerm', lang('global.i'));
+    else if (!target.moderatable) errorMsg = lang('global.noPermBot');
     else if (!duration || typeof duration == 'string') errorMsg = lang('invalidDuration');
 
     if (errorMsg) return this.editReply(errorMsg);
