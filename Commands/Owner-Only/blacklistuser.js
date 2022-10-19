@@ -9,23 +9,23 @@ module.exports = {
   dmPermission: true,
 
   run: function (lang, { db, application }) {
-    if (!this.args[0]) return;
+    if (!this.args[0]) return this.customReply(lang('noInput'));
 
-    const oldData = db.get('botSettings');
+    const data = db.get('botSettings');
 
     if (this.args[0] == 'off') {
-      if (!oldData.blacklist.includes(this.args[1])) return this.customReply(lang('notFound'));
+      if (!data.blacklist.includes(this.args[1])) return this.customReply(lang('notFound'));
 
-      oldData.blacklist = oldData.blacklist.filter(e => e != this.args[1]);
-      db.set('botSettings', oldData);
+      data.blacklist = data.blacklist.filter(e => e != this.args[1]);
+      db.set('botSettings', data);
 
       return this.customReply(lang('removed', this.args[1]));
     }
 
     if (this.args[0] == application.owner.id) return this.customReply(lang('cantBlacklistOwner'));
 
-    oldData.blacklist.push(this.args[0]);
-    db.set('botSettings', oldData);
+    data.blacklist.push(this.args[0]);
+    db.set('botSettings', data);
     this.customReply(lang('saved', this.args[0]));
   }
 };
