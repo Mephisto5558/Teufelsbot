@@ -52,7 +52,7 @@ module.exports = async function interactionCreate() {
       const embed = new EmbedBuilder({
         title: lang('events.permissionDenied.embedTitle'),
         color: Colors.Red,
-        description: lang('events.permissionDenied.embedDescription', { IYou: userPermsMissing.length ? lang('global.you') : lang('global.i'), permissions: (botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') })
+        description: lang(`events.permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: (botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') })
       });
 
       return this.reply({ embeds: [embed], ephemeral: true });

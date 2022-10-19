@@ -21,7 +21,6 @@
     "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
     "cantPunishSelf": "Du kannst dich selbst nicht bannen!",
     "noneFound": "Kein Ziel wurde gefunden.",
-    "noPerm": "{IYou} habe/hast keine Berechtigung dazu!",
     "error": "Ich konnte **{user}** nicht bannen.\n{err}\n",
     "success": "**{user}** wurde erfolgreich gebannt.\n",
     "noDM": "Ich konnte dem Ziel keine DM senden."
@@ -42,7 +41,6 @@
     "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
     "cantPunishSelf": "Du kannst dich selbst nicht kicken!",
     "noneFound": "Kein Ziel wurde gefunden.",
-    "noPerm": "{IYou} habe/hast keine Berechtigung dazu!",
     "error": "Ich konnte **{user}** nicht kicken.\n{err}\n",
     "success": "**{user}** wurde erfolgreich gekickt.\n",
     "noDM": "Ich konnte dem Ziel keine DM senden."
@@ -82,7 +80,6 @@
     "infoEmbedDescription": "{user} wurde erfolgreich getimeouted.\nBegründung: {reason}\nBis: <t:{time}>\n",
     "notFound": "Ich konnte dieses Mitglied nicht finden!",
     "cantMuteSelf": "Du kannst dich selbst nicht timeouten!",
-    "noPerm": "{IYou} habe/hast keine Berechtigung dazu!",
     "targetIsAdmin": "Ich kann keine Administratoren timeouten!",
     "invalidDuration": "Die Mute-Dauer, die du angegeben hast, ist ungültig!",
     "error": "Ich konnte das Mitglied nicht muten:\n{err}",
@@ -144,7 +141,6 @@
     "noReason": "Keine Begründung angegeben",
     "notFound": "Ich konnte dieses Mitglied nicht finden!",
     "notMuted": "Dieses Mitglied ist nicht gemuted!",
-    "noPerm": "{IYou} habe/hast keine Berechtigung dazu!",
     "moderator": "Moderator",
     "success": "Timeout für {user} wurde entfernt."
   }

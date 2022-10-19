@@ -25,8 +25,8 @@ module.exports = {
     if (!target) errorMsg = lang('notFound');
     else if (!target.isCommunicationDisabled()) errorMsg = lang('notMuted');
     else if (target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
-      errorMsg = lang('noPerm', lang('global.you'));
-    else if (!target.moderatable) errorMsg = lang('noPerm', lang('global.i'));
+      errorMsg = lang('global.noPermUser');
+    else if (!target.moderatable) errorMsg = lang('global.noPermBot');
 
     if (errorMsg) return this.editReply(errorMsg);
 

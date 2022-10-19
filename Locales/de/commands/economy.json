@@ -93,7 +93,7 @@
       }
     },
     "admin": {
-      "noPerm": "Du hast nicht die Berechtigung, Admin Commands auszuführen!",
+      "noPerm": "Du hast nicht die Berechtigung, Admin-Commands auszuführen!",
       "toggle": {
         "success": "{state} die Economy für diesen Server."
       },

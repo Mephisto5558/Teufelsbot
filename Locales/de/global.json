@@ -7,7 +7,7 @@
   "playAgain": "Nochmal spielen",
   "enabled": "Aktiviert",
   "disabled": "Deaktiviert",
-  "you": "Du",
-  "i": "Ich",
-  "none": "keine"
+  "none": "keine",
+  "noPermUser": "Du hast keine Berechtigung dazu!",
+  "noPermBot": "Ich habe keine Berechtigung dazu!"
 }
