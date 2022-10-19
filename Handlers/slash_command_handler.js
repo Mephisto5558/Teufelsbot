@@ -36,7 +36,7 @@ function format(option, path) {
   for (const [locale] of [...I18nProvider.availableLocales].filter(([e]) => e != I18nProvider.config.defaultLocale)) {
     if (!option.descriptionLocalizations) option.descriptionLocalizations = {};
     let localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.description`);
-    if (localeText?.length > 100) console.warn(`WARN: "${locale}" Description localization of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
+    if (localeText?.length > 100) console.warn(`WARN: "${locale}" description localization of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
 
     if (localeText) option.descriptionLocalizations[locale] = localeText?.slice(0, 100);
     else console.warn(`WARN: Missing "${locale}" description localization for option "${option.name}" (${path}.description)`);
@@ -52,8 +52,8 @@ function format(option, path) {
       if (localeText?.length > 32) console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too long (max length is 32)! Slicing.`);
       else if (localeText?.length < 2) console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too short (min length is 2)! Using undefined.`);
 
-      if (localeText && localeText?.length > 2) e.nameLocalizations[locale] = localeText?.slice(0, 32);
-      else console.warn(`WARN: Missing "${locale}" choice name localization for "${e.name}" in option "${option.name}" (${path}.choices.${e.name})`);
+      if (localeText && localeText.length > 2) e.nameLocalizations[locale] = localeText.slice(0, 32);
+      else if (e.name != e.value) console.warn(`WARN: Missing choice name localization for "${e.name}" in option "${option.name}" (${path}.choices.${e.name})`);
 
       return e;
     });
