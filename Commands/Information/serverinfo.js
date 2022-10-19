@@ -20,6 +20,7 @@ module.exports = {
         description: guild.description,
         color: parseInt((await getAverageColor(guild.iconURL())).hex.substring(1), 16),
         image: { url: guild.splash ? `https://cdn.discordapp.com/splashes/${guild.splash}.jpg?size=2048` : '' },
+        thumbnail: { url: guild.iconURL() },
         fields: [
           { name: lang('members'), value: `${lang('global.user')}: \`${guild.members.cache.filter(e => !e.user.bot).size}\`, Bots: \`${guild.members.cache.filter(e => e.user.bot).size}\``, inline: true },
           { name: lang('verificationLevel'), value: GuildVerificationLevel[guild.verificationLevel], inline: true },
@@ -46,7 +47,7 @@ module.exports = {
             { name: `Vanity URL ${lang('uses')}`, value: guild.vanityURLUses, inline: true }
           ) : null
         ].filter(Boolean)
-      }).setThumbnail(guild.iconURL());
+      });
 
     if (guild.banner) embed.setImage(guild.bannerURL());
 
