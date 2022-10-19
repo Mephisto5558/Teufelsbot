@@ -2,6 +2,7 @@
   "blacklistuser": {
     "description": "Blockt einen User vom Benutzen des Bots",
     "usage": "PREFIX Command: blacklistuser <user id>",
+    "noInput": "Du musst eine ID angeben.",
     "notFound": "Dieser User ist nicht blacklisted.",
     "saved": "`{user}` wurde vom Nutzen des Bots geblacklistet.",
     "removed": "`{user}` ist nun nicht mehr geblacklisted.",
