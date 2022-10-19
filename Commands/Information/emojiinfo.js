@@ -1,4 +1,6 @@
-const { parseEmoji, EmbedBuilder, Colors } = require('discord.js');
+const
+  { parseEmoji, EmbedBuilder } = require('discord.js'),
+  { getAverageColor } = require('fast-average-color-node');
 
 module.exports = {
   name: 'emojiinfo',
@@ -22,7 +24,7 @@ module.exports = {
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle', `<:${emoji.name}:${emoji.id}>`),
-      color: /*parseInt((await getAverageColor(emoji.url())).hex.substring(1), 16) does not work*/ Colors.White,
+      color: parseInt((await getAverageColor(emoji.url())).hex.substring(1), 16),
       fields: [
         { name: lang('name'), value: emoji.name, inline: true },
         { name: lang('id'), value: emoji.id, inline: true },
