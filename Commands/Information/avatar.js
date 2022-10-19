@@ -13,14 +13,7 @@ module.exports = {
     {
       name: 'size',
       type: 'Number',
-      choices: [
-        { name: 16, value: 16 }, { name: 32, value: 32 },
-        { name: 56, value: 56 }, { name: 64, value: 64 },
-        { name: 96, value: 96 }, { name: 128, value: 128 },
-        { name: 256, value: 256 }, { name: 300, value: 300 },
-        { name: 512, value: 512 }, { name: 600, value: 600 },
-        { name: 1024, value: 1024 }, { name: 2048, value: 2048 }
-      ]
+      choices: [16, 32, 56, 64, 96, 128, 256, 300, 512, 600, 1024, 2048]
     }
   ],
 
