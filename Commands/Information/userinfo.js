@@ -1,5 +1,5 @@
 const
-  { PermissionFlagsBits, EmbedBuilder, Colors } = require('discord.js'),
+  { PermissionFlagsBits, EmbedBuilder } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = {
@@ -12,14 +12,14 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'target', type: 'User' }],
 
-  run: function (lang) {
+  run: async function (lang) {
     this.args = this.args?.map(e => e.replace(/[<@&>]/g, '')) || [];
     this.content = this.content?.replace(/[<@&>]/g, '');
 
     const
       member = this.options?.getMember('target') || this.mentions?.members.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...this.args, this.content].includes(e))) || this.member,
       user = member.user,
-      color = /*parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16) does not work*/ Colors.White;
+      color = parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16);
 
     let type = user.bot ? 'Bot, ' : '';
 
