@@ -45,7 +45,7 @@ module.exports = {
           name: 'subreddit',
           type: 'String',
           autocomplete: true,
-          autocompleteOptions: function () { const val = this.options.getFocused(true).value; return (val.startsWith('r/') ? val.slice(2) : val).replace(/\W/g, ''); }
+          autocompleteOptions: function () { const val = this.options.getFocused(); return (val.startsWith('r/') ? val.slice(2) : val).replace(/\W/g, ''); }
         },
         { name: 'type', type: 'String' },
         { name: 'filter_nsfw', type: 'Boolean' }
