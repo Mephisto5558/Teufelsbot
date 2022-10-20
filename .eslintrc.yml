@@ -9,8 +9,6 @@ ignorePatterns:
 parserOptions:
   ecmaVersion: latest
 rules:
-  quotes:
-    - warn
   no-fallthrough:
     - warn
   no-empty:
@@ -25,7 +23,7 @@ rules:
     - error
     - windows
   quotes:
-    - error
+    - warn
     - single
   semi:
     - error
