@@ -1,6 +1,6 @@
 const
   { EmbedBuilder } = require('discord.js'),
-  fetch = require('node-fetch').default;
+  { get } = require('axios');
 
 module.exports = {
   name: 'inpirobot',
@@ -14,16 +14,16 @@ module.exports = {
 
   run: async function (lang) {
     let res;
-    try { res = await fetch('https://inspirobot.me/api?generate=true'); }
+    try { res = await get('https://inspirobot.me/api?generate=true'); }
     catch (err) {
       this.customReply(lang('error'));
       return this.client.error(err.message);
     }
 
-    if (!res.body) return this.customReply(lang('notFound'));
+    if (!res.data) return this.customReply(lang('notFound'));
 
     const embed = new EmbedBuilder({
-      image: { url: res.body },
+      image: { url: res.data },
       footer: { text: '- inspirobot.me' }
     }).setColor('Random');
 
