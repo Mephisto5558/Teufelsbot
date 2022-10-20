@@ -3,9 +3,10 @@ const
   { get } = require('axios'),
   { Github } = require('../../config.json'),
   defaultAPIList = [
-    { name: 'jokeAPI', url: 'https://v2.jokeapi.dev' },
-    { name: 'humorAPI', url: 'https://humorapi.com' },
-    { name: 'icanhazdadjoke', url: 'https://icanhazdadjoke.com' }
+    { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any' },
+    { name: 'humorAPI', link: 'https://humorapi.com', url: 'https://api.humorapi.com/jokes/random' },
+    { name: 'icanhazdadjoke', link: 'https://icanhazdadjoke.com', url: 'https://icanhazdadjoke.com' },
+    { name: 'tambalAPI', link: 'https://tambalapi.herokuapp.com', url: 'https://tambalapi.herokuapp.com/joke/random' }
   ];
 
 async function getJoke(APIList, type, blacklist, maxLength) {
@@ -15,9 +16,8 @@ async function getJoke(APIList, type, blacklist, maxLength) {
   try {
     switch (API.name) {
       case 'jokeAPI': {
-        const res = await get(`${API.url}/joke/Any`, {
+        const res = await get(API.url, {
           timeout: 2500,
-          url: 'https://v2.jokeapi.dev/joke/Any',
           params: { lang: 'en', blacklist }
         });
 
@@ -32,7 +32,7 @@ async function getJoke(APIList, type, blacklist, maxLength) {
       }
 
       case 'humorAPI': {
-        const res = await get(`${API.url.replace('://', '://api.')}/jokes/random`, {
+        const res = await get(API.url, {
           timeout: 2500,
           params: {
             'api-key': this.keys.humorAPIKey,
@@ -57,6 +57,13 @@ async function getJoke(APIList, type, blacklist, maxLength) {
         });
 
         response = res.data.joke;
+        break;
+      }
+
+      case 'tambalAPI': {
+        const res = await get(API.url, { timeout: 2500 });
+
+        response = res.joke;
         break;
       }
     }
@@ -89,6 +96,11 @@ module.exports = {
   dmPermission: true,
   category: 'Fun',
   options: [
+    {
+      name: 'api', type: 'String',
+      autocomplete: true,
+      autocompleteOptions: defaultAPIList.map(e => e.name)
+    },
     { name: 'type', type: 'String' },
     {
       name: 'blacklist',
@@ -116,7 +128,7 @@ module.exports = {
       title: lang('embedTitle'),
       description:
         `${joke}\n` +
-        `- [${API.name}](${API.url})`
+        `- [${API.name}](${API.link})`
     }).setColor('Random');
 
     this.customReply({ embeds: [embed] });
