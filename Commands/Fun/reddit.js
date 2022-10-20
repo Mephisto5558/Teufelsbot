@@ -7,7 +7,7 @@ const
     if (filterNSFW) children = children.filter(e => !e.data.over_18);
     if (!children[0]) return;
 
-    const post = children.slice(0, 100).random().data;
+    const post = children.random().data;
 
     return {
       title: post.title,
