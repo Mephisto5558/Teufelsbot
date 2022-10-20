@@ -323,6 +323,11 @@
     "requiresArgs": "Dieser Command benötigt folgende Argumente in Reihenfolge:\n\n{args}",
     "error": "Ein Fehler ist aufgetreten:\n```{err}```"
   },
+  "inspirobot": {
+    "description": "Erhalte ein inspirierendes Zitat.",
+    "error": "Ein Fehler ist aufgetreten.",
+    "notFound": "Es sind keine inspirierenden Zitate verfügbar :("
+  },
   "joke": {
     "description": "Lasse den Bot einen Witz senden",
     "usage": "PREFIX Command: joke [type]",

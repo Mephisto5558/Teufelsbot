@@ -320,6 +320,11 @@
     "requiresArgs": "This command requires the following args in order:\n\n{args}",
     "error": "An error occurred:\n```{err}```"
   },
+  "inspirobot": {
+    "description": "Get ab inspiring quote.",
+    "error": "An error occurred.",
+    "notFound": "There are no inspiring quotes available :("
+  },
   "joke": {
     "description": "sends a funny joke",
     "usage": "PREFIX Command: joke [type]",
