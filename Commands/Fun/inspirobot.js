@@ -24,7 +24,7 @@ module.exports = {
 
     const embed = new EmbedBuilder({
       image: { url: res.data },
-      footer: { text: '- [inspirobot](https://inspirobot.me)' }
+      footer: { text: '- inspirobot.me' }
     }).setColor('Random');
 
     this.customReply({ embeds: [embed] });
