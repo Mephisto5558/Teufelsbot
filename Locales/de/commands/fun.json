@@ -332,6 +332,9 @@
     "description": "Lasse den Bot einen Witz senden",
     "usage": "PREFIX Command: joke [type]",
     "options": {
+      "api": {
+        "description": "Welche API soll genutzt werden?"
+      },
       "type": {
         "description": "Die Art/Der Tag des Witzes (nicht von jeder API unterstützt)"
       },
