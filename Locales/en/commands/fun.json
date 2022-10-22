@@ -329,6 +329,9 @@
     "description": "sends a funny joke",
     "usage": "PREFIX Command: joke [type]",
     "options": {
+      "api": {
+        "description": "Which API do you want to use?"
+      },
       "type": {
         "description": "The type/tag of the joke (not every API supports this)"
       },
