@@ -20,7 +20,7 @@ rules:
     - SwitchCase: 1
       VariableDeclarator: 1
   linebreak-style:
-    - error
+    - off
     - windows
   quotes:
     - warn
