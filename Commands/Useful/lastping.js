@@ -15,15 +15,16 @@ module.exports = {
       channelTypes: ['GuildText', 'GuildVoice', 'GuildAnnouncement', 'GuildPublicThread', 'GuildPrivateThread']
     },
     { name: 'member', type: 'User' }
-  ],
+  ], beta: true,
 
   run: async function (lang) {
-    const channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel;
-    const user = (this.options?.getUser('member') || this.mentions?.users.first())?.id;
+    const
+      channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,
+      user = (this.options?.getUser('member') || this.mentions?.users.first())?.id;
 
     if (!channel.isTextBased()) return this.customReply(lang('invalid'));
 
-    const { url, createdAt, content = lang('unknown'), author = lang('unknown') } = (await channel.messages.fetch({ limit: 100 })).find(e => e.mentions.members.has(this.user.id) && (!user || !e.author || e.author.id == user)) || {};
+    const { url, createdAt, content = lang('unknown'), author = lang('unknown') } = (await channel.messages.fetch({ limit: 100 })).find(e => (e.mentions.everyone || e.mentions.roles.find(e2 => this.member.roles.cache.has(e2.id)) || e.mentions.members.has(this.user.id)) && (!user || !e.author || e.author.id == user)) || {};
     if (!url) return this.customReply(lang('noneFound'));
 
     const embed = new EmbedBuilder({
