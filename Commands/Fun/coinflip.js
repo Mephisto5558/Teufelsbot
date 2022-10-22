@@ -10,5 +10,5 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: function () { this.customReply(lang(randomInt(3001) == 0 ? 'side' : 'response')); }
+  run: function (lang) { this.customReply(lang(randomInt(3001) == 0 ? 'side' : 'response')); }
 };
