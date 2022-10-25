@@ -29,7 +29,7 @@ module.exports = async function messageCreate() {
 
     const userSettings = this.client.db.get('userSettings');
     const afk = afkMessages?.[this.author.id]?.message ? afkMessages[this.author.id] : userSettings[this.author.id]?.afkMessage;
-    if (afk.messsage) {
+    if (afk?.messsage) {
       this.client.db.update('userSettings', `${this.author.id}.afkMessage`, {});
       this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.author.id}`, {});
       if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.substring(6));
