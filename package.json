@@ -19,7 +19,7 @@
     "express-rate-limit": "^6.6.0",
     "fast-average-color-node": "^2.4.0",
     "ffmpeg-static": "^5.1.0",
-    "mathjs": "^11.3.1",
+    "mathjs": "^11.3.2",
     "mongodb": "^4.11.0",
     "mongoose": "^6.6.7",
     "node": "^19.0.0",
