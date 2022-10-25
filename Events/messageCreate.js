@@ -28,11 +28,12 @@ module.exports = async function messageCreate() {
     }
 
     const userSettings = this.client.db.get('userSettings');
-    if (userSettings[this.author.id]?.afkMessage?.message || afkMessages?.[this.author.id]?.message) {
+    const afk = afkMessages?.[this.author.id]?.message ? afkMessages[this.author.id] : userSettings[this.author.id]?.afkMessage;
+    if (afk.messsage) {
       this.client.db.update('userSettings', `${this.author.id}.afkMessage`, {});
       this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.author.id}`, {});
       if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.substring(6));
-      this.customReply(I18nProvider.__({ locale }, 'events.afkEnd'));
+      this.customReply(I18nProvider.__({ locale }, 'events.afkEnd', afk.createdAt));
     }
 
     if (!(await cooldowns.call(this, { name: 'afkMsg', cooldowns: { user: 1000 } }))) {
