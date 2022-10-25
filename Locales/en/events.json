@@ -1,7 +1,7 @@
 {
   "cooldown": "This command is on cooldown! Try it again in `{time}`s.",
   "afkMsg": "`{member}` is AFK: {message} - <t:{timestamp}:R>",
-  "afkEnd": "Welcome back, i removed your AFK.",
+  "afkEnd": "Welcome back, I removed your AFK. You have been AFK since <t:{timestamp}>.",
   "slashCommandOnly": "This command is only available as a slash command!",
   "guildCommandOnly": "This command is only available in guilds!",
   "permissionDenied": {
