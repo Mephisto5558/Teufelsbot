@@ -117,14 +117,6 @@
       "notFound": "Niemand hat seinen Geburtstag angegeben..."
     }
   },
-  "coinflip": {
-    "description": "Wirf eine Münze!",
-    "response": [
-      "Kopf!",
-      "Zahl!"
-    ],
-    "head": "Woah! Die Münze ist auf der Seite gelandet!"
-  },
   "dm": {
     "description": "Sendet jemandem eine DM",
     "options": {
