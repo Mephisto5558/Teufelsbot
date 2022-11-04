@@ -13,7 +13,7 @@ async function reloadCommand(commandName, path, reloadedArray) {
     reloadedArray.push(commandName);
 
     for (const alias of file.aliases.prefix) {
-      this.prefixCommands.set(alias, file);
+      this.prefixCommands.set(alias, { ...file, aliasOf: file.name });
       reloadedArray.push(alias);
     }
   }
@@ -23,7 +23,7 @@ async function reloadCommand(commandName, path, reloadedArray) {
     reloadedArray.push(`/${commandName}`);
 
     for (const alias of file.aliases.slash) {
-      this.slashCommands.set(alias, file);
+      this.slashCommands.set(alias, { ...file, aliasOf: file.name });
       reloadedArray.push(`/${alias}`);
     }
   }
