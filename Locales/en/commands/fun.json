@@ -103,9 +103,9 @@
     "saved": "Your birthday has been saved.",
     "removed": "Your birthday has been removed.",
     "getUser": {
-      "notFound": "This user has no birthday :(",
+      "notFound": "{user} has no birthday :(",
       "embedTitle": "{user}'s birthday",
-      "date": "This user has birthday on **{month} {day}**.\n",
+      "date": "{user} has birthday on **{month} {day}**.\n",
       "newAge": "He/she will turn **{age}** on this day."
     },
     "getAll": {
