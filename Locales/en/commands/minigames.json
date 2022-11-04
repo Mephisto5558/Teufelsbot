@@ -1,16 +1,11 @@
 {
-  "rps": {
-    "description": "Play rock paper scissors against the bot or (coming soon) against your friends",
-    "embedTitle": "Rock Paper Scissors",
-    "embedDescription": "Choose a handsign!",
-    "rock": "Rock",
-    "paper": "Paper",
-    "scissors": "Scissors",
-    "win": "You won!",
-    "tie": "We tied!",
-    "lose": "You lost!",
-    "chose": "I chose {chose}! {win} ({you} {symbol} {i})",
-    "timedOut": "You lost because you chose to choose nothing!"
+  "coinflip": {
+    "description": "Flip a coin!",
+    "response": [
+      "Heads!",
+      "Tails!"
+    ],
+    "head": "Woah! The coin landed on it's side!"
   },
   "mgstats": {
     "description": "get stats about one of the bot's minigames",
@@ -63,6 +58,19 @@
     "noWinners": "It looks like no one has won yet...",
     "youNoGamesPlayed": "You have not played any {game} games yet.",
     "usrNoGamesPlayed": "{user} has not played any {game} games yet."
+  },
+  "rps": {
+    "description": "Play rock paper scissors against the bot or (coming soon) against your friends",
+    "embedTitle": "Rock Paper Scissors",
+    "embedDescription": "Choose a handsign!",
+    "rock": "Rock",
+    "paper": "Paper",
+    "scissors": "Scissors",
+    "win": "You won!",
+    "tie": "We tied!",
+    "lose": "You lost!",
+    "chose": "I chose {chose}! {win} ({you} {symbol} {i})",
+    "timedOut": "You lost because you chose to choose nothing!"
   },
   "tictactoe": {
     "description": "play TicTacToe against a friend or the bot",
