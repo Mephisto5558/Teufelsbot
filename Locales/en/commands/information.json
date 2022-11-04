@@ -185,9 +185,9 @@
     "roles": "Roles",
     "position": "Position",
     "color": "Color",
-    "moderatable": "Moderatable",
     "createdAt": "Created At",
     "joinedAt": "Joined At",
+    "birthday": "Birthday",
     "timedOutUntil": "Timed Out Until",
     "rolesWithPerms": "Roles with permissions",
     "perms": "Permissions"

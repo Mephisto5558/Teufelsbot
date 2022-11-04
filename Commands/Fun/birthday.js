@@ -1,13 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
+  getAge = require('../../Functions/private/getAge.js'),
   currentYear = new Date().getFullYear();
-
-function getAge([year, month, day]) {
-  const now = new Date();
-  if (month < (now.getMonth() + 1) || (month == now.getMonth() + 1 && day < now.getDate()))
-    return currentYear - year + 1;
-  return currentYear - year;
-}
 
 module.exports = {
   name: 'birthday',
@@ -59,8 +53,7 @@ module.exports = {
 
   run: async function (lang, { db }) {
     const
-      cmd = this.options.getSubcommand(),
-      target = this.options.getUser('target'),
+      target = this.options.getMember('target'),
       doNotHide = this.options.getBoolean('do_not_hide'),
       oldData = db.get('userSettings'),
       birthday = [
@@ -69,7 +62,7 @@ module.exports = {
         Math.abs(this.options.getNumber('day') || '')?.toString().padStart(2, '0')
       ];
 
-    switch (cmd) {
+    switch (this.options.getSubcommand()) {
       case 'set': {
         db.update('userSettings', `${this.user.id}.birthday`, birthday.join('/'));
 
@@ -95,14 +88,14 @@ module.exports = {
         });
 
         if (target) {
-          embed.data.title = lang('getUser.embedTitle', target.tag);
+          embed.data.title = lang('getUser.embedTitle', target.user.tag);
 
           const data = oldData[target.id]?.birthday?.split('/');
 
-          if (!data) newData = lang('getUser.notFound');
+          if (!data) newData = lang('getUser.notFound', target.displayName);
           else {
-            const age = getAge(data);
-            newData = lang('getUser.date', { month: lang(`months.${data[1]}`), day: data[2] });
+            const age = getAge(data) + 1;
+            newData = lang('getUser.date', { user: target.displayName, month: lang(`months.${data[1]}`), day: data[2] });
             if (age < currentYear) newData += lang('getUser.newAge', age);
           }
         }
@@ -127,12 +120,10 @@ module.exports = {
 
           for (const [id, year, month, day] of data) {
             const date = lang('getAll.date', { month: lang(`months.${month}`), day: parseInt(day) });
-            let age = getAge([year, month, day]);
-            age = age < currentYear ? ` (${age})` : '';
-            const msg = `> <@${id}>${age}\n`;
+            const age = getAge([year, month, day]) + 1;
+            const msg = `> <@${id}>${age < currentYear ? ' (' + age + ')' : ''}\n`;
 
-            if (newData?.includes(date)) newData += msg;
-            else newData += `\n${date}${msg}`;
+            newData += newData?.includes(date) ? msg : `\n${date}${msg}`;
           }
         }
 
