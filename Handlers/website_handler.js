@@ -7,11 +7,10 @@ const
   lang = I18nProvider.__.bind(I18nProvider, { locale: 'en', undefinedNotFound: true });
 
 function validate(key, res, WebsiteKey) {
-  if (key != WebsiteKey) {
-    res.status(403).send('You need to provide a valid "key" url parameter to access this information.');
-    return false;
-  }
-  return true;
+  if (key == WebsiteKey) return true;
+
+  res.status(403).send('You need to provide a valid "key" url parameter to access this information.');
+  return false;
 }
 
 async function getCommands() {
@@ -60,8 +59,8 @@ module.exports = function websiteHandler() {
     .all('*', async (req, res) => {
       switch (req.path) {
         case '/commands': {
-          if (validate(req.query.key, res, this.keys.WebsiteKey)) return res.send(await (req.query.fetch ? getCommands() : commands));
-          break;
+          if (validate(req.query.key, res, this.keys.WebsiteKey)) res.send(await (req.query.fetch ? getCommands() : commands));
+          return;
         }
         case '/reloadDB': {
           if (!validate(req.query.key, res, this.keys.WebsiteKey)) return;
