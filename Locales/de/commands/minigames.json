@@ -1,16 +1,11 @@
 {
-  "rps": {
-    "description": "Spiele Stein Schere Papier gegen den Bot oder (coming soon) gegen andere Member.",
-    "embedTitle": "Stein Schere Papier",
-    "embedDescription": "Wähle ein Handzeichen!",
-    "rock": "Stein",
-    "paper": "Papier",
-    "scissors": "Schere",
-    "win": "Du hast gewonnen!",
-    "tie": "Unentschieden!",
-    "lose": "Du hast verloren!",
-    "chose": "Ich wählte {chose}! {win} ({you} {symbol} {i})",
-    "timedOut": "Du hast verloren, weil du nichts ausgewählt hast!"
+  "coinflip": {
+    "description": "Wirf eine Münze!",
+    "response": [
+      "Kopf!",
+      "Zahl!"
+    ],
+    "head": "Woah! Die Münze ist auf der Seite gelandet!"
   },
   "mgstats": {
     "description": "Erhalte Stats von einem der Minigames des Bots",
@@ -63,6 +58,19 @@
     "noWinners": "Es sieht so aus als hätte noch niemand gewonnen...",
     "youNoGamesPlayed": "Du hast noch nie {game} gespielt.",
     "usrNoGamesPlayed": "{user} hat noch nie {game} gespielt."
+  },
+  "rps": {
+    "description": "Spiele Stein Schere Papier gegen den Bot oder (coming soon) gegen andere Member.",
+    "embedTitle": "Stein Schere Papier",
+    "embedDescription": "Wähle ein Handzeichen!",
+    "rock": "Stein",
+    "paper": "Papier",
+    "scissors": "Schere",
+    "win": "Du hast gewonnen!",
+    "tie": "Unentschieden!",
+    "lose": "Du hast verloren!",
+    "chose": "Ich wählte {chose}! {win} ({you} {symbol} {i})",
+    "timedOut": "Du hast verloren, weil du nichts ausgewählt hast!"
   },
   "tictactoe": {
     "description": "Spiele TicTacToe gegen ein anderes Mitglied oder den Bot",

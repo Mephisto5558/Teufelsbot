@@ -114,14 +114,6 @@
       "notFound": "Nobody has a birthday set..."
     }
   },
-  "coinflip": {
-    "description": "Flip a coin!",
-    "response": [
-      "Heads!",
-      "Tails!"
-    ],
-    "head": "Woah! The coin landed on it's side!"
-  },
   "dm": {
     "description": "sends an user a dm",
     "options": {
