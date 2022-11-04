@@ -5,7 +5,7 @@ const
 
 let prefixLength;
 
-async function runEco(economy = {}, { economy: { gaining: defaultGaining } }) {
+async function runEco({ economy: { gaining: defaultGaining } }, economy = {}) {
   const { gaining, currency, currencyCapacity, skills } = economy[this.author.id] || {};
   const { config = {} } = economy;
 
@@ -63,7 +63,7 @@ module.exports = async function messageCreate() {
   else if (this.content.startsWith(`<@${this.client.user.id}>`)) prefixLength = this.client.user.id.length + 3;
   else {
     runMessages();
-    return runEco.call(this, economy, defaultSettings);
+    return runEco.call(this, defaultSettings, economy);
   }
 
   this.args = this.content.slice(prefixLength).trim().split(' ');
