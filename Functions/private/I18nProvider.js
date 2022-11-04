@@ -42,27 +42,28 @@ class I18nProvider {
     this.localeData = {};
     for (const [key] of this.availableLocales) this.loadLocale(key);
 
-    if (!this.localeData[this.config.defaultLocale])
+    this.defaultLocaleData = this.localeData[this.config.defaultLocale];
+    if (!this.defaultLocaleData)
       throw new Error(`There are no language files for the default locale (${this.config.defaultLocale}) in the supplied locales path!`);
   }
 
   /**@param {string}key @param {string|object}replacements @returns {string}the message*/
-  __({ locale = this.config.defaultLocale, errorNotFound = this.config.errorNotFound, undefinedNotFound = this.config.undefinedNotFound, backupPath = '' } = {}, key, replacements) {
-    let message = this.localeData[locale]?.[key] ?? this.localeData[this.config.defaultLocale][key] ?? (backupPath ? this.localeData[locale]?.[`${backupPath}.${key}`] : null);
+  __({ locale = this.config.defaultLocale, errorNotFound = this.config.errorNotFound, undefinedNotFound = this.config.undefinedNotFound, backupPath } = {}, key, replacements) {
+    let message = this.localeData[locale]?.[key] ?? (backupPath && this.localeData[locale]?.[`${backupPath}.${key}`]);
+    if (!message) {
+      if (!undefinedNotFound) console.warn(`Missing "${locale}" localization for ${key}` + (backupPath ? ` (${backupPath}.${key})!` : '!'));
+      message = this.defaultLocaleData[key] ?? (backupPath && this.defaultLocaleData[`${backupPath}.${key}`]);
+    }
 
     if (Array.isArray(message)) message = message.random();
     if (!message) {
-      if (!undefinedNotFound) console.warn(`Missing "${locale}" localization for ${key}` + (backupPath ? ` (${backupPath}.${key})!` : '!'));
-      if (backupPath) message = this.localeData[this.config.defaultLocale][`${backupPath}.${key}`];
-
-      if (!message) {
-        if (errorNotFound) throw new Error(`Key not found: "${key}"` + (backupPath ? ` (${backupPath}.${key})` : ''));
-        return undefinedNotFound ? undefined : this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
-      }
+      if (errorNotFound) throw new Error(`Key not found: "${key}"` + (backupPath ? ` (${backupPath}.${key})` : ''));
+      if (undefinedNotFound) return undefined;
+      console.warn(`Missing "${this.config.defaultLocale}" localization for ${key}` + (backupPath ? ` (${backupPath}.${key})!` : '!'));
+      return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
     }
 
     if (!replacements?.toString()) return message;
-
     if (typeof replacements != 'object') return message.replace(/{\w+}/, replacements.toString());
 
     for (const [key, value] of Object.entries(replacements)) message = message.replaceAll(`{${key}}`, value?.toString());
@@ -83,7 +84,7 @@ class I18nProvider {
 
   /**@returns {{}}list of missing entries*/
   findMissing() {
-    const defaultKeys = Object.keys(this.localeData[this.config.defaultLocale]);
+    const defaultKeys = Object.keys(this.defaultLocaleData);
     const missing = {};
 
     for (const lang of this.availableLocales.keys()) missing[lang] = defaultKeys.filter(k => !this.localeData[lang][k]);
