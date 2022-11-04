@@ -14,7 +14,7 @@ module.exports = function commandHandler() {
 
       if (!command.aliases) continue;
       for (const alias of command.aliases.prefix) {
-        this.prefixCommands.set(alias, command);
+        this.prefixCommands.set(alias, { ...command, aliasOf: command.name });
         this.log(`Loaded Alias ${alias} of Prefix Command ${command.name}`);
         commandCount++;
       }

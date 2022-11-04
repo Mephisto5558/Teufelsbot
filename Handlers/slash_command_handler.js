@@ -115,7 +115,7 @@ module.exports = async function slashCommandHandler(syncGuild) {
         }
         if (!skipped) {
           this.slashCommands.set(command.name, command);
-          for (const alias of command.aliases.slash) this.slashCommands.set(alias, command);
+          for (const alias of command.aliases.slash) this.slashCommands.set(alias, { ...command, aliasOf: command.name });
         }
       }
     }
