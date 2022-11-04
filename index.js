@@ -83,7 +83,8 @@ console.time('Starting time');
 
   if (client.botType != 'dev') client.giveawaysManager = require('./Functions/private/giveawaysmanager.js')(client);
 
-  for (const handler of readdirSync('./Handlers')) require(`./Handlers/${handler}`).call(client);
+  for (const handler of readdirSync('./Handlers').filter(e => client.botType != 'dev' || !e.includes('website')))
+    require(`./Handlers/${handler}`).call(client);
 
   await client.login(client.keys.token);
   client.log(`Logged into ${client.botType}`);
