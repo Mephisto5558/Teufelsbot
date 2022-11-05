@@ -39,7 +39,7 @@ module.exports = {
       withSpaces: this.options.getBoolean('with_spaces'),
       convertSpaces: this.options.getBoolean('convert_spaces'),
       convertOnlyLettersDigits: this.options.getBoolean('convert_letters_and_digits_only'),
-      type: this.options.getBoolean('is_octal') ? 'octal' : null
+      type: this.options.getBoolean('is_octal') && 'octal'
     });
 
     if (converter.type.toLowerCase() == convertTo.toLowerCase())
