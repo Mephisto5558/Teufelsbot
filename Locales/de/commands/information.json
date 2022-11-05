@@ -42,14 +42,14 @@
     "unknown": "unbekannt",
     "name": "Name",
     "id": "ID",
-    "url": "URL",
     "guild": "Server",
     "animated": "Animiert",
     "creator": "Ersteller",
     "available": "Verfügbar",
     "createdAt": "Erstellt",
     "requiresColons": "Benötigt Doppelpunkte",
-    "allowedRoles": "Erlaubte Rollen"
+    "allowedRoles": "Erlaubte Rollen",
+    "download": "Emoji Herunterladen"
   },
   "help": {
     "description": "Zeige alle meine Commands oder erhalte Informationen über einen spezifischen.",
@@ -143,7 +143,12 @@
     "admin": "Administrator"
   },
   "serverinfo": {
-    "description": "Erhalte Informationen über diesen Server",
+    "description": "Erhalte Informationen über einen Server",
+    "options":{
+      "guild_id": {
+        "description": "Die Server-ID über die du Infos einholen möchtest. Funktioniert nur für Server in denen ich bin."
+      }
+    },
     "members": "Mitglieder",
     "verificationLevel": "Verifizierungsstufe",
     "createdAt": "Erstellt",

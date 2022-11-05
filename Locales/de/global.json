@@ -9,5 +9,7 @@
   "disabled": "Deaktiviert",
   "none": "keine",
   "noPermUser": "Du hast keine Berechtigung dazu!",
-  "noPermBot": "Ich habe keine Berechtigung dazu!"
+  "noPermBot": "Ich habe keine Berechtigung dazu!",
+  "true": "Ja",
+  "false": "Nein"
 }
