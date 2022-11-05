@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, GuildDefaultMessageNotifications, ChannelType, GuildPremiumTier, GuildVerificationLevel } = require('discord.js'),
+  { EmbedBuilder, GuildDefaultMessageNotifications, ChannelType, GuildPremiumTier, GuildVerificationLevel, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
         title: guild.name,
         description: guild.description,
         color: parseInt((await getAverageColor(guild.iconURL())).hex.substring(1), 16),
-        image: { url: guild.splash ? `https://cdn.discordapp.com/splashes/${guild.splash}.jpg?size=2048` : '' },
+        image: { url: guild.bannerURL({ size: 1024 }) },
         thumbnail: { url: guild.iconURL() },
         fields: [
           { name: lang('members'), value: `${lang('global.user')}: \`${guild.members.cache.filter(e => !e.user.bot).size}\`, Bots: \`${guild.members.cache.filter(e => e.user.bot).size}\``, inline: true },
@@ -42,15 +42,29 @@ module.exports = {
             })(),
             inline: false
           },
-          guild.vanityURLCode ? (
+          guild.vanityURLCode && (
             { name: 'Vanity URL', value: guild.vanityURLCode, inline: true },
             { name: `Vanity URL ${lang('uses')}`, value: guild.vanityURLUses, inline: true }
-          ) : null
+          )
         ].filter(Boolean)
       });
 
-    if (guild.banner) embed.setImage(guild.bannerURL());
+    const component = new ActionRowBuilder({
+      components: [
+        new ButtonBuilder({
+          label: lang('downloadIcon'),
+          style: ButtonStyle.Link,
+          url: guild.iconURL({ size: 2048 })
+        })
+      ]
+    });
 
-    this.customReply({ embeds: [embed] });
+    if (guild.banner) component.components.push(new ButtonBuilder({
+      label: lang('downloadBanner'),
+      style: ButtonStyle.Link,
+      url: guild.bannerURL({ size: 2048 })
+    }));
+
+    this.customReply({ embeds: [embed], components: [component] });
   }
 };
