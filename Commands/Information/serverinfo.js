@@ -10,17 +10,23 @@ module.exports = {
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
+  options: [{
+    name: 'guild_id',
+    type: 'String',
+    autocomplete: true,
+    autocompleteOptions: function () { return this.client.guilds.cache.filter(e => e.members.cache.has(this.member.id)).map(e => e.id); },
+  }],
 
   run: async function (lang) {
     const
-      guild = this.guild,
+      guild = this.client.guilds.cache.get(this.options?.getString('guild_id') || this.args[0]) || this.guild,
       channels = Array.from(guild.channels.cache.values()),
       embed = new EmbedBuilder({
         title: guild.name,
         description: guild.description,
         color: parseInt((await getAverageColor(guild.iconURL())).hex.substring(1), 16),
-        image: { url: guild.bannerURL({ size: 1024 }) },
         thumbnail: { url: guild.iconURL() },
+        image: { url: guild.bannerURL({ size: 1024 }) },
         fields: [
           { name: lang('members'), value: `${lang('global.user')}: \`${guild.members.cache.filter(e => !e.user.bot).size}\`, Bots: \`${guild.members.cache.filter(e => e.user.bot).size}\``, inline: true },
           { name: lang('verificationLevel'), value: GuildVerificationLevel[guild.verificationLevel], inline: true },
@@ -30,7 +36,7 @@ module.exports = {
           { name: lang('owner'), value: `<@${guild.ownerId}>`, inline: true },
           { name: lang('memberCount'), value: `\`${guild.memberCount}\``, inline: true },
           { name: lang('locale'), value: guild.preferredLocale, inline: true },
-          { name: lang('partnered'), value: guild.partnered, inline: true },
+          { name: lang('partnered'), value: lang(`global.${guild.partnered}`), inline: true },
           { name: lang('emojis'), value: `\`${guild.emojis.cache.size}\``, inline: true },
           { name: lang('roles'), value: `\`${guild.roles.cache.size}\``, inline: true },
           { name: lang('boosts'), value: `\`${guild.premiumSubscriptionCount}\`${guild.premiumTier ? ', ' + GuildPremiumTier[guild.premiumTier].replace(/(\d)/, ' $1') : ''}`, inline: true },

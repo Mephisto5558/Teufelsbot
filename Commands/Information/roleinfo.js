@@ -23,13 +23,13 @@ module.exports = {
         { name: lang('mention'), value: role.toString(), inline: true },
         { name: lang('members'), value: role.members.size, inline: true },
         { name: lang('color'), value: role.color ? `[${role.hexColor}](https://www.color-hex.com/color/${role.hexColor.substring(1)})` : lang('global.none'), inline: true },
-        { name: lang('mentionable'), value: role.mentionable, inline: true },
-        { name: lang('hoist'), value: role.hoist, inline: true },
-        { name: lang('managed'), value: role.managed, inline: true },
+        { name: lang('mentionable'), value:  lang(`global.${role.mentionable}`), inline: true },
+        { name: lang('hoist'), value: lang(`global.${role.hoist}`), inline: true },
+        { name: lang('managed'), value:  lang(`global.${role.managed}`), inline: true },
         { name: lang('position'), value: `\`${role.position}\``, inline: true },
         { name: 'ID', value: `\`${role.id}\``, inline: true },
         { name: lang('createdAt'), value: `<t:${Math.round(role.createdTimestamp / 1000)}>`, inline: true },
-        role.members.size < 16 ? { name: lang('members'), value: Array.from(role.members.values()).join(', '), inline: false } : null,
+        role.members.size < 16 && { name: lang('members'), value: Array.from(role.members.values()).join(', '), inline: false },
         { name: lang('permissions'), value: `\`${role.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : role.permissions.toArray()?.join('`, `') || lang('global.none')}\` (\`${role.permissions.toArray().length}\`)`, inline: false }
       ].filter(Boolean)
     });
