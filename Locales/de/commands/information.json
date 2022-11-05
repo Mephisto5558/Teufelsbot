@@ -157,7 +157,9 @@
     "roles": "Rollen",
     "channels": "Kanäle",
     "vanityUrl": "Vanity URL",
-    "uses": "Nutzungen"
+    "uses": "Nutzungen",
+    "downloadIcon": "Icon Herunterladen",
+    "downloadBanner": "Banner Herunterladen"
   },
   "uptime": {
     "description": "Erhalte die Uptime des Bots",
@@ -187,9 +189,11 @@
     "color": "Farbe",
     "createdAt": "Erstellt",
     "joinedAt": "Beigetreten",
-    "birthday": "Geburtstag",
+    "birthday": "Geburtstag (Alter)",
     "timedOutUntil": "Getimeouted bis",
     "rolesWithPerms": "Rollen mit Berechtigungen",
-    "perms": "Berechtigungen"
+    "perms": "Berechtigungen",
+    "downloadAvatar": "Avatar Herunterladen",
+    "downloadBanner": "Banner Herunterladen"
   }
 }
