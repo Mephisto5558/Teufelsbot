@@ -42,14 +42,14 @@
     "unknown": "unknown",
     "name": "Name",
     "id": "ID",
-    "url": "URL",
     "guild": "Guild",
     "animated": "Animated",
     "creator": "Creator",
     "available": "Available",
     "createdAt": "Created At",
     "requiresColons": "Requires Colons",
-    "allowedRoles": "Allowed Roles"
+    "allowedRoles": "Allowed Roles",
+    "download": "Download Emoji"
   },
   "help": {
     "description": "Show all my commands or search for a specific one",
@@ -143,7 +143,12 @@
     "admin": "Administrator"
   },
   "serverinfo": {
-    "description": "Get information about this guild",
+    "description": "Get information about a guild",
+    "options":{
+      "guild_id": {
+        "description": "The server ID you want to get information about. Only works for servers I'm in."
+      }
+    },
     "members": "Members",
     "verificationLevel": "Verification Level",
     "createdAt": "Created At",
