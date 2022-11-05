@@ -66,7 +66,7 @@ module.exports = {
         description: getOption('description'),
         color: parseInt(getOption('custom_color')?.substring(1) ?? 0, 16) || getOption('predefined_color'),
         footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
-        timestamp: this.options.getBoolean('timestamp') ? Math.round(Date.now() / 1000) : null,
+        timestamp: this.options.getBoolean('timestamp') && Math.round(Date.now() / 1000),
         author: {
           name: getOption('author_name'),
           url: getOption('author_url'),
