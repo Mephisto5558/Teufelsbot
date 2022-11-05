@@ -14,10 +14,8 @@ class Converter {
         for (let i = 0; i < this.input.length; i += skip) {
           if (this.type == 'text' && this.options.convertOnlyLettersDigits && /^[\x2F\x3A-\x40\x5B-\x60\x7B-\x9B\xA1-\xBE]+$/.test(this.input[i]))  //the regex matches all special chars like "[]" but not something like "äüö"
             output += this.input[i];
-          else if (this.input[i] == ' ' && !this.options.convertSpaces) {
-            if (this.options.withSpaces) output += '\n';
-            else output += this.input[i];
-          }
+          else if (this.input[i] == ' ' && !this.options.convertSpaces)
+            output += this.options.withSpaces ? '\n' : this.input[i];
           else output += convertFunction(this.input, i);
 
           if (this.options.withSpaces && this.input[i] != ' ') output += ' ';
