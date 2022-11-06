@@ -1,9 +1,5 @@
 const { EmbedBuilder, Colors } = require('discord.js');
 
-const call = (fn, ...args) => fn(...args);
-const filterEmpty = obj => Object(obj) !== obj ? obj
-  : Object.fromEntries(Object.entries(obj).flatMap(([k, v]) => call((val = filterEmpty(v)) => !(val == null || (Object(val) === val && Object.keys(val).length == 0)) ? [[k, val]] : [])));
-
 module.exports = {
   name: 'embed',
   aliases: { prefix: [], slash: [] },
@@ -57,13 +53,14 @@ module.exports = {
   run: async function (lang) {
     const getOption = name => this.options.getString(name)?.replaceAll('/n', '\n');
     const custom = getOption('json');
-    const content = getOption('content');
     let embed;
 
     try {
       embed = new EmbedBuilder(custom ? JSON.parse(custom) : {
         title: getOption('title'),
         description: getOption('description'),
+        thumbnail: { url: getOption('thumbnail') },
+        image: { url: getOption('image') },
         color: parseInt(getOption('custom_color')?.substring(1) ?? 0, 16) || getOption('predefined_color'),
         footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
         timestamp: this.options.getBoolean('timestamp') && Math.round(Date.now() / 1000),
@@ -73,15 +70,13 @@ module.exports = {
           iconURL: getOption('author_icon')
         },
         //fields: getOption('fields')
-      })
-        .setThumbnail(getOption('thumbnail'))
-        .setImage(getOption('image'));
+      });
 
-      await this.channel.send({ content, embeds: [embed] });
+      await this.channel.send({ content: getOption('content'), embeds: [embed] });
     }
     catch (err) { return this.editReply(lang('invalidOption', err.message)); }
 
     if (custom) return this.editReply(lang('successJSON'));
-    this.editReply(lang('success', JSON.stringify(filterEmpty(embed.data))));
+    this.editReply(lang('success', JSON.stringify(embed.data.filterEmpty())));
   }
 };
