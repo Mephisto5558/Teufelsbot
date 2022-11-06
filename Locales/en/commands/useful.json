@@ -26,6 +26,60 @@
     "usage": "This command publishes all messages sent in announcement channels automatically.\nThis is a toggle.",
     "success": "{toggle} autopublishing."
   },
+  "button": {
+    "description": "Create a button.",
+    "options": {
+      "json": {
+        "description": "create a button from raw JSON data",
+        "options": {
+          "json": {
+            "description": "JSON data to create a button from"
+          }
+        }
+      },
+      "custom": {
+        "description": "create your own button with a bunch of options",
+        "options": {
+          "style": {
+            "description": "What style should your button have?",
+            "choices": {
+              "1": "Blurple",
+              "2": "Grey",
+              "3": "Green",
+              "4": "Red",
+              "5": "Link (Requires the \"url\" option)"
+            }
+          },
+          "emoji": {
+            "description": "The emoji you want to show on the button. Gets overwritten by the \"label\" option."
+          },
+          "label": {
+            "description": "The text you want to show on the button. Overwrites the \"emoji\" option."
+          },
+          "url": {
+            "description": "The url the button points to. Works only with \"Link\" style option."
+          },
+          "new_row": {
+            "description": "Use a new row for the button."
+          },
+          "content": {
+            "description": "Set a message to the button message."
+          },
+          "message_id": {
+            "description": "The message you want to add a button to. Needs to be in the same channel as the command."
+          }
+        }
+      }
+    },
+    "invalidURL": "The provided URL is invalid!",
+    "msgNotFound": "The message id you provided was not found in this channel!",
+    "botIsNotAuthor": "I can only edit my own messages!",
+    "buttonLimit": "A message cannot have more then 5 rows or 25 buttons!",
+    "invalidOption": "**One of your options is invalid!**\n\n```{err}```",
+    "invalidJSON": "**Your JSON is invalid!**\n\n```{err}```",
+    "successJSON": "Your button has been sent!",
+    "success": "Your button has been sent! Below is the button code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
+  },
   "convert": {
     "description": "Converts one type of text to another",
     "options": {
@@ -107,9 +161,9 @@
         }
       }
     },
-    "invalidOption": "**Your JSON is invalid!**\n\n```{err}```",
+    "invalidOption": "**One of your options invalid!**\n\n```{err}```",
+    "invalidJSON": "**Your JSON is invalid!**\n\n```{err}```",
     "successJSON": "Your embed has been sent!",
-    "noPerm": "You don't have the permission to send messages in that channel!",
     "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
   },
   "hash": {
