@@ -44,7 +44,7 @@ module.exports = {
         { name: 'message_id', type: 'String' }
       ]
     }
-  ], beta: true,
+  ],
 
   run: async function (lang) {
     const
