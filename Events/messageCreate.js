@@ -40,7 +40,7 @@ module.exports = async function messageCreate() {
           this.customReply(trigger.response);
       }
       else if (originalContent.includes(this.client.user.id) && !(await cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } })))
-        this.react(':eyes:');
+        this.react('👀');
 
       const userSettings = this.client.db.get('userSettings');
       const afk = afkMessages?.[this.author.id]?.message ? afkMessages[this.author.id] : userSettings[this.author.id]?.afkMessage;
