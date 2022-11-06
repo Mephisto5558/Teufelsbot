@@ -26,6 +26,60 @@
     "usage": "Dieser Command veröffentlicht automatisch alle Nachrichten, die in Announcement-Channels gesendet werden.\nDies ist ein Toggle.",
     "success": "Autopublish wurde {toggle}."
   },
+  "button": {
+    "description": "Erstelle einen Button.",
+    "options": {
+      "json": {
+        "description": "Erstelle einen Button aus rohem JSON.",
+        "options": {
+          "json": {
+            "description": "JSON Daten aus denen der Button erstellt wird."
+          }
+        }
+      },
+      "custom": {
+        "description": "Erstelle deinen eigenen Button mit vielen verscheiden Optionen",
+        "options": {
+          "style": {
+            "description": "Welchen Style soll dein Button haben?",
+            "choices": {
+              "1": "Blurple",
+              "2": "Grau",
+              "3": "Grün",
+              "4": "Rot",
+              "5": "Link (Benötigt die \"url\" Option)"
+            }
+          },
+          "emoji": {
+            "description": "Der Emoji, der auf dem Button angezeigt werden soll. Wird von der \"label\" Option überschreiben."
+          },
+          "label": {
+            "description": "Der Text, der auf dem Button angezeigt werden soll. Überschreibt die \"emoji\" Option."
+          },
+          "url": {
+            "description": "Die URL, auf die der Button verweist. Funktioniert nur mit \"Link\" als Style."
+          },
+          "new_row": {
+            "description": "Nutze eine neue Reihe für den Button."
+          },
+          "content": {
+            "description": "Füge der Button-Message Text hinzu."
+          },
+          "message_id": {
+            "description": "Die Nachricht, an die du den Button anfügst. Muss in diesem Kanal sein."
+          }
+        }
+      }
+    },
+    "invalidURL": "Die angegebene URL ist ungültig!",
+    "msgNotFound": "Die angegebene Nachrichten-ID wurde in diesem Kanal nicht gefunden!",
+    "botIsNotAuthor": "Ich kann nur meine eigenen Nachrichten bearbeiten!",
+    "buttonLimit": "Eine Nachricht kann nicht mehr als 5 Reihen oder 25 Buttons haben!",
+    "invalidOption": "**Eine der angegebenen Optionen ist ungültig!**\n\n```{err}```",
+    "invalidJSON": "**Dein JSON ist ungültig!**\n\n```{err}```",
+    "successJSON": "Dein Button wurde gesendet!",
+    "success": "Dein Button wurde gesendet! Unten ist der Button Code.\nWenn du ihn erneut senden möchtest, nutze den `json` Untercommand.\n\n```json\n{json}\n```"
+  },
   "convert": {
     "description": "Konvertiert eine Textart zu einer anderen",
     "options": {
@@ -107,7 +161,8 @@
         }
       }
     },
-    "invalidOption": "**Dein JSON ist ungültig!**\n\n```{err}```",
+    "invalidOption": "**Eine der angegebenen Optionen ist ungültig!**\n\n```{err}```",
+    "invalidJSON": "**Dein JSON ist ungültig!**\n\n```{err}```",
     "successJSON": "Dein Embed wurde gesendet!",
     "noPerm": "Du hast nicht die Berechtigung, Nachrichten in diesem Kanal zu senden!",
     "success": "Dein Embed wurde gesendet! Unten ist der Embed Code.\nWenn du es erneut senden möchtest, nutze den `json` Untercommand.\n\n```json\n{json}\n```"
