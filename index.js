@@ -28,6 +28,7 @@ Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }
   }
   return output;
 };
+Object.prototype.filterEmpty = function filterEmpty() { return Object.fromEntries(Object.entries(this).flatMap(([k, v]) => ((val = Object(v) !== v ? v : v.filterEmpty()) => !(val == null || (Object(val) === val && Object.keys(val).length == 0)) ? [[k, val]] : [])())); };
 CommandInteraction.prototype.customReply = customReply;
 Message.prototype.customReply = customReply;
 Object.defineProperty(AutocompleteInteraction.prototype, 'focused', { get() { return this.options.getFocused(true); } });
