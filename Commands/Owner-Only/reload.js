@@ -5,6 +5,7 @@ async function reloadCommand(commandName, path, reloadedArray) {
   const file = require(path);
 
   if ((this.botType == 'dev' && !file.beta) || file.disabled) return;
+  file.filePath = path;
 
   if (file.prefixCommand) {
     this.prefixCommands.set(commandName, file);
