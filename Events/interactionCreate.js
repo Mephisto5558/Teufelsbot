@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, InteractionType, ApplicationCommandOptionType } = require('discord.js'),
-  I18nProvider = require('../Functions/private/I18nProvider.js');
+  I18nProvider = require('../Utils/I18nProvider.js');
 
 module.exports = async function interactionCreate() {
   const command = this.client.slashCommands.get(this.commandName);
@@ -32,7 +32,7 @@ module.exports = async function interactionCreate() {
 
   const lang = I18nProvider.__.bind(I18nProvider, { locale: this.client.db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
-  const cooldown = await require('../Functions/private/cooldowns.js').call(this, command);
+  const cooldown = await require('../Utils/cooldowns.js').call(this, command);
   if (cooldown) return this.reply({ content: lang('events.cooldown', cooldown), ephemeral: true });
 
   if (command.requireEconomy) {
@@ -61,8 +61,8 @@ module.exports = async function interactionCreate() {
       if (entry.type == ApplicationCommandOptionType.String) entry.value = entry.value.replaceAll('<@!', '<@');
 
     try {
-      command.run.call(this, lang, this.client)?.catch(err => require('../Functions/private/error_handler.js').call(this.client, err, this, lang));
+      command.run.call(this, lang, this.client)?.catch(err => require('../Utils/private/error_handler.js').call(this.client, err, this, lang));
       if (this.client.botType != 'dev') this.client.db.update('botSettings', `stats.${command.name}`, stats[command.name] + 1 || 1);
-    } catch (err) { require('../Functions/private/error_handler.js').call(this.client, err, this, lang); }
+    } catch (err) { require('../Utils/private/error_handler.js').call(this.client, err, this, lang); }
   }
 };

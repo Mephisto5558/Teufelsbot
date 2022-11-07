@@ -1,7 +1,7 @@
 const
   { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
-  getAge = require('../../Functions/private/getAge.js');
+  getAge = require('../../Utils/getAge.js');
 
 module.exports = {
   name: 'userinfo',

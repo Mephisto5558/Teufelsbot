@@ -93,7 +93,7 @@ class I18nProvider {
 }
 
 const provider = new I18nProvider({
-  notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: path.join(__dirname, '../../Locales')
+  notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: path.join(__dirname, '/../Locales')
 });
 
 module.exports = provider;

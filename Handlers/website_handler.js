@@ -2,8 +2,8 @@ const
   { readdirSync } = require('fs'),
   app = require('express')(),
   rateLimit = require('express-rate-limit').default,
-  I18nProvider = require('../Functions/private/I18nProvider.js'),
-  gitpull = require('../Functions/private/gitpull.js'),
+  I18nProvider = require('../Utils/I18nProvider.js'),
+  gitpull = require('../Utils/gitpull.js'),
   lang = I18nProvider.__.bind(I18nProvider, { locale: 'en', undefinedNotFound: true });
 
 function validate(key, res, WebsiteKey) {

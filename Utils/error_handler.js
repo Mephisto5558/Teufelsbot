@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors } = require('discord.js'),
   { Octokit } = require('@octokit/core'),
-  { Github } = require('../../config.json');
+  { Github } = require('../config.json');
 
 module.exports = async function (err, message, lang) {
   if (!this.error) this.error = console.error;
@@ -27,8 +27,6 @@ module.exports = async function (err, message, lang) {
         })
       ]
     });
-
-  if (err.name == 'DiscordAPIError') return message.customReply(lang('events.errorHandler.discordAPIError'));
 
   this.error(' [Error Handling] :: Uncaught Error');
   this.error(err.stack);
