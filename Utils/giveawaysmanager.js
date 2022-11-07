@@ -1,17 +1,12 @@
 const { GiveawaysManager } = require('discord-giveaways');
 
 class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
-  constructor({ db }) {
-    super(...arguments);
-    this.db = db;
-  }
-
   getAllGiveaways() {
-    return this.db.get('giveaways');
+    return this.client.db.get('giveaways');
   }
 
   saveGiveaway(_, giveawayData) {
-    this.db.push('giveaways', giveawayData);
+    this.client.db.push('giveaways', giveawayData);
     return true;
   }
 
@@ -19,12 +14,12 @@ class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
     const data = this.db.get('giveaways').filter(e => e.messageId != messageId);
     data.push(giveawayData);
 
-    this.db.set('giveaways', data);
+    this.client.db.set('giveaways', data);
     return true;
   }
 
   deleteGiveaway(messageId) {
-    this.db.set('giveaways', this.db.get('giveaways').filter(e => e.messageId != messageId));
+    this.client.db.set('giveaways', this.client.db.get('giveaways').filter(e => e.messageId != messageId));
     return true;
   }
 }

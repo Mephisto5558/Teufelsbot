@@ -87,7 +87,7 @@ console.time('Starting time');
   client.prefixCommands = new Collection();
   client.cooldowns = new Collection();
 
-  if (client.botType != 'dev') client.giveawaysManager = require('./Utils/giveawaysmanager.js')(client);
+  if (client.botType != 'dev') client.giveawaysManager = require('./Utils/giveawaysmanager.js').call(client);
 
   for (const handler of readdirSync('./Handlers').filter(e => client.botType != 'dev' || !e.includes('website')))
     require(`./Handlers/${handler}`).call(client);
