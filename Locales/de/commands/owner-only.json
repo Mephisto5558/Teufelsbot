@@ -30,12 +30,8 @@
   },
   "reload": {
     "description": "Läd einen Command oder eine Kategorie neu",
-    "usage": "PREFIX Command: reload <category | \"*\"> <command | \"*\">",
-    "invalidCategory": "Dies ist keine gültige Kategorie. ",
-    "invalidCommand": "Dies ist kein gültiger Command. ",
-    "validCategoryList": "Gültige Kategorien sind:\n`{categories}`, `*`",
-    "validCommandList": "Gültige Commands in dieser Kategorie sind:\n`{commands}`, `*`",
-    "error": "Ein Fehler ist aufgetreten.\n```{err}```",
+    "usage": "PREFIX Command: reload <command | \"*\">",
+    "invalidCommand": "Dies ist kein gültiger Command.",
     "noneReloaded": "Keine Commands wurden neu geladen.",
     "reloaded": "Die folgenden `{count}` Commands wurden neu geladen:\n`{commands}`"
   },

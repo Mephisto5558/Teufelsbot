@@ -30,12 +30,8 @@
   },
   "reload": {
     "description": "reloads a file or category",
-    "usage": "PREFIX Command: reload <category | \"*\"> <command | \"*\">",
-    "invalidCategory": "This is not a valid category. ",
-    "invalidCommand": "This is not a valid command. ",
-    "validCategoryList": "Valid categories are:\n`{categories}`, `*`",
-    "validCommandList": "Valid commands in this category are:\n`{commands}`, `*`",
-    "error": "An error occurred.\n```{err}```",
+    "usage": "PREFIX Command: reload <command | \"*\">",
+    "invalidCommand": "This is not a valid command.",
     "noneReloaded": "No commands have been reloaded.",
     "reloaded": "The following `{count}` command(s) has/have been reloaded:\n`{commands}`"
   },
