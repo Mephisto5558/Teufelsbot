@@ -1,9 +1,9 @@
 class Converter {
-  constructor(input, { withSpaces = false, convertSpaces = true, convertOnlyLettersDigits = false, type } = {}) {
-    if (type && !['binary', 'decimal', 'hex', 'octal', 'text'].includes(type)) throw new SyntaxError(`${type} is not a valid type! valid types are: 'binary', 'decimal', 'hex', 'octal', 'text'.`);
-    this.type = type || Converter.getInputType(input);
-    if (!this.type) throw new SyntaxError('input is an required argument' + (typeof input != 'string' ? ` and must be typeof string! Received ${typeof input}` : '!'));
+  constructor(input, { type = Converter.getInputType(input), withSpaces = false, convertSpaces = true, convertOnlyLettersDigits = false } = {}) {
+    if (!type) throw new Error('input is an required argument' + (typeof input != 'string' ? ` and must be typeof string! Received ${typeof input}` : '!'));
+    if (!['binary', 'decimal', 'hex', 'octal', 'text'].includes(type)) throw new RangeError(`${type} is not a valid type! valid types are: 'binary', 'decimal', 'hex', 'octal', 'text'.`);
 
+    this.type = type;
     this.input = input;
     this.options = { withSpaces, convertSpaces, convertOnlyLettersDigits };
 

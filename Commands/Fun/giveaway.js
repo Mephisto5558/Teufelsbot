@@ -1,6 +1,7 @@
 const
   { Constants, PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
-  { getMilliseconds } = require('better-ms');
+  { getMilliseconds } = require('better-ms'),
+  timeValidator = require('../../Utils/timeValidator.js');
 
 module.exports = {
   name: 'giveaway',
@@ -31,7 +32,7 @@ module.exports = {
           type: 'String',
           required: true,
           autocomplete: true,
-          autocompleteOptions: function () { return this.client.functions.timeValidator(this.focused.value); }
+          autocompleteOptions: function () { return timeValidator(this.focused.value); }
         },
         {
           name: 'winner_count',
@@ -76,11 +77,11 @@ module.exports = {
           name: 'add_time',
           type: 'String',
           autocomplete: true,
-          autocompleteOptions: function () { return this.client.functions.timeValidator(this.focused.value); }
+          autocompleteOptions: function () { return timeValidator(this.focused.value); }
         },
         {
           name: 'winner_count',
-          type: 'String',
+          type: 'Number',
           minValue: 1,
         },
         { name: 'prize', type: 'String' },

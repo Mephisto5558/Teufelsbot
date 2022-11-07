@@ -5,7 +5,7 @@ const
 module.exports = async function timeEventsHandler() {
   if (this.botType == 'dev') return this.log('Disabled timed events due to dev version.');
 
-  await this.functions.ready();
+  await this.awaitReady();
 
   for (const file of readdirSync('./TimeEvents').filter(e => e.endsWith('.js'))) {
     const job = require(`../TimeEvents/${file}`);
