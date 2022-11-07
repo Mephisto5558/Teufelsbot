@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits, Message } = require('discord.js'), // eslint-disable-line no-unused-vars
-  I18nProvider = require('../Functions/private/I18nProvider.js'),
-  cooldowns = require('../Functions/private/cooldowns.js');
+  I18nProvider = require('../Utils/I18nProvider.js'),
+  cooldowns = require('../Utils/cooldowns.js');
 
 let prefixLength;
 
@@ -100,7 +100,7 @@ module.exports = async function messageCreate() {
   }
 
   try {
-    command.run.call(this, lang, this.client)?.catch(err => require('../Functions/private/error_handler.js').call(this.client, err, this, lang));
+    command.run.call(this, lang, this.client)?.catch(err => require('../Utils/error_handler.js').call(this.client, err, this, lang));
     if (this.client.botType != 'dev') this.client.db.update('botSettings', `stats.${command.name}`, stats?.[command.name] + 1 || 1);
-  } catch (err) { require('../Functions/private/error_handler.js').call(this.client, err, this, lang); }
+  } catch (err) { require('../Utils/error_handler.js').call(this.client, err, this, lang); }
 };

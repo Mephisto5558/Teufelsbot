@@ -2,13 +2,14 @@ console.time('Initializing time');
 console.info('Starting...');
 
 const
-  { Client, Collection, GatewayIntentBits, AllowedMentionsTypes, Message, CommandInteraction, Partials, AutocompleteInteraction } = require('discord.js'),
+  { Client, Status, Collection, GatewayIntentBits, AllowedMentionsTypes, Message, CommandInteraction, Partials, AutocompleteInteraction, BaseClient } = require('discord.js'),
   { randomInt } = require('crypto'),
   { existsSync, readdirSync } = require('fs'),
-  DB = require('./Functions/private/db.js'),
-  customReply = require('./Functions/private/reply.js');
+  DB = require('./Utils/db.js'),
+  customReply = require('./Utils/customReply.js');
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
+global.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 Array.prototype.random = function random() { return this[randomInt(this.length)]; };
 Number.prototype.limit = function limit({ min = -Infinity, max = Infinity } = {}) { return Math.min(Math.max(Number(this), min), max); };
@@ -31,13 +32,17 @@ Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }
 Object.prototype.filterEmpty = function filterEmpty() { return Object.fromEntries(Object.entries(this).flatMap(([k, v]) => ((val = Object(v) !== v ? v : v.filterEmpty()) => !(val == null || (Object(val) === val && Object.keys(val).length == 0)) ? [[k, val]] : [])())); };
 CommandInteraction.prototype.customReply = customReply;
 Message.prototype.customReply = customReply;
+BaseClient.prototype.awaitReady = async function awaitReady() {
+  while (this.ws.status != Status.Ready) await sleep(10);
+  return this.application.name ? this.application : this.application.fetch();
+};
 Object.defineProperty(AutocompleteInteraction.prototype, 'focused', { get() { return this.options.getFocused(true); } });
 
 console.timeEnd('Initializing time');
 console.time('Starting time');
 
 (async function main() {
-  require('./Functions/private/gitpull')();
+  await require('./Utils/gitpull.js')();
 
   const client = new Client({
     shards: 'auto',
@@ -63,6 +68,8 @@ console.time('Starting time');
       Partials.Reaction
     ]
   });
+  const error = err => require('./Utils/error_handler.js').call(client, err);
+  client.on('error', error);
   let env;
 
   if (existsSync('./env.json')) env = require('./env.json');
@@ -77,12 +84,10 @@ console.time('Starting time');
 
   client.botType = env.environment;
   client.keys = env.keys;
-  client.functions = {};
-  client.dashboardOptionCount = {};
   client.prefixCommands = new Collection();
   client.cooldowns = new Collection();
 
-  if (client.botType != 'dev') client.giveawaysManager = require('./Functions/private/giveawaysmanager.js')(client);
+  if (client.botType != 'dev') client.giveawaysManager = require('./Utils/giveawaysmanager.js')(client);
 
   for (const handler of readdirSync('./Handlers').filter(e => client.botType != 'dev' || !e.includes('website')))
     require(`./Handlers/${handler}`).call(client);
@@ -91,7 +96,7 @@ console.time('Starting time');
   client.log(`Logged into ${client.botType}`);
 
   process
-    .on('unhandledRejection', err => require('./Functions/private/error_handler.js').call(client, err))
-    .on('uncaughtExceptionMonitor', err => require('./Functions/private/error_handler.js').call(client, err))
-    .on('uncaughtException', err => require('./Functions/private/error_handler.js').call(client, err));
+    .on('unhandledRejection', error)
+    .on('uncaughtExceptionMonitor', error)
+    .on('uncaughtException', error);
 })();

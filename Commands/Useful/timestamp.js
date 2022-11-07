@@ -1,5 +1,6 @@
 const
   { Duration } = require('better-ms'),
+  timeValidator = require('../../Utils/timeValidator.js'),
   yearLimit = 6249223180800000; //200000y
 
 module.exports = {
@@ -15,7 +16,7 @@ module.exports = {
     name: 'time',
     type: 'String',
     autocomplete: true,
-    autocompleteOptions: function () { return this.client.functions.timeValidator(this.focused.value); }
+    autocompleteOptions: function () { return timeValidator(this.focused.value); }
   }],
 
   run: function (lang) {

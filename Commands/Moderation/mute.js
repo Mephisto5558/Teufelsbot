@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, Colors, PermissionFlagsBits } = require('discord.js'),
-  { getMilliseconds } = require('better-ms');
+  { getMilliseconds } = require('better-ms'),
+  timeValidator = require('../../Utils/timeValidator.js');
 
 module.exports = {
   name: 'mute',
@@ -26,7 +27,7 @@ module.exports = {
       type: 'String',
       required: true,
       autocomplete: true,
-      autocompleteOptions: function () { return this.client.functions.timeValidator(this.focused.value); }
+      autocompleteOptions: function () { return timeValidator(this.focused.value); }
     }
   ],
 

@@ -30,3 +30,4 @@ rules:
     - always
 globals:
   getDirectoriesSync: writeable
+  sleep: writeable

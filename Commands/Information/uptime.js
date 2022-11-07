@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { Domain } = require('../../config.json').Website;
+  { Domain } = require('../../config.json').Website,
+  uptime = require('../../Utils/uptime.js');
 
 module.exports = {
   name: 'uptime',
@@ -12,9 +13,9 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: function (lang, { functions }) {
+  run: function (lang) {
     const embed = new EmbedBuilder({
-      description: lang('embedDescription', { time: functions.uptime(true, lang).formatted, Domain }),
+      description: lang('embedDescription', { time: uptime(true, lang).formatted, Domain }),
       color: Colors.White
     });
     this.customReply({ embeds: [embed] });

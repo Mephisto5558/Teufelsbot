@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  I18nProvider = require('../../Functions/private/I18nProvider.js');
+  I18nProvider = require('../../Utils/I18nProvider.js');
 
 function listCommands(list, output, count, category) {
   for (const [, command] of list) {

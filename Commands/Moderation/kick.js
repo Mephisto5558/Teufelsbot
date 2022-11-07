@@ -19,5 +19,5 @@ module.exports = {
     }
   ],
 
-  run: require('../../Functions/private/bankick.js')
+  run: require('../../Utils/bankick.js')
 };

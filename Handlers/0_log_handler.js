@@ -9,15 +9,17 @@ const
 fs.writeFileSync('./Logs/startCount.log', startCount.toString());
 
 module.exports = async function logHandler() {
-  this.log = (...data) => {
+  this.log = function (...data) {
     console.info(`[${getTime()}] ${data.join(' ')}`);
     writeLogFile('log', ...data);
+    return this;
   };
 
   this.error = (...data) => {
     console.error(errorColor, `[${getTime()}] ${data.join(' ')}`);
     writeLogFile('log', ...data);
     writeLogFile('error', ...data);
+    return this;
   };
 
   this
@@ -36,6 +38,5 @@ module.exports = async function logHandler() {
         else this.error(errorColor, 'Hit a 429 while trying to execute a request');
       }
     })
-    .on('warn', warn => writeLogFile('warn', warn))
-    .on('error', error => writeLogFile('error', error));
+    .on('warn', warn => writeLogFile('warn', warn));
 };

@@ -11,7 +11,7 @@ module.exports = {
   dmPermission: true,
   options: [{ name: 'average', type: 'Boolean' }],
 
-  run: async function (lang, { ws, functions }) {
+  run: async function (lang, { ws }) {
     const
       average = this.args?.[0] == 'average' || this.options?.getBoolean('average'),
       embed = new EmbedBuilder({
@@ -28,7 +28,7 @@ module.exports = {
 
       for (i = 0; i <= 59; i++) {
         pings.push(ws.ping);
-        await functions.sleep(1000);
+        await sleep(1000);
       }
 
       pings.sort((a, b) => a - b);

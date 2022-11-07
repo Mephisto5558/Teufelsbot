@@ -27,9 +27,9 @@ module.exports = {
       name: 'duration',
       type: 'Number',
       autocomplete: true,
-      autocompleteOptions: function () { return this.client.functions.timeValidator(this.focused.value); } }
+      autocompleteOptions: function () { return timeValidator(this.focused.value); } }
     */
   ],
 
-  run: require('../../Functions/private/bankick.js')
+  run: require('../../Utils/bankick.js')
 };
