@@ -1,9 +1,7 @@
-const
-  { readdirSync, existsSync } = require('fs'),
-  { join } = require('path');
+const { Collection } = require('discord.js');
 
 async function reloadCommand(commandName, path, reloadedArray) {
-  delete require.cache[require.resolve(path)];
+  delete require.cache[path];
   const file = require(path);
 
   if ((this.botType == 'dev' && !file.beta) || file.disabled) return;
@@ -12,7 +10,7 @@ async function reloadCommand(commandName, path, reloadedArray) {
     this.prefixCommands.set(commandName, file);
     reloadedArray.push(commandName);
 
-    for (const alias of file.aliases.prefix) {
+    for (const alias of file.aliases?.prefix || []) {
       this.prefixCommands.set(alias, { ...file, aliasOf: file.name });
       reloadedArray.push(alias);
     }
@@ -22,7 +20,7 @@ async function reloadCommand(commandName, path, reloadedArray) {
     this.slashCommands.set(commandName, file);
     reloadedArray.push(`/${commandName}`);
 
-    for (const alias of file.aliases.slash) {
+    for (const alias of file.aliases?.slash || []) {
       this.slashCommands.set(alias, { ...file, aliasOf: file.name });
       reloadedArray.push(`/${alias}`);
     }
@@ -31,46 +29,29 @@ async function reloadCommand(commandName, path, reloadedArray) {
 
 module.exports = {
   name: 'reload',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
   beta: true,
 
-  run: async function (lang, client) {
-    let category, command, errorMsg, reloadedArray = [];
+  run: async function (lang) {
+    if (!this.args[0]) return this.reply(lang('invalidCommand'));
 
-    if (this.args[0] == '*') category = '*';
-    else if (this.args[0]) category = getDirectoriesSync('./Commands').filter(e => e.toLowerCase() == this.args[0].toLowerCase())?.[0];
+    const commandArray = new Collection([...this.client.prefixCommands, ...this.client.slashCommands]);
+    let reloadedArray = [];
 
-    if (category && category != '*') {
-      if (this.args[1] == '*') command = '*';
-      else if (this.args[1]) command = readdirSync(`./Commands/${category}`).filter(e => e.endsWith('.js') && e.toLowerCase() == `${this.args[1].toLowerCase()}.js`)?.[0];
+    if (this.args[0] == '*') {
+      for (const [name, command] of commandArray)
+        await reloadCommand.call(this.client, name, command.filePath, reloadedArray);
+    }
+    else {
+      const command = commandArray.get(this.args[0]);
+      if (!command) return this.reply(lang('invalidCommand'));
+
+      await reloadCommand.call(this.client, command.name, command.filePath, reloadedArray);
     }
 
-    const path = join(__dirname, `../../Commands/${category}/${command}`);
-
-    try {
-      if (category == '*') {
-        for (const subFolder of getDirectoriesSync('./Commands'))
-          for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js')))
-            await reloadCommand.call(client, file.slice(0, -3), `../../Commands/${subFolder}/${file}`, reloadedArray);
-      }
-      else if (command == '*') {
-        for (const file of readdirSync(`./Commands/${category}`).filter(e => e.endsWith('.js')))
-          await reloadCommand.call(client, file.slice(0, -3), `../../Commands/${category}/${file}`, reloadedArray);
-      }
-      else {
-        if (!category && !existsSync(path)) errorMsg = (this.args[0] ? lang('invalidCategory') : '') + lang('validCategoryList', getDirectoriesSync('./Commands').join('`, `').toLowerCase());
-        else if (!command && !existsSync(path)) errorMsg = (this.args[1] ? lang('invalidCommand') : '') + lang('validCommandList', readdirSync(`./Commands/${category}`).join('`, `').toLowerCase().replaceAll('.js', ''));
-        else await reloadCommand.call(client, command.slice(0, -3), path, reloadedArray);
-      }
-    }
-    catch (err) { errorMsg = lang('error', err.message); }
-
-    this.customReply(errorMsg || (!reloadedArray.length ? lang('noneReloaded') : lang('reloaded', { count: reloadedArray.length, commands: reloadedArray.join('`, `') })));
+    return this.customReply(lang(!reloadedArray.length ? 'noneReloaded' : 'reloaded', { count: reloadedArray.length, commands: reloadedArray.join('`, `') }));
   }
 };
