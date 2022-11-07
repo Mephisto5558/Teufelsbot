@@ -143,6 +143,6 @@
     "notFound": "Ich konnte dieses Mitglied nicht finden!",
     "notMuted": "Dieses Mitglied ist nicht gemuted!",
     "moderator": "Moderator",
-    "success": "Timeout für {user} wurde entfernt."
+    "success": "Der Timeout für {user} wurde entfernt."
   }
 }
