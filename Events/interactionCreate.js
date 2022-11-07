@@ -61,8 +61,8 @@ module.exports = async function interactionCreate() {
       if (entry.type == ApplicationCommandOptionType.String) entry.value = entry.value.replaceAll('<@!', '<@');
 
     try {
-      command.run.call(this, lang, this.client)?.catch(err => require('../Utils/private/error_handler.js').call(this.client, err, this, lang));
+      command.run.call(this, lang, this.client)?.catch(err => require('../Utils/error_handler.js').call(this.client, err, this, lang));
       if (this.client.botType != 'dev') this.client.db.update('botSettings', `stats.${command.name}`, stats[command.name] + 1 || 1);
-    } catch (err) { require('../Utils/private/error_handler.js').call(this.client, err, this, lang); }
+    } catch (err) { require('../Utils/error_handler.js').call(this.client, err, this, lang); }
   }
 };
