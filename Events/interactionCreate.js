@@ -42,8 +42,8 @@ module.exports = async function interactionCreate() {
   }
 
   if (this.type == InteractionType.ApplicationCommand) {
-    const userPermsMissing = this.member.permissionsIn(this.channel).missing(command.permissions.user);
-    const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing(command.permissions.client);
+    const userPermsMissing = this.member.permissionsIn(this.channel).missing(command.permissions?.user);
+    const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing(command.permissions?.client);
 
     if (botPermsMissing.length || userPermsMissing.length) {
       const embed = new EmbedBuilder({
