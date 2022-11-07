@@ -1,5 +1,5 @@
 const
-  { PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
+  { Constants, PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
   { getMilliseconds } = require('better-ms');
 
 module.exports = {
@@ -42,7 +42,7 @@ module.exports = {
         {
           name: 'channel',
           type: 'Channel',
-          channelTypes: ['GuildText', 'GuildNews']
+          channelTypes: Constants.TextBasedChannelTypes
         },
         { name: 'reaction', type: 'String' },
         { name: 'thumbnail', type: 'String' },

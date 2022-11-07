@@ -1,4 +1,4 @@
-const { PermissionFlagsBits, Message } = require('discord.js');
+const { Constants, PermissionFlagsBits, Message } = require('discord.js');
 
 module.exports = {
   name: 'say',
@@ -18,7 +18,7 @@ module.exports = {
     {
       name: 'channel',
       type: 'Channel',
-      channelTypes: ['GuildText'],
+      channelTypes: Constants.TextBasedChannelTypes,
     }
   ],
 

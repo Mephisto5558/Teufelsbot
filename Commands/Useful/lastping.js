@@ -1,4 +1,4 @@
-const { EmbedBuilder, Colors } = require('discord.js');
+const { Constants, EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'lastping',
   aliases: { prefix: [], slash: [] },
@@ -12,7 +12,7 @@ module.exports = {
     {
       name: 'channel',
       type: 'Channel',
-      channelTypes: ['GuildText', 'GuildVoice', 'GuildAnnouncement', 'GuildPublicThread', 'GuildPrivateThread']
+      channelTypes: Constants.TextBasedChannelTypes
     },
     { name: 'member', type: 'User' }
   ], beta: true,

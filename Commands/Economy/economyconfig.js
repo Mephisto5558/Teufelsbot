@@ -1,4 +1,4 @@
-const { PermissionFlagsBits, EmbedBuilder, Colors } = require('discord.js');
+const { Constants, PermissionFlagsBits, EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'economyconfig',
@@ -45,7 +45,7 @@ module.exports = {
           options: [
             {
               name: 'channel', type: 'Channel',
-              channelTypes: ['GuildText', 'GuildAnnouncement']
+              channelTypes: Constants.TextBasedChannelTypes
             },
             { name: 'role', type: 'Role' },
             { name: 'user', type: 'User' }

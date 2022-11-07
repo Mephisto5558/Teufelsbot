@@ -1,5 +1,5 @@
 const
-  { ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors, ComponentType, PermissionFlagsBits } = require('discord.js'),
+  { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors, ComponentType, PermissionFlagsBits } = require('discord.js'),
   { entersState, joinVoiceChannel, VoiceConnectionStatus, EndBehaviorType } = require('@discordjs/voice'),
   { Decoder } = require('prism-media').opus,
   { createWriteStream, unlinkSync, existsSync } = require('fs'),
@@ -19,7 +19,7 @@ module.exports = {
     {
       name: 'channel',
       type: 'Channel',
-      channelTypes: ['GuildVoice', 'GuildStageVoice']
+      channelTypes: Constants.VoiceBasedChannelTypes
     },
     { name: 'public', type: 'Boolean' }
   ],

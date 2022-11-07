@@ -17,7 +17,7 @@ module.exports = {
     {
       name: 'channel',
       type: 'Channel',
-      channelTypes: ['GuildText', 'GuildVoice']
+      channelTypes: ['GuildText', 'GuildAnnouncement', 'GuildVoice', 'GuildCategory', 'GuildStageVoice', 'GuildForum']
     }
   ],
 
