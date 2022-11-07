@@ -31,8 +31,8 @@ async function getCommands() {
           ((cmd.usage || lang(`commands.${cmd.category.toLowerCase()}.${cmd.name}.usage`))?.replace(/slash command:/gi, '') ?? '') || 'No information found',
         commandDescription: cmd.description || lang(`commands.${cmd.category.toLowerCase()}.${cmd.name}.description`) || 'No information found',
         commandAlias:
-          (cmd.aliases.prefix.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '') +
-          (cmd.aliases.slash.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || lang('global.none')
+          (cmd.aliases?.prefix?.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '') +
+          (cmd.aliases?.slash?.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || lang('global.none')
       });
     }
 

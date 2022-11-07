@@ -85,8 +85,8 @@ module.exports = async function messageCreate() {
   if (command.requireEconomy && (!economy?.enable || !economy?.[this.author.id]?.gaining?.chat))
     return this.customReply(!economy?.enable ? lang('events.economyDisabled') : lang('events.economyNotInitialized'), 30000);
 
-  const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
-  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions.client, PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);
+  const userPermsMissing = this.member.permissionsIn(this.channel).missing([...(command.permissions?.user || []), PermissionFlagsBits.SendMessages]);
+  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...(command.permissions?.client || []), PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);
 
   if (botPermsMissing.length || userPermsMissing.length) {
     const embed = new EmbedBuilder({

@@ -1,7 +1,8 @@
 const
   { Collection, ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
   { readdirSync } = require('fs'),
-  I18nProvider = require('../Functions/private/I18nProvider.js');
+  { resolve } = require('path'),
+  I18nProvider = require('../Utils/I18nProvider.js');
 
 let deletedCommandCount = 0;
 
@@ -17,7 +18,7 @@ function equal(a, b) {
   ) return false;
 
   for (let i = 0; i < (a.options?.length || 0); i++) if (!equal(a.options?.[i], b?.options?.[i])) return false;
-  for (let i = 0; i < (a.channelTypes?.length || 0); i++) if (!equal(a.channelTypes?.[i], b.channelTypes?.[i])) return false;
+  for (const channelType of (a.channelTypes || [])) if (!b.channelTypes.includes(channelType)) return false;
 
   return true;
 }
@@ -85,11 +86,16 @@ function format(option, path) {
   if (!option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or invalid option.type, got "${option.type}" (${path})`);
   if (isNaN(option.type)) option.type = ApplicationCommandOptionType[option.type];
 
+  if ([ApplicationCommandOptionType.Number, ApplicationCommandOptionType.Integer].includes(option.type) && ('minLength' in option || 'maxLength' in option))
+    throw new Error(`Number and Integer options do not support "minLength" and "maxLength" (${path})`);
+  if (option.type == ApplicationCommandOptionType.String && ('minValue' in option || 'maxValue' in option))
+    throw new Error(`String options do not support "minValue" and "maxValue" (${path})`);
+
   return option;
 }
 
 module.exports = async function slashCommandHandler(syncGuild) {
-  await this.functions.ready();
+  await this.awaitReady();
 
   const skippedCommands = new Collection();
   const applicationCommands = this.application.commands.fetch(undefined, { guildId: syncGuild && syncGuild != '*' ? syncGuild : undefined });
@@ -105,6 +111,7 @@ module.exports = async function slashCommandHandler(syncGuild) {
         if (!command.slashCommand || command.disabled || (this.botType == 'dev' && !command.beta)) continue;
 
         command = format(command, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`);
+        command.filePath = resolve(`Commands/${subFolder}/${file}`);
 
         for (const [, applicationCommand] of await applicationCommands) {
           if (!equal(command, applicationCommand)) continue;
@@ -115,7 +122,7 @@ module.exports = async function slashCommandHandler(syncGuild) {
         }
         if (!skipped) {
           this.slashCommands.set(command.name, command);
-          for (const alias of command.aliases.slash) this.slashCommands.set(alias, { ...command, aliasOf: command.name });
+          for (const alias of command.aliases?.slash || []) this.slashCommands.set(alias, { ...command, aliasOf: command.name });
         }
       }
     }
@@ -146,13 +153,13 @@ module.exports = async function slashCommandHandler(syncGuild) {
 
   for (const skippedCommand of skippedCommands) this.slashCommands.set(...skippedCommand);
 
-  this.log(`Skipped ${skippedCommands.size} Slash Commands`);
-  this.log(`Deleted ${deletedCommandCount} Slash Commands`);
+  this
+    .log(`Skipped ${skippedCommands.size} Slash Commands`)
+    .log(`Deleted ${deletedCommandCount} Slash Commands`)
+    .on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[].concat(args ?? this)))
+    .log('Loaded Event interactionCreate')
+    .log('Ready to receive slash commands\n')
 
-  this.on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[].concat(args ?? this)));
-  this.log('Loaded Event interactionCreate');
-  this.log('Ready to receive slash commands\n');
-
-  this.log(`Ready to serve in ${this.channels.cache.size} channels on ${this.guilds.cache.size} servers.\n`);
+    .log(`Ready to serve in ${this.channels.cache.size} channels on ${this.guilds.cache.size} servers.\n`);
   console.timeEnd('Starting time');
 };
