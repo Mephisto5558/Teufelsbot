@@ -6,7 +6,6 @@ module.exports = {
   name: 'addemoji',
   permissions: { client: ['ManageEmojisAndStickers'], user: ['ManageEmojisAndStickers'] },
   cooldowns: { user: 2000 },
-  category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
   options: [

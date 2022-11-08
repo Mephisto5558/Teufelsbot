@@ -6,7 +6,6 @@ const
 module.exports = {
   name: 'birthday',
   cooldowns: { user: 1000 },
-  category: 'Fun',
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,

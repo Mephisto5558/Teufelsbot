@@ -3,7 +3,6 @@ const { Constants, PermissionFlagsBits, Message } = require('discord.js');
 module.exports = {
   name: 'say',
   cooldowns: { user: 200 },
-  category: 'Fun',
   slashCommand: true,
   prefixCommand: true,
   ephemeralDefer: true,

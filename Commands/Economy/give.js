@@ -2,7 +2,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'give',
-  category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
   requireEconomy: true,

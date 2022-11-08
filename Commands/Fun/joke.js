@@ -92,7 +92,6 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  category: 'Fun',
   options: [
     {
       name: 'api',

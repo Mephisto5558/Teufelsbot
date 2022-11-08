@@ -25,7 +25,6 @@ const
 module.exports = {
   name: 'reddit',
   cooldowns: { user: 100 },
-  category: 'Fun',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

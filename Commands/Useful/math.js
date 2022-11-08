@@ -5,7 +5,6 @@ const
 module.exports = {
   name: 'math',
   cooldowns: {user: 100 },
-  category: 'Useful',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

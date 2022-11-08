@@ -1,15 +1,16 @@
 const { Collection } = require('discord.js');
 
-async function reloadCommand(commandName, path, reloadedArray) {
-  delete require.cache[path];
-  const file = require(path);
+async function reloadCommand({ name, category, filePath }, reloadedArray) {
+  delete require.cache[filePath];
+  const file = require(filePath);
 
   if ((this.botType == 'dev' && !file.beta) || file.disabled) return;
-  file.filePath = path;
+  file.filePath = filePath;
+  file.category = category;
 
   if (file.prefixCommand) {
-    this.prefixCommands.set(commandName, file);
-    reloadedArray.push(commandName);
+    this.prefixCommands.set(name, file);
+    reloadedArray.push(name);
 
     for (const alias of file.aliases?.prefix || []) {
       this.prefixCommands.set(alias, { ...file, aliasOf: file.name });
@@ -18,8 +19,8 @@ async function reloadCommand(commandName, path, reloadedArray) {
   }
 
   if (file.slashCommand) {
-    this.slashCommands.set(commandName, file);
-    reloadedArray.push(`/${commandName}`);
+    this.slashCommands.set(name, file);
+    reloadedArray.push(`/${name}`);
 
     for (const alias of file.aliases?.slash || []) {
       this.slashCommands.set(alias, { ...file, aliasOf: file.name });
@@ -30,7 +31,6 @@ async function reloadCommand(commandName, path, reloadedArray) {
 
 module.exports = {
   name: 'reload',
-  category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
@@ -43,14 +43,14 @@ module.exports = {
     let reloadedArray = [];
 
     if (this.args[0] == '*') {
-      for (const [name, command] of commandArray)
-        await reloadCommand.call(this.client, name, command.filePath, reloadedArray);
+      for (const [, command] of commandArray)
+        await reloadCommand.call(this.client, command, reloadedArray);
     }
     else {
       const command = commandArray.get(this.args[0]);
       if (!command) return this.reply(lang('invalidCommand'));
 
-      await reloadCommand.call(this.client, command.name, command.filePath, reloadedArray);
+      await reloadCommand.call(this.client, command, reloadedArray);
     }
 
     const commands = reloadedArray.join('`, `');

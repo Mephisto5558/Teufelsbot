@@ -3,7 +3,6 @@ const { get } = require('axios');
 module.exports = {
   name: 'fact',
   cooldowns: { guild: 100 },
-  category: 'Fun',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

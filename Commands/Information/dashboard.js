@@ -4,7 +4,6 @@ const
 
 module.exports = {
   name: 'dashboard',
-  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

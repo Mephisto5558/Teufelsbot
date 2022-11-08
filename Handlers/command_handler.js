@@ -10,7 +10,8 @@ module.exports = function commandHandler() {
       .filter(e => e.endsWith('.js'))
       .map(e => ({
         ...(require(`../Commands/${subFolder}/${e}`) || {}),
-        filePath: resolve(`Commands/${subFolder}/${e}`)
+        filePath: resolve(`Commands/${subFolder}/${e}`),
+        category: subFolder
       })).filter(e => e.prefixCommand && !e.disabled && !(this.botType == 'dev' && !e.beta))
     ) {
       this.prefixCommands.set(command.name, command);

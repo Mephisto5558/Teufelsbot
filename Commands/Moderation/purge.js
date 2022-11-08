@@ -36,7 +36,6 @@ module.exports = {
   aliases: { prefix: ['clear'] },
   permissions: { client: ['ManageMessages'], user: ['ManageMessages'] },
   cooldowns: { guild: 1000 },
-  category: 'Moderation',
   slashCommand: true,
   prefixCommand: true,
   ephemeralDefer: true,

@@ -2,7 +2,6 @@ const { Message } = require('discord.js');
 
 module.exports = {
   name: '8ball',
-  category: 'Fun',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

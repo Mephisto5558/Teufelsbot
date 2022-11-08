@@ -4,7 +4,6 @@ module.exports = {
   name: 'daily',
   aliases: { prefix: ['d'] },
   cooldowns: { user: 864e5 }, //1d
-  category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
   beta: true,

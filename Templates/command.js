@@ -3,7 +3,6 @@ module.exports = {
   aliases: { prefix: [], slash: [] },
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, user: 0 },
-  category: '',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: false,

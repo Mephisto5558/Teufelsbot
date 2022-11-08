@@ -2,7 +2,6 @@ module.exports = {
   name: 'ban',
   permissions: { client: ['BanMembers'], user: ['BanMembers'] },
   cooldowns: { user: 100 },
-  category: 'Moderation',
   slashCommand: true,
   prefixCommand: false,
   options: [

@@ -5,7 +5,6 @@ const
 module.exports = {
   name: 'hash',
   cooldowns: { guild: 100, user: 1000 },
-  category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,

@@ -60,7 +60,6 @@ module.exports = {
   name: 'mgstats',
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
   cooldowns: { user: 1000 },
-  category: 'Minigames',
   slashCommand: true,
   prefixCommand: true,
   options: [

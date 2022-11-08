@@ -1,5 +1,6 @@
 const
   { EmbedBuilder, Colors, InteractionType, ApplicationCommandOptionType } = require('discord.js'),
+  ownerOnlyFolders = require('../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'],
   I18nProvider = require('../Utils/I18nProvider.js');
 
 module.exports = async function interactionCreate() {
@@ -8,7 +9,7 @@ module.exports = async function interactionCreate() {
 
   if (
     !command || blacklist?.includes(this.user.id) ||
-    (command.category.toLowerCase() == 'owner-only' && this.user.id != this.client.application.owner.id)  //DO NOT REMOVE THIS STATEMENT!
+    (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id)  //DO NOT REMOVE THIS STATEMENT!
   ) return;
 
   if (this.type == InteractionType.ApplicationCommandAutocomplete) {

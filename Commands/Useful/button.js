@@ -10,7 +10,6 @@ const validateURL = url => {
 module.exports = {
   name: 'button',
   cooldowns: {user: 500 },
-  category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,

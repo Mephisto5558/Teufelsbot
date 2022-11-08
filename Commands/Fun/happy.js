@@ -7,7 +7,6 @@ const responseList = [
 
 module.exports = {
   name: 'happy',
-  category: 'Fun',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

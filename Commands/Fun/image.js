@@ -31,7 +31,6 @@ const
 module.exports = {
   name: 'image',
   cooldowns: { user: 500 },
-  category: 'Fun',
   slashCommand: true,
   prefixCommand: true,
   beta: true,

@@ -2,7 +2,6 @@ module.exports = {
   name: 'autopublish',
   permissions: { client: ['ManageGuild'], user: ['ManageGuild'] },
   cooldowns: { guild: 1000},
-  category: 'Useful',
   slashCommand: true,
   prefixCommand: true,
 

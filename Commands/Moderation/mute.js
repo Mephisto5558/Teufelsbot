@@ -8,7 +8,6 @@ module.exports = {
   aliases: { prefix: ['timeout'], slash: ['timeout'] },
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { user: 100 },
-  category: 'Moderation',
   slashCommand: true,
   prefixCommand: false,
   options: [

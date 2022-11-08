@@ -2,7 +2,6 @@ const { Constants, PermissionFlagsBits, EmbedBuilder, Colors } = require('discor
 
 module.exports = {
   name: 'economyconfig',
-  category: 'Economy',
   prefixCommand: false,
   slashCommand: true,
   options: [

@@ -5,7 +5,6 @@ const
 module.exports = {
   name: 'emojiinfo',
   aliases: { prefix: ['emoji-info'] },
-  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   options: [{

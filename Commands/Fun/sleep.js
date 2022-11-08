@@ -1,6 +1,5 @@
 module.exports = {
   name: 'sleep',
-  category: 'Fun',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

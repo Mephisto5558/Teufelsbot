@@ -1,6 +1,5 @@
 module.exports = {
   name: 'globalsync',
-  category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

@@ -1,6 +1,5 @@
 module.exports = {
   name: 'blacklistuser',
-  category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

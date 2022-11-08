@@ -5,7 +5,6 @@ const
 module.exports = {
   name: 'inpirobot',
   cooldowns: { user: 100 },
-  category: 'Fun',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

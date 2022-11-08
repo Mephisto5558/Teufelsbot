@@ -4,7 +4,6 @@ module.exports = {
   name: 'embed',
   permissions: { user: ['EmbedLinks'] },
   cooldowns: { user: 100 },
-  category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,

@@ -1,6 +1,5 @@
 module.exports = {
   name: 'gitpull',
-  category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
