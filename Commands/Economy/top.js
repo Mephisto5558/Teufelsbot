@@ -3,7 +3,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'top',
   aliases: { prefix: ['t'] },
-  category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
   beta: true,

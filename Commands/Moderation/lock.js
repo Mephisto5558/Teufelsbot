@@ -4,7 +4,6 @@ module.exports = {
   name: 'lock',
   permissions: { client: ['ManageRoles'], user: ['ManageRoles'] },
   cooldowns: { user: 1000 },
-  category: 'Moderation',
   slashCommand: true,
   prefixCommand: true, beta: true,
   options: [

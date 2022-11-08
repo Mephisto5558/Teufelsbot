@@ -2,6 +2,7 @@ const
   { readdirSync } = require('fs'),
   app = require('express')(),
   rateLimit = require('express-rate-limit').default,
+  { ownerOnlyFolders } = require('./config.json')?.map(e => e?.toLowerCase()) || ['owner-only'],
   I18nProvider = require('../Utils/I18nProvider.js'),
   gitpull = require('../Utils/gitpull.js'),
   lang = I18nProvider.__.bind(I18nProvider, { locale: 'en', undefinedNotFound: true });
@@ -22,7 +23,7 @@ async function getCommands() {
     for (
       const cmd of readdirSync(`./Commands/${subFolder}`)
         .map(e => e.endsWith('.js') && require(`../Commands/${subFolder}/${e}`))
-        .filter(e => e?.name && !e.hideInHelp && !e.disabled && e.category.toLowerCase() != 'owner-only')
+        .filter(e => e?.name && !e.hideInHelp && !e.disabled && !ownerOnlyFolders.includes(e.category.toLowerCase()))
     ) {
       commandList.push({
         commandName: cmd.name,

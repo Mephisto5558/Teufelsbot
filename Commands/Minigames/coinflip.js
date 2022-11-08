@@ -3,7 +3,6 @@ const { randomInt } = require('crypto');
 module.exports = {
   name: 'coinflip',
   cooldowns: { user: 100 },
-  category: 'Minigames',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

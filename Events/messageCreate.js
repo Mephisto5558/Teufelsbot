@@ -1,5 +1,6 @@
 const
   { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits, Message } = require('discord.js'), // eslint-disable-line no-unused-vars
+  ownerOnlyFolders = require('../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'],
   I18nProvider = require('../Utils/I18nProvider.js'),
   cooldowns = require('../Utils/cooldowns.js');
 
@@ -75,7 +76,7 @@ module.exports = async function messageCreate() {
   if (command && !command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply(I18nProvider.__({ locale }, 'events.guildCommandOnly'));
   if (!command && this.client.slashCommands.get(this.commandName)) return this.customReply(I18nProvider.__({ locale }, 'events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
-    !command || (command.category.toLowerCase() == 'owner-only' && this.author.id != this.client.application.owner.id)
+    !command || (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.author.id != this.client.application.owner.id)
   ) return runMessages();
 
   const lang = I18nProvider.__.bind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });

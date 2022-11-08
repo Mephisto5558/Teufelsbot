@@ -4,7 +4,6 @@ const
 
 module.exports = {
   name: 'invite',
-  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

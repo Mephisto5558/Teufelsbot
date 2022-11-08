@@ -1,6 +1,5 @@
 module.exports = {
   name: 'reloaddb',
-  category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

@@ -7,7 +7,6 @@ module.exports = {
   name: 'giveaway',
   permissions: { user: ['ManageMessages'] },
   cooldowns: { user: 1000 },
-  category: 'Fun',
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true, beta: true,

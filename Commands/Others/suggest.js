@@ -6,7 +6,6 @@ const
 module.exports = {
   name: 'suggest',
   cooldowns: { guild: 500, user: 3e4 },
-  category: 'Others',
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,

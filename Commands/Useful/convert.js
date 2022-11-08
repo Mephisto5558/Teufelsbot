@@ -5,7 +5,6 @@ const
 module.exports = {
   name: 'convert',
   cooldowns: { user: 500 },
-  category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,

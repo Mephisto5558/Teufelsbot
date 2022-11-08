@@ -3,7 +3,6 @@ const defaultCharset = ['abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012
 module.exports = {
   name: 'passwordgenerator',
   cooldowns: {  user: 1000 },
-  category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,

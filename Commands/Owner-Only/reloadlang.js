@@ -2,7 +2,6 @@ const I18nProvider = require('../../Utils/I18nProvider.js');
 
 module.exports = {
   name: 'reloadlang',
-  category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

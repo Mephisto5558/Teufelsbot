@@ -7,7 +7,6 @@ module.exports = {
   name: 'userinfo',
   aliases: { prefix: ['user-info'] },
   cooldowns: { user: 1000 },
-  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   options: [{ name: 'target', type: 'User' }],

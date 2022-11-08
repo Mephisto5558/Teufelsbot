@@ -8,5 +8,8 @@
     "Repo": "Repo URL",
     "UserName": "Your github username",
     "RepoName": "Your repo name"
-  }
+  },
+  "ownerOnlyFolders": [
+    "Array of folder names which contain owner-only commands. Case insensitive. Defaults to owner-only"
+  ]
 }

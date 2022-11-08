@@ -16,7 +16,6 @@ function listCommands(list, output, count, category) {
 module.exports = {
   name: 'help',
   cooldowns: { user: 50 },
-  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
@@ -26,7 +25,7 @@ module.exports = {
     type: 'String',
     autocomplete: true,
     autocompleteOptions: function () { return [...new Set([...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()])]; }
-  }],
+  }], beta: true,
 
   run: function (lang, client) {
     const

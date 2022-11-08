@@ -1,7 +1,6 @@
 module.exports = {
   name: 'afk',
   cooldowns: { user: 20 },
-  category: 'Fun',
   slashCommand: true,
   prefixCommand: true,
   options: [

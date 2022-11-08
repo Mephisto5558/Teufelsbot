@@ -6,7 +6,6 @@ const
 module.exports = {
   name: 'uptime',
   cooldowns: { user: 100 },
-  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

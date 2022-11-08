@@ -2,7 +2,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'stats',
-  category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
   options: [{ name: 'target', type: 'User' }],
