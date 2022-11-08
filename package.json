@@ -24,7 +24,7 @@
     "mongoose": "^6.7.1",
     "node": "^19.0.0",
     "sodium": "^3.0.2",
-    "wikijs": "^6.3.3"
+    "wikijs": "^6.4.0"
   },
   "overrides": {
     "sharp": "^0.31.1"
