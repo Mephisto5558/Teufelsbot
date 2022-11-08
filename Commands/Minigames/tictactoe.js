@@ -96,7 +96,6 @@ module.exports = {
   aliases: { slash: ['ttt'] },
   permissions: { client: ['ManageMessages'] },
   cooldowns: { user: 2000 },
-  category: 'Minigames',
   slashCommand: true,
   prefixCommand: false,
   options: [{ name: 'opponent', type: 'User' }],

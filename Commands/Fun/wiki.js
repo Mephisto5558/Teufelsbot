@@ -10,7 +10,6 @@ module.exports = {
   name: 'wiki',
   aliases: { prefix: ['wikipedia'] },
   cooldowns: { guild: 100, user: 200 },
-  category: 'Fun',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

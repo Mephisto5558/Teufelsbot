@@ -5,7 +5,6 @@ const
 
 module.exports = {
   name: 'timestamp',
-  category: 'Useful',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

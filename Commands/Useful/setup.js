@@ -3,7 +3,6 @@ module.exports = {
   aliases: { prefix: ['config'], slash: ['config'] },
   permissions: { user: ['ManageGuild'] },
   cooldowns: { user: 1e4 },
-  category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
   beta: true,

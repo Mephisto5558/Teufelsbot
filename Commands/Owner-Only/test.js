@@ -2,7 +2,6 @@ const { ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder } = req
 module.exports = {
   name: 'test',
   description: 'testing',
-  category: 'Owner-Only',
   slashCommand: true,
   prefixCommand: false,
   noDefer: true,

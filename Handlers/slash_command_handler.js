@@ -112,6 +112,7 @@ module.exports = async function slashCommandHandler(syncGuild) {
 
         command = format(command, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`);
         command.filePath = resolve(`Commands/${subFolder}/${file}`);
+        command.category = subFolder;
 
         for (const [, applicationCommand] of await applicationCommands) {
           if (!equal(command, applicationCommand)) continue;

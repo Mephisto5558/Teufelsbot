@@ -3,7 +3,6 @@ const { EmbedBuilder, Colors, ActionRowBuilder, SelectMenuBuilder } = require('d
 module.exports = {
   name: 'research',
   aliases: { prefix: ['buy', 'b'], slash: ['buy'] },
-  category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
   requireEconomy: true,

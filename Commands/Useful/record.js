@@ -9,7 +9,6 @@ const
 module.exports = {
   name: 'record',
   cooldowns: {  user: 1000 },
-  category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
   options: [

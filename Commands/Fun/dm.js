@@ -3,7 +3,6 @@ const { PermissionFlagsBits, EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'dm',
   cooldowns: { guild: 100, user: 1000 },
-  category: 'Fun',
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,

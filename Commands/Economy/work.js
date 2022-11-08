@@ -3,7 +3,6 @@ module.exports = {
   description: 'work for some souls',
   usage: '',
   cooldowns: { user: 216e5 }, //6h
-  category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
   requireEconomy: true,

@@ -3,7 +3,6 @@ const { PermissionFlagsBits } = require('discord.js');
 module.exports = {
   name: 'prefix',
   cooldowns: { user: 1000 },
-  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   options: [

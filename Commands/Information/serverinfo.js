@@ -6,7 +6,6 @@ module.exports = {
   name: 'serverinfo',
   aliases: { prefix: ['server-info', 'guildinfo', 'guild-info'] },
   cooldowns: { user: 1000 },
-  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   options: [{

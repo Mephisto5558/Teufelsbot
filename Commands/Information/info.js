@@ -6,7 +6,6 @@ const
 module.exports = {
   name: 'info',
   cooldowns: { user: 50 },
-  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

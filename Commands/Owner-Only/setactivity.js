@@ -2,7 +2,6 @@ const { ActivityType } = require('discord.js');
 
 module.exports = {
   name: 'setactivity',
-  category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

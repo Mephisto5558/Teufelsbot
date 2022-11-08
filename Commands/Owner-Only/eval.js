@@ -1,6 +1,5 @@
 module.exports = {
   name: 'eval',
-  category: 'Owner-Only',
   prefixCommand: true,
   slashCommand: false,
   dmPermission: true,

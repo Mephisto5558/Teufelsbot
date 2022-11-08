@@ -4,7 +4,6 @@ module.exports = {
   name: 'roleinfo',
   aliases: { prefix: ['role-info'] },
   cooldowns: { user: 1000 },
-  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   options: [{ name: 'role', type: 'Role' }],

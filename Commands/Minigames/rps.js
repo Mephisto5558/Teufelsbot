@@ -3,7 +3,6 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, 
 module.exports = {
   name: 'rps',
   aliases: { prefix: ['rockpaperscissors'] },
-  category: 'Minigames',
   slashCommand: true,
   prefixCommand: true,
 

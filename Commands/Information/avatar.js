@@ -3,7 +3,6 @@ const { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = r
 module.exports = {
   name: 'avatar',
   cooldowns: { guild: 100, user: 1000 },
-  category: 'Information',
   slashCommand: true,
   prefixCommand: true,
   options: [
