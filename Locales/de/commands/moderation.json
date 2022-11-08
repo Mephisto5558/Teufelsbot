@@ -101,16 +101,71 @@
     "embedFooterText": "Genuked von {user}"
   },
   "purge": {
-    "description": "Löscht eine bestimmte Menge an Nachrichten",
-    "usage": "PREFIX Command: purge <number>",
+    "description": "Entfernt eine bestimmte Menge an Nachrichten.",
+    "usage": "PREFIX Command: purge <number> [channel]\nEs wird NICHT die Anzahl der Nachrichten löschen, die im \"amount\"-Paramater angegeben ist, sondern diese löschen, sofern alle anderen Parameter erfüllt sind.",
     "options": {
       "amount": {
-        "description": "Die Anzahl der zu löschenden Nachrichten"
+        "description": "Die Anzahl der Nachrichten, die überprüft und eventuell gelöscht werden."
+      },
+      "only_containing": {
+        "description": "Lösche nur Nachrichten, die dies enthalten.",
+        "choices": {
+          "mentions": "Mitglieds-Erwähnungen",
+          "server_ads": "Discord Server Werbelinks",
+          "images": "Bilder",
+          "embeds": "Embeds",
+          "text": "Text"
+        }
+      },
+      "member": {
+        "description": "Lösche nur Nachrichten dieses Mitgliedes."
+      },
+      "channel": {
+        "description": "In welchem Kanal möchtest du Nachrichten löschen?"
+      },
+      "remove_pinned": {
+        "description": "Lösche auch angepinnte Nachrichten."
+      },
+      "caps_percentage": {
+        "description": "Wie viel CAPS muss die eine Nachricht enthalten, um gelöscht zu werden?"
+      },
+      "contains": {
+        "description": "Nur Nachrichten, welche diese Phrase enthalten, werden gelöscht."
+      },
+      "does_not_contain": {
+        "description": "Nur Nachrichten, welche diese Phrase nicht enthalten, werden gelöscht."
+      },
+      "starts_with": {
+        "description": "Nur Nachrichten, welche mit dieser Phrase beginnen, werden gelöscht."
+      },
+      "not_starts_with": {
+        "description": "Nur Nachrichten, welche nicht mit dieser Phrase beginnen, werden gelöscht."
+      },
+      "ends_with": {
+        "description": "Nur Nachrichten, welche mit dieser Phrase enden, werden gelöscht."
+      },
+      "not_ends_with": {
+        "description": "Nur Nachrichten, welche nicht mit dieser Phrase beginnen, werden gelöscht."
+      },
+      "user_type": {
+        "description": "Nur Nachrichten von diesem Usertyp werden gelöscht.",
+        "choices": {
+          "bot": "Bot",
+          "human": "Mensch"
+        }
+      },
+      "before_message": {
+        "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die vor der Nachricht gesendet wurden, werden gelöscht."
+      },
+      "after_message": {
+        "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die nach der Nachricht gesendet wurden, werden gelöscht"
       }
     },
-    "noNumber": "Bitte spezifiziere nächstes mal die Anzahl der zu löschenden Nachrichten.",
+    "noNumber": "Bitte spezifiziere das nächste mal die Anzahl der zu löschenden Nachrichten.",
     "invalidNumber": "Das ist keine gültige Zahl!",
-    "success": "Erfolg!"
+    "paramExcludesOther": "Einer deiner Parameter macht einen anderen Parameter unmöglich! (zB. `starts_with` = \"a\" und `not_starts_with` = \"a\")",
+    "noneFound": "Es wurden keine Nachrichten gefunden, die deinen Parametern entsprechen.",
+    "success": "Ich habe erfolgreich {count}/{all} Nachrichten gelöscht."
   },
   "unlock": {
     "description": "Entsperrt einen gelockten Channel.",
@@ -130,7 +185,7 @@
     "success": "Der Kanal wurde entsperrt."
   },
   "unmute": {
-    "description": "Entfernet den Timeout von einem Mitglied.",
+    "description": "Entferne den Timeout von einem Mitglied.",
     "options": {
       "target": {
         "description": "Wessen Timeout du entfernen möchtest"
