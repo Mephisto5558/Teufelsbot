@@ -102,15 +102,70 @@
   },
   "purge": {
     "description": "removes a specific amount of messages",
-    "usage": "PREFIX Command: purge <number>",
+    "usage": "PREFIX Command: purge <number> [channel]\nIt will NOT delete the number of messages specified in the \"amount\" parameter, but will delete them if all other parameters are met.",
     "options": {
       "amount": {
-        "description": "The amount of messages to purge"
+        "description": "The amount of messages to to check and maybe purge"
+      },
+      "only_containing": {
+        "description": "Only purge messages containing that.",
+        "choices": {
+          "mentions": "Member mentions",
+          "server_ads": "Discord Server ad links",
+          "images": "Images",
+          "embeds": "Embeds",
+          "text": "Text"
+        }
+      },
+      "member": {
+        "description": "Purge only messages from that member."
+      },
+      "channel": {
+        "description": "In witch channel do you want to purge?"
+      },
+      "remove_pinned": {
+        "description": "Do not skip pinned messages."
+      },
+      "caps_percentage": {
+        "description": "How much CAPS must be at least in messages to purge them?"
+      },
+      "contains": {
+        "description": "Messages must contain this phrase to get purged."
+      },
+      "does_not_contain": {
+        "description": "Messages must not contain this phrase to get purged."
+      },
+      "starts_with": {
+        "description": "Messages must start with this phrase to get purged."
+      },
+      "not_starts_with": {
+        "description": "Messages must not start with this phrase to get purged."
+      },
+      "ends_with": {
+        "description": "Messages must end with this phrase to get purged."
+      },
+      "not_ends_with": {
+        "description": "Messages must not start end this phrase to get purged."
+      },
+      "user_type": {
+        "description": "Only messages from that type of user get purged.",
+        "choices": {
+          "bot": "Bot",
+          "human": "Human"
+        }
+      },
+      "before_message": {
+        "description": "Input a message id. Only messages sent before that message get purged."
+      },
+      "after_message": {
+        "description": "Input a message id. Only messages sent after that message get purged."
       }
     },
     "noNumber": "Please specify the number of messages to purge next time.",
     "invalidNumber": "This is not a valid number!",
-    "success": "Success!"
+    "paramExcludesOther": "One of you parameters makes another parameter impossible! (eg. `starts_with` = \"a\" and `not_starts_with` = \"a\")",
+    "noneFound": "No messages matching your parameters have been found.",
+    "success": "Successfully deleted {count}/{all} messages."
   },
   "unlock": {
     "description": "Unlocks a channel locked with the lock command.",
