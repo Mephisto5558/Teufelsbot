@@ -7,7 +7,7 @@ module.exports = {
   name: 'mute',
   aliases: { prefix: ['timeout'], slash: ['timeout'] },
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
-  cooldowns: { guild: 0, user: 100 },
+  cooldowns: { user: 100 },
   category: 'Moderation',
   slashCommand: true,
   prefixCommand: false,
@@ -35,7 +35,7 @@ module.exports = {
     const
       target = this.options.getMember('target'),
       reason = this.options.getString('reason'),
-      duration = getMilliseconds(this.options.getString('duration'))?.limit?.({ min: 3600000, max: 2419000000 }),
+      duration = getMilliseconds(this.options.getString('duration'))?.limit?.({ min: 36e5, max: 2419e5 }),
       date = new Date();
 
     let errorMsg, noMsg;

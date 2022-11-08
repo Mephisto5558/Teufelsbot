@@ -2,9 +2,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'stats',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
   category: 'Economy',
   slashCommand: true,
   prefixCommand: true,

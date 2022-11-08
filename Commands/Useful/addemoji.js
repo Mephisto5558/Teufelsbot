@@ -4,9 +4,8 @@ const
 
 module.exports = {
   name: 'addemoji',
-  aliases: { prefix: [], slash: [] },
   permissions: { client: ['ManageEmojisAndStickers'], user: ['ManageEmojisAndStickers'] },
-  cooldowns: { guild: 0, user: 2000 },
+  cooldowns: { user: 2000 },
   category: 'Useful',
   slashCommand: true,
   prefixCommand: false,

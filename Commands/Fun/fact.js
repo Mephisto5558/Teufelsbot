@@ -2,9 +2,7 @@ const { get } = require('axios');
 
 module.exports = {
   name: 'fact',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 100, user: 0 },
+  cooldowns: { guild: 100 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: true,

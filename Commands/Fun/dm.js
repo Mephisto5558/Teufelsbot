@@ -2,8 +2,6 @@ const { PermissionFlagsBits, EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'dm',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 1000 },
   category: 'Fun',
   slashCommand: true,

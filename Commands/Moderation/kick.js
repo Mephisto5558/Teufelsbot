@@ -1,8 +1,7 @@
 module.exports = {
   name: 'kick',
-  aliases: { prefix: [], slash: [] },
   permissions: { client: ['KickMembers'], user: ['KickMembers'] },
-  cooldowns: { guild: 0, user: 100 },
+  cooldowns: { user: 100 },
   category: 'Moderation',
   slashCommand: true,
   prefixCommand: false,

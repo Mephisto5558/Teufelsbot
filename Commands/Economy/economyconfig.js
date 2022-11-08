@@ -2,9 +2,6 @@ const { Constants, PermissionFlagsBits, EmbedBuilder, Colors } = require('discor
 
 module.exports = {
   name: 'economyconfig',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
   category: 'Economy',
   prefixCommand: false,
   slashCommand: true,
@@ -123,7 +120,7 @@ module.exports = {
     }
     else if (this.options.getSubcommandGroup() == 'admin') {
       if (!this.member.permissions.has(PermissionFlagsBits.ManageGuild))
-        return this.customReply(lang('admin.noPerm'), 30000);
+        return this.customReply(lang('admin.noPerm'), 3e4);
 
       switch (this.options.getSubcommand()) {
         case 'toggle': {

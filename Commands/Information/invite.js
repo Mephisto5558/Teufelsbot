@@ -4,9 +4,6 @@ const
 
 module.exports = {
   name: 'invite',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,

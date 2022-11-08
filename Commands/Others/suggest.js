@@ -5,9 +5,7 @@ const
 
 module.exports = {
   name: 'suggest',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 500, user: 30000 },
+  cooldowns: { guild: 500, user: 3e4 },
   category: 'Others',
   slashCommand: true,
   prefixCommand: false,

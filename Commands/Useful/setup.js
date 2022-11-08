@@ -1,8 +1,8 @@
 module.exports = {
   name: 'setup',
   aliases: { prefix: ['config'], slash: ['config'] },
-  permissions: { client: [], user: ['ManageGuild'] },
-  cooldowns: { guild: 0, user: 10000 },
+  permissions: { user: ['ManageGuild'] },
+  cooldowns: { user: 1e4 },
   category: 'Useful',
   slashCommand: true,
   prefixCommand: false,

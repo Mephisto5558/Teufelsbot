@@ -2,9 +2,7 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'ping',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 1000 },
+  cooldowns: { user: 1000 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,

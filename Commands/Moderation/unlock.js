@@ -2,9 +2,8 @@ const { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors } = require('di
 
 module.exports = {
   name: 'unlock',
-  aliases: { prefix: [], slash: [] },
   permissions: { client: ['ManageRoles'], user: ['ManageRoles'] },
-  cooldowns: { guild: 0, user: 1000 },
+  cooldowns: { user: 1000 },
   category: 'Moderation',
   slashCommand: true,
   prefixCommand: true,

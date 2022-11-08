@@ -8,9 +8,7 @@ const
 
 module.exports = {
   name: 'record',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 1000 },
+  cooldowns: {  user: 1000 },
   category: 'Useful',
   slashCommand: true,
   prefixCommand: false,
@@ -64,7 +62,7 @@ module.exports = {
         content: targets.reduce((e, acc) => `${acc}, ${e}`).toString(),
         embeds: [embed], components: [component]
       }),
-      collector = msg.createMessageComponentCollector({ filter: i => targets.includes(i.member), componentType: ComponentType.Button, time: 20000 });
+      collector = msg.createMessageComponentCollector({ filter: i => targets.includes(i.member), componentType: ComponentType.Button, time: 2e4 });
 
     collector.on('collect', async button => {
       await button.reply({ content: lang('updated', lang(button.customId == 'allow' ? 'allow' : 'deny')), ephemeral: true });
@@ -115,7 +113,7 @@ module.exports = {
         selfMute: true,
         adapterCreator: voiceChannel.guild.voiceAdapterCreator
       });
-      try { await entersState(connection, VoiceConnectionStatus.Ready, 20000); }
+      try { await entersState(connection, VoiceConnectionStatus.Ready, 2e4); }
       catch {
         embed.data.description = lang('cantConnect');
         return msg.edit({ embeds: [embed] });
