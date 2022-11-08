@@ -5,9 +5,8 @@ const
 
 module.exports = {
   name: 'userinfo',
-  aliases: { prefix: ['user-info'], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 1000 },
+  aliases: { prefix: ['user-info'] },
+  cooldowns: { user: 1000 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,

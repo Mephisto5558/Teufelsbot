@@ -1,8 +1,6 @@
 module.exports = {
   name: 'afk',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 20 },
+  cooldowns: { user: 20 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: true,

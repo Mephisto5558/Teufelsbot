@@ -59,8 +59,7 @@ async function formatTopTen(input, settings, lang) {
 module.exports = {
   name: 'mgstats',
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 1000 },
+  cooldowns: { user: 1000 },
   category: 'Minigames',
   slashCommand: true,
   prefixCommand: true,

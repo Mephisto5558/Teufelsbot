@@ -2,9 +2,6 @@ const { Message } = require('discord.js');
 
 module.exports = {
   name: '8ball',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: true,

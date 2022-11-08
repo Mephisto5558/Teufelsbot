@@ -15,9 +15,7 @@ function listCommands(list, output, count, category) {
 
 module.exports = {
   name: 'help',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 50 },
+  cooldowns: { user: 50 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,

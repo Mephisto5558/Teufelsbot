@@ -14,7 +14,7 @@ async function runEco({ economy: { gaining: defaultGaining } }, economy = {}) {
     this.content.length > (config.gaining?.chat?.min_message_length ?? defaultGaining.chat.min_message_length) &&
     this.content.length < (config.gaining?.chat?.max_message_length ?? defaultGaining.chat.max_message_length) &&
     !(config.blacklist?.channel?.includes(this.channel.id) || config.blacklist?.users?.includes(this.user.id) || this.member.roles.cache.hasAny(config.blacklist?.roles)) &&
-    !(await cooldowns.call(this, { name: 'economy', cooldowns: { user: 20000 } }))
+    !(await cooldowns.call(this, { name: 'economy', cooldowns: { user: 2e4 } }))
   ) {
     const currency = parseFloat((currency + gaining.chat + skills.currency_bonus_absolute.lvl ** 2 + gaining.chat * skills.currency_bonus_percentage.lvl ** 2 / 100).limit(0, currencyCapacity).toFixed(3));
     this.client.db.update('guildSettings', `${this.guild.id}.economy.${this.author.id}`, { currency });
@@ -81,9 +81,9 @@ module.exports = async function messageCreate() {
   const lang = I18nProvider.__.bind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
   const cooldown = await cooldowns.call(this, command);
 
-  if (cooldown && !this.client.botType == 'dev') return this.customReply(lang('events.cooldown', cooldown), 10000);
+  if (cooldown && !this.client.botType == 'dev') return this.customReply(lang('events.cooldown', cooldown), 1e4);
   if (command.requireEconomy && (!economy?.enable || !economy?.[this.author.id]?.gaining?.chat))
-    return this.customReply(!economy?.enable ? lang('events.economyDisabled') : lang('events.economyNotInitialized'), 30000);
+    return this.customReply(!economy?.enable ? lang('events.economyDisabled') : lang('events.economyNotInitialized'), 3e4);
 
   const userPermsMissing = this.member.permissionsIn(this.channel).missing([...(command.permissions?.user || []), PermissionFlagsBits.SendMessages]);
   const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...(command.permissions?.client || []), PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);

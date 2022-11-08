@@ -5,9 +5,7 @@ const
 
 module.exports = {
   name: 'birthday',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 1000 },
+  cooldowns: { user: 1000 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: false,

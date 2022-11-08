@@ -7,9 +7,6 @@ const responseList = [
 
 module.exports = {
   name: 'happy',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
   category: 'Fun',
   slashCommand: false,
   prefixCommand: true,

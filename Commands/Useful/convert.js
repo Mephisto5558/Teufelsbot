@@ -4,9 +4,7 @@ const
 
 module.exports = {
   name: 'convert',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 500 },
+  cooldowns: { user: 500 },
   category: 'Useful',
   slashCommand: true,
   prefixCommand: false,

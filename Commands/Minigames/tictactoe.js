@@ -93,9 +93,9 @@ function updateStats(firstID, secondID, type, { db }) {
 
 module.exports = {
   name: 'tictactoe',
-  aliases: { prefix: [], slash: ['ttt'] },
-  permissions: { client: ['ManageMessages'], user: [] },
-  cooldowns: { guild: 0, user: 2000 },
+  aliases: { slash: ['ttt'] },
+  permissions: { client: ['ManageMessages'] },
+  cooldowns: { user: 2000 },
   category: 'Minigames',
   slashCommand: true,
   prefixCommand: false,

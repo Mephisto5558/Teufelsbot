@@ -4,9 +4,7 @@ const
 
 module.exports = {
   name: 'emojiinfo',
-  aliases: { prefix: ['emoji-info'], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
+  aliases: { prefix: ['emoji-info'] },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,

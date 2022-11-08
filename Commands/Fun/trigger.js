@@ -2,9 +2,7 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'trigger',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: ['ManageMessages'] },
-  cooldowns: { guild: 0, user: 0 },
+  permissions: { user: ['ManageMessages'] },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: false,

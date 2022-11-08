@@ -2,8 +2,6 @@ const { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = r
 
 module.exports = {
   name: 'avatar',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 1000 },
   category: 'Information',
   slashCommand: true,

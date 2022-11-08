@@ -1,10 +1,8 @@
 module.exports = {
   name: 'work',
-  aliases: { prefix: [], slash: [] },
   description: 'work for some souls',
   usage: '',
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 21600000 }, //6h
+  cooldowns: { user: 216e5 }, //6h
   category: 'Economy',
   slashCommand: true,
   prefixCommand: true,

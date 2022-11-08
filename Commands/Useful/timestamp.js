@@ -1,13 +1,10 @@
 const
   { Duration } = require('better-ms'),
   timeValidator = require('../../Utils/timeValidator.js'),
-  yearLimit = 6249223180800000; //200000y
+  yearLimit = 62492231808e5; //200000y
 
 module.exports = {
   name: 'timestamp',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
   category: 'Useful',
   slashCommand: true,
   prefixCommand: true,

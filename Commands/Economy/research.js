@@ -3,8 +3,6 @@ const { EmbedBuilder, Colors, ActionRowBuilder, SelectMenuBuilder } = require('d
 module.exports = {
   name: 'research',
   aliases: { prefix: ['buy', 'b'], slash: ['buy'] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
   category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
@@ -45,7 +43,7 @@ module.exports = {
 
     const msg = await this.customReply({ embeds: [embed], components: [component] });
 
-    const collector = msg.createMessageComponentCollector({ filter: i => i.user.id == this.user.id, idle: 60000 });
+    const collector = msg.createMessageComponentCollector({ filter: i => i.user.id == this.user.id, idle: 6e4 });
     collector.on('collect', async button => {
       await button.deferReply();
 
@@ -62,7 +60,7 @@ module.exports = {
       else if (userData.currency < price) errorMsg = lang('notEnoughMoney');
 
       if (errorMsg) return button.editReply(errorMsg);
-      const onCooldownUntil = new Date(Date.now() + userSkill.lvlUpCooldown * 360000).getTime();
+      const onCooldownUntil = new Date(Date.now() + userSkill.lvlUpCooldown * 36e4).getTime();
 
       const newData = {
         currency: (userData.currency - price).toFixed(3),

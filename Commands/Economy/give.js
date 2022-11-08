@@ -2,9 +2,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'give',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
   category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
@@ -37,7 +34,7 @@ module.exports = {
     else if (target.bot) embed.data.description = lang('error.bot');
     else if (!amount) embed.data.description = lang('error.noAmount');
 
-    if (embed.data.description) return this.customReply({ embeds: [embed] }, 30000);
+    if (embed.data.description) return this.customReply({ embeds: [embed] }, 3e4);
 
     const
       userData = db.get('guildSettings')[this.guild.id].economy[this.user.id],

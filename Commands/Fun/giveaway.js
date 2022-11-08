@@ -5,9 +5,8 @@ const
 
 module.exports = {
   name: 'giveaway',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: ['ManageMessages'] },
-  cooldowns: { guild: 0, user: 1000 },
+  permissions: { user: ['ManageMessages'] },
+  cooldowns: { user: 1000 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: false,

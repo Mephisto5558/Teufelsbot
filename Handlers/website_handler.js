@@ -39,7 +39,7 @@ async function getCommands() {
     categoryCommandList.push({
       category: subFolder,
       subTitle: '',
-      aliasesDisabled: false,
+      aliasesDisabled: commandList.find(e => e.commandAlias),
       list: commandList.map(e => Object.fromEntries(Object.entries(e).map(([k, v]) => [k, v.trim().replaceAll('\n', '<br>&nbsp')])))
     });
   }

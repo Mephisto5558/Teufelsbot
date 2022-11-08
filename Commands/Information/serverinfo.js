@@ -4,9 +4,8 @@ const
 
 module.exports = {
   name: 'serverinfo',
-  aliases: { prefix: ['server-info', 'guildinfo', 'guild-info'], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 1000 },
+  aliases: { prefix: ['server-info', 'guildinfo', 'guild-info'] },
+  cooldowns: { user: 1000 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,

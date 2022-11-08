@@ -4,7 +4,7 @@ module.exports = {
   name: 'nukechannel',
   aliases: { prefix: ['clearchannel'], slash: ['clearchannel'] },
   permissions: { client: ['ManageChannels'], user: ['ManageGuild', 'ManageChannels'] },
-  cooldowns: { guild: 10000, user: 1000 },
+  cooldowns: { guild: 1e4, user: 1000 },
   category: 'Moderation',
   slashCommand: true,
   prefixCommand: false,

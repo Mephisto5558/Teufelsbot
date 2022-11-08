@@ -1,8 +1,7 @@
 module.exports = {
   name: 'autopublish',
-  aliases: { prefix: [], slash: [] },
   permissions: { client: ['ManageGuild'], user: ['ManageGuild'] },
-  cooldowns: { guild: 1000, user: 0 },
+  cooldowns: { guild: 1000},
   category: 'Useful',
   slashCommand: true,
   prefixCommand: true,

@@ -1,8 +1,7 @@
 module.exports = {
   name: 'unmute',
-  aliases: { prefix: [], slash: [] },
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
-  cooldowns: { guild: 0, user: 100 },
+  cooldowns: { user: 100 },
   category: 'Moderation',
   slashCommand: true,
   prefixCommand: false,

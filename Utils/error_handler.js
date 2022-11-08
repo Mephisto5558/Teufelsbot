@@ -35,7 +35,7 @@ module.exports = async function (err, message, lang) {
 
   if (this.botType == 'dev') return;
 
-  const collector = msg.createMessageComponentCollector({ filter: i => i.customId == 'reportError', max: 1, componentType: ComponentType.Button, time: 60000 });
+  const collector = msg.createMessageComponentCollector({ filter: i => i.customId == 'reportError', max: 1, componentType: ComponentType.Button, time: 6e4 });
   collector.on('collect', async button => {
     await button.deferUpdate();
     collector.stop();

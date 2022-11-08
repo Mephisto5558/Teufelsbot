@@ -4,8 +4,6 @@ const
 
 module.exports = {
   name: 'hash',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
   cooldowns: { guild: 100, user: 1000 },
   category: 'Useful',
   slashCommand: true,

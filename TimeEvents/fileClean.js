@@ -1,7 +1,7 @@
 const { readdirSync, statSync, unlinkSync } = require('fs');
 
 function deleteOld(path) {
-  const time = new Date(Date.now() - 60000 * 60 * 24 * 14).getTime();
+  const time = new Date(Date.now() - 6e4 * 60 * 24 * 14).getTime();
   for (const file of readdirSync(path, { withFileTypes: true })) {
     if (file.isDirectory()) deleteOld(`${path}/${file.name}`);
     else if (time > statSync(`${path}/${file.name}`).mtimeMs) unlinkSync(`${path}/${file.name}`);

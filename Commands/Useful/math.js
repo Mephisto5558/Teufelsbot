@@ -4,9 +4,7 @@ const
 
 module.exports = {
   name: 'math',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 100 },
+  cooldowns: {user: 100 },
   category: 'Useful',
   slashCommand: true,
   prefixCommand: true,

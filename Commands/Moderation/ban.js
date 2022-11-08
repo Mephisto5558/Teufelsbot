@@ -1,8 +1,7 @@
 module.exports = {
   name: 'ban',
-  aliases: { prefix: [], slash: [] },
   permissions: { client: ['BanMembers'], user: ['BanMembers'] },
-  cooldowns: { guild: 0, user: 100 },
+  cooldowns: { user: 100 },
   category: 'Moderation',
   slashCommand: true,
   prefixCommand: false,
