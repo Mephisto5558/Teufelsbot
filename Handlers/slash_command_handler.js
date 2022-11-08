@@ -67,7 +67,7 @@ function format(option, path) {
     else if (!ApplicationCommandType[option.type]) throw new Error(`Invalid option.type, got "${option.type}" (${path})`);
     else if (isNaN(option.type)) option.type = ApplicationCommandType[option.type];
 
-    if (option.permissions?.user.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions?.user);
+    if (option.permissions?.user?.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions.user);
     if (!option.dmPermission) option.dmPermission = false;
 
     return option;
