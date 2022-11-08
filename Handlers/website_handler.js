@@ -2,7 +2,7 @@ const
   { readdirSync } = require('fs'),
   app = require('express')(),
   rateLimit = require('express-rate-limit').default,
-  { ownerOnlyFolders } = require('./config.json')?.map(e => e?.toLowerCase()) || ['owner-only'],
+  ownerOnlyFolders = require('../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'],
   I18nProvider = require('../Utils/I18nProvider.js'),
   gitpull = require('../Utils/gitpull.js'),
   lang = I18nProvider.__.bind(I18nProvider, { locale: 'en', undefinedNotFound: true });
