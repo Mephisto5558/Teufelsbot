@@ -29,8 +29,8 @@ async function getCommands() {
         commandName: cmd.name,
         commandUsage:
           (cmd.slashCommand ? 'SLASH Command: Look at the option descriptions.\n' : '') +
-          ((cmd.usage || lang(`commands.${cmd.category.toLowerCase()}.${cmd.name}.usage`))?.replace(/slash command:/gi, '') ?? '') || 'No information found',
-        commandDescription: cmd.description || lang(`commands.${cmd.category.toLowerCase()}.${cmd.name}.description`) || 'No information found',
+          ((cmd.usage || lang(`commands.${subFolder.toLowerCase()}.${cmd.name}.usage`))?.replace(/slash command:/gi, '') ?? '') || 'No information found',
+        commandDescription: cmd.description || lang(`commands.${subFolder.toLowerCase()}.${cmd.name}.description`) || 'No information found',
         commandAlias:
           (cmd.aliases?.prefix?.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '') +
           (cmd.aliases?.slash?.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || lang('global.none')
