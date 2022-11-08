@@ -2,9 +2,8 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'daily',
-  aliases: { prefix: ['d'], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 86400000 }, //1d
+  aliases: { prefix: ['d'] },
+  cooldowns: { user: 864e5 }, //1d
   category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
@@ -19,7 +18,7 @@ module.exports = {
     const userData = db.get('guildSettings')[this.guild.id].economy[this.user.id];
     if (!userData.gaining.daily) {
       embed.data.description = lang('notUnlocked');
-      return this.customReply({ embeds: [embed] }, 30000);
+      return this.customReply({ embeds: [embed] }, 3e4);
     }
 
     db.update('userSettings', `${this.guild.id}.economy.${this.user.id}`, {

@@ -2,9 +2,8 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'embed',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: ['EmbedLinks'] },
-  cooldowns: { guild: 0, user: 100 },
+  permissions: { user: ['EmbedLinks'] },
+  cooldowns: { user: 100 },
   category: 'Useful',
   slashCommand: true,
   prefixCommand: false,

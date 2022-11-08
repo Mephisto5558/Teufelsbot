@@ -88,9 +88,7 @@ async function getJoke(APIList, type, blacklist, maxLength) {
 
 module.exports = {
   name: 'joke',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 100, user: 0 },
+  cooldowns: { guild: 100 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

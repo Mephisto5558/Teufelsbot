@@ -2,9 +2,7 @@ const { Constants, PermissionFlagsBits, Message } = require('discord.js');
 
 module.exports = {
   name: 'say',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 200 },
+  cooldowns: { user: 200 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: true,

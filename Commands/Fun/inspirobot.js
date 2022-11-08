@@ -4,9 +4,7 @@ const
 
 module.exports = {
   name: 'inpirobot',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 100 },
+  cooldowns: { user: 100 },
   category: 'Fun',
   slashCommand: true,
   prefixCommand: true,

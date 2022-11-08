@@ -2,9 +2,8 @@ const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
   name: 'roleinfo',
-  aliases: { prefix: ['role-info'], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 1000 },
+  aliases: { prefix: ['role-info'] },
+  cooldowns: { user: 1000 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,
@@ -23,9 +22,9 @@ module.exports = {
         { name: lang('mention'), value: role.toString(), inline: true },
         { name: lang('members'), value: role.members.size, inline: true },
         { name: lang('color'), value: role.color ? `[${role.hexColor}](https://www.color-hex.com/color/${role.hexColor.substring(1)})` : lang('global.none'), inline: true },
-        { name: lang('mentionable'), value:  lang(`global.${role.mentionable}`), inline: true },
+        { name: lang('mentionable'), value: lang(`global.${role.mentionable}`), inline: true },
         { name: lang('hoist'), value: lang(`global.${role.hoist}`), inline: true },
-        { name: lang('managed'), value:  lang(`global.${role.managed}`), inline: true },
+        { name: lang('managed'), value: lang(`global.${role.managed}`), inline: true },
         { name: lang('position'), value: `\`${role.position}\``, inline: true },
         { name: 'ID', value: `\`${role.id}\``, inline: true },
         { name: lang('createdAt'), value: `<t:${Math.round(role.createdTimestamp / 1000)}>`, inline: true },

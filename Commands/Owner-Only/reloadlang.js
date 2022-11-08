@@ -2,9 +2,6 @@ const I18nProvider = require('../../Utils/I18nProvider.js');
 
 module.exports = {
   name: 'reloadlang',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
   category: 'Owner-Only',
   slashCommand: false,
   prefixCommand: true,

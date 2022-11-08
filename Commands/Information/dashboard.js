@@ -4,9 +4,6 @@ const
 
 module.exports = {
   name: 'dashboard',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
   category: 'Information',
   slashCommand: true,
   prefixCommand: true,

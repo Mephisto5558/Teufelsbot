@@ -1,8 +1,6 @@
 const { Constants, EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'lastping',
-  aliases: { prefix: [], slash: [] },
-  permissions: { client: [], user: [] },
   cooldowns: { guild: 200, user: 1000 },
   category: 'Useful',
   slashCommand: true,

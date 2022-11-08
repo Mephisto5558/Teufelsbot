@@ -2,9 +2,7 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'account',
-  aliases: { prefix: ['acc'], slash: [] },
-  permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
+  aliases: { prefix: ['acc'] },
   category: 'Economy',
   slashCommand: true,
   prefixCommand: true,
@@ -16,7 +14,7 @@ module.exports = {
       target = this.options?.getUser('user') || this.mentions?.users.first() || this.user,
       userData = db.get('guildSettings')[this.guild.id].economy[target.id];
 
-    if (!userData?.gaining?.chat) return this.customReply(lang('targetEconomyNotInitialized'), 30000);
+    if (!userData?.gaining?.chat) return this.customReply(lang('targetEconomyNotInitialized'), 3e4);
 
     const
       rank = Object.entries(db.get('guildSettings')[this.guild.id].economy)
