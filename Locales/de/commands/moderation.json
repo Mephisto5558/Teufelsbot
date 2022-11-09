@@ -62,7 +62,7 @@
     "success": "Der Kanal wurde gelockt."
   },
   "mute": {
-    "description": "Timeouted ein Mitglied für eine bestimmte Zeit (default: 1h).",
+    "description": "Timeouted ein Mitglied für eine bestimmte Zeit (min. 1min).",
     "options": {
       "target": {
         "description": "Wen du timeouten möchtest"
@@ -71,7 +71,7 @@
         "description": "Das Mitglied wird dies in einer DM sehen."
       },
       "duration": {
-        "description": "Wie lange du das Ziel timeouten möchtest (zB. 1w3d2h5min, default 1h, max. 28d)"
+        "description": "Wie lange du das Ziel timeouten möchtest (zB. 1w3d2h5min, min. 1min, max. 28d)"
       }
     },
     "dmEmbedTitle": "Getimeouted",
