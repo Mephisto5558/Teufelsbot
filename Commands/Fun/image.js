@@ -32,9 +32,14 @@ module.exports = {
   name: 'image',
   cooldowns: { user: 500 },
   slashCommand: true,
-  prefixCommand: true,
+  prefixCommand: false,
+  options: [{
+    name: 'type',
+    type: 'String',
+    autocomplete: true,
+    autocompleteOptions: endpoints.keys()
+  }],
   beta: true,
-  options: [{ name: 'type', type: 'String' }],
 
   run: async function (lang) {
     const
@@ -43,7 +48,7 @@ module.exports = {
       cmd = endpoints.get(cmdName?.toLowerCase()),
       option = options.find(e => e.name == cmdName);
 
-    let errorMsg;
+    let errorMsg, data;
 
     embed.data.footer = { text: this.user.tag };
 
@@ -58,7 +63,9 @@ module.exports = {
       if (option.options[i]) return `${acc}${option.options[i].name}=${e}&`;
     }, `https://nekobot.xyz/api/imagegen?type=${cmdName}&`);
 
-    const data = await fetch(encodeURI(url)).then(res => res.json());
+    try { data = await fetch(encodeURI(url)).then(res => res.json()); }
+    catch (err) { data = err; }
+    
     if (!data.success) return msg.edit(lang('error', data.message));
 
     embed.setImage(data.message);
