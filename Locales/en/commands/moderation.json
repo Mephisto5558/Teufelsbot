@@ -62,7 +62,7 @@
     "success": "The channel has been locked."
   },
   "mute": {
-    "description": "Timeouts a member for a given time (default: 1h).",
+    "description": "Timeouts a member for a given time (min. 1min).",
     "options": {
       "target": {
         "description": "Who do you want to mute?"
@@ -71,7 +71,7 @@
         "description": "The target is going to see the reason in DMs"
       },
       "duration": {
-        "description": "For how long do you want to mute the target? (eg. 1w3d2h5min, default 1h, max. 28d)"
+        "description": "For how long do you want to mute the target? (eg. 1w3d2h5min, min 1min, max. 28d)"
       }
     },
     "dmEmbedTitle": "Muted",
