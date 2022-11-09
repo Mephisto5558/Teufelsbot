@@ -14,7 +14,7 @@ module.exports = async function interactionCreate() {
 
   if (this.type == InteractionType.ApplicationCommandAutocomplete) {
     const
-      lang = I18nProvider.__.bind(I18nProvider, { locale: this.client.db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}`, undefinedNotFound: true }),
+      lang = I18nProvider.__.bBind(I18nProvider, { locale: this.client.db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}`, undefinedNotFound: true }),
       response = v => ({ name: lang(`options.${this.options._group ? this.options._group + '.' : ''}${this.options._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });
 
     let { options } = command.fMerge();
@@ -31,7 +31,7 @@ module.exports = async function interactionCreate() {
     );
   }
 
-  const lang = I18nProvider.__.bind(I18nProvider, { locale: this.client.db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
+  const lang = I18nProvider.__.bBind(I18nProvider, { locale: this.client.db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
   const cooldown = await require('../Utils/cooldowns.js').call(this, command);
   if (cooldown) return this.reply({ content: lang('events.cooldown', cooldown), ephemeral: true });
