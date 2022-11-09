@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  getAge = require('../../Utils/getAge.js'),
+  { getAge } = require('../../Utils'),
   currentYear = new Date().getFullYear();
 
 module.exports = {

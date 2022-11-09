@@ -2,54 +2,17 @@ console.time('Initializing time');
 console.info('Starting...');
 
 const
-  { Client, Status, Collection, GatewayIntentBits, AllowedMentionsTypes, Message, CommandInteraction, Partials, AutocompleteInteraction, BaseClient } = require('discord.js'),
-  { randomInt } = require('crypto'),
+  { Client, Collection, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { existsSync, readdirSync } = require('fs'),
-  DB = require('./Utils/db.js'),
-  customReply = require('./Utils/customReply.js');
+  { DB, gitpull, errorHandler, giveawaysmanager } = require('./Utils');
 
-global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
-global.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-
-Array.prototype.random = function random() { return this[randomInt(this.length)]; };
-Number.prototype.limit = function limit({ min = -Infinity, max = Infinity } = {}) { return Math.min(Math.max(Number(this), min), max); };
-Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }) {
-  if (`${{}}` != this || `${{}}` != obj) return output;
-  for (const key of Object.keys({ ...this, ...obj })) {
-    if (`${{}}` == this[key]) output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];
-    else if (Array.isArray(this[key])) {
-      if (key in obj) {
-        if (mode == 'overwrite') output[key] = obj[key];
-        else if (mode == 'push') for (const e of obj[key]) output[key].push(e);
-        else for (let i = 0; i < this[key].length || i < obj[key].length; i++) output[key][i] = i in obj[key] ? obj[key][i] : this[key][i];
-      }
-      else output[key] = this[key];
-    }
-    else output = { ...output, [key]: key in obj ? obj[key] : this[key] };
-  }
-  return output;
-};
-Object.prototype.filterEmpty = function filterEmpty() { return Object.fromEntries(Object.entries(this).flatMap(([k, v]) => ((val = Object(v) !== v ? v : v.filterEmpty()) => !(val == null || (Object(val) === val && Object.keys(val).length == 0)) ? [[k, val]] : [])())); };
-Function.prototype.bBind = function bBind(thisArg, ...args) {
-  const bound = this.bind(thisArg, ...args);
-  bound.__targetFunction__ = this;
-  bound.__boundThis__ = thisArg;
-  bound.__boundArgs__ = args;
-  return bound;
-};
-CommandInteraction.prototype.customReply = customReply;
-Message.prototype.customReply = customReply;
-BaseClient.prototype.awaitReady = async function awaitReady() {
-  while (this.ws.status != Status.Ready) await sleep(10);
-  return this.application.name ? this.application : this.application.fetch();
-};
-Object.defineProperty(AutocompleteInteraction.prototype, 'focused', { get() { return this.options.getFocused(true); } });
+require('./Utils/prototypeRegisterer.js');
 
 console.timeEnd('Initializing time');
 console.time('Starting time');
 
 (async function main() {
-  await require('./Utils/gitpull.js')();
+  await gitpull();
 
   const client = new Client({
     shards: 'auto',
@@ -75,8 +38,7 @@ console.time('Starting time');
       Partials.Reaction
     ]
   });
-  const error = err => require('./Utils/error_handler.js').call(client, err);
-  client.on('error', error);
+  client.on('error', err => errorHandler.call(client, err));
   let env;
 
   if (existsSync('./env.json')) env = require('./env.json');
@@ -94,7 +56,7 @@ console.time('Starting time');
   client.prefixCommands = new Collection();
   client.cooldowns = new Collection();
 
-  if (client.botType != 'dev') client.giveawaysManager = require('./Utils/giveawaysmanager.js').call(client);
+  if (client.botType != 'dev') client.giveawaysManager = giveawaysmanager.call(client);
 
   for (const handler of readdirSync('./Handlers').filter(e => client.botType != 'dev' || !e.includes('website')))
     require(`./Handlers/${handler}`).call(client);
@@ -103,7 +65,7 @@ console.time('Starting time');
   client.log(`Logged into ${client.botType}`);
 
   process
-    .on('unhandledRejection', error)
-    .on('uncaughtExceptionMonitor', error)
-    .on('uncaughtException', error);
+    .on('unhandledRejection', err => errorHandler.call(client, err))
+    .on('uncaughtExceptionMonitor', err => errorHandler.call(client, err))
+    .on('uncaughtException', err => errorHandler.call(client, err));
 })();

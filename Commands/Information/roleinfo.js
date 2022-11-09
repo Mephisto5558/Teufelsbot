@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, PermissionFlagsBits } = require('discord.js'),
-  permissionTranslate = require('../../Utils/permissionTranslate.js');
+  { permissionTranslator } = require('../../Utils');
 
 module.exports = {
   name: 'roleinfo',
@@ -8,7 +8,7 @@ module.exports = {
   cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: true,
-  options: [{ name: 'role', type: 'Role' }],beta:true,
+  options: [{ name: 'role', type: 'Role' }],
 
   run: function (lang) {
     this.args = this.args?.map(e => e.replace(/[<@>]/g, '')) || [];
@@ -30,7 +30,7 @@ module.exports = {
         { name: 'ID', value: `\`${role.id}\``, inline: true },
         { name: lang('createdAt'), value: `<t:${Math.round(role.createdTimestamp / 1000)}>`, inline: true },
         role.members.size && role.members.size < 16 && { name: lang('members'), value: Array.from(role.members.values()).join(', '), inline: false },
-        { name: lang('permissions'), value: `\`${role.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslate(role.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none')}\` (\`${role.permissions.toArray().length}\`)`, inline: false }
+        { name: lang('permissions'), value: `\`${role.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none')}\` (\`${role.permissions.toArray().length}\`)`, inline: false }
       ].filter(Boolean)
     });
 

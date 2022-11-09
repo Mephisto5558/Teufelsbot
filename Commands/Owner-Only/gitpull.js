@@ -6,7 +6,7 @@ module.exports = {
   beta: true,
 
   run: async function (lang) {
-    await require('../../Utils/gitpull.js')();
+    await require('../../Utils').gitpull();
     this.customReply(lang('success'));
   }
 };
