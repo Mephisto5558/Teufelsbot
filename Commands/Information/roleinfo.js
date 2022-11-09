@@ -27,7 +27,7 @@ module.exports = {
         { name: lang('position'), value: `\`${role.position}\``, inline: true },
         { name: 'ID', value: `\`${role.id}\``, inline: true },
         { name: lang('createdAt'), value: `<t:${Math.round(role.createdTimestamp / 1000)}>`, inline: true },
-        role.members.size < 16 && { name: lang('members'), value: Array.from(role.members.values()).join(', '), inline: false },
+        role.members.size && role.members.size < 16 && { name: lang('members'), value: Array.from(role.members.values()).join(', '), inline: false },
         { name: lang('permissions'), value: `\`${role.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : role.permissions.toArray()?.join('`, `') || lang('global.none')}\` (\`${role.permissions.toArray().length}\`)`, inline: false }
       ].filter(Boolean)
     });
