@@ -82,6 +82,7 @@
     "description": "Zeigt Stats und Informationen über den Bot",
     "dev": "Developer",
     "shard": "Shard",
+    "commands": "Commands",
     "starts": "Starts",
     "lastStart": "Letzter Start",
     "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n",
