@@ -82,12 +82,15 @@ class I18nProvider {
     }, {});
   }
 
-  /**@returns {{}}list of missing entries*/
-  findMissing() {
+  /**@param {boolean}checkEqual@returns {{}}list of entries that are missing or equal with default data*/
+  findMissing(checkEqual) {
     const defaultKeys = Object.keys(this.defaultLocaleData);
     const missing = {};
 
-    for (const lang of this.availableLocales.keys()) missing[lang] = defaultKeys.filter(k => !this.localeData[lang][k]);
+    for (const lang of this.availableLocales.keys()) missing[lang] = defaultKeys.filter(k => {
+      if (checkEqual && this.config.defaultLocale != lang && this.localeData[lang][k] == this.defaultLocaleData[k]) return true;
+      return !this.localeData[lang][k];
+    });
     return Object.fromEntries(Object.entries(missing).filter(([, e]) => e.length));
   }
 }
