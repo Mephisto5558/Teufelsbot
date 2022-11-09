@@ -79,7 +79,7 @@ module.exports = async function messageCreate() {
     !command || (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.author.id != this.client.application.owner.id)
   ) return runMessages();
 
-  const lang = I18nProvider.__.bind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
+  const lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
   const cooldown = await cooldowns.call(this, command);
 
   if (cooldown && !this.client.botType == 'dev') return this.customReply(lang('events.cooldown', cooldown), 1e4);

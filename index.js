@@ -30,6 +30,13 @@ Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }
   return output;
 };
 Object.prototype.filterEmpty = function filterEmpty() { return Object.fromEntries(Object.entries(this).flatMap(([k, v]) => ((val = Object(v) !== v ? v : v.filterEmpty()) => !(val == null || (Object(val) === val && Object.keys(val).length == 0)) ? [[k, val]] : [])())); };
+Function.prototype.bBind = function bBind(thisArg, ...args) {
+  const bound = this.bind(thisArg, ...args);
+  bound.__targetFunction__ = this;
+  bound.__boundThis__ = thisArg;
+  bound.__boundArgs__ = args;
+  return bound;
+};
 CommandInteraction.prototype.customReply = customReply;
 Message.prototype.customReply = customReply;
 BaseClient.prototype.awaitReady = async function awaitReady() {
