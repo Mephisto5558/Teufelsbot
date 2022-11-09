@@ -1,6 +1,6 @@
 const
   { Duration } = require('better-ms'),
-  timeValidator = require('../../Utils/timeValidator.js'),
+  { timeValidator } = require('../../Utils'),
   yearLimit = 62492231808e5; //200000y
 
 module.exports = {

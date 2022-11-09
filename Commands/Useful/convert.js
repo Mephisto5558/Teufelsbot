@@ -1,6 +1,6 @@
 const
   { AttachmentBuilder } = require('discord.js'),
-  Converter = require('../../Utils/converter.js');
+  { Converter } = require('../../Utils');
 
 module.exports = {
   name: 'convert',

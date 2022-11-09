@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, PermissionFlagsBits } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
-  timeValidator = require('../../Utils/timeValidator.js');
+  { timeValidator } = require('../../Utils');
 
 module.exports = {
   name: 'mute',

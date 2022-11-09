@@ -2,7 +2,7 @@ const
   { Collection, ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
   { readdirSync } = require('fs'),
   { resolve } = require('path'),
-  I18nProvider = require('../Utils/I18nProvider.js');
+  { I18nProvider } = require('../Utils');
 
 let deletedCommandCount = 0;
 

@@ -1,7 +1,5 @@
 const exec = require('util').promisify(require('child_process').exec);
 
-console.log('Git auto pull is running');
-
 module.exports = async () => {
   let data;
 

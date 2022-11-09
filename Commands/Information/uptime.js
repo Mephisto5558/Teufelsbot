@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   { Domain } = require('../../config.json').Website,
-  uptime = require('../../Utils/uptime.js');
+  { uptime } = require('../../Utils');
 
 module.exports = {
   name: 'uptime',

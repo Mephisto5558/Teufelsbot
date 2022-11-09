@@ -29,5 +29,5 @@ module.exports = {
     */
   ],
 
-  run: require('../../Utils/bankick.js')
+  run: require('../../Utils').bankick
 };

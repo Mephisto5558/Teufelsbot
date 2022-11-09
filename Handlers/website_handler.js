@@ -3,8 +3,7 @@ const
   app = require('express')(),
   rateLimit = require('express-rate-limit').default,
   ownerOnlyFolders = require('../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'],
-  I18nProvider = require('../Utils/I18nProvider.js'),
-  gitpull = require('../Utils/gitpull.js'),
+  { I18nProvider, gitpull } = require('../Utils'),
   lang = I18nProvider.__.bind(I18nProvider, { locale: 'en', undefinedNotFound: true });
 
 function validate(key, res, WebsiteKey) {

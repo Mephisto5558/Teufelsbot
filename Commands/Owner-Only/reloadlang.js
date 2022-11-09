@@ -1,4 +1,4 @@
-const I18nProvider = require('../../Utils/I18nProvider.js');
+const { I18nProvider } = require('../../Utils');
 
 module.exports = {
   name: 'reloadlang',

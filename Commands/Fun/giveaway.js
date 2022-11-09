@@ -1,7 +1,7 @@
 const
   { Constants, PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
-  timeValidator = require('../../Utils/timeValidator.js');
+  { timeValidator } = require('../../Utils');
 
 module.exports = {
   name: 'giveaway',
