@@ -1,4 +1,6 @@
-const { EmbedBuilder, PermissionFlagsBits } = require('discord.js');
+const
+  { EmbedBuilder, PermissionFlagsBits } = require('discord.js'),
+  permissionTranslate = require('../../Utils/permissionTranslate.js');
 
 module.exports = {
   name: 'roleinfo',
@@ -6,13 +8,13 @@ module.exports = {
   cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: true,
-  options: [{ name: 'role', type: 'Role' }],
+  options: [{ name: 'role', type: 'Role' }],beta:true,
 
   run: function (lang) {
     this.args = this.args?.map(e => e.replace(/[<@>]/g, '')) || [];
     this.content = this.content?.replace(/[<@>]/g, '');
 
-    const role = this.options?.getRole('role') || !this.args?.[0] ? this.member.roles.highest : this.mentions?.roles.first() || this.guild.roles.cache.find(e => [...this.args, this.content].includes(e.id) || [...this.args, this.content].includes(e.name));
+    const role = this.options?.getRole('role') || (!this.args?.[0] ? this.member.roles.highest : this.mentions?.roles.first()) || this.guild.roles.cache.find(e => [...this.args, this.content].includes(e.id) || [...this.args, this.content].includes(e.name));
 
     const embed = new EmbedBuilder({
       title: role.name,
@@ -28,11 +30,11 @@ module.exports = {
         { name: 'ID', value: `\`${role.id}\``, inline: true },
         { name: lang('createdAt'), value: `<t:${Math.round(role.createdTimestamp / 1000)}>`, inline: true },
         role.members.size && role.members.size < 16 && { name: lang('members'), value: Array.from(role.members.values()).join(', '), inline: false },
-        { name: lang('permissions'), value: `\`${role.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : role.permissions.toArray()?.join('`, `') || lang('global.none')}\` (\`${role.permissions.toArray().length}\`)`, inline: false }
+        { name: lang('permissions'), value: `\`${role.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslate(role.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none')}\` (\`${role.permissions.toArray().length}\`)`, inline: false }
       ].filter(Boolean)
     });
 
-    if (role.color || role.icon) embed.setThumbnail(role.icon ? `https://cdn.discordapp.com/role-icons/${role.guild.id}/${role.icon}.webp?size=80&quality=lossless` : `https://dummyimage.com/80x80/${role.color}/${role.color}.png`);
+    if (role.color || role.icon) embed.setThumbnail(role.icon ? `https://cdn.discordapp.com/role-icons/${role.guild.id}/${role.icon}.webp?size=80&quality=lossless` : `https://dummyimage.com/80x80/${role.hexColor.substring(1)}/${role.hexColor.substring(1)}.png`);
 
     this.customReply({ embeds: [embed] });
   }
