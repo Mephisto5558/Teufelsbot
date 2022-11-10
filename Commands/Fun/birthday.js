@@ -53,15 +53,14 @@ module.exports = {
       target = this.options.getMember('target'),
       doNotHide = this.options.getBoolean('do_not_hide'),
       oldData = db.get('userSettings'),
-      birthday = [
-        Math.abs(this.options.getNumber('year')),
-        Math.abs(this.options.getNumber('month') || '')?.toString().padStart(2, '0'),
-        Math.abs(this.options.getNumber('day') || '')?.toString().padStart(2, '0')
-      ];
+      birthday =
+        Math.abs(this.options.getNumber('year')) + '/' +
+        Math.abs(this.options.getNumber('month') || '')?.toString().padStart(2, '0') + '/' +
+        Math.abs(this.options.getNumber('day') || '')?.toString().padStart(2, '0');
 
     switch (this.options.getSubcommand()) {
       case 'set': {
-        db.update('userSettings', `${this.user.id}.birthday`, birthday.join('/'));
+        db.update('userSettings', `${this.user.id}.birthday`, birthday);
 
         this.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
         break;
