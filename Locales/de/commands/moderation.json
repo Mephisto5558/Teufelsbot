@@ -75,7 +75,7 @@
       }
     },
     "dmEmbedTitle": "Getimeouted",
-    "dmEmbedDescription": "Du wurdest in `{guild}` gettimeouted.\nModerator: {mod}\nBis: <t:{time}>\nBegründung: {reason}",
+    "dmEmbedDescription": "Du wurdest in `{guild}` getimeouted.\nModerator: {mod}\nBis: <t:{time}>\nBegründung: {reason}",
     "infoEmbedTitle": "Timeout",
     "infoEmbedDescription": "{user} wurde erfolgreich getimeouted.\nBegründung: {reason}\nBis: <t:{time}>\n",
     "notFound": "Ich konnte dieses Mitglied nicht finden!",
@@ -198,6 +198,6 @@
     "notFound": "Ich konnte dieses Mitglied nicht finden!",
     "notMuted": "Dieses Mitglied ist nicht gemuted!",
     "moderator": "Moderator",
-    "success": "Der Timeout für {user} wurde entfernt."
+    "success": "Der Timeout für <@{user}> wurde entfernt."
   }
 }

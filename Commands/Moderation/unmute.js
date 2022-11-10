@@ -29,6 +29,6 @@ module.exports = {
     if (errorMsg) return this.editReply(errorMsg);
 
     await target.disableCommunicationUntil(null, `${reason}, moderator ${this.user.tag}`);
-    this.editReply(lang('success', target.user.tag));
+    this.editReply(lang('success', target.user.id));
   }
 };
