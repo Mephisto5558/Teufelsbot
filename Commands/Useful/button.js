@@ -58,7 +58,7 @@ module.exports = {
     if (msg) {
       try { msg = await this.channel.messages.fetch(msg); }
       catch { return this.editReply(lang('msgNotFound')); }
-      if (msg.author.id != this.client.user.id) return this.editReply(lang('botIsNotAuthor'));
+      if (msg.user.id != this.client.user.id) return this.editReply(lang('botIsNotAuthor'));
       if (msg.components[4]?.components?.[4] || (msg.components[4] && this.options.getBoolean('new_row'))) return this.editReply(lang('buttonLimit'));
     }
 

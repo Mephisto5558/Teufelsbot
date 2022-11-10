@@ -17,8 +17,8 @@ const
 function checkMsg(msg, getStr) {
   const options = this.options.data.map(e => e.name);
   if (
-    (options.includes('member') && msg.author.id != this.options.getUser('member').id) ||
-    (options.includes('user_type') && (msg.author.bot && getStr('user_type') == 'human' || !msg.author.bot && getStr('user_type') == 'bot')) ||
+    (options.includes('member') && msg.user.id != this.options.getUser('member').id) ||
+    (options.includes('user_type') && (msg.user.bot && getStr('user_type') == 'human' || !msg.user.bot && getStr('user_type') == 'bot')) ||
     (options.includes('only_containing') && filterCheck(msg, getStr('only_containing'))) ||
     (options.includes('caps_percentage') && (msg.content.replace(/[a-z]/g, '').length / msg.content.length * 100 < this.options.getNumber('caps_percentage'))) ||
     (options.includes('contains') && (!msg.content.includes(getStr('contains')) && !msg.embeds?.find(e => e.description.includes(getStr('contains'))))) ||
