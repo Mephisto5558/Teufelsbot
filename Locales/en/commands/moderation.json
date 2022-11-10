@@ -198,6 +198,6 @@
     "notFound": "I couldn't find that member!",
     "notMuted": "This member is not muted!",
     "moderator": "Moderator",
-    "success": "Removed timeout for user {user}."
+    "success": "Removed timeout for member <@{user}>."
   }
 }
