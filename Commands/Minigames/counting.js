@@ -10,7 +10,7 @@ module.exports = {
     name: 'channel',
     type: 'Channel',
     channelTypes: Constants.TextBasedChannelTypes
-  }], beta: true,
+  }],
 
   run: async function (lang) {
     const
