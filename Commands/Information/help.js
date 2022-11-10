@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { I18nProvider, permissionTranslator } = require('../../Utils');
+  { I18nProvider, permissionTranslator } = require('../../Utils'),
+  ownerOnlyFolders = require('../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'];
 
 function listCommands(list, output, count, category) {
   for (const [, command] of list) {
@@ -35,7 +36,7 @@ module.exports = {
     if (query) {
       const cmd = client.prefixCommands.get(query) || client.slashCommands.get(query);
 
-      if (!cmd?.name || cmd.hideInHelp || cmd.disabled || cmd.category.toLowerCase() == 'owner-only') {
+      if (!cmd?.name || cmd.hideInHelp || cmd.disabled || (ownerOnlyFolders.includes(cmd.category.toLowerCase()) && this.user.id != this.client.application.owner.id)) {
         embed.data.description = lang('one.notFound', query);
         embed.data.color = Colors.Red;
       }
