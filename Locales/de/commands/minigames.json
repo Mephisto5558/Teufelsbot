@@ -7,6 +7,26 @@
     ],
     "head": "Woah! Die Münze ist auf der Seite gelandet!"
   },
+  "counting": {
+    "description": "Stelle einen Counting-Kanal ein, in dem Mitglieder ihre Mathe-Skills zeigen können!",
+    "usage": "PREFIX Command: counting [#channel]",
+    "options": {
+      "channel": {
+        "description": "Der Kanal, den du als Counting-Kanal hinzufügen(oder entfernen, wenn schon hinzugefügt) möchtest."
+      }
+    },
+    "added": {
+      "embedTitle": "Dieser Kanal ist nun ein Counting-Kanal!",
+      "embedDescription": "Die Regeln sind simpel:\n> Starte mit **1**.\n> Füge **1** zur letzten Zahl hinzu\n> Du darfst nicht zwei Zahlen hintereinander aufzählen\nViel Spaß!",
+      "by": "Hinzugefügt von {user}",
+      "success": "Ich habe erfolgreich <#{channel}> als Counting-Kanal hinzugefügt."
+    },
+    "removed": {
+      "embedDescription": "Dieser Kanal ist kein Counting-Kanal mehr!",
+      "by": "Entfernt von {user}",
+      "success": "Ich habe erfolgreich <#{channel}> als Counting-Kanal entfernt."
+    }
+  },
   "mgstats": {
     "description": "Erhalte Stats von einem der Minigames des Bots",
     "usage": "PREFIX Command: stats <game> [user]",
