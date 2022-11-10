@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   { I18nProvider, permissionTranslator } = require('../../Utils'),
-  ownerOnlyFolders = require('../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'];
+  ownerOnlyFolders = require('../../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'];
 
 function listCommands(list, output, count, category) {
   for (const [, command] of list) {
