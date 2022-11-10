@@ -45,7 +45,7 @@ module.exports = {
 
         embed.data.title = lang('one.embedTitle', cmd.name);
         embed.data.description = helpLang('description') ?? lang('one.noDescription');
-        if (cmd.usage) embed.data.footer = { text: lang('one.embedFooterText', client.db.get('guildSettings')[this.guild.id]?.config?.prefix || client.db.get('guildSettings').default.config.prefix) };
+        if (helpLang('usage')) embed.data.footer = { text: lang('one.embedFooterText', client.db.get('guildSettings')[this.guild.id]?.config?.prefix || client.db.get('guildSettings').default.config.prefix) };
         embed.data.fields = [
           cmd.aliases?.prefix?.length && { name: lang('one.prefixAlias'), value: `\`${listCommands(cmd.aliases.prefix, '', 1)[0].replaceAll('> ', '')}\``, inline: true },
           cmd.aliases?.slash?.length && { name: lang('one.slashAlias'), value: `\`${listCommands(cmd.aliases.slash, '', 1)[0].replaceAll('> ', '')}\``, inline: true },
@@ -55,7 +55,7 @@ module.exports = {
             name: lang('one.cooldowns'), inline: false,
             value: Object.entries(cmd.cooldowns).filter(([, e]) => e).map(([k, v]) => `${lang('global.' + k)}: \`${parseFloat((v / 1000).toFixed(2))}\`s`, '').join(', ')
           },
-          cmd.usage && { name: lang('one.usage'), value: `${cmd.slashCommand ? lang('one.lookAtDesc') : ''} ${helpLang('usage') || ''}`, inline: false }
+          helpLang('usage') && { name: lang('one.usage'), value: `${cmd.slashCommand ? lang('one.lookAtDesc') : ''} ${helpLang('usage') || ''}`, inline: false }
         ].filter(Boolean);
       }
 
