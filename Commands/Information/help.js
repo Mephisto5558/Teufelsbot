@@ -66,7 +66,7 @@ module.exports = {
     embed.setThumbnail(this.guild.members.me.displayAvatarURL());
 
     for (const category of getDirectoriesSync('./Commands').map(e => e.toUpperCase())) {
-      if (category == 'OWNER-ONLY') continue;
+      if (ownerOnlyFolders.includes(category.toLowerCase()) && this.user.id != this.client.application.owner.id) continue;
 
       let data = listCommands(client.prefixCommands, '', 1, category);
       data = listCommands(client.slashCommands, data[0], data[1], category);
