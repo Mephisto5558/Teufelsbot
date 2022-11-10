@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { I18nProvider } = require('../../Utils');
+  { I18nProvider, permissionTranslator } = require('../../Utils');
 
 function listCommands(list, output, count, category) {
   for (const [, command] of list) {
@@ -48,8 +48,8 @@ module.exports = {
         embed.data.fields = [
           cmd.aliases?.prefix?.length && { name: lang('one.prefixAlias'), value: `\`${listCommands(cmd.aliases.prefix, '', 1)[0].replaceAll('> ', '')}\``, inline: true },
           cmd.aliases?.slash?.length && { name: lang('one.slashAlias'), value: `\`${listCommands(cmd.aliases.slash, '', 1)[0].replaceAll('> ', '')}\``, inline: true },
-          cmd.permissions?.client?.length && { name: lang('one.botPerms'), value: `\`${cmd.permissions.client.join('`, `')}\``, inline: false },
-          cmd.permissions?.user?.length && { name: lang('one.userPerms'), value: `\`${cmd.permissions.user.join('`, `')}\``, inline: true },
+          cmd.permissions?.client?.length && { name: lang('one.botPerms'), value: `\`${permissionTranslator(cmd.permissions.client).join('`, `')}\``, inline: false },
+          cmd.permissions?.user?.length && { name: lang('one.userPerms'), value: `\`${permissionTranslator(cmd.permissions.user).join('`, `')}\``, inline: true },
           (cmd.cooldowns?.user || cmd.cooldowns?.guild) && {
             name: lang('one.cooldowns'), inline: false,
             value: Object.entries(cmd.cooldowns).filter(([, e]) => e).map(([k, v]) => `${lang('global.' + k)}: \`${parseFloat((v / 1000).toFixed(2))}\`s`, '').join(', ')
