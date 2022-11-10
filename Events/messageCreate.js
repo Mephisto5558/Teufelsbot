@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits, Message } = require('discord.js'), // eslint-disable-line no-unused-vars
   ownerOnlyFolders = require('../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'],
-  { I18nProvider, cooldowns, errorHandler } = require('../Utils');
+  { I18nProvider, cooldowns, permissionTranslator, errorHandler } = require('../Utils');
 
 let prefixLength;
 
@@ -92,7 +92,7 @@ module.exports = async function messageCreate() {
     const embed = new EmbedBuilder({
       title: lang('events.permissionDenied.embedTitle'),
       color: Colors.Red,
-      description: lang(`events.permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: (botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') })
+      description: lang(`events.permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') })
     });
 
     if (botPermsMissing.includes('SendMessages')) return this.author.send({ content: `${this.channel.name} in ${this.guild.name}`, embeds: [embed] });
