@@ -83,7 +83,7 @@ You need to create a collection called "db-collections" and add the following do
           "humorAPIKey": "api key for humor api (https:/humorapi.com)",
           "rapidAPIKey": "rapid api key (https:/rapidapi.com)",
           "githubKey": "github user key (used for /suggest, https://github.com/settings/tokens)",
-          "FunFactAPI": "api key for fun fact ip (https://api-ninjas.com/)",
+          "FunFactAPI": "api key for fun fact api (https://api-ninjas.com/)",
           "WebsiteKey": "key to communicate with a external hosted dashboard"
         }
       },
