@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, InteractionType, ApplicationCommandOptionType } = require('discord.js'),
   ownerOnlyFolders = require('../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'],
-  { I18nProvider, cooldowns, errorHandler } = require('../Utils');
+  { I18nProvider, cooldowns, permissionTranslator, errorHandler } = require('../Utils');
 
 module.exports = async function interactionCreate() {
   const command = this.client.slashCommands.get(this.commandName);
@@ -50,7 +50,7 @@ module.exports = async function interactionCreate() {
       const embed = new EmbedBuilder({
         title: lang('events.permissionDenied.embedTitle'),
         color: Colors.Red,
-        description: lang(`events.permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: (botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') })
+        description: lang(`events.permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') })
       });
 
       return this.reply({ embeds: [embed], ephemeral: true });
