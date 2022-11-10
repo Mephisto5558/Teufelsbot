@@ -7,6 +7,26 @@
     ],
     "head": "Woah! The coin landed on it's side!"
   },
+  "counting": {
+    "description": "Set up a counting channel where members can show their math skills!",
+    "usage": "PREFIX Command: counting [#channel]",
+    "options": {
+      "channel": {
+        "description": "The channel you want to add (or remove, if already added) as a counting channel."
+      }
+    },
+    "added": {
+      "embedTitle": "This channel is now a counting channel!",
+      "embedDescription": "The rules are simple:\n> Start with **1**.\n> Add **1** to the last number\n> You can't count two numbers in a row\nHave fun!",
+      "by": "Added as counting channel by {user}",
+      "success": "I successfully added <#{channel}> as a counting channel."
+    },
+    "removed": {
+      "embedDescription": "This channel is no longer a counting channel!",
+      "by": "Removed by {user}",
+      "success": "I successfully removed <#{channel}> as a counting channel."
+    }
+  },
   "mgstats": {
     "description": "get stats about one of the bot's minigames",
     "usage": "PREFIX Command: stats <game> [user]",

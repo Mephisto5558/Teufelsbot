@@ -20,5 +20,10 @@
     "alreadyReported": "This error has already been reported. [Link]({url}).\nIt will be fixed soon.",
     "reportSuccess": "The error has been reported. [Link]({url})",
     "reportFail": "`An error occurred while trying to send your error report.\n```\n{err}\n```\nPlease message the dev directly."
+  },
+  "counting": {
+    "error": "YOU RUINED IT AT **{lastNumber}**!! The next number is **1**.\n",
+    "wrongNumber": "**Can't you count?! Wrong number.**",
+    "sameUserTwice": "**You can't count two numbers in a row!**"
   }
 }

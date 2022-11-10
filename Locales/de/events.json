@@ -20,5 +20,10 @@
     "alreadyReported": "Dieser Fehler wurde bereits gemeldet. [Link]({url}).\nEs wird bald gefixt.",
     "reportSuccess": "Der Fehler wurde gemeldet. [Link]({url})",
     "reportFail": "Ein Fehler beim Versuch, den Fehler zu melden, aufgetreten.\n```\n{err}\n```\nBitte informiere den Dev direkt."
+  },
+  "counting": {
+    "error": "DU HAST ES BEI **{lastNumber}** RUINIERT!! Die nächste Zahl ist **1**.\n",
+    "wrongNumber": "**Kannst du nicht zählen?! Falsche Zahl.**",
+    "sameUserTwice": "**Du kannst nicht zwei Zahlen hintereinander aufzählen!**"
   }
 }

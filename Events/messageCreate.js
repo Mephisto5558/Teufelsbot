@@ -29,7 +29,7 @@ module.exports = async function messageCreate() {
   if (this.user.bot) return;
 
   const
-    { config, triggers, economy, afkMessages } = this.client.db.get('guildSettings')[this.guild?.id] || {},
+    { config, triggers, economy, afkMessages, counting } = this.client.db.get('guildSettings')[this.guild?.id] || {},
     defaultSettings = this.client.db.get('guildSettings').default,
     locale = config?.lang || this.guild?.preferredLocale.slice(0, 2) || defaultSettings.config.lang,
     guildPrefix = config?.prefix?.prefix || defaultSettings.config.prefix,
@@ -41,6 +41,20 @@ module.exports = async function messageCreate() {
       }
       else if (originalContent.includes(this.client.user.id) && !(await cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } })))
         this.react('👀');
+
+      const countingData = counting?.[this.channel.id];
+      if (countingData && parseInt(originalContent)) {
+        if (countingData.lastNumber + 1 != originalContent || countingData.lastAuthor == this.user.id) {
+          if (countingData?.lastNumber == 0) return;
+
+          this.react('❌');
+          this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { user: null, lastNumber: 0 });
+          return this.reply(I18nProvider.__({ locale }, 'events.counting.error', countingData.lastNumber) + I18nProvider.__({ locale }, countingData.lastAuthor == this.user.id ? 'events.counting.sameUserTwice' : 'events.counting.wrongNumber'));
+        }
+
+        this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { lastNumber: countingData.lastNumber + 1, lastAuthor: this.user.id });
+        this.react('✅');
+      }
 
       const userSettings = this.client.db.get('userSettings');
       const afk = afkMessages?.[this.user.id]?.message ? afkMessages[this.user.id] : userSettings[this.user.id]?.afkMessage;
