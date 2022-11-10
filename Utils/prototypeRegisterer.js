@@ -40,3 +40,4 @@ BaseClient.prototype.awaitReady = async function awaitReady() {
   return this.application.name ? this.application : this.application.fetch();
 };
 Object.defineProperty(AutocompleteInteraction.prototype, 'focused', { get() { return this.options.getFocused(true); } });
+Object.defineProperty(Message.prototype, 'user', { get() { return this.author; } });

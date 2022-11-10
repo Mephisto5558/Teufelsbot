@@ -6,7 +6,7 @@ const
 let prefixLength;
 
 async function runEco({ economy: { gaining: defaultGaining } }, economy = {}) {
-  const { gaining, currency, currencyCapacity, skills } = economy[this.author.id] || {};
+  const { gaining, currency, currencyCapacity, skills } = economy[this.user.id] || {};
   const { config = {} } = economy;
 
   if (
@@ -17,16 +17,16 @@ async function runEco({ economy: { gaining: defaultGaining } }, economy = {}) {
     !(await cooldowns.call(this, { name: 'economy', cooldowns: { user: 2e4 } }))
   ) {
     const currency = parseFloat((currency + gaining.chat + skills.currency_bonus_absolute.lvl ** 2 + gaining.chat * skills.currency_bonus_percentage.lvl ** 2 / 100).limit(0, currencyCapacity).toFixed(3));
-    this.client.db.update('guildSettings', `${this.guild.id}.economy.${this.author.id}`, { currency });
+    this.client.db.update('guildSettings', `${this.guild.id}.economy.${this.user.id}`, { currency });
   }
 }
 
 /**@this {Message}*/
 module.exports = async function messageCreate() {
   const { blacklist, stats } = this.client.db.get('botSettings');
-  if (blacklist?.includes(this.author.id)) return;
+  if (blacklist?.includes(this.user.id)) return;
   if (this.crosspostable && this.client.db.get('guildSettings')[this.guild?.id]?.config?.autopublish) this.crosspost();
-  if (this.author.bot) return;
+  if (this.user.bot) return;
 
   const
     { config, triggers, economy, afkMessages } = this.client.db.get('guildSettings')[this.guild?.id] || {},
@@ -43,16 +43,16 @@ module.exports = async function messageCreate() {
         this.react('👀');
 
       const userSettings = this.client.db.get('userSettings');
-      const afk = afkMessages?.[this.author.id]?.message ? afkMessages[this.author.id] : userSettings[this.author.id]?.afkMessage;
+      const afk = afkMessages?.[this.user.id]?.message ? afkMessages[this.user.id] : userSettings[this.user.id]?.afkMessage;
       if (afk?.message) {
-        this.client.db.update('userSettings', `${this.author.id}.afkMessage`, {});
-        this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.author.id}`, {});
+        this.client.db.update('userSettings', `${this.user.id}.afkMessage`, {});
+        this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`, {});
         if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.substring(6));
         this.customReply(I18nProvider.__({ locale }, 'events.afkEnd', afk.createdAt));
       }
 
       if (!(await cooldowns.call(this, { name: 'afkMsg', cooldowns: { user: 1000 } }))) {
-        for (const member of this.mentions.members.filter((_, e) => (afkMessages?.[e]?.message || userSettings[e]?.afkMessage?.message) && e != this.author.id).values()) {
+        for (const member of this.mentions.members.filter((_, e) => (afkMessages?.[e]?.message || userSettings[e]?.afkMessage?.message) && e != this.user.id).values()) {
           const afkMsg = afkMessages?.[member.id] || userSettings[member.id]?.afkMessage;
           this.customReply(I18nProvider.__({ locale }, 'events.afkMsg', { member: member.displayName.startsWith('[AFK] ') ? member.displayName.substring(6) : member.displayName, message: afkMsg.message, timestamp: afkMsg.createdAt }));
         }
@@ -69,20 +69,19 @@ module.exports = async function messageCreate() {
   this.args = this.content.slice(prefixLength).trim().split(' ');
   this.commandName = this.args.shift().toLowerCase();
   this.content = this.args.join(' ');
-  this.user = this.author;
 
   const command = this.client.prefixCommands.get(this.commandName);
   if (command && !command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply(I18nProvider.__({ locale }, 'events.guildCommandOnly'));
   if (!command && this.client.slashCommands.get(this.commandName)) return this.customReply(I18nProvider.__({ locale }, 'events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
-    !command || (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.author.id != this.client.application.owner.id)
+    !command || (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id)
   ) return runMessages();
 
   const lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
   const cooldown = await cooldowns.call(this, command);
 
   if (cooldown && !this.client.botType == 'dev') return this.customReply(lang('events.cooldown', cooldown), 1e4);
-  if (command.requireEconomy && (!economy?.enable || !economy?.[this.author.id]?.gaining?.chat))
+  if (command.requireEconomy && (!economy?.enable || !economy?.[this.user.id]?.gaining?.chat))
     return this.customReply(!economy?.enable ? lang('events.economyDisabled') : lang('events.economyNotInitialized'), 3e4);
 
   const userPermsMissing = this.member.permissionsIn(this.channel).missing([...(command.permissions?.user || []), PermissionFlagsBits.SendMessages]);
@@ -95,7 +94,7 @@ module.exports = async function messageCreate() {
       description: lang(`events.permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') })
     });
 
-    if (botPermsMissing.includes('SendMessages')) return this.author.send({ content: `${this.channel.name} in ${this.guild.name}`, embeds: [embed] });
+    if (botPermsMissing.includes('SendMessages')) return this.user.send({ content: `${this.channel.name} in ${this.guild.name}`, embeds: [embed] });
     return this.reply({ embeds: [embed] });
   }
 
