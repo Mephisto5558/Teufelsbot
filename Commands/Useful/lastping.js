@@ -21,7 +21,7 @@ module.exports = {
 
     if (!channel.isTextBased()) return this.customReply(lang('invalid'));
 
-    const { url, createdAt, content = lang('unknown'), author = lang('unknown') } = (await channel.messages.fetch({ limit: 100 })).find(e => (e.mentions.everyone || e.mentions.roles.find(e2 => this.member.roles.cache.has(e2.id)) || e.mentions.members.has(this.user.id)) && (!user || !e.author || e.author.id == user)) || {};
+    const { url, createdAt, content = lang('unknown'), author = lang('unknown') } = (await channel.messages.fetch({ limit: 100 })).find(e => (e.mentions.everyone || e.mentions.roles.find(e2 => this.member.roles.cache.has(e2.id)) || e.mentions.members.has(this.user.id)) && (!user || !e.user || e.user.id == user)) || {};
     if (!url) return this.customReply(lang('noneFound'));
 
     const embed = new EmbedBuilder({
