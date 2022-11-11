@@ -5,7 +5,7 @@
       "Heads!",
       "Tails!"
     ],
-    "head": "Woah! The coin landed on it's side!"
+    "side": "Woah! The coin landed on it's side!"
   },
   "counting": {
     "description": "Set up a counting channel where members can show their math skills!",
