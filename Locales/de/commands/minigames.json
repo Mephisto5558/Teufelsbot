@@ -5,7 +5,7 @@
       "Kopf!",
       "Zahl!"
     ],
-    "head": "Woah! Die Münze ist auf der Seite gelandet!"
+    "side": "Woah! Die Münze ist auf der Seite gelandet!"
   },
   "counting": {
     "description": "Stelle einen Counting-Kanal ein, in dem Mitglieder ihre Mathe-Skills zeigen können!",
