@@ -27,7 +27,7 @@ module.exports = {
         color: Colors.Red
       });
 
-      if (this.channel.id == channel.id) return this.reply({ embeds: [embed] });
+      if (this.channel.id == channel.id) return this.customReply({ embeds: [embed] });
       await channel.send({ embeds: [embed] });
       return this.customReply(lang('removed.success', channel.id));
     }
@@ -41,7 +41,7 @@ module.exports = {
       color: Colors.Green
     });
 
-    if (this.channel.id == channel.id) return this.reply({ embeds: [embed] });
+    if (this.channel.id == channel.id) return this.customReply({ embeds: [embed] });
     await channel.send({ embeds: [embed] });
     return this.customReply(lang('added.success', channel.id));
   }
