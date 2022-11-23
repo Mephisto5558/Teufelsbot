@@ -12,6 +12,13 @@ module.exports = async function interactionCreate() {
     (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id)  //DO NOT REMOVE THIS STATEMENT!
   ) return;
 
+  const lang = I18nProvider.__.bBind(I18nProvider, { locale: this.client.db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
+  const disabledList = this.client.db.get('guildSettings')[this.guild.id]?.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
+
+  if (disabledList.members && disabledList.members.includes(this.user.id)) return this.reply({ content: lang('events.notAllowed.member'), ephemeral: true });
+  if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.reply({ content: lang('events.notAllowed.channel'), ephemeral: true });
+  if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return this.reply({ content: lang('events.notAllowed.role'), ephemeral: true });
+
   if (this.type == InteractionType.ApplicationCommandAutocomplete) {
     const
       lang = I18nProvider.__.bBind(I18nProvider, { locale: this.client.db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}`, undefinedNotFound: true }),
@@ -30,8 +37,6 @@ module.exports = async function interactionCreate() {
         .map(response)
     );
   }
-
-  const lang = I18nProvider.__.bBind(I18nProvider, { locale: this.client.db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
 
   const cooldown = await cooldowns.call(this, command);
   if (cooldown) return this.reply({ content: lang('events.cooldown', cooldown), ephemeral: true });

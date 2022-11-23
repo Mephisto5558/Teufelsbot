@@ -29,7 +29,7 @@ module.exports = async function messageCreate() {
   if (this.user.bot) return;
 
   const
-    { config, triggers, economy, afkMessages, counting } = this.client.db.get('guildSettings')[this.guild?.id] || {},
+    { config, triggers, economy, afkMessages, counting, commandSettings } = this.client.db.get('guildSettings')[this.guild?.id] || {},
     defaultSettings = this.client.db.get('guildSettings').default,
     locale = config?.lang || this.guild?.preferredLocale.slice(0, 2) || defaultSettings.config.lang,
     guildPrefix = config?.prefix?.prefix || defaultSettings.config.prefix,
@@ -85,6 +85,7 @@ module.exports = async function messageCreate() {
   this.content = this.args.join(' ');
 
   const command = this.client.prefixCommands.get(this.commandName);
+  const disabledList = commandSettings?.[command.aliasOf || command.name]?.disabled || {};
   if (command && !command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply(I18nProvider.__({ locale }, 'events.guildCommandOnly'));
   if (!command && this.client.slashCommands.get(this.commandName)) return this.customReply(I18nProvider.__({ locale }, 'events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
@@ -92,6 +93,11 @@ module.exports = async function messageCreate() {
   ) return runMessages();
 
   const lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
+
+  if (disabledList.members && disabledList.members.includes(this.user.id)) return this.customReply(lang('events.notAllowed.member'), 1e4);
+  if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.customReply(lang('events.notAllowed.channel'), 1e4);
+  if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return this.customReply(lang('events.notAllowed.role'), 1e4);
+
   const cooldown = await cooldowns.call(this, command);
 
   if (cooldown && !this.client.botType == 'dev') return this.customReply(lang('events.cooldown', cooldown), 1e4);
