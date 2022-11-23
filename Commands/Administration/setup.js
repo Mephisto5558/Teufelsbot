@@ -13,7 +13,6 @@ module.exports = {
   cooldowns: { user: 1e4 },
   slashCommand: true,
   prefixCommand: false,
-  beta: true,
   options: [
     {
       name: 'toggle_module',
