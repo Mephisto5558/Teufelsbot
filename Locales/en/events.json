@@ -21,6 +21,11 @@
     "reportSuccess": "The error has been reported. [Link]({url})",
     "reportFail": "`An error occurred while trying to send your error report.\n```\n{err}\n```\nPlease message the dev directly."
   },
+  "notAllowed": {
+    "member": "You are not allowed to run this command (set by a server administrator)!",
+    "channel": "It is not allowed to run this command in this channel (set by a server administrator)!",
+    "role": "One of your roles is not allowed to run this command (set by a server administrator)!"
+  },
   "counting": {
     "error": "YOU RUINED IT AT **{lastNumber}**!! The next number is **1**.\n",
     "wrongNumber": "**Can't you count?! Wrong number.**",
