@@ -130,6 +130,7 @@ You need to create a collection called "db-collections" and add the following do
     "default": {
       "config": {
         "prefix": ".",
+        "betaBotPrefix": "..",
         "lang": "en"
       },
       "birthday": {
