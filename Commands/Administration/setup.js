@@ -64,7 +64,7 @@ module.exports = {
         if (!getCmds(this.client).includes(command)) return this.editReply(lang('toggleCmd.notFound'));
 
         if (this.options.getBoolean('get')) {
-          const fields = [['roles', roles], ['channels', channels], ['members', users]].filter(([, e]) => e?.length).map(([k, v]) => ({
+          const fields = [['roles', roles], ['channels', channels], ['users', users]].filter(([, e]) => e?.length).map(([k, v]) => ({
             name: lang(`toggleCmd.${k}`),
             value: v.includes('*') ? lang('toggleCmd.list.all') : v.map(e => mention(k, e)).join(', '),
             inline: false

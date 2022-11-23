@@ -93,7 +93,7 @@
       "isDisabled": "Der `{command}` Command ist für alle Mitglieder deaktiviert. Du kannst ihn wieder aktivieren, indem du </setup toggle_command:{id}> ausführst, ohne eine Rolle, einen Kanal oder ein Mitglied zu spezifizieren.",
       "roles": "Rollen",
       "channels": "Kanäle",
-      "members": "Mitglieder",
+      "users": "Mitglieder",
       "embedTitle": "Aktualisierte Command-Einstellungen für \"{commandName}\"",
       "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sehe alle verbotenen Rollen/Kanäle/Mitglieder, indem du </setup toggle_command:{id}> mit der `get` Option ausführst.||\n",
       "embed": {
