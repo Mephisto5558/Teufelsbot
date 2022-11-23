@@ -92,7 +92,7 @@ module.exports = {
           [...new Set(this.options.data[0].options.filter(e => e.name.includes('channel')).map(e => e.value))]
         ].forEach((ids, i) => {
           let type = 'roles';
-          if (i) type = i == 1 ? 'channels' : 'users';
+          if (i) type = i == 1 ? 'users' : 'channels';
 
           for (const id of ids) {
             if (commandData[type]?.includes(id)) {
