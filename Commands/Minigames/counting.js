@@ -3,7 +3,7 @@ const { Constants, EmbedBuilder, Colors } = require('discord.js');
 module.exports = {
   name: 'counting',
   permissions: { user: ['ManageChannels'] },
-  cooldowns: { guild: 0, user: 1000 },
+  cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: true,
   options: [{
