@@ -32,7 +32,7 @@ module.exports = {
   name: 'image',
   cooldowns: { user: 500 },
   slashCommand: true,
-  prefixCommand: false,
+  prefixCommand: true,
   options: [{
     name: 'type',
     type: 'String',
