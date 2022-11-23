@@ -93,7 +93,7 @@
       "isDisabled": "The `{command}` command is disabled for all members. You can re-enable it by running </setup toggle_command:{id}> without specifying any role, channel or member.",
       "roles": "Roles",
       "channels": "Channels",
-      "members": "Members",
+      "users": "Members",
       "embedTitle": "Updated Command Settings for \"{commandName}\"",
       "embedDescription": "The following amount of roles/channels/members have been changed:\n||View all disallowed roles/channels/members by using </setup toggle_command:{id}> with the `get` option.||\n",
       "embed": {
