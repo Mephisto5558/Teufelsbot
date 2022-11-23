@@ -43,7 +43,7 @@ module.exports = async function messageCreate() {
         this.react('👀');
 
       const countingData = counting?.[this.channel.id];
-      if (countingData && parseInt(originalContent)) {
+      if (countingData && Number(originalContent)) {
         if (countingData.lastNumber + 1 != originalContent || countingData.lastAuthor == this.user.id) {
           if (countingData?.lastNumber == 0) return;
 
