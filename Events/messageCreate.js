@@ -32,7 +32,7 @@ module.exports = async function messageCreate() {
     { config, triggers, economy, afkMessages, counting, commandSettings } = this.client.db.get('guildSettings')[this.guild?.id] || {},
     defaultSettings = this.client.db.get('guildSettings').default,
     locale = config?.lang || this.guild?.preferredLocale.slice(0, 2) || defaultSettings.config.lang,
-    guildPrefix = config?.prefix?.prefix || defaultSettings.config.prefix,
+    guildPrefix = this.client.botType == 'dev' ? config?.betaBotPrefix?.prefix || defaultSettings.config.betaBotPrefix : config?.prefix?.prefix || defaultSettings.config.prefix,
     originalContent = this.content = this.content.replaceAll('<@!', '<@'),
     runMessages = async () => {
       if (this.client.botType != 'dev' && triggers?.length && !(await cooldowns.call(this, { name: 'triggers', cooldowns: { user: 1000 } }))) {
@@ -73,7 +73,10 @@ module.exports = async function messageCreate() {
       }
     };
 
-  if (this.content.startsWith(config?.prefix?.caseinsensitive ? guildPrefix.toLowerCase() : guildPrefix)) prefixLength = guildPrefix.length;
+  if (
+    this.client.botType == 'dev' && this.content.startsWith(config?.betaBotPrefix?.caseinsensitive ? guildPrefix.toLowerCase() : guildPrefix) ||
+    this.content.startsWith(config?.prefix?.caseinsensitive ? guildPrefix.toLowerCase() : guildPrefix)
+  ) prefixLength = guildPrefix.length;
   else if (this.content.startsWith(`<@${this.client.user.id}>`)) prefixLength = this.client.user.id.length + 3;
   else {
     runMessages();
