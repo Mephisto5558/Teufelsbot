@@ -33,7 +33,7 @@
     "usage": "PREFIX Command: reload <command | \"*\">",
     "invalidCommand": "This is not a valid command.",
     "noneReloaded": "No commands have been reloaded.",
-    "reloaded": "The following `{count}` command(s) has/have been reloaded:\n`{commands}`"
+    "reloaded": "The following `{count}` command(s) has/have been reloaded:\n`{commands}"
   },
   "reloaddb": {
     "description": "Reloads the database",
