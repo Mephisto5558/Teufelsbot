@@ -1,0 +1,105 @@
+{
+  "setup": {
+    "description": "Richtet den Bot ein",
+    "options": {
+      "toggle_module": {
+        "description": "Schaltet das Modul ein/aus",
+        "options": {
+          "module": {
+            "description": "Das Modul, welches du ein- oder ausschalten möchtest",
+            "choices": {
+              "gatekeeper": "Willkommen",
+              "birthday": "Geburtstage"
+            }
+          }
+        }
+      },
+      "toggle_command": {
+        "description": "Erlaube/Verbiete Rollen/Kanälen/Mitgliedern, einen bestimmten Command auszuführen.",
+        "options": {
+          "command": {
+            "description": "Den Command, dessen Berechtigungen du bearbeiten möchtest."
+          },
+          "get": {
+            "description": "Erhalte eine Liste von verbotenen Rollen/Kanälen/Mitgliedern für diesen Command stattdessen."
+          },
+          "role_1": {
+            "description": "Die Rolle, für die du den Command erlauben/verbieten möchtest"
+          },
+          "role_2": {
+            "description": "Die Rolle, für die du den Command erlauben/verbieten möchtest"
+          },
+          "role_3": {
+            "description": "Die Rolle, für die du den Command erlauben/verbieten möchtest"
+          },
+          "role_4": {
+            "description": "Die Rolle, für die du den Command erlauben/verbieten möchtest"
+          },
+          "role_5": {
+            "description": "Die Rolle, für die du den Command erlauben/verbieten möchtest"
+          },
+          "role_6": {
+            "description": "Die Rolle, für die du den Command erlauben/verbieten möchtest"
+          },
+          "channel_1": {
+            "description": "Der Kanal, für die du den Command erlauben/verbieten möchtest"
+          },
+          "channel_2": {
+            "description": "Der Kanal, für die du den Command erlauben/verbieten möchtest"
+          },
+          "channel_3": {
+            "description": "Der Kanal, für die du den Command erlauben/verbieten möchtest"
+          },
+          "channel_4": {
+            "description": "Der Kanal, für die du den Command erlauben/verbieten möchtest"
+          },
+          "channel_5": {
+            "description": "Der Kanal, für die du den Command erlauben/verbieten möchtest"
+          },
+          "channel_6": {
+            "description": "Der Kanal, für die du den Command erlauben/verbieten möchtest"
+          },
+          "member_1": {
+            "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
+          },
+          "member_2": {
+            "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
+          },
+          "member_3": {
+            "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
+          },
+          "member_4": {
+            "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
+          },
+          "member_5": {
+            "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
+          },
+          "member_6": {
+            "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
+          }
+        }
+      }
+    },
+    "toggledModule": "Das `{name}` Modul wurde {state}.",
+    "toggleCmd": {
+      "notFound": "Das ist kein gültiger Command!",
+      "list": {
+        "all": "Alle Mitglieder",
+        "embedTitle": "Verbotene Rollen/Kanäle/Mitglieder für Command {command}",
+        "embedDescription": "Keine Rollen, Kanäle oder Mitglieder sind momentan verboten."
+      },
+      "enabled": "Der `{command}` Command ist nun aktiviert.",
+      "disabled": "Der `{command}` Command is nun deaktiviert.",
+      "isDisabled": "Der `{command}` Command ist für alle Mitglieder deaktiviert. Du kannst ihn wieder aktivieren, indem du </setup toggle_command:{id}> ausführst, ohne eine Rolle, einen Kanal oder ein Mitglied zu spezifizieren.",
+      "roles": "Rollen",
+      "channels": "Kanäle",
+      "members": "Mitglieder",
+      "embedTitle": "Aktualisierte Command-Einstellungen für \"{commandName}\"",
+      "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sehe alle verbotenen Rollen/Kanäle/Mitglieder, indem du </setup toggle_command:{id}> mit der `get` Option ausführst.||\n",
+      "embed": {
+        "enabled": "Entfernt (Erlaubt)",
+        "disabled": "Hinzugefügt (Verboten)"
+      }
+    }
+  }
+}

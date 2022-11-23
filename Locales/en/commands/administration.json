@@ -1,0 +1,105 @@
+{
+  "setup": {
+    "description": "Sets the bot up",
+    "options": {
+      "toggle_module": {
+        "description": "toggles a module",
+        "options": {
+          "module": {
+            "description": "The module you want to toggle",
+            "choices": {
+              "gatekeeper": "Gatekeeper",
+              "birthday": "Birthdays"
+            }
+          }
+        }
+      },
+      "toggle_command": {
+        "description": "Allow/Disallow roles/channels/members from running a specific command.",
+        "options": {
+          "command": {
+            "description": "The command you want to toggle."
+          },
+          "get": {
+            "description": "Get a list of disallowed roles/channels/members for that command instead."
+          },
+          "role_1": {
+            "description": "The role for which you want to toggle the command"
+          },
+          "role_2": {
+            "description": "The role for which you want to toggle the command"
+          },
+          "role_3": {
+            "description": "The role for which you want to toggle the command"
+          },
+          "role_4": {
+            "description": "The role for which you want to toggle the command"
+          },
+          "role_5": {
+            "description": "The role for which you want to toggle the command"
+          },
+          "role_6": {
+            "description": "The role for which you want to toggle the command"
+          },
+          "channel_1": {
+            "description": "The channel for which you want to toggle the command"
+          },
+          "channel_2": {
+            "description": "The channel for which you want to toggle the command"
+          },
+          "channel_3": {
+            "description": "The channel for which you want to toggle the command"
+          },
+          "channel_4": {
+            "description": "The channel for which you want to toggle the command"
+          },
+          "channel_5": {
+            "description": "The channel for which you want to toggle the command"
+          },
+          "channel_6": {
+            "description": "The channel for which you want to toggle the command"
+          },
+          "member_1": {
+            "description": "The member for which you want to toggle the command"
+          },
+          "member_2": {
+            "description": "The member for which you want to toggle the command"
+          },
+          "member_3": {
+            "description": "The member for which you want to toggle the command"
+          },
+          "member_4": {
+            "description": "The member for which you want to toggle the command"
+          },
+          "member_5": {
+            "description": "The member for which you want to toggle the command"
+          },
+          "member_6": {
+            "description": "The member for which you want to toggle the command"
+          }
+        }
+      }
+    },
+    "toggledModule": "The `{name}` module has been {state}.",
+    "toggleCmd": {
+      "notFound": "This is not a valid command!",
+      "list": {
+        "all": "All members",
+        "embedTitle": "Disallowed roles/channels/members for command {command}",
+        "embedDescription": "No roles, channels or members are currently disallowed."
+      },
+      "enabled": "The `{command}` command is now enabled.",
+      "disabled": "The `{command}` command is now disabled.",
+      "isDisabled": "The `{command}` command is disabled for all members. You can re-enable it by running </setup toggle_command:{id}> without specifying any role, channel or member.",
+      "roles": "Roles",
+      "channels": "Channels",
+      "members": "Members",
+      "embedTitle": "Updated Command Settings for \"{commandName}\"",
+      "embedDescription": "The following amount of roles/channels/members have been changed:\n||View all disallowed roles/channels/members by using </setup toggle_command:{id}> with the `get` option.||\n",
+      "embed": {
+        "enabled": "Removed (Allowed)",
+        "disabled": "Added (Disallowed)"
+      }
+    }
+  }
+}

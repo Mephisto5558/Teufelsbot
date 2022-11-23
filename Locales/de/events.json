@@ -21,6 +21,11 @@
     "reportSuccess": "Der Fehler wurde gemeldet. [Link]({url})",
     "reportFail": "Ein Fehler beim Versuch, den Fehler zu melden, aufgetreten.\n```\n{err}\n```\nBitte informiere den Dev direkt."
   },
+  "notAllowed": {
+    "member": "Dir ist es nicht erlaubt, diesen Command auszuführen (eingestellt von einem Serveradministrator)!",
+    "channel": "Es ist nicht erlaubt, diesen Command in diesem Kanal auszuführen (eingestellt von einem Serveradministrator)!",
+    "role": "Einer deiner Rollen ist es nicht erlaubt, diesen Command auszuführen (eingestellt von einem Serveradministrator)!"
+  },
   "counting": {
     "error": "DU HAST ES BEI **{lastNumber}** RUINIERT!! Die nächste Zahl ist **1**.\n",
     "wrongNumber": "**Kannst du nicht zählen?! Falsche Zahl.**",

@@ -232,28 +232,6 @@
     "charsetEmpty": "you excluded all chars of the charset...",
     "success": "Your secure password(s):\n{passwords}\n\n||Created with the following charset:\n```{charset}```\nUse the command options to add or remove chars.||"
   },
-  "setup": {
-    "description": "Sets the bot up",
-    "options": {
-      "sync": {
-        "description": "force syncs my slash commands with your guild"
-      },
-      "toggle_module": {
-        "description": "toggles a module",
-        "options": {
-          "module": {
-            "description": "The module you want to toggle",
-            "choices": {
-              "gatekeeper": "Gatekeeper",
-              "birthday": "Birthdays"
-            }
-          }
-        }
-      }
-    },
-    "finishedSync": "Finished syncing.",
-    "toggledModule": "The `{name}` module has been {state}."
-  },
   "record": {
     "description": "Record a voice channel. Needs approval from users.",
     "options": {

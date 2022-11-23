@@ -233,28 +233,6 @@
     "charsetEmpty": "Du hast alle Zeichen aus dem Charset entfernt...",
     "success": "Deine sichere Passwörter:\n{passwords}\n\n||Erstellt mit dem folgenden Zeichensatz:\n```{charset}```\nNutze die Command-Optionen um Zeichen hinzuzufügen oder zu entfernen.||"
   },
-  "setup": {
-    "description": "Richtet den Bot ein",
-    "options": {
-      "sync": {
-        "description": "Syncronisiere meine Befehle mit deinem Server"
-      },
-      "toggle_module": {
-        "description": "Schaltet das Modul ein/aus",
-        "options": {
-          "module": {
-            "description": "Das Modul, welches du ein- oder ausschalten möchtest",
-            "choices": {
-              "gatekeeper": "Willkommen",
-              "birthday": "Geburtstage"
-            }
-          }
-        }
-      }
-    },
-    "finishedSync": "Syncronisierung beendet.",
-    "toggledModule": "Das `{name}` Modul wurde {state}."
-  },
   "record": {
     "description": "Nimmt einen Sprachkanal auf. Benötigt Bestätigung von Mitgliedern.",
     "options": {
