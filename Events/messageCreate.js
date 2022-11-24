@@ -88,7 +88,6 @@ module.exports = async function messageCreate() {
   this.content = this.args.join(' ');
 
   const command = this.client.prefixCommands.get(this.commandName);
-  const disabledList = commandSettings?.[command.aliasOf || command.name]?.disabled || {};
   if (command && !command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply(I18nProvider.__({ locale }, 'events.guildCommandOnly'));
   if (!command && this.client.slashCommands.get(this.commandName)) return this.customReply(I18nProvider.__({ locale }, 'events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
@@ -96,6 +95,7 @@ module.exports = async function messageCreate() {
   ) return runMessages();
 
   const lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
+  const disabledList = commandSettings?.[command.aliasOf || command.name]?.disabled || {};
 
   if (disabledList.members && disabledList.members.includes(this.user.id)) return this.customReply(lang('events.notAllowed.member'), 1e4);
   if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.customReply(lang('events.notAllowed.channel'), 1e4);
