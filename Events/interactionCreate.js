@@ -65,7 +65,7 @@ module.exports = async function interactionCreate() {
       if (entry.type == ApplicationCommandOptionType.String) entry.value = entry.value.replaceAll('<@!', '<@');
 
     try {
-      command.run.call(this, lang, this.client)?.catch(err => errorHandler.call(this.client, err, this, lang));
+      command.run.call(this, lang)?.catch(err => errorHandler.call(this.client, err, this, lang));
       if (this.client.botType != 'dev') this.client.db.update('botSettings', `stats.${command.name}`, this.client.settings.stats[command.name] + 1 || 1);
     } catch (err) { errorHandler.call(this.client, err, this, lang); }
   }
