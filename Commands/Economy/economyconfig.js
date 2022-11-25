@@ -72,7 +72,7 @@ module.exports = {
     }
   ], beta: true,
 
-  run: function (lang, { db }) {
+  run: function (lang) {
     if (this.options.getSubcommandGroup() == 'user') {
       switch (this.options.getSubcommand()) {
         case 'start': {
@@ -81,7 +81,7 @@ module.exports = {
           if (this.guild.db.economy?.[this.user.id]?.gaining?.chat)
             return this.editReply(lang('start.alreadyInitiated'));
 
-          db.update('guildSettings', `${this.guild.id}.economy${this.user.id}`, {
+          this.client.db.update('guildSettings', `${this.guild.id}.economy${this.user.id}`, {
             currency: defaultSettings.currency ?? 0,
             currencyCapacity: defaultSettings.currencyCapacity,
             power: defaultSettings.power ?? 0,
@@ -111,7 +111,7 @@ module.exports = {
           if (!this.options.getString('confirmation')?.toLowerCase() == lang('confirmation'))
             return this.editReply(lang('user.delete.needConfirm'));
 
-          db.update('guildSettings', `${this.guild.id}.economy.${this.user.id}`, null);
+          this.client.db.update('guildSettings', `${this.guild.id}.economy.${this.user.id}`, null);
 
           return this.editReply(lang('user.delete.success'));
         }
@@ -123,7 +123,7 @@ module.exports = {
 
       switch (this.options.getSubcommand()) {
         case 'toggle': {
-          db.update('guildSettings', `${this.guild.id}.economy.enable`, !this.guild.db.economy?.enable);
+          this.client.db.update('guildSettings', `${this.guild.id}.economy.enable`, !this.guild.db.economy?.enable);
           return this.editReply(lang('admin.toggle.success', this.guild.db.economy?.enable ? lang('global.enabled'): lang('global.disabled')));
         }
 
@@ -131,7 +131,7 @@ module.exports = {
           if (!this.options.getString('confirmation')?.toLowerCase() == lang('confirmation'))
             return this.editReply(lang('admin.clear.needConfirm'));
 
-          db.update('guildSettings', `${this.guild.id}.economy.enable`, false);
+          this.client.db.update('guildSettings', `${this.guild.id}.economy.enable`, false);
           return this.editReply(lang('admin.clear.success'));
         }
 
@@ -177,7 +177,7 @@ module.exports = {
           blacklist.roles = work(role?.id, 'role', blacklist.roles);
           blacklist.user = work(user?.id, 'user', blacklist.user);
 
-          db.update('guildSettings', `${this.guild.id}.economy.config`, { blacklist });
+          this.client.db.update('guildSettings', `${this.guild.id}.economy.config`, { blacklist });
 
           const embed = new EmbedBuilder({
             title: lang('admin.blacklist.embedTitle'),
@@ -213,7 +213,7 @@ module.exports = {
 
           if (!Object.keys(config).length) return this.customReply(lang('admin.gainingRules.nothingChanged'));
           return this.editReply('WIP');
-          db.update('guildSettings', `${this.guild.id}.economy`, { config });
+          this.client.db.update('guildSettings', `${this.guild.id}.economy`, { config });
 
           return this.editReply(lang('admin.gainingRules.setSuccess', Object.entries(config).length));
         }

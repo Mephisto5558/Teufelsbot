@@ -8,7 +8,7 @@ module.exports = {
   dmPermission: true,
   options: [{ name: 'average', type: 'Boolean' }],
 
-  run: async function (lang, { ws }) {
+  run: async function (lang) {
     const
       average = this.args?.[0] == 'average' || this.options?.getBoolean('average'),
       embed = new EmbedBuilder({
@@ -24,7 +24,7 @@ module.exports = {
       let pings = [], i;
 
       for (i = 0; i <= 59; i++) {
-        pings.push(ws.ping);
+        pings.push(this.client.ws.ping);
         await sleep(1000);
       }
 
@@ -36,7 +36,7 @@ module.exports = {
     }
     else {
       embed.data.fields = [
-        { name: 'API', value: `\`${Math.round(ws.ping)}\`ms`, inline: true },
+        { name: 'API', value: `\`${Math.round(this.client.ws.ping)}\`ms`, inline: true },
         { name: 'Bot', value: `\`${Math.abs(Date.now() - this.createdTimestamp)}\`ms`, inline: true },
         { name: lang('messageSend'), value: `\`${endMessagePing}\`ms`, inline: true }
       ];
