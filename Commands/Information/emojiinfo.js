@@ -13,9 +13,9 @@ module.exports = {
     required: true,
   }],
 
-  run: async function (lang, { emojis }) {
+  run: async function (lang) {
     const parsedEmoji = parseEmoji(this.options?.getString('emoji') || this.args?.[0] || '');
-    const emoji = emojis.cache.get(parsedEmoji.id) || parsedEmoji;
+    const emoji = this.client.emojis.cache.get(parsedEmoji.id) || parsedEmoji;
 
     if (!emoji.id) return this.customReply(lang('notFound'));
     if (!emoji.url) emoji.url = `https://cdn.discordapp.com/emojis/${emoji.id}.webp?size=2048`;
