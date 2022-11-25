@@ -43,6 +43,7 @@ module.exports = {
         { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true },
         birthday && { name: lang('birthday'), value: `<t:${Math.round(new Date(birthday).getTime() / 1000)}:D> (${getAge(birthday.split('/'))})`, inline: true },
         member.isCommunicationDisabled() && { name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true },
+        member.user.flags.toArray().length && { name: lang('flags.name'), value: `\`${member.user.flags.toArray().map(e => lang('flags.' + e)).join('`, `')}\``, inline: false },
         { name: lang('rolesWithPerms'), value: Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').join(', '), inline: false },
         { name: lang('perms'), value: `\`${member.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none')}\` (${member.permissions.toArray().length})`, inline: false }
       ].filter(Boolean)
