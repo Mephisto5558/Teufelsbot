@@ -8,15 +8,15 @@ module.exports = {
   options: [{ name: 'user', type: 'User' }],
   beta: true,
 
-  run: function (lang, { db }) {
+  run: function (lang) {
     const
       target = this.options?.getUser('user') || this.mentions?.users.first() || this.user,
-      userData = db.get('guildSettings')[this.guild.id].economy[target.id];
+      userData = this.guild.db.economy?.[target.id];
 
     if (!userData?.gaining?.chat) return this.customReply(lang('targetEconomyNotInitialized'), 3e4);
 
     const
-      rank = Object.entries(db.get('guildSettings')[this.guild.id].economy)
+      rank = Object.entries(this.guild.db.economy || {})
         .filter(e => typeof e[1] == 'object')
         .sort(([, a], [, b]) => b.power - a.power || b.currency - a.currency)
         .map(e => e[0])

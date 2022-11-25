@@ -101,7 +101,7 @@ module.exports = {
     }
   ],
 
-  run: async function (lang, { db, giveawaysManager }) {
+  run: async function (lang, { giveawaysManager }) {
     if (!giveawaysManager) return lang('managerNotFound');
 
     const giveawayId = this.options.getString('id');
@@ -120,8 +120,8 @@ module.exports = {
       targetChannel = this.options.getChannel('channel') || this.channel,
       requiredRoles = this.options.getString('required_roles')?.replace(/[^\d]/g, '').split(' '),
       disallowedMembers = this.options.getString('exempt_member')?.replace(/[^\d]/g, '').split(' '),
-      guildSettings = db.get('guildSettings'),
-      reaction = this.options.getString('reaction') || guildSettings[this.guild.id]?.giveaway?.reaction || guildSettings.default.giveaway.reaction,
+      defaultSettings = this.guild.defaultSettings.giveaway,
+      reaction = this.options.getString('reaction') || this.guild.db.giveaway?.reaction || defaultSettings.reaction,
       components = [new ActionRowBuilder({
         components: [
           new ButtonBuilder({
@@ -145,8 +145,8 @@ module.exports = {
           hostedBy: this.user,
           botsCanWin: false,
           bonusEntries: { bonus: member => bonusEntries[member.id] },
-          embedColor: parseInt(this.options.getString('embed_color')?.substring(1) ?? 0, 16) || guildSettings[this.guild.id]?.giveaway?.embedColor || guildSettings.default.giveaway.embedColor,
-          embedColorEnd: parseInt(this.options.getString('embed_color_end')?.substring(1) ?? 0, 16) || guildSettings[this.guild.id]?.giveaway?.embedColorEnd || guildSettings.default.giveaway.embedColorEnd,
+          embedColor: parseInt(this.options.getString('embed_color')?.substring(1) ?? 0, 16) || this.guild.db.giveaway?.embedColor || defaultSettings.embedColor,
+          embedColorEnd: parseInt(this.options.getString('embed_color_end')?.substring(1) ?? 0, 16) || this.guild.db.giveaway?.embedColorEnd || defaultSettings.embedColorEnd,
           reaction, duration,
           messages: {
             giveaway: lang('newGiveaway'),
@@ -167,7 +167,7 @@ module.exports = {
           },
           thumbnail: this.options.getString('thumbnail'),
           image: this.options.getString('image'),
-          lastChance: guildSettings[this.guild.id]?.giveaway?.useLastChance || guildSettings.default.giveaway.useLastChance,
+          lastChance: this.guild.db.giveaway?.useLastChance || defaultSettings.useLastChance,
           isDrop: this.options.getBoolean('is_drop')
         };
 

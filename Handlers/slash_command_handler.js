@@ -101,7 +101,7 @@ module.exports = async function slashCommandHandler(syncGuild) {
   const applicationCommands = this.application.commands.fetch(undefined, { guildId: syncGuild && syncGuild != '*' ? syncGuild : undefined });
 
   if (!syncGuild || syncGuild == '*') {
-    this.slashCommands = new Collection();
+    this.slashCommands.clear();
 
     for (const subFolder of getDirectoriesSync('./Commands')) {
       for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js'))) {

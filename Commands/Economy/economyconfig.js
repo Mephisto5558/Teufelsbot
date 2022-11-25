@@ -76,9 +76,9 @@ module.exports = {
     if (this.options.getSubcommandGroup() == 'user') {
       switch (this.options.getSubcommand()) {
         case 'start': {
-          const defaultSettings = db.get('guildSettings').default.economy;
+          const defaultSettings = this.guild.defaultSettings.economy;
 
-          if (db.get('guildSettings')[this.guild.id]?.economy?.[this.user.id]?.gaining?.chat)
+          if (this.guild.db.economy?.[this.user.id]?.gaining?.chat)
             return this.editReply(lang('start.alreadyInitiated'));
 
           db.update('guildSettings', `${this.guild.id}.economy${this.user.id}`, {
@@ -123,12 +123,8 @@ module.exports = {
 
       switch (this.options.getSubcommand()) {
         case 'toggle': {
-          const
-            oldData = db.get('guildSettings'),
-            enable = oldData[this.guild.id]?.economy?.enable;
-
-          db.update('guildSettings', `${this.guild.id}.economy.enable`, !enable);
-          return this.editReply(lang('admin.toggle.success', enable ? lang('global.disabled') : lang('global.enabled')));
+          db.update('guildSettings', `${this.guild.id}.economy.enable`, !this.guild.db.economy?.enable);
+          return this.editReply(lang('admin.toggle.success', this.guild.db.economy?.enable ? lang('global.enabled'): lang('global.disabled')));
         }
 
         case 'clear': {
@@ -144,7 +140,7 @@ module.exports = {
             channel = this.options.getChannel('channel'),
             role = this.options.getRole('role'),
             user = this.options.getUser('user'),
-            blacklist = db.get('guildSettings')[this.guild.id]?.economy?.config?.blacklist || {};
+            blacklist = this.guild.db.economy?.config?.blacklist || {};
 
           if (!channel && !role && !user) {
             const
@@ -196,7 +192,7 @@ module.exports = {
         case 'gaining_rules': {
           const
             get = this.options.getBoolean('get'),
-            oldConfig = db.get('guildSettings')[this.guild.id]?.economy?.config || db.get('guildSettings').default.economy.config;
+            oldConfig = this.guild.db.economy?.config || this.guild.defaultSettings.economy.config;
 
           const config = Object.fromEntries(Object.entries({
             minMessageLength: this.options.getNumber('min_message_length'),
@@ -208,8 +204,8 @@ module.exports = {
               title: lang('admin.gainingRules.getEmbedTitle'),
               //description: lang('admin.gainingRules.getEmbedDescription'),
               color: Colors.White,
-              description: `Good-Looking text coming soon.\n\n\`\`\`json\n${JSON.stringify(db.get('guildSettings').default.economy.config.fMerge(oldConfig), null, 2)}\n\`\`\``
-              //fields: Object.entries(db.get('guildSettings').default.economy.config.fMerge(oldConfig)).slice(0, 25).map(([k, v]) => ({ name: lang(`admin.gainingRules.getConfigList.${k}`), value: v, inline: true }))
+              description: `Good-Looking text coming soon.\n\n\`\`\`json\n${JSON.stringify(this.guild.defaultSettings.economy.config.fMerge(oldConfig), null, 2)}\n\`\`\``
+              //fields: Object.entries(this.guild.defaultSettings.economy.config.fMerge(oldConfig)).slice(0, 25).map(([k, v]) => ({ name: lang(`admin.gainingRules.getConfigList.${k}`), value: v, inline: true }))
             });
 
             return this.editReply({ embeds: [embed] });

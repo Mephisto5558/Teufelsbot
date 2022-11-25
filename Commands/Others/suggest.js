@@ -29,9 +29,9 @@ module.exports = {
     }
   ],
 
-  run: async function (lang, client) {
+  run: async function (lang) {
     const
-      octokit = new Octokit({ auth: client.keys.githubKey }),
+      octokit = new Octokit({ auth: this.client.keys.githubKey }),
       title = this.options.getString('title'),
       issues = await octokit.request(`GET /repos/${Github.UserName}/${Github.RepoName}/issues`, {});
 
@@ -42,7 +42,7 @@ module.exports = {
       await octokit.request(`POST /repos/${Github.UserName}/${Github.RepoName}/issues`, {
         title: `${title} | ${this.options.getString('importance')} importance`,
         body:
-          `<h3>Sent by ${this.user.tag} (<code>${this.user.id}</code>) with bot <code>${client.user.id}</code></h3>\n\n` +
+          `<h3>Sent by ${this.user.tag} (<code>${this.user.id}</code>) with bot <code>${this.client.user.id}</code></h3>\n\n` +
           this.options.getString('suggestion'),
         assignees: [Github.UserName],
         labels: ['enhancement']

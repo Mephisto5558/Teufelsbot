@@ -11,7 +11,7 @@ module.exports = {
     { name: 'reason', type: 'String' }
   ],
 
-  run: async function (lang, { db }) {
+  run: async function (lang) {
     const msg = await this.customReply(lang('global.loading'));
 
     this.args?.shift();
@@ -28,7 +28,7 @@ module.exports = {
     if (channel.permissionOverwrites.resolve(this.guild.roles.everyone.id)?.allow.has(PermissionFlagsBits.SendMessages))
       overwrites[this.guild.roles.everyone.id] = OverwriteType.Role;
 
-    db.update('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`, overwrites);
+    this.client.db.update('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`, overwrites);
 
     for (const [id, type] of Object.entries(overwrites)) {
       await channel.permissionOverwrites.edit(id,
