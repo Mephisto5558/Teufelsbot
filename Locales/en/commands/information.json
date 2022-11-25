@@ -145,7 +145,7 @@
   },
   "serverinfo": {
     "description": "Get information about a guild",
-    "options":{
+    "options": {
       "guild_id": {
         "description": "The server ID you want to get information about. Only works for servers I'm in."
       }
@@ -198,6 +198,26 @@
     "birthday": "Birthday (Age)",
     "timedOutUntil": "Timed Out Until",
     "rolesWithPerms": "Roles with permissions",
+    "flags": {
+      "name": "Flags",
+      "ActiveDeveloper": "Active Developer",
+      "BotHTTPInteractions": "HTTP Bot",
+      "BugHunterLevel1": "Bug Hunter Level 1",
+      "BugHunterLevel2": "Bug Hunter Level 2",
+      "CertifiedModerator": "Discord Certified Moderator",
+      "HypeSquadOnlineHouse1": "House Bravery Member",
+      "HypeSquadOnlineHouse2": "House Brilliance Member",
+      "HypeSquadOnlineHouse3": "House Balance Member",
+      "Hypesquad": "HypeSquad Events Member",
+      "Partner": "Partnered Server Owner",
+      "PremiumEarlySupporter": "Early Nitro Supporter",
+      "Quarantined": "Quarantined",
+      "Spammer": "Spammer",
+      "Staff": "Discord Employee",
+      "TeamPseudoUser": "Team Pseudo User",
+      "VerifiedBot": "Verified Bot",
+      "VerifiedDeveloper": "Early Verified Bot Developer"
+    },
     "perms": "Permissions",
     "downloadAvatar": "Download Avatar",
     "downloadBanner": "Download Banner"
