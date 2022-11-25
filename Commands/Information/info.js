@@ -10,16 +10,16 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: function (lang, client) {
+  run: function (lang) {
     const
       startTime = Math.round(Date.now() / 1000 - process.uptime()),
       startCount = readFileSync('./Logs/startCount.log', 'utf8') || 0,
-      owner = client.application.owner || client.application.owner.owner,
+      owner = this.client.application.owner.owner || this.client.application.owner,
       description =
         `${lang('dev')}: [${owner.tag}](https://discord.com/users/${owner.id})\n` +
         `${lang('shard')}: \`${this.guild.shardId}\`\n` +
-        `${lang('global.guild')}: \`${client.db.get('guildSettings')[this.guild.id]?.position || 0}\`\n` +
-        `${lang('commands')}: \`${new Set(client.prefixCommands.filter(e => !e.aliasOf), client.slashCommands.filter(e => !e.aliasOf)).size}\`\n` +
+        `${lang('global.guild')}: \`${this.guild.db.position ?? 0}\`\n` +
+        `${lang('commands')}: \`${new Set(this.client.prefixCommands.filter(e => !e.aliasOf), this.client.slashCommands.filter(e => !e.aliasOf)).size}\`\n` +
         `${lang('starts')}: \`${startCount}\`\n` +
         `${lang('lastStart')}: <t:${startTime}> (<t:${startTime}:R>)\n` +
         lang('translation', { de: '[.̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558](https://discord.com/users/691550551825055775) & [Koikarpfen#4992](https://discord.com/users/636196723852705822)', en: '[.̔̏𝗠𝗲𝗽𝗵𝗶𝘀𝘁𝗼#5558](https://discord.com/users/691550551825055775)' }) +

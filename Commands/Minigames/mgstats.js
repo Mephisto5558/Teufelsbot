@@ -95,7 +95,7 @@ module.exports = {
     }
   ],
 
-  run: async function (lang, client) {
+  run: async function (lang) {
     if (this instanceof Message && !this.args[0])
       return this.customReply(lang('missingGameArg'));
 
@@ -105,7 +105,7 @@ module.exports = {
       target: this.options?.getUser('target') || this.mentions?.users.first() || this.user,
       settings: this.options?.getString('settings')
     };
-    const leaderboards = client.db.get('leaderboards');
+    const leaderboards = this.client.db.get('leaderboards');
 
     stats.data = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == stats.game.toLowerCase())?.[1];
     if (!stats.data) return this.customReply(lang('notFound', Object.keys(leaderboards).join('`, `')));
@@ -130,9 +130,9 @@ module.exports = {
           lang('draws', formatStatCount(rawStats.draws, rawStats.games) || '`0`') +
           lang('loses', formatStatCount(rawStats.loses, rawStats.games) || '`0`');
 
-        if (rawStats.wonAgainst) embed.data.description += lang('wonAgainst') + (manageData(rawStats.wonAgainst, client.user.id) || '> ' + lang('noOne')) + '\n';
-        if (rawStats.lostAgainst) embed.data.description += lang('lostAgainst') + (manageData(rawStats.lostAgainst, client.user.id) || '> ' + lang('noOne')) + '\n';
-        if (rawStats.drewAgainst) embed.data.description += lang('drewAgainst') + (manageData(rawStats.drewAgainst, client.user.id) || '> ' + lang('noOne'));
+        if (rawStats.wonAgainst) embed.data.description += lang('wonAgainst') + (manageData(rawStats.wonAgainst, this.client.user.id) || '> ' + lang('noOne')) + '\n';
+        if (rawStats.lostAgainst) embed.data.description += lang('lostAgainst') + (manageData(rawStats.lostAgainst, this.client.user.id) || '> ' + lang('noOne')) + '\n';
+        if (rawStats.drewAgainst) embed.data.description += lang('drewAgainst') + (manageData(rawStats.drewAgainst, this.client.user.id) || '> ' + lang('noOne'));
       }
       else embed.data.description = stats.target.id == this.member.id ? lang('youNoGamesPlayed', stats.game) : lang('usrNoGamesPlayed', { user: stats.target.username, game: stats.game });
     }

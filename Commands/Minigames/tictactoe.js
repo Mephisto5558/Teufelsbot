@@ -100,14 +100,14 @@ module.exports = {
   prefixCommand: false,
   options: [{ name: 'opponent', type: 'User' }],
 
-  run: async function (lang, { user, db }) {
+  run: async function (lang) {
     const
       gameTarget = this.options?.getUser('opponent'),
       game = new TicTacToe({
         simultaneousGames: true,
         gameExpireTime: 60,
-        language: db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2),
-        commandOptionName: gameTarget?.id == user.id ? 'thisOptionWillNotGetUsed' : 'opponent'
+        language: this.guild.db.config?.lang || this.guild.preferredLocale.slice(0, 2),
+        commandOptionName: gameTarget?.id == this.client.user.id ? 'thisOptionWillNotGetUsed' : 'opponent'
       });
 
     if (gameTarget) {

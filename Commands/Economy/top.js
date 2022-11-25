@@ -7,8 +7,8 @@ module.exports = {
   prefixCommand: true,
   beta: true,
 
-  run: function (lang, { db }) {
-    const description = Object.entries(db.get('guildSettings')[this.guild.id]?.economy || {})
+  run: function (lang) {
+    const description = Object.entries(this.guild.db.economy || {})
       .sort(([, a], [, b]) => b.power - a.power || b.currency - a.currency)
       .slice(0, 10)
       .filter(([, e]) => e.currency)

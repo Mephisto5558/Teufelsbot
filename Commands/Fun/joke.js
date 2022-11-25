@@ -113,13 +113,13 @@ module.exports = {
     }
   ],
 
-  run: async function (lang, client) {
+  run: async function (lang) {
     const
       api = this.options?.getString('api'),
       type = this.options?.getString('type') || this.args?.[0],
       blacklist = this.options?.getString('blacklist'),
       maxLength = this.options?.getNumber('max_length') || 2000,
-      [joke, API] = await getJoke.call(client, api ? [defaultAPIList.find(e => e.name == api)] : defaultAPIList, type, blacklist, maxLength);
+      [joke, API] = await getJoke.call(this.client, api ? [defaultAPIList.find(e => e.name == api)] : defaultAPIList, type, blacklist, maxLength);
 
     if (!joke) return this.customReply(lang('noAPIAvailable'));
 

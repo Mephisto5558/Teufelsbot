@@ -34,15 +34,14 @@ module.exports = {
     }
   ],
 
-  run: async function (lang, { db, application }) {
+  run: async function (lang) {
 
     const
       cmd = this.options.getSubcommand(),
       messageToSend = this.options.getString('message'),
       perm = this.member.permissions.has(PermissionFlagsBits.ManageMessages),
       asMod = (this.options.getBoolean('as_mod') && perm),
-      oldData = db.get('userSettings'),
-      blacklist = Object.assign({}, ...Object.entries(oldData).filter(([, v]) => v.dmBlockList).map(([k, v]) => ({ [k]: v.dmBlockList }))),
+      blacklist = Object.assign({}, ...Object.entries(this.client.db.get('userSettings') || {}).filter(([, v]) => v.dmBlockList).map(([k, v]) => ({ [k]: v.dmBlockList }))),
       userBlacklist = blacklist[this.user.id] || [];
 
     let target = this.options.getMember('target');
@@ -71,7 +70,7 @@ module.exports = {
           message = lang('toggle.saved', { user: targetName, state: target == '*' ? lang('toggle.targetAll.saved') : lang('toggle.targetOne.isnt', targetName) });
         }
 
-        db.update('userSettings', this.user.id, userBlacklist);
+        this.client.db.update('userSettings', this.user.id, userBlacklist);
 
         this.editReply(message);
         break;
@@ -99,7 +98,7 @@ module.exports = {
       }
 
       case 'send': {
-        if (target.id == application.id) return this.editReply(lang('send.targetIsMe'));
+        if (target.id == this.client.user.id) return this.editReply(lang('send.targetIsMe'));
 
         const targetBlacklist = blacklist[target.id] || [];
         if ((targetBlacklist.includes(target.id) || targetBlacklist.includes('*')) && !asMod && target.id != this.user.id)

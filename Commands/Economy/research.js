@@ -8,10 +8,10 @@ module.exports = {
   requireEconomy: true,
   beta: true,
 
-  run: async function (lang, { db }) {
+  run: async function (lang) {
     const
-      userSkills = db.get('guildSettings')[this.guild.id].economy[this.user.id].skills,
-      defaultSkills = db.get('guildSettings').default.economy.skills,
+      userSkills = this.guild.db.economy[this.user.id].skills,
+      defaultSkills = this.guild.defaultSettings.economy.skills,
       fields = Object.entries(defaultSkills).map(([skill, defaultSkill]) => {
         const price = userSkills[skill].lastPrice ? userSkills[skill].lastPrice + Math.round(userSkills[skill].lastPrice * userSkills[skill].percentage / 100) : defaultSkill.firstPrice;
 
@@ -48,7 +48,7 @@ module.exports = {
 
       const
         skill = button.values[0],
-        userData = db.get('guildSettings')[this.guild.id].economy[this.user.id],
+        userData = this.guild.db.economy[this.user.id],
         userSkill = userData.skills[skill],
         price = userSkill.lastPrice ? userSkill.lastPrice + Math.round(userSkill.lastPrice * userSkill.percentage / 100) : defaultSkills[skill].firstPrice;
       let errorMsg;
@@ -72,7 +72,7 @@ module.exports = {
         }
       };
 
-      db.update('guildSettings', `${this.guild.id}.economy.${this.user.id}`, newData);
+      this.client.db.update('guildSettings', `${this.guild.id}.economy.${this.user.id}`, newData);
 
       button.editReply(lang('success', { skill: lang(`skills.${skill}.name`), emoji: lang(`skills.${skill}.emoji`), lvl: newData.skills[skill].lvl, time: Math.round(onCooldownUntil / 1000) }));
     });

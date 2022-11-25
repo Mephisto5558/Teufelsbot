@@ -8,19 +8,19 @@ module.exports = {
   prefixCommand: true,
   beta: true,
 
-  run: function (lang, { db }) {
+  run: function (lang) {
     const embed = new EmbedBuilder({
       color: Colors.White,
       author: { name: this.user.tag, iconURL: this.member.displayAvatarURL({ forceStatic: true }) }
     });
 
-    const userData = db.get('guildSettings')[this.guild.id].economy[this.user.id];
+    const userData = this.guild.db.economy[this.user.id];
     if (!userData.gaining.daily) {
       embed.data.description = lang('notUnlocked');
       return this.customReply({ embeds: [embed] }, 3e4);
     }
 
-    db.update('userSettings', `${this.guild.id}.economy.${this.user.id}`, {
+    this.client.db.update('userSettings', `${this.guild.id}.economy.${this.user.id}`, {
       currency: userData.currency + userData.gaining.daily,
       dailyStreak: userData.dailyStreak + 1
     });

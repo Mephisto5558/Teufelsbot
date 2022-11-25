@@ -11,7 +11,7 @@ module.exports = {
     { name: 'reason', type: 'String' }
   ],
 
-  run: async function (lang, { db }) {
+  run: async function (lang) {
     const msg = await this.customReply(lang('global.loading'));
 
     this.args?.shift();
@@ -19,8 +19,7 @@ module.exports = {
     const
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,
       reason = this.options?.getString('reason') || this.args?.join(' ') || lang('noReason'),
-      oldData = db.get('guildSettings'),
-      overwrites = Object.entries(oldData[this.guild.id]?.lockedChannels?.[channel.id] || [])?.filter(async ([k, v]) => {
+      overwrites = Object.entries(this.guild.db.lockedChannels?.[channel.id] || {})?.filter(async ([k, v]) => {
         if (channel.permissionOverwrites.cache.get(k)?.allow.has(PermissionFlagsBits.SendMessages)) return;
         if (v == OverwriteType.Role) return (await this.guild.roles.fetch(k)).comparePositionTo(this.guild.members.me.roles.highest) < 0;
         return (await this.guild.members.fetch(k)).manageable;
@@ -35,7 +34,7 @@ module.exports = {
       );
     }
 
-    db.update('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`, null);
+    this.client.db.update('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`, {});
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),

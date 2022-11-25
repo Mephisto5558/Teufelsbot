@@ -5,12 +5,12 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  run: async function (lang, client) {
-    client.log('Syncing Slash Commands globally...');
+  run: async function (lang) {
+    this.client.log('Syncing Slash Commands globally...');
 
-    for (const guild of client.guilds.cache) await client.application.commands.set([], guild[0]);
+    for (const guild of this.client.guilds.cache) await this.client.application.commands.set([], guild[0]);
 
-    await require('../../Handlers/slash_command_handler.js').call(client, '*');
+    await require('../../Handlers/slash_command_handler.js').call(this.client, '*');
 
     this.customReply(lang('success'));
   }

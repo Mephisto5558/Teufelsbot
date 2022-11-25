@@ -4,24 +4,19 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: function (lang, { db, application }) {
+  run: function (lang) {
     if (!this.args[0]) return this.customReply(lang('noInput'));
 
-    const data = db.get('botSettings');
-
     if (this.args[0] == 'off') {
-      if (!data.blacklist.includes(this.args[1])) return this.customReply(lang('notFound'));
+      if (!this.client.settings.blacklist.includes(this.args[1])) return this.customReply(lang('notFound'));
 
-      data.blacklist = data.blacklist.filter(e => e != this.args[1]);
-      db.set('botSettings', data);
-
+      this.client.db.update('botSettings', 'blacklist', this.client.settings.blacklist.filter(e => e != this.args[1]));
       return this.customReply(lang('removed', this.args[1]));
     }
 
-    if (this.args[0] == application.owner.id) return this.customReply(lang('cantBlacklistOwner'));
+    if (this.args[0] == this.client.application.owner.id) return this.customReply(lang('cantBlacklistOwner'));
 
-    data.blacklist.push(this.args[0]);
-    db.set('botSettings', data);
+    this.client.db.update('botSettings', 'blacklist', [...(this.client.settings.blacklist || []), this.args[0]]);
     this.customReply(lang('saved', this.args[0]));
   }
 };

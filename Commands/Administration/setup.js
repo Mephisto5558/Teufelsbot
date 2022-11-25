@@ -48,7 +48,7 @@ module.exports = {
       case 'toggle_module': {
         const
           module = this.options.getString('module'),
-          setting = this.client.db.get('guildSettings')[this.guild.id]?.[module]?.enable;
+          setting = this.guild.db[module]?.enable;
 
         this.client.db.update('guildSettings', `${this.guild.id}.${module}.enable`, !setting);
         return this.editReply(lang('toggledModule', { name: module, state: setting ? lang('global.disabled') : lang('global.enabled') }));
@@ -56,7 +56,7 @@ module.exports = {
       case 'toggle_command': {
         const
           command = this.options.getString('command'),
-          commandData = this.client.db.get('guildSettings')[this.guild.id]?.commandSettings?.[command]?.disabled || {},
+          commandData = this.guild.db.commandSettings?.[command]?.disabled || {},
           { roles = [], channels = [], users = [] } = commandData,
           count = { enabled: { channels: 0, users: 0, roles: 0 }, disabled: { channels: 0, users: 0, roles: 0 } };
 
