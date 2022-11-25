@@ -6,7 +6,7 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: async function (lang, client) {
+  run: async function (lang) {
     const args = this.content.split(';');
 
     const activity = args[0];
@@ -16,8 +16,8 @@ module.exports = {
 
     if (!type && type != 0) return this.customReply(lang('invalidType', Object.keys(ActivityType).filter(e => isNaN(e)).join('`, `')));
 
-    await client.user.setActivity(activity, { type: type });
-    client.db.update('botSettings', 'activity', { name: activity, type });
+    await this.client.user.setActivity(activity, { type: type });
+    this.client.db.update('botSettings', 'activity', { name: activity, type });
 
     this.customReply(activity ? lang('set', { name: activity, type: ActivityType[type] }) : lang('reset'));
   }

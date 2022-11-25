@@ -2,7 +2,7 @@ console.time('Initializing time');
 console.info('Starting...');
 
 const
-  { Client, Collection, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
+  { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { existsSync, readdirSync } = require('fs'),
   { DB, gitpull, errorHandler, giveawaysmanager } = require('./Utils');
 
@@ -44,7 +44,7 @@ console.time('Starting time');
   if (existsSync('./env.json')) env = require('./env.json');
   else {
     client.db = await new DB(process.env.dbConnectionStr).fetchAll();
-    env = client.db.get('botSettings').env;
+    env = client.settings.env;
   }
 
   env = env.global.fMerge(env[env.global.environment]);
@@ -53,8 +53,6 @@ console.time('Starting time');
 
   client.botType = env.environment;
   client.keys = env.keys;
-  client.prefixCommands = new Collection();
-  client.cooldowns = new Collection();
 
   if (client.botType != 'dev') client.giveawaysManager = giveawaysmanager.call(client);
 

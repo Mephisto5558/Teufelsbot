@@ -5,7 +5,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  run: async function (lang, client) {
+  run: async function (lang) {
     if (!this.content) return;
 
     const msg = lang('finished', this.content);
@@ -20,6 +20,6 @@ module.exports = {
       this.customReply(lang('error', { msg, name: err.name, err: err.message }));
     }
 
-    client.log(`evaluated command '${this.content}'`);
+    this.client.log(`evaluated command '${this.content}'`);
   }
 };

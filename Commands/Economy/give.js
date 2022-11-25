@@ -19,7 +19,7 @@ module.exports = {
   ],
   beta: true,
 
-  run: function (lang, { db }) {
+  run: function (lang) {
     const target = this.options?.getUser('target') || this.mentions?.users.first();
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
@@ -36,8 +36,8 @@ module.exports = {
     if (embed.data.description) return this.customReply({ embeds: [embed] }, 3e4);
 
     const
-      userData = db.get('guildSettings')[this.guild.id].economy[this.user.id],
-      targetData = db.get('guildSettings')[this.guild.id].economy[target.id];
+      userData = this.guild.db.economy?.[this.user.id],
+      targetData = this.guild.db.economy?.[target.id];
 
     if (!userData.currency) {
       embed.data.description = lang('error.noMoney');
@@ -56,7 +56,7 @@ module.exports = {
     const newUserCurrency = parseFloat((userData.currency - amount).toFixed(3));
     const newTargetCurrency = parseFloat((targetData.currency + amount).toFixed(3));
 
-    db.update('guildSettings', `${this.guild.id}.economy`, { [this.user.id]: { currency: newUserCurrency }, [target.id]: { currency: newTargetCurrency } });
+    this.client.db.update('guildSettings', `${this.guild.id}.economy`, { [this.user.id]: { currency: newUserCurrency }, [target.id]: { currency: newTargetCurrency } });
 
     embed.data.description = lang('embedDescription', { amount, target: target.id, newUserAmount: newUserCurrency, newTargetAmount: newTargetCurrency });
     this.customReply({ content: target.toString(), embeds: [embed] });

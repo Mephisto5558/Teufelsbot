@@ -16,7 +16,6 @@ module.exports = {
   run: function (lang) {
     const
       command = this.options?.getString('command') || this.args?.[0],
-      stats = this.client.db.get('botSettings').stats || {},
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         color: Colors.White
@@ -24,11 +23,11 @@ module.exports = {
 
     if (command) {
       const id = this.client.application.commands.cache.find(e => e.name == command)?.id;
-      embed.data.description = lang('embedDescriptionOne', { command: id ? `</${command}:id>` : `\`${command}\``, count: stats[command] ?? 0 });
+      embed.data.description = lang('embedDescriptionOne', { command: id ? `</${command}:id>` : `\`${command}\``, count: this.client.settings.stats?.[command] ?? 0 });
     }
     else {
       embed.data.description = lang('embedDescriptionMany');
-      embed.data.fields = Object.entries(stats)
+      embed.data.fields = Object.entries(this.client.settings.stats || {})
         .sort(([, a], [, b]) => b - a).slice(0, 10).map(([k, v]) => {
           const id = this.client.application.commands.cache.find(e => e.name == k)?.id;
           return { name: id ? `</${k}:${id}>` : `/${k}`, value: `**${v}**`, inline: true };

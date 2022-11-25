@@ -48,11 +48,10 @@ module.exports = {
     { name: 'remove', type: 'Subcommand' }
   ],
 
-  run: async function (lang, { db }) {
+  run: async function (lang) {
     const
       target = this.options.getMember('target'),
       doNotHide = this.options.getBoolean('do_not_hide'),
-      oldData = db.get('userSettings'),
       birthday =
         Math.abs(this.options.getNumber('year')) + '/' +
         Math.abs(this.options.getNumber('month') || '')?.toString().padStart(2, '0') + '/' +
@@ -60,14 +59,14 @@ module.exports = {
 
     switch (this.options.getSubcommand()) {
       case 'set': {
-        db.update('userSettings', `${this.user.id}.birthday`, birthday);
+        this.client.db.update('userSettings', `${this.user.id}.birthday`, birthday);
 
         this.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
         break;
       }
 
       case 'remove': {
-        db.update('userSettings', `${this.user.id}.birthday`, null);
+        this.client.db.update('userSettings', `${this.user.id}.birthday`, null);
 
         this.editReply(lang('removed'));
         break;
@@ -86,7 +85,7 @@ module.exports = {
         if (target) {
           embed.data.title = lang('getUser.embedTitle', target.user.tag);
 
-          const data = oldData[target.id]?.birthday?.split('/');
+          const data = this.user.db.birthday?.split('/');
 
           if (!data) newData = lang('getUser.notFound', target.displayName);
           else {
@@ -101,7 +100,7 @@ module.exports = {
           const guildMembers = (await this.guild.members.fetch()).map(e => e.id);
           const currentTime = new Date().getTime();
 
-          const data = Object.entries(oldData)
+          const data = Object.entries(this.client.db.get('userSettings') || {})
             .filter(([k, { birthday } = {}]) => guildMembers.includes(k) && birthday)
             .map(([k, { birthday }]) => [k, ...birthday.split('/')])
             .sort(([, , month1, day1], [, , month2, day2]) => {

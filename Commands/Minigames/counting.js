@@ -15,7 +15,7 @@ module.exports = {
   run: async function (lang) {
     const
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,
-      counting = this.client.db.get('guildSettings')[this.guild.id]?.counting || {};
+      counting = this.guild.db.counting || {};
 
     if (counting[channel.id]) {
       delete counting[channel.id];

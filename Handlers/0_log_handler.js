@@ -9,19 +9,6 @@ const
 fs.writeFileSync('./Logs/startCount.log', startCount.toString());
 
 module.exports = async function logHandler() {
-  this.log = function (...data) {
-    console.info(`[${getTime()}] ${data.join(' ')}`);
-    writeLogFile('log', ...data);
-    return this;
-  };
-
-  this.error = (...data) => {
-    console.error(errorColor, `[${getTime()}] ${data.join(' ')}`);
-    writeLogFile('log', ...data);
-    writeLogFile('error', ...data);
-    return this;
-  };
-
   this
     .on('debug', debug => {
       if (debug.includes('Sending a heartbeat.') || debug.includes('Heartbeat acknowledged')) return;

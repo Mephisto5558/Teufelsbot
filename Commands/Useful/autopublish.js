@@ -5,10 +5,10 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
 
-  run: function (lang, { db }) {
-    const setting = db.get('guildSettings')[this.guild.id]?.config?.autopublish;
+  run: function (lang) {
+    const setting = this.guild.db.config?.autopublish;
 
-    db.update('guildSettings', `${this.guid.id}.config.autopublish`, !setting);
+    this.client.db.update('guildSettings', `${this.guid.id}.config.autopublish`, !setting);
 
     this.customReply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));
   }

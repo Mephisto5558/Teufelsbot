@@ -7,10 +7,10 @@ module.exports = {
   options: [{ name: 'target', type: 'User' }],
   beta: true,
 
-  run: function (lang, { db }) {
+  run: function (lang) {
     const
       target = this.options?.getUser('target') || this.mentions?.users.first() || this.user,
-      userData = db.get('guildSettings')[this.guild.id]?.economy?.[target.id];
+      userData = this.guild.db.economy?.[target.id];
 
     if (!userData?.gaining?.chat) return this.customReply(lang('noStats'));
 

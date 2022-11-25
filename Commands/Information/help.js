@@ -28,24 +28,24 @@ module.exports = {
     autocompleteOptions: function () { return [...new Set([...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()])]; }
   }], beta: true,
 
-  run: function (lang, client) {
+  run: function (lang) {
     const
       embed = new EmbedBuilder({ color: Colors.Blurple }),
       query = (this.args?.[0] || this.options?.getString('command'))?.toLowerCase();
 
     if (query) {
-      const cmd = client.prefixCommands.get(query) || client.slashCommands.get(query);
+      const cmd = this.client.prefixCommands.get(query) || this.client.slashCommands.get(query);
 
       if (!cmd?.name || cmd.hideInHelp || cmd.disabled || (ownerOnlyFolders.includes(cmd.category.toLowerCase()) && this.user.id != this.client.application.owner.id)) {
         embed.data.description = lang('one.notFound', query);
         embed.data.color = Colors.Red;
       }
       else {
-        const helpLang = I18nProvider.__.bind(I18nProvider, { undefinedNotFound: true, locale: client.db.get('guildSettings')[this.guild.id]?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${cmd.category.toLowerCase()}.${cmd.name}` });
+        const helpLang = I18nProvider.__.bind(I18nProvider, { undefinedNotFound: true, locale: this.guild.db.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${cmd.category.toLowerCase()}.${cmd.name}` });
 
         embed.data.title = lang('one.embedTitle', cmd.name);
         embed.data.description = helpLang('description') ?? lang('one.noDescription');
-        if (helpLang('usage')) embed.data.footer = { text: lang('one.embedFooterText', client.db.get('guildSettings')[this.guild.id]?.config?.prefix || client.db.get('guildSettings').default.config.prefix) };
+        if (helpLang('usage')) embed.data.footer = { text: lang('one.embedFooterText', this.guild.db.config?.prefix || this.guild.defaultSettings.config.prefix) };
         embed.data.fields = [
           cmd.aliases?.prefix?.length && { name: lang('one.prefixAlias'), value: `\`${listCommands(cmd.aliases.prefix, '', 1)[0].replaceAll('> ', '')}\``, inline: true },
           cmd.aliases?.slash?.length && { name: lang('one.slashAlias'), value: `\`${listCommands(cmd.aliases.slash, '', 1)[0].replaceAll('> ', '')}\``, inline: true },
@@ -68,8 +68,8 @@ module.exports = {
     for (const category of getDirectoriesSync('./Commands').map(e => e.toUpperCase())) {
       if (ownerOnlyFolders.includes(category.toLowerCase()) && this.user.id != this.client.application.owner.id) continue;
 
-      let data = listCommands(client.prefixCommands, '', 1, category);
-      data = listCommands(client.slashCommands, data[0], data[1], category);
+      let data = listCommands(this.client.prefixCommands, '', 1, category);
+      data = listCommands(this.client.slashCommands, data[0], data[1], category);
 
       if (data[1] == 1) continue;
 

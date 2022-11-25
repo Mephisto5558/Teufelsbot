@@ -22,7 +22,7 @@ module.exports = {
   onTick: async function () {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 
-    if (this.db.get('botSettings').lastBirthdayCheck == now) return this.log('Already ran birthday check today');
+    if (this.settings.lastBirthdayCheck == now) return this.log('Already ran birthday check today');
     this.log('started birthday check');
 
     const
@@ -31,7 +31,7 @@ module.exports = {
 
     for await (const guild of guildList) {
       const settings = this.db.get('guildSettings')[guild.id]?.birthday;
-      const defaultSettings = this.db.get('guildSettings').default.birthday;
+      const defaultSettings = this.guild.defaultSettings.birthday;
       if (!settings?.enable) continue;
 
       const userList = Object.entries(oldData)

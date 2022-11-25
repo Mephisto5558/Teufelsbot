@@ -5,15 +5,14 @@ const
 
 module.exports = async function interactionCreate() {
   const command = this.client.slashCommands.get(this.commandName);
-  const { blacklist, stats = {} } = this.client.db.get('botSettings');
 
   if (
-    !command || blacklist?.includes(this.user.id) ||
+    !command || this.client.settings.blacklist?.includes(this.user.id) ||
     (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id)  //DO NOT REMOVE THIS STATEMENT!
   ) return;
 
-  const lang = I18nProvider.__.bBind(I18nProvider, { locale: this.client.db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
-  const disabledList = this.client.db.get('guildSettings')[this.guild.id]?.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
+  const lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
+  const disabledList = this.guild.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
 
   if (disabledList.members && disabledList.members.includes(this.user.id)) return this.reply({ content: lang('events.notAllowed.member'), ephemeral: true });
   if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.reply({ content: lang('events.notAllowed.channel'), ephemeral: true });
@@ -21,7 +20,7 @@ module.exports = async function interactionCreate() {
 
   if (this.type == InteractionType.ApplicationCommandAutocomplete) {
     const
-      lang = I18nProvider.__.bBind(I18nProvider, { locale: this.client.db.get('guildSettings')[this.guild.id]?.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}`, undefinedNotFound: true }),
+      lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}`, undefinedNotFound: true }),
       response = v => ({ name: lang(`options.${this.options._group ? this.options._group + '.' : ''}${this.options._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });
 
     let { options } = command.fMerge();
@@ -42,9 +41,8 @@ module.exports = async function interactionCreate() {
   if (cooldown) return this.reply({ content: lang('events.cooldown', cooldown), ephemeral: true });
 
   if (command.requireEconomy) {
-    const economy = this.client.db.get('guildSettings')[this.guild.id]?.economy;
-    if (!economy?.enable) return this.reply({ content: lang('events.economyDisabled'), ephemeral: true });
-    if (!economy?.[this.user.id]?.gaining?.chat) return this.reply({ content: lang('events.economyNotInitialized'), ephemeral: true });
+    if (!this.guild.db.economy?.enable) return this.reply({ content: lang('events.economyDisabled'), ephemeral: true });
+    if (!this.guild.db.economy?.[this.user.id]?.gaining?.chat) return this.reply({ content: lang('events.economyNotInitialized'), ephemeral: true });
   }
 
   if (this.type == InteractionType.ApplicationCommand) {
@@ -68,7 +66,7 @@ module.exports = async function interactionCreate() {
 
     try {
       command.run.call(this, lang, this.client)?.catch(err => errorHandler.call(this.client, err, this, lang));
-      if (this.client.botType != 'dev') this.client.db.update('botSettings', `stats.${command.name}`, stats[command.name] + 1 || 1);
+      if (this.client.botType != 'dev') this.client.db.update('botSettings', `stats.${command.name}`, this.client.settings.stats[command.name] + 1 || 1);
     } catch (err) { errorHandler.call(this.client, err, this, lang); }
   }
 };

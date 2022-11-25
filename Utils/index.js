@@ -5,6 +5,7 @@ module.exports = {
   customReply: require('./customReply.js'),
   DB: require('./db.js'),
   errorHandler: require('./error_handler.js'),
+  findAllEntries: require('./findAllEntries'),
   getAge: require('./getAge.js'),
   gitpull: require('./gitpull.js'),
   giveawaysmanager: require('./giveawaysmanager.js'),

@@ -23,26 +23,24 @@ async function runEco({ economy: { gaining: defaultGaining } }, economy = {}) {
 
 /**@this {Message}*/
 module.exports = async function messageCreate() {
-  const { blacklist, stats } = this.client.db.get('botSettings');
-  if (blacklist?.includes(this.user.id)) return;
-  if (this.crosspostable && this.client.db.get('guildSettings')[this.guild?.id]?.config?.autopublish) this.crosspost();
+  if (this.client.settings.blacklist?.includes(this.user.id)) return;
+  if (this.crosspostable && this.guild.db?.config?.autopublish) this.crosspost();
   if (this.user.bot) return;
 
   const
-    { config, triggers, economy, afkMessages, counting, commandSettings } = this.client.db.get('guildSettings')[this.guild?.id] || {},
-    defaultSettings = this.client.db.get('guildSettings').default,
-    locale = config?.lang || this.guild?.preferredLocale.slice(0, 2) || defaultSettings.config.lang,
-    guildPrefix = this.client.botType == 'dev' ? config?.betaBotPrefix?.prefix || defaultSettings.config.betaBotPrefix : config?.prefix?.prefix || defaultSettings.config.prefix,
+    { config, economy, afkMessages } = this.guild.db,
+    locale = config?.lang || this.guild.preferredLocale.slice(0, 2) || this.guild.defaultSettings.config.lang,
+    guildPrefix = this.client.botType == 'dev' ? config?.betaBotPrefix?.prefix || this.guild.defaultSettings.config.betaBotPrefix : config?.prefix?.prefix || this.guild.defaultSettings.config.prefix,
     originalContent = this.content = this.content.replaceAll('<@!', '<@'),
     runMessages = async () => {
-      if (this.client.botType != 'dev' && triggers?.length && !(await cooldowns.call(this, { name: 'triggers', cooldowns: { user: 1000 } }))) {
-        for (const trigger of triggers.filter(e => originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
+      if (this.client.botType != 'dev' && this.guild.db.triggers?.length && !(await cooldowns.call(this, { name: 'triggers', cooldowns: { user: 1000 } }))) {
+        for (const trigger of this.guild.db.triggers.filter(e => originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
           this.customReply(trigger.response);
       }
       else if (originalContent.includes(this.client.user.id) && !(await cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } })))
         this.react('👀');
 
-      const countingData = counting?.[this.channel.id];
+      const countingData = this.guild.db.counting?.[this.channel.id];
       if (countingData && Number(originalContent)) {
         if (countingData.lastNumber + 1 != originalContent || countingData.lastAuthor == this.user.id) {
           if (countingData?.lastNumber == 0) return;
@@ -57,7 +55,7 @@ module.exports = async function messageCreate() {
       }
 
       const userSettings = this.client.db.get('userSettings');
-      const afk = afkMessages?.[this.user.id]?.message ? afkMessages[this.user.id] : userSettings[this.user.id]?.afkMessage;
+      const afk = afkMessages?.[this.user.id]?.message ? afkMessages[this.user.id] : this.user.db.afkMessage;
       if (afk?.message && !originalContent.toLowerCase().includes('--afkignore')) {
         this.client.db.update('userSettings', `${this.user.id}.afkMessage`, {});
         this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`, {});
@@ -80,7 +78,7 @@ module.exports = async function messageCreate() {
   else if (this.content.startsWith(`<@${this.client.user.id}>`)) prefixLength = this.client.user.id.length + 3;
   else {
     runMessages();
-    return runEco.call(this, defaultSettings, economy);
+    return runEco.call(this, this.guild.defaultSettings, economy);
   }
 
   this.args = this.content.slice(prefixLength).trim().split(' ');
@@ -95,7 +93,7 @@ module.exports = async function messageCreate() {
   ) return runMessages();
 
   const lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
-  const disabledList = commandSettings?.[command.aliasOf || command.name]?.disabled || {};
+  const disabledList = this.guild.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
 
   if (disabledList.members && disabledList.members.includes(this.user.id)) return this.customReply(lang('events.notAllowed.member'), 1e4);
   if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.customReply(lang('events.notAllowed.channel'), 1e4);
@@ -123,6 +121,6 @@ module.exports = async function messageCreate() {
 
   try {
     command.run.call(this, lang, this.client)?.catch(err => errorHandler.call(this.client, err, this, lang));
-    if (this.client.botType != 'dev') this.client.db.update('botSettings', `stats.${command.name}`, stats?.[command.name] + 1 || 1);
+    if (this.client.botType != 'dev') this.client.db.update('botSettings', `stats.${command.name}`, this.client.settings.stats?.[command.name] + 1 || 1);
   } catch (err) { errorHandler.call(this.client, err, this, lang); }
 };
