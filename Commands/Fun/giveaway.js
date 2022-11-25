@@ -101,14 +101,14 @@ module.exports = {
     }
   ],
 
-  run: async function (lang, { giveawaysManager }) {
-    if (!giveawaysManager) return lang('managerNotFound');
+  run: async function (lang) {
+    if (!this.client.giveawaysManager) return lang('managerNotFound');
 
     const giveawayId = this.options.getString('id');
     let giveaway;
 
     if (giveawayId) {
-      giveaway = giveawaysManager.giveaways.find(g => g.guildId == this.guild.id && g.messageId == giveawayId);
+      giveaway = this.client.giveawaysManager.giveaways.find(g => g.guildId == this.guild.id && g.messageId == giveawayId);
 
       if (!giveaway) return this.editReply(lang('notFound'));
       if (giveaway.hostedBy.slice(2, -1) !== this.user.id && !this.member.permissions.has(PermissionFlagsBits.Administrator))
@@ -173,14 +173,14 @@ module.exports = {
 
         if (requiredRoles?.length || disallowedMembers?.length) startOptions.exemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers?.includes(member.id));
 
-        const data = await giveawaysManager.start(targetChannel, startOptions);
+        const data = await this.client.giveawaysManager.start(targetChannel, startOptions);
         components[0].components[0].data.url = data.messageURL;
 
         return this.editReply({ content: lang('started'), components });
       }
 
       case 'end': {
-        const data = await giveawaysManager.end(giveawayId);
+        const data = await this.client.giveawaysManager.end(giveawayId);
         components[0].components[0].data.url = data.messageURL;
 
         return this.editReply({ content: lang('ended'), components });
@@ -199,7 +199,7 @@ module.exports = {
         if (requiredRoles.length || disallowedMembers.length) editOptions.newExemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers.includes(member.id));
         if (bonusEntries.length) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
 
-        const data = await giveawaysManager.edit(giveawayId, editOptions);
+        const data = await this.client.giveawaysManager.edit(giveawayId, editOptions);
         components[0].components[0].data.url = data.messageURL;
 
         return this.editReply({ content: lang('edited'), components });
@@ -213,7 +213,7 @@ module.exports = {
           }
         };
 
-        const data = await giveawaysManager.reroll(giveawayId, rerollOptions);
+        const data = await this.client.giveawaysManager.reroll(giveawayId, rerollOptions);
         components[0].components[0].data.url = data.messageURL;
 
         return this.editReply({ content: lang('rerolled'), components });
