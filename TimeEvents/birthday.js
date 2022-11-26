@@ -30,8 +30,8 @@ module.exports = {
       oldData = this.db.get('userSettings');
 
     for await (const guild of guildList) {
-      const settings = this.db.get('guildSettings')[guild.id]?.birthday;
-      const defaultSettings = this.guild.defaultSettings.birthday;
+      const settings = guild.db.birthday;
+      const defaultSettings = guild.defaultSettings.birthday;
       if (!settings?.enable) continue;
 
       const userList = Object.entries(oldData)
