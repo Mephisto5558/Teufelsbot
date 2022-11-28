@@ -55,6 +55,23 @@
     "globalSuccess": "Your AFK has been set to \"{message}\" across all guilds.",
     "success": "Your AFK has been set to \"{message}\"."
   },
+  "avatarfusion": {
+    "description": "Fuses two avatars.",
+    "usage": "PREFIX Command: avatarfusion <base> [overlay] [avatar_type]",
+    "options": {
+      "base": {
+        "description": "Who's profile picture should be used for the base?"
+      },
+      "overlay": {
+        "description": "Who's profile picture should be used as the overlay?"
+      },
+      "avatar_type": {
+        "description": "Which avatar type do you want to use?"
+      }
+    },
+    "embedTitle": "Avatar Fusion: {user1} and {user2}",
+    "missingParam": "You have to mention at least one member!"
+  },
   "birthday": {
     "description": "save your birthday and I will send a message on your birthday",
     "options": {
