@@ -58,6 +58,23 @@
     "globalSuccess": "Dein AFK wurde auf allen Servern zu \"{message}\" gesetzt.",
     "success": "Dein AFK wurde zu \"{message}\" gesetzt."
   },
+  "avatarfusion": {
+    "description": "Kombiniere zwei Profilbilder",
+    "usage": "PREFIX Command: avatarfusion <base> [overlay] [avatar_type]",
+    "options": {
+      "base": {
+        "description": "Wessen Profilbild soll für die Basis genutzt werden?"
+      },
+      "overlay": {
+        "description": "Wessen Profilbild soll als Overlay genutzt werden?"
+      },
+      "avatar_type": {
+        "description": "Welchen Avatar-Typ möchtest du nutzen?"
+      }
+    },
+    "embedTitle": "Avatar-Fusion: {user1} und {user2}",
+    "missingParam": "Du musst mindestens ein Mitglied erwähnen!"
+  },
   "birthday": {
     "description": "Speichere deinen Geburtstag ein und ich werde dir eine Nachricht an diesem bedeutenden Tag senden.",
     "options": {
