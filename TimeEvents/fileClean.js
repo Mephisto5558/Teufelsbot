@@ -1,6 +1,7 @@
-const { readdirSync, statSync, unlinkSync } = require('fs');
+const { readdirSync, statSync, unlinkSync, existsSync, mkdirSync } = require('fs');
 
 function deleteOld(path) {
+  if (!existsSync(path)) return mkdirSync(path);
   const time = new Date(Date.now() - 12096e5 /*2 Weeks*/).getTime();
   for (const file of readdirSync(path, { withFileTypes: true })) {
     if (file.isDirectory()) deleteOld(`${path}/${file.name}`);
