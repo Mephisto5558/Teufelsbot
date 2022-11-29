@@ -41,7 +41,7 @@ module.exports = async function messageCreate() {
         this.react('👀');
 
       const countingData = this.guild.db.counting?.[this.channel.id];
-      if (countingData && Number(originalContent)) {
+      if (this.client.botType != 'dev' && countingData && Number(originalContent)) {
         if (countingData.lastNumber + 1 != originalContent || countingData.lastAuthor == this.user.id) {
           if (countingData?.lastNumber == 0) return;
 
