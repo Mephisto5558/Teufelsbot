@@ -67,7 +67,6 @@ async function getJoke(APIList, type, blacklist, maxLength) {
         break;
       }
     }
-    return [response?.replaceAll('`', '\''), API];
   }
   catch (err) {
     if ([402, 403, 522].includes(err.status)) {
@@ -82,6 +81,8 @@ async function getJoke(APIList, type, blacklist, maxLength) {
     }
   }
 
+  if(response) return [response?.replaceAll('`', '\''), API];
+  
   APIList = APIList.filter(str => str.name !== API.name);
   if (APIList.length) return getJoke.call(this, APIList, type, blacklist, maxLength);
 }
