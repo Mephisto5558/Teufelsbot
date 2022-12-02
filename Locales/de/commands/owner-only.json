@@ -45,7 +45,8 @@
   },
   "restart": {
     "description": "Startet den Bot neu",
-    "message": "Starte neu..."
+    "message": "Starte neu...",
+    "success": "Erfolgreich neu gestartet."
   },
   "setactivity": {
     "description": "Setzte die Aktivität des Bots",

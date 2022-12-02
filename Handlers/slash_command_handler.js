@@ -163,4 +163,15 @@ module.exports = async function slashCommandHandler(syncGuild) {
 
     .log(`Ready to serve in ${this.channels.cache.size} channels on ${this.guilds.cache.size} servers.\n`);
   console.timeEnd('Starting time');
+
+  if (this.settings.restartingMsg.message) {
+    try {
+      const guild = await this.guilds.fetch(this.settings.restartingMsg.guild);
+      const channel = await guild.channels.fetch(this.settings.restartingMsg.channel);
+      const message = await channel.messages.fetch(this.settings.restartingMsg.message);
+      if (message?.editable) message.edit(I18nProvider.__({ locale: guild.localeCode }, 'commands.owner-only.restart.success'));
+    } catch { }
+
+    this.db.update('botSettings', 'settings.restartingMsg', {});
+  }
 };
