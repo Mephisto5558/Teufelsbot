@@ -75,7 +75,7 @@ module.exports = {
         }
       ]
     }
-  ], beta: true,
+  ],
 
   run: async function (lang) {
     const
