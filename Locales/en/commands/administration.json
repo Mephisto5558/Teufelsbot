@@ -1,4 +1,77 @@
 {
+  "selfrole": {
+    "description": "Manage selfroles.",
+    "options": {
+      "add": {
+        "description": "Adds a selfrole button to an existing message.",
+        "options": {
+          "message_id": {
+            "description": "The ID of the message to add a selfrole to. The bot must be the author."
+          },
+          "role": {
+            "description": "The role you want to use. Make sure the bot has a role above that role."
+          },
+          "button_label": {
+            "description": "The text that should be on the button. If it starts with an emoji, the emoji will be used only."
+          },
+          "modus": {
+            "description": "What should the button do? Defaults to \"Toggle Role\".",
+            "choices": {
+              "add": "Add Role",
+              "remove": "Remove Role",
+              "toggle": "Toggle Role"
+            }
+          },
+          "button_row": {
+            "description": "On which row the button should appear. Each row has a limit of 5 buttons."
+          },
+          "button_color": {
+            "description": "The color the button should have.",
+            "choices": {
+              "1": "Blurple",
+              "2": "Grey",
+              "3": "Green",
+              "4": "Red"
+            }
+          },
+          "hide_count": {
+            "description": "Hides the number of given roles next to the label. This increases the max. label length by 6."
+          },
+          "content": {
+            "description": "What should the message say? This overwrites the original message. Use \"/n\" for newlines."
+          },
+          "channel": {
+            "description": "The channel the message ID is in. Defaults to this channel."
+          }
+        }
+      },
+      "remove": {
+        "description": "Remove a added selfrole and its button from a message.",
+        "options": {
+          "message_id": {
+            "description": "The ID of the message to remove a selfrole from."
+          },
+          "role": {
+            "description": "The role you want to remove. This will remove ALL buttons matching that role."
+          },
+          "content": {
+            "description": "What should the message say? This overwrites the original message."
+          },
+          "channel": {
+            "description": "The channel the message ID is in. Defaults to this channel."
+          }
+        }
+      }
+    },
+    "invalidMsgId": "The given message ID was not found in the selected channel! Make sure you selected the correct channel.",
+    "notMsgOwner": "I can only add buttons to my own messages! You can use `/say` or `/embed` to make a message.",
+    "noPerm": "I don't have the permissions to manage the selected role! Make sure my highest role is **above** the selected role.",
+    "limitReached": "The fifth button row of the selected message is full! You can select a row with space by using the `button_row` option.",
+    "rowFull": "The selected row is full! Rows can only have up to five buttons.",
+    "preview": "This is how the button will look like. It will manage the <@&{role}> role. Please press the button in the next 30 seconds to add it to the selected message.",
+    "addSuccess": "The button has been successfully added! [Message Link]({url})",
+    "removeSuccess": "All buttons that used the selected role have been successfully removed! [Message Link]({url})"
+  },
   "setup": {
     "description": "Sets the bot up",
     "options": {
