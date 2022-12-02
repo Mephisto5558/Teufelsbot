@@ -40,7 +40,7 @@ module.exports = {
           choices: [1, 2, 3, 4, 5]
         },
         {
-          name: 'button_style',
+          name: 'button_color',
           type: 'Number',
           choices: [1, 2, 3, 4]
         },
@@ -101,7 +101,7 @@ module.exports = {
       if (emoji.id) button.data.emoji = emoji;
       else {
         button.data.label = this.options.getString('button_label');
-        if (!this.options.getBoolean('hide_count')) button.data.label.substring(0, 74) + ' **0**';
+        if (!this.options.getBoolean('hide_count')) button.data.label = button.data.label.substring(0, 74) + ' **0**';
       }
 
       (await this.editReply({ content: lang('preview', role.id), components: [new ActionRowBuilder({ components: [button] })] }))
