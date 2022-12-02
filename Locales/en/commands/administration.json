@@ -26,7 +26,7 @@
             "description": "On which row the button should appear. Each row has a limit of 5 buttons."
           },
           "button_color": {
-            "description": "The color the button should have.",
+            "description": "The color the button should have. Defaults to \"Blurple\".",
             "choices": {
               "1": "Blurple",
               "2": "Grey",

@@ -1,4 +1,4 @@
-const { Constants, parseEmoji, ActionRowBuilder, ButtonBuilder, ComponentType } = require('discord.js');
+const { Constants, parseEmoji, ActionRowBuilder, ButtonBuilder, ComponentType, ButtonStyle } = require('discord.js');
 
 module.exports = {
   name: 'selfrole',
@@ -96,7 +96,7 @@ module.exports = {
       if (row && msg.components?.[4]?.components?.[4]) return this.editReply(lang('limitReached'));
       else if (msg.components?.[row] && msg.components[row].components?.[4]) return this.editReply(lang('rowFull'));
 
-      const button = new ButtonBuilder({ style: this.options.getNumber('button_color'), customId: 'selfrole_button_preview' });
+      const button = new ButtonBuilder({ style: this.options.getNumber('button_color') ?? ButtonStyle.Primary, customId: 'selfrole_button_preview' });
 
       if (emoji.id) button.data.emoji = emoji;
       else {
