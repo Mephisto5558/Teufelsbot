@@ -77,6 +77,10 @@ Object.defineProperty(Guild.prototype, 'defaultSettings', {
   get() { return this.client.db?.get('guildSettings')?.default ?? {}; },
   set(val) { this.client.db.set('guildSettings', { default: val }); }
 });
+Object.defineProperty(Guild.prototype, 'localeCode', {
+  get() { return this.db.config?.lang || this.preferredLocale.slice(0, 2) || this.defaultSettings.config.lang; },
+  set(val) { this.client.db.update('guildSettings', 'config.lang', val); }
+});
 Object.defineProperty(GuildMember.prototype, 'db', {
   get() { return findAllEntries.call(this.guild.db, this.id); },
   set() { throw new Error('You cannot set a value to GuildMember#db!'); }

@@ -41,7 +41,7 @@ module.exports = {
         embed.data.color = Colors.Red;
       }
       else {
-        const helpLang = I18nProvider.__.bind(I18nProvider, { undefinedNotFound: true, locale: this.guild.db.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${cmd.category.toLowerCase()}.${cmd.name}` });
+        const helpLang = I18nProvider.__.bind(I18nProvider, { undefinedNotFound: true, locale: this.guild.localeCode, backupPath: `commands.${cmd.category.toLowerCase()}.${cmd.name}` });
 
         embed.data.title = lang('one.embedTitle', cmd.name);
         embed.data.description = helpLang('description') ?? lang('one.noDescription');

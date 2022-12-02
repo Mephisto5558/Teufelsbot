@@ -11,7 +11,7 @@ module.exports = async function interactionCreate() {
     (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id)  //DO NOT REMOVE THIS STATEMENT!
   ) return;
 
-  const lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
+  const lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.localeCode, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
   const disabledList = this.guild.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
 
   if (disabledList.members && disabledList.members.includes(this.user.id)) return this.reply({ content: lang('events.notAllowed.member'), ephemeral: true });
@@ -20,7 +20,7 @@ module.exports = async function interactionCreate() {
 
   if (this.type == InteractionType.ApplicationCommandAutocomplete) {
     const
-      lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang || this.guild.preferredLocale.slice(0, 2), backupPath: `commands.${command.category.toLowerCase()}.${command.name}`, undefinedNotFound: true }),
+      lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.localeCode, backupPath: `commands.${command.category.toLowerCase()}.${command.name}`, undefinedNotFound: true }),
       response = v => ({ name: lang(`options.${this.options._group ? this.options._group + '.' : ''}${this.options._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });
 
     let { options } = command.fMerge();

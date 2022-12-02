@@ -29,7 +29,7 @@ module.exports = async function messageCreate() {
 
   const
     { config, economy, afkMessages } = this.guild.db,
-    locale = config?.lang || this.guild.preferredLocale.slice(0, 2) || this.guild.defaultSettings.config.lang,
+    locale = this.guild.localeCode,
     guildPrefix = this.client.botType == 'dev' ? config?.betaBotPrefix?.prefix || this.guild.defaultSettings.config.betaBotPrefix : config?.prefix?.prefix || this.guild.defaultSettings.config.prefix,
     originalContent = this.content = this.content.replaceAll('<@!', '<@'),
     runMessages = async () => {
