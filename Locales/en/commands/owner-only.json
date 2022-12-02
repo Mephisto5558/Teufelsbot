@@ -45,7 +45,8 @@
   },
   "restart": {
     "description": "Restarts the bot",
-    "message": "Restarting bot..."
+    "message": "Restarting bot...",
+    "success": "Successfully restated."
   },
   "setactivity": {
     "description": "Sets the bot's activity",
