@@ -36,7 +36,7 @@ module.exports = async function bankick(lang) {
     try { await target.send({ embeds: [embed] }); }
     catch { noMsg = true; }
 
-    await (this.commandName == 'kick' ? target.kick(reason) : this.guild.bans.create(target.id, { reason, deleteMessageDays: this.options.getNumber('delete_days_of_messages') }));
+    await (this.commandName == 'kick' ? target.kick(reason) : this.guild.bans.create(target.id, { reason, deleteMessageSeconds: 60 * 60 * 24 * this.options.getNumber('delete_days_of_messages') }));
 
     resEmbed.data.description += lang('success', target?.user?.tag ?? target.id);
     if (noMsg) resEmbed.data.description += lang('noDM');
