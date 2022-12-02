@@ -21,7 +21,7 @@ module.exports = async function buttonPressHandler(lang) {
       if (!this.member.manageable) return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.noPermMember'))] });
       if (role.comparePositionTo(this.guild.members.me.roles.highest) > -1) return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.noPermRole', role.id))] });
 
-      let count = this.component.label.match(/(\d*)\]$/)?.[1] || 0;
+      let count = parseInt(this.component.label.match(/(\d*)\]$/)?.[1])?.limit({ min: 0 }) || 0;
 
       switch (modus) {
         case 'add': {
