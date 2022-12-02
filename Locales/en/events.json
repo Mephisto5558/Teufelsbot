@@ -6,7 +6,7 @@
   "guildCommandOnly": "This command is only available in guilds!",
   "economyDisabled": "This command is an economy category command. The economy is not enabled in this guild. To start using the economy, an admin has to run `/economyconfig admin toggle`.",
   "economyNotInitialized": "This command is an economy category command. To start using the economy, run `/economyconfig user start`.",
-  "buttonPressOnCooldown": "You are pressing buttons to fast! Please wait `{sec}`s.",
+  "buttonPressOnCooldown": "This button is on cooldown! Try it again in `{time}`s.",
   "permissionDenied": {
     "embedTitle": "Insufficient Permissions",
     "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n`{permissions}`",

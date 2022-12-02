@@ -4,10 +4,9 @@ const
   I18nProvider = require('./I18nProvider.js');
 
 module.exports = async function buttonPressHandler(lang) {
-  const cooldown = await cooldowns.call(this, { name: 'buttonPressEvent', cooldowns: { user: 100 } });
+  const [feature, id, modus, data, ...args] = this.customId.split('.');
+  const cooldown = await cooldowns.call(this, { name: `buttonPressEvent.${id || Math.floor(Date.now() / 2e5)}` });
   if (cooldown) return this.reply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.buttonPressOnCooldown', cooldown));
-  
-  const [feature, , modus, data, ...args] = this.customId.split('.');
 
   switch (feature) {
     case 'selfrole': {

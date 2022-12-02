@@ -116,8 +116,7 @@ module.exports = {
           await msg.edit({ content: this.options.getString('content')?.replace('/n', '\n') || undefined, components: msg.components });
           this.editReply({ content: lang('addSuccess', msg.url), components: [] });
         }).on('end', collected => {
-          if (collected.size) return;
-          this.deleteReply().catch(() => { });
+          if (!collected.size) this.deleteReply().catch(() => { });
         });
     }
     else if (cmd == 'remove') {
