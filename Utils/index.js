@@ -1,5 +1,6 @@
 module.exports = {
   bankick: require('./bankick.js'),
+  buttonPressHandler: require('./buttonPressHandler'),
   Converter: require('./converter.js'),
   cooldowns: require('./cooldowns.js'),
   customReply: require('./customReply.js'),

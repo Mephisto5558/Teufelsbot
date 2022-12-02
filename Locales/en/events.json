@@ -4,13 +4,14 @@
   "afkEnd": "Welcome back, I removed your AFK. You have been AFK since <t:{timestamp}>.",
   "slashCommandOnly": "This command is only available as a slash command!",
   "guildCommandOnly": "This command is only available in guilds!",
+  "economyDisabled": "This command is an economy category command. The economy is not enabled in this guild. To start using the economy, an admin has to run `/economyconfig admin toggle`.",
+  "economyNotInitialized": "This command is an economy category command. To start using the economy, run `/economyconfig user start`.",
+  "buttonPressOnCooldown": "You are pressing buttons to fast! Please wait `{sec}`s.",
   "permissionDenied": {
     "embedTitle": "Insufficient Permissions",
     "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n`{permissions}`",
     "embedDescriptionBot": "I need the following permissions in this channel to run this command:\n`{permissions}`"
   },
-  "economyDisabled": "This command is an economy category command. The economy is not enabled in this guild. To start using the economy, an admin has to run `/economyconfig admin toggle`.",
-  "economyNotInitialized": "This command is an economy category command. To start using the economy, run `/economyconfig user start`.",
   "errorHandler": {
     "embedTitle": "Whoooops",
     "embedDescription": "An unexpected error occurred!\n\nError Type: `{name}`\nCommand: `{command}`",
@@ -30,5 +31,15 @@
     "error": "YOU RUINED IT AT **{lastNumber}**!! The next number is **1**.\n",
     "wrongNumber": "**Can't you count?! Wrong number.**",
     "sameUserTwice": "**You can't count two numbers in a row!**"
+  },
+  "selfrole": {
+    "embedTitle": "Self Role",
+    "roleNotFound": "The role bound to this button was not found!",
+    "noPermMember": "I don't have the permission to manage your roles!",
+    "noPermRole": "I don't have the permission to manage the <@&{role}> role!",
+    "hasRoleAlready": "You already have the <@&{role}> role!",
+    "addSuccess": "I gave you the <@&{role}> role.",
+    "missesRole": "I can't remove your <@&{role}> role because you don't have it!",
+    "removeSuccess": "I removed your <@&{role}> role."
   }
 }
