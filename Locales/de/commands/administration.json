@@ -26,7 +26,7 @@
             "description": "Auf welcher Reihe soll der Button sein? Jede Reihe hat ein Limit von 5 Buttons."
           },
           "button_color": {
-            "description": "Die Farbe, die der Button haben soll.",
+            "description": "Die Farbe, die der Button haben soll. Standart ist \"Blurple\".",
             "choices": {
               "1": "Blurple",
               "2": "Grau",
