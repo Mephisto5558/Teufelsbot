@@ -8,7 +8,7 @@ const
   getTime = () => new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false }),
   writeLogFile = (type, ...data) => appendFileSync(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data.join(' ')}\n`);
 
-console.warn('Overwriting the following variables and functions (if they exist):\n  Vanilla:    global.getDirectoriesSync, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind\n  Discord.js: CommandInteraction#customReply, Message#customReply, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#settings, AutocompleteInteraction#focused, Message#user, User#db, Guild#db, Guild#defaultSettings, GuildMember#db.');
+console.warn('Overwriting the following variables and functions (if they exist):\n  Vanilla:    global.getDirectoriesSync, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind\n  Discord.js: CommandInteraction#customReply, Message#customReply, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#settings, AutocompleteInteraction#focused, Message#user, User#db, Guild#db, Guild#defaultSettings, Guild#localeCode, GuildMember#db.');
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 global.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -63,7 +63,10 @@ Object.defineProperty(BaseClient.prototype, 'settings', {
   get() { return this.db?.get('botSettings') ?? {}; },
   set(val) { this.db.set('botSettings', val); },
 });
-Object.defineProperty(AutocompleteInteraction.prototype, 'focused', { get() { return this.options.getFocused(true); } });
+Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
+  get() { return this.options.getFocused(true); },
+  set(val) { this.options.data.find(e => e.focused).value = val; }
+});
 Object.defineProperty(Message.prototype, 'user', { get() { return this.author; } });
 Object.defineProperty(User.prototype, 'db', {
   get() { return this.client.db?.get('userSettings')?.[this.id] ?? {}; },
