@@ -35,7 +35,7 @@
             }
           },
           "hide_count": {
-            "description": "Zeige die Anzahl der vergeben Rollen nicht an. Dies erhöht die maximale Label Länge um 6 Zeichen."
+            "description": "Zeige die Anzahl der vergeben Rollen nicht an. Dies erhöht die maximale Label-Länge um 4 Zeichen."
           },
           "content": {
             "description": "Was soll anstelle der ursprüngliche Nachricht angezeigt werden? Nutze \"/n\" für Zeilenumbrüche."
