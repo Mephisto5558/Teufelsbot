@@ -101,7 +101,7 @@ module.exports = {
       if (emoji.id) button.data.emoji = emoji;
       else {
         button.data.label = this.options.getString('button_label');
-        if (!this.options.getBoolean('hide_count')) button.data.label = button.data.label.substring(0, 74) + ' **0**';
+        if (!this.options.getBoolean('hide_count')) button.data.label = button.data.label.substring(0, 76) + ' [0]';
       }
 
       (await this.editReply({ content: lang('preview', role.id), components: [new ActionRowBuilder({ components: [button] })] }))

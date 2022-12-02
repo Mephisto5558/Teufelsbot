@@ -35,7 +35,7 @@
             }
           },
           "hide_count": {
-            "description": "Hides the number of given roles next to the label. This increases the max. label length by 6."
+            "description": "Hides the number of given roles next to the label. This increases the max. label length by 4."
           },
           "content": {
             "description": "What should the message say? This overwrites the original message. Use \"/n\" for newlines."
