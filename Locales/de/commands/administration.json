@@ -1,4 +1,77 @@
 {
+  "selfrole": {
+    "description": "Verwalte Selfroles.",
+    "options": {
+      "add": {
+        "description": "Füge einen Selfrole-Button zu einer bestehenden Nachricht hinzu.",
+        "options": {
+          "message_id": {
+            "description": "Die ID der Nachricht, die du nutzen möchtest. Die Nachricht muss vom Bot sein."
+          },
+          "role": {
+            "description": "Die Rolle, die du verwenden möchtest. Stelle sicher, dass der Bot eine Rolle über dieser Rolle hat."
+          },
+          "button_label": {
+            "description": "Der Buttontext. Wenn er mit einem Emoji beginnt, wird nur der Emoji genutzt."
+          },
+          "modus": {
+            "description": "Was genau soll der Button tun? Die Standartoption ist \"Rolle umschalten\".",
+            "choices": {
+              "add": "Rolle hinzufügen",
+              "remove": "Rolle entfernen",
+              "toggle": "Rolle umschalten"
+            }
+          },
+          "button_row": {
+            "description": "Auf welcher Reihe soll der Button sein? Jede Reihe hat ein Limit von 5 Buttons."
+          },
+          "button_color": {
+            "description": "Die Farbe, die der Button haben soll.",
+            "choices": {
+              "1": "Blurple",
+              "2": "Grau",
+              "3": "Grün",
+              "4": "Rot"
+            }
+          },
+          "hide_count": {
+            "description": "Zeige die Anzahl der vergeben Rollen nicht an. Dies erhöht die maximale Label Länge um 6 Zeichen."
+          },
+          "content": {
+            "description": "Was soll anstelle der ursprüngliche Nachricht angezeigt werden? Nutze \"/n\" für Zeilenumbrüche."
+          },
+          "channel": {
+            "description": "Der Kanal, in dem sich die Nachricht befindet. Ist standardmäßig dieser Kanal."
+          }
+        }
+      },
+      "remove": {
+        "description": "Entferne eine Selfrole und der dazugehörige Button von einer Nachricht.",
+        "options": {
+          "message_id": {
+            "description": "Die ID der Nachricht, die du nutzen möchtest. Die Nachricht muss vom Bot sein."
+          },
+          "role": {
+            "description": "Die Rolle, die du entfernen möchtest. Dies wird ALLE Buttons entfernen, die diese Rolle verwalten."
+          },
+          "content": {
+            "description": "Was soll anstelle der ursprüngliche Nachricht angezeigt werden? Nutze \"/n\" für Zeilenumbrüche."
+          },
+          "channel": {
+            "description": "Der Kanal, in dem sich die Nachricht befindet. Ist standardmäßig dieser Kanal."
+          }
+        }
+      }
+    },
+    "invalidMsgId": "Die angegebene Nachrichten-ID wurde im ausgewählten Kanal nicht gefunden! Stelle sicher, dass du den korrekten Kanal ausgewählt hast.",
+    "notMsgOwner": "Ich kann Buttons nur zu von mir gesendeten Nachrichten hinzufügen! Du kannst `/say` oder `/embed` nutzen, um eine Nachricht zu erstellen.",
+    "noPerm": "Ich habe nicht die Berechtigung, die ausgewählte Rolle zu verwalten! Stelle sicher, dass meine höchste Rolle **über** der der ausgewählten Rolle ist.",
+    "limitReached": "Die fünfte Reihe in der ausgewählten Nachricht ist voll! Du kannst eine nicht volle Reihe mit der `button_row` Option auswählen.",
+    "rowFull": "Die ausgewählte Reihe ist voll! Reihen können maximal 5 Buttons haben.",
+    "preview": "So wird der Button aussehen. Er wird die <@&{role}> Rolle verwalten. Bitte drücke den Button innerhalb von 30 Sekunden um ihn zur ausgewählten Nachricht hinzuzufügen.",
+    "addSuccess": "Der Button wurde erfolgreich hinzugefügt! [Nachrichtenlink]({url})",
+    "removeSuccess": "Alle Buttons, die die ausgewählte Rolle verwalteten, wurden entfernt! [Nachrichtenlink]({url})"
+  },
   "setup": {
     "description": "Richtet den Bot ein",
     "options": {

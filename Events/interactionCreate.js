@@ -1,15 +1,22 @@
 const
-  { EmbedBuilder, Colors, InteractionType, ApplicationCommandOptionType } = require('discord.js'),
+  { EmbedBuilder, Colors, InteractionType, ApplicationCommandOptionType, ComponentType } = require('discord.js'),
   ownerOnlyFolders = require('../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'],
-  { I18nProvider, cooldowns, permissionTranslator, errorHandler } = require('../Utils');
+  { I18nProvider, cooldowns, permissionTranslator, errorHandler, buttonPressHandler } = require('../Utils');
+
+async function componentHandler(lang) {
+  switch (this.componentType) {
+    case ComponentType.Button: return buttonPressHandler.call(this, lang);
+  }
+}
 
 module.exports = async function interactionCreate() {
+  if (this.client.settings.blacklist?.includes(this.user.id)) return;
+  if (this.type == InteractionType.MessageComponent) return componentHandler.call(this, I18nProvider.__.bBind(I18nProvider, { locale: this.guild.localeCode }));
+
   const command = this.client.slashCommands.get(this.commandName);
 
-  if (
-    !command || this.client.settings.blacklist?.includes(this.user.id) ||
-    (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id)  //DO NOT REMOVE THIS STATEMENT!
-  ) return;
+  //DO NOT REMOVE THIS STATEMENT!
+  if (!command || (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id)) return;
 
   const lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.localeCode, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
   const disabledList = this.guild.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
