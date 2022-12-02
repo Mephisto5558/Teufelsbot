@@ -22,14 +22,14 @@ module.exports = async function buttonPressHandler(lang) {
       if (!this.member.manageable) return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.noPermMember'))] });
       if (role.comparePositionTo(this.guild.members.me.roles.highest) > -1) return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.noPermRole', role.id))] });
 
-      let count = this.component.label.match(/.*\*\*(\d*)\*\*/) || 0;
+      let count = this.component.label.match(/(\d*)\]$/)?.[1] || 0;
 
       switch (modus) {
         case 'add': {
           if (this.member.roles.cache.has(role.id)) return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.hasRoleAlready', role.id))] });
           await this.member.roles.add(role);
           if (args.includes('count') && this.component.label) {
-            this.component.data.label = this.component.label.replace(/.*(\*\*\d*\*\*)/, '**' + (count + 1) + '**');
+            this.component.data.label = this.component.label.replace(/\d*\]$/, `${count + 1}]`);
             this.message.edit({ components: this.message.components });
           }
           return this.editReply({ embeds: [successEmbed.setDescription(lang('events.selfrole.addSuccess', role.id))] });
@@ -39,7 +39,7 @@ module.exports = async function buttonPressHandler(lang) {
           if (!this.member.roles.cache.has(role.id)) return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.missesRole', role.id))] });
           await this.member.roles.remove(role);
           if (args.includes('count') && this.component.label) {
-            this.component.data.label = this.component.label.replace(/.*(\*\*\d*\*\*)/, '**' + (count - 1) + '**');
+            this.component.data.label = this.component.label.replace(/\d*\]$/, `${count - 1}]`);
             this.message.edit({ components: this.message.components });
           }
           return this.editReply({ embeds: [successEmbed.setDescription(lang('events.selfrole.removeSuccess', role.id))] });
@@ -58,7 +58,7 @@ module.exports = async function buttonPressHandler(lang) {
           }
 
           if (args.includes('count') && this.component.label) {
-            this.component.data.label = this.component.label.replace(/.*(\*\*\d*\*\*)/, '**' + count + '**');
+            this.component.data.label = this.component.label.replace(/\d*\]$/, `${count}]`);
             this.message.edit({ components: this.message.components });
           }
           return;
