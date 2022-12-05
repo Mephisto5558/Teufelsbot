@@ -31,7 +31,7 @@ Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }
   }
   return output;
 };
-Object.prototype.filterEmpty = function filterEmpty() { return Object.fromEntries(Object.entries(this).flatMap(([k, v]) => ((val = Object(v) !== v ? v : v.filterEmpty()) => !(val == null || (Object(val) === val && Object.keys(val).length == 0)) ? [[k, val]] : [])())); };
+Object.prototype.filterEmpty = function filterEmpty() { return Object.fromEntries(Object.entries(this).filter(([, v]) => !(v == null || (Object(v) === v && Object.keys(v).length == 0))).map(([k, v]) => [k, v instanceof Object ? v.filterEmpty() : v]));};
 Function.prototype.bBind = function bBind(thisArg, ...args) {
   const bound = this.bind(thisArg, ...args);
   bound.__targetFunction__ = this;
