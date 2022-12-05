@@ -1,15 +1,12 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 const validateURL = url => {
-  try { return new URL(url).toString(); }
-  catch {
-    try { return new URL(`https://${url}`).toString(); }
-    catch { return false; }
-  }
+  try { return !!new URL(url); }
+  catch (error) { return !!new URL(`https://${url}`); }
 };
 
 module.exports = {
   name: 'button',
-  cooldowns: {user: 500 },
+  cooldowns: { user: 500 },
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,
