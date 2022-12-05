@@ -56,8 +56,9 @@ module.exports = class DB {
 
     this.schema.findOne({ key: db }, (err, data) => {
       if (err) throw err;
-      if (data && typeof data.value != 'object') throw new Error(`data.value in db must be typeof object! Found ${typeof data.value}.`);
-      if (!data) data = new this.schema({ key, value: {} });
+      if (!data) data = new this.schema({ key: db, value: {} });
+      if (typeof data.value != 'object') throw new Error(`data.value in db must be typeof object! Found ${typeof data.value}.`);
+
       DB.mergeWithFlat(data.value, key, value);
 
       data.markModified(`value.${key}`);

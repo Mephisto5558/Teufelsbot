@@ -36,28 +36,28 @@ class Converter {
   }
 
   static binary = {
-    toDecimal: [(input, i) => input.substring(i, i + 8).toString(10).padStart(3, '0'), 8],
-    toHex: [(input, i) => parseInt(input.substring(i, i + 8), 2).toString(16), 8],
-    toOctal: [(input, i) => parseInt(input.substring(i, i + 8), 2).toString(8), 8],
-    toText: [(input, i) => String.fromCharCode(parseInt(input.substring(i, i + 8), 2)), 8]
+    toDecimal: [(input, i) => input.slice(i, i + 8).toString(10).padStart(3, '0'), 8],
+    toHex: [(input, i) => parseInt(input.slice(i, i + 8), 2).toString(16), 8],
+    toOctal: [(input, i) => parseInt(input.slice(i, i + 8), 2).toString(8), 8],
+    toText: [(input, i) => String.fromCharCode(parseInt(input.slice(i, i + 8), 2)), 8]
   };
   static decimal = {
-    toBinary: [(input, i) => parseInt(input.substring(i, i + 3), 10).toString(2).padStart(8, '0'), 3],
-    toHex: [(input, i) => input.substring(i, i + 3).toString(16), 3],
-    toOctal: [(input, i) => input.substring(i, i + 3).toString(8), 3],
-    toText: [(input, i) => String.fromCharCode(input.substring(i, i + 3)), 3]
+    toBinary: [(input, i) => parseInt(input.slice(i, i + 3), 10).toString(2).padStart(8, '0'), 3],
+    toHex: [(input, i) => input.slice(i, i + 3).toString(16), 3],
+    toOctal: [(input, i) => input.slice(i, i + 3).toString(8), 3],
+    toText: [(input, i) => String.fromCharCode(input.slice(i, i + 3)), 3]
   };
   static hex = {
-    toBinary: [(input, i) => parseInt(input.substring(i, i + 2), 16).toString(2).padStart(8, '0'), 2],
-    toDecimal: [(input, i) => parseInt(input.substring(i, i + 2), 16).padStart(3, '0'), 2],
-    toOctal: [(input, i) => parseInt(input.substring(i, i + 2), 16).toString(8), 2],
-    toText: [(input, i) => String.fromCharCode(parseInt(input.substring(i, i + 2), 16)), 2]
+    toBinary: [(input, i) => parseInt(input.slice(i, i + 2), 16).toString(2).padStart(8, '0'), 2],
+    toDecimal: [(input, i) => parseInt(input.slice(i, i + 2), 16).padStart(3, '0'), 2],
+    toOctal: [(input, i) => parseInt(input.slice(i, i + 2), 16).toString(8), 2],
+    toText: [(input, i) => String.fromCharCode(parseInt(input.slice(i, i + 2), 16)), 2]
   };
   static octal = {
-    toBinary: [(input, i) => parseInt(input.substring(i, i + 3), 8).toString(2).padStart(8, '0'), 3],
-    toDecimal: [(input, i) => parseInt(input.substring(i, i + 3), 8).padStart(3, '0'), 3],
-    toHex: [(input, i) => input.substring(i, i + 3).toString(16), 3],
-    toText: [(input, i) => String.fromCharCode(parseInt(input.substring(i, i + 3), 8)), 3]
+    toBinary: [(input, i) => parseInt(input.slice(i, i + 3), 8).toString(2).padStart(8, '0'), 3],
+    toDecimal: [(input, i) => parseInt(input.slice(i, i + 3), 8).padStart(3, '0'), 3],
+    toHex: [(input, i) => input.slice(i, i + 3).toString(16), 3],
+    toText: [(input, i) => String.fromCharCode(parseInt(input.slice(i, i + 3), 8)), 3]
   };
   static text = {
     toBinary: [(input, i) => input[i].charCodeAt(0).toString(2).padStart(8, '0')],
