@@ -22,7 +22,7 @@
     "ffmpeg-static": "^5.1.0",
     "mathjs": "^11.4.0",
     "mongodb": "^4.12.1",
-    "mongoose": "^6.7.5",
+    "mongoose": "^6.8.0",
     "node": "^19.2.0",
     "sodium": "^3.0.2",
     "wikijs": "^6.4.0"
