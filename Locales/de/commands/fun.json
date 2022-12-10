@@ -366,6 +366,26 @@
     "noAPIAvailable": "Leider ist zur Zeit keine API verfügbar. Bitte versuche es später nochmal.",
     "embedTitle": "Ist das witzig?"
   },
+  "pokedex": {
+    "description": "Zeigt Informationen über Pokémon an.",
+    "usage": "PREFIX Command: pokedex <pokemon>",
+    "options": {
+      "pokémon": {
+        "description": "Nenne ein Pokémon"
+      }
+    },
+    "invalidJson": "Die API hat mit ungültigen Daten geantwortet.",
+    "notFound": "Ich konnte kein Pokémon mit diesem Namen finden!",
+    "error": "Ein Fehler ist aufgetreten.",
+    "types": "Type(en)",
+    "abilities": "Fähigkeiten",
+    "genderRatio": "Geschlechtsverhältnis",
+    "noGender": "Geschlechtslos",
+    "heightWeight": "Höhe und Gewicht",
+    "evolutionLine": "Evolutionäre Linie",
+    "currentStage": "\nAktuelles Entwicklungsstadium: {stage}",
+    "gen": "Generation"
+  },
   "reddit": {
     "description": "Verschiedene Reddit-Commands",
     "usage": "PREFIX Command: reddit [subreddit] [sortierung]",
