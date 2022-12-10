@@ -19,16 +19,13 @@ module.exports = {
       name: 'convert_to',
       type: 'String',
       required: true,
-      choices: Object.entries(Converter).reduce((list, [e]) => {
-        list.push({ name: e, value: e.charAt(0).toUpperCase() + e.slice(1) });
-        return list;
-      }, []),
+      choices: Converter.validConvertToOptions.map(e => ({ name: e, value: e.charAt(0).toUpperCase() + e.slice(1) })),
     },
     { name: 'is_octal', type: 'Boolean' },
     { name: 'with_spaces', type: 'Boolean' },
     { name: 'convert_spaces', type: 'Boolean' },
     { name: 'convert_letters_and_digits_only', type: 'Boolean' }
-  ],
+  ], beta: true,
 
   run: async function (lang) {
     const convertTo = this.options.getString('convert_to');
@@ -39,9 +36,7 @@ module.exports = {
       type: this.options.getBoolean('is_octal') && 'octal'
     });
 
-    if (converter.type.toLowerCase() == convertTo.toLowerCase())
-      return this.editReply(lang('convertToSame', { inputType: converter.type.toUpperCase(), outputType: convertTo.toUpperCase() }));
-    const converted = await converter[`to${convertTo}`]();
+    const converted = converter[`to${convertTo}`]();
     const output = lang('success', { inputType: converter.type.toUpperCase(), outputType: convertTo.toUpperCase() });
 
     if (output.length + converted.length < 2000) this.editReply(output + converted);
