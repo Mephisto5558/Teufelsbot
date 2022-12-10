@@ -11,7 +11,7 @@ class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
   }
 
   editGiveaway(messageId, giveawayData) {
-    const data = this.db.get('giveaways').filter(e => e.messageId != messageId);
+    const data = this.client.db.get('giveaways').filter(e => e.messageId != messageId);
     data.push(giveawayData);
 
     this.client.db.set('giveaways', data);
