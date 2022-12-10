@@ -90,10 +90,9 @@ module.exports = class DB {
     this.collection.delete(key);
   }
 
-  /**@param {{}}obj gets mutated! @param {string}key@example DB.mergeWithFlat({a: {b:1}}, 'a.c', 2):{a: {b:1, c:2}}*/
+  /**@param {{}}obj gets mutated! @param {string}key@example DB.mergeWithFlat({a: {b:1}}, 'a.c', 2) @returns reduce return value */
   static mergeWithFlat(obj, key, val) {
     const keys = key.split('.');
-    keys.reduce((acc, e, i) => acc[e] = keys.length - 1 == i ? val : acc[e] ?? {}, obj);
-    return obj;
+    return keys.reduce((acc, e, i) => acc[e] = keys.length - 1 == i ? val : acc[e] ?? {}, obj);
   }
 };
