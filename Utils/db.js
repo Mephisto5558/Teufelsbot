@@ -1,5 +1,5 @@
 const
-  Mongoose = require('mongoose').default,
+  Mongoose = require('mongoose').default.set('strictQuery', true),
   { Collection } = require('discord.js');
 
 module.exports = class DB {
@@ -21,7 +21,7 @@ module.exports = class DB {
   /**Cache*/
   collection = new Collection();
 
-  /** @returns {Promise<DB>}DB*/
+  /**@returns {Promise<DB>}DB*/
   async fetchAll() {
     for (const { key, value } of await this.schema.find()) this.collection.set(key, value);
     return this;
