@@ -102,7 +102,6 @@
         "description": "Do you want to convert only letters and digits? Default: false"
       }
     },
-    "convertToSame": "Converting `{inputType}` to `{outputType}` would be a waste of time.\nStop wasting my time D:<\n||If your input is not {inputType}, than make sure it is valid and if it is, message the dev. Also make sure you selected the `is_octal` option if your input is octal.||",
     "success": "```Converted {inputType} to {outputType}: ```\n"
   },
   "embed": {

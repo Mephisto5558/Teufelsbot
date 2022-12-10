@@ -102,7 +102,6 @@
         "description": "Möchtest du nur Buchstaben und Zahlen konvertieren? Standart: False"
       }
     },
-    "convertToSame": "`{inputType}` zu `{outputType}` zu konvertieren wäre Zeitverschwendung.\nHör auf meine zeit zu verschwenden.\n||Wenn dein Text nicht {inputType} war, dann stelle sicher, dass er gültig ist und wenn das der Fall ist, informiere den Dev. Stelle außerdem sicher, dass du die `is_octal` Option aktiviert hast, wenn dein Text oktal ist.||",
     "success": "```Konvertierte {inputType} zu {outputType}: ```\n"
   },
   "embed": {
