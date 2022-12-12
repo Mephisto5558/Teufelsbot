@@ -127,11 +127,6 @@ module.exports = async function slashCommandHandler(syncGuild) {
         }
       }
     }
-
-    for (const guild of await this.guilds.fetch()) {
-      await this.application.commands.set([], guild[0]);
-      this.log(`Cleared Slash Commands for Guild ${guild[0]}`);
-    }
   }
 
   for (const [commandName, command] of this.slashCommands) {
