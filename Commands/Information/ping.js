@@ -16,23 +16,26 @@ module.exports = {
         description: lang(average ? 'average.loading' : 'global.loading'),
         color: Colors.Green
       }),
-      messagePing = Date.now(),
+      startMessagePing = Date.now(),
       msg = await this.customReply({ embeds: [embed] }),
-      endMessagePing = Date.now() - messagePing;
+      endMessagePing = Date.now() - startMessagePing;
 
     if (average) {
-      let pings = [], i;
+      const pings = [], numPings = 60;
 
-      for (i = 0; i <= 59; i++) {
+      for (let i = 0; i < numPings; i++) {
         pings.push(this.client.ws.ping);
         await sleep(1000);
       }
 
       pings.sort((a, b) => a - b);
 
-      const averagePing = Math.round(pings.reduce((a, b) => a + b) / i * 100) / 100;
+      const averagePing = Math.round(pings.reduce((a, b) => a + b) / numPings * 100) / 100;
 
-      embed.data.description = lang('average.embedDescription', { pings: pings.length, lowest: pings[0], heightest: pings[pings.length - 1], average: averagePing });
+      embed.data.description = lang('average.embedDescription', {
+        pings: pings.length, average: averagePing,
+        lowest: pings[0], heightest: pings[pings.length - 1]
+      });
     }
     else {
       embed.data.fields = [
