@@ -32,7 +32,7 @@
     "description": "reloads a file or category",
     "usage": "PREFIX Command: reload <command | \"*\">",
     "invalidCommand": "This is not a valid command.",
-    "error": "An error occurred while reloading:\n> {error}\nCheck the console for more information.",
+    "error": "An error occurred while reloading:\n```{error}```\nCheck the console for more information.",
     "noneReloaded": "No commands have been reloaded.",
     "reloaded": "The following `{count}` command(s) has/have been reloaded:\n`{commands}"
   },
