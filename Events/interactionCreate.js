@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, InteractionType, ApplicationCommandOptionType, ComponentType } = require('discord.js'),
-  ownerOnlyFolders = require('../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'],
-  { I18nProvider, cooldowns, permissionTranslator, errorHandler, buttonPressHandler } = require('../Utils');
+  { I18nProvider, cooldowns, permissionTranslator, errorHandler, buttonPressHandler, getOwnerOnlyFolders } = require('../Utils'),
+  ownerOnlyFolders = getOwnerOnlyFolders();
 
 async function componentHandler(lang) {
   switch (this.componentType) {
