@@ -11,21 +11,21 @@ const
   };
 
 function checkMsg(msg, getStr) {
-  const options = this.options?.data.map(e => e.name);
+  const options = this.options?.data.map(e => e.name) || [];
 
-  return !!(msg.bulkDeleteable &&
+  return !!(msg.bulkDeletable &&
     !(msg.system && Constants.ThreadChannelTypes.includes(msg.channel.type)) && //This is to prevent "DiscordAPIError[50021]: Cannot execute action on a system message". discord.js currently returns true on bulkDeleteable and deleteable for thread system messages.
-    !(options?.includes('member') && msg.user.id != this.options.getUser('member').id) &&
-    !(options?.includes('user_type') && (!msg.user.bot && getStr('user_type') == 'human' || msg.user.bot && getStr('user_type') == 'bot')) &&
-    !(options?.includes('only_containing') && filterCheck[getStr('only_containing')](msg)) &&
-    !(options?.includes('caps_percentage') && (msg.content.replace(/[a-z]/g, '').length / msg.content.length * 100 < this.options.getNumber('caps_percentage'))) &&
-    !(options?.includes('contains') && (!msg.content.includes(getStr('contains')) && !msg.embeds?.find(e => e.description.includes(getStr('contains'))))) &&
-    !(options?.includes('does_not_contain') && (msg.content.includes(getStr('does_not_contain')) || msg.embeds?.find(e => e.description.includes(getStr('does_not_contain'))))) &&
-    !(options?.includes('starts_with') && (!msg.content.statsWith(getStr('starts_with')) && !msg.embeds?.find(e => e.description.startsWith(getStr('starts_with'))))) &&
-    !(options?.includes('not_starts_with') && (msg.content.statsWith(getStr('not_starts_with')) || msg.embeds?.find(e => e.description.startsWith(getStr('not_starts_with'))))) &&
-    !(options?.includes('ends_with') && (!msg.content.endsWith(getStr('ends_with')) && !msg.embeds?.find(e => e.description.endsWith(getStr('ends_with'))))) &&
-    !(options?.includes('not_ends_with') && (msg.content.endsWith(getStr('not_ends_with')) || msg.embeds?.find(e => e.description.endsWith(getStr('not_ends_with'))))) &&
-    !(this.options?.getBoolean('remove_pinned') || msg.pinned));
+    (!options.includes('member') || msg.user.id == this.options.getUser('member').id) &&
+    (!options.includes('user_type') || getStr('user_type') == (msg.user.bot ? 'bot' : 'human')) &&
+    (!options.includes('only_containing') || filterCheck[getStr('only_containing')](msg)) &&
+    (!options.includes('caps_percentage') || (this.options.getNumber('caps_percentage') <= msg.content.replace(/[a-z]/g, '').length / msg.content.length * 100)) &&
+    (!options.includes('contains') || !(msg.content.includes(getStr('contains')) || msg.embeds?.find(e => e.description.includes(getStr('contains'))))) &&
+    (!options.includes('does_not_contain') || !(msg.content.includes(getStr('does_not_contain')) || msg.embeds?.find(e => e.description.includes(getStr('does_not_contain'))))) &&
+    (!options.includes('starts_with') || !(msg.content.statsWith(getStr('starts_with')) || msg.embeds?.find(e => e.description.startsWith(getStr('starts_with'))))) &&
+    (!options.includes('not_starts_with') || !(msg.content.statsWith(getStr('not_starts_with')) || msg.embeds?.find(e => e.description.startsWith(getStr('not_starts_with'))))) &&
+    (!options.includes('ends_with') || !(msg.content.endsWith(getStr('ends_with')) || msg.embeds?.find(e => e.description.endsWith(getStr('ends_with'))))) &&
+    (!options.includes('not_ends_with') || !(msg.content.endsWith(getStr('not_ends_with')) || msg.embeds?.find(e => e.description.endsWith(getStr('not_ends_with'))))) &&
+    (!this.options?.getBoolean('remove_pinned') || msg.pinned));
 }
 
 module.exports = {
@@ -101,7 +101,7 @@ module.exports = {
     if (!messages?.length) return this.customReply(lang('noneFound'));
 
     for (let i = 0; i < messages.length; i += 100) {
-      deleted += (await channel.bulkDelete(messages.slice(i, i + 100).limit({ max: 100 })))?.size ?? 0;
+      deleted += (await channel.bulkDelete(messages.slice(i, i + 100)))?.size ?? 0;
       if (messages[i + 1]) await sleep(2000);
     }
 
