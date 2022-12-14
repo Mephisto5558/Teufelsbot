@@ -26,7 +26,10 @@ class I18nProvider {
 
     if (!filePath) return;
 
-    for (const item of readdirSync(filePath, { withFileTypes: true })) {
+    const items = readdirSync(filePath, { withFileTypes: true });
+    if (items.some(e => e.name == '.ignore')) return;
+
+    for (const item of items) {
       if (item.isFile() && item.name.endsWith('.json')) data[item.name.replace('.json', '')] = JSON.parse(readFileSync(`${filePath}/${item.name}`, 'utf8'));
       else {
         data[item.name] = {};
