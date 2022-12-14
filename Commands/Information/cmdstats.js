@@ -25,7 +25,7 @@ module.exports = {
 
     if (command) {
       const id = this.client.application.commands.cache.find(e => e.name == command)?.id;
-      embed.data.description = lang('embedDescriptionOne', { command: id ? `</${command}:id>` : `\`${command}\``, count: this.client.settings.stats?.[command] ?? 0 });
+      embed.data.description = lang('embedDescriptionOne', { command: id ? `</${command}:${id}>` : `\`${command}\``, count: this.client.settings.stats?.[command] ?? 0 });
     }
     else {
       embed.data.description = lang('embedDescriptionMany');
