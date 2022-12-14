@@ -42,15 +42,21 @@ module.exports = {
     const commandArray = new Collection([...this.client.prefixCommands, ...this.client.slashCommands]);
     let reloadedArray = [];
 
-    if (this.args[0] == '*') {
-      for (const [, command] of commandArray)
-        await reloadCommand.call(this.client, command, reloadedArray);
-    }
-    else {
-      const command = commandArray.get(this.args[0]);
-      if (!command) return this.reply(lang('invalidCommand'));
+    try {
+      if (this.args[0] == '*') {
+        for (const [, command] of commandArray)
+          await reloadCommand.call(this.client, command, reloadedArray);
+      }
+      else {
+        const command = commandArray.get(this.args[0]);
+        if (!command) return this.reply(lang('invalidCommand'));
 
-      await reloadCommand.call(this.client, command, reloadedArray);
+        await reloadCommand.call(this.client, command, reloadedArray);
+      }
+    }
+    catch (err) {
+      this.customReply(lang('error', err.message));
+      this.client.error('Error while trying to reload a command:\n', err);
     }
 
     const commands = reloadedArray.join('`, `');
