@@ -25,7 +25,7 @@ function checkMsg(msg, getStr) {
     !(options?.includes('not_starts_with') && (msg.content.statsWith(getStr('not_starts_with')) || msg.embeds?.find(e => e.description.startsWith(getStr('not_starts_with'))))) &&
     !(options?.includes('ends_with') && (!msg.content.endsWith(getStr('ends_with')) && !msg.embeds?.find(e => e.description.endsWith(getStr('ends_with'))))) &&
     !(options?.includes('not_ends_with') && (msg.content.endsWith(getStr('not_ends_with')) || msg.embeds?.find(e => e.description.endsWith(getStr('not_ends_with'))))) &&
-    !(this.options.getBoolean('remove_pinned') || !msg.pinned));
+    !(this.options?.getBoolean('remove_pinned') || msg.pinned));
 }
 
 module.exports = {
