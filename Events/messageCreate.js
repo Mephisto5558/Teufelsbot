@@ -1,7 +1,7 @@
 const
-  { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits, Message } = require('discord.js'), // eslint-disable-line no-unused-vars
-  ownerOnlyFolders = require('../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'],
-  { I18nProvider, cooldowns, permissionTranslator, errorHandler } = require('../Utils');
+  { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits } = require('discord.js'),
+  { I18nProvider, cooldowns, permissionTranslator, errorHandler, getOwnerOnlyFolders } = require('../Utils'),
+  ownerOnlyFolders = getOwnerOnlyFolders();
 
 let prefixLength;
 
@@ -21,7 +21,7 @@ async function runEco({ economy: { gaining: defaultGaining } }, economy = {}) {
   }
 }
 
-/**@this {Message}*/
+/**@this {import('discord.js').Message}*/
 module.exports = async function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
   if (this.crosspostable && this.guild.db?.config?.autopublish) this.crosspost();
