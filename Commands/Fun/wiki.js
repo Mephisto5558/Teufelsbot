@@ -2,9 +2,7 @@ const
   Wiki = require('wikijs').default,
   { EmbedBuilder, Colors } = require('discord.js'),
   { Repo } = require('../../config.json').Github,
-  options = {
-    headers: { 'User-Agent': `Discord Bot (${Repo})` }
-  };
+  options = { headers: { 'User-Agent': `Discord Bot (${Repo})` } };
 
 module.exports = {
   name: 'wiki',
@@ -21,9 +19,9 @@ module.exports = {
 
   run: async function (lang) {
     const query = this.options?.getString('query') || this.content;
-    let data, joined = '';
-
     const message = await this.customReply(lang('global.loading'));
+
+    let data;
 
     try {
       if (query) data = await Wiki(options).search(query, 1);
@@ -50,24 +48,20 @@ module.exports = {
             .map(([k, v]) => ({ name: k, value: v.toString(), inline: true }))
         });
 
-      if (summary.length < 2049) embed.data.description = summary.toString();
+      if (summary.length < 2049) embed.data.description = summary;
 
       await message.edit({ content: '', embeds: [embed] });
       if (!embed.data.description) return;
 
-      let i = 0;
-      for (const paragraph of summary.split('\n')) {
-        if (i > 3) {
-          joined += lang('visitWiki');
-          break;
+      let joined = summary.split('\n').reduce((acc, e) => {
+        if (acc.length >= 2000) {
+          this.customReply(acc);
+          acc = '';
         }
-        if (joined.length < 2000) joined += `${paragraph}\n`;
-        else {
-          this.customReply(joined);
-          joined = `${paragraph}\n`;
-          i++;
-        }
-      }
+        return acc + `${e}\n`;
+      }, '');
+
+      if (joined.split('\n').length > 3) joined += lang('visitWiki');
 
       this.customReply(joined);
     }
