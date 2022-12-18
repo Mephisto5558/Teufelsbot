@@ -61,13 +61,11 @@ module.exports = {
           id: parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) + 1 || 1,
           trigger: this.options.getString('trigger'),
           response: this.options.getString('response'),
-          wildcard: this.options.getBoolean('wildcard') !== false
+          wildcard: this.options.getBoolean('wildcard') ?? false
         };
 
         this.client.db.update('guildSettings', `${this.guild.id}.triggers`, [...oldData, data]);
-
-        this.editReply(lang('saved', data.trigger));
-        break;
+        return this.editReply(lang('saved', data.trigger));
       }
 
       case 'delete': {
@@ -77,9 +75,7 @@ module.exports = {
         if (filtered.length == oldData.length) return this.editReply(lang('idNotFound'));
 
         this.client.db.update('guildSettings', `${this.guild.id}.triggers`, filtered);
-
-        this.editReply(lang('deletedOne', id));
-        break;
+        return this.editReply(lang('deletedOne', id));
       }
 
       case 'clear': {
@@ -87,9 +83,7 @@ module.exports = {
         if (!oldData.length) return this.editReply(lang('noneFound'));
 
         this.client.db.update('guildSettings', `${this.guild.id}.triggers`, []);
-
-        this.editReply(lang('deletedAll', oldData.length));
-        break;
+        return this.editReply(lang('deletedAll', oldData.length));
       }
 
       case 'get': {
@@ -100,7 +94,7 @@ module.exports = {
           color: Colors.Blue
         });
 
-        if (id || id == 0 || query) {
+        if (id >= 0 || query) {
           const data = oldData.filter(e => query ? e.trigger.toLowerCase().includes(query) : e.id == id);
           if (!data.trigger) return this.editReply(lang('notFound'));
 
@@ -116,36 +110,35 @@ module.exports = {
 
           return this.editReply({ embeds: [embed] });
         }
-        else {
-          if (this.options.getBoolean('short')) {
-            let description = '';
-            for (const { id, trigger, response, wildcard } of oldData) {
-              if (description.length >= 3800) break;
 
-              description += lang('longEmbedDescription', {
-                id, wildcard: !!wildcard,
-                trigger: trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...',
-                response: response.length < 20 ? response : response.substring(0, 17) + '...'
-              });
-            }
+        if (this.options.getBoolean('short')) {
+          let description = '';
+          for (const { id, trigger, response, wildcard } of oldData) {
+            if (description.length >= 3800) break;
 
-            embed.data.description = description;
-          }
-          else {
-            embed.data.description = oldData.length > 25 ? lang('first25') : ' ';
-            embed.data.fields = oldData.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
-              name: lang('shortFieldName', id),
-              value: lang('shortFieldValue', {
-                trigger: trigger.length < 200 ? trigger : trigger.subsstring(0, 197) + '...',
-                response: response.length < 200 ? response : response.subsstring(0, 197) + '...',
-                wildcard: !!wildcard
-              }),
-              inline: true
-            }));
+            description += lang('longEmbedDescription', {
+              id, wildcard: !!wildcard,
+              trigger: trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...',
+              response: response.length < 20 ? response : response.substring(0, 17) + '...'
+            });
           }
 
-          this.editReply({ embeds: [embed] });
+          embed.data.description = description;
         }
+        else {
+          embed.data.description = oldData.length > 25 ? lang('first25') : ' ';
+          embed.data.fields = oldData.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
+            name: lang('shortFieldName', id),
+            value: lang('shortFieldValue', {
+              trigger: trigger.length < 200 ? trigger : trigger.subsstring(0, 197) + '...',
+              response: response.length < 200 ? response : response.subsstring(0, 197) + '...',
+              wildcard: !!wildcard
+            }),
+            inline: true
+          }));
+        }
+
+        this.editReply({ embeds: [embed] });
       }
     }
   }
