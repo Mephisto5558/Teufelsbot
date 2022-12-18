@@ -87,7 +87,15 @@
         "description": "Den Text, den du konvertiren möchtest"
       },
       "convert_to": {
-        "description": "Der Typ, in den du konvertieren möchtest"
+        "description": "Der Typ, in den du konvertieren möchtest",
+        "choices": {
+          "binary": "Binär",
+          "decimal": "Dezimal",
+          "hex": "Hexadezimal",
+          "morse": "Morsecode",
+          "octal": "Oktal",
+          "text": "Text"
+        }
       },
       "is_octal": {
         "description": "Setzte dies zu True, wenn dein Text oktal ist, ansonsten wird er als dezimal erkannt."
