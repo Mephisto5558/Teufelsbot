@@ -46,7 +46,7 @@ module.exports = {
       ]
     },
     { name: 'remove', type: 'Subcommand' }
-  ], beta: true,
+  ],
 
   run: async function (lang) {
     const
