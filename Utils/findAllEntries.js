@@ -1,12 +1,19 @@
-/**@this {{}}@param {string}key@returns {{}}object with found entries*/
-module.exports = function findAllEntries(key) {
+/**@param {{}}obj@param {string}key@returns {{}}object with found entries*/
+module.exports = function findAllEntries(obj, key) {
+  if (!obj || !key) return;
+  let counter = 0;
   const entryList = {};
-  for (const entry of Object.keys(this)) {
-    if (entry == key) entryList[key] = this[key];
-    else if (typeof this[entry] === 'object') {
-      const data = findAllEntries.call(this[entry], key);
-      if (Object.keys(data).length) entryList[entry] = data;
+  const findEntries = obj => {
+    if (counter++ > 1000) return;
+    for (const [oKey, oVal] of Object.entries(obj)) {
+      if (oKey == key) entryList[key] = oVal;
+      else if (typeof oVal === 'object') {
+        const data = findAllEntries(oVal, key);
+        if (Object.keys(data).length) entryList[oKey] = data;
+      }
     }
-  }
+  };
+
+  findEntries(obj);
   return entryList;
 };

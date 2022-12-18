@@ -85,6 +85,6 @@ Object.defineProperty(Guild.prototype, 'localeCode', {
   set(val) { this.client.db.update('guildSettings', 'config.lang', val); }
 });
 Object.defineProperty(GuildMember.prototype, 'db', {
-  get() { return findAllEntries.call(this.guild.db, this.id); },
+  get() { return findAllEntries(this.guild.db, this.id); },
   set() { throw new Error('You cannot set a value to GuildMember#db!'); }
 });
