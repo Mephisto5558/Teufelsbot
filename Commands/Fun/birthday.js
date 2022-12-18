@@ -46,7 +46,7 @@ module.exports = {
       ]
     },
     { name: 'remove', type: 'Subcommand' }
-  ],
+  ], beta: true,
 
   run: async function (lang) {
     const
@@ -85,14 +85,14 @@ module.exports = {
         if (target) {
           embed.data.title = lang('getUser.embedTitle', target.user.tag);
 
-          const data = this.user.db.birthday?.split('/');
+          const data = target.user.db.birthday?.split('/');
 
-          if (!data) newData = lang('getUser.notFound', target.displayName);
-          else {
+          if (data) {
             const age = getAge(data) + 1;
             newData = lang('getUser.date', { user: target.displayName, month: lang(`months.${data[1]}`), day: data[2] });
             if (age < currentYear) newData += lang('getUser.newAge', age);
           }
+          else newData = lang('getUser.notFound', target.displayName);
         }
         else {
           embed.data.title = lang('getAll.embedTitle');
@@ -124,11 +124,10 @@ module.exports = {
 
         embed.data.description = newData || lang('getAll.notFound');
 
-        if (doNotHide) {
-          this.channel.send({ embeds: [embed] });
-          return this.editReply(lang('global.messageSent'));
-        }
-        return this.editReply({ embeds: [embed] });
+        if (!doNotHide) return this.editReply({ embeds: [embed] });
+
+        this.channel.send({ embeds: [embed] });
+        return this.editReply(lang('global.messageSent'));
       }
     }
   }
