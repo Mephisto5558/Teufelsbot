@@ -54,7 +54,6 @@ module.exports = async function messageCreate() {
         this.react('✅');
       }
 
-      const userSettings = this.client.db.get('userSettings');
       const afk = afkMessages?.[this.user.id]?.message ? afkMessages[this.user.id] : this.user.db.afkMessage;
       if (afk?.message && !originalContent.toLowerCase().includes('--afkignore')) {
         this.client.db.update('userSettings', `${this.user.id}.afkMessage`, {});
@@ -64,8 +63,8 @@ module.exports = async function messageCreate() {
       }
 
       if (!(await cooldowns.call(this, { name: 'afkMsg', cooldowns: { user: 1000 } }))) {
-        for (const member of this.mentions.members.filter((_, e) => (afkMessages?.[e]?.message || userSettings[e]?.afkMessage?.message) && e != this.user.id).values()) {
-          const afkMsg = afkMessages?.[member.id] || userSettings[member.id]?.afkMessage;
+        for (const member of this.mentions.members.filter(e => e.id != this.user.id && afkMessages?.[e.id]?.message || e.user.db.afkMessage?.message).values()) {
+          const afkMsg = afkMessages?.[member.id]?.message ? afkMessages[member.id] : member.user.db.afkMessage;
           this.customReply(I18nProvider.__({ locale }, 'events.afkMsg', { member: member.displayName.startsWith('[AFK] ') ? member.displayName.substring(6) : member.displayName, message: afkMsg.message, timestamp: afkMsg.createdAt }));
         }
       }
