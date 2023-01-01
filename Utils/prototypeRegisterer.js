@@ -8,7 +8,7 @@ const
   getTime = () => new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false }),
   writeLogFile = (type, ...data) => appendFileSync(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data.join(' ')}\n`);
 
-console.warn('Overwriting the following variables and functions (if they exist):\n  Vanilla:    global.getDirectoriesSync, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind\n  Discord.js: CommandInteraction#customReply, Message#customReply, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#settings, AutocompleteInteraction#focused, Message#user, User#db, Guild#db, Guild#defaultSettings, Guild#localeCode, GuildMember#db.');
+console.warn('Overwriting the following variables and functions (if they exist):\n  Vanilla:    global.getDirectoriesSync, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind\n  Discord.js: CommandInteraction#customReply, Message#customReply, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#settings, AutocompleteInteraction#focused, Message#user, User#db, Guild#mentionsCache, Guild#db, Guild#defaultSettings, Guild#localeCode, GuildMember#db.');
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 global.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -31,7 +31,7 @@ Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }
   }
   return output;
 };
-Object.prototype.filterEmpty = function filterEmpty() { return Object.fromEntries(Object.entries(this).filter(([, v]) => !(v == null || (Object(v) === v && Object.keys(v).length == 0))).map(([k, v]) => [k, v instanceof Object ? v.filterEmpty() : v]));};
+Object.prototype.filterEmpty = function filterEmpty() { return Object.fromEntries(Object.entries(this).filter(([, v]) => !(v == null || (Object(v) === v && Object.keys(v).length == 0))).map(([k, v]) => [k, v instanceof Object ? v.filterEmpty() : v])); };
 Function.prototype.bBind = function bBind(thisArg, ...args) {
   const bound = this.bind(thisArg, ...args);
   bound.__targetFunction__ = this;
@@ -72,19 +72,22 @@ Object.defineProperty(User.prototype, 'db', {
   get() { return this.client.db?.get('userSettings')?.[this.id] ?? {}; },
   set(val) { this.client.db.set('userSettings', { [this.id]: val }); }
 });
-Object.defineProperty(Guild.prototype, 'db', {
-  get() { return this.client.db?.get('guildSettings')?.[this.id] ?? {}; },
-  set(val) { this.client.db.set('guildSettings', { [this.id]: val }); }
-});
-Object.defineProperty(Guild.prototype, 'defaultSettings', {
-  get() { return this.client.db?.get('guildSettings')?.default ?? {}; },
-  set(val) { this.client.db.set('guildSettings', { default: val }); }
-});
-Object.defineProperty(Guild.prototype, 'localeCode', {
-  get() { return this.db.config?.lang || this.preferredLocale.slice(0, 2) || this.defaultSettings.config.lang; },
-  set(val) { this.client.db.update('guildSettings', 'config.lang', val); }
-});
 Object.defineProperty(GuildMember.prototype, 'db', {
   get() { return findAllEntries(this.guild.db, this.id); },
   set() { throw new Error('You cannot set a value to GuildMember#db!'); }
+});
+Object.defineProperties(Guild.prototype, {
+  mentionsCache: { value: new Collection() },
+  db: {
+    get() { return this.client.db?.get('guildSettings')?.[this.id] ?? {}; },
+    set(val) { this.client.db.set('guildSettings', { [this.id]: val }); }
+  },
+  defaultSettings: {
+    get() { return this.client.db?.get('guildSettings')?.default ?? {}; },
+    set(val) { this.client.db.set('guildSettings', { default: val }); }
+  },
+  localeCode: {
+    get() { return this.db.config?.lang || this.preferredLocale.slice(0, 2) || this.defaultSettings.config.lang; },
+    set(val) { this.client.db.update('guildSettings', 'config.lang', val); }
+  }
 });

@@ -1,7 +1,8 @@
 const
-  { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits } = require('discord.js'),
+  { LimitedCollection, EmbedBuilder, Colors, ChannelType, PermissionFlagsBits } = require('discord.js'),
   { I18nProvider, cooldowns, permissionTranslator, errorHandler, getOwnerOnlyFolders } = require('../Utils'),
-  ownerOnlyFolders = getOwnerOnlyFolders();
+  ownerOnlyFolders = getOwnerOnlyFolders(),
+  saveToMentionsCache = (msg, userId) => msg.guild.mentionsCache.get(userId)?.set(msg.id, msg) ?? msg.guild.mentionsCache.set(userId, new LimitedCollection({ maxSize: 20 }, [[msg.id, msg]]));
 
 let prefixLength;
 
@@ -21,54 +22,64 @@ async function runEco({ economy: { gaining: defaultGaining } }, economy = {}) {
   }
 }
 
+async function runMessages(locale) {
+  const
+    originalContent = this.content = this.content.replaceAll('<@!', '<@'),
+    { afkMessages } = this.guild.db,
+    countingData = this.guild.db.counting?.[this.channel.id];
+
+  if (this.client.botType != 'dev' && this.guild.db.triggers?.length && !(await cooldowns.call(this, { name: 'triggers', cooldowns: { user: 1000 } })))
+    for (const trigger of this.guild.db.triggers.filter(e => originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
+      this.customReply(trigger.response);
+  else if (originalContent.includes(this.client.user.id) && !(await cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } })))
+    this.react('👀');
+
+  if (this.client.botType != 'dev' && countingData && Number(originalContent)) {
+    if (countingData.lastNumber + 1 == originalContent && countingData.lastAuthor != this.user.id) {
+      this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { lastNumber: countingData.lastNumber + 1, lastAuthor: this.user.id });
+      this.react('✅');
+    }
+    else {
+      this.react('❌');
+
+      if (countingData?.lastNumber != 0) {
+        this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { user: null, lastNumber: 0 });
+        this.reply(I18nProvider.__({ locale }, 'events.counting.error', countingData.lastNumber) + I18nProvider.__({ locale }, countingData.lastNumber + 1 != originalContent ? 'events.counting.wrongNumber' : 'events.counting.sameUserTwice'));
+      }
+    }
+  }
+
+  const afk = afkMessages?.[this.user.id]?.message ? afkMessages[this.user.id] : this.user.db.afkMessage;
+  if (afk?.message && !originalContent.toLowerCase().includes('--afkignore')) {
+    this.client.db.update('userSettings', `${this.user.id}.afkMessage`, {});
+    this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`, {});
+    if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.substring(6));
+    this.customReply(I18nProvider.__({ locale }, 'events.afkEnd', afk.createdAt));
+  }
+
+  if (!(await cooldowns.call(this, { name: 'afkMsg', cooldowns: { user: 10000 } })))
+    for (const member of this.mentions.members.filter(member => member.id != this.user.id && (afkMessages?.[member.id]?.message || member.user.db.afkMessage?.message))) {
+      const { message, createdAt } = afkMessages?.[member.id]?.message ? afkMessages[member.id] : member.user.db.afkMessage;
+      this.customReply(I18nProvider.__({ locale }, 'events.afkMsg', {
+        member: member.nickname?.startsWith('[AFK] ') ? member.displayName.substring(6) : member.displayName,
+        message, timestamp: createdAt
+      }));
+    }
+}
+
 /**@this {import('discord.js').Message}*/
 module.exports = async function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
   if (this.crosspostable && this.guild.db?.config?.autopublish) this.crosspost();
+
+  for (const [id] of this.mentions.users.filter(e => e.id != this.user.id)) saveToMentionsCache(this, id);
+  this.mentions.roles.each(r => r.members.each(e => saveToMentionsCache(this, e.id)));
   if (this.user.bot) return;
 
   const
-    { config, economy, afkMessages } = this.guild.db,
+    { config, economy } = this.guild.db,
     locale = this.guild.localeCode,
-    guildPrefix = this.client.botType == 'dev' ? config?.betaBotPrefix?.prefix || this.guild.defaultSettings.config.betaBotPrefix : config?.prefix?.prefix || this.guild.defaultSettings.config.prefix,
-    originalContent = this.content = this.content.replaceAll('<@!', '<@'),
-    runMessages = async () => {
-      if (this.client.botType != 'dev' && this.guild.db.triggers?.length && !(await cooldowns.call(this, { name: 'triggers', cooldowns: { user: 1000 } }))) {
-        for (const trigger of this.guild.db.triggers.filter(e => originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
-          this.customReply(trigger.response);
-      }
-      else if (originalContent.includes(this.client.user.id) && !(await cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } })))
-        this.react('👀');
-
-      const countingData = this.guild.db.counting?.[this.channel.id];
-      if (this.client.botType != 'dev' && countingData && Number(originalContent)) {
-        if (countingData.lastNumber + 1 != originalContent || countingData.lastAuthor == this.user.id) {
-          if (countingData?.lastNumber == 0) return;
-
-          this.react('❌');
-          this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { user: null, lastNumber: 0 });
-          return this.reply(I18nProvider.__({ locale }, 'events.counting.error', countingData.lastNumber) + I18nProvider.__({ locale }, countingData.lastNumber + 1 != originalContent ? 'events.counting.wrongNumber' : 'events.counting.sameUserTwice'));
-        }
-
-        this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { lastNumber: countingData.lastNumber + 1, lastAuthor: this.user.id });
-        this.react('✅');
-      }
-
-      const afk = afkMessages?.[this.user.id]?.message ? afkMessages[this.user.id] : this.user.db.afkMessage;
-      if (afk?.message && !originalContent.toLowerCase().includes('--afkignore')) {
-        this.client.db.update('userSettings', `${this.user.id}.afkMessage`, {});
-        this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`, {});
-        if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.substring(6));
-        this.customReply(I18nProvider.__({ locale }, 'events.afkEnd', afk.createdAt));
-      }
-
-      if (!(await cooldowns.call(this, { name: 'afkMsg', cooldowns: { user: 1000 } }))) {
-        for (const member of this.mentions.members.filter(e => e.id != this.user.id && afkMessages?.[e.id]?.message || e.user.db.afkMessage?.message).values()) {
-          const afkMsg = afkMessages?.[member.id]?.message ? afkMessages[member.id] : member.user.db.afkMessage;
-          this.customReply(I18nProvider.__({ locale }, 'events.afkMsg', { member: member.displayName.startsWith('[AFK] ') ? member.displayName.substring(6) : member.displayName, message: afkMsg.message, timestamp: afkMsg.createdAt }));
-        }
-      }
-    };
+    guildPrefix = this.client.botType == 'dev' ? config?.betaBotPrefix?.prefix || this.guild.defaultSettings.config.betaBotPrefix : config?.prefix?.prefix || this.guild.defaultSettings.config.prefix;
 
   if (
     this.client.botType == 'dev' && this.content.startsWith(config?.betaBotPrefix?.caseinsensitive ? guildPrefix.toLowerCase() : guildPrefix) ||
@@ -76,7 +87,7 @@ module.exports = async function messageCreate() {
   ) prefixLength = guildPrefix.length;
   else if (this.content.startsWith(`<@${this.client.user.id}>`)) prefixLength = this.client.user.id.length + 3;
   else {
-    runMessages();
+    runMessages.call(this, locale);
     return runEco.call(this, this.guild.defaultSettings, economy);
   }
 
@@ -89,7 +100,7 @@ module.exports = async function messageCreate() {
   if (!command && this.client.slashCommands.get(this.commandName)) return this.customReply(I18nProvider.__({ locale }, 'events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
     !command || (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id)
-  ) return runMessages();
+  ) return runMessages.call(this, { locale });
 
   const lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
   const disabledList = this.guild.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};

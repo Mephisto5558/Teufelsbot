@@ -1,7 +1,8 @@
 const { Constants, EmbedBuilder, Colors } = require('discord.js');
+
 module.exports = {
   name: 'lastping',
-  cooldowns: { guild: 200, user: 1000 },
+  cooldowns: { guild: 200, user: 10000 },
   slashCommand: true,
   prefixCommand: true,
   ephemeralDefer: true,
@@ -10,23 +11,31 @@ module.exports = {
       name: 'channel',
       type: 'Channel',
       channelTypes: Constants.TextBasedChannelTypes
-    },
-    { name: 'member', type: 'User' }
-  ],
+    }/*,
+    { name: 'member', type: 'User' },
+    {
+      name: 'amount',
+      type: 'Number',
+      minValue: 0,
+      maxValue: 20
+    }*/
+  ], beta: true,
 
   run: async function (lang) {
     const
-      channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,
-      user = (this.options?.getUser('member') || this.mentions?.users.first())?.id;
+      channel = this.options?.getChannel('channel') || this.mentions?.channels.first(),
+      target = (this.options?.getUser('member') || this.mentions?.users.first() || this.user).id,
+      mentionsCache = this.guild.mentionsCache.get(target);
 
-    if (!channel.isTextBased()) return this.customReply(lang('invalid'));
+    if (channel && !channel.isTextBased()) return this.customReply(lang('invalid'));
+    if (!mentionsCache?.size) return this.customReply(lang('noneFound'));
 
-    const { url, createdAt, content = lang('unknown'), author = lang('unknown') } = (await channel.messages.fetch({ limit: 100 })).find(e => (e.mentions.everyone || e.mentions.roles.find(e2 => this.member.roles.cache.has(e2.id)) || e.mentions.members.has(this.user.id)) && (!user || !e.user || e.user.id == user)) || {};
+    const { url, content, author, createdAt } = (channel ? mentionsCache.filter(e => e.channel.id == channel.id) : mentionsCache)?.last() || {};
     if (!url) return this.customReply(lang('noneFound'));
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { url, content: content.substring(0, 200), author }),
+      description: lang('embedDescription', { url, content: content?.substring(0, 200) ?? lang('unknown'), author }),
       color: Colors.White,
       footer: { text: createdAt?.toLocaleString(this.guild.preferredLocale, { month: '2-digit', day: '2-digit' }) }
     });
