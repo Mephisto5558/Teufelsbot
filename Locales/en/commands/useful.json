@@ -193,7 +193,7 @@
     "usage": "PREFIX Command: lastping [#channel]",
     "options": {
       "channel": {
-        "description": "The channel you want to look for mentions in. Defaults to this channel."
+        "description": "The channel you want to look for mentions in. Defaults to the whole guild."
       },
       "member": {
         "description": "Do you just want to search for mentions that come from a specific member?"
@@ -201,9 +201,9 @@
     },
     "unknown": "unknown",
     "invalid": "This is not a channel with text messages!",
-    "noneFound": "You haven't been mentioned in this channel in the last 100 messages.",
+    "noneFound": "I haven't found any mentions.",
     "embedTitle": "Last Ping",
-    "embedDescription": "The last time you were mentioned in that channel was [here]({url}) from {author}.\n>>> {content}"
+    "embedDescription": "The last time you were mentioned was [here]({url}) from {author}.\n>>> {content}"
   },
   "math": {
     "description": "Runs some math",

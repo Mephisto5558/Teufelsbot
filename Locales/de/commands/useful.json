@@ -194,7 +194,7 @@
     "usage": "PREFIX Command: lastping [#channel]",
     "options": {
       "channel": {
-        "description": "In welchem Kanal möchtest du nach Erwähnungen suchen? Standart: dieser Kanal."
+        "description": "In welchem Kanal möchtest du nach Erwähnungen suchen? Standart: ganzer Server."
       },
       "member": {
         "description": "Möchtest du nur nach Erwähnungen suchen, welche von einem spezifischen Mitglied stammen?"
@@ -202,9 +202,9 @@
     },
     "unknown": "unbekannt",
     "invalid": "Der angegebene Kanal unterstützt keine Textnachrichten!",
-    "noneFound": "Du wurdest in diesem Kanal in den letzten 100 Nachrichten nicht erwähnt.",
+    "noneFound": "Ich habe keine Erwähnungen gefunden.",
     "embedTitle": "Letzter Ping",
-    "embedDescription": "Das letzte mal, dass du in diesem Kanal erwähnt wurdest, war [hier]({url}) von {author}.\n>>> {content}"
+    "embedDescription": "Das letzte mal, dass du erwähnt wurdest, war [hier]({url}) von {author}.\n>>> {content}"
   },
   "math": {
     "description": "Ein wenig Mathe",
