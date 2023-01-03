@@ -1,5 +1,6 @@
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
+  { I18nProvider } = require('../../Utils'),
   getCmds = client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])],
   mention = (k, v) => {
     if (k == 'roles') return `<@&${v}>`;
@@ -40,6 +41,16 @@ module.exports = {
         ...Array(6).fill({ type: 'Channel', channelTypes: Constants.TextBasedChannelTypes }).map((e, i) => ({ ...e, name: `channel_${i + 1}` })),
         ...Array(6).fill({ type: 'User' }).map((e, i) => ({ ...e, name: `member_${i + 1}` }))
       ]
+    },
+    {
+      name: 'language',
+      type: 'Subcommand',
+      options: [{
+        name: 'language',
+        type: 'String',
+        required: true,
+        choices: I18nProvider.availableLocales.keys()
+      }]
     }
   ],
 
@@ -120,7 +131,18 @@ module.exports = {
 
         return this.editReply({ embeds: [embed] });
       }
-    }
+      case 'language': {
+        const
+          lang = this.options.getString('lang'),
+          embed = new EmbedBuilder({
+            title: lang('language.embedTitle'),
+            description: lang('language.embedDescription', lang),
+            color: Colors.Green
+          });
 
+        this.client.db.update('guildSettings', 'config.lang', lang);
+        return this.editReply({ embeds: [embed] });
+      }
+    }
   }
 };

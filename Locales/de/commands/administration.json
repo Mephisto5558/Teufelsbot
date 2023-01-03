@@ -151,6 +151,19 @@
             "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
           }
         }
+      },
+      "language": {
+        "description": "Ändere die Sprache des Bots",
+        "options": {
+          "language": {
+            "description": "In welcher Sprache soll der Bot antworten?",
+            "choices": {
+              "de": "German",
+              "en": "English",
+              "ru": "Russian"
+            }
+          }
+        }
       }
     },
     "toggledModule": "Das `{name}` Modul wurde {state}.",
@@ -172,6 +185,10 @@
       "embed": {
         "enabled": "Entfernt (Erlaubt)",
         "disabled": "Hinzugefügt (Verboten)"
+      },
+      "language": {
+        "embedTitle": "Sprache geändert!",
+        "embedDescription": "Die nächsten Nachrichten werden in `{lang}` sein."
       }
     }
   }
