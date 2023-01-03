@@ -29,7 +29,7 @@ async function runMessages(locale) {
     countingData = this.guild.db.counting?.[this.channel.id];
 
   if (this.client.botType != 'dev' && this.guild.db.triggers?.length && !(await cooldowns.call(this, { name: 'triggers', cooldowns: { user: 1000 } })))
-    for (const trigger of this.guild.db.triggers.filter(e => originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())) || [])
+    for (const trigger of this.guild.db.triggers.filter(e => originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())).slice(0, 3))
       this.customReply(trigger.response);
   else if (originalContent.includes(this.client.user.id) && !(await cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } })))
     this.react('👀');
