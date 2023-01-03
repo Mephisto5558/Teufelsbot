@@ -151,6 +151,19 @@
             "description": "The member for which you want to toggle the command"
           }
         }
+      },
+      "language": {
+        "description": "Change the bot's language.",
+        "options": {
+          "language": {
+            "description": "In which language should the boy reply?",
+            "choices": {
+              "de": "German",
+              "en": "English",
+              "ru": "Russian"
+            }
+          }
+        }
       }
     },
     "toggledModule": "The `{name}` module has been {state}.",
@@ -172,6 +185,10 @@
       "embed": {
         "enabled": "Removed (Allowed)",
         "disabled": "Added (Disallowed)"
+      },
+      "language": {
+        "embedTitle": "Bot language changed!",
+        "embedDescription": "The next messages will be in `{lang}`."
       }
     }
   }
