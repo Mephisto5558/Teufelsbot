@@ -49,7 +49,7 @@ module.exports = {
         name: 'language',
         type: 'String',
         required: true,
-        choices: I18nProvider.availableLocales.keys()
+        choices: [...I18nProvider.availableLocales.keys()]
       }]
     }
   ],
@@ -140,7 +140,7 @@ module.exports = {
             color: Colors.Green
           });
 
-        this.client.db.update('guildSettings', 'config.lang', lang);
+        this.client.db.update('guildSettings', `${this.guild.id}.config.lang`, lang);
         return this.editReply({ embeds: [embed] });
       }
     }
