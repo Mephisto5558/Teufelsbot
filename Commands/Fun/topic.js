@@ -6,7 +6,7 @@ module.exports = {
   cooldowns: { user: 500 },
   slashCommand: true,
   prefixCommand: true,
-  dmPermission: true, beta: true,
+  dmPermission: true,
 
   run: function (lang) {
     const embed = new EmbedBuilder({
