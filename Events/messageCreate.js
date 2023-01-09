@@ -1,8 +1,7 @@
 const
-  { LimitedCollection, EmbedBuilder, Colors, ChannelType, PermissionFlagsBits } = require('discord.js'),
+  { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits } = require('discord.js'),
   { I18nProvider, cooldowns, permissionTranslator, errorHandler, getOwnerOnlyFolders } = require('../Utils'),
-  ownerOnlyFolders = getOwnerOnlyFolders(),
-  saveToMentionsCache = (msg, userId) => msg.guild.mentionsCache.get(userId)?.set(msg.id, msg) ?? msg.guild.mentionsCache.set(userId, new LimitedCollection({ maxSize: 20 }, [[msg.id, msg]]));
+  ownerOnlyFolders = getOwnerOnlyFolders();
 
 let prefixLength;
 
@@ -72,8 +71,9 @@ module.exports = async function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
   if (this.crosspostable && this.guild.db?.config?.autopublish) this.crosspost();
 
-  for (const [id] of this.mentions.users.filter(e => e.id != this.user.id)) saveToMentionsCache(this, id);
-  this.mentions.roles.each(r => r.members.each(e => saveToMentionsCache(this, e.id)));
+  const mentions = [...this.mentions.users.keys(), ...this.mentions.roles.flatMap(r => r.members.keys())].filter(e => e != this.user.id);
+  if (mentions.length) this.client.db.update('guildSettings', `${this.guild.id}.lastMentions`, mentions.reduce((acc, e) => ({ ...acc, [e]: { content: this.content, url: this.url, author: this.author, channel: this.channel.id, createdAt: this.createdAt } }), {}));
+  
   if (this.user.bot) return;
 
   const

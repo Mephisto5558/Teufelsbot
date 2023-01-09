@@ -8,7 +8,7 @@ const
   getTime = () => new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false }),
   writeLogFile = (type, ...data) => appendFileSync(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data.join(' ')}\n`);
 
-console.warn('Overwriting the following variables and functions (if they exist):\n  Vanilla:    global.getDirectoriesSync, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind\n  Discord.js: CommandInteraction#customReply, Message#customReply, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#settings, AutocompleteInteraction#focused, Message#user, User#db, Guild#mentionsCache, Guild#db, Guild#defaultSettings, Guild#localeCode, GuildMember#db.');
+console.warn('Overwriting the following variables and functions (if they exist):\n  Vanilla:    global.getDirectoriesSync, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind\n  Discord.js: CommandInteraction#customReply, Message#customReply, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#settings, AutocompleteInteraction#focused, Message#user, User#db, Guild#db, Guild#defaultSettings, Guild#localeCode, GuildMember#db.');
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 global.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -77,7 +77,6 @@ Object.defineProperty(GuildMember.prototype, 'db', {
   set() { throw new Error('You cannot set a value to GuildMember#db!'); }
 });
 Object.defineProperties(Guild.prototype, {
-  mentionsCache: { value: new Collection() },
   db: {
     get() { return this.client.db?.get('guildSettings')?.[this.id] ?? {}; },
     set(val) { this.client.db.set('guildSettings', { [this.id]: val }); }
