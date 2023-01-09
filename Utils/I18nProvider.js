@@ -11,6 +11,7 @@ class I18nProvider {
   }) {
     this.config = { defaultLocale, separator, errorNotFound, undefinedNotFound, notFoundMessage };
     this.availableLocales = new Collection(readdirSync(localesPath)
+      .filter(e => !readdirSync(`${localesPath}/${e}`).includes('.ignore'))
       .map(e => [path.basename(e, '.json'), path.resolve(localesPath, e)])
     );
 
@@ -26,10 +27,7 @@ class I18nProvider {
 
     if (!filePath) return;
 
-    const items = readdirSync(filePath, { withFileTypes: true });
-    if (items.some(e => e.name == '.ignore')) return;
-
-    for (const item of items) {
+    for (const item of readdirSync(filePath, { withFileTypes: true })) {
       if (item.isFile() && item.name.endsWith('.json')) data[item.name.replace('.json', '')] = JSON.parse(readFileSync(`${filePath}/${item.name}`, 'utf8'));
       else {
         data[item.name] = {};
