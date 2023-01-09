@@ -14,7 +14,7 @@
     },
     "embedTitle": "AddEmoji",
     "isGuildEmoji": "Dieser Emoji ist bereits auf diesem Server!",
-    "invalidUrl": "Das angegebene Argument ist kein gültiger Emoji oder URL!\nEine gültige URL muss mit einer der folgenden Endungen enden.`jpg`, `jpeg`, `png`, `webp`, `svg` or `gif`.\nBeispiel: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "invalidUrl": "Das angegebene Argument ist kein gültiger Emoji oder URL!\nEine gültige URL muss eine der folgenden Endungen haben: `jpg`, `jpeg`, `png`, `webp`, `svg` oder `gif`.\nBeispiel: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "Die angegebene URL wurde nicht gefunden.",
     "success": "**{name}** wurde erfolgreich hinzugefügt {emoji}!\n",
     "limitedToRoles": "Der Emoji wurde zu den folgenden Rollen limitiert:\n<@&{roles}>.",
