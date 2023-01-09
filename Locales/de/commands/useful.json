@@ -191,20 +191,21 @@
   },
   "lastping": {
     "description": "Finde heraus, wer dich zuletzt erwähnt hat.",
-    "usage": "PREFIX Command: lastping [#channel]",
+    "usage": "PREFIX Command: lastping [#channel] [@user]\nWenn die `channel` Option genutzt wird, werden maximal 200 Nachrichten durchsucht.",
     "options": {
       "channel": {
         "description": "In welchem Kanal möchtest du nach Erwähnungen suchen? Standart: ganzer Server."
       },
       "member": {
-        "description": "Möchtest du nur nach Erwähnungen suchen, welche von einem spezifischen Mitglied stammen?"
+        "description": "Nur Erwähnungen von einem bestimmtem Mitglied suchen? (nur in Kombination mit der \"channel\" Option)"
       }
     },
-    "unknown": "unbekannt",
-    "invalid": "Der angegebene Kanal unterstützt keine Textnachrichten!",
+    "memberRequiresChannel": "Die \"member\" Option funktioniert nur in Kombination mit der \"channel\" Option!",
+    "invalidChannel": "Der angegebene Kanal unterstützt keine Textnachrichten!",
     "noneFound": "Ich habe keine Erwähnungen gefunden.",
+    "unknown": "unbekannt",
     "embedTitle": "Letzter Ping",
-    "embedDescription": "Das letzte mal, dass du erwähnt wurdest, war [hier]({url}) von {author}.\n>>> {content}"
+    "embedDescription": "Das letzte mal, dass du erwähnt wurdest, war [hier]({url}) von <@{author}>.\n>>> {content}"
   },
   "math": {
     "description": "Ein wenig Mathe",
