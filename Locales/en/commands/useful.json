@@ -190,20 +190,21 @@
   },
   "lastping": {
     "description": "Shows you where you got last mentioned.",
-    "usage": "PREFIX Command: lastping [#channel]",
+    "usage": "PREFIX Command: lastping [#channel]\nIf the `channel` option is used, a maximum of 200 messages will be searched.",
     "options": {
       "channel": {
         "description": "The channel you want to look for mentions in. Defaults to the whole guild."
       },
       "member": {
-        "description": "Do you just want to search for mentions that come from a specific member?"
+        "description": "Search only for mentions by a specific member? (Only in combination with the \"channel\" option)"
       }
     },
-    "unknown": "unknown",
-    "invalid": "This is not a channel with text messages!",
+    "memberRequiresChannel": "The \"member\" option only works in combination with the \"channel\" option!",
+    "invalid": "The selected channel is not a text channel!",
     "noneFound": "I haven't found any mentions.",
+    "unknown": "unknown",
     "embedTitle": "Last Ping",
-    "embedDescription": "The last time you were mentioned was [here]({url}) from {author}.\n>>> {content}"
+    "embedDescription": "The last time you were mentioned was [here]({url}) from <@{author}>.\n>>> {content}"
   },
   "math": {
     "description": "Runs some math",
