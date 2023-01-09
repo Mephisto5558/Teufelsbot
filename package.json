@@ -6,6 +6,9 @@
   "keywords": [],
   "author": "Mephisto5558",
   "license": "MIT",
+  "engines": {
+    "node": ">=16.9.0"
+  },
   "dependencies": {
     "@discordjs/voice": "^0.14.0",
     "@octokit/core": "^4.1.0",
@@ -23,7 +26,6 @@
     "mathjs": "^11.5.0",
     "mongodb": "^4.13.0",
     "mongoose": "^6.8.2",
-    "node": "^19.3.0",
     "sodium": "^3.0.2",
     "wikijs": "^6.4.0"
   },
