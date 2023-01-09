@@ -3,6 +3,7 @@ logs
 *.log
 test.js
 env.json
+package-lock.json
 node_modules
 README.md
 Temp
