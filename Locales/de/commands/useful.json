@@ -84,7 +84,7 @@
     "description": "Konvertiert eine Textart zu einer anderen",
     "options": {
       "input": {
-        "description": "Den Text, den du konvertiren möchtest"
+        "description": "Den Text, den du konvertieren möchtest"
       },
       "convert_to": {
         "description": "Der Typ, in den du konvertieren möchtest",
