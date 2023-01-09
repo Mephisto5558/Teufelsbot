@@ -27,7 +27,7 @@ function format(option, path) {
   if (option.options) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`));
 
   if (!option.description) option.description = I18nProvider.__({ errorNotFound: true }, `${path}.description`);
-  if (option.choices?.length) option.choices = option.choices.map(e => { return typeof e == 'object' ? e.fMerge({ __SCHandlerCustom: true }) : { name: I18nProvider.__({ undefinedNotFound: true }, `${path}.choices.${e}`) || e, value: e }; });
+  if (option.choices?.length) option.choices = option.choices.map(e => typeof e == 'object' ? e.fMerge({ __SCHandlerCustom: true }) : { name: I18nProvider.__({ undefinedNotFound: true }, `${path}.choices.${e}`) || e, value: e });
 
   if (option.description.length > 100) {
     console.warn(`WARN: Description of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
@@ -50,11 +50,11 @@ function format(option, path) {
 
       if (!e.nameLocalizations) e.nameLocalizations = {};
       let localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
-      if (localeText?.length > 32) console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too long (max length is 32)! Slicing.`);
-      else if (localeText?.length < 2) console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too short (min length is 2)! Using undefined.`);
+      if (localeText?.length < 2) console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too short (min length is 2)! Using undefined.`);
+      else if (localeText?.length > 32) console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too long (max length is 32)! Slicing.`);
 
       if (localeText && localeText.length > 2) e.nameLocalizations[locale] = localeText.slice(0, 32);
-      else if (e.name != e.value) console.warn(`WARN: Missing choice name localization for "${e.name}" in option "${option.name}" (${path}.choices.${e.name})`);
+      else if (e.name != e.value) console.warn(`WARN: Missing "${locale}" choice name localization for "${e.name}" in option "${option.name}" (${path}.choices.${e.name})`);
 
       return e;
     });
