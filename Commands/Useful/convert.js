@@ -25,7 +25,7 @@ module.exports = {
     { name: 'with_spaces', type: 'Boolean' },
     { name: 'convert_spaces', type: 'Boolean' },
     { name: 'convert_letters_and_digits_only', type: 'Boolean' }
-  ], beta: true,
+  ],
 
   run: async function (lang) {
     const convertTo = this.options.getString('convert_to');

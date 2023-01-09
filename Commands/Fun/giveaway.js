@@ -9,7 +9,7 @@ module.exports = {
   cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: false,
-  ephemeralDefer: true, beta: true,
+  ephemeralDefer: true,
   options: [
     {
       name: 'create',

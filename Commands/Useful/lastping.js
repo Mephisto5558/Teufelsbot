@@ -19,7 +19,7 @@ module.exports = {
       minValue: 0,
       maxValue: 20
     }*/
-  ], beta: true,
+  ],
 
   run: async function (lang) {
     const
