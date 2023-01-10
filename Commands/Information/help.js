@@ -53,7 +53,16 @@ module.exports = {
           cmd.permissions?.user?.length && { name: lang('one.userPerms'), value: `\`${permissionTranslator(cmd.permissions.user).join('`, `')}\``, inline: true },
           (cmd.cooldowns?.user || cmd.cooldowns?.guild) && {
             name: lang('one.cooldowns'), inline: false,
-            value: Object.entries(cmd.cooldowns).filter(([, e]) => e).map(([k, v]) => `${lang('global.' + k)}: \`${parseFloat((v / 1000).toFixed(2))}\`s`, '').join(', ')
+            value: Object.entries(cmd.cooldowns).filter(([, e]) => e).map(([k, v]) =>
+              `${lang('global.' + k)}: \`${parseFloat((v / 1000).toFixed(2))}\`s`, '').join(', ')
+          },
+          (cmd.cooldowns?.user || cmd.cooldowns?.guild) && {
+            name: lang('one.cooldowns'), inline: false,
+            value: Object.entries(cmd.cooldowns).filter(([, e]) => e).map(([k, v]) =>
+              lang('global.' + k) + ':' + v / 60000 < 1
+                ? `${Math.floor(v / 60000)}min ${((v % 60000) / 1000)}s`
+                : `${(v / 1000).toFixed(2)}s`
+            ).join(', ')
           },
           helpLang('usage') && { name: lang('one.usage'), value: `${cmd.slashCommand ? lang('one.lookAtDesc') : ''} ${helpLang('usage') || ''}`, inline: false }
         ].filter(Boolean);
