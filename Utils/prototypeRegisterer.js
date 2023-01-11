@@ -8,7 +8,7 @@ const
   getTime = () => new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false }),
   writeLogFile = (type, ...data) => appendFileSync(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data.join(' ')}\n`);
 
-console.warn('Overwriting the following variables and functions (if they exist):\n  Vanilla:    global.getDirectoriesSync, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind\n  Discord.js: CommandInteraction#customReply, Message#customReply, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#settings, AutocompleteInteraction#focused, Message#user, User#db, Guild#db, Guild#defaultSettings, Guild#localeCode, GuildMember#db.');
+if(!require('../config.json')?.HideOverwriteWarning) console.warn('Overwriting the following variables and functions (if they exist):\n  Vanilla:    global.getDirectoriesSync, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind\n  Discord.js: CommandInteraction#customReply, Message#customReply, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#settings, AutocompleteInteraction#focused, Message#user, User#db, Guild#db, Guild#defaultSettings, Guild#localeCode, GuildMember#db.');
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
 global.sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
