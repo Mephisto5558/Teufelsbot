@@ -57,7 +57,7 @@ async function runMessages(locale) {
   }
 
   if (!(await cooldowns.call(this, { name: 'afkMsg', cooldowns: { user: 10000 } })))
-    for (const member of this.mentions.members.filter(member => member.id != this.user.id && (afkMessages?.[member.id]?.message || member.user.db.afkMessage?.message))) {
+    for (const [, member] of this.mentions.members.filter(member => member.id != this.user.id && (afkMessages?.[member.id]?.message || member.user.db.afkMessage?.message))) {
       const { message, createdAt } = afkMessages?.[member.id]?.message ? afkMessages[member.id] : member.user.db.afkMessage;
       this.customReply(I18nProvider.__({ locale }, 'events.afkMsg', {
         member: member.nickname?.startsWith('[AFK] ') ? member.displayName.substring(6) : member.displayName,
@@ -73,7 +73,7 @@ module.exports = async function messageCreate() {
 
   const mentions = [...this.mentions.users.keys(), ...this.mentions.roles.flatMap(r => r.members.keys())].filter(e => e != this.user.id);
   if (mentions.length) this.client.db.update('guildSettings', `${this.guild.id}.lastMentions`, mentions.reduce((acc, e) => ({ ...acc, [e]: { content: this.content, url: this.url, author: this.author, channel: this.channel.id, createdAt: this.createdAt } }), {}));
-  
+
   if (this.user.bot) return;
 
   const
