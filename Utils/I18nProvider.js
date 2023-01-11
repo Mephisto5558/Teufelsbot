@@ -53,14 +53,14 @@ class I18nProvider {
     let message = this.localeData[locale]?.[key] ?? (backupPath && this.localeData[locale]?.[`${backupPath}.${key}`]);
     if (!message) {
       if (!undefinedNotFound) console.warn(`Missing "${locale}" localization for ${key}` + (backupPath ? ` (${backupPath}.${key})!` : '!'));
-      message = this.defaultLocaleData[key] ?? (backupPath && this.defaultLocaleData[`${backupPath}.${key}`]);
+      if (this.config.defaultLocale != locale) message = this.defaultLocaleData[key] ?? (backupPath && this.defaultLocaleData[`${backupPath}.${key}`]);
     }
 
     if (Array.isArray(message)) message = message.random();
     if (!message) {
       if (errorNotFound) throw new Error(`Key not found: "${key}"` + (backupPath ? ` (${backupPath}.${key})` : ''));
       if (undefinedNotFound) return undefined;
-      console.warn(`Missing "${this.config.defaultLocale}" localization for ${key}` + (backupPath ? ` (${backupPath}.${key})!` : '!'));
+      console.warn(`Missing default ("${this.config.defaultLocale}") localization for ${key}` + (backupPath ? ` (${backupPath}.${key})!` : '!'));
       return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
     }
 
