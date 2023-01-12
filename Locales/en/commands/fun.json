@@ -331,7 +331,7 @@
     "error": "An error occurred:\n```{err}```"
   },
   "inspirobot": {
-    "description": "Get ab inspiring quote.",
+    "description": "Get an inspiring quote.",
     "error": "An error occurred.",
     "notFound": "There are no inspiring quotes available :("
   },
