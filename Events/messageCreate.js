@@ -33,7 +33,9 @@ async function runMessages(locale) {
   else if (originalContent.includes(this.client.user.id) && !(await cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } })))
     this.react('👀');
 
-  if (this.client.botType != 'dev' && countingData && Number(originalContent)) {
+  if (this.client.botType == 'dev') return;
+
+  if (countingData && Number(originalContent)) {
     if (countingData.lastNumber + 1 == originalContent && countingData.lastAuthor != this.user.id) {
       this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { lastNumber: countingData.lastNumber + 1, lastAuthor: this.user.id });
       this.react('✅');
