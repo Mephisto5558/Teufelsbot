@@ -3,7 +3,7 @@ const
   { get } = require('axios');
 
 module.exports = {
-  name: 'inpirobot',
+  name: 'inspirobot',
   cooldowns: { user: 100 },
   slashCommand: true,
   prefixCommand: true,
