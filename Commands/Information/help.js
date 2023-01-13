@@ -24,7 +24,6 @@ module.exports = {
   options: [{
     name: 'command',
     type: 'String',
-    autocomplete: true,
     autocompleteOptions: function () { return [...new Set([...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()])]; }
   }], beta: true,
 
