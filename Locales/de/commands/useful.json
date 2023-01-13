@@ -201,7 +201,7 @@
       }
     },
     "memberRequiresChannel": "Die \"member\" Option funktioniert nur in Kombination mit der \"channel\" Option!",
-    "invalidChannel": "Der angegebene Kanal unterstützt keine Textnachrichten!",
+    "invalid": "Der angegebene Kanal unterstützt keine Textnachrichten!",
     "noneFound": "Ich habe keine Erwähnungen gefunden.",
     "unknown": "unbekannt",
     "embedTitle": "Letzter Ping",

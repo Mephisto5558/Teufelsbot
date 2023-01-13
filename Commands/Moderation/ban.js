@@ -24,7 +24,6 @@ module.exports = {
     /* {
       name: 'duration',
       type: 'Number',
-      autocomplete: true,
       autocompleteOptions: function () { return timeValidator(this.focused.value); } }
     */
   ],

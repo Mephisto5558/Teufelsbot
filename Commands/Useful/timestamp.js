@@ -11,7 +11,6 @@ module.exports = {
   options: [{
     name: 'time',
     type: 'String',
-    autocomplete: true,
     autocompleteOptions: function () { return timeValidator(this.focused.value); }
   }],
 
