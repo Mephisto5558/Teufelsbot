@@ -97,7 +97,6 @@ module.exports = {
     {
       name: 'api',
       type: 'String',
-      autocomplete: true,
       autocompleteOptions: defaultAPIList.map(e => e.name)
     },
     { name: 'type', type: 'String' },

@@ -14,7 +14,6 @@ module.exports = {
   options: [{
     name: '',
     type: '',
-    autocomplete: false,
     autocompleteOptions: [],
     required: false,
     choices: [{ value: '' }],
