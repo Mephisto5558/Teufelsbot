@@ -4,7 +4,7 @@ console.info('Starting...');
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { existsSync, readdirSync } = require('fs'),
-  { DB, gitpull, errorHandler, giveawaysmanager } = require('./Utils');
+  { DB, gitpull, errorHandler, giveawaysmanager, BackupSystem } = require('./Utils');
 
 require('./Utils/prototypeRegisterer.js');
 
@@ -53,6 +53,7 @@ console.time('Starting time');
 
   client.botType = env.environment;
   client.keys = env.keys;
+  //WIP: client.backupSystem = new BackupSystem(client.db, { dbName: 'backups', maxGuildBackups: 5 });
 
   if (client.botType != 'dev') client.giveawaysManager = giveawaysmanager.call(client);
 

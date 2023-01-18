@@ -1,4 +1,85 @@
 {
+  "serverbackup": {
+    "description": "Manage your server backups.",
+    "options": {
+      "create": {
+        "description": "Create a backup of your server. If the server has 5 or more backups, the oldest one will be deleted."
+      },
+      "load": {
+        "description": "Load a backup. CAUTION: this erases all server data! Use the option \"no_clear\" to avoid that.",
+        "options": {
+          "id": {
+            "description": "The backup ID you want to load. Use the \"get\" subcommand to view a list of IDs."
+          },
+          "no_clear": {
+            "description": "If set to true, will only overwrite existing data (e.g. channels won't get deleted)."
+          }
+        }
+      },
+      "get": {
+        "description": "Get one backup or a list of backups for this guild.",
+        "options": {
+          "id": {
+            "description": "The backup ID to look for."
+          }
+        }
+      },
+      "delete": {
+        "description": "Delete a backup.",
+        "options": {
+          "id": {
+            "description": "The backup to delete."
+          }
+        }
+      }
+    },
+    "embedTitle": "Server Backup",
+    "create": {
+      "settings": "<a:loading:1063091916683612160> Saving settings...",
+      "members": "<a:loading:1063091916683612160> Saving members...",
+      "bans": "<a:loading:1063091916683612160> Saving bans...",
+      "roles": "<a:loading:1063091916683612160> Saving roles...",
+      "emojis": "<a:loading:1063091916683612160> Saving emojis...",
+      "stickers": "<a:loading:1063091916683612160> Saving stickers...",
+      "channels": "<a:loading:1063091916683612160> Saving channels, threads, and messages...",
+      "images": "<a:loading:1063091916683612160> Saving icon, slash, and banner...",
+      "success": "The backup with the ID {id} has been created successfully!\nUse </serverbackup get:{cmdId}> for more information about the backup."
+    },
+    "clear": {
+      "items": "<a:loading:1063091916683612160> Deleting emojis, stickers, and roles...",
+      "bans": "<a:loading:1063091916683612160> Deleting bans...",
+      "settings": "<a:loading:1063091916683612160> Deleting settings...",
+      "ownWebhooks": "<a:loading:1063091916683612160> Deleting temporary webhooks..."
+    },
+    "load": {
+      "overwriteWarningTitle": "SERVER OVERWRITE (IRREVERSIBLE)",
+      "overwriteWarningDescription": "This action will delete most of your server! This includes roles, webhooks, channels, and emojis.\nIf you are sure you want to do this, type 'Yes'. Type 'No' to cancel.\nYou might also want to create a backup before loading, just to be safe.",
+      "noPerm": "Only the server owner can load backups!",
+      "notFound": "No backup with that ID was found!",
+      "cancelled": "Loading the backup has been cancelled.",
+      "loadingEmbedDescription": "Applying backup to the server.\nThis may take a while, depending on the size of the backup.",
+      "settings": "<a:loading:1063091916683612160> Loading settings...",
+      "features": "<a:loading:1063091916683612160> Loading server features...",
+      "roles": "<a:loading:1063091916683612160> Loading roles...",
+      "members": "<a:loading:1063091916683612160> Loading member roles and nicknames...",
+      "channels": "<a:loading:1063091916683612160> Loading channels, threads, and messages...",
+      "emojis": "<a:loading:1063091916683612160> Loading emojis...",
+      "stickers": "<a:loading:1063091916683612160> Loading stickers...",
+      "bans": "<a:loading:1063091916683612160> Loading bans...",
+      "success": "Successfully loaded the backup with id `{id}`."
+    },
+    "delete": {
+      "success": "Successfully deleted the backup!"
+    },
+    "get": {
+      "oneEmbedDescription": "Information about backup {id}\n>>> Created at: <t:{createdAt}>\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "oneNotFound": "No backup was found with that ID!",
+      "found": "Found {amount} backups.",
+      "infos": "Created at: <t:{createdAt}>\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "embedDescription": "The following backups were found, sorted by date:",
+      "noneFound": "No backups were found for this server."
+    }
+  },
   "selfrole": {
     "description": "Manage selfroles.",
     "options": {
