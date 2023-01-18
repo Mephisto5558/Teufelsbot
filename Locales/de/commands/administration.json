@@ -1,4 +1,85 @@
 {
+  "serverbackup": {
+    "description": "Verwalte deine Server-Backups.",
+    "options": {
+      "create": {
+        "description": "Erstelle neues Server-Backup. Wenn der Server 5 oder mehr Backups hat, wird das älteste gelöscht."
+      },
+      "load": {
+        "description": "Lade ein Backup. Achtung: Serverdaten werden gelöscht! Nutze die Option \"no_clear\" zum vermeiden.",
+        "options": {
+          "id": {
+            "description": "Die Backup-ID, die du laden möchtest. Verwende den Subcommand \"get\", um die Liste anzuzeigen."
+          },
+          "no_clear": {
+            "description": "Wenn auf true, cleart den Server nicht, überschreibt nur bestehende Daten (zB. bleiben Kanäle)."
+          }
+        }
+      },
+      "get": {
+        "description": "Erhalte ein Backup oder eine Liste von Backups für diesen Server.",
+        "options": {
+          "id": {
+            "description": "Die Backup-ID, nach der gesucht wird."
+          }
+        }
+      },
+      "delete": {
+        "description": "Lösche ein Backup.",
+        "options": {
+          "id": {
+            "description": "Die Backup-ID, welche gelöscht werden soll."
+          }
+        }
+      }
+    },
+    "embedTitle": "Server-Backup",
+    "create": {
+      "settings": "<a:loading:1063091916683612160> Sichere Einstellungen...",
+      "members": "<a:loading:1063091916683612160> Sichere Mitglieder...",
+      "bans": "<a:loading:1063091916683612160> Sichere Bans...",
+      "roles": "<a:loading:1063091916683612160> Sichere Rollen...",
+      "emojis": "<a:loading:1063091916683612160> Sichere Emojis...",
+      "stickers": "<a:loading:1063091916683612160> Sichere Sticker...",
+      "channels": "<a:loading:1063091916683612160> Sichere Kanäle, Threads und Nachrichten...",
+      "images": "<a:loading:1063091916683612160> Sichere Icon, Slash und Banner...",
+      "success": "Das Backup mit der ID `{id}` wurde erfolgreich erstellt!\nNutze </serverbackup get:{cmdId}> für mehr Informationen zum Backup."
+    },
+    "clear": {
+      "items": "<a:loading:1063091916683612160> Lösche Emojis, Sticker und Rollen...",
+      "bans": "<a:loading:1063091916683612160> Lösche Bans...",
+      "settings": "<a:loading:1063091916683612160> Lösche Einstellungen...",
+      "ownWebhooks": "<a:loading:1063091916683612160> Lösche temporäre Webhooks..."
+    },
+    "load": {
+      "overwriteWarningTitle": "ÜBERSCHREIBUNG DES SERVERS (UNWIDERRUFLICH)",
+      "overwriteWarningDescription": "Diese Aktion wird den Großteil deines Servers löschen! Dazu zählen unter anderen Rollen, Webhooks, Kanäle und Emojis.\nWenn du dir sicher bist, dass du das tun möchtest, gib \"Ja\" ein. Gib \"Nein\" ein um abzubrechen.\nDu könntest auch ein Backup vor dem Laden erstellen, nur zur Sicherheit.",
+      "noPerm": "Nur Der Servereigentümer kann Backups laden!",
+      "notFound": "Es wurde kein Backup mit dieser ID gefunden!",
+      "cancelled": "Das Laden des Backups wurde abgebrochen.",
+      "loadingEmbedDescription": "Das Backup wird auf dem Server angewendet.\nDies kann, abhängig von der Größe des Backups, eine Weile dauern.",
+      "settings": "<a:loading:1063091916683612160> Lade Einstellungen...",
+      "features": "<a:loading:1063091916683612160> Lade Serverfeatures...",
+      "roles": "<a:loading:1063091916683612160> Lade Rollen...",
+      "members": "<a:loading:1063091916683612160> Lade Mitgliederrollen und Nicknames...",
+      "channels": "<a:loading:1063091916683612160> Lade Kanäle, Threads und Nachrichten...",
+      "emojis": "<a:loading:1063091916683612160> Lade Emojis...",
+      "stickers": "<a:loading:1063091916683612160> Lade Sticker...",
+      "bans": "<a:loading:1063091916683612160> Lade Bans...",
+      "success": "Das Backup mit der ID `{id}` wurde geladen."
+    },
+    "delete": {
+      "success": "Das Backup wurde erfolgreich gelöscht!"
+    },
+    "get": {
+      "oneEmbedDescription": "**Informationen zu Backup `{id}`**\n>>> Erstellt am: <t:{createdAt}>\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "oneNotFound": "Es wurde kein Backup mit dieser ID gefunden!",
+      "found": "Es wurden {amount} Backups gefunden.",
+      "infos": "Erstellt am: <t:{createdAt}>\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "embedDescription": "Die folgenden Backups wurden gefunden, sortiert nach Datum:",
+      "noneFound": "Es wurden keine Backups für diesen Server gefunden."
+    }
+  },
   "selfrole": {
     "description": "Verwalte Selfroles.",
     "options": {
