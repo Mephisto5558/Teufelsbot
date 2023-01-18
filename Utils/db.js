@@ -34,64 +34,69 @@ module.exports = class DB {
     return value;
   }
 
+  /**@param {boolean}overwrite overwrite existing collections*/
+  async generate(overwrite) {
+    for (const { key, value } of require('../Templates/db_collections.json'))
+      await this.set(key, value, overwrite);
+  }
+
+  reduce = () => this.collection.reduce((acc, value, key) => acc.push({ key, value }) && acc, []);
+
   get = key => this.collection.get(key);
 
-  set(key, value) {
+  /**@param {boolean}overwrite overwrite existing collection*/
+  async set(key, value, overwrite) {
     if (!key) return;
+    let data;
 
-    this.schema.findOne({ key }, (err, data) => {
-      if (err) throw err;
-      if (data) data.value = value;
-      else data = new this.schema({ key, value });
+    if (!overwrite) data = await this.schema.findOne({ key });
+    if (data) data.value = value;
+    else data = new this.schema({ key, value });
 
-      data.save();
-      this.collection.set(key, value);
-    });
+    await data.save();
+    return this.collection.set(key, value);
   }
 
   /**@param {string}db@param {string}key*/
-  update(db, key, value) {
+  async update(db, key, value) {
     if (!key) return;
     if (typeof key != 'string') throw new Error(`key must be typeof string! Got ${typeof key}.`);
 
-    this.schema.findOne({ key: db }, (err, data) => {
-      if (err) throw err;
-      if (!data) data = new this.schema({ key: db, value: {} });
-      else if (!data.value) data.value = {};
-      else if (typeof data.value != 'object') throw new Error(`data.value in db must be typeof object! Found ${typeof data.value}.`);
+    let data = await this.schema.findOne({ key: db });
 
-      DB.mergeWithFlat(data.value, key, value);
+    if (!data) data = new this.schema({ key: db, value: {} });
+    else if (!data.value) data.value = {};
+    else if (typeof data.value != 'object') throw new Error(`data.value in db must be typeof object! Found ${typeof data.value}.`);
 
-      data.markModified(`value.${key}`);
-      data.save();
-      this.collection.set(db, data.value);
-    });
+    DB.mergeWithFlat(data.value, key, value);
+
+    data.markModified(`value.${key}`);
+    data.save();
+    this.collection.set(db, data.value);
   }
 
-  push(key, ...pushValue) {
-    const data = this.collection.get(key);
+  async push(key, ...pushValue) {
+    const dbData = this.collection.get(key);
     const values = pushValue.flat();
 
-    if (!Array.isArray(data)) throw Error(`You can't push data to a ${typeof data} value!`);
+    if (!Array.isArray(dbData)) throw Error(`You can't push data to a ${typeof dbData} value!`);
     data.push(pushValue);
 
-    this.schema.findOne({ key }, (_, res) => {
-      res.value = [...res.value, ...values];
-      res.save();
-    });
+    const data = await this.schema.findOne({ key });
+    data.value = [...data.value, ...values];
+    data.save();
   }
 
-  delete(key) {
+  async delete(key) {
     if (!key) return;
-    this.schema.findOne({ key }, async (err, data) => {
-      if (err) throw err;
-      if (data) await data.delete();
-    });
 
-    this.collection.delete(key);
+    const data = await this.schema.findOne({ key });
+    if (data) await data.delete();
+
+    return this.collection.delete(key);
   }
 
-  /**@param {{}}obj gets mutated! @param {string}key@example DB.mergeWithFlat({a: {b:1}}, 'a.c', 2) @returns reduce return value */
+  /**@param {{}}obj gets mutated! @param {string}key@example DB.mergeWithFlat({a: {b:1}}, 'a.c', 2) @returns reduce return value*/
   static mergeWithFlat(obj, key, val) {
     const keys = key.split('.');
     return keys.reduce((acc, e, i) => acc[e] = keys.length - 1 == i ? val : acc[e] ?? {}, obj);
