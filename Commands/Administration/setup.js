@@ -1,6 +1,7 @@
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   { I18nProvider } = require('../../Utils'),
+  backup = new Set([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   getCmds = client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])],
   mention = (k, v) => {
     if (k == 'roles') return `<@&${v}>`;
@@ -33,7 +34,6 @@ module.exports = {
           name: 'command',
           type: 'String',
           required: true,
-          autocomplete: true,
           autocompleteOptions: function () { return getCmds(this.client); }
         },
         { name: 'get', type: 'Boolean' },
@@ -50,6 +50,16 @@ module.exports = {
         type: 'String',
         required: true,
         choices: [...I18nProvider.availableLocales.keys()]
+      }]
+    },
+    {
+      name: 'serverbackup',
+      type: 'Subcommand',
+      options: [{
+        name: 'allowedToLoad',
+        type: 'String',
+        choices: backup.keys(),
+        required: true
       }]
     }
   ],
@@ -133,15 +143,19 @@ module.exports = {
       }
       case 'language': {
         const
-          lang = this.options.getString('lang'),
+          language = this.options.getString('lang'),
           embed = new EmbedBuilder({
             title: lang('language.embedTitle'),
-            description: lang('language.embedDescription', lang),
+            description: lang('language.embedDescription', language),
             color: Colors.Green
           });
 
-        this.client.db.update('guildSettings', `${this.guild.id}.config.lang`, lang);
+        this.client.db.update('guildSettings', `${this.guild.id}.config.lang`, language);
         return this.editReply({ embeds: [embed] });
+      }
+      case 'serverbackup': {
+        this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', parseInt(backup.get(this.options.getString('allowedToLoad'))));
+        return this.editReply(lang('serverbackup.success'));
       }
     }
   }
