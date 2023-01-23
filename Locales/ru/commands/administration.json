@@ -42,7 +42,7 @@
       "emojis": "<a:loading:1063091916683612160> Saving emojis...",
       "stickers": "<a:loading:1063091916683612160> Сохранение стикеров...",
       "channels": "<a:loading:1063091916683612160> Сохранение каналов, потоков и сообщений...",
-      "images": "<a:loading:1063091916683612160> Сохранение значка, заставки и баннера...",
+      "images": "<a:loading:1063091916683612160> Saving icon, splash, and banner...",
       "success": "Резервная копия с ID {id} успешно создана!\nИспользуйте </serverbackup get:{cmdId}> для получения дополнительной информации о резервном копировании."
     },
     "clear": {
@@ -66,7 +66,7 @@
       "emojis": "<a:loading:1063091916683612160> Загрузка эмодзи...",
       "stickers": "<a:loading:1063091916683612160> Загрузка стикеров...",
       "bans": "<a:loading:1063091916683612160> Загрузка банов...",
-      "success": "Резервная копия с ID `{id}`."
+      "success": "Резервная копия с идентификатором `{id}`."
     },
     "delete": {
       "success": "Резервная копия успешно удалена!"
@@ -245,6 +245,20 @@
             }
           }
         }
+      },
+      "serverbackup": {
+        "description": "Управление параметрами резервных копий вашего сервера.",
+        "options": {
+          "allowed_to_load": {
+            "description": "Change who is allowed to load server backups.",
+            "choices": {
+              "creator": "Создатель",
+              "owner": "Server owner",
+              "creator+owner": "Creator and Server owner",
+              "admins": "Current server administrators"
+            }
+          }
+        }
       }
     },
     "toggledModule": "Модуль `{name}был {state}.",
@@ -271,6 +285,9 @@
         "embedTitle": "Язык бота изменен!",
         "embedDescription": "Следующие сообщения будут в `{lang}`."
       }
+    },
+    "serverbackup": {
+      "success": "Successfully updated the settings!"
     }
   }
 }
