@@ -10,12 +10,12 @@
   },
   "dbget": {
     "description": "Erhalte Daten aus der DB",
-    "usage": "PREFIX Command: dbget <database name>",
+    "usage": "PREFIX Command: dbget <Datenbank-Name>",
     "notFound": "nichts gefunden"
   },
   "eval": {
     "description": "Führe JavaScript Code mit dem Bot aus",
-    "usage": "PREFIX Command: eval <js code>",
+    "usage": "PREFIX Command: eval <JS-Code>",
     "finished": "Code:\n```js\n{code}\n```\n",
     "success": "{msg} wurde fehlerlos ausgeführt.",
     "error": "{msg} wurde mit dem folgendem Fehler ausgeführt:\n```\n{name}: {err}\n```"
@@ -30,7 +30,7 @@
   },
   "reload": {
     "description": "Läd einen Command oder eine Kategorie neu",
-    "usage": "PREFIX Command: reload <command | \"*\">",
+    "usage": "PREFIX Command: reload <Befehl | \"*\">",
     "invalidCommand": "Dies ist kein gültiger Command.",
     "error": "Ein Fehler ist während des Neuladens aufgetreten:\n```{error}```\nÜberprüfe die Konsole für mehr Informationen.",
     "noneReloaded": "Keine Commands wurden neu geladen.",
@@ -57,6 +57,6 @@
     "reset": "Aktivität wurde zu `nichts` gesetzt."
   },
   "test": {
-    "description": "testing stuff"
+    "description": "testet Sachen"
   }
 }
