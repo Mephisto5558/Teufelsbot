@@ -3,13 +3,13 @@
     "description": "Bannt ein oder mehrere Mitglieder vom Server",
     "options": {
       "targets": {
-        "description": "Erwähne Member oder gib ID(s) an um sie zu bannen. Seperiere sie mit Leertasten."
+        "description": "Erwähne Mitglieder oder gib ID(s) an um sie zu bannen. Separiere sie mit Leertasten."
       },
       "reason": {
         "description": "Die Ziele werden die Begründung per DMs erhalten."
       },
       "duration": {
-        "description": "Wie lange möchtest du das Mitglied bannen?"
+        "description": "Wie lange möchtest du das Mitglied/die Mitglieder bannen?"
       },
       "delete_days_of_messages": {
         "description": "Lösche alle Nachrichten des Mitgliedes von den letzten x Tagen."
@@ -26,10 +26,10 @@
     "noDM": "Ich konnte dem Ziel keine DM senden."
   },
   "kick": {
-    "description": "Kickt ein oder mehrere Mitglieder vom Server",
+    "description": "Kickt ein oder mehrere Mitglieder vom Server.",
     "options": {
       "targets": {
-        "description": "Erwähne Member oder gib ID(s) an um sie zu kicken. Seperiere sie mit Leertasten."
+        "description": "Erwähne Member oder gib ID(s) an um sie zu kicken. Separiere sie mit Leertasten."
       },
       "reason": {
         "description": "Die Ziele werden die Begründung per DMs erhalten."
@@ -39,18 +39,18 @@
     "dmEmbedDescription": "Du wurdest von `{guild}` gekickt.\nModerator: {mod}\nBegründung: {reason}",
     "infoEmbedTitle": "Kick",
     "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
-    "cantPunishSelf": "Du kannst dich selbst nicht kicken!",
     "noneFound": "Kein Ziel wurde gefunden.",
+    "cantPunishSelf": "Du kannst dich selbst nicht kicken!",
     "error": "Ich konnte **{user}** nicht kicken.\n{err}\n",
     "success": "**{user}** wurde erfolgreich gekickt.\n",
     "noDM": "Ich konnte dem Ziel keine DM senden."
   },
   "lock": {
     "description": "Verbietet jedem, abgesehen von Administratoren, in einem Kanal Nachrichten zu senden.",
-    "usage": "lock [channel] [reason]",
+    "usage": "lock [Kanal] [Begründung]",
     "options": {
       "channel": {
-        "description": "Den Kanal den du locken möchtest"
+        "description": "Den Kanal, den du locken möchtest"
       },
       "reason": {
         "description": "Den Grund dafür, den Kanal zu locken"
@@ -71,7 +71,7 @@
         "description": "Das Mitglied wird dies in einer DM sehen."
       },
       "duration": {
-        "description": "Wie lange du das Ziel timeouten möchtest (zB. 1w3d2h5min, min. 1min, max. 28d)"
+        "description": "Wie lange du das Ziel timeouten möchtest (z. B. 1w3d2h5min, min. 1min, max. 28d)"
       }
     },
     "dmEmbedTitle": "Getimeouted",
@@ -89,20 +89,20 @@
     "description": "Löscht alle Nachrichten des Kanals, indem der Kanal dupliziert wird und der alte gelöscht wird",
     "options": {
       "confirmation": {
-        "description": "Schreibe \"LÖSCHE KANAL\" um die Nuke zu bestätigen."
+        "description": "Schreibe zur Bestätigung \"LÖSCHE KANAL\"."
       },
       "channel": {
         "description": "Den zu nukenden Kanal"
       }
     },
     "confirmation": "lösche kanal",
-    "needConfirm": "Du musst diese Aktion bestätigen, indem du `LÖSCHE KANAL` als confirmation option angibst!",
+    "needConfirm": "Du musst diese Aktion bestätigen, indem du `LÖSCHE KANAL` als `confirmation` Option angibst!",
     "embedDescription": ":radioactive: Kanal genuked!",
     "embedFooterText": "Genuked von {user}"
   },
   "purge": {
     "description": "Entfernt eine bestimmte Menge an Nachrichten.",
-    "usage": "PREFIX Command: purge <number> [channel]\nEs wird NICHT die Anzahl der Nachrichten löschen, die im \"amount\"-Paramater angegeben ist, sondern diese löschen, sofern alle anderen Parameter erfüllt sind.",
+    "usage": "PREFIX-Befehl: purge <Anzahl> [Kanal]\nEs wird NICHT die Anzahl der Nachrichten löschen, die im \"amount\"-Parameter angegeben ist, sondern diese löschen, sofern alle anderen Parameter erfüllt sind.",
     "options": {
       "amount": {
         "description": "Die Anzahl der Nachrichten, die überprüft und eventuell gelöscht werden."
@@ -113,7 +113,7 @@
           "mentions": "Mitglieds-Erwähnungen",
           "server_ads": "Discord Server Werbelinks",
           "images": "Bilder",
-          "embeds": "Embeds",
+          "embeds": "Einbettungen",
           "text": "Text"
         }
       },
@@ -148,7 +148,7 @@
         "description": "Nur Nachrichten, welche nicht mit dieser Phrase beginnen, werden gelöscht."
       },
       "user_type": {
-        "description": "Nur Nachrichten von diesem Usertyp werden gelöscht.",
+        "description": "Nur Nachrichten von diesem User-Typ werden gelöscht.",
         "choices": {
           "bot": "Bot",
           "human": "Mensch"
@@ -158,21 +158,21 @@
         "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die vor der Nachricht gesendet wurden, werden gelöscht."
       },
       "after_message": {
-        "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die nach der Nachricht gesendet wurden, werden gelöscht"
+        "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die nach der Nachricht gesendet wurden, werden gelöscht."
       }
     },
-    "noNumber": "Bitte spezifiziere das nächste mal die Anzahl der zu löschenden Nachrichten.",
+    "noNumber": "Bitte spezifiziere das nächste Mal die Anzahl der zu löschenden Nachrichten.",
     "invalidNumber": "Das ist keine gültige Zahl!",
-    "paramExcludesOther": "Einer deiner Parameter macht einen anderen Parameter unmöglich! (zB. `starts_with` = \"a\" und `not_starts_with` = \"a\")",
+    "paramExcludesOther": "Einer deiner Parameter macht einen anderen Parameter unmöglich! (z. B. `starts_with` = \"a\" und `not_starts_with` = \"a\")",
     "noneFound": "Es wurden keine Nachrichten gefunden, die deinen Parametern entsprechen.",
     "success": "Ich habe erfolgreich {count}/{all} Nachrichten gelöscht."
   },
   "unlock": {
     "description": "Entsperrt einen gelockten Channel.",
-    "usage": "unlock [channel] [reason]",
+    "usage": "unlock [Kanal] [Begründung]",
     "options": {
       "channel": {
-        "description": "Den Channel, den du entsperren möchtest"
+        "description": "Welchen Kanal möchtest du entsperren?"
       },
       "reason": {
         "description": "Den Grund dafür, den Kanal zu entsperren"
@@ -188,15 +188,15 @@
     "description": "Entferne den Timeout von einem Mitglied.",
     "options": {
       "target": {
-        "description": "Wessen Timeout du entfernen möchtest"
+        "description": "Wessen Timeout möchtest du entfernen?"
       },
       "reason": {
-        "description": "Warum du den Timeout entfernen möchtest"
+        "description": "Warum möchtest du den Timeout entfernen?"
       }
     },
     "noReason": "Keine Begründung angegeben",
     "notFound": "Ich konnte dieses Mitglied nicht finden!",
-    "notMuted": "Dieses Mitglied ist nicht gemuted!",
+    "notMuted": "Dieses Mitglied ist nicht getimeouted!",
     "moderator": "Moderator",
     "success": "Der Timeout für <@{user}> wurde entfernt."
   }
