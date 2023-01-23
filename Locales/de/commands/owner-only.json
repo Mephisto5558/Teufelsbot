@@ -1,7 +1,7 @@
 {
   "blacklistuser": {
     "description": "Blockt einen User vom Benutzen des Bots",
-    "usage": "PREFIX Command: blacklistuser <user id>",
+    "usage": "PREFIX-Befehl: blacklistuser <User-ID>",
     "noInput": "Du musst eine ID angeben.",
     "notFound": "Dieser User ist nicht blacklisted.",
     "saved": "`{user}` wurde vom Nutzen des Bots geblacklistet.",
@@ -9,39 +9,39 @@
     "cantBlacklistOwner": "Ich kann den Owner des Bots nicht blacklisten!"
   },
   "dbget": {
-    "description": "Erhalte Daten aus der DB",
-    "usage": "PREFIX Command: dbget <database name>",
+    "description": "Erhalte Daten aus der Datenbank",
+    "usage": "PREFIX -Befehl: dbget <Datenbank-Name>",
     "notFound": "nichts gefunden"
   },
   "eval": {
     "description": "Führe JavaScript Code mit dem Bot aus",
-    "usage": "PREFIX Command: eval <js code>",
+    "usage": "PREFIX-Befehl: eval <JS-Code>",
     "finished": "Code:\n```js\n{code}\n```\n",
     "success": "{msg} wurde fehlerlos ausgeführt.",
-    "error": "{msg} wurde mit dem folgendem Fehler ausgeführt:\n```\n{name}: {err}\n```"
+    "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
   },
   "gitpull": {
     "description": "Führe einen git pull aus",
     "success": "Erfolgreich gepullt."
   },
   "globalsync": {
-    "description": "Synchronisiert die Slash Commands des Bots mit allen Servern",
+    "description": "Synchronisiert die Slash-Befehle des Bots mit allen Servern.",
     "success": "Synchronisierung beendet."
   },
   "reload": {
-    "description": "Läd einen Command oder eine Kategorie neu",
-    "usage": "PREFIX Command: reload <command | \"*\">",
-    "invalidCommand": "Dies ist kein gültiger Command.",
+    "description": "Lädt einen Befehl oder eine Kategorie neu",
+    "usage": "PREFIX-Befehl: reload <Befehl | \"*\">",
+    "invalidCommand": "Dies ist kein gültiger Befehl.",
     "error": "Ein Fehler ist während des Neuladens aufgetreten:\n```{error}```\nÜberprüfe die Konsole für mehr Informationen.",
-    "noneReloaded": "Keine Commands wurden neu geladen.",
-    "reloaded": "Die folgenden `{count}` Commands wurden neu geladen:\n`{commands}`"
+    "noneReloaded": "Es wurden keine Befehle neu geladen.",
+    "reloaded": "Die folgenden `{count}` Befehle wurden neu geladen:\n`{commands}`"
   },
   "reloaddb": {
-    "description": "Läd die Database neu.",
-    "success": "Die Database wurde neu geladen."
+    "description": "Lädt die Datenbank neu.",
+    "success": "Die Datenbank wurde neu geladen."
   },
   "reloadlang": {
-    "description": "Läd alle Sprachdateien neu",
+    "description": "Lädt alle Sprachdateien neu",
     "success": "Alle Sprachdateien wurden neu geladen."
   },
   "restart": {
@@ -51,12 +51,12 @@
   },
   "setactivity": {
     "description": "Setzte die Aktivität des Bots",
-    "usage": "PREFIX Command: setactivity <activity>;[type]",
+    "usage": "PREFIX-Befehl: setactivity <Aktivität>;[Typ]",
     "invalidType": "Das ist kein gültiger Aktivitäts-Typ. Gültige Typen sind:\n`{types}`",
     "set": "Aktivität wurde zu `{name}` vom Typ `{type}` gesetzt.",
     "reset": "Aktivität wurde zu `nichts` gesetzt."
   },
   "test": {
-    "description": "testing stuff"
+    "description": "testet Sachen"
   }
 }
