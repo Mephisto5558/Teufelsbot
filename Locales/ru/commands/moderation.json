@@ -1,203 +1,203 @@
 {
   "ban": {
-    "description": "bans a member from the guild",
+    "description": "запрещает участника гильдии",
     "options": {
       "targets": {
-        "description": "Mention member(s) or put ID(s) in to ban them. Put a space between each target."
+        "description": "Участник (ы) упоминания или поместить ID (ID), чтобы запретить их. Поместите пробел между целью."
       },
       "reason": {
-        "description": "The target(s) is/are going to see the reason in DMs"
+        "description": "Цель(ы) (ы) будут видеть причину в ЛС"
       },
       "duration": {
-        "description": "How long do you want to get the target(s) banned?"
+        "description": "Как долго вы хотите забанить цель (целей)?"
       },
       "delete_days_of_messages": {
-        "description": "Delete all messages of the targets of the last n days."
+        "description": "Удалить все сообщения о целях за последние n дней."
       }
     },
-    "dmEmbedTitle": "Banned",
-    "dmEmbedDescription": "You have been banned from `{guild}`.\nModerator: {mod}\nReason: {reason}",
-    "infoEmbedTitle": "Ban",
-    "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
-    "cantPunishSelf": "You can't ban yourself!",
-    "noneFound": "No targets have been found.",
-    "error": "**{user}** couldn't be banned.\n{err}\n",
-    "success": "**{user}** has been successfully banned.\n",
-    "noDM": "I couldn't DM the target."
+    "dmEmbedTitle": "Забанен",
+    "dmEmbedDescription": "Вы были заблокированы на `{guild}`.\nМодератор: {mod}\nПричина: {reason}",
+    "infoEmbedTitle": "Бан",
+    "infoEmbedDescription": "Модератор: {mod}\nПричина: {reason}\n\n",
+    "cantPunishSelf": "Вы не можете забанить себя!",
+    "noneFound": "Цели не найдены.",
+    "error": "**{user}** не может быть забанен.\n{err}\n",
+    "success": "**{user}** успешно забанен.\n",
+    "noDM": "Я не смог ЛС цель."
   },
   "kick": {
-    "description": "kicks a member from the guild",
+    "description": "кидает участника из гильдии",
     "options": {
       "targets": {
-        "description": "Mention member(s) or put ID(s) in to kick them. Put a space between each target."
+        "description": "Участник (и) упоминания или положить ID (ID), чтобы выгнать их. Поместите пробел между целью."
       },
       "reason": {
-        "description": "The target(s) is/are going to see the reason in DMs"
+        "description": "Цель(ы) (ы) будут видеть причину в ЛС"
       }
     },
-    "dmEmbedTitle": "Kicked",
-    "dmEmbedDescription": "You have been kicked from `{guild}`.\nModerator: {mod}\nReason: {reason}",
-    "infoEmbedTitle": "Kick",
-    "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
-    "noneFound": "No targets have been found.",
-    "cantPunishSelf": "You can't kick yourself!",
-    "error": "**{user}** couldn't be kicked.\n{err}\n",
-    "success": "**{user}** has been successfully kicked.\n",
-    "noDM": "I couldn't DM the target."
+    "dmEmbedTitle": "Кикнут",
+    "dmEmbedDescription": "Вы были выгнаны из `{guild}`.\nМодератор: {mod}\nПричина: {reason}",
+    "infoEmbedTitle": "Кик",
+    "infoEmbedDescription": "Модератор: {mod}\nПричина: {reason}\n\n",
+    "noneFound": "Цели не найдены.",
+    "cantPunishSelf": "Нельзя выгнать самого себя!",
+    "error": "**{user}** не может быть кикнут.\n{err}\n",
+    "success": "**{user}** был успешно кикнут.\n",
+    "noDM": "Я не смог ЛС цель."
   },
   "lock": {
-    "description": "Prevents everyone except administrators from writing in a channel.",
-    "usage": "lock [channel] [reason]",
+    "description": "Запрещает всем кроме администраторов писать в канале.",
+    "usage": "заблокировать [channel] [reason]",
     "options": {
       "channel": {
-        "description": "What channel do you want to lock?"
+        "description": "Какой канал вы хотите заблокировать?"
       },
       "reason": {
-        "description": "The reason for locking the channel"
+        "description": "Причина блокировки канала"
       }
     },
-    "noReason": "no reason specified",
-    "embedTitle": "Channel locked!",
-    "embedDescription": "This channel has been locked.\nModerator: {mod}\nReason: {reason}",
-    "success": "The channel has been locked."
+    "noReason": "причина не указана",
+    "embedTitle": "Канал заблокирован!",
+    "embedDescription": "Канал заблокирован.\nМодератор: {mod}\nПричина: {reason}",
+    "success": "Канал был заблокирован."
   },
   "mute": {
-    "description": "Timeouts a member for a given time (min. 1min).",
+    "description": "Таймаут участника на определенное время (мин. 1 мин).",
     "options": {
       "target": {
-        "description": "Who do you want to mute?"
+        "description": "Кто ты хочешь заглушить?"
       },
       "reason": {
-        "description": "The target is going to see the reason in DMs."
+        "description": "Цель заключается в том, чтобы выяснить причину в DMs."
       },
       "duration": {
-        "description": "For how long do you want to mute the target? (eg. 1w3d2h5min, min 1min, max. 28d)"
+        "description": "Сколько времени вы хотите заглушить цель (напр. 1w3d2h5min, минимум 1min, макс. 28d)"
       }
     },
-    "dmEmbedTitle": "Muted",
-    "dmEmbedDescription": "You have been muted from `{guild}`.\nModerator: {mod}\nUntil: <t:{time}>\nReason: {reason}",
-    "infoEmbedTitle": "Mute",
-    "infoEmbedDescription": "{user} has been successfully muted.\nReason: {reason}\nUntil: <t:{time}>\n",
-    "notFound": "I couldn't find that member!",
-    "cantMuteSelf": "You can't mute yourself!",
-    "targetIsAdmin": "I cannot mute admininstartors!",
-    "invalidDuration": "The mute duration you provided is invalid!",
-    "error": "I couldn't mute the target:\n{err}",
-    "noDM": "I couldn't DM the target."
+    "dmEmbedTitle": "Заглушён",
+    "dmEmbedDescription": "Вы были заглушены из `{guild}`.\nМодератор: {mod}\nUntil: <t:{time}>\nПричина: {reason}",
+    "infoEmbedTitle": "Заглушить",
+    "infoEmbedDescription": "{user} успешно заглушен.\nПричина: {reason}\nдо: <t:{time}>\n",
+    "notFound": "Я не смог найти этого члена!",
+    "cantMuteSelf": "Вы не можете заблокировать себя!",
+    "targetIsAdmin": "Я не могу заблокировать администраторов!",
+    "invalidDuration": "Указанная вами длительность звука недействительна!",
+    "error": "Я не смог заблокировать цель\n{err}",
+    "noDM": "Я не смог ЛС цель."
   },
   "nukechannel": {
-    "description": "Clears all channel messages by duplicating the channel and then deleting the original one",
+    "description": "Очищает все сообщения канала, дублируя канал, а затем удаляя оригинальный",
     "options": {
       "confirmation": {
-        "description": "Write \"DELETE CHANNEL\" for confirmation."
+        "description": "Напишите \"DELETE CHANNEL\" для подтверждения."
       },
       "channel": {
-        "description": "The channel to nuke."
+        "description": "Грядущий канал."
       }
     },
-    "confirmation": "delete channel",
-    "needConfirm": "You need to confirm this action by writing `DELETE CHANNEL` as the confirm option!",
-    "embedDescription": ":radioactive: Channel Nuked!",
-    "embedFooterText": "Nuked by {user}"
+    "confirmation": "удалить канал",
+    "needConfirm": "Вы должны подтвердить это действие, написав `DELETE CHANNEL` в качестве параметра подтверждения!",
+    "embedDescription": ":radioactive: Канал пуст!",
+    "embedFooterText": "Ненужное {user}"
   },
   "purge": {
-    "description": "removes a specific amount of messages",
-    "usage": "PREFIX Command: purge <number> [channel]\nIt will NOT delete the number of messages specified in the \"amount\" parameter, but will delete them if all other parameters are met.",
+    "description": "удаляет определенное количество сообщений",
+    "usage": "PREFIX команда: очистить <number> [channel]\nЭто НЕ удалит количество сообщений, указанных в параметре \"amount\", , но удалит их, если все остальные параметры выполнены.",
     "options": {
       "amount": {
-        "description": "The amount of messages to to check and maybe purge."
+        "description": "Количество сообщений для проверки и, возможно, очистки."
       },
       "only_containing": {
-        "description": "Only purge messages containing that.",
+        "description": "Очищать только содержащие это сообщения.",
         "choices": {
-          "mentions": "Member mentions",
-          "server_ads": "Discord Server ad links",
-          "images": "Images",
+          "mentions": "Упоминания участников",
+          "server_ads": "Рекламные ссылки на сервер Discord",
+          "images": "Изображения",
           "embeds": "Embeds",
-          "text": "Text"
+          "text": "Текст"
         }
       },
       "member": {
-        "description": "Purge only messages from that member."
+        "description": "Удалить только сообщения от этого участника."
       },
       "channel": {
-        "description": "In witch channel do you want to purge?"
+        "description": "В канале ведьмы вы хотите очистить?"
       },
       "remove_pinned": {
-        "description": "Do not skip pinned messages."
+        "description": "Не пропускать закрепленные сообщения."
       },
       "caps_percentage": {
-        "description": "How much CAPS must be at least in messages to purge them?"
+        "description": "Сколько CAPS должен быть по крайней мере в сообщениях, чтобы очистить их?"
       },
       "contains": {
-        "description": "Messages must contain this phrase to get purged."
+        "description": "Сообщения должны содержать эту фразу для очистки."
       },
       "does_not_contain": {
-        "description": "Messages must not contain this phrase to get purged."
+        "description": "Сообщения не должны содержать эту фразу для очистки."
       },
       "starts_with": {
-        "description": "Messages must start with this phrase to get purged."
+        "description": "Сообщения должны начинаться с этой фразы, чтобы очистить."
       },
       "not_starts_with": {
-        "description": "Messages must not start with this phrase to get purged."
+        "description": "Сообщения не должны начинаться с этой фразы, чтобы очистить."
       },
       "ends_with": {
-        "description": "Messages must end with this phrase to get purged."
+        "description": "Сообщения должны заканчиваться этой фразой, чтобы очистить."
       },
       "not_ends_with": {
-        "description": "Messages must not start end this phrase to get purged."
+        "description": "Сообщения не должны начинаться с конца фразы для очистки."
       },
       "user_type": {
-        "description": "Only messages from that type of user get purged.",
+        "description": "Удаляются только сообщения от этого пользователя.",
         "choices": {
           "bot": "Bot",
-          "human": "Human"
+          "human": "Человек"
         }
       },
       "before_message": {
-        "description": "Input a message id. Only messages sent before that message get purged."
+        "description": "Введите идентификатор сообщения. Только сообщения, отправленные до этого сообщения, будут очищены."
       },
       "after_message": {
         "description": "Input a message id. Only messages sent after that message get purged."
       }
     },
-    "noNumber": "Please specify the number of messages to purge next time.",
-    "invalidNumber": "This is not a valid number!",
-    "paramExcludesOther": "One of you parameters makes another parameter impossible! (eg. `starts_with` = \"a\" and `not_starts_with` = \"a\")",
-    "noneFound": "No messages matching your parameters have been found.",
-    "success": "Successfully deleted {count}/{all} messages."
+    "noNumber": "Укажите в следующий раз количество сообщений для очистки.",
+    "invalidNumber": "Это не допустимое число!",
+    "paramExcludesOther": "Один из параметров делает другой параметр невозможным! (например: `starts_with` = \"a\" и `not_starts_with` = \"a\")",
+    "noneFound": "Не найдено сообщений, соответствующих вашим параметрам.",
+    "success": "Успешно удалено {count}/{all}."
   },
   "unlock": {
-    "description": "Unlocks a channel locked with the lock command.",
-    "usage": "unlock [channel] [reason]",
+    "description": "Разблокирует канал с помощью команды блокировки.",
+    "usage": "разблокировать [channel] [reason]",
     "options": {
       "channel": {
-        "description": "What channel do you want to unlock?"
+        "description": "Какой канал вы хотите разблокировать?"
       },
       "reason": {
-        "description": "The reason for unlocking the channel"
+        "description": "Причина разблокировки канала"
       }
     },
-    "noReason": "no reason specified",
-    "notLocked": "This channel is not locked!",
-    "embedTitle": "Channel unlocked!",
-    "embedDescription": "This channel has been unlocked.\nModerator: {mod}\nReason: {reason}",
-    "success": "The channel has been unlocked."
+    "noReason": "причина не указана",
+    "notLocked": "Канал не заблокирован!",
+    "embedTitle": "Канал разблокирован!",
+    "embedDescription": "Этот канал был разблокирован.\nМодератор: {mod}\nПричина: {reason}",
+    "success": "Канал был разблокирован."
   },
   "unmute": {
-    "description": "lifts the timeout of a member",
+    "description": "повышает время ожидания участника",
     "options": {
       "target": {
-        "description": "Who do you want to unmute?"
+        "description": "Кому ты хочешь размутить?"
       },
       "reason": {
-        "description": "Why do you want to unmute the target?"
+        "description": "Почему вы хотите размутить цель?"
       }
     },
-    "noReason": "no reason specified",
-    "notFound": "I couldn't find that member!",
-    "notMuted": "This member is not muted!",
-    "moderator": "Moderator",
-    "success": "Removed timeout for member <@{user}>."
+    "noReason": "причина не указана",
+    "notFound": "Я не смог найти этого члена!",
+    "notMuted": "Этот участник не заглушен!",
+    "moderator": "Модератор",
+    "success": "Тайм-аут удален для участника <@{user}>."
   }
 }

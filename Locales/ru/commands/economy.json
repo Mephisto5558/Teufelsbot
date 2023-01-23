@@ -1,63 +1,63 @@
 {
   "account": {
-    "description": "Shows your account and stats",
-    "usage": "account [@user]",
+    "description": "Показывает ваш аккаунт и статистику",
+    "usage": "аккаунт [@user]",
     "options": {
       "user": {
-        "description": "The user you want to get the account of"
+        "description": "Пользователь, которому вы хотите получить аккаунт"
       }
     },
-    "targetEconomyNotInitialized": "This person has not started playing yet. He/She has to run `/economyconfig user start`.",
+    "targetEconomyNotInitialized": "Этот человек еще не начал играть. Он должен запустить `/economyconfig пользователя start`.",
     "currency": "Souls: **{num}**/**{max}** <:soul:1011962640349810688>\n",
     "dailyStreak": "Daily Streak: **{streak}** <:souls:1011962960840773673>\n",
-    "rank": "Rank: **{rank}**\n"
+    "rank": "Ранг: **{rank}**\n"
   },
   "daily": {
-    "description": "Get your daily souls!",
-    "notUnlocked": "You have not researched the daily souls yet! `/research`",
-    "collected": "You have collected {count} souls!"
+    "description": "Получите свои ежедневные души!",
+    "notUnlocked": "Вы еще не исследули ежедневные души! `/research`",
+    "collected": "Вы собрали {count} душ!"
   },
   "economyconfig": {
-    "description": "Economy Configuration for users and admins",
+    "description": "Конфигурация экономики для пользователей и администраторов",
     "options": {
       "user": {
-        "description": "Configuration for your economy in this guild.",
+        "description": "Конфигурация для вашей экономики в этой гильдии.",
         "options": {
           "start": {
-            "description": "Start using the economy commands!"
+            "description": "Начните использовать команды экономии!"
           },
           "delete": {
-            "description": "DELETE all your economy data! This is irreversible!",
+            "description": "УДАЛИТЬ все данные по экономике! Это необратимо!",
             "options": {
               "confirmation": {
-                "description": "Write \"CLEAR ALL\" to confirm deleting your economy data."
+                "description": "Напишите \"CLEAR ALL\" для подтверждения удаления экономических данных."
               }
             }
           }
         }
       },
       "admin": {
-        "description": "Configure the economy in this guild",
+        "description": "Настроить экономику в этой гильдии",
         "options": {
           "toggle": {
-            "description": "Enables/Disables the economy for this guild."
+            "description": "Включает/отключает экономию для этой гильдии."
           },
           "clear": {
-            "description": "DELETES ALL ECONOMY DATA (including config). This is irreversible!",
+            "description": "УДАЛИТЬ ВСЕ ЭКОНОМИЧЕСКИЕ ДАННЫЕ (включая конфигурацию). Это необратимо!",
             "options": {
               "confirmation": {
-                "description": "Write \"CLEAR ALL\" to confirm deleting the guild's economy data."
+                "description": "Напишите \"CLEAR ALL\" для подтверждения удаления экономических данных гильдии."
               }
             }
           },
           "blacklist": {
-            "description": "Allow or disallow something or someone for all gaining methods.",
+            "description": "Разрешить или запретить что-нибудь или кого-то для всех методов.",
             "options": {
               "channel": {
-                "description": "Allow or disallow a channel from all gaining methods (eg. chat messages in a spam channel)."
+                "description": "Разрешить или запретить канал из всех методов получения (например, сообщения в канале спама)."
               },
               "role": {
-                "description": "Allow or disallow a role from all gaining methods (eg. chat messages in all channels)."
+                "description": "Разрешить или запретить роль от всех методов получения (например, сообщений во всех каналах)."
               },
               "user": {
                 "description": "Allow or disallow an user from all gaining methods (eg. chat messages in all channels)."
@@ -65,182 +65,182 @@
             }
           },
           "gaining_rules": {
-            "description": "Rules all about gaining.",
+            "description": "Правила все о выигрышах.",
             "options": {
               "get": {
-                "description": "Get all settings and their values."
+                "description": "Получить все настройки и их значения."
               },
               "min_message_length": {
-                "description": "The minimum message length required to get souls."
+                "description": "Минимальная длина сообщения, необходимая для получения душ."
               },
               "max_message_length": {
-                "description": "The maximum message length required to get souls."
+                "description": "Максимальная длина сообщения, необходимая для получения душ."
               }
             }
           }
         }
       }
     },
-    "confirmation": "clear all",
+    "confirmation": "очистить все",
     "user": {
       "start": {
-        "alreadyInitiated": "You have run this command already! You can use the economy.",
-        "success": "You can now use the economy. Try out `/account`, `/stats` and `/research`!"
+        "alreadyInitiated": "Вы уже выполнили эту команду! Вы можете использовать экономию.",
+        "success": "Теперь вы можете использовать экономику. Попробуйте `/account`, `/stats` и `/research`!"
       },
       "delete": {
-        "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
-        "success": "All your economy data (including config) for this guild has been deleted. Start using the economy with `/economyconfig user start`."
+        "needConfirm": "Вы должны подтвердить это действие, написав `CLEAR ALL` в опции подтверждения!",
+        "success": "Все данные вашей экономики (включая конфигурацию) для этой гильдии удалены. Начните использовать экономику с `/economyconfig пользователя start`."
       }
     },
     "admin": {
-      "noPerm": "You don't have the permission to run admin commands!",
+      "noPerm": "У вас нет разрешения на выполнение команд администратора!",
       "toggle": {
-        "success": "{state} the economy for this guild."
+        "success": "{state} экономия для этой гильдии."
       },
       "clear": {
-        "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
-        "success": "All economy data (including config) for this guild has been deleted and the economy has been disabled."
+        "needConfirm": "Вы должны подтвердить это действие, написав `CLEAR ALL` в опции подтверждения!",
+        "success": "Все данные об экономике (включая конфигурацию) для этой гильдии были удалены и экономия была отключена."
       },
       "blacklist": {
-        "channels": "Channels",
-        "roles": "Roles",
+        "channels": "Каналы",
+        "roles": "Роли",
         "user": "Пользователь",
-        "embedTitle": "Economy Gaining Blacklist",
-        "listEmbedDescription": "This guild is currently blacklisting the following objects from gaining souls:",
-        "setEmbedDescription": "The following changes have been made:\n```diff\nChannel:\n{channel}\n\nRole:\n{role}\n\nUser:\n{user}\n```",
-        "setFooterText": "Run this command without arguments to get the whole blacklist."
+        "embedTitle": "Черный список Экономики",
+        "listEmbedDescription": "Эта гильдия в настоящее время зачеркивает следующие предметы из получения душ:",
+        "setEmbedDescription": "Были внесены следующие изменения:\n```diff\nКанал:\n{channel}\n\nРоль:\n{role}\n\nПользователь:\n{user}\n```",
+        "setFooterText": "Выполните эту команду без аргументов, чтобы получить весь черный список."
       },
       "gainingRules": {
-        "getEmbedTitle": "Guild Economy Config",
-        "getEmbedDescription": "This are the first 25 entries of the guild's economy config.",
+        "getEmbedTitle": "Конфигурация экономики гильдии",
+        "getEmbedDescription": "Это первые 25 записей в настройках экономики гильдии.",
         "getConfigList": {
-          "min_message_length": "Min. message length",
-          "max_message_length": "Max. message length"
+          "min_message_length": "Мин. длина сообщения",
+          "max_message_length": "Макс. длина сообщения"
         },
-        "nothingChanged": "You didn't change any value.",
-        "setSuccess": "Successfully set {count} settings."
+        "nothingChanged": "Вы не изменили ни одного значения.",
+        "setSuccess": "Настройки {count} успешно установлены."
       }
     }
   },
   "give": {
-    "description": "Give some souls to someone",
-    "usage": "give [@user] [amount]",
+    "description": "Дать кому-нибудь души",
+    "usage": "дать [@user] [amount]",
     "options": {
       "target": {
-        "description": "The user you want to give souls."
+        "description": "Пользователь, которому вы хотите дать души."
       },
       "amount": {
-        "description": "The amount of souls you want to give. (% is supported)"
+        "description": "Количество душ, которые вы хотите дать. (% поддерживается)"
       }
     },
     "error": {
-      "noTarget": "You need to mention someone!",
-      "self": "You can't give yourself souls...",
-      "bot": "You want to give your souls to a bot?",
-      "noAmount": "You need to specify how many souls you want to give!",
-      "noMoney": "You are too poor to give someone souls...",
-      "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. They have to run `/economyconfig user start` first!"
+      "noTarget": "Вы должны упомянуть кого-нибудь!",
+      "self": "Вы не можете дать себе души...",
+      "bot": "Вы хотите подарить свои души боту?",
+      "noAmount": "Нужно указать, сколько душ вы хотите дарить!",
+      "noMoney": "Вы слишком бедны, чтобы дать кого-нибудь души...",
+      "targetEconomyNotInitialized": "Человек, которому вы хотите дать души, еще не начал играть. Сначала им нужно запустить `/economyconfig user start`!"
     },
-    "embedTitle": "Give",
-    "embedDescription": "You gave **{amount}** Souls to <@{target}>! <:soul:1011962640349810688>\n>>> Your souls: **{newUserAmount}** <:soul:1011962640349810688>\nHis/Her souls: **{newTargetAmount}** <:soul:1011962640349810688>"
+    "embedTitle": "Дать",
+    "embedDescription": "Вы дали **{amount}** Душ <@{target}>! <:soul:1011962640349810688>\n>>> Души: **{newUserAmount}** <:soul:1011962640349810688>\nЕго души: **{newTargetAmount}** <:soul:1011962640349810688>"
   },
   "research": {
-    "description": "Upgrade your skills and research new ones!",
+    "description": "Улучшите свои навыки и исследуйте новые!",
     "skills": {
       "currency_bonus_percentage": {
         "name": "Soul Bonus (%)",
         "emoji": "<:soul:1011962640349810688>",
-        "description": "How many more Souls (in percent) you're getting for your activities."
+        "description": "Сколько больше душ (в процентах) вы получаете для своей деятельности."
       },
       "currency_bonus_absolute": {
         "name": "Soul Bonus",
         "emoji": "<:soul:1011962640349810688>",
-        "description": "How many more Souls you're getting for your activities."
+        "description": "Сколько больше душ вы получаете для вашей деятельности."
       },
       "research_speed_percentage": {
-        "name": "Research Speed (%)",
+        "name": "Скорость исследований (%)",
         "emoji": "<:research:1011960920609665064>",
-        "description": "How much faster (in percent) you're able to research."
+        "description": "Как много быстрее (в процентах), вы можете исследовать."
       },
       "research_bonus_percentage": {
-        "name": "Research Efficiency (%)",
+        "name": "Эффективность исследований (%)",
         "emoji": "<:research:1011960920609665064>",
-        "description": "How big the bonuses are wich you're getting by researching."
+        "description": "Насколько велики бонусы вы будете получать от исследований."
       },
       "power": {
-        "name": "Power",
+        "name": "Сила",
         "emoji": "<:power:1011965677625671731>",
         "description": "One of your most important stats. It protects you from other players in several ways and lets you handle more powerful slaves."
       },
       "defense": {
-        "name": "Defense",
+        "name": "Защита",
         "emoji": "<:defense:1011971580584263710>",
-        "description": "Protects you from other players in several ways."
+        "description": "Защищает вас от других игроков несколькими способами."
       },
       "currency_capacity": {
-        "name": "Soul Capacity",
+        "name": "Вместимость души",
         "emoji": "<:storage:1011973136100642947>",
-        "description": "How many souls you can have at once. If you are 50% over your limit, you will lose 75% of your souls!"
+        "description": "Сколько душ у вас может быть одновременно. Если вы превысите на 50%, вы потеряете 75% души!"
       },
       "slave_capacity": {
-        "name": "Slave Capacity",
+        "name": "Вместимость Раба",
         "emoji": "<:storage:1011973136100642947>",
-        "description": "How many slaves you can have at once."
+        "description": "Сколько рабов вы можете иметь одновременно."
       }
     },
     "lvl": "Lv. {lvl}",
-    "selectMenuPlaceholder": "What do you want to research?",
-    "price": "Price: {price} <:soul:1011962640349810688>",
-    "embedTitle": "Research",
-    "notEnoughMoney": "You have not enough souls to research this upgrade!",
-    "onCooldown": "You are currently researching this one! It will finish in <t:{time}:R>.",
-    "maxLevel": "You have already maxed out this skill!",
-    "onMaxConcurrentResearches": "You cannot research even more skills at once!",
-    "success": "The upgrade for **{skill}** {emoji} to Level `{lvl}` has started!\nIt will finish <t:{time}:R> (<t:{time}>)",
-    "timedOut": "This menu timed out."
+    "selectMenuPlaceholder": "Что вы хотите исследовать?",
+    "price": "Цена: {price} <:soul:1011962640349810688>",
+    "embedTitle": "Исследование",
+    "notEnoughMoney": "У вас недостаточно душ для исследования улучшения!",
+    "onCooldown": "Вы в настоящее время исследуете это! Она закончится через <t:{time}:R>.",
+    "maxLevel": "Вы уже достигли максимума этого навыка!",
+    "onMaxConcurrentResearches": "Вы не можете исследовать ещё больше умений сразу!",
+    "success": "Обновление для **{skill}** {emoji} до уровня{lvl}` началось!\nОно закончится <t:{time}:R> (<t:{time}>)",
+    "timedOut": "Истекло время ожидания этого меню."
   },
   "stats": {
-    "description": "Get more in-depth stats about a user or yourself.",
-    "usage": "stats [@user]",
+    "description": "Получите более подробную статистику о пользователе или себе.",
+    "usage": "статистика [@user]",
     "options": {
       "target": {
-        "description": "The user you want to get stats about"
+        "description": "Пользователь, о котором вы хотите получить статистику"
       }
     },
-    "noStats": "This user is powerless and has no stats which are worth displaying.",
+    "noStats": "Этот пользователь бесперебойный и не имеет статистики, которая стоит показать.",
     "currency": "Souls <:soul:1011962640349810688>",
-    "power": "Power <:power:1011965677625671731>",
-    "defense": "Defense <:defense:1011971580584263710>",
-    "slaves": "Slaves",
-    "maxSlaves": "Max Slaves",
-    "level": "> Level **{lvl}**\n",
+    "power": "<:power:1011965677625671731>",
+    "defense": "Защита <:defense:1011971580584263710>",
+    "slaves": "Рабы",
+    "maxSlaves": "Максимум рабов",
+    "level": "> Уровень **{lvl}**\n",
     "gaining": {
-      "title": "Gaining Methods",
-      "chat": "Chat Messages: **{num}**",
-      "voice": "Voice Minutes: **{num}**",
-      "work": "Work: **{num}**",
-      "daily": "Daily collection: **{num}**"
+      "title": "Методы получения",
+      "chat": "Сообщения чата: **{num}**",
+      "voice": "Голосовые минуты: **{num}**",
+      "work": "Работа: **{num}**",
+      "daily": "Ежедневная коллекция: **{num}**"
     },
     "skills": {
-      "name": "Skills",
+      "name": "Навыки",
       "currency_bonus_percentage": "> Soul Bonus (%) <:soul:1011962640349810688>\n",
       "currency_bonus_absolute": "> Soul Bonus <:soul:1011962640349810688>\n",
-      "research_speed_percentage": "> Research Speed (%) <:research:1011960920609665064>\n",
-      "research_bonus_percentage": "> Research Efficiency (%) <:research:1011960920609665064>\n",
-      "power": "> Power <:power:1011965677625671731>\n",
-      "defense": "> Defense <:defense:1011971580584263710>\n",
-      "currency_capacity": "> Soul Capacity <:storage:1011973136100642947>\n",
-      "slave_capacity": "> Slave Capacity <:storage:1011973136100642947>\n"
+      "research_speed_percentage": "> Скорость исследований (%) <:research:1011960920609665064>\n",
+      "research_bonus_percentage": "> Эффективность исследований (%) <:research:1011960920609665064>\n",
+      "power": "> Сила <:power:1011965677625671731>\n",
+      "defense": "> Защита <:defense:1011971580584263710>\n",
+      "currency_capacity": "> Вместимость души <:storage:1011973136100642947>\n",
+      "slave_capacity": "> Вместимость рабов <:storage:1011973136100642947>\n"
     },
-    "embedTitle": "{user}'s Stats"
+    "embedTitle": "Статистика {user}"
   },
   "top": {
-    "description": "Displays the most powerful people of this guild.",
+    "description": "Отображает самых могущественных людей этой гильдии.",
     "currency": "> Souls: **{num}** <:soul:1011962640349810688>\n",
-    "power": "> Power: **{num}** <:power:1011965677625671731>",
-    "embedTitle": "Top 10 Members",
-    "embedDescription": "These are the top 10 members, sorted by their power:\n",
-    "noneFound": "No one here has any power!"
+    "power": "> Сила: **{num}** <:power:1011965677625671731>",
+    "embedTitle": "Топ 10 участников",
+    "embedDescription": "Это топ-10 участников, отсортированных по силе:\n",
+    "noneFound": "Никто здесь не имеет силы!"
   },
   "work": {}
 }

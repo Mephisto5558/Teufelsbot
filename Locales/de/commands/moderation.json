@@ -158,7 +158,7 @@
         "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die vor der Nachricht gesendet wurden, werden gelöscht."
       },
       "after_message": {
-        "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die nach der Nachricht gesendet wurden, werden gelöscht."
+        "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die nach der Nachricht gesendet wurden, werden gelöscht"
       }
     },
     "noNumber": "Bitte spezifiziere das nächste Mal die Anzahl der zu löschenden Nachrichten.",

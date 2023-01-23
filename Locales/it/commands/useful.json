@@ -1,291 +1,291 @@
 {
   "addemoji": {
-    "description": "adds an emoji to this guild",
+    "description": "aggiunge un'emoji a questa gilda",
     "options": {
       "emoji_or_url": {
-        "description": "provide an emoji or a url to a picture."
+        "description": "fornire un emoji o un url a una foto."
       },
       "name": {
-        "description": "the name of the new emoji"
+        "description": "il nome della nuova emoji"
       },
       "limit_to_roles": {
-        "description": "the role(s) that is/are allowed to use the emoji. Separate them with spaces."
+        "description": "i ruoli che sono autorizzati a usare le emoji. Separarli con gli spazi."
       }
     },
     "embedTitle": "AddEmoji",
-    "isGuildEmoji": "That emoji is already on this guild!",
-    "invalidUrl": "The provided argument is not a valid url or emoji!\nThe url must end with `jpg`, `jpeg`, `png`, `webp`, `svg` or `gif`.\nExample: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
-    "notFound": "The provided url was not found.",
-    "success": "Successfully added **{name}** {emoji}!\n",
-    "limitedToRoles": "The emoji has been limited to the following roles:\n<@&{roles}>.",
-    "error": "Unable to create the emoji for reason:\n```\n{err}\n```",
-    "timedOut": "The request timed out. Maybe the image is to large."
+    "isGuildEmoji": "Quelle emoji sono già in questa gilda!",
+    "invalidUrl": "L'argomento fornito non è un url valido o emoji!\nL'url deve terminare con `jpg`, `jpeg`, `png`, `webp`, `svg` o `gif`.\nEsempio: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "notFound": "L'url fornito non è stato trovato.",
+    "success": "Aggiunto con successo **{name}** {emoji}!\n",
+    "limitedToRoles": "Le emoji sono state limitate ai seguenti ruoli:\n<@&{roles}>.",
+    "error": "Impossibile creare le emoji per il motivo:\n```\n{err}\n```",
+    "timedOut": "La richiesta è scaduta. Forse l'immagine è di grandi dimensioni."
   },
   "autopublish": {
-    "description": "automatically publishes everything anyone in any announcement channel says",
-    "usage": "This command publishes all messages sent in announcement channels automatically.\nThis is a toggle.",
-    "success": "{toggle} autopublishing."
+    "description": "pubblica automaticamente tutto ciò che chiunque in qualsiasi canale di annuncio dice",
+    "usage": "Questo comando pubblica automaticamente tutti i messaggi inviati nei canali di annuncio.\nQuesto è un interruttore.",
+    "success": "{toggle} autopublish."
   },
   "button": {
-    "description": "Create a button.",
+    "description": "Crea un pulsante.",
     "options": {
       "json": {
-        "description": "create a button from raw JSON data",
+        "description": "crea un pulsante dai dati JSON grezzi",
         "options": {
           "json": {
-            "description": "JSON data to create a button from"
+            "description": "Dati JSON da cui creare un pulsante"
           }
         }
       },
       "custom": {
-        "description": "create your own button with a bunch of options",
+        "description": "creare il proprio pulsante con un sacco di opzioni",
         "options": {
           "style": {
-            "description": "What style should your button have?",
+            "description": "Che stile dovrebbe avere il tuo pulsante?",
             "choices": {
-              "1": "Blurple",
-              "2": "Grey",
-              "3": "Green",
-              "4": "Red",
-              "5": "Link (Requires the \"url\" option)"
+              "1": "Sfocatura",
+              "2": "Grigio",
+              "3": "Verde",
+              "4": "Rosso",
+              "5": "Link (Richiede l'opzione \"url\")"
             }
           },
           "emoji": {
-            "description": "The emoji you want to show on the button. Gets overwritten by the \"label\" option."
+            "description": "Le emoji che si desidera mostrare sul pulsante. Viene sovrascritta dall'opzione \"etichetta\"."
           },
           "label": {
-            "description": "The text you want to show on the button. Overwrites the \"emoji\" option."
+            "description": "Il testo che vuoi mostrare sul pulsante. Sovrascrive l'opzione \"emoji\"."
           },
           "url": {
-            "description": "The url the button points to. Works only with \"Link\" style option."
+            "description": "L'url del pulsante punta. Funziona solo con l'opzione stile \"Link\"."
           },
           "new_row": {
-            "description": "Use a new row for the button."
+            "description": "Usa una nuova riga per il pulsante."
           },
           "content": {
-            "description": "Set a message to the button message."
+            "description": "Imposta un messaggio al messaggio del pulsante."
           },
           "message_id": {
-            "description": "The message you want to add a button to. Needs to be in the same channel as the command."
+            "description": "Il messaggio a cui si desidera aggiungere un pulsante. Deve essere nello stesso canale del comando."
           }
         }
       }
     },
-    "invalidURL": "The provided URL is invalid!",
-    "msgNotFound": "The message id you provided was not found in this channel!",
-    "botIsNotAuthor": "I can only edit my own messages!",
-    "buttonLimit": "A message cannot have more then 5 rows or 25 buttons!",
-    "invalidOption": "**One of your options is invalid!**\n\n```{err}```",
-    "invalidJSON": "**Your JSON is invalid!**\n\n```{err}```",
-    "successJSON": "Your button has been sent!",
-    "success": "Your button has been sent! Below is the button code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
+    "invalidURL": "L'URL fornito non è valido!",
+    "msgNotFound": "L'id del messaggio fornito non è stato trovato in questo canale!",
+    "botIsNotAuthor": "Posso modificare solo i miei messaggi!",
+    "buttonLimit": "Un messaggio non può avere più di 5 righe o 25 pulsanti!",
+    "invalidOption": "**Una delle tue opzioni non è valida!**\n\n```{err}```",
+    "invalidJSON": "**Il tuo JSON non è valido!**\n\n```{err}```",
+    "successJSON": "Il tuo pulsante è stato inviato!",
+    "success": "Il tuo pulsante è stato inviato! Sotto c'è il codice del pulsante.\nSe vuoi inviarlo di nuovo, usa il sottocomando `json`.\n\n```json\n{json}\n```"
   },
   "convert": {
-    "description": "Converts one type of text to another",
+    "description": "Converte un tipo di testo in un altro",
     "options": {
       "input": {
-        "description": "the text you want to convert"
+        "description": "il testo che si desidera convertire"
       },
       "convert_to": {
-        "description": "the output type",
+        "description": "il tipo di uscita",
         "choices": {
-          "binary": "Binary",
-          "decimal": "Decimal",
-          "hex": "Hexadecimal",
-          "morse": "Morse Code",
-          "octal": "Octal",
-          "text": "Text"
+          "binary": "Binario",
+          "decimal": "Decimale",
+          "hex": "Esadecimale",
+          "morse": "Codice Morse",
+          "octal": "Ottale",
+          "text": "Testo"
         }
       },
       "is_octal": {
-        "description": "Set this to true if your input is octal or else it will be recognized as decimal."
+        "description": "Imposta a vero se il tuo input è ottale o altrimenti sarà riconosciuto come decimale."
       },
       "with_spaces": {
-        "description": "Do you want to have spaces between the letters? Default: false"
+        "description": "Vuoi avere spazi tra le lettere? Predefinito: false"
       },
       "convert_spaces": {
-        "description": "Do you want to also convert spaces? Default: true"
+        "description": "Vuoi anche convertire gli spazi? Predefinito: vero"
       },
       "convert_letters_and_digits_only": {
-        "description": "Do you want to convert only letters and digits? Default: false"
+        "description": "Vuoi convertire solo lettere e cifre? Predefinito: false"
       }
     },
-    "success": "```Converted {inputType} to {outputType}: ```\n"
+    "success": "```Convertito {inputType} in {outputType}: ```\n"
   },
   "embed": {
-    "description": "sends a custom embed; you can do newlines with \"/n\".",
+    "description": "invia un embed personalizzato; puoi fare newlines con \"/n\".",
     "options": {
       "custom": {
-        "description": "create your own embed with a bunch of options",
+        "description": "creare il proprio incorporato con un sacco di opzioni",
         "options": {
           "description": {
-            "description": "set the embed text, use \"/n\" for newlines"
+            "description": "imposta il testo incorporato, usa \"/n\" per le newlines"
           },
           "content": {
-            "description": "set a message outside of the embed"
+            "description": "imposta un messaggio al di fuori dell'incorporato"
           },
           "title": {
-            "description": "set the embed title"
+            "description": "imposta il titolo incorporato"
           },
           "predefined_color": {
-            "description": "set the embed color from predefined discord codes"
+            "description": "imposta il colore dell'embed dai codici di discordia predefiniti"
           },
           "custom_color": {
-            "description": "set a custom 6-char HEX Code as embed color (e.g. #ffffff)"
+            "description": "imposta un codice HEX personalizzato a 6 caratteri come colore incorporato (es. #ffffff)"
           },
           "footer_text": {
-            "description": "set the footer text"
+            "description": "imposta il testo a piè di pagina"
           },
           "footer_icon": {
-            "description": "set the footer icon URL"
+            "description": "imposta l'URL dell'icona a piè di pagina"
           },
           "image": {
-            "description": "set the embed image URL"
+            "description": "imposta l'URL dell'immagine incorporata"
           },
           "thumbnail": {
-            "description": "ste the thumbnail URL"
+            "description": "ste l'URL della miniatura"
           },
           "timestamp": {
-            "description": "set the timestamp"
+            "description": "imposta il timestamp"
           },
           "author_name": {
-            "description": "set the author name"
+            "description": "imposta il nome dell'autore"
           },
           "author_url": {
-            "description": "set the author URL"
+            "description": "imposta l'URL dell'autore"
           },
           "author_icon": {
-            "description": "set the author icon URL"
+            "description": "imposta l'URL dell'icona dell'autore"
           }
         }
       },
       "json": {
-        "description": "create an embed from raw JSON data",
+        "description": "crea un embed dai dati JSON grezzi",
         "options": {
           "json": {
-            "description": "JSON data to create an embed from"
+            "description": "Dati JSON da cui creare un embed"
           }
         }
       }
     },
-    "invalidOption": "**One of your options invalid!**\n\n```{err}```",
-    "invalidJSON": "**Your JSON is invalid!**\n\n```{err}```",
-    "successJSON": "Your embed has been sent!",
-    "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
+    "invalidOption": "**Una delle tue opzioni non è valida!**\n\n```{err}```",
+    "invalidJSON": "**Il tuo JSON non è valido!**\n\n```{err}```",
+    "successJSON": "Il tuo embed è stato inviato!",
+    "success": "Il tuo embed è stato inviato! Sotto c'è il codice incorporato.\nSe vuoi inviarlo di nuovo, usa il sottocomando `json`.\n\n```json\n{json}\n```"
   },
   "hash": {
-    "description": "encrypts or decrypts your text with various methods",
-    "usage": "SLASH Command: You only need to provide one method option.",
+    "description": "crittografa o decrittografa il testo con vari metodi",
+    "usage": "Comando SLASH: Devi solo fornire un'opzione di metodo.",
     "options": {
       "input": {
-        "description": "the text you want to encrypt or decrypt"
+        "description": "il testo che si desidera crittografare o decifrare"
       },
       "method": {
-        "description": "with which method your text should get encrypted"
+        "description": "con quale metodo il tuo testo dovrebbe essere crittografato"
       }
     },
-    "embedTitle": "Hash Function",
-    "embedDescription": "Your input: `{input}`\nHash method: `{method}`",
-    "text": "Your hashed string:\n`{hash}`"
+    "embedTitle": "Funzione Hash",
+    "embedDescription": "Il tuo input: `{input}`\nMetodo Hash: `{method}`",
+    "text": "La tua stringa hashing:\n`{hash}`"
   },
   "lastping": {
-    "description": "Shows you where you got last mentioned.",
-    "usage": "PREFIX Command: lastping [#channel]\nIf the `channel` option is used, a maximum of 200 messages will be searched.",
+    "description": "Ti mostra dove hai parlato per ultimo.",
+    "usage": "Comando PREFIX: lastping [#channel]\nSe si usa l'opzione `channel`, verrà cercato un massimo di 200 messaggi.",
     "options": {
       "channel": {
-        "description": "The channel you want to look for mentions in. Defaults to the whole guild."
+        "description": "Il canale in cui vuoi cercare le menzioni. Predefiniti a tutta la gilda."
       },
       "member": {
-        "description": "Search only for mentions by a specific member? (Only in combination with the \"channel\" option)"
+        "description": "Cerca solo le menzioni di un membro specifico? (Solo in combinazione con l'opzione \"canale\")"
       }
     },
-    "memberRequiresChannel": "The \"member\" option only works in combination with the \"channel\" option!",
-    "invalid": "The selected channel is not a text channel!",
-    "noneFound": "I haven't found any mentions.",
-    "unknown": "unknown",
-    "embedTitle": "Last Ping",
-    "embedDescription": "The last time you were mentioned was [here]({url}) from <@{author}>.\n>>> {content}"
+    "memberRequiresChannel": "L'opzione \"member\" funziona solo in combinazione con l'opzione \"canale\"!",
+    "invalid": "Il canale selezionato non è un canale di testo!",
+    "noneFound": "Non ho trovato alcuna menzione.",
+    "unknown": "sconosciuto",
+    "embedTitle": "Ultimo Ping",
+    "embedDescription": "L'ultima volta che sei stato menzionato è stata [here]({url}) da <@{author}>.\n>>> {content}"
   },
   "math": {
-    "description": "Runs some math",
-    "usage": "math [expression]",
+    "description": "Esegue un po' di matematica",
+    "usage": "matematica [expression]",
     "options": {
       "expression": {
-        "description": "What do you want me to solve?"
+        "description": "Cosa vuoi che risolva?"
       }
     },
-    "embedTitle": "Calculator",
-    "noInput": "You have not given any input!",
-    "help": "Help and Information\n\nThis calculator supports many mathematic operations, not only the basic ones.\nYou can use variables like this: `x=10`.\nYou can use multiple statements by using a new line or a `;`. `x=10;x+10` returns `20`.\nYou need to use `*` for multiplying.\nThe calculator suppots outputting multiple results.\nSometimes unnecessary spaces are making the expression error.",
-    "error": "An error occurred while trying to solve your expression:\n```{err}```",
-    "separated": "Results separated with \"|\":\n{results}",
-    "success": "Expression:\n```{expression}```\nResult:\n```{result}```"
+    "embedTitle": "Calcolatrice",
+    "noInput": "Non hai dato nessun input!",
+    "help": "Aiuto e Informazioni\n\nQuesta calcolatrice supporta molte operazioni matematiche, non solo quelle di base.\nPuoi usare variabili come questa: `x=10`.\nPuoi usare più istruzioni usando una nuova riga o un `;`. `x=10;x+10` restituisce `20`.\nDevi usare `*` per moltiplicare.\nLa calcolatrice suppot produce risultati multipli.\nA volte spazi inutili stanno facendo l'errore di espressione.",
+    "error": "Si è verificato un errore durante il tentativo di risolvere la tua espressione:\n```{err}```",
+    "separated": "Risultati separati con \"<unk> \":\n{results}",
+    "success": "Espressione:\n```{expression}```\nRisultato:\n```{result}```"
   },
   "passwordgenerator": {
-    "description": "generates a cryptographically strong password",
+    "description": "genera una password crittograficamente forte",
     "options": {
       "length": {
-        "description": "the length of your password"
+        "description": "la lunghezza della password"
       },
       "count": {
-        "description": "How many passwords do you want to generate?"
+        "description": "Quante password vuoi generare?"
       },
       "exclude_chars": {
-        "description": "characters you won't have in your password"
+        "description": "i caratteri che non avrai nella tua password"
       },
       "include_chars": {
-        "description": "characters you want to have in your password, additional to the default charset."
+        "description": "i caratteri che si desidera avere nella password, oltre al set di caratteri predefinito."
       }
     },
-    "charsetEmpty": "you excluded all chars of the charset...",
-    "success": "Your secure password(s):\n{passwords}\n\n||Created with the following charset:\n```{charset}```\nUse the command options to add or remove chars.||"
+    "charsetEmpty": "hai escluso tutti i caratteri del charset...",
+    "success": "La tua password sicura:\n{passwords}\n\n<unk> <unk> Creata con il seguente set di caratteri:\n```{charset}```\nUsa le opzioni di comando per aggiungere o rimuovere caratteri.<unk> <unk>"
   },
   "record": {
-    "description": "Record a voice channel. Needs approval from users.",
+    "description": "Registra un canale vocale. Richiede l'approvazione da parte degli utenti.",
     "options": {
       "target": {
-        "description": "Record only one specific user."
+        "description": "Registra solo un utente specifico."
       },
       "channel": {
-        "description": "Wich voice channel do you want to record?"
+        "description": "Wich canale vocale si desidera registrare?"
       },
       "public": {
-        "description": "Make the recording public, so any guild member can hear it."
+        "description": "Rendi pubblica la registrazione, in modo che qualsiasi membro della gilda possa sentirla."
       }
     },
-    "noTarget": "There is no one to record! Either all targets are bots or they are not in a voice channel! If you supplied a channel, make sure it is the one the target is in!",
-    "needVoiceChannel": "You need to supply a voice channel or be in one!",
-    "cannotJoin": "I can not join that voice channel! Make sure the channel is not full and I have the needed permissions.",
-    "deaf": "I am currently deafened and i cannot undeaf myself!",
+    "noTarget": "Non c'è nessuno da registrare! O tutti gli obiettivi sono bot o non sono in un canale vocale! Se hai fornito un canale, assicurati che sia quello in cui si trova il bersaglio!",
+    "needVoiceChannel": "Devi fornire un canale vocale o essere in uno!",
+    "cannotJoin": "Non posso entrare in quel canale vocale! Assicurati che il canale non sia pieno e ho i permessi necessari.",
+    "deaf": "Sono assordato e non posso non sordare me stesso!",
     "embedTitle": "VoiceRecorder",
-    "embedDescription": "<@{user}> wants to record you in voice channel <#{channel}>.\n**{publicOrPrivate}**\nPlease press a button to allow or deny the recording of your voice.",
-    "isPublic": "This recording will be available to every member of the guild.",
-    "isPrivate": "This recording will be only available for the current members of the voice channel that allowed the recording.",
-    "cantConnect": "I could not connect to the voice channel! Please try again.",
-    "denied": "No one wants to get recorded.",
-    "allow": "Allow Recording",
-    "deny": "Deny Recording",
-    "pause": "Pause Recording",
-    "resume": "Resume Recording",
-    "stop": "Stop Recording",
-    "get": "Get the Recording",
-    "updated": "Your response has been set to `{permission}`. I am waiting for the other members to reply.",
-    "paused": "🔇 I paused recording {channel}.",
-    "recording": "🎙️ I am now recording {channel} ({users})!",
-    "notFound": "Your recording has not been found!",
-    "privateReady": "Press the button to get the recording.",
-    "success": "🔉 Here is your recording!"
+    "embedDescription": "<@{user}> vuole registrarti nel canale vocale <#{channel}>.\n**{publicOrPrivate}**\nPremi un pulsante per consentire o negare la registrazione della tua voce.",
+    "isPublic": "Questa registrazione sarà disponibile per ogni membro della gilda.",
+    "isPrivate": "Questa registrazione sarà disponibile solo per i membri attuali del canale vocale che hanno permesso la registrazione.",
+    "cantConnect": "Non ho potuto connettermi al canale vocale! Riprova.",
+    "denied": "Nessuno vuole essere registrato.",
+    "allow": "Consenti Registrazione",
+    "deny": "Nega Registrazione",
+    "pause": "Pausa Registrazione",
+    "resume": "Riprendi La Registrazione",
+    "stop": "Interrompi Registrazione",
+    "get": "Ottieni la registrazione",
+    "updated": "La tua risposta è stata impostata a `{permission}`. Sto aspettando che gli altri membri rispondano.",
+    "paused": "🔇 Ho in pausa la registrazione {channel}.",
+    "recording": "🎙️ Ora sto registrando {channel} ({users})!",
+    "notFound": "La tua registrazione non è stata trovata!",
+    "privateReady": "Premere il pulsante per ottenere la registrazione.",
+    "success": "🔉 Ecco la tua registrazione!"
   },
   "timestamp": {
-    "description": "Get a timestamp for the future (or past by putting a \"-\" in front)",
-    "usage": "PREFIX Command: timestamp [time]",
+    "description": "Ottieni un timestamp per il futuro (o passato mettendo un \"-\" di fronte)",
+    "usage": "Comando PREFIX: timestamp [time]",
     "options": {
       "time": {
-        "description": "The time from now (eg. 1w3d2h5min): 3min returns now+3min, -3min returns now-3min"
+        "description": "Il tempo da ora (ad esempio 1w3d2h5min): 3min restituisce ora+3min, -3min restituisce ora-3min"
       }
     },
-    "invalid": "The time you provided is invalid! Use {command} and search for `timestamp` for mor information.",
-    "outOfRange": "The time you provided is greater than 200,000 years!",
-    "success": "That's <t:{time}:R> (`<t:{time}:R>`)."
+    "invalid": "Il tempo che hai fornito non è valido! Usa {command} e cerca `timestamp` per informazioni mor.",
+    "outOfRange": "Il tempo che hai fornito è superiore a 200.000 anni!",
+    "success": "Questo è <t:{time}:R> (`<t:{time}:R>`)."
   }
 }

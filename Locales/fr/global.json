@@ -1,15 +1,15 @@
 {
-  "messageSent": "Message sent!",
-  "loading": "Loading...",
-  "guild": "Guild",
-  "user": "User",
-  "cancel": "Cancel",
-  "playAgain": "Play Again",
-  "enabled": "Enabled",
-  "disabled": "Disabled",
-  "none": "none",
-  "noPermUser": "You don't have the permission to do that!",
-  "noPermBot": "I don't have the permission to do that!",
-  "true": "Yes",
-  "false": "No"
+  "messageSent": "Message envoyé !",
+  "loading": "Chargement en cours...",
+  "guild": "Guilde",
+  "user": "Utilisateur",
+  "cancel": "Abandonner",
+  "playAgain": "Rejouer",
+  "enabled": "Activé",
+  "disabled": "Désactivé",
+  "none": "aucun",
+  "noPermUser": "Vous n'avez pas la permission de le faire !",
+  "noPermBot": "Je n'ai pas la permission de le faire !",
+  "true": "Oui",
+  "false": "Non"
 }

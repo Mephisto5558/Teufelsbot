@@ -96,7 +96,7 @@
         "description": "Erhalte eine Liste der nächsten Geburtstage.",
         "options": {
           "target": {
-            "description": "Wessen Geburtstag willst du einsehen? Lass dieses Feld frei, um die nächsten 10 Geburtstage zu sehen."
+            "description": "Wessen Geburtstag willst du einsehen? Lass dieses Feld frei, um die nächsten 10 Geburtstage zu sehen"
           },
           "do_not_hide": {
             "description": "Verstecke meine Antwort nicht vor anderen Usern."
@@ -325,7 +325,7 @@
     "usage": "PREFIX-Befehl: image <Unterbefehl | \"help\"> <Argumente>",
     "options": {
       "type": {
-        "description": "Die Art der Bildbearbeitung, welche du nutzen möchtest. Lasse dies leer, um alle Möglichkeiten zu sehen."
+        "description": "Die Art der Bildbearbeitung, die du nutzen möchtest. Lass dies leer, um alle Möglichkeiten zu sehen."
       }
     },
     "notFound": "Das ist keine gültige Option. ",
