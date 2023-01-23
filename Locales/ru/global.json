@@ -1,15 +1,15 @@
 {
-  "messageSent": "Message sent!",
-  "loading": "Loading...",
-  "guild": "Guild",
-  "user": "User",
-  "cancel": "Cancel",
-  "playAgain": "Play Again",
-  "enabled": "Enabled",
-  "disabled": "Disabled",
-  "none": "none",
-  "noPermUser": "You don't have the permission to do that!",
-  "noPermBot": "I don't have the permission to do that!",
-  "true": "Yes",
-  "false": "No"
+  "messageSent": "Сообщение отправлено!",
+  "loading": "Загрузка...",
+  "guild": "Гильдия",
+  "user": "Пользователь",
+  "cancel": "Отмена",
+  "playAgain": "Играть снова",
+  "enabled": "Включено",
+  "disabled": "Выключено",
+  "none": "ничего",
+  "noPermUser": "У вас нет разрешения на это!",
+  "noPermBot": "У меня нет разрешения на это!",
+  "true": "Да",
+  "false": "Нет"
 }
