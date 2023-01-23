@@ -42,7 +42,7 @@
     "unknown": "unknown",
     "name": "Name",
     "id": "ID",
-    "guild": "Guild",
+    "guild": "Гильдия",
     "animated": "Animated",
     "creator": "Creator",
     "available": "Available",
@@ -141,7 +141,7 @@
     "position": "Position",
     "createdAt": "Created At",
     "permissions": "Permissions",
-    "admin": "Administrator"
+    "admin": "Администратор"
   },
   "serverinfo": {
     "description": "Get information about a guild",
