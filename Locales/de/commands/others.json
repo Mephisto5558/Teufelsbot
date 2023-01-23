@@ -9,7 +9,7 @@
         "description": "Dein Vorschlag."
       },
       "importance": {
-        "description": "Welche Priorität die Entwicklung deines Vorschlags haben sollte.",
+        "description": "Welche Priorität sollte die Entwicklung deines Vorschlags haben?",
         "choices": {
           "low": "Niedrig",
           "medium": "Mittel",
@@ -17,7 +17,7 @@
         }
       }
     },
-    "error": "Ein Fehler ist aufgetretetn.\n{err}",
+    "error": "Ein Fehler ist aufgetreten.\n{err}",
     "embedTitle": "Erfolg!",
     "alreadySent": "Dies wurde bereits vorgeschlagen. [Link]({url}).",
     "embedDescription": "Dein Vorschlag wurde gesendet.\n[Link]({url})"
