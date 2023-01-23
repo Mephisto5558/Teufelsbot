@@ -6,13 +6,13 @@
         "description": "Erstelle neues Server-Backup. Wenn der Server 5 oder mehr Backups hat, wird das älteste gelöscht."
       },
       "load": {
-        "description": "Lade ein Backup. Achtung: Serverdaten werden gelöscht! Nutze die Option \"no_clear\" zum vermeiden.",
+        "description": "Lade ein Backup. Achtung: Serverdaten werden gelöscht! Nutze die Option \"no_clear\" zum Vermeiden.",
         "options": {
           "id": {
-            "description": "Die Backup-ID, die du laden möchtest. Verwende den Subcommand \"get\", um die Liste anzuzeigen."
+            "description": "Die Backup-ID, die du laden möchtest. Verwende den Unterbefehl \"get\", um die Liste anzuzeigen."
           },
           "no_clear": {
-            "description": "Wenn auf true, cleart den Server nicht, überschreibt nur bestehende Daten (zB. bleiben Kanäle)."
+            "description": "Wenn auf true, cleart den Server nicht, überschreibt nur bestehende Daten (z. B. bleiben Kanäle)."
           }
         }
       },
@@ -42,7 +42,7 @@
       "emojis": "<a:loading:1063091916683612160> Sichere Emojis...",
       "stickers": "<a:loading:1063091916683612160> Sichere Sticker...",
       "channels": "<a:loading:1063091916683612160> Sichere Kanäle, Threads und Nachrichten...",
-      "images": "<a:loading:1063091916683612160> Sichere Icon, Slash und Banner...",
+      "images": "<a:loading:1063091916683612160> Sichere Icon, Splash und Banner...",
       "success": "Das Backup mit der ID `{id}` wurde erfolgreich erstellt!\nNutze </serverbackup get:{cmdId}> für mehr Informationen zum Backup."
     },
     "clear": {
@@ -54,14 +54,14 @@
     "load": {
       "overwriteWarningTitle": "ÜBERSCHREIBUNG DES SERVERS (UNWIDERRUFLICH)",
       "overwriteWarningDescription": "Diese Aktion wird den Großteil deines Servers löschen! Dazu zählen unter anderen Rollen, Webhooks, Kanäle und Emojis.\nWenn du dir sicher bist, dass du das tun möchtest, gib \"Ja\" ein. Gib \"Nein\" ein um abzubrechen.\nDu könntest auch ein Backup vor dem Laden erstellen, nur zur Sicherheit.",
-      "noPerm": "Nur Der Servereigentümer kann Backups laden!",
+      "noPerm": "Nur der Servereigentümer kann Backups laden!",
       "notFound": "Es wurde kein Backup mit dieser ID gefunden!",
       "cancelled": "Das Laden des Backups wurde abgebrochen.",
       "loadingEmbedDescription": "Das Backup wird auf dem Server angewendet.\nDies kann, abhängig von der Größe des Backups, eine Weile dauern.",
       "settings": "<a:loading:1063091916683612160> Lade Einstellungen...",
       "features": "<a:loading:1063091916683612160> Lade Serverfeatures...",
       "roles": "<a:loading:1063091916683612160> Lade Rollen...",
-      "members": "<a:loading:1063091916683612160> Lade Mitgliederrollen und Nicknames...",
+      "members": "<a:loading:1063091916683612160> Lade Mitgliederrollen und Nicknamen...",
       "channels": "<a:loading:1063091916683612160> Lade Kanäle, Threads und Nachrichten...",
       "emojis": "<a:loading:1063091916683612160> Lade Emojis...",
       "stickers": "<a:loading:1063091916683612160> Lade Sticker...",
@@ -81,10 +81,10 @@
     }
   },
   "selfrole": {
-    "description": "Verwalte Selfroles.",
+    "description": "Verwalte Self-Rollen.",
     "options": {
       "add": {
-        "description": "Füge einen Selfrole-Button zu einer bestehenden Nachricht hinzu.",
+        "description": "Füge einen Self-Rollen-Button zu einer bestehenden Nachricht hinzu.",
         "options": {
           "message_id": {
             "description": "Die ID der Nachricht, die du nutzen möchtest. Die Nachricht muss vom Bot sein."
@@ -93,10 +93,10 @@
             "description": "Die Rolle, die du verwenden möchtest. Stelle sicher, dass der Bot eine Rolle über dieser Rolle hat."
           },
           "button_label": {
-            "description": "Der Buttontext. Wenn er mit einem Emoji beginnt, wird nur der Emoji genutzt."
+            "description": "Der Button-Text. Wenn er mit einem Emoji beginnt, wird nur das Emoji genutzt."
           },
           "modus": {
-            "description": "Was genau soll der Button tun? Die Standartoption ist \"Rolle umschalten\".",
+            "description": "Was genau soll der Button tun? Die Standardoption ist \"Rolle umschalten\".",
             "choices": {
               "add": "Rolle hinzufügen",
               "remove": "Rolle entfernen",
@@ -107,19 +107,19 @@
             "description": "Auf welcher Reihe soll der Button sein? Jede Reihe hat ein Limit von 5 Buttons."
           },
           "button_color": {
-            "description": "Die Farbe, die der Button haben soll. Standart ist \"Blurple\".",
+            "description": "Die Farbe, die der Button haben soll. Standard ist \"Blurple\".",
             "choices": {
-              "1": "Blurple",
+              "1": "Burple",
               "2": "Grau",
               "3": "Grün",
               "4": "Rot"
             }
           },
           "hide_count": {
-            "description": "Zeige die Anzahl der vergeben Rollen nicht an. Dies erhöht die maximale Label-Länge um 4 Zeichen."
+            "description": "Zeige die Anzahl der vergebenen Rollen nicht an. Dies erhöht die maximale Label-Länge um 4 Zeichen."
           },
           "content": {
-            "description": "Was soll anstelle der ursprüngliche Nachricht angezeigt werden? Nutze \"/n\" für Zeilenumbrüche."
+            "description": "Was soll anstelle der ursprünglichen Nachricht angezeigt werden? Nutze \"/n\" für Zeilenumbrüche."
           },
           "channel": {
             "description": "Der Kanal, in dem sich die Nachricht befindet. Ist standardmäßig dieser Kanal."
@@ -127,7 +127,7 @@
         }
       },
       "remove": {
-        "description": "Entferne eine Selfrole und der dazugehörige Button von einer Nachricht.",
+        "description": "Entferne eine Self-Rolle und den dazugehörigen Button von einer Nachricht.",
         "options": {
           "message_id": {
             "description": "Die ID der Nachricht, die du nutzen möchtest. Die Nachricht muss vom Bot sein."
@@ -136,7 +136,7 @@
             "description": "Die Rolle, die du entfernen möchtest. Dies wird ALLE Buttons entfernen, die diese Rolle verwalten."
           },
           "content": {
-            "description": "Was soll anstelle der ursprüngliche Nachricht angezeigt werden? Nutze \"/n\" für Zeilenumbrüche."
+            "description": "Was soll anstelle der ursprünglichen Nachricht angezeigt werden? Nutze \"/n\" für Zeilenumbrüche."
           },
           "channel": {
             "description": "Der Kanal, in dem sich die Nachricht befindet. Ist standardmäßig dieser Kanal."
@@ -146,10 +146,10 @@
     },
     "invalidMsgId": "Die angegebene Nachrichten-ID wurde im ausgewählten Kanal nicht gefunden! Stelle sicher, dass du den korrekten Kanal ausgewählt hast.",
     "notMsgOwner": "Ich kann Buttons nur zu von mir gesendeten Nachrichten hinzufügen! Du kannst `/say` oder `/embed` nutzen, um eine Nachricht zu erstellen.",
-    "noPerm": "Ich habe nicht die Berechtigung, die ausgewählte Rolle zu verwalten! Stelle sicher, dass meine höchste Rolle **über** der der ausgewählten Rolle ist.",
+    "noPerm": "Ich habe nicht die Berechtigung, die ausgewählte Rolle zu verwalten! Stelle sicher, dass meine höchste Rolle **über** der ausgewählten Rolle ist.",
     "limitReached": "Die fünfte Reihe in der ausgewählten Nachricht ist voll! Du kannst eine nicht volle Reihe mit der `button_row` Option auswählen.",
     "rowFull": "Die ausgewählte Reihe ist voll! Reihen können maximal 5 Buttons haben.",
-    "preview": "So wird der Button aussehen. Er wird die <@&{role}> Rolle verwalten. Bitte drücke den Button innerhalb von 30 Sekunden um ihn zur ausgewählten Nachricht hinzuzufügen.",
+    "preview": "So wird der Button aussehen. Er wird die <@&{role}> Rolle verwalten. Bitte drücke den Button innerhalb von 30 Sekunden, um ihn zur ausgewählten Nachricht hinzuzufügen.",
     "addSuccess": "Der Button wurde erfolgreich hinzugefügt! [Nachrichtenlink]({url})",
     "removeSuccess": "Alle Buttons, die die ausgewählte Rolle verwalteten, wurden entfernt! [Nachrichtenlink]({url})"
   },
@@ -157,7 +157,7 @@
     "description": "Richtet den Bot ein",
     "options": {
       "toggle_module": {
-        "description": "Schaltet das Modul ein/aus",
+        "description": "Schaltet ein Modul ein/aus",
         "options": {
           "module": {
             "description": "Das Modul, welches du ein- oder ausschalten möchtest",
@@ -169,79 +169,79 @@
         }
       },
       "toggle_command": {
-        "description": "Erlaube/Verbiete Rollen/Kanälen/Mitgliedern, einen bestimmten Command auszuführen.",
+        "description": "Erlaube/Verbiete Rollen/Kanälen/Mitgliedern, einen bestimmten Befehl auszuführen.",
         "options": {
           "command": {
-            "description": "Den Command, dessen Berechtigungen du bearbeiten möchtest."
+            "description": "Den Befehl, dessen Berechtigungen du bearbeiten möchtest."
           },
           "get": {
-            "description": "Erhalte eine Liste von verbotenen Rollen/Kanälen/Mitgliedern für diesen Command stattdessen."
+            "description": "Erhalte eine Liste von verbotenen Rollen/Kanälen/Mitgliedern für diesen Befehl stattdessen."
           },
           "role_1": {
-            "description": "Die Rolle, für die du den Command erlauben/verbieten möchtest"
+            "description": "Die Rolle, für die du den Befehl erlauben/verbieten möchtest"
           },
           "role_2": {
-            "description": "Die Rolle, für die du den Command erlauben/verbieten möchtest"
+            "description": "Die Rolle, für die du den Befehl erlauben/verbieten möchtest"
           },
           "role_3": {
-            "description": "Die Rolle, für die du den Command erlauben/verbieten möchtest"
+            "description": "Die Rolle, für die du den Befehl erlauben/verbieten möchtest"
           },
           "role_4": {
-            "description": "Die Rolle, für die du den Command erlauben/verbieten möchtest"
+            "description": "Die Rolle, für die du den Befehl erlauben/verbieten möchtest"
           },
           "role_5": {
-            "description": "Die Rolle, für die du den Command erlauben/verbieten möchtest"
+            "description": "Die Rolle, für die du den Befehl erlauben/verbieten möchtest"
           },
           "role_6": {
-            "description": "Die Rolle, für die du den Command erlauben/verbieten möchtest"
+            "description": "Die Rolle, für die du den Befehl erlauben/verbieten möchtest"
           },
           "channel_1": {
-            "description": "Der Kanal, für die du den Command erlauben/verbieten möchtest"
+            "description": "Der Kanal, für die du den Befehl erlauben/verbieten möchtest"
           },
           "channel_2": {
-            "description": "Der Kanal, für die du den Command erlauben/verbieten möchtest"
+            "description": "Der Kanal, für die du den Befehl erlauben/verbieten möchtest"
           },
           "channel_3": {
-            "description": "Der Kanal, für die du den Command erlauben/verbieten möchtest"
+            "description": "Der Kanal, für die du den Befehl erlauben/verbieten möchtest"
           },
           "channel_4": {
-            "description": "Der Kanal, für die du den Command erlauben/verbieten möchtest"
+            "description": "Der Kanal, für die du den Befehl erlauben/verbieten möchtest"
           },
           "channel_5": {
-            "description": "Der Kanal, für die du den Command erlauben/verbieten möchtest"
+            "description": "Der Kanal, für die du den Befehl erlauben/verbieten möchtest"
           },
           "channel_6": {
-            "description": "Der Kanal, für die du den Command erlauben/verbieten möchtest"
+            "description": "Der Kanal, für die du den Befehl erlauben/verbieten möchtest"
           },
           "member_1": {
-            "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
+            "description": "Das Mitglied, für den du den Befehl erlauben/verbieten möchtest"
           },
           "member_2": {
-            "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
+            "description": "Das Mitglied, für den du den Befehl erlauben/verbieten möchtest"
           },
           "member_3": {
-            "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
+            "description": "Das Mitglied, für den du den Befehl erlauben/verbieten möchtest"
           },
           "member_4": {
-            "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
+            "description": "Das Mitglied, für den du den Befehl erlauben/verbieten möchtest"
           },
           "member_5": {
-            "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
+            "description": "Das Mitglied, für den du den Befehl erlauben/verbieten möchtest"
           },
           "member_6": {
-            "description": "Das Mitglied, für den du den Command erlauben/verbieten möchtest"
+            "description": "Das Mitglied, für den du den Befehl erlauben/verbieten möchtest"
           }
         }
       },
       "language": {
-        "description": "Ändere die Sprache des Bots",
+        "description": "Ändere die Sprache des Bots.",
         "options": {
           "language": {
             "description": "In welcher Sprache soll der Bot antworten?",
             "choices": {
-              "de": "German",
-              "en": "English",
-              "ru": "Russian"
+              "de": "Deutsch",
+              "en": "Englisch",
+              "ru": "Russisch"
             }
           }
         }
@@ -249,20 +249,20 @@
     },
     "toggledModule": "Das `{name}` Modul wurde {state}.",
     "toggleCmd": {
-      "notFound": "Das ist kein gültiger Command!",
+      "notFound": "Das ist kein gültiger Befehl!",
       "list": {
         "all": "Alle Mitglieder",
-        "embedTitle": "Verbotene Rollen/Kanäle/Mitglieder für Command {command}",
+        "embedTitle": "Verbotene Rollen/Kanäle/Mitglieder für Befehl {command}",
         "embedDescription": "Keine Rollen, Kanäle oder Mitglieder sind momentan verboten."
       },
-      "enabled": "Der `{command}` Command ist nun aktiviert.",
-      "disabled": "Der `{command}` Command is nun deaktiviert.",
-      "isDisabled": "Der `{command}` Command ist für alle Mitglieder deaktiviert. Du kannst ihn wieder aktivieren, indem du </setup toggle_command:{id}> ausführst, ohne eine Rolle, einen Kanal oder ein Mitglied zu spezifizieren.",
+      "enabled": "Der `{command}` Befehl ist nun aktiviert.",
+      "disabled": "Der `{command}` Befehl ist nun deaktiviert.",
+      "isDisabled": "Der `{command}` Befehl ist für alle Mitglieder deaktiviert. Du kannst ihn wieder aktivieren, indem du </setup toggle_command:{id}> ausführst, ohne eine Rolle, einen Kanal oder ein Mitglied zu spezifizieren.",
       "roles": "Rollen",
       "channels": "Kanäle",
       "users": "Mitglieder",
-      "embedTitle": "Aktualisierte Command-Einstellungen für \"{commandName}\"",
-      "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sehe alle verbotenen Rollen/Kanäle/Mitglieder, indem du </setup toggle_command:{id}> mit der `get` Option ausführst.||\n",
+      "embedTitle": "Aktualisierte Befehl-Einstellungen für \"{commandName}\"",
+      "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sieh alle verbotenen Rollen/Kanäle/Mitglieder, indem du </setup toggle_command:{id}> mit der `get` Option ausführst.||\n",
       "embed": {
         "enabled": "Entfernt (Erlaubt)",
         "disabled": "Hinzugefügt (Verboten)"
