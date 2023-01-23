@@ -171,7 +171,6 @@
     "invalidOption": "**Eine der angegebenen Optionen ist ungültig!**\n\n```{err}```",
     "invalidJSON": "**Dein JSON ist ungültig!**\n\n```{err}```",
     "successJSON": "Dein Embed wurde gesendet!",
-    "noPerm": "Du hast nicht die Berechtigung, Nachrichten in diesem Kanal zu senden!",
     "success": "Dein Embed wurde gesendet! Unten ist der Embed Code.\nWenn du es erneut senden möchtest, nutze den `json` Untercommand.\n\n```json\n{json}\n```"
   },
   "hash": {
