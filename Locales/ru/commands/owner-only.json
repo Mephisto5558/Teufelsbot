@@ -1,62 +1,62 @@
 {
   "blacklistuser": {
-    "description": "blocks an user from using the bot",
-    "usage": "PREFIX Command: blacklistuser <user id>",
-    "noInput": "You need to provide an id.",
-    "notFound": "Found no entry for this id.",
-    "saved": "`{user}` has been blacklisted from using the bot.",
-    "removed": "The blacklist entry for `{user}` has been removed.",
-    "cantBlacklistOwner": "I can't blacklist the owner of the bot!"
+    "description": "блокирует пользователя от использования бота",
+    "usage": "PREFIX команда: пользователь черного списка <user id>",
+    "noInput": "Необходимо указать идентификатор.",
+    "notFound": "Запись для этого id не найдена.",
+    "saved": "`{user}` был занесен в черный список с помощью бота.",
+    "removed": "Запись «Черный список» для «{user}`» удалена.",
+    "cantBlacklistOwner": "Я не могу черный список владельца бота!"
   },
   "dbget": {
-    "description": "query data from the database",
-    "usage": "PREFIX Command: dbget <database name>",
-    "notFound": "nothing found"
+    "description": "запрос данных из базы данных",
+    "usage": "PREFIX команда: dbget <database name>",
+    "notFound": "ничего не найдено"
   },
   "eval": {
-    "description": "inject JavaScript code directly into the bot",
-    "usage": "PREFIX Command: eval <js code>",
-    "finished": "evaluated command:\n```js\n{code}\n```\n",
-    "success": "{msg} without errors.",
-    "error": "{msg} with the following error:\n```\n{name}: {err}\n```"
+    "description": "вставить код JavaScript прямо в бота",
+    "usage": "PREFIX команда: eval <js code>",
+    "finished": "вычисляемая команда:\n```js\n{code}\n```\n",
+    "success": "{msg} без ошибок.",
+    "error": "{msg} со следующей ошибкой:\n```\n{name}: {err}\n```"
   },
   "gitpull": {
     "description": "Run a git pull",
-    "success": "Successfully executed the command."
+    "success": "Команда успешно выполнена."
   },
   "globalsync": {
-    "description": "syncs the bot's slash commands with all guilds",
-    "success": "Finished Syncing."
+    "description": "синхронизирует команды бота со всеми гильдиями",
+    "success": "Синхронизация завершена."
   },
   "reload": {
-    "description": "reloads a file or category",
-    "usage": "PREFIX Command: reload <command | \"*\">",
-    "invalidCommand": "This is not a valid command.",
-    "error": "An error occurred while reloading:\n```{error}```\nCheck the console for more information.",
-    "noneReloaded": "No commands have been reloaded.",
-    "reloaded": "The following `{count}` command(s) has/have been reloaded:\n`{commands}"
+    "description": "перезагружает файл или категорию",
+    "usage": "Команда PREFIX: перезагрузите <command | \"*\">",
+    "invalidCommand": "Это некорректная команда.",
+    "error": "Произошла ошибка при перезагрузке:\n```{error}```\nПроверьте консоль для получения дополнительной информации.",
+    "noneReloaded": "Команды не были перезагружены.",
+    "reloaded": "Следующие команды `{count}` имеет/были перезагружены:\n`{commands}"
   },
   "reloaddb": {
-    "description": "Reloads the database",
-    "success": "Reloaded the db."
+    "description": "Перезагружает базу данных",
+    "success": "Перезагружен db."
   },
   "reloadlang": {
-    "description": "Reloads all language files",
-    "success": "Reloaded all language files."
+    "description": "Перезагружает все языковые файлы",
+    "success": "Перезагрузил все языковые файлы."
   },
   "restart": {
-    "description": "Restarts the bot",
+    "description": "Перезапускает бота",
     "message": "Restarting bot...",
-    "success": "Successfully restated."
+    "success": "Успешно восстановлено."
   },
   "setactivity": {
-    "description": "Sets the bot's activity",
-    "usage": "PREFIX Command: setactivity <activity>;[type]",
-    "invalidType": "This is not a valid type. Valid types are:\n`{types}`",
-    "set": "Activity set to `{name}` of type `{type}`.",
-    "reset": "Activity set to `none`."
+    "description": "Устанавливает активность бота",
+    "usage": "PREFIX команда: задает активность <activity>;[type]",
+    "invalidType": "Это недопустимый тип. Допустимые типы:\n`{types}`",
+    "set": "Активность изменена на `{name}`{type}`.",
+    "reset": "Действие изменено на «нет»."
   },
   "test": {
-    "description": "testing stuff"
+    "description": "тестирование"
   }
 }

@@ -1,62 +1,62 @@
 {
   "blacklistuser": {
-    "description": "blocks an user from using the bot",
-    "usage": "PREFIX Command: blacklistuser <user id>",
-    "noInput": "You need to provide an id.",
-    "notFound": "Found no entry for this id.",
-    "saved": "`{user}` has been blacklisted from using the bot.",
-    "removed": "The blacklist entry for `{user}` has been removed.",
-    "cantBlacklistOwner": "I can't blacklist the owner of the bot!"
+    "description": "bloquea que un usuario utilice el bot",
+    "usage": "Comando de PREFIX negra: usuario de lista negra <user id>",
+    "noInput": "Necesitas proporcionar un id.",
+    "notFound": "No se encontró ninguna entrada para este id.",
+    "saved": "`{user}` ha sido bloqueado de usar el bot.",
+    "removed": "La entrada de la lista negra para `{user}` ha sido eliminada.",
+    "cantBlacklistOwner": "¡No puedo negar al dueño del bot!"
   },
   "dbget": {
-    "description": "query data from the database",
-    "usage": "PREFIX Command: dbget <database name>",
-    "notFound": "nothing found"
+    "description": "consultar datos de la base de datos",
+    "usage": "Comando PREFIX : dbget <database name>",
+    "notFound": "nada encontrado"
   },
   "eval": {
-    "description": "inject JavaScript code directly into the bot",
-    "usage": "PREFIX Command: eval <js code>",
-    "finished": "evaluated command:\n```js\n{code}\n```\n",
-    "success": "{msg} without errors.",
-    "error": "{msg} with the following error:\n```\n{name}: {err}\n```"
+    "description": "inyectar código JavaScript directamente en el bot",
+    "usage": "Comando PREFIX <js code>",
+    "finished": "comando evaluado:\n```js\n{code}\n```\n",
+    "success": "{msg} sin errores.",
+    "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
   },
   "gitpull": {
     "description": "Run a git pull",
-    "success": "Successfully executed the command."
+    "success": "Ejecutado con éxito el comando."
   },
   "globalsync": {
-    "description": "syncs the bot's slash commands with all guilds",
-    "success": "Finished Syncing."
+    "description": "sincroniza los comandos barridos del bot con todos los gremios",
+    "success": "Sincronización finalizada."
   },
   "reload": {
-    "description": "reloads a file or category",
-    "usage": "PREFIX Command: reload <command | \"*\">",
-    "invalidCommand": "This is not a valid command.",
-    "error": "An error occurred while reloading:\n```{error}```\nCheck the console for more information.",
-    "noneReloaded": "No commands have been reloaded.",
-    "reloaded": "The following `{count}` command(s) has/have been reloaded:\n`{commands}"
+    "description": "Carga un archivo o categoría",
+    "usage": "Comando PREFIX recarga <command | \"*\">",
+    "invalidCommand": "Este no es un comando válido.",
+    "error": "Se ha producido un error al recargar:\n```{error}```\nCompruebe la consola para más información.",
+    "noneReloaded": "Ningún comando ha sido recargado.",
+    "reloaded": "El siguiente `{count}`comando(s) ha/han sido recargados:\n`{commands}"
   },
   "reloaddb": {
-    "description": "Reloads the database",
-    "success": "Reloaded the db."
+    "description": "Recarga la base de datos",
+    "success": "Recargado el db."
   },
   "reloadlang": {
-    "description": "Reloads all language files",
-    "success": "Reloaded all language files."
+    "description": "Recarga todos los archivos de idioma",
+    "success": "Recargado todos los archivos de idioma."
   },
   "restart": {
-    "description": "Restarts the bot",
+    "description": "Reinicia el bot",
     "message": "Restarting bot...",
-    "success": "Successfully restated."
+    "success": "Reinicio exitoso."
   },
   "setactivity": {
-    "description": "Sets the bot's activity",
-    "usage": "PREFIX Command: setactivity <activity>;[type]",
-    "invalidType": "This is not a valid type. Valid types are:\n`{types}`",
-    "set": "Activity set to `{name}` of type `{type}`.",
-    "reset": "Activity set to `none`."
+    "description": "Establece la actividad del bot",
+    "usage": "Comando: setactivity <activity>;[type]",
+    "invalidType": "Este no es un tipo válido. Los tipos válidos son:\n`{types}`",
+    "set": "Actividad establecida a `{name}` de tipo `{type}`.",
+    "reset": "Actividad establecida a `ninguno`."
   },
   "test": {
-    "description": "testing stuff"
+    "description": "testear cosas"
   }
 }

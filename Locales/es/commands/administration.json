@@ -1,6 +1,6 @@
 {
   "serverbackup": {
-    "description": "Manage your server backups.",
+    "description": "Administre las copias de seguridad de su servidor.",
     "options": {
       "create": {
         "description": "Create a backup of your server. If the server has 5 or more backups, the oldest one will be deleted."
@@ -9,7 +9,7 @@
         "description": "Load a backup. CAUTION: this erases all server data! Use the option \"no_clear\" to avoid that.",
         "options": {
           "id": {
-            "description": "The backup ID you want to load. Use the \"get\" subcommand to view a list of IDs."
+            "description": "El ID de copia de seguridad que desea cargar. Utilice el subcomando \"get\" para ver una lista de IDs."
           },
           "no_clear": {
             "description": "If set to true, will only overwrite existing data (e.g. channels won't get deleted)."
@@ -17,260 +17,277 @@
         }
       },
       "get": {
-        "description": "Get one backup or a list of backups for this guild.",
+        "description": "Obtén una copia de seguridad o una lista de copias de seguridad para este gremio.",
         "options": {
           "id": {
-            "description": "The backup ID to look for."
+            "description": "El ID de copia de seguridad a buscar."
           }
         }
       },
       "delete": {
-        "description": "Delete a backup.",
+        "description": "Eliminar una copia de seguridad.",
         "options": {
           "id": {
-            "description": "The backup to delete."
+            "description": "La copia de seguridad a eliminar."
           }
         }
       }
     },
-    "embedTitle": "Server Backup",
+    "embedTitle": "Copia de seguridad del servidor",
     "create": {
-      "settings": "<a:loading:1063091916683612160> Saving settings...",
-      "members": "<a:loading:1063091916683612160> Saving members...",
-      "bans": "<a:loading:1063091916683612160> Saving bans...",
-      "roles": "<a:loading:1063091916683612160> Saving roles...",
+      "settings": "<a:loading:1063091916683612160> Guardando ajustes...",
+      "members": "<a:loading:1063091916683612160> Guardando miembros...",
+      "bans": "<a:loading:1063091916683612160> Guardando prohibiciones...",
+      "roles": "<a:loading:1063091916683612160> Guardando roles...",
       "emojis": "<a:loading:1063091916683612160> Saving emojis...",
-      "stickers": "<a:loading:1063091916683612160> Saving stickers...",
-      "channels": "<a:loading:1063091916683612160> Saving channels, threads, and messages...",
+      "stickers": "<a:loading:1063091916683612160> Guardando stickers...",
+      "channels": "<a:loading:1063091916683612160> Guardando canales, hilos y mensajes...",
       "images": "<a:loading:1063091916683612160> Saving icon, splash, and banner...",
-      "success": "The backup with the ID {id} has been created successfully!\nUse </serverbackup get:{cmdId}> for more information about the backup."
+      "success": "¡La copia de seguridad con el ID {id} se ha creado correctamente!\nUse </serverbackup get:{cmdId}> para más información sobre la copia de seguridad."
     },
     "clear": {
-      "items": "<a:loading:1063091916683612160> Deleting emojis, stickers, and roles...",
-      "bans": "<a:loading:1063091916683612160> Deleting bans...",
-      "settings": "<a:loading:1063091916683612160> Deleting settings...",
-      "ownWebhooks": "<a:loading:1063091916683612160> Deleting temporary webhooks..."
+      "items": "<a:loading:1063091916683612160> Eliminando emojis, estampas y roles...",
+      "bans": "<a:loading:1063091916683612160> Eliminando baneos...",
+      "settings": "<a:loading:1063091916683612160> Eliminando ajustes...",
+      "ownWebhooks": "<a:loading:1063091916683612160> Eliminando webhooks temporales..."
     },
     "load": {
-      "overwriteWarningTitle": "SERVER OVERWRITE (IRREVERSIBLE)",
-      "overwriteWarningDescription": "This action will delete most of your server! This includes roles, webhooks, channels, and emojis.\nIf you are sure you want to do this, type 'Yes'. Type 'No' to cancel.\nYou might also want to create a backup before loading, just to be safe.",
-      "noPerm": "Only the server owner can load backups!",
-      "notFound": "No backup with that ID was found!",
-      "cancelled": "Loading the backup has been cancelled.",
-      "loadingEmbedDescription": "Applying backup to the server.\nThis may take a while, depending on the size of the backup.",
-      "settings": "<a:loading:1063091916683612160> Loading settings...",
-      "features": "<a:loading:1063091916683612160> Loading server features...",
-      "roles": "<a:loading:1063091916683612160> Loading roles...",
-      "members": "<a:loading:1063091916683612160> Loading member roles and nicknames...",
-      "channels": "<a:loading:1063091916683612160> Loading channels, threads, and messages...",
-      "emojis": "<a:loading:1063091916683612160> Loading emojis...",
-      "stickers": "<a:loading:1063091916683612160> Loading stickers...",
-      "bans": "<a:loading:1063091916683612160> Loading bans...",
-      "success": "Successfully loaded the backup with ID `{id}`."
+      "overwriteWarningTitle": "RESPONSABILIDAD DEL SERVIDOR (IRVERSIBLE)",
+      "overwriteWarningDescription": "¡Esta acción eliminará la mayoría de su servidor! Esto incluye roles, webhooks, canales y emojis.\nSi estás seguro de que quieres hacer esto, escribe 'Sí'. Escribe 'No' para cancelar.\nTambién puedes crear una copia de seguridad antes de cargar, solo para estar seguro.",
+      "noPerm": "¡Sólo el propietario del servidor puede cargar copias de seguridad!",
+      "notFound": "No se encontró copia de seguridad con ese ID!",
+      "cancelled": "La carga de la copia de seguridad ha sido cancelada.",
+      "loadingEmbedDescription": "Aplicando copia de seguridad al servidor.\nEsto puede tardar un poco, dependiendo del tamaño de la copia de seguridad.",
+      "settings": "<a:loading:1063091916683612160> Cargando ajustes...",
+      "features": "<a:loading:1063091916683612160> Cargando características del servidor...",
+      "roles": "<a:loading:1063091916683612160> Cargando roles...",
+      "members": "<a:loading:1063091916683612160> Cargando roles de miembro y apodos...",
+      "channels": "<a:loading:1063091916683612160> Cargando canales, hilos y mensajes...",
+      "emojis": "<a:loading:1063091916683612160> Cargando emojis...",
+      "stickers": "<a:loading:1063091916683612160> Cargando pegatinas...",
+      "bans": "<a:loading:1063091916683612160> Cargando prohibiciones...",
+      "success": "Copia de seguridad cargada con éxito con id `{id}`."
     },
     "delete": {
-      "success": "Successfully deleted the backup!"
+      "success": "¡Copia de seguridad eliminada con éxito!"
     },
     "get": {
-      "oneEmbedDescription": "Information about backup {id}\n>>> Created at: <t:{createdAt}>\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
-      "oneNotFound": "No backup was found with that ID!",
-      "found": "Found {amount} backups.",
-      "infos": "Created at: <t:{createdAt}>\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
-      "embedDescription": "The following backups were found, sorted by date:",
-      "noneFound": "No backups were found for this server."
+      "oneEmbedDescription": "Información sobre la copia de seguridad {id}\n>>> Creada en: <t:{createdAt}>\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "oneNotFound": "¡No se encontró copia de seguridad con ese ID!",
+      "found": "Se encontraron {amount} copias de seguridad.",
+      "infos": "Creado en: <t:{createdAt}>\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "embedDescription": "Se han encontrado las siguientes copias de seguridad, ordenadas por fecha:",
+      "noneFound": "No se encontraron copias de seguridad para este servidor."
     }
   },
   "selfrole": {
-    "description": "Manage selfroles.",
+    "description": "Gestionar auto-roles.",
     "options": {
       "add": {
-        "description": "Adds a selfrole button to an existing message.",
+        "description": "Añade un botón de auto rol a un mensaje existente.",
         "options": {
           "message_id": {
-            "description": "The ID of the message to add a selfrole to. The bot must be the author."
+            "description": "El ID del mensaje al que añadir un autopapel. El bot debe ser el autor."
           },
           "role": {
-            "description": "The role you want to use. Make sure the bot has a role above that role."
+            "description": "El rol que quieres usar. Asegúrate de que el bot tiene un rol por encima de ese rol."
           },
           "button_label": {
-            "description": "The text that should be on the button. If it starts with an emoji, the emoji will be used only."
+            "description": "El texto que debe estar sobre el botón. Si comienza con un emoji, el emoji se utilizará solamente."
           },
           "modus": {
-            "description": "What should the button do? Defaults to \"Toggle Role\".",
+            "description": "¿Qué debería hacer el botón? Por defecto es \"Cambiar rol\".",
             "choices": {
-              "add": "Add Role",
-              "remove": "Remove Role",
-              "toggle": "Toggle Role"
+              "add": "Añadir rol",
+              "remove": "Quitar rol",
+              "toggle": "Cambiar Rol"
             }
           },
           "button_row": {
-            "description": "On which row the button should appear. Each row has a limit of 5 buttons."
+            "description": "En qué fila debe aparecer el botón, cada fila tiene un límite de 5 botones."
           },
           "button_color": {
-            "description": "The color the button should have. Defaults to \"Blurple\".",
+            "description": "El color que debe tener el botón. Por defecto es \"Desenfocado\".",
             "choices": {
-              "1": "Blurple",
-              "2": "Grey",
-              "3": "Green",
-              "4": "Red"
+              "1": "Desenfocar",
+              "2": "Gris",
+              "3": "Verde",
+              "4": "Rojo"
             }
           },
           "hide_count": {
             "description": "Hides the number of given roles next to the label. This increases the max. label length by 4."
           },
           "content": {
-            "description": "What should the message say? This overwrites the original message. Use \"/n\" for newlines."
+            "description": "¿Qué debería decir el mensaje? Esto sobrescribe el mensaje original. Use \"/n\" para nuevas líneas."
           },
           "channel": {
-            "description": "The channel the message ID is in. Defaults to this channel."
+            "description": "El canal en el que está el ID del mensaje. Por defecto este canal."
           }
         }
       },
       "remove": {
-        "description": "Remove a added selfrole and its button from a message.",
+        "description": "Elimina un auto rol añadido y su botón de un mensaje.",
         "options": {
           "message_id": {
-            "description": "The ID of the message to remove a selfrole from."
+            "description": "El ID del mensaje del que eliminar un auto rol."
           },
           "role": {
-            "description": "The role you want to remove. This will remove ALL buttons matching that role."
+            "description": "El rol que desea eliminar. Esto eliminará TODOS los botones que coincidan con ese rol."
           },
           "content": {
-            "description": "What should the message say? This overwrites the original message."
+            "description": "¿Qué debería decir el mensaje? Esto sobrescribe el mensaje original."
           },
           "channel": {
-            "description": "The channel the message ID is in. Defaults to this channel."
+            "description": "El canal en el que está el ID del mensaje. Por defecto este canal."
           }
         }
       }
     },
-    "invalidMsgId": "The given message ID was not found in the selected channel! Make sure you selected the correct channel.",
-    "notMsgOwner": "I can only add buttons to my own messages! You can use `/say` or `/embed` to make a message.",
-    "noPerm": "I don't have the permissions to manage the selected role! Make sure my highest role is **above** the selected role.",
-    "limitReached": "The fifth button row of the selected message is full! You can select a row with space by using the `button_row` option.",
-    "rowFull": "The selected row is full! Rows can only have up to five buttons.",
-    "preview": "This is how the button will look like. It will manage the <@&{role}> role. Please press the button in the next 30 seconds to add it to the selected message.",
-    "addSuccess": "The button has been successfully added! [Message Link]({url})",
-    "removeSuccess": "All buttons that used the selected role have been successfully removed! [Message Link]({url})"
+    "invalidMsgId": "¡El ID del mensaje no se encontró en el canal seleccionado! Asegúrese de seleccionar el canal correcto.",
+    "notMsgOwner": "¡Solo puedo añadir botones a mis propios mensajes! Puedes usar `/say` o `/embed` para hacer un mensaje.",
+    "noPerm": "¡No tengo los permisos para administrar el rol seleccionado! Asegúrate de que mi rol más alto es **arriba** al rol seleccionado.",
+    "limitReached": "¡La quinta fila del botón seleccionado está llena! Puede seleccionar una fila con espacio usando la opción `button_row`.",
+    "rowFull": "¡El registro seleccionado está lleno! Las filas sólo pueden tener hasta cinco botones.",
+    "preview": "Así es como se verá el botón. Administrará el rol <@&{role}>. Por favor, pulse el botón en los próximos 30 segundos para añadirlo al mensaje seleccionado.",
+    "addSuccess": "¡El botón ha sido añadido con éxito! [Enlace de mensaje]({url})",
+    "removeSuccess": "¡Todos los botones que usaron el rol seleccionado han sido eliminados con éxito! [Enlace de mensaje]({url})"
   },
   "setup": {
-    "description": "Sets the bot up",
+    "description": "Establece el bot",
     "options": {
       "toggle_module": {
         "description": "toggles a module",
         "options": {
           "module": {
-            "description": "The module you want to toggle",
+            "description": "El módulo que desea alternar",
             "choices": {
               "gatekeeper": "Gatekeeper",
-              "birthday": "Birthdays"
+              "birthday": "Cumpleaños"
             }
           }
         }
       },
       "toggle_command": {
-        "description": "Allow/Disallow roles/channels/members from running a specific command.",
+        "description": "Permitir/Rechazar roles/canales/miembros para ejecutar un comando específico.",
         "options": {
           "command": {
-            "description": "The command you want to toggle."
+            "description": "El comando que desea activar."
           },
           "get": {
-            "description": "Get a list of disallowed roles/channels/members for that command instead."
+            "description": "Obtener en su lugar una lista de roles/canales/miembros no permitidos para ese comando."
           },
           "role_1": {
-            "description": "The role for which you want to toggle the command"
+            "description": "El rol para el cual desea activar el comando"
           },
           "role_2": {
-            "description": "The role for which you want to toggle the command"
+            "description": "El rol para el cual desea activar el comando"
           },
           "role_3": {
-            "description": "The role for which you want to toggle the command"
+            "description": "El rol para el cual desea activar el comando"
           },
           "role_4": {
-            "description": "The role for which you want to toggle the command"
+            "description": "El rol para el cual desea activar el comando"
           },
           "role_5": {
-            "description": "The role for which you want to toggle the command"
+            "description": "El rol para el cual desea activar el comando"
           },
           "role_6": {
-            "description": "The role for which you want to toggle the command"
+            "description": "El rol para el cual desea activar el comando"
           },
           "channel_1": {
-            "description": "The channel for which you want to toggle the command"
+            "description": "El canal para el que desea activar el comando"
           },
           "channel_2": {
-            "description": "The channel for which you want to toggle the command"
+            "description": "El canal para el que desea activar el comando"
           },
           "channel_3": {
-            "description": "The channel for which you want to toggle the command"
+            "description": "El canal para el que desea activar el comando"
           },
           "channel_4": {
-            "description": "The channel for which you want to toggle the command"
+            "description": "El canal para el que desea activar el comando"
           },
           "channel_5": {
-            "description": "The channel for which you want to toggle the command"
+            "description": "El canal para el que desea activar el comando"
           },
           "channel_6": {
-            "description": "The channel for which you want to toggle the command"
+            "description": "El canal para el que desea activar el comando"
           },
           "member_1": {
-            "description": "The member for which you want to toggle the command"
+            "description": "El miembro para el cual desea activar el comando"
           },
           "member_2": {
-            "description": "The member for which you want to toggle the command"
+            "description": "El miembro para el cual desea activar el comando"
           },
           "member_3": {
-            "description": "The member for which you want to toggle the command"
+            "description": "El miembro para el cual desea activar el comando"
           },
           "member_4": {
-            "description": "The member for which you want to toggle the command"
+            "description": "El miembro para el cual desea activar el comando"
           },
           "member_5": {
-            "description": "The member for which you want to toggle the command"
+            "description": "El miembro para el cual desea activar el comando"
           },
           "member_6": {
-            "description": "The member for which you want to toggle the command"
+            "description": "El miembro para el cual desea activar el comando"
           }
         }
       },
       "language": {
-        "description": "Change the bot's language.",
+        "description": "Cambiar el idioma del bot.",
         "options": {
           "language": {
-            "description": "In which language should the boy reply?",
+            "description": "¿En qué idioma debe responder el niño?",
             "choices": {
-              "de": "German",
-              "en": "English",
-              "ru": "Russian"
+              "de": "Alemán",
+              "en": "Inglés",
+              "ru": "Ruso"
+            }
+          }
+        }
+      },
+      "serverbackup": {
+        "description": "Administrar opciones para las copias de seguridad de su servidor.",
+        "options": {
+          "allowed_to_load": {
+            "description": "Change who is allowed to load server backups.",
+            "choices": {
+              "creator": "Creador",
+              "owner": "Server owner",
+              "creator+owner": "Creator and Server owner",
+              "admins": "Current server administrators"
             }
           }
         }
       }
     },
-    "toggledModule": "The `{name}` module has been {state}.",
+    "toggledModule": "El módulo `{name}` ha sido {state}.",
     "toggleCmd": {
-      "notFound": "This is not a valid command!",
+      "notFound": "¡Este comando no es válido!",
       "list": {
-        "all": "All members",
-        "embedTitle": "Disallowed roles/channels/members for command {command}",
-        "embedDescription": "No roles, channels or members are currently disallowed."
+        "all": "Todos los miembros",
+        "embedTitle": "No se permiten roles/canales/miembros para el comando {command}",
+        "embedDescription": "No hay roles, canales o miembros actualmente no están permitidos."
       },
-      "enabled": "The `{command}` command is now enabled.",
-      "disabled": "The `{command}` command is now disabled.",
-      "isDisabled": "The `{command}` command is disabled for all members. You can re-enable it by running </setup toggle_command:{id}> without specifying any role, channel or member.",
+      "enabled": "El comando `{command}está ahora habilitado.",
+      "disabled": "El comando `{command}ahora está deshabilitado.",
+      "isDisabled": "El comando `{command}` está deshabilitado para todos los miembros. Puedes reactivarlo ejecutando </setup toggle_command:{id}> sin especificar ningún rol, canal o miembro.",
       "roles": "Roles",
-      "channels": "Channels",
-      "users": "Members",
-      "embedTitle": "Updated Command Settings for \"{commandName}\"",
-      "embedDescription": "The following amount of roles/channels/members have been changed:\n||View all disallowed roles/channels/members by using </setup toggle_command:{id}> with the `get` option.||\n",
+      "channels": "Canales",
+      "users": "Miembros",
+      "embedTitle": "Configuración de comandos actualizada para \"{commandName}\"",
+      "embedDescription": "La siguiente cantidad de roles/canales/miembros han sido cambiados:\n||Ver todos los roles/canales/miembros no permitidos usando </setup toggle_command:{id}> con la opción `get`.||\n",
       "embed": {
-        "enabled": "Removed (Allowed)",
-        "disabled": "Added (Disallowed)"
+        "enabled": "Eliminado (Permitido)",
+        "disabled": "Agregado (no permitido)"
       },
       "language": {
-        "embedTitle": "Bot language changed!",
-        "embedDescription": "The next messages will be in `{lang}`."
+        "embedTitle": "¡Idioma del bot cambiado!",
+        "embedDescription": "Los siguientes mensajes serán en `{lang}`."
       }
+    },
+    "serverbackup": {
+      "success": "Successfully updated the settings!"
     }
   }
 }

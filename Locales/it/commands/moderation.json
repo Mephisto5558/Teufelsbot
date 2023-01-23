@@ -1,203 +1,203 @@
 {
   "ban": {
-    "description": "bans a member from the guild",
+    "description": "bandisce un membro dalla gilda",
     "options": {
       "targets": {
-        "description": "Mention member(s) or put ID(s) in to ban them. Put a space between each target."
+        "description": "Menzionare i membri o mettere ID dentro per bannarli. Metti uno spazio tra ogni obiettivo."
       },
       "reason": {
-        "description": "The target(s) is/are going to see the reason in DMs"
+        "description": "L'obiettivo/gli obiettivo/i vedrà la ragione nelle DM"
       },
       "duration": {
-        "description": "How long do you want to get the target(s) banned?"
+        "description": "Per quanto tempo vuoi ottenere gli obiettivi vietati?"
       },
       "delete_days_of_messages": {
-        "description": "Delete all messages of the targets of the last n days."
+        "description": "Elimina tutti i messaggi degli obiettivi degli ultimi n giorni."
       }
     },
-    "dmEmbedTitle": "Banned",
-    "dmEmbedDescription": "You have been banned from `{guild}`.\nModerator: {mod}\nReason: {reason}",
-    "infoEmbedTitle": "Ban",
-    "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
-    "cantPunishSelf": "You can't ban yourself!",
-    "noneFound": "No targets have been found.",
-    "error": "**{user}** couldn't be banned.\n{err}\n",
-    "success": "**{user}** has been successfully banned.\n",
-    "noDM": "I couldn't DM the target."
+    "dmEmbedTitle": "Bannato",
+    "dmEmbedDescription": "Sei stato bannato da `{guild}`.\nModeratore: {mod}\nMotivo: {reason}",
+    "infoEmbedTitle": "Banna",
+    "infoEmbedDescription": "Moderatore: {mod}\nMotivo: {reason}\n\n",
+    "cantPunishSelf": "Non puoi bandire te stesso!",
+    "noneFound": "Nessun obiettivo è stato trovato.",
+    "error": "**{user}** non può essere bandito.\n{err}\n",
+    "success": "**{user}** è stato bandito con successo.\n",
+    "noDM": "Non riuscivo a DM il bersaglio."
   },
   "kick": {
     "description": "kicks a member from the guild",
     "options": {
       "targets": {
-        "description": "Mention member(s) or put ID(s) in to kick them. Put a space between each target."
+        "description": "Menzione membro(i) o metti un ID per cacciarli. Metti uno spazio tra ogni obiettivo."
       },
       "reason": {
-        "description": "The target(s) is/are going to see the reason in DMs"
+        "description": "L'obiettivo/gli obiettivo/i vedrà la ragione nelle DM"
       }
     },
     "dmEmbedTitle": "Kicked",
-    "dmEmbedDescription": "You have been kicked from `{guild}`.\nModerator: {mod}\nReason: {reason}",
-    "infoEmbedTitle": "Kick",
-    "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
-    "noneFound": "No targets have been found.",
-    "cantPunishSelf": "You can't kick yourself!",
-    "error": "**{user}** couldn't be kicked.\n{err}\n",
-    "success": "**{user}** has been successfully kicked.\n",
-    "noDM": "I couldn't DM the target."
+    "dmEmbedDescription": "Sei stato cacciato da `{guild}`.\nModeratore: {mod}\nMotivo: {reason}",
+    "infoEmbedTitle": "Espelli",
+    "infoEmbedDescription": "Moderatore: {mod}\nMotivo: {reason}\n\n",
+    "noneFound": "Nessun obiettivo è stato trovato.",
+    "cantPunishSelf": "Non puoi calciarti!",
+    "error": "**{user}** non può essere cacciato.\n{err}\n",
+    "success": "**{user}** è stato espulso con successo.\n",
+    "noDM": "Non riuscivo a DM il bersaglio."
   },
   "lock": {
-    "description": "Prevents everyone except administrators from writing in a channel.",
+    "description": "Impedisce a tutti tranne gli amministratori di scrivere in un canale.",
     "usage": "lock [channel] [reason]",
     "options": {
       "channel": {
-        "description": "What channel do you want to lock?"
+        "description": "Quale canale vuoi bloccare?"
       },
       "reason": {
-        "description": "The reason for locking the channel"
+        "description": "Il motivo per bloccare il canale"
       }
     },
-    "noReason": "no reason specified",
-    "embedTitle": "Channel locked!",
-    "embedDescription": "This channel has been locked.\nModerator: {mod}\nReason: {reason}",
-    "success": "The channel has been locked."
+    "noReason": "nessun motivo specificato",
+    "embedTitle": "Canale bloccato!",
+    "embedDescription": "Questo canale è stato bloccato.\nModeratore: {mod}\nMotivo: {reason}",
+    "success": "Il canale è stato bloccato."
   },
   "mute": {
-    "description": "Timeouts a member for a given time (min. 1min).",
+    "description": "Timeout di un membro per un dato tempo (min. 1min).",
     "options": {
       "target": {
-        "description": "Who do you want to mute?"
+        "description": "Chi vuole mutare?"
       },
       "reason": {
-        "description": "The target is going to see the reason in DMs."
+        "description": "L'obiettivo sta per vedere il motivo in DMs."
       },
       "duration": {
-        "description": "For how long do you want to mute the target? (eg. 1w3d2h5min, min 1min, max. 28d)"
+        "description": "Per quanto tempo vuoi disattivare il bersaglio? (ad esempio 1w3d2h5min, min 1min, max. 28d)"
       }
     },
-    "dmEmbedTitle": "Muted",
-    "dmEmbedDescription": "You have been muted from `{guild}`.\nModerator: {mod}\nUntil: <t:{time}>\nReason: {reason}",
-    "infoEmbedTitle": "Mute",
-    "infoEmbedDescription": "{user} has been successfully muted.\nReason: {reason}\nUntil: <t:{time}>\n",
-    "notFound": "I couldn't find that member!",
-    "cantMuteSelf": "You can't mute yourself!",
-    "targetIsAdmin": "I cannot mute admininstartors!",
-    "invalidDuration": "The mute duration you provided is invalid!",
-    "error": "I couldn't mute the target:\n{err}",
-    "noDM": "I couldn't DM the target."
+    "dmEmbedTitle": "Silenziato",
+    "dmEmbedDescription": "Sei stato mutato da `{guild}`.\nModeratore: {mod}\nUntil: <t:{time}>\nMotivo: {reason}",
+    "infoEmbedTitle": "Silenzia",
+    "infoEmbedDescription": "{user} è stato silenziato con successo.\nMotivo: {reason}\nUntil: <t:{time}>\n",
+    "notFound": "Non sono riuscito a trovare quell'membro!",
+    "cantMuteSelf": "Non puoi mutare te stesso!",
+    "targetIsAdmin": "Non posso mutare gli admininstartors!",
+    "invalidDuration": "La durata del silenziamento fornita non è valida!",
+    "error": "Non ho potuto silenziare il bersaglio:\n{err}",
+    "noDM": "Non riuscivo a DM il bersaglio."
   },
   "nukechannel": {
-    "description": "Clears all channel messages by duplicating the channel and then deleting the original one",
+    "description": "Cancella tutti i messaggi dei canali duplicando il canale e quindi eliminando quello originale",
     "options": {
       "confirmation": {
-        "description": "Write \"DELETE CHANNEL\" for confirmation."
+        "description": "Scrivi \"DELETE CHANNEL\" per conferma."
       },
       "channel": {
-        "description": "The channel to nuke."
+        "description": "Il canale per nudo."
       }
     },
-    "confirmation": "delete channel",
-    "needConfirm": "You need to confirm this action by writing `DELETE CHANNEL` as the confirm option!",
-    "embedDescription": ":radioactive: Channel Nuked!",
-    "embedFooterText": "Nuked by {user}"
+    "confirmation": "elimina canale",
+    "needConfirm": "Devi confermare questa azione scrivendo `DELETE CHANNEL` come opzione di conferma!",
+    "embedDescription": ":radioactive: Canale Nutri!",
+    "embedFooterText": "Nucleato da {user}"
   },
   "purge": {
-    "description": "removes a specific amount of messages",
-    "usage": "PREFIX Command: purge <number> [channel]\nIt will NOT delete the number of messages specified in the \"amount\" parameter, but will delete them if all other parameters are met.",
+    "description": "rimuove una quantità specifica di messaggi",
+    "usage": "Comando PREFIX: purge <number> [channel]\nNON cancellerà il numero di messaggi specificati nel parametro \"amount\", ma li eliminerà se tutti gli altri parametri sono soddisfatti.",
     "options": {
       "amount": {
-        "description": "The amount of messages to to check and maybe purge."
+        "description": "La quantità di messaggi da controllare e forse eliminare."
       },
       "only_containing": {
-        "description": "Only purge messages containing that.",
+        "description": "Elimina solo i messaggi che lo contengono.",
         "choices": {
-          "mentions": "Member mentions",
+          "mentions": "Menzioni dei membri",
           "server_ads": "Discord Server ad links",
-          "images": "Images",
+          "images": "Immagini",
           "embeds": "Embeds",
-          "text": "Text"
+          "text": "Testo"
         }
       },
       "member": {
-        "description": "Purge only messages from that member."
+        "description": "Elimina solo i messaggi da quel membro."
       },
       "channel": {
-        "description": "In witch channel do you want to purge?"
+        "description": "Nel canale strega vuoi eliminare?"
       },
       "remove_pinned": {
-        "description": "Do not skip pinned messages."
+        "description": "Non saltare i messaggi fissati."
       },
       "caps_percentage": {
-        "description": "How much CAPS must be at least in messages to purge them?"
+        "description": "Quanto CAPS deve essere almeno nei messaggi per eliminarli?"
       },
       "contains": {
-        "description": "Messages must contain this phrase to get purged."
+        "description": "I messaggi devono contenere questa frase per essere eliminati."
       },
       "does_not_contain": {
-        "description": "Messages must not contain this phrase to get purged."
+        "description": "I messaggi non devono contenere questa frase per essere eliminati."
       },
       "starts_with": {
-        "description": "Messages must start with this phrase to get purged."
+        "description": "I messaggi devono iniziare con questa frase per essere eliminati."
       },
       "not_starts_with": {
-        "description": "Messages must not start with this phrase to get purged."
+        "description": "I messaggi non devono iniziare con questa frase per essere eliminati."
       },
       "ends_with": {
-        "description": "Messages must end with this phrase to get purged."
+        "description": "I messaggi devono terminare con questa frase per essere eliminati."
       },
       "not_ends_with": {
-        "description": "Messages must not start end this phrase to get purged."
+        "description": "I messaggi non devono iniziare a terminare questa frase per essere eliminati."
       },
       "user_type": {
-        "description": "Only messages from that type of user get purged.",
+        "description": "Solo i messaggi da quel tipo di utente vengono eliminati.",
         "choices": {
           "bot": "Bot",
-          "human": "Human"
+          "human": "Umano"
         }
       },
       "before_message": {
-        "description": "Input a message id. Only messages sent before that message get purged."
+        "description": "Inserisci un id del messaggio. Solo i messaggi inviati prima che il messaggio venga eliminato."
       },
       "after_message": {
-        "description": "Input a message id. Only messages sent after that message get purged."
+        "description": "Inserisci un id del messaggio. Solo i messaggi inviati dopo che il messaggio viene eliminato."
       }
     },
-    "noNumber": "Please specify the number of messages to purge next time.",
-    "invalidNumber": "This is not a valid number!",
-    "paramExcludesOther": "One of you parameters makes another parameter impossible! (eg. `starts_with` = \"a\" and `not_starts_with` = \"a\")",
-    "noneFound": "No messages matching your parameters have been found.",
-    "success": "Successfully deleted {count}/{all} messages."
+    "noNumber": "Specifica il numero di messaggi da eliminare la prossima volta.",
+    "invalidNumber": "Questo non è un numero valido!",
+    "paramExcludesOther": "Uno dei parametri rende impossibile un altro parametro! (es. `starts_with` = \"a\" e `not_starts_with` = \"a\")",
+    "noneFound": "Nessun messaggio corrispondente ai tuoi parametri è stato trovato.",
+    "success": "Messaggi eliminati con successo {count}/{all}."
   },
   "unlock": {
-    "description": "Unlocks a channel locked with the lock command.",
-    "usage": "unlock [channel] [reason]",
+    "description": "Sblocca un canale bloccato con il comando di blocco.",
+    "usage": "sblocca [channel] [reason]",
     "options": {
       "channel": {
-        "description": "What channel do you want to unlock?"
+        "description": "Quale canale vuoi sbloccare?"
       },
       "reason": {
-        "description": "The reason for unlocking the channel"
+        "description": "Il motivo per sbloccare il canale"
       }
     },
-    "noReason": "no reason specified",
-    "notLocked": "This channel is not locked!",
-    "embedTitle": "Channel unlocked!",
-    "embedDescription": "This channel has been unlocked.\nModerator: {mod}\nReason: {reason}",
-    "success": "The channel has been unlocked."
+    "noReason": "nessun motivo specificato",
+    "notLocked": "Questo canale non è bloccato!",
+    "embedTitle": "Canale sbloccato!",
+    "embedDescription": "Questo canale è stato sbloccato.\nModeratore: {mod}\nMotivo: {reason}",
+    "success": "Il canale è stato sbloccato."
   },
   "unmute": {
-    "description": "lifts the timeout of a member",
+    "description": "solleva il timeout di un membro",
     "options": {
       "target": {
-        "description": "Who do you want to unmute?"
+        "description": "Chi vuole disattivare il muto?"
       },
       "reason": {
-        "description": "Why do you want to unmute the target?"
+        "description": "Perché vuoi riattivare il bersaglio?"
       }
     },
-    "noReason": "no reason specified",
-    "notFound": "I couldn't find that member!",
-    "notMuted": "This member is not muted!",
-    "moderator": "Moderator",
-    "success": "Removed timeout for member <@{user}>."
+    "noReason": "nessun motivo specificato",
+    "notFound": "Non sono riuscito a trovare quell'membro!",
+    "notMuted": "Questo membro non è mutato!",
+    "moderator": "Moderatore",
+    "success": "Timeout rimosso per il membro <@{user}>."
   }
 }

@@ -1,57 +1,57 @@
 {
   "account": {
-    "description": "Shows your account and stats",
-    "usage": "account [@user]",
+    "description": "Muestra tu cuenta y estadísticas",
+    "usage": "cuenta [@usuario]",
     "options": {
       "user": {
-        "description": "The user you want to get the account of"
+        "description": "El usuario que desea obtener la cuenta de"
       }
     },
-    "targetEconomyNotInitialized": "This person has not started playing yet. He/She has to run `/economyconfig user start`.",
+    "targetEconomyNotInitialized": "Esta persona aún no ha empezado a jugar. Tiene que ejecutar `/economyconfig user start`.",
     "currency": "Souls: **{num}**/**{max}** <:soul:1011962640349810688>\n",
-    "dailyStreak": "Daily Streak: **{streak}** <:souls:1011962960840773673>\n",
-    "rank": "Rank: **{rank}**\n"
+    "dailyStreak": "Racha diaria: **{streak}** <:souls:1011962960840773673>\n",
+    "rank": "Rango: **{rank}**\n"
   },
   "daily": {
-    "description": "Get your daily souls!",
-    "notUnlocked": "You have not researched the daily souls yet! `/research`",
-    "collected": "You have collected {count} souls!"
+    "description": "¡Consigue tus almas diarias!",
+    "notUnlocked": "¡Aún no has investigado las almas diarias! `/research`",
+    "collected": "¡Has recogido {count} almas!"
   },
   "economyconfig": {
-    "description": "Economy Configuration for users and admins",
+    "description": "Configuración de economía para usuarios y administradores",
     "options": {
       "user": {
-        "description": "Configuration for your economy in this guild.",
+        "description": "Configuración para tu economía en este gremio.",
         "options": {
           "start": {
-            "description": "Start using the economy commands!"
+            "description": "¡Empieza a usar los comandos de economía!"
           },
           "delete": {
-            "description": "DELETE all your economy data! This is irreversible!",
+            "description": "¡ELIMINA todos tus datos de economía! ¡Esto es irreversible!",
             "options": {
               "confirmation": {
-                "description": "Write \"CLEAR ALL\" to confirm deleting your economy data."
+                "description": "Escriba \"CLEAR ALL\" para confirmar la eliminación de sus datos de economía."
               }
             }
           }
         }
       },
       "admin": {
-        "description": "Configure the economy in this guild",
+        "description": "Configurar la economía de esta hermandad",
         "options": {
           "toggle": {
-            "description": "Enables/Disables the economy for this guild."
+            "description": "Activa/Desactiva la economía para este gremio."
           },
           "clear": {
-            "description": "DELETES ALL ECONOMY DATA (including config). This is irreversible!",
+            "description": "ELIMINA TODOS LOS DATOS DE ECONOMÍA (incluyendo la configuración). ¡Esto es irreversible!",
             "options": {
               "confirmation": {
-                "description": "Write \"CLEAR ALL\" to confirm deleting the guild's economy data."
+                "description": "Escribe \"CLEAR TOL\" para confirmar la eliminación de los datos de economía del gremio."
               }
             }
           },
           "blacklist": {
-            "description": "Allow or disallow something or someone for all gaining methods.",
+            "description": "Permitir o rechazar algo o alguien para todos los métodos de ganancia.",
             "options": {
               "channel": {
                 "description": "Allow or disallow a channel from all gaining methods (eg. chat messages in a spam channel)."
@@ -65,182 +65,182 @@
             }
           },
           "gaining_rules": {
-            "description": "Rules all about gaining.",
+            "description": "Reglas sobre ganancias.",
             "options": {
               "get": {
-                "description": "Get all settings and their values."
+                "description": "Obtener todos los ajustes y sus valores."
               },
               "min_message_length": {
-                "description": "The minimum message length required to get souls."
+                "description": "La longitud mínima del mensaje requerida para obtener almas."
               },
               "max_message_length": {
-                "description": "The maximum message length required to get souls."
+                "description": "La longitud máxima del mensaje requerida para obtener almas."
               }
             }
           }
         }
       }
     },
-    "confirmation": "clear all",
+    "confirmation": "borrar todo",
     "user": {
       "start": {
-        "alreadyInitiated": "You have run this command already! You can use the economy.",
-        "success": "You can now use the economy. Try out `/account`, `/stats` and `/research`!"
+        "alreadyInitiated": "¡Ya has ejecutado este comando! Puedes usar la economía.",
+        "success": "Ahora puedes usar la economía. ¡Prueba `/account`, `/stats` y `/research`!"
       },
       "delete": {
-        "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
-        "success": "All your economy data (including config) for this guild has been deleted. Start using the economy with `/economyconfig user start`."
+        "needConfirm": "Necesitas confirmar esta acción escribiendo `CLEAR ALL` en la opción de confirmación!",
+        "success": "Se han eliminado todos los datos de tu economía (incluyendo la configuración) de este gremio. Empieza a usar la economía con `/economyconfig user start`."
       }
     },
     "admin": {
-      "noPerm": "You don't have the permission to run admin commands!",
+      "noPerm": "¡No tienes permiso para ejecutar comandos de administración!",
       "toggle": {
-        "success": "{state} the economy for this guild."
+        "success": "{state} la economía de este gremio."
       },
       "clear": {
-        "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
-        "success": "All economy data (including config) for this guild has been deleted and the economy has been disabled."
+        "needConfirm": "Necesitas confirmar esta acción escribiendo `CLEAR ALL` en la opción de confirmación!",
+        "success": "Todos los datos de economía (incluyendo la configuración) de este gremio han sido eliminados y la economía ha sido desactivada."
       },
       "blacklist": {
-        "channels": "Channels",
+        "channels": "Canales",
         "roles": "Roles",
-        "user": "User",
+        "user": "Usuario",
         "embedTitle": "Economy Gaining Blacklist",
-        "listEmbedDescription": "This guild is currently blacklisting the following objects from gaining souls:",
-        "setEmbedDescription": "The following changes have been made:\n```diff\nChannel:\n{channel}\n\nRole:\n{role}\n\nUser:\n{user}\n```",
-        "setFooterText": "Run this command without arguments to get the whole blacklist."
+        "listEmbedDescription": "Este gremio está actualmente bloqueando los siguientes objetos al ganar almas:",
+        "setEmbedDescription": "Se han realizado los siguientes cambios:\n```diff\nCanal:\n{channel}\n\nRole:\n{role}\n\nUsuario:\n{user}\n```",
+        "setFooterText": "Ejecute este comando sin argumentos para obtener la lista negra completa."
       },
       "gainingRules": {
-        "getEmbedTitle": "Guild Economy Config",
-        "getEmbedDescription": "This are the first 25 entries of the guild's economy config.",
+        "getEmbedTitle": "Configuración de economía del gremio",
+        "getEmbedDescription": "Estas son las primeras 25 entradas de la configuración de economía del gremio.",
         "getConfigList": {
-          "min_message_length": "Min. message length",
-          "max_message_length": "Max. message length"
+          "min_message_length": "Longitud mínima del mensaje",
+          "max_message_length": "Longitud máxima del mensaje"
         },
-        "nothingChanged": "You didn't change any value.",
-        "setSuccess": "Successfully set {count} settings."
+        "nothingChanged": "No has cambiado ningún valor.",
+        "setSuccess": "Configuración establecida con éxito {count}."
       }
     }
   },
   "give": {
-    "description": "Give some souls to someone",
-    "usage": "give [@user] [amount]",
+    "description": "Dar algunas almas a alguien",
+    "usage": "dar [@usuario] [amount]",
     "options": {
       "target": {
-        "description": "The user you want to give souls."
+        "description": "El usuario que desea dar almas."
       },
       "amount": {
-        "description": "The amount of souls you want to give. (% is supported)"
+        "description": "La cantidad de almas que quieres dar. (% es compatible)"
       }
     },
     "error": {
-      "noTarget": "You need to mention someone!",
-      "self": "You can't give yourself souls...",
-      "bot": "You want to give your souls to a bot?",
-      "noAmount": "You need to specify how many souls you want to give!",
-      "noMoney": "You are too poor to give someone souls...",
-      "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. They have to run `/economyconfig user start` first!"
+      "noTarget": "¡Necesitas mencionar a alguien!",
+      "self": "No puedes darte almas...",
+      "bot": "¿Quieres dar tus almas a un bot?",
+      "noAmount": "¡Necesitas especificar cuántas almas quieres dar!",
+      "noMoney": "Eres demasiado pobre para dar almas a alguien...",
+      "targetEconomyNotInitialized": "La persona a la que quieres dar almas no ha empezado a jugar todavía. ¡Tiene que ejecutar `/economyconfig user start` primero!"
     },
-    "embedTitle": "Give",
-    "embedDescription": "You gave **{amount}** Souls to <@{target}>! <:soul:1011962640349810688>\n>>> Your souls: **{newUserAmount}** <:soul:1011962640349810688>\nHis/Her souls: **{newTargetAmount}** <:soul:1011962640349810688>"
+    "embedTitle": "Dar",
+    "embedDescription": "¡Has dado **{amount}** Almas a <@{target}>! <:soul:1011962640349810688>\n>>> Tus almas: **{newUserAmount}** <:soul:1011962640349810688>\nAlmas hispanas: **{newTargetAmount}** <:soul:1011962640349810688>"
   },
   "research": {
-    "description": "Upgrade your skills and research new ones!",
+    "description": "¡Mejora tus habilidades e investiga nuevas!",
     "skills": {
       "currency_bonus_percentage": {
         "name": "Soul Bonus (%)",
         "emoji": "<:soul:1011962640349810688>",
-        "description": "How many more Souls (in percent) you're getting for your activities."
+        "description": "Cuántas almas más (en porcentaje) estás obteniendo para tus actividades."
       },
       "currency_bonus_absolute": {
         "name": "Soul Bonus",
         "emoji": "<:soul:1011962640349810688>",
-        "description": "How many more Souls you're getting for your activities."
+        "description": "Cuántas almas más consigues para tus actividades."
       },
       "research_speed_percentage": {
-        "name": "Research Speed (%)",
+        "name": "Velocidad de Investigación (%)",
         "emoji": "<:research:1011960920609665064>",
-        "description": "How much faster (in percent) you're able to research."
+        "description": "Cuánto más rápido (en porcentaje) puedes investigar."
       },
       "research_bonus_percentage": {
-        "name": "Research Efficiency (%)",
+        "name": "Eficiencia de Investigación (%)",
         "emoji": "<:research:1011960920609665064>",
-        "description": "How big the bonuses are wich you're getting by researching."
+        "description": "Cuán grandes son los bonos que estás obteniendo investigando."
       },
       "power": {
-        "name": "Power",
+        "name": "Potencia",
         "emoji": "<:power:1011965677625671731>",
         "description": "One of your most important stats. It protects you from other players in several ways and lets you handle more powerful slaves."
       },
       "defense": {
-        "name": "Defense",
+        "name": "Defensa",
         "emoji": "<:defense:1011971580584263710>",
-        "description": "Protects you from other players in several ways."
+        "description": "Te protege de otros jugadores de varias maneras."
       },
       "currency_capacity": {
-        "name": "Soul Capacity",
+        "name": "Capacidad del alma",
         "emoji": "<:storage:1011973136100642947>",
-        "description": "How many souls you can have at once. If you are 50% over your limit, you will lose 75% of your souls!"
+        "description": "Cuántas almas puedes tener a la vez. ¡Si superas el 50% de tu límite, perderás el 75% de tus almas!"
       },
       "slave_capacity": {
-        "name": "Slave Capacity",
+        "name": "Capacidad de esclavizado",
         "emoji": "<:storage:1011973136100642947>",
-        "description": "How many slaves you can have at once."
+        "description": "Cuántos esclavos puedes tener a la vez."
       }
     },
     "lvl": "Lv. {lvl}",
-    "selectMenuPlaceholder": "What do you want to research?",
-    "price": "Price: {price} <:soul:1011962640349810688>",
-    "embedTitle": "Research",
-    "notEnoughMoney": "You have not enough souls to research this upgrade!",
-    "onCooldown": "You are currently researching this one! It will finish in <t:{time}:R>.",
-    "maxLevel": "You have already maxed out this skill!",
-    "onMaxConcurrentResearches": "You cannot research even more skills at once!",
-    "success": "The upgrade for **{skill}** {emoji} to Level `{lvl}` has started!\nIt will finish <t:{time}:R> (<t:{time}>)",
-    "timedOut": "This menu timed out."
+    "selectMenuPlaceholder": "¿Qué quieres investigar?",
+    "price": "Precio: {price} <:soul:1011962640349810688>",
+    "embedTitle": "Investigar",
+    "notEnoughMoney": "¡No tienes suficientes almas para investigar esta mejora!",
+    "onCooldown": "¡Actualmente estás investigando esta! Finalizará en <t:{time}:R>.",
+    "maxLevel": "¡Ya has completado al máximo esta habilidad!",
+    "onMaxConcurrentResearches": "¡No puedes investigar aún más habilidades a la vez!",
+    "success": "¡La mejora de **{skill}** {emoji} al Nivel `{lvl}ha comenzado!\nFinalizará <t:{time}:R> (<t:{time}>)",
+    "timedOut": "Este menú ha expirado."
   },
   "stats": {
-    "description": "Get more in-depth stats about a user or yourself.",
-    "usage": "stats [@user]",
+    "description": "Obtén estadísticas más detalladas sobre un usuario o tú.",
+    "usage": "estadísticas [@usuario]",
     "options": {
       "target": {
-        "description": "The user you want to get stats about"
+        "description": "El usuario sobre el que quieres obtener estadísticas"
       }
     },
-    "noStats": "This user is powerless and has no stats which are worth displaying.",
+    "noStats": "Este usuario es impotente y no tiene estadísticas que valgan la pena mostrar.",
     "currency": "Souls <:soul:1011962640349810688>",
-    "power": "Power <:power:1011965677625671731>",
-    "defense": "Defense <:defense:1011971580584263710>",
-    "slaves": "Slaves",
-    "maxSlaves": "Max Slaves",
-    "level": "> Level **{lvl}**\n",
+    "power": "Potencia <:power:1011965677625671731>",
+    "defense": "Defensa <:defense:1011971580584263710>",
+    "slaves": "Esclavos",
+    "maxSlaves": "Esclavos máximos",
+    "level": "> Nivel **{lvl}**\n",
     "gaining": {
-      "title": "Gaining Methods",
-      "chat": "Chat Messages: **{num}**",
-      "voice": "Voice Minutes: **{num}**",
-      "work": "Work: **{num}**",
-      "daily": "Daily collection: **{num}**"
+      "title": "Métodos de ganancia",
+      "chat": "Mensajes de Chat: **{num}**",
+      "voice": "Minutos de voz: **{num}**",
+      "work": "Trabajo: **{num}**",
+      "daily": "Colección diaria: **{num}**"
     },
     "skills": {
-      "name": "Skills",
+      "name": "Habilidades",
       "currency_bonus_percentage": "> Soul Bonus (%) <:soul:1011962640349810688>\n",
       "currency_bonus_absolute": "> Soul Bonus <:soul:1011962640349810688>\n",
-      "research_speed_percentage": "> Research Speed (%) <:research:1011960920609665064>\n",
-      "research_bonus_percentage": "> Research Efficiency (%) <:research:1011960920609665064>\n",
-      "power": "> Power <:power:1011965677625671731>\n",
-      "defense": "> Defense <:defense:1011971580584263710>\n",
-      "currency_capacity": "> Soul Capacity <:storage:1011973136100642947>\n",
-      "slave_capacity": "> Slave Capacity <:storage:1011973136100642947>\n"
+      "research_speed_percentage": "> Velocidad de Investigación (%) <:research:1011960920609665064>\n",
+      "research_bonus_percentage": "> Eficiencia de la investigación (%) <:research:1011960920609665064>\n",
+      "power": "> Energía <:power:1011965677625671731>\n",
+      "defense": "> Defensa <:defense:1011971580584263710>\n",
+      "currency_capacity": "> Capacidad del alma <:storage:1011973136100642947>\n",
+      "slave_capacity": "> Capacidad de esclavizado <:storage:1011973136100642947>\n"
     },
-    "embedTitle": "{user}'s Stats"
+    "embedTitle": "Estadísticas de {user}"
   },
   "top": {
-    "description": "Displays the most powerful people of this guild.",
+    "description": "Muestra la gente más poderosa de este gremio.",
     "currency": "> Souls: **{num}** <:soul:1011962640349810688>\n",
-    "power": "> Power: **{num}** <:power:1011965677625671731>",
-    "embedTitle": "Top 10 Members",
-    "embedDescription": "These are the top 10 members, sorted by their power:\n",
-    "noneFound": "No one here has any power!"
+    "power": "> Poder: **{num}** <:power:1011965677625671731>",
+    "embedTitle": "Top 10 Miembros",
+    "embedDescription": "Estos son los 10 miembros principales, ordenados por su poder:\n",
+    "noneFound": "¡Aquí nadie tiene ningún poder!"
   },
   "work": {}
 }

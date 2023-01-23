@@ -23,7 +23,7 @@
     "Connect": "Подключение",
     "Speak": "Говорить",
     "MuteMembers": "Отключить микрофон участникам",
-    "DeafenMembers": "Deafen Members",
+    "DeafenMembers": "Участники глухих",
     "MoveMembers": "Переместить участников",
     "ChangeNickname": "Изменить никнейм",
     "ManageNicknames": "Управление никнеймами",
@@ -37,8 +37,8 @@
     "CreatePublicThreads": "Создавать публичные темы",
     "CreatePrivateThreads": "Создавать приватные темы",
     "UseExternalStickers": "Использовать внешние стикеры",
-    "SendMessagesInThreads": "Send Messages in Threads and Posts",
-    "UseEmbeddedActivities": "Use Activities",
-    "ModerateMembers": "Moderate Members"
+    "SendMessagesInThreads": "Отправлять сообщения в темах и сообщениях",
+    "UseEmbeddedActivities": "Использовать мероприятия",
+    "ModerateMembers": "Модерировать участников"
   }
 }

@@ -1,57 +1,57 @@
 {
   "account": {
-    "description": "Shows your account and stats",
-    "usage": "account [@user]",
+    "description": "Affiche votre compte et vos statistiques",
+    "usage": "compte [@user]",
     "options": {
       "user": {
-        "description": "The user you want to get the account of"
+        "description": "L'utilisateur que vous souhaitez obtenir le compte de"
       }
     },
-    "targetEconomyNotInitialized": "This person has not started playing yet. He/She has to run `/economyconfig user start`.",
+    "targetEconomyNotInitialized": "Cette personne n'a pas encore commencé à jouer. Il/Elle doit exécuter `/economyconfig user start`.",
     "currency": "Souls: **{num}**/**{max}** <:soul:1011962640349810688>\n",
-    "dailyStreak": "Daily Streak: **{streak}** <:souls:1011962960840773673>\n",
-    "rank": "Rank: **{rank}**\n"
+    "dailyStreak": "Série quotidienne : **{streak}** <:souls:1011962960840773673>\n",
+    "rank": "Rang : **{rank}**\n"
   },
   "daily": {
-    "description": "Get your daily souls!",
-    "notUnlocked": "You have not researched the daily souls yet! `/research`",
-    "collected": "You have collected {count} souls!"
+    "description": "Obtenez vos âmes quotidiennes !",
+    "notUnlocked": "Vous n'avez pas encore recherché les âmes quotidiennes ! `/research`",
+    "collected": "Vous avez collecté {count} âmes!"
   },
   "economyconfig": {
-    "description": "Economy Configuration for users and admins",
+    "description": "Configuration de l'économie pour les utilisateurs et les administrateurs",
     "options": {
       "user": {
-        "description": "Configuration for your economy in this guild.",
+        "description": "Configuration de votre économie dans cette guilde.",
         "options": {
           "start": {
-            "description": "Start using the economy commands!"
+            "description": "Commencez à utiliser les commandes économiques!"
           },
           "delete": {
-            "description": "DELETE all your economy data! This is irreversible!",
+            "description": "SUPPRIMER toutes les données de votre économie ! C'est irréversible !",
             "options": {
               "confirmation": {
-                "description": "Write \"CLEAR ALL\" to confirm deleting your economy data."
+                "description": "Écrivez \"CLEAR TOL\" pour confirmer la suppression de vos données économiques."
               }
             }
           }
         }
       },
       "admin": {
-        "description": "Configure the economy in this guild",
+        "description": "Configurer l'économie de cette guilde",
         "options": {
           "toggle": {
-            "description": "Enables/Disables the economy for this guild."
+            "description": "Active/désactive l'économie de cette guilde."
           },
           "clear": {
-            "description": "DELETES ALL ECONOMY DATA (including config). This is irreversible!",
+            "description": "SUPPRIMER TOUTES LES DONNÉES ECONOMIE (y compris la config). Ceci est irréversible !",
             "options": {
               "confirmation": {
-                "description": "Write \"CLEAR ALL\" to confirm deleting the guild's economy data."
+                "description": "Écrivez \"CLEAR TOL\" pour confirmer la suppression des données économiques de la guilde."
               }
             }
           },
           "blacklist": {
-            "description": "Allow or disallow something or someone for all gaining methods.",
+            "description": "Permettre ou interdire quelque chose ou quelqu'un pour toutes les méthodes de gagner.",
             "options": {
               "channel": {
                 "description": "Allow or disallow a channel from all gaining methods (eg. chat messages in a spam channel)."
@@ -65,182 +65,182 @@
             }
           },
           "gaining_rules": {
-            "description": "Rules all about gaining.",
+            "description": "Règle tout sur les gains.",
             "options": {
               "get": {
-                "description": "Get all settings and their values."
+                "description": "Obtenir tous les paramètres et leurs valeurs."
               },
               "min_message_length": {
-                "description": "The minimum message length required to get souls."
+                "description": "La longueur minimale de message requise pour obtenir des âmes."
               },
               "max_message_length": {
-                "description": "The maximum message length required to get souls."
+                "description": "La longueur maximale de message requise pour obtenir des âmes."
               }
             }
           }
         }
       }
     },
-    "confirmation": "clear all",
+    "confirmation": "tout effacer",
     "user": {
       "start": {
-        "alreadyInitiated": "You have run this command already! You can use the economy.",
-        "success": "You can now use the economy. Try out `/account`, `/stats` and `/research`!"
+        "alreadyInitiated": "Vous avez déjà exécuté cette commande ! Vous pouvez utiliser l'économie.",
+        "success": "Vous pouvez maintenant utiliser l'économie. Essayez `/account`, `/stats` et `/research`!"
       },
       "delete": {
-        "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
-        "success": "All your economy data (including config) for this guild has been deleted. Start using the economy with `/economyconfig user start`."
+        "needConfirm": "Vous devez confirmer cette action en écrivant `CLEAR TOL` dans l'option de confirmation!",
+        "success": "Toutes vos données économiques (y compris la config) pour cette guilde ont été supprimées. Commencez à utiliser l'économie avec `/economyconfig user start`."
       }
     },
     "admin": {
-      "noPerm": "You don't have the permission to run admin commands!",
+      "noPerm": "Vous n'avez pas la permission d'exécuter des commandes admin !",
       "toggle": {
-        "success": "{state} the economy for this guild."
+        "success": "{state} l'économie pour cette guilde."
       },
       "clear": {
-        "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
-        "success": "All economy data (including config) for this guild has been deleted and the economy has been disabled."
+        "needConfirm": "Vous devez confirmer cette action en écrivant `CLEAR TOL` dans l'option de confirmation!",
+        "success": "Toutes les données économiques (y compris la config) de cette guilde ont été supprimées et l'économie a été désactivée."
       },
       "blacklist": {
-        "channels": "Channels",
-        "roles": "Roles",
-        "user": "User",
-        "embedTitle": "Economy Gaining Blacklist",
-        "listEmbedDescription": "This guild is currently blacklisting the following objects from gaining souls:",
-        "setEmbedDescription": "The following changes have been made:\n```diff\nChannel:\n{channel}\n\nRole:\n{role}\n\nUser:\n{user}\n```",
-        "setFooterText": "Run this command without arguments to get the whole blacklist."
+        "channels": "Canaux",
+        "roles": "Rôles",
+        "user": "Utilisateur",
+        "embedTitle": "Liste noire des gains en économie",
+        "listEmbedDescription": "Cette guilde met actuellement en noir les objets suivants en gagnant des âmes:",
+        "setEmbedDescription": "Les modifications suivantes ont été apportées :\n```diff\nChannel:\n{channel}\n\nRôle :\n{role}\n\nUtilisateur :\n{user}\n```",
+        "setFooterText": "Exécutez cette commande sans arguments pour obtenir la liste noire complète."
       },
       "gainingRules": {
-        "getEmbedTitle": "Guild Economy Config",
-        "getEmbedDescription": "This are the first 25 entries of the guild's economy config.",
+        "getEmbedTitle": "Configuration de l'économie de la guilde",
+        "getEmbedDescription": "Ce sont les 25 premières entrées de la configuration économique de la guilde.",
         "getConfigList": {
-          "min_message_length": "Min. message length",
-          "max_message_length": "Max. message length"
+          "min_message_length": "Longueur minimale du message",
+          "max_message_length": "Longueur maximale du message"
         },
-        "nothingChanged": "You didn't change any value.",
-        "setSuccess": "Successfully set {count} settings."
+        "nothingChanged": "Vous n'avez pas changé de valeur.",
+        "setSuccess": "Réglages {count} définis avec succès."
       }
     }
   },
   "give": {
-    "description": "Give some souls to someone",
-    "usage": "give [@user] [amount]",
+    "description": "Donner des âmes à quelqu'un",
+    "usage": "donner [@user] [amount]",
     "options": {
       "target": {
-        "description": "The user you want to give souls."
+        "description": "L'utilisateur que vous voulez donner des âmes."
       },
       "amount": {
-        "description": "The amount of souls you want to give. (% is supported)"
+        "description": "Le nombre d'âmes que vous voulez donner. (% est supporté)"
       }
     },
     "error": {
-      "noTarget": "You need to mention someone!",
-      "self": "You can't give yourself souls...",
-      "bot": "You want to give your souls to a bot?",
-      "noAmount": "You need to specify how many souls you want to give!",
-      "noMoney": "You are too poor to give someone souls...",
-      "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. They have to run `/economyconfig user start` first!"
+      "noTarget": "Tu dois mentionner quelqu'un!",
+      "self": "Vous ne pouvez pas vous donner d'âmes...",
+      "bot": "Vous voulez donner votre âme à un robot ?",
+      "noAmount": "Tu dois spécifier combien d'âmes tu veux donner!",
+      "noMoney": "Vous êtes trop pauvre pour donner des âmes à quelqu'un...",
+      "targetEconomyNotInitialized": "La personne à laquelle vous voulez donner des âmes n'a pas encore commencé à jouer. Elle doit d'abord exécuter `/economyconfig user start` !"
     },
-    "embedTitle": "Give",
-    "embedDescription": "You gave **{amount}** Souls to <@{target}>! <:soul:1011962640349810688>\n>>> Your souls: **{newUserAmount}** <:soul:1011962640349810688>\nHis/Her souls: **{newTargetAmount}** <:soul:1011962640349810688>"
+    "embedTitle": "Donner",
+    "embedDescription": "Vous avez donné **{amount}** Âmes à <@{target}>! <:soul:1011962640349810688>\n>>> Tes âmes: **{newUserAmount}** <:soul:1011962640349810688>\nsi/Ses âmes: **{newTargetAmount}** <:soul:1011962640349810688>"
   },
   "research": {
-    "description": "Upgrade your skills and research new ones!",
+    "description": "Améliorez vos compétences et recherchez de nouvelles compétences !",
     "skills": {
       "currency_bonus_percentage": {
         "name": "Soul Bonus (%)",
         "emoji": "<:soul:1011962640349810688>",
-        "description": "How many more Souls (in percent) you're getting for your activities."
+        "description": "Combien d'Âmes supplémentaires vous obtenez (en pourcentage) pour vos activités."
       },
       "currency_bonus_absolute": {
         "name": "Soul Bonus",
         "emoji": "<:soul:1011962640349810688>",
-        "description": "How many more Souls you're getting for your activities."
+        "description": "Combien d'autres Âmes vous obtenez pour vos activités."
       },
       "research_speed_percentage": {
-        "name": "Research Speed (%)",
+        "name": "Vitesse de Recherche (%)",
         "emoji": "<:research:1011960920609665064>",
-        "description": "How much faster (in percent) you're able to research."
+        "description": "Quelle est la vitesse de recherche (en pourcentage) que vous pouvez rechercher."
       },
       "research_bonus_percentage": {
-        "name": "Research Efficiency (%)",
+        "name": "Efficacité de la recherche (%)",
         "emoji": "<:research:1011960920609665064>",
-        "description": "How big the bonuses are wich you're getting by researching."
+        "description": "Quel est le montant des bonus que vous obtenez en recherchant ?"
       },
       "power": {
-        "name": "Power",
+        "name": "Électricité",
         "emoji": "<:power:1011965677625671731>",
         "description": "One of your most important stats. It protects you from other players in several ways and lets you handle more powerful slaves."
       },
       "defense": {
-        "name": "Defense",
+        "name": "Défense",
         "emoji": "<:defense:1011971580584263710>",
-        "description": "Protects you from other players in several ways."
+        "description": "Vous protège des autres joueurs de plusieurs manières."
       },
       "currency_capacity": {
-        "name": "Soul Capacity",
+        "name": "Capacité d'Ame",
         "emoji": "<:storage:1011973136100642947>",
         "description": "How many souls you can have at once. If you are 50% over your limit, you will lose 75% of your souls!"
       },
       "slave_capacity": {
-        "name": "Slave Capacity",
+        "name": "Capacité de l'esclave",
         "emoji": "<:storage:1011973136100642947>",
-        "description": "How many slaves you can have at once."
+        "description": "Combien d'esclaves vous pouvez avoir à la fois."
       }
     },
     "lvl": "Lv. {lvl}",
-    "selectMenuPlaceholder": "What do you want to research?",
-    "price": "Price: {price} <:soul:1011962640349810688>",
-    "embedTitle": "Research",
-    "notEnoughMoney": "You have not enough souls to research this upgrade!",
-    "onCooldown": "You are currently researching this one! It will finish in <t:{time}:R>.",
-    "maxLevel": "You have already maxed out this skill!",
-    "onMaxConcurrentResearches": "You cannot research even more skills at once!",
-    "success": "The upgrade for **{skill}** {emoji} to Level `{lvl}` has started!\nIt will finish <t:{time}:R> (<t:{time}>)",
-    "timedOut": "This menu timed out."
+    "selectMenuPlaceholder": "Que voulez-vous rechercher?",
+    "price": "Prix : {price} <:soul:1011962640349810688>",
+    "embedTitle": "Recherche",
+    "notEnoughMoney": "Vous n'avez pas assez d'âme pour rechercher cette amélioration !",
+    "onCooldown": "Vous êtes en train de rechercher celle-ci ! Elle se terminera dans <t:{time}:R>.",
+    "maxLevel": "Vous avez déjà atteint le maximum de cette compétence !",
+    "onMaxConcurrentResearches": "Vous ne pouvez pas rechercher encore plus de compétences à la fois!",
+    "success": "La mise à niveau de **{skill}** {emoji} vers le niveau `{lvl}` a commencé!\nElle finira <t:{time}:R> (<t:{time}>)",
+    "timedOut": "Ce menu a expiré."
   },
   "stats": {
-    "description": "Get more in-depth stats about a user or yourself.",
+    "description": "Obtenez des statistiques plus approfondies sur un utilisateur ou vous-même.",
     "usage": "stats [@user]",
     "options": {
       "target": {
-        "description": "The user you want to get stats about"
+        "description": "L'utilisateur sur lequel vous voulez obtenir des statistiques"
       }
     },
-    "noStats": "This user is powerless and has no stats which are worth displaying.",
+    "noStats": "Cet utilisateur est impuissant et n'a pas de statistiques qui valent la peine d'être affichées.",
     "currency": "Souls <:soul:1011962640349810688>",
-    "power": "Power <:power:1011965677625671731>",
-    "defense": "Defense <:defense:1011971580584263710>",
-    "slaves": "Slaves",
-    "maxSlaves": "Max Slaves",
-    "level": "> Level **{lvl}**\n",
+    "power": "Puissance <:power:1011965677625671731>",
+    "defense": "Défense <:defense:1011971580584263710>",
+    "slaves": "Esclaves",
+    "maxSlaves": "Nombre max d'esclaves",
+    "level": "> Niveau **{lvl}**\n",
     "gaining": {
-      "title": "Gaining Methods",
-      "chat": "Chat Messages: **{num}**",
-      "voice": "Voice Minutes: **{num}**",
-      "work": "Work: **{num}**",
-      "daily": "Daily collection: **{num}**"
+      "title": "Méthodes de gain",
+      "chat": "Messages: **{num} ** **",
+      "voice": "Minutes vocales : **{num}**",
+      "work": "Travail : **{num}**",
+      "daily": "Collecte quotidienne : **{num}**"
     },
     "skills": {
-      "name": "Skills",
+      "name": "Compétences",
       "currency_bonus_percentage": "> Soul Bonus (%) <:soul:1011962640349810688>\n",
       "currency_bonus_absolute": "> Soul Bonus <:soul:1011962640349810688>\n",
-      "research_speed_percentage": "> Research Speed (%) <:research:1011960920609665064>\n",
-      "research_bonus_percentage": "> Research Efficiency (%) <:research:1011960920609665064>\n",
-      "power": "> Power <:power:1011965677625671731>\n",
-      "defense": "> Defense <:defense:1011971580584263710>\n",
-      "currency_capacity": "> Soul Capacity <:storage:1011973136100642947>\n",
-      "slave_capacity": "> Slave Capacity <:storage:1011973136100642947>\n"
+      "research_speed_percentage": "> Vitesse de recherche (%) <:research:1011960920609665064>\n",
+      "research_bonus_percentage": "> Efficacité de la recherche (%) <:research:1011960920609665064>\n",
+      "power": "> Puissance <:power:1011965677625671731>\n",
+      "defense": "> Défense <:defense:1011971580584263710>\n",
+      "currency_capacity": "> Capacité d'âme <:storage:1011973136100642947>\n",
+      "slave_capacity": "> Capacité de l'esclave <:storage:1011973136100642947>\n"
     },
-    "embedTitle": "{user}'s Stats"
+    "embedTitle": "Statistiques de {user}"
   },
   "top": {
-    "description": "Displays the most powerful people of this guild.",
+    "description": "Affiche les personnes les plus puissantes de cette guilde.",
     "currency": "> Souls: **{num}** <:soul:1011962640349810688>\n",
-    "power": "> Power: **{num}** <:power:1011965677625671731>",
-    "embedTitle": "Top 10 Members",
-    "embedDescription": "These are the top 10 members, sorted by their power:\n",
-    "noneFound": "No one here has any power!"
+    "power": "> Puissance: **{num}** <:power:1011965677625671731>",
+    "embedTitle": "Top 10 des membres",
+    "embedDescription": "Ce sont les 10 meilleurs membres, triés par leur puissance :\n",
+    "noneFound": "Personne ici n'a de pouvoir!"
   },
   "work": {}
 }

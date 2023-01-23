@@ -1,45 +1,45 @@
 {
-  "cooldown": "This command is on cooldown! Try it again in `{time}`s.",
-  "afkMsg": "`{member}` is AFK: {message} - <t:{timestamp}:R>",
-  "afkEnd": "Welcome back, I removed your AFK. You have been AFK since <t:{timestamp}>.",
-  "slashCommandOnly": "This command is only available as a slash command!",
-  "guildCommandOnly": "This command is only available in guilds!",
-  "economyDisabled": "This command is an economy category command. The economy is not enabled in this guild. To start using the economy, an admin has to run `/economyconfig admin toggle`.",
-  "economyNotInitialized": "This command is an economy category command. To start using the economy, run `/economyconfig user start`.",
-  "buttonPressOnCooldown": "This button is on cooldown! Try it again in `{time}`s.",
+  "cooldown": "Эта команда находится на перезарядке! Попробуйте еще раз в `{time}`s.",
+  "afkMsg": "`{member}` AFK: {message} - <t:{timestamp}:R>",
+  "afkEnd": "С возвращением, я удалил ваш AFK. Вы были AFK с <t:{timestamp}>.",
+  "slashCommandOnly": "Эта команда доступна только в виде команды слэша!",
+  "guildCommandOnly": "Эта команда доступна только в гильдиях!",
+  "economyDisabled": "Эта команда является командой экономической категории. Экономия не включена в этой гильдии. Чтобы начать использовать экономию, администратор должен запустить `/economyconfig toggle`.",
+  "economyNotInitialized": "Эта команда является командой экономической категории. Чтобы начать использовать экономию, запустите `/economyconfig user start`.",
+  "buttonPressOnCooldown": "Эта кнопка находится на перезарядке! Попробуйте еще раз в `{time}`s.",
   "permissionDenied": {
-    "embedTitle": "Insufficient Permissions",
-    "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n`{permissions}`",
-    "embedDescriptionBot": "I need the following permissions in this channel to run this command:\n`{permissions}`"
+    "embedTitle": "Недостаточно прав доступа",
+    "embedDescriptionUser": "Вам нужны следующие разрешения в этом канале, чтобы запустить эту команду:\n`{permissions}`",
+    "embedDescriptionBot": "Мне нужны следующие разрешения в этом канале, чтобы запустить эту команду:\n`{permissions}`"
   },
   "errorHandler": {
-    "embedTitle": "Whoooops",
-    "embedDescription": "An unexpected error occurred!\n\nError Type: `{name}`\nCommand: `{command}`",
-    "reportButton": "Report this Error",
-    "reportButtonDisabled": " (Disabled due to dev version)",
-    "discordAPIErr": "A Discord API Error occurred, please try again and message the dev if this keeps happening.",
-    "alreadyReported": "This error has already been reported. [Link]({url}).\nIt will be fixed soon.",
-    "reportSuccess": "The error has been reported. [Link]({url})",
-    "reportFail": "`An error occurred while trying to send your error report.\n```\n{err}\n```\nPlease message the dev directly."
+    "embedTitle": "Упс",
+    "embedDescription": "Произошла непредвиденная ошибка!\n\nТип ошибки: `{name}`\nкоманда: `{command}`",
+    "reportButton": "Сообщить об этой ошибке",
+    "reportButtonDisabled": " (Отключено из-за Dev версии)",
+    "discordAPIErr": "Произошла ошибка Discord API, попробуйте еще раз и отправьте сообщение разработчику, если это не произошло.",
+    "alreadyReported": "Эта ошибка уже была сообщена. [Link]({url}).\nОна будет исправлена в ближайшее время.",
+    "reportSuccess": "Сообщена об ошибке. [Link]({url})",
+    "reportFail": "`Произошла ошибка при попытке отправить отчет об ошибке.\n```\n{err}\n```\nПожалуйста, отправьте сообщение непосредственно dev."
   },
   "notAllowed": {
-    "member": "You are not allowed to run this command (set by a server administrator)!",
-    "channel": "It is not allowed to run this command in this channel (set by a server administrator)!",
-    "role": "One of your roles is not allowed to run this command (set by a server administrator)!"
+    "member": "Вам не разрешено выполнять эту команду (задано администратором сервера)!",
+    "channel": "Не разрешается запускать эту команду в этом канале (задано администратором сервера)!",
+    "role": "Одна из ваших ролей не может запускать эту команду (задается администратором сервера)!"
   },
   "counting": {
-    "error": "YOU RUINED IT AT **{lastNumber}**!! The next number is **1**.\n",
-    "wrongNumber": "**Can't you count?! Wrong number.**",
-    "sameUserTwice": "**You can't count two numbers in a row!**"
+    "error": "ВЫ ЗАВЕРШЕНЫ НА **{lastNumber}**!! Следующее число: **1**.\n",
+    "wrongNumber": "**Нельзя посчитать?! Неверное число.**",
+    "sameUserTwice": "**Вы не можете считать два числа в ряду!**"
   },
   "selfrole": {
-    "embedTitle": "Self Role",
-    "roleNotFound": "The role bound to this button was not found!",
-    "noPermMember": "I don't have the permission to manage your roles!",
-    "noPermRole": "I don't have the permission to manage the <@&{role}> role!",
-    "hasRoleAlready": "You already have the <@&{role}> role!",
-    "addSuccess": "I gave you the <@&{role}> role.",
-    "missesRole": "I can't remove your <@&{role}> role because you don't have it!",
-    "removeSuccess": "I removed your <@&{role}> role."
+    "embedTitle": "Самостоятельная роль",
+    "roleNotFound": "Роль привязана к этой кнопке не найдена!",
+    "noPermMember": "У меня нет разрешения на управление своими ролями!",
+    "noPermRole": "У меня нет разрешения на управление ролью <@&{role}>!",
+    "hasRoleAlready": "У вас уже есть роль <@&{role}>!",
+    "addSuccess": "Я дал вам роль <@&{role}> .",
+    "missesRole": "Я не могу убрать вашу роль <@&{role}>, потому что у вас ее нет!",
+    "removeSuccess": "Я убрал вашу роль <@&{role}>."
   }
 }

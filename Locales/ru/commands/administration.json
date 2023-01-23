@@ -1,6 +1,6 @@
 {
   "serverbackup": {
-    "description": "Manage your server backups.",
+    "description": "Управление резервными копиями вашего сервера.",
     "options": {
       "create": {
         "description": "Create a backup of your server. If the server has 5 or more backups, the oldest one will be deleted."
@@ -17,260 +17,277 @@
         }
       },
       "get": {
-        "description": "Get one backup or a list of backups for this guild.",
+        "description": "Получить одну резервную копию или список резервных копий для этой гильдии.",
         "options": {
           "id": {
-            "description": "The backup ID to look for."
+            "description": "ID резервной копии для поиска."
           }
         }
       },
       "delete": {
-        "description": "Delete a backup.",
+        "description": "Удалить резервную копию.",
         "options": {
           "id": {
-            "description": "The backup to delete."
+            "description": "Резервная копия для удаления."
           }
         }
       }
     },
-    "embedTitle": "Server Backup",
+    "embedTitle": "Резервное копирование сервера",
     "create": {
-      "settings": "<a:loading:1063091916683612160> Saving settings...",
-      "members": "<a:loading:1063091916683612160> Saving members...",
-      "bans": "<a:loading:1063091916683612160> Saving bans...",
-      "roles": "<a:loading:1063091916683612160> Saving roles...",
+      "settings": "<a:loading:1063091916683612160> Сохранение настроек...",
+      "members": "<a:loading:1063091916683612160> Сохранение участников...",
+      "bans": "<a:loading:1063091916683612160> Сохранение банов...",
+      "roles": "<a:loading:1063091916683612160> Сохранение ролей...",
       "emojis": "<a:loading:1063091916683612160> Saving emojis...",
-      "stickers": "<a:loading:1063091916683612160> Saving stickers...",
-      "channels": "<a:loading:1063091916683612160> Saving channels, threads, and messages...",
+      "stickers": "<a:loading:1063091916683612160> Сохранение стикеров...",
+      "channels": "<a:loading:1063091916683612160> Сохранение каналов, потоков и сообщений...",
       "images": "<a:loading:1063091916683612160> Saving icon, splash, and banner...",
-      "success": "The backup with the ID {id} has been created successfully!\nUse </serverbackup get:{cmdId}> for more information about the backup."
+      "success": "Резервная копия с ID {id} успешно создана!\nИспользуйте </serverbackup get:{cmdId}> для получения дополнительной информации о резервном копировании."
     },
     "clear": {
-      "items": "<a:loading:1063091916683612160> Deleting emojis, stickers, and roles...",
-      "bans": "<a:loading:1063091916683612160> Deleting bans...",
-      "settings": "<a:loading:1063091916683612160> Deleting settings...",
-      "ownWebhooks": "<a:loading:1063091916683612160> Deleting temporary webhooks..."
+      "items": "<a:loading:1063091916683612160> Удаление эмодзи, стикеров и ролей...",
+      "bans": "<a:loading:1063091916683612160> Удаление запретов...",
+      "settings": "<a:loading:1063091916683612160> Удаление настроек...",
+      "ownWebhooks": "<a:loading:1063091916683612160> Удаление временных вебхуков..."
     },
     "load": {
-      "overwriteWarningTitle": "SERVER OVERWRITE (IRREVERSIBLE)",
-      "overwriteWarningDescription": "This action will delete most of your server! This includes roles, webhooks, channels, and emojis.\nIf you are sure you want to do this, type 'Yes'. Type 'No' to cancel.\nYou might also want to create a backup before loading, just to be safe.",
-      "noPerm": "Only the server owner can load backups!",
-      "notFound": "No backup with that ID was found!",
-      "cancelled": "Loading the backup has been cancelled.",
-      "loadingEmbedDescription": "Applying backup to the server.\nThis may take a while, depending on the size of the backup.",
-      "settings": "<a:loading:1063091916683612160> Loading settings...",
-      "features": "<a:loading:1063091916683612160> Loading server features...",
-      "roles": "<a:loading:1063091916683612160> Loading roles...",
-      "members": "<a:loading:1063091916683612160> Loading member roles and nicknames...",
-      "channels": "<a:loading:1063091916683612160> Loading channels, threads, and messages...",
-      "emojis": "<a:loading:1063091916683612160> Loading emojis...",
-      "stickers": "<a:loading:1063091916683612160> Loading stickers...",
-      "bans": "<a:loading:1063091916683612160> Loading bans...",
-      "success": "Successfully loaded the backup with ID `{id}`."
+      "overwriteWarningTitle": "ЗАВЕРШЕНИЕ СЕРВЕРА (IRREVERSIBLE)",
+      "overwriteWarningDescription": "Это действие удалит большую часть вашего сервера! Это включает роли, веб-хуки, каналы и эмодзи.\nЕсли вы уверены, что хотите сделать это, введите 'Да'. Введите 'Нет' чтобы отменить.\nВы также можете создать резервную копию перед загрузкой, чтобы быть безопасной.",
+      "noPerm": "Только владелец сервера может загружать резервные копии!",
+      "notFound": "Резервная копия с таким ID не найдена!",
+      "cancelled": "Загрузка резервной копии была отменена.",
+      "loadingEmbedDescription": "Применение резервной копии на сервере.\nЭто может занять некоторое время, в зависимости от размера резервной копии.",
+      "settings": "<a:loading:1063091916683612160> Загрузка настроек...",
+      "features": "<a:loading:1063091916683612160> Загрузка функций сервера...",
+      "roles": "<a:loading:1063091916683612160> Загрузка ролей...",
+      "members": "<a:loading:1063091916683612160> Загрузка ролей участников и псевдонимов...",
+      "channels": "<a:loading:1063091916683612160> Загрузка каналов, потоков и сообщений...",
+      "emojis": "<a:loading:1063091916683612160> Загрузка эмодзи...",
+      "stickers": "<a:loading:1063091916683612160> Загрузка стикеров...",
+      "bans": "<a:loading:1063091916683612160> Загрузка банов...",
+      "success": "Резервная копия с идентификатором `{id}`."
     },
     "delete": {
-      "success": "Successfully deleted the backup!"
+      "success": "Резервная копия успешно удалена!"
     },
     "get": {
-      "oneEmbedDescription": "Information about backup {id}\n>>> Created at: <t:{createdAt}>\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
-      "oneNotFound": "No backup was found with that ID!",
-      "found": "Found {amount} backups.",
-      "infos": "Created at: <t:{createdAt}>\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
-      "embedDescription": "The following backups were found, sorted by date:",
-      "noneFound": "No backups were found for this server."
+      "oneEmbedDescription": "Информация о резервной копии {id}\n>> Создана в: <t:{createdAt}>\nРазмер: {size}\nУчастники: {members}\nКаналы: {channels}\nРоли: {roles}\nEmojis: {emojis}\nСтикеры: {stickers}",
+      "oneNotFound": "Резервная копия с таким ID не найдена!",
+      "found": "Найдено {amount} резервных копий.",
+      "infos": "Создано: <t:{createdAt}>\nРазмер: {size}\nУчастники: {members}\nКаналы: {channels}\nРоли: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "embedDescription": "Найдены следующие резервные копии, отсортированные по дате:",
+      "noneFound": "Резервные копии для этого сервера не найдены."
     }
   },
   "selfrole": {
-    "description": "Manage selfroles.",
+    "description": "Управление ролями.",
     "options": {
       "add": {
-        "description": "Adds a selfrole button to an existing message.",
+        "description": "Добавляет кнопку selfrole к существующему сообщению.",
         "options": {
           "message_id": {
-            "description": "The ID of the message to add a selfrole to. The bot must be the author."
+            "description": "ID сообщения, в которое будет добавлена роль selfto. Бот должен быть автором."
           },
           "role": {
-            "description": "The role you want to use. Make sure the bot has a role above that role."
+            "description": "Роль, которую вы хотите использовать. Убедитесь, что у бота есть роль выше этой роли."
           },
           "button_label": {
-            "description": "The text that should be on the button. If it starts with an emoji, the emoji will be used only."
+            "description": "Текст, который должен быть на кнопке. Если он начинается с emoji, то эмодзи будут использоваться."
           },
           "modus": {
-            "description": "What should the button do? Defaults to \"Toggle Role\".",
+            "description": "Что должна делать кнопка? По умолчанию «Переключить роль».",
             "choices": {
-              "add": "Add Role",
-              "remove": "Remove Role",
-              "toggle": "Toggle Role"
+              "add": "Добавить роль",
+              "remove": "Удалить роль",
+              "toggle": "Переключить роль"
             }
           },
           "button_row": {
-            "description": "On which row the button should appear. Each row has a limit of 5 buttons."
+            "description": "На какой строке должна появиться кнопка, в каждой строке есть ограничение на 5 кнопок."
           },
           "button_color": {
-            "description": "The color the button should have. Defaults to \"Blurple\".",
+            "description": "Цвет кнопки. По умолчанию \"Размытие\".",
             "choices": {
-              "1": "Blurple",
-              "2": "Grey",
-              "3": "Green",
-              "4": "Red"
+              "1": "Размытие",
+              "2": "Серый",
+              "3": "Зелёный",
+              "4": "Красный"
             }
           },
           "hide_count": {
-            "description": "Hides the number of given roles next to the label. This increases the max. label length by 4."
+            "description": "Скрывает число ролей рядом с этикеткой. Это увеличивает макс. длину этикетки на 4."
           },
           "content": {
             "description": "What should the message say? This overwrites the original message. Use \"/n\" for newlines."
           },
           "channel": {
-            "description": "The channel the message ID is in. Defaults to this channel."
+            "description": "Канал, в котором находится ID сообщения. По умолчанию этот канал."
           }
         }
       },
       "remove": {
-        "description": "Remove a added selfrole and its button from a message.",
+        "description": "Удалите из сообщения добавленную роль и ее кнопку.",
         "options": {
           "message_id": {
-            "description": "The ID of the message to remove a selfrole from."
+            "description": "Идентификатор сообщения, из которого будет удалена самороль."
           },
           "role": {
-            "description": "The role you want to remove. This will remove ALL buttons matching that role."
+            "description": "Роль, которую вы хотите удалить. Это удалит ВСЕ кнопки, соответствующие этой роли."
           },
           "content": {
-            "description": "What should the message say? This overwrites the original message."
+            "description": "Что должно сказать сообщение? Это перезаписывает первоначальное сообщение."
           },
           "channel": {
-            "description": "The channel the message ID is in. Defaults to this channel."
+            "description": "Канал, в котором находится ID сообщения. По умолчанию этот канал."
           }
         }
       }
     },
-    "invalidMsgId": "The given message ID was not found in the selected channel! Make sure you selected the correct channel.",
-    "notMsgOwner": "I can only add buttons to my own messages! You can use `/say` or `/embed` to make a message.",
-    "noPerm": "I don't have the permissions to manage the selected role! Make sure my highest role is **above** the selected role.",
-    "limitReached": "The fifth button row of the selected message is full! You can select a row with space by using the `button_row` option.",
-    "rowFull": "The selected row is full! Rows can only have up to five buttons.",
-    "preview": "This is how the button will look like. It will manage the <@&{role}> role. Please press the button in the next 30 seconds to add it to the selected message.",
-    "addSuccess": "The button has been successfully added! [Message Link]({url})",
-    "removeSuccess": "All buttons that used the selected role have been successfully removed! [Message Link]({url})"
+    "invalidMsgId": "Данный ID сообщения не найден в выбранном канале! Убедитесь, что вы выбрали правильный канал.",
+    "notMsgOwner": "Я могу добавить только кнопки в свои сообщения! Вы можете использовать `/say` или `/embed`, чтобы сделать сообщение.",
+    "noPerm": "У меня нет прав для управления выбранной роль! Убедитесь, что моя высшая роль **выше** выбранная роль.",
+    "limitReached": "Пятая строка кнопок выбранного сообщения заполнена! Вы можете выбрать строку с пробелом, используя опцию `button_row`.",
+    "rowFull": "Выбранная строка заполнена! Строки могут содержать до пяти кнопок.",
+    "preview": "Вот как будет выглядеть кнопка. Она будет управлять ролью <@&{role}>. Пожалуйста, нажмите кнопку в течение следующих 30 секунд, чтобы добавить её в выбранное сообщение.",
+    "addSuccess": "Кнопка успешно добавлена! [Ссылка]({url})",
+    "removeSuccess": "Все кнопки, которые использовали выбранную роль, были успешно удалены! [Ссылка]({url})"
   },
   "setup": {
-    "description": "Sets the bot up",
+    "description": "Устанавливает бота",
     "options": {
       "toggle_module": {
         "description": "toggles a module",
         "options": {
           "module": {
-            "description": "The module you want to toggle",
+            "description": "Модуль который вы хотите переключить",
             "choices": {
               "gatekeeper": "Gatekeeper",
-              "birthday": "Birthdays"
+              "birthday": "Дни рождения"
             }
           }
         }
       },
       "toggle_command": {
-        "description": "Allow/Disallow roles/channels/members from running a specific command.",
+        "description": "Разрешить/Запретить роли/каналы/участники из выполнения определенной команды.",
         "options": {
           "command": {
-            "description": "The command you want to toggle."
+            "description": "Команда, которую вы хотите переключить."
           },
           "get": {
-            "description": "Get a list of disallowed roles/channels/members for that command instead."
+            "description": "Получить список запрещенных ролей/каналов/участников для этой команды."
           },
           "role_1": {
-            "description": "The role for which you want to toggle the command"
+            "description": "Роль, для которой вы хотите переключить команду"
           },
           "role_2": {
-            "description": "The role for which you want to toggle the command"
+            "description": "Роль, для которой вы хотите переключить команду"
           },
           "role_3": {
-            "description": "The role for which you want to toggle the command"
+            "description": "Роль, для которой вы хотите переключить команду"
           },
           "role_4": {
-            "description": "The role for which you want to toggle the command"
+            "description": "Роль, для которой вы хотите переключить команду"
           },
           "role_5": {
-            "description": "The role for which you want to toggle the command"
+            "description": "Роль, для которой вы хотите переключить команду"
           },
           "role_6": {
-            "description": "The role for which you want to toggle the command"
+            "description": "Роль, для которой вы хотите переключить команду"
           },
           "channel_1": {
-            "description": "The channel for which you want to toggle the command"
+            "description": "Канал, для которого вы хотите переключить команду"
           },
           "channel_2": {
-            "description": "The channel for which you want to toggle the command"
+            "description": "Канал, для которого вы хотите переключить команду"
           },
           "channel_3": {
-            "description": "The channel for which you want to toggle the command"
+            "description": "Канал, для которого вы хотите переключить команду"
           },
           "channel_4": {
-            "description": "The channel for which you want to toggle the command"
+            "description": "Канал, для которого вы хотите переключить команду"
           },
           "channel_5": {
-            "description": "The channel for which you want to toggle the command"
+            "description": "Канал, для которого вы хотите переключить команду"
           },
           "channel_6": {
-            "description": "The channel for which you want to toggle the command"
+            "description": "Канал, для которого вы хотите переключить команду"
           },
           "member_1": {
-            "description": "The member for which you want to toggle the command"
+            "description": "Участник, для которого вы хотите переключить команду"
           },
           "member_2": {
-            "description": "The member for which you want to toggle the command"
+            "description": "Участник, для которого вы хотите переключить команду"
           },
           "member_3": {
-            "description": "The member for which you want to toggle the command"
+            "description": "Участник, для которого вы хотите переключить команду"
           },
           "member_4": {
-            "description": "The member for which you want to toggle the command"
+            "description": "Участник, для которого вы хотите переключить команду"
           },
           "member_5": {
-            "description": "The member for which you want to toggle the command"
+            "description": "Участник, для которого вы хотите переключить команду"
           },
           "member_6": {
-            "description": "The member for which you want to toggle the command"
+            "description": "Участник, для которого вы хотите переключить команду"
           }
         }
       },
       "language": {
-        "description": "Change the bot's language.",
+        "description": "Изменить язык бота.",
         "options": {
           "language": {
-            "description": "In which language should the boy reply?",
+            "description": "На каком языке должен ответить мальчик?",
             "choices": {
-              "de": "German",
-              "en": "English",
-              "ru": "Russian"
+              "de": "Немецкий",
+              "en": "Russian",
+              "ru": "Русский"
+            }
+          }
+        }
+      },
+      "serverbackup": {
+        "description": "Управление параметрами резервных копий вашего сервера.",
+        "options": {
+          "allowed_to_load": {
+            "description": "Change who is allowed to load server backups.",
+            "choices": {
+              "creator": "Создатель",
+              "owner": "Server owner",
+              "creator+owner": "Creator and Server owner",
+              "admins": "Current server administrators"
             }
           }
         }
       }
     },
-    "toggledModule": "The `{name}` module has been {state}.",
+    "toggledModule": "Модуль `{name}был {state}.",
     "toggleCmd": {
-      "notFound": "This is not a valid command!",
+      "notFound": "Это не допустимая команда!",
       "list": {
-        "all": "All members",
-        "embedTitle": "Disallowed roles/channels/members for command {command}",
-        "embedDescription": "No roles, channels or members are currently disallowed."
+        "all": "Все участники",
+        "embedTitle": "Запрещенные роли/каналы для команды {command}",
+        "embedDescription": "Нет ролей, каналов или участников в настоящее время запрещено."
       },
-      "enabled": "The `{command}` command is now enabled.",
-      "disabled": "The `{command}` command is now disabled.",
-      "isDisabled": "The `{command}` command is disabled for all members. You can re-enable it by running </setup toggle_command:{id}> without specifying any role, channel or member.",
-      "roles": "Roles",
-      "channels": "Channels",
-      "users": "Members",
-      "embedTitle": "Updated Command Settings for \"{commandName}\"",
-      "embedDescription": "The following amount of roles/channels/members have been changed:\n||View all disallowed roles/channels/members by using </setup toggle_command:{id}> with the `get` option.||\n",
+      "enabled": "Команда `{command}` теперь включена.",
+      "disabled": "Команда `{command}` отключена.",
+      "isDisabled": "Команда `{command}` отключена для всех участников. Вы можете включить ее, запустив </setup toggle_command:{id}> без указания роли, канала или участника.",
+      "roles": "Роли",
+      "channels": "Каналы",
+      "users": "Члены Комитета",
+      "embedTitle": "Обновлены настройки команд для \"{commandName}\"",
+      "embedDescription": "Количество ролей/каналов/участников было изменено:\n||Просмотреть все запрещенные роли/каналы/участники, используя </setup toggle_command:{id}> с опцией `get`.||\n",
       "embed": {
-        "enabled": "Removed (Allowed)",
-        "disabled": "Added (Disallowed)"
+        "enabled": "Удалено (разрешено)",
+        "disabled": "Добавлено (Запрещено)"
       },
       "language": {
-        "embedTitle": "Bot language changed!",
-        "embedDescription": "The next messages will be in `{lang}`."
+        "embedTitle": "Язык бота изменен!",
+        "embedDescription": "Следующие сообщения будут в `{lang}`."
       }
+    },
+    "serverbackup": {
+      "success": "Successfully updated the settings!"
     }
   }
 }
