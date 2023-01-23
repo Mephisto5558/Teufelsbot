@@ -245,6 +245,20 @@
             }
           }
         }
+      },
+      "serverbackup": {
+        "description": "Manage options for your server backups.",
+        "options": {
+          "allowedToLoad": {
+            "description": "Change who is allowed to load server backups.",
+            "choices": {
+              "creator": "Creator",
+              "owner": "Server owner",
+              "creator+owner": "Creator and Server owner",
+              "admins": "Current server administrators"
+            }
+          }
+        }
       }
     },
     "toggledModule": "The `{name}` module has been {state}.",
@@ -271,6 +285,9 @@
         "embedTitle": "Bot language changed!",
         "embedDescription": "The next messages will be in `{lang}`."
       }
+    },
+    "serverbackup": {
+      "success": "Successfully updated the settings!"
     }
   }
 }
