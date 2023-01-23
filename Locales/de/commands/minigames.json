@@ -8,8 +8,8 @@
     "side": "Woah! Die Münze ist auf der Seite gelandet!"
   },
   "counting": {
-    "description": "Stelle einen Counting-Kanal ein, in dem Mitglieder ihre Mathe-Skills zeigen können!",
-    "usage": "PREFIX Command: counting [#channel]",
+    "description": "Stelle einen Counting-Kanal ein, in dem Mitglieder ihre Mathematik-Skills zeigen können!",
+    "usage": "PREFIX-Befehl: counting [#Kanal]",
     "options": {
       "channel": {
         "description": "Der Kanal, den du als Counting-Kanal hinzufügen(oder entfernen, wenn schon hinzugefügt) möchtest."
@@ -28,30 +28,30 @@
     }
   },
   "mgstats": {
-    "description": "Erhalte Stats von einem der Minigames des Bots",
-    "usage": "PREFIX Command: stats <game> [user]",
+    "description": "Erhalte Statistiken von einem der Mini-Games des Bots",
+    "usage": "PREFIX-Befehl: stats <Spiel> [User]",
     "options": {
       "user": {
-        "description": "Erhalte Stats über dich oder einen anderen Mitglied",
+        "description": "Erhalte Statistiken über dich oder ein anderes Mitglied",
         "options": {
           "game": {
-            "description": "Über welches Minigame du Stats möchtest",
+            "description": "Über welches Mini-Game du Statistiken sehen möchtest",
             "choices": {
-              "tictactoe": "TicTacToe"
+              "tictactoe": "Tic-Tac-Toe"
             }
           },
           "target": {
-            "description": "Über welchen Mitglied du Stats möchtest"
+            "description": "Über welches Mitglied möchtest du Statistiken erhalten?"
           }
         }
       },
       "leaderboard": {
-        "description": "Erhalte die 10 besten Spieler eines Mingames",
+        "description": "Erhalte die 10 besten Spieler eines Mini-Games",
         "options": {
           "game": {
-            "description": "Über welches Minigame du Stats möchtest",
+            "description": "Über welches Mini-Game du Statistiken möchtest",
             "choices": {
-              "tictactoe": "TicTacToe"
+              "tictactoe": "Tic-Tac-Toe"
             }
           },
           "settings": {
@@ -69,18 +69,18 @@
     "loses": "Verloren: {loses}\n\n",
     "noOne": "niemand\n",
     "missingGameArg": "Du musst mir ein Spiel als erstes Argument geben!",
-    "notFound": "Dies it kein gültiges Spiel. Gültige Spiele sind:\n`{list}`",
+    "notFound": "Dies ist kein gültiges Spiel. Gültige Spiele sind:\n`{list}`",
     "wonAgainst": "Gewonnen gegen:\n",
     "lostAgainst": "Verloren gegen:\n",
     "drewAgainst": "Unentschieden gegen:\n",
-    "embedTitle": "`{user}`'s {game} Stats",
+    "embedTitle": "`{user}`'s {game} Statistiken",
     "embedTitleTop10": "Top 10 {game} Spieler",
     "noWinners": "Es sieht so aus als hätte noch niemand gewonnen...",
     "youNoGamesPlayed": "Du hast noch nie {game} gespielt.",
     "usrNoGamesPlayed": "{user} hat noch nie {game} gespielt."
   },
   "rps": {
-    "description": "Spiele Stein Schere Papier gegen den Bot oder (coming soon) gegen andere Member.",
+    "description": "Spiele Stein Schere Papier gegen den Bot oder (bald) gegen andere Member.",
     "embedTitle": "Stein Schere Papier",
     "embedDescription": "Wähle ein Handzeichen!",
     "rock": "Stein",
@@ -93,7 +93,7 @@
     "timedOut": "Du hast verloren, weil du nichts ausgewählt hast!"
   },
   "tictactoe": {
-    "description": "Spiele TicTacToe gegen ein anderes Mitglied oder den Bot",
+    "description": "Spiele Tic-Tac-Toe gegen ein anderes Mitglied oder den Bot",
     "options": {
       "opponent": {
         "description": "Gegen wen möchtest du spielen?"
