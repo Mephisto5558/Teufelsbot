@@ -3,7 +3,7 @@
     "description": "Stell mir eine Frage.",
     "options": {
       "question": {
-        "description": "Ersuche einen weisen Rat :D"
+        "description": "Was möchtest du wissen?"
       }
     },
     "noQuestion": "Du hast mir keine Frage gestellt???",
@@ -11,7 +11,7 @@
       "Meiner Ansicht nach, ja.",
       "Sicher doch.",
       "Exakt.",
-      "Joaaa, naja.",
+      "Joaaa, na ja.",
       "Ja.",
       "Jaaaaaaa",
       "Yessss Sir.",
@@ -24,29 +24,29 @@
       "Frag mich später.",
       "Wie bitte? Ich habe grade nicht zugehört.",
       "Das sag ich dir jetzt besser nicht.",
-      "Dies kann ich dir grad nicht beantworten.",
+      "Dies kann ich dir grade nicht beantworten.",
       "Konzentriere dich und frage noch einmal.",
       "Meine Sicht ist vernebelt, frage noch einmal.",
       "Du stellst zu viele Fragen.",
       "Das ist ein Geheimnis.",
       "Zähl da nicht drauf.",
-      "Nope",
-      "Nah",
+      "Nö",
+      "Nee",
       "Nein",
-      "No.",
-      "No!",
-      "Noooooo!",
-      "My reply is no.",
-      "My sources say no.",
-      "Outlook not so good.",
-      "Very doubtful.",
-      "I don't think so.",
-      "Broooooo, you dummy, your question makes no sense?!"
+      "Nein.",
+      "Nein!",
+      "Naiiiiiiin!",
+      "Meine Antwort lautet nein.",
+      "Meine Quellen sagen nein.",
+      "Sieht nicht so gut aus.",
+      "Das bezweifle ich.",
+      "Ich glaube, nicht.",
+      "Broooo, du Dummy, deine Frage macht keinen Sinn?!"
     ]
   },
   "afk": {
     "description": "Setzte einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
-    "usage": "PREFIX Command: afk [message]",
+    "usage": "PREFIX Befehl: afk [Nachricht]",
     "options": {
       "message": {
         "description": "Die zu setzende Nachricht"
@@ -59,8 +59,8 @@
     "success": "Dein AFK wurde zu \"{message}\" gesetzt."
   },
   "avatarfusion": {
-    "description": "Kombiniere zwei Profilbilder",
-    "usage": "PREFIX Command: avatarfusion <base> [overlay] [avatar_type]",
+    "description": "Kombiniere zwei Profilbilder.",
+    "usage": "PREFIX-Befehl: avatarfusion <Basis> [Überlagerung] [Avatar-Typ]",
     "options": {
       "base": {
         "description": "Wessen Profilbild soll für die Basis genutzt werden?"
@@ -79,7 +79,7 @@
     "description": "Speichere deinen Geburtstag ein und ich werde dir eine Nachricht an diesem bedeutenden Tag senden.",
     "options": {
       "set": {
-        "description": "Speichere deinen Geburtstag ein.",
+        "description": "speichere deinen Geburtstag ein",
         "options": {
           "day": {
             "description": "An welchem Tag wurdest du geboren?"
@@ -96,7 +96,7 @@
         "description": "Erhalte eine Liste der nächsten Geburtstage.",
         "options": {
           "target": {
-            "description": "Wessen Geburtstag willst du einsehen? Lass dieses Feld frei, um die nächsten 10 Geburtstage zu sehen"
+            "description": "Wessen Geburtstag willst du einsehen? Lass dieses Feld frei, um die nächsten 10 Geburtstage zu sehen."
           },
           "do_not_hide": {
             "description": "Verstecke meine Antwort nicht vor anderen Usern."
@@ -104,7 +104,7 @@
         }
       },
       "remove": {
-        "description": "Löscht deinen Geburtstag aus der Database"
+        "description": "Löscht deinen Geburtstag aus der Datenbank."
       }
     },
     "months": {
@@ -136,7 +136,7 @@
     }
   },
   "dm": {
-    "description": "Sendet jemandem eine DM",
+    "description": "sendet jemandem eine DM",
     "options": {
       "toggle": {
         "description": "Schaltet ein/aus, dass dir jemand per Bot DMs senden kann.",
@@ -147,7 +147,7 @@
         }
       },
       "blacklist": {
-        "description": "Auflistung aller Mitglieder, die geblockt werden."
+        "description": "Listet aller Mitglieder auf, welche geblockt werden."
       },
       "send": {
         "description": "Sendet einem Mitglied dieses Servers eine DM.",
@@ -156,10 +156,10 @@
             "description": "Wem möchtest du eine DM senden?"
           },
           "message": {
-            "description": "Das möchtest du dem Mitglied schreiben? Nutze \"/n\" für einen Absatz."
+            "description": "Was möchtest du dem Mitglied mitteilen? Nutze \"/n\" für einen Absatz."
           },
           "as_mod": {
-            "description": "an Stelle deines Namens wird der Absender als 'einem Moderator aus [server]' angezeigt."
+            "description": "An Stelle deines Namens wird der Absender als \"einem Moderator aus [server]\" angezeigt."
           }
         }
       }
@@ -179,26 +179,26 @@
     "blacklist": {
       "notFound": "> Du blockst keine Mitglieder dieses Servers.",
       "allBlocked": "> Du blockst alle Mitglieder auf diesem Server.",
-      "embedTitle": "Deine Blacklist für den `/dm send` Command",
+      "embedTitle": "Deine Blacklist für den `/dm send` Befehl",
       "embedDescription": "Du blockst folgende Mitglieder:\n{members}",
       "embedFooterText": "Führe '/dm toggle' ohne Argumente aus, um DMs von Mitgliedern zu (ent-)blocken und führe '/dm toggle' mit dem 'user_to_toggle' Argument aus; um jemand Bestimmtes zu (ent-)blocken."
     },
     "send": {
-      "targetIsMe": "Ich möchte nicht mit mir selbst reden :C",
+      "targetIsMe": "Ich kann keine DMs an mich selbst senden!",
       "permissionDenied": "Du kannst diesem Mitglied keine DMs senden!",
-      "asModInfo": "\nNutze die `as_mod` Option um das Senden der DM zu erzwingen.",
+      "asModInfo": "\nNutze die `as_mod` Option, um das Senden der DM zu erzwingen.",
       "embedTitle": "Du hast eine neue Nachricht!",
       "embedDescription": "Von **{user}**\nServer: {guild}\n\n{msg}",
       "fromMod": "einem Moderator",
-      "embedFooterText": " Wenn du per Bot keine DMs von Mitgliedern erhalten möchtest, nutze '/dm toggle' auf einem beliebigen Server.",
+      "embedFooterText": "Wenn du per Bot keine DMs von Mitgliedern erhalten möchtest, nutze '/dm toggle' auf einem beliebigen Server.",
       "error": "Ich konnte die Nachricht nicht zustellen!"
     }
   },
   "fact": {
-    "description": "Ein paar interresante Fakten, absolut cool und nützlich, definitiv."
+    "description": "Ein paar interessante Fakten, absolut cool und nützlich, definitiv."
   },
   "giveaway": {
-    "description": "Giveaway Command",
+    "description": "Giveaway-Befehle",
     "options": {
       "create": {
         "description": "Setze ein neues Giveaway auf.",
@@ -207,13 +207,13 @@
             "description": "Was kann man gewinnen?"
           },
           "description": {
-            "description": "Beschreibe das Giveaway."
+            "description": "Die Giveaway-Beschreibung"
           },
           "channel": {
             "description": "In welchem Kanal soll das Giveaway stattfinden?"
           },
           "duration": {
-            "description": "Wie lang soll das Giveaway dauern: zB. 1w3d2h5min"
+            "description": "Wie lang soll das Giveaway dauern: z. B. 1w3d2h5min"
           },
           "winner_count": {
             "description": "Wie viele Gewinner gibt es?"
@@ -248,7 +248,7 @@
         "description": "Beende ein laufendes Giveaway.",
         "options": {
           "id": {
-            "description": "Die ID der Giveaways-NachrichtGiveaways-Nachricht"
+            "description": "Die ID der Giveaway-Nachricht"
           }
         }
       },
@@ -256,10 +256,10 @@
         "description": "Bearbeite ein laufendes Giveaway.",
         "options": {
           "id": {
-            "description": "Die ID der Giveaways-Nachricht"
+            "description": "Die ID der Giveaway-Nachricht"
           },
           "add_time": {
-            "description": "Zeitverlängerungen bzw. -Abzüge z.B. 2h12min or -1h10min"
+            "description": "Zeitverlängerungen bzw. -Abzüge z. B. 2h12min oder -1h10min."
           },
           "winner_count": {
             "description": "Die neue Anzahl Gewinner*innen"
@@ -277,7 +277,7 @@
             "description": "Mitglieder, welche nicht teilnehmen dürfen"
           },
           "required_roles": {
-            "description": "Nur Mitglieder mit einer dieser Rollen dürfen teilnehmen"
+            "description": "Nur Mitglieder mit einer dieser Rollen dürfen teilnehmen."
           },
           "bonus_entries": {
             "description": "Erwähnungen von Mitgliedern/Rollen und der Anzahl deren Bonuseinträge, z.B. @Premium:5 @Normal:2"
@@ -285,7 +285,7 @@
         }
       },
       "reroll": {
-        "description": "Wiederhole die Gewinner-Auslosung ein beendetes Giveaway.",
+        "description": "Wiederhole die Gewinner-Auslosung eines beendeten Giveaways.",
         "options": {
           "id": {
             "description": "Die ID der Giveaway-Nachricht"
@@ -295,42 +295,42 @@
     },
     "managerNotFound": "Dieses Feature ist deaktiviert oder nicht registriert.",
     "notFound": "Die angegebene Nachrichten-ID ist kein gültiges Giveaway!",
-    "invalidTime": "Die angegebene Dauer/der `add_time` Wert ist ungültig!",
+    "invalidTime": "Die angegebene Dauer bzw. der `add_time` Wert ist ungültig!",
     "notHost": "Du bist nicht der Veranstalter dieses Giveaways!",
     "buttonLabel": "Giveaway ansehen",
     "started": "Das Giveaway wurde gestartet!",
     "ended": "Das Giveaway wurde beendet!",
     "edited": "Das Giveaway wurde bearbeitet!",
-    "rerolled": "Das Gewinner-Auslosung wurde wiederholt!",
+    "rerolled": "Die Gewinner-Auslosung wurde wiederholt!",
     "newGiveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
     "giveawayEnded": "'🎉🎉 **GIVEAWAY BEENDET** 🎉🎉",
     "requiredRoles": "Du musst mindestens eine dieser Rollen haben, um zu gewinnen: {roles}",
-    "inviteToParticipate": "Reagiere mit {emoji} um teilzunehmen!",
+    "inviteToParticipate": "Reagiere mit {emoji}, um teilzunehmen!",
     "winMessage": "Gratulation, {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
     "drawing": "Gewinner-Auslosung: {timestamp}",
     "dropMessage": "Sei die/der Erste, die/der mit {emoji} reagiert!!",
     "embedFooterText": "{this.winnerCount} Gewinner*innen",
     "noWinner": "Das Giveaway wurde abgebrochen da es keine gültigen Teilnehmer gab.",
     "winners": "Gewinner*innen:",
-    "rerollWinners": "🎉 Neue Gewinner*innen: {winners}! Du/Ihr hast/habt **{this.prize}** gewonnen!",
+    "rerollWinners": "🎉 Neue Gewinner*innen: {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
     "rerollNoWinner": "Keine gültigen Teilnehmer; keine neuen Gewinner*innen wurden gefunden!",
     "endedAt": "Endete am",
     "hostedBy": "Veranstaltet von: {this.hostedBy}"
   },
   "happy": {
-    "description": "Lass den Bot eine fröhliche Nachricht senden :D"
+    "description": "Lasse den Bot eine fröhliche Nachricht senden."
   },
   "image": {
     "description": "Bildbearbeitung",
-    "usage": "PREFIX Command: image <subcommand | \"help\"> <args>",
+    "usage": "PREFIX-Befehl: image <Unterbefehl | \"help\"> <Argumente>",
     "options": {
       "type": {
-        "description": "Die Art der Bildbearbeitung, die du nutzen möchtest. Lasse dies leer um alle Möglichkeiten zu sehen."
+        "description": "Die Art der Bildbearbeitung, welche du nutzen möchtest. Lasse dies leer, um alle Möglichkeiten zu sehen."
       }
     },
     "notFound": "Das ist keine gültige Option. ",
     "validOptions": "Mögliche Optionen sind:\n`{options}`",
-    "requiresArgs": "Dieser Command benötigt folgende Argumente in Reihenfolge:\n\n{args}",
+    "requiresArgs": "Dieser Befehl benötigt folgende Argumente in Reihenfolge:\n\n{args}",
     "error": "Ein Fehler ist aufgetreten:\n```{err}```"
   },
   "inspirobot": {
@@ -340,7 +340,7 @@
   },
   "joke": {
     "description": "Lasse den Bot einen Witz senden",
-    "usage": "PREFIX Command: joke [type]",
+    "usage": "PREFIX-Befehl: joke [type]",
     "options": {
       "api": {
         "description": "Welche API soll genutzt werden?"
@@ -363,12 +363,12 @@
         "description": "Die maximale Länge des Witzes (nicht von jeder API unterstützt)"
       }
     },
-    "noAPIAvailable": "Leider ist zur Zeit keine API verfügbar. Bitte versuche es später nochmal.",
+    "noAPIAvailable": "Leider ist zurzeit keine API verfügbar. Bitte versuche es später nochmal.",
     "embedTitle": "Ist das witzig?"
   },
   "pokedex": {
     "description": "Zeigt Informationen über Pokémon an.",
-    "usage": "PREFIX Command: pokedex <pokemon>",
+    "usage": "PREFIX-Befehl: pokedex <Pokemon>",
     "options": {
       "pokémon": {
         "description": "Nenne ein Pokémon"
@@ -387,14 +387,14 @@
     "gen": "Generation"
   },
   "reddit": {
-    "description": "Verschiedene Reddit-Commands",
-    "usage": "PREFIX Command: reddit [subreddit] [sortierung]",
+    "description": "Verschiedene Reddit-Befehle",
+    "usage": "PREFIX-Befehl: reddit [Subreddit] [Sortierung]",
     "options": {
       "meme": {
         "description": "Lasse dir ein zufälliges Meme zeigen.",
         "options": {
           "filter_nsfw": {
-            "description": "Entfernt alle NSFW-Posts. Standart: True, Erzwungen bei Nicht-NSFW-Kanälen"
+            "description": "Entfernt alle NSFW-Posts. Standard: True, erzwungen bei Nicht-NSFW-Kanälen"
           }
         }
       },
@@ -402,13 +402,13 @@
         "description": "Erhalte einen der Top-Posts eines Subreddits.",
         "options": {
           "subreddit": {
-            "description": "Gib den Subreddit an, von dem du Posts erhalten möchtest. Standart: zufälliger Meme-Subreddit."
+            "description": "Gib den Subreddit an, von dem du Posts erhalten möchtest. Standard: zufälliger Meme-Subreddit."
           },
           "type": {
-            "description": "Der Typ nach dem sortiert wird. Standart: Heiß"
+            "description": "Der Typ nach dem sortiert wird. Standard: Heiß"
           },
           "filter_nsfw": {
-            "description": "Entfernt alle NSFW-Posts. Standart: true, Erzwungen bei Nicht-NSFW-Kanälen "
+            "description": "Entfernt alle NSFW-Posts. Standard: true, erzwungen bei Nicht-NSFW-Kanälen"
           }
         }
       }
@@ -419,11 +419,11 @@
     "embedFooterText": "Upvotes: {upvotes} ({ratio}%) | Downvotes: {downvotes} | Kommentare: {comments}"
   },
   "sad": {
-    "description": "Lasse den Bot einen traurigen Emoji senden."
+    "description": "Lasse den Bot ein trauriges Emoji senden."
   },
   "say": {
     "description": "Lasse mich etwas sagen.",
-    "usage": "PREFIX Command: say <msg> [channel]",
+    "usage": "PREFIX-Befehl: say <Nachricht> [Kanal]",
     "options": {
       "msg": {
         "description": "Was soll ich sagen? Nutze /n für einen Absatz."
@@ -436,10 +436,10 @@
     "noMsgProvided": "Du musst mir sagen was ich senden soll!"
   },
   "sleep": {
-    "description": "Sage deinen Freunden, dass du schlafen gehst",
+    "description": "Sage deinen Freunden, dass du schlafen gehst.",
     "responseList": [
       "{user} ist müde und geht jetzt schlafen",
-      "{user} geht jetzt in's Bettchen <:engelchen:725458214044303371>",
+      "{user} geht jetzt ins Bettchen <:engelchen:725458214044303371>",
       "{user} schläft jetzt, hoffentlich schnarcht er/sie nicht <:gucken:725670318164672543>"
     ]
   },
@@ -474,7 +474,7 @@
       "Bist du eine sehr gut organisierte Person?",
       "Hast du jemals eine Präsentation vor einer großen Gruppe von Menschen gehalten? Wie ist es gelaufen?",
       "Was ist der seltsamste Traum, den du jemals hattest?",
-      "Was ist deine kontroverseste Meinung?",
+      "Was ist deine kontroverse Meinung?",
       "Wer in deinem Leben bringt dir die meiste Freude?",
       "Wer hatte den größten Einfluss auf die Person, zu der du geworden bist?",
       "Was ist die nervigste Angewohnheit, die jemand haben kann?",
@@ -501,7 +501,7 @@
       "Welchen Nutzen bringst du der Gruppe, wenn du mit Freunden abhängst?",
       "Welche Trends hast du verfolgt, als du jünger warst?",
       "Was fürchtest du, versteckt sich im Dunkeln?",
-      "Was war die bisher beste Zeit deines Lebens? Was denkst du wird die beste Zeit deines ganzen Lebens sein?",
+      "Was war die bisher beste Zeit deines Lebens? Was denkst, du wird die beste Zeit deines ganzen Lebens sein?",
       "Was tust du, um deine Stimmung zu verbessern, wenn du schlechte Laune hast?",
       "Was ist die dümmste Angst, die du hast?",
       "Was möchtest du erreichen, bevor du stirbst?",
@@ -509,7 +509,7 @@
       "Wer ist jetzt beliebt, den du wirklich magst? Warum magst du ihn / sie so sehr?",
       "Wo kann man sich am besten verabreden?",
       "Welcher Geruch weckt großartige Erinnerungen?",
-      "Wie oft hilfst du anderen? Wem hilfst du? Wie hilft du?",
+      "Wie oft hilfst du anderen? Wem hilfst du? Wie hilfst du?",
       "Was kannst du am besten?",
       "Was macht dich nervös?",
       "Wer ist die lustigste Person, die du getroffen hast?",
@@ -549,12 +549,12 @@
       "Welches Lied macht immer gute Laune?",
       "Was ist der beste Weg, um neue Musik zu entdecken?",
       "Wie hat die Technologie die Musikindustrie verändert?",
-      "Gibt es Songs, die dich immer zum weinen bringen?",
+      "Gibt es Songs, die dich immer zum Weinen bringen?",
       "Welche Bands oder Arten von Musik hörst du, wenn du trainierst?",
       "Was bevorzugst du, populäre Musik oder relativ unbekannte Musik?",
       "Gehst du gerne zu Konzerten? Warum oder warum nicht? Was war das letzte Konzert, zu dem du gegangen bist?",
       "Wer war die erste Band oder der erste Musiker, der dich wirklich bewegt hat? Magst du sie immer noch?",
-      "Records, Tapes, CDs, MP3s, Streaming. Mit wem bist du aufgewachsen? Was ist gut und was schlecht an jedem?",
+      "Records, Tapes, CDs, MP3s, Streaming. Womit bist du aufgewachsen? Was ist gut und was schlecht an jedem?",
       "Was sind die drei besten Apps auf deinem Handy?",
       "Was machen App-Hersteller, das dich wirklich nervt?",
       "Welche App schien magisch, als du sie zum ersten Mal benutzt hast?",
@@ -565,7 +565,7 @@
       "Wie werden Telefone in 10 Jahren sein?",
       "Was wünschst du, könnte dein Handy tun?",
       "Musst du immer das neueste Handy haben?",
-      "Was ist das nervigste an deinem Handy?",
+      "Was ist das Nervigste an deinem Handy?",
       "Wie fühlst du dich, wenn du dein Handy versehentlich zu Hause lässt?",
       "Was war dein erstes Smartphone? Wie hast du dich gefühlt, als du es bekommen hast?",
       "Hast du Phantomschwingungen? (Fühlst du, wie dein Handy vibriert, obwohl dies nicht der Fall ist.)",
@@ -577,7 +577,7 @@
       "In welchem Restaurant isst du am meisten?",
       "Was ist das schlechteste Fast-Food-Restaurant?",
       "Was ist das beste Restaurant in deiner Nähe?",
-      "Was ist das schickste Restaurant, in dem du je gegessen hast?",
+      "Was ist das schickeste Restaurant, in dem du je gegessen hast?",
       "Welche Art von Dekoration magst du in einem Restaurant?",
       "Was ist das schlechteste Restaurant, in dem du jemals gegessen hast?",
       "Wenn du ein Restaurant eröffnen würdest, welche Art von Essen würdest du servieren?",
@@ -585,7 +585,7 @@
       "Würdest du in einem Restaurant essen, das wirklich schmutzig ist, wenn das Essen dafür fantastisch ist?",
       "Was ist das Ekelhafteste, was je in einem Restaurant passiert ist?",
       "Was war dein Lieblingsrestaurant als du ein Kind warst?",
-      "Wohin möchtest du als nächstes reisen?",
+      "Wohin möchtest du als Nächstes reisen?",
       "Was ist die längste Flugreise, die du unternommen hast?",
       "Was ist die beste Art zu reisen? (Flugzeug, Auto, Zug usw.)",
       "Was ist der entspannendste Ort?",
@@ -644,9 +644,9 @@
       "Was sind einige gute und schlechte Dinge am Bildungssystem in deinem Land?",
       "Was ist deine Lieblingsküche oder Art von Essen?",
       "Welche Lebensmittel hasst du absolut?",
-      "Was hälst du von Buffets?",
+      "Was hältst du von Buffets?",
       "Welches Essen sieht ekelhaft aus, schmeckt aber lecker?",
-      "Was holst du dir jedes mal, wenn du einkaufen gehst?",
+      "Was holst du dir jedes Mal, wenn du einkaufen gehst?",
       "Was würdest du dir für deine letzte Mahlzeit wünschen, wenn du in der Todeszelle wärst?",
       "Welches Essen dürftest du nicht essen, bringt dich aber trotzdem immer wieder in Versuchung?",
       "Magst du scharfes Essen? Warum oder warum nicht? Was ist das schärfste, was du jemals gegessen hast?",
@@ -664,7 +664,7 @@
       "Würdest du ein selbstfahrendes Auto kaufen, wenn es erschwinglich wäre?",
       "Wer ist die interessanteste Person, der du folgst?",
       "Gibt es etwas, in dem du von Natur aus gut bist?",
-      "Welche Social Media Plattform nutzst du am häufigsten?",
+      "Welche Social Media Plattform nutzt du am häufigsten?",
       "Welche Social Media Plattformen kannst du einfach nicht nachvollziehen?",
       "Wie viel Zeit verbringst du in sozialen Medien?",
       "Gibt es soziale Medien, die du nicht magst, die du aber aufgrund von Freunden oder Familie nutzen musst?",
@@ -687,25 +687,25 @@
       "Worauf sollte man täglichen Leben achten?",
       "Was wird immer in Mode sein, egal wie viel Zeit vergeht?",
       "Was ist das teuerste, was du kaputt gemacht hast?",
-      "Zu was verdrehst du immer die Augen, wenn du es hörst?",
-      "Wann hast du das letzte Mal jemandem gesagt: \"Ich habe es dir doch gesagt.\"",
+      "Wozu verdrehst du immer die Augen, wenn du es hörst?",
+      "Wann hast du das letzte Mal jemandem gesagt: \"Ich habe es dir doch gesagt\"?",
       "An welchen Eigenschaften beurteilst du eine Person?"
     ]
   },
   "trigger": {
-    "description": "Manage individuelle Antworten für die Nachrichtenten-Trigger",
+    "description": "Benutzerdefinierte Antworten auf Nachrichtenauslöser verwalten",
     "options": {
       "add": {
         "description": "Füge einen neuen Trigger hinzu",
         "options": {
           "trigger": {
-            "description": "Auf was soll der Bot reagieren?"
+            "description": "Worauf soll der Bot reagieren?"
           },
           "response": {
             "description": "Was soll der Bot auf den Trigger antworten?"
           },
           "wildcard": {
-            "description": "Sucht den Trigger in der gesamten Nachricht (Standart: True)"
+            "description": "Sucht den Trigger in der gesamten Nachricht (Standard: True)"
           }
         }
       },
@@ -713,7 +713,7 @@
         "description": "Lösche einen Trigger. Dies ist unumkehrbar!",
         "options": {
           "id": {
-            "description": "Nutze \"/trigger get\" um die Trigger-ID zu erhalten. Lasse dies leer um die letzte ID zu löschen."
+            "description": "Nutze \"/trigger get\" um die Trigger-ID zu erhalten. Lasse dies leer, um die letzte ID zu löschen."
           }
         }
       },
@@ -729,13 +729,13 @@
         "description": "Erhalte einen oder alle Trigger.",
         "options": {
           "query": {
-            "description": "Sucht einen Trigger nach seinem Auslöser."
+            "description": "Sucht einen Auslöser nach seinem Inhalt."
           },
           "id": {
-            "description": "Die Trigger-ID kann mit \"/trigger get\" gefunden werden."
+            "description": "Die Auslöser-ID kann mit \"/trigger get\" gefunden werden."
           },
           "short": {
-            "description": "Gibt so viele Trigger wie möglich wieder"
+            "description": "Zeigt so viele Auslöser wie möglich an"
           }
         }
       }
@@ -749,12 +749,12 @@
     "confirmation": "lösche alles",
     "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!",
     "embedTitle": "Trigger",
-    "fieldName": "**Trigger {id}:**",
-    "fieldValue": "```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`",
+    "fieldName": "**Auslöser {id}:**",
+    "fieldValue": "```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Ausgabe: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`\n",
-    "first25": "Die Ersten 25 Trigger. Erhalte mehr per `short` Option."
+    "shortFieldValue": "**Auslöser:**\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`\n",
+    "first25": "Die ersten 25 Auslöser. Erhalte mehr per `short` Option."
   },
   "vote": {
     "description": "Erstelle eine Umfrage",
@@ -778,8 +778,8 @@
       }
     },
     "noPerm": "Du hast nicht die Berechtigung, Nachrichten in diesem Kanal zu senden!",
-    "noQuestion": "Du musst eine Frage stellen!",
-    "notEnoughOptions": "Du musst mindestens zwei Optionen angeben (separiere sie mit `|`)!",
+    "noQuestion": "Du musst schon eine Frage stellen...",
+    "notEnoughOptions": "Du musst mindestens zwei Optionen angeben (separiere sie mit `|`)...",
     "embedTitle": "Abstimmung",
     "embedFooterText": "Der Ersteller dieser Abstimmung kann mit ❌ reagieren, um sie zu beenden.",
     "buttonEmbedFooterText": "Der Ersteller dieser Abstimmung kann den ❌ Button drücken, um sie zu beenden.",
@@ -788,7 +788,7 @@
     "ended": "Die Abstimmung ist beendet!"
   },
   "wiki": {
-    "description": "Suche nach etwas auf Wikipedia oder erhalte Infos über etwas Zufälliges.",
+    "description": "Suche nach etwas auf Wikipedia oder erhalte Informationen über etwas Zufälliges.",
     "usage": "Wiki <Suchbegriff(e)>",
     "options": {
       "query": {
