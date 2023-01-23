@@ -104,7 +104,7 @@
       "blacklist": {
         "channels": "Channels",
         "roles": "Roles",
-        "user": "User",
+        "user": "Пользователь",
         "embedTitle": "Economy Gaining Blacklist",
         "listEmbedDescription": "This guild is currently blacklisting the following objects from gaining souls:",
         "setEmbedDescription": "The following changes have been made:\n```diff\nChannel:\n{channel}\n\nRole:\n{role}\n\nUser:\n{user}\n```",
