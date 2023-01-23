@@ -1,7 +1,7 @@
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   { I18nProvider } = require('../../Utils'),
-  backup = new Set([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
+  backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   getCmds = client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])],
   mention = (k, v) => {
     if (k == 'roles') return `<@&${v}>`;
