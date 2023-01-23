@@ -53,10 +53,10 @@ module.exports = {
       }]
     },
     {
-      name: 'serverbackup',description:'allowedToLoad',
+      name: 'serverbackup',
       type: 'Subcommand',
       options: [{
-        name: 'allowedToLoad',description:'allowedToLoad',
+        name: 'allowedToLoad',
         type: 'String',
         choices: [...backup.keys()],
         required: true
