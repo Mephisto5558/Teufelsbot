@@ -1,0 +1,7 @@
+files:
+  - source: /Locales/en/
+    ignore:
+      - /Locales/en/commands
+    translation: /Locales/%two_letters_code%/%original_file_name%
+  - source: /Locales/en/commands
+    translation: /Locales/%two_letters_code%/commands/%original_file_name%
