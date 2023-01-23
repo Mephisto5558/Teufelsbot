@@ -43,7 +43,7 @@
           "style": {
             "description": "Welchen Style soll dein Button haben?",
             "choices": {
-              "1": "Blurple",
+              "1": "Burple",
               "2": "Grau",
               "3": "Grün",
               "4": "Rot",
@@ -257,7 +257,7 @@
     "needVoiceChannel": "Du musst einen Sprachkanal angeben oder in einem sein!",
     "cannotJoin": "Ich kann diesem Sprachkanal nicht beitreten! Stelle sicher, dass der Kanal nicht voll ist und ich die benötigten Berechtigungen habe, um ihm beizutreten.",
     "deaf": "Ich bin momentan taubgeschaltet und ich kann das nicht ändern!",
-    "embedTitle": "VoiceRecorder",
+    "embedTitle": "Sprachrekorder",
     "embedDescription": "<@{user}> möchte dich/euch in <#{channel}> aufnehmen.\n**{publicOrPrivate}**\nBitte drücke einen Button um die Aufnahme deiner Stimme zu erlauben oder zu verbieten.",
     "isPublic": "Die Aufnahme wird für alle Servermitglieder verfügbar sein.",
     "isPrivate": "Die Aufnahme wird nur für die Mitglieder zugänglich sein, die der Aufnahme zugestimmt haben.",
