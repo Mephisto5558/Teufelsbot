@@ -1,0 +1,15 @@
+{
+  "messageSent": "Message sent!",
+  "loading": "Loading...",
+  "guild": "Guild",
+  "user": "User",
+  "cancel": "Cancel",
+  "playAgain": "Play Again",
+  "enabled": "Enabled",
+  "disabled": "Disabled",
+  "none": "none",
+  "noPermUser": "You don't have the permission to do that!",
+  "noPermBot": "I don't have the permission to do that!",
+  "true": "Yes",
+  "false": "No"
+}
