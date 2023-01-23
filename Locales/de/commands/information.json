@@ -1,9 +1,9 @@
 {
   "avatar": {
-    "description": "Zeigt den Avater eines Users",
+    "description": "Zeigt den Avatar eines Mitglieds.",
     "options": {
       "target": {
-        "description": "Wessen Avatar möchtest du sehen"
+        "description": "Wessen Avatar möchtest du sehen?"
       },
       "size": {
         "description": "Wie groß soll das Bild sein?"
@@ -13,16 +13,16 @@
     "downloadButton": "Herunterladen"
   },
   "cmdstats": {
-    "description": "Zeigt an, wie oft ein spezifischer Command oder die Top 10 genutzt wurden.",
-    "usage": "PREFIX Command: cmdstats [command]",
+    "description": "Zeigt an, wie oft ein spezifischer Befehl oder die Top 10 genutzt wurden.",
+    "usage": "PREFIX-Befehl: cmdstats [Befehl]",
     "options": {
       "command": {
-        "description": "Für welchen Command möchtest du Stats erhalten?"
+        "description": "Für welchen Befehl möchtest du Statistiken erhalten?"
       }
     },
-    "embedTitle": "Command Stats",
-    "embedDescriptionOne": "Der {command}-Command wurde **{count}** male ausgeführt.",
-    "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Commands:\n"
+    "embedTitle": "Befehlsstatistiken",
+    "embedDescriptionOne": "Der {command}-Befehl wurde **{count}** male ausgeführt.",
+    "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:\n"
   },
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",
@@ -30,15 +30,15 @@
     "embedDescription": "Clicke [hier]({url}) um das Dashboard zu öffnen."
   },
   "emojiinfo": {
-    "description": "Erhalte Informationen über einen Emoji",
-    "usage": "PREFIX Command: emojiinfo [emoji | emoji id]",
+    "description": "Erhalte Informationen über ein Emoji",
+    "usage": "PREFIX-Befehl: emojiinfo [Emoji | Emoji-ID]",
     "options": {
       "emoji": {
-        "description": "Den Emoji oder die ID des Emojis, über den du Informationen erhalten möchtest."
+        "description": "Das Emoji oder die ID des Emojis, über den du Informationen erhalten möchtest."
       }
     },
-    "notFound": "Es wurden keine Informationen über diesen Emoji gefunden.",
-    "embedTitle": "Infos über \"{emoji}\"",
+    "notFound": "Es wurden keine Informationen über dieses Emoji gefunden.",
+    "embedTitle": "Informationen über \"{emoji}\"",
     "unknown": "unbekannt",
     "name": "Name",
     "id": "ID",
@@ -52,54 +52,54 @@
     "download": "Emoji Herunterladen"
   },
   "help": {
-    "description": "Zeige alle meine Commands oder erhalte Informationen über einen spezifischen.",
-    "usage": "PREFIX Command: help [command]",
+    "description": "Zeige alle meine Befehle oder erhalte Informationen über einen spezifischen.",
+    "usage": "PREFIX-Befehl: help [Befehl]",
     "options": {
       "command": {
-        "description": "Über welchen Command möchtest du mehr erfahren?"
+        "description": "Über welchen Befehl möchtest du mehr erfahren?"
       }
     },
     "one": {
-      "notFound": "Keine Informationen über diesen Command gefunden: `{command}`.",
-      "embedTitle": "Detallierte Informationen über: `{command}`",
+      "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
+      "embedTitle": "Detaillierte Informationen über: `{command}`",
       "noDescription": "Keine Beschreibung gefunden",
-      "embedFooterText": "Syntax: <> = erfordert, [] = optional | Prefix: \"{prefix}\"",
-      "lookAtDesc": "SLASH Command: Lies die Beschreibungen der Command Optionen.\n",
-      "prefixAlias": "Prefix Command Aliasse",
-      "slashAlias": "Slash Command Aliasse",
+      "embedFooterText": "Syntax: <> = erfordert, [] = optional | Präfix: \"{prefix}\"",
+      "lookAtDesc": "SLASH-Befehl: Lies die Beschreibungen der Befehls-Optionen.\n",
+      "prefixAlias": "Präfix-Befehl Aliase",
+      "slashAlias": "Slash-Befehl Aliase",
       "botPerms": "Erforderliche Bot Berechtigungen",
       "userPerms": "Erforderliche User Berechtigungen",
-      "cooldowns": "Command Cooldowns",
+      "cooldowns": "Befehls-Abklingzeiten",
       "usage": "Nutzung"
     },
     "all": {
-      "embedTitle": "🔰Alle meine Commands",
-      "notFound": "keine Commands gefunden...",
-      "embedFooterText": "Nutze die 'command' Option um mehr Informationen über einen spezifischen Comamnd zu erhalten."
+      "embedTitle": "🔰Alle meine Befehle",
+      "notFound": "keine Befehle gefunden...",
+      "embedFooterText": "Nutze die 'command' Option, um mehr Informationen über einen spezifischen Befehl zu erhalten."
     }
   },
   "info": {
-    "description": "Zeigt Stats und Informationen über den Bot",
-    "dev": "Developer",
+    "description": "Zeigt Statistiken und Informationen über den Bot.",
+    "dev": "Entwickler",
     "shard": "Shard",
-    "commands": "Commands",
+    "commands": "Befehle",
     "starts": "Starts",
     "lastStart": "Letzter Start",
     "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n",
-    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Datenschutzrichtlinie]({PrivacyPolicy})**",
-    "embedTitle": "Infos",
-    "embedFooterText": "Mehr Infos kommen bald!"
+    "links": "**[Einladung]({Invite})** | **[Dashboard]({Dashboard})** | **[Datenschutzrichtlinie]({PrivacyPolicy})**",
+    "embedTitle": "Informationen",
+    "embedFooterText": "Mehr Informationen kommen bald!"
   },
   "invite": {
-    "description": "Sendet einen Link um den Bot auf deinen Server zu adden",
+    "description": "Sendet einen Link, um den Bot auf deinem Server hinzuzufügen.",
     "embedTitle": "Einladen",
-    "embedDescription": "Vielen Dank für dein Interesse! Clicke [hier]({url}) um mich auf deinen Server hinzuzufügen."
+    "embedDescription": "Vielen Dank für dein Interesse! Klicke [hier]({url}) um mich auf deinen Server hinzuzufügen."
   },
   "ping": {
     "description": "Erhalte den Ping des Bots",
     "options": {
       "average": {
-        "description": "Erhalte den Durchschnittsping aus 60 pings über eine Minute."
+        "description": "Erhalte den Durchschnittsping aus 60 Pings über eine Minute."
       }
     },
     "average": {
@@ -110,33 +110,33 @@
     "messageSend": "Nachricht senden"
   },
   "prefix": {
-    "description": "Zeigt oder ändert den Prefix des Servers.",
-    "usage": "PREFIX Command: prefix [neuer Prefix]",
+    "description": "Zeigt oder ändert den Präfix des Servers.",
+    "usage": "PREFIX-Befehl: Präfix [neuer Präfix]",
     "options": {
       "new_prefix": {
-        "description": "Der neue Prefix für diesen Server"
+        "description": "Der neue Präfix für diesen Server"
       },
       "case_insensitive": {
-        "description": "Soll die Groß/Kleinschreibung des Prefixes ignoriert werden?"
+        "description": "Soll die Groß/Kleinschreibung des Präfixes ignoriert werden?"
       }
     },
-    "saved": "Der Prefix wurde zu `{prefix}` gesetzt.",
-    "currentPrefix": "Mein aktueller Prefix ist `{prefix}`.",
+    "saved": "Der Präfix wurde zu `{prefix}` gesetzt.",
+    "currentPrefix": "Mein aktueller Präfix ist `{prefix}`.",
     "caseInsensitive": " (beachtet Groß/Kleinschreibung)"
   },
   "roleinfo": {
     "description": "Erhalte Informationen über eine Rolle",
-    "usage": "PREFIX Command: roleinfo [@role | role name | role id]",
+    "usage": "PREFIX-Befehl: roleinfo [@Rolle | Rollenname | Rollen-ID]",
     "options": {
       "role": {
-        "description": "Die Rolle über die du mehr wissen möchtest"
+        "description": "Die Rolle, über welche du mehr wissen möchtest"
       }
     },
     "mention": "Erwähnung",
     "members": "Mitglieder",
     "color": "Farbe",
     "mentionable": "Erwähnbar",
-    "hoist": "Hoist",
+    "hoist": "Separat angezeigt",
     "managed": "Verwaltet",
     "position": "Position",
     "createdAt": "Erstellt",
@@ -145,15 +145,15 @@
   },
   "serverinfo": {
     "description": "Erhalte Informationen über einen Server",
-    "options":{
+    "options": {
       "guild_id": {
-        "description": "Die Server-ID über die du Infos einholen möchtest. Funktioniert nur für Server in denen ich bin."
+        "description": "Die Server-ID über die du Informationen einholen möchtest. Funktioniert nur für Server, in denen ich bin."
       }
     },
     "members": "Mitglieder",
     "verificationLevel": "Verifizierungsstufe",
     "createdAt": "Erstellt",
-    "defaultNotifications": "Standart-Benachrichtigungseinstellung",
+    "defaultNotifications": "Standard-Benachrichtigungseinstellung",
     "owner": "Eigentümer",
     "memberCount": "Mitgliedsanzahl",
     "locale": "Sprache",
@@ -162,7 +162,7 @@
     "boosts": "Boosts",
     "roles": "Rollen",
     "channels": "Kanäle",
-    "vanityUrl": "Vanity URL",
+    "vanityUrl": "Benutzerdefinierte URL",
     "uses": "Nutzungen",
     "downloadIcon": "Icon Herunterladen",
     "downloadBanner": "Banner Herunterladen"
@@ -177,7 +177,7 @@
   },
   "userinfo": {
     "description": "Erhalte Informationen über ein Mitglied",
-    "usage": "PREFIX Command: roleinfo [@user | user name | user tag | user nickname | user id]",
+    "usage": "PREFIX-Befehl: roleinfo [@User | Username | User-Tag | User-Nickname | User ID]",
     "options": {
       "target": {
         "description": "Das Mitglied über das du Informationen möchtest"
@@ -197,12 +197,13 @@
     "joinedAt": "Beigetreten",
     "birthday": "Geburtstag (Alter)",
     "timedOutUntil": "Getimeouted bis",
+    "rolesWithPerms": "Rollen mit Berechtigungen",
     "flags": {
-      "name": "Flags",
+      "name": "Flaggen",
       "ActiveDeveloper": "Aktiver Bot-Entwickler",
-      "BotHTTPInteractions": "HTTP Bot",
-      "BugHunterLevel1": "Bug Hunter Level 1",
-      "BugHunterLevel2": "Bug Hunter Level 2",
+      "BotHTTPInteractions": "HTTP-Bot",
+      "BugHunterLevel1": "Bugjäger Level 1",
+      "BugHunterLevel2": "Bugjäger Level 2",
       "CertifiedModerator": "Von Discord Zertifizierter Moderator",
       "HypeSquadOnlineHouse1": "House Bravery Mitglied",
       "HypeSquadOnlineHouse2": "House Brilliance Mitglied",
@@ -217,7 +218,6 @@
       "VerifiedBot": "Verifizierter Bot",
       "VerifiedDeveloper": "Verifizierter Bot-Entwickler Der Ersten Stunde"
     },
-    "rolesWithPerms": "Rollen mit Berechtigungen",
     "perms": "Berechtigungen",
     "downloadAvatar": "Avatar Herunterladen",
     "downloadBanner": "Banner Herunterladen"
