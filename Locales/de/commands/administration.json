@@ -245,6 +245,20 @@
             }
           }
         }
+      },
+      "serverbackup": {
+        "description": "Verwalte die Optionen für deine Server-Backups.",
+        "options": {
+          "allowed_to_load": {
+            "description": "Ändert, wer Server-Backups laden darf.",
+            "choices": {
+              "creator": "Ersteller",
+              "owner": "Servereigentümer",
+              "creator+owner": "Ersteller und Servereigentümer",
+              "admins": "Aktuelle Serveradministratoren"
+            }
+          }
+        }
       }
     },
     "toggledModule": "Das `{name}` Modul wurde {state}.",
@@ -271,6 +285,9 @@
         "embedTitle": "Sprache geändert!",
         "embedDescription": "Die nächsten Nachrichten werden in `{lang}` sein."
       }
+    },
+    "serverbackup": {
+      "success": "Die Einstellungen wurden erfolgreich aktualisiert!"
     }
   }
 }

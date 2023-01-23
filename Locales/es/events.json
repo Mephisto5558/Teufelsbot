@@ -1,45 +1,45 @@
 {
-  "cooldown": "This command is on cooldown! Try it again in `{time}`s.",
-  "afkMsg": "`{member}` is AFK: {message} - <t:{timestamp}:R>",
-  "afkEnd": "Welcome back, I removed your AFK. You have been AFK since <t:{timestamp}>.",
-  "slashCommandOnly": "This command is only available as a slash command!",
-  "guildCommandOnly": "This command is only available in guilds!",
-  "economyDisabled": "This command is an economy category command. The economy is not enabled in this guild. To start using the economy, an admin has to run `/economyconfig admin toggle`.",
-  "economyNotInitialized": "This command is an economy category command. To start using the economy, run `/economyconfig user start`.",
-  "buttonPressOnCooldown": "This button is on cooldown! Try it again in `{time}`s.",
+  "cooldown": "¡Este comando está en tiempo de recarga! Inténtalo de nuevo en `{time}`s.",
+  "afkMsg": "`{member}` está AFK: {message} - <t:{timestamp}:R>",
+  "afkEnd": "Bienvenido de nuevo, he eliminado tu AFK. Has estado AFK desde <t:{timestamp}>.",
+  "slashCommandOnly": "¡Este comando sólo está disponible como un comando slash!",
+  "guildCommandOnly": "¡Este comando sólo está disponible en gremios!",
+  "economyDisabled": "Este comando es un comando de categoría de economía. La economía no está habilitada en este gremio. Para empezar a usar la economía, un administrador tiene que ejecutar `/economyconfig admin toggle`.",
+  "economyNotInitialized": "Este comando es un comando de categoría económica. Para empezar a usar la economía, ejecuta `/economyconfig user start`.",
+  "buttonPressOnCooldown": "¡Este botón está en enfriamiento! Inténtalo de nuevo en `{time}`s.",
   "permissionDenied": {
-    "embedTitle": "Insufficient Permissions",
-    "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n`{permissions}`",
-    "embedDescriptionBot": "I need the following permissions in this channel to run this command:\n`{permissions}`"
+    "embedTitle": "Permisos insuficientes",
+    "embedDescriptionUser": "Necesitas los siguientes permisos en este canal para ejecutar este comando:\n`{permissions}`",
+    "embedDescriptionBot": "Necesito los siguientes permisos en este canal para ejecutar este comando:\n`{permissions}`"
   },
   "errorHandler": {
-    "embedTitle": "Whoooops",
-    "embedDescription": "An unexpected error occurred!\n\nError Type: `{name}`\nCommand: `{command}`",
-    "reportButton": "Report this Error",
-    "reportButtonDisabled": " (Disabled due to dev version)",
-    "discordAPIErr": "A Discord API Error occurred, please try again and message the dev if this keeps happening.",
-    "alreadyReported": "This error has already been reported. [Link]({url}).\nIt will be fixed soon.",
-    "reportSuccess": "The error has been reported. [Link]({url})",
-    "reportFail": "`An error occurred while trying to send your error report.\n```\n{err}\n```\nPlease message the dev directly."
+    "embedTitle": "Ojos",
+    "embedDescription": "¡Se ha producido un error inesperado!\n\nTipo de error: `{name}`\nComando: `{command}`",
+    "reportButton": "Reportar este error",
+    "reportButtonDisabled": " (Deshabilitado debido a la versión dev)",
+    "discordAPIErr": "Se ha producido un error de la API de Discord, por favor inténtalo de nuevo y envía un mensaje al desarrollador si esto sigue sucediendo.",
+    "alreadyReported": "Este error ya ha sido reportado. [Link]({url}).\nSe corregirá pronto.",
+    "reportSuccess": "Se ha reportado el error. [Link]({url})",
+    "reportFail": "`Se ha producido un error al intentar enviar tu informe de error.\n```\n{err}\n```\nPor favor, envía un mensaje al desarrollador directamente."
   },
   "notAllowed": {
-    "member": "You are not allowed to run this command (set by a server administrator)!",
-    "channel": "It is not allowed to run this command in this channel (set by a server administrator)!",
-    "role": "One of your roles is not allowed to run this command (set by a server administrator)!"
+    "member": "No está autorizado para ejecutar este comando (establecido por un administrador del servidor)!",
+    "channel": "No está permitido ejecutar este comando en este canal (establecido por un administrador del servidor)!",
+    "role": "¡Uno de sus roles no tiene permitido ejecutar este comando (establecido por un administrador del servidor)!"
   },
   "counting": {
-    "error": "YOU RUINED IT AT **{lastNumber}**!! The next number is **1**.\n",
-    "wrongNumber": "**Can't you count?! Wrong number.**",
-    "sameUserTwice": "**You can't count two numbers in a row!**"
+    "error": "HAS RUINADO EN **{lastNumber}**!! El siguiente número es **1**.\n",
+    "wrongNumber": "**¡No puedes contar?! Número incorrecto.**",
+    "sameUserTwice": "**¡No puedes contar dos números en una fila!**"
   },
   "selfrole": {
-    "embedTitle": "Self Role",
-    "roleNotFound": "The role bound to this button was not found!",
-    "noPermMember": "I don't have the permission to manage your roles!",
-    "noPermRole": "I don't have the permission to manage the <@&{role}> role!",
-    "hasRoleAlready": "You already have the <@&{role}> role!",
-    "addSuccess": "I gave you the <@&{role}> role.",
-    "missesRole": "I can't remove your <@&{role}> role because you don't have it!",
-    "removeSuccess": "I removed your <@&{role}> role."
+    "embedTitle": "Rol propio",
+    "roleNotFound": "¡El rol vinculado a este botón no fue encontrado!",
+    "noPermMember": "¡No tengo permiso para administrar tus roles!",
+    "noPermRole": "¡No tengo permiso para administrar el rol <@&{role}>!",
+    "hasRoleAlready": "¡Ya tienes el rol <@&{role}>!",
+    "addSuccess": "Te he dado el rol <@&{role}>.",
+    "missesRole": "¡No puedo eliminar tu rol <@&{role}> porque no lo tienes!",
+    "removeSuccess": "He eliminado tu rol <@&{role}>."
   }
 }

@@ -1,25 +1,25 @@
 {
   "suggest": {
-    "description": "Suggest a feature for the bot on its GitHub.",
+    "description": "Suggerisci una funzionalità per il bot sul suo GitHub.",
     "options": {
       "title": {
-        "description": "the title of your suggestion"
+        "description": "il titolo del tuo suggerimento"
       },
       "suggestion": {
-        "description": "your suggestion for the bot"
+        "description": "il tuo suggerimento per il bot"
       },
       "importance": {
-        "description": "How important is your suggestion?",
+        "description": "Quanto è importante il vostro suggerimento?",
         "choices": {
-          "low": "Low",
-          "medium": "Medium",
-          "hight": "Hight"
+          "low": "Basso",
+          "medium": "Medio",
+          "hight": "Altezza"
         }
       }
     },
-    "error": "An error occurred.\n{err}",
-    "embedTitle": "Success",
-    "alreadySent": "This suggestion has already been sent. [Link]({url}).",
-    "embedDescription": "Your suggestion has been sent.\n[Suggestion Link]({url})"
+    "error": "Si è verificato un errore.\n{err}",
+    "embedTitle": "Successo",
+    "alreadySent": "Questo suggerimento è già stato inviato. [Link]({url}).",
+    "embedDescription": "Il tuo suggerimento è stato inviato.\n[Collegamento suggerimenti]({url})"
   }
 }

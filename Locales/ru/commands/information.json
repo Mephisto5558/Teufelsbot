@@ -1,225 +1,225 @@
 {
   "avatar": {
-    "description": "shows the user's avatar",
+    "description": "показывает аватар пользователя",
     "options": {
       "target": {
-        "description": "the user you want to get the avatar of"
+        "description": "пользователь, которому вы хотите получить аватар"
       },
       "size": {
-        "description": "the size you want to get"
+        "description": "размер, который вы хотите получить"
       }
     },
-    "embedDescription": "**Avatar of {user}**",
-    "downloadButton": "Download picture"
+    "embedDescription": "**Аватар {user}**",
+    "downloadButton": "Загрузить картинку"
   },
   "cmdstats": {
-    "description": "See how often a specific command has been run or get the top 10.",
+    "description": "Посмотрите, как часто выполнялась конкретная команда или как получить топ 10.",
     "usage": "PREFIX Command: cmdstats [command]",
     "options": {
       "command": {
-        "description": "The command you want to get stats for."
+        "description": "Команда, для которой вы хотите получить статистику."
       }
     },
-    "embedTitle": "Command Stats",
-    "embedDescriptionOne": "The {command} command has been run **{count}** times.",
-    "embedDescriptionMany": "These are 10 most used commands:\n"
+    "embedTitle": "Статистика команд",
+    "embedDescriptionOne": "Команда {command} была выполнена **{count}** раз.",
+    "embedDescriptionMany": "Это 10 наиболее часто используемых команд:\n"
   },
   "dashboard": {
-    "description": "get the link to the bots's dashboard",
-    "embedTitle": "Dashboard",
-    "embedDescription": "Click [here]({url}) to open the dashboard."
+    "description": "получить ссылку на панель ботов",
+    "embedTitle": "Панель",
+    "embedDescription": "Нажмите [here]({url}) для открытия панели управления."
   },
   "emojiinfo": {
-    "description": "Get information about an emoji",
+    "description": "Получить информацию о эмодзи",
     "usage": "PREFIX Command: emojiinfo [emoji | emoji id]",
     "options": {
       "emoji": {
-        "description": "The emoji or its id you want to get information about"
+        "description": "Эмодзи или его идентификатор, который вы хотите получить информацию о"
       }
     },
-    "notFound": "No information found for this emoji.",
-    "embedTitle": "Info about \"{emoji}\"",
-    "unknown": "unknown",
-    "name": "Name",
+    "notFound": "Для этого emoji не найдено никакой информации.",
+    "embedTitle": "Информация о \"{emoji}\"",
+    "unknown": "неизвестно",
+    "name": "Наименование",
     "id": "ID",
     "guild": "Гильдия",
-    "animated": "Animated",
-    "creator": "Creator",
-    "available": "Available",
-    "createdAt": "Created At",
-    "requiresColons": "Requires Colons",
-    "allowedRoles": "Allowed Roles",
-    "download": "Download Emoji"
+    "animated": "Анимация",
+    "creator": "Создатель",
+    "available": "Доступно",
+    "createdAt": "Создано в",
+    "requiresColons": "Требуется цвет",
+    "allowedRoles": "Разрешенные роли",
+    "download": "Скачать эмодзи"
   },
   "help": {
-    "description": "Show all my commands or search for a specific one",
-    "usage": "PREFIX Command: help [command]",
+    "description": "Показать все мои команды или найти конкретный",
+    "usage": "Команда PREFIX: помощь [command]",
     "options": {
       "command": {
-        "description": "Wich command do you want to get stats about?"
+        "description": "О чём вы хотите узнать статистику?"
       }
     },
     "one": {
-      "notFound": "No information found for command `{command}`.",
-      "embedTitle": "Detailed Information about: `{command}`",
-      "noDescription": "No description found",
-      "embedFooterText": "Syntax: <> = required, [] = optional | Prefix: \"{prefix}\"",
-      "lookAtDesc": "SLASH Command: look at the option descriptions.\n",
-      "prefixAlias": "Prefix Command Aliases",
-      "slashAlias": "Slash Command Aliases",
-      "botPerms": "Required Bot Permissions",
-      "userPerms": "Required User Permissions",
-      "cooldowns": "Command Cooldowns",
-      "usage": "Usage"
+      "notFound": "Информация для команды{command}`.",
+      "embedTitle": "Подробная информация о: `{command}`",
+      "noDescription": "Описание не найдено",
+      "embedFooterText": "Синтаксис: <> = обязательно, [] = необязательный | Префикс: \"{prefix}\"",
+      "lookAtDesc": "SLASH команда: смотрите описания параметров.\n",
+      "prefixAlias": "Алиасы команд префикса",
+      "slashAlias": "Псевдонимы команды слэша",
+      "botPerms": "Требуемые разрешения для ботов",
+      "userPerms": "Необходимые права пользователя",
+      "cooldowns": "Команда перезарядки",
+      "usage": "Использование"
     },
     "all": {
-      "embedTitle": "🔰All my commands",
-      "notFound": "No commands found...",
-      "embedFooterText": "Use the 'command' option to get more information about a specific command."
+      "embedTitle": "🔰Все мои команды",
+      "notFound": "Команды не найдены...",
+      "embedFooterText": "Используйте параметр «команда», чтобы получить больше информации о конкретной команде."
     }
   },
   "info": {
-    "description": "shows some stats and infos about the bot.",
-    "dev": "Developer",
-    "shard": "Shard",
-    "commands": "Commands",
-    "starts": "Starts",
-    "lastStart": "Last start",
-    "translation": "Translations:\n> English: {en}\n> German: {de}\n",
-    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Privacy Policy]({PrivacyPolicy})**",
-    "embedTitle": "Stats",
-    "embedFooterText": "More stats are coming soon!"
+    "description": "показывает статистику и информацию о боте.",
+    "dev": "Разработчик",
+    "shard": "Осколок",
+    "commands": "Команды",
+    "starts": "Начинается",
+    "lastStart": "Последний старт",
+    "translation": "Переводы:\n> Английский: {en}\n> Герман: {de}\n",
+    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Политика конфиденциальности]({PrivacyPolicy})**",
+    "embedTitle": "Статистика",
+    "embedFooterText": "Скоро появится больше статистики!"
   },
   "invite": {
-    "description": "Sends a link to add the bot to your guild.",
-    "embedTitle": "Invite",
-    "embedDescription": "Thank you for your interest! Click [here]({url}) to add me to your guild. ^^"
+    "description": "Отправляет ссылку для добавления бота в гильдию.",
+    "embedTitle": "Пригласить",
+    "embedDescription": "Спасибо за ваш интерес! Нажмите [here]({url}), чтобы добавить меня в свою гильдию. ^^"
   },
   "ping": {
-    "description": "Get the bot's ping",
+    "description": "Получить пинг бота",
     "options": {
       "average": {
-        "description": "Get the average ping out of 60 pings."
+        "description": "Получите среднее значение пинга из 60 пингов."
       }
     },
     "average": {
-      "loading": "Pinging... (this takes about one minute)",
-      "embedDescription": "Pings: `{pings}`\nLowest Ping: `{lowest}ms`\nHeightest Ping: `{heightest}ms`\nAverage Ping: `{average}ms`"
+      "loading": "Пинг... (это занимает около минуты)",
+      "embedDescription": "Пинги: `{pings}`\nСамый низкий Ping: `{lowest}ms`\nНаибольший Ping: `{heightest}ms`\nСредний Ping: `{average}ms`"
     },
-    "embedTitle": "Ping",
-    "messageSend": "Message Send"
+    "embedTitle": "Пинг",
+    "messageSend": "Отправить сообщение"
   },
   "prefix": {
-    "description": "shows or changes the guild's bot prefix",
-    "usage": "PREFIX Command: prefix [new prefix]",
+    "description": "показывает или изменяет префикс бота гильдии",
+    "usage": "PREFIX команда: префикс [новый префикс]",
     "options": {
       "new_prefix": {
-        "description": "the new bot prefix for this guild"
+        "description": "новый префикс бота для этой гильдии"
       },
       "case_insensitive": {
-        "description": "Should the case of the prefix be ignored?"
+        "description": "Должен ли случай префикса игнорироваться?"
       }
     },
-    "saved": "My prefix has been changed to `{prefix}`.",
-    "currentPrefix": "My current prefix is `{prefix}`.",
-    "caseInsensitive": " (case insensitive)"
+    "saved": "Мой префикс был изменен на `{prefix}`.",
+    "currentPrefix": "Мой текущий префикс — `{prefix}`.",
+    "caseInsensitive": " (без учета регистра)"
   },
   "roleinfo": {
-    "description": "Get information about a role",
-    "usage": "PREFIX Command: roleinfo [@role | role name | role id]",
+    "description": "Получить информацию о роли",
+    "usage": "PREFIX Command: roleinfo [@role | название роли | id роли]",
     "options": {
       "role": {
-        "description": "the role you want to get information about"
+        "description": "роль, которую вы хотите получить информацию о"
       }
     },
-    "mention": "Mention",
-    "members": "Members",
-    "color": "Color",
-    "mentionable": "Mentionable",
-    "hoist": "Hoist",
-    "managed": "Managed",
-    "position": "Position",
-    "createdAt": "Created At",
-    "permissions": "Permissions",
+    "mention": "Упоминание",
+    "members": "Члены Комитета",
+    "color": "Цвет",
+    "mentionable": "Упоминаемый",
+    "hoist": "Одежда",
+    "managed": "Управляемые",
+    "position": "Позиция",
+    "createdAt": "Создано в",
+    "permissions": "Права доступа",
     "admin": "Администратор"
   },
   "serverinfo": {
-    "description": "Get information about a guild",
+    "description": "Получить информацию о гильдии",
     "options": {
       "guild_id": {
         "description": "The server ID you want to get information about. Only works for servers I'm in."
       }
     },
-    "members": "Members",
-    "verificationLevel": "Verification Level",
-    "createdAt": "Created At",
-    "defaultNotifications": "Default Notifications",
-    "owner": "Owner",
-    "memberCount": "Member Count",
-    "locale": "Locale",
-    "partnered": "Partnered",
+    "members": "Члены Комитета",
+    "verificationLevel": "Уровень верификации",
+    "createdAt": "Создано в",
+    "defaultNotifications": "Уведомления по умолчанию",
+    "owner": "Владелец",
+    "memberCount": "Количество участников",
+    "locale": "Язык",
+    "partnered": "Партнёр",
     "emojis": "Emojis",
-    "boosts": "Boosts",
-    "roles": "Roles",
-    "channels": "Channels",
-    "vanityUrl": "Vanity URL",
-    "uses": "Uses",
-    "downloadIcon": "Download Icon",
-    "downloadBanner": "Download Banner"
+    "boosts": "Усиление",
+    "roles": "Роли",
+    "channels": "Каналы",
+    "vanityUrl": "Персональный URL",
+    "uses": "Использовано",
+    "downloadIcon": "Загрузить иконку",
+    "downloadBanner": "Скачать баннер"
   },
   "uptime": {
-    "description": "Get the bot's uptime",
-    "embedDescription": "The bot has been [online]({Domain}/uptime) for exactly {time}.",
-    "dhms": "{d} days, {h} hours, {m} minutes and {s} seconds",
-    "hms": "{h} hours, {m} minutes and {s} seconds",
-    "ms": "{m} minutes and {s} seconds",
-    "s": "{s} seconds"
+    "description": "Получить время работы бота",
+    "embedDescription": "Бот был [online]({Domain}/uptime) ровно {time}.",
+    "dhms": "{d} дней, {h} часов, {m} минут и {s} секунд",
+    "hms": "{h} часов, {m} минут и {s} секунд",
+    "ms": "{m} минут и {s} секунд",
+    "s": "{s} секунд"
   },
   "userinfo": {
-    "description": "Get information about a member",
+    "description": "Получить информацию о участнике",
     "usage": "PREFIX Command: roleinfo [@user | user name | user tag | user nickname | user id]",
     "options": {
       "target": {
-        "description": "the user you want to get information about"
+        "description": "пользователь, которому вы хотите получить информацию о"
       }
     },
-    "guildOwner": "Guild Owner",
-    "guildAdmin": "Guild Administrator",
+    "guildOwner": "Владелец гильдии",
+    "guildAdmin": "Администратор гильдии",
     "admin": "`Administrator`",
-    "guildMod": "Guild Moderator",
-    "guildMember": "Guild Member",
-    "mention": "Mention",
-    "type": "Type",
-    "roles": "Roles",
-    "position": "Position",
-    "color": "Color",
-    "createdAt": "Created At",
-    "joinedAt": "Joined At",
-    "birthday": "Birthday (Age)",
-    "timedOutUntil": "Timed Out Until",
-    "rolesWithPerms": "Roles with permissions",
+    "guildMod": "Модератор гильдии",
+    "guildMember": "Член гильдии",
+    "mention": "Упоминание",
+    "type": "Тип",
+    "roles": "Роли",
+    "position": "Позиция",
+    "color": "Цвет",
+    "createdAt": "Создано в",
+    "joinedAt": "Присоединился на",
+    "birthday": "День рождения (возраст)",
+    "timedOutUntil": "Время истекло до",
+    "rolesWithPerms": "Роли с разрешениями",
     "flags": {
-      "name": "Flags",
-      "ActiveDeveloper": "Active Developer",
+      "name": "Флаги",
+      "ActiveDeveloper": "Активный разработчик",
       "BotHTTPInteractions": "HTTP Bot",
-      "BugHunterLevel1": "Bug Hunter Level 1",
-      "BugHunterLevel2": "Bug Hunter Level 2",
-      "CertifiedModerator": "Discord Certified Moderator",
-      "HypeSquadOnlineHouse1": "House Bravery Member",
-      "HypeSquadOnlineHouse2": "House Brilliance Member",
-      "HypeSquadOnlineHouse3": "House Balance Member",
-      "Hypesquad": "HypeSquad Events Member",
-      "Partner": "Partnered Server Owner",
-      "PremiumEarlySupporter": "Early Nitro Supporter",
-      "Quarantined": "Quarantined",
-      "Spammer": "Spammer",
-      "Staff": "Discord Employee",
-      "TeamPseudoUser": "Team Pseudo User",
-      "VerifiedBot": "Verified Bot",
-      "VerifiedDeveloper": "Early Verified Bot Developer"
+      "BugHunterLevel1": "Охотник на ошибки, уровень 1",
+      "BugHunterLevel2": "Охотник на ошибки, уровень 2",
+      "CertifiedModerator": "Модератор сертификации Discord",
+      "HypeSquadOnlineHouse1": "Член Хозяева",
+      "HypeSquadOnlineHouse2": "Член Убийства",
+      "HypeSquadOnlineHouse3": "Баланс дома",
+      "Hypesquad": "События HypeSquad",
+      "Partner": "Владелец партнерского сервера",
+      "PremiumEarlySupporter": "Сторонник Nitro на раннем этапе",
+      "Quarantined": "Карантин",
+      "Spammer": "Спамер",
+      "Staff": "Сотрудник Discord",
+      "TeamPseudoUser": "Псевдо-пользователь команды",
+      "VerifiedBot": "Проверенный бот",
+      "VerifiedDeveloper": "Разработчик Раннего Проверенного Бот"
     },
-    "perms": "Permissions",
-    "downloadAvatar": "Download Avatar",
-    "downloadBanner": "Download Banner"
+    "perms": "Права доступа",
+    "downloadAvatar": "Скачать аватар",
+    "downloadBanner": "Скачать баннер"
   }
 }

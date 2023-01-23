@@ -1,104 +1,104 @@
 {
   "coinflip": {
-    "description": "Flip a coin!",
+    "description": "¡Invierte una moneda!",
     "response": [
-      "Heads!",
-      "Tails!"
+      "¡Cabezas!",
+      "¡Gracias!"
     ],
-    "side": "Woah! The coin landed on it's side!"
+    "side": "¡Oya! ¡La moneda aterrizó en su lado!"
   },
   "counting": {
-    "description": "Set up a counting channel where members can show their math skills!",
-    "usage": "PREFIX Command: counting [#channel]",
+    "description": "¡Configura un canal de conteo donde los miembros puedan mostrar sus habilidades matemáticas!",
+    "usage": "Orden PREFIX contando: cuenta [#canal]",
     "options": {
       "channel": {
-        "description": "The channel you want to add (or remove, if already added) as a counting channel."
+        "description": "El canal que desea agregar (o eliminar, si ya se ha añadido) como un canal de conteo."
       }
     },
     "added": {
-      "embedTitle": "This channel is now a counting channel!",
-      "embedDescription": "The rules are simple:\n> Start with **1**.\n> Add **1** to the last number\n> You can't count two numbers in a row\nHave fun!",
-      "by": "Added as counting channel by {user}",
-      "success": "I successfully added <#{channel}> as a counting channel."
+      "embedTitle": "¡Este canal es ahora un canal de cuenta!",
+      "embedDescription": "Las reglas son simples:\n> Comenzar con **1**.\n> Añade **1** al último número\n> No puedes contar dos números seguidos\n¡Diviértete!",
+      "by": "Añadido como canal de recuento por {user}",
+      "success": "Añadí con éxito <#{channel}> como canal de conteo."
     },
     "removed": {
-      "embedDescription": "This channel is no longer a counting channel!",
-      "by": "Removed by {user}",
-      "success": "I successfully removed <#{channel}> as a counting channel."
+      "embedDescription": "¡Este canal ya no es un canal de cuento!",
+      "by": "Eliminado por {user}",
+      "success": "He eliminado con éxito <#{channel}> como canal de conteo."
     }
   },
   "mgstats": {
-    "description": "get stats about one of the bot's minigames",
-    "usage": "PREFIX Command: stats <game> [user]",
+    "description": "obtener estadísticas acerca de uno de los minijuegos del bot",
+    "usage": "Comando PREFIX estadísticas: <game> [user]",
     "options": {
       "user": {
-        "description": "get stats about yourself or a specific user",
+        "description": "obtener estadísticas sobre ti o un usuario específico",
         "options": {
           "game": {
-            "description": "Wich game do you want to get stats about?",
+            "description": "¿De qué juego quieres obtener estadísticas?",
             "choices": {
               "tictactoe": "TicTacToe"
             }
           },
           "target": {
-            "description": "Wich user do you want to get stats about?"
+            "description": "¿De qué usuario quieres obtener estadísticas?"
           }
         }
       },
       "leaderboard": {
-        "description": "get the top 10 players of a game",
+        "description": "consigue los 10 mejores jugadores de una partida",
         "options": {
           "game": {
-            "description": "Wich game do you want to get stats about?",
+            "description": "¿De qué juego quieres obtener estadísticas?",
             "choices": {
               "tictactoe": "TicTacToe"
             }
           },
           "settings": {
-            "description": "Apply/Disapply filters to the leaderboard",
+            "description": "Aplicar/Desaplicar filtros a la tabla de clasificación",
             "choices": {
-              "all_users": "All Users globally"
+              "all_users": "Todos los usuarios globalmente"
             }
           }
         }
       }
     },
-    "games": "Games: `{games}`\n\n",
-    "wins": "Wins: {wins}\n",
-    "draws": "Draws: {draws}\n",
-    "loses": "Loses: {loses}\n\n",
-    "noOne": "no one\n",
-    "missingGameArg": "You need to give me a `game` as the first argument!",
-    "notFound": "This is not a valid game entry. Valid games are:\n`{list}`",
-    "wonAgainst": "Won against:\n",
-    "lostAgainst": "Lost against:\n",
-    "drewAgainst": "Drew against:\n",
-    "embedTitle": "`{user}`'s {game} stats",
-    "embedTitleTop10": "Top 10 {game} players",
-    "noWinners": "It looks like no one has won yet...",
-    "youNoGamesPlayed": "You have not played any {game} games yet.",
-    "usrNoGamesPlayed": "{user} has not played any {game} games yet."
+    "games": "Juegos: `{games}`\n\n",
+    "wins": "Victorias: {wins}\n",
+    "draws": "Dibujos: {draws}\n",
+    "loses": "Pérdidas: {loses}\n\n",
+    "noOne": "nadie\n",
+    "missingGameArg": "¡Necesitas darme un `juego` como el primer argumento!",
+    "notFound": "Esta no es una entrada de juego válida. Los juegos válidos son:\n`{list}`",
+    "wonAgainst": "Victorias contra:\n",
+    "lostAgainst": "Perdido contra:\n",
+    "drewAgainst": "En contra:\n",
+    "embedTitle": "` Estadísticas de{user}de {game}",
+    "embedTitleTop10": "Top 10 {game} jugadores",
+    "noWinners": "Parece que nadie ha ganado aún...",
+    "youNoGamesPlayed": "Aún no has jugado ninguna {game} partidas.",
+    "usrNoGamesPlayed": "{user} aún no ha jugado ninguna partida {game}."
   },
   "rps": {
-    "description": "Play rock paper scissors against the bot or (coming soon) against your friends",
-    "embedTitle": "Rock Paper Scissors",
-    "embedDescription": "Choose a handsign!",
-    "rock": "Rock",
-    "paper": "Paper",
-    "scissors": "Scissors",
-    "win": "You won!",
-    "tie": "We tied!",
-    "lose": "You lost!",
-    "chose": "I chose {chose}! {win} ({you} {symbol} {i})",
-    "timedOut": "You lost because you chose to choose nothing!"
+    "description": "Juega tijeras de papel contra el bot o (próximamente) contra tus amigos",
+    "embedTitle": "Piedra de papel tijeras",
+    "embedDescription": "¡Elegir un cartel!",
+    "rock": "Roca",
+    "paper": "Papel",
+    "scissors": "Tijeras",
+    "win": "¡Has ganado!",
+    "tie": "¡Hemos empatado!",
+    "lose": "¡Perdiste!",
+    "chose": "¡Escogí {chose}! {win} ({you} {symbol} {i})",
+    "timedOut": "¡Perdiste porque eligió no elegir nada!"
   },
   "tictactoe": {
-    "description": "play TicTacToe against a friend or the bot",
+    "description": "jugar a TicTacToe contra un amigo o el bot",
     "options": {
       "opponent": {
-        "description": "Who do you want to play against?"
+        "description": "¿A quién quieres jugar de nuevo?"
       }
     },
-    "newChallenge": "<@{user}> :crossed_swords: New duel challenge"
+    "newChallenge": "<@{user}> :crossed_swords: Nuevo desafío en duelo"
   }
 }

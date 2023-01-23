@@ -1,225 +1,225 @@
 {
   "avatar": {
-    "description": "shows the user's avatar",
+    "description": "montre l'avatar de l'utilisateur",
     "options": {
       "target": {
-        "description": "the user you want to get the avatar of"
+        "description": "l'utilisateur que vous voulez obtenir l'avatar de"
       },
       "size": {
-        "description": "the size you want to get"
+        "description": "la taille que vous voulez obtenir"
       }
     },
-    "embedDescription": "**Avatar of {user}**",
-    "downloadButton": "Download picture"
+    "embedDescription": "**Avatar de {user}**",
+    "downloadButton": "Télécharger l'image"
   },
   "cmdstats": {
-    "description": "See how often a specific command has been run or get the top 10.",
+    "description": "Voyez à quelle fréquence une commande spécifique a été exécutée ou a obtenu le top 10.",
     "usage": "PREFIX Command: cmdstats [command]",
     "options": {
       "command": {
-        "description": "The command you want to get stats for."
+        "description": "La commande pour laquelle vous voulez obtenir des statistiques."
       }
     },
-    "embedTitle": "Command Stats",
-    "embedDescriptionOne": "The {command} command has been run **{count}** times.",
-    "embedDescriptionMany": "These are 10 most used commands:\n"
+    "embedTitle": "Statistiques de la commande",
+    "embedDescriptionOne": "La commande {command} a été exécutée **{count}** fois.",
+    "embedDescriptionMany": "Voici 10 commandes les plus utilisées :\n"
   },
   "dashboard": {
-    "description": "get the link to the bots's dashboard",
-    "embedTitle": "Dashboard",
-    "embedDescription": "Click [here]({url}) to open the dashboard."
+    "description": "obtenir le lien vers le tableau de bord du bot",
+    "embedTitle": "Tableau de bord",
+    "embedDescription": "Cliquez sur [here]({url}) pour ouvrir le tableau de bord."
   },
   "emojiinfo": {
-    "description": "Get information about an emoji",
+    "description": "Obtenir des informations sur un émoji",
     "usage": "PREFIX Command: emojiinfo [emoji | emoji id]",
     "options": {
       "emoji": {
-        "description": "The emoji or its id you want to get information about"
+        "description": "L'émoji ou son identifiant sur lequel vous souhaitez obtenir des informations"
       }
     },
-    "notFound": "No information found for this emoji.",
-    "embedTitle": "Info about \"{emoji}\"",
-    "unknown": "unknown",
-    "name": "Name",
+    "notFound": "Aucune information trouvée pour cet emoji.",
+    "embedTitle": "Infos sur \"{emoji}\"",
+    "unknown": "inconnue",
+    "name": "Nom",
     "id": "ID",
-    "guild": "Guild",
-    "animated": "Animated",
-    "creator": "Creator",
-    "available": "Available",
-    "createdAt": "Created At",
-    "requiresColons": "Requires Colons",
-    "allowedRoles": "Allowed Roles",
-    "download": "Download Emoji"
+    "guild": "Guilde",
+    "animated": "Animé",
+    "creator": "Créateur",
+    "available": "Disponible",
+    "createdAt": "Créé le",
+    "requiresColons": "Nécessite des coupons",
+    "allowedRoles": "Rôles autorisés",
+    "download": "Télécharger les émoticônes"
   },
   "help": {
-    "description": "Show all my commands or search for a specific one",
-    "usage": "PREFIX Command: help [command]",
+    "description": "Afficher toutes mes commandes ou rechercher une commande spécifique",
+    "usage": "Commande PREFIX : aide [command]",
     "options": {
       "command": {
-        "description": "Wich command do you want to get stats about?"
+        "description": "Quelle commande voulez-vous obtenir des statistiques?"
       }
     },
     "one": {
-      "notFound": "No information found for command `{command}`.",
-      "embedTitle": "Detailed Information about: `{command}`",
-      "noDescription": "No description found",
-      "embedFooterText": "Syntax: <> = required, [] = optional | Prefix: \"{prefix}\"",
-      "lookAtDesc": "SLASH Command: look at the option descriptions.\n",
-      "prefixAlias": "Prefix Command Aliases",
-      "slashAlias": "Slash Command Aliases",
-      "botPerms": "Required Bot Permissions",
-      "userPerms": "Required User Permissions",
-      "cooldowns": "Command Cooldowns",
+      "notFound": "Aucune information trouvée pour la commande `{command}`.",
+      "embedTitle": "Informations détaillées sur : `{command}`",
+      "noDescription": "Aucune description trouvée",
+      "embedFooterText": "Syntaxe : <> = obligatoire, [] = optionnel | Préfixe : \"{prefix}\"",
+      "lookAtDesc": "Commande SLASH : regardez les descriptions d'option.\n",
+      "prefixAlias": "Alias de commande du préfixe",
+      "slashAlias": "Alias de commande tranchante",
+      "botPerms": "Autorisations requises pour le bot",
+      "userPerms": "Autorisations utilisateur requises",
+      "cooldowns": "Refroidissement du Commandement",
       "usage": "Usage"
     },
     "all": {
-      "embedTitle": "🔰All my commands",
-      "notFound": "No commands found...",
-      "embedFooterText": "Use the 'command' option to get more information about a specific command."
+      "embedTitle": "🔰Toutes mes commandes",
+      "notFound": "Aucune commande trouvée...",
+      "embedFooterText": "Utilisez l'option « commande » pour obtenir plus d'informations sur une commande spécifique."
     }
   },
   "info": {
-    "description": "shows some stats and infos about the bot.",
-    "dev": "Developer",
-    "shard": "Shard",
-    "commands": "Commands",
-    "starts": "Starts",
-    "lastStart": "Last start",
-    "translation": "Translations:\n> English: {en}\n> German: {de}\n",
-    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Privacy Policy]({PrivacyPolicy})**",
+    "description": "affiche des statistiques et des informations sur le bot.",
+    "dev": "Développeur",
+    "shard": "Éclat",
+    "commands": "Commandes",
+    "starts": "Début",
+    "lastStart": "Dernier début",
+    "translation": "Traductions :\n> Anglais : {en}\n> Allemand : {de}\n",
+    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Politique de confidentialité]({PrivacyPolicy})**",
     "embedTitle": "Stats",
-    "embedFooterText": "More stats are coming soon!"
+    "embedFooterText": "D'autres statistiques seront bientôt disponibles !"
   },
   "invite": {
-    "description": "Sends a link to add the bot to your guild.",
-    "embedTitle": "Invite",
-    "embedDescription": "Thank you for your interest! Click [here]({url}) to add me to your guild. ^^"
+    "description": "Envoie un lien pour ajouter le bot à votre guilde.",
+    "embedTitle": "Inviter",
+    "embedDescription": "Merci de votre intérêt ! Cliquez sur [here]({url}) pour m'ajouter à votre guilde. ^^"
   },
   "ping": {
-    "description": "Get the bot's ping",
+    "description": "Obtenir le ping du bot",
     "options": {
       "average": {
-        "description": "Get the average ping out of 60 pings."
+        "description": "Obtenez le ping moyen sur 60 pings."
       }
     },
     "average": {
-      "loading": "Pinging... (this takes about one minute)",
-      "embedDescription": "Pings: `{pings}`\nLowest Ping: `{lowest}ms`\nHeightest Ping: `{heightest}ms`\nAverage Ping: `{average}ms`"
+      "loading": "Ping en cours... (cela prend environ une minute)",
+      "embedDescription": "Pings : `{pings}`\nPing le plus bas : `{lowest}ms`\nPing en hauteur : `{heightest}ms`\nPing moyen : `{average}ms`"
     },
     "embedTitle": "Ping",
-    "messageSend": "Message Send"
+    "messageSend": "Envoyer un message"
   },
   "prefix": {
-    "description": "shows or changes the guild's bot prefix",
-    "usage": "PREFIX Command: prefix [new prefix]",
+    "description": "affiche ou modifie le préfixe de bot de la guilde",
+    "usage": "Commande PREFIX : préfixe [nouveau préfixe]",
     "options": {
       "new_prefix": {
-        "description": "the new bot prefix for this guild"
+        "description": "le nouveau préfixe de bot pour cette guilde"
       },
       "case_insensitive": {
-        "description": "Should the case of the prefix be ignored?"
+        "description": "Le cas du préfixe doit-il être ignoré ?"
       }
     },
-    "saved": "My prefix has been changed to `{prefix}`.",
-    "currentPrefix": "My current prefix is `{prefix}`.",
-    "caseInsensitive": " (case insensitive)"
+    "saved": "Mon préfixe a été changé en `{prefix}`.",
+    "currentPrefix": "Mon préfixe actuel est `{prefix}`.",
+    "caseInsensitive": " (insensible à la casse)"
   },
   "roleinfo": {
-    "description": "Get information about a role",
-    "usage": "PREFIX Command: roleinfo [@role | role name | role id]",
+    "description": "Obtenir des informations sur un rôle",
+    "usage": "Commande PREFIX : roleinfo [@role | nom du rôle | id du rôle]",
     "options": {
       "role": {
-        "description": "the role you want to get information about"
+        "description": "le rôle sur lequel vous voulez obtenir des informations"
       }
     },
-    "mention": "Mention",
-    "members": "Members",
-    "color": "Color",
-    "mentionable": "Mentionable",
-    "hoist": "Hoist",
-    "managed": "Managed",
+    "mention": "Mentionner",
+    "members": "Membres",
+    "color": "Couleur",
+    "mentionable": "Mentionnable",
+    "hoist": "format@@0 Hoist",
+    "managed": "Géré",
     "position": "Position",
-    "createdAt": "Created At",
+    "createdAt": "Créé le",
     "permissions": "Permissions",
-    "admin": "Administrator"
+    "admin": "Administrateur"
   },
   "serverinfo": {
-    "description": "Get information about a guild",
+    "description": "Obtenir des informations sur une guilde",
     "options": {
       "guild_id": {
         "description": "The server ID you want to get information about. Only works for servers I'm in."
       }
     },
-    "members": "Members",
-    "verificationLevel": "Verification Level",
-    "createdAt": "Created At",
-    "defaultNotifications": "Default Notifications",
-    "owner": "Owner",
-    "memberCount": "Member Count",
+    "members": "Membres",
+    "verificationLevel": "Niveau de vérification",
+    "createdAt": "Créé le",
+    "defaultNotifications": "Notifications par défaut",
+    "owner": "Propriétaire",
+    "memberCount": "Nombre de membres",
     "locale": "Locale",
-    "partnered": "Partnered",
+    "partnered": "Partenaire",
     "emojis": "Emojis",
-    "boosts": "Boosts",
-    "roles": "Roles",
-    "channels": "Channels",
-    "vanityUrl": "Vanity URL",
-    "uses": "Uses",
-    "downloadIcon": "Download Icon",
-    "downloadBanner": "Download Banner"
+    "boosts": "Amplifier",
+    "roles": "Rôles",
+    "channels": "Canaux",
+    "vanityUrl": "URL de Vanity",
+    "uses": "Utilisations",
+    "downloadIcon": "Télécharger l'icône",
+    "downloadBanner": "Télécharger la bannière"
   },
   "uptime": {
-    "description": "Get the bot's uptime",
-    "embedDescription": "The bot has been [online]({Domain}/uptime) for exactly {time}.",
-    "dhms": "{d} days, {h} hours, {m} minutes and {s} seconds",
-    "hms": "{h} hours, {m} minutes and {s} seconds",
-    "ms": "{m} minutes and {s} seconds",
-    "s": "{s} seconds"
+    "description": "Obtenir le temps de disponibilité du bot",
+    "embedDescription": "Le bot a été [online]({Domain}/uptime) pour exactement {time}.",
+    "dhms": "{d} jours, {h} heures, {m} minutes et {s} secondes",
+    "hms": "{h} heures, {m} minutes et {s} secondes",
+    "ms": "{m} minutes et {s} secondes",
+    "s": "{s} secondes"
   },
   "userinfo": {
-    "description": "Get information about a member",
-    "usage": "PREFIX Command: roleinfo [@user | user name | user tag | user nickname | user id]",
+    "description": "Obtenir des informations sur un membre",
+    "usage": "Commande PREFIX : roleinfo [@user | nom d'utilisateur | tag utilisateur | pseudo utilisateur | pseudo utilisateur | id utilisateur]",
     "options": {
       "target": {
-        "description": "the user you want to get information about"
+        "description": "l'utilisateur sur lequel vous souhaitez obtenir des informations"
       }
     },
-    "guildOwner": "Guild Owner",
-    "guildAdmin": "Guild Administrator",
+    "guildOwner": "Propriétaire de la guilde",
+    "guildAdmin": "Administrateur de la guilde",
     "admin": "`Administrator`",
-    "guildMod": "Guild Moderator",
-    "guildMember": "Guild Member",
-    "mention": "Mention",
-    "type": "Type",
-    "roles": "Roles",
+    "guildMod": "Modérateur de guilde",
+    "guildMember": "Membre de la Guilde",
+    "mention": "Mentionner",
+    "type": "Type de texte",
+    "roles": "Rôles",
     "position": "Position",
-    "color": "Color",
-    "createdAt": "Created At",
-    "joinedAt": "Joined At",
-    "birthday": "Birthday (Age)",
-    "timedOutUntil": "Timed Out Until",
-    "rolesWithPerms": "Roles with permissions",
+    "color": "Couleur",
+    "createdAt": "Créé le",
+    "joinedAt": "Inscrit le",
+    "birthday": "Anniversaire (ancien)",
+    "timedOutUntil": "Délai expiré jusqu'au",
+    "rolesWithPerms": "Rôles avec permissions",
     "flags": {
-      "name": "Flags",
-      "ActiveDeveloper": "Active Developer",
+      "name": "Drapeaux",
+      "ActiveDeveloper": "Développeur Actif",
       "BotHTTPInteractions": "HTTP Bot",
-      "BugHunterLevel1": "Bug Hunter Level 1",
-      "BugHunterLevel2": "Bug Hunter Level 2",
-      "CertifiedModerator": "Discord Certified Moderator",
-      "HypeSquadOnlineHouse1": "House Bravery Member",
-      "HypeSquadOnlineHouse2": "House Brilliance Member",
-      "HypeSquadOnlineHouse3": "House Balance Member",
-      "Hypesquad": "HypeSquad Events Member",
-      "Partner": "Partnered Server Owner",
-      "PremiumEarlySupporter": "Early Nitro Supporter",
-      "Quarantined": "Quarantined",
+      "BugHunterLevel1": "Chasseur de bugs niveau 1",
+      "BugHunterLevel2": "Chasseur de bugs Niveau 2",
+      "CertifiedModerator": "Modérateur certifié Discord",
+      "HypeSquadOnlineHouse1": "Membre de la Bravoure de Maison",
+      "HypeSquadOnlineHouse2": "Membre brillant de la maison",
+      "HypeSquadOnlineHouse3": "Membre du Solde de la Maison",
+      "Hypesquad": "Membre des événements de la HypeSquad",
+      "Partner": "Propriétaire du serveur partenaire",
+      "PremiumEarlySupporter": "Supporter du Nitro du début",
+      "Quarantined": "En quarantaine",
       "Spammer": "Spammer",
-      "Staff": "Discord Employee",
-      "TeamPseudoUser": "Team Pseudo User",
-      "VerifiedBot": "Verified Bot",
-      "VerifiedDeveloper": "Early Verified Bot Developer"
+      "Staff": "Employé Discord",
+      "TeamPseudoUser": "Utilisateur de Team Pseudo",
+      "VerifiedBot": "Bot vérifié",
+      "VerifiedDeveloper": "Développeur de Bot vérifié tôt"
     },
     "perms": "Permissions",
-    "downloadAvatar": "Download Avatar",
-    "downloadBanner": "Download Banner"
+    "downloadAvatar": "Télécharger l'avatar",
+    "downloadBanner": "Télécharger la bannière"
   }
 }
