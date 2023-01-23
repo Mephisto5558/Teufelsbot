@@ -249,7 +249,7 @@
       "serverbackup": {
         "description": "Manage options for your server backups.",
         "options": {
-          "allowedToLoad": {
+          "allowed_to_load": {
             "description": "Change who is allowed to load server backups.",
             "choices": {
               "creator": "Creator",

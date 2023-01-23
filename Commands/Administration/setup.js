@@ -56,7 +56,7 @@ module.exports = {
       name: 'serverbackup',
       type: 'Subcommand',
       options: [{
-        name: 'allowedToLoad',
+        name: 'allowed_to_load',
         type: 'String',
         choices: [...backup.keys()],
         required: true
@@ -154,7 +154,7 @@ module.exports = {
         return this.editReply({ embeds: [embed] });
       }
       case 'serverbackup': {
-        this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', parseInt(backup.get(this.options.getString('allowedToLoad'))));
+        this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', parseInt(backup.get(this.options.getString('allowed_to_load'))));
         return this.editReply(lang('serverbackup.success'));
       }
     }
