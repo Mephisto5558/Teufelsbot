@@ -18,7 +18,7 @@
     "collected": "Du hast {count} Seelen eingesammelt!"
   },
   "economyconfig": {
-    "description": "Economy Konfiguration für Mitglieder and Admins",
+    "description": "Economy-Konfiguration für Mitglieder und Admins",
     "options": {
       "user": {
         "description": "Konfiguration für deine Economy auf diesem Server.",
@@ -43,7 +43,7 @@
             "description": "Aktiviere/Deaktiviere die Economy für diesen Server."
           },
           "clear": {
-            "description": "LÖSCHE ALLE Economy Daten (inklusive Config). Dies ist irreversibel!",
+            "description": "LÖSCHE ALLE Economy Daten (inklusive Konfiguration). Dies ist irreversibel!",
             "options": {
               "confirmation": {
                 "description": "Schreibe \"LÖSCHE ALLES\" um die Löschung der Economy-Daten dieses Servers zu bestätigen."
@@ -54,13 +54,13 @@
             "description": "Erlaube/Verbiete ein Objekt für alle Gaining Methoden.",
             "options": {
               "channel": {
-                "description": "Erlaube/Verbiete Kanäle von allen Gaining Methoden (zB. Chatnachrichten in einem Spam-Kanal)."
+                "description": "Erlaube/Verbiete Kanäle von allen Gaining Methoden (z. B. Chatnachrichten in einem Spam-Kanal)."
               },
               "role": {
-                "description": "Erlaube/Verbiete a role from all gaining methods (zB. Chatnachrichten in einem Spam-Kanal)."
+                "description": "Erlaube/Verbiete eine Rolle für alle Gaining-Methoden (z. B. Chatnachrichten in einem Spam-Kanal)."
               },
               "user": {
-                "description": "Erlaube/Verbiete a user from all gaining methods (zB. Chatnachrichten in allen Kanälen)."
+                "description": "Erlaube/Verbiete ein Mitglied für alle Gaining-Methoden (z. B. Chatnachrichten in einem Spam-Kanal)."
               }
             }
           },
@@ -71,10 +71,10 @@
                 "description": "Erhalte alle Einstellungen und ihre Werte."
               },
               "min_message_length": {
-                "description": "Die minimale Nachrichtenlänge, die benötigt wird um Seelen zu erhalten."
+                "description": "Die minimale Nachrichtenlänge, welche benötigt wird, um Seelen zu erhalten."
               },
               "max_message_length": {
-                "description": "Die maximale Nachrichtenlänge, die benötigt wird um Seelen zu erhalten."
+                "description": "Die maximale Nachrichtenlänge, welche benötigt wird, um Seelen zu erhalten."
               }
             }
           }
@@ -84,16 +84,16 @@
     "confirmation": "lösche alles",
     "user": {
       "start": {
-        "alreadyInitiated": "Du hast diesen Command bereits ausgeführt! Du kannst die Economy nutzen.",
+        "alreadyInitiated": "Du hast diesen Befehl bereits ausgeführt! Du kannst die Economy nutzen.",
         "success": "Du kannst nun die Economy nutzen! Probiere mal `/account`, `/stats` und `/research` aus!"
       },
       "delete": {
-        "needConfirm": "Du musst diese Aktion bestätigen, indem du `LÖSCHE ALLES` als confirm Option nutzt!",
+        "needConfirm": "Du musst diese Aktion bestätigen, indem du `LÖSCHE ALLES` in der `confirm` Option eingibst!",
         "success": "Alle deine Economy-Daten (inklusive Konfiguration) für diesen Server wurde gelöscht. Beginne, die Economy zu nutzen, indem du `/economyconfig user start` ausführst."
       }
     },
     "admin": {
-      "noPerm": "Du hast nicht die Berechtigung, Admin-Commands auszuführen!",
+      "noPerm": "Du hast nicht die Berechtigung, Admin-Befehle auszuführen!",
       "toggle": {
         "success": "{state} die Economy für diesen Server."
       },
@@ -106,13 +106,13 @@
         "roles": "Rollen",
         "user": "Mitglieder",
         "embedTitle": "Economy Gaining Blacklist",
-        "listEmbedDescription": "Dieser Server blacklistet momentan die folgenden Objekte davon, Seelen zu sammeln:",
+        "listEmbedDescription": "Dieser Server verbietet momentan den folgenden Objekten, Seelen zu sammeln:",
         "setEmbedDescription": "Die folgenden Änderungen wurden gemacht:\n```diff\nKanäle:\n{channel}\n\nRollen:\n{role}\n\nMitglieder:\n{user}\n```",
-        "setFooterText": "Führe diesen Command ohne Argumente aus, um die gesamte Blacklist zu erhalten."
+        "setFooterText": "Führe diesen Befehl ohne Argumente aus, um die gesamte Blacklist zu erhalten."
       },
       "gainingRules": {
-        "getEmbedTitle": "Server Economy Config",
-        "getEmbedDescription": "Dies sind die ersten 25 Einträge aus der Economy Config dieses Servers.",
+        "getEmbedTitle": "Server-Economy Konfiguration",
+        "getEmbedDescription": "Dies sind die ersten 25 Einträge aus der Economy-Konfiguration dieses Servers.",
         "getConfigList": {
           "min_message_length": "Min. Nachrichtenlänge",
           "max_message_length": "Max. Nachrichtenlänge"
@@ -170,7 +170,7 @@
       "power": {
         "name": "Macht",
         "emoji": "<:power:1011965677625671731>",
-        "description": "Eine deiner wichtigsten Stats. Sie schützt dich vor aggressiven Spielern auf mehreren Wegen and lässt dich mächtigere Sklaven halten."
+        "description": "Eine deiner wichtigsten Eigenschaften. Sie schützt dich vor aggressiven Spielern auf mehreren Wegen und lässt dich mächtigere Sklaven halten."
       },
       "defense": {
         "name": "Verteidigung",
@@ -196,18 +196,18 @@
     "onCooldown": "Du erforschst diese aktuell! Es wird <t:{time}:R> fertig sein.",
     "maxLevel": "Du hast diesen Skill bereits maximiert!",
     "onMaxConcurrentResearches": "Du kannst nicht noch mehr Skills auf einmal erforschen!",
-    "success": "Das upgrade für **{skill}** {emoji} auf Level `{lvl}` wurde gestartet!\nEs wird enden <t:{time}:R> (<t:{time}>)",
+    "success": "Das Upgrade für **{skill}** {emoji} auf Level `{lvl}` wurde gestartet!\nEs wird enden <t:{time}:R> (<t:{time}>)",
     "timedOut": "Das Menü ist abgelaufen."
   },
   "stats": {
-    "description": "Erhalte ausführliche Stats über ein Mitglied oder dich selbst.",
+    "description": "Erhalte ausführliche Statistiken über ein Mitglied oder dich selbst.",
     "usage": "stats [@user]",
     "options": {
       "target": {
-        "description": "Das Mitglied, über das du Stats erhalten möchtest"
+        "description": "Das Mitglied, über welches du Statistiken sehen möchtest"
       }
     },
-    "noStats": "Dieser Member ist machtlos und hat keine Stats die es wert sind, sie zu zeigen.",
+    "noStats": "Dieses Mitglied ist machtlos und hat keine Statistiken, welche es wert sind, sie zu zeigen.",
     "currency": "Seelen <:soul:1011962640349810688>",
     "power": "Macht <:power:1011965677625671731>",
     "defense": "Verteidigung <:defense:1011971580584263710>",
@@ -222,7 +222,7 @@
       "daily": "Tägliches Sammeln: **{num}**"
     },
     "skills": {
-      "name": "Skills",
+      "name": "Fähigkeiten",
       "currency_bonus_percentage": "> Seelenbonus (%) <:soul:1011962640349810688>\n",
       "currency_bonus_absolute": "> Seelenbonus <:soul:1011962640349810688>\n",
       "research_speed_percentage": "> Forschungsgeschwindigkeit (%) <:research:1011960920609665064>\n",
@@ -232,7 +232,7 @@
       "currency_capacity": "> Seelenkapazität <:storage:1011973136100642947>\n",
       "slave_capacity": "> Sklavenkapazität <:storage:1011973136100642947>\n"
     },
-    "embedTitle": "{user}'s Stats"
+    "embedTitle": "{user}'s Statistiken"
   },
   "top": {
     "description": "Zeigt die mächtigsten Members dieses Servers.",
