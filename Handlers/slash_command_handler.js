@@ -75,7 +75,7 @@ function format(option, path) {
   }
 
   if (/[A-Z]/.test(option.name)) {
-    console.error(`${option.name} (${path})has uppercase letters! Fixing`);
+    console.error(`${option.name} (${path}) has uppercase letters! Fixing`);
     option.name = option.name.toLowerCase();
   }
 
