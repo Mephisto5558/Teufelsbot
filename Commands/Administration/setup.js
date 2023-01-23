@@ -56,7 +56,7 @@ module.exports = {
       name: 'serverbackup',
       type: 'Subcommand',
       options: [{
-        name: 'allowedToLoad',
+        name: 'allowedToLoad',description:'allowedToLoad',
         type: 'String',
         choices: backup.keys(),
         required: true
