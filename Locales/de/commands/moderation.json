@@ -39,8 +39,8 @@
     "dmEmbedDescription": "Du wurdest von `{guild}` gekickt.\nModerator: {mod}\nBegründung: {reason}",
     "infoEmbedTitle": "Kick",
     "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
-    "cantPunishSelf": "Du kannst dich selbst nicht kicken!",
     "noneFound": "Kein Ziel wurde gefunden.",
+    "cantPunishSelf": "Du kannst dich selbst nicht kicken!",
     "error": "Ich konnte **{user}** nicht kicken.\n{err}\n",
     "success": "**{user}** wurde erfolgreich gekickt.\n",
     "noDM": "Ich konnte dem Ziel keine DM senden."
