@@ -1,20 +1,20 @@
 {
-  "cooldown": "Dieser Command ist im Cooldown! Versuche es erneut in `{time}`s.",
+  "cooldown": "Dieser Befehl ist im Cooldown! Versuche es erneut in `{time}`s.",
   "afkMsg": "`{member}` ist AFK: {message} - <t:{timestamp}:R>",
   "afkEnd": "Willkommen zurück, ich habe deinen AFK-Status entfernt. Du warst AFK seit <t:{timestamp}>.",
-  "slashCommandOnly": "Dieser Command ist nur als Slash-Command verfügbar!",
-  "guildCommandOnly": "Dieser Command ist nur auf Servern verfügbar!",
-  "economyDisabled": "Dieser Command ist ein Economy Command. Die Economy ist auf diesem Server nicht aktiviert. Um die Economy zu aktivieren, muss ein Admin `/economyconfig admin toggle` ausführen.",
-  "economyNotInitialized": "Dieser Command ist ein Economy Command. Um die Economy zu starten, führe `/economyconfig user start` aus.",
+  "slashCommandOnly": "Dieser Befehl ist nur als Slash-Befehl verfügbar!",
+  "guildCommandOnly": "Dieser Befehl ist nur auf Servern verfügbar!",
+  "economyDisabled": "Dieser Befehl ist ein Economy-Befehl. Die Economy ist auf diesem Server nicht aktiviert. Um die Economy zu aktivieren, muss ein Admin `/economyconfig admin toggle` ausführen.",
+  "economyNotInitialized": "Dieser Befehl ist ein Economy-Befehl. Um die Economy zu starten, führe `/economyconfig user start` aus.",
   "buttonPressOnCooldown": "Dieser Button ist im Cooldown! Versuche es erneut in `{time}`s.",
   "permissionDenied": {
     "embedTitle": "Unzureichende Berechtigungen",
-    "embedDescriptionUser": "Du benötigst die folgenden Berechtigungen in diesem Kanal um diesen Command auszuführen:\n`{permissions}`",
-    "embedDescriptionBot": "Ich benötige die folgenden Berechtigungen in diesem Kanal um diesen Command auszuführen:\n`{permissions}`"
+    "embedDescriptionUser": "Du benötigst die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n`{permissions}`",
+    "embedDescriptionBot": "Ich benötige die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n`{permissions}`"
   },
   "errorHandler": {
     "embedTitle": "Hupsala",
-    "embedDescription": "Ein unerwarteter Fehler ist aufgetreten!\n\nError Typ: `{name}`\nCommand: `{command}`",
+    "embedDescription": "Ein unerwarteter Fehler ist aufgetreten!\n\nError-Typ: `{name}`\nBefehl: `{command}`",
     "reportButton": "Melde diesen Fehler",
     "reportButtonDisabled": " (Deaktiviert wegen Dev-Version)",
     "discordAPIErr": "Ein Fehler in der Discord API ist aufgetreten, bitte versuche es erneut und informiere den Dev, wenn dies weiterhin auftritt.",
@@ -23,9 +23,9 @@
     "reportFail": "Ein Fehler beim Versuch, den Fehler zu melden, aufgetreten.\n```\n{err}\n```\nBitte informiere den Dev direkt."
   },
   "notAllowed": {
-    "member": "Dir ist es nicht erlaubt, diesen Command auszuführen (eingestellt von einem Serveradministrator)!",
-    "channel": "Es ist nicht erlaubt, diesen Command in diesem Kanal auszuführen (eingestellt von einem Serveradministrator)!",
-    "role": "Einer deiner Rollen ist es nicht erlaubt, diesen Command auszuführen (eingestellt von einem Serveradministrator)!"
+    "member": "Dir ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!",
+    "channel": "Es ist nicht erlaubt, diesen Befehl in diesem Kanal auszuführen (eingestellt von einem Serveradministrator)!",
+    "role": "Einer deiner Rollen ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!"
   },
   "counting": {
     "error": "DU HAST ES BEI **{lastNumber}** RUINIERT!! Die nächste Zahl ist **1**.\n",
@@ -33,7 +33,7 @@
     "sameUserTwice": "**Du kannst nicht zwei Zahlen hintereinander aufzählen!**"
   },
   "selfrole": {
-    "embedTitle": "Self Role",
+    "embedTitle": "Self-Rolle",
     "roleNotFound": "Die mit dem Button verknüpfte Rolle wurde nicht gefunden!",
     "noPermMember": "Ich habe nicht die Berechtigung dazu, deine Rollen zu bearbeiten!",
     "noPermRole": "Ich habe nicht die Berechtigung dazu, die <@&{role}> Rolle zu bearbeiten!",
