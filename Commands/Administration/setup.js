@@ -53,7 +53,7 @@ module.exports = {
       }]
     },
     {
-      name: 'serverbackup',
+      name: 'serverbackup',description:'allowedToLoad',
       type: 'Subcommand',
       options: [{
         name: 'allowedToLoad',description:'allowedToLoad',
