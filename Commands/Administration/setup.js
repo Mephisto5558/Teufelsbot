@@ -58,7 +58,7 @@ module.exports = {
       options: [{
         name: 'allowedToLoad',description:'allowedToLoad',
         type: 'String',
-        choices: backup.keys(),
+        choices: [...backup.keys()],
         required: true
       }]
     }
