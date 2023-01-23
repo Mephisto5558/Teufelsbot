@@ -1,5 +1,4 @@
 //WIP
-return;
 let size;
 const
   { EmbedBuilder, Colors, ActionRowBuilder, TextInputStyle, PermissionFlagsBits, ButtonBuilder } = require('discord.js'),
