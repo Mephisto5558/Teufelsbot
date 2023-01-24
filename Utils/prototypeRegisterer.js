@@ -123,7 +123,7 @@ Object.assign(Message.prototype, {
     if (await cooldowns.call(this, { name: 'afkMsg', cooldowns: { user: 10000 } })) return this;
 
     const message = this.mentions.members.reduce((acc, e) => {
-      const { message, createdAt } = afkMessages[e.id]?.message ? afkMessages[e.id] : e.user.db.afkMessage;
+      const { message, createdAt } = (afkMessages[e.id]?.message ? afkMessages[e.id] : e.user.db.afkMessage) ?? {};
       if (!message || e.id == this.user.id) return acc;
 
       const afkMessage = I18nProvider.__({ locale: this.guild.localeCode }, 'events.afkMsg', {
