@@ -11,7 +11,7 @@ module.exports = {
   run: function (lang) {
     const embed = new EmbedBuilder({
       color: Colors.White,
-      author: { name: this.user.tag, iconURL: this.member.displayAvatarURL({ forceStatic: true }) }
+      author: { name: this.user.customTag, iconURL: this.member.displayAvatarURL({ forceStatic: true }) }
     });
 
     const userData = this.guild.db.economy[this.user.id];
