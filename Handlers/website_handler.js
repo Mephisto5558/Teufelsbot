@@ -67,7 +67,7 @@ module.exports = function websiteHandler() {
           this.db.fetch(req.query.db);
           return res.sendStatus(200);
         }
-        case '/git/pull': console.log(req.body);return req.body?.ref == 'refs/heads/main' ? res.send(await gitpull()): res.sendStatus(200);
+        case '/git/pull': return res.body.ref == 'refs/heads/main' ? res.send(await gitpull()): res.sendStatus(200);
         case '/': return res.sendStatus(200);
         default: res.sendStatus(404);
       }
