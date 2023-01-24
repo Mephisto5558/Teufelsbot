@@ -4,5 +4,5 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: function (lang) { this.customReply(lang('responseList', this.member.displayName)); }
+  run: function (lang) { this.customReply(lang('responseList', this.member.customName)); }
 };

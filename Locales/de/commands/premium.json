@@ -1,0 +1,47 @@
+{
+  "customname": {
+    "description": "Lege einen benutzerdefinierten Spitznamen fest und ich werde dich so nennen.",
+    "options": {
+      "set": {
+        "description": "Ändere, wie ich dich nenne",
+        "options": {
+          "name": {
+            "description": "Wie soll ich dich nennen?"
+          },
+          "global": {
+            "description": "Soll ich dich auf jedem Server so nennen?"
+          }
+        }
+      },
+      "get": {
+        "description": "Erfahre deinen Spitznamen.",
+        "options": {
+          "target": {
+            "description": "Wessen benutzerdefinierten Spitznamen möchtest du wissen?"
+          },
+          "global": {
+            "description": "Soll ich dir deinen globalen oder serverspezifischen Spitznamen nennen?"
+          }
+        }
+      },
+      "clear": {
+        "description": "Entferne deinen Spitznamen.",
+        "options": {
+          "global": {
+            "description": "Soll ich deinen globalen oder serverspezifischen Spitznamen entfernen?"
+          }
+        }
+      }
+    },
+    "set": {
+      "success": "Ich werde dich ab jetzt \"{name}\" nennen."
+    },
+    "get": {
+      "successYou": "Du bist \"{name}\".",
+      "successOther": "Das ist \"{name}\"."
+    },
+    "clear": {
+      "success": "Ich habe deinen Namen entfernt."
+    }
+  }
+}

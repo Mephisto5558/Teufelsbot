@@ -83,16 +83,16 @@ module.exports = {
         });
 
         if (target) {
-          embed.data.title = lang('getUser.embedTitle', target.user.tag);
+          embed.data.title = lang('getUser.embedTitle', target.user.customTag);
 
           const data = target.user.db.birthday?.split('/');
 
           if (data) {
             const age = getAge(data) + 1;
-            newData = lang('getUser.date', { user: target.displayName, month: lang(`months.${data[1]}`), day: data[2] });
+            newData = lang('getUser.date', { user: target.customName, month: lang(`months.${data[1]}`), day: data[2] });
             if (age < currentYear) newData += lang('getUser.newAge', age);
           }
-          else newData = lang('getUser.notFound', target.displayName);
+          else newData = lang('getUser.notFound', target.customName);
         }
         else {
           embed.data.title = lang('getAll.embedTitle');

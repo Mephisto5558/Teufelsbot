@@ -38,7 +38,7 @@ module.exports = {
       }
     ],
       embed = new EmbedBuilder({
-        title: lang('embedTitle', target.tag),
+        title: lang('embedTitle', target.customTag),
         fields,
         color: Colors.White,
         footer: { name: this.user.tag, iconURL: this.member.displayAvatarURL({ forceStatic: true }) },
