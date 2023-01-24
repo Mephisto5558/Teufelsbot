@@ -19,7 +19,7 @@ module.exports = {
       this.customReply(lang('saved', newPrefix));
     }
     else {
-      const currentPrefix = this.guild.db.config?.prefix?.prefix || this.guild.defaultSettings.config.prefix;
+      const currentPrefix = this.guild.db.config?.prefix?.prefix || this.client.defaultSettings.config.prefix;
       if (!currentPrefix) throw new Error('No Default Prefix Found in DB');
       this.customReply(lang('currentPrefix', currentPrefix) + (this.guild.db.config?.prefix?.caseinsensitive ? lang('caseInsensitive') : ''));
     }

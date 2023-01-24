@@ -76,7 +76,7 @@ module.exports = {
     if (this.options.getSubcommandGroup() == 'user') {
       switch (this.options.getSubcommand()) {
         case 'start': {
-          const defaultSettings = this.guild.defaultSettings.economy;
+          const defaultSettings = this.client.defaultSettings.economy;
 
           if (this.guild.db.economy?.[this.user.id]?.gaining?.chat)
             return this.editReply(lang('start.alreadyInitiated'));
@@ -162,7 +162,7 @@ module.exports = {
             return this.editReply({ embeds: [embed] });
           }
           const
-            status = { channel: channel ? `+ ${channel.name}` : lang('global.none'), role: role ? `+ ${role.name}` : lang('global.none'), user: user ? `+ ${user.tag}` : lang('global.none') },
+            status = { channel: channel ? `+ ${channel.name}` : lang('global.none'), role: role ? `+ ${role.name}` : lang('global.none'), user: user ? `+ ${user.customTag}` : lang('global.none') },
             work = (id, type, list = []) => {
               if (list.includes(id)) {
                 list = list.filter(e => e != id);
@@ -192,7 +192,7 @@ module.exports = {
         case 'gaining_rules': {
           const
             get = this.options.getBoolean('get'),
-            oldConfig = this.guild.db.economy?.config || this.guild.defaultSettings.economy.config;
+            oldConfig = this.guild.db.economy?.config || this.client.defaultSettings.economy.config;
 
           const config = Object.fromEntries(Object.entries({
             minMessageLength: this.options.getNumber('min_message_length'),
@@ -204,8 +204,8 @@ module.exports = {
               title: lang('admin.gainingRules.getEmbedTitle'),
               //description: lang('admin.gainingRules.getEmbedDescription'),
               color: Colors.White,
-              description: `Good-Looking text coming soon.\n\n\`\`\`json\n${JSON.stringify(this.guild.defaultSettings.economy.config.fMerge(oldConfig), null, 2)}\n\`\`\``
-              //fields: Object.entries(this.guild.defaultSettings.economy.config.fMerge(oldConfig)).slice(0, 25).map(([k, v]) => ({ name: lang(`admin.gainingRules.getConfigList.${k}`), value: v, inline: true }))
+              description: `Good-Looking text coming soon.\n\n\`\`\`json\n${JSON.stringify(this.client.defaultSettings.economy.config.fMerge(oldConfig), null, 2)}\n\`\`\``
+              //fields: Object.entries(this.client.defaultSettings.economy.config.fMerge(oldConfig)).slice(0, 25).map(([k, v]) => ({ name: lang(`admin.gainingRules.getConfigList.${k}`), value: v, inline: true }))
             });
 
             return this.editReply({ embeds: [embed] });

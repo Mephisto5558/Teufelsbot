@@ -12,7 +12,7 @@ module.exports = {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription'),
-      footer: { text: this.member.displayName, iconURL: this.member.displayAvatarURL() }
+      footer: { text: this.user.tag, iconURL: this.member.displayAvatarURL() }
     }).setColor('Random');
 
     this.customReply({ embeds: [embed] });

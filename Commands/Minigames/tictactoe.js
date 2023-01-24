@@ -3,8 +3,8 @@ const
   TicTacToe = require('discord-tictactoe');
 
 function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
-  updateStats(player1.id, player2.id, type1, this.client);
-  updateStats(player2.id, player1.id, type2, this.client);
+  updateStats(player1.id, player2.id, type1, this.client.db);
+  updateStats(player2.id, player1.id, type2, this.client.db);
   game.playAgain.call(this, game, lang);
 }
 
@@ -74,7 +74,7 @@ if (!TicTacToe.prototype.playAgain) TicTacToe.prototype.playAgain = async functi
   });
 };
 
-function updateStats(firstID, secondID, type, { db }) {
+function updateStats(firstID, secondID, type, db) {
   const stats = db.get('leaderboards').TicTacToe[firstID] || {};
   let against;
 
