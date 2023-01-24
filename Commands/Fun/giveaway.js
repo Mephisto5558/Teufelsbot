@@ -118,7 +118,7 @@ module.exports = {
       targetChannel = this.options.getChannel('channel') || this.channel,
       requiredRoles = this.options.getString('required_roles')?.replace(/[^\d]/g, '').split(' '),
       disallowedMembers = this.options.getString('exempt_member')?.replace(/[^\d]/g, '').split(' '),
-      defaultSettings = this.guild.defaultSettings.giveaway,
+      defaultSettings = this.client.defaultSettings.giveaway,
       reaction = this.options.getString('reaction') || this.guild.db.giveaway?.reaction || defaultSettings.reaction,
       components = [new ActionRowBuilder({
         components: [

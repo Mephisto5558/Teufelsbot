@@ -13,7 +13,7 @@ const
   }) : null;
 
 function checkLoadPerm(backup) {
-  const creator = backup?.metadata?.[this.guild.db.serverbackup?.allowedToLoad ?? this.guild.defaultSettings.serverbackup.allowedToLoad];
+  const creator = backup?.metadata?.[this.guild.db.serverbackup?.allowedToLoad ?? this.client.defaultSettings.serverbackup.allowedToLoad];
   return Array.isArray(creator) ? creator.includes(this.user.id) : creator == this.user.id;
 }
 

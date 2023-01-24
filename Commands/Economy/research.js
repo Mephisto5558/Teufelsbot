@@ -11,7 +11,7 @@ module.exports = {
   run: async function (lang) {
     const
       userSkills = this.guild.db.economy[this.user.id].skills,
-      defaultSkills = this.guild.defaultSettings.economy.skills,
+      defaultSkills = this.client.defaultSettings.economy.skills,
       fields = Object.entries(defaultSkills).map(([skill, defaultSkill]) => {
         const price = userSkills[skill].lastPrice ? userSkills[skill].lastPrice + Math.round(userSkills[skill].lastPrice * userSkills[skill].percentage / 100) : defaultSkill.firstPrice;
 

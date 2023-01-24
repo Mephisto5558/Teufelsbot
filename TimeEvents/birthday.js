@@ -27,11 +27,11 @@ module.exports = {
 
     const
       guildList = (await this.guilds.fetch()).map(e => e.fetch()),
-      oldData = this.db.get('userSettings');
+      oldData = this.db.get('userSettings'),
+      defaultSettings = this.defaultSettings.birthday;
 
     for await (const guild of guildList) {
       const settings = guild.db.birthday;
-      const defaultSettings = guild.defaultSettings.birthday;
       if (!settings?.enable) continue;
 
       const userList = Object.entries(oldData)

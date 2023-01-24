@@ -44,7 +44,7 @@ module.exports = {
 
         embed.data.title = lang('one.embedTitle', cmd.name);
         embed.data.description = helpLang('description') ?? lang('one.noDescription');
-        if (helpLang('usage')) embed.data.footer = { text: lang('one.embedFooterText', this.guild.db.config?.prefix || this.guild.defaultSettings.config.prefix) };
+        if (helpLang('usage')) embed.data.footer = { text: lang('one.embedFooterText', this.guild.db.config?.prefix || this.client.defaultSettings.config.prefix) };
         embed.data.fields = [
           cmd.aliases?.prefix?.length && { name: lang('one.prefixAlias'), value: `\`${cmd.aliases.prefix.join('`, `')}\``, inline: true },
           cmd.aliases?.slash?.length && { name: lang('one.slashAlias'), value: `\`${cmd.aliases.slash.join('`, `')}\``, inline: true },
