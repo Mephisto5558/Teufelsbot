@@ -59,7 +59,6 @@ await db.generate();
 
 <br>
 
-## How to add more languages
+## How to add more languages and change texts
 
-Go to the `Locales` folder and clone the `en` folder. Rename it to the language code you want to use (eg. `de` for German) and edit the json files.<br>
-It gets loaded automatically on startup and will fallback to english if any key is missing.
+You can add changes on [Crowdin](https://de.crowdin.com/project/teufelsbot).
