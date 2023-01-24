@@ -30,7 +30,7 @@ module.exports = {
     if (!base) return this.customReply(lang('missingParam'));
 
     const embed = new EmbedBuilder({
-      title: lang('embedTitle', { user1: base.user.tag, user2: overlay.user.tag }),
+      title: lang('embedTitle', { user1: base.user.customTag, user2: overlay.user.customTag }),
       color: Colors.White,
       footer: { text: this.user.tag }
     });
