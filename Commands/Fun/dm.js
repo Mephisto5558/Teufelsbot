@@ -108,7 +108,7 @@ module.exports = {
           title: lang('send.embedTitle'),
           description: lang('send.embedDescription', { user: asMod ? lang('send.fromMod') : this.user.tag, guild: this.guild.name, msg: messageToSend.replaceAll('/n', '\n') }),
           color: Colors.Blurple,
-          footer: { text: lang('send.embedFooterText') }
+          footer: { text: asMod ? undefined : lang('send.embedFooterText') }
         });
 
         try {
