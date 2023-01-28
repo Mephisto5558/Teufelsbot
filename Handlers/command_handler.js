@@ -14,6 +14,8 @@ module.exports = function commandHandler() {
         category: subFolder
       })).filter(e => e.prefixCommand && !e.disabled && !(this.botType == 'dev' && !e.beta))
     ) {
+      if (!command.run?.toString().startsWith('function') && !command.run?.toString().startsWith('async function')) throw new Error(`The run function of file "${command.filePath}" is not a function. You cannot use arrow functions.`);
+
       this.prefixCommands.set(command.name, command);
       this.log(`Loaded Prefix Command ${command.name}`);
       commandCount++;
