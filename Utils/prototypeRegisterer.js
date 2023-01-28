@@ -48,7 +48,7 @@ CommandInteraction.prototype.customReply = customReply;
 Object.assign(BaseClient.prototype, {
   prefixCommands: new Collection(),
   slashCommands: new Collection(),
-  cooldowns: new Collection(),
+  cooldowns: new Map(),
   async awaitReady() {
     while (this.ws.status != Status.Ready) await sleep(10);
     return this.application.name ? this.application : this.application.fetch();
