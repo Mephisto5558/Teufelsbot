@@ -50,7 +50,7 @@ module.exports = async function messageCreate() {
   if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.customReply(lang('events.notAllowed.channel'), 1e4);
   if (disabledList.roles && this.member.roles?.cache.some(e => disabledList.roles.includes(e.id))) return this.customReply(lang('events.notAllowed.role'), 1e4);
 
-  const cooldown = await cooldowns.call(this, command);
+  const cooldown = cooldowns.call(this, command);
 
   if (cooldown && !this.client.botType == 'dev') return this.customReply(lang('events.cooldown', cooldown), 1e4);
   if (command.requireEconomy && (!economy?.enable || !economy[this.user.id]?.gaining?.chat))

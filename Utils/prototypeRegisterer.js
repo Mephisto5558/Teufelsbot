@@ -89,10 +89,10 @@ Object.assign(Message.prototype, {
       { afkMessages = {} } = this.guild.db,
       countingData = this.guild.db.counting?.[this.channel.id];
 
-    if (this.client.botType != 'dev' && this.guild.db.triggers?.length && !(await cooldowns.call(this, { name: 'triggers', cooldowns: { user: 10000 } })))
+    if (this.client.botType != 'dev' && this.guild.db.triggers?.length && !cooldowns.call(this, { name: 'triggers', cooldowns: { user: 10000 } }))
       for (const trigger of this.guild.db.triggers.filter(e => originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())).slice(0, 3))
         this.customReply(trigger.response);
-    else if (originalContent.includes(this.client.user.id) && !(await cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } })))
+    else if (originalContent.includes(this.client.user.id) && !cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } }))
       this.react('👀');
 
     if (this.client.botType == 'dev') return this;
@@ -120,7 +120,7 @@ Object.assign(Message.prototype, {
       this.customReply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.afkEnd', afk.createdAt));
     }
 
-    if (await cooldowns.call(this, { name: 'afkMsg', cooldowns: { user: 10000 } })) return this;
+    if (cooldowns.call(this, { name: 'afkMsg', cooldowns: { user: 10000 } })) return this;
 
     const message = this.mentions.members.reduce((acc, e) => {
       const { message, createdAt } = (afkMessages[e.id]?.message ? afkMessages[e.id] : e.user.db.afkMessage) ?? {};
@@ -149,7 +149,7 @@ Object.assign(Message.prototype, {
       this.content.length <= (config.gaining?.chat?.min_message_length ?? this.client.defaultSettings.economy.gaining.chat.min_message_length) ||
       this.content.length >= (config.gaining?.chat?.max_message_length ?? this.client.defaultSettings.economy.gaining.chat.max_message_length) ||
       config.blacklist?.channel?.includes(this.channel.id) || config.blacklist?.users?.includes(this.user.id) || this.member.roles.cache.hasAny(config.blacklist?.roles) ||
-      await cooldowns.call(this, { name: 'economy', cooldowns: { user: 2e4 } })
+      cooldowns.call(this, { name: 'economy', cooldowns: { user: 2e4 } })
       ? null : this.client.db.update('guildSettings', `${this.guild.id}.economy.${this.user.id}`, {
         currency: parseFloat((currency + gaining.chat + skills.currency_bonus_absolute.lvl ** 2 + gaining.chat * skills.currency_bonus_percentage.lvl ** 2 / 100).limit(0, currencyCapacity).toFixed(3))
       });
