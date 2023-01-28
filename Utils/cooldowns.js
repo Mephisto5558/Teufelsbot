@@ -1,5 +1,6 @@
 const { Collection } = require('discord.js');
 
+/**@this {import('discord.js').Message} Message @returns {number} current cooldown in seconds*/
 module.exports = function cooldown({ name, cooldowns }) {
   if (!this.client.cooldowns.has(name)) this.client.cooldowns.set(name, new Collection());
 

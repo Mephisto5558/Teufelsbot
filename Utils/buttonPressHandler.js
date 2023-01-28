@@ -5,7 +5,7 @@ const
 
 module.exports = async function buttonPressHandler(lang) {
   const [feature, id, modus, data, ...args] = this.customId.split('.');
-  const cooldown = await cooldowns.call(this, { name: `buttonPressEvent.${id || Math.floor(Date.now() / 2e5)}` });
+  const cooldown = cooldowns.call(this, { name: `buttonPressEvent.${id || Math.floor(Date.now() / 2e5)}` });
   if (cooldown) return this.reply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.buttonPressOnCooldown', cooldown));
 
   switch (feature) {

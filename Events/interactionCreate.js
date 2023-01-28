@@ -44,7 +44,7 @@ module.exports = async function interactionCreate() {
     );
   }
 
-  const cooldown = await cooldowns.call(this, command);
+  const cooldown = cooldowns.call(this, command);
   if (cooldown) return this.reply({ content: lang('events.cooldown', cooldown), ephemeral: true });
 
   if (command.requireEconomy) {
