@@ -1,19 +1,23 @@
-const { Collection } = require('discord.js');
-
 /**@this {import('discord.js').Message} Message @returns {number} current cooldown in seconds*/
-module.exports = function cooldown({ name, cooldowns }) {
-  if (!this.client.cooldowns.has(name)) this.client.cooldowns.set(name, new Collection());
+module.exports = function cooldown({ name, cooldowns: { guild = 0, user = 0 } = {} }) {
+  if (!guild && !user) return 0;
 
   const
     now = Date.now(),
-    timestamps = this.client.cooldowns.get(name),
-    expirationTimeGuild = timestamps.get(`g:${this.guild?.id}`),
-    expirationTimeUser = timestamps.get(`u:${this.user.id}`);
+    { guild: guildTimestamps, user: userTimestamps } = this.client.cooldowns.get(name) ?? this.client.cooldowns.set(name, { guild: new Map(), user: new Map() }).get(name);
 
-  if (this.guild && expirationTimeGuild > now && expirationTimeGuild > expirationTimeUser) return Math.round((expirationTimeGuild - now) / 1000);
-  if (expirationTimeUser > now && expirationTimeUser > expirationTimeGuild) return Math.round((expirationTimeUser - now) / 1000);
+  let cooldown = 0;
+  if (guild && this.guild) {
+    const guildCooldown = guildTimestamps.get(this.guild.id);
+    if (guildCooldown > now) cooldown = Math.max(cooldown, Math.round((guildCooldown - now) / 1000));
+    else guildTimestamps.set(this.guild.id, now + guild);
+  }
 
-  if (cooldowns?.guild && this.guild) timestamps.set(`g:${this.guild.id}`, now + cooldowns.guild);
-  if (cooldowns?.user) timestamps.set(`u:${this.user.id}`, now + cooldowns.user);
-  return 0;
+  if (user) {
+    const userCooldown = userTimestamps.get(this.user.id);
+    if (userCooldown > now) cooldown = Math.max(cooldown, Math.round((userCooldown - now) / 1000));
+    else userTimestamps.set(this.user.id, now + user);
+  }
+
+  return cooldown;
 };
