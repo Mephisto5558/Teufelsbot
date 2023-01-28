@@ -29,7 +29,7 @@ function format(option, path) {
   if (!option.description) option.description = I18nProvider.__({ errorNotFound: true }, `${path}.description`);
   if (option.choices?.length) option.choices = option.choices.map(e => typeof e == 'object' ? e.fMerge({ __SCHandlerCustom: true }) : { name: I18nProvider.__({ undefinedNotFound: true }, `${path}.choices.${e}`) || e, value: e });
   if (option.autocompleteOptions) option.autocomplete = true;
-  
+
   if (option.description.length > 100) {
     console.warn(`WARN: Description of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
     option.description = option.description.substring(0, 100);
@@ -62,12 +62,13 @@ function format(option, path) {
   }
 
   if (option.run) {
-    if (!option.usage) option.usage = I18nProvider.__({ undefinedNotFound: true }, `${path}.usage`);
+    if (!option.run.toString().startsWith('function') && !option.run.toString().startsWith('async function')) throw new Error(`The run function of file "${path}" is not a function. You cannot use arrow functions.`);
 
     if (!option.type) option.type = ApplicationCommandType.ChatInput;
     else if (!ApplicationCommandType[option.type]) throw new Error(`Invalid option.type, got "${option.type}" (${path})`);
     else if (isNaN(option.type)) option.type = ApplicationCommandType[option.type];
 
+    if (!option.usage) option.usage = I18nProvider.__({ undefinedNotFound: true }, `${path}.usage`);
     if (option.permissions?.user?.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions.user);
     if (!option.dmPermission) option.dmPermission = false;
 
