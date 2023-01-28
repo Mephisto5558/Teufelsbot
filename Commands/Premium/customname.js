@@ -5,7 +5,7 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  premium: true, beta: true,
+  premium: true,
   options: [
     {
       name: 'set',
