@@ -1,0 +1,47 @@
+{
+  "customname": {
+    "description": "Set a custom nickname and I will call you that.",
+    "options": {
+      "set": {
+        "description": "Change how I call you",
+        "options": {
+          "name": {
+            "description": "How should I call you?"
+          },
+          "global": {
+            "description": "Should I call you like that on every server?"
+          }
+        }
+      },
+      "get": {
+        "description": "Get your custom nickname.",
+        "options": {
+          "target": {
+            "description": "Who's custom nickname do you want to know?"
+          },
+          "global": {
+            "description": "Should I tell you your global nickname or your guild-specific one?"
+          }
+        }
+      },
+      "clear": {
+        "description": "Remove your custom nickname.",
+        "options": {
+          "global": {
+            "description": "Should I remove your global nickname or your guild-specific one?"
+          }
+        }
+      }
+    },
+    "set": {
+      "success": "I will call you \"{name}\" from now on."
+    },
+    "get": {
+      "successYou": "You are \"{name}\".",
+      "successOther": "That's \"{name}\"."
+    },
+    "clear": {
+      "success": "I removed your custom name."
+    }
+  }
+}

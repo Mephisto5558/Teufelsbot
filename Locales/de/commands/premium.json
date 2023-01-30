@@ -43,5 +43,29 @@
     "clear": {
       "success": "Ich habe deinen Namen entfernt."
     }
+  },
+  "editmessage": {
+    "description": "Bearbeite eine beliebige Nachricht, welche vom Bot gesendet wurde",
+    "options": {
+      "channel": {
+        "description": "Der Kanal, in dem sich die Nachricht befindet."
+      },
+      "message_id": {
+        "description": "Die ID der Nachricht, die ich bearbeiten soll."
+      },
+      "remove_attachments": {
+        "description": "Lösche alles aus dieser Nachricht. z. B. Embeds und Anhänge"
+      }
+    },
+    "modalTitle": "EditMessage Befehl",
+    "textInputLabel": "Schreibe den neuen Inhalt dieser Nachricht.",
+    "textInputPlaceholder": "Du kannst auch JSON verwenden!",
+    "notFound": "Es gibt keine Nachricht mit dieser ID im angegebenen Kanal!",
+    "notBotMessage": "Ich kann nur meine eigenen Nachrichten bearbeiten!",
+    "cannotEdit": "Ich kann diese Nachricht nicht bearbeiten!",
+    "timedout": "Du hast zu lange gebraucht, um zu antworten!",
+    "emptyJson": "Das von dir angegebene JSON ist leer!",
+    "error": "Beim Senden deines benutzerdefinierten JSON ist ein Fehler aufgetreten:\n```{err}```\n",
+    "success": "Die Nachricht wurde bearbeitet. [Link]({url})"
   }
 }
