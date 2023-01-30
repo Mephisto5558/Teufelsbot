@@ -1,0 +1,16 @@
+{
+  "languageName": "Español",
+  "messageSent": "¡Mensaje enviado!",
+  "loading": "Cargando...",
+  "guild": "Gremio",
+  "user": "Usuario",
+  "cancel": "Cancelar",
+  "playAgain": "Jugar de nuevo",
+  "enabled": "Activado",
+  "disabled": "Deshabilitado",
+  "none": "ninguno",
+  "noPermUser": "¡No tienes permiso para hacer eso!",
+  "noPermBot": "¡No tengo permiso para hacer eso!",
+  "true": "Sí",
+  "false": "Nu"
+}
