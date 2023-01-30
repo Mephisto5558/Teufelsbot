@@ -1,0 +1,45 @@
+{
+  "cooldown": "¡Este comando está en tiempo de recarga! Inténtalo de nuevo en `{time}`s.",
+  "afkMsg": "`{member}` está AFK: {message} - <t:{timestamp}:R>",
+  "afkEnd": "Bienvenido de nuevo, he eliminado tu AFK. Has estado AFK desde <t:{timestamp}>.",
+  "slashCommandOnly": "¡Este comando sólo está disponible como un comando slash!",
+  "guildCommandOnly": "¡Este comando sólo está disponible en gremios!",
+  "economyDisabled": "Este comando es un comando de categoría de economía. La economía no está habilitada en este gremio. Para empezar a usar la economía, un administrador tiene que ejecutar `/economyconfig admin toggle`.",
+  "economyNotInitialized": "Este comando es un comando de categoría económica. Para empezar a usar la economía, ejecuta `/economyconfig user start`.",
+  "buttonPressOnCooldown": "¡Este botón está en enfriamiento! Inténtalo de nuevo en `{time}`s.",
+  "permissionDenied": {
+    "embedTitle": "Permisos insuficientes",
+    "embedDescriptionUser": "Necesitas los siguientes permisos en este canal para ejecutar este comando:\n`{permissions}`",
+    "embedDescriptionBot": "Necesito los siguientes permisos en este canal para ejecutar este comando:\n`{permissions}`"
+  },
+  "errorHandler": {
+    "embedTitle": "Ojos",
+    "embedDescription": "¡Se ha producido un error inesperado!\n\nTipo de error: `{name}`\nComando: `{command}`",
+    "reportButton": "Reportar este error",
+    "reportButtonDisabled": " (Deshabilitado debido a la versión dev)",
+    "discordAPIErr": "Se ha producido un error de la API de Discord, por favor inténtalo de nuevo y envía un mensaje al desarrollador si esto sigue sucediendo.",
+    "alreadyReported": "Este error ya ha sido reportado. [Link]({url}).\nSe corregirá pronto.",
+    "reportSuccess": "Se ha reportado el error. [Link]({url})",
+    "reportFail": "`Se ha producido un error al intentar enviar tu informe de error.\n```\n{err}\n```\nPor favor, envía un mensaje al desarrollador directamente."
+  },
+  "notAllowed": {
+    "member": "No está autorizado para ejecutar este comando (establecido por un administrador del servidor)!",
+    "channel": "No está permitido ejecutar este comando en este canal (establecido por un administrador del servidor)!",
+    "role": "¡Uno de sus roles no tiene permitido ejecutar este comando (establecido por un administrador del servidor)!"
+  },
+  "counting": {
+    "error": "HAS RUINADO EN **{lastNumber}**!! El siguiente número es **1**.\n",
+    "wrongNumber": "**¡No puedes contar?! Número incorrecto.**",
+    "sameUserTwice": "**¡No puedes contar dos números en una fila!**"
+  },
+  "selfrole": {
+    "embedTitle": "Rol propio",
+    "roleNotFound": "¡El rol vinculado a este botón no fue encontrado!",
+    "noPermMember": "¡No tengo permiso para administrar tus roles!",
+    "noPermRole": "¡No tengo permiso para administrar el rol <@&{role}>!",
+    "hasRoleAlready": "¡Ya tienes el rol <@&{role}>!",
+    "addSuccess": "Te he dado el rol <@&{role}>.",
+    "missesRole": "¡No puedo eliminar tu rol <@&{role}> porque no lo tienes!",
+    "removeSuccess": "He eliminado tu rol <@&{role}>."
+  }
+}
