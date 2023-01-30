@@ -46,7 +46,7 @@
   },
   "afk": {
     "description": "Setzte einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
-    "usage": "PREFIX Befehl: afk [\"global\"] [Nachricht]",
+    "usage": "PREFIX Befehl: afk [Nachricht]",
     "options": {
       "message": {
         "description": "Die zu setzende Nachricht"
