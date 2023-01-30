@@ -1,0 +1,71 @@
+{
+  "customname": {
+    "description": "Establezca un apodo personalizado y lo llamaré.",
+    "options": {
+      "set": {
+        "description": "Cambia cómo te llamo",
+        "options": {
+          "name": {
+            "description": "¿Cómo debo llamarte?"
+          },
+          "global": {
+            "description": "¿Debería llamarte así en todos los servidores?"
+          }
+        }
+      },
+      "get": {
+        "description": "Obtén tu apodo personalizado.",
+        "options": {
+          "target": {
+            "description": "¿Quién es el apodo personalizado quieres saber?"
+          },
+          "global": {
+            "description": "¿Debo decirle su apodo global o su apodo específico para el gremio?"
+          }
+        }
+      },
+      "clear": {
+        "description": "Elimina tu apodo personalizado.",
+        "options": {
+          "global": {
+            "description": "¿Debo eliminar tu apodo global o el específico de tu gremio?"
+          }
+        }
+      }
+    },
+    "set": {
+      "success": "A partir de ahora te llamaré \"{name}\"."
+    },
+    "get": {
+      "successYou": "Eres \"{name}\".",
+      "successOther": "Eso es \"{name}\"."
+    },
+    "clear": {
+      "success": "He eliminado tu nombre personalizado."
+    }
+  },
+  "editmessage": {
+    "description": "Editar cualquier mensaje enviado por el bot",
+    "options": {
+      "channel": {
+        "description": "El canal en el que está el mensaje."
+      },
+      "message_id": {
+        "description": "El id del mensaje que quieres que edite."
+      },
+      "remove_attachments": {
+        "description": "Borrar todo en ese mensaje. Por ejemplo, incrustaciones, archivos"
+      }
+    },
+    "modalTitle": "Editar mensaje de comando",
+    "textInputLabel": "Escriba el nuevo contenido para ese mensaje.",
+    "textInputPlaceholder": "¡También puedes usar JSON!",
+    "notFound": "¡No hay ningún mensaje con ese id en el canal especificado!",
+    "notBotMessage": "Sólo puedo editar mis propios mensajes!",
+    "cannotEdit": "¡No puedo editar ese mensaje!",
+    "timedout": "¡Has tardado mucho en responder!",
+    "emptyJson": "¡El JSON que proporcionaste está vacío!",
+    "error": "Ocurrió un error mientras se trataba de enviar tu JSON personalizado:\n```{err}```\n",
+    "success": "El mensaje ha sido editado. [Link]({url})"
+  }
+}
