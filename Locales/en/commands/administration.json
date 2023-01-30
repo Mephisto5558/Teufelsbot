@@ -237,12 +237,7 @@
         "description": "Change the bot's language.",
         "options": {
           "language": {
-            "description": "In which language should the boy reply?",
-            "choices": {
-              "de": "German",
-              "en": "English",
-              "ru": "Russian"
-            }
+            "description": "In which language should the boy reply?"
           }
         }
       },
