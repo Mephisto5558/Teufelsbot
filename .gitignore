@@ -1,18 +1,14 @@
 replit.nix
 logs
 *.log
-test.js
-env.json
+/env.json
 package-lock.json
-node_modules
-README.md
+/node_modules
 Temp
 .github
-tw
-config.json
-tw.js
-VoiceRecords
-Commands/Owner-Only/test.js
+/config.json
+/VoiceRecords
+/Commands/Owner-Only/test.js
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
