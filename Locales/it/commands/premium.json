@@ -1,47 +1,71 @@
 {
   "customname": {
-    "description": "Set a custom nickname and I will call you that.",
+    "description": "Imposta un soprannome personalizzato e ti chiamerò.",
     "options": {
       "set": {
-        "description": "Change how I call you",
+        "description": "Cambia come ti chiamo",
         "options": {
           "name": {
-            "description": "How should I call you?"
+            "description": "Come dovrei chiamarla?"
           },
           "global": {
-            "description": "Should I call you like that on every server?"
+            "description": "Dovrei chiamarti così su ogni server?"
           }
         }
       },
       "get": {
-        "description": "Get your custom nickname.",
+        "description": "Ottieni il tuo soprannome personalizzato.",
         "options": {
           "target": {
-            "description": "Who's custom nickname do you want to know?"
+            "description": "Chi è il soprannome personalizzato che vuoi sapere?"
           },
           "global": {
-            "description": "Should I tell you your global nickname or your guild-specific one?"
+            "description": "Dovrei dirti il tuo soprannome globale o quello specifico della tua gilda?"
           }
         }
       },
       "clear": {
-        "description": "Remove your custom nickname.",
+        "description": "Rimuovi il tuo soprannome personalizzato.",
         "options": {
           "global": {
-            "description": "Should I remove your global nickname or your guild-specific one?"
+            "description": "Dovrei rimuovere il tuo soprannome globale o quello specifico della tua gilda?"
           }
         }
       }
     },
     "set": {
-      "success": "I will call you \"{name}\" from now on."
+      "success": "Da ora in poi ti chiamerò \"{name}\"."
     },
     "get": {
-      "successYou": "You are \"{name}\".",
-      "successOther": "That's \"{name}\"."
+      "successYou": "Sei \"{name}\".",
+      "successOther": "È \"{name}\"."
     },
     "clear": {
-      "success": "I removed your custom name."
+      "success": "Ho rimosso il tuo nome personalizzato."
     }
+  },
+  "editmessage": {
+    "description": "Modifica qualsiasi messaggio inviato dal bot",
+    "options": {
+      "channel": {
+        "description": "Il canale in cui è inserito il messaggio."
+      },
+      "message_id": {
+        "description": "L'id del messaggio che vuoi che io modifichi."
+      },
+      "remove_attachments": {
+        "description": "Cancella tutto su quel messaggio, ad es. incorpora, file"
+      }
+    },
+    "modalTitle": "Comando ModificaMessaggi",
+    "textInputLabel": "Scrivi il nuovo contenuto per quel messaggio.",
+    "textInputPlaceholder": "Puoi anche usare JSON!",
+    "notFound": "Non c'è nessun messaggio con quell'id nel canale specificato!",
+    "notBotMessage": "Posso modificare solo i miei messaggi!",
+    "cannotEdit": "Non posso modificare quel messaggio!",
+    "timedout": "Hai impiegato a lungo per rispondere!",
+    "emptyJson": "Il JSON che hai fornito è vuoto!",
+    "error": "Si è verificato un errore durante il tentativo di inviare il tuo JSON:\n```{err}```\n",
+    "success": "Il messaggio è stato modificato. [Link]({url})"
   }
 }

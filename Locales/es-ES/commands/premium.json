@@ -1,47 +1,71 @@
 {
   "customname": {
-    "description": "Set a custom nickname and I will call you that.",
+    "description": "Establezca un apodo personalizado y lo llamaré.",
     "options": {
       "set": {
-        "description": "Change how I call you",
+        "description": "Cambia cómo te llamo",
         "options": {
           "name": {
-            "description": "How should I call you?"
+            "description": "¿Cómo debo llamarte?"
           },
           "global": {
-            "description": "Should I call you like that on every server?"
+            "description": "¿Debería llamarte así en todos los servidores?"
           }
         }
       },
       "get": {
-        "description": "Get your custom nickname.",
+        "description": "Obtén tu apodo personalizado.",
         "options": {
           "target": {
-            "description": "Who's custom nickname do you want to know?"
+            "description": "¿Quién es el apodo personalizado quieres saber?"
           },
           "global": {
-            "description": "Should I tell you your global nickname or your guild-specific one?"
+            "description": "¿Debo decirle su apodo global o su apodo específico para el gremio?"
           }
         }
       },
       "clear": {
-        "description": "Remove your custom nickname.",
+        "description": "Elimina tu apodo personalizado.",
         "options": {
           "global": {
-            "description": "Should I remove your global nickname or your guild-specific one?"
+            "description": "¿Debo eliminar tu apodo global o el específico de tu gremio?"
           }
         }
       }
     },
     "set": {
-      "success": "I will call you \"{name}\" from now on."
+      "success": "A partir de ahora te llamaré \"{name}\"."
     },
     "get": {
-      "successYou": "You are \"{name}\".",
-      "successOther": "That's \"{name}\"."
+      "successYou": "Eres \"{name}\".",
+      "successOther": "Eso es \"{name}\"."
     },
     "clear": {
-      "success": "I removed your custom name."
+      "success": "He eliminado tu nombre personalizado."
     }
+  },
+  "editmessage": {
+    "description": "Editar cualquier mensaje enviado por el bot",
+    "options": {
+      "channel": {
+        "description": "El canal en el que está el mensaje."
+      },
+      "message_id": {
+        "description": "El id del mensaje que quieres que edite."
+      },
+      "remove_attachments": {
+        "description": "Borrar todo en ese mensaje. Por ejemplo, incrustaciones, archivos"
+      }
+    },
+    "modalTitle": "Editar mensaje de comando",
+    "textInputLabel": "Escriba el nuevo contenido para ese mensaje.",
+    "textInputPlaceholder": "¡También puedes usar JSON!",
+    "notFound": "¡No hay ningún mensaje con ese id en el canal especificado!",
+    "notBotMessage": "Sólo puedo editar mis propios mensajes!",
+    "cannotEdit": "¡No puedo editar ese mensaje!",
+    "timedout": "¡Has tardado mucho en responder!",
+    "emptyJson": "¡El JSON que proporcionaste está vacío!",
+    "error": "Ocurrió un error mientras se trataba de enviar tu JSON personalizado:\n```{err}```\n",
+    "success": "El mensaje ha sido editado. [Link]({url})"
   }
 }
