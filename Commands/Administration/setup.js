@@ -49,7 +49,7 @@ module.exports = {
         name: 'language',
         type: 'String',
         required: true,
-        choices: [...I18nProvider.availableLocales.keys()]
+        choices: I18nProvider.availableLocales.map((_, k) => ({ name: I18nProvider.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k }))
       }]
     },
     {
