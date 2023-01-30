@@ -150,16 +150,33 @@
         "description": "The server ID you want to get information about. Only works for servers I'm in."
       }
     },
+    "memberStats": "Humans: `{humans}`, Bots: `{bots}`",
     "members": "Members",
-    "verificationLevel": "Verification Level",
+    "verificationLevel": {
+      "name": "Verification Level",
+      "0": "None",
+      "1": "Low",
+      "2": "Medium",
+      "3": "High",
+      "4": "Very High"
+    },
     "createdAt": "Created At",
-    "defaultNotifications": "Default Notifications",
+    "defaultNotifications": {
+      "name": "Default Notifications",
+      "0": "All Messages",
+      "1": "Only Mentions"
+    },
     "owner": "Owner",
     "memberCount": "Member Count",
     "locale": "Locale",
     "partnered": "Partnered",
     "emojis": "Emojis",
-    "boosts": "Boosts",
+    "boosts": {
+      "name": "Boosts",
+      "1": "Tier 1",
+      "2": "Tier 2",
+      "3": "Tier 3"
+    },
     "roles": "Roles",
     "channels": "Channels",
     "vanityUrl": "Vanity URL",

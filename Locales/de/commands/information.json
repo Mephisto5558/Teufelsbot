@@ -150,18 +150,34 @@
         "description": "Die Server-ID, über die du Infos einholen möchtest. Funktioniert nur für Server, in denen ich bin."
       }
     },
+    "memberStats": "Menschen: `{humans}`, Bots: `{bots}`",
     "members": "Mitglieder",
-    "verificationLevel": "Verifizierungsstufe",
+    "verificationLevel": {
+      "name": "Verifizierungsstufe",
+      "0": "Keine",
+      "1": "Niedrig",
+      "2": "Mittel",
+      "3": "Hoch",
+      "4": "Höchste"
+    },
     "createdAt": "Erstellt",
-    "defaultNotifications": "Standard-Benachrichtigungseinstellung",
+    "defaultNotifications": {
+      "name": "Standard-Benachrichtigungseinstellung",
+      "0": "Alle Nachrichten",
+      "1": "Nur Erwähnungen"
+    },
     "owner": "Eigentümer",
     "memberCount": "Mitgliedsanzahl",
     "locale": "Sprache",
     "partnered": "Gepartnert",
     "emojis": "Emojis",
-    "boosts": "Boosts",
+    "boosts": {
+      "name": "Boosts",
+      "1": "Stufe 1",
+      "2": "Stufe 2",
+      "3": "Stufe 3"
+    },
     "roles": "Rollen",
-    "channels": "Kanäle",
     "vanityUrl": "Benutzerdefinierte URL",
     "uses": "Nutzungen",
     "downloadIcon": "Icon Herunterladen",

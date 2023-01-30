@@ -40,5 +40,21 @@
     "SendMessagesInThreads": "Send Messages in Threads and Posts",
     "UseEmbeddedActivities": "Use Activities",
     "ModerateMembers": "Moderate Members"
+  },
+  "ChannelTypes": {
+    "plural": {
+      "0": "Text Channels",
+      "1": "DMs",
+      "2": "Voice Channels",
+      "3": "Group DMs",
+      "4": "Categories",
+      "5": "Announcement Channels",
+      "10": "Announcement Threads",
+      "11": "Public Threads",
+      "12": "Private Threads",
+      "13": "Stage Voices",
+      "14": "Directories",
+      "15": "Forums"
+    }
   }
 }
