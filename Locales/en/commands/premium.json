@@ -43,5 +43,29 @@
     "clear": {
       "success": "I removed your custom name."
     }
+  },
+  "editmessage": {
+    "description": "Edit any message sent by the bot",
+    "options": {
+      "channel": {
+        "description": "The channel the message is in."
+      },
+      "message_id": {
+        "description": "The id of the message you want me to edit."
+      },
+      "remove_attachments": {
+        "description": "Clear out everything on that message. eg. embeds, files"
+      }
+    },
+    "modalTitle": "EditMessage Command",
+    "textInputLabel": "Write the new content for that message.",
+    "textInputPlaceholder": "You can also use JSON!",
+    "notFound": "There is no message with that id in the specified channel!",
+    "notBotMessage": "I can only edit my own messages!",
+    "cannotEdit": "I cannot edit that message!",
+    "timedout": "You took to long to reply!",
+    "emptyJson": "The JSON you provided is empty!",
+    "error": "An error occurred while trying to send your custom JSON:\n```{err}```\n",
+    "success": "The message has been edited. [Link]({url})"
   }
 }
