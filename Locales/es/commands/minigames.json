@@ -1,0 +1,104 @@
+{
+  "coinflip": {
+    "description": "¡Invierte una moneda!",
+    "response": [
+      "¡Cabezas!",
+      "¡Gracias!"
+    ],
+    "side": "¡Oya! ¡La moneda aterrizó en su lado!"
+  },
+  "counting": {
+    "description": "¡Configura un canal de conteo donde los miembros puedan mostrar sus habilidades matemáticas!",
+    "usage": "Orden PREFIX contando: cuenta [#canal]",
+    "options": {
+      "channel": {
+        "description": "El canal que desea agregar (o eliminar, si ya se ha añadido) como un canal de conteo."
+      }
+    },
+    "added": {
+      "embedTitle": "¡Este canal es ahora un canal de cuenta!",
+      "embedDescription": "Las reglas son simples:\n> Comenzar con **1**.\n> Añade **1** al último número\n> No puedes contar dos números seguidos\n¡Diviértete!",
+      "by": "Añadido como canal de recuento por {user}",
+      "success": "Añadí con éxito <#{channel}> como canal de conteo."
+    },
+    "removed": {
+      "embedDescription": "¡Este canal ya no es un canal de cuento!",
+      "by": "Eliminado por {user}",
+      "success": "He eliminado con éxito <#{channel}> como canal de conteo."
+    }
+  },
+  "mgstats": {
+    "description": "obtener estadísticas acerca de uno de los minijuegos del bot",
+    "usage": "Comando PREFIX estadísticas: <game> [user]",
+    "options": {
+      "user": {
+        "description": "obtener estadísticas sobre ti o un usuario específico",
+        "options": {
+          "game": {
+            "description": "¿De qué juego quieres obtener estadísticas?",
+            "choices": {
+              "tictactoe": "TicTacToe"
+            }
+          },
+          "target": {
+            "description": "¿De qué usuario quieres obtener estadísticas?"
+          }
+        }
+      },
+      "leaderboard": {
+        "description": "consigue los 10 mejores jugadores de una partida",
+        "options": {
+          "game": {
+            "description": "¿De qué juego quieres obtener estadísticas?",
+            "choices": {
+              "tictactoe": "TicTacToe"
+            }
+          },
+          "settings": {
+            "description": "Aplicar/Desaplicar filtros a la tabla de clasificación",
+            "choices": {
+              "all_users": "Todos los usuarios globalmente"
+            }
+          }
+        }
+      }
+    },
+    "games": "Juegos: `{games}`\n\n",
+    "wins": "Victorias: {wins}\n",
+    "draws": "Dibujos: {draws}\n",
+    "loses": "Pérdidas: {loses}\n\n",
+    "noOne": "nadie\n",
+    "missingGameArg": "¡Necesitas darme un `juego` como el primer argumento!",
+    "notFound": "Esta no es una entrada de juego válida. Los juegos válidos son:\n`{list}`",
+    "wonAgainst": "Victorias contra:\n",
+    "lostAgainst": "Perdido contra:\n",
+    "drewAgainst": "En contra:\n",
+    "embedTitle": "` Estadísticas de{user}de {game}",
+    "embedTitleTop10": "Top 10 {game} jugadores",
+    "noWinners": "Parece que nadie ha ganado aún...",
+    "youNoGamesPlayed": "Aún no has jugado ninguna {game} partidas.",
+    "usrNoGamesPlayed": "{user} aún no ha jugado ninguna partida {game}."
+  },
+  "rps": {
+    "description": "Juega tijeras de papel contra el bot o (próximamente) contra tus amigos",
+    "embedTitle": "Piedra de papel tijeras",
+    "embedDescription": "¡Elegir un cartel!",
+    "rock": "Roca",
+    "paper": "Papel",
+    "scissors": "Tijeras",
+    "win": "¡Has ganado!",
+    "tie": "¡Hemos empatado!",
+    "lose": "¡Perdiste!",
+    "chose": "¡Escogí {chose}! {win} ({you} {symbol} {i})",
+    "timedOut": "¡Perdiste porque eligió no elegir nada!"
+  },
+  "tictactoe": {
+    "description": "jugar a TicTacToe contra un amigo o el bot",
+    "options": {
+      "opponent": {
+        "description": "¿A quién quieres jugar de nuevo?"
+      }
+    },
+    "newChallenge": "<@{user}> :crossed_swords: Nuevo desafío en duelo"
+  }
+}
