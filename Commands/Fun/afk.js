@@ -14,8 +14,8 @@ module.exports = {
 
   run: function (lang) {
     const
-      message = this.options?.getString('message') || this.content?.substring(0, 1000) || 'AFK',
-      global = this.options?.getBoolean('global'),
+      global = this.options?.getBoolean('global') ?? this.args?.[0] == 'global',
+      message = this.options?.getString('message') || this.content?.substring(global ? 7 : 0, 1000) || 'AFK',
       createdAt = Math.round(this.createdTimestamp / 1000).toString();
 
     if (global) this.client.db.update('userSettings', `${this.user.id}.afkMessage`, { message, createdAt });
