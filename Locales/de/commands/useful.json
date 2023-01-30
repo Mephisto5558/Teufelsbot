@@ -21,11 +21,6 @@
     "error": "Das Emoji konnte aus folgendem Grund nicht hinzugefügt werden:\n```\n{err}\n```",
     "timedOut": "Zeitüberschreitung bei der Anfrage. Eventuell ist das Bild zu groß."
   },
-  "autopublish": {
-    "description": "Veröffentlicht automatisch alles, was jemand in einem Ankündigungskanal sagt.",
-    "usage": "Dieser Befehl veröffentlicht automatisch alle Nachrichten, die in Ankündigungskanälen gesendet werden.\nDies ist ein Toggle.",
-    "success": "Autopublish wurde {toggle}."
-  },
   "button": {
     "description": "Erstelle einen Button.",
     "options": {
