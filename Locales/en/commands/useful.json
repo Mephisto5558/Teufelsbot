@@ -21,11 +21,6 @@
     "error": "Unable to create the emoji for reason:\n```\n{err}\n```",
     "timedOut": "The request timed out. Maybe the image is to large."
   },
-  "autopublish": {
-    "description": "automatically publishes everything anyone in any announcement channel says",
-    "usage": "This command publishes all messages sent in announcement channels automatically.\nThis is a toggle.",
-    "success": "{toggle} autopublishing."
-  },
   "button": {
     "description": "Create a button.",
     "options": {

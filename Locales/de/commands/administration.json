@@ -1,4 +1,9 @@
 {
+  "autopublish": {
+    "description": "Veröffentlicht automatisch alles, was jemand in einem Ankündigungskanal sagt.",
+    "usage": "Dieser Befehl veröffentlicht automatisch alle Nachrichten, die in Ankündigungskanälen gesendet werden.\nDies ist ein Toggle.",
+    "success": "Autopublish wurde {toggle}."
+  },
   "serverbackup": {
     "description": "Verwalte deine Server-Backups.",
     "options": {
