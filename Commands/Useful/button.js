@@ -1,8 +1,4 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
-const validateURL = url => {
-  try { return !!new URL(url); }
-  catch (error) { return !!new URL(`https://${url}`); }
-};
 
 module.exports = {
   name: 'button',
@@ -22,8 +18,8 @@ module.exports = {
       options: [
         {
           name: 'style',
-          type: 'Number',
-          choices: Object.keys(ButtonStyle).filter(Number),
+          type: 'String',
+          choices: Object.keys(ButtonStyle).filter(Number).map(e => e.toString()),
           required: true
         },
         { name: 'emoji', type: 'String' },
@@ -32,7 +28,11 @@ module.exports = {
           type: 'String',
           maxLength: 80
         },
-        { name: 'url', type: 'String' },
+        {
+          name: 'url',
+          type: 'String',
+          maxLength: 1000
+        },
         { name: 'new_row', type: 'Boolean' },
         { name: 'content', type: 'String' },
         { name: 'message_id', type: 'String' }
@@ -43,25 +43,29 @@ module.exports = {
   run: async function (lang) {
     const
       custom = this.options.getString('json'),
-      content = this.options.getString('content') || undefined,
-      isLink = this.options.getNumber('style') == ButtonStyle.Link;
+      content = this.options.getString('content') ?? undefined,
+      isLink = this.options.getString('style') == ButtonStyle.Link;
 
     let
       msg = this.options.getString('message_id'),
-      url = isLink ? validateURL(this.options.getString('url')) : undefined,
-      button;
+      url = this.options.getString('url');
 
-    if (url === false) return this.editReply(lang('invalidURL'));
+    if (isLink) {
+      if (!/^((discord|https?):\/\/)?[\w.-]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
+      if (!url.startsWith('http') && !url.startsWith('discord')) url = `https://${url}`;
+    }
+
     if (msg) {
       try { msg = await this.channel.messages.fetch(msg); }
       catch { return this.editReply(lang('msgNotFound')); }
+
       if (msg.user.id != this.client.user.id) return this.editReply(lang('botIsNotAuthor'));
       if (msg.components[4]?.components?.[4] || (msg.components[4] && this.options.getBoolean('new_row'))) return this.editReply(lang('buttonLimit'));
     }
 
     try {
-      button = new ButtonBuilder(custom ? JSON.parse(custom) : {
-        style: this.options.getNumber('style'),
+      const button = new ButtonBuilder(custom ? JSON.parse(custom) : {
+        style: parseInt(this.options.getString('style')),
         label: this.options.getString('label'),
         emoji: this.options.getString('emoji'),
         url
@@ -76,12 +80,10 @@ module.exports = {
 
       if (msg) await msg.edit({ content, components });
       else await this.channel.send({ content, components });
+
+      delete button.data.custom_id;
+      this.editReply(custom ? lang('successJSON') : lang('success', JSON.stringify(button.data.filterEmpty())));
     }
     catch (err) { return this.editReply(lang('invalidOption', err.message)); }
-
-    if (custom) return this.editReply(lang('successJSON'));
-
-    delete button.data.custom_id;
-    this.editReply(lang('success', JSON.stringify(button.data.filterEmpty())));
   }
 };
