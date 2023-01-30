@@ -117,7 +117,7 @@ module.exports = async function slashCommandHandler(syncGuild) {
         command.category = subFolder;
 
         for (const [, applicationCommand] of await applicationCommands) {
-          if (!equal(command, applicationCommand)) continue;
+          if (syncGuild || !equal(command, applicationCommand)) continue;
           this.log(`Skipped Slash Command ${command.name}`);
           skipped = true;
           skippedCommands.set(command.name, command);
