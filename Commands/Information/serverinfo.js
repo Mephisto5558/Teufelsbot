@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, GuildDefaultMessageNotifications, ChannelType, GuildPremiumTier, GuildVerificationLevel, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
   run: async function (lang) {
     const
       guild = this.client.guilds.cache.get(this.options?.getString('guild_id') || this.args[0]) || this.guild,
-      channels = Array.from(guild.channels.cache.values()),
+      channels = Array.from((await guild.channels.fetch()).values()),
       embed = new EmbedBuilder({
         title: guild.name,
         description: guild.description,
@@ -25,26 +25,19 @@ module.exports = {
         thumbnail: { url: guild.iconURL() },
         image: { url: guild.bannerURL({ size: 1024 }) },
         fields: [
-          { name: lang('members'), value: `${lang('global.user')}: \`${guild.members.cache.filter(e => !e.user.bot).size}\`, Bots: \`${guild.members.cache.filter(e => e.user.bot).size}\``, inline: true },
-          { name: lang('verificationLevel'), value: GuildVerificationLevel[guild.verificationLevel], inline: true },
+          { name: lang('members'), value: lang('memberStats', { humans: (await guild.members.fetch()).filter(e => !e.user.bot).size, bots: guild.members.cache.filter(e => e.user.bot).size }), inline: true },
+          { name: lang('verificationLevel.name'), value: lang(`verificationLevel.${guild.verificationLevel}`), inline: true },
           { name: 'ID', value: `\`${guild.id}\``, inline: true },
           { name: lang('createdAt'), value: `<t:${Math.round(guild.createdTimestamp / 1000)}>`, inline: true },
-          { name: lang('defaultNotifications'), value: GuildDefaultMessageNotifications[guild.defaultMessageNotifications], inline: true },
+          { name: lang('defaultNotifications.name'), value: lang(`defaultNotifications.${guild.defaultMessageNotifications}`), inline: true },
           { name: lang('owner'), value: `<@${guild.ownerId}>`, inline: true },
           { name: lang('memberCount'), value: `\`${guild.memberCount}\``, inline: true },
           { name: lang('locale'), value: guild.preferredLocale, inline: true },
           { name: lang('partnered'), value: lang(`global.${guild.partnered}`), inline: true },
           { name: lang('emojis'), value: `\`${guild.emojis.cache.size}\``, inline: true },
           { name: lang('roles'), value: `\`${guild.roles.cache.size}\``, inline: true },
-          { name: lang('boosts'), value: `\`${guild.premiumSubscriptionCount}\`${guild.premiumTier ? ', ' + GuildPremiumTier[guild.premiumTier].replace(/(\d)/, ' $1') : ''}`, inline: true },
-          {
-            name: lang('channels'), value: (() => {
-              const sorted = {};
-              channels.map(({ type }) => sorted[type] = sorted[type] ? sorted[type] + 1 : 1);
-              return Object.entries(sorted).map(([k, v]) => `${ChannelType[k].replace('Guild', '')} ${lang('channels')}: \`${v}\``).join(', ');
-            })(),
-            inline: false
-          },
+          { name: lang('boosts.name'), value: `\`${guild.premiumSubscriptionCount}\`, ` + (guild.premiumTier ? lang(`boosts.${guild.premiumTier}`) : ''), inline: true },
+          { name: lang('channels'), value: Object.entries(channels.reduce((acc, { type }) => ({ ...acc, [type]: (acc[type] + 1) || 1 }), {})).map(([k, v]) => `${lang('others.ChannelTypes.plural.' + k)}: \`${v}\``).join(', '), inline: false },
           guild.vanityURLCode && (
             { name: 'Vanity URL', value: guild.vanityURLCode, inline: true },
             { name: `Vanity URL ${lang('uses')}`, value: guild.vanityURLUses, inline: true }

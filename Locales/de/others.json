@@ -40,5 +40,21 @@
     "SendMessagesInThreads": "Nachrichten in Threads und Posts senden",
     "UseEmbeddedActivities": "Aktivitäten nutzen",
     "ModerateMembers": "Mitglieder moderieren"
+  },
+  "ChannelTypes": {
+    "plural": {
+      "0": "Textkanäle",
+      "1": "DMs",
+      "2": "Sprachkanäle",
+      "3": "Gruppen-DMs",
+      "4": "Kategorien",
+      "5": "Ankündigungskanäle",
+      "10": "Ankündigungs-Threads",
+      "11": "Öffentliche Threads",
+      "12": "Private Threads",
+      "13": "Stage-Kanäle",
+      "14": "Ordner",
+      "15": "Foren"
+    }
   }
 }
