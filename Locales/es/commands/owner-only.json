@@ -1,0 +1,62 @@
+{
+  "blacklistuser": {
+    "description": "bloquea que un usuario utilice el bot",
+    "usage": "Comando de PREFIX negra: usuario de lista negra <user id>",
+    "noInput": "Necesitas proporcionar un id.",
+    "notFound": "No se encontró ninguna entrada para este id.",
+    "saved": "`{user}` ha sido bloqueado de usar el bot.",
+    "removed": "La entrada de la lista negra para `{user}` ha sido eliminada.",
+    "cantBlacklistOwner": "¡No puedo negar al dueño del bot!"
+  },
+  "dbget": {
+    "description": "consultar datos de la base de datos",
+    "usage": "Comando PREFIX : dbget <database name>",
+    "notFound": "nada encontrado"
+  },
+  "eval": {
+    "description": "inyectar código JavaScript directamente en el bot",
+    "usage": "Comando PREFIX <js code>",
+    "finished": "comando evaluado:\n```js\n{code}\n```\n",
+    "success": "{msg} sin errores.",
+    "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
+  },
+  "gitpull": {
+    "description": "Run a git pull",
+    "success": "Ejecutado con éxito el comando."
+  },
+  "globalsync": {
+    "description": "sincroniza los comandos barridos del bot con todos los gremios",
+    "success": "Sincronización finalizada."
+  },
+  "reload": {
+    "description": "Carga un archivo o categoría",
+    "usage": "Comando PREFIX recarga <command | \"*\">",
+    "invalidCommand": "Este no es un comando válido.",
+    "error": "Se ha producido un error al recargar:\n```{error}```\nCompruebe la consola para más información.",
+    "noneReloaded": "Ningún comando ha sido recargado.",
+    "reloaded": "El siguiente `{count}`comando(s) ha/han sido recargados:\n`{commands}"
+  },
+  "reloaddb": {
+    "description": "Recarga la base de datos",
+    "success": "Recargado el db."
+  },
+  "reloadlang": {
+    "description": "Recarga todos los archivos de idioma",
+    "success": "Recargado todos los archivos de idioma."
+  },
+  "restart": {
+    "description": "Reinicia el bot",
+    "message": "Restarting bot...",
+    "success": "Reinicio exitoso."
+  },
+  "setactivity": {
+    "description": "Establece la actividad del bot",
+    "usage": "Comando: setactivity <activity>;[type]",
+    "invalidType": "Este no es un tipo válido. Los tipos válidos son:\n`{types}`",
+    "set": "Actividad establecida a `{name}` de tipo `{type}`.",
+    "reset": "Actividad establecida a `ninguno`."
+  },
+  "test": {
+    "description": "testear cosas"
+  }
+}
