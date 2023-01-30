@@ -1,0 +1,25 @@
+{
+  "suggest": {
+    "description": "Sugiere una característica para el bot en su GitHub.",
+    "options": {
+      "title": {
+        "description": "el título de tu sugerencia"
+      },
+      "suggestion": {
+        "description": "tu sugerencia para el bot"
+      },
+      "importance": {
+        "description": "¿Qué tan importante es su sugerencia?",
+        "choices": {
+          "low": "Baja",
+          "medium": "Medio",
+          "hight": "Altura"
+        }
+      }
+    },
+    "error": "Ha ocurrido un error.\n{err}",
+    "embedTitle": "Éxito",
+    "alreadySent": "Esta sugerencia ya ha sido enviada. [Link]({url}).",
+    "embedDescription": "Tu sugerencia ha sido enviada.\n[Enlace de sugerencia]({url})"
+  }
+}
