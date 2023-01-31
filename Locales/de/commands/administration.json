@@ -1,4 +1,9 @@
 {
+  "autopublish": {
+    "description": "Veröffentlicht automatisch alles, was jemand in einem Ankündigungskanal sagt.",
+    "usage": "Dieser Befehl veröffentlicht automatisch alle Nachrichten, die in Ankündigungskanälen gesendet werden.\nDies ist ein Toggle.",
+    "success": "Autopublish wurde {toggle}."
+  },
   "serverbackup": {
     "description": "Verwalte deine Server-Backups.",
     "options": {
@@ -237,12 +242,7 @@
         "description": "Ändere die Sprache des Bots.",
         "options": {
           "language": {
-            "description": "In welcher Sprache soll der Bot antworten?",
-            "choices": {
-              "de": "Deutsch",
-              "en": "Englisch",
-              "ru": "Russisch"
-            }
+            "description": "In welcher Sprache soll der Bot antworten?"
           }
         }
       },
