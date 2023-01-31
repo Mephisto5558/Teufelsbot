@@ -53,7 +53,7 @@ module.exports = {
         { name: 'short', type: 'Boolean' }
       ]
     }
-  ], beta: true,
+  ],
 
   run: function (lang) {
     const
