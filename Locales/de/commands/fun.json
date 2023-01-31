@@ -712,8 +712,8 @@
       "delete": {
         "description": "Lösche einen Trigger. Dies ist unumkehrbar!",
         "options": {
-          "id": {
-            "description": "Nutze \"/trigger get\" um die Trigger-ID zu erhalten. Lasse dies leer, um die letzte ID zu löschen."
+          "query_or_id": {
+            "description": "Welchen Trigger möchtest du löschen? Lasse dies leer, um die letzte ID zu löschen."
           }
         }
       },
@@ -728,11 +728,8 @@
       "get": {
         "description": "Erhalte einen oder alle Trigger.",
         "options": {
-          "query": {
-            "description": "Sucht einen Auslöser nach seinem Inhalt."
-          },
-          "id": {
-            "description": "Die Auslöser-ID kann mit \"/trigger get\" gefunden werden."
+          "query_or_id": {
+            "description": "Sucht einen Auslöser nach seinem Inhalt oder seiner ID."
           },
           "short": {
             "description": "Zeigt so viele Auslöser wie möglich an"
@@ -740,18 +737,18 @@
         }
       }
     },
-    "saved": "Ein neuer Trigger für `{trigger}` wurde hinzugefügt.",
-    "idNotFound": "Es existiert kein Trigger mit dieser ID!",
-    "deletedOne": "Der Trigger mit der ID `{id}` wurde gelöscht.",
-    "deletedAll": "Ich habe alle (`{count}`) Trigger gelöscht.",
-    "noneFound": "Es gibt keine Trigger!",
-    "notFound": "Kein Trigger passt zu deiner Suchanfrage.",
+    "saved": "Ein neuer Auslöser für `{trigger}` wurde hinzugefügt.",
+    "idNotFound": "Es existiert kein Auslöser mit dieser ID!",
+    "deletedOne": "Der Auslöser mit der ID `{id}` wurde gelöscht.",
+    "deletedAll": "Ich habe alle (`{count}`) Auslöser gelöscht.",
+    "noneFound": "Es gibt keine Auslöser!",
+    "notFound": "Kein Auslöser passt zu deiner Suchanfrage.",
     "confirmation": "lösche alles",
     "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!",
     "embedTitle": "Trigger",
-    "fieldName": "**Auslöser {id}:**",
-    "fieldValue": "```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",
-    "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Ausgabe: `{response}`\n> Wildcard: `{wildcard}`\n\n",
+    "embedTitleOne": "**Auslöser {id}:**",
+    "embedDescriptionOne": "Auslöser:\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",
+    "longEmbedDescription": "ID: {id}\n> Auslöser: `{trigger}`\n> Ausgabe: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
     "shortFieldValue": "**Auslöser:**\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`\n",
     "first25": "Die ersten 25 Auslöser. Erhalte mehr per `short` Option."

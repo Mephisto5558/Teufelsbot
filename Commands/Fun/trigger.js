@@ -26,7 +26,11 @@ module.exports = {
     {
       name: 'delete',
       type: 'Subcommand',
-      options: [{ name: 'id', type: 'Number' }]
+      options: [{
+        name: 'query_or_id',
+        type: 'String',
+        autocompleteOptions: function () { return this.guild.db.triggers?.flatMap(e => [e.trigger, e.id]).sort(e => typeof e == 'string' ? -1 : 1).map(String) || []; }
+      }]
     },
     {
       name: 'clear',
@@ -41,19 +45,20 @@ module.exports = {
       name: 'get',
       type: 'Subcommand',
       options: [
-        { name: 'query', type: 'String' },
-        { name: 'id', type: 'Number' },
+        {
+          name: 'query_or_id',
+          type: 'String',
+          autocompleteOptions: function () { return this.guild.db.triggers?.flatMap(e => [e.trigger, e.id]).sort(e => typeof e == 'string' ? -1 : 1).map(String) || []; }
+        },
         { name: 'short', type: 'Boolean' }
       ]
     }
-  ],
+  ], beta: true,
 
   run: function (lang) {
     const
       oldData = this.guild.db.triggers || [],
-      query = this.options.getString('query')?.toLowerCase();
-
-    let id = this.options.getNumber('id');
+      query = this.options.getString('query_or_id')?.toLowerCase();
 
     switch (this.options.getSubcommand()) {
       case 'add': {
@@ -64,14 +69,15 @@ module.exports = {
           wildcard: this.options.getBoolean('wildcard') ?? false
         };
 
-        this.client.db.update('guildSettings', `${this.guild.id}.triggers`, [...oldData, data]);
+        this.client.db.update('guildSettings', `${this.guild.id}.triggers`, oldData.concat(data));
         return this.editReply(lang('saved', data.trigger));
       }
 
       case 'delete': {
-        if (!id) id = Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id;
+        const
+          { id } = (query ? Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) : Object.values(oldData).sort((a, b) => b.id - a.id)[0]) || {},
+          filtered = oldData.filter(e => e.id != id);
 
-        const filtered = oldData.filter(e => e.id != id);
         if (filtered.length == oldData.length) return this.editReply(lang('idNotFound'));
 
         this.client.db.update('guildSettings', `${this.guild.id}.triggers`, filtered);
@@ -89,53 +95,40 @@ module.exports = {
       case 'get': {
         if (!oldData.length) return this.editReply(lang('noneFound'));
 
-        const embed = new EmbedBuilder({
-          title: lang('embedTitle'),
-          color: Colors.Blue
-        });
+        const
+          embed = new EmbedBuilder({
+            title: lang('embedTitle'),
+            color: Colors.Blue
+          });
 
-        if (id >= 0 || query) {
-          const data = oldData.filter(e => query ? e.trigger.toLowerCase().includes(query) : e.id == id);
-          if (!data.trigger) return this.editReply(lang('notFound'));
+        if (query || query == 0) {
+          const { id, trigger, response, wildcard } = Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) || {};
+          if (!trigger) return this.editReply(lang('notFound'));
 
-          embed.data.fields = data.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
-            name: lang('fieldName', id),
-            value: lang('fieldValue', {
-              trigger: trigger.length < 1900 ? trigger : trigger.substring(0, 197) + '...',
-              response: response.length < 1900 ? response : response.substring(0, 197) + '...',
-              wildcard: !!wildcard
-            }),
-            inline: false
-          }));
-
-          return this.editReply({ embeds: [embed] });
+          embed.data.title = lang('embedTitleOne', id);
+          embed.data.description = lang('embedDescriptionOne', {
+            trigger: trigger.length < 1900 ? trigger : trigger.substring(0, 1897) + '...',
+            response: response.length < 1900 ? response : response.substring(0, 1897) + '...',
+            wildcard: !!wildcard
+          });
         }
-
-        if (this.options.getBoolean('short')) {
-          let description = '';
-          for (const { id, trigger, response, wildcard } of oldData) {
-            if (description.length >= 3800) break;
-
-            description += lang('longEmbedDescription', {
-              id, wildcard: !!wildcard,
-              trigger: trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...',
-              response: response.length < 20 ? response : response.substring(0, 17) + '...'
-            });
-          }
-
-          embed.data.description = description;
-        }
-        else {
+        else if (this.options.getBoolean('short')) {
           embed.data.description = oldData.length > 25 ? lang('first25') : ' ';
           embed.data.fields = oldData.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
-            name: lang('shortFieldName', id),
+            name: lang('shortFieldName', id), inline: true,
             value: lang('shortFieldValue', {
               trigger: trigger.length < 200 ? trigger : trigger.subsstring(0, 197) + '...',
               response: response.length < 200 ? response : response.subsstring(0, 197) + '...',
               wildcard: !!wildcard
-            }),
-            inline: true
+            })
           }));
+        }
+        else {
+          embed.data.description = oldData.reduce((acc, { id, trigger, response, wildcard }) => acc.length >= 3800 ? acc : acc + lang('longEmbedDescription', {
+            id, wildcard: !!wildcard,
+            trigger: trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...',
+            response: response.length < 20 ? response : response.substring(0, 17) + '...'
+          }), '');
         }
 
         this.editReply({ embeds: [embed] });
