@@ -9,6 +9,24 @@ async function componentHandler(lang) {
   }
 }
 
+async function autocompleteHandler(command) {
+  const
+    lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.localeCode, backupPath: `commands.${command.category.toLowerCase()}.${command.name}`, undefinedNotFound: true }),
+    response = v => ({ name: lang(`options.${this.options._group ? this.options._group + '.' : ''}${this.options._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });
+
+  let { options } = command.fMerge();
+  if (this.options._group) options = options.find(e => e.name == this.options._group);
+  if (this.options._subcommand) options = options.find(e => e.name == this.options._subcommand).options;
+  options = options.find(e => e.name == this.focused.name).autocompleteOptions;
+  if (typeof options == 'function') options = await options.call(this);
+
+  return this.respond(
+    typeof options == 'string' ? [response(options)] : options
+      .filter(e => e.toLowerCase().includes(this.focused.value.toLowerCase()))
+      .slice(0, 25).map(response)
+  );
+}
+
 module.exports = async function interactionCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
   if (this.type == InteractionType.MessageComponent) return componentHandler.call(this, I18nProvider.__.bBind(I18nProvider, { locale: this.guild.localeCode }));
@@ -25,24 +43,7 @@ module.exports = async function interactionCreate() {
   if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.reply({ content: lang('events.notAllowed.channel'), ephemeral: true });
   if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return this.reply({ content: lang('events.notAllowed.role'), ephemeral: true });
 
-  if (this.type == InteractionType.ApplicationCommandAutocomplete) {
-    const
-      lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.localeCode, backupPath: `commands.${command.category.toLowerCase()}.${command.name}`, undefinedNotFound: true }),
-      response = v => ({ name: lang(`options.${this.options._group ? this.options._group + '.' : ''}${this.options._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });
-
-    let { options } = command.fMerge();
-    if (this.options._group) options = options.find(e => e.name == this.options._group);
-    if (this.options._subcommand) options = options.find(e => e.name == this.options._subcommand).options;
-    options = options.find(e => e.name == this.focused.name).autocompleteOptions;
-    if (typeof options == 'function') options = await options.call(this);
-
-    return this.respond(
-      typeof options == 'string' ? [response(options)] : options
-        .filter(e => e.toLowerCase().includes(this.focused.value.toLowerCase()))
-        .slice(0, 25)
-        .map(response)
-    );
-  }
+  if (this.type == InteractionType.ApplicationCommandAutocomplete) return autocompleteHandler.call(this, command);
 
   const cooldown = cooldowns.call(this, command);
   if (cooldown) return this.reply({ content: lang('events.cooldown', cooldown), ephemeral: true });
