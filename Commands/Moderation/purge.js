@@ -18,7 +18,7 @@ function checkMsg(msg, getStr) {
     (!options.includes('member') || msg.user.id == this.options.getUser('member').id) &&
     (!options.includes('user_type') || getStr('user_type') == (msg.user.bot ? 'bot' : 'human')) &&
     (!options.includes('only_containing') || filterCheck[getStr('only_containing')](msg)) &&
-    (!options.includes('caps_percentage') || (this.options.getNumber('caps_percentage') <= msg.content.replace(/[a-z]/g, '').length / msg.content.length * 100)) &&
+    (!options.includes('caps_percentage') || (this.options.getNumber('caps_percentage') <= msg.content.replace(/[^A-Z]/g, '').length / msg.content.length * 100)) &&
     (!options.includes('contains') || !(msg.content.includes(getStr('contains')) || msg.embeds?.find(e => e.description.includes(getStr('contains'))))) &&
     (!options.includes('does_not_contain') || !(msg.content.includes(getStr('does_not_contain')) || msg.embeds?.find(e => e.description.includes(getStr('does_not_contain'))))) &&
     (!options.includes('starts_with') || !(msg.content.statsWith(getStr('starts_with')) || msg.embeds?.find(e => e.description.startsWith(getStr('starts_with'))))) &&
