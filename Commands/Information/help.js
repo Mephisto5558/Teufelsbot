@@ -16,7 +16,6 @@ function listCommands(list, output, count, category) {
 
 module.exports = {
   name: 'help',
-  cooldowns: { user: 50 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
@@ -48,20 +47,17 @@ module.exports = {
         embed.data.fields = [
           cmd.aliases?.prefix?.length && { name: lang('one.prefixAlias'), value: `\`${cmd.aliases.prefix.join('`, `')}\``, inline: true },
           cmd.aliases?.slash?.length && { name: lang('one.slashAlias'), value: `\`${cmd.aliases.slash.join('`, `')}\``, inline: true },
-          cmd.permissions?.client?.length && { name: lang('one.botPerms'), value: `\`${permissionTranslator(cmd.permissions.client).join('`, `')}\``, inline: false },
-          cmd.permissions?.user?.length && { name: lang('one.userPerms'), value: `\`${permissionTranslator(cmd.permissions.user).join('`, `')}\``, inline: true },
+          cmd.permissions?.client?.length && { name: lang('one.botPerms'), value: `\`${permissionTranslator(cmd.permissions.client, lang.__boundArgs__[0].locale).join('`, `')}\``, inline: false },
+          cmd.permissions?.user?.length && { name: lang('one.userPerms'), value: `\`${permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale).join('`, `')}\``, inline: true },
           (cmd.cooldowns?.user || cmd.cooldowns?.guild) && {
             name: lang('one.cooldowns'), inline: false,
-            value: Object.entries(cmd.cooldowns).filter(([, e]) => e).map(([k, v]) =>
-              `${lang('global.' + k)}: \`${parseFloat((v / 1000).toFixed(2))}\`s`, '').join(', ')
-          },
-          (cmd.cooldowns?.user || cmd.cooldowns?.guild) && {
-            name: lang('one.cooldowns'), inline: false,
-            value: Object.entries(cmd.cooldowns).filter(([, e]) => e).map(([k, v]) =>
-              lang('global.' + k) + ':' + v / 60000 < 1
-                ? `${Math.floor(v / 60000)}min ${((v % 60000) / 1000)}s`
-                : `${(v / 1000).toFixed(2)}s`
-            ).join(', ')
+            value: Object.entries(cmd.cooldowns).filter(([, e]) => e).map(([k, v]) => {
+              let min = Math.floor(v / 60000), sec = (v % 60000 / 1000);
+              sec = !(sec % 1) ? Math.floor(sec) : sec.toFixed(2);
+
+              if (min && sec) return `${lang('global.' + k)}: ${min}min ${sec}s`;
+              return lang(`global.${k}`) + ': ' + (min ? `${min}min` : `${sec}s`);
+            }).join(', ')
           },
           helpLang('usage') && { name: lang('one.usage'), value: `${cmd.slashCommand ? lang('one.lookAtDesc') : ''} ${helpLang('usage') || ''}`, inline: false }
         ].filter(Boolean);
