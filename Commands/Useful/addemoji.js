@@ -32,19 +32,14 @@ module.exports = {
       name = this.options.getString('name')?.slice(0, 32) || (emoticon.id ? emoticon.name : 'emoji'),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        color: Colors.Green
-      }),
-      sendEmbed = desc => {
-        embed.data.description = desc;
-        this.editReply({ embeds: [embed] });
-      };
+        color: Colors.Red
+      });
 
-    if (this.guild.emojis.cache.has(emoticon.id)) return sendEmbed(lang('isGuildEmoji'));
+    if (this.guild.emojis.cache.has(emoticon.id)) return this.editReply({ embeds: [embed.setDescription(lang('isGuildEmoji'))] });
     if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
-    else if (!/^(?:https?:\/\/)?(?:www\.)?.*\.(?:jpg|jpeg|png|webp|svg|gif)(?:\?.*)?$/i.test(input))
-      return sendEmbed(lang('invalidUrl'));
+    else if (!/^(https?:\/\/)?(www\.)?.*\.(jpg|jpeg|png|webp|svg|gif)(\?.*)?$/i.test(input)) return this.editReply({ embeds: [embed.setDescription(lang('invalidUrl'))] });
     if (!input.startsWith('http')) input = `https://${input}`;
-    if (/4\d\d/.test((await head(input)).status)) return sendEmbed(lang('notFound'));
+    if (/4\d\d/.test((await head(input)).status)) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
 
     try {
       const emoji = await this.guild.emojis.create({
@@ -58,11 +53,10 @@ module.exports = {
     }
     catch (err) {
       if (err.name != 'DiscordAPIError[30008]') throw err;
-
-      embed.data.color = Colors.Red;
       embed.data.description = lang('error', err.name == 'AbortError' ? lang('timedOut') : err.message);
     }
 
+    embed.data.color = Colors.Green;
     this.editReply({ embeds: [embed] });
   }
 };
