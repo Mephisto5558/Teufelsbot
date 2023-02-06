@@ -242,12 +242,7 @@
         "description": "Ändere die Sprache des Bots.",
         "options": {
           "language": {
-            "description": "In welcher Sprache soll der Bot antworten?",
-            "choices": {
-              "de": "Deutsch",
-              "en": "Englisch",
-              "ru": "Russisch"
-            }
+            "description": "In welcher Sprache soll der Bot antworten?"
           }
         }
       },
