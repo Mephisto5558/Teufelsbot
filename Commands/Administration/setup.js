@@ -143,7 +143,7 @@ module.exports = {
       }
       case 'language': {
         const
-          language = this.options.getString('lang'),
+          language = this.options.getString('language'),
           embed = new EmbedBuilder({
             title: lang('language.embedTitle'),
             description: lang('language.embedDescription', language),

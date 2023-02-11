@@ -18,7 +18,7 @@ module.exports = async function messageCreate() {
 
   const
     { config = {}, economy = {} } = this.guild?.db ?? {},
-    locale = this.guild?.localeCode,
+    locale = config.lang ?? this.guild?.localeCode,
     { caseinsensitive } = config[this.client.botType == 'dev' ? 'betaBotPrefix' : 'prefix'] ?? {};
 
   let guildPrefix = this.client.botType == 'dev' ? config.betaBotPrefix?.prefix || this.client.defaultSettings.config.betaBotPrefix : config.prefix?.prefix || this.client.defaultSettings.config.prefix;
