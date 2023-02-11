@@ -5,10 +5,11 @@ const
 
 module.exports = async function errorHandler(err, message, lang) {
   if (!this.error) this.error = console.error;
-  if (!message) {
-    this.error(' [Error Handling] :: Uncaught Error');
-    return this.error(err.stack);
-  }
+
+  this.error(' [Error Handling] :: Uncaught Error');
+  this.error(err.stack);
+
+  if (!message) return;
 
   const
     octokit = new Octokit({ auth: this.keys.githubKey }),
@@ -26,12 +27,8 @@ module.exports = async function errorHandler(err, message, lang) {
           disabled: this.botType == 'dev'
         })
       ]
-    });
-
-  this.error(' [Error Handling] :: Uncaught Error');
-  this.error(err.stack);
-
-  const msg = await message.customReply({ embeds: [embed], components: [comp] });
+    }),
+    msg = await message.customReply({ embeds: [embed], components: [comp] });
 
   if (this.botType == 'dev') return;
 
@@ -51,10 +48,7 @@ module.exports = async function errorHandler(err, message, lang) {
       }
 
       await octokit.request(`POST /repos/${Github.UserName}/${Github.RepoName}/issues`, {
-        title: title,
-        body:
-          `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.guild.members.me.id}</h3>\n\n` +
-          err.stack,
+        title, body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack}`,
         assignees: [Github.UserName],
         labels: ['bug']
       });
