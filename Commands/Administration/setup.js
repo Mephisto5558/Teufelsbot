@@ -49,7 +49,7 @@ module.exports = {
         name: 'language',
         type: 'String',
         required: true,
-        choices: I18nProvider.availableLocales.map((_, k) => ({ name: I18nProvider.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k }))
+        autocompleteOptions: function () { return I18nProvider.availableLocales.map((_, k) => ({ name: I18nProvider.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k })).filter(e => e.toLowerCase().includes(this.focused.value.toLowerCase())).slice(0, 25); }
       }]
     },
     {
@@ -58,7 +58,7 @@ module.exports = {
       options: [{
         name: 'allowed_to_load',
         type: 'String',
-        choices: [...backup.keys()],
+        autocompleteOptions: [...backup.keys()],
         required: true
       }]
     }
