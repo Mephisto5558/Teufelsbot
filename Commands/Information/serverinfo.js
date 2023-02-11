@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Locale } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = {
@@ -32,7 +32,7 @@ module.exports = {
           { name: lang('defaultNotifications.name'), value: lang(`defaultNotifications.${guild.defaultMessageNotifications}`), inline: true },
           { name: lang('owner'), value: `<@${guild.ownerId}>`, inline: true },
           { name: lang('memberCount'), value: `\`${guild.memberCount}\``, inline: true },
-          { name: lang('locale'), value: guild.preferredLocale, inline: true },
+          { name: lang('locale'), value: Locale[guild.preferredLocale], inline: true },
           { name: lang('partnered'), value: lang(`global.${guild.partnered}`), inline: true },
           { name: lang('emojis'), value: `\`${guild.emojis.cache.size}\``, inline: true },
           { name: lang('roles'), value: `\`${guild.roles.cache.size}\``, inline: true },
