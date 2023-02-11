@@ -20,6 +20,7 @@ async function autocompleteHandler(command, locale) {
   options = options.find(e => e.name == this.focused.name).autocompleteOptions;
   if (typeof options == 'function') options = await options.call(this);
 
+  if (Object(options) == options) return this.respond(options);
   return this.respond(
     typeof options == 'string' ? [response(options)] : options
       .filter(e => e.toLowerCase().includes(this.focused.value.toLowerCase()))
