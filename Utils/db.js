@@ -5,7 +5,7 @@ const
 module.exports = class DB {
   /**@param {string}dbConnectionString MongoDB connection string*/
   constructor(dbConnectionString) {
-    if (Mongoose.connection.readyState !== 1) {
+    if (Mongoose.connection.readyState != 1) {
       if (!dbConnectionString) throw new Error('A Connection String is required!');
       Mongoose.connect(dbConnectionString);
     }
@@ -66,7 +66,7 @@ module.exports = class DB {
 
     if (!data) data = new this.schema({ key: db, value: {} });
     else if (!data.value) data.value = {};
-    else if (typeof data.value != 'object') throw new Error(`data.value in db must be typeof object! Found ${typeof data.value}.`);
+    else if (typeof data.value != 'object') throw new Error(`data.value in db ${db} must be typeof object! Found ${typeof data.value}.`);
 
     DB.mergeWithFlat(data.value, key, value);
 
@@ -76,11 +76,13 @@ module.exports = class DB {
   }
 
   async push(key, ...pushValue) {
-    const dbData = this.collection.get(key);
     const values = pushValue.flat();
+    let dbData = this.collection.get(key);
 
-    if (!Array.isArray(dbData)) throw Error(`You can't push data to a ${typeof dbData} value!`);
-    data.push(pushValue);
+    if (!dbData) dbData = new this.schema({ key, value: pushValue });
+    else if (!data.value) data.value = pushValue;
+    else if (!Array.isArray(dbData)) throw Error(`You can't push data to a ${typeof dbData} value!`);
+    dbData.push(...pushValue);
 
     const data = await this.schema.findOne({ key });
     data.value = [...data.value, ...values];
@@ -96,7 +98,7 @@ module.exports = class DB {
     return this.collection.delete(key);
   }
 
-  /**@param {{}}obj gets mutated! @param {string}key@example DB.mergeWithFlat({a: {b:1}}, 'a.c', 2) @returns reduce return value*/
+  /**@param {object}obj gets mutated! @param {string}key@returns reduce return value @example DB.mergeWithFlat({a: {b:1}}, 'a.c', 2)*/
   static mergeWithFlat(obj, key, val) {
     const keys = key.split('.');
     return keys.reduce((acc, e, i) => acc[e] = keys.length - 1 == i ? val : acc[e] ?? {}, obj);
