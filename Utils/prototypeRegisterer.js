@@ -1,5 +1,7 @@
 const
-  { CommandInteraction, Message, BaseClient, Collection, Status, AutocompleteInteraction, User, Guild, GuildMember, ChannelType } = require('discord.js'),
+  { CommandInteraction, Message, BaseClient, Collection, Status, AutocompleteInteraction, User, Guild, GuildMember, ChannelType, ButtonBuilder, ButtonStyle, ActionRowBuilder, ComponentType } = require('discord.js'),
+  TicTacToe = require('discord-tictactoe'),
+  GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('crypto'),
   { appendFileSync, readdirSync } = require('fs'),
   customReply = require('./customReply.js'),
@@ -194,3 +196,80 @@ Object.defineProperties(Guild.prototype, {
     set(val) { this.client.db.update('guildSettings', 'config.lang', val); }
   }
 });
+TicTacToe.prototype.playAgain = async function playAgain(interaction, lang) {
+  const
+    opponent = interaction.options?.getUser('opponent'),
+    oldComponents = (await interaction.fetchReply()).components;
+
+  let components = oldComponents;
+
+  if (!components[3]?.components[0]?.customId) components[3] = new ActionRowBuilder({
+    components: [
+      new ButtonBuilder({
+        customId: 'playAgain',
+        label: lang('global.playAgain'),
+        style: ButtonStyle.Success
+      })
+    ]
+  });
+
+  const collector = (await interaction.editReply({ components })).createMessageComponentCollector({
+    filter: i => [interaction.user.id, opponent?.id].includes(i.member.id) && i.customId == 'playAgain',
+    max: 1, componentType: ComponentType.Button, time: 15000
+  });
+
+  collector.on('collect', async PAButton => {
+    PAButton.deferUpdate();
+    collector.stop();
+
+    if (interaction.member.id != PAButton.member.id && opponent?.id != interaction.client.user.id) {
+      if (opponent) {
+        interaction.options._hoistedOptions[0].member = interaction.member;
+        interaction.options._hoistedOptions[0].user = interaction.user;
+        interaction.options._hoistedOptions[0].value = interaction.member.id;
+
+        interaction.options.data[0].member = interaction.member;
+        interaction.options.data[0].user = interaction.user;
+        interaction.options.data[0].value = interaction.member.id;
+
+        interaction.options.resolved.members.set(interaction.member.id, interaction.member);
+        interaction.options.resolved.users.set(interaction.member.id, interaction.user);
+      }
+
+      interaction.member = PAButton.member;
+      interaction.user = PAButton.user;
+    }
+
+    if (interaction.options._hoistedOptions[0]?.user) {
+      const msg = await interaction.channel.send(lang('newChallenge', interaction.options._hoistedOptions[0].user.id));
+      setTimeout(() => msg.delete(), 5000);
+    }
+
+    this.handleInteraction(interaction);
+  });
+
+  collector.on('end', collected => {
+    if (!collected.size) return;
+
+    for (const row of oldComponents)
+      for (const button of row.components) button.data.disabled = true;
+
+    interaction.editReply({ components: oldComponents });
+  });
+};
+GameBoardButtonBuilder.prototype.createButton = function createButton(row, col) {
+  const
+    button = new ButtonBuilder(),
+    buttonIndex = row * this.boardSize + col,
+    buttonData = this.boardData[buttonIndex];
+
+  //Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
+  if (buttonData === 0) button.setLabel('\u200B');
+  else {
+    if (this.customEmojies) button.setEmoji(this.emojies[buttonData]);
+    else button.setLabel(this.buttonLabels[buttonData - 1]);
+
+    if (this.disableButtonsAfterUsed) button.setDisabled(true);
+  }
+  return button.setCustomId(buttonIndex.toString()).setStyle(this.buttonStyles[buttonData]);
+};
