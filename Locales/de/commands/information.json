@@ -150,7 +150,7 @@
         "description": "Die Server-ID, über die du Infos einholen möchtest. Funktioniert nur für Server, in denen ich bin."
       }
     },
-    "memberStats": "Menschen: `{humans}`, Bots: `{bots}`",
+    "memberStats": "`{all}` (Menschen: `{humans}`, Bots: `{bots}`)",
     "members": "Mitglieder",
     "verificationLevel": {
       "name": "Verifizierungsstufe",
@@ -167,7 +167,6 @@
       "1": "Nur Erwähnungen"
     },
     "owner": "Eigentümer",
-    "memberCount": "Mitgliedsanzahl",
     "locale": "Sprache",
     "partnered": "Gepartnert",
     "emojis": "Emojis",
