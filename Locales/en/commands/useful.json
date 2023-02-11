@@ -203,7 +203,7 @@
   },
   "math": {
     "description": "Runs some math",
-    "usage": "math [expression]",
+    "usage": "PREFIX Command: math [expression]\n\nThis calculator supports a wide range of mathematical operations, not just the basic ones.\nYou can assign values to variables, for example: `x=10`.\nMultiple statements can be evaluated by using a new line or a semicolon, for example: `x=10; x+10` will return `20`.\nRemember to use an asterisk (`*`) for multiplication.\nThe calculator can output multiple results.Please note that unnecessary spaces can cause errors in expressions.",
     "options": {
       "expression": {
         "description": "What do you want me to solve?"
@@ -211,7 +211,6 @@
     },
     "embedTitle": "Rechner",
     "noInput": "You have not given any input!",
-    "help": "Help and Information\n\nThis calculator supports many mathematic operations, not only the basic ones.\nYou can use variables like this: `x=10`.\nYou can use multiple statements by using a new line or a `;`. `x=10;x+10` returns `20`.\nYou need to use `*` for multiplying.\nThe calculator suppots outputting multiple results.\nSometimes unnecessary spaces are making the expression error.",
     "error": "An error occurred while trying to solve your expression:\n```{err}```",
     "separated": "Results separated with \"|\":\n{results}",
     "success": "Expression:\n```{expression}```\nResult:\n```{result}```"

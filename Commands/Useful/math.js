@@ -4,7 +4,6 @@ const
 
 module.exports = {
   name: 'math',
-  cooldowns: {user: 100 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
@@ -19,31 +18,22 @@ module.exports = {
     if (!expression) return this.customReply(lang('noInput'));
 
     const embed = new EmbedBuilder({
-      title: lang('embedTitle')
+      title: lang('embedTitle'),
+      color: Colors.White
     });
 
-    if (expression == 'help') {
-      embed.data.description = lang('help');
-      return this.customReply({ embeds: [embed] });
-    }
+    let result;
 
-    let data;
-
-    try { data = evaluate(expression); }
+    try { result = evaluate(expression); }
     catch (err) {
       embed.data.description = lang('error', err.message);
       embed.data.color = Colors.Red;
       return this.customReply({ embeds: [embed] });
     }
 
-    embed.data.color = Colors.White;
+    if (isResultSet(result)) result = result.entries.length ? lang('separated', result.entries.join(' | ')) : result.entries;
 
-    if (isResultSet(data)) {
-      if (data.entries.length > 1) data = lang('separated', data.entries.join(' | '));
-      else data = data.entries;
-    }
-
-    embed.data.description = lang('success', { expression, result: data });
+    embed.data.description = lang('success', { expression, result });
     this.customReply({ embeds: [embed] });
   }
 };
