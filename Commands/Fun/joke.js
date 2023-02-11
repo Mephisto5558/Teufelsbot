@@ -5,8 +5,7 @@ const
   defaultAPIList = [
     { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any' },
     { name: 'humorAPI', link: 'https://humorapi.com', url: 'https://api.humorapi.com/jokes/random' },
-    { name: 'icanhazdadjoke', link: 'https://icanhazdadjoke.com', url: 'https://icanhazdadjoke.com' },
-    { name: 'tambalAPI', link: 'https://tambalapi.herokuapp.com', url: 'https://tambalapi.herokuapp.com/joke/random' }
+    { name: 'icanhazdadjoke', link: 'https://icanhazdadjoke.com', url: 'https://icanhazdadjoke.com' }
   ];
 
 async function getJoke(APIList, type, blacklist, maxLength) {
@@ -59,13 +58,6 @@ async function getJoke(APIList, type, blacklist, maxLength) {
         response = res.data.joke;
         break;
       }
-
-      case 'tambalAPI': {
-        const res = await get(API.url, { timeout: 2500 });
-
-        response = res.joke;
-        break;
-      }
     }
   }
   catch (err) {
@@ -81,8 +73,8 @@ async function getJoke(APIList, type, blacklist, maxLength) {
     }
   }
 
-  if(response) return [response?.replaceAll('`', '\''), API];
-  
+  if (typeof response == 'string') return [response.replaceAll('`', '\''), API];
+
   APIList = APIList.filter(str => str.name !== API.name);
   if (APIList.length) return getJoke.call(this, APIList, type, blacklist, maxLength);
 }
