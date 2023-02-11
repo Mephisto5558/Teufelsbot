@@ -1,4 +1,3 @@
-// WIP
 const
   { SnowflakeUtil, GatewayIntentBits, ChannelType, OverwriteType, Constants, GuildFeature, AttachmentBuilder, StickerType, Collection } = require('discord.js'),
   fetch = require('node-fetch');
@@ -20,7 +19,7 @@ class BackupSystem {
     };
   }
 
-  get = (id, guildId) => id ? this.db.get(this.dbName)[guildId ?? '' + id] : this.db.get(this.dbName);
+  get = (backupId, guildId) => backupId ? this.db.get(this.dbName)[guildId ?? '' + backupId] : this.db.get(this.dbName);
 
   /**@returns {Collection<string,object>}all backups of a guild or all backups, if no guildId provided.*/
   list = guildId => {
@@ -28,7 +27,7 @@ class BackupSystem {
     return guildId ? collection.filter(e => e?.guildId == guildId) : collection;
   };
 
-  remove = id => this.db.get(this.dbName)[id] ? this.db.update(this.dbName, id, null) : null;
+  remove = backupId => this.db.get(this.dbName)[backupId] ? this.db.update(this.dbName, backupId, null) : null;
 
   /**@param {{}}statusObj the status property gets updated*/
   create = async (guild, {
@@ -148,7 +147,7 @@ class BackupSystem {
     return data;
   };
 
-  /**@param {String|{}|null}id If falsely, will use latest. If object, will use object. @param {import('discord.js').Guild}guild @param {{}}statusObj the status property gets updated*/
+  /**@param {String|{}|null}id Backup Id. If falsely, will use latest. If object, will use object. @param {import('discord.js').Guild}guild @param {{}}statusObj the status property gets updated*/
   load = async (id, guild, { statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel, allowedMentions = [], reason = 'Backup Feature | Load' } = {}) => {
     if (!guild) throw new Error('Invalid guild');
 
