@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Locale } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = {
@@ -12,7 +12,7 @@ module.exports = {
     name: 'guild_id',
     type: 'String',
     autocompleteOptions: function () { return this.client.guilds.cache.filter(e => e.members.cache.has(this.member.id)).map(e => e.id); },
-  }],
+  }],beta:true,
 
   run: async function (lang) {
     const
@@ -31,7 +31,7 @@ module.exports = {
           { name: lang('createdAt'), value: `<t:${Math.round(guild.createdTimestamp / 1000)}>`, inline: true },
           { name: lang('defaultNotifications.name'), value: lang(`defaultNotifications.${guild.defaultMessageNotifications}`), inline: true },
           { name: lang('owner'), value: `<@${guild.ownerId}>`, inline: true },
-          { name: lang('locale'), value: Locale[guild.preferredLocale], inline: true },
+          { name: lang('locale'), value: guild.preferredLocale, inline: true },
           { name: lang('partnered'), value: lang(`global.${guild.partnered}`), inline: true },
           { name: lang('emojis'), value: `\`${guild.emojis.cache.size}\``, inline: true },
           { name: lang('roles'), value: `\`${guild.roles.cache.size}\``, inline: true },
