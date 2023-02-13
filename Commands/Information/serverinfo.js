@@ -16,7 +16,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      guild = this.client.guilds.cache.get(this.options?.getString('guild_id') || this.args[0]) || this.guild,
+      guild = this.client.guilds.cache.get(this.options?.getString('guild_id') || this.args?.[0]) || this.guild,
       channels = Array.from((await guild.channels.fetch()).values()),
       embed = new EmbedBuilder({
         title: guild.name,
