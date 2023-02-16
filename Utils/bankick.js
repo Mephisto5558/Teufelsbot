@@ -6,7 +6,7 @@ module.exports = async function bankick(lang) {
   const
     targets = new Set([...this.options.getString('targets').replace(/[^0-9\s]/g, '').split(' ').filter(e => e?.length == 18)]),
     reason = this.options.getString('reason'),
-    embed = new EmbedBuilder({
+    userEmbed = new EmbedBuilder({
       title: lang('infoEmbedTitle'),
       description: lang('dmEmbedDescription', { guild: this.guild.name, mod: this.user.tag, reason }),
       color: Colors.Red
@@ -18,25 +18,24 @@ module.exports = async function bankick(lang) {
     });
 
   for (const rawTarget of targets) {
-    let target, errMsg, noMsg;
+    let target, err, noMsg;
 
     try { target = await this.guild.members.fetch(rawTarget); }
     catch { target = { id: rawTarget }; }
 
-    if (target.id == this.member.id) errMsg = lang('cantPunishSelf');
-    else if (target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
-      errMsg = lang('global.noPermUser');
-    else if (!target.manageable) errMsg = lang('global.noPermBot');
+    if (target.id == this.member.id) err = lang('cantPunishSelf');
+    else if (target.roles?.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id) err = lang('global.noPermUser');
+    else if (!target.manageable) err = lang('global.noPermBot');
 
-    if (errMsg) {
-      resEmbed.data.description += lang('error', { user: target?.user?.tag ?? target.id, err: errMsg });
+    if (err) {
+      resEmbed.data.description += lang('error', { err, user: target?.user?.tag ?? target.id });
       continue;
     }
 
-    try { await target.send({ embeds: [embed] }); }
+    try { await target.send({ embeds: [userEmbed] }); }
     catch { noMsg = true; }
 
-    await (this.commandName == 'kick' ? target.kick(reason) : this.guild.bans.create(target.id, { reason, deleteMessageSeconds: 60 * 60 * 24 * this.options.getNumber('delete_days_of_messages') }));
+    await (this.commandName == 'kick' ? target.kick(reason) : this.guild.bans.create(target.id, { reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') }));
 
     resEmbed.data.description += lang('success', target?.user?.tag ?? target.id);
     if (noMsg) resEmbed.data.description += lang('noDM');
