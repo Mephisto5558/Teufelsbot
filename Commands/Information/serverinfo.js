@@ -12,7 +12,7 @@ module.exports = {
     name: 'guild_id',
     type: 'String',
     autocompleteOptions: function () { return this.client.guilds.cache.filter(e => e.members.cache.has(this.member.id)).map(e => e.id); },
-  }],beta:true,
+  }],
 
   run: async function (lang) {
     const
