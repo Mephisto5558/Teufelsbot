@@ -27,37 +27,37 @@ module.exports = {
     else if (member.permissions.has(PermissionFlagsBits.ModerateMembers)) type += lang('guildMod');
     else type += lang('guildMember');
 
-    const embed = new EmbedBuilder({
-      title: member.user.tag,
-      color: parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16),
-      thumbnail: { url: member.displayAvatarURL() },
-      image: { url: bannerURL && bannerURL + '?size=1024' },
-      fields: [
-        { name: lang('mention'), value: member.user.toString(), inline: true },
-        { name: 'ID', value: `\`${member.id}\``, inline: true },
-        { name: lang('type'), value: type, inline: true },
-        { name: lang('position'), value: `\`${member.roles.highest.position}\`, ${member.roles.highest}`, inline: true },
-        { name: lang('roles'), value: `\`${member.roles.cache.size}\``, inline: true },
-        { name: lang('color'), value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.substring(1)})`, inline: true },
-        { name: lang('createdAt'), value: `<t:${Math.round(member.user.createdTimestamp / 1000)}>`, inline: true },
-        { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true },
-        birthday && { name: lang('birthday'), value: `<t:${Math.round(new Date(birthday).getTime() / 1000)}:D> (${getAge(birthday.split('/'))})`, inline: true },
-        member.isCommunicationDisabled() && { name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true },
-        member.user.flags.toArray().length && { name: lang('flags.name'), value: `\`${member.user.flags.toArray().map(e => lang('flags.' + e)).join('`, `')}\``, inline: false },
-        { name: lang('rolesWithPerms'), value: Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').join(', '), inline: false },
-        { name: lang('perms'), value: `\`${member.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none')}\` (${member.permissions.toArray().length})`, inline: false }
-      ].filter(Boolean)
-    });
-
-    const component = new ActionRowBuilder({
-      components: [
-        new ButtonBuilder({
-          label: lang('downloadAvatar'),
-          style: ButtonStyle.Link,
-          url: member.displayAvatarURL({ size: 2048 })
-        })
-      ]
-    });
+    const
+      embed = new EmbedBuilder({
+        title: member.user.tag,
+        color: parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16),
+        thumbnail: { url: member.displayAvatarURL() },
+        image: { url: bannerURL && bannerURL + '?size=1024' },
+        fields: [
+          { name: lang('mention'), value: member.user.toString(), inline: true },
+          { name: 'ID', value: `\`${member.id}\``, inline: true },
+          { name: lang('type'), value: type, inline: true },
+          { name: lang('position'), value: `\`${member.roles.highest.position}\`, ${member.roles.highest}`, inline: true },
+          { name: lang('roles'), value: `\`${member.roles.cache.size}\``, inline: true },
+          { name: lang('color'), value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.substring(1)})`, inline: true },
+          { name: lang('createdAt'), value: `<t:${Math.round(member.user.createdTimestamp / 1000)}>`, inline: true },
+          { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true },
+          birthday && { name: lang('birthday'), value: `<t:${Math.round(new Date(birthday).getTime() / 1000)}:D> (${getAge(birthday.split('/'))})`, inline: true },
+          member.isCommunicationDisabled() && { name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true },
+          member.user.flags.toArray().length && { name: lang('flags.name'), value: `\`${member.user.flags.toArray().map(e => lang('flags.' + e)).join('`, `')}\``, inline: false },
+          { name: lang('rolesWithPerms'), value: Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').join(', '), inline: false },
+          { name: lang('perms'), value: `\`${member.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none')}\` (${member.permissions.toArray().length})`, inline: false }
+        ].filter(Boolean)
+      }),
+      component = new ActionRowBuilder({
+        components: [
+          new ButtonBuilder({
+            label: lang('downloadAvatar'),
+            style: ButtonStyle.Link,
+            url: member.displayAvatarURL({ size: 2048 })
+          })
+        ]
+      });
 
     if (bannerURL) component.components.push(new ButtonBuilder({
       label: lang('downloadBanner'),
@@ -65,6 +65,6 @@ module.exports = {
       url: bannerURL + '?size=2048'
     }));
 
-    this.customReply({ embeds: [embed], components: [component] });
+    return this.customReply({ embeds: [embed], components: [component] });
   }
 };

@@ -28,6 +28,7 @@ module.exports = {
       });
 
       if (this.channel.id == channel.id) return this.customReply({ embeds: [embed] });
+
       await channel.send({ embeds: [embed] });
       return this.customReply(lang('removed.success', channel.id));
     }
@@ -43,6 +44,7 @@ module.exports = {
 
     if (this.channel.id == channel.id) return this.customReply({ embeds: [embed] });
     await channel.send({ embeds: [embed] });
+    
     return this.customReply(lang('added.success', channel.id));
   }
 };

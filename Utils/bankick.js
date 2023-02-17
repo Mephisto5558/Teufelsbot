@@ -43,5 +43,5 @@ module.exports = async function bankick(lang) {
 
   if (resEmbed.data.description == lang('infoEmbedDescription', { mod: this.user.tag, reason })) resEmbed.data.description += lang('noneFound');
 
-  this.editReply({ embeds: [resEmbed] });
+  return this.editReply({ embeds: [resEmbed] });
 };

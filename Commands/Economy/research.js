@@ -42,47 +42,46 @@ module.exports = {
 
     const msg = await this.customReply({ embeds: [embed], components: [component] });
 
-    const collector = msg.createMessageComponentCollector({ filter: i => i.user.id == this.user.id, idle: 6e4 });
-    collector.on('collect', async button => {
-      await button.deferReply();
+    return msg.createMessageComponentCollector({ filter: i => i.user.id == this.user.id, idle: 6e4 })
+      .on('collect', async button => {
+        await button.deferReply();
 
-      const
-        skill = button.values[0],
-        userData = this.guild.db.economy[this.user.id],
-        userSkill = userData.skills[skill],
-        price = userSkill.lastPrice ? userSkill.lastPrice + Math.round(userSkill.lastPrice * userSkill.percentage / 100) : defaultSkills[skill].firstPrice;
-      let errorMsg;
+        const
+          skill = button.values[0],
+          userData = this.guild.db.economy[this.user.id],
+          userSkill = userData.skills[skill],
+          price = userSkill.lastPrice ? userSkill.lastPrice + Math.round(userSkill.lastPrice * userSkill.percentage / 100) : defaultSkills[skill].firstPrice;
+        let errorMsg;
 
-      if (Object.values(userSkills).filter(e => e.onCooldownUntil > Date.now()).length > userData.maxConcurrentResearches) errorMsg = lang('onMaxConcurrentResearches');
-      else if (userSkill.onCooldownUntil > Date.now()) errorMsg = lang('onCooldown', Math.round(userSkill.onCooldownUntil / 1000));
-      else if (userSkill.maxLevel && userSkill.lvl > userSkill.maxLevel) errorMsg = lang('maxLevel');
-      else if (userData.currency < price) errorMsg = lang('notEnoughMoney');
+        if (Object.values(userSkills).filter(e => e.onCooldownUntil > Date.now()).length > userData.maxConcurrentResearches) errorMsg = lang('onMaxConcurrentResearches');
+        else if (userSkill.onCooldownUntil > Date.now()) errorMsg = lang('onCooldown', Math.round(userSkill.onCooldownUntil / 1000));
+        else if (userSkill.maxLevel && userSkill.lvl > userSkill.maxLevel) errorMsg = lang('maxLevel');
+        else if (userData.currency < price) errorMsg = lang('notEnoughMoney');
 
-      if (errorMsg) return button.editReply(errorMsg);
-      const onCooldownUntil = new Date(Date.now() + userSkill.lvlUpCooldown * 36e4).getTime();
+        if (errorMsg) return button.editReply(errorMsg);
+        const onCooldownUntil = new Date(Date.now() + userSkill.lvlUpCooldown * 36e4).getTime();
 
-      const newData = {
-        currency: (userData.currency - price).toFixed(3),
-        skills: {
-          [skill]: {
-            lastPrice: price.toFixed(3),
-            lvl: userSkill.lvl + 1,
-            onCooldownUntil
+        const newData = {
+          currency: (userData.currency - price).toFixed(3),
+          skills: {
+            [skill]: {
+              lastPrice: price.toFixed(3),
+              lvl: userSkill.lvl + 1,
+              onCooldownUntil
+            }
           }
-        }
-      };
+        };
 
-      this.client.db.update('guildSettings', `${this.guild.id}.economy.${this.user.id}`, newData);
+        this.client.db.update('guildSettings', `${this.guild.id}.economy.${this.user.id}`, newData);
 
-      button.editReply(lang('success', { skill: lang(`skills.${skill}.name`), emoji: lang(`skills.${skill}.emoji`), lvl: newData.skills[skill].lvl, time: Math.round(onCooldownUntil / 1000) }));
-    });
+        return button.editReply(lang('success', { skill: lang(`skills.${skill}.name`), emoji: lang(`skills.${skill}.emoji`), lvl: newData.skills[skill].lvl, time: Math.round(onCooldownUntil / 1000) }));
+      })
+      .on('end', () => {
+        component.components[0].data.disabled = true;
+        component.components[0].data.placeholder = lang('timedOut');
 
-    collector.on('end', () => {
-      component.components[0].data.disabled = true;
-      component.components[0].data.placeholder = lang('timedOut');
-
-      msg.edit({ embeds: [embed], components: [component] });
-    });
+        return msg.edit({ embeds: [embed], components: [component] });
+      });
 
   }
 };

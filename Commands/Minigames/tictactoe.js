@@ -3,7 +3,7 @@ const TicTacToe = require('discord-tictactoe');
 function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
   updateStats(player1.id, player2.id, type1, this.client.db);
   updateStats(player2.id, player1.id, type2, this.client.db);
-  game.playAgain(game, lang);
+  game.playAgain(this, lang);
 }
 
 function updateStats(firstID, secondID, type, db) {
@@ -44,9 +44,9 @@ module.exports = {
 
     if (gameTarget) this.channel.send(lang('newChallenge', gameTarget)).then(msg => setTimeout(() => msg.delete(), 5000));
 
-    game.handleInteraction(this);
-
     game.on('win', data => eventCallback.call(this, [data.winner, data.loser], ['win', 'lose'], lang, game));
     game.on('tie', data => eventCallback.call(this, data.players, ['draw'], lang, game));
+
+    return game.handleInteraction(this);
   }
 };

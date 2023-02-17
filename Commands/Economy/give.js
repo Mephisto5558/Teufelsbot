@@ -59,6 +59,6 @@ module.exports = {
     this.client.db.update('guildSettings', `${this.guild.id}.economy`, { [this.user.id]: { currency: newUserCurrency }, [target.id]: { currency: newTargetCurrency } });
 
     embed.data.description = lang('embedDescription', { amount, target: target.id, newUserAmount: newUserCurrency, newTargetAmount: newTargetCurrency });
-    this.customReply({ content: target.toString(), embeds: [embed] });
+    return this.customReply({ content: target.toString(), embeds: [embed] });
   }
 };

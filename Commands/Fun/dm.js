@@ -42,38 +42,18 @@ module.exports = {
       perm = this.member.permissions.has(PermissionFlagsBits.ManageMessages),
       asMod = (this.options.getBoolean('as_mod') && perm),
       blacklist = Object.assign({}, ...Object.entries(this.client.db.get('userSettings') || {}).filter(([, v]) => v.dmBlockList).map(([k, v]) => ({ [k]: v.dmBlockList }))),
-      userBlacklist = blacklist[this.user.id] || [];
-
-    let target = this.options.getMember('target');
+      userBlacklist = blacklist[this.user.id] || [],
+      target = this.options.getMember('target') ?? { id: '*' };
 
     switch (cmd) {
       case 'toggle': {
-        let message, targetName;
+        const targetName = target.id ? lang('toggle.targetOne.name', target.tag) : lang('toggle.targetAll.removed');
 
-        if (target?.id) {
-          target = target.id;
-          targetName = lang('toggle.targetOne.name', target.tag);
-        }
-        else {
-          target = '*';
-          targetName = lang('toggle.targetAll.removed');
-        }
-
-        if (userBlacklist.includes(target)) {
-          delete userBlacklist[target];
-
-          message = lang('toggle.removed', targetName);
-        }
-        else {
-          userBlacklist.push(target);
-
-          message = lang('toggle.saved', { user: targetName, state: target == '*' ? lang('toggle.targetAll.saved') : lang('toggle.targetOne.isnt', targetName) });
-        }
-
+        userBlacklist.includes(target.id) ? delete userBlacklist[target.id] : userBlacklist.push(target.id);
         this.client.db.update('userSettings', this.user.id, userBlacklist);
 
-        this.editReply(message);
-        break;
+        if (userBlacklist.includes(target.id)) return this.editReply(lang('toggle.saved', { user: targetName, state: target.id == '*' ? lang('toggle.targetAll.saved') : lang('toggle.targetOne.isnt', targetName) }));
+        return this.editReply(lang('toggle.removed', targetName));
       }
 
       case 'blacklist': {
@@ -93,8 +73,7 @@ module.exports = {
           footer: { text: lang('blacklist.embedFooterText') }
         });
 
-        this.editReply({ embeds: [listEmbed] });
-        break;
+        return this.editReply({ embeds: [listEmbed] });
       }
 
       case 'send': {
@@ -102,7 +81,7 @@ module.exports = {
 
         const targetBlacklist = blacklist[target.id] || [];
         if ((targetBlacklist.includes(target.id) || targetBlacklist.includes('*')) && !asMod && target.id != this.user.id)
-          return this.editReply(lang('send.permissionDenied') + perm ? lang('send.asModInfo') : '');
+          return this.editReply(lang('send.permissionDenied') + (perm ? lang('send.asModInfo') : ''));
 
         const embed = new EmbedBuilder({
           title: lang('send.embedTitle'),
@@ -113,10 +92,9 @@ module.exports = {
 
         try {
           await target.send({ embeds: [embed] });
-          this.editReply(lang('global.messageSent'));
+          return this.editReply(lang('global.messageSent'));
         }
-        catch { this.editReply(lang('send.error')); }
-        break;
+        catch { return this.editReply(lang('send.error')); }
       }
     }
 

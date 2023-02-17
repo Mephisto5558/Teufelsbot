@@ -6,6 +6,7 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   requireEconomy: true,
+  disabled: true,
   beta: true,
 
   run: function () {

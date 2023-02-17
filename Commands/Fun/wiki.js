@@ -18,8 +18,9 @@ module.exports = {
   }],
 
   run: async function (lang) {
-    const query = this.options?.getString('query') || this.content;
-    const message = await this.customReply(lang('global.loading'));
+    const
+      query = this.options?.getString('query') || this.content,
+      message = await this.customReply(lang('global.loading'));
 
     let data;
 
@@ -63,10 +64,8 @@ module.exports = {
 
       if (joined.split('\n').length > 3) joined += lang('visitWiki');
 
-      this.customReply(joined);
+      return this.customReply(joined);
     }
-    catch (err) {
-      this.customReply(lang('error', err.message));
-    }
+    catch (err) { return this.customReply(lang('error', err.message)); }
   }
 };

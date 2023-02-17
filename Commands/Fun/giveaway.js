@@ -100,7 +100,7 @@ module.exports = {
   ],
 
   run: async function (lang) {
-    if (!this.client.giveawaysManager) return lang('managerNotFound');
+    if (!this.client.giveawaysManager) return this.editReply(lang('managerNotFound'));
 
     const giveawayId = this.options.getString('id');
     let giveaway;
@@ -109,7 +109,7 @@ module.exports = {
       giveaway = this.client.giveawaysManager.giveaways.find(g => g.guildId == this.guild.id && g.messageId == giveawayId);
 
       if (!giveaway) return this.editReply(lang('notFound'));
-      if (giveaway.hostedBy.slice(2, -1) !== this.user.id && !this.member.permissions.has(PermissionFlagsBits.Administrator))
+      if (giveaway.hostedBy.slice(2, -1) != this.user.id && !this.member.permissions.has(PermissionFlagsBits.Administrator))
         return this.editReply(lang('notHost'));
     }
 
@@ -121,13 +121,11 @@ module.exports = {
       defaultSettings = this.client.defaultSettings.giveaway,
       reaction = this.options.getString('reaction') || this.guild.db.giveaway?.reaction || defaultSettings.reaction,
       components = [new ActionRowBuilder({
-        components: [
-          new ButtonBuilder({
-            label: lang('buttonLabel'),
-            url: '{this.messageURL}',
-            style: ButtonStyle.Link
-          })
-        ]
+        components: [new ButtonBuilder({
+          label: lang('buttonLabel'),
+          url: '{this.messageURL}',
+          style: ButtonStyle.Link
+        })]
       })],
       durationUnformatted = this.options.getString('duration') || this.options.getString('add_time') || 0,
       duration = getMilliseconds(durationUnformatted);

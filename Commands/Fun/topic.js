@@ -15,6 +15,6 @@ module.exports = {
       footer: { text: this.user.tag, iconURL: this.member.displayAvatarURL() }
     }).setColor('Random');
 
-    this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed] });
   }
 };

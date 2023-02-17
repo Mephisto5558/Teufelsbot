@@ -1,5 +1,3 @@
-const { Message } = require('discord.js');
-
 module.exports = {
   name: '8ball',
   slashCommand: true,
@@ -11,5 +9,5 @@ module.exports = {
     required: true
   }],
 
-  run: function (lang) { this.customReply(this instanceof Message && !this.content ? lang('noQuestion') : lang('responseList')); }
+  run: function (lang) { return this.customReply(this.content === null ? lang('noQuestion') : lang('responseList')); }
 };

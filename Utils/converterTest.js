@@ -1,4 +1,4 @@
-const Converter = require('C:/Users/Mephisto/Documents/Teufelsbot/Teufelsbot/Utils/converter.js');
+const Converter = require('./converter.js');
 
 function testGetInputType() {
   const testCases = [
@@ -17,7 +17,6 @@ function testGetInputType() {
 }
 
 function testWithSpaces() {
-  // Testen des withSpaces-Parameters für Binary
   const binaryConverter = new Converter('01010101', { type: 'binary', withSpaces: true });
   if (binaryConverter.toBinary() !== '01010101') console.error('❌ Unexpected output for binary with withSpaces!');
   if (binaryConverter.toDecimal() !== '85') console.error('❌ Unexpected output for binary with withSpaces!');
@@ -25,7 +24,6 @@ function testWithSpaces() {
   if (binaryConverter.toMorse() !== '- .... . ... .... .') console.error('❌ Unexpected output for binary with withSpaces!');
   if (binaryConverter.toOctal() !== '125') console.error('❌ Unexpected output for binary with withSpaces!');
 
-  // Testen des withSpaces-Parameters für Decimal
   const decimalConverter = new Converter('123', { type: 'decimal', withSpaces: true });
   if (decimalConverter.toBinary() !== '000100100011') console.error('❌ Unexpected output for decimal with withSpaces!');
   if (decimalConverter.toDecimal() !== '123') console.error('❌ Unexpected output for decimal with withSpaces!');
@@ -33,7 +31,6 @@ function testWithSpaces() {
   if (binaryConverter.toMorse() !== '··· - ···') console.error('❌ Unexpected output for binary with withSpaces!');
   if (binaryConverter.toOctal() !== '173') console.error('❌ Unexpected output for binary with withSpaces!');
 
-  // Testen des withSpaces-Parameters für Hex
   const hexConverter = new Converter('0x12', { type: 'hex', withSpaces: true });
   if (hexConverter.toBinary() !== '00010010') console.error('❌ Unexpected output for hex with withSpaces!');
   if (hexConverter.toDecimal() !== '18') console.error('❌ Unexpected output for hex with withSpaces!');
@@ -41,7 +38,6 @@ function testWithSpaces() {
   if (hexConverter.toMorse() !== '· -') console.error('❌ Unexpected output for hex with withSpaces!');
   if (hexConverter.toOctal() !== '22') console.error('❌ Unexpected output for hex with withSpaces!');
 
-  // Testen des withSpaces-Parameters für Morse
   const morseConverter = new Converter('- .... . ... .... .', { type: 'morse', withSpaces: true });
   if (morseConverter.toBinary() !== '01010101') console.error('❌ Unexpected output for morse with withSpaces!');
   if (morseConverter.toDecimal() !== '85') console.error('❌ Unexpected output for morse with withSpaces!');
@@ -49,7 +45,6 @@ function testWithSpaces() {
   if (morseConverter.toMorse() !== '- .... . ... .... .') console.error('❌ Unexpected output for morse with withSpaces!');
   if (morseConverter.toOctal() !== '125') console.error('❌ Unexpected output for morse with withSpaces!');
 
-  // Testen des withSpaces-Parameters für Octal
   const octalConverter = new Converter('123', { type: 'octal', withSpaces: true });
   if (octalConverter.toBinary() !== '000100100011') console.error('❌ Unexpected output for octal with withSpaces!');
   if (octalConverter.toDecimal() !== '83') console.error('❌ Unexpected output for octal with withSpaces!');
@@ -57,7 +52,6 @@ function testWithSpaces() {
   if (octalConverter.toMorse() !== '··· - ···') console.error('❌ Unexpected output for octal with withSpaces!');
   if (octalConverter.toOctal() !== '123') console.error('❌ Unexpected output for octal with withSpaces!');
 
-  // Testen des withSpaces-Parameters für Text
   const textConverter = new Converter('Hello World', { type: 'text', withSpaces: true });
   if (textConverter.toBinary() !== '01001000 01100101 01101100 01101100 01101111 00100000 01110111 01101111 01110010 01101100 01100100') console.error('❌ Unexpected output for text with withSpaces!');
   if (textConverter.toDecimal() !== '72 101 108 108 111 32 119 111 114 108 100') console.error('❌ Unexpected output for text with withSpaces!');
@@ -67,7 +61,6 @@ function testWithSpaces() {
 }
 
 function testConvertSpaces() {
-  // Testen der convertSpaces-Option für Binary
   const binaryConverter = new Converter('01010101', { type: 'binary', convertSpaces: false });
   if (binaryConverter.toBinary() !== '01010101') console.error('❌ Unexpected output for binary with convertSpaces!');
   if (binaryConverter.toDecimal() !== '85') console.error('❌ Unexpected output for binary with convertSpaces!');
@@ -75,7 +68,6 @@ function testConvertSpaces() {
   if (binaryConverter.toMorse() !== '- .... . ... .... .') console.error('❌ Unexpected output for binary with convertSpaces!');
   if (binaryConverter.toOctal() !== '125') console.error('❌ Unexpected output for binary with convertSpaces!');
 
-  // Testen der convertSpaces-Option für Decimal
   const decimalConverter = new Converter('123', { type: 'decimal', convertSpaces: false });
   if (decimalConverter.toBinary() !== '000100100011') console.error('❌ Unexpected output for decimal with convertSpaces!');
   if (decimalConverter.toDecimal() !== '123') console.error('❌ Unexpected output for decimal with convertSpaces!');
@@ -83,7 +75,6 @@ function testConvertSpaces() {
   if (decimalConverter.toMorse() !== '··· - ···') console.error('❌ Unexpected output for decimal with convertSpaces!');
   if (decimalConverter.toOctal() !== '173') console.error('❌ Unexpected output for decimal with convertSpaces!');
 
-  // Testen der convertSpaces-Option für Hex
   const hexConverter = new Converter('0x55', { type: 'hex', convertSpaces: false });
   if (hexConverter.toBinary() !== '01010101') console.error('❌ Unexpected output for hex with convertSpaces!');
   if (hexConverter.toDecimal() !== '85') console.error('❌ Unexpected output for hex with convertSpaces!');
@@ -91,7 +82,6 @@ function testConvertSpaces() {
   if (hexConverter.toMorse() !== '- .... . ... .... .') console.error('❌ Unexpected output for hex with convertSpaces!');
   if (hexConverter.toOctal() !== '125') console.error('❌ Unexpected output for hex with convertSpaces!');
 
-  // Testen des convertSpaces-Parameters für Morse
   const morseConverter = new Converter('... --- ...', { type: 'morse', convertSpaces: false });
   if (morseConverter.toMorse() !== '... --- ...') console.error('❌ Unexpected output for morse with convertSpaces!');
   if (morseConverter.toBinary() !== '00110101 00111000 00110101') console.error('❌ Unexpected output for morse with convertSpaces!');
@@ -100,7 +90,6 @@ function testConvertSpaces() {
   if (morseConverter.toOctal() !== '65 70 65') console.error('❌ Unexpected output for morse with convertSpaces!');
   if (morseConverter.toText() !== 'SXS') console.error('❌ Unexpected output for morse with convertSpaces!');
 
-  // Testen des convertSpaces-Parameters für Octal
   const octalConverter = new Converter('01234567', { type: 'octal', convertSpaces: false });
   if (octalConverter.toBinary() !== '000101010001010100010101') console.error('❌ Unexpected output for octal with convertSpaces!');
   if (octalConverter.toDecimal() !== '82 82 82') console.error('❌ Unexpected output for octal with convertSpaces!');
@@ -109,7 +98,6 @@ function testConvertSpaces() {
   if (octalConverter.toOctal() !== '1234567') console.error('❌ Unexpected output for octal with convertSpaces!');
   if (octalConverter.toText() !== 'R R R') console.error('❌ Unexpected output for octal with convertSpaces!');
 
-  // Testen der convertSpaces-Option für Text
   const textConverter = new Converter('Hello World', { type: 'text', convertSpaces: false });
   if (textConverter.toBinary() !== '01001000 01100101 01101100 01101100 01101111 00100000 01010111 01101111 01110010 01101100 01100100') console.error('❌ Unexpected output for text with convertSpaces!');
   if (textConverter.toDecimal() !== '72 101 108 108 111 32 119 111 114 108 100') console.error('❌ Unexpected output for text with convertSpaces!');
@@ -119,7 +107,6 @@ function testConvertSpaces() {
 }
 
 function testConvertOnlyLettersDigits() {
-  // Testen des convertOnlyLettersDigits-Parameters für Binary
   const binaryConverter = new Converter('01010101', { type: 'binary', convertOnlyLettersDigits: true });
   if (binaryConverter.toBinary() !== '01010101') console.error('❌ Unexpected output for binary with convertOnlyLettersDigits!');
   if (binaryConverter.toDecimal() !== '85') console.error('❌ Unexpected output for binary with convertOnlyLettersDigits!');
@@ -127,7 +114,6 @@ function testConvertOnlyLettersDigits() {
   if (binaryConverter.toMorse() !== '- .... . ... .... .') console.error('❌ Unexpected output for binary with convertOnlyLettersDigits!');
   if (binaryConverter.toOctal() !== '125') console.error('❌ Unexpected output for binary with convertOnlyLettersDigits!');
 
-  // Testen des convertOnlyLettersDigits-Parameters für Decimal
   const decimalConverter = new Converter('123', { type: 'decimal', convertOnlyLettersDigits: true });
   if (decimalConverter.toBinary() !== '000100100011') console.error('❌ Unexpected output for decimal with convertOnlyLettersDigits!');
   if (decimalConverter.toDecimal() !== '123') console.error('❌ Unexpected output for decimal with convertOnlyLettersDigits!');
@@ -135,7 +121,6 @@ function testConvertOnlyLettersDigits() {
   if (decimalConverter.toMorse() !== '··· - ···') console.error('❌ Unexpected output for decimal with convertOnlyLettersDigits!');
   if (decimalConverter.toOctal() !== '173') console.error('❌ Unexpected output for decimal with convertOnlyLettersDigits!');
 
-  // Testen des convertOnlyLettersDigits-Parameters für Hex
   const hexConverter = new Converter('0x12', { type: 'hex', convertOnlyLettersDigits: true });
   if (hexConverter.toBinary() !== '00010010') console.error('❌ Unexpected output for hex with convertOnlyLettersDigits!');
   if (hexConverter.toDecimal() !== '18') console.error('❌ Unexpected output for hex with convertOnlyLettersDigits!');
@@ -143,7 +128,6 @@ function testConvertOnlyLettersDigits() {
   if (hexConverter.toMorse() !== '- .... ..') console.error('❌ Unexpected output for hex with convertOnlyLettersDigits!');
   if (hexConverter.toOctal() !== '22') console.error('❌ Unexpected output for hex with convertOnlyLettersDigits!');
 
-  // Testen des convertOnlyLettersDigits-Parameters für Octal
   const octalConverter = new Converter('765', { type: 'octal', convertOnlyLettersDigits: true });
   if (octalConverter.toBinary() !== '111 101 110') console.error('❌ Unexpected output for octal with convertOnlyLettersDigits!');
   if (octalConverter.toDecimal() !== '501') console.error('❌ Unexpected output for octal with convertOnlyLettersDigits!');
@@ -151,7 +135,6 @@ function testConvertOnlyLettersDigits() {
   if (octalConverter.toMorse() !== '--- ..- -...') console.error('❌ Unexpected output for octal with convertOnlyLettersDigits!');
   if (octalConverter.toOctal() !== '765') console.error('❌ Unexpected output for octal with convertOnlyLettersDigits!');
 
-  // Testen des convertOnlyLettersDigits-Parameters für Text
   const textConverter = new Converter('Hello World', { type: 'text', convertOnlyLettersDigits: true });
   if (textConverter.toBinary() !== '01001000 01100101 01101100 01101100 01101111 00100000 01010111 01101111 01110010 01101100 01100100') console.error('❌ Unexpected output for text with convertOnlyLettersDigits!');
   if (textConverter.toDecimal() !== '72 101 108 108 111 32 119 111 114 108 100') console.error('❌ Unexpected output for text with convertOnlyLettersDigits!');

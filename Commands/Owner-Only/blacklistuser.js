@@ -17,6 +17,6 @@ module.exports = {
     if (this.args[0] == this.client.application.owner.id) return this.customReply(lang('cantBlacklistOwner'));
 
     this.client.db.update('botSettings', 'blacklist', (this.client.settings.blacklist || []).concat(this.args[0]));
-    this.customReply(lang('saved', this.args[0]));
+    return this.customReply(lang('saved', this.args[0]));
   }
 };

@@ -39,13 +39,13 @@ module.exports = {
     }
     else {
       embed.data.fields = [
-        { name: 'API', value: `\`${Math.round(this.client.ws.ping)}\`ms`, inline: true },
-        { name: 'Bot', value: `\`${Math.abs(Date.now() - this.createdTimestamp)}\`ms`, inline: true },
+        { name: lang('api'), value: `\`${Math.round(this.client.ws.ping)}\`ms`, inline: true },
+        { name: lang('bot'), value: `\`${Math.abs(Date.now() - this.createdTimestamp)}\`ms`, inline: true },
         { name: lang('messageSend'), value: `\`${endMessagePing}\`ms`, inline: true }
       ];
       embed.data.description = ' ';
     }
 
-    msg.edit({ embeds: [embed] });
+    return msg.edit({ embeds: [embed] });
   }
 };

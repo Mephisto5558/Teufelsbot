@@ -48,55 +48,50 @@ module.exports = {
     let botMove = hand.random();
     let win;
 
-    collector.on('collect', async button => {
-      await button.deferUpdate();
-      switch (button.customId) {
-        case 'cancel': return collector.stop();
-        case 'playAgain': {
-          collector.empty();
-          botMove = hand.random();
-          msg.edit(originalData);
-          break;
-        }
-        case '0':
-        case '1':
-        case '2': {
-          const data = JSON.parse(JSON.stringify(originalData));
-
-          if (botMove.id == button.customId) win = [lang('tie'), '='];
-          else if (botMove.id < button.customId || botMove.id == 2 && !button.customId) win = [lang('win'), '>'];
-          else win = [lang('lose'), '<'];
-
-          data.embeds[0].description = lang('chose', { chose: [...hand.entries()].find(([, e]) => e.id == botMove.id)[0], win: win[0], you: hand.find(e => e.id == button.customId).emoji, symbol: win[1], i: botMove.emoji });
-          for (const button of data.components[0].components) {
-            if (button.custom_id == button.customId) button.style = ButtonStyle.Secondary;
-            button.disabled = true;
+    collector
+      .on('collect', async button => {
+        await button.deferUpdate();
+        switch (button.customId) {
+          case 'cancel': return collector.stop();
+          case 'playAgain': {
+            collector.empty();
+            botMove = hand.random();
+            msg.edit(originalData);
+            break;
           }
+          case '0':
+          case '1':
+          case '2': {
+            const data = JSON.parse(JSON.stringify(originalData));
 
-          data.components[1] = new ActionRowBuilder({
-            components: [
-              new ButtonBuilder({
+            if (botMove.id == button.customId) win = [lang('tie'), '='];
+            else if (botMove.id < button.customId || botMove.id == 2 && !button.customId) win = [lang('win'), '>'];
+            else win = [lang('lose'), '<'];
+
+            data.embeds[0].description = lang('chose', { chose: [...hand.entries()].find(([, e]) => e.id == botMove.id)[0], win: win[0], you: hand.find(e => e.id == button.customId).emoji, symbol: win[1], i: botMove.emoji });
+            for (const compButton of data.components[0].components) {
+              if (compButton.data.custom_id == button.customId) button.style = ButtonStyle.Secondary;
+              button.data.disabled = true;
+            }
+
+            data.components[1] = new ActionRowBuilder({
+              components: [new ButtonBuilder({
                 customId: 'playAgain',
                 label: lang('global.playAgain'),
                 style: ButtonStyle.Success
-              })
-            ]
-          });
+              })]
+            });
 
-          msg.edit(data);
-          break;
+            return msg.edit(data);
+          }
         }
-      }
-    });
+      })
+      .on('end', collected => {
+        if (!collected.size || collected.last().customId == 'cancel') originalData.embeds[0].data.description = lang('timedOut');
 
-    collector.on('end', collected => {
-      if (!collected.size || collected.last().customId == 'cancel') originalData.embeds[0].data.description = lang('timedOut');
+        for (const row of originalData.components) for (const button of row.components) button.setDisabled(true);
 
-      for (const row of originalData.components) {
-        for (const button of row.components) button.setDisabled(true);
-      }
-
-      msg.edit(originalData);
-    });
+        return msg.edit(originalData);
+      });
   }
 };

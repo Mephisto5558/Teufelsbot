@@ -28,21 +28,16 @@ module.exports = {
       modal = new ModalBuilder({
         title: lang('modalTitle'),
         customId: 'newContent_modal',
-        components: [
-          new ActionRowBuilder({
-            components: [
-              new TextInputBuilder({
-                customId: 'newContent_text',
-                label: lang('textInputLabel'),
-                placeholder: lang('textInputPlaceholder'),
-                style: TextInputStyle.Paragraph,
-                required: true
-              })
-            ]
-          })
-        ]
+        components: [new ActionRowBuilder({
+          components: [new TextInputBuilder({
+            customId: 'newContent_text',
+            label: lang('textInputLabel'),
+            placeholder: lang('textInputPlaceholder'),
+            style: TextInputStyle.Paragraph,
+            required: true
+          })]
+        })]
       }),
-      /**@type {import('discord.js').Message}msg*/
       msg = await this.options.getChannel('channel').messages.fetch(this.options.getString('message_id')).catch(() => { }),
       clear = this.options.getBoolean('remove_attachments');
 
@@ -73,6 +68,6 @@ module.exports = {
 
     if (!json) await msg.edit(clear ? { content: content.substring(0, 2001), embeds: [], attachments: [], files: [], components: [] } : content.substring(0, 2001));
 
-    modalInteraction.editReply(lang('success', msg.url));
+    return modalInteraction.editReply(lang('success', msg.url));
   }
 };
