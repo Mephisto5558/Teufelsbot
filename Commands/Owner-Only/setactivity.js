@@ -19,6 +19,6 @@ module.exports = {
     await this.client.user.setActivity(activity, { type: type });
     this.client.db.update('botSettings', 'activity', { name: activity, type });
 
-    this.customReply(activity ? lang('set', { name: activity, type: ActivityType[type] }) : lang('reset'));
+    return this.customReply(activity ? lang('set', { name: activity, type: ActivityType[type] }) : lang('reset'));
   }
 };

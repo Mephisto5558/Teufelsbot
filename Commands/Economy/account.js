@@ -32,6 +32,6 @@ module.exports = {
           lang('rank', rank ?? lang('global.none'))
       });
 
-    this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed] });
   }
 };

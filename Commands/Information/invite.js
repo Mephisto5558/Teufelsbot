@@ -15,6 +15,6 @@ module.exports = {
       Color: Colors.Blue
     });
 
-    this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed] });
   }
 };

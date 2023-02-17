@@ -28,24 +28,21 @@ module.exports = {
   ],
 
   run: async function (lang) {
-    const convertTo = this.options.getString('convert_to');
-    const converter = new Converter(this.options.getString('input'), {
-      withSpaces: this.options.getBoolean('with_spaces'),
-      convertSpaces: this.options.getBoolean('convert_spaces'),
-      convertOnlyLettersDigits: this.options.getBoolean('convert_letters_and_digits_only'),
-      type: this.options.getBoolean('is_octal') && 'octal'
+    const
+      convertTo = this.options.getString('convert_to'),
+      converter = new Converter(this.options.getString('input'), {
+        withSpaces: this.options.getBoolean('with_spaces'),
+        convertSpaces: this.options.getBoolean('convert_spaces'),
+        convertOnlyLettersDigits: this.options.getBoolean('convert_letters_and_digits_only'),
+        type: this.options.getBoolean('is_octal') && 'octal'
+      }),
+      converted = converter[`to${convertTo}`](),
+      output = lang('success', { inputType: converter.type.toUpperCase(), outputType: convertTo.toUpperCase() });
+
+    if (output.length + converted.length < 2000) return this.editReply(output + converted);
+    return this.editReply({
+      content: output,
+      files: [new AttachmentBuilder(Buffer.from(output.replaceAll('```', '') + converted), { name: 'converted.txt' })]
     });
-
-    const converted = converter[`to${convertTo}`]();
-    const output = lang('success', { inputType: converter.type.toUpperCase(), outputType: convertTo.toUpperCase() });
-
-    if (output.length + converted.length < 2000) this.editReply(output + converted);
-    else {
-      this.editReply({
-        content: output,
-        files: [new AttachmentBuilder(Buffer.from(output.replaceAll('```', '') + converted), { name: 'converted.txt' })]
-      });
-    }
-
   }
 };

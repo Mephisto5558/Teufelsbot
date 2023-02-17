@@ -24,36 +24,28 @@ function formatStatCount(input, all) {
 }
 
 async function formatTopTen(input, settings, lang) {
-  let output = '';
   let i = 0;
-  let isInGuild;
-
-  const data = Object.entries(input)
-    .filter(a => a[0] != 'AI')
+  return Object.entries(input)
+    .filter(a => a[0] !== 'AI')
     .sort(([, a], [, b]) => b.wins - a.wins || a.draws - b.draws || a.loses - b.loses)
-    .slice(0, 10);
+    .slice(0, 10)
+    .reduce(async (acc, [id, stats]) => {
+      let isInGuild;
+      try {
+        await this.guild.members.fetch(id);
+        isInGuild = true;
+      }
+      catch { isInGuild = false; }
 
-  for (const entry of data) {
-    try {
-      await this.guild.members.fetch(entry[0]);
-      isInGuild = true;
-    }
-    catch { isInGuild = false; }
+      if (!stats.wins || (settings != 'all_users' && !isInGuild)) return acc;
+      if (acc.length > 3997) return acc + '...';
 
-    if (!entry[1].wins || (settings != 'all_users' && !isInGuild)) continue;
-    if (output.length > 3997) {
-      output += '...';
-      break;
-    }
-
-    output +=
-      `${[':first_place:', ':second_place:', ':third_place:'][i] || i + '.'} <@${entry[0]}>\n` +
-      '> ' + lang('wins', entry[1].wins || 0) +
-      '> ' + lang('loses', entry[1].loses || 0) +
-      '> ' + lang('draws', entry[1].draws || 0);
-    i++;
-  }
-  return output;
+      i++;
+      return (await acc) + `${[':first_place:', ':second_place:', ':third_place:'][i - 1] || i + '.'} <@${id}>\n` +
+        '> ' + lang('wins', stats.wins || 0) +
+        '> ' + lang('loses', stats.loses || 0) +
+        '> ' + lang('draws', stats.draws || 0);
+    }, '');
 }
 
 module.exports = {
@@ -96,16 +88,16 @@ module.exports = {
   ],
 
   run: async function (lang) {
-    if (this instanceof Message && !this.args[0])
-      return this.customReply(lang('missingGameArg'));
+    if (this instanceof Message && !this.args[0]) return this.customReply(lang('missingGameArg'));
 
-    const stats = {
-      type: this.options?.getSubcommand() || 'user',
-      game: this.options?.getString('game') || this.args[0].replace(/tictactoe/gi, 'TicTacToe'),
-      target: this.options?.getUser('target') || this.mentions?.users.first() || this.user,
-      settings: this.options?.getString('settings')
-    };
-    const leaderboards = this.client.db.get('leaderboards');
+    const
+      stats = {
+        type: this.options?.getSubcommand() || 'user',
+        game: this.options?.getString('game') || this.args[0].replace(/tictactoe/gi, 'TicTacToe'),
+        target: this.options?.getUser('target') || this.mentions?.users.first() || this.user,
+        settings: this.options?.getString('settings')
+      },
+      leaderboards = this.client.db.get('leaderboards');
 
     stats.data = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == stats.game.toLowerCase())?.[1];
     if (!stats.data) return this.customReply(lang('notFound', Object.keys(leaderboards).join('`, `')));
@@ -141,6 +133,6 @@ module.exports = {
       embed.data.description = await formatTopTen.call(this, stats.data, stats.settings, lang) || lang('noWinners');
     }
 
-    this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed] });
   }
 };

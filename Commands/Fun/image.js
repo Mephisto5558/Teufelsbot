@@ -31,7 +31,7 @@ const
 module.exports = {
   name: 'image',
   cooldowns: { user: 500 },
-  slashCommand: true,
+  slashCommand: false,
   prefixCommand: true,
   options: [{
     name: 'type',
@@ -44,31 +44,23 @@ module.exports = {
     const
       cmdName = this.args?.shift() || this.options?.getString('type'),
       args = this.args?.map(e => e.replace(/[<@>]/g, '')),
-      cmd = endpoints.get(cmdName?.toLowerCase()),
       option = options.find(e => e.name == cmdName);
 
-    let errorMsg, data;
+    let data;
 
     embed.data.footer = { text: this.user.tag };
 
-    if (!cmd) errorMsg = (cmdName ? lang('notFound') : '') + lang('validOptions', options.map(e => e.name).join('`, `'));
-    else if ((args?.length || 0) < option.options.length) errorMsg = lang('requiresArgs', option.options.map(e => `> \`${e.name}\`: ${e.description}`).join('\n'));
+    if (!endpoints.get(cmdName?.toLowerCase())) return this.customReply((cmdName ? lang('notFound') : '') + lang('validOptions', options.map(e => e.name).join('`, `')));
+    else if ((args?.length || 0) < option.options.length) return this.customReply(lang('requiresArgs', option.options.map(e => `> \`${e.name}\`: ${e.description}`).join('\n')));
 
-    if (errorMsg) return this.customReply(errorMsg);
-
-    const msg = await this.customReply(lang('global.loading'));
-
-    const url = args.reduce((acc, e, i) => {
-      if (option.options[i]) return `${acc}${option.options[i].name}=${e}&`;
-    }, `https://nekobot.xyz/api/imagegen?type=${cmdName}&`);
+    const
+      msg = await this.customReply(lang('global.loading')),
+      url = args.reduce((acc, e, i) => option.options[i] ? `${acc}${option.options[i].name}=${e}&` : acc, `https://nekobot.xyz/api/imagegen?type=${cmdName}&`);
 
     try { data = await fetch(encodeURI(url)).then(res => res.json()); }
     catch (err) { data = err; }
-    
+
     if (!data.success) return msg.edit(lang('error', data.message));
-
-    embed.setImage(data.message);
-
-    msg.edit({ content: '', embeds: [embed] });
+    return msg.edit({ content: '', embeds: [embed.setImage(data.message)] });
   }
 };

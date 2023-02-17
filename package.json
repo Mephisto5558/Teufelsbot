@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "@discordjs/voice": "^0.14.0",
-    "@octokit/core": "^4.1.0",
-    "axios": "^1.2.2",
     "better-ms": "^1.1.7",
     "canvas": "^2.11.0",
     "cron": "^2.1.0",
@@ -26,6 +24,7 @@
     "mathjs": "^11.5.0",
     "mongodb": "^5.0.0",
     "mongoose": "^6.8.2",
+    "node-gyp": "^9.3.1",
     "sharp": "^0.31.3",
     "sodium": "^3.0.2",
     "wikijs": "^6.4.0"

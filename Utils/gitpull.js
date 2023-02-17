@@ -7,9 +7,9 @@ module.exports = async () => {
   catch (err) { return console.error(`GIT PULL\nExec error: ${err}`); }
 
   console.log(
-    'GIT PULL\n',
-    `out: ${data.stdout?.trim() || 'none'}\n`,
-    `err: ${data.stderr?.trim() || 'none'}\n`
+    'GIT PULL\n' +
+    (data.stdout ? `out: ${data.stdout.trim()}\n` : '') +
+    (data.stderr ? `err: ${data.stderr.trim()}\n` : '')
   );
 
   return 'OK';

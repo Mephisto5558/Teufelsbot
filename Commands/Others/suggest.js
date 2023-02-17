@@ -1,7 +1,7 @@
 const
-  { Octokit } = require('@octokit/core'),
   { EmbedBuilder, Colors } = require('discord.js'),
-  { Github } = require('../../config.json');
+  { Github } = require('../../config.json'),
+  issuesEndpoint = `https://api.github.com/repos/${Github.UserName}/${Github.RepoName}/issues`;
 
 module.exports = {
   name: 'suggest',
@@ -31,21 +31,32 @@ module.exports = {
 
   run: async function (lang) {
     const
-      octokit = new Octokit({ auth: this.client.keys.githubKey }),
       title = this.options.getString('title'),
-      issues = await octokit.request(`GET /repos/${Github.UserName}/${Github.RepoName}/issues`, {});
+      issues = await fetch(issuesEndpoint, {
+        headers: {
+          Authorization: `Token ${this.client.keys.githubKey}`,
+          'User-Agent': `Bot ${Github.Repo}`
+        }
+      }).then(e => e.json());
 
-    if (issues.data.filter(e => e.title == title && e.state == 'open').length)
-      return this.editReply(lang('alreadySent', issues.data[0].html_url));
+    if (issues.filter(e => e.title == title && e.state == 'open').length)
+      return this.editReply(lang('alreadySent', issues[0].html_url));
 
     try {
-      await octokit.request(`POST /repos/${Github.UserName}/${Github.RepoName}/issues`, {
-        title: `${title} | ${this.options.getString('importance')} importance`,
-        body:
-          `<h3>Sent by ${this.user.tag} (<code>${this.user.id}</code>) with bot <code>${this.client.user.id}</code></h3>\n\n` +
-          this.options.getString('suggestion'),
-        assignees: [Github.UserName],
-        labels: ['enhancement']
+      await fetch(issuesEndpoint, {
+        method: 'POST',
+        headers: {
+          Authorization: `Token ${this.client.keys.githubKey}`,
+          'User-Agent': `Bot ${Github.Repo}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          title: `${title} | ${this.options.getString('importance')} importance`,
+          body:
+            `<h3>Sent by ${this.user.tag} (<code>${this.user.id}</code>) with bot <code>${this.client.user.id}</code></h3>\n\n` +
+            this.options.getString('suggestion'),
+          labels: ['enhancement']
+        })
       });
     }
     catch (err) {
@@ -59,6 +70,6 @@ module.exports = {
       color: Colors.Green
     });
 
-    this.editReply({ embeds: [embed] });
+    return this.editReply({ embeds: [embed] });
   }
 };

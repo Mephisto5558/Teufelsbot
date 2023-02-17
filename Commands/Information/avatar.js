@@ -32,6 +32,6 @@ module.exports = {
         })]
       });
 
-    this.customReply({ embeds: [embed], components: [row] });
+    return this.customReply({ embeds: [embed], components: [row] });
   }
 };

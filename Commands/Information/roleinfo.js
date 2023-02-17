@@ -14,28 +14,28 @@ module.exports = {
     this.args = this.args?.map(e => e.replace(/[<@>]/g, '')) || [];
     this.content = this.content?.replace(/[<@>]/g, '');
 
-    const role = this.options?.getRole('role') || (!this.args?.[0] ? this.member.roles.highest : this.mentions?.roles.first()) || this.guild.roles.cache.find(e => [...this.args, this.content].includes(e.id) || [...this.args, this.content].includes(e.name));
-
-    const embed = new EmbedBuilder({
-      title: role.name,
-      color: role.color,
-      fields: [
-        { name: lang('mention'), value: role.toString(), inline: true },
-        { name: lang('members'), value: role.members.size, inline: true },
-        { name: lang('color'), value: role.color ? `[${role.hexColor}](https://www.color-hex.com/color/${role.hexColor.substring(1)})` : lang('global.none'), inline: true },
-        { name: lang('mentionable'), value: lang(`global.${role.mentionable}`), inline: true },
-        { name: lang('hoist'), value: lang(`global.${role.hoist}`), inline: true },
-        { name: lang('managed'), value: lang(`global.${role.managed}`), inline: true },
-        { name: lang('position'), value: `\`${role.position}\``, inline: true },
-        { name: 'ID', value: `\`${role.id}\``, inline: true },
-        { name: lang('createdAt'), value: `<t:${Math.round(role.createdTimestamp / 1000)}>`, inline: true },
-        role.members.size && role.members.size < 16 && { name: lang('members'), value: Array.from(role.members.values()).join(', '), inline: false },
-        { name: lang('permissions'), value: `\`${role.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none')}\` (\`${role.permissions.toArray().length}\`)`, inline: false }
-      ].filter(Boolean)
-    });
+    const
+      role = this.options?.getRole('role') || (!this.args?.[0] ? this.member.roles.highest : this.mentions?.roles.first()) || this.guild.roles.cache.find(e => [...this.args, this.content].includes(e.id) || [...this.args, this.content].includes(e.name)),
+      embed = new EmbedBuilder({
+        title: role.name,
+        color: role.color,
+        fields: [
+          { name: lang('mention'), value: role.toString(), inline: true },
+          { name: lang('members'), value: role.members.size, inline: true },
+          { name: lang('color'), value: role.color ? `[${role.hexColor}](https://www.color-hex.com/color/${role.hexColor.substring(1)})` : lang('global.none'), inline: true },
+          { name: lang('mentionable'), value: lang(`global.${role.mentionable}`), inline: true },
+          { name: lang('hoist'), value: lang(`global.${role.hoist}`), inline: true },
+          { name: lang('managed'), value: lang(`global.${role.managed}`), inline: true },
+          { name: lang('position'), value: `\`${role.position}\``, inline: true },
+          { name: 'ID', value: `\`${role.id}\``, inline: true },
+          { name: lang('createdAt'), value: `<t:${Math.round(role.createdTimestamp / 1000)}>`, inline: true },
+          role.members.size && role.members.size < 16 && { name: lang('members'), value: Array.from(role.members.values()).join(', '), inline: false },
+          { name: lang('permissions'), value: `\`${role.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none')}\` (\`${role.permissions.toArray().length}\`)`, inline: false }
+        ].filter(Boolean)
+      });
 
     if (role.color || role.icon) embed.setThumbnail(role.icon ? `https://cdn.discordapp.com/role-icons/${role.guild.id}/${role.icon}.webp?size=80&quality=lossless` : `https://dummyimage.com/80x80/${role.hexColor.substring(1)}/${role.hexColor.substring(1)}.png`);
 
-    this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed] });
   }
 };

@@ -131,7 +131,7 @@ module.exports = {
           }), '');
         }
 
-        this.editReply({ embeds: [embed] });
+        return this.editReply({ embeds: [embed] });
       }
     }
   }

@@ -27,7 +27,7 @@ module.exports = {
         fields: [
           { name: lang('members'), value: lang('memberStats', { all: guild.memberCount, humans: (await guild.members.fetch()).filter(e => !e.user.bot).size, bots: guild.members.cache.filter(e => e.user.bot).size }), inline: true },
           { name: lang('verificationLevel.name'), value: lang(`verificationLevel.${guild.verificationLevel}`), inline: true },
-          { name: 'ID', value: `\`${guild.id}\``, inline: true },
+          { name: lang('id'), value: `\`${guild.id}\``, inline: true },
           { name: lang('createdAt'), value: `<t:${Math.round(guild.createdTimestamp / 1000)}>`, inline: true },
           { name: lang('defaultNotifications.name'), value: lang(`defaultNotifications.${guild.defaultMessageNotifications}`), inline: true },
           { name: lang('owner'), value: `<@${guild.ownerId}>`, inline: true },
@@ -37,12 +37,13 @@ module.exports = {
           { name: lang('roles'), value: `\`${guild.roles.cache.size}\``, inline: true },
           { name: lang('boosts.name'), value: `\`${guild.premiumSubscriptionCount}\`, ` + (guild.premiumTier ? lang(`boosts.${guild.premiumTier}`) : ''), inline: true },
           { name: lang('channels'), value: Object.entries(channels.reduce((acc, { type }) => ({ ...acc, [type]: (acc[type] + 1) || 1 }), {})).map(([k, v]) => `${lang('others.ChannelTypes.plural.' + k)}: \`${v}\``).join(', '), inline: false },
-          guild.vanityURLCode && (
-            { name: 'Vanity URL', value: guild.vanityURLCode, inline: true },
-            { name: `Vanity URL ${lang('uses')}`, value: guild.vanityURLUses, inline: true }
-          )
-        ].filter(Boolean)
+        ]
       });
+
+    if (guild.vanityURLCode) embed.data.fields = embed.data.fields.concat([
+      { name: lang('vanityUrl'), value: guild.vanityURLCode, inline: true },
+      { name: lang('vanityUrl') + lang('uses'), value: guild.vanityURLUses, inline: true }
+    ]);
 
     const component = new ActionRowBuilder({
       components: [
@@ -60,6 +61,6 @@ module.exports = {
       url: guild.bannerURL({ size: 2048 })
     }));
 
-    this.customReply({ embeds: [embed], components: [component] });
+    return this.customReply({ embeds: [embed], components: [component] });
   }
 };

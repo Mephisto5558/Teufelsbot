@@ -6,5 +6,5 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: function () { this.customReply(responseList.random()); }
+  run: function () { return this.customReply(responseList.random()); }
 };

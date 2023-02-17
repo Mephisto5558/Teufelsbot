@@ -32,8 +32,7 @@ module.exports = {
     }
 
     if (isResultSet(result)) result = result.entries.length ? lang('separated', result.entries.join(' | ')) : result.entries;
-
-    embed.data.description = lang('success', { expression, result });
-    this.customReply({ embeds: [embed] });
+    
+    return this.customReply({ embeds: [embed.setDescription(lang('success', { expression, result }))] });
   }
 };

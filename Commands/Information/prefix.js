@@ -16,13 +16,12 @@ module.exports = {
 
     if (newPrefix && this.member.permissions.has(PermissionFlagsBits.ManageGuild)) {
       this.client.db.update('guildSettings', `${this.guild.id}.config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refix`, { prefix: newPrefix, caseinsensitive: prefixCaseInsensitive });
-      this.customReply(lang('saved', newPrefix));
+      return this.customReply(lang('saved', newPrefix));
     }
     else {
       const currentPrefix = this.guild.db.config?.prefix?.prefix || this.client.defaultSettings.config.prefix;
       if (!currentPrefix) throw new Error('No Default Prefix Found in DB');
-      this.customReply(lang('currentPrefix', currentPrefix) + (this.guild.db.config?.prefix?.caseinsensitive ? lang('caseInsensitive') : ''));
+      return this.customReply(lang('currentPrefix', currentPrefix) + (this.guild.db.config?.prefix?.caseinsensitive ? lang('caseInsensitive') : ''));
     }
-
   }
 };

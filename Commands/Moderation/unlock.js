@@ -12,11 +12,10 @@ module.exports = {
   ],
 
   run: async function (lang) {
-    const msg = await this.customReply(lang('global.loading'));
-
     this.args?.shift();
 
     const
+      msg = await this.customReply(lang('global.loading')),
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,
       reason = this.options?.getString('reason') || this.args?.join(' ') || lang('noReason'),
       overwrites = Object.entries(this.guild.db.lockedChannels?.[channel.id] || {})?.filter(async ([k, v]) => {
@@ -25,14 +24,12 @@ module.exports = {
         return (await this.guild.members.fetch(k)).manageable;
       });
 
-    if (!overwrites.length) msg.edit(lang('notLocked'));
+    if (!overwrites.length) return msg.edit(lang('notLocked'));
 
-    for (const [id, type] of overwrites) {
-      await channel.permissionOverwrites.edit(id,
-        { [PermissionFlagsBits.SendMessages]: true },
-        { type, reason: `unlock command, moderator ${this.user.tag}` }
-      );
-    }
+    for (const [id, type] of overwrites) await channel.permissionOverwrites.edit(id,
+      { [PermissionFlagsBits.SendMessages]: true },
+      { type, reason: `unlock command, moderator ${this.user.tag}` }
+    );
 
     this.client.db.update('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`, {});
 
@@ -43,6 +40,6 @@ module.exports = {
     });
 
     await channel.send({ embeds: [embed] });
-    msg.edit(lang('success'));
+    return msg.edit(lang('success'));
   }
 };

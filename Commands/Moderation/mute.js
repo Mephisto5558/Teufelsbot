@@ -36,17 +36,15 @@ module.exports = {
       duration = getMilliseconds(this.options.getString('duration'))?.limit?.({ min: 6e4, max: 2419e5 }),
       date = new Date();
 
-    let errorMsg, noMsg;
+    let noMsg;
 
-    if (!target) errorMsg = lang('notFound');
-    else if (target.id === this.member.id) errorMsg = lang('cantMuteSelf');
-    else if (target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
-      errorMsg = lang('global.noPermUser');
-    else if (target.permissions.has(PermissionFlagsBits.Administrator)) errorMsg = lang('targetIsAdmin');
-    else if (!target.moderatable) errorMsg = lang('global.noPermBot');
-    else if (!duration || typeof duration == 'string') errorMsg = lang('invalidDuration');
-
-    if (errorMsg) return this.editReply(errorMsg);
+    if (!target) return this.editReply(lang('notFound'));
+    if (target.id == this.member.id) return this.editReply(lang('cantMuteSelf'));
+    if (target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
+      return this.editReply(lang('global.noPermUser'));
+    if (target.permissions.has(PermissionFlagsBits.Administrator)) return this.editReply(lang('targetIsAdmin'));
+    if (!target.moderatable) return this.editReply(lang('global.noPermBot'));
+    if (!duration || typeof duration == 'string') return this.editReply(lang('invalidDuration'));
 
     date.setTime(date.getTime() + duration);
 
@@ -69,6 +67,6 @@ module.exports = {
     embed.data.description = lang('infoEmbedDescription', { user: target.user.tag, reason, time: Math.round(target.communicationDisabledUntilTimestamp / 1000) });
     if (noMsg) embed.data.description += lang('noDM');
 
-    this.editReply({ embeds: [embed] });
+    return this.editReply({ embeds: [embed] });
   }
 };
