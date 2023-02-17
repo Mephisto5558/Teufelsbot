@@ -15,6 +15,6 @@ module.exports = {
       color: Colors.Blurple
     });
 
-    this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed] });
   }
 };

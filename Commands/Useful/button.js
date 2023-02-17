@@ -82,7 +82,7 @@ module.exports = {
       else await this.channel.send({ content, components });
 
       delete button.data.custom_id;
-      this.editReply(custom ? lang('successJSON') : lang('success', JSON.stringify(button.data.filterEmpty())));
+      return this.editReply(custom ? lang('successJSON') : lang('success', JSON.stringify(button.data.filterEmpty())));
     }
     catch (err) { return this.editReply(lang('invalidOption', err.message)); }
   }

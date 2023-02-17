@@ -18,10 +18,8 @@ rules:
     - error
     - 2
     - SwitchCase: 1
-      VariableDeclarator: 1
   linebreak-style:
     - off
-    - windows
   quotes:
     - warn
     - single

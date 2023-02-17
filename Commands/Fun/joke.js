@@ -1,6 +1,6 @@
 const
+  fetch = require('node-fetch'),
   { EmbedBuilder } = require('discord.js'),
-  { get } = require('axios'),
   { Github } = require('../../config.json'),
   defaultAPIList = [
     { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any' },
@@ -8,54 +8,38 @@ const
     { name: 'icanhazdadjoke', link: 'https://icanhazdadjoke.com', url: 'https://icanhazdadjoke.com' }
   ];
 
-async function getJoke(APIList, type, blacklist, maxLength) {
-  let response;
+/**@this {import('discord.js').Client}*/
+async function getJoke(APIList = [], type = '', blacklist = '', maxLength = 2000) {
   const API = APIList.random();
+  let response;
 
   try {
     switch (API.name) {
       case 'jokeAPI': {
-        const res = await get(API.url, {
-          timeout: 2500,
-          params: { lang: 'en', blacklist }
-        });
+        const res = await fetch(`${API.url}?lang=en&blacklist=${blacklist}`, { timeout: 2500 }).then(e => e.json());
 
-        if (res.data.type == 'twopart') {
-          response =
-            `${res.data.setup}\n\n` +
-            `||${res.data.delivery}||`;
-        }
-        else response = res.data;
+        if (res.type == 'twopart') response = `${res.setup}\n\n||${res.delivery}||`;
+        else response = res.joke;
 
         break;
       }
 
       case 'humorAPI': {
-        const res = await get(API.url, {
-          timeout: 2500,
-          params: {
-            'api-key': this.keys.humorAPIKey,
-            'min-rating': 7,
-            'max-length': maxLength,
-            'include-tags': type,
-            'exclude-tags': blacklist,
-          }
-        });
+        const res = await fetch(`${API.url}?api-key=${this.keys.humorAPIKey}&min-rating=7&max-length=${maxLength}&include-tags=${type}&exclude-tags=${blacklist}`, { timeout: 2500 }).then(e => e.json());
 
-        response = res.data.joke.includes('Q: ') ? res.data.joke.replace('Q: ', '').replace('A: ', '\n||') + '||\n' : res.data.joke;
+        response = res.joke.includes('Q: ') ? res.joke.replace('Q: ', '').replace('A: ', '\n||') + '||\n' : res.joke;
         break;
       }
 
       case 'icanhazdadjoke': {
-        const res = await get(API.url, {
-          timeout: 2500,
+        const res = await fetch(API.url, {
           headers: {
             'User-Agent': `Discord bot (${Github.Repo})`,
             Accept: 'application/json'
           }
-        });
+        }).then(e => e.json());
 
-        response = res.data.joke;
+        response = res.joke;
         break;
       }
     }
@@ -65,12 +49,8 @@ async function getJoke(APIList, type, blacklist, maxLength) {
       this.error('joke.js: ');
       this.error(err.response);
     }
-    else if (err.code != 'ECONNABORTED') {
-      this.error(
-        `joke.js: ${API?.url ?? JSON.stringify(API)} responded with error ` +
-        `${err.status ?? err.response?.status ?? err.name}, ${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`
-      );
-    }
+    else if (err.name !== 'AbortError')
+      this.error(`joke.js: ${API?.url ?? JSON.stringify(API)} responded with error ${err.status ?? err.response?.status ?? err.name}, ${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`);
   }
 
   if (typeof response == 'string') return [response.replaceAll('`', '\''), API];
@@ -110,18 +90,16 @@ module.exports = {
       api = this.options?.getString('api'),
       type = this.options?.getString('type') || this.args?.[0],
       blacklist = this.options?.getString('blacklist'),
-      maxLength = this.options?.getNumber('max_length') || 2000,
+      maxLength = this.options?.getNumber('max_length'),
       [joke, API] = await getJoke.call(this.client, api ? [defaultAPIList.find(e => e.name == api)] : defaultAPIList, type, blacklist, maxLength);
 
     if (!joke) return this.customReply(lang('noAPIAvailable'));
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description:
-        `${joke}\n` +
-        `- [${API.name}](${API.link})`
+      description: `${joke}\n- [${API.name}](${API.link})`
     }).setColor('Random');
 
-    this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed] });
   }
 };

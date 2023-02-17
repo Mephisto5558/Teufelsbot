@@ -105,6 +105,6 @@ module.exports = {
       if (messages[i + 1]) await sleep(2000);
     }
 
-    if (this instanceof CommandInteraction) this.editReply(lang('success', { count: deleted, all: messages.length }));
+    if (this instanceof CommandInteraction) return this.editReply(lang('success', { count: deleted, all: messages.length }));
   }
 };

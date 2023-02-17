@@ -20,13 +20,14 @@ module.exports = {
   ],
 
   run: async function (lang) {
-    const msg = this.args?.[0] || this.options?.getString('msg');
-    const channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel;
+    const
+      msg = this.args?.[0] || this.options?.getString('msg'),
+      channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel;
 
     if (!this.member.permissionsIn(channel).has(PermissionFlagsBits.SendMessages)) return this.customReply(lang('noPerm'));
     if (!msg) return this.customReply(lang('noMsgProvided'));
 
     await channel.send(msg.replaceAll('/n', '\n'));
-    this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent'));
+    return this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent'));
   }
 };

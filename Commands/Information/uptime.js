@@ -15,6 +15,7 @@ module.exports = {
       description: lang('embedDescription', { time: uptime(true, lang).formatted, Domain }),
       color: Colors.White
     });
-    this.customReply({ embeds: [embed] });
+
+    return this.customReply({ embeds: [embed] });
   }
 };

@@ -30,12 +30,10 @@ module.exports = {
 
     this.client.db.update('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`, overwrites);
 
-    for (const [id, type] of Object.entries(overwrites)) {
-      await channel.permissionOverwrites.edit(id,
-        { [PermissionFlagsBits.SendMessages]: false },
-        { type, reason: `lock command, moderator ${this.user.tag}` }
-      );
-    }
+    for (const [id, type] of Object.entries(overwrites)) await channel.permissionOverwrites.edit(id,
+      { [PermissionFlagsBits.SendMessages]: false },
+      { type, reason: `lock command, moderator ${this.user.tag}` }
+    );
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
@@ -44,6 +42,6 @@ module.exports = {
     });
 
     await channel.send({ embeds: [embed] });
-    msg.edit(lang('success'));
+    return msg.edit(lang('success'));
   }
 };

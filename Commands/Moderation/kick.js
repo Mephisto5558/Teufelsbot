@@ -1,7 +1,6 @@
 module.exports = {
   name: 'kick',
   permissions: { client: ['KickMembers'], user: ['KickMembers'] },
-  cooldowns: { user: 100 },
   slashCommand: true,
   prefixCommand: false,
   options: [

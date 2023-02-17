@@ -18,7 +18,7 @@ module.exports = {
       description =
         `${lang('dev')}: [${owner.tag}](https://discord.com/users/${owner.id})\n` +
         `${lang('shard')}: \`${this.guild.shardId}\`\n` +
-        `${lang('global.guild')}: \`${this.guild.db.position ?? 0}\`\n` +
+        `${lang('guild')}: \`${this.guild.db.position ?? 0}\`\n` +
         `${lang('commands')}: \`${new Set(this.client.prefixCommands.filter(e => !e.aliasOf), this.client.slashCommands.filter(e => !e.aliasOf)).size}\`\n` +
         `${lang('starts')}: \`${startCount}\`\n` +
         `${lang('lastStart')}: <t:${startTime}> (<t:${startTime}:R>)\n` +
@@ -32,6 +32,6 @@ module.exports = {
         footer: { text: lang('embedFooterText') }
       });
 
-    this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed] });
   }
 };

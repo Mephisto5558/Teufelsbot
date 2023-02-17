@@ -24,6 +24,6 @@ module.exports = {
     const time = this.createdTimestamp + offset;
     if (time != time.limit({ min: -yearLimit, max: yearLimit })) return this.customReply(lang('outOfRange'));
 
-    this.customReply(lang('success', { time: Math.round(time / 1000) }));
+    return this.customReply(lang('success', { time: Math.round(time / 1000) }));
   }
 };

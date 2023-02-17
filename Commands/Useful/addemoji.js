@@ -1,6 +1,19 @@
 const
   { parseEmoji, EmbedBuilder, Colors } = require('discord.js'),
-  { head } = require('axios');
+  http = require('http'),
+  https = require('https'),
+  url = require('url');
+
+function checkUrl(urlStr) {
+  return new Promise((resolve, reject) => {
+    const { protocol, host, path } = url.parse(urlStr);
+
+    (protocol == 'https:' ? https : http)
+      .request({ host, path, method: 'HEAD' }, res => resolve(res.statusCode >= 200 && res.statusCode < 400 ? true : false))
+      .on('error', err => reject(err))
+      .end();
+  });
+}
 
 module.exports = {
   name: 'addemoji',
@@ -39,7 +52,7 @@ module.exports = {
     if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
     else if (!/^(https?:\/\/)?(www\.)?.*\.(jpg|jpeg|png|webp|svg|gif)(\?.*)?$/i.test(input)) return this.editReply({ embeds: [embed.setDescription(lang('invalidUrl'))] });
     if (!input.startsWith('http')) input = `https://${input}`;
-    if (/4\d\d/.test((await head(input)).status)) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
+    if (!(await checkUrl(input))) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
 
     try {
       const emoji = await this.guild.emojis.create({
@@ -56,7 +69,6 @@ module.exports = {
       embed.data.description = lang('error', err.name == 'AbortError' ? lang('timedOut') : err.message);
     }
 
-    embed.data.color = Colors.Green;
-    this.editReply({ embeds: [embed] });
+    return this.editReply({ embeds: [embed.setColor(Colors.Green)] });
   }
 };

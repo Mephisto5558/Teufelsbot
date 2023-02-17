@@ -1,29 +1,29 @@
 const
-  { EmbedBuilder } = require('discord.js'),
-  { get } = require('axios');
+  fetch = require('node-fetch').default,
+  { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'inspirobot',
-  cooldowns: { user: 100 },
+  cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
 
   run: async function (lang) {
     let res;
-    try { res = await get('https://inspirobot.me/api?generate=true'); }
+    try { res = await fetch('https://inspirobot.me/api?generate=true').then(e => e.text()); }
     catch (err) {
-      this.customReply(lang('error'));
+      await this.customReply(lang('error'));
       return this.client.error(err.message);
     }
 
-    if (!res.data) return this.customReply(lang('notFound'));
+    if (!res) return this.customReply(lang('notFound'));
 
     const embed = new EmbedBuilder({
-      image: { url: res.data },
+      image: { url: res },
       footer: { text: '- inspirobot.me' }
     }).setColor('Random');
 
-    this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed] });
   }
 };

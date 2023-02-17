@@ -75,6 +75,6 @@ module.exports = {
     catch (err) { return this.editReply(lang('invalidOption', err.message)); }
 
     if (custom) return this.editReply(lang('successJSON'));
-    this.editReply(lang('success', JSON.stringify(embed.data.filterEmpty())));
+    return this.editReply(lang('success', JSON.stringify(embed.data.filterEmpty())));
   }
 };

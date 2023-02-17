@@ -35,6 +35,6 @@ module.exports = {
 
     await channel.delete(`nukechannel command, member ${this.user.tag}`);
 
-    cloned.send({ embeds: [embed] });
+    return cloned.send({ embeds: [embed] });
   }
 };

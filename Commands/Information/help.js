@@ -89,6 +89,6 @@ module.exports = {
     if (!embed.data.fields) embed.data.description = lang('all.notFound');
     else embed.data.footer = { text: lang('all.embedFooterText') };
 
-    this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed] });
   }
 };

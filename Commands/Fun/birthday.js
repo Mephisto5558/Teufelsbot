@@ -61,21 +61,19 @@ module.exports = {
       case 'set': {
         this.client.db.update('userSettings', `${this.user.id}.birthday`, birthday);
 
-        this.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
-        break;
+        return this.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
       }
 
       case 'remove': {
         this.client.db.update('userSettings', `${this.user.id}.birthday`, null);
 
-        this.editReply(lang('removed'));
-        break;
+        return this.editReply(lang('removed'));
       }
 
       case 'get': {
-        let newData = '';
         const embed = new EmbedBuilder({
           color: Colors.Blurple,
+          description: lang('getAll.notFound'),
           footer: {
             text: this.user.tag,
             iconURL: this.member.displayAvatarURL()
@@ -89,10 +87,10 @@ module.exports = {
 
           if (data) {
             const age = getAge(data) + 1;
-            newData = lang('getUser.date', { user: target.customName, month: lang(`months.${data[1]}`), day: data[2] });
-            if (age < currentYear) newData += lang('getUser.newAge', age);
+            embed.data.description = lang('getUser.date', { user: target.customName, month: lang(`months.${data[1]}`), day: data[2] });
+            if (age < currentYear) embed.data.description += lang('getUser.newAge', age);
           }
-          else newData = lang('getUser.notFound', target.customName);
+          else embed.data.description = lang('getUser.notFound', target.customName);
         }
         else {
           embed.data.title = lang('getAll.embedTitle');
@@ -114,19 +112,18 @@ module.exports = {
             .slice(0, 10);
 
           for (const [id, year, month, day] of data) {
-            const date = lang('getAll.date', { month: lang(`months.${month}`), day: parseInt(day) });
-            const age = getAge([year, month, day]) + 1;
-            const msg = `> <@${id}>${age < currentYear ? ' (' + age + ')' : ''}\n`;
+            const
+              date = lang('getAll.date', { month: lang(`months.${month}`), day: parseInt(day) }),
+              age = getAge([year, month, day]) + 1,
+              msg = `> <@${id}>${age < currentYear ? ' (' + age + ')' : ''}\n`;
 
-            newData += newData?.includes(date) ? msg : `\n${date}${msg}`;
+            embed.data.description += embed.data.description?.includes(date) ? msg : `\n${date}${msg}`;
           }
         }
 
-        embed.data.description = newData || lang('getAll.notFound');
-
         if (!doNotHide) return this.editReply({ embeds: [embed] });
 
-        this.channel.send({ embeds: [embed] });
+        await this.channel.send({ embeds: [embed] });
         return this.editReply(lang('global.messageSent'));
       }
     }

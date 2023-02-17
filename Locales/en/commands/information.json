@@ -82,6 +82,7 @@
     "description": "shows some stats and infos about the bot.",
     "dev": "Developer",
     "shard": "Shard",
+    "guild": "Internal Guild ID",
     "commands": "Commands",
     "starts": "Starts",
     "lastStart": "Last start",
@@ -106,6 +107,8 @@
       "loading": "Pinging... (this takes about one minute)",
       "embedDescription": "Pings: `{pings}`\nLowest Ping: `{lowest}ms`\nHeightest Ping: `{heightest}ms`\nAverage Ping: `{average}ms`"
     },
+    "api": "API",
+    "bot": "Bot",
     "embedTitle": "Ping",
     "messageSend": "Message Send"
   },
@@ -160,6 +163,7 @@
       "3": "High",
       "4": "Very High"
     },
+    "id": "ID",
     "createdAt": "Created At",
     "defaultNotifications": {
       "name": "Default Notifications",
@@ -179,7 +183,7 @@
     "roles": "Roles",
     "channels": "Channels",
     "vanityUrl": "Vanity URL",
-    "uses": "Uses",
+    "uses": " Uses",
     "downloadIcon": "Download Icon",
     "downloadBanner": "Download Banner"
   },

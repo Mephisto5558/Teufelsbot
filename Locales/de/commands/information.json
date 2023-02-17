@@ -82,6 +82,7 @@
     "description": "Zeigt Statistiken und Informationen über den Bot.",
     "dev": "Entwickler",
     "shard": "Shard",
+    "guild": "Interne Server-ID",
     "commands": "Befehle",
     "starts": "Starts",
     "lastStart": "Letzter Start",
@@ -106,6 +107,8 @@
       "loading": "Pingen... (dies dauert etwa eine Minute)",
       "embedDescription": "Pings: `{pings}`\nNiedrigster Ping: `{lowest}ms`\nHöchster Ping: `{heightest}ms`\nDurchschnittlicher Ping: `{average}ms`"
     },
+    "api": "API",
+    "bot": "Bot",
     "embedTitle": "Ping",
     "messageSend": "Nachricht senden"
   },
@@ -160,6 +163,7 @@
       "3": "Hoch",
       "4": "Höchste"
     },
+    "id": "ID",
     "createdAt": "Erstellt",
     "defaultNotifications": {
       "name": "Standard-Benachrichtigungseinstellung",
@@ -179,7 +183,7 @@
     "roles": "Rollen",
     "channels": "Kanäle",
     "vanityUrl": "Benutzerdefinierte URL",
-    "uses": "Nutzungen",
+    "uses": " Nutzungen",
     "downloadIcon": "Icon Herunterladen",
     "downloadBanner": "Banner Herunterladen"
   },

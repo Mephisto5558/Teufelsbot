@@ -1,8 +1,9 @@
 module.exports = {
   name: 'afk',
-  cooldowns: { user: 20 },
+  cooldowns: { user: 5000 },
   slashCommand: true,
   prefixCommand: true,
+  dmPermission: true,
   options: [
     {
       name: 'message',
@@ -14,7 +15,7 @@ module.exports = {
 
   run: function (lang) {
     const
-      global = this.options?.getBoolean('global') ?? this.args?.[0] == 'global',
+      global = !this.guildId || (this.options?.getBoolean('global') ?? this.args?.[0] == 'global'),
       message = this.options?.getString('message') || this.content?.substring(global ? 7 : 0, 1000) || 'AFK',
       createdAt = Math.round(this.createdTimestamp / 1000).toString();
 
@@ -23,6 +24,6 @@ module.exports = {
 
     if (this.member.moderatable && this.member.displayName.length < 26 && !this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(`[AFK] ${this.member.displayName}`);
 
-    this.customReply(global ? lang('globalSuccess', message) : lang('success', message));
+    return this.customReply(lang(global ? 'globalSuccess' : 'success', message));
   }
 };

@@ -27,17 +27,12 @@ module.exports = {
     const
       input = this.options.getString('input'),
       method = this.options.getString('method'),
-      hash = createHash(method).update(input).digest('hex');
+      embed = new EmbedBuilder({
+        title: lang('embedTitle'),
+        description: lang('embedDescription', { input: input.length > 500 ? `${input.substring(0, 500)}\n...` : input, method }),
+        color: Colors.DarkGold
+      });
 
-    let embed = new EmbedBuilder({
-      title: lang('embedTitle'),
-      description: lang('embedDescription', { input: input.length > 500 ? `${input.substring(0, 500)}\n...` : input, method }),
-      color: Colors.DarkGold
-    });
-
-    this.editReply({
-      content: lang('text', hash),
-      embeds: [embed]
-    });
+    return this.editReply({ content: lang('text', createHash(method).update(input).digest('hex')), embeds: [embed] });
   }
 };

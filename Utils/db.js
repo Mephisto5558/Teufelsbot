@@ -35,7 +35,7 @@ module.exports = class DB {
   }
 
   /**@param {boolean}overwrite overwrite existing collections*/
-  async generate(overwrite) {
+  async generate(overwrite = false) {
     for (const { key, value } of require('../Templates/db_collections.json'))
       await this.set(key, value, overwrite);
   }
@@ -45,7 +45,7 @@ module.exports = class DB {
   get = key => this.collection.get(key);
 
   /**@param {boolean}overwrite overwrite existing collection*/
-  async set(key, value, overwrite) {
+  async set(key, value, overwrite = false) {
     if (!key) return;
     let data;
 
@@ -66,13 +66,13 @@ module.exports = class DB {
 
     if (!data) data = new this.schema({ key: db, value: {} });
     else if (!data.value) data.value = {};
-    else if (typeof data.value != 'object') throw new Error(`data.value in db ${db} must be typeof object! Found ${typeof data.value}.`);
+    else if (typeof data.value != 'object') throw new Error(`data.value in db "${db}" must be typeof object! Found ${typeof data.value}.`);
 
     DB.mergeWithFlat(data.value, key, value);
 
     data.markModified(`value.${key}`);
-    data.save();
-    this.collection.set(db, data.value);
+    await data.save();
+    return this.collection.set(db, data.value);
   }
 
   async push(key, ...pushValue) {
@@ -82,11 +82,11 @@ module.exports = class DB {
     if (!dbData) dbData = new this.schema({ key, value: pushValue });
     else if (!data.value) data.value = pushValue;
     else if (!Array.isArray(dbData)) throw Error(`You can't push data to a ${typeof dbData} value!`);
-    dbData.push(...pushValue);
 
     const data = await this.schema.findOne({ key });
     data.value = [...data.value, ...values];
-    data.save();
+    await data.save();
+    return dbData.push(...pushValue);
   }
 
   async delete(key) {

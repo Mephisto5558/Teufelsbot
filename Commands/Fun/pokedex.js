@@ -78,6 +78,6 @@ module.exports = {
         ]
       });
 
-    this.customReply({ embeds: [embed], components: [component] });
+    return this.customReply({ embeds: [embed], components: [component] });
   }
 };

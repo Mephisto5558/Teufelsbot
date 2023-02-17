@@ -8,7 +8,7 @@ const
 
 module.exports = {
   name: 'record',
-  cooldowns: {  user: 1000 },
+  cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: false,
   options: [
@@ -112,6 +112,7 @@ module.exports = {
         selfMute: true,
         adapterCreator: voiceChannel.guild.voiceAdapterCreator
       });
+
       try { await entersState(connection, VoiceConnectionStatus.Ready, 2e4); }
       catch {
         embed.data.description = lang('cantConnect');
@@ -126,12 +127,13 @@ module.exports = {
       connection.receiver.speaking.on('start', userId => {
         if (!allowed.has(userId)) return;
 
-        connection.receiver.subscribe(userId, {
-          end: {
-            behavior: EndBehaviorType.AfterSilence,
-            duration: 100,
-          },
-        })
+        connection.receiver
+          .subscribe(userId, {
+            end: {
+              behavior: EndBehaviorType.AfterSilence,
+              duration: 100,
+            },
+          })
           .pipe(new Decoder({ channels: 2, rate: 48000 }))
           .pipe(createWriteStream(`./VoiceRecords/raw/${filename}.ogg`, { flags: 'a' }));
       });
@@ -198,7 +200,7 @@ module.exports = {
           }
 
           case 'get': {
-            button.reply({
+            return button.reply({
               content: lang('success'),
               files: [`./VoiceRecords/${filename}.mp3`],
               ephemeral: true

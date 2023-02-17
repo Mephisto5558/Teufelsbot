@@ -9,6 +9,6 @@ module.exports = {
     const result = this.client.db.get(this.content);
 
     if (!result) return this.customReply(lang('notFound'));
-    this.customReply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```');
+    return this.customReply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```');
   }
 };

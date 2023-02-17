@@ -55,6 +55,6 @@ module.exports = {
     delete embed.data.description;
     embed.data.image = { url: 'attachment://avatarfusion.png' };
 
-    msg.edit({ embeds: [embed], files: [{ attachment: canvas.toBuffer(), name: 'avatarfusion.png' }] });
+    return msg.edit({ embeds: [embed], files: [{ attachment: canvas.toBuffer(), name: 'avatarfusion.png' }] });
   }
 };

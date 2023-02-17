@@ -9,7 +9,6 @@ module.exports = {
     this.client.log(`Reloading db, initiated by user ${this.user.tag}`);
 
     await this.client.db.fetchAll();
-
-    this.customReply(lang('success'));
+    return this.customReply(lang('success'));
   }
 };
