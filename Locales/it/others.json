@@ -12,7 +12,7 @@
     "Stream": "Video",
     "ViewChannel": "Visualizza Canali",
     "SendMessages": "Invia messaggi e crea messaggi",
-    "SendTTSMessages": "Invia Messaggi Testo-To-Vocali",
+    "SendTTSMessages": "Invia Messaggi Text-to-speech",
     "ManageMessages": "Gestisci Messaggi",
     "EmbedLinks": "Incorpora Collegamenti",
     "AttachFiles": "Allega File",
@@ -40,5 +40,21 @@
     "SendMessagesInThreads": "Invia messaggi in discussioni e messaggi",
     "UseEmbeddedActivities": "Usa Attività",
     "ModerateMembers": "Membri Moderati"
+  },
+  "ChannelTypes": {
+    "plural": {
+      "0": "Canali Di Testo",
+      "1": "DMs",
+      "2": "Canali Vocali",
+      "3": "DM Del Gruppo",
+      "4": "Categorie",
+      "5": "Canali Di Annuncio",
+      "10": "Discussioni Annuncio",
+      "11": "Discussioni Pubbliche",
+      "12": "Discussioni Private",
+      "13": "Voci Stage",
+      "14": "Directory",
+      "15": "Forum"
+    }
   }
 }

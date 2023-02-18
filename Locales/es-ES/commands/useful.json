@@ -21,11 +21,6 @@
     "error": "No se puede crear el emoji por la razón:\n```\n{err}\n```",
     "timedOut": "Se ha agotado el tiempo de espera. Tal vez la imagen es grande."
   },
-  "autopublish": {
-    "description": "publica automáticamente todo lo que cualquier persona en cualquier canal de anuncio dice",
-    "usage": "Este comando publica automáticamente todos los mensajes enviados en los canales de anuncios.\nEsto es un alternador.",
-    "success": "{toggle} autopublicando."
-  },
   "button": {
     "description": "Crear un botón.",
     "options": {
@@ -47,7 +42,7 @@
               "2": "Gris",
               "3": "Verde",
               "4": "Rojo",
-              "5": "Link (Requires the \"url\" option)"
+              "5": "Enlace (requiere la opción \"url\")"
             }
           },
           "emoji": {
@@ -208,7 +203,7 @@
   },
   "math": {
     "description": "Ejecuta algunas matemáticas",
-    "usage": "matemáticas [expression]",
+    "usage": "Comando PREFIX matemática [expression]\n\nEsta calculadora soporta una amplia gama de operaciones matemáticas, no solo las básicas.\nPuede asignar valores a variables, por ejemplo: `x=10`.\nMúltiples sentencias pueden ser evaluadas usando una nueva línea o un punto y coma, por ejemplo: `x=10; x+10` devolverá `20`.\nRecuerda usar un asterisco (`*`) para multiplicación.\nLa calculadora puede producir múltiples resultados. Tenga en cuenta que los espacios innecesarios pueden causar errores en las expresiones.",
     "options": {
       "expression": {
         "description": "¿Qué quieres que resuelve?"
@@ -216,7 +211,6 @@
     },
     "embedTitle": "Calculador",
     "noInput": "¡No has dado ninguna entrada!",
-    "help": "Ayuda e Información\n\nEsta calculadora soporta muchas operaciones matemáticas, no solo las básicas.\nPuedes usar variables como esta: `x=10`.\nPuedes usar múltiples sentencias usando una nueva línea o un `;`. `x=10;x+10` devuelve `20`.\nNecesitas usar `*` para multiplicar.\nLa calculadora suprime la salida de múltiples resultados.\nA veces los espacios innecesarios hacen el error de la expresión.",
     "error": "Ocurrió un error mientras se trataba de resolver tu expresión:\n```{err}```",
     "separated": "Resultados separados con \"|\":\n{results}",
     "success": "Expresión:\n```{expression}```\nResultado:\n```{result}```"
@@ -281,7 +275,7 @@
     "usage": "Comando PREFIX : marca de tiempo [time]",
     "options": {
       "time": {
-        "description": "The time from now (eg. 1w3d2h5min): 3min returns now+3min, -3min returns now-3min"
+        "description": "El tiempo a partir de ahora (ej. 1w3d2h5min): 3 minutos devuelve ahora+3min, -3min devuelve ahora-3min"
       }
     },
     "invalid": "¡El tiempo que proporcionaste no es válido! Usa {command} y busca `timestamp` para obtener información mor.",

@@ -82,6 +82,7 @@
     "description": "показывает статистику и информацию о боте.",
     "dev": "Разработчик",
     "shard": "Осколок",
+    "guild": "Внутренний ID Гильдии",
     "commands": "Команды",
     "starts": "Начинается",
     "lastStart": "Последний старт",
@@ -106,6 +107,8 @@
       "loading": "Пинг... (это занимает около минуты)",
       "embedDescription": "Пинги: `{pings}`\nСамый низкий Ping: `{lowest}ms`\nНаибольший Ping: `{heightest}ms`\nСредний Ping: `{average}ms`"
     },
+    "api": "API",
+    "bot": "Bot",
     "embedTitle": "Пинг",
     "messageSend": "Отправить сообщение"
   },
@@ -147,23 +150,40 @@
     "description": "Получить информацию о гильдии",
     "options": {
       "guild_id": {
-        "description": "The server ID you want to get information about. Only works for servers I'm in."
+        "description": "ID сервера, о котором вы хотите получить информацию. Работает только для серверов, в которых я нахожусь."
       }
     },
+    "memberStats": "`{all}` (Хуманы: `{humans}`, боты: `{bots}`)",
     "members": "Члены Комитета",
-    "verificationLevel": "Уровень верификации",
+    "verificationLevel": {
+      "name": "Уровень верификации",
+      "0": "Нет",
+      "1": "Низкий",
+      "2": "Средний",
+      "3": "Высокий",
+      "4": "Очень высокий"
+    },
+    "id": "ID",
     "createdAt": "Создано в",
-    "defaultNotifications": "Уведомления по умолчанию",
+    "defaultNotifications": {
+      "name": "Уведомления по умолчанию",
+      "0": "Все сообщения",
+      "1": "Только упоминания"
+    },
     "owner": "Владелец",
-    "memberCount": "Количество участников",
     "locale": "Язык",
     "partnered": "Партнёр",
     "emojis": "Emojis",
-    "boosts": "Усиление",
+    "boosts": {
+      "name": "Усиление",
+      "1": "Ранг 1",
+      "2": "Ранг 2",
+      "3": "Ранг 3"
+    },
     "roles": "Роли",
     "channels": "Каналы",
     "vanityUrl": "Персональный URL",
-    "uses": "Использовано",
+    "uses": " Использовано",
     "downloadIcon": "Загрузить иконку",
     "downloadBanner": "Скачать баннер"
   },

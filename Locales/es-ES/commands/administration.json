@@ -1,18 +1,23 @@
 {
+  "autopublish": {
+    "description": "publica automáticamente todo lo que cualquier persona en cualquier canal de anuncio dice",
+    "usage": "Este comando publica automáticamente todos los mensajes enviados en los canales de anuncios.\nEsto es un alternador.",
+    "success": "{toggle} autopublicando."
+  },
   "serverbackup": {
     "description": "Administre las copias de seguridad de su servidor.",
     "options": {
       "create": {
-        "description": "Create a backup of your server. If the server has 5 or more backups, the oldest one will be deleted."
+        "description": "Crea una copia de seguridad de tu servidor. Si el servidor tiene 5 o más copias de seguridad, la más antigua se eliminará."
       },
       "load": {
-        "description": "Load a backup. CAUTION: this erases all server data! Use the option \"no_clear\" to avoid that.",
+        "description": "Cargar una copia de seguridad. ¡ATENCIÓN: esto borra todos los datos del servidor! Utilice la opción \"no_clear\" para evitar eso.",
         "options": {
           "id": {
             "description": "El ID de copia de seguridad que desea cargar. Utilice el subcomando \"get\" para ver una lista de IDs."
           },
           "no_clear": {
-            "description": "If set to true, will only overwrite existing data (e.g. channels won't get deleted)."
+            "description": "Si se establece en true, sólo sobrescribirá los datos existentes (por ejemplo, los canales no se eliminarán)."
           }
         }
       },
@@ -116,7 +121,7 @@
             }
           },
           "hide_count": {
-            "description": "Hides the number of given roles next to the label. This increases the max. label length by 4."
+            "description": "Oculta el número de roles dados junto a la etiqueta. Esto aumenta la longitud máxima de la etiqueta en 4."
           },
           "content": {
             "description": "¿Qué debería decir el mensaje? Esto sobrescribe el mensaje original. Use \"/n\" para nuevas líneas."
@@ -237,12 +242,7 @@
         "description": "Cambiar el idioma del bot.",
         "options": {
           "language": {
-            "description": "¿En qué idioma debe responder el niño?",
-            "choices": {
-              "de": "Alemán",
-              "en": "Inglés",
-              "ru": "Ruso"
-            }
+            "description": "¿En qué idioma debe responder el niño?"
           }
         }
       },
@@ -250,12 +250,12 @@
         "description": "Administrar opciones para las copias de seguridad de su servidor.",
         "options": {
           "allowed_to_load": {
-            "description": "Change who is allowed to load server backups.",
+            "description": "Cambiar quién puede cargar las copias de seguridad del servidor.",
             "choices": {
               "creator": "Creador",
-              "owner": "Server owner",
-              "creator+owner": "Creator and Server owner",
-              "admins": "Current server administrators"
+              "owner": "Dueño del servidor",
+              "creator+owner": "Creador y dueño del servidor",
+              "admins": "Administradores actuales del servidor"
             }
           }
         }
@@ -287,7 +287,7 @@
       "embedDescription": "Los siguientes mensajes serán en `{lang}`."
     },
     "serverbackup": {
-      "success": "Successfully updated the settings!"
+      "success": "¡Actualización exitosa de la configuración!"
     }
   }
 }

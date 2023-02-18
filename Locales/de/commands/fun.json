@@ -277,7 +277,7 @@
             "description": "Mitglieder, welche nicht teilnehmen dürfen"
           },
           "required_roles": {
-            "description": "Nur Mitglieder mit einer dieser Rollen dürfen teilnehmen."
+            "description": "Nur jemand mit einer dieser Rollen kann am Giveaway teilnehmen."
           },
           "bonus_entries": {
             "description": "Erwähnungen von Mitgliedern/Rollen und der Anzahl deren Bonuseinträge, z.B. @Premium:5 @Normal:2"
@@ -408,7 +408,7 @@
             "description": "Der Typ nach dem sortiert wird. Standard: Heiß"
           },
           "filter_nsfw": {
-            "description": "Entfernt alle NSFW-Posts. Standard: true, erzwungen bei Nicht-NSFW-Kanälen"
+            "description": "Entfernt alle NSFW-Posts. Standard: True, erzwungen bei Nicht-NSFW-Kanälen"
           }
         }
       }
@@ -744,7 +744,7 @@
     "noneFound": "Es gibt keine Auslöser!",
     "notFound": "Kein Auslöser passt zu deiner Suchanfrage.",
     "confirmation": "lösche alles",
-    "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!",
+    "needConfirm": "Du musst diese Aktion bestätigen, indem du `LÖSCHE ALLES` in der `confirm` Option eingibst!",
     "embedTitle": "Trigger",
     "embedTitleOne": "**Auslöser {id}:**",
     "embedDescriptionOne": "Auslöser:\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",

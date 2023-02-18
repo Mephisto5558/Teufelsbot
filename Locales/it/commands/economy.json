@@ -54,13 +54,13 @@
             "description": "Permetti o non consenti qualcosa o qualcuno per tutti i metodi di guadagno.",
             "options": {
               "channel": {
-                "description": "Allow or disallow a channel from all gaining methods (eg. chat messages in a spam channel)."
+                "description": "Permetti o disattiva un canale da tutti i metodi di guadagno (ad esempio messaggi di chat in un canale spam)."
               },
               "role": {
-                "description": "Allow or disallow a role from all gaining methods (eg. chat messages in all channels)."
+                "description": "Permetti o disabilita un ruolo da tutti i metodi di guadagno (ad esempio messaggi di chat in tutti i canali)."
               },
               "user": {
-                "description": "Allow or disallow an user from all gaining methods (eg. chat messages in all channels)."
+                "description": "Permetti o disattiva un utente da tutti i metodi di guadagno (ad esempio messaggi di chat in tutti i canali)."
               }
             }
           },
@@ -139,7 +139,7 @@
       "bot": "Vuoi dare le tue anime a un bot?",
       "noAmount": "Devi specificare quante anime vuoi dare!",
       "noMoney": "Sei troppo povero per dare anime a qualcuno...",
-      "targetEconomyNotInitialized": "La persona a cui vuoi dare delle anime non ha ancora iniziato a giocare. Devono prima eseguire `/economyconfig user start` !"
+      "targetEconomyNotInitialized": "La persona a cui vuoi dare delle anime non ha ancora iniziato a giocare. Devono prima eseguire `/economyconfig user start`!"
     },
     "embedTitle": "Dare",
     "embedDescription": "Hai dato **{amount}** Anime a <@{target}>! <:soul:1011962640349810688>\n>>> Le tue anime: **{newUserAmount}** <:soul:1011962640349810688>\nLe sue/le anime: **{newTargetAmount}** <:soul:1011962640349810688>"
@@ -170,7 +170,7 @@
       "power": {
         "name": "Potenza",
         "emoji": "<:power:1011965677625671731>",
-        "description": "One of your most important stats. It protects you from other players in several ways and lets you handle more powerful slaves."
+        "description": "Una delle tue statistiche più importanti. Ti protegge da altri giocatori in diversi modi e ti permette di gestire schiavi più potenti."
       },
       "defense": {
         "name": "Difesa",
@@ -180,7 +180,7 @@
       "currency_capacity": {
         "name": "Capacità Dell’Anima",
         "emoji": "<:storage:1011973136100642947>",
-        "description": "How many souls you can have at once. If you are 50% over your limit, you will lose 75% of your souls!"
+        "description": "Quante anime puoi avere in una sola volta. Se hai il 50% oltre il tuo limite, perderai il 75% delle tue anime!"
       },
       "slave_capacity": {
         "name": "Capacità Degli Schiavi",

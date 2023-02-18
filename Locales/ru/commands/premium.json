@@ -1,47 +1,71 @@
 {
   "customname": {
-    "description": "Set a custom nickname and I will call you that.",
+    "description": "Установите пользовательский псевдоним и я позвоню вам.",
     "options": {
       "set": {
-        "description": "Change how I call you",
+        "description": "Изменить способ связи с вами",
         "options": {
           "name": {
-            "description": "How should I call you?"
+            "description": "Как мне позвонить вам?"
           },
           "global": {
-            "description": "Should I call you like that on every server?"
+            "description": "Должен ли я звонить вам на каждый сервер?"
           }
         }
       },
       "get": {
-        "description": "Get your custom nickname.",
+        "description": "Получите свой собственный никнейм.",
         "options": {
           "target": {
-            "description": "Who's custom nickname do you want to know?"
+            "description": "Кто пользовательский никнейм вы хотите знать?"
           },
           "global": {
-            "description": "Should I tell you your global nickname or your guild-specific one?"
+            "description": "Должен ли я рассказать вам свой глобальный ник или вашу гильдию?"
           }
         }
       },
       "clear": {
-        "description": "Remove your custom nickname.",
+        "description": "Удалить свой никнейм.",
         "options": {
           "global": {
-            "description": "Should I remove your global nickname or your guild-specific one?"
+            "description": "Должен ли я удалить ваш глобальный ник или вашу гильдию?"
           }
         }
       }
     },
     "set": {
-      "success": "I will call you \"{name}\" from now on."
+      "success": "Я теперь позвоню тебе \"{name}\"."
     },
     "get": {
-      "successYou": "You are \"{name}\".",
-      "successOther": "That's \"{name}\"."
+      "successYou": "Вы \"{name}\".",
+      "successOther": "Это \"{name}\"."
     },
     "clear": {
-      "success": "I removed your custom name."
+      "success": "Я удалил ваше собственное имя."
     }
+  },
+  "editmessage": {
+    "description": "Редактировать любое сообщение, отправленное ботом",
+    "options": {
+      "channel": {
+        "description": "Канал, в котором находится сообщение."
+      },
+      "message_id": {
+        "description": "Идентификатор сообщения, которое вы хотите мне редактировать."
+      },
+      "remove_attachments": {
+        "description": "Очистить все на этом сообщении. Например: встраивание, файлы"
+      }
+    },
+    "modalTitle": "Изменить команду сообщения",
+    "textInputLabel": "Напишите новое содержимое для этого сообщения.",
+    "textInputPlaceholder": "Вы также можете использовать JSON!",
+    "notFound": "В указанном канале нет сообщений с таким идентификатором!",
+    "notBotMessage": "Я могу редактировать только свои сообщения!",
+    "cannotEdit": "Я не могу редактировать это сообщение!",
+    "timedout": "Вы долго ответили!",
+    "emptyJson": "Предоставленный вами JSON пуст!",
+    "error": "Произошла ошибка при попытке отправить ваш пользовательский JSON:\n```{err}```\n",
+    "success": "Сообщение было отредактировано. [Link]({url})"
   }
 }

@@ -712,8 +712,8 @@
       "delete": {
         "description": "Elimina un trigger. Questo è irreversibile!",
         "options": {
-          "id": {
-            "description": "L'id del trigger può essere trovato usando \"/trigger get\". Lascia vuoto per eliminare l'ultimo."
+          "query_or_id": {
+            "description": "Il trigger che vuoi eliminare. Lascia vuoto per eliminare l'ultimo."
           }
         }
       },
@@ -726,13 +726,10 @@
         }
       },
       "get": {
-        "description": "Ottieni uno o tutti i trigger.",
+        "description": "Ottieni uno o tutti i trigger",
         "options": {
-          "query": {
-            "description": "cerca un trigger per il suo contenuto di trigger."
-          },
-          "id": {
-            "description": "l'id del trigger può essere trovato usando \"/trigger get\""
+          "query_or_id": {
+            "description": "cerca un trigger dal suo contenuto di trigger o id."
           },
           "short": {
             "description": "restituisce il maggior numero possibile di trigger"
@@ -749,11 +746,11 @@
     "confirmation": "cancella tutto",
     "needConfirm": "Devi confermare questa azione scrivendo `CLEAR ALL` nell'opzione di conferma!",
     "embedTitle": "Trigger",
-    "fieldName": "**Trigger {id}:**",
-    "fieldValue": "```\n{trigger}\n```\n**Risposta:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`",
+    "embedTitleOne": "**Trigger {id}:**",
+    "embedDescriptionOne": "Trigger:\n```\n{trigger}\n```\n**Risposta:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Risposta: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Risposta:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`\n",
+    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Risposta:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`\n",
     "first25": "I primi 25 trigger. Ottieni di più con l'opzione `short`."
   },
   "vote": {
@@ -788,7 +785,7 @@
     "ended": "Il sondaggio è finito!"
   },
   "wiki": {
-    "description": "Search for something on Wikipedia, or get a random page if no search terms were specified.",
+    "description": "Cerca qualcosa su Wikipedia, o ottieni una pagina casuale se non sono stati specificati termini di ricerca.",
     "usage": "wiki <search terms>",
     "options": {
       "query": {

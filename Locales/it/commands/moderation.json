@@ -111,7 +111,7 @@
         "description": "Elimina solo i messaggi che lo contengono.",
         "choices": {
           "mentions": "Menzioni dei membri",
-          "server_ads": "Discord Server ad links",
+          "server_ads": "Collegamenti agli annunci del server Discord",
           "images": "Immagini",
           "embeds": "Embeds",
           "text": "Testo"

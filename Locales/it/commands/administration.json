@@ -1,4 +1,9 @@
 {
+  "autopublish": {
+    "description": "pubblica automaticamente tutto ciò che chiunque in qualsiasi canale di annuncio dice",
+    "usage": "Questo comando pubblica automaticamente tutti i messaggi inviati nei canali di annuncio.\nQuesto è un interruttore.",
+    "success": "{toggle} autopublish."
+  },
   "serverbackup": {
     "description": "Gestisci i backup del server.",
     "options": {
@@ -6,13 +11,13 @@
         "description": "Crea un backup del tuo server. Se il server ha 5 o più backup, quello più vecchio verrà eliminato."
       },
       "load": {
-        "description": "Load a backup. CAUTION: this erases all server data! Use the option \"no_clear\" to avoid that.",
+        "description": "Carica un backup. ATTENZIONE: elimina tutti i dati del server! Usa l'opzione \"no_clear\" per evitarlo.",
         "options": {
           "id": {
-            "description": "The backup ID you want to load. Use the \"get\" subcommand to view a list of IDs."
+            "description": "L'ID di backup che si desidera caricare. Utilizzare il sottocomando \"get\" per visualizzare un elenco di ID."
           },
           "no_clear": {
-            "description": "If set to true, will only overwrite existing data (e.g. channels won't get deleted)."
+            "description": "Se impostato a VERO, sovrascriverà solo i dati esistenti (ad esempio, i canali non verranno eliminati)."
           }
         }
       },
@@ -116,10 +121,10 @@
             }
           },
           "hide_count": {
-            "description": "Hides the number of given roles next to the label. This increases the max. label length by 4."
+            "description": "Nasconde il numero di ruoli dati accanto all'etichetta. Ciò aumenta la lunghezza massima dell'etichetta di 4."
           },
           "content": {
-            "description": "What should the message say? This overwrites the original message. Use \"/n\" for newlines."
+            "description": "Cosa dovrebbe dire il messaggio? Questo sovrascrive il messaggio originale. Usare \"/n\" per le nuove righe."
           },
           "channel": {
             "description": "Il canale in cui è presente l'ID del messaggio. Predefinito per questo canale."
@@ -237,12 +242,7 @@
         "description": "Cambia la lingua del bot.",
         "options": {
           "language": {
-            "description": "In quale lingua dovrebbe rispondere il ragazzo?",
-            "choices": {
-              "de": "Tedesco",
-              "en": "Inglese",
-              "ru": "Russo"
-            }
+            "description": "In quale lingua dovrebbe rispondere il ragazzo?"
           }
         }
       },
@@ -250,12 +250,12 @@
         "description": "Gestisci le opzioni per i backup del server.",
         "options": {
           "allowed_to_load": {
-            "description": "Change who is allowed to load server backups.",
+            "description": "Cambiare chi è autorizzato a caricare i backup del server.",
             "choices": {
               "creator": "Creatore",
-              "owner": "Server owner",
-              "creator+owner": "Creator and Server owner",
-              "admins": "Current server administrators"
+              "owner": "Proprietario server",
+              "creator+owner": "Creatore e proprietario del server",
+              "admins": "Amministratori server attuali"
             }
           }
         }
@@ -287,7 +287,7 @@
       "embedDescription": "I prossimi messaggi saranno in `{lang}`."
     },
     "serverbackup": {
-      "success": "Successfully updated the settings!"
+      "success": "Impostazioni aggiornate con successo!"
     }
   }
 }

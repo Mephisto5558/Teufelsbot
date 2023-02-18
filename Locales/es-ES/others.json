@@ -40,5 +40,21 @@
     "SendMessagesInThreads": "Enviar mensajes en hilos y publicaciones",
     "UseEmbeddedActivities": "Usar actividades",
     "ModerateMembers": "Moderar miembros"
+  },
+  "ChannelTypes": {
+    "plural": {
+      "0": "Canales de texto",
+      "1": "DMs",
+      "2": "Canales de voz",
+      "3": "DMs de grupo",
+      "4": "Categorías",
+      "5": "Canales de anuncios",
+      "10": "Hilos de anuncio",
+      "11": "Hilos públicos",
+      "12": "Hilos privados",
+      "13": "Votos de etapa",
+      "14": "Directorios",
+      "15": "Foros"
+    }
   }
 }
