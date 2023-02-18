@@ -280,11 +280,11 @@
       "embed": {
         "enabled": "Удалено (разрешено)",
         "disabled": "Добавлено (Запрещено)"
-      },
-      "language": {
-        "embedTitle": "Язык бота изменен!",
-        "embedDescription": "Следующие сообщения будут в `{lang}`."
       }
+    },
+    "language": {
+      "embedTitle": "Язык бота изменен!",
+      "embedDescription": "Следующие сообщения будут в `{lang}`."
     },
     "serverbackup": {
       "success": "Successfully updated the settings!"

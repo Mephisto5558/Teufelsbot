@@ -280,11 +280,11 @@
       "embed": {
         "enabled": "Entfernt (Erlaubt)",
         "disabled": "Hinzugefügt (Verboten)"
-      },
-      "language": {
-        "embedTitle": "Sprache geändert!",
-        "embedDescription": "Die nächsten Nachrichten werden in `{lang}` sein."
       }
+    },
+    "language": {
+      "embedTitle": "Sprache geändert!",
+      "embedDescription": "Die nächsten Nachrichten werden in `{lang}` sein."
     },
     "serverbackup": {
       "success": "Die Einstellungen wurden erfolgreich aktualisiert!"
