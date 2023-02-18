@@ -199,7 +199,7 @@
     "noneFound": "Ich habe keine Erwähnungen gefunden.",
     "unknown": "unbekannt",
     "embedTitle": "Letzter Ping",
-    "embedDescription": "Das letzte Mal, dass du erwähnt wurdest, war [hier]({url}) von <@{author}>.\n>>> {content}"
+    "embedDescription": "Das letzte Mal, dass du erwähnt wurdest, war [hier]({url}) von <@{author}>.\n{content}"
   },
   "math": {
     "description": "Ein wenig Mathematik",
