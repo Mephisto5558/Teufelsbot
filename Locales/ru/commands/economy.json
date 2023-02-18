@@ -60,7 +60,7 @@
                 "description": "Разрешить или запретить роль от всех методов получения (например, сообщений во всех каналах)."
               },
               "user": {
-                "description": "Allow or disallow an user from all gaining methods (eg. chat messages in all channels)."
+                "description": "Разрешить или запретить пользователю все способы получения (например, сообщения в чате во всех каналах)."
               }
             }
           },
@@ -170,7 +170,7 @@
       "power": {
         "name": "Сила",
         "emoji": "<:power:1011965677625671731>",
-        "description": "One of your most important stats. It protects you from other players in several ways and lets you handle more powerful slaves."
+        "description": "Одна из ваших важнейших характеристик. Она защищает вас от других игроков несколькими способами и позволяет управлять более мощными рабами."
       },
       "defense": {
         "name": "Защита",

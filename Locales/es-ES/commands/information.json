@@ -82,6 +82,7 @@
     "description": "muestra algunas estadísticas e informaciones sobre el bot.",
     "dev": "Desarrollador",
     "shard": "Fragmento",
+    "guild": "ID de Gremio Interno",
     "commands": "Comandos",
     "starts": "Comienza",
     "lastStart": "Último inicio",
@@ -106,6 +107,8 @@
       "loading": "Ping... (esto toma aproximadamente un minuto)",
       "embedDescription": "Pings: `{pings}`\nPing más bajo: `{lowest}ms`\nPing más alto: `{heightest}ms`\nPing medio: `{average}ms`"
     },
+    "api": "API",
+    "bot": "Bot",
     "embedTitle": "Ping",
     "messageSend": "Enviar mensaje"
   },
@@ -147,23 +150,40 @@
     "description": "Obtener información sobre una hermandad",
     "options": {
       "guild_id": {
-        "description": "The server ID you want to get information about. Only works for servers I'm in."
+        "description": "El ID del servidor sobre el que quieres obtener información. Sólo funciona para los servidores en los que estoy."
       }
     },
+    "memberStats": "`{all}` (Humanos: `{humans}`, Botos: `{bots}`)",
     "members": "Miembros",
-    "verificationLevel": "Nivel de verificación",
+    "verificationLevel": {
+      "name": "Nivel de verificación",
+      "0": "Ninguna",
+      "1": "Baja",
+      "2": "Medio",
+      "3": "Alta",
+      "4": "Muy alta"
+    },
+    "id": "ID",
     "createdAt": "Creado el",
-    "defaultNotifications": "Notificaciones por defecto",
+    "defaultNotifications": {
+      "name": "Notificaciones por defecto",
+      "0": "Todos los mensajes",
+      "1": "Solo menciones"
+    },
     "owner": "Propietario",
-    "memberCount": "Número de miembros",
     "locale": "Local",
     "partnered": "Participaron",
     "emojis": "Emojis",
-    "boosts": "Optimizar",
+    "boosts": {
+      "name": "Optimizar",
+      "1": "Nivel 1",
+      "2": "Nivel 2",
+      "3": "Nivel 3"
+    },
     "roles": "Roles",
     "channels": "Canales",
     "vanityUrl": "URL de Vanity",
-    "uses": "Usos",
+    "uses": " Usos",
     "downloadIcon": "Descargar icono",
     "downloadBanner": "Descargar banner"
   },

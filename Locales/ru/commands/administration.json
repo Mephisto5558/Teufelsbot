@@ -1,18 +1,23 @@
 {
+  "autopublish": {
+    "description": "автоматически публикует все, что говорит любой в любом канале объявлений.",
+    "usage": "Эта команда автоматически публикует все сообщения, отправленные в каналах объявлений.\nЭто переключатель.",
+    "success": "{toggle} автозаполнение."
+  },
   "serverbackup": {
     "description": "Управление резервными копиями вашего сервера.",
     "options": {
       "create": {
-        "description": "Create a backup of your server. If the server has 5 or more backups, the oldest one will be deleted."
+        "description": "Создайте резервную копию вашего сервера. Если сервер имеет 5 или более резервных копий, самый старый будет удален."
       },
       "load": {
-        "description": "Load a backup. CAUTION: this erases all server data! Use the option \"no_clear\" to avoid that.",
+        "description": "Загрузить резервную копию. ПРЕДУПРЕЖДЕНИЕ: стирает все данные сервера! Используйте опцию \"no_clear\", чтобы избежать этого.",
         "options": {
           "id": {
-            "description": "The backup ID you want to load. Use the \"get\" subcommand to view a list of IDs."
+            "description": "ID резервной копии, которую вы хотите загрузить. Используйте субкоманду «получить» для просмотра списка идентификаторов."
           },
           "no_clear": {
-            "description": "If set to true, will only overwrite existing data (e.g. channels won't get deleted)."
+            "description": "Если установлено значение true, будут перезаписаны только существующие данные (например, каналы не будут удалены)."
           }
         }
       },
@@ -119,7 +124,7 @@
             "description": "Скрывает число ролей рядом с этикеткой. Это увеличивает макс. длину этикетки на 4."
           },
           "content": {
-            "description": "What should the message say? This overwrites the original message. Use \"/n\" for newlines."
+            "description": "Что должно сказать сообщение? Это перезаписывает исходное сообщение. Используйте «/n» для новых строк."
           },
           "channel": {
             "description": "Канал, в котором находится ID сообщения. По умолчанию этот канал."
@@ -237,12 +242,7 @@
         "description": "Изменить язык бота.",
         "options": {
           "language": {
-            "description": "На каком языке должен ответить мальчик?",
-            "choices": {
-              "de": "Немецкий",
-              "en": "Russian",
-              "ru": "Русский"
-            }
+            "description": "На каком языке должен ответить мальчик?"
           }
         }
       },
@@ -250,18 +250,18 @@
         "description": "Управление параметрами резервных копий вашего сервера.",
         "options": {
           "allowed_to_load": {
-            "description": "Change who is allowed to load server backups.",
+            "description": "Изменить, кто может загружать резервные копии сервера.",
             "choices": {
               "creator": "Создатель",
-              "owner": "Server owner",
-              "creator+owner": "Creator and Server owner",
-              "admins": "Current server administrators"
+              "owner": "Владелец сервера",
+              "creator+owner": "Создатель и владелец сервера",
+              "admins": "Текущие администраторы сервера"
             }
           }
         }
       }
     },
-    "toggledModule": "Модуль `{name}был {state}.",
+    "toggledModule": "Модуль `{name} был {state}.",
     "toggleCmd": {
       "notFound": "Это не допустимая команда!",
       "list": {
@@ -287,7 +287,7 @@
       "embedDescription": "Следующие сообщения будут в `{lang}`."
     },
     "serverbackup": {
-      "success": "Successfully updated the settings!"
+      "success": "Настройки успешно обновлены!"
     }
   }
 }

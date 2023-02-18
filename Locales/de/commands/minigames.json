@@ -49,7 +49,7 @@
         "description": "Erhalte die 10 besten Spieler eines Mini-Games",
         "options": {
           "game": {
-            "description": "Über welches Mini-Game du Statistiken möchtest",
+            "description": "Über welches Mini-Game du Statistiken sehen möchtest",
             "choices": {
               "tictactoe": "Tic-Tac-Toe"
             }
