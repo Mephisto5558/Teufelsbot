@@ -712,8 +712,8 @@
       "delete": {
         "description": "Delete a trigger. This is irreversible!",
         "options": {
-          "id": {
-            "description": "The trigger id, can be found using \"/trigger get\". Leave this empty to delete the last one."
+          "query_or_id": {
+            "description": "The trigger you want to delete. Leave this empty to delete the last one."
           }
         }
       },
@@ -726,13 +726,10 @@
         }
       },
       "get": {
-        "description": "Get one or all triggers.",
+        "description": "Get one or all triggers",
         "options": {
-          "query": {
-            "description": "search for a trigger by its trigger content."
-          },
-          "id": {
-            "description": "the trigger id, can be found using \"/trigger get\""
+          "query_or_id": {
+            "description": "search for a trigger by its trigger content or id."
           },
           "short": {
             "description": "return as many triggers as possible"
@@ -749,11 +746,11 @@
     "confirmation": "clear all",
     "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
     "embedTitle": "Triggers",
-    "fieldName": "**Trigger {id}:**",
-    "fieldValue": "```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`",
+    "embedTitleOne": "**Trigger {id}:**",
+    "embedDescriptionOne": "Trigger:\n```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Response: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`\n",
+    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`\n",
     "first25": "The first 25 triggers. Get more with the `short` option."
   },
   "vote": {
