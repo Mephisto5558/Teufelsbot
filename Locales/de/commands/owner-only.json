@@ -10,7 +10,7 @@
   },
   "dbget": {
     "description": "Erhalte Daten aus der Datenbank",
-    "usage": "PREFIX -Befehl: dbget <Datenbank-Name>",
+    "usage": "PREFIX-Befehl: dbget <Datenbank-Name>",
     "notFound": "nichts gefunden"
   },
   "eval": {
@@ -30,8 +30,9 @@
   },
   "reload": {
     "description": "Lädt einen Befehl oder eine Kategorie neu",
-    "usage": "PREFIX-Befehl: reload <Befehl | \"*\">",
+    "usage": "PREFIX-Befehl: reload <command | file> <Dateipfad vom cwd aus> / reload <Befehl | \"*\">",
     "invalidCommand": "Dies ist kein gültiger Befehl.",
+    "invalidPath": "Der angegebene Pfad existiert nicht! Beachte auch die Groß/Kleinschreibung des Pfades.",
     "error": "Ein Fehler ist während des Neuladens aufgetreten:\n```{error}```\nÜberprüfe die Konsole für mehr Informationen.",
     "noneReloaded": "Es wurden keine Befehle neu geladen.",
     "reloaded": "Die folgenden `{count}` Befehle wurden neu geladen:\n`{commands}`"
