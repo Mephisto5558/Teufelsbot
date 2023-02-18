@@ -280,11 +280,11 @@
       "embed": {
         "enabled": "Removed (Allowed)",
         "disabled": "Added (Disallowed)"
-      },
-      "language": {
-        "embedTitle": "Bot language changed!",
-        "embedDescription": "The next messages will be in `{lang}`."
       }
+    },
+    "language": {
+      "embedTitle": "Bot language changed!",
+      "embedDescription": "The next messages will be in `{lang}`."
     },
     "serverbackup": {
       "success": "Successfully updated the settings!"
