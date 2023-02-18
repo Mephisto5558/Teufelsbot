@@ -57,7 +57,7 @@ module.exports = async function errorHandler(err, message, lang) {
           })
         });
 
-        if (!res.ok) throw new Error((await res.json())?.message);
+        if (!res.ok) throw new Error(await res.json());
 
         embed.data.description = lang('events.errorHandler.reportSuccess', encodeURI(`${Github.Repo}/issues?q=is:open+is:issue+${title} in:title`));
         return msg.edit({ embeds: [embed], components: [] });
