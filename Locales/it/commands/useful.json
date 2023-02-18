@@ -21,11 +21,6 @@
     "error": "Impossibile creare le emoji per il motivo:\n```\n{err}\n```",
     "timedOut": "La richiesta è scaduta. Forse l'immagine è di grandi dimensioni."
   },
-  "autopublish": {
-    "description": "pubblica automaticamente tutto ciò che chiunque in qualsiasi canale di annuncio dice",
-    "usage": "Questo comando pubblica automaticamente tutti i messaggi inviati nei canali di annuncio.\nQuesto è un interruttore.",
-    "success": "{toggle} autopublish."
-  },
   "button": {
     "description": "Crea un pulsante.",
     "options": {
@@ -208,7 +203,7 @@
   },
   "math": {
     "description": "Esegue un po' di matematica",
-    "usage": "matematica [expression]",
+    "usage": "Comando PREFIX: matematica [expression]\n\nQuesta calcolatrice supporta una vasta gamma di operazioni matematiche, non solo quelle di base.\nPuoi assegnare valori alle variabili, ad esempio: `x=10`.\nPiù istruzioni possono essere valutate usando una nuova riga o un punto e virgola, per esempio: `x=10; x+10` restituirà `20`.\nRicordati di usare un asterisco (`*`) per la moltiplicazione.\nLa calcolatrice può produrre risultati multipli.Si prega di notare che gli spazi inutili possono causare errori nelle espressioni.",
     "options": {
       "expression": {
         "description": "Cosa vuoi che risolva?"
@@ -216,7 +211,6 @@
     },
     "embedTitle": "Calcolatrice",
     "noInput": "Non hai dato nessun input!",
-    "help": "Aiuto e Informazioni\n\nQuesta calcolatrice supporta molte operazioni matematiche, non solo quelle di base.\nPuoi usare variabili come questa: `x=10`.\nPuoi usare più istruzioni usando una nuova riga o un `;`. `x=10;x+10` restituisce `20`.\nDevi usare `*` per moltiplicare.\nLa calcolatrice suppot produce risultati multipli.\nA volte spazi inutili stanno facendo l'errore di espressione.",
     "error": "Si è verificato un errore durante il tentativo di risolvere la tua espressione:\n```{err}```",
     "separated": "Risultati separati con \"<unk> \":\n{results}",
     "success": "Espressione:\n```{expression}```\nRisultato:\n```{result}```"

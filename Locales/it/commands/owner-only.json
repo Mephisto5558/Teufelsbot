@@ -30,8 +30,9 @@
   },
   "reload": {
     "description": "ricarica un file o una categoria",
-    "usage": "Comando PREFIX: ricarica <command | \"*\">",
+    "usage": "PREFIX-Command: ricarica <command | file> <filepath relative to cwd> / ricarica <command | \"*\">",
     "invalidCommand": "Questo non è un comando valido.",
+    "invalidPath": "Il percorso specificato non esiste! Si prega di notare la sensibilità caso del percorso.",
     "error": "Si è verificato un errore durante il ricaricamento:\n```{error}```\nControlla la console per maggiori informazioni.",
     "noneReloaded": "Nessun comando è stato ricaricato.",
     "reloaded": "I seguenti ` comandi{count}` sono stati ricaricati:\n`{commands}"

@@ -111,7 +111,7 @@
         "description": "Sólo purgar mensajes que contengan eso.",
         "choices": {
           "mentions": "Menciones de miembro",
-          "server_ads": "Discord Server ad links",
+          "server_ads": "Enlaces de anuncios del servidor de Discord",
           "images": "Imágenes",
           "embeds": "Embeds",
           "text": "Texto"

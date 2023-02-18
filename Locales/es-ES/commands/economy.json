@@ -54,13 +54,13 @@
             "description": "Permitir o rechazar algo o alguien para todos los métodos de ganancia.",
             "options": {
               "channel": {
-                "description": "Allow or disallow a channel from all gaining methods (eg. chat messages in a spam channel)."
+                "description": "Permitir o no permitir un canal de todos los métodos ganadores (por ejemplo, mensajes de chat en un canal de spam)."
               },
               "role": {
-                "description": "Allow or disallow a role from all gaining methods (eg. chat messages in all channels)."
+                "description": "Permitir o no permitir un rol de todos los métodos ganadores (por ejemplo, mensajes de chat en todos los canales)."
               },
               "user": {
-                "description": "Allow or disallow an user from all gaining methods (eg. chat messages in all channels)."
+                "description": "Permitir o no permitir un usuario de todos los métodos ganadores (por ejemplo, mensajes de chat en todos los canales)."
               }
             }
           },
@@ -170,7 +170,7 @@
       "power": {
         "name": "Potencia",
         "emoji": "<:power:1011965677625671731>",
-        "description": "One of your most important stats. It protects you from other players in several ways and lets you handle more powerful slaves."
+        "description": "Una de tus estadísticas más importantes. Te protege de otros jugadores de varias maneras y te permite manejar esclavos más poderosos."
       },
       "defense": {
         "name": "Defensa",

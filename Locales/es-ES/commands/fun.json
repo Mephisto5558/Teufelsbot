@@ -52,7 +52,7 @@
         "description": "El mensaje a establecer"
       },
       "global": {
-        "description": "Set your AFK for all guilds you are in. Resets if you write in any guild."
+        "description": "Establece tu AFK para todos los gremios en los que estás. Se reinicia si escribes en cualquier gremio."
       }
     },
     "globalSuccess": "Tu AFK ha sido establecido a \"{message}\" en todos los gremios.",
@@ -234,7 +234,7 @@
             "description": "Sólo los miembros con uno de estos roles podrán participar."
           },
           "bonus_entries": {
-            "description": "A list of member/role mentions with the amount of bonus entries: eg. @Premium:5 @Normal:2"
+            "description": "Una lista de menciones de miembro/rol con la cantidad de entradas de bonos: por ejemplo. @Premium:5 @Normal:2"
           },
           "embed_color": {
             "description": "El color hexadecimal del incrustado mientras se ejecuta el regalo."
@@ -280,7 +280,7 @@
             "description": "Sólo los miembros con uno de estos roles podrán participar."
           },
           "bonus_entries": {
-            "description": "A new list of member/role mentions with the amount of bonus entries: eg. @Premium:5 @Normal:2"
+            "description": "Una nueva lista de menciones de miembro/rol con la cantidad de entradas de bonos: por ejemplo. @Premium:5 @Normal:2"
           }
         }
       },
@@ -394,7 +394,7 @@
         "description": "obtener un meme aleatorio",
         "options": {
           "filter_nsfw": {
-            "description": "filters all posts tagged as nsfw. Default: true, Enforced on non-nsfw channels"
+            "description": "filtra todas las publicaciones etiquetadas como nsfw. Por defecto: verdadero, forzado en canales no nsfw"
           }
         }
       },
@@ -408,7 +408,7 @@
             "description": "El tipo a ordenar. Por defecto: caliente"
           },
           "filter_nsfw": {
-            "description": "filters all posts tagged as nsfw. Default: true, Enforced on non-nsfw channels"
+            "description": "filtra todas las publicaciones etiquetadas como nsfw. Por defecto: verdadero, forzado en canales no nsfw"
           }
         }
       }
@@ -712,8 +712,8 @@
       "delete": {
         "description": "Eliminar un disparador. ¡Esto es irreversible!",
         "options": {
-          "id": {
-            "description": "The trigger id, can be found using \"/trigger get\". Leave this empty to delete the last one."
+          "query_or_id": {
+            "description": "El disparador que desea eliminar. Deje esto vacío para eliminar el último."
           }
         }
       },
@@ -726,13 +726,10 @@
         }
       },
       "get": {
-        "description": "Consigue uno o todos los activadores.",
+        "description": "Obtener uno o todos los activadores",
         "options": {
-          "query": {
-            "description": "buscar un disparador por el contenido de su disparador."
-          },
-          "id": {
-            "description": "el id del disparador, se puede encontrar usando \"/trigger get\""
+          "query_or_id": {
+            "description": "buscar un disparador por su contenido o id."
           },
           "short": {
             "description": "devolver tantos disparadores como sea posible"
@@ -749,11 +746,11 @@
     "confirmation": "borrar todo",
     "needConfirm": "Necesitas confirmar esta acción escribiendo `CLEAR ALL` en la opción de confirmación!",
     "embedTitle": "Disparadores",
-    "fieldName": "**Disparador {id}:**",
-    "fieldValue": "```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Comodino: **`{wildcard}`",
+    "embedTitleOne": "**Disparador {id}:**",
+    "embedDescriptionOne": "Desencadenador:\n```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Tarjeta comodín: **`{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Disparador: `{trigger}`\n> Respuesta: `{response}`\n> Comodino: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Disparador:**\n```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Comodino:** `{wildcard}`\n",
+    "shortFieldValue": "**Disparador:**\n```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Comodino: **`{wildcard}`\n",
     "first25": "Los primeros 25 disparadores. Obtenga más con la opción 'corto'."
   },
   "vote": {
@@ -788,7 +785,7 @@
     "ended": "¡La encuesta ha terminado!"
   },
   "wiki": {
-    "description": "Search for something on Wikipedia, or get a random page if no search terms were specified.",
+    "description": "Busque algo en Wikipedia, o obtenga una página aleatoria si no se especificaron términos de búsqueda.",
     "usage": "wiki <search terms>",
     "options": {
       "query": {

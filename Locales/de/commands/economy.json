@@ -1,7 +1,7 @@
 {
   "account": {
     "description": "Erhalte deine Account-Informationen",
-    "usage": "account [@user]",
+    "usage": "account [@Nutzer]",
     "options": {
       "user": {
         "description": "Das Mitglied, dessen Account du sehen willst"
@@ -98,13 +98,13 @@
         "success": "{state} die Economy für diesen Server."
       },
       "clear": {
-        "needConfirm": "Du musst diese Aktion bestätigen, indem du `LÖSCHE ALLES` als confirm Option nutzt!",
+        "needConfirm": "Du musst diese Aktion bestätigen, indem du `LÖSCHE ALLES` in der `confirm` Option eingibst!",
         "success": "Alle Economy-Daten (inklusive Konfiguration) für diesen Server wurden gelöscht und die Economy wurde deaktiviert."
       },
       "blacklist": {
         "channels": "Kanäle",
         "roles": "Rollen",
-        "user": "Mitglieder",
+        "user": "Nutzer",
         "embedTitle": "Economy Gaining Blacklist",
         "listEmbedDescription": "Dieser Server verbietet momentan den folgenden Objekten, Seelen zu sammeln:",
         "setEmbedDescription": "Die folgenden Änderungen wurden gemacht:\n```diff\nKanäle:\n{channel}\n\nRollen:\n{role}\n\nMitglieder:\n{user}\n```",
@@ -124,7 +124,7 @@
   },
   "give": {
     "description": "Gib jemanden einige deiner Seelen",
-    "usage": "give [@user] [amount]",
+    "usage": "give [@Mitglied] [Menge]",
     "options": {
       "target": {
         "description": "Das Mitglied, dem du Seelen geben möchtest."
@@ -201,7 +201,7 @@
   },
   "stats": {
     "description": "Erhalte ausführliche Statistiken über ein Mitglied oder dich selbst.",
-    "usage": "stats [@user]",
+    "usage": "stats [@Mitglied]",
     "options": {
       "target": {
         "description": "Das Mitglied, über welches du Statistiken sehen möchtest"
