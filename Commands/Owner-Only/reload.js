@@ -1,10 +1,13 @@
-const { Collection } = require('discord.js');
+const
+  { Collection } = require('discord.js'),
+  { resolve, basename } = require('path'),
+  { existsSync } = require('fs');
 
 async function reloadCommand({ name, category, filePath }, reloadedArray) {
   delete require.cache[filePath];
   const file = require(filePath);
 
-  if ((this.botType == 'dev' && !file.beta) || file.disabled) return;
+  if (!name) name = file.name;
   file.filePath = filePath;
   file.category = category;
 
@@ -43,15 +46,22 @@ module.exports = {
     let reloadedArray = [];
 
     try {
-      if (this.args[0] == '*') {
-        for (const [, command] of commandArray)
-          await reloadCommand.call(this.client, command, reloadedArray);
-      }
-      else {
-        const command = commandArray.get(this.args[0]);
-        if (!command) return this.reply(lang('invalidCommand'));
+      switch (this.args[0].toLowerCase()) {
+        case 'file': {
+          const filePath = resolve(process.cwd(), this.args[1]);
+          if (!existsSync(filePath)) return this.reply(lang('invalidPath'));
 
-        await reloadCommand.call(this.client, command, reloadedArray);
+          delete require.cache[filePath];
+          reloadedArray.push(basename(filePath));
+          break;
+        }
+        case '*': for (const [, command] of commandArray) await reloadCommand.call(this.client, command, reloadedArray); break;
+        default: {
+          const command = commandArray.get(this.args[0]);
+          if (!command) return this.reply(lang('invalidCommand'));
+
+          await reloadCommand.call(this.client, command, reloadedArray);
+        }
       }
     }
     catch (err) {

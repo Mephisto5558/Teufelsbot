@@ -7,6 +7,8 @@
   "economyDisabled": "Dieser Befehl ist ein Economy-Befehl. Die Economy ist auf diesem Server nicht aktiviert. Um die Economy zu aktivieren, muss ein Admin `/economyconfig admin toggle` ausführen.",
   "economyNotInitialized": "Dieser Befehl ist ein Economy-Befehl. Um die Economy zu starten, führe `/economyconfig user start` aus.",
   "buttonPressOnCooldown": "Dieser Button ist im Cooldown! Versuche es erneut in `{time}`s.",
+  "commandDisabled": "Dieser Befehlt ist deaktiviert.",
+  "commandNonBeta": "Dieser Befehlt ist nicht als Beta-Befehl deklariert und ist daher deaktiviert.",
   "permissionDenied": {
     "embedTitle": "Unzureichende Berechtigungen",
     "embedDescriptionUser": "Du benötigst die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n`{permissions}`",

@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits } = require('discord.js'),
   { I18nProvider, cooldowns, permissionTranslator, errorHandler, getOwnerOnlyFolders } = require('../Utils'),
+  { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json'),
   ownerOnlyFolders = getOwnerOnlyFolders();
 
 let prefixLength;
@@ -37,11 +38,14 @@ module.exports = async function messageCreate() {
   this.content = this.args.join(' ');
 
   const command = this.client.prefixCommands.get(this.commandName);
-  if (command && !command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply(I18nProvider.__({ locale }, 'events.guildCommandOnly'));
-  if (!command && this.client.slashCommands.get(this.commandName)) return this.customReply(I18nProvider.__({ locale }, 'events.slashCommandOnly'));
+
+  if (command?.disabled) return replyOnDisabledCommand === false ? void 0 :  this.reply(I18nProvider.__({ locale }, 'events.commandDisabled'));
+  if (!command && this.client.slashCommands.get(this.commandName)) return this.reply(I18nProvider.__({ locale }, 'events.slashCommandOnly'));
   if ( //DO NOT REMOVE THIS STATEMENT!
     !command || (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id)
   ) return this.runMessages();
+  if (!command.dmPermission && this.channel.type == ChannelType.DM) return this.reply(I18nProvider.__({ locale }, 'events.guildCommandOnly'));
+  if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? void 0 : this.reply(I18nProvider.__({ locale }, 'events.nonBetaCommand'));
 
   const lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
   const disabledList = this.guild?.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
