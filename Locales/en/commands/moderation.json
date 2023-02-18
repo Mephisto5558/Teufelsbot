@@ -46,7 +46,7 @@
     "noDM": "I couldn't DM the target."
   },
   "lock": {
-    "description": "Prevents everyone except administrators from writing in a channel",
+    "description": "Prevents everyone except administrators from writing in a channel.",
     "usage": "lock [channel] [reason]",
     "options": {
       "channel": {
@@ -68,7 +68,7 @@
         "description": "Who do you want to mute?"
       },
       "reason": {
-        "description": "The target is going to see the reason in DMs"
+        "description": "The target is going to see the reason in DMs."
       },
       "duration": {
         "description": "For how long do you want to mute the target? (eg. 1w3d2h5min, min 1min, max. 28d)"
@@ -77,7 +77,7 @@
     "dmEmbedTitle": "Muted",
     "dmEmbedDescription": "You have been muted from `{guild}`.\nModerator: {mod}\nUntil: <t:{time}>\nReason: {reason}",
     "infoEmbedTitle": "Mute",
-    "infoEmbedDescription": "{user} has been successfully muted.\nReason: {reason}\nUntil: <t:{time}>",
+    "infoEmbedDescription": "{user} has been successfully muted.\nReason: {reason}\nUntil: <t:{time}>\n",
     "notFound": "I couldn't find that member!",
     "cantMuteSelf": "You can't mute yourself!",
     "targetIsAdmin": "I cannot mute admininstartors!",
@@ -105,7 +105,7 @@
     "usage": "PREFIX Command: purge <number> [channel]\nIt will NOT delete the number of messages specified in the \"amount\" parameter, but will delete them if all other parameters are met.",
     "options": {
       "amount": {
-        "description": "The amount of messages to to check and maybe purge"
+        "description": "The amount of messages to to check and maybe purge."
       },
       "only_containing": {
         "description": "Only purge messages containing that.",
@@ -179,7 +179,7 @@
       }
     },
     "noReason": "no reason specified",
-    "notLocked": "This channel is not locked.",
+    "notLocked": "This channel is not locked!",
     "embedTitle": "Channel unlocked!",
     "embedDescription": "This channel has been unlocked.\nModerator: {mod}\nReason: {reason}",
     "success": "The channel has been unlocked."
@@ -188,10 +188,10 @@
     "description": "lifts the timeout of a member",
     "options": {
       "target": {
-        "description": "who do you want to unmute?"
+        "description": "Who do you want to unmute?"
       },
       "reason": {
-        "description": "why do you want to unmute the target?"
+        "description": "Why do you want to unmute the target?"
       }
     },
     "noReason": "no reason specified",

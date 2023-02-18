@@ -1,6 +1,6 @@
 {
   "8ball": {
-    "description": "Ask me a question",
+    "description": "Ask me a question.",
     "options": {
       "question": {
         "description": "What do you want my opinion on?"
@@ -46,7 +46,7 @@
   },
   "afk": {
     "description": "Set an AFK status shown when you are mentioned.",
-    "usage": "PREFIX Command: afk [\"global\"] [message]",
+    "usage": "PREFIX Command: afk [message]",
     "options": {
       "message": {
         "description": "The message to set"
@@ -76,7 +76,7 @@
     "missingParam": "You have to mention at least one member!"
   },
   "birthday": {
-    "description": "save your birthday and I will send a message on your birthday",
+    "description": "Save your birthday and I will send a message on that day.",
     "options": {
       "set": {
         "description": "set your own birthday",
@@ -93,18 +93,18 @@
         }
       },
       "get": {
-        "description": "Get a list of the next birthdays",
+        "description": "Get a list of the next birthdays.",
         "options": {
           "target": {
             "description": "Whose birthday do you want to get? Leave this empty to get the next 10 birthdays."
           },
           "do_not_hide": {
-            "description": "Don't hide my response to other users"
+            "description": "Don't hide my response to other users."
           }
         }
       },
       "remove": {
-        "description": "Deletes your birthday from the database"
+        "description": "Deletes your birthday from the database."
       }
     },
     "months": {
@@ -139,7 +139,7 @@
     "description": "sends an user a dm",
     "options": {
       "toggle": {
-        "description": "toggles the ability to send you user-made dms",
+        "description": "toggles the ability to send you user-made dms.",
         "options": {
           "target": {
             "description": "the user you want to toggle; leave this empty to toggle all users (\"*\")."
@@ -147,10 +147,10 @@
         }
       },
       "blacklist": {
-        "description": "lists all users you are currently blocking."
+        "description": "Lists all users you are currently blocking."
       },
       "send": {
-        "description": "send a dm to a member of this guild",
+        "description": "Send a dm to a member of this guild.",
         "options": {
           "target": {
             "description": "the user you want to send a dm to"
@@ -170,7 +170,7 @@
         "removed": "`all users`"
       },
       "targetOne": {
-        "name": "user `{user}`",
+        "name": "User `{user}`",
         "isnt": "{user} isn't"
       },
       "saved": "Your blacklist entry for {user} has been saved.\nNow {state} able to send you dms by me.\nThis will not prevent guild moderators from sending dms to you.",
@@ -181,13 +181,13 @@
       "allBlocked": "> You are blocking everyone.",
       "embedTitle": "Your blacklist for the `/dm send` command",
       "embedDescription": "You are blocking the following guild members:\n{members}",
-      "embedFooterText": "run '/dm toggle' without arguments to toggle all users and\nrun '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user."
+      "embedFooterText": "Run '/dm toggle' without arguments to toggle all users and\nrun '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user."
     },
     "send": {
       "targetIsMe": "I cannot send DMs to myself!",
       "permissionDenied": "You are not allowed to send dms to that user!",
       "asModInfo": "\nUse the `as_mod` option to force the message to send.",
-      "embedTitle": "You got a message",
+      "embedTitle": "You got a message!",
       "embedDescription": "From **{user}**\nGuild: {guild}\n\n{msg}",
       "fromMod": "a guild moderator",
       "embedFooterText": "If you don't want to receive user-made dms from me, run '/dm toggle' in any guild.",
@@ -195,13 +195,13 @@
     }
   },
   "fact": {
-    "description": "get some facts, they're really cool and usefull, rely on me :D"
+    "description": "Get some facts, they're really cool and useful, rely on me."
   },
   "giveaway": {
     "description": "Giveaway commands",
     "options": {
       "create": {
-        "description": "Create a new giveaway",
+        "description": "Create a new giveaway.",
         "options": {
           "prize": {
             "description": "The prize you are giving away"
@@ -245,7 +245,7 @@
         }
       },
       "end": {
-        "description": "End a running giveaway",
+        "description": "End a running giveaway.",
         "options": {
           "id": {
             "description": "The id of the giveaway embed"
@@ -253,13 +253,13 @@
         }
       },
       "edit": {
-        "description": "Edit a running giveaway",
+        "description": "Edit a running giveaway.",
         "options": {
           "id": {
             "description": "The id of the giveaway embed"
           },
           "add_time": {
-            "description": "The number of time added to the giveaway duration. eg. 2h12min or -1h10min"
+            "description": "The number of time added to the giveaway duration. eg. 2h12min or -1h10min."
           },
           "winner_count": {
             "description": "The new number of winners"
@@ -569,7 +569,7 @@
       "How do you feel if you accidentally leave your phone at home?",
       "What was your first smartphone? How did you feel when you got it?",
       "Do you experience phantom vibration? (Feeling your phone vibrate even though it didn't.)",
-      "Which sports do you like to play",
+      "Which sports do you like to play?",
       "Do athletes deserve the high salaries they receive? Why or why not?",
       "What defines a sport? Is fishing a sport? How about video game tournaments?",
       "Do you play sports video games? Which ones? Is playing the video game or playing the sport more fun? Why?",
@@ -712,8 +712,8 @@
       "delete": {
         "description": "Delete a trigger. This is irreversible!",
         "options": {
-          "query_or_id": {
-            "description": "The trigger you want to delete. Leave this empty to delete the last one."
+          "id": {
+            "description": "The trigger id, can be found using \"/trigger get\". Leave this empty to delete the last one."
           }
         }
       },
@@ -726,10 +726,13 @@
         }
       },
       "get": {
-        "description": "Get one or all triggers",
+        "description": "Get one or all triggers.",
         "options": {
-          "query_or_id": {
-            "description": "search for a trigger by its trigger content or id."
+          "query": {
+            "description": "search for a trigger by its trigger content."
+          },
+          "id": {
+            "description": "the trigger id, can be found using \"/trigger get\""
           },
           "short": {
             "description": "return as many triggers as possible"
@@ -746,11 +749,11 @@
     "confirmation": "clear all",
     "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
     "embedTitle": "Triggers",
-    "embedTitleOne": "**Trigger {id}:**",
-    "embedDescriptionOne": "Trigger:\n```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`",
+    "fieldName": "**Trigger {id}:**",
+    "fieldValue": "```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Response: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`\n",
+    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`\n",
     "first25": "The first 25 triggers. Get more with the `short` option."
   },
   "vote": {

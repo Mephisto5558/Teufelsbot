@@ -7,7 +7,7 @@
         "description": "The user you want to get the account of"
       }
     },
-    "targetEconomyNotInitialized": "This person has not started playing yet. He/She has to run `/economyconfig user start`",
+    "targetEconomyNotInitialized": "This person has not started playing yet. He/She has to run `/economyconfig user start`.",
     "currency": "Souls: **{num}**/**{max}** <:soul:1011962640349810688>\n",
     "dailyStreak": "Daily Streak: **{streak}** <:souls:1011962960840773673>\n",
     "rank": "Rank: **{rank}**\n"
@@ -139,7 +139,7 @@
       "bot": "You want to give your souls to a bot?",
       "noAmount": "You need to specify how many souls you want to give!",
       "noMoney": "You are too poor to give someone souls...",
-      "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. He/She has to run `/economyconfig user start`"
+      "targetEconomyNotInitialized": "The person you want to give souls to has not started playing yet. They have to run `/economyconfig user start` first!"
     },
     "embedTitle": "Give",
     "embedDescription": "You gave **{amount}** Souls to <@{target}>! <:soul:1011962640349810688>\n>>> Your souls: **{newUserAmount}** <:soul:1011962640349810688>\nHis/Her souls: **{newTargetAmount}** <:soul:1011962640349810688>"
@@ -200,7 +200,7 @@
     "timedOut": "This menu timed out."
   },
   "stats": {
-    "description": "Get more in-depth stats about a user or yourself",
+    "description": "Get more in-depth stats about a user or yourself.",
     "usage": "stats [@user]",
     "options": {
       "target": {
