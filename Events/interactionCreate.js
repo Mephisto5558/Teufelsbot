@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, Colors, InteractionType, ApplicationCommandOptionType, ComponentType } = require('discord.js'),
   { I18nProvider, cooldowns, permissionTranslator, errorHandler, buttonPressHandler, getOwnerOnlyFolders } = require('../Utils'),
+  { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json'),
   ownerOnlyFolders = getOwnerOnlyFolders();
 
 async function componentHandler(lang) {
@@ -38,6 +39,8 @@ module.exports = async function interactionCreate() {
 
   //DO NOT REMOVE THIS STATEMENT!
   if (!command || (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id)) return;
+  if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? void 0 : this.reply({ content: lang('events.commandNonBeta'), ephemeral: true });
+  if (command.disabled) return replyOnDisabledCommand === false ? void 0 : this.reply({ content: lang('events.commandDisabled'), ephemeral: true });
 
   const lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
   const disabledList = this.guild.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
