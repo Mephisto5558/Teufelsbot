@@ -82,6 +82,7 @@
     "description": "mostra alcune statistiche e informazioni sul bot.",
     "dev": "Sviluppatore",
     "shard": "Frammento",
+    "guild": "Id Della Gilda Interna",
     "commands": "Comandi",
     "starts": "Inizia",
     "lastStart": "Ultimo avvio",
@@ -106,6 +107,8 @@
       "loading": "Pinging... (ci vuole circa un minuto)",
       "embedDescription": "Pings: `{pings}`\nPing più basso: `{lowest}ms`\nPing più alto: `{heightest}ms`\nPing medio: `{average}ms`"
     },
+    "api": "API",
+    "bot": "Bot",
     "embedTitle": "Ping",
     "messageSend": "Invia Messaggio"
   },
@@ -150,20 +153,37 @@
         "description": "L'ID del server su cui vuoi ottenere informazioni. Funziona solo per i server in cui mi trovo."
       }
     },
+    "memberStats": "`{all}` (Humans: `{humans}`, Bots: `{bots}`)",
     "members": "Membri",
-    "verificationLevel": "Livello Di Verifica",
+    "verificationLevel": {
+      "name": "Livello Di Verifica",
+      "0": "Nessuno",
+      "1": "Basso",
+      "2": "Medio",
+      "3": "Alto",
+      "4": "Molto Alto"
+    },
+    "id": "ID",
     "createdAt": "Creato Il",
-    "defaultNotifications": "Notifiche Predefinite",
+    "defaultNotifications": {
+      "name": "Notifiche Predefinite",
+      "0": "Tutti I Messaggi",
+      "1": "Solo Menzioni"
+    },
     "owner": "Proprietario",
-    "memberCount": "Numero Membri",
     "locale": "Localizzazione",
     "partnered": "Collaborato",
     "emojis": "Emojis",
-    "boosts": "Potenziamenti",
+    "boosts": {
+      "name": "Potenziamenti",
+      "1": "Livello 1",
+      "2": "Livello 2",
+      "3": "Livello 3"
+    },
     "roles": "Ruoli",
     "channels": "Canali",
     "vanityUrl": "Url Vanità",
-    "uses": "Usi",
+    "uses": " Usi",
     "downloadIcon": "Scarica Icona",
     "downloadBanner": "Scarica Banner"
   },
