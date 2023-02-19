@@ -199,7 +199,7 @@
     "noneFound": "I haven't found any mentions.",
     "unknown": "unknown",
     "embedTitle": "Last Ping",
-    "embedDescription": "The last time you were mentioned was [here]({url}) from <@{author}>.\n>>> {content}"
+    "embedDescription": "The last time you were mentioned was [here]({url}) from <@{author}>.\n{content}"
   },
   "math": {
     "description": "Runs some math",
@@ -272,14 +272,14 @@
   },
   "timestamp": {
     "description": "Get a timestamp for the future (or past by putting a \"-\" in front)",
-    "usage": "PREFIX Command: timestamp [time]",
+    "usage": "PREFIX Command: timestamp [time]\nExamples:\n>>> `1h` = now + 1h\n`-1h` = now - 1h\n`1h-1h` = now + 1h - 1h",
     "options": {
       "time": {
-        "description": "The time from now (eg. 1w3d2h5min): 3min returns now+3min, -3min returns now-3min"
+        "description": "The time from now (eg. 1w3d2h5min). Use \"/help timestamp\" for more Information."
       }
     },
     "invalid": "The time you provided is invalid! Use {command} and search for `timestamp` for mor information.",
-    "outOfRange": "The time you provided is greater than 200,000 years!",
+    "outOfRange": "The specified time is greater than 200,000 years!",
     "success": "That's <t:{time}:R> (`<t:{time}:R>`)."
   }
 }
