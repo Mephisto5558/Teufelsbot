@@ -107,7 +107,8 @@ module.exports = async function slashCommandHandler(syncGuild) {
     this.slashCommands.clear();
 
     for (const subFolder of getDirectoriesSync('./Commands')) {
-      for (const file of readdirSync(`./Commands/${subFolder}`).filter(e => e.endsWith('.js'))) {
+      for (const file of readdirSync(`./Commands/${subFolder}`)) {
+        if (!file.endsWith('.js')) continue;
         let command = require(`../Commands/${subFolder}/${file}`);
         let skipped = false;
 
@@ -124,9 +125,10 @@ module.exports = async function slashCommandHandler(syncGuild) {
           skippedCommands.set(command.name, command);
           break;
         }
+        
         if (!skipped) {
           this.slashCommands.set(command.name, command);
-          for (const alias of command.aliases?.slash || []) this.slashCommands.set(alias, { ...command, aliasOf: command.name });
+          if (command.aliases?.slash) this.slashCommands = this.slashCommands.concat(command.aliases.slash.map(e => [e, { ...command, name: e, aliasOf: command.name }]));
         }
       }
     }
@@ -136,9 +138,13 @@ module.exports = async function slashCommandHandler(syncGuild) {
     if (command.disabled) HideDisabledCommandLog ? void 0 : this.log(`Skipped Disabled Slash Command ${commandName}`);
     else if (this.botType == 'dev' && !command.beta) HideNonBetaCommandLog ? void 0 : this.log(`Skipped Non-Beta Slash Command ${commandName}`);
     else {
-      await this.application.commands.create(command, syncGuild && syncGuild != '*' ? syncGuild : null);
-      this.log(`Registered Slash Command ${commandName}`);
-      registeredCommandCount++;
+      try {
+        await this.application.commands.create(command, syncGuild && syncGuild != '*' ? syncGuild : null);
+
+        this.log(`Registered Slash Command ${commandName}`);
+        registeredCommandCount++;
+      }
+      catch (err) { this.error(`Error on registering command ${command.name}:\n`, err); }
     }
   }
 
@@ -146,16 +152,20 @@ module.exports = async function slashCommandHandler(syncGuild) {
   for (const [, command] of await applicationCommands) {
     if (commandNames.includes(command.name)) continue;
 
-    await this.application.commands.delete(command, syncGuild && syncGuild != '*' ? syncGuild : null);
-    this.log(`Deleted Slash Command ${command.name}`);
-    deletedCommandCount++;
+    try {
+      await this.application.commands.delete(command, syncGuild && syncGuild != '*' ? syncGuild : null);
+
+      this.log(`Deleted Slash Command ${command.name}`);
+      deletedCommandCount++;
+    }
+    catch (err) { this.error(`Error on deleting command ${command.name}:\n`, err); }
   }
 
   if (syncGuild) return;
 
   this.log(`Registered ${registeredCommandCount} Slash Commands`);
 
-  for (const skippedCommand of skippedCommands) this.slashCommands.set(...skippedCommand);
+  this.slashCommands = this.slashCommands.concat(skippedCommands);
 
   this
     .log(`Skipped ${skippedCommands.size} Slash Commands`)
@@ -170,8 +180,7 @@ module.exports = async function slashCommandHandler(syncGuild) {
   if (this.settings.restartingMsg?.message) {
     try {
       const guild = await this.guilds.fetch(this.settings.restartingMsg.guild);
-      const channel = await guild.channels.fetch(this.settings.restartingMsg.channel);
-      const message = await channel.messages.fetch(this.settings.restartingMsg.message);
+      const message = await (await guild.channels.fetch(this.settings.restartingMsg.channel)).messages.fetch(this.settings.restartingMsg.message);
       if (message?.editable) message.edit(I18nProvider.__({ locale: guild.localeCode }, 'commands.owner-only.restart.success'));
     } catch { }
 
