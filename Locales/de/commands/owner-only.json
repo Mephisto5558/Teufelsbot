@@ -24,10 +24,6 @@
     "description": "Führe einen git pull aus",
     "success": "Erfolgreich gepullt."
   },
-  "globalsync": {
-    "description": "Synchronisiert die Slash-Befehle des Bots mit allen Servern.",
-    "success": "Synchronisierung beendet."
-  },
   "reload": {
     "description": "Lädt einen Befehl oder eine Kategorie neu",
     "usage": "PREFIX-Befehl: reload <command | file> <Dateipfad vom cwd aus> / reload <Befehl | \"*\">",
