@@ -24,7 +24,7 @@ async function autocompleteHandler(command, locale) {
   if (options.constructor.name == 'Object') return this.respond(options);
   return this.respond(
     typeof options == 'string' ? [response(options)] : options
-      .filter(e => e.toLowerCase().includes(this.focused.value.toLowerCase()))
+      .filter(e => e?.toLowerCase().includes(this.focused.value.toLowerCase()) ?? true)
       .slice(0, 25).map(response)
   );
 }

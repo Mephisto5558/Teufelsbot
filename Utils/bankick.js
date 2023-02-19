@@ -88,8 +88,8 @@ module.exports = async function bankick(lang) {
         if (collected.size) return;
 
         resEmbed.data.description = lang('timedOut');
-        selectComponent.data.components[0].disabled = true;
-        selectComponent.data.components[0].placeholder = lang('timedOut');
+        selectComponent.components[0].data.disabled = true;
+        selectComponent.components[0].data.placeholder = lang('timedOut');
 
         return this.editReply({ embeds: [resEmbed], components: [selectComponent] });
       });
