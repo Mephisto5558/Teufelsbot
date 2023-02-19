@@ -24,10 +24,6 @@
     "description": "Run a git pull",
     "success": "Successfully executed the command."
   },
-  "globalsync": {
-    "description": "syncs the bot's slash commands with all guilds",
-    "success": "Finished Syncing."
-  },
   "reload": {
     "description": "reloads a file or category",
     "usage": "PREFIX-Command: reload <command | file> <filepath relative to cwd> / reload <command | \"*\">",

@@ -24,10 +24,6 @@
     "description": "Run a git pull",
     "success": "Il comando è stato eseguito con successo."
   },
-  "globalsync": {
-    "description": "sincronizza i comandi slash del bot con tutte le gilde",
-    "success": "Sincronizzazione Completata."
-  },
   "reload": {
     "description": "ricarica un file o una categoria",
     "usage": "PREFIX-Command: ricarica <command | file> <filepath relative to cwd> / ricarica <command | \"*\">",

@@ -8,6 +8,7 @@ module.exports = {
   DB: require('./db.js'),
   errorHandler: require('./error_handler.js'),
   findAllEntries: require('./findAllEntries.js'),
+  formatSlashCommand: require('./formatSlashCommand.js'),
   getAge: require('./getAge.js'),
   getOwnerOnlyFolders: require('./getOwnerOnlyFolders.js'),
   gitpull: require('./gitpull.js'),

@@ -24,10 +24,6 @@
     "description": "Run a git pull",
     "success": "Ejecutado con éxito el comando."
   },
-  "globalsync": {
-    "description": "sincroniza los comandos barridos del bot con todos los gremios",
-    "success": "Sincronización finalizada."
-  },
   "reload": {
     "description": "Carga un archivo o categoría",
     "usage": "PREFIX-Command: recargar <command | file> <filepath relative to cwd> / recargar <command | \"*\">",

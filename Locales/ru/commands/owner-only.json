@@ -24,10 +24,6 @@
     "description": "Run a git pull",
     "success": "Команда успешно выполнена."
   },
-  "globalsync": {
-    "description": "синхронизирует команды бота со всеми гильдиями",
-    "success": "Синхронизация завершена."
-  },
   "reload": {
     "description": "перезагружает файл или категорию",
     "usage": "PREFIX-команда: перезагрузите <command | file> <filepath relative to cwd> / перезагрузите <command | \"*\">",
