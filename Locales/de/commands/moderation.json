@@ -2,14 +2,14 @@
   "ban": {
     "description": "Bannt ein oder mehrere Mitglieder vom Server",
     "options": {
-      "target": {
-        "description": "Wähle ein Mitglied zum Bannen aus. Leer lassen für Mehrfachauswahl im nächsten Schritt."
-      },
       "reason": {
-        "description": "Das/Die Ziel(e) werden die Begründung per DMs erhalten."
+        "description": "Die Ziele werden die Begründung per DMs erhalten."
       },
       "duration": {
         "description": "Wie lange möchtest du das Mitglied/die Mitglieder bannen?"
+      },
+      "target": {
+        "description": "Wähle ein Mitglied zum Bannen aus. Leer lassen für Mehrfachauswahl im nächsten Schritt."
       },
       "delete_days_of_messages": {
         "description": "Lösche alle Nachrichten des Mitgliedes von den letzten x Tagen."
