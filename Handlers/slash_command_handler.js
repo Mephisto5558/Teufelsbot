@@ -113,10 +113,12 @@ module.exports = async function slashCommandHandler(syncGuild) {
         let skipped = false;
 
         if (!command.slashCommand) continue;
-
-        command = format(command, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`);
-        command.filePath = resolve(`Commands/${subFolder}/${file}`);
-        command.category = subFolder;
+        try {
+          command = format(command, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`);
+          command.filePath = resolve(`Commands/${subFolder}/${file}`);
+          command.category = subFolder;
+        }
+        catch (err) { this.error(`Error on formatting command ${command.name}:\n`, err); }
 
         for (const [, applicationCommand] of await applicationCommands) {
           if (!syncGuild && (command.disabled || !equal(command, applicationCommand))) continue;
@@ -125,7 +127,7 @@ module.exports = async function slashCommandHandler(syncGuild) {
           skippedCommands.set(command.name, command);
           break;
         }
-        
+
         if (!skipped) {
           this.slashCommands.set(command.name, command);
           if (command.aliases?.slash) this.slashCommands = this.slashCommands.concat(command.aliases.slash.map(e => [e, { ...command, name: e, aliasOf: command.name }]));
