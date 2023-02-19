@@ -1,35 +1,37 @@
 {
   "ban": {
-    "description": "bans a member from the guild",
+    "description": "bans one or multiple member(s) from the guild",
     "options": {
-      "targets": {
-        "description": "Mention member(s) or put ID(s) in to ban them. Put a space between each target."
-      },
       "reason": {
         "description": "The target(s) is/are going to see the reason in DMs"
       },
       "duration": {
         "description": "How long do you want to get the target(s) banned?"
       },
+       "target": {
+        "description": "Select the member to ban. Leave this empty to select multiple members in the nex step."
+      },
       "delete_days_of_messages": {
-        "description": "Delete all messages of the targets of the last n days."
+        "description": "Delete all messages of the target(s) of the last n days."
       }
     },
     "dmEmbedTitle": "Banned",
     "dmEmbedDescription": "You have been banned from `{guild}`.\nModerator: {mod}\nReason: {reason}",
     "infoEmbedTitle": "Ban",
     "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
+    "selectTargetEmbedDescription": "Select up to 10 members to ban. You have 30 seconds.",
     "cantPunishSelf": "You can't ban yourself!",
     "noneFound": "No targets have been found.",
     "error": "**{user}** couldn't be banned.\n{err}\n",
     "success": "**{user}** has been successfully banned.\n",
-    "noDM": "I couldn't DM the target."
+    "noDM": "I couldn't DM the target.",
+    "timedOut": "This menu timed out."
   },
   "kick": {
     "description": "kicks a member from the guild",
     "options": {
-      "targets": {
-        "description": "Mention member(s) or put ID(s) in to kick them. Put a space between each target."
+      "target": {
+        "description": "Select the member to kick. Leave this empty to select multiple members in the nex step."
       },
       "reason": {
         "description": "The target(s) is/are going to see the reason in DMs"
@@ -39,11 +41,13 @@
     "dmEmbedDescription": "You have been kicked from `{guild}`.\nModerator: {mod}\nReason: {reason}",
     "infoEmbedTitle": "Kick",
     "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
+    "selectTargetEmbedDescription": "Select up to 10 members to kick. You have 30s.",
     "noneFound": "No targets have been found.",
     "cantPunishSelf": "You can't kick yourself!",
     "error": "**{user}** couldn't be kicked.\n{err}\n",
     "success": "**{user}** has been successfully kicked.\n",
-    "noDM": "I couldn't DM the target."
+    "noDM": "I couldn't DM the target.",
+    "timedOut": "This menu timed out."
   },
   "lock": {
     "description": "Prevents everyone except administrators from writing in a channel.",

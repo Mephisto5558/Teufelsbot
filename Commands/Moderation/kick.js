@@ -5,15 +5,11 @@ module.exports = {
   prefixCommand: false,
   options: [
     {
-      name: 'targets',
-      type: 'String',
-      required: true
-    },
-    {
       name: 'reason',
       type: 'String',
       required: true
-    }
+    },
+    { name: 'target', type: 'User' }
   ],
 
   run: require('../../Utils').bankick

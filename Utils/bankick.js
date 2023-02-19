@@ -1,10 +1,17 @@
-const { EmbedBuilder, Colors } = require('discord.js');
+const { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType } = require('discord.js');
 
+function checkTarget(member, lang) {
+  if (member.id == this.member.id) return lang('cantPunishSelf');
+  if (member.roles?.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id) return lang('global.noPermUser');
+  if (!member.manageable || !member.bannable) return lang('global.noPermBot');
+}
+
+/**@this {import('discord.js').ChatInputCommandInteraction}*/
 module.exports = async function bankick(lang) {
   if (!['ban', 'kick'].includes(this.commandName)) throw new Error(`"${this.commandName}" is not an accepted commandName.`);
 
   const
-    targets = new Set([...this.options.getString('targets').replace(/[^0-9\s]/g, '').split(' ').filter(e => e?.length == 18)]),
+    target = this.options.getMember('target'),
     reason = this.options.getString('reason'),
     userEmbed = new EmbedBuilder({
       title: lang('infoEmbedTitle'),
@@ -17,31 +24,75 @@ module.exports = async function bankick(lang) {
       color: Colors.Red
     });
 
-  for (const rawTarget of targets) {
-    let target, err, noMsg;
+  let noMsg;
 
-    try { target = await this.guild.members.fetch(rawTarget); }
-    catch { target = { id: rawTarget }; }
-
-    if (target.id == this.member.id) err = lang('cantPunishSelf');
-    else if (target.roles?.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id) err = lang('global.noPermUser');
-    else if (!target.manageable) err = lang('global.noPermBot');
-
+  if (target) {
+    const err = checkTarget.call(this, target, lang);
     if (err) {
       resEmbed.data.description += lang('error', { err, user: target?.user?.tag ?? target.id });
-      continue;
+      return this.editReply(resEmbed);
     }
 
     try { await target.send({ embeds: [userEmbed] }); }
     catch { noMsg = true; }
 
-    await (this.commandName == 'kick' ? target.kick(reason) : this.guild.bans.create(target.id, { reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') }));
-
+    await (this.commandName == 'kick' ? target.kick(reason) : target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') }));
     resEmbed.data.description += lang('success', target?.user?.tag ?? target.id);
     if (noMsg) resEmbed.data.description += lang('noDM');
+
+    return this.editReply({ embeds: [resEmbed] });
   }
 
-  if (resEmbed.data.description == lang('infoEmbedDescription', { mod: this.user.tag, reason })) resEmbed.data.description += lang('noneFound');
+  const
+    selectEmbed = new EmbedBuilder({
+      title: lang('infoEmbedTitle'),
+      description: lang('selectTargetEmbedDescription'),
+      color: Colors.Orange
+    }),
+    selectComponent = new ActionRowBuilder({
+      components: [new UserSelectMenuBuilder({
+        minValues: 1,
+        maxValues: 10,
+        customId: 'selectTargetMenu'
+      })]
+    }),
+    collector = (await this.editReply({ embeds: [selectEmbed], components: [selectComponent] }))
+      .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: 30000, filter: i => i.user.id == this.user.id })
+      .on('collect', async selectMenu => {
+        await selectMenu.deferUpdate();
 
-  return this.editReply({ embeds: [resEmbed] });
+        for (const [, target] of selectMenu.members) {
+          const err = checkTarget.call(this, target, lang);
+
+          if (err) {
+            resEmbed.data.description += lang('error', { err, user: target.user.tag });
+            continue;
+          }
+
+          try { await target.send({ embeds: [userEmbed] }); }
+          catch { noMsg = true; }
+
+          await (this.commandName == 'kick' ? target.kick(reason) : target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') }));
+
+          resEmbed.data.description += lang('success', target.user.tag);
+          if (noMsg) resEmbed.data.description += lang('noDM');
+        }
+
+        if (resEmbed.data.description == lang('infoEmbedDescription', { mod: this.user.tag, reason })) resEmbed.data.description += lang('noneFound');
+
+        await this.editReply({ embeds: [resEmbed], components: [] });
+
+        collector.stop();
+      })
+      .on('end', collected => {
+        if (collected.size) return;
+
+        resEmbed.data.description = lang('timedOut');
+        selectComponent.data.components[0].disabled = true;
+        selectComponent.data.components[0].placeholder = lang('timedOut');
+
+        return this.editReply({ embeds: [resEmbed], components: [selectComponent] });
+      });
+
+  return collector;
 };
