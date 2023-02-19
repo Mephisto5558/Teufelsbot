@@ -11,10 +11,9 @@ module.exports = function timeValidator(t) {
     found = validItems.filter(e => e.includes(last));
 
   if (found.length) return found.map(e => split.join('') + e);
-  if (typeof getMilliseconds(t + 's') != 'number') return [];
 
   const ms = getMilliseconds(t);
-  if (typeof ms != 'number') return [t + 'y', t + 'mth', t + 'w', t + 'd', t + 'h', t + 'min', t + 's'];
+  if (typeof ms != 'number') return validItems.map(e => t + e);
 
-  return [humanize(ms.limit({ min: -62492231808e5, max: 62492231808e5 }) || 0)]; //200000y
+  return [humanize(ms.limit({ min: -62492231808e5, max: 62492231808e5 }))]; //200000y
 };

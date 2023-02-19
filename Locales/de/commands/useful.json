@@ -271,15 +271,15 @@
     "success": "🔉 Hier ist deine Aufnahme!"
   },
   "timestamp": {
-    "description": "Erhalte einen Timestamp für die Zukunft (oder Vergangenheit, indem du \"-\" nutzt)",
-    "usage": "PREFIX-Befehl: timestamp [Zeit]",
+    "description": "Erhalte einen Timestamp für die Zukunft (oder Vergangenheit, indem du \"-\" nutzt.)",
+    "usage": "PREFIX-Befehl: timestamp [Zeit]\nBeispiele:\n>>> `1h` = jetzt + 1h\n`-1h` = jetzt - 1h\n`1h-1h` = jetzt + 1h - 1h",
     "options": {
       "time": {
-        "description": "Die Zeit von diesem Moment an (z. B. 1w3d2h5min): 3min = jetzt+3min, -3min = jetzt-3min"
+        "description": "Die Zeit von diesem Moment an (z. B. 1w3d2h5min): nutze \"/help timestamp\" für mehr Informationen."
       }
     },
     "invalid": "Die angegebene Zeit ist ungültig! Nutze {command} und suche nach `timestamp` für mehr Informationen.",
-    "outOfRange": "Die angegebene Zeit ist größer als 200.000 Jahre!",
+    "outOfRange": "Die angegebene Zeit überschreitet das Limit von 200.000 Jahren!",
     "success": "Das ist <t:{time}:R> (`<t:{time}:R>`)."
   }
 }
