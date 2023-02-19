@@ -5,11 +5,6 @@ module.exports = {
   prefixCommand: false,
   options: [
     {
-      name: 'targets',
-      type: 'String',
-      required: true
-    },
-    {
       name: 'reason',
       type: 'String',
       required: true
@@ -19,7 +14,8 @@ module.exports = {
       type: 'Number',
       minValue: 1,
       maxValue: 7
-    }
+    },
+    { name: 'target', type: 'User' }
     /* {
       name: 'duration',
       type: 'Number',

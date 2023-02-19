@@ -2,7 +2,7 @@
   "ban": {
     "description": "bandisce un membro dalla gilda",
     "options": {
-      "targets": {
+      "target": {
         "description": "Menzionare i membri o mettere ID dentro per bannarli. Metti uno spazio tra ogni obiettivo."
       },
       "reason": {
@@ -28,7 +28,7 @@
   "kick": {
     "description": "kicks a member from the guild",
     "options": {
-      "targets": {
+      "target": {
         "description": "Menzione membro(i) o metti un ID per cacciarli. Metti uno spazio tra ogni obiettivo."
       },
       "reason": {

@@ -2,7 +2,7 @@
   "ban": {
     "description": "bannit un membre de la guilde",
     "options": {
-      "targets": {
+      "target": {
         "description": "Mention member(s) or put ID(s) in to ban them. Put a space between each target."
       },
       "reason": {
@@ -28,7 +28,7 @@
   "kick": {
     "description": "expulse un membre de la guilde",
     "options": {
-      "targets": {
+      "target": {
         "description": "Mention member(s) or put ID(s) in to kick them. Put a space between each target."
       },
       "reason": {
