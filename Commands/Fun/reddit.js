@@ -51,7 +51,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      filterNSFW = (this.options?.getBoolean('filter_nsfw') ?? true) || !this.channel.nsfw,
+      filterNSFW = !this.channel.nsfw || (this.options?.getBoolean('filter_nsfw') ?? true),
       type = this.options?.getString('type') ?? this.args?.[1] ?? 'hot';
 
     let subreddit = this.options?.getString('subreddit') ?? this.args?.[0] ?? memeSubreddits.random();
