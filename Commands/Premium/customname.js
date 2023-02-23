@@ -56,8 +56,7 @@ module.exports = {
         if (this.options?.getString('global')) target.user.customName = newName;
         else target.customName = newName;
 
-        if (!newName) return this.customReply(lang('clear.success'));
-        return this.customReply(lang('set.success', newName));
+        return this.customReply(newName ? lang('set.success', newName) : lang('clear.success'));
       }
     }
   }

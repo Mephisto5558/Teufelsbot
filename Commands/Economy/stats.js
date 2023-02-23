@@ -20,17 +20,18 @@ module.exports = {
         { name: `${lang('power')}/${lang('defense')}`, value: `> ${userData.power}/${userData.defense}` },
         { name: `${lang('slaves')}/${lang('maxSlaves')}`, value: `> ${userData.slaves}/${userData.maxSlaves}` },
         {
-          name: lang('gaining.title'), value: '>>> ' +
-            Object.entries(userData.gaining)
-              .filter(([, e]) => e)
-              .map(([k, v]) => lang(`gaining.${k}`, parseFloat((v + userData.skills.currency_bonus_absolute.lvl ** 2 + v * userData.skills.currency_bonus_percentage.lvl ** 2 / 100).toFixed(3)) ?? v))
-              .join('\n')
+          name: lang('gaining.title'), value: '>>>' + Object.entries(userData.gaining).reduce((acc, [k, v]) => {
+            if (!v) return acc;
+            const str = lang(`gaining.${k}`, parseFloat((v + userData.skills.currency_bonus_absolute.lvl ** 2 + v * userData.skills.currency_bonus_percentage.lvl ** 2 / 100).toFixed(3)) ?? v);
+            return acc ? `${acc}\n${str}` : str;
+          }, '')
         },
         {
-          name: lang('skills.name'), value: (Object.entries(userData.skills)
-            .filter(([, { lvl }]) => lvl)
-            .map(([k, { lvl }]) => lang(`skills.${k}`) + lang('level', lvl))
-            .join('\n') || lang('global.none'))
+          name: lang('skills.name'), value: Object.entries(userData.skills).reduce((acc, [k, { lvl }]) => {
+            if (!lvl) return acc;
+            const str = lang(`skills.${k}`) + lang('level', lvl);
+            return acc ? `${acc}\n${str}` : str;
+          }, '') || lang('global.none')
         }
       ],
       embed = new EmbedBuilder({

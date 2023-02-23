@@ -9,7 +9,6 @@ module.exports = {
     const setting = this.guild.db.config?.autopublish;
 
     this.client.db.update('guildSettings', `${this.guid.id}.config.autopublish`, !setting);
-
     return this.customReply(lang('success', setting ? lang('global.disabled') : lang('global.enabled')));
   }
 };

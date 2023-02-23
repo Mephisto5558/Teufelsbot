@@ -1,20 +1,19 @@
 class Converter {
   constructor(input, { type, withSpaces, convertSpaces, convertOnlyLettersDigits } = {}) {
     this.input = input;
-    this.type = type ?? Converter.getInputType(this.input);
+    this.type = type ?? this.constructor.getInputType(this.input);
     this.options = { withSpaces: withSpaces ?? false, convertSpaces: convertSpaces ?? true, convertOnlyLettersDigits: convertOnlyLettersDigits ?? false };
 
     if (!this.type) throw new Error('input is an required argument' + (typeof this.input != 'string' ? ` and must be typeof string! Received ${typeof this.input}` : '!'));
-    if (!Converter.validConvertToOptions.includes(this.type)) throw new RangeError(`${this.type} is not a valid type! valid types are: ${Converter.validConvertToOptions.join(', ')}.`);
+    if (!this.constructor.validConvertToOptions.includes(this.type)) throw new RangeError(`${this.type} is not a valid type! valid types are: ${this.constructor.validConvertToOptions.join(', ')}.`);
 
-    for (const [name, [convertFunction, skip = 0]] of Object.entries(Converter[this.type])) this[name] = (function () {
+    for (const [name, [convertFunction, skip = 0]] of Object.entries(this.constructor[this.type])) this[name] = (function () {
       let output = '';
 
       for (let i = 0; i < this.input.length; i += skip + 1) {
         if (this.type == 'text' && this.options.convertOnlyLettersDigits && /^[\x2F\x3A-\x40\x5B-\x60\x7B-\x9B\xA1-\xBE]+$/.test(this.input[i]))  //the regex matches all special chars like "[]" but not something like "äüö"
           output += this.input[i];
-        else if (this.input[i] == ' ' && !this.options.convertSpaces)
-          output += this.options.withSpaces ? '\n' : ' ';
+        else if (this.input[i] == ' ' && !this.options.convertSpaces) output += this.options.withSpaces ? '\n' : ' ';
         else output += convertFunction(this.input, i);
 
         if (this.options.withSpaces && this.input[i] != ' ') output += ' ';
@@ -57,7 +56,7 @@ class Converter {
     toHex: [(input, i) => input.slice(i, i + 3).toString(16), 3],
     toMorse: [(input, i) => {
       const decimalString = input.slice(i, i + 3);
-      return decimalString === '000' ? ' ' : Converter.morseBinaryMap[decimalString[0]] + ' ' + Converter.morseBinaryMap[decimalString[1]] + ' ' + Converter.morseBinaryMap[decimalString[2]];
+      return decimalString === '000' ? ' ' : this.morseBinaryMap[decimalString[0]] + ' ' + this.morseBinaryMap[decimalString[1]] + ' ' + this.morseBinaryMap[decimalString[2]];
     }, 3],
     toOctal: [(input, i) => input.slice(i, i + 3).toString(8), 3],
     toText: [(input, i) => String.fromCharCode(input.slice(i, i + 3)), 3]
@@ -76,7 +75,7 @@ class Converter {
     toHex: [(input, i) => ({ '.': '10', '-': '11', ' ': '00' }[input.slice(i, i + 1)] || '')],
     toMorse: [input => input, 1e7],
     toOctal: [(input, i) => ({ '.': '2', '-': '3', ' ': '0' }[input.slice(i, i + 1)] || '')],
-    toText: [(input, i) => (Converter.morseTextMap[input.slice(i, i + 1)] || '')],
+    toText: [(input, i) => (this.morseTextMap[input.slice(i, i + 1)] || '')],
   };
   static octal = {
     toBinary: [(input, i) => parseInt(input.slice(i, i + 3), 8).toString(2).padStart(8, '0'), 3],
@@ -90,7 +89,7 @@ class Converter {
     toBinary: [(input, i) => input[i].charCodeAt(0).toString(2).padStart(8, '0')],
     toDecimal: [(input, i) => input.charCodeAt(i).toString(10).padStart(3, '0')],
     toHex: [(input, i) => input.charCodeAt(i).toString(16)],
-    toMorse: [(input, i) => input.slice(i).split('').map(char => Converter.morseTextMap[char.toLowerCase()] || '').join(' ')],
+    toMorse: [(input, i) => input.slice(i).split('').map(char => this.morseTextMap[char.toLowerCase()] || '').join(' ')],
     toOctal: [(input, i) => input.charCodeAt(i).toString(8)],
     toText: [input => input, 1e7]
   };

@@ -29,7 +29,7 @@ module.exports = async function bankick(lang) {
   if (target) {
     const err = checkTarget.call(this, target, lang);
     if (err) {
-      resEmbed.data.description += lang('error', { err, user: target?.user?.tag ?? target.id });
+      resEmbed.data.description += lang('error', { err, user: target.user?.tag ?? target.id });
       return this.editReply(resEmbed);
     }
 
@@ -37,7 +37,7 @@ module.exports = async function bankick(lang) {
     catch { noMsg = true; }
 
     await (this.commandName == 'kick' ? target.kick(reason) : target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') }));
-    resEmbed.data.description += lang('success', target?.user?.tag ?? target.id);
+    resEmbed.data.description += lang('success', target.user?.tag ?? target.id);
     if (noMsg) resEmbed.data.description += lang('noDM');
 
     return this.editReply({ embeds: [resEmbed] });

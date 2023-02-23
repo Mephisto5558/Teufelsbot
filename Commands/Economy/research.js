@@ -51,14 +51,12 @@ module.exports = {
           userData = this.guild.db.economy[this.user.id],
           userSkill = userData.skills[skill],
           price = userSkill.lastPrice ? userSkill.lastPrice + Math.round(userSkill.lastPrice * userSkill.percentage / 100) : defaultSkills[skill].firstPrice;
-        let errorMsg;
 
-        if (Object.values(userSkills).filter(e => e.onCooldownUntil > Date.now()).length > userData.maxConcurrentResearches) errorMsg = lang('onMaxConcurrentResearches');
-        else if (userSkill.onCooldownUntil > Date.now()) errorMsg = lang('onCooldown', Math.round(userSkill.onCooldownUntil / 1000));
-        else if (userSkill.maxLevel && userSkill.lvl > userSkill.maxLevel) errorMsg = lang('maxLevel');
-        else if (userData.currency < price) errorMsg = lang('notEnoughMoney');
+        if (Object.values(userSkills).filter(e => e.onCooldownUntil > Date.now()).length > userData.maxConcurrentResearches) return button.editReply(lang('onMaxConcurrentResearches'));
+        if (userSkill.onCooldownUntil > Date.now()) return button.editReply(lang('onCooldown', Math.round(userSkill.onCooldownUntil / 1000)));
+        if (userSkill.maxLevel && userSkill.lvl > userSkill.maxLevel) return button.editReply(lang('maxLevel'));
+        if (userData.currency < price) return button.editReply(lang('notEnoughMoney'));
 
-        if (errorMsg) return button.editReply(errorMsg);
         const onCooldownUntil = new Date(Date.now() + userSkill.lvlUpCooldown * 36e4).getTime();
 
         const newData = {
