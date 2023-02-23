@@ -10,11 +10,13 @@ const
   I18nProvider = require('./I18nProvider.js'),
   date = new Date().toLocaleDateString('en').replaceAll('/', '-'),
   getTime = () => new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false }),
-  writeLogFile = (type, ...data) => appendFileSync(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data.join(' ')}\n`);
+  writeLogFile = (type, ...data) => appendFileSync(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data.join(' ')}\n`),
+  originalpatchMethod = Message.prototype._patch;
 
 if (!require('../config.json')?.HideOverwriteWarning) console.warn(`Overwriting the following variables and functions (if they exist):
   Vanilla:    global.getDirectoriesSync, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
-  Discord.js: CommandInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Message#runEco, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.`
+  Discord.js: CommandInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Message#runEco, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
+  \nModifying Discord.js Message._patch method.`
 );
 
 global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).filter(e => e.isDirectory()).map(directory => directory.name);
@@ -85,22 +87,34 @@ Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
 Object.defineProperty(Message.prototype, 'user', { get() { return this.author; } });
 Object.assign(Message.prototype, {
   customReply,
+  _patch(data) {
+    if ('content' in data) {
+      /**
+       * The original content of the message. This is a custom property set in "prototypeRegisterer.js".
+       * <info>This property requires the GatewayIntentBits.MessageContent privileged intent
+       * in a guild for messages that do not mention the client.</info>
+       * @type {?string}
+       */
+      this.originalContent = data.content;
+    } else this.originalContent ??= null;
+
+    originalpatchMethod.call(this, ...arguments);
+  },
   async runMessages() {
     const
-      originalContent = this.content = this.content.replaceAll('<@!', '<@'),
       { afkMessages = {} } = this.guild.db,
       countingData = this.guild.db.counting?.[this.channel.id];
 
     if (this.client.botType != 'dev' && this.guild.db.triggers?.length && !cooldowns.call(this, { name: 'triggers', cooldowns: { user: 10000 } }))
-      for (const trigger of this.guild.db.triggers.filter(e => originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())).slice(0, 3))
+      for (const trigger of this.guild.db.triggers.filter(e => this.originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())).slice(0, 3))
         this.customReply(trigger.response);
-    else if (originalContent.includes(this.client.user.id) && !cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } }))
+    else if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } }))
       this.react('👀');
 
     if (this.client.botType == 'dev') return this;
 
-    if (countingData && Number(originalContent)) {
-      if (countingData.lastNumber + 1 == originalContent && countingData.lastAuthor != this.user.id) {
+    if (countingData && Number(this.originalContent)) {
+      if (countingData.lastNumber + 1 == this.originalContent && countingData.lastAuthor != this.user.id) {
         this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { lastNumber: countingData.lastNumber + 1, lastAuthor: this.user.id });
         this.react('✅');
       }
@@ -109,13 +123,13 @@ Object.assign(Message.prototype, {
 
         if (countingData?.lastNumber != 0) {
           this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { user: null, lastNumber: 0 });
-          this.reply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.counting.error', countingData.lastNumber) + I18nProvider.__({ locale: this.guild.localeCode }, countingData.lastNumber + 1 != originalContent ? 'events.counting.wrongNumber' : 'events.counting.sameUserTwice'));
+          this.reply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.counting.error', countingData.lastNumber) + I18nProvider.__({ locale: this.guild.localeCode }, countingData.lastNumber + 1 != this.originalContent ? 'events.counting.wrongNumber' : 'events.counting.sameUserTwice'));
         }
       }
     }
 
     const afk = afkMessages[this.user.id]?.message ? afkMessages[this.user.id] : this.user.db.afkMessage;
-    if (afk?.message && !originalContent.toLowerCase().includes('--afkignore')) {
+    if (afk?.message && !this.originalContent.toLowerCase().includes('--afkignore')) {
       this.client.db.update('userSettings', `${this.user.id}.afkMessage`, {});
       this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`, {});
       if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.substring(6));
