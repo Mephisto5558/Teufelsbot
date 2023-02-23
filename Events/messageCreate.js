@@ -45,7 +45,7 @@ module.exports = async function messageCreate() {
     if (!command.dmPermission && this.channel.type == ChannelType.DM) return this.reply(I18nProvider.__({ locale }, 'events.guildCommandOnly'));
     if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? void 0 : this.reply(I18nProvider.__({ locale }, 'events.nonBetaCommand'));
   }
-  else if (this.client.slashCommands.get(this.commandName)) return this.reply(I18nProvider.__({ locale }, 'events.slashCommandOnly'));
+  else return this.client.slashCommands.get(this.commandName) ? this.reply(I18nProvider.__({ locale }, 'events.slashCommandOnly')) : this.runMessages();
 
   const lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
   const disabledList = this.guild?.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
