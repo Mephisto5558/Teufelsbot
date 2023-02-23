@@ -284,7 +284,7 @@
     "success": "🔉 Hier ist deine Aufnahme!"
   },
   "timestamp": {
-    "description": "Erhalte einen Timestamp für die Zukunft (oder Vergangenheit, indem du \"-\" nutzt.)",
+    "description": "Erhalte einen Timestamp für die Zukunft (oder Vergangenheit, indem du \"-\" nutzt)",
     "usage": "PREFIX-Befehl: timestamp [Zeit]\nBeispiele:\n>>> `1h` = jetzt + 1h\n`-1h` = jetzt - 1h\n`1h-1h` = jetzt + 1h - 1h",
     "options": {
       "time": {
