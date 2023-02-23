@@ -54,14 +54,14 @@ module.exports = {
             { name: 'get', type: 'Boolean' },
             {
               name: 'min_message_length',
-              type: 'Number',
+              type: 'Integer',
               minValue: 0,
               maxValue: 5000,
               required: false
             },
             {
               name: 'max_message_length',
-              type: 'Number',
+              type: 'Integer',
               minValue: 0,
               maxValue: 5000,
               required: false
@@ -195,8 +195,8 @@ module.exports = {
             oldConfig = this.guild.db.economy?.config || this.client.defaultSettings.economy.config;
 
           const config = Object.fromEntries(Object.entries({
-            minMessageLength: this.options.getNumber('min_message_length'),
-            maxMessageLength: this.options.getNumber('max_message_length')
+            minMessageLength: this.options.getInteger('min_message_length'),
+            maxMessageLength: this.options.getInteger('max_message_length')
           }).filter(([k, v]) => v !== null && v != oldConfig[k]));
 
           if (get || !config) {
