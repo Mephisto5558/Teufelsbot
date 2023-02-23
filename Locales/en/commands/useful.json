@@ -234,6 +234,19 @@
     "charsetEmpty": "you excluded all chars of the charset...",
     "success": "Your secure password(s):\n{passwords}\n\n||Created with the following charset:\n```{charset}```\nUse the command options to add or remove chars.||"
   },
+  "randomnumber": {
+    "description": "Returns a random number. Uses default values for invalid inputs.",
+    "usage": "PREFIX Command: randomnumber [min] [max]",
+    "options": {
+      "minimum": {
+        "description": "The smallest possible number. Defaults to 0."
+      },
+      "maximum": {
+        "description": "The largest possible number. Defaults to 100."
+      }
+    },
+    "outOfRange": "An error occurred:\n````\n{err}.\n```"
+  },
   "record": {
     "description": "Record a voice channel. Needs approval from users.",
     "options": {
