@@ -93,12 +93,12 @@ module.exports = {
             gaining: defaultSettings.gaining,
             skills: Object.fromEntries(Object.entries(defaultSettings.skills).map(([skill, { ...e }]) => {
               delete e.firstPrice;
-              e.lastPrice = 0;
 
-              if (!e.onCooldownUntil) e.onCooldownUntil = 0;
-              if (!e.lvl) e.lvl = 0;
-              if (!e.maxLvl) e.maxLvl = 0;
-              if (!e.percentage) e.percentage = 18;
+              e.lastPrice = 0;
+              e.onCooldownUntil ??= 0;
+              e.lvl ??= 0;
+              e.maxLvl ??= 0;
+              e.percentage ??= 18;
 
               return [skill, e];
             }))

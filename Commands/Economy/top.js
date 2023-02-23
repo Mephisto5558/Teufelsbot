@@ -12,13 +12,7 @@ module.exports = {
       description = Object.entries(this.guild.db.economy || {})
         .sort(([, a], [, b]) => b.power - a.power || b.currency - a.currency)
         .slice(0, 10)
-        .filter(([, e]) => e.currency)
-        .map(([k, v], i) =>
-          ([':first_place: ', ':second_place: ', ':third_place: '][i] || `${i + 1}. `) + `<@${k}>\n` +
-          lang('currency', v.currency) +
-          lang('power', v.power)
-        )
-        .join('\n'),
+        .reduce((acc, [k, v], i) => v.currency ? ([':first_place: ', ':second_place: ', ':third_place: '][i] || `${i + 1}. `) + `<@${k}>\n` + lang('currency', v.currency) + lang('power', v.power) + '\n' : acc, ''),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         color: Colors.White,

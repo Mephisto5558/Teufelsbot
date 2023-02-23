@@ -38,7 +38,7 @@ module.exports = async function buttonPressHandler(lang) {
           if (!this.member.roles.cache.has(role.id)) return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.missesRole', role.id))] });
           await this.member.roles.remove(role);
           if (args.includes('count') && this.component.label) {
-            this.component.data.label = this.component.label.replace(/\d*\]$/, `${count - 1}]`);
+            this.component.data.label = this.component.label.replace(/\d*\]$/, `${count - 1}]`).limit({ min: 0 });
             this.message.edit({ components: this.message.components });
           }
           return this.editReply({ embeds: [successEmbed.setDescription(lang('events.selfrole.removeSuccess', role.id))] });

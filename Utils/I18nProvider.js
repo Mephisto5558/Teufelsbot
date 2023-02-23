@@ -5,8 +5,7 @@ const
 
 class I18nProvider {
   constructor({
-    localesPath = './locales', defaultLocale = 'en',
-    separator = '.', notFoundMessage = '',
+    localesPath = './locales', defaultLocale = 'en', separator = '.', notFoundMessage = '',
     errorNotFound = false, undefinedNotFound = false
   }) {
     this.config = { defaultLocale, separator, errorNotFound, undefinedNotFound, notFoundMessage };

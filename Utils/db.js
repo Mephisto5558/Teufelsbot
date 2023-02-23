@@ -62,11 +62,10 @@ module.exports = class DB {
     if (!key) return;
     if (typeof key != 'string') throw new Error(`key must be typeof string! Got ${typeof key}.`);
 
-    let data = await this.schema.findOne({ key: db });
+    const data = await this.schema.findOne({ key: db }) || new this.schema({ key: db, value: {} });
 
-    if (!data) data = new this.schema({ key: db, value: {} });
-    else if (!data.value) data.value = {};
-    else if (typeof data.value != 'object') throw new Error(`data.value in db "${db}" must be typeof object! Found ${typeof data.value}.`);
+    data.value ??= {};
+    if (typeof data.value != 'object') throw new Error(`data.value in db "${db}" must be typeof object! Found ${typeof data.value}.`);
 
     DB.mergeWithFlat(data.value, key, value);
 
@@ -79,9 +78,9 @@ module.exports = class DB {
     const values = pushValue.flat();
     let dbData = this.collection.get(key);
 
-    if (!dbData) dbData = new this.schema({ key, value: pushValue });
-    else if (!data.value) data.value = pushValue;
-    else if (!Array.isArray(dbData)) throw Error(`You can't push data to a ${typeof dbData} value!`);
+    dbData ??= new this.schema({ key, value: pushValue });
+    dbData.value ??= pushValue;
+    if (!Array.isArray(dbData.value)) throw Error(`You can't push data to a ${typeof dbData.value} value!`);
 
     const data = await this.schema.findOne({ key });
     data.value = [...data.value, ...values];

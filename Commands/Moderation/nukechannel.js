@@ -23,18 +23,17 @@ module.exports = {
   run: async function (lang) {
     if (this.options.getString('confirmation')?.toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
 
-    const embed = new EmbedBuilder({
-      description: lang('embedDescription'),
-      color: Colors.Red,
-      image: { url: 'https://giphy.com/media/XUFPGrX5Zis6Y/giphy.gif' },
-      footer: { text: lang('embedFooterText', this.user.tag) }
-    });
-
-    const channel = this.options?.getChannel('channel') || this.channel;
-    const cloned = await channel.clone({ parent: channel.parentId });
+    const
+      embed = new EmbedBuilder({
+        description: lang('embedDescription'),
+        color: Colors.Red,
+        image: { url: 'https://giphy.com/media/XUFPGrX5Zis6Y/giphy.gif' },
+        footer: { text: lang('embedFooterText', this.user.tag) }
+      }),
+      channel = this.options?.getChannel('channel') || this.channel,
+      cloned = await channel.clone({ parent: channel.parentId });
 
     await channel.delete(`nukechannel command, member ${this.user.tag}`);
-
     return cloned.send({ embeds: [embed] });
   }
 };

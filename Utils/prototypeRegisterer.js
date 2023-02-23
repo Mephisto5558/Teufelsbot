@@ -76,8 +76,7 @@ Object.defineProperties(BaseClient.prototype, {
   },
   defaultSettings: {
     get() { return this.db?.get('guildSettings')?.default ?? {}; },
-    set(val) { this.db.update('guildSettings', 'default', val); },
-    update(key, val) { return this.db.update('guildSettings', `default.${key}`, val); }
+    set(val) { this.db.update('guildSettings', 'default', val); }
   }
 });
 Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
