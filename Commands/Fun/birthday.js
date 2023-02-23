@@ -16,21 +16,21 @@ module.exports = {
       options: [
         {
           name: 'day',
-          type: 'Number',
+          type: 'Integer',
           minValue: 1,
           maxValue: 31,
           required: true
         },
         {
           name: 'month',
-          type: 'Number',
+          type: 'Integer',
           minValue: 1,
           maxValue: 12,
           required: true
         },
         {
           name: 'year',
-          type: 'Number',
+          type: 'Integer',
           minValue: 1900,
           maxValue: currentYear,
           required: true
@@ -53,9 +53,9 @@ module.exports = {
       target = this.options.getMember('target'),
       doNotHide = this.options.getBoolean('do_not_hide'),
       birthday =
-        Math.abs(this.options.getNumber('year')) + '/' +
-        Math.abs(this.options.getNumber('month') || '')?.toString().padStart(2, '0') + '/' +
-        Math.abs(this.options.getNumber('day') || '')?.toString().padStart(2, '0');
+        this.options.getInteger('year') + '/' +
+        this.options.getInteger('month').toString().padStart(2, '0') + '/' +
+        this.options.getInteger('day').toString().padStart(2, '0');
 
     switch (this.options.getSubcommand()) {
       case 'set': {

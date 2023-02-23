@@ -15,7 +15,7 @@ module.exports = {
     { name: 'member', type: 'User' }
     /*{
       name: 'amount',
-      type: 'Number',
+      type: 'Integer',
       minValue: 0,
       maxValue: 20
     }*/
