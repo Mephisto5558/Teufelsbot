@@ -2,14 +2,14 @@
   "ban": {
     "description": "Bannt ein oder mehrere Mitglieder vom Server",
     "options": {
-      "target": {
-        "description": "Wähle ein Mitglied zum Bannen aus. Leer lassen für Mehrfachauswahl im nächsten Schritt."
-      },
       "reason": {
         "description": "Das/Die Ziel(e) werden die Begründung per DMs erhalten."
       },
       "duration": {
         "description": "Wie lange möchtest du das Mitglied/die Mitglieder bannen?"
+      },
+      "target": {
+        "description": "Wähle ein Mitglied zum Bannen aus. Leer lassen für Mehrfachauswahl im nächsten Schritt."
       },
       "delete_days_of_messages": {
         "description": "Lösche alle Nachrichten des Mitgliedes von den letzten x Tagen."
@@ -19,7 +19,7 @@
     "dmEmbedDescription": "Du wurdest von `{guild}` gebannt.\nModerator: {mod}\nBegründung: {reason}",
     "infoEmbedTitle": "Bann",
     "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
-    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum bannen aus. Du hast 30 Sekunden.",
+    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Bannen aus. Du hast 30 Sekunden.",
     "cantPunishSelf": "Du kannst dich selbst nicht bannen!",
     "noneFound": "Kein Ziel wurde gefunden.",
     "error": "Ich konnte **{user}** nicht bannen.\n{err}\n",
@@ -34,14 +34,14 @@
         "description": "Wähle ein Mitglied zum Bannen aus. Leer lassen für Mehrfachauswahl im nächsten Schritt."
       },
       "reason": {
-        "description": "Die Ziele werden die Begründung per DMs erhalten."
+        "description": "Das/Die Ziel(e) werden die Begründung per DMs erhalten."
       }
     },
     "dmEmbedTitle": "Gekickt",
     "dmEmbedDescription": "Du wurdest von `{guild}` gekickt.\nModerator: {mod}\nBegründung: {reason}",
     "infoEmbedTitle": "Kick",
     "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
-    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum kicken aus. Du hast 30 Sekunden.",
+    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Kicken aus. Du hast 30 Sekunden.",
     "noneFound": "Kein Ziel wurde gefunden.",
     "cantPunishSelf": "Du kannst dich selbst nicht kicken!",
     "error": "Ich konnte **{user}** nicht kicken.\n{err}\n",
