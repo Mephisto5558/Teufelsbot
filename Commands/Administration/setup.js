@@ -37,9 +37,9 @@ module.exports = {
           autocompleteOptions: function () { return getCmds(this.client); }
         },
         { name: 'get', type: 'Boolean' },
-        ...Array(6).fill({ type: 'Role' }).map((e, i) => ({ ...e, name: `role_${i + 1}` })),
-        ...Array(6).fill({ type: 'Channel', channelTypes: Constants.TextBasedChannelTypes }).map((e, i) => ({ ...e, name: `channel_${i + 1}` })),
-        ...Array(6).fill({ type: 'User' }).map((e, i) => ({ ...e, name: `member_${i + 1}` }))
+        ...Array.from({ length: 6 }, (_, i) => ({ type: 'Role', name: `role_${i + 1}` })),
+        ...Array.from({ length: 6 }, (_, i) => ({ type: 'Channel', channelTypes: Constants.TextBasedChannelTypes, name: `channel_${i + 1}` })),
+        ...Array.from({ length: 6 }, (_, i) => ({ type: 'User', name: `member_${i + 1}` }))
       ]
     },
     {
@@ -106,17 +106,16 @@ module.exports = {
 
         if (users.includes('*')) return this.editReply(lang('toggleCmd.isDisabled', { command, id: this.command.id }));
 
-        [
-          [...new Set(this.options.data[0].options.filter(e => e.name.includes('role')).map(e => e.value))],
-          [...new Set(this.options.data[0].options.filter(e => e.name.includes('member')).map(e => e.value))],
-          [...new Set(this.options.data[0].options.filter(e => e.name.includes('channel')).map(e => e.value))]
-        ].forEach((ids, i) => {
+        for (const [typeIndex, typeFilter] of ['role', 'member', 'channel'].entries()) {
+          const ids = [...new Set(this.options.data[0].options.filter(e => e.name.includes(typeFilter)).map(e => e.value))];
           let type = 'roles';
-          if (i) type = i == 1 ? 'users' : 'channels';
+
+          if (typeIndex == 1) type = 'users';
+          else if (typeIndex == 2) type = 'channels';
 
           for (const id of ids) {
             if (commandData[type]?.includes(id)) {
-              commandData[type] = commandData[type].filter(e => e != id);
+              commandData[type] = commandData[type].filter(e => e !== id);
               count.enabled[type]++;
               continue;
             }
@@ -124,7 +123,7 @@ module.exports = {
             commandData[type] = [...(commandData[type] || []), id];
             count.disabled[type]++;
           }
-        });
+        }
 
         this.client.db.update('guildSettings', `${this.guild.id}.commandSettings.${command}.disabled`, commandData);
 

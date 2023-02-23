@@ -4,7 +4,7 @@ const
   { Github } = require('../config.json');
 
 module.exports = async function errorHandler(err, message, lang) {
-  if (!this.error) this.error = console.error;
+  this.error ??= console.error;
 
   this.error(' [Error Handling] :: Uncaught Error');
   this.error(err.stack);
@@ -31,9 +31,7 @@ module.exports = async function errorHandler(err, message, lang) {
 
   const collector = msg.createMessageComponentCollector({
     filter: i => i.customId == 'reportError',
-    max: 1,
-    componentType: ComponentType.Button,
-    time: 6e4
+    max: 1, componentType: ComponentType.Button, time: 6e4
   });
 
   collector

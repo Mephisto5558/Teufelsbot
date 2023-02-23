@@ -11,7 +11,6 @@ module.exports = {
     this.client.log(`Reloading language files, initiated by user ${this.user.tag}`);
 
     I18nProvider.loadAllLocales();
-    
     return this.customReply(lang('success'));
   }
 };

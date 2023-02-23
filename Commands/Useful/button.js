@@ -78,8 +78,7 @@ module.exports = {
       if (!msg?.components?.length || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
         components.push(new ActionRowBuilder({ components: [button] }));
 
-      if (msg) await msg.edit({ content, components });
-      else await this.channel.send({ content, components });
+      await (msg ? msg.edit({ content, components }) : this.channel.send({ content, components }));
 
       delete button.data.custom_id;
       return this.editReply(custom ? lang('successJSON') : lang('success', JSON.stringify(button.data.filterEmpty())));

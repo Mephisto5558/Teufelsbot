@@ -5,7 +5,7 @@ const
 module.exports = function format(option, path) {
   if (option.options) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`));
 
-  if (!option.description) option.description = I18nProvider.__({ errorNotFound: true }, `${path}.description`);
+  option.description ??= I18nProvider.__({ errorNotFound: true }, `${path}.description`);
   if (option.choices?.length) option.choices = option.choices.map(e => typeof e == 'object' ? e.fMerge({ __SCHandlerCustom: true }) : { name: I18nProvider.__({ undefinedNotFound: true }, `${path}.choices.${e}`) || e, value: e });
   if (option.autocompleteOptions) option.autocomplete = true;
 
@@ -15,7 +15,7 @@ module.exports = function format(option, path) {
   }
 
   for (const [locale] of [...I18nProvider.availableLocales].filter(([e]) => e != I18nProvider.config.defaultLocale)) {
-    if (!option.descriptionLocalizations) option.descriptionLocalizations = {};
+    option.descriptionLocalizations ??= {};
     let localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.description`);
     if (localeText?.length > 100 && !option.disabled) console.warn(`WARN: "${locale}" description localization of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
 
@@ -28,7 +28,7 @@ module.exports = function format(option, path) {
         return e;
       }
 
-      if (!e.nameLocalizations) e.nameLocalizations = {};
+      e.nameLocalizations ??= {};
       let localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
       if (localeText?.length < 2) option.disabled ? void 0 : console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too short (min length is 2)! Using undefined.`);
       else if (localeText?.length > 32) option.disabled ? void 0 : console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too long (max length is 32)! Slicing.`);
@@ -47,9 +47,9 @@ module.exports = function format(option, path) {
     else if (!ApplicationCommandType[option.type]) { if (!option.disabled) throw new Error(`Invalid option.type, got "${option.type}" (${path})`); }
     else if (isNaN(option.type)) option.type = ApplicationCommandType[option.type];
 
-    if (!option.usage) option.usage = I18nProvider.__({ undefinedNotFound: true }, `${path}.usage`);
+    option.usage ??= I18nProvider.__({ undefinedNotFound: true }, `${path}.usage`);
     if (option.permissions?.user?.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions.user);
-    if (!option.dmPermission) option.dmPermission = false;
+    option.dmPermission ??= false;
 
     return option;
   }
@@ -59,7 +59,7 @@ module.exports = function format(option, path) {
     option.name = option.name.toLowerCase();
   }
 
-  if (option.channelTypes) option.channelTypes = option.channelTypes?.map(e => {
+  if (option.channelTypes) option.channelTypes = option.channelTypes.map(e => {
     if (!ChannelType[e] && ChannelType[e] != 0 && !option.disabled) throw Error(`Invalid option.channelType, got "${e}" (${path})`);
     return isNaN(e) ? ChannelType[e] : e;
   });

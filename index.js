@@ -4,7 +4,7 @@ console.info('Starting...');
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { existsSync, readdirSync } = require('fs'),
-  { DB, gitpull, errorHandler, giveawaysmanager, BackupSystem } = require('./Utils');
+  { DB, gitpull, errorHandler, giveawaysmanager } = require('./Utils');
 
 require('./Utils/prototypeRegisterer.js');
 
@@ -37,8 +37,8 @@ console.time('Starting time');
       Partials.Message,
       Partials.Reaction
     ]
-  });
-  client.on('error', err => errorHandler.call(client, err));
+  }).on('error', err => errorHandler.call(client, err));
+  
   let env;
 
   if (existsSync('./env.json')) env = require('./env.json');
@@ -49,7 +49,7 @@ console.time('Starting time');
 
   env = env.global.fMerge(env[env.global.environment]);
 
-  if (!client.db) client.db = await new DB(env.dbConnectionStr).fetchAll();
+  client.db ??= await new DB(env.dbConnectionStr).fetchAll();
 
   client.botType = env.environment;
   client.keys = env.keys;

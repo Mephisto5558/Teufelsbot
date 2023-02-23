@@ -9,5 +9,5 @@ module.exports = {
     required: true
   }],
 
-  run: function (lang) { return this.customReply(!this.content && !this.options?.getString('question') ? lang('noQuestion') : lang('responseList')); }
+  run: function (lang) { return this.customReply(this.content || this.options?.getString('question') ? lang('responseList') : lang('noQuestion')); }
 };

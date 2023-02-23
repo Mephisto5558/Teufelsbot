@@ -19,7 +19,7 @@ module.exports = {
       emoji = this.client.emojis.cache.get(parsedEmoji.id) || parsedEmoji;
 
     if (!emoji.id) return this.customReply(lang('notFound'));
-    if (!emoji.url) emoji.url = `https://cdn.discordapp.com/emojis/${emoji.id}.webp?size=2048`;
+    emoji.url ??= `https://cdn.discordapp.com/emojis/${emoji.id}.webp?size=2048`;
 
     const
       embed = new EmbedBuilder({
