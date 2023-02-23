@@ -234,6 +234,19 @@
     "charsetEmpty": "Du hast alle Zeichen aus dem Zeichensatz entfernt...",
     "success": "Deine sicheren Passwörter:\n{passwords}\n\n||Erstellt mit dem folgenden Zeichensatz:\n```{charset}```\nNutze die Befehls-Optionen, um Zeichen hinzuzufügen oder zu entfernen.||"
   },
+  "randomnumber": {
+    "description": "Gibt eine Zufallszahl aus. Nutzt bei ungültigen Eingaben die Standartwerte.",
+    "usage": "PREFIX-Befehl: randomnumber [min] [max]",
+    "options": {
+      "minimum": {
+        "description": "Die kleinste mögliche Zahl. Standart: 0"
+      },
+      "maximum": {
+        "description": "Die größte mögliche Zahl. Standart: 100"
+      }
+    },
+    "outOfRange": "Ein Fehler ist aufgetreten:\n```\n{err}.\n```"
+  },
   "record": {
     "description": "Nimmt einen Sprachkanal auf. Benötigt Bestätigung von Mitgliedern.",
     "options": {
