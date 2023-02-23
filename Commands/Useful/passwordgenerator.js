@@ -10,12 +10,12 @@ module.exports = {
   options: [
     {
       name: 'length',
-      type: 'Number',
+      type: 'Integer',
       maxValue: 1750
     },
     {
       name: 'count',
-      type: 'Number',
+      type: 'Integer',
       maxValue: 500
     },
     { name: 'exclude_chars', type: 'String' },
@@ -29,13 +29,13 @@ module.exports = {
   run: function (lang) {
 
     const
-      count = this.options?.getNumber('count') || 1,
+      count = this.options?.getInteger('count') || 1,
       exclude = this.options?.getString('exclude_chars') || '',
       include = this.options?.getString('include_chars') || '';
 
     let
       passwordList = '```',
-      length = this.options?.getNumber('length') || 12,
+      length = this.options?.getInteger('length') || 12,
       charset = [...new Set(defaultCharset //new Set() makes sure there are no duplicate entries
         .filter(char => !exclude.includes(char)) //Remove exclude chars from the charset
         .concat(Array.from(include)) //Add include chars to the charset

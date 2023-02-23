@@ -79,7 +79,7 @@ module.exports = {
     },
     {
       name: 'max_length',
-      type: 'Number',
+      type: 'Integer',
       minValue: 10,
       maxValue: 2000
     }
@@ -90,7 +90,7 @@ module.exports = {
       api = this.options?.getString('api'),
       type = this.options?.getString('type') || this.args?.[0],
       blacklist = this.options?.getString('blacklist'),
-      maxLength = this.options?.getNumber('max_length'),
+      maxLength = this.options?.getInteger('max_length'),
       [joke, API] = await getJoke.call(this.client, api ? [defaultAPIList.find(e => e.name == api)] : defaultAPIList, type, blacklist, maxLength);
 
     if (!joke) return this.customReply(lang('noAPIAvailable'));

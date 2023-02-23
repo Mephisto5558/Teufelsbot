@@ -33,7 +33,7 @@ module.exports = {
         },
         {
           name: 'winner_count',
-          type: 'Number',
+          type: 'Integer',
           minValue: 1,
           required: true
         },
@@ -77,7 +77,7 @@ module.exports = {
         },
         {
           name: 'winner_count',
-          type: 'Number',
+          type: 'Integer',
           minValue: 1,
         },
         { name: 'prize', type: 'String' },
@@ -136,7 +136,7 @@ module.exports = {
     switch (this.options.getSubcommand()) {
       case 'create': {
         const startOptions = {
-          winnerCount: this.options.getNumber('winner_count'),
+          winnerCount: this.options.getInteger('winner_count'),
           prize: this.options.getString('prize'),
           hostedBy: this.user,
           botsCanWin: false,
@@ -186,7 +186,7 @@ module.exports = {
         const editOptions = {
           addTime: duration,
           newBonusEntries: {},
-          newWinnerCount: this.options.getNumber('winner_count'),
+          newWinnerCount: this.options.getInteger('winner_count'),
           newPrize: this.options.getString('prize'),
           newThumbnail: this.options.getString('thumbnail'),
           newImage: this.options.getString('image')

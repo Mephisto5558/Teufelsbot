@@ -9,7 +9,7 @@ module.exports = {
     { name: 'target', type: 'User' },
     {
       name: 'size',
-      type: 'Number',
+      type: 'Integer',
       choices: [16, 32, 56, 64, 96, 128, 256, 300, 512, 600, 1024, 2048]
     }
   ],
@@ -17,7 +17,7 @@ module.exports = {
   run: async function (lang) {
     const
       target = this.options?.getMember('target') || this.mentions?.members.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...(this.args || []), this.content].includes(e))) || this.member,
-      avatarURL = await target.displayAvatarURL({ size: this.options?.getNumber('size') || 2048 }),
+      avatarURL = await target.displayAvatarURL({ size: this.options?.getInteger('size') || 2048 }),
       embed = new EmbedBuilder({
         description: lang('embedDescription', target.user.username),
         color: Colors.White,

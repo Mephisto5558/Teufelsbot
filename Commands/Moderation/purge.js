@@ -39,7 +39,7 @@ module.exports = {
   options: [
     {
       name: 'amount',
-      type: 'Number',
+      type: 'Integer',
       minValue: 1,
       maxValue: 1000,
       required: true
@@ -79,7 +79,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      amount = parseInt(this.options?.getNumber('amount') || this.args?.[0]).limit({ min: 0, max: 1000 }),
+      amount = this.options?.getInteger('amount') || parseInt(this.args?.[0]).limit({ min: 0, max: 1000 }),
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,
       getStr = option => this.options?.getString(option);
 
