@@ -70,8 +70,8 @@ module.exports = {
 
             data.embeds[0].description = lang('chose', { chose: [...hand.entries()].find(([, e]) => e.id == botMove.id)[0], win: win[0], you: hand.find(e => e.id == button.customId).emoji, symbol: win[1], i: botMove.emoji });
             for (const compButton of data.components[0].components) {
-              if (compButton.data.custom_id == button.customId) button.style = ButtonStyle.Secondary;
-              button.data.disabled = true;
+              if (compButton.custom_id == button.customId) button.style = ButtonStyle.Secondary;
+              compButton.disabled = true;
             }
 
             data.components[1] = new ActionRowBuilder({
