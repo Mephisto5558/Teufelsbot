@@ -82,7 +82,9 @@ module.exports = {
     }
     catch (err) {
       msg.edit(lang('error', err.message));
-      this.client.error('Error while trying to reload a command:\n', err);
+      
+      if (this.client.botType == 'dev') throw err;
+      else this.client.error('Error while trying to reload a command:\n', err);
     }
 
     const commands = reloadedArray.join('`, `');
