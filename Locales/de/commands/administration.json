@@ -40,6 +40,7 @@
     },
     "embedTitle": "Server-Backup",
     "create": {
+      "cooldown": "Das Erstellen von Backups ist im Cooldown! Versuche es erneut in `{time}`s.",
       "settings": "<a:loading:1063091916683612160> Sichere Einstellungen...",
       "members": "<a:loading:1063091916683612160> Sichere Mitglieder...",
       "bans": "<a:loading:1063091916683612160> Sichere Bans...",
@@ -57,12 +58,13 @@
       "ownWebhooks": "<a:loading:1063091916683612160> Lösche temporäre Webhooks..."
     },
     "load": {
-      "overwriteWarningTitle": "ÜBERSCHREIBUNG DES SERVERS (UNWIDERRUFLICH)",
-      "overwriteWarningDescription": "Diese Aktion wird den Großteil deines Servers löschen! Dazu zählen unter anderen Rollen, Webhooks, Kanäle und Emojis.\nWenn du dir sicher bist, dass du das tun möchtest, gib \"Ja\" ein. Gib \"Nein\" ein um abzubrechen.\nDu könntest auch ein Backup vor dem Laden erstellen, nur zur Sicherheit.",
-      "noPerm": "Nur der Servereigentümer kann Backups laden!",
+      "cooldown": "Das Laden von Backups ist im Cooldown! Versuche es erneut in `{time}`s.",
+      "overwriteWarningDescription": "Diese Aktion wird den Großteil deines Servers löschen! Dazu zählen unter anderen Rollen, Webhooks, Kanäle und Emojis.\nWenn du dir sicher bist, dass du das tun möchtest, click \"Ja\". Click \"Nein\", um abzubrechen.\nDu könntest auch ein Backup vor dem Laden erstellen, nur zur Sicherheit.",
       "notFound": "Es wurde kein Backup mit dieser ID gefunden!",
       "cancelled": "Das Laden des Backups wurde abgebrochen.",
+      "enableDMs": "Bitte ermögliche dem Bot, dir DMs zu senden, damit du den Ladestatus sehen kannst.",
       "loadingEmbedDescription": "Das Backup wird auf dem Server angewendet.\nDies kann, abhängig von der Größe des Backups, eine Weile dauern.",
+      "noPerm": "Nur der Servereigentümer kann Backups laden!",
       "settings": "<a:loading:1063091916683612160> Lade Einstellungen...",
       "features": "<a:loading:1063091916683612160> Lade Serverfeatures...",
       "roles": "<a:loading:1063091916683612160> Lade Rollen...",
@@ -71,16 +73,18 @@
       "emojis": "<a:loading:1063091916683612160> Lade Emojis...",
       "stickers": "<a:loading:1063091916683612160> Lade Sticker...",
       "bans": "<a:loading:1063091916683612160> Lade Bans...",
-      "success": "Das Backup mit der ID `{id}` wurde geladen."
+      "success": "Das Backup mit der ID `{id}` wurde geladen.",
+      "error": "Beim Laden des Backups ist ein Fehler aufgetreten."
     },
     "delete": {
+      "noPerm": "Nur der Servereigentümer kann Backups löschen!",
       "success": "Das Backup wurde erfolgreich gelöscht!"
     },
     "get": {
       "oneEmbedDescription": "**Informationen zu Backup `{id}`**\n>>> Erstellt am: <t:{createdAt}>\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "oneNotFound": "Es wurde kein Backup mit dieser ID gefunden!",
       "found": "Es wurden {amount} Backups gefunden.",
-      "infos": "Erstellt am: <t:{createdAt}>\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "infos": ">>> Erstellt am: <t:{createdAt}>\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "embedDescription": "Die folgenden Backups wurden gefunden, sortiert nach Datum:",
       "noneFound": "Es wurden keine Backups für diesen Server gefunden."
     }
