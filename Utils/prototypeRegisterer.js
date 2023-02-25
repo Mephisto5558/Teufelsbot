@@ -151,7 +151,7 @@ Object.assign(Message.prototype, {
         acc = '';
       }
 
-      return acc + `${afkMessage}\n`;
+      return `${acc}${afkMessage}\n`;
     }, '');
 
     if (message.length) this.customReply(message);

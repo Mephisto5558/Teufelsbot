@@ -288,7 +288,7 @@
     },
     "language": {
       "embedTitle": "Bot language changed!",
-      "embedDescription": "The next messages will be in `{lang}`."
+      "embedDescription": "The language has been set to `English`."
     },
     "serverbackup": {
       "success": "Successfully updated the settings!"

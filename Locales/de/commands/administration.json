@@ -288,7 +288,7 @@
     },
     "language": {
       "embedTitle": "Sprache geändert!",
-      "embedDescription": "Die nächsten Nachrichten werden in `{lang}` sein."
+      "embedDescription": "Die Sprache wurde auf `Deutsch` gestellt."
     },
     "serverbackup": {
       "success": "Die Einstellungen wurden erfolgreich aktualisiert!"
