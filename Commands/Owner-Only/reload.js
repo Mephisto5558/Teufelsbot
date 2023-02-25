@@ -2,7 +2,7 @@ const
   { Collection } = require('discord.js'),
   { resolve, basename, dirname } = require('path'),
   { existsSync } = require('fs'),
-  { formatSlashCommand } = require('../../Utils');
+  { formatSlashCommand, slashCommandsEqual } = require('../../Utils');
 
 /**@this {import('discord.js').Client}*/
 async function reloadCommand(command, reloadedArray) {
@@ -26,21 +26,33 @@ async function reloadCommand(command, reloadedArray) {
   }
 
   if (file.slashCommand) {
-    await this.application.commands.delete(command.id);
-    const { id } = await this.application.commands.create(file);
-    file.id = id;
+    const equal = slashCommandsEqual(file, command);
+    if (equal) file.id = command.id;
+    else {
+      await this.application.commands.delete(command.id);
+      file.id = (await this.application.commands.create(file)).id;
+    }
 
     this.slashCommands.delete(command.name);
     this.slashCommands.set(file.name, file);
     reloadedArray.push(`/${file.name}`);
 
-    for (const alias of command.aliases?.slash || []) {
-      this.slashCommands.delete(alias);
-      await this.application.commands.delete(this.slashCommands.get(alias).id);
-    }
-    for (const alias of file.aliases?.slash || []) {
-      const { id } = await this.application.commands.create(file);
-      this.slashCommands.set(alias, { ...file, id, aliasOf: file.name });
+    for (const alias of new Set([...(file.aliases?.slash || []), ...(command.aliases?.slash || [])])) {
+      if (equal) {
+        this.slashCommands.delete(alias);
+        this.slashCommands.set(alias, { ...file, id: command.id, aliasOf: file.name });
+      }
+      else {
+        if (this.slashCommands.has(alias)) {
+          const { id } = this.slashCommands.get(alias);
+          try { await this.application.commands.delete(id); } catch { }
+          this.slashCommands.delete(alias);
+        }
+
+        const { id } = await this.application.commands.create(file);
+        this.slashCommands.set(alias, { ...file, id, aliasOf: file.name });
+      }
+
       reloadedArray.push(`/${alias}`);
     }
   }
@@ -82,7 +94,7 @@ module.exports = {
     }
     catch (err) {
       msg.edit(lang('error', err.message));
-      
+
       if (this.client.botType == 'dev') throw err;
       else this.client.error('Error while trying to reload a command:\n', err);
     }
