@@ -40,6 +40,7 @@
     },
     "embedTitle": "Server Backup",
     "create": {
+      "cooldown": "Creating backups is on cooldown! Try again in `{time}`s.",
       "settings": "<a:loading:1063091916683612160> Saving settings...",
       "members": "<a:loading:1063091916683612160> Saving members...",
       "bans": "<a:loading:1063091916683612160> Saving bans...",
@@ -48,7 +49,7 @@
       "stickers": "<a:loading:1063091916683612160> Saving stickers...",
       "channels": "<a:loading:1063091916683612160> Saving channels, threads, and messages...",
       "images": "<a:loading:1063091916683612160> Saving icon, slash, and banner...",
-      "success": "The backup with the ID {id} has been created successfully!\nUse </serverbackup get:{cmdId}> for more information about the backup."
+      "success": "The backup with the ID `{id}` has been created successfully!\nUse </serverbackup get:{cmdId}> for more information about the backup."
     },
     "clear": {
       "items": "<a:loading:1063091916683612160> Deleting emojis, stickers, and roles...",
@@ -57,12 +58,13 @@
       "ownWebhooks": "<a:loading:1063091916683612160> Deleting temporary webhooks..."
     },
     "load": {
-      "overwriteWarningTitle": "SERVER OVERWRITE (IRREVERSIBLE)",
-      "overwriteWarningDescription": "This action will delete most of your server! This includes roles, webhooks, channels, and emojis.\nIf you are sure you want to do this, type 'Yes'. Type 'No' to cancel.\nYou might also want to create a backup before loading, just to be safe.",
-      "noPerm": "Only the server owner can load backups!",
-      "notFound": "No backup with that ID was found!",
+      "cooldown": "Loading backups is on cooldown! Try again in `{time}`s.",
+      "overwriteWarningDescription": "This action will delete most of your server! This includes roles, webhooks, channels, and emojis.\nIf you are sure you want to do this, click \"Yes\". Click \"No\" to cancel.\nYou might also want to create a backup before loading, just to be safe.",
+      "noneFound": "No backup has been found for this guild!",
       "cancelled": "Loading the backup has been cancelled.",
+      "enableDMs": "Please enable the bot to send you DMs so that you can see the loading status.",
       "loadingEmbedDescription": "Applying backup to the server.\nThis may take a while, depending on the size of the backup.",
+      "noPerm": "Only the guild owner can load backups!",
       "settings": "<a:loading:1063091916683612160> Loading settings...",
       "features": "<a:loading:1063091916683612160> Loading server features...",
       "roles": "<a:loading:1063091916683612160> Loading roles...",
@@ -71,16 +73,18 @@
       "emojis": "<a:loading:1063091916683612160> Loading emojis...",
       "stickers": "<a:loading:1063091916683612160> Loading stickers...",
       "bans": "<a:loading:1063091916683612160> Loading bans...",
-      "success": "Successfully loaded the backup with id `{id}`."
+      "success": "Successfully loaded the backup with id `{id}`.",
+      "error": "An error occurred while trying to load the backup."
     },
     "delete": {
+      "noPerm": "Only the guild owner can delete backups!",
       "success": "Successfully deleted the backup!"
     },
     "get": {
       "oneEmbedDescription": "Information about backup {id}\n>>> Created at: <t:{createdAt}>\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "oneNotFound": "No backup was found with that ID!",
+      "infos": ">>> Created at: <t:{createdAt}>\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "found": "Found {amount} backups.",
-      "infos": "Created at: <t:{createdAt}>\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "embedDescription": "The following backups were found, sorted by date:",
       "noneFound": "No backups were found for this server."
     }
