@@ -147,11 +147,11 @@ class BackupSystem {
     return data;
   };
 
-  /**@param {String|{}|null}id Backup Id. If falsely, will use latest. If object, will use object. @param {import('discord.js').Guild}guild @param {{}}statusObj the status property gets updated*/
+  /**@param {String|object|null}id Backup Id. If falsely, will use latest. If object, will use object. @param {import('discord.js').Guild}guild @param statusObj the status property gets updated*/
   load = async (id, guild, { statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel, allowedMentions = [], reason = 'Backup Feature | Load' } = {}) => {
     if (!guild) throw new Error('Invalid guild');
 
-    let data, rulesChannel, publicUpdatesChannel;
+    let data, rulesChannel, publicUpdatesChannel, err;
 
     if (!id) data = this.list(guild.id).sort((a, b) => b - a).first();
     else data = typeof id == 'string' ? this.get(id) : id;
@@ -200,13 +200,13 @@ class BackupSystem {
 
     if (data.features.includes(GuildFeature.Community)) {
       data.features = data.features.filter(e => e != GuildFeature.Community);
-      rulesChannel = await guild.channels.create({ name: 'TEMP_RULES', type: 0 });
-      publicUpdatesChannel = await guild.channels.create({ name: 'TEMP_UPDATES', type: 0 });
-      await guild.edit({ features: [...guild.features, GuildFeature.Community], rulesChannel, publicUpdatesChannel, reason });
+      rulesChannel = guild.rulesChannel ?? await guild.channels.create({ name: 'temp_rules', type: ChannelType.GuildText });
+      publicUpdatesChannel = guild.publicUpdatesChannel ?? await guild.channels.create({ name: 'temp_updates', type: ChannelType.GuildText });
+      await guild.edit({ features: [...new Set(guild.features, GuildFeature.Community)], rulesChannel, publicUpdatesChannel, reason });
     }
 
     statusObj.status = 'load.features';
-    for (const feature of data.features) try { await guild.edit({ features: [...guild.features, feature], reason }); } catch { }
+    for (const feature of data.features) try { await guild.edit({ features: [...new Set(guild.features, feature)], reason }); } catch { }
 
     statusObj.status = 'load.roles';
     for (const { isEveryone, name, color, hoist, permissions, mentionable } of data.roles) {
@@ -221,7 +221,7 @@ class BackupSystem {
       if (!member?.manageable || !memberData.roles.length && !memberData.nickname) continue;
 
       await member.edit({
-        roles: memberData.roles.length ? memberData.roles.map(e => guild.roles.cache.find(r => r.name == e)?.id).filter(e => e?.editable) : undefined,
+        roles: memberData.roles?.map(e => guild.roles.cache.find(r => r.name == e)?.id).filter(e => e?.editable),
         nickname: memberData.nickname ?? undefined
       });
     }
@@ -243,10 +243,17 @@ class BackupSystem {
     for (const channel of data.channels.others) await this.utils.loadChannel(channel, guild, null, maxMessagesPerChannel, allowedMentions);
 
     statusObj.status = 'load.emojis';
-    for (const emoji of data.emojis) await guild.emojis.create({ name: emoji.name, attachment: emoji.url ?? this.utils.loadFromBase64(emoji.base64), reason });
+    while (!err) for (const emoji of data.emojis) {
+      try { await guild.emojis.create({ name: emoji.name, attachment: emoji.url ?? this.utils.loadFromBase64(emoji.base64), reason }); }
+      catch (eErr) { err = eErr; }
+    }
 
     statusObj.status = 'load.stickers';
-    for (const sticker of data.stickers) await guild.stickers.create({ name: sticker.name, description: sticker.description, tags: sticker.tags, file: sticker.url ?? this.utils.loadFromBase64(sticker.base64), reason });
+    err = false;
+    while (!err) for (const sticker of data.stickers) {
+      try { await guild.stickers.create({ name: sticker.name, description: sticker.description, tags: sticker.tags, file: sticker.url ?? this.utils.loadFromBase64(sticker.base64), reason }); }
+      catch (eErr) { err = eErr; }
+    }
 
     statusObj.status = 'load.bans';
     for (const ban of data.bans) await guild.members.ban(ban.id, { reason: ban.reason });
@@ -305,19 +312,17 @@ class BackupSystem {
       rateLimitPerUser: e.rateLimitPerUser,
       messages: await this.utils.fetchChannelMessages(e, saveImages, maxMessagesPerChannel).catch(() => { }),
     })),
-    fetchChannelMessages: async (channel, saveImages, maxMessagesPerChannel) => (await channel.messages.fetch({ limit: isNaN(maxMessagesPerChannel) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: 100 }) })).filter(e => e.author).map(e => ({
+    fetchChannelMessages: async (channel, saveImages, maxMessagesPerChannel) => Promise.all((await channel.messages.fetch({ limit: isNaN(maxMessagesPerChannel) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: 100 }) })).filter(e => e.author).map(async e => ({
       username: e.author.username,
       avatar: e.author.avatarURL(),
       content: e.cleanContent,
       embeds: e.embeds?.map(e => e.data),
-      files: e.attachments.map(async a => ({
-        name: a.name, attachment: saveImages && ['png', 'jpg', 'jpeg', 'jpe', 'jif', 'jfif', 'jfi'].includes(a.url)
-          ? await this.utils.fetchToBase64(a.url)
-          : a.url
-      })),
+      files: (await Promise.all(e.attachments.map(async ({ name, url }) => ({
+        name, attachment: saveImages && ['png', 'jpg', 'jpeg', 'jpe', 'jif', 'jfif', 'jfi'].includes(url) ? await this.utils.fetchToBase64(url) : url
+      })))).filter(e => e.attachment),
       pinned: e.pinned,
       createdAt: e.createdAt.toISOString(),
-    })),
+    }))),
     loadChannel: async (data, guild, category, maxMessagesPerChannel, allowedMentions) => {
       const createOptions = {
         name: data.name,
@@ -352,12 +357,8 @@ class BackupSystem {
 
       return channel;
     },
-    loadChannelMessages: async (channel, messages, previousWebhook, maxMessagesPerChannel, allowedMentions) => {
-      const webhook = previousWebhook || await channel.createWebhook({
-        name: 'MessagesBackup',
-        avatar: channel.client.user.displayAvatarURL()
-      }).catch(() => { });
-
+    loadChannelMessages: async (channel, messages, webhook, maxMessagesPerChannel, allowedMentions) => {
+      webhook ??= await channel.createWebhook({ name: 'MessagesBackup', avatar: channel.client.user.displayAvatarURL() }).catch(() => { });
       if (!webhook) return;
 
       for (const msg of messages.filter(m => m.content.length > 0 || m.embeds.length > 0 || m.files.length > 0).reverse().slice(messages.length - maxMessagesPerChannel)) try {

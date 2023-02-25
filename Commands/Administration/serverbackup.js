@@ -1,10 +1,12 @@
-//WIP
-let size;
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, TextInputStyle, PermissionFlagsBits, ButtonBuilder } = require('discord.js'),
+  { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ComponentType, ButtonStyle } = require('discord.js'),
+  { cooldowns } = require('../../Utils'),
   getData = backup => Object.keys(backup).length ? ({
     createdAt: Math.round(backup.createdTimestamp / 1000),
-    size: (size = Buffer.byteLength(JSON.stringify(backup))) > 1024 ? `${(size / 1024).toFixed(2)}KB` : `${size}B`,
+    size: (() => {
+      const size = Buffer.byteLength(JSON.stringify(backup));
+      return size > 1024 ? `${(size / 1024).toFixed(2)}KB` : `${size}B`;
+    })(),
     members: backup.members?.length ?? 0,
     channels: (backup.channels.categories.length + backup.channels.others.length + backup.channels.categories.reduce((acc, e) => acc + e.children.length, 0)) ?? 0,
     roles: backup.roles?.length ?? 0,
@@ -20,9 +22,8 @@ function checkLoadPerm(backup) {
 module.exports = {
   name: 'serverbackup',
   permissions: { client: ['Administrator'], user: ['Administrator'] },
-  cooldowns: { guild: 18e5 }, //30min
-  slashCommand: true,
-  deferReply: true, disabled: true,
+  prefixCommand: false,
+  slashCommand: true, disabled: true,
   options: [
     { name: 'create', type: 'Subcommand' },
     {
@@ -58,19 +59,18 @@ module.exports = {
     }
   ], beta: true,
 
-  /**@this {import('discord.js').CommandInteraction} */
+  /**@this {import('discord.js').ChatInputCommandInteraction}*/
   run: async function (lang) {
-    if (this.options.getSubcommand() != 'load') await this.deferReply({ ephemeral: true });
-
     const
-      embed = new EmbedBuilder({
-        title: lang('embedTitle'),
-        color: Colors.White
-      }),
+      id = this.options.getString('id'),
+      embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.White }),
       msg = this;
 
     switch (this.options.getSubcommand()) {
       case 'create': {
+        const cooldown = cooldowns.call(this, { name: 'serverbackup.create', cooldowns: { guild: 18e5 } });
+        if (cooldown) return this.customReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('create.cooldown', cooldown))] }, 1e4);
+
         const
           statusObj = new Proxy({ status: null }, {
             set: function (obj, prop, value) {
@@ -85,66 +85,85 @@ module.exports = {
       }
 
       case 'load': {
-        const id = this.options.getString('id');
-        if (this.user.id != this.guild.ownerId) return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.noPerm'))], ephemeral: true });
-        if (!this.client.backupSystem.get()) return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.noneFound'))], ephemeral: true });
+        const cooldown = cooldowns.call(this, { name: 'serverbackup.load', cooldowns: { guild: 18e5, user: 18e5 } });
+        if (cooldown) return this.customReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.cooldown', cooldown))] }, 1e4);
 
-        if (!checkLoadPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.backupNoPerm'))], ephemeral: true });
-        //Validierung dass der user das backup laden darf
+        embed.data.color = Colors.Red;
+        if (!this.client.backupSystem.get()) return this.editReply({ embeds: [embed.setDescription(lang('load.noneFound'))] });
+        if (!checkLoadPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('load.backupNoPerm'))] });
+
         const buttons = new ActionRowBuilder({
           components: [
             new ButtonBuilder({
-              label: lang('load.overwriteWarningDescription'),
-              customId: 'overwriteWarning',
-              style: TextInputStyle.Short,
-              value: lang('global.false'),
-              required: true
+              label: lang('global.true'),
+              customId: 'overwriteWarning_true',
+              style: ButtonStyle.Danger
+            }),
+            new ButtonBuilder({
+              label: lang('global.false'),
+              customId: 'overwriteWarning_false',
+              style: ButtonStyle.Success
             })
           ]
         });
 
-        const msg = await this.editReply({ embeds: [embed.setDescription(lang('load.warning'))], components: [buttons] });
-        const collector = await msg.createMessageComponentCollector
+        return (await this.editReply({ embeds: [embed.setColor(Colors.DarkRed).setDescription(lang('load.overwriteWarningDescription'))], components: [buttons] }))
+          .createMessageComponentCollector({ filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: 30000 })
+          .on('collect', async button => {
+            await button.deferUpdate();
+            if (button.customId != 'overwriteWarning_true') return this.editReply({ embeds: [embed.setDescription(lang('load.cancelled'))], components: [] });
 
-        const modal = await this.awaitModalSubmit({ filter: e => e.customId == 'overwriteWarning', time: 60000 });
-        if (modal.fields.getTextInputValue('overwriteWarning') != lang('global.true')) return this.reply({ embeds: [embed.setColor('Red').setDescription(lang('load.cancelled'))], ephemeral: true });
+            embed.data.color = Colors.White;
+            let msg;
+            try { msg = await this.member.send({ embeds: [embed.setDescription(lang('load.loadingEmbedDescription'))] }); }
+            catch { return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.enableDMs'))], components: [] }); }
 
-        await this.member.send({ embeds: [embed.setDescription(lang('load.loadingEmbedDescription'))] });
+            try {
+              const
+                statusObj = new Proxy({ status: null }, {
+                  set: function (obj, prop, value) {
+                    obj[prop] = value;
+                    msg.edit({ embeds: [embed.setDescription(lang(value))] });
+                    return true;
+                  }
+                }),
+                backup = await this.client.backupSystem.load(id, this.guild, { reason: `Backup load command, member ${this.user.tag}`, statusObj, clearGuildBeforeRestore: !this.options.getBoolean('no_clear') });
 
-        const
-          statusObj = new Proxy({ status: null }, {
-            set: function (obj, prop, value) {
-              obj[prop] = value;
-              msg.editReply({ embeds: [embed.setDescription(lang(value))] });
-              return true;
+              return msg.edit({ embeds: [embed.setDescription(lang('load.success', backup.id))] });
             }
-          }),
-          backup = await this.client.backupSystem.load(id, this.guild, { reason: `Backup load command, member ${this.user.tag}`, statusObj, clearGuildBeforeRestore: !this.options.getBoolean('no_clear') });
+            catch (err) {
+              msg.edit({ embeds: [embed.setDescription(lang('load.error'))] });
+              return this.client.error('An error occurred while trying to load an backup:', err);
+            }
+          })
+          .on('end', collected => {
+            if (collected.size) return;
 
-        return this.editReply({ embeds: [embed.setDescription(lang('load.success', backup.id))] });
+            buttons.components[0].data.disabled = true;
+            buttons.components[1].data.disabled = true;
+            return this.editReply({ components: [buttons] });
+          });
       }
 
       case 'delete': {
-        //check for member being admin of that guild!!!!!!!!
-        this.client.backupSystem.remove(this.options.getString('id'));
-        return this.editReply({ embeds: [embed.setDescription(lang('delete.success'))], ephemeral: true });
+        if (this.user.id != this.guild.ownerId) return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.noPerm'))] });
+
+        this.client.backupSystem.remove(id);
+        return this.editReply({ embeds: [embed.setDescription(lang('delete.success'))] });
       }
 
       case 'get': {
-        const id = this.options.getString('id');
-
         embed.data.thumbnail = { url: this.guild.iconURL() };
         if (id) {
           const backup = this.client.backupSystem.get(id);
           return this.editReply({
-            ephemeral: true,
             embeds: [backup
               ? embed.setDescription(lang('get.oneEmbedDescription', { id, ...getData(backup) }))
               : embed.setColor(Colors.Red).setDescription(lang('get.oneNotFound'))]
           });
         }
 
-        embed.data.fields = this.client.backupSystem.list(this.guild.id).sort((a, b) => a.createdAt - b.createdAt).first(10).map(e => ({
+        embed.data.fields = this.client.backupSystem.list(this.guild.id).sort((a, b) => b.createdAt - a.createdAt).first(10).map(e => ({
           name: e.id, value: lang('get.infos', getData(e))
         }));
 
