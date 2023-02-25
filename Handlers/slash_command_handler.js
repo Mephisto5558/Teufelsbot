@@ -45,9 +45,15 @@ module.exports = async function slashCommandHandler() {
         command.filePath = resolve(`Commands/${subFolder}/${file}`);
         command.category = subFolder;
       }
-      catch (err) { this.error(`Error on formatting command ${command.name}:\n`, err); }
+      catch (err) {
+        if (this.botType == 'dev') throw err;
+        else this.error(`Error on formatting command ${command.name}:\n`, err);
 
-      if (!command.disabled) for (const [, applicationCommand] of await applicationCommands) {
+        skippedCommands.set(command.name, command);
+        continue;
+      }
+
+      if (!command.disabled && !skipped) for (const [, applicationCommand] of await applicationCommands) {
         if (!equal(command, applicationCommand)) continue;
         this.log(`Skipped Slash Command ${command.name}`);
         skipped = true;
@@ -75,7 +81,10 @@ module.exports = async function slashCommandHandler() {
         this.log(`Registered Slash Command ${commandName}`);
         registeredCommandCount++;
       }
-      catch (err) { this.error(`Error on registering command ${command.name}:\n`, err); }
+      catch (err) {
+        if (this.botType == 'dev') throw err;
+        else this.error(`Error on registering command ${command.name}:\n`, err);
+      }
     }
   }
 
@@ -89,9 +98,12 @@ module.exports = async function slashCommandHandler() {
       this.log(`Deleted Slash Command ${command.name}`);
       deletedCommandCount++;
     }
-    catch (err) { this.error(`Error on deleting command ${command.name}:\n`, err); }
+    catch (err) {
+      if (this.botType == 'dev') throw err;
+      else this.error(`Error on deleting command ${command.name}:\n`, err);
+    }
   }
-  
+
   this.log(`Registered ${registeredCommandCount} Slash Commands`);
 
   this.slashCommands = this.slashCommands.concat(skippedCommands);
