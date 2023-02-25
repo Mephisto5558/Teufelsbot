@@ -143,9 +143,11 @@ module.exports = {
       case 'language': {
         const
           language = this.options.getString('language'),
+          newLang = I18nProvider.__.bind(I18nProvider, { locale: I18nProvider.availableLocales.includes(language) ? language : I18nProvider.config.defaultLocale }),
+          { category, name } = this.client.slashCommands.get(this.commandName),
           embed = new EmbedBuilder({
-            title: lang('language.embedTitle'),
-            description: lang('language.embedDescription', language),
+            title: newLang(`commands.${category.toLowerCase()}.${name}.language.embedTitle`),
+            description: newLang(`commands.${category.toLowerCase()}.${name}.language.embedDescription`),
             color: Colors.Green
           });
 
