@@ -23,7 +23,8 @@ module.exports = {
   options: [{
     name: 'command',
     type: 'String',
-    autocompleteOptions: function () { return [...new Set([...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()])]; }
+    autocompleteOptions: function () { return [...new Set([...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()])]; },
+    strictAutocomplete: true
   }], beta: true,
 
   run: function (lang) {
@@ -67,7 +68,7 @@ module.exports = {
     }
 
     embed.data.title = lang('all.embedTitle');
-    embed.setThumbnail(this.guild.members.me.displayAvatarURL());
+    embed.data.thumbnail = { url: this.guild.members.me.displayAvatarURL() };
 
     for (const category of getDirectoriesSync('./Commands').map(e => e.toUpperCase())) {
       if (ownerOnlyFolders.includes(category.toLowerCase()) && this.user.id != this.client.application.owner.id) continue;

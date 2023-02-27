@@ -36,7 +36,8 @@ module.exports = {
   options: [{
     name: 'type',
     type: 'String',
-    autocompleteOptions: endpoints.keys()
+    autocompleteOptions: endpoints.keys(),
+    strictAutocomplete: true
   }],
   beta: true,
 

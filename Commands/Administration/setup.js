@@ -34,7 +34,8 @@ module.exports = {
           name: 'command',
           type: 'String',
           required: true,
-          autocompleteOptions: function () { return getCmds(this.client); }
+          autocompleteOptions: function () { return getCmds(this.client); },
+          strictAutocomplete: true
         },
         { name: 'get', type: 'Boolean' },
         ...Array.from({ length: 6 }, (_, i) => ({ type: 'Role', name: `role_${i + 1}` })),
@@ -49,7 +50,8 @@ module.exports = {
         name: 'language',
         type: 'String',
         required: true,
-        autocompleteOptions: function () { return I18nProvider.availableLocales.map((_, k) => ({ name: I18nProvider.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k })).filter(({ name, value }) => name.toLowerCase().includes(this.focused.value.toLowerCase()) || value.toLowerCase().includes(this.focused.value.toLowerCase())).slice(0, 25); }
+        autocompleteOptions: function () { return I18nProvider.availableLocales.map((_, k) => ({ name: I18nProvider.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k })).filter(({ name, value }) => name.toLowerCase().includes(this.focused.value.toLowerCase()) || value.toLowerCase().includes(this.focused.value.toLowerCase())).slice(0, 25); },
+        strictAutocomplete: true
       }]
     },
     {
@@ -59,6 +61,7 @@ module.exports = {
         name: 'allowed_to_load',
         type: 'String',
         autocompleteOptions: [...backup.keys()],
+        strictAutocomplete: true,
         required: true
       }]
     }

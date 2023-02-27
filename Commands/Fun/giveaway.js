@@ -73,7 +73,8 @@ module.exports = {
         {
           name: 'add_time',
           type: 'String',
-          autocompleteOptions: function () { return timeValidator(this.focused.value); }
+          autocompleteOptions: function () { return timeValidator(this.focused.value); },
+          strictAutocomplete: true
         },
         {
           name: 'winner_count',
