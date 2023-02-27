@@ -4,7 +4,7 @@ const
   I18nProvider = require('./I18nProvider.js');
 
 module.exports = async function buttonPressHandler(lang) {
-  const [feature, id, modus, data, ...args] = this.customId.split('.');
+  const [feature, id, mode, data, ...args] = this.customId.split('.');
   const cooldown = cooldowns.call(this, { name: `buttonPressEvent.${id || Math.floor(Date.now() / 2e5)}` });
   if (cooldown) return this.reply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.buttonPressOnCooldown', cooldown));
 
@@ -23,7 +23,7 @@ module.exports = async function buttonPressHandler(lang) {
 
       let count = parseInt(this.component.label.match(/(\d*)\]$/)?.[1])?.limit({ min: 0 }) || 0;
 
-      switch (modus) {
+      switch (mode) {
         case 'add': {
           if (this.member.roles.cache.has(role.id)) return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.hasRoleAlready', role.id))] });
           await this.member.roles.add(role);
