@@ -235,14 +235,14 @@
     "success": "Deine sicheren Passwörter:\n{passwords}\n\n||Erstellt mit dem folgenden Zeichensatz:\n```{charset}```\nNutze die Befehls-Optionen, um Zeichen hinzuzufügen oder zu entfernen.||"
   },
   "randomnumber": {
-    "description": "Gibt eine Zufallszahl aus. Nutzt bei ungültigen Eingaben die Standartwerte.",
+    "description": "Gibt eine Zufallszahl aus. Nutzt bei ungültigen Eingaben die Standardwerte.",
     "usage": "PREFIX-Befehl: randomnumber [min] [max]",
     "options": {
       "minimum": {
-        "description": "Die kleinste mögliche Zahl. Standart: 0"
+        "description": "Die kleinste mögliche Zahl. Standard: 0"
       },
       "maximum": {
-        "description": "Die größte mögliche Zahl. Standart: 100"
+        "description": "Die größte mögliche Zahl. Standard: 100"
       }
     },
     "outOfRange": "Ein Fehler ist aufgetreten:\n```\n{err}.\n```"
