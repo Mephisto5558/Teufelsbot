@@ -2,7 +2,7 @@ const defaultCharset = ['abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012
 
 module.exports = {
   name: 'passwordgenerator',
-  cooldowns: {  user: 1000 },
+  cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,
@@ -19,11 +19,7 @@ module.exports = {
       maxValue: 500
     },
     { name: 'exclude_chars', type: 'String' },
-    {
-      name: 'include_chars',
-      description: 'characters you additionally want in your password',
-      type: 'String'
-    }
+    { name: 'include_chars', type: 'String' }
   ],
 
   run: function (lang) {
