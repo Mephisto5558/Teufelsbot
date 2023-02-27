@@ -10,8 +10,9 @@ module.exports = {
   options: [{
     name: 'time',
     type: 'String',
-    autocompleteOptions: function () { return timeValidator(this.focused.value); }
-  }],beta: true,
+    autocompleteOptions: function () { return timeValidator(this.focused.value); },
+    strictAutocomplete: true
+  }],
 
   run: function (lang) {
     const { offset } = new Duration(this.options?.getString('time') || this.args?.[0] || '0.1ms');
