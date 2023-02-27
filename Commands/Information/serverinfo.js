@@ -11,7 +11,7 @@ module.exports = {
   options: [{
     name: 'guild_id',
     type: 'String',
-    autocompleteOptions: function () { return this.client.guilds.cache.filter(e => e.members.cache.has(this.member.id)).map(e => e.id); },
+    autocompleteOptions: function () { return this.client.guilds.cache.filter(e => e.members.cache.has(this.member.id)).map(e => e.id); }
   }],
 
   run: async function (lang) {
