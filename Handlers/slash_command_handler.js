@@ -1,5 +1,4 @@
 const
-  { Collection } = require('discord.js'),
   { readdirSync } = require('fs'),
   { resolve } = require('path'),
   { I18nProvider, formatSlashCommand, slashCommandsEqual } = require('../Utils'),
@@ -9,10 +8,8 @@ const
 module.exports = async function slashCommandHandler() {
   await this.awaitReady();
 
-  let deletedCommandCount = 0, registeredCommandCount = 0;
-
-  const skippedCommands = new Collection();
   const applicationCommands = this.application.commands.fetch();
+  let deletedCommandCount = 0, registeredCommandCount = 0;
 
   this.slashCommands.clear();
 
@@ -20,7 +17,6 @@ module.exports = async function slashCommandHandler() {
     for (const file of readdirSync(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
       let command = require(`../Commands/${subFolder}/${file}`);
-      let skipped = false;
 
       if (!command.slashCommand) continue;
       try {
@@ -32,36 +28,34 @@ module.exports = async function slashCommandHandler() {
         if (this.botType == 'dev') throw err;
         else this.error(`Error on formatting command ${command.name}:\n`, err);
 
-        skippedCommands.set(command.name, command);
+        command.skip = true;
+        this.slashCommands.set(command.name, command);
         continue;
       }
 
-      if (!command.disabled && !skipped) for (const [, applicationCommand] of await applicationCommands) {
-        if (!slashCommandsEqual(command, applicationCommand)) continue;
+      if (!command.disabled && !command.skip) for (const [, applicationCommand] of await applicationCommands) if (slashCommandsEqual(command, applicationCommand)) {
         this.log(`Skipped Slash Command ${command.name}`);
-        skipped = true;
 
+        command.skip = true;
         command.id = applicationCommand.id;
-        skippedCommands.set(command.name, command);
         break;
       }
 
-      if (!skipped) {
-        this.slashCommands.set(command.name, command);
-        if (command.aliases?.slash) this.slashCommands = this.slashCommands.concat(command.aliases.slash.map(e => [e, { ...command, name: e, aliasOf: command.name }]));
-      }
+      this.slashCommands.set(command.name, command);
+      if (command.aliases?.slash) this.slashCommands = this.slashCommands.concat(command.aliases.slash.map(e => [e, { ...command, name: e, aliasOf: command.name }]));
     }
   }
 
-  for (const [commandName, command] of this.slashCommands) {
-    if (command.disabled) HideDisabledCommandLog ? void 0 : this.log(`Skipped Disabled Slash Command ${commandName}`);
-    else if (this.botType == 'dev' && !command.beta) HideNonBetaCommandLog ? void 0 : this.log(`Skipped Non-Beta Slash Command ${commandName}`);
+  for (const [, command] of this.slashCommands) {
+    if (command.skip) continue;
+    if (command.disabled) HideDisabledCommandLog ? void 0 : this.log(`Skipped Disabled Slash Command ${command.name}`);
+    else if (this.botType == 'dev' && !command.beta) HideNonBetaCommandLog ? void 0 : this.log(`Skipped Non-Beta Slash Command ${command.name}`);
     else {
       try {
         const { id } = await this.application.commands.create(command);
         command.id = id;
 
-        this.log(`Registered Slash Command ${commandName}`);
+        this.log(`Registered Slash Command ${command.name}` + command.aliasOf ? ` (Alias of ${command.aliasOf})` : '');
         registeredCommandCount++;
       }
       catch (err) {
@@ -71,9 +65,9 @@ module.exports = async function slashCommandHandler() {
     }
   }
 
-  const commandNames = [...this.slashCommands, ...skippedCommands].map(e => e[0]);
   for (const [, command] of await applicationCommands) {
-    if (commandNames.includes(command.name)) continue;
+    const cmd = this.slashCommands.get(command.aliasOf || command.name);
+    if (cmd && !cmd.disabled && (this.botType != 'dev' || cmd.beta)) continue;
 
     try {
       await this.application.commands.delete(command);
@@ -87,18 +81,17 @@ module.exports = async function slashCommandHandler() {
     }
   }
 
-  this.log(`Registered ${registeredCommandCount} Slash Commands`);
-
-  this.slashCommands = this.slashCommands.concat(skippedCommands);
-
   this
-    .log(`Skipped ${skippedCommands.size} Slash Commands`)
+    .log(`Registered ${registeredCommandCount} Slash Commands`)
+    .log(`Skipped ${this.slashCommands.filter(e => e.skip).size} Slash Commands`)
     .log(`Deleted ${deletedCommandCount} Slash Commands`)
     .on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[].concat(args ?? this)))
     .log('Loaded Event interactionCreate')
     .log('Ready to receive slash commands\n')
 
     .log(`Ready to serve in ${this.channels.cache.size} channels on ${this.guilds.cache.size} servers.\n`);
+
+  this.slashCommands.map(e => delete e.skip);
   console.timeEnd('Starting time');
 
   if (this.settings.restartingMsg?.message) {
