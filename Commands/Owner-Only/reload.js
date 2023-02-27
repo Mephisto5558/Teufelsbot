@@ -31,6 +31,7 @@ async function reloadCommand(command, reloadedArray) {
     else {
       await this.application.commands.delete(command.id);
       file.id = (await this.application.commands.create(file)).id;
+      this.log(`Reloaded Slash Command ${command.name}`);
     }
 
     this.slashCommands.delete(command.name);
@@ -51,6 +52,7 @@ async function reloadCommand(command, reloadedArray) {
 
         const { id } = await this.application.commands.create(file);
         this.slashCommands.set(alias, { ...file, id, aliasOf: file.name });
+        this.log(`Reloaded Slash Command ${alias} (Alias of ${command.name})`);
       }
 
       reloadedArray.push(`/${alias}`);
