@@ -59,8 +59,8 @@
     },
     "load": {
       "cooldown": "Das Laden von Backups ist im Cooldown! Versuche es erneut in `{time}`s.",
-      "overwriteWarningDescription": "Diese Aktion wird den Großteil deines Servers löschen! Dazu zählen unter anderen Rollen, Webhooks, Kanäle und Emojis.\nWenn du dir sicher bist, dass du das tun möchtest, click \"Ja\". Click \"Nein\", um abzubrechen.\nDu könntest auch ein Backup vor dem Laden erstellen, nur zur Sicherheit.",
-      "notFound": "Es wurde kein Backup mit dieser ID gefunden!",
+      "overwriteWarningDescription": "Diese Aktion wird den Großteil deines Servers löschen! Dazu zählen unter anderen Rollen, Webhooks, Kanäle und Emojis.\nWenn du dir sicher bist, dass du das tun möchtest, klicke \"Ja\". Klicke \"Nein\", um abzubrechen.\nDu könntest auch ein Backup vor dem Laden erstellen, nur zur Sicherheit.",
+      "noneFound": "Es wurde kein Backup für diesen Server gefunden!",
       "cancelled": "Das Laden des Backups wurde abgebrochen.",
       "enableDMs": "Bitte ermögliche dem Bot, dir DMs zu senden, damit du den Ladestatus sehen kannst.",
       "loadingEmbedDescription": "Das Backup wird auf dem Server angewendet.\nDies kann, abhängig von der Größe des Backups, eine Weile dauern.",
@@ -83,8 +83,8 @@
     "get": {
       "oneEmbedDescription": "**Informationen zu Backup `{id}`**\n>>> Erstellt am: <t:{createdAt}>\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "oneNotFound": "Es wurde kein Backup mit dieser ID gefunden!",
-      "found": "Es wurden {amount} Backups gefunden.",
       "infos": ">>> Erstellt am: <t:{createdAt}>\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "found": "Es wurden {amount} Backups gefunden.",
       "embedDescription": "Die folgenden Backups wurden gefunden, sortiert nach Datum:",
       "noneFound": "Es wurden keine Backups für diesen Server gefunden."
     }
