@@ -7,7 +7,7 @@
   "economyDisabled": "This command is an economy category command. The economy is not enabled in this guild. To start using the economy, an admin has to run `/economyconfig admin toggle`.",
   "economyNotInitialized": "This command is an economy category command. To start using the economy, run `/economyconfig user start`.",
   "buttonPressOnCooldown": "This button is on cooldown! Try it again in `{time}`s.",
-  "strictAutocompleteNoMatch": "Invalid input. Please select one of the available options suggested by the autocomplete feature.",
+  "strictAutocompleteNoMatch": "Your input must match one of the autocomplete suggestions. Please select one of the available options when entering the command.",
   "permissionDenied": {
     "embedTitle": "Insufficient Permissions",
     "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n`{permissions}`",
