@@ -59,7 +59,7 @@ module.exports = async function messageCreate() {
   const cooldown = cooldowns.call(this, command);
 
   if (cooldown && !this.client.botType == 'dev') return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.cooldown', cooldown))] }, 1e4);
-  if (command.requireEconomy && !economy?.enable || !economy[this.user.id]?.gaining?.chat)
+  if (command.requireEconomy && (!economy?.enable || !economy[this.user.id]?.gaining?.chat))
     return this.customReply({ embeds: [errorEmbed.setDescription(lang(economy?.enable ? 'events.economyNotInitialized' : 'events.economyDisabled'), 3e4)] });
 
   if (this.guild) {
