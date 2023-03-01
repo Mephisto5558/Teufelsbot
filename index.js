@@ -38,7 +38,7 @@ console.time('Starting time');
       Partials.Reaction
     ]
   }).on('error', err => errorHandler.call(client, err));
-  
+
   let env;
 
   if (existsSync('./env.json')) env = require('./env.json');
@@ -61,7 +61,9 @@ console.time('Starting time');
     require(`./Handlers/${handler}`).call(client);
 
   await client.login(client.keys.token);
-  client.log(`Logged into ${client.botType}`);
+  client
+    .log(`Logged into ${client.botType}`)
+    .db.update('botSettings', `startCount.${client.botType}`, this.client.settings.startCount[this.client.botType] + 1 || 1);
 
   process
     .on('unhandledRejection', err => errorHandler.call(client, err))
