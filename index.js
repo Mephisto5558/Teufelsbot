@@ -63,7 +63,7 @@ console.time('Starting time');
   await client.login(client.keys.token);
   client
     .log(`Logged into ${client.botType}`)
-    .db.update('botSettings', `startCount.${client.botType}`, this.client.settings.startCount[this.client.botType] + 1 || 1);
+    .db.update('botSettings', `startCount.${client.botType}`, client.settings.startCount[client.botType] + 1 || 1);
 
   process
     .on('unhandledRejection', err => errorHandler.call(client, err))
