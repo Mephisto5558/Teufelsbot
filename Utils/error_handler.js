@@ -1,6 +1,6 @@
 const
   fetch = require('node-fetch').default,
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors } = require('discord.js'),
   { Github } = require('../config.json');
 
 module.exports = async function errorHandler(err, message, lang) {
@@ -15,6 +15,7 @@ module.exports = async function errorHandler(err, message, lang) {
     embed = new EmbedBuilder({
       title: lang('events.errorHandler.embedTitle'),
       description: lang('events.errorHandler.embedDescription', { name: err.name, command: message.commandName }),
+      footer: { text: lang('events.errorHandler.embedFooterText') },
       color: Colors.DarkRed
     }),
     comp = new ActionRowBuilder({
@@ -37,9 +38,6 @@ module.exports = async function errorHandler(err, message, lang) {
   collector
     .on('collect', async button => {
       await button.deferUpdate();
-      collector.stop();
-
-      const title = `${err.name}: "${err.message}" in command "${message.commandName}"`;
 
       try {
         const res = await fetch(`https://api.github.com/repos/${Github.UserName}/${Github.RepoName}/issues`, {
@@ -49,27 +47,29 @@ module.exports = async function errorHandler(err, message, lang) {
             'User-Agent': `Bot ${Github.Repo}`
           },
           body: JSON.stringify({
-            title,
+            title: `${err.name}: "${err.message}" in command "${message.commandName}"`,
             body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack}`,
             labels: ['bug']
           })
         });
+        const json = await res.json();
 
-        if (!res.ok) throw new Error(await res.json());
+        if (!res.ok) throw new Error(json);
 
-        embed.data.description = lang('events.errorHandler.reportSuccess', encodeURI(`${Github.Repo}/issues?q=is:open+is:issue+${title} in:title`));
-        return msg.edit({ embeds: [embed], components: [] });
+        const attachment = new AttachmentBuilder(Buffer.from(JSON.stringify({ ...message }, (_, v) => typeof v == 'bigint' ? v.toString() : v, 2)), { name: 'data.json' });
+        try { (this.application.owner.owner || this.application.owner).send({ content: json.html_url, files: [attachment] }); } catch { }
+
+        return msg.edit({ embeds: [embed.setFooter(null).setDescription(lang('events.errorHandler.reportSuccess', json.html_url))], components: [] });
       }
       catch (err) {
         this.error(err.stack);
         return message.customReply(lang('events.errorHandler.reportFail', err?.message || 'unknown error'));
       }
+    })
+    .on('end', collected => {
+      if (collected.size) return;
+
+      comp.components[0].data.disabled = true;
+      return msg.edit({ embeds: [embed], components: [comp] });
     });
-
-  collector.on('end', collected => {
-    if (collected.size) return;
-
-    comp.components[0].data.disabled = true;
-    return msg.edit({ embeds: [embed], components: [comp] });
-  });
 };
