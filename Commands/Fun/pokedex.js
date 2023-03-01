@@ -14,7 +14,10 @@ module.exports = {
   }],
 
   run: async function (lang) {
-    const pokemon = this.options?.getString('pokémon') || this.args[0];
+    const
+      pokemon = this.options?.getString('pokémon') || this.args[0],
+      msg = await this.customReply(lang('global.loading'));
+
     let res = cache.get(pokemon.toLowerCase());
 
     if (!res) {
@@ -26,8 +29,7 @@ module.exports = {
       if (res) {
         const [feet, inches] = res.height.split('\'').map(parseFloat);
         res.height = (feet * 12 + inches) * 2.54;
-        if (res.height < 100) res.height += 'cm';
-        else res.height = parseFloat((res.height / 100).toFixed(2)) + 'm';
+        res.height = res.height < 100 ? `${res.height}cm` : `${parseFloat((res.height / 100).toFixed(2))}m`;
 
         if (res.name) cache.set(res.name.toLowerCase(), res);
       }
@@ -36,7 +38,7 @@ module.exports = {
     if (!res || res.error == 404) return this.customReply(lang('notFound')); //`Couldn't find a pokémon with name ${pokemon}`
     if (res.error) {
       this.client.error('pokedex.js: The api returned an error!', res);
-      return this.customReply(lang('error'));
+      return msg.edit(lang('error'));
     }
 
     const
@@ -78,6 +80,6 @@ module.exports = {
         ]
       });
 
-    return this.customReply({ embeds: [embed], components: [component] });
+    return msg.edit({ content: null, embeds: [embed], components: [component] });
   }
 };
