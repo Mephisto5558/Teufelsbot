@@ -441,7 +441,8 @@
       "{user} is tired and goes now to sleep :3",
       "{user} goes now to bed <:engelchen:725458214044303371>",
       "{user} sleeps now, hopefully he/she doesn't snores <:gucken:725670318164672543>"
-    ]
+    ],
+    "afkMessage": "sleeping"
   },
   "topic": {
     "description": "I give you a question to talk about.",
