@@ -441,7 +441,8 @@
       "{user} está cansado y ahora va a dormir :3",
       "{user} va ahora a la cama <:engelchen:725458214044303371>",
       "{user} duerme ahora, esperemos que no se sienta <:gucken:725670318164672543>"
-    ]
+    ],
+    "afkMessage": "durmiendo"
   },
   "topic": {
     "description": "Le hago una pregunta de la que hablar.",
