@@ -2,14 +2,14 @@
   "ban": {
     "description": "prohíbe a un miembro de la guild",
     "options": {
-      "target": {
-        "description": "Mencione miembro(s) o pon ID(s) para banearlos. Pon un espacio entre cada objetivo."
-      },
       "reason": {
         "description": "Los objetivo(s) deben/van a ver la razón en DMs"
       },
       "duration": {
         "description": "¿Cuánto tiempo quieres que el objetivo(s) sea prohibido?"
+      },
+      "target": {
+        "description": "Mencione miembro(s) o pon ID(s) para banearlos. Pon un espacio entre cada objetivo."
       },
       "delete_days_of_messages": {
         "description": "Borrar todos los mensajes de los objetivos de los últimos n días."
@@ -19,11 +19,13 @@
     "dmEmbedDescription": "Has sido baneado de `{guild}`.\nModerador: {mod}\nRazón: {reason}",
     "infoEmbedTitle": "Banear",
     "infoEmbedDescription": "Moderador: {mod}\nRazón: {reason}\n\n",
+    "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para banear. Tienes 30 segundos.",
     "cantPunishSelf": "¡No puedes banearte a ti mismo!",
     "noneFound": "No se han encontrado objetivos.",
     "error": "**{user}** no se pudo banear.\n{err}\n",
     "success": "**{user}** ha sido baneado con éxito.\n",
-    "noDM": "No pude DM el objetivo."
+    "noDM": "No pude DM el objetivo.",
+    "timedOut": "Este menú ha expirado."
   },
   "kick": {
     "description": "expulsa a un miembro de la guild",
@@ -39,11 +41,13 @@
     "dmEmbedDescription": "Has sido expulsado de `{guild}`.\nModerador: {mod}\nRazón: {reason}",
     "infoEmbedTitle": "Patear",
     "infoEmbedDescription": "Moderador: {mod}\nRazón: {reason}\n\n",
+    "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para expulsar. Tienes 30s.",
     "noneFound": "No se han encontrado objetivos.",
     "cantPunishSelf": "¡No puedes expulsarte a ti mismo!",
     "error": "**{user}** no pudo ser expulsado.\n{err}\n",
     "success": "**{user}** ha sido expulsado con éxito.\n",
-    "noDM": "No pude DM el objetivo."
+    "noDM": "No pude DM el objetivo.",
+    "timedOut": "Este menú ha expirado."
   },
   "lock": {
     "description": "Evita que todos, excepto administradores, escriban en un canal.",
