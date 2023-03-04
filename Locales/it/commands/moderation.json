@@ -2,14 +2,14 @@
   "ban": {
     "description": "bandisce un membro dalla gilda",
     "options": {
-      "target": {
-        "description": "Menzionare i membri o mettere ID dentro per bannarli. Metti uno spazio tra ogni obiettivo."
-      },
       "reason": {
         "description": "L'obiettivo/gli obiettivo/i vedrà la ragione nelle DM"
       },
       "duration": {
         "description": "Per quanto tempo vuoi ottenere gli obiettivi vietati?"
+      },
+      "target": {
+        "description": "Menzionare i membri o mettere ID dentro per bannarli. Metti uno spazio tra ogni obiettivo."
       },
       "delete_days_of_messages": {
         "description": "Elimina tutti i messaggi degli obiettivi degli ultimi n giorni."
@@ -19,11 +19,13 @@
     "dmEmbedDescription": "Sei stato bannato da `{guild}`.\nModeratore: {mod}\nMotivo: {reason}",
     "infoEmbedTitle": "Banna",
     "infoEmbedDescription": "Moderatore: {mod}\nMotivo: {reason}\n\n",
+    "selectTargetEmbedDescription": "Seleziona fino a 10 membri da bandire. Hai 30 secondi.",
     "cantPunishSelf": "Non puoi bandire te stesso!",
     "noneFound": "Nessun obiettivo è stato trovato.",
     "error": "**{user}** non può essere bandito.\n{err}\n",
     "success": "**{user}** è stato bandito con successo.\n",
-    "noDM": "Non riuscivo a DM il bersaglio."
+    "noDM": "Non riuscivo a DM il bersaglio.",
+    "timedOut": "Questo menu è scaduto."
   },
   "kick": {
     "description": "kicks a member from the guild",
@@ -39,11 +41,13 @@
     "dmEmbedDescription": "Sei stato cacciato da `{guild}`.\nModeratore: {mod}\nMotivo: {reason}",
     "infoEmbedTitle": "Espelli",
     "infoEmbedDescription": "Moderatore: {mod}\nMotivo: {reason}\n\n",
+    "selectTargetEmbedDescription": "Seleziona fino a 10 membri da calciare. Hai 30 anni.",
     "noneFound": "Nessun obiettivo è stato trovato.",
     "cantPunishSelf": "Non puoi calciarti!",
     "error": "**{user}** non può essere cacciato.\n{err}\n",
     "success": "**{user}** è stato espulso con successo.\n",
-    "noDM": "Non riuscivo a DM il bersaglio."
+    "noDM": "Non riuscivo a DM il bersaglio.",
+    "timedOut": "Questo menu è scaduto."
   },
   "lock": {
     "description": "Impedisce a tutti tranne gli amministratori di scrivere in un canale.",

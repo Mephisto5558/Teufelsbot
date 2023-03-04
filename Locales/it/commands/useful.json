@@ -199,7 +199,7 @@
     "noneFound": "Non ho trovato alcuna menzione.",
     "unknown": "sconosciuto",
     "embedTitle": "Ultimo Ping",
-    "embedDescription": "L'ultima volta che sei stato menzionato è stata [here]({url}) da <@{author}>.\n>>> {content}"
+    "embedDescription": "L'ultima volta che sei stato menzionato è stata [here]({url}) da <@{author}>.\n{content}"
   },
   "math": {
     "description": "Esegue un po' di matematica",
@@ -233,6 +233,19 @@
     },
     "charsetEmpty": "hai escluso tutti i caratteri del charset...",
     "success": "La tua password sicura:\n{passwords}\n\n<unk> <unk> Creata con il seguente set di caratteri:\n```{charset}```\nUsa le opzioni di comando per aggiungere o rimuovere caratteri.<unk> <unk>"
+  },
+  "randomnumber": {
+    "description": "Restituisce un numero casuale. Usa valori predefiniti per input non validi.",
+    "usage": "Comando PREFIX: numero casuale [min] [max]",
+    "options": {
+      "minimum": {
+        "description": "Il numero più piccolo possibile. Il valore predefinito è 0."
+      },
+      "maximum": {
+        "description": "Il numero più grande possibile. Il valore predefinito è 100."
+      }
+    },
+    "outOfRange": "Si è verificato un errore:\n````\n{err}.\n```"
   },
   "record": {
     "description": "Registra un canale vocale. Richiede l'approvazione da parte degli utenti.",
@@ -272,14 +285,14 @@
   },
   "timestamp": {
     "description": "Ottieni un timestamp per il futuro (o passato mettendo un \"-\" di fronte)",
-    "usage": "Comando PREFIX: timestamp [time]",
+    "usage": "Comando PREFIX: timestamp [time]\nEsempi:\n>>> `1h` = ora + 1h\n`-1h` = ora - 1h\n`1h-1h` = ora + 1h - 1h",
     "options": {
       "time": {
-        "description": "Il tempo da ora (ad esempio 1w3d2h5min): 3min restituisce ora+3min, -3min restituisce ora-3min"
+        "description": "Il tempo da ora (ad esempio 1w3d2h5min). Usa \"/help timestamp\" per ulteriori informazioni."
       }
     },
     "invalid": "Il tempo che hai fornito non è valido! Usa {command} e cerca `timestamp` per informazioni mor.",
-    "outOfRange": "Il tempo che hai fornito è superiore a 200.000 anni!",
+    "outOfRange": "Il tempo specificato è maggiore di 200.000 anni!",
     "success": "Questo è <t:{time}:R> (`<t:{time}:R>`)."
   }
 }

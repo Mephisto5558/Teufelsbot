@@ -441,7 +441,8 @@
       "{user} è stanco e va ora a dormire :3",
       "{user} va ora a letto <:engelchen:725458214044303371>",
       "{user} dorme ora, si spera che lui / lei non russare <:gucken:725670318164672543>"
-    ]
+    ],
+    "afkMessage": "sonno"
   },
   "topic": {
     "description": "Vi do una domanda di cui parlare.",

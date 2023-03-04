@@ -199,7 +199,7 @@
     "noneFound": "No he encontrado ninguna mención.",
     "unknown": "desconocido",
     "embedTitle": "Último ping",
-    "embedDescription": "La última vez que te mencionaron fue [here]({url}) de <@{author}>.\n>>> {content}"
+    "embedDescription": "La última vez que te mencionaron fue [here]({url}) de <@{author}>.\n{content}"
   },
   "math": {
     "description": "Ejecuta algunas matemáticas",
@@ -233,6 +233,19 @@
     },
     "charsetEmpty": "ha excluido todos los caracteres del juego de caracteres...",
     "success": "Su contraseña(s) segura(s):\n{passwords}\n\n||Creada con el siguiente conjunto de caracteres:\n```{charset}```\nUtilice las opciones de comando para agregar o eliminar caracteres.||"
+  },
+  "randomnumber": {
+    "description": "Devuelve un número aleatorio. Utiliza valores por defecto para entradas no válidas.",
+    "usage": "Comando de PREFIX aleatorio: número aleatorio [min] [max]",
+    "options": {
+      "minimum": {
+        "description": "El número más pequeño posible. Por defecto es 0."
+      },
+      "maximum": {
+        "description": "El número más grande posible. Por defecto es 100."
+      }
+    },
+    "outOfRange": "Se ha producido un error:\n````\n{err}.\n```"
   },
   "record": {
     "description": "Grabar un canal de voz. Necesita la aprobación de los usuarios.",
@@ -272,14 +285,14 @@
   },
   "timestamp": {
     "description": "Obtén una marca de tiempo para el futuro (o pasado poniendo un \"-\" en frente)",
-    "usage": "Comando PREFIX : marca de tiempo [time]",
+    "usage": "Orden PREFIX [time]\nEjemplos:\n>>> `1h` = ahora + 1h\n`-1h` = ahora - 1h\n`1h-1h` = ahora + 1h - 1h",
     "options": {
       "time": {
-        "description": "El tiempo a partir de ahora (ej. 1w3d2h5min): 3 minutos devuelve ahora+3min, -3min devuelve ahora-3min"
+        "description": "La hora a partir de ahora (ej. 1w3d2h5min). Use \"/help timestamp\" para más información."
       }
     },
     "invalid": "¡El tiempo que proporcionaste no es válido! Usa {command} y busca `timestamp` para obtener información mor.",
-    "outOfRange": "¡El tiempo que proporcionaste es mayor de 200.000 años!",
+    "outOfRange": "El tiempo especificado es mayor que 200,000 años!",
     "success": "Eso es <t:{time}:R> (`<t:{time}:R>`)."
   }
 }

@@ -7,6 +7,7 @@
   "economyDisabled": "Este comando es un comando de categoría de economía. La economía no está habilitada en este gremio. Para empezar a usar la economía, un administrador tiene que ejecutar `/economyconfig admin toggle`.",
   "economyNotInitialized": "Este comando es un comando de categoría económica. Para empezar a usar la economía, ejecuta `/economyconfig user start`.",
   "buttonPressOnCooldown": "¡Este botón está en enfriamiento! Inténtalo de nuevo en `{time}`s.",
+  "strictAutocompleteNoMatch": "Su entrada debe coincidir con una de las sugerencias de autocompletado. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando.",
   "permissionDenied": {
     "embedTitle": "Permisos insuficientes",
     "embedDescriptionUser": "Necesitas los siguientes permisos en este canal para ejecutar este comando:\n`{permissions}`",
@@ -15,6 +16,7 @@
   "errorHandler": {
     "embedTitle": "Ojos",
     "embedDescription": "¡Se ha producido un error inesperado!\n\nTipo de error: `{name}`\nComando: `{command}`",
+    "embedFooterText": "Informar de este error enviará las opciones de comando en privado al desarrollador.",
     "reportButton": "Reportar este error",
     "reportButtonDisabled": " (Deshabilitado debido a la versión dev)",
     "discordAPIErr": "Se ha producido un error de la API de Discord, por favor inténtalo de nuevo y envía un mensaje al desarrollador si esto sigue sucediendo.",
