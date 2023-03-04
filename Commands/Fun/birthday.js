@@ -51,14 +51,15 @@ module.exports = {
   run: async function (lang) {
     const
       target = this.options.getMember('target'),
-      doNotHide = this.options.getBoolean('do_not_hide'),
-      birthday =
-        this.options.getInteger('year') + '/' +
-        this.options.getInteger('month').toString().padStart(2, '0') + '/' +
-        this.options.getInteger('day').toString().padStart(2, '0');
+      doNotHide = this.options.getBoolean('do_not_hide');
 
     switch (this.options.getSubcommand()) {
       case 'set': {
+      const birthday =
+        this.options.getInteger('year') + '/' +
+        this.options.getInteger('month').toString().padStart(2, '0') + '/' +
+        this.options.getInteger('day').toString().padStart(2, '0');
+        
         this.client.db.update('userSettings', `${this.user.id}.birthday`, birthday);
 
         return this.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
