@@ -104,7 +104,7 @@
           "button_label": {
             "description": "Der Button-Text. Wenn er mit einem Emoji beginnt, wird nur das Emoji genutzt."
           },
-          "modus": {
+          "mode": {
             "description": "Was genau soll der Button tun? Die Standardoption ist \"Rolle umschalten\".",
             "choices": {
               "add": "Rolle hinzufügen",

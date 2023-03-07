@@ -100,7 +100,7 @@
           "button_label": {
             "description": "El texto que debe estar sobre el botón. Si comienza con un emoji, el emoji se utilizará solamente."
           },
-          "modus": {
+          "mode": {
             "description": "¿Qué debería hacer el botón? Por defecto es \"Cambiar rol\".",
             "choices": {
               "add": "Añadir rol",

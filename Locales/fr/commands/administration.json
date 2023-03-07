@@ -95,7 +95,7 @@
           "button_label": {
             "description": "The text that should be on the button. If it starts with an emoji, the emoji will be used only."
           },
-          "modus": {
+          "mode": {
             "description": "Que doit faire le bouton? Par défaut, \"Basculer le rôle\".",
             "choices": {
               "add": "Ajouter un rôle",
