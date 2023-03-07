@@ -100,7 +100,7 @@
           "button_label": {
             "description": "Il testo che dovrebbe essere sul pulsante. Se inizia con un'emoji, le emoji saranno utilizzate solo."
           },
-          "modus": {
+          "mode": {
             "description": "Che cosa dovrebbe fare il pulsante? Predefinito per \"Attiva/disattiva design\".",
             "choices": {
               "add": "Aggiungi Ruolo",
