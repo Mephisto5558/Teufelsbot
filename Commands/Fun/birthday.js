@@ -55,13 +55,7 @@ module.exports = {
 
     switch (this.options.getSubcommand()) {
       case 'set': {
-      const birthday =
-        this.options.getInteger('year') + '/' +
-        this.options.getInteger('month').toString().padStart(2, '0') + '/' +
-        this.options.getInteger('day').toString().padStart(2, '0');
-        
-        this.client.db.update('userSettings', `${this.user.id}.birthday`, birthday);
-
+        this.client.db.update('userSettings', `${this.user.id}.birthday`, `${this.options.getInteger('year')}/${String(this.options.getInteger('month')).padStart(2, 0)}/${String(this.options.getInteger('day')).padStart(2, 0)}`);
         return this.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
       }
 
