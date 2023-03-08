@@ -49,7 +49,7 @@
       "stickers": "<a:loading:1063091916683612160> Guardando stickers...",
       "channels": "<a:loading:1063091916683612160> Guardando canales, hilos y mensajes...",
       "images": "<a:loading:1063091916683612160> Saving icon, splash, and banner...",
-      "success": "¡La copia de seguridad con el ID `{id}` se ha creado correctamente!\nUse </serverbackup get:{cmdId}> para más información sobre la copia de seguridad."
+      "success": "¡La copia de seguridad con el ID {id} se ha creado correctamente!\nUse </serverbackup get:{cmdId}> para más información sobre la copia de seguridad."
     },
     "clear": {
       "items": "<a:loading:1063091916683612160> Eliminando emojis, estampas y roles...",
@@ -59,12 +59,12 @@
     },
     "load": {
       "cooldown": "¡Cargando copias de seguridad está en recarga! Inténtalo de nuevo en `{time}`s.",
-      "overwriteWarningDescription": "¡Esta acción eliminará la mayoría de su servidor! Esto incluye roles, webhooks, canales y emojis.\nSi estás seguro de que quieres hacer esto, haz clic en \"Sí\". Haga clic en \"No\" para cancelar.\nTambién puede que desee crear una copia de seguridad antes de cargar, sólo para estar seguro.",
+      "overwriteWarningDescription": "¡Esta acción eliminará la mayoría de su servidor! Esto incluye roles, webhooks, canales y emojis.\nSi estás seguro de que quieres hacer esto, escribe 'Sí'. Escribe 'No' para cancelar.\nTambién puedes crear una copia de seguridad antes de cargar, solo para estar seguro.",
       "noneFound": "¡No se ha encontrado ningún respaldo para este gremio!",
       "cancelled": "La carga de la copia de seguridad ha sido cancelada.",
       "enableDMs": "Por favor, activa el bot para enviarte DMs para que puedas ver el estado de carga.",
       "loadingEmbedDescription": "Aplicando copia de seguridad al servidor.\nEsto puede tardar un poco, dependiendo del tamaño de la copia de seguridad.",
-      "noPerm": "¡Solo el propietario del gremio puede cargar copias de seguridad!",
+      "noPerm": "¡Sólo el propietario del servidor puede cargar copias de seguridad!",
       "settings": "<a:loading:1063091916683612160> Cargando ajustes...",
       "features": "<a:loading:1063091916683612160> Cargando características del servidor...",
       "roles": "<a:loading:1063091916683612160> Cargando roles...",
@@ -83,7 +83,7 @@
     "get": {
       "oneEmbedDescription": "Información sobre la copia de seguridad {id}\n>>> Creada en: <t:{createdAt}>\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "oneNotFound": "¡No se encontró copia de seguridad con ese ID!",
-      "infos": ">>> Creado en: <t:{createdAt}>\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "infos": "Creado en: <t:{createdAt}>\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "found": "Se encontraron {amount} copias de seguridad.",
       "embedDescription": "Se han encontrado las siguientes copias de seguridad, ordenadas por fecha:",
       "noneFound": "No se encontraron copias de seguridad para este servidor."
@@ -104,7 +104,7 @@
           "button_label": {
             "description": "El texto que debe estar sobre el botón. Si comienza con un emoji, el emoji se utilizará solamente."
           },
-          "modus": {
+          "mode": {
             "description": "¿Qué debería hacer el botón? Por defecto es \"Cambiar rol\".",
             "choices": {
               "add": "Añadir rol",
@@ -288,7 +288,7 @@
     },
     "language": {
       "embedTitle": "¡Idioma del bot cambiado!",
-      "embedDescription": "El idioma se ha establecido en `Inglés`."
+      "embedDescription": "Los siguientes mensajes serán en `{lang}`."
     },
     "serverbackup": {
       "success": "¡Actualización exitosa de la configuración!"
