@@ -49,7 +49,7 @@
       "stickers": "<a:loading:1063091916683612160> Salvataggio adesivi...",
       "channels": "<a:loading:1063091916683612160> Salvataggio di canali, thread e messaggi...",
       "images": "<a:loading:1063091916683612160> Saving icon, splash, and banner...",
-      "success": "Il backup con l'ID `{id}` è stato creato con successo!\nUsa </serverbackup get:{cmdId}> per ulteriori informazioni sul backup."
+      "success": "Il backup con l'ID {id} è stato creato con successo!\nUsa </serverbackup get:{cmdId}> per ulteriori informazioni sul backup."
     },
     "clear": {
       "items": "<a:loading:1063091916683612160> Eliminazione di emoji, adesivi e ruoli...",
@@ -59,12 +59,12 @@
     },
     "load": {
       "cooldown": "Il caricamento dei backup è in fase di ricarica! Riprova tra `{time}`s.",
-      "overwriteWarningDescription": "Questa azione eliminerà la maggior parte del tuo server! Questo include ruoli, webhook, canali ed emoji.\nSe sei sicuro di voler fare questo, clicca su \"Sì\". Clicca su \"No\" per annullare.\nPotresti anche voler creare un backup prima del caricamento, solo per essere sicuro.",
+      "overwriteWarningDescription": "Questa azione eliminerà la maggior parte del tuo server! Questo include ruoli, webhook, canali ed emoji.\nSe sei sicuro di voler fare questo, digita 'Sì'. Digita 'No' per annullare.\nPotresti anche voler creare un backup prima del caricamento, solo per essere sicuro.",
       "noneFound": "Non è stato trovato alcun backup per questa gilda!",
       "cancelled": "Caricamento del backup è stato annullato.",
       "enableDMs": "Si prega di abilitare il bot per inviare DM in modo da poter vedere lo stato di caricamento.",
       "loadingEmbedDescription": "Applicazione del backup al server.\nQuesto potrebbe richiedere un po' di tempo, a seconda della dimensione del backup.",
-      "noPerm": "Solo il proprietario della gilda può caricare i backup!",
+      "noPerm": "Solo il proprietario del server può caricare i backup!",
       "settings": "<a:loading:1063091916683612160> Caricamento impostazioni...",
       "features": "<a:loading:1063091916683612160> Caricamento funzionalità server...",
       "roles": "<a:loading:1063091916683612160> Caricamento ruoli...",
@@ -83,7 +83,7 @@
     "get": {
       "oneEmbedDescription": "Informazioni sul backup {id}\n>>> Creato a: <t:{createdAt}>\nDimensione: {size}\nMembri: {members}\nCanali: {channels}\nRuoli: {roles}\nEmojis: {emojis}\nAdesivi: {stickers}",
       "oneNotFound": "Non è stato trovato alcun backup con quell'ID!",
-      "infos": ">>> Creato a: <t:{createdAt}>\nDimensione: {size}\nMembri: {members}\nCanali: {channels}\nRuoli: {roles}\nEmojis: {emojis}\nAdesivi: {stickers}",
+      "infos": "Creato a: <t:{createdAt}>\nDimensione: {size}\nMembri: {members}\nCanali: {channels}\nRuoli: {roles}\nEmojis: {emojis}\nAdesivi: {stickers}",
       "found": "Trovati {amount} backup.",
       "embedDescription": "Sono stati trovati i seguenti backup, ordinati per data:",
       "noneFound": "Non è stato trovato alcun backup per questo server."
@@ -104,7 +104,7 @@
           "button_label": {
             "description": "Il testo che dovrebbe essere sul pulsante. Se inizia con un'emoji, le emoji saranno utilizzate solo."
           },
-          "modus": {
+          "mode": {
             "description": "Che cosa dovrebbe fare il pulsante? Predefinito per \"Attiva/disattiva design\".",
             "choices": {
               "add": "Aggiungi Ruolo",
@@ -288,7 +288,7 @@
     },
     "language": {
       "embedTitle": "Lingua del bot cambiata!",
-      "embedDescription": "La lingua è stata impostata su `English`."
+      "embedDescription": "I prossimi messaggi saranno in `{lang}`."
     },
     "serverbackup": {
       "success": "Impostazioni aggiornate con successo!"
