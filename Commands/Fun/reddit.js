@@ -83,7 +83,7 @@ module.exports = {
 
     const embed = new EmbedBuilder({
       author: { name: `${post.author} | r/${post.subreddit}` },
-      title: post.title,
+      title: post.title.length < 257 ? post.title : post.title.substring(0, 253) + '...',
       url: post.url,
       image: { url: !post.imageURL.match(/^https?:\/\//i) ? `https://reddit.com${post.imageURL}` : post.imageURL },
       footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * 100, downvotes: post.downvotes, comments: post.comments }) }

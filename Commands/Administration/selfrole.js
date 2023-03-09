@@ -2,9 +2,7 @@ const { Constants, parseEmoji, ActionRowBuilder, ButtonBuilder, ComponentType, B
 
 module.exports = {
   name: 'selfrole',
-  aliases: { prefix: [], slash: [] },
   permissions: { client: ['ManageMembers'], user: ['ManageGuild'] },
-  cooldowns: { guild: 0, user: 0 },
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,
@@ -30,7 +28,7 @@ module.exports = {
           required: true
         },
         {
-          name: 'modus',
+          name: 'mode',
           type: 'String',
           choices: ['add', 'remove', 'toggle']
         },
@@ -108,7 +106,7 @@ module.exports = {
         .createMessageComponentCollector({ componentType: ComponentType.Button, max: 1, time: 30000 }).on('collect', async b => {
           b.update({ fetchReply: false }).then(() => b.deleteReply());
 
-          button.data.custom_id = `selfrole.${Date.now()}.${this.options.getString('modus') || 'toggle'}.${role.id}${this.options.getBoolean('hide_count') ? '' : '.count'}`;
+          button.data.custom_id = `selfrole.${Date.now()}.${this.options.getString('mode') || 'toggle'}.${role.id}${this.options.getBoolean('hide_count') ? '' : '.count'}`;
 
           if (!msg.components[0]?.components?.length || msg.components[row > -1 ? row : msg.components.length - 1]?.components?.length == 5) msg.components.push(new ActionRowBuilder({ components: [button] }));
           else msg.components[row > -1 ? row : msg.components.length - 1].components.push(button);
