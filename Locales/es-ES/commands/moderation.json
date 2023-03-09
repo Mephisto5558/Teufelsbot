@@ -1,6 +1,6 @@
 {
   "ban": {
-    "description": "prohíbe a un miembro de la guild",
+    "description": "prohíbe a uno o varios miembros del gremio",
     "options": {
       "reason": {
         "description": "Los objetivo(s) deben/van a ver la razón en DMs"
@@ -9,10 +9,10 @@
         "description": "¿Cuánto tiempo quieres que el objetivo(s) sea prohibido?"
       },
       "target": {
-        "description": "Mencione miembro(s) o pon ID(s) para banearlos. Pon un espacio entre cada objetivo."
+        "description": "Seleccione el miembro a banear. Deje esto vacío para seleccionar varios miembros en el paso del anexo."
       },
       "delete_days_of_messages": {
-        "description": "Borrar todos los mensajes de los objetivos de los últimos n días."
+        "description": "Elimina todos los mensajes del objetivo(s) de los últimos n días."
       }
     },
     "dmEmbedTitle": "Baneado",
@@ -31,7 +31,7 @@
     "description": "expulsa a un miembro de la guild",
     "options": {
       "target": {
-        "description": "Mencione miembro(s) o pon ID(s) para expulsarlos. Pon un espacio entre cada objetivo."
+        "description": "Seleccione el miembro a expulsar. Deje esto vacío para seleccionar varios miembros en el paso del anexo."
       },
       "reason": {
         "description": "Los objetivo(s) deben/van a ver la razón en DMs"
