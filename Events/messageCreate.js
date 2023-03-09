@@ -40,7 +40,7 @@ module.exports = async function messageCreate() {
 
   const
     command = this.client.prefixCommands.get(this.commandName),
-    lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` });
+    lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.name}` : null });
 
   if (command) {
     if (command.disabled) return replyOnDisabledCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('events.commandDisabled'))] }, 1e4);
