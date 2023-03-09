@@ -7,7 +7,10 @@ const
 /**@this {import('discord.js').Client}*/
 async function reloadCommand(command, reloadedArray) {
   delete require.cache[command.filePath];
-  const file = formatSlashCommand(require(command.filePath), `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`);
+
+  const
+    file = require(command.filePath),
+    slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`) : null;
 
   file.filePath = command.filePath;
   file.category = command.category;
@@ -25,23 +28,23 @@ async function reloadCommand(command, reloadedArray) {
     }
   }
 
-  if (file.slashCommand) {
-    const equal = slashCommandsEqual(file, command);
-    if (equal) file.id = command.id;
+  if (slashFile) {
+    const equal = slashCommandsEqual(slashFile, command);
+    if (equal) slashFile.id = command.id;
     else {
       await this.application.commands.delete(command.id);
-      file.id = (await this.application.commands.create(file)).id;
+      slashFile.id = (await this.application.commands.create(slashFile)).id;
       this.log(`Reloaded Slash Command ${command.name}`);
     }
 
     this.slashCommands.delete(command.name);
-    this.slashCommands.set(file.name, file);
-    reloadedArray.push(`/${file.name}`);
+    this.slashCommands.set(slashFile.name, slashFile);
+    reloadedArray.push(`/${slashFile.name}`);
 
-    for (const alias of new Set([...(file.aliases?.slash || []), ...(command.aliases?.slash || [])])) {
+    for (const alias of new Set([...(slashFile.aliases?.slash || []), ...(command.aliases?.slash || [])])) {
       if (equal) {
         this.slashCommands.delete(alias);
-        this.slashCommands.set(alias, { ...file, id: command.id, aliasOf: file.name });
+        this.slashCommands.set(alias, { ...slashFile, id: command.id, aliasOf: slashFile.name });
       }
       else {
         if (this.slashCommands.has(alias)) {
@@ -50,8 +53,8 @@ async function reloadCommand(command, reloadedArray) {
           this.slashCommands.delete(alias);
         }
 
-        const { id } = await this.application.commands.create(file);
-        this.slashCommands.set(alias, { ...file, id, aliasOf: file.name });
+        const { id } = await this.application.commands.create(slashFile);
+        this.slashCommands.set(alias, { ...slashFile, id, aliasOf: slashFile.name });
         this.log(`Reloaded Slash Command ${alias} (Alias of ${command.name})`);
       }
 

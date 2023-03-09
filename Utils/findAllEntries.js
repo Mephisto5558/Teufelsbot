@@ -1,4 +1,4 @@
-/**@param {{}}obj@param {string}key@returns {{}}object with found entries*/
+/**@param {object}obj@param {string}key@returns {{}}object with found entries*/
 module.exports = function findAllEntries(obj, key) {
   if (!obj || !key) return;
   let counter = 0;

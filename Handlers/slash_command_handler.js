@@ -55,7 +55,7 @@ module.exports = async function slashCommandHandler() {
         const { id } = await this.application.commands.create(command);
         command.id = id;
 
-        this.log(`Registered Slash Command ${command.name}` + command.aliasOf ? ` (Alias of ${command.aliasOf})` : '');
+        this.log(`Registered Slash Command ${command.name}` + (command.aliasOf ? ` (Alias of ${command.aliasOf})` : ''));
         registeredCommandCount++;
       }
       catch (err) {

@@ -34,7 +34,7 @@ module.exports = class DB {
     return value;
   }
 
-  /**@param {boolean}overwrite overwrite existing collections*/
+  /**@param {boolean}overwrite overwrite existing collection, default: `false`*/
   async generate(overwrite = false) {
     for (const { key, value } of require('../Templates/db_collections.json'))
       await this.set(key, value, overwrite);
@@ -44,7 +44,7 @@ module.exports = class DB {
 
   get = key => this.collection.get(key);
 
-  /**@param {boolean}overwrite overwrite existing collection*/
+  /**@param {string}key@param {boolean}overwrite overwrite existing collection, default: `false`*/
   async set(key, value, overwrite = false) {
     if (!key) return;
     let data;
@@ -74,6 +74,7 @@ module.exports = class DB {
     return this.collection.set(db, data.value);
   }
 
+  /**@param {string}key*/
   async push(key, ...pushValue) {
     const values = pushValue.flat();
     let dbData = this.collection.get(key);
@@ -88,6 +89,7 @@ module.exports = class DB {
     return dbData.push(...pushValue);
   }
 
+  /**@param {string}key*/
   async delete(key) {
     if (!key) return;
 
