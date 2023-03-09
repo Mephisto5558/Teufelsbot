@@ -1,4 +1,16 @@
 {
+  "chatgpt": {
+    "description": "Parla con ChatGPT!",
+    "usage": "Comando PREFIX: chatgpt <message>",
+    "options": {
+      "message": {
+        "description": "Cosa vuoi dire a ChatGPT?"
+      }
+    },
+    "hello": "Ciao!",
+    "rateLimit": "Il ratelimit è stato raggiunto. Riprova tra pochi secondi.",
+    "error": "L'API ha risposto con un errore."
+  },
   "customname": {
     "description": "Imposta un soprannome personalizzato e ti chiamerò.",
     "options": {
