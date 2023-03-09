@@ -9,7 +9,7 @@
     },
     "hello": "Hallo!",
     "rateLimit": "Das Ratelimit wurde erreicht. Bitte versuche es in einigen Sekunden erneut.",
-    "error": "Die API hat mit einem Fehler geantwortet."
+    "error": "Die API antwortete mit einem Fehler."
   },
   "customname": {
     "description": "Lege einen benutzerdefinierten Spitznamen fest und ich werde dich so nennen.",
