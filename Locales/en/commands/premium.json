@@ -1,4 +1,16 @@
 {
+  "chatgpt": {
+    "description": "Talk to ChatGPT!",
+    "usage": "PREFIX Command: chatgpt <message>",
+    "options": {
+      "message": {
+        "description": "What do you want to tell ChatGPT?"
+      }
+    },
+    "hello": "Hello!",
+    "rateLimit": "The ratelimit has been reached. Please try again in a few seconds.",
+    "error": "The API responded with an error."
+  },
   "customname": {
     "description": "Set a custom nickname and I will call you that.",
     "options": {
