@@ -1,6 +1,6 @@
 {
   "ban": {
-    "description": "bandisce un membro dalla gilda",
+    "description": "bandisce uno o più membri dalla gilda",
     "options": {
       "reason": {
         "description": "L'obiettivo/gli obiettivo/i vedrà la ragione nelle DM"
@@ -9,7 +9,7 @@
         "description": "Per quanto tempo vuoi ottenere gli obiettivi vietati?"
       },
       "target": {
-        "description": "Menzionare i membri o mettere ID dentro per bannarli. Metti uno spazio tra ogni obiettivo."
+        "description": "Selezionare il membro da bandire. Lasciare vuoto per selezionare più membri nel passo nex."
       },
       "delete_days_of_messages": {
         "description": "Elimina tutti i messaggi degli obiettivi degli ultimi n giorni."
@@ -31,7 +31,7 @@
     "description": "kicks a member from the guild",
     "options": {
       "target": {
-        "description": "Menzione membro(i) o metti un ID per cacciarli. Metti uno spazio tra ogni obiettivo."
+        "description": "Selezionare il membro da calciare. Lasciare vuoto per selezionare più membri nel passo nex."
       },
       "reason": {
         "description": "L'obiettivo/gli obiettivo/i vedrà la ragione nelle DM"

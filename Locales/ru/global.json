@@ -1,5 +1,5 @@
 {
-  "languageName": "Русский",
+  "languageName": "Russian",
   "messageSent": "Сообщение отправлено!",
   "loading": "Загрузка...",
   "guild": "Гильдия",
@@ -7,8 +7,8 @@
   "cancel": "Отмена",
   "playAgain": "Играть снова",
   "enabled": "Включено",
-  "disabled": "Выключено",
-  "none": "ничего",
+  "disabled": "Отключено",
+  "none": "нет",
   "noPermUser": "У вас нет разрешения на это!",
   "noPermBot": "У меня нет разрешения на это!",
   "true": "Да",
