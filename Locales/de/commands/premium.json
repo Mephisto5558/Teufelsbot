@@ -1,4 +1,16 @@
 {
+  "chatgpt": {
+    "description": "Sprich mit ChatGPT!",
+    "usage": "PREFIX-Befehl: chatgpt <Nachricht>",
+    "options": {
+      "message": {
+        "description": "Was möchtest du ChatGPT sagen?"
+      }
+    },
+    "hello": "Hallo!",
+    "rateLimit": "Das Ratelimit wurde erreicht. Bitte versuche es in einigen Sekunden erneut.",
+    "error": "Die API hat mit einem Fehler geantwortet."
+  },
   "customname": {
     "description": "Lege einen benutzerdefinierten Spitznamen fest und ich werde dich so nennen.",
     "options": {
