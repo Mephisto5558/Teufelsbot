@@ -5,8 +5,6 @@ const
   ownerOnlyFolders = getOwnerOnlyFolders(),
   errorEmbed = new EmbedBuilder({ color: Colors.Red });
 
-let prefixLength;
-
 /**@this {import('discord.js').Message}*/
 module.exports = async function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
@@ -17,30 +15,12 @@ module.exports = async function messageCreate() {
   }
 
   if (this.user.bot) return;
+  if (!this.commandName) return this.guild ? this.runMessages().runEco() : null;
 
   const
-    { config = {}, economy = {} } = this.guild?.db ?? {},
-    locale = config.lang ?? this.guild?.localeCode,
-    { caseinsensitive } = config[this.client.botType == 'dev' ? 'betaBotPrefix' : 'prefix'] ?? {};
-
-  let guildPrefix = this.client.botType == 'dev' ? config.betaBotPrefix?.prefix || this.client.defaultSettings.config.betaBotPrefix : config.prefix?.prefix || this.client.defaultSettings.config.prefix;
-  if (caseinsensitive) guildPrefix = guildPrefix.toLowerCase();
-
-  if ((caseinsensitive ? this.content.toLowerCase() : this.content).startsWith(guildPrefix)) prefixLength = guildPrefix.length;
-  else if (this.content.startsWith(`<@${this.client.user.id}>`)) prefixLength = this.client.user.id.length + 3;
-  else {
-    if (!this.guild) return;
-    this.runMessages();
-    return this.runEco();
-  }
-
-  this.args = this.content.replaceAll('<@!', '<@').slice(prefixLength).trim().split(' ');
-  this.commandName = this.args.shift().toLowerCase();
-  this.content = this.args.join(' ');
-
-  const
+    { config = {}, economy = {}, commandSettings = {} } = this.guild?.db ?? {},
     command = this.client.prefixCommands.get(this.commandName),
-    lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.name}` : null });
+    lang = I18nProvider.__.bBind(I18nProvider, { locale: config.lang ?? this.guild?.localeCode, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.name}` : null });
 
   if (command) {
     if (command.disabled) return replyOnDisabledCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('events.commandDisabled'))] }, 1e4);
@@ -50,14 +30,12 @@ module.exports = async function messageCreate() {
   }
   else return this.client.slashCommands.get(this.commandName) ? this.customReply({ embeds: [errorEmbed.setDescription(lang('events.slashCommandOnly'))] }, 1e4) : this.runMessages();
 
-  const disabledList = this.guild?.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
-
+  const disabledList = commandSettings[command.aliasOf || command.name]?.disabled || {};
   if (disabledList.members && disabledList.members.includes(this.user.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.member'))] }, 1e4);
   if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.channel'))] }, 1e4);
   if (disabledList.roles && this.member.roles?.cache.some(e => disabledList.roles.includes(e.id))) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.role'))] }, 1e4);
 
   const cooldown = cooldowns.call(this, command);
-
   if (cooldown && !this.client.botType == 'dev') return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.cooldown', cooldown))] }, 1e4);
   if (command.requireEconomy && (!economy?.enable || !economy[this.user.id]?.gaining?.chat))
     return this.customReply({ embeds: [errorEmbed.setDescription(lang(economy?.enable ? 'events.economyNotInitialized' : 'events.economyDisabled'), 3e4)] });

@@ -1,18 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   { I18nProvider, permissionTranslator } = require('../../Utils'),
-  ownerOnlyFolders = require('../../config.json')?.ownerOnlyFolders?.map(e => e?.toLowerCase()) || ['owner-only'];
-
-function listCommands(list, output, count, category) {
-  for (const [, command] of list) {
-    if (command.category?.toLowerCase() != category?.toLowerCase() || command.hideInHelp || command.disabled || output.includes(`\`${command.name}\``)) continue;
-
-    if (!(count % 5)) output += `\`${command.name ?? command}\`\n> `;
-    else output += `\`${command.name ?? command}\`, `;
-    count++;
-  }
-  return [output, count];
-}
+  ownerOnlyFolders = require('../../config.json')?.ownerOnlyFolders?.map(e => e?.toUpperCase()) || ['OWNER-ONLY'];
 
 module.exports = {
   name: 'help',
@@ -20,12 +9,13 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
   ephemeralDefer: true,
+  beta: true,
   options: [{
     name: 'command',
     type: 'String',
-    autocompleteOptions: function () { return [...new Set([...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()])]; },
+    autocompleteOptions: function () { return [...new Set([...this.client.prefixCommands.filter(e => !e.disabled && this.client.botType != 'dev' || e.beta).keys(), ...this.client.slashCommands.filter(e => !e.disabled && this.client.botType != 'dev' || e.beta).keys()])]; },
     strictAutocomplete: true
-  }], beta: true,
+  }],
 
   run: function (lang) {
     const
@@ -35,7 +25,7 @@ module.exports = {
     if (query) {
       const cmd = this.client.prefixCommands.get(query) || this.client.slashCommands.get(query);
 
-      if (!cmd?.name || cmd.hideInHelp || cmd.disabled || (ownerOnlyFolders.includes(cmd.category.toLowerCase()) && this.user.id != this.client.application.owner.id)) {
+      if (!cmd?.name || cmd.hideInHelp || cmd.disabled || (ownerOnlyFolders.includes(cmd.category.toUpperCase()) && this.user.id != this.client.application.owner.id)) {
         embed.data.description = lang('one.notFound', query);
         embed.data.color = Colors.Red;
       }
@@ -48,6 +38,7 @@ module.exports = {
         embed.data.fields = [
           cmd.aliases?.prefix?.length && { name: lang('one.prefixAlias'), value: `\`${cmd.aliases.prefix.join('`, `')}\``, inline: true },
           cmd.aliases?.slash?.length && { name: lang('one.slashAlias'), value: `\`${cmd.aliases.slash.join('`, `')}\``, inline: true },
+          cmd.aliasOf && { name: lang('one.aliasOf'), value: `\`${cmd.aliasOf}\``, inline: true },
           cmd.permissions?.client?.length && { name: lang('one.botPerms'), value: `\`${permissionTranslator(cmd.permissions.client, lang.__boundArgs__[0].locale).join('`, `')}\``, inline: false },
           cmd.permissions?.user?.length && { name: lang('one.userPerms'), value: `\`${permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale).join('`, `')}\``, inline: true },
           (cmd.cooldowns?.user || cmd.cooldowns?.guild) && {
@@ -70,25 +61,19 @@ module.exports = {
     embed.data.title = lang('all.embedTitle');
     embed.data.thumbnail = { url: this.guild.members.me.displayAvatarURL() };
 
-    for (const category of getDirectoriesSync('./Commands').map(e => e.toUpperCase())) {
-      if (ownerOnlyFolders.includes(category.toLowerCase()) && this.user.id != this.client.application.owner.id) continue;
+    embed.addFields(Object.entries([...this.client.prefixCommands, ...this.client.slashCommands]
+      .reduce((acc, [, e]) => {
+        const category = e.category.toUpperCase();
+        if ((ownerOnlyFolders.includes(category) && this.user.id != this.client.application.owner.id) || acc[category]?.includes(e.name) || e.aliasOf || e.hideInHelp || e.disabled || !(this.client.botType != 'dev' || e.beta)) return acc;
 
-      let data = listCommands(this.client.prefixCommands, '', 1, category);
-      data = listCommands(this.client.slashCommands, data[0], data[1], category);
+        if (acc[category]) acc[category].push(e.name);
+        else acc[category] = [e.name];
+        return acc;
+      }, {})
+    ).reduce((acc, [category, commands]) => commands.length ? [...acc, ({ name: `**${category} [${commands.length}]**`, value: `> \`${commands.join('`, `')}\``, inline: true })] : acc, []));
 
-      if (data[1] == 1) continue;
-
-      let cmdList = data[0];
-
-      if (cmdList.endsWith('\n> ')) cmdList = cmdList.slice(0, -4);
-      if (cmdList.endsWith(', ')) cmdList = cmdList.slice(0, -2);
-      if (!cmdList.endsWith('`')) cmdList += '`';
-
-      if (cmdList) embed.addFields([{ name: `**${category} [${data[1] - 1}]**`, value: `> ${cmdList}\n`, inline: true }]);
-    }
-
-    if (!embed.data.fields) embed.data.description = lang('all.notFound');
-    else embed.data.footer = { text: lang('all.embedFooterText') };
+    if (embed.data.fields.length) embed.data.footer = { text: lang('all.embedFooterText') };
+    else embed.data.description = lang('all.notFound');
 
     return this.customReply({ embeds: [embed] });
   }
