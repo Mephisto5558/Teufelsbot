@@ -101,7 +101,7 @@ Object.assign(Message.prototype, {
       this.originalContent = data.content;
 
       const prefixType = this.client.botType == 'dev' ? 'betaBotPrefix' : 'prefix';
-      let prefixLength, { prefix = this.client.defaultSettings.config[prefixType], caseinsensitive } = this.guild?.db.config[prefixType] ?? {};
+      let prefixLength, { prefix = this.client.defaultSettings.config[prefixType], caseinsensitive } = this.guild?.db.config?.[prefixType] ?? {};
 
       if (caseinsensitive) prefix = prefix.toLowerCase();
       if ((caseinsensitive ? data.content.toLowerCase() : data.content).startsWith(prefix)) prefixLength = prefix.length;
