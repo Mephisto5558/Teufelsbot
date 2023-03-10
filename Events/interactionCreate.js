@@ -12,9 +12,7 @@ async function componentHandler(lang) {
 }
 
 async function autocompleteGenerator(command, locale) {
-  const
-    lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: `commands.${command.category.toLowerCase()}.${command.name}`, undefinedNotFound: true }),
-    response = v => ({ name: lang(`options.${this.options._group ? this.options._group + '.' : ''}${this.options._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });
+  const response = v => ({ name: I18nProvider.__({ locale, undefinedNotFound: true }, `commands.${command.category.toLowerCase()}.${command.name}.options.${this.options._group ? this.options._group + '.' : ''}${this.options._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });
 
   let { options } = command.fMerge();
   if (this.options._group) options = options.find(e => e.name == this.options._group);
@@ -51,8 +49,9 @@ module.exports = async function interactionCreate() {
   if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.role'))], ephemeral: true });
 
   for (const { autocomplete, strictAutocomplete, name } of command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options || e) || e?.options || e) || []) {
+
     if (
-      autocomplete && strictAutocomplete && this.options.get(name) && !(await autocompleteGenerator.call({ ...this, focused: { name, value: this.options.get(name).value } }, command, locale))
+      autocomplete && strictAutocomplete && this.options.get(name) && !(await autocompleteGenerator.call(Object.assign({}, this, { client: this.client, focused: { name, value: this.options.get(name).value } }), command, locale))
         .filter(e => (e.toLowerCase?.() || e.value.toLowerCase()).includes(this.options.get(name).value.toLowerCase())).length
     ) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.strictAutocompleteNoMatch'))], ephemeral: true });
   }
