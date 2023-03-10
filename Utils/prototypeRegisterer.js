@@ -183,7 +183,7 @@ Object.assign(Message.prototype, {
       return `${acc}${afkMessage}\n`;
     }, '');
 
-    if (message.length) this.customReply(afkMsgs);
+    if (afkMsgs.length) this.customReply(afkMsgs);
     return this;
   },
   /**@returns {Message} */
