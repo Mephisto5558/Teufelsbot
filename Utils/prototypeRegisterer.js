@@ -101,9 +101,13 @@ Object.assign(Message.prototype, {
       this.originalContent = data.content;
 
       const prefixType = this.client.botType == 'dev' ? 'betaBotPrefix' : 'prefix';
-      let prefixLength, { prefix = this.client.defaultSettings.config[prefixType], caseinsensitive } = this.guild?.db.config?.[prefixType] ?? {};
+      let
+        prefixLength = 0,
+        { prefix, caseinsensitive } = this.guild?.db.config?.[prefixType] ?? {};
 
+      if (!prefix) prefix = this.client.defaultSettings.config[prefixType];
       if (caseinsensitive) prefix = prefix.toLowerCase();
+
       if ((caseinsensitive ? data.content.toLowerCase() : data.content).startsWith(prefix)) prefixLength = prefix.length;
       else if (data.content.startsWith(`<@${this.client.user.id}>`)) prefixLength = this.client.user.id.length + 3;
 
@@ -114,10 +118,10 @@ Object.assign(Message.prototype, {
       this.args = data.content.replaceAll('<@!', '<@').slice(prefixLength).trim().split(' ');
 
       /**
-       * The first word of the original message content. This is a custom property set in "prototypeRegisterer.js".
+       * The first word of the original message content. `null` if no prefix has been found. This is a custom property set in "prototypeRegisterer.js".
        * @type {?string}
        */
-      this.commandName = this.args.shift().toLowerCase();
+      this.commandName = prefixLength ? this.args.shift().toLowerCase() : null;
     }
     else {
       this.originalContent ??= null;
