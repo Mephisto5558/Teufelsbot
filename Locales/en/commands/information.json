@@ -67,6 +67,7 @@
       "lookAtDesc": "SLASH Command: look at the option descriptions.\n",
       "prefixAlias": "Prefix Command Aliases",
       "slashAlias": "Slash Command Aliases",
+      "aliasOf": "Alias of",
       "botPerms": "Required Bot Permissions",
       "userPerms": "Required User Permissions",
       "cooldowns": "Command Cooldowns",

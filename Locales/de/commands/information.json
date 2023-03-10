@@ -67,6 +67,7 @@
       "lookAtDesc": "SLASH-Befehl: Lies die Beschreibungen der Befehls-Optionen.\n",
       "prefixAlias": "Präfix-Befehl Aliase",
       "slashAlias": "Slash-Befehl Aliase",
+      "aliasOf": "Alias von",
       "botPerms": "Erforderliche Bot Berechtigungen",
       "userPerms": "Erforderliche User Berechtigungen",
       "cooldowns": "Befehls-Abklingzeiten",
