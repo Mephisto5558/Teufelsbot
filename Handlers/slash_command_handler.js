@@ -101,6 +101,6 @@ module.exports = async function slashCommandHandler() {
       if (message?.editable) message.edit(I18nProvider.__({ locale: guild.localeCode }, 'commands.owner-only.restart.success'));
     } catch { }
 
-    this.db.update('botSettings', 'settings.restartingMsg', {});
+    this.db.update('botSettings', 'restartingMsg', {});
   }
 };
