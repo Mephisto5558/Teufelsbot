@@ -7,15 +7,15 @@ let enabledCommandCount = 0, disabledCommandCount = 0;
 
 module.exports = function commandHandler() {
   for (const subFolder of getDirectoriesSync('./Commands')) {
-    for (const command of readdirSync(`./Commands/${subFolder}`)
-      .filter(e => e.endsWith('.js'))
-      .map(e => ({
-        ...(require(`../Commands/${subFolder}/${e}`) || {}),
-        filePath: resolve(`Commands/${subFolder}/${e}`),
-        category: subFolder
-      }))
-      .filter(e => e.prefixCommand)
-    ) {
+    for (const file of readdirSync(`./Commands/${subFolder}`)) {
+      if (!file.endsWith('.js')) continue;
+
+      const command = require(`../Commands/${subFolder}/${file}`);
+      if (!command?.prefixCommand) continue;
+
+      command.filePath = resolve(`Commands/${subFolder}/${file}`);
+      command.category = subFolder;
+
       if (!command.disabled && !command.run?.toString().startsWith('function') && !command.run?.toString().startsWith('async function')) throw new Error(`The run function of file "${command.filePath}" is not a function. You cannot use arrow functions.`);
 
       this.prefixCommands.set(command.name, command);
@@ -35,5 +35,5 @@ module.exports = function commandHandler() {
 
   this.log(`Loaded ${enabledCommandCount} Enabled Prefix Commands`);
   if (!HideDisabledCommandLog) this.log(`Loaded ${disabledCommandCount} Disabled Prefix Commands`);
-  console.log();
+  console.log(); //Empty line
 };
