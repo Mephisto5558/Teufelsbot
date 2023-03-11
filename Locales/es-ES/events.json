@@ -1,7 +1,7 @@
 {
   "cooldown": "¡Este comando está en tiempo de recarga! Inténtalo de nuevo en `{time}`s.",
   "afkMsg": "`{member}` está AFK: {message} - <t:{timestamp}:R>",
-  "afkEnd": "Bienvenido de nuevo, he eliminado tu AFK. Has estado AFK desde <t:{timestamp}>.",
+  "afkEnd": "Bienvenido de nuevo, he eliminado tu AFK. Has estado AFK desde <t:{timestamp}>.\nTu mensaje AFK fue: \"{message}\"",
   "slashCommandOnly": "¡Este comando sólo está disponible como un comando slash!",
   "guildCommandOnly": "¡Este comando sólo está disponible en gremios!",
   "economyDisabled": "Este comando es un comando de categoría de economía. La economía no está habilitada en este gremio. Para empezar a usar la economía, un administrador tiene que ejecutar `/economyconfig admin toggle`.",
