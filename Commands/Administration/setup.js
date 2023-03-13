@@ -150,7 +150,7 @@ module.exports = {
           { category, name } = this.client.slashCommands.get(this.commandName),
           embed = new EmbedBuilder({
             title: newLang(`commands.${category.toLowerCase()}.${name}.language.embedTitle`),
-            description: newLang(`commands.${category.toLowerCase()}.${name}.language.embedDescription`),
+            description: newLang(`commands.${category.toLowerCase()}.${name}.language.embedDescription`, language),
             color: Colors.Green
           });
 
