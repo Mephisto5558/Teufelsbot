@@ -18,12 +18,12 @@
     "added": {
       "embedTitle": "This channel is now a counting channel!",
       "embedDescription": "The rules are simple:\n> Start with **1**.\n> Add **1** to the last number\n> You can't count two numbers in a row\nHave fun!",
-      "by": "Added as counting channel by {user}",
+      "by": "Enabled by {user}",
       "success": "I successfully added <#{channel}> as a counting channel."
     },
     "removed": {
       "embedDescription": "This channel is no longer a counting channel!",
-      "by": "Removed by {user}",
+      "by": "Disabled by {user}",
       "success": "I successfully removed <#{channel}> as a counting channel."
     }
   },

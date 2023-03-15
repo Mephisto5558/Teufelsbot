@@ -18,12 +18,12 @@
     "added": {
       "embedTitle": "Dieser Kanal ist nun ein Counting-Kanal!",
       "embedDescription": "Die Regeln sind simpel:\n> Starte mit **1**.\n> Füge **1** zur letzten Zahl hinzu\n> Du darfst nicht zwei Zahlen hintereinander aufzählen\nViel Spaß!",
-      "by": "Hinzugefügt von {user}",
+      "by": "Aktiviert von {user}",
       "success": "Ich habe erfolgreich <#{channel}> als Counting-Kanal hinzugefügt."
     },
     "removed": {
       "embedDescription": "Dieser Kanal ist kein Counting-Kanal mehr!",
-      "by": "Entfernt von {user}",
+      "by": "Deaktiviert von {user}",
       "success": "Ich habe erfolgreich <#{channel}> als Counting-Kanal entfernt."
     }
   },
