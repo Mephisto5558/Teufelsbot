@@ -68,7 +68,6 @@ module.exports = {
       case 'get': {
         const embed = new EmbedBuilder({
           color: Colors.Blurple,
-          description: lang('getAll.notFound'),
           footer: {
             text: this.user.tag,
             iconURL: this.member.displayAvatarURL()
@@ -90,29 +89,31 @@ module.exports = {
         else {
           embed.data.title = lang('getAll.embedTitle');
 
-          const guildMembers = (await this.guild.members.fetch()).map(e => e.id);
-          const currentTime = new Date().getTime();
+          const
+            guildMembers = (await this.guild.members.fetch()).map(e => e.id),
+            currentTime = new Date().getTime(),
+            data = Object.entries(this.client.db.get('userSettings') || {})
+              .reduce((acc, [k, { birthday } = {}]) => {
+                if (birthday && guildMembers.includes(k)) acc.push([k, ...birthday.split('/')]);
+                return acc;
+              }, [])
+              .sort(([, , month1, day1], [, , month2, day2]) => {
+                const time = [new Date(currentYear, month1 - 1, day1), new Date(currentYear, month2 - 1, day2)];
+                if (time[0] < currentTime) time[0].setFullYear(currentYear + 1, month1 - 1, day1);
+                if (time[1] < currentTime) time[1].setFullYear(currentYear + 1, month2 - 1, day2);
 
-          const data = Object.entries(this.client.db.get('userSettings') || {})
-            .filter(([k, { birthday } = {}]) => guildMembers.includes(k) && birthday)
-            .map(([k, { birthday }]) => [k, ...birthday.split('/')])
-            .sort(([, , month1, day1], [, , month2, day2]) => {
-              const time = [new Date(currentYear, month1 - 1, day1), new Date(currentYear, month2 - 1, day2)];
+                return time[0] - time[1];
+              })
+              .slice(0, 10);
 
-              if (time[0] < currentTime) time[0].setFullYear(currentYear + 1, month1 - 1, day1);
-              if (time[1] < currentTime) time[1].setFullYear(currentYear + 1, month2 - 1, day2);
-
-              return time[0] - time[1];
-            })
-            .slice(0, 10);
-
+          embed.data.description = data.length ? '' : lang('getAll.notFound');
           for (const [id, year, month, day] of data) {
             const
-              date = lang('getAll.date', { month: lang(`months.${month}`), day: parseInt(day) }),
+              date = lang('getAll.date', { month: lang(`months.${month}`), day }),
               age = getAge([year, month, day]) + 1,
               msg = `> <@${id}>${age < currentYear ? ' (' + age + ')' : ''}\n`;
 
-            embed.data.description += embed.data.description?.includes(date) ? msg : `\n${date}${msg}`;
+            embed.data.description += embed.data.description.includes(date) ? msg : `\n${date}${msg}`;
           }
         }
 
