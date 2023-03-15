@@ -6,7 +6,7 @@ module.exports = {
   name: 'advice',
   slashCommand: true,
   prefixCommand: true,
-  dmPermission: true,beta:true,
+  dmPermission: true,
 
   run: async function (lang) {
     const embed = new EmbedBuilder({

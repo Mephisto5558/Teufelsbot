@@ -7,8 +7,8 @@ module.exports = {
   cooldowns: { guild: 100 },
   slashCommand: true,
   prefixCommand: true,
-  dmPermission: true, beta: true,
-
+  dmPermission: true,
+  
   run: async function (lang) {
     const
       data = await fetch(`https://uselessfacts.jsph.pl/api/v2/facts/random?language=${lang.__boundArgs__[0].locale}`).then(e => e.json()),
