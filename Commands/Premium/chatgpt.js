@@ -16,9 +16,9 @@ async function fetchAPI(lang, deep) {
   }).then(e => e.text().then(e => JSON.parse(e.slice(e.indexOf('{')))));
 
   if (!res.error) return res.choices[0].message.content;
-  if (res.error.message.startsWith('Rate limit reached') || res.error.message.startsWith('Too many requests')) return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);
+  if (['Rate limit reached', 'Too many requests', 'That model is currently overloaded'].some(e => res.error.message.startsWith(e))) return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);
 
-  this.client.error('chatgpt command API error:', res);
+  this.client.error('chatgpt command API error:', JSON.stringify(res, null, 2));
   return lang('error');
 }
 
@@ -35,7 +35,7 @@ module.exports = {
     type: 'String',
     maxLength: 2000,
     required: true
-  }],
+  }], beta: true,
 
   run: async function (lang) {
     if (this instanceof Message) this.channel.sendTyping();
