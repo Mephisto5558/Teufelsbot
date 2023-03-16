@@ -13,7 +13,7 @@ async function fetchAPI(lang, deep) {
       user: createHash('sha256').update(this.user.id).digest('hex'),
       messages: [{ role: 'user', content: this.options?.getString('message') || this.content || lang('hello') }]
     })
-  }).then(e => e.text().then(e => JSON.parse(e.startsWith('OpenAI API responded with:') ? e.slice(26) : e)));
+  }).then(e => e.text().then(e => JSON.parse(e.slice(e.indexOf('{')))));
 
   if (!res.error) return res.choices[0].message.content;
   if (res.error.message.startsWith('Rate limit reached') || res.error.message.startsWith('Too many requests')) return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);
