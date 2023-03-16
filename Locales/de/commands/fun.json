@@ -44,6 +44,10 @@
       "Broooo, du Dummy, deine Frage macht keinen Sinn?!"
     ]
   },
+  "advice": {
+    "description": "Erhalte einen hilfreichen Rat.",
+    "embedTitle": "Rat"
+  },
   "afk": {
     "description": "Setzte einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
     "usage": "PREFIX Befehl: afk [Nachricht]",
@@ -195,7 +199,9 @@
     }
   },
   "fact": {
-    "description": "Ein paar interessante Fakten, absolut cool und nützlich, definitiv."
+    "description": "Interessante Fakten",
+    "usage": "PREFIX-Befehl: fact [\"en\"|\"de\"]",
+    "embedTitle": "Fakt"
   },
   "giveaway": {
     "description": "Giveaway-Befehle",
