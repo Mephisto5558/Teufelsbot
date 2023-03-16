@@ -44,6 +44,10 @@
       "Broooooo, you dummy, your question makes no sense?!"
     ]
   },
+  "advice": {
+    "description": "Get a helpful advice.",
+    "embedTitle": "Advice"
+  },
   "afk": {
     "description": "Set an AFK status shown when you are mentioned.",
     "usage": "PREFIX Command: afk [message]",
@@ -195,7 +199,9 @@
     }
   },
   "fact": {
-    "description": "Get some facts, they're really cool and useful, rely on me."
+    "description": "Interesting facts",
+    "usage": "PREFIX Command: fact [\"en\"|\"de\"]",
+    "embedTitle": "Fact"
   },
   "giveaway": {
     "description": "Giveaway commands",
