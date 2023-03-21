@@ -14,7 +14,7 @@ const
     stickers: backup.stickers?.length ?? 0
   }) : null;
 
-function checkLoadPerm(backup) {
+function checkPerm(backup) {
   const creator = backup?.metadata?.[this.guild.db.serverbackup?.allowedToLoad ?? this.client.defaultSettings.serverbackup.allowedToLoad];
   return Array.isArray(creator) ? creator.includes(this.user.id) : creator == this.user.id;
 }
@@ -33,7 +33,7 @@ module.exports = {
         {
           name: 'id',
           type: 'String',
-          autocompleteOptions: function () { return [...this.client.backupSystem.list().filter(checkLoadPerm.bind(this)).keys()]; }
+          autocompleteOptions: function () { return [...this.client.backupSystem.list().filter(checkPerm.bind(this)).keys()]; }
         },
         { name: 'no_clear', type: 'Boolean' }
       ]
@@ -90,7 +90,7 @@ module.exports = {
 
         embed.data.color = Colors.Red;
         if (!this.client.backupSystem.get()) return this.editReply({ embeds: [embed.setDescription(lang('load.noneFound'))] });
-        if (!checkLoadPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('load.backupNoPerm'))] });
+        if (!checkPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('load.backupNoPerm'))] });
 
         const buttons = new ActionRowBuilder({
           components: [
@@ -146,7 +146,7 @@ module.exports = {
       }
 
       case 'delete': {
-        if (this.user.id != this.guild.ownerId) return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.noPerm'))] });
+        if (this.user.id != this.guild.ownerId || !checkPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('delete.noPerm'))] });
 
         this.client.backupSystem.remove(id);
         return this.editReply({ embeds: [embed.setDescription(lang('delete.success'))] });
