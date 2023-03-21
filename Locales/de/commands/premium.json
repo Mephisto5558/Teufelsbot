@@ -9,6 +9,7 @@
     },
     "hello": "Hallo!",
     "rateLimit": "Das Ratelimit wurde erreicht. Bitte versuche es in einigen Sekunden erneut.",
+    "notAvailable": "Die API ist momentan nicht verfügbar. Bitte versuche es später erneut.",
     "error": "Die API hat mit einem Fehler geantwortet."
   },
   "customname": {
