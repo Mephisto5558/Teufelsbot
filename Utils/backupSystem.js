@@ -29,7 +29,7 @@ class BackupSystem {
 
   remove = backupId => this.db.get(this.dbName)[backupId] ? this.db.update(this.dbName, backupId, null) : null;
 
-  /**@param {{}}statusObj the status property gets updated*/
+  /**@param {?object}statusObj the status property gets updated*/
   create = async (guild, {
     statusObj = {}, id = null, save = true, maxGuildBackups = this.defaultSettings.maxGuildBackups,
     backupMembers = false, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
@@ -120,7 +120,9 @@ class BackupSystem {
             guild.client.warn(`BackupSystem: Unhandled Channel type "${ChannelType[child.type] ?? child.type}"!`);
           }))
         }))),
-        others: await Promise.all(guild.channels.cache.filter(e => !e.parent && ![ChannelType.GuildCategory, ...Constants.ThreadChannelTypes].includes(e.type)).sort((a, b) => a.position - b.position)
+        others: await Promise.all(guild.channels.cache
+          .filter(e => !e.parent && ![ChannelType.GuildCategory, ...Constants.ThreadChannelTypes].includes(e.type))
+          .sort((a, b) => a.position - b.position)
           .map(async e => this.utils.fetchTextChannelData(e, saveImages, maxMessagesPerChannel)))
       }
     };
@@ -151,7 +153,7 @@ class BackupSystem {
   load = async (id, guild, { statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel, allowedMentions = [], reason = 'Backup Feature | Load' } = {}) => {
     if (!guild) throw new Error('Invalid guild');
 
-    let data, rulesChannel, publicUpdatesChannel, err;
+    let data, rulesChannel, publicUpdatesChannel;
 
     if (!id) data = this.list(guild.id).sort((a, b) => b - a).first();
     else data = typeof id == 'string' ? this.get(id) : id;
@@ -210,14 +212,14 @@ class BackupSystem {
 
     statusObj.status = 'load.roles';
     for (const { isEveryone, name, color, hoist, permissions, mentionable } of data.roles) {
-      const role = isEveryone ? guild.roles.cache.get(guild.id) : guild.roles.cache.find(e => e.name == name && e.editable);
       const data = { reason, name, color, hoist, mentionable, permissions: BigInt(permissions) };
-      await (role ? role.edit(data) : guild.roles.create(data));
+      await ((isEveryone ? guild.roles.cache.get(guild.id) : guild.roles.cache.find(e => e.name == name && e.editable))?.edit(data) || guild.roles.create(data));
     }
 
     statusObj.status = 'load.members';
     const members = await guild.members.fetch();
-    for (const [member, memberData] of data.members.map(e => [members.get(e.id), e])) {
+    for (const memberData of data.members) {
+      const member = members.get(memberData.id);
       if (!member?.manageable || !memberData.roles.length && !memberData.nickname) continue;
 
       await member.edit({
@@ -243,22 +245,22 @@ class BackupSystem {
     for (const channel of data.channels.others) await this.utils.loadChannel(channel, guild, null, maxMessagesPerChannel, allowedMentions);
 
     statusObj.status = 'load.emojis';
-    while (!err) for (const emoji of data.emojis) {
+    for (const emoji of data.emojis) {
       try { await guild.emojis.create({ name: emoji.name, attachment: emoji.url ?? this.utils.loadFromBase64(emoji.base64), reason }); }
-      catch (eErr) { err = eErr; }
+      catch { break; }
     }
 
     statusObj.status = 'load.stickers';
-    err = false;
-    while (!err) for (const sticker of data.stickers) {
+    for (const sticker of data.stickers) {
       try { await guild.stickers.create({ name: sticker.name, description: sticker.description, tags: sticker.tags, file: sticker.url ?? this.utils.loadFromBase64(sticker.base64), reason }); }
-      catch (eErr) { err = eErr; }
+      catch { break; }
     }
 
     statusObj.status = 'load.bans';
-    for (const ban of data.bans) await guild.members.ban(ban.id, { reason: ban.reason });
+    for (const ban of data.bans)
+      try { await guild.members.ban(ban.id, { reason: ban.reason }); } catch { }
 
-    if (data.widget.channel) (await guild.setWidgetSettings({ enabled: data.widget.enabled, channel: guild.channels.cache.find(e => e.name == data.widget.channel) }, reason));
+    if (data.widget.channel) await guild.setWidgetSettings({ enabled: data.widget.enabled, channel: guild.channels.cache.find(e => e.name == data.widget.channel) }, reason);
 
     if (rulesChannel || publicUpdatesChannel) {
       statusObj.status = 'load.settings';
@@ -296,11 +298,11 @@ class BackupSystem {
       type: channel.type,
       name: channel.name,
       nsfw: channel.nsfw,
+      isNews: channel.type == ChannelType.GuildAnnouncement,
       rateLimitPerUser: channel.type == ChannelType.GuildText ? channel.rateLimitPerUser : undefined,
       topic: channel.topic,
       permissions: await this.utils.fetchChannelPermissions(channel),
       messages: await this.utils.fetchChannelMessages(channel, saveImages, maxMessagesPerChannel).catch(() => { }),
-      isNews: channel.type == ChannelType.GuildAnnouncement,
       threads: await this.utils.fetchChannelThreads(channel, saveImages, maxMessagesPerChannel)
     }),
     fetchChannelThreads: async (channel, saveImages, maxMessagesPerChannel) => ((await channel.threads?.fetch())?.threads || []).map(async e => ({
@@ -361,7 +363,7 @@ class BackupSystem {
       webhook ??= await channel.createWebhook({ name: 'MessagesBackup', avatar: channel.client.user.displayAvatarURL() }).catch(() => { });
       if (!webhook) return;
 
-      for (const msg of messages.filter(m => m.content.length > 0 || m.embeds.length > 0 || m.files.length > 0).reverse().slice(messages.length - maxMessagesPerChannel)) try {
+      for (const msg of messages.filter(m => m.content.length > 0 || m.embeds.length > 0 || m.files.length > 0).reverse().slice(-maxMessagesPerChannel)) try {
         const sentMsg = await webhook.send({
           content: msg.content.length ? msg.content : undefined,
           username: msg.username,
@@ -372,8 +374,8 @@ class BackupSystem {
           threadId: channel.isThread() ? channel.id : undefined
         });
 
-        if (msg.pinned) await sentMsg.pin();
-      } catch (err) { console.error(err); }
+        if (msg.pinned && (await channel.messages.fetchPinned()).size < 50) await sentMsg.pin();
+      } catch (err) { console.error('Backup load error:', err); }
 
       return webhook;
     }
