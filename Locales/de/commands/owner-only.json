@@ -53,6 +53,10 @@
     "set": "Aktivität wurde zu `{name}` vom Typ `{type}` gesetzt.",
     "reset": "Aktivität wurde zu `nichts` gesetzt."
   },
+  "setchangelog": {
+    "description": "Aktualisiert den Changelog, sodass Nutzer auf dem neusten Stand sind.",
+    "success": "Der Changelog wurde erfolgreich aktualisiert."
+  },
   "test": {
     "description": "testet Sachen"
   }
