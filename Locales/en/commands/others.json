@@ -1,9 +1,4 @@
 {
-  "changelog": {
-    "description": "Get the latest changelog.",
-    "embedTitle": "Changelog",
-    "noneFound": "No information has been found."
-  },
   "suggest": {
     "description": "Suggest a feature for the bot on its GitHub.",
     "options": {
