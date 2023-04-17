@@ -60,7 +60,7 @@
     "members": {
       "embedTitle": "Mitglied kicken/bannen",
       "notFound": "Das Mitglied konnte nicht gefunden werden.",
-      "modalTitle": "Grund",
+      "modalTitle": "Begründung",
       "modalTextLabel": "Bitte gib den Grund für den Kick/Bann an."
     }
   }
