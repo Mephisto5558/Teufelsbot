@@ -49,7 +49,8 @@
     "createdAt": "Erstellt",
     "requiresColons": "Benötigt Doppelpunkte",
     "allowedRoles": "Erlaubte Rollen",
-    "download": "Emoji Herunterladen"
+    "download": "Emoji Herunterladen",
+    "delete": "Emoji Löschen"
   },
   "help": {
     "description": "Zeige alle meine Befehle oder erhalte Informationen über einen spezifischen.",
@@ -136,6 +137,7 @@
         "description": "Die Rolle, über welche du mehr wissen möchtest"
       }
     },
+    "notFound": "Die Rolle wurde nicht gefunden. Versuche, die Rollen-ID zu nutzen.",
     "mention": "Erwähnung",
     "members": "Mitglieder",
     "color": "Farbe",
@@ -145,7 +147,8 @@
     "position": "Position",
     "createdAt": "Erstellt",
     "permissions": "Berechtigungen",
-    "admin": "Administrator"
+    "admin": "Administrator",
+    "delete": "Rolle Löschen"
   },
   "serverinfo": {
     "description": "Erhalte Informationen über einen Server",
@@ -241,6 +244,8 @@
     },
     "perms": "Berechtigungen",
     "downloadAvatar": "Avatar Herunterladen",
-    "downloadBanner": "Banner Herunterladen"
+    "downloadBanner": "Banner Herunterladen",
+    "kickMember": "Mitglied Kicken",
+    "banMember": "Mitglied Bannen"
   }
 }

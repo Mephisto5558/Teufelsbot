@@ -49,7 +49,8 @@
     "createdAt": "Created At",
     "requiresColons": "Requires Colons",
     "allowedRoles": "Allowed Roles",
-    "download": "Download Emoji"
+    "download": "Download Emoji",
+    "delete": "Delete Emoji"
   },
   "help": {
     "description": "Show all my commands or search for a specific one",
@@ -136,6 +137,7 @@
         "description": "the role you want to get information about"
       }
     },
+    "notFound": "This role could not be found. Try using its ID.",
     "mention": "Mention",
     "members": "Members",
     "color": "Color",
@@ -145,7 +147,8 @@
     "position": "Position",
     "createdAt": "Created At",
     "permissions": "Permissions",
-    "admin": "Administrator"
+    "admin": "Administrator",
+    "delete":"Delete Role"
   },
   "serverinfo": {
     "description": "Get information about a guild",
@@ -241,6 +244,8 @@
     },
     "perms": "Permissions",
     "downloadAvatar": "Download Avatar",
-    "downloadBanner": "Download Banner"
+    "downloadBanner": "Download Banner",
+    "kickMember": "Kick Member",
+    "banMember": "Ban Member"
   }
 }
