@@ -1,12 +1,13 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle } = require('discord.js'),
   cooldowns = require('./cooldowns.js'),
-  I18nProvider = require('./I18nProvider.js');
+  bankick = require('./bankick.js');
 
+/**@this {import('discord.js').ButtonInteraction}*/
 module.exports = async function buttonPressHandler(lang) {
   const [feature, id, mode, data, ...args] = this.customId.split('.');
   const cooldown = cooldowns.call(this, { name: `buttonPressEvent.${id || Math.floor(Date.now() / 2e5)}` });
-  if (cooldown) return this.reply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.buttonPressOnCooldown', cooldown));
+  if (cooldown) return this.reply(lang('events.buttonPressOnCooldown', cooldown));
 
   switch (feature) {
     case 'selfrole': {
@@ -63,6 +64,55 @@ module.exports = async function buttonPressHandler(lang) {
           return;
         }
       }
+      break;
+    }
+
+    case 'infoCMDs': { //Member perms are not checked here, they should get checked before creating the button.
+      if (data != 'members') await this.deferReply();
+
+      lang.__boundArgs__[0].backupPath = `events.infoCMDs.${data}`;
+      const
+        embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red }),
+        item = await this.guild[data].fetch(id).catch(() => { });
+
+      if (!item) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
+
+      if (mode == 'delete' && (data == 'emojis' || data == 'roles')) {
+        if (!item[data == 'emojis' ? 'deletable' : 'editable']) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
+
+        await item.delete(`${data.slice(0, -1)} delete button in /${data.slice(0, -1)}info, member ${this.user.tag}`);
+
+        return this.editReply({ embeds: [embed.setColor(Colors.Green).setDescription(lang('success'))] });
+      }
+      else if (data == 'members') {
+        const modal = new ModalBuilder({
+          title: lang('modalTitle'),
+          customId: 'infoCMds_punish_reason_modal',
+          components: [new ActionRowBuilder({
+            components: [new TextInputBuilder({
+              label: lang('modalTextLabel'),
+              maxLength: 500,
+              customId: 'infoCMds_punish_reason_modal_text',
+              style: TextInputStyle.Short
+            })]
+          })]
+        });
+
+        this.showModal(modal);
+        const submit = await this.awaitModalSubmit({ time: 30000 }).catch(() => { });
+        if (!submit) return;
+        await submit.deferUpdate();
+
+        this.commandName = mode;
+        this.options = { getMember: () => item, getString: () => submit.fields.getTextInputValue('infoCMds_punish_reason_modal_text'), getNumber: () => 0 };
+        this.editReply = this.followUp;
+        lang.__boundArgs__[0].backupPath = `commands.moderation.${mode}`;
+
+        return bankick.call(this, lang);
+      }
+
+      for (const button of this.message.components[0].components) button.data.disabled = true;
+      try { this.message.edit({ components: this.message.components }); } catch { }
     }
   }
 };

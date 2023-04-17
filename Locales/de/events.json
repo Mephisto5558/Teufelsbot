@@ -43,5 +43,25 @@
     "addSuccess": "Ich habe dir die <@&{role}> Rolle gegeben.",
     "missesRole": "Ich kann dir die <@&{role}> Rolle nicht entfernen, da du sie nicht hast!",
     "removeSuccess": "Ich habe dir die <@&{role}> Rolle entfernt."
+  },
+  "infoCMDs": {
+    "emojis": {
+      "embedTitle": "Emoji Löschen",
+      "notFound": "Das Emoji konnte nicht gefunden werden.",
+      "noPerm": "Ich habe keine Berechtigung, Emojis zu löschen!",
+      "success": "Das Emoji wurde erfolgreich gelöscht."
+    },
+    "roles": {
+      "embedTitle": "Rolle Löschen",
+      "notFound": "Die Rolle konnte nicht gefunden werden.",
+      "noPerm": "Ich habe keine Berechtigung, diese Rolle zu löschen!",
+      "success": "Die Rolle wurde erfolgreich gelöscht."
+    },
+    "members": {
+      "embedTitle": "Mitglied kicken/bannen",
+      "notFound": "Das Mitglied konnte nicht gefunden werden.",
+      "modalTitle": "Grund",
+      "modalTextLabel": "Bitte gib den Grund für den Kick/Bann an."
+    }
   }
 }

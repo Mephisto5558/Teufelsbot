@@ -43,5 +43,25 @@
     "addSuccess": "I gave you the <@&{role}> role.",
     "missesRole": "I can't remove your <@&{role}> role because you don't have it!",
     "removeSuccess": "I removed your <@&{role}> role."
+  },
+  "infoCMDs": {
+    "emojis": {
+      "embedTitle": "Delete Emoji",
+      "notFound": "The emoji could not be found.",
+      "noPerm": "I do not have permission to delete emojis!",
+      "success": "The emoji has been successfully deleted."
+    },
+    "roles": {
+      "embedTitle": "Delete Role",
+      "notFound": "The role could not be found.",
+      "noPerm": "I do not have permission to delete that role!",
+      "success": "The role has been successfully deleted."
+    },
+    "members": {
+      "embedTitle": "Kick/Ban Member",
+      "notFound": "The member could not be found.",
+      "modalTitle": "Reason",
+      "modalTextLabel": "Please specify the reason for kicking/banning the member."
+    }
   }
 }

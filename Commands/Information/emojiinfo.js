@@ -1,5 +1,5 @@
 const
-  { parseEmoji, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { parseEmoji, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 module.exports = {
@@ -46,6 +46,12 @@ module.exports = {
           })
         ]
       });
+
+    if (emoji.guild?.id == this.guild.id && this.member.permissions.has(PermissionFlagsBits.ManageEmojisAndStickers)) component.components.push(new ButtonBuilder({
+      label: lang('delete'),
+      customId: `infoCMDs.${emoji.id}.delete.emojis`,
+      style: ButtonStyle.Danger
+    }));
 
     if (emoji.roles?.cache.size) embed.data.fields.push({ name: lang('allowedRoles'), value: `<@&${emoji.roles.cache.map(e => e.id).join('>, <@&')}>`, inline: false });
 

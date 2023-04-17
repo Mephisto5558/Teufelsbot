@@ -3,7 +3,7 @@ const { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, Component
 function checkTarget(member, lang) {
   if (member.id == this.member.id) return lang('cantPunishSelf');
   if (member.roles?.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id) return lang('global.noPermUser');
-  if (!member.manageable || !member.bannable) return lang('global.noPermBot');
+  if (!member.bannable) return lang('global.noPermBot');
 }
 
 /**@this {import('discord.js').ChatInputCommandInteraction}*/
