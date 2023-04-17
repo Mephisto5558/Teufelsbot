@@ -2,6 +2,7 @@ module.exports = {
   BackupSystem: require('./backupSystem.js'),
   bankick: require('./bankick.js'),
   buttonPressHandler: require('./buttonPressHandler.js'),
+  checkTargetBanPerm: require('./checkTargetBanPerm.js'),
   Converter: require('./converter.js'),
   cooldowns: require('./cooldowns.js'),
   customReply: require('./customReply.js'),

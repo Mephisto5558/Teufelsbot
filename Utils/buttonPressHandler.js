@@ -1,7 +1,8 @@
 const
-  { EmbedBuilder, Colors, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle } = require('discord.js'),
+  { EmbedBuilder, Colors, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, PermissionFlagsBits } = require('discord.js'),
   cooldowns = require('./cooldowns.js'),
-  bankick = require('./bankick.js');
+  bankick = require('./bankick.js'),
+  checkTarget = require('./checkTargetBanPerm.js');
 
 /**@this {import('discord.js').ButtonInteraction}*/
 module.exports = async function buttonPressHandler(lang) {
@@ -67,7 +68,7 @@ module.exports = async function buttonPressHandler(lang) {
       break;
     }
 
-    case 'infoCMDs': { //Member perms are not checked here, they should get checked before creating the button.
+    case 'infoCMDs': {
       if (data != 'members') await this.deferReply();
 
       lang.__boundArgs__[0].backupPath = `events.infoCMDs.${data}`;
@@ -78,6 +79,8 @@ module.exports = async function buttonPressHandler(lang) {
       if (!item) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
 
       if (mode == 'delete' && (data == 'emojis' || data == 'roles')) {
+        if (!this.member.permissions.has(PermissionFlagsBits[data == 'emojis' ? 'ManageEmojisAndStickers' : 'ManageRoles']) || (data == 'roles' ? (item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId) : false)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+
         if (!item[data == 'emojis' ? 'deletable' : 'editable']) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
 
         await item.delete(`${data.slice(0, -1)} delete button in /${data.slice(0, -1)}info, member ${this.user.tag}`);
@@ -85,6 +88,10 @@ module.exports = async function buttonPressHandler(lang) {
         return this.editReply({ embeds: [embed.setColor(Colors.Green).setDescription(lang('success'))] });
       }
       else if (data == 'members') {
+        if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']) || this) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+        const err = checkTarget.call(this, item, lang);
+        if (err) return this.editReply({ embeds: [embed.setDescription(lang(err))] });
+
         const modal = new ModalBuilder({
           title: lang('modalTitle'),
           customId: 'infoCMds_punish_reason_modal',
