@@ -219,7 +219,7 @@
             "description": "In welchem Kanal soll das Giveaway stattfinden?"
           },
           "duration": {
-            "description": "Wie lang soll das Giveaway dauern: z. B. 1w3d2h5min"
+            "description": "Wie lang soll das Giveaway dauern: z. B. 1w3d2h5min"
           },
           "winner_count": {
             "description": "Wie viele Gewinner gibt es?"
