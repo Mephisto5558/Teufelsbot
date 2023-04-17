@@ -10,14 +10,14 @@
     "node": ">=16.9.0"
   },
   "dependencies": {
-    "@discordjs/voice": "^0.15.0",
+    "@discordjs/voice": "^0.16.0",
     "@discordjs/opus": "^0.9.0",
     "better-ms": "^1.1.7",
     "canvas": "^2.11.0",
     "cron": "^2.1.0",
     "discord-giveaways": "^6.0.1",
     "discord-tictactoe": "^4.0.0",
-    "discord.js": "^14.7.1",
+    "discord.js": "^14.9.0",
     "express": "^4.18.2",
     "express-rate-limit": "^6.7.0",
     "fast-average-color-node": "^2.6.0",
@@ -26,7 +26,7 @@
     "mongodb": "^5.0.0",
     "mongoose": "^7.0.0",
     "node-gyp": "^9.3.1",
-    "sharp": "^0.31.3",
+    "sharp": "^0.32.0",
     "sodium": "^3.0.2",
     "wikijs": "^6.4.0"
   },
