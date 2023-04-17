@@ -76,7 +76,7 @@ module.exports = async function buttonPressHandler(lang) {
         embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red }),
         item = await this.guild[data].fetch(id).catch(() => { });
 
-      if (!item) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
+      if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], ephemeral: true });
 
       if (mode == 'delete' && (data == 'emojis' || data == 'roles')) {
         if (!this.member.permissions.has(PermissionFlagsBits[data == 'emojis' ? 'ManageEmojisAndStickers' : 'ManageRoles']) || (data == 'roles' ? (item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId) : false)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
@@ -85,12 +85,12 @@ module.exports = async function buttonPressHandler(lang) {
 
         await item.delete(`${data.slice(0, -1)} delete button in /${data.slice(0, -1)}info, member ${this.user.tag}`);
 
-        return this.editReply({ embeds: [embed.setColor(Colors.Green).setDescription(lang('success'))] });
+        this.editReply({ embeds: [embed.setColor(Colors.Green).setDescription(lang('success'))] });
       }
       else if (data == 'members') {
-        if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers'])) return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+        if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers'])) return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], ephemeral: true });
         const err = checkTarget.call(this, item, lang);
-        if (err) return this.reply({ embeds: [embed.setDescription(lang(err))] });
+        if (err) return this.reply({ embeds: [embed.setDescription(lang(err))], ephemeral: true });
 
         const modal = new ModalBuilder({
           title: lang('modalTitle'),
@@ -115,7 +115,7 @@ module.exports = async function buttonPressHandler(lang) {
         this.editReply = this.followUp;
         lang.__boundArgs__[0].backupPath = `commands.moderation.${mode}`;
 
-        return bankick.call(this, lang);
+        bankick.call(this, lang);
       }
 
       for (const button of this.message.components[0].components) button.data.disabled = true;
