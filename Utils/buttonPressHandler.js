@@ -88,9 +88,9 @@ module.exports = async function buttonPressHandler(lang) {
         return this.editReply({ embeds: [embed.setColor(Colors.Green).setDescription(lang('success'))] });
       }
       else if (data == 'members') {
-        if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']) || this) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+        if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']) || this) return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
         const err = checkTarget.call(this, item, lang);
-        if (err) return this.editReply({ embeds: [embed.setDescription(lang(err))] });
+        if (err) return this.reply({ embeds: [embed.setDescription(lang(err))] });
 
         const modal = new ModalBuilder({
           title: lang('modalTitle'),
