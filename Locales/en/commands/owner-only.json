@@ -53,10 +53,6 @@
     "set": "Activity set to `{name}` of type `{type}`.",
     "reset": "Activity set to `none`."
   },
-  "setchangelog": {
-    "description": "Updates the changelogs so users are up-to-date",
-    "success": "The changelog has been updated successfully."
-  },
   "test": {
     "description": "testing stuff"
   }
