@@ -13,48 +13,51 @@ module.exports = async function buttonPressHandler(lang) {
   switch (feature) {
     case 'selfrole': {
       await this.deferReply({ ephemeral: true });
-      const successEmbed = new EmbedBuilder({ title: lang('events.selfrole.embedTitle'), color: Colors.Green });
-      const errorEmbed = new EmbedBuilder({ title: lang('events.selfrole.embedTitle'), color: Colors.Red });
+
+      lang.__boundArgs__[0].backupPath = 'events.selfrole';
+
+      const successEmbed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Green });
+      const errorEmbed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
 
       let role;
       try { role = await this.guild.roles.fetch(data); }
-      catch { return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.roleNotFound'))] }); }
+      catch { return this.editReply({ embeds: [errorEmbed.setDescription(lang('roleNotFound'))] }); }
 
-      if (!this.member.manageable) return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.noPermMember'))] });
-      if (role.comparePositionTo(this.guild.members.me.roles.highest) > -1) return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.noPermRole', role.id))] });
+      if (!this.member.manageable) return this.editReply({ embeds: [errorEmbed.setDescription(lang('noPermMember'))] });
+      if (role.comparePositionTo(this.guild.members.me.roles.highest) > -1) return this.editReply({ embeds: [errorEmbed.setDescription(lang('noPermRole', role.id))] });
 
       let count = parseInt(this.component.label.match(/(\d*)\]$/)?.[1])?.limit({ min: 0 }) || 0;
 
       switch (mode) {
         case 'add': {
-          if (this.member.roles.cache.has(role.id)) return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.hasRoleAlready', role.id))] });
+          if (this.member.roles.cache.has(role.id)) return this.editReply({ embeds: [errorEmbed.setDescription(lang('hasRoleAlready', role.id))] });
           await this.member.roles.add(role);
           if (args.includes('count') && this.component.label) {
             this.component.data.label = this.component.label.replace(/\d*\]$/, `${count + 1}]`);
             this.message.edit({ components: this.message.components });
           }
-          return this.editReply({ embeds: [successEmbed.setDescription(lang('events.selfrole.addSuccess', role.id))] });
+          return this.editReply({ embeds: [successEmbed.setDescription(lang('addSuccess', role.id))] });
         }
 
         case 'remove': {
-          if (!this.member.roles.cache.has(role.id)) return this.editReply({ embeds: [errorEmbed.setDescription(lang('events.selfrole.missesRole', role.id))] });
+          if (!this.member.roles.cache.has(role.id)) return this.editReply({ embeds: [errorEmbed.setDescription(lang('missesRole', role.id))] });
           await this.member.roles.remove(role);
           if (args.includes('count') && this.component.label) {
             this.component.data.label = this.component.label.replace(/\d*\]$/, `${count - 1}]`).limit({ min: 0 });
             this.message.edit({ components: this.message.components });
           }
-          return this.editReply({ embeds: [successEmbed.setDescription(lang('events.selfrole.removeSuccess', role.id))] });
+          return this.editReply({ embeds: [successEmbed.setDescription(lang('removeSuccess', role.id))] });
         }
 
         case 'toggle': {
           if (this.member.roles.cache.has(role.id)) {
             await this.member.roles.remove(role);
-            this.editReply({ embeds: [successEmbed.setDescription(lang('events.selfrole.removeSuccess', role.id))] });
+            this.editReply({ embeds: [successEmbed.setDescription(lang('removeSuccess', role.id))] });
             count--;
           }
           else {
             await this.member.roles.add(role);
-            this.editReply({ embeds: [successEmbed.setDescription(lang('events.selfrole.addSuccess', role.id))] });
+            this.editReply({ embeds: [successEmbed.setDescription(lang('addSuccess', role.id))] });
             count++;
           }
 
