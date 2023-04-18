@@ -31,6 +31,7 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
   premium: true,
+  disabled: true,//API has been disabled by owner
   options: [{
     name: 'message',
     type: 'String',
