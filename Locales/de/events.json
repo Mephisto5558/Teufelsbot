@@ -6,6 +6,7 @@
   "guildCommandOnly": "Dieser Befehl ist nur auf Servern verfügbar!",
   "economyDisabled": "Dieser Befehl ist ein Economy-Befehl. Die Economy ist auf diesem Server nicht aktiviert. Um die Economy zu aktivieren, muss ein Admin `/economyconfig admin toggle` ausführen.",
   "economyNotInitialized": "Dieser Befehl ist ein Economy-Befehl. Um die Economy zu starten, führe `/economyconfig user start` aus.",
+  "commandDisabled": "Dieser Befehl wurde vom Bot-Developer deaktiviert.",
   "buttonPressOnCooldown": "Dieser Button ist im Cooldown! Versuche es erneut in `{time}`s.",
   "strictAutocompleteNoMatch": "Deine Eingabe muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe aus.",
   "permissionDenied": {
