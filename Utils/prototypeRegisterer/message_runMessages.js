@@ -29,13 +29,17 @@ module.exports = function runMessages() {
     }
   }
 
-  const { createdAt, message } = (afkMessages[this.user.id]?.message ? afkMessages[this.user.id] : this.user.db.afkMessage) ?? {};
-  if (message && !this.originalContent.toLowerCase().includes('--afkignore')) {
-    this.client.db.update('userSettings', `${this.user.id}.afkMessage`, {});
-    this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`, {});
+  if (!this.originalContent.toLowerCase().includes('--afkignore')) {
     if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.substring(6));
-    this.customReply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.afkEnd', { timestamp: createdAt, message }));
+
+    const { createdAt, message } = (afkMessages[this.user.id]?.message ? afkMessages[this.user.id] : this.user.db.afkMessage) ?? {};
+    if (message) {
+      this.client.db.update('userSettings', `${this.user.id}.afkMessage`, {});
+      this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`, {});
+      this.customReply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.afkEnd', { timestamp: createdAt, message }));
+    }
   }
+
 
   if (cooldowns.call(this, { name: 'afkMsg', cooldowns: { user: 10000 } })) return this;
 
