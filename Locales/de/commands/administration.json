@@ -1,9 +1,4 @@
 {
-  "autopublish": {
-    "description": "Veröffentlicht automatisch alles, was jemand in einem Ankündigungskanal sagt.",
-    "usage": "Dieser Befehl veröffentlicht automatisch alle Nachrichten, die in Ankündigungskanälen gesendet werden.\nDies ist ein Toggle.",
-    "success": "Autopublish wurde {toggle}."
-  },
   "serverbackup": {
     "description": "Verwalte deine Server-Backups.",
     "options": {
@@ -17,7 +12,7 @@
             "description": "Die Backup-ID, die du laden möchtest. Verwende den Unterbefehl \"get\", um die Liste anzuzeigen."
           },
           "no_clear": {
-            "description": "Wenn auf true, cleart den Server nicht, überschreibt nur bestehende Daten (z. B. bleiben Kanäle)."
+            "description": "Wenn auf true, cleart den Server nicht, überschreibt nur bestehende Daten (z. B. bleiben Kanäle)."
           }
         }
       },
@@ -263,6 +258,14 @@
             }
           }
         }
+      },
+      "autopublish": {
+        "description": "Veröffentliche automatisch alles, was jemand in einem Ankündigungskanal sagt.",
+        "options": {
+          "enabled": {
+            "description": "Veröffentliche automatisch alles, was jemand in einem Ankündigungskanal sagt."
+          }
+        }
       }
     },
     "toggledModule": "Das `{name}` Modul wurde {state}.",
@@ -292,6 +295,9 @@
     },
     "serverbackup": {
       "success": "Die Einstellungen wurden erfolgreich aktualisiert!"
+    },
+    "autopublish": {
+      "success": "Autopublish wurde {toggle}."
     }
   }
 }
