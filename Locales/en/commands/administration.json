@@ -1,9 +1,4 @@
 {
-  "autopublish": {
-    "description": "automatically publishes everything anyone in any announcement channel says",
-    "usage": "This command publishes all messages sent in announcement channels automatically.\nThis is a toggle.",
-    "success": "{toggle} autopublishing."
-  },
   "serverbackup": {
     "description": "Manage your server backups.",
     "options": {
@@ -263,6 +258,14 @@
             }
           }
         }
+      },
+      "autopublish": {
+        "description": "automatically publish everything anyone in any announcement channel says.",
+        "options": {
+          "enabled": {
+            "description": "automatically publish everything anyone in any announcement channel says."
+          }
+        }
       }
     },
     "toggledModule": "The `{name}` module has been {state}.",
@@ -292,6 +295,9 @@
     },
     "serverbackup": {
       "success": "Successfully updated the settings!"
+    },
+    "autopublish": {
+      "success": "{toggle} autopublishing."
     }
   }
 }

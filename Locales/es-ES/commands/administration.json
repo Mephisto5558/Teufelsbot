@@ -1,9 +1,4 @@
 {
-  "autopublish": {
-    "description": "publica automáticamente todo lo que cualquier persona en cualquier canal de anuncio dice",
-    "usage": "Este comando publica automáticamente todos los mensajes enviados en los canales de anuncios.\nEsto es un alternador.",
-    "success": "{toggle} autopublicando."
-  },
   "serverbackup": {
     "description": "Administre las copias de seguridad de su servidor.",
     "options": {
@@ -263,6 +258,14 @@
             }
           }
         }
+      },
+      "autopublish": {
+        "description": "publica automáticamente todo lo que cualquier persona en cualquier canal de anuncio dice",
+        "options": {
+          "enabled": {
+            "description": "publica automáticamente todo lo que cualquier persona en cualquier canal de anuncio dice"
+          }
+        }
       }
     },
     "toggledModule": "El módulo `{name}` ha sido {state}.",
@@ -292,6 +295,9 @@
     },
     "serverbackup": {
       "success": "¡Actualización exitosa de la configuración!"
+    },
+    "autopublish": {
+      "success": "{toggle} autopublicando."
     }
   }
 }
