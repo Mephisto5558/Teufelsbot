@@ -59,8 +59,10 @@ module.exports = async function interactionCreate() {
   if (command.requireEconomy && (!this.guild.db.economy?.enable || !this.guild.db.economy?.[this.user.id]?.gaining?.chat))
     return this.reply({ embeds: [errorEmbed.setDescription(lang(this.guild.db.economy.enable ? 'events.economyNotInitialized' : 'events.economyDisabled'))], ephemeral: true });
 
-  const cooldown = cooldowns.call(this, command);
-  if (cooldown) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.cooldown', cooldown))], ephemeral: true });
+  if (this.client.botType != 'dev') {
+    const cooldown = cooldowns.call(this, command);
+    if (cooldown) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.cooldown', cooldown))], ephemeral: true });
+  }
 
   if (this.type == InteractionType.ApplicationCommand) {
     const userPermsMissing = this.member.permissionsIn(this.channel).missing(command.permissions?.user);

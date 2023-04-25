@@ -46,6 +46,7 @@ module.exports = {
     {
       name: 'language',
       type: 'Subcommand',
+      cooldowns: { guild: 10000 },
       options: [{
         name: 'language',
         type: 'String',
@@ -62,6 +63,15 @@ module.exports = {
         type: 'String',
         autocompleteOptions: [...backup.keys()],
         strictAutocomplete: true,
+        required: true
+      }]
+    },
+    {
+      name: 'autopublish',
+      type: 'Subcommand',
+      options: [{
+        name: 'enabled',
+        type: 'Boolean',
         required: true
       }]
     }
@@ -160,6 +170,11 @@ module.exports = {
       case 'serverbackup': {
         this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', parseInt(backup.get(this.options.getString('allowed_to_load'))));
         return this.editReply(lang('serverbackup.success'));
+      }
+      case 'autopublish': {
+        const enabled = this.options.getBoolean('enabled');
+        this.client.db.update('guildSettings', `${this.guild.id}.config.autopublish`, enabled);
+        return this.customReply(lang('autopublish.success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
       }
     }
   }

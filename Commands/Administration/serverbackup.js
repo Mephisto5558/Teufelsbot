@@ -25,10 +25,15 @@ module.exports = {
   prefixCommand: false,
   slashCommand: true, disabled: true,
   options: [
-    { name: 'create', type: 'Subcommand' },
+    {
+      name: 'create',
+      type: 'Subcommand',
+      cooldowns: { guild: 1800000 } //30min
+    },
     {
       name: 'load',
       type: 'Subcommand',
+      cooldowns: { guild: 300000 }, //5min
       options: [
         {
           name: 'id',
