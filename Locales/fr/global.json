@@ -1,7 +1,7 @@
 {
   "languageName": "Français",
   "messageSent": "Message envoyé !",
-  "loading": "Chargement en cours...",
+  "loading": "<a:loading:1063091916683612160> Chargement en cours...",
   "guild": "Guilde",
   "user": "Utilisateur",
   "cancel": "Abandonner",
