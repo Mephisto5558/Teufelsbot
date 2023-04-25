@@ -5,7 +5,6 @@ module.exports = {
   checkTargetBanPerm: require('./checkTargetBanPerm.js'),
   Converter: require('./converter.js'),
   cooldowns: require('./cooldowns.js'),
-  customReply: require('./customReply.js'),
   DB: require('./db.js'),
   errorHandler: require('./error_handler.js'),
   findAllEntries: require('./findAllEntries.js'),
