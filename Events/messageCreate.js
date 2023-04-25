@@ -35,8 +35,10 @@ module.exports = async function messageCreate() {
   if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.channel'))] }, 1e4);
   if (disabledList.roles && this.member.roles?.cache.some(e => disabledList.roles.includes(e.id))) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.role'))] }, 1e4);
 
-  const cooldown = cooldowns.call(this, command);
-  if (cooldown && this.client.botType != 'dev') return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.cooldown', cooldown))] }, 1e4);
+  if (this.client.botType != 'dev') {
+    const cooldown = cooldowns.call(this, command);
+    if (cooldown) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.cooldown', cooldown))] }, 1e4);
+  }
   if (command.requireEconomy && (!economy?.enable || !economy[this.user.id]?.gaining?.chat))
     return this.customReply({ embeds: [errorEmbed.setDescription(lang(economy?.enable ? 'events.economyNotInitialized' : 'events.economyDisabled'), 3e4)] });
 

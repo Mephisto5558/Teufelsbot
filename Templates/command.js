@@ -23,3 +23,11 @@ module.exports = {
 
   }
 };
+
+//subcommand groups and subcommands can have cooldowns as well (subcommand group, subcommand and normal command cooldown are checked)
+const options = [{
+  name: '',
+  type: 'Subcommand',
+  cooldowns: { guild: 0, user: 0 },
+  options: []
+}];
