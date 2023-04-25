@@ -1,9 +1,4 @@
 {
-  "autopublish": {
-    "description": "pubblica automaticamente tutto ciò che chiunque in qualsiasi canale di annuncio dice",
-    "usage": "Questo comando pubblica automaticamente tutti i messaggi inviati nei canali di annuncio.\nQuesto è un interruttore.",
-    "success": "{toggle} autopublish."
-  },
   "serverbackup": {
     "description": "Gestisci i backup del server.",
     "options": {
@@ -263,6 +258,14 @@
             }
           }
         }
+      },
+      "autopublish": {
+        "description": "pubblica automaticamente tutto ciò che chiunque in qualsiasi canale di annuncio dice",
+        "options": {
+          "enabled": {
+            "description": "pubblica automaticamente tutto ciò che chiunque in qualsiasi canale di annuncio dice"
+          }
+        }
       }
     },
     "toggledModule": "Il modulo `{name}` è stato {state}.",
@@ -292,6 +295,9 @@
     },
     "serverbackup": {
       "success": "Impostazioni aggiornate con successo!"
+    },
+    "autopublish": {
+      "success": "{toggle} autopublish."
     }
   }
 }
