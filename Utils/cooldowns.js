@@ -1,6 +1,26 @@
+const { ApplicationCommandOptionType, ChatInputCommandInteraction } = require('discord.js');
+
+/**@this {import('discord.js').ChatInputCommandInteraction} Command @returns {number} current cooldown in seconds*/
+function subCommandCooldowns(name) {
+  const depth = name.split('.').length - 1;
+  if (depth >= 2 || !(this instanceof ChatInputCommandInteraction)) return 0;
+
+  const
+    group = this.options.getSubcommandGroup(false),
+    groupObj = group ? this.client.slashCommands.get(this.commandName)?.options?.find(e => e.name == group && e.type == ApplicationCommandOptionType.SubcommandGroup) : null;
+
+  if (!depth) return cooldown.call(this, { name: `${name}.${group}`, cooldowns: groupObj.cooldowns });
+
+  const subCmd = this.options.getSubcommand(false);
+  if (subCmd) {
+    const subCmdCooldowns = subCmd ? (group ?? this)?.options?.find(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand)?.cooldowns : null;
+    if (subCmdCooldowns) return cooldown.call(this, { name: group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns: subCmdCooldowns });
+  }
+}
+
 /**@this {import('discord.js').Message} Message @returns {number} current cooldown in seconds*/
-module.exports = function cooldown({ name, cooldowns: { guild = 0, user = 0 } = {} }) {
-  if (!guild && !user) return 0;
+function cooldown({ name, cooldowns: { guild = 0, user = 0 } = {} }) {
+  if (!guild && !user) return subCommandCooldowns.call(this, name);
 
   const
     now = Date.now(),
@@ -19,5 +39,7 @@ module.exports = function cooldown({ name, cooldowns: { guild = 0, user = 0 } = 
     else userTimestamps.set(this.user.id, now + user);
   }
 
-  return cooldown;
-};
+  return cooldown || subCommandCooldowns.call(this, name);
+}
+
+module.exports = cooldown;
