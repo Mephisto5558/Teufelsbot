@@ -22,22 +22,25 @@ global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).r
 
 Array.prototype.random = function random() { return this[randomInt(this.length)]; };
 Number.prototype.limit = function limit({ min = -Infinity, max = Infinity } = {}) { return Math.min(Math.max(Number(this), min), max); };
-Object.prototype.fMerge = function fMerge(obj, mode, { ...output } = { ...this }) {
-  if (`${{}}` != this || `${{}}` != obj) return output;
-  for (const key of Object.keys({ ...this, ...obj })) {
-    if (`${{}}` == this[key]) output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];
-    else if (Array.isArray(this[key])) {
-      if (key in obj) {
-        if (mode == 'overwrite') output[key] = obj[key];
-        else if (mode == 'push') for (const e of obj[key]) output[key].push(e);
-        else for (let i = 0; i < this[key].length || i < obj[key].length; i++) output[key][i] = i in obj[key] ? obj[key][i] : this[key][i];
+Object.defineProperty(Object.prototype, 'fMerge', {
+  value: function fMerge(obj, mode, { ...output } = { ...this }) {
+    if (`${{}}` != this || `${{}}` != obj) return output;
+    for (const key of Object.keys({ ...this, ...obj })) {
+      if (`${{}}` == this[key]) output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];
+      else if (Array.isArray(this[key])) {
+        if (key in obj) {
+          if (mode == 'overwrite') output[key] = obj[key];
+          else if (mode == 'push') for (const e of obj[key]) output[key].push(e);
+          else for (let i = 0; i < this[key].length || i < obj[key].length; i++) output[key][i] = i in obj[key] ? obj[key][i] : this[key][i];
+        }
+        else output[key] = this[key];
       }
-      else output[key] = this[key];
+      else output = { ...output, [key]: key in obj ? obj[key] : this[key] };
     }
-    else output = { ...output, [key]: key in obj ? obj[key] : this[key] };
-  }
-  return output;
-};
+    return output;
+  },
+  enumerable: false
+});
 Object.prototype.filterEmpty = function filterEmpty() { return Object.fromEntries(Object.entries(this).filter(([, v]) => !(v == null || (Object(v) === v && Object.keys(v).length == 0))).map(([k, v]) => [k, v instanceof Object ? v.filterEmpty() : v])); };
 Function.prototype.bBind = function bBind(thisArg, ...args) {
   const bound = this.bind(thisArg, ...args);
