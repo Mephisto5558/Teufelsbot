@@ -5,11 +5,13 @@ function subCommandCooldowns(name) {
   const depth = name.split('.').length - 1;
   if (depth >= 2 || !(this instanceof ChatInputCommandInteraction)) return 0;
 
-  const
-    group = this.options.getSubcommandGroup(false),
-    groupObj = group ? this.client.slashCommands.get(this.commandName)?.options?.find(e => e.name == group && e.type == ApplicationCommandOptionType.SubcommandGroup) : null;
+  let groupObj;
+  const group = this.options.getSubcommandGroup(false);
+  if (group) {
+    groupObj = this.client.slashCommands.get(this.commandName)?.options?.find(e => e.name == group && e.type == ApplicationCommandOptionType.SubcommandGroup);
 
-  if (!depth) return cooldown.call(this, { name: `${name}.${group}`, cooldowns: groupObj.cooldowns });
+    if (!depth) return cooldown.call(this, { name: `${name}.${group}`, cooldowns: groupObj?.cooldowns });
+  }
 
   const subCmd = this.options.getSubcommand(false);
   if (subCmd) {
