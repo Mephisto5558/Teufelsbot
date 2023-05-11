@@ -15,7 +15,7 @@ function subCommandCooldowns(name) {
 
   const subCmd = this.options.getSubcommand(false);
   if (subCmd) {
-    const subCmdCooldowns = subCmd ? (group ?? this)?.options?.find(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand)?.cooldowns : null;
+    const subCmdCooldowns = (group ?? this)?.options?.find?.(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand)?.cooldowns;
     if (subCmdCooldowns) return cooldown.call(this, { name: group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns: subCmdCooldowns });
   }
 }
