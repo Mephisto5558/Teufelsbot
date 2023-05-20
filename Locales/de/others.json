@@ -39,7 +39,9 @@
     "UseExternalStickers": "Externe Sticker verwenden",
     "SendMessagesInThreads": "Nachrichten in Threads und Posts senden",
     "UseEmbeddedActivities": "Aktivitäten nutzen",
-    "ModerateMembers": "Mitglieder moderieren"
+    "ModerateMembers": "Mitglieder moderieren",
+    "UseExternalSounds": "Externe Sounds verwenden",
+    "SendVoiceMessages": "Sprachnachrichten senden"
   },
   "ChannelTypes": {
     "plural": {
