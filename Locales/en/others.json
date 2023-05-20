@@ -39,7 +39,10 @@
     "UseExternalStickers": "Use External Stickers",
     "SendMessagesInThreads": "Send Messages in Threads and Posts",
     "UseEmbeddedActivities": "Use Activities",
-    "ModerateMembers": "Moderate Members"
+    "ModerateMembers": "Moderate Members",
+    "ViewCreatorMonetizationAnalytics": "View Creator Monetization Analytics",
+    "UseExternalSounds": "Use External Sounds",
+    "SendVoiceMessages": "Send Voice Messages"
   },
   "ChannelTypes": {
     "plural": {
