@@ -4,12 +4,14 @@ const
   https = require('https'),
   url = require('url');
 
+/**@param {string}urlStr @returns {Promise<boolean|Error|string>}*/
 function checkUrl(urlStr) {
   return new Promise((resolve, reject) => {
-    const { protocol, host, path } = url.parse(urlStr);
+    const options = url.parse(urlStr);
+    const req = (options.protocol == 'https:' ? https : http).request({ ...options, method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode >= 200 && res.statusCode < 400 ? true : false));
 
-    (protocol == 'https:' ? https : http)
-      .request({ host, path, method: 'HEAD' }, res => resolve(res.statusCode >= 200 && res.statusCode < 400 ? true : false))
+    req
+      .on('timeout', () => req.destroy({ name: 'AbortError', message: 'Request timed out' }))
       .on('error', err => reject(err))
       .end();
   });
@@ -52,9 +54,10 @@ module.exports = {
     if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
     else if (!/^(https?:\/\/)?(www\.)?.*\.(jpg|jpeg|png|webp|svg|gif)(\?.*)?$/i.test(input)) return this.editReply({ embeds: [embed.setDescription(lang('invalidUrl'))] });
     if (!input.startsWith('http')) input = `https://${input}`;
-    if (!(await checkUrl(input))) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
 
     try {
+      if (!(await checkUrl(input))) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
+
       const emoji = await this.guild.emojis.create({
         attachment: input, name,
         reason: `addemoji command, member ${this.user.tag}`,
@@ -62,10 +65,11 @@ module.exports = {
       });
 
       embed.data.description = lang('success', { name: emoji.name, emoji });
-      if (limitToRoles?.length) embed.data.description += lang('limitedToRoles', limitToRoles.join('>, <@&'));
+      if (limitToRoles?.length) embed.data.description += lang('limitedToRoles', `<@&${limitToRoles.join('>, <@&')}>`);
     }
     catch (err) {
-      if (err.name != 'DiscordAPIError[30008]') throw err;
+      // TODO: Prevent DiscordAPIError[50035]: "Invalid Form Body image[BINARY_TYPE_MAX_SIZE]: File cannot be larger than 2048.0 kb."
+      if (!['DiscordAPIError[30008]', 'DiscordAPIError[50035]', 'AbortError'].includes(err.name)) throw err;
       embed.data.description = lang('error', err.name == 'AbortError' ? lang('timedOut') : err.message);
     }
 
