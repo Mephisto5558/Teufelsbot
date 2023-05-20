@@ -4,7 +4,7 @@ const
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('crypto'),
   { appendFileSync, readdirSync, existsSync, mkdirSync } = require('fs'),
-  { customReply, runMessages, runEco, _patch, playAgain } = require('./prototypeRegisterer/'),
+  { customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
   findAllEntries = require('./findAllEntries.js'),
   date = new Date().toLocaleDateString('en').replaceAll('/', '-'),
   getTime = () => new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false }).replace(/^24:/, '00:'),
@@ -13,7 +13,7 @@ const
 if (!existsSync('./Logs')) mkdirSync('./Logs');
 if (!require('../config.json')?.HideOverwriteWarning) console.warn(`Overwriting the following variables and functions (if they exist):
   Vanilla:    global.getDirectoriesSync, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
-  Discord.js: CommandInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Message#runEco, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
+  Discord.js: CommandInteraction#customReply, Message#user, Message#customReply, Message#runMessages, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
   \nModifying Discord.js Message._patch method.`
 );
 
@@ -86,7 +86,7 @@ Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
   set(val) { this.options.data.find(e => e.focused).value = val; }
 });
 Object.defineProperty(Message.prototype, 'user', { get() { return this.author; } });
-Object.assign(Message.prototype, { customReply, runMessages, runEco, _patch });
+Object.assign(Message.prototype, { customReply, runMessages, _patch });
 Object.defineProperties(User.prototype, {
   db: {
     get() { return this.client.db?.get('userSettings')?.[this.id] ?? {}; },
