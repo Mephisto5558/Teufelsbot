@@ -15,7 +15,7 @@ module.exports = async function messageCreate() {
   }
 
   if (this.user.bot) return;
-  if (!this.commandName) return this.guild ? this.runMessages().runEco() : null;
+  if (!this.commandName) return this.guild ? this.runMessages() : null;
 
   const
     { config = {}, economy = {}, commandSettings = {} } = this.guild?.db ?? {},
