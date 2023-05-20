@@ -24,7 +24,7 @@ module.exports = {
 
     if (query) {
       let cmd = this.client.prefixCommands.get(query) || this.client.slashCommands.get(query);
-      if (cmd.aliasOf) cmd = this.client.prefixCommands.get(cmd.aliasOf) || this.client.slashCommands.get(cmd.aliasOf);
+      if (cmd?.aliasOf) cmd = this.client.prefixCommands.get(cmd.aliasOf) || this.client.slashCommands.get(cmd.aliasOf);
 
       if (!cmd?.name || cmd.hideInHelp || cmd.disabled || (ownerOnlyFolders.includes(cmd.category.toUpperCase()) && this.user.id != this.client.application.owner.id)) {
         embed.data.description = lang('one.notFound', query);
