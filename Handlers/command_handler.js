@@ -22,18 +22,18 @@ module.exports = function commandHandler() {
       if (command.disabled) HideDisabledCommandLog ? void 0 : this.log(`Loaded Disabled Prefix Command ${command.name}`);
       else if (!command.beta && this.botType == 'dev') HideNonBetaCommandLog ? void 0 : this.log(`Loaded Non-Beta Prefix Command ${command.name}`);
       else this.log(`Loaded Prefix Command ${command.name}`);
-      command.disabled ? disabledCommandCount++ : enabledCommandCount++;
+      command.disabled || (this.botType == 'dev' && !command.beta) ? disabledCommandCount++ : enabledCommandCount++;
 
       for (const alias of command.aliases?.prefix || []) {
         this.prefixCommands.set(alias, { ...command, aliasOf: command.name });
         if (command.disabled) HideDisabledCommandLog ? void 0 : this.log(`Loaded Alias ${alias} of Prefix Command ${command.name} (disabled)`);
         else this.log(`Loaded Alias ${alias} of Prefix Command ${command.name}`);
-        command.disabled ? disabledCommandCount++ : enabledCommandCount++;
+        command.disabled || (this.botType == 'dev' && !command.beta) ? disabledCommandCount++ : enabledCommandCount++;
       }
     }
   }
 
   this.log(`Loaded ${enabledCommandCount} Enabled Prefix Commands`);
-  if (!HideDisabledCommandLog) this.log(`Loaded ${disabledCommandCount} Disabled Prefix Commands`);
+  if (!HideDisabledCommandLog) this.log(`Loaded ${disabledCommandCount} Disabled/Non-Beta Prefix Commands`);
   console.log(); //Empty line
 };
