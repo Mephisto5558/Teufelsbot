@@ -1,10 +1,17 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   { evaluate, isResultSet } = require('mathjs'),
+  superscripts = {
+    '²': '^2', '³': '^3',
+    '⁴': '^4', '⁵': '^5',
+    '⁶': '^6', '⁷': '^7',
+    '⁸': '^8', '⁹': '^9',
+  },
   parseSpecialChars = str => str
     .replaceAll('\n', ';')
     .replaceAll('÷', '/')
     .replaceAll('π', '(pi)')
+    .replace(/[\u00B2-\u00B3\u2074-\u2079]/g, e => superscripts[e])
     .replace(/(?:√)(\(|\d+)/g, (_, e) => e === '(' ? 'sqrt(' : `sqrt(${e})`);
 
 // eslint-disable-next-line no-unused-vars
