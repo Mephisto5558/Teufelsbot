@@ -30,9 +30,15 @@ module.exports = {
         { name: lang('position'), value: `\`${this.guild.roles.highest.position - role.position + 1}\``, inline: true },
         { name: 'ID', value: `\`${role.id}\``, inline: true },
         { name: lang('createdAt'), value: `<t:${Math.round(role.createdTimestamp / 1000)}>`, inline: true },
-        { name: lang('permissions'), value: `\`${role.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none')}\` (\`${role.permissions.toArray().length}\`)`, inline: false }
+        { name: lang('permissions'), inline: true }
       ]
     });
+
+    if (role.permissions.has(PermissionFlagsBits.Administrator)) embed.data.fields[embed.data.fields.length - 1].value = `\`${lang('admin')}\` (\`${role.permissions.toArray().length}\`)`;
+    else {
+      const perms = permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none');
+      embed.data.fields[embed.data.fields.length - 1].value = `\`${perms.length < 1017 ? perms + '`' : perms.slice(0, perms.slice(0, 1013).lastIndexOf(',')) + '...'} (\`${role.permissions.toArray().length}\`)`;
+    }
 
     if (role.members.size && role.members.size < 16) embed.data.fields.splice(9, 0, { name: lang('members'), value: Array.from(role.members.values()).join(', '), inline: false });
     if (role.color || role.icon) embed.setThumbnail(role.icon ? `https://cdn.discordapp.com/role-icons/${role.guild.id}/${role.icon}.webp?size=80&quality=lossless` : `https://dummyimage.com/80x80/${role.hexColor.substring(1)}/${role.hexColor.substring(1)}.png`);
