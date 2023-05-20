@@ -46,7 +46,7 @@ module.exports = {
           { name: lang('perms'), value: `\`${member.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none')}\` (${member.permissions.toArray().length})`, inline: false }
         ]
       }),
-      component = new ActionRowBuilder({
+      components = [new ActionRowBuilder({
         components: [
           new ButtonBuilder({
             label: lang('downloadAvatar'),
@@ -54,32 +54,36 @@ module.exports = {
             url: member.displayAvatarURL({ size: 2048 })
           })
         ]
-      });
+      })];
 
     if (birthday) embed.data.fields.splice(-2, 0, { name: lang('birthday'), value: `<t:${Math.round(new Date(birthday).getTime() / 1000)}:D> (${getAge(birthday.split('/'))})`, inline: true });
     if (member.isCommunicationDisabled()) embed.data.fields.splice(-2, 0, { name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true });
     if (member.user.flags.toArray().length) embed.data.fields.splice(-2, 0, { name: lang('flags.name'), value: member.user.flags.toArray().reduce((acc, e) => Number(e) ? acc : acc + lang('flags.' + e) + '`, `', '`').slice(0, -3), inline: false });
 
-    if (bannerURL) component.components.push(new ButtonBuilder({
+    if (bannerURL) components[0].components.push(new ButtonBuilder({
       label: lang('downloadBanner'),
       style: ButtonStyle.Link,
       url: bannerURL + '?size=2048'
     }));
 
     if (member.bannable && (this.member.roles.highest.position > member.roles.highest.position || this.user.id == this.guild.ownerId)) {
-      if (this.member.permissions.has(PermissionFlagsBits.KickMembers)) component.components.push(new ButtonBuilder({
+      const comp = new ActionRowBuilder();
+
+      if (this.member.permissions.has(PermissionFlagsBits.KickMembers)) comp.components.push(new ButtonBuilder({
         label: lang('kickMember'),
         customId: `infoCMDs.${member.id}.kick.members`,
         style: ButtonStyle.Danger,
       }));
 
-      if (this.member.permissions.has(PermissionFlagsBits.BanMembers)) component.components.push(new ButtonBuilder({
+      if (this.member.permissions.has(PermissionFlagsBits.BanMembers)) comp.components.push(new ButtonBuilder({
         label: lang('banMember'),
         customId: `infoCMDs.${member.id}.ban.members`,
         style: ButtonStyle.Danger,
       }));
+      
+      if (comp.components.length) components.push(comp);
     }
 
-    return this.customReply({ embeds: [embed], components: [component] });
+    return this.customReply({ embeds: [embed], components });
   }
 };
