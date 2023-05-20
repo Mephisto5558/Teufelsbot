@@ -32,33 +32,45 @@ async function reloadCommand(command, reloadedArray) {
     const equal = slashCommandsEqual(slashFile, command);
     if (equal) slashFile.id = command.id;
     else {
-      await this.application.commands.delete(command.id);
-      slashFile.id = (await this.application.commands.create(slashFile)).id;
-      this.log(`Reloaded Slash Command ${command.name}`);
+      if (command.id) await this.application.commands.delete(command.id);
+      if (slashFile.disabled || this.botType == 'dev' && !slashFile.beta) {
+        slashFile.id = command.id;
+        this.log(`Skipped/Deleted Disabled Slash Command ${slashFile.name}`);
+      }
+      else {
+        slashFile.id = (await this.application.commands.create(slashFile)).id;
+        this.log(`Reloaded Slash Command ${slashFile.name}`);
+      }
     }
 
     this.slashCommands.delete(command.name);
     this.slashCommands.set(slashFile.name, slashFile);
-    reloadedArray.push(`/${slashFile.name}`);
+    reloadedArray.push(`</${slashFile.name}:${slashFile.id}>`);
 
     for (const alias of new Set([...(slashFile.aliases?.slash || []), ...(command.aliases?.slash || [])])) {
+      const { id } = this.slashCommands.get(alias) || {};
+      let cmdId;
+
       if (equal) {
         this.slashCommands.delete(alias);
-        this.slashCommands.set(alias, { ...slashFile, id: command.id, aliasOf: slashFile.name });
+        this.slashCommands.set(alias, { ...slashFile, id, aliasOf: slashFile.name });
       }
       else {
-        if (this.slashCommands.has(alias)) {
-          const { id } = this.slashCommands.get(alias);
-          try { await this.application.commands.delete(id); } catch { }
-          this.slashCommands.delete(alias);
+        this.slashCommands.delete(alias);
+
+        if (slashFile.disabled || this.botType == 'dev' && !slashFile.beta) {
+          if (id) await this.application.commands.delete(id);
+          this.log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${slashFile.name})`);
+        }
+        else {
+          cmdId = (await this.application.commands.create({ ...slashFile, name: alias.name })).id;
+          this.log(`Reloaded Slash Command ${alias} (Alias of ${slashFile.name})`);
         }
 
-        const { id } = await this.application.commands.create(slashFile);
-        this.slashCommands.set(alias, { ...slashFile, id, aliasOf: slashFile.name });
-        this.log(`Reloaded Slash Command ${alias} (Alias of ${command.name})`);
+        this.slashCommands.set(alias, { ...slashFile, id: cmdId, aliasOf: slashFile.name });
       }
 
-      reloadedArray.push(`/${alias}`);
+      reloadedArray.push(`</${alias}:${cmdId ?? 0}>`);
     }
   }
 }
@@ -75,7 +87,7 @@ module.exports = {
 
     const
       msg = await this.reply(lang('global.loading')),
-      commandArray = new Collection([...this.client.prefixCommands, ...this.client.slashCommands]);
+      commandList = new Collection([...this.client.prefixCommands, ...this.client.slashCommands]);
     let reloadedArray = [];
 
     try {
@@ -88,9 +100,9 @@ module.exports = {
           reloadedArray.push(basename(filePath));
           break;
         }
-        case '*': for (const [, command] of commandArray) await reloadCommand.call(this.client, command, reloadedArray); break;
+        case '*': for (const [, command] of commandList) await reloadCommand.call(this.client, command, reloadedArray); break;
         default: {
-          const command = commandArray.get(this.args[0]);
+          const command = commandList.get(this.args[0]);
           if (!command) return msg.edit(lang('invalidCommand'));
 
           await reloadCommand.call(this.client, command, reloadedArray);
@@ -104,7 +116,7 @@ module.exports = {
       else this.client.error('Error while trying to reload a command:\n', err);
     }
 
-    const commands = reloadedArray.join('`, `');
+    const commands = reloadedArray.reduce((acc, e) => acc + (e.startsWith('<') ? e : `\`${e}\``) + ', ', '').slice(0, -2);
     return msg.edit(lang(!reloadedArray.length ? 'noneReloaded' : 'reloaded', { count: reloadedArray.length, commands: commands.length < 800 ? commands : commands.substring(0, commands.substring(0, 800).lastIndexOf('`,') + 1) + '...' }));
   }
 };

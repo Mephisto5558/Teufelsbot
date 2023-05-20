@@ -52,8 +52,7 @@ module.exports = async function slashCommandHandler() {
     else if (this.botType == 'dev' && !command.beta) HideNonBetaCommandLog ? void 0 : this.log(`Skipped Non-Beta Slash Command ${command.name}`);
     else {
       try {
-        const { id } = await this.application.commands.create(command);
-        command.id = id;
+        command.id = (await this.application.commands.create(command)).id;
 
         this.log(`Registered Slash Command ${command.name}` + (command.aliasOf ? ` (Alias of ${command.aliasOf})` : ''));
         registeredCommandCount++;
@@ -83,7 +82,7 @@ module.exports = async function slashCommandHandler() {
 
   this
     .log(`Registered ${registeredCommandCount} Slash Commands`)
-    .log(`Skipped ${this.slashCommands.filter(e => e.skip).size} Slash Commands`)
+    .log(`Skipped ${this.slashCommands.filter(e => { return e.skip && delete e.skip; }).size} Slash Commands`)
     .log(`Deleted ${deletedCommandCount} Slash Commands`)
     .on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[].concat(args ?? this)))
     .log('Loaded Event interactionCreate')
@@ -91,7 +90,6 @@ module.exports = async function slashCommandHandler() {
 
     .log(`Ready to serve in ${this.channels.cache.size} channels on ${this.guilds.cache.size} servers.\n`);
 
-  this.slashCommands.map(e => delete e.skip);
   console.timeEnd('Starting time');
 
   if (this.settings.restartingMsg?.message) {
