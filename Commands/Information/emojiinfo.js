@@ -47,7 +47,7 @@ module.exports = {
         ]
       });
 
-    if (emoji.guild?.id == this.guild.id && this.member.permissions.has(PermissionFlagsBits.ManageEmojisAndStickers)) component.components.push(new ButtonBuilder({
+    if (emoji.guild?.id == this.guild.id && this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) component.components.push(new ButtonBuilder({
       label: lang('delete'),
       customId: `infoCMDs.${emoji.id}.delete.emojis`,
       style: ButtonStyle.Danger
