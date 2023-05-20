@@ -4,11 +4,12 @@ const
 
 /**@this {import('discord.js').Message}*/
 module.exports = function runMessages() {
-  const { afkMessages = {}, triggers = {}, counting: { [this.channel.id]: countingData } = {} } = this.guild.db;
+  const
+    { afkMessages = {}, triggers = [], counting: { [this.channel.id]: countingData } = {} } = this.guild.db,
+    triggerList = triggers.filter(e => this.originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())).slice(0, 3);
 
-  if (this.client.botType != 'dev' && triggers.length && !cooldowns.call(this, { name: 'triggers', cooldowns: { user: 10000 } }))
-    for (const trigger of triggers.filter(e => this.originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())).slice(0, 3))
-      this.customReply(trigger.response);
+  if (this.client.botType != 'dev' && triggerList.length && !cooldowns.call(this, { name: 'triggers', cooldowns: { user: 10000 } }))
+    for (const trigger of triggerList) this.customReply(trigger.response);
   else if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } }))
     this.react('👀');
 
