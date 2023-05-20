@@ -122,7 +122,7 @@ module.exports = async function buttonPressHandler(lang) {
       }
 
       for (const button of this.message.components[0].components) button.data.disabled = true;
-      try { this.message.edit({ components: this.message.components }); } catch { }
+      this.message.edit({ components: this.message.components }).catch(() => { });
     }
   }
 };
