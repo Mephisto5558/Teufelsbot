@@ -53,7 +53,7 @@ module.exports = async function bankick(lang) {
       })]
     }),
     collector = (await this.editReply({ embeds: [selectEmbed], components: [selectComponent] }))
-      .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: 30000, filter: i => i.user.id == this.user.id })
+      .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: 60000, filter: i => i.user.id == this.user.id })
       .on('collect', async selectMenu => {
         await selectMenu.deferUpdate();
 
