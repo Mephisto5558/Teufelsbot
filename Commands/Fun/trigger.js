@@ -55,7 +55,7 @@ module.exports = {
     }
   ],
 
-  run: function (lang) {
+  run: async function (lang) {
     const
       oldData = this.guild.db.triggers || [],
       query = this.options.getString('query_or_id')?.toLowerCase();
@@ -69,7 +69,7 @@ module.exports = {
           wildcard: this.options.getBoolean('wildcard') ?? false
         };
 
-        this.client.db.update('guildSettings', `${this.guild.id}.triggers`, oldData.concat(data));
+        await this.client.db.update('guildSettings', `${this.guild.id}.triggers`, oldData.concat(data));
         return this.editReply(lang('saved', data.trigger));
       }
 
@@ -80,7 +80,7 @@ module.exports = {
 
         if (filtered.length == oldData.length) return this.editReply(lang('idNotFound'));
 
-        this.client.db.update('guildSettings', `${this.guild.id}.triggers`, filtered);
+        await this.client.db.update('guildSettings', `${this.guild.id}.triggers`, filtered);
         return this.editReply(lang('deletedOne', id));
       }
 
@@ -88,7 +88,7 @@ module.exports = {
         if (this.options.getString('confirmation').toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
         if (!oldData.length) return this.editReply(lang('noneFound'));
 
-        this.client.db.update('guildSettings', `${this.guild.id}.triggers`, []);
+        await this.client.db.delete('guildSettings', `${this.guild.id}.triggers`);
         return this.editReply(lang('deletedAll', oldData.length));
       }
 

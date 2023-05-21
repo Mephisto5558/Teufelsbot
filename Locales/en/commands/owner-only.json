@@ -10,7 +10,7 @@
   },
   "dbget": {
     "description": "query data from the database",
-    "usage": "PREFIX Command: dbget <database name>",
+    "usage": "PREFIX Command: dbget <database name> <key (eg. a.b.c)>",
     "notFound": "nothing found"
   },
   "eval": {

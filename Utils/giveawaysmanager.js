@@ -5,21 +5,21 @@ class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
     return this.client.db.get('giveaways');
   }
 
-  saveGiveaway(_, giveawayData) {
-    this.client.db.push('giveaways', giveawayData);
+  async saveGiveaway(_, giveawayData) {
+    await this.client.db.push('giveaways', giveawayData);
     return true;
   }
 
-  editGiveaway(messageId, giveawayData) {
+  async editGiveaway(messageId, giveawayData) {
     const data = this.client.db.get('giveaways').filter(e => e.messageId != messageId);
     data.push(giveawayData);
 
-    this.client.db.set('giveaways', data);
+    await this.client.db.set('giveaways', data);
     return true;
   }
 
-  deleteGiveaway(messageId) {
-    this.client.db.set('giveaways', this.client.db.get('giveaways').filter(e => e.messageId != messageId));
+  async deleteGiveaway(messageId) {
+    await this.client.db.set('giveaways', this.client.db.get('giveaways').filter(e => e.messageId != messageId));
     return true;
   }
 }

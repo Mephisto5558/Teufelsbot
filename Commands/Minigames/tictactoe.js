@@ -1,13 +1,13 @@
 const TicTacToe = require('discord-tictactoe');
 
-function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
-  updateStats(player1.id, player2.id, type1, this.client.db);
-  updateStats(player2.id, player1.id, type2, this.client.db);
-  game.playAgain(this, lang);
+async function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
+  await updateStats(player1.id, player2.id, type1, this.client.db);
+  await updateStats(player2.id, player1.id, type2, this.client.db);
+  return game.playAgain(this, lang);
 }
 
 function updateStats(firstID, secondID, type, db) {
-  const stats = db.get('leaderboards').TicTacToe[firstID] || {};
+  const stats = db.get('leaderboards', `TicTacToe.${firstID}`) ?? {};
   let against;
 
   switch (type) {
@@ -16,7 +16,7 @@ function updateStats(firstID, secondID, type, db) {
     case 'draw': against = 'drewAgainst';
   }
 
-  db.update('leaderboards', `TicTacToe.${firstID}`, {
+  return db.update('leaderboards', `TicTacToe.${firstID}`, {
     games: stats.games + 1 || 1,
     [`${type}s`]: stats[`${type}s`] + 1 || 1,
     [against]: { [secondID]: stats[against]?.[secondID] + 1 || 1 }

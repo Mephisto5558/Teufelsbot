@@ -76,7 +76,7 @@ module.exports = {
       }
     }
 
-    this.db.update('botSettings', 'lastBirthdayCheck', now);
+    await this.db.update('botSettings', 'lastBirthdayCheck', now);
     this.log('Finished birthday check');
   }
 };

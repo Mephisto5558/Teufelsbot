@@ -6,7 +6,7 @@ module.exports = {
   beta: true,
 
   run: function (lang) {
-    const result = this.client.db.get(this.content);
+    const result = this.client.db.get(this.args[0], this.args[1]);
 
     if (!result) return this.customReply(lang('notFound'));
     return this.customReply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```');

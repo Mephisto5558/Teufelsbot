@@ -31,13 +31,13 @@ module.exports = {
       { type, reason: `unlock command, moderator ${this.user.tag}` }
     );
 
-    this.client.db.update('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`, {});
-
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', { mod: this.user.tag, reason }),
       color: Colors.Red
     });
+
+    await this.client.db.update('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`, {});
 
     await channel.send({ embeds: [embed] });
     return msg.edit(lang('success'));
