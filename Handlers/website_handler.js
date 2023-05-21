@@ -1,5 +1,5 @@
 const
-  { readdirSync } = require('fs'),
+  { readdir } = require('fs/promises'),
   app = require('express')(),
   rateLimit = require('express-rate-limit').default,
   { I18nProvider, gitpull, getOwnerOnlyFolders } = require('../Utils'),
@@ -16,14 +16,17 @@ function validate(key, res, WebsiteKey) {
 async function getCommands() {
   const categoryCommandList = [];
 
-  for (const subFolder of getDirectoriesSync('./Commands').filter(e => e.toLowerCase() != 'owner-only')) {
+  for (const subFolder of getDirectoriesSync('./Commands')) {
+    if (ownerOnlyFolders.includes(subFolder.toLowerCase())) continue;
+
     const commandList = [];
 
-    for (
-      const cmd of readdirSync(`./Commands/${subFolder}`)
-        .map(e => e.endsWith('.js') && require(`../Commands/${subFolder}/${e}`))
-        .filter(e => e?.name && !e.hideInHelp && !e.disabled && !ownerOnlyFolders.includes(subFolder.toLowerCase()))
-    ) {
+    for (const cmdFile of await readdir(`./Commands/${subFolder}`)) {
+      if (!cmdFile.endsWith('.js')) continue;
+
+      const cmd = require(`../Commands/${subFolder}/${cmdFile}`);
+      if (!cmd?.name || cmd.hideInHelp || cmd.disabled) continue;
+
       commandList.push({
         commandName: cmd.name,
         commandUsage:

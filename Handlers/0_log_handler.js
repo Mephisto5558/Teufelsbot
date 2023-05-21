@@ -1,9 +1,9 @@
 const
-  fs = require('fs'),
+  { appendFile } = require('fs/promises'),
   date = new Date().toLocaleDateString('en').replaceAll('/', '-'),
   errorColor = '\x1b[1;31m%s\x1b[0m',
   getTime = () => new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false }),
-  writeLogFile = (type, ...data) => fs.appendFileSync(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data.join(' ')}\n`);
+  writeLogFile = (type, ...data) => appendFile(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data.join(' ')}\n`);
 
 module.exports = async function logHandler() {
   this

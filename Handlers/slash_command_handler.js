@@ -1,5 +1,5 @@
 const
-  { readdirSync } = require('fs'),
+  { readdir } = require('fs/promises'),
   { resolve } = require('path'),
   { I18nProvider, formatSlashCommand, slashCommandsEqual } = require('../Utils'),
   { HideNonBetaCommandLog, HideDisabledCommandLog } = require('../config.json');
@@ -14,7 +14,7 @@ module.exports = async function slashCommandHandler() {
   this.slashCommands.clear();
 
   for (const subFolder of getDirectoriesSync('./Commands')) {
-    for (const file of readdirSync(`./Commands/${subFolder}`)) {
+    for (const file of await readdir(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
       let command = require(`../Commands/${subFolder}/${file}`);
 

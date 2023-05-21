@@ -1,7 +1,7 @@
 const
   { Collection } = require('discord.js'),
   { resolve, basename, dirname } = require('path'),
-  { existsSync } = require('fs'),
+  { access } = require('fs/promises'),
   { formatSlashCommand, slashCommandsEqual } = require('../../Utils');
 
 /**@this {import('discord.js').Client}*/
@@ -94,7 +94,8 @@ module.exports = {
       switch (this.args[0].toLowerCase()) {
         case 'file': {
           const filePath = resolve(process.cwd(), this.args[1]);
-          if (!existsSync(filePath)) return msg.edit(lang('invalidPath'));
+          try { await access(filePath); }
+          catch { return msg.edit(lang('invalidPath')); }
 
           delete require.cache[filePath];
           reloadedArray.push(basename(filePath));
