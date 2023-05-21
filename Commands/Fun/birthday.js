@@ -55,13 +55,12 @@ module.exports = {
 
     switch (this.options.getSubcommand()) {
       case 'set': {
-        this.client.db.update('userSettings', `${this.user.id}.birthday`, `${this.options.getInteger('year')}/${String(this.options.getInteger('month')).padStart(2, 0)}/${String(this.options.getInteger('day')).padStart(2, 0)}`);
+        await this.client.db.update('userSettings', `${this.user.id}.birthday`, `${this.options.getInteger('year')}/${String(this.options.getInteger('month')).padStart(2, '0')}/${String(this.options.getInteger('day')).padStart(2, '0')}`);
         return this.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
       }
 
       case 'remove': {
-        this.client.db.update('userSettings', `${this.user.id}.birthday`, null);
-
+        await this.client.db.delete('userSettings', `${this.user.id}.birthday`);
         return this.editReply(lang('removed'));
       }
 

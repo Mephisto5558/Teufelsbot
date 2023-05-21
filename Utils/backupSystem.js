@@ -19,7 +19,7 @@ class BackupSystem {
     };
   }
 
-  get = (backupId, guildId) => backupId ? this.db.get(this.dbName)[guildId ?? '' + backupId] : this.db.get(this.dbName);
+  get = (backupId, guildId) => this.db.get(this.dbName, backupId ? `${(guildId ?? '') + backupId}` : null);
 
   /**@returns {Collection<string,object>}all backups of a guild or all backups, if no guildId provided.*/
   list = guildId => {
@@ -27,7 +27,7 @@ class BackupSystem {
     return guildId ? collection.filter(e => e?.guildId == guildId) : collection;
   };
 
-  remove = backupId => this.db.get(this.dbName)[backupId] ? this.db.update(this.dbName, backupId, null) : null;
+  remove = backupId => this.db.delete(this.dbName, backupId);
 
   /**@param {?object}statusObj the status property gets updated*/
   create = async (guild, {
@@ -139,11 +139,8 @@ class BackupSystem {
       backups[data.id] = data;
 
       const guildBackups = Object.keys(backups).filter(e => e.startsWith(guild.id));
-      if (guildBackups.length > maxGuildBackups) {
-        for (const id of guildBackups.sort((a, b) => b - a).slice(0, maxGuildBackups)) delete backups[id];
-        this.db.set(this.dbName, backups);
-      }
-      else this.db.update(this.dbName, data.id, data);
+      if (guildBackups.length > maxGuildBackups) for (const id of guildBackups.sort((a, b) => b - a).slice(0, maxGuildBackups)) await this.db.delete(this.dbName, id);
+      else await this.db.update(this.dbName, data.id, data);
     }
 
     return data;
