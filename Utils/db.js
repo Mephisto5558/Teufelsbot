@@ -18,19 +18,19 @@ module.exports = class DB {
     value: Mongoose.SchemaTypes.Mixed
   }));
 
-  /**Cache*/
-  collection = new Collection();
+  /**@type {Collection<string,any>} The cache will be updated automatically*/
+  cache = new Collection();
 
   /**@returns {Promise<DB>}DB*/
   async fetchAll() {
-    for (const { key, value } of await this.schema.find()) this.collection.set(key, value);
+    for (const { key, value } of await this.schema.find().exec()) this.cache.set(key, value);
     return this;
   }
 
   /**@returns value of collection*/
-  async fetch(key) {
-    const { value } = await this.schema.findOne({ key }) || {};
-    this.collection.set(key, value);
+  async fetch(db) {
+    const { value } = await this.schema.findOne({ key: db }).exec() || {};
+    this.cache.set(db, value);
     return value;
   }
 
@@ -40,68 +40,62 @@ module.exports = class DB {
       await this.set(key, value, overwrite);
   }
 
-  reduce = () => this.collection.reduce((acc, value, key) => acc.push({ key, value }) && acc, []);
-
-  get = key => this.collection.get(key);
-
-  /**@param {string}key@param {boolean}overwrite overwrite existing collection, default: `false`*/
-  async set(key, value, overwrite = false) {
-    if (!key) return;
-    let data;
-
-    if (!overwrite) data = await this.schema.findOne({ key });
-    if (data) data.value = value;
-    else data = new this.schema({ key, value });
-
-    await data.save();
-    return this.collection.set(key, value);
-  }
+  reduce = () => this.cache.reduce((acc, value, key) => acc.push({ key, value }) && acc, []);
 
   /**@param {string}db@param {string}key*/
+  get(db, key) {
+    let data = this.cache.get(db);
+    if (key) for (const objKey of key.split('.')) {
+      data = data?.[objKey];
+      if (data === undefined) return data;
+    }
+
+    return data;
+  }
+
+  /**@param {string}key@param {boolean}overwrite overwrite existing collection, default: `false`@returns {value}value*/
+  async set(db, value, overwrite = false) {
+    if (!db) return;
+
+    const update = { $set: { value } };
+    if (!overwrite) update.$setOnInsert = { key: db };
+
+    const data = await this.schema.findOneAndUpdate({ key: db }, update, { new: true, upsert: true }).exec();
+    this.cache.set(db, data.value);
+    return data.value;
+  }
+
+  /**@param {string}db@param {string}key@returns {value}value*/
   async update(db, key, value) {
     if (!key) return;
-    if (typeof key != 'string') throw new Error(`key must be typeof string! Got ${typeof key}.`);
 
-    const data = await this.schema.findOne({ key: db }) || new this.schema({ key: db, value: {} });
-
-    data.value ??= {};
-    if (typeof data.value != 'object') throw new Error(`data.value in db "${db}" must be typeof object! Found ${typeof data.value}.`);
-
-    DB.mergeWithFlat(data.value, key, value);
-
-    data.markModified(`value.${key}`);
-    await data.save();
-    return this.collection.set(db, data.value);
+    const data = await this.schema.findOneAndUpdate({ key: db }, { $set: { [`value.${key}`]: value } }, { new: true, upsert: true }).exec();
+    this.cache.set(db, data.value);
+    return data.value;
   }
 
-  /**@param {string}key*/
-  async push(key, ...pushValue) {
-    const values = pushValue.flat();
-    let dbData = this.collection.get(key);
+  /**@param {string}db@param {string}key@param pushValue supports [1, 2, 3] as well as 1, 2, 3@returns {value}value*/
+  async push(db, key, ...pushValue) {
+    const values = pushValue.length == 1 && Array.isArray(pushValue[0]) ? pushValue[0] : pushValue;
 
-    dbData ??= new this.schema({ key, value: pushValue });
-    dbData.value ??= pushValue;
-    if (!Array.isArray(dbData.value)) throw Error(`You can't push data to a ${typeof dbData.value} value!`);
+    if (!db || !values.length) return;
+    if (!Array.isArray(values)) throw Error('You can\'t push an empty or non-array value!');
 
-    const data = await this.schema.findOne({ key });
-    data.value = [...data.value, ...values];
-    await data.save();
-    return dbData.push(...pushValue);
+    const data = await this.schema.findOneAndUpdate({ key: db }, { $push: { [`value.${key}`]: { $each: values } } }, { new: true, upsert: true }).exec();
+    this.cache.set(key, data.value);
+    return data.value;
   }
 
-  /**@param {string}key*/
-  async delete(key) {
-    if (!key) return;
+  /**@param {string}db@param {string}key if no key is provided, the whole db gets deleted@returns true if the element existed or the key param is provied and false if the element did not exist*/
+  async delete(db, key) {
+    if (!db) return false;
+    if (key) {
+      const data = await this.schema.findOneAndUpdate({ key: db }, { $unset: { [`value.${key}`]: '' } }, { new: true, upsert: true }).exec();
+      this.cache.set(db, data.value);
+      return true;
+    }
 
-    const data = await this.schema.findOne({ key });
-    if (data) await data.delete();
-
-    return this.collection.delete(key);
-  }
-
-  /**@param {object}obj gets mutated! @param {string}key@returns reduce return value @example DB.mergeWithFlat({a: {b:1}}, 'a.c', 2)*/
-  static mergeWithFlat(obj, key, val) {
-    const keys = key.split('.');
-    return keys.reduce((acc, e, i) => acc[e] = keys.length - 1 == i ? val : acc[e] ?? {}, obj);
+    await this.schema.deleteOne({ key: db }).exec();
+    return this.cache.delete(db);
   }
 };

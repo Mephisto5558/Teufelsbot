@@ -84,7 +84,7 @@ module.exports = {
           module = this.options.getString('module'),
           setting = this.guild.db[module]?.enable;
 
-        this.client.db.update('guildSettings', `${this.guild.id}.${module}.enable`, !setting);
+        await this.client.db.update('guildSettings', `${this.guild.id}.${module}.enable`, !setting);
         return this.editReply(lang('toggledModule', { name: module, state: setting ? lang('global.disabled') : lang('global.enabled') }));
       }
       case 'toggle_command': {
@@ -113,7 +113,7 @@ module.exports = {
         }
 
         if (this.options.data[0].options.length == (this.options.data[0].options.find(e => e.name == 'get') ? 2 : 1)) {
-          this.client.db.update('guildSettings', `${this.guild.id}.commandSettings.${command}.disabled`, { users: users.includes('*') ? users.filter(e => e != '*') : ['*', ...users] });
+          await this.client.db.update('guildSettings', `${this.guild.id}.commandSettings.${command}.disabled.users`, users.includes('*') ? users.filter(e => e != '*') : ['*', ...users]);
           return this.editReply(lang(`toggleCmd.${users.includes('*') ? 'enabled' : 'disabled'}`, command));
         }
 
@@ -138,8 +138,6 @@ module.exports = {
           }
         }
 
-        this.client.db.update('guildSettings', `${this.guild.id}.commandSettings.${command}.disabled`, commandData);
-
         const embed = new EmbedBuilder({
           title: lang('toggleCmd.embedTitle', command),
           description: lang('toggleCmd.embedDescription', this.command.id),
@@ -151,6 +149,7 @@ module.exports = {
           color: Colors.White
         });
 
+        await this.client.db.update('guildSettings', `${this.guild.id}.commandSettings.${command}.disabled`, commandData);
         return this.editReply({ embeds: [embed] });
       }
       case 'language': {
@@ -164,16 +163,16 @@ module.exports = {
             color: Colors.Green
           });
 
-        this.client.db.update('guildSettings', `${this.guild.id}.config.lang`, language);
+        await this.client.db.update('guildSettings', `${this.guild.id}.config.lang`, language);
         return this.editReply({ embeds: [embed] });
       }
       case 'serverbackup': {
-        this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', parseInt(backup.get(this.options.getString('allowed_to_load'))));
+        await this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', parseInt(backup.get(this.options.getString('allowed_to_load'))));
         return this.editReply(lang('serverbackup.success'));
       }
       case 'autopublish': {
         const enabled = this.options.getBoolean('enabled');
-        this.client.db.update('guildSettings', `${this.guild.id}.config.autopublish`, enabled);
+        await this.client.db.update('guildSettings', `${this.guild.id}.config.autopublish`, enabled);
         return this.customReply(lang('autopublish.success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
       }
     }

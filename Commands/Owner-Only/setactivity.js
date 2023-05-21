@@ -17,7 +17,7 @@ module.exports = {
     if (!type && type != 0) return this.customReply(lang('invalidType', Object.keys(ActivityType).filter(e => isNaN(e)).join('`, `')));
 
     await this.client.user.setActivity(activity, { type: type });
-    this.client.db.update('botSettings', 'activity', { name: activity, type });
+    await this.client.db.update('botSettings', 'activity', { name: activity, type });
 
     return this.customReply(activity ? lang('set', { name: activity, type: ActivityType[type] }) : lang('reset'));
   }

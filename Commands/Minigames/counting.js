@@ -19,7 +19,7 @@ module.exports = {
 
     if (counting[channel.id]) {
       delete counting[channel.id];
-      this.client.db.update('guildSettings', `${this.guild.id}.counting`, counting);
+      await this.client.db.update('guildSettings', `${this.guild.id}.counting`, counting);
 
       const embed = new EmbedBuilder({
         description: lang('removed.embedDescription'),
@@ -33,14 +33,14 @@ module.exports = {
       return this.customReply(lang('removed.success', channel.id));
     }
 
-    this.client.db.update('guildSettings', `${this.guild.id}.counting.${channel.id}`, { lastNumber: 0 });
-
     const embed = new EmbedBuilder({
       title: lang('added.embedTitle'),
       description: lang('added.embedDescription'),
       footer: { text: lang('added.by', this.user.tag) },
       color: Colors.Green
     });
+
+    await this.client.db.update('guildSettings', `${this.guild.id}.counting.${channel.id}`, { lastNumber: 0 });
 
     if (this.channel.id == channel.id) return this.customReply({ embeds: [embed] });
     await channel.send({ embeds: [embed] });

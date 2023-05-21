@@ -17,7 +17,7 @@ module.exports = {
 
     const
       member = this.options?.getMember('target') || this.mentions?.members.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...this.args, this.content].includes(e))) || this.member,
-      birthday = this.client.db.get('userSettings')[member.id]?.birthday,
+      birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       bannerURL = (await member.user.fetch()).bannerURL();
 
     let type = member.user.bot ? 'Bot, ' : '';
@@ -80,7 +80,7 @@ module.exports = {
         customId: `infoCMDs.${member.id}.ban.members`,
         style: ButtonStyle.Danger,
       }));
-      
+
       if (comp.components.length) components.push(comp);
     }
 

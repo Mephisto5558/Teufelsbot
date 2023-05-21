@@ -3,7 +3,7 @@ const
   I18nProvider = require('../I18nProvider.js');
 
 /**@this {import('discord.js').Message}*/
-module.exports = function runMessages() {
+module.exports = async function runMessages() {
   const
     { afkMessages = {}, triggers = [], counting: { [this.channel.id]: countingData } = {} } = this.guild.db,
     triggerList = triggers.filter(e => this.originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())).slice(0, 3);
@@ -17,14 +17,14 @@ module.exports = function runMessages() {
 
   if (countingData && Number(this.originalContent)) {
     if (countingData.lastNumber + 1 == this.originalContent && countingData.lastAuthor != this.user.id) {
-      this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { lastNumber: countingData.lastNumber + 1, lastAuthor: this.user.id });
+      await this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { lastNumber: countingData.lastNumber + 1, lastAuthor: this.user.id });
       this.react('✅');
     }
     else {
       this.react('❌');
 
       if (countingData.lastNumber != 0) {
-        this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { user: null, lastNumber: 0 });
+        await this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { lastNumber: 0 });
         this.reply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.counting.error', countingData.lastNumber) + I18nProvider.__({ locale: this.guild.localeCode }, countingData.lastNumber + 1 != this.originalContent ? 'events.counting.wrongNumber' : 'events.counting.sameUserTwice'));
       }
     }
@@ -35,8 +35,8 @@ module.exports = function runMessages() {
 
     const { createdAt, message } = (afkMessages[this.user.id]?.message ? afkMessages[this.user.id] : this.user.db.afkMessage) ?? {};
     if (message) {
-      this.client.db.update('userSettings', `${this.user.id}.afkMessage`, {});
-      this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`, {});
+      await this.client.db.delete('userSettings', `${this.user.id}.afkMessage`);
+      await this.client.db.delete('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`);
       this.customReply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.afkEnd', { timestamp: createdAt, message }));
     }
   }

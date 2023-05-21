@@ -22,7 +22,7 @@ module.exports = {
     deleteOld('./VoiceRecords');
     deleteOld('./Logs');
 
-    this.db.update('botSettings', 'lastFileClear', now);
+    await this.db.update('botSettings', 'lastFileClear', now);
     this.log('Finished file deletion');
   }
 };
