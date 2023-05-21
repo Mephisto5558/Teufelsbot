@@ -2,7 +2,7 @@ const
   { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors, ComponentType, PermissionFlagsBits } = require('discord.js'),
   { entersState, joinVoiceChannel, VoiceConnectionStatus, EndBehaviorType } = require('@discordjs/voice'),
   { Decoder } = require('prism-media').opus,
-  { createWriteStream, unlinkSync, existsSync } = require('fs'),
+  { createWriteStream, promises: { unlink, access } } = require('fs'),
   exec = require('util').promisify(require('child_process').exec),
   ffmpeg = require('ffmpeg-static');
 
@@ -161,8 +161,9 @@ module.exports = {
 
           case 'stop': {
             connection.destroy();
-
-            if (!existsSync(`./VoiceRecords/raw/${filename}.ogg`)) {
+            
+            try { await access(`./VoiceRecords/raw/${filename}.ogg`); }
+            catch {
               pauseStopCollector.stop();
               embed.data.description = lang('notFound');
               embed.data.color = Colors.Green;
@@ -174,7 +175,7 @@ module.exports = {
             button.update({ embeds: [embed], components: [] });
 
             await exec(`"${ffmpeg}" -f s16le -ar 48k -ac 2 -i "./VoiceRecords/raw/${filename}.ogg" "./VoiceRecords/${filename}.mp3"`);
-            unlinkSync(`./VoiceRecords/raw/${filename}.ogg`);
+            await unlink(`./VoiceRecords/raw/${filename}.ogg`);
 
             if (isPublic) {
               pauseStopCollector.stop();
@@ -185,7 +186,7 @@ module.exports = {
                 embeds: []
               });
 
-              return unlinkSync(`./VoiceRecords/${filename}.mp3`);
+              return unlink(`./VoiceRecords/${filename}.mp3`);
             }
 
             buttons.components = [new ButtonBuilder({

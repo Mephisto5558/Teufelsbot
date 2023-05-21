@@ -3,7 +3,7 @@ console.info('Starting...');
 
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
-  { existsSync, readdirSync } = require('fs'),
+  { readdir } = require('fs/promises'),
   { DB, gitpull, errorHandler, giveawaysmanager } = require('./Utils');
 
 require('./Utils/prototypeRegisterer.js');
@@ -40,9 +40,8 @@ console.time('Starting time');
   }).on('error', err => errorHandler.call(client, err));
 
   let env;
-
-  if (existsSync('./env.json')) env = require('./env.json');
-  else {
+  try { env = require('./env.json'); }
+  catch {
     client.db = await new DB(process.env.dbConnectionStr).fetchAll();
     env = client.settings.env;
   }
@@ -57,8 +56,7 @@ console.time('Starting time');
 
   if (client.botType != 'dev') client.giveawaysManager = giveawaysmanager.call(client);
 
-  for (const handler of readdirSync('./Handlers').filter(e => client.botType != 'dev' || !e.includes('website')))
-    require(`./Handlers/${handler}`).call(client);
+  for (const handler of await readdir('./Handlers')) if (client.botType != 'dev' || !handler.includes('website')) require(`./Handlers/${handler}`).call(client);
 
   await client.login(client.keys.token);
   client

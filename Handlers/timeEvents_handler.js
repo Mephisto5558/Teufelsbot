@@ -1,13 +1,15 @@
 const
   { CronJob } = require('cron'),
-  { readdirSync } = require('fs');
+  { readdir } = require('fs/promises');
 
 module.exports = async function timeEventsHandler() {
   if (this.botType == 'dev') return this.log('Disabled timed events due to dev version.');
 
   await this.awaitReady();
 
-  for (const file of readdirSync('./TimeEvents').filter(e => e.endsWith('.js'))) {
+  for (const file of await readdir('./TimeEvents')) {
+    if (!file.endsWith('.js')) continue;
+    
     const job = require(`../TimeEvents/${file}`);
 
     new CronJob(job.time, () => job.onTick.call(this), job.onComplete?.bind(this), true, job.timeZone, this, job.startNow, job.utcOffset);

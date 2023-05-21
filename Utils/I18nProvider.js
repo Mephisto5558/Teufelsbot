@@ -1,6 +1,6 @@
 const
   { Collection } = require('discord.js'),
-  { readdirSync, readFileSync } = require('fs'),
+  { readdir, readFile } = require('fs/promises'),
   path = require('path');
 
 class I18nProvider {
@@ -8,17 +8,13 @@ class I18nProvider {
     localesPath = './locales', defaultLocale = 'en', separator = '.', notFoundMessage = '',
     errorNotFound = false, undefinedNotFound = false
   }) {
-    this.config = { defaultLocale, separator, errorNotFound, undefinedNotFound, notFoundMessage };
-    this.availableLocales = new Collection(readdirSync(localesPath)
-      .filter(e => !readdirSync(`${localesPath}/${e}`).includes('.ignore'))
-      .map(e => [path.basename(e, '.json'), path.resolve(localesPath, e)])
-    );
+    this.config = { localesPath, defaultLocale, separator, errorNotFound, undefinedNotFound, notFoundMessage };
 
     this.loadAllLocales();
   }
 
   /**@param {string}locale*/
-  loadLocale(locale) {
+  async loadLocale(locale) {
     if (!locale) return;
 
     const data = {};
@@ -26,25 +22,29 @@ class I18nProvider {
 
     if (!filePath) return;
 
-    for (const item of readdirSync(filePath, { withFileTypes: true })) {
-      if (item.isFile() && item.name.endsWith('.json')) data[item.name.replace('.json', '')] = JSON.parse(readFileSync(`${filePath}/${item.name}`, 'utf8'));
+    for (const item of await readdir(filePath, { withFileTypes: true })) {
+      if (item.isFile() && item.name.endsWith('.json')) data[item.name.replace('.json', '')] = JSON.parse(await readFile(`${filePath}/${item.name}`, 'utf8'));
       else {
         data[item.name] = {};
-        for (const file of readdirSync(`${filePath}/${item.name}`).filter(e => e.endsWith('.json')))
-          data[item.name][file.replace('.json', '')] = JSON.parse(readFileSync(`${filePath}/${item.name}/${file}`, 'utf8'));
+        for (const file of await readdir(`${filePath}/${item.name}`).filter(e => e.endsWith('.json')))
+          data[item.name][file.replace('.json', '')] = JSON.parse(await readFile(`${filePath}/${item.name}/${file}`, 'utf8'));
       }
     }
 
     this.localeData[locale] = this.flatten(data);
   }
 
-  loadAllLocales() {
+  async loadAllLocales() {
+    this.availableLocales = new Collection((await readdir(this.config.localesPath))
+      .filter(async e => !(await readdir(`${this.config.localesPath}/${e}`)).includes('.ignore'))
+      .map(e => [path.basename(e, '.json'), path.resolve(this.config.localesPath, e)])
+    );
     this.localeData = {};
-    for (const [key] of this.availableLocales) this.loadLocale(key);
+
+    await Promise.allSettled(this.availableLocales.map(e => this.loadLocale(e)));
 
     this.defaultLocaleData = this.localeData[this.config.defaultLocale];
-    if (!this.defaultLocaleData)
-      throw new Error(`There are no language files for the default locale (${this.config.defaultLocale}) in the supplied locales path!`);
+    if (!this.defaultLocaleData) throw new Error(`There are no language files for the default locale (${this.config.defaultLocale}) in the supplied locales path!`);
   }
 
   /**@param {string}key @param {string|object}replacements @returns {string}the message*/
