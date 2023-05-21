@@ -81,77 +81,7 @@
     }
   },
   "selfrole": {
-    "description": "Gérer les auto-grenouilles.",
-    "options": {
-      "add": {
-        "description": "Ajoute un bouton auto-rôle à un message existant.",
-        "options": {
-          "message_id": {
-            "description": "L'ID du message auquel il faut ajouter un auto-rôle. Le bot doit être l'auteur."
-          },
-          "role": {
-            "description": "Le rôle que vous voulez utiliser. Assurez-vous que le bot a un rôle au-dessus de ce rôle."
-          },
-          "button_label": {
-            "description": "The text that should be on the button. If it starts with an emoji, the emoji will be used only."
-          },
-          "mode": {
-            "description": "Que doit faire le bouton? Par défaut, \"Basculer le rôle\".",
-            "choices": {
-              "add": "Ajouter un rôle",
-              "remove": "Supprimer le rôle",
-              "toggle": "Activer/désactiver le rôle"
-            }
-          },
-          "button_row": {
-            "description": "Sur quelle ligne le bouton doit apparaître. Chaque ligne a une limite de 5 boutons."
-          },
-          "button_color": {
-            "description": "La couleur que le bouton devrait avoir. Par défaut, \"Blurple\".",
-            "choices": {
-              "1": "Flou",
-              "2": "Gris",
-              "3": "Vert",
-              "4": "Rouge"
-            }
-          },
-          "hide_count": {
-            "description": "Hides the number of given roles next to the label. This increases the max. label length by 4."
-          },
-          "content": {
-            "description": "What should the message say? This overwrites the original message. Use \"/n\" for newlines."
-          },
-          "channel": {
-            "description": "Le canal dans lequel se trouve l'ID du message. Par défaut, ce canal."
-          }
-        }
-      },
-      "remove": {
-        "description": "Supprime un auto-rôle ajouté et son bouton d'un message.",
-        "options": {
-          "message_id": {
-            "description": "L'ID du message à partir duquel il faut supprimer un auto-rôle."
-          },
-          "role": {
-            "description": "Le rôle que vous voulez supprimer. Ceci supprimera TOUS les boutons correspondant à ce rôle."
-          },
-          "content": {
-            "description": "Que doit dire le message ? Cela remplace le message original."
-          },
-          "channel": {
-            "description": "Le canal dans lequel se trouve l'ID du message. Par défaut, ce canal."
-          }
-        }
-      }
-    },
-    "invalidMsgId": "L'ID du message donné n'a pas été trouvé dans le canal sélectionné! Assurez-vous d'avoir sélectionné le canal correct.",
-    "notMsgOwner": "Je ne peux qu'ajouter des boutons à mes propres messages! Tu peux utiliser `/say` ou `/embed` pour faire un message.",
-    "noPerm": "Je n'ai pas les permissions pour gérer le rôle sélectionné ! Assurez-vous que mon rôle le plus élevé est **au-dessus** du rôle sélectionné.",
-    "limitReached": "La ligne du cinquième bouton du message sélectionné est pleine! Vous pouvez sélectionner une ligne avec de l'espace en utilisant l'option `button_row`.",
-    "rowFull": "La ligne sélectionnée est pleine! Les lignes ne peuvent avoir que cinq boutons.",
-    "preview": "Voici à quoi le bouton ressemblera. Il gérera le rôle <@&{role}>. Veuillez appuyer sur le bouton dans les 30 prochaines secondes pour l'ajouter au message sélectionné.",
-    "addSuccess": "Le bouton a été ajouté avec succès ! [Lien de message]({url})",
-    "removeSuccess": "Tous les boutons qui ont utilisé le rôle sélectionné ont été supprimés avec succès ! [Lien de message]({url})"
+    "description": "Gérer les auto-grenouilles."
   },
   "setup": {
     "description": "Définit le bot vers le haut",

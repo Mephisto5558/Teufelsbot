@@ -11,6 +11,7 @@ module.exports = async function buttonPressHandler(lang) {
   if (cooldown) return this.reply(lang('events.buttonPressOnCooldown', cooldown));
 
   switch (feature) {
+    //new selfroles can no longer be created
     case 'selfrole': {
       await this.deferReply({ ephemeral: true });
 

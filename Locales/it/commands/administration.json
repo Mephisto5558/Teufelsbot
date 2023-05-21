@@ -85,77 +85,7 @@
     }
   },
   "selfrole": {
-    "description": "Gestisci i ruoli personali.",
-    "options": {
-      "add": {
-        "description": "Aggiunge un pulsante selfrole a un messaggio esistente.",
-        "options": {
-          "message_id": {
-            "description": "L'ID del messaggio a cui aggiungere un ruolo personale. Il bot deve essere l'autore."
-          },
-          "role": {
-            "description": "Il ruolo che vuoi usare. Assicurati che il bot abbia un ruolo sopra quel ruolo."
-          },
-          "button_label": {
-            "description": "Il testo che dovrebbe essere sul pulsante. Se inizia con un'emoji, le emoji saranno utilizzate solo."
-          },
-          "mode": {
-            "description": "Che cosa dovrebbe fare il pulsante? Predefinito per \"Attiva/disattiva design\".",
-            "choices": {
-              "add": "Aggiungi Ruolo",
-              "remove": "Rimuovi Ruolo",
-              "toggle": "Attiva/Disattiva Ruolo"
-            }
-          },
-          "button_row": {
-            "description": "Su quale riga dovrebbe apparire il pulsante. Ogni riga ha un limite di 5 pulsanti."
-          },
-          "button_color": {
-            "description": "Il colore che il pulsante dovrebbe avere. Predefinito a \"Sfocatura\".",
-            "choices": {
-              "1": "Sfocatura",
-              "2": "Grigio",
-              "3": "Verde",
-              "4": "Rosso"
-            }
-          },
-          "hide_count": {
-            "description": "Nasconde il numero di ruoli dati accanto all'etichetta. Ciò aumenta la lunghezza massima dell'etichetta di 4."
-          },
-          "content": {
-            "description": "Cosa dovrebbe dire il messaggio? Questo sovrascrive il messaggio originale. Usare \"/n\" per le nuove righe."
-          },
-          "channel": {
-            "description": "Il canale in cui è presente l'ID del messaggio. Predefinito per questo canale."
-          }
-        }
-      },
-      "remove": {
-        "description": "Rimuove un ruolo selfrole aggiunto e il suo pulsante da un messaggio.",
-        "options": {
-          "message_id": {
-            "description": "L'ID del messaggio da cui rimuovere un selfrole"
-          },
-          "role": {
-            "description": "Il ruolo che vuoi rimuovere. Questo rimuoverà TUTTI i pulsanti corrispondenti a quel ruolo."
-          },
-          "content": {
-            "description": "Cosa dovrebbe dire il messaggio? Questo sovrascrive il messaggio originale."
-          },
-          "channel": {
-            "description": "Il canale in cui è presente l'ID del messaggio. Predefinito per questo canale."
-          }
-        }
-      }
-    },
-    "invalidMsgId": "L'ID del messaggio dato non è stato trovato nel canale selezionato! Assicurati di aver selezionato il canale corretto.",
-    "notMsgOwner": "Posso aggiungere solo pulsanti ai miei messaggi! Puoi usare `/say` o `/embed` per creare un messaggio.",
-    "noPerm": "Non ho i permessi per gestire il ruolo selezionato! Assicurati che il mio ruolo più alto sia **sopra** il ruolo selezionato.",
-    "limitReached": "La quinta riga del pulsante del messaggio selezionato è piena! Puoi selezionare una riga con spazio usando l'opzione `button_row`.",
-    "rowFull": "La riga selezionata è piena! Le righe possono avere solo fino a cinque pulsanti.",
-    "preview": "Ecco come apparirà il pulsante. Gestirà il ruolo <@&{role}>. Premere il pulsante nei prossimi 30 secondi per aggiungerlo al messaggio selezionato.",
-    "addSuccess": "Il pulsante è stato aggiunto con successo! [Messaggio Link]({url})",
-    "removeSuccess": "Tutti i pulsanti che hanno usato il ruolo selezionato sono stati rimossi con successo! [Messaggio Link]({url})"
+    "description": "Gestisci i ruoli personali."
   },
   "setup": {
     "description": "Imposta il bot su",
