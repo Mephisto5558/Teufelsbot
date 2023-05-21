@@ -85,77 +85,7 @@
     }
   },
   "selfrole": {
-    "description": "Gestionar auto-roles.",
-    "options": {
-      "add": {
-        "description": "Añade un botón de auto rol a un mensaje existente.",
-        "options": {
-          "message_id": {
-            "description": "El ID del mensaje al que añadir un autopapel. El bot debe ser el autor."
-          },
-          "role": {
-            "description": "El rol que quieres usar. Asegúrate de que el bot tiene un rol por encima de ese rol."
-          },
-          "button_label": {
-            "description": "El texto que debe estar sobre el botón. Si comienza con un emoji, el emoji se utilizará solamente."
-          },
-          "mode": {
-            "description": "¿Qué debería hacer el botón? Por defecto es \"Cambiar rol\".",
-            "choices": {
-              "add": "Añadir rol",
-              "remove": "Quitar rol",
-              "toggle": "Cambiar Rol"
-            }
-          },
-          "button_row": {
-            "description": "En qué fila debe aparecer el botón, cada fila tiene un límite de 5 botones."
-          },
-          "button_color": {
-            "description": "El color que debe tener el botón. Por defecto es \"Desenfocado\".",
-            "choices": {
-              "1": "Desenfocar",
-              "2": "Gris",
-              "3": "Verde",
-              "4": "Rojo"
-            }
-          },
-          "hide_count": {
-            "description": "Oculta el número de roles dados junto a la etiqueta. Esto aumenta la longitud máxima de la etiqueta en 4."
-          },
-          "content": {
-            "description": "¿Qué debería decir el mensaje? Esto sobrescribe el mensaje original. Use \"/n\" para nuevas líneas."
-          },
-          "channel": {
-            "description": "El canal en el que está el ID del mensaje. Por defecto este canal."
-          }
-        }
-      },
-      "remove": {
-        "description": "Elimina un auto rol añadido y su botón de un mensaje.",
-        "options": {
-          "message_id": {
-            "description": "El ID del mensaje del que eliminar un auto rol."
-          },
-          "role": {
-            "description": "El rol que desea eliminar. Esto eliminará TODOS los botones que coincidan con ese rol."
-          },
-          "content": {
-            "description": "¿Qué debería decir el mensaje? Esto sobrescribe el mensaje original."
-          },
-          "channel": {
-            "description": "El canal en el que está el ID del mensaje. Por defecto este canal."
-          }
-        }
-      }
-    },
-    "invalidMsgId": "¡El ID del mensaje no se encontró en el canal seleccionado! Asegúrese de seleccionar el canal correcto.",
-    "notMsgOwner": "¡Solo puedo añadir botones a mis propios mensajes! Puedes usar `/say` o `/embed` para hacer un mensaje.",
-    "noPerm": "¡No tengo los permisos para administrar el rol seleccionado! Asegúrate de que mi rol más alto es **arriba** al rol seleccionado.",
-    "limitReached": "¡La quinta fila del botón seleccionado está llena! Puede seleccionar una fila con espacio usando la opción `button_row`.",
-    "rowFull": "¡El registro seleccionado está lleno! Las filas sólo pueden tener hasta cinco botones.",
-    "preview": "Así es como se verá el botón. Administrará el rol <@&{role}>. Por favor, pulse el botón en los próximos 30 segundos para añadirlo al mensaje seleccionado.",
-    "addSuccess": "¡El botón ha sido añadido con éxito! [Enlace de mensaje]({url})",
-    "removeSuccess": "¡Todos los botones que usaron el rol seleccionado han sido eliminados con éxito! [Enlace de mensaje]({url})"
+    "description": "Gestionar auto-roles."
   },
   "setup": {
     "description": "Establece el bot",
