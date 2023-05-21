@@ -26,8 +26,8 @@ class I18nProvider {
       if (item.isFile() && item.name.endsWith('.json')) data[item.name.replace('.json', '')] = JSON.parse(await readFile(`${filePath}/${item.name}`, 'utf8'));
       else {
         data[item.name] = {};
-        for (const file of await readdir(`${filePath}/${item.name}`).filter(e => e.endsWith('.json')))
-          data[item.name][file.replace('.json', '')] = JSON.parse(await readFile(`${filePath}/${item.name}/${file}`, 'utf8'));
+        for (const file of await readdir(`${filePath}/${item.name}`))
+          if (file.endsWith('.json')) data[item.name][file.replace('.json', '')] = JSON.parse(await readFile(`${filePath}/${item.name}/${file}`, 'utf8'));
       }
     }
 
@@ -35,13 +35,13 @@ class I18nProvider {
   }
 
   async loadAllLocales() {
-    this.availableLocales = new Collection((await readdir(this.config.localesPath))
+    this.availableLocales = await new Collection((await readdir(this.config.localesPath))
       .filter(async e => !(await readdir(`${this.config.localesPath}/${e}`)).includes('.ignore'))
       .map(e => [path.basename(e, '.json'), path.resolve(this.config.localesPath, e)])
     );
     this.localeData = {};
 
-    await Promise.allSettled(this.availableLocales.map(e => this.loadLocale(e)));
+    for (const [locale] of this.availableLocales) await this.loadLocale(locale);
 
     this.defaultLocaleData = this.localeData[this.config.defaultLocale];
     if (!this.defaultLocaleData) throw new Error(`There are no language files for the default locale (${this.config.defaultLocale}) in the supplied locales path!`);
