@@ -3,14 +3,14 @@ const
   TicTacToe = require('discord-tictactoe'),
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('crypto'),
-  { appendFileSync, readdirSync, existsSync, mkdirSync } = require('fs'),
+  { appendFile, readdir, access, mkdirSync } = require('fs/promises'),
   { customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
   findAllEntries = require('./findAllEntries.js'),
   date = new Date().toLocaleDateString('en').replaceAll('/', '-'),
   getTime = () => new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false }).replace(/^24:/, '00:'),
-  writeLogFile = (type, ...data) => appendFileSync(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data.join(' ')}\n`);
+  writeLogFile = (type, ...data) => appendFile(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data.join(' ')}\n`);
 
-if (!existsSync('./Logs')) mkdirSync('./Logs');
+access('./Logs').catch(() => mkdirSync('./Logs'));
 if (!require('../config.json')?.HideOverwriteWarning) console.warn(`Overwriting the following variables and functions (if they exist):
   Vanilla:    global.getDirectoriesSync, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
   Discord.js: CommandInteraction#customReply, Message#user, Message#customReply, Message#runMessages, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
@@ -18,7 +18,7 @@ if (!require('../config.json')?.HideOverwriteWarning) console.warn(`Overwriting 
 );
 
 global.sleep = require('util').promisify(setTimeout);
-global.getDirectoriesSync = path => readdirSync(path, { withFileTypes: true }).reduce((acc, e) => e.isDirectory() ? [...acc, e.name] : acc, []);
+global.getDirectories = async path => (await readdir(path, { withFileTypes: true })).reduce((acc, e) => e.isDirectory() ? [...acc, e.name] : acc, []);
 
 Array.prototype.random = function random() { return this[randomInt(this.length)]; };
 Number.prototype.limit = function limit({ min = -Infinity, max = Infinity } = {}) { return Math.min(Math.max(Number(this), min), max); };

@@ -29,7 +29,7 @@ async function formatTopTen(input, settings, lang) {
     .filter(a => a[0] !== 'AI')
     .sort(([, a], [, b]) => b.wins - a.wins || a.draws - b.draws || a.loses - b.loses)
     .slice(0, 10)
-    .reduce(async (acc, [id, stats]) => {
+    .reduce(async (/**@type {Promise<string>}acc*/ acc, [id, stats]) => {
       let isInGuild;
       try {
         await this.guild.members.fetch(id);
@@ -38,7 +38,7 @@ async function formatTopTen(input, settings, lang) {
       catch { isInGuild = false; }
 
       if (!stats.wins || (settings != 'all_users' && !isInGuild)) return acc;
-      if (acc.length > 3997) return acc + '...';
+      if (acc.length > 3997) return (await acc) + '...';
 
       i++;
       return (await acc) + `${[':first_place:', ':second_place:', ':third_place:'][i - 1] || i + '.'} <@${id}>\n` +

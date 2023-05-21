@@ -1,13 +1,13 @@
 const
-  { readdirSync } = require('fs'),
+  { readdir } = require('fs/promises'),
   { resolve } = require('path'),
   { HideDisabledCommandLog, HideNonBetaCommandLog } = require('../config.json');
 
 let enabledCommandCount = 0, disabledCommandCount = 0;
 
-module.exports = function commandHandler() {
+module.exports = async function commandHandler() {
   for (const subFolder of getDirectoriesSync('./Commands')) {
-    for (const file of readdirSync(`./Commands/${subFolder}`)) {
+    for (const file of await readdir(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
 
       const command = require(`../Commands/${subFolder}/${file}`);

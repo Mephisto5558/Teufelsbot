@@ -1,11 +1,12 @@
-const { readdirSync, statSync, unlinkSync, existsSync, mkdirSync } = require('fs');
+const { readdir, stat, unlink, access, mkdir } = require('fs/promises');
 
-function deleteOld(path) {
-  if (!existsSync(path)) return mkdirSync(path);
+async function deleteOld(path) {
+  try { await access(path); } catch { return mkdir(path); }
+
   const time = new Date(Date.now() - 12096e5 /*2 Weeks*/).getTime();
-  for (const file of readdirSync(path, { withFileTypes: true })) {
+  for (const file of await readdir(path, { withFileTypes: true })) {
     if (file.isDirectory()) deleteOld(`${path}/${file.name}`);
-    else if (time > statSync(`${path}/${file.name}`).mtimeMs) unlinkSync(`${path}/${file.name}`);
+    else if (time > (await stat(`${path}/${file.name}`)).mtimeMs) unlink(`${path}/${file.name}`);
   }
 }
 
