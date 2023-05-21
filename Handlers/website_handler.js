@@ -16,7 +16,7 @@ function validate(key, res, WebsiteKey) {
 async function getCommands() {
   const categoryCommandList = [];
 
-  for (const subFolder of getDirectoriesSync('./Commands')) {
+  for (const subFolder of await getDirectories('./Commands')) {
     if (ownerOnlyFolders.includes(subFolder.toLowerCase())) continue;
 
     const commandList = [];

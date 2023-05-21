@@ -12,7 +12,7 @@ const
 
 access('./Logs').catch(() => mkdirSync('./Logs'));
 if (!require('../config.json')?.HideOverwriteWarning) console.warn(`Overwriting the following variables and functions (if they exist):
-  Vanilla:    global.getDirectoriesSync, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
+  Vanilla:    global.getDirectories, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
   Discord.js: CommandInteraction#customReply, Message#user, Message#customReply, Message#runMessages, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
   \nModifying Discord.js Message._patch method.`
 );

@@ -13,7 +13,7 @@ module.exports = async function slashCommandHandler() {
 
   this.slashCommands.clear();
 
-  for (const subFolder of getDirectoriesSync('./Commands')) {
+  for (const subFolder of await getDirectories('./Commands')) {
     for (const file of await readdir(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
       let command = require(`../Commands/${subFolder}/${file}`);
