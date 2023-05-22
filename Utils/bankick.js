@@ -25,7 +25,7 @@ module.exports = async function bankick(lang) {
   if (target) {
     const err = checkTarget.call(this, target, lang);
     if (err) {
-      resEmbed.data.description += lang('error', { err, user: target.user?.tag ?? target.id });
+      resEmbed.data.description += lang('error', { err: lang(err), user: target.user?.tag ?? target.id });
       return this.editReply(resEmbed);
     }
 
@@ -61,7 +61,7 @@ module.exports = async function bankick(lang) {
           const err = checkTarget.call(this, target, lang);
 
           if (err) {
-            resEmbed.data.description += lang('error', { err, user: target.user.tag });
+            resEmbed.data.description += lang('error', { err: lang(err), user: target.user.tag });
             continue;
           }
 
