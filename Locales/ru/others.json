@@ -29,7 +29,7 @@
     "ManageNicknames": "Управлять Никами",
     "ManageRoles": "Управление ролями",
     "ManageWebhooks": "Управление вебхуками",
-    "ManageEmojisAndStickers": "Управление смайлами и стикерами",
+    "ManageGuildExpressions": "Управление смайлами и стикерами",
     "UseApplicationCommands": "Использовать команды приложения",
     "RequestToSpeak": "Запрос на выступление",
     "ManageEvents": "Управление событиями",
@@ -39,7 +39,10 @@
     "UseExternalStickers": "Использовать внешние стикеры",
     "SendMessagesInThreads": "Отправлять сообщения в темах и сообщениях",
     "UseEmbeddedActivities": "Использовать мероприятия",
-    "ModerateMembers": "Модерировать участников"
+    "ModerateMembers": "Модерировать участников",
+    "ViewCreatorMonetizationAnalytics": "Анализ Монетизации Создателя",
+    "UseExternalSounds": "Использовать внешние звуки",
+    "SendVoiceMessages": "Отправлять голосовые сообщения"
   },
   "ChannelTypes": {
     "plural": {
