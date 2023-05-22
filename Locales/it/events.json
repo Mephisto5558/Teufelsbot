@@ -6,6 +6,7 @@
   "guildCommandOnly": "Questo comando è disponibile solo nelle gilde!",
   "economyDisabled": "Questo comando è un comando di categoria economica. L'economia non è abilitata in questa gilda. Per iniziare a utilizzare l'economia, un amministratore deve eseguire `/economyconfig admin toggle`.",
   "economyNotInitialized": "Questo comando è un comando di categoria economica. Per iniziare a usare l'economia, esegui `/economyconfig user start`.",
+  "commandDisabled": "Questo comando è stato disabilitato dal bot dev.",
   "buttonPressOnCooldown": "Questo pulsante è in fase di ricarica! Riprova in `{time}`s.",
   "strictAutocompleteNoMatch": "Il tuo input deve corrispondere a uno dei suggerimenti per il completamento automatico. Seleziona una delle opzioni disponibili quando inserisci il comando.",
   "permissionDenied": {
@@ -43,5 +44,62 @@
     "addSuccess": "Ti ho dato il ruolo <@&{role}>.",
     "missesRole": "Non posso rimuovere il tuo ruolo <@&{role}> perché non lo hai!",
     "removeSuccess": "Ho rimosso il tuo ruolo <@&{role}>."
+  },
+  "infoCMDs": {
+    "emojis": {
+      "embedTitle": "Elimina Emoji",
+      "notFound": "Non è stato possibile trovare le emoji.",
+      "noPerm": "Non ho il permesso di eliminare emojis!",
+      "success": "L'emoji è stata eliminata con successo."
+    },
+    "roles": {
+      "embedTitle": "Elimina Ruolo",
+      "notFound": "Impossibile trovare il ruolo.",
+      "noPerm": "Non ho il permesso di eliminare quel ruolo!",
+      "success": "Il ruolo è stato eliminato con successo."
+    },
+    "members": {
+      "embedTitle": "Kick/Ban Membro",
+      "notFound": "Il membro non è stato trovato.",
+      "modalTitle": "Motivo",
+      "modalTextLabel": "Specificare il motivo del kicking/banning del membro."
+    }
+  },
+  "logger": {
+    "someone": "qualcuno",
+    "executor": "Eliminato da",
+    "reason": "Motivo",
+    "embeds": "{count} Embeds",
+    "messageDelete": {
+      "embedDescription": "Un messaggio è stato eliminato da {executor} in {channel}.",
+      "content": "Contenuto Messaggio",
+      "author": "Autore",
+      "components": "Componenti {count}"
+    },
+    "messageDeleteBulk": {
+      "embedDescription": "{count} messaggi sono stati eliminati da {executor} in {channel}."
+    },
+    "messageUpdate": {
+      "embedDescription": "{executor} ha modificato un messaggio in {channel}.",
+      "oldContent": "Messaggio Originale",
+      "newContent": "Nuovo Messaggio",
+      "author": "Autore",
+      "messageLink": "Messaggio",
+      "unknown": "Sconosciuto"
+    },
+    "voiceStateUpdate": {
+      "embedDescriptionJoin": "{executor} è entrato nel canale vocale {newChannel}.",
+      "embedDescriptionLeave": "{executor} ha lasciato il canale vocale {oldChannel}.",
+      "embedDescriptionMove": "{executor} è passato dal canale vocale {oldChannel} a {newChannel}.",
+      "oldChannel": "Canale Precedente",
+      "newChannel": "Canale Corrente",
+      "unknown": "`sconosciuto`"
+    },
+    "sayCommandUsed": {
+      "embedDescription": "{executor} ha usato un comando in {channel} che fa inviare un messaggio al bot.",
+      "content": "Contenuto Messaggio",
+      "author": "Autore",
+      "messageLink": "Messaggio"
+    }
   }
 }

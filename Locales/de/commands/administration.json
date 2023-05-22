@@ -257,6 +257,7 @@
       "enabled": "Protokolle für {action} werden an <#{channel}> gesendet.",
       "disabled": "Protokolle für {action} werden nicht mehr gesendet.",
       "actions": {
+        "all": "Alle Aktionen",
         "messageDelete": "gelöschte Nachrichten",
         "messageEdit": "bearbeitete Nachrichten",
         "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",

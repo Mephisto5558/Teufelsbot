@@ -44,6 +44,10 @@
       "Broooooo, tu manichino, la tua domanda non ha senso?!"
     ]
   },
+  "advice": {
+    "description": "Prendi un consiglio utile.",
+    "embedTitle": "Consigli"
+  },
   "afk": {
     "description": "Imposta uno stato AFK mostrato quando sei menzionato.",
     "usage": "PREFIX Command: afk [message]",
@@ -195,7 +199,9 @@
     }
   },
   "fact": {
-    "description": "Ottenere alcuni fatti, sono davvero cool e utile, contare su di me."
+    "description": "Ottenere alcuni fatti, sono davvero cool e utile, contare su di me.",
+    "usage": "Comando PREFIS: fatto [\"en\"<unk> \"de\"]",
+    "embedTitle": "Fatto"
   },
   "giveaway": {
     "description": "Comandi giveaway",
