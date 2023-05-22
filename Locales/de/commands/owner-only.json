@@ -10,7 +10,7 @@
   },
   "dbget": {
     "description": "Erhalte Daten aus der Datenbank",
-    "usage": "PREFIX-Befehl: dbget <Datenbank-Name>",
+    "usage": "PREFIX-Befehl: dbget <Datenbank-Name> <Key (zB. a.b.c)>",
     "notFound": "nichts gefunden"
   },
   "eval": {
