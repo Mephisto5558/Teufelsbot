@@ -1,4 +1,9 @@
 {
+  "changelog": {
+    "description": "Получить последний список изменений.",
+    "embedTitle": "Список изменений",
+    "noneFound": "Информация не найдена."
+  },
   "suggest": {
     "description": "Предложите боту функцию на его GitHub.",
     "options": {
