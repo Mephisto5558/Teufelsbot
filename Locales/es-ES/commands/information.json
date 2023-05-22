@@ -49,7 +49,8 @@
     "createdAt": "Creado el",
     "requiresColons": "Requiere Colones",
     "allowedRoles": "Rol permitido",
-    "download": "Descargar Emoji"
+    "download": "Descargar Emoji",
+    "delete": "Eliminar Emoji"
   },
   "help": {
     "description": "Mostrar todos mis comandos o buscar uno específico",
@@ -67,6 +68,7 @@
       "lookAtDesc": "Orden SLASH: mira las descripciones de opciones.\n",
       "prefixAlias": "Alias de comandos de prefijo",
       "slashAlias": "Alias de Comandos Slash",
+      "aliasOf": "Alias de",
       "botPerms": "Permisos de bot requeridos",
       "userPerms": "Permisos de usuario requeridos",
       "cooldowns": "Enfriamiento del comando",
@@ -135,6 +137,7 @@
         "description": "el rol sobre el que quieres obtener información"
       }
     },
+    "notFound": "No se pudo encontrar este rol. Intenta usar su ID.",
     "mention": "Mención",
     "members": "Miembros",
     "color": "Color",
@@ -144,7 +147,8 @@
     "position": "Posición",
     "createdAt": "Creado el",
     "permissions": "Permisos",
-    "admin": "Administrador"
+    "admin": "Administrador",
+    "delete": "Eliminar rol"
   },
   "serverinfo": {
     "description": "Obtener información sobre una hermandad",
@@ -240,6 +244,8 @@
     },
     "perms": "Permisos",
     "downloadAvatar": "Descargar Avatar",
-    "downloadBanner": "Descargar banner"
+    "downloadBanner": "Descargar banner",
+    "kickMember": "Expulsar miembro",
+    "banMember": "Banear miembro"
   }
 }
