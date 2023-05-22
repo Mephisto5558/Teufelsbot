@@ -6,6 +6,7 @@
   "guildCommandOnly": "Эта команда доступна только в гильдиях!",
   "economyDisabled": "Эта команда является командой экономической категории. Экономия не включена в этой гильдии. Чтобы начать использовать экономию, администратор должен запустить `/economyconfig toggle`.",
   "economyNotInitialized": "Эта команда является командой экономической категории. Чтобы начать использовать экономию, запустите `/economyconfig user start`.",
+  "commandDisabled": "Эта команда была отключена ботом dev.",
   "buttonPressOnCooldown": "Эта кнопка находится на перезарядке! Попробуйте еще раз в `{time}`s.",
   "strictAutocompleteNoMatch": "Ваши данные должны совпадать с одним из вариантов автозаполнения. Пожалуйста, выберите один из доступных вариантов при входе в команду.",
   "permissionDenied": {
@@ -43,5 +44,62 @@
     "addSuccess": "Я дал вам роль <@&{role}> .",
     "missesRole": "Я не могу убрать вашу роль <@&{role}>, потому что у вас ее нет!",
     "removeSuccess": "Я убрал вашу роль <@&{role}>."
+  },
+  "infoCMDs": {
+    "emojis": {
+      "embedTitle": "Удалить эмодзи",
+      "notFound": "Эмодзи не найдено.",
+      "noPerm": "У меня нет разрешения на удаление эмодзи!",
+      "success": "Эмодзи успешно удалены."
+    },
+    "roles": {
+      "embedTitle": "Удалить роль",
+      "notFound": "Роль не найдена.",
+      "noPerm": "У меня нет разрешения на удаление этой роли!",
+      "success": "Роль успешно удалена."
+    },
+    "members": {
+      "embedTitle": "Выгнать участника",
+      "notFound": "Участник не найден.",
+      "modalTitle": "Причина",
+      "modalTextLabel": "Пожалуйста, укажите причину выкидывания/блокирования участника."
+    }
+  },
+  "logger": {
+    "someone": "кто-то",
+    "executor": "Удалено",
+    "reason": "Причина",
+    "embeds": "{count} Embeds",
+    "messageDelete": {
+      "embedDescription": "Сообщение было удалено {executor} в {channel}.",
+      "content": "Содержание сообщения",
+      "author": "Автор",
+      "components": "Компоненты {count}"
+    },
+    "messageDeleteBulk": {
+      "embedDescription": "{count} сообщений были удалены пользователем {executor} в {channel}."
+    },
+    "messageUpdate": {
+      "embedDescription": "{executor} отредактировал сообщение в {channel}.",
+      "oldContent": "Оригинальное сообщение",
+      "newContent": "Новое сообщение",
+      "author": "Автор",
+      "messageLink": "Сообщение",
+      "unknown": "Неизвестен"
+    },
+    "voiceStateUpdate": {
+      "embedDescriptionJoin": "{executor} присоединился к голосовому каналу {newChannel}.",
+      "embedDescriptionLeave": "{executor} покинул голосовой канал {oldChannel}.",
+      "embedDescriptionMove": "{executor} переключен с голосового канала {oldChannel} на {newChannel}.",
+      "oldChannel": "Предыдущий канал",
+      "newChannel": "Текущий канал",
+      "unknown": "`неизвестно`"
+    },
+    "sayCommandUsed": {
+      "embedDescription": "{executor} использовал команду в {channel} , которая заставляет бота отправлять сообщение.",
+      "content": "Содержание сообщения",
+      "author": "Автор",
+      "messageLink": "Сообщение"
+    }
   }
 }

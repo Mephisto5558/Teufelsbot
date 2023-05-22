@@ -39,7 +39,10 @@
     "UseExternalStickers": "Использовать внешние стикеры",
     "SendMessagesInThreads": "Отправлять сообщения в темах и сообщениях",
     "UseEmbeddedActivities": "Использовать мероприятия",
-    "ModerateMembers": "Модерировать участников"
+    "ModerateMembers": "Модерировать участников",
+    "ViewCreatorMonetizationAnalytics": "Анализ Монетизации Создателя",
+    "UseExternalSounds": "Использовать внешние звуки",
+    "SendVoiceMessages": "Отправлять голосовые сообщения"
   },
   "ChannelTypes": {
     "plural": {

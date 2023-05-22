@@ -85,7 +85,8 @@
     }
   },
   "selfrole": {
-    "description": "Gestisci i ruoli personali."
+    "description": "Gestisci i ruoli personali.",
+    "deprecated": "Questa funzione non è più supportata. Utilizza le funzionalità della community di discord (Onboarding) per la gestione dei selfrole https://support.discord.com/hc/en-us/sections/360007770572-Community-Tools\nI ruoli selfroles già configurati continueranno a funzionare."
   },
   "setup": {
     "description": "Imposta il bot su",
@@ -196,6 +197,27 @@
             "description": "pubblica automaticamente tutto ciò che chiunque in qualsiasi canale di annuncio dice"
           }
         }
+      },
+      "logger": {
+        "description": "Registra azioni che il registro di controllo non può registrare",
+        "options": {
+          "action": {
+            "description": "L'azione che si desidera registrare",
+            "choices": {
+              "all": "tutte le azioni",
+              "messageDelete": "messaggio eliminato",
+              "messageEdit": "modifica messaggio",
+              "voiceChannelActivity": "entrare/lasciare/commutare canale vocale",
+              "sayCommandUsed": "/say (o simili) comando usa"
+            }
+          },
+          "channel": {
+            "description": "Il canale a cui si desidera inviare il messaggio di registro"
+          },
+          "enabled": {
+            "description": "Abilita (true) o disabilita (falso) la registrazione dell'azione"
+          }
+        }
       }
     },
     "toggledModule": "Il modulo `{name}` è stato {state}.",
@@ -228,6 +250,19 @@
     },
     "autopublish": {
       "success": "{toggle} autopublish."
+    },
+    "logger": {
+      "noChannel": "Non hai specificato un canale di testo a cui inviare il registro!",
+      "noEnabled": "È necessario utilizzare l'opzione `enabled` per impostare tutte le azioni contemporaneamente!",
+      "enabled": "I registri per {action} verranno inviati a <#{channel}>.",
+      "disabled": "I registri per {action} non saranno più inviati.",
+      "actions": {
+        "all": "tutte le azioni",
+        "messageDelete": "messaggi eliminati",
+        "messageEdit": "messaggi modificati",
+        "voiceChannelActivity": "canale vocale unisci/fogli/interruttori",
+        "sayCommandUsed": "/say (o simili) comando usa"
+      }
     }
   }
 }

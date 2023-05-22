@@ -53,6 +53,10 @@
     "set": "Attività impostata a `{name}` di tipo `{type}`.",
     "reset": "Attività impostata su `nessuno`."
   },
+  "setchangelog": {
+    "description": "Aggiorna i changelogs in modo che gli utenti siano aggiornati.",
+    "success": "Il changelog è stato aggiornato con successo."
+  },
   "test": {
     "description": "prova roba"
   }

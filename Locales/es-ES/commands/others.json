@@ -1,4 +1,9 @@
 {
+  "changelog": {
+    "description": "Obtener la última lista de cambios.",
+    "embedTitle": "Cambios",
+    "noneFound": "No se ha encontrado información."
+  },
   "suggest": {
     "description": "Sugiere una característica para el bot en su GitHub.",
     "options": {

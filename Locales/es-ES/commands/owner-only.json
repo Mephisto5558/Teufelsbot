@@ -53,6 +53,10 @@
     "set": "Actividad establecida a `{name}` de tipo `{type}`.",
     "reset": "Actividad establecida a `ninguno`."
   },
+  "setchangelog": {
+    "description": "Actualiza los registros de cambios para que los usuarios estén actualizados.",
+    "success": "El registro de cambios se ha actualizado correctamente."
+  },
   "test": {
     "description": "testear cosas"
   }
