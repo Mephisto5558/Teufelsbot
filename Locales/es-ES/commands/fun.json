@@ -44,6 +44,10 @@
       "¡Broooooo, usted tonto, su pregunta no tiene sentido?!"
     ]
   },
+  "advice": {
+    "description": "Obtenga un consejo útil.",
+    "embedTitle": "Asesoramiento"
+  },
   "afk": {
     "description": "Establecer un estado AFK mostrado cuando se menciona.",
     "usage": "PREFIX Command: afk [message]",
@@ -195,7 +199,9 @@
     }
   },
   "fact": {
-    "description": "Consigue algunos hechos, son realmente frescos y útiles, confíen en mí."
+    "description": "Consigue algunos hechos, son realmente frescos y útiles, confíen en mí.",
+    "usage": "Orden PREFIX [\"es\"|\"de\"]",
+    "embedTitle": "Hecho"
   },
   "giveaway": {
     "description": "Comandos de regalo",
