@@ -29,7 +29,7 @@
     "ManageNicknames": "Manage Nicknames",
     "ManageRoles": "Manage Roles",
     "ManageWebhooks": "Manage Webhooks",
-    "ManageEmojisAndStickers": "Manage Emojis and Stickers",
+    "ManageGuildExpressions": "Manage Emojis and Stickers",
     "UseApplicationCommands": "Use Application Commands",
     "RequestToSpeak": "Request to Speak",
     "ManageEvents": "Manage Events",
@@ -39,7 +39,10 @@
     "UseExternalStickers": "Use External Stickers",
     "SendMessagesInThreads": "Send Messages in Threads and Posts",
     "UseEmbeddedActivities": "Use Activities",
-    "ModerateMembers": "Moderate Members"
+    "ModerateMembers": "Moderate Members",
+    "ViewCreatorMonetizationAnalytics": "View Creator Monetization Analytics",
+    "UseExternalSounds": "Use External Sounds",
+    "SendVoiceMessages": "Send Voice Messages"
   },
   "ChannelTypes": {
     "plural": {
