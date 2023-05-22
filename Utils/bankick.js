@@ -8,7 +8,7 @@ module.exports = async function bankick(lang) {
 
   const
     target = this.options.getMember('target'),
-    reason = this.options.getString('reason'),
+    reason = this.options.getString('reason') + `, moderator ${this.user.tag}`,
     userEmbed = new EmbedBuilder({
       title: lang('infoEmbedTitle'),
       description: lang('dmEmbedDescription', { guild: this.guild.name, mod: this.user.tag, reason }),
