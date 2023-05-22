@@ -197,6 +197,27 @@
             "description": "automatically publish everything anyone in any announcement channel says."
           }
         }
+      },
+      "logger": {
+        "description": "Log actions that the audit log cannot log",
+        "options": {
+          "action": {
+            "description": "The action you want to log",
+            "choices": {
+              "all": "all actions",
+              "messageDelete": "message delete",
+              "messageEdit": "message edit",
+              "voiceChannelActivity": "join/leave/switch voice channel",
+              "sayCommandUsed": "/say (or similar) command uses"
+            }
+          },
+          "channel": {
+            "description": "The channel you want to send the log message to"
+          },
+          "enabled": {
+            "description": "Enable (true) or disable (false) logging the action"
+          }
+        }
       }
     },
     "toggledModule": "The `{name}` module has been {state}.",
@@ -229,6 +250,19 @@
     },
     "autopublish": {
       "success": "{toggle} autopublishing."
+    },
+    "logger": {
+      "noChannel": "You did not specify a text channel to send the log to!",
+      "noEnabled": "You need to use the `enabled` option to set all actions at once!",
+      "enabled": "Logs for {action} will be sent to <#{channel}>.",
+      "disabled": "Logs for {action} will no longer be sent.",
+      "actions": {
+        "all": "all actions",
+        "messageDelete": "deleted messages",
+        "messageEdit": "edited messages",
+        "voiceChannelActivity": "voice channel joins/leaves/switches",
+        "sayCommandUsed": "/say (or similar) command uses"
+      }
     }
   }
 }

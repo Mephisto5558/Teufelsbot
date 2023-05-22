@@ -1,4 +1,6 @@
-const { EmbedBuilder, Colors } = require('discord.js');
+const
+  { EmbedBuilder, Colors } = require('discord.js'),
+  { logSayCommandUse } = require('../../Utils');
 
 module.exports = {
   name: 'embed',
@@ -18,7 +20,11 @@ module.exports = {
           type: 'String',
           required: true
         },
-        { name: 'content', type: 'String' },
+        {
+          name: 'content',
+          type: 'String',
+          maxLength: 2000
+        },
         { name: 'title', type: 'String' },
         {
           name: 'predefined_color',
@@ -51,7 +57,7 @@ module.exports = {
   run: async function (lang) {
     const getOption = name => this.options.getString(name)?.replaceAll('/n', '\n');
     const custom = getOption('json');
-    let embed;
+    let embed, sentMessage;
 
     try {
       embed = new EmbedBuilder(custom ? JSON.parse(custom) : {
@@ -70,11 +76,11 @@ module.exports = {
         //fields: getOption('fields')
       });
 
-      await this.channel.send({ content: getOption('content'), embeds: [embed] });
+      sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed] });
     }
     catch (err) { return this.editReply(lang('invalidOption', err.message)); }
 
-    if (custom) return this.editReply(lang('successJSON'));
-    return this.editReply(lang('success', JSON.stringify(embed.data.filterEmpty())));
+    await this.editReply(custom ? lang('successJSON') : lang('success', JSON.stringify(embed.data.filterEmpty())));
+    return logSayCommandUse.call(sentMessage, this.member, lang);
   }
 };

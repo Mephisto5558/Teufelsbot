@@ -64,5 +64,42 @@
       "modalTitle": "Reason",
       "modalTextLabel": "Please specify the reason for kicking/banning the member."
     }
+  },
+  "logger": {
+    "someone": "someone",
+    "executor": "Deleted by",
+    "reason": "Reason",
+    "embeds": "{count} Embeds",
+    "messageDelete": {
+      "embedDescription": "A message was deleted by {executor} in {channel}.",
+      "content": "Message Content",
+      "author": "Author",
+      "components": "{count} Components"
+    },
+    "messageDeleteBulk": {
+      "embedDescription": "{count} messages were deleted by {executor} in {channel}."
+    },
+    "messageUpdate": {
+      "embedDescription": "{executor} edited a message in {channel}.",
+      "oldContent": "Original Message",
+      "newContent": "New Message",
+      "author": "Author",
+      "messageLink": "Message",
+      "unknown": "Unknown"
+    },
+    "voiceStateUpdate": {
+      "embedDescriptionJoin": "{executor} joined the voice channel {newChannel}.",
+      "embedDescriptionLeave": "{executor} left the voice channel {oldChannel}.",
+      "embedDescriptionMove": "{executor} switched from voice channel {oldChannel} to {newChannel}.",
+      "oldChannel": "Previous Channel",
+      "newChannel": "Current Channel",
+      "unknown": "`unknown`"
+    },
+    "sayCommandUsed": {
+      "embedDescription": "{executor} used a command in {channel} that makes the bot send a message.",
+      "content": "Message Content",
+      "author": "Author",
+      "messageLink": "Message"
+    }
   }
 }
