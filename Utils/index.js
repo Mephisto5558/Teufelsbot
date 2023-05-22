@@ -14,6 +14,7 @@ module.exports = {
   gitpull: require('./gitpull.js'),
   giveawaysmanager: require('./giveawaysmanager.js'),
   I18nProvider: require('./I18nProvider.js'),
+  logSayCommandUse: require('./logSayCommandUse.js'),
   slashCommandsEqual: require('./slashCommandsEqual.js'),
   permissionTranslator: require('./permissionTranslator.js'),
   timeValidator: require('./timeValidator.js'),

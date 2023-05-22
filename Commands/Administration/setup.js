@@ -74,6 +74,24 @@ module.exports = {
         type: 'Boolean',
         required: true
       }]
+    },
+    {
+      name: 'logger',
+      type: 'Subcommand',
+      options: [
+        {
+          name: 'action',
+          type: 'String',
+          required: true,
+          choices: ['all', 'messageDelete', 'messageEdit', 'voiceChannelActivity', 'sayCommandUsed'],
+        },
+        {
+          name: 'channel',
+          type: 'Channel',
+          channelTypes: Constants.TextBasedChannelTypes,
+        },
+        { name: 'enabled', type: 'Boolean' }
+      ]
     }
   ],
 
@@ -174,6 +192,21 @@ module.exports = {
         const enabled = this.options.getBoolean('enabled');
         await this.client.db.update('guildSettings', `${this.guild.id}.config.autopublish`, enabled);
         return this.customReply(lang('autopublish.success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
+      }
+      case 'logger': {
+        const
+          channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel))?.id,
+          action = this.options.getString('action'),
+          enabled = this.options.getBoolean('enabled') ?? action != 'all' ? !this.guild.db.config.logger?.[action]?.enabled : null;
+
+        if (!channel) return this.editReply(lang('logger.noChannel'));
+        if (action == 'all' && typeof enabled != 'boolean') return this.editReply(lang('logger.noEnabled'));
+
+        if (action == 'all') for (const action of ['messageDelete', 'messageEdit', 'voiceChannelActivity', 'sayCommandUsed'])
+          await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${action}`, { channel, enabled });
+
+        await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${action}`, { channel, enabled });
+        return this.editReply(lang(`logger.${enabled ? 'enabled' : 'disabled'}`, { channel, action: lang(`logger.actions.${action}`) }));
       }
     }
   }

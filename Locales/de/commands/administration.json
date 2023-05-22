@@ -197,6 +197,27 @@
             "description": "Veröffentliche automatisch alles, was jemand in einem Ankündigungskanal sagt."
           }
         }
+      },
+      "logger": {
+        "description": "Protokolliere Aktionen, die der Audit-Log nicht erfasst",
+        "options": {
+          "action": {
+            "description": "Die Aktion, die du protokollieren möchtest",
+            "choices": {
+              "all": "Alle Aktionen",
+              "messageDelete": "Nachrichten-Löschung",
+              "messageEdit": "Nachrichten-Bearbeitung",
+              "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
+              "sayCommandUsed": "/say (oder ähnliche) Befehls-Verwendung"
+            }
+          },
+          "channel": {
+            "description": "Der Kanal, an den die Protokollnachricht gesendet werden soll"
+          },
+          "enabled": {
+            "description": "Aktiviere (true) oder deaktiviere (false) das Protokollieren dieser Aktion"
+          }
+        }
       }
     },
     "toggledModule": "Das `{name}` Modul wurde {state}.",
@@ -229,6 +250,18 @@
     },
     "autopublish": {
       "success": "Autopublish wurde {toggle}."
+    },
+    "logger": {
+      "noChannel": "Du hast keinen Textkanal angegeben, zu dem das Protokoll gesendet werden soll!",
+      "noEnabled": "Du musst die `enabled` Option nutzen, wenn du alle Actions auf einmal einstellen möchtest!",
+      "enabled": "Protokolle für {action} werden an <#{channel}> gesendet.",
+      "disabled": "Protokolle für {action} werden nicht mehr gesendet.",
+      "actions": {
+        "messageDelete": "gelöschte Nachrichten",
+        "messageEdit": "bearbeitete Nachrichten",
+        "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
+        "sayCommandUsed": "/say (oder ähnliche) Befehls-Verwendung"
+      }
     }
   }
 }
