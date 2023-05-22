@@ -1,9 +1,4 @@
 {
-  "autopublish": {
-    "description": "publica automáticamente todo lo que cualquier persona en cualquier canal de anuncio dice",
-    "usage": "Este comando publica automáticamente todos los mensajes enviados en los canales de anuncios.\nEsto es un alternador.",
-    "success": "{toggle} autopublicando."
-  },
   "serverbackup": {
     "description": "Administre las copias de seguridad de su servidor.",
     "options": {
@@ -91,76 +86,7 @@
   },
   "selfrole": {
     "description": "Gestionar auto-roles.",
-    "options": {
-      "add": {
-        "description": "Añade un botón de auto rol a un mensaje existente.",
-        "options": {
-          "message_id": {
-            "description": "El ID del mensaje al que añadir un autopapel. El bot debe ser el autor."
-          },
-          "role": {
-            "description": "El rol que quieres usar. Asegúrate de que el bot tiene un rol por encima de ese rol."
-          },
-          "button_label": {
-            "description": "El texto que debe estar sobre el botón. Si comienza con un emoji, el emoji se utilizará solamente."
-          },
-          "mode": {
-            "description": "¿Qué debería hacer el botón? Por defecto es \"Cambiar rol\".",
-            "choices": {
-              "add": "Añadir rol",
-              "remove": "Quitar rol",
-              "toggle": "Cambiar Rol"
-            }
-          },
-          "button_row": {
-            "description": "En qué fila debe aparecer el botón, cada fila tiene un límite de 5 botones."
-          },
-          "button_color": {
-            "description": "El color que debe tener el botón. Por defecto es \"Desenfocado\".",
-            "choices": {
-              "1": "Desenfocar",
-              "2": "Gris",
-              "3": "Verde",
-              "4": "Rojo"
-            }
-          },
-          "hide_count": {
-            "description": "Oculta el número de roles dados junto a la etiqueta. Esto aumenta la longitud máxima de la etiqueta en 4."
-          },
-          "content": {
-            "description": "¿Qué debería decir el mensaje? Esto sobrescribe el mensaje original. Use \"/n\" para nuevas líneas."
-          },
-          "channel": {
-            "description": "El canal en el que está el ID del mensaje. Por defecto este canal."
-          }
-        }
-      },
-      "remove": {
-        "description": "Elimina un auto rol añadido y su botón de un mensaje.",
-        "options": {
-          "message_id": {
-            "description": "El ID del mensaje del que eliminar un auto rol."
-          },
-          "role": {
-            "description": "El rol que desea eliminar. Esto eliminará TODOS los botones que coincidan con ese rol."
-          },
-          "content": {
-            "description": "¿Qué debería decir el mensaje? Esto sobrescribe el mensaje original."
-          },
-          "channel": {
-            "description": "El canal en el que está el ID del mensaje. Por defecto este canal."
-          }
-        }
-      }
-    },
-    "invalidMsgId": "¡El ID del mensaje no se encontró en el canal seleccionado! Asegúrese de seleccionar el canal correcto.",
-    "notMsgOwner": "¡Solo puedo añadir botones a mis propios mensajes! Puedes usar `/say` o `/embed` para hacer un mensaje.",
-    "noPerm": "¡No tengo los permisos para administrar el rol seleccionado! Asegúrate de que mi rol más alto es **arriba** al rol seleccionado.",
-    "limitReached": "¡La quinta fila del botón seleccionado está llena! Puede seleccionar una fila con espacio usando la opción `button_row`.",
-    "rowFull": "¡El registro seleccionado está lleno! Las filas sólo pueden tener hasta cinco botones.",
-    "preview": "Así es como se verá el botón. Administrará el rol <@&{role}>. Por favor, pulse el botón en los próximos 30 segundos para añadirlo al mensaje seleccionado.",
-    "addSuccess": "¡El botón ha sido añadido con éxito! [Enlace de mensaje]({url})",
-    "removeSuccess": "¡Todos los botones que usaron el rol seleccionado han sido eliminados con éxito! [Enlace de mensaje]({url})"
+    "deprecated": "Esta característica ya no es compatible. Por favor, utilice las características de la comunidad de Discord (Onboarding) para la gestión de auto-rol: https://support.discord.com/hc/en-us/sections/360007770572-Community-Tools\nLos autoroles ya configurados seguirán funcionando."
   },
   "setup": {
     "description": "Establece el bot",
@@ -263,6 +189,35 @@
             }
           }
         }
+      },
+      "autopublish": {
+        "description": "publica automáticamente todo lo que cualquier persona en cualquier canal de anuncio dice",
+        "options": {
+          "enabled": {
+            "description": "publica automáticamente todo lo que cualquier persona en cualquier canal de anuncio dice"
+          }
+        }
+      },
+      "logger": {
+        "description": "Registrar acciones que el registro de auditoría no puede registrar",
+        "options": {
+          "action": {
+            "description": "La acción que desea registrar",
+            "choices": {
+              "all": "todas las acciones",
+              "messageDelete": "borrar mensaje",
+              "messageEdit": "editar mensaje",
+              "voiceChannelActivity": "unir/dejar/cambiar canal de voz",
+              "sayCommandUsed": "uso del comando /say (o similar)"
+            }
+          },
+          "channel": {
+            "description": "El canal al que desea enviar el mensaje de registro"
+          },
+          "enabled": {
+            "description": "Habilitar (verdadero) o deshabilitar (falso) el registro de la acción"
+          }
+        }
       }
     },
     "toggledModule": "El módulo `{name}` ha sido {state}.",
@@ -292,6 +247,22 @@
     },
     "serverbackup": {
       "success": "¡Actualización exitosa de la configuración!"
+    },
+    "autopublish": {
+      "success": "{toggle} autopublicando."
+    },
+    "logger": {
+      "noChannel": "¡No especificaste un canal de texto para enviar el registro!",
+      "noEnabled": "¡Necesitas usar la opción `enabled` para establecer todas las acciones a la vez!",
+      "enabled": "Los registros para {action} se enviarán a <#{channel}>.",
+      "disabled": "Los registros para {action} ya no se enviarán.",
+      "actions": {
+        "all": "todas las acciones",
+        "messageDelete": "mensajes borrados",
+        "messageEdit": "mensajes editados",
+        "voiceChannelActivity": "canal de voz unirse/abandonar/interruptores",
+        "sayCommandUsed": "uso del comando /say (o similar)"
+      }
     }
   }
 }
