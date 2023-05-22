@@ -1,9 +1,4 @@
 {
-  "autopublish": {
-    "description": "automatically publishes everything anyone in any announcement channel says",
-    "usage": "This command publishes all messages sent in announcement channels automatically.\nThis is a toggle.",
-    "success": "{toggle} autopublishing."
-  },
   "serverbackup": {
     "description": "Manage your server backups.",
     "options": {
@@ -91,76 +86,7 @@
   },
   "selfrole": {
     "description": "Manage selfroles.",
-    "options": {
-      "add": {
-        "description": "Adds a selfrole button to an existing message.",
-        "options": {
-          "message_id": {
-            "description": "The ID of the message to add a selfrole to. The bot must be the author."
-          },
-          "role": {
-            "description": "The role you want to use. Make sure the bot has a role above that role."
-          },
-          "button_label": {
-            "description": "The text that should be on the button. If it starts with an emoji, the emoji will be used only."
-          },
-          "mode": {
-            "description": "What should the button do? Defaults to \"Toggle Role\".",
-            "choices": {
-              "add": "Add Role",
-              "remove": "Remove Role",
-              "toggle": "Toggle Role"
-            }
-          },
-          "button_row": {
-            "description": "On which row the button should appear. Each row has a limit of 5 buttons."
-          },
-          "button_color": {
-            "description": "The color the button should have. Defaults to \"Blurple\".",
-            "choices": {
-              "1": "Blurple",
-              "2": "Grey",
-              "3": "Green",
-              "4": "Red"
-            }
-          },
-          "hide_count": {
-            "description": "Hides the number of given roles next to the label. This increases the max. label length by 4."
-          },
-          "content": {
-            "description": "What should the message say? This overwrites the original message. Use \"/n\" for newlines."
-          },
-          "channel": {
-            "description": "The channel the message ID is in. Defaults to this channel."
-          }
-        }
-      },
-      "remove": {
-        "description": "Remove a added selfrole and its button from a message.",
-        "options": {
-          "message_id": {
-            "description": "The ID of the message to remove a selfrole from."
-          },
-          "role": {
-            "description": "The role you want to remove. This will remove ALL buttons matching that role."
-          },
-          "content": {
-            "description": "What should the message say? This overwrites the original message."
-          },
-          "channel": {
-            "description": "The channel the message ID is in. Defaults to this channel."
-          }
-        }
-      }
-    },
-    "invalidMsgId": "The given message ID was not found in the selected channel! Make sure you selected the correct channel.",
-    "notMsgOwner": "I can only add buttons to my own messages! You can use `/say` or `/embed` to make a message.",
-    "noPerm": "I don't have the permissions to manage the selected role! Make sure my highest role is **above** the selected role.",
-    "limitReached": "The fifth button row of the selected message is full! You can select a row with space by using the `button_row` option.",
-    "rowFull": "The selected row is full! Rows can only have up to five buttons.",
-    "preview": "This is how the button will look like. It will manage the <@&{role}> role. Please press the button in the next 30 seconds to add it to the selected message.",
-    "addSuccess": "The button has been successfully added! [Message Link]({url})",
-    "removeSuccess": "All buttons that used the selected role have been successfully removed! [Message Link]({url})"
+    "deprecated": "This feature is no longer supported. Please use discord's community features (Onboarding) for selfrole management: https://support.discord.com/hc/en-us/sections/360007770572-Community-Tools\nAlready configured selfroles will still work."
   },
   "setup": {
     "description": "Sets the bot up",
@@ -263,6 +189,35 @@
             }
           }
         }
+      },
+      "autopublish": {
+        "description": "automatically publish everything anyone in any announcement channel says.",
+        "options": {
+          "enabled": {
+            "description": "automatically publish everything anyone in any announcement channel says."
+          }
+        }
+      },
+      "logger": {
+        "description": "Log actions that the audit log cannot log",
+        "options": {
+          "action": {
+            "description": "The action you want to log",
+            "choices": {
+              "all": "all actions",
+              "messageDelete": "message delete",
+              "messageEdit": "message edit",
+              "voiceChannelActivity": "join/leave/switch voice channel",
+              "sayCommandUsed": "/say (or similar) command uses"
+            }
+          },
+          "channel": {
+            "description": "The channel you want to send the log message to"
+          },
+          "enabled": {
+            "description": "Enable (true) or disable (false) logging the action"
+          }
+        }
       }
     },
     "toggledModule": "The `{name}` module has been {state}.",
@@ -292,6 +247,22 @@
     },
     "serverbackup": {
       "success": "Successfully updated the settings!"
+    },
+    "autopublish": {
+      "success": "{toggle} autopublishing."
+    },
+    "logger": {
+      "noChannel": "You did not specify a text channel to send the log to!",
+      "noEnabled": "You need to use the `enabled` option to set all actions at once!",
+      "enabled": "Logs for {action} will be sent to <#{channel}>.",
+      "disabled": "Logs for {action} will no longer be sent.",
+      "actions": {
+        "all": "all actions",
+        "messageDelete": "deleted messages",
+        "messageEdit": "edited messages",
+        "voiceChannelActivity": "voice channel joins/leaves/switches",
+        "sayCommandUsed": "/say (or similar) command uses"
+      }
     }
   }
 }
