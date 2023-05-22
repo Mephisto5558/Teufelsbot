@@ -4,7 +4,7 @@ const
 
 /**@this {import('discord.js').VoiceState} @param {import('discord.js').VoiceState} newState*/
 module.exports = async function voiceStateUpdate(newState) {
-  const setting = this.guild?.db.config.logger?.voiceStateUpdate ?? {};
+  const setting = this.guild?.db.config.logger?.voiceChannelActivity ?? {};
   if (this.client.botType == 'dev' || !this.guild || !setting.enabled || !setting.channel || this.channelId == newState.channelId) return;
 
   const channel = this.guild.channels.cache.get(setting.channel);
