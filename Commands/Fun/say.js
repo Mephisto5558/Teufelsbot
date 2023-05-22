@@ -1,4 +1,6 @@
-const { Constants, PermissionFlagsBits, Message } = require('discord.js');
+const
+  { Constants, PermissionFlagsBits, Message } = require('discord.js'),
+  { logSayCommandUse } = require('../../Utils');
 
 module.exports = {
   name: 'say',
@@ -10,6 +12,7 @@ module.exports = {
     {
       name: 'msg',
       type: 'String',
+      maxLength: 2000,
       required: true
     },
     {
@@ -27,7 +30,9 @@ module.exports = {
     if (!this.member.permissionsIn(channel).has(PermissionFlagsBits.SendMessages)) return this.customReply(lang('noPerm'));
     if (!msg) return this.customReply(lang('noMsgProvided'));
 
-    await channel.send(msg.replaceAll('/n', '\n'));
-    return this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent'));
+    const sentMessage = await channel.send(msg.replaceAll('/n', '\n'));
+    this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent'));
+
+    return logSayCommandUse.call(sentMessage, this.member, lang);
   }
 };

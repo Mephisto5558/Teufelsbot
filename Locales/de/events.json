@@ -64,5 +64,42 @@
       "modalTitle": "Begründung",
       "modalTextLabel": "Bitte gib den Grund für den Kick/Bann an."
     }
+  },
+  "logger": {
+    "someone": "jemandem",
+    "executor": "Gelöscht von",
+    "reason": "Begründung",
+    "embeds": "{count} Embeds",
+    "messageDelete": {
+      "embedDescription": "Eine Nachricht wurde von {executor} in {channel} gelöscht.",
+      "content": "Nachrichteninhalt",
+      "author": "Autor",
+      "components": "{count} Komponenten"
+    },
+    "messageDeleteBulk": {
+      "embedDescription": "{count} Nachrichten wurden von {executor} in {channel} gelöscht."
+    },
+    "messageUpdate": {
+      "embedDescription": "{executor} hat eine Nachricht in {channel} bearbeitet",
+      "oldContent": "Ursprüngliche Nachricht",
+      "newContent": "Neue Nachricht",
+      "author": "Autor",
+      "messageLink": "Nachricht",
+      "unknown": "Unbekannt"
+    },
+    "voiceStateUpdate": {
+      "embedDescriptionJoin": "{executor} ist dem Sprachkanal {newChannel} beigetreten.",
+      "embedDescriptionLeave": "{executor} hat den Sprachkanal {oldChannel} verlassen.",
+      "embedDescriptionMove": "{executor} vom Sprachkanal {oldChannel} zu {newChannel} gewechselt.",
+      "oldChannel": "Früherer Kanal",
+      "newChannel": "Aktueller Kanal",
+      "unknown": "`unbekannt`"
+    },
+    "sayCommandUsed": {
+      "embedDescription": "{executor} hat in {channel} einen Befehl genutzt, der den Bot eine Nachricht senden lässt.",
+      "content": "Nachrichteninhalt",
+      "author": "Autor",
+      "messageLink": "Nachricht"
+    }
   }
 }
