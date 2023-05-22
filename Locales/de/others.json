@@ -29,7 +29,7 @@
     "ManageNicknames": "Nicknames verwalten",
     "ManageRoles": "Rollen verwalten",
     "ManageWebhooks": "Webhooks verwalten",
-    "ManageEmojisAndStickers": "Emojis und Sticker verwenden",
+    "ManageGuildExpressions": "Emojis und Sticker verwenden",
     "UseApplicationCommands": "Anwendungsbefehle verwenden",
     "RequestToSpeak": "Redeanfrage",
     "ManageEvents": "Events verwalten",
@@ -39,7 +39,10 @@
     "UseExternalStickers": "Externe Sticker verwenden",
     "SendMessagesInThreads": "Nachrichten in Threads und Posts senden",
     "UseEmbeddedActivities": "Aktivitäten nutzen",
-    "ModerateMembers": "Mitglieder moderieren"
+    "ModerateMembers": "Mitglieder moderieren",
+    "ViewCreatorMonetizationAnalytics": "Creator-Monetizationsanalyse ansehen",
+    "UseExternalSounds": "Externe Sounds verwenden",
+    "SendVoiceMessages": "Sprachnachrichten senden"
   },
   "ChannelTypes": {
     "plural": {
