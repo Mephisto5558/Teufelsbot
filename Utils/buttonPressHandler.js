@@ -94,7 +94,7 @@ module.exports = async function buttonPressHandler(lang) {
       else if (data == 'members') {
         if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers'])) return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], ephemeral: true });
         const err = checkTarget.call(this, item, lang);
-        if (err) return this.reply({ embeds: [embed.setDescription(err)], ephemeral: true });
+        if (err) return this.reply({ embeds: [embed.setDescription(lang(err))], ephemeral: true });
 
         const modal = new ModalBuilder({
           title: lang('modalTitle'),
