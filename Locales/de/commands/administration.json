@@ -1,9 +1,4 @@
 {
-  "autopublish": {
-    "description": "Veröffentlicht automatisch alles, was jemand in einem Ankündigungskanal sagt.",
-    "usage": "Dieser Befehl veröffentlicht automatisch alle Nachrichten, die in Ankündigungskanälen gesendet werden.\nDies ist ein Toggle.",
-    "success": "Autopublish wurde {toggle}."
-  },
   "serverbackup": {
     "description": "Verwalte deine Server-Backups.",
     "options": {
@@ -17,7 +12,7 @@
             "description": "Die Backup-ID, die du laden möchtest. Verwende den Unterbefehl \"get\", um die Liste anzuzeigen."
           },
           "no_clear": {
-            "description": "Wenn auf true, cleart den Server nicht, überschreibt nur bestehende Daten (z. B. bleiben Kanäle)."
+            "description": "Wenn auf true, cleart den Server nicht, überschreibt nur bestehende Daten (z. B. bleiben Kanäle)."
           }
         }
       },
@@ -91,76 +86,7 @@
   },
   "selfrole": {
     "description": "Verwalte Self-Rollen.",
-    "options": {
-      "add": {
-        "description": "Füge einen Self-Rollen-Button zu einer bestehenden Nachricht hinzu.",
-        "options": {
-          "message_id": {
-            "description": "Die ID der Nachricht, die du nutzen möchtest. Die Nachricht muss vom Bot sein."
-          },
-          "role": {
-            "description": "Die Rolle, die du verwenden möchtest. Stelle sicher, dass der Bot eine Rolle über dieser Rolle hat."
-          },
-          "button_label": {
-            "description": "Der Button-Text. Wenn er mit einem Emoji beginnt, wird nur das Emoji genutzt."
-          },
-          "mode": {
-            "description": "Was genau soll der Button tun? Die Standardoption ist \"Rolle umschalten\".",
-            "choices": {
-              "add": "Rolle hinzufügen",
-              "remove": "Rolle entfernen",
-              "toggle": "Rolle umschalten"
-            }
-          },
-          "button_row": {
-            "description": "Auf welcher Reihe soll der Button sein? Jede Reihe hat ein Limit von 5 Buttons."
-          },
-          "button_color": {
-            "description": "Die Farbe, die der Button haben soll. Standard ist \"Blurple\".",
-            "choices": {
-              "1": "Burple",
-              "2": "Grau",
-              "3": "Grün",
-              "4": "Rot"
-            }
-          },
-          "hide_count": {
-            "description": "Zeige die Anzahl der vergebenen Rollen nicht an. Dies erhöht die maximale Label-Länge um 4 Zeichen."
-          },
-          "content": {
-            "description": "Was soll anstelle der ursprünglichen Nachricht angezeigt werden? Nutze \"/n\" für Zeilenumbrüche."
-          },
-          "channel": {
-            "description": "Der Kanal, in dem sich die Nachricht befindet. Ist standardmäßig dieser Kanal."
-          }
-        }
-      },
-      "remove": {
-        "description": "Entferne eine Self-Rolle und den dazugehörigen Button von einer Nachricht.",
-        "options": {
-          "message_id": {
-            "description": "Die ID der Nachricht, die du nutzen möchtest. Die Nachricht muss vom Bot sein."
-          },
-          "role": {
-            "description": "Die Rolle, die du entfernen möchtest. Dies wird ALLE Buttons entfernen, die diese Rolle verwalten."
-          },
-          "content": {
-            "description": "Was soll anstelle der ursprünglichen Nachricht angezeigt werden? Nutze \"/n\" für Zeilenumbrüche."
-          },
-          "channel": {
-            "description": "Der Kanal, in dem sich die Nachricht befindet. Ist standardmäßig dieser Kanal."
-          }
-        }
-      }
-    },
-    "invalidMsgId": "Die angegebene Nachrichten-ID wurde im ausgewählten Kanal nicht gefunden! Stelle sicher, dass du den korrekten Kanal ausgewählt hast.",
-    "notMsgOwner": "Ich kann Buttons nur zu von mir gesendeten Nachrichten hinzufügen! Du kannst `/say` oder `/embed` nutzen, um eine Nachricht zu erstellen.",
-    "noPerm": "Ich habe nicht die Berechtigung, die ausgewählte Rolle zu verwalten! Stelle sicher, dass meine höchste Rolle **über** der ausgewählten Rolle ist.",
-    "limitReached": "Die fünfte Reihe in der ausgewählten Nachricht ist voll! Du kannst eine nicht volle Reihe mit der `button_row` Option auswählen.",
-    "rowFull": "Die ausgewählte Reihe ist voll! Reihen können maximal 5 Buttons haben.",
-    "preview": "So wird der Button aussehen. Er wird die <@&{role}> Rolle verwalten. Bitte drücke den Button innerhalb von 30 Sekunden, um ihn zur ausgewählten Nachricht hinzuzufügen.",
-    "addSuccess": "Der Button wurde erfolgreich hinzugefügt! [Nachrichtenlink]({url})",
-    "removeSuccess": "Alle Buttons, die die ausgewählte Rolle verwalteten, wurden entfernt! [Nachrichtenlink]({url})"
+    "deprecated": "Dieses Feature wird nicht länger unterstützt. Bitte nutze Discord's Community-Features (Onboarding) für Selfroles: https://support.discord.com/hc/de/sections/360007770572-Community-Werkzeuge\nBereits konfigurierte Selfroles werden weiterhin funktionieren."
   },
   "setup": {
     "description": "Richtet den Bot ein",
@@ -263,6 +189,35 @@
             }
           }
         }
+      },
+      "autopublish": {
+        "description": "Veröffentliche automatisch alles, was jemand in einem Ankündigungskanal sagt.",
+        "options": {
+          "enabled": {
+            "description": "Veröffentliche automatisch alles, was jemand in einem Ankündigungskanal sagt."
+          }
+        }
+      },
+      "logger": {
+        "description": "Protokolliere Aktionen, die der Audit-Log nicht erfasst",
+        "options": {
+          "action": {
+            "description": "Die Aktion, die du protokollieren möchtest",
+            "choices": {
+              "all": "Alle Aktionen",
+              "messageDelete": "Nachrichten-Löschung",
+              "messageEdit": "Nachrichten-Bearbeitung",
+              "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
+              "sayCommandUsed": "/say (oder ähnliche) Befehls-Verwendung"
+            }
+          },
+          "channel": {
+            "description": "Der Kanal, an den die Protokollnachricht gesendet werden soll"
+          },
+          "enabled": {
+            "description": "Aktiviere (true) oder deaktiviere (false) das Protokollieren dieser Aktion"
+          }
+        }
       }
     },
     "toggledModule": "Das `{name}` Modul wurde {state}.",
@@ -292,6 +247,22 @@
     },
     "serverbackup": {
       "success": "Die Einstellungen wurden erfolgreich aktualisiert!"
+    },
+    "autopublish": {
+      "success": "Autopublish wurde {toggle}."
+    },
+    "logger": {
+      "noChannel": "Du hast keinen Textkanal angegeben, zu dem das Protokoll gesendet werden soll!",
+      "noEnabled": "Du musst die `enabled` Option nutzen, wenn du alle Actions auf einmal einstellen möchtest!",
+      "enabled": "Protokolle für {action} werden an <#{channel}> gesendet.",
+      "disabled": "Protokolle für {action} werden nicht mehr gesendet.",
+      "actions": {
+        "all": "Alle Aktionen",
+        "messageDelete": "gelöschte Nachrichten",
+        "messageEdit": "bearbeitete Nachrichten",
+        "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
+        "sayCommandUsed": "/say (oder ähnliche) Befehls-Verwendung"
+      }
     }
   }
 }
