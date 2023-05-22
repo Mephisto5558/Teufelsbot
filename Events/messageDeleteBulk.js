@@ -4,7 +4,7 @@ const
 
 /**@this {import('discord.js').Collection<string,import('discord.js').Message} @param {import('discord.js').GuildTextBasedChannel}channel*/
 module.exports = async function messageDeleteBulk(channel) {
-  const setting = this.first().guild?.db.config.logger?.messageDeleteBulk ?? {};
+  const setting = this.first().guild?.db.config.logger?.messageDelete ?? {};
   if (this.client.botType == 'dev' || !this.first().guild || !setting.enabled || !setting.channel) return;
 
   const channelToSend = this.first().guild.channels.cache.get(setting.channel);
