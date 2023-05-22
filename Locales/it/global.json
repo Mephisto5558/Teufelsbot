@@ -1,7 +1,8 @@
 {
   "languageName": "Italiano",
   "messageSent": "Messaggio inviato!",
-  "loading": "Caricamento...",
+  "loading": "<a:loading:1063091916683612160> Caricamento...",
+  "channel": "Canale",
   "guild": "Gilda",
   "user": "Utente",
   "cancel": "Annulla",
