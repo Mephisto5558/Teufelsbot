@@ -49,7 +49,8 @@
     "createdAt": "Creato Il",
     "requiresColons": "Richiede Coloni",
     "allowedRoles": "Ruoli Consentiti",
-    "download": "Scarica Emoji"
+    "download": "Scarica Emoji",
+    "delete": "Elimina Emoji"
   },
   "help": {
     "description": "Mostra tutti i miei comandi o cerca uno specifico",
@@ -136,6 +137,7 @@
         "description": "il ruolo che si desidera ottenere informazioni su"
       }
     },
+    "notFound": "Impossibile trovare questo ruolo. Prova ad usare il suo ID.",
     "mention": "Menzione",
     "members": "Membri",
     "color": "Colore",
@@ -145,7 +147,8 @@
     "position": "Posizione",
     "createdAt": "Creato Il",
     "permissions": "Permessi",
-    "admin": "Amministratore"
+    "admin": "Amministratore",
+    "delete": "Elimina Ruolo"
   },
   "serverinfo": {
     "description": "Ottieni informazioni su una gilda",
@@ -241,6 +244,8 @@
     },
     "perms": "Permessi",
     "downloadAvatar": "Scarica Avatar",
-    "downloadBanner": "Scarica Banner"
+    "downloadBanner": "Scarica Banner",
+    "kickMember": "Espelli Membro",
+    "banMember": "Divieto Membro"
   }
 }

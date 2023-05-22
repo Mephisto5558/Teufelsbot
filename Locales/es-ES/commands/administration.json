@@ -85,7 +85,8 @@
     }
   },
   "selfrole": {
-    "description": "Gestionar auto-roles."
+    "description": "Gestionar auto-roles.",
+    "deprecated": "Esta característica ya no es compatible. Por favor, utilice las características de la comunidad de Discord (Onboarding) para la gestión de auto-rol: https://support.discord.com/hc/en-us/sections/360007770572-Community-Tools\nLos autoroles ya configurados seguirán funcionando."
   },
   "setup": {
     "description": "Establece el bot",
@@ -196,6 +197,27 @@
             "description": "publica automáticamente todo lo que cualquier persona en cualquier canal de anuncio dice"
           }
         }
+      },
+      "logger": {
+        "description": "Registrar acciones que el registro de auditoría no puede registrar",
+        "options": {
+          "action": {
+            "description": "La acción que desea registrar",
+            "choices": {
+              "all": "todas las acciones",
+              "messageDelete": "borrar mensaje",
+              "messageEdit": "editar mensaje",
+              "voiceChannelActivity": "unir/dejar/cambiar canal de voz",
+              "sayCommandUsed": "uso del comando /say (o similar)"
+            }
+          },
+          "channel": {
+            "description": "El canal al que desea enviar el mensaje de registro"
+          },
+          "enabled": {
+            "description": "Habilitar (verdadero) o deshabilitar (falso) el registro de la acción"
+          }
+        }
       }
     },
     "toggledModule": "El módulo `{name}` ha sido {state}.",
@@ -228,6 +250,19 @@
     },
     "autopublish": {
       "success": "{toggle} autopublicando."
+    },
+    "logger": {
+      "noChannel": "¡No especificaste un canal de texto para enviar el registro!",
+      "noEnabled": "¡Necesitas usar la opción `enabled` para establecer todas las acciones a la vez!",
+      "enabled": "Los registros para {action} se enviarán a <#{channel}>.",
+      "disabled": "Los registros para {action} ya no se enviarán.",
+      "actions": {
+        "all": "todas las acciones",
+        "messageDelete": "mensajes borrados",
+        "messageEdit": "mensajes editados",
+        "voiceChannelActivity": "canal de voz unirse/abandonar/interruptores",
+        "sayCommandUsed": "uso del comando /say (o similar)"
+      }
     }
   }
 }
