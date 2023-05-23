@@ -9,7 +9,7 @@ module.exports = function equal(a, b) {
     !equal(a.nameLocalizations, b.nameLocalizations) || !equal(a.description_localizations, b.description_localizations)
   ) return false;
 
-  for (let i = 0; i < (a.choices?.length || 0); i++) if (!equal(a.choices?.[i], b.choices?.[i])) return false;
+  for (let i = 0; i < (a.choices?.length || 0); i++) if (!equal(a.choices?.[i], b.choices?.find(e => e.name == a.choices?.[i]?.name))) return false;
   for (let i = 0; i < (a.options?.length || 0); i++) if (!equal(a.options?.[i], b.options?.[i])) return false;
   for (const channelType of (a.channelTypes || [])) if (!b.channelTypes.includes(channelType)) return false;
 
