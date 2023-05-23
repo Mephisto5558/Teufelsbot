@@ -1,4 +1,5 @@
 module.exports = {
+  autocompleteGenerator: require('./autocompleteGenerator.js'),
   BackupSystem: require('./backupSystem.js'),
   bankick: require('./bankick.js'),
   buttonPressHandler: require('./buttonPressHandler.js'),

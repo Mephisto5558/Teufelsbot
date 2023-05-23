@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, InteractionType, ApplicationCommandOptionType, ComponentType } = require('discord.js'),
-  { I18nProvider, cooldowns, permissionTranslator, errorHandler, buttonPressHandler, getOwnerOnlyFolders } = require('../Utils'),
+  { I18nProvider, cooldowns, permissionTranslator, errorHandler, buttonPressHandler, getOwnerOnlyFolders, autocompleteGenerator } = require('../Utils'),
   { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json'),
   ownerOnlyFolders = getOwnerOnlyFolders(),
   errorEmbed = new EmbedBuilder({ color: Colors.Red });
@@ -9,21 +9,6 @@ async function componentHandler(lang) {
   switch (this.componentType) {
     case ComponentType.Button: return buttonPressHandler.call(this, lang);
   }
-}
-
-async function autocompleteGenerator(command, locale) {
-  const response = v => ({ name: I18nProvider.__({ locale, undefinedNotFound: true }, `commands.${command.category.toLowerCase()}.${command.name}.options.${this.options._group ? this.options._group + '.' : ''}${this.options._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });
-
-  let { options } = command.fMerge();
-  if (this.options._group) options = options.find(e => e.name == this.options._group);
-  if (this.options._subcommand) options = options.find(e => e.name == this.options._subcommand).options;
-  options = options.find(e => e.name == this.focused.name).autocompleteOptions;
-  if (typeof options == 'function') options = await options.call(this);
-
-  if (options.constructor.name == 'Object') return [options];
-  return typeof options == 'string' ? [response(options)] : options
-    .filter(e => !this.focused.value || (e.toLowerCase?.() || e.value.toLowerCase()).includes(this.focused.value.toLowerCase()))
-    .slice(0, 25).map(e => typeof e == 'object' ? e : response(e));
 }
 
 /**@this {import('discord.js').CommandInteraction}*/
@@ -47,6 +32,7 @@ module.exports = async function interactionCreate() {
   if (disabledList.members && disabledList.members.includes(this.user.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.member'))], ephemeral: true });
   if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.channel'))], ephemeral: true });
   if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.role'))], ephemeral: true });
+  if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.nsfwCommand'))], ephemeral: true });
 
   for (const { autocomplete, strictAutocomplete, name } of command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options || e) || e?.options || e) || []) {
 

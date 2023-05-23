@@ -8,7 +8,7 @@
   "economyNotInitialized": "This command is an economy category command. To start using the economy, run `/economyconfig user start`.",
   "commandDisabled": "This command has been disabled by the bot dev.",
   "buttonPressOnCooldown": "This button is on cooldown! Try it again in `{time}`s.",
-  "strictAutocompleteNoMatch": "Your input must match one of the autocomplete suggestions. Please select one of the available options when entering the command.",
+  "strictAutocompleteNoMatch": "Your input must match one of the autocomplete suggestions. Please select one of the available options when entering the slash command.",
   "permissionDenied": {
     "embedTitle": "Insufficient Permissions",
     "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n`{permissions}`",
@@ -30,6 +30,7 @@
     "channel": "It is not allowed to run this command in this channel (set by a server administrator)!",
     "role": "One of your roles is not allowed to run this command (set by a server administrator)!"
   },
+  "nsfwCommand": "You cannot run NSFW Commands in a non NSFW Channel!",
   "counting": {
     "error": "YOU RUINED IT AT **{lastNumber}**!! The next number is **1**.\n",
     "wrongNumber": "**Can't you count?! Wrong number.**",
