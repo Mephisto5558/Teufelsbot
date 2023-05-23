@@ -4,7 +4,7 @@ const
 
 /**@this {import('discord.js').Message}*/
 module.exports = async function messageDelete() {
-  const setting = this.guild?.db.config.logger?.messageDelete ?? {};
+  const setting = this.guild?.db.config?.logger?.messageDelete ?? {};
   if (this.client.botType == 'dev' || !this.guild || !setting.enabled || !setting.channel) return;
 
   const channel = this.guild.channels.cache.get(setting.channel);
@@ -13,7 +13,7 @@ module.exports = async function messageDelete() {
   await sleep(1000); //Make sure the audit log gets created before trying to fetching it
 
   const
-    lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageDelete' }),
+    lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageDelete' }),
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageDelete })).entries.find(e => (!this.user?.id || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < 20000) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : null,
