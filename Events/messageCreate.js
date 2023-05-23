@@ -40,7 +40,7 @@ module.exports = async function messageCreate() {
   for (const { autocomplete, strictAutocomplete, name } of command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options || e) || e?.options || e) || []) {
     if (
       autocomplete && strictAutocomplete && this.args?.[0] && !(await autocompleteGenerator.call(Object.assign({}, this, { client: this.client, focused: { name, value: this.args?.[i] } }), command, config.lang ?? this.guild?.localeCode))
-        .filter(e => (e.toLowerCase?.() || e.value.toLowerCase()).includes(this.args?.[i].toLowerCase())).length
+        .filter(e => (e.toLowerCase?.() || e.value.toLowerCase()) == this.args?.[i].toLowerCase()).length
     ) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.strictAutocompleteNoMatch'))] }, 1e4);
     i++;
   }
