@@ -4,10 +4,10 @@ const
 
 /**@this {import('discord.js').Collection<string,import('discord.js').Message} @param {import('discord.js').GuildTextBasedChannel}channel*/
 module.exports = async function messageDeleteBulk(channel) {
-  const setting = this.first().guild?.db.config?.logger?.messageDelete ?? {};
-  if (this.client.botType == 'dev' || !this.first().guild || !setting.enabled || !setting.channel) return;
+  const setting = channel.guild?.db.config?.logger?.messageDelete ?? {};
+  if (channel.client.botType == 'dev' || !channel.guild || !setting.enabled || !setting.channel) return;
 
-  const channelToSend = this.first().guild.channels.cache.get(setting.channel);
+  const channelToSend = channel.guild.channels.cache.get(setting.channel);
   if (!channelToSend || channelToSend.permissionsFor(channel.guild.members.me).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
 
   await sleep(1000); //Make sure the audit log gets created before trying to fetching it
