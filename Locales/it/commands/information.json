@@ -85,6 +85,7 @@
     "dev": "Sviluppatore",
     "shard": "Frammento",
     "guild": "Id Della Gilda Interna",
+    "guilds": "Gilde",
     "commands": "Comandi",
     "starts": "Inizia",
     "lastStart": "Ultimo avvio",
