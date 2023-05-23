@@ -4,14 +4,14 @@ const
 
 /**@this {import('discord.js').VoiceState} @param {import('discord.js').VoiceState} newState*/
 module.exports = async function voiceStateUpdate(newState) {
-  const setting = this.guild?.db.config.logger?.voiceChannelActivity ?? {};
+  const setting = this.guild?.db.config?.logger?.voiceChannelActivity ?? {};
   if (this.client.botType == 'dev' || !this.guild || !setting.enabled || !setting.channel || this.channelId == newState.channelId) return;
 
   const channel = this.guild.channels.cache.get(setting.channel);
   if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
 
   const
-    lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' }),
+    lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' }),
     embed = new EmbedBuilder({
       author: { name: newState.member.user.tag, iconURL: newState.member.displayAvatarURL() },
       timestamp: Date.now(),
