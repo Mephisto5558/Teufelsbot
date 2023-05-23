@@ -17,6 +17,7 @@ module.exports = {
         `${lang('dev')}: [${owner.tag}](https://discord.com/users/${owner.id})\n` +
         `${lang('shard')}: \`${this.guild.shardId}\`\n` +
         `${lang('guild')}: \`${this.guild.db.position ?? 0}\`\n` +
+        `${lang('guilds')}: \`${this.client.guilds.cache.size}\`\n` +
         `${lang('commands')}: \`${new Set(this.client.prefixCommands.filter(e => !e.aliasOf), this.client.slashCommands.filter(e => !e.aliasOf)).size}\`\n` +
         `${lang('starts')}: \`${this.client.settings.startCount[this.client.botType] || 0}\`\n` +
         `${lang('lastStart')}: <t:${startTime}> (<t:${startTime}:R>)\n` +

@@ -85,6 +85,7 @@
     "dev": "Entwickler",
     "shard": "Shard",
     "guild": "Interne Server-ID",
+    "guilds": "Server",
     "commands": "Befehle",
     "starts": "Starts",
     "lastStart": "Letzter Start",
