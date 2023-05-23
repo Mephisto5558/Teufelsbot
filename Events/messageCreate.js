@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, ChannelType, PermissionFlagsBits } = require('discord.js'),
-  { I18nProvider, cooldowns, permissionTranslator, errorHandler, getOwnerOnlyFolders } = require('../Utils'),
+  { I18nProvider, cooldowns, permissionTranslator, errorHandler, getOwnerOnlyFolders, autocompleteGenerator } = require('../Utils'),
   { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json'),
   ownerOnlyFolders = getOwnerOnlyFolders(),
   errorEmbed = new EmbedBuilder({ color: Colors.Red });
@@ -34,6 +34,16 @@ module.exports = async function messageCreate() {
   if (disabledList.members && disabledList.members.includes(this.user.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.member'))] }, 1e4);
   if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.channel'))] }, 1e4);
   if (disabledList.roles && this.member.roles?.cache.some(e => disabledList.roles.includes(e.id))) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.role'))] }, 1e4);
+  if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.nsfwCommand'))] }, 1e4);
+
+  let i = 0;
+  for (const { autocomplete, strictAutocomplete, name } of command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options || e) || e?.options || e) || []) {
+    if (
+      autocomplete && strictAutocomplete && this.args?.[0] && !(await autocompleteGenerator.call(Object.assign({}, this, { client: this.client, focused: { name, value: this.args?.[i] } }), command, config.lang ?? this.guild?.localeCode))
+        .filter(e => (e.toLowerCase?.() || e.value.toLowerCase()).includes(this.args?.[i].toLowerCase())).length
+    ) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.strictAutocompleteNoMatch'))] }, 1e4);
+    i++;
+  }
 
   if (this.client.botType != 'dev') {
     const cooldown = cooldowns.call(this, command);
