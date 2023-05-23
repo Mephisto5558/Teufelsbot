@@ -8,7 +8,7 @@
   "economyNotInitialized": "Dieser Befehl ist ein Economy-Befehl. Um die Economy zu starten, führe `/economyconfig user start` aus.",
   "commandDisabled": "Dieser Befehl wurde vom Bot-Developer deaktiviert.",
   "buttonPressOnCooldown": "Dieser Button ist im Cooldown! Versuche es erneut in `{time}`s.",
-  "strictAutocompleteNoMatch": "Deine Eingabe muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe aus.",
+  "strictAutocompleteNoMatch": "Deine Eingabe muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Command aus.",
   "permissionDenied": {
     "embedTitle": "Unzureichende Berechtigungen",
     "embedDescriptionUser": "Du benötigst die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n`{permissions}`",
@@ -30,6 +30,7 @@
     "channel": "Es ist nicht erlaubt, diesen Befehl in diesem Kanal auszuführen (eingestellt von einem Serveradministrator)!",
     "role": "Einer deiner Rollen ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!"
   },
+  "nsfwCommand": "Du kannst NSFW-Befehle nur in NSFW-Kanälen ausführen!",
   "counting": {
     "error": "DU HAST ES BEI **{lastNumber}** RUINIERT!! Die nächste Zahl ist **1**.\n",
     "wrongNumber": "**Kannst du nicht zählen?! Falsche Zahl.**",
