@@ -2,11 +2,8 @@ const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   { I18nProvider } = require('../../Utils'),
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
-  getCmds = client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])],
-  mention = (k, v) => {
-    if (k == 'roles') return `<@&${v}>`;
-    return (k == 'channels' ? '<#' : '<@') + `${v}>`;
-  };
+  loggerActionTypes = ['messageDelete', 'messageEdit', 'voiceChannelActivity', 'sayCommandUsed'],
+  getCmds = client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])];
 
 module.exports = {
   name: 'setup',
@@ -83,7 +80,7 @@ module.exports = {
           name: 'action',
           type: 'String',
           required: true,
-          choices: ['all', 'messageDelete', 'messageEdit', 'voiceChannelActivity', 'sayCommandUsed'],
+          choices: ['all', ...loggerActionTypes],
         },
         {
           name: 'channel',
@@ -117,7 +114,10 @@ module.exports = {
         if (this.options.getBoolean('get')) {
           const fields = [['roles', roles], ['channels', channels], ['users', users]].filter(([, e]) => e?.length).map(([k, v]) => ({
             name: lang(`toggleCmd.${k}`),
-            value: v.includes('*') ? lang('toggleCmd.list.all') : v.map(e => mention(k, e)).join(', '),
+            value: v.includes('*') ? lang('toggleCmd.list.all') : v.map(e => {
+              if (k == 'roles') return `<@&${e}>`;
+              return (k == 'channels' ? '<#' : '<@') + `${e}>`;
+            }).join(', '),
             inline: false
           }));
 
@@ -200,10 +200,12 @@ module.exports = {
           enabled = this.options.getBoolean('enabled') ?? action != 'all' ? !this.guild.db.config.logger?.[action]?.enabled : null;
 
         if (!channel) return this.editReply(lang('logger.noChannel'));
-        if (action == 'all' && typeof enabled != 'boolean') return this.editReply(lang('logger.noEnabled'));
+        if (action == 'all') {
+          if (enabled == null) return this.editReply(lang('logger.noEnabled'));
 
-        if (action == 'all') for (const action of ['messageDelete', 'messageEdit', 'voiceChannelActivity', 'sayCommandUsed'])
-          await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${action}`, { channel, enabled });
+          for (const action of loggerActionTypes)
+            await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${action}`, { channel, enabled });
+        }
 
         await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${action}`, { channel, enabled });
         return this.editReply(lang(`logger.${enabled ? 'enabled' : 'disabled'}`, { channel, action: lang(`logger.actions.${action}`) }));
