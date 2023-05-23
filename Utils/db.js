@@ -36,8 +36,7 @@ module.exports = class DB {
 
   /**@param {boolean}overwrite overwrite existing collection, default: `false`*/
   async generate(overwrite = false) {
-    for (const { key, value } of require('../Templates/db_collections.json'))
-      await this.set(key, value, overwrite);
+    for (const { key, value } of require('../Templates/db_collections.json')) await this.set(key, value, overwrite);
   }
 
   reduce = () => this.cache.reduce((acc, value, key) => acc.push({ key, value }) && acc, []);
