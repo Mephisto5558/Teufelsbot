@@ -1,0 +1,35 @@
+{
+  "nsfw": {
+    "description": "Получить изображение NSFW",
+    "usage": "PREFIX команда: nsfw [type]",
+    "options": {
+      "type": {
+        "description": "Тип изображения, который вы хотите увидеть. По умолчанию Hentai.",
+        "choices": {
+          "hass": "Хентай пасс",
+          "hmidriff": "Hentai Taille",
+          "pgif": "Porn gif",
+          "4k": "4к",
+          "hentai": "Hentai",
+          "hneko": "Hentai Neko",
+          "neko": "Неко",
+          "hkitsune": "Hentai Kitsune",
+          "anal": "Анал",
+          "hanal": "Hentai Anal",
+          "gonewild": "Угнать дикий",
+          "ass": "Асс",
+          "pussy": "Прыжок",
+          "thigh": "Бедро",
+          "hthigh": "Хентаи Тьё",
+          "paizuri": "Paizuri",
+          "tentacle": "Щупальца",
+          "boobs": "Бубы",
+          "hboobs": "Хентаи Бубы",
+          "yaoi": "Yaoi"
+        }
+      }
+    },
+    "error": "API ответил с ошибкой.",
+    "embedTitle": "Почему у меня горны?"
+  }
+}
