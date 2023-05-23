@@ -4,7 +4,7 @@ const
 
 /**@this {import('discord.js').Message} old message @param {import('discord.js').Message}newMsg*/
 module.exports = async function messageUpdate(newMsg) {
-  const setting = this.guild?.db.config.logger?.messageUpdate ?? {};
+  const setting = this.guild?.db.config?.logger?.messageUpdate ?? {};
   if (
     this.client.botType == 'dev' || !this.guild || !setting.enabled || !setting.channel ||
     (this.content === newMsg.content && this.attachments.size === newMsg.attachments.site && this.embeds.length && newMsg.embeds.length)
@@ -14,7 +14,7 @@ module.exports = async function messageUpdate(newMsg) {
   if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
 
   const
-    lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
+    lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
     embed = new EmbedBuilder({
       author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
       description: lang('embedDescription', { executor: `<@${newMsg.user.id}>`, channel: newMsg.channel.name }),
