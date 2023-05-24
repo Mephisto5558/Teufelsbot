@@ -1,10 +1,10 @@
 {
   "nsfw": {
-    "description": "Erhalte ein NSFW Bild.",
+    "description": "Erhalte ein NSFW-Bild",
     "usage": "PREFIX-Befehl: nsfw [art]",
     "options": {
       "type": {
-        "description": "Die Bild-Art, die du sehen möchtest. Standart: Hentai",
+        "description": "Die Bild-Art, die du sehen möchtest. Standard: Hentai",
         "choices": {
           "hass": "Hentai Arsch",
           "hmidriff": "Hentai Midriff",
@@ -24,7 +24,7 @@
           "paizuri": "Paizuri",
           "tentacle": "Tentakel",
           "boobs": "Brüste",
-          "hboobs": "Hentaibrüste",
+          "hboobs": "Hentai-Brüste",
           "yaoi": "Yaoi"
         }
       }

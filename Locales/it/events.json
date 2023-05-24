@@ -8,7 +8,7 @@
   "economyNotInitialized": "Questo comando è un comando di categoria economica. Per iniziare a usare l'economia, esegui `/economyconfig user start`.",
   "commandDisabled": "Questo comando è stato disabilitato dal bot dev.",
   "buttonPressOnCooldown": "Questo pulsante è in fase di ricarica! Riprova in `{time}`s.",
-  "strictAutocompleteNoMatch": "Il tuo input deve corrispondere a uno dei suggerimenti per il completamento automatico. Seleziona una delle opzioni disponibili quando inserisci il comando.",
+  "strictAutocompleteNoMatch": "Il tuo input deve corrispondere a uno dei suggerimenti per il completamento automatico. Seleziona una delle opzioni disponibili quando inserisci il comando slash.",
   "permissionDenied": {
     "embedTitle": "Permessi Insufficienti",
     "embedDescriptionUser": "Hai bisogno dei seguenti permessi in questo canale per eseguire questo comando:\n`{permissions}`",
@@ -30,6 +30,7 @@
     "channel": "Non è consentito eseguire questo comando in questo canale (impostato da un amministratore del server)!",
     "role": "Uno dei tuoi ruoli non è autorizzato ad eseguire questo comando (impostato da un amministratore del server)!"
   },
+  "nsfwCommand": "Non puoi eseguire i comandi NSFW in un canale non NSFW!",
   "counting": {
     "error": "SI RUINO AL **{lastNumber}**!! Il prossimo numero è **1**.\n",
     "wrongNumber": "**Non puoi contare?! Numero errato.**",

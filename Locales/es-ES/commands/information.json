@@ -85,6 +85,7 @@
     "dev": "Desarrollador",
     "shard": "Fragmento",
     "guild": "ID de Gremio Interno",
+    "guilds": "Gremios",
     "commands": "Comandos",
     "starts": "Comienza",
     "lastStart": "Último inicio",

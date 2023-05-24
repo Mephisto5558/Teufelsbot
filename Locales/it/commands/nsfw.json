@@ -1,0 +1,35 @@
+{
+  "nsfw": {
+    "description": "Ottieni un'immagine NSFW",
+    "usage": "Comando PREFIX: nsfw [type]",
+    "options": {
+      "type": {
+        "description": "Il tipo di immagine che si desidera visualizzare. Predefinito per hentai.",
+        "choices": {
+          "hass": "Hentai culo",
+          "hmidriff": "Hentai Taille",
+          "pgif": "Porn gif",
+          "4k": "4k",
+          "hentai": "Hentai",
+          "hneko": "Hentai Neko",
+          "neko": "Neko",
+          "hkitsune": "Hentai Kitsune",
+          "anal": "Anale",
+          "hanal": "Hentai Anal",
+          "gonewild": "Fuori selvatici",
+          "ass": "Ass",
+          "pussy": "Figa",
+          "thigh": "Coscia",
+          "hthigh": "Hentai Thigh",
+          "paizuri": "Paizuri",
+          "tentacle": "Tentacolo",
+          "boobs": "Tette",
+          "hboobs": "Hentai Boobs",
+          "yaoi": "Yaoi"
+        }
+      }
+    },
+    "error": "L'API ha risposto con un errore.",
+    "embedTitle": "Perché ar u horny?"
+  }
+}
