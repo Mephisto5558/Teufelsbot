@@ -4,7 +4,6 @@ module.exports = {
   bankick: require('./bankick.js'),
   buttonPressHandler: require('./buttonPressHandler.js'),
   checkTargetBanPerm: require('./checkTargetBanPerm.js'),
-  Converter: require('./converter.js'),
   cooldowns: require('./cooldowns.js'),
   DB: require('./db.js'),
   errorHandler: require('./error_handler.js'),

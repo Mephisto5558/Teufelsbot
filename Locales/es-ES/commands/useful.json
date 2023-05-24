@@ -75,38 +75,6 @@
     "successJSON": "¡Tu botón ha sido enviado!",
     "success": "¡Tu botón ha sido enviado! Debajo está el código del botón.\nSi quieres enviarlo de nuevo, utiliza el subcomando `json`.\n\n```json\n{json}\n```"
   },
-  "convert": {
-    "description": "Convierte un tipo de texto a otro",
-    "options": {
-      "input": {
-        "description": "el texto que desea convertir"
-      },
-      "convert_to": {
-        "description": "el tipo de salida",
-        "choices": {
-          "binary": "Binario",
-          "decimal": "Decimal",
-          "hex": "Hexadecimal",
-          "morse": "Código Morse",
-          "octal": "Octal",
-          "text": "Texto"
-        }
-      },
-      "is_octal": {
-        "description": "Establezca esto como verdadero si su entrada es octal o si no será reconocida como decimal."
-      },
-      "with_spaces": {
-        "description": "¿Quieres tener espacios entre las letras? Por defecto: falso"
-      },
-      "convert_spaces": {
-        "description": "¿Quieres también convertir espacios? Por defecto: verdadero"
-      },
-      "convert_letters_and_digits_only": {
-        "description": "¿Quieres convertir solo letras y dígitos? Por defecto: falso"
-      }
-    },
-    "success": "```Convertido {inputType} a {outputType}: ```\n"
-  },
   "embed": {
     "description": "envía un embebido personalizado; puedes hacer nuevas líneas con \"/n\".",
     "options": {
