@@ -27,7 +27,7 @@ module.exports = async function messageDelete() {
       color: 8530669,
     });
 
-  if (this.content) embed.data.fields[1].value += `${this.content}\n`;
+  if (this.originalContent) embed.data.fields[1].value += `${this.originalContent}\n`;
   if (this.attachments.size) embed.data.fields[1].value += this.attachments.map(e => `[${e.url}](${e.name})`).join(', ') + '\n';
   if (this.embeds.length) embed.data.fields[1].value += lang('events.logger.embeds', this.embeds.length) + '\n';
   if (this.components.length) embed.data.fields[1].value += lang('components', this.components.length);
