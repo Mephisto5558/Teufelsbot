@@ -206,7 +206,7 @@
             "choices": {
               "all": "todas las acciones",
               "messageDelete": "borrar mensaje",
-              "messageEdit": "editar mensaje",
+              "messageUpdate": "editar mensaje",
               "voiceChannelActivity": "unir/dejar/cambiar canal de voz",
               "sayCommandUsed": "uso del comando /say (o similar)"
             }
@@ -259,7 +259,7 @@
       "actions": {
         "all": "todas las acciones",
         "messageDelete": "mensajes borrados",
-        "messageEdit": "mensajes editados",
+        "messageUpdate": "mensajes editados",
         "voiceChannelActivity": "canal de voz unirse/abandonar/interruptores",
         "sayCommandUsed": "uso del comando /say (o similar)"
       }
