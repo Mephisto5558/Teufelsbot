@@ -7,7 +7,7 @@ module.exports = async function messageUpdate(newMsg) {
   const setting = this.guild?.db.config?.logger?.messageUpdate ?? {};
   if (
     this.client.botType == 'dev' || !this.guild || !setting.enabled || !setting.channel ||
-    (this.content === newMsg.content && this.attachments.size === newMsg.attachments.size && this.embeds.length && newMsg.embeds.length)
+    (this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size && this.embeds.length && newMsg.embeds.length)
   ) return;
 
   const channel = this.guild.channels.cache.get(setting.channel);
@@ -35,8 +35,8 @@ module.exports = async function messageUpdate(newMsg) {
       })]
     });
 
-  if (this.content) embed.data.fields[1].value += `${this.content}\n`;
-  if (newMsg.content) embed.data.fields[2].value += `${newMsg.content}\n`;
+  if (this.originalContent) embed.data.fields[1].value += `${this.originalContent}\n`;
+  if (newMsg.originalContent) embed.data.fields[2].value += `${newMsg.originalContent}\n`;
 
   if (this.attachments.size) embed.data.fields[1].value += this.attachments.map(e => `[${e.url}](${e.name})`).join(', ') + '\n';
   if (newMsg.attachments.size) embed.data.fields[2].value += newMsg.attachments.map(e => `[${e.url}](${e.name})`).join(', ') + '\n';
