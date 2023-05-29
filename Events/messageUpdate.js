@@ -6,8 +6,8 @@ const
 module.exports = async function messageUpdate(newMsg) {
   const setting = this.guild?.db.config?.logger?.messageUpdate ?? {};
   if (
-    this.client.botType == 'dev' || !this.guild || !setting.enabled || !setting.channel ||
-    (this.content === newMsg.content && this.attachments.size === newMsg.attachments.site && this.embeds.length && newMsg.embeds.length)
+    /*this.client.botType == 'dev' ||*/ !this.guild || !setting.enabled || !setting.channel ||
+    (this.content === newMsg.content && this.attachments.size === newMsg.attachments.size && this.embeds.length && newMsg.embeds.length)
   ) return;
 
   const channel = this.guild.channels.cache.get(setting.channel);

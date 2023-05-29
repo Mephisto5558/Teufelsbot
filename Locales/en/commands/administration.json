@@ -206,7 +206,7 @@
             "choices": {
               "all": "all actions",
               "messageDelete": "message delete",
-              "messageEdit": "message edit",
+              "messageUpdate": "message edit",
               "voiceChannelActivity": "join/leave/switch voice channel",
               "sayCommandUsed": "/say (or similar) command uses"
             }
@@ -259,7 +259,7 @@
       "actions": {
         "all": "all actions",
         "messageDelete": "deleted messages",
-        "messageEdit": "edited messages",
+        "messageUpdate": "edited messages",
         "voiceChannelActivity": "voice channel joins/leaves/switches",
         "sayCommandUsed": "/say (or similar) command uses"
       }

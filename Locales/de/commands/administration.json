@@ -206,7 +206,7 @@
             "choices": {
               "all": "Alle Aktionen",
               "messageDelete": "Nachrichten-Löschung",
-              "messageEdit": "Nachrichten-Bearbeitung",
+              "messageUpdate": "Nachrichten-Bearbeitung",
               "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
               "sayCommandUsed": "/say (oder ähnliche) Befehls-Verwendung"
             }
@@ -259,7 +259,7 @@
       "actions": {
         "all": "Alle Aktionen",
         "messageDelete": "gelöschte Nachrichten",
-        "messageEdit": "bearbeitete Nachrichten",
+        "messageUpdate": "bearbeitete Nachrichten",
         "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
         "sayCommandUsed": "/say (oder ähnliche) Befehls-Verwendung"
       }

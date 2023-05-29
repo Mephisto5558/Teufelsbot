@@ -2,7 +2,7 @@ const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   { I18nProvider } = require('../../Utils'),
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
-  loggerActionTypes = ['messageDelete', 'messageEdit', 'voiceChannelActivity', 'sayCommandUsed'],
+  loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'],
   getCmds = client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])];
 
 module.exports = {
