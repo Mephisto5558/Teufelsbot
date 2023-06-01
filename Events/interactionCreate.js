@@ -1,15 +1,9 @@
 const
-  { EmbedBuilder, Colors, InteractionType, ApplicationCommandOptionType, ComponentType } = require('discord.js'),
-  { I18nProvider, cooldowns, permissionTranslator, errorHandler, buttonPressHandler, getOwnerOnlyFolders, autocompleteGenerator } = require('../Utils'),
+  { EmbedBuilder, Colors, InteractionType, ApplicationCommandOptionType } = require('discord.js'),
+  { I18nProvider, cooldowns, permissionTranslator, errorHandler, componentHandler, getOwnerOnlyFolders, autocompleteGenerator } = require('../Utils'),
   { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json'),
   ownerOnlyFolders = getOwnerOnlyFolders(),
   errorEmbed = new EmbedBuilder({ color: Colors.Red });
-
-async function componentHandler(lang) {
-  switch (this.componentType) {
-    case ComponentType.Button: return buttonPressHandler.call(this, lang);
-  }
-}
 
 /**@this {import('discord.js').CommandInteraction}*/
 module.exports = async function interactionCreate() {
