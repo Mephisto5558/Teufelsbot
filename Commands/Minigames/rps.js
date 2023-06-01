@@ -1,4 +1,4 @@
-const { rps_sendChallenge } = require('../../Utils/buttonPressHandler/');
+const { rps_sendChallenge } = require('../../Utils/componentHandler/');
 
 module.exports = {
   name: 'rps',
