@@ -64,7 +64,7 @@ class I18nProvider {
     }
 
     if (!replacements?.toString()) return message;
-    if (typeof replacements != 'object') return message.replace(/{\w+}/, replacements.toString());
+    if (typeof replacements != 'object') return message.replace(/{\w+}/g, replacements.toString());
 
     for (const [key, value] of Object.entries(replacements)) message = message.replaceAll(`{${key}}`, value?.toString());
     return message;
