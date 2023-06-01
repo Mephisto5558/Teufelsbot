@@ -80,17 +80,38 @@
     "usrNoGamesPlayed": "{user} еще не сыграл ни одной игры {game}."
   },
   "rps": {
-    "description": "Играйте в рок-бумагу против бота или (скоро) против ваших друзей",
-    "embedTitle": "Ножницы из бумаги для камня",
-    "embedDescription": "Выберите рукоятку!",
-    "rock": "Камень",
-    "paper": "Бумага",
-    "scissors": "Ножницы",
-    "win": "Вы выиграли!",
-    "tie": "Мы связали!",
-    "lose": "Вы проиграли!",
-    "chose": "Я выбрал {chose}! {win} ({you} {symbol} {i})",
-    "timedOut": "Вы потеряли, потому что вы выбрали ничего!"
+    "description": "Играйте в ножницы с каменной бумагой против ваших друзей или бота",
+    "options": {
+      "opponent": {
+        "description": "Кто ты хочешь играть снова?"
+      }
+    },
+    "r": "Камень",
+    "p": "Бумага",
+    "s": "Ножницы",
+    "challenge": {
+      "opponentIsBot": "Вы не можете бросить вызов ботам!",
+      "opponentIsSelf": "Вы не можете бросить вызов себе!",
+      "embedTitle": "Ножницы из бумаги для камня",
+      "embedDescription": "**{user}** бросил Вам вызов на поединк!",
+      "botEmbedDescription": "Вы бросили меня на поединка!",
+      "start": "Начать",
+      "accept": "Принять",
+      "decline": "Отклонить",
+      "newChallenge": "<@{user}> :crossed_swords: Новое испытание на дуэль"
+    },
+    "memberNotFound": "По крайней мере один из игроков не найден!",
+    "declined": ":x: `{opponent}` не поднимался до испытания.",
+    "accept": {
+      "embedTitle": ":game_die: `{player1}**VS** `{player2}`",
+      "embedDescription": "Выберите ваш предмет!"
+    },
+    "end": {
+      "alreadyChosen": "Вы уже выбрали {move}! Пожалуйста, дождитесь выбора противника.",
+      "saved": "Ваш выбор был сохранен!",
+      "tie": "Никто не выиграл игру, это галстук! {emoji} = {emoji}",
+      "win": ":tada: <@{winner}> выиграл игру! {winEmoji} > {loseEmoji}"
+    }
   },
   "tictactoe": {
     "description": "играть в TicTacToe против друга или бота",
