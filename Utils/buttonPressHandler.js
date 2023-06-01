@@ -10,5 +10,5 @@ module.exports = async function buttonPressHandler(lang) {
 
   if (cooldown) return this.reply(lang('events.buttonPressOnCooldown', cooldown));
 
-  return handlers[feature].call(this, lang, id, mode, data, args);
+  if(handlers[feature]) return handlers[feature].call(this, lang, id, mode, data, args);
 };
