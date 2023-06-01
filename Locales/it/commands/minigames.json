@@ -80,17 +80,38 @@
     "usrNoGamesPlayed": "{user} non ha ancora giocato {game} partite."
   },
   "rps": {
-    "description": "Gioca forbici di carta rock contro il bot o (arrivando presto) contro i tuoi amici",
-    "embedTitle": "Forbici Di Carta Roccia",
-    "embedDescription": "Scegli un segno!",
-    "rock": "Roccia",
-    "paper": "Carta",
-    "scissors": "Forbici",
-    "win": "Hai vinto!",
-    "tie": "Ci legamo!",
-    "lose": "Hai perso!",
-    "chose": "Ho scelto {chose}! {win} ({you} {symbol} {i})",
-    "timedOut": "Hai perso perché hai scelto di non scegliere niente!"
+    "description": "Gioca forbici di carta rock contro i tuoi amici o il bot",
+    "options": {
+      "opponent": {
+        "description": "A chi vuoi giocare contro?"
+      }
+    },
+    "r": "Roccia",
+    "p": "Carta",
+    "s": "Forbici",
+    "challenge": {
+      "opponentIsBot": "Non puoi sfidare i bot!",
+      "opponentIsSelf": "Non puoi sfidarti!",
+      "embedTitle": "Forbici Di Carta Roccia",
+      "embedDescription": "**{user}** ti ha sfidato in duello!",
+      "botEmbedDescription": "Mi hai sfidato a un duello!",
+      "start": "Inizia",
+      "accept": "Accetta",
+      "decline": "Rifiuta",
+      "newChallenge": "<@{user}> :crossed_swords: Nuova sfida duello"
+    },
+    "memberNotFound": "Almeno uno dei giocatori non è stato trovato!",
+    "declined": ":x: `{opponent}` non è salito alla sfida.",
+    "accept": {
+      "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",
+      "embedDescription": "Seleziona il tuo oggetto!"
+    },
+    "end": {
+      "alreadyChosen": "Hai già selezionato {move}! Attendi che il tuo avversario scelga.",
+      "saved": "La tua selezione è stata salvata!",
+      "tie": "Nessuno ha vinto la partita, è una cravatta! {emoji} = {emoji}",
+      "win": ":tada: <@{winner}> ha vinto la partita! {winEmoji} > {loseEmoji}"
+    }
   },
   "tictactoe": {
     "description": "giocare TicTacToe contro un amico o il bot",

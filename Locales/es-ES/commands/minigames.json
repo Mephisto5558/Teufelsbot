@@ -80,17 +80,38 @@
     "usrNoGamesPlayed": "{user} aún no ha jugado ninguna partida {game}."
   },
   "rps": {
-    "description": "Juega tijeras de papel contra el bot o (próximamente) contra tus amigos",
-    "embedTitle": "Piedra de papel tijeras",
-    "embedDescription": "¡Elegir un cartel!",
-    "rock": "Roca",
-    "paper": "Papel",
-    "scissors": "Tijeras",
-    "win": "¡Has ganado!",
-    "tie": "¡Hemos empatado!",
-    "lose": "¡Perdiste!",
-    "chose": "¡Escogí {chose}! {win} ({you} {symbol} {i})",
-    "timedOut": "¡Perdiste porque eligió no elegir nada!"
+    "description": "Juega tijeras de papel contra tus amigos o el bot",
+    "options": {
+      "opponent": {
+        "description": "¿A quién quieres jugar de nuevo?"
+      }
+    },
+    "r": "Roca",
+    "p": "Papel",
+    "s": "Tijeras",
+    "challenge": {
+      "opponentIsBot": "¡No puedes retar a los bots!",
+      "opponentIsSelf": "¡No puedes desafiarte a ti mismo!",
+      "embedTitle": "Piedra de papel tijeras",
+      "embedDescription": "**{user}** te ha desafiado a un duelo!",
+      "botEmbedDescription": "¡Me has desafiado a un duelo!",
+      "start": "Comenzar",
+      "accept": "Aceptar",
+      "decline": "Rechazar",
+      "newChallenge": "<@{user}> :crossed_swords: Nuevo desafío en duelo"
+    },
+    "memberNotFound": "Al menos uno de los jugadores no ha sido encontrado!",
+    "declined": ":x:{opponent}` no se levanta al reto.",
+    "accept": {
+      "embedTitle": ":game_die: `{player1}` **VS** `{player2}",
+      "embedDescription": "¡Selecciona tu objeto!"
+    },
+    "end": {
+      "alreadyChosen": "¡Ya has seleccionado {move}! Por favor espera a que tu oponente elija.",
+      "saved": "¡Su selección ha sido guardada!",
+      "tie": "Nadie ha ganado el juego, ¡es un empate! {emoji} = {emoji}",
+      "win": ":tada: <@{winner}> ganó el juego! {winEmoji} > {loseEmoji}"
+    }
   },
   "tictactoe": {
     "description": "jugar a TicTacToe contra un amigo o el bot",
