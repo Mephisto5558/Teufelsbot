@@ -1,4 +1,4 @@
-const { CommandInteraction, Message } = require('discord.js');
+const { BaseInteraction, Message } = require('discord.js');
 
 /**
  * @param {String|Number} options string is treated like `{content: options}`
@@ -11,7 +11,7 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
   if (typeof options != 'object') options = { content: options };
   options.allowedMentions ??= allowedMentions;
 
-  if (this instanceof CommandInteraction) {
+  if (this instanceof BaseInteraction) {
     try { msg = await ((this.replied || this.deferred) ? this.editReply(options) : this.reply(options)); }
     catch {
       try { msg = await this.followUp(options); }
