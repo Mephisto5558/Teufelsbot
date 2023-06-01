@@ -17,9 +17,13 @@ function updateStats(firstID, secondID, type, db) {
   }
 
   return db.update('leaderboards', `TicTacToe.${firstID}`, {
+    ...stats,
     games: stats.games + 1 || 1,
     [`${type}s`]: stats[`${type}s`] + 1 || 1,
-    [against]: { [secondID]: stats[against]?.[secondID] + 1 || 1 }
+    [against]: {
+      ...(stats.against ?? {}),
+      [secondID]: stats[against]?.[secondID] + 1 || 1
+    }
   });
 }
 
