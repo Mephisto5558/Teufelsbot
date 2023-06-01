@@ -80,17 +80,38 @@
     "usrNoGamesPlayed": "{user} hat noch nie {game} gespielt."
   },
   "rps": {
-    "description": "Spiele Stein Schere Papier gegen den Bot oder (bald) gegen andere Member.",
-    "embedTitle": "Stein Schere Papier",
-    "embedDescription": "Wähle ein Handzeichen!",
-    "rock": "Stein",
-    "paper": "Papier",
-    "scissors": "Schere",
-    "win": "Du hast gewonnen!",
-    "tie": "Unentschieden!",
-    "lose": "Du hast verloren!",
-    "chose": "Ich wählte {chose}! {win} ({you} {symbol} {i})",
-    "timedOut": "Du hast verloren, weil du nichts ausgewählt hast!"
+    "description": "Spiele Schere, Stein, Papier gegen deine Freunde oder den Bot",
+    "options": {
+      "opponent": {
+        "description": "Gegen wen möchtest du spielen?"
+      }
+    },
+    "r": "Stein",
+    "p": "Papier",
+    "s": "Schere",
+    "challenge": {
+      "opponentIsBot": "Du kannst keine Bots herausfordern!",
+      "opponentIsSelf": "Du kannst dich nicht selbst herausfordern!",
+      "embedTitle": "Schere, Stein, Papier",
+      "embedDescription": "**{user}** hat dich zu einem Duell herausgefordert!",
+      "botEmbedDescription": "Du hast mich zu einem Duell herausgefordert!",
+      "start": "Start",
+      "accept": "Annehmen",
+      "decline": "Ablehnen",
+      "newChallenge": "<@{user}> :crossed_swords: Neue Duell-Herausforderung"
+    },
+    "memberNotFound": "Mindestens einer der Spieler wurde nicht gefunden!",
+    "declined": ":x: `{opponent}` hat die Herausforderung nicht angenommen.",
+    "accept": {
+      "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",
+      "embedDescription": "Wähle deinen Zug!"
+    },
+    "end": {
+      "alreadyChosen": "Du hast bereits {move} ausgewählt! Bitte warte darauf, dass dein Gegner wählt.",
+      "saved": "Deine Auswahl wurde gespeichert!",
+      "tie": "Niemand hat das Spiel gewonnen, es ist ein Unentschieden! {emoji} = {emoji}",
+      "win": ":tada: <@{winner}> hat das Spiel gewonnen! {winEmoji} > {loseEmoji}"
+    }
   },
   "tictactoe": {
     "description": "Spiele Tic-Tac-Toe gegen ein anderes Mitglied oder den Bot",
