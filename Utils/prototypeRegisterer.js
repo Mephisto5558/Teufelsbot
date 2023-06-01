@@ -1,5 +1,5 @@
 const
-  { CommandInteraction, Message, BaseClient, Collection, AutocompleteInteraction, User, Guild, GuildMember, ButtonBuilder, Events } = require('discord.js'),
+  { BaseInteraction, Message, BaseClient, Collection, AutocompleteInteraction, User, Guild, GuildMember, ButtonBuilder, Events } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('crypto'),
@@ -13,7 +13,7 @@ const
 access('./Logs').catch(() => mkdirSync('./Logs'));
 if (!require('../config.json')?.HideOverwriteWarning) console.warn(`Overwriting the following variables and functions (if they exist):
   Vanilla:    global.getDirectories, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
-  Discord.js: CommandInteraction#customReply, Message#user, Message#customReply, Message#runMessages, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
+  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
   \nModifying Discord.js Message._patch method.`
 );
 
@@ -49,7 +49,7 @@ Function.prototype.bBind = function bBind(thisArg, ...args) {
   bound.__boundArgs__ = args;
   return bound;
 };
-CommandInteraction.prototype.customReply = customReply;
+BaseInteraction.prototype.customReply = customReply;
 Object.defineProperties(BaseClient.prototype, {
   prefixCommands: { value: new Collection() },
   slashCommands: { value: new Collection() },
