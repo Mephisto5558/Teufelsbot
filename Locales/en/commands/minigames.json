@@ -80,38 +80,17 @@
     "usrNoGamesPlayed": "{user} has not played any {game} games yet."
   },
   "rps": {
-    "description": "Play rock paper scissors against your friends or the bot",
-    "options": {
-      "opponent": {
-        "description": "Who do you want to play against?"
-      }
-    },
-    "r": "Rock",
-    "p": "Paper",
-    "s": "Scissors",
-    "challenge": {
-      "opponentIsBot": "You cannot challenge bots!",
-      "opponentIsSelf": "You cannot challenge yourself!",
-      "embedTitle": "Rock Paper Scissors",
-      "embedDescription": "**{user}** challenged you to a duel!",
-      "botEmbedDescription": "You have challenged me to a duel!",
-      "start": "Start",
-      "accept": "Accept",
-      "decline": "Decline",
-      "newChallenge": "<@{user}> :crossed_swords: New duel challenge"
-    },
-    "memberNotFound": "At least one of the players has not been found!",
-    "declined": ":x: `{opponent}` did not rise up to the challenge.",
-    "accept": {
-      "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",
-      "embedDescription": "Select your item!"
-    },
-    "end": {
-      "alreadyChosen": "You have already selected {move}! Please wait for your opponent to choose.",
-      "saved": "Your selection has been saved!",
-      "tie": "No one won the game, it's a tie! {emoji} = {emoji}",
-      "win": ":tada: <@{winner}> won the game! {winEmoji} > {loseEmoji}"
-    }
+    "description": "Play rock paper scissors against the bot or (coming soon) against your friends",
+    "embedTitle": "Rock Paper Scissors",
+    "embedDescription": "Choose a handsign!",
+    "rock": "Rock",
+    "paper": "Paper",
+    "scissors": "Scissors",
+    "win": "You won!",
+    "tie": "We tied!",
+    "lose": "You lost!",
+    "chose": "I chose {chose}! {win} ({you} {symbol} {i})",
+    "timedOut": "You lost because you chose to choose nothing!"
   },
   "tictactoe": {
     "description": "play TicTacToe against a friend or the bot",
