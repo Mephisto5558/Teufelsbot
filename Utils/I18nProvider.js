@@ -35,7 +35,7 @@ class I18nProvider {
   }
 
   async loadAllLocales() {
-    this.availableLocales = await new Collection((await readdir(this.config.localesPath))
+    this.availableLocales = new Collection((await readdir(this.config.localesPath))
       .filter(async e => !(await readdir(`${this.config.localesPath}/${e}`)).includes('.ignore'))
       .map(e => [path.basename(e, '.json'), path.resolve(this.config.localesPath, e)])
     );
