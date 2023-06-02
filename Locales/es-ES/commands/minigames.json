@@ -54,6 +54,21 @@
               "tictactoe": "TicTacToe"
             }
           },
+          "sort": {
+            "description": "Ordenar el marcador",
+            "choices": {
+              "m_wins": "Más victorias",
+              "f_wins": "Fewest gana",
+              "m_draws": "Más golpes",
+              "f_draws": "Dibujos del Oeste",
+              "m_loses": "Más pérdidas",
+              "f_loses": "Pérdidas del Oeste",
+              "m_alphabet_user": "Nombres de usuario (Descender)",
+              "f_alphabet_user": "Nombres de usuario (ascendente)",
+              "m_alphabet_nick": "Apodos (Descendente)",
+              "f_alphabet_nick": "Apodos (ascendente)"
+            }
+          },
           "settings": {
             "description": "Aplicar/Desaplicar filtros a la tabla de clasificación",
             "choices": {
