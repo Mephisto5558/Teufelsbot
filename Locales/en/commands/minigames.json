@@ -54,21 +54,6 @@
               "tictactoe": "TicTacToe"
             }
           },
-          "sort": {
-            "description": "Sort the leaderboard",
-            "choices": {
-              "m_wins": "Most Wins",
-              "f_wins": "Fewest Wins",
-              "m_draws": "Most Draws",
-              "f_draws": "Fewest Draws",
-              "m_loses": "Most Loses",
-              "f_loses": "Fewest Loses",
-              "m_alphabet_user": "Usernames (Descending)",
-              "f_alphabet_user": "Usernames (Ascending)",
-              "m_alphabet_nick": "Nicknames (Descending)",
-              "f_alphabet_nick": "Nicknames (Ascending)"
-            }
-          },
           "settings": {
             "description": "Apply/Disapply filters to the leaderboard",
             "choices": {
@@ -90,9 +75,9 @@
     "drewAgainst": "Drew against:\n",
     "embedTitle": "`{user}`'s {game} stats",
     "embedTitleTop10": "Top 10 {game} players",
-    "noPlayers": "It looks like no one has played yet...",
+    "noWinners": "It looks like no one has won yet...",
     "youNoGamesPlayed": "You have not played any {game} games yet.",
-    "userNoGamesPlayed": "{user} has not played any {game} games yet."
+    "usrNoGamesPlayed": "{user} has not played any {game} games yet."
   },
   "rps": {
     "description": "Play rock paper scissors against your friends or the bot",
