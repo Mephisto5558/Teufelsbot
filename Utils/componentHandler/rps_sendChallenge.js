@@ -7,14 +7,13 @@ module.exports = async function sendRPSChallenge(initiator, opponent = this.clie
   if (opponent.bot && opponent.id != this.client.user.id) return this.replied ? this.editReply(lang('opponentIsBot')) : this.reply(lang('opponentIsBot'));
   if (opponent.id == initiator.id) return this.replied ? this.editReply(lang('opponentIsSelf')) : this.reply(lang('opponentIsSelf'));
 
-  const data = {
-    content: opponent.bot ? undefined : `<@${opponent.id}>`,
-    embeds: [new EmbedBuilder({
+  const
+    embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang(`${opponent.bot ? 'botE' : 'e'}mbedDescription`, initiator.displayName),
       color: 2719929
-    })],
-    components: [new ActionRowBuilder({
+    }),
+    component = new ActionRowBuilder({
       components: [
         new ButtonBuilder({
           customId: `rps.${initiator.id}.accept.${opponent.id}`,
@@ -27,12 +26,8 @@ module.exports = async function sendRPSChallenge(initiator, opponent = this.clie
           style: ButtonStyle.Danger
         }),
       ]
-    })]
-  };
+    });
 
-  let msg;
-  if (this.message?.editable || this.editable) msg = await (this.message ?? this).edit(data);
-  else msg = await (this.replied ? this.editReply(data) : this.reply(data));
-
-  if (!opponent.bot) return msg.reply(lang('newChallenge', opponent.id)).then(e => setTimeout(e.delete.bind(e), 5000));
+  const msg = await this.customReply({ content: opponent.bot ? undefined : `<@${opponent.id}>`, embeds: [embed], components: [component] });
+  if (!opponent.bot) return (msg.followUp ? msg.followUp(lang('newChallenge', opponent.id)) : msg.reply(lang('newChallenge', opponent.id))).then(e => setTimeout(e.delete.bind(e), 5000));
 };
