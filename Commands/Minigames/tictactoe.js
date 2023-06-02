@@ -1,6 +1,8 @@
 const TicTacToe = require('discord-tictactoe');
 
 async function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
+  if (player1.id == this.client.user.id || player2.id == this.client.user.id) return;
+  
   await updateStats(player1.id, player2.id, type1, this.client.db);
   await updateStats(player2.id, player1.id, type2, this.client.db);
   return game.playAgain(this, lang);
