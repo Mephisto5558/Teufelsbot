@@ -75,9 +75,9 @@
     "drewAgainst": "Дрю снова:\n",
     "embedTitle": "Статистика{user} {game}",
     "embedTitleTop10": "Топ 10 {game} игроков",
-    "noWinners": "Похоже, никто еще не выиграл...",
+    "noPlayers": "Похоже, никто еще не выиграл...",
     "youNoGamesPlayed": "Вы еще не играли ни одной игры {game}.",
-    "usrNoGamesPlayed": "{user} еще не сыграл ни одной игры {game}."
+    "userNoGamesPlayed": "{user} еще не сыграл ни одной игры {game}."
   },
   "rps": {
     "description": "Играйте в ножницы с каменной бумагой против ваших друзей или бота",

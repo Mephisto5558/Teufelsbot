@@ -54,6 +54,21 @@
               "tictactoe": "Tic-Tac-Toe"
             }
           },
+          "sort": {
+            "description": "Sortiere das Leaderboard",
+            "choices": {
+              "m_wins": "Meiste Siege",
+              "f_wins": "Wenigste Siege",
+              "m_draws": "Meiste Unentschieden",
+              "f_draws": "Wenigste Unentschieden",
+              "m_loses": "Meiste Niederlagen",
+              "f_loses": "Wenigste Niederlagen",
+              "m_alphabet_user": "Benutzernamen (absteigend)",
+              "f_alphabet_user": "Benutzernamen (aufsteigend)",
+              "m_alphabet_nick": "Spitznamen (absteigend)",
+              "f_alphabet_nick": "Spitznamen (aufsteigend)"
+            }
+          },
           "settings": {
             "description": "Adde/Entferne Filter zu/aus der Leaderboard-Abfrage",
             "choices": {
@@ -75,9 +90,9 @@
     "drewAgainst": "Unentschieden gegen:\n",
     "embedTitle": "`{user}`'s {game} Statistiken",
     "embedTitleTop10": "Top 10 {game} Spieler",
-    "noWinners": "Es sieht so aus als hätte noch niemand gewonnen...",
+    "noPlayers": "Es sieht so aus als hätte noch niemand gespielt...",
     "youNoGamesPlayed": "Du hast noch nie {game} gespielt.",
-    "usrNoGamesPlayed": "{user} hat noch nie {game} gespielt."
+    "userNoGamesPlayed": "{user} hat noch nie {game} gespielt."
   },
   "rps": {
     "description": "Spiele Schere, Stein, Papier gegen deine Freunde oder den Bot",

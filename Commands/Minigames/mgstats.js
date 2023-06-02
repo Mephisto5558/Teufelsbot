@@ -1,51 +1,17 @@
-const { EmbedBuilder, Colors, Message } = require('discord.js');
-
-function manageData(input, clientID) {
-  if (!input) return;
-
-  let output = '';
-  const data = Object.entries(input).sort(([, a], [, b]) => b - a);
-
-  for (let i = 0; i < data.length && i < 3; i++) output += `> <@${data[i][0]}>: \`${data[i][1]}\`\n`;
-
-  return output.replaceAll('AI', clientID);
-}
+const
+  { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
+  { mgStats_formatTopTen: formatTopTen } = require('../../Utils/componentHandler/'),
+  sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
+  manageData = data => Object.entries(data || {}).sort(([, a], [, b]) => b - a).slice(0, 3).reduce((acc, e) => acc + `> <@${e[0]}>: \`${e[1]}\`\n`, '');
 
 function formatStatCount(input, all) {
   input = parseInt(input);
   all = parseInt(all);
 
-  if (Number.isNaN(all)) throw new SyntaxError('arg all must be NUMBER! Got NaN');
+  if (isNaN(input)) return '`0`';
+  if (isNaN(all)) throw new SyntaxError('arg all must be typeof Number! Got NaN');
 
-  if (input != 0 && !input) return '`0`';
-  if (!all) return `\`${input}\``;
-
-  return `\`${input}\` (\`${parseFloat((input / all * 100).toFixed(2))}%\`)`;
-}
-
-async function formatTopTen(input, settings, lang) {
-  let i = 0;
-  return Object.entries(input)
-    .filter(a => a[0] !== 'AI')
-    .sort(([, a], [, b]) => b.wins - a.wins || a.draws - b.draws || a.loses - b.loses)
-    .slice(0, 10)
-    .reduce(async (/**@type {Promise<string>}acc*/ acc, [id, stats]) => {
-      let isInGuild;
-      try {
-        await this.guild.members.fetch(id);
-        isInGuild = true;
-      }
-      catch { isInGuild = false; }
-
-      if (!stats.wins || (settings != 'all_users' && !isInGuild)) return acc;
-      if (acc.length > 3997) return (await acc) + '...';
-
-      i++;
-      return (await acc) + `${[':first_place:', ':second_place:', ':third_place:'][i - 1] || i + '.'} <@${id}>\n` +
-        '> ' + lang('wins', stats.wins || 0) +
-        '> ' + lang('loses', stats.loses || 0) +
-        '> ' + lang('draws', stats.draws || 0);
-    }, '');
+  return `\`${input}\`` + all ? `(\`${parseFloat((input / all * 100).toFixed(2))}%\`)` : '';
 }
 
 module.exports = {
@@ -79,6 +45,11 @@ module.exports = {
           choices: ['tictactoe']
         },
         {
+          name: 'sort',
+          type: 'String',
+          choices: sortOptions
+        },
+        {
           name: 'settings',
           type: 'String',
           choices: ['all_users']
@@ -91,48 +62,60 @@ module.exports = {
     if (this instanceof Message && !this.args[0]) return this.customReply(lang('missingGameArg'));
 
     const
-      stats = {
-        type: this.options?.getSubcommand() || 'user',
-        game: this.options?.getString('game') || this.args[0].replace(/tictactoe/gi, 'TicTacToe'),
-        target: this.options?.getUser('target') || this.mentions?.users.first() || this.user,
-        settings: this.options?.getString('settings')
-      },
-      leaderboards = this.client.db.get('leaderboards');
+      type = this.options?.getSubcommand() || 'user',
+      target = this.options?.getUser('target') || this.mentions?.users.first() || this.user,
+      settings = this.options?.getString('settings'),
+      leaderboards = this.client.db.get('leaderboards'),
+      [game, data] = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == (this.options?.getString('game') || this.args[0]).toLowerCase()) || [],
+      [sort, mode] = this.options?.getString('sort')?.split('_') || [];
 
-    stats.data = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == stats.game.toLowerCase())?.[1];
-    if (!stats.data) return this.customReply(lang('notFound', Object.keys(leaderboards).join('`, `')));
+    if (!data) return this.customReply(lang('notFound', Object.keys(leaderboards).join('`, `')));
 
     const embed = new EmbedBuilder({
       color: Colors.Blurple,
       footer: {
         text: this.member.user.tag,
-        iconURL: this.member.displayAvatarURL()
+        iconURL: this.member.displayAvatarURL(),
+        footer: { text: lang('embedFooterText') }
       }
     });
 
-    if (stats.type == 'user') {
-      const rawStats = stats.data?.[stats.target.id];
+    if (type == 'user') {
+      embed.data.title = lang('embedTitle', { user: target.tag, game });
 
-      embed.data.title = lang('embedTitle', { user: stats.target.tag, game: stats.game });
-
-      if (rawStats && rawStats.games) {
+      const targetData = data?.[target.id];
+      if (targetData?.games) {
         embed.data.description =
-          lang('games', rawStats.games) +
-          lang('wins', formatStatCount(rawStats.wins, rawStats.games) || '`0`') +
-          lang('draws', formatStatCount(rawStats.draws, rawStats.games) || '`0`') +
-          lang('loses', formatStatCount(rawStats.loses, rawStats.games) || '`0`');
+          lang('games', targetData.games) +
+          lang('wins', formatStatCount(targetData.wins, targetData.games) || '`0`') +
+          lang('draws', formatStatCount(targetData.draws, targetData.games) || '`0`') +
+          lang('loses', formatStatCount(targetData.loses, targetData.games) || '`0`');
 
-        if (rawStats.wonAgainst) embed.data.description += lang('wonAgainst') + (manageData(rawStats.wonAgainst, this.client.user.id) || '> ' + lang('noOne')) + '\n';
-        if (rawStats.lostAgainst) embed.data.description += lang('lostAgainst') + (manageData(rawStats.lostAgainst, this.client.user.id) || '> ' + lang('noOne')) + '\n';
-        if (rawStats.drewAgainst) embed.data.description += lang('drewAgainst') + (manageData(rawStats.drewAgainst, this.client.user.id) || '> ' + lang('noOne'));
+        if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + (manageData(targetData.wonAgainst) || '> ' + lang('noOne')) + '\n';
+        if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + (manageData(targetData.lostAgainst) || '> ' + lang('noOne')) + '\n';
+        if (targetData.drewAgainst) embed.data.description += lang('drewAgainst') + (manageData(targetData.drewAgainst) || '> ' + lang('noOne'));
       }
-      else embed.data.description = stats.target.id == this.member.id ? lang('youNoGamesPlayed', stats.game) : lang('usrNoGamesPlayed', { user: stats.target.username, game: stats.game });
-    }
-    else if (stats.type == 'leaderboard') {
-      embed.data.title = lang('embedTitleTop10', stats.game);
-      embed.data.description = await formatTopTen.call(this, stats.data, stats.settings, lang) || lang('noWinners');
+      else embed.data.description = target.id == this.member.id ? lang('youNoGamesPlayed', game) : lang('userNoGamesPlayed', { user: target.username, game });
+
+      return this.customReply({ embeds: [embed] });
     }
 
-    return this.customReply({ embeds: [embed] });
+    await this.guild.members.fetch();
+
+    embed.data.title = lang('embedTitleTop10', game);
+    embed.data.description = await formatTopTen.call(this, Object.entries(data).filter(([e]) => settings == 'all_users' || this.guild.members.cache.has(e)), sort, mode, lang) || lang('noPlayers');
+
+    const component = new ActionRowBuilder({
+      components: [new StringSelectMenuBuilder({
+        customId: `mgstats.${game}.sort.${settings}`,
+        options: sortOptions.map(e => ({
+          label: lang(`options.leaderboard.options.sort.choices.${e}`),
+          value: e,
+          default: e == (sort ? `${sort}_${mode}` : 'm_wins')
+        }))
+      })]
+    });
+
+    return this.customReply({ embeds: [embed], components: [component] });
   }
 };
