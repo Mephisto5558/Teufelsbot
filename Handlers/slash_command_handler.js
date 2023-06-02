@@ -8,7 +8,7 @@ const
 module.exports = async function slashCommandHandler() {
   await this.awaitReady();
 
-  const applicationCommands = this.application.commands.fetch();
+  const applicationCommands = this.application.commands.fetch({ withLocalizations: true });
   let deletedCommandCount = 0, registeredCommandCount = 0;
 
   this.slashCommands.clear();
