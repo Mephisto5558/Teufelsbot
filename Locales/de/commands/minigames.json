@@ -90,7 +90,7 @@
     "drewAgainst": "Unentschieden gegen:\n",
     "embedTitle": "`{user}`'s {game} Statistiken",
     "embedTitleTop10": "Top 10 {game} Spieler",
-    "noPlayers": "Es sieht so aus als hätte noch niemand gespielt...",
+    "noPlayers": "Es sieht so aus, als hätte noch niemand gespielt...",
     "youNoGamesPlayed": "Du hast noch nie {game} gespielt.",
     "userNoGamesPlayed": "{user} hat noch nie {game} gespielt."
   },
