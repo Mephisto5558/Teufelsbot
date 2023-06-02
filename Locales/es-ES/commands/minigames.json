@@ -75,9 +75,9 @@
     "drewAgainst": "En contra:\n",
     "embedTitle": "` Estadísticas de{user}de {game}",
     "embedTitleTop10": "Top 10 {game} jugadores",
-    "noWinners": "Parece que nadie ha ganado aún...",
+    "noPlayers": "Parece que nadie ha ganado aún...",
     "youNoGamesPlayed": "Aún no has jugado ninguna {game} partidas.",
-    "usrNoGamesPlayed": "{user} aún no ha jugado ninguna partida {game}."
+    "userNoGamesPlayed": "{user} aún no ha jugado ninguna partida {game}."
   },
   "rps": {
     "description": "Juega tijeras de papel contra tus amigos o el bot",

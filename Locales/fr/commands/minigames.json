@@ -75,9 +75,9 @@
     "drewAgainst": "Faire piquer contre :\n",
     "embedTitle": "`{user}`a {game} stats",
     "embedTitleTop10": "Top 10 des joueurs {game}",
-    "noWinners": "On dirait que personne n'a encore gagné...",
+    "noPlayers": "On dirait que personne n'a encore gagné...",
     "youNoGamesPlayed": "Vous n'avez encore joué aucune partie de {game}.",
-    "usrNoGamesPlayed": "{user} n'a encore joué aucune partie de {game}."
+    "userNoGamesPlayed": "{user} n'a encore joué aucune partie de {game}."
   },
   "rps": {
     "description": "Jouer des ciseaux de papier pierre contre le bot ou (bientôt disponible) contre vos amis",

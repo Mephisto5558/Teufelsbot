@@ -75,9 +75,9 @@
     "drewAgainst": "Drew contro:\n",
     "embedTitle": "` Statistiche di{user}`'s {game}",
     "embedTitleTop10": "Top 10 {game} giocatori",
-    "noWinners": "Sembra che nessuno abbia ancora vinto...",
+    "noPlayers": "Sembra che nessuno abbia ancora vinto...",
     "youNoGamesPlayed": "Non hai ancora giocato {game} partite.",
-    "usrNoGamesPlayed": "{user} non ha ancora giocato {game} partite."
+    "userNoGamesPlayed": "{user} non ha ancora giocato {game} partite."
   },
   "rps": {
     "description": "Gioca forbici di carta rock contro i tuoi amici o il bot",
