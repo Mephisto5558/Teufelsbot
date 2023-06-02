@@ -54,6 +54,21 @@
               "tictactoe": "TicTacToe"
             }
           },
+          "sort": {
+            "description": "Ordina la classifica",
+            "choices": {
+              "m_wins": "Più Vittorie",
+              "f_wins": "Meno Vittorie",
+              "m_draws": "Più Disegni",
+              "f_draws": "Meno Disegni",
+              "m_loses": "Maggior Perdite",
+              "f_loses": "Meno Perdite",
+              "m_alphabet_user": "Username (discendente)",
+              "f_alphabet_user": "Username (Ascending)",
+              "m_alphabet_nick": "Nickname (discendente)",
+              "f_alphabet_nick": "Nickname (ascendente)"
+            }
+          },
           "settings": {
             "description": "Applica/Disapplica i filtri nella classifica",
             "choices": {
