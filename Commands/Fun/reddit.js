@@ -47,7 +47,7 @@ module.exports = {
         { name: 'filter_nsfw', type: 'Boolean' }
       ]
     }
-  ], beta: true,
+  ],
 
   run: async function (lang) {
     const
