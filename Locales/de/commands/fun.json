@@ -422,7 +422,8 @@
     "notFound": "Kein Post passte zu deiner Suche.",
     "private": "Dieser Subreddit ist privat.",
     "error": "Ein Fehler ist aufgetreten:\n```{err}```",
-    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) | Downvotes: {downvotes} | Kommentare: {comments}"
+    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) | Downvotes: {downvotes} | Kommentare: {comments}",
+    "buttonLabel": "Noch eins"
   },
   "sad": {
     "description": "Lasse den Bot ein trauriges Emoji senden."
