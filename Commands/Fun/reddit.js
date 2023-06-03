@@ -1,5 +1,5 @@
 const
-  { Collection, EmbedBuilder } = require('discord.js'),
+  { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   fetch = require('node-fetch').default,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
   cachedSubreddits = new Collection(),
@@ -47,7 +47,7 @@ module.exports = {
         { name: 'filter_nsfw', type: 'Boolean' }
       ]
     }
-  ],
+  ], beta: true,
 
   run: async function (lang) {
     const
@@ -81,14 +81,22 @@ module.exports = {
 
     if (!post) return this.customReply(lang('notFound'));
 
-    const embed = new EmbedBuilder({
-      author: { name: `${post.author} | r/${post.subreddit}` },
-      title: post.title.length < 257 ? post.title : post.title.substring(0, 253) + '...',
-      url: post.url,
-      image: { url: !post.imageURL.match(/^https?:\/\//i) ? `https://reddit.com${post.imageURL}` : post.imageURL },
-      footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * 100, downvotes: post.downvotes, comments: post.comments }) }
-    }).setColor('Random');
+    const
+      embed = new EmbedBuilder({
+        author: { name: `${post.author} | r/${post.subreddit}` },
+        title: post.title.length < 257 ? post.title : post.title.substring(0, 253) + '...',
+        url: post.url,
+        image: { url: !post.imageURL.match(/^https?:\/\//i) ? `https://reddit.com${post.imageURL}` : post.imageURL },
+        footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * 100, downvotes: post.downvotes, comments: post.comments }) }
+      }).setColor('Random'),
+      component = new ActionRowBuilder({
+        components: [new ButtonBuilder({
+          label: lang('buttonLabel'),
+          customId: `reddit.${subreddit}.${type}.${filterNSFW}`,
+          style: ButtonStyle.Primary
+        })]
+      });
 
-    return this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed], components: [component] });
   }
 };
