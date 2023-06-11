@@ -27,7 +27,7 @@
   "dashboard": {
     "description": "ottieni il link alla dashboard del bot",
     "embedTitle": "Dashboard",
-    "embedDescription": "Fare clic su [here]({url}) per aprire la dashboard."
+    "embedDescriptionDashboard": "Fare clic su [here]({url}) per aprire la dashboard."
   },
   "emojiinfo": {
     "description": "Ottieni informazioni su un'emoji",
