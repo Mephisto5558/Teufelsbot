@@ -2,7 +2,7 @@
   "cooldown": "This command or one of it's subcommands is on cooldown! Try it again in `{time}`s.",
   "afkMsg": "`{member}` is AFK: {message} - <t:{timestamp}:R>",
   "afkEnd": "Welcome back, I removed your AFK. You have been AFK since <t:{timestamp}>.\nYour AFK message was: \"{message}\"",
-  "slashCommandOnly": "This command is only available as a slash command!",
+  "slashCommandOnly": "This command is only available as a slash command: </{name}:{id}>",
   "guildCommandOnly": "This command is only available in guilds!",
   "economyDisabled": "This command is an economy category command. The economy is not enabled in this guild. To start using the economy, an admin has to run `/economyconfig admin toggle`.",
   "economyNotInitialized": "This command is an economy category command. To start using the economy, run `/economyconfig user start`.",

@@ -2,7 +2,7 @@
   "cooldown": "Questo comando è in fase di ricaricamento! Riprova in `{time}`s.",
   "afkMsg": "`{member}` è AFK: {message} - <t:{timestamp}:R>",
   "afkEnd": "Bentornato, ho rimosso il tuo AFK. Sei stato AFK da <t:{timestamp}>.\nIl tuo messaggio AFK era: \"{message}\"",
-  "slashCommandOnly": "Questo comando è disponibile solo come comando slash!",
+  "slashCommandOnly": "Questo comando è disponibile solo come comando slash: </{name}:{id}>",
   "guildCommandOnly": "Questo comando è disponibile solo nelle gilde!",
   "economyDisabled": "Questo comando è un comando di categoria economica. L'economia non è abilitata in questa gilda. Per iniziare a utilizzare l'economia, un amministratore deve eseguire `/economyconfig admin toggle`.",
   "economyNotInitialized": "Questo comando è un comando di categoria economica. Per iniziare a usare l'economia, esegui `/economyconfig user start`.",
