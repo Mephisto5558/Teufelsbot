@@ -27,7 +27,8 @@
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",
     "embedTitle": "Dashboard",
-    "embedDescription": "Clicke [hier]({url}) um das Dashboard zu öffnen."
+    "embedDescriptionDashboard": "Clicke [hier]({url}) um das Dashboard zu öffnen.",
+    "embedDescriptionVote": "Clicke [hier]({url}) um die Voting- und Feature-Request-Seite zu öffnen."
   },
   "emojiinfo": {
     "description": "Erhalte Informationen über ein Emoji",

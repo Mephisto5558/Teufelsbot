@@ -4,6 +4,7 @@ const
 
 module.exports = {
   name: 'dashboard',
+  aliases: { slash: ['vote'], prefix: ['vote'] },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
@@ -11,7 +12,7 @@ module.exports = {
   run: function (lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', Dashboard),
+      description: this.commandName == 'dashboard' ? lang('embedDescriptionDashboard', Dashboard) : lang('embedDescriptionVote', `${Dashboard}/vote`),
       color: Colors.Blurple
     });
 
