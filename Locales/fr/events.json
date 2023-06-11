@@ -2,7 +2,7 @@
   "cooldown": "Cette commande est en cours de rechargement! Réessayez dans `{time}`s.",
   "afkMsg": "`{member}` est AFK: {message} - <t:{timestamp}:R>",
   "afkEnd": "Bienvenue, j'ai retiré votre AFK. Vous êtes AFK depuis <t:{timestamp}>.",
-  "slashCommandOnly": "Cette commande n'est disponible qu'en tant que commande slash!",
+  "slashCommandOnly": "Cette commande n'est disponible qu'en tant que commande slash: </{name}:{id}>",
   "guildCommandOnly": "Cette commande n'est disponible que dans les guildes !",
   "economyDisabled": "Cette commande est une commande de catégorie économique. L'économie n'est pas activée dans cette guilde. Pour commencer à utiliser l'économie, un administrateur doit exécuter `/economyconfig admin toggle`.",
   "economyNotInitialized": "Cette commande est une commande de catégorie économique. Pour commencer à utiliser l'économie, exécutez `/economyconfig user start`.",

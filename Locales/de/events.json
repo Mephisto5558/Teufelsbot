@@ -2,7 +2,7 @@
   "cooldown": "Dieser Befehl oder einer seiner Unterbefehle ist im Cooldown! Versuche es erneut in `{time}`s.",
   "afkMsg": "`{member}` ist AFK: {message} - <t:{timestamp}:R>",
   "afkEnd": "Willkommen zurück, ich habe deinen AFK-Status entfernt. Du warst AFK seit <t:{timestamp}>.\nDeine AFK-Nachricht war: \"{message}\"",
-  "slashCommandOnly": "Dieser Befehl ist nur als Slash-Befehl verfügbar!",
+  "slashCommandOnly": "Dieser Befehl ist nur als Slash-Befehl verfügbar: </{name}:{id}>",
   "guildCommandOnly": "Dieser Befehl ist nur auf Servern verfügbar!",
   "economyDisabled": "Dieser Befehl ist ein Economy-Befehl. Die Economy ist auf diesem Server nicht aktiviert. Um die Economy zu aktivieren, muss ein Admin `/economyconfig admin toggle` ausführen.",
   "economyNotInitialized": "Dieser Befehl ist ein Economy-Befehl. Um die Economy zu starten, führe `/economyconfig user start` aus.",
