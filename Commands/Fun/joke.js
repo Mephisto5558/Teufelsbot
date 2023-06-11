@@ -1,6 +1,6 @@
 const
   fetch = require('node-fetch'),
-  { EmbedBuilder } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { Github } = require('../../config.json'),
   defaultAPIList = [
     { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any' },
@@ -84,7 +84,7 @@ module.exports = {
       minValue: 10,
       maxValue: 2000
     }
-  ],
+  ], beta: true,
 
   run: async function (lang) {
     const
@@ -96,11 +96,19 @@ module.exports = {
 
     if (!joke) return this.customReply(lang('noAPIAvailable'));
 
-    const embed = new EmbedBuilder({
-      title: lang('embedTitle'),
-      description: `${joke}\n- [${API.name}](${API.link})`
-    }).setColor('Random');
+    const
+      embed = new EmbedBuilder({
+        title: lang('embedTitle'),
+        description: `${joke}\n- [${API.name}](${API.link})`
+      }).setColor('Random'),
+      component = new ActionRowBuilder({
+        components: [new ButtonBuilder({
+          label: lang('global.anotherone'),
+          customId: `joke.${api ?? null}.${type ?? null}.${blacklist ?? null}.${maxLength ?? null}`,
+          style: ButtonStyle.Primary
+        })]
+      });
 
-    return this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed], components: [component] });
   }
 };

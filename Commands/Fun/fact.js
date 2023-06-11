@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   fetch = require('node-fetch').default;
 
 module.exports = {
@@ -7,8 +7,8 @@ module.exports = {
   cooldowns: { guild: 100 },
   slashCommand: true,
   prefixCommand: true,
-  dmPermission: true,
-  
+  dmPermission: true,beta:true,
+
   run: async function (lang) {
     const
       data = await fetch(`https://uselessfacts.jsph.pl/api/v2/facts/random?language=${lang.__boundArgs__[0].locale}`).then(e => e.json()),
@@ -16,8 +16,15 @@ module.exports = {
         title: lang('embedTitle'),
         description: `${data.text}\n\nSource: [${data.source}](${data.source_url})`,
         footer: { text: '- https://uselessfacts.jsph.pl' }
-      }).setColor('Random');
+      }).setColor('Random'),
+      component = new ActionRowBuilder({
+        components: [new ButtonBuilder({
+          label: lang('global.anotherone'),
+          customId: 'fact',
+          style: ButtonStyle.Primary
+        })]
+      });
 
-    return this.customReply({ embeds: [embed] });
+    return this.customReply({ embeds: [embed], components: [component] });
   }
 };
