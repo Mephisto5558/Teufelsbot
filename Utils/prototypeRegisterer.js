@@ -20,8 +20,14 @@ if (!require('../config.json')?.HideOverwriteWarning) console.warn(`Overwriting 
 global.sleep = require('util').promisify(setTimeout);
 global.getDirectories = async path => (await readdir(path, { withFileTypes: true })).reduce((acc, e) => e.isDirectory() ? [...acc, e.name] : acc, []);
 
-Array.prototype.random = function random() { return this[randomInt(this.length)]; };
-Number.prototype.limit = function limit({ min = -Infinity, max = Infinity } = {}) { return Math.min(Math.max(Number(this), min), max); };
+Object.defineProperty(Array.prototype, 'random', {
+  value: function random() { return this[randomInt(this.length)]; },
+  enumerable: false
+});
+Object.defineProperty(Number.prototype, 'limit', {
+  value: function limit({ min = -Infinity, max = Infinity } = {}) { return Math.min(Math.max(Number(this), min), max); },
+  enumerable: false
+});
 Object.defineProperty(Object.prototype, 'fMerge', {
   value: function fMerge(obj, mode, { ...output } = { ...this }) {
     if (`${{}}` != this || `${{}}` != obj) return output;
@@ -41,15 +47,24 @@ Object.defineProperty(Object.prototype, 'fMerge', {
   },
   enumerable: false
 });
-Object.prototype.filterEmpty = function filterEmpty() { return Object.fromEntries(Object.entries(this).filter(([, v]) => !(v == null || (Object(v) === v && Object.keys(v).length == 0))).map(([k, v]) => [k, v instanceof Object ? v.filterEmpty() : v])); };
-Function.prototype.bBind = function bBind(thisArg, ...args) {
-  const bound = this.bind(thisArg, ...args);
-  bound.__targetFunction__ = this;
-  bound.__boundThis__ = thisArg;
-  bound.__boundArgs__ = args;
-  return bound;
-};
-BaseInteraction.prototype.customReply = customReply;
+Object.defineProperty(Object.prototype, 'filterEmpty', {
+  value: function filterEmpty() { return Object.fromEntries(Object.entries(this).filter(([, v]) => !(v == null || (Object(v) === v && Object.keys(v).length == 0))).map(([k, v]) => [k, v instanceof Object ? v.filterEmpty() : v])); },
+  enumerable: false
+});
+Object.defineProperty(Function.prototype, 'bBind', {
+  value: function bBind(thisArg, ...args) {
+    const bound = this.bind(thisArg, ...args);
+    bound.__targetFunction__ = this;
+    bound.__boundThis__ = thisArg;
+    bound.__boundArgs__ = args;
+    return bound;
+  },
+  enumerable: false
+});
+Object.defineProperty(BaseInteraction.prototype, 'customReply', {
+  value: customReply,
+  enumerable: false
+});
 Object.defineProperties(BaseClient.prototype, {
   prefixCommands: { value: new Collection() },
   slashCommands: { value: new Collection() },
