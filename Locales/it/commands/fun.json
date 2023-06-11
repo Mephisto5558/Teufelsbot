@@ -422,7 +422,8 @@
     "notFound": "Nessun post corrispondente alla tua ricerca.",
     "private": "Questo subreddit è privato.",
     "error": "Si è verificato un errore:\n```{err}```",
-    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) <unk> Downvotes: {downvotes} <unk> Commenti: {comments}"
+    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) <unk> Downvotes: {downvotes} <unk> Commenti: {comments}",
+    "buttonLabel": "Un altro"
   },
   "sad": {
     "description": "invia un emojicon triste"
