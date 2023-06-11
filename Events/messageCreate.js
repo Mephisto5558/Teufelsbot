@@ -28,7 +28,7 @@ module.exports = async function messageCreate() {
     if (!command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.guildCommandOnly'))] }, 1e4);
     if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('events.nonBetaCommand'))] }, 1e4);
   }
-  else return this.client.slashCommands.get(this.commandName) ? this.customReply({ embeds: [errorEmbed.setDescription(lang('events.slashCommandOnly'))] }, 1e4) : this.runMessages();
+  else return this.client.slashCommands.has(this.commandName) ? this.customReply({ embeds: [errorEmbed.setDescription(lang('events.slashCommandOnly', { name: this.commandName, id: this.client.slashCommands.get(this.commandName).id }))] }, 1e4) : this.runMessages();
 
   const disabledList = commandSettings[command.aliasOf || command.name]?.disabled || {};
   if (disabledList.members && disabledList.members.includes(this.user.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.member'))] }, 1e4);
