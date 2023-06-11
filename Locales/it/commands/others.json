@@ -3,28 +3,5 @@
     "description": "Ottieni l'ultimo changelog.",
     "embedTitle": "Changelog",
     "noneFound": "Nessuna informazione trovata."
-  },
-  "suggest": {
-    "description": "Suggerisci una funzionalità per il bot sul suo GitHub.",
-    "options": {
-      "title": {
-        "description": "il titolo del tuo suggerimento"
-      },
-      "suggestion": {
-        "description": "il tuo suggerimento per il bot"
-      },
-      "importance": {
-        "description": "Quanto è importante il vostro suggerimento?",
-        "choices": {
-          "low": "Basso",
-          "medium": "Medio",
-          "hight": "Altezza"
-        }
-      }
-    },
-    "error": "Si è verificato un errore.\n{err}",
-    "embedTitle": "Successo",
-    "alreadySent": "Questo suggerimento è già stato inviato. [Link]({url}).",
-    "embedDescription": "Il tuo suggerimento è stato inviato.\n[Collegamento suggerimenti]({url})"
   }
 }
