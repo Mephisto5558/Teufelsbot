@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { Dashboard } = require('../../config.json').Website;
+  { Domain, Dashboard } = require('../../config.json').Website;
 
 module.exports = {
   name: 'dashboard',
@@ -12,7 +12,7 @@ module.exports = {
   run: function (lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: this.commandName == 'dashboard' ? lang('embedDescriptionDashboard', Dashboard) : lang('embedDescriptionVote', `${Dashboard}/vote`),
+      description: this.commandName == 'dashboard' ? lang('embedDescriptionDashboard', Dashboard) : lang('embedDescriptionVote', `${Domain}/vote`),
       color: Colors.Blurple
     });
 
