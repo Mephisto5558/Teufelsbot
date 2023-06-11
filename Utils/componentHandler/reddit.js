@@ -1,4 +1,3 @@
-
 /** this.customId: `reddit.<subreddit>.<type>.<filterNSFW>`
  * @this {import('discord.js').ButtonInteraction} @param {string}subreddit @param {string}type @param {'true'|'false'}filterNSFW*/
 module.exports = function reddit(lang, subreddit, type, filterNSFW) {

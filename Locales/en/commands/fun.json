@@ -422,8 +422,7 @@
     "notFound": "No posts matched your search.",
     "private": "This subreddit is private.",
     "error": "An error occurred:\n```{err}```",
-    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) | Downvotes: {downvotes} | Comments: {comments}",
-    "buttonLabel": "Another one"
+    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) | Downvotes: {downvotes} | Comments: {comments}"
   },
   "sad": {
     "description": "sends a sad emojicon"

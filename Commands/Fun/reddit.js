@@ -91,7 +91,7 @@ module.exports = {
       }).setColor('Random'),
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({
-          label: lang('buttonLabel'),
+          label: lang('global.anotherone'),
           customId: `reddit.${subreddit}.${type}.${filterNSFW}`,
           style: ButtonStyle.Primary
         })]
