@@ -84,7 +84,7 @@ module.exports = {
       minValue: 10,
       maxValue: 2000
     }
-  ], beta: true,
+  ],
 
   run: async function (lang) {
     const
