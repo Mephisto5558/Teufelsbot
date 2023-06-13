@@ -6,9 +6,10 @@ const
 module.exports = async function bankick(lang) {
   if (!['ban', 'kick'].includes(this.commandName)) throw new Error(`"${this.commandName}" is not an accepted commandName.`);
 
+  let noMsg, reason = this.options.getString('reason');
   const
     target = this.options.getMember('target'),
-    reason = this.options.getString('reason') + `, moderator ${this.user.tag}`,
+    infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.tag, reason }),
     userEmbed = new EmbedBuilder({
       title: lang('infoEmbedTitle'),
       description: lang('dmEmbedDescription', { guild: this.guild.name, mod: this.user.tag, reason }),
@@ -16,11 +17,11 @@ module.exports = async function bankick(lang) {
     }),
     resEmbed = new EmbedBuilder({
       title: lang('infoEmbedTitle'),
-      description: lang('infoEmbedDescription', { mod: this.user.tag, reason }),
+      description: infoEmbedDescription,
       color: Colors.Red
     });
 
-  let noMsg;
+  reason += ` | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`;
 
   if (target) {
     const err = checkTarget.call(this, target, lang);
@@ -74,7 +75,7 @@ module.exports = async function bankick(lang) {
           if (noMsg) resEmbed.data.description += lang('noDM');
         }
 
-        if (resEmbed.data.description == lang('infoEmbedDescription', { mod: this.user.tag, reason })) resEmbed.data.description += lang('noneFound');
+        if (resEmbed.data.description == infoEmbedDescription) resEmbed.data.description += lang('noneFound');
 
         await this.editReply({ embeds: [resEmbed], components: [] });
 
@@ -89,6 +90,4 @@ module.exports = async function bankick(lang) {
 
         return this.editReply({ embeds: [resEmbed], components: [selectComponent] });
       });
-
-  return collector;
 };

@@ -132,7 +132,7 @@ module.exports = {
                     return true;
                   }
                 }),
-                backup = await this.client.backupSystem.load(id, this.guild, { reason: `Backup load command, member ${this.user.tag}`, statusObj, clearGuildBeforeRestore: !this.options.getBoolean('no_clear') });
+                backup = await this.client.backupSystem.load(id, this.guild, { reason: lang('global.modReason', { command: `${this.commandName} load`, user: this.user.tag }), statusObj, clearGuildBeforeRestore: !this.options.getBoolean('no_clear') });
 
               return msg.edit({ embeds: [embed.setDescription(lang('load.success', backup.id))] });
             }

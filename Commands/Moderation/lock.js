@@ -32,7 +32,7 @@ module.exports = {
 
     for (const [id, type] of Object.entries(overwrites)) await channel.permissionOverwrites.edit(id,
       { [PermissionFlagsBits.SendMessages]: false },
-      { type, reason: `lock command, moderator ${this.user.tag}` }
+      { type, reason: lang('global.modReason', { command: this.commandName, user: this.user.tag }) }
     );
 
     const embed = new EmbedBuilder({
