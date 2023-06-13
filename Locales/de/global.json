@@ -14,5 +14,6 @@
   "noPermUser": "Du hast keine Berechtigung dazu!",
   "noPermBot": "Ich habe keine Berechtigung dazu!",
   "true": "Ja",
-  "false": "Nein"
+  "false": "Nein",
+  "modReason": "{command}-Befehl, Moderator {user}"
 }
