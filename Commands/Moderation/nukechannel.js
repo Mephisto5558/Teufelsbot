@@ -1,4 +1,4 @@
-const { EmbedBuilder, Colors } = require('discord.js');
+const { Constants, EmbedBuilder, Colors } = require('discord.js');
 
 module.exports = {
   name: 'nukechannel',
@@ -16,7 +16,7 @@ module.exports = {
     {
       name: 'channel',
       type: 'Channel',
-      channelTypes: ['GuildText', 'GuildAnnouncement', 'GuildVoice', 'GuildCategory', 'GuildStageVoice', 'GuildForum']
+      channelTypes: Constants.TextBasedChannelTypes
     }
   ],
 
@@ -33,7 +33,7 @@ module.exports = {
       channel = this.options?.getChannel('channel') || this.channel,
       cloned = await channel.clone({ parent: channel.parentId });
 
-    await channel.delete(`nukechannel command, member ${this.user.tag}`);
+    await channel.delete(lang('global.modReason', { command: this.commandName, user: this.user.tag }));
     return cloned.send({ embeds: [embed] });
   }
 };
