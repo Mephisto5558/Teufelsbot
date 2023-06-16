@@ -1,7 +1,7 @@
 const { BaseInteraction, Message } = require('discord.js');
 
 /**
- * @param {String|Number} options string is treated like `{content: options}`
+ * @param {string | import('discord.js').MessageEditOptions | import('discord.js').MessagePayload} options
  * @param {?Number} deleteTime Number in Milliseconds
  * @param {?object} allowedMentions https://discord.js.org/#/docs/discord.js/main/typedef/MessageMentionOptions @default { repliedUser: false }
 */
