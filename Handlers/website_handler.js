@@ -25,7 +25,7 @@ async function getCommands() {
       if (!cmdFile.endsWith('.js')) continue;
 
       const cmd = require(`../Commands/${subFolder}/${cmdFile}`);
-      if (!cmd?.name || cmd.hideInHelp || cmd.disabled) continue;
+      if (!cmd?.name || cmd.disabled) continue;
 
       commandList.push({
         commandName: cmd.name,
