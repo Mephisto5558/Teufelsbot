@@ -1,6 +1,6 @@
 {
   "blacklistuser": {
-    "description": "Blockt einen User vom Benutzen des Bots",
+    "description": "(Ent)blockt einen User vom Benutzen des Bots",
     "usage": "PREFIX-Befehl: blacklistuser <User-ID>",
     "noInput": "Du musst eine ID angeben.",
     "notFound": "Dieser User ist nicht blacklisted.",
