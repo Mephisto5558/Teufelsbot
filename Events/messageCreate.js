@@ -38,12 +38,16 @@ module.exports = async function messageCreate() {
 
   let i = 0;
   for (const { autocomplete, strictAutocomplete, name } of command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options || e) || e?.options || e) || []) {
+    this.focused = { name, value: this.args?.[i] };
+
     if (
-      autocomplete && strictAutocomplete && this.args?.[0] && !(await autocompleteGenerator.call(Object.assign({}, this, { client: this.client, focused: { name, value: this.args?.[i] } }), command, config.lang ?? this.guild?.localeCode))
-        .filter(e => (e.toLowerCase?.() || e.value.toLowerCase()) == this.args?.[i].toLowerCase()).length
+      autocomplete && strictAutocomplete && this.args?.[i] && !(await autocompleteGenerator.call(this, command, config.lang ?? this.guild?.localeCode))
+        .filter(e => (e.toLowerCase?.() || e.value.toLowerCase()) == this.args[i].toLowerCase()).length
     ) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.strictAutocompleteNoMatch'))] }, 1e4);
     i++;
   }
+
+  delete this.focused;
 
   if (this.client.botType != 'dev') {
     const cooldown = cooldowns.call(this, command);
