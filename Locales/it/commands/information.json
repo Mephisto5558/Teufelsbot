@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Comandi informativi",
   "avatar": {
     "description": "mostra l'avatar dell'utente",
     "options": {
@@ -14,7 +15,10 @@
   },
   "cmdstats": {
     "description": "Vedere quanto spesso è stato eseguito un comando specifico o ottenere la top 10.",
-    "usage": "PREFIX Command: cmdstats [command]",
+    "usage": {
+      "usage": "{prefix}cmdstats [command]",
+      "examples": "{prefix}cmdstats joke"
+    },
     "options": {
       "command": {
         "description": "Il comando per cui si desidera ottenere le statistiche."
@@ -32,7 +36,10 @@
   },
   "emojiinfo": {
     "description": "Ottieni informazioni su un'emoji",
-    "usage": "PREFIX Command: emojiinfo [emoji | emoji id]",
+    "usage": {
+      "usage": "{prefix}emojiinfo [emoji | emoji id]",
+      "examples": "{prefix}emojiinfo :derp:"
+    },
     "options": {
       "emoji": {
         "description": "L'emoji o il suo id che si desidera ottenere informazioni su"
@@ -55,28 +62,48 @@
   },
   "help": {
     "description": "Mostra tutti i miei comandi o cerca uno specifico",
-    "usage": "Comando PREFIX: help [command]",
+    "usage": {
+      "usage": "{prefix}aiuto [command]",
+      "examples": "{prefix}aiuto barzelletta"
+    },
     "options": {
+      "category": {
+        "description": "Wich categoria si desidera ottenere informazioni su?",
+        "choices": {
+          "administration": "Amministrazione",
+          "fun": "Divertimento",
+          "information": "Informazioni",
+          "minigames": "Minigames",
+          "moderation": "Moderazione",
+          "nsfw": "NSFW",
+          "useful": "Utile",
+          "premium": "Premium",
+          "others": "Altri",
+          "owner-only": "Solo Proprietario"
+        }
+      },
       "command": {
-        "description": "Comando Wich vuoi ottenere statistiche circa?"
+        "description": "Comando Wich vuoi ottenere informazioni su?"
       }
     },
+    "categoryListPlaceholder": "Quale categoria di comando vuoi vedere?",
+    "commandListPlaceholder": "Quale comando vuoi vedere?",
     "one": {
       "notFound": "Nessuna informazione trovata per il comando `{command}`.",
       "embedTitle": "Informazioni dettagliate su: `{command}`",
-      "noDescription": "Nessuna descrizione trovata",
       "embedFooterText": "Sintassi: <> = obbligatorio, [] = opzionale <unk> Prefisso: \"{prefix}\"",
-      "lookAtDesc": "Comando SLASH: guarda le descrizioni dell'opzione.\n",
       "prefixAlias": "Prefisso Alias Comandi",
       "slashAlias": "Slash Command Aliases",
       "aliasOf": "Alias di",
       "botPerms": "Permessi Bot Richiesti",
       "userPerms": "Permessi Utente Richiesti",
       "cooldowns": "Cooldown Dei Comandi",
-      "usage": "Utilizzo"
+      "usage": "Utilizzo",
+      "examples": "Esempi"
     },
     "all": {
       "embedTitle": "🔰Tutti i miei comandi",
+      "embedDescription": "Queste sono le diverse categorie di comando. Selezionane una dal menu a discesa.",
       "notFound": "Nessun comando trovato...",
       "embedFooterText": "Utilizzare l'opzione 'comando' per ottenere maggiori informazioni su un comando specifico."
     }
@@ -118,7 +145,10 @@
   },
   "prefix": {
     "description": "mostra o cambia il prefisso del bot della gilda",
-    "usage": "Comando PREFIX: prefisso [nuovo prefisso]",
+    "usage": {
+      "usage": "{prefix}prefisso [nuovo prefisso]",
+      "examples": "{prefix}prefisso &"
+    },
     "options": {
       "new_prefix": {
         "description": "il nuovo prefisso del bot per questa gilda"
@@ -133,7 +163,10 @@
   },
   "roleinfo": {
     "description": "Ottieni informazioni su un ruolo",
-    "usage": "Comando PREFIX: roleinfo [@role <unk> role name <unk> role id]",
+    "usage": {
+      "usage": "{prefix}roleinfo [@role <unk> role name <unk> role id]",
+      "examples": "{prefix}roleinfo @User1"
+    },
     "options": {
       "role": {
         "description": "il ruolo che si desidera ottenere informazioni su"
@@ -203,7 +236,10 @@
   },
   "userinfo": {
     "description": "Ottieni informazioni su un membro",
-    "usage": "Comando PREFIX: roleinfo [@user <unk> user name <unk> user tag <unk> user nickname <unk> user id]",
+    "usage": {
+      "usage": "{prefix}roleinfo [@user <unk> user <unk> user tag <unk> user nickname <unk> user id]",
+      "examples": "{prefix}userinfo @User1"
+    },
     "options": {
       "target": {
         "description": "l'utente che si desidera ottenere informazioni su"

@@ -263,7 +263,7 @@
   "timestamp": {
     "description": "Erhalte einen Timestamp für die Zukunft (oder Vergangenheit, indem du \"-\" nutzt)",
     "usage": {
-      "usage":"{prefix}timestamp [Zeit]",
+      "usage": "{prefix}timestamp [Zeit]",
       "examples": "`1h` = jetzt + 1h\n`-1h` = jetzt - 1h\n`1h-1h` = jetzt + 1h - 1h"
     },
     "options": {

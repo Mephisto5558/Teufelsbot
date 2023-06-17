@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Игры для игры с другими участниками",
   "coinflip": {
     "description": "Повернуть монету!",
     "response": [
@@ -9,7 +10,10 @@
   },
   "counting": {
     "description": "Настройте канал подсчета, где участники могут показать свои математические навыки!",
-    "usage": "Команда PREFIX: подсчет [#канал]",
+    "usage": {
+      "usage": "Подсчёт {prefix}[#канал]",
+      "examples": "{prefix}подсчет #counting"
+    },
     "options": {
       "channel": {
         "description": "Канал, который вы хотите добавить (или удалить, если он уже добавлен) в качестве счетного канала."
@@ -29,7 +33,10 @@
   },
   "mgstats": {
     "description": "получать статистику о мини-играх бота",
-    "usage": "Команда PREFIX: статистика <game> [user]",
+    "usage": {
+      "usage": "Статистика {prefix} <game> [user]",
+      "examples": "{prefix}mgstats tictactoe @User1"
+    },
     "options": {
       "user": {
         "description": "получать статистику о себе или конкретном пользователе",

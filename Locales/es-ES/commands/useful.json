@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Comandos útiles",
   "addemoji": {
     "description": "añade un emoji a este gremio",
     "options": {
@@ -138,7 +139,6 @@
   },
   "hash": {
     "description": "encripta o desencripta su texto con varios métodos",
-    "usage": "Comando de SLASH: sólo necesita proporcionar una opción de método.",
     "options": {
       "input": {
         "description": "el texto que desea cifrar o descifrar"
@@ -153,7 +153,10 @@
   },
   "lastping": {
     "description": "Te muestra dónde te mencionaron por última vez.",
-    "usage": "PREFIX Comando: dura [#canal]\nSi se utiliza la opción `canal`, se buscará un máximo de 200 mensajes.",
+    "usage": {
+      "usage": "{prefix}dura [#canal]\nSi se utiliza la opción `canal`, se buscará un máximo de 200 mensajes.",
+      "examples": "{prefix}dura\n{prefix}dura #chat\n{prefix}dura @User1"
+    },
     "options": {
       "channel": {
         "description": "El canal en el que quieres buscar menciones. Por defecto es todo el gremio."
@@ -171,7 +174,10 @@
   },
   "math": {
     "description": "Ejecuta algunas matemáticas",
-    "usage": "Comando PREFIX matemática [expression]\n\nEsta calculadora soporta una amplia gama de operaciones matemáticas, no solo las básicas.\nPuede asignar valores a variables, por ejemplo: `x=10`.\nMúltiples sentencias pueden ser evaluadas usando una nueva línea o un punto y coma, por ejemplo: `x=10; x+10` devolverá `20`.\nRecuerda usar un asterisco (`*`) para multiplicación.\nLa calculadora puede producir múltiples resultados. Tenga en cuenta que los espacios innecesarios pueden causar errores en las expresiones.",
+    "usage": {
+      "usage": "{prefix}matemáticas [expression]\n\nEsta calculadora soporta una amplia gama de operaciones matemáticas, no solo las básicas.\nPuede asignar valores a variables, por ejemplo: `x=10`.\nMúltiples sentencias pueden ser evaluadas usando una nueva línea o un punto y coma, por ejemplo: `x=10; x+10` devolverá `20`.\nRecuerda usar un asterisco (`*`) para multiplicación.\nLa calculadora puede producir múltiples resultados. Tenga en cuenta que los espacios innecesarios pueden causar errores en las expresiones.",
+      "examples": "{prefix}matemáticas 1+1"
+    },
     "options": {
       "expression": {
         "description": "¿Qué quieres que resuelve?"
@@ -204,7 +210,10 @@
   },
   "randomnumber": {
     "description": "Devuelve un número aleatorio. Utiliza valores por defecto para entradas no válidas.",
-    "usage": "Comando de PREFIX aleatorio: número aleatorio [min] [max]",
+    "usage": {
+      "usage": "{prefix}número aleatorio [min] [max]",
+      "examples": "{prefix}número aleatorio 1 10"
+    },
     "options": {
       "minimum": {
         "description": "El número más pequeño posible. Por defecto es 0."
@@ -253,7 +262,10 @@
   },
   "timestamp": {
     "description": "Obtén una marca de tiempo para el futuro (o pasado poniendo un \"-\" en frente)",
-    "usage": "Orden PREFIX [time]\nEjemplos:\n>>> `1h` = ahora + 1h\n`-1h` = ahora - 1h\n`1h-1h` = ahora + 1h - 1h",
+    "usage": {
+      "usage": "Marca de tiempo {prefix} [time]",
+      "examples": "`1h` = ahora + 1h\n`-1h` = ahora - 1h\n`1h-1h` = ahora + 1h - 1h"
+    },
     "options": {
       "time": {
         "description": "La hora a partir de ahora (ej. 1w3d2h5min). Use \"/help timestamp\" para más información."
