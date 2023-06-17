@@ -1,7 +1,11 @@
 {
+  "categoryDescription": "Befehle, die nur für den Bot-Entwickler vorgesehen sind",
   "blacklistuser": {
     "description": "(Ent)blockt einen User vom Benutzen des Bots",
-    "usage": "PREFIX-Befehl: blacklistuser <User-ID>",
+    "usage": {
+      "usage": "{prefix}blacklistuser [off] <User-ID>",
+      "examples": "{prefix}blacklistuser 12345678901234568"
+    },
     "noInput": "Du musst eine ID angeben.",
     "notFound": "Dieser User ist nicht blacklisted.",
     "saved": "`{user}` wurde vom Nutzen des Bots geblacklistet.",
@@ -10,12 +14,18 @@
   },
   "dbget": {
     "description": "Erhalte Daten aus der Datenbank",
-    "usage": "PREFIX-Befehl: dbget <Datenbank-Name> <Key (zB. a.b.c)>",
+    "usage": {
+      "usage": "{prefix}dbget <Datenbank-Name> [Key]",
+      "examples": "{prefix}dbget datenbank a.b.c"
+    },
     "notFound": "nichts gefunden"
   },
   "eval": {
     "description": "Führe JavaScript Code mit dem Bot aus",
-    "usage": "PREFIX-Befehl: eval <JS-Code>",
+    "usage": {
+      "usage": "{prefix}eval <JS-Code>",
+      "examples": "{prefix}eval console.log('Hello World!')"
+    },
     "finished": "Code:\n```js\n{code}\n```\n",
     "success": "{msg} wurde fehlerlos ausgeführt.",
     "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
@@ -26,7 +36,10 @@
   },
   "reload": {
     "description": "Lädt einen Befehl oder eine Kategorie neu",
-    "usage": "PREFIX-Befehl: reload <command | file> <Dateipfad vom cwd aus> / reload <Befehl | \"*\">",
+    "usage": {
+      "usage": "{prefix}reload <\"command\" | \"file\"> <Dateipfad vom cwd aus>\n{prefix}reload <command | \"*\">",
+      "examples": "{prefix}reload file path/to/file\n{prefix}reload fun"
+    },
     "invalidCommand": "Dies ist kein gültiger Befehl.",
     "invalidPath": "Der angegebene Pfad existiert nicht! Beachte auch die Groß/Kleinschreibung des Pfades.",
     "error": "Ein Fehler ist während des Neuladens aufgetreten:\n```{error}```\nÜberprüfe die Konsole für mehr Informationen.",
@@ -48,7 +61,10 @@
   },
   "setactivity": {
     "description": "Setzte die Aktivität des Bots",
-    "usage": "PREFIX-Befehl: setactivity <Aktivität>;[Typ]",
+    "usage": {
+      "usage":"{prefix}setactivity <Aktivität>;[Typ]",
+      "examples":"{prefix}setactivity Befehle ausführen;playing"
+    },
     "invalidType": "Das ist kein gültiger Aktivitäts-Typ. Gültige Typen sind:\n`{types}`",
     "set": "Aktivität wurde zu `{name}` vom Typ `{type}` gesetzt.",
     "reset": "Aktivität wurde zu `nichts` gesetzt."
