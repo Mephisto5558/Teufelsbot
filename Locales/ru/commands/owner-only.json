@@ -1,7 +1,11 @@
 {
+  "categoryDescription": "Команды, которые должны быть доступны только разработчикам",
   "blacklistuser": {
     "description": "блокирует пользователя от использования бота",
-    "usage": "PREFIX команда: пользователь черного списка <user id>",
+    "usage": {
+      "usage": "{prefix}blacklistuser [off] <user id>",
+      "examples": "{prefix}blacklistuser 12345678901234568"
+    },
     "noInput": "Необходимо указать идентификатор.",
     "notFound": "Запись для этого id не найдена.",
     "saved": "`{user}` был занесен в черный список с помощью бота.",
@@ -10,12 +14,18 @@
   },
   "dbget": {
     "description": "запрос данных из базы данных",
-    "usage": "PREFIX команда: dbget <database name>",
+    "usage": {
+      "usage": "{prefix}dbget <database name> <key>",
+      "examples": "{prefix}dbget база данных a.b.c"
+    },
     "notFound": "ничего не найдено"
   },
   "eval": {
     "description": "вставить код JavaScript прямо в бота",
-    "usage": "PREFIX команда: eval <js code>",
+    "usage": {
+      "usage": "{prefix}eval <js code>",
+      "examples": "{prefix}eval console.log('Привет мир!')"
+    },
     "finished": "вычисляемая команда:\n```js\n{code}\n```\n",
     "success": "{msg} без ошибок.",
     "error": "{msg} со следующей ошибкой:\n```\n{name}: {err}\n```"
@@ -26,7 +36,10 @@
   },
   "reload": {
     "description": "перезагружает файл или категорию",
-    "usage": "PREFIX-команда: перезагрузите <command | file> <filepath relative to cwd> / перезагрузите <command | \"*\">",
+    "usage": {
+      "usage": "{prefix}перезагрузить <\"команда\" | \"file\"> <Path relative to cwd>\n{prefix}reload <command | \"*\">",
+      "examples": "{prefix}перезагрузит путь к файлу/файлу\n{prefix}перезагрузите весело"
+    },
     "invalidCommand": "Это некорректная команда.",
     "invalidPath": "Указанный путь не существует! Пожалуйста, обратите внимание на регистр чувствительности пути.",
     "error": "Произошла ошибка при перезагрузке:\n```{error}```\nПроверьте консоль для получения дополнительной информации.",
@@ -48,7 +61,10 @@
   },
   "setactivity": {
     "description": "Устанавливает активность бота",
-    "usage": "PREFIX команда: задает активность <activity>;[type]",
+    "usage": {
+      "usage": "{prefix}установил активность <activity>;[type]",
+      "examples": "{prefix}устанавливает активность при запуске команд;проигрывание"
+    },
     "invalidType": "Это недопустимый тип. Допустимые типы:\n`{types}`",
     "set": "Активность изменена на `{name}`{type}`.",
     "reset": "Действие изменено на «нет»."

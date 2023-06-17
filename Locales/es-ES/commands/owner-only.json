@@ -1,7 +1,11 @@
 {
+  "categoryDescription": "Comandos que deben estar disponibles sólo para el desarrollador",
   "blacklistuser": {
     "description": "bloquea que un usuario utilice el bot",
-    "usage": "Comando de PREFIX negra: usuario de lista negra <user id>",
+    "usage": {
+      "usage": "{prefix}blacklistuser [off] <user id>",
+      "examples": "{prefix}blacklistuser 12345678901234568"
+    },
     "noInput": "Necesitas proporcionar un id.",
     "notFound": "No se encontró ninguna entrada para este id.",
     "saved": "`{user}` ha sido bloqueado de usar el bot.",
@@ -10,12 +14,18 @@
   },
   "dbget": {
     "description": "consultar datos de la base de datos",
-    "usage": "Comando PREFIX : dbget <database name>",
+    "usage": {
+      "usage": "{prefix}dbget <database name> <key>",
+      "examples": "{prefix}dbget base de datos a.b.c"
+    },
     "notFound": "nada encontrado"
   },
   "eval": {
     "description": "inyectar código JavaScript directamente en el bot",
-    "usage": "Comando PREFIX <js code>",
+    "usage": {
+      "usage": "{prefix}eval <js code>",
+      "examples": "{prefix}, console.log('¡Hola Mundo!')"
+    },
     "finished": "comando evaluado:\n```js\n{code}\n```\n",
     "success": "{msg} sin errores.",
     "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
@@ -26,7 +36,10 @@
   },
   "reload": {
     "description": "Carga un archivo o categoría",
-    "usage": "PREFIX-Command: recargar <command | file> <filepath relative to cwd> / recargar <command | \"*\">",
+    "usage": {
+      "usage": "{prefix}recargar <\"command\" | \"file\"> <Path relative to cwd>\n{prefix}recargar <command | \"*\">",
+      "examples": "{prefix}recargar la ruta/a/archivo\n{prefix}recargar la diversión"
+    },
     "invalidCommand": "Este no es un comando válido.",
     "invalidPath": "La ruta especificada no existe! Tenga en cuenta la sensibilidad de mayúsculas y minúsculas de la ruta.",
     "error": "Se ha producido un error al recargar:\n```{error}```\nCompruebe la consola para más información.",
@@ -48,7 +61,10 @@
   },
   "setactivity": {
     "description": "Establece la actividad del bot",
-    "usage": "Comando: setactivity <activity>;[type]",
+    "usage": {
+      "usage": "{prefix}setactivity <activity>;[type]",
+      "examples": "{prefix}setactivity ejecutando comandos;jugando"
+    },
     "invalidType": "Este no es un tipo válido. Los tipos válidos son:\n`{types}`",
     "set": "Actividad establecida a `{name}` de tipo `{type}`.",
     "reset": "Actividad establecida a `ninguno`."

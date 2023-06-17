@@ -1,7 +1,11 @@
 {
+  "categoryDescription": "Comandos que (necesitarán) una membresía premium",
   "chatgpt": {
     "description": "¡Habla con ChatGPT!",
-    "usage": "Comando PREFIX : chatgpt <message>",
+    "usage": {
+      "usage": "{prefix}chatgpt <message>",
+      "examples": "{prefix}chatgpt Hola"
+    },
     "options": {
       "message": {
         "description": "¿Qué quieres decirle a ChatGPT?"

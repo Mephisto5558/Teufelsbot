@@ -1,7 +1,11 @@
 {
+  "categoryDescription": "Comandi che (saranno) richiedono un abbonamento premium",
   "chatgpt": {
     "description": "Parla con ChatGPT!",
-    "usage": "Comando PREFIX: chatgpt <message>",
+    "usage": {
+      "usage": "{prefix}chatgpt <message>",
+      "examples": "{prefix}chatgpt Ciao"
+    },
     "options": {
       "message": {
         "description": "Cosa vuoi dire a ChatGPT?"

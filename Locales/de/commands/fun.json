@@ -360,7 +360,7 @@
   "joke": {
     "description": "Lasse den Bot einen Witz senden",
     "usage": {
-      "usage": "{prefix}joke [type]",
+      "usage": "{prefix}joke [Typ]",
       "examples": "{prefix}joke dadjoke"
     },
     "options": {
@@ -391,7 +391,7 @@
   "pokedex": {
     "description": "Zeigt Informationen über Pokémon an.",
     "usage": {
-      "usage": "{prefix}pokedex <Pokemon>",
+      "usage": "{prefix}pokedex <Pokémon>",
       "examples": "{prefix}pokedex Bulbasaur"
     },
     "options": {
@@ -415,7 +415,7 @@
     "description": "Verschiedene Reddit-Befehle",
     "usage": {
       "usage": "{prefix}reddit [Subreddit] [Sortierung]",
-      "examples": "{prefix}reddit memes hot"
+      "examples": "{prefix}pokedex Bulbasaur"
     },
     "options": {
       "meme": {
@@ -822,7 +822,7 @@
   "wiki": {
     "description": "Suche nach etwas auf Wikipedia oder erhalte Informationen über etwas Zufälliges.",
     "usage": {
-      "usage":"{prefix}wiki <Suchbegriff>",
+      "usage": "{prefix}wiki <Suchbegriff>",
       "examples": "{prefix}wiki discord"
     },
     "options": {

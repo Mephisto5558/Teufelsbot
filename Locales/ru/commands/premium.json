@@ -1,7 +1,11 @@
 {
+  "categoryDescription": "Команды, которым (будет) требуется премиум членство",
   "chatgpt": {
     "description": "Поговорите с ChatGPT!",
-    "usage": "Команда PREFIX: чатгпт <message>",
+    "usage": {
+      "usage": "{prefix}чат <message>",
+      "examples": "Здравствуйте, {prefix}"
+    },
     "options": {
       "message": {
         "description": "Что вы хотите сказать ChatGPT?"

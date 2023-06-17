@@ -62,8 +62,8 @@
   "setactivity": {
     "description": "Setzte die Aktivität des Bots",
     "usage": {
-      "usage":"{prefix}setactivity <Aktivität>;[Typ]",
-      "examples":"{prefix}setactivity Befehle ausführen;playing"
+      "usage": "{prefix}setactivity <Aktivität>;[Typ]",
+      "examples": "{prefix}setactivity Befehle ausführen;playing"
     },
     "invalidType": "Das ist kein gültiger Aktivitäts-Typ. Gültige Typen sind:\n`{types}`",
     "set": "Aktivität wurde zu `{name}` vom Typ `{type}` gesetzt.",

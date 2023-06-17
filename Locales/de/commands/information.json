@@ -71,8 +71,8 @@
         "description": "Über welche Kategorie möchtest du mehr erfahren?",
         "choices": {
           "administration": "Administration",
-          "fun": "Fun",
-          "information": "Information",
+          "fun": "Unterhaltung",
+          "information": "Informationen",
           "minigames": "Minigames",
           "moderation": "Moderation",
           "nsfw": "NSFW",
@@ -91,7 +91,6 @@
     "one": {
       "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
       "embedTitle": "{category} » {command}",
-      "noDescription": "Keine Beschreibung gefunden",
       "embedFooterText": "Syntax: <> = erfordert, [] = optional | Präfix: \"{prefix}\"",
       "prefixAlias": "Präfix-Befehl Aliase",
       "slashAlias": "Slash-Befehl Aliase",
@@ -166,7 +165,7 @@
     "description": "Erhalte Informationen über eine Rolle",
     "usage": {
       "usage": "{prefix}roleinfo [@Rolle | Rollenname | Rollen-ID]",
-      "examples": "{prefix}roleinfo @Member"
+      "examples": "{prefix}roleinfo @User1"
     },
     "options": {
       "role": {

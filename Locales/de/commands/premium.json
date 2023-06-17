@@ -3,7 +3,7 @@
   "chatgpt": {
     "description": "Sprich mit ChatGPT!",
     "usage": {
-      "usage":"{prefix}chatgpt <Nachricht>",
+      "usage": "{prefix}chatgpt <Nachricht>",
       "examples": "{prefix}chatgpt Hallo"
     },
     "options": {

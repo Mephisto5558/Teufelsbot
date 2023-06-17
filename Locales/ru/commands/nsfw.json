@@ -1,7 +1,11 @@
 {
+  "categoryDescription": "NSFW команды",
   "nsfw": {
     "description": "Получить изображение NSFW",
-    "usage": "PREFIX команда: nsfw [type]",
+    "usage": {
+      "usage": "{prefix}nsfw [type]",
+      "examples": "{prefix}nsfw hentai"
+    },
     "options": {
       "type": {
         "description": "Тип изображения, который вы хотите увидеть. По умолчанию Hentai.",

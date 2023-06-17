@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Algunos comandos divertidos",
   "8ball": {
     "description": "Hazme una pregunta.",
     "options": {
@@ -50,7 +51,10 @@
   },
   "afk": {
     "description": "Establecer un estado AFK mostrado cuando se menciona.",
-    "usage": "PREFIX Command: afk [message]",
+    "usage": {
+      "usage": "{prefix}afk [message]",
+      "examples": "{prefix}afk brb"
+    },
     "options": {
       "message": {
         "description": "El mensaje a establecer"
@@ -64,7 +68,10 @@
   },
   "avatarfusion": {
     "description": "Fusiona dos avatares.",
-    "usage": "Comando de PREFIX : avatarfusión <base> [overlay] [avatar_type]",
+    "usage": {
+      "usage": "{prefix}avatarfusion <base> [overlay] [avatar_type]",
+      "examples": "{prefix}avatarfusion @User1 @User2 global"
+    },
     "options": {
       "base": {
         "description": "¿Quién debe usar la foto de perfil de la base?"
@@ -200,7 +207,10 @@
   },
   "fact": {
     "description": "Consigue algunos hechos, son realmente frescos y útiles, confíen en mí.",
-    "usage": "Orden PREFIX [\"es\"|\"de\"]",
+    "usage": {
+      "usage": "{prefix}hecho [\"es\"|\"de\"]",
+      "examples": "{prefix}hechos"
+    },
     "embedTitle": "Hecho"
   },
   "giveaway": {
@@ -328,7 +338,10 @@
   },
   "image": {
     "description": "Manipulación de imagen",
-    "usage": "Comando PREFIX imagen <subcommand | \"help\"> <args>",
+    "usage": {
+      "usage": "{prefix}imagen <subcommand | \"help\"> <args>",
+      "examples": "{prefix}imagen magik https://example.com/image.png 3"
+    },
     "options": {
       "type": {
         "description": "El tipo que desea utilizar. Deje esto vacío para obtener una lista de tipos."
@@ -346,7 +359,10 @@
   },
   "joke": {
     "description": "envía un chiste divertido",
-    "usage": "Orden PREFIX : broma [type]",
+    "usage": {
+      "usage": "{prefix}broma [type]",
+      "examples": "{prefix}chiste de chiste"
+    },
     "options": {
       "api": {
         "description": "¿Qué API quieres usar?"
@@ -374,7 +390,10 @@
   },
   "pokedex": {
     "description": "Muestra información sobre el pokémon especificado.",
-    "usage": "Comando PREFIX pokedex <pokemon>",
+    "usage": {
+      "usage": "{prefix}pokedex <pokemon>",
+      "examples": "{prefix}Bulbasaurio de pokedex"
+    },
     "options": {
       "pokémon": {
         "description": "Nombra un pokémon"
@@ -394,7 +413,10 @@
   },
   "reddit": {
     "description": "comandos relacionados con reddit",
-    "usage": "Comando: reddit [subreddit] [sort type]",
+    "usage": {
+      "usage": "{prefix}reddit [subreddit] [sort type]",
+      "examples": "{prefix}memes de reddit calientes"
+    },
     "options": {
       "meme": {
         "description": "obtener un meme aleatorio",
@@ -429,7 +451,10 @@
   },
   "say": {
     "description": "Permítanme decir algo",
-    "usage": "Comando de PREFIX decir <msg> [channel]",
+    "usage": {
+      "usage": "{prefix}decir <msg> [channel]",
+      "examples": "{prefix}dice ¡Hola amigos! #chat"
+    },
     "options": {
       "msg": {
         "description": "Escribe tu mensaje aquí, /n para una nueva línea"
@@ -762,7 +787,10 @@
   },
   "vote": {
     "description": "Crear una encuesta para algo",
-    "usage": "vote <channel> [question] | [option 1] | [option 2] | <option 3> ... <option 9>",
+    "usage": {
+      "usage": "{prefix}voto <channel> [question] | [option 1] | [option 2] | <option 3> ... <option 9>",
+      "examples": "{prefix}voto #voto ¿Tienes razón? | Sí | No"
+    },
     "options": {
       "question": {
         "description": "¿Qué quiere que voten los ciudadanos?"
@@ -793,7 +821,10 @@
   },
   "wiki": {
     "description": "Busque algo en Wikipedia, o obtenga una página aleatoria si no se especificaron términos de búsqueda.",
-    "usage": "wiki <search terms>",
+    "usage": {
+      "usage": "{prefix}wiki <search term>",
+      "examples": "{prefix}wiki discord"
+    },
     "options": {
       "query": {
         "description": "¿Qué quieres buscar?"
