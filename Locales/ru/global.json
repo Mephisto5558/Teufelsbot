@@ -7,11 +7,13 @@
   "user": "Пользователь",
   "cancel": "Отмена",
   "playAgain": "Играть снова",
+  "anotherone": "Еще один",
   "enabled": "Включено",
   "disabled": "Отключено",
   "none": "нет",
   "noPermUser": "У вас нет разрешения на это!",
   "noPermBot": "У меня нет разрешения на это!",
   "true": "Да",
-  "false": "Нет"
+  "false": "Нет",
+  "modReason": "Команда {command} , модератор {user}"
 }

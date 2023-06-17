@@ -27,7 +27,8 @@
   "dashboard": {
     "description": "obtener el enlace al panel de control de bots",
     "embedTitle": "Tablero",
-    "embedDescriptionDashboard": "Haz clic en [here]({url}) para abrir el panel."
+    "embedDescriptionDashboard": "Haz clic en [here]({url}) para abrir el panel.",
+    "embedDescriptionVote": "Haga clic en [here]({url}) para abrir la página web de solicitud de votación y función."
   },
   "emojiinfo": {
     "description": "Obtener información sobre un emoji",

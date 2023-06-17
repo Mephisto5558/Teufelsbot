@@ -6,6 +6,7 @@
   "guildCommandOnly": "¡Este comando sólo está disponible en gremios!",
   "economyDisabled": "Este comando es un comando de categoría de economía. La economía no está habilitada en este gremio. Para empezar a usar la economía, un administrador tiene que ejecutar `/economyconfig admin toggle`.",
   "economyNotInitialized": "Este comando es un comando de categoría económica. Para empezar a usar la economía, ejecuta `/economyconfig user start`.",
+  "nonBetaCommand": "¡Este comando no es un comando beta! Este bot ejecuta sólo comandos beta.",
   "commandDisabled": "Este comando ha sido deshabilitado por el bot dev.",
   "buttonPressOnCooldown": "¡Este botón está en enfriamiento! Inténtalo de nuevo en `{time}`s.",
   "strictAutocompleteNoMatch": "Su entrada debe coincidir con una de las sugerencias de autocompletado. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando de barra.",
