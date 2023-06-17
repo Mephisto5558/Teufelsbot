@@ -27,8 +27,8 @@
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",
     "embedTitle": "Dashboard",
-    "embedDescriptionDashboard": "Klicke [hier]({url}) um das Dashboard zu öffnen.",
-    "embedDescriptionVote": "Blicke [hier]({url}) um die Voting- und Feature-Request-Seite zu öffnen."
+    "embedDescriptionDashboard": "Clicke [hier]({url}) um das Dashboard zu öffnen.",
+    "embedDescriptionVote": "Clicke [hier]({url}) um die Voting- und Feature-Request-Seite zu öffnen."
   },
   "emojiinfo": {
     "description": "Erhalte Informationen über ein Emoji",
@@ -63,7 +63,7 @@
     },
     "one": {
       "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
-      "embedTitle": "Detaillierte Informationen über: `{command}`",
+      "embedTitle": "{category} » {command}",
       "noDescription": "Keine Beschreibung gefunden",
       "embedFooterText": "Syntax: <> = erfordert, [] = optional | Präfix: \"{prefix}\"",
       "lookAtDesc": "SLASH-Befehl: Lies die Beschreibungen der Befehls-Optionen.\n",
@@ -73,7 +73,7 @@
       "botPerms": "Erforderliche Bot Berechtigungen",
       "userPerms": "Erforderliche User Berechtigungen",
       "cooldowns": "Befehls-Abklingzeiten",
-      "usage": "Nutzung"
+      "usage": "Anwendung"
     },
     "all": {
       "embedTitle": "🔰Alle meine Befehle",
