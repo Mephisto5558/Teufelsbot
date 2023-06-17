@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Minigames to play with other members",
   "coinflip": {
     "description": "Flip a coin!",
     "response": [
@@ -9,7 +10,10 @@
   },
   "counting": {
     "description": "Set up a counting channel where members can show their math skills!",
-    "usage": "PREFIX Command: counting [#channel]",
+    "usage": {
+      "usage": "{prefix}counting [#channel]",
+      "examples": "{prefix}counting #counting"
+    },
     "options": {
       "channel": {
         "description": "The channel you want to add (or remove, if already added) as a counting channel."
@@ -29,7 +33,10 @@
   },
   "mgstats": {
     "description": "get stats about one of the bot's minigames",
-    "usage": "PREFIX Command: stats <game> [user]",
+    "usage": {
+      "usage": "{prefix}stats <game> [user]",
+      "examples": "{prefix}mgstats tictactoe @User1"
+    },
     "options": {
       "user": {
         "description": "get stats about yourself or a specific user",
