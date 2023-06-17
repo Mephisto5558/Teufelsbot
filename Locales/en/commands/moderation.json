@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Commands to moderate the guild",
   "ban": {
     "description": "bans one or multiple member(s) from the guild",
     "options": {
@@ -8,7 +9,7 @@
       "duration": {
         "description": "How long do you want to get the target(s) banned?"
       },
-       "target": {
+      "target": {
         "description": "Select the member to ban. Leave this empty to select multiple members in the nex step."
       },
       "delete_days_of_messages": {
@@ -51,7 +52,10 @@
   },
   "lock": {
     "description": "Prevents everyone except administrators from writing in a channel.",
-    "usage": "lock [channel] [reason]",
+    "usage": {
+      "usage": "{prefix}lock [channel] [reason]",
+      "examples": "{prefix}lock #chat Time to sleep"
+    },
     "options": {
       "channel": {
         "description": "What channel do you want to lock?"
@@ -106,7 +110,10 @@
   },
   "purge": {
     "description": "removes a specific amount of messages",
-    "usage": "PREFIX Command: purge <number> [channel]\nIt will NOT delete the number of messages specified in the \"amount\" parameter, but will delete them if all other parameters are met.",
+    "usage": {
+      "usage": "{prefix}purge <number> [channel]\nIt will NOT delete the number of messages specified in the \"amount\" parameter, but will delete them if all other parameters are met.",
+      "examples": "{prefix}purge 7 #chat"
+    },
     "options": {
       "amount": {
         "description": "The amount of messages to to check and maybe purge."
@@ -173,7 +180,10 @@
   },
   "unlock": {
     "description": "Unlocks a channel locked with the lock command.",
-    "usage": "unlock [channel] [reason]",
+    "usage": {
+      "usage": "{prefix}unlock [channel] [reason]",
+      "examples": "{prefix}unlock #chat Good morning"
+    },
     "options": {
       "channel": {
         "description": "What channel do you want to unlock?"

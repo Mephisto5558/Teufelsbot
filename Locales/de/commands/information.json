@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Informative Befehle",
   "avatar": {
     "description": "Zeigt den Avatar eines Mitglieds.",
     "options": {
@@ -14,7 +15,10 @@
   },
   "cmdstats": {
     "description": "Zeigt an, wie oft ein spezifischer Befehl oder die Top 10 genutzt wurden.",
-    "usage": "PREFIX-Befehl: cmdstats [Befehl]",
+    "usage": {
+      "usage": "{prefix}cmdstats [Befehl]",
+      "examples": "{prefix}cmdstats joke"
+    },
     "options": {
       "command": {
         "description": "Für welchen Befehl möchtest du Statistiken erhalten?"
@@ -32,7 +36,10 @@
   },
   "emojiinfo": {
     "description": "Erhalte Informationen über ein Emoji",
-    "usage": "PREFIX-Befehl: emojiinfo [Emoji | Emoji-ID]",
+    "usage": {
+      "usage": "{prefix}emojiinfo [Emoji | Emoji-ID]",
+      "examples": "{prefix}emojiinfo :derp:"
+    },
     "options": {
       "emoji": {
         "description": "Das Emoji oder die ID des Emojis, über den du Informationen erhalten möchtest."
@@ -55,28 +62,48 @@
   },
   "help": {
     "description": "Zeige alle meine Befehle oder erhalte Informationen über einen spezifischen.",
-    "usage": "PREFIX-Befehl: help [Befehl]",
+    "usage": {
+      "usage": "{prefix}help [Befehl]",
+      "examples": "{prefix}help joke"
+    },
     "options": {
+      "category": {
+        "description": "Über welche Kategorie möchtest du mehr erfahren?",
+        "choices": {
+          "administration": "Administration",
+          "fun": "Fun",
+          "information": "Information",
+          "minigames": "Minigames",
+          "moderation": "Moderation",
+          "nsfw": "NSFW",
+          "useful": "Nützliches",
+          "premium": "Premium",
+          "others": "Sonstiges",
+          "owner-only": "Owner-Only"
+        }
+      },
       "command": {
         "description": "Über welchen Befehl möchtest du mehr erfahren?"
       }
     },
+    "categoryListPlaceholder": "Welche Befehlskategorie möchtest du sehen?",
+    "commandListPlaceholder": "Welchen Befehl möchtest du sehen?",
     "one": {
       "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
-      "embedTitle": "Detaillierte Informationen über: `{command}`",
-      "noDescription": "Keine Beschreibung gefunden",
+      "embedTitle": "{category} » {command}",
       "embedFooterText": "Syntax: <> = erfordert, [] = optional | Präfix: \"{prefix}\"",
-      "lookAtDesc": "SLASH-Befehl: Lies die Beschreibungen der Befehls-Optionen.\n",
       "prefixAlias": "Präfix-Befehl Aliase",
       "slashAlias": "Slash-Befehl Aliase",
       "aliasOf": "Alias von",
       "botPerms": "Erforderliche Bot Berechtigungen",
       "userPerms": "Erforderliche User Berechtigungen",
       "cooldowns": "Befehls-Abklingzeiten",
-      "usage": "Nutzung"
+      "usage": "Anwendung",
+      "examples": "Beispiele"
     },
     "all": {
       "embedTitle": "🔰Alle meine Befehle",
+      "embedDescription": "Dies sind die verschiedenen Befehlskategorien. Bitte wähle im Auswahlmenü eine aus.",
       "notFound": "keine Befehle gefunden...",
       "embedFooterText": "Nutze die 'command' Option, um mehr Informationen über einen spezifischen Befehl zu erhalten."
     }
@@ -118,7 +145,10 @@
   },
   "prefix": {
     "description": "Zeigt oder ändert den Präfix des Servers.",
-    "usage": "PREFIX-Befehl: Präfix [neuer Präfix]",
+    "usage": {
+      "usage": "{prefix}prefix [neuer Präfix]",
+      "examples": "{prefix}prefix &"
+    },
     "options": {
       "new_prefix": {
         "description": "Der neue Präfix für diesen Server"
@@ -133,7 +163,10 @@
   },
   "roleinfo": {
     "description": "Erhalte Informationen über eine Rolle",
-    "usage": "PREFIX-Befehl: roleinfo [@Rolle | Rollenname | Rollen-ID]",
+    "usage": {
+      "usage": "{prefix}roleinfo [@Rolle | Rollenname | Rollen-ID]",
+      "examples": "{prefix}roleinfo @Member"
+    },
     "options": {
       "role": {
         "description": "Die Rolle, über welche du mehr wissen möchtest"
@@ -203,7 +236,10 @@
   },
   "userinfo": {
     "description": "Erhalte Informationen über ein Mitglied",
-    "usage": "PREFIX-Befehl: roleinfo [@User | Username | User-Tag | User-Nickname | User ID]",
+    "usage": {
+      "usage": "{prefix}userinfo [@User | Username | User-Tag | User-Nickname | User ID]",
+      "examples": "{prefix}userinfo @User1"
+    },
     "options": {
       "target": {
         "description": "Das Mitglied über das du Informationen möchtest"

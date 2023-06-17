@@ -1,7 +1,11 @@
 {
+  "categoryDescription": "NSFW commands",
   "nsfw": {
     "description": "Get an NSFW image",
-    "usage": "PREFIX Command: nsfw [type]",
+    "usage": {
+      "usage": "{prefix}nsfw [type]",
+      "examples": "{prefix}nsfw hentai"
+    },
     "options": {
       "type": {
         "description": "The type of image you want to see. Defaults to hentai.",

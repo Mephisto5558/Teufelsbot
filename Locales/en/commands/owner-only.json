@@ -1,7 +1,11 @@
 {
+  "categoryDescription": "Commands that should be available only to the dev",
   "blacklistuser": {
     "description": "blocks an user from using the bot",
-    "usage": "PREFIX Command: blacklistuser <user id>",
+    "usage": {
+      "usage": "{prefix}blacklistuser [off] <user id>",
+      "examples": "{prefix}blacklistuser 12345678901234568"
+    },
     "noInput": "You need to provide an id.",
     "notFound": "Found no entry for this id.",
     "saved": "`{user}` has been blacklisted from using the bot.",
@@ -10,12 +14,18 @@
   },
   "dbget": {
     "description": "query data from the database",
-    "usage": "PREFIX Command: dbget <database name> <key (eg. a.b.c)>",
+    "usage": {
+      "usage": "{prefix}dbget <database name> <key>",
+      "examples": "{prefix}dbget database a.b.c"
+    },
     "notFound": "nothing found"
   },
   "eval": {
     "description": "inject JavaScript code directly into the bot",
-    "usage": "PREFIX Command: eval <js code>",
+    "usage": {
+      "usage": "{prefix}eval <js code>",
+      "examples": "{prefix}eval console.log('Hello World!')"
+    },
     "finished": "evaluated command:\n```js\n{code}\n```\n",
     "success": "{msg} without errors.",
     "error": "{msg} with the following error:\n```\n{name}: {err}\n```"
@@ -26,7 +36,10 @@
   },
   "reload": {
     "description": "reloads a file or category",
-    "usage": "PREFIX-Command: reload <command | file> <filepath relative to cwd> / reload <command | \"*\">",
+    "usage": {
+      "usage": "{prefix}reload <\"command\" | \"file\"> <Path relative to cwd>\n{prefix}reload <command | \"*\">",
+      "examples": "{prefix}reload file path/to/file\n{prefix}reload fun"
+    },
     "invalidCommand": "This is not a valid command.",
     "invalidPath": "The specified path does not exist! Please note the case sensitivity of the path.",
     "error": "An error occurred while reloading:\n```{error}```\nCheck the console for more information.",
@@ -48,7 +61,10 @@
   },
   "setactivity": {
     "description": "Sets the bot's activity",
-    "usage": "PREFIX Command: setactivity <activity>;[type]",
+    "usage": {
+      "usage": "{prefix}setactivity <activity>;[type]",
+      "examples": "{prefix}setactivity running commands;playing"
+    },
     "invalidType": "This is not a valid type. Valid types are:\n`{types}`",
     "set": "Activity set to `{name}` of type `{type}`.",
     "reset": "Activity set to `none`."

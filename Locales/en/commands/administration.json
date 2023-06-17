@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Commands used to manage the guild or configure the bot",
   "serverbackup": {
     "description": "Manage your server backups.",
     "options": {

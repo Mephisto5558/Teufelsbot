@@ -1,7 +1,11 @@
 {
+  "categoryDescription": "Befehle, die eine Premium-Mitgliedschaft erfordern (werden)",
   "chatgpt": {
     "description": "Sprich mit ChatGPT!",
-    "usage": "PREFIX-Befehl: chatgpt <Nachricht>",
+    "usage": {
+      "usage":"{prefix}chatgpt <Nachricht>",
+      "examples": "{prefix}chatgpt Hallo"
+    },
     "options": {
       "message": {
         "description": "Was möchtest du ChatGPT sagen?"

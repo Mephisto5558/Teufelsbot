@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Befehle zur Servermoderation",
   "ban": {
     "description": "Bannt ein oder mehrere Mitglieder vom Server",
     "options": {
@@ -51,7 +52,10 @@
   },
   "lock": {
     "description": "Verbietet jedem, abgesehen von Administratoren, in einem Kanal Nachrichten zu senden.",
-    "usage": "lock [Kanal] [Begründung]",
+    "usage": {
+      "usage": "{prefix}lock [Kanal] [Begründung]",
+      "examples": "{prefix}lock #chat Zeit für den Mittagsschlaf"
+    },
     "options": {
       "channel": {
         "description": "Den Kanal, den du locken möchtest"
@@ -106,7 +110,10 @@
   },
   "purge": {
     "description": "Entfernt eine bestimmte Menge an Nachrichten.",
-    "usage": "PREFIX-Befehl: purge <Anzahl> [Kanal]\nEs wird NICHT die Anzahl der Nachrichten löschen, die im \"amount\"-Parameter angegeben ist, sondern diese löschen, sofern alle anderen Parameter erfüllt sind.",
+    "usage": {
+      "usage": "{prefix}purge <Anzahl> [Kanal]\nEs wird NICHT die Anzahl der Nachrichten löschen, die im \"amount\"-Parameter angegeben ist, sondern diese löschen, sofern alle anderen Parameter erfüllt sind.",
+      "examples": "{prefix}purge 7 #chat"
+    },
     "options": {
       "amount": {
         "description": "Die Anzahl der Nachrichten, die überprüft und eventuell gelöscht werden."
@@ -173,7 +180,10 @@
   },
   "unlock": {
     "description": "Entsperrt einen gelockten Channel.",
-    "usage": "unlock [Kanal] [Begründung]",
+    "usage": {
+      "usage": "{prefix}unlock [Kanal] [Begründung]",
+      "examples": "{prefix}unlock #chat Genug geschlafen"
+    },
     "options": {
       "channel": {
         "description": "Welchen Kanal möchtest du entsperren?"
