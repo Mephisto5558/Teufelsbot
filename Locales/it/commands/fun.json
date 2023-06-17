@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Alcuni comandi divertenti",
   "8ball": {
     "description": "Mi faccia una domanda.",
     "options": {
@@ -50,7 +51,10 @@
   },
   "afk": {
     "description": "Imposta uno stato AFK mostrato quando sei menzionato.",
-    "usage": "PREFIX Command: afk [message]",
+    "usage": {
+      "usage": "{prefix}afk [message]",
+      "examples": "{prefix}afk brb"
+    },
     "options": {
       "message": {
         "description": "Il messaggio da impostare"
@@ -64,7 +68,10 @@
   },
   "avatarfusion": {
     "description": "Fusioni due avatar.",
-    "usage": "Comando PREFIX: avatarfusion <base> [overlay] [avatar_type]",
+    "usage": {
+      "usage": "{prefix}avatarfusion <base> [overlay] [avatar_type]",
+      "examples": "{prefix}avatarfusion @User1 @User2 global"
+    },
     "options": {
       "base": {
         "description": "Chi è l'immagine del profilo dovrebbe essere usata per la base?"
@@ -200,7 +207,10 @@
   },
   "fact": {
     "description": "Ottenere alcuni fatti, sono davvero cool e utile, contare su di me.",
-    "usage": "Comando PREFIS: fatto [\"en\"<unk> \"de\"]",
+    "usage": {
+      "usage": "{prefix}fatto [\"en\"<unk> \"de\"]",
+      "examples": "{prefix}fact en"
+    },
     "embedTitle": "Fatto"
   },
   "giveaway": {
@@ -328,7 +338,10 @@
   },
   "image": {
     "description": "Manipolazione immagine",
-    "usage": "Comando PREFIX: immagine <subcommand | \"help\"> <args>",
+    "usage": {
+      "usage": "{prefix}immagine <subcommand | \"help\"> <args>",
+      "examples": "{prefix}immagine magik https://example.com/image.png 3"
+    },
     "options": {
       "type": {
         "description": "Il tipo che vuoi usare. Lascia questo vuoto per ottenere un elenco di tipi."
@@ -346,7 +359,10 @@
   },
   "joke": {
     "description": "manda una battuta divertente",
-    "usage": "Comando PREFIX: scherza [type]",
+    "usage": {
+      "usage": "{prefix}scherzo [type]",
+      "examples": "{prefix}ha scherzato"
+    },
     "options": {
       "api": {
         "description": "Quale API vuoi usare?"
@@ -374,7 +390,10 @@
   },
   "pokedex": {
     "description": "Visualizza le informazioni su un poke specificato mon.",
-    "usage": "Comando PREFIX: pokedex <pokemon>",
+    "usage": {
+      "usage": "{prefix}pokedex <pokemon>",
+      "examples": "{prefix}pokedex Bulbasaur"
+    },
     "options": {
       "pokémon": {
         "description": "Dai un nome a pokel'onorevole mon"
@@ -394,7 +413,10 @@
   },
   "reddit": {
     "description": "comandi correlati a reddit",
-    "usage": "Comando PREFIX: reddit [subreddit] [tipo di ordinamento]",
+    "usage": {
+      "usage": "{prefix}reddit [subreddit] [tipo di ordinamento]",
+      "examples": "{prefix}reddit memes hot"
+    },
     "options": {
       "meme": {
         "description": "ottieni un meme casuale",
@@ -429,7 +451,10 @@
   },
   "say": {
     "description": "Permettetemi di dire qualcosa",
-    "usage": "Comando PREFIX: say <msg> [channel]",
+    "usage": {
+      "usage": "{prefix}dice <msg> [channel]",
+      "examples": "{prefix}dice Ciao Amici! #chat"
+    },
     "options": {
       "msg": {
         "description": "Digita qui il tuo messaggio, /n per una nuova riga"
@@ -762,7 +787,10 @@
   },
   "vote": {
     "description": "Crea un sondaggio per qualcosa",
-    "usage": "vota <channel> [question] <unk> [opzione 1] <unk> [opzione 2] <unk> <option 3> ... <option 9>",
+    "usage": {
+      "usage": "{prefix}voto <channel> [question] <unk> [opzione 1] <unk> [opzione 2] <unk> <option 3> ... <option 9>",
+      "examples": "{prefix}voto #voto Stai bene? <unk> Sì <unk> No"
+    },
     "options": {
       "question": {
         "description": "Che cosa volete che le persone voti?"
@@ -793,7 +821,10 @@
   },
   "wiki": {
     "description": "Cerca qualcosa su Wikipedia, o ottieni una pagina casuale se non sono stati specificati termini di ricerca.",
-    "usage": "wiki <search terms>",
+    "usage": {
+      "usage": "{prefix}wiki <search term>",
+      "examples": "{prefix}wiki discord"
+    },
     "options": {
       "query": {
         "description": "Che cosa vuoi cercare?"
