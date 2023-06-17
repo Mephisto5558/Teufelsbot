@@ -7,11 +7,13 @@
   "user": "Utente",
   "cancel": "Annulla",
   "playAgain": "Riproduci Di Nuovo",
+  "anotherone": "Un Altro",
   "enabled": "Abilitato",
   "disabled": "Disabilitato",
   "none": "nessuno",
   "noPermUser": "Non hai il permesso di farlo!",
   "noPermBot": "Non ho il permesso di farlo!",
   "true": "Sì",
-  "false": "No"
+  "false": "No",
+  "modReason": "{command} comando, moderatore {user}"
 }
