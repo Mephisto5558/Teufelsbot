@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Comandos usados para administrar el gremio o configurar el bot",
   "serverbackup": {
     "description": "Administre las copias de seguridad de su servidor.",
     "options": {

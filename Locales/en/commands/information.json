@@ -165,7 +165,7 @@
     "description": "Get information about a role",
     "usage": {
       "usage": "{prefix}roleinfo [@role | role name | role id]",
-      "examples": "{prefix}roleinfo @Member"
+      "examples": "{prefix}roleinfo @User1"
     },
     "options": {
       "role": {

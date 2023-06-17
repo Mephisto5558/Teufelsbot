@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Minijuegos para jugar con otros miembros",
   "coinflip": {
     "description": "¡Invierte una moneda!",
     "response": [
@@ -9,7 +10,10 @@
   },
   "counting": {
     "description": "¡Configura un canal de conteo donde los miembros puedan mostrar sus habilidades matemáticas!",
-    "usage": "Orden PREFIX contando: cuenta [#canal]",
+    "usage": {
+      "usage": "{prefix}contando [#canal]",
+      "examples": "{prefix}contando #contador"
+    },
     "options": {
       "channel": {
         "description": "El canal que desea agregar (o eliminar, si ya se ha añadido) como un canal de conteo."
@@ -29,7 +33,10 @@
   },
   "mgstats": {
     "description": "obtener estadísticas acerca de uno de los minijuegos del bot",
-    "usage": "Comando PREFIX estadísticas: <game> [user]",
+    "usage": {
+      "usage": "{prefix}estadísticas <game> [user]",
+      "examples": "{prefix}mgstats tictactoe @User1"
+    },
     "options": {
       "user": {
         "description": "obtener estadísticas sobre ti o un usuario específico",
