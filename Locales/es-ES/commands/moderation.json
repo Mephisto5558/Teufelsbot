@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Comandos para moderar el gremio",
   "ban": {
     "description": "prohíbe a uno o varios miembros del gremio",
     "options": {
@@ -51,7 +52,10 @@
   },
   "lock": {
     "description": "Evita que todos, excepto administradores, escriban en un canal.",
-    "usage": "bloquear [channel] [reason]",
+    "usage": {
+      "usage": "{prefix}bloquear [channel] [reason]",
+      "examples": "{prefix}bloquea #chat Tiempo para dormir"
+    },
     "options": {
       "channel": {
         "description": "¿Qué canal quieres bloquear?"
@@ -106,7 +110,10 @@
   },
   "purge": {
     "description": "elimina una cantidad específica de mensajes",
-    "usage": "Comando PREFIX purge <number> [channel]\nNO eliminará el número de mensajes especificados en el parámetro \"cantidad\", pero los eliminará si se cumplen todos los demás parámetros.",
+    "usage": {
+      "usage": "{prefix}purge <number> [channel]\nNO eliminará el número de mensajes especificados en el parámetro \"cantidad\", pero los eliminará si se cumplen todos los demás parámetros.",
+      "examples": "{prefix}purge 7 #chat"
+    },
     "options": {
       "amount": {
         "description": "La cantidad de mensajes a comprobar y tal vez purgar."
@@ -173,7 +180,10 @@
   },
   "unlock": {
     "description": "Desbloquea un canal bloqueado con el comando de bloqueo.",
-    "usage": "desbloquear [channel] [reason]",
+    "usage": {
+      "usage": "{prefix}desbloquear [channel] [reason]",
+      "examples": "{prefix}desbloquea #chat Buenos días"
+    },
     "options": {
       "channel": {
         "description": "¿Qué canal quieres desbloquear?"
