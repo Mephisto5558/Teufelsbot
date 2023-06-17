@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Nützliche Befehle",
   "addemoji": {
     "description": "Fügt ein Emoji zu diesem Server hinzu",
     "options": {
@@ -138,7 +139,6 @@
   },
   "hash": {
     "description": "Ver-/Entschlüssle einen Text mit verschiedenen Methoden.",
-    "usage": "SLASH-Befehl: Du musst nur eine der möglichen Methode angeben.",
     "options": {
       "input": {
         "description": "Der Text, welchen du verschlüsseln oder entschlüsseln möchtest."
@@ -153,7 +153,10 @@
   },
   "lastping": {
     "description": "Finde heraus, wer dich zuletzt erwähnt hat.",
-    "usage": "PREFIX-Befehl: lastping [#Kanal] [@User]\nWenn die `channel` Option genutzt wird, werden maximal 200 Nachrichten durchsucht.",
+    "usage": {
+      "usage": "{prefix}lastping [#Kanal] [@User]\nWenn die `channel` Option genutzt wird, werden maximal 200 Nachrichten durchsucht.",
+      "examples": "{prefix}lastping\n{prefix}lastping #chat\n{prefix}lastping @User1"
+    },
     "options": {
       "channel": {
         "description": "In welchem Kanal möchtest du nach Erwähnungen suchen? Standard: ganzer Server."
@@ -171,7 +174,10 @@
   },
   "math": {
     "description": "Ein wenig Mathematik",
-    "usage": "PREFIX-Befehl: math [Ausdruck]\n\nDieser Rechner unterstützt viele mathematische Operationen, nicht nur den Standard.\nDu kannst Variablen wie folgt deklarieren: `x=10`.\nDu kannst mehrere Ausdrücke mit einer neuen Zeile oder einem `;` trennen. z. B. `x=10;x+10` gibt `20` aus.\nDu musst `*` für Multiplikation nutzen.\nDer Rechner unterstützt die Ausgabe mehrerer Ergebnisse.\nManchmal erzeugen unnötige Leertasten Fehler im Rechner.",
+    "usage": {
+      "usage": "{prefix}math [Ausdruck]\n\nDieser Rechner unterstützt viele mathematische Operationen, nicht nur den Standard.\nDu kannst Variablen wie folgt deklarieren: `x=10`.\nDu kannst mehrere Ausdrücke mit einer neuen Zeile oder einem `;` trennen. z. B. `x=10;x+10` gibt `20` aus.\nDu musst `*` für Multiplikation nutzen.\nDer Rechner unterstützt die Ausgabe mehrerer Ergebnisse.\nManchmal erzeugen unnötige Leertasten Fehler im Rechner.",
+      "examples": "{prefix}math 1+1"
+    },
     "options": {
       "expression": {
         "description": "Was möchtest du mich ausrechnen lassen?"
@@ -204,7 +210,10 @@
   },
   "randomnumber": {
     "description": "Gibt eine Zufallszahl aus. Nutzt bei ungültigen Eingaben die Standardwerte.",
-    "usage": "PREFIX-Befehl: randomnumber [min] [max]",
+    "usage": {
+      "usage": "{prefix}randomnumber [min] [max]",
+      "examples": "{prefix}randomnumber 1 10"
+    },
     "options": {
       "minimum": {
         "description": "Die kleinste mögliche Zahl. Standard: 0"
@@ -253,7 +262,10 @@
   },
   "timestamp": {
     "description": "Erhalte einen Timestamp für die Zukunft (oder Vergangenheit, indem du \"-\" nutzt)",
-    "usage": "PREFIX-Befehl: timestamp [Zeit]\nBeispiele:\n>>> `1h` = jetzt + 1h\n`-1h` = jetzt - 1h\n`1h-1h` = jetzt + 1h - 1h",
+    "usage": {
+      "usage":"{prefix}timestamp [Zeit]",
+      "examples": "`1h` = jetzt + 1h\n`-1h` = jetzt - 1h\n`1h-1h` = jetzt + 1h - 1h"
+    },
     "options": {
       "time": {
         "description": "Die Zeit von diesem Moment an (z. B. 1w3d2h5min): nutze \"/help timestamp\" für mehr Informationen."

@@ -1,7 +1,11 @@
 {
+  "categoryDescription": "NSFW-Befehle",
   "nsfw": {
     "description": "Erhalte ein NSFW-Bild",
-    "usage": "PREFIX-Befehl: nsfw [art]",
+    "usage": {
+      "usage": "{prefix}nsfw [art]",
+      "examples": "{prefix}nsfw hentai"
+    },
     "options": {
       "type": {
         "description": "Die Bild-Art, die du sehen möchtest. Standard: Hentai",

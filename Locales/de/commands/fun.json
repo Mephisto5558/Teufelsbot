@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Verschiedene Spaß-Befehle",
   "8ball": {
     "description": "Stell mir eine Frage.",
     "options": {
@@ -50,7 +51,10 @@
   },
   "afk": {
     "description": "Setzte einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
-    "usage": "PREFIX-Befehl: afk [Nachricht]",
+    "usage": {
+      "usage": "{prefix}afk [Nachricht]",
+      "examples": "{prefix}afk bin mal kurz weg"
+    },
     "options": {
       "message": {
         "description": "Die zu setzende Nachricht"
@@ -64,7 +68,10 @@
   },
   "avatarfusion": {
     "description": "Kombiniere zwei Profilbilder.",
-    "usage": "PREFIX-Befehl: avatarfusion <Basis> [Überlagerung] [Avatar-Typ]",
+    "usage": {
+      "usage": "{prefix}avatarfusion <Basis> [Überlagerung] [\"server\"|\"global\"]",
+      "examples": "{prefix}avatarfusion @User1 @User2 global"
+    },
     "options": {
       "base": {
         "description": "Wessen Profilbild soll für die Basis genutzt werden?"
@@ -200,7 +207,10 @@
   },
   "fact": {
     "description": "Interessante Fakten",
-    "usage": "PREFIX-Befehl: fact [\"en\"|\"de\"]",
+    "usage": {
+      "usage": "{prefix}fact [\"en\"|\"de\"]",
+      "examples": "{prefix}fact de"
+    },
     "embedTitle": "Fakt"
   },
   "giveaway": {
@@ -328,7 +338,10 @@
   },
   "image": {
     "description": "Bildbearbeitung",
-    "usage": "PREFIX-Befehl: image <Unterbefehl | \"help\"> <Argumente>",
+    "usage": {
+      "usage": "{prefix}image <Unterbefehl | \"help\"> <Argumente>",
+      "examples": "{prefix}image magik https://example.com/bild.png 3"
+    },
     "options": {
       "type": {
         "description": "Die Art der Bildbearbeitung, die du nutzen möchtest. Lass dies leer, um alle Möglichkeiten zu sehen."
@@ -346,7 +359,10 @@
   },
   "joke": {
     "description": "Lasse den Bot einen Witz senden",
-    "usage": "PREFIX-Befehl: joke [type]",
+    "usage": {
+      "usage": "{prefix}joke [type]",
+      "examples": "{prefix}joke dadjoke"
+    },
     "options": {
       "api": {
         "description": "Welche API soll genutzt werden?"
@@ -374,7 +390,10 @@
   },
   "pokedex": {
     "description": "Zeigt Informationen über Pokémon an.",
-    "usage": "PREFIX-Befehl: pokedex <Pokemon>",
+    "usage": {
+      "usage": "{prefix}pokedex <Pokemon>",
+      "examples": "{prefix}pokedex Bulbasaur"
+    },
     "options": {
       "pokémon": {
         "description": "Nenne ein Pokémon"
@@ -394,7 +413,10 @@
   },
   "reddit": {
     "description": "Verschiedene Reddit-Befehle",
-    "usage": "PREFIX-Befehl: reddit [Subreddit] [Sortierung]",
+    "usage": {
+      "usage": "{prefix}reddit [Subreddit] [Sortierung]",
+      "examples": "{prefix}reddit memes hot"
+    },
     "options": {
       "meme": {
         "description": "Lasse dir ein zufälliges Meme zeigen.",
@@ -429,7 +451,10 @@
   },
   "say": {
     "description": "Lasse mich etwas sagen.",
-    "usage": "PREFIX-Befehl: say <Nachricht> [Kanal]",
+    "usage": {
+      "usage": "{prefix}say <Nachricht> [Kanal]",
+      "examples": "{prefix}say Hi Freunde! #chat"
+    },
     "options": {
       "msg": {
         "description": "Was soll ich sagen? Nutze /n für einen Absatz."
@@ -762,7 +787,10 @@
   },
   "vote": {
     "description": "Erstelle eine Umfrage",
-    "usage": "vote <Kanal> [Frage] | [Option 1] | [Option 2] | <Option 3> ... <Option 9>",
+    "usage": {
+      "usage": "{prefix}vote <Kanal> [Frage] | [Option 1] | [Option 2] | <Option 3> ... <Option 9>",
+      "examples": "{prefix}vote #voting Geht es euch gut? | Ja | Nein"
+    },
     "options": {
       "question": {
         "description": "Worüber soll abgestimmt werden?"
@@ -793,7 +821,10 @@
   },
   "wiki": {
     "description": "Suche nach etwas auf Wikipedia oder erhalte Informationen über etwas Zufälliges.",
-    "usage": "Wiki <Suchbegriff(e)>",
+    "usage": {
+      "usage":"{prefix}wiki <Suchbegriff>",
+      "examples": "{prefix}wiki discord"
+    },
     "options": {
       "query": {
         "description": "Was möchtest du suchen?"
