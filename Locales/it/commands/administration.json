@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Comandi usati per gestire la gilda o configurare il bot",
   "serverbackup": {
     "description": "Gestisci i backup del server.",
     "options": {
