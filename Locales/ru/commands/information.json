@@ -27,7 +27,8 @@
   "dashboard": {
     "description": "получить ссылку на панель ботов",
     "embedTitle": "Панель",
-    "embedDescriptionDashboard": "Нажмите [here]({url}) для открытия панели управления."
+    "embedDescriptionDashboard": "Нажмите [here]({url}) для открытия панели управления.",
+    "embedDescriptionVote": "Нажмите [here]({url}) чтобы открыть веб-страницу голосования и запроса на добавление функций."
   },
   "emojiinfo": {
     "description": "Получить информацию о эмодзи",
