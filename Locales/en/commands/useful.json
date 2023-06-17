@@ -1,5 +1,4 @@
 {
-  "categoryDescription": "Useful commands",
   "addemoji": {
     "description": "adds an emoji to this guild",
     "options": {
@@ -139,6 +138,7 @@
   },
   "hash": {
     "description": "encrypts or decrypts your text with various methods",
+    "usage": "SLASH Command: You only need to provide one method option.",
     "options": {
       "input": {
         "description": "the text you want to encrypt or decrypt"
@@ -153,10 +153,7 @@
   },
   "lastping": {
     "description": "Shows you where you got last mentioned.",
-    "usage": {
-      "usage": "{prefix}lastping [#channel]\nIf the `channel` option is used, a maximum of 200 messages will be searched.",
-      "examples": "{prefix}lastping\n{prefix}lastping #chat\n{prefix}lastping @User1"
-    },
+    "usage": "PREFIX Command: lastping [#channel]\nIf the `channel` option is used, a maximum of 200 messages will be searched.",
     "options": {
       "channel": {
         "description": "The channel you want to look for mentions in. Defaults to the whole guild."
@@ -174,10 +171,7 @@
   },
   "math": {
     "description": "Runs some math",
-    "usage": {
-      "usage": "{prefix}math [expression]\n\nThis calculator supports a wide range of mathematical operations, not just the basic ones.\nYou can assign values to variables, for example: `x=10`.\nMultiple statements can be evaluated by using a new line or a semicolon, for example: `x=10; x+10` will return `20`.\nRemember to use an asterisk (`*`) for multiplication.\nThe calculator can output multiple results.Please note that unnecessary spaces can cause errors in expressions.",
-      "examples": "{prefix}math 1+1"
-    },
+    "usage": "PREFIX Command: math [expression]\n\nThis calculator supports a wide range of mathematical operations, not just the basic ones.\nYou can assign values to variables, for example: `x=10`.\nMultiple statements can be evaluated by using a new line or a semicolon, for example: `x=10; x+10` will return `20`.\nRemember to use an asterisk (`*`) for multiplication.\nThe calculator can output multiple results.Please note that unnecessary spaces can cause errors in expressions.",
     "options": {
       "expression": {
         "description": "What do you want me to solve?"
@@ -210,10 +204,7 @@
   },
   "randomnumber": {
     "description": "Returns a random number. Uses default values for invalid inputs.",
-    "usage": {
-      "usage": "{prefix}randomnumber [min] [max]",
-      "examples": "{prefix}randomnumber 1 10"
-    },
+    "usage": "PREFIX Command: randomnumber [min] [max]",
     "options": {
       "minimum": {
         "description": "The smallest possible number. Defaults to 0."
@@ -262,10 +253,7 @@
   },
   "timestamp": {
     "description": "Get a timestamp for the future (or past by putting a \"-\" in front)",
-    "usage": {
-      "usage": "{prefix}timestamp [time]",
-      "examples": "`1h` = now + 1h\n`-1h` = now - 1h\n`1h-1h` = now + 1h - 1h"
-    },
+    "usage": "PREFIX Command: timestamp [time]\nExamples:\n>>> `1h` = now + 1h\n`-1h` = now - 1h\n`1h-1h` = now + 1h - 1h",
     "options": {
       "time": {
         "description": "The time from now (eg. 1w3d2h5min). Use \"/help timestamp\" for more Information."
