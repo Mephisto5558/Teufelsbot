@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Comandi per moderare la gilda",
   "ban": {
     "description": "bandisce uno o più membri dalla gilda",
     "options": {
@@ -51,7 +52,10 @@
   },
   "lock": {
     "description": "Impedisce a tutti tranne gli amministratori di scrivere in un canale.",
-    "usage": "lock [channel] [reason]",
+    "usage": {
+      "usage": "{prefix}lock [channel] [reason]",
+      "examples": "{prefix}lock #chat Tempo per dormire"
+    },
     "options": {
       "channel": {
         "description": "Quale canale vuoi bloccare?"
@@ -106,7 +110,10 @@
   },
   "purge": {
     "description": "rimuove una quantità specifica di messaggi",
-    "usage": "Comando PREFIX: purge <number> [channel]\nNON cancellerà il numero di messaggi specificati nel parametro \"amount\", ma li eliminerà se tutti gli altri parametri sono soddisfatti.",
+    "usage": {
+      "usage": "{prefix}purge <number> [channel]\nNON cancellerà il numero di messaggi specificati nel parametro \"amount\", ma li eliminerà se tutti gli altri parametri sono soddisfatti.",
+      "examples": "{prefix}purge 7 #chat"
+    },
     "options": {
       "amount": {
         "description": "La quantità di messaggi da controllare e forse eliminare."
@@ -173,7 +180,10 @@
   },
   "unlock": {
     "description": "Sblocca un canale bloccato con il comando di blocco.",
-    "usage": "sblocca [channel] [reason]",
+    "usage": {
+      "usage": "{prefix}sblocca [channel] [reason]",
+      "examples": "{prefix}sblocco #chat Buongiorno"
+    },
     "options": {
       "channel": {
         "description": "Quale canale vuoi sbloccare?"
