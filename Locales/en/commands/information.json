@@ -1,5 +1,4 @@
 {
-  "categoryDescription": "Informative commands",
   "avatar": {
     "description": "shows the user's avatar",
     "options": {
@@ -15,10 +14,7 @@
   },
   "cmdstats": {
     "description": "See how often a specific command has been run or get the top 10.",
-    "usage": {
-      "usage": "{prefix}cmdstats [command]",
-      "examples": "{prefix}cmdstats joke"
-    },
+    "usage": "PREFIX Command: cmdstats [command]",
     "options": {
       "command": {
         "description": "The command you want to get stats for."
@@ -36,10 +32,7 @@
   },
   "emojiinfo": {
     "description": "Get information about an emoji",
-    "usage": {
-      "usage": "{prefix}emojiinfo [emoji | emoji id]",
-      "examples": "{prefix}emojiinfo :derp:"
-    },
+    "usage": "PREFIX Command: emojiinfo [emoji | emoji id]",
     "options": {
       "emoji": {
         "description": "The emoji or its id you want to get information about"
@@ -62,48 +55,28 @@
   },
   "help": {
     "description": "Show all my commands or search for a specific one",
-    "usage": {
-      "usage": "{prefix}help [command]",
-      "examples": "{prefix}help joke"
-    },
+    "usage": "PREFIX Command: help [command]",
     "options": {
-      "category": {
-        "description": "Wich category do you want to get information about?",
-        "choices": {
-          "administration": "Administration",
-          "fun": "Fun",
-          "information": "Information",
-          "minigames": "Minigames",
-          "moderation": "Moderation",
-          "nsfw": "NSFW",
-          "useful": "Useful",
-          "premium": "Premium",
-          "others": "Others",
-          "owner-only": "Owner-Only"
-        }
-      },
       "command": {
-        "description": "Wich command do you want to get information about?"
+        "description": "Wich command do you want to get stats about?"
       }
     },
-    "categoryListPlaceholder": "Which command category do you want to see?",
-    "commandListPlaceholder": "Which command do you want to see?",
     "one": {
       "notFound": "No information found for command `{command}`.",
       "embedTitle": "Detailed Information about: `{command}`",
+      "noDescription": "No description found",
       "embedFooterText": "Syntax: <> = required, [] = optional | Prefix: \"{prefix}\"",
+      "lookAtDesc": "SLASH Command: look at the option descriptions.\n",
       "prefixAlias": "Prefix Command Aliases",
       "slashAlias": "Slash Command Aliases",
       "aliasOf": "Alias of",
       "botPerms": "Required Bot Permissions",
       "userPerms": "Required User Permissions",
       "cooldowns": "Command Cooldowns",
-      "usage": "Usage",
-      "examples": "Examples"
+      "usage": "Usage"
     },
     "all": {
       "embedTitle": "🔰All my commands",
-      "embedDescription": "These are the different command categories. Please select one from the dropdown menu.",
       "notFound": "No commands found...",
       "embedFooterText": "Use the 'command' option to get more information about a specific command."
     }
@@ -145,10 +118,7 @@
   },
   "prefix": {
     "description": "shows or changes the guild's bot prefix",
-    "usage": {
-      "usage": "{prefix}prefix [new prefix]",
-      "examples": "{prefix}prefix &"
-    },
+    "usage": "PREFIX Command: prefix [new prefix]",
     "options": {
       "new_prefix": {
         "description": "the new bot prefix for this guild"
@@ -163,10 +133,7 @@
   },
   "roleinfo": {
     "description": "Get information about a role",
-    "usage": {
-      "usage": "{prefix}roleinfo [@role | role name | role id]",
-      "examples": "{prefix}roleinfo @Member"
-    },
+    "usage": "PREFIX Command: roleinfo [@role | role name | role id]",
     "options": {
       "role": {
         "description": "the role you want to get information about"
@@ -183,7 +150,7 @@
     "createdAt": "Created At",
     "permissions": "Permissions",
     "admin": "Administrator",
-    "delete": "Delete Role"
+    "delete":"Delete Role"
   },
   "serverinfo": {
     "description": "Get information about a guild",
@@ -236,10 +203,7 @@
   },
   "userinfo": {
     "description": "Get information about a member",
-    "usage": {
-      "usage": "{prefix}roleinfo [@user | user name | user tag | user nickname | user id]",
-      "examples": "{prefix}userinfo @User1"
-    },
+    "usage": "PREFIX Command: roleinfo [@user | user name | user tag | user nickname | user id]",
     "options": {
       "target": {
         "description": "the user you want to get information about"
