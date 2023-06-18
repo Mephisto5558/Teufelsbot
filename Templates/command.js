@@ -14,8 +14,9 @@ module.exports = {
     name: '',
     type: '',
     autocompleteOptions: [],
+    strictAutocomplete: false,
     required: false,
-    choices: [{ value: '' }],
+    choices: [''],
   }],
 
   run: function (lang) {
@@ -23,6 +24,7 @@ module.exports = {
   }
 };
 
+//strictAutocomplete is like choices but without max. options
 //subcommand groups and subcommands can have cooldowns as well (subcommand group, subcommand and normal command cooldown are checked)
 const options = [{
   name: '',
