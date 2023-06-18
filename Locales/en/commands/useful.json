@@ -92,7 +92,39 @@
             "description": "set the embed title"
           },
           "predefined_color": {
-            "description": "set the embed color from predefined discord codes"
+            "description": "Set the embed color from predefined discord codes",
+            "choices": {
+              "Default": "Default",
+              "White": "White",
+              "Aqua": "Aqua",
+              "Green": "Green",
+              "Blue": "Blue",
+              "Yellow": "Yellow",
+              "Purple": "Purple",
+              "LuminousVividPink": "Luminous Vivid Pink",
+              "Fuchsia": "Fuchsia",
+              "Gold": "Gold",
+              "Orange": "Orange",
+              "Red": "Red",
+              "Grey": "Grey",
+              "Navy": "Navy",
+              "DarkAqua": "Dark Aqua",
+              "DarkGreen": "Dark Green",
+              "DarkBlue": "Dark Blue",
+              "DarkPurple": "Dark Purple",
+              "DarkVividPink": "Dark Vivid Pink",
+              "DarkGold": "Dark Gold",
+              "DarkOrange": "Dark Orange",
+              "DarkRed": "Dark Red",
+              "DarkGrey": "Dark Grey",
+              "DarkerGrey": "Darker Grey",
+              "LightGrey": "Light Grey",
+              "DarkNavy": "Dark Navy",
+              "Blurple": "Blurple",
+              "Greyple": "Greyple",
+              "DarkButNotBlack": "Dark But Not Black",
+              "NotQuiteBlack": "Not Quite Black"
+            }
           },
           "custom_color": {
             "description": "set a custom 6-char HEX Code as embed color (e.g. #ffffff)"

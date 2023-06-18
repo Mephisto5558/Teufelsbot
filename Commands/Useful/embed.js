@@ -9,7 +9,7 @@ module.exports = {
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,
-  ephemeralDefer: true,
+  ephemeralDefer: true, beta: true,
   options: [
     {
       name: 'custom',
@@ -29,7 +29,8 @@ module.exports = {
         {
           name: 'predefined_color',
           type: 'String',
-          choices: Object.entries(Colors).map(([k, v]) => ({ name: k, value: v.toString() })).slice(0, 25),
+          autocompleteOptions: Object.entries(Colors).map(e => e[0]),
+          strictAutocomplete: true,
         },
         { name: 'custom_color', type: 'String' },
         { name: 'footer_text', type: 'String' },
