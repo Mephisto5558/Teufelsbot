@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
   I18nProvider = require('../I18nProvider.js'),
   permissionTranslator = require('../permissionTranslator.js'),
-  ownerOnlyFolders = require('../../config.json')?.ownerOnlyFolders?.map(e => e?.toUpperCase()) || ['OWNER-ONLY'];
+  ownerOnlyFolders = require('../getOwnerOnlyFolders.js')();
 
 function reply(data) { return this.message?.editable ? this.message.edit(data) : this.customReply(data); }
 function getAllCommands() { return [...new Set([...this.client.prefixCommands.values(), ...this.client.slashCommands.values()])].filter(module.exports.filterCommands.bind(this)); }
@@ -10,7 +10,7 @@ function getAllCommands() { return [...new Set([...this.client.prefixCommands.va
 function createCategoryComponent(lang, commandCategories) {
   if (!commandCategories) {
     commandCategories = [...new Set([...this.client.prefixCommands.map(e => e.category), ...this.client.slashCommands.map(e => e.category)])];
-    if (this.user.id != this.client.application.owner.id) commandCategories = commandCategories.filter(e => !ownerOnlyFolders.includes(e.toUpperCase()));
+    if (this.user.id != this.client.application.owner.id) commandCategories = commandCategories.filter(e => !ownerOnlyFolders.includes(e.toLowerCase()));
   }
 
   const defaultOption = this.options?.getString('category') || (this.values ? this.message.components[0].components[0].options.find(e => e.value === this.values[0]) : null);
@@ -81,7 +81,7 @@ function createInfoFields(cmd = {}, lang = null, helpLang = null) {
 }
 
 module.exports.filterCommands = function filterCommands(e) {
-  return e?.name && !e.disabled && (this.client.botType != 'dev' || e.beta) || (ownerOnlyFolders.includes(e.category.toUpperCase()) && this.user.id != this.client.application.owner.id);
+  return e?.name && !e.disabled && (this.client.botType != 'dev' || e.beta) || (ownerOnlyFolders.includes(e.category.toLowerCase()) && this.user.id != this.client.application.owner.id);
 };
 
 /**@this {import('discord.js').Message|import('discord.js').ChatInputCommandInteraction|import('discord.js').StringSelectMenuInteraction}*/
@@ -138,7 +138,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
 /**@this {import('discord.js').Message|import('discord.js').ChatInputCommandInteraction|import('discord.js').StringSelectMenuInteraction}*/
 module.exports.allQuery = function allQuery(lang) {
   let commandCategories = [...new Set(getAllCommands.call(this).map(e => e.category))];
-  if (this.user.id != this.client.application.owner.id) commandCategories = commandCategories.filter(e => !ownerOnlyFolders.includes(e.toUpperCase()));
+  if (this.user.id != this.client.application.owner.id) commandCategories = commandCategories.filter(e => !ownerOnlyFolders.includes(e.toLowerCase()));
 
   const
     embed = new EmbedBuilder({

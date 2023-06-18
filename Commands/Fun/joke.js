@@ -46,11 +46,10 @@ async function getJoke(APIList = [], type = '', blacklist = '', maxLength = 2000
   }
   catch (err) {
     if ([402, 403, 522].includes(err.status)) {
-      this.error('joke.js: ');
-      this.error(err.response);
+      log.error('joke.js: ', err.response);
     }
     else if (err.name !== 'AbortError')
-      this.error(`joke.js: ${API?.url ?? JSON.stringify(API)} responded with error ${err.status ?? err.response?.status ?? err.name}, ${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`);
+      log.error(`joke.js: ${API?.url ?? JSON.stringify(API)} responded with error ${err.status ?? err.response?.status ?? err.name}, ${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`);
   }
 
   if (typeof response == 'string') return [response.replaceAll('`', '\''), API];

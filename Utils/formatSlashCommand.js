@@ -10,17 +10,17 @@ module.exports = function format(option, path) {
   if (option.autocompleteOptions) option.autocomplete = true;
 
   if (option.description.length > 100) {
-    if (!option.disabled) console.warn(`WARN: Description of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
+    if (!option.disabled) log._log('warn', `Description of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
     option.description = option.description.substring(0, 100);
   }
 
   for (const [locale] of [...I18nProvider.availableLocales].filter(([e]) => e != I18nProvider.config.defaultLocale)) {
     option.descriptionLocalizations ??= {};
     let localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.description`);
-    if (localeText?.length > 100 && !option.disabled) console.warn(`WARN: "${locale}" description localization of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
+    if (localeText?.length > 100 && !option.disabled) log._log('warn', `"${locale}" description localization of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
 
     if (localeText) option.descriptionLocalizations[locale] = localeText?.slice(0, 100);
-    else if (!option.disabled) console.warn(`WARN: Missing "${locale}" description localization for option "${option.name}" (${path}.description)`);
+    else if (!option.disabled) log._log('warn', `Missing "${locale}" description localization for option "${option.name}" (${path}.description)`);
 
     if (option.choices?.length) option.choices.map(e => {
       if (e.__SCHandlerCustom) {
@@ -30,11 +30,11 @@ module.exports = function format(option, path) {
 
       e.nameLocalizations ??= {};
       let localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
-      if (localeText?.length < 2) option.disabled ? void 0 : console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too short (min length is 2)! Using undefined.`);
-      else if (localeText?.length > 32) option.disabled ? void 0 : console.warn(`WARN: Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too long (max length is 32)! Slicing.`);
+      if (localeText?.length < 2) option.disabled ? void 0 : log._log('warn', `Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too short (min length is 2)! Using undefined.`);
+      else if (localeText?.length > 32) option.disabled ? void 0 : log._log('warn', `Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too long (max length is 32)! Slicing.`);
 
       if (localeText && localeText.length > 2) e.nameLocalizations[locale] = localeText.slice(0, 32);
-      else if (e.name != e.value) option.disabled ? void 0 : console.warn(`WARN: Missing "${locale}" choice name localization for "${e.name}" in option "${option.name}" (${path}.choices.${e.name})`);
+      else if (e.name != e.value) option.disabled ? void 0 : log._log('warn', `Missing "${locale}" choice name localization for "${e.name}" in option "${option.name}" (${path}.choices.${e.name})`);
 
       return e;
     });
@@ -54,7 +54,7 @@ module.exports = function format(option, path) {
   }
 
   if (/[A-Z]/.test(option.name)) {
-    if (!option.disabled) console.error(`${option.name} (${path}) has uppercase letters! Fixing`);
+    if (!option.disabled) log.error(`${option.name} (${path}) has uppercase letters! Fixing`);
     option.name = option.name.toLowerCase();
   }
 

@@ -19,21 +19,21 @@ module.exports = async function commandHandler() {
       if (!command.disabled && !command.run?.toString().startsWith('function') && !command.run?.toString().startsWith('async function')) throw new Error(`The run function of file "${command.filePath}" is not a function. You cannot use arrow functions.`);
 
       this.prefixCommands.set(command.name, command);
-      if (command.disabled) HideDisabledCommandLog ? void 0 : this.log(`Loaded Disabled Prefix Command ${command.name}`);
-      else if (!command.beta && this.botType == 'dev') HideNonBetaCommandLog ? void 0 : this.log(`Loaded Non-Beta Prefix Command ${command.name}`);
-      else this.log(`Loaded Prefix Command ${command.name}`);
+      if (command.disabled) HideDisabledCommandLog ? void 0 : log(`Loaded Disabled Prefix Command ${command.name}`);
+      else if (!command.beta && this.botType == 'dev') HideNonBetaCommandLog ? void 0 : log(`Loaded Non-Beta Prefix Command ${command.name}`);
+      else log(`Loaded Prefix Command ${command.name}`);
       command.disabled || (this.botType == 'dev' && !command.beta) ? disabledCommandCount++ : enabledCommandCount++;
 
       for (const alias of command.aliases?.prefix || []) {
         this.prefixCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
-        if (command.disabled) HideDisabledCommandLog ? void 0 : this.log(`Loaded Alias ${alias} of Prefix Command ${command.name} (disabled)`);
-        else this.log(`Loaded Alias ${alias} of Prefix Command ${command.name}`);
+        if (command.disabled) HideDisabledCommandLog ? void 0 : log(`Loaded Alias ${alias} of Prefix Command ${command.name} (disabled)`);
+        else log(`Loaded Alias ${alias} of Prefix Command ${command.name}`);
         command.disabled || (this.botType == 'dev' && !command.beta) ? disabledCommandCount++ : enabledCommandCount++;
       }
     }
   }
 
-  this.log(`Loaded ${enabledCommandCount} Enabled Prefix Commands`);
-  if (!HideDisabledCommandLog) this.log(`Loaded ${disabledCommandCount} Disabled/Non-Beta Prefix Commands`);
+  log(`Loaded ${enabledCommandCount} Enabled Prefix Commands`);
+  if (!HideDisabledCommandLog) log(`Loaded ${disabledCommandCount} Disabled/Non-Beta Prefix Commands`);
   console.log(); //Empty line
 };

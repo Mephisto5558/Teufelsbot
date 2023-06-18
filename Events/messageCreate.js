@@ -13,7 +13,7 @@ module.exports = async function messageCreate() {
     const mentions = [this.mentions.repliedUser?.id, ...this.mentions.users.keys(), ...this.mentions.roles.flatMap(r => r.members.keys())].filter(e => e && e != this.user.id);
     if (mentions.length) await this.client.db.update('guildSettings', `${this.guild.id}.lastMentions`, mentions.reduce((acc, e) => ({ ...acc, [e]: { content: this.content, url: this.url, author: this.author, channel: this.channel.id, createdAt: this.createdAt } }), this.guild.db.lastMentions || {}));
   }
-
+  
   if (this.user.bot) return;
   if (!this.commandName) return this.guild ? this.runMessages() : null;
 

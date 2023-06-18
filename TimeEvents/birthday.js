@@ -22,8 +22,8 @@ module.exports = {
   onTick: async function () {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 
-    if (this.settings.lastBirthdayCheck == now) return this.log('Already ran birthday check today');
-    this.log('started birthday check');
+    if (this.settings.lastBirthdayCheck == now) return log('Already ran birthday check today');
+    log('started birthday check');
 
     const
       guildList = (await this.guilds.fetch()).map(e => e.fetch()),
@@ -77,6 +77,6 @@ module.exports = {
     }
 
     await this.db.update('botSettings', 'lastBirthdayCheck', now);
-    this.log('Finished birthday check');
+    log('Finished birthday check');
   }
 };
