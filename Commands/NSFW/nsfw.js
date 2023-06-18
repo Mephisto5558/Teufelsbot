@@ -22,7 +22,7 @@ module.exports = {
     const data = await fetch(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') || this.args?.[0] || 'hentai').toLowerCase()}`).then(e => e.json());
     if (!data?.success) {
       this.customReply(lang('error'));
-      return this.client.error('NSFW Command API Error: ', JSON.stringify(data));
+      return log.error('NSFW Command API Error: ', JSON.stringify(data));
     }
 
     const embed = new EmbedBuilder({

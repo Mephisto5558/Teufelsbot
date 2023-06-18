@@ -26,7 +26,7 @@ module.exports = async function slashCommandHandler() {
       }
       catch (err) {
         if (this.botType == 'dev') throw err;
-        else this.error(`Error on formatting command ${command.name}:\n`, err);
+        else log.error(`Error on formatting command ${command.name}:\n`, err);
 
         command.skip = true;
         this.slashCommands.set(command.name, command);
@@ -34,7 +34,7 @@ module.exports = async function slashCommandHandler() {
       }
 
       if (!command.disabled && !command.skip) for (const [, applicationCommand] of await applicationCommands) if (slashCommandsEqual(command, applicationCommand)) {
-        this.log(`Skipped Slash Command ${command.name}`);
+        log(`Skipped Slash Command ${command.name}`);
 
         command.skip = true;
         command.id = applicationCommand.id;
@@ -48,18 +48,18 @@ module.exports = async function slashCommandHandler() {
 
   for (const [, command] of this.slashCommands) {
     if (command.skip) continue;
-    if (command.disabled) HideDisabledCommandLog ? void 0 : this.log(`Skipped Disabled Slash Command ${command.name}`);
-    else if (this.botType == 'dev' && !command.beta) HideNonBetaCommandLog ? void 0 : this.log(`Skipped Non-Beta Slash Command ${command.name}`);
+    if (command.disabled) HideDisabledCommandLog ? void 0 : log(`Skipped Disabled Slash Command ${command.name}`);
+    else if (this.botType == 'dev' && !command.beta) HideNonBetaCommandLog ? void 0 : log(`Skipped Non-Beta Slash Command ${command.name}`);
     else {
       try {
         command.id = (await this.application.commands.create(command)).id;
 
-        this.log(`Registered Slash Command ${command.name}` + (command.aliasOf ? ` (Alias of ${command.aliasOf})` : ''));
+        log(`Registered Slash Command ${command.name}` + (command.aliasOf ? ` (Alias of ${command.aliasOf})` : ''));
         registeredCommandCount++;
       }
       catch (err) {
         if (this.botType == 'dev') throw err;
-        else this.error(`Error on registering command ${command.name}:\n`, err);
+        else log.error(`Error on registering command ${command.name}:\n`, err);
       }
     }
   }
@@ -71,24 +71,24 @@ module.exports = async function slashCommandHandler() {
     try {
       await this.application.commands.delete(command);
 
-      this.log(`Deleted Slash Command ${command.name}`);
+      log(`Deleted Slash Command ${command.name}`);
       deletedCommandCount++;
     }
     catch (err) {
       if (this.botType == 'dev') throw err;
-      else this.error(`Error on deleting command ${command.name}:\n`, err);
+      else log.error(`Error on deleting command ${command.name}:\n`, err);
     }
   }
 
-  this
-    .log(`Registered ${registeredCommandCount} Slash Commands`)
-    .log(`Skipped ${this.slashCommands.filter(e => { return e.skip && delete e.skip; }).size} Slash Commands`)
-    .log(`Deleted ${deletedCommandCount} Slash Commands`)
-    .on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[].concat(args ?? this)))
-    .log('Loaded Event interactionCreate')
-    .log('Ready to receive slash commands\n')
+  this.on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[].concat(args ?? this)));
 
-    .log(`Ready to serve in ${this.channels.cache.size} channels on ${this.guilds.cache.size} servers.\n`);
+  log /*eslint-disable no-unexpected-multiline, indent*/
+    (`Registered ${registeredCommandCount} Slash Commands`)
+    (`Skipped ${this.slashCommands.filter(e => { return e.skip && delete e.skip; }).size} Slash Commands`)
+    (`Deleted ${deletedCommandCount} Slash Commands`)
+    ('Loaded Event interactionCreate')
+    ('Ready to receive slash commands\n')
+    (`Ready to serve in ${this.channels.cache.size} channels on ${this.guilds.cache.size} servers.\n`);
 
   console.timeEnd('Starting time');
 

@@ -3,22 +3,39 @@ const
   TicTacToe = require('discord-tictactoe'),
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('crypto'),
-  { appendFile, readdir, access, mkdirSync } = require('fs/promises'),
+  { appendFile, readdir, access, mkdir } = require('fs/promises'),
   { customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
   findAllEntries = require('./findAllEntries.js'),
-  date = new Date().toLocaleDateString('en').replaceAll('/', '-'),
-  getTime = () => new Date().toLocaleTimeString('en', { timeStyle: 'medium', hour12: false }).replace(/^24:/, '00:'),
-  writeLogFile = (type, ...data) => appendFile(`./Logs/${date}_${type}.log`, `[${getTime()}] ${data.join(' ')}\n`);
+  date = new Date().toLocaleDateString('en').replaceAll('/', '-');
 
-access('./Logs').catch(() => mkdirSync('./Logs'));
-if (!require('../config.json')?.HideOverwriteWarning) console.warn(`Overwriting the following variables and functions (if they exist):
-  Vanilla:    global.getDirectories, global.sleep, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
-  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#log, BaseClient#error, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
+access('./Logs').catch(() => mkdir('./Logs'));
+if (!require('../config.json')?.HideOverwriteWarning) log._log('warn', `Overwriting the following variables and functions (if they exist):
+  Vanilla:    global.getDirectories, global.sleep, global.log, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
+  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
   \nModifying Discord.js Message._patch method.`
 );
 
 global.sleep = require('util').promisify(setTimeout);
 global.getDirectories = async path => (await readdir(path, { withFileTypes: true })).reduce((acc, e) => e.isDirectory() ? [...acc, e.name] : acc, []);
+global.log = (...str) => global.log._log('log', ...str);
+global.log._log = function _log(file = global.log.file, ...str) {
+  const
+    txt = `${new Date().toISOString()} ${global.log.type ?? 'Bot'} | `,
+    log = console[file] || console.log;
+
+  if (arguments.length) {
+    if (file != 'debug') log(`${txt}${str}`);
+    appendFile(`./Logs/${date}_${file}.log`, `${txt}${str}\n`);
+    return global.log;
+  }
+
+  if (file != 'debug') log('\n');
+  appendFile(`./Logs/${date}_${file}.log`, '\n');
+  return global.log;
+};
+global.log.error = (...str) => global.log._log('error', '\x1b[1;31m%s\x1b[0m', ...str);
+global.log.debug = (...str) => global.log._log('debug', ...str);
+global.log.setType = type => { global.log.type = type; return global.log; };
 
 Object.defineProperty(Array.prototype, 'random', {
   value: function random() { return this[randomInt(this.length)]; },
@@ -79,21 +96,6 @@ Object.defineProperties(BaseClient.prototype, {
   },
   awaitReady: {
     value: function awaitReady() { return new Promise(res => this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch()))); }
-  },
-  log: {
-    value: function log(...data) {
-      console.info(`[${getTime()}] ${data.join(' ')}`);
-      writeLogFile('log', ...data);
-      return this;
-    }
-  },
-  error: {
-    value: function error(...data) {
-      console.error('\x1b[1;31m%s\x1b[0m', `[${getTime()}] ${data.join(' ')}`);
-      writeLogFile('log', ...data);
-      writeLogFile('error', ...data);
-      return this;
-    }
   }
 });
 Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {

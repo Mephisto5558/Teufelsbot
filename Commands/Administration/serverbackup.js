@@ -138,7 +138,7 @@ module.exports = {
             }
             catch (err) {
               msg.edit({ embeds: [embed.setDescription(lang('load.error'))] });
-              return this.client.error('An error occurred while trying to load an backup:', err);
+              return log.error('An error occurred while trying to load an backup:', err);
             }
           })
           .on('end', collected => {

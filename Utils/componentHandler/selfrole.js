@@ -22,7 +22,10 @@ module.exports = async function selfrole(lang, mode, roleId, args) {
   switch (mode) {
     case 'add': {
       if (this.member.roles.cache.has(role.id)) return this.editReply({ embeds: [errorEmbed.setDescription(lang('hasRoleAlready', role.id))] });
+
       await this.member.roles.add(role);
+      log.setType('selfrole').debug(`Added role ${role} to member ${this.member.id}`).setType();
+
       if (args.includes('count') && this.component.label) {
         this.component.data.label = this.component.label.replace(/\d*\]$/, `${count + 1}]`);
         this.message.edit({ components: this.message.components });
@@ -32,7 +35,10 @@ module.exports = async function selfrole(lang, mode, roleId, args) {
 
     case 'remove': {
       if (!this.member.roles.cache.has(role.id)) return this.editReply({ embeds: [errorEmbed.setDescription(lang('missesRole', role.id))] });
+
       await this.member.roles.remove(role);
+      log.setType('selfrole').debug(`Removed role ${role} from member ${this.member.id}`).setType();
+
       if (args.includes('count') && this.component.label) {
         this.component.data.label = this.component.label.replace(/\d*\]$/, `${count - 1}]`).limit({ min: 0 });
         this.message.edit({ components: this.message.components });
@@ -42,12 +48,17 @@ module.exports = async function selfrole(lang, mode, roleId, args) {
 
     case 'toggle': {
       if (this.member.roles.cache.has(role.id)) {
+
         await this.member.roles.remove(role);
+        log.setType('selfrole').debug(`Removed role ${role} from member ${this.member.id}`).setType();
+
         this.editReply({ embeds: [successEmbed.setDescription(lang('removeSuccess', role.id))] });
         count--;
       }
       else {
         await this.member.roles.add(role);
+        log.setType('selfrole').debug(`Added role ${role} to member ${this.member.id}`).setType();
+        
         this.editReply({ embeds: [successEmbed.setDescription(lang('addSuccess', role.id))] });
         count++;
       }

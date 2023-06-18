@@ -9,9 +9,9 @@ module.exports = async function eventHandler() {
 
     const eventName = file.split('.')[0];
     this.on(eventName, (...args) => args.length == 1 && args[0] instanceof Client ? require(`../Events/${file}`).call(this) : require(`../Events/${file}`).call(...args, this));
-    this.log(`Loaded Event ${eventName}`);
+    log(`Loaded Event ${eventName}`);
     eventCount++;
   }
 
-  this.log(`Loaded ${eventCount} Events\n`);
+  log(`Loaded ${eventCount} Events\n`);
 };

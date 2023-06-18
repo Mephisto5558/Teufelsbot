@@ -6,7 +6,7 @@ module.exports = {
   beta: true,
 
   run: async function (lang) {
-    this.client.log(`Reloading db, initiated by user ${this.user.tag}`);
+    log.debug(`Reloading db, initiated by user ${this.user.tag}`);
 
     await this.client.db.fetchAll();
     return this.customReply(lang('success'));

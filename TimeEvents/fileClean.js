@@ -5,8 +5,13 @@ async function deleteOld(path) {
 
   const time = new Date(Date.now() - 12096e5 /*2 Weeks*/).getTime();
   for (const file of await readdir(path, { withFileTypes: true })) {
-    if (file.isDirectory()) deleteOld(`${path}/${file.name}`);
-    else if (time > (await stat(`${path}/${file.name}`)).mtimeMs) unlink(`${path}/${file.name}`);
+    const pathStr = `${path}/${file.name}`;
+    
+    if (file.isDirectory()) deleteOld(pathStr);
+    else if (time > (await stat(pathStr)).mtimeMs) {
+      log.debug(`deleting ${pathStr}`);
+      unlink(pathStr);
+    }
   }
 }
 
@@ -17,13 +22,13 @@ module.exports = {
   onTick: async function () {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 
-    if (this.settings.lastFileClear == now) return this.log('Already ran file deletion today');
-    this.log('started file deletion');
+    if (this.settings.lastFileClear == now) return log('Already ran file deletion today');
+    log('started file deletion');
 
     deleteOld('./VoiceRecords');
     deleteOld('./Logs');
 
     await this.db.update('botSettings', 'lastFileClear', now);
-    this.log('Finished file deletion');
+    log('Finished file deletion');
   }
 };

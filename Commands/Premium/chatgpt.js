@@ -19,7 +19,7 @@ async function fetchAPI(lang, deep) {
   if (['Rate limit reached', 'Too many requests'].some(e => res.error.message.startsWith(e))) return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);
   if (res.error.type == 'insufficient_quota' || res.error.message.startsWith('That model is currently overloaded')) return lang('notAvailable');
 
-  this.client.error('chatgpt command API error:', JSON.stringify(res, null, 2));
+  log.error('chatgpt command API error:', JSON.stringify(res, null, 2));
   return lang('error');
 }
 
