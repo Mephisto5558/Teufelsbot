@@ -60,7 +60,7 @@
         "description": "El mensaje a establecer"
       },
       "global": {
-        "description": "Establece tu AFK para todos los gremios en los que estás. Se reinicia si escribes en cualquier gremio."
+        "description": "Establecer \"AFK\" en todos los servidores. Reinicia si escribes en alguno."
       }
     },
     "globalSuccess": "Tu AFK ha sido establecido a \"{message}\" en todos los gremios.",
@@ -250,7 +250,7 @@
             "description": "Sólo los miembros con uno de estos roles podrán participar."
           },
           "bonus_entries": {
-            "description": "Una lista de menciones de miembro/rol con la cantidad de entradas de bonos: por ejemplo. @Premium:5 @Normal:2"
+            "description": "Una lista de menciones de miembro/rol con la cantidad de entradas de bonos: ej. @Premium:5 @Normal:2"
           },
           "embed_color": {
             "description": "El color hexadecimal del incrustado mientras se ejecuta el regalo."
@@ -422,7 +422,7 @@
         "description": "obtener un meme aleatorio",
         "options": {
           "filter_nsfw": {
-            "description": "filtra todas las publicaciones etiquetadas como nsfw. Por defecto: verdadero, forzado en canales no nsfw"
+            "description": "filtra todas las publicaciones etiquetadas como nsfw. Por defecto: true, forzado en canales no nsfw"
           }
         }
       },
@@ -436,7 +436,7 @@
             "description": "El tipo a ordenar. Por defecto: caliente"
           },
           "filter_nsfw": {
-            "description": "filtra todas las publicaciones etiquetadas como nsfw. Por defecto: verdadero, forzado en canales no nsfw"
+            "description": "filtra todas las publicaciones etiquetadas como nsfw. Por defecto: true, forzado en canales no nsfw"
           }
         }
       }
@@ -820,7 +820,7 @@
     "ended": "¡La encuesta ha terminado!"
   },
   "wiki": {
-    "description": "Busque algo en Wikipedia, o obtenga una página aleatoria si no se especificaron términos de búsqueda.",
+    "description": "Busque algo en Wikipedia o obtenga una página aleatoria si no se especificaron términos de búsqueda.",
     "usage": {
       "usage": "{prefix}wiki <search term>",
       "examples": "{prefix}wiki discord"

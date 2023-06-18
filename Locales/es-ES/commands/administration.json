@@ -4,16 +4,16 @@
     "description": "Administre las copias de seguridad de su servidor.",
     "options": {
       "create": {
-        "description": "Crea una copia de seguridad de tu servidor. Si el servidor tiene 5 o más copias de seguridad, la más antigua se eliminará."
+        "description": "Crea una copia de seguridad. Si hay 5+ copias, se eliminará la más antigua."
       },
       "load": {
-        "description": "Cargar una copia de seguridad. ¡ATENCIÓN: esto borra todos los datos del servidor! Utilice la opción \"no_clear\" para evitar eso.",
+        "description": "Carga backup. ¡PRECAUCIÓN: borra todo! Usa \"nu_clear\" para evitarlo.",
         "options": {
           "id": {
             "description": "El ID de copia de seguridad que desea cargar. Utilice el subcomando \"get\" para ver una lista de IDs."
           },
           "no_clear": {
-            "description": "Si se establece en true, sólo sobrescribirá los datos existentes (por ejemplo, los canales no se eliminarán)."
+            "description": "Si es true, solo sobrescribirá datos existentes (por ej. no se borrarán canales)."
           }
         }
       },
@@ -186,7 +186,7 @@
               "creator": "Creador",
               "owner": "Dueño del servidor",
               "creator+owner": "Creador y dueño del servidor",
-              "admins": "Administradores actuales del servidor"
+              "admins": "El Admin de servidores actuales"
             }
           }
         }

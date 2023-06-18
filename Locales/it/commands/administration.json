@@ -7,13 +7,13 @@
         "description": "Crea un backup del tuo server. Se il server ha 5 o più backup, quello più vecchio verrà eliminato."
       },
       "load": {
-        "description": "Carica un backup. ATTENZIONE: elimina tutti i dati del server! Usa l'opzione \"no_clear\" per evitarlo.",
+        "description": "Carica un backup. ATTENZIONE: cancella tutti i dati del server! Usa \"no_clear\" per evitarlo.",
         "options": {
           "id": {
-            "description": "L'ID di backup che si desidera caricare. Utilizzare il sottocomando \"get\" per visualizzare un elenco di ID."
+            "description": "ID del backup che desideri caricare. Usa il comando \"get\" per visualizzare una lista di ID."
           },
           "no_clear": {
-            "description": "Se impostato a VERO, sovrascriverà solo i dati esistenti (ad esempio, i canali non verranno eliminati)."
+            "description": "Se impostato su prue, sovrascriverà solo i dati esistenti (es. i canali non verranno cancellati)."
           }
         }
       },
@@ -185,7 +185,7 @@
             "choices": {
               "creator": "Creatore",
               "owner": "Proprietario server",
-              "creator+owner": "Creatore e proprietario del server",
+              "creator+owner": "Creatore e proprietario server",
               "admins": "Amministratori server attuali"
             }
           }

@@ -189,7 +189,7 @@
     "description": "Obtener información sobre una hermandad",
     "options": {
       "guild_id": {
-        "description": "El ID del servidor sobre el que quieres obtener información. Sólo funciona para los servidores en los que estoy."
+        "description": "ID del servidor para obtener información (solo en servidores en los que estoy presente)."
       }
     },
     "memberStats": "`{all}` (Humanos: `{humans}`, Botos: `{bots}`)",

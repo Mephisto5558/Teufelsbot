@@ -10,7 +10,7 @@
         "description": "¿Cuánto tiempo quieres que el objetivo(s) sea prohibido?"
       },
       "target": {
-        "description": "Seleccione el miembro a banear. Deje esto vacío para seleccionar varios miembros en el paso del anexo."
+        "description": "Mencione miembro(s) o pon ID(s) para banearlos. Pon un espacio entre cada objetivo."
       },
       "delete_days_of_messages": {
         "description": "Elimina todos los mensajes del objetivo(s) de los últimos n días."
@@ -32,7 +32,7 @@
     "description": "expulsa a un miembro de la guild",
     "options": {
       "target": {
-        "description": "Seleccione el miembro a expulsar. Deje esto vacío para seleccionar varios miembros en el paso del anexo."
+        "description": "Mencione miembro(s) o pon ID(s) para expulsarlos. Pon un espacio entre cada objetivo."
       },
       "reason": {
         "description": "Los objetivo(s) deben/van a ver la razón en DMs"

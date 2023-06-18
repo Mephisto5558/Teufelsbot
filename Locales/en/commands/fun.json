@@ -788,8 +788,8 @@
   "vote": {
     "description": "Create a poll for something",
     "usage": {
-    "usage": "{prefix}vote <channel> [question] | [option 1] | [option 2] | <option 3> ... <option 9>",
-    "examples": "{prefix}vote #voting Are you all right? | Yes | No"
+      "usage": "{prefix}vote <channel> [question] | [option 1] | [option 2] | <option 3> ... <option 9>",
+      "examples": "{prefix}vote #voting Are you all right? | Yes | No"
     },
     "options": {
       "question": {
