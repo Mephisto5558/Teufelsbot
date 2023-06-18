@@ -14,7 +14,7 @@ module.exports = {
     try { res = await fetch('https://inspirobot.me/api?generate=true').then(e => e.text()); }
     catch (err) {
       await this.customReply(lang('error'));
-      return this.client.error(err.message);
+      return log.error(err.message);
     }
 
     if (!res) return this.customReply(lang('notFound'));

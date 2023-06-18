@@ -29,3 +29,4 @@ rules:
 globals:
   getDirectories: writeable
   sleep: writeable
+  log: writeable

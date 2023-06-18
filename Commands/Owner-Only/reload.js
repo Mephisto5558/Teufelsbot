@@ -35,17 +35,17 @@ async function reloadCommand(command, reloadedArray) {
       if (command.id) await this.application.commands.delete(command.id);
       if (slashFile.disabled || this.botType == 'dev' && !slashFile.beta) {
         slashFile.id = command.id;
-        this.log(`Skipped/Deleted Disabled Slash Command ${slashFile.name}`);
+        log(`Skipped/Deleted Disabled Slash Command ${slashFile.name}`);
       }
       else {
         slashFile.id = (await this.application.commands.create(slashFile)).id;
-        this.log(`Reloaded Slash Command ${slashFile.name}`);
+        log(`Reloaded Slash Command ${slashFile.name}`);
       }
     }
 
     this.slashCommands.delete(command.name);
     this.slashCommands.set(slashFile.name, slashFile);
-    reloadedArray.push(`</${slashFile.name}:${slashFile.id  ?? 0}>`);
+    reloadedArray.push(`</${slashFile.name}:${slashFile.id ?? 0}>`);
 
     for (const alias of new Set([...(slashFile.aliases?.slash || []), ...(command.aliases?.slash || [])])) {
       const { id } = this.slashCommands.get(alias) || {};
@@ -60,11 +60,11 @@ async function reloadCommand(command, reloadedArray) {
 
         if (slashFile.disabled || this.botType == 'dev' && !slashFile.beta) {
           if (id) await this.application.commands.delete(id);
-          this.log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${slashFile.name})`);
+          log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${slashFile.name})`);
         }
         else {
           cmdId = (await this.application.commands.create({ ...slashFile, name: alias.name })).id;
-          this.log(`Reloaded Slash Command ${alias} (Alias of ${slashFile.name})`);
+          log(`Reloaded Slash Command ${alias} (Alias of ${slashFile.name})`);
         }
 
         this.slashCommands.set(alias, { ...slashFile, id: cmdId, aliasOf: slashFile.name });
@@ -84,6 +84,8 @@ module.exports = {
 
   run: async function (lang) {
     if (!this.args[0]) return this.reply(lang('invalidCommand'));
+
+    log.debug('Reloading files', this.args);
 
     const
       msg = await this.reply(lang('global.loading')),
@@ -114,7 +116,7 @@ module.exports = {
       msg.edit(lang('error', err.message));
 
       if (this.client.botType == 'dev') throw err;
-      else this.client.error('Error while trying to reload a command:\n', err);
+      else log.error('Error while trying to reload a command:\n', err);
     }
 
     const commands = reloadedArray.reduce((acc, e) => acc + (e.startsWith('<') ? e : `\`${e}\``) + ', ', '').slice(0, -2);

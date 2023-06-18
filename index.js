@@ -59,9 +59,9 @@ console.time('Starting time');
   for (const handler of await readdir('./Handlers')) if (client.botType != 'dev' || !handler.includes('website')) require(`./Handlers/${handler}`).call(client);
 
   await client.login(client.keys.token);
-  client
-    .log(`Logged into ${client.botType}`)
-    .db.update('botSettings', `startCount.${client.botType}`, client.settings.startCount[client.botType] + 1 || 1);
+  log(`Logged into ${client.botType}`);
+  
+  client.db.update('botSettings', `startCount.${client.botType}`, client.settings.startCount[client.botType] + 1 || 1);
 
   process
     .on('unhandledRejection', err => errorHandler.call(client, err))

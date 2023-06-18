@@ -36,6 +36,7 @@ module.exports = class DB {
 
   /**@param {boolean}overwrite overwrite existing collection, default: `false`*/
   async generate(overwrite = false) {
+    log.setType('DB').debug(`generating db files, ${overwrite ? 'overwriting existing data' : ''}`).setType();
     for (const { key, value } of require('../Templates/db_collections.json')) await this.set(key, value, overwrite);
   }
 
@@ -56,6 +57,8 @@ module.exports = class DB {
   async set(db, value, overwrite = false) {
     if (!db) return;
 
+    log.setType('DB').debug(`setting collection ${db}, ${overwrite ? 'overwriting existing data' : ''}`).setType();
+
     const update = { $set: { value } };
     if (!overwrite) update.$setOnInsert = { key: db };
 
@@ -67,6 +70,8 @@ module.exports = class DB {
   /**@param {string}db@param {string}key@returns {value}value*/
   async update(db, key, value) {
     if (!key) return;
+
+    log.setType('DB').debug(`updating ${db}.${key}`).setType();
 
     const data = await this.schema.findOneAndUpdate({ key: db }, { $set: { [`value.${key}`]: value } }, { new: true, upsert: true }).exec();
     this.cache.set(db, data.value);
@@ -80,6 +85,8 @@ module.exports = class DB {
     if (!db || !values.length) return;
     if (!Array.isArray(values)) throw Error('You can\'t push an empty or non-array value!');
 
+    log.setType('DB').debug(`pushing data to ${db}.${key}`).setType();
+
     const data = await this.schema.findOneAndUpdate({ key: db }, { $push: { [`value.${key}`]: { $each: values } } }, { new: true, upsert: true }).exec();
     this.cache.set(key, data.value);
     return data.value;
@@ -89,10 +96,14 @@ module.exports = class DB {
   async delete(db, key) {
     if (!db) return false;
     if (key) {
+      log.setType('DB').debug(`deleting ${db}.${key}`).setType();
+
       const data = await this.schema.findOneAndUpdate({ key: db }, { $unset: { [`value.${key}`]: '' } }, { new: true, upsert: true }).exec();
       this.cache.set(db, data.value);
       return true;
     }
+
+    log.setType('DB').debug(`deleting ${db}`).setType();
 
     await this.schema.deleteOne({ key: db }).exec();
     return this.cache.delete(db);

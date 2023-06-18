@@ -18,6 +18,6 @@ module.exports = {
     }
     catch (err) { this.customReply(lang('error', { msg, name: err.name, err: err.message })); }
 
-    return this.client.log(`evaluated command '${this.content}'`);
+    return log.debug(`evaluated command '${this.content}'`);
   }
 };

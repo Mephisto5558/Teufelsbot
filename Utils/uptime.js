@@ -16,6 +16,6 @@ module.exports = (asMessage, lang) => {
   
   return {
     total: process.uptime() * 1000,
-    formatted: data || `${d.toString().padStart(2, 0)}:${h.toString().padStart(2, 0)}:${m.toString().padStart(2, 0)}:${s.toString().padStart(2, 0)}`
+    formatted: data || `${d.toString().padStart(2, '0')}:${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
   };
 };

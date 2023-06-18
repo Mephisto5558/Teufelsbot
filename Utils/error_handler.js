@@ -4,10 +4,7 @@ const
   { Github } = require('../config.json');
 
 module.exports = async function errorHandler(err, message, lang) {
-  this.error ??= console.error;
-
-  this.error(' [Error Handling] :: Uncaught Error');
-  this.error(err.stack);
+  log.error(' [Error Handling] :: Uncaught Error', err.stack);
 
   if (!message) return;
 
@@ -61,7 +58,7 @@ module.exports = async function errorHandler(err, message, lang) {
         return msg.edit({ embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', json.html_url))], components: [] });
       }
       catch (err) {
-        this.error(err.stack);
+        log.error(err.stack);
         return message.customReply(lang('reportFail', err?.message || 'unknown error'));
       }
     })

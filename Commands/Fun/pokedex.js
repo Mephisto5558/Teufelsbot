@@ -37,7 +37,7 @@ module.exports = {
 
     if (!res || res.error == 404) return this.customReply(lang('notFound')); //`Couldn't find a pokémon with name ${pokemon}`
     if (res.error) {
-      this.client.error('pokedex.js: The api returned an error!', res);
+      log.error('pokedex.js: The api returned an error!', res);
       return msg.edit(lang('error'));
     }
 
