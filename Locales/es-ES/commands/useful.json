@@ -43,7 +43,7 @@
               "2": "Gris",
               "3": "Verde",
               "4": "Rojo",
-              "5": "Enlace (requiere la opción \"url\")"
+              "5": "Link (requiere la opción \"url\")"
             }
           },
           "emoji": {
@@ -92,7 +92,39 @@
             "description": "establecer el título incrustado"
           },
           "predefined_color": {
-            "description": "establecer el color embebido de códigos de discord predefinidos"
+            "description": "Establecer el color embebido de códigos de discord predefinidos",
+            "choices": {
+              "Default": "Por defecto",
+              "White": "Blanco",
+              "Aqua": "Aqua",
+              "Green": "Verde",
+              "Blue": "Azul",
+              "Yellow": "Amarillo",
+              "Purple": "Morado",
+              "LuminousVividPink": "Rosa Luminosa Vivid",
+              "Fuchsia": "Fuchsia",
+              "Gold": "Oro",
+              "Orange": "Naranja",
+              "Red": "Rojo",
+              "Grey": "Gris",
+              "Navy": "Naval",
+              "DarkAqua": "Aqua Oscura",
+              "DarkGreen": "Verde Oscuro",
+              "DarkBlue": "Azul Oscuro",
+              "DarkPurple": "Púrpura oscuro",
+              "DarkVividPink": "Rosa Vivid Oscuro",
+              "DarkGold": "Oro Oscuro",
+              "DarkOrange": "Naranja oscuro",
+              "DarkRed": "Rojo Oscuro",
+              "DarkGrey": "Gris Oscuro",
+              "DarkerGrey": "Gris más oscuro",
+              "LightGrey": "Gris claro",
+              "DarkNavy": "Marina Oscura",
+              "Blurple": "Desenfocar",
+              "Greyple": "Gris",
+              "DarkButNotBlack": "Oscuro pero no negro",
+              "NotQuiteBlack": "No Negro"
+            }
           },
           "custom_color": {
             "description": "establecer un código HEX personalizado de 6 caracteres como color incrustado (ej. #ffff)"
