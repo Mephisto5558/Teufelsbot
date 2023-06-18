@@ -92,7 +92,39 @@
             "description": "imposta il titolo incorporato"
           },
           "predefined_color": {
-            "description": "imposta il colore dell'embed dai codici di discordia predefiniti"
+            "description": "Imposta il colore dell'embed dai codici di discordia predefiniti",
+            "choices": {
+              "Default": "Predefinito",
+              "White": "Bianco",
+              "Aqua": "Aqua",
+              "Green": "Verde",
+              "Blue": "Blu",
+              "Yellow": "Giallo",
+              "Purple": "Viola",
+              "LuminousVividPink": "Luminoso Rosa Vivido",
+              "Fuchsia": "Fuchsia",
+              "Gold": "Oro",
+              "Orange": "Arancione",
+              "Red": "Rosso",
+              "Grey": "Grigio",
+              "Navy": "Marina",
+              "DarkAqua": "Acqua Oscura",
+              "DarkGreen": "Verde Scuro",
+              "DarkBlue": "Blu Scuro",
+              "DarkPurple": "Viola Scuro",
+              "DarkVividPink": "Rosa Vivido Scuro",
+              "DarkGold": "Oro Scuro",
+              "DarkOrange": "Arancione Scuro",
+              "DarkRed": "Rosso Scuro",
+              "DarkGrey": "Grigio Scuro",
+              "DarkerGrey": "Grigio Scuro",
+              "LightGrey": "Grigio Chiaro",
+              "DarkNavy": "Marina Oscura",
+              "Blurple": "Sfocatura",
+              "Greyple": "Greyple",
+              "DarkButNotBlack": "Dark But Not Black",
+              "NotQuiteBlack": "Non Molto Nero"
+            }
           },
           "custom_color": {
             "description": "imposta un codice HEX personalizzato a 6 caratteri come colore incorporato (es. #ffffff)"
