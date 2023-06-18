@@ -92,7 +92,39 @@
             "description": "Setzte den Embed-Titel"
           },
           "predefined_color": {
-            "description": "Setzte die Embed-Farbe zu einer von Discord vordefinierten Farbe"
+            "description": "Setzte die Embed-Farbe zu einer von Discord vordefinierten Farbe",
+            "choices": {
+              "Default": "Standard",
+              "White": "Weiß",
+              "Aqua": "Türkis",
+              "Green": "Grün",
+              "Blue": "Blau",
+              "Yellow": "Gelb",
+              "Purple": "Lila",
+              "LuminousVividPink": "Leuchtendes lebendiges Rosa",
+              "Fuchsia": "Fuchsia",
+              "Gold": "Gold",
+              "Orange": "Orange",
+              "Red": "Rot",
+              "Grey": "Grau",
+              "Navy": "Marinenblau",
+              "DarkAqua": "Dunkeltürkis",
+              "DarkGreen": "Dunkelgrün",
+              "DarkBlue": "Dunkelblau",
+              "DarkPurple": "Dunkelviolett",
+              "DarkVividPink": "Dunkles lebendiges Rosa",
+              "DarkGold": "Dunkles Gold",
+              "DarkOrange": "Dunkelorange",
+              "DarkRed": "Dunkelrot",
+              "DarkGrey": "Dunkelgrau",
+              "DarkerGrey": "Dunkleres Grau",
+              "LightGrey": "Hellgrau",
+              "DarkNavy": "Dunkles Marineblau",
+              "Blurple": "Burple",
+              "Greyple": "Lila-Grau",
+              "DarkButNotBlack": "Dunkel, aber nicht schwarz",
+              "NotQuiteBlack": "Nicht ganz schwarz"
+            }
           },
           "custom_color": {
             "description": "Setzte einen eigenen 6-Zeichen HEX-Code als Embed-Farbe (z. B. #ffffff)"
