@@ -33,7 +33,7 @@ global.log._log = function _log(file = global.log.file, ...str) {
   appendFile(`./Logs/${date}_${file}.log`, '\n');
   return global.log;
 };
-global.log.error = (...str) => global.log._log('error', '\x1b[1;31m%s\x1b[0m', ...str);
+global.log.error = (...str) => global.log._log('error', ...str);
 global.log.debug = (...str) => global.log._log('debug', ...str);
 global.log.setType = type => { global.log.type = type; return global.log; };
 
