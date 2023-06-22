@@ -20,6 +20,7 @@ module.exports = {
       strictAutocomplete: true
     }
   ],
+
   run: function (lang) {
     const
       categoryQuery = this.options?.getString('category'),

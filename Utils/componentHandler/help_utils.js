@@ -45,7 +45,7 @@ function createCommandsComponent(lang, category) {
       placeholder: lang('commandListPlaceholder'),
       minValues: 0,
       options: getAllCommands.call(this).reduce((acc, e) => {
-        if (e.category.toLowerCase() == category) acc.push({ label: e.name, value: e.name, default: defaultOption?.value == e.name });
+        if (e.category.toLowerCase() == category && !e.aliasOf) acc.push({ label: e.name, value: e.name, default: defaultOption?.value == e.name });
         return acc;
       }, [])
     })]
@@ -124,7 +124,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
     embed = new EmbedBuilder({
       title: lang(`options.category.choices.${categoryQuery}`),
       fields: commands.reduce((acc, e) => { //U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing
-        if (e.category.toLowerCase() === categoryQuery && module.exports.filterCommands.call(this, e)) acc.push({ name: e.name, value: helpLang(`${e.name}.description`) + '\n‎', inline: true });
+        if (e.category.toLowerCase() === categoryQuery && !e.aliasOf && module.exports.filterCommands.call(this, e)) acc.push({ name: e.name, value: helpLang(`${e.name}.description`) + '\n‎', inline: true });
         return acc;
       }, []),
       color: Colors.Blurple
