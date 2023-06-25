@@ -9,12 +9,16 @@
     "options": {
       "message": {
         "description": "Was möchtest du ChatGPT sagen?"
+      },
+      "model": {
+        "descripion": "Welches Modell möchtest du nutzen?"
       }
     },
     "hello": "Hallo!",
     "rateLimit": "Das Ratelimit wurde erreicht. Bitte versuche es in einigen Sekunden erneut.",
     "notAvailable": "Die API ist momentan nicht verfügbar. Bitte versuche es später erneut.",
-    "error": "Die API hat mit einem Fehler geantwortet."
+    "error": "Die API hat mit einem Fehler geantwortet.",
+    "regenerate": "Regeneriere Antwort"
   },
   "customname": {
     "description": "Lege einen benutzerdefinierten Spitznamen fest und ich werde dich so nennen.",
