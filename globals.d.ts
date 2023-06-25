@@ -73,7 +73,7 @@ declare module "discord.js" {
       options: string | MessageEditOptions | MessagePayload,
       deleteTime?: Number,
       allowedMentions?: MessageMentionOptions | { repliedUser: false }
-    ): Message;
+    ): Promise<Message>;
 
     runMessages(): this;
   }
@@ -86,7 +86,7 @@ declare module "discord.js" {
       options: string | MessageEditOptions | MessagePayload,
       deleteTime?: Number,
       allowedMentions?: MessageMentionOptions | { repliedUser: false }
-    ): Message;
+    ): Promise<Message>;
   }
 
   interface AutocompleteInteraction {
