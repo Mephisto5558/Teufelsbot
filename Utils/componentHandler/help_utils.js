@@ -13,7 +13,7 @@ function createCategoryComponent(lang, commandCategories) {
     if (this.user.id != this.client.application.owner.id) commandCategories = commandCategories.filter(e => !ownerOnlyFolders.includes(e.toLowerCase()));
   }
 
-  const defaultOption = this.options?.getString('category') || (this.values ? this.message.components[0].components[0].options.find(e => e.value === this.values[0]) : null);
+  const defaultOption = (this.options?.getString('command') ? null : this.options?.getString('category')) || (this.args ? this.client.prefixCommands.get(this.args[0]) || this.client.slashCommands.get(this.args[0]) : null) || (this.values ? this.message.components[0].components[0].options.find(e => e.value === this.values[0]) : null);
   if (this.message?.components.length) {
     if (defaultOption) {
       delete this.message.components[0].components[0].options.find(e => e.default)?.default;
