@@ -20,7 +20,7 @@ module.exports = async function messageCreate() {
   const
     { config = {}, economy = {}, commandSettings = {} } = this.guild?.db ?? {},
     command = this.client.prefixCommands.get(this.commandName),
-    lang = I18nProvider.__.bBind(I18nProvider, { locale: config.lang ?? this.guild?.localeCode, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.name}` : null });
+    lang = I18nProvider.__.bBind(I18nProvider, { locale: config.lang ?? this.guild?.localeCode, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.aliasOf ?? command.name}` : null });
 
   if (command) {
     if (command.disabled) return replyOnDisabledCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('events.commandDisabled'))] }, 1e4);
