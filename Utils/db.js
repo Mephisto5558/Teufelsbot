@@ -2,7 +2,7 @@ const
   Mongoose = require('mongoose').default.set('strictQuery', true),
   { Collection } = require('discord.js');
 
-global.log ??= { debug: (...data) => console.debug(data) && console, setType: () => console }; //if the class is classed separately
+global.log ??= { debug: (...data) => console.debug(...data) && console, setType: () => console }; //if the class is classed separately
 
 module.exports = class DB {
   /**@param {string}dbConnectionString MongoDB connection string*/
