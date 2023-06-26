@@ -4,7 +4,6 @@ const
   permissionTranslator = require('../permissionTranslator.js'),
   ownerOnlyFolders = require('../getOwnerOnlyFolders.js')();
 
-function reply(data) { return this.message?.editable ? this.message.edit(data) : this.customReply(data); }
 function getAllCommands() { return [...new Set([...this.client.prefixCommands.values(), ...this.client.slashCommands.values()])].filter(module.exports.filterCommands.bind(this)); }
 
 function createCategoryComponent(lang, commandCategories) {
@@ -95,7 +94,7 @@ module.exports.commandQuery = function commandQuery(lang, commandQuery) {
       color: Colors.Red
     });
 
-    return reply.call(this, { embeds: [embed], components: [createCategoryComponent.call(this, lang)] });
+    return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang)] });
   }
 
   const
@@ -108,7 +107,7 @@ module.exports.commandQuery = function commandQuery(lang, commandQuery) {
       color: Colors.Blurple,
     });
 
-  return reply.call(this, { embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, command.category.toLowerCase())] });
+  return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, command.category.toLowerCase())] });
 };
 
 /**@this {import('discord.js').ChatInputCommandInteraction|import('discord.js').StringSelectMenuInteraction}*/
@@ -132,7 +131,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
 
   if (!embed.data.fields.length) embed.data.description = lang('all.notFound');
 
-  return reply.call(this, { embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, categoryQuery)] });
+  return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, categoryQuery)] });
 };
 
 /**@this {import('discord.js').Message|import('discord.js').ChatInputCommandInteraction|import('discord.js').StringSelectMenuInteraction}*/
@@ -149,5 +148,5 @@ module.exports.allQuery = function allQuery(lang) {
       color: commandCategories.length ? Colors.Blurple : Colors.Red
     });
 
-  return reply.call(this, { embeds: [embed], components: [createCategoryComponent.call(this, lang, commandCategories)] });
+  return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang, commandCategories)] });
 };
