@@ -16,7 +16,7 @@ module.exports = {
     this.content = this.content?.replace(/[<@&>]/g, '');
 
     const
-      member = this.options?.getMember('target') || this.mentions?.members.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...this.args, this.content].includes(e))) || this.member,
+      member = this.options?.getMember('target') || this.mentions?.members.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.globalName, e.nickname].some(e => [...this.args, this.content].includes(e))) || this.member,
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       bannerURL = (await member.user.fetch()).bannerURL();
 
@@ -29,7 +29,7 @@ module.exports = {
 
     const
       embed = new EmbedBuilder({
-        title: member.user.tag,
+        title: member.user.username,
         color: parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16),
         thumbnail: { url: member.displayAvatarURL() },
         image: { url: bannerURL && bannerURL + '?size=1024' },

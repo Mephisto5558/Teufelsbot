@@ -14,7 +14,7 @@ module.exports = {
       startTime = Math.round(Date.now() / 1000 - process.uptime()),
       owner = this.client.application.owner.owner || this.client.application.owner,
       description =
-        `${lang('dev')}: [${owner.tag}](https://discord.com/users/${owner.id})\n` +
+        `${lang('dev')}: [${owner.username}](https://discord.com/users/${owner.id})\n` +
         `${lang('shard')}: \`${this.guild.shardId}\`\n` +
         `${lang('guild')}: \`${this.guild.db.position ?? 0}\`\n` +
         `${lang('guilds')}: \`${this.client.guilds.cache.size}\`\n` +

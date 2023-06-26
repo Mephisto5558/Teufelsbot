@@ -8,7 +8,7 @@ module.exports = {
   beta: true,
 
   run: function (lang) {
-    log.debug(`Reloading language files, initiated by user ${this.user.tag}`);
+    log.debug(`Reloading language files, initiated by user ${this.user.username}`);
 
     I18nProvider.loadAllLocales();
     return this.customReply(lang('success'));

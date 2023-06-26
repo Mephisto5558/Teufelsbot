@@ -74,14 +74,13 @@ module.exports = {
     const embed = new EmbedBuilder({
       color: Colors.Blurple,
       footer: {
-        text: this.member.user.tag,
-        iconURL: this.member.displayAvatarURL(),
-        footer: { text: lang('embedFooterText') }
+        text: this.user.displayName,
+        iconURL: this.member.displayAvatarURL()
       }
     });
 
     if (type == 'user') {
-      embed.data.title = lang('embedTitle', { user: target.tag, game });
+      embed.data.title = lang('embedTitle', { user: target.displayName, game });
 
       const targetData = data?.[target.id];
       if (targetData?.games) {
@@ -95,7 +94,7 @@ module.exports = {
         if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + (manageData(targetData.lostAgainst) || '> ' + lang('noOne')) + '\n';
         if (targetData.drewAgainst) embed.data.description += lang('drewAgainst') + (manageData(targetData.drewAgainst) || '> ' + lang('noOne'));
       }
-      else embed.data.description = target.id == this.member.id ? lang('youNoGamesPlayed', game) : lang('userNoGamesPlayed', { user: target.username, game });
+      else embed.data.description = target.id == this.member.id ? lang('youNoGamesPlayed', game) : lang('userNoGamesPlayed', { user: target.displayName, game });
 
       return this.customReply({ embeds: [embed] });
     }

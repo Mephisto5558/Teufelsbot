@@ -65,8 +65,7 @@ class BackupSystem {
       },
       members: backupMembers ? (updateStatus('create.members') && await guild.members.fetch()).map(e => ({
         id: e.id,
-        username: e.user.username,
-        tag: e.user.tag,
+        username: e.user.displayName,
         nickname: e.nickname,
         avatarUrl: e.displayAvatarURL(),
         roles: [...e.roles.cache.map(e => e.name).values()],
@@ -311,9 +310,9 @@ class BackupSystem {
       rateLimitPerUser: e.rateLimitPerUser,
       messages: await this.utils.fetchChannelMessages(e, saveImages, maxMessagesPerChannel).catch(() => { }),
     })),
-    fetchChannelMessages: async (channel, saveImages, maxMessagesPerChannel) => Promise.all((await channel.messages.fetch({ limit: isNaN(maxMessagesPerChannel) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: 100 }) })).filter(e => e.author).map(async e => ({
-      username: e.author.username,
-      avatar: e.author.avatarURL(),
+    fetchChannelMessages: async (channel, saveImages, maxMessagesPerChannel) => Promise.all((await channel.messages.fetch({ limit: isNaN(maxMessagesPerChannel) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: 100 }) })).filter(e => e.user).map(async e => ({
+      username: e.user.displayName,
+      avatar: e.user.avatarURL(),
       content: e.cleanContent,
       embeds: e.embeds?.map(e => e.data),
       files: (await Promise.all(e.attachments.map(async ({ name, url }) => ({

@@ -32,7 +32,7 @@ module.exports = {
     const embed = new EmbedBuilder({
       title: lang('embedTitle', { user1: base.user.customTag, user2: overlay.user.customTag }),
       color: Colors.White,
-      footer: { text: this.user.tag }
+      footer: { text: this.user.displayName }
     });
 
     if (base.id == overlay.id) {

@@ -60,7 +60,7 @@ module.exports = {
 
       const emoji = await this.guild.emojis.create({
         attachment: input, name,
-        reason: lang('global.modReason', { command: this.commandName, user: this.user.tag }),
+        reason: lang('global.modReason', { command: this.commandName, user: this.user.username }),
         roles: limitToRoles
       });
 

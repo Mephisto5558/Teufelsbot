@@ -110,12 +110,8 @@ Object.defineProperties(User.prototype, {
     set(val) { this.client.db.update('userSettings', this.id, val); }
   },
   customName: {
-    get() { return this.db.customName ?? this.username; },
+    get() { return this.db.customName ?? this.displayName; },
     set(val) { this.db.update('customName', val); }
-  },
-  customTag: {
-    get() { return (this.db.customName ?? this.username) + `#${this.discriminator}`; },
-    set() { throw new Error('You cannot set a value to User#customTag!'); }
   }
 });
 Object.defineProperties(GuildMember.prototype, {
@@ -124,12 +120,8 @@ Object.defineProperties(GuildMember.prototype, {
     set() { throw new Error('You cannot set a value to GuildMember#db!'); }
   },
   customName: {
-    get() { return this.guild.db.customNames?.[this.id] ?? this.nickname ?? this.user.username; },
+    get() { return this.guild.db.customNames?.[this.id] ?? this.nickname ?? this.user.displayName; },
     set(val) { this.client.db.update('guildSettings', `${this.guild.id}.customNames.${this.id}`, val); }
-  },
-  customTag: {
-    get() { return (this.guild.db.customNames?.[this.id] ?? this.nickname ?? this.user.username) + `#${this.user.discriminator}`; },
-    set() { throw new Error('You cannot set a value to GuildMember#customTag!'); }
   }
 }
 );

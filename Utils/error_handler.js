@@ -4,7 +4,7 @@ const
   { Github } = require('../config.json');
 
 module.exports = async function errorHandler(err, message, lang) {
-  log.error(' [Error Handling] :: Uncaught Error', err.stack);
+  log.error(` [Error Handling] :: Uncaught Error\n${err.stack}`);
 
   if (!message) return;
 
@@ -44,7 +44,7 @@ module.exports = async function errorHandler(err, message, lang) {
             },
             body: JSON.stringify({
               title: `${err.name}: "${err.message}" in command "${message.commandName}"`,
-              body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack}`,
+              body: `<h3>Reported by ${button.user.username} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack}`,
               labels: ['bug']
             })
           }),

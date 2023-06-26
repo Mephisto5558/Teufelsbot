@@ -16,13 +16,13 @@ module.exports = async function messageUpdate(newMsg) {
   const
     lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
     embed = new EmbedBuilder({
-      author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
+      author: { name: newMsg.user.displayName, iconURL: newMsg.user.displayAvatarURL() },
       description: lang('embedDescription', { executor: `<@${newMsg.user.id}>`, channel: newMsg.channel.name }),
       fields: [
         { name: lang('global.channel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: false },
         { name: lang('oldContent'), value: '', inline: false },
         { name: lang('newContent'), value: '', inline: false },
-        { name: lang('author'), value: `${newMsg.user.tag} (\`${newMsg.user.id}\`)`, inline: false }
+        { name: lang('author'), value: `${newMsg.user.displayName} (\`${newMsg.user.id}\`)`, inline: false }
       ],
       timestamp: Date.now(),
       color: 15084269

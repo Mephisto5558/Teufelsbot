@@ -13,7 +13,7 @@ module.exports = async function voiceStateUpdate(newState) {
   const
     lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' }),
     embed = new EmbedBuilder({
-      author: { name: newState.member.user.tag, iconURL: newState.member.displayAvatarURL() },
+      author: { name: newState.member.user.username, iconURL: newState.member.displayAvatarURL() },
       timestamp: Date.now(),
       color: 3553599,
     });

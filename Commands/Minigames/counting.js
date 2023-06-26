@@ -23,7 +23,7 @@ module.exports = {
 
       const embed = new EmbedBuilder({
         description: lang('removed.embedDescription'),
-        footer: { text: lang('removed.by', this.user.tag) },
+        footer: { text: lang('removed.by', this.user.username) },
         color: Colors.Red
       });
 
@@ -36,7 +36,7 @@ module.exports = {
     const embed = new EmbedBuilder({
       title: lang('added.embedTitle'),
       description: lang('added.embedDescription'),
-      footer: { text: lang('added.by', this.user.tag) },
+      footer: { text: lang('added.by', this.user.displayName) },
       color: Colors.Green
     });
 

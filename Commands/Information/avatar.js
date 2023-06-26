@@ -16,13 +16,13 @@ module.exports = {
 
   run: async function (lang) {
     const
-      target = this.options?.getMember('target') || this.mentions?.members.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.tag, e.nickname].some(e => [...(this.args || []), this.content].includes(e))) || this.member,
+      target = this.options?.getMember('target') || this.mentions?.members.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.globalName, e.nickname].some(e => [...(this.args || []), this.content].includes(e))) || this.member,
       avatarURL = await target.displayAvatarURL({ size: this.options?.getInteger('size') || 2048 }),
       embed = new EmbedBuilder({
-        description: lang('embedDescription', target.user.username),
+        description: lang('embedDescription', target.user.displayName),
         color: Colors.White,
         image: { url: avatarURL },
-        footer: { text: this.member.tag }
+        footer: { text: this.member.displayName }
       }),
       row = new ActionRowBuilder({
         components: [new ButtonBuilder({

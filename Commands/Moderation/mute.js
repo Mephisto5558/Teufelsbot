@@ -5,11 +5,11 @@ const
 
 module.exports = {
   name: 'mute',
-  aliases: { prefix: ['timeout'], slash: ['timeout'] },
+  aliases: { slash: ['timeout'] },
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { user: 100 },
   slashCommand: true,
-  prefixCommand: false,
+  prefixCommand: false,beta:true,
   options: [
     {
       name: 'target',
@@ -49,13 +49,13 @@ module.exports = {
 
     date.setTime(date.getTime() + duration);
 
-    try { await target.disableCommunicationUntil(date.getTime(), `${reason} | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`); }
+    try { await target.disableCommunicationUntil(date.getTime(), `${reason} | ${lang('global.modReason', { command: this.commandName, user: this.user.username })}`); }
     catch (err) { return this.editReply(lang('error', err.message)); }
 
     const embed = new EmbedBuilder({
       title: lang('dmEmbedTitle'),
       description: lang('dmEmbedDescription', {
-        guild: this.guild.name, mod: this.user.tag, reason,
+        guild: this.guild.name, mod: this.user.displayName, reason,
         time: Math.round(target.communicationDisabledUntilTimestamp / 1000)
       }),
       color: Colors.Red
@@ -65,7 +65,7 @@ module.exports = {
     catch { noMsg = true; }
 
     embed.data.title = lang('infoEmbedTitle');
-    embed.data.description = lang('infoEmbedDescription', { user: target.user.tag, reason, time: Math.round(target.communicationDisabledUntilTimestamp / 1000) });
+    embed.data.description = lang('infoEmbedDescription', { user: target.user.displayName, reason, time: Math.round(target.communicationDisabledUntilTimestamp / 1000) });
     if (noMsg) embed.data.description += lang('noDM');
 
     return this.editReply({ embeds: [embed] });

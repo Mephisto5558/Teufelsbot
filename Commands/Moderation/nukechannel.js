@@ -28,12 +28,12 @@ module.exports = {
         description: lang('embedDescription'),
         color: Colors.Red,
         image: { url: 'https://giphy.com/media/XUFPGrX5Zis6Y/giphy.gif' },
-        footer: { text: lang('embedFooterText', this.user.tag) }
+        footer: { text: lang('embedFooterText', this.user.displayName) }
       }),
       channel = this.options?.getChannel('channel') || this.channel,
       cloned = await channel.clone({ parent: channel.parentId });
 
-    await channel.delete(lang('global.modReason', { command: this.commandName, user: this.user.tag }));
+    await channel.delete(lang('global.modReason', { command: this.commandName, user: this.user.username }));
     return cloned.send({ embeds: [embed] });
   }
 };

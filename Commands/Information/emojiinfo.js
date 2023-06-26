@@ -31,7 +31,7 @@ module.exports = {
           { name: lang('id'), value: emoji.id, inline: true },
           { name: lang('guild'), value: emoji.guild?.name ? `${emoji.guild.name} (${emoji.guild.id})` : lang('unknown'), inline: true },
           { name: lang('animated'), value: lang(`global.${emoji.animated}`), inline: true },
-          { name: lang('creator'), value: emoji.author?.tag ?? lang('unknown'), inline: true },
+          { name: lang('creator'), value: emoji.author?.username ?? lang('unknown'), inline: true },
           { name: lang('available'), value: emoji.available ? lang(`global.${emoji.available}`) : lang('unknown'), inline: true },
           { name: lang('createdAt'), value: emoji.createdTimestamp ? `<t:${Math.round(emoji.createdTimestamp / 1000)}>` : lang('unknown'), inline: true },
           { name: lang('requiresColons'), value: emoji.requiresColons ? lang(`global.${emoji.requiresColons}`) : lang('unknown'), inline: true },

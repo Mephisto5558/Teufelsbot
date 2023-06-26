@@ -40,7 +40,7 @@ module.exports = {
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: lang('embedDescription', { user: this.user.id, channel: voiceChannel.id, publicOrPrivate: isPublic ? lang('isPublic') : lang('isPrivate') }),
-        footer: { text: this.user.tag, iconURL: this.member.displayAvatarURL({ forceStatic: true }) },
+        footer: { text: this.user.displayName, iconURL: this.member.displayAvatarURL({ forceStatic: true }) },
         color: Colors.Red
       }),
       component = new ActionRowBuilder({
@@ -82,7 +82,7 @@ module.exports = {
           embed.data.description = lang('deaf');
           return msg.edit({ embeds: [embed], components: [] });
         }
-        this.guild.members.me.voice.setDeaf(false, `Record start command, member ${this.user.tag}`);
+        this.guild.members.me.voice.setDeaf(false, `Record start command, member ${this.user.username}`);
       }
 
       const buttons = new ActionRowBuilder({

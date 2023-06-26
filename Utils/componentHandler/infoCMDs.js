@@ -58,7 +58,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       if (!item.editable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
     }
     case mode == 'delete': {
-      await item.delete(`${entityType.slice(0, -1)} delete button in /${entityType.slice(0, -1)}info, member ${this.user.tag}`);
+      await item.delete(`${entityType.slice(0, -1)} delete button in /${entityType.slice(0, -1)}info, member ${this.user.username}`);
       this.editReply({ embeds: [embed.setColor(Colors.Green).setDescription(lang('success'))] });
     }
   }

@@ -49,7 +49,7 @@ module.exports = {
 
     let data;
 
-    embed.data.footer = { text: this.user.tag };
+    embed.data.footer = { text: this.user.displayName };
 
     if (!endpoints.get(cmdName?.toLowerCase())) return this.customReply((cmdName ? lang('notFound') : '') + lang('validOptions', options.map(e => e.name).join('`, `')));
     else if ((args?.length || 0) < option.options.length) return this.customReply(lang('requiresArgs', option.options.map(e => `> \`${e.name}\`: ${e.description}`).join('\n')));

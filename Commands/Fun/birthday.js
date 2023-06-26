@@ -68,7 +68,7 @@ module.exports = {
         const embed = new EmbedBuilder({
           color: Colors.Blurple,
           footer: {
-            text: this.user.tag,
+            text: this.user.displayName,
             iconURL: this.member.displayAvatarURL()
           }
         });

@@ -64,7 +64,7 @@ declare module "discord.js" {
      */
     commandName: ?string;
 
-    author: User;
+    user: User;
 
     /**
      * @param deleteTime Number in Milliseconds
@@ -96,13 +96,11 @@ declare module "discord.js" {
   interface User {
     db: any;
     customName: string;
-    customTag: string;
   }
 
   interface GuildMember {
     db: any;
     customName: string;
-    customTag: string;
   }
 
   interface Guild {

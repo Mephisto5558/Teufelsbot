@@ -28,12 +28,12 @@ module.exports = {
 
     for (const [id, type] of overwrites) await channel.permissionOverwrites.edit(id,
       { [PermissionFlagsBits.SendMessages]: true },
-      { type, reason: lang('global.modReason', { command: this.commandName, user: this.user.tag }) }
+      { type, reason: lang('global.modReason', { command: this.commandName, user: this.user.username }) }
     );
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { mod: this.user.tag, reason }),
+      description: lang('embedDescription', { mod: this.user.displayName, reason }),
       color: Colors.Red
     });
 

@@ -13,7 +13,7 @@ module.exports = {
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: lang('embedDescription'),
-        footer: { text: this.user.tag, iconURL: this.member.displayAvatarURL() }
+        footer: { text: this.user.displayName, iconURL: this.member.displayAvatarURL() }
       }).setColor('Random'),
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({

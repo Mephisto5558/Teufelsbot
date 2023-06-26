@@ -9,10 +9,10 @@ module.exports = async function bankick(lang) {
   let noMsg, reason = this.options.getString('reason');
   const
     target = this.options.getMember('target'),
-    infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.tag, reason }),
+    infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.displayName, reason }),
     userEmbed = new EmbedBuilder({
       title: lang('infoEmbedTitle'),
-      description: lang('dmEmbedDescription', { guild: this.guild.name, mod: this.user.tag, reason }),
+      description: lang('dmEmbedDescription', { guild: this.guild.name, mod: this.user.displayName, reason }),
       color: Colors.Red
     }),
     resEmbed = new EmbedBuilder({
@@ -21,12 +21,12 @@ module.exports = async function bankick(lang) {
       color: Colors.Red
     });
 
-  reason += ` | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`;
+  reason += ` | ${lang('global.modReason', { command: this.commandName, user: this.user.username })}`;
 
   if (target) {
     const err = checkTarget.call(this, target, lang);
     if (err) {
-      resEmbed.data.description += lang('error', { err: lang(err), user: target.user?.tag ?? target.id });
+      resEmbed.data.description += lang('error', { err: lang(err), user: target.user?.displayName ?? target.id });
       return this.editReply(resEmbed);
     }
 
@@ -34,7 +34,7 @@ module.exports = async function bankick(lang) {
     catch { noMsg = true; }
 
     await (this.commandName == 'kick' ? target.kick(reason) : target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') }));
-    resEmbed.data.description += lang('success', target.user?.tag ?? target.id);
+    resEmbed.data.description += lang('success', target.user?.displayName ?? target.id);
     if (noMsg) resEmbed.data.description += lang('noDM');
 
     return this.editReply({ embeds: [resEmbed] });
@@ -62,7 +62,7 @@ module.exports = async function bankick(lang) {
           const err = checkTarget.call(this, target, lang);
 
           if (err) {
-            resEmbed.data.description += lang('error', { err: lang(err), user: target.user.tag });
+            resEmbed.data.description += lang('error', { err: lang(err), user: target.user.displayName });
             continue;
           }
 
@@ -71,7 +71,7 @@ module.exports = async function bankick(lang) {
 
           await (this.commandName == 'kick' ? target.kick(reason) : target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') }));
 
-          resEmbed.data.description += lang('success', target.user.tag);
+          resEmbed.data.description += lang('success', target.user.displayName);
           if (noMsg) resEmbed.data.description += lang('noDM');
         }
 

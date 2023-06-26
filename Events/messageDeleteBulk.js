@@ -16,14 +16,14 @@ module.exports = async function messageDeleteBulk(channel) {
     lang = I18nProvider.__.bBind(I18nProvider, { locale: channel.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),
     { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageBulkDelete })).entries.find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < 20000) ?? {},
     embed = new EmbedBuilder({
-      author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : null,
+      author: executor ? { name: executor.displayName, iconURL: executor.displayAvatarURL() } : null,
       description: lang('embedDescription', { executor: executor ? `<@${executor.id}>` : lang('events.logger.someone'), channel: channel.name, count: this.size.toString() }),
       fields: [{ name: lang('global.channel'), value: `<#${channel.id}> (\`${channel.id}\`)`, inline: false }],
       timestamp: Date.now(),
       color: 15550861
     });
 
-  if (executor) embed.data.fields.push({ name: lang('events.logger.executor'), value: `${executor.tag} (\`${executor.id}\`)`, inline: false });
+  if (executor) embed.data.fields.push({ name: lang('events.logger.executor'), value: `${executor.displayName} (\`${executor.id}\`)`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('events.logger.reason'), value: reason, inline: false });
 
   return channelToSend.send({ embeds: [embed] });
