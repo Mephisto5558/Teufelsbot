@@ -2,6 +2,8 @@ const
   Mongoose = require('mongoose').default.set('strictQuery', true),
   { Collection } = require('discord.js');
 
+if (!log) log = { debug: console.debug, setType: () => console }; //log is a global var in the bot code
+
 module.exports = class DB {
   /**@param {string}dbConnectionString MongoDB connection string*/
   constructor(dbConnectionString) {
