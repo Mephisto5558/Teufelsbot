@@ -64,8 +64,8 @@ module.exports = {
       case 'add': {
         const data = {
           id: parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) + 1 || 1,
-          trigger: this.options.getString('trigger').replaceAll('/n', '\n'),
-          response: this.options.getString('response'),
+          trigger: this.options.getString('trigger'),
+          response: this.options.getString('response').replaceAll('/n', '\n'),
           wildcard: this.options.getBoolean('wildcard') ?? false
         };
 
