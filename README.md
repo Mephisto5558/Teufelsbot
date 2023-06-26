@@ -38,7 +38,7 @@ MongoDB set up
 First, you clone the repostry, by using `git clone https://github.com/Mephisto5558/Teufelsbot`.<br>
 Then, you need to install the required npm packages by running `npm install` .<br>
 Next, you need to create a `env.json` file. If you are hosting you bot code public, so everyone can see it, make sure they can't see this file or use a db in MongoDB. If you do this, you only need to set the MongoDB connection string as `dbConnectionStr` to process.env.<br>
-The env file/collection needs to have all keys from the `_env.json` from the Templates folder in order to work.<br>
+The env file/collection needs to have all keys from the `env.json` from the Templates folder in order to work.<br>
 You do not need to set the dev stuff, this is for developement.<br>
 Then, you need to create a `config.json` file. The template is in the Templates folder.<br><br>
 Then you have to [set up MongoDB](#how-to-set-up-mongodb).<br>
