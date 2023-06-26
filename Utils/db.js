@@ -2,7 +2,10 @@ const
   Mongoose = require('mongoose').default.set('strictQuery', true),
   { Collection } = require('discord.js');
 
-global.log ??= { debug: (...data) => console.debug(...data) && console, setType: () => console }; //if the class is classed separately
+global.log ??= {
+  debug: (...data) => { console.debug(...data); return log; },
+  setType: () => log
+}; //if the class is classed separately
 
 module.exports = class DB {
   /**@param {string}dbConnectionString MongoDB connection string*/
@@ -38,7 +41,7 @@ module.exports = class DB {
 
   /**@param {boolean}overwrite overwrite existing collection, default: `false`*/
   async generate(overwrite = false) {
-    log.setType('DB').debug(`generating db files, ${overwrite ? 'overwriting existing data' : ''}`).setType();
+    log.setType('DB').debug(`generating db files${overwrite ? ', overwriting existing data' : ''}`).setType();
     for (const { key, value } of require('../Templates/db_collections.json')) await this.set(key, value, overwrite);
   }
 
