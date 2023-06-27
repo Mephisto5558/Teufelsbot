@@ -6,6 +6,7 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
+  beta: true,
   options: [{ name: 'average', type: 'Boolean' }],
 
   run: async function (lang) {
