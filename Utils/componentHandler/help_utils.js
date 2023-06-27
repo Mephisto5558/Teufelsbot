@@ -51,11 +51,12 @@ function createCommandsComponent(lang, category) {
   });
 }
 
-function createInfoFields(cmd = {}, lang = null, helpLang = null) {
+function createInfoFields(cmd, lang, helpLang) {
   const
     arr = [],
     prefix = this.guild.db.config?.prefix?.prefix || this.client.defaultSettings.config.prefix;
 
+  cmd ??= {};
   if (cmd.aliases?.prefix?.length) arr.push({ name: lang('one.prefixAlias'), value: `\`${cmd.aliases.prefix.join('`, `')}\``, inline: true });
   if (cmd.aliases?.slash?.length) arr.push({ name: lang('one.slashAlias'), value: `\`${cmd.aliases.slash.join('`, `')}\``, inline: true });
   if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: `\`${cmd.aliasOf}\``, inline: true });
