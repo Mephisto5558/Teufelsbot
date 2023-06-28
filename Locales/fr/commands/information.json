@@ -103,7 +103,7 @@
       }
     },
     "average": {
-      "loading": "Ping en cours... (cela prend environ une minute)",
+      "loading": "Ping en cours... `{current}`/`{target}`",
       "embedDescription": "Pings : `{pings}`\nPing le plus bas : `{lowest}ms`\nPing en hauteur : `{heightest}ms`\nPing moyen : `{average}ms`"
     },
     "embedTitle": "Ping",

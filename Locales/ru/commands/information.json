@@ -135,7 +135,7 @@
       }
     },
     "average": {
-      "loading": "Пинг... (это занимает около минуты)",
+      "loading": "Пинг... `{current}`/`{target}`",
       "embedDescription": "Пинги: `{pings}`\nСамый низкий Ping: `{lowest}ms`\nНаибольший Ping: `{heightest}ms`\nСредний Ping: `{average}ms`"
     },
     "api": "API",

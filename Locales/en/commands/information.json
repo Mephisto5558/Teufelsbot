@@ -135,8 +135,8 @@
       }
     },
     "average": {
-      "loading": "Pinging... (this takes about one minute)",
-      "embedDescription": "Pings: `{pings}`\nLowest Ping: `{lowest}ms`\nHeightest Ping: `{heightest}ms`\nAverage Ping: `{average}ms`"
+      "loading": "Pinging... `{current}`/`{target}`",
+      "embedDescription": "Pings: `{pings}`\nApi:\n> Lowest Ping: `{wsLowest}ms`\n> Heightest Ping: `{wsHeightest}ms`\n> Average Ping: `{wsAverage}ms`\nMessage Send:\n> Lowest Ping: `{msgLowest}ms`\n> Heightest Ping: `{msgHeightest}ms`\n> Average Ping: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
