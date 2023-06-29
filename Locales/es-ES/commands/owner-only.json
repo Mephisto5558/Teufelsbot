@@ -44,7 +44,7 @@
     "invalidPath": "La ruta especificada no existe! Tenga en cuenta la sensibilidad de mayúsculas y minúsculas de la ruta.",
     "error": "Se ha producido un error al recargar:\n```{error}```\nCompruebe la consola para más información.",
     "noneReloaded": "Ningún comando ha sido recargado.",
-    "reloaded": "El siguiente `{count}`comando(s) ha/han sido recargados:\n`{commands}"
+    "reloaded": "El siguiente `{count}`comando(s) ha/han sido recargados:\n{commands}"
   },
   "reloaddb": {
     "description": "Recarga la base de datos",
