@@ -44,7 +44,7 @@
     "invalidPath": "The specified path does not exist! Please note the case sensitivity of the path.",
     "error": "An error occurred while reloading:\n```{error}```\nCheck the console for more information.",
     "noneReloaded": "No commands have been reloaded.",
-    "reloaded": "The following `{count}` command(s) has/have been reloaded:\n`{commands}"
+    "reloaded": "The following `{count}` command(s) has/have been reloaded:\n{commands}"
   },
   "reloaddb": {
     "description": "Reloads the database",

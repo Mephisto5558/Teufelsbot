@@ -44,7 +44,7 @@
     "invalidPath": "Der angegebene Pfad existiert nicht! Beachte auch die Groß/Kleinschreibung des Pfades.",
     "error": "Ein Fehler ist während des Neuladens aufgetreten:\n```{error}```\nÜberprüfe die Konsole für mehr Informationen.",
     "noneReloaded": "Es wurden keine Befehle neu geladen.",
-    "reloaded": "Die folgenden `{count}` Befehle wurden neu geladen:\n`{commands}`"
+    "reloaded": "Die folgenden `{count}` Befehle wurden neu geladen:\n{commands}"
   },
   "reloaddb": {
     "description": "Lädt die Datenbank neu.",
