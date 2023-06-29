@@ -44,7 +44,7 @@
     "invalidPath": "Il percorso specificato non esiste! Si prega di notare la sensibilità caso del percorso.",
     "error": "Si è verificato un errore durante il ricaricamento:\n```{error}```\nControlla la console per maggiori informazioni.",
     "noneReloaded": "Nessun comando è stato ricaricato.",
-    "reloaded": "I seguenti ` comandi{count}` sono stati ricaricati:\n`{commands}"
+    "reloaded": "I seguenti ` comandi{count}` sono stati ricaricati:\n{commands}"
   },
   "reloaddb": {
     "description": "Ricarica il database",

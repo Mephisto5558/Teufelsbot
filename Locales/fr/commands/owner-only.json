@@ -30,7 +30,7 @@
     "invalidCommand": "Ce n'est pas une commande valide.",
     "error": "Une erreur est survenue lors du rechargement :\n```{error}```\nVérifiez la console pour plus d'informations.",
     "noneReloaded": "Aucune commande n'a été rechargée.",
-    "reloaded": "Les commandes suivantes `{count}` ont été rechargées:\n`{commands}"
+    "reloaded": "Les commandes suivantes `{count}` ont été rechargées:\n{commands}"
   },
   "reloaddb": {
     "description": "Recharge la base de données",
