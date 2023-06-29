@@ -24,7 +24,7 @@ global.log._log = function _log(file = global.log.file, ...str) {
     log = console[file] || console.log;
 
   if (arguments.length) {
-    if (file != 'debug') log(`${txt}${str}`);
+    if (file != 'debug') log(`${txt}${str.join(' ')}`);
     appendFile(`./Logs/${date}_${file}.log`, `${txt}${str}\n`);
     return global.log;
   }
