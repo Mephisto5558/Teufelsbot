@@ -195,9 +195,9 @@ module.exports = {
       }
       case 'logger': {
         const
-          channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel))?.id,
+          channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config?.logger?.[action]?.channel))?.id,
           action = this.options.getString('action'),
-          enabled = this.options.getBoolean('enabled') ?? action != 'all' ? !this.guild.db.config.logger?.[action]?.enabled : null;
+          enabled = this.options.getBoolean('enabled') ?? action != 'all' ? !this.guild.db.config?.logger?.[action]?.enabled : null;
 
         if (!channel) return this.editReply(lang('logger.noChannel'));
         if (action == 'all') {
