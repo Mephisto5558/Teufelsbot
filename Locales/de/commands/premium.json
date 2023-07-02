@@ -11,7 +11,7 @@
         "description": "Was möchtest du ChatGPT sagen?"
       },
       "model": {
-        "descripion": "Welches Modell möchtest du nutzen?"
+        "description": "Welches Modell möchtest du nutzen?"
       }
     },
     "hello": "Hallo!",
