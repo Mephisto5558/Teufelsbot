@@ -81,7 +81,7 @@ function createInfoFields(cmd, lang, helpLang) {
 }
 
 module.exports.filterCommands = function filterCommands(e) {
-  return e?.name && !e.disabled && (this.client.botType != 'dev' || e.beta) || (ownerOnlyFolders.includes(e.category.toLowerCase()) && this.user.id != this.client.application.owner.id);
+  return e?.name && !e.disabled && (this.client.botType != 'dev' || e.beta) || (ownerOnlyFolders.includes(e.category?.toLowerCase()) && this.user.id != this.client.application.owner.id);
 };
 
 /**@this {import('discord.js').Message|import('discord.js').ChatInputCommandInteraction|import('discord.js').StringSelectMenuInteraction}*/
