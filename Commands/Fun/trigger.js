@@ -95,11 +95,7 @@ module.exports = {
       case 'get': {
         if (!oldData.length) return this.editReply(lang('noneFound'));
 
-        const
-          embed = new EmbedBuilder({
-            title: lang('embedTitle'),
-            color: Colors.Blue
-          });
+        const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Blue });
 
         if (query || query == 0) {
           const { id, trigger, response, wildcard } = Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) || {};
