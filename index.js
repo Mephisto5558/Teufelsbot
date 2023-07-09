@@ -27,16 +27,11 @@ console.time('Starting time');
       GatewayIntentBits.Guilds,
       GatewayIntentBits.GuildMembers,
       GatewayIntentBits.GuildMessages,
-      GatewayIntentBits.GuildMessageReactions,
       GatewayIntentBits.GuildVoiceStates,
       GatewayIntentBits.MessageContent,
       GatewayIntentBits.DirectMessages
     ],
-    partials: [
-      Partials.Channel,
-      Partials.Message,
-      Partials.Reaction
-    ]
+    partials: [Partials.Channel, Partials.Message]
   }).on('error', err => errorHandler.call(client, err));
 
   let env;
@@ -60,7 +55,7 @@ console.time('Starting time');
 
   await client.login(client.keys.token);
   log(`Logged into ${client.botType}`);
-  
+
   client.db.update('botSettings', `startCount.${client.botType}`, client.settings.startCount[client.botType] + 1 || 1);
 
   process
