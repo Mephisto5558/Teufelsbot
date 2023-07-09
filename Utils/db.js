@@ -5,15 +5,18 @@ const
 global.log ??= {
   debug: (...data) => { console.debug(...data); return log; },
   setType: () => log
-}; //if the class is classed separately
+}; //if the file is running separately
 
 module.exports = class DB {
-  /**@param {string}dbConnectionString MongoDB connection string*/
-  constructor(dbConnectionString) {
+  /**@param {string}dbConnectionString MongoDB connection string @param {number|false}valueLoggingMaxJSONLength default:20, false to disable value logging*/
+  constructor(dbConnectionString, valueLoggingMaxJSONLength = 20) {
     if (Mongoose.connection.readyState != 1) {
       if (!dbConnectionString) throw new Error('A Connection String is required!');
       Mongoose.connect(dbConnectionString);
     }
+
+    if (valueLoggingMaxJSONLength === false) this.valueLoggingMaxJSONLength = 0;
+    else this.valueLoggingMaxJSONLength = Number.isNaN(valueLoggingMaxJSONLength) ? 20 : valueLoggingMaxJSONLength;
 
     this.fetchAll();
   }
@@ -25,6 +28,11 @@ module.exports = class DB {
 
   /**@type {Collection<string,any>} The cache will be updated automatically*/
   cache = new Collection();
+
+  saveLog(msg, value) {
+    const jsonValue = JSON.stringify(value);
+    log.setType('DB').debug(msg, this.valueLoggingMaxJSONLength >= jsonValue?.length ? jsonValue : '').setType();
+  }
 
   /**@returns {Promise<DB>}DB*/
   async fetchAll() {
@@ -62,7 +70,7 @@ module.exports = class DB {
   async set(db, value, overwrite = false) {
     if (!db) return;
 
-    log.setType('DB').debug(`setting collection ${db}, ${overwrite ? 'overwriting existing data' : ''}`).setType();
+    this.saveLog(`setting collection ${db}, ${overwrite ? 'overwriting existing data' : ''}`, value);
 
     const update = { $set: { value } };
     if (!overwrite) update.$setOnInsert = { key: db };
@@ -76,21 +84,21 @@ module.exports = class DB {
   async update(db, key, value) {
     if (!key) return;
 
-    log.setType('DB').debug(`updating ${db}.${key}`).setType();
+    this.saveLog(`updating ${db}.${key}`, value);
 
     const data = await this.schema.findOneAndUpdate({ key: db }, { $set: { [`value.${key}`]: value } }, { new: true, upsert: true }).exec();
     this.cache.set(db, data.value);
     return data.value;
   }
 
-  /**@param {string}db@param {string}key@param pushValue supports [1, 2, 3] as well as 1, 2, 3@returns {value}value*/
-  async push(db, key, ...pushValue) {
-    const values = pushValue.length == 1 && Array.isArray(pushValue[0]) ? pushValue[0] : pushValue;
+  /**@param {string}db@param {string}key@param value supports [1, 2, 3] as well as 1, 2, 3 @returns {array}value*/
+  async push(db, key, ...value) {
+    const values = value.length == 1 && Array.isArray(value[0]) ? value[0] : value;
 
     if (!db || !values.length) return;
     if (!Array.isArray(values)) throw Error('You can\'t push an empty or non-array value!');
 
-    log.setType('DB').debug(`pushing data to ${db}.${key}`).setType();
+    this.saveLog(`pushing data to ${db}.${key}`, values);
 
     const data = await this.schema.findOneAndUpdate({ key: db }, { $push: { [`value.${key}`]: { $each: values } } }, { new: true, upsert: true }).exec();
     this.cache.set(key, data.value);
