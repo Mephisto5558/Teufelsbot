@@ -5,9 +5,10 @@ const
 /**@param {String}t a time string, e.g. 3w2d @returns {string[]}array of valid values*/
 module.exports = function timeValidator(t) {
   if (!t) return [];
+
   const
     split = t.split(/(\d)/).filter(e => e),
-    last = split.pop(),
+    last = split.pop() ?? '',
     found = validItems.filter(e => e.includes(last));
 
   if (found.length) return found.map(e => split.join('') + e);

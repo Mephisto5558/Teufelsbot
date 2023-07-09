@@ -8,10 +8,9 @@ module.exports = async function debug() {
 
   log.setType('API').debug(debug).setType();
   if (debug.includes('Hit a 429')) {
-    if (!this.isReady()) {
-      log.error('Hit a 429 while trying to login. Restarting shell.');
-      process.kill(1);
-    }
-    else log.error('Hit a 429 while trying to execute a request');
+    if (this.isReady()) return log.error('Hit a 429 while trying to execute a request');
+
+    log.error('Hit a 429 while trying to login. Restarting shell.');
+    process.kill(1);
   }
 };

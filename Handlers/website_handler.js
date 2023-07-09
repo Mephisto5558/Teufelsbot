@@ -15,12 +15,10 @@ function validate(key, res, WebsiteKey) {
 
 async function getCommands() {
   const categoryCommandList = [];
-
   for (const subFolder of await getDirectories('./Commands')) {
     if (ownerOnlyFolders.includes(subFolder.toLowerCase())) continue;
 
     const commandList = [];
-
     for (const cmdFile of await readdir(`./Commands/${subFolder}`)) {
       if (!cmdFile.endsWith('.js')) continue;
 

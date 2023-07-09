@@ -5,7 +5,7 @@ const
 module.exports = {
   name: 'embed',
   permissions: { user: ['EmbedLinks'] },
-  cooldowns: { user: 100 },
+  cooldowns: { user: 200 },
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,
@@ -73,7 +73,7 @@ module.exports = {
           name: getOption('author_name'),
           url: getOption('author_url'),
           iconURL: getOption('author_icon')
-        },
+        }
         //fields: getOption('fields')
       });
 
