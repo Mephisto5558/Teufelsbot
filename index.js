@@ -27,11 +27,16 @@ console.time('Starting time');
       GatewayIntentBits.Guilds,
       GatewayIntentBits.GuildMembers,
       GatewayIntentBits.GuildMessages,
+      GatewayIntentBits.GuildMessageReactions,
       GatewayIntentBits.GuildVoiceStates,
       GatewayIntentBits.MessageContent,
       GatewayIntentBits.DirectMessages
     ],
-    partials: [Partials.Channel, Partials.Message]
+    partials: [
+      Partials.Channel,
+      Partials.Message,
+      Partials.Reaction
+    ]
   }).on('error', err => errorHandler.call(client, err));
 
   let env;
