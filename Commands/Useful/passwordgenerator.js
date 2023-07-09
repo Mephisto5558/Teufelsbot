@@ -23,7 +23,6 @@ module.exports = {
   ],
 
   run: function (lang) {
-
     const
       count = this.options?.getInteger('count') || 1,
       exclude = this.options?.getString('exclude_chars') || '',

@@ -25,10 +25,7 @@ module.exports = {
       return log.error('NSFW Command API Error: ', JSON.stringify(data));
     }
 
-    const embed = new EmbedBuilder({
-      color: data.color,
-      image: { url: data.message }
-    });
+    const embed = new EmbedBuilder({ color: data.color, image: { url: data.message } });
 
     if (!Math.floor(Math.random() * 10000)) embed.data.title = lang('embedTitle');
 

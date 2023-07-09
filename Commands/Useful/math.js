@@ -14,21 +14,6 @@ const
     .replace(/[\u00B2-\u00B3\u2074-\u2079]/g, e => superscripts[e])
     .replace(/(?:√)(\(|\d+)/g, (_, e) => e === '(' ? 'sqrt(' : `sqrt(${e})`);
 
-// eslint-disable-next-line no-unused-vars
-function test() { //test code
-  const expressions = [''];
-
-  for (const expression of expressions) {
-    const modifiedExpression = parseSpecialChars(expression);
-
-    try {
-      const result = evaluate(modifiedExpression);
-      console.log([expression, modifiedExpression, result]);
-    }
-    catch (err) { console.log([expression, modifiedExpression, err.message]); }
-  }
-}
-
 module.exports = {
   name: 'math',
   slashCommand: true,
@@ -44,13 +29,9 @@ module.exports = {
     const expression = this.content || this.options?.getString('expression');
     if (!expression) return this.customReply(lang('noInput'));
 
-    const embed = new EmbedBuilder({
-      title: lang('embedTitle'),
-      color: Colors.White
-    });
+    const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.White });
 
     let result;
-
     try { result = evaluate(parseSpecialChars(expression)); }
     catch (err) {
       embed.data.description = lang('error', err.message);

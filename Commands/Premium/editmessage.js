@@ -20,9 +20,8 @@ module.exports = {
       required: true,
     },
     { name: 'remove_attachments', type: 'Boolean' }
-  ], beta: true,
+  ],
 
-  /**@this {import('discord.js').CommandInteraction} */
   run: async function (lang) {
     const
       modal = new ModalBuilder({
@@ -50,7 +49,6 @@ module.exports = {
     if (!modalInteraction) return this.reply({ content: lang('timedout'), ephemeral: true });
 
     await modalInteraction.deferReply({ ephemeral: true });
-
     const content = modalInteraction.fields.getTextInputValue('newContent_text');
     let json;
 

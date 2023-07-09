@@ -117,8 +117,8 @@ module.exports = {
     const
       bonusEntries = this.options.getString('bonus_entries')?.split(' ').map(e => ({ [e.split(':')[0].replace(/[^/d]/g, '')]: e.split(':')[1] })),
       targetChannel = this.options.getChannel('channel') || this.channel,
-      requiredRoles = this.options.getString('required_roles')?.replace(/[^\d]/g, '').split(' '),
-      disallowedMembers = this.options.getString('exempt_member')?.replace(/[^\d]/g, '').split(' '),
+      requiredRoles = this.options.getString('required_roles')?.replace(/\D/g, '').split(' '),
+      disallowedMembers = this.options.getString('exempt_member')?.replace(/\D/g, '').split(' '),
       defaultSettings = this.client.defaultSettings.giveaway,
       reaction = this.options.getString('reaction') || this.guild.db.giveaway?.reaction || defaultSettings.reaction,
       components = [new ActionRowBuilder({

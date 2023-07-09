@@ -18,10 +18,7 @@ module.exports = {
   run: function (lang) {
     const
       command = this.options?.getString('command') || this.args?.[0],
-      embed = new EmbedBuilder({
-        title: lang('embedTitle'),
-        color: Colors.White
-      });
+      embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.White });
 
     if (command) {
       const id = this.client.application.commands.cache.find(e => e.name == command)?.id;

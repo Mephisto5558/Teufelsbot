@@ -37,7 +37,7 @@ module.exports = {
   ],
 
   run: function (lang) {
-    let target = (this.options?.getMember('target') ?? this.mentions?.members?.first() ?? this.member ?? this.user);
+    let target = this.options?.getMember('target') ?? this.mentions?.members?.first() ?? this.member ?? this.user;
     if (this.options?.getString('global') && target.user) target = target.user;
 
     switch (this.options?.getSubcommand() || this.args[0]) {

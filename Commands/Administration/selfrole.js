@@ -5,7 +5,5 @@ module.exports = {
   prefixCommand: false,
   ephemeralDefer: true,
 
-  run: function (lang) {
-    return this.customReply(lang('deprecated'));
-  }
+  run: function (lang) { return this.customReply(lang('deprecated')); }
 };

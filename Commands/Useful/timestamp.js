@@ -16,7 +16,7 @@ module.exports = {
 
   run: function (lang) {
     const { offset } = new Duration(this.options?.getString('time') || this.args?.[0] || '0.1ms');
-    if (!offset && offset != 0) {
+    if (!offset) {
       const helpcmd = this.client.application.commands.cache.find(e => e.name == 'help')?.id;
       return this.customReply(lang('invalid', helpcmd ? `</help:${helpcmd}>` : '/help'));
     }

@@ -56,7 +56,7 @@ module.exports = {
     switch (this.options.getSubcommand()) {
       case 'set': {
         await this.client.db.update('userSettings', `${this.user.id}.birthday`, `${this.options.getInteger('year')}/${String(this.options.getInteger('month')).padStart(2, '0')}/${String(this.options.getInteger('day')).padStart(2, '0')}`);
-        return this.editReply(lang('saved')); //maybe add "your birthday is in <d> days"
+        return this.editReply(lang('saved')); //Todo: maybe add "your birthday is in <d> days"
       }
 
       case 'remove': {
@@ -77,7 +77,6 @@ module.exports = {
           embed.data.title = lang('getUser.embedTitle', target.user.customTag);
 
           const data = target.user.db.birthday?.split('/');
-
           if (data) {
             const age = getAge(data) + 1;
             embed.data.description = lang('getUser.date', { user: target.customName, month: lang(`months.${data[1]}`), day: data[2] });
