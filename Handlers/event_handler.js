@@ -3,6 +3,8 @@ const
   { Client } = require('discord.js');
 
 module.exports = async function eventHandler() {
+  while (process.argv.some(e => e == 'isChild=true')) await sleep(500); //Waiting for slash command handler to finish so parent process ends to prevent duplicate code execution 
+
   let eventCount = 0;
   for (const file of await readdir('./Events')) {
     if (!file.endsWith('js') || file == 'interactionCreate.js') continue; //InteractionCreate gets loaded when all slash commands are registred
