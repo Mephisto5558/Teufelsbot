@@ -12,7 +12,10 @@ console.timeEnd('Initializing time');
 console.time('Starting time');
 
 (async function main() {
-  await gitpull();
+  if ((await gitpull()).message?.includes('Could not resolve host')) {
+    log.error('It seems like the bot does not have internet access.');
+    process.exit(1);
+  }
 
   const client = new Client({
     shards: 'auto',
