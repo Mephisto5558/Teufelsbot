@@ -29,12 +29,14 @@ module.exports = function format(option, path) {
       }
 
       e.nameLocalizations ??= {};
-      let localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
-      if (localeText?.length < 2) option.disabled ? void 0 : log._log('warn', `Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too short (min length is 2)! Using undefined.`);
-      else if (localeText?.length > 32) option.disabled ? void 0 : log._log('warn', `Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too long (max length is 32)! Slicing.`);
+      const localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
+      if (!option.disabled) {
+        if (localeText?.length < 2) log._log('warn', `Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too short (min length is 2)! Using undefined.`);
+        else if (localeText?.length > 32) log._log('warn', `Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too long (max length is 32)! Slicing.`);
+      }
 
       if (localeText && localeText.length > 2) e.nameLocalizations[locale] = localeText.slice(0, 32);
-      else if (e.name != e.value) option.disabled ? void 0 : log._log('warn', `Missing "${locale}" choice name localization for "${e.name}" in option "${option.name}" (${path}.choices.${e.name})`);
+      else if (e.name != e.value && !option.disabled) log._log('warn', `Missing "${locale}" choice name localization for "${e.name}" in option "${option.name}" (${path}.choices.${e.name})`);
 
       return e;
     });
@@ -59,11 +61,11 @@ module.exports = function format(option, path) {
   }
 
   if (option.channelTypes) option.channelTypes = option.channelTypes.map(e => {
-    if (!ChannelType[e] && ChannelType[e] != 0 && !option.disabled) throw Error(`Invalid option.channelType, got "${e}" (${path})`);
+    if (!option.disabled && !ChannelType[e] && ChannelType[e] != 0) throw Error(`Invalid option.channelType, got "${e}" (${path})`);
     return isNaN(e) ? ChannelType[e] : e;
   });
 
-  if (!option.type || !ApplicationCommandOptionType[option.type] && !option.disabled) throw Error(`Missing or invalid option.type, got "${option.type}" (${path})`);
+  if (!option.disabled && !option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or invalid option.type, got "${option.type}" (${path})`);
   if (isNaN(option.type)) option.type = ApplicationCommandOptionType[option.type];
 
   if ([ApplicationCommandOptionType.Number, ApplicationCommandOptionType.Integer].includes(option.type) && ('minLength' in option || 'maxLength' in option) && !option.disabled)

@@ -175,7 +175,7 @@
     "noNumber": "Bitte spezifiziere das nächste Mal die Anzahl der zu löschenden Nachrichten.",
     "invalidNumber": "Das ist keine gültige Zahl!",
     "paramExcludesOther": "Einer deiner Parameter macht einen anderen Parameter unmöglich! (z. B. `starts_with` = \"a\" und `not_starts_with` = \"a\")",
-    "noneFound": "Es wurden keine Nachrichten gefunden, die deinen Parametern entsprechen.",
+    "noneFound": "Es wurden keine löschbaren Nachrichten gefunden, die deinen Parametern entsprechen.",
     "success": "Ich habe erfolgreich {count}/{all} Nachrichten gelöscht."
   },
   "unlock": {

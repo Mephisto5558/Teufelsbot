@@ -5,17 +5,14 @@ const
   url = require('url');
 
 /**@param {string}urlStr @returns {Promise<boolean|Error|string>}*/
-function checkUrl(urlStr) {
-  return new Promise((resolve, reject) => {
-    const options = url.parse(urlStr);
-    const req = (options.protocol == 'https:' ? https : http).request({ ...options, method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode >= 200 && res.statusCode < 400 ? true : false));
+const checkUrl = urlStr => new Promise((resolve, reject) => {
+  const req = (urlStr.startsWith('http') ? http : https).request({ ...url.parse(urlStr), method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode > 199 && res.statusCode < 400 ? true : false));
 
-    req
-      .on('timeout', () => req.destroy({ name: 'AbortError', message: 'Request timed out' }))
-      .on('error', err => reject(err))
-      .end();
-  });
-}
+  req
+    .on('timeout', () => req.destroy({ name: 'AbortError', message: 'Request timed out' }))
+    .on('error', err => reject(err))
+    .end();
+});
 
 module.exports = {
   name: 'addemoji',
@@ -45,10 +42,7 @@ module.exports = {
       limitToRoles = this.options.getString('limit_to_roles')?.split(' ').map(e => e.replace(/\D/g, '')).filter(e => this.guild.roles.cache.has(e)),
       emoticon = parseEmoji(input),
       name = this.options.getString('name')?.slice(0, 32) || (emoticon.id ? emoticon.name : 'emoji'),
-      embed = new EmbedBuilder({
-        title: lang('embedTitle'),
-        color: Colors.Red
-      });
+      embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
 
     if (this.guild.emojis.cache.has(emoticon.id)) return this.editReply({ embeds: [embed.setDescription(lang('isGuildEmoji'))] });
     if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;

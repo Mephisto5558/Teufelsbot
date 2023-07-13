@@ -32,7 +32,7 @@ module.exports = async function interactionCreate() {
 
     if (
       autocomplete && strictAutocomplete && this.options.get(name) && !(await autocompleteGenerator.call(Object.assign({}, this, { client: this.client, focused: { name, value: this.options.get(name).value } }), command, locale))
-        .filter(e => (e.toLowerCase?.() || e.value.toLowerCase()).includes(this.options.get(name).value.toLowerCase())).length
+        .some(e => (e.toLowerCase?.() || e.value.toLowerCase()).includes(this.options.get(name).value.toLowerCase()))
     ) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.strictAutocompleteNoMatch'))], ephemeral: true });
   }
 
