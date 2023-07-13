@@ -70,7 +70,10 @@ module.exports = async function websiteHandler() {
           await this.db.fetch(req.query.db);
           return res.sendStatus(200);
         }
-        case '/git/pull': return res.send(await gitpull());
+        case '/git/pull': {
+          await gitpull();
+          return res.send('OK');
+        }
         case '/': return res.sendStatus(200);
         default: res.sendStatus(404);
       }
