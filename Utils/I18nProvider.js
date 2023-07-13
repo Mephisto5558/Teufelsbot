@@ -35,10 +35,10 @@ class I18nProvider {
   }
 
   async loadAllLocales() {
-    this.availableLocales = new Collection((await readdir(this.config.localesPath))
-      .filter(async e => !(await readdir(`${this.config.localesPath}/${e}`)).includes('.ignore'))
-      .map(e => [path.basename(e, '.json'), path.resolve(this.config.localesPath, e)])
-    );
+    this.availableLocales = new Collection(await readdir(this.config.localesPath).then(e => e.reduce(async (acc, e) => {
+      if (!(await readdir(`${this.config.localesPath}/${e}`)).includes('.ignore')) (await acc).push([path.basename(e, '.json'), path.resolve(this.config.localesPath, e)]);
+      return acc;
+    }, Promise.resolve([]))));
     this.localeData = {};
 
     for (const [locale] of this.availableLocales) await this.loadLocale(locale);
@@ -71,16 +71,13 @@ class I18nProvider {
   }
 
   /**@param {{}}object@param {string}objectPath@returns {{}}flatted object*/
-  flatten(object, objectPath) {
-    return Object.keys(object).reduce((acc, key) => {
-      const newObjectPath = [objectPath, key].filter(Boolean).join(this.config.separator);
-
-      return Object.assign(Object.assign({}, acc), ({}).toString() == object?.[key]
-        ? this.flatten(object[key], newObjectPath)
-        : { [newObjectPath]: object[key] }
-      );
-    }, {});
-  }
+  flatten = (object, objectPath) => Object.keys(object).reduce((acc, key) => {
+    const newObjectPath = [objectPath, key].filter(Boolean).join(this.config.separator);
+    return Object.assign(Object.assign({}, acc), ({}).toString() == object?.[key]
+      ? this.flatten(object[key], newObjectPath)
+      : { [newObjectPath]: object[key] }
+    );
+  }, {});
 
   /**@param {boolean}checkEqual@returns {{}}list of entries that are missing or equal with default data*/
   findMissing(checkEqual) {

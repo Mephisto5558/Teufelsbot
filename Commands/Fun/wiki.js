@@ -1,5 +1,5 @@
 const
-  Wiki = require('wikijs').default,
+  wiki = require('wikijs').default,
   { EmbedBuilder, Colors } = require('discord.js'),
   { Repo } = require('../../config.json').Github,
   options = { headers: { 'User-Agent': `Discord Bot (${Repo})` } };
@@ -25,16 +25,16 @@ module.exports = {
     let data;
 
     try {
-      if (query) data = await Wiki(options).search(query, 1);
+      if (query) data = await wiki(options).search(query, 1);
       else {
-        const results = await Wiki(options).random(1);
-        data = await Wiki(options).search(results[0], 1);
+        const results = await wiki(options).random(1);
+        data = await wiki(options).search(results[0], 1);
       }
 
       if (!data.results.length) return message.edit(lang('notFound'));
 
       const
-        page = await Wiki(options).page(data.results[0]),
+        page = await wiki(options).page(data.results[0]),
         { general: info } = await page.fullInfo(),
         image = await page.mainImage(),
         summary = await page.summary(),
@@ -44,9 +44,11 @@ module.exports = {
           thumbnail: { url: 'https://wikipedia.org/static/images/project-logos/enwiki.png' },
           url: page.url(),
           image: { url: image },
-          fields: Object.entries(info)
-            .filter(([e]) => !['name', 'caption'].includes(e) && !e.includes('image'))
-            .map(([k, v]) => ({ name: k, value: v.toString(), inline: true }))
+          fields: Object.entries(info).reduce((acc, [k, v]) => {
+            if (!['name', 'caption'].includes(k) && !k.includes('image')) acc.push({ name: k, value: v.toString(), inline: true });
+            return acc;
+          }, [])
+
         });
 
       if (summary.length < 2049) embed.data.description = summary;
@@ -54,18 +56,20 @@ module.exports = {
       await message.edit({ content: '', embeds: [embed] });
       if (!embed.data.description) return;
 
-      let joined = summary.split('\n').reduce((acc, e) => {
-        if (acc.length >= 2000) {
-          this.customReply(acc);
+      let joined = await summary.split('\n').reduce(async (acc, e) => {
+        if ((await acc).length >= 2000) {
+          await this.customReply(await acc);
           acc = '';
         }
-        return acc + `${e}\n`;
-      }, '');
+        return `${await acc}${e}\n`;
+      }, Promise.resolve(''));
 
       if (joined.split('\n').length > 3) joined += lang('visitWiki');
-
       return this.customReply(joined);
     }
-    catch (err) { return this.customReply(lang('error', err.message)); }
+    catch (err) {
+      if (this.client.botType == 'dev') throw err;
+      return this.customReply(lang('error', err.message));
+    }
   }
 };

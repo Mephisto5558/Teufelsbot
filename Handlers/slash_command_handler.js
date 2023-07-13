@@ -13,43 +13,41 @@ module.exports = async function slashCommandHandler() {
 
   this.slashCommands.clear();
 
-  for (const subFolder of await getDirectories('./Commands')) {
-    for (const file of await readdir(`./Commands/${subFolder}`)) {
-      if (!file.endsWith('.js')) continue;
-      let command = require(`../Commands/${subFolder}/${file}`);
+  for (const subFolder of await getDirectories('./Commands')) for (const file of await readdir(`./Commands/${subFolder}`)) {
+    if (!file.endsWith('.js')) continue;
+    let command = require(`../Commands/${subFolder}/${file}`);
 
-      if (!command.slashCommand) continue;
-      try {
-        command = formatSlashCommand(command, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`);
-        command.filePath = resolve(`Commands/${subFolder}/${file}`);
-        command.category = subFolder;
-      }
-      catch (err) {
-        if (this.botType == 'dev') throw err;
-        else log.error(`Error on formatting command ${command.name}:\n`, err);
-
-        command.skip = true;
-        this.slashCommands.set(command.name, command);
-        continue;
-      }
-
-      if (!command.disabled && !command.skip) for (const [, applicationCommand] of await applicationCommands) if (slashCommandsEqual(command, applicationCommand)) {
-        log(`Skipped Slash Command ${command.name}`);
-
-        command.skip = true;
-        command.id = applicationCommand.id;
-        break;
-      }
-
-      this.slashCommands.set(command.name, command);
-      if (command.aliases?.slash) this.slashCommands = this.slashCommands.concat(command.aliases.slash.map(e => [e, { ...command, name: e, aliasOf: command.name }]));
+    if (!command.slashCommand) continue;
+    try {
+      command = formatSlashCommand(command, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`);
+      command.filePath = resolve(`Commands/${subFolder}/${file}`);
+      command.category = subFolder;
     }
+    catch (err) {
+      if (this.botType == 'dev') throw err;
+      else log.error(`Error on formatting command ${command.name}:\n`, err);
+
+      command.skip = true;
+      this.slashCommands.set(command.name, command);
+      continue;
+    }
+
+    if (!command.disabled && !command.skip) for (const [, applicationCommand] of await applicationCommands) if (slashCommandsEqual(command, applicationCommand)) {
+      log(`Skipped Slash Command ${command.name}`);
+
+      command.skip = true;
+      command.id = applicationCommand.id;
+      break;
+    }
+
+    this.slashCommands.set(command.name, command);
+    if (command.aliases?.slash) this.slashCommands = this.slashCommands.concat(command.aliases.slash.map(e => [e, { ...command, name: e, aliasOf: command.name }]));
   }
 
   for (const [, command] of this.slashCommands) {
     if (command.skip) continue;
-    if (command.disabled) HideDisabledCommandLog ? void 0 : log(`Skipped Disabled Slash Command ${command.name}`);
-    else if (this.botType == 'dev' && !command.beta) HideNonBetaCommandLog ? void 0 : log(`Skipped Non-Beta Slash Command ${command.name}`);
+    if (command.disabled) { if (!HideDisabledCommandLog) log(`Skipped Disabled Slash Command ${command.name}`); }
+    else if (this.botType == 'dev' && !command.beta) { if (!HideNonBetaCommandLog) log(`Skipped Non-Beta Slash Command ${command.name}`); }
     else {
       try {
         command.id = (await this.application.commands.create(command)).id;

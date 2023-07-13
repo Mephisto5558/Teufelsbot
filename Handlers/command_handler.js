@@ -6,30 +6,27 @@ const
 let enabledCommandCount = 0, disabledCommandCount = 0;
 
 module.exports = async function commandHandler() {
-  for (const subFolder of await getDirectories('./Commands')) {
-    for (const file of await readdir(`./Commands/${subFolder}`)) {
-      if (!file.endsWith('.js')) continue;
+  for (const subFolder of await getDirectories('./Commands')) for (const file of await readdir(`./Commands/${subFolder}`)) {
+    if (!file.endsWith('.js')) continue;
 
-      const command = require(`../Commands/${subFolder}/${file}`);
-      if (!command?.prefixCommand) continue;
+    const command = require(`../Commands/${subFolder}/${file}`);
+    if (!command?.prefixCommand) continue;
+    if (!command.disabled && !command.run?.toString().startsWith('function') && !command.run?.toString().startsWith('async function')) throw new Error(`The run function of file "${command.filePath}" is not a function. You cannot use arrow functions.`);
 
-      command.filePath = resolve(`Commands/${subFolder}/${file}`);
-      command.category = subFolder;
+    command.filePath = resolve(`Commands/${subFolder}/${file}`);
+    command.category = subFolder;
 
-      if (!command.disabled && !command.run?.toString().startsWith('function') && !command.run?.toString().startsWith('async function')) throw new Error(`The run function of file "${command.filePath}" is not a function. You cannot use arrow functions.`);
+    this.prefixCommands.set(command.name, command);
+    if (command.disabled) { if (!HideDisabledCommandLog) log(`Loaded Disabled Prefix Command ${command.name}`); }
+    else if (!command.beta && this.botType == 'dev') { if (!HideNonBetaCommandLog) log(`Loaded Non-Beta Prefix Command ${command.name}`); }
+    else log(`Loaded Prefix Command ${command.name}`);
+    command.disabled || (this.botType == 'dev' && !command.beta) ? disabledCommandCount++ : enabledCommandCount++;
 
-      this.prefixCommands.set(command.name, command);
-      if (command.disabled) HideDisabledCommandLog ? void 0 : log(`Loaded Disabled Prefix Command ${command.name}`);
-      else if (!command.beta && this.botType == 'dev') HideNonBetaCommandLog ? void 0 : log(`Loaded Non-Beta Prefix Command ${command.name}`);
-      else log(`Loaded Prefix Command ${command.name}`);
+    for (const alias of command.aliases?.prefix || []) {
+      this.prefixCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
+      if (command.disabled) !HideDisabledCommandLog && log(`Loaded Alias ${alias} of Prefix Command ${command.name} (disabled)`);
+      else log(`Loaded Alias ${alias} of Prefix Command ${command.name}`);
       command.disabled || (this.botType == 'dev' && !command.beta) ? disabledCommandCount++ : enabledCommandCount++;
-
-      for (const alias of command.aliases?.prefix || []) {
-        this.prefixCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
-        if (command.disabled) HideDisabledCommandLog ? void 0 : log(`Loaded Alias ${alias} of Prefix Command ${command.name} (disabled)`);
-        else log(`Loaded Alias ${alias} of Prefix Command ${command.name}`);
-        command.disabled || (this.botType == 'dev' && !command.beta) ? disabledCommandCount++ : enabledCommandCount++;
-      }
     }
   }
 
