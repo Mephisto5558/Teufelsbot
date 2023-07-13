@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@discordjs/opus": "^0.9.0",
-    "@discordjs/voice": "^0.1.3",
+    "@discordjs/voice": "^0.16.0",
     "better-ms": "^1.1.7",
     "canvas": "^2.11.2",
     "cron": "^2.3.0",
@@ -32,7 +32,7 @@
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.7",
-    "utf-8-validate": "^5.0.10",
+    "utf-8-validate": "^6.0.3",
     "zlib-sync": "^0.1.8"
   },
   "repository": {
