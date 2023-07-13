@@ -4,7 +4,10 @@ module.exports = async () => {
   let data;
 
   try { data = await exec('git pull', { maxBuffer: 614400 }); }
-  catch (err) { return log.error(`GIT PULL\nExec error: ${err}`); }
+  catch (err) {
+    log.error(`GIT PULL\nExec error: ${err}`);
+    return err;
+  }
 
   log(
     'GIT PULL\n' +
