@@ -1,7 +1,7 @@
 const
   { readdir } = require('fs/promises'),
   { resolve } = require('path'),
-  { I18nProvider, formatSlashCommand, slashCommandsEqual } = require('../Utils'),
+  { formatSlashCommand, slashCommandsEqual } = require('../Utils'),
   { HideNonBetaCommandLog, HideDisabledCommandLog } = require('../config.json');
 
 /**@this {import('discord.js').Client}*/
@@ -78,6 +78,7 @@ module.exports = async function slashCommandHandler() {
     }
   }
 
+  process.argv = process.argv.filter(e => e != 'isChild=true');
   this.on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[].concat(args ?? this)));
 
   log /*eslint-disable no-unexpected-multiline, indent*/
@@ -89,14 +90,4 @@ module.exports = async function slashCommandHandler() {
     (`Ready to serve in ${this.channels.cache.size} channels on ${this.guilds.cache.size} servers.\n`);
 
   console.timeEnd('Starting time');
-
-  if (this.settings.restartingMsg?.message) {
-    try {
-      const guild = await this.guilds.fetch(this.settings.restartingMsg.guild);
-      const message = await (await guild.channels.fetch(this.settings.restartingMsg.channel)).messages.fetch(this.settings.restartingMsg.message);
-      if (message?.editable) message.edit(I18nProvider.__({ locale: guild.localeCode }, 'commands.owner-only.restart.success'));
-    } catch { }
-
-    await this.db.delete('botSettings', 'restartingMsg');
-  }
 };
