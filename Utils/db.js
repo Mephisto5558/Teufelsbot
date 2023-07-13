@@ -31,7 +31,7 @@ module.exports = class DB {
 
   saveLog(msg, value) {
     const jsonValue = JSON.stringify(value);
-    log.setType('DB').debug(msg + this.valueLoggingMaxJSONLength >= jsonValue?.length ? `, value: ${jsonValue}` : '').setType();
+    log.setType('DB').debug(msg + (this.valueLoggingMaxJSONLength >= jsonValue?.length ? `, value: ${jsonValue}` : '')).setType();
   }
 
   /**@returns {Promise<DB>}DB*/
