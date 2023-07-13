@@ -20,8 +20,8 @@ module.exports = {
 
     try { await asyncExec('npm install'); }
     catch {
-      msg.edit(lang('updateNPMError'));
-      return (restarting = false);
+      restarting = false;
+      return msg.edit(lang('updateNPMError'));
     }
 
     msg.edit(lang('restarting'));
@@ -29,12 +29,12 @@ module.exports = {
     const child = spawn(process.argv.shift(), [...process.argv, 'isChild=true'], { detached: true });
     child
       .on('error', () => {
-        if (msg.content != lang('restartingError')) msg.edit(lang('restartingError'));
         restarting = false;
+        if (msg.content != lang('restartingError')) return msg.edit(lang('restartingError'));
       })
       .on('exit', () => {
-        if (msg.content != lang('restartingError')) msg.edit(lang('restartingError'));
         restarting = false;
+        if (msg.content != lang('restartingError')) return msg.edit(lang('restartingError'));
       })
       .stdout.on('data', async data => {
         if (!data.toString().includes('Ready to serve')) return;
