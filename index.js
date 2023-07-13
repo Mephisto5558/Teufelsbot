@@ -42,13 +42,13 @@ console.time('Starting time');
   let env;
   try { env = require('./env.json'); }
   catch {
-    client.db = await new DB(process.env.dbConnectionStr).fetchAll();
+    client.db = await new DB(process.env.dbConnectionStr, 100).fetchAll();
     env = client.settings.env;
   }
 
   env = env.global.fMerge(env[env.global.environment]);
 
-  client.db ??= await new DB(env.dbConnectionStr).fetchAll();
+  client.db ??= await new DB(env.dbConnectionStr, 100).fetchAll();
 
   client.botType = env.environment;
   client.keys = env.keys;
