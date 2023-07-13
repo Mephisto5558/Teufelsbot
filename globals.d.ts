@@ -64,7 +64,7 @@ declare module "discord.js" {
      */
     commandName: ?string;
 
-    author: User;
+    user: User;
 
     /**
      * @param deleteTime Number in Milliseconds
