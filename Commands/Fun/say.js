@@ -31,7 +31,7 @@ module.exports = {
     if (!msg) return this.customReply(lang('noMsgProvided'));
 
     const sentMessage = await channel.send(msg.replaceAll('/n', '\n'));
-    this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent'));
+    await (this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent')));
 
     return logSayCommandUse.call(sentMessage, this.member, lang);
   }

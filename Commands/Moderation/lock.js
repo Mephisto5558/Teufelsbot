@@ -12,18 +12,17 @@ module.exports = {
   ],
 
   run: async function (lang) {
-    const msg = await this.customReply(lang('global.loading'));
-
     this.args?.shift();
 
     const
+      msg = await this.customReply(lang('global.loading')),
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,
       reason = this.options?.getString('reason') || this.args?.join(' ') || lang('noReason'),
-      overwrites = Object.assign({}, ...channel.permissionOverwrites.cache.filter(async e => {
-        if (!e.allow.has(PermissionFlagsBits.SendMessages) || e.allow.has(PermissionFlagsBits.Administrator)) return;
-        if (e.type == OverwriteType.Role) return (await this.guild.roles.fetch(e.id)).comparePositionTo(this.guild.members.me.roles.highest) < 0;
-        return (await this.guild.members.fetch(e.id)).manageable;
-      }).map(e => ({ [e.id]: e.type })));
+      overwrites = await channel.permissionOverwrites.cache.reduce(async (acc, e) => {
+        if (!e.allow.has(PermissionFlagsBits.SendMessages) || e.allow.has(PermissionFlagsBits.Administrator)) return acc;
+        if (e.type == OverwriteType.Role) return (await this.guild.roles.fetch(e.id)).comparePositionTo(this.guild.members.me.roles.highest) < 0 ? { ...(await acc), [e.id]: e.type } : acc;
+        return (await this.guild.members.fetch(e.id)).manageable ? { ...(await acc), [e.id]: e.type } : acc;
+      }, Promise.resolve({}));
 
     if (channel.permissionOverwrites.resolve(this.guild.roles.everyone.id)?.allow.has(PermissionFlagsBits.SendMessages))
       overwrites[this.guild.roles.everyone.id] = OverwriteType.Role;
