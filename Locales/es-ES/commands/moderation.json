@@ -175,7 +175,7 @@
     "noNumber": "Por favor, especifique el número de mensajes a purgar la próxima vez.",
     "invalidNumber": "Este no es un número válido!",
     "paramExcludesOther": "¡Uno de sus parámetros hace imposible otro parámetro! (por ejemplo. `starts_with` = \"a\" y `not_starts_with` = \"a\")",
-    "noneFound": "No se han encontrado mensajes que coincidan con sus parámetros.",
+    "noneFound": "No se han encontrado mensajes eliminables que coincidan con sus parámetros.",
     "success": "{count}/{all} mensajes eliminados correctamente."
   },
   "unlock": {
