@@ -56,8 +56,12 @@
   },
   "restart": {
     "description": "Reinicia el bot",
-    "message": "Restarting bot...",
-    "success": "Reinicio exitoso."
+    "alreadyRestarting": "El bot ya está reiniciando, espere a que termine. Mensaje: {url}",
+    "updatingNPM": "<a:loading:1063091916683612160> Reiniciando el bot...\nInstalando paquetes...",
+    "updateNPMError": "❌ El reinicio ha fallado debido a un error de NPM. Revisa la consola para más información.",
+    "restarting": "<a:loading:1063091916683612160> Reiniciando el bot...\nIniciando el proceso de node...",
+    "restartingError": "❌ El reinicio ha fallado debido a un error de nodo. Revisa la consola para más información.",
+    "success": "✅ Reiniciado correctamente."
   },
   "setactivity": {
     "description": "Establece la actividad del bot",
