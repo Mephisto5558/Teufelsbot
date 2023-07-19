@@ -56,8 +56,12 @@
   },
   "restart": {
     "description": "Riavvia il bot",
-    "message": "Restarting bot...",
-    "success": "Riuscito con successo."
+    "alreadyRestarting": "Il bot sta già effettuando un riavvio, si prega di attendere che finisca. Messaggio: {url}",
+    "updatingNPM": "<a:loading:1063091916683612160> Riavvio del bot...\nInstallazione dei pacchetti...",
+    "updateNPMError": "❌ Riavvio non riuscito a causa di un errore NPM. Controllare la console per ulteriori informazioni.",
+    "restarting": "<a:loading:1063091916683612160> Riavvio del bot...\nAvvio del processo del nodo...",
+    "restartingError": "❌ Riavvio non riuscito a causa di un errore Nodo. Controllare la console per maggiori informazioni.",
+    "success": "✅ Riavviato correttamente."
   },
   "setactivity": {
     "description": "Imposta l'attività del bot",
