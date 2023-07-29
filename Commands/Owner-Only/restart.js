@@ -26,15 +26,25 @@ module.exports = {
 
     msg.edit(lang('restarting'));
 
-    const child = spawn(process.argv.shift(), [...process.argv, 'isChild=true'], { detached: true });
+    let child;
+    try { child = spawn(process.argv[0], [...(process.argv.slice(1) || '.'), 'isChild=true'], { detached: true }); }
+    catch (err) {
+      restarting = false;
+
+      this.client.error('Restarting Error: ', err);
+      return msg.content != lang('restartingError') ? msg.edit(lang('restartingError')) : undefined;
+    }
+
     child
       .on('error', () => {
         restarting = false;
-        if (msg.content != lang('restartingError')) return msg.edit(lang('restartingError'));
+        if (msg.content != lang('restartingError')) msg.edit(lang('restartingError'));
       })
-      .on('exit', () => {
+      .on('exit', (code, signal) => {
         restarting = false;
-        if (msg.content != lang('restartingError')) return msg.edit(lang('restartingError'));
+
+        this.client.error(`Restarting Error: Exit Code ${code}, signal ${signal}`);
+        if (msg.content != lang('restartingError')) msg.edit(lang('restartingError'));
       })
       .stdout.on('data', async data => {
         if (!data.toString().includes('Ready to serve')) return;
