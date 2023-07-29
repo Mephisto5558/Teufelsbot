@@ -15,16 +15,21 @@ module.exports = {
     if (restarting) return this.reply(lang('alreadyRestarting', restarting));
 
     log(`Restarting bot, initiated by user '${this.user.tag}'...`);
-    const msg = await this.reply(lang('updatingNPM'));
-    restarting = msg.url;
 
-    try { await asyncExec('npm install'); }
-    catch {
-      restarting = false;
-      return msg.edit(lang('updateNPMError'));
+    let msg;
+    if (!this.args.some(e => e.toLowerCase() == 'skipnpm')) {
+      msg = await this.reply(lang('updatingNPM'));
+      restarting = msg.url;
+
+      try { await asyncExec('npm install'); }
+      catch {
+        restarting = false;
+        return msg.edit(lang('updateNPMError'));
+      }
     }
 
-    msg.edit(lang('restarting'));
+    msg = await msg?.edit(lang('restarting')) ?? this.reply(lang('restarting'));
+    restarting ??= msg.url;
 
     let child;
     try { child = spawn(process.argv[0], [...(process.argv.slice(1) || '.'), 'isChild=true'], { detached: true }); }
