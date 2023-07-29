@@ -28,7 +28,7 @@ module.exports = {
       }
     }
 
-    msg = await msg?.edit(lang('restarting')) ?? this.reply(lang('restarting'));
+    msg = await (msg?.edit(lang('restarting')) ?? this.reply(lang('restarting')));
     restarting ??= msg.url;
 
     let child;
