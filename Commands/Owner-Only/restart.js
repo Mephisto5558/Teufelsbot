@@ -31,7 +31,7 @@ module.exports = {
     catch (err) {
       restarting = false;
 
-      this.client.error('Restarting Error: ', err);
+      log.error('Restarting Error: ', err);
       return msg.content != lang('restartingError') ? msg.edit(lang('restartingError')) : undefined;
     }
 
@@ -43,7 +43,7 @@ module.exports = {
       .on('exit', (code, signal) => {
         restarting = false;
 
-        this.client.error(`Restarting Error: Exit Code ${code}, signal ${signal}`);
+        log.error(`Restarting Error: Exit Code ${code}, signal ${signal}`);
         if (msg.content != lang('restartingError')) msg.edit(lang('restartingError'));
       })
       .stdout.on('data', async data => {
