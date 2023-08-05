@@ -388,6 +388,41 @@
     "noAPIAvailable": "Apparently, there is currently no API available. Please try again later.",
     "embedTitle": "Is this funny?"
   },
+  "motherweight": {
+    "description": "\"Calculates\" the weight of of your mother.",
+    "options": {
+      "target": {
+        "description": "The weight of whose mother do you want to calculate?"
+      }
+    },
+    "responsesSelf": {
+      "0": "I am sorry, it seems like you don't have a mother",
+      "1": "Does your Mother get enough food?",
+      "2": "Your mother is so fat the group photo from elementary school is still Printing to this day",
+      "3": "McDonalds would go bankrupt without your mother ",
+      "4": "Your mother is so fat she invented the iPad by sitting on the iPhone",
+      "5": "Your mother is so fat shes driven to work ina wide-bucket excavator",
+      "6": "Your mother is so fat she fell of the familytree",
+      "7": "Your mother has the belt size equator",
+      "8": "Your mother is so fat that if you attempted to run her over, you'd need to refuel halfway through.",
+      "9": "Your mother is so fat when she fell into the Grand Canyon she got stuck",
+      "10": "WHO THE HELL IS SUPPOSED TO DIG HER GRAVE?!?!"
+    },
+    "responsesOthers": {
+      "0": "I am sorry, it seems like {user} doesn't have a mother",
+      "1": "Does {user}'s Mother get enough food?",
+      "2": "{user}'s mother is so fat the group photo from elementary school is still Printing to this day",
+      "3": "McDonalds would go bankrupt without {user}'s mother ",
+      "4": "{user}'s mother is so fat she invented the iPad by sitting on the iPhone",
+      "5": "{user}'s mother is so fat shes driven to work ina wide-bucket excavator",
+      "6": "{user}'s mother is so fat she fell of the familytree",
+      "7": "{user}'s mother has the belt size equator",
+      "8": "{user}'s mother is so fat that if you attempted to run her over, you'd need to refuel halfway through.",
+      "9": "{user}'s mother is so fat when she fell into the Grand Canyon she got stuck",
+      "10": "WHO THE HELL IS SUPPOSED TO DIG HER GRAVE?!?!"
+    },
+    "weight": "\nShe weighs {weight}kg."
+  },
   "pokedex": {
     "description": "Displays information about specified pokémon.",
     "usage": {

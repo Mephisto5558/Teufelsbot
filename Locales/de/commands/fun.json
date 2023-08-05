@@ -388,6 +388,41 @@
     "noAPIAvailable": "Leider ist zurzeit keine API verfügbar. Bitte versuche es später nochmal.",
     "embedTitle": "Ist das witzig?"
   },
+  "motherweight": {
+    "description": "\"Berechnet\" das Gewicht deiner Mutter.",
+    "options": {
+      "target": {
+        "description": "Das Gewicht wessen Mutter möchtest du berechnen?"
+      }
+    },
+    "responsesSelf": {
+      "0": "Es tut mir leid, ich glaube, du hast keine Mutter.",
+      "1": "Isst deine Mutter genug?",
+      "2": "Deine Mutter is so fett, das Gruppenfoto aus der ersten Klasse druckt immernoch.",
+      "3": "McDonalds würde ohne deine Mutter wohl pleite gehen.",
+      "4": "Deine Mutter is so fett, sie hat das iPad erfunden, als sie sich auf das iPhone gesetzt hat.",
+      "5": "Deine Mutter is so fett, sie wird in einer Baggerschaufel zur Arbeit gefahren.",
+      "6": "Deine Mutter ist so fett, sie fällt vom Stammbaum ab.",
+      "7": "Deine Mutter hat Gürtelgröße Äquator.",
+      "8": "Deine Mutter is so fett, wenn man sie übefahren will, muss man nach der Hälfte auftanken.",
+      "9": "Deine Mutter is so fett, als sie in den Grand Canyon gefallen is, is sie stecken geblieben.",
+      "10": "WER SOLL DENN BITTE IHR GRAB SCHAUFELN????!"
+    },
+    "responsesOther": {
+      "0": "Es tut mir leid, ich glaube, {user} hat keine Mutter.",
+      "1": "Isst {user}'s Mutter genug?",
+      "2": "{user}'s Mutter is so fett, das Gruppenfoto aus der ersten Klasse druckt immernoch.",
+      "3": "McDonalds würde ohne {user}'s Mutter wohl pleite gehen.",
+      "4": "{user}'s Mutter is so fett, sie hat das iPad erfunden, als sie sich auf das iPhone gesetzt hat.",
+      "5": "{user}'s Mutter is so fett, sie wird in einer Baggerschaufel zur Arbeit gefahren.",
+      "6": "{user}'s Mutter ist so fett, sie fällt vom Stammbaum ab.",
+      "7": "{user}'s Mutter hat Gürtelgröße Äquator.",
+      "8": "{user}'s Mutter is so fett, wenn man sie übefahren will, muss man nach der Hälfte auftanken.",
+      "9": "{user}'s Mutter is so fett, als sie in den Grand Canyon gefallen is, is sie stecken geblieben.",
+      "10": "WER SOLL DENN BITTE IHR GRAB SCHAUFELN????!"
+    },
+    "weight": "\nSie wiegt {weight}kg."
+  },
   "pokedex": {
     "description": "Zeigt Informationen über Pokémon an.",
     "usage": {
