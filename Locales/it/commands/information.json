@@ -135,7 +135,7 @@
       }
     },
     "average": {
-      "loading": "Pinging... (ci vuole circa un minuto)",
+      "loading": "Pinging... `{current}`/`{target}`",
       "embedDescription": "Pings: `{pings}`\nPing più basso: `{lowest}ms`\nPing più alto: `{heightest}ms`\nPing medio: `{average}ms`"
     },
     "api": "API",

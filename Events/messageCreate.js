@@ -9,11 +9,11 @@ const
 module.exports = async function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
   if (this.crosspostable && this.guild.db?.config?.autopublish) this.crosspost();
-  if (this.guild) {
+  if (this.botType != 'dev' && this.guild) {
     const mentions = [this.mentions.repliedUser?.id, ...this.mentions.users.keys(), ...this.mentions.roles.flatMap(r => r.members.keys())].filter(e => e && e != this.user.id);
     if (mentions.length) await this.client.db.update('guildSettings', `${this.guild.id}.lastMentions`, mentions.reduce((acc, e) => ({ ...acc, [e]: { content: this.content, url: this.url, author: this.author, channel: this.channel.id, createdAt: this.createdAt } }), this.guild.db.lastMentions || {}));
   }
-  
+
   if (this.user.bot) return;
   if (!this.commandName) return this.guild ? this.runMessages() : null;
 
@@ -36,17 +36,17 @@ module.exports = async function messageCreate() {
   if (disabledList.roles && this.member.roles?.cache.some(e => disabledList.roles.includes(e.id))) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.role'))] }, 1e4);
   if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.nsfwCommand'))] }, 1e4);
 
-  let i = 0;
-  for (const { autocomplete, strictAutocomplete, name } of command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options || e) || e?.options || e) || []) {
+  const options = command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options || e) || e?.options || e) || [];
+  for (let i = 0; i < options.length; i++) {
+    const { autocomplete, strictAutocomplete, name } = options[i];
     this.focused = { name, value: this.args?.[i] };
 
-    if (
-      autocomplete && strictAutocomplete && this.args?.[i] && !(await autocompleteGenerator.call(this, command, config.lang ?? this.guild?.localeCode))
-        .filter(e => (e.toLowerCase?.() || e.value.toLowerCase()) == this.args[i].toLowerCase()).length
-    ) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.strictAutocompleteNoMatch'))] }, 1e4);
-    i++;
+    if (autocomplete && strictAutocomplete && this.args?.[i] && !(await autocompleteGenerator.call(this, command, config.lang ?? this.guild?.localeCode))
+      .some(e => (e.toLowerCase?.() || e.value.toLowerCase()) === this.args[i].toLowerCase())) {
+      return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.strictAutocompleteNoMatch'))] }, 1e4);
+    }
   }
-
+  
   delete this.focused;
 
   if (this.client.botType != 'dev') {

@@ -1,3 +1,9 @@
+const
+  { spawn, exec } = require('child_process'),
+  asyncExec = require('util').promisify(exec);
+
+let restarting = false;
+
 module.exports = {
   name: 'restart',
   slashCommand: false,
@@ -6,10 +12,51 @@ module.exports = {
   beta: true,
 
   run: async function (lang) {
-    log(`Restarting bot, initiated by user '${this.user.username}'...`);
-    await this.client.db.update('botSettings', 'restartingMsg', { guild: this.guild.id, channel: this.channel.id, message: (await this.customReply(lang('message'))).id });
+    if (restarting) return this.reply(lang('alreadyRestarting', restarting));
 
-    await sleep(1000);
-    process.exit(0);
+    log(`Restarting bot, initiated by user '${this.user.username}'...`);
+
+    let msg;
+    if (!this.args.some(e => e.toLowerCase() == 'skipnpm')) {
+      msg = await this.reply(lang('updatingNPM'));
+      restarting = msg.url;
+
+      try { await asyncExec('npm install'); }
+      catch {
+        restarting = false;
+        return msg.edit(lang('updateNPMError'));
+      }
+    }
+
+    msg = await (msg?.edit(lang('restarting')) ?? this.reply(lang('restarting')));
+    restarting ??= msg.url;
+
+    let child;
+    try { child = spawn(process.argv[0], [...(process.argv.slice(1) || '.'), 'isChild=true'], { detached: true }); }
+    catch (err) {
+      restarting = false;
+
+      log.error('Restarting Error: ', err);
+      return msg.content != lang('restartingError') ? msg.edit(lang('restartingError')) : undefined;
+    }
+
+    child
+      .on('error', () => {
+        restarting = false;
+        if (msg.content != lang('restartingError')) msg.edit(lang('restartingError'));
+      })
+      .on('exit', (code, signal) => {
+        restarting = false;
+
+        log.error(`Restarting Error: Exit Code ${code}, signal ${signal}`);
+        if (msg.content != lang('restartingError')) msg.edit(lang('restartingError'));
+      })
+      .stdout.on('data', async data => {
+        if (!data.toString().includes('Ready to serve')) return;
+
+        await msg.edit(lang('success'));
+        child.unref();
+        process.exit(0);
+      });
   }
 };

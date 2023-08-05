@@ -34,9 +34,11 @@ module.exports = {
       const settings = guild.db.birthday;
       if (!settings?.enable) continue;
 
-      const userList = Object.entries(oldData)
-        .map(([k, { birthday } = {}]) => [k, birthday?.slice(5)])
-        .filter(([, v]) => v == now);
+      const userList = Object.entries(oldData).reduce((acc, [k, { birthday } = {}]) => {
+        const time = birthday?.slice(5);
+        if (time == now) acc.push([k, time]);
+        return acc;
+      }, []);
 
       for (const entry of userList) {
         let channel, user;

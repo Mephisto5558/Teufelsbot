@@ -65,7 +65,7 @@ module.exports = {
         const data = {
           id: parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) + 1 || 1,
           trigger: this.options.getString('trigger'),
-          response: this.options.getString('response'),
+          response: this.options.getString('response').replaceAll('/n', '\n'),
           wildcard: this.options.getBoolean('wildcard') ?? false
         };
 
@@ -95,11 +95,7 @@ module.exports = {
       case 'get': {
         if (!oldData.length) return this.editReply(lang('noneFound'));
 
-        const
-          embed = new EmbedBuilder({
-            title: lang('embedTitle'),
-            color: Colors.Blue
-          });
+        const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Blue });
 
         if (query || query == 0) {
           const { id, trigger, response, wildcard } = Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) || {};

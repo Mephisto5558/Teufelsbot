@@ -9,12 +9,16 @@
     "options": {
       "message": {
         "description": "¿Qué quieres decirle a ChatGPT?"
+      },
+      "model": {
+        "description": "¿Qué modelo quieres usar?"
       }
     },
     "hello": "¡Hola!",
     "rateLimit": "Se ha alcanzado el número de ratelimit. Por favor, inténtalo de nuevo en unos segundos.",
     "notAvailable": "La API no está disponible actualmente. Por favor, vuelve más tarde.",
-    "error": "La API respondió con un error."
+    "error": "La API respondió con un error.",
+    "regenerate": "Regenerar respuesta"
   },
   "customname": {
     "description": "Establezca un apodo personalizado y lo llamaré.",

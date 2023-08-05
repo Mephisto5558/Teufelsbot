@@ -6,6 +6,7 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
+  beta: true,
   options: [{ name: 'average', type: 'Boolean' }],
 
   run: async function (lang) {
@@ -13,37 +14,46 @@ module.exports = {
       average = this.args?.[0] == 'average' || this.options?.getBoolean('average'),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: lang(average ? 'average.loading' : 'global.loading'),
+        description: lang(average ? 'average.loading' : 'global.loading', { current: 1, target: 20 }),
         color: Colors.Green
       }),
-      startMessagePing = Date.now(),
+      startMessagePing = performance.now(),
       msg = await this.customReply({ embeds: [embed] }),
-      endMessagePing = Date.now() - startMessagePing;
+      endMessagePing = performance.now() - startMessagePing;
 
     if (average) {
-      const pings = [], numPings = 60;
+      const wsPings = [], msgPings = [endMessagePing];
 
-      for (let i = 0; i < numPings; i++) {
-        pings.push(this.client.ws.ping);
-        await sleep(1000);
+      for (let i = 2; i <= 20; i++) {
+        wsPings.push(this.client.ws.ping);
+
+        const startMessagePing = performance.now();
+        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: i, target: 20 }))] });
+        msgPings.push(performance.now() - startMessagePing);
+
+        await sleep(3000);
       }
 
-      pings.sort((a, b) => a - b);
+      wsPings.push(this.client.ws.ping);
+      wsPings.sort((a, b) => a - b);
+      msgPings.sort((a, b) => a - b);
 
-      const averagePing = Math.round(pings.reduce((a, b) => a + b) / numPings * 100) / 100;
+      const averageWsPing = Math.round(wsPings.reduce((a, b) => a + b) / 20 * 100) / 100;
+      const averageMsgPing = Math.round(msgPings.reduce((a, b) => a + b) / 20 * 100) / 100;
 
       embed.data.description = lang('average.embedDescription', {
-        pings: pings.length, average: averagePing,
-        lowest: pings[0], heightest: pings[pings.length - 1]
+        pings: wsPings.length, wsLowest: wsPings[0], wsHeightest: wsPings[wsPings.length - 1], wsAverage: averageWsPing,
+        msgLowest: msgPings[0].toFixed(2), msgHeightest: msgPings[msgPings.length - 1].toFixed(2), msgAverage: averageMsgPing
       });
     }
     else {
       embed.data.fields = [
         { name: lang('api'), value: `\`${Math.round(this.client.ws.ping)}\`ms`, inline: true },
         { name: lang('bot'), value: `\`${Math.abs(Date.now() - this.createdTimestamp)}\`ms`, inline: true },
-        { name: lang('messageSend'), value: `\`${endMessagePing}\`ms`, inline: true }
+        { name: lang('messageSend'), value: `\`${Math.round(endMessagePing)}\`ms`, inline: true }
       ];
-      embed.data.description = ' ';
+
+      delete embed.data.description;
     }
 
     return msg.edit({ embeds: [embed] });

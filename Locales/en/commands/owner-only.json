@@ -44,7 +44,7 @@
     "invalidPath": "The specified path does not exist! Please note the case sensitivity of the path.",
     "error": "An error occurred while reloading:\n```{error}```\nCheck the console for more information.",
     "noneReloaded": "No commands have been reloaded.",
-    "reloaded": "The following `{count}` command(s) has/have been reloaded:\n`{commands}"
+    "reloaded": "The following `{count}` command(s) has/have been reloaded:\n{commands}"
   },
   "reloaddb": {
     "description": "Reloads the database",
@@ -56,8 +56,12 @@
   },
   "restart": {
     "description": "Restarts the bot",
-    "message": "Restarting bot...",
-    "success": "Successfully restated."
+    "alreadyRestarting": "The bot is already performing a restart, please wait for it to finish. Message: {url}",
+    "updatingNPM": "<a:loading:1063091916683612160> Restarting bot...\nInstalling packages...",
+    "updateNPMError": "❌ Restart failed due to an NPM error. Check the console for more information.",
+    "restarting": "<a:loading:1063091916683612160> Restarting bot...\nStarting node process...",
+    "restartingError": "❌ Restart failed due to the an Node error. Check the console for more information.",
+    "success": "✅ Successfully restarted."
   },
   "setactivity": {
     "description": "Sets the bot's activity",

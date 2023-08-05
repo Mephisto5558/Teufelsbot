@@ -19,7 +19,6 @@ module.exports = {
       msg = await this.customReply(lang('global.loading'));
 
     let res = cache.get(pokemon.toLowerCase());
-
     if (!res) {
       try { res = (await fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(e => e.json()))?.[0]; }
       catch (err) {
@@ -35,7 +34,7 @@ module.exports = {
       }
     }
 
-    if (!res || res.error == 404) return this.customReply(lang('notFound')); //`Couldn't find a pokémon with name ${pokemon}`
+    if (!res || res.error == 404) return this.customReply(lang('notFound'));
     if (res.error) {
       log.error('pokedex.js: The api returned an error!', res);
       return msg.edit(lang('error'));

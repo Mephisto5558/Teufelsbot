@@ -12,7 +12,10 @@ console.timeEnd('Initializing time');
 console.time('Starting time');
 
 (async function main() {
-  await gitpull();
+  if ((await gitpull()).message?.includes('Could not resolve host')) {
+    log.error('It seems like the bot does not have internet access.');
+    process.exit(1);
+  }
 
   const client = new Client({
     shards: 'auto',
@@ -42,13 +45,13 @@ console.time('Starting time');
   let env;
   try { env = require('./env.json'); }
   catch {
-    client.db = await new DB(process.env.dbConnectionStr).fetchAll();
+    client.db = await new DB(process.env.dbConnectionStr, 100).fetchAll();
     env = client.settings.env;
   }
 
   env = env.global.fMerge(env[env.global.environment]);
 
-  client.db ??= await new DB(env.dbConnectionStr).fetchAll();
+  client.db ??= await new DB(env.dbConnectionStr, 100).fetchAll();
 
   client.botType = env.environment;
   client.keys = env.keys;
@@ -60,7 +63,7 @@ console.time('Starting time');
 
   await client.login(client.keys.token);
   log(`Logged into ${client.botType}`);
-  
+
   client.db.update('botSettings', `startCount.${client.botType}`, client.settings.startCount[client.botType] + 1 || 1);
 
   process

@@ -114,13 +114,9 @@ module.exports = {
       });
 
       try { await entersState(connection, VoiceConnectionStatus.Ready, 2e4); }
-      catch {
-        embed.data.description = lang('cantConnect');
-        return msg.edit({ embeds: [embed] });
-      }
+      catch { return msg.edit({ embeds: [embed.setDescription(lang('cantConnect'))] }); }
 
-      embed.data.description = lang('recording', { channel: voiceChannel, users: `<@${[...allowed].join('>, <@')}>` });
-      msg.edit({ embeds: [embed], components: [buttons] });
+      msg.edit({ embeds: [embed.setDescription(lang('recording', { channel: voiceChannel, users: `<@${[...allowed].join('>, <@')}>` }))], components: [buttons] });
 
       const filename = `${Date.now()}_${voiceChannel.id}_${[...allowed].join('_')}`;
 
@@ -161,7 +157,7 @@ module.exports = {
 
           case 'stop': {
             connection.destroy();
-            
+
             try { await access(`./VoiceRecords/raw/${filename}.ogg`); }
             catch {
               pauseStopCollector.stop();

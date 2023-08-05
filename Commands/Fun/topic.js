@@ -3,7 +3,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('
 
 module.exports = {
   name: 'topic',
-  cooldowns: { user: 500 },
+  cooldowns: { user: 10000 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

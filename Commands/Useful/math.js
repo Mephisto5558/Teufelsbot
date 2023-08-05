@@ -12,22 +12,11 @@ const
     .replaceAll('÷', '/')
     .replaceAll('π', '(pi)')
     .replace(/[\u00B2-\u00B3\u2074-\u2079]/g, e => superscripts[e])
-    .replace(/(?:√)(\(|\d+)/g, (_, e) => e === '(' ? 'sqrt(' : `sqrt(${e})`);
-
-// eslint-disable-next-line no-unused-vars
-function test() { //test code
-  const expressions = [''];
-
-  for (const expression of expressions) {
-    const modifiedExpression = parseSpecialChars(expression);
-
-    try {
-      const result = evaluate(modifiedExpression);
-      console.log([expression, modifiedExpression, result]);
-    }
-    catch (err) { console.log([expression, modifiedExpression, err.message]); }
-  }
-}
+    .replace(/(?:√)(\(|\d+)/g, (_, e) => e === '(' ? 'sqrt(' : `sqrt(${e})`),
+  addSpaces = str => {
+    const [num, ext] = String(str).split('.');
+    return [...num].reduceRight((acc, e, i) => ((num.length - i) % 3 == 0 ? ` ${e}` : e) + acc, '') + (ext ? `.${ext}` : '');
+  };
 
 module.exports = {
   name: 'math',
@@ -44,13 +33,9 @@ module.exports = {
     const expression = this.content || this.options?.getString('expression');
     if (!expression) return this.customReply(lang('noInput'));
 
-    const embed = new EmbedBuilder({
-      title: lang('embedTitle'),
-      color: Colors.White
-    });
+    const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.White });
 
     let result;
-
     try { result = evaluate(parseSpecialChars(expression)); }
     catch (err) {
       embed.data.description = lang('error', err.message);
@@ -58,6 +43,7 @@ module.exports = {
       return this.customReply({ embeds: [embed] });
     }
 
+    result = isResultSet(result) ? result.map(e => addSpaces(e)) : addSpaces(result);
     if (isResultSet(result)) result = result.entries.length > 1 ? lang('separated', result.entries.join(' | ')) : result.entries[0];
 
     return this.customReply({ embeds: [embed.setDescription(lang('success', { expression, result }))] });

@@ -18,13 +18,12 @@
 
 [![Discord Server](https://discordapp.com/api/guilds/725378451988676609/widget.png?style=shield)](https://discord.gg/u6xjqzz)
 
-A discord.js v14 bot with multiple features, in active developement.<br>
-I am verry open for pull requests, feature requests and everything else that helps me improve.<br>
+A discord.js v14 bot with multiple features, in active development.<br>
+I am very open for pull requests, feature requests and everything else that helps me improve.<br>
 If you have any questions feel free to open an issue.<br>
 
-[ToDo List](https://teufelsbot.repl.co/dev/todo)<br>
+[ToDo List](https://teufelsbot.repl.co/dev/todo) | [Bot Invite Link](https://teufelsbot.repl.co/invite)<br>
 Hosted on [Fluid Nodes](https://fluidnodes.com)
-
 ## Requirements
 
 ```
@@ -35,11 +34,11 @@ MongoDB set up
 
 ## How to set it up
 
-First, you clone the repostry, by using `git clone https://github.com/Mephisto5558/Teufelsbot`.<br>
+First, you clone the repository, by using `git clone https://github.com/Mephisto5558/Teufelsbot`.<br>
 Then, you need to install the required npm packages by running `npm install` .<br>
 Next, you need to create a `env.json` file. If you are hosting you bot code public, so everyone can see it, make sure they can't see this file or use a db in MongoDB. If you do this, you only need to set the MongoDB connection string as `dbConnectionStr` to process.env.<br>
-The env file/collection needs to have all keys from the `_env.json` from the Templates folder in order to work.<br>
-You do not need to set the dev stuff, this is for developement.<br>
+The env file/collection needs to have all keys from the `env.json` from the Templates folder in order to work.<br>
+You do not need to set the dev stuff, this is for development.<br>
 Then, you need to create a `config.json` file. The template is in the Templates folder.<br><br>
 Then you have to [set up MongoDB](#how-to-set-up-mongodb).<br>
 To run the Bot, you can run the `main.sh` or directly the `index.js` .<br><br>
@@ -49,11 +48,11 @@ You should be ready to go!
 
 ## How to set up MongoDB
 
-Before you run the bot for the first time, run the following code (replace the path in require() if needed).
-This will generate all required objects from the `Templates\db_collctions.json` file.
+Before you run the bot for the first time, run the following code in your shell (replace the path in require() if needed).
+This will generate all required objects from the `Templates\db_collections.json` file.
 ```js
 const DB = require('.\\Utils\\db.js');
-const db = new DB('YOUR_MONDODB_CONNECTION_STRING');
+const db = new DB('YOUR_MONGODB_CONNECTION_STRING');
 await db.generate();
 ```
 
@@ -61,4 +60,4 @@ await db.generate();
 
 ## How to add more languages and change texts
 
-You can add changes on [Crowdin](https://de.crowdin.com/project/teufelsbot).
+You can add changes on [Crowdin](https://de.crowdin.com/project/teufelsbot) or edit the language files in the `Locales` folder manually.

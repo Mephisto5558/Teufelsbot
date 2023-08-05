@@ -19,10 +19,10 @@ module.exports = {
       reason = this.options.getString('reason') || lang('noReason');
 
     if (!target) return this.editReply(lang('notFound'));
-    else if (!target.isCommunicationDisabled()) return this.editReply(lang('notMuted'));
-    else if (target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
+    if (!target.isCommunicationDisabled()) return this.editReply(lang('notMuted'));
+    if (target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
       return this.editReply(lang('global.noPermUser'));
-    else if (!target.moderatable) return this.editReply(lang('global.noPermBot'));
+    if (!target.moderatable) return this.editReply(lang('global.noPermBot'));
 
     await target.disableCommunicationUntil(null, `${reason} | ${lang('global.modReason', { command: this.commandName, user: this.user.username })}`);
     return this.editReply(lang('success', target.user.id));

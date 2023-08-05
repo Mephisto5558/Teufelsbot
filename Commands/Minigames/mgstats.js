@@ -107,10 +107,9 @@ module.exports = {
     const component = new ActionRowBuilder({
       components: [new StringSelectMenuBuilder({
         customId: `mgstats.${game}.sort.${settings}`,
-        options: sortOptions.map(e => ({
-          label: lang(`options.leaderboard.options.sort.choices.${e}`),
-          value: e,
-          default: e == (sort ? `${sort}_${mode}` : 'm_wins')
+        options: sortOptions.map(value => ({
+          label: lang(`options.leaderboard.options.sort.choices.${value}`), value,
+          default: value == (sort ? `${sort}_${mode}` : 'm_wins')
         }))
       })]
     });

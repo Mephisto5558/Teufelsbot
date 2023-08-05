@@ -14,11 +14,11 @@ async function fetchAPI(lang, deep) {
       model: this.options?.getString('model') ?? 'gpt-3.5-turbo',
       messages: [{ role: 'user', content: this.options?.getString('message') || this.content || lang('hello') }]
     })
-  }).then(e => e.text().then(e => JSON.parse(e)));
+  }).then(e => e.json());
 
   if (res.choices?.[0].message.content) return res.choices[0].message.content;
   if (['Rate limit reached', 'Too many requests'].some(e => res.error.message.startsWith(e))) return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);
-  if (res.error.type == 'insufficient_quota' || res.error.message.startsWith('That model is currently overloaded')) return lang('notAvailable');
+  if (res.error.type == 'insufficient_quota' || res.error.message.startsWith('That model is currently overloaded') || res.error.type == 'api_not_ready_or_request_error') return lang('notAvailable');
 
   log.error('chatgpt command API error:', JSON.stringify(res, null, 2));
   return lang('error');
