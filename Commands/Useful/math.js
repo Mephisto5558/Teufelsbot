@@ -13,8 +13,8 @@ const
     .replaceAll('π', '(pi)')
     .replace(/[\u00B2-\u00B3\u2074-\u2079]/g, e => superscripts[e])
     .replace(/(?:√)(\(|\d+)/g, (_, e) => e === '(' ? 'sqrt(' : `sqrt(${e})`),
-  addSpaces = str => {
-    const [num, ext] = String(str).split('.');
+  addSpaces = fullNum => {
+    const [num, ext] = String(fullNum).split('.');
     return [...num].reduceRight((acc, e, i) => ((num.length - i) % 3 == 0 ? ` ${e}` : e) + acc, '') + (ext ? `.${ext}` : '');
   };
 
