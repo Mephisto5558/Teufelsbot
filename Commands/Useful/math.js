@@ -12,7 +12,11 @@ const
     .replaceAll('÷', '/')
     .replaceAll('π', '(pi)')
     .replace(/[\u00B2-\u00B3\u2074-\u2079]/g, e => superscripts[e])
-    .replace(/(?:√)(\(|\d+)/g, (_, e) => e === '(' ? 'sqrt(' : `sqrt(${e})`);
+    .replace(/(?:√)(\(|\d+)/g, (_, e) => e === '(' ? 'sqrt(' : `sqrt(${e})`),
+  addSpaces = str => {
+    const [num, ext] = String(str).split('.');
+    return [...num].reduceRight((acc, e, i) => ((num.length - i) % 3 == 0 ? ` ${e}` : e) + acc, '') + (ext ? `.${ext}` : '');
+  };
 
 module.exports = {
   name: 'math',
@@ -39,6 +43,7 @@ module.exports = {
       return this.customReply({ embeds: [embed] });
     }
 
+    result = isResultSet(result) ? result.map(e => addSpaces(e)) : addSpaces(result);
     if (isResultSet(result)) result = result.entries.length > 1 ? lang('separated', result.entries.join(' | ')) : result.entries[0];
 
     return this.customReply({ embeds: [embed.setDescription(lang('success', { expression, result }))] });
