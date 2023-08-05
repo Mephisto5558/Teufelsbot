@@ -2,7 +2,7 @@ const { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, Butt
 
 /**@this {import('discord.js').Message}, @param {import('discord.js').GuildMember}member*/
 module.exports = function logSayCommandUse(member, lang) {
-  const setting = this.guild?.db.config.logger?.sayCommandUsed ?? {};
+  const setting = this.guild?.db.config?.logger?.sayCommandUsed ?? {};
   if (this.client.botType == 'dev' || !setting.enabled || !setting.channel) return;
 
   const channel = this.guild.channels.cache.get(setting.channel);
