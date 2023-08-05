@@ -8,16 +8,18 @@ const
 async function reloadCommand(command, reloadedArray) {
   delete require.cache[command.filePath];
 
-  const
-    file = require(command.filePath),
-    slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`) : null;
+  let file;
+  try { file = require(command.filePath); }
+  catch { file = {}; }
+
+  const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`) : null;
 
   file.filePath = command.filePath;
   file.category = command.category;
 
+  this.prefixCommands.delete(command.name);
   if (file.prefixCommand) {
     file.id = command.id;
-    this.prefixCommands.delete(command.name);
     this.prefixCommands.set(file.name, file);
     reloadedArray.push(file.name);
 
