@@ -1,5 +1,6 @@
 module.exports = {
   name: 'motherweight',
+  aliases: { prefix: ['mutterwaage'] },
   slashCommand: true,
   prefixCommand: true,
   options: [{ name: 'target', type: 'User' }],
