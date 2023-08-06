@@ -388,6 +388,41 @@
     "noAPIAvailable": "Aparentemente, actualmente no hay ninguna API disponible. Inténtalo de nuevo más tarde.",
     "embedTitle": "¿Es esto divertido?"
   },
+  "motherweight": {
+    "description": "\"Calcula\" el peso de su madre.",
+    "options": {
+      "target": {
+        "description": "¿El peso de cuya madre desea calcular?"
+      }
+    },
+    "responsesSelf": {
+      "0": "Lo siento, parece que no tienes una madre",
+      "1": "¿Su madre recibe suficiente comida?",
+      "2": "Tu madre es tan gorda la foto del grupo desde la escuela elemental aún está imprimiendo hasta el día de hoy",
+      "3": "McDonalds se interrumpiría sin tu madre ",
+      "4": "Tu madre es tan gorda que inventó el iPad sentada en el iPhone",
+      "5": "Tu madre es tan gordas que te empujan a trabajar en un Extravador de cubo ancho",
+      "6": "Tu madre es tan gorda que cayó del árbol familiar",
+      "7": "Tu madre tiene el ecuador de tamaño de la cinta",
+      "8": "Tu madre es tan gorda que si intentas correrla, necesitarás refugiarte a mitad de camino.",
+      "9": "Tu madre es tan gorda cuando cayó en el Gran Cañón que se quedó atascada",
+      "10": "¿QUIÉN LA SALUD ES REALIZADA PARA HACERLA GRAVA?!?!"
+    },
+    "responsesOthers": {
+      "0": "Lo siento, parece que {user} no tiene una madre",
+      "1": "¿La madre de {user}recibe suficientes alimentos?",
+      "2": "La madre de {user}es tan gorda que la foto en grupo de la escuela elemental sigue imprimiendo hasta el día de hoy.",
+      "3": "McDonalds se interrumpiría sin la madre de {user}.",
+      "4": "La madre de {user}es tan gorda que inventó el iPad sentándose en el iPhone.",
+      "5": "La madre de {user}es tan gorda que trabaja en un excavador de cubo ancho ancho.",
+      "6": "La madre de {user}es tan gorda que cayó de la familia.",
+      "7": "La madre de {user}tiene el ecuador de tamaño del cinturón.",
+      "8": "La madre de {user}es tan gorda que si intentaste correrla, necesitarás refugiarte a mitad de camino.",
+      "9": "La madre de {user}es tan gorda cuando cayó en el Gran Cañón que se atascó.",
+      "10": "¿QUIÉN LA SALUD ES REALIZADA PARA HACERLA GRAVA?!?!"
+    },
+    "weight": "\nElla pesa {weight}kg."
+  },
   "pokedex": {
     "description": "Muestra información sobre el pokémon especificado.",
     "usage": {
