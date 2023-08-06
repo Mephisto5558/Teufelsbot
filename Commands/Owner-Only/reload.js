@@ -98,11 +98,21 @@ module.exports = {
       switch (this.args[0].toLowerCase()) {
         case 'file': {
           const filePath = resolve(process.cwd(), this.args[1]);
-          try { await access(filePath); }
+
+          try {
+            await access(filePath);
+
+            if (this.args[1]?.startsWith('Commands/')) {
+              const cmd = require(filePath);
+              cmd.filePath = filePath;
+              cmd.category = this.args[1].split('/')[1];
+
+              await reloadCommand.call(this.client, cmd, reloadedArray);
+            }
+          }
           catch { return msg.edit(lang('invalidPath')); }
 
           delete require.cache[filePath];
-          reloadedArray.push(basename(filePath));
           break;
         }
         case '*': for (const [, command] of commandList) await reloadCommand.call(this.client, command, reloadedArray); break;
