@@ -8,16 +8,18 @@ const
 async function reloadCommand(command, reloadedArray) {
   delete require.cache[command.filePath];
 
-  const
-    file = require(command.filePath),
-    slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`) : null;
+  let file;
+  try { file = require(command.filePath); }
+  catch { file = {}; }
+
+  const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`) : null;
 
   file.filePath = command.filePath;
   file.category = command.category;
 
+  this.prefixCommands.delete(command.name);
   if (file.prefixCommand) {
     file.id = command.id;
-    this.prefixCommands.delete(command.name);
     this.prefixCommands.set(file.name, file);
     reloadedArray.push(file.name);
 
@@ -96,11 +98,21 @@ module.exports = {
       switch (this.args[0].toLowerCase()) {
         case 'file': {
           const filePath = resolve(process.cwd(), this.args[1]);
-          try { await access(filePath); }
+
+          try {
+            await access(filePath);
+
+            if (this.args[1]?.startsWith('Commands/')) {
+              const cmd = require(filePath);
+              cmd.filePath = filePath;
+              cmd.category = this.args[1].split('/')[1];
+
+              await reloadCommand.call(this.client, cmd, reloadedArray);
+            }
+          }
           catch { return msg.edit(lang('invalidPath')); }
 
           delete require.cache[filePath];
-          reloadedArray.push(basename(filePath));
           break;
         }
         case '*': for (const [, command] of commandList) await reloadCommand.call(this.client, command, reloadedArray); break;

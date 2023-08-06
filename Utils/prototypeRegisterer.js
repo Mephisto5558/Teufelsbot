@@ -6,7 +6,7 @@ const
   { appendFile, readdir, access, mkdir } = require('fs/promises'),
   { customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
   findAllEntries = require('./findAllEntries.js'),
-  date = new Date().toLocaleDateString('en').replaceAll('/', '-');
+  date = new Date().toLocaleDateString('en', { day: '2-digit', month: '2-digit', year: 'numeric' }).replaceAll('/', '-');
 
 access('./Logs').catch(() => mkdir('./Logs'));
 if (!require('../config.json')?.HideOverwriteWarning) console.warn(`Overwriting the following variables and functions (if they exist):
