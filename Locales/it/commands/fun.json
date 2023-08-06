@@ -388,6 +388,41 @@
     "noAPIAvailable": "Apparentemente, non ci sono attualmente API disponibili. Si prega di riprovare più tardi.",
     "embedTitle": "Questo è divertente?"
   },
+  "motherweight": {
+    "description": "\"Calcola\" il peso di tua madre.",
+    "options": {
+      "target": {
+        "description": "Il peso di cui la madre vuole calcolare?"
+      }
+    },
+    "responsesSelf": {
+      "0": "Mi dispiace, sembra che tu non abbia una madre",
+      "1": "Vostra Madre prende abbastanza cibo?",
+      "2": "Tua madre è così grassa la foto di gruppo dalla scuola elementare è ancora Stampare fino a questo giorno",
+      "3": "McDonalds sarebbe fallito senza tua madre ",
+      "4": "Tua madre è così grassa che ha inventato l'iPad seduto sull'iPhone",
+      "5": "Tua madre è così grasso shes spinto a lavorare l'escavatore a secchio largo",
+      "6": "Tua madre è così grassa che è caduta della famiglia",
+      "7": "Tua madre ha l'equatore di dimensioni della cintura",
+      "8": "Tua madre è così grassa che se hai tentato di farla finire, dovresti rifornirti a metà strada.",
+      "9": "Tua madre è così grassa quando è caduta nel Grand Canyon si è bloccata",
+      "10": "CHI L'HELL È SUPPOSTO DI DIG HER GRAVE?!?!"
+    },
+    "responsesOthers": {
+      "0": "Mi dispiace, sembra che {user} non abbia una madre",
+      "1": "La Madre di {user}ottiene abbastanza cibo?",
+      "2": "La madre di {user}è così grassa la foto di gruppo dalla scuola elementare è ancora Stampare fino a questo giorno.",
+      "3": "McDonalds sarebbe fallito senza la madre di {user}.",
+      "4": "La madre di {user}è così grassa che ha inventato l'iPad seduto sull'iPhone.",
+      "5": "La madre di {user}è così grassa shes spinto a lavorare a secchio largo escavatore.",
+      "6": "La madre di {user}è così grassa che è caduta dell'albero genealogico.",
+      "7": "La madre di {user}ha l'equatore di dimensioni della cintura.",
+      "8": "La madre di {user}è così grassa che se si tenta di farla finire, dovresti rifornirla a metà strada.",
+      "9": "La madre di {user}è così grassa quando è caduta nel Grand Canyon si è bloccata.",
+      "10": "CHI L'HELL È SUPPOSTO DI DIG HER GRAVE?!?!"
+    },
+    "weight": "\npesa {weight}kg."
+  },
   "pokedex": {
     "description": "Visualizza le informazioni su un poke specificato mon.",
     "usage": {

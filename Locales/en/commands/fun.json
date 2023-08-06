@@ -411,14 +411,14 @@
     "responsesOthers": {
       "0": "I am sorry, it seems like {user} doesn't have a mother",
       "1": "Does {user}'s Mother get enough food?",
-      "2": "{user}'s mother is so fat the group photo from elementary school is still Printing to this day",
-      "3": "McDonalds would go bankrupt without {user}'s mother ",
-      "4": "{user}'s mother is so fat she invented the iPad by sitting on the iPhone",
-      "5": "{user}'s mother is so fat shes driven to work ina wide-bucket excavator",
-      "6": "{user}'s mother is so fat she fell of the familytree",
-      "7": "{user}'s mother has the belt size equator",
+      "2": "{user}'s mother is so fat the group photo from elementary school is still printing to this day.",
+      "3": "McDonalds would go bankrupt without {user}'s mother.",
+      "4": "{user}'s mother is so fat she invented the iPad by sitting on the iPhone.",
+      "5": "{user}'s mother is so fat shes driven to work ina wide-bucket excavator.",
+      "6": "{user}'s mother is so fat she fell of the familytree.",
+      "7": "{user}'s mother has the belt size equator.",
       "8": "{user}'s mother is so fat that if you attempted to run her over, you'd need to refuel halfway through.",
-      "9": "{user}'s mother is so fat when she fell into the Grand Canyon she got stuck",
+      "9": "{user}'s mother is so fat when she fell into the Grand Canyon she got stuck.",
       "10": "WHO THE HELL IS SUPPOSED TO DIG HER GRAVE?!?!"
     },
     "weight": "\nShe weighs {weight}kg."
