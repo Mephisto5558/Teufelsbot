@@ -100,7 +100,7 @@ module.exports = {
     if (!messages?.length) return this.customReply(lang('noneFound'));
 
     for (let i = 0; i < messages.length; i += 100) {
-      count += (await channel.bulkDelete(messages.slice(i, i + 100)))?.size ?? 0;
+      count += (await channel.bulkDelete(messages.slice(i, i + 99)))?.size ?? 0;
       if (messages[i + 1]) await sleep(2000);
     }
 
