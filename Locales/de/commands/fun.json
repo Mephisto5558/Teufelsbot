@@ -408,16 +408,16 @@
       "9": "Deine Mutter is so fett, als sie in den Grand Canyon gefallen is, is sie stecken geblieben.",
       "10": "WER SOLL DENN BITTE IHR GRAB SCHAUFELN????!"
     },
-    "responsesOther": {
-      "0": "Es tut mir leid, ich glaube, {user} hat keine Mutter.",
+    "responsesOthers": {
+      "0": "Es tut mir leid, es scheint, als hätte {user} keine Mutter",
       "1": "Isst {user}'s Mutter genug?",
-      "2": "{user}'s Mutter is so fett, das Gruppenfoto aus der ersten Klasse druckt immernoch.",
-      "3": "McDonalds würde ohne {user}'s Mutter wohl pleite gehen.",
+      "2": "{user}'s Mutter is so fett, das Gruppenfoto aus der ersten Klasse druckt immer noch.",
+      "3": "McDonalds würde ohne {user}'s Mutter wohl pleitegehen.",
       "4": "{user}'s Mutter is so fett, sie hat das iPad erfunden, als sie sich auf das iPhone gesetzt hat.",
       "5": "{user}'s Mutter is so fett, sie wird in einer Baggerschaufel zur Arbeit gefahren.",
-      "6": "{user}'s Mutter ist so fett, sie fällt vom Stammbaum ab.",
+      "6": "{user}'s Mutter is so fett, sie fällt vom Stammbaum ab.",
       "7": "{user}'s Mutter hat Gürtelgröße Äquator.",
-      "8": "{user}'s Mutter is so fett, wenn man sie übefahren will, muss man nach der Hälfte auftanken.",
+      "8": "{user}'s Mutter is so fett, wenn man sie überfahren will, muss man nach der Hälfte auftanken.",
       "9": "{user}'s Mutter is so fett, als sie in den Grand Canyon gefallen is, is sie stecken geblieben.",
       "10": "WER SOLL DENN BITTE IHR GRAB SCHAUFELN????!"
     },
