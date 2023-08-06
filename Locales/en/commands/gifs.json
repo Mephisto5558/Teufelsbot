@@ -1,0 +1,8 @@
+{
+  "categoryDescription": "Commands that send GIFs",
+  "backflip": {
+    "description": "Do a backflip!",
+    "embedTitle": "Backflip",
+    "embedDescription": "{user} does a backflip!"
+  }
+}
