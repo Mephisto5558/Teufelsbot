@@ -1,0 +1,8 @@
+{
+  "categoryDescription": "Команды, отправляющие GIF",
+  "backflip": {
+    "description": "Сделайте задний плав!",
+    "embedTitle": "Задний фон",
+    "embedDescription": "{user} делает фоп!"
+  }
+}
