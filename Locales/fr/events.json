@@ -14,7 +14,7 @@
   },
   "errorHandler": {
     "embedTitle": "Oups",
-    "embedDescription": "Une erreur inattendue s'est produite !\n\nType d'erreur: `{name}`\nCommande : `{command}`",
+    "embedDescription": "Une erreur inattendue s'est produite !\n\nCommande : `{command}`",
     "reportButton": "Signaler cette erreur",
     "reportButtonDisabled": " (Désactivé en raison de la version du développement)",
     "discordAPIErr": "Une erreur d'API Discord s'est produite, veuillez réessayer et envoyer un message au développeur si cela se produit.",

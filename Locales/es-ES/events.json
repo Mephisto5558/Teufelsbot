@@ -17,7 +17,7 @@
   },
   "errorHandler": {
     "embedTitle": "Ojos",
-    "embedDescription": "¡Se ha producido un error inesperado!\n\nTipo de error: `{name}`\nComando: `{command}`",
+    "embedDescription": "¡Se ha producido un error inesperado!\n\nComando: `{command}`",
     "embedFooterText": "Informar de este error enviará las opciones de comando en privado al desarrollador.",
     "reportButton": "Reportar este error",
     "reportButtonDisabled": " (Deshabilitado debido a la versión dev)",
