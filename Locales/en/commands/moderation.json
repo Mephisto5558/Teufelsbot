@@ -172,9 +172,10 @@
         "description": "Input a message id. Only messages sent after that message get purged."
       }
     },
-    "noNumber": "Please specify the number of messages to purge next time.",
     "invalidNumber": "This is not a valid number!",
-    "paramExcludesOther": "One of you parameters makes another parameter impossible! (eg. `starts_with` = \"a\" and `not_starts_with` = \"a\")",
+    "noNumber": "Please specify the number of messages to purge next time.",
+    "beforeAndAfter": "The `before` option cannot be used together with the `after` option!",
+    "paramsExcludeOther": "One of you parameters makes another parameter impossible! (eg. `starts_with` = \"a\" and `not_starts_with` = \"a\")",
     "noneFound": "No deleteable messages matching your parameters have been found.",
     "success": "Successfully deleted {count}/{all} messages."
   },
