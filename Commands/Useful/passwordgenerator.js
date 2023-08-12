@@ -48,7 +48,7 @@ module.exports = {
           length++;
           continue;
         }
-        passwordList += randomChar; //Adds one of the chars in the charset to the password, based on the function getRandomNumber
+        passwordList += randomChar; //Adds one of the chars in the charset to the password
         oldRandomChar = randomChar; //Sets oldRandomChar to the last generated char
       }
       passwordList += '```\n```';
