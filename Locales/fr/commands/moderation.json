@@ -163,7 +163,7 @@
     },
     "noNumber": "Veuillez spécifier le nombre de messages à purger la prochaine fois.",
     "invalidNumber": "Ce n'est pas un nombre valide !",
-    "paramExcludesOther": "Un de vos paramètres rend un autre paramètre impossible ! (par exemple. `starts_with` = \"a\" et `not_starts_with` = \"a\")",
+    "paramsExcludeOther": "Un de vos paramètres rend un autre paramètre impossible ! (par exemple. `starts_with` = \"a\" et `not_starts_with` = \"a\")",
     "noneFound": "Aucun message correspondant à vos paramètres n'a été trouvé.",
     "success": "{count}/{all} messages ont été supprimés avec succès."
   },
