@@ -174,7 +174,7 @@
     },
     "noNumber": "Specifica il numero di messaggi da eliminare la prossima volta.",
     "invalidNumber": "Questo non è un numero valido!",
-    "paramExcludesOther": "Uno dei parametri rende impossibile un altro parametro! (es. `starts_with` = \"a\" e `not_starts_with` = \"a\")",
+    "paramsExcludeOther": "Uno dei parametri rende impossibile un altro parametro! (es. `starts_with` = \"a\" e `not_starts_with` = \"a\")",
     "noneFound": "Non sono stati trovati messaggi cancellabili corrispondenti ai tuoi parametri.",
     "success": "Messaggi eliminati con successo {count}/{all}."
   },
