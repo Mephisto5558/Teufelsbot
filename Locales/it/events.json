@@ -17,7 +17,7 @@
   },
   "errorHandler": {
     "embedTitle": "Whoooops",
-    "embedDescription": "Si è verificato un errore imprevisto!\n\nErrore Tipo: `{name}`\nComando: `{command}`",
+    "embedDescription": "Si è verificato un errore imprevisto!\n\nComando: `{command}`",
     "embedFooterText": "Segnalare questo errore invierà le opzioni del comando privatamente al dev.",
     "reportButton": "Segnala questo errore",
     "reportButtonDisabled": " (Disabilitato a causa della versione dev)",
