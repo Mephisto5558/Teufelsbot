@@ -22,7 +22,7 @@ A discord.js v14 bot with multiple features, in active development.<br>
 I am very open for pull requests, feature requests and everything else that helps me improve.<br>
 If you have any questions feel free to open an issue.<br>
 
-[ToDo List](https://teufelsbot.repl.co/dev/todo) | [Bot Invite Link](https://teufelsbot.repl.co/invite)<br>
+[ToDo List](https://teufelsbot.repl.co/vote) | [Bot Invite Link](https://teufelsbot.repl.co/invite)<br>
 Hosted on [Fluid Nodes](https://fluidnodes.com)
 ## Requirements
 
