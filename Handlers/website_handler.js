@@ -50,7 +50,7 @@ async function getCommands() {
 const commands = getCommands();
 
 module.exports = async function websiteHandler() {
-  while (process.argv.some(e => e == e == 'isChild=true')) await sleep(500); //Waiting for slash command handler to finish so parent process ends to free the port
+  while (process.argv.some(e => e == 'isChild=true')) await sleep(500); //Waiting for slash command handler to finish so parent process ends to free the port
 
   app
     .disable('x-powered-by')
