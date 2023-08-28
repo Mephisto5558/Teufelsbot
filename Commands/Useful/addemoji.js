@@ -6,7 +6,7 @@ const
 
 /**@param {string}urlStr @returns {Promise<boolean|Error|string>}*/
 const checkUrl = urlStr => new Promise((resolve, reject) => {
-  const req = (urlStr.startsWith('https') ? https : http).request({ ...url.parse(urlStr), method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode > 199 && res.statusCode < 400 ? true : false));
+  const req = (urlStr.startsWith('https') ? https : http).request({ ...url.parse(urlStr), method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode > 199 && res.statusCode < 400));
 
   req
     .on('timeout', () => req.destroy({ name: 'AbortError', message: 'Request timed out' }))
