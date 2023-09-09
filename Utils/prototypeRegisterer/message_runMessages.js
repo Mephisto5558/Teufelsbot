@@ -1,4 +1,5 @@
 const
+  { AllowedMentionsTypes } = require('discord.js'),
   cooldowns = require('../cooldowns.js'),
   I18nProvider = require('../I18nProvider.js');
 
@@ -61,6 +62,6 @@ module.exports = async function runMessages() {
     return `${acc}${afkMessage}\n`;
   }, '');
 
-  if (afkMsgs.length) this.customReply(afkMsgs);
+  if (afkMsgs.length) this.customReply({ content: afkMsgs, allowedMentions: { parse: [AllowedMentionsTypes.User] } });
   return this;
 };

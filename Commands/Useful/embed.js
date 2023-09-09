@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes } = require('discord.js'),
   { logSayCommandUse } = require('../../Utils');
 
 module.exports = {
@@ -77,7 +77,13 @@ module.exports = {
         //fields: getOption('fields')
       });
 
-      sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed] });
+      let allowedMentions = { parse: [AllowedMentionsTypes.User], roles: [...this.guild.roles.cache.filter(e => e.mentionable).keys()] };
+      if (this.member.permissionsIn(this.channel).has(PermissionFlagsBits.MentionEveryone)) {
+        allowedMentions.parse.push(AllowedMentionsTypes.Role);
+        allowedMentions.parse.push(AllowedMentionsTypes.Everyone);
+      }
+
+      sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed], allowedMentions });
     }
     catch (err) { return this.editReply(lang('invalidOption', err.message)); }
 
