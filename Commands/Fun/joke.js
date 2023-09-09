@@ -10,13 +10,13 @@ const
 
 /**@this {import('discord.js').Client}*/
 async function getJoke(APIList = [], type = '', blacklist = '', maxLength = 2000) {
-  const API = APIList.random();
+  const api = APIList.random();
   let response;
 
   try {
-    switch (API.name) {
+    switch (api.name) {
       case 'jokeAPI': {
-        const res = await fetch(`${API.url}?lang=en&blacklist=${blacklist}`, { timeout: 2500 }).then(e => e.json());
+        const res = await fetch(`${api.url}?lang=en&blacklist=${blacklist}`, { timeout: 2500 }).then(e => e.json());
 
         if (res.type == 'twopart') response = `${res.setup}\n\n||${res.delivery}||`;
         else response = res.joke;
@@ -25,14 +25,14 @@ async function getJoke(APIList = [], type = '', blacklist = '', maxLength = 2000
       }
 
       case 'humorAPI': {
-        const res = await fetch(`${API.url}?api-key=${this.keys.humorAPIKey}&min-rating=7&max-length=${maxLength}&include-tags=${type}&exclude-tags=${blacklist}`, { timeout: 2500 }).then(e => e.json());
+        const res = await fetch(`${api.url}?api-key=${this.keys.humorAPIKey}&min-rating=7&max-length=${maxLength}&include-tags=${type}&exclude-tags=${blacklist}`, { timeout: 2500 }).then(e => e.json());
 
         response = res.joke.includes('Q: ') ? res.joke.replace('Q: ', '').replace('A: ', '\n||') + '||\n' : res.joke;
         break;
       }
 
       case 'icanhazdadjoke': {
-        const res = await fetch(API.url, {
+        const res = await fetch(api.url, {
           headers: {
             'User-Agent': `Discord bot (${Github.Repo})`,
             Accept: 'application/json'
@@ -49,12 +49,12 @@ async function getJoke(APIList = [], type = '', blacklist = '', maxLength = 2000
       log.error('joke.js: ', err.response);
     }
     else if (err.name !== 'AbortError')
-      log.error(`joke.js: ${API?.url ?? JSON.stringify(API)} responded with error ${err.status ?? err.response?.status ?? err.name}, ${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`);
+      log.error(`joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.status ?? err.response?.status ?? err.name}, ${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`);
   }
 
-  if (typeof response == 'string') return [response.replaceAll('`', '\''), API];
+  if (typeof response == 'string') return [response.replaceAll('`', '\''), api];
 
-  APIList = APIList.filter(str => str.name !== API.name);
+  APIList = APIList.filter(str => str.name !== api.name);
   if (APIList.length) return getJoke.call(this, APIList, type, blacklist, maxLength);
 }
 
@@ -87,18 +87,18 @@ module.exports = {
 
   run: async function (lang) {
     const
-      api = this.options?.getString('api'),
+      apiStr = this.options?.getString('api'),
       type = this.options?.getString('type') || this.args?.[0],
       blacklist = this.options?.getString('blacklist'),
       maxLength = this.options?.getInteger('max_length'),
-      [joke, API] = await getJoke.call(this.client, api ? [defaultAPIList.find(e => e.name == api)] : defaultAPIList, type, blacklist, maxLength);
+      [joke, api] = await getJoke.call(this.client, apiStr ? [defaultAPIList.find(e => e.name == apiStr)] : defaultAPIList, type, blacklist, maxLength);
 
     if (!joke) return this.customReply(lang('noAPIAvailable'));
 
     const
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: `${joke}\n- [${API.name}](${API.link})`
+        description: `${joke}\n- [${api.name}](${api.link})`
       }).setColor('Random'),
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({
