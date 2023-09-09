@@ -853,20 +853,5 @@
     "fieldsQuestion": "Pregunta",
     "fieldsOptions": "Opciones",
     "ended": "¡La encuesta ha terminado!"
-  },
-  "wiki": {
-    "description": "Busque algo en Wikipedia o obtenga una página aleatoria si no se especificaron términos de búsqueda.",
-    "usage": {
-      "usage": "{prefix}wiki <search term>",
-      "examples": "{prefix}wiki discord"
-    },
-    "options": {
-      "query": {
-        "description": "¿Qué quieres buscar?"
-      }
-    },
-    "notFound": "No se han encontrado resultados.",
-    "visitWiki": "**Para más información, por favor visita la página de Wikipedia.**",
-    "error": "No se pudo hablar con Wikipedia:\n```{err}```"
   }
 }
