@@ -8,7 +8,7 @@ const
       return size > 1024 ? `${(size / 1024).toFixed(2)}KB` : `${size}B`;
     })(),
     members: backup.members?.length ?? 0,
-    channels: (backup.channels.categories.length + backup.channels.others.length + backup.channels.categories.reduce((acc, e) => acc + e.children.length, 0)) ?? 0,
+    channels: (backup.channels.categories.length + backup.channels.others.length + backup.channels.categories.reduce((acc, e) => acc + e.children.length, 0)) || 0,
     roles: backup.roles?.length ?? 0,
     emojis: backup.emojis?.length ?? 0,
     stickers: backup.stickers?.length ?? 0
