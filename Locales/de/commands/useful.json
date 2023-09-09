@@ -307,5 +307,20 @@
     "invalid": "Die angegebene Zeit ist ungültig! Nutze {command} und suche nach `timestamp` für mehr Informationen.",
     "outOfRange": "Die angegebene Zeit überschreitet das Limit von 200.000 Jahren!",
     "success": "Das ist <t:{time}:R> (`<t:{time}:R>`)."
+  },
+  "wiki": {
+    "description": "Suche nach etwas auf Wikipedia oder erhalte Informationen über etwas Zufälliges.",
+    "usage": {
+      "usage": "{prefix}wiki <Suchbegriff>",
+      "examples": "{prefix}wiki discord"
+    },
+    "options": {
+      "query": {
+        "description": "Was möchtest du suchen?"
+      }
+    },
+    "notFound": "Es wurden keine Suchergebnisse gefunden.",
+    "visitWiki": "**Für mehr Informationen, besuche bitte Wikipedia.**",
+    "error": "Ich konnte nicht mit Wikipedia kommunizieren:\n```{err}```"
   }
 }
