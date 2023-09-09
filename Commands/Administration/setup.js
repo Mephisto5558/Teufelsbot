@@ -100,7 +100,7 @@ module.exports = {
           setting = this.guild.db[module]?.enable;
 
         await this.client.db.update('guildSettings', `${this.guild.id}.${module}.enable`, !setting);
-        return this.editReply(lang('toggledModule', { name: module, state: setting ? lang('global.disabled') : lang('global.enabled') }));
+        return this.editReply(lang('toggledModule', { name: module, state: lang(setting ? 'global.disabled' : 'global.enabled') }));
       }
       case 'toggle_command': {
         const

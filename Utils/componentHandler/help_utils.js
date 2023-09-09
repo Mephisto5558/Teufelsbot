@@ -66,12 +66,13 @@ function createInfoFields(cmd, lang, helpLang) {
     name: lang('one.cooldowns'), inline: false,
     value: Object.entries(cmd.cooldowns).filter(([, e]) => e).map(([k, v]) => {
       let min = Math.floor(v / 60000), sec = (v % 60000 / 1000);
-      sec = !(sec % 1) ? Math.floor(sec) : sec.toFixed(2);
+      sec = (sec % 1) ? sec.toFixed(2) : Math.floor(sec);
 
       if (min && sec) return `${lang('global.' + k)}: ${min}min ${sec}s`;
       return lang(`global.${k}`) + ': ' + (min ? `${min}min` : `${sec}s`);
     }).join(', ')
   });
+
   if (helpLang('usage.usage')) {
     arr.push({ name: '```' + lang('one.usage') + '```', value: helpLang('usage.usage', prefix), inline: true });
     arr.push({ name: '```' + lang('one.examples') + '```', value: helpLang('usage.examples', prefix), inline: true });
