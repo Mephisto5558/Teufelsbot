@@ -208,7 +208,7 @@
               "all": "Alle Aktionen",
               "messageDelete": "Nachrichten-Löschung",
               "messageUpdate": "Nachrichten-Bearbeitung",
-              "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
+              "voiceChannelActivity": "Sprachkanal join/leave/wechsel",
               "sayCommandUsed": "/say, /embed Befehls-Verwendung"
             }
           },
