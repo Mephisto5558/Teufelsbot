@@ -208,8 +208,8 @@
               "all": "Alle Aktionen",
               "messageDelete": "Nachrichten-Löschung",
               "messageUpdate": "Nachrichten-Bearbeitung",
-              "voiceChannelActivity": "Sprachkanal join/leave/wechsel",
-              "sayCommandUsed": "/say, /embed Befehls-Verwendung"
+              "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
+              "sayCommandUsed": "/say (oder ähnliche) Befehls-Verwendung"
             }
           },
           "channel": {
