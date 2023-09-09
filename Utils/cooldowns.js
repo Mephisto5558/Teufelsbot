@@ -18,6 +18,8 @@ function subCommandCooldowns(name) {
     const subCmdCooldowns = (group ?? this)?.options?.find?.(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand)?.cooldowns;
     if (subCmdCooldowns) return cooldown.call(this, { name: group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns: subCmdCooldowns });
   }
+
+  return 0;
 }
 
 /**@this {import('discord.js').Message} Message @returns {number} current cooldown in seconds*/
