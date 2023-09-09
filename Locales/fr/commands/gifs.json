@@ -1,0 +1,8 @@
+{
+  "categoryDescription": "Commandes qui envoient des GIFs",
+  "backflip": {
+    "description": "Faites un retour arrière !",
+    "embedTitle": "Retournement arrière",
+    "embedDescription": "{user} fait un retour arrière!"
+  }
+}

@@ -172,8 +172,9 @@
         "description": "Ingrese un id de mensaje. Sólo los mensajes enviados después de que ese mensaje sea purgado."
       }
     },
-    "noNumber": "Por favor, especifique el número de mensajes a purgar la próxima vez.",
     "invalidNumber": "Este no es un número válido!",
+    "noNumber": "Por favor, especifique el número de mensajes a purgar la próxima vez.",
+    "beforeAndAfter": "La opción `before` no se puede utilizar junto con la opción `after`!",
     "paramsExcludeOther": "¡Uno de sus parámetros hace imposible otro parámetro! (por ejemplo. `starts_with` = \"a\" y `not_starts_with` = \"a\")",
     "noneFound": "No se han encontrado mensajes eliminables que coincidan con sus parámetros.",
     "success": "{count}/{all} mensajes eliminados correctamente."

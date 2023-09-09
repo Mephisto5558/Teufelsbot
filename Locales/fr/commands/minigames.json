@@ -1,4 +1,5 @@
 {
+  "categoryDescription": "Mini-jeux à jouer avec d'autres membres",
   "coinflip": {
     "description": "Retourner une pièce!",
     "response": [
@@ -9,7 +10,10 @@
   },
   "counting": {
     "description": "Set up a counting channel where members can show their math skills!",
-    "usage": "Commande PREFIX : comptant [#canal]",
+    "usage": {
+      "usage": "{prefix}compte [#canal]",
+      "examples": "{prefix}compte #counting"
+    },
     "options": {
       "channel": {
         "description": "Le canal que vous voulez ajouter (ou supprimer, si déjà ajouté) en tant que canal compteur."
@@ -29,7 +33,10 @@
   },
   "mgstats": {
     "description": "obtenir des statistiques sur l'un des mini-jeux du bot",
-    "usage": "Commande PREFIX : stats <game> [user]",
+    "usage": {
+      "usage": "Statistiques {prefix} <game> [user]",
+      "examples": "{prefix}mgstats tictactoe @User1"
+    },
     "options": {
       "user": {
         "description": "obtenir des statistiques sur vous-même ou sur un utilisateur spécifique",
@@ -52,6 +59,21 @@
             "description": "Quel jeu voulez-vous obtenir des statistiques?",
             "choices": {
               "tictactoe": "format@@0 TicTacToe"
+            }
+          },
+          "sort": {
+            "description": "Trier le classement",
+            "choices": {
+              "m_wins": "Le plus de victoires",
+              "f_wins": "Nombre de victoires",
+              "m_draws": "Le plus de tirages",
+              "f_draws": "Moins de tirages",
+              "m_loses": "Le plus de pertes",
+              "f_loses": "Moins de pertes",
+              "m_alphabet_user": "Noms d'utilisateur (Descendant)",
+              "f_alphabet_user": "Noms d'utilisateur (Ascendant)",
+              "m_alphabet_nick": "Pseudos (Descendant)",
+              "f_alphabet_nick": "Pseudos (Ascendant)"
             }
           },
           "settings": {
@@ -81,16 +103,37 @@
   },
   "rps": {
     "description": "Jouer des ciseaux de papier pierre contre le bot ou (bientôt disponible) contre vos amis",
-    "embedTitle": "format@@0 Rock Paper Scissors",
-    "embedDescription": "Choisissez un panneau tactile !",
-    "rock": "Roche",
-    "paper": "Papier",
-    "scissors": "Scissors",
-    "win": "Vous avez gagné!",
-    "tie": "Nous sommes liés!",
-    "lose": "Vous avez perdu !",
-    "chose": "J'ai choisi {chose}! {win} ({you} {symbol} {i})",
-    "timedOut": "Vous avez perdu parce que vous avez choisi de ne rien choisir!"
+    "options": {
+      "opponent": {
+        "description": "À qui voulez-vous jouer ?"
+      }
+    },
+    "r": "Roche",
+    "p": "Papier",
+    "s": "Scissors",
+    "challenge": {
+      "opponentIsBot": "Vous ne pouvez pas défier les robots !",
+      "opponentIsSelf": "Vous ne pouvez pas vous défier vous-même!",
+      "embedTitle": "format@@0 Rock Paper Scissors",
+      "embedDescription": "**{user}** vous a défié en duel!",
+      "botEmbedDescription": "Vous m'avez défié en duel!",
+      "start": "Début",
+      "accept": "Accepter",
+      "decline": "Refuser",
+      "newChallenge": "<@{user}> :crossed_swords: Nouveau défi duel"
+    },
+    "memberNotFound": "Au moins un des joueurs n'a pas été trouvé !",
+    "declined": ":x: `{opponent}` ne s'est pas relevé au défi.",
+    "accept": {
+      "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",
+      "embedDescription": "Sélectionnez votre objet!"
+    },
+    "end": {
+      "alreadyChosen": "Vous avez déjà sélectionné {move}! Veuillez attendre que votre adversaire choisisse.",
+      "saved": "Votre sélection a été enregistrée !",
+      "tie": "Personne n'a gagné la partie, c'est une égalité! {emoji} = {emoji}",
+      "win": ":tada: <@{winner}> a gagné la partie ! {winEmoji} > {loseEmoji}"
+    }
   },
   "tictactoe": {
     "description": "jouer au TicTacToe contre un ami ou le bot",
