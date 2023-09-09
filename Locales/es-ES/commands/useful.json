@@ -20,6 +20,7 @@
     "success": "¡Se ha añadido con éxito **{name}** {emoji}!\n",
     "limitedToRoles": "El emoji se ha limitado a los siguientes roles:\n<@&{roles}>.",
     "error": "No se puede crear el emoji por la razón:\n```\n{err}\n```",
+    "tooBig": "La imagen es demasiado grande. El tamaño máximo es de 2048 kilobytes.",
     "timedOut": "Se ha agotado el tiempo de espera. Tal vez la imagen es grande."
   },
   "button": {

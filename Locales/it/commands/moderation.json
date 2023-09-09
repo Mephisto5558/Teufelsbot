@@ -172,8 +172,9 @@
         "description": "Inserisci un id del messaggio. Solo i messaggi inviati dopo che il messaggio viene eliminato."
       }
     },
-    "noNumber": "Specifica il numero di messaggi da eliminare la prossima volta.",
     "invalidNumber": "Questo non è un numero valido!",
+    "noNumber": "Specifica il numero di messaggi da eliminare la prossima volta.",
+    "beforeAndAfter": "L'opzione `before` non può essere utilizzata insieme all'opzione `after`!",
     "paramsExcludeOther": "Uno dei parametri rende impossibile un altro parametro! (es. `starts_with` = \"a\" e `not_starts_with` = \"a\")",
     "noneFound": "Non sono stati trovati messaggi cancellabili corrispondenti ai tuoi parametri.",
     "success": "Messaggi eliminati con successo {count}/{all}."
