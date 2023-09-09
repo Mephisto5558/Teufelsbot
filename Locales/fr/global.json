@@ -2,15 +2,18 @@
   "languageName": "Français",
   "messageSent": "Message envoyé !",
   "loading": "<a:loading:1063091916683612160> Chargement en cours...",
+  "channel": "Chaîne",
   "guild": "Guilde",
   "user": "Utilisateur",
   "cancel": "Abandonner",
   "playAgain": "Rejouer",
+  "anotherone": "Un autre",
   "enabled": "Activé",
   "disabled": "Désactivé",
   "none": "aucun",
   "noPermUser": "Vous n'avez pas la permission de le faire !",
   "noPermBot": "Je n'ai pas la permission de le faire !",
   "true": "Oui",
-  "false": "Non"
+  "false": "Non",
+  "modReason": "Commande {command} , modérateur {user}"
 }
