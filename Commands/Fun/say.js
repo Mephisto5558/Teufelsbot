@@ -24,7 +24,7 @@ module.exports = {
   
   run: async function (lang) {
     const
-      msg = this.args?.[0] || this.options?.getString('msg'),
+      msg = this.content || this.options?.getString('msg'),
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel;
 
     if (!this.member.permissionsIn(channel).has(PermissionFlagsBits.SendMessages)) return this.customReply(lang('noPerm'));
