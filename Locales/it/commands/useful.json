@@ -20,6 +20,7 @@
     "success": "Aggiunto con successo **{name}** {emoji}!\n",
     "limitedToRoles": "Le emoji sono state limitate ai seguenti ruoli:\n<@&{roles}>.",
     "error": "Impossibile creare le emoji per il motivo:\n```\n{err}\n```",
+    "tooBig": "L'immagine è troppo grande. La dimensione massima del file è di 2048 kilobyte.",
     "timedOut": "La richiesta è scaduta. Forse l'immagine è di grandi dimensioni."
   },
   "button": {
@@ -306,5 +307,20 @@
     "invalid": "Il tempo che hai fornito non è valido! Usa {command} e cerca `timestamp` per informazioni mor.",
     "outOfRange": "Il tempo specificato è maggiore di 200.000 anni!",
     "success": "Questo è <t:{time}:R> (`<t:{time}:R>`)."
+  },
+  "wiki": {
+    "description": "Cerca qualcosa su Wikipedia, o ottieni una pagina casuale se non sono stati specificati termini di ricerca.",
+    "usage": {
+      "usage": "{prefix}wiki <search term>",
+      "examples": "{prefix}wiki discord"
+    },
+    "options": {
+      "query": {
+        "description": "Che cosa vuoi cercare?"
+      }
+    },
+    "notFound": "Nessun risultato trovato.",
+    "visitWiki": "**Per ulteriori informazioni, visita la pagina Wikipedia.**",
+    "error": "Impossibile parlare con Wikipedia:\n```{err}```"
   }
 }
