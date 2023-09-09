@@ -129,6 +129,6 @@ module.exports = {
       if (messages[i + 100]) await sleep(2000);
     }
 
-    return this.customReply(lang('success', { count, all: messages.length }));
+    return this.customReply(lang('success', { count, all: messages.length }), 1e4);
   }
 };
