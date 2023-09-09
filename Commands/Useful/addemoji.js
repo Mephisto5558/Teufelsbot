@@ -62,9 +62,11 @@ module.exports = {
       if (limitToRoles?.length) embed.data.description += lang('limitedToRoles', `<@&${limitToRoles.join('>, <@&')}>`);
     }
     catch (err) {
-      // TODO: Prevent DiscordAPIError[50035]: "Invalid Form Body image[BINARY_TYPE_MAX_SIZE]: File cannot be larger than 2048.0 kb."
-      if (!['DiscordAPIError[30008]', 'DiscordAPIError[50035]', 'AbortError'].includes(err.name)) throw err;
-      embed.data.description = lang('error', err.name == 'AbortError' ? lang('timedOut') : err.message);
+      if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]')) // TODO: Prevent that error from even happening
+        embed.data.description = lang('error', lang('tooBig'));
+      
+      if (!['DiscordAPIError[30008]'].includes(err.name)) throw err;
+      embed.data.description = lang('error', err.name == 'AbortError' || err.name == 'ConnectTimeoutError' ? lang('timedOut') : err.message);
     }
 
     return this.editReply({ embeds: [embed.setColor(Colors.Green)] });
