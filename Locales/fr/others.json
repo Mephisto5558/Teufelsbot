@@ -39,6 +39,25 @@
     "UseExternalStickers": "Utiliser les autocollants externes",
     "SendMessagesInThreads": "Envoyer des messages dans les discussions et les messages",
     "UseEmbeddedActivities": "Utiliser les activités",
-    "ModerateMembers": "Membres modérés"
+    "ModerateMembers": "Membres modérés",
+    "ViewCreatorMonetizationAnalytics": "Voir l'analyse de monétisation du créateur",
+    "UseExternalSounds": "Utiliser des sons externes",
+    "SendVoiceMessages": "Envoyer des messages vocaux"
+  },
+  "ChannelTypes": {
+    "plural": {
+      "0": "Chaînes texte",
+      "1": "DMs",
+      "2": "Chaînes vocales",
+      "3": "DMs de groupe",
+      "4": "Catégories",
+      "5": "Chaînes d'annonces",
+      "10": "Threads d'annonce",
+      "11": "Threads publics",
+      "12": "Threads privés",
+      "13": "Voix de scène",
+      "14": "Répertoires",
+      "15": "Forums"
+    }
   }
 }

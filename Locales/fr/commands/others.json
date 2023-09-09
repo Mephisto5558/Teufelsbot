@@ -1,2 +1,8 @@
 {
+  "categoryDescription": "Commandes sans catégorie spécifique",
+  "changelog": {
+    "description": "Obtenir le dernier changelog.",
+    "embedTitle": "Historique des modifications",
+    "noneFound": "Aucune information trouvée."
+  }
 }

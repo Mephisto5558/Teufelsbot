@@ -1,4 +1,25 @@
 {
+  "categoryDescription": "Commandes qui nécessitent un abonnement premium",
+  "chatgpt": {
+    "description": "Parlez à ChatGPT!",
+    "usage": {
+      "usage": "{prefix}chatgpt <message>",
+      "examples": "{prefix}a chatgpt Bonjour"
+    },
+    "options": {
+      "message": {
+        "description": "Que voulez-vous dire à ChatGPT ?"
+      },
+      "model": {
+        "description": "Quel modèle voulez-vous utiliser ?"
+      }
+    },
+    "hello": "Bonjour!",
+    "rateLimit": "La limite de taux a été atteinte. Veuillez réessayer dans quelques secondes.",
+    "notAvailable": "L'API n'est actuellement pas disponible. Veuillez revenir plus tard.",
+    "error": "L'API a répondu par une erreur.",
+    "regenerate": "Régénérer la réponse"
+  },
   "customname": {
     "description": "Set a custom nickname and I will call you that.",
     "options": {
@@ -43,5 +64,29 @@
     "clear": {
       "success": "I removed your custom name."
     }
+  },
+  "editmessage": {
+    "description": "Modifier tout message envoyé par le bot",
+    "options": {
+      "channel": {
+        "description": "Le canal dans lequel se trouve le message."
+      },
+      "message_id": {
+        "description": "L'id du message que vous voulez que je modifie."
+      },
+      "remove_attachments": {
+        "description": "Effacer tout ce qui se trouve sur ce message. par exemple les incorporations, les fichiers"
+      }
+    },
+    "modalTitle": "Commande d'édition de message",
+    "textInputLabel": "Écrivez le nouveau contenu de ce message.",
+    "textInputPlaceholder": "Vous pouvez également utiliser JSON !",
+    "notFound": "Il n'y a pas de message avec cet id dans le salon spécifié!",
+    "notBotMessage": "Je ne peux modifier que mes propres messages!",
+    "cannotEdit": "Je ne peux pas modifier ce message !",
+    "timedout": "Vous avez mis du temps à répondre !",
+    "emptyJson": "Le JSON que vous avez fourni est vide!",
+    "error": "Une erreur est survenue en essayant d'envoyer votre JSON personnalisé :\n```{err}```\n",
+    "success": "Le message a été modifié. [Link]({url})"
   }
 }
