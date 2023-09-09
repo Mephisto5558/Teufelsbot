@@ -23,8 +23,8 @@ module.exports = async function interactionCreate() {
   if (command.disabled) return replyOnDisabledCommand === false ? void 0 : this.reply({ embeds: [errorEmbed.setDescription(lang('events.commandDisabled'))], ephemeral: true });
 
   const disabledList = this.guild.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
-  if (disabledList.members && disabledList.members.includes(this.user.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.member'))], ephemeral: true });
-  if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.channel'))], ephemeral: true });
+  if (disabledList.members?.includes(this.user.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.member'))], ephemeral: true });
+  if (disabledList.channels?.includes(this.channel.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.channel'))], ephemeral: true });
   if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.role'))], ephemeral: true });
   if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return this.reply({ embeds: [errorEmbed.setDescription(lang('events.nsfwCommand'))], ephemeral: true });
 

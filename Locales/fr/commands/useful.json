@@ -255,5 +255,17 @@
     "invalid": "L'heure que vous avez fournie n'est pas valide ! Utilisez {command} et recherchez `timestamp` pour obtenir des informations sur la mor.",
     "outOfRange": "Le temps que vous avez fourni est supérieur à 200 000 ans!",
     "success": "C'est <t:{time}:R> (`<t:{time}:R>`)."
+  },
+  "wiki": {
+    "description": "Search for something on Wikipedia, or get a random page if no search terms were specified.",
+    "usage": "wiki <search terms>",
+    "options": {
+      "query": {
+        "description": "Que voulez-vous rechercher ?"
+      }
+    },
+    "notFound": "Aucun résultat trouvé.",
+    "visitWiki": "**Pour plus d'informations, veuillez visiter la page Wikipédia.**",
+    "error": "Impossible de parler à Wikipédia:\n```{err}```"
   }
 }

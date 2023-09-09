@@ -1,3 +1,5 @@
+const { AllowedMentionsTypes } = require('discord.js');
+
 module.exports = {
   name: 'afk',
   cooldowns: { user: 5000 },
@@ -24,6 +26,6 @@ module.exports = {
 
     if (this.member.moderatable && this.member.displayName.length < 26 && !this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(`[AFK] ${this.member.displayName}`);
 
-    return this.customReply(lang(global ? 'globalSuccess' : 'success', message));
+    return this.customReply({ content: lang(global ? 'globalSuccess' : 'success', message), allowedMentions: { parse: [AllowedMentionsTypes.User] } });
   }
 };
