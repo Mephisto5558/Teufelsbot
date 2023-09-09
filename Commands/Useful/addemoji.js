@@ -1,12 +1,11 @@
 const
   { parseEmoji, EmbedBuilder, Colors } = require('discord.js'),
   http = require('http'),
-  https = require('https'),
-  url = require('url');
+  https = require('https');
 
-/**@param {string}urlStr @returns {Promise<boolean|Error|string>}*/
-const checkUrl = urlStr => new Promise((resolve, reject) => {
-  const req = (urlStr.startsWith('https') ? https : http).request({ ...url.parse(urlStr), method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode > 199 && res.statusCode < 400));
+/**@param {string}url @returns {Promise<boolean|Error|string>}*/
+const checkUrl = url => new Promise((resolve, reject) => {
+  const req = (url.startsWith('https') ? https : http).request(url, { method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode > 199 && res.statusCode < 400));
 
   req
     .on('timeout', () => req.destroy({ name: 'AbortError', message: 'Request timed out' }))
@@ -64,8 +63,8 @@ module.exports = {
     catch (err) {
       if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]')) // TODO: Prevent that error from even happening
         embed.data.description = lang('error', lang('tooBig'));
+      else if (!['DiscordAPIError[30008]', 'AbortError', 'ConnectTimeoutError'].includes(err.name)) throw err;
       
-      if (!['DiscordAPIError[30008]'].includes(err.name)) throw err;
       embed.data.description = lang('error', err.name == 'AbortError' || err.name == 'ConnectTimeoutError' ? lang('timedOut') : err.message);
     }
 
