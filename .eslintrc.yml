@@ -35,7 +35,7 @@ rules:
       after: true
   array-bracket-spacing:
     - error
-    - always
+    - never
     - singleValue: false
       objectsInArrays: false
       arraysInArrays: false
