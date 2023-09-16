@@ -30,7 +30,7 @@ module.exports = {
     if (!this.member.permissionsIn(channel).has(PermissionFlagsBits.SendMessages)) return this.customReply(lang('noPerm'));
     if (!msg) return this.customReply(lang('noMsgProvided'));
 
-    let allowedMentions = { parse: [AllowedMentionsTypes.User], roles: [...this.guild.roles.cache.filter(e => e.mentionable).keys()] };
+    let allowedMentions = { parse: [AllowedMentionsTypes.User] };
     if (this.member.permissionsIn(channel).has(PermissionFlagsBits.MentionEveryone)) {
       allowedMentions.parse.push(AllowedMentionsTypes.Role);
       allowedMentions.parse.push(AllowedMentionsTypes.Everyone);
