@@ -18,8 +18,7 @@ module.exports = {
       counting = this.guild.db.counting || {};
 
     if (counting[channel.id]) {
-      delete counting[channel.id];
-      await this.client.db.update('guildSettings', `${this.guild.id}.counting`, counting);
+      await this.client.db.delete('guildSettings', `${this.guild.id}.counting.${channel.id}`);
 
       const embed = new EmbedBuilder({
         description: lang('removed.embedDescription'),
