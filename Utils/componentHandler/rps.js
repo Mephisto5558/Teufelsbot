@@ -69,7 +69,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
       const choices = this.client.db.get('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`) || {};
       if (opponentId == this.client.user.id) choices.player2 = ['r', 'p', 's'].random();
 
-      if (choices.player1 && this.user.id == initiatorId || choices.player2 && this.user.id == opponentId) return this.reply({ content: lang('win.alreadyChosen', choices.player1 || choices.player2), ephemeral: true });
+      if (choices.player1 && this.user.id == initiatorId || choices.player2 && this.user.id == opponentId) return this.reply({ content: lang('end.alreadyChosen', choices.player1 || choices.player2), ephemeral: true });
 
       if (this.user.id == initiatorId) {
         choices.player1 = mode;
