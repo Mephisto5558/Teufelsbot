@@ -137,7 +137,7 @@
     },
     "average": {
       "loading": "Pinging... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}`\nAPI:\n> Lowest Ping: `{wsLowest}ms`\n> Heightest Ping: `{wsHeightest}ms`\n> Average Ping: `{wsAverage}ms`\nMessage Send:\n> Lowest Ping: `{msgLowest}ms`\n> Heightest Ping: `{msgHeightest}ms`\n> Average Ping: `{msgAverage}ms`"
+      "embedDescription": "Pings: `{pings}`\nAPI:\n> Lowest Ping: `{wsLowest}ms`\n> Highest Ping: `{wsHighest}ms`\n> Average Ping: `{wsAverage}ms`\nMessage Send:\n> Lowest Ping: `{msgLowest}ms`\n> Highest Ping: `{msgHighest}ms`\n> Average Ping: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -216,9 +216,9 @@
     "emojis": "Emojis",
     "boosts": {
       "name": "Boosts",
-      "1": "Tier 1",
-      "2": "Tier 2",
-      "3": "Tier 3"
+      "1": ", Tier 1",
+      "2": ", Tier 2",
+      "3": ", Tier 3"
     },
     "roles": "Roles",
     "channels": "Channels",

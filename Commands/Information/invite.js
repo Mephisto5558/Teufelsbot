@@ -12,7 +12,7 @@ module.exports = {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', Invite),
-      Color: Colors.Blue
+      color: Colors.Blue
     });
 
     return this.customReply({ embeds: [embed] });

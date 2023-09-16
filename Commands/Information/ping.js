@@ -42,8 +42,8 @@ module.exports = {
       const averageMsgPing = Math.round(msgPings.reduce((a, b) => a + b) / 20 * 100) / 100;
 
       embed.data.description = lang('average.embedDescription', {
-        pings: wsPings.length, wsLowest: wsPings[0], wsHeightest: wsPings[wsPings.length - 1], wsAverage: averageWsPing,
-        msgLowest: msgPings[0].toFixed(2), msgHeightest: msgPings[msgPings.length - 1].toFixed(2), msgAverage: averageMsgPing
+        pings: wsPings.length, wsLowest: wsPings[0], wsHighest: wsPings[wsPings.length - 1], wsAverage: averageWsPing,
+        msgLowest: msgPings[0].toFixed(2), msgHighest: msgPings[msgPings.length - 1].toFixed(2), msgAverage: averageMsgPing
       });
     }
     else {

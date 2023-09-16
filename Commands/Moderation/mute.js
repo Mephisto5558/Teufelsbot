@@ -41,7 +41,7 @@ module.exports = {
 
     if (!target) return this.editReply(lang('notFound'));
     if (target.id == this.member.id) return this.editReply(lang('cantMuteSelf'));
-    if (target.roles.highest.comparePositionTo(this.member.roles.highest) > -1 && this.guild.ownerId != this.user.id)
+    if (target.roles.highest.position - this.member.roles.highest.position >= 0 && this.guild.ownerId != this.user.id)
       return this.editReply(lang('global.noPermUser'));
     if (target.permissions.has(PermissionFlagsBits.Administrator)) return this.editReply(lang('targetIsAdmin'));
     if (!target.moderatable) return this.editReply(lang('global.noPermBot'));

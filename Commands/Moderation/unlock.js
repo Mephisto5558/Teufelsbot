@@ -20,7 +20,7 @@ module.exports = {
       reason = this.options?.getString('reason') || this.args?.join(' ') || lang('noReason'),
       overwrites = Object.entries(this.guild.db.lockedChannels?.[channel.id] || {})?.filter(async ([k, v]) => {
         if (channel.permissionOverwrites.cache.get(k)?.allow.has(PermissionFlagsBits.SendMessages)) return;
-        if (v == OverwriteType.Role) return (await this.guild.roles.fetch(k)).comparePositionTo(this.guild.members.me.roles.highest) < 0;
+        if (v == OverwriteType.Role) return (await this.guild.roles.fetch(k))?.position - this.guild.members.me.roles.highest.position < 0;
         return (await this.guild.members.fetch(k)).manageable;
       });
 

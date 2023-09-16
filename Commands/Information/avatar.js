@@ -24,7 +24,7 @@ module.exports = {
         image: { url: avatarURL },
         footer: { text: this.member.tag }
       }),
-      row = new ActionRowBuilder({
+      component = new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('downloadButton'),
           url: avatarURL,
@@ -32,6 +32,6 @@ module.exports = {
         })]
       });
 
-    return this.customReply({ embeds: [embed], components: [row] });
+    return this.customReply({ embeds: [embed], components: [component] });
   }
 };

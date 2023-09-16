@@ -35,8 +35,8 @@ module.exports = {
           { name: lang('partnered'), value: lang(`global.${guild.partnered}`), inline: true },
           { name: lang('emojis'), value: `\`${guild.emojis.cache.size}\``, inline: true },
           { name: lang('roles'), value: `\`${guild.roles.cache.size}\``, inline: true },
-          { name: lang('boosts.name'), value: `\`${guild.premiumSubscriptionCount}\`, ` + (guild.premiumTier ? lang(`boosts.${guild.premiumTier}`) : ''), inline: true },
-          { name: lang('channels'), value: Object.entries(channels.reduce((acc, { type }) => ({ ...acc, [type]: (acc[type] + 1) || 1 }), {})).map(([k, v]) => `${lang('others.ChannelTypes.plural.' + k)}: \`${v}\``).join(', '), inline: false },
+          { name: lang('boosts.name'), value: `\`${guild.premiumSubscriptionCount}\`` + (guild.premiumTier ? lang(`boosts.${guild.premiumTier}`) : ''), inline: true },
+          { name: lang('channels'), value: Object.entries(channels.reduce((acc, { type }) => ({ ...acc, [type]: (acc[type] + 1) || 1 }), {})).map(([k, v]) => `${lang('others.ChannelTypes.plural.' + k)}: \`${v}\``).join(', '), inline: false }
         ]
       });
 
