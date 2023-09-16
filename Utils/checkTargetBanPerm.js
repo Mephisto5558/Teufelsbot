@@ -2,5 +2,5 @@
 module.exports = function checkTarget(member) {
   if (member.id == this.member.id) return 'cantPunishSelf';
   if (!member.bannable) return 'global.noPermBot';
-  if (this.guild.ownerId != this.user.id && member.roles?.highest.comparePositionTo(this.member.roles.highest) > -1) return 'global.noPermUser';
+  if (this.guild.ownerId != this.user.id && member.roles?.highest?.position - this.member.roles.highest.position >= 0) return 'global.noPermUser';
 };
