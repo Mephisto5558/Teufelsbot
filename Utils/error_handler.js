@@ -14,7 +14,7 @@ module.exports = async function errorHandler(err, message, lang) {
     { aliasOf } = this.slashCommands.get(message.commandName) || this.prefixCommands.get(message.commandName) || {},
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { name: err.name, command: aliasOf ? this.slashCommands.get(aliasOf)?.name || this.prefixCommands.get(aliasOf)?.name : message.commandName }),
+      description: lang('embedDescription', { command: aliasOf ? this.slashCommands.get(aliasOf)?.name || this.prefixCommands.get(aliasOf)?.name : message.commandName }),
       footer: { text: lang('embedFooterText') },
       color: Colors.DarkRed
     }),

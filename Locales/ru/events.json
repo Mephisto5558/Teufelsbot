@@ -17,7 +17,7 @@
   },
   "errorHandler": {
     "embedTitle": "Упс",
-    "embedDescription": "Произошла непредвиденная ошибка!\n\nТип ошибки: `{name}`\nкоманда: `{command}`",
+    "embedDescription": "Произошла непредвиденная ошибка!\n\nкоманда: `{command}`",
     "embedFooterText": "Отчет об этой ошибке будет прислать командные параметры только разработчику.",
     "reportButton": "Сообщить об этой ошибке",
     "reportButtonDisabled": " (Отключено из-за Dev версии)",

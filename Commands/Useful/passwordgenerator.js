@@ -39,17 +39,17 @@ module.exports = {
     if (!charset.length) return this.editReply(lang('charsetEmpty')); //Return if charset is empty
 
     for (let i = 0; i < count; i++) {
-      let oldRandomChar;
+      let lastRandomChar;
       if ((passwordList.length + length) > 1743) break;
 
       for (let i = 0; i < length; i++) {
-        const randomChar = charset.split('').filter(e => e != oldRandomChar).random(); //Filters the last selected entry out and selects a list entry based on a secure random number generator. Defined in Utils/prototypeRegisterer.js.
-        if (oldRandomChar + randomChar == '\n') { //'\n' should not appear in the list, it would break stuff
+        const randomChar = charset.split('').filter(e => e != lastRandomChar).random(); //Filters the last selected entry out and selects a list entry based on a secure random number generator. Defined in Utils/prototypeRegisterer.js.
+        if (lastRandomChar + randomChar == '\n') { //'\n' should not appear in the list, it would break stuff
           length++;
           continue;
         }
-        passwordList += randomChar; //Adds one of the chars in the charset to the password, based on the function getRandomNumber
-        oldRandomChar = randomChar; //Sets oldRandomChar to the last generated char
+        passwordList += randomChar; //Adds one of the chars in the charset to the password
+        lastRandomChar = randomChar; //Sets lastRandomChar to the last generated char
       }
       passwordList += '```\n```';
     }

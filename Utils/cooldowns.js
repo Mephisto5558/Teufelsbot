@@ -5,19 +5,17 @@ function subCommandCooldowns(name) {
   const depth = name.split('.').length - 1;
   if (depth >= 2 || !(this instanceof ChatInputCommandInteraction)) return 0;
 
-  let groupObj;
   const group = this.options.getSubcommandGroup(false);
-  if (group) {
-    groupObj = this.client.slashCommands.get(this.commandName)?.options?.find(e => e.name == group && e.type == ApplicationCommandOptionType.SubcommandGroup);
-
-    if (!depth) return cooldown.call(this, { name: `${name}.${group}`, cooldowns: groupObj?.cooldowns });
+  if (group && !depth) {
+    const { cooldowns } = this.client.slashCommands.get(this.commandName)?.options?.find(e => e.name == group && e.type == ApplicationCommandOptionType.SubcommandGroup) ?? {};
+    return cooldown.call(this, { name: `${name}.${group}`, cooldowns });
   }
 
   const subCmd = this.options.getSubcommand(false);
-  if (subCmd) {
-    const subCmdCooldowns = (group ?? this)?.options?.find?.(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand)?.cooldowns;
-    if (subCmdCooldowns) return cooldown.call(this, { name: group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns: subCmdCooldowns });
-  }
+  if (!subCmd) return 0;
+
+  const { cooldowns } = (group ?? this)?.options?.find?.(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand) || {};
+  if (cooldowns) return cooldown.call(this, { name: group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns });
 }
 
 /**@this {import('discord.js').Message} Message @returns {number} current cooldown in seconds*/

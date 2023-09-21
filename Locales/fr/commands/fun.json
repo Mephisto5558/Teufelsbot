@@ -786,17 +786,5 @@
     "fieldsQuestion": "Question",
     "fieldsOptions": "Options",
     "ended": "Le sondage est terminé !"
-  },
-  "wiki": {
-    "description": "Search for something on Wikipedia, or get a random page if no search terms were specified.",
-    "usage": "wiki <search terms>",
-    "options": {
-      "query": {
-        "description": "Que voulez-vous rechercher ?"
-      }
-    },
-    "notFound": "Aucun résultat trouvé.",
-    "visitWiki": "**Pour plus d'informations, veuillez visiter la page Wikipédia.**",
-    "error": "Impossible de parler à Wikipédia:\n```{err}```"
   }
 }

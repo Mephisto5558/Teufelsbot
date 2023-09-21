@@ -27,7 +27,7 @@ module.exports = async function bankick(lang) {
     const err = checkTarget.call(this, target, lang);
     if (err) {
       resEmbed.data.description += lang('error', { err: lang(err), user: target.user?.displayName ?? target.id });
-      return this.editReply({ embeds: resEmbed });
+      return this.editReply({ embeds: [resEmbed] });
     }
 
     try { await target.send({ embeds: [userEmbed] }); }

@@ -3,9 +3,20 @@ const
   { I18nProvider } = require('../Utils');
 
 /**@this {import('discord.js').Message}*/
+function countingHandler() {
+  const { counting: { [this.channel.id]: countingData } = {} } = this.guild.db;
+  if (countingData?.lastNumber && Number(this.originalContent))
+    return this.channel.send({ content: `<t:${Math.round(this.createdTimestamp / 1000)}>\n<@${this.user.id}>: *${countingData.lastNumber} -> ${this.originalContent}*`, allowedMentions: { parse: [] } });
+}
+
+/**@this {import('discord.js').Message}*/
 module.exports = async function messageDelete() {
+  if (this.client.botType == 'dev' || !this.guild) return;
+
+  countingHandler.call(this);
+
   const setting = this.guild?.db.config?.logger?.messageDelete ?? {};
-  if (this.client.botType == 'dev' || !this.guild || !setting.enabled || !setting.channel) return;
+  if (!setting.enabled || !setting.channel) return;
 
   const channel = this.guild.channels.cache.get(setting.channel);
   if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;

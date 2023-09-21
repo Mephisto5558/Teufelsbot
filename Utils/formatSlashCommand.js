@@ -31,12 +31,12 @@ module.exports = function format(option, path) {
       e.nameLocalizations ??= {};
       const localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
       if (!option.disabled) {
-        if (localeText?.length < 2) log._log('warn', `Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too short (min length is 2)! Using undefined.`);
-        else if (localeText?.length > 32) log._log('warn', `Choice name localization ("${e.name}") "${locale}" of option "${option.name}" (${path}.choices.${e.name}) is too long (max length is 32)! Slicing.`);
+        if (localeText?.length < 2) log._log('warn', `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${path}.choices.${e.value}) is too short (min length is 2)! Using undefined.`);
+        else if (localeText?.length > 32) log._log('warn', `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${path}.choices.${e.value}) is too long (max length is 32)! Slicing.`);
       }
 
       if (localeText && localeText.length > 2) e.nameLocalizations[locale] = localeText.slice(0, 32);
-      else if (e.name != e.value && !option.disabled) log._log('warn', `Missing "${locale}" choice name localization for "${e.name}" in option "${option.name}" (${path}.choices.${e.name})`);
+      else if (e.name != e.value && !option.disabled) log._log('warn', `Missing "${locale}" choice name localization for "${e.value}" in option "${option.name}" (${path}.choices.${e.value})`);
 
       return e;
     });

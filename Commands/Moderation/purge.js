@@ -1,7 +1,7 @@
 const
-  { Message, CommandInteraction, Constants } = require('discord.js'),
-  notNullEqual = (str1, str2) => str1 && str1 == str2,
+  { Message, Constants, Collection } = require('discord.js'),
   adRegex = str => /((?=discord)(?<!support\.)(discord(?:app)?[\W_]*(com|gg|me|net|io|plus|link)\/|(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(attachments|channels)\/)|(invite|dsc)[\W_]*gg|disboard[\W_]*org/gi.test(str), //filters discord invites, invite.gg, dsc.gg, disboard.org links
+  filterOptionsExist = options => Object.keys(options).some(e => e.name != 'amount' && e.name != 'channel'),
   filterCheck = {
     text: msg => msg.content.length,
     embeds: msg => msg.embeds?.length,
@@ -10,27 +10,49 @@ const
     server_ads: msg => adRegex(msg.content) || msg.embeds?.some(e => adRegex(e.description)),
   };
 
-function checkMsg(msg, getStr) {
-  const options = this.options?.data.map(e => e.name) || [];
+function shouldDeleteMsg(msg, options) {
+  const
+    nHas = option => !(option in options),
+    bool = msg.bulkDeletable && (!options.remove_pinned || msg.pinned),
+    userType = msg.user.bot ? 'bot' : 'human';
 
-  return msg.bulkDeletable && !msg.system &&
-    (!options.includes('member') || msg.user.id == this.options.getUser('member').id) &&
-    (!options.includes('user_type') || getStr('user_type') == (msg.user.bot ? 'bot' : 'human')) &&
-    (!options.includes('only_containing') || filterCheck[getStr('only_containing')](msg)) &&
-    (!options.includes('caps_percentage') || (this.options.getNumber('caps_percentage') <= msg.content.replace(/[^A-Z]/g, '').length / msg.content.length * 100)) &&
-    (!options.includes('contains') || !(msg.content.includes(getStr('contains')) || msg.embeds?.some(e => e.description.includes(getStr('contains'))))) &&
-    (!options.includes('does_not_contain') || !(msg.content.includes(getStr('does_not_contain')) || msg.embeds?.some(e => e.description.includes(getStr('does_not_contain'))))) &&
-    (!options.includes('starts_with') || !(msg.content.statsWith(getStr('starts_with')) || msg.embeds?.some(e => e.description.startsWith(getStr('starts_with'))))) &&
-    (!options.includes('not_starts_with') || !(msg.content.statsWith(getStr('not_starts_with')) || msg.embeds?.some(e => e.description.startsWith(getStr('not_starts_with'))))) &&
-    (!options.includes('ends_with') || !(msg.content.endsWith(getStr('ends_with')) || msg.embeds?.some(e => e.description.endsWith(getStr('ends_with'))))) &&
-    (!options.includes('not_ends_with') || !(msg.content.endsWith(getStr('not_ends_with')) || msg.embeds?.some(e => e.description.endsWith(getStr('not_ends_with'))))) &&
-    (!this.options?.getBoolean('remove_pinned') || msg.pinned);
+  return !filterOptionsExist(options) ? bool : bool
+    && (nHas('member') || msg.user.id == options.member.id)
+    && (nHas('user_type') || options.user_type == userType)
+    && (nHas('only_containing') || filterCheck[options.only_containing](msg))
+    && (nHas('caps_percentage') || (options.caps_percentage >= msg.content.replace(/[^A-Z]/g, '').length / msg.content.length * 100))
+    && (nHas('contains') || msg.content.includes(options.contains) || msg.embeds?.some(e => e.description.includes(options.contains)))
+    && (nHas('does_not_contain') || msg.content.includes(options.does_not_contain) || msg.embeds?.some(e => e.description.includes(options.does_not_contain)))
+    && (nHas('starts_with') || msg.content.startsWith(options.starts_with) || msg.embeds?.some(e => e.description.startsWith(options.starts_with)))
+    && (nHas('not_starts_with') || msg.content.startsWith(options.not_starts_with) || msg.embeds?.some(e => e.description.startsWith(options.not_starts_with)))
+    && (nHas('ends_with') || msg.content.endsWith(options.ends_with) || msg.embeds?.some(e => e.description.endsWith(options.ends_with)))
+    && (nHas('not_ends_with') || msg.content.endsWith(options.not_ends_with) || msg.embeds?.some(e => e.description.endsWith(options.not_ends_with)));
+}
+
+async function fetchMsgs(channel, limit = 250, before = undefined, after = undefined) {
+  let
+    collection = new Collection(),
+    options = { limit: Math.min(limit, 100), before, after },
+    lastId;
+
+  while (collection.size < limit) {
+    if (lastId) options.before = lastId;
+
+    const messages = await channel.messages.fetch(options);
+    if (!messages.size) break;
+
+    collection = collection.concat(messages);
+    lastId = messages.last().id;
+    options.limit = Math.min(limit - collection.size, 100);
+  }
+
+  return collection;
 }
 
 module.exports = {
-  name: 'purge',beta:true,
+  name: 'purge',
   aliases: { prefix: ['clear'] },
-  permissions: { client: ['ManageMessages'], user: ['ManageMessages'] },
+  permissions: { client: ['ManageMessages', 'ReadMessageHistory'], user: ['ManageMessages'] },
   cooldowns: { guild: 1000 },
   slashCommand: true,
   prefixCommand: true,
@@ -80,30 +102,33 @@ module.exports = {
     const
       amount = this.options?.getInteger('amount') || parseInt(this.args?.[0]).limit({ min: 0, max: 1000 }),
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,
-      getStr = option => this.options?.getString(option);
+      options = Object.fromEntries(this.options?.data.map(e => [e.name, e.value]) ?? []);
 
     let messages, count = 0;
 
     if (!amount) return this.customReply(isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
+    if (options.before && options.after) return this.customReply(lang('beforeAndAfter'));
+
     if (this instanceof Message) await this.delete().catch();
 
-    if (this.options?.data.some(e => e.name != 'amount' && e.name != 'channel')) {
-      if (getStr('contains')?.includes(getStr('does_not_contain')) || getStr('does_not_contains')?.includes(getStr('contains')) || notNullEqual(getStr('starts_with'), getStr('not_starts_with')) || notNullEqual(getStr('ends_with'), getStr('not_ends_with')))
-        return this.editReply(lang('paramExcludesOther'));
+    if (filterOptionsExist(options)) {
+      if (
+        options.contains?.includes(options.does_not_contain) || options.does_not_contains?.includes(options.contains) ||
+        (options.starts_with && options.does_not_contain == options.not_starts_with) || (options.ends_with && options.ends_with == options.not_ends_with)
+      ) return this.editReply(lang('paramsExcludeOther'));
 
-      messages = await channel.messages.fetch({ limit: amount, before: getStr('before_message'), after: getStr('after_message') });
+      messages = await fetchMsgs(channel, amount, options.before, options.after);
     }
+    else messages = await fetchMsgs(channel, amount);
 
-    if (!messages?.size && amount) messages = await this.channel.messages.fetch({ limit: amount });
-
-    messages = [...(messages.filter(e => checkMsg.call(this, e, getStr)).keys() || [])];
-    if (!messages?.length) return this.customReply(lang('noneFound'));
+    messages = [...messages.filter(e => shouldDeleteMsg.call(this, e, options)).keys()];
+    if (!messages.length) return this.customReply(lang('noneFound'));
 
     for (let i = 0; i < messages.length; i += 100) {
-      count += (await channel.bulkDelete(messages.slice(i, i + 99)))?.size ?? 0;
-      if (messages[i + 1]) await sleep(2000);
+      count += (await channel.bulkDelete(messages.slice(i, i + 100)))?.size ?? 0;
+      if (messages[i + 100]) await sleep(2000);
     }
 
-    if (this instanceof CommandInteraction) return this.editReply(lang('success', { count, all: messages.length }));
+    return this.customReply(lang('success', { count, all: messages.length }), 1e4);
   }
 };

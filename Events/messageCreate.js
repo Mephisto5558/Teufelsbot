@@ -10,7 +10,7 @@ module.exports = async function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
   if (this.crosspostable && this.guild.db?.config?.autopublish) this.crosspost();
   if (this.botType != 'dev' && this.guild) {
-    const mentions = [this.mentions.repliedUser?.id, ...this.mentions.users.keys(), ...this.mentions.roles.flatMap(r => r.members.keys())].filter(e => e && e != this.user.id);
+    const mentions = [this.mentions.repliedUser?.id, ...this.mentions.users.keys(), ...this.mentions.roles.flatMap(r => r.members).keys()].filter(e => e && e != this.user.id);
     if (mentions.length) await this.client.db.update('guildSettings', `${this.guild.id}.lastMentions`, mentions.reduce((acc, e) => ({ ...acc, [e]: { content: this.content, url: this.url, author: this.author, channel: this.channel.id, createdAt: this.createdAt } }), this.guild.db.lastMentions || {}));
   }
 
@@ -31,8 +31,8 @@ module.exports = async function messageCreate() {
   else return this.client.slashCommands.has(this.commandName) ? this.customReply({ embeds: [errorEmbed.setDescription(lang('events.slashCommandOnly', { name: this.commandName, id: this.client.slashCommands.get(this.commandName).id }))] }, 1e4) : this.runMessages();
 
   const disabledList = commandSettings[command.aliasOf || command.name]?.disabled || {};
-  if (disabledList.members && disabledList.members.includes(this.user.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.member'))] }, 1e4);
-  if (disabledList.channels && disabledList.channels.includes(this.channel.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.channel'))] }, 1e4);
+  if (disabledList.members?.includes(this.user.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.member'))] }, 1e4);
+  if (disabledList.channels?.includes(this.channel.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.channel'))] }, 1e4);
   if (disabledList.roles && this.member.roles?.cache.some(e => disabledList.roles.includes(e.id))) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.role'))] }, 1e4);
   if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.nsfwCommand'))] }, 1e4);
 

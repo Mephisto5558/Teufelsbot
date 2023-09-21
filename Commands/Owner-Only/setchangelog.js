@@ -5,7 +5,7 @@ module.exports = {
   dmPermission: true,
 
   run: async function (lang) {
-    await this.client.db.update('botSettings', 'changelog', this.content?.replaceAll('/n','\n'));
+    await this.client.db.update('botSettings', 'changelog', this.content?.replaceAll('/n', '\n'));
     return this.reply(lang('success'));
   }
 };

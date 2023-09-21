@@ -72,6 +72,7 @@
         "choices": {
           "administration": "Amministrazione",
           "fun": "Divertimento",
+          "gifs": "GIF",
           "information": "Informazioni",
           "minigames": "Minigames",
           "moderation": "Moderazione",
@@ -136,7 +137,7 @@
     },
     "average": {
       "loading": "Pinging... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}`\nPing più basso: `{lowest}ms`\nPing più alto: `{heightest}ms`\nPing medio: `{average}ms`"
+      "embedDescription": "Pings: `{pings}`\nPing più basso: `{lowest}ms`\nPing più alto: `{highest}ms`\nPing medio: `{average}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -215,9 +216,9 @@
     "emojis": "Emojis",
     "boosts": {
       "name": "Potenziamenti",
-      "1": "Livello 1",
-      "2": "Livello 2",
-      "3": "Livello 3"
+      "1": ", Livello 1",
+      "2": ", Livello 2",
+      "3": ", Livello 3"
     },
     "roles": "Ruoli",
     "channels": "Canali",

@@ -72,6 +72,7 @@
         "choices": {
           "administration": "Administration",
           "fun": "Unterhaltung",
+          "gifs": "GIFs",
           "information": "Informationen",
           "minigames": "Minigames",
           "moderation": "Moderation",
@@ -136,7 +137,7 @@
     },
     "average": {
       "loading": "Pingen... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}`\nAPI:\n> Niedrigster Ping: `{wsLowest}ms`\n> Höchster Ping: `{wsHeightest}ms`\n> Durchschnittlicher Ping: `{wsAverage}ms`\nNachrichten senden:\n> Niedrigster Ping: `{msgLowest}ms`\n> Höchster Ping: `{msgHeightest}ms`\n> Durchschnittlicher Ping: `{msgAverage}ms`"
+      "embedDescription": "Pings: `{pings}`\nAPI:\n> Niedrigster Ping: `{wsLowest}ms`\n> Höchster Ping: `{wsHighest}ms`\n> Durchschnittlicher Ping: `{wsAverage}ms`\nNachrichten senden:\n> Niedrigster Ping: `{msgLowest}ms`\n> Höchster Ping: `{msgHighest}ms`\n> Durchschnittlicher Ping: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -215,9 +216,9 @@
     "emojis": "Emojis",
     "boosts": {
       "name": "Boosts",
-      "1": "Stufe 1",
-      "2": "Stufe 2",
-      "3": "Stufe 3"
+      "1": ", Stufe 1",
+      "2": ", Stufe 2",
+      "3": ", Stufe 3"
     },
     "roles": "Rollen",
     "channels": "Kanäle",

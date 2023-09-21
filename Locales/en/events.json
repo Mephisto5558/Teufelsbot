@@ -17,7 +17,7 @@
   },
   "errorHandler": {
     "embedTitle": "Whoooops",
-    "embedDescription": "An unexpected error occurred!\n\nError Type: `{name}`\nCommand: `{command}`",
+    "embedDescription": "An unexpected error occurred!\n\nCommand: `{command}`",
     "embedFooterText": "Reporting this error will send the command options privately to the dev.",
     "reportButton": "Report this Error",
     "reportButtonDisabled": " (Disabled due to dev version)",

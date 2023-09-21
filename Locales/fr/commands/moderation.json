@@ -1,15 +1,16 @@
 {
+  "categoryDescription": "Commandes de modérer la guilde",
   "ban": {
     "description": "bannit un membre de la guilde",
     "options": {
-      "target": {
-        "description": "Mention member(s) or put ID(s) in to ban them. Put a space between each target."
-      },
       "reason": {
         "description": "La ou les cible(s) vont voir la raison en MP"
       },
       "duration": {
         "description": "Combien de temps voulez-vous faire bannir les cibles ?"
+      },
+      "target": {
+        "description": "Mention member(s) or put ID(s) in to ban them. Put a space between each target."
       },
       "delete_days_of_messages": {
         "description": "Supprime tous les messages des cibles des n derniers jours."
@@ -19,11 +20,13 @@
     "dmEmbedDescription": "Vous avez été banni de `{guild}`.\nModérateur : {mod}\nRaison : {reason}",
     "infoEmbedTitle": "Bannir",
     "infoEmbedDescription": "Modérateur : {mod}\nRaison : {reason}\n\n",
+    "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres à bannir. Vous avez 60 secondes.",
     "cantPunishSelf": "Vous ne pouvez pas vous bannir vous-même!",
     "noneFound": "Aucune cible n'a été trouvée.",
     "error": "**{user}** n'a pas pu être banni.\n{err}\n",
     "success": "**{user}** a été banni avec succès.\n",
-    "noDM": "Je n'ai pas pu gérer la cible avec le DM."
+    "noDM": "Je n'ai pas pu gérer la cible avec le DM.",
+    "timedOut": "Ce menu a expiré."
   },
   "kick": {
     "description": "expulse un membre de la guilde",
@@ -39,15 +42,20 @@
     "dmEmbedDescription": "Vous avez été éjecté de `{guild}`.\nModérateur : {mod}\nRaison : {reason}",
     "infoEmbedTitle": "Expulser",
     "infoEmbedDescription": "Modérateur : {mod}\nRaison : {reason}\n\n",
+    "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres à expulser. Vous avez 60 secondes.",
     "noneFound": "Aucune cible n'a été trouvée.",
     "cantPunishSelf": "Vous ne pouvez pas vous expulser vous-même!",
     "error": "**{user}** n'a pas pu être éjecté.\n{err}\n",
     "success": "**{user}** a été expulsé avec succès.\n",
-    "noDM": "Je n'ai pas pu gérer la cible avec le DM."
+    "noDM": "Je n'ai pas pu gérer la cible avec le DM.",
+    "timedOut": "Ce menu a expiré."
   },
   "lock": {
     "description": "Empêche tout le monde, sauf les administrateurs, d'écrire dans un canal.",
-    "usage": "verrouillez [channel] [reason]",
+    "usage": {
+      "usage": "Verrouillage {prefix} [channel] [reason]",
+      "examples": "Verrouillage {prefix}#temps de mise en veille"
+    },
     "options": {
       "channel": {
         "description": "Quelle chaîne voulez-vous verrouiller ?"
@@ -102,7 +110,10 @@
   },
   "purge": {
     "description": "supprime un nombre spécifique de messages",
-    "usage": "Commande PREFIX : purger <number> [channel]\nCela ne supprimera PAS le nombre de messages spécifiés dans le paramètre \"montant\", mais les supprimera si tous les autres paramètres sont satisfaits.",
+    "usage": {
+      "usage": "{prefix}purge <number> [channel]\nIl ne supprimera PAS le nombre de messages spécifiés dans le paramètre \"montant\", mais les supprimera si tous les autres paramètres sont satisfaits.",
+      "examples": "{prefix}purge 7 #chat"
+    },
     "options": {
       "amount": {
         "description": "Le nombre de messages à vérifier et peut-être à purger."
@@ -161,15 +172,19 @@
         "description": "Entrez un identifiant de message. Seuls les messages envoyés après que ce message ait été purgé."
       }
     },
-    "noNumber": "Veuillez spécifier le nombre de messages à purger la prochaine fois.",
     "invalidNumber": "Ce n'est pas un nombre valide !",
-    "paramExcludesOther": "Un de vos paramètres rend un autre paramètre impossible ! (par exemple. `starts_with` = \"a\" et `not_starts_with` = \"a\")",
+    "noNumber": "Veuillez spécifier le nombre de messages à purger la prochaine fois.",
+    "beforeAndAfter": "L'option `before` ne peut pas être utilisée avec l'option `after` !",
+    "paramsExcludeOther": "Un de vos paramètres rend un autre paramètre impossible ! (par exemple. `starts_with` = \"a\" et `not_starts_with` = \"a\")",
     "noneFound": "Aucun message correspondant à vos paramètres n'a été trouvé.",
     "success": "{count}/{all} messages ont été supprimés avec succès."
   },
   "unlock": {
     "description": "Déverrouille une chaîne verrouillée avec la commande de verrouillage.",
-    "usage": "déverrouiller [channel] [reason]",
+    "usage": {
+      "usage": "{prefix}déverrouille [channel] [reason]",
+      "examples": "{prefix}débloque #chat Bonjour"
+    },
     "options": {
       "channel": {
         "description": "Quelle chaîne voulez-vous déverrouiller ?"

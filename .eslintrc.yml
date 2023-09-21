@@ -1,6 +1,6 @@
 env:
   commonjs: true
-  es2021: true
+  es2022: true
   node: true
 extends: eslint:recommended
 overrides: []
@@ -24,6 +24,22 @@ rules:
     - warn
     - single
   semi:
+    - error
+    - always
+  space-in-parens: 
+    - warn
+    - never
+  comma-spacing:
+    - error
+    - before: false
+      after: true
+  array-bracket-spacing:
+    - error
+    - never
+    - singleValue: false
+      objectsInArrays: false
+      arraysInArrays: false
+  object-curly-spacing:
     - error
     - always
 globals:
