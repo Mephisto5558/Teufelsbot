@@ -58,7 +58,7 @@ module.exports = {
         ]
       }),
       msg = await this.channel.send({
-        content: targets.reduce((e, acc) => `${acc}, ${e}`).toString(),
+        content: targets.reduce((e, acc) => `${acc}, ${e}`, ''),
         embeds: [embed], components: [component]
       }),
       collector = msg.createMessageComponentCollector({ filter: i => targets.includes(i.member), componentType: ComponentType.Button, time: 2e4 });
