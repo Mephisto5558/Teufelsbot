@@ -6,7 +6,7 @@ const
 function countingHandler() {
   const { counting: { [this.channel.id]: countingData } = {} } = this.guild.db;
   if (countingData?.lastNumber && Number(this.originalContent))
-    return this.channel.send({ content: `<t:${Math.round(this.createdTimestamp / 1000)}>\n<@${this.user.id}>: *${countingData.lastNumber} -> ${this.originalContent}*`, allowedMentions: { parse: [] } });
+    return this.channel.send({ content: `<t:${Math.round(this.createdTimestamp / 1000)}>\n<@${this.user.id}>: *${countingData.lastNumber - 1} -> ${this.originalContent}*`, allowedMentions: { parse: [] } });
 }
 
 /**@this {import('discord.js').Message}*/
