@@ -6,7 +6,7 @@ const { EmbedBuilder, Colors } = require('discord.js');
 module.exports = async function selfrole(lang, mode, roleId, args) {
   await this.deferReply({ ephemeral: true });
 
-  lang.__boundArgs__[0].backupPath = 'events.selfrole';
+  lang.__boundArgs__[0].backupPath = 'events.interaction.selfrole';
 
   const
     successEmbed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Green }),

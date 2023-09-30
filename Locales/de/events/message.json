@@ -1,0 +1,9 @@
+{
+  "afkMsg": "`{member}` ist AFK: {message} - <t:{timestamp}:R>",
+  "afkEnd": "Willkommen zurück, ich habe deinen AFK-Status entfernt. Du warst AFK seit <t:{timestamp}>.\nDeine AFK-Nachricht war: \"{message}\"",
+  "counting": {
+    "error": "DU HAST ES BEI **{lastNumber}** RUINIERT!! Die nächste Zahl ist **1**.\n",
+    "wrongNumber": "**Kannst du nicht zählen?! Falsche Zahl.**",
+    "sameUserTwice": "**Du kannst nicht zwei Zahlen hintereinander aufzählen!**"
+  }
+}

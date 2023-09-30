@@ -59,5 +59,16 @@
       "14": "Directorios",
       "15": "Foros"
     }
+  },
+  "errorHandler": {
+    "embedTitle": "Ojos",
+    "embedDescription": "¡Se ha producido un error inesperado!\n\nComando: `{command}`",
+    "embedFooterText": "Informar de este error enviará las opciones de comando en privado al desarrollador.",
+    "reportButton": "Reportar este error",
+    "reportButtonDisabled": " (Deshabilitado debido a la versión dev)",
+    "discordAPIErr": "Se ha producido un error de la API de Discord, por favor inténtalo de nuevo y envía un mensaje al desarrollador si esto sigue sucediendo.",
+    "alreadyReported": "Este error ya ha sido reportado. [Link]({url}).\nSe corregirá pronto.",
+    "reportSuccess": "Se ha reportado el error. [Link]({url})",
+    "reportFail": "`Se ha producido un error al intentar enviar tu informe de error.\n```\n{err}\n```\nPor favor, envía un mensaje al desarrollador directamente."
   }
 }
