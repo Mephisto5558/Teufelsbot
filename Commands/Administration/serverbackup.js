@@ -23,7 +23,9 @@ module.exports = {
   name: 'serverbackup',
   permissions: { client: ['Administrator'], user: ['Administrator'] },
   prefixCommand: false,
-  slashCommand: true, disabled: true,
+  slashCommand: true,
+  disabled: true,
+  disabledReason: 'This command is still in development',
   options: [
     {
       name: 'create',
