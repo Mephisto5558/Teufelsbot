@@ -39,7 +39,7 @@ module.exports = {
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { url, content: content ? `>>> ${content?.substring(0, 200)}` : lang('unknown'), author: author.id || author }),
+      description: lang('embedDescription', { url, content: content ? `>>> ${content.substring(0, 200)}` : lang('unknown'), author: author.id || author }),
       color: Colors.White,
       footer: { text: createdAt?.toLocaleTimeString('de', { month: '2-digit', day: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }) }
     });
