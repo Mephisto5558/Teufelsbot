@@ -46,13 +46,10 @@ module.exports = async function interactionCreate() {
     const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing(command.permissions?.client);
 
     if (botPermsMissing.length || userPermsMissing.length) {
-      const embed = new EmbedBuilder({
-        title: lang('permissionDenied.embedTitle'),
-        color: Colors.Red,
-        description: lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') })
-      });
+      errorEmbed.data.title = lang('permissionDenied.embedTitle');
+      errorEmbed.data.description = lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') });
 
-      return this.reply({ embeds: [embed], ephemeral: true });
+      return this.reply({ embeds: [errorEmbed], ephemeral: true });
     }
 
     if (!command.noDefer && !this.replied) await this.deferReply({ ephemeral: command.ephemeralDefer ?? false });
