@@ -3,7 +3,7 @@
   "slashOnly": "Dieser Befehl ist nur als Slash-Befehl verfügbar: </{name}:{id}>",
   "guildOnly": "Dieser Befehl ist nur auf Servern verfügbar!",
   "nonBeta": "Dieser Befehl ist kein Beta-Befehl! Dieser Bot führt nur Beta-Befehle aus.",
-  "disabled": "Dieser Befehl wurde vom Dev-Bot deaktiviert, Begründung:\n{reason}",
+  "disabled": "Dieser Befehl wurde vom Bot-Developer deaktiviert. Begründung:\n{reason}",
   "nsfw": "Dieser Befehl kann nur in einem altersbegrenzten Kanal benutzt werden!",
   "strictAutocompleteNoMatch": "Deine Eingabe muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.",
   "permissionDenied": {
