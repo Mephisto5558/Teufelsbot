@@ -9,7 +9,7 @@ module.exports = {
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,
-  ephemeralDefer: true, beta: true,
+  ephemeralDefer: true,
   options: [
     {
       name: 'custom',
