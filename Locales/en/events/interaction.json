@@ -1,0 +1,13 @@
+{
+  "selfrole": {
+    "embedTitle": "Self Role",
+    "roleNotFound": "The role bound to this button was not found!",
+    "noPermMember": "I don't have the permission to manage your roles!",
+    "noPermRole": "I don't have the permission to manage the <@&{role}> role!",
+    "hasRoleAlready": "You already have the <@&{role}> role!",
+    "addSuccess": "I gave you the <@&{role}> role.",
+    "missesRole": "I can't remove your <@&{role}> role because you don't have it!",
+    "removeSuccess": "I removed your <@&{role}> role."
+  },
+  "buttonOnCooldown": "This button is on cooldown! Try it again in `{time}`s."
+}
