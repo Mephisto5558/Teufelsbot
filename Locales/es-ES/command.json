@@ -1,0 +1,39 @@
+{
+  "cooldown": "¡Este comando está en tiempo de recarga! Inténtalo de nuevo en `{time}`s.",
+  "slashOnly": "¡Este comando sólo está disponible como un comando slash: </{name}:{id}>",
+  "guildOnly": "¡Este comando sólo está disponible en gremios!",
+  "nonBeta": "¡Este comando no es un comando beta! Este bot ejecuta sólo comandos beta.",
+  "disabled": "Este comando ha sido deshabilitado por el desarrollador del bot. Razón:\n{reason}",
+  "nsfw": "¡No puedes ejecutar comandos NSFW en un canal no NSFW!",
+  "strictAutocompleteNoMatch": "Su entrada debe coincidir con una de las sugerencias de autocompletado. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando de barra.",
+  "permissionDenied": {
+    "embedTitle": "Permisos insuficientes",
+    "embedDescriptionUser": "Necesitas los siguientes permisos en este canal para ejecutar este comando:\n`{permissions}`",
+    "embedDescriptionBot": "Necesito los siguientes permisos en este canal para ejecutar este comando:\n`{permissions}`"
+  },
+  "notAllowed": {
+    "member": "No está autorizado para ejecutar este comando (establecido por un administrador del servidor)!",
+    "channel": "No está permitido ejecutar este comando en este canal (establecido por un administrador del servidor)!",
+    "role": "¡Uno de sus roles no tiene permitido ejecutar este comando (establecido por un administrador del servidor)!"
+  },
+  "infoCMDs": {
+    "emojis": {
+      "embedTitle": "Eliminar Emoji",
+      "notFound": "El emoji no pudo ser encontrado.",
+      "noPerm": "¡No tengo permiso para eliminar emojis!",
+      "success": "El emoji se ha eliminado correctamente."
+    },
+    "roles": {
+      "embedTitle": "Eliminar rol",
+      "notFound": "No se pudo encontrar el rol.",
+      "noPerm": "¡No tengo permiso para eliminar ese rol!",
+      "success": "El rol se ha eliminado correctamente."
+    },
+    "members": {
+      "embedTitle": "Expulsar/Banear Miembro",
+      "notFound": "El miembro no ha sido encontrado.",
+      "modalTitle": "Razón",
+      "modalTextLabel": "Por favor especifique la razón para patear o prohibir al miembro."
+    }
+  }
+}
