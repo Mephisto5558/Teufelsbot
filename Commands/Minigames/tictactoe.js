@@ -2,7 +2,7 @@ const TicTacToe = require('discord-tictactoe');
 
 async function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
   if (player1.id == this.client.user.id || player2.id == this.client.user.id) return;
-  
+
   await updateStats(player1.id, player2.id, type1, this.client.db);
   await updateStats(player2.id, player1.id, type2, this.client.db);
   return game.playAgain(this, lang);
@@ -18,15 +18,9 @@ function updateStats(firstID, secondID, type, db) {
     case 'draw': against = 'drewAgainst';
   }
 
-  return db.update('leaderboards', `TicTacToe.${firstID}`, {
-    ...stats,
-    games: stats.games + 1 || 1,
-    [`${type}s`]: stats[`${type}s`] + 1 || 1,
-    [against]: {
-      ...(stats.against ?? {}),
-      [secondID]: stats[against]?.[secondID] + 1 || 1
-    }
-  });
+  db.update('leaderboards', `TicTacToe.${firstID}.games`, stats.games + 1 || 1);
+  db.update('leaderboards', `TicTacToe.${firstID}.${type}s`, stats[`${type}s`] + 1 || 1);
+  return db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, stats[against]?.[secondID] + 1 || 1);
 }
 
 module.exports = {
