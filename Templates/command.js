@@ -7,6 +7,7 @@ module.exports = {
   prefixCommand: true,
   dmPermission: false,
   disabled: false,
+  disabledReason: '',
   noDefer: false,
   ephemeralDefer: false,
   requireEconomy: false,

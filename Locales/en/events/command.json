@@ -3,7 +3,7 @@
   "slashOnly": "This command is only available as a slash command: </{name}:{id}>",
   "guildOnly": "This command is only available in guilds!",
   "nonBeta": "This command is not a beta command! This bot runs only beta commands.",
-  "disabled": "This command has been disabled by the bot dev.",
+  "disabled": "This command has been disabled by the bot dev. Reason:\n{reason}",
   "nsfw": "You cannot run NSFW Commands in a non NSFW Channel!",
   "strictAutocompleteNoMatch": "Your input must match one of the autocomplete suggestions. Please select one of the available options when entering the slash command.",
   "permissionDenied": {

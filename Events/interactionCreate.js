@@ -20,7 +20,7 @@ module.exports = async function interactionCreate() {
   //DO NOT REMOVE THIS STATEMENT!
   if (!command || (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id)) return;
   if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? void 0 : this.reply({ embeds: [errorEmbed.setDescription(lang('nonBeta'))], ephemeral: true });
-  if (command.disabled) return replyOnDisabledCommand === false ? void 0 : this.reply({ embeds: [errorEmbed.setDescription(lang('disabled'))], ephemeral: true });
+  if (command.disabled) return replyOnDisabledCommand === false ? void 0 : this.reply({ embeds: [errorEmbed.setDescription(lang('disabled', command.disabledReason || 'Not provided'))], ephemeral: true });
 
   const disabledList = this.guild.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
   if (disabledList.members?.includes(this.user.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('notAllowed.member'))], ephemeral: true });
