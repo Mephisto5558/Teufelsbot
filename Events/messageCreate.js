@@ -18,23 +18,23 @@ module.exports = async function messageCreate() {
   if (!this.commandName) return this.guild ? this.runMessages() : null;
 
   const
-    { config = {}, economy = {}, commandSettings = {} } = this.guild?.db ?? {},
+    { config = {}, commandSettings = {} } = this.guild?.db ?? {},
     command = this.client.prefixCommands.get(this.commandName),
-    lang = I18nProvider.__.bBind(I18nProvider, { locale: config.lang ?? this.guild?.localeCode, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.aliasOf ?? command.name}` : null });
+    lang = I18nProvider.__.bBind(I18nProvider, { locale: config.lang ?? this.guild?.localeCode, backupPath: 'events.command' });
 
   if (command) {
-    if (command.disabled) return replyOnDisabledCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('events.commandDisabled'))] }, 1e4);
+    if (command.disabled) return replyOnDisabledCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('disabled'))] }, 1e4);
     if (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id) return this.runMessages(); //DO NOT REMOVE THIS LINE!
-    if (!command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.guildCommandOnly'))] }, 1e4);
-    if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('events.nonBetaCommand'))] }, 1e4);
+    if (!command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply({ embeds: [errorEmbed.setDescription(lang('guildOnly'))] }, 1e4);
+    if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('nonBeta'))] }, 1e4);
   }
-  else return this.client.slashCommands.has(this.commandName) ? this.customReply({ embeds: [errorEmbed.setDescription(lang('events.slashCommandOnly', { name: this.commandName, id: this.client.slashCommands.get(this.commandName).id }))] }, 1e4) : this.runMessages();
+  else return this.client.slashCommands.has(this.commandName) ? this.customReply({ embeds: [errorEmbed.setDescription(lang('slashOnly', { name: this.commandName, id: this.client.slashCommands.get(this.commandName).id }))] }, 1e4) : this.runMessages();
 
   const disabledList = commandSettings[command.aliasOf || command.name]?.disabled || {};
-  if (disabledList.members?.includes(this.user.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.member'))] }, 1e4);
-  if (disabledList.channels?.includes(this.channel.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.channel'))] }, 1e4);
-  if (disabledList.roles && this.member.roles?.cache.some(e => disabledList.roles.includes(e.id))) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.notAllowed.role'))] }, 1e4);
-  if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.nsfwCommand'))] }, 1e4);
+  if (disabledList.members?.includes(this.user.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('notAllowed.member'))] }, 1e4);
+  if (disabledList.channels?.includes(this.channel.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('notAllowed.channel'))] }, 1e4);
+  if (disabledList.roles && this.member.roles?.cache.some(e => disabledList.roles.includes(e.id))) return this.customReply({ embeds: [errorEmbed.setDescription(lang('notAllowed.role'))] }, 1e4);
+  if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return this.customReply({ embeds: [errorEmbed.setDescription(lang('nsfw'))] }, 1e4);
 
   const options = command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options || e) || e?.options || e) || [];
   for (let i = 0; i < options.length; i++) {
@@ -43,34 +43,33 @@ module.exports = async function messageCreate() {
 
     if (autocomplete && strictAutocomplete && this.args?.[i] && !(await autocompleteGenerator.call(this, command, config.lang ?? this.guild?.localeCode))
       .some(e => (e.toLowerCase?.() || e.value.toLowerCase()) === this.args[i].toLowerCase())) {
-      return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.strictAutocompleteNoMatch'))] }, 1e4);
+      return this.customReply({ embeds: [errorEmbed.setDescription(lang('strictAutocompleteNoMatch'))] }, 1e4);
     }
   }
-  
+
   delete this.focused;
 
   if (this.client.botType != 'dev') {
     const cooldown = cooldowns.call(this, command);
-    if (cooldown) return this.customReply({ embeds: [errorEmbed.setDescription(lang('events.cooldown', cooldown))] }, 1e4);
+    if (cooldown) return this.customReply({ embeds: [errorEmbed.setDescription(lang('cooldown', cooldown))] }, 1e4);
   }
-  if (command.requireEconomy && (!economy?.enable || !economy[this.user.id]?.gaining?.chat))
-    return this.customReply({ embeds: [errorEmbed.setDescription(lang(economy?.enable ? 'events.economyNotInitialized' : 'events.economyDisabled'), 3e4)] });
 
   if (this.guild) {
     const userPermsMissing = this.member.permissionsIn(this.channel).missing([...(command.permissions?.user || []), PermissionFlagsBits.SendMessages]);
     const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...(command.permissions?.client || []), PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);
 
     if (botPermsMissing.length || userPermsMissing.length) {
-      errorEmbed.data.title = lang('events.permissionDenied.embedTitle');
-      errorEmbed.data.description = lang(`events.permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') });
+      errorEmbed.data.title = lang('permissionDenied.embedTitle');
+      errorEmbed.data.description = lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') });
 
       if (botPermsMissing.includes('SendMessages')) return this.user.send({ content: `${this.guild.name}: ${this.channel.name}`, embeds: [errorEmbed] });
       return this.reply({ embeds: [errorEmbed.setTitle()] });
     }
   }
 
+  const cmdLang = I18nProvider.__.bBind(I18nProvider, { locale: config.lang ?? this.guild?.localeCode, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.aliasOf ?? command.name}` : null });
   try {
-    command.run.call(this, lang)?.catch(err => errorHandler.call(this.client, err, this, lang));
+    command.run.call(this, cmdLang)?.catch(err => errorHandler.call(this.client, err, this, lang));
     if (this.client.botType != 'dev') await this.client.db.update('botSettings', `stats.${command.name}`, this.client.settings.stats?.[command.name] + 1 || 1);
   } catch (err) { errorHandler.call(this.client, err, this, lang); }
 };

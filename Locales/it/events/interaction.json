@@ -1,0 +1,13 @@
+{
+  "selfrole": {
+    "embedTitle": "Ruolo Di Sé",
+    "roleNotFound": "Il ruolo associato a questo pulsante non è stato trovato!",
+    "noPermMember": "Non ho il permesso di gestire i tuoi ruoli!",
+    "noPermRole": "Non ho il permesso di gestire il ruolo <@&{role}>!",
+    "hasRoleAlready": "Hai già il ruolo <@&{role}>!",
+    "addSuccess": "Ti ho dato il ruolo <@&{role}>.",
+    "missesRole": "Non posso rimuovere il tuo ruolo <@&{role}> perché non lo hai!",
+    "removeSuccess": "Ho rimosso il tuo ruolo <@&{role}>."
+  },
+  "buttonOnCooldown": "Questo pulsante è in fase di ricarica! Riprova in `{time}`s."
+}
