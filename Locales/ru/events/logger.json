@@ -3,6 +3,7 @@
   "executor": "Удалено",
   "reason": "Причина",
   "embeds": "{count} Embeds",
+  "unknownContent": "Неизвестен",
   "messageDelete": {
     "embedDescription": "Сообщение было удалено {executor} в {channel}.",
     "content": "Содержание сообщения",
