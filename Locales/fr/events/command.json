@@ -3,6 +3,7 @@
   "slashOnly": "Cette commande n'est disponible qu'en tant que commande slash: </{name}:{id}>",
   "guildOnly": "Cette commande n'est disponible que dans les guildes !",
   "nonBeta": "Cette commande n'est pas une commande bêta! Ce bot n'exécute que des commandes bêta.",
+  "disabled": "Cette commande a été désactivée par le développeur bot. Raison :\n{reason}",
   "nsfw": "Vous ne pouvez pas exécuter des commandes NSFW dans un salon non NSFW !",
   "strictAutocompleteNoMatch": "Votre entrée doit correspondre à l'une des suggestions de saisie automatique. Veuillez sélectionner l'une des options disponibles lors de la saisie de la commande slash.",
   "permissionDenied": {

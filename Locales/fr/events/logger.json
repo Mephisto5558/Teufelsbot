@@ -3,6 +3,7 @@
   "executor": "Supprimé par",
   "reason": "Raison",
   "embeds": "{count} Embeds",
+  "unknownContent": "Inconnu",
   "messageDelete": {
     "embedDescription": "Un message a été supprimé par {executor} dans {channel}.",
     "content": "Contenu du message",
