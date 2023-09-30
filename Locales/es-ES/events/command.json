@@ -3,7 +3,6 @@
   "slashOnly": "¡Este comando sólo está disponible como un comando slash: </{name}:{id}>",
   "guildOnly": "¡Este comando sólo está disponible en gremios!",
   "nonBeta": "¡Este comando no es un comando beta! Este bot ejecuta sólo comandos beta.",
-  "disabled": "Este comando ha sido deshabilitado por el bot dev.",
   "nsfw": "¡No puedes ejecutar comandos NSFW en un canal no NSFW!",
   "strictAutocompleteNoMatch": "Su entrada debe coincidir con una de las sugerencias de autocompletado. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando de barra.",
   "permissionDenied": {
