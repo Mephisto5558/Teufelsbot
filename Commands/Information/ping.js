@@ -22,19 +22,18 @@ module.exports = {
       endMessagePing = performance.now() - startMessagePing;
 
     if (average) {
-      const wsPings = [], msgPings = [endMessagePing];
+      const wsPings = [this.client.ws.ping], msgPings = [endMessagePing];
 
       for (let i = 2; i <= 20; i++) {
+        await sleep(3000);
+        
         wsPings.push(this.client.ws.ping);
 
         const startMessagePing = performance.now();
         await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: i, target: 20 }))] });
         msgPings.push(performance.now() - startMessagePing);
-
-        await sleep(3000);
       }
 
-      wsPings.push(this.client.ws.ping);
       wsPings.sort((a, b) => a - b);
       msgPings.sort((a, b) => a - b);
 
