@@ -1,0 +1,13 @@
+{
+  "selfrole": {
+    "embedTitle": "Rôle de soi",
+    "roleNotFound": "Le rôle lié à ce bouton n'a pas été trouvé !",
+    "noPermMember": "Je n'ai pas la permission de gérer vos rôles !",
+    "noPermRole": "Je n'ai pas la permission de gérer le rôle <@&{role}> !",
+    "hasRoleAlready": "Vous avez déjà le rôle <@&{role}> !",
+    "addSuccess": "Je vous ai donné le rôle <@&{role}>.",
+    "missesRole": "Je ne peux pas supprimer votre rôle <@&{role}> car vous ne l'avez pas !",
+    "removeSuccess": "J'ai supprimé votre rôle <@&{role}>."
+  },
+  "buttonOnCooldown": "Ce bouton est en cours de rechargement! Réessayez dans `{time}`s."
+}
