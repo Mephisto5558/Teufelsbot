@@ -1,0 +1,13 @@
+{
+  "selfrole": {
+    "embedTitle": "Rol propio",
+    "roleNotFound": "¡El rol vinculado a este botón no fue encontrado!",
+    "noPermMember": "¡No tengo permiso para administrar tus roles!",
+    "noPermRole": "¡No tengo permiso para administrar el rol <@&{role}>!",
+    "hasRoleAlready": "¡Ya tienes el rol <@&{role}>!",
+    "addSuccess": "Te he dado el rol <@&{role}>.",
+    "missesRole": "¡No puedo eliminar tu rol <@&{role}> porque no lo tienes!",
+    "removeSuccess": "He eliminado tu rol <@&{role}>."
+  },
+  "buttonOnCooldown": "¡Este botón está en enfriamiento! Inténtalo de nuevo en `{time}`s."
+}

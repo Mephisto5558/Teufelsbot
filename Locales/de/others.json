@@ -59,5 +59,16 @@
       "14": "Ordner",
       "15": "Foren"
     }
+  },
+  "errorHandler": {
+    "embedTitle": "Hupsala",
+    "embedDescription": "Ein unerwarteter Fehler ist aufgetreten!\n\nBefehl: `{command}`",
+    "embedFooterText": "Das Melden dieses Fehlers wird die Befehlsoptionen privat an den Entwickler senden.",
+    "reportButton": "Melde diesen Fehler",
+    "reportButtonDisabled": " (Deaktiviert wegen Dev-Version)",
+    "discordAPIErr": "Ein Fehler in der Discord API ist aufgetreten, bitte versuche es erneut und informiere den Dev, wenn dies weiterhin auftritt.",
+    "alreadyReported": "Dieser Fehler wurde bereits gemeldet. [Link]({url}).\nEs wird bald gefixt.",
+    "reportSuccess": "Der Fehler wurde gemeldet. [Link]({url})",
+    "reportFail": "Ein Fehler ist beim Versuch, den Fehler zu melden, aufgetreten.\n```\n{err}\n```\nBitte informiere den Dev direkt."
   }
 }

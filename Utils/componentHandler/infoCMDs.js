@@ -8,7 +8,7 @@ const
 module.exports = async function infoCMDs(lang, id, mode, entityType) {
   if (entityType != 'members') await this.deferReply();
 
-  lang.__boundArgs__[0].backupPath = `events.infoCMDs.${entityType}`;
+  lang.__boundArgs__[0].backupPath = `events.command.infoCMDs.${entityType}`;
 
   const
     embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red }),
@@ -24,12 +24,12 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
       const modal = new ModalBuilder({
         title: lang('modalTitle'),
-        customId: 'infoCMds_punish_reason_modal',
+        customId: 'infoCMDs_punish_reason_modal',
         components: [new ActionRowBuilder({
           components: [new TextInputBuilder({
             label: lang('modalTextLabel'),
             maxLength: 500,
-            customId: 'infoCMds_punish_reason_modal_text',
+            customId: 'infoCMDs_punish_reason_modal_text',
             style: TextInputStyle.Short
           })]
         })]
@@ -41,7 +41,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       await submit.deferUpdate();
 
       this.commandName = mode;
-      this.options = { getMember: () => item, getString: () => submit.fields.getTextInputValue('infoCMds_punish_reason_modal_text'), getNumber: () => 0 };
+      this.options = { getMember: () => item, getString: () => submit.fields.getTextInputValue('infoCMDs_punish_reason_modal_text'), getNumber: () => 0 };
       this.editReply = this.followUp;
       lang.__boundArgs__[0].backupPath = `commands.moderation.${mode}`;
 

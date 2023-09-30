@@ -8,7 +8,7 @@ module.exports = async function errorHandler(err, message, lang) {
 
   if (!message) return;
 
-  lang.__boundArgs__[0].backupPath = 'events.errorHandler';
+  lang.__boundArgs__[0].backupPath = 'others.errorHandler';
 
   const
     { aliasOf } = this.slashCommands.get(message.commandName) || this.prefixCommands.get(message.commandName) || {},
