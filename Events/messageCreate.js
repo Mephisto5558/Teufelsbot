@@ -22,13 +22,11 @@ module.exports = async function messageCreate() {
     command = this.client.prefixCommands.get(this.commandName),
     lang = I18nProvider.__.bBind(I18nProvider, { locale: config.lang ?? this.guild?.localeCode, backupPath: 'events.command' });
 
-  if (command) {
-    if (command.disabled) return replyOnDisabledCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('disabled', command.disabledReason || 'Not provided'))] }, 1e4);
-    if (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id) return this.runMessages(); //DO NOT REMOVE THIS LINE!
-    if (!command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply({ embeds: [errorEmbed.setDescription(lang('guildOnly'))] }, 1e4);
-    if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('nonBeta'))] }, 1e4);
-  }
-  else return this.client.slashCommands.has(this.commandName) ? this.customReply({ embeds: [errorEmbed.setDescription(lang('slashOnly', { name: this.commandName, id: this.client.slashCommands.get(this.commandName).id }))] }, 1e4) : this.runMessages();
+  if (!command) return this.client.slashCommands.has(this.commandName) ? this.customReply({ embeds: [errorEmbed.setDescription(lang('slashOnly', { name: this.commandName, id: this.client.slashCommands.get(this.commandName).id }))] }, 1e4) : this.runMessages();
+  if (command.disabled) return replyOnDisabledCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('disabled', command.disabledReason || 'Not provided'))] }, 1e4);
+  if (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id) return this.runMessages(); //DO NOT REMOVE THIS LINE!
+  if (!command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply({ embeds: [errorEmbed.setDescription(lang('guildOnly'))] }, 1e4);
+  if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('nonBeta'))] }, 1e4);
 
   const disabledList = commandSettings[command.aliasOf || command.name]?.disabled || {};
   if (disabledList.members?.includes(this.user.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('notAllowed.member'))] }, 1e4);
