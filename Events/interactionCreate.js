@@ -9,7 +9,7 @@ const
 module.exports = async function interactionCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 
-  const locale = this.guild.db.config?.lang ?? this.guild.localeCode;
+  const locale = this.guild?.db.config?.lang ?? this.guild?.localeCode;
   if (this.type == InteractionType.MessageComponent) return componentHandler.call(this, I18nProvider.__.bBind(I18nProvider, { locale, backupPath: 'events.command' }));
 
   const command = this.client.slashCommands.get(this.commandName);
@@ -22,10 +22,12 @@ module.exports = async function interactionCreate() {
   if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? void 0 : this.reply({ embeds: [errorEmbed.setDescription(lang('nonBeta'))], ephemeral: true });
   if (command.disabled) return replyOnDisabledCommand === false ? void 0 : this.reply({ embeds: [errorEmbed.setDescription(lang('disabled', command.disabledReason || 'Not provided'))], ephemeral: true });
 
-  const disabledList = this.guild.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
-  if (disabledList.members?.includes(this.user.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('notAllowed.member'))], ephemeral: true });
-  if (disabledList.channels?.includes(this.channel.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('notAllowed.channel'))], ephemeral: true });
-  if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return this.reply({ embeds: [errorEmbed.setDescription(lang('notAllowed.role'))], ephemeral: true });
+  const disabledList = this.guild?.db.commandSettings?.[command.aliasOf || command.name]?.disabled;
+  if (disabledList) {
+    if (disabledList.members?.includes(this.user.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('notAllowed.member'))], ephemeral: true });
+    if (disabledList.channels?.includes(this.channel.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('notAllowed.channel'))], ephemeral: true });
+    if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return this.reply({ embeds: [errorEmbed.setDescription(lang('notAllowed.role'))], ephemeral: true });
+  }
   if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return this.reply({ embeds: [errorEmbed.setDescription(lang('nsfw'))], ephemeral: true });
 
   for (const { autocomplete, strictAutocomplete, name } of command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options || e) || e?.options || e) || []) {
@@ -42,14 +44,16 @@ module.exports = async function interactionCreate() {
   }
 
   if (this.type == InteractionType.ApplicationCommand) {
-    const userPermsMissing = this.member.permissionsIn(this.channel).missing(command.permissions?.user);
-    const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing(command.permissions?.client);
+    if (this.guild) {
+      const userPermsMissing = this.member.permissionsIn(this.channel).missing(command.permissions?.user);
+      const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing(command.permissions?.client);
 
-    if (botPermsMissing.length || userPermsMissing.length) {
-      errorEmbed.data.title = lang('permissionDenied.embedTitle');
-      errorEmbed.data.description = lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') });
+      if (botPermsMissing.length || userPermsMissing.length) {
+        errorEmbed.data.title = lang('permissionDenied.embedTitle');
+        errorEmbed.data.description = lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') });
 
-      return this.reply({ embeds: [errorEmbed], ephemeral: true });
+        return this.reply({ embeds: [errorEmbed], ephemeral: true });
+      }
     }
 
     if (!command.noDefer && !this.replied) await this.deferReply({ ephemeral: command.ephemeralDefer ?? false });

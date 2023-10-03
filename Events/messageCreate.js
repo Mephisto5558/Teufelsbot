@@ -28,10 +28,12 @@ module.exports = async function messageCreate() {
   if (!command.dmPermission && this.channel.type == ChannelType.DM) return this.customReply({ embeds: [errorEmbed.setDescription(lang('guildOnly'))] }, 1e4);
   if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? void 0 : this.customReply({ embeds: [errorEmbed.setDescription(lang('nonBeta'))] }, 1e4);
 
-  const disabledList = commandSettings[command.aliasOf || command.name]?.disabled || {};
-  if (disabledList.members?.includes(this.user.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('notAllowed.member'))] }, 1e4);
-  if (disabledList.channels?.includes(this.channel.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('notAllowed.channel'))] }, 1e4);
-  if (disabledList.roles && this.member.roles?.cache.some(e => disabledList.roles.includes(e.id))) return this.customReply({ embeds: [errorEmbed.setDescription(lang('notAllowed.role'))] }, 1e4);
+  const disabledList = commandSettings[command.aliasOf || command.name]?.disabled;
+  if (disabledList) {
+    if (disabledList.members?.includes(this.user.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('notAllowed.member'))] }, 1e4);
+    if (disabledList.channels?.includes(this.channel.id)) return this.customReply({ embeds: [errorEmbed.setDescription(lang('notAllowed.channel'))] }, 1e4);
+    if (disabledList.roles && this.member.roles?.cache.some(e => disabledList.roles.includes(e.id))) return this.customReply({ embeds: [errorEmbed.setDescription(lang('notAllowed.role'))] }, 1e4);
+  }
   if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return this.customReply({ embeds: [errorEmbed.setDescription(lang('nsfw'))] }, 1e4);
 
   const options = command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options || e) || e?.options || e) || [];
@@ -61,7 +63,7 @@ module.exports = async function messageCreate() {
       errorEmbed.data.description = lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') });
 
       if (botPermsMissing.includes('SendMessages')) return this.user.send({ content: `${this.guild.name}: ${this.channel.name}`, embeds: [errorEmbed] });
-      return this.reply({ embeds: [errorEmbed.setTitle()] });
+      return this.reply({ embeds: [errorEmbed] });
     }
   }
 
