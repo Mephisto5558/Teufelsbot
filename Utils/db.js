@@ -91,13 +91,13 @@ module.exports = class DB {
     return data.value;
   }
 
-  /**@param {string}db@param {string}key@param value supports [1, 2, 3] as well as 1, 2, 3 @returns {array}value*/
+  /**@param {string}db@param {string}key@param value supports [1, 2, 3] as well as 1, 2, 3 @returns {Array}value*/
   push(db, key, ...value) { return this._push(false, db, key, ...value); }
 
-  /**@param {string}db@param {string}key@param value supports [1, 2, 3] as well as 1, 2, 3 @returns {array}value*/
+  /**@param {string}db@param {string}key@param value supports [1, 2, 3] as well as 1, 2, 3 @returns {Array}value*/
   pushToSet(db, key, ...value) { return this._push(true, db, key, ...value); }
 
-  /**@param {bool}set If true, there will be no duplicates @param {string}db@param {string}key@param value supports [1, 2, 3] as well as 1, 2, 3 @returns {array}value*/
+  /**@param {boolean}set If true, there will be no duplicates @param {string}db@param {string}key@param value supports [1, 2, 3] as well as 1, 2, 3 @returns {Array}value*/
   async _push(set, db, key, ...value) {
     const values = value.length == 1 && Array.isArray(value[0]) ? value[0] : value;
     if (!db || !values.length) return;
