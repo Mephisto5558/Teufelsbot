@@ -54,18 +54,26 @@ module.exports = {
       if (summary.length < 2049) embed.data.description = summary;
 
       await message.edit({ content: '', embeds: [embed] });
-      if (!embed.data.description) return;
+      if (embed.data.description) return;
 
-      let joined = await summary.split('\n').reduce(async (acc, e) => {
-        if ((await acc).length >= 2000) {
-          await this.customReply(await acc);
-          acc = '';
+      let joined = '';
+      let msgs = 0;
+      for (const line of summary.split('\n')) {
+        if (msgs > 9) {
+          joined += lang('visitWiki');
+          break;
         }
-        return `${await acc}${e}\n`;
-      }, Promise.resolve(''));
 
-      if (joined.split('\n').length > 3) joined += lang('visitWiki');
-      return this.customReply(joined);
+        if (joined.length >= 2000) {
+          await this.customReply(joined);
+          msgs++;
+          joined = '';
+        }
+
+        joined += `${line}\n`;
+      }
+
+      if (joined) return this.customReply(joined);
     }
     catch (err) {
       if (this.client.botType == 'dev') throw err;
