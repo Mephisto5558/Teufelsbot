@@ -14,7 +14,7 @@
     "@discordjs/voice": "^0.16.0",
     "better-ms": "^1.1.7",
     "canvas": "^2.11.2",
-    "cron": "^2.3.0",
+    "cron": "^3.0.0",
     "discord-giveaways": "^6.0.1",
     "discord-tictactoe": "^4.1.1",
     "discord.js": "^14.12.1",
