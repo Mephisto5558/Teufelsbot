@@ -4,7 +4,8 @@ module.exports = {
   name: 'avatar',
   cooldowns: { guild: 100, user: 1000 },
   slashCommand: true,
-  prefixCommand: true, beta: true, dmPermission: true,
+  prefixCommand: true,
+  dmPermission: true,
   options: [
     { name: 'target', type: 'User' },
     {
