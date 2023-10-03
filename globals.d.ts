@@ -70,7 +70,7 @@ declare module "discord.js" {
      * @param deleteTime Number in Milliseconds
      */
     customReply(
-      options: string | MessageEditOptions | MessagePayload,
+      options: string | MessageEditOptions | MessagePayload | InteractionReplyOptions,
       deleteTime?: Number,
       allowedMentions?: MessageMentionOptions | { repliedUser: false }
     ): Promise<Message>;
@@ -83,7 +83,7 @@ declare module "discord.js" {
      * @param deleteTime Number in Milliseconds
      */
     customReply(
-      options: string | MessageEditOptions | MessagePayload,
+      options: string | MessageEditOptions | MessagePayload | InteractionReplyOptions,
       deleteTime?: Number,
       allowedMentions?: MessageMentionOptions | { repliedUser: false }
     ): Promise<Message>;
