@@ -92,15 +92,19 @@ module.exports = class DB {
   }
 
   /**@param {string}db@param {string}key@param value supports [1, 2, 3] as well as 1, 2, 3 @returns {array}value*/
-  async push(db, key, ...value) {
-    const values = value.length == 1 && Array.isArray(value[0]) ? value[0] : value;
+  push(db, key, ...value) { return this._push(false, db, key, ...value); }
 
+  /**@param {string}db@param {string}key@param value supports [1, 2, 3] as well as 1, 2, 3 @returns {array}value*/
+  pushToSet(db, key, ...value) { return this._push(true, db, key, ...value); }
+
+  /**@param {bool}set If true, there will be no duplicates @param {string}db@param {string}key@param value supports [1, 2, 3] as well as 1, 2, 3 @returns {array}value*/
+  async _push(set, db, key, ...value) {
+    const values = value.length == 1 && Array.isArray(value[0]) ? value[0] : value;
     if (!db || !values.length) return;
-    if (!Array.isArray(values)) throw Error('You can\'t push an empty or non-array value!');
 
     this.saveLog(`pushing data to ${db}.${key}`, values);
 
-    const data = await this.schema.findOneAndUpdate({ key: db }, { $push: { [`value.${key}`]: { $each: values } } }, { new: true, upsert: true }).exec();
+    const data = await this.schema.findOneAndUpdate({ key: db }, { [set ? '$addToSet' : '$push']: { [`value.${key}`]: { $each: values } } }, { new: true, upsert: true }).exec();
     this.cache.set(key, data.value);
     return data.value;
   }

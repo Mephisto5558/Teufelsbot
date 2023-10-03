@@ -1,8 +1,10 @@
 module.exports = {
   name: 'blacklistuser',
+  aliases: { prefix: ['blacklist'] },
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
+  beta: true,
 
   run: async function (lang) {
     if (!this.args[0]) return this.customReply(lang('noInput'));
@@ -16,7 +18,7 @@ module.exports = {
 
     if (this.args[0] == this.client.application.owner.id) return this.customReply(lang('cantBlacklistOwner'));
 
-    await this.client.db.update('botSettings', 'blacklist', (this.client.settings.blacklist || []).concat(this.args[0]));
+    await this.client.db.pushToSet('botSettings', 'blacklist', this.args[0]);
     return this.customReply(lang('saved', this.args[0]));
   }
 };
