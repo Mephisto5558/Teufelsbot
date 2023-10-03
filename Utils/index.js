@@ -2,6 +2,7 @@ module.exports = {
   autocompleteGenerator: require('./autocompleteGenerator.js'),
   BackupSystem: require('./backupSystem.js'),
   bankick: require('./bankick.js'),
+  checkForErrors: require('./checkForErrors.js'),
   checkTargetBanPerm: require('./checkTargetBanPerm.js'),
   componentHandler: require('./componentHandler.js'),
   cooldowns: require('./cooldowns.js'),
