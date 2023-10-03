@@ -82,7 +82,7 @@ module.exports = async function slashCommandHandler() {
   this.on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[].concat(args ?? this)));
 
   log /*eslint-disable no-unexpected-multiline, indent*/
-    (`Registered ${registeredCommandCount} Slash Commands`)
+    (`Registered ${registeredCommandCount} Slash Commands`) //NOSONAR
     (`Skipped ${this.slashCommands.filter(e => { return e.skip && delete e.skip; }).size} Slash Commands`)
     (`Deleted ${deletedCommandCount} Slash Commands`)
     ('Loaded Event interactionCreate')
