@@ -69,20 +69,17 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
       const choices = this.client.db.get('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`) || {};
       if (opponentId == this.client.user.id) choices.player2 = ['r', 'p', 's'].random();
 
-      if (choices.player1 && this.user.id == initiatorId || choices.player2 && this.user.id == opponentId) return this.reply({ content: lang('end.alreadyChosen', choices.player1 || choices.player2), ephemeral: true });
+      const player = this.user.id == initiatorId ? 'player1' : 'player2';
+      if (!choices.player1 || !choices.player2) {
+        if (choices[player]) return this.reply({ content: lang('end.alreadyChosen', lang(choices[player])), ephemeral: true });
 
-      if (this.user.id == initiatorId) {
-        choices.player1 = mode;
-        if (!choices.player2) await this.client.db.update('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}.player1`, mode);
+        await this.client.db.update('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}.${player}`, mode);
+        this.reply({ content: lang('end.saved', lang(mode)), ephemeral: true });
+
+        if (!choices.player1 || !choices.player2) return;
       }
-      else {
-        choices.player2 = mode;
-        if (!choices.player1) await this.client.db.update('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}.player2`, mode);
-      }
 
-      if (!choices.player1 || !choices.player2) return this.reply({ content: lang('end.saved', lang(mode)), ephemeral: true });
-      else await this.client.db.delete('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`);
-
+      await this.client.db.delete('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`);
       if (choices.player1 == choices.player2) this.message.embeds[0].data.description = lang('end.tie', emojis[mode]);
       else {
         const winner = choices.player1 == 'r' && choices.player2 == 's' || choices.player1 == 'p' && choices.player2 == 'r' || choices.player1 == 's' && choices.player2 == 'p' ? initiatorId : opponentId;
