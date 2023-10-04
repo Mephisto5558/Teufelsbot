@@ -15,7 +15,7 @@ module.exports = async function messageCreate() {
 
   const
     command = this.client.prefixCommands.get(this.commandName),
-    lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild?.db.config.lang ?? this.guild?.localeCode, backupPath: 'events.command' }),
+    lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild?.db.config?.lang ?? this.guild?.localeCode, backupPath: 'events.command' }),
     errorKey = await checkForErrors.call(this, command, lang);
     
   if (errorKey === true) return;
