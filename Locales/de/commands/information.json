@@ -118,7 +118,7 @@
     "commands": "Befehle",
     "starts": "Starts",
     "lastStart": "Letzter Start",
-    "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n",
+    "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\nAlle anderen Sprachen sind größtenteils maschinell übersetzt.",
     "links": "**[Einladung]({Invite})** | **[Dashboard]({Dashboard})** | **[Datenschutzrichtlinie]({PrivacyPolicy})**",
     "embedTitle": "Informationen",
     "embedFooterText": "Mehr Informationen kommen bald!"
