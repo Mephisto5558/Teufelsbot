@@ -4,5 +4,16 @@
     "description": "Do a backflip!",
     "embedTitle": "Backflip",
     "embedDescription": "{user} does a backflip!"
+  },
+  "furrykiss": {
+    "description": "furrykiss someone.",
+    "options": {
+      "target": {
+        "description": "Who do you want to kiss?"
+      }
+    },
+    "embedTitle": "Furrykiss",
+    "embedDescription": "{user} kisses :3",
+    "embedDescriptionTarget": "{user} kisses {target} :3"
   }
 }
