@@ -4,5 +4,16 @@
     "description": "Mache einen Backflip!",
     "embedTitle": "Backflip",
     "embedDescription": "{user} macht einen Backflip!"
+  },
+  "furrykiss": {
+    "description": "Furryküsse jemanden.",
+    "options": {
+      "target": {
+        "description": "Wen möchtest du küssen?"
+      }
+    },
+    "embedTitle": "Furrykiss",
+    "embedDescription": "{user} küsst :3",
+    "embedDescriptionTarget": "{user} küsst {target} :3"
   }
 }
