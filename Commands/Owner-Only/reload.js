@@ -99,18 +99,19 @@ module.exports = {
         case 'file': {
           const filePath = resolve(process.cwd(), this.args[1]);
 
-          try {
-            await access(filePath);
-
-            if (this.args[1]?.startsWith('Commands/')) {
-              const cmd = require(filePath);
-              cmd.filePath = filePath;
-              cmd.category = this.args[1].split('/')[1];
-
-              await reloadCommand.call(this.client, cmd, reloadedArray);
-            }
+          try { await access(filePath); }
+          catch (err) {
+            if (err.code == 'ENOENT') return msg.edit(lang('invalidPath'));
+            throw err;
           }
-          catch { return msg.edit(lang('invalidPath')); }
+
+          if (this.args[1]?.startsWith('Commands/')) {
+            const cmd = require(filePath);
+            cmd.filePath = filePath;
+            cmd.category = this.args[1].split('/')[1];
+
+            await reloadCommand.call(this.client, cmd, reloadedArray);
+          }
 
           delete require.cache[filePath];
           break;
