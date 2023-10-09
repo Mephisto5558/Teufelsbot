@@ -499,7 +499,7 @@
       }
     },
     "noPerm": "Du hast nicht die Berechtigung, Nachrichten in diesem Kanal zu senden!",
-    "noMsgProvided": "Du musst mir sagen, was ich senden soll!"
+    "noMsgProvided": "Du musst mir sagen was ich senden soll!"
   },
   "sleep": {
     "description": "Sage deinen Freunden, dass du schlafen gehst.",
