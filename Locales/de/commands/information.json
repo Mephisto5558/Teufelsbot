@@ -89,7 +89,6 @@
     },
     "categoryListPlaceholder": "Welche Befehlskategorie möchtest du sehen?",
     "commandListPlaceholder": "Welchen Befehl möchtest du sehen?",
-    "devEmbedFooterText": "Dev-Bot | Nur Beta-Befehle werden angezeigt",
     "one": {
       "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
       "embedTitle": "{category} » {command}",
