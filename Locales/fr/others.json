@@ -70,5 +70,11 @@
     "alreadyReported": "Cette erreur a déjà été signalée. [Link]({url}).\nElle sera bientôt corrigée.",
     "reportSuccess": "L'erreur a été signalée. [Link]({url})",
     "reportFail": "`Une erreur s'est produite en essayant d'envoyer votre rapport d'erreur.\n```\n{err}\n```\nVeuillez envoyer un message au développeur directement."
+  },
+  "timeFormatter": {
+    "dhms": "{d} jours, {h} heures, {m} minutes et {s} secondes",
+    "hms": "{h} heures, {m} minutes et {s} secondes",
+    "ms": "{m} minutes et {s} secondes",
+    "s": "{s} secondes"
   }
 }

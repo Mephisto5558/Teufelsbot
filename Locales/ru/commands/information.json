@@ -229,11 +229,7 @@
   },
   "uptime": {
     "description": "Получить время работы бота",
-    "embedDescription": "Бот был [online]({Domain}/uptime) ровно {time}.",
-    "dhms": "{d} дней, {h} часов, {m} минут и {s} секунд",
-    "hms": "{h} часов, {m} минут и {s} секунд",
-    "ms": "{m} минут и {s} секунд",
-    "s": "{s} секунд"
+    "embedDescription": "Бот был [online]({Domain}/uptime) ровно {time}."
   },
   "userinfo": {
     "description": "Получить информацию о участнике",

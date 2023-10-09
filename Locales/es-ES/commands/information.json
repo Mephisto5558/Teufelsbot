@@ -229,11 +229,7 @@
   },
   "uptime": {
     "description": "Obtener el tiempo de actividad del bot",
-    "embedDescription": "El bot ha sido [online]({Domain}/uptime) por exactamente {time}.",
-    "dhms": "{d} días, {h} horas, {m} minutos y {s} segundos",
-    "hms": "{h} horas, {m} minutos y {s} segundos",
-    "ms": "{m} minutos y {s} segundos",
-    "s": "{s} segundos"
+    "embedDescription": "El bot ha sido [online]({Domain}/uptime) por exactamente {time}."
   },
   "userinfo": {
     "description": "Obtener información sobre un miembro",

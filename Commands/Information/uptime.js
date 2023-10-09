@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   { Domain } = require('../../config.json').Website,
-  { uptime } = require('../../Utils');
+  { timeFormatter } = require('../../Utils');
 
 module.exports = {
   name: 'uptime',
@@ -12,7 +12,7 @@ module.exports = {
 
   run: function (lang) {
     const embed = new EmbedBuilder({
-      description: lang('embedDescription', { time: uptime(true, lang).formatted, Domain }),
+      description: lang('embedDescription', { time: timeFormatter(process.uptime(), lang).formatted, Domain }),
       color: Colors.White
     });
 
