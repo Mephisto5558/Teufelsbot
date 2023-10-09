@@ -21,7 +21,7 @@ module.exports = async function messageCreate() {
   if (errorKey === true) return;
   else if (errorKey) return this.customReply({ embeds: [new EmbedBuilder({ description: lang(...errorKey), color: Colors.Red })] }, 1e4);
 
-  const cmdLang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild?.db.config.lang ?? this.guild?.localeCode, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.aliasOf ?? command.name}` : null });
+  const cmdLang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild?.db.config?.lang ?? this.guild?.localeCode, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.aliasOf ?? command.name}` : null });
   
   try {
     command.run.call(this, cmdLang)?.catch(err => errorHandler.call(this.client, err, this, lang));
