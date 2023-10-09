@@ -70,5 +70,13 @@
     "alreadyReported": "Dieser Fehler wurde bereits gemeldet. [Link]({url}).\nEs wird bald gefixt.",
     "reportSuccess": "Der Fehler wurde gemeldet. [Link]({url})",
     "reportFail": "Ein Fehler ist beim Versuch, den Fehler zu melden, aufgetreten.\n```\n{err}\n```\nBitte informiere den Dev direkt."
+  },
+  "timeFormatter": {
+    "ymdhms": "{y} Jahren, {mo} Monaten, {d} Tagen, {h} Stunden, {m} Minuten und {s} Sekunden",
+    "mdhms": "{mo} Monaten, {d} Tagen, {h} Stunden, {m} Minuten und {s} Sekunden",
+    "dhms": "{d} Tagen, {h} Stunden, {m} Minuten und {s} Sekunden",
+    "hms": "{h} Stunden, {m} Minuten und {s} Sekunden",
+    "ms": "{m} Minuten und {s} Sekunden",
+    "s": "{s} Sekunden"
   }
 }

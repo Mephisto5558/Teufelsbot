@@ -18,6 +18,6 @@ module.exports = {
   logSayCommandUse: require('./logSayCommandUse.js'),
   slashCommandsEqual: require('./slashCommandsEqual.js'),
   permissionTranslator: require('./permissionTranslator.js'),
+  timeFormatter: require('./timeFormatter.js'),
   timeValidator: require('./timeValidator.js'),
-  uptime: require('./uptime.js'),
 };
