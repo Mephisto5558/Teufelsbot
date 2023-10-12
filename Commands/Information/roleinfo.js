@@ -42,8 +42,8 @@ module.exports = {
 
     if (role.members.size && role.members.size < 16) embed.data.fields.splice(9, 0, { name: lang('members'), value: Array.from(role.members.values()).join(', '), inline: false });
 
-    if (role.icon) embed.data.thumbnail.url = `https://cdn.discordapp.com/role-icons/${role.guild.id}/${role.icon}.webp?size=80&quality=lossless`;
-    else if (role.color) embed.data.thumbnail.url = `https://dummyimage.com/80x80/${role.hexColor.substring(1)}/${role.hexColor.substring(1)}.png`;
+    if (role.icon) embed.data.thumbnail = { url: `https://cdn.discordapp.com/role-icons/${role.guild.id}/${role.icon}.webp?size=80&quality=lossless` };
+    else if (role.color) embed.data.thumbnail = { url: `https://dummyimage.com/80x80/${role.hexColor.substring(1)}/${role.hexColor.substring(1)}.png` };
 
     const components = this.member.permissions.has(PermissionFlagsBits.ManageRoles) && role.editable && (this.member.roles.highest.position > role.position || this.user.id == this.guild.ownerId) ? [new ActionRowBuilder({
       components: [new ButtonBuilder({
