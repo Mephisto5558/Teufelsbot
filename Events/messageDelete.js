@@ -1,19 +1,28 @@
 const
-  { EmbedBuilder, PermissionFlagsBits, AuditLogEvent } = require('discord.js'),
+  { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js'),
   { I18nProvider } = require('../Utils');
 
 /**@this {import('discord.js').Message}*/
-function countingHandler() {
-  const { counting: { [this.channel.id]: countingData } = {} } = this.guild.db;
-  if (countingData?.lastNumber && Number(this.originalContent))
-    return this.channel.send({ content: `<t:${Math.round(this.createdTimestamp / 1000)}>\n<@${this.user.id}>: *${countingData.lastNumber - 1} -> ${this.originalContent}*`, allowedMentions: { parse: [] } });
+function countingHandler(lang) {
+  const lastNum = this.guild.db?.counting?.[this.channel.id]?.lastNumber || NaN;
+  if (isNaN(this.originalContent || NaN) || isNaN(lastNum) || lastNum - this.originalContent) return;
+
+  const embed = new EmbedBuilder({
+    author: { name: this.user?.username ?? lang('unknown'), iconURL: this.member?.displayAvatarURL() },
+    title: lang('embedTitle'),
+    description: lang('embedDescription', { deletedNum: this.originalContent, nextNum: lastNum + 1 }),
+    color: Colors.Red,
+    timestamp: this.createdTimestamp
+  });
+
+  return this.channel.send({ embeds: [embed], allowedMentions: { parse: [] } });
 }
 
 /**@this {import('discord.js').Message}*/
 module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.guild) return;
 
-  countingHandler.call(this);
+  countingHandler.call(this, I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'commands.minigames.counting.userDeletedMsg' }));
 
   const setting = this.guild?.db.config?.logger?.messageDelete ?? {};
   if (!setting.enabled || !setting.channel) return;
