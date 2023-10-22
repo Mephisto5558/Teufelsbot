@@ -221,8 +221,10 @@
         }
       }
     },
-    "toggledModule": "El módulo `{name}` ha sido {state}.",
-    "toggleCmd": {
+    "toggleModule": {
+      "success": "El módulo `{name}` ha sido {state}."
+    },
+    "toggleCommand": {
       "notFound": "¡Este comando no es válido!",
       "list": {
         "all": "Todos los miembros",
