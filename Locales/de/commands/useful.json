@@ -308,6 +308,31 @@
     "outOfRange": "Die angegebene Zeit überschreitet das Limit von 200.000 Jahren!",
     "success": "Das ist <t:{time}:R> (`<t:{time}:R>`)."
   },
+  "until": {
+    "description": "Wie lange es bis zu einem bestimmten Datum/Zeit dauert. Wenn kein Datum, Standart: aktuelles Datum",
+    "options": {
+      "day": {
+        "description": "Der Tag des Zieldatums."
+      },
+      "month": {
+        "description": "Der Monat des Zieldatums"
+      },
+      "year": {
+        "description": "Das Jahr des Zieldatums"
+      },
+      "hour": {
+        "description": "Die Stunde des Zieldatums"
+      },
+      "minute": {
+        "description": "Die Minute des Zieldatums"
+      },
+      "second": {
+        "description": "Die Sekunde des Zieldatums"
+      }
+    },
+    "until": "Das ist in {time}.",
+    "untilNeg": "Das war vor {time}."
+  },
   "wiki": {
     "description": "Suche nach etwas auf Wikipedia oder erhalte Informationen über etwas Zufälliges.",
     "usage": {

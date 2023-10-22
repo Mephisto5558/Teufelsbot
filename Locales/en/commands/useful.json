@@ -308,6 +308,31 @@
     "outOfRange": "The specified time is greater than 200,000 years!",
     "success": "That's <t:{time}:R> (`<t:{time}:R>`)."
   },
+  "until": {
+    "description": "Shows how long it will be until a certain date/time. If no date is specified,default is current date",
+    "options": {
+      "day": {
+        "description": "The day part of the target date"
+      },
+      "month": {
+        "description": "The month part of the target date"
+      },
+      "year": {
+        "description": "The year part of the target date"
+      },
+      "hour": {
+        "description": "The hour part of the target date"
+      },
+      "minute": {
+        "description": "The minute part of the target date"
+      },
+      "second": {
+        "description": "The second part of the target date"
+      }
+    },
+    "until": "That's in {time}.",
+    "untilNeg": "That's {time} ago."
+  },
   "wiki": {
     "description": "Search for something on Wikipedia, or get a random page if no search terms were specified.",
     "usage": {
