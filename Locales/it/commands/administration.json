@@ -221,8 +221,10 @@
         }
       }
     },
-    "toggledModule": "Il modulo `{name}` è stato {state}.",
-    "toggleCmd": {
+    "toggleModule": {
+      "success": "Il modulo `{name}` è stato {state}."
+    },
+    "toggleCommand": {
       "notFound": "Questo non è un comando valido!",
       "list": {
         "all": "Tutti i membri",
