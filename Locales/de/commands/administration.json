@@ -221,8 +221,10 @@
         }
       }
     },
-    "toggledModule": "Das `{name}` Modul wurde {state}.",
-    "toggleCmd": {
+    "toggleModule": {
+      "success": "Das `{name}` Modul wurde {state}."
+    },
+    "toggleCommand": {
       "notFound": "Das ist kein gültiger Befehl!",
       "list": {
         "all": "Alle Mitglieder",
@@ -264,6 +266,14 @@
         "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
         "sayCommandUsed": "/say, /embed Befehls-Verwendung"
       }
+    },
+    "tickets": {
+      "defaultButtonLabel": "Erstelle Ticket",
+      "disabled": "Das Ticket-Modul wurde deaktiviert.",
+      "infoEmbedDescription": "Bitte drücke den untenstehenden Button, um eine benutzerdefinierte Embedbeschreibung festzulegen, bevor du das Ticket-System durch Drücken des Speichern-Buttons aktivieren kannst.\nDu kannst [hier]({url}) ein gültiges Embed generieren.",
+      "editButtonLabel": "Embed bearbeiten",
+      "previewButtonLabel": "Embed-Vorschau",
+      "saveButtonLabel": "Embed speichern"
     }
   }
 }

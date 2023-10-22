@@ -221,8 +221,10 @@
         }
       }
     },
-    "toggledModule": "The `{name}` module has been {state}.",
-    "toggleCmd": {
+    "toggleModule": {
+      "success": "The `{name}` module has been {state}."
+    },
+    "toggleCommand": {
       "notFound": "This is not a valid command!",
       "list": {
         "all": "All members",
@@ -264,6 +266,16 @@
         "voiceChannelActivity": "voice channel joins/leaves/switches",
         "sayCommandUsed": "/say (or similar) command uses"
       }
+    },
+    "tickets": {
+      "defaultButtonLabel": "Create Ticket",
+      "disabled": "The ticket module has been disabled.",
+      "infoEmbedDescription": "Please press the button below to set a custom embed description before you can enable the ticket system by pressing the save button.\nYou can generate a valid embed [here]({url})",
+      "editButtonLabel": "Edit Embed",
+      "previewButtonLabel": "Preview Embed",
+      "saveButtonLabel": "Save Embed",
+      "textInputLabel": "Please enter the embed JSON.",
+      "invalidEmbed": "The supplied embed JSON is invalid:\n```{err}```"
     }
   }
 }

@@ -191,8 +191,10 @@
         }
       }
     },
-    "toggledModule": "Le module `{name}` a été {state}.",
-    "toggleCmd": {
+    "toggleModule": {
+      "success": "Le module `{name}` a été {state}."
+    },
+    "toggleCommand": {
       "notFound": "Ce n'est pas une commande valide !",
       "list": {
         "all": "Tous les membres",

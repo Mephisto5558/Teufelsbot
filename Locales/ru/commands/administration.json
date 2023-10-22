@@ -221,8 +221,10 @@
         }
       }
     },
-    "toggledModule": "Модуль `{name} был {state}.",
-    "toggleCmd": {
+    "toggleModule": {
+      "success": "Модуль `{name} был {state}."
+    },
+    "toggleCommand": {
       "notFound": "Это не допустимая команда!",
       "list": {
         "all": "Все участники",
