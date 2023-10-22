@@ -29,6 +29,11 @@
       "embedDescription": "This channel is no longer a counting channel!",
       "by": "Disabled by {user}",
       "success": "I successfully removed <#{channel}> as a counting channel."
+    },
+    "userDeletedMsg": {
+      "embedTitle": "Counting",
+      "embedDescription": "Deleted Number: **{deletedNum}**\nNext Number: **{nextNum}**",
+      "unknown": "Unknown Author"
     }
   },
   "mgstats": {
