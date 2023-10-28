@@ -29,6 +29,11 @@
       "embedDescription": "Ce salon n'est plus un canal de comptage !",
       "by": "Supprimé par {user}",
       "success": "J'ai supprimé avec succès <#{channel}> en tant que canal de comptage"
+    },
+    "userDeletedMsg": {
+      "embedTitle": "Comptage",
+      "embedDescription": "Numéro supprimé : **{deletedNum}**\nNuméro suivant : **{nextNum}**",
+      "unknown": "Auteur inconnu"
     }
   },
   "mgstats": {
