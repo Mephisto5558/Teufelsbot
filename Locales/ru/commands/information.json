@@ -89,6 +89,7 @@
     },
     "categoryListPlaceholder": "Какую командную категорию вы хотите увидеть?",
     "commandListPlaceholder": "Какую команду вы хотите увидеть?",
+    "devEmbedFooterText": "Dev-Bot | Отображаются только бета-команды",
     "one": {
       "notFound": "Информация для команды{command}`.",
       "embedTitle": "Подробная информация о: `{command}`",
