@@ -89,7 +89,6 @@
     },
     "categoryListPlaceholder": "Which command category do you want to see?",
     "commandListPlaceholder": "Which command do you want to see?",
-    "devEmbedFooterText": "Dev-Bot | Only beta commands are shown",
     "one": {
       "notFound": "No information found for command `{command}`.",
       "embedTitle": "Detailed Information about: `{command}`",
