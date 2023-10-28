@@ -59,5 +59,22 @@
       "14": "Directory",
       "15": "Forum"
     }
+  },
+  "errorHandler": {
+    "embedTitle": "Whoooops",
+    "embedDescription": "Si è verificato un errore imprevisto!\n\nComando: `{command}`",
+    "embedFooterText": "Segnalare questo errore invierà le opzioni del comando privatamente al dev.",
+    "reportButton": "Segnala questo errore",
+    "reportButtonDisabled": " (Disabilitato a causa della versione dev)",
+    "discordAPIErr": "Si è verificato un errore di Discord API, riprova e invia un messaggio al dev se questo continua ad accadere.",
+    "alreadyReported": "Questo errore è già stato segnalato. [Link]({url}).\nSarà risolto presto.",
+    "reportSuccess": "L'errore è stato segnalato. [Link]({url})",
+    "reportFail": "`Si è verificato un errore durante il tentativo di inviare la segnalazione di errore.\n```\n{err}\n```\nSi prega di inviare un messaggio diretto al dev."
+  },
+  "timeFormatter": {
+    "dhms": "{d} giorni, {h} ore, {m} minuti e {s} secondi",
+    "hms": "{h} ore, {m} minuti e {s} secondi",
+    "ms": "{m} minuti e {s} secondi",
+    "s": "{s} secondi"
   }
 }

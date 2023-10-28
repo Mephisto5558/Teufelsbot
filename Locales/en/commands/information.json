@@ -89,6 +89,7 @@
     },
     "categoryListPlaceholder": "Which command category do you want to see?",
     "commandListPlaceholder": "Which command do you want to see?",
+    "devEmbedFooterText": "Dev-Bot | Only beta commands are shown",
     "one": {
       "notFound": "No information found for command `{command}`.",
       "embedTitle": "Detailed Information about: `{command}`",
@@ -118,7 +119,7 @@
     "commands": "Commands",
     "starts": "Starts",
     "lastStart": "Last start",
-    "translation": "Translations:\n> English: {en}\n> German: {de}\n",
+    "translation": "Translations:\n> English: {en}\n> German: {de}\nAll other languages are mostly machine translated.",
     "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Privacy Policy]({PrivacyPolicy})**",
     "embedTitle": "Stats",
     "embedFooterText": "More stats are coming soon!"
@@ -229,11 +230,7 @@
   },
   "uptime": {
     "description": "Get the bot's uptime",
-    "embedDescription": "The bot has been [online]({Domain}/uptime) for exactly {time}.",
-    "dhms": "{d} days, {h} hours, {m} minutes and {s} seconds",
-    "hms": "{h} hours, {m} minutes and {s} seconds",
-    "ms": "{m} minutes and {s} seconds",
-    "s": "{s} seconds"
+    "embedDescription": "The bot has been [online]({Domain}/uptime) for exactly {time}."
   },
   "userinfo": {
     "description": "Get information about a member",

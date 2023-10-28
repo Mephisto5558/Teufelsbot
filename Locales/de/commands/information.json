@@ -89,6 +89,7 @@
     },
     "categoryListPlaceholder": "Welche Befehlskategorie möchtest du sehen?",
     "commandListPlaceholder": "Welchen Befehl möchtest du sehen?",
+    "devEmbedFooterText": "Dev-Bot | Nur Beta-Befehle werden angezeigt",
     "one": {
       "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
       "embedTitle": "{category} » {command}",
@@ -118,7 +119,7 @@
     "commands": "Befehle",
     "starts": "Starts",
     "lastStart": "Letzter Start",
-    "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n",
+    "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\nAlle anderen Sprachen sind größtenteils maschinell übersetzt.",
     "links": "**[Einladung]({Invite})** | **[Dashboard]({Dashboard})** | **[Datenschutzrichtlinie]({PrivacyPolicy})**",
     "embedTitle": "Informationen",
     "embedFooterText": "Mehr Informationen kommen bald!"
@@ -229,11 +230,7 @@
   },
   "uptime": {
     "description": "Erhalte die Uptime des Bots",
-    "embedDescription": "Der Bot ist [online]({Domain}/uptime) seit {time}.",
-    "dhms": "{d} Tagen, {h} Stunden, {m} Minuten und {s} Sekunden",
-    "hms": "{h} Stunden, {m} Minuten und {s} Sekunden",
-    "ms": "{m} Minuten und {s} Sekunden",
-    "s": "{s} Sekunden"
+    "embedDescription": "Der Bot ist [online]({Domain}/uptime) seit {time}."
   },
   "userinfo": {
     "description": "Erhalte Informationen über ein Mitglied",

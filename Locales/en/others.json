@@ -59,5 +59,24 @@
       "14": "Directories",
       "15": "Forums"
     }
+  },
+  "errorHandler": {
+    "embedTitle": "Whoooops",
+    "embedDescription": "An unexpected error occurred!\n\nCommand: `{command}`",
+    "embedFooterText": "Reporting this error will send the command options privately to the dev.",
+    "reportButton": "Report this Error",
+    "reportButtonDisabled": " (Disabled due to dev version)",
+    "discordAPIErr": "A Discord API Error occurred, please try again and message the dev if this keeps happening.",
+    "alreadyReported": "This error has already been reported. [Link]({url}).\nIt will be fixed soon.",
+    "reportSuccess": "The error has been reported. [Link]({url})",
+    "reportFail": "`An error occurred while trying to send your error report.\n```\n{err}\n```\nPlease message the dev directly."
+  },
+  "timeFormatter": {
+    "ymdhms": "{y} years, {mo} months, {d} days, {h} hours, {m} minutes and {s} seconds",
+    "mdhms": "{mo} months, {d} days, {h} hours, {m} minutes and {s} seconds",
+    "dhms": "{d} days, {h} hours, {m} minutes and {s} seconds",
+    "hms": "{h} hours, {m} minutes and {s} seconds",
+    "ms": "{m} minutes and {s} seconds",
+    "s": "{s} seconds"
   }
 }

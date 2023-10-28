@@ -5,6 +5,7 @@ module.exports = {
   cooldowns: { guild: 100, user: 1000 },
   slashCommand: true,
   prefixCommand: true,
+  dmPermission: true,
   options: [
     { name: 'target', type: 'User' },
     {
@@ -16,13 +17,13 @@ module.exports = {
 
   run: async function (lang) {
     const
-      target = this.options?.getMember('target') || this.mentions?.members.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.globalName, e.nickname].some(e => [...(this.args || []), this.content].includes(e))) || this.member,
+      target = this.options?.getMember('target') || this.options?.getUser('target') || (this.mentions?.members || this.mentions?.users)?.first() || this.guild?.members.cache.find(e => [e.user.id, e.user.username, e.user.globalName, e.nickname].some(e => [...(this.args || []), this.content].includes(e))) || this.member || this.user,
       avatarURL = await target.displayAvatarURL({ size: this.options?.getInteger('size') || 2048 }),
       embed = new EmbedBuilder({
-        description: lang('embedDescription', target.user.displayName),
+        description: lang('embedDescription', target.user?.username || target.username),
         color: Colors.White,
         image: { url: avatarURL },
-        footer: { text: this.member.displayName }
+        footer: { text: this.user.username }
       }),
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({

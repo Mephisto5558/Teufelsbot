@@ -8,7 +8,7 @@ module.exports = async function errorHandler(err, message, lang) {
 
   if (!message) return;
 
-  lang.__boundArgs__[0].backupPath = 'events.errorHandler';
+  lang.__boundArgs__[0].backupPath = 'others.errorHandler';
 
   const
     { aliasOf } = this.slashCommands.get(message.commandName) || this.prefixCommands.get(message.commandName) || {},
@@ -35,6 +35,8 @@ module.exports = async function errorHandler(err, message, lang) {
       await button.deferUpdate();
 
       try {
+        if (!Github.UserName || !Github.RepoName) throw Error('Missing GitHub username or reponame config');
+
         const
           res = await fetch(`https://api.github.com/repos/${Github.UserName}/${Github.RepoName}/issues`, {
             method: 'POST',

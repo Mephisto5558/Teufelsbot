@@ -38,12 +38,12 @@ module.exports = {
 
   run: function (lang) {
     let target = this.options?.getMember('target') ?? this.mentions?.members?.first() ?? this.member ?? this.user;
-    if (this.options?.getString('global') && target.user) target = target.user;
+    if (this.options?.getBoolean('global') && target.user) target = target.user; //target.user check for execution in dms
 
     switch (this.options?.getSubcommand() || this.args[0]) {
       case 'clear': {
         if (target.customName) {
-          if (this.options?.getString('global')) target.user.customName = null;
+          if (this.options?.getBoolean('global')) target.user.customName = null;
           else target.customName = null;
         }
 
@@ -53,8 +53,7 @@ module.exports = {
       case undefined: return this.customReply(lang(target.id == this.user.id ? 'get.successYou' : 'get.successOther', target.customName));
       default: {
         const newName = this.options?.getString('name') || (this.args[0] == 'set' ? this.args.slice(1) : this.args).join(' ').slice(0, 32) || null;
-        if (this.options?.getString('global')) target.user.customName = newName;
-        else target.customName = newName;
+        target.customName = newName;
 
         return this.customReply(newName ? lang('set.success', newName) : lang('clear.success'));
       }

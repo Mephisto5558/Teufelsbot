@@ -1,0 +1,38 @@
+{
+  "someone": "qualcuno",
+  "executor": "Eliminato da",
+  "reason": "Motivo",
+  "embeds": "{count} Embeds",
+  "unknownContent": "Sconosciuto",
+  "messageDelete": {
+    "embedDescription": "Un messaggio è stato eliminato da {executor} in {channel}.",
+    "content": "Contenuto Messaggio",
+    "author": "Autore",
+    "components": "Componenti {count}"
+  },
+  "messageDeleteBulk": {
+    "embedDescription": "{count} messaggi sono stati eliminati da {executor} in {channel}."
+  },
+  "messageUpdate": {
+    "embedDescription": "{executor} ha modificato un messaggio in {channel}.",
+    "oldContent": "Messaggio Originale",
+    "newContent": "Nuovo Messaggio",
+    "author": "Autore",
+    "messageLink": "Messaggio",
+    "unknown": "Sconosciuto"
+  },
+  "voiceStateUpdate": {
+    "embedDescriptionJoin": "{executor} è entrato nel canale vocale {newChannel}.",
+    "embedDescriptionLeave": "{executor} ha lasciato il canale vocale {oldChannel}.",
+    "embedDescriptionMove": "{executor} è passato dal canale vocale {oldChannel} a {newChannel}.",
+    "oldChannel": "Canale Precedente",
+    "newChannel": "Canale Corrente",
+    "unknown": "`sconosciuto`"
+  },
+  "sayCommandUsed": {
+    "embedDescription": "{executor} ha usato un comando in {channel} che fa inviare un messaggio al bot.",
+    "content": "Contenuto Messaggio",
+    "author": "Autore",
+    "messageLink": "Messaggio"
+  }
+}

@@ -19,6 +19,7 @@ module.exports = {
       name: 'method',
       type: 'String',
       autocompleteOptions: getHashes(),
+      strictAutocomplete: true,
       required: true
     }
   ],

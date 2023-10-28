@@ -93,6 +93,8 @@ module.exports = {
   ],
 
   run: async function (lang) {
+    lang.__boundArgs__[0].backupPath += `.${this.options.getSubcommand().replace(/_./g, e => e[1].toUpperCase())}`;
+
     switch (this.options.getSubcommand()) {
       case 'toggle_module': {
         const
@@ -100,8 +102,9 @@ module.exports = {
           setting = this.guild.db[module]?.enable;
 
         await this.client.db.update('guildSettings', `${this.guild.id}.${module}.enable`, !setting);
-        return this.editReply(lang('toggledModule', { name: module, state: lang(setting ? 'global.disabled' : 'global.enabled') }));
+        return this.editReply(lang('success', { name: module, state: lang(setting ? 'global.disabled' : 'global.enabled') }));
       }
+
       case 'toggle_command': {
         const
           command = this.options.getString('command'),
@@ -109,12 +112,12 @@ module.exports = {
           { roles = [], channels = [], users = [] } = commandData,
           count = { enabled: { channels: 0, users: 0, roles: 0 }, disabled: { channels: 0, users: 0, roles: 0 } };
 
-        if (!getCmds(this.client).includes(command)) return this.editReply(lang('toggleCmd.notFound'));
+        if (!getCmds(this.client).includes(command)) return this.editReply(lang('notFound'));
 
         if (this.options.getBoolean('get')) {
           const fields = [['roles', roles], ['channels', channels], ['users', users]].filter(([, e]) => e?.length).map(([k, v]) => ({
-            name: lang(`toggleCmd.${k}`),
-            value: v.includes('*') ? lang('toggleCmd.list.all') : v.map(e => {
+            name: lang(k),
+            value: v.includes('*') ? lang('list.all') : v.map(e => {
               if (k == 'roles') return `<@&${e}>`;
               return (k == 'channels' ? '<#' : '<@') + `${e}>`;
             }).join(', '),
@@ -122,9 +125,9 @@ module.exports = {
           }));
 
           const embed = new EmbedBuilder({
-            title: lang('toggleCmd.list.embedTitle', command),
+            title: lang('list.embedTitle', command),
             color: Colors.White,
-            ...(fields.length ? { fields } : { description: lang('toggleCmd.list.embedDescription') }),
+            ...(fields.length ? { fields } : { description: lang('list.embedDescription') }),
           });
 
           return this.editReply({ embeds: [embed] });
@@ -132,15 +135,15 @@ module.exports = {
 
         if (this.options.data[0].options.length == (this.options.data[0].options.find(e => e.name == 'get') ? 2 : 1)) {
           await this.client.db.update('guildSettings', `${this.guild.id}.commandSettings.${command}.disabled.users`, users.includes('*') ? users.filter(e => e != '*') : ['*', ...users]);
-          return this.editReply(lang(`toggleCmd.${users.includes('*') ? 'enabled' : 'disabled'}`, command));
+          return this.editReply(lang(users.includes('*') ? 'enabled' : 'disabled', command));
         }
 
-        if (users.includes('*')) return this.editReply(lang('toggleCmd.isDisabled', { command, id: this.command.id }));
+        if (users.includes('*')) return this.editReply(lang('isDisabled', { command, id: this.command.id }));
 
         for (const [typeIndex, typeFilter] of ['role', 'member', 'channel'].entries()) {
           const ids = [...new Set(this.options.data[0].options.filter(e => e.name.includes(typeFilter)).map(e => e.value))];
-          let type = 'roles';
 
+          let type = 'roles';
           if (typeIndex == 1) type = 'users';
           else if (typeIndex == 2) type = 'channels';
 
@@ -157,11 +160,11 @@ module.exports = {
         }
 
         const embed = new EmbedBuilder({
-          title: lang('toggleCmd.embedTitle', command),
-          description: lang('toggleCmd.embedDescription', this.command.id),
+          title: lang('embedTitle', command),
+          description: lang('embedDescription', this.command.id),
           fields: Object.entries(count).filter(([, v]) => Object.values(v).find(Boolean)).map(([k, v]) => ({
-            name: lang(`toggleCmd.embed.${k}`,),
-            value: Object.entries(v).filter(([, e]) => e).map(([k, v]) => lang(`toggleCmd.${k}`) + `: **${v}**`).join('\n'),
+            name: lang(`embed.${k}`),
+            value: Object.entries(v).filter(([, e]) => e).map(([k, v]) => lang(k) + `: **${v}**`).join('\n'),
             inline: true
           })),
           color: Colors.White
@@ -170,6 +173,7 @@ module.exports = {
         await this.client.db.update('guildSettings', `${this.guild.id}.commandSettings.${command}.disabled`, commandData);
         return this.editReply({ embeds: [embed] });
       }
+
       case 'language': {
         const
           language = this.options.getString('language'),
@@ -184,31 +188,32 @@ module.exports = {
         await this.client.db.update('guildSettings', `${this.guild.id}.config.lang`, language);
         return this.editReply({ embeds: [embed] });
       }
+
       case 'serverbackup': {
         await this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', parseInt(backup.get(this.options.getString('allowed_to_load'))));
-        return this.editReply(lang('serverbackup.success'));
+        return this.editReply(lang('success'));
       }
+
       case 'autopublish': {
         const enabled = this.options.getBoolean('enabled');
         await this.client.db.update('guildSettings', `${this.guild.id}.config.autopublish`, enabled);
-        return this.customReply(lang('autopublish.success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
+        return this.customReply(lang('success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
       }
+
       case 'logger': {
         const
+          channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel))?.id,
           action = this.options.getString('action'),
-          channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config?.logger?.[action]?.channel))?.id,
-          enabled = this.options.getBoolean('enabled') ?? action != 'all' ? !this.guild.db.config?.logger?.[action]?.enabled : null;
+          enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? null : !this.guild.db.config.logger?.[action]?.enabled);
 
-        if (!channel) return this.editReply(lang('logger.noChannel'));
+        if (!channel) return this.editReply(lang('noChannel'));
         if (action == 'all') {
-          if (enabled == null) return this.editReply(lang('logger.noEnabled'));
-
-          for (const action of loggerActionTypes)
-            await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${action}`, { channel, enabled });
+          if (enabled == null) return this.editReply(lang('noEnabled'));
+          for (const action of loggerActionTypes) await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${action}`, { channel, enabled });
         }
 
         await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${action}`, { channel, enabled });
-        return this.editReply(lang(`logger.${enabled ? 'enabled' : 'disabled'}`, { channel, action: lang(`logger.actions.${action}`) }));
+        return this.editReply(lang(enabled ? 'enabled' : 'disabled', { channel, action: lang(`actions.${action}`) }));
       }
     }
   }

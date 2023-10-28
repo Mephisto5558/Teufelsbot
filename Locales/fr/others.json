@@ -59,5 +59,22 @@
       "14": "Répertoires",
       "15": "Forums"
     }
+  },
+  "errorHandler": {
+    "embedTitle": "Oups",
+    "embedDescription": "Une erreur inattendue s'est produite !\n\nCommande : `{command}`",
+    "embedFooterText": "Signaler cette erreur enverra les options de commande en privé au développeur.",
+    "reportButton": "Signaler cette erreur",
+    "reportButtonDisabled": " (Désactivé en raison de la version du développement)",
+    "discordAPIErr": "Une erreur d'API Discord s'est produite, veuillez réessayer et envoyer un message au développeur si cela se produit.",
+    "alreadyReported": "Cette erreur a déjà été signalée. [Link]({url}).\nElle sera bientôt corrigée.",
+    "reportSuccess": "L'erreur a été signalée. [Link]({url})",
+    "reportFail": "`Une erreur s'est produite en essayant d'envoyer votre rapport d'erreur.\n```\n{err}\n```\nVeuillez envoyer un message au développeur directement."
+  },
+  "timeFormatter": {
+    "dhms": "{d} jours, {h} heures, {m} minutes et {s} secondes",
+    "hms": "{h} heures, {m} minutes et {s} secondes",
+    "ms": "{m} minutes et {s} secondes",
+    "s": "{s} secondes"
   }
 }

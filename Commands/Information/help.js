@@ -1,4 +1,4 @@
-const { help_filterCommands, help_commandQuery, help_categoryQuery, help_allQuery } = require('../../Utils/componentHandler/');
+const { help_commandQuery, help_categoryQuery, help_allQuery, help_getCommands, help_getCommandCategories } = require('../../Utils/componentHandler/');
 
 module.exports = {
   name: 'help',
@@ -11,12 +11,13 @@ module.exports = {
     {
       name: 'category',
       type: 'String',
-      choices: ['administration', 'fun', 'information', 'minigames', 'moderation', 'nsfw', 'useful', 'premium', 'others']
+      autocompleteOptions: help_getCommandCategories,
+      strictAutocomplete: true
     },
     {
       name: 'command',
       type: 'String',
-      autocompleteOptions: function () { return [...new Set([...this.client.prefixCommands.filter(help_filterCommands.bind(this)).keys(), ...this.client.slashCommands.filter(help_filterCommands.bind(this)).keys()])]; },
+      autocompleteOptions: function () { return help_getCommands.call(this).map(e => e.name); },
       strictAutocomplete: true
     }
   ],

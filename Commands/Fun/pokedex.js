@@ -22,9 +22,10 @@ module.exports = {
     if (!res) {
       try { res = (await fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(e => e.json()))?.[0]; }
       catch (err) {
-        if (err.type == 'invalid-json') return this.customReply(lang('invalidJson'));
+        if (err.type == 'invalid-json') return msg.edit(lang('invalidJson'));
         throw err;
       }
+
       if (res) {
         const [feet, inches] = res.height.split('\'').map(parseFloat);
         res.height = (feet * 12 + inches) * 2.54;
@@ -34,7 +35,7 @@ module.exports = {
       }
     }
 
-    if (!res || res.error == 404) return this.customReply(lang('notFound'));
+    if (!res || res.error == 404) return msg.edit(lang('notFound'));
     if (res.error) {
       log.error('pokedex.js: The api returned an error!', res);
       return msg.edit(lang('error'));
