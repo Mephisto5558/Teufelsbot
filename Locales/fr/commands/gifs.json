@@ -4,5 +4,16 @@
     "description": "Faites un retour arrière !",
     "embedTitle": "Retournement arrière",
     "embedDescription": "{user} fait un retour arrière!"
+  },
+  "furrykiss": {
+    "description": "furrykiss quelqu'un.",
+    "options": {
+      "target": {
+        "description": "Qui voulez-vous embrasser ?"
+      }
+    },
+    "embedTitle": "Furrykiss",
+    "embedDescription": "{user} baisers :3",
+    "embedDescriptionTarget": "{user} embrasse {target} :3"
   }
 }

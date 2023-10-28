@@ -309,7 +309,7 @@
     "success": "Das ist <t:{time}:R> (`<t:{time}:R>`)."
   },
   "until": {
-    "description": "Wie lange es bis zu einem bestimmten Datum/Zeit dauert. Wenn kein Datum, Standart: aktuelles Datum",
+    "description": "Wie lange es bis zu einem bestimmten Datum/Zeit dauert. Wenn kein Datum, Standard: aktuelles Datum",
     "options": {
       "day": {
         "description": "Der Tag des Zieldatums."

@@ -308,6 +308,31 @@
     "outOfRange": "El tiempo especificado es mayor que 200,000 años!",
     "success": "Eso es <t:{time}:R> (`<t:{time}:R>`)."
   },
+  "until": {
+    "description": "Muestra cuánto durará hasta una determinada fecha/hora. Si no se especifica ninguna fecha, por defecto es la fecha actual",
+    "options": {
+      "day": {
+        "description": "La parte del día de la fecha objetivo"
+      },
+      "month": {
+        "description": "La parte del mes de la fecha objetivo"
+      },
+      "year": {
+        "description": "La parte del año de la fecha objetivo"
+      },
+      "hour": {
+        "description": "La parte de hora de la fecha de destino"
+      },
+      "minute": {
+        "description": "La parte mínima de la fecha de destino"
+      },
+      "second": {
+        "description": "La segunda parte de la fecha objetivo"
+      }
+    },
+    "until": "Eso está en {time}.",
+    "untilNeg": "Eso es {time} atrás."
+  },
   "wiki": {
     "description": "Busque algo en Wikipedia o obtenga una página aleatoria si no se especificaron términos de búsqueda.",
     "usage": {
