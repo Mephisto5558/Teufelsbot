@@ -6,7 +6,6 @@ module.exports = {
   checkTargetBanPerm: require('./checkTargetBanPerm.js'),
   componentHandler: require('./componentHandler.js'),
   cooldowns: require('./cooldowns.js'),
-  DB: require('./db.js'),
   errorHandler: require('./error_handler.js'),
   findAllEntries: require('./findAllEntries.js'),
   formatSlashCommand: require('./formatSlashCommand.js'),

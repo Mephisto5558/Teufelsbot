@@ -3,6 +3,7 @@ const
   TicTacToe = require('discord-tictactoe'),
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('crypto'),
+  DB = require('@mephisto5558/mongoose-db'),
   { appendFile, readdir, access, mkdir } = require('fs/promises'),
   { customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
   findAllEntries = require('./findAllEntries.js'),
@@ -143,6 +144,12 @@ Object.defineProperties(Guild.prototype, {
     set(val) { this.client.db.update('guildSettings', 'config.lang', val); }
   }
 });
+/**@param {boolean}overwrite overwrite existing collection, default: `false`*/
+DB.prototype.generate = async function generate(overwrite = false) {
+  log.setType('DB').debug(`generating db files${overwrite ? ', overwriting existing data' : ''}`).setType();
+  for (const { key, value } of require('../Templates/db_collections.json')) await this.set(key, value, overwrite);
+};
+
 TicTacToe.prototype.playAgain = playAgain;
 GameBoardButtonBuilder.prototype.createButton = function createButton(row, col) {
   const
