@@ -4,7 +4,7 @@ const
   { Github } = require('../config.json');
 
 module.exports = async function errorHandler(err, message, lang) {
-  log.error(' [Error Handling] :: Uncaught Error', err.stack);
+  log.error(' [Error Handling] :: Uncaught Error', console.trace());
 
   if (!message) return;
 
