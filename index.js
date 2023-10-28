@@ -4,7 +4,8 @@ console.info('Starting...');
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { readdir } = require('fs/promises'),
-  { DB, gitpull, errorHandler, giveawaysmanager } = require('./Utils');
+  DB = require('@mephisto5558/mongoose-db'),
+  { gitpull, errorHandler, giveawaysmanager } = require('./Utils');
 
 require('./Utils/prototypeRegisterer.js');
 
