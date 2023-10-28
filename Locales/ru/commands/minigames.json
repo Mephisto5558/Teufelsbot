@@ -29,6 +29,11 @@
       "embedDescription": "Этот канал больше не является счетчиком!",
       "by": "Удалено {user}",
       "success": "Я успешно удалил <#{channel}> в качестве счетчика канала."
+    },
+    "userDeletedMsg": {
+      "embedTitle": "Подсчёт",
+      "embedDescription": "Удалено число: **{deletedNum}**\nСледующее число: **{nextNum}**",
+      "unknown": "Неизвестный автор"
     }
   },
   "mgstats": {
