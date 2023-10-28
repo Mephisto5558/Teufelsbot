@@ -220,7 +220,7 @@
       "2": "Nivel 2",
       "3": "Nivel 3"
     },
-    "roles": "",
+    "roles": "Roles",
     "channels": "Canales",
     "vanityUrl": "URL de Vanity",
     "uses": " Usos",
@@ -249,7 +249,7 @@
     "guildMember": "Miembro del gremio",
     "mention": "Mención",
     "type": "Tipo",
-    "roles": "",
+    "roles": "Roles",
     "position": "Posición",
     "color": "Color",
     "createdAt": "Creado el",
