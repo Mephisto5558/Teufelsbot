@@ -33,3 +33,14 @@ const options = [{
   cooldowns: { guild: 0, user: 0 },
   options: []
 }];
+
+
+//Possible typing infos for run. These are defined in globals.d.ts
+/**@this Message @param {lang}lang*/
+/**@this GuildMessage @param {lang}lang*/
+
+/**@this Interaction @param {lang}lang*/
+/**@this GuildInteraction @param {lang}lang*/
+
+/**@this Interaction|Message @param {lang}lang*/
+/**@this GuildInteraction|GuildMessage @param {lang}lang*/

@@ -9,6 +9,7 @@ module.exports = {
   beta: true,
   options: [{ name: 'average', type: 'Boolean' }],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       average = this.args?.[0] == 'average' || this.options?.getBoolean('average'),

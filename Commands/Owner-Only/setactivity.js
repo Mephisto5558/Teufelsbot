@@ -6,6 +6,7 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
+  /**@this Message @param {lang}lang*/
   run: async function (lang) {
     const args = this.content.split(';');
 

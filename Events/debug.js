@@ -1,4 +1,4 @@
-/**@this {String}*/
+/**@this String*/
 module.exports = async function debug() {
   let debug = this.toString();
 

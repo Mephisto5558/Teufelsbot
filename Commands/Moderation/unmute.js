@@ -13,6 +13,7 @@ module.exports = {
     { name: 'reason', type: 'String' }
   ],
 
+  /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     const
       target = this.options.getMember('target'),

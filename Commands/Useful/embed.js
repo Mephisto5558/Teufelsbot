@@ -55,6 +55,7 @@ module.exports = {
     }
   ],
 
+  /**@this Interaction @param {lang}lang*/
   run: async function (lang) {
     const getOption = name => this.options.getString(name)?.replaceAll('/n', '\n');
     const custom = getOption('json');

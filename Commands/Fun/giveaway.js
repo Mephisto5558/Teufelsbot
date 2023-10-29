@@ -100,6 +100,7 @@ module.exports = {
     }
   ],
 
+  /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     if (!this.client.giveawaysManager) return this.editReply(lang('managerNotFound'));
 

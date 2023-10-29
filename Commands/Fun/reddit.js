@@ -49,6 +49,7 @@ module.exports = {
     }
   ],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       filterNSFW = !this.channel.nsfw || (this.options?.getBoolean('filter_nsfw') ?? true),

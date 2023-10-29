@@ -34,6 +34,7 @@ module.exports = {
     { name: 'limit_to_roles', type: 'String' }
   ],
 
+  /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     let input = this.options.getString('emoji_or_url');
 

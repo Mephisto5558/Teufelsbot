@@ -17,6 +17,7 @@ module.exports = {
   dmPermission: true,
   options: [{ name: 'target', type: 'User' }],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
       target = this.options?.getMember('target') || this.mentions?.members?.first() || this.mentions?.users.first() || this.guild?.members.cache.find(e => [e.user.id, e.user.username, e.nickname].some(e => [...(this.args || []), this.content].includes(e))),

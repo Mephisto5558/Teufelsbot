@@ -21,6 +21,7 @@ module.exports = {
     }
   ],
 
+  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
   run: async function (lang) {
     const
       type = (this.options?.getString('avatar_type') || 'server') == 'server',

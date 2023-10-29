@@ -1,3 +1,4 @@
+/**@param {object}a @param {object}b */
 module.exports = function equal(a, b) {
   if (!a?.toString() && !b?.toString()) return true;
   if (typeof a == 'string' || typeof b == 'string') return a == b;

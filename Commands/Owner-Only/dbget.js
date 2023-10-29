@@ -5,6 +5,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
+  /**@this Message @param {lang}lang*/
   run: function (lang) {
     const result = this.client.db.get(this.args[0], this.args[1]);
 

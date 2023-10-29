@@ -1,5 +1,6 @@
 const { EmbedBuilder } = require('discord.js');
 
+/**@this String @param {import('discord.js').User}user @param {number}year*/
 function formatBirthday(user, year) {
   return this?.toString()?.replaceAll('<user.nickname>', user.displayName)
     .replaceAll('<user.username>', user.username)

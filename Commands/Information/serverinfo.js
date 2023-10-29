@@ -14,6 +14,7 @@ module.exports = {
     autocompleteOptions: function () { return this.client.guilds.cache.filter(e => e.members.cache.has(this.member.id)).map(e => e.id); }
   }],
 
+  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
   run: async function (lang) {
     const
       guild = this.client.guilds.cache.get(this.options?.getString('guild_id') || this.args?.[0]) || this.guild,

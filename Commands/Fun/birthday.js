@@ -48,6 +48,7 @@ module.exports = {
     { name: 'remove', type: 'Subcommand' }
   ],
 
+  /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     const
       target = this.options.getMember('target'),

@@ -22,6 +22,7 @@ module.exports = {
     { name: 'remove_attachments', type: 'Boolean' }
   ],
 
+  /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     const
       modal = new ModalBuilder({

@@ -3,7 +3,7 @@ const
   cooldowns = require('../cooldowns.js'),
   I18nProvider = require('../I18nProvider.js');
 
-/**@this {import('discord.js').Message}*/
+/**@this Message*/
 module.exports = async function runMessages() {
   const
     { afkMessages = {}, triggers = [], counting: { [this.channel.id]: countingData } = {} } = this.guild.db,

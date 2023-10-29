@@ -98,6 +98,7 @@ module.exports = {
     { name: 'after_message', type: 'String' },
   ],
 
+  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
   run: async function (lang) {
     const
       amount = this.options?.getInteger('amount') || parseInt(this.args?.[0]).limit({ min: 0, max: 1000 }),

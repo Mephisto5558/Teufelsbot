@@ -14,6 +14,7 @@ module.exports = {
     strictAutocomplete: true
   }],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const { offset } = new Duration(this.options?.getString('time') || this.args?.[0] || '0.1ms');
     if (!offset) {

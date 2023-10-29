@@ -55,6 +55,7 @@ module.exports = {
     }
   ],
 
+  /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     const
       oldData = this.guild.db.triggers || [],

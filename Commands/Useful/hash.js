@@ -24,6 +24,7 @@ module.exports = {
     }
   ],
 
+  /**@this Interaction @param {lang}lang*/
   run: function (lang) {
     const
       input = this.options.getString('input'),

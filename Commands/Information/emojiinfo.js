@@ -13,6 +13,7 @@ module.exports = {
     required: true,
   }],
 
+  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
   run: async function (lang) {
     const
       parsedEmoji = parseEmoji(this.options?.getString('emoji') || this.args?.[0] || ''),

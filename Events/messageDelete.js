@@ -2,7 +2,7 @@ const
   { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js'),
   { I18nProvider } = require('../Utils');
 
-/**@this {import('discord.js').Message}*/
+/**@this Message*/
 function countingHandler(lang) {
   const lastNum = this.guild.db?.counting?.[this.channel.id]?.lastNumber || NaN;
   if (isNaN(this.originalContent || NaN) || isNaN(lastNum) || lastNum - this.originalContent) return;
@@ -18,7 +18,7 @@ function countingHandler(lang) {
   return this.channel.send({ embeds: [embed], allowedMentions: { parse: [] } });
 }
 
-/**@this {import('discord.js').Message}*/
+/**@this Message*/
 module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.guild) return;
 

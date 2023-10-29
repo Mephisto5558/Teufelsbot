@@ -48,6 +48,7 @@ module.exports = {
     }
   ],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
       getInt = (k, i) => {

@@ -15,6 +15,7 @@ module.exports = {
     strictAutocomplete: true
   }],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
       command = this.options?.getString('command') || this.args?.[0],

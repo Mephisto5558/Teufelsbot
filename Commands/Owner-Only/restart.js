@@ -11,6 +11,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
+  /**@this Message @param {lang}lang*/
   run: async function (lang) {
     if (restarting) return this.reply(lang('alreadyRestarting', restarting));
 

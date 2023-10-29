@@ -8,6 +8,7 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
       embed = new EmbedBuilder({

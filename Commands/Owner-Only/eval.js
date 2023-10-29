@@ -5,11 +5,12 @@ const
 
 module.exports = {
   name: 'eval',
-  prefixCommand: true,
   slashCommand: false,
+  prefixCommand: true,
   dmPermission: true,
   beta: true,
 
+  /**@this Message @param {lang}lang*/
   run: async function (lang) {
     if (!this.content) return;
 

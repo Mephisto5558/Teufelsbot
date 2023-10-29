@@ -40,6 +40,7 @@ module.exports = {
     }
   ],
 
+  /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     const
       custom = this.options.getString('json'),

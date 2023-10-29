@@ -58,6 +58,7 @@ module.exports = {
     }
   ],
 
+  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
   run: async function (lang) {
     if (this instanceof Message && !this.args[0]) return this.customReply(lang('missingGameArg'));
 

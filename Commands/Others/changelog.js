@@ -10,6 +10,7 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     return this.customReply({ embeds: [embed.setTitle(lang('embedTitle')).setDescription(this.client.settings.changelog || lang('noneFound'))] });
   }

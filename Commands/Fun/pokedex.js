@@ -7,12 +7,14 @@ module.exports = {
   name: 'pokedex',
   prefixCommand: true,
   slashCommand: true,
+  dmPermission: true,
   options: [{
     name: 'pokémon',
     type: 'String',
     required: true
   }],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       pokemon = this.options?.getString('pokémon') || this.args[0],

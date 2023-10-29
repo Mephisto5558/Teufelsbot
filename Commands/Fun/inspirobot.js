@@ -1,5 +1,5 @@
 const
-  fetch = require('node-fetch').default,
+  { default: fetch, FetchError } = require('node-fetch'),
   { EmbedBuilder } = require('discord.js');
 
 module.exports = {
@@ -9,10 +9,12 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     let res;
     try { res = await fetch('https://inspirobot.me/api?generate=true').then(e => e.text()); }
     catch (err) {
+      if (!(err instanceof FetchError)) throw err;
       await this.customReply(lang('error'));
       return log.error(err.message);
     }

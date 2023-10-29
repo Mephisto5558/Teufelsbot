@@ -12,6 +12,7 @@ module.exports = {
     { name: 'maximum', type: 'Integer' }
   ],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     let
       min = this.options?.getInteger('minimum') || parseInt(Number(this.args?.[0])),

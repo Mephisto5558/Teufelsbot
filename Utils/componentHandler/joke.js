@@ -1,5 +1,5 @@
 /** this.customId: `joke.<api>.<type>.<blacklist>.<maxLength>`
- * @this {import('discord.js').ButtonInteraction} @param {string}api @param {string}type @param {string}blacklist @param {string}maxLength*/
+ * @this import('discord.js').ButtonInteraction @param {lang}lang @param {string}api @param {string}type @param {string}blacklist @param {string}maxLength*/
 module.exports = function joke(lang, api, type, blacklist, maxLength) {
   lang.__boundArgs__[0].backupPath = 'commands.fun.joke';
 

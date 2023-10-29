@@ -1,6 +1,6 @@
 const I18nProvider = require('./I18nProvider.js');
 
-/**@this {import('discord.js').ChatInputCommandInteraction} */
+/**@this Interaction @param {object}command @param {string}locale*/
 module.exports = async function autocompleteGenerator(command, locale) {
   const response = v => ({ name: I18nProvider.__({ locale, undefinedNotFound: true }, `commands.${command.category.toLowerCase()}.${command.name}.options.${this.options?._group ? this.options._group + '.' : ''}${this.options?._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });
 

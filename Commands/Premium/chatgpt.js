@@ -46,7 +46,7 @@ module.exports = {
     }
   ],
 
-  /**@this {import('discord.js').Message}*/
+  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     if (this instanceof Message) this.channel.sendTyping();
 

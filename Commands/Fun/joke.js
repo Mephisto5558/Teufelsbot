@@ -85,6 +85,7 @@ module.exports = {
     }
   ],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       apiStr = this.options?.getString('api'),

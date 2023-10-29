@@ -11,6 +11,7 @@ module.exports = {
     { name: 'reason', type: 'String' }
   ],
 
+  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
   run: async function (lang) {
     this.args?.shift();
 
