@@ -42,10 +42,10 @@ module.exports = async function checkForErrors(command, lang) {
     ) return ['strictAutocompleteNoMatch'];
   }
 
-  // if (this.client.botType != 'dev') {
+  if (this.client.botType != 'dev') {
     const cooldown = cooldowns.call(this, command);
     if (cooldown) return ['cooldown', cooldown];
-  // }
+  }
 
   if (this.guild && (this instanceof Message || this.type == InteractionType.ApplicationCommand)) {
     const userPermsMissing = this.member.permissionsIn(this.channel).missing([...(command.permissions?.user || []), PermissionFlagsBits.SendMessages]);
