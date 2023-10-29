@@ -6,7 +6,7 @@ const
   ownerOnlyFolders = require('./getOwnerOnlyFolders.js')(),
   { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json');
 
-/**@this {Message|import('discord.js').ChatInputCommandInteraction} @returns {Array|bool}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
+/**@this {Message|import('discord.js').ChatInputCommandInteraction} @returns {Array|boolean}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
 module.exports = async function checkForErrors(command, lang) {
   if (!command) {
     if (this instanceof Message) {
@@ -42,10 +42,10 @@ module.exports = async function checkForErrors(command, lang) {
     ) return ['strictAutocompleteNoMatch'];
   }
 
-  if (this.client.botType != 'dev') {
+  // if (this.client.botType != 'dev') {
     const cooldown = cooldowns.call(this, command);
     if (cooldown) return ['cooldown', cooldown];
-  }
+  // }
 
   if (this.guild && (this instanceof Message || this.type == InteractionType.ApplicationCommand)) {
     const userPermsMissing = this.member.permissionsIn(this.channel).missing([...(command.permissions?.user || []), PermissionFlagsBits.SendMessages]);
