@@ -75,7 +75,7 @@ function createInfoFields(cmd, lang, helpLang) {
       sec = (sec % 1) ? sec.toFixed(2) : Math.floor(sec);
 
       if (min && sec) return `${lang('global.' + k)}: ${min}min ${sec}s`;
-      return `${lang('global.' + k)}:` + (min ? `${min}min` : `${sec}s`);
+      return `${lang('global.' + k)}: ` + (min ? `${min}min` : `${sec}s`);
     }).join(', ')
   });
 
