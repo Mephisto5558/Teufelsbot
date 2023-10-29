@@ -266,6 +266,16 @@
         "voiceChannelActivity": "canale vocale unisci/fogli/interruttori",
         "sayCommandUsed": "/say (o simili) comando usa"
       }
+    },
+    "tickets": {
+      "defaultButtonLabel": "Crea Ticket",
+      "disabled": "Il modulo ticket è stato disabilitato.",
+      "infoEmbedDescription": "Si prega di premere il pulsante qui sotto per impostare una descrizione incorporata personalizzata prima di abilitare il sistema di ticket premendo il pulsante di salvataggio.\nPuoi generare un incorporato valido [here]({url})",
+      "editButtonLabel": "Modifica Incorpora",
+      "previewButtonLabel": "Anteprima Incorpora",
+      "saveButtonLabel": "Salva Incorporato",
+      "textInputLabel": "Inserisci il JSON incorporato.",
+      "invalidEmbed": "L'embed JSON fornito non è valido:\n```{err}```"
     }
   }
 }

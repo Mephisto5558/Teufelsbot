@@ -18,6 +18,7 @@ module.exports = {
     strictAutocomplete: true
   }],
 
+  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
   run: async function (lang) {
     const data = await fetch(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') || this.args?.[0] || 'hentai').toLowerCase()}`).then(e => e.json());
     if (!data?.success) {

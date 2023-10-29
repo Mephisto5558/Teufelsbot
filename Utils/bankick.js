@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType } = require('discord.js'),
   checkTarget = require('./checkTargetBanPerm.js');
 
-/**@this {import('discord.js').ChatInputCommandInteraction}*/
+/**@this GuildInteraction @param {lang}lang*/
 module.exports = async function bankick(lang) {
   if (!['ban', 'kick'].includes(this.commandName)) throw new Error(`"${this.commandName}" is not an accepted commandName.`);
 

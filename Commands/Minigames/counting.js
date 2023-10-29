@@ -12,6 +12,7 @@ module.exports = {
     channelTypes: Constants.TextBasedChannelTypes
   }],
 
+  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
   run: async function (lang) {
     const
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,

@@ -2,6 +2,7 @@ const
   { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
   I18nProvider = require('../Utils/I18nProvider.js');
 
+/**@param {object}option @param {string}path*/
 module.exports = function format(option, path) {
   if (option.options) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`));
 

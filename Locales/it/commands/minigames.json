@@ -29,6 +29,11 @@
       "embedDescription": "Questo canale non è più un canale di conteggio!",
       "by": "Rimosso da {user}",
       "success": "Ho rimosso con successo <#{channel}> come canale di conteggio."
+    },
+    "userDeletedMsg": {
+      "embedTitle": "Conteggio",
+      "embedDescription": "Numero Eliminato: **{deletedNum}**\nNumero Successivo: **{nextNum}**",
+      "unknown": "Autore Sconosciuto"
     }
   },
   "mgstats": {

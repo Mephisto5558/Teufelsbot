@@ -15,6 +15,7 @@ module.exports = {
     }
   ],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       target = this.options?.getMember('target') || this.options?.getUser('target') || (this.mentions?.members || this.mentions?.users)?.first() || this.guild?.members.cache.find(e => [e.user.id, e.user.username, e.user.globalName, e.nickname].some(e => [...(this.args || []), this.content].includes(e))) || this.member || this.user,

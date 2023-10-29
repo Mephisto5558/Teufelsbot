@@ -1,6 +1,6 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
 
-/**@param {import('discord.js').ChatInputCommandInteraction}interaction*/
+/**@this import('discord-tictactoe') @param {Interaction}interaction @param {lang}lang*/
 module.exports = async function playAgain(interaction, lang) {
   const
     opponent = interaction.options?.getUser('opponent'),

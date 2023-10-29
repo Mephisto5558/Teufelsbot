@@ -41,6 +41,7 @@ module.exports = {
   }],
   beta: true,
 
+  /**@this GuildMessage @param {lang}lang*/
   run: async function (lang) {
     const
       cmdName = this.args?.shift() || this.options?.getString('type'),

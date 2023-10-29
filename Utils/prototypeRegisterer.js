@@ -4,39 +4,20 @@ const
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('crypto'),
   DB = require('@mephisto5558/mongoose-db'),
-  { appendFile, readdir, access, mkdir } = require('fs/promises'),
-  { customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
-  findAllEntries = require('./findAllEntries.js'),
-  date = new Date().toLocaleDateString('en', { day: '2-digit', month: '2-digit', year: 'numeric' }).replaceAll('/', '-');
+  { readdir } = require('fs/promises'),
+  { Log, customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
+  findAllEntries = require('./findAllEntries.js');
 
-access('./Logs').catch(() => mkdir('./Logs'));
 if (!require('../config.json')?.HideOverwriteWarning) console.warn(`Overwriting the following variables and functions (if they exist):
   Vanilla:    global.getDirectories, global.sleep, global.log, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
   Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
   \nModifying Discord.js Message._patch method.`
 );
 
+global.log = new Log();
 global.sleep = require('util').promisify(setTimeout);
+/**@param {string}path @returns {string[]}directory names*/
 global.getDirectories = async path => (await readdir(path, { withFileTypes: true })).reduce((acc, e) => e.isDirectory() ? [...acc, e.name] : acc, []);
-global.log = (...str) => global.log._log('log', ...str);
-global.log._log = function _log(file = global.log.file, ...str) {
-  const
-    txt = `${new Date().toISOString()} ${global.log.type ?? 'Bot'} | `,
-    log = console[file] || console.log;
-
-  if (arguments.length) {
-    if (file != 'debug') log(txt + str.join(' '));
-    appendFile(`./Logs/${date}_${file}.log`, `${txt}${str}\n`);
-    return global.log;
-  }
-
-  if (file != 'debug') log('\n');
-  appendFile(`./Logs/${date}_${file}.log`, '\n');
-  return global.log;
-};
-global.log.error = (...str) => global.log._log('error', ...str);
-global.log.debug = (...str) => global.log._log('debug', ...str);
-global.log.setType = type => { global.log.type = type; return global.log; };
 
 Object.defineProperty(Array.prototype, 'random', {
   value: function random() { return this[randomInt(this.length)]; },
@@ -47,6 +28,7 @@ Object.defineProperty(Number.prototype, 'limit', {
   enumerable: false
 });
 Object.defineProperty(Object.prototype, 'fMerge', {
+  /**@param {'overwrite'|'push'|null}mode*/
   value: function fMerge(obj, mode, { ...output } = { ...this }) {
     if (`${{}}` != this || `${{}}` != obj) return output;
     for (const key of Object.keys({ ...this, ...obj })) {
@@ -70,6 +52,7 @@ Object.defineProperty(Object.prototype, 'filterEmpty', {
   enumerable: false
 });
 Object.defineProperty(Function.prototype, 'bBind', {
+  /**@returns {bBoundFunction}*/
   value: function bBind(thisArg, ...args) {
     const bound = this.bind(thisArg, ...args);
     bound.__targetFunction__ = this;
@@ -84,7 +67,9 @@ Object.defineProperty(BaseInteraction.prototype, 'customReply', {
   enumerable: false
 });
 Object.defineProperties(BaseClient.prototype, {
+  /**@type {Collection<string, object}*/
   prefixCommands: { value: new Collection() },
+  /**@type {Collection<string, object}*/
   slashCommands: { value: new Collection() },
   cooldowns: { value: new Map() },
   settings: {
@@ -96,6 +81,7 @@ Object.defineProperties(BaseClient.prototype, {
     set(val) { this.db.update('guildSettings', 'default', val); }
   },
   awaitReady: {
+    /**@returns {Promise<Application>} fetched application*/
     value: function awaitReady() { return new Promise(res => this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch()))); }
   }
 });
@@ -131,18 +117,21 @@ Object.defineProperties(Guild.prototype, {
     get() { return this.client.db?.get('guildSettings')?.[this.id] ?? {}; },
     set(val) { this.client.db.update('guildSettings', this.id, val); }
   },
+  /**@type {string?}*/
   localeCode: {
     get() { return this.db.config?.lang ?? this.preferredLocale.slice(0, 2) ?? this.client.defaultSettings.config.lang; },
     set(val) { this.client.db.update('guildSettings', 'config.lang', val); }
   }
 });
-/**@param {boolean}overwrite overwrite existing collection, default: `false`*/
+
+/**@param overwrite overwrite existing collection, default: `false`*/
 DB.prototype.generate = async function generate(overwrite = false) {
   log.setType('DB').debug(`generating db files${overwrite ? ', overwriting existing data' : ''}`).setType();
   for (const { key, value } of require('../Templates/db_collections.json')) await this.set(key, value, overwrite);
 };
 
 TicTacToe.prototype.playAgain = playAgain;
+/**@param {number}row @param {number}col*/
 GameBoardButtonBuilder.prototype.createButton = function createButton(row, col) {
   const
     button = new ButtonBuilder(),

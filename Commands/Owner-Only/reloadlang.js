@@ -7,6 +7,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
+  /**@this Message @param {lang}lang*/
   run: function (lang) {
     log.debug(`Reloading language files, initiated by user ${this.user.username}`);
 

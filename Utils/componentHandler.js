@@ -3,7 +3,7 @@ const
   cooldowns = require('./cooldowns.js'),
   handlers = require('./componentHandler/');
 
-/**@this {import('discord.js').MessageComponentInteraction}*/
+/**@this import('discord.js').MessageComponentInteraction @param {lang}lang*/
 module.exports = async function MessageComponentHandler(lang) {
   const
     [feature, id, mode, data, ...args] = this.customId.split('.'),

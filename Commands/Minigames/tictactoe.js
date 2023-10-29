@@ -32,6 +32,7 @@ module.exports = {
   prefixCommand: false,
   options: [{ name: 'opponent', type: 'User' }],
 
+  /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     const
       gameTarget = this.options.getUser('opponent')?.id,

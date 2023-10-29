@@ -22,6 +22,7 @@ module.exports = {
     }
   ],
   
+  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
   run: async function (lang) {
     const
       msg = this.content || this.options?.getString('msg'),

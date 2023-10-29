@@ -1,6 +1,6 @@
 const { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
-/**@this {import('discord.js').Message}, @param {import('discord.js').GuildMember}member*/
+/**@this Message @param {import('discord.js').GuildMember}member @param {lang}lang*/
 module.exports = function logSayCommandUse(member, lang) {
   const setting = this.guild?.db.config?.logger?.sayCommandUsed ?? {};
   if (this.client.botType == 'dev' || !setting.enabled || !setting.channel) return;

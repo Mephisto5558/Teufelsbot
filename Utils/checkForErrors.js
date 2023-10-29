@@ -6,7 +6,7 @@ const
   ownerOnlyFolders = require('./getOwnerOnlyFolders.js')(),
   { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json');
 
-/**@this {Message|import('discord.js').ChatInputCommandInteraction} @returns {Array|bool}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
+/**@this {Interaction|Message} @returns {Array|boolean}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
 module.exports = async function checkForErrors(command, lang) {
   if (!command) {
     if (this instanceof Message) {

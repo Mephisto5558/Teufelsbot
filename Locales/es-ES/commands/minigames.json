@@ -29,6 +29,11 @@
       "embedDescription": "¡Este canal ya no es un canal de cuento!",
       "by": "Eliminado por {user}",
       "success": "He eliminado con éxito <#{channel}> como canal de conteo."
+    },
+    "userDeletedMsg": {
+      "embedTitle": "Contando",
+      "embedDescription": "Número eliminado: **{deletedNum}**\nSiguiente Número: **{nextNum}**",
+      "unknown": "Autor desconocido"
     }
   },
   "mgstats": {

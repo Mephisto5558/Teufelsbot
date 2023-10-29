@@ -1,6 +1,8 @@
 console.time('Initializing time');
 console.info('Starting...');
 
+Error.stackTraceLimit = Infinity;
+
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { readdir } = require('fs/promises'),
@@ -46,13 +48,13 @@ console.time('Starting time');
   let env;
   try { env = require('./env.json'); }
   catch {
-    client.db = await new DB(process.env.dbConnectionStr, 100).fetchAll();
+    client.db = await new DB(process.env.dbConnectionStr, 'db-collection', 100).fetchAll();
     env = client.settings.env;
   }
 
   env = env.global.fMerge(env[env.global.environment]);
 
-  client.db ??= await new DB(env.dbConnectionStr, 100).fetchAll();
+  client.db ??= await new DB(env.dbConnectionStr, 'db-collection', 100).fetchAll();
 
   client.botType = env.environment;
   client.keys = env.keys;

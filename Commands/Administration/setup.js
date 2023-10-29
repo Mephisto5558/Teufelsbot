@@ -92,6 +92,7 @@ module.exports = {
     }
   ],
 
+  /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     lang.__boundArgs__[0].backupPath += `.${this.options.getSubcommand().replace(/_./g, e => e[1].toUpperCase())}`;
 

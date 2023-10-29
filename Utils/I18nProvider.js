@@ -70,7 +70,7 @@ class I18nProvider {
     return message;
   }
 
-  /**@param {{}}object@param {string}objectPath@returns {{}}flatted object*/
+  /**@param {object}object @param {string}objectPath @returns {object}flatted object*/
   flatten = (object, objectPath) => Object.keys(object).reduce((acc, key) => {
     const newObjectPath = [objectPath, key].filter(Boolean).join(this.config.separator);
     return Object.assign(Object.assign({}, acc), ({}).toString() == object?.[key]
@@ -79,7 +79,7 @@ class I18nProvider {
     );
   }, {});
 
-  /**@param {boolean}checkEqual@returns {{}}list of entries that are missing or equal with default data*/
+  /**@param {boolean}checkEqual @returns {object}list of entries that are missing or equal with default data*/
   findMissing(checkEqual) {
     const defaultKeys = Object.keys(this.defaultLocaleData);
     const missing = {};

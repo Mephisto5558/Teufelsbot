@@ -1,3 +1,4 @@
+/**@this import('discord.js').Guild*/
 module.exports = async function guildCreate() {
   log.debug(`Joined new guild: ${this.id}`);
   if (this.client.botType == 'dev') return;

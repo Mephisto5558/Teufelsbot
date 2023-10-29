@@ -22,6 +22,7 @@ module.exports = {
     { name: 'include_chars', type: 'String' }
   ],
 
+  /**@this Interaction @param {lang}lang*/
   run: function (lang) {
     const
       count = this.options?.getInteger('count') || 1,
