@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors, InteractionType } = require('discord.js'),
   { I18nProvider, errorHandler, componentHandler, autocompleteGenerator, checkForErrors } = require('../Utils');
 
-/**@this {import('discord.js').CommandInteraction}*/
+/**@this import('discord.js').Interaction*/
 module.exports = async function interactionCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 
@@ -13,6 +13,7 @@ module.exports = async function interactionCreate() {
   if (command && this.type == InteractionType.ApplicationCommandAutocomplete) return this.respond(await autocompleteGenerator.call(this, command, locale));
 
   const
+    /**@type {lang}*/
     lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: 'events.command' }),
     errorKey = await checkForErrors.call(this, command, lang);
 

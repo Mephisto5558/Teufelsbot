@@ -10,6 +10,7 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'role', type: 'Role' }],
 
+  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
   run: function (lang) {
     this.args = this.args?.map(e => e.replace(/[<@>]/g, '')) || [];
     this.content = this.content?.replace(/[<@>]/g, '');

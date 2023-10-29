@@ -11,6 +11,7 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'target', type: 'User' }],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     this.args = this.args?.map(e => e.replace(/[<@&>]/g, '')) || [];
     this.content = this.content?.replace(/[<@&>]/g, '');

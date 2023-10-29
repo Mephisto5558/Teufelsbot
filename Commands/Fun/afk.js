@@ -1,4 +1,4 @@
-const { AllowedMentionsTypes } = require('discord.js');
+const { AllowedMentionstypes } = require('discord.js');
 
 module.exports = {
   name: 'afk',
@@ -15,6 +15,7 @@ module.exports = {
     { name: 'global', type: 'Boolean' }
   ],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       global = !this.guildId || (this.options?.getBoolean('global') ?? this.args?.[0] == 'global'),
@@ -26,6 +27,6 @@ module.exports = {
 
     if (this.member.moderatable && this.member.displayName.length < 26 && !this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(`[AFK] ${this.member.displayName}`);
 
-    return this.customReply({ content: lang(global ? 'globalSuccess' : 'success', message), allowedMentions: { parse: [AllowedMentionsTypes.User] } });
+    return this.customReply({ content: lang(global ? 'globalSuccess' : 'success', message), allowedMentions: { parse: [AllowedMentionstypes.User] } });
   }
 };

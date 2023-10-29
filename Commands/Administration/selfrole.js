@@ -5,5 +5,6 @@ module.exports = {
   prefixCommand: false,
   ephemeralDefer: true,
 
+  /**@this GuildInteraction @param {lang}lang*/
   run: function (lang) { return this.customReply(lang('deprecated')); }
 };

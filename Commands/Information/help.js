@@ -22,6 +22,7 @@ module.exports = {
     }
   ],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
       categoryQuery = this.options?.getString('category'),

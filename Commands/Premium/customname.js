@@ -36,6 +36,7 @@ module.exports = {
     }
   ],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     let target = this.options?.getMember('target') ?? this.mentions?.members?.first() ?? this.member ?? this.user;
     if (this.options?.getBoolean('global') && target.user) target = target.user; //target.user check for execution in dms

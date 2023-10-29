@@ -11,5 +11,6 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
+  /**@this Message @param {lang}lang*/
   run: function () { return this.customReply(responseList.random()); }
 };

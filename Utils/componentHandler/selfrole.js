@@ -1,8 +1,8 @@
 const { EmbedBuilder, Colors } = require('discord.js');
 
 /** this.customId: `selfrole.{Date.now()}.<mode>.<roleId>`
- * @info new selfroles can no longer be created
- * @this {import('discord.js').ButtonInteraction} @param {string}mode @param {string}data @param {string[]}args*/
+ * @deprecated new selfroles can no longer be created
+ * @this import('discord.js').ButtonInteraction @param {lang}lang @param {string}mode @param {string}roleId @param {string[]}args*/
 module.exports = async function selfrole(lang, mode, roleId, args) {
   await this.deferReply({ ephemeral: true });
 

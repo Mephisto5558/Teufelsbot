@@ -66,7 +66,7 @@ module.exports = {
     }
   ], beta: true,
 
-  /**@this {import('discord.js').ChatInputCommandInteraction}*/
+  /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     const
       id = this.options.getString('id'),

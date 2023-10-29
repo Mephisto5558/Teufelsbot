@@ -20,6 +20,7 @@ module.exports = {
     }
   ],
 
+  /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     if (this.options.getString('confirmation')?.toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
 

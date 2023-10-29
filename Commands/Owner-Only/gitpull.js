@@ -5,6 +5,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
+  /**@this Message @param {lang}lang*/
   run: async function (lang) {
     await require('../../Utils').gitpull();
     return this.customReply(lang('success'));

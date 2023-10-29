@@ -21,6 +21,7 @@ module.exports = {
     { name: 'public', type: 'Boolean' }
   ],
 
+  /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     const
       allowed = new Set(),

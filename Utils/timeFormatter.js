@@ -1,4 +1,4 @@
-/**@param {number}sec*/
+/**@param {number}sec @param {lang}lang*/
 module.exports = (sec = 0, lang = null) => {
   const negative = sec < 0;
   sec = Math.abs(sec);
