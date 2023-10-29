@@ -3,14 +3,8 @@ const
   { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors } = require('discord.js'),
   { Github } = require('../config.json');
 
-function getStackTrace() {
-  const obj = {};
-  Error.captureStackTrace(obj, getStackTrace);
-  return obj.stack;
-}
-
 module.exports = async function errorHandler(err, message, lang) {
-  log.error(' [Error Handling] :: Uncaught Error', getStackTrace());
+  log.error(' [Error Handling] :: Uncaught Error', err.stack);
 
   if (!message) return;
 
