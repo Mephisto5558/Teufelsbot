@@ -1,6 +1,8 @@
 console.time('Initializing time');
 console.info('Starting...');
 
+Error.stackTraceLimit = Infinity;
+
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { readdir } = require('fs/promises'),
