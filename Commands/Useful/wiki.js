@@ -17,6 +17,7 @@ module.exports = {
     required: true
   }],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       query = this.options?.getString('query') || this.content,

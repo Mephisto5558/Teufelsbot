@@ -30,6 +30,7 @@ module.exports = {
     required: true
   }],
 
+  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const expression = this.content || this.options?.getString('expression');
     if (!expression) return this.customReply(lang('noInput'));

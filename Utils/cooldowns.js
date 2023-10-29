@@ -1,6 +1,6 @@
 const { ApplicationCommandOptionType, ChatInputCommandInteraction } = require('discord.js');
 
-/**@this {import('discord.js').ChatInputCommandInteraction} Command @returns {number} current cooldown in seconds*/
+/**@this Interaction @returns {number} current cooldown in seconds*/
 function subCommandCooldowns(name) {
   const depth = name.split('.').length - 1;
   if (depth >= 2 || !(this instanceof ChatInputCommandInteraction)) return 0;
@@ -18,7 +18,7 @@ function subCommandCooldowns(name) {
   if (cooldowns) return cooldown.call(this, { name: group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns });
 }
 
-/**@this {import('discord.js').Message} Message @returns {number} current cooldown in seconds*/
+/**@this Message @returns {number} current cooldown in seconds*/
 function cooldown({ name, cooldowns: { guild = 0, user = 0 } = {} }) {
   if (!guild && !user) return subCommandCooldowns.call(this, name);
 

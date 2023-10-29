@@ -4,7 +4,7 @@ const
   bankick = require('../bankick.js');
 
 /** this.customId: `infoCMDs.<id>.<action>.<entitytype>`
- * @this {import('discord.js').ButtonInteraction} @param {string}initiatorId @param {string}opponentId*/
+ * @this import('discord.js').ButtonInteraction @param {lang}lang @param {string}id @param {string}mode @param {string}entityType*/
 module.exports = async function infoCMDs(lang, id, mode, entityType) {
   if (entityType != 'members') await this.deferReply();
 

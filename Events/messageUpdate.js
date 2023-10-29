@@ -2,7 +2,7 @@ const
   { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { I18nProvider } = require('../Utils');
 
-/**@this {import('discord.js').Message} old message @param {import('discord.js').Message}newMsg*/
+/**@this Message old message @param {Message}newMsg*/
 module.exports = async function messageUpdate(newMsg) {
   const setting = this.guild?.db.config?.logger?.messageUpdate ?? {};
   if (

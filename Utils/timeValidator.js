@@ -2,7 +2,7 @@ const
   { getMilliseconds, humanize } = require('better-ms'),
   validItems = ['y', 'mth', 'w', 'd', 'h', 'min', 's', 'ms'];
 
-/**@param {String}t a time string, e.g. 3w2d @returns {string[]}array of valid values*/
+/**@param {string}t a time string, e.g. 3w2d @returns {string[]}array of valid values*/
 module.exports = function timeValidator(t) {
   if (!t) return [];
 
