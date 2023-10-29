@@ -51,7 +51,7 @@ class I18nProvider {
   __({ locale = this.config.defaultLocale, errorNotFound = this.config.errorNotFound, undefinedNotFound = this.config.undefinedNotFound, backupPath } = {}, key, replacements) {
     let message = this.localeData[locale]?.[key] ?? (backupPath && this.localeData[locale]?.[`${backupPath}.${key}`]);
     if (!message) {
-      if (!undefinedNotFound) log.setType('I18n')._log('warn', `Missing "${locale}" localization for ${key}` + (backupPath ? ` (${backupPath}.${key})!` : '!')).setType();
+      if (!undefinedNotFound) log.setType('I18n').warn(`Missing "${locale}" localization for ${key}` + (backupPath ? ` (${backupPath}.${key})!` : '!')).setType();
       if (this.config.defaultLocale != locale) message = this.defaultLocaleData[key] ?? (backupPath && this.defaultLocaleData[`${backupPath}.${key}`]);
     }
 
@@ -59,7 +59,7 @@ class I18nProvider {
     if (!message) {
       if (errorNotFound) throw new Error(`Key not found: "${key}"` + (backupPath ? ` (${backupPath}.${key})` : ''));
       if (undefinedNotFound) return undefined;
-      log.setType('I18n')._log('warn', `Missing default ("${this.config.defaultLocale}") localization for ${key}` + (backupPath ? ` (${backupPath}.${key})!` : '!')).setType();
+      log.setType('I18n').warn(`Missing default ("${this.config.defaultLocale}") localization for ${key}` + (backupPath ? ` (${backupPath}.${key})!` : '!')).setType();
       return this.config.notFoundMessage?.replaceAll('{key}', key) ?? key;
     }
 

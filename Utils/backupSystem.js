@@ -119,7 +119,7 @@ class BackupSystem {
               threads: await this.utils.fetchChannelThreads(child, saveImages, maxMessagesPerChannel),
               availableTags: child.availableTags.map(async e => ({ name: e.name, emoji: e.emoji?.name, moderated: e.moderated }))
             };
-            log._log('warn', `BackupSystem: Unhandled Channel type "${ChannelType[child.type] ?? child.type}"!`);
+            log.warn(`BackupSystem: Unhandled Channel type "${ChannelType[child.type] ?? child.type}"!`);
           }))
         }))),
         others: await Promise.all(guild.channels.cache

@@ -3,22 +3,25 @@ const { appendFile, access, mkdir } = require('fs/promises');
 module.exports = class Log extends Function {
   constructor() {
     access('./Logs').catch(() => mkdir('./Logs'));
-    super('...args', 'return this.log(...args)');
+    super('...str', 'return this.log(...str)');
 
     this.type = null;
     this.date = new Date().toLocaleDateString('en', { day: '2-digit', month: '2-digit', year: 'numeric' }).replaceAll('/', '-');
+
+    return this.bind(this); //NOSONAR
   }
 
-  log(...str) { return this.#log('log', ...str); }
-  error(...str) { return this.#log('error', ...str); }
-  debug(...str) { return this.#log('debug', ...str); }
+  log(...str) { return this._log('log', ...str); }
+  warn(...str) { return this._log('warn', ...str); }
+  error(...str) { return this._log('error', ...str); }
+  debug(...str) { return this._log('debug', ...str); }
 
   setType(type) {
     this.type = type;
     return this;
   }
 
-  #log(file = 'log', ...str) {
+  _log(file = 'log', ...str) {
     const
       txt = `${new Date().toISOString()} ${this.type ?? 'Bot'} | `,
       log = console[file] || console.log;

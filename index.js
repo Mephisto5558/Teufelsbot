@@ -1,7 +1,7 @@
 console.time('Initializing time');
 console.info('Starting...');
 
-Error.stackTraceLimit = Infinity;
+Error.stackTraceLimit = 100;
 
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),

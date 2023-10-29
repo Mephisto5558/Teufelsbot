@@ -10,11 +10,11 @@ declare global {
   const getDirectories: (path: string) => Promise<string[]>;
 
   const log: {
-    (...str: any[]): Log;
-    error: (...str: any[]) => Log;
-    debug: (...str: any[]) => Log;
-    setType: (type: string) => Log;
-    #log(file?: string, ...str: any[]): Log;
+    (...str: any[]): typeof log;
+    error: (...str: any[]) => typeof log;
+    debug: (...str: any[]) => typeof log;
+    setType: (type: string) => typeof log;
+    #log(file?: string, ...str: any[]): typeof log;
   };
 
   /**bBinded I18nProvider.__ function */
