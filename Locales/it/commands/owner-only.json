@@ -70,12 +70,22 @@
       "examples": "{prefix}setactivity running commands;playing"
     },
     "invalidType": "Questo non è un tipo valido. I tipi validi sono:\n`{types}`",
-    "set": "Attività impostata a `{name}` di tipo `{type}`.",
-    "reset": "Attività impostata su `nessuno`."
+    "set": "La mia attività è stata impostata a `{name}` di tipo `{type}`.",
+    "reset": "La mia attività è stata impostata su `nessuna`."
   },
   "setchangelog": {
     "description": "Aggiorna i changelogs in modo che gli utenti siano aggiornati.",
     "success": "Il changelog è stato aggiornato con successo."
+  },
+  "setcountingnumber": {
+    "description": "Aggiorna l'ultimo numero di conteggio per un canale, anche reimpostando l'ultimo autore.",
+    "usage": {
+      "usage": "{prefix}setcountingnumber [number (default 0)] [channel]",
+      "examples": "{prefix}setcountingnumber 7 #counting-channel"
+    },
+    "invalidNumber": "Il numero fornito non è valido!",
+    "unknownChannel": "L'id del canale fornito non è stato trovato in questa gilda!",
+    "success": "Contare per <#{channel}> è stato impostato a **{number}**."
   },
   "test": {
     "description": "prova roba"

@@ -120,7 +120,8 @@
     "getUser": {
       "notFound": "{user} no tiene cumpleaños :(",
       "embedTitle": "Cumpleaños de {user}",
-      "date": "{user} ha cumpleaños el **{month} {day}**.\n"
+      "date": "{user} ha cumpleaños el **{month} {day}**.\n",
+      "newAge": "Le girará **{age}** este día."
     },
     "getAll": {
       "embedTitle": "Los próximos cumpleaños",
@@ -278,7 +279,7 @@
             "description": "Sólo los miembros con uno de estos roles podrán participar."
           },
           "bonus_entries": {
-            "description": "Una nueva lista de menciones de miembro/rol con la cantidad de entradas de bonos: por ejemplo. @Premium:5 @Normal:2"
+            "description": "Una nueva lista de menciones de miembro/rol con la cantidad de entradas de bonos: p.ej. @Premium:5 @Normal:2"
           }
         }
       },

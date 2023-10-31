@@ -77,6 +77,16 @@
     "description": "Aktualisiert den Changelog, sodass Nutzer auf dem neusten Stand sind.",
     "success": "Der Changelog wurde erfolgreich aktualisiert."
   },
+  "setcountingnumber": {
+    "description": "Aktualisiert die letzte Counting-Zahl für einen Kanal, setzt auch den letzten Autor zurück.",
+    "usage": {
+      "usage": "{prefix}setcountingnummer [Zahl (Standard 0)] [Kanal]",
+      "examples": "{prefix}setcountingnumber 7 #counting-kanal"
+    },
+    "invalidNumber": "Die angegebene Zahl ist ungültig!",
+    "unknownChannel": "Die angegebene Kanal-ID wurde in diesem Server nicht gefunden!",
+    "success": "Counting für <#{channel}> wurde zu **{number}** gesetzt."
+  },
   "test": {
     "description": "testet Sachen"
   }

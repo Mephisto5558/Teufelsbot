@@ -119,6 +119,7 @@
     "commands": "Comandos",
     "starts": "Comienza",
     "lastStart": "Último inicio",
+    "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina.\n",
     "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Política de privacidad]({PrivacyPolicy})**",
     "embedTitle": "Estadísticas",
     "embedFooterText": "¡Pronto habrá más estadísticas!"
