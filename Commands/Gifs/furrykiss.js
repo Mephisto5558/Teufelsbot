@@ -1,5 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
+  { getTarget } = require('../../Utils'),
   images = [
     '1160179295885479946/furry-laughing-excitedly-hfi5mwmc56ekqv1j.gif', '1160179296279724092/giphy.gif',
     '1160179296854347786/kiss-furry.gif', '1160179297399603221/620b690b359402132ecdcf83c2187a8a28b09759_hq.gif',
@@ -20,7 +21,7 @@ module.exports = {
   /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
-      target = this.options?.getMember('target') || this.mentions?.members?.first() || this.mentions?.users.first() || this.guild?.members.cache.find(e => [e.user.id, e.user.username, e.nickname].some(e => [...(this.args || []), this.content].includes(e))),
+      target = getTarget(),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: lang(target ? 'embedDescriptionTarget' : 'embedDescription', { user: (this.member ?? this.user).displayName, target: target?.displayName }),
