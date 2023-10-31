@@ -10,7 +10,6 @@ module.exports = {
   disabledReason: '',
   noDefer: false,
   ephemeralDefer: false,
-  requireEconomy: false,
   options: [{
     name: '',
     type: '',
