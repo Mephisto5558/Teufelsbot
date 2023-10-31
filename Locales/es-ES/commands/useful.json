@@ -23,6 +23,23 @@
     "tooBig": "La imagen es demasiado grande. El tamaño máximo es de 2048 kilobytes.",
     "timedOut": "Se ha agotado el tiempo de espera. Tal vez la imagen es grande."
   },
+  "afk": {
+    "description": "Establecer un estado AFK mostrado cuando se menciona.",
+    "usage": {
+      "usage": "{prefix}afk [message]",
+      "examples": "{prefix}afk brb"
+    },
+    "options": {
+      "message": {
+        "description": "El mensaje a establecer"
+      },
+      "global": {
+        "description": "Establecer \"AFK\" en todos los servidores. Reinicia si escribes en alguno."
+      }
+    },
+    "globalSuccess": "Tu AFK ha sido establecido a \"{message}\" en todos los gremios.",
+    "success": "Su AFK ha sido establecido en \"{message}\"."
+  },
   "button": {
     "description": "Crear un botón.",
     "options": {

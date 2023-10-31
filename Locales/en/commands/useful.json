@@ -23,6 +23,23 @@
     "tooBig": "The image is too big. The maximum filesize is 2048 kilobytes.",
     "timedOut": "The request timed out. Maybe the image is to large."
   },
+  "afk": {
+    "description": "Set an AFK status shown when you are mentioned.",
+    "usage": {
+      "usage": "{prefix}afk [message]",
+      "examples": "{prefix}afk brb"
+    },
+    "options": {
+      "message": {
+        "description": "The message to set"
+      },
+      "global": {
+        "description": "Set your AFK for all guilds you are in. Resets if you write in any guild."
+      }
+    },
+    "globalSuccess": "Your AFK has been set to \"{message}\" across all guilds.",
+    "success": "Your AFK has been set to \"{message}\"."
+  },
   "button": {
     "description": "Create a button.",
     "options": {

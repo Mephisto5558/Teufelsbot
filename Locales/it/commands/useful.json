@@ -23,6 +23,23 @@
     "tooBig": "L'immagine è troppo grande. La dimensione massima del file è di 2048 kilobyte.",
     "timedOut": "La richiesta è scaduta. Forse l'immagine è di grandi dimensioni."
   },
+  "afk": {
+    "description": "Imposta uno stato AFK mostrato quando sei menzionato.",
+    "usage": {
+      "usage": "{prefix}afk [message]",
+      "examples": "{prefix}afk brb"
+    },
+    "options": {
+      "message": {
+        "description": "Il messaggio da impostare"
+      },
+      "global": {
+        "description": "Imposta il tuo AFK per tutte le gilde in cui ti trovi. Resetta se scrivi in qualsiasi gilda."
+      }
+    },
+    "globalSuccess": "Il tuo AFK è stato impostato su \"{message}\" in tutte le gilde.",
+    "success": "Il tuo AFK è stato impostato su \"{message}\"."
+  },
   "button": {
     "description": "Crea un pulsante.",
     "options": {

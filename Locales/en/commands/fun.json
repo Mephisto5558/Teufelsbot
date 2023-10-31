@@ -49,23 +49,6 @@
     "description": "Get a helpful advice.",
     "embedTitle": "Advice"
   },
-  "afk": {
-    "description": "Set an AFK status shown when you are mentioned.",
-    "usage": {
-      "usage": "{prefix}afk [message]",
-      "examples": "{prefix}afk brb"
-    },
-    "options": {
-      "message": {
-        "description": "The message to set"
-      },
-      "global": {
-        "description": "Set your AFK for all guilds you are in. Resets if you write in any guild."
-      }
-    },
-    "globalSuccess": "Your AFK has been set to \"{message}\" across all guilds.",
-    "success": "Your AFK has been set to \"{message}\"."
-  },
   "avatarfusion": {
     "description": "Fuses two avatars.",
     "usage": {
