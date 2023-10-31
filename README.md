@@ -46,14 +46,8 @@ You should be ready to go!
 <br>
 
 ## How to set up MongoDB
-
-Before you run the bot for the first time, run the following code in your shell (replace the path in require() if needed).
+As I made the DB its own NPM module you need to just put `await db.generate()` in index.js after `client.db ??= new DB`... You can remove the `await db.generate()` after it ran once.
 This will generate all required objects from the `Templates\db_collections.json` file.
-```js
-const DB = require('.\\Utils\\db.js');
-const db = new DB('YOUR_MONGODB_CONNECTION_STRING');
-await db.generate();
-```
 
 <br>
 
