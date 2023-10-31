@@ -70,8 +70,8 @@
       "examples": "{prefix}setactivity Befehle ausführen;playing"
     },
     "invalidType": "Das ist kein gültiger Aktivitäts-Typ. Gültige Typen sind:\n`{types}`",
-    "set": "Aktivität wurde zu `{name}` vom Typ `{type}` gesetzt.",
-    "reset": "Aktivität wurde zu `nichts` gesetzt."
+    "set": "Meine Aktivität wurde zu `{name}` vom Typ `{type}` gesetzt.",
+    "reset": "Meine Aktivität wurde zu `nichts` gesetzt."
   },
   "setchangelog": {
     "description": "Aktualisiert den Changelog, sodass Nutzer auf dem neusten Stand sind.",

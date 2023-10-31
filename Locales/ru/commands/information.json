@@ -119,7 +119,6 @@
     "commands": "Команды",
     "starts": "Начинается",
     "lastStart": "Последний старт",
-    "translation": "Переводы:\n> Английский: {en}\n> Герман: {de}\n",
     "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Политика конфиденциальности]({PrivacyPolicy})**",
     "embedTitle": "Статистика",
     "embedFooterText": "Скоро появится больше статистики!"

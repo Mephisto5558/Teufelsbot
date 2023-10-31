@@ -137,8 +137,7 @@
     "getUser": {
       "notFound": "У {user} нет дня рождения :(",
       "embedTitle": "День рождения {user}",
-      "date": "У {user} день рождения **{month} {day}**.\n",
-      "newAge": "Он/она превратит **{age}** в этот день."
+      "date": "У {user} день рождения **{month} {day}**.\n"
     },
     "getAll": {
       "embedTitle": "Следующие дни рождения",

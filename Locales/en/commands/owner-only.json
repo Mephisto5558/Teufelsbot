@@ -70,8 +70,8 @@
       "examples": "{prefix}setactivity running commands;playing"
     },
     "invalidType": "This is not a valid type. Valid types are:\n`{types}`",
-    "set": "Activity set to `{name}` of type `{type}`.",
-    "reset": "Activity set to `none`."
+    "set": "My activity has been set to `{name}` of type `{type}`.",
+    "reset": "My activity has been set to `none`."
   },
   "setchangelog": {
     "description": "Updates the changelogs so users are up-to-date.",
