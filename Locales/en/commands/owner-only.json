@@ -77,6 +77,16 @@
     "description": "Updates the changelogs so users are up-to-date.",
     "success": "The changelog has been updated successfully."
   },
+  "setcountingnumber": {
+    "description": "Updates the last counting number for a channel, also resetting the last author.",
+    "usage": {
+      "usage": "{prefix}setcountingnumber [number (default 0)] [channel]",
+      "examples": "{prefix}setcountingnumber 7 #counting-channel"
+    },
+    "invalidNumber": "The provided number is invalid!",
+    "unknownChannel": "The provided channel id has not been found in this guild!",
+    "success": "Counting for <#{channel}> has been set to **{number}**."
+  },
   "test": {
     "description": "testing stuff"
   }
