@@ -25,7 +25,7 @@
     "embedDescriptionJoin": "{executor} ist dem Sprachkanal {newChannel} beigetreten.",
     "embedDescriptionLeave": "{executor} hat den Sprachkanal {oldChannel} verlassen.",
     "embedDescriptionMove": "{executor} vom Sprachkanal {oldChannel} zu {newChannel} gewechselt.",
-    "oldChannel": "Vorheriger Kanal",
+    "oldChannel": "Früherer Kanal",
     "newChannel": "Aktueller Kanal",
     "unknown": "`unbekannt`"
   },
