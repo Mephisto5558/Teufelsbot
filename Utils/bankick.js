@@ -59,7 +59,7 @@ module.exports = async function bankick(lang) {
         await selectMenu.deferUpdate();
 
         for (const [, target] of selectMenu.members) {
-          const err = checkTarget.call(this, target, lang);
+          const err = checkTargetManageable.call(this, target, lang);
 
           if (err) {
             resEmbed.data.description += lang('error', { err: lang(err), user: target.user.tag });
