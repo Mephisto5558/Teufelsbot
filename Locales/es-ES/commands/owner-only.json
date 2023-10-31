@@ -70,12 +70,22 @@
       "examples": "{prefix}setactivity ejecutando comandos;jugando"
     },
     "invalidType": "Este no es un tipo válido. Los tipos válidos son:\n`{types}`",
-    "set": "Actividad establecida a `{name}` de tipo `{type}`.",
-    "reset": "Actividad establecida a `ninguno`."
+    "set": "Mi actividad ha sido establecida a `{name}` de tipo `{type}`.",
+    "reset": "Mi actividad ha sido establecida a `ninguno`."
   },
   "setchangelog": {
     "description": "Actualiza los registros de cambios para que los usuarios estén actualizados.",
     "success": "El registro de cambios se ha actualizado correctamente."
+  },
+  "setcountingnumber": {
+    "description": "Actualiza el último número de cuenta para un canal, también restableciendo el último autor.",
+    "usage": {
+      "usage": "{prefix}setcountingnumber [number (por defecto 0)] [channel]",
+      "examples": "{prefix}setcountingnumber 7 #counting-channel"
+    },
+    "invalidNumber": "¡El número proporcionado no es válido!",
+    "unknownChannel": "¡La id del canal proporcionado no se ha encontrado en este gremio!",
+    "success": "La cuenta para <#{channel}> se ha establecido a **{number}**."
   },
   "test": {
     "description": "testear cosas"
