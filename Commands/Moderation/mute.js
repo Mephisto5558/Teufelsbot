@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, PermissionFlagsBits } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
-  { timeValidator } = require('../../Utils');
+  { timeValidator, checkTargetBanPerm } = require('../../Utils');
 
 module.exports = {
   name: 'mute',
@@ -40,12 +40,9 @@ module.exports = {
 
     let noMsg;
 
-    if (!target) return this.editReply(lang('notFound'));
-    if (target.id == this.member.id) return this.editReply(lang('cantMuteSelf'));
-    if (target.roles.highest.position - this.member.roles.highest.position >= 0 && this.guild.ownerId != this.user.id)
-      return this.editReply(lang('global.noPermUser'));
+    const err = checkTarget.call(this, target);
+    if (err) return this.editReply(lang(err));
     if (target.permissions.has(PermissionFlagsBits.Administrator)) return this.editReply(lang('targetIsAdmin'));
-    if (!target.moderatable) return this.editReply(lang('global.noPermBot'));
     if (!duration || typeof duration == 'string') return this.editReply(lang('invalidDuration'));
 
     date.setTime(date.getTime() + duration);
