@@ -49,23 +49,6 @@
     "description": "Obtenga un consejo útil.",
     "embedTitle": "Asesoramiento"
   },
-  "afk": {
-    "description": "Establecer un estado AFK mostrado cuando se menciona.",
-    "usage": {
-      "usage": "{prefix}afk [message]",
-      "examples": "{prefix}afk brb"
-    },
-    "options": {
-      "message": {
-        "description": "El mensaje a establecer"
-      },
-      "global": {
-        "description": "Establecer \"AFK\" en todos los servidores. Reinicia si escribes en alguno."
-      }
-    },
-    "globalSuccess": "Tu AFK ha sido establecido a \"{message}\" en todos los gremios.",
-    "success": "Su AFK ha sido establecido en \"{message}\"."
-  },
   "avatarfusion": {
     "description": "Fusiona dos avatares.",
     "usage": {
@@ -296,7 +279,7 @@
             "description": "Sólo los miembros con uno de estos roles podrán participar."
           },
           "bonus_entries": {
-            "description": "Una nueva lista de menciones de miembro/rol con la cantidad de entradas de bonos: por ejemplo. @Premium:5 @Normal:2"
+            "description": "Una nueva lista de menciones de miembro/rol con la cantidad de entradas de bonos: p.ej. @Premium:5 @Normal:2"
           }
         }
       },
