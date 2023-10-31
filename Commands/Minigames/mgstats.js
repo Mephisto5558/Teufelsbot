@@ -76,8 +76,7 @@ module.exports = {
       color: Colors.Blurple,
       footer: {
         text: this.member.user.tag,
-        iconURL: this.member.displayAvatarURL(),
-        footer: { text: lang('embedFooterText') }
+        iconURL: this.member.displayAvatarURL()
       }
     });
 

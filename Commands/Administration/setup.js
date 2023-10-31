@@ -203,7 +203,7 @@ module.exports = {
 
       case 'logger': {
         const
-          channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel))?.id,
+          channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel))?.id ?? this.channel,
           action = this.options.getString('action'),
           enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? null : !this.guild.db.config.logger?.[action]?.enabled);
 

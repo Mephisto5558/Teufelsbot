@@ -21,6 +21,20 @@
     "error": "Impossible de créer l'émoji pour la raison :\n```\n{err}\n```",
     "timedOut": "La requête a expiré. Peut-être que l'image est trop grande."
   },
+  "afk": {
+    "description": "Définir un statut AFK affiché lorsque vous êtes mentionné.",
+    "usage": "PREFIX Command: afk [message]",
+    "options": {
+      "message": {
+        "description": "Le message à définir"
+      },
+      "global": {
+        "description": "Set your AFK for all guilds you are in. Resets if you write in any guild."
+      }
+    },
+    "globalSuccess": "Votre AFK a été réglé sur \"{message}\" pour toutes les guildes.",
+    "success": "Votre AFK a été réglé sur \"{message}\"."
+  },
   "autopublish": {
     "description": "publie automatiquement tout ce que n'importe qui dans n'importe quel canal d'annonce dit",
     "usage": "Cette commande publie automatiquement tous les messages envoyés dans les canaux d'annonce.\nC'est un commutateur.",

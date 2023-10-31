@@ -85,7 +85,6 @@
     "commands": "Commandes",
     "starts": "Début",
     "lastStart": "Dernier début",
-    "translation": "Traductions :\n> Anglais : {en}\n> Allemand : {de}\n",
     "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Politique de confidentialité]({PrivacyPolicy})**",
     "embedTitle": "Stats",
     "embedFooterText": "D'autres statistiques seront bientôt disponibles !"
