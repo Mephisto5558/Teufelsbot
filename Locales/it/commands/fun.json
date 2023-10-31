@@ -138,7 +138,7 @@
       "notFound": "{user} non ha compleanno :(",
       "embedTitle": "compleanno di {user}",
       "date": "{user} ha un compleanno il **{month} {day}**.\n",
-      "newAge": "Lui/lei girerà **{age}** in questo giorno."
+      "newAge": "Lui/Lei girerà **{age}** in questo giorno."
     },
     "getAll": {
       "embedTitle": "I prossimi compleanni",
