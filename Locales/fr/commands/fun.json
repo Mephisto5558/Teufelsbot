@@ -44,20 +44,6 @@
       "Broooooo, tu es stupide, ta question n'a aucun sens?!"
     ]
   },
-  "afk": {
-    "description": "Définir un statut AFK affiché lorsque vous êtes mentionné.",
-    "usage": "PREFIX Command: afk [message]",
-    "options": {
-      "message": {
-        "description": "Le message à définir"
-      },
-      "global": {
-        "description": "Set your AFK for all guilds you are in. Resets if you write in any guild."
-      }
-    },
-    "globalSuccess": "Votre AFK a été réglé sur \"{message}\" pour toutes les guildes.",
-    "success": "Votre AFK a été réglé sur \"{message}\"."
-  },
   "avatarfusion": {
     "description": "Fusionne deux avatars.",
     "usage": "Commande PREFIX : avatarfusion <base> [overlay] [avatar_type]",
