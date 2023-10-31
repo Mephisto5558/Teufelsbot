@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType } = require('discord.js'),
-  checkTarget = require('./checkTargetBanPerm.js');
+  checkTargetManageable = require('./checkTargetManageable.js');
 
 /**@this GuildInteraction @param {lang}lang*/
 module.exports = async function bankick(lang) {
@@ -24,7 +24,7 @@ module.exports = async function bankick(lang) {
   reason += ` | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`;
 
   if (target) {
-    const err = checkTarget.call(this, target);
+    const err = checkTargetManageable.call(this, target);
     if (err) {
       resEmbed.data.description += lang('error', { err: lang(err), user: target.user?.tag ?? target.id });
       return this.editReply({ embeds: [resEmbed] });
