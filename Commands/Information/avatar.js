@@ -1,4 +1,6 @@
-const { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const
+  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { getTarget } = require('../../Utils');
 
 module.exports = {
   name: 'avatar',
@@ -18,7 +20,7 @@ module.exports = {
   /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
-      target = this.options?.getMember('target') || this.options?.getUser('target') || (this.mentions?.members || this.mentions?.users)?.first() || this.guild?.members.cache.find(e => [e.user.id, e.user.username, e.nickname].some(e => [...(this.args || []), this.content].includes(e))) || this.member || this.user,
+      target = getTarget({ returnSelf: true }),
       avatarURL = await target.displayAvatarURL({ size: this.options?.getInteger('size') || 2048 }),
       embed = new EmbedBuilder({
         description: lang('embedDescription', target.user?.username || target.username),

@@ -11,6 +11,7 @@ module.exports = {
   formatSlashCommand: require('./formatSlashCommand.js'),
   getAge: require('./getAge.js'),
   getOwnerOnlyFolders: require('./getOwnerOnlyFolders.js'),
+  getTarget: require('./getTarget.js'),
   gitpull: require('./gitpull.js'),
   giveawaysmanager: require('./giveawaysmanager.js'),
   I18nProvider: require('./I18nProvider.js'),

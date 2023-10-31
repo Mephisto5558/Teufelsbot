@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { getAge } = require('../../Utils'),
+  { getTarget, getAge } = require('../../Utils'),
   currentYear = new Date().getFullYear();
 
 module.exports = {
@@ -51,7 +51,7 @@ module.exports = {
   /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     const
-      target = this.options.getMember('target'),
+      target = getTarget(),
       doNotHide = this.options.getBoolean('do_not_hide');
 
     switch (this.options.getSubcommand()) {
