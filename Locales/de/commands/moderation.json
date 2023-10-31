@@ -87,7 +87,7 @@
     "infoEmbedTitle": "Timeout",
     "infoEmbedDescription": "{user} wurde erfolgreich getimeouted.\nBegründung: {reason}\nBis: <t:{time}>\n",
     "notFound": "Ich konnte dieses Mitglied nicht finden!",
-    "cantMuteSelf": "Du kannst dich selbst nicht timeouten!",
+    "cantPunishSelf": "Du kannst dich selbst nicht timeouten!",
     "targetIsAdmin": "Ich kann keine Administratoren timeouten!",
     "invalidDuration": "Die Mute-Dauer, die du angegeben hast, ist ungültig!",
     "error": "Ich konnte das Mitglied nicht muten:\n{err}",

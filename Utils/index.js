@@ -3,7 +3,7 @@ module.exports = {
   BackupSystem: require('./backupSystem.js'),
   bankick: require('./bankick.js'),
   checkForErrors: require('./checkForErrors.js'),
-  checkTargetBanPerm: require('./checkTargetBanPerm.js'),
+  checkTargetManageable: require('./checkTargetManageable.js'),
   componentHandler: require('./componentHandler.js'),
   cooldowns: require('./cooldowns.js'),
   errorHandler: require('./error_handler.js'),
