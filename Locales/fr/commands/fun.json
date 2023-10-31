@@ -127,7 +127,7 @@
       "notFound": "{user} n'a pas d'anniversaire :(",
       "embedTitle": "Anniversaire de {user}",
       "date": "{user} a l'anniversaire le **{month} {day}**.\n",
-      "newAge": "Il/elle tournera **{age}** ce jour."
+      "newAge": "Il/Elle tournera **{age}** ce jour."
     },
     "getAll": {
       "embedTitle": "Les prochains anniversaires",
