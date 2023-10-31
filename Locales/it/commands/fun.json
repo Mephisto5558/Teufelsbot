@@ -49,23 +49,6 @@
     "description": "Prendi un consiglio utile.",
     "embedTitle": "Consigli"
   },
-  "afk": {
-    "description": "Imposta uno stato AFK mostrato quando sei menzionato.",
-    "usage": {
-      "usage": "{prefix}afk [message]",
-      "examples": "{prefix}afk brb"
-    },
-    "options": {
-      "message": {
-        "description": "Il messaggio da impostare"
-      },
-      "global": {
-        "description": "Imposta il tuo AFK per tutte le gilde in cui ti trovi. Resetta se scrivi in qualsiasi gilda."
-      }
-    },
-    "globalSuccess": "Il tuo AFK è stato impostato su \"{message}\" in tutte le gilde.",
-    "success": "Il tuo AFK è stato impostato su \"{message}\"."
-  },
   "avatarfusion": {
     "description": "Fusioni due avatar.",
     "usage": {
