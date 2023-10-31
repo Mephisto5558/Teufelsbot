@@ -1,8 +1,6 @@
-import type { Message } from 'discord.js';
 import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
 import type BackupSystem from './Utils/backupSystem';
-import type Log from './Utils/prototypeRegisterer/Log';
 
 declare global {
   const sleep: (ms: number) => Promise<void>;
@@ -19,7 +17,7 @@ declare global {
 
   /**bBinded I18nProvider.__ function */
   type lang = {
-    (key: string, replacements?: string|object): string
+    (key: string, replacements?: string | object): string
   } & bBoundFunction
 
   interface Array<T> {
@@ -73,7 +71,7 @@ declare global {
     public member: null;
     public memberPermissions: null;
   }
-  type Interaction = GuildInteraction|DMInteraction
+  type Interaction = GuildInteraction | DMInteraction
 }
 
 declare module 'discord.js' {
