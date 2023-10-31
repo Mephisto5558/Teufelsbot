@@ -87,7 +87,7 @@
     "infoEmbedTitle": "Couper le son",
     "infoEmbedDescription": "{user} a été rendu muet avec succès.\nRaison : {reason}\nJusqu'à : <t:{time}>\n",
     "notFound": "Je n'ai pas pu trouver ce membre !",
-    "cantMuteSelf": "Vous ne pouvez pas vous masquer vous-même!",
+    "cantPunishSelf": "Vous ne pouvez pas vous masquer vous-même!",
     "targetIsAdmin": "Je ne peux pas rendre muet les administrateurs !",
     "invalidDuration": "La durée de mute que vous avez fournie est invalide !",
     "error": "Je n'ai pas pu rendre muet la cible :\n{err}",
