@@ -119,7 +119,7 @@
     "commands": "Commands",
     "starts": "Starts",
     "lastStart": "Last start",
-    "translation": "Translations:\n> English: {en}\n> German: {de}\nAll other languages are mostly machine translated.",
+    "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.\n",
     "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Privacy Policy]({PrivacyPolicy})**",
     "embedTitle": "Stats",
     "embedFooterText": "More stats are coming soon!"
