@@ -87,7 +87,7 @@
     "infoEmbedTitle": "Mute",
     "infoEmbedDescription": "{user} has been successfully muted.\nReason: {reason}\nUntil: <t:{time}>\n",
     "notFound": "I couldn't find that member!",
-    "cantMuteSelf": "You can't mute yourself!",
+    "cantPunishSelf": "You can't mute yourself!",
     "targetIsAdmin": "I cannot mute admininstartors!",
     "invalidDuration": "The mute duration you provided is invalid!",
     "error": "I couldn't mute the target:\n{err}",

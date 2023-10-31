@@ -87,7 +87,7 @@
     "infoEmbedTitle": "Silenzia",
     "infoEmbedDescription": "{user} è stato silenziato con successo.\nMotivo: {reason}\nUntil: <t:{time}>\n",
     "notFound": "Non sono riuscito a trovare quell'membro!",
-    "cantMuteSelf": "Non puoi mutare te stesso!",
+    "cantPunishSelf": "Non puoi mutare te stesso!",
     "targetIsAdmin": "Non posso mutare gli admininstartors!",
     "invalidDuration": "La durata del silenziamento fornita non è valida!",
     "error": "Non ho potuto silenziare il bersaglio:\n{err}",
