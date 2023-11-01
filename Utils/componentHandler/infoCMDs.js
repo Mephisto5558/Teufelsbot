@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle } = require('discord.js'),
-  checkTarget = require('../checkTargetBanPerm.js'),
+  checkTargetManageable = require('../checkTargetManageable.js'),
   bankick = require('../bankick.js');
 
 /** this.customId: `infoCMDs.<id>.<action>.<entitytype>`
@@ -19,7 +19,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
   switch (entityType) {
     case 'members': {
       if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers'])) return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], ephemeral: true });
-      const err = checkTarget.call(this, item, lang);
+      const err = checkTargetManageable.call(this, item);
       if (err) return this.reply({ embeds: [embed.setDescription(lang(err))], ephemeral: true });
 
       const modal = new ModalBuilder({
