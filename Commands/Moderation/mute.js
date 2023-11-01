@@ -25,6 +25,7 @@ module.exports = {
       name: 'duration',
       type: 'String',
       required: true,
+      /**@this AutocompleteInteraction*/
       autocompleteOptions: function () { return timeValidator(this.focused.value); },
       strictAutocomplete: true
     }

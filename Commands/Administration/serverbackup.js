@@ -40,6 +40,7 @@ module.exports = {
         {
           name: 'id',
           type: 'String',
+          /**@this AutocompleteInteraction*/
           autocompleteOptions: function () { return [...this.client.backupSystem.list().filter(checkPerm.bind(this)).keys()]; }
         },
         { name: 'no_clear', type: 'Boolean' }
@@ -51,6 +52,7 @@ module.exports = {
       options: [{
         name: 'id',
         type: 'String',
+        /**@this AutocompleteInteraction*/
         autocompleteOptions: function () { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
       }],
     },
@@ -60,6 +62,7 @@ module.exports = {
       options: [{
         name: 'id',
         type: 'String',
+        /**@this AutocompleteInteraction*/
         autocompleteOptions: function () { return [...this.client.backupSystem.list(this.guild.id).keys()]; },
         required: true
       }]

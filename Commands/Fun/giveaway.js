@@ -29,6 +29,7 @@ module.exports = {
           name: 'duration',
           type: 'String',
           required: true,
+          /**@this AutocompleteInteraction*/
           autocompleteOptions: function () { return timeValidator(this.focused.value); }
         },
         {
@@ -73,6 +74,7 @@ module.exports = {
         {
           name: 'add_time',
           type: 'String',
+          /**@this AutocompleteInteraction*/
           autocompleteOptions: function () { return timeValidator(this.focused.value); },
           strictAutocomplete: true
         },

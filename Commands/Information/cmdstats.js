@@ -11,6 +11,7 @@ module.exports = {
   options: [{
     name: 'command',
     type: 'String',
+    /**@this AutocompleteInteraction*/
     autocompleteOptions: function () { return [...new Set([...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()])]; },
     strictAutocomplete: true
   }],
