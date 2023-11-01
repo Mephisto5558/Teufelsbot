@@ -4,7 +4,7 @@ const
   { formatSlashCommand, slashCommandsEqual } = require('../Utils'),
   { HideNonBetaCommandLog, HideDisabledCommandLog } = require('../config.json');
 
-/**@this import('discord.js').Client*/
+/**@this Client*/
 module.exports = async function slashCommandHandler() {
   await this.awaitReady();
 

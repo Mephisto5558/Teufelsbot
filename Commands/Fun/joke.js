@@ -8,7 +8,7 @@ const
     { name: 'icanhazdadjoke', link: 'https://icanhazdadjoke.com', url: 'https://icanhazdadjoke.com' }
   ];
 
-/**@this {import('discord.js').Client}*/
+/**@this Client*/
 async function getJoke(APIList = [], type = '', blacklist = '', maxLength = 2000) {
   const api = APIList.random();
   let response;

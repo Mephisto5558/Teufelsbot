@@ -2,7 +2,7 @@ const
   TicTacToe = require('discord-tictactoe'),
   { getTarget } = require('../../Utils');
 
-/**@this GuildInteraction @param {import('discord.js').Member[]}players @param {('win'|'lose'|'draw')[]}types @param {lang}lang @param {TicTacToe}game*/
+/**@this GuildInteraction @param {import('discord.js').GuildMember[]}players @param {('win'|'lose'|'draw')[]}types @param {lang}lang @param {TicTacToe}game*/
 async function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
   if (player1.id == this.client.user.id || player2.id == this.client.user.id) return;
 

@@ -3,11 +3,11 @@ module.exports = {
   startNow: false,
   timeZone: undefined,
 
-  /**@param {import('discord.js').Client}client*/
+  /**@param {Client}client*/
   onTick: async client => {
 
   },
-  /**@param {import('discord.js').Client}client*/
+  /**@param {Client}client*/
   onComplete: async client => {
 
   },
