@@ -98,7 +98,7 @@ module.exports = {
 
         const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Blue });
 
-        if (query || query == 0) {
+        if (query) {
           const { id, trigger, response, wildcard } = Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) || {};
           if (!trigger) return this.editReply(lang('notFound'));
 

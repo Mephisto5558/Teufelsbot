@@ -48,14 +48,14 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       bankick.call(this, lang);
       break;
     }
-    
+
     case 'emojis': {
       if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.deletable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
     }
     // fall through
     case 'roles': {
-      if (!this.member.permissions.has(PermissionFlagsBits.ManageRoles) || item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+      if (item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId || !this.member.permissions.has(PermissionFlagsBits.ManageRoles)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.editable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
     }
     // fall through

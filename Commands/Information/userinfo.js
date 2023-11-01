@@ -17,7 +17,7 @@ module.exports = {
     this.content = this.content?.replace(/[<@&>]/g, '');
 
     const
-      member = getTarget({ returnSelf: true }),
+      member = getTarget.call(this, { returnSelf: true }),
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       bannerURL = (await member.user.fetch()).bannerURL();
 
@@ -59,7 +59,7 @@ module.exports = {
 
     if (birthday) embed.data.fields.splice(-2, 0, { name: lang('birthday'), value: `<t:${Math.round(new Date(birthday).getTime() / 1000)}:D> (${getAge(birthday.split('/'))})`, inline: true });
     if (member.isCommunicationDisabled()) embed.data.fields.splice(-2, 0, { name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true });
-    if (member.user.flags.toArray().length) embed.data.fields.splice(-2, 0, { name: lang('flags.name'), value: member.user.flags.toArray().reduce((acc, e) => Number(e) ? acc : acc + lang('flags.' + e) + '`, `', '`').slice(0, -3), inline: false });
+    if (member.user.flags.bitfield) embed.data.fields.splice(-2, 0, { name: lang('flags.name'), value: member.user.flags.toArray().reduce((acc, e) => Number(e) ? acc : acc + lang('flags.' + e) + '`, `', '`').slice(0, -3), inline: false });
 
     if (bannerURL) components[0].components.push(new ButtonBuilder({
       label: lang('downloadBanner'),

@@ -61,7 +61,7 @@ module.exports = {
       catch { return this.editReply(lang('msgNotFound')); }
 
       if (msg.user.id != this.client.user.id) return this.editReply(lang('botIsNotAuthor'));
-      if (msg.components[4]?.components?.[4] || (msg.components[4] && this.options.getBoolean('new_row'))) return this.editReply(lang('buttonLimit'));
+      if (msg.components[4] && this.options.getBoolean('new_row') || msg.components[4]?.components?.[4]) return this.editReply(lang('buttonLimit'));
     }
 
     try {

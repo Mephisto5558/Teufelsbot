@@ -222,7 +222,7 @@ class BackupSystem {
     const members = await guild.members.fetch();
     for (const memberData of data.members) {
       const member = members.get(memberData.id);
-      if (!member?.manageable || !memberData.roles.length && !memberData.nickname) continue;
+      if (!memberData.roles.length && !memberData.nickname || !member?.manageable) continue;
 
       await member.edit({
         roles: memberData.roles?.map(e => guild.roles.cache.find(r => r.name == e)?.id).filter(e => e?.editable),
