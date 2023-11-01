@@ -41,6 +41,7 @@ module.exports = {
         {
           name: 'subreddit',
           type: 'String',
+          /**@this AutocompleteInteraction*/
           autocompleteOptions: function () { return (this.focused.value.startsWith('r/') ? this.focused.value.slice(2) : this.focused.value).replace(/\W/g, ''); }
         },
         { name: 'type', type: 'String' },

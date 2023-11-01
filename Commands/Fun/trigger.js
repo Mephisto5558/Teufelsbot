@@ -29,6 +29,7 @@ module.exports = {
       options: [{
         name: 'query_or_id',
         type: 'String',
+        /**@this AutocompleteInteraction*/
         autocompleteOptions: function () { return this.guild.db.triggers?.flatMap(e => [e.trigger, e.id]).sort(e => typeof e == 'string' ? -1 : 1).map(String) || []; }
       }]
     },
@@ -48,6 +49,7 @@ module.exports = {
         {
           name: 'query_or_id',
           type: 'String',
+          /**@this AutocompleteInteraction*/
           autocompleteOptions: function () { return this.guild.db.triggers?.flatMap(e => [e.trigger, e.id]).sort(e => typeof e == 'string' ? -1 : 1).map(String) || []; }
         },
         { name: 'short', type: 'Boolean' }
