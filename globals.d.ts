@@ -1,5 +1,6 @@
 import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
+import I18nProvider from '@mephisto5558/i18n';
 import type BackupSystem from './Utils/backupSystem';
 
 declare global {
@@ -17,8 +18,8 @@ declare global {
 
   /**bBinded I18nProvider.__ function */
   type lang = {
-    (key: string, replacements?: string | object): string
-  } & bBoundFunction
+    (key: string, replacements?: string | object): string;
+  } & bBoundFunction;
 
   interface Array<T> {
     random(): T;
@@ -41,47 +42,49 @@ declare global {
     __targetFunction__: Function;
     __boundThis__: this;
     __boundArgs__: any[];
-  };
-
-  class DB {
-    generate: (overwrite?: boolean) => Promise<void>
   }
 
-  type Client = Discord.Client
-  type Message = Discord.Message
+  class DB {
+    generate: (overwrite?: boolean) => Promise<void>;
+  }
+
+  type Client = Discord.Client;
+  type Message = Discord.Message;
   type GuildMessage = Discord.Message<true>;
   type DMMessage = Discord.Message<false>;
+  type AutocompleteInteraction = Discord.AutocompleteInteraction;
 
   interface GuildInteraction extends Discord.ChatInputCommandInteraction {
     public inGuild(): true;
-    public guild: Discord.Guild;
-    public guildId: string;
-    public guildLocale: Discord.Locale;
-    public commandGuildId: Discord.Snowflake;
-    public member: Discord.GuildMember;
-    public memberPermissions: Readonly<Discord.PermissionsBitField>
+    guild: Discord.Guild;
+    guildId: string;
+    guildLocale: Discord.Locale;
+    commandGuildId: Discord.Snowflake;
+    member: Discord.GuildMember;
+    memberPermissions: Readonly<Discord.PermissionsBitField>;
   }
   interface DMInteraction extends Discord.ChatInputCommandInteraction {
     public inGuild(): false;
     public inRawGuild(): false;
     public inCachedGuild(): false;
-    public guild: null;
-    public guildId: null;
-    public guildLocale: null;
-    public commandGuildId: null;
-    public member: null;
-    public memberPermissions: null;
+    guild: null;
+    guildId: null;
+    guildLocale: null;
+    commandGuildId: null;
+    member: null;
+    memberPermissions: null;
   }
-  type Interaction = GuildInteraction | DMInteraction
+  type Interaction = GuildInteraction | DMInteraction;
 }
 
 declare module 'discord.js' {
   interface BaseClient {
     prefixCommands: Discord.Collection<string, object>;
     slashCommands: Discord.Collection<string, object>;
-    backupSystem?: BackupSystem
+    backupSystem?: BackupSystem;
     cooldowns: Map<string, object>;
     db: DB;
+    i18n: I18nProvider;
     settings: object;
     defaultSettings: object;
     botType: string;
