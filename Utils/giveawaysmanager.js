@@ -27,5 +27,5 @@ class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
   }
 }
 
-/**@this {import('discord.js').Client} @returns {GiveawayManagerWithOwnDatabase}*/
+/**@this Client @returns {GiveawayManagerWithOwnDatabase}*/
 module.exports = function giveawaysManager() { return new GiveawayManagerWithOwnDatabase(this); };
