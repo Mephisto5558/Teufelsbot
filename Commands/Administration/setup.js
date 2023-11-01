@@ -134,7 +134,7 @@ module.exports = {
           return this.editReply({ embeds: [embed] });
         }
 
-        if (this.options.data[0].options.length == (this.options.data[0].options.find(e => e.name == 'get') ? 2 : 1)) {
+        if (this.options.data[0].options.length == (this.options.data[0].options.some(e => e.name == 'get') ? 2 : 1)) {
           await this.client.db.update('guildSettings', `${this.guild.id}.commandSettings.${command}.disabled.users`, users.includes('*') ? users.filter(e => e != '*') : ['*', ...users]);
           return this.editReply(lang(users.includes('*') ? 'enabled' : 'disabled', command));
         }
