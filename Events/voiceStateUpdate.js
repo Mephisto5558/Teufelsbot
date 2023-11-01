@@ -1,6 +1,4 @@
-const
-  { PermissionFlagsBits, EmbedBuilder } = require('discord.js'),
-  { I18nProvider } = require('../Utils');
+const { PermissionFlagsBits, EmbedBuilder } = require('discord.js');
 
 /**@this import('discord.js').VoiceState @param {import('discord.js').VoiceState}newState*/
 module.exports = async function voiceStateUpdate(newState) {
@@ -11,7 +9,7 @@ module.exports = async function voiceStateUpdate(newState) {
   if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
 
   const
-    lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' }),
+    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' }),
     embed = new EmbedBuilder({
       author: { name: newState.member.user.tag, iconURL: newState.member.displayAvatarURL() },
       timestamp: Date.now(),

@@ -1,13 +1,11 @@
-const
-  { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
-  I18nProvider = require('../Utils/I18nProvider.js');
+const { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js');
 
-/**@param {object}option @param {string}path*/
-module.exports = function format(option, path) {
-  if (option.options) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`));
+/**@param {object}option @param {string}path @param {import('@mephisto5558/i18n')}i18n*/
+module.exports = function format(option, path, i18n) {
+  if (option.options) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`, i18n));
 
-  option.description ??= I18nProvider.__({ errorNotFound: true }, `${path}.description`);
-  if (option.choices?.length) option.choices = option.choices.map(e => typeof e == 'object' ? e.fMerge({ __SCHandlerCustom: true }) : { name: I18nProvider.__({ undefinedNotFound: true }, `${path}.choices.${e}`) || e, value: e });
+  option.description ??= i18n.__({ errorNotFound: true }, `${path}.description`);
+  if (option.choices?.length) option.choices = option.choices.map(e => typeof e == 'object' ? e.fMerge({ __SCHandlerCustom: true }) : { name: i18n.__({ undefinedNotFound: true }, `${path}.choices.${e}`) || e, value: e });
   if (option.autocompleteOptions) option.autocomplete = true;
 
   if (option.description.length > 100) {
@@ -15,9 +13,9 @@ module.exports = function format(option, path) {
     option.description = option.description.substring(0, 100);
   }
 
-  for (const [locale] of [...I18nProvider.availableLocales].filter(([e]) => e != I18nProvider.config.defaultLocale)) {
+  for (const [locale] of [...i18n.availableLocales].filter(([e]) => e != i18n.config.defaultLocale)) {
     option.descriptionLocalizations ??= {};
-    let localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.description`);
+    let localeText = i18n.__({ locale, undefinedNotFound: true }, `${path}.description`);
     if (localeText?.length > 100 && !option.disabled) log.warn(`"${locale}" description localization of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
 
     if (localeText) option.descriptionLocalizations[locale] = localeText?.slice(0, 100);
@@ -30,7 +28,7 @@ module.exports = function format(option, path) {
       }
 
       e.nameLocalizations ??= {};
-      const localeText = I18nProvider.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
+      const localeText = i18n.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
       if (!option.disabled) {
         if (localeText?.length < 2) log.warn(`"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${path}.choices.${e.value}) is too short (min length is 2)! Using undefined.`);
         else if (localeText?.length > 32) log.warn(`"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${path}.choices.${e.value}) is too long (max length is 32)! Slicing.`);

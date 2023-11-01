@@ -1,11 +1,14 @@
 const
   { readdir } = require('fs/promises'),
-  app = require('express')(),
+  express = require('express'),
+  app = express(),
   rateLimit = require('express-rate-limit').default,
-  { I18nProvider, gitpull, getOwnerOnlyFolders } = require('../Utils'),
-  ownerOnlyFolders = getOwnerOnlyFolders(),
-  lang = I18nProvider.__.bind(I18nProvider, { locale: 'en', undefinedNotFound: true });
+  { gitpull, getOwnerOnlyFolders } = require('../Utils'),
+  ownerOnlyFolders = getOwnerOnlyFolders();
 
+let commands;
+
+/**@param {string}key @param {express.Response}res @param {string}WebsiteKey*/
 function validate(key, res, WebsiteKey) {
   if (key == WebsiteKey) return true;
 
@@ -13,7 +16,8 @@ function validate(key, res, WebsiteKey) {
   return false;
 }
 
-async function getCommands() {
+/**@param {lang}lang*/
+async function getCommands(lang) {
   const categoryCommandList = [];
   for (const subFolder of await getDirectories('./Commands')) {
     if (ownerOnlyFolders.includes(subFolder.toLowerCase())) continue;
@@ -47,7 +51,6 @@ async function getCommands() {
 
   return categoryCommandList.sort((a, b) => a.category.toLowerCase() == 'others' ? 1 : b.list.length - a.list.length);
 }
-const commands = getCommands();
 
 /**@this Client*/
 module.exports = async function websiteHandler() {
@@ -63,7 +66,8 @@ module.exports = async function websiteHandler() {
     .all('*', async (req, res) => {
       switch (req.path) {
         case '/commands': {
-          if (validate(req.query.key, res, this.keys.WebsiteKey)) res.send(await (req.query.fetch ? getCommands() : commands));
+          if (validate(req.query.key, res, this.keys.WebsiteKey))
+            res.send(await (req.query.fetch && commands ? getCommands(this.i18n.__.bind(this.i18n, { locale: 'en', undefinedNotFound: true })) : commands));
           return;
         }
         case '/reloadDB': {

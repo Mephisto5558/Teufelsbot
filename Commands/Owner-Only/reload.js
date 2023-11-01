@@ -12,7 +12,7 @@ async function reloadCommand(command, reloadedArray) {
   try { file = require(command.filePath); }
   catch { file = {}; }
 
-  const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`) : null;
+  const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n) : null;
 
   file.filePath = command.filePath;
   file.category = command.category;

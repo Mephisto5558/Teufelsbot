@@ -1,6 +1,4 @@
-const
-  { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js'),
-  { I18nProvider } = require('../Utils');
+const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js');
 
 /**@this Message*/
 function countingHandler(lang) {
@@ -22,7 +20,7 @@ function countingHandler(lang) {
 module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.guild) return;
 
-  countingHandler.call(this, I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'commands.minigames.counting.userDeletedMsg' }));
+  countingHandler.call(this, this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'commands.minigames.counting.userDeletedMsg' }));
 
   const setting = this.guild?.db.config?.logger?.messageDelete ?? {};
   if (!setting.enabled || !setting.channel) return;
@@ -33,7 +31,7 @@ module.exports = async function messageDelete() {
   await sleep(1000); //Make sure the audit log gets created before trying to fetching it
 
   const
-    lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger' }),
+    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger' }),
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageDelete })).entries.find(e => (!this.user?.id || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < 20000) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : null,

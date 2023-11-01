@@ -1,20 +1,20 @@
 const
   { EmbedBuilder, Colors, InteractionType } = require('discord.js'),
-  { I18nProvider, errorHandler, componentHandler, autocompleteGenerator, checkForErrors } = require('../Utils');
+  { errorHandler, componentHandler, autocompleteGenerator, checkForErrors } = require('../Utils');
 
 /**@this import('discord.js').Interaction*/
 module.exports = async function interactionCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 
   const locale = this.guild?.db.config?.lang ?? this.guild?.localeCode;
-  if (this.type == InteractionType.MessageComponent) return componentHandler.call(this, I18nProvider.__.bBind(I18nProvider, { locale, backupPath: 'events.command' }));
+  if (this.type == InteractionType.MessageComponent) return componentHandler.call(this, this.client.i18n.__.bBind(this.client.i18n, { locale, backupPath: 'events.command' }));
 
   const command = this.client.slashCommands.get(this.commandName);
   if (command && this.type == InteractionType.ApplicationCommandAutocomplete) return this.respond(await autocompleteGenerator.call(this, command, locale));
 
   const
     /**@type {lang}*/
-    lang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: 'events.command' }),
+    lang = this.client.i18n.__.bBind(this.client.i18n, { locale, backupPath: 'events.command' }),
     errorKey = await checkForErrors.call(this, command, lang);
 
   if (errorKey === true) return;
@@ -22,7 +22,7 @@ module.exports = async function interactionCreate() {
 
   if (this.type == InteractionType.ApplicationCommand) {
     if (!command.noDefer && !this.replied) await this.deferReply({ ephemeral: command.ephemeralDefer ?? false });
-    const cmdLang = I18nProvider.__.bBind(I18nProvider, { locale, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.aliasOf ?? command.name}` : null });
+    const cmdLang = this.client.i18n.__.bBind(this.client.i18n, { locale, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.aliasOf ?? command.name}` : null });
     
     try {
       command.run.call(this, cmdLang)?.catch(err => errorHandler.call(this.client, err, this, lang));

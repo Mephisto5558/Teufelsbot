@@ -12,6 +12,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.9.0",
     "@discordjs/voice": "^0.16.0",
+    "@mephisto5558/i18n": "*",
     "@mephisto5558/mongoose-db": "*",
     "better-ms": "^1.1.7",
     "canvas": "^2.11.2",
