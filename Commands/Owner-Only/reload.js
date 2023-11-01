@@ -4,7 +4,7 @@ const
   { access } = require('fs/promises'),
   { formatSlashCommand, slashCommandsEqual } = require('../../Utils');
 
-/**@this {import('discord.js').Client}*/
+/**@this Client*/
 async function reloadCommand(command, reloadedArray) {
   delete require.cache[command.filePath];
 

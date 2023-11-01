@@ -49,7 +49,7 @@ async function getCommands() {
 }
 const commands = getCommands();
 
-/**@this import('discord.js').Client*/
+/**@this Client*/
 module.exports = async function websiteHandler() {
   while (process.argv.some(e => e == 'isChild=true')) await sleep(500); //Waiting for slash command handler to finish so parent process ends to free the port
 

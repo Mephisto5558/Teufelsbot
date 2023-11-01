@@ -47,6 +47,7 @@ declare global {
     generate: (overwrite?: boolean) => Promise<void>
   }
 
+  type Client = Discord.Client
   type Message = Discord.Message
   type GuildMessage = Discord.Message<true>;
   type DMMessage = Discord.Message<false>;
