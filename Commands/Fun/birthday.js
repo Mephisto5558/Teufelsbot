@@ -51,7 +51,7 @@ module.exports = {
   /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     const
-      target = getTarget(),
+      target = getTarget.call(this),
       doNotHide = this.options.getBoolean('do_not_hide');
 
     switch (this.options.getSubcommand()) {
