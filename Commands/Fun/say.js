@@ -21,14 +21,14 @@ module.exports = {
       channelTypes: Constants.TextBasedChannelTypes,
     }
   ],
-  
+
   /**@this GuildInteraction|GuildMessage @param {lang}lang*/
   run: async function (lang) {
     const
       msg = this.content || this.options?.getString('msg'),
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel;
 
-    if (!this.member.permissionsIn(channel).has(PermissionFlagsBits.SendMessages)) return this.customReply(lang('noPerm'));
+    if (!this.member.permissionsIn(channel).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])) return this.customReply(lang('noPerm'));
     if (!msg) return this.customReply(lang('noMsgProvided'));
 
     let allowedMentions = { parse: [AllowedMentionsTypes.User] };

@@ -21,7 +21,7 @@ module.exports = {
   /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
-      target = getTarget(),
+      target = getTarget.call(this),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: lang(target ? 'embedDescriptionTarget' : 'embedDescription', { user: (this.member ?? this.user).displayName, target: target?.displayName }),

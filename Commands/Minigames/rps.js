@@ -12,6 +12,6 @@ module.exports = {
 
   /**@this GuildInteraction|GuildMessage @param {lang}lang*/
   run: function (lang) {
-    return sendChallenge.call(this, this.member, getTarget({ targetOptionName: 'opponent' }), lang);
+    return sendChallenge.call(this, this.member, getTarget.call(this, { targetOptionName: 'opponent' }), lang);
   }
 };

@@ -39,7 +39,7 @@ module.exports = {
   /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     const
-      gameTarget = getTarget({ targetOptionName: 'opponent' })?.id,
+      gameTarget = getTarget.call(this, { targetOptionName: 'opponent' })?.id,
       game = new TicTacToe({
         simultaneousGames: true,
         gameExpireTime: 60,

@@ -20,7 +20,7 @@ module.exports = {
   /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
-      target = getTarget({ returnSelf: true }),
+      target = getTarget.call(this, { returnSelf: true }),
       avatarURL = await target.displayAvatarURL({ size: this.options?.getInteger('size') || 2048 }),
       embed = new EmbedBuilder({
         description: lang('embedDescription', target.user?.username || target.username),

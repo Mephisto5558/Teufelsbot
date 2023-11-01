@@ -27,7 +27,7 @@ module.exports = {
   run: async function (lang) {
     const
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first(),
-      target = getTarget({ targetOptionName: 'member' });
+      target = getTarget.call(this, { targetOptionName: 'member' });
 
     if (target) {
       if (!channel) return this.customReply(lang('memberRequiresChannel'));
