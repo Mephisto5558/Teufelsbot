@@ -3,8 +3,10 @@ const
   TicTacToe = require('discord-tictactoe'),
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('crypto'),
-  DB = require('@mephisto5558/mongoose-db'),
   { readdir } = require('fs/promises'),
+  { join } = require('path'),
+  DB = require('@mephisto5558/mongoose-db'),
+  I18nProvider = require('@mephisto5558/i18n'),
   { Log, customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
   findAllEntries = require('./findAllEntries.js');
 
@@ -71,6 +73,7 @@ Object.defineProperties(BaseClient.prototype, {
   prefixCommands: { value: new Collection() },
   /**@type {Collection<string, object}*/
   slashCommands: { value: new Collection() },
+  i18n: { value: new I18nProvider({ notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: join(__dirname, '/../Locales') }) },
   cooldowns: { value: new Map() },
   settings: {
     get() { return this.db?.get('botSettings') ?? {}; },
