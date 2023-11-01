@@ -41,7 +41,7 @@ module.exports = {
 
     for (let i = 0; i < count; i++) {
       let lastRandomChar;
-      if ((passwordList.length + length) > 1743) break;
+      if (passwordList.length + length > 1743) break;
 
       for (let i = 0; i < length; i++) {
         const randomChar = charset.split('').filter(e => e != lastRandomChar).random(); //Filters the last selected entry out and selects a list entry based on a secure random number generator. Defined in Utils/prototypeRegisterer.js.
