@@ -55,7 +55,7 @@ module.exports = async function checkForErrors(command, lang) {
     if (botPermsMissing.length || userPermsMissing.length) {
       const embed = new EmbedBuilder({
         title: lang('permissionDenied.embedTitle'),
-        description: lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') }),
+        description: lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, this.client.i18n).join('`, `') }),
         color: Colors.Red
       });
 

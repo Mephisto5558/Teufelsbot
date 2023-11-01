@@ -1,5 +1,3 @@
-const { I18nProvider } = require('../../Utils');
-
 module.exports = {
   name: 'reloadlang',
   slashCommand: false,
@@ -8,10 +6,10 @@ module.exports = {
   beta: true,
 
   /**@this Message @param {lang}lang*/
-  run: function (lang) {
+  run: async function (lang) {
     log.debug(`Reloading language files, initiated by user ${this.user.tag}`);
 
-    I18nProvider.loadAllLocales();
+    await this.client.i18n.loadAllLocales();
     return this.customReply(lang('success'));
   }
 };

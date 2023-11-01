@@ -37,7 +37,7 @@ module.exports = {
 
     if (role.permissions.has(PermissionFlagsBits.Administrator)) embed.data.fields[embed.data.fields.length - 1].value = `\`${lang('admin')}\` (\`${role.permissions.toArray().length}\`)`;
     else {
-      const perms = permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none');
+      const perms = permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n)?.join('`, `') || lang('global.none');
       embed.data.fields[embed.data.fields.length - 1].value = `\`${perms.length < 1017 ? perms + '`' : perms.slice(0, perms.slice(0, 1013).lastIndexOf(',')) + '...'} (\`${role.permissions.toArray().length}\`)`;
     }
 

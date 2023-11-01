@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, } = require('discord.js'),
-  { I18nProvider, errorHandler, checkForErrors } = require('../Utils');
+  { errorHandler, checkForErrors } = require('../Utils');
 
 /**@this Message*/
 module.exports = async function messageCreate() {
@@ -17,13 +17,13 @@ module.exports = async function messageCreate() {
   const
     command = this.client.prefixCommands.get(this.commandName),
     /**@type {lang}*/
-    lang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild?.db.config?.lang ?? this.guild?.localeCode, backupPath: 'events.command' }),
+    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild?.db.config?.lang ?? this.guild?.localeCode, backupPath: 'events.command' }),
     errorKey = await checkForErrors.call(this, command, lang);
 
   if (errorKey === true) return;
   else if (errorKey) return this.customReply({ embeds: [new EmbedBuilder({ description: lang(...errorKey), color: Colors.Red })] }, 1e4);
 
-  const cmdLang = I18nProvider.__.bBind(I18nProvider, { locale: this.guild?.db.config?.lang ?? this.guild?.localeCode, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.aliasOf ?? command.name}` : null });
+  const cmdLang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild?.db.config?.lang ?? this.guild?.localeCode, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.aliasOf ?? command.name}` : null });
   
   try {
     command.run.call(this, cmdLang)?.catch(err => errorHandler.call(this.client, err, this, lang));

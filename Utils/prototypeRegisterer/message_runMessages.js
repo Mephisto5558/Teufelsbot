@@ -1,7 +1,6 @@
 const
   { AllowedMentionsTypes } = require('discord.js'),
-  cooldowns = require('../cooldowns.js'),
-  I18nProvider = require('../I18nProvider.js');
+  cooldowns = require('../cooldowns.js');
 
 /**@this Message*/
 module.exports = async function runMessages() {
@@ -26,7 +25,7 @@ module.exports = async function runMessages() {
 
       if (countingData.lastNumber != 0) {
         await this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { lastNumber: 0 });
-        this.reply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.message.counting.error', countingData.lastNumber) + I18nProvider.__({ locale: this.guild.localeCode }, countingData.lastNumber + 1 != this.originalContent ? 'events.message.counting.wrongNumber' : 'events.message.counting.sameUserTwice'));
+        this.reply(this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', countingData.lastNumber) + this.client.i18n.__({ locale: this.guild.localeCode }, countingData.lastNumber + 1 != this.originalContent ? 'events.message.counting.wrongNumber' : 'events.message.counting.sameUserTwice'));
       }
     }
   }
@@ -38,7 +37,7 @@ module.exports = async function runMessages() {
     if (message) {
       await this.client.db.delete('userSettings', `${this.user.id}.afkMessage`);
       await this.client.db.delete('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`);
-      this.customReply(I18nProvider.__({ locale: this.guild.localeCode }, 'events.message.afkEnd', { timestamp: createdAt, message }));
+      this.customReply(this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkEnd', { timestamp: createdAt, message }));
     }
   }
 
@@ -49,7 +48,7 @@ module.exports = async function runMessages() {
     const { message, createdAt } = (afkMessages[e.id]?.message ? afkMessages[e.id] : e.user.db.afkMessage) ?? {};
     if (!message || e.id == this.user.id) return acc;
 
-    const afkMessage = I18nProvider.__({ locale: this.guild.localeCode }, 'events.message.afkMsg', {
+    const afkMessage = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkMsg', {
       member: e.nickname?.startsWith('[AFK] ') ? e.nickname.substring(6) : e.displayName,
       message, timestamp: createdAt
     });

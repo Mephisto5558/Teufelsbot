@@ -2,7 +2,6 @@
 
 const
   { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
-  I18nProvider = require('../I18nProvider.js'),
   permissionTranslator = require('../permissionTranslator.js'),
   ownerOnlyFolders = require('../getOwnerOnlyFolders.js')();
 
@@ -66,8 +65,8 @@ function createInfoFields(cmd, lang, helpLang) {
   if (cmd.aliases?.prefix?.length) arr.push({ name: lang('one.prefixAlias'), value: `\`${cmd.aliases.prefix.join('`, `')}\``, inline: true });
   if (cmd.aliases?.slash?.length) arr.push({ name: lang('one.slashAlias'), value: `\`${cmd.aliases.slash.join('`, `')}\``, inline: true });
   if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: `\`${cmd.aliasOf}\``, inline: true });
-  if (cmd.permissions?.client?.length) arr.push({ name: lang('one.botPerms'), value: `\`${permissionTranslator(cmd.permissions.client, lang.__boundArgs__[0].locale).join('`, `')}\``, inline: false });
-  if (cmd.permissions?.user?.length) arr.push({ name: lang('one.userPerms'), value: `\`${permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale).join('`, `')}\``, inline: true });
+  if (cmd.permissions?.client?.length) arr.push({ name: lang('one.botPerms'), value: `\`${permissionTranslator(cmd.permissions.client, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')}\``, inline: false });
+  if (cmd.permissions?.user?.length) arr.push({ name: lang('one.userPerms'), value: `\`${permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')}\``, inline: true });
   if (cmd.cooldowns?.user || cmd.cooldowns?.guild) arr.push({
     name: lang('one.cooldowns'), inline: false,
     value: Object.entries(cmd.cooldowns).filter(([, e]) => e).map(([k, v]) => {
@@ -108,7 +107,7 @@ module.exports.commandQuery = function commandQuery(lang, commandQuery) {
 
   const
     /**@type {lang}*/
-    helpLang = I18nProvider.__.bind(I18nProvider, { undefinedNotFound: true, locale: this.guild.localeCode, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` }),
+    helpLang = this.client.i18n.__.bind(this.client.i18n, { undefinedNotFound: true, locale: this.guild.localeCode, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` }),
     embed = new EmbedBuilder({
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
       description: helpLang('description'),
@@ -129,7 +128,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
 
   const
     /**@type {lang}*/
-    helpLang = I18nProvider.__.bind(I18nProvider, { undefinedNotFound: true, locale: this.guild.localeCode, backupPath: `commands.${categoryQuery}` }),
+    helpLang = this.client.i18n.__.bind(this.client.i18n, { undefinedNotFound: true, locale: this.guild.localeCode, backupPath: `commands.${categoryQuery}` }),
     commands = getCommands.call(this),
     embed = new EmbedBuilder({
       title: lang(`options.category.choices.${categoryQuery}`),

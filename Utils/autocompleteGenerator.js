@@ -1,8 +1,6 @@
-const I18nProvider = require('./I18nProvider.js');
-
 /**@this Interaction @param {object}command @param {string}locale*/
 module.exports = async function autocompleteGenerator(command, locale) {
-  const response = v => ({ name: I18nProvider.__({ locale, undefinedNotFound: true }, `commands.${command.category.toLowerCase()}.${command.name}.options.${this.options?._group ? this.options._group + '.' : ''}${this.options?._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });
+  const response = v => ({ name: this.client.i18n.__({ locale, undefinedNotFound: true }, `commands.${command.category.toLowerCase()}.${command.name}.options.${this.options?._group ? this.options._group + '.' : ''}${this.options?._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });
 
   let { options } = command.fMerge();
   if (this.options?._group) options = options.find(e => e.name == this.options._group);

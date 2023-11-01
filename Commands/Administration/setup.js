@@ -1,6 +1,5 @@
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
-  { I18nProvider } = require('../../Utils'),
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'],
   getCmds = client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])];
@@ -31,6 +30,7 @@ module.exports = {
           name: 'command',
           type: 'String',
           required: true,
+          /**@this AutocompleteInteraction*/
           autocompleteOptions: function () { return getCmds(this.client); },
           strictAutocomplete: true
         },
@@ -48,7 +48,8 @@ module.exports = {
         name: 'language',
         type: 'String',
         required: true,
-        autocompleteOptions: function () { return I18nProvider.availableLocales.map((_, k) => ({ name: I18nProvider.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k })).filter(({ name, value }) => name.toLowerCase().includes(this.focused.value.toLowerCase()) || value.toLowerCase().includes(this.focused.value.toLowerCase())).slice(0, 25); },
+        /**@this AutocompleteInteraction*/
+        autocompleteOptions: function () { return this.client.i18n.availableLocales.map((_, k) => ({ name: this.i18n.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k })).filter(({ name, value }) => name.toLowerCase().includes(this.focused.value.toLowerCase()) || value.toLowerCase().includes(this.focused.value.toLowerCase())).slice(0, 25); },
         strictAutocomplete: true
       }]
     },
@@ -178,7 +179,8 @@ module.exports = {
       case 'language': {
         const
           language = this.options.getString('language'),
-          newLang = I18nProvider.__.bind(I18nProvider, { locale: I18nProvider.availableLocales.has(language) ? language : I18nProvider.config.defaultLocale }),
+          /**@type {lang}*/
+          newLang = this.client.i18n.__.bind(this.client.i18n, { locale: this.client.i18n.availableLocales.has(language) ? language : this.client.i18n.config.defaultLocale }),
           { category, name } = this.client.slashCommands.get(this.commandName),
           embed = new EmbedBuilder({
             title: newLang(`commands.${category.toLowerCase()}.${name}.language.embedTitle`),
