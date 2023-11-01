@@ -11,7 +11,7 @@ module.exports = {
   /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
-      target = getTarget(),
+      target = getTarget.call(this),
       weight = Math.round(Math.random() * 1000);
 
     return this.customReply(lang(`responses${target ? 'Others' : 'Self'}.${Math.ceil(weight / 100)}`, { user: target?.displayName }) + lang('weight', weight));
