@@ -1,4 +1,13 @@
-const { BaseInteraction, Message } = require('discord.js');
+const { BaseInteraction, Message, DiscordAPIError } = require('discord.js');
+
+/**@param {Error}err @returns `true` if no err is given, false on specific error codes*/
+function handleError(err) {
+  if (!err) return true;
+  if (!(err instanceof DiscordAPIError)) throw err;
+
+  log.debug(`An error occurred while trying to send message: ${err}`);
+  return err.code != 10062;
+}
 
 /**
  * @this Interaction|Message
@@ -14,14 +23,21 @@ module.exports = async function customReply(options, deleteTime = null, allowedM
 
   if (this instanceof BaseInteraction) {
     try { msg = await ((this.replied || this.deferred) ? this.editReply(options) : this.reply(options)); }
-    catch {
-      try { msg = await this.followUp(options); }
-      catch { msg = await this.channel.send(options); }
+    catch (err) {
+      const interactionHandleable = handleError(err);
+      try { msg = await (interactionHandleable ? this.followUp(options) : this.channel.send(options)); }
+      catch (err) {
+        handleError(err);
+        if (!interactionHandleable) msg = await this.channel.send(options);
+      }
     }
   }
   else if (this instanceof Message) {
     try { msg = await (this.editable ? this.edit(options) : this.reply(options)); }
-    catch { msg = await this.channel.send(options); }
+    catch (err) {
+      handleError(err);
+      msg = await this.channel.send(options);
+    }
   }
   else throw new Error(`Unsupported Class! Got ${this.constructor.name}`);
 
