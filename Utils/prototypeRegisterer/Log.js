@@ -5,10 +5,11 @@ module.exports = class Log extends Function {
     access('./Logs').catch(() => mkdir('./Logs'));
     super('...str', 'return this.log(...str)');
 
-    this.type = null;
+    const bound = this.bind(this);
     this.date = new Date().toLocaleDateString('en', { day: '2-digit', month: '2-digit', year: 'numeric' }).replaceAll('/', '-');
+    bound.date = this.date;
 
-    return this.bind(this); //NOSONAR
+    return bound; //NOSONAR
   }
 
   log(...str) { return this._log('log', ...str); }
