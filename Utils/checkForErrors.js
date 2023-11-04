@@ -6,7 +6,7 @@ const
   ownerOnlyFolders = require('./getOwnerOnlyFolders.js')(),
   { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json');
 
-/**@this {Interaction|Message} @returns {Array|boolean}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
+/**@this {Interaction|Message} @param {object}command @param {lang}lang @returns {Array|boolean}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
 module.exports = async function checkForErrors(command, lang) {
   if (!command) {
     if (this instanceof Message) {
@@ -55,7 +55,7 @@ module.exports = async function checkForErrors(command, lang) {
     if (botPermsMissing.length || userPermsMissing.length) {
       const embed = new EmbedBuilder({
         title: lang('permissionDenied.embedTitle'),
-        description: lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, this.client.i18n).join('`, `') }),
+        description: lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `') }),
         color: Colors.Red
       });
 
