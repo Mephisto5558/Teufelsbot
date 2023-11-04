@@ -32,7 +32,7 @@ module.exports = class Log extends Function {
       return this;
     }
 
-    if (file != 'debug') log('\n');
+    log('\n');
     appendFile(`./Logs/${this.date}_${file}.log`, '\n');
     return this;
   }
