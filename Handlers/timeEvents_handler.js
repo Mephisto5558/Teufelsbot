@@ -2,7 +2,7 @@ const
   { CronJob } = require('cron'),
   { readdir } = require('fs/promises');
 
-/**@this import('discord.js').Client*/
+/**@this Client*/
 module.exports = async function timeEventsHandler() {
   if (this.botType == 'dev') return log('Disabled timed events due to dev version.');
 

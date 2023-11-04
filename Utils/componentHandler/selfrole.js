@@ -15,7 +15,7 @@ module.exports = async function selfrole(lang, mode, roleId, args) {
 
   if (!role) return this.editReply({ embeds: [errorEmbed.setDescription(lang('roleNotFound'))] });
   if (!this.member.manageable) return this.editReply({ embeds: [errorEmbed.setDescription(lang('noPermMember'))] });
-  if (role.comparePositionTo(this.guild.members.me.roles.highest) > -1) return this.editReply({ embeds: [errorEmbed.setDescription(lang('noPermRole', role.id))] });
+  if (role.position > this.guild.members.me.roles.highest) return this.editReply({ embeds: [errorEmbed.setDescription(lang('noPermRole', role.id))] });
 
   let count = parseInt(this.component.label.match(/(\d*)\]$/)?.[1])?.limit({ min: 0 }) || 0;
 

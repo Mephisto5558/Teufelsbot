@@ -6,7 +6,7 @@ const
   ownerOnlyFolders = require('./getOwnerOnlyFolders.js')(),
   { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json');
 
-/**@this {Interaction|Message} @returns {Array|boolean}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
+/**@this {Interaction|Message} @param {object}command @param {lang}lang @returns {Array|boolean}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
 module.exports = async function checkForErrors(command, lang) {
   if (!command) {
     if (this instanceof Message) {
@@ -37,7 +37,8 @@ module.exports = async function checkForErrors(command, lang) {
     const { autocomplete, strictAutocomplete, name } = options[i];
 
     if (
-      autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]) && !(await autocompleteGenerator.call(Object.assign({}, this, { client: this.client, focused: { name, value: this.options?.get(name).value ?? this.args?.[i] } }), command, this.guild?.db.config?.lang ?? this.guild?.localeCode))
+      autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
+      && !(await autocompleteGenerator.call(Object.assign({}, this, { client: this.client, focused: { name, value: this.options?.get(name).value ?? this.args?.[i] } }), command, this.guild?.db.config?.lang ?? this.guild?.localeCode))
         .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
     ) return ['strictAutocompleteNoMatch'];
   }
@@ -49,16 +50,23 @@ module.exports = async function checkForErrors(command, lang) {
 
   if (this.guild && (this instanceof Message || this.type == InteractionType.ApplicationCommand)) {
     const userPermsMissing = this.member.permissionsIn(this.channel).missing([...(command.permissions?.user || []), PermissionFlagsBits.SendMessages]);
-    const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...(command.permissions?.client || []), PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);
+    const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...(command.permissions?.client || []), PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
 
     if (botPermsMissing.length || userPermsMissing.length) {
       const embed = new EmbedBuilder({
         title: lang('permissionDenied.embedTitle'),
-        description: lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing).join('`, `') }),
+        description: lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `') }),
         color: Colors.Red
       });
 
-      if (botPermsMissing.includes('SendMessages') && this instanceof Message) this.user.send({ content: `${this.guild.name}: ${this.channel.name}`, embeds: [embed] });
+      if (botPermsMissing.includes('SendMessages') || botPermsMissing.includes('ViewChannel')) {
+        if (this instanceof Message && this.guild.members.me.permissionsIn(this.channel).has(PermissionFlagsBits.AddReactions)) {
+          await this.react('❌');
+          this.react('✍️');
+        }
+
+        this.user.send({ content: this.url, embeds: [embed] }).catch(() => { });
+      }
       else await this.customReply({ embeds: [embed], ephemeral: true }, this instanceof Message ? 1e4 : 0);
 
       return true;

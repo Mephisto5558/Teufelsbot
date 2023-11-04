@@ -20,7 +20,7 @@ module.exports = {
   time: '00 00 00 01 * *',
   startNow: true,
 
-  /**@this import('discord.js').Client*/
+  /**@this Client*/
   onTick: async function () {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 

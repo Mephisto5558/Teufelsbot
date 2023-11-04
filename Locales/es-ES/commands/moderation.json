@@ -87,7 +87,7 @@
     "infoEmbedTitle": "Silenciar",
     "infoEmbedDescription": "{user} ha sido silenciado con éxito.\nRazón: {reason}\nHasta: <t:{time}>\n",
     "notFound": "¡No pude encontrar ese miembro!",
-    "cantMuteSelf": "¡No puedes silenciarte a ti mismo!",
+    "cantPunishSelf": "¡No puedes silenciarte a ti mismo!",
     "targetIsAdmin": "¡No puedo silenciar a los administradores!",
     "invalidDuration": "¡La duración del silencio que proporcionaste no es válida!",
     "error": "No pude silenciar al objetivo:\n{err}",

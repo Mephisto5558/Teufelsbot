@@ -118,7 +118,7 @@ class BackupSystem {
               threads: await this.utils.fetchChannelThreads(child, saveImages, maxMessagesPerChannel),
               availableTags: child.availableTags.map(async e => ({ name: e.name, emoji: e.emoji?.name, moderated: e.moderated }))
             };
-            log._log('warn', `BackupSystem: Unhandled Channel type "${ChannelType[child.type] ?? child.type}"!`);
+            log.warn(`BackupSystem: Unhandled Channel type "${ChannelType[child.type] ?? child.type}"!`);
           }))
         }))),
         others: await Promise.all(guild.channels.cache
@@ -221,7 +221,7 @@ class BackupSystem {
     const members = await guild.members.fetch();
     for (const memberData of data.members) {
       const member = members.get(memberData.id);
-      if (!member?.manageable || !memberData.roles.length && !memberData.nickname) continue;
+      if (!memberData.roles.length && !memberData.nickname || !member?.manageable) continue;
 
       await member.edit({
         roles: memberData.roles?.map(e => guild.roles.cache.find(r => r.name == e)?.id).filter(e => e?.editable),

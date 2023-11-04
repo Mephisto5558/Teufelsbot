@@ -1,5 +1,8 @@
-const TicTacToe = require('discord-tictactoe');
+const
+  TicTacToe = require('discord-tictactoe'),
+  { getTarget } = require('../../Utils');
 
+/**@this GuildInteraction @param {import('discord.js').GuildMember[]}players @param {('win'|'lose'|'draw')[]}types @param {lang}lang @param {TicTacToe}game*/
 async function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
   if (player1.id == this.client.user.id || player2.id == this.client.user.id) return;
 
@@ -8,6 +11,7 @@ async function eventCallback([player1, player2], [type1, type2 = type1], lang, g
   return game.playAgain(this, lang);
 }
 
+/**@param {string}firstId @param {string}secondID @param {'win'|'lose'|'draw'}type @param {import('@mephisto5558/mongoose-db')}db*/
 function updateStats(firstID, secondID, type, db) {
   const stats = db.get('leaderboards', `TicTacToe.${firstID}`) ?? {};
   let against;
@@ -29,13 +33,13 @@ module.exports = {
   permissions: { client: ['ManageMessages'] },
   cooldowns: { user: 5000 },
   slashCommand: true,
-  prefixCommand: false,
+  prefixCommand: true,
   options: [{ name: 'opponent', type: 'User' }],
 
   /**@this GuildInteraction @param {lang}lang*/
   run: async function (lang) {
     const
-      gameTarget = this.options.getUser('opponent')?.id,
+      gameTarget = getTarget.call(this, { targetOptionName: 'opponent' })?.id,
       game = new TicTacToe({
         simultaneousGames: true,
         gameExpireTime: 60,
@@ -48,6 +52,6 @@ module.exports = {
     game.on('win', data => eventCallback.call(this, [data.winner, data.loser], ['win', 'lose'], lang, game));
     game.on('tie', data => eventCallback.call(this, data.players, ['draw'], lang, game));
 
-    return game.handleInteraction(this);
+    return this.options ? game.handleInteraction(this) : game.handleMessage(this);
   }
 };

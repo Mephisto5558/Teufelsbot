@@ -21,7 +21,7 @@ module.exports = {
 
     if (!target) return this.editReply(lang('notFound'));
     if (!target.isCommunicationDisabled()) return this.editReply(lang('notMuted'));
-    if (target.roles.highest.position - this.member.roles.highest.position >= 0 && this.guild.ownerId != this.user.id)
+    if (this.member.roles.highest.position > target.roles.highest.position || this.user.id == this.guild.ownerId)
       return this.editReply(lang('global.noPermUser'));
     if (!target.moderatable) return this.editReply(lang('global.noPermBot'));
 

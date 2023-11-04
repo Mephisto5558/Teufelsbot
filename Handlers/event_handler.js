@@ -1,6 +1,6 @@
 const { readdir } = require('fs/promises');
 
-/**@this import('discord.js').Client*/
+/**@this Client*/
 module.exports = async function eventHandler() {
   while (process.argv.some(e => e == 'isChild=true')) await sleep(500); //Waiting for slash command handler to finish so parent process ends to prevent duplicate code execution 
 

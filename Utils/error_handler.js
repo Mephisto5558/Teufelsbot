@@ -3,7 +3,7 @@ const
   { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors } = require('discord.js'),
   { Github } = require('../config.json');
 
-/**@this import('discord.js').Client @param {Error}err @param {Message|import('discord.js').BaseInteraction}message @param {lang}lang*/
+/**@this Client @param {Error}err @param {Message|import('discord.js').BaseInteraction}message @param {lang}lang*/
 module.exports = async function errorHandler(err, message, lang) {
   log.error(` [Error Handling] :: Uncaught Error\n${err.stack}`);
 

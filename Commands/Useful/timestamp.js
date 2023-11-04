@@ -10,6 +10,7 @@ module.exports = {
   options: [{
     name: 'time',
     type: 'String',
+    /**@this AutocompleteInteraction*/
     autocompleteOptions: function () { return timeValidator(this.focused.value); },
     strictAutocomplete: true
   }],

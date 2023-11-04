@@ -1,7 +1,7 @@
 const
   { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
-  { getAge, permissionTranslator } = require('../../Utils');
+  { getTarget, getAge, permissionTranslator } = require('../../Utils');
 
 module.exports = {
   name: 'userinfo',
@@ -17,7 +17,7 @@ module.exports = {
     this.content = this.content?.replace(/[<@&>]/g, '');
 
     const
-      member = this.options?.getMember('target') || this.mentions?.members.first() || this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.globalName, e.nickname].some(e => [...this.args, this.content].includes(e))) || this.member,
+      member = getTarget.call(this, { returnSelf: true }),
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       bannerURL = (await member.user.fetch()).bannerURL();
 
@@ -44,7 +44,7 @@ module.exports = {
           { name: lang('createdAt'), value: `<t:${Math.round(member.user.createdTimestamp / 1000)}>`, inline: true },
           { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true },
           { name: lang('rolesWithPerms'), value: Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').join(', '), inline: false },
-          { name: lang('perms'), value: `\`${member.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale)?.join('`, `') || lang('global.none')}\` (${member.permissions.toArray().length})`, inline: false }
+          { name: lang('perms'), value: `\`${member.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n)?.join('`, `') || lang('global.none')}\` (${member.permissions.toArray().length})`, inline: false }
         ]
       }),
       components = [new ActionRowBuilder({
@@ -59,7 +59,7 @@ module.exports = {
 
     if (birthday) embed.data.fields.splice(-2, 0, { name: lang('birthday'), value: `<t:${Math.round(new Date(birthday).getTime() / 1000)}:D> (${getAge(birthday.split('/'))})`, inline: true });
     if (member.isCommunicationDisabled()) embed.data.fields.splice(-2, 0, { name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true });
-    if (member.user.flags.toArray().length) embed.data.fields.splice(-2, 0, { name: lang('flags.name'), value: member.user.flags.toArray().reduce((acc, e) => Number(e) ? acc : acc + lang('flags.' + e) + '`, `', '`').slice(0, -3), inline: false });
+    if (member.user.flags.bitfield) embed.data.fields.splice(-2, 0, { name: lang('flags.name'), value: member.user.flags.toArray().reduce((acc, e) => Number(e) ? acc : acc + lang('flags.' + e) + '`, `', '`').slice(0, -3), inline: false });
 
     if (bannerURL) components[0].components.push(new ButtonBuilder({
       label: lang('downloadBanner'),

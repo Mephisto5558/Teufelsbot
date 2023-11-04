@@ -1,3 +1,5 @@
+const { getTarget } = require('../../Utils');
+
 module.exports = {
   name: 'customname',
   aliases: { prefix: ['custom-name'] },
@@ -38,7 +40,7 @@ module.exports = {
 
   /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
-    let target = this.options?.getMember('target') ?? this.mentions?.members?.first() ?? this.member ?? this.user;
+    let target = getTarget.call(this);
     if (this.options?.getBoolean('global') && target.user) target = target.user; //target.user check for execution in dms
 
     switch (this.options?.getSubcommand() || this.args[0]) {

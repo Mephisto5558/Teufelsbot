@@ -1,4 +1,6 @@
-const { Constants, EmbedBuilder, Colors } = require('discord.js');
+const
+  { Constants, EmbedBuilder, Colors } = require('discord.js'),
+  { getTarget } = require('../../Utils');
 
 module.exports = {
   name: 'lastping',
@@ -25,7 +27,7 @@ module.exports = {
   run: async function (lang) {
     const
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first(),
-      target = this.options?.getUser('member') || this.mentions?.users.first();
+      target = getTarget.call(this, { targetOptionName: 'member' });
 
     if (target) {
       if (!channel) return this.customReply(lang('memberRequiresChannel'));

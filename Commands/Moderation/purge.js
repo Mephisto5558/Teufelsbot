@@ -110,12 +110,12 @@ module.exports = {
     if (!amount) return this.customReply(isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
     if (options.before && options.after) return this.customReply(lang('beforeAndAfter'));
 
-    if (this instanceof Message) await this.delete().catch();
+    if (this instanceof Message) await this.delete().catch(() => { });
 
     if (filterOptionsExist(options)) {
       if (
-        options.contains?.includes(options.does_not_contain) || options.does_not_contains?.includes(options.contains) ||
-        (options.starts_with && options.does_not_contain == options.not_starts_with) || (options.ends_with && options.ends_with == options.not_ends_with)
+        options.contains?.includes(options.does_not_contain) || options.does_not_contains?.includes(options.contains)
+        || options.starts_with && options.does_not_contain == options.not_starts_with || options.ends_with && options.ends_with == options.not_ends_with
       ) return this.editReply(lang('paramsExcludeOther'));
 
       messages = await fetchMsgs(channel, amount, options.before, options.after);

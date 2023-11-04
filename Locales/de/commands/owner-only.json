@@ -70,12 +70,22 @@
       "examples": "{prefix}setactivity Befehle ausführen;playing"
     },
     "invalidType": "Das ist kein gültiger Aktivitäts-Typ. Gültige Typen sind:\n`{types}`",
-    "set": "Aktivität wurde zu `{name}` vom Typ `{type}` gesetzt.",
-    "reset": "Aktivität wurde zu `nichts` gesetzt."
+    "set": "Meine Aktivität wurde zu `{name}` vom Typ `{type}` gesetzt.",
+    "reset": "Meine Aktivität wurde zu `nichts` gesetzt."
   },
   "setchangelog": {
     "description": "Aktualisiert den Changelog, sodass Nutzer auf dem neusten Stand sind.",
     "success": "Der Changelog wurde erfolgreich aktualisiert."
+  },
+  "setcountingnumber": {
+    "description": "Aktualisiert die letzte Counting-Zahl für einen Kanal, setzt auch den letzten Autor zurück.",
+    "usage": {
+      "usage": "{prefix}setcountingnummer [Zahl (Standard 0)] [Kanal]",
+      "examples": "{prefix}setcountingnumber 7 #counting-kanal"
+    },
+    "invalidNumber": "Die angegebene Zahl ist ungültig!",
+    "unknownChannel": "Die angegebene Kanal-ID wurde in diesem Server nicht gefunden!",
+    "success": "Counting für <#{channel}> wurde zu **{number}** gesetzt."
   },
   "test": {
     "description": "testet Sachen"

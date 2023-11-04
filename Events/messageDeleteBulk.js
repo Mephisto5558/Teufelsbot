@@ -1,6 +1,4 @@
-const
-  { EmbedBuilder, PermissionFlagsBits, AuditLogEvent } = require('discord.js'),
-  { I18nProvider } = require('../Utils');
+const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent } = require('discord.js');
 
 /**@this import('discord.js').Collection<string,Message> @param {import('discord.js').GuildTextBasedChannel}channel*/
 module.exports = async function messageDeleteBulk(channel) {
@@ -8,12 +6,13 @@ module.exports = async function messageDeleteBulk(channel) {
   if (channel.client.botType == 'dev' || !channel.guild || !setting.enabled || !setting.channel) return;
 
   const channelToSend = channel.guild.channels.cache.get(setting.channel);
-  if (!channelToSend || channelToSend.permissionsFor(channel.guild.members.me).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
+  if (!channelToSend || channelToSend.permissionsFor(channel.guild.members.me).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 
   await sleep(1000); //Make sure the audit log gets created before trying to fetching it
 
   const
-    lang = I18nProvider.__.bBind(I18nProvider, { locale: channel.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),
+    /**@type {lang}*/
+    lang = channel.client.i18n.__.bBind(this.client.i18n, { locale: channel.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),
     { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageBulkDelete })).entries.find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < 20000) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.displayName, iconURL: executor.displayAvatarURL() } : null,

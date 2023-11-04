@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle } = require('discord.js'),
-  checkTarget = require('../checkTargetBanPerm.js'),
+  checkTargetManageable = require('../checkTargetManageable.js'),
   bankick = require('../bankick.js');
 
 /** this.customId: `infoCMDs.<id>.<action>.<entitytype>`
@@ -19,7 +19,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
   switch (entityType) {
     case 'members': {
       if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers'])) return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], ephemeral: true });
-      const err = checkTarget.call(this, item, lang);
+      const err = checkTargetManageable.call(this, item);
       if (err) return this.reply({ embeds: [embed.setDescription(lang(err))], ephemeral: true });
 
       const modal = new ModalBuilder({
@@ -48,14 +48,14 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       bankick.call(this, lang);
       break;
     }
-    
+
     case 'emojis': {
       if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.deletable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
     }
     // fall through
     case 'roles': {
-      if (!this.member.permissions.has(PermissionFlagsBits.ManageRoles) || item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+      if (item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId || !this.member.permissions.has(PermissionFlagsBits.ManageRoles)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.editable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
     }
     // fall through

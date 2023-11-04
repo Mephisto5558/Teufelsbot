@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { createCanvas, loadImage } = require('canvas');
+  { createCanvas, loadImage } = require('canvas'),
+  { getTarget } = require('../../Utils');
 
 module.exports = {
   name: 'avatarfusion',
@@ -25,7 +26,7 @@ module.exports = {
   run: async function (lang) {
     const
       type = (this.options?.getString('avatar_type') || 'server') == 'server',
-      base = this.options?.getMember('base') || this.mentions?.members.first(),
+      base = getTarget.call(this, { targetOptionName: 'base' }),
       overlay = this.options?.getMember('overlay') || this.mentions?.members.at(1) || this.member;
 
     if (!base) return this.customReply(lang('missingParam'));

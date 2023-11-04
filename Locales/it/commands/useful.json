@@ -23,6 +23,23 @@
     "tooBig": "L'immagine è troppo grande. La dimensione massima del file è di 2048 kilobyte.",
     "timedOut": "La richiesta è scaduta. Forse l'immagine è di grandi dimensioni."
   },
+  "afk": {
+    "description": "Imposta uno stato AFK mostrato quando sei menzionato.",
+    "usage": {
+      "usage": "{prefix}afk [message]",
+      "examples": "{prefix}afk brb"
+    },
+    "options": {
+      "message": {
+        "description": "Il messaggio da impostare"
+      },
+      "global": {
+        "description": "Imposta il tuo AFK per tutte le gilde in cui ti trovi. Resetta se scrivi in qualsiasi gilda."
+      }
+    },
+    "globalSuccess": "Il tuo AFK è stato impostato su \"{message}\" in tutte le gilde.",
+    "success": "Il tuo AFK è stato impostato su \"{message}\"."
+  },
   "button": {
     "description": "Crea un pulsante.",
     "options": {
@@ -307,6 +324,31 @@
     "invalid": "Il tempo che hai fornito non è valido! Usa {command} e cerca `timestamp` per informazioni mor.",
     "outOfRange": "Il tempo specificato è maggiore di 200.000 anni!",
     "success": "Questo è <t:{time}:R> (`<t:{time}:R>`)."
+  },
+  "until": {
+    "description": "Mostra quanto tempo sarà fino a una certa data/ora. Se non viene specificata alcuna data, il valore predefinito è la data corrente",
+    "options": {
+      "day": {
+        "description": "Parte del giorno della data di destinazione"
+      },
+      "month": {
+        "description": "La parte mensile della data obiettivo"
+      },
+      "year": {
+        "description": "La parte annuale della data prevista"
+      },
+      "hour": {
+        "description": "La parte di ora della data di destinazione"
+      },
+      "minute": {
+        "description": "La parte minuto della data di scadenza"
+      },
+      "second": {
+        "description": "La seconda parte della data prevista"
+      }
+    },
+    "until": "È in {time}.",
+    "untilNeg": "È {time} fa."
   },
   "wiki": {
     "description": "Cerca qualcosa su Wikipedia, o ottieni una pagina casuale se non sono stati specificati termini di ricerca.",
