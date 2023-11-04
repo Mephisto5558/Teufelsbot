@@ -6,7 +6,7 @@ module.exports = async function messageDeleteBulk(channel) {
   if (channel.client.botType == 'dev' || !channel.guild || !setting.enabled || !setting.channel) return;
 
   const channelToSend = channel.guild.channels.cache.get(setting.channel);
-  if (!channelToSend || channelToSend.permissionsFor(channel.guild.members.me).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
+  if (!channelToSend || channelToSend.permissionsFor(channel.guild.members.me).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 
   await sleep(1000); //Make sure the audit log gets created before trying to fetching it
 

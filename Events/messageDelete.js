@@ -26,7 +26,7 @@ module.exports = async function messageDelete() {
   if (!setting.enabled || !setting.channel) return;
 
   const channel = this.guild.channels.cache.get(setting.channel);
-  if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
+  if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 
   await sleep(1000); //Make sure the audit log gets created before trying to fetching it
 

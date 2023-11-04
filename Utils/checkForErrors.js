@@ -50,7 +50,7 @@ module.exports = async function checkForErrors(command, lang) {
 
   if (this.guild && (this instanceof Message || this.type == InteractionType.ApplicationCommand)) {
     const userPermsMissing = this.member.permissionsIn(this.channel).missing([...(command.permissions?.user || []), PermissionFlagsBits.SendMessages]);
-    const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...(command.permissions?.client || []), PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]);
+    const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...(command.permissions?.client || []), PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
 
     if (botPermsMissing.length || userPermsMissing.length) {
       const embed = new EmbedBuilder({
@@ -59,7 +59,14 @@ module.exports = async function checkForErrors(command, lang) {
         color: Colors.Red
       });
 
-      if (botPermsMissing.includes('SendMessages') && this instanceof Message) this.user.send({ content: `${this.guild.name}: ${this.channel.name}`, embeds: [embed] });
+      if (botPermsMissing.includes('SendMessages') || botPermsMissing.includes('ViewChannel')) {
+        if (this instanceof Message && this.guild.members.me.permissionsIn(this.channel).has(PermissionFlagsBits.AddReactions)) {
+          await this.react('❌');
+          this.react('✍️');
+        }
+
+        this.user.send({ content: this.url, embeds: [embed] }).catch(() => { });
+      }
       else await this.customReply({ embeds: [embed], ephemeral: true }, this instanceof Message ? 1e4 : 0);
 
       return true;
