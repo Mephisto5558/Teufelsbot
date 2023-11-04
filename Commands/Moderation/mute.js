@@ -9,7 +9,7 @@ module.exports = {
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { user: 100 },
   slashCommand: true,
-  prefixCommand: false,beta:true,
+  prefixCommand: false, beta:true,
   options: [
     {
       name: 'target',

@@ -320,7 +320,7 @@ class BackupSystem {
       rateLimitPerUser: e.rateLimitPerUser,
       messages: await this.utils.fetchChannelMessages(e, saveImages, maxMessagesPerChannel).catch(() => { }),
     })),
-     /**@param {import('discord.js').GuildChannel}channel @param {boolean}saveImages @param {number}maxMessagesPerChannel*/
+    /**@param {import('discord.js').GuildChannel}channel @param {boolean}saveImages @param {number}maxMessagesPerChannel*/
     fetchChannelMessages: async (channel, saveImages, maxMessagesPerChannel) => Promise.all((await channel.messages.fetch({ limit: isNaN(maxMessagesPerChannel) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: 100 }) })).filter(e => e.user).map(async e => ({
       username: e.user.displayName,
       avatar: e.user.avatarURL(),
