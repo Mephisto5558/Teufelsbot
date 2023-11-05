@@ -1,6 +1,6 @@
 import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
-import I18nProvider from '@mephisto5558/i18n';
+import type I18nProvider from '@mephisto5558/i18n';
 import type BackupSystem from './Utils/backupSystem';
 
 declare global {
@@ -13,7 +13,7 @@ declare global {
     error: (...str: any[]) => typeof log;
     debug: (...str: any[]) => typeof log;
     setType: (type: string) => typeof log;
-    #log(file?: string, ...str: any[]): typeof log;
+    _log(file?: string, ...str: any[]): typeof log;
   };
 
   /**bBinded I18nProvider.__ function */
@@ -25,11 +25,11 @@ declare global {
     random(): T;
   }
 
-  interface number {
+  interface Number {
     limit(options?: { min?: number; max?: number }): number;
   }
 
-  interface object {
+  interface Object {
     fMerge(obj: object, mode?: 'overwrite' | 'push', output?: object): object;
     filterEmpty(): object;
   }
@@ -55,7 +55,7 @@ declare global {
   type AutocompleteInteraction = Discord.AutocompleteInteraction;
 
   interface GuildInteraction extends Discord.ChatInputCommandInteraction {
-    public inGuild(): true;
+    inGuild(): true;
     guild: Discord.Guild;
     guildId: string;
     guildLocale: Discord.Locale;
@@ -64,9 +64,9 @@ declare global {
     memberPermissions: Readonly<Discord.PermissionsBitField>;
   }
   interface DMInteraction extends Discord.ChatInputCommandInteraction {
-    public inGuild(): false;
-    public inRawGuild(): false;
-    public inCachedGuild(): false;
+    inGuild(): false;
+    inRawGuild(): false;
+    inCachedGuild(): false;
     guild: null;
     guildId: null;
     guildLocale: null;
@@ -97,17 +97,17 @@ declare module 'discord.js' {
      * <info>This property requires the GatewayIntentBits.MessageContent privileged intent
      * in a guild for messages that do not mention the client.</info>
      */
-    originalContent: ?string;
+    originalContent: string|null;
 
     /**
      * The arguments of the message. It slices out the prefix and splits by spaces. This is a custom property set in 'prototypeRegisterer.js'.
      */
-    args: ?string[];
+    args: string[]|null;
 
     /**
      * The first word of the original message content. `null` if no prefix has been found. This is a custom property set in 'prototypeRegisterer.js'.
      */
-    commandName: ?string;
+    commandName: string|null;
 
     user: User;
 
@@ -137,7 +137,7 @@ declare module 'discord.js' {
   }
 
   interface User {
-    db: object?;
+    db: object|null;
     customName: string;
     customTag: string;
   }
