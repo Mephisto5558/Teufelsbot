@@ -54,6 +54,7 @@ async function getCommands(lang) {
 
 /**@this Client*/
 module.exports = async function websiteHandler() {
+  if (this.botType == 'dev') return log('Disabled website due to dev version');
   while (process.argv.some(e => e == 'isChild=true')) await sleep(500); //Waiting for slash command handler to finish so parent process ends to free the port
 
   app
@@ -66,9 +67,9 @@ module.exports = async function websiteHandler() {
     .all('*', async (req, res) => {
       switch (req.path) {
         case '/commands': {
-          if (validate(req.query.key, res, this.keys.WebsiteKey))
-            res.send(await (req.query.fetch && commands ? getCommands(this.i18n.__.bind(this.i18n, { locale: 'en', undefinedNotFound: true })) : commands));
-          return;
+          if (!validate(req.query.key, res, this.keys.WebsiteKey)) return;
+          if (req.query.fetch || !commands) commands = await getCommands(this.i18n.__.bind(this.i18n, { locale: 'en', undefinedNotFound: true }));
+          return res.send(commands);
         }
         case '/reloadDB': {
           if (!validate(req.query.key, res, this.keys.WebsiteKey)) return;

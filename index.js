@@ -62,7 +62,7 @@ console.time('Starting time');
 
   if (client.botType != 'dev') client.giveawaysManager = giveawaysmanager.call(client);
 
-  for (const handler of await readdir('./Handlers')) if (client.botType != 'dev' || !handler.includes('website')) require(`./Handlers/${handler}`).call(client);
+  for (const handler of await readdir('./Handlers')) require(`./Handlers/${handler}`).call(client);
 
   await client.login(client.keys.token);
   log(`Logged into ${client.botType}`);
