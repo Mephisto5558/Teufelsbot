@@ -10,8 +10,7 @@
         "description": "the size you want to get"
       }
     },
-    "embedDescription": "**Avatar of {user}**",
-    "downloadButton": "Download picture"
+    "embedDescription": "**Avatar of {user}**"
   },
   "cmdstats": {
     "description": "See how often a specific command has been run or get the top 10.",
@@ -57,7 +56,6 @@
     "createdAt": "Created At",
     "requiresColons": "Requires Colons",
     "allowedRoles": "Allowed Roles",
-    "download": "Download Emoji",
     "delete": "Delete Emoji"
   },
   "help": {
