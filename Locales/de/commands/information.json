@@ -10,8 +10,7 @@
         "description": "Wie groß soll das Bild sein?"
       }
     },
-    "embedDescription": "**{user}'s Avatar**",
-    "downloadButton": "Herunterladen"
+    "embedDescription": "**{user}'s Avatar**"
   },
   "cmdstats": {
     "description": "Zeigt an, wie oft ein spezifischer Befehl oder die Top 10 genutzt wurden.",
@@ -57,7 +56,6 @@
     "createdAt": "Erstellt",
     "requiresColons": "Benötigt Doppelpunkte",
     "allowedRoles": "Erlaubte Rollen",
-    "download": "Emoji Herunterladen",
     "delete": "Emoji Löschen"
   },
   "help": {

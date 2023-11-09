@@ -15,5 +15,6 @@
   "noPermBot": "I don't have the permission to do that!",
   "true": "Yes",
   "false": "No",
-  "modReason": "{command} command, moderator {user}"
+  "modReason": "{command} command, moderator {user}",
+  "downloadButton": "Download"
 }
