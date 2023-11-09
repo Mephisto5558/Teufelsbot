@@ -15,5 +15,6 @@
   "noPermBot": "У меня нет разрешения на это!",
   "true": "Да",
   "false": "Нет",
-  "modReason": "Команда {command} , модератор {user}"
+  "modReason": "Команда {command} , модератор {user}",
+  "downloadButton": "Скачать"
 }
