@@ -92,11 +92,18 @@ module.exports = {
         footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * 100, downvotes: post.downvotes, comments: post.comments }) }
       }).setColor('Random'),
       component = new ActionRowBuilder({
-        components: [new ButtonBuilder({
-          label: lang('global.anotherone'),
-          customId: `reddit.${subreddit}.${type}.${filterNSFW}`,
-          style: ButtonStyle.Primary
-        })]
+        components: [
+          new ButtonBuilder({
+            label: lang('global.anotherone'),
+            customId: `reddit.${subreddit}.${type}.${filterNSFW}`,
+            style: ButtonStyle.Primary
+          }),
+          new ButtonBuilder({
+            label: lang('global.downloadButton'),
+            url: post.imageURL,
+            style: ButtonStyle.Link
+          })
+        ]
       });
 
     return this.customReply({ embeds: [embed], components: [component] });

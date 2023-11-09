@@ -41,7 +41,7 @@ module.exports = {
       component = new ActionRowBuilder({
         components: [
           new ButtonBuilder({
-            label: lang('download'),
+            label: lang('global.downloadButton'),
             style: ButtonStyle.Link,
             url: emoji.url
           })

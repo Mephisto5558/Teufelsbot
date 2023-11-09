@@ -15,5 +15,6 @@
   "noPermBot": "Ich habe keine Berechtigung dazu!",
   "true": "Ja",
   "false": "Nein",
-  "modReason": "{command}-Befehl, Moderator {user}"
+  "modReason": "{command}-Befehl, Moderator {user}",
+  "downloadButton": "Herunterladen"
 }
