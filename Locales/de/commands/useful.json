@@ -272,7 +272,8 @@
         "description": "Die größte mögliche Zahl. Standard: 100"
       }
     },
-    "outOfRange": "Ein Fehler ist aufgetreten:\n```\n{err}.\n```"
+    "randomnumber": "Eine Zufallszahl zwischen {min} und {max}:\n{randomnumber}",
+    "outOfRange": "Eine der angegebenen Zahlen ist ungültig, zu groß oder zu klein!\nKleinste mögliche Zahl: `{min}`, Größte mögliche Zahl: `{max}`."
   },
   "record": {
     "description": "Nimmt einen Sprachkanal auf. Benötigt Bestätigung von Mitgliedern.",
