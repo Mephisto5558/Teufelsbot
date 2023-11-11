@@ -29,6 +29,6 @@ module.exports = async function voiceStateUpdate(newState) {
     embed.data.fields = [{ name: lang('newChannel'), value: `<#${newState.channel.id}> (\`${newState.channel.id}\`)`, inline: false }];
     if (this.channel?.id) embed.data.fields.splice(0, 0, { name: lang('oldChannel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: false });
   }
-
+  console.log('voiceStateUpdate.js: Sending Embed with fields');
   return channel.send({ embeds: [embed] });
 };
