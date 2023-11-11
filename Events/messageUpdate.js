@@ -45,5 +45,8 @@ module.exports = async function messageUpdate(newMsg) {
   if (embed.data.fields[1].value == '') embed.data.fields[1].value = lang('unknown');
   if (embed.data.fields[2].value == '') embed.data.fields[2].value = lang('unknown');
 
+  if (embed.data.fields[1].value.length > 1024) embed.data.fields[1].value = embed.data.fields[1].value.slice(0, 1021) + '...';
+  if (embed.data.fields[2].value.length > 1024) embed.data.fields[2].value = embed.data.fields[2].value.slice(0, 1021) + '...';
+
   return channel.send({ embeds: [embed], components: [component] });
 };
