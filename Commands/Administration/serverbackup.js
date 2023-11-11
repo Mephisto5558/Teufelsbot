@@ -178,6 +178,7 @@ module.exports = {
         }));
 
         if (embed.data.fields.length) embed.data.footer = { text: lang('get.found', this.client.backupSystem.list(this.guild.id).size) };
+        console.log('serverbackup.js: Sending Embed with fields');
         return this.editReply({ embeds: [embed.setDescription(lang(embed.data.fields.length ? 'get.embedDescription' : 'get.noneFound'))] });
       }
     }

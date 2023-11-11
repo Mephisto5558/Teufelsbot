@@ -129,7 +129,7 @@ module.exports = {
             response: response.length < 20 ? response : response.substring(0, 17) + '...'
           }), '');
         }
-
+        console.log('trigger.js: Sending Embed with fields');
         return this.editReply({ embeds: [embed] });
       }
     }
