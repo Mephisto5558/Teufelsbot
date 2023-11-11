@@ -55,7 +55,7 @@ module.exports = {
 
       delete embed.data.description;
     }
-
+    console.log('ping.js: Sending Embed with fields');
     return msg.edit({ embeds: [embed] });
   }
 };
