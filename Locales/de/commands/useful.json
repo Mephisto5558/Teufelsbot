@@ -272,6 +272,7 @@
         "description": "Die größte mögliche Zahl. Standard: 100"
       }
     },
+    "randomnumber": "Eine Zufallszahl zwischen {min} und {max}:\n{randomnumber}",
     "outOfRange": "Ein Fehler ist aufgetreten:\n```\n{err}.\n```"
   },
   "record": {
