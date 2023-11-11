@@ -55,7 +55,7 @@ module.exports = {
     }));
 
     if (emoji.roles?.cache.size) embed.data.fields.push({ name: lang('allowedRoles'), value: `<@&${emoji.roles.cache.map(e => e.id).join('>, <@&')}>`, inline: false });
-    console.log('emojiinfo.js: Sending Embed with fields');
+
     return this.customReply({ embeds: [embed], components: [component] });
   }
 };

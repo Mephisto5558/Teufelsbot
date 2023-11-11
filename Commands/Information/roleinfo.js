@@ -53,7 +53,7 @@ module.exports = {
         style: ButtonStyle.Danger
       })]
     })] : [];
-    console.log('roleinfo.js: Sending Embed with fields');
+
     return this.customReply({ embeds: [embed], components });
   }
 };

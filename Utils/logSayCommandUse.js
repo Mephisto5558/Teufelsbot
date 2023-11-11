@@ -29,6 +29,6 @@ module.exports = function logSayCommandUse(member, lang) {
         style: ButtonStyle.Link
       })]
     });
-  console.log('logSayCommandUse.js: Sending Embed with fields');
+
   return channel.send({ embeds: [embed], components: [component] });
 };

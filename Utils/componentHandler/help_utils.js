@@ -115,7 +115,7 @@ module.exports.commandQuery = function commandQuery(lang, commandQuery) {
       footer: { text: lang('one.embedFooterText', this.guild.db.config?.prefix || this.client.defaultSettings.config.prefix) },
       color: Colors.Blurple,
     });
-  console.log('help.js: Sending Embed with fields');
+
   return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, command.category.toLowerCase())] });
 };
 
@@ -142,7 +142,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
     });
 
   if (!embed.data.fields.length) embed.data.description = lang('all.notFound');
-  console.log('help.js: Sending Embed with fields');
+
   return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, categoryQuery)] });
 };
 
