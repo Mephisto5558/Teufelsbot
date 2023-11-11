@@ -62,7 +62,7 @@ module.exports = {
       if (limitToRoles?.length) embed.data.description += lang('limitedToRoles', `<@&${limitToRoles.join('>, <@&')}>`);
     }
     catch (err) {
-      if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]')) // TODO: Prevent that error from even happening
+      if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]'))
         embed.data.description = lang('error', lang('tooBig'));
       else if (!['DiscordAPIError[30008]', 'AbortError', 'ConnectTimeoutError'].includes(err.name)) throw err;
       
