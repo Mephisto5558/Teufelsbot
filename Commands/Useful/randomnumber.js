@@ -15,15 +15,25 @@ module.exports = {
   /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     let
-      min = this.options?.getInteger('minimum') || parseInt(Number(this.args?.[0])),
-      max = this.options?.getInteger('maximum') || parseInt(Number(this.args?.[1]));
+      min = this.options?.getInteger('minimum') || Number(this.args?.[0]),
+      max = this.options?.getInteger('maximum') || Number(this.args?.[1]);
 
     if (isNaN(min)) min = 0;
     if (isNaN(max)) max = 100;
 
-    try { this.customReply((min > max ? randomInt(max, min) : randomInt(min, max)).toString()); }
+    if (min > max) [min, max] = [max, min];
+
+    try {
+      const randomnumber = randomInt(min, max + 1).toLocaleString(lang.__boundArgs__[0].locale);
+      return this.customReply(lang('randomnumber', { randomnumber, min, max }));
+    }
     catch (err) {
-      if (err instanceof RangeError) return this.customReply(lang('outOfRange', err.message));
+      if (err instanceof RangeError || err.code == 'ERR_INVALID_ARG_TYPE')
+        return this.customReply(lang('outOfRange', {
+          min: Number.MIN_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale),
+          max: Number.MAX_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale)
+        }));
+
       throw err;
     }
   }
