@@ -62,7 +62,7 @@ module.exports = {
       style: ButtonStyle.Link,
       url: guild.bannerURL({ size: 2048 })
     }));
-    console.log('serverinfo.js: Sending Embed with fields');
+
     return this.customReply({ embeds: [embed], components: [component] });
   }
 };

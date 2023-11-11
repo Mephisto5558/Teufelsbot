@@ -81,7 +81,7 @@ module.exports = {
           })
         ]
       });
-    console.log('pokedex.js: Sending Embed with fields');
+
     return msg.edit({ content: null, embeds: [embed], components: [component] });
   }
 };

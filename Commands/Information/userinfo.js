@@ -84,7 +84,7 @@ module.exports = {
 
       if (comp.components.length) components.push(comp);
     }
-    console.log('userinfo.js: Sending Embed with fields');
+
     return this.customReply({ embeds: [embed], components });
   }
 };

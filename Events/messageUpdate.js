@@ -44,6 +44,6 @@ module.exports = async function messageUpdate(newMsg) {
 
   if (embed.data.fields[1].value == '') embed.data.fields[1].value = lang('unknown');
   if (embed.data.fields[2].value == '') embed.data.fields[2].value = lang('unknown');
-  console.log('messageUpdate.js: Sending Embed with fields');
+
   return channel.send({ embeds: [embed], components: [component] });
 };
