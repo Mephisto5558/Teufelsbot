@@ -131,7 +131,7 @@ module.exports = {
             color: Colors.White,
             ...(fields.length ? { fields } : { description: lang('list.embedDescription') }),
           });
-          console.log('setup.js toggle_command: Sending Embed with fields');
+
           return this.editReply({ embeds: [embed] });
         }
 
@@ -171,7 +171,7 @@ module.exports = {
           })),
           color: Colors.White
         });
-        console.log('setup.js toggle_command: Sending Embed with fields');
+
         await this.client.db.update('guildSettings', `${this.guild.id}.commandSettings.${command}.disabled`, commandData);
         return this.editReply({ embeds: [embed] });
       }

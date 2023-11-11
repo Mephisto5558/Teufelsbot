@@ -35,7 +35,7 @@ module.exports = {
           return { name: id ? `</${k}:${id}>` : `/${k}`, value: `**${v}**`, inline: true };
         });
     }
-    console.log('cmdstats.js: Sending Embed with fields');
+
     return this.customReply({ embeds: [embed] });
   }
 };

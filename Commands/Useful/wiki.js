@@ -49,10 +49,11 @@ module.exports = {
             if (!['name', 'caption'].includes(k) && !k.includes('image')) acc.push({ name: k, value: v.toString(), inline: true });
             return acc;
           }, [])
+
         });
 
       if (summary.length < 2049) embed.data.description = summary;
-      console.log('wiki.js: Sending Embed with fields');
+
       await message.edit({ content: '', embeds: [embed] });
       if (embed.data.description) return;
 

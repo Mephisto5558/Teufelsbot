@@ -55,6 +55,6 @@ module.exports = async function messageDelete() {
   if (this.user) embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (\`${this.user.id}\`)`, inline: false });
   if (executor) embed.data.fields.push({ name: lang('executor'), value: `${executor.tag} (\`${executor.id}\`)`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('reason'), value: reason, inline: false });
-  console.log('messageDelete.js: Sending Embed with fields');
+
   return channel.send({ embeds: [embed] });
 };

@@ -24,6 +24,6 @@ module.exports = async function messageDeleteBulk(channel) {
 
   if (executor) embed.data.fields.push({ name: lang('events.logger.executor'), value: `${executor.tag} (\`${executor.id}\`)`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('events.logger.reason'), value: reason, inline: false });
-  console.log('messageDeleteBulk.js: Sending Embed with fields');
+
   return channelToSend.send({ embeds: [embed] });
 };
