@@ -49,7 +49,9 @@ module.exports = async function messageDelete() {
   if (this.attachments.size) embed.data.fields[1].value += this.attachments.map(e => `[${e.url}](${e.name})`).join(', ') + '\n';
   if (this.embeds.length) embed.data.fields[1].value += lang('embeds', this.embeds.length) + '\n';
   if (this.components.length) embed.data.fields[1].value += lang('messageDelete.components', this.components.length);
+  
   if (!embed.data.fields[1].value) embed.data.fields[1].value += lang('unknownContent');
+  else if (embed.data.fields[1].value.length > 1024) embed.data.fields[1].value = embed.data.fields[1].value.slice(0, 1021) + '...';
 
   //We don't get the user/member if the message is not cached
   if (this.user) embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (\`${this.user.id}\`)`, inline: false });
