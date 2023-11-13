@@ -43,7 +43,7 @@ console.time('Starting time');
       Partials.Message,
       Partials.Reaction
     ]
-  }).on('error', err => errorHandler.call(client, err));
+  });
 
   let env;
   try { env = require('./env.json'); }
