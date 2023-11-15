@@ -14,6 +14,7 @@ const
     stickers: backup.stickers?.length ?? 0
   }) : null;
 
+/**@this GuildInteraction @param {object}backup*/
 function checkPerm(backup) {
   const creator = backup?.metadata?.[this.guild.db.serverbackup?.allowedToLoad ?? this.client.defaultSettings.serverbackup.allowedToLoad];
   return Array.isArray(creator) ? creator.includes(this.user.id) : creator == this.user.id;
