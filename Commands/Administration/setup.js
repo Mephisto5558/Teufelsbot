@@ -49,7 +49,7 @@ module.exports = {
         type: 'String',
         required: true,
         /**@this AutocompleteInteraction*/
-        autocompleteOptions: function () { return this.client.i18n.availableLocales.map((_, k) => ({ name: this.i18n.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k })).filter(({ name, value }) => name.toLowerCase().includes(this.focused.value.toLowerCase()) || value.toLowerCase().includes(this.focused.value.toLowerCase())).slice(0, 25); },
+        autocompleteOptions: function () { return Object.keys(this.client.i18n.availableLocales).map(k => ({ name: this.i18n.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k })).filter(({ name, value }) => name.toLowerCase().includes(this.focused.value.toLowerCase()) || value.toLowerCase().includes(this.focused.value.toLowerCase())).slice(0, 25); },
         strictAutocomplete: true
       }]
     },
