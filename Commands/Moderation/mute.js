@@ -41,6 +41,8 @@ module.exports = {
 
     let noMsg;
 
+    if (target.id == this.client.user.id) return this.editReply('1984');
+
     const err = checkTargetManageable.call(this, target);
     if (err) return this.editReply(lang(err));
     if (target.permissions.has(PermissionFlagsBits.Administrator)) return this.editReply(lang('targetIsAdmin'));
