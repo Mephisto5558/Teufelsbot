@@ -10,7 +10,7 @@ module.exports = async function MessageComponentHandler(lang) {
     cooldown = cooldowns.call(this, { name: `buttonPressEvent.${this.message.id}`, cooldowns: { user: 1000 } }),
     command = this.client.slashCommands.get(feature) ?? this.client.prefixCommands.get(feature) ?? { name: feature },
     errorEmbed = new EmbedBuilder({ color: Colors.Red }),
-    disabledList = this.guild.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
+    disabledList = this.guild?.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
 
   if (disabledList.members?.includes(this.user.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('notAllowed.member'))], ephemeral: true });
   if (disabledList.channels?.includes(this.channel.id)) return this.reply({ embeds: [errorEmbed.setDescription(lang('notAllowed.channel'))], ephemeral: true });
