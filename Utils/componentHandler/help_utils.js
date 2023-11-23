@@ -59,7 +59,7 @@ function createCommandsComponent(lang, category) {
 function createInfoFields(cmd, lang, helpLang) {
   const
     arr = [],
-    prefix = this.guild.db.config?.prefix?.prefix || this.client.defaultSettings.config.prefix;
+    prefix = this.guild?.db.config?.prefix?.prefix || this.client.defaultSettings.config.prefix;
 
   cmd ??= {};
   if (cmd.aliases?.prefix?.length) arr.push({ name: lang('one.prefixAlias'), value: `\`${cmd.aliases.prefix.join('`, `')}\``, inline: true });
@@ -107,12 +107,12 @@ module.exports.commandQuery = function commandQuery(lang, commandQuery) {
 
   const
     /**@type {lang}*/
-    helpLang = this.client.i18n.__.bind(this.client.i18n, { undefinedNotFound: true, locale: this.guild.localeCode, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` }),
+    helpLang = this.client.i18n.__.bind(this.client.i18n, { undefinedNotFound: true, locale: this.guild?.localeCode || this.client.defaultSettings.config.lang, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` }),
     embed = new EmbedBuilder({
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
       description: helpLang('description'),
       fields: createInfoFields.call(this, command, lang, helpLang),
-      footer: { text: lang('one.embedFooterText', this.guild.db.config?.prefix || this.client.defaultSettings.config.prefix) },
+      footer: { text: lang('one.embedFooterText', this.guild?.db.config?.prefix || this.client.defaultSettings.config.prefix) },
       color: Colors.Blurple,
     });
 
@@ -128,7 +128,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
 
   const
     /**@type {lang}*/
-    helpLang = this.client.i18n.__.bind(this.client.i18n, { undefinedNotFound: true, locale: this.guild.localeCode, backupPath: `commands.${categoryQuery}` }),
+    helpLang = this.client.i18n.__.bind(this.client.i18n, { undefinedNotFound: true, locale: this.guild?.localeCode || this.client.defaultSettings.config.lang, backupPath: `commands.${categoryQuery}` }),
     commands = getCommands.call(this),
     embed = new EmbedBuilder({
       title: lang(`options.category.choices.${categoryQuery}`),
