@@ -6,7 +6,7 @@ const
   ownerOnlyFolders = require('./getOwnerOnlyFolders.js')(),
   { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json');
 
-/**@this {Interaction|Message} @param {object}command @param {lang}lang @returns {Array|boolean}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
+/**@this {Interaction|Message} @param {command}command @param {lang}lang @returns {Array|boolean}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
 module.exports = async function checkForErrors(command, lang) {
   if (!command) {
     if (this instanceof Message) {

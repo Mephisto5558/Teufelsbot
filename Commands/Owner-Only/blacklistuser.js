@@ -1,3 +1,4 @@
+/**@type {command}*/
 module.exports = {
   name: 'blacklistuser',
   aliases: { prefix: ['blacklist'] },
@@ -6,7 +7,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  /**@this Message @param {lang}lang*/
+  /**@this Message*/
   run: async function (lang) {
     if (!this.args[0]) return this.customReply(lang('noInput'));
 

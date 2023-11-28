@@ -27,6 +27,7 @@ function updateStats(firstID, secondID, type, db) {
   return db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, stats[against]?.[secondID] + 1 || 1);
 }
 
+/**@type {command}*/
 module.exports = {
   name: 'tictactoe',
   aliases: { slash: ['ttt'] },
@@ -36,7 +37,7 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'opponent', type: 'User' }],
 
-  /**@this GuildInteraction @param {lang}lang*/
+  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       gameTarget = getTarget.call(this, { targetOptionName: 'opponent' })?.id,

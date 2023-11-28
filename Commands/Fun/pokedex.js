@@ -3,6 +3,7 @@ const
   fetch = require('node-fetch').default,
   cache = new Collection();
 
+/**@type {command}*/
 module.exports = {
   name: 'pokedex',
   prefixCommand: true,
@@ -14,7 +15,6 @@ module.exports = {
     required: true
   }],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       pokemon = this.options?.getString('pokémon') || this.args[0],

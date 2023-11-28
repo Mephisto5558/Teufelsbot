@@ -3,6 +3,7 @@ const
   { getMilliseconds } = require('better-ms'),
   { timeValidator, checkTargetManageable } = require('../../Utils');
 
+/**@type {command}*/
 module.exports = {
   name: 'mute',
   aliases: { prefix: ['timeout'], slash: ['timeout'] },
@@ -25,13 +26,12 @@ module.exports = {
       name: 'duration',
       type: 'String',
       required: true,
-      /**@this AutocompleteInteraction*/
       autocompleteOptions: function () { return timeValidator(this.focused.value); },
       strictAutocomplete: true
     }
   ],
 
-  /**@this GuildInteraction @param {lang}lang*/
+  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       target = this.options.getMember('target'),

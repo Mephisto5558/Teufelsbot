@@ -2,6 +2,7 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   ownerOnlyFolders = require('../../Utils').getOwnerOnlyFolders();
 
+/**@type {command}*/
 module.exports = {
   name: 'cmdstats',
   cooldowns: { user: 1000 },
@@ -11,12 +12,10 @@ module.exports = {
   options: [{
     name: 'command',
     type: 'String',
-    /**@this AutocompleteInteraction*/
     autocompleteOptions: function () { return [...new Set([...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()])]; },
     strictAutocomplete: true
   }],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
       command = this.options?.getString('command') || this.args?.[0],

@@ -1,6 +1,6 @@
 const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js');
 
-/**@this Message*/
+/**@this Message @param {lang}lang*/
 function countingHandler(lang) {
   const lastNum = this.guild.db?.counting?.[this.channel.id]?.lastNumber || NaN;
   if (isNaN(this.originalContent || NaN) || isNaN(lastNum) || lastNum - this.originalContent) return;

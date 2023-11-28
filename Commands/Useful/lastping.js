@@ -2,6 +2,7 @@ const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   { getTarget } = require('../../Utils');
 
+/**@type {command}*/
 module.exports = {
   name: 'lastping',
   cooldowns: { guild: 200, user: 10000 },
@@ -23,7 +24,7 @@ module.exports = {
     }*/
   ],
 
-  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
+  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first(),

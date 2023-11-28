@@ -17,13 +17,11 @@ module.exports = {
     {
       name: 'command',
       type: 'String',
-      /**@this AutocompleteInteraction*/
       autocompleteOptions: function () { return help_getCommands.call(this).map(e => e.name); },
       strictAutocomplete: true
     }
   ],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
       categoryQuery = this.options?.getString('category'),

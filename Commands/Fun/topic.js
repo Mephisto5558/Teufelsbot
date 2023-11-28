@@ -1,6 +1,7 @@
 //Credits for many of the response messages goes to the Lawliet Bot: https://github.com/Aninoss/lawliet-bot/tree/master/src/main/jib/data/resources
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
+/**@type {command}*/
 module.exports = {
   name: 'topic',
   cooldowns: { user: 10000 },
@@ -8,7 +9,6 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
       embed = new EmbedBuilder({

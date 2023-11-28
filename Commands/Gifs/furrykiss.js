@@ -9,6 +9,7 @@ const
     '1160180768815988797/furry-protogen.gif'
   ];
 
+/**@type {command}*/
 module.exports = {
   name: 'furrykiss',
   aliases: { prefix: ['furry-kiss'] },
@@ -18,7 +19,6 @@ module.exports = {
   dmPermission: true,
   options: [{ name: 'target', type: 'User' }],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
       target = getTarget.call(this),

@@ -1,5 +1,6 @@
 const { EmbedBuilder, Colors } = require('discord.js');
 
+/**@type {command}*/
 module.exports = {
   name: 'trigger',
   permissions: { user: ['ManageMessages'] },
@@ -29,7 +30,6 @@ module.exports = {
       options: [{
         name: 'query_or_id',
         type: 'String',
-        /**@this AutocompleteInteraction*/
         autocompleteOptions: function () { return this.guild.db.triggers?.flatMap(e => [e.trigger, e.id]).sort(e => typeof e == 'string' ? -1 : 1).map(String) || []; }
       }]
     },
@@ -49,7 +49,6 @@ module.exports = {
         {
           name: 'query_or_id',
           type: 'String',
-          /**@this AutocompleteInteraction*/
           autocompleteOptions: function () { return this.guild.db.triggers?.flatMap(e => [e.trigger, e.id]).sort(e => typeof e == 'string' ? -1 : 1).map(String) || []; }
         },
         { name: 'short', type: 'Boolean' }
@@ -57,7 +56,7 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction @param {lang}lang*/
+  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       oldData = this.guild.db.triggers || [],

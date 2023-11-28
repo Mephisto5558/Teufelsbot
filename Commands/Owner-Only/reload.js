@@ -4,7 +4,7 @@ const
   { access } = require('fs/promises'),
   { formatSlashCommand, slashCommandsEqual } = require('../../Utils');
 
-/**@this Client*/
+/**@this Client @param {command}command @param {string[]}reloadedArray gets modified and not returned*/
 async function reloadCommand(command, reloadedArray) {
   delete require.cache[command.filePath];
 
@@ -77,6 +77,7 @@ async function reloadCommand(command, reloadedArray) {
   }
 }
 
+/**@type {command}*/
 module.exports = {
   name: 'reload',
   slashCommand: false,
@@ -84,7 +85,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  /**@this Message @param {lang}lang*/
+  /**@this Message*/
   run: async function (lang) {
     if (!this.args[0]) return this.reply(lang('invalidCommand'));
 

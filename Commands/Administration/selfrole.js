@@ -1,3 +1,4 @@
+/**@type {command}*/
 module.exports = {
   name: 'selfrole',
   permissions: { client: ['ManageMembers'], user: ['ManageGuild'] },
@@ -5,6 +6,6 @@ module.exports = {
   prefixCommand: false,
   ephemeralDefer: true,
 
-  /**@this GuildInteraction @param {lang}lang*/
+  /**@this GuildInteraction*/
   run: function (lang) { return this.customReply(lang('deprecated')); }
 };

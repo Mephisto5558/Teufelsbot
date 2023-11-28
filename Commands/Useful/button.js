@@ -1,5 +1,6 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
+/**@type {command}*/
 module.exports = {
   name: 'button',
   cooldowns: { user: 500 },
@@ -19,7 +20,7 @@ module.exports = {
         {
           name: 'style',
           type: 'String',
-          choices: Object.keys(ButtonStyle).filter(Number).map(e => e.toString()),
+          choices: Object.keys(ButtonStyle).filter(Number).map(String),
           required: true
         },
         { name: 'emoji', type: 'String' },
@@ -40,7 +41,7 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction @param {lang}lang*/
+  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       custom = this.options.getString('json'),

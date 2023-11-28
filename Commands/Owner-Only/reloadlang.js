@@ -1,3 +1,4 @@
+/**@type {command}*/
 module.exports = {
   name: 'reloadlang',
   slashCommand: false,
@@ -5,7 +6,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  /**@this Message @param {lang}lang*/
+  /**@this Message*/
   run: async function (lang) {
     log.debug(`Reloading language files, initiated by user ${this.user.tag}`);
 

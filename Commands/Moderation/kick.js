@@ -1,3 +1,4 @@
+/**@type {command}*/
 module.exports = {
   name: 'kick',
   permissions: { client: ['KickMembers'], user: ['KickMembers'] },

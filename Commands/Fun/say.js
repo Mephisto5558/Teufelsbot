@@ -2,6 +2,7 @@ const
   { Constants, PermissionFlagsBits, Message, AllowedMentionsTypes } = require('discord.js'),
   { logSayCommandUse } = require('../../Utils');
 
+/**@type {command}*/
 module.exports = {
   name: 'say',
   cooldowns: { user: 200 },
@@ -22,7 +23,7 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
+  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const
       msg = this.content || this.options?.getString('msg'),

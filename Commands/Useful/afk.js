@@ -1,5 +1,6 @@
 const { AllowedMentionsTypes } = require('discord.js');
 
+/**@type {command}*/
 module.exports = {
   name: 'afk',
   cooldowns: { user: 5000 },
@@ -15,7 +16,6 @@ module.exports = {
     { name: 'global', type: 'Boolean' }
   ],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       global = this.options?.getBoolean('global') ?? this.args?.[0] == 'global',

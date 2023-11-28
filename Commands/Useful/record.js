@@ -6,6 +6,7 @@ const
   exec = require('util').promisify(require('child_process').exec),
   ffmpeg = require('ffmpeg-static');
 
+/**@type {command}*/
 module.exports = {
   name: 'record',
   cooldowns: { user: 1000 },
@@ -21,7 +22,7 @@ module.exports = {
     { name: 'public', type: 'Boolean' }
   ],
 
-  /**@this GuildInteraction @param {lang}lang*/
+  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       allowed = new Set(),

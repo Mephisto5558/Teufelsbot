@@ -2,6 +2,7 @@ const
   { default: fetch, FetchError } = require('node-fetch'),
   { EmbedBuilder } = require('discord.js');
 
+/**@type {command}*/
 module.exports = {
   name: 'inspirobot',
   cooldowns: { user: 1000 },
@@ -9,7 +10,6 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     let res;
     try { res = await fetch('https://inspirobot.me/api?generate=true').then(e => e.text()); }

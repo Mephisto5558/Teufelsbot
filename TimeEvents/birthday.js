@@ -20,10 +20,11 @@ module.exports = {
   time: '00 00 00 * * *',
   startNow: true,
 
+  /**@this Client*/
   onTick: async function () {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 
-    if (this.settings.lastBirthdayCheck == now) return log('Already ran birthday check today');
+    if (this.settings.lastBirthdayCheck == now) return void log('Already ran birthday check today');
     log('started birthday check');
 
     const

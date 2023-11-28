@@ -1,5 +1,6 @@
 const { randomInt } = require('crypto');
 
+/**@type {command}*/
 module.exports = {
   name: 'randomnumber',
   aliases: { prefix: ['random-number'] },
@@ -12,7 +13,6 @@ module.exports = {
     { name: 'maximum', type: 'Integer' }
   ],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     let
       min = this.options?.getInteger('minimum') || Number(this.args?.[0]),

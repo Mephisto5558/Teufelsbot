@@ -3,6 +3,7 @@ const
   { getTarget, getAge } = require('../../Utils'),
   currentYear = new Date().getFullYear();
 
+/**@type {command}*/
 module.exports = {
   name: 'birthday',
   cooldowns: { user: 1000 },
@@ -17,23 +18,23 @@ module.exports = {
         {
           name: 'day',
           type: 'Integer',
+          required: true,
           minValue: 1,
-          maxValue: 31,
-          required: true
+          maxValue: 31
         },
         {
           name: 'month',
           type: 'Integer',
+          required: true,
           minValue: 1,
-          maxValue: 12,
-          required: true
+          maxValue: 12
         },
         {
           name: 'year',
           type: 'Integer',
+          required: true,
           minValue: 1900,
-          maxValue: currentYear,
-          required: true
+          maxValue: currentYear
         }
       ]
     },
@@ -48,7 +49,7 @@ module.exports = {
     { name: 'remove', type: 'Subcommand' }
   ],
 
-  /**@this GuildInteraction @param {lang}lang*/
+  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       target = getTarget.call(this),

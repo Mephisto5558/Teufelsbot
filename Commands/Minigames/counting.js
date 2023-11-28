@@ -1,5 +1,6 @@
 const { Constants, EmbedBuilder, Colors } = require('discord.js');
 
+/**@type {command}*/
 module.exports = {
   name: 'counting',
   permissions: { user: ['ManageChannels'] },
@@ -12,7 +13,7 @@ module.exports = {
     channelTypes: Constants.TextBasedChannelTypes
   }],
 
-  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
+  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const
       channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,

@@ -10,6 +10,7 @@ module.exports = async function commandHandler() {
   for (const subFolder of await getDirectories('./Commands')) for (const file of await readdir(`./Commands/${subFolder}`)) {
     if (!file.endsWith('.js')) continue;
 
+    /**@type {command}*/
     const command = require(`../Commands/${subFolder}/${file}`);
     if (!command?.prefixCommand) continue;
     if (!command.disabled && !command.run?.toString().startsWith('function') && !command.run?.toString().startsWith('async function')) throw new Error(`The run function of file "${command.filePath}" is not a function. You cannot use arrow functions.`);
