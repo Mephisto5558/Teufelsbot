@@ -1,4 +1,4 @@
-/**@param {object}a @param {object}b */
+/**@param {command|commandOptions}a @param {command|commandOptions}b */
 module.exports = function equal(a, b) {
   if (!a?.toString() && !b?.toString()) return true;
   if (typeof a == 'string' || typeof b == 'string') return a == b;
@@ -11,8 +11,10 @@ module.exports = function equal(a, b) {
     !equal(a.nameLocalizations, b.nameLocalizations) || !equal(a.descriptionLocalizations, b.descriptionLocalizations)
   ) return false;
 
-  for (let i = 0; i < (a.choices?.length || 0); i++) if (!equal(a.choices?.[i], b.choices?.find(e => e.name == a.choices?.[i]?.name))) return false;
-  for (let i = 0; i < (a.options?.length || 0); i++) if (!equal(a.options?.[i], b.options?.[i])) return false;
+  for (let i = 0; i < (a.choices?.length || 0); i++) if (
+      !equal(a.choices[i], b.choices.find(e => e.name == a.choices[i].name))
+      || !equal(b.options[i], a.choices.find(e => e.name == b.choices[i].name))
+  ) return false;
   for (const channelType of (a.channelTypes || [])) if (!b.channelTypes.includes(channelType)) return false;
 
   return true;
