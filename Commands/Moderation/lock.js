@@ -1,5 +1,6 @@
 const { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors } = require('discord.js');
 
+/**@type {command}*/
 module.exports = {
   name: 'lock',
   permissions: { client: ['ManageRoles'], user: ['ManageRoles'] },
@@ -11,7 +12,7 @@ module.exports = {
     { name: 'reason', type: 'String' }
   ],
 
-  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
+  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     this.args?.shift();
 

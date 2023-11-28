@@ -1,9 +1,12 @@
 const
   { timeFormatter } = require('../../Utils');
+
+/**@param {number}year @param {number}month @param {number}day @param {number[]}args*/
 function createDate(year, month, day, ...args) {
   return year < 0 || year > 100 ? new Date(year, month, day, ...args) : new Date(new Date(year - 1900, month, day, ...args).setFullYear(year));
 }
 
+/**@type {command}*/
 module.exports = {
   name: 'until',
   slashCommand: true,
@@ -48,7 +51,6 @@ module.exports = {
     }
   ],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
       getInt = (k, i) => {

@@ -15,6 +15,7 @@ function formatStatCount(input, all) {
   return `\`${input}\`` + all ? `(\`${parseFloat((input / all * 100).toFixed(2))}%\`)` : '';
 }
 
+/**@type {command}*/
 module.exports = {
   name: 'mgstats',
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
@@ -59,7 +60,7 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
+  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     if (this instanceof Message && !this.args[0]) return this.customReply(lang('missingGameArg'));
 

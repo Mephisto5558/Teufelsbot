@@ -5,12 +5,13 @@ const responseList = [
   'https://tenor.com/view/happy-cat-smile-cat-gif-26239281'
 ];
 
+/**@type {command}*/
 module.exports = {
   name: 'happy',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
 
-  /**@this Message @param {lang}lang*/
+  /**@this Message*/
   run: function () { return this.customReply(responseList.random()); }
 };

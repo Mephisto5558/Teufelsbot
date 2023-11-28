@@ -1,7 +1,7 @@
 const formatTopTen = require('./mgStats_formatTopTen.js');
 
 /** this.customId: `mgstats.<game>.<mode>.<setting>`
- * @this import('discord.js').StringSelectMenuInteraction @param {lang}lang @param {string}game @param {string}mode @param {string}settings*/
+ * @this import('discord.js').StringSelectMenuInteraction @param {lang}lang @param {string}game @param {string}wMode @param {string}settings*/
 module.exports = async function mgStats(lang, game, wMode, settings) {
   if (wMode != 'sort') return;
 

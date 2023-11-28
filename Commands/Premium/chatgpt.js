@@ -2,7 +2,7 @@ const
   { Message, AttachmentBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
   fetch = require('node-fetch').default;
 
-/**@returns {Promise<String>}*/
+/**@param {lang}lang @param {boolean?}deep @returns {Promise<string>}*/
 async function fetchAPI(lang, deep) {
   const res = await fetch('https://api.pawan.krd/v1/chat/completions', { //https://github.com/PawanOsman/ChatGPT
     method: 'POST',
@@ -24,6 +24,7 @@ async function fetchAPI(lang, deep) {
   return lang('error');
 }
 
+/**@type {command}*/
 module.exports = {
   name: 'chatgpt',
   aliases: { prefix: ['gpt'] },
@@ -46,7 +47,6 @@ module.exports = {
     }
   ],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     if (this instanceof Message) this.channel.sendTyping();
 

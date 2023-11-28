@@ -1,4 +1,5 @@
 
+/**@param {string}str*/
 function cyrb53(str, seed = 0) { //https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js
   let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
   for (let i = 0, ch; i < str.length; i++) {
@@ -15,6 +16,7 @@ function cyrb53(str, seed = 0) { //https://github.com/bryc/code/blob/master/jsha
   return 4294967296 * (2097151 & h2) + (h1 >>> 0);
 }
 
+/**@type {command}*/
 module.exports = {
   name: '8ball',
   slashCommand: true,
@@ -26,7 +28,6 @@ module.exports = {
     required: true
   }],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const input = this.options?.getString('question') || this.content;
     if (!input) return this.customReply(lang('noQuestion'));

@@ -2,6 +2,7 @@ const
   { Duration } = require('better-ms'),
   { timeValidator } = require('../../Utils');
 
+/**@type {command}*/
 module.exports = {
   name: 'timestamp',
   slashCommand: true,
@@ -10,12 +11,10 @@ module.exports = {
   options: [{
     name: 'time',
     type: 'String',
-    /**@this AutocompleteInteraction*/
     autocompleteOptions: function () { return timeValidator(this.focused.value); },
     strictAutocomplete: true
   }],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const { offset } = new Duration(this.options?.getString('time') || this.args?.[0] || '0.1ms');
     if (!offset) {

@@ -28,6 +28,7 @@ const
     name, options: Object.entries(b).filter(([a]) => a != 'info').map(([name, description]) => ({ name, description, type: 'String' }))
   }));
 
+/**@type {command}*/
 module.exports = {
   name: 'image',
   cooldowns: { user: 500 },
@@ -41,7 +42,7 @@ module.exports = {
   }],
   beta: true,
 
-  /**@this GuildMessage @param {lang}lang*/
+  /**@this GuildMessage*/
   run: async function (lang) {
     const
       cmdName = this.args?.shift() || this.options?.getString('type'),

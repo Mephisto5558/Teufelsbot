@@ -3,6 +3,7 @@ const
   { getMilliseconds } = require('better-ms'),
   { timeValidator } = require('../../Utils');
 
+/**@type {command}*/
 module.exports = {
   name: 'giveaway',
   permissions: { user: ['ManageMessages'] },
@@ -29,14 +30,13 @@ module.exports = {
           name: 'duration',
           type: 'String',
           required: true,
-          /**@this AutocompleteInteraction*/
           autocompleteOptions: function () { return timeValidator(this.focused.value); }
         },
         {
           name: 'winner_count',
           type: 'Integer',
-          minValue: 1,
-          required: true
+          required: true,
+          minValue: 1
         },
         {
           name: 'channel',
@@ -74,7 +74,6 @@ module.exports = {
         {
           name: 'add_time',
           type: 'String',
-          /**@this AutocompleteInteraction*/
           autocompleteOptions: function () { return timeValidator(this.focused.value); },
           strictAutocomplete: true
         },
@@ -102,7 +101,7 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction @param {lang}lang*/
+  /**@this GuildInteraction*/
   run: async function (lang) {
     if (!this.client.giveawaysManager) return this.editReply(lang('managerNotFound'));
 

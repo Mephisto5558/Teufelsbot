@@ -4,7 +4,7 @@ const
 
 /**@this Client*/
 module.exports = async function timeEventsHandler() {
-  if (this.botType == 'dev') return log('Disabled timed events due to dev version.');
+  if (this.botType == 'dev') return void log('Disabled timed events due to dev version.');
 
   await this.awaitReady();
 

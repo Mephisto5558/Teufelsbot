@@ -5,6 +5,7 @@ module.exports = function logSayCommandUse(member, lang) {
   const setting = this.guild?.db.config?.logger?.sayCommandUsed ?? {};
   if (this.client.botType == 'dev' || !setting.enabled || !setting.channel) return;
 
+  /**@type {import('discord.js').GuildTextBasedChannel | null}*/
   const channel = this.guild.channels.cache.get(setting.channel);
   if (!channel && this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
 

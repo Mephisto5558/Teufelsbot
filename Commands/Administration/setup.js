@@ -2,8 +2,10 @@ const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'],
-  getCmds = client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])];
 
+  getCmds = /**@param {Client}client*/ client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])];
+
+/**@type {command}*/
 module.exports = {
   name: 'setup',
   aliases: { slash: ['config'] },
@@ -30,7 +32,6 @@ module.exports = {
           name: 'command',
           type: 'String',
           required: true,
-          /**@this AutocompleteInteraction*/
           autocompleteOptions: function () { return getCmds(this.client); },
           strictAutocomplete: true
         },
@@ -48,7 +49,6 @@ module.exports = {
         name: 'language',
         type: 'String',
         required: true,
-        /**@this AutocompleteInteraction*/
         autocompleteOptions: function () { return [...this.client.i18n.availableLocales.keys()].map(k => ({ name: this.client.i18n.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k })).filter(({ name, value }) => name.toLowerCase().includes(this.focused.value.toLowerCase()) || value.toLowerCase().includes(this.focused.value.toLowerCase())).slice(0, 25); },
         strictAutocomplete: true
       }]
@@ -59,9 +59,9 @@ module.exports = {
       options: [{
         name: 'allowed_to_load',
         type: 'String',
+        required: true,
         autocompleteOptions: [...backup.keys()],
-        strictAutocomplete: true,
-        required: true
+        strictAutocomplete: true
       }]
     },
     {
@@ -93,7 +93,7 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction @param {lang}lang*/
+  /**@this GuildInteraction*/
   run: async function (lang) {
     lang.__boundArgs__[0].backupPath += `.${this.options.getSubcommand().replace(/_./g, e => e[1].toUpperCase())}`;
 

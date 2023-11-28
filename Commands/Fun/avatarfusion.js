@@ -3,6 +3,7 @@ const
   { createCanvas, loadImage } = require('canvas'),
   { getTarget } = require('../../Utils');
 
+/**@type {command}*/
 module.exports = {
   name: 'avatarfusion',
   cooldowns: { user: 2000 },
@@ -22,7 +23,7 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
+  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const
       type = (this.options?.getString('avatar_type') || 'server') == 'server',

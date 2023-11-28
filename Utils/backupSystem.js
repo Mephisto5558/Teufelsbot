@@ -3,6 +3,7 @@ const
   fetch = require('node-fetch');
 
 class BackupSystem {
+  /**@param {DB}db*/
   constructor(db, { dbName = 'backups', maxGuildBackups = 5, maxMessagesPerChannel = 10, saveImages = false, clearGuildBeforeRestore = true } = {}) {
     this.db = db;
     if (!this.db) throw new Error('db is a required argument!');

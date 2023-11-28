@@ -21,12 +21,54 @@ declare global {
     (key: string, replacements?: string | object): string;
   } & bBoundFunction;
 
+  type command = {
+    name: string;
+    id?: string;
+    type?: 1;
+    description: string,
+    descriptionLocalizations: Record<string, string>;
+    category: string;
+    aliases?: { prefix?: string[], slash?: string[]; };
+    permissions?: { client?: Discord.PermissionFlags[], user?: Discord.PermissionFlags[]; };
+    cooldowns?: { guild?: number, user?: number; };
+    slashCommand: boolean;
+    prefixCommand: boolean;
+    dmPermission?: boolean;
+    beta?: boolean;
+    disabled?: boolean;
+    disabledReason?: string;
+    noDefer?: boolean;
+    ephemeralDefer?: boolean;
+    aliasOf?: string;
+    options?: commandOptions[];
+    filePath: string;
+
+    run: (this: Interaction | Message, lang: lang, client: Discord.Client) => Promise<any>;
+  };
+
+  type commandOptions = {
+    name: string;
+    type: Discord.ApplicationCommandOptionType;
+    required?: boolean;
+    choices?: (string | number)[];
+    options?: commandOptions[];
+    autocompleteOptions?: string | Iterable<string | number | { name: string, value: string; }> | ((this: Discord.AutocompleteInteraction) => Iterable<string | number | { name: string, value: string; }>);
+    autocomplete?: boolean;
+    strictAutocomplete?: boolean;
+    channelTypes?: Discord.ChannelType[];
+    minValue?: number;
+    maxValue?: number;
+    minLength?: number;
+    maxLength?: number;
+  };
+
+
   interface Array<T> {
     random(): T;
   }
 
   interface Number {
-    limit(options?: { min?: number; max?: number }): number;
+    limit(options?: { min?: number; max?: number; }): number;
   }
 
   interface Object {
@@ -79,8 +121,8 @@ declare global {
 
 declare module 'discord.js' {
   interface BaseClient {
-    prefixCommands: Discord.Collection<string, object>;
-    slashCommands: Discord.Collection<string, object>;
+    prefixCommands: Discord.Collection<string, command>;
+    slashCommands: Discord.Collection<string, command>;
     backupSystem?: BackupSystem;
     cooldowns: Map<string, object>;
     db: DB;
@@ -117,7 +159,7 @@ declare module 'discord.js' {
     customReply(
       options: string | MessageEditOptions | MessagePayload | InteractionReplyOptions,
       deleteTime?: number,
-      allowedMentions?: MessageMentionOptions | { repliedUser: false }
+      allowedMentions?: MessageMentionOptions | { repliedUser: false; }
     ): Promise<Message>;
 
     runMessages(): this;
@@ -128,7 +170,7 @@ declare module 'discord.js' {
     customReply(
       options: string | MessageEditOptions | MessagePayload | InteractionReplyOptions,
       deleteTime?: number,
-      allowedMentions?: MessageMentionOptions | { repliedUser: false }
+      allowedMentions?: MessageMentionOptions | { repliedUser: false; }
     ): Promise<Message>;
   }
 

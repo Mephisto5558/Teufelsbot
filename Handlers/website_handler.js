@@ -54,7 +54,7 @@ async function getCommands(lang) {
 
 /**@this Client*/
 module.exports = async function websiteHandler() {
-  if (this.botType == 'dev') return log('Disabled website due to dev version');
+  if (this.botType == 'dev') return void log('Disabled website due to dev version');
   while (process.argv.some(e => e == 'isChild=true')) await sleep(500); //Waiting for slash command handler to finish so parent process ends to free the port
 
   app

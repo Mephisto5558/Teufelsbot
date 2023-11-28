@@ -20,6 +20,7 @@ function checkPerm(backup) {
   return Array.isArray(creator) ? creator.includes(this.user.id) : creator == this.user.id;
 }
 
+/**@type {command}*/
 module.exports = {
   name: 'serverbackup',
   permissions: { client: ['Administrator'], user: ['Administrator'] },
@@ -41,7 +42,6 @@ module.exports = {
         {
           name: 'id',
           type: 'String',
-          /**@this AutocompleteInteraction*/
           autocompleteOptions: function () { return [...this.client.backupSystem.list().filter(checkPerm.bind(this)).keys()]; }
         },
         { name: 'no_clear', type: 'Boolean' }
@@ -53,7 +53,6 @@ module.exports = {
       options: [{
         name: 'id',
         type: 'String',
-        /**@this AutocompleteInteraction*/
         autocompleteOptions: function () { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
       }],
     },
@@ -63,14 +62,13 @@ module.exports = {
       options: [{
         name: 'id',
         type: 'String',
-        /**@this AutocompleteInteraction*/
-        autocompleteOptions: function () { return [...this.client.backupSystem.list(this.guild.id).keys()]; },
-        required: true
+        required: true,
+        autocompleteOptions: function () { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
       }]
     }
   ], beta: true,
 
-  /**@this GuildInteraction @param {lang}lang*/
+  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       id = this.options.getString('id'),

@@ -3,6 +3,7 @@ const
   BoundAsyncFunction = (async function () { }).constructor.bind(null, ...vars),
   BoundFunction = Function.bind(null, ...vars);
 
+/**@type {command}*/
 module.exports = {
   name: 'eval',
   slashCommand: false,
@@ -10,7 +11,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  /**@this Message @param {lang}lang*/
+  /**@this Message*/
   run: async function (lang) {
     if (!this.content) return;
 

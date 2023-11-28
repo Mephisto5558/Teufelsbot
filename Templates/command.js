@@ -1,3 +1,4 @@
+/**@type {command}*/
 module.exports = {
   name: '',
   aliases: { prefix: [], slash: [] },

@@ -1,5 +1,6 @@
 const { getTarget } = require('../../Utils');
 
+/**@type {command}*/
 module.exports = {
   name: 'motherweight',
   aliases: { prefix: ['mutterwaage'] },
@@ -8,7 +9,6 @@ module.exports = {
   dmPermission: true,
   options: [{ name: 'target', type: 'User' }],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
       target = getTarget.call(this),

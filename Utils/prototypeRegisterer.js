@@ -18,7 +18,6 @@ if (!require('../config.json')?.HideOverwriteWarning) console.warn(`Overwriting 
 
 global.log = new Log();
 global.sleep = require('util').promisify(setTimeout);
-/**@param {string}path @returns {string[]}directory names*/
 global.getDirectories = async path => (await readdir(path, { withFileTypes: true })).reduce((acc, e) => e.isDirectory() ? [...acc, e.name] : acc, []);
 
 Object.defineProperty(Array.prototype, 'random', {
@@ -30,7 +29,6 @@ Object.defineProperty(Number.prototype, 'limit', {
   enumerable: false
 });
 Object.defineProperty(Object.prototype, 'fMerge', {
-  /**@param {'overwrite'|'push'|null}mode*/
   value: function fMerge(obj, mode, { ...output } = { ...this }) {
     if (`${{}}` != this || `${{}}` != obj) return output;
     for (const key of Object.keys({ ...this, ...obj })) {
@@ -69,9 +67,7 @@ Object.defineProperty(BaseInteraction.prototype, 'customReply', {
   enumerable: false
 });
 Object.defineProperties(BaseClient.prototype, {
-  /**@type {Collection<string, object}*/
   prefixCommands: { value: new Collection() },
-  /**@type {Collection<string, object}*/
   slashCommands: { value: new Collection() },
   i18n: { value: new I18nProvider({ notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: join(__dirname, '/../Locales') }) },
   cooldowns: { value: new Map() },

@@ -2,13 +2,13 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   { Invite } = require('../../config.json').Website;
 
+/**@type {command}*/
 module.exports = {
   name: 'invite',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),

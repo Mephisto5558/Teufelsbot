@@ -3,7 +3,7 @@ const
   fetch = require('node-fetch').default,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
   cachedSubreddits = new Collection(),
-  fetchPost = ({ children }, filterNSFW) => {
+  fetchPost = ({ children }, filterNSFW=true) => {
     if (filterNSFW) children = children.filter(e => !e.data.over_18);
     if (!children[0]) return;
 
@@ -22,6 +22,7 @@ const
     };
   };
 
+/**@type {command}*/
 module.exports = {
   name: 'reddit',
   cooldowns: { user: 100 },
@@ -41,7 +42,6 @@ module.exports = {
         {
           name: 'subreddit',
           type: 'String',
-          /**@this AutocompleteInteraction*/
           autocompleteOptions: function () { return (this.focused.value.startsWith('r/') ? this.focused.value.slice(2) : this.focused.value).replace(/\W/g, ''); }
         },
         { name: 'type', type: 'String' },
@@ -50,7 +50,6 @@ module.exports = {
     }
   ],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       filterNSFW = !this.channel.nsfw || (this.options?.getBoolean('filter_nsfw') ?? true),

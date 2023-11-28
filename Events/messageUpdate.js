@@ -8,6 +8,7 @@ module.exports = async function messageUpdate(newMsg) {
     || this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size && this.embeds.length && newMsg.embeds.length
   ) return;
 
+  /**@type {import('discord.js').GuildTextBasedChannel | null}*/
   const channel = this.guild.channels.cache.get(setting.channel);
   if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 

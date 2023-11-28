@@ -4,6 +4,7 @@ const
   { Repo } = require('../../config.json').Github,
   options = { headers: { 'User-Agent': `Discord Bot (${Repo})` } };
 
+/**@type {command}*/
 module.exports = {
   name: 'wiki',
   aliases: { prefix: ['wikipedia'] },
@@ -17,7 +18,6 @@ module.exports = {
     required: true
   }],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       query = this.options?.getString('query') || this.content,

@@ -3,6 +3,7 @@ const
   { Domain } = require('../../config.json').Website,
   { timeFormatter } = require('../../Utils');
 
+/**@type {command}*/
 module.exports = {
   name: 'uptime',
   cooldowns: { user: 100 },
@@ -10,7 +11,6 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const embed = new EmbedBuilder({
       description: lang('embedDescription', { time: timeFormatter(process.uptime(), lang).formatted, Domain }),

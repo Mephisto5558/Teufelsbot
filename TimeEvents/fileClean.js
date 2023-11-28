@@ -24,7 +24,7 @@ module.exports = {
   onTick: async function () {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 
-    if (this.settings.lastFileClear == now) return log('Already ran file deletion today');
+    if (this.settings.lastFileClear == now) return void log('Already ran file deletion today');
     log('started file deletion');
 
     deleteOld('./VoiceRecords');

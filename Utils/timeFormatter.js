@@ -1,8 +1,8 @@
-/**@param {number}sec @param {lang}lang*/
-module.exports = (sec = 0, lang = null) => {
+/**@param {number}sec @param {lang?}lang*/
+module.exports = function timeFormatter(sec = 0, lang) {
   const negative = sec < 0;
   sec = Math.abs(sec);
-
+  
   const
     y = Math.floor(sec / (60 * 60 * 24 * 365)),
     secAfterYears = sec % (60 * 60 * 24 * 365),

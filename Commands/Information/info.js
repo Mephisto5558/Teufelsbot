@@ -2,13 +2,13 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   { Invite, Dashboard, PrivacyPolicy } = require('../../config.json').Website;
 
+/**@type {command}*/
 module.exports = {
   name: 'info',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     const
       startTime = Math.round(Date.now() / 1000 - process.uptime()),

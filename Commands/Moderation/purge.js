@@ -10,6 +10,7 @@ const
     server_ads: msg => adRegex(msg.content) || msg.embeds?.some(e => adRegex(e.description)),
   };
 
+/**@param {Message}msg @param {object}options*/
 function shouldDeleteMsg(msg, options) {
   const
     nHas = option => !(option in options),
@@ -29,7 +30,8 @@ function shouldDeleteMsg(msg, options) {
     && (nHas('not_ends_with') || msg.content.endsWith(options.not_ends_with) || msg.embeds?.some(e => e.description.endsWith(options.not_ends_with)));
 }
 
-async function fetchMsgs(channel, limit = 250, before = undefined, after = undefined) {
+/**@param {import('discord.js').TextBasedChannel} @param {string?}before @param {string?}after*/
+async function fetchMsgs(channel, limit = 250, before, after) {
   let
     collection = new Collection(),
     options = { limit: Math.min(limit, 100), before, after },
@@ -49,6 +51,7 @@ async function fetchMsgs(channel, limit = 250, before = undefined, after = undef
   return collection;
 }
 
+/**@type {command}*/
 module.exports = {
   name: 'purge',
   aliases: { prefix: ['clear'] },
@@ -98,7 +101,7 @@ module.exports = {
     { name: 'after_message', type: 'String' },
   ],
 
-  /**@this GuildInteraction|GuildMessage @param {lang}lang*/
+  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const
       amount = this.options?.getInteger('amount') || parseInt(this.args?.[0]).limit({ min: 0, max: 1000 }),

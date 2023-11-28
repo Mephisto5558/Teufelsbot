@@ -2,6 +2,7 @@ const
   { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes } = require('discord.js'),
   { logSayCommandUse } = require('../../Utils');
 
+/**@type {command}*/
 module.exports = {
   name: 'embed',
   permissions: { user: ['EmbedLinks'] },
@@ -55,7 +56,7 @@ module.exports = {
     }
   ],
 
-  /**@this Interaction @param {lang}lang*/
+  /**@this Interaction*/
   run: async function (lang) {
     const getOption = name => this.options.getString(name)?.replaceAll('/n', '\n');
     const custom = getOption('json');

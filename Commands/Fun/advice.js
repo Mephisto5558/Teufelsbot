@@ -2,13 +2,13 @@ const
   { EmbedBuilder } = require('discord.js'),
   fetch = require('node-fetch').default;
 
+/**@type {command}*/
 module.exports = {
   name: 'advice',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),

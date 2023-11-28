@@ -2,6 +2,7 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   { getHashes, createHash } = require('crypto');
 
+/**@type {command}*/
 module.exports = {
   name: 'hash',
   cooldowns: { user: 10000 },
@@ -24,7 +25,7 @@ module.exports = {
     }
   ],
 
-  /**@this Interaction @param {lang}lang*/
+  /**@this Interaction*/
   run: function (lang) {
     const
       input = this.options.getString('input'),

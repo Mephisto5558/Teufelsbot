@@ -1,5 +1,6 @@
 const { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js');
 
+/**@type {command}*/
 module.exports = {
   name: 'editmessage',
   permissions: { user: ['ManageMessages'] },
@@ -22,7 +23,7 @@ module.exports = {
     { name: 'remove_attachments', type: 'Boolean' }
   ],
 
-  /**@this GuildInteraction @param {lang}lang*/
+  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       modal = new ModalBuilder({

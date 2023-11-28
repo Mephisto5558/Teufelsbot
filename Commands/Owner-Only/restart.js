@@ -4,6 +4,7 @@ const
 
 let restarting = false;
 
+/**@type {command}*/
 module.exports = {
   name: 'restart',
   slashCommand: false,
@@ -11,7 +12,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  /**@this Message @param {lang}lang*/
+  /**@this Message*/
   run: async function (lang) {
     if (restarting) return this.reply(lang('alreadyRestarting', restarting));
 
