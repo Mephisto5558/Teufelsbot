@@ -97,17 +97,17 @@ declare module 'discord.js' {
      * <info>This property requires the GatewayIntentBits.MessageContent privileged intent
      * in a guild for messages that do not mention the client.</info>
      */
-    originalContent: string|null;
+    originalContent: string | null;
 
     /**
      * The arguments of the message. It slices out the prefix and splits by spaces. This is a custom property set in 'prototypeRegisterer.js'.
      */
-    args: string[]|null;
+    args: string[] | null;
 
     /**
      * The first word of the original message content. `null` if no prefix has been found. This is a custom property set in 'prototypeRegisterer.js'.
      */
-    commandName: string|null;
+    commandName: string | null;
 
     user: User;
 
@@ -137,7 +137,7 @@ declare module 'discord.js' {
   }
 
   interface User {
-    db: object|null;
+    db: object | null;
     customName: string;
     customTag: string;
   }
