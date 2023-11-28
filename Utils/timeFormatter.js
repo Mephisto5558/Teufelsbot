@@ -1,5 +1,5 @@
 /**@param {number}sec @param {lang?}lang*/
-module.exports = function timeFormatter(sec = 0, lang) {
+module.exports = function timeFormatter(sec = 0, lang=undefined) {
   const negative = sec < 0;
   sec = Math.abs(sec);
   

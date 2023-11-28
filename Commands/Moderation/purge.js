@@ -31,7 +31,7 @@ function shouldDeleteMsg(msg, options) {
 }
 
 /**@param {import('discord.js').TextBasedChannel} @param {string?}before @param {string?}after*/
-async function fetchMsgs(channel, limit = 250, before, after) {
+async function fetchMsgs(channel, limit = 250, before = undefined, after = undefined) {
   let
     collection = new Collection(),
     options = { limit: Math.min(limit, 100), before, after },
