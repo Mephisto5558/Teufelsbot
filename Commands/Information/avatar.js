@@ -2,6 +2,7 @@ const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { getTarget } = require('../../Utils');
 
+/**@type {command}*/
 module.exports = {
   name: 'avatar',
   cooldowns: { guild: 100, user: 1000 },
@@ -17,7 +18,6 @@ module.exports = {
     }
   ],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       target = getTarget.call(this, { returnSelf: true }),

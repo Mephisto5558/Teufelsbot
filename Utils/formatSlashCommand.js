@@ -1,6 +1,6 @@
 const { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js');
 
-/**@param {object}option @param {string}path @param {import('@mephisto5558/i18n')}i18n*/
+/**@param {command|commandOptions}option @param {string}path @param {import('@mephisto5558/i18n')}i18n*/
 module.exports = function format(option, path, i18n) {
   if (option.options) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`, i18n));
 
@@ -42,16 +42,19 @@ module.exports = function format(option, path, i18n) {
   }
 
   if (option.run) {
-    if (!option.disabled && !option.run.toString().startsWith('function') && !option.run.toString().startsWith('async function')) throw new Error(`The run function of file "${path}" is not a function. You cannot use arrow functions.`);
+    /**@type {command}*/
+    const command = option; // this is only necessary for intellisense
 
-    if (!option.type) option.type = ApplicationCommandType.ChatInput;
-    else if (!ApplicationCommandType[option.type]) { if (!option.disabled) throw new Error(`Invalid option.type, got "${option.type}" (${path})`); }
-    else if (isNaN(option.type)) option.type = ApplicationCommandType[option.type];
+    if (!command.disabled && !command.run.toString().startsWith('function') && !command.run.toString().startsWith('async function')) throw new Error(`The run function of file "${path}" is not a function. You cannot use arrow functions.`);
 
-    if (option.permissions?.user?.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions.user);
-    option.dmPermission ??= false;
+    if (!command.type) command.type = ApplicationCommandType.ChatInput;
+    else if (!ApplicationCommandType[command.type]) { if (!command.disabled) throw new Error(`Invalid command.type, got "${command.type}" (${path})`); }
+    else if (isNaN(command.type)) command.type = ApplicationCommandType[command.type];
 
-    return option;
+    if (command.permissions?.user?.length) command.defaultMemberPermissions = new PermissionsBitField(command.permissions.user);
+    command.dmPermission ??= false;
+
+    return command;
   }
 
   if (/[A-Z]/.test(option.name)) {

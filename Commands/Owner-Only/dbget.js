@@ -1,3 +1,4 @@
+/**@type {command}*/
 module.exports = {
   name: 'dbget',
   slashCommand: false,
@@ -5,7 +6,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  /**@this Message @param {lang}lang*/
+  /**@this Message*/
   run: function (lang) {
     const result = this.client.db.get(this.args[0], this.args[1]);
 

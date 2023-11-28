@@ -8,7 +8,7 @@ const
     { name: 'icanhazdadjoke', link: 'https://icanhazdadjoke.com', url: 'https://icanhazdadjoke.com' }
   ];
 
-/**@this Client*/
+/**@this Client @returns {[str, { name: string, link: string, url: string }] | undefined}*/
 async function getJoke(APIList = [], type = '', blacklist = '', maxLength = 2000) {
   const api = APIList.random();
   let response;
@@ -58,6 +58,7 @@ async function getJoke(APIList = [], type = '', blacklist = '', maxLength = 2000
   if (APIList.length) return getJoke.call(this, APIList, type, blacklist, maxLength);
 }
 
+/**@type {command}*/
 module.exports = {
   name: 'joke',
   cooldowns: { guild: 100 },
@@ -85,7 +86,6 @@ module.exports = {
     }
   ],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       apiStr = this.options?.getString('api'),

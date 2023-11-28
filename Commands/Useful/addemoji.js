@@ -13,6 +13,7 @@ const checkUrl = url => new Promise((resolve, reject) => {
     .end();
 });
 
+/**@type {command}*/
 module.exports = {
   name: 'addemoji',
   permissions: { client: ['ManageEmojisAndStickers'], user: ['ManageEmojisAndStickers'] },
@@ -34,7 +35,7 @@ module.exports = {
     { name: 'limit_to_roles', type: 'String' }
   ],
 
-  /**@this GuildInteraction @param {lang}lang*/
+  /**@this GuildInteraction*/
   run: async function (lang) {
     let input = this.options.getString('emoji_or_url');
 

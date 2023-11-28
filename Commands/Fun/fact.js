@@ -2,6 +2,7 @@ const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   fetch = require('node-fetch').default;
 
+/**@type {command}*/
 module.exports = {
   name: 'fact',
   cooldowns: { guild: 100 },
@@ -9,7 +10,6 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     const
       data = await fetch(`https://uselessfacts.jsph.pl/api/v2/facts/random?language=${lang.__boundArgs__[0].locale}`).then(e => e.json()),

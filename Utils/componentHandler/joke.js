@@ -4,7 +4,7 @@ module.exports = function joke(lang, api, type, blacklist, maxLength) {
   lang.__boundArgs__[0].backupPath = 'commands.fun.joke';
 
   this.options = {
-    getString: str => {
+    getString: /**@param {string}str*/ str => {
       switch (str) {
         case 'api': return api == 'null' ? null : api;
         case 'type': return type == 'null' ? null : type;

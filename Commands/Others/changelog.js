@@ -2,6 +2,7 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   embed = new EmbedBuilder({ color: Colors.White });
 
+/**@type {command}*/
 module.exports = {
   name: 'changelog',
   aliases: { prefix: ['changelogs'] },
@@ -10,7 +11,6 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: function (lang) {
     return this.customReply({ embeds: [embed.setTitle(lang('embedTitle')).setDescription(this.client.settings.changelog || lang('noneFound'))] });
   }

@@ -3,6 +3,7 @@ const
   { getAverageColor } = require('fast-average-color-node'),
   { getTarget, getAge, permissionTranslator } = require('../../Utils');
 
+/**@type {command}*/
 module.exports = {
   name: 'userinfo',
   aliases: { prefix: ['user-info'] },
@@ -11,7 +12,6 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'target', type: 'User' }],
 
-  /**@this Interaction|Message @param {lang}lang*/
   run: async function (lang) {
     this.args = this.args?.map(e => e.replace(/[<@&>]/g, '')) || [];
     this.content = this.content?.replace(/[<@&>]/g, '');
