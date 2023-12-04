@@ -54,7 +54,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
 
   if (typeof response == 'string') return [response.replaceAll('`', '\''), api];
 
-  apiList = apiList.filter(str => str.name !== api?.name);
+  apiList = apiList.filter(str => str?.name !== api?.name);
   return apiList.length ? getJoke.call(this, apiList, type, blacklist, maxLength) : [];
 }
 
