@@ -26,7 +26,7 @@ If you have any questions feel free to open an issue.<br>
 ## Requirements
 
 ```
-Node.js 16.9.0 or newer
+Node.js 18.17.0 or newer
 MongoDB set up
 ```
 <br>
