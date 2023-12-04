@@ -8,7 +8,7 @@ const
     { name: 'icanhazdadjoke', link: 'https://icanhazdadjoke.com', url: 'https://icanhazdadjoke.com' }
   ];
 
-/**@this Client @returns {[str, { name: string, link: string, url: string }] | undefined}*/
+/**@this Client @returns {[str, { name: string, link: string, url: string }] | []}*/
 async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000) {
   const api = apiList.random();
   let response;
