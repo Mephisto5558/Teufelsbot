@@ -9,8 +9,8 @@ const
   ];
 
 /**@this Client @returns {[str, { name: string, link: string, url: string }] | undefined}*/
-async function getJoke(APIList = [], type = '', blacklist = '', maxLength = 2000) {
-  const api = APIList.random();
+async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000) {
+  const api = apiList.random();
   let response;
 
   try {
@@ -27,7 +27,7 @@ async function getJoke(APIList = [], type = '', blacklist = '', maxLength = 2000
       case 'humorAPI': {
         const res = await fetch(`${api.url}?api-key=${this.keys.humorAPIKey}&min-rating=7&max-length=${maxLength}&include-tags=${type}&exclude-tags=${blacklist}`, { timeout: 2500 }).then(e => e.json());
 
-        response = res.joke.includes('Q: ') ? res.joke.replace('Q: ', '').replace('A: ', '\n||') + '||\n' : res.joke;
+        response = res.joke?.includes('Q: ') ? res.joke.replace('Q: ', '').replace('A: ', '\n||') + '||\n' : res.joke;
         break;
       }
 
@@ -54,8 +54,8 @@ async function getJoke(APIList = [], type = '', blacklist = '', maxLength = 2000
 
   if (typeof response == 'string') return [response.replaceAll('`', '\''), api];
 
-  APIList = APIList.filter(str => str.name !== api.name);
-  if (APIList.length) return getJoke.call(this, APIList, type, blacklist, maxLength);
+  apiList = apiList.filter(str => str?.name !== api.name);
+  if (apiList.length) return getJoke.call(this, apiList, type, blacklist, maxLength);
 }
 
 /**@type {command}*/
