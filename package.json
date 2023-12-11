@@ -35,6 +35,10 @@
     "utf-8-validate": "^6.0.3",
     "zlib-sync": "^0.1.8"
   },
+  "devDependencies": {
+    "eslint": "^8.7.0",
+    "prettier": "^2.5.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Mephisto5558/Teufelsbot.git"
