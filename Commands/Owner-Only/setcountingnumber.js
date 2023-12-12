@@ -15,7 +15,7 @@ module.exports = {
     if (isNaN(number)) return this.reply(lang('invalidNumber'));
     if (!this.guild.channels.cache.get(channel)) return this.reply(lang('unknownChannel'));
 
-    await this.guild.db.update('guildSettings', `counting.${channel}`, { lastNumber: number, lastAuthor: 'setcountingnumber' });
+    await this.client.db.update('guildSettings', `${this.guild.id}.counting.${channel}`, { lastNumber: number, lastAuthor: 'setcountingnumber' });
     return this.reply(lang('success', { channel, number }));
   }
 };
