@@ -3,11 +3,11 @@ const
   { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors } = require('discord.js'),
   { Github } = require('../config.json');
 
-/**@this Client @param {Error}err @param {Message|import('discord.js').BaseInteraction}message @param {lang}lang*/
+/**@this Client @param {Error}err @param {Message|import('discord.js').BaseInteraction|null}message @param {lang?}lang*/
 module.exports = async function errorHandler(err, message, lang) {
-  log.error(' [Error Handling] :: Uncaught Error', message.commandName ? `Command: ${message.commandName}` : '', err.stack || JSON.stringify(err));
+  log.error(' [Error Handling] :: Uncaught Error', message?.commandName ? `Command: ${message.commandName}` : '', err.stack || JSON.stringify(err));
 
-  if (!message) return;
+  if (!message || !lang) return;
 
   lang.__boundArgs__[0].backupPath = 'others.errorHandler';
 
