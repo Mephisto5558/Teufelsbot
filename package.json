@@ -30,6 +30,9 @@
     "sodium-native": "^4.0.4",
     "wikijs": "^6.4.1"
   },
+  "overrides": {
+    "sharp": "^0.33.0"
+  },
   "optionalDependencies": {
     "bufferutil": "^4.0.7",
     "utf-8-validate": "^6.0.3",
