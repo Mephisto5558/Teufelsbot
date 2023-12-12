@@ -54,3 +54,7 @@ This will generate all required objects from the `Templates\db_collections.json`
 ## How to add more languages and change texts
 
 You can add changes on [Crowdin](https://de.crowdin.com/project/teufelsbot) or edit the language files in the `Locales` folder manually.
+
+### Note to the sharp overwrite in package.json
+The overwrite is required because fast-average-color-node (which requires the sharp package) and the canvas package are having compatibility issues on windows systems.<br>
+See [node-canvas #930](https://github.com/Automattic/node-canvas/issues/930), [sharp #2548](https://github.com/lovell/sharp/issues/2548).
