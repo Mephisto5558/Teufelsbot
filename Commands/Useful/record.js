@@ -27,6 +27,7 @@ module.exports = {
     const
       allowed = new Set(),
       collected = new Set(),
+      /**@type {import('discord.js').VoiceBasedChannel} */
       voiceChannel = this.options.getChannel('channel') || this.options.getMember('target')?.voice.channel || this.member.voice.channel,
       target = voiceChannel?.members.get(this.options.getMember('target')?.id),
       targets = (target ? [target] : [...(voiceChannel?.members?.values() ?? [])]).filter(e => e?.voice.channel && !e.user.bot),
