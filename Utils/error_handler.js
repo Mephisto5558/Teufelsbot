@@ -5,7 +5,7 @@ const
 
 /**@this Client @param {Error}err @param {Message|import('discord.js').BaseInteraction}message @param {lang}lang*/
 module.exports = async function errorHandler(err, message, lang) {
-  log.error(' [Error Handling] :: Uncaught Error', err.stack);
+  log.error(' [Error Handling] :: Uncaught Error', message.commandName ? `Command: ${message.commandName}` : '', err.stack || JSON.stringify(err));
 
   if (!message) return;
 
