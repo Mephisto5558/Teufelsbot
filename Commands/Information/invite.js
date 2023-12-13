@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { Invite } = require('../../config.json').Website;
+  { Invite } = require('../../config.json')?.Website ?? {};
 
 /**@type {command}*/
 module.exports = {
@@ -8,6 +8,8 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
+  disabled: !Invite,
+  disabledReason: 'Missing invite url in config.json',
 
   run: function (lang) {
     const embed = new EmbedBuilder({

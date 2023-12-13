@@ -1,8 +1,10 @@
 const
   wiki = require('wikijs').default,
   { EmbedBuilder, Colors } = require('discord.js'),
-  { Repo } = require('../../config.json').Github,
-  options = { headers: { 'User-Agent': `Discord Bot (${Repo})` } };
+  { Repo } = require('../../config.json')?.Github ?? {},
+  options = { headers: { 'User-Agent': 'Discord Bot' } };
+
+if (Repo) options.headers['User-Agent'] += ` (${Repo})`;
 
 /**@type {command}*/
 module.exports = {
