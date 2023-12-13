@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { Invite, Dashboard, PrivacyPolicy } = require('../../config.json').Website;
+  { Invite, Dashboard, PrivacyPolicy } = require('../../config.json')?.Website ?? {};
 
 /**@type {command}*/
 module.exports = {
@@ -21,8 +21,7 @@ module.exports = {
         + `${lang('commands')}: \`${new Set(this.client.prefixCommands.filter(e => !e.aliasOf), this.client.slashCommands.filter(e => !e.aliasOf)).size}\`\n`
         + `${lang('starts')}: \`${this.client.settings.startCount[this.client.botType] || 0}\`\n`
         + `${lang('lastStart')}: <t:${startTime}> (<t:${startTime}:R>)\n`
-        + lang('translation', { de: '[Mephisto5558](https://discord.com/users/691550551825055775) & [Koikarpfen1907](https://discord.com/users/636196723852705822)', en: '[Mephisto5558](https://discord.com/users/691550551825055775) & [PenguinLeo](https://discord.com/users/740930989798195253)' })
-        + lang('links', { Invite, Dashboard, PrivacyPolicy }),
+        + lang('translation', { de: '[Mephisto5558](https://discord.com/users/691550551825055775) & [Koikarpfen1907](https://discord.com/users/636196723852705822)', en: '[Mephisto5558](https://discord.com/users/691550551825055775) & [PenguinLeo](https://discord.com/users/740930989798195253)' }),
 
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
@@ -30,6 +29,8 @@ module.exports = {
         color: Colors.DarkGold,
         footer: { text: lang('embedFooterText') }
       });
+
+    if (Invite && Dashboard && PrivacyPolicy) embed.data.description += lang('links', { Invite, Dashboard, PrivacyPolicy });
 
     return this.customReply({ embeds: [embed] });
   }
