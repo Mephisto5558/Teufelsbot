@@ -4,6 +4,7 @@ module.exports = {
   bankick: require('./bankick.js'),
   checkForErrors: require('./checkForErrors.js'),
   checkTargetManageable: require('./checkTargetManageable.js'),
+  commandExecutionWrapper: require('./commandExecutionWrapper.js'),
   componentHandler: require('./componentHandler.js'),
   cooldowns: require('./cooldowns.js'),
   errorHandler: require('./error_handler.js'),

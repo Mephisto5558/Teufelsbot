@@ -1,3 +1,5 @@
+const commandExecutionWrapper = require('../commandExecutionWrapper.js');
+
 /** this.customId: `reddit.<subreddit>.<type>.<filterNSFW>`
  * @this import('discord.js').ButtonInteraction @param {lang}lang @param {string}subreddit @param {string}type @param {'true'|'false'}filterNSFW*/
 module.exports = function reddit(lang, subreddit, type, filterNSFW) {
@@ -10,5 +12,5 @@ module.exports = function reddit(lang, subreddit, type, filterNSFW) {
 
   this.update({ components: [] });
 
-  this.client.slashCommands.get('reddit').run.call(this, lang);
+  return commandExecutionWrapper.call(this, this.client.slashCommands.get('reddit'), 'component', lang);
 };

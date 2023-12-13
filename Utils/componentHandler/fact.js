@@ -1,3 +1,5 @@
+const commandExecutionWrapper = require('../commandExecutionWrapper.js');
+
 /** this.customId: `fact`
  * @this import('discord.js').ButtonInteraction @param {lang}lang*/
 module.exports = function fact(lang) {
@@ -5,5 +7,5 @@ module.exports = function fact(lang) {
 
   this.update({ components: [] });
 
-  this.client.slashCommands.get('fact').run.call(this, lang);
+  return commandExecutionWrapper.call(this, this.client.slashCommands.get('fact'), 'component', lang);
 };
