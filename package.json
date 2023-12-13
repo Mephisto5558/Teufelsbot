@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@discordjs/voice": "^0.16.0",
+    "@img/sharp-win32-x64": "^0.33.0",
     "@mephisto5558/i18n": "^1.1.1",
     "@mephisto5558/mongoose-db": "*",
     "better-ms": "^1.1.7",
