@@ -3,7 +3,7 @@ const
   fetch = require('node-fetch').default,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
   cachedSubreddits = new Collection(),
-  fetchPost = ({ children }, filterNSFW=true) => {
+  fetchPost = ({ children }, filterNSFW = true) => {
     if (filterNSFW) children = children.filter(e => !e.data.over_18);
     if (!children[0]) return;
 
@@ -49,6 +49,8 @@ module.exports = {
       ]
     }
   ],
+  disabled: true,
+  disabledReason: 'Reddit has blocked the bot\'s IP.',
 
   run: async function (lang) {
     const
