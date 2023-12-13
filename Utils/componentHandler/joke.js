@@ -1,3 +1,5 @@
+const commandExecutionWrapper = require('../commandExecutionWrapper.js');
+
 /** this.customId: `joke.<api>.<type>.<blacklist>.<maxLength>`
  * @this import('discord.js').ButtonInteraction @param {lang}lang @param {string}api @param {string}type @param {string}blacklist @param {string}maxLength*/
 module.exports = function joke(lang, api, type, blacklist, maxLength) {
@@ -17,5 +19,5 @@ module.exports = function joke(lang, api, type, blacklist, maxLength) {
 
   this.update({ components: [] });
 
-  this.client.slashCommands.get('joke').run.call(this, lang);
+  return commandExecutionWrapper.call(this, this.client.slashCommands.get('joke'), 'component', lang);
 };
