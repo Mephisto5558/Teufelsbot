@@ -36,7 +36,7 @@ module.exports = async function errorHandler(err, message, lang) {
       await button.deferUpdate();
 
       try {
-        if (!Github.UserName || !Github.RepoName) throw Error('Missing GitHub username or reponame config');
+        if (!Github?.UserName || !Github.RepoName) throw Error('Missing GitHub username or reponame config');
 
         const
           res = await fetch(`https://api.github.com/repos/${Github.UserName}/${Github.RepoName}/issues`, {
