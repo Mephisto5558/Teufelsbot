@@ -1,4 +1,3 @@
-replit.nix
 logs
 *.log
 /env.json
