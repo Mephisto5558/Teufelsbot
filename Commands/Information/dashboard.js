@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { Domain, Dashboard } = require('../../config.json').Website;
+  { Domain, Dashboard } = require('../../config.json')?.Website ?? {};
 
 /**@type {command}*/
 module.exports = {
@@ -9,6 +9,8 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
+  disabled: !Dashboard || !Domain,
+  disabledReason: 'Missing dashboard or domain url in config.json',
 
   run: function (lang) {
     const embed = new EmbedBuilder({
