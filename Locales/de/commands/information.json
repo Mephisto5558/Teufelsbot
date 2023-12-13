@@ -228,7 +228,7 @@
   },
   "uptime": {
     "description": "Erhalte die Uptime des Bots",
-    "embedDescriptionNoURL": "Der bot ist online seit {time}.",
+    "embedDescriptionNoURL": "Der Bot ist online seit {time}.",
     "embedDescription": "Der Bot ist [online]({Domain}/uptime) seit {time}."
   },
   "userinfo": {
