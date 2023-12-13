@@ -228,7 +228,8 @@
   },
   "uptime": {
     "description": "Get the bot's uptime",
-    "embedDescription": "The bot has been [online]({Domain}/uptime) for exactly {time}."
+    "embedDescriptionNoURL": "The bot has been online for {time}.",
+    "embedDescription": "The bot has been [online]({Domain}/uptime) for {time}."
   },
   "userinfo": {
     "description": "Get information about a member",
