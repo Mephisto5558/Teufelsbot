@@ -34,7 +34,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
       case 'icanhazdadjoke': {
         const res = await fetch(api.url, {
           headers: {
-            'User-Agent': `Discord bot (${Github.Repo})`,
+            'User-Agent': `Discord bot (${Github?.Repo})`,
             Accept: 'application/json'
           }
         }).then(e => e.json());
