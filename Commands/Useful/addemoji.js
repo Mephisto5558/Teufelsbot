@@ -63,10 +63,11 @@ module.exports = {
       if (limitToRoles?.length) embed.data.description += lang('limitedToRoles', `<@&${limitToRoles.join('>, <@&')}>`);
     }
     catch (err) {
-      if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]'))
+      if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]')) //todo: switch to checking error code
         embed.data.description = lang('error', lang('tooBig'));
-      else if (!['DiscordAPIError[30008]', 'AbortError', 'ConnectTimeoutError'].includes(err.name)) throw err;
-      
+      else if (err.code != 30008 /*"Maximum number of emojis reached"*/ && err.name != 'AbortError' && err.name != 'ConnectTimeoutError') throw err;
+      //todo: switch to checking error class
+
       embed.data.description = lang('error', err.name == 'AbortError' || err.name == 'ConnectTimeoutError' ? lang('timedOut') : err.message);
     }
 

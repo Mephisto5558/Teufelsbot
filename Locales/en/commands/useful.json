@@ -272,7 +272,7 @@
         "description": "The largest possible number. Defaults to 100."
       }
     },
-    "randomnumber": "A random number {min} and {max}:\n{randomnumber}",
+    "randomNumber": "A random number {min} and {max}:\n{randomNumber}",
     "outOfRange": "One of the specified numbers is invalid, too large or too small!\\nSmallest possible number: `{min}`, largest possible number: `{max}`"
   },
   "record": {

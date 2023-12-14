@@ -47,7 +47,9 @@ console.time('Starting time');
 
   let env;
   try { env = require('./env.json'); }
-  catch {
+  catch (err) {
+    if (err.code != 'MODULE_NOT_FOUND') throw err;
+
     client.db = await new DB(process.env.dbConnectionStr, 'db-collection', 100).fetchAll();
     env = client.settings.env;
   }

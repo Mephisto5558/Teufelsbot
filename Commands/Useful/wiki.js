@@ -80,7 +80,7 @@ module.exports = {
     }
     catch (err) {
       if (this.client.botType == 'dev') throw err;
-      return this.customReply(lang('error', err.message));
+      return this.customReply(lang('error', err.message)); //todo improve this error checking
     }
   }
 };

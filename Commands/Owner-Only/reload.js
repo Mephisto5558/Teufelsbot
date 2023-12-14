@@ -8,9 +8,11 @@ const
 async function reloadCommand(command, reloadedArray) {
   delete require.cache[command.filePath];
 
-  let file;
+  let file = {};
   try { file = require(command.filePath); }
-  catch { file = {}; }
+  catch (err) {
+    if (err.code != 'MODULE_NOT_FOUND') throw err;
+  }
 
   const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n) : null;
 
@@ -103,8 +105,8 @@ module.exports = {
 
           try { await access(filePath); }
           catch (err) {
-            if (err.code == 'ENOENT') return msg.edit(lang('invalidPath'));
-            throw err;
+            if (err.code != 'ENOENT') throw err;
+            return msg.edit(lang('invalidPath'));
           }
 
           if (this.args[1]?.startsWith('Commands/')) {
@@ -128,10 +130,10 @@ module.exports = {
       }
     }
     catch (err) {
-      msg.edit(lang('error', err.message));
+      msg.reply(lang('error', err.message));
 
       if (this.client.botType == 'dev') throw err;
-      else log.error('Error while trying to reload a command:\n', err);
+      log.error('Error while trying to reload a command:\n', err);
     }
 
     const commands = reloadedArray.reduce((acc, e) => acc + (e.startsWith('<') ? e : `\`${e}\``) + ', ', '').slice(0, -2);

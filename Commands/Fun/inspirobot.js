@@ -15,6 +15,7 @@ module.exports = {
     try { res = await fetch('https://inspirobot.me/api?generate=true').then(e => e.text()); }
     catch (err) {
       if (!(err instanceof FetchError)) throw err;
+      
       await this.customReply(lang('error'));
       return log.error(err.message);
     }

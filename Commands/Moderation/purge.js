@@ -113,7 +113,12 @@ module.exports = {
     if (!amount) return this.customReply(isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
     if (options.before && options.after) return this.customReply(lang('beforeAndAfter'));
 
-    if (this instanceof Message) await this.delete().catch(() => { });
+    if (this instanceof Message) {
+      try { await this.delete(); }
+      catch (err) {
+        if (err.code != 10008) throw err; // Unknown Message
+      }
+    }
 
     if (filterOptionsExist(options)) {
       if (

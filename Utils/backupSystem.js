@@ -1,5 +1,5 @@
 const
-  { SnowflakeUtil, GatewayIntentBits, ChannelType, OverwriteType, Constants, GuildFeature, AttachmentBuilder, StickerType, Collection } = require('discord.js'),
+  { SnowflakeUtil, GatewayIntentBits, ChannelType, OverwriteType, Constants, GuildFeature, AttachmentBuilder, StickerType, Collection, DiscordAPIError } = require('discord.js'),
   fetch = require('node-fetch');
 
 class BackupSystem {
@@ -164,10 +164,18 @@ class BackupSystem {
     if (clearGuildBeforeRestore) {
       statusObj.status = 'clear.items';
       for (const [, item] of [...await guild.channels.fetch(), ...await guild.emojis.fetch(), ...await guild.stickers.fetch(), ...(await guild.roles.fetch()).filter(r => !r.managed && r.editable && r.id != guild.id && !guild.roles.cache.find(e => e.name == r.name && e.editable))])
-        try { await item.delete(reason); } catch { }
+        try { await item.delete(reason); }
+        catch (err) {
+          if (!(err instanceof DiscordAPIError)) throw err;
+        }
 
       statusObj.status = 'clear.bans';
-      for (const [, { user }] of (await guild.bans.fetch()).filter(e => !data.bans.find(b => e.user.id == b.id && e.reason == b.reason))) try { await guild.bans.remove(user.id, reason); } catch { }
+      for (const [, { user, reason }] of await guild.bans.fetch())
+        if (!data.bans.some(e => user.id == e.id && reason == e.reason))
+          try { await guild.bans.remove(user.id, reason); }
+          catch (err) {
+            if (!(err instanceof DiscordAPIError)) throw err;
+          }
 
       statusObj.status = 'clear.settings';
       await guild.edit({
@@ -211,7 +219,11 @@ class BackupSystem {
     }
 
     statusObj.status = 'load.features';
-    for (const feature of data.features) try { await guild.edit({ features: [...new Set(guild.features, feature)], reason }); } catch { }
+    for (const feature of data.features)
+      try { await guild.edit({ features: [...new Set(guild.features, feature)], reason }); }
+      catch (err) {
+        if (!(err instanceof DiscordAPIError)) throw err;
+      }
 
     statusObj.status = 'load.roles';
     for (const { isEveryone, name, color, hoist, permissions, mentionable } of data.roles) {
@@ -250,18 +262,27 @@ class BackupSystem {
     statusObj.status = 'load.emojis';
     for (const emoji of data.emojis) {
       try { await guild.emojis.create({ name: emoji.name, attachment: emoji.url ?? this.utils.loadFromBase64(emoji.base64), reason }); }
-      catch { break; }
+      catch (err) {
+        if (err.code != 30008) throw err; //"Maximum number of emojis reached"
+        break;
+      }
     }
 
     statusObj.status = 'load.stickers';
     for (const sticker of data.stickers) {
       try { await guild.stickers.create({ name: sticker.name, description: sticker.description, tags: sticker.tags, file: sticker.url ?? this.utils.loadFromBase64(sticker.base64), reason }); }
-      catch { break; }
+      catch (err) {
+        if (err.code != 30039) throw err; //"Maximum number of stickers reached"
+        break;
+      }
     }
 
     statusObj.status = 'load.bans';
     for (const ban of data.bans)
-      try { await guild.members.ban(ban.id, { reason: ban.reason }); } catch { }
+      try { await guild.bans.create(ban.id, { reason: ban.reason, deleteMessageSeconds: 0 }); }
+      catch (err) {
+        if (!(err instanceof DiscordAPIError)) throw err;
+      }
 
     if (data.widget.channel) await guild.setWidgetSettings({ enabled: data.widget.enabled, channel: guild.channels.cache.find(e => e.name == data.widget.channel) }, reason);
 
@@ -308,8 +329,8 @@ class BackupSystem {
       isNews: channel.type == ChannelType.GuildAnnouncement,
       rateLimitPerUser: channel.type == ChannelType.GuildText ? channel.rateLimitPerUser : undefined,
       topic: channel.topic,
-      permissions: await this.utils.fetchChannelPermissions(channel),
-      messages: await this.utils.fetchChannelMessages(channel, saveImages, maxMessagesPerChannel).catch(() => { }),
+      permissions: this.utils.fetchChannelPermissions(channel),
+      messages: await this.utils.fetchChannelMessages(channel, saveImages, maxMessagesPerChannel).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; }),
       threads: await this.utils.fetchChannelThreads(channel, saveImages, maxMessagesPerChannel)
     }),
     /**@param {import('discord.js').GuildChannel}channel @param {boolean}saveImages @param {number}maxMessagesPerChannel*/
@@ -320,7 +341,7 @@ class BackupSystem {
       autoArchiveDuration: e.autoArchiveDuration,
       locked: e.locked,
       rateLimitPerUser: e.rateLimitPerUser,
-      messages: await this.utils.fetchChannelMessages(e, saveImages, maxMessagesPerChannel).catch(() => { }),
+      messages: await this.utils.fetchChannelMessages(e, saveImages, maxMessagesPerChannel).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; }),
     })),
     /**@param {import('discord.js').GuildChannel}channel @param {boolean}saveImages @param {number}maxMessagesPerChannel*/
     fetchChannelMessages: async (channel, saveImages, maxMessagesPerChannel) => Promise.all((await channel.messages.fetch({ limit: isNaN(maxMessagesPerChannel) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: 100 }) })).filter(e => e.author).map(async e => ({
@@ -360,7 +381,12 @@ class BackupSystem {
       const newChannel = await guild.channels.create(createOptions);
       if (Constants.TextBasedChannelTypes.includes(channel.type)) {
         let webhook;
-        if (channel.messages.length > 0) try { webhook = await this.utils.loadChannelMessages(newChannel, channel.messages, null, maxMessagesPerChannel, allowedMentions); } catch { }
+        if (channel.messages.length > 0)
+          try { webhook = await this.utils.loadChannelMessages(newChannel, channel.messages, null, maxMessagesPerChannel, allowedMentions); }
+          catch (err) {
+            if (!(err instanceof DiscordAPIError)) throw err;
+          }
+
         for (const threadData of channel.threads) {
           const thread = await newChannel.threads.create({ name: threadData.name, autoArchiveDuration: threadData.autoArchiveDuration });
           if (webhook) await this.utils.loadChannelMessages(thread, threadData.messages, webhook, maxMessagesPerChannel, allowedMentions);
@@ -371,22 +397,28 @@ class BackupSystem {
     },
     /**@param {import('discord.js').GuildTextBasedChannel}channel @param {Message[]}messages @param {import('discord.js').Webhook?} @param {number}maxMessagesPerChannel @param {import('discord.js').APIAllowedMentions}*/
     loadChannelMessages: async (channel, messages, webhook, maxMessagesPerChannel, allowedMentions) => {
-      webhook ??= await channel.createWebhook({ name: 'MessagesBackup', avatar: channel.client.user.displayAvatarURL() }).catch(() => { });
+      try { webhook ??= await channel.createWebhook({ name: 'MessagesBackup', avatar: channel.client.user.displayAvatarURL() }); }
+      catch (err) {
+        if (![30007, 30058].includes(err.code)) throw err; // "Maximum number of webhooks reached", "Maximum number of webhooks per guild reached" 
+      }
+
       if (!webhook) return;
 
-      for (const msg of messages.filter(m => m.content.length > 0 || m.embeds.length > 0 || m.files.length > 0).reverse().slice(-maxMessagesPerChannel)) try {
-        const sentMsg = await webhook.send({
-          content: msg.content.length ? msg.content : undefined,
-          username: msg.username,
-          avatarURL: msg.avatar,
-          embeds: msg.embeds,
-          files: msg.files.map(f => new AttachmentBuilder(f.attachment, { name: f.name })),
-          allowedMentions: allowedMentions,
-          threadId: channel.isThread() ? channel.id : undefined
-        });
+      for (const msg of messages.filter(m => m.content.length > 0 || m.embeds.length > 0 || m.files.length > 0).reverse().slice(-maxMessagesPerChannel))
+        try {
+          const sentMsg = await webhook.send({
+            content: msg.content.length ? msg.content : undefined,
+            username: msg.username,
+            avatarURL: msg.avatar,
+            embeds: msg.embeds,
+            files: msg.files.map(f => new AttachmentBuilder(f.attachment, { name: f.name })),
+            allowedMentions: allowedMentions,
+            threadId: channel.isThread() ? channel.id : undefined
+          });
 
-        if (msg.pinned && (await channel.messages.fetchPinned()).size < 50) await sentMsg.pin();
-      } catch (err) { log.error('Backup load error:', err); }
+          if (msg.pinned && sentMsg.pinnable && (await channel.messages.fetchPinned()).size < 50) await sentMsg.pin();
+        }
+        catch (err) { log.error('Backup load error:', err); }
 
       return webhook;
     }

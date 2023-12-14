@@ -68,8 +68,8 @@ module.exports = {
       let res;
       try { res = await fetch(`https://reddit.com/r/${subreddit}/${type}.json`, { follow: 1 }).then(res => res.json()); }
       catch (err) {
-        if (err.type == 'max-redirect') return this.customReply(lang('notFound'));
-        throw err;
+        if (err.type != 'max-redirect') throw err;
+        return this.customReply(lang('notFound'));
       }
 
       if (res.error == 404) return this.customReply(lang('notFound'));

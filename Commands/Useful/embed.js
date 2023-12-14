@@ -87,7 +87,9 @@ module.exports = {
 
       sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed], allowedMentions });
     }
-    catch (err) { return this.editReply(lang('invalidOption', err.message)); }
+    catch (err) {
+      return this.editReply(lang('invalidOption', err.message)); // todo: improve error handling
+    }
 
     await this.editReply(custom ? lang('successJSON') : lang('success', JSON.stringify(embed.data.filterEmpty())));
     return logSayCommandUse.call(sentMessage, this.member, lang);

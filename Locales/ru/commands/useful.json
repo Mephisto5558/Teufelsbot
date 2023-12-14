@@ -261,8 +261,8 @@
   "randomnumber": {
     "description": "Возвращает случайное число. Использует значения по умолчанию для недопустимых вводов.",
     "usage": {
-      "usage": "{prefix}случайное число [min] [max]",
-      "examples": "{prefix}случайное число 1 10"
+      "usage": "{prefix}randomnumber [min] [max]",
+      "examples": "{prefix}randomnumber 1 10"
     },
     "options": {
       "minimum": {

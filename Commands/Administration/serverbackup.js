@@ -125,19 +125,22 @@ module.exports = {
             embed.data.color = Colors.White;
             let msg;
             try { msg = await this.member.send({ embeds: [embed.setDescription(lang('load.loadingEmbedDescription'))] }); }
-            catch { return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.enableDMs'))], components: [] }); }
+            catch (err) {
+              if (err.code != 50007) throw err; // "Cannot send messages to this user"
+
+              return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.enableDMs'))], components: [] });
+            }
+
+            const statusObj = new Proxy({ status: null }, {
+              set: function (obj, prop, value) {
+                obj[prop] = value;
+                msg.edit({ embeds: [embed.setDescription(lang(value))] });
+                return true;
+              }
+            });
 
             try {
-              const
-                statusObj = new Proxy({ status: null }, {
-                  set: function (obj, prop, value) {
-                    obj[prop] = value;
-                    msg.edit({ embeds: [embed.setDescription(lang(value))] });
-                    return true;
-                  }
-                }),
-                backup = await this.client.backupSystem.load(id, this.guild, { reason: lang('global.modReason', { command: `${this.commandName} load`, user: this.user.tag }), statusObj, clearGuildBeforeRestore: !this.options.getBoolean('no_clear') });
-
+              const backup = await this.client.backupSystem.load(id, this.guild, { reason: lang('global.modReason', { command: `${this.commandName} load`, user: this.user.tag }), statusObj, clearGuildBeforeRestore: !this.options.getBoolean('no_clear') });
               return msg.edit({ embeds: [embed.setDescription(lang('load.success', backup.id))] });
             }
             catch (err) {

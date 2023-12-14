@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, PermissionFlagsBits } = require('discord.js'),
+  { EmbedBuilder, Colors, PermissionFlagsBits, DiscordAPIError } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
   { timeValidator, checkTargetManageable } = require('../../Utils');
 
@@ -51,7 +51,10 @@ module.exports = {
     date.setTime(date.getTime() + duration);
 
     try { await target.disableCommunicationUntil(date.getTime(), `${reason} | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`); }
-    catch (err) { return this.editReply(lang('error', err.message)); }
+    catch (err) {
+      if (!(err instanceof DiscordAPIError)) throw err;
+      return this.editReply(lang('error', err.message));
+    }
 
     const embed = new EmbedBuilder({
       title: lang('dmEmbedTitle'),
@@ -63,7 +66,10 @@ module.exports = {
     });
 
     try { await target.send({ embeds: [embed] }); }
-    catch { noMsg = true; }
+    catch (err) {
+      if (err.code != 50007) throw err; // "Cannot send messages to this user"
+      noMsg = true;
+    }
 
     embed.data.title = lang('infoEmbedTitle');
     embed.data.description = lang('infoEmbedDescription', { user: target.user.tag, reason, time: Math.round(target.communicationDisabledUntilTimestamp / 1000) });

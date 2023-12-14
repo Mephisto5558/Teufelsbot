@@ -45,11 +45,14 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
 
   lang.__boundArgs__[0].backupPath = 'commands.minigames.rps';
 
-  const
-    initiator = await this.guild.members.fetch(initiatorId).catch(() => { }),
-    opponent = await this.guild.members.fetch(opponentId).catch(() => { });
-
-  if (!initiator || !opponent) {
+  let initiator, opponent;
+  try {
+    initiator = await this.guild.members.fetch(initiatorId);
+    opponent = await this.guild.members.fetch(opponentId);
+  }
+  catch (err) {
+    if (err.code != 10007) throw err; // "unknown member"
+    
     this.message.embeds[0].data.description = lang('memberNotFound');
     return this.message.edit({ embeds: this.message.embeds, components: [] });
   }
