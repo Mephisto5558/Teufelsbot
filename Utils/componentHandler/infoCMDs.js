@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle } = require('discord.js'),
+  { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError } = require('discord.js'),
   checkTargetManageable = require('../checkTargetManageable.js'),
   bankick = require('../bankick.js');
 
@@ -12,7 +12,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
   const
     embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red }),
-    item = await this.guild[entityType].fetch(id).catch(() => { });
+    item = await this.guild[entityType].fetch(id).catch(err => { if (![10007, 10011, 10014].includes(err.code)) throw err; }); //"Unknown member/role/emoji", 
 
   if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], ephemeral: true });
 
@@ -36,8 +36,9 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       });
 
       this.showModal(modal);
-      const submit = await this.awaitModalSubmit({ time: 30000 }).catch(() => { });
+      const submit = await this.awaitModalSubmit({ time: 30000 }).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; });
       if (!submit) return;
+
       await submit.deferUpdate();
 
       this.commandName = mode;
@@ -66,5 +67,5 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
   }
 
   for (const button of this.message.components[0].components) button.data.disabled = true;
-  return this.message.edit({ components: this.message.components }).catch(() => { });
+  return this.message.edit({ components: this.message.components }).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; }); //todo check specific error code
 };

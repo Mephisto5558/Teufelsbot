@@ -61,7 +61,7 @@ module.exports = async function errorHandler(err, message, lang) {
         return msg.edit({ embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', json.html_url))], components: [] });
       }
       catch (err) {
-        log.error(err.stack);
+        log.error('Failed to report an error:', err.stack);
         return message.customReply(lang('reportFail', err?.message || 'unknown error'));
       }
     })

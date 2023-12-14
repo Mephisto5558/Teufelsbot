@@ -65,7 +65,10 @@ module.exports = async function checkForErrors(command, lang) {
           this.react('✍️');
         }
 
-        this.user.send({ content: this.url, embeds: [embed] }).catch(() => { });
+        try { await this.user.send({ content: this.url, embeds: [embed] }); }
+        catch (err) {
+          if (err.code != 50007) throw err; // "Cannot send messages to this user"
+        }
       }
       else await this.customReply({ embeds: [embed], ephemeral: true }, this instanceof Message ? 1e4 : 0);
 

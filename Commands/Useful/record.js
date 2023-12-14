@@ -1,5 +1,5 @@
 const
-  { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors, ComponentType, PermissionFlagsBits } = require('discord.js'),
+  { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors, ComponentType, PermissionFlagsBits, DiscordAPIError } = require('discord.js'),
   { entersState, joinVoiceChannel, VoiceConnectionStatus, EndBehaviorType } = require('@discordjs/voice'),
   { Decoder } = require('prism-media').opus,
   { createWriteStream, promises: { unlink, access } } = require('fs'),
@@ -117,7 +117,10 @@ module.exports = {
       });
 
       try { await entersState(connection, VoiceConnectionStatus.Ready, 2e4); }
-      catch { return msg.edit({ embeds: [embed.setDescription(lang('cantConnect'))] }); }
+      catch (err) {
+        if (!(err instanceof DiscordAPIError)) throw err;
+        return msg.edit({ embeds: [embed.setDescription(lang('cantConnect'))] }); //todo: check for specific error
+      }
 
       msg.edit({ embeds: [embed.setDescription(lang('recording', { channel: voiceChannel, users: `<@${[...allowed].join('>, <@')}>` }))], components: [buttons] });
 

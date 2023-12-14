@@ -39,10 +39,17 @@ module.exports = {
           })]
         })]
       }),
-      msg = await this.options.getChannel('channel').messages.fetch(this.options.getString('message_id')).catch(() => { }),
       clear = this.options.getBoolean('remove_attachments');
 
-    if (!msg) return this.reply({ content: lang('notFound'), ephemeral: true });
+    /**@type {Message?}*/
+    let msg;
+    try { msg = await this.options.getChannel('channel').messages.fetch(this.options.getString('message_id')); }
+    catch (err) {
+      if (err.code != 10008) throw err; // "Unknown message"
+
+      return this.reply({ content: lang('notFound'), ephemeral: true });
+    }
+
     if (msg.author.id != this.client.user.id) return this.reply({ content: lang('notBotMessage'), ephemeral: true });
     if (!msg.editable) return this.reply({ content: lang('cannotEdit'), ephemeral: true });
 
@@ -64,7 +71,9 @@ module.exports = {
 
       await msg.edit(clear ? { content: null, embeds: [], attachments: [], files: [], components: [], ...json } : json);
     }
-    catch (err) { if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', err.message)); }
+    catch (err) {
+      if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', err.message));
+    }
 
     if (!json) await msg.edit(clear ? { content: content.substring(0, 2001), embeds: [], attachments: [], files: [], components: [] } : content.substring(0, 2001));
 

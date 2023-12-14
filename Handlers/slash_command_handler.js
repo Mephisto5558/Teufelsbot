@@ -15,7 +15,7 @@ module.exports = async function slashCommandHandler() {
 
   for (const subFolder of await getDirectories('./Commands')) for (const file of await readdir(`./Commands/${subFolder}`)) {
     if (!file.endsWith('.js')) continue;
-    
+
     /**@type {command}*/
     let command = require(`../Commands/${subFolder}/${file}`);
 
@@ -27,7 +27,7 @@ module.exports = async function slashCommandHandler() {
     }
     catch (err) {
       if (this.botType == 'dev') throw err;
-      else log.error(`Error on formatting command ${command.name}:\n`, err);
+      log.error(`Error on formatting command ${command.name}:\n`, err);
 
       command.skip = true;
       this.slashCommands.set(command.name, command);
@@ -59,7 +59,7 @@ module.exports = async function slashCommandHandler() {
       }
       catch (err) {
         if (this.botType == 'dev') throw err;
-        else log.error(`Error on registering command ${command.name}:\n`, err);
+        log.error(`Error on registering command ${command.name}:\n`, err);
       }
     }
   }
@@ -76,7 +76,7 @@ module.exports = async function slashCommandHandler() {
     }
     catch (err) {
       if (this.botType == 'dev') throw err;
-      else log.error(`Error on deleting command ${command.name}:\n`, err);
+      log.error(`Error on deleting command ${command.name}:\n`, err);
     }
   }
 
