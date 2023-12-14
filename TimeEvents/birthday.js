@@ -47,14 +47,15 @@ module.exports = {
 
         try { user = await guild.members.fetch(entry[0]); }
         catch (err) {
-          if (err.code == 10007) continue;
-          else throw err;
+          if (err.code != 10007) throw err; //"Unknown member"
+          else continue;
         }
 
         if (settings?.ch?.channel) {
           try { channel = await guild.channels.fetch(settings.ch.channel); }
-          catch {
-            return (await guild.fetchOwner()).send(`INFO: the channel configured for the birthday feature in guild \`${guild.name}\` does not exist! Please re-configure it so i can send birthday messages!`);
+          catch (err) {
+            if (err.code != 10003) throw err; //"Unknown channel"
+            return (await guild.fetchOwner()).send(this.i18n.__({ locale: guild?.db.config?.lang ?? guild?.localeCode }, 'others.timeEvents.birthday.unknownChannel', guild.name));
           }
 
           const embed = new EmbedBuilder({
@@ -73,9 +74,10 @@ module.exports = {
             color: settings.dm?.msg?.embed?.color || defaultSettings.dm.msg.embed.color
           });
 
-          try {
-            await user.send({ content: formatBirthday.call(settings.dm?.msg?.content || defaultSettings.dm.msg.content, user, entry[2]), embeds: [embed] });
-          } catch { }
+          try { await user.send({ content: formatBirthday.call(settings.dm?.msg?.content || defaultSettings.dm.msg.content, user, entry[2]), embeds: [embed] }); }
+          catch (err) {
+            if (err.code != 50007) throw err; // "cannot send messages to this user"
+          }
         }
       }
     }
