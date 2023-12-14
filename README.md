@@ -46,7 +46,7 @@ You should be ready to go!
 <br>
 
 ## How to set up MongoDB
-As I made the DB its own NPM module you need to just put `await db.generate()` in index.js after `client.db ??= new DB`... You can remove the `await db.generate()` after it ran once.
+As I made the DB its own NPM module you need to just put `await client.db.generate()` in index.js directly below `client.db ??= new DB`... You can remove the `await client.db.generate()` after it ran once.
 This will generate all required objects from the `Templates\db_collections.json` file.
 
 <br>
