@@ -13,7 +13,7 @@ module.exports = {
   getOwnerOnlyFolders: require('./getOwnerOnlyFolders.js'),
   getTarget: require('./getTarget.js'),
   gitpull: require('./gitpull.js'),
-  giveawaysmanager: require('./giveawaysmanager.js'),
+  giveawaysManager: require('./giveawaysManager.js'),
   logSayCommandUse: require('./logSayCommandUse.js'),
   slashCommandsEqual: require('./slashCommandsEqual.js'),
   permissionTranslator: require('./permissionTranslator.js'),
