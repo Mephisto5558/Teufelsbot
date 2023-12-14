@@ -1,5 +1,5 @@
 const
-  fetch = require('node-fetch'),
+  { default: fetch, FetchError } = require('node-fetch'),
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { Github } = require('../../config.json'),
   defaultAPIList = [
@@ -34,7 +34,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
       case 'icanhazdadjoke': {
         const res = await fetch(api.url, {
           headers: {
-            'User-Agent': `Discord bot (${Github.Repo})`,
+            'User-Agent': `Discord bot (${Github?.Repo})`,
             Accept: 'application/json'
           }
         }).then(e => e.json());
@@ -45,11 +45,11 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
     }
   }
   catch (err) {
-    if ([402, 403, 522].includes(err.status)) {
-      log.error('joke.js: ', err.response);
+    if ([402, 403, 522].includes(err.status)) log.error('joke.js: ', err.response);
+    else if (err instanceof FetchError) {
+      if (err.name !== 'AbortError') log.error(`joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.status ?? err.response?.status ?? err.name}, ${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`);
     }
-    else if (err.name !== 'AbortError')
-      log.error(`joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.status ?? err.response?.status ?? err.name}, ${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`);
+    else throw err;
   }
 
   if (typeof response == 'string') return [response.replaceAll('`', '\''), api];
@@ -104,7 +104,7 @@ module.exports = {
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('global.anotherone'),
-          customId: `joke.${api ?? null}.${type ?? null}.${blacklist ?? null}.${maxLength ?? null}`,
+          customId: `joke.${api.name ?? null}.${type ?? null}.${blacklist ?? null}.${maxLength ?? null}`,
           style: ButtonStyle.Primary
         })]
       });

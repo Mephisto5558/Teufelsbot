@@ -15,6 +15,5 @@ module.exports = {
   reddit: require('./reddit.js'),
   rps_sendChallenge: require('./rps_sendChallenge.js'),
   rps: require('./rps.js'),
-  selfrole: require('./selfrole.js'),
   topic: require('./topic.js')
 };

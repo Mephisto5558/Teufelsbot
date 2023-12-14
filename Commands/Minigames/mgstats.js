@@ -66,6 +66,7 @@ module.exports = {
 
     const
       type = this.options?.getSubcommand() || 'user',
+      /**@type {import('discord.js').GuildMember}*/
       target = getTarget.call(this, { returnSelf: true }),
       settings = this.options?.getString('settings'),
       leaderboards = this.client.db.get('leaderboards'),
@@ -83,7 +84,7 @@ module.exports = {
     });
 
     if (type == 'user') {
-      embed.data.title = lang('embedTitle', { user: target.tag, game });
+      embed.data.title = lang('embedTitle', { user: target.user.displayName, game });
 
       const targetData = data?.[target.id];
       if (targetData?.games) {

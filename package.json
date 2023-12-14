@@ -32,16 +32,16 @@
     "wikijs": "^6.4.1"
   },
   "overrides": {
-    "sharp": "^0.33.0"
+    "sharp": "$sharp"
   },
   "optionalDependencies": {
     "bufferutil": "^4.0.7",
     "utf-8-validate": "^6.0.3",
-    "zlib-sync": "^0.1.8"
+    "zlib-sync": "^0.1.8",
+    "@img/sharp-win32-x64": "^0.33.0"
   },
   "devDependencies": {
-    "eslint": "^8.7.0",
-    "prettier": "^3.1.1"
+    "eslint": "^8.7.0"
   },
   "repository": {
     "type": "git",
