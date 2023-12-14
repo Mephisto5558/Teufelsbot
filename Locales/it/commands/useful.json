@@ -261,8 +261,8 @@
   "randomnumber": {
     "description": "Restituisce un numero casuale. Usa valori predefiniti per input non validi.",
     "usage": {
-      "usage": "{prefix}numero casuale [min] [max]",
-      "examples": "{prefix}numero casuale 1 10"
+      "usage": "{prefix}randomnumber [min] [max]",
+      "examples": "{prefix}randomnumber 1 10"
     },
     "options": {
       "minimum": {

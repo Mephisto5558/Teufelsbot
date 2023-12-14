@@ -31,7 +31,10 @@ module.exports = async function bankick(lang) {
     }
 
     try { await target.send({ embeds: [userEmbed] }); }
-    catch { noMsg = true; }
+    catch (err) {
+      if (err.code != 50007) throw err; // "Cannot send messages to this user"
+      noMsg = true;
+    }
 
     await (this.commandName == 'kick' ? target.kick(reason) : target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') }));
     resEmbed.data.description += lang('success', target.user?.tag ?? target.id);
@@ -67,7 +70,10 @@ module.exports = async function bankick(lang) {
           }
 
           try { await target.send({ embeds: [userEmbed] }); }
-          catch { noMsg = true; }
+          catch {
+            if (err.code != 50007) throw err; // "Cannot send messages to this user"
+            noMsg = true;
+          }
 
           await (this.commandName == 'kick' ? target.kick(reason) : target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') }));
 

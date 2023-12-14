@@ -59,7 +59,10 @@ module.exports = {
 
     if (msg) {
       try { msg = await this.channel.messages.fetch(msg); }
-      catch { return this.editReply(lang('msgNotFound')); }
+      catch (err) {
+        if (err.code != 10008) throw err; // "Unknown message"
+        return this.editReply(lang('msgNotFound'));
+      }
 
       if (msg.user.id != this.client.user.id) return this.editReply(lang('botIsNotAuthor'));
       if (msg.components[4] && this.options.getBoolean('new_row') || msg.components[4]?.components?.[4]) return this.editReply(lang('buttonLimit'));
@@ -80,11 +83,13 @@ module.exports = {
       if (!msg?.components?.length || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
         components.push(new ActionRowBuilder({ components: [button] }));
 
-      await (msg ? msg.edit({ content, components }) : this.channel.send({ content, components }));
+      await (msg?.edit({ content, components }) ?? this.channel.send({ content, components }));
 
       delete button.data.custom_id;
       return this.editReply(custom ? lang('successJSON') : lang('success', JSON.stringify(button.data.filterEmpty())));
     }
-    catch (err) { return this.editReply(lang('invalidOption', err.message)); }
+    catch (err) {
+      return this.editReply(lang('invalidOption', err.message)); // todo: improve error handling
+    }
   }
 };

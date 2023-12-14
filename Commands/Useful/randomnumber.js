@@ -24,17 +24,17 @@ module.exports = {
     if (min > max) [min, max] = [max, min];
 
     try {
-      const randomnumber = randomInt(min, max + 1).toLocaleString(lang.__boundArgs__[0].locale);
-      return this.customReply(lang('randomnumber', { randomnumber, min, max }));
+      const randomNumber = randomInt(min, max + 1).toLocaleString(lang.__boundArgs__[0].locale);
+      return this.customReply(lang('randomNumber', { randomNumber, min, max }));
     }
     catch (err) {
-      if (err instanceof RangeError || err.code == 'ERR_INVALID_ARG_TYPE')
-        return this.customReply(lang('outOfRange', {
-          min: Number.MIN_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale),
-          max: Number.MAX_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale)
-        }));
+      if (!(err instanceof RangeError || err.code == 'ERR_INVALID_ARG_TYPE')) throw err;
 
-      throw err;
+      return this.customReply(lang('outOfRange', {
+        min: Number.MIN_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale),
+        max: Number.MAX_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale)
+      }));
+
     }
   }
 };

@@ -261,8 +261,8 @@
   "randomnumber": {
     "description": "Devuelve un número aleatorio. Utiliza valores por defecto para entradas no válidas.",
     "usage": {
-      "usage": "{prefix}número aleatorio [min] [max]",
-      "examples": "{prefix}número aleatorio 1 10"
+      "usage": "{prefix}randomnumber [min] [max]",
+      "examples": "{prefix}randomnumber 1 10"
     },
     "options": {
       "minimum": {
