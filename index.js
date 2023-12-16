@@ -6,7 +6,7 @@ Error.stackTraceLimit = 100;
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { readdir } = require('fs/promises'),
-  DB = require('@mephisto5558/mongoose-db'),
+  { DB } = require('@mephisto5558/mongoose-db'),
   { gitpull, errorHandler, giveawaysManager } = require('./Utils');
 
 require('./Utils/prototypeRegisterer.js');
