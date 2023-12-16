@@ -4,7 +4,7 @@ const
   { Decoder } = require('prism-media').opus,
   { createWriteStream, promises: { unlink, access } } = require('fs'),
   exec = require('util').promisify(require('child_process').exec),
-  ffmpeg = require('ffmpeg-static');
+  ffmpeg = require('ffmpeg-static').default;
 
 /**@type {command}*/
 module.exports = {

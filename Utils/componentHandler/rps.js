@@ -52,7 +52,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   }
   catch (err) {
     if (err.code != 10007) throw err; // "unknown member"
-    
+
     this.message.embeds[0].data.description = lang('memberNotFound');
     return this.message.edit({ embeds: this.message.embeds, components: [] });
   }

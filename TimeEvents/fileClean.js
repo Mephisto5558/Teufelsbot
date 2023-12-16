@@ -7,7 +7,7 @@ async function deleteOld(path) {
   const time = new Date(Date.now() - 12096e5 /*2 Weeks*/).getTime();
   for (const file of await readdir(path, { withFileTypes: true })) {
     const pathStr = `${path}/${file.name}`;
-    
+
     if (file.isDirectory()) deleteOld(pathStr);
     else if (time > (await stat(pathStr)).mtimeMs) {
       log.debug(`deleting ${pathStr}`);
