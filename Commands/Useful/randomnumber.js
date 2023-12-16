@@ -34,7 +34,6 @@ module.exports = {
         min: Number.MIN_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale),
         max: Number.MAX_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale)
       }));
-
     }
   }
 };
