@@ -12,7 +12,7 @@
   "dependencies": {
     "@discordjs/voice": "^0.16.0",
     "@mephisto5558/i18n": "^1.1.1",
-    "@mephisto5558/mongoose-db": "*",
+    "@mephisto5558/mongoose-db": "^2.0.0",
     "better-ms": "^1.1.7",
     "canvas": "^2.11.2",
     "cron": "^3.0.0",
@@ -35,10 +35,10 @@
     "sharp": "$sharp"
   },
   "optionalDependencies": {
+    "@img/sharp-win32-x64": "^0.33.0",
     "bufferutil": "^4.0.7",
     "utf-8-validate": "^6.0.3",
-    "zlib-sync": "^0.1.8",
-    "@img/sharp-win32-x64": "^0.33.0"
+    "zlib-sync": "^0.1.8"
   },
   "devDependencies": {
     "eslint": "^8.7.0"
