@@ -112,6 +112,7 @@
     "isPrivate": "Questa registrazione sarà disponibile solo per i membri attuali del canale vocale che hanno permesso la registrazione.",
     "cantConnect": "Non ho potuto connettermi al canale vocale! Riprova.",
     "denied": "Nessuno vuole essere registrato.",
+    "canceled": "La richiesta di registrazione è stata annullata.",
     "allow": "Consenti Registrazione",
     "deny": "Nega Registrazione",
     "pause": "Pausa Registrazione",
