@@ -112,6 +112,7 @@
     "isPrivate": "Cet enregistrement ne sera disponible que pour les membres actuels du salon vocal qui ont autorisé l'enregistrement.",
     "cantConnect": "Je n'ai pas pu me connecter au salon vocal ! Veuillez réessayer.",
     "denied": "Personne ne veut être enregistré.",
+    "canceled": "La demande d'enregistrement a été annulée.",
     "allow": "Autoriser l'enregistrement",
     "deny": "Refuser l'enregistrement",
     "pause": "Mettre l'enregistrement en pause",
