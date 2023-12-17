@@ -38,7 +38,7 @@ module.exports = async function checkForErrors(command, lang) {
 
     if (
       autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
-      && !(await autocompleteGenerator.call(Object.assign({}, this, { client: this.client, focused: { name, value: this.options?.get(name).value ?? this.args?.[i] } }), command, this.guild?.db.config?.lang ?? this.guild?.localeCode))
+      && !(await autocompleteGenerator.call({ ...this, client: this.client, user: this.user, focused: { name, value: this.options?.get(name).value ?? this.args?.[i] } }, command, this.guild?.db.config?.lang ?? this.guild?.localeCode))
         .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
     ) return ['strictAutocompleteNoMatch'];
   }
