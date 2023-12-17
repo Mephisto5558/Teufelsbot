@@ -298,6 +298,7 @@
     "isPrivate": "This recording will be only available for the current members of the voice channel that allowed the recording.",
     "cantConnect": "I could not connect to the voice channel! Please try again.",
     "denied": "No one wants to get recorded.",
+    "canceled": "The recording request has been canceled.",
     "allow": "Allow Recording",
     "deny": "Deny Recording",
     "pause": "Pause Recording",
@@ -305,8 +306,8 @@
     "stop": "Stop Recording",
     "get": "Get the Recording",
     "updated": "Your response has been set to `{permission}`. I am waiting for the other members to reply.",
-    "paused": "🔇 I paused recording {channel}.",
-    "recording": "🎙️ I am now recording {channel} ({users})!",
+    "paused": "🔇 I paused recording <#{channel}>.",
+    "recording": "🎙️ I am now recording <#{channel}> ({users})!",
     "notFound": "Your recording has not been found!",
     "privateReady": "Press the button to get the recording.",
     "success": "🔉 Here is your recording!"

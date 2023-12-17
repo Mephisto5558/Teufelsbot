@@ -252,8 +252,8 @@
     "stop": "Arrêter l'enregistrement",
     "get": "Obtenir l'enregistrement",
     "updated": "Votre réponse a été définie à `{permission}`. J'attends que les autres membres y répondent.",
-    "paused": "🔇 J'ai mis en pause l'enregistrement {channel}.",
-    "recording": "🎙️ Je suis en train d'enregistrer {channel} ({users} ) !",
+    "paused": "🔇 J'ai mis en pause l'enregistrement <#{channel}>.",
+    "recording": "🎙️ Je suis en train d'enregistrer <#{channel}> ({users} ) !",
     "notFound": "Votre enregistrement n'a pas été trouvé !",
     "privateReady": "Appuyez sur le bouton pour obtenir l'enregistrement.",
     "success": "🔉 Voici votre enregistrement!"
