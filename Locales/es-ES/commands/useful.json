@@ -274,42 +274,6 @@
     },
     "outOfRange": "Se ha producido un error:\n````\n{err}.\n```"
   },
-  "record": {
-    "description": "Grabar un canal de voz. Necesita la aprobación de los usuarios.",
-    "options": {
-      "target": {
-        "description": "Grabar sólo un usuario específico."
-      },
-      "channel": {
-        "description": "¿Cuál es el canal de voz que desea grabar?"
-      },
-      "public": {
-        "description": "Haz pública la grabación, así cualquier miembro de la hermandad puede escucharla."
-      }
-    },
-    "noTarget": "¡No hay nadie que grabar! O todos los blancos son bots o no están en un canal de voz! Si usted suministró un canal, ¡asegúrese de que es el que está en el destino!",
-    "needVoiceChannel": "¡Necesitas proporcionar un canal de voz o estar en uno!",
-    "cannotJoin": "¡No puedo unirme a ese canal de voz! Asegúrate de que el canal no está lleno y tengo los permisos necesarios.",
-    "deaf": "¡Estoy ensordecedora y no puedo dejar de matarme!",
-    "embedTitle": "Grabador de voz",
-    "embedDescription": "<@{user}> quiere grabarte en el canal de voz <#{channel}>.\n**{publicOrPrivate}**\nPresione un botón para permitir o denegar la grabación de su voz.",
-    "isPublic": "Esta grabación estará disponible para todos los miembros del gremio.",
-    "isPrivate": "Esta grabación sólo estará disponible para los miembros actuales del canal de voz que permitieron la grabación.",
-    "cantConnect": "¡No pude conectar con el canal de voz! Por favor, inténtalo de nuevo.",
-    "denied": "Nadie quiere ser grabado.",
-    "allow": "Permitir grabación",
-    "deny": "Rechazar grabación",
-    "pause": "Pausar grabación",
-    "resume": "Reanudar grabación",
-    "stop": "Detener grabación",
-    "get": "Obtener la grabación",
-    "updated": "Tu respuesta ha sido establecida a `{permission}`. Estoy esperando a que los otros miembros respondan.",
-    "paused": "🔇 Pusí la grabación <#{channel}>.",
-    "recording": "🎙️ ¡Ahora estoy grabando <#{channel}> ({users})!",
-    "notFound": "¡La grabación no ha sido encontrada!",
-    "privateReady": "Pulse el botón para obtener la grabación.",
-    "success": "🔉 ¡Aquí está su grabación!"
-  },
   "timestamp": {
     "description": "Obtén una marca de tiempo para el futuro (o pasado poniendo un \"-\" en frente)",
     "usage": {
