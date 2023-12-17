@@ -1,4 +1,5 @@
 const { commandQuery, categoryQuery, allQuery, getCommands, getCommandCategories } = require('./help_utils.js');
+const { startRecording, recordControls } = require('./record_manage.js');
 
 module.exports = {
   fact: require('./fact.js'),
@@ -12,6 +13,9 @@ module.exports = {
   joke: require('./joke.js'),
   mgStats_formatTopTen: require('./mgStats_formatTopTen.js'),
   mgstats: require('./mgStats.js'),
+  record_startRecording: startRecording,
+  record_recordControls: recordControls,
+  record: require('./record.js'),
   reddit: require('./reddit.js'),
   rps_sendChallenge: require('./rps_sendChallenge.js'),
   rps: require('./rps.js'),

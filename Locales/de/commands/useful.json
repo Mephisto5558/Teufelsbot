@@ -298,6 +298,7 @@
     "isPrivate": "Die Aufnahme wird nur für die Mitglieder zugänglich sein, die der Aufnahme zugestimmt haben.",
     "cantConnect": "Ich konnte mich nicht mit dem Sprachkanal verbinden! Bitte versuche es erneut.",
     "denied": "Niemand möchte aufgenommen werden.",
+    "canceled": "Die Aufnahmeanfrage wurde abgebrochen.",
     "allow": "Erlaube Aufnahme",
     "deny": "Verbiete Aufnahme",
     "pause": "Pausiere Aufnahme",
@@ -305,8 +306,8 @@
     "stop": "Stoppe Aufnahme",
     "get": "Erhalte die Aufnahme",
     "updated": "Deine Antwort wurde zu `{permission}` gesetzt. Ich warte auf die Antworten der anderen Mitglieder.",
-    "paused": "🔇 Ich habe die Aufnahme von {channel} pausiert.",
-    "recording": "🎙️ Ich nehme nun {channel} ({users}) auf!",
+    "paused": "🔇 Ich habe die Aufnahme von <#{channel}> pausiert.",
+    "recording": "🎙️ Ich nehme nun <#{channel}> ({users}) auf!",
     "notFound": "Deine Aufnahme wurde nicht gefunden!",
     "privateReady": "Drücke den Button um die Aufnahme zu erhalten.",
     "success": "🔉 Hier ist deine Aufnahme!"
