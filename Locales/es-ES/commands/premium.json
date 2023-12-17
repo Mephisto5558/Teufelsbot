@@ -112,6 +112,7 @@
     "isPrivate": "Esta grabación sólo estará disponible para los miembros actuales del canal de voz que permitieron la grabación.",
     "cantConnect": "¡No pude conectar con el canal de voz! Por favor, inténtalo de nuevo.",
     "denied": "Nadie quiere ser grabado.",
+    "canceled": "La solicitud de grabación ha sido cancelada.",
     "allow": "Permitir grabación",
     "deny": "Rechazar grabación",
     "pause": "Pausar grabación",
