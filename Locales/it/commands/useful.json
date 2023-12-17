@@ -274,42 +274,6 @@
     },
     "outOfRange": "Si è verificato un errore:\n````\n{err}.\n```"
   },
-  "record": {
-    "description": "Registra un canale vocale. Richiede l'approvazione da parte degli utenti.",
-    "options": {
-      "target": {
-        "description": "Registra solo un utente specifico."
-      },
-      "channel": {
-        "description": "Wich canale vocale si desidera registrare?"
-      },
-      "public": {
-        "description": "Rendi pubblica la registrazione, in modo che qualsiasi membro della gilda possa sentirla."
-      }
-    },
-    "noTarget": "Non c'è nessuno da registrare! O tutti gli obiettivi sono bot o non sono in un canale vocale! Se hai fornito un canale, assicurati che sia quello in cui si trova il bersaglio!",
-    "needVoiceChannel": "Devi fornire un canale vocale o essere in uno!",
-    "cannotJoin": "Non posso entrare in quel canale vocale! Assicurati che il canale non sia pieno e ho i permessi necessari.",
-    "deaf": "Sono assordato e non posso non sordare me stesso!",
-    "embedTitle": "VoiceRecorder",
-    "embedDescription": "<@{user}> vuole registrarti nel canale vocale <#{channel}>.\n**{publicOrPrivate}**\nPremi un pulsante per consentire o negare la registrazione della tua voce.",
-    "isPublic": "Questa registrazione sarà disponibile per ogni membro della gilda.",
-    "isPrivate": "Questa registrazione sarà disponibile solo per i membri attuali del canale vocale che hanno permesso la registrazione.",
-    "cantConnect": "Non ho potuto connettermi al canale vocale! Riprova.",
-    "denied": "Nessuno vuole essere registrato.",
-    "allow": "Consenti Registrazione",
-    "deny": "Nega Registrazione",
-    "pause": "Pausa Registrazione",
-    "resume": "Riprendi La Registrazione",
-    "stop": "Interrompi Registrazione",
-    "get": "Ottieni la registrazione",
-    "updated": "La tua risposta è stata impostata a `{permission}`. Sto aspettando che gli altri membri rispondano.",
-    "paused": "🔇 Ho in pausa la registrazione <#{channel}>.",
-    "recording": "🎙️ Ora sto registrando <#{channel}> ({users})!",
-    "notFound": "La tua registrazione non è stata trovata!",
-    "privateReady": "Premere il pulsante per ottenere la registrazione.",
-    "success": "🔉 Ecco la tua registrazione!"
-  },
   "timestamp": {
     "description": "Ottieni un timestamp per il futuro (o passato mettendo un \"-\" di fronte)",
     "usage": {

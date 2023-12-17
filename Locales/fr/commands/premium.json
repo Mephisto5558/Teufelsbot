@@ -88,5 +88,41 @@
     "emptyJson": "Le JSON que vous avez fourni est vide!",
     "error": "Une erreur est survenue en essayant d'envoyer votre JSON personnalisé :\n```{err}```\n",
     "success": "Le message a été modifié. [Link]({url})"
+  },
+  "record": {
+    "description": "Enregistrez un salon vocal. Nécessite l'approbation des utilisateurs.",
+    "options": {
+      "target": {
+        "description": "Enregistrez seulement un utilisateur spécifique."
+      },
+      "channel": {
+        "description": "Quel salon vocal voulez-vous enregistrer ?"
+      },
+      "public": {
+        "description": "Rendre l’enregistrement public, afin que tout membre de la guilde puisse l’entendre."
+      }
+    },
+    "noTarget": "Il n'y a personne à enregistrer ! Soit toutes les cibles sont des bots, soit elles ne sont pas dans un salon vocal ! Si vous avez fourni un canal, assurez-vous qu'il est celui dans lequel la cible est dans !",
+    "needVoiceChannel": "Vous devez fournir un salon vocal ou être en un !",
+    "cannotJoin": "Je ne peux pas rejoindre ce canal vocal ! Assurez-vous que le canal n'est pas complet et que j'ai les autorisations nécessaires.",
+    "deaf": "Je suis actuellement sourd et je ne peux pas être sourd moi-même!",
+    "embedTitle": "Enregistreur vocal",
+    "embedDescription": "<@{user}> veut vous enregistrer dans le salon vocal <#{channel}>.\n**{publicOrPrivate}**\nVeuillez appuyer sur un bouton pour autoriser ou refuser l'enregistrement de votre voix.",
+    "isPublic": "Cet enregistrement sera disponible pour chaque membre de la guilde.",
+    "isPrivate": "Cet enregistrement ne sera disponible que pour les membres actuels du salon vocal qui ont autorisé l'enregistrement.",
+    "cantConnect": "Je n'ai pas pu me connecter au salon vocal ! Veuillez réessayer.",
+    "denied": "Personne ne veut être enregistré.",
+    "allow": "Autoriser l'enregistrement",
+    "deny": "Refuser l'enregistrement",
+    "pause": "Mettre l'enregistrement en pause",
+    "resume": "Reprendre l'enregistrement",
+    "stop": "Arrêter l'enregistrement",
+    "get": "Obtenir l'enregistrement",
+    "updated": "Votre réponse a été définie à `{permission}`. J'attends que les autres membres y répondent.",
+    "paused": "🔇 J'ai mis en pause l'enregistrement <#{channel}>.",
+    "recording": "🎙️ Je suis en train d'enregistrer <#{channel}> ({users} ) !",
+    "notFound": "Votre enregistrement n'a pas été trouvé !",
+    "privateReady": "Appuyez sur le bouton pour obtenir l'enregistrement.",
+    "success": "🔉 Voici votre enregistrement!"
   }
 }
