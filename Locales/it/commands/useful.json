@@ -304,8 +304,8 @@
     "stop": "Interrompi Registrazione",
     "get": "Ottieni la registrazione",
     "updated": "La tua risposta è stata impostata a `{permission}`. Sto aspettando che gli altri membri rispondano.",
-    "paused": "🔇 Ho in pausa la registrazione {channel}.",
-    "recording": "🎙️ Ora sto registrando {channel} ({users})!",
+    "paused": "🔇 Ho in pausa la registrazione <#{channel}>.",
+    "recording": "🎙️ Ora sto registrando <#{channel}> ({users})!",
     "notFound": "La tua registrazione non è stata trovata!",
     "privateReady": "Premere il pulsante per ottenere la registrazione.",
     "success": "🔉 Ecco la tua registrazione!"
