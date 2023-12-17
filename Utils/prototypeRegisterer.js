@@ -5,7 +5,7 @@ const
   { randomInt } = require('crypto'),
   { readdir } = require('fs/promises'),
   { join } = require('path'),
-  DB = require('@mephisto5558/mongoose-db'),
+  { DB } = require('@mephisto5558/mongoose-db'),
   I18nProvider = require('@mephisto5558/i18n'),
   { Log, customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
   findAllEntries = require('./findAllEntries.js');
