@@ -78,5 +78,10 @@
     "hms": "{h} horas, {m} minutos y {s} segundos",
     "ms": "{m} minutos y {s} segundos",
     "s": "{s} segundos"
+  },
+  "timeEvents": {
+    "birthday": {
+      "unknownChannel": "INFO: ¡El canal configurado para la función de cumpleaños en el gremio `{guild}` no existe! ¡Por favor, vuelva a configurarlo para que pueda enviar mensajes de cumpleaños!"
+    }
   }
 }
