@@ -1,7 +1,13 @@
 {
   "compilerOptions": {
     "module": "CommonJS",
-    "target": "ESNext"
+    "moduleResolution": "Node",
+    "target": "ESNext",
+    "strictNullChecks": true,
+    "strictFunctionTypes": true
   },
-  "exclude": ["node_modules", "**/node_modules/*"]
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*"
+  ]
 }
