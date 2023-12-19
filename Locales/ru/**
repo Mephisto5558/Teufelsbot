@@ -1,0 +1,20 @@
+{
+  "languageName": "Русский",
+  "messageSent": "Сообщение отправлено!",
+  "loading": "<a:loading:1063091916683612160> Загрузка...",
+  "channel": "Канал",
+  "guild": "Гильдия",
+  "user": "Пользователь",
+  "cancel": "Отмена",
+  "playAgain": "Играть снова",
+  "anotherone": "Еще один",
+  "enabled": "Включено",
+  "disabled": "Отключено",
+  "none": "нет",
+  "noPermUser": "У вас нет разрешения на это!",
+  "noPermBot": "У меня нет разрешения на это!",
+  "true": "Да",
+  "false": "Нет",
+  "modReason": "Команда {command} , модератор {user}",
+  "downloadButton": "Скачать"
+}
