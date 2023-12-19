@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError } = require('discord.js'),
   checkTargetManageable = require('../checkTargetManageable.js'),
-  bankick = require('../bankick.js');
+  ban_kick = require('../combinedCommands/ban_kick.js');
 
 /** this.customId: `infoCMDs.<id>.<action>.<entitytype>`
  * @this import('discord.js').ButtonInteraction @param {lang}lang @param {string}id @param {string}mode @param {string}entityType*/
@@ -46,7 +46,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       this.editReply = this.followUp;
       lang.__boundArgs__[0].backupPath = `commands.moderation.${mode}`;
 
-      bankick.call(this, lang);
+      ban_kick.call(this, lang);
       break;
     }
 
