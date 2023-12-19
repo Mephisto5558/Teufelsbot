@@ -1,129 +1,19 @@
 {
-  "categoryDescription": "Commandes qui nécessitent un abonnement premium",
-  "chatgpt": {
-    "description": "Parlez à ChatGPT!",
-    "usage": {
-      "usage": "{prefix}chatgpt <message>",
-      "examples": "{prefix}a chatgpt Bonjour"
-    },
-    "options": {
-      "message": {
-        "description": "Que voulez-vous dire à ChatGPT ?"
-      },
-      "model": {
-        "description": "Quel modèle voulez-vous utiliser ?"
-      }
-    },
-    "hello": "Bonjour!",
-    "rateLimit": "La limite de taux a été atteinte. Veuillez réessayer dans quelques secondes.",
-    "notAvailable": "L'API n'est actuellement pas disponible. Veuillez revenir plus tard.",
-    "error": "L'API a répondu par une erreur.",
-    "regenerate": "Régénérer la réponse"
+  "categoryDescription": "Commandes qui envoient des GIFs",
+  "backflip": {
+    "description": "Faites un retour arrière !",
+    "embedTitle": "Retournement arrière",
+    "embedDescription": "{user} fait un retour arrière!"
   },
-  "customname": {
-    "description": "Set a custom nickname and I will call you that.",
-    "options": {
-      "set": {
-        "description": "Change how I call you",
-        "options": {
-          "name": {
-            "description": "How should I call you?"
-          },
-          "global": {
-            "description": "Should I call you like that on every server?"
-          }
-        }
-      },
-      "get": {
-        "description": "Get your custom nickname.",
-        "options": {
-          "target": {
-            "description": "Who's custom nickname do you want to know?"
-          },
-          "global": {
-            "description": "Should I tell you your global nickname or your guild-specific one?"
-          }
-        }
-      },
-      "clear": {
-        "description": "Remove your custom nickname.",
-        "options": {
-          "global": {
-            "description": "Should I remove your global nickname or your guild-specific one?"
-          }
-        }
-      }
-    },
-    "set": {
-      "success": "I will call you \"{name}\" from now on."
-    },
-    "get": {
-      "successYou": "You are \"{name}\".",
-      "successOther": "That's \"{name}\"."
-    },
-    "clear": {
-      "success": "I removed your custom name."
-    }
-  },
-  "editmessage": {
-    "description": "Modifier tout message envoyé par le bot",
-    "options": {
-      "channel": {
-        "description": "Le canal dans lequel se trouve le message."
-      },
-      "message_id": {
-        "description": "L'id du message que vous voulez que je modifie."
-      },
-      "remove_attachments": {
-        "description": "Effacer tout ce qui se trouve sur ce message. par exemple les incorporations, les fichiers"
-      }
-    },
-    "modalTitle": "Commande d'édition de message",
-    "textInputLabel": "Écrivez le nouveau contenu de ce message.",
-    "textInputPlaceholder": "Vous pouvez également utiliser JSON !",
-    "notFound": "Il n'y a pas de message avec cet id dans le salon spécifié!",
-    "notBotMessage": "Je ne peux modifier que mes propres messages!",
-    "cannotEdit": "Je ne peux pas modifier ce message !",
-    "timedout": "Vous avez mis du temps à répondre !",
-    "emptyJson": "Le JSON que vous avez fourni est vide!",
-    "error": "Une erreur est survenue en essayant d'envoyer votre JSON personnalisé :\n```{err}```\n",
-    "success": "Le message a été modifié. [Link]({url})"
-  },
-  "record": {
-    "description": "Enregistrez un salon vocal. Nécessite l'approbation des utilisateurs.",
+  "furrykiss": {
+    "description": "furrykiss quelqu'un.",
     "options": {
       "target": {
-        "description": "Enregistrez seulement un utilisateur spécifique."
-      },
-      "channel": {
-        "description": "Quel salon vocal voulez-vous enregistrer ?"
-      },
-      "public": {
-        "description": "Rendre l’enregistrement public, afin que tout membre de la guilde puisse l’entendre."
+        "description": "Qui voulez-vous embrasser ?"
       }
     },
-    "noTarget": "Il n'y a personne à enregistrer ! Soit toutes les cibles sont des bots, soit elles ne sont pas dans un salon vocal ! Si vous avez fourni un canal, assurez-vous qu'il est celui dans lequel la cible est dans !",
-    "needVoiceChannel": "Vous devez fournir un salon vocal ou être en un !",
-    "cannotJoin": "Je ne peux pas rejoindre ce canal vocal ! Assurez-vous que le canal n'est pas complet et que j'ai les autorisations nécessaires.",
-    "deaf": "Je suis actuellement sourd et je ne peux pas être sourd moi-même!",
-    "embedTitle": "Enregistreur vocal",
-    "embedDescription": "<@{user}> veut vous enregistrer dans le salon vocal <#{channel}>.\n**{publicOrPrivate}**\nVeuillez appuyer sur un bouton pour autoriser ou refuser l'enregistrement de votre voix.",
-    "isPublic": "Cet enregistrement sera disponible pour chaque membre de la guilde.",
-    "isPrivate": "Cet enregistrement ne sera disponible que pour les membres actuels du salon vocal qui ont autorisé l'enregistrement.",
-    "cantConnect": "Je n'ai pas pu me connecter au salon vocal ! Veuillez réessayer.",
-    "denied": "Personne ne veut être enregistré.",
-    "canceled": "La demande d'enregistrement a été annulée.",
-    "allow": "Autoriser l'enregistrement",
-    "deny": "Refuser l'enregistrement",
-    "pause": "Mettre l'enregistrement en pause",
-    "resume": "Reprendre l'enregistrement",
-    "stop": "Arrêter l'enregistrement",
-    "get": "Obtenir l'enregistrement",
-    "updated": "Votre réponse a été définie à `{permission}`. J'attends que les autres membres y répondent.",
-    "paused": "🔇 J'ai mis en pause l'enregistrement <#{channel}>.",
-    "recording": "🎙️ Je suis en train d'enregistrer <#{channel}> ({users} ) !",
-    "notFound": "Votre enregistrement n'a pas été trouvé !",
-    "privateReady": "Appuyez sur le bouton pour obtenir l'enregistrement.",
-    "success": "🔉 Voici votre enregistrement!"
+    "embedTitle": "Furrykiss",
+    "embedDescription": "{user} baisers :3",
+    "embedDescriptionTarget": "{user} embrasse {target} :3"
   }
 }
