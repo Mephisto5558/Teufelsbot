@@ -1,8 +1,93 @@
 {
-  "categoryDescription": "Verschiedene Befehle, die sich nicht in eine andere Kategorie einordnen lassen",
-  "changelog": {
-    "description": "Erhalte die neusten Änderungen.",
-    "embedTitle": "Neuste Änderungen",
-    "noneFound": "Es wurden keine Informationen gefunden."
+  "categoryDescription": "Befehle, die nur für den Bot-Entwickler vorgesehen sind",
+  "blacklistuser": {
+    "description": "(Ent)blockt einen User vom Benutzen des Bots",
+    "usage": {
+      "usage": "{prefix}blacklistuser [off] <User-ID>",
+      "examples": "{prefix}blacklistuser 12345678901234568"
+    },
+    "noInput": "Du musst eine ID angeben.",
+    "notFound": "Dieser User ist nicht blacklisted.",
+    "saved": "`{user}` wurde vom Nutzen des Bots geblacklistet.",
+    "removed": "`{user}` ist nun nicht mehr geblacklisted.",
+    "cantBlacklistOwner": "Ich kann den Owner des Bots nicht blacklisten!"
+  },
+  "dbget": {
+    "description": "Erhalte Daten aus der Datenbank",
+    "usage": {
+      "usage": "{prefix}dbget <Datenbank-Name> [Key]",
+      "examples": "{prefix}dbget datenbank a.b.c"
+    },
+    "notFound": "nichts gefunden"
+  },
+  "eval": {
+    "description": "Führe JavaScript Code mit dem Bot aus",
+    "usage": {
+      "usage": "{prefix}eval <JS-Code>",
+      "examples": "{prefix}eval console.log('Hello World!')"
+    },
+    "finished": "Code:\n```js\n{code}\n```\n",
+    "success": "{msg} wurde fehlerlos ausgeführt.",
+    "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
+  },
+  "gitpull": {
+    "description": "Führe einen git pull aus",
+    "success": "Erfolgreich gepullt."
+  },
+  "reload": {
+    "description": "Lädt einen Befehl oder eine Kategorie neu",
+    "usage": {
+      "usage": "{prefix}reload <\"command\" | \"file\"> <Dateipfad vom cwd aus>\n{prefix}reload <command | \"*\">",
+      "examples": "{prefix}reload file path/to/file\n{prefix}reload fun"
+    },
+    "invalidCommand": "Dies ist kein gültiger Befehl.",
+    "invalidPath": "Der angegebene Pfad existiert nicht! Beachte auch die Groß/Kleinschreibung des Pfades.",
+    "error": "Ein Fehler ist während des Neuladens aufgetreten:\n```{error}```\nÜberprüfe die Konsole für mehr Informationen.",
+    "noneReloaded": "Es wurden keine Befehle neu geladen.",
+    "reloaded": "Die folgenden `{count}` Befehle wurden neu geladen:\n{commands}"
+  },
+  "reloaddb": {
+    "description": "Lädt die Datenbank neu.",
+    "success": "Die Datenbank wurde neu geladen."
+  },
+  "reloadlang": {
+    "description": "Lädt alle Sprachdateien neu",
+    "success": "Alle Sprachdateien wurden neu geladen."
+  },
+  "restart": {
+    "description": "Startet den Bot neu",
+    "alreadyRestarting": "Der Bot führt bereits einen Neustart durch. Bitte warte, bis er abgeschlossen ist. Nachricht: {url}",
+    "updatingNPM": "<a:loading:1063091916683612160> Bot wird neu gestartet...\nInstalliere Pakete...",
+    "updateNPMError": "❌ Neustart fehlgeschlagen aufgrund eines NPM-Fehlers. Überprüfe die Konsole für weitere Informationen.",
+    "restarting": "<a:loading:1063091916683612160> Bot wird neu gestartet...\nStarte Node-Prozess...",
+    "restartingError": "❌ Neustart fehlgeschlagen aufgrund eines Node-Fehlers. Überprüfe die Konsole für weitere Informationen.",
+    "success": "✅ Erfolgreich neu gestartet."
+  },
+  "setactivity": {
+    "description": "Setzte die Aktivität des Bots",
+    "usage": {
+      "usage": "{prefix}setactivity <Aktivität>;[Typ]",
+      "examples": "{prefix}setactivity Befehle ausführen;playing"
+    },
+    "invalidType": "Das ist kein gültiger Aktivitäts-Typ. Gültige Typen sind:\n`{types}`",
+    "set": "Meine Aktivität wurde zu `{name}` vom Typ `{type}` gesetzt.",
+    "reset": "Meine Aktivität wurde zu `nichts` gesetzt."
+  },
+  "setchangelog": {
+    "description": "Aktualisiert den Changelog, sodass Nutzer auf dem neusten Stand sind.",
+    "success": "Der Changelog wurde erfolgreich aktualisiert."
+  },
+  "setcountingnumber": {
+    "description": "Aktualisiert die letzte Counting-Zahl für einen Kanal, setzt auch den letzten Autor zurück.",
+    "usage": {
+      "usage": "{prefix}setcountingnummer [Zahl (Standard 0)] [Kanal]",
+      "examples": "{prefix}setcountingnumber 7 #counting-kanal"
+    },
+    "invalidNumber": "Die angegebene Zahl ist ungültig!",
+    "unknownChannel": "Die angegebene Kanal-ID wurde in diesem Server nicht gefunden!",
+    "success": "Counting für <#{channel}> wurde zu **{number}** gesetzt."
+  },
+  "test": {
+    "description": "testet Sachen"
   }
 }
