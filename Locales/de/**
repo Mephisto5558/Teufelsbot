@@ -1,93 +1,129 @@
 {
-  "categoryDescription": "Befehle, die nur für den Bot-Entwickler vorgesehen sind",
-  "blacklistuser": {
-    "description": "(Ent)blockt einen User vom Benutzen des Bots",
+  "categoryDescription": "Befehle, die eine Premium-Mitgliedschaft erfordern (werden)",
+  "chatgpt": {
+    "description": "Sprich mit ChatGPT!",
     "usage": {
-      "usage": "{prefix}blacklistuser [off] <User-ID>",
-      "examples": "{prefix}blacklistuser 12345678901234568"
+      "usage": "{prefix}chatgpt <Nachricht>",
+      "examples": "{prefix}chatgpt Hallo"
     },
-    "noInput": "Du musst eine ID angeben.",
-    "notFound": "Dieser User ist nicht blacklisted.",
-    "saved": "`{user}` wurde vom Nutzen des Bots geblacklistet.",
-    "removed": "`{user}` ist nun nicht mehr geblacklisted.",
-    "cantBlacklistOwner": "Ich kann den Owner des Bots nicht blacklisten!"
-  },
-  "dbget": {
-    "description": "Erhalte Daten aus der Datenbank",
-    "usage": {
-      "usage": "{prefix}dbget <Datenbank-Name> [Key]",
-      "examples": "{prefix}dbget datenbank a.b.c"
+    "options": {
+      "message": {
+        "description": "Was möchtest du ChatGPT sagen?"
+      },
+      "model": {
+        "description": "Welches Modell möchtest du nutzen?"
+      }
     },
-    "notFound": "nichts gefunden"
+    "hello": "Hallo!",
+    "rateLimit": "Das Ratelimit wurde erreicht. Bitte versuche es in einigen Sekunden erneut.",
+    "notAvailable": "Die API ist momentan nicht verfügbar. Bitte versuche es später erneut.",
+    "error": "Die API hat mit einem Fehler geantwortet.",
+    "regenerate": "Regeneriere Antwort"
   },
-  "eval": {
-    "description": "Führe JavaScript Code mit dem Bot aus",
-    "usage": {
-      "usage": "{prefix}eval <JS-Code>",
-      "examples": "{prefix}eval console.log('Hello World!')"
+  "customname": {
+    "description": "Lege einen benutzerdefinierten Spitznamen fest und ich werde dich so nennen.",
+    "options": {
+      "set": {
+        "description": "Ändere, wie ich dich nenne",
+        "options": {
+          "name": {
+            "description": "Wie soll ich dich nennen?"
+          },
+          "global": {
+            "description": "Soll ich dich auf jedem Server so nennen?"
+          }
+        }
+      },
+      "get": {
+        "description": "Erfahre deinen Spitznamen.",
+        "options": {
+          "target": {
+            "description": "Wessen benutzerdefinierten Spitznamen möchtest du wissen?"
+          },
+          "global": {
+            "description": "Soll ich dir deinen globalen oder serverspezifischen Spitznamen nennen?"
+          }
+        }
+      },
+      "clear": {
+        "description": "Entferne deinen Spitznamen.",
+        "options": {
+          "global": {
+            "description": "Soll ich deinen globalen oder serverspezifischen Spitznamen entfernen?"
+          }
+        }
+      }
     },
-    "finished": "Code:\n```js\n{code}\n```\n",
-    "success": "{msg} wurde fehlerlos ausgeführt.",
-    "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
-  },
-  "gitpull": {
-    "description": "Führe einen git pull aus",
-    "success": "Erfolgreich gepullt."
-  },
-  "reload": {
-    "description": "Lädt einen Befehl oder eine Kategorie neu",
-    "usage": {
-      "usage": "{prefix}reload <\"command\" | \"file\"> <Dateipfad vom cwd aus>\n{prefix}reload <command | \"*\">",
-      "examples": "{prefix}reload file path/to/file\n{prefix}reload fun"
+    "set": {
+      "success": "Ich werde dich ab jetzt \"{name}\" nennen."
     },
-    "invalidCommand": "Dies ist kein gültiger Befehl.",
-    "invalidPath": "Der angegebene Pfad existiert nicht! Beachte auch die Groß/Kleinschreibung des Pfades.",
-    "error": "Ein Fehler ist während des Neuladens aufgetreten:\n```{error}```\nÜberprüfe die Konsole für mehr Informationen.",
-    "noneReloaded": "Es wurden keine Befehle neu geladen.",
-    "reloaded": "Die folgenden `{count}` Befehle wurden neu geladen:\n{commands}"
-  },
-  "reloaddb": {
-    "description": "Lädt die Datenbank neu.",
-    "success": "Die Datenbank wurde neu geladen."
-  },
-  "reloadlang": {
-    "description": "Lädt alle Sprachdateien neu",
-    "success": "Alle Sprachdateien wurden neu geladen."
-  },
-  "restart": {
-    "description": "Startet den Bot neu",
-    "alreadyRestarting": "Der Bot führt bereits einen Neustart durch. Bitte warte, bis er abgeschlossen ist. Nachricht: {url}",
-    "updatingNPM": "<a:loading:1063091916683612160> Bot wird neu gestartet...\nInstalliere Pakete...",
-    "updateNPMError": "❌ Neustart fehlgeschlagen aufgrund eines NPM-Fehlers. Überprüfe die Konsole für weitere Informationen.",
-    "restarting": "<a:loading:1063091916683612160> Bot wird neu gestartet...\nStarte Node-Prozess...",
-    "restartingError": "❌ Neustart fehlgeschlagen aufgrund eines Node-Fehlers. Überprüfe die Konsole für weitere Informationen.",
-    "success": "✅ Erfolgreich neu gestartet."
-  },
-  "setactivity": {
-    "description": "Setzte die Aktivität des Bots",
-    "usage": {
-      "usage": "{prefix}setactivity <Aktivität>;[Typ]",
-      "examples": "{prefix}setactivity Befehle ausführen;playing"
+    "get": {
+      "successYou": "Du bist \"{name}\".",
+      "successOther": "Das ist \"{name}\"."
     },
-    "invalidType": "Das ist kein gültiger Aktivitäts-Typ. Gültige Typen sind:\n`{types}`",
-    "set": "Meine Aktivität wurde zu `{name}` vom Typ `{type}` gesetzt.",
-    "reset": "Meine Aktivität wurde zu `nichts` gesetzt."
+    "clear": {
+      "success": "Ich habe deinen Namen entfernt."
+    }
   },
-  "setchangelog": {
-    "description": "Aktualisiert den Changelog, sodass Nutzer auf dem neusten Stand sind.",
-    "success": "Der Changelog wurde erfolgreich aktualisiert."
-  },
-  "setcountingnumber": {
-    "description": "Aktualisiert die letzte Counting-Zahl für einen Kanal, setzt auch den letzten Autor zurück.",
-    "usage": {
-      "usage": "{prefix}setcountingnummer [Zahl (Standard 0)] [Kanal]",
-      "examples": "{prefix}setcountingnumber 7 #counting-kanal"
+  "editmessage": {
+    "description": "Bearbeite eine beliebige Nachricht, welche vom Bot gesendet wurde",
+    "options": {
+      "channel": {
+        "description": "Der Kanal, in dem sich die Nachricht befindet."
+      },
+      "message_id": {
+        "description": "Die ID der Nachricht, die ich bearbeiten soll."
+      },
+      "remove_attachments": {
+        "description": "Lösche alles aus dieser Nachricht. z. B. Embeds und Anhänge"
+      }
     },
-    "invalidNumber": "Die angegebene Zahl ist ungültig!",
-    "unknownChannel": "Die angegebene Kanal-ID wurde in diesem Server nicht gefunden!",
-    "success": "Counting für <#{channel}> wurde zu **{number}** gesetzt."
+    "modalTitle": "EditMessage Befehl",
+    "textInputLabel": "Schreibe den neuen Inhalt dieser Nachricht.",
+    "textInputPlaceholder": "Du kannst auch JSON verwenden!",
+    "notFound": "Es gibt keine Nachricht mit dieser ID im angegebenen Kanal!",
+    "notBotMessage": "Ich kann nur meine eigenen Nachrichten bearbeiten!",
+    "cannotEdit": "Ich kann diese Nachricht nicht bearbeiten!",
+    "timedout": "Du hast zu lange gebraucht, um zu antworten!",
+    "emptyJson": "Das von dir angegebene JSON ist leer!",
+    "error": "Beim Senden deines benutzerdefinierten JSON ist ein Fehler aufgetreten:\n```{err}```\n",
+    "success": "Die Nachricht wurde bearbeitet. [Link]({url})"
   },
-  "test": {
-    "description": "testet Sachen"
+  "record": {
+    "description": "Nimmt einen Sprachkanal auf. Benötigt Bestätigung von Mitgliedern.",
+    "options": {
+      "target": {
+        "description": "Nimm nur ein bestimmtes Mitglied auf."
+      },
+      "channel": {
+        "description": "Welchen Sprachkanal möchtest du aufnehmen?"
+      },
+      "public": {
+        "description": "Mache die Aufnahme für alle Servermitglieder abrufbar."
+      }
+    },
+    "noTarget": "Es gibt niemanden zum Aufnehmen! Entweder sind alle Ziele Bots oder sie sind nicht in Sprachkanal! Wenn du einen Sprachkanal angeben hast, stelle sicher, dass es der richtige ist!",
+    "needVoiceChannel": "Du musst einen Sprachkanal angeben oder in einem sein!",
+    "cannotJoin": "Ich kann diesem Sprachkanal nicht beitreten! Stelle sicher, dass der Kanal nicht voll ist und ich die benötigten Berechtigungen habe, um ihm beizutreten.",
+    "deaf": "Ich bin momentan taub geschaltet und kann das nicht ändern!",
+    "embedTitle": "Sprachrekorder",
+    "embedDescription": "<@{user}> möchte dich/euch in <#{channel}> aufnehmen.\n**{publicOrPrivate}**\nBitte drücke einen Button, um die Aufnahme deiner Stimme zu erlauben oder zu verbieten.",
+    "isPublic": "Die Aufnahme wird für alle Servermitglieder verfügbar sein.",
+    "isPrivate": "Die Aufnahme wird nur für die Mitglieder zugänglich sein, die der Aufnahme zugestimmt haben.",
+    "cantConnect": "Ich konnte mich nicht mit dem Sprachkanal verbinden! Bitte versuche es erneut.",
+    "denied": "Niemand möchte aufgenommen werden.",
+    "canceled": "Die Aufnahmeanfrage wurde abgebrochen.",
+    "allow": "Erlaube Aufnahme",
+    "deny": "Verbiete Aufnahme",
+    "pause": "Pausiere Aufnahme",
+    "resume": "Setze Aufnahme fort",
+    "stop": "Stoppe Aufnahme",
+    "get": "Erhalte die Aufnahme",
+    "updated": "Deine Antwort wurde zu `{permission}` gesetzt. Ich warte auf die Antworten der anderen Mitglieder.",
+    "paused": "🔇 Ich habe die Aufnahme von <#{channel}> pausiert.",
+    "recording": "🎙️ Ich nehme nun <#{channel}> ({users}) auf!",
+    "notFound": "Deine Aufnahme wurde nicht gefunden!",
+    "privateReady": "Drücke den Button um die Aufnahme zu erhalten.",
+    "success": "🔉 Hier ist deine Aufnahme!"
   }
 }
