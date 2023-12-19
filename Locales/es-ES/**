@@ -1,286 +1,152 @@
 {
-  "categoryDescription": "Comandos informativos",
-  "avatar": {
-    "description": "muestra el avatar del usuario",
-    "options": {
-      "target": {
-        "description": "el usuario del que quieres obtener el avatar"
-      },
-      "size": {
-        "description": "el tamaño que quieres obtener"
-      }
-    },
-    "embedDescription": "**Avatar de {user}**"
+  "categoryDescription": "Minijuegos para jugar con otros miembros",
+  "coinflip": {
+    "description": "¡Invierte una moneda!",
+    "response": [
+      "¡Cabezas!",
+      "¡Gracias!"
+    ],
+    "side": "¡Oya! ¡La moneda aterrizó en su lado!"
   },
-  "cmdstats": {
-    "description": "Mira con qué frecuencia se ha ejecutado un comando específico o consigue el top 10.",
+  "counting": {
+    "description": "¡Configura un canal de conteo donde los miembros puedan mostrar sus habilidades matemáticas!",
     "usage": {
-      "usage": "{prefix}cmdstats [command]",
-      "examples": "{prefix}cmdstats joke"
+      "usage": "{prefix}contando [#canal]",
+      "examples": "{prefix}contando #contador"
     },
     "options": {
-      "command": {
-        "description": "El comando para el que quieres obtener estadísticas."
+      "channel": {
+        "description": "El canal que desea agregar (o eliminar, si ya se ha añadido) como un canal de conteo."
       }
     },
-    "embedTitle": "Estadísticas de Comando",
-    "embedDescriptionOne": "El comando {command} ha sido ejecutado **{count}** veces.",
-    "embedDescriptionMany": "Estos son los 10 comandos más utilizados:\n"
-  },
-  "dashboard": {
-    "description": "obtener el enlace al panel de control de bots",
-    "embedTitle": "Tablero",
-    "embedDescriptionDashboard": "Haz clic en [here]({url}) para abrir el panel.",
-    "embedDescriptionVote": "Haga clic en [here]({url}) para abrir la página web de solicitud de votación y función."
-  },
-  "emojiinfo": {
-    "description": "Obtener información sobre un emoji",
-    "usage": {
-      "usage": "{prefix}emojiinfo [emoji | emoji id]",
-      "examples": "{prefix}emojiinfo :derp:"
+    "added": {
+      "embedTitle": "¡Este canal es ahora un canal de cuenta!",
+      "embedDescription": "Las reglas son simples:\n> Comenzar con **1**.\n> Añade **1** al último número\n> No puedes contar dos números seguidos\n¡Diviértete!",
+      "by": "Añadido como canal de recuento por {user}",
+      "success": "Añadí con éxito <#{channel}> como canal de conteo."
     },
-    "options": {
-      "emoji": {
-        "description": "El emoji o su id sobre el que quieres obtener información"
-      }
+    "removed": {
+      "embedDescription": "¡Este canal ya no es un canal de cuento!",
+      "by": "Eliminado por {user}",
+      "success": "He eliminado con éxito <#{channel}> como canal de conteo."
     },
-    "notFound": "No se encontró información para este emoji.",
-    "embedTitle": "Información sobre \"{emoji}\"",
-    "unknown": "desconocido",
-    "name": "Nombre",
-    "id": "ID",
-    "guild": "Gremio",
-    "animated": "Animado",
-    "creator": "Creador",
-    "available": "Disponible",
-    "createdAt": "Creado el",
-    "requiresColons": "Requiere Colones",
-    "allowedRoles": "Rol permitido",
-    "delete": "Eliminar Emoji"
-  },
-  "help": {
-    "description": "Mostrar todos mis comandos o buscar uno específico",
-    "usage": {
-      "usage": "{prefix}ayuda [command]",
-      "examples": "{prefix}broma de ayuda"
-    },
-    "options": {
-      "category": {
-        "description": "¿De qué categoría quieres obtener información?",
-        "choices": {
-          "administration": "Administración",
-          "fun": "Diversión",
-          "gifs": "GIFs",
-          "information": "Información",
-          "minigames": "Minigames",
-          "moderation": "Moderación",
-          "nsfw": "NSFW",
-          "useful": "Útil",
-          "premium": "Premium",
-          "others": "Otros",
-          "owner-only": "Sólo propietario"
-        }
-      },
-      "command": {
-        "description": "¿De qué comando quieres obtener información?"
-      }
-    },
-    "categoryListPlaceholder": "¿Qué categoría de comandos quieres ver?",
-    "commandListPlaceholder": "¿Qué comando quieres ver?",
-    "devEmbedFooterText": "Dev-Bot | Solo se muestran comandos beta",
-    "one": {
-      "notFound": "No se ha encontrado información para el comando `{command}`.",
-      "embedTitle": "Información detallada sobre: `{command}`",
-      "embedFooterText": "Sintaxis: <> = requerido, [] = opcional | Prefijo: \"{prefix}\"",
-      "prefixAlias": "Alias de comandos de prefijo",
-      "slashAlias": "Alias de Comandos Slash",
-      "aliasOf": "Alias de",
-      "botPerms": "Permisos de bot requeridos",
-      "userPerms": "Permisos de usuario requeridos",
-      "cooldowns": "Enfriamiento del comando",
-      "usage": "Uso",
-      "examples": "Ejemplos"
-    },
-    "all": {
-      "embedTitle": "🔰Todos mis comandos",
-      "embedDescription": "Estas son las diferentes categorías de comandos. Por favor, seleccione una del menú desplegable.",
-      "notFound": "No se encontraron comandos...",
-      "embedFooterText": "Utilice la opción 'command' para obtener más información sobre un comando específico."
+    "userDeletedMsg": {
+      "embedTitle": "Contando",
+      "embedDescription": "Número eliminado: **{deletedNum}**\nSiguiente Número: **{nextNum}**",
+      "unknown": "Autor desconocido"
     }
   },
-  "info": {
-    "description": "muestra algunas estadísticas e informaciones sobre el bot.",
-    "dev": "Desarrollador",
-    "shard": "Fragmento",
-    "guild": "ID de Gremio Interno",
-    "guilds": "Gremios",
-    "commands": "Comandos",
-    "starts": "Comienza",
-    "lastStart": "Último inicio",
-    "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina.\n",
-    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Política de privacidad]({PrivacyPolicy})**",
-    "embedTitle": "Estadísticas",
-    "embedFooterText": "¡Pronto habrá más estadísticas!"
-  },
-  "invite": {
-    "description": "Envía un enlace para añadir el bot a tu gremio.",
-    "embedTitle": "Invitar",
-    "embedDescription": "¡Gracias por tu interés! Haz clic en [here]({url}) para añadirme a tu gremio. ^^"
-  },
-  "ping": {
-    "description": "Consigue el ping del bot",
-    "options": {
-      "average": {
-        "description": "Obtener el ping promedio de 60 pings."
-      }
-    },
-    "average": {
-      "loading": "Ping... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}`\nPing más bajo: `{lowest}ms`\nPing más alto: `{highest}ms`\nPing medio: `{average}ms`"
-    },
-    "api": "API",
-    "bot": "Bot",
-    "embedTitle": "Ping",
-    "messageSend": "Enviar mensaje"
-  },
-  "prefix": {
-    "description": "muestra o cambia el prefijo del bot del gremio",
+  "mgstats": {
+    "description": "obtener estadísticas acerca de uno de los minijuegos del bot",
     "usage": {
-      "usage": "prefijo {prefix}[nuevo prefijo]",
-      "examples": "Prefijo de {prefix}&"
+      "usage": "{prefix}estadísticas <game> [user]",
+      "examples": "{prefix}mgstats tictactoe @User1"
     },
     "options": {
-      "new_prefix": {
-        "description": "el nuevo prefijo del bot para este gremio"
+      "user": {
+        "description": "obtener estadísticas sobre ti o un usuario específico",
+        "options": {
+          "game": {
+            "description": "¿De qué juego quieres obtener estadísticas?",
+            "choices": {
+              "tictactoe": "TicTacToe"
+            }
+          },
+          "target": {
+            "description": "¿De qué usuario quieres obtener estadísticas?"
+          }
+        }
       },
-      "case_insensitive": {
-        "description": "¿Debe ignorarse el caso del prefijo?"
+      "leaderboard": {
+        "description": "consigue los 10 mejores jugadores de una partida",
+        "options": {
+          "game": {
+            "description": "¿De qué juego quieres obtener estadísticas?",
+            "choices": {
+              "tictactoe": "TicTacToe"
+            }
+          },
+          "sort": {
+            "description": "Ordenar el marcador",
+            "choices": {
+              "m_wins": "Más victorias",
+              "f_wins": "Fewest gana",
+              "m_draws": "Más golpes",
+              "f_draws": "Dibujos del Oeste",
+              "m_loses": "Más pérdidas",
+              "f_loses": "Pérdidas del Oeste",
+              "m_alphabet_user": "Nombres de usuario (Descender)",
+              "f_alphabet_user": "Nombres de usuario (ascendente)",
+              "m_alphabet_nick": "Apodos (Descendente)",
+              "f_alphabet_nick": "Apodos (ascendente)"
+            }
+          },
+          "settings": {
+            "description": "Aplicar/Desaplicar filtros a la tabla de clasificación",
+            "choices": {
+              "all_users": "Todos los usuarios globalmente"
+            }
+          }
+        }
       }
     },
-    "saved": "Mi prefijo ha sido cambiado a `{prefix}`.",
-    "currentPrefix": "Mi prefijo actual es `{prefix}`.",
-    "caseInsensitive": " (mayúsculas insensibles)"
+    "games": "Juegos: `{games}`\n\n",
+    "wins": "Victorias: {wins}\n",
+    "loses": "Pérdidas: {loses}\n",
+    "draws": "Dibujos: {draws}\n\n",
+    "noOne": "nadie\n",
+    "missingGameArg": "¡Necesitas darme un `juego` como el primer argumento!",
+    "notFound": "Esta no es una entrada de juego válida. Los juegos válidos son:\n`{list}`",
+    "wonAgainst": "Victorias contra:\n",
+    "lostAgainst": "Perdido contra:\n",
+    "drewAgainst": "En contra:\n",
+    "embedTitle": "` Estadísticas de{user}de {game}",
+    "embedTitleTop10": "Top 10 {game} jugadores",
+    "noPlayers": "Parece que nadie ha ganado aún...",
+    "youNoGamesPlayed": "Aún no has jugado ninguna {game} partidas.",
+    "userNoGamesPlayed": "{user} aún no ha jugado ninguna partida {game}."
   },
-  "roleinfo": {
-    "description": "Obtener información sobre un rol",
-    "usage": {
-      "usage": "{prefix}roleinfo [@role | nombre de rol | role id]",
-      "examples": "{prefix}roleinfo @User1"
-    },
+  "rps": {
+    "description": "Juega tijeras de papel contra tus amigos o el bot",
     "options": {
-      "role": {
-        "description": "el rol sobre el que quieres obtener información"
+      "opponent": {
+        "description": "¿A quién quieres jugar de nuevo?"
       }
     },
-    "notFound": "No se pudo encontrar este rol. Intenta usar su ID.",
-    "mention": "Mención",
-    "members": "Miembros",
-    "color": "Color",
-    "mentionable": "Mencionable",
-    "hoist": "Elevar",
-    "managed": "Gestionado",
-    "position": "Posición",
-    "createdAt": "Creado el",
-    "permissions": "Permisos",
-    "admin": "Administrador",
-    "delete": "Eliminar rol"
+    "r": "Roca",
+    "p": "Papel",
+    "s": "Tijeras",
+    "challenge": {
+      "opponentIsBot": "¡No puedes retar a los bots!",
+      "opponentIsSelf": "¡No puedes desafiarte a ti mismo!",
+      "embedTitle": "Piedra de papel tijeras",
+      "embedDescription": "**{user}** te ha desafiado a un duelo!",
+      "botEmbedDescription": "¡Me has desafiado a un duelo!",
+      "start": "Comenzar",
+      "accept": "Aceptar",
+      "decline": "Rechazar",
+      "newChallenge": "<@{user}> :crossed_swords: Nuevo desafío en duelo"
+    },
+    "memberNotFound": "Al menos uno de los jugadores no ha sido encontrado!",
+    "declined": ":x:{opponent}` no se levanta al reto.",
+    "accept": {
+      "embedTitle": ":game_die: `{player1}` **VS** `{player2}",
+      "embedDescription": "¡Selecciona tu objeto!"
+    },
+    "end": {
+      "alreadyChosen": "¡Ya has seleccionado {move}! Por favor espera a que tu oponente elija.",
+      "saved": "¡Su selección ha sido guardada!",
+      "tie": "Nadie ha ganado el juego, ¡es un empate! {emoji} = {emoji}",
+      "win": ":tada: <@{winner}> ganó el juego! {winEmoji} > {loseEmoji}"
+    }
   },
-  "serverinfo": {
-    "description": "Obtener información sobre una hermandad",
+  "tictactoe": {
+    "description": "jugar a TicTacToe contra un amigo o el bot",
     "options": {
-      "guild_id": {
-        "description": "ID del servidor para obtener información (solo en servidores en los que estoy presente)."
+      "opponent": {
+        "description": "¿A quién quieres jugar de nuevo?"
       }
     },
-    "memberStats": "`{all}` (Humanos: `{humans}`, Botos: `{bots}`)",
-    "members": "Miembros",
-    "verificationLevel": {
-      "name": "Nivel de verificación",
-      "0": "Ninguna",
-      "1": "Baja",
-      "2": "Medio",
-      "3": "Alta",
-      "4": "Muy alta"
-    },
-    "id": "ID",
-    "createdAt": "Creado el",
-    "defaultNotifications": {
-      "name": "Notificaciones por defecto",
-      "0": "Todos los mensajes",
-      "1": "Solo menciones"
-    },
-    "owner": "Propietario",
-    "locale": "Local",
-    "partnered": "Participaron",
-    "emojis": "Emojis",
-    "boosts": {
-      "name": "Optimizar",
-      "1": "Nivel 1",
-      "2": "Nivel 2",
-      "3": "Nivel 3"
-    },
-    "roles": "Roles",
-    "channels": "Canales",
-    "vanityUrl": "URL de Vanity",
-    "uses": " Usos",
-    "downloadIcon": "Descargar icono",
-    "downloadBanner": "Descargar banner"
-  },
-  "uptime": {
-    "description": "Obtener el tiempo de actividad del bot",
-    "embedDescriptionNoURL": "El bot ha estado en línea para {time}.",
-    "embedDescription": "El bot ha sido [online]({Domain}/uptime) para {time}."
-  },
-  "userinfo": {
-    "description": "Obtener información sobre un miembro",
-    "usage": {
-      "usage": "{prefix}roleinfo [@user | nombre de usuario | etiqueta de usuario | apodo de usuario | ID de usuario]",
-      "examples": "{prefix}userinfo @User1"
-    },
-    "options": {
-      "target": {
-        "description": "el usuario sobre el que quieres obtener información"
-      }
-    },
-    "guildOwner": "Propietario del gremio",
-    "guildAdmin": "Administrador del Gremio",
-    "admin": "`Administrator`",
-    "guildMod": "Moderador del gremio",
-    "guildMember": "Miembro del gremio",
-    "mention": "Mención",
-    "type": "Tipo",
-    "roles": "Roles",
-    "position": "Posición",
-    "color": "Color",
-    "createdAt": "Creado el",
-    "joinedAt": "Se unió en",
-    "birthday": "Cumpleaños (edad)",
-    "timedOutUntil": "Tiempo agotado hasta",
-    "rolesWithPerms": "Rayos con permisos",
-    "flags": {
-      "name": "Banderas",
-      "ActiveDeveloper": "Desarrollador activo",
-      "BotHTTPInteractions": "HTTP Bot",
-      "BugHunterLevel1": "Cazador de insectos nivel 1",
-      "BugHunterLevel2": "Cazador de insectos Nivel 2",
-      "CertifiedModerator": "Moderador Certificado de Discord",
-      "HypeSquadOnlineHouse1": "Miembro de la Casa Vivienda",
-      "HypeSquadOnlineHouse2": "Miembro Brilliance de la Casa",
-      "HypeSquadOnlineHouse3": "Miembro de Saldo de la Casa",
-      "Hypesquad": "Miembro de eventos de HypeSquad",
-      "Partner": "Propietario del servidor asociado",
-      "PremiumEarlySupporter": "Soportador temprano de Nitro",
-      "Quarantined": "Cuarantinado",
-      "Spammer": "Spammer",
-      "Staff": "Empleado de Discord",
-      "TeamPseudoUser": "Pseudo-Usuario del Equipo",
-      "VerifiedBot": "Bot verificado",
-      "VerifiedDeveloper": "Desarrollador de bots verificado temprano"
-    },
-    "perms": "Permisos",
-    "downloadAvatar": "Descargar Avatar",
-    "downloadBanner": "Descargar banner",
-    "kickMember": "Expulsar miembro",
-    "banMember": "Banear miembro"
+    "newChallenge": "<@{user}> :crossed_swords: Nuevo desafío en duelo"
   }
 }
