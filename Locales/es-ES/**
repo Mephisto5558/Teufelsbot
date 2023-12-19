@@ -1,8 +1,93 @@
 {
-  "categoryDescription": "Comandos sin una categoría específica",
-  "changelog": {
-    "description": "Obtener la última lista de cambios.",
-    "embedTitle": "Cambios",
-    "noneFound": "No se ha encontrado información."
+  "categoryDescription": "Comandos que deben estar disponibles sólo para el desarrollador",
+  "blacklistuser": {
+    "description": "bloquea que un usuario utilice el bot",
+    "usage": {
+      "usage": "{prefix}blacklistuser [off] <user id>",
+      "examples": "{prefix}blacklistuser 12345678901234568"
+    },
+    "noInput": "Necesitas proporcionar un id.",
+    "notFound": "No se encontró ninguna entrada para este id.",
+    "saved": "`{user}` ha sido bloqueado de usar el bot.",
+    "removed": "La entrada de la lista negra para `{user}` ha sido eliminada.",
+    "cantBlacklistOwner": "¡No puedo negar al dueño del bot!"
+  },
+  "dbget": {
+    "description": "consultar datos de la base de datos",
+    "usage": {
+      "usage": "{prefix}dbget <database name> <key>",
+      "examples": "{prefix}dbget base de datos a.b.c"
+    },
+    "notFound": "nada encontrado"
+  },
+  "eval": {
+    "description": "inyectar código JavaScript directamente en el bot",
+    "usage": {
+      "usage": "{prefix}eval <js code>",
+      "examples": "{prefix}, console.log('¡Hola Mundo!')"
+    },
+    "finished": "comando evaluado:\n```js\n{code}\n```\n",
+    "success": "{msg} sin errores.",
+    "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
+  },
+  "gitpull": {
+    "description": "Run a git pull",
+    "success": "Ejecutado con éxito el comando."
+  },
+  "reload": {
+    "description": "Carga un archivo o categoría",
+    "usage": {
+      "usage": "{prefix}recargar <\"command\" | \"file\"> <Path relative to cwd>\n{prefix}recargar <command | \"*\">",
+      "examples": "{prefix}recargar la ruta/a/archivo\n{prefix}recargar la diversión"
+    },
+    "invalidCommand": "Este no es un comando válido.",
+    "invalidPath": "La ruta especificada no existe! Tenga en cuenta la sensibilidad de mayúsculas y minúsculas de la ruta.",
+    "error": "Se ha producido un error al recargar:\n```{error}```\nCompruebe la consola para más información.",
+    "noneReloaded": "Ningún comando ha sido recargado.",
+    "reloaded": "El siguiente `{count}`comando(s) ha/han sido recargados:\n{commands}"
+  },
+  "reloaddb": {
+    "description": "Recarga la base de datos",
+    "success": "Recargado el db."
+  },
+  "reloadlang": {
+    "description": "Recarga todos los archivos de idioma",
+    "success": "Recargado todos los archivos de idioma."
+  },
+  "restart": {
+    "description": "Reinicia el bot",
+    "alreadyRestarting": "El bot ya está reiniciando, espere a que termine. Mensaje: {url}",
+    "updatingNPM": "<a:loading:1063091916683612160> Reiniciando el bot...\nInstalando paquetes...",
+    "updateNPMError": "❌ El reinicio ha fallado debido a un error de NPM. Revisa la consola para más información.",
+    "restarting": "<a:loading:1063091916683612160> Reiniciando el bot...\nIniciando el proceso de node...",
+    "restartingError": "❌ El reinicio ha fallado debido a un error de nodo. Revisa la consola para más información.",
+    "success": "✅ Reiniciado correctamente."
+  },
+  "setactivity": {
+    "description": "Establece la actividad del bot",
+    "usage": {
+      "usage": "{prefix}setactivity <activity>;[type]",
+      "examples": "{prefix}setactivity ejecutando comandos;jugando"
+    },
+    "invalidType": "Este no es un tipo válido. Los tipos válidos son:\n`{types}`",
+    "set": "Mi actividad ha sido establecida a `{name}` de tipo `{type}`.",
+    "reset": "Mi actividad ha sido establecida a `ninguno`."
+  },
+  "setchangelog": {
+    "description": "Actualiza los registros de cambios para que los usuarios estén actualizados.",
+    "success": "El registro de cambios se ha actualizado correctamente."
+  },
+  "setcountingnumber": {
+    "description": "Actualiza el último número de cuenta para un canal, también restableciendo el último autor.",
+    "usage": {
+      "usage": "{prefix}setcountingnumber [number (por defecto 0)] [channel]",
+      "examples": "{prefix}setcountingnumber 7 #counting-channel"
+    },
+    "invalidNumber": "¡El número proporcionado no es válido!",
+    "unknownChannel": "¡La id del canal proporcionado no se ha encontrado en este gremio!",
+    "success": "La cuenta para <#{channel}> se ha establecido a **{number}**."
+  },
+  "test": {
+    "description": "testear cosas"
   }
 }
