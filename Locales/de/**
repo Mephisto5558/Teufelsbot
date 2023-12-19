@@ -1,19 +1,39 @@
 {
-  "categoryDescription": "Befehle, die GIFs versenden",
-  "backflip": {
-    "description": "Mache einen Backflip!",
-    "embedTitle": "Backflip",
-    "embedDescription": "{user} macht einen Backflip!"
+  "cooldown": "Dieser Befehl oder einer seiner Unterbefehle ist im Cooldown! Versuche es erneut in `{time}`s.",
+  "slashOnly": "Dieser Befehl ist nur als Slash-Befehl verfügbar: </{name}:{id}>",
+  "guildOnly": "Dieser Befehl ist nur auf Servern verfügbar!",
+  "nonBeta": "Dieser Befehl ist kein Beta-Befehl! Dieser Bot führt nur Beta-Befehle aus.",
+  "disabled": "Dieser Befehl wurde vom Bot-Developer deaktiviert. Begründung:\n{reason}",
+  "nsfw": "Dieser Befehl kann nur in einem altersbegrenzten Kanal benutzt werden!",
+  "strictAutocompleteNoMatch": "Deine Eingabe muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.",
+  "permissionDenied": {
+    "embedTitle": "Unzureichende Berechtigungen",
+    "embedDescriptionUser": "Du benötigst die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n`{permissions}`",
+    "embedDescriptionBot": "Ich benötige die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n`{permissions}`"
   },
-  "furrykiss": {
-    "description": "Furryküsse jemanden.",
-    "options": {
-      "target": {
-        "description": "Wen möchtest du küssen?"
-      }
+  "notAllowed": {
+    "member": "Dir ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!",
+    "channel": "Es ist nicht erlaubt, diesen Befehl in diesem Kanal auszuführen (eingestellt von einem Serveradministrator)!",
+    "role": "Einer deiner Rollen ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!"
+  },
+  "infoCMDs": {
+    "emojis": {
+      "embedTitle": "Emoji Löschen",
+      "notFound": "Das Emoji konnte nicht gefunden werden.",
+      "noPerm": "Ich habe keine Berechtigung, Emojis zu löschen!",
+      "success": "Das Emoji wurde erfolgreich gelöscht."
     },
-    "embedTitle": "Furrykiss",
-    "embedDescription": "{user} küsst :3",
-    "embedDescriptionTarget": "{user} küsst {target} :3"
+    "roles": {
+      "embedTitle": "Rolle Löschen",
+      "notFound": "Die Rolle konnte nicht gefunden werden.",
+      "noPerm": "Ich habe keine Berechtigung, diese Rolle zu löschen!",
+      "success": "Die Rolle wurde erfolgreich gelöscht."
+    },
+    "members": {
+      "embedTitle": "Mitglied kicken/bannen",
+      "notFound": "Das Mitglied konnte nicht gefunden werden.",
+      "modalTitle": "Begründung",
+      "modalTextLabel": "Bitte gib den Grund für den Kick/Bann an."
+    }
   }
 }
