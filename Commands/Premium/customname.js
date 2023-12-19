@@ -1,4 +1,4 @@
-const { getTarget } = require('../../Utils');
+const { getTargetMember } = require('../../Utils');
 
 /**@type {command}*/
 module.exports = {
@@ -40,7 +40,7 @@ module.exports = {
   ],
 
   run: function (lang) {
-    let target = getTarget.call(this);
+    let target = getTargetMember.call(this);
     if (this.options?.getBoolean('global') && target.user) target = target.user; //target.user check for execution in dms
 
     switch (this.options?.getSubcommand() || this.args[0]) {

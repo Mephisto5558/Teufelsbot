@@ -1,3 +1,5 @@
+const { getTargetChannel } = require('../../Utils');
+
 /**@type {command}*/
 module.exports = {
   name: 'setcountingnumber',
@@ -9,7 +11,7 @@ module.exports = {
   /**@this GuildMessage*/
   run: async function (lang) {
     const
-      channel = this.args[1] ?? this.channel.id,
+      channel = getTargetChannel.call(this, { returnSelf: true }).id,
       number = parseInt(this.args[0] ?? 0);
 
     if (isNaN(number)) return this.reply(lang('invalidNumber'));
