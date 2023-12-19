@@ -1,20 +1,281 @@
 {
-  "languageName": "Deutsch",
-  "messageSent": "Nachricht gesendet!",
-  "loading": "<a:loading:1063091916683612160> Lädt...",
-  "channel": "Kanal",
-  "guild": "Server",
-  "user": "Nutzer",
-  "cancel": "Abbrechen",
-  "playAgain": "Nochmal spielen",
-  "anotherone": "Noch eins",
-  "enabled": "Aktiviert",
-  "disabled": "Deaktiviert",
-  "none": "keine",
-  "noPermUser": "Du hast keine Berechtigung dazu!",
-  "noPermBot": "Ich habe keine Berechtigung dazu!",
-  "true": "Ja",
-  "false": "Nein",
-  "modReason": "{command}-Befehl, Moderator {user}",
-  "downloadButton": "Herunterladen"
+  "categoryDescription": "Befehle zum Managen des Servers oder konfigurieren des Bots",
+  "serverbackup": {
+    "description": "Verwalte deine Server-Backups.",
+    "options": {
+      "create": {
+        "description": "Erstelle neues Server-Backup. Wenn der Server 5 oder mehr Backups hat, wird das älteste gelöscht."
+      },
+      "load": {
+        "description": "Lade ein Backup. Achtung: Serverdaten werden gelöscht! Nutze die Option \"no_clear\" zum Vermeiden.",
+        "options": {
+          "id": {
+            "description": "Die Backup-ID, die du laden möchtest. Verwende den Unterbefehl \"get\", um die Liste anzuzeigen."
+          },
+          "no_clear": {
+            "description": "Wenn auf true, cleart den Server nicht, überschreibt nur bestehende Daten (z. B. bleiben Kanäle)."
+          }
+        }
+      },
+      "get": {
+        "description": "Erhalte ein Backup oder eine Liste von Backups für diesen Server.",
+        "options": {
+          "id": {
+            "description": "Die Backup-ID, nach der gesucht wird."
+          }
+        }
+      },
+      "delete": {
+        "description": "Lösche ein Backup.",
+        "options": {
+          "id": {
+            "description": "Die Backup-ID, welche gelöscht werden soll."
+          }
+        }
+      }
+    },
+    "embedTitle": "Server-Backup",
+    "create": {
+      "cooldown": "Das Erstellen von Backups ist im Cooldown! Versuche es erneut in `{time}`s.",
+      "settings": "<a:loading:1063091916683612160> Sichere Einstellungen...",
+      "members": "<a:loading:1063091916683612160> Sichere Mitglieder...",
+      "bans": "<a:loading:1063091916683612160> Sichere Bans...",
+      "roles": "<a:loading:1063091916683612160> Sichere Rollen...",
+      "emojis": "<a:loading:1063091916683612160> Sichere Emojis...",
+      "stickers": "<a:loading:1063091916683612160> Sichere Sticker...",
+      "channels": "<a:loading:1063091916683612160> Sichere Kanäle, Threads und Nachrichten...",
+      "images": "<a:loading:1063091916683612160> Sichere Icon, Splash und Banner...",
+      "success": "Das Backup mit der ID `{id}` wurde erfolgreich erstellt!\nNutze </serverbackup get:{cmdId}> für mehr Informationen zum Backup."
+    },
+    "clear": {
+      "items": "<a:loading:1063091916683612160> Lösche Emojis, Sticker und Rollen...",
+      "bans": "<a:loading:1063091916683612160> Lösche Bans...",
+      "settings": "<a:loading:1063091916683612160> Lösche Einstellungen...",
+      "ownWebhooks": "<a:loading:1063091916683612160> Lösche temporäre Webhooks..."
+    },
+    "load": {
+      "cooldown": "Das Laden von Backups ist im Cooldown! Versuche es erneut in `{time}`s.",
+      "overwriteWarningDescription": "Diese Aktion wird den Großteil deines Servers löschen! Dazu zählen unter anderen Rollen, Webhooks, Kanäle und Emojis.\nWenn du dir sicher bist, dass du das tun möchtest, klicke \"Ja\". Klicke \"Nein\", um abzubrechen.\nDu könntest auch ein Backup vor dem Laden erstellen, nur zur Sicherheit.",
+      "noneFound": "Es wurde kein Backup für diesen Server gefunden!",
+      "cancelled": "Das Laden des Backups wurde abgebrochen.",
+      "enableDMs": "Bitte ermögliche dem Bot, dir DMs zu senden, damit du den Ladestatus sehen kannst.",
+      "loadingEmbedDescription": "Das Backup wird auf dem Server angewendet.\nDies kann, abhängig von der Größe des Backups, eine Weile dauern.",
+      "noPerm": "Nur der Servereigentümer kann Backups laden!",
+      "settings": "<a:loading:1063091916683612160> Lade Einstellungen...",
+      "features": "<a:loading:1063091916683612160> Lade Serverfeatures...",
+      "roles": "<a:loading:1063091916683612160> Lade Rollen...",
+      "members": "<a:loading:1063091916683612160> Lade Mitgliederrollen und Nicknamen...",
+      "channels": "<a:loading:1063091916683612160> Lade Kanäle, Threads und Nachrichten...",
+      "emojis": "<a:loading:1063091916683612160> Lade Emojis...",
+      "stickers": "<a:loading:1063091916683612160> Lade Sticker...",
+      "bans": "<a:loading:1063091916683612160> Lade Bans...",
+      "success": "Das Backup mit der ID `{id}` wurde geladen.",
+      "error": "Beim Laden des Backups ist ein Fehler aufgetreten."
+    },
+    "delete": {
+      "noPerm": "Nur der Servereigentümer kann Backups löschen!",
+      "success": "Das Backup wurde erfolgreich gelöscht!"
+    },
+    "get": {
+      "oneEmbedDescription": "**Informationen zu Backup `{id}`**\n>>> Erstellt am: <t:{createdAt}>\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "oneNotFound": "Es wurde kein Backup mit dieser ID gefunden!",
+      "infos": ">>> Erstellt am: <t:{createdAt}>\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "found": "Es wurden {amount} Backups gefunden.",
+      "embedDescription": "Die folgenden Backups wurden gefunden, sortiert nach Datum:",
+      "noneFound": "Es wurden keine Backups für diesen Server gefunden."
+    }
+  },
+  "selfrole": {
+    "description": "Verwalte Self-Rollen.",
+    "deprecated": "Dieses Feature wird nicht länger unterstützt. Bitte nutze Discord's Community-Features (Onboarding) für Selfroles: https://support.discord.com/hc/de/sections/360007770572-Community-Werkzeuge\nBereits konfigurierte Selfroles werden weiterhin funktionieren."
+  },
+  "setup": {
+    "description": "Richtet den Bot ein",
+    "options": {
+      "toggle_module": {
+        "description": "Schaltet ein Modul ein/aus",
+        "options": {
+          "module": {
+            "description": "Das Modul, welches du ein- oder ausschalten möchtest",
+            "choices": {
+              "gatekeeper": "Willkommen",
+              "birthday": "Geburtstage"
+            }
+          }
+        }
+      },
+      "toggle_command": {
+        "description": "Erlaube/Verbiete Rollen/Kanälen/Mitgliedern, einen bestimmten Befehl auszuführen.",
+        "options": {
+          "command": {
+            "description": "Den Befehl, dessen Berechtigungen du bearbeiten möchtest."
+          },
+          "get": {
+            "description": "Erhalte eine Liste von verbotenen Rollen/Kanälen/Mitgliedern für diesen Befehl stattdessen."
+          },
+          "role_1": {
+            "description": "Die Rolle, für die du den Befehl erlauben/verbieten möchtest"
+          },
+          "role_2": {
+            "description": "Die Rolle, für die du den Befehl erlauben/verbieten möchtest"
+          },
+          "role_3": {
+            "description": "Die Rolle, für die du den Befehl erlauben/verbieten möchtest"
+          },
+          "role_4": {
+            "description": "Die Rolle, für die du den Befehl erlauben/verbieten möchtest"
+          },
+          "role_5": {
+            "description": "Die Rolle, für die du den Befehl erlauben/verbieten möchtest"
+          },
+          "role_6": {
+            "description": "Die Rolle, für die du den Befehl erlauben/verbieten möchtest"
+          },
+          "channel_1": {
+            "description": "Der Kanal, für die du den Befehl erlauben/verbieten möchtest"
+          },
+          "channel_2": {
+            "description": "Der Kanal, für die du den Befehl erlauben/verbieten möchtest"
+          },
+          "channel_3": {
+            "description": "Der Kanal, für die du den Befehl erlauben/verbieten möchtest"
+          },
+          "channel_4": {
+            "description": "Der Kanal, für die du den Befehl erlauben/verbieten möchtest"
+          },
+          "channel_5": {
+            "description": "Der Kanal, für die du den Befehl erlauben/verbieten möchtest"
+          },
+          "channel_6": {
+            "description": "Der Kanal, für die du den Befehl erlauben/verbieten möchtest"
+          },
+          "member_1": {
+            "description": "Das Mitglied, für den du den Befehl erlauben/verbieten möchtest"
+          },
+          "member_2": {
+            "description": "Das Mitglied, für den du den Befehl erlauben/verbieten möchtest"
+          },
+          "member_3": {
+            "description": "Das Mitglied, für den du den Befehl erlauben/verbieten möchtest"
+          },
+          "member_4": {
+            "description": "Das Mitglied, für den du den Befehl erlauben/verbieten möchtest"
+          },
+          "member_5": {
+            "description": "Das Mitglied, für den du den Befehl erlauben/verbieten möchtest"
+          },
+          "member_6": {
+            "description": "Das Mitglied, für den du den Befehl erlauben/verbieten möchtest"
+          }
+        }
+      },
+      "language": {
+        "description": "Ändere die Sprache des Bots.",
+        "options": {
+          "language": {
+            "description": "In welcher Sprache soll der Bot antworten?"
+          }
+        }
+      },
+      "serverbackup": {
+        "description": "Verwalte die Optionen für deine Server-Backups.",
+        "options": {
+          "allowed_to_load": {
+            "description": "Ändert, wer Server-Backups laden darf.",
+            "choices": {
+              "creator": "Ersteller",
+              "owner": "Servereigentümer",
+              "creator+owner": "Ersteller und Servereigentümer",
+              "admins": "Aktuelle Serveradministratoren"
+            }
+          }
+        }
+      },
+      "autopublish": {
+        "description": "Veröffentliche automatisch alles, was jemand in einem Ankündigungskanal sagt.",
+        "options": {
+          "enabled": {
+            "description": "Veröffentliche automatisch alles, was jemand in einem Ankündigungskanal sagt."
+          }
+        }
+      },
+      "logger": {
+        "description": "Protokolliere Aktionen, die der Audit-Log nicht erfasst",
+        "options": {
+          "action": {
+            "description": "Die Aktion, die du protokollieren möchtest",
+            "choices": {
+              "all": "Alle Aktionen",
+              "messageDelete": "Nachrichten-Löschung",
+              "messageUpdate": "Nachrichten-Bearbeitung",
+              "voiceChannelActivity": "Sprachkanal join/leave/wechsel",
+              "sayCommandUsed": "/say, /embed Befehls-Verwendung"
+            }
+          },
+          "channel": {
+            "description": "Der Kanal, an den die Protokollnachricht gesendet werden soll"
+          },
+          "enabled": {
+            "description": "Aktiviere (true) oder deaktiviere (false) das Protokollieren dieser Aktion"
+          }
+        }
+      }
+    },
+    "toggleModule": {
+      "success": "Das `{name}` Modul wurde {state}."
+    },
+    "toggleCommand": {
+      "notFound": "Das ist kein gültiger Befehl!",
+      "list": {
+        "all": "Alle Mitglieder",
+        "embedTitle": "Verbotene Rollen/Kanäle/Mitglieder für Befehl {command}",
+        "embedDescription": "Keine Rollen, Kanäle oder Mitglieder sind momentan verboten."
+      },
+      "enabled": "Der `{command}` Befehl ist nun aktiviert.",
+      "disabled": "Der `{command}` Befehl ist nun deaktiviert.",
+      "isDisabled": "Der `{command}` Befehl ist für alle Mitglieder deaktiviert. Du kannst ihn wieder aktivieren, indem du </setup toggle_command:{id}> ausführst, ohne eine Rolle, einen Kanal oder ein Mitglied zu spezifizieren.",
+      "roles": "Rollen",
+      "channels": "Kanäle",
+      "users": "Mitglieder",
+      "embedTitle": "Aktualisierte Befehl-Einstellungen für \"{commandName}\"",
+      "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sieh alle verbotenen Rollen/Kanäle/Mitglieder, indem du </setup toggle_command:{id}> mit der `get` Option ausführst.||\n",
+      "embed": {
+        "enabled": "Entfernt (Erlaubt)",
+        "disabled": "Hinzugefügt (Verboten)"
+      }
+    },
+    "language": {
+      "embedTitle": "Sprache geändert!",
+      "embedDescription": "Die Sprache wurde auf `Deutsch` gestellt."
+    },
+    "serverbackup": {
+      "success": "Die Einstellungen wurden erfolgreich aktualisiert!"
+    },
+    "autopublish": {
+      "success": "Autopublish wurde {toggle}."
+    },
+    "logger": {
+      "noChannel": "Du hast keinen Textkanal angegeben, zu dem das Protokoll gesendet werden soll!",
+      "noEnabled": "Du musst die `enabled` Option nutzen, wenn du alle Actions auf einmal einstellen möchtest!",
+      "enabled": "Protokolle für {action} werden an <#{channel}> gesendet.",
+      "disabled": "Protokolle für {action} werden nicht mehr gesendet.",
+      "actions": {
+        "all": "Alle Aktionen",
+        "messageDelete": "gelöschte Nachrichten",
+        "messageUpdate": "bearbeitete Nachrichten",
+        "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
+        "sayCommandUsed": "/say, /embed Befehls-Verwendung"
+      }
+    },
+    "tickets": {
+      "defaultButtonLabel": "Erstelle Ticket",
+      "disabled": "Das Ticket-Modul wurde deaktiviert.",
+      "infoEmbedDescription": "Bitte drücke den untenstehenden Button, um eine benutzerdefinierte Embed-Beschreibung festzulegen, bevor du das Ticket-System durch Drücken des Speichern-Buttons aktivieren kannst.\nDu kannst [hier]({url}) ein gültiges Embed generieren.",
+      "editButtonLabel": "Embed bearbeiten",
+      "previewButtonLabel": "Embed-Vorschau",
+      "saveButtonLabel": "Embed speichern",
+      "textInputLabel": "Bitte gib das Embed-JSON ein.",
+      "invalidEmbed": "Das angegebene JSON ist ungültig:\n```{err}```"
+    }
+  }
 }
