@@ -1,152 +1,218 @@
 {
-  "categoryDescription": "Mini-jeux à jouer avec d'autres membres",
-  "coinflip": {
-    "description": "Retourner une pièce!",
-    "response": [
-      "Têtes!",
-      "Tailles!"
-    ],
-    "side": "Woah! La pièce a atterri de son côté!"
+  "categoryDescription": "Commandes de modérer la guilde",
+  "ban": {
+    "description": "bannit un membre de la guilde",
+    "options": {
+      "reason": {
+        "description": "La ou les cible(s) vont voir la raison en MP"
+      },
+      "duration": {
+        "description": "Combien de temps voulez-vous faire bannir les cibles ?"
+      },
+      "target": {
+        "description": "Mention member(s) or put ID(s) in to ban them. Put a space between each target."
+      },
+      "delete_days_of_messages": {
+        "description": "Supprime tous les messages des cibles des n derniers jours."
+      }
+    },
+    "dmEmbedTitle": "Banni",
+    "dmEmbedDescription": "Vous avez été banni de `{guild}`.\nModérateur : {mod}\nRaison : {reason}",
+    "infoEmbedTitle": "Bannir",
+    "infoEmbedDescription": "Modérateur : {mod}\nRaison : {reason}\n\n",
+    "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres à bannir. Vous avez 60 secondes.",
+    "cantPunishSelf": "Vous ne pouvez pas vous bannir vous-même!",
+    "noneFound": "Aucune cible n'a été trouvée.",
+    "error": "**{user}** n'a pas pu être banni.\n{err}\n",
+    "success": "**{user}** a été banni avec succès.\n",
+    "noDM": "Je n'ai pas pu gérer la cible avec le DM.",
+    "timedOut": "Ce menu a expiré."
   },
-  "counting": {
-    "description": "Set up a counting channel where members can show their math skills!",
+  "kick": {
+    "description": "expulse un membre de la guilde",
+    "options": {
+      "target": {
+        "description": "Mention member(s) or put ID(s) in to kick them. Put a space between each target."
+      },
+      "reason": {
+        "description": "La ou les cible(s) vont voir la raison en MP"
+      }
+    },
+    "dmEmbedTitle": "Expulsé",
+    "dmEmbedDescription": "Vous avez été éjecté de `{guild}`.\nModérateur : {mod}\nRaison : {reason}",
+    "infoEmbedTitle": "Expulser",
+    "infoEmbedDescription": "Modérateur : {mod}\nRaison : {reason}\n\n",
+    "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres à expulser. Vous avez 60 secondes.",
+    "noneFound": "Aucune cible n'a été trouvée.",
+    "cantPunishSelf": "Vous ne pouvez pas vous expulser vous-même!",
+    "error": "**{user}** n'a pas pu être éjecté.\n{err}\n",
+    "success": "**{user}** a été expulsé avec succès.\n",
+    "noDM": "Je n'ai pas pu gérer la cible avec le DM.",
+    "timedOut": "Ce menu a expiré."
+  },
+  "lock": {
+    "description": "Empêche tout le monde, sauf les administrateurs, d'écrire dans un canal.",
     "usage": {
-      "usage": "{prefix}compte [#canal]",
-      "examples": "{prefix}compte #counting"
+      "usage": "Verrouillage {prefix} [channel] [reason]",
+      "examples": "Verrouillage {prefix}#temps de mise en veille"
     },
     "options": {
       "channel": {
-        "description": "Le canal que vous voulez ajouter (ou supprimer, si déjà ajouté) en tant que canal compteur."
+        "description": "Quelle chaîne voulez-vous verrouiller ?"
+      },
+      "reason": {
+        "description": "La raison du verrouillage du canal"
       }
     },
-    "added": {
-      "embedTitle": "Ce salon est maintenant un canal de comptage !",
-      "embedDescription": "Les règles sont simples :\n> Commencer par **1**.\n> Ajouter **1** au dernier numéro\n> Vous ne pouvez pas compter deux nombres dans une ligne\nAmusez-vous !",
-      "by": "Ajouté en tant que canal comptant par {user}",
-      "success": "J'ai ajouté avec succès <#{channel}> en tant que canal de comptage"
-    },
-    "removed": {
-      "embedDescription": "Ce salon n'est plus un canal de comptage !",
-      "by": "Supprimé par {user}",
-      "success": "J'ai supprimé avec succès <#{channel}> en tant que canal de comptage"
-    },
-    "userDeletedMsg": {
-      "embedTitle": "Comptage",
-      "embedDescription": "Numéro supprimé : **{deletedNum}**\nNuméro suivant : **{nextNum}**",
-      "unknown": "Auteur inconnu"
-    }
+    "noReason": "aucune raison spécifiée",
+    "embedTitle": "Chaîne verrouillée !",
+    "embedDescription": "Ce canal a été verrouillé.\nModérateur : {mod}\nRaison : {reason}",
+    "success": "La chaîne a été verrouillée."
   },
-  "mgstats": {
-    "description": "obtenir des statistiques sur l'un des mini-jeux du bot",
+  "mute": {
+    "description": "Délai d'un membre pour une période donnée (min. 1min).",
+    "options": {
+      "target": {
+        "description": "Qui voulez-vous rendre muet?"
+      },
+      "reason": {
+        "description": "La cible va voir la raison en DMs."
+      },
+      "duration": {
+        "description": "Pendant combien de temps voulez-vous rendre muet la cible ? (par ex. 1w3d2h5min, min 1min, max. 28d)"
+      }
+    },
+    "dmEmbedTitle": "Coupé en sourdine",
+    "dmEmbedDescription": "Vous avez été rendu muet de `{guild}`.\nModérateur : {mod}\nJusqu'à : <t:{time}>\nRaison : {reason}",
+    "infoEmbedTitle": "Couper le son",
+    "infoEmbedDescription": "{user} a été rendu muet avec succès.\nRaison : {reason}\nJusqu'à : <t:{time}>\n",
+    "notFound": "Je n'ai pas pu trouver ce membre !",
+    "cantPunishSelf": "Vous ne pouvez pas vous masquer vous-même!",
+    "targetIsAdmin": "Je ne peux pas rendre muet les administrateurs !",
+    "invalidDuration": "La durée de mute que vous avez fournie est invalide !",
+    "error": "Je n'ai pas pu rendre muet la cible :\n{err}",
+    "noDM": "Je n'ai pas pu gérer la cible avec le DM."
+  },
+  "nukechannel": {
+    "description": "Efface tous les messages du canal en dupliquant le canal puis en supprimant celui d'origine",
+    "options": {
+      "confirmation": {
+        "description": "Ecrivez \"SUPPRIMER CHAÎNEL\" pour la confirmation."
+      },
+      "channel": {
+        "description": "Le canal à nuke."
+      }
+    },
+    "confirmation": "supprimer le canal",
+    "needConfirm": "Vous devez confirmer cette action en écrivant `DELETE CHANNEL` comme option de confirmation !",
+    "embedDescription": "Nuké de canal :radioactive:!",
+    "embedFooterText": "Nuked by {user}"
+  },
+  "purge": {
+    "description": "supprime un nombre spécifique de messages",
     "usage": {
-      "usage": "Statistiques {prefix} <game> [user]",
-      "examples": "{prefix}mgstats tictactoe @User1"
+      "usage": "{prefix}purge <number> [channel]\nIl ne supprimera PAS le nombre de messages spécifiés dans le paramètre \"montant\", mais les supprimera si tous les autres paramètres sont satisfaits.",
+      "examples": "{prefix}purge 7 #chat"
     },
     "options": {
-      "user": {
-        "description": "obtenir des statistiques sur vous-même ou sur un utilisateur spécifique",
-        "options": {
-          "game": {
-            "description": "Quel jeu voulez-vous obtenir des statistiques?",
-            "choices": {
-              "tictactoe": "format@@0 TicTacToe"
-            }
-          },
-          "target": {
-            "description": "De quel utilisateur voulez-vous obtenir des statistiques?"
-          }
+      "amount": {
+        "description": "Le nombre de messages à vérifier et peut-être à purger."
+      },
+      "only_containing": {
+        "description": "Ne purge que les messages contenant cela.",
+        "choices": {
+          "mentions": "Mentions de membre",
+          "server_ads": "Discord Server ad links",
+          "images": "Images",
+          "embeds": "Embeds",
+          "text": "Texte du texte"
         }
       },
-      "leaderboard": {
-        "description": "obtenir les 10 meilleurs joueurs d'une partie",
-        "options": {
-          "game": {
-            "description": "Quel jeu voulez-vous obtenir des statistiques?",
-            "choices": {
-              "tictactoe": "format@@0 TicTacToe"
-            }
-          },
-          "sort": {
-            "description": "Trier le classement",
-            "choices": {
-              "m_wins": "Le plus de victoires",
-              "f_wins": "Nombre de victoires",
-              "m_draws": "Le plus de tirages",
-              "f_draws": "Moins de tirages",
-              "m_loses": "Le plus de pertes",
-              "f_loses": "Moins de pertes",
-              "m_alphabet_user": "Noms d'utilisateur (Descendant)",
-              "f_alphabet_user": "Noms d'utilisateur (Ascendant)",
-              "m_alphabet_nick": "Pseudos (Descendant)",
-              "f_alphabet_nick": "Pseudos (Ascendant)"
-            }
-          },
-          "settings": {
-            "description": "Appliquer/Interdire les filtres au classement",
-            "choices": {
-              "all_users": "All Users globally"
-            }
-          }
+      "member": {
+        "description": "Purger uniquement les messages de ce membre."
+      },
+      "channel": {
+        "description": "Dans la chaîne sorcière voulez-vous purger ?"
+      },
+      "remove_pinned": {
+        "description": "Ne pas ignorer les messages épinglés."
+      },
+      "caps_percentage": {
+        "description": "Combien de CAPS doit être au moins dans les messages pour les purger ?"
+      },
+      "contains": {
+        "description": "Les messages doivent contenir cette phrase pour être purgés."
+      },
+      "does_not_contain": {
+        "description": "Les messages ne doivent pas contenir cette phrase pour être purgés."
+      },
+      "starts_with": {
+        "description": "Les messages doivent commencer par cette phrase pour être purgés."
+      },
+      "not_starts_with": {
+        "description": "Les messages ne doivent pas commencer par cette phrase pour être purgés."
+      },
+      "ends_with": {
+        "description": "Les messages doivent se terminer par cette phrase pour être purgés."
+      },
+      "not_ends_with": {
+        "description": "Les messages ne doivent pas commencer à terminer cette phrase pour être purgés."
+      },
+      "user_type": {
+        "description": "Seuls les messages de ce type d'utilisateur sont purgés.",
+        "choices": {
+          "bot": "Bot",
+          "human": "Humain"
         }
+      },
+      "before_message": {
+        "description": "Entrez un identifiant de message. Seuls les messages envoyés avant que ce message ne soit purgé."
+      },
+      "after_message": {
+        "description": "Entrez un identifiant de message. Seuls les messages envoyés après que ce message ait été purgé."
       }
     },
-    "games": "Jeux : `{games}`\n\n",
-    "wins": "Victoires : {wins}\n",
-    "loses": "Pertes : {loses}\n",
-    "draws": "Tirages : {draws}\n\n",
-    "noOne": "personne\n",
-    "missingGameArg": "Tu dois me donner un `jeu` comme premier argument!",
-    "notFound": "Ce n'est pas une entrée de jeu valide. Les jeux valides sont:\n`{list}`",
-    "wonAgainst": "Gagné contre :\n",
-    "lostAgainst": "Perdu contre :\n",
-    "drewAgainst": "Faire piquer contre :\n",
-    "embedTitle": "`{user}`a {game} stats",
-    "embedTitleTop10": "Top 10 des joueurs {game}",
-    "noPlayers": "On dirait que personne n'a encore gagné...",
-    "youNoGamesPlayed": "Vous n'avez encore joué aucune partie de {game}.",
-    "userNoGamesPlayed": "{user} n'a encore joué aucune partie de {game}."
+    "invalidNumber": "Ce n'est pas un nombre valide !",
+    "noNumber": "Veuillez spécifier le nombre de messages à purger la prochaine fois.",
+    "beforeAndAfter": "L'option `before` ne peut pas être utilisée avec l'option `after` !",
+    "paramsExcludeOther": "Un de vos paramètres rend un autre paramètre impossible ! (par exemple. `starts_with` = \"a\" et `not_starts_with` = \"a\")",
+    "noneFound": "Aucun message correspondant à vos paramètres n'a été trouvé.",
+    "success": "{count}/{all} messages ont été supprimés avec succès."
   },
-  "rps": {
-    "description": "Jouer des ciseaux de papier pierre contre le bot ou (bientôt disponible) contre vos amis",
+  "unlock": {
+    "description": "Déverrouille une chaîne verrouillée avec la commande de verrouillage.",
+    "usage": {
+      "usage": "{prefix}déverrouille [channel] [reason]",
+      "examples": "{prefix}débloque #chat Bonjour"
+    },
     "options": {
-      "opponent": {
-        "description": "À qui voulez-vous jouer ?"
+      "channel": {
+        "description": "Quelle chaîne voulez-vous déverrouiller ?"
+      },
+      "reason": {
+        "description": "La raison du déblocage du canal"
       }
     },
-    "r": "Roche",
-    "p": "Papier",
-    "s": "Scissors",
-    "challenge": {
-      "opponentIsBot": "Vous ne pouvez pas défier les robots !",
-      "opponentIsSelf": "Vous ne pouvez pas vous défier vous-même!",
-      "embedTitle": "format@@0 Rock Paper Scissors",
-      "embedDescription": "**{user}** vous a défié en duel!",
-      "botEmbedDescription": "Vous m'avez défié en duel!",
-      "start": "Début",
-      "accept": "Accepter",
-      "decline": "Refuser",
-      "newChallenge": "<@{user}> :crossed_swords: Nouveau défi duel"
-    },
-    "memberNotFound": "Au moins un des joueurs n'a pas été trouvé !",
-    "declined": ":x: `{opponent}` ne s'est pas relevé au défi.",
-    "accept": {
-      "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",
-      "embedDescription": "Sélectionnez votre objet!"
-    },
-    "end": {
-      "alreadyChosen": "Vous avez déjà sélectionné {move}! Veuillez attendre que votre adversaire choisisse.",
-      "saved": "Votre sélection a été enregistrée !",
-      "tie": "Personne n'a gagné la partie, c'est une égalité! {emoji} = {emoji}",
-      "win": ":tada: <@{winner}> a gagné la partie ! {winEmoji} > {loseEmoji}"
-    }
+    "noReason": "aucune raison spécifiée",
+    "notLocked": "Ce canal n'est pas verrouillé !",
+    "embedTitle": "Chaîne débloquée !",
+    "embedDescription": "Ce canal a été débloqué.\nModérateur : {mod}\nRaison : {reason}",
+    "success": "La chaîne a été déverrouillée."
   },
-  "tictactoe": {
-    "description": "jouer au TicTacToe contre un ami ou le bot",
+  "unmute": {
+    "description": "lève le délai d'attente d'un membre",
     "options": {
-      "opponent": {
-        "description": "À qui voulez-vous jouer ?"
+      "target": {
+        "description": "Qui voulez-vous réactiver la sourdine ?"
+      },
+      "reason": {
+        "description": "Pourquoi voulez-vous réactiver la cible ?"
       }
     },
-    "newChallenge": "<@{user}> :crossed_swords: Nouveau défi duel"
+    "noReason": "aucune raison spécifiée",
+    "notFound": "Je n'ai pas pu trouver ce membre !",
+    "notMuted": "Ce membre n'est pas muet !",
+    "moderator": "Modérateur",
+    "success": "Délai d'attente retiré pour le membre <@{user}>."
   }
 }
