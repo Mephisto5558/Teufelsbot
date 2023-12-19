@@ -94,7 +94,7 @@ class BackupSystem {
       channels: doNotBackup?.includes('channels') ? null : {
         categories: await Promise.all(updateStatus('create.channels') && (await guild.channels.fetch()).filter(e => e.type == ChannelType.GuildCategory).sort((a, b) => a.position - b.position).map(async e => ({
           name: e.name,
-          permissions: await this.utils.fetchChannelPermissions(e),
+          permissions: this.utils.fetchChannelPermissions(e),
           children: await Promise.all(e.children.cache.sort((a, b) => a.position - b.position).map(async child => {
             if (Constants.TextBasedChannelTypes.includes(child.type) && !Constants.ThreadChannelTypes.includes(child.type)) return this.utils.fetchTextChannelData(child, saveImages, maxMessagesPerChannel);
             if (Constants.VoiceBasedChannelTypes.includes(child.type)) return {
@@ -103,7 +103,7 @@ class BackupSystem {
               bitrate: child.bitrate,
               userLimit: child.userLimit,
               position: child.position,
-              permissions: await this.utils.fetchChannelPermissions(child)
+              permissions: this.utils.fetchChannelPermissions(child)
             };
             if (child.type == ChannelType.GuildForum) return {
               type: child.type,
@@ -115,7 +115,7 @@ class BackupSystem {
               defaultReactionEmoji: child.defaultReactionEmoji.name,
               defaultSortOrder: e.defaultSortOrder,
               defaultThreadRateLimitPerUser: e.defaultThreadRateLimitPerUser,
-              permissions: await this.utils.fetchChannelPermissions(child),
+              permissions: this.utils.fetchChannelPermissions(child),
               position: child.position,
               threads: await this.utils.fetchChannelThreads(child, saveImages, maxMessagesPerChannel),
               availableTags: child.availableTags.map(async e => ({ name: e.name, emoji: e.emoji?.name, moderated: e.moderated }))
