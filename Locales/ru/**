@@ -1,20 +1,152 @@
 {
-  "languageName": "Русский",
-  "messageSent": "Сообщение отправлено!",
-  "loading": "<a:loading:1063091916683612160> Загрузка...",
-  "channel": "Канал",
-  "guild": "Гильдия",
-  "user": "Пользователь",
-  "cancel": "Отмена",
-  "playAgain": "Играть снова",
-  "anotherone": "Еще один",
-  "enabled": "Включено",
-  "disabled": "Отключено",
-  "none": "нет",
-  "noPermUser": "У вас нет разрешения на это!",
-  "noPermBot": "У меня нет разрешения на это!",
-  "true": "Да",
-  "false": "Нет",
-  "modReason": "Команда {command} , модератор {user}",
-  "downloadButton": "Скачать"
+  "categoryDescription": "Игры для игры с другими участниками",
+  "coinflip": {
+    "description": "Повернуть монету!",
+    "response": [
+      "Головы!",
+      "Гвоздики!"
+    ],
+    "side": "Ой! монета приземлилась на стороне!"
+  },
+  "counting": {
+    "description": "Настройте канал подсчета, где участники могут показать свои математические навыки!",
+    "usage": {
+      "usage": "Подсчёт {prefix}[#канал]",
+      "examples": "{prefix}подсчет #counting"
+    },
+    "options": {
+      "channel": {
+        "description": "Канал, который вы хотите добавить (или удалить, если он уже добавлен) в качестве счетного канала."
+      }
+    },
+    "added": {
+      "embedTitle": "Этот канал теперь является счетчиком!",
+      "embedDescription": "Правила проста:\n> Начать с **1**.\n> Добавить **1** к последнему номеру\n> Вы не можете посчитать два числа в строке\nУдачи!",
+      "by": "Добавлено как счетчик канала {user}",
+      "success": "Я успешно добавил <#{channel}> в качестве счетчика канала."
+    },
+    "removed": {
+      "embedDescription": "Этот канал больше не является счетчиком!",
+      "by": "Удалено {user}",
+      "success": "Я успешно удалил <#{channel}> в качестве счетчика канала."
+    },
+    "userDeletedMsg": {
+      "embedTitle": "Подсчёт",
+      "embedDescription": "Удалено число: **{deletedNum}**\nСледующее число: **{nextNum}**",
+      "unknown": "Неизвестный автор"
+    }
+  },
+  "mgstats": {
+    "description": "получать статистику о мини-играх бота",
+    "usage": {
+      "usage": "Статистика {prefix} <game> [user]",
+      "examples": "{prefix}mgstats tictactoe @User1"
+    },
+    "options": {
+      "user": {
+        "description": "получать статистику о себе или конкретном пользователе",
+        "options": {
+          "game": {
+            "description": "О чём ты хочешь узнать статистику?",
+            "choices": {
+              "tictactoe": "Тиктактуэ"
+            }
+          },
+          "target": {
+            "description": "О чём вы хотите узнать статистику?"
+          }
+        }
+      },
+      "leaderboard": {
+        "description": "получить лучшие 10 игроков в игре",
+        "options": {
+          "game": {
+            "description": "О чём ты хочешь узнать статистику?",
+            "choices": {
+              "tictactoe": "Тиктактуэ"
+            }
+          },
+          "sort": {
+            "description": "Сортировать список лидеров",
+            "choices": {
+              "m_wins": "Большинство побед",
+              "f_wins": "Меньше побед",
+              "m_draws": "Больше Рисования",
+              "f_draws": "Меньше ничьих",
+              "m_loses": "Наибольшие потери",
+              "f_loses": "Меньше потерь",
+              "m_alphabet_user": "Имя пользователя (по убыванию)",
+              "f_alphabet_user": "Имена пользователей (Восходящие)",
+              "m_alphabet_nick": "Ники (по убыванию)",
+              "f_alphabet_nick": "Ники (по возрастанию)"
+            }
+          },
+          "settings": {
+            "description": "Применить/Запретить фильтры в таблице лидеров",
+            "choices": {
+              "all_users": "Все пользователи глобально"
+            }
+          }
+        }
+      }
+    },
+    "games": "Игры: `{games}\n\n",
+    "wins": "Побед: {wins}\n",
+    "loses": "Потеряно: {loses}\n",
+    "draws": "Ничья: {draws}\n\n",
+    "noOne": "никто не\n",
+    "missingGameArg": "Нужно дать мне игру в качестве первого аргумента!",
+    "notFound": "Это некорректная игра. Допустимые игры:\n`{list}",
+    "wonAgainst": "Выиграть снова:\n",
+    "lostAgainst": "Потеряно снова:\n",
+    "drewAgainst": "Дрю снова:\n",
+    "embedTitle": "Статистика{user} {game}",
+    "embedTitleTop10": "Топ 10 {game} игроков",
+    "noPlayers": "Похоже, никто еще не выиграл...",
+    "youNoGamesPlayed": "Вы еще не играли ни одной игры {game}.",
+    "userNoGamesPlayed": "{user} еще не сыграл ни одной игры {game}."
+  },
+  "rps": {
+    "description": "Играйте в ножницы с каменной бумагой против ваших друзей или бота",
+    "options": {
+      "opponent": {
+        "description": "Кто ты хочешь играть снова?"
+      }
+    },
+    "r": "Камень",
+    "p": "Бумага",
+    "s": "Ножницы",
+    "challenge": {
+      "opponentIsBot": "Вы не можете бросить вызов ботам!",
+      "opponentIsSelf": "Вы не можете бросить вызов себе!",
+      "embedTitle": "Ножницы из бумаги для камня",
+      "embedDescription": "**{user}** бросил Вам вызов на поединк!",
+      "botEmbedDescription": "Вы бросили меня на поединка!",
+      "start": "Начать",
+      "accept": "Принять",
+      "decline": "Отклонить",
+      "newChallenge": "<@{user}> :crossed_swords: Новое испытание на дуэль"
+    },
+    "memberNotFound": "По крайней мере один из игроков не найден!",
+    "declined": ":x: `{opponent}` не поднимался до испытания.",
+    "accept": {
+      "embedTitle": ":game_die: `{player1}**VS** `{player2}`",
+      "embedDescription": "Выберите ваш предмет!"
+    },
+    "end": {
+      "alreadyChosen": "Вы уже выбрали {move}! Пожалуйста, дождитесь выбора противника.",
+      "saved": "Ваш выбор был сохранен!",
+      "tie": "Никто не выиграл игру, это галстук! {emoji} = {emoji}",
+      "win": ":tada: <@{winner}> выиграл игру! {winEmoji} > {loseEmoji}"
+    }
+  },
+  "tictactoe": {
+    "description": "играть в TicTacToe против друга или бота",
+    "options": {
+      "opponent": {
+        "description": "Кто ты хочешь играть снова?"
+      }
+    },
+    "newChallenge": "<@{user}> :crossed_swords: Новое испытание на дуэль"
+  }
 }
