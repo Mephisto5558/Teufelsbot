@@ -1,0 +1,20 @@
+{
+  "languageName": "Español",
+  "messageSent": "¡Mensaje enviado!",
+  "loading": "<a:loading:1063091916683612160> Cargando...",
+  "channel": "Canal",
+  "guild": "Gremio",
+  "user": "Usuario",
+  "cancel": "Cancelar",
+  "playAgain": "Jugar de nuevo",
+  "anotherone": "Otro",
+  "enabled": "Activado",
+  "disabled": "Deshabilitado",
+  "none": "ninguno",
+  "noPermUser": "¡No tienes permiso para hacer eso!",
+  "noPermBot": "¡No tengo permiso para hacer eso!",
+  "true": "Sí",
+  "false": "Nu",
+  "modReason": "{command} comando, moderador {user}",
+  "downloadButton": "Descargar"
+}
