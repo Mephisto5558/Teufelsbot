@@ -1,152 +1,218 @@
 {
-  "categoryDescription": "Minijuegos para jugar con otros miembros",
-  "coinflip": {
-    "description": "¡Invierte una moneda!",
-    "response": [
-      "¡Cabezas!",
-      "¡Gracias!"
-    ],
-    "side": "¡Oya! ¡La moneda aterrizó en su lado!"
+  "categoryDescription": "Comandos para moderar el gremio",
+  "ban": {
+    "description": "prohíbe a uno o varios miembros del gremio",
+    "options": {
+      "reason": {
+        "description": "Los objetivo(s) deben/van a ver la razón en DMs"
+      },
+      "duration": {
+        "description": "¿Cuánto tiempo quieres que el objetivo(s) sea prohibido?"
+      },
+      "target": {
+        "description": "Mencione miembro(s) o pon ID(s) para banearlos. Pon un espacio entre cada objetivo."
+      },
+      "delete_days_of_messages": {
+        "description": "Elimina todos los mensajes del objetivo(s) de los últimos n días."
+      }
+    },
+    "dmEmbedTitle": "Baneado",
+    "dmEmbedDescription": "Has sido baneado de `{guild}`.\nModerador: {mod}\nRazón: {reason}",
+    "infoEmbedTitle": "Banear",
+    "infoEmbedDescription": "Moderador: {mod}\nRazón: {reason}\n\n",
+    "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para banear. Tienes 60 segundos.",
+    "cantPunishSelf": "¡No puedes banearte a ti mismo!",
+    "noneFound": "No se han encontrado objetivos.",
+    "error": "**{user}** no se pudo banear.\n{err}\n",
+    "success": "**{user}** ha sido baneado con éxito.\n",
+    "noDM": "No pude DM el objetivo.",
+    "timedOut": "Este menú ha expirado."
   },
-  "counting": {
-    "description": "¡Configura un canal de conteo donde los miembros puedan mostrar sus habilidades matemáticas!",
+  "kick": {
+    "description": "expulsa a un miembro de la guild",
+    "options": {
+      "target": {
+        "description": "Mencione miembro(s) o pon ID(s) para expulsarlos. Pon un espacio entre cada objetivo."
+      },
+      "reason": {
+        "description": "Los objetivo(s) deben/van a ver la razón en DMs"
+      }
+    },
+    "dmEmbedTitle": "Expulsado",
+    "dmEmbedDescription": "Has sido expulsado de `{guild}`.\nModerador: {mod}\nRazón: {reason}",
+    "infoEmbedTitle": "Patear",
+    "infoEmbedDescription": "Moderador: {mod}\nRazón: {reason}\n\n",
+    "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para expulsar. Tienes 60 segundos.",
+    "noneFound": "No se han encontrado objetivos.",
+    "cantPunishSelf": "¡No puedes expulsarte a ti mismo!",
+    "error": "**{user}** no pudo ser expulsado.\n{err}\n",
+    "success": "**{user}** ha sido expulsado con éxito.\n",
+    "noDM": "No pude DM el objetivo.",
+    "timedOut": "Este menú ha expirado."
+  },
+  "lock": {
+    "description": "Evita que todos, excepto administradores, escriban en un canal.",
     "usage": {
-      "usage": "{prefix}contando [#canal]",
-      "examples": "{prefix}contando #contador"
+      "usage": "{prefix}bloquear [channel] [reason]",
+      "examples": "{prefix}bloquea #chat Tiempo para dormir"
     },
     "options": {
       "channel": {
-        "description": "El canal que desea agregar (o eliminar, si ya se ha añadido) como un canal de conteo."
+        "description": "¿Qué canal quieres bloquear?"
+      },
+      "reason": {
+        "description": "La razón para bloquear el canal"
       }
     },
-    "added": {
-      "embedTitle": "¡Este canal es ahora un canal de cuenta!",
-      "embedDescription": "Las reglas son simples:\n> Comenzar con **1**.\n> Añade **1** al último número\n> No puedes contar dos números seguidos\n¡Diviértete!",
-      "by": "Añadido como canal de recuento por {user}",
-      "success": "Añadí con éxito <#{channel}> como canal de conteo."
-    },
-    "removed": {
-      "embedDescription": "¡Este canal ya no es un canal de cuento!",
-      "by": "Eliminado por {user}",
-      "success": "He eliminado con éxito <#{channel}> como canal de conteo."
-    },
-    "userDeletedMsg": {
-      "embedTitle": "Contando",
-      "embedDescription": "Número eliminado: **{deletedNum}**\nSiguiente Número: **{nextNum}**",
-      "unknown": "Autor desconocido"
-    }
+    "noReason": "ninguna razón especificada",
+    "embedTitle": "¡Canal bloqueado!",
+    "embedDescription": "Este canal ha sido bloqueado.\nModerador: {mod}\nRazón: {reason}",
+    "success": "El canal ha sido bloqueado."
   },
-  "mgstats": {
-    "description": "obtener estadísticas acerca de uno de los minijuegos del bot",
+  "mute": {
+    "description": "Espera a un miembro por un tiempo determinado (min. 1 min).",
+    "options": {
+      "target": {
+        "description": "¿A quién quieres silenciar?"
+      },
+      "reason": {
+        "description": "El objetivo va a ver la razón en las MD."
+      },
+      "duration": {
+        "description": "¿Durante cuánto tiempo quieres silenciar el objetivo? (por ejemplo, 1w3d2h5min, min 1min, max. 28d)"
+      }
+    },
+    "dmEmbedTitle": "Silenciado",
+    "dmEmbedDescription": "Has sido silenciado de `{guild}`.\nModerador: {mod}\nHasta: <t:{time}>\nRazón: {reason}",
+    "infoEmbedTitle": "Silenciar",
+    "infoEmbedDescription": "{user} ha sido silenciado con éxito.\nRazón: {reason}\nHasta: <t:{time}>\n",
+    "notFound": "¡No pude encontrar ese miembro!",
+    "cantPunishSelf": "¡No puedes silenciarte a ti mismo!",
+    "targetIsAdmin": "¡No puedo silenciar a los administradores!",
+    "invalidDuration": "¡La duración del silencio que proporcionaste no es válida!",
+    "error": "No pude silenciar al objetivo:\n{err}",
+    "noDM": "No pude DM el objetivo."
+  },
+  "nukechannel": {
+    "description": "Limpia todos los mensajes del canal duplicando el canal y luego eliminando el original",
+    "options": {
+      "confirmation": {
+        "description": "Escriba \"DELETE CHANNEL\" para su confirmación."
+      },
+      "channel": {
+        "description": "El canal a los nucleos."
+      }
+    },
+    "confirmation": "borrar canal",
+    "needConfirm": "Necesitas confirmar esta acción escribiendo `DELETE CHANNEL` como la opción de confirmación!",
+    "embedDescription": "¡Canal de :radioactive: Nuked!",
+    "embedFooterText": "Nutrido por {user}"
+  },
+  "purge": {
+    "description": "elimina una cantidad específica de mensajes",
     "usage": {
-      "usage": "{prefix}estadísticas <game> [user]",
-      "examples": "{prefix}mgstats tictactoe @User1"
+      "usage": "{prefix}purge <number> [channel]\nNO eliminará el número de mensajes especificados en el parámetro \"cantidad\", pero los eliminará si se cumplen todos los demás parámetros.",
+      "examples": "{prefix}purge 7 #chat"
     },
     "options": {
-      "user": {
-        "description": "obtener estadísticas sobre ti o un usuario específico",
-        "options": {
-          "game": {
-            "description": "¿De qué juego quieres obtener estadísticas?",
-            "choices": {
-              "tictactoe": "TicTacToe"
-            }
-          },
-          "target": {
-            "description": "¿De qué usuario quieres obtener estadísticas?"
-          }
+      "amount": {
+        "description": "La cantidad de mensajes a comprobar y tal vez purgar."
+      },
+      "only_containing": {
+        "description": "Sólo purgar mensajes que contengan eso.",
+        "choices": {
+          "mentions": "Menciones de miembro",
+          "server_ads": "Enlaces anuncio servidor Discord",
+          "images": "Imágenes",
+          "embeds": "Embeds",
+          "text": "Texto"
         }
       },
-      "leaderboard": {
-        "description": "consigue los 10 mejores jugadores de una partida",
-        "options": {
-          "game": {
-            "description": "¿De qué juego quieres obtener estadísticas?",
-            "choices": {
-              "tictactoe": "TicTacToe"
-            }
-          },
-          "sort": {
-            "description": "Ordenar el marcador",
-            "choices": {
-              "m_wins": "Más victorias",
-              "f_wins": "Fewest gana",
-              "m_draws": "Más golpes",
-              "f_draws": "Dibujos del Oeste",
-              "m_loses": "Más pérdidas",
-              "f_loses": "Pérdidas del Oeste",
-              "m_alphabet_user": "Nombres de usuario (Descender)",
-              "f_alphabet_user": "Nombres de usuario (ascendente)",
-              "m_alphabet_nick": "Apodos (Descendente)",
-              "f_alphabet_nick": "Apodos (ascendente)"
-            }
-          },
-          "settings": {
-            "description": "Aplicar/Desaplicar filtros a la tabla de clasificación",
-            "choices": {
-              "all_users": "Todos los usuarios globalmente"
-            }
-          }
+      "member": {
+        "description": "Purgar sólo mensajes de ese miembro."
+      },
+      "channel": {
+        "description": "¿En el canal de brujas quieres purgar?"
+      },
+      "remove_pinned": {
+        "description": "No omita los mensajes fijados."
+      },
+      "caps_percentage": {
+        "description": "¿Cuánto CAPS debe ser al menos en los mensajes para purgarlos?"
+      },
+      "contains": {
+        "description": "Los mensajes deben contener esta frase para ser purgados."
+      },
+      "does_not_contain": {
+        "description": "Los mensajes no deben contener esta frase para ser purgados."
+      },
+      "starts_with": {
+        "description": "Los mensajes deben comenzar con esta frase para ser purgados."
+      },
+      "not_starts_with": {
+        "description": "Los mensajes no deben comenzar con esta frase para ser purgados."
+      },
+      "ends_with": {
+        "description": "Los mensajes deben terminar con esta frase para ser purgados."
+      },
+      "not_ends_with": {
+        "description": "Los mensajes no deben comenzar a terminar esta frase para ser purgados."
+      },
+      "user_type": {
+        "description": "Sólo mensajes de ese tipo de usuario se purgaron.",
+        "choices": {
+          "bot": "Bot",
+          "human": "Humano"
         }
+      },
+      "before_message": {
+        "description": "Introduzca un id de mensaje. Sólo mensajes enviados antes de que ese mensaje sea purgado."
+      },
+      "after_message": {
+        "description": "Ingrese un id de mensaje. Sólo los mensajes enviados después de que ese mensaje sea purgado."
       }
     },
-    "games": "Juegos: `{games}`\n\n",
-    "wins": "Victorias: {wins}\n",
-    "loses": "Pérdidas: {loses}\n",
-    "draws": "Dibujos: {draws}\n\n",
-    "noOne": "nadie\n",
-    "missingGameArg": "¡Necesitas darme un `juego` como el primer argumento!",
-    "notFound": "Esta no es una entrada de juego válida. Los juegos válidos son:\n`{list}`",
-    "wonAgainst": "Victorias contra:\n",
-    "lostAgainst": "Perdido contra:\n",
-    "drewAgainst": "En contra:\n",
-    "embedTitle": "` Estadísticas de{user}de {game}",
-    "embedTitleTop10": "Top 10 {game} jugadores",
-    "noPlayers": "Parece que nadie ha ganado aún...",
-    "youNoGamesPlayed": "Aún no has jugado ninguna {game} partidas.",
-    "userNoGamesPlayed": "{user} aún no ha jugado ninguna partida {game}."
+    "invalidNumber": "Este no es un número válido!",
+    "noNumber": "Por favor, especifique el número de mensajes a purgar la próxima vez.",
+    "beforeAndAfter": "La opción `before` no se puede utilizar junto con la opción `after`!",
+    "paramsExcludeOther": "¡Uno de sus parámetros hace imposible otro parámetro! (por ejemplo. `starts_with` = \"a\" y `not_starts_with` = \"a\")",
+    "noneFound": "No se han encontrado mensajes eliminables que coincidan con sus parámetros.",
+    "success": "{count}/{all} mensajes eliminados correctamente."
   },
-  "rps": {
-    "description": "Juega tijeras de papel contra tus amigos o el bot",
+  "unlock": {
+    "description": "Desbloquea un canal bloqueado con el comando de bloqueo.",
+    "usage": {
+      "usage": "{prefix}desbloquear [channel] [reason]",
+      "examples": "{prefix}desbloquea #chat Buenos días"
+    },
     "options": {
-      "opponent": {
-        "description": "¿A quién quieres jugar de nuevo?"
+      "channel": {
+        "description": "¿Qué canal quieres desbloquear?"
+      },
+      "reason": {
+        "description": "La razón para desbloquear el canal"
       }
     },
-    "r": "Roca",
-    "p": "Papel",
-    "s": "Tijeras",
-    "challenge": {
-      "opponentIsBot": "¡No puedes retar a los bots!",
-      "opponentIsSelf": "¡No puedes desafiarte a ti mismo!",
-      "embedTitle": "Piedra de papel tijeras",
-      "embedDescription": "**{user}** te ha desafiado a un duelo!",
-      "botEmbedDescription": "¡Me has desafiado a un duelo!",
-      "start": "Comenzar",
-      "accept": "Aceptar",
-      "decline": "Rechazar",
-      "newChallenge": "<@{user}> :crossed_swords: Nuevo desafío en duelo"
-    },
-    "memberNotFound": "Al menos uno de los jugadores no ha sido encontrado!",
-    "declined": ":x:{opponent}` no se levanta al reto.",
-    "accept": {
-      "embedTitle": ":game_die: `{player1}` **VS** `{player2}",
-      "embedDescription": "¡Selecciona tu objeto!"
-    },
-    "end": {
-      "alreadyChosen": "¡Ya has seleccionado {move}! Por favor espera a que tu oponente elija.",
-      "saved": "¡Su selección ha sido guardada!",
-      "tie": "Nadie ha ganado el juego, ¡es un empate! {emoji} = {emoji}",
-      "win": ":tada: <@{winner}> ganó el juego! {winEmoji} > {loseEmoji}"
-    }
+    "noReason": "ninguna razón especificada",
+    "notLocked": "¡Este canal no está bloqueado!",
+    "embedTitle": "¡Canal desbloqueado!",
+    "embedDescription": "Este canal ha sido desbloqueado.\nModerador: {mod}\nRazón: {reason}",
+    "success": "El canal ha sido desbloqueado."
   },
-  "tictactoe": {
-    "description": "jugar a TicTacToe contra un amigo o el bot",
+  "unmute": {
+    "description": "levanta el tiempo de espera de un miembro",
     "options": {
-      "opponent": {
-        "description": "¿A quién quieres jugar de nuevo?"
+      "target": {
+        "description": "¿A quién quieres dessilenciar?"
+      },
+      "reason": {
+        "description": "¿Por qué quieres dejar de silenciar el objetivo?"
       }
     },
-    "newChallenge": "<@{user}> :crossed_swords: Nuevo desafío en duelo"
+    "noReason": "ninguna razón especificada",
+    "notFound": "¡No pude encontrar ese miembro!",
+    "notMuted": "¡Este miembro no está silenciado!",
+    "moderator": "Moderador",
+    "success": "Se ha eliminado el tiempo de espera para el miembro <@{user}>."
   }
 }
