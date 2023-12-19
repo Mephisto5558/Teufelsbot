@@ -1,129 +1,333 @@
 {
-  "categoryDescription": "Befehle, die eine Premium-Mitgliedschaft erfordern (werden)",
-  "chatgpt": {
-    "description": "Sprich mit ChatGPT!",
+  "categoryDescription": "Nützliche Befehle",
+  "addemoji": {
+    "description": "Fügt ein Emoji zu diesem Server hinzu",
+    "options": {
+      "emoji_or_url": {
+        "description": "Gib ein Emoji oder eine URL zu einem Bild an."
+      },
+      "name": {
+        "description": "Der Name, den das Emoji haben soll."
+      },
+      "limit_to_roles": {
+        "description": "Limitiere das Emoji zu bestimmten Rollen. Separiere sie mit Leertasten."
+      }
+    },
+    "embedTitle": "AddEmoji",
+    "isGuildEmoji": "Dieser Emoji ist bereits auf diesem Server!",
+    "invalidUrl": "Das angegebene Argument ist kein gültiges Emoji oder URL!\nEine gültige URL muss eine der folgenden Endungen haben: `jpg`, `jpeg`, `png`, `webp`, `svg` oder `gif`.\nBeispiel: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "notFound": "Die angegebene URL wurde nicht gefunden.",
+    "success": "**{name}** wurde erfolgreich hinzugefügt {emoji}!\n",
+    "limitedToRoles": "Das Emoji wurde zu den folgenden Rollen limitiert:\n<@&{roles}>.",
+    "error": "Das Emoji konnte aus folgendem Grund nicht hinzugefügt werden:\n```\n{err}\n```",
+    "tooBig": "Das Bild ist zu groß. Die maximale Dateigröße beträgt 2048 Kilobytes.",
+    "timedOut": "Zeitüberschreitung bei der Anfrage. Eventuell ist das Bild zu groß."
+  },
+  "afk": {
+    "description": "Setzte einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
     "usage": {
-      "usage": "{prefix}chatgpt <Nachricht>",
-      "examples": "{prefix}chatgpt Hallo"
+      "usage": "{prefix}afk [Nachricht]",
+      "examples": "{prefix}afk bin mal kurz weg"
     },
     "options": {
       "message": {
-        "description": "Was möchtest du ChatGPT sagen?"
+        "description": "Die zu setzende Nachricht"
       },
-      "model": {
-        "description": "Welches Modell möchtest du nutzen?"
+      "global": {
+        "description": "Setzt deinen AFK-Status für alle Server. Er wird entfernt, sobald du irgendwo schreibst."
       }
     },
-    "hello": "Hallo!",
-    "rateLimit": "Das Ratelimit wurde erreicht. Bitte versuche es in einigen Sekunden erneut.",
-    "notAvailable": "Die API ist momentan nicht verfügbar. Bitte versuche es später erneut.",
-    "error": "Die API hat mit einem Fehler geantwortet.",
-    "regenerate": "Regeneriere Antwort"
+    "globalSuccess": "Dein AFK wurde auf allen Servern zu \"{message}\" gesetzt.",
+    "success": "Dein AFK wurde zu \"{message}\" gesetzt."
   },
-  "customname": {
-    "description": "Lege einen benutzerdefinierten Spitznamen fest und ich werde dich so nennen.",
+  "button": {
+    "description": "Erstelle einen Button.",
     "options": {
-      "set": {
-        "description": "Ändere, wie ich dich nenne",
+      "json": {
+        "description": "Erstelle einen Button aus den Rohdaten von JSON.",
         "options": {
-          "name": {
-            "description": "Wie soll ich dich nennen?"
-          },
-          "global": {
-            "description": "Soll ich dich auf jedem Server so nennen?"
+          "json": {
+            "description": "JSON Daten, aus denen der Button erstellt wird."
           }
         }
       },
-      "get": {
-        "description": "Erfahre deinen Spitznamen.",
+      "custom": {
+        "description": "Erstelle deinen eigenen Button mit vielen verscheiden Optionen",
         "options": {
-          "target": {
-            "description": "Wessen benutzerdefinierten Spitznamen möchtest du wissen?"
+          "style": {
+            "description": "Welchen Style soll dein Button haben?",
+            "choices": {
+              "1": "Burple",
+              "2": "Grau",
+              "3": "Grün",
+              "4": "Rot",
+              "5": "Link (Benötigt die \"url\" Option)"
+            }
           },
-          "global": {
-            "description": "Soll ich dir deinen globalen oder serverspezifischen Spitznamen nennen?"
-          }
-        }
-      },
-      "clear": {
-        "description": "Entferne deinen Spitznamen.",
-        "options": {
-          "global": {
-            "description": "Soll ich deinen globalen oder serverspezifischen Spitznamen entfernen?"
+          "emoji": {
+            "description": "Das Emoji, der auf dem Button angezeigt werden soll. Wird von der \"label\" Option überschreiben."
+          },
+          "label": {
+            "description": "Der Text, der auf dem Button angezeigt werden soll. Überschreibt die \"emoji\" Option."
+          },
+          "url": {
+            "description": "Die URL, auf die der Button verweist. Funktioniert nur mit \"Link\" als Style."
+          },
+          "new_row": {
+            "description": "Nutze eine neue Reihe für den Button."
+          },
+          "content": {
+            "description": "Füge der Button-Message Text hinzu."
+          },
+          "message_id": {
+            "description": "Die Nachricht, an die du den Button anfügst. Muss in diesem Kanal sein."
           }
         }
       }
     },
-    "set": {
-      "success": "Ich werde dich ab jetzt \"{name}\" nennen."
-    },
-    "get": {
-      "successYou": "Du bist \"{name}\".",
-      "successOther": "Das ist \"{name}\"."
-    },
-    "clear": {
-      "success": "Ich habe deinen Namen entfernt."
-    }
+    "invalidURL": "Die angegebene URL ist ungültig!",
+    "msgNotFound": "Die angegebene Nachrichten-ID wurde in diesem Kanal nicht gefunden!",
+    "botIsNotAuthor": "Ich kann nur meine eigenen Nachrichten bearbeiten!",
+    "buttonLimit": "Eine Nachricht kann nicht mehr als 5 Reihen oder 25 Buttons haben!",
+    "invalidOption": "**Eine der angegebenen Optionen ist ungültig!**\n\n```{err}```",
+    "invalidJSON": "**Dein JSON ist ungültig!**\n\n```{err}```",
+    "successJSON": "Dein Button wurde gesendet!",
+    "success": "Dein Button wurde gesendet! Unten ist der Button Code.\nWenn du ihn erneut senden möchtest, nutze den `json` Unterbefehl.\n\n```json\n{json}\n```"
   },
-  "editmessage": {
-    "description": "Bearbeite eine beliebige Nachricht, welche vom Bot gesendet wurde",
+  "embed": {
+    "description": "Sendet ein benutzerdefiniertes Embed; Du kannst Zeilenumbrüche mit \"/n\" machen.",
+    "options": {
+      "custom": {
+        "description": "Erstelle dein eigenes Embed mit vielen verscheiden Optionen",
+        "options": {
+          "description": {
+            "description": "Setze den Embed-Text, nutze \"/n\" für Zeilenumbrüche."
+          },
+          "content": {
+            "description": "Setze eine Nachricht über dem Embed"
+          },
+          "title": {
+            "description": "Setzte den Embed-Titel"
+          },
+          "predefined_color": {
+            "description": "Setzte die Embed-Farbe zu einer von Discord vordefinierten Farbe",
+            "choices": {
+              "Default": "Standard",
+              "White": "Weiß",
+              "Aqua": "Türkis",
+              "Green": "Grün",
+              "Blue": "Blau",
+              "Yellow": "Gelb",
+              "Purple": "Lila",
+              "LuminousVividPink": "Leuchtendes lebendiges Rosa",
+              "Fuchsia": "Fuchsia",
+              "Gold": "Gold",
+              "Orange": "Orange",
+              "Red": "Rot",
+              "Grey": "Grau",
+              "Navy": "Marinenblau",
+              "DarkAqua": "Dunkeltürkis",
+              "DarkGreen": "Dunkelgrün",
+              "DarkBlue": "Dunkelblau",
+              "DarkPurple": "Dunkelviolett",
+              "DarkVividPink": "Dunkles lebendiges Rosa",
+              "DarkGold": "Dunkles Gold",
+              "DarkOrange": "Dunkelorange",
+              "DarkRed": "Dunkelrot",
+              "DarkGrey": "Dunkelgrau",
+              "DarkerGrey": "Dunkleres Grau",
+              "LightGrey": "Hellgrau",
+              "DarkNavy": "Dunkles Marineblau",
+              "Blurple": "Burple",
+              "Greyple": "Lila-Grau",
+              "DarkButNotBlack": "Dunkel, aber nicht schwarz",
+              "NotQuiteBlack": "Nicht ganz schwarz"
+            }
+          },
+          "custom_color": {
+            "description": "Setzte einen eigenen 6-Zeichen HEX-Code als Embed-Farbe (z. B. #ffffff)"
+          },
+          "footer_text": {
+            "description": "Setzte den Footer-Text"
+          },
+          "footer_icon": {
+            "description": "Setzte die Footer Icon-URL"
+          },
+          "image": {
+            "description": "Setzte die Embed Bild URL"
+          },
+          "thumbnail": {
+            "description": "Setze die Thumbnail-URL"
+          },
+          "timestamp": {
+            "description": "Setze den Timestamp"
+          },
+          "author_name": {
+            "description": "Setzte den Autorennamen"
+          },
+          "author_url": {
+            "description": "Setze die Autor-URL"
+          },
+          "author_icon": {
+            "description": "Setzte die Autor-Icon-URL"
+          }
+        }
+      },
+      "json": {
+        "description": "Erstelle ein Embed von rohem JSON.",
+        "options": {
+          "json": {
+            "description": "JSON Daten aus denen das Embed erstellt wird."
+          }
+        }
+      }
+    },
+    "invalidOption": "**Eine der angegebenen Optionen ist ungültig!**\n\n```{err}```",
+    "invalidJSON": "**Dein JSON ist ungültig!**\n\n```{err}```",
+    "successJSON": "Dein Embed wurde gesendet!",
+    "success": "Dein Embed wurde gesendet! Unten ist der Embed Code.\nWenn du es erneut senden möchtest, nutze den `json` Unterbefehl.\n\n```json\n{json}\n```"
+  },
+  "hash": {
+    "description": "Ver-/Entschlüssle einen Text mit verschiedenen Methoden.",
+    "options": {
+      "input": {
+        "description": "Der Text, welchen du verschlüsseln oder entschlüsseln möchtest."
+      },
+      "method": {
+        "description": "Mit welcher Methode soll dein Text verschlüsselt werden?"
+      }
+    },
+    "embedTitle": "Hash Funktion",
+    "embedDescription": "Dein Input: `{input}`\nHash Methode: `{method}`",
+    "text": "Dein gehashter Text:\n`{hash}`"
+  },
+  "lastping": {
+    "description": "Finde heraus, wer dich zuletzt erwähnt hat.",
+    "usage": {
+      "usage": "{prefix}lastping [#Kanal] [@User]\nWenn die `channel` Option genutzt wird, werden maximal 200 Nachrichten durchsucht.",
+      "examples": "{prefix}lastping\n{prefix}lastping #chat\n{prefix}lastping @User1"
+    },
     "options": {
       "channel": {
-        "description": "Der Kanal, in dem sich die Nachricht befindet."
+        "description": "In welchem Kanal möchtest du nach Erwähnungen suchen? Standard: ganzer Server."
       },
-      "message_id": {
-        "description": "Die ID der Nachricht, die ich bearbeiten soll."
-      },
-      "remove_attachments": {
-        "description": "Lösche alles aus dieser Nachricht. z. B. Embeds und Anhänge"
+      "member": {
+        "description": "Nur Erwähnungen von einem bestimmtem Mitglied suchen? (nur in Kombination mit der \"channel\" Option)"
       }
     },
-    "modalTitle": "EditMessage Befehl",
-    "textInputLabel": "Schreibe den neuen Inhalt dieser Nachricht.",
-    "textInputPlaceholder": "Du kannst auch JSON verwenden!",
-    "notFound": "Es gibt keine Nachricht mit dieser ID im angegebenen Kanal!",
-    "notBotMessage": "Ich kann nur meine eigenen Nachrichten bearbeiten!",
-    "cannotEdit": "Ich kann diese Nachricht nicht bearbeiten!",
-    "timedout": "Du hast zu lange gebraucht, um zu antworten!",
-    "emptyJson": "Das von dir angegebene JSON ist leer!",
-    "error": "Beim Senden deines benutzerdefinierten JSON ist ein Fehler aufgetreten:\n```{err}```\n",
-    "success": "Die Nachricht wurde bearbeitet. [Link]({url})"
+    "memberRequiresChannel": "Die \"member\" Option funktioniert nur in Kombination mit der \"channel\" Option!",
+    "invalid": "Der angegebene Kanal unterstützt keine Textnachrichten!",
+    "noneFound": "Ich habe keine Erwähnungen gefunden.",
+    "unknown": "unbekannt",
+    "embedTitle": "Letzter Ping",
+    "embedDescription": "Das letzte Mal, dass du erwähnt wurdest, war [hier]({url}) von <@{author}>.\n{content}"
   },
-  "record": {
-    "description": "Nimmt einen Sprachkanal auf. Benötigt Bestätigung von Mitgliedern.",
+  "math": {
+    "description": "Ein wenig Mathematik",
+    "usage": {
+      "usage": "{prefix}math [Ausdruck]\n\nDieser Rechner unterstützt viele mathematische Operationen, nicht nur den Standard.\nDu kannst Variablen wie folgt deklarieren: `x=10`.\nDu kannst mehrere Ausdrücke mit einer neuen Zeile oder einem `;` trennen. z. B. `x=10;x+10` gibt `20` aus.\nDu musst `*` für Multiplikation nutzen.\nDer Rechner unterstützt die Ausgabe mehrerer Ergebnisse.\nManchmal erzeugen unnötige Leertasten Fehler im Rechner.",
+      "examples": "{prefix}math 1+1"
+    },
     "options": {
-      "target": {
-        "description": "Nimm nur ein bestimmtes Mitglied auf."
-      },
-      "channel": {
-        "description": "Welchen Sprachkanal möchtest du aufnehmen?"
-      },
-      "public": {
-        "description": "Mache die Aufnahme für alle Servermitglieder abrufbar."
+      "expression": {
+        "description": "Was möchtest du mich ausrechnen lassen?"
       }
     },
-    "noTarget": "Es gibt niemanden zum Aufnehmen! Entweder sind alle Ziele Bots oder sie sind nicht in Sprachkanal! Wenn du einen Sprachkanal angeben hast, stelle sicher, dass es der richtige ist!",
-    "needVoiceChannel": "Du musst einen Sprachkanal angeben oder in einem sein!",
-    "cannotJoin": "Ich kann diesem Sprachkanal nicht beitreten! Stelle sicher, dass der Kanal nicht voll ist und ich die benötigten Berechtigungen habe, um ihm beizutreten.",
-    "deaf": "Ich bin momentan taub geschaltet und kann das nicht ändern!",
-    "embedTitle": "Sprachrekorder",
-    "embedDescription": "<@{user}> möchte dich/euch in <#{channel}> aufnehmen.\n**{publicOrPrivate}**\nBitte drücke einen Button, um die Aufnahme deiner Stimme zu erlauben oder zu verbieten.",
-    "isPublic": "Die Aufnahme wird für alle Servermitglieder verfügbar sein.",
-    "isPrivate": "Die Aufnahme wird nur für die Mitglieder zugänglich sein, die der Aufnahme zugestimmt haben.",
-    "cantConnect": "Ich konnte mich nicht mit dem Sprachkanal verbinden! Bitte versuche es erneut.",
-    "denied": "Niemand möchte aufgenommen werden.",
-    "canceled": "Die Aufnahmeanfrage wurde abgebrochen.",
-    "allow": "Erlaube Aufnahme",
-    "deny": "Verbiete Aufnahme",
-    "pause": "Pausiere Aufnahme",
-    "resume": "Setze Aufnahme fort",
-    "stop": "Stoppe Aufnahme",
-    "get": "Erhalte die Aufnahme",
-    "updated": "Deine Antwort wurde zu `{permission}` gesetzt. Ich warte auf die Antworten der anderen Mitglieder.",
-    "paused": "🔇 Ich habe die Aufnahme von <#{channel}> pausiert.",
-    "recording": "🎙️ Ich nehme nun <#{channel}> ({users}) auf!",
-    "notFound": "Deine Aufnahme wurde nicht gefunden!",
-    "privateReady": "Drücke den Button um die Aufnahme zu erhalten.",
-    "success": "🔉 Hier ist deine Aufnahme!"
+    "embedTitle": "Rechner",
+    "noInput": "Du hast mir keinen Ausdruck gegeben!",
+    "error": "Beim Berechnen ist ein Fehler aufgetreten:\n```{err}```",
+    "separated": "Ergebnisse, mit \"|\" separiert:\n{results}",
+    "success": "Ausdruck:\n```{expression}```\nErgebnis:\n```{result}```"
+  },
+  "passwordgenerator": {
+    "description": "Generiert ein kryptografisch starkes Passwort.",
+    "options": {
+      "length": {
+        "description": "Die Länge deines Passwortes"
+      },
+      "count": {
+        "description": "Wie viele Passwörter möchtest du generieren?"
+      },
+      "exclude_chars": {
+        "description": "Zeichen die du nicht in deinem Passwort haben möchtest"
+      },
+      "include_chars": {
+        "description": "Zeichen, die du in deinem Passwort haben möchtest, zusätzlich zum Standard Zeichensatz."
+      }
+    },
+    "charsetEmpty": "Du hast alle Zeichen aus dem Zeichensatz entfernt...",
+    "success": "Deine sicheren Passwörter:\n{passwords}\n\n||Erstellt mit dem folgenden Zeichensatz:\n```{charset}```\nNutze die Befehls-Optionen, um Zeichen hinzuzufügen oder zu entfernen.||"
+  },
+  "randomnumber": {
+    "description": "Gibt eine Zufallszahl aus. Nutzt bei ungültigen Eingaben die Standardwerte.",
+    "usage": {
+      "usage": "{prefix}randomnumber [min] [max]",
+      "examples": "{prefix}randomnumber 1 10"
+    },
+    "options": {
+      "minimum": {
+        "description": "Die kleinste mögliche Zahl. Standard: 0"
+      },
+      "maximum": {
+        "description": "Die größte mögliche Zahl. Standard: 100"
+      }
+    },
+    "randomNumber": "Eine Zufallszahl zwischen {min} und {max}:\n{randomNumber}",
+    "outOfRange": "Eine der angegebenen Zahlen ist ungültig, zu groß oder zu klein!\\nKleinste mögliche Zahl: `{min}`, größte mögliche Zahl: `{max}`"
+  },
+  "timestamp": {
+    "description": "Erhalte einen Timestamp für die Zukunft (oder Vergangenheit, indem du \"-\" nutzt)",
+    "usage": {
+      "usage": "{prefix}timestamp [Zeit]",
+      "examples": "`1h` = jetzt + 1h\n`-1h` = jetzt - 1h\n`1h-1h` = jetzt + 1h - 1h"
+    },
+    "options": {
+      "time": {
+        "description": "Die Zeit von diesem Moment an (z. B. 1w3d2h5min): nutze \"/help timestamp\" für mehr Informationen."
+      }
+    },
+    "invalid": "Die angegebene Zeit ist ungültig! Nutze {command} und suche nach `timestamp` für mehr Informationen.",
+    "outOfRange": "Die angegebene Zeit überschreitet das Limit von 200.000 Jahren!",
+    "success": "Das ist <t:{time}:R> (`<t:{time}:R>`)."
+  },
+  "until": {
+    "description": "Wie lange es bis zu einem bestimmten Datum/Zeit dauert. Wenn kein Datum, Standard: aktuelles Datum",
+    "options": {
+      "day": {
+        "description": "Der Tag des Zieldatums."
+      },
+      "month": {
+        "description": "Der Monat des Zieldatums"
+      },
+      "year": {
+        "description": "Das Jahr des Zieldatums"
+      },
+      "hour": {
+        "description": "Die Stunde des Zieldatums"
+      },
+      "minute": {
+        "description": "Die Minute des Zieldatums"
+      },
+      "second": {
+        "description": "Die Sekunde des Zieldatums"
+      }
+    },
+    "until": "Das ist in {time}.",
+    "untilNeg": "Das war vor {time}."
+  },
+  "wiki": {
+    "description": "Suche nach etwas auf Wikipedia oder erhalte Informationen über etwas Zufälliges.",
+    "usage": {
+      "usage": "{prefix}wiki <Suchbegriff>",
+      "examples": "{prefix}wiki discord"
+    },
+    "options": {
+      "query": {
+        "description": "Was möchtest du suchen?"
+      }
+    },
+    "notFound": "Es wurden keine Suchergebnisse gefunden.",
+    "visitWiki": "**Für mehr Informationen, besuche bitte Wikipedia.**",
+    "error": "Ich konnte nicht mit Wikipedia kommunizieren:\n```{err}```"
   }
 }
