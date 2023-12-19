@@ -1,152 +1,218 @@
 {
-  "categoryDescription": "Minigames zum Spielen mit anderen Mitgliedern",
-  "coinflip": {
-    "description": "Wirf eine Münze!",
-    "response": [
-      "Kopf!",
-      "Zahl!"
-    ],
-    "side": "Woah! Die Münze ist auf der Seite gelandet!"
+  "categoryDescription": "Befehle zur Servermoderation",
+  "ban": {
+    "description": "Bannt ein oder mehrere Mitglieder vom Server",
+    "options": {
+      "reason": {
+        "description": "Das/Die Ziel(e) werden die Begründung per DMs erhalten."
+      },
+      "duration": {
+        "description": "Wie lange möchtest du das Mitglied/die Mitglieder bannen?"
+      },
+      "target": {
+        "description": "Wähle ein Mitglied zum Bannen aus. Leer lassen für Mehrfachauswahl im nächsten Schritt."
+      },
+      "delete_days_of_messages": {
+        "description": "Lösche alle Nachrichten des Mitgliedes von den letzten x Tagen."
+      }
+    },
+    "dmEmbedTitle": "Gebannt",
+    "dmEmbedDescription": "Du wurdest von `{guild}` gebannt.\nModerator: {mod}\nBegründung: {reason}",
+    "infoEmbedTitle": "Bann",
+    "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
+    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Bannen aus. Du hast 60 Sekunden Zeit.",
+    "cantPunishSelf": "Du kannst dich selbst nicht bannen!",
+    "noneFound": "Kein Ziel wurde gefunden.",
+    "error": "Ich konnte **{user}** nicht bannen.\n{err}\n",
+    "success": "**{user}** wurde erfolgreich gebannt.\n",
+    "noDM": "Ich konnte dem Ziel keine DM senden.",
+    "timedOut": "Das Menü ist abgelaufen."
   },
-  "counting": {
-    "description": "Stelle einen Counting-Kanal ein, in dem Mitglieder ihre Mathematik-Skills zeigen können!",
+  "kick": {
+    "description": "Kickt ein oder mehrere Mitglieder vom Server.",
+    "options": {
+      "target": {
+        "description": "Wähle ein Mitglied zum Bannen aus. Leer lassen für Mehrfachauswahl im nächsten Schritt."
+      },
+      "reason": {
+        "description": "Das/Die Ziel(e) werden die Begründung per DMs erhalten."
+      }
+    },
+    "dmEmbedTitle": "Gekickt",
+    "dmEmbedDescription": "Du wurdest von `{guild}` gekickt.\nModerator: {mod}\nBegründung: {reason}",
+    "infoEmbedTitle": "Kick",
+    "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
+    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Kicken aus. Du hast 60 Sekundenn Zeit.",
+    "noneFound": "Kein Ziel wurde gefunden.",
+    "cantPunishSelf": "Du kannst dich selbst nicht kicken!",
+    "error": "Ich konnte **{user}** nicht kicken.\n{err}\n",
+    "success": "**{user}** wurde erfolgreich gekickt.\n",
+    "noDM": "Ich konnte dem Ziel keine DM senden.",
+    "timedOut": "Das Menü ist abgelaufen."
+  },
+  "lock": {
+    "description": "Verbietet jedem, abgesehen von Administratoren, in einem Kanal Nachrichten zu senden.",
     "usage": {
-      "usage": "{prefix}counting [#Kanal]",
-      "examples": "{prefix}counting #counting"
+      "usage": "{prefix}lock [Kanal] [Begründung]",
+      "examples": "{prefix}lock #chat Zeit für den Mittagsschlaf"
     },
     "options": {
       "channel": {
-        "description": "Der Kanal, den du als Counting-Kanal hinzufügen(oder entfernen, wenn schon hinzugefügt) möchtest."
+        "description": "Den Kanal, den du locken möchtest"
+      },
+      "reason": {
+        "description": "Den Grund dafür, den Kanal zu locken"
       }
     },
-    "added": {
-      "embedTitle": "Dieser Kanal ist nun ein Counting-Kanal!",
-      "embedDescription": "Die Regeln sind simpel:\n> Starte mit **1**.\n> Füge **1** zur letzten Zahl hinzu\n> Du darfst nicht zwei Zahlen hintereinander aufzählen\nViel Spaß!",
-      "by": "Aktiviert von {user}",
-      "success": "Ich habe erfolgreich <#{channel}> als Counting-Kanal hinzugefügt."
-    },
-    "removed": {
-      "embedDescription": "Dieser Kanal ist kein Counting-Kanal mehr!",
-      "by": "Deaktiviert von {user}",
-      "success": "Ich habe erfolgreich <#{channel}> als Counting-Kanal entfernt."
-    },
-    "userDeletedMsg": {
-      "embedTitle": "Counting",
-      "embedDescription": "Gelöschte Zahl: **{deletedNum}**\nNächste Zahl: **{nextNum}**",
-      "unknown": "Unbekannter Autor"
-    }
+    "noReason": "Keine Begründung angegeben",
+    "embedTitle": "Kanal gesperrt!",
+    "embedDescription": "Dieser Kanal wurde gesperrt.\nModerator: {mod}\nBegründung: {reason}",
+    "success": "Der Kanal wurde gelockt."
   },
-  "mgstats": {
-    "description": "Erhalte Statistiken von einem der Mini-Games des Bots",
+  "mute": {
+    "description": "Timeouted ein Mitglied für eine bestimmte Zeit (min. 1min).",
+    "options": {
+      "target": {
+        "description": "Wen du timeouten möchtest"
+      },
+      "reason": {
+        "description": "Das Mitglied wird dies in einer DM sehen."
+      },
+      "duration": {
+        "description": "Wie lange du das Ziel timeouten möchtest (z. B. 1w3d2h5min, min. 1min, max. 28d)"
+      }
+    },
+    "dmEmbedTitle": "Getimeouted",
+    "dmEmbedDescription": "Du wurdest in `{guild}` getimeouted.\nModerator: {mod}\nBis: <t:{time}>\nBegründung: {reason}",
+    "infoEmbedTitle": "Timeout",
+    "infoEmbedDescription": "{user} wurde erfolgreich getimeouted.\nBegründung: {reason}\nBis: <t:{time}>\n",
+    "notFound": "Ich konnte dieses Mitglied nicht finden!",
+    "cantPunishSelf": "Du kannst dich selbst nicht timeouten!",
+    "targetIsAdmin": "Ich kann keine Administratoren timeouten!",
+    "invalidDuration": "Die Mute-Dauer, die du angegeben hast, ist ungültig!",
+    "error": "Ich konnte das Mitglied nicht muten:\n{err}",
+    "noDM": "Ich konnte dem Ziel keine DM senden."
+  },
+  "nukechannel": {
+    "description": "Löscht alle Nachrichten des Kanals, indem der Kanal dupliziert wird und der alte gelöscht wird",
+    "options": {
+      "confirmation": {
+        "description": "Schreibe zur Bestätigung \"LÖSCHE KANAL\"."
+      },
+      "channel": {
+        "description": "Den zu nukenden Kanal"
+      }
+    },
+    "confirmation": "lösche kanal",
+    "needConfirm": "Du musst diese Aktion bestätigen, indem du `LÖSCHE KANAL` als `confirmation` Option angibst!",
+    "embedDescription": ":radioactive: Kanal genuked!",
+    "embedFooterText": "Genuked von {user}"
+  },
+  "purge": {
+    "description": "Entfernt eine bestimmte Menge an Nachrichten.",
     "usage": {
-      "usage": "{prefix}mgstats <Spiel> [User]",
-      "examples": "{prefix}mgstats tictactoe @User1"
+      "usage": "{prefix}purge <Anzahl> [Kanal]\nEs wird NICHT die Anzahl der Nachrichten löschen, die im \"amount\"-Parameter angegeben ist, sondern diese löschen, sofern alle anderen Parameter erfüllt sind.",
+      "examples": "{prefix}purge 7 #chat"
     },
     "options": {
-      "user": {
-        "description": "Erhalte Statistiken über dich oder ein anderes Mitglied",
-        "options": {
-          "game": {
-            "description": "Über welches Mini-Game du Statistiken sehen möchtest",
-            "choices": {
-              "tictactoe": "Tic-Tac-Toe"
-            }
-          },
-          "target": {
-            "description": "Über welches Mitglied möchtest du Statistiken erhalten?"
-          }
+      "amount": {
+        "description": "Die Anzahl der Nachrichten, die überprüft und eventuell gelöscht werden."
+      },
+      "only_containing": {
+        "description": "Lösche nur Nachrichten, die dies enthalten.",
+        "choices": {
+          "mentions": "Mitglieds-Erwähnungen",
+          "server_ads": "Discord Server Werbelinks",
+          "images": "Bilder",
+          "embeds": "Einbettungen",
+          "text": "Text"
         }
       },
-      "leaderboard": {
-        "description": "Erhalte die 10 besten Spieler eines Mini-Games",
-        "options": {
-          "game": {
-            "description": "Über welches Mini-Game du Statistiken sehen möchtest",
-            "choices": {
-              "tictactoe": "Tic-Tac-Toe"
-            }
-          },
-          "sort": {
-            "description": "Sortiere das Leaderboard",
-            "choices": {
-              "m_wins": "Meiste Siege",
-              "f_wins": "Wenigste Siege",
-              "m_draws": "Meiste Unentschieden",
-              "f_draws": "Wenigste Unentschieden",
-              "m_loses": "Meiste Niederlagen",
-              "f_loses": "Wenigste Niederlagen",
-              "m_alphabet_user": "Benutzernamen (absteigend)",
-              "f_alphabet_user": "Benutzernamen (aufsteigend)",
-              "m_alphabet_nick": "Spitznamen (absteigend)",
-              "f_alphabet_nick": "Spitznamen (aufsteigend)"
-            }
-          },
-          "settings": {
-            "description": "Adde/Entferne Filter zu/aus der Leaderboard-Abfrage",
-            "choices": {
-              "all_users": "Alle User global"
-            }
-          }
+      "member": {
+        "description": "Lösche nur Nachrichten dieses Mitgliedes."
+      },
+      "channel": {
+        "description": "In welchem Kanal möchtest du Nachrichten löschen?"
+      },
+      "remove_pinned": {
+        "description": "Lösche auch angepinnte Nachrichten."
+      },
+      "caps_percentage": {
+        "description": "Wie viel CAPS muss die eine Nachricht enthalten, um gelöscht zu werden?"
+      },
+      "contains": {
+        "description": "Nur Nachrichten, welche diese Phrase enthalten, werden gelöscht."
+      },
+      "does_not_contain": {
+        "description": "Nur Nachrichten, welche diese Phrase nicht enthalten, werden gelöscht."
+      },
+      "starts_with": {
+        "description": "Nur Nachrichten, welche mit dieser Phrase beginnen, werden gelöscht."
+      },
+      "not_starts_with": {
+        "description": "Nur Nachrichten, welche nicht mit dieser Phrase beginnen, werden gelöscht."
+      },
+      "ends_with": {
+        "description": "Nur Nachrichten, welche mit dieser Phrase enden, werden gelöscht."
+      },
+      "not_ends_with": {
+        "description": "Nur Nachrichten, welche nicht mit dieser Phrase beginnen, werden gelöscht."
+      },
+      "user_type": {
+        "description": "Nur Nachrichten von diesem User-Typ werden gelöscht.",
+        "choices": {
+          "bot": "Bot",
+          "human": "Mensch"
         }
+      },
+      "before_message": {
+        "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die vor der Nachricht gesendet wurden, werden gelöscht."
+      },
+      "after_message": {
+        "description": "Gib eine Nachrichten-ID an. Nur Nachrichten, die nach der Nachricht gesendet wurden, werden gelöscht"
       }
     },
-    "games": "Spiele: `{games}`\n\n",
-    "wins": "Gewonnen: {wins}\n",
-    "loses": "Verloren: {loses}\n",
-    "draws": "Unentschieden: {draws}\n\n",
-    "noOne": "niemand\n",
-    "missingGameArg": "Du musst mir ein Spiel als erstes Argument geben!",
-    "notFound": "Dies ist kein gültiges Spiel. Gültige Spiele sind:\n`{list}`",
-    "wonAgainst": "Gewonnen gegen:\n",
-    "lostAgainst": "Verloren gegen:\n",
-    "drewAgainst": "Unentschieden gegen:\n",
-    "embedTitle": "`{user}`'s {game} Statistiken",
-    "embedTitleTop10": "Top 10 {game} Spieler",
-    "noPlayers": "Es sieht so aus, als hätte noch niemand gespielt...",
-    "youNoGamesPlayed": "Du hast noch nie {game} gespielt.",
-    "userNoGamesPlayed": "{user} hat noch nie {game} gespielt."
+    "invalidNumber": "Das ist keine gültige Zahl!",
+    "noNumber": "Bitte spezifiziere das nächste Mal die Anzahl der zu löschenden Nachrichten.",
+    "beforeAndAfter": "Die `before`-Option kann nicht zusammen mit der `after`-Option genutzt werden!",
+    "paramsExcludeOther": "Einer deiner Parameter macht einen anderen Parameter unmöglich! (z. B. `starts_with` = \"a\" und `not_starts_with` = \"a\")",
+    "noneFound": "Es wurden keine löschbaren Nachrichten gefunden, die deinen Parametern entsprechen.",
+    "success": "Ich habe erfolgreich {count}/{all} Nachrichten gelöscht."
   },
-  "rps": {
-    "description": "Spiele Schere, Stein, Papier gegen deine Freunde oder den Bot",
+  "unlock": {
+    "description": "Entsperrt einen gelockten Channel.",
+    "usage": {
+      "usage": "{prefix}unlock [Kanal] [Begründung]",
+      "examples": "{prefix}unlock #chat Genug geschlafen"
+    },
     "options": {
-      "opponent": {
-        "description": "Gegen wen möchtest du spielen?"
+      "channel": {
+        "description": "Welchen Kanal möchtest du entsperren?"
+      },
+      "reason": {
+        "description": "Den Grund dafür, den Kanal zu entsperren"
       }
     },
-    "r": "Stein",
-    "p": "Papier",
-    "s": "Schere",
-    "challenge": {
-      "opponentIsBot": "Du kannst keine Bots herausfordern!",
-      "opponentIsSelf": "Du kannst dich nicht selbst herausfordern!",
-      "embedTitle": "Schere, Stein, Papier",
-      "embedDescription": "**{user}** hat dich zu einem Duell herausgefordert!",
-      "botEmbedDescription": "Du hast mich zu einem Duell herausgefordert!",
-      "start": "Start",
-      "accept": "Annehmen",
-      "decline": "Ablehnen",
-      "newChallenge": "<@{user}> :crossed_swords: Neue Duell-Herausforderung"
-    },
-    "memberNotFound": "Mindestens einer der Spieler wurde nicht gefunden!",
-    "declined": ":x: `{opponent}` hat die Herausforderung nicht angenommen.",
-    "accept": {
-      "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",
-      "embedDescription": "Wähle deinen Zug!"
-    },
-    "end": {
-      "alreadyChosen": "Du hast bereits {move} ausgewählt! Bitte warte darauf, dass dein Gegner wählt.",
-      "saved": "Deine Auswahl wurde gespeichert!",
-      "tie": "Niemand hat das Spiel gewonnen, es ist ein Unentschieden! {emoji} = {emoji}",
-      "win": ":tada: <@{winner}> hat das Spiel gewonnen! {winEmoji} > {loseEmoji}"
-    }
+    "noReason": "Keine Begründung angegeben",
+    "notLocked": "Dieser Kanal ist nicht gesperrt!",
+    "embedTitle": "Kanal entsperrt!",
+    "embedDescription": "Dieser Kanal wurde entsperrt.\nModerator: {mod}\nBegründung: {reason}",
+    "success": "Der Kanal wurde entsperrt."
   },
-  "tictactoe": {
-    "description": "Spiele Tic-Tac-Toe gegen ein anderes Mitglied oder den Bot",
+  "unmute": {
+    "description": "Entferne den Timeout von einem Mitglied.",
     "options": {
-      "opponent": {
-        "description": "Gegen wen möchtest du spielen?"
+      "target": {
+        "description": "Wessen Timeout möchtest du entfernen?"
+      },
+      "reason": {
+        "description": "Warum möchtest du den Timeout entfernen?"
       }
     },
-    "newChallenge": "<@{user}> :crossed_swords: Neue Duell-Herausforderung"
+    "noReason": "Keine Begründung angegeben",
+    "notFound": "Ich konnte dieses Mitglied nicht finden!",
+    "notMuted": "Dieses Mitglied ist nicht getimeouted!",
+    "moderator": "Moderator",
+    "success": "Der Timeout für <@{user}> wurde entfernt."
   }
 }
