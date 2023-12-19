@@ -1,0 +1,20 @@
+{
+  "languageName": "Italiano",
+  "messageSent": "Messaggio inviato!",
+  "loading": "<a:loading:1063091916683612160> Caricamento...",
+  "channel": "Canale",
+  "guild": "Gilda",
+  "user": "Utente",
+  "cancel": "Annulla",
+  "playAgain": "Riproduci Di Nuovo",
+  "anotherone": "Un Altro",
+  "enabled": "Abilitato",
+  "disabled": "Disabilitato",
+  "none": "nessuno",
+  "noPermUser": "Non hai il permesso di farlo!",
+  "noPermBot": "Non ho il permesso di farlo!",
+  "true": "Sì",
+  "false": "No",
+  "modReason": "{command} comando, moderatore {user}",
+  "downloadButton": "Scarica"
+}
