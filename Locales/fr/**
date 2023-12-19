@@ -1,20 +1,152 @@
 {
-  "languageName": "Français",
-  "messageSent": "Message envoyé !",
-  "loading": "<a:loading:1063091916683612160> Chargement en cours...",
-  "channel": "Chaîne",
-  "guild": "Guilde",
-  "user": "Utilisateur",
-  "cancel": "Abandonner",
-  "playAgain": "Rejouer",
-  "anotherone": "Un autre",
-  "enabled": "Activé",
-  "disabled": "Désactivé",
-  "none": "aucun",
-  "noPermUser": "Vous n'avez pas la permission de le faire !",
-  "noPermBot": "Je n'ai pas la permission de le faire !",
-  "true": "Oui",
-  "false": "Non",
-  "modReason": "Commande {command} , modérateur {user}",
-  "downloadButton": "Télécharger"
+  "categoryDescription": "Mini-jeux à jouer avec d'autres membres",
+  "coinflip": {
+    "description": "Retourner une pièce!",
+    "response": [
+      "Têtes!",
+      "Tailles!"
+    ],
+    "side": "Woah! La pièce a atterri de son côté!"
+  },
+  "counting": {
+    "description": "Set up a counting channel where members can show their math skills!",
+    "usage": {
+      "usage": "{prefix}compte [#canal]",
+      "examples": "{prefix}compte #counting"
+    },
+    "options": {
+      "channel": {
+        "description": "Le canal que vous voulez ajouter (ou supprimer, si déjà ajouté) en tant que canal compteur."
+      }
+    },
+    "added": {
+      "embedTitle": "Ce salon est maintenant un canal de comptage !",
+      "embedDescription": "Les règles sont simples :\n> Commencer par **1**.\n> Ajouter **1** au dernier numéro\n> Vous ne pouvez pas compter deux nombres dans une ligne\nAmusez-vous !",
+      "by": "Ajouté en tant que canal comptant par {user}",
+      "success": "J'ai ajouté avec succès <#{channel}> en tant que canal de comptage"
+    },
+    "removed": {
+      "embedDescription": "Ce salon n'est plus un canal de comptage !",
+      "by": "Supprimé par {user}",
+      "success": "J'ai supprimé avec succès <#{channel}> en tant que canal de comptage"
+    },
+    "userDeletedMsg": {
+      "embedTitle": "Comptage",
+      "embedDescription": "Numéro supprimé : **{deletedNum}**\nNuméro suivant : **{nextNum}**",
+      "unknown": "Auteur inconnu"
+    }
+  },
+  "mgstats": {
+    "description": "obtenir des statistiques sur l'un des mini-jeux du bot",
+    "usage": {
+      "usage": "Statistiques {prefix} <game> [user]",
+      "examples": "{prefix}mgstats tictactoe @User1"
+    },
+    "options": {
+      "user": {
+        "description": "obtenir des statistiques sur vous-même ou sur un utilisateur spécifique",
+        "options": {
+          "game": {
+            "description": "Quel jeu voulez-vous obtenir des statistiques?",
+            "choices": {
+              "tictactoe": "format@@0 TicTacToe"
+            }
+          },
+          "target": {
+            "description": "De quel utilisateur voulez-vous obtenir des statistiques?"
+          }
+        }
+      },
+      "leaderboard": {
+        "description": "obtenir les 10 meilleurs joueurs d'une partie",
+        "options": {
+          "game": {
+            "description": "Quel jeu voulez-vous obtenir des statistiques?",
+            "choices": {
+              "tictactoe": "format@@0 TicTacToe"
+            }
+          },
+          "sort": {
+            "description": "Trier le classement",
+            "choices": {
+              "m_wins": "Le plus de victoires",
+              "f_wins": "Nombre de victoires",
+              "m_draws": "Le plus de tirages",
+              "f_draws": "Moins de tirages",
+              "m_loses": "Le plus de pertes",
+              "f_loses": "Moins de pertes",
+              "m_alphabet_user": "Noms d'utilisateur (Descendant)",
+              "f_alphabet_user": "Noms d'utilisateur (Ascendant)",
+              "m_alphabet_nick": "Pseudos (Descendant)",
+              "f_alphabet_nick": "Pseudos (Ascendant)"
+            }
+          },
+          "settings": {
+            "description": "Appliquer/Interdire les filtres au classement",
+            "choices": {
+              "all_users": "All Users globally"
+            }
+          }
+        }
+      }
+    },
+    "games": "Jeux : `{games}`\n\n",
+    "wins": "Victoires : {wins}\n",
+    "loses": "Pertes : {loses}\n",
+    "draws": "Tirages : {draws}\n\n",
+    "noOne": "personne\n",
+    "missingGameArg": "Tu dois me donner un `jeu` comme premier argument!",
+    "notFound": "Ce n'est pas une entrée de jeu valide. Les jeux valides sont:\n`{list}`",
+    "wonAgainst": "Gagné contre :\n",
+    "lostAgainst": "Perdu contre :\n",
+    "drewAgainst": "Faire piquer contre :\n",
+    "embedTitle": "`{user}`a {game} stats",
+    "embedTitleTop10": "Top 10 des joueurs {game}",
+    "noPlayers": "On dirait que personne n'a encore gagné...",
+    "youNoGamesPlayed": "Vous n'avez encore joué aucune partie de {game}.",
+    "userNoGamesPlayed": "{user} n'a encore joué aucune partie de {game}."
+  },
+  "rps": {
+    "description": "Jouer des ciseaux de papier pierre contre le bot ou (bientôt disponible) contre vos amis",
+    "options": {
+      "opponent": {
+        "description": "À qui voulez-vous jouer ?"
+      }
+    },
+    "r": "Roche",
+    "p": "Papier",
+    "s": "Scissors",
+    "challenge": {
+      "opponentIsBot": "Vous ne pouvez pas défier les robots !",
+      "opponentIsSelf": "Vous ne pouvez pas vous défier vous-même!",
+      "embedTitle": "format@@0 Rock Paper Scissors",
+      "embedDescription": "**{user}** vous a défié en duel!",
+      "botEmbedDescription": "Vous m'avez défié en duel!",
+      "start": "Début",
+      "accept": "Accepter",
+      "decline": "Refuser",
+      "newChallenge": "<@{user}> :crossed_swords: Nouveau défi duel"
+    },
+    "memberNotFound": "Au moins un des joueurs n'a pas été trouvé !",
+    "declined": ":x: `{opponent}` ne s'est pas relevé au défi.",
+    "accept": {
+      "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",
+      "embedDescription": "Sélectionnez votre objet!"
+    },
+    "end": {
+      "alreadyChosen": "Vous avez déjà sélectionné {move}! Veuillez attendre que votre adversaire choisisse.",
+      "saved": "Votre sélection a été enregistrée !",
+      "tie": "Personne n'a gagné la partie, c'est une égalité! {emoji} = {emoji}",
+      "win": ":tada: <@{winner}> a gagné la partie ! {winEmoji} > {loseEmoji}"
+    }
+  },
+  "tictactoe": {
+    "description": "jouer au TicTacToe contre un ami ou le bot",
+    "options": {
+      "opponent": {
+        "description": "À qui voulez-vous jouer ?"
+      }
+    },
+    "newChallenge": "<@{user}> :crossed_swords: Nouveau défi duel"
+  }
 }
