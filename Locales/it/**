@@ -1,93 +1,129 @@
 {
-  "categoryDescription": "Comandi che dovrebbero essere disponibili solo per il dev",
-  "blacklistuser": {
-    "description": "blocca un utente dall'utilizzo del bot",
+  "categoryDescription": "Comandi che (saranno) richiedono un abbonamento premium",
+  "chatgpt": {
+    "description": "Parla con ChatGPT!",
     "usage": {
-      "usage": "{prefix}blacklistuser [off] <user id>",
-      "examples": "{prefix}blacklistuser 12345678901234568"
+      "usage": "{prefix}chatgpt <message>",
+      "examples": "{prefix}chatgpt Ciao"
     },
-    "noInput": "Devi fornire un id.",
-    "notFound": "Nessuna voce trovata per questo id.",
-    "saved": "`{user}` è stato inserito nella blacklist dall'utilizzo del bot.",
-    "removed": "La voce blacklist per `{user}` è stata rimossa.",
-    "cantBlacklistOwner": "Non riesco a blacklist il proprietario del bot!"
-  },
-  "dbget": {
-    "description": "interroga i dati dal database",
-    "usage": {
-      "usage": "{prefix}dbget <database name> <key>",
-      "examples": "{prefix}dbget database a.b.c"
+    "options": {
+      "message": {
+        "description": "Cosa vuoi dire a ChatGPT?"
+      },
+      "model": {
+        "description": "Quale modello vuoi usare?"
+      }
     },
-    "notFound": "niente trovato"
+    "hello": "Ciao!",
+    "rateLimit": "Il ratelimit è stato raggiunto. Riprova tra pochi secondi.",
+    "notAvailable": "L'API non è attualmente disponibile. Riprova più tardi.",
+    "error": "L'API ha risposto con un errore.",
+    "regenerate": "Rigenera la risposta"
   },
-  "eval": {
-    "description": "iniettare codice JavaScript direttamente nel bot",
-    "usage": {
-      "usage": "{prefix}eval <js code>",
-      "examples": "{prefix}eval console.log('Ciao Mondo!')"
+  "customname": {
+    "description": "Imposta un soprannome personalizzato e ti chiamerò.",
+    "options": {
+      "set": {
+        "description": "Cambia come ti chiamo",
+        "options": {
+          "name": {
+            "description": "Come dovrei chiamarla?"
+          },
+          "global": {
+            "description": "Dovrei chiamarti così su ogni server?"
+          }
+        }
+      },
+      "get": {
+        "description": "Ottieni il tuo soprannome personalizzato.",
+        "options": {
+          "target": {
+            "description": "Chi è il soprannome personalizzato che vuoi sapere?"
+          },
+          "global": {
+            "description": "Dovrei dirti il tuo soprannome globale o quello specifico della tua gilda?"
+          }
+        }
+      },
+      "clear": {
+        "description": "Rimuovi il tuo soprannome personalizzato.",
+        "options": {
+          "global": {
+            "description": "Dovrei rimuovere il tuo soprannome globale o quello specifico della tua gilda?"
+          }
+        }
+      }
     },
-    "finished": "comando valutato:\n```js\n{code}\n```\n",
-    "success": "{msg} senza errori.",
-    "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```"
-  },
-  "gitpull": {
-    "description": "Run a git pull",
-    "success": "Il comando è stato eseguito con successo."
-  },
-  "reload": {
-    "description": "ricarica un file o una categoria",
-    "usage": {
-      "usage": "{prefix}ricarica <\"command\" <unk> \"file\"> <Path relative to cwd>\n{prefix}ricarica <command | \"*\">",
-      "examples": "{prefix}ricaricare il file percorso/per/file\n{prefix}ricaricare il divertimento"
+    "set": {
+      "success": "Da ora in poi ti chiamerò \"{name}\"."
     },
-    "invalidCommand": "Questo non è un comando valido.",
-    "invalidPath": "Il percorso specificato non esiste! Si prega di notare la sensibilità caso del percorso.",
-    "error": "Si è verificato un errore durante il ricaricamento:\n```{error}```\nControlla la console per maggiori informazioni.",
-    "noneReloaded": "Nessun comando è stato ricaricato.",
-    "reloaded": "I seguenti ` comandi{count}` sono stati ricaricati:\n{commands}"
-  },
-  "reloaddb": {
-    "description": "Ricarica il database",
-    "success": "Ricaricato il db."
-  },
-  "reloadlang": {
-    "description": "Ricarica tutti i file di lingua",
-    "success": "Ricaricato tutti i file di lingua."
-  },
-  "restart": {
-    "description": "Riavvia il bot",
-    "alreadyRestarting": "Il bot sta già effettuando un riavvio, si prega di attendere che finisca. Messaggio: {url}",
-    "updatingNPM": "<a:loading:1063091916683612160> Riavvio del bot...\nInstallazione dei pacchetti...",
-    "updateNPMError": "❌ Riavvio non riuscito a causa di un errore NPM. Controllare la console per ulteriori informazioni.",
-    "restarting": "<a:loading:1063091916683612160> Riavvio del bot...\nAvvio del processo del nodo...",
-    "restartingError": "❌ Riavvio non riuscito a causa di un errore Nodo. Controllare la console per maggiori informazioni.",
-    "success": "✅ Riavviato correttamente."
-  },
-  "setactivity": {
-    "description": "Imposta l'attività del bot",
-    "usage": {
-      "usage": "{prefix}setactivity <activity>;[type]",
-      "examples": "{prefix}setactivity running commands;playing"
+    "get": {
+      "successYou": "Sei \"{name}\".",
+      "successOther": "È \"{name}\"."
     },
-    "invalidType": "Questo non è un tipo valido. I tipi validi sono:\n`{types}`",
-    "set": "La mia attività è stata impostata a `{name}` di tipo `{type}`.",
-    "reset": "La mia attività è stata impostata su `nessuna`."
+    "clear": {
+      "success": "Ho rimosso il tuo nome personalizzato."
+    }
   },
-  "setchangelog": {
-    "description": "Aggiorna i changelogs in modo che gli utenti siano aggiornati.",
-    "success": "Il changelog è stato aggiornato con successo."
-  },
-  "setcountingnumber": {
-    "description": "Aggiorna l'ultimo numero di conteggio per un canale, anche reimpostando l'ultimo autore.",
-    "usage": {
-      "usage": "{prefix}setcountingnumber [number (default 0)] [channel]",
-      "examples": "{prefix}setcountingnumber 7 #counting-channel"
+  "editmessage": {
+    "description": "Modifica qualsiasi messaggio inviato dal bot",
+    "options": {
+      "channel": {
+        "description": "Il canale in cui è inserito il messaggio."
+      },
+      "message_id": {
+        "description": "L'id del messaggio che vuoi che io modifichi."
+      },
+      "remove_attachments": {
+        "description": "Cancella tutto su quel messaggio, ad es. incorpora, file"
+      }
     },
-    "invalidNumber": "Il numero fornito non è valido!",
-    "unknownChannel": "L'id del canale fornito non è stato trovato in questa gilda!",
-    "success": "Contare per <#{channel}> è stato impostato a **{number}**."
+    "modalTitle": "Comando ModificaMessaggi",
+    "textInputLabel": "Scrivi il nuovo contenuto per quel messaggio.",
+    "textInputPlaceholder": "Puoi anche usare JSON!",
+    "notFound": "Non c'è nessun messaggio con quell'id nel canale specificato!",
+    "notBotMessage": "Posso modificare solo i miei messaggi!",
+    "cannotEdit": "Non posso modificare quel messaggio!",
+    "timedout": "Hai impiegato a lungo per rispondere!",
+    "emptyJson": "Il JSON che hai fornito è vuoto!",
+    "error": "Si è verificato un errore durante il tentativo di inviare il tuo JSON:\n```{err}```\n",
+    "success": "Il messaggio è stato modificato. [Link]({url})"
   },
-  "test": {
-    "description": "prova roba"
+  "record": {
+    "description": "Registra un canale vocale. Richiede l'approvazione da parte degli utenti.",
+    "options": {
+      "target": {
+        "description": "Registra solo un utente specifico."
+      },
+      "channel": {
+        "description": "Wich canale vocale si desidera registrare?"
+      },
+      "public": {
+        "description": "Rendi pubblica la registrazione, in modo che qualsiasi membro della gilda possa sentirla."
+      }
+    },
+    "noTarget": "Non c'è nessuno da registrare! O tutti gli obiettivi sono bot o non sono in un canale vocale! Se hai fornito un canale, assicurati che sia quello in cui si trova il bersaglio!",
+    "needVoiceChannel": "Devi fornire un canale vocale o essere in uno!",
+    "cannotJoin": "Non posso entrare in quel canale vocale! Assicurati che il canale non sia pieno e ho i permessi necessari.",
+    "deaf": "Sono assordato e non posso non sordare me stesso!",
+    "embedTitle": "VoiceRecorder",
+    "embedDescription": "<@{user}> vuole registrarti nel canale vocale <#{channel}>.\n**{publicOrPrivate}**\nPremi un pulsante per consentire o negare la registrazione della tua voce.",
+    "isPublic": "Questa registrazione sarà disponibile per ogni membro della gilda.",
+    "isPrivate": "Questa registrazione sarà disponibile solo per i membri attuali del canale vocale che hanno permesso la registrazione.",
+    "cantConnect": "Non ho potuto connettermi al canale vocale! Riprova.",
+    "denied": "Nessuno vuole essere registrato.",
+    "canceled": "La richiesta di registrazione è stata annullata.",
+    "allow": "Consenti Registrazione",
+    "deny": "Nega Registrazione",
+    "pause": "Pausa Registrazione",
+    "resume": "Riprendi La Registrazione",
+    "stop": "Interrompi Registrazione",
+    "get": "Ottieni la registrazione",
+    "updated": "La tua risposta è stata impostata a `{permission}`. Sto aspettando che gli altri membri rispondano.",
+    "paused": "🔇 Ho in pausa la registrazione <#{channel}>.",
+    "recording": "🎙️ Ora sto registrando <#{channel}> ({users})!",
+    "notFound": "La tua registrazione non è stata trovata!",
+    "privateReady": "Premere il pulsante per ottenere la registrazione.",
+    "success": "🔉 Ecco la tua registrazione!"
   }
 }
