@@ -1,19 +1,39 @@
 {
-  "categoryDescription": "Comandi che inviano GIF",
-  "backflip": {
-    "description": "Fai un backflip!",
-    "embedTitle": "Backflip",
-    "embedDescription": "{user} fa un backflip!"
+  "cooldown": "Questo comando è in fase di ricaricamento! Riprova in `{time}`s.",
+  "slashOnly": "Questo comando è disponibile solo come comando slash: </{name}:{id}>",
+  "guildOnly": "Questo comando è disponibile solo nelle gilde!",
+  "nonBeta": "Questo comando non è un comando beta! Questo bot esegue solo i comandi beta.",
+  "disabled": "Questo comando è stato disabilitato dal bot dev. Motivo:\n{reason}",
+  "nsfw": "Non puoi eseguire i comandi NSFW in un canale non NSFW!",
+  "strictAutocompleteNoMatch": "Il tuo input deve corrispondere a uno dei suggerimenti per il completamento automatico. Seleziona una delle opzioni disponibili quando inserisci il comando slash.",
+  "permissionDenied": {
+    "embedTitle": "Permessi Insufficienti",
+    "embedDescriptionUser": "Hai bisogno dei seguenti permessi in questo canale per eseguire questo comando:\n`{permissions}`",
+    "embedDescriptionBot": "Ho bisogno dei seguenti permessi in questo canale per eseguire questo comando:\n`{permissions}`"
   },
-  "furrykiss": {
-    "description": "furrykiss qualcuno.",
-    "options": {
-      "target": {
-        "description": "Chi vuole baciare?"
-      }
+  "notAllowed": {
+    "member": "Non hai i permessi per eseguire questo comando (impostato da un amministratore del server)!",
+    "channel": "Non è consentito eseguire questo comando in questo canale (impostato da un amministratore del server)!",
+    "role": "Uno dei tuoi ruoli non è autorizzato ad eseguire questo comando (impostato da un amministratore del server)!"
+  },
+  "infoCMDs": {
+    "emojis": {
+      "embedTitle": "Elimina Emoji",
+      "notFound": "Non è stato possibile trovare le emoji.",
+      "noPerm": "Non ho il permesso di eliminare emojis!",
+      "success": "L'emoji è stata eliminata con successo."
     },
-    "embedTitle": "Furrykiss",
-    "embedDescription": "{user} baci :3",
-    "embedDescriptionTarget": "{user} baci {target} :3"
+    "roles": {
+      "embedTitle": "Elimina Ruolo",
+      "notFound": "Impossibile trovare il ruolo.",
+      "noPerm": "Non ho il permesso di eliminare quel ruolo!",
+      "success": "Il ruolo è stato eliminato con successo."
+    },
+    "members": {
+      "embedTitle": "Kick/Ban Membro",
+      "notFound": "Il membro non è stato trovato.",
+      "modalTitle": "Motivo",
+      "modalTextLabel": "Specificare il motivo del kicking/banning del membro."
+    }
   }
 }
