@@ -1,9 +1,9 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType } = require('discord.js'),
-  checkTargetManageable = require('./checkTargetManageable.js');
+  checkTargetManageable = require('../checkTargetManageable.js');
 
 /**@this GuildInteraction @param {lang}lang*/
-module.exports = async function bankick(lang) {
+module.exports = async function ban_kick(lang) {
   if (!['ban', 'kick'].includes(this.commandName)) throw new Error(`"${this.commandName}" is not an accepted commandName.`);
 
   let noMsg, reason = this.options.getString('reason');
