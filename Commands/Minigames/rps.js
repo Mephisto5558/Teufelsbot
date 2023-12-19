@@ -1,5 +1,5 @@
 const
-  { getTarget } = require('../../Utils'),
+  { getTargetMember } = require('../../Utils'),
   { rps_sendChallenge: sendChallenge } = require('../../Utils/componentHandler/');
 
 /**@type {command}*/
@@ -13,6 +13,6 @@ module.exports = {
 
   /**@this GuildInteraction|GuildMessage*/
   run: function (lang) {
-    return sendChallenge.call(this, this.member, getTarget.call(this, { targetOptionName: 'opponent' }), lang);
+    return sendChallenge.call(this, this.member, getTargetMember.call(this, { targetOptionName: 'opponent' }), lang);
   }
 };

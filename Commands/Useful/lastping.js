@@ -1,6 +1,6 @@
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
-  { getTarget } = require('../../Utils');
+  { getTargetChannel, getTargetMember } = require('../../Utils');
 
 /**@type {command}*/
 module.exports = {
@@ -27,8 +27,8 @@ module.exports = {
   /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const
-      channel = this.options?.getChannel('channel') || this.mentions?.channels.first(),
-      target = getTarget.call(this, { targetOptionName: 'member' });
+      channel = getTargetChannel.call(this),
+      target = getTargetMember.call(this, { targetOptionName: 'member' });
 
     if (target) {
       if (!channel) return this.customReply(lang('memberRequiresChannel'));

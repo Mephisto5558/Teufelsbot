@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { getTarget } = require('../../Utils');
+  { getTargetMember } = require('../../Utils');
 
 /**@type {command}*/
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      target = getTarget.call(this, { returnSelf: true }),
+      target = getTargetMember.call(this, { returnSelf: true }),
       avatarURL = await target.displayAvatarURL({ size: this.options?.getInteger('size') || 2048 }),
       embed = new EmbedBuilder({
         description: lang('embedDescription', target.user?.username || target.username),

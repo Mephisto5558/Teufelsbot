@@ -1,4 +1,5 @@
 const { Constants, EmbedBuilder, Colors } = require('discord.js');
+const { getTargetChannel } = require('../../Utils');
 
 /**@type {command}*/
 module.exports = {
@@ -16,7 +17,8 @@ module.exports = {
   /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const
-      channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,
+      /**@type {import('discord.js').GuildTextBasedChannel}*/
+      channel = getTargetChannel.call(this, { returnSelf: true }),
       counting = this.guild.db.counting || {};
 
     if (counting[channel.id]) {
@@ -45,7 +47,7 @@ module.exports = {
 
     if (this.channel.id == channel.id) return this.customReply({ embeds: [embed] });
     await channel.send({ embeds: [embed] });
-    
+
     return this.customReply(lang('added.success', channel.id));
   }
 };

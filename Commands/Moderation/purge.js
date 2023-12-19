@@ -1,5 +1,6 @@
 const
   { Message, Constants, Collection } = require('discord.js'),
+  { getTargetChannel } = require('../../Utils'),
   adRegex = str => /((?=discord)(?<!support\.)(discord(?:app)?[\W_]*(com|gg|me|net|io|plus|link)\/|(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(attachments|channels)\/)|(invite|dsc)[\W_]*gg|disboard[\W_]*org/gi.test(str), //filters discord invites, invite.gg, dsc.gg, disboard.org links
   filterOptionsExist = options => Object.keys(options).some(e => e.name != 'amount' && e.name != 'channel'),
   filterCheck = {
@@ -105,7 +106,8 @@ module.exports = {
   run: async function (lang) {
     const
       amount = this.options?.getInteger('amount') || parseInt(this.args?.[0]).limit({ min: 0, max: 1000 }),
-      channel = this.options?.getChannel('channel') || this.mentions?.channels.first() || this.channel,
+      /**@type {import('discord.js').GuildTextBasedChannel}*/
+      channel = getTargetChannel.call(this, { returnSelf: true }),
       options = Object.fromEntries(this.options?.data.map(e => [e.name, e.value]) ?? []);
 
     let messages, count = 0;

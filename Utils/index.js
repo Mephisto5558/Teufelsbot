@@ -1,7 +1,6 @@
 module.exports = {
   autocompleteGenerator: require('./autocompleteGenerator.js'),
   BackupSystem: require('./backupSystem.js'),
-  bankick: require('./bankick.js'),
   checkForErrors: require('./checkForErrors.js'),
   checkTargetManageable: require('./checkTargetManageable.js'),
   commandExecutionWrapper: require('./commandExecutionWrapper.js'),
@@ -12,7 +11,8 @@ module.exports = {
   formatSlashCommand: require('./formatSlashCommand.js'),
   getAge: require('./getAge.js'),
   getOwnerOnlyFolders: require('./getOwnerOnlyFolders.js'),
-  getTarget: require('./getTarget.js'),
+  getTargetChannel: require('./getTargetChannel.js'),
+  getTargetMember: require('./getTargetMember.js'),
   gitpull: require('./gitpull.js'),
   giveawaysManager: require('./giveawaysManager.js'),
   logSayCommandUse: require('./logSayCommandUse.js'),
