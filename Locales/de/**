@@ -1,39 +1,19 @@
 {
-  "categoryDescription": "NSFW-Befehle",
-  "nsfw": {
-    "description": "Erhalte ein NSFW-Bild",
-    "usage": {
-      "usage": "{prefix}nsfw [art]",
-      "examples": "{prefix}nsfw hentai"
-    },
+  "categoryDescription": "Befehle, die GIFs versenden",
+  "backflip": {
+    "description": "Mache einen Backflip!",
+    "embedTitle": "Backflip",
+    "embedDescription": "{user} macht einen Backflip!"
+  },
+  "furrykiss": {
+    "description": "Furryküsse jemanden.",
     "options": {
-      "type": {
-        "description": "Die Bild-Art, die du sehen möchtest. Standard: Hentai",
-        "choices": {
-          "hass": "Hentai Arsch",
-          "hmidriff": "Hentai Midriff",
-          "pgif": "Porno-Gif",
-          "4k": "4k",
-          "hentai": "Hentai",
-          "hneko": "Hentai Neko",
-          "neko": "Neko",
-          "hkitsune": "Hentai Kitsune",
-          "anal": "Anal",
-          "hanal": "Hentai Anal",
-          "gonewild": "Gone wild",
-          "ass": "Arsch",
-          "pussy": "Pussy",
-          "thigh": "Thigh",
-          "hthigh": "Hentai Thigh",
-          "paizuri": "Paizuri",
-          "tentacle": "Tentakel",
-          "boobs": "Brüste",
-          "hboobs": "Hentai-Brüste",
-          "yaoi": "Yaoi"
-        }
+      "target": {
+        "description": "Wen möchtest du küssen?"
       }
     },
-    "error": "Die API hat mit einem Fehler geantwortet.",
-    "embedTitle": "Why ar u horny?"
+    "embedTitle": "Furrykiss",
+    "embedDescription": "{user} küsst :3",
+    "embedDescriptionTarget": "{user} küsst {target} :3"
   }
 }
