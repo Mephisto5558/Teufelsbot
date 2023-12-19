@@ -1,152 +1,218 @@
 {
-  "categoryDescription": "Игры для игры с другими участниками",
-  "coinflip": {
-    "description": "Повернуть монету!",
-    "response": [
-      "Головы!",
-      "Гвоздики!"
-    ],
-    "side": "Ой! монета приземлилась на стороне!"
+  "categoryDescription": "Команды модерирования гильдии",
+  "ban": {
+    "description": "запрещает участника гильдии",
+    "options": {
+      "reason": {
+        "description": "Цель(ы) (ы) будут видеть причину в ЛС"
+      },
+      "duration": {
+        "description": "Как долго вы хотите забанить цель (целей)?"
+      },
+      "target": {
+        "description": "Участник (ы) упоминания или поместить ID (ID), чтобы запретить их. Поместите пробел между целью."
+      },
+      "delete_days_of_messages": {
+        "description": "Удалить все сообщения о целях за последние n дней."
+      }
+    },
+    "dmEmbedTitle": "Забанен",
+    "dmEmbedDescription": "Вы были заблокированы на `{guild}`.\nМодератор: {mod}\nПричина: {reason}",
+    "infoEmbedTitle": "Бан",
+    "infoEmbedDescription": "Модератор: {mod}\nПричина: {reason}\n\n",
+    "selectTargetEmbedDescription": "Выберите до 10 участников, чтобы заблокировать. У вас есть 60 секунд.",
+    "cantPunishSelf": "Вы не можете забанить себя!",
+    "noneFound": "Цели не найдены.",
+    "error": "**{user}** не может быть забанен.\n{err}\n",
+    "success": "**{user}** успешно забанен.\n",
+    "noDM": "Я не смог ЛС цель.",
+    "timedOut": "Истекло время ожидания этого меню."
   },
-  "counting": {
-    "description": "Настройте канал подсчета, где участники могут показать свои математические навыки!",
+  "kick": {
+    "description": "кидает участника из гильдии",
+    "options": {
+      "target": {
+        "description": "Участник (и) упоминания или положить ID (ID), чтобы выгнать их. Поместите пробел между целью."
+      },
+      "reason": {
+        "description": "Цель(ы) (ы) будут видеть причину в ЛС"
+      }
+    },
+    "dmEmbedTitle": "Кикнут",
+    "dmEmbedDescription": "Вы были выгнаны из `{guild}`.\nМодератор: {mod}\nПричина: {reason}",
+    "infoEmbedTitle": "Кик",
+    "infoEmbedDescription": "Модератор: {mod}\nПричина: {reason}\n\n",
+    "selectTargetEmbedDescription": "Выберите до 10 участников, чтобы выгнать. У вас 60 секунд.",
+    "noneFound": "Цели не найдены.",
+    "cantPunishSelf": "Нельзя выгнать самого себя!",
+    "error": "**{user}** не может быть кикнут.\n{err}\n",
+    "success": "**{user}** был успешно кикнут.\n",
+    "noDM": "Я не смог ЛС цель.",
+    "timedOut": "Истекло время ожидания этого меню."
+  },
+  "lock": {
+    "description": "Запрещает всем кроме администраторов писать в канале.",
     "usage": {
-      "usage": "Подсчёт {prefix}[#канал]",
-      "examples": "{prefix}подсчет #counting"
+      "usage": "{prefix}блокировка [channel] [reason]",
+      "examples": "{prefix}блокировать #время чата"
     },
     "options": {
       "channel": {
-        "description": "Канал, который вы хотите добавить (или удалить, если он уже добавлен) в качестве счетного канала."
+        "description": "Какой канал вы хотите заблокировать?"
+      },
+      "reason": {
+        "description": "Причина блокировки канала"
       }
     },
-    "added": {
-      "embedTitle": "Этот канал теперь является счетчиком!",
-      "embedDescription": "Правила проста:\n> Начать с **1**.\n> Добавить **1** к последнему номеру\n> Вы не можете посчитать два числа в строке\nУдачи!",
-      "by": "Добавлено как счетчик канала {user}",
-      "success": "Я успешно добавил <#{channel}> в качестве счетчика канала."
-    },
-    "removed": {
-      "embedDescription": "Этот канал больше не является счетчиком!",
-      "by": "Удалено {user}",
-      "success": "Я успешно удалил <#{channel}> в качестве счетчика канала."
-    },
-    "userDeletedMsg": {
-      "embedTitle": "Подсчёт",
-      "embedDescription": "Удалено число: **{deletedNum}**\nСледующее число: **{nextNum}**",
-      "unknown": "Неизвестный автор"
-    }
+    "noReason": "причина не указана",
+    "embedTitle": "Канал заблокирован!",
+    "embedDescription": "Канал заблокирован.\nМодератор: {mod}\nПричина: {reason}",
+    "success": "Канал был заблокирован."
   },
-  "mgstats": {
-    "description": "получать статистику о мини-играх бота",
+  "mute": {
+    "description": "Таймаут участника на определенное время (мин. 1 мин).",
+    "options": {
+      "target": {
+        "description": "Кто ты хочешь заглушить?"
+      },
+      "reason": {
+        "description": "Цель заключается в том, чтобы выяснить причину в DMs."
+      },
+      "duration": {
+        "description": "Сколько времени вы хотите заглушить цель (напр. 1w3d2h5min, минимум 1min, макс. 28d)"
+      }
+    },
+    "dmEmbedTitle": "Заглушён",
+    "dmEmbedDescription": "Вы были заглушены из `{guild}`.\nМодератор: {mod}\nUntil: <t:{time}>\nПричина: {reason}",
+    "infoEmbedTitle": "Заглушить",
+    "infoEmbedDescription": "{user} успешно заглушен.\nПричина: {reason}\nдо: <t:{time}>\n",
+    "notFound": "Я не смог найти этого члена!",
+    "cantPunishSelf": "Вы не можете заблокировать себя!",
+    "targetIsAdmin": "Я не могу заблокировать администраторов!",
+    "invalidDuration": "Указанная вами длительность звука недействительна!",
+    "error": "Я не смог заблокировать цель\n{err}",
+    "noDM": "Я не смог ЛС цель."
+  },
+  "nukechannel": {
+    "description": "Очищает все сообщения канала, дублируя канал, а затем удаляя оригинальный",
+    "options": {
+      "confirmation": {
+        "description": "Напишите \"DELETE CHANNEL\" для подтверждения."
+      },
+      "channel": {
+        "description": "Грядущий канал."
+      }
+    },
+    "confirmation": "удалить канал",
+    "needConfirm": "Вы должны подтвердить это действие, написав `DELETE CHANNEL` в качестве параметра подтверждения!",
+    "embedDescription": ":radioactive: Канал пуст!",
+    "embedFooterText": "Ненужное {user}"
+  },
+  "purge": {
+    "description": "удаляет определенное количество сообщений",
     "usage": {
-      "usage": "Статистика {prefix} <game> [user]",
-      "examples": "{prefix}mgstats tictactoe @User1"
+      "usage": "{prefix}очищает <number> [channel]\nОн не удалит количество сообщений, указанных в параметре \"amount\", , но удалит их, если все остальные параметры выполнены.",
+      "examples": "{prefix}очищает 7 #чат"
     },
     "options": {
-      "user": {
-        "description": "получать статистику о себе или конкретном пользователе",
-        "options": {
-          "game": {
-            "description": "О чём ты хочешь узнать статистику?",
-            "choices": {
-              "tictactoe": "Тиктактуэ"
-            }
-          },
-          "target": {
-            "description": "О чём вы хотите узнать статистику?"
-          }
+      "amount": {
+        "description": "Количество сообщений для проверки и, возможно, очистки."
+      },
+      "only_containing": {
+        "description": "Очищать только содержащие это сообщения.",
+        "choices": {
+          "mentions": "Упоминания участников",
+          "server_ads": "Рекламные ссылки сервера Discord",
+          "images": "Изображения",
+          "embeds": "Embeds",
+          "text": "Текст"
         }
       },
-      "leaderboard": {
-        "description": "получить лучшие 10 игроков в игре",
-        "options": {
-          "game": {
-            "description": "О чём ты хочешь узнать статистику?",
-            "choices": {
-              "tictactoe": "Тиктактуэ"
-            }
-          },
-          "sort": {
-            "description": "Сортировать список лидеров",
-            "choices": {
-              "m_wins": "Большинство побед",
-              "f_wins": "Меньше побед",
-              "m_draws": "Больше Рисования",
-              "f_draws": "Меньше ничьих",
-              "m_loses": "Наибольшие потери",
-              "f_loses": "Меньше потерь",
-              "m_alphabet_user": "Имя пользователя (по убыванию)",
-              "f_alphabet_user": "Имена пользователей (Восходящие)",
-              "m_alphabet_nick": "Ники (по убыванию)",
-              "f_alphabet_nick": "Ники (по возрастанию)"
-            }
-          },
-          "settings": {
-            "description": "Применить/Запретить фильтры в таблице лидеров",
-            "choices": {
-              "all_users": "Все пользователи глобально"
-            }
-          }
+      "member": {
+        "description": "Удалить только сообщения от этого участника."
+      },
+      "channel": {
+        "description": "В канале ведьмы вы хотите очистить?"
+      },
+      "remove_pinned": {
+        "description": "Не пропускать закрепленные сообщения."
+      },
+      "caps_percentage": {
+        "description": "Сколько CAPS должен быть по крайней мере в сообщениях, чтобы очистить их?"
+      },
+      "contains": {
+        "description": "Сообщения должны содержать эту фразу для очистки."
+      },
+      "does_not_contain": {
+        "description": "Сообщения не должны содержать эту фразу для очистки."
+      },
+      "starts_with": {
+        "description": "Сообщения должны начинаться с этой фразы, чтобы очистить."
+      },
+      "not_starts_with": {
+        "description": "Сообщения не должны начинаться с этой фразы, чтобы очистить."
+      },
+      "ends_with": {
+        "description": "Сообщения должны заканчиваться этой фразой, чтобы очистить."
+      },
+      "not_ends_with": {
+        "description": "Сообщения не должны начинаться с конца фразы для очистки."
+      },
+      "user_type": {
+        "description": "Удаляются только сообщения от этого пользователя.",
+        "choices": {
+          "bot": "Bot",
+          "human": "Человек"
         }
+      },
+      "before_message": {
+        "description": "Введите идентификатор сообщения. Только сообщения, отправленные до этого сообщения, будут очищены."
+      },
+      "after_message": {
+        "description": "Введите id сообщения. Только сообщения, отправленные после этого сообщения, будут очищены."
       }
     },
-    "games": "Игры: `{games}\n\n",
-    "wins": "Побед: {wins}\n",
-    "loses": "Потеряно: {loses}\n",
-    "draws": "Ничья: {draws}\n\n",
-    "noOne": "никто не\n",
-    "missingGameArg": "Нужно дать мне игру в качестве первого аргумента!",
-    "notFound": "Это некорректная игра. Допустимые игры:\n`{list}",
-    "wonAgainst": "Выиграть снова:\n",
-    "lostAgainst": "Потеряно снова:\n",
-    "drewAgainst": "Дрю снова:\n",
-    "embedTitle": "Статистика{user} {game}",
-    "embedTitleTop10": "Топ 10 {game} игроков",
-    "noPlayers": "Похоже, никто еще не выиграл...",
-    "youNoGamesPlayed": "Вы еще не играли ни одной игры {game}.",
-    "userNoGamesPlayed": "{user} еще не сыграл ни одной игры {game}."
+    "invalidNumber": "Это не допустимое число!",
+    "noNumber": "Укажите в следующий раз количество сообщений для очистки.",
+    "beforeAndAfter": "Опция `before` не может быть использована вместе с опцией `after`!",
+    "paramsExcludeOther": "Один из параметров делает другой параметр невозможным! (например: `starts_with` = \"a\" и `not_starts_with` = \"a\")",
+    "noneFound": "Не найдено удаляемых сообщений, соответствующих вашим параметрам.",
+    "success": "Успешно удалено {count}/{all}."
   },
-  "rps": {
-    "description": "Играйте в ножницы с каменной бумагой против ваших друзей или бота",
+  "unlock": {
+    "description": "Разблокирует канал с помощью команды блокировки.",
+    "usage": {
+      "usage": "{prefix}разблокировать [channel] [reason]",
+      "examples": "{prefix}разблокируйте #Хорошее утро"
+    },
     "options": {
-      "opponent": {
-        "description": "Кто ты хочешь играть снова?"
+      "channel": {
+        "description": "Какой канал вы хотите разблокировать?"
+      },
+      "reason": {
+        "description": "Причина разблокировки канала"
       }
     },
-    "r": "Камень",
-    "p": "Бумага",
-    "s": "Ножницы",
-    "challenge": {
-      "opponentIsBot": "Вы не можете бросить вызов ботам!",
-      "opponentIsSelf": "Вы не можете бросить вызов себе!",
-      "embedTitle": "Ножницы из бумаги для камня",
-      "embedDescription": "**{user}** бросил Вам вызов на поединк!",
-      "botEmbedDescription": "Вы бросили меня на поединка!",
-      "start": "Начать",
-      "accept": "Принять",
-      "decline": "Отклонить",
-      "newChallenge": "<@{user}> :crossed_swords: Новое испытание на дуэль"
-    },
-    "memberNotFound": "По крайней мере один из игроков не найден!",
-    "declined": ":x: `{opponent}` не поднимался до испытания.",
-    "accept": {
-      "embedTitle": ":game_die: `{player1}**VS** `{player2}`",
-      "embedDescription": "Выберите ваш предмет!"
-    },
-    "end": {
-      "alreadyChosen": "Вы уже выбрали {move}! Пожалуйста, дождитесь выбора противника.",
-      "saved": "Ваш выбор был сохранен!",
-      "tie": "Никто не выиграл игру, это галстук! {emoji} = {emoji}",
-      "win": ":tada: <@{winner}> выиграл игру! {winEmoji} > {loseEmoji}"
-    }
+    "noReason": "причина не указана",
+    "notLocked": "Канал не заблокирован!",
+    "embedTitle": "Канал разблокирован!",
+    "embedDescription": "Этот канал был разблокирован.\nМодератор: {mod}\nПричина: {reason}",
+    "success": "Канал был разблокирован."
   },
-  "tictactoe": {
-    "description": "играть в TicTacToe против друга или бота",
+  "unmute": {
+    "description": "повышает время ожидания участника",
     "options": {
-      "opponent": {
-        "description": "Кто ты хочешь играть снова?"
+      "target": {
+        "description": "Кому ты хочешь размутить?"
+      },
+      "reason": {
+        "description": "Почему вы хотите размутить цель?"
       }
     },
-    "newChallenge": "<@{user}> :crossed_swords: Новое испытание на дуэль"
+    "noReason": "причина не указана",
+    "notFound": "Я не смог найти этого члена!",
+    "notMuted": "Этот участник не заглушен!",
+    "moderator": "Модератор",
+    "success": "Тайм-аут удален для участника <@{user}>."
   }
 }
