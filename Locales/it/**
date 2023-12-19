@@ -1,8 +1,93 @@
 {
-  "categoryDescription": "Comandi senza una categoria specifica",
-  "changelog": {
-    "description": "Ottieni l'ultimo changelog.",
-    "embedTitle": "Changelog",
-    "noneFound": "Nessuna informazione trovata."
+  "categoryDescription": "Comandi che dovrebbero essere disponibili solo per il dev",
+  "blacklistuser": {
+    "description": "blocca un utente dall'utilizzo del bot",
+    "usage": {
+      "usage": "{prefix}blacklistuser [off] <user id>",
+      "examples": "{prefix}blacklistuser 12345678901234568"
+    },
+    "noInput": "Devi fornire un id.",
+    "notFound": "Nessuna voce trovata per questo id.",
+    "saved": "`{user}` è stato inserito nella blacklist dall'utilizzo del bot.",
+    "removed": "La voce blacklist per `{user}` è stata rimossa.",
+    "cantBlacklistOwner": "Non riesco a blacklist il proprietario del bot!"
+  },
+  "dbget": {
+    "description": "interroga i dati dal database",
+    "usage": {
+      "usage": "{prefix}dbget <database name> <key>",
+      "examples": "{prefix}dbget database a.b.c"
+    },
+    "notFound": "niente trovato"
+  },
+  "eval": {
+    "description": "iniettare codice JavaScript direttamente nel bot",
+    "usage": {
+      "usage": "{prefix}eval <js code>",
+      "examples": "{prefix}eval console.log('Ciao Mondo!')"
+    },
+    "finished": "comando valutato:\n```js\n{code}\n```\n",
+    "success": "{msg} senza errori.",
+    "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```"
+  },
+  "gitpull": {
+    "description": "Run a git pull",
+    "success": "Il comando è stato eseguito con successo."
+  },
+  "reload": {
+    "description": "ricarica un file o una categoria",
+    "usage": {
+      "usage": "{prefix}ricarica <\"command\" <unk> \"file\"> <Path relative to cwd>\n{prefix}ricarica <command | \"*\">",
+      "examples": "{prefix}ricaricare il file percorso/per/file\n{prefix}ricaricare il divertimento"
+    },
+    "invalidCommand": "Questo non è un comando valido.",
+    "invalidPath": "Il percorso specificato non esiste! Si prega di notare la sensibilità caso del percorso.",
+    "error": "Si è verificato un errore durante il ricaricamento:\n```{error}```\nControlla la console per maggiori informazioni.",
+    "noneReloaded": "Nessun comando è stato ricaricato.",
+    "reloaded": "I seguenti ` comandi{count}` sono stati ricaricati:\n{commands}"
+  },
+  "reloaddb": {
+    "description": "Ricarica il database",
+    "success": "Ricaricato il db."
+  },
+  "reloadlang": {
+    "description": "Ricarica tutti i file di lingua",
+    "success": "Ricaricato tutti i file di lingua."
+  },
+  "restart": {
+    "description": "Riavvia il bot",
+    "alreadyRestarting": "Il bot sta già effettuando un riavvio, si prega di attendere che finisca. Messaggio: {url}",
+    "updatingNPM": "<a:loading:1063091916683612160> Riavvio del bot...\nInstallazione dei pacchetti...",
+    "updateNPMError": "❌ Riavvio non riuscito a causa di un errore NPM. Controllare la console per ulteriori informazioni.",
+    "restarting": "<a:loading:1063091916683612160> Riavvio del bot...\nAvvio del processo del nodo...",
+    "restartingError": "❌ Riavvio non riuscito a causa di un errore Nodo. Controllare la console per maggiori informazioni.",
+    "success": "✅ Riavviato correttamente."
+  },
+  "setactivity": {
+    "description": "Imposta l'attività del bot",
+    "usage": {
+      "usage": "{prefix}setactivity <activity>;[type]",
+      "examples": "{prefix}setactivity running commands;playing"
+    },
+    "invalidType": "Questo non è un tipo valido. I tipi validi sono:\n`{types}`",
+    "set": "La mia attività è stata impostata a `{name}` di tipo `{type}`.",
+    "reset": "La mia attività è stata impostata su `nessuna`."
+  },
+  "setchangelog": {
+    "description": "Aggiorna i changelogs in modo che gli utenti siano aggiornati.",
+    "success": "Il changelog è stato aggiornato con successo."
+  },
+  "setcountingnumber": {
+    "description": "Aggiorna l'ultimo numero di conteggio per un canale, anche reimpostando l'ultimo autore.",
+    "usage": {
+      "usage": "{prefix}setcountingnumber [number (default 0)] [channel]",
+      "examples": "{prefix}setcountingnumber 7 #counting-channel"
+    },
+    "invalidNumber": "Il numero fornito non è valido!",
+    "unknownChannel": "L'id del canale fornito non è stato trovato in questa gilda!",
+    "success": "Contare per <#{channel}> è stato impostato a **{number}**."
+  },
+  "test": {
+    "description": "prova roba"
   }
 }
