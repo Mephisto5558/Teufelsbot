@@ -1,7 +1,7 @@
 const
   { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
-  { getTarget, getAge, permissionTranslator } = require('../../Utils');
+  { getTargetMember, getAge, permissionTranslator } = require('../../Utils');
 
 /**@type {command}*/
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
     this.content = this.content?.replace(/[<@&>]/g, '');
 
     const
-      member = getTarget.call(this, { returnSelf: true }),
+      member = getTargetMember.call(this, { returnSelf: true }),
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       bannerURL = (await member.user.fetch()).bannerURL();
 

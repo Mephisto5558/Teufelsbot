@@ -1,4 +1,4 @@
-const { getTarget } = require('../../Utils');
+const { getTargetMember } = require('../../Utils');
 
 /**@type {command}*/
 module.exports = {
@@ -11,7 +11,7 @@ module.exports = {
 
   run: function (lang) {
     const
-      target = getTarget.call(this),
+      target = getTargetMember.call(this),
       weight = Math.round(Math.random() * 1000);
 
     return this.customReply(lang(`responses${target ? 'Others' : 'Self'}.${Math.ceil(weight / 100)}`, { user: target?.displayName }) + lang('weight', weight));

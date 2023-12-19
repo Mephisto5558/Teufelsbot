@@ -1,6 +1,6 @@
 const
   TicTacToe = require('discord-tictactoe'),
-  { getTarget } = require('../../Utils');
+  { getTargetMember } = require('../../Utils');
 
 /**@this GuildInteraction @param {import('discord.js').GuildMember[]}players @param {('win'|'lose'|'draw')[]}types @param {lang}lang @param {TicTacToe}game*/
 async function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
@@ -40,7 +40,7 @@ module.exports = {
   /**@this GuildInteraction*/
   run: async function (lang) {
     const
-      gameTarget = getTarget.call(this, { targetOptionName: 'opponent' })?.id,
+      gameTarget = getTargetMember.call(this, { targetOptionName: 'opponent' })?.id,
       game = new TicTacToe({
         simultaneousGames: true,
         gameExpireTime: 60,

@@ -13,5 +13,5 @@ module.exports = {
     { name: 'target', type: 'User' }
   ],
 
-  run: require('../../Utils').bankick
+  run: require('../../Utils/combinedCommands').ban_kick
 };
