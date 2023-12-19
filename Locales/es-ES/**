@@ -1,129 +1,39 @@
 {
-  "categoryDescription": "Comandos que (necesitarán) una membresía premium",
-  "chatgpt": {
-    "description": "¡Habla con ChatGPT!",
+  "categoryDescription": "Comandos NSFW",
+  "nsfw": {
+    "description": "Obtener una imagen NSFW",
     "usage": {
-      "usage": "{prefix}chatgpt <message>",
-      "examples": "{prefix}chatgpt Hola"
+      "usage": "{prefix}nsfw [type]",
+      "examples": "{prefix}nsfw hentai"
     },
     "options": {
-      "message": {
-        "description": "¿Qué quieres decirle a ChatGPT?"
-      },
-      "model": {
-        "description": "¿Qué modelo quieres usar?"
+      "type": {
+        "description": "El tipo de imagen que quieres ver. Por defecto es hentai.",
+        "choices": {
+          "hass": "Asa hentai",
+          "hmidriff": "Hentai Taille",
+          "pgif": "Porn gif",
+          "4k": "4k",
+          "hentai": "Hentai",
+          "hneko": "Hentai Neko",
+          "neko": "Neko",
+          "hkitsune": "Hentai Kitsune",
+          "anal": "Anal",
+          "hanal": "Hentai Anal",
+          "gonewild": "Se ha ido salvaje",
+          "ass": "Asas",
+          "pussy": "Empujante",
+          "thigh": "Muslo",
+          "hthigh": "Muslo Hentai",
+          "paizuri": "Paizuri",
+          "tentacle": "Tentáculo",
+          "boobs": "Boobs",
+          "hboobs": "Boobs de Hentai",
+          "yaoi": "Yaoi"
+        }
       }
     },
-    "hello": "¡Hola!",
-    "rateLimit": "Se ha alcanzado el número de ratelimit. Por favor, inténtalo de nuevo en unos segundos.",
-    "notAvailable": "La API no está disponible actualmente. Por favor, vuelve más tarde.",
     "error": "La API respondió con un error.",
-    "regenerate": "Regenerar respuesta"
-  },
-  "customname": {
-    "description": "Establezca un apodo personalizado y lo llamaré.",
-    "options": {
-      "set": {
-        "description": "Cambia cómo te llamo",
-        "options": {
-          "name": {
-            "description": "¿Cómo debo llamarte?"
-          },
-          "global": {
-            "description": "¿Debería llamarte así en todos los servidores?"
-          }
-        }
-      },
-      "get": {
-        "description": "Obtén tu apodo personalizado.",
-        "options": {
-          "target": {
-            "description": "¿Quién es el apodo personalizado quieres saber?"
-          },
-          "global": {
-            "description": "¿Debo decirle su apodo global o su apodo específico para el gremio?"
-          }
-        }
-      },
-      "clear": {
-        "description": "Elimina tu apodo personalizado.",
-        "options": {
-          "global": {
-            "description": "¿Debo eliminar tu apodo global o el específico de tu gremio?"
-          }
-        }
-      }
-    },
-    "set": {
-      "success": "A partir de ahora te llamaré \"{name}\"."
-    },
-    "get": {
-      "successYou": "Eres \"{name}\".",
-      "successOther": "Eso es \"{name}\"."
-    },
-    "clear": {
-      "success": "He eliminado tu nombre personalizado."
-    }
-  },
-  "editmessage": {
-    "description": "Editar cualquier mensaje enviado por el bot",
-    "options": {
-      "channel": {
-        "description": "El canal en el que está el mensaje."
-      },
-      "message_id": {
-        "description": "El id del mensaje que quieres que edite."
-      },
-      "remove_attachments": {
-        "description": "Borrar todo en ese mensaje. Por ejemplo, incrustaciones, archivos"
-      }
-    },
-    "modalTitle": "Editar mensaje de comando",
-    "textInputLabel": "Escriba el nuevo contenido para ese mensaje.",
-    "textInputPlaceholder": "¡También puedes usar JSON!",
-    "notFound": "¡No hay ningún mensaje con ese id en el canal especificado!",
-    "notBotMessage": "Sólo puedo editar mis propios mensajes!",
-    "cannotEdit": "¡No puedo editar ese mensaje!",
-    "timedout": "¡Has tardado mucho en responder!",
-    "emptyJson": "¡El JSON que proporcionaste está vacío!",
-    "error": "Ocurrió un error mientras se trataba de enviar tu JSON personalizado:\n```{err}```\n",
-    "success": "El mensaje ha sido editado. [Link]({url})"
-  },
-  "record": {
-    "description": "Grabar un canal de voz. Necesita la aprobación de los usuarios.",
-    "options": {
-      "target": {
-        "description": "Grabar sólo un usuario específico."
-      },
-      "channel": {
-        "description": "¿Cuál es el canal de voz que desea grabar?"
-      },
-      "public": {
-        "description": "Haz pública la grabación, así cualquier miembro de la hermandad puede escucharla."
-      }
-    },
-    "noTarget": "¡No hay nadie que grabar! O todos los blancos son bots o no están en un canal de voz! Si usted suministró un canal, ¡asegúrese de que es el que está en el destino!",
-    "needVoiceChannel": "¡Necesitas proporcionar un canal de voz o estar en uno!",
-    "cannotJoin": "¡No puedo unirme a ese canal de voz! Asegúrate de que el canal no está lleno y tengo los permisos necesarios.",
-    "deaf": "¡Estoy ensordecedora y no puedo dejar de matarme!",
-    "embedTitle": "Grabador de voz",
-    "embedDescription": "<@{user}> quiere grabarte en el canal de voz <#{channel}>.\n**{publicOrPrivate}**\nPresione un botón para permitir o denegar la grabación de su voz.",
-    "isPublic": "Esta grabación estará disponible para todos los miembros del gremio.",
-    "isPrivate": "Esta grabación sólo estará disponible para los miembros actuales del canal de voz que permitieron la grabación.",
-    "cantConnect": "¡No pude conectar con el canal de voz! Por favor, inténtalo de nuevo.",
-    "denied": "Nadie quiere ser grabado.",
-    "canceled": "La solicitud de grabación ha sido cancelada.",
-    "allow": "Permitir grabación",
-    "deny": "Rechazar grabación",
-    "pause": "Pausar grabación",
-    "resume": "Reanudar grabación",
-    "stop": "Detener grabación",
-    "get": "Obtener la grabación",
-    "updated": "Tu respuesta ha sido establecida a `{permission}`. Estoy esperando a que los otros miembros respondan.",
-    "paused": "🔇 Pusí la grabación <#{channel}>.",
-    "recording": "🎙️ ¡Ahora estoy grabando <#{channel}> ({users})!",
-    "notFound": "¡La grabación no ha sido encontrada!",
-    "privateReady": "Pulse el botón para obtener la grabación.",
-    "success": "🔉 ¡Aquí está su grabación!"
+    "embedTitle": "¿Por qué u horny?"
   }
 }
