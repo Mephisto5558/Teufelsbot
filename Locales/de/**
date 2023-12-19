@@ -1,333 +1,39 @@
 {
-  "categoryDescription": "Nützliche Befehle",
-  "addemoji": {
-    "description": "Fügt ein Emoji zu diesem Server hinzu",
-    "options": {
-      "emoji_or_url": {
-        "description": "Gib ein Emoji oder eine URL zu einem Bild an."
-      },
-      "name": {
-        "description": "Der Name, den das Emoji haben soll."
-      },
-      "limit_to_roles": {
-        "description": "Limitiere das Emoji zu bestimmten Rollen. Separiere sie mit Leertasten."
-      }
-    },
-    "embedTitle": "AddEmoji",
-    "isGuildEmoji": "Dieser Emoji ist bereits auf diesem Server!",
-    "invalidUrl": "Das angegebene Argument ist kein gültiges Emoji oder URL!\nEine gültige URL muss eine der folgenden Endungen haben: `jpg`, `jpeg`, `png`, `webp`, `svg` oder `gif`.\nBeispiel: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
-    "notFound": "Die angegebene URL wurde nicht gefunden.",
-    "success": "**{name}** wurde erfolgreich hinzugefügt {emoji}!\n",
-    "limitedToRoles": "Das Emoji wurde zu den folgenden Rollen limitiert:\n<@&{roles}>.",
-    "error": "Das Emoji konnte aus folgendem Grund nicht hinzugefügt werden:\n```\n{err}\n```",
-    "tooBig": "Das Bild ist zu groß. Die maximale Dateigröße beträgt 2048 Kilobytes.",
-    "timedOut": "Zeitüberschreitung bei der Anfrage. Eventuell ist das Bild zu groß."
-  },
-  "afk": {
-    "description": "Setzte einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
+  "categoryDescription": "NSFW-Befehle",
+  "nsfw": {
+    "description": "Erhalte ein NSFW-Bild",
     "usage": {
-      "usage": "{prefix}afk [Nachricht]",
-      "examples": "{prefix}afk bin mal kurz weg"
+      "usage": "{prefix}nsfw [art]",
+      "examples": "{prefix}nsfw hentai"
     },
     "options": {
-      "message": {
-        "description": "Die zu setzende Nachricht"
-      },
-      "global": {
-        "description": "Setzt deinen AFK-Status für alle Server. Er wird entfernt, sobald du irgendwo schreibst."
-      }
-    },
-    "globalSuccess": "Dein AFK wurde auf allen Servern zu \"{message}\" gesetzt.",
-    "success": "Dein AFK wurde zu \"{message}\" gesetzt."
-  },
-  "button": {
-    "description": "Erstelle einen Button.",
-    "options": {
-      "json": {
-        "description": "Erstelle einen Button aus den Rohdaten von JSON.",
-        "options": {
-          "json": {
-            "description": "JSON Daten, aus denen der Button erstellt wird."
-          }
-        }
-      },
-      "custom": {
-        "description": "Erstelle deinen eigenen Button mit vielen verscheiden Optionen",
-        "options": {
-          "style": {
-            "description": "Welchen Style soll dein Button haben?",
-            "choices": {
-              "1": "Burple",
-              "2": "Grau",
-              "3": "Grün",
-              "4": "Rot",
-              "5": "Link (Benötigt die \"url\" Option)"
-            }
-          },
-          "emoji": {
-            "description": "Das Emoji, der auf dem Button angezeigt werden soll. Wird von der \"label\" Option überschreiben."
-          },
-          "label": {
-            "description": "Der Text, der auf dem Button angezeigt werden soll. Überschreibt die \"emoji\" Option."
-          },
-          "url": {
-            "description": "Die URL, auf die der Button verweist. Funktioniert nur mit \"Link\" als Style."
-          },
-          "new_row": {
-            "description": "Nutze eine neue Reihe für den Button."
-          },
-          "content": {
-            "description": "Füge der Button-Message Text hinzu."
-          },
-          "message_id": {
-            "description": "Die Nachricht, an die du den Button anfügst. Muss in diesem Kanal sein."
-          }
+      "type": {
+        "description": "Die Bild-Art, die du sehen möchtest. Standard: Hentai",
+        "choices": {
+          "hass": "Hentai Arsch",
+          "hmidriff": "Hentai Midriff",
+          "pgif": "Porno-Gif",
+          "4k": "4k",
+          "hentai": "Hentai",
+          "hneko": "Hentai Neko",
+          "neko": "Neko",
+          "hkitsune": "Hentai Kitsune",
+          "anal": "Anal",
+          "hanal": "Hentai Anal",
+          "gonewild": "Gone wild",
+          "ass": "Arsch",
+          "pussy": "Pussy",
+          "thigh": "Thigh",
+          "hthigh": "Hentai Thigh",
+          "paizuri": "Paizuri",
+          "tentacle": "Tentakel",
+          "boobs": "Brüste",
+          "hboobs": "Hentai-Brüste",
+          "yaoi": "Yaoi"
         }
       }
     },
-    "invalidURL": "Die angegebene URL ist ungültig!",
-    "msgNotFound": "Die angegebene Nachrichten-ID wurde in diesem Kanal nicht gefunden!",
-    "botIsNotAuthor": "Ich kann nur meine eigenen Nachrichten bearbeiten!",
-    "buttonLimit": "Eine Nachricht kann nicht mehr als 5 Reihen oder 25 Buttons haben!",
-    "invalidOption": "**Eine der angegebenen Optionen ist ungültig!**\n\n```{err}```",
-    "invalidJSON": "**Dein JSON ist ungültig!**\n\n```{err}```",
-    "successJSON": "Dein Button wurde gesendet!",
-    "success": "Dein Button wurde gesendet! Unten ist der Button Code.\nWenn du ihn erneut senden möchtest, nutze den `json` Unterbefehl.\n\n```json\n{json}\n```"
-  },
-  "embed": {
-    "description": "Sendet ein benutzerdefiniertes Embed; Du kannst Zeilenumbrüche mit \"/n\" machen.",
-    "options": {
-      "custom": {
-        "description": "Erstelle dein eigenes Embed mit vielen verscheiden Optionen",
-        "options": {
-          "description": {
-            "description": "Setze den Embed-Text, nutze \"/n\" für Zeilenumbrüche."
-          },
-          "content": {
-            "description": "Setze eine Nachricht über dem Embed"
-          },
-          "title": {
-            "description": "Setzte den Embed-Titel"
-          },
-          "predefined_color": {
-            "description": "Setzte die Embed-Farbe zu einer von Discord vordefinierten Farbe",
-            "choices": {
-              "Default": "Standard",
-              "White": "Weiß",
-              "Aqua": "Türkis",
-              "Green": "Grün",
-              "Blue": "Blau",
-              "Yellow": "Gelb",
-              "Purple": "Lila",
-              "LuminousVividPink": "Leuchtendes lebendiges Rosa",
-              "Fuchsia": "Fuchsia",
-              "Gold": "Gold",
-              "Orange": "Orange",
-              "Red": "Rot",
-              "Grey": "Grau",
-              "Navy": "Marinenblau",
-              "DarkAqua": "Dunkeltürkis",
-              "DarkGreen": "Dunkelgrün",
-              "DarkBlue": "Dunkelblau",
-              "DarkPurple": "Dunkelviolett",
-              "DarkVividPink": "Dunkles lebendiges Rosa",
-              "DarkGold": "Dunkles Gold",
-              "DarkOrange": "Dunkelorange",
-              "DarkRed": "Dunkelrot",
-              "DarkGrey": "Dunkelgrau",
-              "DarkerGrey": "Dunkleres Grau",
-              "LightGrey": "Hellgrau",
-              "DarkNavy": "Dunkles Marineblau",
-              "Blurple": "Burple",
-              "Greyple": "Lila-Grau",
-              "DarkButNotBlack": "Dunkel, aber nicht schwarz",
-              "NotQuiteBlack": "Nicht ganz schwarz"
-            }
-          },
-          "custom_color": {
-            "description": "Setzte einen eigenen 6-Zeichen HEX-Code als Embed-Farbe (z. B. #ffffff)"
-          },
-          "footer_text": {
-            "description": "Setzte den Footer-Text"
-          },
-          "footer_icon": {
-            "description": "Setzte die Footer Icon-URL"
-          },
-          "image": {
-            "description": "Setzte die Embed Bild URL"
-          },
-          "thumbnail": {
-            "description": "Setze die Thumbnail-URL"
-          },
-          "timestamp": {
-            "description": "Setze den Timestamp"
-          },
-          "author_name": {
-            "description": "Setzte den Autorennamen"
-          },
-          "author_url": {
-            "description": "Setze die Autor-URL"
-          },
-          "author_icon": {
-            "description": "Setzte die Autor-Icon-URL"
-          }
-        }
-      },
-      "json": {
-        "description": "Erstelle ein Embed von rohem JSON.",
-        "options": {
-          "json": {
-            "description": "JSON Daten aus denen das Embed erstellt wird."
-          }
-        }
-      }
-    },
-    "invalidOption": "**Eine der angegebenen Optionen ist ungültig!**\n\n```{err}```",
-    "invalidJSON": "**Dein JSON ist ungültig!**\n\n```{err}```",
-    "successJSON": "Dein Embed wurde gesendet!",
-    "success": "Dein Embed wurde gesendet! Unten ist der Embed Code.\nWenn du es erneut senden möchtest, nutze den `json` Unterbefehl.\n\n```json\n{json}\n```"
-  },
-  "hash": {
-    "description": "Ver-/Entschlüssle einen Text mit verschiedenen Methoden.",
-    "options": {
-      "input": {
-        "description": "Der Text, welchen du verschlüsseln oder entschlüsseln möchtest."
-      },
-      "method": {
-        "description": "Mit welcher Methode soll dein Text verschlüsselt werden?"
-      }
-    },
-    "embedTitle": "Hash Funktion",
-    "embedDescription": "Dein Input: `{input}`\nHash Methode: `{method}`",
-    "text": "Dein gehashter Text:\n`{hash}`"
-  },
-  "lastping": {
-    "description": "Finde heraus, wer dich zuletzt erwähnt hat.",
-    "usage": {
-      "usage": "{prefix}lastping [#Kanal] [@User]\nWenn die `channel` Option genutzt wird, werden maximal 200 Nachrichten durchsucht.",
-      "examples": "{prefix}lastping\n{prefix}lastping #chat\n{prefix}lastping @User1"
-    },
-    "options": {
-      "channel": {
-        "description": "In welchem Kanal möchtest du nach Erwähnungen suchen? Standard: ganzer Server."
-      },
-      "member": {
-        "description": "Nur Erwähnungen von einem bestimmtem Mitglied suchen? (nur in Kombination mit der \"channel\" Option)"
-      }
-    },
-    "memberRequiresChannel": "Die \"member\" Option funktioniert nur in Kombination mit der \"channel\" Option!",
-    "invalid": "Der angegebene Kanal unterstützt keine Textnachrichten!",
-    "noneFound": "Ich habe keine Erwähnungen gefunden.",
-    "unknown": "unbekannt",
-    "embedTitle": "Letzter Ping",
-    "embedDescription": "Das letzte Mal, dass du erwähnt wurdest, war [hier]({url}) von <@{author}>.\n{content}"
-  },
-  "math": {
-    "description": "Ein wenig Mathematik",
-    "usage": {
-      "usage": "{prefix}math [Ausdruck]\n\nDieser Rechner unterstützt viele mathematische Operationen, nicht nur den Standard.\nDu kannst Variablen wie folgt deklarieren: `x=10`.\nDu kannst mehrere Ausdrücke mit einer neuen Zeile oder einem `;` trennen. z. B. `x=10;x+10` gibt `20` aus.\nDu musst `*` für Multiplikation nutzen.\nDer Rechner unterstützt die Ausgabe mehrerer Ergebnisse.\nManchmal erzeugen unnötige Leertasten Fehler im Rechner.",
-      "examples": "{prefix}math 1+1"
-    },
-    "options": {
-      "expression": {
-        "description": "Was möchtest du mich ausrechnen lassen?"
-      }
-    },
-    "embedTitle": "Rechner",
-    "noInput": "Du hast mir keinen Ausdruck gegeben!",
-    "error": "Beim Berechnen ist ein Fehler aufgetreten:\n```{err}```",
-    "separated": "Ergebnisse, mit \"|\" separiert:\n{results}",
-    "success": "Ausdruck:\n```{expression}```\nErgebnis:\n```{result}```"
-  },
-  "passwordgenerator": {
-    "description": "Generiert ein kryptografisch starkes Passwort.",
-    "options": {
-      "length": {
-        "description": "Die Länge deines Passwortes"
-      },
-      "count": {
-        "description": "Wie viele Passwörter möchtest du generieren?"
-      },
-      "exclude_chars": {
-        "description": "Zeichen die du nicht in deinem Passwort haben möchtest"
-      },
-      "include_chars": {
-        "description": "Zeichen, die du in deinem Passwort haben möchtest, zusätzlich zum Standard Zeichensatz."
-      }
-    },
-    "charsetEmpty": "Du hast alle Zeichen aus dem Zeichensatz entfernt...",
-    "success": "Deine sicheren Passwörter:\n{passwords}\n\n||Erstellt mit dem folgenden Zeichensatz:\n```{charset}```\nNutze die Befehls-Optionen, um Zeichen hinzuzufügen oder zu entfernen.||"
-  },
-  "randomnumber": {
-    "description": "Gibt eine Zufallszahl aus. Nutzt bei ungültigen Eingaben die Standardwerte.",
-    "usage": {
-      "usage": "{prefix}randomnumber [min] [max]",
-      "examples": "{prefix}randomnumber 1 10"
-    },
-    "options": {
-      "minimum": {
-        "description": "Die kleinste mögliche Zahl. Standard: 0"
-      },
-      "maximum": {
-        "description": "Die größte mögliche Zahl. Standard: 100"
-      }
-    },
-    "randomNumber": "Eine Zufallszahl zwischen {min} und {max}:\n{randomNumber}",
-    "outOfRange": "Eine der angegebenen Zahlen ist ungültig, zu groß oder zu klein!\\nKleinste mögliche Zahl: `{min}`, größte mögliche Zahl: `{max}`"
-  },
-  "timestamp": {
-    "description": "Erhalte einen Timestamp für die Zukunft (oder Vergangenheit, indem du \"-\" nutzt)",
-    "usage": {
-      "usage": "{prefix}timestamp [Zeit]",
-      "examples": "`1h` = jetzt + 1h\n`-1h` = jetzt - 1h\n`1h-1h` = jetzt + 1h - 1h"
-    },
-    "options": {
-      "time": {
-        "description": "Die Zeit von diesem Moment an (z. B. 1w3d2h5min): nutze \"/help timestamp\" für mehr Informationen."
-      }
-    },
-    "invalid": "Die angegebene Zeit ist ungültig! Nutze {command} und suche nach `timestamp` für mehr Informationen.",
-    "outOfRange": "Die angegebene Zeit überschreitet das Limit von 200.000 Jahren!",
-    "success": "Das ist <t:{time}:R> (`<t:{time}:R>`)."
-  },
-  "until": {
-    "description": "Wie lange es bis zu einem bestimmten Datum/Zeit dauert. Wenn kein Datum, Standard: aktuelles Datum",
-    "options": {
-      "day": {
-        "description": "Der Tag des Zieldatums."
-      },
-      "month": {
-        "description": "Der Monat des Zieldatums"
-      },
-      "year": {
-        "description": "Das Jahr des Zieldatums"
-      },
-      "hour": {
-        "description": "Die Stunde des Zieldatums"
-      },
-      "minute": {
-        "description": "Die Minute des Zieldatums"
-      },
-      "second": {
-        "description": "Die Sekunde des Zieldatums"
-      }
-    },
-    "until": "Das ist in {time}.",
-    "untilNeg": "Das war vor {time}."
-  },
-  "wiki": {
-    "description": "Suche nach etwas auf Wikipedia oder erhalte Informationen über etwas Zufälliges.",
-    "usage": {
-      "usage": "{prefix}wiki <Suchbegriff>",
-      "examples": "{prefix}wiki discord"
-    },
-    "options": {
-      "query": {
-        "description": "Was möchtest du suchen?"
-      }
-    },
-    "notFound": "Es wurden keine Suchergebnisse gefunden.",
-    "visitWiki": "**Für mehr Informationen, besuche bitte Wikipedia.**",
-    "error": "Ich konnte nicht mit Wikipedia kommunizieren:\n```{err}```"
+    "error": "Die API hat mit einem Fehler geantwortet.",
+    "embedTitle": "Why ar u horny?"
   }
 }
