@@ -7,7 +7,7 @@ const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { readdir } = require('fs/promises'),
   { DB } = require('@mephisto5558/mongoose-db'),
-  { gitpull, errorHandler, giveawaysManager } = require('./Utils');
+  { gitpull, errorHandler, GiveawaysManager } = require('./Utils');
 
 require('./Utils/prototypeRegisterer.js');
 
@@ -62,7 +62,7 @@ console.time('Starting time');
   client.keys = env.keys;
   //WIP: client.backupSystem = new BackupSystem(client.db, { dbName: 'backups', maxGuildBackups: 5 });
 
-  if (client.botType != 'dev') client.giveawaysManager = giveawaysManager.call(client);
+  if (client.botType != 'dev') client.giveawaysManager = new GiveawaysManager(client);
 
   for (const handler of await readdir('./Handlers')) require(`./Handlers/${handler}`).call(client);
 
