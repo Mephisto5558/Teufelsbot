@@ -36,7 +36,6 @@
     },
     "embedTitle": "Server Backup",
     "create": {
-      "cooldown": "Creating backups is on cooldown! Try again in `{time}`s.",
       "settings": "<a:loading:1063091916683612160> Saving settings...",
       "members": "<a:loading:1063091916683612160> Saving members...",
       "bans": "<a:loading:1063091916683612160> Saving bans...",
@@ -54,7 +53,6 @@
       "ownWebhooks": "<a:loading:1063091916683612160> Deleting temporary webhooks..."
     },
     "load": {
-      "cooldown": "Loading backups is on cooldown! Try again in `{time}`s.",
       "overwriteWarningDescription": "This action will delete most of your server! This includes roles, webhooks, channels, and emojis.\nIf you are sure you want to do this, click \"Yes\". Click \"No\" to cancel.\nYou might also want to create a backup before loading, just to be safe.",
       "noneFound": "No backup has been found for this guild!",
       "cancelled": "Loading the backup has been cancelled.",
