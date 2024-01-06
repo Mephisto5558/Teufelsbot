@@ -1,7 +1,7 @@
 import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
 import type I18nProvider from '@mephisto5558/i18n';
-import type { WebServer as WebServerClass } from '@mephisto5558/website';
+import type { WebServer as WebServerClass } from '@mephisto5558/bot-website';
 import type express from 'express';
 import type BackupSystem from './Utils/backupSystem';
 import type GiveawayManagerWithOwnDatabase from './Utils/giveawaysManager';

@@ -7,8 +7,8 @@ const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { readdir } = require('fs/promises'),
   { DB } = require('@mephisto5558/mongoose-db'),
-  { gitpull, errorHandler, GiveawaysManager } = require('./Utils'),
-  { WebServer } = require('@mephisto5558/website'),
+  { GiveawaysManager, gitpull, errorHandler, getCommands } = require('./Utils'),
+  { WebServer } = require('@mephisto5558/bot-website'),
   { discordInvite, mailAddress } = require('./config.json');
 
 require('./Utils/prototypeRegisterer.js');
@@ -78,7 +78,7 @@ console.time('Starting time');
       support: { discord: discordInvite, mail: mailAddress }, errorPagesDir: './Website/CustomSites/error',
       settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites'
     }, errorHandler.bind(client)
-  )).init([]);
+  )).init(await getCommands(client.i18n.__.bBind(client.i18n, { locale: 'en', undefinedNotFound: true })));
 
   client.db.update('botSettings', `startCount.${client.botType}`, client.settings.startCount[client.botType] + 1 || 1);
 
