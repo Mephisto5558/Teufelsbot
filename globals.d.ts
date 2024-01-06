@@ -2,6 +2,7 @@ import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
 import type I18nProvider from '@mephisto5558/i18n';
 import type BackupSystem from './Utils/backupSystem';
+import type GiveawayManagerWithOwnDatabase from './Utils/giveawaysManager';
 
 declare global {
   const sleep: (ms: number) => Promise<void>;
@@ -124,6 +125,7 @@ declare module 'discord.js' {
     prefixCommands: Discord.Collection<string, command>;
     slashCommands: Discord.Collection<string, command>;
     backupSystem?: BackupSystem;
+    giveawaysManager?: GiveawayManagerWithOwnDatabase;
     cooldowns: Map<string, object>;
     db: DB;
     i18n: I18nProvider;

@@ -1,6 +1,6 @@
 const { GiveawaysManager } = require('discord-giveaways');
 
-class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
+module.exports = class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
   getAllGiveaways() {
     return this.client.db.get('giveaways');
   }
@@ -25,7 +25,4 @@ class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
     await this.client.db.set('giveaways', this.client.db.get('giveaways').filter(e => e.messageId != messageId));
     return true;
   }
-}
-
-/**@this Client @returns {GiveawayManagerWithOwnDatabase}*/
-module.exports = function giveawaysManager() { return new GiveawayManagerWithOwnDatabase(this); };
+};

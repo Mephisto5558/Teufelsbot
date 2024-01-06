@@ -14,7 +14,7 @@ module.exports = {
   getTargetChannel: require('./getTargetChannel.js'),
   getTargetMember: require('./getTargetMember.js'),
   gitpull: require('./gitpull.js'),
-  giveawaysManager: require('./giveawaysManager.js'),
+  GiveawaysManager: require('./giveawaysManager.js'),
   logSayCommandUse: require('./logSayCommandUse.js'),
   slashCommandsEqual: require('./slashCommandsEqual.js'),
   permissionTranslator: require('./permissionTranslator.js'),
