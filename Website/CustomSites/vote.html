@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <title>Voting</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <meta name='description'
+    content="Teufelsbot's feature request voting page, full of stuff the developer will never have time to finish.">
+  <style>
+    body {
+      background-color: black;
+    }
+  </style>
+  <link rel='preload' as='style' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+    crossorigin='anonymous' onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css'
+      crossorigin='anonymous' />
+  </noscript>
+
+  <link rel='preload' as='style' href='https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.min.css'
+    crossorigin='anonymous' onload="this.onload=null;this.rel='stylesheet'" />
+  <noscript>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.min.css'
+      crossorigin='anonymous' />
+  </noscript>
+
+  <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11.6.0/dist/sweetalert2.min.js'
+    integrity='sha384-HyztDXWJVY4Cpr9PM+yOusNkudRC74YZPT2AE84cdieyyjNV0SNIb6khEUmPqMym' crossorigin='anonymous'
+    async></script>
+
+  <link rel='stylesheet' href='https://mephisto5558.github.io/Website-Assets/min/css/vote.css'
+    crossorigin='anonymous' />
+</head>
+
+<body>
+  <div id='header-container'>
+    <a href='#'>
+      <h1>Feature Requests</h1>
+    </a>
+    <button class='grey-hover' id='toggle-cards-display' title='Toggle display mode'>
+      <i class='fas fa-gears'></i>
+    </button>
+    <button class='grey-hover' id='toggle-color-scheme' title='Toggle color scheme'>
+      <i class='fas fa-lightbulb'></i>
+    </button>
+  </div>
+
+  <div id='feature-request-overlay'>
+    <div id='feature-request-modal'>
+      <h2>Request a Feature</h2>
+      <button class='grey-hover' type='reset'>
+        <i class='fas fa-xmark'></i>
+      </button>
+      <form id='feature-request-form'>
+        <label for='feature-request-title'>Title:</label>
+        <input type='text' id='feature-request-title' name='title' spellcheck required maxlength='140' />
+        <span id='title-counter' class='counter'>&#8203;</span>
+        <label for='feature-request-description'>Description:</label>
+        <textarea id='feature-request-description' name='description' spellcheck required maxlength='4000'></textarea>
+        <span id='description-counter' class='counter'>&#8203;</span>
+        <button class='blue-button' type='submit'>Submit</button>
+      </form>
+    </div>
+  </div>
+
+  <div id='cards-container-pending' class='cards-container'></div>
+  <main id='cards-container' class='cards-container'></main>
+  <script src='https://mephisto5558.github.io/Website-Assets/min/js/vote.js'></script>
+</body>
+
+</html>

@@ -1,0 +1,6 @@
+{
+  "id": "birthday",
+  "name": "Birthday",
+  "description": "Send an announcement to a channel and/or per DM on a member's birthday",
+  "position": 2
+}

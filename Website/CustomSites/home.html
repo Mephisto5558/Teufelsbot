@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Very good homepage</title>
+  <style>body{background:#111}.hidden{opacity:0}.console-container{bottom:0;color:#fff;display:block;font-family:'Arial Black',Helvetica,sans-serif;font-size:4em;height:200px;left:0;margin:auto;position:absolute;right:0;text-align:center;top:0;width:800px}.console-underscore{display:inline-block;left:10px;position:relative;top:-.14em}</style>
+</head>
+
+<body>
+  <div class='console-container'>
+    <span id='text'></span>
+    <div class='console-underscore' id='console'></div>
+  </div>
+
+  <script>consoleText(['Hello World.','Input error here','Made with love.'],'text',['tomato','rebeccapurple','lightblue']);function consoleText(e,t,s=["#fff"]){var o=!0,r=document.getElementById("console"),l=1,n=1,$=!1,i=document.getElementById(t);i.setAttribute('style','color:'+s[0]);window.setInterval(()=>{l||$?l!==e[0].length+1||$?$||(i.innerHTML=e[0].substring(0,l),l+=n):($=!0,window.setTimeout(()=>{l+=n=-1;$=!1},1e3)):($=!0,i.innerHTML=e[0].substring(0,l),window.setTimeout(()=>{var t=s.shift();s.push(t);var o=e.shift();e.push(o);n=1;i.setAttribute('style','color:'+s[0]);l+=n;$=!1},1e3))},120);window.setInterval(()=>{r.className=`console-underscore${o?' hidden':''}`;o=!o},400)}</script>
+</body>
+
+</html>

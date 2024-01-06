@@ -7,7 +7,9 @@ const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { readdir } = require('fs/promises'),
   { DB } = require('@mephisto5558/mongoose-db'),
-  { gitpull, errorHandler, GiveawaysManager } = require('./Utils');
+  { gitpull, errorHandler, GiveawaysManager } = require('./Utils'),
+  { WebServer } = require('@mephisto5558/website'),
+  { discordInvite, mailAddress } = require('./config.json');
 
 require('./Utils/prototypeRegisterer.js');
 
@@ -68,6 +70,15 @@ console.time('Starting time');
 
   await client.login(client.keys.token);
   log(`Logged into ${client.botType}`);
+
+  client.webServer = await (new WebServer(
+    client, client.db,
+    { secret: client.keys.secret, dbdLicense: client.keys.dbdLicense, webhookURL: client.keys.votingWebhookURL },
+    {
+      support: { discord: discordInvite, mail: mailAddress }, errorPagesDir: './Website/CustomSites/error',
+      settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites'
+    }, errorHandler.bind(client)
+  )).init([]);
 
   client.db.update('botSettings', `startCount.${client.botType}`, client.settings.startCount[client.botType] + 1 || 1);
 
