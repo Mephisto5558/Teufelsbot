@@ -10,6 +10,7 @@ module.exports = {
   findAllEntries: require('./findAllEntries.js'),
   formatSlashCommand: require('./formatSlashCommand.js'),
   getAge: require('./getAge.js'),
+  getCommands: require('./getCommands.js'),
   getOwnerOnlyFolders: require('./getOwnerOnlyFolders.js'),
   getTargetChannel: require('./getTargetChannel.js'),
   getTargetMember: require('./getTargetMember.js'),
