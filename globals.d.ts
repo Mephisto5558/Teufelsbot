@@ -1,6 +1,8 @@
 import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
 import type I18nProvider from '@mephisto5558/i18n';
+import type { WebServer as WebServerClass } from '@mephisto5558/website';
+import type express from 'express';
 import type BackupSystem from './Utils/backupSystem';
 import type GiveawayManagerWithOwnDatabase from './Utils/giveawaysManager';
 
@@ -26,7 +28,7 @@ declare global {
     name: string;
     id?: string;
     type?: 1;
-    description: string,
+    description: string;
     descriptionLocalizations: Record<string, string>;
     category: string;
     aliases?: { prefix?: string[], slash?: string[]; };
@@ -63,6 +65,11 @@ declare global {
     maxLength?: number;
   };
 
+  type WebServer = WebServerClass;
+
+  type Req = express.Request;
+  type Res = express.Response;
+  type NextFunc = express.NextFunction;
 
   interface Array<T> {
     random(): T;
@@ -126,6 +133,7 @@ declare module 'discord.js' {
     slashCommands: Discord.Collection<string, command>;
     backupSystem?: BackupSystem;
     giveawaysManager?: GiveawayManagerWithOwnDatabase;
+    webServer: WebServer;
     cooldowns: Map<string, object>;
     db: DB;
     i18n: I18nProvider;
