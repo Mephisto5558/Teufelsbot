@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>404 | Not Found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" media="all"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" media="all"
+    href="https://mephisto5558.github.io/Website-Assets/min/css/404.css">
+  <link rel="apple-touch-icon" sizes="144x144"
+    href="https://mephisto5558.github.io/Website-Assets/img/favicons/favicon144x144.png">
+  <link rel="apple-touch-icon" sizes="114x114"
+    href="https://mephisto5558.github.io/Website-Assets/img/favicons/favicon114x114.png">
+  <link rel="apple-touch-icon" sizes="72x72"
+    href="https://mephisto5558.github.io/Website-Assets/img/favicons/favicon72x72.png" />
+  <link rel="apple-touch-icon" href="https://mephisto5558.github.io/Website-Assets/img/favicons/favicon57x57.png" />
+  <link rel="shortcut icon" href="https://mephisto5558.github.io/Website-Assets/img/favicons/favicon.png" />
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,600,700,800,900">
+</head>
+
+<body style="overflow:hidden">
+  <div id="wrapper">
+    <div class="container">
+      <div class="switcher">
+        <input id="sw" type="checkbox" class="switcher-value">
+        <label for="sw" class="sw_btn"></label>
+        <div class="bg"></div>
+        <div class="text">Turn <span class="text-l">off</span><span class="text-d">on</span><br />the light</div>
+      </div>
+
+      <div id="dark" class="row text-center">
+        <div class="info">
+          <img src="https://mephisto5558.github.io/Website-Assets/img/404-dark.png" alt="404 Error" />
+        </div>
+      </div>
+
+      <div id="light" class="row text-center">
+        <div class="info">
+          <img src="https://mephisto5558.github.io/Website-Assets/img/404-light.gif" alt="404 Error" />
+          <p>The page you are looking for was moved, removed,<br />
+            renamed or might never existed.</p>
+          <a href="/manage" class="btn btn">Go Home</a>
+          <a href="https://github.com/Mephisto5558/Teufelsbot-Website/issues/new" class="btn btn">Report a bug</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>document.querySelector('.sw_btn').addEventListener('click', () => { document.body.classList.toggle('light'); });</script>
+</body>
+
+</html>
