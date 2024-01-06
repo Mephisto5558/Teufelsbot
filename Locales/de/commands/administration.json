@@ -36,7 +36,6 @@
     },
     "embedTitle": "Server-Backup",
     "create": {
-      "cooldown": "Das Erstellen von Backups ist im Cooldown! Versuche es erneut in `{time}`s.",
       "settings": "<a:loading:1063091916683612160> Sichere Einstellungen...",
       "members": "<a:loading:1063091916683612160> Sichere Mitglieder...",
       "bans": "<a:loading:1063091916683612160> Sichere Bans...",
@@ -54,7 +53,6 @@
       "ownWebhooks": "<a:loading:1063091916683612160> Lösche temporäre Webhooks..."
     },
     "load": {
-      "cooldown": "Das Laden von Backups ist im Cooldown! Versuche es erneut in `{time}`s.",
       "overwriteWarningDescription": "Diese Aktion wird den Großteil deines Servers löschen! Dazu zählen unter anderen Rollen, Webhooks, Kanäle und Emojis.\nWenn du dir sicher bist, dass du das tun möchtest, klicke \"Ja\". Klicke \"Nein\", um abzubrechen.\nDu könntest auch ein Backup vor dem Laden erstellen, nur zur Sicherheit.",
       "noneFound": "Es wurde kein Backup für diesen Server gefunden!",
       "cancelled": "Das Laden des Backups wurde abgebrochen.",
