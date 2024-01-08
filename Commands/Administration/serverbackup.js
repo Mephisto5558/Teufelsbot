@@ -1,6 +1,5 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ComponentType, ButtonStyle } = require('discord.js'),
-  { cooldowns } = require('../../Utils'),
   getData = backup => Object.keys(backup).length ? ({
     createdAt: Math.round(backup.createdTimestamp / 1000),
     size: (() => {
@@ -40,9 +39,6 @@ const backupMainFunctions = {
 
   /**@param {GuildInteraction}interaction @param {lang}lang @param {EmbedBuilder}embed @param {string}id*/
   load: async function loadBackup(interaction, lang, embed, id) {
-    const cooldown = cooldowns.call(interaction, { name: 'serverbackup.load', cooldowns: { guild: 18e5, user: 18e5 } });
-    if (cooldown) return interaction.customReply({ embeds: [embed.setDescription(lang('load.cooldown', cooldown))] }, 1e4);
-
     if (!interaction.client.backupSystem.get()) return interaction.editReply({ embeds: [embed.setDescription(lang('load.noneFound'))] });
     if (!checkPerm.call(interaction, interaction.client.backupSystem.get(id))) return interaction.editReply({ embeds: [embed.setDescription(lang('load.backupNoPerm'))] });
 
