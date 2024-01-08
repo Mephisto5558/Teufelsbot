@@ -65,8 +65,8 @@ const backupMainFunctions = {
         if (button.customId != 'overwriteWarning_true') return this.editReply({ embeds: [embed.setDescription(lang('load.cancelled'))], components: [] });
 
         embed.data.color = Colors.White;
-        let this;
-        try { this = await this.member.send({ embeds: [embed.setDescription(lang('load.loadingEmbedDescription'))] }); }
+        let msg;
+        try { msg = await this.member.send({ embeds: [embed.setDescription(lang('load.loadingEmbedDescription'))] }); }
         catch (err) {
           if (err.code != 50007) throw err; // "Cannot send messages to this user"
 
@@ -76,17 +76,17 @@ const backupMainFunctions = {
         const statusObj = new Proxy({ status: null }, {
           set: function (obj, prop, value) {
             obj[prop] = value;
-            this.edit({ embeds: [embed.setDescription(lang(value))] });
+            msg.edit({ embeds: [embed.setDescription(lang(value))] });
             return true;
           }
         });
 
         try {
           const backup = await this.client.backupSystem.load(id, this.guild, { reason: lang('global.modReason', { command: `${this.commandName} load`, user: this.user.tag }), statusObj, clearGuildBeforeRestore: !this.options.getBoolean('no_clear') });
-          return this.edit({ embeds: [embed.setDescription(lang('load.success', backup.id))] });
+          return msg.edit({ embeds: [embed.setDescription(lang('load.success', backup.id))] });
         }
         catch (err) {
-          this.edit({ embeds: [embed.setDescription(lang('load.error'))] });
+          msg.edit({ embeds: [embed.setDescription(lang('load.error'))] });
           return log.error('An error occurred while trying to load an backup:', err);
         }
       })

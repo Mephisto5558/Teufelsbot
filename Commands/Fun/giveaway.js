@@ -1,7 +1,99 @@
 const
   { Constants, PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
-  { timeValidator } = require('../../Utils');
+  { timeValidator } = require('../../Utils'),
+
+  giveawayMainFunctions = {
+    /**@typedef {{ bonusEntries: object[], requiredRoles: string[], disallowedMembers: string[], duration: number, giveawayId: string }}mainFunctionsParams*/
+
+    /**@this GuildInteraction @param {lang}lang @param {ActionRowBuilder<ButtonBuilder>[]}components @param {mainFunctionsParams}*/
+    create: async function (lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration }) {
+      const
+        defaultSettings = this.client.defaultSettings.giveaway,
+        reaction = this.options.getString('reaction') || this.guild.db.giveaway?.reaction || defaultSettings.reaction,
+        startOptions = {
+          winnerCount: this.options.getInteger('winner_count'),
+          prize: this.options.getString('prize'),
+          hostedBy: this.user,
+          botsCanWin: false,
+          bonusEntries: { bonus: member => bonusEntries[member.id] },
+          embedColor: parseInt(this.options.getString('embed_color')?.substring(1) ?? 0, 16) || this.guild.db.giveaway?.embedColor || defaultSettings.embedColor,
+          embedColorEnd: parseInt(this.options.getString('embed_color_end')?.substring(1) ?? 0, 16) || this.guild.db.giveaway?.embedColorEnd || defaultSettings.embedColorEnd,
+          reaction, duration,
+          messages: {
+            giveaway: lang('newGiveaway'),
+            giveawayEnded: lang('giveawayEnded'),
+            inviteToParticipate:
+              `${this.options.getString('description')}\n\n` +
+              (requiredRoles?.length ? lang('requiredRoles', `<@&${requiredRoles.join('>, <@&')}>\n`) : '') +
+              (disallowedMembers?.length ? lang('disallowedMembers', `<@${disallowedMembers.join('< <@')}>\n`) : '') +
+              lang('inviteToParticipate', reaction),
+            winMessage: { content: lang('winMessage'), components },
+            drawing: lang('drawing'),
+            dropMessage: lang('dropMessage', reaction),
+            embedFooter: lang('embedFooterText'),
+            noWinner: lang('noWinner'),
+            winners: lang('winners'),
+            endedAt: lang('endedAt'),
+            hostedBy: lang('hostedBy')
+          },
+          thumbnail: this.options.getString('thumbnail'),
+          image: this.options.getString('image'),
+          lastChance: this.guild.db.giveaway?.useLastChance || defaultSettings.useLastChance,
+          isDrop: this.options.getBoolean('is_drop')
+        };
+
+      if (requiredRoles?.length || disallowedMembers?.length) startOptions.exemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers?.includes(member.id));
+
+      const data = await this.client.giveawaysManager.start(this.options.getChannel('channel') || this.channel, startOptions);
+      components[0].components[0].data.url = data.messageURL;
+
+      return this.editReply({ content: lang('started'), components });
+    },
+
+    /**@this GuildInteraction @param {lang}lang @param {ActionRowBuilder<ButtonBuilder>[]}components @param {mainFunctionsParams}*/
+    end: async function (lang, components, { giveawayId }) {
+      const data = await this.client.giveawaysManager.end(giveawayId);
+      components[0].components[0].data.url = data.messageURL;
+
+      return this.editReply({ content: lang('ended'), components });
+    },
+
+    /**@this GuildInteraction @param {lang}lang @param {ActionRowBuilder<ButtonBuilder>[]}components @param {mainFunctionsParams}*/
+    edit: async function (lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId }) {
+      const editOptions = {
+        addTime: duration,
+        newBonusEntries: {},
+        newWinnerCount: this.options.getInteger('winner_count'),
+        newPrize: this.options.getString('prize'),
+        newThumbnail: this.options.getString('thumbnail'),
+        newImage: this.options.getString('image')
+      };
+
+      if (requiredRoles.length || disallowedMembers.length) editOptions.newExemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers.includes(member.id));
+      if (bonusEntries.length) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
+
+      const data = await this.client.giveawaysManager.edit(giveawayId, editOptions);
+      components[0].components[0].data.url = data.messageURL;
+
+      return this.editReply({ content: lang('edited'), components });
+    },
+
+    /**@this GuildInteraction @param {lang}lang @param {ActionRowBuilder<ButtonBuilder>[]}components @param {mainFunctionsParams}*/
+    reroll: async function (lang, components, { giveawayId }) {
+      const rerollOptions = {
+        messages: {
+          congrat: { content: lang('rerollWinners'), components },
+          error: { content: lang('rerollNoWinner'), components }
+        }
+      };
+
+      const data = await this.client.giveawaysManager.reroll(giveawayId, rerollOptions);
+      components[0].components[0].data.url = data.messageURL;
+
+      return this.editReply({ content: lang('rerolled'), components });
+    }
+  };
 
 /**@type {command}*/
 module.exports = {
@@ -118,11 +210,8 @@ module.exports = {
 
     const
       bonusEntries = this.options.getString('bonus_entries')?.split(' ').map(e => ({ [e.split(':')[0].replace(/[^/d]/g, '')]: e.split(':')[1] })),
-      targetChannel = this.options.getChannel('channel') || this.channel,
       requiredRoles = this.options.getString('required_roles')?.replace(/\D/g, '').split(' '),
       disallowedMembers = this.options.getString('exempt_member')?.replace(/\D/g, '').split(' '),
-      defaultSettings = this.client.defaultSettings.giveaway,
-      reaction = this.options.getString('reaction') || this.guild.db.giveaway?.reaction || defaultSettings.reaction,
       components = [new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('buttonLabel'),
@@ -135,89 +224,6 @@ module.exports = {
 
     if (typeof duration != 'number' && durationUnformatted) return this.editReply(lang('invalidTime'));
 
-
-    switch (this.options.getSubcommand()) {
-      case 'create': {
-        const startOptions = {
-          winnerCount: this.options.getInteger('winner_count'),
-          prize: this.options.getString('prize'),
-          hostedBy: this.user,
-          botsCanWin: false,
-          bonusEntries: { bonus: member => bonusEntries[member.id] },
-          embedColor: parseInt(this.options.getString('embed_color')?.substring(1) ?? 0, 16) || this.guild.db.giveaway?.embedColor || defaultSettings.embedColor,
-          embedColorEnd: parseInt(this.options.getString('embed_color_end')?.substring(1) ?? 0, 16) || this.guild.db.giveaway?.embedColorEnd || defaultSettings.embedColorEnd,
-          reaction, duration,
-          messages: {
-            giveaway: lang('newGiveaway'),
-            giveawayEnded: lang('giveawayEnded'),
-            inviteToParticipate:
-              `${this.options.getString('description')}\n\n` +
-              (requiredRoles?.length ? lang('requiredRoles', `<@&${requiredRoles.join('>, <@&')}>\n`) : '') +
-              (disallowedMembers?.length ? lang('disallowedMembers', `<@${disallowedMembers.join('< <@')}>\n`) : '') +
-              lang('inviteToParticipate', reaction),
-            winMessage: { content: lang('winMessage'), components },
-            drawing: lang('drawing'),
-            dropMessage: lang('dropMessage', reaction),
-            embedFooter: lang('embedFooterText'),
-            noWinner: lang('noWinner'),
-            winners: lang('winners'),
-            endedAt: lang('endedAt'),
-            hostedBy: lang('hostedBy')
-          },
-          thumbnail: this.options.getString('thumbnail'),
-          image: this.options.getString('image'),
-          lastChance: this.guild.db.giveaway?.useLastChance || defaultSettings.useLastChance,
-          isDrop: this.options.getBoolean('is_drop')
-        };
-
-        if (requiredRoles?.length || disallowedMembers?.length) startOptions.exemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers?.includes(member.id));
-
-        const data = await this.client.giveawaysManager.start(targetChannel, startOptions);
-        components[0].components[0].data.url = data.messageURL;
-
-        return this.editReply({ content: lang('started'), components });
-      }
-
-      case 'end': {
-        const data = await this.client.giveawaysManager.end(giveawayId);
-        components[0].components[0].data.url = data.messageURL;
-
-        return this.editReply({ content: lang('ended'), components });
-      }
-
-      case 'edit': {
-        const editOptions = {
-          addTime: duration,
-          newBonusEntries: {},
-          newWinnerCount: this.options.getInteger('winner_count'),
-          newPrize: this.options.getString('prize'),
-          newThumbnail: this.options.getString('thumbnail'),
-          newImage: this.options.getString('image')
-        };
-
-        if (requiredRoles.length || disallowedMembers.length) editOptions.newExemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers.includes(member.id));
-        if (bonusEntries.length) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
-
-        const data = await this.client.giveawaysManager.edit(giveawayId, editOptions);
-        components[0].components[0].data.url = data.messageURL;
-
-        return this.editReply({ content: lang('edited'), components });
-      }
-
-      case 'reroll': {
-        const rerollOptions = {
-          messages: {
-            congrat: { content: lang('rerollWinners'), components },
-            error: { content: lang('rerollNoWinner'), components }
-          }
-        };
-
-        const data = await this.client.giveawaysManager.reroll(giveawayId, rerollOptions);
-        components[0].components[0].data.url = data.messageURL;
-
-        return this.editReply({ content: lang('rerolled'), components });
-      }
-    }
-
+    return giveawayMainFunctions[this.options.getSubcommand()].call(this, lang, { components, bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId });
   }
 };
