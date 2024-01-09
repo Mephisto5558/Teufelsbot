@@ -80,7 +80,6 @@ module.exports = async function slashCommandHandler() {
     }
   }
 
-  process.argv = process.argv.filter(e => e != 'isChild=true');
   this.on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[].concat(args ?? this)));
 
   log /*eslint-disable no-unexpected-multiline, indent*/
@@ -90,6 +89,8 @@ module.exports = async function slashCommandHandler() {
     ('Loaded Event interactionCreate')
     ('Ready to receive slash commands\n')
     (`Ready to serve in ${this.channels.cache.size} channels on ${this.guilds.cache.size} servers.\n`);
+
+  if (process.send?.('Finished starting') === false) log.error('Could not tell the parent to kill itself.');
 
   console.timeEnd('Starting time');
 };

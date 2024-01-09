@@ -71,19 +71,22 @@ console.time('Starting time');
   await client.login(client.keys.token);
   log(`Logged into ${client.botType}`);
 
-  client.webServer = await (new WebServer(
-    client, client.db,
-    { secret: client.keys.secret, dbdLicense: client.keys.dbdLicense, webhookURL: client.keys.votingWebhookURL },
-    {
-      support: { discord: discordInvite, mail: mailAddress }, errorPagesDir: './Website/CustomSites/error',
-      settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites'
-    }, errorHandler.bind(client)
-  )).init(await getCommands(client.i18n.__.bBind(client.i18n, { locale: 'en', undefinedNotFound: true })));
-
   client.db.update('botSettings', `startCount.${client.botType}`, client.settings.startCount[client.botType] + 1 || 1);
 
   process
     .on('unhandledRejection', err => errorHandler.call(client, err))
     .on('uncaughtExceptionMonitor', err => errorHandler.call(client, err))
-    .on('uncaughtException', err => errorHandler.call(client, err));
+    .on('uncaughtException', err => errorHandler.call(client, err))
+    .on('message', async message => {
+      if (message != 'Start WebServer') return;
+
+      client.webServer = await (new WebServer(
+        client, client.db,
+        { secret: client.keys.secret, dbdLicense: client.keys.dbdLicense, webhookURL: client.keys.votingWebhookURL },
+        {
+          support: { discord: discordInvite, mail: mailAddress }, errorPagesDir: './Website/CustomSites/error',
+          settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites'
+        }, errorHandler.bind(client)
+      )).init(await getCommands(client.i18n.__.bBind(client.i18n, { locale: 'en', undefinedNotFound: true })));
+    });
 })();
