@@ -7,8 +7,8 @@ const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { readdir } = require('fs/promises'),
   { DB } = require('@mephisto5558/mongoose-db'),
-  { GiveawaysManager, gitpull, errorHandler, getCommands } = require('./Utils'),
   { WebServer } = require('@mephisto5558/bot-website'),
+  { GiveawaysManager, gitpull, errorHandler, getCommands } = require('./Utils'),
   { discordInvite, mailAddress } = require('./config.json');
 
 require('./Utils/prototypeRegisterer.js');
