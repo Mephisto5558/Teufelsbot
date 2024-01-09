@@ -71,6 +71,18 @@ declare global {
   type Res = express.Response;
   type NextFunc = express.NextFunction;
 
+  interface process {
+    /**The real process uptime. This property only exists if process args include uptime=...*/
+    childUptime?: () => number;
+
+    /**If `process.childUptime` exists (process args includes uptime=...), this is
+     * 
+     * `process.childUptime() + parentUptime`
+     * 
+     * Otherwise it is the default `process.uptime()`*/
+    uptime: () => number;
+  }
+
   interface Array<T> {
     random(): T;
   }
