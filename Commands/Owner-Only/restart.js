@@ -36,7 +36,12 @@ module.exports = {
 
     /**@type {import('child_process').ChildProcess}*/
     let child;
-    try { child = spawn(process.execPath, ['--inspect', ...(process.argv.slice(1) || ['.']), `uptime=${process.uptime()}`], { detached: true, stdio: ['inherit', 'inherit', 'inherit', 'ipc'], }); }
+    try {
+      child = spawn(
+        process.execPath, ['--inspect', ...(process.argv.slice(1) || ['.']), `uptime=${process.uptime()}`],
+        { detached: true, stdio: ['ignore', 'ignore', 'ignore', 'ipc'], }
+      );
+    }
     catch (err) {
       restarting = false;
 

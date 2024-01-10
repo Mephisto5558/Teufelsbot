@@ -87,10 +87,5 @@ module.exports = async function slashCommandHandler() {
     (`Skipped ${this.slashCommands.filter(e => { return e.skip && delete e.skip; }).size} Slash Commands`)
     (`Deleted ${deletedCommandCount} Slash Commands`)
     ('Loaded Event interactionCreate')
-    ('Ready to receive slash commands\n')
-    (`Ready to serve in ${this.channels.cache.size} channels on ${this.guilds.cache.size} servers.\n`);
-
-  if (process.send?.('Finished starting') === false) log.error('Could not tell the parent to kill itself.');
-
-  console.timeEnd('Starting time');
+    ('Ready to receive slash commands');
 };
