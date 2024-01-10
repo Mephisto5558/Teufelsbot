@@ -1,7 +1,8 @@
 const
   fetch = require('node-fetch').default,
   { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors } = require('discord.js'),
-  { Github } = require('../config.json');
+  { Github } = require('../config.json'),
+  cwd = process.cwd();
 
 /**@this Client @param {Error}err @param {Message|import('discord.js').BaseInteraction|null}message @param {lang?}lang*/
 module.exports = async function errorHandler(err, message, lang) {
@@ -47,7 +48,7 @@ module.exports = async function errorHandler(err, message, lang) {
             },
             body: JSON.stringify({
               title: `${err.name}: "${err.message}" in command "${message.commandName}"`,
-              body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack}`,
+              body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack.replaceAll(cwd, '[cwd]')}`,
               labels: ['bug']
             })
           }),
