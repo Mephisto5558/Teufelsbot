@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 /**@type {command}*/
@@ -23,7 +23,7 @@ module.exports = {
       embed = new EmbedBuilder({
         title: guild.name,
         description: guild.description,
-        color: parseInt((await getAverageColor(guild.iconURL())).hex.substring(1), 16),
+        color: guild.icon ? parseInt((await getAverageColor(guild.iconURL())).hex.substring(1), 16) : Colors.White,
         thumbnail: { url: guild.iconURL() },
         image: { url: guild.bannerURL({ size: 1024 }) },
         fields: [
@@ -47,15 +47,12 @@ module.exports = {
       { name: lang('vanityUrl') + lang('uses'), value: guild.vanityURLUses, inline: true }
     ]);
 
-    const component = new ActionRowBuilder({
-      components: [
-        new ButtonBuilder({
-          label: lang('downloadIcon'),
-          style: ButtonStyle.Link,
-          url: guild.iconURL({ size: 2048 })
-        })
-      ]
-    });
+    const component = new ActionRowBuilder();
+    if (guild.icon) component.components.push(new ButtonBuilder({
+      label: lang('downloadIcon'),
+      style: ButtonStyle.Link,
+      url: guild.iconURL({ size: 2048 })
+    }));
 
     if (guild.banner) component.components.push(new ButtonBuilder({
       label: lang('downloadBanner'),
@@ -63,6 +60,6 @@ module.exports = {
       url: guild.bannerURL({ size: 2048 })
     }));
 
-    return this.customReply({ embeds: [embed], components: [component] });
+    return this.customReply({ embeds: [embed], components: component.components.length ? [component] : null });
   }
 };
