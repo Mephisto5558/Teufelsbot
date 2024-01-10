@@ -53,7 +53,7 @@ module.exports = async function errorHandler(err, message, lang) {
           }),
           json = await res.json();
 
-        if (!res.ok) throw new Error(json);
+        if (!res.ok) throw new Error(JSON.stringify(json));
 
         const attachment = new AttachmentBuilder(Buffer.from(JSON.stringify({ ...message }, (_, v) => typeof v == 'bigint' ? v.toString() : v, 2)), { name: 'data.json' });
         try { (this.application.owner.owner || this.application.owner).send({ content: json.html_url, files: [attachment] }); } catch { }
