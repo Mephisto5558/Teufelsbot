@@ -48,12 +48,12 @@ async function loadEnv(client) {
   catch (err) {
     if (err.code != 'MODULE_NOT_FOUND') throw err;
 
-    client.db = await new DB(process.env.dbConnectionStr, 'db-collection', 100).fetchAll();
+    client.db = await new DB().init(process.env.dbConnectionStr, 'db-collection', 100);
     env = client.db.get('botSettings', 'env');
   }
 
   env = env.global.fMerge(env[env.global.environment]);
-  client.db ??= await new DB(env.dbConnectionStr, 'db-collection', 100).fetchAll();
+  client.db ??= await new DB().init(env.dbConnectionStr, 'db-collection', 100);
 
   return env;
 }
