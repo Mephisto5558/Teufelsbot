@@ -109,8 +109,9 @@ console.time('Starting time');
   if (process.send?.('Finished starting') === false) {
     log.error('Could not tell the parent to kill itself. Exiting to prevent duplicate code execution.');
     process.exit(1);
-  } // Webserver will created after the parent exited.
+  }
 
+  // Webserver will be created after the parent exited.
   while (!client.webServer) await sleep(100);
 
   client.db.update('botSettings', `startCount.${client.botType}`, client.settings.startCount[client.botType] + 1 || 1);
