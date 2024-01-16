@@ -8,9 +8,11 @@ import type GiveawayManagerWithOwnDatabase from './Utils/giveawaysManager';
 
 declare global {
   const sleep: (ms: number) => Promise<void>;
+  
   /**@returns Array of filenames*/
   const getDirectories: (path: string) => Promise<string[]>;
 
+  /**Custom logging, including logfiles.*/
   const log: {
     (...str: any[]): typeof log;
     error: (...str: any[]) => typeof log;
@@ -19,7 +21,7 @@ declare global {
     _log(file?: string, ...str: any[]): typeof log;
   };
 
-  /**bBinded I18nProvider.__ function */
+  /**bBinded I18nProvider.__ function*/
   type lang = {
     (key: string, replacements?: string | object): string;
   } & bBoundFunction;
@@ -71,19 +73,22 @@ declare global {
   type Res = express.Response;
   type NextFunc = express.NextFunction;
 
-  interface process {
-    /**The real process uptime. This property only exists if process args include uptime=...*/
-    childUptime?: () => number;
+  namespace NodeJS {
+    interface Process {
+      /**The real process uptime. This property only exists if process args include uptime=...*/
+      childUptime?(): number;
 
-    /**If `process.childUptime` exists (process args includes uptime=...), this is
-     * 
-     * `process.childUptime() + parentUptime`
-     * 
-     * Otherwise it is the default `process.uptime()`*/
-    uptime: () => number;
+      /**If `process.childUptime` exists (process args includes uptime=...), this is
+       * 
+       * `process.childUptime() + parentUptime`
+       * 
+       * Otherwise it is the default `process.uptime()`*/
+      uptime(): number;
+    }
   }
 
   interface Array<T> {
+    /**Generates a cryptographically secure random number using node:crypto.*/
     random(): T;
   }
 
@@ -92,22 +97,24 @@ declare global {
   }
 
   interface Object {
+    /**Merges two objects recursively together.
+     * @param mode how to handle array entries that are in both objects.*/
     fMerge(obj: object, mode?: 'overwrite' | 'push', output?: object): object;
+
+    /**Removes `null`, `undefined`, empty arrays and empty objects recursively.*/
     filterEmpty(): object;
   }
 
   interface Function {
+    /**A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction}*/
     bBind(thisArg: any, ...args: any[]): bBoundFunction;
   }
 
   class bBoundFunction extends Function {
+    /**The original, unbound function*/
     __targetFunction__: Function;
     __boundThis__: this;
     __boundArgs__: any[];
-  }
-
-  class DB {
-    generate: (overwrite?: boolean) => Promise<void>;
   }
 
   type Client = Discord.Client;
@@ -116,6 +123,7 @@ declare global {
   type DMMessage = Discord.Message<false>;
   type AutocompleteInteraction = Discord.AutocompleteInteraction;
 
+  /**interface for an interaction in a guild.*/
   interface GuildInteraction extends Discord.ChatInputCommandInteraction {
     inGuild(): true;
     guild: Discord.Guild;
@@ -125,6 +133,8 @@ declare global {
     member: Discord.GuildMember;
     memberPermissions: Readonly<Discord.PermissionsBitField>;
   }
+
+  /**interface for an interaction in a direct message.*/
   interface DMInteraction extends Discord.ChatInputCommandInteraction {
     inGuild(): false;
     inRawGuild(): false;
@@ -136,6 +146,7 @@ declare global {
     member: null;
     memberPermissions: null;
   }
+
   type Interaction = GuildInteraction | DMInteraction;
 }
 
@@ -146,40 +157,38 @@ declare module 'discord.js' {
     backupSystem?: BackupSystem;
     giveawaysManager?: GiveawayManagerWithOwnDatabase;
     webServer: WebServer;
-    cooldowns: Map<string, object>;
+    cooldowns: Map<string, { guild?: Map<string, number>, user?: Map<string, number> }>;
     db: DB;
     i18n: I18nProvider;
     settings: object;
     defaultSettings: object;
     botType: string;
+    /**A promise that resolves to a fetched discord application once {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#ready Client#ready} was emitted.*/
     awaitReady(): Promise<Discord.Application>;
   }
 
   interface Message {
     /**
      * The original content of the message. This is a custom property set in 'prototypeRegisterer.js'.
-     * <info>This property requires the GatewayIntentBits.MessageContent privileged intent
-     * in a guild for messages that do not mention the client.</info>
-     */
+     * @info This property requires the GatewayIntentBits.MessageContent privileged intent
+     * for guild messages that do not mention the client.*/
     originalContent: string | null;
 
-    /**
-     * The arguments of the message. It slices out the prefix and splits by spaces. This is a custom property set in 'prototypeRegisterer.js'.
-     */
+    /**The arguments of the message. It slices out the prefix and splits the message content on spaces. This is a custom property set in 'prototypeRegisterer.js'.*/
     args: string[] | null;
 
-    /**
-     * The first word of the original message content. `null` if no prefix has been found. This is a custom property set in 'prototypeRegisterer.js'.
-     */
+    /**The first word of the {@link Message.originalContent original content}. `null` if the content is empty. This is a custom property set in 'prototypeRegisterer.js'.*/
     commandName: string | null;
 
+    /**Alias for {@link Message.author} */
     user: User;
 
     /**
-     * @param deleteTime Number in Milliseconds
-     */
+     * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
+     * and if that also doesn't work, send the message without repling to a specific message/interaction.
+     * @param deleteTime Number in Milliseconds*/
     customReply(
-      options: string | MessageEditOptions | MessagePayload | InteractionReplyOptions,
+      options: string | MessagePayload | MessageEditOptions,
       deleteTime?: number,
       allowedMentions?: MessageMentionOptions | { repliedUser: false; }
     ): Promise<Message>;
@@ -188,42 +197,63 @@ declare module 'discord.js' {
   }
 
   interface BaseInteraction {
-    /**@param deleteTime Number in milliseconds*/
+    /**
+     * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
+     * and if that also doesn't work, send the message without repling to a specific message/interaction.
+     * @param deleteTime Number in Milliseconds*/
     customReply(
-      options: string | MessageEditOptions | MessagePayload | InteractionReplyOptions,
+      options: string | MessagePayload | InteractionReplyOptions,
       deleteTime?: number,
       allowedMentions?: MessageMentionOptions | { repliedUser: false; }
     ): Promise<Message>;
   }
 
   interface AutocompleteInteraction {
-    focused: AutocompleteFocusedOption;
+    /**```js
+     * this.options.getFocused(true)
+     * ```*/
+    get focused(): AutocompleteFocusedOption;
   }
 
   interface User {
-    db: object | null;
+    /**```js
+     * this.client.db?.get('userSettings')?.[this.id] ?? {}
+     * ```*/
+    get db(): object;
     customName: string;
     customTag: string;
   }
 
   interface GuildMember {
-    db: any;
+    /**Searches the guildSettings DB recursively for all data of this member across all guilds.*/
+    get db(): object | undefined;
     customName: string;
     customTag: string;
   }
 
   interface Guild {
-    db: object;
+    /**```js
+     * this.client.db?.get('guildSettings')?.[this.id] ?? {}
+     * ```*/
+    get db(): any;
     localeCode: string;
   }
 }
 
 declare module 'discord-tictactoe' {
   interface TicTacToe {
-    playAgain: (interaction: Discord.ChatInputCommandInteraction) => Promise<void>;
+    playAgain(interaction: Discord.ChatInputCommandInteraction): Promise<void>;
   }
 
   interface GameBoardButtonBuilder {
+    /**Overwrite to make empty spaces look empty by using a zero width space.*/
     createButton(row: number, col: number): Discord.ButtonBuilder;
+  }
+}
+
+declare module '@mephisto5558/mongoose-db' {
+  class DB {
+    /**generates required database entries from {@link ./Templates/db_collections.json}.*/
+    generate(overwrite?: boolean): Promise<void>;
   }
 }

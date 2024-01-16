@@ -88,7 +88,6 @@ Object.defineProperties(BaseClient.prototype, {
     set(val) { this.db.update('guildSettings', 'default', val); }
   },
   awaitReady: {
-    /**@returns {Promise<Application>} fetched application*/
     value: function awaitReady() { return new Promise(res => this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch()))); }
   }
 });
