@@ -1,4 +1,4 @@
-/**@param {object}obj @param {string}key @returns object with found entries or undefined if no obj or no key has been provided*/
+/**@param {object}obj @param {string}key @returns object with found entries or `undefined` if no `obj` or no `key` has been provided*/
 module.exports = function findAllEntries(obj, key) {
   if (!obj || !key) return;
   let counter = 0;

@@ -5,7 +5,7 @@ function handleError(err) {
   if (!err) return true;
   if (!(err instanceof DiscordAPIError)) throw err;
 
-  log.debug(`An error occurred while trying to send message: ${err}`);
+  log.debug(`An error occurred while trying to send a message: ${err}`);
   return err.code != 10062;
 }
 

@@ -10,7 +10,7 @@ module.exports = function debug() {
   if (debug.includes('Hit a 429')) {
     if (this.isReady()) return void log.error('Hit a 429 while trying to execute a request');
 
-    log.error('Hit a 429 while trying to login. Restarting shell.');
+    log.error('Hit a 429 while trying to login. Exiting.');
     process.kill(1);
   }
 };
