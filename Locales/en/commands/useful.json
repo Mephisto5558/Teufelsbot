@@ -273,7 +273,7 @@
       }
     },
     "randomNumber": "A random number {min} and {max}:\n{randomNumber}",
-    "outOfRange": "One of the specified numbers is invalid, too large or too small!\\nSmallest possible number: `{min}`, largest possible number: `{max}`"
+    "outOfRange": "One of the specified numbers is invalid, too large or too small!\nSmallest possible number: `{min}`, largest possible number: `{max}`"
   },
   "timestamp": {
     "description": "Get a timestamp for the future (or past by putting a \"-\" in front)",
