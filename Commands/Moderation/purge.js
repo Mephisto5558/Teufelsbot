@@ -1,7 +1,8 @@
 const
   { Message, Constants, Collection } = require('discord.js'),
   { getTargetChannel } = require('../../Utils'),
-  adRegex = str => /((?=discord)(?<!support\.)(discord(?:app)?[\W_]*(com|gg|me|net|io|plus|link)\/|(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(attachments|channels)\/)|(invite|dsc)[\W_]*gg|disboard[\W_]*org/gi.test(str), //filters discord invites, invite.gg, dsc.gg, disboard.org links
+  //filters discord invites, invite.gg, dsc.gg, disboard.org links
+  adRegex = str => /((?=discord)(?<!support\.)(discord(?:app)?[\W_]*(com|gg|me|net|io|plus|link)\/|(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(attachments|channels)\/)|(invite|dsc)[\W_]*gg|disboard[\W_]*org/gi.test(str),
   filterOptionsExist = options => Object.keys(options).some(e => e.name != 'amount' && e.name != 'channel'),
   filterCheck = {
     text: msg => msg.content.length,

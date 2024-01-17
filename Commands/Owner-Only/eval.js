@@ -1,6 +1,10 @@
+/**@typedef {new (this: Message, __dirname: string, __filename: string, exports: NodeExports, module: NodeModule, require: NodeRequire, lang: lang) => Function}BoundFunction*/
+
 const
-  vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'],
+  vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
+  /**@type {BoundFunction}*/
   BoundAsyncFunction = (async function () { }).constructor.bind(null, ...vars),
+  /**@type {BoundFunction}*/
   BoundFunction = Function.bind(null, ...vars);
 
 /**@type {command}*/

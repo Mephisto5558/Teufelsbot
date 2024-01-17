@@ -27,25 +27,53 @@ declare global {
   } & bBoundFunction;
 
   type command = {
-    name: string;
-    id?: string;
-    type?: 1;
+    /**For slash commands, must be lowercase.*/
+    name: readonly string;
+    /** **Do not set manually.***/
+    id?: readonly Discord.Snowflake;
+    /** **Do not set manually.***/
+    type?: readonly 1;
+    /**Gets set automatically from language files.
+     * For slash commands, can not be longer then 100 chars.*/
     description: string;
+    /**Gets set automatically from language files.
+     * @see {@link command.description}*/
     descriptionLocalizations: Record<string, string>;
-    category: string;
+    /**Gets set to the lowercase folder name the command is in.*/
+    category: readonly string;
     aliases?: { prefix?: string[], slash?: string[]; };
-    permissions?: { client?: Discord.PermissionFlags[], user?: Discord.PermissionFlags[]; };
+    permissions?: { 
+      /**Can be the bigints or flag names*/
+      client?: Discord.PermissionFlags[],
+      /**Can be the bigints or flag names*/
+      user?: Discord.PermissionFlags[];
+    };
     cooldowns?: { guild?: number, user?: number; };
     slashCommand: boolean;
     prefixCommand: boolean;
+    /**Makes the command also work in direct messages.*/
     dmPermission?: boolean;
+    /**Beta commands are the only commands that get loaded when `client.env == 'dev'`.*/
     beta?: boolean;
+    /**This command will not be loaded*/
     disabled?: boolean;
+    /**If enabled in {@link ./config.json} and set here, will be shown to the user when they try to run the command.*/
     disabledReason?: string;
+    /**Do not deferReply to the interaction*/
     noDefer?: boolean;
+    /**Do `interaction.deferReply({ ephemeral: true })`.
+     * 
+     * Gets ignored if {@link command.noDefer} is `true`.  */
     ephemeralDefer?: boolean;
-    aliasOf?: string;
+    /** **Do not set manually.**
+     * 
+     * If the command is an alias, this property will have the original name.*/
+    aliasOf?: readonly string;
+    /**Slash command options*/
     options?: commandOptions[];
+    /** **Do not set manually.**
+     * 
+     * The command's file path, used for e.g. reloading the command.*/
     filePath: string;
 
     run: (this: Interaction | Message, lang: lang, client: Discord.Client) => Promise<any>;
@@ -53,13 +81,28 @@ declare global {
 
   type commandOptions = {
     name: string;
+    /**Gets set automatically from language files.
+    * @see {@link command.description}*/
+    description: string;
+    /**Gets set automatically from language files.
+    * @see {@link command.description}*/
+    descriptionLocalizations: Record<string, string>;
+    /**Can be the integer or type name*/
     type: Discord.ApplicationCommandOptionType;
+    /**If true, the user must provide a value to this option.*/
     required?: boolean;
+    /**Choices the user must choose from. Can not be more then 25.*/
     choices?: (string | number)[];
+    /**Sub-options, e.g command->subcommand group->subcommand*/
     options?: commandOptions[];
+    /**Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled.*/
     autocompleteOptions?: string | Iterable<string | number | { name: string, value: string; }> | ((this: Discord.AutocompleteInteraction) => Iterable<string | number | { name: string, value: string; }>);
-    autocomplete?: boolean;
+    /**Automatically set to `true` if {@link commandOptions.autocompleteOptions} are set.*/
+    autocomplete?: readonly boolean;
+    /**Return an error message to the user, if their input is not included in {@link commandOptions.autocompleteOptions}.
+     * Note that this happens for Messages as well.*/
     strictAutocomplete?: boolean;
+    /**Can be the integer or type name.*/
     channelTypes?: Discord.ChannelType[];
     minValue?: number;
     maxValue?: number;
@@ -180,7 +223,7 @@ declare module 'discord.js' {
     /**The first word of the {@link Message.originalContent original content}. `null` if the content is empty. This is a custom property set in 'prototypeRegisterer.js'.*/
     commandName: string | null;
 
-    /**Alias for {@link Message.author} */
+    /**Alias for {@link Message.author}*/
     user: User;
 
     /**
@@ -253,7 +296,9 @@ declare module 'discord-tictactoe' {
 
 declare module '@mephisto5558/mongoose-db' {
   class DB {
-    /**generates required database entries from {@link ./Templates/db_collections.json}.*/
+    /**
+     * generates required database entries from {@link ./Templates/db_collections.json}.
+     * @param overwrite overwrite existing collection, default: `false`*/
     generate(overwrite?: boolean): Promise<void>;
   }
 }
