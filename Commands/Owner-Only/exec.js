@@ -10,6 +10,8 @@ module.exports = {
 
   /**@this Message*/
   run: async function (lang) {
+    if (!this.content) return;
+    
     const { stdout = lang('global.none'), stderr } = await exec(this.content);
 
     let msg = lang('finished', { code: this.content, stdout });
