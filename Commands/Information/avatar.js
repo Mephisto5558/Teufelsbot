@@ -5,7 +5,7 @@ const
 /**@type {command}*/
 module.exports = {
   name: 'avatar',
-  cooldowns: { guild: 100, user: 1000 },
+  cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
