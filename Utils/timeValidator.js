@@ -7,9 +7,8 @@ module.exports = function timeValidator(t) {
   if (!t) return [];
 
   const
-    split = t.split(/(\d)/).filter(e => e),
-    last = split.pop() ?? '',
-    found = validItems.filter(e => e.includes(last));
+    split = t.split(/(\d)/).filter(Boolean),
+    found = split.length ? validItems.filter(e => e.includes(split[split.length - 1])) : [];
 
   if (found.length) return found.map(e => split.join('') + e);
 
