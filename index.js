@@ -71,6 +71,8 @@ async function processMessageEventCallback(client, message) {
     }, errorHandler.bind(client)
   )).init(await getCommands(client.i18n.__.bBind(client.i18n, { locale: 'en', undefinedNotFound: true })));
 
+  require('./Handlers/event_handler.js').call(client);
+
   process.removeListener('message', processMessageEventCallback.bind(client));
 }
 
@@ -95,8 +97,8 @@ console.time('Starting time');
 
   if (client.botType != 'dev') client.giveawaysManager = new GiveawaysManager(client);
 
-  /**@type {Promise[]}*/
-  const handlerPromises = (await readdir('./Handlers')).map(handler => require(`./Handlers/${handler}`).call(client));
+  /**@type {Promise[]} Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution*/
+  const handlerPromises = (await readdir('./Handlers')).filter(e => e != 'event_handler.js').map(handler => require(`./Handlers/${handler}`).call(client));
 
   await client.login(client.keys.token);
   log(`Logged into ${client.botType}`);
