@@ -9,7 +9,7 @@ const
   I18nProvider = require('@mephisto5558/i18n'),
   { Log, customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
   findAllEntries = require('./findAllEntries.js'),
-  parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]);
+  parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
 if (!require('../config.json').HideOverwriteWarning) console.warn(`Overwriting the following variables and functions (if they exist):
   Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime), ' : ' '}global.getDirectories, global.sleep, global.log, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
@@ -131,14 +131,12 @@ Object.defineProperties(Guild.prototype, {
     get() { return this.client.db?.get('guildSettings')?.[this.id] ?? {}; },
     set(val) { this.client.db.update('guildSettings', this.id, val); }
   },
-  /**@type {string?}*/
   localeCode: {
     get() { return this.db.config?.lang ?? this.preferredLocale.slice(0, 2) ?? this.client.defaultSettings.config.lang; },
     set(val) { this.client.db.update('guildSettings', 'config.lang', val); }
   }
 });
 
-/**@param overwrite overwrite existing collection, default: `false`*/
 DB.prototype.generate = async function generate(overwrite = false) {
   log.setType('DB').debug(`generating db files${overwrite ? ', overwriting existing data' : ''}`).setType();
   for (const { key, value } of require('../Templates/db_collections.json')) await this.set(key, value, overwrite);
