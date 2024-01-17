@@ -31,7 +31,7 @@ module.exports = async function getCommands(lang) {
     categoryCommandList.push({
       category: subFolder,
       subTitle: '',
-      aliasesDisabled: !commandList.find(e => e.commandAlias),
+      aliasesDisabled: !commandList.some(e => e.commandAlias),
       list: commandList.map(e => Object.fromEntries(Object.entries(e).map(([k, v]) => [k, v.trim().replaceAll('\n', '<br>&nbsp')])))
     });
   }

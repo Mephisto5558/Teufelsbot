@@ -52,14 +52,15 @@ module.exports = {
 
         return this.customReply(lang('clear.success'));
       }
-      case 'get':
-      case undefined: return this.customReply(lang(target.id == this.user.id ? 'get.successYou' : 'get.successOther', target.customName));
-      default: {
+
+      case 'set': {
         const newName = this.options?.getString('name') || (this.args[0] == 'set' ? this.args.slice(1) : this.args).join(' ').slice(0, 32) || null;
         target.customName = newName;
 
         return this.customReply(newName ? lang('set.success', newName) : lang('clear.success'));
       }
+
+      default: return this.customReply(lang(target.id == this.user.id ? 'get.successYou' : 'get.successOther', target.customName));
     }
   }
 };
