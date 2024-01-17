@@ -85,13 +85,15 @@
     "dmEmbedTitle": "Muted",
     "dmEmbedDescription": "You have been muted from `{guild}`.\nModerator: {mod}\nUntil: <t:{time}>\nReason: {reason}",
     "infoEmbedTitle": "Mute",
-    "infoEmbedDescription": "{user} has been successfully muted.\nReason: {reason}\nUntil: <t:{time}>\n",
-    "notFound": "I couldn't find that member!",
+    "infoEmbedDescription": "Moderator: {mod}\nDuration: <t:{muteDuration}>\nReason: {reason}\n\n",
+    "selectTargetEmbedDescription": "Select up to 10 members to mute. You have 60 seconds.",
     "cantPunishSelf": "You can't mute yourself!",
-    "targetIsAdmin": "I cannot mute admininstartors!",
-    "invalidDuration": "The mute duration you provided is invalid!",
+    "noneFound": "No targets have been found.",
     "error": "I couldn't mute the target:\n{err}",
-    "noDM": "I couldn't DM the target."
+    "success": "**{user}** has been successfully muted until <t:{muteDuration}>.\n",
+    "noDM": "I couldn't DM the target.",
+    "timedOut": "This menu timed out.",
+    "invalidDuration": "The mute duration you provided is invalid!"
   },
   "nukechannel": {
     "description": "Clears all channel messages by duplicating the channel and then deleting the original one",
