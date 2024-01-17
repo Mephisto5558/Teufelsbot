@@ -4,9 +4,8 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require(
 module.exports = async function playAgain(interaction, lang) {
   const
     opponent = interaction.options?.getUser('opponent'),
-    oldComponents = (await interaction.fetchReply()).components;
-
-  let components = oldComponents;
+    { components: oldComponents } = await interaction.fetchReply(),
+    components = oldComponents;
 
   if (!components[3]?.components[0]?.customId) components[3] = new ActionRowBuilder({
     components: [new ButtonBuilder({

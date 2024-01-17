@@ -7,7 +7,7 @@ module.exports = function reddit(lang, subreddit, type, filterNSFW) {
 
   this.options = {
     getBoolean: () => filterNSFW == 'true',
-    getString: (str) => str == 'type' ? type : subreddit
+    getString: str => str == 'type' ? type : subreddit
   };
 
   this.update({ components: [] });
