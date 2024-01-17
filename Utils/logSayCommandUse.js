@@ -5,9 +5,9 @@ module.exports = function logSayCommandUse(member, lang) {
   const setting = this.guild?.db.config?.logger?.sayCommandUsed ?? {};
   if (this.client.botType == 'dev' || !setting.enabled || !setting.channel) return;
 
-  /**@type {import('discord.js').GuildTextBasedChannel | null}*/
+  /**@type {import('discord.js').GuildTextBasedChannel?}*/
   const channel = this.guild.channels.cache.get(setting.channel);
-  if (!channel && this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
+  if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
 
   lang.__boundArgs__[0].backupPath = 'events.logger.sayCommandUsed';
 
@@ -21,7 +21,7 @@ module.exports = function logSayCommandUse(member, lang) {
         { name: lang('author'), value: `${member.user.tag} (\`${member.id}\`)`, inline: false }
       ],
       timestamp: Date.now(),
-      color: 3553599,
+      color: 0x36393F,
     }),
     component = new ActionRowBuilder({
       components: [new ButtonBuilder({

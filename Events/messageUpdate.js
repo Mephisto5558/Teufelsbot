@@ -8,7 +8,7 @@ module.exports = async function messageUpdate(newMsg) {
     || this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size && this.embeds.length && newMsg.embeds.length
   ) return;
 
-  /**@type {import('discord.js').GuildTextBasedChannel | null}*/
+  /**@type {import('discord.js').GuildTextBasedChannel?}*/
   const channel = this.guild.channels.cache.get(setting.channel);
   if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 
@@ -24,7 +24,7 @@ module.exports = async function messageUpdate(newMsg) {
         { name: lang('author'), value: `${newMsg.user.tag} (\`${newMsg.user.id}\`)`, inline: false }
       ],
       timestamp: Date.now(),
-      color: 15084269
+      color: 0xE62AED
     }),
     component = new ActionRowBuilder({
       components: [new ButtonBuilder({
