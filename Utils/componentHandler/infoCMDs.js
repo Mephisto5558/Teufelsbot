@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError } = require('discord.js'),
   checkTargetManageable = require('../checkTargetManageable.js'),
-  ban_kick = require('../combinedCommands/ban_kick.js');
+  ban_kick = require('../combinedCommands/ban_kick_mute.js');
 
 /** this.customId: `infoCMDs.<id>.<action>.<entitytype>`
  * @this import('discord.js').ButtonInteraction @param {lang}lang @param {string}id @param {string}mode @param {string}entityType*/
