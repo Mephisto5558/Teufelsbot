@@ -46,7 +46,7 @@ module.exports = {
       return this.customReply({ embeds: [embed] });
     }
 
-    result = isResultSet(result) ? result.map(e => addSpaces(e)) : addSpaces(result);
+    result = isResultSet(result) ? result.map(addSpaces) : addSpaces(result);
     if (isResultSet(result)) result = result.entries.length > 1 ? lang('separated', result.entries.join(' | ')) : result.entries[0];
 
     return this.customReply({ embeds: [embed.setDescription(lang('success', { expression, result }))] });

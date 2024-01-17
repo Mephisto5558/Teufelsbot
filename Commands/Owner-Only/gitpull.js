@@ -1,3 +1,5 @@
+const { gitpull } = require('../../Utils');
+
 /**@type {command}*/
 module.exports = {
   name: 'gitpull',
@@ -8,7 +10,7 @@ module.exports = {
 
   /**@this Message*/
   run: async function (lang) {
-    await require('../../Utils').gitpull();
+    await gitpull();
     return this.customReply(lang('success'));
   }
 };

@@ -5,7 +5,7 @@ const
 /**@type {command}*/
 module.exports = {
   name: 'nsfw',
-  cooldowns: { guild: 0, user: 1000 },
+  cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: true,
   ephemeralDefer: true,
