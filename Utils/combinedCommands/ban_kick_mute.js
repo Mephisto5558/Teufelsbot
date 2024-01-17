@@ -1,18 +1,32 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType } = require('discord.js'),
+  { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable.js');
 
 /**@this GuildInteraction @param {lang}lang*/
-module.exports = async function ban_kick(lang) {
-  if (!['ban', 'kick'].includes(this.commandName)) throw new Error(`"${this.commandName}" is not an accepted commandName.`);
+module.exports = async function ban_kick_mute(lang) {
+  if (this.commandName == 'timeout') this.commandName = 'mute';
+  if (!['ban', 'kick', 'mute'].includes(this.commandName)) throw new Error(`"${this.commandName}" is not an accepted commandName.`);
 
-  let noMsg, reason = this.options.getString('reason');
+  let
+    noMsg,
+    /**@type {number?}*/
+    muteDuration = this.options.getString('duration'),
+    reason = this.options.getString('reason');
+
+  if (muteDuration) {
+    muteDuration = getMilliseconds(muteDuration)?.limit?.({ min: 6e4, max: 2419e5 });
+    if (!muteDuration || typeof muteDuration == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
+
+    muteDuration += Date.now();
+  }
+
   const
     target = this.options.getMember('target'),
     infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.tag, reason }),
     userEmbed = new EmbedBuilder({
       title: lang('infoEmbedTitle'),
-      description: lang('dmEmbedDescription', { guild: this.guild.name, mod: this.user.tag, reason }),
+      description: lang('dmEmbedDescription', { guild: this.guild.name, mod: this.user.tag, muteDuration, reason }),
       color: Colors.Red
     }),
     resEmbed = new EmbedBuilder({
@@ -24,6 +38,8 @@ module.exports = async function ban_kick(lang) {
   reason += ` | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`;
 
   if (target) {
+    if (target.id == this.client.user.id) return this.editReply('1984');
+
     const err = checkTargetManageable.call(this, target);
     if (err) {
       resEmbed.data.description += lang('error', { err: lang(err), user: target.user?.tag ?? target.id });
@@ -36,8 +52,11 @@ module.exports = async function ban_kick(lang) {
       noMsg = true;
     }
 
-    await (this.commandName == 'kick' ? target.kick(reason) : target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') }));
-    resEmbed.data.description += lang('success', target.user?.tag ?? target.id);
+    if (this.commandName == 'kick') await target.kick(reason);
+    else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageDays: this.options.getNumber('delete_days_of_messages') });
+    else await target.disableCommunicationUntil(muteDuration, reason);
+
+    resEmbed.data.description += lang('success', { user: target.user.tag, muteDuration });
     if (noMsg) resEmbed.data.description += lang('noDM');
 
     return this.editReply({ embeds: [resEmbed] });
@@ -75,9 +94,11 @@ module.exports = async function ban_kick(lang) {
             noMsg = true;
           }
 
-          await (this.commandName == 'kick' ? target.kick(reason) : target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') }));
+          if (this.commandName == 'kick') await target.kick(reason);
+          else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageDays: this.options.getNumber('delete_days_of_messages') });
+          else await target.disableCommunicationUntil(muteDuration, reason);
 
-          resEmbed.data.description += lang('success', target.user.tag);
+          resEmbed.data.description += lang('success', { user: target.user.tag, muteDuration });
           if (noMsg) resEmbed.data.description += lang('noDM');
         }
 
