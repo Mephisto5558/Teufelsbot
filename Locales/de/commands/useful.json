@@ -273,7 +273,7 @@
       }
     },
     "randomNumber": "Eine Zufallszahl zwischen {min} und {max}:\n{randomNumber}",
-    "outOfRange": "Eine der angegebenen Zahlen ist ungültig, zu groß oder zu klein!\\nKleinste mögliche Zahl: `{min}`, größte mögliche Zahl: `{max}`"
+    "outOfRange": "Eine der angegebenen Zahlen ist ungültig, zu groß oder zu klein!\nKleinste mögliche Zahl: `{min}`, größte mögliche Zahl: `{max}`"
   },
   "timestamp": {
     "description": "Erhalte einen Timestamp für die Zukunft (oder Vergangenheit, indem du \"-\" nutzt)",
