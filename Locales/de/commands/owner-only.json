@@ -21,7 +21,7 @@
     "notFound": "nichts gefunden"
   },
   "eval": {
-    "description": "Führe JavaScript Code mit dem Bot aus",
+    "description": "Führe JavaScript-Code mit dem Bot aus",
     "usage": {
       "usage": "{prefix}eval <JS-Code>",
       "examples": "{prefix}eval console.log('Hello World!')"
@@ -29,6 +29,15 @@
     "finished": "Code:\n```js\n{code}\n```\n",
     "success": "{msg} wurde fehlerlos ausgeführt.",
     "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
+  },
+  "exec": {
+    "description": "Führe Bash-Code direkt in die Shell des Bots aus",
+    "usage": {
+      "usage": "{prefix}exec <sh code>",
+      "examples": "{prefix}exec echo 'Hello World!'"
+    },
+    "finished": "Code:\n```sh\n{code}\n```\nwurde mit folgender Ausgabe ausgeführt:\nstdout:\n```\n{stdout}\n```\n",
+    "error": "stderr:\n```\n{stderr}\n```"
   },
   "gitpull": {
     "description": "Führe einen git pull aus",
