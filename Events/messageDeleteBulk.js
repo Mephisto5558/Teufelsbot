@@ -8,7 +8,7 @@ module.exports = async function messageDeleteBulk(channel) {
   const channelToSend = channel.guild.channels.cache.get(setting.channel);
   if (!channelToSend || channelToSend.permissionsFor(channel.guild.members.me).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 
-  await sleep(1000); //Make sure the audit log gets created before trying to fetching it
+  await sleep(1000); //Make sure the audit log gets created before trying to fetch it
 
   const
     /**@type {lang}*/
@@ -19,7 +19,7 @@ module.exports = async function messageDeleteBulk(channel) {
       description: lang('embedDescription', { executor: executor ? `<@${executor.id}>` : lang('events.logger.someone'), channel: channel.name, count: this.size.toString() }),
       fields: [{ name: lang('global.channel'), value: `<#${channel.id}> (\`${channel.id}\`)`, inline: false }],
       timestamp: Date.now(),
-      color: 15550861
+      color: 0xED498D
     });
 
   if (executor) embed.data.fields.push({ name: lang('events.logger.executor'), value: `${executor.tag} (\`${executor.id}\`)`, inline: false });

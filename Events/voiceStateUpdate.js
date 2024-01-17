@@ -14,7 +14,7 @@ module.exports = async function voiceStateUpdate(newState) {
     embed = new EmbedBuilder({
       author: { name: newState.member.user.tag, iconURL: newState.member.displayAvatarURL() },
       timestamp: Date.now(),
-      color: 3553599,
+      color: 0x36393F,
     });
 
   if (!this.channel?.id) {

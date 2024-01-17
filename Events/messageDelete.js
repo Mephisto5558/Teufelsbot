@@ -28,7 +28,7 @@ module.exports = async function messageDelete() {
   const channel = this.guild.channels.cache.get(setting.channel);
   if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 
-  await sleep(1000); //Make sure the audit log gets created before trying to fetching it
+  await sleep(1000); //Make sure the audit log gets created before trying to fetch it
 
   const
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger' }),
@@ -42,7 +42,7 @@ module.exports = async function messageDelete() {
         { name: lang('messageDelete.content'), value: '', inline: false }
       ],
       timestamp: Date.now(),
-      color: 8530669,
+      color: 0x822AED,
     });
 
   if (this.originalContent) embed.data.fields[1].value += `${this.originalContent}\n`;
