@@ -22,7 +22,7 @@ module.exports = async function ban_kick_mute(lang) {
   }
 
   const
-    /**@type {import('discord.js').GuildMember*/
+    /**@type {import('discord.js').GuildMember}*/
     target = this.options.getMember('target'),
     infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.tag, reason }),
     userEmbed = new EmbedBuilder({
