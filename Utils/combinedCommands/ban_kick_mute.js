@@ -22,6 +22,7 @@ module.exports = async function ban_kick_mute(lang) {
   }
 
   const
+    /**@type {import('discord.js').GuildMember*/
     target = this.options.getMember('target'),
     infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.tag, reason }),
     userEmbed = new EmbedBuilder({
@@ -53,7 +54,7 @@ module.exports = async function ban_kick_mute(lang) {
     }
 
     if (this.commandName == 'kick') await target.kick(reason);
-    else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageDays: this.options.getNumber('delete_days_of_messages') });
+    else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') });
     else await target.disableCommunicationUntil(muteDuration, reason);
 
     resEmbed.data.description += lang('success', { user: target.user.tag, muteDuration });
@@ -95,7 +96,7 @@ module.exports = async function ban_kick_mute(lang) {
           }
 
           if (this.commandName == 'kick') await target.kick(reason);
-          else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageDays: this.options.getNumber('delete_days_of_messages') });
+          else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') });
           else await target.disableCommunicationUntil(muteDuration, reason);
 
           resEmbed.data.description += lang('success', { user: target.user.tag, muteDuration });
