@@ -30,6 +30,15 @@
     "success": "{msg} без ошибок.",
     "error": "{msg} со следующей ошибкой:\n```\n{name}: {err}\n```"
   },
+  "exec": {
+    "description": "inject Bash code прямо в оболочку бота",
+    "usage": {
+      "usage": "{prefix}exec <sh code>",
+      "examples": "{prefix}Exec эхо 'Привет мир!'"
+    },
+    "finished": "вычисленная команда:\n```sh\n{code}\n```\nсо следующими результатами:\nstdout:\n```\n{stdout}\n```\n",
+    "error": "stderr:\n```\n{stderr}\n```"
+  },
   "gitpull": {
     "description": "Run a git pull",
     "success": "Команда успешно выполнена."

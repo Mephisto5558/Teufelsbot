@@ -30,6 +30,15 @@
     "success": "{msg} sin errores.",
     "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
   },
+  "exec": {
+    "description": "inyectar código Bash directamente en el shell del bot",
+    "usage": {
+      "usage": "{prefix}exec <sh code>",
+      "examples": "{prefix}exec echo '¡Hola Mundo!'"
+    },
+    "finished": "comando evaluado:\n```sh\n{code}\n```\ncon la siguiente salida:\nstdout:\n```\n{stdout}\n```\n",
+    "error": "stderr:\n```\n{stderr}\n```"
+  },
   "gitpull": {
     "description": "Run a git pull",
     "success": "Ejecutado con éxito el comando."
