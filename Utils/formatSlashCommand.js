@@ -41,20 +41,18 @@ module.exports = function format(option, path, i18n) {
     });
   }
 
-  if (option.run) {
-    /**@type {command}*/
-    const command = option; // this is only necessary for intellisense
+  if ('run' in option) {
+    if (!option.disabled && !String(option.run).startsWith('function') && !String(option.run).startsWith('async function'))
+      throw new Error(`The run property of file "${path}" is not a function (Got "${typeof option.run}"). You cannot use arrow functions.`);
 
-    if (!command.disabled && !command.run.toString().startsWith('function') && !command.run.toString().startsWith('async function')) throw new Error(`The run function of file "${path}" is not a function. You cannot use arrow functions.`);
+    if (!option.type) option.type = ApplicationCommandType.ChatInput;
+    else if (!ApplicationCommandType[option.type]) { if (!option.disabled) throw new Error(`Invalid option.type, got "${option.type}" (${path})`); }
+    else if (isNaN(option.type)) option.type = ApplicationCommandType[option.type];
 
-    if (!command.type) command.type = ApplicationCommandType.ChatInput;
-    else if (!ApplicationCommandType[command.type]) { if (!command.disabled) throw new Error(`Invalid command.type, got "${command.type}" (${path})`); }
-    else if (isNaN(command.type)) command.type = ApplicationCommandType[command.type];
+    if (option.permissions?.user?.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions.user);
+    option.dmPermission ??= false;
 
-    if (command.permissions?.user?.length) command.defaultMemberPermissions = new PermissionsBitField(command.permissions.user);
-    command.dmPermission ??= false;
-
-    return command;
+    return option;
   }
 
   if (/[A-Z]/.test(option.name)) {
