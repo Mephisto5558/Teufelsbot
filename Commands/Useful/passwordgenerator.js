@@ -31,7 +31,7 @@ module.exports = {
       include = this.options?.getString('include_chars') || '';
 
     let
-      passwordList = '```',
+      passwordList = '',
       length = this.options?.getInteger('length') || 12,
       charset = [...new Set(defaultCharset //new Set() makes sure there are no duplicate entries
         .filter(char => !exclude.includes(char)) //Remove exclude chars from the charset
