@@ -104,7 +104,7 @@ console.time('Starting time');
 
   if (process.connected) process.on('message', processMessageEventCallback.bind(client));
 
-  await Promise.allSettled(handlerPromises);
+  await Promise.all(handlerPromises);
 
   if (process.send?.('Finished starting') === false) {
     log.error('Could not tell the parent to kill itself. Exiting to prevent duplicate code execution.');
