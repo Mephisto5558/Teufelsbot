@@ -58,22 +58,21 @@ async function loadEnv(client) {
   return env;
 }
 
-/**@param {Client}client*/
-async function processMessageEventCallback(client, message) {
+/**@this Client*/
+async function processMessageEventCallback(message) {
   if (message != 'Start WebServer') return;
+  process.removeListener('message', processMessageEventCallback.bind(this));
 
-  client.webServer ??= await (new WebServer(
-    client, client.db,
-    { secret: client.keys.secret, dbdLicense: client.keys.dbdLicense, webhookURL: client.keys.votingWebhookURL },
+  this.webServer ??= await (new WebServer(
+    this, this.db,
+    { secret: this.keys.secret, dbdLicense: this.keys.dbdLicense, webhookURL: this.keys.votingWebhookURL },
     {
       support: { discord: discordInvite, mail: mailAddress }, errorPagesDir: './Website/CustomSites/error',
       settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites'
-    }, errorHandler.bind(client)
-  )).init(await getCommands(client.i18n.__.bBind(client.i18n, { locale: 'en', undefinedNotFound: true })));
+    }, errorHandler.bind(this)
+  )).init(await getCommands(this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })));
 
-  require('./Handlers/event_handler.js').call(client);
-
-  process.removeListener('message', processMessageEventCallback.bind(client));
+  await require('./Handlers/event_handler.js').call(this);
 }
 
 require('./Utils/prototypeRegisterer.js');
@@ -104,7 +103,6 @@ console.time('Starting time');
   log(`Logged into ${client.botType}`);
 
   if (process.connected) process.on('message', processMessageEventCallback.bind(client));
-  else processMessageEventCallback(client, 'Start WebServer'); // If the process is an orphan
 
   await Promise.allSettled(handlerPromises);
 
@@ -113,8 +111,7 @@ console.time('Starting time');
     process.exit(1);
   }
 
-  // Webserver will be created after the parent exited.
-  while (!client.webServer) await sleep(100);
+  if (!process.connected) await processMessageEventCallback.call(client, 'Start WebServer');
 
   client.db.update('botSettings', `startCount.${client.botType}`, client.settings.startCount[client.botType] + 1 || 1);
 
