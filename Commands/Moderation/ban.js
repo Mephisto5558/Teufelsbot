@@ -24,5 +24,5 @@ module.exports = {
     */
   ],
 
-  run: require('../../Utils/combinedCommands').ban_kick
+  run: require('../../Utils/combinedCommands').ban_kick_mute
 };
