@@ -26,7 +26,7 @@ module.exports = {
       autocompleteOptions: function () { return timeValidator(this.focused.value); },
       strictAutocomplete: true
     }
-  ], beta: true,
+  ],
 
   run: require('../../Utils/combinedCommands').ban_kick_mute
 };
