@@ -81,17 +81,7 @@
       "duration": {
         "description": "Wie lange du das Ziel timeouten möchtest (z. B. 1w3d2h5min, min. 1min, max. 28d)"
       }
-    },
-    "dmEmbedTitle": "Getimeouted",
-    "dmEmbedDescription": "Du wurdest in `{guild}` getimeouted.\nModerator: {mod}\nBis: <t:{time}>\nBegründung: {reason}",
-    "infoEmbedTitle": "Timeout",
-    "infoEmbedDescription": "{user} wurde erfolgreich getimeouted.\nBegründung: {reason}\nBis: <t:{time}>\n",
-    "notFound": "Ich konnte dieses Mitglied nicht finden!",
-    "cantPunishSelf": "Du kannst dich selbst nicht timeouten!",
-    "targetIsAdmin": "Ich kann keine Administratoren timeouten!",
-    "invalidDuration": "Die Mute-Dauer, die du angegeben hast, ist ungültig!",
-    "error": "Ich konnte das Mitglied nicht muten:\n{err}",
-    "noDM": "Ich konnte dem Ziel keine DM senden."
+    }
   },
   "nukechannel": {
     "description": "Löscht alle Nachrichten des Kanals, indem der Kanal dupliziert wird und der alte gelöscht wird",
