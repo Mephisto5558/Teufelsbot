@@ -81,7 +81,19 @@
       "duration": {
         "description": "Сколько времени вы хотите заглушить цель (напр. 1w3d2h5min, минимум 1min, макс. 28d)"
       }
-    }
+    },
+    "dmEmbedTitle": "Заглушён",
+    "dmEmbedDescription": "Вы были заглушены из `{guild}`.\nМодератор: {mod}\nдо: <t:{muteDuration}>\nПричина: {reason}",
+    "infoEmbedTitle": "Заглушить",
+    "infoEmbedDescription": "Модератор: {mod}\nПродолжительность: <t:{muteDuration}>\nПричина: {reason}\n\n",
+    "selectTargetEmbedDescription": "Выберите до 10 участников, чтобы заглушить. У вас 60 секунд.",
+    "cantPunishSelf": "Вы не можете заблокировать себя!",
+    "noneFound": "Цели не найдены.",
+    "error": "Я не смог заблокировать цель\n{err}",
+    "success": "**{user}** успешно заблокирован.\n",
+    "noDM": "\nЯ не смог оформить цель.",
+    "timedOut": "Истекло время ожидания этого меню.",
+    "invalidDuration": "Указанная вами длительность звука недействительна!"
   },
   "nukechannel": {
     "description": "Очищает все сообщения канала, дублируя канал, а затем удаляя оригинальный",
