@@ -83,15 +83,17 @@
       }
     },
     "dmEmbedTitle": "Silenciado",
-    "dmEmbedDescription": "Has sido silenciado de `{guild}`.\nModerador: {mod}\nHasta: <t:{time}>\nRazón: {reason}",
+    "dmEmbedDescription": "Has sido silenciado de `{guild}`.\nModerador: {mod}\nhasta: <t:{muteDuration}>\nRazón: {reason}",
     "infoEmbedTitle": "Silenciar",
-    "infoEmbedDescription": "{user} ha sido silenciado con éxito.\nRazón: {reason}\nHasta: <t:{time}>\n",
-    "notFound": "¡No pude encontrar ese miembro!",
+    "infoEmbedDescription": "Moderador: {mod}\nDuración: <t:{muteDuration}>\nRazón: {reason}\n\n",
+    "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para silenciar. Tienes 60 segundos.",
     "cantPunishSelf": "¡No puedes silenciarte a ti mismo!",
-    "targetIsAdmin": "¡No puedo silenciar a los administradores!",
-    "invalidDuration": "¡La duración del silencio que proporcionaste no es válida!",
+    "noneFound": "No se han encontrado objetivos.",
     "error": "No pude silenciar al objetivo:\n{err}",
-    "noDM": "No pude DM el objetivo."
+    "success": "**{user}** se ha silenciado correctamente.\n",
+    "noDM": "\nNo pude DM al objetivo.",
+    "timedOut": "Este menú ha expirado.",
+    "invalidDuration": "¡La duración del silencio que proporcionaste no es válida!"
   },
   "nukechannel": {
     "description": "Limpia todos los mensajes del canal duplicando el canal y luego eliminando el original",
