@@ -83,15 +83,17 @@
       }
     },
     "dmEmbedTitle": "Getimeouted",
-    "dmEmbedDescription": "Du wurdest in `{guild}` getimeouted.\nModerator: {mod}\nBis: <t:{time}>\nBegründung: {reason}",
+    "dmEmbedDescription": "Du wurdest in `{guild}` getimeouted.\nModerator: {mod}\nBis: <t:{muteDuration}>\nBegründung: {reason}",
     "infoEmbedTitle": "Timeout",
-    "infoEmbedDescription": "{user} wurde erfolgreich getimeouted.\nBegründung: {reason}\nBis: <t:{time}>\n",
-    "notFound": "Ich konnte dieses Mitglied nicht finden!",
+    "infoEmbedDescription": "Moderator: {mod}\nDauer: <t:{muteDuration}>\nGrund: {reason}\n\n",
+    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Timeouten aus. Du hast 60 Sekunden Zeit.",
     "cantPunishSelf": "Du kannst dich selbst nicht timeouten!",
-    "targetIsAdmin": "Ich kann keine Administratoren timeouten!",
-    "invalidDuration": "Die Mute-Dauer, die du angegeben hast, ist ungültig!",
+    "noneFound": "Kein Ziel wurde gefunden.",
     "error": "Ich konnte das Mitglied nicht muten:\n{err}",
-    "noDM": "Ich konnte dem Ziel keine DM senden."
+    "success": "**{user}** wurde erfolgreich getimeouted.\n",
+    "noDM": "\nIch konnte dem Ziel keine DM senden.",
+    "timedOut": "Das Menü ist abgelaufen.",
+    "invalidDuration": "Die Mute-Dauer, die du angegeben hast, ist ungültig!"
   },
   "nukechannel": {
     "description": "Löscht alle Nachrichten des Kanals, indem der Kanal dupliziert wird und der alte gelöscht wird",
