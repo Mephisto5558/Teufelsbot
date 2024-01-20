@@ -81,7 +81,19 @@
       "duration": {
         "description": "Per quanto tempo vuoi disattivare il bersaglio? (ad esempio 1w3d2h5min, min 1min, max. 28d)"
       }
-    }
+    },
+    "dmEmbedTitle": "Silenziato",
+    "dmEmbedDescription": "Sei stato mutato da `{guild}`.\nModeratore: {mod}\nUntil: <t:{muteDuration}>\nMotivo: {reason}",
+    "infoEmbedTitle": "Silenzia",
+    "infoEmbedDescription": "Moderatore: {mod}\nDurata: <t:{muteDuration}>\nMotivo: {reason}\n\n",
+    "selectTargetEmbedDescription": "Seleziona fino a 10 membri da disattivare. Hai 60 secondi.",
+    "cantPunishSelf": "Non puoi mutare te stesso!",
+    "noneFound": "Nessun obiettivo è stato trovato.",
+    "error": "Non ho potuto silenziare il bersaglio:\n{err}",
+    "success": "**{user}** è stato silenziato con successo.\n",
+    "noDM": "\nnon sono riuscito a DM il bersaglio.",
+    "timedOut": "Questo menu è scaduto.",
+    "invalidDuration": "La durata del silenziamento fornita non è valida!"
   },
   "nukechannel": {
     "description": "Cancella tutti i messaggi dei canali duplicando il canale e quindi eliminando quello originale",
