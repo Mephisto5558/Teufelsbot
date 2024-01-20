@@ -30,7 +30,7 @@ module.exports = {
 
       if (res) {
         const [feet, inches] = res.height.split('\'').map(parseFloat);
-        res.height = (feet * 12 + inches) * 2.54;
+        res.height = (feet * 12 + (inches || 0)) * 2.54;
         res.height = res.height < 100 ? `${res.height}cm` : `${parseFloat((res.height / 100).toFixed(2))}m`;
 
         if (res.name) cache.set(res.name.toLowerCase(), res);
