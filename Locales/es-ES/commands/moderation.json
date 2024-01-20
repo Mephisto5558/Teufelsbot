@@ -81,7 +81,19 @@
       "duration": {
         "description": "¿Durante cuánto tiempo quieres silenciar el objetivo? (por ejemplo, 1w3d2h5min, min 1min, max. 28d)"
       }
-    }
+    },
+    "dmEmbedTitle": "Silenciado",
+    "dmEmbedDescription": "Has sido silenciado de `{guild}`.\nModerador: {mod}\nhasta: <t:{muteDuration}>\nRazón: {reason}",
+    "infoEmbedTitle": "Silenciar",
+    "infoEmbedDescription": "Moderador: {mod}\nDuración: <t:{muteDuration}>\nRazón: {reason}\n\n",
+    "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para silenciar. Tienes 60 segundos.",
+    "cantPunishSelf": "¡No puedes silenciarte a ti mismo!",
+    "noneFound": "No se han encontrado objetivos.",
+    "error": "No pude silenciar al objetivo:\n{err}",
+    "success": "**{user}** se ha silenciado correctamente.\n",
+    "noDM": "\nNo pude DM al objetivo.",
+    "timedOut": "Este menú ha expirado.",
+    "invalidDuration": "¡La duración del silencio que proporcionaste no es válida!"
   },
   "nukechannel": {
     "description": "Limpia todos los mensajes del canal duplicando el canal y luego eliminando el original",
