@@ -6,10 +6,19 @@ const
   birthdayMainFunctions = {
     /**@this GuildInteraction @param {lang}lang*/
     set: async function set(lang) {
-      await this.client.db.update('userSettings', `${this.user.id}.birthday`, `${this.options.getInteger('year')}/${String(this.options.getInteger('month')).padStart(2, '0')}/${String(this.options.getInteger('day')).padStart(2, '0')}`);
-      return this.editReply(lang('saved')); //Todo: maybe add "your birthday is in <d> days"
+      const
+        month = this.options.getInteger('month'),
+        day = this.options.getInteger('day'),
+        today = new Date(),
+        nextBirthday = new Date(today.getFullYear(), month - 1, day);
+
+      if (today > nextBirthday) nextBirthday.setFullYear(today.getFullYear() + 1);
+      const diffDays = Math.ceil(Math.abs(nextBirthday - today) / 864e5); //ms -> days
+
+      await this.client.db.update('userSettings', `${this.user.id}.birthday`, `${this.options.getInteger('year')}/${String(month).padStart(2, '0')}/${String(day).padStart(2, '0')}`);
+      return this.editReply(lang('saved', diffDays));
     },
-    
+
     /**@this GuildInteraction @param {lang}lang*/
     remove: async function remove(lang) {
       await this.client.db.delete('userSettings', `${this.user.id}.birthday`);

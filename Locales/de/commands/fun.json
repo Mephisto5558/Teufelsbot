@@ -115,7 +115,7 @@
       "11": "November",
       "12": "Dezember"
     },
-    "saved": "Dein Geburtstag wurde gespeichert.",
+    "saved": "Dein Geburtstag wurde gespeichert. Du hast das nächste mal **in {days} Tagen** Geburtstag.",
     "removed": "Dein Geburtstag wurde entfernt.",
     "getUser": {
       "notFound": "{user} hat kein Geburtstag :(",
