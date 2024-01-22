@@ -1,50 +1,32 @@
 const validItems = ['y', 'mth', 'w', 'd', 'h', 'min', 's', 'ms'];
 
 /**@param {string}t a time string, e.g. 3w2d @returns {string[]}array of valid values*/
-module.exports = function timeValidator(t) {
+function timeValidator(t) {
   if (!t) return [];
 
-  const results = [];
-  let
-    numberBuffer = '',
-    unitBuffer = '',
-    lastCharWasNumber = true;
+  let numberBuffer = '', unitBuffer = '';
+  for (let i = 0; i < t.length; i++) {
+    const char = t[i];
 
-  for (const char of t) {
-    if (isNaN(char)) {
-      if (lastCharWasNumber) unitBuffer = char;
-      else unitBuffer += char;
-
-      lastCharWasNumber = false;
-      continue;
+    if (isNaN(char)) unitBuffer = unitBuffer.length && isNaN(t[i - 1]) ? unitBuffer + char : char;
+    else if (!unitBuffer.length || !isNaN(t[i - 1])) numberBuffer += char;
+    else if (validItems.includes(unitBuffer)) {
+      numberBuffer += unitBuffer + char;
+      unitBuffer = '';
     }
-
-    if (lastCharWasNumber) numberBuffer += char;
-    else {
-      if (unitBuffer.length) {
-        if (validItems.includes(unitBuffer)) numberBuffer += unitBuffer;
-        else return [];
-        unitBuffer = '';
-      }
-      numberBuffer += char;
-    }
-    lastCharWasNumber = true;
+    else return [];
   }
 
-  if (unitBuffer.length <= 0) for (const unit of validItems) results.push(numberBuffer + unit);
-  else if (validItems.includes(unitBuffer)) {
-    if (!results[results.length - 1]?.endsWith(unitBuffer)) results.push(numberBuffer + unitBuffer);
-  }
-  else {
-    const possibleUnits = validItems.filter(unit => unit !== unitBuffer && unit.startsWith(unitBuffer));
-    if (!possibleUnits.length) return [];
+  if (unitBuffer.length <= 0) return validItems.map(unit => numberBuffer + unit);
+  if (validItems.includes(unitBuffer)) return [numberBuffer + unitBuffer];
 
-    for (const unit of possibleUnits) results.push(numberBuffer + unit);
-  }
+  return validItems.reduce((acc, unit) => {
+    if (unit != unitBuffer && unit.startsWith(unitBuffer)) acc.push(numberBuffer + unit);
+    return acc;
+  }, []);
+}
 
-  return results;
-};
-
+module.exports = timeValidator;
 
 // eslint-disable-next-line no-unused-vars
 function testTimevalidator() {
@@ -61,7 +43,7 @@ function testTimevalidator() {
   ];
 
   for (const { input, expectedOutput } of testCases) {
-    const result = module.exports.timeValidator(input).join(', ');
+    const result = timeValidator(input).join(', ');
     if (result != expectedOutput.join(', ')) console.log(`Input: "${input}" | Expected output: [${expectedOutput.join(', ')}] | Actual output: [${result}]`);
   }
 }
