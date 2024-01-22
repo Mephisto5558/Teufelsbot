@@ -29,7 +29,7 @@ module.exports = {
       embed = new EmbedBuilder({
         description: lang('embedDescription'),
         color: Colors.Red,
-        image: { url: 'https://i.giphy.com/media/XUFPGrX5Zis6Y/giphy.webp' },
+        image: { url: 'https://i.giphy.com/XUFPGrX5Zis6Y.gif' },
         footer: { text: lang('embedFooterText', this.user.tag) }
       }),
       channel = this.options?.getChannel('channel') || this.channel,
