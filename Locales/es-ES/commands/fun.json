@@ -115,7 +115,6 @@
       "11": "Noviembre",
       "12": "Diciembre"
     },
-    "saved": "Tu cumpleaños ha sido guardado.",
     "removed": "Tu cumpleaños ha sido eliminado.",
     "getUser": {
       "notFound": "{user} no tiene cumpleaños :(",
