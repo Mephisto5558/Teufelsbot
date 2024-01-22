@@ -40,7 +40,6 @@ module.exports = {
     let result;
     try { result = evaluate(parseSpecialChars(expression)); }
     catch (err) {
-      // todo: rethrow on eg. SyntaxError
       embed.data.description = lang('error', err.message);
       embed.data.color = Colors.Red;
       return this.customReply({ embeds: [embed] });
