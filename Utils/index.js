@@ -6,7 +6,7 @@ module.exports = {
   commandExecutionWrapper: require('./commandExecutionWrapper.js'),
   componentHandler: require('./componentHandler.js'),
   cooldowns: require('./cooldowns.js'),
-  errorHandler: require('./error_handler.js'),
+  errorHandler: require('./errorHandler.js'),
   findAllEntries: require('./findAllEntries.js'),
   formatSlashCommand: require('./formatSlashCommand.js'),
   getAge: require('./getAge.js'),
