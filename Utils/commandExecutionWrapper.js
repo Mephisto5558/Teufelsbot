@@ -1,4 +1,4 @@
-const errorHandler = require('./error_handler.js');
+const errorHandler = require('./errorHandler.js');
 
 /**@this Message|import('discord.js').BaseInteraction @param {command}command @param {string}commandType @param {lang}lang*/
 module.exports = async function commandExecutionWrapper(command, commandType, lang) {
