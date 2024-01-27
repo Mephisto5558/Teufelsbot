@@ -1,5 +1,5 @@
 const
-  { parseEmoji, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
+  { parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
 /**@type {command}*/
@@ -21,13 +21,13 @@ module.exports = {
       emoji = this.client.emojis.cache.get(parsedEmoji.id) || parsedEmoji;
 
     if (!emoji.id) return this.customReply(lang('notFound'));
-    emoji.url ??= `https://cdn.discordapp.com/emojis/${emoji.id}.webp?size=2048`;
 
     const
+      url = emoji?.imageURL() || CDNRoutes.emoji(emoji.id, ImageFormat.WebP) + '?size=2048',
       embed = new EmbedBuilder({
         title: lang('embedTitle', `<:${emoji.name}:${emoji.id}>`),
-        color: parseInt((await getAverageColor(emoji.url)).hex.substring(1), 16),
-        thumbnail: { url: emoji.url },
+        color: parseInt((await getAverageColor(url)).hex.substring(1), 16),
+        thumbnail: { url: url },
         fields: [
           { name: lang('name'), value: emoji.name, inline: true },
           { name: lang('id'), value: `\`${emoji.id}\``, inline: true },
@@ -44,7 +44,7 @@ module.exports = {
           new ButtonBuilder({
             label: lang('global.downloadButton'),
             style: ButtonStyle.Link,
-            url: emoji.url
+            url
           })
         ]
       });
