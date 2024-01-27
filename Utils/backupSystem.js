@@ -32,7 +32,7 @@ class BackupSystem {
   /**@param {string}backupId*/
   remove = backupId => this.db.delete(this.dbName, backupId);
 
-  /**@param {object?}statusObj the status property gets updated*/
+  /**@param {import('discord.js').Guild}guild @param {object?}statusObj the status property gets updated*/
   create = async (guild, {
     statusObj = {}, id = null, save = true, maxGuildBackups = this.defaultSettings.maxGuildBackups,
     backupMembers = false, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
@@ -86,7 +86,7 @@ class BackupSystem {
         isEveryone: guild.id == e.id
       })),
       emojis: doNotBackup?.includes('emojis') ? [] : await Promise.all(updateStatus('create.emojis') && (await guild.emojis.fetch()).map(async e => ({
-        name: e.name, ...(saveImages ? { base64: await this.utils.fetchToBase64(e.url) } : { url: e.url })
+        name: e.name, ...(saveImages ? { base64: await this.utils.fetchToBase64(e.imageURL()) } : { url: e.imageURL() })
       }))),
       stickers: doNotBackup?.includes('stickers') ? [] : await Promise.all(updateStatus('create.stickers') && (await guild.stickers.fetch()).filter(e => e.type != StickerType.Standard).map(async e => ({
         name: e.name, description: e.description, tags: e.tags, ...(saveImages ? { base64: await this.utils.fetchToBase64(e.url) } : { url: e.url })
