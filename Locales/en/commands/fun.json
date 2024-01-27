@@ -115,7 +115,7 @@
       "11": "November",
       "12": "December"
     },
-    "saved": "Your birthday has been saved.",
+    "saved": "Your birthday has been saved. You will celebrate your birthday again **in {days} days**.",
     "removed": "Your birthday has been removed.",
     "getUser": {
       "notFound": "{user} has no birthday :(",

@@ -65,8 +65,7 @@ module.exports = {
     catch (err) {
       if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]')) // no check by err.code because it is just 50035 ("Invalid form body")
         embed.data.description = lang('error', lang('tooBig'));
-      else if (err.code != 30008 /*"Maximum number of emojis reached"*/ && err.name != 'AbortError' && err.name != 'ConnectTimeoutError') throw err;
-      //todo: switch to checking error class
+      else if (err.code != 30008 && /*"Maximum number of emojis reached"*/ err.name != 'AbortError' && err.name != 'ConnectTimeoutError') throw err;
 
       embed.data.description = lang('error', err.name == 'AbortError' || err.name == 'ConnectTimeoutError' ? lang('timedOut') : err.message);
     }

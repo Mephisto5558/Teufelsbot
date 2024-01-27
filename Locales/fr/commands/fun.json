@@ -107,7 +107,6 @@
       "11": "Novembre",
       "12": "Décembre"
     },
-    "saved": "Votre anniversaire a été enregistré.",
     "removed": "Votre anniversaire a été supprimé.",
     "getUser": {
       "notFound": "{user} n'a pas d'anniversaire :(",
