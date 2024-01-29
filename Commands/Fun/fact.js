@@ -5,7 +5,7 @@ const
 /**@type {command}*/
 module.exports = {
   name: 'fact',
-  cooldowns: { guild: 100 },
+  cooldowns: { channel: 100 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

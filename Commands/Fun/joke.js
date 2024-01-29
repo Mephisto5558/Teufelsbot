@@ -59,7 +59,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
 /**@type {command}*/
 module.exports = {
   name: 'joke',
-  cooldowns: { guild: 100 },
+  cooldowns: { channel: 100 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
