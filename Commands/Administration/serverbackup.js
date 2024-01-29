@@ -141,12 +141,12 @@ module.exports = {
     {
       name: 'create',
       type: 'Subcommand',
-      cooldowns: { guild: 1800000 } //30min
+      cooldowns: { guild: 18e5 } //30min
     },
     {
       name: 'load',
       type: 'Subcommand',
-      cooldowns: { guild: 300000 }, //5min
+      cooldowns: { guild: 3e5 }, //5min
       options: [
         {
           name: 'id',

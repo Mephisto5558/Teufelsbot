@@ -5,7 +5,7 @@ const
 /**@type {command}*/
 module.exports = {
   name: 'lastping',
-  cooldowns: { guild: 200, user: 10000 },
+  cooldowns: { guild: 200, user: 1e4 },
   slashCommand: true,
   prefixCommand: true,
   ephemeralDefer: true,
