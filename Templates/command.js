@@ -3,7 +3,7 @@ module.exports = {
   name: '',
   aliases: { prefix: [], slash: [] },
   permissions: { client: [], user: [] },
-  cooldowns: { guild: 0, user: 0 },
+  cooldowns: { guild: 0, channel: 0, user: 0 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: false,
@@ -27,10 +27,11 @@ module.exports = {
 
 //strictAutocomplete makes it like choices but without max. options
 //subcommand groups and subcommands can have cooldowns as well (subcommand group, subcommand and normal command cooldown are checked)
+/**@type {commandOptions[]}*/
 const options = [{
   name: '',
   type: 'Subcommand',
-  cooldowns: { guild: 0, user: 0 },
+  cooldowns: { guild: 0, channel: 0, user: 0 },
   options: []
 }];
 
