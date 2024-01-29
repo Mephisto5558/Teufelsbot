@@ -44,7 +44,7 @@ module.exports = async function checkForErrors(command, lang) {
   }
 
   if (this.client.botType != 'dev') {
-    const cooldown = cooldowns.call(this, command);
+    const cooldown = cooldowns.call(this, command.name, command.cooldowns);
     if (cooldown) return ['cooldown', cooldown];
   }
 

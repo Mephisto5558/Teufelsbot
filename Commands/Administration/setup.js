@@ -171,7 +171,7 @@ module.exports = {
     {
       name: 'language',
       type: 'Subcommand',
-      cooldowns: { guild: 10000 },
+      cooldowns: { guild: 1e4 },
       options: [{
         name: 'language',
         type: 'String',
