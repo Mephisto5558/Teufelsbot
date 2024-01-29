@@ -5,7 +5,7 @@ const { getTargetChannel } = require('../../Utils');
 module.exports = {
   name: 'counting',
   permissions: { user: ['ManageChannels'] },
-  cooldowns: { user: 1000 },
+  cooldowns: { channel: 1000 },
   slashCommand: true,
   prefixCommand: true,
   options: [{

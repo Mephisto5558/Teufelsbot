@@ -6,7 +6,7 @@ const
 module.exports = {
   name: 'changelog',
   aliases: { prefix: ['changelogs'] },
-  cooldowns: { user: 1000 },
+  cooldowns: { channel: 1000 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

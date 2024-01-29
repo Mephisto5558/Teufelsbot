@@ -25,7 +25,7 @@ const
 /**@type {command}*/
 module.exports = {
   name: 'reddit',
-  cooldowns: { user: 100 },
+  cooldowns: { channel: 100 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
