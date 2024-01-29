@@ -5,7 +5,7 @@ const
 /**@type {command}*/
 module.exports = {
   name: 'hash',
-  cooldowns: { user: 10000 },
+  cooldowns: { user: 1e4 },
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,

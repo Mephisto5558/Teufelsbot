@@ -3,7 +3,7 @@ const { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, C
 /**@type {command}*/
 module.exports = {
   name: 'record',
-  cooldowns: { user: 10000 },
+  cooldowns: { user: 1e4 },
   slashCommand: true,
   prefixCommand: false,
   options: [

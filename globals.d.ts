@@ -26,6 +26,7 @@ declare global {
     (key: string, replacements?: string | object): string;
   } & bBoundFunction;
 
+  type cooldowns = { guild?: number, channel?: number, user?: number; }
   type command = {
     /**For slash commands, must be lowercase.*/
     name: readonly string;
@@ -48,7 +49,7 @@ declare global {
       /**Can be the bigints or flag names*/
       user?: Discord.PermissionFlags[];
     };
-    cooldowns?: { guild?: number, user?: number; };
+    cooldowns?: cooldowns;
     slashCommand: boolean;
     prefixCommand: boolean;
     /**Makes the command also work in direct messages.*/
@@ -89,6 +90,7 @@ declare global {
     descriptionLocalizations: Record<string, string>;
     /**Can be the integer or type name*/
     type: Discord.ApplicationCommandOptionType;
+    cooldowns?: cooldowns;
     /**If true, the user must provide a value to this option.*/
     required?: boolean;
     /**Choices the user must choose from. Can not be more then 25.*/
@@ -198,7 +200,7 @@ declare module 'discord.js' {
     backupSystem?: BackupSystem;
     giveawaysManager?: GiveawayManagerWithOwnDatabase;
     webServer: WebServer;
-    cooldowns: Map<string, { guild?: Map<string, number>, user?: Map<string, number> }>;
+    cooldowns: Map<string, { [key: string]: Map<string, number> }>;
     db: DB;
     i18n: I18nProvider;
     settings: object;
