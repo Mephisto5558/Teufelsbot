@@ -8,7 +8,7 @@ const
 module.exports = {
   name: 'wiki',
   aliases: { prefix: ['wikipedia'] },
-  cooldowns: { guild: 100, user: 200 },
+  cooldowns: { channel: 100, user: 200 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

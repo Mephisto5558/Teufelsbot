@@ -4,7 +4,7 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('
 /**@type {command}*/
 module.exports = {
   name: 'topic',
-  cooldowns: { user: 10000 },
+  cooldowns: { channel: 1e4 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
