@@ -4,7 +4,7 @@ const { getTargetMember } = require('../../Utils');
 module.exports = {
   name: 'customname',
   aliases: { prefix: ['custom-name'] },
-  cooldowns: { user: 30000 },
+  cooldowns: { user: 3e4 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

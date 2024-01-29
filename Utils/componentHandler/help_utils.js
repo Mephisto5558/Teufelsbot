@@ -67,9 +67,11 @@ function createInfoFields(cmd, lang, helpLang) {
   if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: `\`${cmd.aliasOf}\``, inline: true });
   if (cmd.permissions?.client?.length) arr.push({ name: lang('one.botPerms'), value: `\`${permissionTranslator(cmd.permissions.client, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')}\``, inline: false });
   if (cmd.permissions?.user?.length) arr.push({ name: lang('one.userPerms'), value: `\`${permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')}\``, inline: true });
-  if (cmd.cooldowns?.user || cmd.cooldowns?.guild) arr.push({
+  
+  const cooldowns = Object.entries(cmd.cooldowns ?? {}).filter(([, e]) => e);
+  if (cooldowns.length) arr.push({
     name: lang('one.cooldowns'), inline: false,
-    value: Object.entries(cmd.cooldowns).filter(([, e]) => e).map(([k, v]) => {
+    value: cooldowns.map(([k, v]) => {
       let min = Math.floor(v / 60000), sec = (v % 60000 / 1000);
       sec = (sec % 1) ? sec.toFixed(2) : Math.floor(sec);
 

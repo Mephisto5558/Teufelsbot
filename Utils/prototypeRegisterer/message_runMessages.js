@@ -8,9 +8,9 @@ module.exports = async function runMessages() {
     { afkMessages = {}, triggers = [], counting: { [this.channel.id]: countingData } = {} } = this.guild.db,
     triggerList = triggers.filter(e => this.originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())).slice(0, 3);
 
-  if (this.client.botType != 'dev' && triggerList.length && !cooldowns.call(this, { name: 'triggers', cooldowns: { user: 10000 } }))
+  if (this.client.botType != 'dev' && triggerList.length && !cooldowns.call(this, 'triggers', { channel: 1e4 }))
     for (const trigger of triggerList) this.customReply(trigger.response);
-  else if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, { name: 'botMentionReaction', cooldowns: { user: 5000 } }))
+  else if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: 5000 }))
     this.react('👀');
 
   if (this.client.botType == 'dev') return this;
@@ -42,7 +42,7 @@ module.exports = async function runMessages() {
   }
 
 
-  if (cooldowns.call(this, { name: 'afkMsg', cooldowns: { user: 10000 } })) return this;
+  if (cooldowns.call(this, 'afkMsg', { channel: 1e4, user: 1e4 })) return this;
 
   const afkMsgs = this.mentions.members.reduce((acc, e) => {
     const { message, createdAt } = (afkMessages[e.id]?.message ? afkMessages[e.id] : e.user.db.afkMessage) ?? {};

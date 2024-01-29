@@ -1,6 +1,8 @@
 const { ApplicationCommandOptionType, ChatInputCommandInteraction } = require('discord.js');
 
-/**@this Interaction @returns {number} current cooldown in seconds*/
+/**
+ * A wrapper for {@link cooldown}, used for subcommand(group) support.
+ * @this ChatInputCommandInteraction @param {string}name @returns {number} current cooldown in seconds*/
 function subCommandCooldowns(name) {
   const depth = name.split('.').length - 1;
   if (depth >= 2 || !(this instanceof ChatInputCommandInteraction)) return 0;
@@ -8,38 +10,37 @@ function subCommandCooldowns(name) {
   const group = this.options.getSubcommandGroup(false);
   if (group && !depth) {
     const { cooldowns } = this.client.slashCommands.get(this.commandName)?.options?.find(e => e.name == group && e.type == ApplicationCommandOptionType.SubcommandGroup) ?? {};
-    return cooldown.call(this, { name: `${name}.${group}`, cooldowns });
+    return cooldown.call(this, `${name}.${group}`, cooldowns);
   }
 
   const subCmd = this.options.getSubcommand(false);
   if (!subCmd) return 0;
 
   const { cooldowns } = (group ?? this)?.options?.find?.(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand) || {};
-  if (cooldowns) return cooldown.call(this, { name: group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns });
+  if (cooldowns) return cooldown.call(this, group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns);
 }
 
-/**@this Message @returns {number} current cooldown in seconds*/
-function cooldown({ name, cooldowns: { guild = 0, user = 0 } = {} }) {
-  if (!guild && !user) return subCommandCooldowns.call(this, name);
-
+/**
+ * @this {Message | ChatInputCommandInteraction}
+ * @param {string}name name of the cooldown space, eg. a command name @param {{[key:string]: number}}cooldowns
+ * @returns {number} current cooldown in seconds*/
+function cooldown(name, cooldowns = {}) {
   const
     now = Date.now(),
-    { guild: guildTimestamps, user: userTimestamps } = this.client.cooldowns.get(name) ?? this.client.cooldowns.set(name, { guild: new Map(), user: new Map() }).get(name);
+    timeStamps = this.client.cooldowns.get(name) ?? this.client.cooldowns.set(name, {}).get(name),
+    cooldownList = [];
 
-  let cooldown = 0;
-  if (guild && this.guild) {
-    const guildCooldown = guildTimestamps.get(this.guild.id);
-    if (guildCooldown > now) cooldown = Math.max(cooldown, Math.round((guildCooldown - now) / 1000));
-    else guildTimestamps.set(this.guild.id, now + guild);
+  for (const [name, value] of Object.entries(cooldowns)) {
+    if (!value || this[name] === null) continue;
+
+    timeStamps[name] ??= new Map();
+    const timestamp = timeStamps[name].get(this[name].id) ?? 0;
+
+    if (timestamp > now) cooldownList.push(Math.round((timestamp - now) / 1000));
+    else timeStamps[name].set(this[name].id, now + value);
   }
 
-  if (user) {
-    const userCooldown = userTimestamps.get(this.user.id);
-    if (userCooldown > now) cooldown = Math.max(cooldown, Math.round((userCooldown - now) / 1000));
-    else userTimestamps.set(this.user.id, now + user);
-  }
-
-  return cooldown || subCommandCooldowns.call(this, name);
+  return Math.max(cooldownList) || subCommandCooldowns.call(this, name);
 }
 
 module.exports = cooldown;
