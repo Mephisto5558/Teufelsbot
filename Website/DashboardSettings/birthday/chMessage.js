@@ -1,8 +1,8 @@
+/**@type {import('@mephisto5558/bot-website').dashboardSetting}*/
 module.exports = {
   id: 'chMsg',
   name: 'Announcement Message',
   description: "The message to send on the user's birthday",
-  /**@this WebServer*/
-  type: function () { return this.formTypes.embedBuilder; },
+  type: 'embedBuilder',
   position: 3
 };

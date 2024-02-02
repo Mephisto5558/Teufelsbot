@@ -1,8 +1,8 @@
+/**@type {import('@mephisto5558/bot-website').dashboardSetting}*/
 module.exports = {
   id: 'prefixPrefix',
   name: 'Prefix',
   description: "The bot's prefix",
-  /**@this WebServer*/
-  type: function () { return this.formTypes.input(); },
+  type: 'input',
   position: 2
 };
