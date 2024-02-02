@@ -1,5 +1,5 @@
+/**@type {import('@mephisto5558/bot-website').customPage}*/
 module.exports = {
-  /**@this WebServer @param {Res}res @param {Req}req @param {NextFunc}next*/
   run: async function (res, req, next) {
     return this.passport.authenticate('discord', (err, user) => {
       if (err?.code == 'invalid_grant' || err?.message == 'Failed to obtain access token') return res.redirect('/auth/discord');
