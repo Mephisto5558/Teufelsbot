@@ -3,6 +3,10 @@ module.exports = {
   id: 'lang',
   name: 'Language',
   description: 'The language of the bot',
-  type: function () { return this.formTypes.select([...this.client.i18n.availableLocales.keys()].map(k => ({ [this.client.i18n.__({ locale: k }, 'global.languageName')]: k }))); },
+  type: function () {
+    return this.formTypes.select(Object.fromEntries([...this.client.i18n.availableLocales.keys()].map(locale => [
+      this.client.i18n.__({ locale }, 'global.languageName'), locale
+    ])));
+  },
   position: 1
 };
