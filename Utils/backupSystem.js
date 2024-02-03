@@ -228,7 +228,8 @@ class BackupSystem {
     statusObj.status = 'load.roles';
     for (const { isEveryone, name, color, hoist, permissions, mentionable } of data.roles) {
       const data = { reason, name, color, hoist, mentionable, permissions: BigInt(permissions) };
-      await ((isEveryone ? guild.roles.cache.get(guild.id) : guild.roles.cache.find(e => e.name == name && e.editable))?.edit(data) || guild.roles.create(data));
+      const roleToEdit = isEveryone ? guild.roles.cache.get(guild.id) : guild.roles.cache.find(e => e.name == name && e.editable);
+      await (roleToEdit?.edit(data) ?? guild.roles.create(data));
     }
 
     statusObj.status = 'load.members';
