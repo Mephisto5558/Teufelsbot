@@ -224,6 +224,6 @@ module.exports = {
 
     if (typeof duration != 'number' && durationUnformatted) return this.editReply(lang('invalidTime'));
 
-    return giveawayMainFunctions[this.options.getSubcommand()].call(this, lang, { components, bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId });
+    return giveawayMainFunctions[this.options.getSubcommand()].call(this, lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId });
   }
 };
