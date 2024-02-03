@@ -1,6 +1,6 @@
 const { errorHandler } = require('../Utils');
 
-/**@this Client @param {Error}err @returns {Promise<void>}*/
-module.exports = function error(err, client) {
-  return errorHandler.call(this, client ? err : {}); //sometimes there is no err
+/**@this Error @param {client}Client @returns {Promise<void>}*/
+module.exports = function error(client) {
+  return errorHandler.call(client, this);
 };
