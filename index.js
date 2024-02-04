@@ -9,7 +9,7 @@ const
   { DB } = require('@mephisto5558/mongoose-db'),
   { WebServer } = require('@mephisto5558/bot-website'),
   { GiveawaysManager, gitpull, errorHandler, getCommands } = require('./Utils'),
-  { discordInvite, mailAddress } = require('./config.json');
+  { discordInvite, mailAddress, Website } = require('./config.json');
 
 function createClient() {
   return new Client({
@@ -67,6 +67,7 @@ async function processMessageEventCallback(message) {
     this, this.db,
     { secret: this.keys.secret, dbdLicense: this.keys.dbdLicense, webhookURL: this.keys.votingWebhookURL },
     {
+      domain: Website.BaseDomain, port: Website.Port,
       support: { discord: discordInvite, mail: mailAddress }, errorPagesDir: './Website/CustomSites/error',
       settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites'
     }, errorHandler.bind(this)
