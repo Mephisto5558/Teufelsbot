@@ -1,6 +1,8 @@
 {
   "Website": {
-    "Domain": "Domain URL (if empty uses localhost)",
+    "BaseDomain": "Domain URL without port (if empty uses localhost)",
+    "Domain": "Full Domain URL (if empty uses localhost)",
+    "Port": "The Port",
     "Dashboard": "Dashboard URL",
     "PrivacyPolicy": "Privacy Policy URL"
   },
