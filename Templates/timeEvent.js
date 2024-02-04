@@ -3,12 +3,11 @@ module.exports = {
   startNow: false,
   timeZone: undefined,
 
-  /**@param {Client}client*/
-  onTick: async client => {
+  /**@this Client*/
+  onTick: async function () {
 
   },
-  /**@param {Client}client*/
-  onComplete: async client => {
-
+  /**@this Client*/
+  onComplete: async function () {
   },
 };
