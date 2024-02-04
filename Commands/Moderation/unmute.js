@@ -1,4 +1,4 @@
-const checkTargetManageable = require('../../Utils');
+const { checkTargetManageable } = require('../../Utils');
 
 /**@type {command}*/
 module.exports = {
