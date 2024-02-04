@@ -17,7 +17,7 @@ async function deleteOld(path) {
 }
 
 module.exports = {
-  time: '00 00 00 01 * *',
+  time: '00 00 00 01 * *', //monthly
   startNow: true,
 
   /**@this Client*/
@@ -25,7 +25,7 @@ module.exports = {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 
     if (this.settings.lastFileClear == now) return void log('Already ran file deletion today');
-    log('started file deletion');
+    log('Started file deletion');
 
     deleteOld('./VoiceRecords');
     deleteOld('./Logs');

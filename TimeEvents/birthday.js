@@ -17,7 +17,7 @@ function formatBirthday(user, year) {
 }
 
 module.exports = {
-  time: '00 00 00 * * *',
+  time: '00 00 00 * * *', //daily
   startNow: true,
 
   /**@this Client*/
@@ -25,7 +25,7 @@ module.exports = {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 
     if (this.settings.lastBirthdayCheck == now) return void log('Already ran birthday check today');
-    log('started birthday check');
+    log('Started birthday check');
 
     const
       guildList = (await this.guilds.fetch()).map(e => e.fetch()),
