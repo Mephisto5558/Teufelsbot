@@ -43,7 +43,7 @@ module.exports = async function slashCommandHandler() {
     }
 
     this.slashCommands.set(command.name, command);
-    if (command.aliases?.slash) this.slashCommands = this.slashCommands.concat(command.aliases.slash.map(e => [e, { ...command, name: e, aliasOf: command.name }]));
+    for (const alias of command.aliases?.slash || []) this.slashCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
   }
 
   for (const [, command] of this.slashCommands) {
