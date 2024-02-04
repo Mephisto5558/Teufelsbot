@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType } = require('discord.js'),
+  { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType, PermissionFlagsBits } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable.js');
 
@@ -42,7 +42,8 @@ module.exports = async function ban_kick_mute(lang) {
   if (target) {
     if (target.id == this.client.user.id) return this.editReply('1984');
 
-    const err = checkTargetManageable.call(this, target);
+    let err = checkTargetManageable.call(this, target);
+    if (!err && target.permissions.has(PermissionFlagsBits.Administrator)) err = 'cantPunishAdmin';
     if (err) {
       resEmbed.data.description += lang('error', { err: lang(err), user: target.user?.tag ?? target.id });
       return this.editReply({ embeds: [resEmbed] });
