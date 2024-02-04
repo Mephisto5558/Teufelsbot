@@ -60,7 +60,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   switch (mode) {
     case 'cancel':
     case 'decline': {
-      this.message.embeds[0].data.description = lang('declined', this.member.displayName);
+      this.message.embeds[0].data.description = lang(this.user.id == initiator.id ? 'canceled' : 'declined', this.member.displayName);
       return this.message.edit({ embeds: this.message.embeds, components: [] });
     }
     case 'accept': if (opponent.user.bot || this.user.id == opponentId) return sendGame.call(this, initiator, opponent, lang); break;
