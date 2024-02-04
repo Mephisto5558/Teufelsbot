@@ -15,7 +15,7 @@ module.exports = async function ban_kick_mute(lang) {
     reason = this.options.getString('reason');
 
   if (muteDuration) {
-    muteDuration = getMilliseconds(muteDuration)?.limit?.({ min: 6e4, max: 2419e5 });
+    muteDuration = getMilliseconds(muteDuration)?.limit?.({ min: 6e4, max: 2.419e9 });
     if (!muteDuration || typeof muteDuration == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
 
     muteDurationMs = muteDuration + Date.now();
