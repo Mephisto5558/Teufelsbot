@@ -22,39 +22,29 @@ A discord.js v14 bot with multiple features, in active development.<br>
 I am very open for pull requests, feature requests and everything else that helps me improve.<br>
 If you have any questions feel free to open an issue.<br>
 
-[ToDo List](http://eu.pylex.me:20958/vote) | [Bot Invite Link](http://eu.pylex.me:20958/invite)<br>
-## Requirements
+[ToDo List](http://eu.pylex.me:20958/vote) | [Bot Invite Link](http://eu.pylex.me:20958/invite)
 
+## Requirements
 ```
 Node.js 18.17.0 or newer
 MongoDB set up
 ```
-<br>
 
 ## How to set it up
-
 First, you clone the repository, by using `git clone https://github.com/Mephisto5558/Teufelsbot`.<br>
 Then, you need to install the required npm packages by running `npm install` .<br>
 Next, you need to create a `env.json` file. If you are hosting you bot code public, so everyone can see it, make sure they can't see this file or use a db in MongoDB. If you do this, you only need to set the MongoDB connection string as `dbConnectionStr` to process.env.<br>
 The env file/collection needs to have all keys from the `env.json` from the Templates folder in order to work.<br>
 You do not need to set the dev stuff, this is for development.<br>
 Then, you need to create a `config.json` file. The template is in the Templates folder.<br><br>
-Then you have to [set up MongoDB](#how-to-set-up-mongodb).<br>
 To run the Bot, you can run the `main.sh` or directly the `index.js` .<br><br>
 You should be ready to go!
-
-<br>
-
-## How to set up MongoDB
-As I made the DB its own NPM module you need to just put `await client.db.generate()` in index.js directly below `client.db ??= new DB`... You can remove the `await client.db.generate()` after it ran once.
-This will generate all required objects from the `Templates\db_collections.json` file.
-
 <br>
 
 ## How to add more languages and change texts
-
 You can add changes on [Crowdin](https://de.crowdin.com/project/teufelsbot) or edit the language files in the `Locales` folder manually.
 
+## Others
 ### Note to the sharp overwrite in package.json
 The overwrite is required because fast-average-color-node (which requires the sharp package) and the canvas package are having compatibility issues on windows systems.<br>
 See [node-canvas #930](https://github.com/Automattic/node-canvas/issues/930), [sharp #2548](https://github.com/lovell/sharp/issues/2548).
