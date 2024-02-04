@@ -55,6 +55,11 @@ async function loadEnv(client) {
   env = env.global.fMerge(env[env.global.environment]);
   client.db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100);
 
+  if (!client.db.cache.size) {
+    log('Database is empty, generating default data');
+    await client.db.generate();
+  }
+
   return env;
 }
 
