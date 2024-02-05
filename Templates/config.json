@@ -16,9 +16,10 @@
   ],
   "discordInvite": "Support Server URL. Optional",
   "mailAddress":"Support Mail address. Optional",
-  "HideOverwriteWarning": "true/false. Hides the \"Overwriting following variables and functions\" warning, Defaults to false",
-  "HideNonBetaCommandLog": "true/false. Hides the info that a non-beta slash command has been skipped. Defaults to false",
-  "HideDisabledCommandLog": "true/false. Hides the info that a disabled command has been loaded to client.prefixCommands/client.slashCommands. Defaults to false",
-  "replyOnDisabledCommand": "true/false. Reply with an error message if a disabled command is run. Defaults to true",
-  "replyOnNonBetaCommand": "true/false. Reply with an error message if a non-beta command is run. Defaults to true"
+  "HideOverwriteWarning": "Boolean. Hides the \"Overwriting following variables and functions\" warning, Defaults to false",
+  "HideNonBetaCommandLog": "Boolean. Hides the info that a non-beta slash command has been skipped. Defaults to false",
+  "HideDisabledCommandLog": "Boolean. Hides the info that a disabled command has been loaded to client.prefixCommands/client.slashCommands. Defaults to false",
+  "replyOnDisabledCommand": "Boolean. Reply with an error message if a disabled command is run. Defaults to true",
+  "replyOnNonBetaCommand": "Boolean. Reply with an error message if a non-beta command is run. Defaults to true",
+  "disableWebserver": "Boolean. Disables the webserver (including the dashboard) if set to true. Defaults to false"
 }
