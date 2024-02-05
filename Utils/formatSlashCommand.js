@@ -1,6 +1,6 @@
 const { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js');
 
-/**@param {command|commandOptions}option @param {string}path @param {import('@mephisto5558/i18n')}i18n*/
+/**@param {command<true> | commandOptions<true>}option @param {string}path @param {import('@mephisto5558/i18n')}i18n*/
 module.exports = function format(option, path, i18n) {
   if (option.options) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`, i18n));
 

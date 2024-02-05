@@ -24,7 +24,7 @@ declare global {
   };
 
   /**bBinded I18nProvider.__ function*/
-  type lang = { (key: string, replacements?: string | object): string } & bBoundFunction;
+  type lang = bBoundFunction & { (key: string, replacements?: string | object): string };
 
   type cooldowns = { guild?: number; channel?: number; user?: number };
   type command<initialized extends boolean = false> = {
@@ -33,7 +33,7 @@ declare global {
     /** **Do not set manually.***/
     id: readonly initialized extends true ? Discord.Snowflake : undefined;
     /** **Do not set manually.***/
-    type: readonly initialized extends true ? 1: undefined;
+    type: readonly initialized extends true ? 1 : undefined;
     /**Gets set automatically from language files.
      * For slash commands, can not be longer then 100 chars.*/
     description: string;
@@ -68,9 +68,9 @@ declare global {
     /** **Do not set manually.**
      *
      * If the command is an alias, this property will have the original name.*/
-    aliasOf?: readonly initialized extends true ? string: undefined;
+    aliasOf?: readonly initialized extends true ? string : undefined;
     /**Slash command options*/
-    options?: commandOptions[];
+    options?: commandOptions<initialized>[];
     /** **Do not set manually.**
      *
      * The command's file path, used for e.g. reloading the command.*/
@@ -79,7 +79,7 @@ declare global {
     run: (this: Interaction | Message, lang: lang, client: Discord.Client) => Promise<never>; //Promise<never> because we don't care about the return value
   };
 
-  type commandOptions = {
+  type commandOptions<initialized extends boolean = false> = {
     name: string;
     /**Gets set automatically from language files.
      * @see {@link command.description}*/
@@ -99,12 +99,12 @@ declare global {
     /**Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled.*/
     autocompleteOptions?: string | Iterable<string | number | { name: string; value: string }> | ((this: Discord.AutocompleteInteraction) => Iterable<string | number | { name: string; value: string }>);
     /**Automatically set to `true` if {@link commandOptions.autocompleteOptions} are set.*/
-    autocomplete?: readonly boolean;
+    autocomplete?: readonly initialized extends true ? boolean : undefined;
     /**Return an error message to the user, if their input is not included in {@link commandOptions.autocompleteOptions}.
      * Note that this happens for Messages as well.*/
     strictAutocomplete?: boolean;
     /**Can be the integer or type name.*/
-    channelTypes?: (keyof typeof Discord.ChannelType) [];
+    channelTypes?: initialized extends true ? (Discord.ChannelType)[]: (keyof typeof Discord.ChannelType)[];
     minValue?: number;
     maxValue?: number;
     minLength?: number;
@@ -148,15 +148,36 @@ declare global {
   }
 
   interface Function {
-    /**A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction}*/
+    /*eslint-disable @typescript-eslint/no-explicit-any*/
+
+    /**@override Only typing | Fixes return types*/
+    bind<This, ReturnValue, InitialArgs extends any[], RestArgs extends any[]>(
+      this: (this: This, ...initial: InitialArgs, ...rest: RestArgs) => ReturnValue, thisArg: This, ...initial: InitialArgs
+    ): (...rest: RestArgs) => ReturnValue;
+  
+    /**@override Only typing | Fixes return types*/
+    bind<Class, Args extends any[], RestArgs extends any[]>(
+      this: new (...initial: Args, ...rest: RestArgs) => Class, thisArg: any, ...initial: Args
+    ): new (...rest: RestArgs) => Class;
     
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    bBind(thisArg: typeof Function, ...args: any[]): bBoundFunction;
+    /**@override Only typing | Fixes return types*/
+    call<This, ReturnValue, Args extends any[]>(this: (this: This, ...args: Args) => ReturnValue, thisArg: This, ...args: Args): ReturnValue;
+
+    /**@override Only typing | Fixes return types*/
+    apply<This, ReturnValue, Args extends any[]>(this: (this: This, ...args: Args) => ReturnValue, thisArg: This, args: Args): ReturnValue;
+    
+    /**A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction}*/
+    // bBind(thisArg: typeof Function, ...args: any[]): bBoundFunction;
+    bBind<This, ReturnValue, InitialArgs extends any[], RestArgs extends any[]>(
+      this: (this: This, ...initial: InitialArgs, ...rest: RestArgs) => ReturnValue, thisArg: This, ...initial: InitialArgs
+    ): bBoundFunction & ((...rest: RestArgs) => ReturnValue);
+    
+    /*eslint-enable @typescript-eslint/no-explicit-any*/
   }
 
   class bBoundFunction extends Function {
     /**The original, unbound function*/
-    
+
     // eslint-disable-next-line @typescript-eslint/ban-types
     __targetFunction__: Function;
     __boundThis__: this;
@@ -199,9 +220,9 @@ declare global {
 }
 
 declare module 'discord.js' {
-  interface BaseClient {
-    prefixCommands: Discord.Collection<string, command>;
-    slashCommands: Discord.Collection<string, command>;
+  interface Client<Ready> {
+    prefixCommands: Discord.Collection<string, command<Ready>>;
+    slashCommands: Discord.Collection<string, command<Ready>>;
     backupSystem?: BackupSystem;
     giveawaysManager?: GiveawayManagerWithOwnDatabase;
     webServer: WebServer;

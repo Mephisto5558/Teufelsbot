@@ -60,8 +60,8 @@ Object.defineProperty(Object.prototype, 'filterEmpty', {
   enumerable: false
 });
 Object.defineProperty(Function.prototype, 'bBind', {
-  /**@returns {bBoundFunction}*/
   value: function bBind(thisArg, ...args) {
+    /**@type {bBoundFunction}*/
     const bound = this.bind(thisArg, ...args);
     bound.__targetFunction__ = this;
     bound.__boundThis__ = thisArg;

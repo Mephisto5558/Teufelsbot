@@ -20,6 +20,7 @@ module.exports = {
     restarting = true;
     log(`Restarting bot, initiated by user '${this.user.tag}'...`);
 
+    /**@type {Message}*/
     let msg;
     if (!this.content.toLowerCase().includes('skipnpm')) {
       msg = await this.reply(lang('updatingNPM'));
@@ -30,11 +31,9 @@ module.exports = {
         return msg[getUpdateFunc(msg)](lang('updateNPMError'));
       }
     }
-
-    /**@type {Message}*/
+    
     msg = await (msg ?? this)[getUpdateFunc(msg ?? this)](lang('restarting'));
 
-    /**@type {import('child_process').ChildProcess}*/
     let child;
     try {
       child = spawn(
