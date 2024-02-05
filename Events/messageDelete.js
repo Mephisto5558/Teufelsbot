@@ -25,8 +25,8 @@ module.exports = async function messageDelete() {
   const setting = this.guild?.db.config?.logger?.messageDelete ?? {};
   if (!setting.enabled || !setting.channel) return;
 
-  const channel = this.guild.channels.cache.get(setting.channel);
-  if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
+  const channelToSend = this.guild.channels.cache.get(setting.channel);
+  if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length) return;
 
   await sleep(1000); //Make sure the audit log gets created before trying to fetch it
 
@@ -58,5 +58,5 @@ module.exports = async function messageDelete() {
   if (executor) embed.data.fields.push({ name: lang('executor'), value: `${executor.tag} (\`${executor.id}\`)`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('reason'), value: reason, inline: false });
 
-  return channel.send({ embeds: [embed] });
+  return channelToSend.send({ embeds: [embed] });
 };
