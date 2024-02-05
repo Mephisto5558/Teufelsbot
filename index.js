@@ -9,10 +9,9 @@ const
   { DB } = require('@mephisto5558/mongoose-db'),
   { WebServer } = require('@mephisto5558/bot-website'),
   { GiveawaysManager, gitpull, errorHandler, getCommands } = require('./Utils'),
-  { discordInvite, mailAddress, Website, disableWebserver } = require('./config.json');
+  { discordInvite, mailAddress, Website, disableWebserver } = require('./config.json'),
 
-function createClient() {
-  return new Client({
+  createClient = () => new Client({
     shards: 'auto',
     failIfNotExists: false,
     allowedMentions: {
@@ -36,12 +35,10 @@ function createClient() {
       Partials.Reaction
     ]
   });
-}
 
 /**
  * Loads env and initializes client.db
- * @param {Client}client @returns {Promise<object>}
- */
+ * @param {Client}client @returns {Promise<object>}*/
 async function loadEnv(client) {
   let env;
   try { env = require('./env.json'); }
@@ -63,7 +60,7 @@ async function loadEnv(client) {
   return env;
 }
 
-/**@this Client*/
+/**@this Client @param {string}message*/
 async function processMessageEventCallback(message) {
   if (message != 'Start WebServer') return;
   process.removeListener('message', processMessageEventCallback.bind(this));
