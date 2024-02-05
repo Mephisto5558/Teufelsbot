@@ -100,7 +100,7 @@ console.time('Starting time');
 
   if (client.botType != 'dev') client.giveawaysManager = new GiveawaysManager(client);
 
-  /**@type {Promise[]} Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution*/
+  //Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution
   const handlerPromises = (await readdir('./Handlers')).filter(e => e != 'event_handler.js').map(handler => require(`./Handlers/${handler}`).call(client));
 
   await client.login(client.keys.token);

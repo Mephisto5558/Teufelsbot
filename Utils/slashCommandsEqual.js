@@ -1,4 +1,4 @@
-/**@param {command|commandOptions}a @param {command|commandOptions}b*/
+/**@param {command<true> | commandOptions<true>}a @param {command<true> | commandOptions<true>}b*/
 module.exports = function equal(a, b) {
   if (!a?.toString() && !b?.toString()) return true; //NOSONAR intentional
   if (typeof a == 'string' || typeof b == 'string') return a == b;

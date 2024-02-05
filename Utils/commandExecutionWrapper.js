@@ -1,14 +1,15 @@
 const errorHandler = require('./errorHandler.js');
 
-/**@this Message|import('discord.js').BaseInteraction @param {command}command @param {string}commandType @param {lang}lang*/
+/**@this Message|import('discord.js').BaseInteraction @param {command<true>}command @param {string}commandType @param {lang}lang*/
 module.exports = async function commandExecutionWrapper(command, commandType, lang) {
-  /**@type {lang}*/
-  const cmdLang = this.client.i18n.__.bBind(this.client.i18n, { locale: lang.__boundArgs__[0].locale, backupPath: command ? `commands.${command.category.toLowerCase()}.${command.aliasOf ?? command.name}` : null });
+  const
+    commandName = command.aliasOf ?? command.name,
+    cmdLang = this.client.i18n.__.bBind(this.client.i18n, { locale: lang.__boundArgs__[0].locale, backupPath: command ? `commands.${command.category.toLowerCase()}.${commandName}` : null });
 
-  log.debug(`Executing ${commandType} command ${command.name}`);
+  log.debug(`Executing ${commandType} command ${commandName}`);
   try {
     await command.run.call(this, cmdLang);
-    if (this.client.botType != 'dev') await this.client.db.update('botSettings', `stats.${command.name}`, this.client.settings.stats?.[command.name] + 1 || 1);
+    if (this.client.botType != 'dev') await this.client.db.update('botSettings', `stats.${commandName}`, this.client.settings.stats?.[commandName] + 1 || 1);
   }
   catch (err) { return errorHandler.call(this.client, err, this, lang); }
 };

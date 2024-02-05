@@ -1,8 +1,8 @@
-/**@this Interaction @param {command}command @param {string}locale*/
+/**@this Interaction @param {command<true>}command @param {string}locale*/
 module.exports = async function autocompleteGenerator(command, locale) {
   const response = v => ({ name: this.client.i18n.__({ locale, undefinedNotFound: true }, `commands.${command.category.toLowerCase()}.${command.name}.options.${this.options?._group ? this.options._group + '.' : ''}${this.options?._subcommand ? this.options._subcommand + '.' : ''}${this.focused.name}.choices.${v}`) ?? v, value: v });
 
-  /**@type {command}*/
+  /**@type {command<true>}*/
   let { options } = command.fMerge();
   if (this.options?._group) options = options.find(e => e.name == this.options._group);
   if (this.options?._subcommand) options = options.find(e => e.name == this.options._subcommand).options;
