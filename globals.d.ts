@@ -8,25 +8,25 @@ import type GiveawayManagerWithOwnDatabase from './Utils/giveawaysManager';
 
 declare global {
   const sleep: (ms: number) => Promise<void>;
-  
+
   /**@returns Array of filenames*/
   const getDirectories: (path: string) => Promise<string[]>;
 
   /**Custom logging, including logfiles.*/
   const log: {
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     (...str: any[]): typeof log;
     error: (...str: any[]) => typeof log;
     debug: (...str: any[]) => typeof log;
     setType: (type: string) => typeof log;
     _log(file?: string, ...str: any[]): typeof log;
+    /* eslint-enable @typescript-eslint/no-explicit-any */
   };
 
   /**bBinded I18nProvider.__ function*/
-  type lang = {
-    (key: string, replacements?: string | object): string;
-  } & bBoundFunction;
+  type lang = { (key: string, replacements?: string | object): string } & bBoundFunction;
 
-  type cooldowns = { guild?: number, channel?: number, user?: number; }
+  type cooldowns = { guild?: number; channel?: number; user?: number };
   type command = {
     /**For slash commands, must be lowercase.*/
     name: readonly string;
@@ -42,13 +42,14 @@ declare global {
     descriptionLocalizations: Record<string, string>;
     /**Gets set to the lowercase folder name the command is in.*/
     category: readonly string;
-    aliases?: { prefix?: string[], slash?: string[]; };
-    permissions?: { 
+    aliases?: { prefix?: string[]; slash?: string[] };
+    permissions?: {
       /**Can be the bigints or flag names*/
-      client?: Discord.PermissionFlags[],
+      client?: Discord.PermissionFlags[];
       /**Can be the bigints or flag names*/
       user?: Discord.PermissionFlags[];
     };
+    /**Numbers in milliseconds*/
     cooldowns?: cooldowns;
     slashCommand: boolean;
     prefixCommand: boolean;
@@ -63,30 +64,30 @@ declare global {
     /**Do not deferReply to the interaction*/
     noDefer?: boolean;
     /**Do `interaction.deferReply({ ephemeral: true })`.
-     * 
+     *
      * Gets ignored if {@link command.noDefer} is `true`.  */
     ephemeralDefer?: boolean;
     /** **Do not set manually.**
-     * 
+     *
      * If the command is an alias, this property will have the original name.*/
     aliasOf?: readonly string;
     /**Slash command options*/
     options?: commandOptions[];
     /** **Do not set manually.**
-     * 
+     *
      * The command's file path, used for e.g. reloading the command.*/
     filePath: string;
 
-    run: (this: Interaction | Message, lang: lang, client: Discord.Client) => Promise<any>;
+    run: (this: Interaction | Message, lang: lang, client: Discord.Client) => Promise<never>; //Promise<never> because we don't care about the return value
   };
 
   type commandOptions = {
     name: string;
     /**Gets set automatically from language files.
-    * @see {@link command.description}*/
+     * @see {@link command.description}*/
     description: string;
     /**Gets set automatically from language files.
-    * @see {@link command.description}*/
+     * @see {@link command.description}*/
     descriptionLocalizations: Record<string, string>;
     /**Can be the integer or type name*/
     type: Discord.ApplicationCommandOptionType;
@@ -98,7 +99,7 @@ declare global {
     /**Sub-options, e.g command->subcommand group->subcommand*/
     options?: commandOptions[];
     /**Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled.*/
-    autocompleteOptions?: string | Iterable<string | number | { name: string, value: string; }> | ((this: Discord.AutocompleteInteraction) => Iterable<string | number | { name: string, value: string; }>);
+    autocompleteOptions?: string | Iterable<string | number | { name: string; value: string }> | ((this: Discord.AutocompleteInteraction) => Iterable<string | number | { name: string; value: string }>);
     /**Automatically set to `true` if {@link commandOptions.autocompleteOptions} are set.*/
     autocomplete?: readonly boolean;
     /**Return an error message to the user, if their input is not included in {@link commandOptions.autocompleteOptions}.
@@ -124,7 +125,7 @@ declare global {
       /**If `process.childUptime` exists (process args includes uptime=...), this is
        * 
        * `process.childUptime() + parentUptime`
-       * 
+       *
        * Otherwise it is the default `process.uptime()`*/
       uptime(): number;
     }
@@ -136,7 +137,7 @@ declare global {
   }
 
   interface Number {
-    limit(options?: { min?: number; max?: number; }): number;
+    limit(options?: { min?: number; max?: number }): number;
   }
 
   interface Object {
@@ -150,13 +151,19 @@ declare global {
 
   interface Function {
     /**A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction}*/
-    bBind(thisArg: any, ...args: any[]): bBoundFunction;
+    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    bBind(thisArg: typeof Function, ...args: any[]): bBoundFunction;
   }
 
   class bBoundFunction extends Function {
     /**The original, unbound function*/
+    
+    // eslint-disable-next-line @typescript-eslint/ban-types
     __targetFunction__: Function;
     __boundThis__: this;
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     __boundArgs__: any[];
   }
 
@@ -224,7 +231,7 @@ declare module 'discord.js' {
     commandName: string | null;
 
     /**Alias for {@link Message.author}*/
-    user: User;
+    user: Message['author'];
 
     /**
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
@@ -233,10 +240,10 @@ declare module 'discord.js' {
     customReply(
       options: string | MessagePayload | MessageEditOptions,
       deleteTime?: number,
-      allowedMentions?: MessageMentionOptions | { repliedUser: false; }
+      allowedMentions?: MessageMentionOptions | { repliedUser: false }
     ): Promise<Message>;
 
-    runMessages(): this;
+    runMessages(): Promise<this>;
   }
 
   interface BaseInteraction {
@@ -247,19 +254,21 @@ declare module 'discord.js' {
     customReply(
       options: string | MessagePayload | InteractionReplyOptions,
       deleteTime?: number,
-      allowedMentions?: MessageMentionOptions | { repliedUser: false; }
+      allowedMentions?: MessageMentionOptions | { repliedUser: false }
     ): Promise<Message>;
   }
 
   interface AutocompleteInteraction {
-    /**```js
+    /**
+     * ```js
      * this.options.getFocused(true)
      * ```*/
     get focused(): AutocompleteFocusedOption;
   }
 
   interface User {
-    /**```js
+    /**
+     * ```js
      * this.client.db?.get('userSettings')?.[this.id] ?? {}
      * ```*/
     get db(): object;
@@ -275,10 +284,11 @@ declare module 'discord.js' {
   }
 
   interface Guild {
-    /**```js
+    /**
+     * ```js
      * this.client.db?.get('guildSettings')?.[this.id] ?? {}
      * ```*/
-    get db(): any;
+    get db(): unknown;
     localeCode: string;
   }
 }
