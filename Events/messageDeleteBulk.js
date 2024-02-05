@@ -11,7 +11,6 @@ module.exports = async function messageDeleteBulk(channel) {
   await sleep(1000); //Make sure the audit log gets created before trying to fetch it
 
   const
-    /**@type {lang}*/
     lang = channel.client.i18n.__.bBind(channel.client.i18n, { locale: channel.guild.db.config?.lang ?? channel.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),
     { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageBulkDelete })).entries.find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < 20000) ?? {},
     embed = new EmbedBuilder({

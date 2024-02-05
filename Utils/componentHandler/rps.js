@@ -65,6 +65,8 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
     }
     case 'accept': if (opponent.user.bot || this.user.id == opponentId) return sendGame.call(this, initiator, opponent, lang); break;
     case 'playAgain': {
+      if (this.client.botType != 'dev') await this.client.db.update('botSettings', 'stats.rps', this.client.settings.stats?.rps + 1 || 1);
+      
       if (opponent.user.bot) return sendGame.call(this, initiator, opponent, lang);
       return sendChallenge.call(this, this.member, initiatorId == this.user.id ? opponent : initiator, lang);
     }

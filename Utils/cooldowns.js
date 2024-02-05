@@ -22,7 +22,7 @@ function subCommandCooldowns(name) {
 
 /**
  * @this {Message | ChatInputCommandInteraction}
- * @param {string}name name of the cooldown space, eg. a command name @param {{[key:string]: number}}cooldowns
+ * @param {string}name name of the cooldown space, eg. a command name @param {{ [key: string]: number }}cooldowns
  * @returns {number} current cooldown in seconds*/
 function cooldown(name, cooldowns = {}) {
   const

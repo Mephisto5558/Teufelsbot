@@ -4,7 +4,7 @@ const
   { access } = require('fs/promises'),
   { formatSlashCommand, slashCommandsEqual } = require('../../Utils');
 
-/**@this Client @param {command}command @param {string[]}reloadedArray gets modified and not returned*/
+/**@this Client @param {command<true>}command @param {string[]}reloadedArray gets modified and not returned*/
 async function reloadCommand(command, reloadedArray) {
   delete require.cache[command.filePath];
 

@@ -7,7 +7,6 @@ const
 module.exports = async function MessageComponentHandler(lang) {
   const
     [feature, id, mode, data, ...args] = this.customId.split('.'),
-    /**@type {number}*/
     cooldown = cooldowns.call(this, `buttonPressEvent.${this.message.id}`, { user: 1000 }),
     command = this.client.slashCommands.get(feature) ?? this.client.prefixCommands.get(feature) ?? { name: feature },
     disabledList = this.guild?.db.commandSettings?.[command.aliasOf || command.name]?.disabled || {};
