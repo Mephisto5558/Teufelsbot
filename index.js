@@ -9,7 +9,7 @@ const
   { DB } = require('@mephisto5558/mongoose-db'),
   { WebServer } = require('@mephisto5558/bot-website'),
   { GiveawaysManager, gitpull, errorHandler, getCommands } = require('./Utils'),
-  { discordInvite, mailAddress, Website } = require('./config.json');
+  { discordInvite, mailAddress, Website, disableWebserver } = require('./config.json');
 
 function createClient() {
   return new Client({
@@ -68,7 +68,8 @@ async function processMessageEventCallback(message) {
   if (message != 'Start WebServer') return;
   process.removeListener('message', processMessageEventCallback.bind(this));
 
-  this.webServer ??= await (new WebServer(
+  if (disableWebserver) log('Webserver is disabled by config.json.');
+  else this.webServer ??= await (new WebServer(
     this, this.db,
     { secret: this.keys.secret, dbdLicense: this.keys.dbdLicense, webhookURL: this.keys.votingWebhookURL },
     {
