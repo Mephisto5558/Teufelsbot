@@ -27,13 +27,13 @@ declare global {
   type lang = { (key: string, replacements?: string | object): string } & bBoundFunction;
 
   type cooldowns = { guild?: number; channel?: number; user?: number };
-  type command = {
+  type command<initialized extends boolean = false> = {
     /**For slash commands, must be lowercase.*/
     name: readonly string;
     /** **Do not set manually.***/
-    id?: readonly Discord.Snowflake;
+    id: readonly initialized extends true ? Discord.Snowflake : undefined;
     /** **Do not set manually.***/
-    type?: readonly 1;
+    type: readonly initialized extends true ? 1: undefined;
     /**Gets set automatically from language files.
      * For slash commands, can not be longer then 100 chars.*/
     description: string;
@@ -41,13 +41,11 @@ declare global {
      * @see {@link command.description}*/
     descriptionLocalizations: Record<string, string>;
     /**Gets set to the lowercase folder name the command is in.*/
-    category: readonly string;
-    aliases?: { prefix?: string[]; slash?: string[] };
+    category: readonly initialized extends true ? string : undefined;
+    aliases?: { prefix?: command['name'][]; slash?: command['name'][] };
     permissions?: {
-      /**Can be the bigints or flag names*/
-      client?: Discord.PermissionFlags[];
-      /**Can be the bigints or flag names*/
-      user?: Discord.PermissionFlags[];
+      client?: initialized extends true ? Discord.PermissionFlags[] : (keyof Discord.PermissionFlags)[];
+      user?: initialized extends true ? Discord.PermissionFlags[] : (keyof Discord.PermissionFlags)[];
     };
     /**Numbers in milliseconds*/
     cooldowns?: cooldowns;
@@ -65,18 +63,18 @@ declare global {
     noDefer?: boolean;
     /**Do `interaction.deferReply({ ephemeral: true })`.
      *
-     * Gets ignored if {@link command.noDefer} is `true`.  */
+     * Gets ignored if {@link command.noDefer} is `true`.*/
     ephemeralDefer?: boolean;
     /** **Do not set manually.**
      *
      * If the command is an alias, this property will have the original name.*/
-    aliasOf?: readonly string;
+    aliasOf?: readonly initialized extends true ? string: undefined;
     /**Slash command options*/
     options?: commandOptions[];
     /** **Do not set manually.**
      *
      * The command's file path, used for e.g. reloading the command.*/
-    filePath: string;
+    filePath: readonly initialized extends true ? string : undefined;
 
     run: (this: Interaction | Message, lang: lang, client: Discord.Client) => Promise<never>; //Promise<never> because we don't care about the return value
   };
@@ -90,7 +88,7 @@ declare global {
      * @see {@link command.description}*/
     descriptionLocalizations: Record<string, string>;
     /**Can be the integer or type name*/
-    type: Discord.ApplicationCommandOptionType;
+    type: keyof typeof Discord.ApplicationCommandOptionType;
     cooldowns?: cooldowns;
     /**If true, the user must provide a value to this option.*/
     required?: boolean;
@@ -106,7 +104,7 @@ declare global {
      * Note that this happens for Messages as well.*/
     strictAutocomplete?: boolean;
     /**Can be the integer or type name.*/
-    channelTypes?: Discord.ChannelType[];
+    channelTypes?: (keyof typeof Discord.ChannelType) [];
     minValue?: number;
     maxValue?: number;
     minLength?: number;
