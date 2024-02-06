@@ -2,7 +2,7 @@ const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   { getTargetChannel, getTargetMember } = require('../../Utils');
 
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'lastping',
   cooldowns: { guild: 200, user: 1e4 },
@@ -24,7 +24,6 @@ module.exports = {
     }*/
   ],
 
-  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const
       channel = getTargetChannel.call(this),
@@ -35,7 +34,7 @@ module.exports = {
       if (!channel.isTextBased()) return this.customReply(lang('invalidChannel'));
     }
 
-    /**@type {{ url: string, content: string, author: import('discord.js').Snowflake, createdAt: Date }}*/
+    /** @type {{ url: string, content: string, author: import('discord.js').Snowflake, createdAt: Date }}*/
     const { url, content, author, createdAt } = (channel ? channel.messages.cache.find(e =>
       (!target || e.author.id == target.id) && e.mentions.everyone || e.mentions.users.has(this.user.id) || e.mentions.roles.hasAny(this.member.roles.cache.keys())
     ) : this.guild.db.lastMentions?.[this.user.id]) || {};

@@ -1,6 +1,6 @@
 const defaultCharset = ['abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\\=*\'"#*(){}[]'];
 
-/**@type {command}*/
+/** @type {command<'slash', false>}*/
 module.exports = {
   name: 'passwordgenerator',
   cooldowns: { user: 1000 },
@@ -23,7 +23,6 @@ module.exports = {
     { name: 'include_chars', type: 'String' }
   ],
 
-  /**@this Interaction*/
   run: function (lang) {
     const
       count = this.options?.getInteger('count') || 1,

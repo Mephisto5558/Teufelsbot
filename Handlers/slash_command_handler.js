@@ -1,10 +1,10 @@
 const
   { readdir } = require('fs/promises'),
   { resolve } = require('path'),
-  { formatSlashCommand, slashCommandsEqual } = require('../Utils'),
+  { getDirectories, formatSlashCommand, slashCommandsEqual } = require('../Utils'),
   { HideNonBetaCommandLog, HideDisabledCommandLog } = require('../config.json');
 
-/**@this Client*/
+/** @this Client*/
 module.exports = async function slashCommandHandler() {
   await this.awaitReady();
 
@@ -16,7 +16,7 @@ module.exports = async function slashCommandHandler() {
   for (const subFolder of await getDirectories('./Commands')) for (const file of await readdir(`./Commands/${subFolder}`)) {
     if (!file.endsWith('.js')) continue;
 
-    /**@type {command}*/
+    /** @type {command<'slash', boolean, true>}*/
     let command = require(`../Commands/${subFolder}/${file}`);
 
     if (!command.slashCommand) continue;

@@ -1,6 +1,10 @@
 const errorHandler = require('./errorHandler.js');
 
-/**@this Message|import('discord.js').BaseInteraction @param {command<true>}command @param {string}commandType @param {lang}lang*/
+/** 
+ * @this Message|import('discord.js').BaseInteraction
+ * @param {command<'both', boolean, true>}command
+ * @param {string}commandType
+ * @param {lang}lang*/
 module.exports = async function commandExecutionWrapper(command, commandType, lang) {
   const
     commandName = command.aliasOf ?? command.name,

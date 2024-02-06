@@ -3,7 +3,7 @@ const
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMember, getAge, permissionTranslator } = require('../../Utils');
 
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'userinfo',
   aliases: { prefix: ['user-info'] },

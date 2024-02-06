@@ -3,7 +3,7 @@ const
   fetch = require('node-fetch').default,
   cache = new Collection();
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'pokedex',
   prefixCommand: true,

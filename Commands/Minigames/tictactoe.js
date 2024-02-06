@@ -2,7 +2,12 @@ const
   TicTacToe = require('discord-tictactoe'),
   { getTargetMember } = require('../../Utils');
 
-/**@this GuildInteraction @param {import('discord.js').GuildMember[]}players @param {('win'|'lose'|'draw')[]}types @param {lang}lang @param {TicTacToe}game*/
+/**
+ * @this GuildInteraction
+ * @param {import('discord.js').GuildMember[]}players
+ * @param {('win'|'lose'|'draw')[]}types
+ * @param {lang}lang
+ * @param {TicTacToe}game*/
 async function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
   if (player1.id == this.client.user.id || player2.id == this.client.user.id) return;
 
@@ -11,7 +16,11 @@ async function eventCallback([player1, player2], [type1, type2 = type1], lang, g
   return game.playAgain(this, lang);
 }
 
-/**@param {string}firstId @param {string}secondID @param {'win'|'lose'|'draw'}type @param {import('@mephisto5558/mongoose-db')}db*/
+/**
+ * @param {string}firstID
+ * @param {string}secondID
+ * @param {'win'|'lose'|'draw'}type
+ * @param {import('@mephisto5558/mongoose-db').DB}db*/
 function updateStats(firstID, secondID, type, db) {
   const stats = db.get('leaderboards', `TicTacToe.${firstID}`) ?? {};
   let against;
@@ -27,17 +36,16 @@ function updateStats(firstID, secondID, type, db) {
   return db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, stats[against]?.[secondID] + 1 || 1);
 }
 
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'tictactoe',
-  aliases: { slash: ['ttt'] },
+  aliases: { prefix: ['ttt'], slash: ['ttt'] },
   permissions: { client: ['ManageMessages'] },
   cooldowns: { user: 5000 },
   slashCommand: true,
   prefixCommand: true,
   options: [{ name: 'opponent', type: 'User' }],
 
-  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       gameTarget = getTargetMember.call(this, { targetOptionName: 'opponent' })?.id,

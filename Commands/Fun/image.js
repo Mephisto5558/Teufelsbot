@@ -28,7 +28,7 @@ const
     name, options: Object.entries(b).filter(([a]) => a != 'info').map(([name, description]) => ({ name, description, type: 'String' }))
   }));
 
-/**@type {command}*/
+/** @type {command<'prefix'>}*/
 module.exports = {
   name: 'image',
   cooldowns: { user: 500 },
@@ -40,9 +40,7 @@ module.exports = {
     autocompleteOptions: endpoints.keys(),
     strictAutocomplete: true
   }],
-  beta: true,
 
-  /**@this GuildMessage*/
   run: async function (lang) {
     const
       cmdName = this.args?.shift() || this.options?.getString('type'),

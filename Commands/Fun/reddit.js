@@ -22,7 +22,7 @@ const
     };
   };
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'reddit',
   cooldowns: { channel: 100 },

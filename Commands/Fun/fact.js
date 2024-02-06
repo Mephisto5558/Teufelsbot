@@ -2,7 +2,7 @@ const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   fetch = require('node-fetch').default;
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'fact',
   cooldowns: { channel: 100 },

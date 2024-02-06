@@ -2,7 +2,7 @@ const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'serverinfo',
   aliases: { prefix: ['server-info', 'guildinfo', 'guild-info'] },
@@ -15,7 +15,6 @@ module.exports = {
     autocompleteOptions: function () { return this.client.guilds.cache.filter(e => e.members.cache.has(this.member.id)).map(e => e.id); }
   }],
 
-  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const
       guild = this.client.guilds.cache.get(this.options?.getString('guild_id') || this.args?.[0]) || this.guild,

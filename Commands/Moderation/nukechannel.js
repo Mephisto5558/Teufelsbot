@@ -1,6 +1,6 @@
 const { Constants, EmbedBuilder, Colors } = require('discord.js');
 
-/**@type {command}*/
+/** @type {command<'slash'>}*/
 module.exports = {
   name: 'nukechannel',
   aliases: { prefix: ['clearchannel'], slash: ['clearchannel'] },
@@ -21,7 +21,6 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction*/
   run: async function (lang) {
     if (this.options.getString('confirmation')?.toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
 

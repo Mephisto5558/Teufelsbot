@@ -2,7 +2,7 @@ const
   { parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'emojiinfo',
   aliases: { prefix: ['emoji-info'] },
@@ -14,7 +14,6 @@ module.exports = {
     required: true,
   }],
 
-  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const
       parsedEmoji = parseEmoji(this.options?.getString('emoji') || this.args?.[0] || ''),

@@ -6,7 +6,11 @@ const
   ownerOnlyFolders = require('./getOwnerOnlyFolders.js')(),
   { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json');
 
-/**@this {Interaction|Message} @param {command<true>}command @param {lang}lang @returns {Array|boolean}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
+/** 
+ * @this {Interaction|Message}
+ * @param {command<'both', boolean, true>}command
+ * @param {lang}lang
+ * @returns {Array|boolean}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
 module.exports = async function checkForErrors(command, lang) {
   if (!command) {
     if (this instanceof Message) {
@@ -16,7 +20,7 @@ module.exports = async function checkForErrors(command, lang) {
 
     return true;
   }
-
+ 
   // DO NOT REMOVE THE FOLLOWING LINE
   if (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id) return true;
   if (command.disabled) return replyOnDisabledCommand === false ? true : ['disabled', command.disabledReason || 'Not provided'];

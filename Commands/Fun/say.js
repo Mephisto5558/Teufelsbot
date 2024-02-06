@@ -2,7 +2,7 @@ const
   { Constants, PermissionFlagsBits, Message, AllowedMentionsTypes } = require('discord.js'),
   { getTargetChannel, logSayCommandUse } = require('../../Utils');
 
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'say',
   cooldowns: { user: 200 },
@@ -23,11 +23,10 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const
       msg = this.content || this.options?.getString('msg'),
-      /**@type {import('discord.js').GuildTextBasedChannel}*/
+      /** @type {import('discord.js').GuildTextBasedChannel}*/
       channel = getTargetChannel.call(this, { returnSelf: true });
 
     if (!this.member.permissionsIn(channel).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])) return this.customReply(lang('noPerm'));

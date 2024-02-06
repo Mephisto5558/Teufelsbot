@@ -1,6 +1,6 @@
 const { checkTargetManageable } = require('../../Utils');
 
-/**@type {command}*/
+/** @type {command<'slash'>}*/
 module.exports = {
   name: 'unmute',
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
@@ -16,7 +16,6 @@ module.exports = {
     { name: 'reason', type: 'String' }
   ],
 
-  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       target = this.options.getMember('target'),

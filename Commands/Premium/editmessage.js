@@ -1,6 +1,6 @@
 const { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js');
 
-/**@type {command}*/
+/** @type {command<'slash'>}*/
 module.exports = {
   name: 'editmessage',
   permissions: { user: ['ManageMessages'] },
@@ -23,7 +23,6 @@ module.exports = {
     { name: 'remove_attachments', type: 'Boolean' }
   ],
 
-  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       modal = new ModalBuilder({
@@ -41,7 +40,7 @@ module.exports = {
       }),
       clear = this.options.getBoolean('remove_attachments');
 
-    /**@type {Message?}*/
+    /** @type {Message?}*/
     let msg;
     try { msg = await this.options.getChannel('channel').messages.fetch(this.options.getString('message_id')); }
     catch (err) {
