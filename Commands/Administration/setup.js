@@ -2,9 +2,11 @@ const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'],
-  getCMDs = /**@param {Client}client*/ client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])],
+  getCMDs = /** @param {Client}client*/ client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])],
   setupMainFunctions = {
-    /**@this GuildInteraction @param {lang}lang*/
+    /**
+     * @this GuildInteraction
+     * @param {lang}lang*/
     toggle_module: async function (lang) {
       const
         module = this.options.getString('module'),
@@ -14,7 +16,9 @@ const
       return this.editReply(lang('success', { name: module, state: lang(setting ? 'global.disabled' : 'global.enabled') }));
     },
 
-    /**@this GuildInteraction @param {lang}lang*/
+    /**
+     * @this GuildInteraction
+     * @param {lang}lang*/
     toggle_command: async function (lang) {
       const
         command = this.options.getString('command'),
@@ -84,11 +88,11 @@ const
       return this.editReply({ embeds: [embed] });
     },
 
-    /**@this GuildInteraction @param {lang}lang*/
+    /** @this GuildInteraction*/
     language: async function () {
       const
         language = this.options.getString('language'),
-        /**@type {lang}*/
+        /** @type {lang}*/
         newLang = this.client.i18n.__.bind(this.client.i18n, { locale: this.client.i18n.availableLocales.has(language) ? language : this.client.i18n.config.defaultLocale }),
         { category, name } = this.client.slashCommands.get(this.commandName),
         embed = new EmbedBuilder({
@@ -101,20 +105,26 @@ const
       return this.editReply({ embeds: [embed] });
     },
 
-    /**@this GuildInteraction @param {lang}lang*/
+    /** 
+     * @this GuildInteraction 
+     * @param {lang}lang*/
     serverbackup: async function (lang) {
       await this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', parseInt(backup.get(this.options.getString('allowed_to_load'))));
       return this.editReply(lang('success'));
     },
 
-    /**@this GuildInteraction @param {lang}lang*/
+    /** 
+     * @this GuildInteraction 
+     * @param {lang}lang*/
     autopublish: async function (lang) {
       const enabled = this.options.getBoolean('enabled');
       await this.client.db.update('guildSettings', `${this.guild.id}.config.autopublish`, enabled);
       return this.customReply(lang('success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
     },
 
-    /**@this GuildInteraction @param {lang}lang*/
+    /** 
+     * @this GuildInteraction 
+     * @param {lang}lang*/
     logger: async function (lang) {
       const
         channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel))?.id ?? this.channel,
@@ -132,7 +142,7 @@ const
     }
   };
 
-/**@type {command}*/
+/** @type {command<'slash'>}*/
 module.exports = {
   name: 'setup',
   aliases: { slash: ['config'] },
@@ -220,7 +230,6 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction*/
   run: async function (lang) {
     lang.__boundArgs__[0].backupPath += `.${this.options.getSubcommand().replace(/_./g, e => e[1].toUpperCase())}`;
     return setupMainFunctions[this.options.getSubcommand()].call(this, lang);

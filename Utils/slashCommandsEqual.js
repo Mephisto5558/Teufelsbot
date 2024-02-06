@@ -1,4 +1,6 @@
-/**@param {command<true> | commandOptions<true>}a @param {command<true> | commandOptions<true>}b*/
+/** 
+ * @param {command<'both', boolean, true> | commandOptions<true>}a
+ * @param {command<'both', boolean, true> | commandOptions<true>}b*/
 module.exports = function equal(a, b) {
   if (!a?.toString() && !b?.toString()) return true; //NOSONAR intentional
   if (typeof a == 'string' || typeof b == 'string') return a == b;

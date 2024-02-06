@@ -8,7 +8,13 @@ const
     { name: 'icanhazdadjoke', link: 'https://icanhazdadjoke.com', url: 'https://icanhazdadjoke.com' }
   ];
 
-/**@this Client @returns {[str, { name: string, link: string, url: string }] | []}*/
+/**
+ * @this Client
+ * @param {{ name: string, link: string, url: string }[]}apiList
+ * @param {string}type
+ * @param {string}blacklist
+ * @param {number?}maxLength
+ * @returns {[str, { name: string, link: string, url: string }] | []}*/
 async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000) {
   const api = apiList.random();
   let response;
@@ -56,7 +62,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
   return apiList.length ? getJoke.call(this, apiList, type, blacklist, maxLength) : [];
 }
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'joke',
   cooldowns: { channel: 100 },

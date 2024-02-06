@@ -1,11 +1,11 @@
 const
   { spawn, exec } = require('child_process'),
   asyncExec = require('util').promisify(exec),
-  getUpdateFunc = /**@param {Message}msg*/ msg => msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply';
+  getUpdateFunc = /** @param {Message}msg*/ msg => msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply';
 
 let restarting = false;
 
-/**@type {command}*/
+/** @type {command<'prefix', false>}*/
 module.exports = {
   name: 'restart',
   slashCommand: false,
@@ -13,14 +13,13 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  /**@this Message*/
   run: async function (lang) {
     if (restarting) return this.reply(lang('alreadyRestarting', restarting));
 
     restarting = true;
     log(`Restarting bot, initiated by user '${this.user.tag}'...`);
 
-    /**@type {Message}*/
+    /** @type {Message}*/
     let msg;
     if (!this.content.toLowerCase().includes('skipnpm')) {
       msg = await this.reply(lang('updatingNPM'));

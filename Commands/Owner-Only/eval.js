@@ -1,13 +1,13 @@
-/**@typedef {new (this: Message, __dirname: string, __filename: string, exports: NodeExports, module: NodeModule, require: NodeRequire, lang: lang) => Function}BoundFunction*/
+/** @typedef {new (this: Message, __dirname: string, __filename: string, exports: NodeExports, module: NodeModule, require: NodeRequire, lang: lang) => Function}BoundFunction*/
 
 const
   vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
-  /**@type {BoundFunction}*/
+  /** @type {BoundFunction}*/
   BoundAsyncFunction = (async function () { }).constructor.bind(null, ...vars),
-  /**@type {BoundFunction}*/
+  /** @type {BoundFunction}*/
   BoundFunction = Function.bind(null, ...vars);
 
-/**@type {command}*/
+/** @type {command<'prefix', false>}*/
 module.exports = {
   name: 'eval',
   slashCommand: false,
@@ -15,7 +15,6 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  /**@this Message*/
   run: async function (lang) {
     if (!this.content) return;
 

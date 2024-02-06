@@ -1,11 +1,10 @@
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'sleep',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
 
-  /**@this Message*/
   run: async function (lang) {
     if (this.member.moderatable && this.member.displayName.length < 26 && !this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(`[AFK] ${this.member.displayName}`);
 

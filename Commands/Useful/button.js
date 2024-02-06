@@ -1,6 +1,6 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
-/**@type {command}*/
+/** @type {command<'slash'>}*/
 module.exports = {
   name: 'button',
   cooldowns: { user: 500 },
@@ -41,7 +41,6 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       custom = this.options.getString('json'),

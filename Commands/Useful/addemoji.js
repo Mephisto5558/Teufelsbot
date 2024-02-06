@@ -3,7 +3,7 @@ const
   http = require('http'),
   https = require('https');
 
-/**@param {string}url @returns {Promise<boolean|Error|string>}*/
+/** @param {string}url @returns {Promise<boolean|Error|string>}*/
 const checkUrl = url => new Promise((resolve, reject) => {
   const req = (url.startsWith('https') ? https : http).request(url, { method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode > 199 && res.statusCode < 400));
 
@@ -13,7 +13,7 @@ const checkUrl = url => new Promise((resolve, reject) => {
     .end();
 });
 
-/**@type {command}*/
+/** @type {command<'slash'>}*/
 module.exports = {
   name: 'addemoji',
   permissions: { client: ['ManageEmojisAndStickers'], user: ['ManageEmojisAndStickers'] },
@@ -35,7 +35,6 @@ module.exports = {
     { name: 'limit_to_roles', type: 'String' }
   ],
 
-  /**@this GuildInteraction*/
   run: async function (lang) {
     let input = this.options.getString('emoji_or_url');
 

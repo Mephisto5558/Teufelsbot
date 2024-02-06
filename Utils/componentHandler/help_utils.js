@@ -1,17 +1,20 @@
-/**@typedef {import('discord.js').StringSelectMenuInteraction}SelectMenuInteraction*/
+/** @typedef {import('discord.js').StringSelectMenuInteraction}SelectMenuInteraction*/
 
 const
   { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
   permissionTranslator = require('../permissionTranslator.js'),
   ownerOnlyFolders = require('../getOwnerOnlyFolders.js')();
 
-/**@this Message|Interaction|SelectMenuInteraction*/
+/** @this Message|Interaction|SelectMenuInteraction*/
 function getCommands() { return [...new Set([...this.client.prefixCommands.values(), ...this.client.slashCommands.values()])].filter(filterCommands.bind(this)); }
 
-/**@this Message|Interaction|SelectMenuInteraction*/
+/** @this Message|Interaction|SelectMenuInteraction*/
 function getCommandCategories() { return [...new Set(getCommands.call(this).map(e => e.category.toLowerCase()))]; }
 
-/**@this Message|Interaction|SelectMenuInteraction @param {lang}lang @param {string[]?}commandCategories*/
+/**
+ * @this Message|Interaction|SelectMenuInteraction
+ * @param {lang}lang
+ * @param {string[]?}commandCategories*/
 function createCategoryComponent(lang, commandCategories) {
   commandCategories ??= getCommandCategories.call(this);
   const defaultOption = (this.options?.getString('command') ? null : this.options?.getString('category')) || (this.args ? this.client.prefixCommands.get(this.args[0]) || this.client.slashCommands.get(this.args[0]) : null)?.category || (this.values ? this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value : null);
@@ -38,7 +41,10 @@ function createCategoryComponent(lang, commandCategories) {
   });
 }
 
-/**@this Message|Interaction|SelectMenuInteraction @param {lang}lang @param {string}category*/
+/**
+ * @this Message|Interaction|SelectMenuInteraction
+ * @param {lang}lang
+ * @param {string}category*/
 function createCommandsComponent(lang, category) {
   const defaultOption = this.args?.[0] || this.options?.getString('command') || (this.message?.components[1] ? this.message.components[1].components[0].options.find(e => e.value === this.values[0])?.value : null);
 
@@ -55,7 +61,11 @@ function createCommandsComponent(lang, category) {
   });
 }
 
-/**@this Message|Interaction|SelectMenuInteraction @param {command<true>}cmd @param {lang}lang @param {lang}helpLang*/
+/**
+ * @this Message|Interaction|SelectMenuInteraction
+ * @param {command<'both', boolean, true>}cmd
+ * @param {lang}lang
+ * @param {lang}helpLang*/
 function createInfoFields(cmd, lang, helpLang) {
   const
     arr = [],
@@ -88,12 +98,17 @@ function createInfoFields(cmd, lang, helpLang) {
   return arr;
 }
 
-/**@this Message|Interaction|SelectMenuInteraction @param {command<true>}cmd*/
+/**
+ * @this Message|Interaction|SelectMenuInteraction
+ * @param {command<'both', boolean, true>}cmd*/
 function filterCommands(cmd) {
   return cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta) || (ownerOnlyFolders.includes(cmd.category?.toLowerCase()) && this.user.id != this.client.application.owner.id);
 }
 
-/**@this Message|Interaction|SelectMenuInteraction @param {lang}lang @param {string}commandQuery*/
+/**
+ * @this Message|Interaction|SelectMenuInteraction
+ * @param {lang}lang
+ * @param {string}commandQuery*/
 module.exports.commandQuery = function commandQuery(lang, commandQuery) {
   if (this.values && !this.values.length) return module.exports.categoryQuery.call(this, lang, this.message.components[0].components[0].data.options.find(e => e.default).value);
 
@@ -108,7 +123,7 @@ module.exports.commandQuery = function commandQuery(lang, commandQuery) {
   }
 
   const
-    /**@type {lang}*/
+    /** @type {lang}*/
     helpLang = this.client.i18n.__.bind(this.client.i18n, { undefinedNotFound: true, locale: this.guild?.localeCode || this.client.defaultSettings.config.lang, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` }),
     embed = new EmbedBuilder({
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
@@ -121,7 +136,10 @@ module.exports.commandQuery = function commandQuery(lang, commandQuery) {
   return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, command.category.toLowerCase())] });
 };
 
-/**@this Interaction|SelectMenuInteraction @param {lang}lang @param {string?}categoryQuery*/
+/**
+ * @this Interaction|SelectMenuInteraction
+ * @param {lang}lang
+ * @param {string?}categoryQuery*/
 module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
   if (!categoryQuery) {
     delete this.message.components[0].components[0].data.options.find(e => e.default)?.default;
@@ -129,7 +147,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
   }
 
   const
-    /**@type {lang}*/
+    /** @type {lang}*/
     helpLang = this.client.i18n.__.bind(this.client.i18n, { undefinedNotFound: true, locale: this.guild?.localeCode || this.client.defaultSettings.config.lang, backupPath: `commands.${categoryQuery}` }),
     commands = getCommands.call(this),
     embed = new EmbedBuilder({
@@ -148,7 +166,9 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
   return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, categoryQuery)] });
 };
 
-/**@this Message|Interaction|SelectMenuInteraction @param {lang}lang*/
+/**
+ * @this Message|Interaction|SelectMenuInteraction
+ * @param {lang}lang*/
 module.exports.allQuery = function allQuery(lang) {
   const
     commandCategories = getCommandCategories.call(this),

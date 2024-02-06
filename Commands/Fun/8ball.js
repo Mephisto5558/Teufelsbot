@@ -1,5 +1,8 @@
 
-/**@param {string}str*/
+/**
+ * @param {string}str
+ * @param {number}seed
+ */
 function cyrb53(str, seed = 0) { //https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js
   let h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
   for (let i = 0, ch; i < str.length; i++) {
@@ -16,7 +19,7 @@ function cyrb53(str, seed = 0) { //https://github.com/bryc/code/blob/master/jsha
   return 4294967296 * (2097151 & h2) + (h1 >>> 0);
 }
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: '8ball',
   slashCommand: true,

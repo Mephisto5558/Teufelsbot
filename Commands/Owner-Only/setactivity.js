@@ -1,13 +1,12 @@
 const { ActivityType } = require('discord.js');
 
-/**@type {command}*/
+/** @type {command<'prefix', false>}*/
 module.exports = {
   name: 'setactivity',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
 
-  /**@this Message*/
   run: async function (lang) {
     const args = this.content.split(';');
 

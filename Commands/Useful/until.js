@@ -1,17 +1,21 @@
 const
   { timeFormatter } = require('../../Utils');
 
-/**@param {number}year @param {number}month @param {number}day @param {number[]}args*/
+/**
+ * @param {number}year
+ * @param {number}month
+ * @param {number}day
+ * @param {number[]}args*/
 function createDate(year, month, day, ...args) {
   return year < 0 || year > 100 ? new Date(year, month, day, ...args) : new Date(new Date(year - 1900, month, day, ...args).setFullYear(year));
 }
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'until',
   slashCommand: true,
   prefixCommand: true,
-  dmPermission: true, beta: true,
+  dmPermission: true,
   options: [
     {
       name: 'day',

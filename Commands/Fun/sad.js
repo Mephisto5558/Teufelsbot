@@ -1,6 +1,6 @@
 const responseList = ['D:', ':c', 'qwq', ':C', 'q_q', ':/'];
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'sad',
   slashCommand: false,

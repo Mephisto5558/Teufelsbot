@@ -4,7 +4,7 @@ const
   { Repo } = require('../../config.json')?.Github ?? {},
   options = { headers: { 'User-Agent': `Discord Bot${Repo ? ' (' + Repo + ')' : ''}` } };
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'wiki',
   aliases: { prefix: ['wikipedia'] },

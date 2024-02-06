@@ -1,12 +1,20 @@
 const { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js');
 
-/**@param {command<true> | commandOptions<true>}option @param {string}path @param {import('@mephisto5558/i18n')}i18n*/
+/** 
+ * @param {command<'slash', boolean, true> | commandOptions<true>}option
+ * @param {string}path
+ * @param {import('@mephisto5558/i18n')}i18n*/
 module.exports = function format(option, path, i18n) {
-  if (option.options) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`, i18n));
+  if ('options' in option) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`, i18n));
+
+  if (/[A-Z]/.test(option.name)) {
+    if (!option.disabled) log.error(`${option.name} (${path}) has uppercase letters! Fixing`);
+    option.name = option.name.toLowerCase();
+  }
 
   option.description ??= i18n.__({ errorNotFound: true }, `${path}.description`);
-  if (option.choices?.length) option.choices = option.choices.map(e => typeof e == 'object' ? e.fMerge({ __SCHandlerCustom: true }) : { name: i18n.__({ undefinedNotFound: true }, `${path}.choices.${e}`) || e, value: e });
-  if (option.autocompleteOptions) option.autocomplete = true;
+  if ('choices' in option) option.choices = option.choices.map(e => typeof e == 'object' ? e.fMerge({ __SCHandlerCustom: true }) : { name: i18n.__({ undefinedNotFound: true }, `${path}.choices.${e}`) || e, value: e });
+  if ('autocompleteOptions' in option) option.autocomplete = true;
 
   if (option.description.length > 100) {
     if (!option.disabled) log.warn(`Description of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
@@ -21,7 +29,7 @@ module.exports = function format(option, path, i18n) {
     if (localeText) option.descriptionLocalizations[locale] = localeText?.slice(0, 100);
     else if (!option.disabled) log.warn(`Missing "${locale}" description localization for option "${option.name}" (${path}.description)`);
 
-    if (option.choices?.length) option.choices.map(e => {
+    if ('choices' in option) option.choices.map(e => {
       if (e.__SCHandlerCustom) {
         delete e.__SCHandlerCustom;
         return e;
@@ -55,22 +63,17 @@ module.exports = function format(option, path, i18n) {
     return option;
   }
 
-  if (/[A-Z]/.test(option.name)) {
-    if (!option.disabled) log.error(`${option.name} (${path}) has uppercase letters! Fixing`);
-    option.name = option.name.toLowerCase();
-  }
-
-  if (option.channelTypes) option.channelTypes = option.channelTypes.map(e => {
-    if (!option.disabled && !ChannelType[e] && ChannelType[e] != 0) throw Error(`Invalid option.channelType, got "${e}" (${path})`);
+  if ('channelTypes' in option) option.channelTypes = option.channelTypes.map(e => {
+    if (!(e in ChannelType)) throw Error(`Invalid option.channelType, got "${e}" (${path})`);
     return isNaN(e) ? ChannelType[e] : e;
   });
 
-  if (!option.disabled && !option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or invalid option.type, got "${option.type}" (${path})`);
+  if (!option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or invalid option.type, got "${option.type}" (${path})`);
   if (isNaN(option.type)) option.type = ApplicationCommandOptionType[option.type];
 
-  if ([ApplicationCommandOptionType.Number, ApplicationCommandOptionType.Integer].includes(option.type) && ('minLength' in option || 'maxLength' in option) && !option.disabled)
+  if ([ApplicationCommandOptionType.Number, ApplicationCommandOptionType.Integer].includes(option.type) && ('minLength' in option || 'maxLength' in option))
     throw new Error(`Number and Integer options do not support "minLength" and "maxLength" (${path})`);
-  if (option.type == ApplicationCommandOptionType.String && ('minValue' in option || 'maxValue' in option) && !option.disabled)
+  if (option.type == ApplicationCommandOptionType.String && ('minValue' in option || 'maxValue' in option))
     throw new Error(`String options do not support "minValue" and "maxValue" (${path})`);
 
   return option;

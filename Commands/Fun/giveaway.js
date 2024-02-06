@@ -4,9 +4,13 @@ const
   { timeValidator } = require('../../Utils'),
 
   giveawayMainFunctions = {
-    /**@typedef {{ bonusEntries: object[], requiredRoles: string[], disallowedMembers: string[], duration: number, giveawayId: string }}mainFunctionsParams*/
+    /** @typedef {{ bonusEntries: object[], requiredRoles: string[], disallowedMembers: string[], duration: number, giveawayId: string }}mainFunctionsParams*/
 
-    /**@this GuildInteraction @param {lang}lang @param {ActionRowBuilder<ButtonBuilder>[]}components @param {mainFunctionsParams}*/
+    /**
+     * @this GuildInteraction
+     * @param {lang}lang
+     * @param {ActionRowBuilder<ButtonBuilder>[]}components
+     * @param {mainFunctionsParams}options*/
     create: async function (lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration }) {
       const
         defaultSettings = this.client.defaultSettings.giveaway,
@@ -51,7 +55,11 @@ const
       return this.editReply({ content: lang('started'), components });
     },
 
-    /**@this GuildInteraction @param {lang}lang @param {ActionRowBuilder<ButtonBuilder>[]}components @param {mainFunctionsParams}*/
+    /**
+     * @this GuildInteraction
+     * @param {lang}lang
+     * @param {ActionRowBuilder<ButtonBuilder>[]}components
+     * @param {mainFunctionsParams}options*/
     end: async function (lang, components, { giveawayId }) {
       const data = await this.client.giveawaysManager.end(giveawayId);
       components[0].components[0].data.url = data.messageURL;
@@ -59,7 +67,11 @@ const
       return this.editReply({ content: lang('ended'), components });
     },
 
-    /**@this GuildInteraction @param {lang}lang @param {ActionRowBuilder<ButtonBuilder>[]}components @param {mainFunctionsParams}*/
+    /**
+     * @this GuildInteraction
+     * @param {lang}lang
+     * @param {ActionRowBuilder<ButtonBuilder>[]}components
+     * @param {mainFunctionsParams}options*/
     edit: async function (lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId }) {
       const editOptions = {
         addTime: duration,
@@ -79,7 +91,11 @@ const
       return this.editReply({ content: lang('edited'), components });
     },
 
-    /**@this GuildInteraction @param {lang}lang @param {ActionRowBuilder<ButtonBuilder>[]}components @param {mainFunctionsParams}*/
+    /**
+     * @this GuildInteraction
+     * @param {lang}lang
+     * @param {ActionRowBuilder<ButtonBuilder>[]}components
+     * @param {mainFunctionsParams}options*/
     reroll: async function (lang, components, { giveawayId }) {
       const rerollOptions = {
         messages: {
@@ -95,7 +111,7 @@ const
     }
   };
 
-/**@type {command}*/
+/** @type {command<'slash'>}*/
 module.exports = {
   name: 'giveaway',
   permissions: { user: ['ManageMessages'] },
@@ -193,7 +209,6 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction*/
   run: async function (lang) {
     if (!this.client.giveawaysManager) return this.editReply(lang('managerNotFound'));
 

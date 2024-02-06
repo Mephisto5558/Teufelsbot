@@ -6,13 +6,12 @@ const responseList = [
   'https://i.redd.it/goq4k091vrdc1.jpeg'
 ];
 
-/**@type {command}*/
+/** @type {command<'prefix', false>}*/
 module.exports = {
   name: 'happy',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
 
-  /**@this Message*/
   run: function () { return this.customReply(responseList.random()); }
 };

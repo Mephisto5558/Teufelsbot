@@ -1,6 +1,6 @@
 const { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors, } = require('discord.js');
 
-/**@type {command}*/
+/** @type {command<'slash'>}*/
 module.exports = {
   name: 'record',
   cooldowns: { user: 1e4 },
@@ -16,10 +16,9 @@ module.exports = {
     { name: 'public', type: 'Boolean' }
   ],
 
-  /**@this GuildInteraction*/
   run: async function (lang) {
     const
-      /**@type {import('discord.js').BaseGuildVoiceChannel?}*/
+      /** @type {import('discord.js').BaseGuildVoiceChannel?}*/
       voiceChannel = this.options.getChannel('channel') || this.options.getMember('target')?.voice.channel || this.member.voice.channel,
       target = voiceChannel?.members.get(this.options.getMember('target')?.id),
       targets = (target ? [target] : [...(voiceChannel?.members?.values() ?? [])]).filter(e => e?.voice.channel && !e.user.bot),

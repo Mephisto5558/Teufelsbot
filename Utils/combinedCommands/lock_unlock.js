@@ -3,7 +3,7 @@ const
   getTargetChannel = require('../getTargetChannel.js');
 
 /**
- * @this {GuildMessage|GuildInteraction}
+ * @this {Message<true>|GuildInteraction}
  * @param {lang}lang*/
 module.exports = async function lock_unlock(lang) {
   this.args?.shift();

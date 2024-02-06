@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   ownerOnlyFolders = require('../../Utils').getOwnerOnlyFolders();
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'cmdstats',
   cooldowns: { user: 1000 },

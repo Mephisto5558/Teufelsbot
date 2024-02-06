@@ -1,6 +1,6 @@
 const { gitpull } = require('../../Utils');
 
-/**@type {command}*/
+/** @type {command<'prefix', false>}*/
 module.exports = {
   name: 'gitpull',
   slashCommand: false,
@@ -8,7 +8,6 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  /**@this Message*/
   run: async function (lang) {
     await gitpull();
     return this.customReply(lang('success'));

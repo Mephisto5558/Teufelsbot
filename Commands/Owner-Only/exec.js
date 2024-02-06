@@ -1,6 +1,6 @@
 const exec = require('util').promisify(require('child_process').exec);
 
-/**@type {command}*/
+/** @type {command<'prefix', false>}*/
 module.exports = {
   name: 'exec',
   slashCommand: false,
@@ -8,7 +8,6 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  /**@this Message*/
   run: async function (lang) {
     if (!this.content) return;
     

@@ -3,7 +3,7 @@ const
   { Domain } = require('../../config.json')?.Website ?? {},
   { timeFormatter } = require('../../Utils');
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'uptime',
   cooldowns: { channel: 100 },
