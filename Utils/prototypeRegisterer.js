@@ -3,7 +3,6 @@ const
   TicTacToe = require('discord-tictactoe'),
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('crypto'),
-  { readdir } = require('fs/promises'),
   { join } = require('path'),
   { DB } = require('@mephisto5558/mongoose-db'),
   I18nProvider = require('@mephisto5558/i18n'),
@@ -12,7 +11,7 @@ const
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
 if (!require('../config.json').HideOverwriteWarning) console.warn(`Overwriting the following variables and functions (if they exist):
-  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime), ' : ' '}global.getDirectories, global.sleep, global.log, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
+  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime), ' : ' '}global.sleep, global.log, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
   Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
   \nModifying Discord.js Message._patch method.`
 );
@@ -26,7 +25,6 @@ if (parentUptime) {
 
 global.log = new Log();
 global.sleep = require('util').promisify(setTimeout);
-global.getDirectories = async path => (await readdir(path, { withFileTypes: true })).reduce((acc, e) => e.isDirectory() ? [...acc, e.name] : acc, []);
 
 Object.defineProperty(Array.prototype, 'random', {
   /** @type {global['Array']['prototype']['random']}*/
