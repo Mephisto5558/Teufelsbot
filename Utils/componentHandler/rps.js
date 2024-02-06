@@ -3,7 +3,10 @@ const
   sendChallenge = require('./rps_sendChallenge.js'),
   emojis = { r: '✊', p: '🤚', s: '✌️' };
 
-/**@this GuildInteraction @param {import('discord.js').GuildMember}initiator @param {import('discord.js').GuildMember}opponent @param {lang}lang*/
+/** @this GuildInteraction
+ * @param {import('discord.js').GuildMember}initiator
+ * @param {import('discord.js').GuildMember}opponent
+ * @param {lang}lang*/
 function sendGame(initiator, opponent, lang) {
   const
     embed = new EmbedBuilder({
@@ -37,8 +40,11 @@ function sendGame(initiator, opponent, lang) {
 }
 
 /** this.customId: `rps.<initiatorId>.<mode>.<opponentId>`
- * @this import('discord.js').ButtonInteraction @param {lang}lang @param {string}initiatorId
- * @param {'cancel'|'decline'|'accept'|'playAgain'|'r'|'p'|'s'}mode @param {string}opponentId*/
+ * @this import('discord.js').ButtonInteraction 
+ * @param {lang}lang 
+ * @param {string}initiatorId
+ * @param {'cancel'|'decline'|'accept'|'playAgain'|'r'|'p'|'s'}mode 
+ * @param {string}opponentId*/
 module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   if (this.user.id != initiatorId && this.user.id != opponentId) return;
   if (mode.length != 1) await this.deferUpdate();

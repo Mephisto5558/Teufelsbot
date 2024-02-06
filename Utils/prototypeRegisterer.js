@@ -29,14 +29,17 @@ global.sleep = require('util').promisify(setTimeout);
 global.getDirectories = async path => (await readdir(path, { withFileTypes: true })).reduce((acc, e) => e.isDirectory() ? [...acc, e.name] : acc, []);
 
 Object.defineProperty(Array.prototype, 'random', {
+  /** @type {global['Array']['prototype']['random']}*/
   value: function random() { return this[randomInt(this.length)]; },
   enumerable: false
 });
 Object.defineProperty(Number.prototype, 'limit', {
+  /** @type {global['Number']['prototype']['limit']}*/
   value: function limit({ min = -Infinity, max = Infinity } = {}) { return Math.min(Math.max(Number(this), min), max); },
   enumerable: false
 });
 Object.defineProperty(Object.prototype, 'fMerge', {
+  /** @type {global['Object']['prototype']['fMerge']}*/
   value: function fMerge(obj, mode, { ...output } = { ...this }) {
     if (`${{}}` != this || `${{}}` != obj) return output;
     for (const key of Object.keys({ ...this, ...obj })) {
@@ -56,12 +59,13 @@ Object.defineProperty(Object.prototype, 'fMerge', {
   enumerable: false
 });
 Object.defineProperty(Object.prototype, 'filterEmpty', {
+  /** @type {global['Object']['prototype']['filterEmpty']}*/
   value: function filterEmpty() { return Object.fromEntries(Object.entries(this).filter(([, v]) => !(v == null || (Object(v) === v && Object.keys(v).length == 0))).map(([k, v]) => [k, v instanceof Object ? v.filterEmpty() : v])); },
   enumerable: false
 });
 Object.defineProperty(Function.prototype, 'bBind', {
+  /** @type {global['Function']['prototype']['bBind']}*/
   value: function bBind(thisArg, ...args) {
-    /**@type {bBoundFunction}*/
     const bound = this.bind(thisArg, ...args);
     bound.__targetFunction__ = this;
     bound.__boundThis__ = thisArg;
@@ -88,6 +92,7 @@ Object.defineProperties(BaseClient.prototype, {
     set(val) { this.db.update('guildSettings', 'default', val); }
   },
   awaitReady: {
+    /** @type {Client['awaitReady']}*/
     value: function awaitReady() { return new Promise(res => this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch()))); }
   }
 });
@@ -137,13 +142,19 @@ Object.defineProperties(Guild.prototype, {
   }
 });
 
-DB.prototype.generate = async function generate(overwrite = false) {
-  log.setType('DB').debug(`generating db files${overwrite ? ', overwriting existing data' : ''}`).setType();
-  for (const { key, value } of require('../Templates/db_collections.json')) await this.set(key, value, overwrite);
-};
+Object.defineProperty(DB.prototype, 'generate', {
+  /** @type {DB['generate']}*/
+  value: async function generate(overwrite = false) {
+    log.setType('DB').debug(`generating db files${overwrite ? ', overwriting existing data' : ''}`).setType();
+    for (const { key, value } of require('../Templates/db_collections.json')) await this.set(key, value, overwrite);
+  },
+  enumerable: false
+});
 
 TicTacToe.prototype.playAgain = playAgain;
-/**@param {number}row @param {number}col*/
+/**
+ * @param {number}row
+ * @param {number}col*/
 GameBoardButtonBuilder.prototype.createButton = function createButton(row, col) {
   const
     button = new ButtonBuilder(),

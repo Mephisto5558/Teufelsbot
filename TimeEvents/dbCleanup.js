@@ -1,16 +1,19 @@
-/**@returns milliseconds*/
+/** @returns milliseconds*/
 const getOneMonthAgo = () => new Date().setMonth(new Date().getMonth() - 1);
 
-/**Removes all giveaways that ended more than one month ago
- * @this Client @param {{ ended: boolean, endAt: number }[]}db*/
+/** Removes all giveaways that ended more than one month ago
+ * @this Client
+ * @param {{ ended: boolean, endAt: number }[]}db*/
 function cleanupGiveawaysDB(db) {
   if (db) this.db.set('giveaways', db.filter(e => !e.ended || getOneMonthAgo() < e.endAt));
 
   log('Cleaned giveaways DB');
 }
 
-/**Removes all lastMentions data older than one month
- * @this Client @param {string}guildId @param {{ [userId: string]: { createdAt: Date } }}db*/
+/** Removes all lastMentions data older than one month
+ * @this Client
+ * @param {string}guildId
+ * @param {{ [userId: string]: { createdAt: Date } }}db*/
 function cleanupMentionsDB(guildId, db) {
   if (!db) return;
 
@@ -20,8 +23,10 @@ function cleanupMentionsDB(guildId, db) {
   }
 }
 
-/**Removes all AFK-Messages older than one month
- * @this Client @param {string}guildId @param {{ [userId: string]: { createdAt: string } }}db createdAt is in seconds, not milliseconds*/
+/** Removes all AFK-Messages older than one month
+ * @this Client
+ * @param {string}guildId
+ * @param {{ [userId: string]: { createdAt: string } }}db createdAt is in seconds, not milliseconds*/
 function cleanupAfkMessagesDB(guildId, db) {
   if (!db) return;
 
@@ -31,8 +36,10 @@ function cleanupAfkMessagesDB(guildId, db) {
   }
 }
 
-/**Removes all AFK-Messages older than one month
- * @this Client @param {string}guildId @param {{ [game: string]: { [userId: string]: { createdAt: string } }}}db createdAt is in seconds, not milliseconds*/
+/** Removes all AFK-Messages older than one month
+ * @this Client
+ * @param {string}guildId
+ * @param {{ [game: string]: { [userId: string]: { createdAt: string } }}}db createdAt is in seconds, not milliseconds*/
 function cleanUpMinigamesDB(guildId, db) {
   if (!db) return;
 
@@ -46,7 +53,7 @@ module.exports = {
   time: '00 00 00 01 * *', //monthly
   startNow: true,
 
-  /**@this Client*/
+  /** @this Client*/
   onTick: async function () {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 

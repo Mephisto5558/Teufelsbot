@@ -1,6 +1,6 @@
 const { gitpull } = require('../../../../../Utils');
 
-/**@type {import('@mephisto5558/bot-website').customPage}*/
+/** @type {import('@mephisto5558/bot-website').customPage}*/
 module.exports = {
   run: async res => {
     const pulled = await gitpull();

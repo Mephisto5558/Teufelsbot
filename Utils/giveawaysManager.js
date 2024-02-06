@@ -5,13 +5,19 @@ module.exports = class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
     return this.client.db.get('giveaways');
   }
 
-  /**@returns {Promise<true>}*/
+  /**
+   * @param {any}_
+   * @param {unknown}giveawayData
+   * @returns {Promise<true>}*/
   async saveGiveaway(_, giveawayData) {
     await this.client.db.push('giveaways', giveawayData);
     return true;
   }
 
-  /**@param {string}messageId @returns {Promise<true>}*/
+  /** 
+   * @param {string}messageId
+   * @param {unknown}giveawayData
+   * @returns {Promise<true>}*/
   async editGiveaway(messageId, giveawayData) {
     const data = this.client.db.get('giveaways').filter(e => e.messageId != messageId);
     data.push(giveawayData);
@@ -20,7 +26,7 @@ module.exports = class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
     return true;
   }
 
-  /**@param {string}messageId @returns {Promise<true>}*/
+  /** @param {string}messageId @returns {Promise<true>}*/
   async deleteGiveaway(messageId) {
     await this.client.db.set('giveaways', this.client.db.get('giveaways').filter(e => e.messageId != messageId));
     return true;

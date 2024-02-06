@@ -3,7 +3,15 @@ const
   fetch = require('node-fetch');
 
 class BackupSystem {
-  /**@param {DB}db*/
+  /**
+   * @param {DB}db
+   * @param {object}options
+   * @param {string}options.dbName
+   * @param {number}options.maxGuildBackups
+   * @param {number}options.maxMessagesPerChannel
+   * @param {boolean}options.saveImages
+   * @param {boolean}options.clearGuildBeforeRestore
+   */
   constructor(db, { dbName = 'backups', maxGuildBackups = 5, maxMessagesPerChannel = 10, saveImages = false, clearGuildBeforeRestore = true } = {}) {
     this.db = db;
     if (!this.db) throw new Error('db is a required argument!');
@@ -20,19 +28,25 @@ class BackupSystem {
     };
   }
 
-  /**@param {string}backupId @param {string}guildId*/
+  /**
+   * @param {string}backupId
+   * @param {string}guildId*/
   get = (backupId, guildId) => this.db.get(this.dbName, backupId ? `${(guildId ?? '') + backupId}` : null);
 
-  /**@param {string}backupId @returns {Collection<string,object>}all backups of a guild or all backups, if no guildId provided.*/
+  /** 
+   * @param {require('discord.js').Snowflake}guildId
+   * @returns {Collection<string, object>}*/
   list = guildId => {
     const collection = new Collection(Object.entries(this.get() || {}));
     return guildId ? collection.filter(e => e?.guildId == guildId) : collection;
   };
 
-  /**@param {string}backupId*/
+  /** @param {string}backupId*/
   remove = backupId => this.db.delete(this.dbName, backupId);
 
-  /**@param {import('discord.js').Guild}guild @param {object?}statusObj the status property gets updated*/
+  /** 
+   * @param {import('discord.js').Guild}guild 
+   * @param {object?}statusObj the status property gets updated*/
   create = async (guild, {
     statusObj = {}, id = null, save = true, maxGuildBackups = this.defaultSettings.maxGuildBackups,
     backupMembers = false, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
@@ -152,7 +166,16 @@ class BackupSystem {
     return data;
   };
 
-  /**@param {string|object|null}id Backup Id. If falsely, will use latest. If object, will use object. @param {import('discord.js').Guild}guild @param {object}statusObj the status property gets updated*/
+  /** 
+   * @param {string|object|null}id Backup Id. If falsely, will use latest. If object, will use object. 
+   * @param {import('discord.js').Guild}guild 
+   * @param {object}options
+   * @param {object}options.statusObj the status property gets updated
+   * @param {boolean}options.clearGuildBeforeRestore
+   * @param {number}options.maxMessagesPerChannel
+   * @param {import('discord.js').APIAllowedMentions}options.allowedMentions
+   * @param {string}options.reason
+   */
   load = async (id, guild, { statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel, allowedMentions = [], reason = 'Backup Feature | Load' } = {}) => {
     if (!guild) throw new Error('Invalid guild');
 
@@ -309,11 +332,11 @@ class BackupSystem {
   };
 
   static utils = {
-    /**@param {string}url*/
+    /** @param {string}url*/
     fetchToBase64: async url => url ? (await fetch(url).then(r => r.buffer())).toString('base64') : null,
-    /**@param {string}str*/
+    /** @param {string}str*/
     loadFromBase64: str => str ? Buffer.from(str, 'base64') : null,
-    /**@param {import('discord.js').GuildChannel}channel*/
+    /** @param {import('discord.js').GuildChannel}channel*/
     fetchChannelPermissions: channel => channel.permissionOverwrites.cache.filter(e => e.type == OverwriteType.Role).map(e => {
       const role = channel.guild.roles.cache.get(e.id);
       return role ? ({
@@ -322,7 +345,11 @@ class BackupSystem {
         deny: e.deny.bitfield.toString()
       }) : null;
     }),
-    /**@param {import('discord.js').GuildChannel}channel @param {boolean}saveImages @param {number}maxMessagesPerChannel*/
+
+    /** 
+     * @param {import('discord.js').GuildChannel}channel 
+     * @param {boolean}saveImages 
+     * @param {number}maxMessagesPerChannel*/
     fetchTextChannelData: async (channel, saveImages, maxMessagesPerChannel) => ({
       type: channel.type,
       name: channel.name,
@@ -334,7 +361,11 @@ class BackupSystem {
       messages: await this.utils.fetchChannelMessages(channel, saveImages, maxMessagesPerChannel).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; }),
       threads: await this.utils.fetchChannelThreads(channel, saveImages, maxMessagesPerChannel)
     }),
-    /**@param {import('discord.js').GuildChannel}channel @param {boolean}saveImages @param {number}maxMessagesPerChannel*/
+
+    /**
+     * @param {import('discord.js').GuildChannel}channel
+     * @param {boolean}saveImages
+     * @param {number}maxMessagesPerChannel*/
     fetchChannelThreads: async (channel, saveImages, maxMessagesPerChannel) => ((await channel.threads?.fetch())?.threads || []).map(async e => ({
       type: e.type,
       name: e.name,
@@ -344,7 +375,11 @@ class BackupSystem {
       rateLimitPerUser: e.rateLimitPerUser,
       messages: await this.utils.fetchChannelMessages(e, saveImages, maxMessagesPerChannel).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; }),
     })),
-    /**@param {import('discord.js').GuildChannel}channel @param {boolean}saveImages @param {number}maxMessagesPerChannel*/
+
+    /** 
+     * @param {import('discord.js').GuildChannel}channel 
+     * @param {boolean}saveImages
+     * @param {number}maxMessagesPerChannel*/
     fetchChannelMessages: async (channel, saveImages, maxMessagesPerChannel) => Promise.all((await channel.messages.fetch({ limit: isNaN(maxMessagesPerChannel) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: 100 }) })).filter(e => e.author).map(async e => ({
       username: e.author.username,
       avatar: e.author.avatarURL(),
@@ -356,7 +391,13 @@ class BackupSystem {
       pinned: e.pinned,
       createdAt: e.createdAt.toISOString(),
     }))),
-    /**@param {import('discord.js').GuildChannel}channel @param {import('discord.js').Guild}guild @param {string}category @param {number}maxMessagesPerChannel @param {import('discord.js').APIAllowedMentions}allowedMentions*/
+
+    /** 
+     * @param {import('discord.js').GuildChannel}channel 
+     * @param {import('discord.js').Guild}guild
+     * @param {string}category 
+     * @param {number}maxMessagesPerChannel 
+     * @param {import('discord.js').APIAllowedMentions}allowedMentions*/
     loadChannel: async (channel, guild, category, maxMessagesPerChannel, allowedMentions) => {
       const createOptions = {
         name: channel.name,
@@ -396,7 +437,13 @@ class BackupSystem {
 
       return newChannel;
     },
-    /**@param {import('discord.js').GuildTextBasedChannel}channel @param {Message[]}messages @param {import('discord.js').Webhook?} @param {number}maxMessagesPerChannel @param {import('discord.js').APIAllowedMentions}*/
+
+    /** 
+     * @param {import('discord.js').GuildTextBasedChannel}channel
+     * @param {Message[]}messages 
+     * @param {import('discord.js').Webhook?}webhook
+     * @param {number}maxMessagesPerChannel 
+     * @param {import('discord.js').APIAllowedMentions}allowedMentions*/
     loadChannelMessages: async (channel, messages, webhook, maxMessagesPerChannel, allowedMentions) => {
       try { webhook ??= await channel.createWebhook({ name: 'MessagesBackup', avatar: channel.client.user.displayAvatarURL() }); }
       catch (err) {

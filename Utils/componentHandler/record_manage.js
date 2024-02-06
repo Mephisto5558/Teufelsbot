@@ -7,7 +7,12 @@ const
   exec = require('util').promisify(require('child_process').exec),
   ffmpeg = require('ffmpeg-static').default;
 
-/**@this import('discord.js').ButtonInteraction @param {lang}lang @param {string}requesterId @param {string}voiceChannelId @param {{ userId: string, allowed: boolean }[]}vcCache*/
+/** 
+ * @this import('discord.js').ButtonInteraction
+ * @param {lang}lang
+ * @param {string}requesterId
+ * @param {string}voiceChannelId 
+ * @param {{ userId: string, allowed: boolean }[]}vcCache*/
 module.exports.startRecording = async function startRecording(lang, requesterId, voiceChannelId, vcCache) {
   const embed = this.message.embeds[0];
 
@@ -81,7 +86,12 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
     .pipe(createWriteStream(`./VoiceRecords/raw/${filename}.ogg`, { flags: 'a' }));
 };
 
-/**@this import('discord.js').ButtonInteraction @param {lang}lang @param {string}mode @param {string}voiceChannelId @param {import('discord.js').Collection<string, import('discord.js').Collection<string, {userId: string, allowed: boolean}[]}cache*/
+/**
+ * @this import('discord.js').ButtonInteraction
+ * @param {lang}lang 
+ * @param {string}mode
+ * @param {string}voiceChannelId
+ * @param {import('discord.js').Collection<string, import('discord.js').Collection<string, {userId: string, allowed: boolean}[]}cache*/
 module.exports.recordControls = async function recordControls(lang, mode, voiceChannelId, cache) {
   const
     embed = this.message.embeds[0],

@@ -1,6 +1,6 @@
 const { readdir, stat, unlink, access, mkdir } = require('fs/promises');
 
-/**@param {string}path*/
+/** @param {string}path*/
 async function deleteOld(path) {
   try { await access(path); } catch { return mkdir(path); }
 
@@ -20,7 +20,7 @@ module.exports = {
   time: '00 00 00 01 * *', //monthly
   startNow: true,
 
-  /**@this Client*/
+  /** @this Client*/
   onTick: async function () {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 

@@ -4,9 +4,13 @@
     "es2022": true,
     "node": true
   },
-  "extends": ["eslint:recommended"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:jsdoc/recommended"
+  ],
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "jsdoc"
   ],
   "overrides": [
     {
@@ -15,13 +19,71 @@
       ],
       "extends": [
         "eslint:recommended",
+        "plugin:jsdoc/recommended",
         "plugin:@typescript-eslint/recommended"
       ],
       "parser": "@typescript-eslint/parser",
       "rules": {
-        "@typescript-eslint/member-delimiter-style": [
-          "error"
-        ]
+        "@typescript-eslint/member-delimiter-style": "error",
+        "@typescript-eslint/indent": [
+          "error",
+          2,
+          {
+            "SwitchCase": 1
+          }
+        ],
+        "@typescript-eslint/quotes": [
+          "warn",
+          "single",
+          {
+            "avoidEscape": true
+          }
+        ],
+        "@typescript-eslint/semi": [
+          "error",
+          "always"
+        ],
+        "no-trailing-spaces": "warn",
+        "comma-spacing": [
+          "error",
+          {
+            "before": false,
+            "after": true
+          }
+        ],
+        "object-curly-spacing": [
+          "error",
+          "always"
+        ],
+        "jsdoc/multiline-blocks": [
+          "warn",
+          {
+            "noZeroLineText": false,
+            "noFinalLineText": false
+          }
+        ],
+        "jsdoc/check-indentation": "warn",
+        "jsdoc/check-line-alignment": "warn",
+        "jsdoc/require-asterisk-prefix": "warn",
+        "jsdoc/no-multi-asterisks": [
+          "warn",
+          {
+            "preventAtEnd": false
+          }
+        ],
+        "jsdoc/require-returns-description": "off",
+        "jsdoc/require-param-description": "off",
+        "jsdoc/valid-types": "off", //issues with global types
+        "jsdoc/no-undefined-types": "off", //issues with global types
+        "jsdoc/require-param": [
+          "warn",
+          {
+            "enableFixer": false,
+            "useDefaultObjectProperties": true
+          }
+        ],
+        "jsdoc/require-returns": "off",
+        "jsdoc/require-returns-type": "off"
       }
     }
   ],
@@ -32,9 +94,7 @@
     "ecmaVersion": "latest"
   },
   "rules": {
-    "no-fallthrough": [
-      "warn"
-    ],
+    "no-fallthrough": "warn",
     "no-empty": [
       "error",
       {
@@ -48,9 +108,7 @@
         "SwitchCase": 1
       }
     ],
-    "linebreak-style": [
-      "off"
-    ],
+    "linebreak-style": "off",
     "quotes": [
       "warn",
       "single",
@@ -85,7 +143,36 @@
     "object-curly-spacing": [
       "error",
       "always"
-    ]
+    ],
+    "jsdoc/multiline-blocks": [
+      "warn",
+      {
+        "noZeroLineText": false,
+        "noFinalLineText": false
+      }
+    ],
+    "jsdoc/check-indentation": "warn",
+    "jsdoc/check-line-alignment": "warn",
+    "jsdoc/require-asterisk-prefix": "warn",
+    "jsdoc/no-multi-asterisks": [
+      "warn",
+      {
+        "preventAtEnd": false
+      }
+    ],
+    "jsdoc/require-returns-description": "off",
+    "jsdoc/require-param-description": "off",
+    "jsdoc/valid-types": "off", //issues with global types
+    "jsdoc/no-undefined-types": "off", //issues with global types
+    "jsdoc/require-param": [
+      "warn",
+      {
+        "enableFixer": false,
+        "useDefaultObjectProperties": true
+      }
+    ],
+    "jsdoc/require-returns": "off",
+    "jsdoc/require-returns-type": "off"
   },
   "globals": {
     "getDirectories": "readonly",
