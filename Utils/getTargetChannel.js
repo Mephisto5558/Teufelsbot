@@ -1,6 +1,8 @@
-/**
- * @this Message|Interaction @param {object}options
- * @param {boolean?}options.returnSelf return this.channel if nothing else has been found @param {string?}options.targetOptionName the option name for `this.options.getX(targetOptionName)`.
+/** 
+ * @this Message|Interaction
+ * @param {object}options
+ * @param {string?}options.targetOptionName the option name for `this.options.getX(targetOptionName)`.
+ * @param {boolean?}options.returnSelf return this.channel if nothing else has been found 
  * @returns {import('discord.js').Channel|undefined}will return undefined if none found.*/
 module.exports = function getTargetChannel({ targetOptionName = 'channel', returnSelf } = {}) {
   let target = this.options?.getChannel(targetOptionName) || this.mentions?.channels.first();

@@ -3,7 +3,7 @@ const
   getOwnerOnlyFolders = require('./getOwnerOnlyFolders.js'),
   ownerOnlyFolders = getOwnerOnlyFolders();
 
-/**@param {lang}lang*/
+/** @param {lang}lang*/
 module.exports = async function getCommands(lang) {
   const categoryCommandList = [];
   for (const subFolder of await getDirectories('./Commands')) {

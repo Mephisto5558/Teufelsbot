@@ -3,14 +3,16 @@ const
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable.js');
 
-/**@this GuildInteraction @param {lang}lang*/
+/**
+ * @this GuildInteraction
+ * @param {lang}lang*/
 module.exports = async function ban_kick_mute(lang) {
   if (this.commandName == 'timeout') this.commandName = 'mute';
   if (!['ban', 'kick', 'mute'].includes(this.commandName)) throw new Error(`"${this.commandName}" is not an accepted commandName.`);
 
   let
     noMsg, muteDurationMs,
-    /**@type {number?}*/
+    /** @type {number?}*/
     muteDuration = this.options.getString('duration'),
     reason = this.options.getString('reason');
 
@@ -23,7 +25,7 @@ module.exports = async function ban_kick_mute(lang) {
   }
 
   const
-    /**@type {import('discord.js').GuildMember}*/
+    /** @type {import('discord.js').GuildMember}*/
     target = this.options.getMember('target'),
     infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.tag, muteDuration, reason }),
     userEmbed = new EmbedBuilder({

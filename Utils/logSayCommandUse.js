@@ -1,13 +1,15 @@
-const { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ChannelType } = require('discord.js');
 
-/**@this Message @param {import('discord.js').GuildMember}member @param {lang}lang*/
+/** 
+ * @this Message
+ * @param {import('discord.js').GuildMember}member
+ * @param {lang}lang*/
 module.exports = function logSayCommandUse(member, lang) {
   const setting = this.guild?.db.config?.logger?.sayCommandUsed ?? {};
   if (this.client.botType == 'dev' || !setting.enabled || !setting.channel) return;
 
-  /**@type {import('discord.js').GuildTextBasedChannel?}*/
   const channel = this.guild.channels.cache.get(setting.channel);
-  if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
+  if (channel?.type != ChannelType.GuildText || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
 
   lang.__boundArgs__[0].backupPath = 'events.logger.sayCommandUsed';
 

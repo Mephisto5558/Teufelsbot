@@ -1,4 +1,4 @@
-/**@type {import('@mephisto5558/bot-website').customPage}*/
+/** @type {import('@mephisto5558/bot-website').customPage}*/
 module.exports = {
   run: async function (res, req) {
     if (this.db.get('botSettings', 'blacklist')?.includes(req.user?.id)) return res.json({ errorCode: 403, error: 'You have been blacklisted from using the bot.' });

@@ -1,6 +1,10 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
-/**@this GuildInteraction|GuildMessage|import('discord.js').ButtonInteraction @param {import('discord.js').GuildMember}initiator @param {import('discord.js').GuildMember}opponent @param {lang}lang*/
+/** 
+ * @this GuildInteraction|GuildMessage|import('discord.js').ButtonInteraction
+ * @param {import('discord.js').GuildMember}initiator
+ * @param {import('discord.js').GuildMember}opponent 
+ * @param {lang}lang*/
 module.exports = async function sendRPSChallenge(initiator, opponent = this.client.user, lang = null) {
   lang.__boundArgs__[0].backupPath = 'commands.minigames.rps.challenge';
 
