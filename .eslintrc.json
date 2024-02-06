@@ -175,7 +175,6 @@
     "jsdoc/require-returns-type": "off"
   },
   "globals": {
-    "getDirectories": "readonly",
     "sleep": "readonly",
     "log": "readonly"
   }
