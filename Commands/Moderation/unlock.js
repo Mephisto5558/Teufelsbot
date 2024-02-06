@@ -1,4 +1,4 @@
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'unlock',
   permissions: { client: ['ManageRoles'], user: ['ManageRoles'] },

@@ -2,7 +2,7 @@ const
   { getTargetMember } = require('../../Utils'),
   { rps_sendChallenge: sendChallenge } = require('../../Utils/componentHandler/');
 
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'rps',
   aliases: { prefix: ['rockpaperscissors'] },
@@ -11,7 +11,6 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'opponent', type: 'User' }],
 
-  /**@this GuildInteraction|GuildMessage*/
   run: function (lang) {
     return sendChallenge.call(this, this.member, getTargetMember.call(this, { targetOptionName: 'opponent' }), lang);
   }

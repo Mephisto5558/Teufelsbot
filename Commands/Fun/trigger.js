@@ -1,9 +1,12 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   triggerMainFunctions = {
-    /**@typedef {{ id:string, trigger:string, response:string, wildcard:boolean }[]}oldData*/
+    /** @typedef {{ id:string, trigger:string, response:string, wildcard:boolean }[]}oldData*/
 
-    /**@this GuildInteraction @param {lang}lang @param {oldData}oldData*/
+    /** 
+     * @this GuildInteraction
+     * @param {lang}lang
+     * @param {oldData}oldData*/
     add: async function (lang, oldData) {
       const data = {
         id: parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) + 1 || 1,
@@ -16,7 +19,11 @@ const
       return this.editReply(lang('saved', data.trigger));
     },
 
-    /**@this GuildInteraction @param {lang}lang @param {oldData}oldData @param {string}query*/
+    /** 
+     * @this GuildInteraction 
+     * @param {lang}lang 
+     * @param {oldData}oldData 
+     * @param {string}query*/
     delete: async function (lang, oldData, query) {
       const
         { id } = (query ? Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) : Object.values(oldData).sort((a, b) => b.id - a.id)[0]) || {},
@@ -28,7 +35,10 @@ const
       return this.editReply(lang('deletedOne', id));
     },
 
-    /**@this GuildInteraction @param {lang}lang @param {oldData}oldData*/
+    /**
+     * @this GuildInteraction
+     * @param {lang}lang
+     * @param {oldData}oldData*/
     clear: async function (lang, oldData) {
       if (this.options.getString('confirmation').toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
       if (!oldData.length) return this.editReply(lang('noneFound'));
@@ -37,7 +47,11 @@ const
       return this.editReply(lang('deletedAll', oldData.length));
     },
 
-    /**@this GuildInteraction @param {lang}lang @param {oldData}oldData @param {string}query*/
+    /**
+     * @this GuildInteraction
+     * @param {lang}lang
+     * @param {oldData}oldData
+     * @param {string}query*/
     get: async function (lang, oldData, query) {
       if (!oldData.length) return this.editReply(lang('noneFound'));
 
@@ -77,7 +91,7 @@ const
     }
   };
 
-/**@type {command}*/
+/** @type {command<'slash'>}*/
 module.exports = {
   name: 'trigger',
   permissions: { user: ['ManageMessages'] },
@@ -133,7 +147,6 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction*/
   run: async function (lang) {
     const
       oldData = this.guild.db.triggers || [],

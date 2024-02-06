@@ -1,6 +1,6 @@
 const { PermissionFlagsBits } = require('discord.js');
 
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'prefix',
   cooldowns: { user: 1000 },
@@ -11,7 +11,6 @@ module.exports = {
     { name: 'case_insensitive', type: 'Boolean' }
   ],
 
-  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const newPrefix = this.content || this.options?.getString('new_prefix');
     const prefixCaseInsensitive = this.options?.getBoolean('case_insensitive') ?? this.guild.db.config?.prefix?.caseinsensitive ?? false;

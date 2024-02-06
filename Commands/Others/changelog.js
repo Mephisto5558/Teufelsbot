@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   embed = new EmbedBuilder({ color: Colors.White });
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'changelog',
   aliases: { prefix: ['changelogs'] },

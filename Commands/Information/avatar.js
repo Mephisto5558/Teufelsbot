@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { getTargetMember } = require('../../Utils');
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'avatar',
   cooldowns: { user: 1000 },

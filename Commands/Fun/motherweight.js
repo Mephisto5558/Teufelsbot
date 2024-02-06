@@ -1,6 +1,6 @@
 const { getTargetMember } = require('../../Utils');
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'motherweight',
   aliases: { prefix: ['mutterwaage'] },

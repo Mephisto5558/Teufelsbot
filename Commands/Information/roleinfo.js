@@ -2,7 +2,7 @@ const
   { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { permissionTranslator } = require('../../Utils');
 
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'roleinfo',
   aliases: { prefix: ['role-info'] },
@@ -11,7 +11,6 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'role', type: 'Role' }],
 
-  /**@this GuildInteraction|GuildMessage*/
   run: function (lang) {
     this.args = this.args?.map(e => e.replace(/[<@>]/g, '')) || [];
     this.content = this.content?.replace(/[<@>]/g, '');

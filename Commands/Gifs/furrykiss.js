@@ -9,7 +9,7 @@ const
     '1160180768815988797/furry-protogen.gif'
   ];
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'furrykiss',
   aliases: { prefix: ['furry-kiss'] },

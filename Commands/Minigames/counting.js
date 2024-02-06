@@ -1,7 +1,7 @@
 const { Constants, EmbedBuilder, Colors } = require('discord.js');
 const { getTargetChannel } = require('../../Utils');
 
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'counting',
   permissions: { user: ['ManageChannels'] },
@@ -14,10 +14,9 @@ module.exports = {
     channelTypes: Constants.TextBasedChannelTypes
   }],
 
-  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const
-      /**@type {import('discord.js').GuildTextBasedChannel}*/
+      /** @type {import('discord.js').GuildTextBasedChannel}*/
       channel = getTargetChannel.call(this, { returnSelf: true }),
       counting = this.guild.db.counting || {};
 

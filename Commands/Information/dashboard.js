@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   { Domain, Dashboard } = require('../../config.json')?.Website ?? {};
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'dashboard',
   aliases: { slash: ['vote'], prefix: ['vote'] },

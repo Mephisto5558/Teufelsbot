@@ -2,7 +2,7 @@ const
   { default: fetch, FetchError } = require('node-fetch'),
   { EmbedBuilder } = require('discord.js');
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'inspirobot',
   cooldowns: { user: 1000 },

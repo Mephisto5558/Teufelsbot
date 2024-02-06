@@ -2,7 +2,7 @@ const
   { EmbedBuilder } = require('discord.js'),
   fetch = require('node-fetch');
 
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'nsfw',
   cooldowns: { user: 1000 },
@@ -19,7 +19,6 @@ module.exports = {
     strictAutocomplete: true
   }],
 
-  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     const data = await fetch(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') || this.args?.[0] || 'hentai').toLowerCase()}`).then(e => e.json());
     if (!data?.success) {

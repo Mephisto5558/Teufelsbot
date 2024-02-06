@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   { Invite, Dashboard, PrivacyPolicy } = require('../../config.json')?.Website ?? {};
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'info',
   slashCommand: true,

@@ -2,7 +2,7 @@ const
   { EmbedBuilder } = require('discord.js'),
   fetch = require('node-fetch').default;
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'advice',
   slashCommand: true,

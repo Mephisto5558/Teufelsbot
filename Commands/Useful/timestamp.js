@@ -2,7 +2,7 @@ const
   { Duration } = require('better-ms'),
   { timeValidator } = require('../../Utils');
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'timestamp',
   slashCommand: true,

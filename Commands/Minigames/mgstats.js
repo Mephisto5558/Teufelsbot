@@ -5,6 +5,10 @@ const
   sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
   manageData = data => Object.entries(data || {}).sort(([, a], [, b]) => b - a).slice(0, 3).reduce((acc, e) => acc + `> <@${e[0]}>: \`${e[1]}\`\n`, '');
 
+/**
+ * @param {number}input
+ * @param {number}all
+ */
 function formatStatCount(input, all) {
   input = parseInt(input);
   all = parseInt(all);
@@ -15,7 +19,7 @@ function formatStatCount(input, all) {
   return `\`${input}\`` + all ? `(\`${parseFloat((input / all * 100).toFixed(2))}%\`)` : '';
 }
 
-/**@type {command}*/
+/** @type {command<'both'>}*/
 module.exports = {
   name: 'mgstats',
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
@@ -31,7 +35,8 @@ module.exports = {
           name: 'game',
           type: 'String',
           required: true,
-          choices: ['tictactoe']
+          autocompleteOptions: function () { return Object.keys(this.client.db.get('leaderboards')); },
+          strictAutocomplete: true
         },
         { name: 'target', type: 'User' }
       ]
@@ -44,7 +49,8 @@ module.exports = {
           name: 'game',
           type: 'String',
           required: true,
-          choices: ['tictactoe']
+          autocompleteOptions: function () { return Object.keys(this.client.db.get('leaderboards')); },
+          strictAutocomplete: true
         },
         {
           name: 'sort',
@@ -60,13 +66,12 @@ module.exports = {
     }
   ],
 
-  /**@this GuildInteraction|GuildMessage*/
   run: async function (lang) {
     if (this instanceof Message && !this.args[0]) return this.customReply(lang('missingGameArg'));
 
     const
       type = this.options?.getSubcommand() || 'user',
-      /**@type {import('discord.js').GuildMember}*/
+      /** @type {import('discord.js').GuildMember}*/
       target = getTargetMember.call(this, { returnSelf: true }),
       settings = this.options?.getString('settings'),
       leaderboards = this.client.db.get('leaderboards'),

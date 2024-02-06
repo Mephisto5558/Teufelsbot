@@ -1,6 +1,6 @@
 const { AllowedMentionsTypes } = require('discord.js');
 
-/**@type {command}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'afk',
   cooldowns: { user: 5000 },
