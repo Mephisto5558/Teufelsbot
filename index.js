@@ -94,7 +94,7 @@ console.time('Starting time');
 
   const
     client = createClient(),
-    env = await loadEnv(client);
+    env = await loadEnv.call(client);
 
   client.botType = env.environment;
   client.keys = env.keys;
