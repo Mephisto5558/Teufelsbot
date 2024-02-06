@@ -36,31 +36,33 @@ const
     ]
   });
 
-/**
+/** 
  * Loads env and initializes client.db
- * @param {Client}client @returns {Promise<object>}*/
-async function loadEnv(client) {
+ * @this Client<false> @returns {Promise<object>}*/
+async function loadEnv() {
   let env;
   try { env = require('./env.json'); }
   catch (err) {
     if (err.code != 'MODULE_NOT_FOUND') throw err;
 
-    client.db = await new DB().init(process.env.dbConnectionStr, 'db-collections', 100);
-    env = client.db.get('botSettings', 'env');
+    this.db = await new DB().init(process.env.dbConnectionStr, 'db-collections', 100);
+    env = this.db.get('botSettings', 'env');
   }
 
   env = env.global.fMerge(env[env.global.environment]);
-  client.db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100);
+  this.db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100);
 
-  if (!client.db.cache.size) {
+  if (!this.db.cache.size) {
     log('Database is empty, generating default data');
-    await client.db.generate();
+    await this.db.generate();
   }
 
   return env;
 }
 
-/**@this Client @param {string}message*/
+/** 
+ * @this Client<true>
+ * @param {string}message*/
 async function processMessageEventCallback(message) {
   if (message != 'Start WebServer') return;
   process.removeListener('message', processMessageEventCallback.bind(this));

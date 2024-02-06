@@ -1,7 +1,11 @@
 const commandExecutionWrapper = require('../commandExecutionWrapper.js');
 
 /** this.customId: `reddit.<subreddit>.<type>.<filterNSFW>`
- * @this import('discord.js').ButtonInteraction @param {lang}lang @param {string}subreddit @param {string}type @param {'true'|'false'}filterNSFW*/
+ * @this import('discord.js').ButtonInteraction
+ * @param {lang}lang 
+ * @param {string}subreddit
+ * @param {string}type
+ * @param {'true'|'false'}filterNSFW*/
 module.exports = function reddit(lang, subreddit, type, filterNSFW) {
   lang.__boundArgs__[0].backupPath = 'commands.fun.reddit';
 

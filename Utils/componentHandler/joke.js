@@ -1,12 +1,18 @@
 const commandExecutionWrapper = require('../commandExecutionWrapper.js');
 
 /** this.customId: `joke.<api>.<type>.<blacklist>.<maxLength>`
- * @this import('discord.js').ButtonInteraction @param {lang}lang @param {string}api @param {string}type @param {string}blacklist @param {string}maxLength*/
+ * @this import('discord.js').ButtonInteraction
+ * @param {lang}lang
+ * @param {string}api
+ * @param {string}type
+ * @param {string}blacklist
+ * @param {string}maxLength*/
 module.exports = function joke(lang, api, type, blacklist, maxLength) {
   lang.__boundArgs__[0].backupPath = 'commands.fun.joke';
 
   this.options = {
-    getString: /**@param {string}str*/ str => {
+    /** @param {string}str*/ 
+    getString: str => {
       switch (str) {
         case 'api': return api == 'null' ? null : api;
         case 'type': return type == 'null' ? null : type;

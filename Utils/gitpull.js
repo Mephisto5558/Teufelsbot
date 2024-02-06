@@ -1,6 +1,6 @@
 const exec = require('util').promisify(require('child_process').exec);
 
-/**@returns {Promise<Error|'OK'>}*/
+/** @returns {Promise<Error|'OK'>}*/
 module.exports = async () => {
   let data;
 

@@ -1,6 +1,6 @@
 const { readdir } = require('fs/promises');
 
-/**@this Client*/
+/** @this Client*/
 module.exports = async function eventHandler() {
   let eventCount = 0;
   for (const file of await readdir('./Events')) {

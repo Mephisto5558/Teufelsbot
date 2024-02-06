@@ -1,6 +1,9 @@
 const { EmbedBuilder } = require('discord.js');
 
-/**@this String @param {import('discord.js').User}user @param {number}year*/
+/**
+ * @this String
+ * @param {import('discord.js').User}user
+ * @param {number}year*/
 function formatBirthday(user, year) {
   return this?.toString()?.replaceAll('<user.nickname>', user.displayName)
     .replaceAll('<user.username>', user.username)
@@ -20,7 +23,7 @@ module.exports = {
   time: '00 00 00 * * *', //daily
   startNow: true,
 
-  /**@this Client*/
+  /** @this Client*/
   onTick: async function () {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 

@@ -1,4 +1,4 @@
-module.exports = (() => /**@type {import('@mephisto5558/bot-website').dashboardSetting}*/({
+module.exports = (() => /** @type {import('@mephisto5558/bot-website').dashboardSetting}*/({
   name: 'Possible Arguments for Messages',
   description: `The following args are possible for the messages:<br>
 <code>&lt;user.nickname&gt;</code> - The user nickname - <code>Peter</code><br>

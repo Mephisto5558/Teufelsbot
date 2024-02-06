@@ -2,11 +2,15 @@ const
   { Collection, GuildMember } = require('discord.js'),
   { startRecording, recordControls } = require('./record_manage.js'),
 
-  /**@type {Collection<string, Collection<string, {userId: string, allowed: boolean}[]}*/
+  /** @type {Collection<string, Collection<string, {userId: string, allowed: boolean}[]}*/
   cache = new Collection();
 
 /** this.customId: `record.<mode>.<requesterId>.<voiceChannelId>.<public>`
- * @this import('discord.js').ButtonInteraction @param {lang}lang @param {'memberAllow'|'memberDeny'|'cancel'}mode @param {string}requesterId @param {string}voiceChannelId*/
+ * @this import('discord.js').ButtonInteraction
+ * @param {lang}lang
+ * @param {'memberAllow'|'memberDeny'|'cancel'}mode
+ * @param {string}requesterId
+ * @param {string}voiceChannelId*/
 module.exports = async function record(lang, mode, requesterId, voiceChannelId) {
   lang.__boundArgs__[0].backupPath = 'commands.useful.record';
 

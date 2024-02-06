@@ -1,4 +1,4 @@
-/**@type {import('@mephisto5558/bot-website').dashboardSetting}*/
+/** @type {import('@mephisto5558/bot-website').dashboardSetting}*/
 module.exports = {
   id: 'chMsg',
   name: 'Announcement Message',

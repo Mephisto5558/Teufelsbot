@@ -1,6 +1,8 @@
 const { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
-/**@this Message old message @param {Message}newMsg*/
+/**
+ * @this Message old message
+ * @param {Message}newMsg*/
 module.exports = async function messageUpdate(newMsg) {
   const setting = this.guild?.db.config?.logger?.messageUpdate ?? {};
   if (
@@ -8,7 +10,7 @@ module.exports = async function messageUpdate(newMsg) {
     || this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size && this.embeds.length && newMsg.embeds.length
   ) return;
 
-  /**@type {import('discord.js').GuildTextBasedChannel?}*/
+  /** @type {import('discord.js').GuildTextBasedChannel?}*/
   const channel = this.guild.channels.cache.get(setting.channel);
   if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 

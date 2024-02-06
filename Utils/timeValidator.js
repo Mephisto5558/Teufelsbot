@@ -1,6 +1,8 @@
 const validItems = ['y', 'mth', 'w', 'd', 'h', 'min', 's', 'ms'];
 
-/**@param {string}t a time string, e.g. 3w2d @returns {string[]}array of valid values*/
+/** 
+ * @param {string}t a time string, e.g. 3w2d
+ * @returns {string[]}array of valid values*/
 function timeValidator(t) {
   if (!t) return [];
 
@@ -28,6 +30,8 @@ function timeValidator(t) {
 
 module.exports = timeValidator;
 
+
+/** Tests the timeValidator*/
 // eslint-disable-next-line no-unused-vars
 function testTimevalidator() {
   const testCases = [

@@ -1,8 +1,10 @@
 const { ApplicationCommandOptionType, ChatInputCommandInteraction } = require('discord.js');
 
-/**
+/** 
  * A wrapper for {@link cooldown}, used for subcommand(group) support.
- * @this ChatInputCommandInteraction @param {string}name @returns {number} current cooldown in seconds*/
+ * @this ChatInputCommandInteraction 
+ * @param {string}name 
+ * @returns {number} current cooldown in seconds*/
 function subCommandCooldowns(name) {
   const depth = name.split('.').length - 1;
   if (depth >= 2 || !(this instanceof ChatInputCommandInteraction)) return 0;
@@ -17,12 +19,13 @@ function subCommandCooldowns(name) {
   if (!subCmd) return 0;
 
   const { cooldowns } = (group ?? this)?.options?.find?.(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand) || {};
-  if (cooldowns) return cooldown.call(this, group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns);
+  return cooldowns ? cooldown.call(this, group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns) : 0;
 }
 
-/**
+/** 
  * @this {Message | ChatInputCommandInteraction}
- * @param {string}name name of the cooldown space, eg. a command name @param {{ [key: string]: number }}cooldowns
+ * @param {string}name name of the cooldown space, eg. a command name 
+ * @param {Record<string, number>}cooldowns
  * @returns {number} current cooldown in seconds*/
 function cooldown(name, cooldowns = {}) {
   const
