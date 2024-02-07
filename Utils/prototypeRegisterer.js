@@ -1,5 +1,5 @@
 const
-  { BaseInteraction, Message, BaseClient, Collection, AutocompleteInteraction, User, Guild, GuildMember, ButtonBuilder, Events } = require('discord.js'),
+  { BaseInteraction, Message, Collection, AutocompleteInteraction, User, Guild, GuildMember, ButtonBuilder, Events, Client } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('crypto'),
@@ -12,7 +12,7 @@ const
 
 if (!require('../config.json').HideOverwriteWarning) console.warn(`Overwriting the following variables and functions (if they exist):
   Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime), ' : ' '}global.sleep, global.log, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
-  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, BaseClient#prefixCommands, BaseClient#slashCommands, BaseClient#cooldowns, BaseClient#awaitReady, BaseClient#defaultSettings, BaseClient#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
+  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
   \nModifying Discord.js Message._patch method.`
 );
 
@@ -76,7 +76,7 @@ Object.defineProperty(BaseInteraction.prototype, 'customReply', {
   value: customReply,
   enumerable: false
 });
-Object.defineProperties(BaseClient.prototype, {
+Object.defineProperties(Client.prototype, {
   prefixCommands: { value: new Collection() },
   slashCommands: { value: new Collection() },
   i18n: { value: new I18nProvider({ notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: join(__dirname, '/../Locales') }) },
@@ -88,6 +88,30 @@ Object.defineProperties(BaseClient.prototype, {
   defaultSettings: {
     get() { return this.db?.get('guildSettings')?.default ?? {}; },
     set(val) { this.db.update('guildSettings', 'default', val); }
+  },
+  loadEnv: {
+    /** @type {Client['loadEnvAndDB']}*/
+    value: async function loadEnvAndDB() {
+      let env;
+      try { env = require('./env.json'); }
+      catch (err) {
+        if (err.code != 'MODULE_NOT_FOUND') throw err;
+    
+        this.db = await new DB().init(process.env.dbConnectionStr, 'db-collections', 100);
+        env = this.db.get('botSettings', 'env');
+      }
+    
+      env = env.global.fMerge(env[env.global.environment]);
+      this.db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100);
+    
+      if (!this.db.cache.size) {
+        log('Database is empty, generating default data');
+        await this.db.generate();
+      }
+    
+      this.botType = env.environment;
+      this.keys = env.keys;
+    }
   },
   awaitReady: {
     /** @type {Client['awaitReady']}*/
