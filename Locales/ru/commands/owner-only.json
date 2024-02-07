@@ -35,9 +35,7 @@
     "usage": {
       "usage": "{prefix}exec <sh code>",
       "examples": "{prefix}Exec эхо 'Привет мир!'"
-    },
-    "finished": "вычисленная команда:\n```sh\n{code}\n```\nсо следующими результатами:\nstdout:\n```\n{stdout}\n```\n",
-    "error": "stderr:\n```\n{stderr}\n```"
+    }
   },
   "gitpull": {
     "description": "Run a git pull",

@@ -10,12 +10,16 @@ module.exports = {
 
   run: async function (lang) {
     if (!this.content) return;
-    
-    const { stdout = lang('global.none'), stderr } = await exec(this.content);
 
-    let msg = lang('finished', { code: this.content, stdout });
-    if (stderr) msg += lang('error', stderr);
+    try {
+      const { stdout = lang('global.none'), stderr } = await exec(this.content);
+      let msg = lang('stdout', { msg: lang('finished', this.content), stdout });
+      if (stderr) msg += lang('stderr', stderr);
 
-    return this.customReply(msg);
+      await this.customReply(msg);
+    }
+    catch (err) { return this.customReply(lang('error', { msg: lang('finished', this.content), name: err.name, err: err.message })); }
+
+    return log.debug(`executed bash command '${this.content}'`);
   }
 };
