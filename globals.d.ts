@@ -5,95 +5,6 @@ import type { WebServer } from '@mephisto5558/bot-website';
 import type BackupSystem from './Utils/backupSystem';
 import type GiveawayManagerWithOwnDatabase from './Utils/giveawaysManager';
 
-type cooldowns = { guild?: number; channel?: number; user?: number };
-
-type BaseCommand<initialized extends boolean = boolean> = {
-  /** For slash commands, must be lowercase.*/
-  name: string;
-
-  /** Numbers in milliseconds*/
-  cooldowns?: cooldowns;
-
-  /** Makes the command also work in direct messages.*/
-  dmPermission?: boolean;
-
-  /** Beta commands are the only commands that get loaded when `client.env == 'dev'`.*/
-  beta?: boolean;
-
-  /** This command will not be loaded*/
-  disabled?: boolean;
-
-  /** If enabled in {@link ./config.json} and set here, will be shown to the user when they try to run the command.*/
-  disabledReason?: string;
-
-  /** Slash command options*/
-  options?: commandOptions<initialized>[];
-}
-& (initialized extends true ? {
-  /** Currently not used*/
-  nameLocalizations?: readonly Record<string, BaseCommand<true>['name']>;
-
-  /** Gets set automatically from language files.
-   * For slash commands, can not be longer then 100 chars.*/
-  description: string;
-
-  /** Gets set automatically from language files.
-   * @see {@link command.description}*/
-  descriptionLocalizations: readonly Record<string, BaseCommand<true>['description']>;
-
-  /** Gets set to the lowercase folder name the command is in.*/
-  category: readonly string;
-
-  permissions?: {
-    client?: Discord.PermissionFlags[];
-    user?: Discord.PermissionFlags[];
-  };
-
-  /** **Do not set manually.**
-   *
-   * If the command is an alias, this property will have the original name.*/
-  aliasOf?: readonly BaseCommand['name'];
-
-  /** **Do not set manually.**
-   *
-   * The command's full file path, used for e.g. reloading the command.*/
-  filePath: readonly string;
-} : {
-  permissions?: {
-    client?: (keyof Discord.PermissionFlags)[];
-    user?: (keyof Discord.PermissionFlags)[];
-  };
-});
-
-type slashCommand<initialized extends boolean = false> = BaseCommand<initialized> & {
-  slashCommand: true;
-  aliases?: { slash?: BaseCommand['name'][] };
-
-  /** Do not deferReply to the interaction*/
-  noDefer?: boolean;
-
-  /** Do `interaction.deferReply({ ephemeral: true })`.
-   *
-   * Gets ignored if {@link command.noDefer} is `true`.*/
-  ephemeralDefer?: boolean;
-} & (initialized extends true ? {
-  /** **Do not set manually.***/
-  id: readonly Discord.Snowflake;
-
-  /** **Do not set manually.***/
-  type: readonly Discord.ApplicationCommandType.ChatInput;
-
-  defaultMemberPermissions: readonly Discord.PermissionsBitField;
-
-  dmPermission: boolean;
-}: object);
-
-type prefixCommand<initialized extends boolean = false> = BaseCommand<initialized> & {
-  prefixCommand: true;
-  aliases?: { prefix?: BaseCommand['name'][] };
-};
-
-
 declare global {
   const sleep: (ms: number) => Promise<void>;
 
@@ -111,6 +22,95 @@ declare global {
   /** bBinded I18nProvider.__ function*/
   type lang = bBoundFunction & { (key: string, replacements?: string | object): string };
 
+  type cooldowns = { guild?: number; channel?: number; user?: number };
+  type autocompleteOptions = string | number | { name: string; value: string };
+
+  type BaseCommand<initialized extends boolean = boolean> = {
+    /** For slash commands, must be lowercase.*/
+    name: string;
+
+    /** Numbers in milliseconds*/
+    cooldowns?: cooldowns;
+
+    /** Makes the command also work in direct messages.*/
+    dmPermission?: boolean;
+
+    /** Beta commands are the only commands that get loaded when `client.env == 'dev'`.*/
+    beta?: boolean;
+
+    /** This command will not be loaded*/
+    disabled?: boolean;
+
+    /** If enabled in {@link ./config.json} and set here, will be shown to the user when they try to run the command.*/
+    disabledReason?: string;
+
+    /** Slash command options*/
+    options?: commandOptions<initialized>[];
+  }
+  & (initialized extends true ? {
+    /** Currently not used*/
+    nameLocalizations?: readonly Record<string, BaseCommand<true>['name']>;
+
+    /** Gets set automatically from language files.
+     * For slash commands, can not be longer then 100 chars.*/
+    description: string;
+
+    /** Gets set automatically from language files.
+     * @see {@link command.description}*/
+    descriptionLocalizations: readonly Record<string, BaseCommand<true>['description']>;
+
+    /** Gets set to the lowercase folder name the command is in.*/
+    category: readonly string;
+
+    permissions?: {
+      client?: Discord.PermissionFlags[];
+      user?: Discord.PermissionFlags[];
+    };
+
+    /** **Do not set manually.**
+     *
+     * If the command is an alias, this property will have the original name.*/
+    aliasOf?: readonly BaseCommand['name'];
+
+    /** **Do not set manually.**
+     *
+     * The command's full file path, used for e.g. reloading the command.*/
+    filePath: readonly string;
+  } : {
+    permissions?: {
+      client?: (keyof Discord.PermissionFlags)[];
+      user?: (keyof Discord.PermissionFlags)[];
+    };
+  });
+
+  type slashCommand<initialized extends boolean = false> = BaseCommand<initialized> & {
+    slashCommand: true;
+    aliases?: { slash?: BaseCommand['name'][] };
+
+    /** Do not deferReply to the interaction*/
+    noDefer?: boolean;
+
+    /** Do `interaction.deferReply({ ephemeral: true })`.
+     *
+     * Gets ignored if {@link command.noDefer} is `true`.*/
+    ephemeralDefer?: boolean;
+  } & (initialized extends true ? {
+    /** **Do not set manually.***/
+    id: readonly Discord.Snowflake;
+
+    /** **Do not set manually.***/
+    type: readonly Discord.ApplicationCommandType.ChatInput;
+
+    defaultMemberPermissions: readonly Discord.PermissionsBitField;
+
+    dmPermission: boolean;
+  }: object);
+
+  type prefixCommand<initialized extends boolean = false> = BaseCommand<initialized> & {
+    prefixCommand: true;
+    aliases?: { prefix?: BaseCommand['name'][] };
+  };
+
   type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = BaseCommand<initialized>
   & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
   & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
@@ -127,7 +127,7 @@ declare global {
     required?: boolean;
 
     /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled.*/
-    autocompleteOptions?: string | Iterable<string | number | { name: string; value: string }> | ((this: Discord.AutocompleteInteraction) => Iterable<string | number | { name: string; value: string }>);
+    autocompleteOptions?: string | autocompleteOptions[] | ((this: Discord.AutocompleteInteraction) => autocompleteOptions[] | Promise<autocompleteOptions>);
 
     /** Return an error message to the user, if their input is not included in {@link commandOptions.autocompleteOptions}.
      * Note that this happens for Messages as well.*/
@@ -187,7 +187,7 @@ declare global {
 
   interface Array<T> {
     /** Generates a cryptographically secure random number using node:crypto.*/
-    random(): T;
+    random(this: T[]): T;
   }
 
   interface Number {
@@ -197,14 +197,13 @@ declare global {
   interface Object {
     /** Merges two objects recursively together.
      * @param mode how to handle array entries that are in both objects.*/
-    fMerge(obj: object, mode?: 'overwrite' | 'push', output?: object): object;
+    fMerge(this: object, obj: object, mode?: 'overwrite' | 'push', output?: object): object;
 
     /** Removes `null`, `undefined`, empty arrays and empty objects recursively.*/
-    filterEmpty(): object;
+    filterEmpty(this: object): object;
   }
 
   interface Function {
-    /*eslint-disable @typescript-eslint/no-explicit-any*/
     // Only typing | Fixes return types | https://github.com/microsoft/TypeScript/blob/c790dc1dc7ff67e619a5a60fc109b7548f171322/src/lib/es5.d.ts#L313
 
     /**
@@ -218,28 +217,21 @@ declare global {
      * @param thisArg The object to be used as the this object.
      * @param args An array of argument values to be passed to the function.
      */
-    apply<T, A extends any[], R>(this: (this: T, ...args: A) => R, thisArg: T, args: A): R;
+    apply<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, args: AX[]): R;
 
     /**
      * Calls the function with the specified object as the this value and the specified rest arguments as the arguments.
      * @param thisArg The object to be used as the this object.
      * @param args Argument values to be passed to the function.
      */
-    call<T, A extends any[]>(this: new (...args: A) => T, thisArg: T, ...args: A): void;
+    call<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): R;
 
     /**
      * Calls the function with the specified object as the this value and the specified rest arguments as the arguments.
      * @param thisArg The object to be used as the this object.
      * @param args Argument values to be passed to the function.
      */
-    call<T, A extends any[], R>(this: (this: T, ...args: A) => R, thisArg: T, ...args: A): R;
-
-    /**
-     * For a given function, creates a bound function that has the same body as the original function.
-     * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
-     * @param thisArg The object to be used as the this object.
-     */
-    bind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T>;
+    call<T, AX>(this: new (...args: AX[]) => T, thisArg: T, ...args: AX[]): void;
 
     /**
      * For a given function, creates a bound function that has the same body as the original function.
@@ -247,13 +239,12 @@ declare global {
      * @param thisArg The object to be used as the this object.
      * @param args Arguments to bind to the parameters of the function.
      */
-    bind<T, A extends any[], B extends any[], R>(this: (this: T, ...args: [...A, ...B]) => R, thisArg: T, ...args: A): (...args: B) => R;
+    bind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T>;
+    bind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): (...args: AX[]) => R;
 
     /** A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction}*/
-    bBind<T>(this: T, thisArg: ThisParameterType<T>): bBoundFunction & OmitThisParameter<T>;
-    bBind<T, A extends any[], B extends any[], R>(this: (this: T, ...args: [...A, ...B]) => R, thisArg: T, ...args: A): bBoundFunction & ((...args: B) => R);
-
-    /*eslint-enable @typescript-eslint/no-explicit-any*/
+    bBind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T> & bBoundFunction;
+    bBind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): ((...args: AX[]) => R) & bBoundFunction;
   }
 
   class bBoundFunction extends Function {
@@ -343,7 +334,7 @@ declare module 'discord.js' {
       allowedMentions?: MessageMentionOptions | { repliedUser: false }
     ): Promise<Message>;
 
-    runMessages(): Promise<this>;
+    runMessages(this: Message): Promise<this>;
   }
 
   interface BaseInteraction {

@@ -14,7 +14,7 @@ const
   }) : null;
 
 /**
- * @this GuildInteraction
+ * @this import('discord.js').BaseInteraction
  * @param {object}backup*/
 function checkPerm(backup) {
   const creator = backup?.metadata?.[this.guild.db.serverbackup?.allowedToLoad ?? this.client.defaultSettings.serverbackup.allowedToLoad];
@@ -49,7 +49,7 @@ const backupMainFunctions = {
    * @param {string}id*/
   load: async function loadBackup(lang, embed, id) {
     if (!this.client.backupSystem.get()) return this.editReply({ embeds: [embed.setDescription(lang('load.noneFound'))] });
-    if (!checkPerm.call(this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('load.backupNoPerm'))] });
+    if (!checkPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('load.backupNoPerm'))] });
 
     const buttons = new ActionRowBuilder({
       components: [
@@ -114,7 +114,7 @@ const backupMainFunctions = {
    * @param {EmbedBuilder}embed
    * @param {string}id*/
   delete: async function deleteBackup(lang, embed, id) {
-    if (this.user.id != this.guild.ownerId || !checkPerm.call(this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('delete.noPerm'))] });
+    if (this.user.id != this.guild.ownerId || !checkPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('delete.noPerm'))] });
 
     this.client.backupSystem.remove(id);
     return this.editReply({ embeds: [embed.setDescription(lang('delete.success'))] });

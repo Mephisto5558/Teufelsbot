@@ -11,7 +11,7 @@ module.exports = {
   options: [{
     name: 'channel',
     type: 'Channel',
-    channelTypes: Constants.TextBasedChannelTypes
+    channelTypes: Constants.GuildTextBasedChannelTypes
   }],
 
   run: async function (lang) {

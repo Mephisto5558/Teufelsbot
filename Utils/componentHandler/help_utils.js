@@ -1,18 +1,18 @@
-/** @typedef {import('discord.js').StringSelectMenuInteraction}SelectMenuInteraction*/
+/** @typedef {import('discord.js').BaseInteraction}BaseInteraction*/
 
 const
   { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
   permissionTranslator = require('../permissionTranslator.js'),
   ownerOnlyFolders = require('../getOwnerOnlyFolders.js')();
 
-/** @this Message|Interaction|SelectMenuInteraction*/
+/** @this Message|BaseInteraction*/
 function getCommands() { return [...new Set([...this.client.prefixCommands.values(), ...this.client.slashCommands.values()])].filter(filterCommands.bind(this)); }
 
-/** @this Message|Interaction|SelectMenuInteraction*/
+/** @this Message|BaseInteraction*/
 function getCommandCategories() { return [...new Set(getCommands.call(this).map(e => e.category.toLowerCase()))]; }
 
 /**
- * @this Message|Interaction|SelectMenuInteraction
+ * @this Message|BaseInteraction
  * @param {lang}lang
  * @param {string[]?}commandCategories*/
 function createCategoryComponent(lang, commandCategories) {
@@ -42,7 +42,7 @@ function createCategoryComponent(lang, commandCategories) {
 }
 
 /**
- * @this Message|Interaction|SelectMenuInteraction
+ * @this Message|BaseInteraction
  * @param {lang}lang
  * @param {string}category*/
 function createCommandsComponent(lang, category) {
@@ -62,8 +62,8 @@ function createCommandsComponent(lang, category) {
 }
 
 /**
- * @this Message|Interaction|SelectMenuInteraction
- * @param {command<'both', boolean, true>}cmd
+ * @this Message|BaseInteraction
+ * @param {command<*, boolean, true>}cmd
  * @param {lang}lang
  * @param {lang}helpLang*/
 function createInfoFields(cmd, lang, helpLang) {
@@ -99,14 +99,14 @@ function createInfoFields(cmd, lang, helpLang) {
 }
 
 /**
- * @this Message|Interaction|SelectMenuInteraction
- * @param {command<'both', boolean, true>}cmd*/
+ * @this Message|BaseInteraction
+ * @param {command<*, boolean, true>}cmd*/
 function filterCommands(cmd) {
   return cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta) || (ownerOnlyFolders.includes(cmd.category?.toLowerCase()) && this.user.id != this.client.application.owner.id);
 }
 
 /**
- * @this Message|Interaction|SelectMenuInteraction
+ * @this Message|BaseInteraction
  * @param {lang}lang
  * @param {string}commandQuery*/
 module.exports.commandQuery = function commandQuery(lang, commandQuery) {
@@ -137,7 +137,7 @@ module.exports.commandQuery = function commandQuery(lang, commandQuery) {
 };
 
 /**
- * @this Interaction|SelectMenuInteraction
+ * @this BaseInteraction|Message
  * @param {lang}lang
  * @param {string?}categoryQuery*/
 module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
@@ -167,7 +167,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
 };
 
 /**
- * @this Message|Interaction|SelectMenuInteraction
+ * @this Message|BaseInteraction
  * @param {lang}lang*/
 module.exports.allQuery = function allQuery(lang) {
   const

@@ -9,15 +9,9 @@ function handleError(err) {
   return err.code != 10062;
 }
 
-/** 
- * @this Interaction|Message
- * @param {string | import('discord.js').MessagePayload | import('discord.js').MessageEditOptions | import('discord.js').InteractionReplyOptions} options
- * @param {number?} deleteTime Number in Milliseconds
- * @param {object?} allowedMentions https://discord.js.org/#/docs/discord.js/main/typedef/MessageMentionOptions Default: `{ repliedUser: false }`
- * 
- * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
- * and if that also doesn't work, send the message without repling to a specific message/interaction.
- */
+/**
+ * @type {Message['customReply']}
+ * @this {Message | import('discord.js').RepliableInteraction}*/
 module.exports = async function customReply(options, deleteTime = null, allowedMentions = { repliedUser: false }) {
   let msg;
 

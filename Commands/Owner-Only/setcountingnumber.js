@@ -9,7 +9,6 @@ module.exports = {
 
   run: async function (lang) {
     const
-      /** @type {import('discord.js').Snowflake}*/
       channel = getTargetChannel.call(this, { returnSelf: true }).id,
       number = parseInt(this.args[0] ?? 0);
 
