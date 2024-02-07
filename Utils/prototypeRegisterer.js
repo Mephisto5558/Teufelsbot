@@ -89,11 +89,11 @@ Object.defineProperties(Client.prototype, {
     get() { return this.db?.get('guildSettings')?.default ?? {}; },
     set(val) { this.db.update('guildSettings', 'default', val); }
   },
-  loadEnv: {
+  loadEnvAndDB: {
     /** @type {Client['loadEnvAndDB']}*/
     value: async function loadEnvAndDB() {
       let env;
-      try { env = require('./env.json'); }
+      try { env = require('../env.json'); }
       catch (err) {
         if (err.code != 'MODULE_NOT_FOUND') throw err;
     
