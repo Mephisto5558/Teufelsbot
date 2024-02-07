@@ -7,11 +7,11 @@ module.exports = async function voiceStateUpdate(newState) {
   const setting = this.guild?.db.config?.logger?.voiceChannelActivity ?? {};
   if (this.client.botType == 'dev' || !this.guild || !setting.enabled || !setting.channel || this.channelId == newState.channelId) return;
 
-  /** @type {import('discord.js').GuildTextBasedChannel | null}*/
-  const channel = this.guild.channels.cache.get(setting.channel);
-  if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
+  const channelToSend = this.guild.channels.cache.get(setting.channel);
+  if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 
   const
+    /** @type {lang}*/
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' }),
     embed = new EmbedBuilder({
       author: { name: newState.member.user.tag, iconURL: newState.member.displayAvatarURL() },
@@ -33,5 +33,5 @@ module.exports = async function voiceStateUpdate(newState) {
     if (this.channel?.id) embed.data.fields.splice(0, 0, { name: lang('oldChannel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: false });
   }
 
-  return channel.send({ embeds: [embed] });
+  return channelToSend.send({ embeds: [embed] });
 };

@@ -21,7 +21,7 @@ function shouldDeleteMsg(msg, options) {
     bool = msg.bulkDeletable && (!options.remove_pinned || msg.pinned),
     userType = msg.user.bot ? 'bot' : 'human';
 
-  return !filterOptionsExist(options) ? bool : bool
+  return !!(!filterOptionsExist(options) ? bool : bool
     && (nHas('member') || msg.user.id == options.member.id)
     && (nHas('user_type') || options.user_type == userType)
     && (nHas('only_containing') || filterCheck[options.only_containing](msg))
@@ -31,7 +31,7 @@ function shouldDeleteMsg(msg, options) {
     && (nHas('starts_with') || msg.content.startsWith(options.starts_with) || msg.embeds?.some(e => e.description.startsWith(options.starts_with)))
     && (nHas('not_starts_with') || msg.content.startsWith(options.not_starts_with) || msg.embeds?.some(e => e.description.startsWith(options.not_starts_with)))
     && (nHas('ends_with') || msg.content.endsWith(options.ends_with) || msg.embeds?.some(e => e.description.endsWith(options.ends_with)))
-    && (nHas('not_ends_with') || msg.content.endsWith(options.not_ends_with) || msg.embeds?.some(e => e.description.endsWith(options.not_ends_with)));
+    && (nHas('not_ends_with') || msg.content.endsWith(options.not_ends_with) || msg.embeds?.some(e => e.description.endsWith(options.not_ends_with))));
 }
 
 /**
@@ -85,7 +85,7 @@ module.exports = {
     {
       name: 'channel',
       type: 'Channel',
-      channelTypes: Constants.TextBasedChannelTypes
+      channelTypes: Constants.GuildTextBasedChannelTypes
     },
     { name: 'remove_pinned', type: 'Boolean' },
     {
@@ -138,7 +138,7 @@ module.exports = {
     }
     else messages = await fetchMsgs(channel, amount);
 
-    messages = [...messages.filter(e => shouldDeleteMsg.call(this, e, options)).keys()];
+    messages = [...messages.filter(e => shouldDeleteMsg(e, options)).keys()];
     if (!messages.length) return this.customReply(lang('noneFound'));
 
     for (let i = 0; i < messages.length; i += 100) {

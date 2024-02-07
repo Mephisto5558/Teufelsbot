@@ -1,6 +1,6 @@
 /** 
  * @this Message|Interaction
- * @param {object}options
+ * @param {{targetOptionName?: string, returnSelf?: boolean}?}options
  * @param {string?}options.targetOptionName the option name for `this.options.getX(targetOptionName)`.
  * @param {boolean?}options.returnSelf return this.member or this.user if nothing else has been found 
  * @returns {import('discord.js').GuildMember|import('discord.js').User|undefined}will return Member if in guild, else User. if none found, undefined.*/

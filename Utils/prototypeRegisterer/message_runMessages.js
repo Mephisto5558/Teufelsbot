@@ -2,7 +2,7 @@ const
   { AllowedMentionsTypes } = require('discord.js'),
   cooldowns = require('../cooldowns.js');
 
-/** @this Message*/
+/** @type {Message['runMessages']}*/
 module.exports = async function runMessages() {
   const
     { afkMessages = {}, triggers = [], counting: { [this.channel.id]: countingData } = {} } = this.guild.db,

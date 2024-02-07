@@ -8,6 +8,7 @@ module.exports = async function interactionCreate() {
 
   const
     locale = this.guild?.db.config?.lang ?? this.guild?.localeCode,
+    /** @type {lang}*/
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale, backupPath: 'events.command' });
 
   if (this.type == InteractionType.MessageComponent) return componentHandler.call(this, lang);

@@ -10,11 +10,11 @@ module.exports = async function messageUpdate(newMsg) {
     || this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size && this.embeds.length && newMsg.embeds.length
   ) return;
 
-  /** @type {import('discord.js').GuildTextBasedChannel?}*/
-  const channel = this.guild.channels.cache.get(setting.channel);
-  if (!channel || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
+  const channelToSend = this.guild.channels.cache.get(setting.channel);
+  if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 
   const
+    /** @type {lang}*/
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
     embed = new EmbedBuilder({
       author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
@@ -51,5 +51,5 @@ module.exports = async function messageUpdate(newMsg) {
   if (embed.data.fields[1].value.length > 1024) embed.data.fields[1].value = embed.data.fields[1].value.slice(0, 1021) + '...';
   if (embed.data.fields[2].value.length > 1024) embed.data.fields[2].value = embed.data.fields[2].value.slice(0, 1021) + '...';
 
-  return channel.send({ embeds: [embed], components: [component] });
+  return channelToSend.send({ embeds: [embed], components: [component] });
 };

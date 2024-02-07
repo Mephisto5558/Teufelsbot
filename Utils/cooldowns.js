@@ -1,13 +1,13 @@
-const { ApplicationCommandOptionType, ChatInputCommandInteraction } = require('discord.js');
+const { ApplicationCommandOptionType, BaseInteraction } = require('discord.js');
 
 /** 
  * A wrapper for {@link cooldown}, used for subcommand(group) support.
- * @this ChatInputCommandInteraction 
+ * @this BaseInteraction 
  * @param {string}name 
  * @returns {number} current cooldown in seconds*/
 function subCommandCooldowns(name) {
   const depth = name.split('.').length - 1;
-  if (depth >= 2 || !(this instanceof ChatInputCommandInteraction)) return 0;
+  if (depth >= 2 || !(this instanceof BaseInteraction)) return 0;
 
   const group = this.options.getSubcommandGroup(false);
   if (group && !depth) {
@@ -23,7 +23,7 @@ function subCommandCooldowns(name) {
 }
 
 /** 
- * @this {Message | ChatInputCommandInteraction}
+ * @this {Message | BaseInteraction}
  * @param {string}name name of the cooldown space, eg. a command name 
  * @param {Record<string, number>}cooldowns
  * @returns {number} current cooldown in seconds*/

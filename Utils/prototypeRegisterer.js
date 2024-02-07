@@ -19,7 +19,7 @@ if (!require('../config.json').HideOverwriteWarning) console.warn(`Overwriting t
 if (parentUptime) {
   process.childUptime = process.uptime;
   process.uptime = function uptime() {
-    return process.childUptime() + parentUptime;
+    return this.childUptime() + parentUptime;
   };
 }
 
