@@ -205,28 +205,53 @@ declare global {
 
   interface Function {
     /*eslint-disable @typescript-eslint/no-explicit-any*/
+    // Only typing | Fixes return types | https://github.com/microsoft/TypeScript/blob/c790dc1dc7ff67e619a5a60fc109b7548f171322/src/lib/es5.d.ts#L313
 
-    /** Only typing | Fixes return types*/
-    bind<This, ReturnValue, InitialArgs extends any[], RestArgs extends any[]>(
-      this: (this: This, ...initial: InitialArgs, ...rest: RestArgs) => ReturnValue, thisArg: This, ...initial: InitialArgs
-    ): (...rest: RestArgs) => ReturnValue;
+    /**
+     * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
+     * @param thisArg The object to be used as the this object.
+     */
+    apply<T, R>(this: (this: T) => R, thisArg: T): R;
 
-    /** Only typing | Fixes return types*/
-    bind<Class, Args extends any[], RestArgs extends any[]>(
-      this: new (...initial: Args, ...rest: RestArgs) => Class, thisArg: any, ...initial: Args
-    ): new (...rest: RestArgs) => Class;
+    /**
+     * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
+     * @param thisArg The object to be used as the this object.
+     * @param args An array of argument values to be passed to the function.
+     */
+    apply<T, A extends any[], R>(this: (this: T, ...args: A) => R, thisArg: T, args: A): R;
 
-    /** Only typing | Fixes return types*/
-    call<This, ReturnValue, Args extends any[]>(this: (this: This, ...args: Args) => ReturnValue, thisArg: This, ...args: Args): ReturnValue;
+    /**
+     * Calls the function with the specified object as the this value and the specified rest arguments as the arguments.
+     * @param thisArg The object to be used as the this object.
+     * @param args Argument values to be passed to the function.
+     */
+    call<T, A extends any[]>(this: new (...args: A) => T, thisArg: T, ...args: A): void;
 
-    /** Only typing | Fixes return types*/
-    apply<This, ReturnValue, Args extends any[]>(this: (this: This, ...args: Args) => ReturnValue, thisArg: This, args: Args): ReturnValue;
+    /**
+     * Calls the function with the specified object as the this value and the specified rest arguments as the arguments.
+     * @param thisArg The object to be used as the this object.
+     * @param args Argument values to be passed to the function.
+     */
+    call<T, A extends any[], R>(this: (this: T, ...args: A) => R, thisArg: T, ...args: A): R;
+
+    /**
+     * For a given function, creates a bound function that has the same body as the original function.
+     * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
+     * @param thisArg The object to be used as the this object.
+     */
+    bind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T>;
+
+    /**
+     * For a given function, creates a bound function that has the same body as the original function.
+     * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
+     * @param thisArg The object to be used as the this object.
+     * @param args Arguments to bind to the parameters of the function.
+     */
+    bind<T, A extends any[], B extends any[], R>(this: (this: T, ...args: [...A, ...B]) => R, thisArg: T, ...args: A): (...args: B) => R;
 
     /** A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction}*/
-    // bBind(thisArg: typeof Function, ...args: any[]): bBoundFunction;
-    bBind<This, ReturnValue, InitialArgs extends any[], RestArgs extends any[]>(
-      this: (this: This, ...initial: InitialArgs, ...rest: RestArgs) => ReturnValue, thisArg: This, ...initial: InitialArgs
-    ): bBoundFunction & ((...rest: RestArgs) => ReturnValue);
+    bBind<T>(this: T, thisArg: ThisParameterType<T>): bBoundFunction & OmitThisParameter<T>;
+    bBind<T, A extends any[], B extends any[], R>(this: (this: T, ...args: [...A, ...B]) => R, thisArg: T, ...args: A): bBoundFunction & ((...args: B) => R);
 
     /*eslint-enable @typescript-eslint/no-explicit-any*/
   }
@@ -284,8 +309,10 @@ declare module 'discord.js' {
     settings: object;
     defaultSettings: object;
     botType: string;
+    keys: Record<string, string>;
+    loadEnvAndDB(this: Client<Ready>): Promise<void>;
     /** A promise that resolves to a fetched discord application once {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#ready Client#ready} was emitted.*/
-    awaitReady(): Promise<Discord.Application>;
+    awaitReady(this: Client<Ready>): Promise<Discord.Application>;
   }
 
   interface Message {
@@ -310,6 +337,7 @@ declare module 'discord.js' {
      * and if that also doesn't work, send the message without repling to a specific message/interaction.
      * @param deleteTime Number in Milliseconds*/
     customReply(
+      this: Message,
       options: string | MessagePayload | MessageEditOptions,
       deleteTime?: number,
       allowedMentions?: MessageMentionOptions | { repliedUser: false }
@@ -323,7 +351,12 @@ declare module 'discord.js' {
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
      * and if that also doesn't work, send the message without repling to a specific message/interaction.
      * @param deleteTime Number in Milliseconds*/
-    customReply: Message['customReply'];
+    customReply(
+      this: BaseInteraction,
+      options: string | MessagePayload | InteractionReplyOptions,
+      deleteTime?: number,
+      allowedMentions?: MessageMentionOptions | { repliedUser: false }
+    ): Promise<Message>;
   }
 
   interface AutocompleteInteraction {
