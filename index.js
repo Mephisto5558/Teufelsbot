@@ -6,12 +6,11 @@ Error.stackTraceLimit = 100;
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { readdir } = require('fs/promises'),
-  { DB } = require('@mephisto5558/mongoose-db'),
   { WebServer } = require('@mephisto5558/bot-website'),
   { GiveawaysManager, gitpull, errorHandler, getCommands } = require('./Utils'),
   { discordInvite, mailAddress, Website, disableWebserver } = require('./config.json'),
 
-  createClient = () => new Client({
+  createClient = /** @returns {Client<false>}*/ () => new Client({
     shards: 'auto',
     failIfNotExists: false,
     allowedMentions: {
@@ -35,30 +34,6 @@ const
       Partials.Reaction
     ]
   });
-
-/** 
- * Loads env and initializes client.db
- * @this Client<false> @returns {Promise<object>}*/
-async function loadEnv() {
-  let env;
-  try { env = require('./env.json'); }
-  catch (err) {
-    if (err.code != 'MODULE_NOT_FOUND') throw err;
-
-    this.db = await new DB().init(process.env.dbConnectionStr, 'db-collections', 100);
-    env = this.db.get('botSettings', 'env');
-  }
-
-  env = env.global.fMerge(env[env.global.environment]);
-  this.db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100);
-
-  if (!this.db.cache.size) {
-    log('Database is empty, generating default data');
-    await this.db.generate();
-  }
-
-  return env;
-}
 
 /** 
  * @this Client<true>
@@ -92,12 +67,8 @@ console.time('Starting time');
     process.exit(1);
   }
 
-  const
-    client = createClient(),
-    env = await loadEnv.call(client);
-
-  client.botType = env.environment;
-  client.keys = env.keys;
+  const client = createClient();
+  await client.loadEnvAndDB();
   //WIP: client.backupSystem = new BackupSystem(client.db, { dbName: 'backups', maxGuildBackups: 5 });
 
   if (client.botType != 'dev') client.giveawaysManager = new GiveawaysManager(client);
