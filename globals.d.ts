@@ -19,6 +19,12 @@ declare global {
     /* eslint-enable @typescript-eslint/no-explicit-any */
   };
 
+  // https://stackoverflow.com/a/46370791/17580213
+  type AllKeys<T> = T extends unknown ? keyof T : never;
+  type Id<T> = T extends infer U ? { [K in keyof U]: U[K] } : never;
+  type _ExclusifyUnion<T, K extends PropertyKey> = T extends unknown ? Id<T & Partial<Record<Exclude<K, keyof T>, never>>> : never;
+  type ExclusifyUnion<T> = _ExclusifyUnion<T, AllKeys<T>>;
+
   /** bBinded I18nProvider.__ function*/
   type lang = bBoundFunction & { (key: string, replacements?: string | object): string };
 
@@ -115,7 +121,7 @@ declare global {
   & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
   & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
   & { run: (
-    this: commandType extends 'slash' ? Interaction<guildOnly> : commandType extends 'prefix' ? Message<guildOnly extends true ? true : boolean> : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>,
+    this: ExclusifyUnion<commandType extends 'slash' ? Interaction<guildOnly> : commandType extends 'prefix' ? Message<guildOnly extends true ? true : boolean> : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>>,
     lang: lang, client: Discord.Client<true>
   ) => Promise<never>; };
 
