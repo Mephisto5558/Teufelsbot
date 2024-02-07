@@ -26,7 +26,7 @@ declare global {
   type ExclusifyUnion<T> = _ExclusifyUnion<T, AllKeys<T>>;
 
   /** bBinded I18nProvider.__ function*/
-  type lang = bBoundFunction & { (key: string, replacements?: string | object): string };
+  type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string>;
 
   type cooldowns = { guild?: number; channel?: number; user?: number };
   type autocompleteOptions = string | number | { name: string; value: string };
@@ -249,19 +249,20 @@ declare global {
     bind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): (...args: AX[]) => R;
 
     /** A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction}*/
-    bBind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T> & bBoundFunction;
-    bBind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): ((...args: AX[]) => R) & bBoundFunction;
+    bBind<T>(this: T, thisArg: ThisParameterType<T>): bBoundFunction<T>;
+    bBind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): bBoundFunction<(...args: AX[]) => R>;
   }
 
-  class bBoundFunction extends Function {
-    /** The original, unbound function*/
-    // eslint-disable-next-line @typescript-eslint/ban-types
-    __targetFunction__: Function;
-    __boundThis__: this;
+  type bBoundFunction<OF, T extends CallableFunction> = T & {
+    /** The original, unbound function */
+    __targetFunction__: OF;
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    __boundArgs__: any[];
-  }
+    /** The context to which the function is bound */
+    __boundThis__: ThisParameterType<T>;
+
+    /** The arguments to which the function is bound */
+    __boundArgs__: unknown[];
+  };
 
   type Client<Ready extends boolean = true> = Discord.Client<Ready>;
   type Message<inGuild extends boolean = boolean> = Discord.Message<inGuild>;
