@@ -1,8 +1,9 @@
+
 const
   { Collection, GuildMember } = require('discord.js'),
   { startRecording, recordControls } = require('./record_manage.js'),
 
-  /** @type {Collection<string, Collection<string, {userId: string, allowed: boolean}[]}*/
+  /** @type {Collection<string, Collection<string, {userId: string, allowed: boolean}[]>>}*/
   cache = new Collection();
 
 /** this.customId: `record.<mode>.<requesterId>.<voiceChannelId>.<public>`
@@ -20,7 +21,10 @@ module.exports = async function record(lang, mode, requesterId, voiceChannelId) 
       if (this.member.voice?.channelId != voiceChannelId) return;
       if (!(this.member instanceof GuildMember)) return; //typeguard
 
+      /** @type {Collection<string, { userId: string, allowed: boolean }[]>}*/
       const guildCache = cache.get(this.guild.id) ?? cache.set(this.guild.id, new Collection([[voiceChannelId, []]])).get(this.guild.id);
+
+      /** @type {{ userId: string, allowed: boolean }[]>}*/
       const vcCache = guildCache.get(voiceChannelId) ?? guildCache.set(voiceChannelId, []).get(voiceChannelId);
 
       vcCache.push({ userId: this.user.id, allowed: mode == 'memberAllow' });

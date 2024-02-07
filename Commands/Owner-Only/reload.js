@@ -6,7 +6,7 @@ const
 
 /**
  * @this Client
- * @param {command<'both', false>}command
+ * @param {command<'both', boolean>}command
  * @param {string[]}reloadedArray gets modified and not returned*/
 async function reloadCommand(command, reloadedArray) {
   delete require.cache[command.filePath];
@@ -112,6 +112,7 @@ module.exports = {
           }
 
           if (this.args[1]?.startsWith('Commands/')) {
+            /**@type {command<'both', boolean>} */
             const cmd = require(filePath);
             cmd.filePath = filePath;
             cmd.category = this.args[1].split('/')[1];

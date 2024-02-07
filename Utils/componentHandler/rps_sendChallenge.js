@@ -15,7 +15,7 @@ module.exports = async function sendRPSChallenge(initiator, opponent = this.clie
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang(`${opponent.bot ? 'botE' : 'e'}mbedDescription`, initiator.displayName),
-      color: 2719929
+      color: 0x2980B9
     }),
     component = new ActionRowBuilder({
       components: [
@@ -33,5 +33,5 @@ module.exports = async function sendRPSChallenge(initiator, opponent = this.clie
     });
 
   const msg = await this.customReply({ content: opponent.bot ? undefined : `<@${opponent.id}>`, embeds: [embed], components: [component] });
-  if (!opponent.bot) return (msg.followUp ? msg.followUp(lang('newChallenge', opponent.id)) : msg.reply(lang('newChallenge', opponent.id))).then(e => setTimeout(e.delete.bind(e), 5000));
+  if (!opponent.bot) return msg.reply(lang('newChallenge', opponent.id)).then(e => setTimeout(e.delete.bind(e), 5000));
 };

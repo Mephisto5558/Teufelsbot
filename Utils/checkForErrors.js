@@ -7,7 +7,7 @@ const
   { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json');
 
 /** 
- * @this {Interaction|Message}
+ * @this {import('discord.js').BaseInteraction|Message}
  * @param {command<'both', boolean, true>}command
  * @param {lang}lang
  * @returns {Array|boolean}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/

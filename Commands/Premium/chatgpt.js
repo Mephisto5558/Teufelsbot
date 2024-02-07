@@ -3,6 +3,7 @@ const
   fetch = require('node-fetch').default;
 
 /**
+ * @this {Interaction|Message}
  * @param {lang}lang
  * @param {boolean?}deep
  * @returns {Promise<string>}*/

@@ -78,7 +78,7 @@ console.time('Starting time');
 
   await client.login(client.keys.token);
   log(`Logged into ${client.botType}`);
-
+  
   if (process.connected) process.on('message', processMessageEventCallback.bind(client));
 
   await Promise.all(handlerPromises);

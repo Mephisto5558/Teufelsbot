@@ -71,7 +71,6 @@ module.exports = {
 
     const
       type = this.options?.getSubcommand() || 'user',
-      /** @type {import('discord.js').GuildMember}*/
       target = getTargetMember.call(this, { returnSelf: true }),
       settings = this.options?.getString('settings'),
       leaderboards = this.client.db.get('leaderboards'),
