@@ -18,7 +18,7 @@
 
 [![Discord Server](https://discordapp.com/api/guilds/725378451988676609/widget.png?style=shield)](https://discord.gg/u6xjqzz)
 
-A discord.js v14 bot with multiple features, in active development.<br>
+A discord.js v14 bot with Dashboard, multiple language support, a DB and many commands, in active development.<br>
 I am very open for pull requests, feature requests and everything else that helps me improve.<br>
 If you have any questions feel free to open an issue.<br>
 
