@@ -10,17 +10,17 @@ const
  * @param {Message|import('discord.js').BaseInteraction|null}message 
  * @param {lang?}lang*/
 module.exports = async function errorHandler(err, message, lang) {
-  log.error(' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'), err.stack || JSON.stringify(err));
+  log.error(' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'), err.stack ?? JSON.stringify(err));
 
   if (!message || !lang) return;
 
   lang.__boundArgs__[0].backupPath = 'others.errorHandler';
 
   const
-    { aliasOf } = this.slashCommands.get(message.commandName) || this.prefixCommands.get(message.commandName) || {},
+    { aliasOf } = this.slashCommands.get(message.commandName) ?? this.prefixCommands.get(message.commandName) ?? {},
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { command: aliasOf ? this.slashCommands.get(aliasOf)?.name || this.prefixCommands.get(aliasOf)?.name : message.commandName }),
+      description: lang('embedDescription', { command: aliasOf ? this.slashCommands.get(aliasOf)?.name ?? this.prefixCommands.get(aliasOf)?.name : message.commandName }),
       footer: { text: lang('embedFooterText') },
       color: Colors.DarkRed
     }),
@@ -41,7 +41,7 @@ module.exports = async function errorHandler(err, message, lang) {
       await button.deferUpdate();
 
       try {
-        if (!Github?.UserName || !Github.RepoName) throw Error('Missing GitHub username or reponame config');
+        if (!(Github?.UserName && Github.RepoName)) throw Error('Missing GitHub username or repo name config');
 
         const
           res = await fetch(`https://api.github.com/repos/${Github.UserName}/${Github.RepoName}/issues`, {
@@ -61,13 +61,16 @@ module.exports = async function errorHandler(err, message, lang) {
         if (!res.ok) throw new Error(JSON.stringify(json));
 
         const attachment = new AttachmentBuilder(Buffer.from(JSON.stringify({ ...message }, (_, v) => typeof v == 'bigint' ? v.toString() : v, 2)), { name: 'data.json' });
-        try { (this.application.owner.owner || this.application.owner).send({ content: json.html_url, files: [attachment] }); } catch { }
+        try { (this.application.owner.owner ?? this.application.owner).send({ content: json.html_url, files: [attachment] }); }
+        catch(err) {
+          if (err.code != 50007) throw err; // "Cannot send messages to this user"
+        }
 
         return msg.edit({ embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', json.html_url))], components: [] });
       }
       catch (err) {
         log.error('Failed to report an error:', err.stack);
-        return message.customReply(lang('reportFail', err?.message || 'unknown error'));
+        return message.customReply(lang('reportFail', err?.message ?? 'unknown error'));
       }
     })
     .on('end', collected => {

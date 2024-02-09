@@ -43,7 +43,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      cmdName = this.args?.shift() || this.options?.getString('type'),
+      cmdName = this.args?.shift() ?? this.options?.getString('type'),
       args = this.args?.map(e => e.replace(/[<@>]/g, '')),
       option = options.find(e => e.name == cmdName);
 

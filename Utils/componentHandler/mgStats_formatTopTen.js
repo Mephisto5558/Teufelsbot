@@ -20,9 +20,9 @@ module.exports = async function formatTopTen(input, sort, mode, lang) {
   }
 
   return input.slice(0, 10).reduce((acc, [id, stats], i) => acc + (
-    acc.length > 3997 ? '...' : `${medals[i] || i + 1 + '.'} <@${id}>\n` +
-      '> ' + lang('wins', stats.wins || 0) +
-      '> ' + lang('loses', stats.loses || 0) +
-      '> ' + lang('draws', stats.draws || 0)
+    acc.length > 3997 ? '...' : `${medals[i] ?? i + 1 + '.'} <@${id}>\n` +
+      '> ' + lang('wins', stats.wins ?? 0) +
+      '> ' + lang('loses', stats.loses ?? 0) +
+      '> ' + lang('draws', stats.draws ?? 0)
   ), '');
 };

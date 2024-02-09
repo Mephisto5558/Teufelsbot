@@ -12,10 +12,10 @@ module.exports = {
   options: [{ name: 'role', type: 'Role' }],
 
   run: function (lang) {
-    this.args = this.args?.map(e => e.replace(/[<@>]/g, '')) || [];
+    this.args = this.args?.map(e => e.replace(/[<@>]/g, '')) ?? [];
     this.content = this.content?.replace(/[<@>]/g, '');
 
-    const role = this.options?.getRole('role') || (this.args?.[0] ? this.mentions?.roles.first() : this.member.roles.highest) || this.guild.roles.cache.find(e => [...this.args, this.content].includes(e.id) || [...this.args, this.content].includes(e.name));
+    const role = this.options?.getRole('role') ?? (this.args?.[0] ? this.mentions?.roles.first() : this.member.roles.highest) ?? this.guild.roles.cache.find(e => [...this.args, this.content].includes(e.id) || [...this.args, this.content].includes(e.name));
     if (!role) return this.customReply(lang('notFound'));
 
     const embed = new EmbedBuilder({
@@ -37,7 +37,7 @@ module.exports = {
 
     if (role.permissions.has(PermissionFlagsBits.Administrator)) embed.data.fields[embed.data.fields.length - 1].value = `\`${lang('admin')}\` (\`${role.permissions.toArray().length}\`)`;
     else {
-      const perms = permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n)?.join('`, `') || lang('global.none');
+      const perms = permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n)?.join('`, `') ?? lang('global.none');
       embed.data.fields[embed.data.fields.length - 1].value = `\`${perms.length < 1017 ? perms + '`' : perms.slice(0, perms.slice(0, 1013).lastIndexOf(',')) + '...'} (\`${role.permissions.toArray().length}\`)`;
     }
 

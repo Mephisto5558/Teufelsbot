@@ -28,8 +28,8 @@ async function reloadCommand(command, reloadedArray) {
     this.prefixCommands.set(file.name, file);
     reloadedArray.push(file.name);
 
-    for (const alias of command.aliases?.prefix || []) this.prefixCommands.delete(alias);
-    for (const alias of file.aliases?.prefix || []) {
+    for (const alias of command.aliases?.prefix ?? []) this.prefixCommands.delete(alias);
+    for (const alias of file.aliases?.prefix ?? []) {
       this.prefixCommands.set(alias, { ...file, aliasOf: file.name });
       reloadedArray.push(alias);
     }
@@ -54,8 +54,8 @@ async function reloadCommand(command, reloadedArray) {
     this.slashCommands.set(slashFile.name, slashFile);
     reloadedArray.push(`</${slashFile.name}:${slashFile.id ?? 0}>`);
 
-    for (const alias of new Set([...(slashFile.aliases?.slash || []), ...(command.aliases?.slash || [])])) {
-      const { id } = this.slashCommands.get(alias) || {};
+    for (const alias of new Set([...(slashFile.aliases?.slash ?? []), ...(command.aliases?.slash ?? [])])) {
+      const { id } = this.slashCommands.get(alias) ?? {};
       let cmdId;
 
       if (equal) {

@@ -31,7 +31,7 @@ module.exports = {
         image: { url: 'https://i.giphy.com/XUFPGrX5Zis6Y.gif' },
         footer: { text: lang('embedFooterText', this.user.tag) }
       }),
-      channel = this.options?.getChannel('channel') || this.channel,
+      channel = this.options?.getChannel('channel') ?? this.channel,
       cloned = await channel.clone({ reason: lang('global.modReason', { command: this.commandName, user: this.user.username }) });
 
     await channel.delete(lang('global.modReason', { command: this.commandName, user: this.user.username }));

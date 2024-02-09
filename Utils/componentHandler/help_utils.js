@@ -1,23 +1,25 @@
-/** @typedef {import('discord.js').BaseInteraction}BaseInteraction*/
+/** @typedef {import('discord.js').Interaction}Interaction*/
 
 const
   { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
   permissionTranslator = require('../permissionTranslator.js'),
   ownerOnlyFolders = require('../getOwnerOnlyFolders.js')();
 
-/** @this Message|BaseInteraction*/
+/** @this Interaction|Message*/
 function getCommands() { return [...new Set([...this.client.prefixCommands.values(), ...this.client.slashCommands.values()])].filter(filterCommands.bind(this)); }
 
-/** @this Message|BaseInteraction*/
+/** @this Interaction|Message*/
 function getCommandCategories() { return [...new Set(getCommands.call(this).map(e => e.category.toLowerCase()))]; }
 
 /**
- * @this Message|BaseInteraction
+ * @this Interaction|Message
  * @param {lang}lang
  * @param {string[]?}commandCategories*/
 function createCategoryComponent(lang, commandCategories) {
   commandCategories ??= getCommandCategories.call(this);
-  const defaultOption = (this.options?.getString('command') ? null : this.options?.getString('category')) || (this.args ? this.client.prefixCommands.get(this.args[0]) || this.client.slashCommands.get(this.args[0]) : null)?.category || (this.values ? this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value : null);
+  const defaultOption = (this.options?.getString('command') ? null : this.options?.getString('category'))
+    ?? (this.client.prefixCommands.get(this.args?.[0]) ?? this.client.slashCommands.get(this.args?.[0]))?.category
+    ?? (this.values ? this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value : null);
 
   if (this.message?.components.length) {
     if (defaultOption) {
@@ -42,11 +44,11 @@ function createCategoryComponent(lang, commandCategories) {
 }
 
 /**
- * @this Message|BaseInteraction
+ * @this Interaction|Message
  * @param {lang}lang
  * @param {string}category*/
 function createCommandsComponent(lang, category) {
-  const defaultOption = this.args?.[0] || this.options?.getString('command') || (this.message?.components[1] ? this.message.components[1].components[0].options.find(e => e.value === this.values[0])?.value : null);
+  const defaultOption = this.args?.[0] ?? this.options?.getString('command') ?? (this.message?.components[1] ? this.message.components[1].components[0].options.find(e => e.value === this.values[0])?.value : null);
 
   return new ActionRowBuilder({
     components: [new StringSelectMenuBuilder({
@@ -62,14 +64,14 @@ function createCommandsComponent(lang, category) {
 }
 
 /**
- * @this Message|BaseInteraction
+ * @this Interaction|Message
  * @param {command<*, boolean, true>}cmd
  * @param {lang}lang
  * @param {lang}helpLang*/
 function createInfoFields(cmd, lang, helpLang) {
   const
     arr = [],
-    prefix = this.guild?.db.config?.prefix?.prefix || this.client.defaultSettings.config.prefix;
+    prefix = this.guild?.db.config?.prefix?.prefix ?? this.client.defaultSettings.config.prefix;
 
   cmd ??= {};
   if (cmd.aliases?.prefix?.length) arr.push({ name: lang('one.prefixAlias'), value: `\`${cmd.aliases.prefix.join('`, `')}\``, inline: true });
@@ -77,7 +79,7 @@ function createInfoFields(cmd, lang, helpLang) {
   if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: `\`${cmd.aliasOf}\``, inline: true });
   if (cmd.permissions?.client?.length) arr.push({ name: lang('one.botPerms'), value: `\`${permissionTranslator(cmd.permissions.client, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')}\``, inline: false });
   if (cmd.permissions?.user?.length) arr.push({ name: lang('one.userPerms'), value: `\`${permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')}\``, inline: true });
-  
+
   const cooldowns = Object.entries(cmd.cooldowns ?? {}).filter(([, e]) => e);
   if (cooldowns.length) arr.push({
     name: lang('one.cooldowns'), inline: false,
@@ -99,20 +101,20 @@ function createInfoFields(cmd, lang, helpLang) {
 }
 
 /**
- * @this Message|BaseInteraction
+ * @this Interaction|Message
  * @param {command<*, boolean, true>}cmd*/
 function filterCommands(cmd) {
   return cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta) || (ownerOnlyFolders.includes(cmd.category?.toLowerCase()) && this.user.id != this.client.application.owner.id);
 }
 
 /**
- * @this Message|BaseInteraction
+ * @this Interaction|Message
  * @param {lang}lang
  * @param {string}commandQuery*/
 module.exports.commandQuery = function commandQuery(lang, commandQuery) {
   if (this.values && !this.values.length) return module.exports.categoryQuery.call(this, lang, this.message.components[0].components[0].data.options.find(e => e.default).value);
 
-  const command = this.client.slashCommands.get(commandQuery) || this.client.prefixCommands.get(commandQuery);
+  const command = this.client.slashCommands.get(commandQuery) ?? this.client.prefixCommands.get(commandQuery);
   if (!filterCommands.call(this, command)) {
     const embed = new EmbedBuilder({
       description: lang('one.notFound', commandQuery),
@@ -124,12 +126,12 @@ module.exports.commandQuery = function commandQuery(lang, commandQuery) {
 
   const
     /** @type {lang}*/
-    helpLang = this.client.i18n.__.bind(this.client.i18n, { undefinedNotFound: true, locale: this.guild?.localeCode || this.client.defaultSettings.config.lang, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` }),
+    helpLang = this.client.i18n.__.bind(this.client.i18n, { undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang, backupPath: `commands.${command.category.toLowerCase()}.${command.name}` }),
     embed = new EmbedBuilder({
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
       description: helpLang('description'),
       fields: createInfoFields.call(this, command, lang, helpLang),
-      footer: { text: lang('one.embedFooterText', this.guild?.db.config?.prefix || this.client.defaultSettings.config.prefix) },
+      footer: { text: lang('one.embedFooterText', this.guild?.db.config?.prefix ?? this.client.defaultSettings.config.prefix) },
       color: Colors.Blurple,
     });
 
@@ -137,7 +139,7 @@ module.exports.commandQuery = function commandQuery(lang, commandQuery) {
 };
 
 /**
- * @this BaseInteraction|Message
+ * @this Interaction|Message
  * @param {lang}lang
  * @param {string?}categoryQuery*/
 module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
@@ -148,7 +150,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
 
   const
     /** @type {lang}*/
-    helpLang = this.client.i18n.__.bind(this.client.i18n, { undefinedNotFound: true, locale: this.guild?.localeCode || this.client.defaultSettings.config.lang, backupPath: `commands.${categoryQuery}` }),
+    helpLang = this.client.i18n.__.bind(this.client.i18n, { undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang, backupPath: `commands.${categoryQuery}` }),
     commands = getCommands.call(this),
     embed = new EmbedBuilder({
       title: lang(`options.category.choices.${categoryQuery}`),
@@ -167,7 +169,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
 };
 
 /**
- * @this Message|BaseInteraction
+ * @this Interaction|Message
  * @param {lang}lang*/
 module.exports.allQuery = function allQuery(lang) {
   const

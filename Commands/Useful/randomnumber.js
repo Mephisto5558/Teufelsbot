@@ -15,8 +15,8 @@ module.exports = {
 
   run: function (lang) {
     let
-      min = this.options?.getInteger('minimum') || Number(this.args?.[0]),
-      max = this.options?.getInteger('maximum') || Number(this.args?.[1]);
+      min = this.options?.getInteger('minimum') ?? Number(this.args?.[0]),
+      max = this.options?.getInteger('maximum') ?? Number(this.args?.[1]);
 
     if (isNaN(min)) min = 0;
     if (isNaN(max)) max = 100;

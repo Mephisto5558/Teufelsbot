@@ -25,7 +25,7 @@ module.exports = async function commandHandler() {
     else log(`Loaded Prefix Command ${command.name}`);
     command.disabled || (this.botType == 'dev' && !command.beta) ? disabledCommandCount++ : enabledCommandCount++;
 
-    for (const alias of command.aliases?.prefix || []) {
+    for (const alias of command.aliases?.prefix ?? []) {
       this.prefixCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
       if (command.disabled) !HideDisabledCommandLog && log(`Loaded Alias ${alias} of Prefix Command ${command.name} (disabled)`);
       else log(`Loaded Alias ${alias} of Prefix Command ${command.name}`);

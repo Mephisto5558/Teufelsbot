@@ -90,7 +90,7 @@ console.time('Starting time');
 
   if (!process.connected) await processMessageEventCallback.call(client, 'Start WebServer');
 
-  client.db.update('botSettings', `startCount.${client.botType}`, client.settings.startCount[client.botType] + 1 || 1);
+  client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);
 
   log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers.\n`);
   console.timeEnd('Starting time');

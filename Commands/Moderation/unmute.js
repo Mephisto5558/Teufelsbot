@@ -19,7 +19,7 @@ module.exports = {
   run: async function (lang) {
     const
       target = this.options.getMember('target'),
-      reason = this.options.getString('reason') || lang('noReason');
+      reason = this.options.getString('reason') ?? lang('noReason');
 
     if (!target) return this.editReply(lang('notFound'));
     if (!target.isCommunicationDisabled()) return this.editReply(lang('notMuted'));
