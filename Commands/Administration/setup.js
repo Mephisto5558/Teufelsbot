@@ -127,8 +127,8 @@ const
      * @param {lang}lang*/
     logger: async function (lang) {
       const
-        channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel))?.id ?? this.channel,
         action = this.options.getString('action'),
+        channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel))?.id ?? this.channel,
         enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? null : !this.guild.db.config.logger?.[action]?.enabled);
 
       if (!channel) return this.editReply(lang('noChannel'));
