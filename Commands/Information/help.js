@@ -26,7 +26,7 @@ module.exports = {
   run: function (lang) {
     const
       categoryQuery = this.options?.getString('category'),
-      commandQuery = (this.options?.getString('command') || this.args?.[0])?.toLowerCase();
+      commandQuery = (this.options?.getString('command') ?? this.args?.[0])?.toLowerCase();
 
     if (commandQuery) return help_commandQuery.call(this, lang, commandQuery);
     if (categoryQuery) return help_categoryQuery.call(this, lang, categoryQuery);

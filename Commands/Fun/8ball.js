@@ -32,7 +32,7 @@ module.exports = {
   }],
 
   run: function (lang) {
-    const input = this.options?.getString('question') || this.content;
+    const input = this.options?.getString('question') ?? this.content;
     if (!input) return this.customReply(lang('noQuestion'));
 
     const now = new Date();

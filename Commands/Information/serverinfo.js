@@ -17,7 +17,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      guild = this.client.guilds.cache.get(this.options?.getString('guild_id') || this.args?.[0]) || this.guild,
+      guild = this.client.guilds.cache.get(this.options?.getString('guild_id') ?? this.args?.[0]) ?? this.guild,
       channels = Array.from((await guild.channels.fetch()).values()),
       embed = new EmbedBuilder({
         title: guild.name,
@@ -37,7 +37,7 @@ module.exports = {
           { name: lang('emojis'), value: `\`${guild.emojis.cache.size}\``, inline: true },
           { name: lang('roles'), value: `\`${guild.roles.cache.size}\``, inline: true },
           { name: lang('boosts.name'), value: `\`${guild.premiumSubscriptionCount}\`` + (guild.premiumTier ? lang(`boosts.${guild.premiumTier}`) : ''), inline: true },
-          { name: lang('channels'), value: Object.entries(channels.reduce((acc, { type }) => ({ ...acc, [type]: (acc[type] + 1) || 1 }), {})).map(([k, v]) => `${lang('others.ChannelTypes.plural.' + k)}: \`${v}\``).join(', '), inline: false }
+          { name: lang('channels'), value: Object.entries(channels.reduce((acc, { type }) => ({ ...acc, [type]: (acc[type] ?? 0) + 1 }), {})).map(([k, v]) => `${lang('others.ChannelTypes.plural.' + k)}: \`${v}\``).join(', '), inline: false }
         ]
       });
 

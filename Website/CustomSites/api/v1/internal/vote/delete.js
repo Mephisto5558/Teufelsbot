@@ -2,6 +2,6 @@
 module.exports = {
   run: async function (res, req) {
     const reply = await this.voteSystem.delete(req.query.featureId, req.user?.id);
-    return res.status(reply.errorCode || 200).json(reply);
+    return res.status(reply.errorCode ?? 200).json(reply);
   }
 };

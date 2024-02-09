@@ -25,7 +25,7 @@ module.exports = class Log extends Function {
   _log(file = 'log', ...str) {
     const
       txt = `${new Date().toISOString()} ${this.type ?? 'Bot'} | `,
-      log = console[file] || console.log;
+      log = console[file] ?? console.log;
 
     if (arguments.length) {
       if (file != 'debug') log(txt + str.join(' '));

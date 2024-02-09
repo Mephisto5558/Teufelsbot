@@ -17,7 +17,7 @@ module.exports = {
   run: function (lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', this.member?.displayName || this.user.displayName),
+      description: lang('embedDescription', this.member?.displayName ?? this.user.displayName),
       image: { url: `https://cdn.discordapp.com/attachments/1137786275701727343/${images.random()}` },
       color: Colors.White
     });

@@ -37,7 +37,7 @@ class BackupSystem {
    * @param {require('discord.js').Snowflake}guildId
    * @returns {Collection<string, object>}*/
   list = guildId => {
-    const collection = new Collection(Object.entries(this.get() || {}));
+    const collection = new Collection(Object.entries(this.get() ?? {}));
     return guildId ? collection.filter(e => e?.guildId == guildId) : collection;
   };
 
@@ -268,7 +268,7 @@ class BackupSystem {
     }
 
     statusObj.status = 'load.channels';
-    for (const category of data.channels?.categories || []) {
+    for (const category of data.channels?.categories ?? []) {
       const channel = await guild.channels.create({
         reason, name: category.name,
         type: ChannelType.GuildCategory,
@@ -366,7 +366,7 @@ class BackupSystem {
      * @param {import('discord.js').GuildChannel}channel
      * @param {boolean}saveImages
      * @param {number}maxMessagesPerChannel*/
-    fetchChannelThreads: async (channel, saveImages, maxMessagesPerChannel) => ((await channel.threads?.fetch())?.threads || []).map(async e => ({
+    fetchChannelThreads: async (channel, saveImages, maxMessagesPerChannel) => ((await channel.threads?.fetch())?.threads ?? []).map(async e => ({
       type: e.type,
       name: e.name,
       archived: e.archived,

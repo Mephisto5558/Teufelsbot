@@ -12,7 +12,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      average = this.args?.[0] == 'average' || this.options?.getBoolean('average'),
+      average = this.options?.getBoolean('average') ?? this.args?.[0] == 'average',
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: lang(average ? 'average.loading' : 'global.loading', { current: 1, target: 20 }),

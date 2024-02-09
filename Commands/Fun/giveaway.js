@@ -14,7 +14,7 @@ const
     create: async function (lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration }) {
       const
         defaultSettings = this.client.defaultSettings.giveaway,
-        reaction = this.options.getString('reaction') || this.guild.db.giveaway?.reaction || defaultSettings.reaction,
+        reaction = this.options.getString('reaction') ?? this.guild.db.giveaway?.reaction ?? defaultSettings.reaction,
         startOptions = {
           winnerCount: this.options.getInteger('winner_count'),
           prize: this.options.getString('prize'),
@@ -43,13 +43,13 @@ const
           },
           thumbnail: this.options.getString('thumbnail'),
           image: this.options.getString('image'),
-          lastChance: this.guild.db.giveaway?.useLastChance || defaultSettings.useLastChance,
+          lastChance: this.guild.db.giveaway?.useLastChance ?? defaultSettings.useLastChance,
           isDrop: this.options.getBoolean('is_drop')
         };
 
       if (requiredRoles?.length || disallowedMembers?.length) startOptions.exemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers?.includes(member.id));
 
-      const data = await this.client.giveawaysManager.start(this.options.getChannel('channel') || this.channel, startOptions);
+      const data = await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions);
       components[0].components[0].data.url = data.messageURL;
 
       return this.editReply({ content: lang('started'), components });
@@ -234,7 +234,7 @@ module.exports = {
           style: ButtonStyle.Link
         })]
       })],
-      durationUnformatted = this.options.getString('duration') || this.options.getString('add_time') || 0,
+      durationUnformatted = this.options.getString('duration') ?? this.options.getString('add_time') ?? 0,
       duration = getMilliseconds(durationUnformatted);
 
     if (typeof duration != 'number' && durationUnformatted) return this.editReply(lang('invalidTime'));

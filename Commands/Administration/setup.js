@@ -22,7 +22,7 @@ const
     toggle_command: async function (lang) {
       const
         command = this.options.getString('command'),
-        commandData = this.guild.db.commandSettings?.[command]?.disabled || {},
+        commandData = this.guild.db.commandSettings?.[command]?.disabled ?? {},
         { roles = [], channels = [], users = [] } = commandData,
         count = { enabled: { channels: 0, users: 0, roles: 0 }, disabled: { channels: 0, users: 0, roles: 0 } };
 
@@ -68,7 +68,7 @@ const
             continue;
           }
 
-          commandData[type] = [...(commandData[type] || []), id];
+          commandData[type] = [...(commandData[type] ?? []), id];
           count.disabled[type]++;
         }
       }
@@ -186,7 +186,12 @@ module.exports = {
         name: 'language',
         type: 'String',
         required: true,
-        autocompleteOptions: function () { return [...this.client.i18n.availableLocales.keys()].map(k => ({ name: this.client.i18n.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k })).filter(({ name, value }) => name.toLowerCase().includes(this.focused.value.toLowerCase()) || value.toLowerCase().includes(this.focused.value.toLowerCase())).slice(0, 25); },
+        autocompleteOptions: function () {
+          return [...this.client.i18n.availableLocales.keys()]
+            .map(k => ({ name: this.client.i18n.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k }))
+            .filter(({ name, value }) => name.toLowerCase().includes(this.focused.value.toLowerCase()) || value.toLowerCase().includes(this.focused.value.toLowerCase()))
+            .slice(0, 25);
+        },
         strictAutocomplete: true
       }]
     },

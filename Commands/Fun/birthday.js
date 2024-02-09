@@ -61,7 +61,7 @@ const
         const
           guildMembers = (await this.guild.members.fetch()).map(e => e.id),
           currentTime = new Date().getTime(),
-          data = Object.entries(this.client.db.get('userSettings') || {})
+          data = Object.entries(this.client.db.get('userSettings') ?? {})
             .reduce((acc, [k, { birthday } = {}]) => {
               if (birthday && guildMembers.includes(k)) acc.push([k, ...birthday.split('/')]);
               return acc;

@@ -25,10 +25,10 @@ module.exports = {
 
   run: function (lang) {
     const
-      count = this.options?.getInteger('count') || 1,
-      exclude = this.options?.getString('exclude_chars') || '',
-      include = this.options?.getString('include_chars') || '',
-      length = this.options?.getInteger('length') || 12;
+      count = this.options?.getInteger('count') ?? 1,
+      exclude = this.options?.getString('exclude_chars') ?? '',
+      include = this.options?.getString('include_chars') ?? '',
+      length = this.options?.getInteger('length') ?? 12;
 
     let
       passwordList = '',

@@ -3,7 +3,7 @@ const
   { getTargetMember } = require('../../Utils'),
   { mgStats_formatTopTen: formatTopTen } = require('../../Utils/componentHandler/'),
   sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
-  manageData = data => Object.entries(data || {}).sort(([, a], [, b]) => b - a).slice(0, 3).reduce((acc, e) => acc + `> <@${e[0]}>: \`${e[1]}\`\n`, '');
+  manageData = data => Object.entries(data ?? {}).sort(([, a], [, b]) => b - a).slice(0, 3).reduce((acc, e) => acc + `> <@${e[0]}>: \`${e[1]}\`\n`, '');
 
 /**
  * @param {number}input
@@ -70,12 +70,12 @@ module.exports = {
     if (this instanceof Message && !this.args[0]) return this.customReply(lang('missingGameArg'));
 
     const
-      type = this.options?.getSubcommand() || 'user',
+      type = this.options?.getSubcommand() ?? 'user',
       target = getTargetMember.call(this, { returnSelf: true }),
       settings = this.options?.getString('settings'),
       leaderboards = this.client.db.get('leaderboards'),
-      [game, data] = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == (this.options?.getString('game') || this.args[0]).toLowerCase()) || [],
-      [sort, mode] = this.options?.getString('sort')?.split('_') || [];
+      [game, data] = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == (this.options?.getString('game') ?? this.args[0]).toLowerCase()) ?? [],
+      [sort, mode] = this.options?.getString('sort')?.split('_') ?? [];
 
     if (!data) return this.customReply(lang('notFound', Object.keys(leaderboards).join('`, `')));
 
@@ -94,9 +94,9 @@ module.exports = {
       if (targetData?.games) {
         embed.data.description =
           lang('games', targetData.games) +
-          lang('wins', formatStatCount(targetData.wins, targetData.games) || '`0`') +
-          lang('draws', formatStatCount(targetData.draws, targetData.games) || '`0`') +
-          lang('loses', formatStatCount(targetData.loses, targetData.games) || '`0`');
+          lang('wins', formatStatCount(targetData.wins, targetData.games)) +
+          lang('draws', formatStatCount(targetData.draws, targetData.games)) +
+          lang('loses', formatStatCount(targetData.loses, targetData.games));
 
         if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + (manageData(targetData.wonAgainst) || '> ' + lang('noOne')) + '\n';
         if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + (manageData(targetData.lostAgainst) || '> ' + lang('noOne')) + '\n';

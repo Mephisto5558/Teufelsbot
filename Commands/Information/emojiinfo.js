@@ -16,13 +16,13 @@ module.exports = {
 
   run: async function (lang) {
     const
-      parsedEmoji = parseEmoji(this.options?.getString('emoji') || this.args?.[0] || ''),
-      emoji = this.client.emojis.cache.get(parsedEmoji.id) || parsedEmoji;
+      parsedEmoji = parseEmoji(this.options?.getString('emoji') ?? this.args?.[0] ?? ''),
+      emoji = this.client.emojis.cache.get(parsedEmoji.id) ?? parsedEmoji;
 
     if (!emoji.id) return this.customReply(lang('notFound'));
 
     const
-      url = emoji?.imageURL() || CDNRoutes.emoji(emoji.id, ImageFormat.WebP) + '?size=2048',
+      url = emoji?.imageURL() ?? CDNRoutes.emoji(emoji.id, ImageFormat.WebP) + '?size=2048',
       embed = new EmbedBuilder({
         title: lang('embedTitle', `<:${emoji.name}:${emoji.id}>`),
         color: parseInt((await getAverageColor(url)).hex.substring(1), 16),
@@ -32,7 +32,7 @@ module.exports = {
           { name: lang('id'), value: `\`${emoji.id}\``, inline: true },
           { name: lang('guild'), value: emoji.guild?.name ? `${emoji.guild.name} (\`${emoji.guild.id}\`)` : lang('unknown'), inline: true },
           { name: lang('animated'), value: lang(`global.${emoji.animated}`), inline: true },
-          { name: lang('creator'), value: (await emoji.fetchAuthor?.())?.username || lang('unknown'), inline: true },
+          { name: lang('creator'), value: (await emoji.fetchAuthor?.())?.username ?? lang('unknown'), inline: true },
           { name: lang('available'), value: emoji.available ? lang(`global.${emoji.available}`) : lang('unknown'), inline: true },
           { name: lang('createdAt'), value: emoji.createdTimestamp ? `<t:${Math.round(emoji.createdTimestamp / 1000)}>` : lang('unknown'), inline: true },
           { name: lang('requiresColons'), value: emoji.requiresColons ? lang(`global.${emoji.requiresColons}`) : lang('unknown'), inline: true },

@@ -72,7 +72,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
     }
     case 'accept': if (opponent.user.bot || this.user.id == opponentId) return sendGame.call(this, initiator, opponent, lang); break;
     case 'playAgain': {
-      if (this.client.botType != 'dev') await this.client.db.update('botSettings', 'stats.rps', this.client.settings.stats?.rps + 1 || 1);
+      if (this.client.botType != 'dev') await this.client.db.update('botSettings', 'stats.rps', (this.client.settings.stats?.rps ?? 0) + 1);
       
       if (opponent.user.bot) return sendGame.call(this, initiator, opponent, lang);
       return sendChallenge.call(this, this.member, initiatorId == this.user.id ? opponent : initiator, lang);
@@ -80,7 +80,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
     case 'r':
     case 'p':
     case 's': {
-      const choices = this.client.db.get('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`) || {};
+      const choices = this.client.db.get('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`) ?? {};
       if (opponentId == this.client.user.id) choices.player2 = ['r', 'p', 's'].random();
 
       const player = this.user.id == initiatorId ? 'player1' : 'player2';
