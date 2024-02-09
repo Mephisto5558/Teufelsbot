@@ -1,4 +1,6 @@
-const { EmbedBuilder } = require('discord.js');
+const 
+  { EmbedBuilder } = require('discord.js'),
+  { DiscordAPIErrorCodes } = require('../Utils');
 
 /**
  * @this String
@@ -79,7 +81,7 @@ module.exports = {
 
           try { await user.send({ content: formatBirthday.call(settings.dm?.msg?.content ?? defaultSettings.dm.msg.content, user, entry[2]), embeds: [embed] }); }
           catch (err) {
-            if (err.code != 50007) throw err; // "cannot send messages to this user"
+            if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
           }
         }
       }

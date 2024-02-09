@@ -1,4 +1,6 @@
-const { BaseInteraction, Message, DiscordAPIError } = require('discord.js');
+const 
+  { BaseInteraction, Message, DiscordAPIError } = require('discord.js'),
+  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
 /** @param {Error}err @returns `true` if no err is given, false on specific error codes*/
 function handleError(err) {
@@ -6,7 +8,7 @@ function handleError(err) {
   if (!(err instanceof DiscordAPIError)) throw err;
 
   log.debug(`An error occurred while trying to send a message: ${err}`); // NOSONAR DiscordAPIError has a toStringMethod returning 'DiscordAPIError[Code]: Description'
-  return err.code != 10062; // "Unknown Interaction"
+  return err.code != DiscordAPIErrorCodes.UnknownInteraction;
 }
 
 /**

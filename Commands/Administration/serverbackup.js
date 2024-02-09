@@ -1,5 +1,6 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ComponentType, ButtonStyle } = require('discord.js'),
+  DiscordAPIErrorCodes = require('../../Utils'),
   getData = backup => Object.keys(backup).length ? ({
     createdAt: Math.round(backup.createdTimestamp / 1000),
     size: (() => {
@@ -77,7 +78,7 @@ const backupMainFunctions = {
         let msg;
         try { msg = await this.member.send({ embeds: [embed.setDescription(lang('load.loadingEmbedDescription'))] }); }
         catch (err) {
-          if (err.code != 50007) throw err; // "Cannot send messages to this user"
+          if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
 
           return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.enableDMs'))], components: [] });
         }

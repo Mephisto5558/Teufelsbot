@@ -1,5 +1,6 @@
 const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
   sendChallenge = require('./rps_sendChallenge.js'),
   emojis = { r: '✊', p: '🤚', s: '✌️' };
 
@@ -58,7 +59,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
     opponent = await this.guild.members.fetch(opponentId);
   }
   catch (err) {
-    if (err.code != 10007) throw err; // "unknown member"
+    if (err.code != DiscordAPIErrorCodes.UnknownMember) throw err;
 
     this.message.embeds[0].data.description = lang('memberNotFound');
     return this.message.edit({ embeds: this.message.embeds, components: [] });
