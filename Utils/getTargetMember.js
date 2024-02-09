@@ -5,7 +5,7 @@
  * @param {{ targetOptionName?: string, returnSelf?: boolean }} options
  * @param {string?} options.targetOptionName the option name for `this.options.getX(targetOptionName)`.
  * @param {boolean?} options.returnSelf return this.member or this.user if nothing else has been found   
- * @returns {T extends GuildInteraction | GuildMessage ? import('discord.js').GuildMember : import('discord.js').User | undefined}
+ * @returns {T extends GuildInteraction | Message<true> ? import('discord.js').GuildMember : import('discord.js').User | undefined}
  */
 module.exports = function getTargetMember({ targetOptionName = 'target', returnSelf } = {}) {
   if (this.guild) {

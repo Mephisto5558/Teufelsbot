@@ -19,12 +19,6 @@ declare global {
     /* eslint-enable @typescript-eslint/no-explicit-any */
   };
 
-  // https://stackoverflow.com/a/46370791/17580213
-  type AllKeys<T> = T extends unknown ? keyof T : never;
-  type Id<T> = T extends infer U ? { [K in keyof U]: U[K] } : never;
-  type _ExclusifyUnion<T, K extends PropertyKey> = T extends unknown ? Id<T & Partial<Record<Exclude<K, keyof T>, never>>> : never;
-  type ExclusifyUnion<T> = _ExclusifyUnion<T, AllKeys<T>>;
-
   /** bBinded I18nProvider.__ function*/
   type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string>;
 
@@ -121,7 +115,7 @@ declare global {
   & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
   & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
   & { run: (
-    this: ExclusifyUnion<commandType extends 'slash' ? Interaction<guildOnly> : commandType extends 'prefix' ? Message<guildOnly extends true ? true : boolean> : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>>,
+    this: commandType extends 'slash' ? Interaction<guildOnly> : commandType extends 'prefix' ? Message<guildOnly> : Interaction<guildOnly> | Message<guildOnly>,
     lang: lang, client: Discord.Client<true>
   ) => Promise<never>; };
 
@@ -266,9 +260,13 @@ declare global {
 
   type Client<Ready extends boolean = true> = Discord.Client<Ready>;
   type Message<inGuild extends boolean = boolean> = Discord.Message<inGuild>;
+  type Interaction<inGuild extends boolean = boolean, Cached extends Discord.CacheType = Discord.CacheType> = inGuild extends true ? GuildInteraction<Cached> : GuildInteraction<Cached> | DMInteraction<Cached>;
+
+  type OptionalInteractionProperties<inGuild extends boolean = boolean> = Partial<Interaction<inGuild>>;
+  type OptionalMessageProperties<inGuild extends boolean = boolean> = Partial<Message<inGuild>>;
 
   /** interface for an interaction in a guild.*/
-  interface GuildInteraction<Cached extends Discord.CacheType = Discord.CacheType> extends Discord.ChatInputCommandInteraction<Cached> {
+  interface GuildInteraction<Cached extends Discord.CacheType = Discord.CacheType> extends Discord.ChatInputCommandInteraction<Cached>, OptionalMessageProperties<true> {
     inGuild(): true;
     guild: Discord.Guild;
     guildId: string;
@@ -279,7 +277,7 @@ declare global {
   }
 
   /** interface for an interaction in a direct message.*/
-  interface DMInteraction<Cached extends Discord.CacheType = Discord.CacheType> extends Discord.ChatInputCommandInteraction<Cached> {
+  interface DMInteraction<Cached extends Discord.CacheType = Discord.CacheType> extends Discord.ChatInputCommandInteraction<Cached>, OptionalMessageProperties<false> {
     inGuild(): false;
     inRawGuild(): false;
     inCachedGuild(): false;
@@ -290,8 +288,6 @@ declare global {
     member: null;
     memberPermissions: null;
   }
-
-  type Interaction<inGuild extends boolean = boolean, Cached extends Discord.CacheType = Discord.CacheType> = inGuild extends true ? GuildInteraction<Cached> : GuildInteraction<Cached> | DMInteraction<Cached>;
 }
 
 declare module 'discord.js' {
@@ -301,7 +297,7 @@ declare module 'discord.js' {
     backupSystem?: BackupSystem;
     giveawaysManager?: GiveawayManagerWithOwnDatabase;
     webServer: WebServer;
-    cooldowns: Map<string, { [key: string]: Map<string, number> }>;
+    cooldowns: Map<string, Record<string, Map<string, number>>>;
     db: DB;
     i18n: I18nProvider;
     settings: object;
