@@ -58,7 +58,13 @@ Object.defineProperty(Object.prototype, 'fMerge', {
 });
 Object.defineProperty(Object.prototype, 'filterEmpty', {
   /** @type {global['Object']['prototype']['filterEmpty']}*/
-  value: function filterEmpty() { return Object.fromEntries(Object.entries(this).filter(([, v]) => !(v == null || (Object(v) === v && Object.keys(v).length == 0))).map(([k, v]) => [k, v instanceof Object ? v.filterEmpty() : v])); },
+  value: function filterEmpty() {
+    return Object.entries(this).reduce((acc, [k, v]) => {
+      if (!(v == null || (typeof v == 'object' && !Object.keys(v).length))) 
+        acc[k] = v instanceof Object ? v.filterEmpty() : v;
+      return acc;
+    }, {});
+  },
   enumerable: false
 });
 Object.defineProperty(Function.prototype, 'bBind', {
