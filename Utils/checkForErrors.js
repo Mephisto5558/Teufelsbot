@@ -1,5 +1,5 @@
 const
-  { PermissionFlagsBits, Message, InteractionType, ChannelType, EmbedBuilder, Colors } = require('discord.js'),
+  { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction } = require('discord.js'),
   autocompleteGenerator = require('./autocompleteGenerator.js'),
   cooldowns = require('./cooldowns.js'),
   permissionTranslator = require('./permissionTranslator.js'),
@@ -10,7 +10,7 @@ const
  * @this {import('discord.js').BaseInteraction|Message}
  * @param {command<'both', boolean, true>}command
  * @param {lang}lang
- * @returns {Array|boolean}The error key for lang() or false if no error. true if error has been handled internally (But is an error).*/
+ * @returns {[string, Record<string, string>]|boolean}The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally.*/
 module.exports = async function checkForErrors(command, lang) {
   if (!command) {
     if (this instanceof Message) {
@@ -23,11 +23,11 @@ module.exports = async function checkForErrors(command, lang) {
  
   // DO NOT REMOVE THE FOLLOWING LINE
   if (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id) return true;
-  if (command.disabled) return replyOnDisabledCommand === false ? true : ['disabled', command.disabledReason || 'Not provided'];
+  if (command.disabled) return replyOnDisabledCommand === false ? true : ['disabled', command.disabledReason ?? 'Not provided'];
   if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? true : ['nonBeta'];
   if (!command.dmPermission && this.channel.type == ChannelType.DM) return ['guildOnly'];
 
-  const disabledList = this.guild?.db.commandSettings?.[command.aliasOf || command.name]?.disabled;
+  const disabledList = this.guild?.db.commandSettings?.[command.aliasOf ?? command.name]?.disabled;
   if (disabledList) {
     if (disabledList.members?.includes(this.user.id)) return ['notAllowed.member'];
     if (disabledList.channels?.includes(this.channel.id)) return ['notAllowed.channel'];
@@ -36,7 +36,7 @@ module.exports = async function checkForErrors(command, lang) {
 
   if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return ['nsfw'];
 
-  const options = command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options || e) || e?.options || e) || [];
+  const options = command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options ?? e) ?? e?.options ?? e) ?? [];
   for (let i = 0; i < options.length; i++) {
     const { autocomplete, strictAutocomplete, name } = options[i];
 
@@ -52,7 +52,7 @@ module.exports = async function checkForErrors(command, lang) {
     if (cooldown) return ['cooldown', cooldown];
   }
 
-  if (this.guild && (this instanceof Message || this.type == InteractionType.ApplicationCommand)) {
+  if (this.guild && (this instanceof Message || this instanceof CommandInteraction)) {
     const userPermsMissing = this.member.permissionsIn(this.channel).missing([...(command.permissions?.user || []), PermissionFlagsBits.SendMessages]);
     const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...(command.permissions?.client || []), PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
 
@@ -63,7 +63,7 @@ module.exports = async function checkForErrors(command, lang) {
         color: Colors.Red
       });
 
-      if (botPermsMissing.includes('SendMessages') || botPermsMissing.includes('ViewChannel')) {
+      if (botPermsMissing.includes(PermissionFlagsBits.SendMessages) || botPermsMissing.includes(PermissionFlagsBits.ViewChannel)) {
         if (this instanceof Message && this.guild.members.me.permissionsIn(this.channel).has(PermissionFlagsBits.AddReactions)) {
           await this.react('❌');
           this.react('✍️');
