@@ -1,6 +1,7 @@
 const
   { SnowflakeUtil, GatewayIntentBits, ChannelType, OverwriteType, Constants, GuildFeature, AttachmentBuilder, StickerType, Collection, DiscordAPIError } = require('discord.js'),
-  fetch = require('node-fetch');
+  fetch = require('node-fetch'),
+  { DiscordAPIErrorCodes } = require('../Utils');
 
 class BackupSystem {
   /**
@@ -447,7 +448,8 @@ class BackupSystem {
     loadChannelMessages: async (channel, messages, webhook, maxMessagesPerChannel, allowedMentions) => {
       try { webhook ??= await channel.createWebhook({ name: 'MessagesBackup', avatar: channel.client.user.displayAvatarURL() }); }
       catch (err) {
-        if (![30007, 30058].includes(err.code)) throw err; // "Maximum number of webhooks reached", "Maximum number of webhooks per guild reached" 
+        if (![DiscordAPIErrorCodes.MaximumNumberOfWebhooksReached, DiscordAPIErrorCodes.MaximumNumberOfWebhooksPerGuildReached].includes(err.code))
+          throw err;
       }
 
       if (!webhook) return;

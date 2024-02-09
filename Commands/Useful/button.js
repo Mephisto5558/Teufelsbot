@@ -1,4 +1,6 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { DiscordApiErrorCodes } = require('../../Utils');
 
 /** @type {command<'slash'>}*/
 module.exports = {
@@ -59,7 +61,7 @@ module.exports = {
     if (msg) {
       try { msg = await this.channel.messages.fetch(msg); }
       catch (err) {
-        if (err.code != 10008) throw err; // "Unknown message"
+        if (err.code !=  DiscordApiErrorCodes.UnknownMessage) throw err;
         return this.editReply(lang('msgNotFound'));
       }
 
