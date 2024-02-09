@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, ImageFormat } = require('discord.js'),
   { createCanvas, loadImage } = require('canvas'),
   { getTargetMember } = require('../../Utils');
 
@@ -25,9 +25,9 @@ module.exports = {
 
   run: async function (lang) {
     const
-      type = (this.options?.getString('avatar_type') || 'server') == 'server',
+      type = (this.options?.getString('avatar_type') ?? 'server') == 'server',
       base = getTargetMember.call(this, { targetOptionName: 'base' }),
-      overlay = this.options?.getMember('overlay') || this.mentions?.members.at(1) || this.member;
+      overlay = this.options?.getMember('overlay') ?? this.mentions?.members.at(1) ?? this.member;
 
     if (!base) return this.customReply(lang('missingParam'));
 
@@ -45,8 +45,8 @@ module.exports = {
 
     const
       msg = await this.customReply({ embeds: [embed] }),
-      baseAvatar = await loadImage(`https://cdn.discordapp.com/avatars/${base.id}/${type == 'server' && base.avatar || base.user.avatar}.png?size=512`),
-      overlayAvatar = await loadImage(`https://cdn.discordapp.com/avatars/${overlay.id}/${type == 'server' && overlay.avatar || overlay.user.avatar}.png?size=512`),
+      baseAvatar = await loadImage((type == 'server' ? base : base.user).displayAvatarURL({ extension: ImageFormat.PNG, size: 512 })),
+      overlayAvatar = await loadImage(overlay.displayAvatarURL({ extension: ImageFormat.PNG, size: 512 })),
       canvas = createCanvas(baseAvatar.width, baseAvatar.height),
       ctx = canvas.getContext('2d');
 
