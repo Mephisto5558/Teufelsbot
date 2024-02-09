@@ -6,6 +6,8 @@ module.exports = {
   commandExecutionWrapper: require('./commandExecutionWrapper.js'),
   componentHandler: require('./componentHandler.js'),
   cooldowns: require('./cooldowns.js'),
+  /**@type {Record<string, number|string>}*/
+  DiscordAPIErrorCodes: require('./DiscordAPIErrorCodes.json'),
   errorHandler: require('./errorHandler.js'),
   findAllEntries: require('./findAllEntries.js'),
   formatSlashCommand: require('./formatSlashCommand.js'),

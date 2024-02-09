@@ -1,6 +1,7 @@
 const
   fetch = require('node-fetch').default,
   { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors } = require('discord.js'),
+  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
   { Github } = require('../config.json'),
   cwd = process.cwd();
 
@@ -63,7 +64,7 @@ module.exports = async function errorHandler(err, message, lang) {
         const attachment = new AttachmentBuilder(Buffer.from(JSON.stringify({ ...message }, (_, v) => typeof v == 'bigint' ? v.toString() : v, 2)), { name: 'data.json' });
         try { (this.application.owner.owner ?? this.application.owner).send({ content: json.html_url, files: [attachment] }); }
         catch(err) {
-          if (err.code != 50007) throw err; // "Cannot send messages to this user"
+          if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
         }
 
         return msg.edit({ embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', json.html_url))], components: [] });

@@ -1,7 +1,8 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType, PermissionFlagsBits } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
-  checkTargetManageable = require('../checkTargetManageable.js');
+  checkTargetManageable = require('../checkTargetManageable.js'),
+  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
 /**
  * @this GuildInteraction
@@ -53,7 +54,7 @@ module.exports = async function ban_kick_mute(lang) {
 
     try { await target.send({ embeds: [userEmbed] }); }
     catch (err) {
-      if (err.code != 50007) throw err; // "Cannot send messages to this user"
+      if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
       noMsg = true;
     }
 
@@ -95,7 +96,7 @@ module.exports = async function ban_kick_mute(lang) {
 
           try { await target.send({ embeds: [userEmbed] }); }
           catch {
-            if (err.code != 50007) throw err; // "Cannot send messages to this user"
+            if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
             noMsg = true;
           }
 

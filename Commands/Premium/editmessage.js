@@ -1,4 +1,6 @@
-const { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js');
+const
+  { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js'),
+  { DiscordApiErrorCodes } = require('../../Utils');
 
 /** @type {command<'slash'>}*/
 module.exports = {
@@ -44,7 +46,7 @@ module.exports = {
     let msg;
     try { msg = await this.options.getChannel('channel').messages.fetch(this.options.getString('message_id')); }
     catch (err) {
-      if (err.code != 10008) throw err; // "Unknown message"
+      if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
 
       return this.reply({ content: lang('notFound'), ephemeral: true });
     }

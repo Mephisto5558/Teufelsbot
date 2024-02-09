@@ -4,6 +4,7 @@ const
   cooldowns = require('./cooldowns.js'),
   permissionTranslator = require('./permissionTranslator.js'),
   ownerOnlyFolders = require('./getOwnerOnlyFolders.js')(),
+  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
   { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json');
 
 /** 
@@ -71,7 +72,7 @@ module.exports = async function checkForErrors(command, lang) {
 
         try { await this.user.send({ content: this.url, embeds: [embed] }); }
         catch (err) {
-          if (err.code != 50007) throw err; // "Cannot send messages to this user"
+          if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
         }
       }
       else await this.customReply({ embeds: [embed], ephemeral: true }, this instanceof Message ? 1e4 : 0);
