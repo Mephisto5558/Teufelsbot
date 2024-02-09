@@ -15,8 +15,8 @@ async function fetchAPI(lang, deep) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      model: this.options?.getString('model') ?? 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: this.options?.getString('message') || this.content || lang('hello') }]
+      model: 'pai-001',
+      messages: [{ role: 'user', content: this.options?.getString('message') ?? this.content ?? lang('hello') }]
     })
   }).then(e => e.json());
 
@@ -43,11 +43,6 @@ module.exports = {
       type: 'String',
       maxLength: 2000,
       required: true
-    },
-    {
-      name: 'model',
-      type: 'String',
-      choices: ['gpt-4', 'gpt-4-0613', 'gpt-4-32k', 'gpt-4-32k-0613', 'gpt-3.5-turbo', 'gpt-3.5-turbo-0613', 'gpt-3.5-turbo-16k', 'gpt-3.5-turbo-16k-0613']
     }
   ],
 
@@ -59,7 +54,7 @@ module.exports = {
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('regenerate'),
-          customId: `chatgpt.regenerate.${this.options?.getString('model') ?? 'gpt-3.5-turbo'}`,
+          customId: 'chatgpt.regenerate.pai-001',
           style: ButtonStyle.Secondary
         })]
       });
