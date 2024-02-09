@@ -13,7 +13,7 @@ module.exports = {
   options: [{ name: 'target', type: 'User' }],
 
   run: async function (lang) {
-    this.args = this.args?.map(e => e.replace(/[<@&>]/g, '')) || [];
+    this.args = this.args?.map(e => e.replace(/[<@&>]/g, '')) ?? [];
     this.content = this.content?.replace(/[<@&>]/g, '');
 
     const
@@ -44,7 +44,7 @@ module.exports = {
           { name: lang('createdAt'), value: `<t:${Math.round(member.user.createdTimestamp / 1000)}>`, inline: true },
           { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true },
           { name: lang('rolesWithPerms'), value: Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').sort((a, b) => a.name.localeCompare(b.name)).join(', '), inline: false },
-          { name: lang('perms'), value: `\`${member.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n)?.join('`, `') || lang('global.none')}\` (${member.permissions.toArray().length})`, inline: false }
+          { name: lang('perms'), value: `\`${member.permissions.has(PermissionFlagsBits.Administrator) ? lang('admin') : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n)?.join('`, `') ?? lang('global.none')}\` (${member.permissions.toArray().length})`, inline: false }
         ]
       }),
       components = [new ActionRowBuilder({

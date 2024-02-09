@@ -32,7 +32,7 @@ module.exports = {
   }],
 
   run: function (lang) {
-    const expression = this.content || this.options?.getString('expression');
+    const expression = this.content ?? this.options?.getString('expression');
     if (!expression) return this.customReply(lang('noInput'));
 
     const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.White });

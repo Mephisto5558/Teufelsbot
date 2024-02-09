@@ -19,7 +19,7 @@ module.exports = {
   run: async function (lang) {
     const
       global = this.options?.getBoolean('global') ?? this.args?.[0] == 'global',
-      message = this.options?.getString('message') || this.content?.substring(global ? 7 : 0, 1000) || 'AFK',
+      message = this.options?.getString('message') ?? this.content?.substring(global ? 7 : 0, 1000) ?? 'AFK',
       createdAt = Math.round(this.createdTimestamp / 1000);
 
     if (global || !this.guildId) await this.client.db.update('userSettings', `${this.user.id}.afkMessage`, { message, createdAt });

@@ -62,22 +62,22 @@ module.exports = {
           }
 
           const embed = new EmbedBuilder({
-            title: formatBirthday.call(settings.ch?.msg?.embed?.title || defaultSettings.ch.msg.embed.title, user, entry[2]),
-            description: formatBirthday.call(settings.ch?.msg?.embed?.description || defaultSettings.ch.msg.embed.description, user, entry[2]),
-            color: settings.ch?.msg?.embed?.color || defaultSettings.ch.msg.embed.color
+            title: formatBirthday.call(settings.ch?.msg?.embed?.title ?? defaultSettings.ch.msg.embed.title, user, entry[2]),
+            description: formatBirthday.call(settings.ch?.msg?.embed?.description ?? defaultSettings.ch.msg.embed.description, user, entry[2]),
+            color: settings.ch?.msg?.embed?.color ?? defaultSettings.ch.msg.embed.color
           });
 
-          await channel.send({ content: formatBirthday.call(settings.ch?.msg?.content || defaultSettings.ch.msg.content, user, entry[2]), embeds: [embed] });
+          await channel.send({ content: formatBirthday.call(settings.ch?.msg?.content ?? defaultSettings.ch.msg.content, user, entry[2]), embeds: [embed] });
         }
 
         if (settings?.dm?.enable) {
           const embed = new EmbedBuilder({
-            title: formatBirthday.call(settings.dm?.msg?.embed?.title || defaultSettings.dm.msg.embed.title, user, entry[2]),
-            description: formatBirthday.call(settings.dm?.msg?.embed?.description || defaultSettings.dm.msg.embed.description, user, entry[2]),
-            color: settings.dm?.msg?.embed?.color || defaultSettings.dm.msg.embed.color
+            title: formatBirthday.call(settings.dm?.msg?.embed?.title ?? defaultSettings.dm.msg.embed.title, user, entry[2]),
+            description: formatBirthday.call(settings.dm?.msg?.embed?.description ?? defaultSettings.dm.msg.embed.description, user, entry[2]),
+            color: settings.dm?.msg?.embed?.color ?? defaultSettings.dm.msg.embed.color
           });
 
-          try { await user.send({ content: formatBirthday.call(settings.dm?.msg?.content || defaultSettings.dm.msg.content, user, entry[2]), embeds: [embed] }); }
+          try { await user.send({ content: formatBirthday.call(settings.dm?.msg?.content ?? defaultSettings.dm.msg.content, user, entry[2]), embeds: [embed] }); }
           catch (err) {
             if (err.code != 50007) throw err; // "cannot send messages to this user"
           }

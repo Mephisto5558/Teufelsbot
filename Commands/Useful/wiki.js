@@ -20,7 +20,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      query = this.options?.getString('query') || this.content,
+      query = this.options?.getString('query') ?? this.content,
       message = await this.customReply(lang('global.loading'));
 
     let data;

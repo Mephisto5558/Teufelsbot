@@ -43,7 +43,7 @@ module.exports = async function slashCommandHandler() {
     }
 
     this.slashCommands.set(command.name, command);
-    for (const alias of command.aliases?.slash || []) this.slashCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
+    for (const alias of command.aliases?.slash ?? []) this.slashCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
   }
 
   for (const [, command] of this.slashCommands) {
@@ -65,7 +65,7 @@ module.exports = async function slashCommandHandler() {
   }
 
   for (const [, command] of await applicationCommands) {
-    const cmd = this.slashCommands.get(command.aliasOf || command.name);
+    const cmd = this.slashCommands.get(command.aliasOf ?? command.name);
     if (cmd && !cmd.disabled && (this.botType != 'dev' || cmd.beta)) continue;
 
     try {

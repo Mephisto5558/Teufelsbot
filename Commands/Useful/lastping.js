@@ -34,16 +34,16 @@ module.exports = {
       if (!channel.isTextBased()) return this.customReply(lang('invalidChannel'));
     }
 
-    /** @type {{ url: string, content: string, author: import('discord.js').Snowflake, createdAt: Date }}*/
+    /** @type {{ url: string, content: string, author: import('discord.js').User|import('discord.js').Snowflake, createdAt: Date }}*/
     const { url, content, author, createdAt } = (channel ? channel.messages.cache.find(e =>
       (!target || e.author.id == target.id) && e.mentions.everyone || e.mentions.users.has(this.user.id) || e.mentions.roles.hasAny(this.member.roles.cache.keys())
-    ) : this.guild.db.lastMentions?.[this.user.id]) || {};
+    ) : this.guild.db.lastMentions?.[this.user.id]) ?? {};
 
     if (!url) return this.customReply(lang('noneFound'));
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { url, content: content ? `>>> ${content.substring(0, 200)}` : lang('unknown'), author: author.id || author }),
+      description: lang('embedDescription', { url, content: content ? `>>> ${content.substring(0, 200)}` : lang('unknown'), author: author.id ?? author }),
       timestamp: createdAt,
       color: Colors.White,
     });

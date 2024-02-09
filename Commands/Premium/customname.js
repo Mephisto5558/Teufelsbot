@@ -43,7 +43,7 @@ module.exports = {
     let target = getTargetMember.call(this);
     if (this.options?.getBoolean('global') && target.user) target = target.user; //target.user check for execution in dms
 
-    switch (this.options?.getSubcommand() || this.args[0]) {
+    switch (this.options?.getSubcommand() ?? this.args[0]) {
       case 'clear': {
         if (target.customName) {
           if (this.options?.getBoolean('global')) target.user.customName = null;
@@ -54,7 +54,7 @@ module.exports = {
       }
 
       case 'set': {
-        const newName = this.options?.getString('name') || (this.args[0] == 'set' ? this.args.slice(1) : this.args).join(' ').slice(0, 32) || null;
+        const newName = this.options?.getString('name') ?? (this.args[0] == 'set' ? this.args.slice(1) : this.args).join(' ').slice(0, 32) ?? null;
         target.customName = newName;
 
         return this.customReply(newName ? lang('set.success', newName) : lang('clear.success'));

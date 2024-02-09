@@ -9,10 +9,10 @@ const
      * @param {oldData}oldData*/
     add: async function (lang, oldData) {
       const data = {
-        id: parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) + 1 || 1,
+        id: (parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) ?? 0) + 1,
         trigger: this.options.getString('trigger'),
         response: this.options.getString('response').replaceAll('/n', '\n'),
-        wildcard: this.options.getBoolean('wildcard') ?? false
+        wildcard: !!this.options.getBoolean('wildcard')
       };
 
       await this.client.db.update('guildSettings', `${this.guild.id}.triggers`, oldData.concat(data));
@@ -26,7 +26,7 @@ const
      * @param {string}query*/
     delete: async function (lang, oldData, query) {
       const
-        { id } = (query ? Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) : Object.values(oldData).sort((a, b) => b.id - a.id)[0]) || {},
+        { id } = (query ? Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) : Object.values(oldData).sort((a, b) => b.id - a.id)[0]) ?? {},
         filtered = oldData.filter(e => e.id != id);
 
       if (filtered.length == oldData.length) return this.editReply(lang('idNotFound'));
@@ -58,7 +58,7 @@ const
       const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Blue });
 
       if (query) {
-        const { id, trigger, response, wildcard } = Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) || {};
+        const { id, trigger, response, wildcard } = Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) ?? {};
         if (!trigger) return this.editReply(lang('notFound'));
 
         embed.data.title = lang('embedTitleOne', id);
@@ -121,7 +121,11 @@ module.exports = {
       options: [{
         name: 'query_or_id',
         type: 'String',
-        autocompleteOptions: function () { return this.guild.db.triggers?.flatMap(e => [e.trigger, e.id]).sort(e => typeof e == 'string' ? -1 : 1).map(String) || []; }
+        autocompleteOptions: function () {
+          return this.guild.db.triggers
+            ?.flatMap(e => [e.trigger, e.id]).sort(e => typeof e == 'string' ? -1 : 1)
+            .map(String) ?? [];
+        }
       }]
     },
     {
@@ -140,7 +144,12 @@ module.exports = {
         {
           name: 'query_or_id',
           type: 'String',
-          autocompleteOptions: function () { return this.guild.db.triggers?.flatMap(e => [e.trigger, e.id]).sort(e => typeof e == 'string' ? -1 : 1).map(String) || []; }
+          autocompleteOptions: function () {
+            return this.guild.db.triggers
+              ?.flatMap(e => [e.trigger, e.id])
+              .sort(e => typeof e == 'string' ? -1 : 1)
+              .map(String) ?? [];
+          }
         },
         { name: 'short', type: 'Boolean' }
       ]
@@ -149,7 +158,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      oldData = this.guild.db.triggers || [],
+      oldData = this.guild.db.triggers ?? [],
       query = this.options.getString('query_or_id')?.toLowerCase();
 
     triggerMainFunctions[this.options.getSubcommand()].call(this, lang, oldData, query);

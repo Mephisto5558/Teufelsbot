@@ -12,6 +12,6 @@ module.exports = {
   dmPermission: true,
 
   run: function (lang) {
-    return this.customReply({ embeds: [embed.setTitle(lang('embedTitle')).setDescription(this.client.settings.changelog || lang('noneFound'))] });
+    return this.customReply({ embeds: [embed.setTitle(lang('embedTitle')).setDescription(this.client.settings.changelog ?? lang('noneFound'))] });
   }
 };

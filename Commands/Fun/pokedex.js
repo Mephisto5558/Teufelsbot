@@ -17,7 +17,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      pokemon = this.options?.getString('pokémon') || this.args[0],
+      pokemon = this.options?.getString('pokémon') ?? this.args[0],
       msg = await this.customReply(lang('global.loading'));
 
     let res = cache.get(pokemon.toLowerCase());
@@ -56,7 +56,7 @@ module.exports = {
         fields: [
           { name: lang('types'), value: res.types.join(', '), inline: false },
           { name: lang('abilities'), value: `${res.abilities.normal}${res.abilities.hidden ? ' and ' + res.abilities.hidden : ''}.`, inline: false },
-          { name: lang('genderRatio'), value: res.gender?.join(', ') || lang('noGender'), inline: false },
+          { name: lang('genderRatio'), value: res.gender?.join(', ') ?? lang('noGender'), inline: false },
           { name: lang('heightWeight'), value: `${res.height}, ${(parseFloat(res.weight) / 2.205).toFixed(2)}kg`, inline: false },
           { name: lang('evolutionLine'), value: res.family.evolutionLine.join(', ') + lang('currentStage', res.family.evolutionStage), inline: false },
           { name: lang('gen'), value: res.gen, inline: false }

@@ -31,9 +31,9 @@ function updateStats(firstID, secondID, type, db) {
     case 'draw': against = 'drewAgainst';
   }
 
-  db.update('leaderboards', `TicTacToe.${firstID}.games`, stats.games + 1 || 1);
-  db.update('leaderboards', `TicTacToe.${firstID}.${type}s`, stats[`${type}s`] + 1 || 1);
-  return db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, stats[against]?.[secondID] + 1 || 1);
+  db.update('leaderboards', `TicTacToe.${firstID}.games`, (stats.games ?? 0) + 1);
+  db.update('leaderboards', `TicTacToe.${firstID}.${type}s`, (stats[`${type}s`] ?? 0) + 1);
+  return db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, (stats[against]?.[secondID] ?? 0) + 1);
 }
 
 /** @type {command<'both'>}*/

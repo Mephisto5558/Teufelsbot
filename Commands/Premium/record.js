@@ -19,7 +19,7 @@ module.exports = {
   run: async function (lang) {
     const
       /** @type {import('discord.js').BaseGuildVoiceChannel?}*/
-      voiceChannel = this.options.getChannel('channel') || this.options.getMember('target')?.voice.channel || this.member.voice.channel,
+      voiceChannel = this.options.getChannel('channel') ?? this.options.getMember('target')?.voice.channel ?? this.member.voice.channel,
       target = voiceChannel?.members.get(this.options.getMember('target')?.id),
       targets = (target ? [target] : [...(voiceChannel?.members?.values() ?? [])]).filter(e => e?.voice.channel && !e.user.bot),
       isPublic = this.options.getBoolean('public');
