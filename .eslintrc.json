@@ -83,7 +83,13 @@
           }
         ],
         "jsdoc/require-returns": "off",
-        "jsdoc/require-returns-type": "off"
+        "jsdoc/require-returns-type": "off",
+        "jsdoc/require-returns-check": [
+          "error",
+          {
+            "reportMissingReturnForUndefinedTypes": false
+          }
+        ]
       }
     }
   ],
@@ -95,12 +101,7 @@
   },
   "rules": {
     "no-fallthrough": "warn",
-    "no-empty": [
-      "error",
-      {
-        "allowEmptyCatch": true
-      }
-    ],
+    "no-empty": "error",
     "indent": [
       "error",
       2,
@@ -172,7 +173,13 @@
       }
     ],
     "jsdoc/require-returns": "off",
-    "jsdoc/require-returns-type": "off"
+    "jsdoc/require-returns-type": "off",
+    "jsdoc/require-returns-check": [
+      "error",
+      {
+        "reportMissingReturnForUndefinedTypes": false
+      }
+    ]
   },
   "globals": {
     "sleep": "readonly",
