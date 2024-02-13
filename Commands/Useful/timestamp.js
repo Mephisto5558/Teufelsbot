@@ -23,7 +23,7 @@ module.exports = {
     }
 
     const time = this.createdTimestamp + offset;
-    if (time < -62492231808e5 || time > 62492231808e5) return this.customReply(lang('outOfRange')); //200000y
+    if (time < -62492231808e5 || time > 62492231808e5) return this.customReply(lang('outOfRange')); // 200000y
 
     return this.customReply(lang('success', { time: Math.round(time / 1000) }));
   }

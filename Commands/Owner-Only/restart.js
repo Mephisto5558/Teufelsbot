@@ -58,7 +58,7 @@ module.exports = {
         log.error(`Restarting Error: Exit Code ${code}, signal ${signal}`);
         if (msg.content != lang('restartingError')) msg[getUpdateFunc(msg)](lang('restartingError'));
       })
-      .on('message', async message => { //NOSONAR
+      .on('message', async message => { // NOSONAR
         if (message != 'Finished starting') return;
 
         await msg[getUpdateFunc(msg)](lang('success'));

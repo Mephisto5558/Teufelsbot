@@ -19,7 +19,7 @@ module.exports = async function record(lang, mode, requesterId, voiceChannelId) 
     case 'memberAllow':
     case 'memberDeny': {
       if (this.member.voice?.channelId != voiceChannelId) return;
-      if (!(this.member instanceof GuildMember)) return; //typeguard
+      if (!(this.member instanceof GuildMember)) return; // typeguard
 
       /** @type {Collection<string, { userId: string, allowed: boolean }[]>}*/
       const guildCache = cache.get(this.guild.id) ?? cache.set(this.guild.id, new Collection([[voiceChannelId, []]])).get(this.guild.id);

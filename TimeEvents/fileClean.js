@@ -4,7 +4,7 @@ const { readdir, stat, unlink, access, mkdir } = require('fs/promises');
 async function deleteOld(path) {
   try { await access(path); } catch { return mkdir(path); }
 
-  const time = new Date(Date.now() - 12096e5 /*2 Weeks*/).getTime();
+  const time = new Date(Date.now() - 12096e5 /* 2 Weeks*/).getTime();
   for (const file of await readdir(path, { withFileTypes: true })) {
     const pathStr = `${path}/${file.name}`;
 
@@ -17,7 +17,7 @@ async function deleteOld(path) {
 }
 
 module.exports = {
-  time: '00 00 00 01 * *', //monthly
+  time: '00 00 00 01 * *', // monthly
   startNow: true,
 
   /** @this Client*/

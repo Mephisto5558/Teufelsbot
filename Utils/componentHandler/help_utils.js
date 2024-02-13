@@ -154,7 +154,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
     commands = getCommands.call(this),
     embed = new EmbedBuilder({
       title: lang(`options.category.choices.${categoryQuery}`),
-      fields: commands.reduce((acc, e) => { //U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing
+      fields: commands.reduce((acc, e) => { // U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing
         if (e.category.toLowerCase() === categoryQuery && !e.aliasOf && filterCommands.call(this, e))
           acc.push({ name: e.name, value: helpLang(`${e.name}.description`) + '\n\u200E', inline: true });
         return acc;

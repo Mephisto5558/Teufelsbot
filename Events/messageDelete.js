@@ -32,7 +32,7 @@ module.exports = async function messageDelete() {
   const channelToSend = this.guild.channels.cache.get(setting.channel);
   if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length) return;
 
-  await sleep(1000); //Make sure the audit log gets created before trying to fetch it
+  await sleep(1000); // Make sure the audit log gets created before trying to fetch it
 
   lang.__boundArgs__[0].backupPath = 'events.logger';
 
@@ -58,7 +58,7 @@ module.exports = async function messageDelete() {
   if (!embed.data.fields[1].value) embed.data.fields[1].value += lang('unknownContent');
   else if (embed.data.fields[1].value.length > 1024) embed.data.fields[1].value = embed.data.fields[1].value.slice(0, 1021) + '...';
 
-  //We don't get the user/member if the message is not cached
+  // We don't get the user/member if the message is not cached
   if (this.user) embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (\`${this.user.id}\`)`, inline: false });
   if (executor) embed.data.fields.push({ name: lang('executor'), value: `${executor.tag} (\`${executor.id}\`)`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('reason'), value: reason, inline: false });

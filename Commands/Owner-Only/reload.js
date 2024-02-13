@@ -112,7 +112,7 @@ module.exports = {
           }
 
           if (this.args[1]?.startsWith('Commands/')) {
-            /**@type {command<'both', boolean>} */
+            /** @type {command<'both', boolean>} */
             const cmd = require(filePath);
             cmd.filePath = filePath;
             cmd.category = this.args[1].split('/')[1];

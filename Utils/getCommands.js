@@ -14,7 +14,7 @@ module.exports = async function getCommands(lang) {
     for (const cmdFile of await readdir(`./Commands/${subFolder}`)) {
       if (!cmdFile.endsWith('.js')) continue;
 
-      /**@type {command<'both', false>}*/
+      /** @type {command<'both', false>}*/
       const cmd = require(`../Commands/${subFolder}/${cmdFile}`);
       if (!cmd?.name || cmd.disabled) continue;
 

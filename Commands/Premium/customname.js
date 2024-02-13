@@ -41,7 +41,7 @@ module.exports = {
 
   run: function (lang) {
     let target = getTargetMember.call(this);
-    if (this.options?.getBoolean('global') && target.user) target = target.user; //target.user check for execution in dms
+    if (this.options?.getBoolean('global') && target.user) target = target.user; // target.user check for execution in dms
 
     switch (this.options?.getSubcommand() ?? this.args[0]) {
       case 'clear': {

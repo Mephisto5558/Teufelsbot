@@ -45,7 +45,7 @@
           "error",
           "always"
         ],
-        "@stylistic/ts/no-trailing-spaces": "warn",
+        "@stylistic/js/no-trailing-spaces": "warn",
         "@stylistic/ts/comma-spacing": [
           "error",
           {
@@ -144,6 +144,10 @@
       }
     ],
     "@stylistic/js/object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "@stylistic/js/spaced-comment": [
       "error",
       "always"
     ],

@@ -230,7 +230,7 @@ module.exports = {
       components = [new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('buttonLabel'),
-          url: '{this.messageURL}', //intentional
+          url: '{this.messageURL}', // intentional
           style: ButtonStyle.Link
         })]
       })],
