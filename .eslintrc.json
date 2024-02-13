@@ -9,8 +9,11 @@
     "plugin:jsdoc/recommended"
   ],
   "plugins": [
+    "@stylistic/js",
+    "@stylistic/ts",
     "@typescript-eslint",
-    "jsdoc"
+    "jsdoc",
+    "@stylistic/migrate"
   ],
   "overrides": [
     {
@@ -25,33 +28,33 @@
       "parser": "@typescript-eslint/parser",
       "rules": {
         "@typescript-eslint/member-delimiter-style": "error",
-        "@typescript-eslint/indent": [
+        "@stylistic/ts/indent": [
           "error",
           2,
           {
             "SwitchCase": 1
           }
         ],
-        "@typescript-eslint/quotes": [
+        "@stylistic/ts/quotes": [
           "warn",
           "single",
           {
             "avoidEscape": true
           }
         ],
-        "@typescript-eslint/semi": [
+        "@stylistic/ts/semi": [
           "error",
           "always"
         ],
-        "no-trailing-spaces": "warn",
-        "comma-spacing": [
+        "@stylistic/ts/no-trailing-spaces": "warn",
+        "@stylistic/ts/comma-spacing": [
           "error",
           {
             "before": false,
             "after": true
           }
         ],
-        "object-curly-spacing": [
+        "@stylistic/ts/object-curly-spacing": [
           "error",
           "always"
         ],
@@ -102,14 +105,14 @@
   "rules": {
     "no-fallthrough": "warn",
     "no-empty": "error",
-    "indent": [
+    "@stylistic/js/indent": [
       "error",
       2,
       {
         "SwitchCase": 1
       }
     ],
-    "linebreak-style": "off",
+    "@stylistic/js/linebreak-style": "off",
     "quotes": [
       "warn",
       "single",
@@ -117,11 +120,11 @@
         "avoidEscape": true
       }
     ],
-    "semi": [
+    "@stylistic/js/semi": [
       "error",
       "always"
     ],
-    "space-in-parens": [
+    "@stylistic/js/space-in-parens": [
       "warn",
       "never"
     ],
@@ -132,7 +135,7 @@
         "after": true
       }
     ],
-    "array-bracket-spacing": [
+    "@stylistic/js/array-bracket-spacing": [
       "error",
       "never",
       {
@@ -141,7 +144,7 @@
         "arraysInArrays": false
       }
     ],
-    "object-curly-spacing": [
+    "@stylistic/js/object-curly-spacing": [
       "error",
       "always"
     ],
