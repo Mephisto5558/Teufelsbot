@@ -50,7 +50,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   catch (err) {
     if (!(err instanceof DiscordAPIError)) throw err;
     embed.data.description = lang('cantConnect');
-    return this.message.edit({ embeds: [embed] }); //todo: check for specific error
+    return this.message.edit({ embeds: [embed] }); // todo: check for specific error
   }
 
   const

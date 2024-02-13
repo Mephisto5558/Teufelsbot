@@ -69,11 +69,11 @@ console.time('Starting time');
 
   const client = createClient();
   await client.loadEnvAndDB();
-  //WIP: client.backupSystem = new BackupSystem(client.db, { dbName: 'backups', maxGuildBackups: 5 });
+  // WIP: client.backupSystem = new BackupSystem(client.db, { dbName: 'backups', maxGuildBackups: 5 });
 
   if (client.botType != 'dev') client.giveawaysManager = new GiveawaysManager(client);
 
-  //Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution
+  // Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution
   const handlerPromises = (await readdir('./Handlers')).filter(e => e != 'event_handler.js').map(handler => require(`./Handlers/${handler}`).call(client));
 
   await client.login(client.keys.token);

@@ -8,7 +8,7 @@ const
  * @param {boolean?}deep
  * @returns {Promise<string>}*/
 async function fetchAPI(lang, deep) {
-  const res = await fetch('https://api.pawan.krd/v1/chat/completions', { //https://github.com/PawanOsman/ChatGPT
+  const res = await fetch('https://api.pawan.krd/v1/chat/completions', { // https://github.com/PawanOsman/ChatGPT
     method: 'POST',
     headers: {
       Authorization: `Bearer ${this.client.keys.chatGPTApiKey}`,

@@ -1,6 +1,6 @@
 const { help_commandQuery, help_categoryQuery, help_allQuery, help_getCommands, help_getCommandCategories } = require('../../Utils/componentHandler/');
 
-/**@type {command<'both', false>}*/
+/** @type {command<'both', false>}*/
 module.exports = {
   name: 'help',
   slashCommand: true,

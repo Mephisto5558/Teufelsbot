@@ -18,11 +18,11 @@ function formatBirthday(user, year) {
     .replaceAll('<bornyear>', year)
     .replaceAll('<date>', new Date().toLocaleDateString('en'))
     .replaceAll('<age>', parseInt(year) ? new Date().getFullYear() - year : '<age>')
-    .replace(/<age>\.?/g, ''); //<guilds> gets replaced below
+    .replace(/<age>\.?/g, ''); // <guilds> gets replaced below
 }
 
 module.exports = {
-  time: '00 00 00 * * *', //daily
+  time: '00 00 00 * * *', // daily
   startNow: true,
 
   /** @this Client*/
@@ -52,14 +52,14 @@ module.exports = {
 
         try { user = await guild.members.fetch(entry[0]); }
         catch (err) {
-          if (err.code != 10007) throw err; //"Unknown member"
+          if (err.code != 10007) throw err; // "Unknown member"
           else continue;
         }
 
         if (settings?.ch?.channel) {
           try { channel = await guild.channels.fetch(settings.ch.channel); }
           catch (err) {
-            if (err.code != 10003) throw err; //"Unknown channel"
+            if (err.code != 10003) throw err; // "Unknown channel"
             return (await guild.fetchOwner()).send(this.i18n.__({ locale: guild?.db.config?.lang ?? guild?.localeCode }, 'others.timeEvents.birthday.unknownChannel', guild.name));
           }
 
