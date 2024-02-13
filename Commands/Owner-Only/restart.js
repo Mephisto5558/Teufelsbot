@@ -36,10 +36,7 @@ module.exports = {
     let child;
     try {
       child = spawn(
-        child = spawn(
-          process.execPath, ['--inspect', ...process.argv.slice(1), `uptime=${process.uptime()}`],
-          { detached: true, stdio: ['ignore', 'ignore', 'ignore', 'ipc'] }
-        ),
+        process.execPath, ['--inspect', ...process.argv.slice(1), `uptime=${process.uptime()}`],
         { detached: true, stdio: ['ignore', 'ignore', 'ignore', 'ipc'] }
       );
     }
