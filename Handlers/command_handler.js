@@ -4,7 +4,9 @@ const
   { getDirectories } = require('../Utils'),
   { HideDisabledCommandLog, HideNonBetaCommandLog } = require('../config.json');
 
-let enabledCommandCount = 0, disabledCommandCount = 0;
+let
+  enabledCommandCount = 0,
+  disabledCommandCount = 0;
 
 /** @this Client<false>*/
 module.exports = async function commandHandler() {
@@ -14,7 +16,8 @@ module.exports = async function commandHandler() {
     /** @type {command<'prefix', boolean, true>}*/
     const command = require(`../Commands/${subFolder}/${file}`);
     if (!command?.prefixCommand) continue;
-    if (!command.disabled && !command.run?.toString().startsWith('function') && !command.run?.toString().startsWith('async function')) throw new Error(`The run function of file "${command.filePath}" is not a function. You cannot use arrow functions.`);
+    if (!command.disabled && !command.run?.toString().startsWith('function') && !command.run?.toString().startsWith('async function'))
+      throw new Error(`The run function of file "${command.filePath}" is not a function. You cannot use arrow functions.`);
 
     command.filePath = resolve(`Commands/${subFolder}/${file}`);
     command.category = subFolder;

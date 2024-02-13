@@ -6,6 +6,7 @@ module.exports = {
   commandExecutionWrapper: require('./commandExecutionWrapper.js'),
   componentHandler: require('./componentHandler.js'),
   cooldowns: require('./cooldowns.js'),
+
   /** @type {Record<string, number|string>}*/
   DiscordAPIErrorCodes: require('./DiscordAPIErrorCodes.json'),
   errorHandler: require('./errorHandler.js'),
@@ -17,11 +18,12 @@ module.exports = {
   getOwnerOnlyFolders: require('./getOwnerOnlyFolders.js'),
   getTargetChannel: require('./getTargetChannel.js'),
   getTargetMember: require('./getTargetMember.js'),
+  getTargetRole: require('./getTargetRole.js'),
   gitpull: require('./gitpull.js'),
   GiveawaysManager: require('./giveawaysManager.js'),
   logSayCommandUse: require('./logSayCommandUse.js'),
   slashCommandsEqual: require('./slashCommandsEqual.js'),
   permissionTranslator: require('./permissionTranslator.js'),
   timeFormatter: require('./timeFormatter.js'),
-  timeValidator: require('./timeValidator.js'),
+  timeValidator: require('./timeValidator.js')
 };

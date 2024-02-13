@@ -31,17 +31,19 @@ const
       if (this.options.getBoolean('get')) {
         const fields = [['roles', roles], ['channels', channels], ['users', users]].filter(([, e]) => e?.length).map(([k, v]) => ({
           name: lang(k),
-          value: v.includes('*') ? lang('list.all') : v.map(e => {
-            if (k == 'roles') return `<@&${e}>`;
-            return (k == 'channels' ? '<#' : '<@') + `${e}>`;
-          }).join(', '),
+          value: v.includes('*')
+            ? lang('list.all')
+            : v.map(e => {
+              if (k == 'roles') return `<@&${e}>`;
+              return (k == 'channels' ? '<#' : '<@') + `${e}>`;
+            }).join(', '),
           inline: false
         }));
 
         const embed = new EmbedBuilder({
           title: lang('list.embedTitle', command),
           color: Colors.White,
-          ...(fields.length ? { fields } : { description: lang('list.embedDescription') }),
+          ...fields.length ? { fields } : { description: lang('list.embedDescription') }
         });
 
         return this.editReply({ embeds: [embed] });
@@ -68,7 +70,7 @@ const
             continue;
           }
 
-          commandData[type] = [...(commandData[type] ?? []), id];
+          commandData[type] = (commandData[type] ?? []).concat(id);
           count.disabled[type]++;
         }
       }
@@ -76,11 +78,14 @@ const
       const embed = new EmbedBuilder({
         title: lang('embedTitle', command),
         description: lang('embedDescription', this.command.id),
-        fields: Object.entries(count).filter(([, v]) => Object.values(v).find(Boolean)).map(([k, v]) => ({
-          name: lang(`embed.${k}`),
-          value: Object.entries(v).filter(([, e]) => e).map(([k, v]) => lang(k) + `: **${v}**`).join('\n'),
-          inline: true
-        })),
+        fields: Object.entries(count).filter(([, v]) => Object.values(v).find(Boolean))
+          .map(([k, v]) => ({
+            name: lang(`embed.${k}`),
+            value: Object.entries(v).filter(([, e]) => e)
+              .map(([k, v]) => lang(k) + `: **${v}**`)
+              .join('\n'),
+            inline: true
+          })),
         color: Colors.White
       });
 
@@ -92,6 +97,7 @@ const
     language: async function () {
       const
         language = this.options.getString('language'),
+
         /** @type {lang}*/
         newLang = this.client.i18n.__.bind(this.client.i18n, { locale: this.client.i18n.availableLocales.has(language) ? language : this.client.i18n.config.defaultLocale }),
         { category, name } = this.client.slashCommands.get(this.commandName),
@@ -105,16 +111,16 @@ const
       return this.editReply({ embeds: [embed] });
     },
 
-    /** 
-     * @this GuildInteraction 
+    /**
+     * @this GuildInteraction
      * @param {lang}lang*/
     serverbackup: async function (lang) {
       await this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', parseInt(backup.get(this.options.getString('allowed_to_load'))));
       return this.editReply(lang('success'));
     },
 
-    /** 
-     * @this GuildInteraction 
+    /**
+     * @this GuildInteraction
      * @param {lang}lang*/
     autopublish: async function (lang) {
       const enabled = this.options.getBoolean('enabled');
@@ -122,8 +128,8 @@ const
       return this.customReply(lang('success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
     },
 
-    /** 
-     * @this GuildInteraction 
+    /**
+     * @this GuildInteraction
      * @param {lang}lang*/
     logger: async function (lang) {
       const
@@ -223,12 +229,12 @@ module.exports = {
           name: 'action',
           type: 'String',
           required: true,
-          choices: ['all', ...loggerActionTypes],
+          choices: ['all', ...loggerActionTypes]
         },
         {
           name: 'channel',
           type: 'Channel',
-          channelTypes: Constants.TextBasedChannelTypes,
+          channelTypes: Constants.TextBasedChannelTypes
         },
         { name: 'enabled', type: 'Boolean' }
       ]

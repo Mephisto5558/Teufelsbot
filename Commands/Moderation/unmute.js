@@ -11,7 +11,7 @@ module.exports = {
     {
       name: 'target',
       type: 'User',
-      required: true,
+      required: true
     },
     { name: 'reason', type: 'String' }
   ],

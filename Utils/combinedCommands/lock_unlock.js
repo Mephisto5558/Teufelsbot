@@ -21,12 +21,13 @@ module.exports = async function lock_unlock(lang) {
   let overwrites;
 
   if (this.commandName == 'lock') {
-    overwrites = await channel.permissionOverwrites.cache.reduce(async (acc, e) =>
-      e.allow.has(PermissionFlagsBits.SendMessages) && !e.allow.has(PermissionFlagsBits.Administrator) && (
-        e.type == OverwriteType.Role 
-        && (await this.guild.roles.fetch(e.id))?.position - this.guild.members.me.roles.highest.position < 0
-        || (await this.guild.members.fetch(e.id)).manageable
-      ) ? { ...(await acc), [e.id]: e.type } : acc, Promise.resolve({}));
+    overwrites = await channel.permissionOverwrites.cache.reduce(async (acc, e) => e.allow.has(PermissionFlagsBits.SendMessages) && !e.allow.has(PermissionFlagsBits.Administrator) && (
+      e.type == OverwriteType.Role
+      && (await this.guild.roles.fetch(e.id))?.position - this.guild.members.me.roles.highest.position < 0
+      || (await this.guild.members.fetch(e.id)).manageable
+    )
+      ? { ...await acc, [e.id]: e.type }
+      : acc, Promise.resolve({}));
 
     if (channel.permissionOverwrites.resolve(this.guild.roles.everyone.id)?.allow.has(PermissionFlagsBits.SendMessages))
       overwrites[this.guild.roles.everyone.id] = OverwriteType.Role;
@@ -47,8 +48,7 @@ module.exports = async function lock_unlock(lang) {
 
   for (const [id, type] of Array.isArray(overwrites) ? overwrites : Object.entries(overwrites)) await channel.permissionOverwrites.edit(id,
     { [PermissionFlagsBits.SendMessages]: this.commandName == 'lock' },
-    { type, reason: lang('global.modReason', { command: this.commandName, user: this.user.username }) }
-  );
+    { type, reason: lang('global.modReason', { command: this.commandName, user: this.user.username }) });
 
   await channel.send({ embeds: [embed] });
   return msg.edit(lang('success'));

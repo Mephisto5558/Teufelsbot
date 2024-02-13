@@ -39,7 +39,11 @@ module.exports = {
     let input = this.options.getString('emoji_or_url');
 
     const
-      limitToRoles = this.options.getString('limit_to_roles')?.split(' ').map(e => e.replace(/\D/g, '')).filter(e => this.guild.roles.cache.has(e)),
+      limitToRoles = this.options.getString('limit_to_roles')?.split(' ').reduce((acc, e) => {
+        const id = e.replace(/\D/g, '');
+        if (this.guild.roles.cache.has(id)) acc.push(id);
+        return acc;
+      }, []),
       emoticon = parseEmoji(input),
       name = this.options.getString('name')?.slice(0, 32) ?? (emoticon.id ? emoticon.name : 'emoji'),
       embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
@@ -50,7 +54,7 @@ module.exports = {
     if (!input.startsWith('http')) input = `https://${input}`;
 
     try {
-      if (!(await checkUrl(input))) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
+      if (!await checkUrl(input)) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
 
       const emoji = await this.guild.emojis.create({
         attachment: input, name,

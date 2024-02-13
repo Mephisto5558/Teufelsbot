@@ -9,7 +9,9 @@ module.exports = async function slashCommandHandler() {
   await this.awaitReady();
 
   const applicationCommands = this.application.commands.fetch({ withLocalizations: true });
-  let deletedCommandCount = 0, registeredCommandCount = 0;
+  let
+    deletedCommandCount = 0,
+    registeredCommandCount = 0;
 
   this.slashCommands.clear();
 
@@ -82,10 +84,11 @@ module.exports = async function slashCommandHandler() {
 
   this.on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[].concat(args ?? this)));
 
-  log /* eslint-disable no-unexpected-multiline, indent*/
-  (`Registered ${registeredCommandCount} Slash Commands`) // NOSONAR
-  (`Skipped ${this.slashCommands.filter(e => { return e.skip && delete e.skip; }).size} Slash Commands`)
-  (`Deleted ${deletedCommandCount} Slash Commands`)
-  ('Loaded Event interactionCreate')
-  ('Ready to receive slash commands');
+  /* eslint-disable no-unexpected-multiline, @stylistic/indent, @stylistic/function-call-spacing*/
+  log
+    (`Registered ${registeredCommandCount} Slash Commands`) // NOSONAR
+    (`Skipped ${this.slashCommands.filter(e => { return e.skip && delete e.skip; }).size} Slash Commands`)
+    (`Deleted ${deletedCommandCount} Slash Commands`)
+    ('Loaded Event interactionCreate')
+    ('Ready to receive slash commands');
 };

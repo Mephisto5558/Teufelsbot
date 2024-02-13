@@ -61,7 +61,7 @@ module.exports = {
     if (msg) {
       try { msg = await this.channel.messages.fetch(msg); }
       catch (err) {
-        if (err.code !=  DiscordApiErrorCodes.UnknownMessage) throw err;
+        if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
         return this.editReply(lang('msgNotFound'));
       }
 
@@ -70,16 +70,18 @@ module.exports = {
     }
 
     try {
-      const button = new ButtonBuilder(custom ? JSON.parse(custom) : {
-        style: parseInt(this.options.getString('style')),
-        label: this.options.getString('label'),
-        emoji: this.options.getString('emoji'),
-        url
-      });
+      const button = new ButtonBuilder(custom
+        ? JSON.parse(custom)
+        : {
+          style: parseInt(this.options.getString('style')),
+          label: this.options.getString('label'),
+          emoji: this.options.getString('emoji'),
+          url
+        });
 
       if (!isLink) button.setCustomId(`buttonCommandButton_${Date.now()}`);
 
-      const components = new Array(...(msg?.components ?? []));
+      const components = new Array(...msg?.components ?? []);
 
       if (!msg?.components?.length || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
         components.push(new ActionRowBuilder({ components: [button] }));

@@ -26,7 +26,10 @@ module.exports = {
         thumbnail: { url: guild.iconURL() },
         image: { url: guild.bannerURL({ size: 1024 }) },
         fields: [
-          { name: lang('members'), value: lang('memberStats', { all: guild.memberCount, humans: (await guild.members.fetch()).filter(e => !e.user.bot).size, bots: guild.members.cache.filter(e => e.user.bot).size }), inline: true },
+          { name: lang('members'), value: lang('memberStats', {
+            all: guild.memberCount,
+            ...(await guild.members.fetch()).reduce((acc, e) => { acc[e.user.bot ? 'bots' : 'humans']++; return acc; }, { humans: 0, bots: 0 })
+          }), inline: true },
           { name: lang('verificationLevel.name'), value: lang(`verificationLevel.${guild.verificationLevel}`), inline: true },
           { name: lang('id'), value: `\`${guild.id}\``, inline: true },
           { name: lang('createdAt'), value: `<t:${Math.round(guild.createdTimestamp / 1000)}>`, inline: true },
@@ -37,7 +40,11 @@ module.exports = {
           { name: lang('emojis'), value: `\`${guild.emojis.cache.size}\``, inline: true },
           { name: lang('roles'), value: `\`${guild.roles.cache.size}\``, inline: true },
           { name: lang('boosts.name'), value: `\`${guild.premiumSubscriptionCount}\`` + (guild.premiumTier ? lang(`boosts.${guild.premiumTier}`) : ''), inline: true },
-          { name: lang('channels'), value: Object.entries(channels.reduce((acc, { type }) => ({ ...acc, [type]: (acc[type] ?? 0) + 1 }), {})).map(([k, v]) => `${lang('others.ChannelTypes.plural.' + k)}: \`${v}\``).join(', '), inline: false }
+          {
+            name: lang('channels'), inline: false,
+            value: Object.entries(channels.reduce((acc, { type }) => ({ ...acc, [type]: (acc[type] ?? 0) + 1 }), {}))
+              .map(([k, v]) => `${lang('others.ChannelTypes.plural.' + k)}: \`${v}\``).join(', ')
+          }
         ]
       });
 

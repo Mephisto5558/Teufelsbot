@@ -1,4 +1,4 @@
-/** 
+/**
  * @param {string|string[]}perms
  * @param {string}locale
  * @param {import('@mephisto5558/i18n')}i18n

@@ -1,7 +1,11 @@
 const
   { Message, Constants, Collection } = require('discord.js'),
   { getTargetChannel } = require('../../Utils'),
-  // filters discord invites, invite.gg, dsc.gg, disboard.org links
+
+  /**
+   * @param {string}str
+   * filters discord invites, invite.gg, dsc.gg, disboard.org links*/
+  // eslint-disable-next-line @stylistic/max-len
   adRegex = str => /((?=discord)(?<!support\.)(discord(?:app)?[\W_]*(com|gg|me|net|io|plus|link)\/|(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(attachments|channels)\/)|(invite|dsc)[\W_]*gg|disboard[\W_]*org/gi.test(str),
   filterOptionsExist = options => Object.keys(options).some(e => e.name != 'amount' && e.name != 'channel'),
   filterCheck = {
@@ -9,7 +13,7 @@ const
     embeds: msg => msg.embeds?.length,
     mentions: msg => msg.mentions.users.size,
     images: msg => msg.attachments?.some(e => e.contentType.includes('image')),
-    server_ads: msg => adRegex(msg.content) || msg.embeds?.some(e => adRegex(e.description)),
+    server_ads: msg => adRegex(msg.content) || msg.embeds?.some(e => adRegex(e.description))
   };
 
 /**
@@ -21,7 +25,8 @@ function shouldDeleteMsg(msg, options) {
     bool = msg.bulkDeletable && (!options.remove_pinned || msg.pinned),
     userType = msg.user.bot ? 'bot' : 'human';
 
-  return !!(!filterOptionsExist(options) ? bool : bool
+  return !!(filterOptionsExist(options)
+    ? bool
     && (nHas('member') || msg.user.id == options.member.id)
     && (nHas('user_type') || options.user_type == userType)
     && (nHas('only_containing') || filterCheck[options.only_containing](msg))
@@ -31,7 +36,8 @@ function shouldDeleteMsg(msg, options) {
     && (nHas('starts_with') || msg.content.startsWith(options.starts_with) || msg.embeds?.some(e => e.description.startsWith(options.starts_with)))
     && (nHas('not_starts_with') || msg.content.startsWith(options.not_starts_with) || msg.embeds?.some(e => e.description.startsWith(options.not_starts_with)))
     && (nHas('ends_with') || msg.content.endsWith(options.ends_with) || msg.embeds?.some(e => e.description.endsWith(options.ends_with)))
-    && (nHas('not_ends_with') || msg.content.endsWith(options.not_ends_with) || msg.embeds?.some(e => e.description.endsWith(options.not_ends_with))));
+    && (nHas('not_ends_with') || msg.content.endsWith(options.not_ends_with) || msg.embeds?.some(e => e.description.endsWith(options.not_ends_with)))
+    : bool);
 }
 
 /**
@@ -106,17 +112,19 @@ module.exports = {
       choices: ['bot', 'human']
     },
     { name: 'before_message', type: 'String' },
-    { name: 'after_message', type: 'String' },
+    { name: 'after_message', type: 'String' }
   ],
 
   run: async function (lang) {
     const
       amount = this.options?.getInteger('amount') ?? parseInt(this.args?.[0]).limit({ min: 0, max: 1000 }),
+
       /** @type {import('discord.js').GuildTextBasedChannel}*/
       channel = getTargetChannel.call(this, { returnSelf: true }),
       options = Object.fromEntries(this.options?.data.map(e => [e.name, e.value]) ?? []);
 
-    let messages, count = 0;
+    let messages,
+      count = 0;
 
     if (!amount) return this.customReply(isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
     if (options.before && options.after) return this.customReply(lang('beforeAndAfter'));

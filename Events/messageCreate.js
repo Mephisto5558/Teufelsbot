@@ -10,7 +10,11 @@ module.exports = async function messageCreate() {
     if (this.guild.db.config?.autopublish && this.crosspostable) this.crosspost();
 
     const mentions = [this.mentions.repliedUser?.id, ...this.mentions.users.keys(), ...this.mentions.roles.flatMap(r => r.members).keys()].filter(e => e && e != this.user.id);
-    if (mentions.length) this.client.db.update('guildSettings', `${this.guild.id}.lastMentions`, mentions.reduce((acc, e) => ({ ...acc, [e]: { content: this.content, url: this.url, author: this.author, channel: this.channel.id, createdAt: this.createdAt } }), this.guild.db.lastMentions ?? {}));
+    if (mentions.length) {
+      this.client.db.update('guildSettings', `${this.guild.id}.lastMentions`, mentions.reduce((acc, e) => (
+        { ...acc, [e]: { content: this.content, url: this.url, author: this.author, channel: this.channel.id, createdAt: this.createdAt } }
+      ), this.guild.db.lastMentions ?? {}));
+    }
   }
 
   if (this.user.bot) return;
@@ -18,6 +22,7 @@ module.exports = async function messageCreate() {
 
   const
     command = this.client.prefixCommands.get(this.commandName),
+
     /** @type {lang}*/
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild?.db.config?.lang ?? this.guild?.localeCode, backupPath: 'events.command' }),
     errorKey = await checkForErrors.call(this, command, lang);

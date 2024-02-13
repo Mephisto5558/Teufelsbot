@@ -30,14 +30,17 @@ module.exports = {
         return msg[getUpdateFunc(msg)](lang('updateNPMError'));
       }
     }
-    
+
     msg = await (msg ?? this)[getUpdateFunc(msg ?? this)](lang('restarting'));
 
     let child;
     try {
       child = spawn(
-        process.execPath, ['--inspect', ...(process.argv.slice(1) ?? ['.']), `uptime=${process.uptime()}`],
-        { detached: true, stdio: ['ignore', 'ignore', 'ignore', 'ipc'], }
+        child = spawn(
+          process.execPath, ['--inspect', ...process.argv.slice(1), `uptime=${process.uptime()}`],
+          { detached: true, stdio: ['ignore', 'ignore', 'ignore', 'ipc'] }
+        ),
+        { detached: true, stdio: ['ignore', 'ignore', 'ignore', 'ipc'] }
       );
     }
     catch (err) {

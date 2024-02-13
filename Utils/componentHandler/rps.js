@@ -42,10 +42,10 @@ function sendGame(initiator, opponent, lang) {
 }
 
 /** this.customId: `rps.<initiatorId>.<mode>.<opponentId>`
- * @this import('discord.js').ButtonInteraction 
- * @param {lang}lang 
+ * @this import('discord.js').ButtonInteraction
+ * @param {lang}lang
  * @param {string}initiatorId
- * @param {'cancel'|'decline'|'accept'|'playAgain'|'r'|'p'|'s'}mode 
+ * @param {'cancel'|'decline'|'accept'|'playAgain'|'r'|'p'|'s'}mode
  * @param {string}opponentId*/
 module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   if (this.user.id != initiatorId && this.user.id != opponentId) return;
@@ -74,7 +74,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
     case 'accept': if (opponent.user.bot || this.user.id == opponentId) return sendGame.call(this, initiator, opponent, lang); break;
     case 'playAgain': {
       if (this.client.botType != 'dev') await this.client.db.update('botSettings', 'stats.rps', (this.client.settings.stats?.rps ?? 0) + 1);
-      
+
       if (opponent.user.bot) return sendGame.call(this, initiator, opponent, lang);
       return sendChallenge.call(this, this.member, initiatorId == this.user.id ? opponent : initiator, lang);
     }
@@ -100,8 +100,13 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
       await this.client.db.delete('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`);
       if (choices.player1 == choices.player2) this.message.embeds[0].data.description = lang('end.tie', emojis[mode]);
       else {
-        const winner = choices.player1 == 'r' && choices.player2 == 's' || choices.player1 == 'p' && choices.player2 == 'r' || choices.player1 == 's' && choices.player2 == 'p' ? initiatorId : opponentId;
-        this.message.embeds[0].data.description = lang('end.win', { winner, winEmoji: emojis[initiatorId == winner ? choices.player1 : choices.player2], loseEmoji: emojis[initiatorId == winner ? choices.player2 : choices.player1] });
+        const winner = choices.player1 == 'r' && choices.player2 == 's' || choices.player1 == 'p' && choices.player2 == 'r' || choices.player1 == 's' && choices.player2 == 'p'
+          ? initiatorId
+          : opponentId;
+        this.message.embeds[0].data.description = lang('end.win', {
+          winner, winEmoji: emojis[initiatorId == winner ? choices.player1 : choices.player2],
+          loseEmoji: emojis[initiatorId == winner ? choices.player2 : choices.player1]
+        });
       }
 
       const component = new ActionRowBuilder({

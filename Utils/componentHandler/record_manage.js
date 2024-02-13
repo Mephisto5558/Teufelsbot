@@ -7,11 +7,11 @@ const
   exec = require('util').promisify(require('child_process').exec),
   ffmpeg = require('ffmpeg-static').default;
 
-/** 
+/**
  * @this import('discord.js').ButtonInteraction
  * @param {lang}lang
  * @param {string}requesterId
- * @param {string}voiceChannelId 
+ * @param {string}voiceChannelId
  * @param {{ userId: string, allowed: boolean }[]}vcCache*/
 module.exports.startRecording = async function startRecording(lang, requesterId, voiceChannelId, vcCache) {
   const embed = this.message.embeds[0];
@@ -88,7 +88,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
 
 /**
  * @this import('discord.js').ButtonInteraction
- * @param {lang}lang 
+ * @param {lang}lang
  * @param {string}mode
  * @param {string}voiceChannelId
  * @param {import('discord.js').Collection<string, import('discord.js').Collection<string, {userId: string, allowed: boolean}[]}cache*/
@@ -96,7 +96,8 @@ module.exports.recordControls = async function recordControls(lang, mode, voiceC
   const
     embed = this.message.embeds[0],
     buttons = this.message.components[0],
-    membersToRecord = cache.get(this.guild.id).get(voiceChannelId).filter(e => e.allowed).map(e => e.userId),
+    membersToRecord = cache.get(this.guild.id).get(voiceChannelId).filter(e => e.allowed)
+      .map(e => e.userId),
     filename = `${this.message.createdTimestamp}_${voiceChannelId}_${membersToRecord.join('_')}`;
 
   switch (mode) {
