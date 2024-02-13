@@ -288,7 +288,7 @@ class BackupSystem {
     for (const emoji of data.emojis) {
       try { await guild.emojis.create({ name: emoji.name, attachment: emoji.url ?? this.utils.loadFromBase64(emoji.base64), reason }); }
       catch (err) {
-        if (err.code != 30008) throw err; //"Maximum number of emojis reached"
+        if (err.code != 30008) throw err; // "Maximum number of emojis reached"
         break;
       }
     }
@@ -297,7 +297,7 @@ class BackupSystem {
     for (const sticker of data.stickers) {
       try { await guild.stickers.create({ name: sticker.name, description: sticker.description, tags: sticker.tags, file: sticker.url ?? this.utils.loadFromBase64(sticker.base64), reason }); }
       catch (err) {
-        if (err.code != 30039) throw err; //"Maximum number of stickers reached"
+        if (err.code != 30039) throw err; // "Maximum number of stickers reached"
         break;
       }
     }

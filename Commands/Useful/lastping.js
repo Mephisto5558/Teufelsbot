@@ -16,7 +16,7 @@ module.exports = {
       channelTypes: Constants.TextBasedChannelTypes
     },
     { name: 'member', type: 'User' }
-    /*{
+    /* {
       name: 'amount',
       type: 'Integer',
       minValue: 0,

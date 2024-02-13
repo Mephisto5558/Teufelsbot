@@ -189,7 +189,7 @@ GameBoardButtonBuilder.prototype.createButton = function createButton(row, col) 
     buttonIndex = row * this.boardSize + col,
     buttonData = this.boardData[buttonIndex];
 
-  //Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
+  // Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
   if (buttonData === 0) button.setLabel('\u200B');
   else {
     if (this.customEmojies) button.setEmoji(this.emojies[buttonData]);

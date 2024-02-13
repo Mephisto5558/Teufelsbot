@@ -9,7 +9,7 @@
  */
 module.exports = function getTargetMember({ targetOptionName = 'target', returnSelf } = {}) {
   if (this.guild) {
-    /**@type {import('discord.js').GuildMember?}*/
+    /** @type {import('discord.js').GuildMember?}*/
     let target = this.options?.getMember(targetOptionName) ?? this.mentions?.members.first();
     if (!target && this.content) target = this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.globalName, e.nickname].some(e => [...(this.args ?? []), this.content].includes(e)));
     if (target) return target;

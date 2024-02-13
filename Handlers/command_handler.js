@@ -35,5 +35,5 @@ module.exports = async function commandHandler() {
 
   log(`Loaded ${enabledCommandCount} Enabled Prefix Commands`);
   if (!HideDisabledCommandLog) log(`Loaded ${disabledCommandCount} Disabled/Non-Beta Prefix Commands`);
-  console.log(); //Empty line
+  console.log(); // Empty line
 };

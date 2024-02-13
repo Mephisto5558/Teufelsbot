@@ -25,8 +25,8 @@ module.exports = {
   }
 };
 
-//strictAutocomplete makes it like choices but without max. options
-//subcommand groups and subcommands can have cooldowns as well (subcommand group, subcommand and normal command cooldown are checked)
+// strictAutocomplete makes it like choices but without max. options
+// subcommand groups and subcommands can have cooldowns as well (subcommand group, subcommand and normal command cooldown are checked)
 /** @type {commandOptions[]}*/
 const options = [{
   name: '',

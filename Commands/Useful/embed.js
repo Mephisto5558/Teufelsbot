@@ -42,7 +42,7 @@ module.exports = {
         { name: 'author_name', type: 'String' },
         { name: 'author_url', type: 'String' },
         { name: 'author_icon', type: 'String' },
-        //{ name: 'fields', type: 'String' }
+        // { name: 'fields', type: 'String' }
       ]
     },
     {
@@ -75,7 +75,7 @@ module.exports = {
           url: getOption('author_url'),
           iconURL: getOption('author_icon')
         }
-        //fields: getOption('fields')
+        // fields: getOption('fields')
       });
 
       let allowedMentions = { parse: [AllowedMentionsTypes.User] };
