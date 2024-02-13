@@ -12,8 +12,7 @@
     "@stylistic/js",
     "@stylistic/ts",
     "@typescript-eslint",
-    "jsdoc",
-    "@stylistic/migrate"
+    "jsdoc"
   ],
   "overrides": [
     {
