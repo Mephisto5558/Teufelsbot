@@ -3,7 +3,8 @@ const
   { getTargetMember } = require('../../Utils'),
   { mgStats_formatTopTen: formatTopTen } = require('../../Utils/componentHandler/'),
   sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
-  manageData = data => Object.entries(data ?? {}).sort(([, a], [, b]) => b - a).slice(0, 3).reduce((acc, e) => acc + `> <@${e[0]}>: \`${e[1]}\`\n`, '');
+  manageData = data => Object.entries(data ?? {}).sort(([, a], [, b]) => b - a).slice(0, 3)
+    .reduce((acc, [k, v]) => acc + `> <@${k}>: \`${v}\`\n`, '');
 
 /**
  * @param {number}input
@@ -92,11 +93,10 @@ module.exports = {
 
       const targetData = data?.[target.id];
       if (targetData?.games) {
-        embed.data.description =
-          lang('games', targetData.games) +
-          lang('wins', formatStatCount(targetData.wins, targetData.games)) +
-          lang('draws', formatStatCount(targetData.draws, targetData.games)) +
-          lang('loses', formatStatCount(targetData.loses, targetData.games));
+        embed.data.description = lang('games', targetData.games)
+        + lang('wins', formatStatCount(targetData.wins, targetData.games))
+        + lang('draws', formatStatCount(targetData.draws, targetData.games))
+        + lang('loses', formatStatCount(targetData.loses, targetData.games));
 
         if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + (manageData(targetData.wonAgainst) || '> ' + lang('noOne')) + '\n';
         if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + (manageData(targetData.lostAgainst) || '> ' + lang('noOne')) + '\n';

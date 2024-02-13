@@ -35,7 +35,7 @@ const
     ]
   });
 
-/** 
+/**
  * @this Client<true>
  * @param {string}message*/
 async function processMessageEventCallback(message) {
@@ -43,7 +43,7 @@ async function processMessageEventCallback(message) {
   process.removeListener('message', processMessageEventCallback.bind(this));
 
   if (disableWebserver) log('Webserver is disabled by config.json.');
-  else this.webServer ??= await (new WebServer(
+  else this.webServer ??= await new WebServer(
     this, this.db,
     { secret: this.keys.secret, dbdLicense: this.keys.dbdLicense, webhookURL: this.keys.votingWebhookURL },
     {
@@ -51,7 +51,7 @@ async function processMessageEventCallback(message) {
       support: { discord: discordInvite, mail: mailAddress }, errorPagesDir: './Website/CustomSites/error',
       settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites'
     }, errorHandler.bind(this)
-  )).init(await getCommands(this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })));
+  ).init(await getCommands(this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })));
 
   await require('./Handlers/event_handler.js').call(this);
 }
@@ -78,7 +78,7 @@ console.time('Starting time');
 
   await client.login(client.keys.token);
   log(`Logged into ${client.botType}`);
-  
+
   if (process.connected) process.on('message', processMessageEventCallback.bind(client));
 
   await Promise.all(handlerPromises);

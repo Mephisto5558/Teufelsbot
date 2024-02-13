@@ -3,7 +3,7 @@ const
   triggerMainFunctions = {
     /** @typedef {{ id:string, trigger:string, response:string, wildcard:boolean }[]}oldData*/
 
-    /** 
+    /**
      * @this GuildInteraction
      * @param {lang}lang
      * @param {oldData}oldData*/
@@ -19,10 +19,10 @@ const
       return this.editReply(lang('saved', data.trigger));
     },
 
-    /** 
-     * @this GuildInteraction 
-     * @param {lang}lang 
-     * @param {oldData}oldData 
+    /**
+     * @this GuildInteraction
+     * @param {lang}lang
+     * @param {oldData}oldData
      * @param {string}query*/
     delete: async function (lang, oldData, query) {
       const
@@ -80,11 +80,13 @@ const
         }));
       }
       else {
-        embed.data.description = oldData.reduce((acc, { id, trigger, response, wildcard }) => acc.length >= 3800 ? acc : acc + lang('longEmbedDescription', {
-          id, wildcard: !!wildcard,
-          trigger: trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...',
-          response: response.length < 20 ? response : response.substring(0, 17) + '...'
-        }), '');
+        embed.data.description = oldData.reduce((acc, { id, trigger, response, wildcard }) => acc.length >= 3800
+          ? acc
+          : acc + lang('longEmbedDescription', {
+            id, wildcard: !!wildcard,
+            trigger: trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...',
+            response: response.length < 20 ? response : response.substring(0, 17) + '...'
+          }), '');
       }
 
       return this.editReply({ embeds: [embed] });

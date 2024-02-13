@@ -1,4 +1,3 @@
-
 const
   { Collection, GuildMember } = require('discord.js'),
   { startRecording, recordControls } = require('./record_manage.js'),

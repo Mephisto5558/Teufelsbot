@@ -4,7 +4,7 @@ const
   handlers = require('./componentHandler/');
 
 /**
- * @this import('discord.js').MessageComponentInteraction 
+ * @this import('discord.js').MessageComponentInteraction
  * @param {lang}lang*/
 module.exports = async function MessageComponentHandler(lang) {
   const

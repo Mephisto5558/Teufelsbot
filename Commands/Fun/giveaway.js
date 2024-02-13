@@ -28,10 +28,10 @@ const
             giveaway: lang('newGiveaway'),
             giveawayEnded: lang('giveawayEnded'),
             inviteToParticipate:
-              `${this.options.getString('description')}\n\n` +
-              (requiredRoles?.length ? lang('requiredRoles', `<@&${requiredRoles.join('>, <@&')}>\n`) : '') +
-              (disallowedMembers?.length ? lang('disallowedMembers', `<@${disallowedMembers.join('< <@')}>\n`) : '') +
-              lang('inviteToParticipate', reaction),
+              `${this.options.getString('description')}\n\n`
+              + (requiredRoles?.length ? lang('requiredRoles', `<@&${requiredRoles.join('>, <@&')}>\n`) : '')
+              + (disallowedMembers?.length ? lang('disallowedMembers', `<@${disallowedMembers.join('< <@')}>\n`) : '')
+              + lang('inviteToParticipate', reaction),
             winMessage: { content: lang('winMessage'), components },
             drawing: lang('drawing'),
             dropMessage: lang('dropMessage', reaction),
@@ -47,7 +47,10 @@ const
           isDrop: this.options.getBoolean('is_drop')
         };
 
-      if (requiredRoles?.length || disallowedMembers?.length) startOptions.exemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers?.includes(member.id));
+      if (requiredRoles?.length || disallowedMembers?.length)
+
+        /** @param {import('discord.js').GuildMember}member*/
+        startOptions.exemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers?.includes(member.id));
 
       const data = await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions);
       components[0].components[0].data.url = data.messageURL;
@@ -82,7 +85,8 @@ const
         newImage: this.options.getString('image')
       };
 
-      if (requiredRoles.length || disallowedMembers.length) editOptions.newExemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers.includes(member.id));
+      if (requiredRoles.length || disallowedMembers.length)
+        editOptions.newExemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers.includes(member.id));
       if (bonusEntries.length) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
 
       const data = await this.client.giveawaysManager.edit(giveawayId, editOptions);
@@ -188,7 +192,7 @@ module.exports = {
         {
           name: 'winner_count',
           type: 'Integer',
-          minValue: 1,
+          minValue: 1
         },
         { name: 'prize', type: 'String' },
         { name: 'thumbnail', type: 'String' },
@@ -224,7 +228,7 @@ module.exports = {
     }
 
     const
-      bonusEntries = this.options.getString('bonus_entries')?.split(' ').map(e => ({ [e.split(':')[0].replace(/[^/d]/g, '')]: e.split(':')[1] })),
+      bonusEntries = this.options.getString('bonus_entries')?.split(' ').map(e => ({ [e.split(':')[0].replace(/\D/g, '')]: e.split(':')[1] })),
       requiredRoles = this.options.getString('required_roles')?.replace(/\D/g, '').split(' '),
       disallowedMembers = this.options.getString('exempt_member')?.replace(/\D/g, '').split(' '),
       components = [new ActionRowBuilder({

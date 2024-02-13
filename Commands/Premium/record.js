@@ -1,4 +1,4 @@
-const { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors, } = require('discord.js');
+const { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors } = require('discord.js');
 
 /** @type {command<'slash'>}*/
 module.exports = {
@@ -18,11 +18,12 @@ module.exports = {
 
   run: async function (lang) {
     const
+      isPublic = this.options.getBoolean('public'),
+
       /** @type {import('discord.js').BaseGuildVoiceChannel?}*/
       voiceChannel = this.options.getChannel('channel') ?? this.options.getMember('target')?.voice.channel ?? this.member.voice.channel,
       target = voiceChannel?.members.get(this.options.getMember('target')?.id),
-      targets = (target ? [target] : [...(voiceChannel?.members?.values() ?? [])]).filter(e => e?.voice.channel && !e.user.bot),
-      isPublic = this.options.getBoolean('public');
+      targets = (target ? [target] : [...voiceChannel?.members?.values() ?? []]).filter(e => e?.voice.channel && !e.user.bot);
 
     if (!voiceChannel) return this.editReply(lang('needVoiceChannel'));
     if (!voiceChannel.joinable) return this.editReply(lang('cannotJoin'));

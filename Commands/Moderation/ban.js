@@ -17,11 +17,6 @@ module.exports = {
       maxValue: 7
     },
     { name: 'target', type: 'User' }
-    /* {
-      name: 'duration',
-      type: 'String',
-      autocompleteOptions: function () { return timeValidator(this.focused.value); } }
-    */
   ],
 
   run: require('../../Utils/combinedCommands').ban_kick_mute

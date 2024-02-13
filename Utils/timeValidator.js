@@ -1,12 +1,14 @@
 const validItems = ['y', 'mth', 'w', 'd', 'h', 'min', 's', 'ms'];
 
-/** 
+/**
  * @param {string}t a time string, e.g. 3w2d
  * @returns {string[]}array of valid values*/
 function timeValidator(t) {
   if (!t) return [];
 
-  let numberBuffer = '', unitBuffer = '';
+  let
+    numberBuffer = '',
+    unitBuffer = '';
   for (let i = 0; i < t.length; i++) {
     const char = t[i];
 

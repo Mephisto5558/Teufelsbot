@@ -19,13 +19,14 @@ module.exports = {
     {
       name: 'channel',
       type: 'Channel',
-      channelTypes: Constants.TextBasedChannelTypes,
+      channelTypes: Constants.TextBasedChannelTypes
     }
   ],
 
   run: async function (lang) {
     const
       msg = this.content ?? this.options?.getString('msg'),
+
       /** @type {import('discord.js').GuildTextBasedChannel}*/
       channel = getTargetChannel.call(this, { returnSelf: true });
 

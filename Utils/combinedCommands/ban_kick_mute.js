@@ -13,6 +13,7 @@ module.exports = async function ban_kick_mute(lang) {
 
   let
     noMsg, muteDurationMs,
+
     /** @type {number?}*/
     muteDuration = this.options.getString('duration'),
     reason = this.options.getString('reason');
@@ -26,6 +27,7 @@ module.exports = async function ban_kick_mute(lang) {
   }
 
   const
+
     /** @type {import('discord.js').GuildMember}*/
     target = this.options.getMember('target'),
     infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.tag, muteDuration, reason }),

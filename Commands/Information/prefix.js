@@ -22,7 +22,7 @@ module.exports = {
 
     const currentPrefix = this.guild.db.config?.prefix?.prefix ?? this.client.defaultSettings.config.prefix;
     if (!currentPrefix) throw new Error('No Default Prefix Found in DB');
-    
+
     return this.customReply(lang('currentPrefix', currentPrefix) + (prefixCaseInsensitive ? lang('caseInsensitive') : ''));
   }
 };

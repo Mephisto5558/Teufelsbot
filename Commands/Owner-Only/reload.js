@@ -54,7 +54,7 @@ async function reloadCommand(command, reloadedArray) {
     this.slashCommands.set(slashFile.name, slashFile);
     reloadedArray.push(`</${slashFile.name}:${slashFile.id ?? 0}>`);
 
-    for (const alias of new Set([...(slashFile.aliases?.slash ?? []), ...(command.aliases?.slash ?? [])])) {
+    for (const alias of new Set((slashFile.aliases?.slash ?? []).concat(command.aliases?.slash))) {
       const { id } = this.slashCommands.get(alias) ?? {};
       let cmdId;
 
@@ -140,6 +140,9 @@ module.exports = {
     }
 
     const commands = reloadedArray.reduce((acc, e) => acc + (e.startsWith('<') ? e : `\`${e}\``) + ', ', '').slice(0, -2);
-    return msg.edit(lang(!reloadedArray.length ? 'noneReloaded' : 'reloaded', { count: reloadedArray.length, commands: commands.length < 800 ? commands : commands.substring(0, commands.substring(0, 800).lastIndexOf('`,') + 1) + '...' }));
+    return msg.edit(lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
+      count: reloadedArray.length,
+      commands: commands.length < 800 ? commands : commands.substring(0, commands.substring(0, 800).lastIndexOf('`,') + 1) + '...'
+    }));
   }
 };

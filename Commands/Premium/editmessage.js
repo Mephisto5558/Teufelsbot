@@ -20,7 +20,7 @@ module.exports = {
     {
       name: 'message_id',
       type: 'String',
-      required: true,
+      required: true
     },
     { name: 'remove_attachments', type: 'Boolean' }
   ],

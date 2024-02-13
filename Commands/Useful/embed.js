@@ -31,7 +31,7 @@ module.exports = {
           name: 'predefined_color',
           type: 'String',
           autocompleteOptions: Object.entries(Colors).map(e => e[0]),
-          strictAutocomplete: true,
+          strictAutocomplete: true
         },
         { name: 'custom_color', type: 'String' },
         { name: 'footer_text', type: 'String' },
@@ -41,8 +41,7 @@ module.exports = {
         { name: 'timestamp', type: 'Boolean' },
         { name: 'author_name', type: 'String' },
         { name: 'author_url', type: 'String' },
-        { name: 'author_icon', type: 'String' },
-        // { name: 'fields', type: 'String' }
+        { name: 'author_icon', type: 'String' }
       ]
     },
     {
@@ -62,21 +61,22 @@ module.exports = {
     let embed, sentMessage;
 
     try {
-      embed = new EmbedBuilder(custom ? JSON.parse(custom) : {
-        title: getOption('title'),
-        description: getOption('description'),
-        thumbnail: { url: getOption('thumbnail') },
-        image: { url: getOption('image') },
-        color: parseInt(getOption('custom_color')?.substring(1) ?? 0, 16) || Colors[getOption('predefined_color')] || 0,
-        footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
-        timestamp: this.options.getBoolean('timestamp') && Math.round(Date.now() / 1000),
-        author: {
-          name: getOption('author_name'),
-          url: getOption('author_url'),
-          iconURL: getOption('author_icon')
-        }
-        // fields: getOption('fields')
-      });
+      embed = new EmbedBuilder(custom
+        ? JSON.parse(custom)
+        : {
+          title: getOption('title'),
+          description: getOption('description'),
+          thumbnail: { url: getOption('thumbnail') },
+          image: { url: getOption('image') },
+          color: parseInt(getOption('custom_color')?.substring(1) ?? 0, 16) || Colors[getOption('predefined_color')] || 0,
+          footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
+          timestamp: this.options.getBoolean('timestamp') && Math.round(Date.now() / 1000),
+          author: {
+            name: getOption('author_name'),
+            url: getOption('author_url'),
+            iconURL: getOption('author_icon')
+          }
+        });
 
       let allowedMentions = { parse: [AllowedMentionsTypes.User] };
       if (this.member.permissionsIn(this.channel).has(PermissionFlagsBits.MentionEveryone)) {

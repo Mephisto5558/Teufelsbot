@@ -2,8 +2,10 @@
 
 const
   vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
+
   /** @type {BoundFunction}*/
-  BoundAsyncFunction = (async function () { }).constructor.bind(null, ...vars),
+  BoundAsyncFunction = async function () { }.constructor.bind(null, ...vars),
+
   /** @type {BoundFunction}*/
   BoundFunction = Function.bind(null, ...vars);
 

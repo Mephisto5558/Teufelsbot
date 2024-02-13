@@ -14,7 +14,7 @@ module.exports = class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
     return true;
   }
 
-  /** 
+  /**
    * @param {string}messageId
    * @param {unknown}giveawayData
    * @returns {Promise<true>}*/

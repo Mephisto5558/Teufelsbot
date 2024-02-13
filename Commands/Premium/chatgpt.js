@@ -59,7 +59,12 @@ module.exports = {
         })]
       });
 
-    return (await this.customReply(content.length > 2000 ? { files: [new AttachmentBuilder(Buffer.from(content), { name: 'message.txt' })], components: [component] } : { content, components: [component] }, null, { repliedUser: true }))
+    return (
+      await this.customReply(
+        content.length > 2000
+          ? { files: [new AttachmentBuilder(Buffer.from(content), { name: 'message.txt' })], components: [component] }
+          : { content, components: [component] }, null, { repliedUser: true }
+      ))
       .createMessageComponentCollector({ componentType: ComponentType.Button, filter: e => e.user.id == this.user.id })
       .on('collect', async e => {
         const reply = await e.deferReply();

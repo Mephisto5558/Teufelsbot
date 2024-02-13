@@ -8,7 +8,7 @@ const
 /**
  * @this Client
  * @param {Error}err
- * @param {Message|import('discord.js').BaseInteraction|null}message 
+ * @param {Message|import('discord.js').BaseInteraction|null}message
  * @param {lang?}lang*/
 module.exports = async function errorHandler(err, message, lang) {
   log.error(' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'), err.stack ?? JSON.stringify(err));
@@ -63,7 +63,7 @@ module.exports = async function errorHandler(err, message, lang) {
 
         const attachment = new AttachmentBuilder(Buffer.from(JSON.stringify({ ...message }, (_, v) => typeof v == 'bigint' ? v.toString() : v, 2)), { name: 'data.json' });
         try { (this.application.owner.owner ?? this.application.owner).send({ content: json.html_url, files: [attachment] }); }
-        catch(err) {
+        catch (err) {
           if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
         }
 
