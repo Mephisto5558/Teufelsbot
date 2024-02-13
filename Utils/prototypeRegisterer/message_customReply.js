@@ -1,4 +1,4 @@
-const 
+const
   { BaseInteraction, Message, DiscordAPIError } = require('discord.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
@@ -21,7 +21,7 @@ module.exports = async function customReply(options, deleteTime = null, allowedM
   options.allowedMentions ??= allowedMentions;
 
   if (this instanceof BaseInteraction) {
-    try { msg = await ((this.replied || this.deferred) ? this.editReply(options) : this.reply(options)); }
+    try { msg = await (this.replied || this.deferred ? this.editReply(options) : this.reply(options)); }
     catch (err) {
       const interactionHandleable = handleError(err);
       try { msg = await (interactionHandleable ? this.followUp(options) : this.channel.send(options)); }

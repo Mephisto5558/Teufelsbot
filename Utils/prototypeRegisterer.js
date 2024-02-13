@@ -10,10 +10,13 @@ const
   findAllEntries = require('./findAllEntries.js'),
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
-if (!require('../config.json').HideOverwriteWarning) console.warn(`Overwriting the following variables and functions (if they exist):
-  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime), ' : ' '}global.sleep, global.log, Array#random, Number#limit, Object#fMerge, Object#filterEmpty, Function#bBind
-  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.
-  \nModifying Discord.js Message._patch method.`
+if (!require('../config.json').HideOverwriteWarning) console.warn(
+  'Overwriting the following variables and functions (if they exist):'
+  + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Number#limit, `
+  + 'Object#fMerge, Object#filterEmpty, Function#bBind'
+  + 'Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
+  + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.\n'
+  + 'Modifying Discord.js Message._patch method.`'
 );
 
 if (parentUptime) {
@@ -60,7 +63,7 @@ Object.defineProperty(Object.prototype, 'filterEmpty', {
   /** @type {global['Object']['prototype']['filterEmpty']}*/
   value: function filterEmpty() {
     return Object.entries(this).reduce((acc, [k, v]) => {
-      if (!(v == null || (typeof v == 'object' && !Object.keys(v).length))) 
+      if (!(v == null || (typeof v == 'object' && !Object.keys(v).length)))
         acc[k] = v instanceof Object ? v.filterEmpty() : v;
       return acc;
     }, {});
@@ -89,7 +92,7 @@ Object.defineProperties(Client.prototype, {
   cooldowns: { value: new Map() },
   settings: {
     get() { return this.db?.get('botSettings') ?? {}; },
-    set(val) { this.db.set('botSettings', val); },
+    set(val) { this.db.set('botSettings', val); }
   },
   defaultSettings: {
     get() { return this.db?.get('guildSettings')?.default ?? {}; },
@@ -102,26 +105,28 @@ Object.defineProperties(Client.prototype, {
       try { env = require('../env.json'); }
       catch (err) {
         if (err.code != 'MODULE_NOT_FOUND') throw err;
-    
+
         this.db = await new DB().init(process.env.dbConnectionStr, 'db-collections', 100);
         env = this.db.get('botSettings', 'env');
       }
-    
+
       env = env.global.fMerge(env[env.global.environment]);
       this.db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100);
-    
+
       if (!this.db.cache.size) {
         log('Database is empty, generating default data');
         await this.db.generate();
       }
-    
+
       this.botType = env.environment;
       this.keys = env.keys;
     }
   },
   awaitReady: {
     /** @type {Client['awaitReady']}*/
-    value: function awaitReady() { return new Promise(res => this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch()))); }
+    value: function awaitReady() {
+      return new Promise(res => this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch())));
+    }
   }
 });
 Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
@@ -157,8 +162,7 @@ Object.defineProperties(GuildMember.prototype, {
     get() { return (this.guild.db.customNames?.[this.id] ?? this.nickname ?? this.user.username) + `#${this.user.discriminator}`; },
     set() { throw new Error('You cannot set a value to GuildMember#customTag!'); }
   }
-}
-);
+});
 Object.defineProperties(Guild.prototype, {
   db: {
     get() { return this.client.db?.get('guildSettings')?.[this.id] ?? {}; },
@@ -178,8 +182,8 @@ Object.defineProperty(DB.prototype, 'generate', {
   },
   enumerable: false
 });
-
 TicTacToe.prototype.playAgain = playAgain;
+
 /**
  * @param {number}row
  * @param {number}col*/

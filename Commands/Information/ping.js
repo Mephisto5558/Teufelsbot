@@ -23,11 +23,13 @@ module.exports = {
       endMessagePing = performance.now() - startMessagePing;
 
     if (average) {
-      const wsPings = [this.client.ws.ping], msgPings = [endMessagePing];
+      const
+        wsPings = [this.client.ws.ping],
+        msgPings = [endMessagePing];
 
       for (let i = 2; i <= 20; i++) {
         await sleep(3000);
-        
+
         wsPings.push(this.client.ws.ping);
 
         const startMessagePing = performance.now();

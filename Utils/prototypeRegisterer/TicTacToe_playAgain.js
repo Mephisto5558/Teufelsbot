@@ -1,6 +1,6 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
 
-/** 
+/**
  * @this import('discord-tictactoe')
  * @param {Interaction}interaction
  * @param {lang}lang*/

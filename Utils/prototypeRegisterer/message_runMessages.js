@@ -25,7 +25,13 @@ module.exports = async function runMessages() {
 
       if (countingData.lastNumber != 0) {
         await this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { lastNumber: 0 });
-        this.reply(this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', countingData.lastNumber) + this.client.i18n.__({ locale: this.guild.localeCode }, countingData.lastNumber + 1 != this.originalContent ? 'events.message.counting.wrongNumber' : 'events.message.counting.sameUserTwice'));
+        this.reply(
+          this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', countingData.lastNumber)
+          + this.client.i18n.__(
+            { locale: this.guild.localeCode },
+            countingData.lastNumber + 1 != this.originalContent ? 'events.message.counting.wrongNumber' : 'events.message.counting.sameUserTwice'
+          )
+        );
       }
     }
   }

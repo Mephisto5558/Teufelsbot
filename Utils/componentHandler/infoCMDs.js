@@ -16,13 +16,14 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
   const
     embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red }),
-    item = await this.guild[entityType].fetch(id).catch(err => { if (![10007, 10011, 10014].includes(err.code)) throw err; }); // "Unknown member/role/emoji", 
+    item = await this.guild[entityType].fetch(id).catch(err => { if (![10007, 10011, 10014].includes(err.code)) throw err; }); // "Unknown member/role/emoji",
 
   if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], ephemeral: true });
 
   switch (entityType) {
     case 'members': {
-      if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers'])) return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], ephemeral: true });
+      if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']))
+        return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], ephemeral: true });
       const err = checkTargetManageable.call(this, item);
       if (err) return this.reply({ embeds: [embed.setDescription(lang(err))], ephemeral: true });
 
@@ -60,7 +61,8 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
     }
     // fall through
     case 'roles': {
-      if (item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId || !this.member.permissions.has(PermissionFlagsBits.ManageRoles)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+      if (item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId || !this.member.permissions.has(PermissionFlagsBits.ManageRoles))
+        return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.editable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
     }
     // fall through

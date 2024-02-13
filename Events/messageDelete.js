@@ -30,14 +30,16 @@ module.exports = async function messageDelete() {
   if (!setting.enabled || !setting.channel) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
-  if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length) return;
+  if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length)
+    return;
 
   await sleep(1000); // Make sure the audit log gets created before trying to fetch it
 
   lang.__boundArgs__[0].backupPath = 'events.logger';
 
   const
-    { executor, reason } = (await this.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageDelete })).entries.find(e => (!this.user?.id || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < 20000) ?? {},
+    { executor, reason } = (await this.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageDelete })).entries
+      .find(e => (!this.user?.id || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < 20000) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : null,
       thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: 128 }) } : null,
@@ -47,7 +49,7 @@ module.exports = async function messageDelete() {
         { name: lang('messageDelete.content'), value: '', inline: false }
       ],
       timestamp: Date.now(),
-      color: 0x822AED,
+      color: 0x822AED
     });
 
   if (this.originalContent) embed.data.fields[1].value += `${this.originalContent}\n`;

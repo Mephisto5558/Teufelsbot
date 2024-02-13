@@ -1,4 +1,4 @@
-const 
+const
   { EmbedBuilder } = require('discord.js'),
   { DiscordAPIErrorCodes } = require('../Utils');
 

@@ -31,7 +31,8 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
       }
 
       case 'humorAPI': {
-        const res = await fetch(`${api.url}?api-key=${this.keys.humorAPIKey}&min-rating=7&max-length=${maxLength}&include-tags=${type}&exclude-tags=${blacklist}`, { timeout: 2500 }).then(e => e.json());
+        const res = await fetch(`${api.url}?api-key=${this.keys.humorAPIKey}&min-rating=7&max-length=${maxLength}&include-tags=${type}&exclude-tags=${blacklist}`, { timeout: 2500 })
+          .then(e => e.json());
 
         response = res.joke?.includes('Q: ') ? res.joke.replace('Q: ', '').replace('A: ', '\n||') + '||\n' : res.joke;
         break;
@@ -53,7 +54,10 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
   catch (err) {
     if ([402, 403, 522].includes(err.status)) log.error('joke.js: ', err.response);
     else if (!(err instanceof FetchError)) throw err;
-    else if (err.name !== 'AbortError') log.error(`joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.status ?? err.response?.status ?? err.name}, ${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`);
+    else if (err.name !== 'AbortError') log.error(
+      `joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.status ?? err.response?.status ?? err.name}, `
+      + `${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`
+    );
   }
 
   if (typeof response == 'string') return [response.replaceAll('`', '\''), api];

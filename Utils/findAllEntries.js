@@ -1,4 +1,4 @@
-/** 
+/**
  * @param {Record<string, unknown>}obj
  * @param {string}key
  * @param {object?}entryList
@@ -29,17 +29,17 @@ function testFindAllEntries() {
       name: 'Single match',
       input: {
         key1: 'value1',
-        nested: { key2: 'value2', deeper: {  key3: 'value3' }  }
+        nested: { key2: 'value2', deeper: { key3: 'value3' } }
       },
       key: 'key3',
       expectedOutput: { key3: 'value3' }
     },
     {
       name: 'Multiple matches',
-      input: { 
+      input: {
         key1: 'value1', nested: {
-          key2: 'value2',  deeper: { key3: 'value3', anotherKey: 'anotherValue'  }
-        } 
+          key2: 'value2', deeper: { key3: 'value3', anotherKey: 'anotherValue' }
+        }
       },
       key: 'key3',
       expectedOutput: { key3: 'value3' }

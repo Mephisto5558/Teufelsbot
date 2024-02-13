@@ -11,13 +11,14 @@ module.exports = async function voiceStateUpdate(newState) {
   if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 
   const
-    /** @type {lang}*/
-    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' }),
     embed = new EmbedBuilder({
       author: { name: newState.member.user.tag, iconURL: newState.member.displayAvatarURL() },
       timestamp: Date.now(),
-      color: 0x36393F,
-    });
+      color: 0x36393F
+    }),
+
+    /** @type {lang}*/
+    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' });
 
   if (!this.channel?.id) {
     embed.data.description = lang('embedDescriptionJoin', { executor: `<@${newState.member.id}>`, newChannel: newState.channel.name });

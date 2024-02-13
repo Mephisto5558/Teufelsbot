@@ -1,6 +1,6 @@
 const { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js');
 
-/** 
+/**
  * @param {command<'slash', boolean, true> | commandOptions<true>}option
  * @param {string}path
  * @param {import('@mephisto5558/i18n')}i18n*/
@@ -13,7 +13,8 @@ module.exports = function format(option, path, i18n) {
   }
 
   option.description ??= i18n.__({ errorNotFound: true }, `${path}.description`);
-  if ('choices' in option) option.choices = option.choices.map(e => typeof e == 'object' ? e.fMerge({ __SCHandlerCustom: true }) : { name: i18n.__({ undefinedNotFound: true }, `${path}.choices.${e}`) ?? e, value: e });
+  if ('choices' in option)
+    option.choices = option.choices.map(e => typeof e == 'object' ? e.fMerge({ __SCHandlerCustom: true }) : { name: i18n.__({ undefinedNotFound: true }, `${path}.choices.${e}`) ?? e, value: e });
   if ('autocompleteOptions' in option) option.autocomplete = true;
 
   if (option.description.length > 100) {
@@ -37,10 +38,11 @@ module.exports = function format(option, path, i18n) {
 
       e.nameLocalizations ??= {};
       const localeText = i18n.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
-      if (!option.disabled) {
-        if (localeText?.length < 2) log.warn(`"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${path}.choices.${e.value}) is too short (min length is 2)! Using undefined.`);
-        else if (localeText?.length > 32) log.warn(`"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${path}.choices.${e.value}) is too long (max length is 32)! Slicing.`);
-      }
+      if (!option.disabled && localeText?.length < 2 | localeText?.length > 32)
+        log.warn(
+          `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${path}.choices.${e.value}) is too`
+          + (localeText?.length < 2 ? 'short (min length is 2)! Using undefined.' : 'long (max length is 32)! Slicing.')
+        );
 
       if (localeText && localeText.length > 2) e.nameLocalizations[locale] = localeText.slice(0, 32);
       else if (e.name != e.value && !option.disabled) log.warn(`Missing "${locale}" choice name localization for "${e.value}" in option "${option.name}" (${path}.choices.${e.value})`);

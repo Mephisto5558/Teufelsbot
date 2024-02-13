@@ -14,7 +14,7 @@ module.exports = {
     {
       name: 'input',
       type: 'String',
-      required: true,
+      required: true
     },
     {
       name: 'method',

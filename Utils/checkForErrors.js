@@ -7,7 +7,7 @@ const
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
   { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json');
 
-/** 
+/**
  * @this {import('discord.js').BaseInteraction|Message}
  * @param {command<'both', boolean, true>}command
  * @param {lang}lang
@@ -21,7 +21,7 @@ module.exports = async function checkForErrors(command, lang) {
 
     return true;
   }
- 
+
   // DO NOT REMOVE THE FOLLOWING LINE
   if (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id) return true;
   if (command.disabled) return replyOnDisabledCommand === false ? true : ['disabled', command.disabledReason ?? 'Not provided'];
@@ -43,7 +43,10 @@ module.exports = async function checkForErrors(command, lang) {
 
     if (
       autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
-      && !(await autocompleteGenerator.call({ ...this, client: this.client, user: this.user, focused: { name, value: this.options?.get(name).value ?? this.args?.[i] } }, command, this.guild?.db.config?.lang ?? this.guild?.localeCode))
+      && !(await autocompleteGenerator.call({
+        ...this, client: this.client, user: this.user,
+        focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
+      }, command, this.guild?.db.config?.lang ?? this.guild?.localeCode))
         .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
     ) return ['strictAutocompleteNoMatch'];
   }
@@ -54,13 +57,16 @@ module.exports = async function checkForErrors(command, lang) {
   }
 
   if (this.guild && (this instanceof Message || this instanceof CommandInteraction)) {
-    const userPermsMissing = this.member.permissionsIn(this.channel).missing([...(command.permissions?.user || []), PermissionFlagsBits.SendMessages]);
-    const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...(command.permissions?.client || []), PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
+    const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user || [], PermissionFlagsBits.SendMessages]);
+    const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions?.client || [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
 
     if (botPermsMissing.length || userPermsMissing.length) {
       const embed = new EmbedBuilder({
         title: lang('permissionDenied.embedTitle'),
-        description: lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `') }),
+        description: lang(
+          `permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`,
+          { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `') }
+        ),
         color: Colors.Red
       });
 

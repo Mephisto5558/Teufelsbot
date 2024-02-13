@@ -14,6 +14,7 @@ module.exports = async function messageUpdate(newMsg) {
   if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 
   const
+
     /** @type {lang}*/
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
     embed = new EmbedBuilder({

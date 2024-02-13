@@ -26,6 +26,7 @@ declare global {
   type autocompleteOptions = string | number | { name: string; value: string };
 
   type BaseCommand<initialized extends boolean = boolean> = {
+
     /** For slash commands, must be lowercase.*/
     name: string;
 
@@ -48,6 +49,7 @@ declare global {
     options?: commandOptions<initialized>[];
   }
   & (initialized extends true ? {
+
     /** Currently not used*/
     nameLocalizations?: readonly Record<string, BaseCommand<true>['name']>;
 
@@ -95,6 +97,7 @@ declare global {
      * Gets ignored if {@link command.noDefer} is `true`.*/
     ephemeralDefer?: boolean;
   } & (initialized extends true ? {
+
     /** **Do not set manually.***/
     id: readonly Discord.Snowflake;
 
@@ -104,7 +107,7 @@ declare global {
     defaultMemberPermissions: readonly Discord.PermissionsBitField;
 
     dmPermission: boolean;
-  }: object);
+  } : object);
 
   type prefixCommand<initialized extends boolean = false> = BaseCommand<initialized> & {
     prefixCommand: true;
@@ -112,12 +115,12 @@ declare global {
   };
 
   type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = BaseCommand<initialized>
-  & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
-  & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
-  & { run: (
-    this: commandType extends 'slash' ? Interaction<guildOnly> : commandType extends 'prefix' ? Message<guildOnly> : Interaction<guildOnly> | Message<guildOnly>,
-    lang: lang, client: Discord.Client<true>
-  ) => Promise<never>; };
+    & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
+    & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
+    & { run: (
+      this: commandType extends 'slash' ? Interaction<guildOnly> : commandType extends 'prefix' ? Message<guildOnly> : Interaction<guildOnly> | Message<guildOnly>,
+      lang: lang, client: Discord.Client<true>
+    ) => Promise<never>; };
 
   type commandOptions<initialized extends boolean = boolean> = {
     name: string;
@@ -173,6 +176,7 @@ declare global {
 
   namespace NodeJS {
     interface Process {
+
       /** The real process uptime. This property only exists if process args include uptime=...*/
       childUptime?(): number;
 
@@ -186,6 +190,7 @@ declare global {
   }
 
   interface Array<T> {
+
     /** Generates a cryptographically secure random number using node:crypto.*/
     random(this: T[]): T;
   }
@@ -195,6 +200,7 @@ declare global {
   }
 
   interface Object {
+
     /** Merges two objects recursively together.
      * @param mode how to handle array entries that are in both objects.*/
     fMerge(this: object, obj: object, mode?: 'overwrite' | 'push', output?: object): object;
@@ -248,6 +254,7 @@ declare global {
   }
 
   type bBoundFunction<OF, T extends CallableFunction> = T & {
+
     /** The original, unbound function */
     __targetFunction__: OF;
 
@@ -260,7 +267,8 @@ declare global {
 
   type Client<Ready extends boolean = true> = Discord.Client<Ready>;
   type Message<inGuild extends boolean = boolean> = Discord.Message<inGuild>;
-  type Interaction<inGuild extends boolean = boolean, Cached extends Discord.CacheType = Discord.CacheType> = inGuild extends true ? GuildInteraction<Cached> : GuildInteraction<Cached> | DMInteraction<Cached>;
+  type Interaction<inGuild extends boolean = boolean, Cached extends Discord.CacheType = Discord.CacheType> = inGuild extends true
+    ? GuildInteraction<Cached> : GuildInteraction<Cached> | DMInteraction<Cached>;
 
   type OptionalInteractionProperties<inGuild extends boolean = boolean> = Partial<Interaction<inGuild>>;
   type OptionalMessageProperties<inGuild extends boolean = boolean> = Partial<Message<inGuild>>;
@@ -305,11 +313,13 @@ declare module 'discord.js' {
     botType: string;
     keys: Record<string, string>;
     loadEnvAndDB(this: Client<Ready>): Promise<void>;
+
     /** A promise that resolves to a fetched discord application once {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#ready Client#ready} was emitted.*/
     awaitReady(this: Client<Ready>): Promise<Discord.Application>;
   }
 
   interface Message {
+
     /**
      * The original content of the message. This is a custom property set in 'prototypeRegisterer.js'.
      *
@@ -341,6 +351,7 @@ declare module 'discord.js' {
   }
 
   interface BaseInteraction {
+
     /**
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
      * and if that also doesn't work, send the message without repling to a specific message/interaction.
@@ -354,6 +365,7 @@ declare module 'discord.js' {
   }
 
   interface AutocompleteInteraction {
+
     /**
      * ```js
      * this.options.getFocused(true)
@@ -362,6 +374,7 @@ declare module 'discord.js' {
   }
 
   interface User {
+
     /**
      * ```js
      * this.client.db?.get('userSettings')?.[this.id] ?? {}
@@ -372,6 +385,7 @@ declare module 'discord.js' {
   }
 
   interface GuildMember {
+
     /** Searches the guildSettings DB recursively for all data of this member across all guilds.*/
     get db(): object | undefined;
     customName: string;
@@ -379,6 +393,7 @@ declare module 'discord.js' {
   }
 
   interface Guild {
+
     /**
      * ```js
      * this.client.db?.get('guildSettings')?.[this.id] ?? {}
@@ -394,6 +409,7 @@ declare module 'discord-tictactoe' {
   }
 
   interface GameBoardButtonBuilder {
+
     /** Overwrite to make empty spaces look empty by using a zero width space.*/
     createButton(row: number, col: number): Discord.ButtonBuilder;
   }

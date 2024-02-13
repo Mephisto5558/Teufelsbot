@@ -11,9 +11,9 @@ module.exports = async () => {
   }
 
   log(
-    'GIT PULL\n' +
-    (data.stdout ? `out: ${data.stdout.trim()}\n` : '') +
-    (data.stderr ? `err: ${data.stderr.trim()}\n` : '')
+    'GIT PULL\n'
+    + (data.stdout ? `out: ${data.stdout.trim()}\n` : '')
+    + (data.stderr ? `err: ${data.stderr.trim()}\n` : '')
   );
 
   return 'OK';

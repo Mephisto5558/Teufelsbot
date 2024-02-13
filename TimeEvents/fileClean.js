@@ -2,7 +2,8 @@ const { readdir, stat, unlink, access, mkdir } = require('fs/promises');
 
 /** @param {string}path*/
 async function deleteOld(path) {
-  try { await access(path); } catch { return mkdir(path); }
+  try { await access(path); }
+  catch { return mkdir(path); }
 
   const time = new Date(Date.now() - 12096e5 /* 2 Weeks*/).getTime();
   for (const file of await readdir(path, { withFileTypes: true })) {

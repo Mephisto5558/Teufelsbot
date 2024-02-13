@@ -1,6 +1,6 @@
 const { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel } = require('discord.js');
 
-/** 
+/**
  * @this GuildMessage
  * @param {import('discord.js').GuildMember}member
  * @param {lang}lang*/
@@ -23,7 +23,7 @@ module.exports = function logSayCommandUse(member, lang) {
         { name: lang('author'), value: `${member.user.tag} (\`${member.id}\`)`, inline: false }
       ],
       timestamp: Date.now(),
-      color: 0x36393F,
+      color: 0x36393F
     }),
     component = new ActionRowBuilder({
       components: [new ButtonBuilder({

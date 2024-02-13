@@ -10,7 +10,13 @@ const
     ['captcha', { url: 'Any image URL to generate, can be user avatar or anything.', string: 'Username or or any other string to show up.' }],
     ['whowouldwin', { user1: 'User 1\'s avatar', user2: 'User 2\'s avatar' }],
     ['changemymind', { text: 'Change my mind text.' }],
-    ['ddlc', { character: 'Can be either monika, yuri, natsuki, sayori or m, y, n , s', background: 'Background of the image, types: `bedroom`, `class`, `closet`, `club`, `corridor`, `house`, `kitchen`, `residential`, `sayori_bedroom`', body: 'Body of the character, there is only 1 or 2 for monika and 1, 1b, 2, 2b for the rest', face: 'Face of the character to go with the body, is best to just see all the types at https://github.com/hibikidesu/NekoBot/blob/master/modules/fun.py#L14 (line 14 to 34)', text: 'Text for the character to say, max length of 140' }],
+    ['ddlc', {
+      character: 'Can be either monika, yuri, natsuki, sayori or m, y, n , s',
+      background: 'Background of the image, types: `bedroom`, `class`, `closet`, `club`, `corridor`, `house`, `kitchen`, `residential`, `sayori_bedroom`',
+      body: 'Body of the character, there is only 1 or 2 for monika and 1, 1b, 2, 2b for the rest',
+      face: 'Face of the character to go with the body, is best to just see all the types at https://github.com/hibikidesu/NekoBot/blob/master/modules/fun.py#L14 (line 14 to 34)',
+      text: 'Text for the character to say, max length of 140'
+    }],
     ['lolice', { url: 'Lolice chief' }],
     ['kannagen', { text: 'Text to kannafy' }],
     ['iphonex', { url: 'Image to fill into an iphone.' }],

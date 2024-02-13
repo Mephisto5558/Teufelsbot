@@ -1,4 +1,4 @@
-/** 
+/**
  * @param {number}sec
  * @param {lang?}lang
  * @returns `formatted` has the format 'year-day, hour:minute:second' if `lang` is not provided.*/
@@ -28,7 +28,8 @@ function timeFormatter(sec = 0, lang = undefined) {
 
   return {
     total, negative,
-    formatted: (lang?.(id, { y, d, h, m, s }) ?? `${y.toString().padStart(4, '0')}-${d.toString().padStart(2, '0')}, ${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`)
+    formatted: lang?.(id, { y, d, h, m, s })
+    ?? `${y.toString().padStart(4, '0')}-${d.toString().padStart(2, '0')}, ${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
   };
 }
 
@@ -49,7 +50,7 @@ function testTimeFormatter() {
     { input: 31536000 + 86400 * 30, expectedOutput: '0001-30, 00:00:00' },
     { input: 31536000 + 86400 * 365, expectedOutput: '0002-00, 00:00:00' },
     { input: 31536000 + 86400 * 365 + 604800, expectedOutput: '0002-07, 00:00:00' },
-    { input: 31536000 + 86400 * 365 + 86400 * 30, expectedOutput: '0002-30, 00:00:00' },
+    { input: 31536000 + 86400 * 365 + 86400 * 30, expectedOutput: '0002-30, 00:00:00' }
   ];
 
   for (const { input, expectedOutput } of testCases) {

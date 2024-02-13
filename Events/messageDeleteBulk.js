@@ -8,14 +8,17 @@ module.exports = async function messageDeleteBulk(channel) {
   if (channel.client.botType == 'dev' || !channel.guild || !setting.enabled || !setting.channel) return;
 
   const channelToSend = channel.guild.channels.cache.get(setting.channel);
-  if (!channelToSend || channelToSend.permissionsFor(channel.guild.members.me).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length) return;
+  if (!channelToSend || channelToSend.permissionsFor(channel.guild.members.me).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length)
+    return;
 
   await sleep(1000); // Makes sure the audit log gets created before trying to fetch it
 
   const
+    { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageBulkDelete })).entries
+      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < 20000) ?? {},
+
     /** @type {lang} */
     lang = channel.client.i18n.__.bBind(channel.client.i18n, { locale: channel.guild.db.config?.lang ?? channel.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),
-    { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageBulkDelete })).entries.find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < 20000) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : null,
       description: lang('embedDescription', { executor: executor ? `<@${executor.id}>` : lang('events.logger.someone'), channel: channel.name, count: this.size.toString() }),
