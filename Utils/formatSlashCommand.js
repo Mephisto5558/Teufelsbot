@@ -38,7 +38,7 @@ module.exports = function format(option, path, i18n) {
 
       e.nameLocalizations ??= {};
       const localeText = i18n.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
-      if (!option.disabled && localeText?.length < 2 | localeText?.length > 32)
+      if (!option.disabled && (localeText?.length < 2 || localeText?.length > 32))
         log.warn(
           `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${path}.choices.${e.value}) is too`
           + (localeText?.length < 2 ? 'short (min length is 2)! Using undefined.' : 'long (max length is 32)! Slicing.')
