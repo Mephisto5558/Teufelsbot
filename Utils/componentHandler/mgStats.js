@@ -1,7 +1,7 @@
 const formatTopTen = require('./mgStats_formatTopTen.js');
 
 /** this.customId: `mgstats.<game>.<mode>.<setting>`
- * @this import('discord.js').StringSelectMenuInteraction
+ * @this {import('discord.js').StringSelectMenuInteraction}
  * @param {lang}lang
  * @param {string}game
  * @param {string}wMode

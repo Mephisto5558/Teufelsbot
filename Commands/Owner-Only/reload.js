@@ -5,7 +5,7 @@ const
   { formatSlashCommand, slashCommandsEqual } = require('../../Utils');
 
 /**
- * @this Client
+ * @this {Client}
  * @param {command<'both', boolean>}command
  * @param {string[]}reloadedArray gets modified and not returned*/
 async function reloadCommand(command, reloadedArray) {

@@ -8,7 +8,7 @@ let
   enabledCommandCount = 0,
   disabledCommandCount = 0;
 
-/** @this Client<false>*/
+/** @this {Client<false>}*/
 module.exports = async function commandHandler() {
   for (const subFolder of await getDirectories('./Commands')) for (const file of await readdir(`./Commands/${subFolder}`)) {
     if (!file.endsWith('.js')) continue;

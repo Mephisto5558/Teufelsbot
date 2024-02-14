@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   { checkForErrors, commandExecutionWrapper } = require('../Utils');
 
-/** @this Message*/
+/** @this {Message}*/
 module.exports = async function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 

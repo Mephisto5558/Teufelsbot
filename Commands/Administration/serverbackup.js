@@ -17,7 +17,7 @@ const
     : null;
 
 /**
- * @this import('discord.js').BaseInteraction
+ * @this {import('discord.js').BaseInteraction}
  * @param {object}backup*/
 function checkPerm(backup) {
   const creator = backup?.metadata?.[this.guild.db.serverbackup?.allowedToLoad ?? this.client.defaultSettings.serverbackup.allowedToLoad];
@@ -26,7 +26,7 @@ function checkPerm(backup) {
 
 const backupMainFunctions = {
   /**
-   * @this GuildInteraction
+   * @this {GuildInteraction}
    * @param {lang}lang
    * @param {EmbedBuilder}embed*/
   create: async function createBackup(lang, embed) {
@@ -52,7 +52,7 @@ const backupMainFunctions = {
   },
 
   /**
-   * @this GuildInteraction
+   * @this {GuildInteraction}
    * @param {lang}lang
    * @param {EmbedBuilder}embed
    * @param {string}id*/
@@ -121,7 +121,7 @@ const backupMainFunctions = {
   },
 
   /**
-   * @this GuildInteraction
+   * @this {GuildInteraction}
    * @param {lang}lang
    * @param {EmbedBuilder}embed
    * @param {string}id*/
@@ -134,7 +134,7 @@ const backupMainFunctions = {
   },
 
   /**
-   * @this GuildInteraction
+   * @this {GuildInteraction}
    * @param {lang}lang
    * @param {EmbedBuilder}embed
    * @param {string}id*/

@@ -1,6 +1,6 @@
 const tokenRegex = /(?:Session |token: )(\w*)/gi;
 
-/** @this StringConstructor like `new String()`*/
+/** @this {StringConstructor} like `new String()`*/
 module.exports = function debug() {
   let debug = this.toString();
 

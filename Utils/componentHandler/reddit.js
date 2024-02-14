@@ -1,7 +1,7 @@
 const commandExecutionWrapper = require('../commandExecutionWrapper.js');
 
 /** this.customId: `reddit.<subreddit>.<type>.<filterNSFW>`
- * @this import('discord.js').ButtonInteraction
+ * @this {import('discord.js').ButtonInteraction}
  * @param {lang}lang
  * @param {string}subreddit
  * @param {string}type

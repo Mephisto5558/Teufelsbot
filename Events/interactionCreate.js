@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors, InteractionType } = require('discord.js'),
   { componentHandler, autocompleteGenerator, checkForErrors, commandExecutionWrapper } = require('../Utils');
 
-/** @this import('discord.js').Interaction*/
+/** @this {import('discord.js').Interaction}*/
 module.exports = async function interactionCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 

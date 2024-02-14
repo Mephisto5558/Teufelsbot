@@ -1,7 +1,7 @@
 const medals = [':first_place:', ':second_place:', ':third_place:'];
 
 /**
- * @this import('discord.js').BaseInteraction|Message
+ * @this {import('discord.js').BaseInteraction|Message}
  * @param {{draws?:number, wins?:number, loses?:number}[]}input
  * @param {string}sort
  * @param {string}mode

@@ -36,7 +36,7 @@ const
   });
 
 /**
- * @this Client<true>
+ * @this {Client<true>}
  * @param {string}message*/
 async function processMessageEventCallback(message) {
   if (message != 'Start WebServer') return;

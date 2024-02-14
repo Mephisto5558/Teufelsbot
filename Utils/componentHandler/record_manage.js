@@ -8,7 +8,7 @@ const
   ffmpeg = require('ffmpeg-static').default;
 
 /**
- * @this import('discord.js').ButtonInteraction
+ * @this {import('discord.js').ButtonInteraction}
  * @param {lang}lang
  * @param {string}requesterId
  * @param {string}voiceChannelId
@@ -87,7 +87,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
 };
 
 /**
- * @this import('discord.js').ButtonInteraction
+ * @this {import('discord.js').ButtonInteraction}
  * @param {lang}lang
  * @param {string}mode
  * @param {string}voiceChannelId

@@ -4,7 +4,7 @@ const
   ban_kick_mute = require('../combinedCommands/ban_kick_mute.js');
 
 /** this.customId: `infoCMDs.<id>.<action>.<entitytype>`
- * @this import('discord.js').ButtonInteraction
+ * @this {import('discord.js').ButtonInteraction}
  * @param {lang}lang
  * @param {string}id
  * @param {string}mode

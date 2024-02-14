@@ -4,7 +4,7 @@ const
     /** @typedef {{ id:string, trigger:string, response:string, wildcard:boolean }[]}oldData*/
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang
      * @param {oldData}oldData*/
     add: async function (lang, oldData) {
@@ -20,7 +20,7 @@ const
     },
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang
      * @param {oldData}oldData
      * @param {string}query*/
@@ -36,7 +36,7 @@ const
     },
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang
      * @param {oldData}oldData*/
     clear: async function (lang, oldData) {
@@ -48,7 +48,7 @@ const
     },
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang
      * @param {oldData}oldData
      * @param {string}query*/

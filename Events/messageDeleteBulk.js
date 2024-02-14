@@ -1,7 +1,7 @@
 const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent } = require('discord.js');
 
 /**
- * @this import('discord.js').Collection<string,Message<true>>
+ * @this {import('discord.js').Collection<string,Message<true>>}
  * @param {import('discord.js').GuildTextBasedChannel}channel*/
 module.exports = async function messageDeleteBulk(channel) {
   const setting = channel.guild?.db.config?.logger?.messageDelete ?? {};
