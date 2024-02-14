@@ -1,7 +1,6 @@
 /**
  * @param {string}str
- * @param {number}seed
- */
+ * @param {number}seed*/
 function cyrb53(str, seed = 0) { // https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js
   let
     h1 = 0xdeadbeef ^ seed,

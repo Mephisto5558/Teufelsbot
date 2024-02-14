@@ -5,7 +5,7 @@ const
 
 class BackupSystem {
   /**
-   * @param {DB}db
+   * @param {import('@mephisto5558/mongoose-db').DB}db
    * @param {object}options
    * @param {string}options.dbName
    * @param {number}options.maxGuildBackups
@@ -35,7 +35,7 @@ class BackupSystem {
   get = (backupId, guildId) => this.db.get(this.dbName, backupId ? `${(guildId ?? '') + backupId}` : null);
 
   /**
-   * @param {require('discord.js').Snowflake}guildId
+   * @param {import('discord.js').Snowflake}guildId
    * @returns {Collection<string, object>}*/
   list = guildId => {
     const collection = new Collection(Object.entries(this.get() ?? {}));
@@ -46,8 +46,8 @@ class BackupSystem {
   remove = backupId => this.db.delete(this.dbName, backupId);
 
   /**
-   * @param {import('discord.js').Guild}guild
-   * @param {object?}statusObj the status property gets updated*/
+   * @param {import('discord.js').Guild} guild
+   * @param {object?}                    statusObj the status property gets updated*/
   create = async (guild, {
     statusObj = {}, id = null, save = true, maxGuildBackups = this.defaultSettings.maxGuildBackups,
     backupMembers = false, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,

@@ -2,7 +2,10 @@ const
   { BaseInteraction, Message, DiscordAPIError } = require('discord.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
-/** @param {Error}err @returns `true` if no err is given, false on specific error codes*/
+/**
+ * @param {Error}err
+ * @returns {boolean} `true` if no err is given, `false` on specific error codes
+ * @throws {DiscordAPIError}if the error is an DiscordAPIError**/
 function handleError(err) {
   if (!err) return true;
   if (!(err instanceof DiscordAPIError)) throw err;

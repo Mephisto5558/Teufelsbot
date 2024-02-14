@@ -9,7 +9,7 @@ const
 /**
  * @param {number}input
  * @param {number}all
- */
+ * @throws {SyntaxError}If `all` is `NaN`*/
 function formatStatCount(input, all) {
   input = parseInt(input);
   all = parseInt(all);

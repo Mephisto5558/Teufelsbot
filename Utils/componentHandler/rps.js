@@ -41,7 +41,8 @@ function sendGame(initiator, opponent, lang) {
   return this.message.edit({ embeds: [embed], components: [component] });
 }
 
-/** this.customId: `rps.<initiatorId>.<mode>.<opponentId>`
+/**
+ * this.customId: `rps.<initiatorId>.<mode>.<opponentId>`
  * @this {import('discord.js').ButtonInteraction}
  * @param {lang}lang
  * @param {string}initiatorId

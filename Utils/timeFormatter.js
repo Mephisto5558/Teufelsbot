@@ -1,7 +1,7 @@
 /**
  * @param {number}sec
  * @param {lang?}lang
- * @returns `formatted` has the format 'year-day, hour:minute:second' if `lang` is not provided.*/
+ * @returns {{ total: number; negative: boolean; formatted: string }} `formatted` has the format 'year-day, hour:minute:second' if `lang` is not provided.*/
 function timeFormatter(sec = 0, lang = undefined) {
   const
     total = sec * 1000,
