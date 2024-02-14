@@ -4,7 +4,7 @@ const
   { getDirectories, formatSlashCommand, slashCommandsEqual } = require('../Utils'),
   { HideNonBetaCommandLog, HideDisabledCommandLog } = require('../config.json');
 
-/** @this Client*/
+/** @this {Client}*/
 module.exports = async function slashCommandHandler() {
   await this.awaitReady();
 

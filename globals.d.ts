@@ -5,24 +5,7 @@ import type { WebServer } from '@mephisto5558/bot-website';
 import type BackupSystem from './Utils/backupSystem';
 import type GiveawayManagerWithOwnDatabase from './Utils/giveawaysManager';
 
-declare global {
-  const sleep: (ms: number) => Promise<void>;
-
-  /** Custom logging, including logfiles.*/
-  const log: {
-    /* eslint-disable @typescript-eslint/no-explicit-any */
-    (...str: any[]): typeof log;
-    error: (...str: any[]) => typeof log;
-    debug: (...str: any[]) => typeof log;
-    setType: (type: string) => typeof log;
-    _log(file?: string, ...str: any[]): typeof log;
-    /* eslint-enable @typescript-eslint/no-explicit-any */
-  };
-
-  /** bBinded I18nProvider.__ function*/
-  type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string>;
-
-  type cooldowns = { guild?: number; channel?: number; user?: number };
+declare namespace __local {
   type autocompleteOptions = string | number | { name: string; value: string };
 
   type BaseCommand<initialized extends boolean = boolean> = {
@@ -31,7 +14,7 @@ declare global {
     name: string;
 
     /** Numbers in milliseconds*/
-    cooldowns?: cooldowns;
+    cooldowns?: { guild?: number; channel?: number; user?: number };
 
     /** Makes the command also work in direct messages.*/
     dmPermission?: boolean;
@@ -84,96 +67,10 @@ declare global {
       user?: (keyof Discord.PermissionFlags)[];
     };
   });
+}
 
-  type slashCommand<initialized extends boolean = false> = BaseCommand<initialized> & {
-    slashCommand: true;
-    aliases?: { slash?: BaseCommand['name'][] };
 
-    /** Do not deferReply to the interaction*/
-    noDefer?: boolean;
-
-    /** Do `interaction.deferReply({ ephemeral: true })`.
-     *
-     * Gets ignored if {@link command.noDefer} is `true`.*/
-    ephemeralDefer?: boolean;
-  } & (initialized extends true ? {
-
-    /** **Do not set manually.***/
-    id: readonly Discord.Snowflake;
-
-    /** **Do not set manually.***/
-    type: readonly Discord.ApplicationCommandType.ChatInput;
-
-    defaultMemberPermissions: readonly Discord.PermissionsBitField;
-
-    dmPermission: boolean;
-  } : object);
-
-  type prefixCommand<initialized extends boolean = false> = BaseCommand<initialized> & {
-    prefixCommand: true;
-    aliases?: { prefix?: BaseCommand['name'][] };
-  };
-
-  type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = BaseCommand<initialized>
-    & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
-    & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
-    & { run: (
-      this: commandType extends 'slash' ? Interaction<guildOnly> : commandType extends 'prefix' ? Message<guildOnly> : Interaction<guildOnly> | Message<guildOnly>,
-      lang: lang, client: Discord.Client<true>
-    ) => Promise<never>; };
-
-  type commandOptions<initialized extends boolean = boolean> = {
-    name: string;
-    cooldowns?: cooldowns;
-
-    /** If true, the user must provide a value to this option.*/
-    required?: boolean;
-
-    /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled.*/
-    autocompleteOptions?: string | autocompleteOptions[] | ((this: Discord.AutocompleteInteraction) => autocompleteOptions[] | Promise<autocompleteOptions>);
-
-    /** Return an error message to the user, if their input is not included in {@link commandOptions.autocompleteOptions}.
-     * Note that this happens for Messages as well.*/
-    strictAutocomplete?: boolean;
-
-    options?: commandOptions<initialized>[];
-
-    minValue?: number;
-    maxValue?: number;
-    minLength?: number;
-    maxLength?: number;
-  } & (initialized extends true ? {
-    nameLocalizations?: BaseCommand<true>['nameLocalizations'];
-
-    /** Gets set automatically from language files.
-     * @see {@link command.description}*/
-    description: BaseCommand<true>['description'];
-
-    /** Gets set automatically from language files.
-     * @see {@link command.description}*/
-    descriptionLocalizations: BaseCommand<true>['descriptionLocalizations'];
-
-    type: typeof Discord.ApplicationCommandOptionType;
-
-    /** Choices the user must choose from. Can not be more then 25.*/
-    choices?: {
-      name: string; nameLocalizations: Record<string, BaseCommand<string>>;
-      value: BaseCommandOptions<true>['choices'];
-    }[];
-    autocomplete?: boolean;
-    channelTypes?: (keyof typeof Discord.ChannelType)[];
-  } : {
-    type: keyof typeof Discord.ApplicationCommandOptionType;
-
-    /** Choices the user must choose from. Can not be more then 25.*/
-    choices?: (string | number | {
-      name: string; nameLocalizations: Record<string, string>;
-      value: BaseCommandOptions<true>['choices'];
-    })[];
-
-    channelTypes?: (typeof Discord.ChannelType)[];
-  });
-
+declare global {
   namespace NodeJS {
     interface Process {
 
@@ -252,6 +149,116 @@ declare global {
     bBind<T>(this: T, thisArg: ThisParameterType<T>): bBoundFunction<T>;
     bBind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): bBoundFunction<(...args: AX[]) => R>;
   }
+
+  const sleep: (ms: number) => Promise<void>;
+
+  /** Custom logging, including logfiles.*/
+  const log: {
+    /* eslint-disable @typescript-eslint/no-explicit-any */
+    (...str: any[]): typeof log;
+    error: (...str: any[]) => typeof log;
+    debug: (...str: any[]) => typeof log;
+    setType: (type: string) => typeof log;
+    _log(file?: string, ...str: any[]): typeof log;
+    /* eslint-enable @typescript-eslint/no-explicit-any */
+  };
+
+  /** bBinded I18nProvider.__ function*/
+  type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string>;
+
+  type slashCommand<initialized extends boolean = false> = __local.BaseCommand<initialized> & {
+    slashCommand: true;
+    aliases?: { slash?: __local.BaseCommand['name'][] };
+
+    /** Do not deferReply to the interaction*/
+    noDefer?: boolean;
+
+    /** Do `interaction.deferReply({ ephemeral: true })`.
+     *
+     * Gets ignored if {@link command.noDefer} is `true`.*/
+    ephemeralDefer?: boolean;
+  } & (initialized extends true ? {
+
+    /** **Do not set manually.***/
+    id: readonly Discord.Snowflake;
+
+    /** **Do not set manually.***/
+    type: readonly Discord.ApplicationCommandType.ChatInput;
+
+    defaultMemberPermissions: readonly Discord.PermissionsBitField;
+
+    dmPermission: boolean;
+  } : object);
+
+  type prefixCommand<initialized extends boolean = false> = __local.BaseCommand<initialized> & {
+    prefixCommand: true;
+    aliases?: { prefix?: __local.BaseCommand['name'][] };
+  };
+
+  type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = __local.BaseCommand<initialized>
+    & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
+    & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
+    & { run: (
+      this: commandType extends 'slash' ? Interaction<guildOnly> : commandType extends 'prefix' ? Message<guildOnly> : Interaction<guildOnly> | Message<guildOnly>,
+      lang: lang, client: Discord.Client<true>
+    ) => Promise<never>; };
+
+  type commandOptions<initialized extends boolean = boolean> = {
+    name: string;
+
+    /** Numbers in milliseconds*/
+    cooldowns?: __local.BaseCommand<initialized>['cooldowns'];
+
+    /** If true, the user must provide a value to this option.*/
+    required?: boolean;
+
+    /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled.*/
+    autocompleteOptions?: string | __local.autocompleteOptions[] | ((this: Discord.AutocompleteInteraction) => __local.autocompleteOptions[] | Promise<__local.autocompleteOptions>);
+
+    /**
+     * Return an error message to the user, if their input is not included in {@link commandOptions.autocompleteOptions}.
+     * Note that this happens for Messages as well.*/
+    strictAutocomplete?: boolean;
+
+    options?: commandOptions<initialized>[];
+
+    minValue?: number;
+    maxValue?: number;
+    minLength?: number;
+    maxLength?: number;
+  } & (initialized extends true ? {
+    nameLocalizations?: __local.BaseCommand<true>['nameLocalizations'];
+
+    /** Gets set automatically from language files.
+     * @see {@link command.description}*/
+    description: __local.BaseCommand<true>['description'];
+
+    /** Gets set automatically from language files.
+     * @see {@link command.description}*/
+    descriptionLocalizations: __local.BaseCommand<true>['descriptionLocalizations'];
+
+    type: typeof Discord.ApplicationCommandOptionType;
+
+    /** Choices the user must choose from. Can not be more then 25.*/
+    choices?: {
+      name: string;
+      nameLocalizations?: __local.BaseCommand<true>['nameLocalizations'];
+      value: string | number;
+    }[];
+    autocomplete?: boolean;
+    channelTypes?: (keyof typeof Discord.ChannelType)[];
+  } : {
+    type: keyof typeof Discord.ApplicationCommandOptionType;
+
+    /** Choices the user must choose from. Can not be more then 25.*/
+    choices?: (string | number | {
+      name: string;
+      nameLocalizations?: __local.BaseCommand<true>['nameLocalizations'];
+      value: string | number;
+    })[];
+
+    channelTypes?: (typeof Discord.ChannelType)[];
+  });
 
   type bBoundFunction<OF, T extends CallableFunction> = T & {
 

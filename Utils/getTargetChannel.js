@@ -1,5 +1,5 @@
 /**
- * @this Message|Interaction
+ * @this {Interaction|Message}
  * @param {{ targetOptionName?: string, returnSelf?: boolean }}options
  * @param {string?}options.targetOptionName the option name for `this.options.getX(targetOptionName)`.
  * @param {boolean?}options.returnSelf return this.channel if nothing else has been found

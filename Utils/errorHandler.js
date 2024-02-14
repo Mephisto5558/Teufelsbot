@@ -6,7 +6,7 @@ const
   cwd = process.cwd();
 
 /**
- * @this Client
+ * @this {Client}
  * @param {Error}err
  * @param {Message|import('discord.js').BaseInteraction|null}message
  * @param {lang?}lang*/

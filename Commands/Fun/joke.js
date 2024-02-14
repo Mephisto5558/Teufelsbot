@@ -9,7 +9,7 @@ const
   ];
 
 /**
- * @this Client
+ * @this {Client}
  * @param {{ name: string, link: string, url: string }[]}apiList
  * @param {string}type
  * @param {string}blacklist

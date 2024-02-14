@@ -1,7 +1,7 @@
 // eslint-disable-next-line jsdoc/require-returns-check
 /**
  * @template {Interaction|Message}T
- * @this T
+ * @this {T}
  * @param {{ targetOptionName?: string, returnSelf?: boolean }} options
  * @param {string?} options.targetOptionName the option name for `this.options.getX(targetOptionName)`.
  * @param {boolean?} options.returnSelf return this.member or this.user if nothing else has been found

@@ -5,14 +5,14 @@ const
   permissionTranslator = require('../permissionTranslator.js'),
   ownerOnlyFolders = require('../getOwnerOnlyFolders.js')();
 
-/** @this Interaction|Message*/
+/** @this {Interaction|Message}*/
 function getCommands() { return [...new Set([...this.client.prefixCommands.values(), ...this.client.slashCommands.values()])].filter(filterCommands.bind(this)); }
 
-/** @this Interaction|Message*/
+/** @this {Interaction|Message}*/
 function getCommandCategories() { return [...new Set(getCommands.call(this).map(e => e.category.toLowerCase()))]; }
 
 /**
- * @this Interaction|Message
+ * @this {Interaction|Message}
  * @param {lang}lang
  * @param {string[]?}commandCategories*/
 function createCategoryComponent(lang, commandCategories) {
@@ -44,7 +44,7 @@ function createCategoryComponent(lang, commandCategories) {
 }
 
 /**
- * @this Interaction|Message
+ * @this {Interaction|Message}
  * @param {lang}lang
  * @param {string}category*/
 function createCommandsComponent(lang, category) {
@@ -65,7 +65,7 @@ function createCommandsComponent(lang, category) {
 }
 
 /**
- * @this Interaction|Message
+ * @this {Interaction|Message}
  * @param {command<*, boolean, true>}cmd
  * @param {lang}lang
  * @param {lang}helpLang*/
@@ -105,14 +105,14 @@ function createInfoFields(cmd, lang, helpLang) {
 }
 
 /**
- * @this Interaction|Message
+ * @this {Interaction|Message}
  * @param {command<*, boolean, true>}cmd*/
 function filterCommands(cmd) {
   return cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta) || (ownerOnlyFolders.includes(cmd.category?.toLowerCase()) && this.user.id != this.client.application.owner.id);
 }
 
 /**
- * @this Interaction|Message
+ * @this {Interaction|Message}
  * @param {lang}lang
  * @param {string}commandQuery*/
 module.exports.commandQuery = function commandQuery(lang, commandQuery) {
@@ -146,7 +146,7 @@ module.exports.commandQuery = function commandQuery(lang, commandQuery) {
 };
 
 /**
- * @this Interaction|Message
+ * @this {Interaction|Message}
  * @param {lang}lang
  * @param {string?}categoryQuery*/
 module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
@@ -180,7 +180,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
 };
 
 /**
- * @this Interaction|Message
+ * @this {Interaction|Message}
  * @param {lang}lang*/
 module.exports.allQuery = function allQuery(lang) {
   const

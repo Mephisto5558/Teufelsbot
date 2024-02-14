@@ -1,7 +1,7 @@
 const { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel } = require('discord.js');
 
 /**
- * @this GuildMessage
+ * @this {GuildMessage}
  * @param {import('discord.js').GuildMember}member
  * @param {lang}lang*/
 module.exports = function logSayCommandUse(member, lang) {

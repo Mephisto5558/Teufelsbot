@@ -5,7 +5,7 @@ const
   getCMDs = /** @param {Client}client*/ client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])],
   setupMainFunctions = {
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang*/
     toggle_module: async function (lang) {
       const
@@ -17,7 +17,7 @@ const
     },
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang*/
     toggle_command: async function (lang) {
       const
@@ -93,7 +93,7 @@ const
       return this.editReply({ embeds: [embed] });
     },
 
-    /** @this GuildInteraction*/
+    /** @this {GuildInteraction}*/
     language: async function () {
       const
         language = this.options.getString('language'),
@@ -112,7 +112,7 @@ const
     },
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang*/
     serverbackup: async function (lang) {
       await this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', parseInt(backup.get(this.options.getString('allowed_to_load'))));
@@ -120,7 +120,7 @@ const
     },
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang*/
     autopublish: async function (lang) {
       const enabled = this.options.getBoolean('enabled');
@@ -129,7 +129,7 @@ const
     },
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang*/
     logger: async function (lang) {
       const

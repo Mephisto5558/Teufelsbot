@@ -5,7 +5,7 @@ const
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
 /**
- * @this GuildInteraction
+ * @this {GuildInteraction}
  * @param {lang}lang*/
 module.exports = async function ban_kick_mute(lang) {
   if (this.commandName == 'timeout') this.commandName = 'mute';

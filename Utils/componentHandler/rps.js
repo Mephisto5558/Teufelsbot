@@ -5,7 +5,7 @@ const
   emojis = { r: '✊', p: '🤚', s: '✌️' };
 
 /**
- * @this GuildInteraction|import('discord.js').ButtonInteraction
+ * @this {GuildInteraction|import('discord.js').ButtonInteraction}
  * @param {import('discord.js').GuildMember}initiator
  * @param {import('discord.js').GuildMember}opponent
  * @param {lang}lang*/
@@ -42,7 +42,7 @@ function sendGame(initiator, opponent, lang) {
 }
 
 /** this.customId: `rps.<initiatorId>.<mode>.<opponentId>`
- * @this import('discord.js').ButtonInteraction
+ * @this {import('discord.js').ButtonInteraction}
  * @param {lang}lang
  * @param {string}initiatorId
  * @param {'cancel'|'decline'|'accept'|'playAgain'|'r'|'p'|'s'}mode

@@ -6,7 +6,7 @@ const
   cache = new Collection();
 
 /** this.customId: `record.<mode>.<requesterId>.<voiceChannelId>.<public>`
- * @this import('discord.js').ButtonInteraction
+ * @this {import('discord.js').ButtonInteraction}
  * @param {lang}lang
  * @param {'memberAllow'|'memberDeny'|'cancel'}mode
  * @param {string}requesterId
