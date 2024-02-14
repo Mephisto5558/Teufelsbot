@@ -2,7 +2,7 @@ const { ApplicationCommandOptionType, ChatInputCommandInteraction } = require('d
 
 /**
  * A wrapper for {@link cooldown}, used for subcommand(group) support.
- * @this ChatInputCommandInteraction
+ * @this {ChatInputCommandInteraction}
  * @param {string}name
  * @returns {number} current cooldown in seconds*/
 function subCommandCooldowns(name) {

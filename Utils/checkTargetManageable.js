@@ -1,5 +1,5 @@
 /**
- * @this Interaction|Message
+ * @this {Interaction|Message}
  * @param {import('discord.js').GuildMember}member
  * @returns {string|undefined} error message id to use with I18n*/
 module.exports = function checkTargetManageable(member) {

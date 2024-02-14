@@ -5,7 +5,7 @@ const
 
   birthdayMainFunctions = {
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang*/
     set: async function set(lang) {
       const
@@ -22,7 +22,7 @@ const
     },
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang*/
     remove: async function remove(lang) {
       await this.client.db.delete('userSettings', `${this.user.id}.birthday`);
@@ -30,7 +30,7 @@ const
     },
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang*/
     get: async function get(lang) {
       const

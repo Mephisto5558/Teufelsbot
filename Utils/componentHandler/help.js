@@ -1,7 +1,7 @@
 const utils = require('./help_utils.js');
 
 /** this.customId: `help.<type>`
- * @this import('discord.js').StringSelectMenuInteraction
+ * @this {import('discord.js').StringSelectMenuInteraction}
  * @param {lang}lang
  * @param {'command'|'category'|'all'}type*/
 module.exports = async function help(lang, type) {

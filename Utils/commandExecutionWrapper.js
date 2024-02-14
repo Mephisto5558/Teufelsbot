@@ -1,7 +1,7 @@
 const errorHandler = require('./errorHandler.js');
 
 /**
- * @this Message|import('discord.js').BaseInteraction
+ * @this {Message|import('discord.js').BaseInteraction}
  * @param {command<'both', boolean, true>}command
  * @param {string}commandType
  * @param {lang}lang*/

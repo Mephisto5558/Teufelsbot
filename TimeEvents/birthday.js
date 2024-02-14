@@ -3,7 +3,7 @@ const
   { DiscordAPIErrorCodes } = require('../Utils');
 
 /**
- * @this String
+ * @this {String}
  * @param {import('discord.js').User}user
  * @param {number}year*/
 function formatBirthday(user, year) {
@@ -25,7 +25,7 @@ module.exports = {
   time: '00 00 00 * * *', // daily
   startNow: true,
 
-  /** @this Client*/
+  /** @this {Client}*/
   onTick: async function () {
     const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
 

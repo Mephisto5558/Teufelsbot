@@ -1,7 +1,7 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 /**
- * @this GuildInteraction|Message<true>|import('discord.js').ButtonInteraction
+ * @this {GuildInteraction|Message<true>|import('discord.js').ButtonInteraction}
  * @param {import('discord.js').GuildMember}initiator
  * @param {import('discord.js').GuildMember}opponent
  * @param {lang}lang*/

@@ -7,7 +7,7 @@ const
     /** @typedef {{ bonusEntries: object[], requiredRoles: string[], disallowedMembers: string[], duration: number, giveawayId: string }}mainFunctionsParams*/
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang
      * @param {ActionRowBuilder<ButtonBuilder>[]}components
      * @param {mainFunctionsParams}options*/
@@ -59,7 +59,7 @@ const
     },
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang
      * @param {ActionRowBuilder<ButtonBuilder>[]}components
      * @param {mainFunctionsParams}options*/
@@ -71,7 +71,7 @@ const
     },
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang
      * @param {ActionRowBuilder<ButtonBuilder>[]}components
      * @param {mainFunctionsParams}options*/
@@ -96,7 +96,7 @@ const
     },
 
     /**
-     * @this GuildInteraction
+     * @this {GuildInteraction}
      * @param {lang}lang
      * @param {ActionRowBuilder<ButtonBuilder>[]}components
      * @param {mainFunctionsParams}options*/

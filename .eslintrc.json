@@ -11,7 +11,21 @@
   ],
   "globals": {
     "sleep": "readonly",
-    "log": "readonly"
+    "log": "readonly",
+    // [TYPES] see globals.d.ts
+    "lang": "writable",
+    "slashCommand": "writable",
+    "prefixCommand": "writable",
+    "command": "writable",
+    "commandOptions": "writable",
+    "bBoundFunction": "writable",
+    "Client": "writable",
+    "Message": "writable",
+    "Interaction": "writable",
+    "OptionalInteractionProperties": "writable",
+    "OptionalMessageProperties": "writable",
+    "GuildInteraction": "writable",
+    "DMInteraction": "writable"
   },
   "plugins": [
     "@typescript-eslint",
@@ -351,8 +365,8 @@
     ],
     "jsdoc/require-returns-description": "off",
     "jsdoc/require-param-description": "off",
-    "jsdoc/valid-types": "off", //issues with global types
-    "jsdoc/no-undefined-types": "off", //issues with global types
+    "jsdoc/valid-types": "error", //issues with global types
+    "jsdoc/no-undefined-types": "error", //issues with global types
     "jsdoc/require-param": [
       "warn",
       {

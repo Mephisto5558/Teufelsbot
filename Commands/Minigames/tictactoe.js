@@ -3,7 +3,7 @@ const
   { getTargetMember } = require('../../Utils');
 
 /**
- * @this GuildInteraction
+ * @this {GuildInteraction}
  * @param {import('discord.js').GuildMember[]}players
  * @param {('win'|'lose'|'draw')[]}types
  * @param {lang}lang
