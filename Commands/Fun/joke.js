@@ -14,7 +14,7 @@ const
  * @param {string}type
  * @param {string}blacklist
  * @param {number?}maxLength
- * @returns {[str, { name: string, link: string, url: string }] | []}*/
+ * @returns {[string, { name: string, link: string, url: string }] | []}*/
 async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000) {
   const api = apiList.random();
   let response;

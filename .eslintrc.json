@@ -10,7 +10,7 @@
     "Templates/*"
   ],
   "globals": {
-    "sleep": "readonly",
+    "sleep": "readonly", // promisified setTimeout
     "log": "readonly",
     // [TYPES] see globals.d.ts
     "lang": "writable",
@@ -32,10 +32,8 @@
     "jsdoc",
     "@stylistic"
   ],
-  "extends": [
-    "eslint:recommended",
-    "plugin:jsdoc/recommended"
-  ],
+  "parser": "@typescript-eslint/parser",
+  "extends": "eslint:recommended",
   "rules": {
     "no-fallthrough": "warn",
     "no-empty": "error",
@@ -202,7 +200,7 @@
       }
     ],
     "@stylistic/no-extra-semi": "error",
-    "@stylistic/no-floating-decimal": "off", //Does not support only disallowing trailing dots
+    "@stylistic/no-floating-decimal": "off", // Does not support only disallowing trailing dots
     "@stylistic/no-mixed-operators": "off",
     "@stylistic/no-mixed-spaces-and-tabs": "error",
     "@stylistic/no-multi-spaces": "error",
@@ -238,7 +236,7 @@
       "error",
       "always"
     ],
-    "@stylistic/object-property-newline": "off", //Not good configurable
+    "@stylistic/object-property-newline": "off", // Not configurable enough
     "@stylistic/one-var-declaration-per-line": [
       "error",
       "initializations"
@@ -347,47 +345,250 @@
       }
     ],
     // [JSDOC] https://github.com/gajus/eslint-plugin-jsdoc/tree/main/.README#rules
+    "jsdoc/check-access": "error",
+    "jsdoc/check-alignment": "error",
+    "jsdoc/check-examples": "off", // Currently not supported
+    "jsdoc/check-indentation": "error",
+    "jsdoc/check-line-alignment": "off",
+    "jsdoc/check-param-names": "error",
+    "jsdoc/check-property-names": "error",
+    "jsdoc/check-syntax": "error",
+    "jsdoc/check-tag-names": "error",
+    "jsdoc/check-types": "error",
+    "jsdoc/check-values": "error",
+    "jsdoc/empty-tags": "error",
+    "jsdoc/implements-on-classes": "error",
+    "jsdoc/imports-as-dependencies": "error",
+    "jsdoc/informative-docs": "error",
+    "jsdoc/match-description": "off",
+    "jsdoc/match-name": "off",
     "jsdoc/multiline-blocks": [
-      "warn",
+      "error",
       {
-        "noZeroLineText": false,
         "noFinalLineText": false
       }
     ],
-    "jsdoc/check-indentation": "warn",
-    "jsdoc/check-line-alignment": "warn",
-    "jsdoc/require-asterisk-prefix": "warn",
+    "jsdoc/no-bad-blocks": "error",
+    "jsdoc/no-blank-block-descriptions": "error",
+    "jsdoc/no-blank-blocks": [
+      "error",
+      {
+        "enableFixer": true
+      }
+    ],
+    "jsdoc/no-defaults": "error",
+    "jsdoc/no-missing-syntax": "off",
     "jsdoc/no-multi-asterisks": [
       "warn",
       {
         "preventAtEnd": false
       }
     ],
-    "jsdoc/require-returns-description": "off",
-    "jsdoc/require-param-description": "off",
-    "jsdoc/valid-types": "error", //issues with global types
-    "jsdoc/no-undefined-types": "error", //issues with global types
-    "jsdoc/require-param": [
+    "jsdoc/no-restricted-syntax": "off",
+    "jsdoc/no-types": "off",
+    "jsdoc/no-undefined-types": [
+      "error",
+      {
+        "markVariablesAsUsed": false
+      }
+    ],
+    "jsdoc/require-asterisk-prefix": [
       "warn",
+      "always"
+    ],
+    "jsdoc/require-description-complete-sentence": "off",
+    "jsdoc/require-description": "off",
+    "jsdoc/require-example": "off",
+    "jsdoc/require-file-overview": "off",
+    "jsdoc/require-hyphen-before-param-description": [
+      "error",
+      "never"
+    ],
+    "jsdoc/require-jsdoc": "off",
+    "jsdoc/require-param-description": "off",
+    "jsdoc/require-param-name": "error",
+    "jsdoc/require-param-type": "error",
+    "jsdoc/require-param": [
+      "error",
       {
         "enableFixer": false,
         "useDefaultObjectProperties": true
       }
     ],
-    "jsdoc/require-returns": "off",
-    "jsdoc/require-returns-type": "off",
+    "jsdoc/require-property-description": "off",
+    "jsdoc/require-property-name": "error",
+    "jsdoc/require-property-type": "error",
+    "jsdoc/require-property": "error",
     "jsdoc/require-returns-check": [
       "error",
       {
-        "reportMissingReturnForUndefinedTypes": false
+        "exemptAsync": false
       }
-    ]
+    ],
+    "jsdoc/require-returns-description": "off",
+    "jsdoc/require-returns-type": "error",
+    "jsdoc/require-returns": "off",
+    "jsdoc/require-throws": "error",
+    "jsdoc/require-yields-check": "error",
+    "jsdoc/require-yields": "off",
+    "jsdoc/sort-tags": [
+      "warn",
+      {
+        "linesBetween": 0,
+        "tagSequence": [
+          {
+            "tags": [
+              // Copied from https://github.com/gajus/eslint-plugin-jsdoc/blob/main/docs/rules/sort-tags.md#tagsequence
+              // Brief descriptions
+              "summary",
+              "typeSummary",
+              // Module/file-level
+              "module",
+              "exports",
+              "file",
+              "fileoverview",
+              "overview",
+              // Identifying (name, type)
+              "typedef",
+              "interface",
+              "record",
+              "template",
+              "name",
+              "kind",
+              "type",
+              "alias",
+              "external",
+              "host",
+              "callback",
+              "func",
+              "function",
+              "method",
+              "class",
+              "constructor",
+              // Relationships
+              "modifies",
+              "mixes",
+              "mixin",
+              "mixinClass",
+              "mixinFunction",
+              "namespace",
+              "borrows",
+              "constructs",
+              "lends",
+              "implements",
+              "requires",
+              // Long descriptions
+              "desc",
+              "description",
+              "classdesc",
+              "tutorial",
+              "copyright",
+              "license",
+              // Simple annotations
+              "const",
+              "constant",
+              "final",
+              "global",
+              "readonly",
+              "abstract",
+              "virtual",
+              "var",
+              "member",
+              "memberof",
+              "memberof!",
+              "inner",
+              "instance",
+              "inheritdoc",
+              "inheritDoc",
+              "override",
+              "hideconstructor",
+              // Core function/object info
+              "this",
+              "param",
+              "arg",
+              "argument",
+              "prop",
+              "property",
+              "return",
+              "returns",
+              // Important behavior details
+              "async",
+              "generator",
+              "default",
+              "defaultvalue",
+              "enum",
+              "augments",
+              "extends",
+              "throws",
+              "exception",
+              "yield",
+              "yields",
+              "event",
+              "fires",
+              "emits",
+              "listens",
+              // Access
+              "static",
+              "private",
+              "protected",
+              "public",
+              "access",
+              "package",
+              "-other",
+              // Supplementary descriptions
+              "see",
+              "example",
+              // METADATA
+              // Other Closure (undocumented) metadata
+              "closurePrimitive",
+              "customElement",
+              "expose",
+              "hidden",
+              "idGenerator",
+              "meaning",
+              "ngInject",
+              "owner",
+              "wizaction",
+              // Other Closure (documented) metadata
+              "define",
+              "dict",
+              "export",
+              "externs",
+              "implicitCast",
+              "noalias",
+              "nocollapse",
+              "nocompile",
+              "noinline",
+              "nosideeffects",
+              "polymer",
+              "polymerBehavior",
+              "preserve",
+              "struct",
+              "suppress",
+              "unrestricted",
+              // @homer0/prettier-plugin-jsdoc metadata
+              "category",
+              // Non-Closure metadata
+              "ignore",
+              "author",
+              "version",
+              "variation",
+              "since",
+              "deprecated",
+              "todo"
+            ]
+          }
+        ]
+      }
+    ],
+    "jsdoc/tag-lines": "off", //Handled by other jsdoc rules
+    "jsdoc/text-escaping": "off",
+    "jsdoc/valid-types": "error"
   },
   "overrides": [
     {
       "files": "*.ts",
       "extends": "plugin:@typescript-eslint/recommended",
-      "parser": "@typescript-eslint/parser",
       "rules": {
         //TS-Only rules
         "@stylistic/member-delimiter-style": [
@@ -418,7 +619,8 @@
           }
         ],
         "@stylistic/type-generic-spacing": "error",
-        "@stylistic/type-named-tuple-spacing": "error"
+        "@stylistic/type-named-tuple-spacing": "error",
+        "jsdoc/no-types": "error"
       }
     }
   ]

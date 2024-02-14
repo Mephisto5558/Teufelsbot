@@ -5,7 +5,8 @@ const
   /** @type {Collection<string, Collection<string, {userId: string, allowed: boolean}[]>>}*/
   cache = new Collection();
 
-/** this.customId: `record.<mode>.<requesterId>.<voiceChannelId>.<public>`
+/**
+ * this.customId: `record.<mode>.<requesterId>.<voiceChannelId>.<public>`
  * @this {import('discord.js').ButtonInteraction}
  * @param {lang}lang
  * @param {'memberAllow'|'memberDeny'|'cancel'}mode
@@ -23,7 +24,7 @@ module.exports = async function record(lang, mode, requesterId, voiceChannelId) 
       /** @type {Collection<string, { userId: string, allowed: boolean }[]>}*/
       const guildCache = cache.get(this.guild.id) ?? cache.set(this.guild.id, new Collection([[voiceChannelId, []]])).get(this.guild.id);
 
-      /** @type {{ userId: string, allowed: boolean }[]>}*/
+      /** @type {{ userId: string, allowed: boolean }[]}*/
       const vcCache = guildCache.get(voiceChannelId) ?? guildCache.set(voiceChannelId, []).get(voiceChannelId);
 
       vcCache.push({ userId: this.user.id, allowed: mode == 'memberAllow' });

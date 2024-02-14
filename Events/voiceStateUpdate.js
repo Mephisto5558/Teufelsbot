@@ -1,7 +1,7 @@
 const { PermissionFlagsBits, EmbedBuilder } = require('discord.js');
 
 /**
- * @this {import('discord.js').VoiceState} old state
+ * @this {import('discord.js').VoiceState}
  * @param {import('discord.js').VoiceState}newState*/
 module.exports = async function voiceStateUpdate(newState) {
   const setting = this.guild?.db.config?.logger?.voiceChannelActivity ?? {};

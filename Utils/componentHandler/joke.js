@@ -1,6 +1,7 @@
 const commandExecutionWrapper = require('../commandExecutionWrapper.js');
 
-/** this.customId: `joke.<api>.<type>.<blacklist>.<maxLength>`
+/**
+ * this.customId: `joke.<api>.<type>.<blacklist>.<maxLength>`
  * @this {import('discord.js').ButtonInteraction}
  * @param {lang}lang
  * @param {string}api

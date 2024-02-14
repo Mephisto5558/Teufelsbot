@@ -3,7 +3,8 @@ const { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitFiel
 /**
  * @param {command<'slash', boolean, true> | commandOptions<true>}option
  * @param {string}path
- * @param {import('@mephisto5558/i18n')}i18n*/
+ * @param {import('@mephisto5558/i18n')}i18n
+ * @throws {Error} on not autofixable invalid data*/
 module.exports = function format(option, path, i18n) {
   if ('options' in option) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`, i18n));
 
