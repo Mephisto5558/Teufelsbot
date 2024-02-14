@@ -3,7 +3,7 @@ const
   { DiscordAPIErrorCodes } = require('../Utils');
 
 /**
- * @this {String}
+ * @this {StringConstructor}
  * @param {import('discord.js').User}user
  * @param {number}year*/
 function formatBirthday(user, year) {

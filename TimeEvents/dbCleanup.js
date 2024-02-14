@@ -1,7 +1,8 @@
-/** @returns milliseconds*/
+/** @returns {number}milliseconds*/
 const getOneMonthAgo = () => new Date().setMonth(new Date().getMonth() - 1);
 
-/** Removes all giveaways that ended more than one month ago
+/**
+ * Removes all giveaways that ended more than one month ago
  * @this {Client}
  * @param {{ ended: boolean, endAt: number }[]}db*/
 function cleanupGiveawaysDB(db) {
@@ -10,7 +11,8 @@ function cleanupGiveawaysDB(db) {
   log('Cleaned giveaways DB');
 }
 
-/** Removes all lastMentions data older than one month
+/**
+ * Removes all lastMentions data older than one month
  * @this {Client}
  * @param {string}guildId
  * @param {{ [userId: string]: { createdAt: Date } }}db*/
@@ -23,7 +25,8 @@ function cleanupMentionsDB(guildId, db) {
   }
 }
 
-/** Removes all AFK-Messages older than one month
+/**
+ * Removes all AFK-Messages older than one month
  * @this {Client}
  * @param {string}guildId
  * @param {{ [userId: string]: { createdAt: string } }}db createdAt is in seconds, not milliseconds*/
@@ -36,7 +39,8 @@ function cleanupAfkMessagesDB(guildId, db) {
   }
 }
 
-/** Removes all AFK-Messages older than one month
+/**
+ * Removes all AFK-Messages older than one month
  * @this {Client}
  * @param {string}guildId
  * @param {{ [game: string]: { [userId: string]: { createdAt: string } }}}db createdAt is in seconds, not milliseconds*/

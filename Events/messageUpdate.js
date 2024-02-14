@@ -1,7 +1,7 @@
 const { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 /**
- * @this {Message} old message
+ * @this {Message}
  * @param {Message}newMsg*/
 module.exports = async function messageUpdate(newMsg) {
   const setting = this.guild?.db.config?.logger?.messageUpdate ?? {};

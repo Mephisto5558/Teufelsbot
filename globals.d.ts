@@ -36,11 +36,13 @@ declare namespace __local {
     /** Currently not used*/
     nameLocalizations?: readonly Record<string, BaseCommand<true>['name']>;
 
-    /** Gets set automatically from language files.
+    /**
+     * Gets set automatically from language files.
      * For slash commands, can not be longer then 100 chars.*/
     description: string;
 
-    /** Gets set automatically from language files.
+    /**
+     * Gets set automatically from language files.
      * @see {@link command.description}*/
     descriptionLocalizations: readonly Record<string, BaseCommand<true>['description']>;
 
@@ -52,12 +54,14 @@ declare namespace __local {
       user?: Discord.PermissionFlags[];
     };
 
-    /** **Do not set manually.**
+    /**
+     * **Do not set manually.**
      *
      * If the command is an alias, this property will have the original name.*/
     aliasOf?: readonly BaseCommand['name'];
 
-    /** **Do not set manually.**
+    /**
+     * **Do not set manually.**
      *
      * The command's full file path, used for e.g. reloading the command.*/
     filePath: readonly string;
@@ -77,7 +81,8 @@ declare global {
       /** The real process uptime. This property only exists if process args include uptime=...*/
       childUptime?(): number;
 
-      /** If `process.childUptime` exists (process args includes uptime=...), this is
+      /**
+       * If `process.childUptime` exists (process args includes uptime=...), this is
        *
        * `process.childUptime() + parentUptime`
        *
@@ -98,7 +103,8 @@ declare global {
 
   interface Object {
 
-    /** Merges two objects recursively together.
+    /**
+     * Merges two objects recursively together.
      * @param mode how to handle array entries that are in both objects.*/
     fMerge(this: object, obj: object, mode?: 'overwrite' | 'push', output?: object): object;
 
@@ -173,7 +179,8 @@ declare global {
     /** Do not deferReply to the interaction*/
     noDefer?: boolean;
 
-    /** Do `interaction.deferReply({ ephemeral: true })`.
+    /**
+     * Do `interaction.deferReply({ ephemeral: true })`.
      *
      * Gets ignored if {@link command.noDefer} is `true`.*/
     ephemeralDefer?: boolean;
@@ -229,11 +236,13 @@ declare global {
   } & (initialized extends true ? {
     nameLocalizations?: __local.BaseCommand<true>['nameLocalizations'];
 
-    /** Gets set automatically from language files.
+    /**
+     * Gets set automatically from language files.
      * @see {@link command.description}*/
     description: __local.BaseCommand<true>['description'];
 
-    /** Gets set automatically from language files.
+    /**
+     * Gets set automatically from language files.
      * @see {@link command.description}*/
     descriptionLocalizations: __local.BaseCommand<true>['descriptionLocalizations'];
 

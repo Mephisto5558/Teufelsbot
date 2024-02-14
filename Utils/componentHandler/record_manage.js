@@ -91,7 +91,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
  * @param {lang}lang
  * @param {string}mode
  * @param {string}voiceChannelId
- * @param {import('discord.js').Collection<string, import('discord.js').Collection<string, {userId: string, allowed: boolean}[]}cache*/
+ * @param {import('discord.js').Collection<string, import('discord.js').Collection<string, {userId: string, allowed: boolean}[]>>}cache*/
 module.exports.recordControls = async function recordControls(lang, mode, voiceChannelId, cache) {
   const
     embed = this.message.embeds[0],
