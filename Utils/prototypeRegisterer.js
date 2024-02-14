@@ -11,13 +11,13 @@ const
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
 if (!require('../config.json').HideOverwriteWarning) console.warn(
-  'Overwriting the following variables and functions (if they exist):'
-  + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Number#limit, `
-  + 'Object#fMerge, Object#filterEmpty, Function#bBind'
-  + 'Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
-  + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.\n'
-  + 'Modifying Discord.js Message._patch method.`'
-);
+    'Overwriting the following variables and functions (if they exist):'
+    + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Number#limit, `
+    + 'Object#fMerge, Object#filterEmpty, Function#bBind'
+    + 'Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
+    + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.\n'
+    + 'Modifying Discord.js Message._patch method.`'
+  );
 
 if (parentUptime) {
   process.childUptime = process.uptime;
@@ -178,7 +178,7 @@ Object.defineProperty(DB.prototype, 'generate', {
   /** @type {DB['generate']}*/
   value: async function generate(overwrite = false) {
     log.setType('DB').debug(`generating db files${overwrite ? ', overwriting existing data' : ''}`).setType();
-    for (const { key, value } of require('../Templates/db_collections.json')) await this.set(key, value, overwrite);
+    await Promise.all(require('../Templates/db_collections.json').map(({ key, value }) => this.set(key, value, overwrite)));
   },
   enumerable: false
 });
