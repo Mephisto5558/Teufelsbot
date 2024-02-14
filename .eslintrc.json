@@ -33,10 +33,235 @@
     "@stylistic"
   ],
   "parser": "@typescript-eslint/parser",
-  "extends": "eslint:recommended",
   "rules": {
+    // [ESLint] https://eslint.org/docs/latest/rules/ | Using "warn" wherever applicable
+    //  Possible Problems
+    "array-callback-return": "error",
+    "constructor-super": "error",
+    "for-direction": "error",
+    "getter-return": "error",
+    "no-async-promise-executor": "error",
+    "no-await-in-loop": "warn",
+    "no-class-assign": "error",
+    "no-compare-neg-zero": "error",
+    "no-cond-assign": [
+      "error",
+      "except-parens"
+    ],
+    "no-const-assign": "error",
+    "no-constant-binary-expression": "error",
+    "no-constant-condition": "error",
+    "no-constructor-return": "warn",
+    "no-control-regex": "error",
+    "no-debugger": "error",
+    "no-dupe-args": "error",
+    "no-dupe-class-members": "error",
+    "no-dupe-else-if": "error",
+    "no-dupe-keys": "error",
+    "no-duplicate-case": "error",
+    "no-duplicate-imports": "error",
+    "no-empty-character-class": "error",
+    "no-empty-pattern": "error",
+    "no-ex-assign": "error",
     "no-fallthrough": "warn",
+    "no-func-assign": "error",
+    "no-import-assign": "error",
+    "no-inner-declarations": [
+      "error",
+      "both"
+    ],
+    "no-invalid-regexp": "error",
+    "no-irregular-whitespace": [
+      "error",
+      {
+        // It should be escaped unicode sequences and not the literal character
+        "skipStrings": false
+      }
+    ],
+    "no-loss-of-precision": "warn",
+    "no-misleading-character-class": "error",
+    "no-new-native-nonconstructor": "error",
+    "no-new-symbol": "off", // handled by `no-new-native-nonconstructor`
+    "no-obj-calls": "error",
+    "no-promise-executor-return": "off", // because this also affects `new Promise(res => x.on('y', z => res(z)));`
+    "no-prototype-builtins": "error",
+    "no-self-assign": "error",
+    "no-self-compare": "error",
+    "no-setter-return": "warn",
+    "no-sparse-arrays": "error",
+    "no-template-curly-in-string": "warn",
+    "no-this-before-super": "error",
+    "no-undef": "error",
+    "no-unexpected-multiline": "warn",
+    "no-unmodified-loop-condition": "warn",
+    "no-unreachable": "error",
+    "no-unreachable-loop": "error",
+    "no-unsafe-finally": "error",
+    "no-unsafe-negation": "error",
+    "no-unsafe-optional-chaining": "error",
+    "no-unused-private-class-members": "error",
+    "no-unused-vars": "error",
+    "no-use-before-define": "error",
+    "no-useless-backreference": "error",
+    "require-atomic-updates": "warn",
+    "use-isnan": "error",
+    "valid-typeof": "error",
+    //  Suggestions
+    "accessor-pairs": "warn",
+    "arrow-body-style": [
+      "error",
+      "as-needed"
+    ],
+    "block-scoped-var": "off", // Shouldn't use `var` anyways
+    "camelcase": "error",
+    "capitalized-comments": "off",
+    "class-methods-use-this": "warn",
+    "complexity": "off", // The day I decide to make my code less complex will never come.
+    "consistent-return": "off",
+    "consistent-this": "off",
+    "curly": [
+      "error",
+      "multi-or-nest"
+    ],
+    "default-case": "off",
+    "default-case-last": "error",
+    "default-param-last": "error",
+    "dot-notation": "error",
+    // "eqeqeq": ["error", "always"], // will be included later
+    "func-name-matching": "off", // Handled by `func-style`
+    "func-names": [
+      "error",
+      "as-needed"
+    ],
+    "func-style": [
+      "error",
+      "declaration",
+      {
+        "allowArrowFunctions": true
+      }
+    ],
+    "grouped-accessor-pairs": [
+      "error",
+      "getBeforeSet"
+    ],
+    "guard-for-in": "warn",
+    "id-denylist": "off",
+    "id-length": [
+      "error",
+      {
+        "min": 2,
+        "max": 40,
+        "exceptions": [
+          "e", // entry
+          "i", // index
+          "k", // key
+          "v" // value
+        ]
+      }
+    ],
+    "id-match": "off", // Handled by `camelcase`
+    "init-declarations": "off",
+    "logical-assignment-operators": [
+      "error",
+      "always",
+      {
+        "enforceForIfStatements": true
+      }
+    ],
+    "max-classes-per-file": "off",
+    "max-depth": [
+      "warn",
+      5
+    ],
+    "max-lines": [
+      "error",
+      {
+        "max": 300,
+        "skipBlankLines": true,
+        "skipComments": true
+      }
+    ],
+    "max-lines-per-function": "off", // See `complexity`
+    "max-nested-callbacks": [
+      "warn",
+      2
+    ], // promises are to use whenever possible
+    "max-params": "off",
+    "max-statements": "off",
+    "multiline-comment-style": [
+      "error",
+      "bare-block"
+    ],
+    "new-cap": "error",
+    "no-alert": "error",
+    "no-array-constructor": "error",
+    "no-bitwise": "off",
+    "no-caller": "error",
+    "no-case-declarations": "error",
+    "no-console": "off",
+    "no-continue": "off",
+    "no-delete-var": "error",
+    "no-div-regex": "warn",
+    "no-else-return": "error",
     "no-empty": "error",
+    "no-empty-function": "error",
+    "no-empty-static-block": "error",
+    "no-eq-null": "warn",
+    "no-eval": "error",
+    "no-extend-native": "off",
+    "no-extra-bind": "error",
+    "no-extra-boolean-cast": "error",
+    "no-extra-label": "error",
+    "no-global-assign": "error",
+    "no-implicit-coercion": "off",
+    "no-implicit-globals": "error",
+    "no-implied-eval": "error",
+    "no-inline-comments": "off",
+    "no-invalid-this": "error",
+    "no-iterator": "error",
+    "no-label-var": "warn",
+    "no-labels": "error",
+    "no-lone-blocks": "error",
+    "no-lonely-if": "error",
+    "no-loop-func": "warn",
+    "no-magic-numbers": "off",
+    "no-multi-assign": "error",
+    "no-multi-str": "error",
+    "no-negated-condition": "off",
+    "no-nested-ternary": "error",
+    "no-new": "warn",
+    "no-new-func": "error",
+    "no-new-wrappers": "error",
+    "no-nonoctal-decimal-escape": "error",
+    "no-object-constructor": "error",
+    "no-octal": "error",
+    "no-octal-escape": "error",
+    "no-param-reassign": "off",
+    "no-plusplus": "off",
+    "no-proto": "error",
+    "no-redeclare": "error",
+    "no-regex-spaces": "error",
+    "no-restricted-exports": "off",
+    "no-restricted-globals": "off",
+    "no-restricted-imports": "off",
+    "no-restricted-properties": "off",
+    "no-restricted-syntax": "off",
+    "no-return-assign": "error",
+    "no-script-url": "error",
+    "no-sequences": "error",
+    "no-shadow": "warn",
+    "no-shadow-restricted-names": "error",
+    "no-ternary": "off",
+    "no-throw-literal": "error",
+    "no-undef-init": "error",
+    "no-undefined": "off",
+    "no-underscore-dangle": "warn",
+    "no-unneeded-ternary": "error",
+    "no-unused-expressions": "error",
+    "no-unused-labels": "error",
+    "no-useless-call": "error",
+    "no-useless-catch": "error",
+    "no-useless-computed-key": "error",
     // [STYLISTIC] https://eslint.style/packages/default#rules
     "@stylistic/array-bracket-newline": [
       "error",
@@ -587,10 +812,11 @@
   },
   "overrides": [
     {
-      "files": "*.ts",
+      "files": "*.d.ts",
       "extends": "plugin:@typescript-eslint/recommended",
       "rules": {
         //TS-Only rules
+        "no-use-before-define": "off",
         "@stylistic/member-delimiter-style": [
           "error",
           {
