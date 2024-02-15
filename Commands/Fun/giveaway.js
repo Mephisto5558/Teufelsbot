@@ -112,7 +112,7 @@ const
       };
 
       const data = await this.client.giveawaysManager.reroll(giveawayId, rerollOptions);
-      /* eslint-disable-next-line require-atomic-updates*/
+      /* eslint-disable-next-line require-atomic-updates */
       components[0].components[0].data.url = data.messageURL; // I don't see any race donditions
 
       return this.editReply({ content: lang('rerolled'), components });

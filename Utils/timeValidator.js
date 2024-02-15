@@ -34,7 +34,7 @@ module.exports = timeValidator;
 
 
 /** Tests the timeValidator*/
-/* eslint-disable-next-line no-unused-vars*/
+/* eslint-disable-next-line no-unused-vars */
 function testTimevalidator() {
   const testCases = [
     { input: '3', expectedOutput: ['3y', '3mth', '3w', '3d', '3h', '3min', '3s', '3ms'] },
