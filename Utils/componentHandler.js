@@ -6,7 +6,7 @@ const
 /**
  * @this {import('discord.js').MessageComponentInteraction}
  * @param {lang}lang*/
-module.exports = async function MessageComponentHandler(lang) {
+module.exports = function MessageComponentHandler(lang) {
   const
     [feature, id, mode, data, ...args] = this.customId.split('.'),
     cooldown = cooldowns.call(this, `buttonPressEvent.${this.message.id}`, { user: 1000 }),
