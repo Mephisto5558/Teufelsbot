@@ -17,7 +17,7 @@ module.exports = {
     autocompleteOptions: [],
     strictAutocomplete: false,
     required: false,
-    choices: [''],
+    choices: ['']
   }],
 
   run: function (lang) {

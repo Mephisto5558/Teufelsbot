@@ -4,6 +4,7 @@
     "es2022": true
   },
   "parserOptions": {
+    "sourceType": "module",
     "ecmaVersion": "latest"
   },
   "ignorePatterns": [
@@ -41,7 +42,7 @@
     "for-direction": "error",
     "getter-return": "error",
     "no-async-promise-executor": "error",
-    "no-await-in-loop": "warn",
+    "no-await-in-loop": "off",
     "no-class-assign": "error",
     "no-compare-neg-zero": "error",
     "no-cond-assign": [
@@ -101,7 +102,12 @@
     "no-unsafe-optional-chaining": "error",
     "no-unused-private-class-members": "error",
     "no-unused-vars": "error",
-    "no-use-before-define": "error",
+    "no-use-before-define": [
+      "error",
+      {
+        "functions": false
+      }
+    ],
     "no-useless-backreference": "error",
     "require-atomic-updates": "warn",
     "use-isnan": "error",
@@ -112,7 +118,7 @@
       "error",
       "as-needed"
     ],
-    "block-scoped-var": "off", // Shouldn't use `var` anyways
+    "block-scoped-var": "off", // Handled by `no-var`
     "camelcase": "error",
     "capitalized-comments": "off",
     "class-methods-use-this": "warn",
@@ -152,10 +158,13 @@
         "min": 2,
         "max": 40,
         "exceptions": [
+          "a", // first item in .sort() 
+          "b", // second item in .sort()
           "e", // entry
           "i", // index
           "k", // key
-          "v" // value
+          "v", // value
+          "_" // omitted function param, e.g. (_, a) => a
         ]
       }
     ],
@@ -174,7 +183,7 @@
       5
     ],
     "max-lines": [
-      "error",
+      "warn",
       {
         "max": 300,
         "skipBlankLines": true,
@@ -249,19 +258,103 @@
     "no-return-assign": "error",
     "no-script-url": "error",
     "no-sequences": "error",
-    "no-shadow": "warn",
+    "no-shadow": [
+      "warn",
+      {
+        "allow": [
+          "a",
+          "b",
+          "e",
+          "i",
+          "k",
+          "v",
+          "err"
+        ]
+      }
+    ],
     "no-shadow-restricted-names": "error",
     "no-ternary": "off",
     "no-throw-literal": "error",
     "no-undef-init": "error",
     "no-undefined": "off",
-    "no-underscore-dangle": "warn",
+    "no-underscore-dangle": "off",
     "no-unneeded-ternary": "error",
-    "no-unused-expressions": "error",
+    "no-unused-expressions": [
+      "error",
+      {
+        "allowShortCircuit": true,
+        "allowTernary": true
+      }
+    ],
     "no-unused-labels": "error",
     "no-useless-call": "error",
     "no-useless-catch": "error",
     "no-useless-computed-key": "error",
+    "no-useless-concat": "error",
+    "no-useless-constructor": "error",
+    "no-useless-escape": "error",
+    "no-useless-rename": "error",
+    "no-useless-return": "error",
+    "no-var": "error",
+    "no-void": "off",
+    "no-warning-comments": "off",
+    "no-with": "error",
+    "object-shorthand": [
+      "error",
+      "properties"
+    ],
+    "one-var": "off",
+    "operator-assignment": "error",
+    "prefer-arrow-callback": "error",
+    "prefer-const": [
+      "error",
+      {
+        "destructuring": "all"
+      }
+    ],
+    "prefer-destructuring": [
+      "error",
+      {
+        "AssignmentExpression": {
+          "array": false,
+          "object": true
+        }
+      }
+    ],
+    "prefer-exponentiation-operator": "warn",
+    "prefer-named-capture-group": "off",
+    "prefer-numeric-literals": "off",
+    "prefer-object-has-own": "error",
+    "prefer-object-spread": "error",
+    "prefer-promise-reject-errors": "error",
+    "prefer-regex-literals": [
+      "error",
+      {
+        "disallowRedundantWrapping": true
+      }
+    ],
+    "prefer-rest-params": "error",
+    "prefer-spread": "error",
+    "prefer-template": "off", // Can't allow multiline
+    "radix": [
+      "error",
+      "as-needed"
+    ],
+    "require-await": "error",
+    "require-unicode-regexp": "off",
+    "require-yield": "error",
+    "sort-imports": "off", // Can't make local files go last
+    "sort-keys": "off",
+    "sort-vars": "off",
+    "strict": "error",
+    "symbol-description": "error",
+    "vars-on-top": "error",
+    "yoda": [
+      "error",
+      "never"
+    ],
+    "line-comment-position": "off",
+    "unicode-bom": "warn",
     // [STYLISTIC] https://eslint.style/packages/default#rules
     "@stylistic/array-bracket-newline": [
       "error",
@@ -614,7 +707,10 @@
     "jsdoc/no-undefined-types": [
       "error",
       {
-        "markVariablesAsUsed": false
+        "markVariablesAsUsed": false,
+        "definedTypes": [
+          "NodeJS"
+        ]
       }
     ],
     "jsdoc/require-asterisk-prefix": [
@@ -817,6 +913,7 @@
       "rules": {
         //TS-Only rules
         "no-use-before-define": "off",
+        "no-shadow": "off",
         "@stylistic/member-delimiter-style": [
           "error",
           {

@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError } = require('discord.js'),
   checkTargetManageable = require('../checkTargetManageable.js'),
+  /* eslint camelcase: ["error", {allow: ["ban_kick_mute"]}]*/
   ban_kick_mute = require('../combinedCommands/ban_kick_mute.js');
 
 /**
@@ -50,6 +51,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       this.commandName = mode;
       this.options = { getMember: () => item, getString: () => submit.fields.getTextInputValue('infoCMDs_punish_reason_modal_text'), getNumber: () => 0 };
       this.editReply = this.followUp;
+      /* eslint-disable-next-line require-atomic-updates */
       lang.__boundArgs__[0].backupPath = `commands.moderation.${mode}`;
 
       ban_kick_mute.call(this, lang);

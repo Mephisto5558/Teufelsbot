@@ -56,8 +56,11 @@ module.exports = {
   ],
 
   run: async function (lang) {
-    const getOption = name => this.options.getString(name)?.replaceAll('/n', '\n');
-    const custom = getOption('json');
+    const
+      getOption = name => this.options.getString(name)?.replaceAll('/n', '\n'),
+      custom = getOption('json'),
+      allowedMentions = { parse: [AllowedMentionsTypes.User] };
+
     let embed, sentMessage;
 
     try {
@@ -78,7 +81,6 @@ module.exports = {
           }
         });
 
-      let allowedMentions = { parse: [AllowedMentionsTypes.User] };
       if (this.member.permissionsIn(this.channel).has(PermissionFlagsBits.MentionEveryone)) {
         allowedMentions.parse.push(AllowedMentionsTypes.Role);
         allowedMentions.parse.push(AllowedMentionsTypes.Everyone);

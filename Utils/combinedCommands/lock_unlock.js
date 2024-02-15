@@ -2,9 +2,8 @@ const
   { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors } = require('discord.js'),
   getTargetChannel = require('../getTargetChannel.js');
 
-/**
- * @this {Message<true>|GuildInteraction}
- * @param {lang}lang*/
+/** @type {command<'slash', true, true>['run']}*/
+/* eslint-disable-next-line camelcase */
 module.exports = async function lock_unlock(lang) {
   this.args?.shift();
 
@@ -46,9 +45,11 @@ module.exports = async function lock_unlock(lang) {
     await this.client.db.delete('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`);
   }
 
-  for (const [id, type] of Array.isArray(overwrites) ? overwrites : Object.entries(overwrites)) await channel.permissionOverwrites.edit(id,
-    { [PermissionFlagsBits.SendMessages]: this.commandName == 'lock' },
-    { type, reason: lang('global.modReason', { command: this.commandName, user: this.user.username }) });
+  for (const [id, type] of Array.isArray(overwrites) ? overwrites : Object.entries(overwrites)) {
+    await channel.permissionOverwrites.edit(id,
+      { [PermissionFlagsBits.SendMessages]: this.commandName == 'lock' },
+      { type, reason: lang('global.modReason', { command: this.commandName, user: this.user.username }) });
+  }
 
   await channel.send({ embeds: [embed] });
   return msg.edit(lang('success'));

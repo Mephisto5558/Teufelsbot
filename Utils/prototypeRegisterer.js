@@ -10,7 +10,8 @@ const
   findAllEntries = require('./findAllEntries.js'),
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
-if (!require('../config.json').HideOverwriteWarning) console.warn(
+if (!require('../config.json').HideOverwriteWarning) {
+  console.warn(
     'Overwriting the following variables and functions (if they exist):'
     + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Number#limit, `
     + 'Object#fMerge, Object#filterEmpty, Function#bBind'
@@ -18,6 +19,7 @@ if (!require('../config.json').HideOverwriteWarning) console.warn(
     + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.\n'
     + 'Modifying Discord.js Message._patch method.`'
   );
+}
 
 if (parentUptime) {
   process.childUptime = process.uptime;
@@ -42,9 +44,9 @@ Object.defineProperty(Number.prototype, 'limit', {
 Object.defineProperty(Object.prototype, 'fMerge', {
   /** @type {global['Object']['prototype']['fMerge']}*/
   value: function fMerge(obj, mode, { ...output } = { ...this }) {
-    if (`${{}}` != this || `${{}}` != obj) return output;
+    if (this != '[object Object]' || obj != '[object Object]') return output;
     for (const key of Object.keys({ ...this, ...obj })) {
-      if (`${{}}` == this[key]) output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];
+      if (this[key] == '[object Object]') output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];
       else if (Array.isArray(this[key])) {
         if (key in obj) {
           if (mode == 'overwrite') output[key] = obj[key];
@@ -63,7 +65,7 @@ Object.defineProperty(Object.prototype, 'filterEmpty', {
   /** @type {global['Object']['prototype']['filterEmpty']}*/
   value: function filterEmpty() {
     return Object.entries(this).reduce((acc, [k, v]) => {
-      if (!(v == null || (typeof v == 'object' && !Object.keys(v).length)))
+      if (!(v === null || (typeof v == 'object' && !Object.keys(v).length)))
         acc[k] = v instanceof Object ? v.filterEmpty() : v;
       return acc;
     }, {});

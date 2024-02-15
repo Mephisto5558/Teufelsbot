@@ -1,10 +1,11 @@
-const original_patch = require('discord.js').Message.prototype._patch;
+const originalPatch = require('discord.js').Message.prototype._patch;
 
 /**
  * Modified from default one.
  * @this {Message}
- * @param {import('discord.js').APIMessage | import('discord.js').GatewayMessageUpdateDispatchData}data*/
-module.exports = function _patch(data) {
+ * @param {import('discord.js').APIMessage | import('discord.js').GatewayMessageUpdateDispatchData}data
+ * @param {any[]}rest*/
+module.exports = function _patch(data, ...rest) {
   if ('content' in data) {
     this.originalContent = data.content ?? null;
 
@@ -13,7 +14,7 @@ module.exports = function _patch(data) {
       prefixLength = 0,
       { prefix, caseinsensitive } = this.guild?.db.config?.[prefixType] ?? {};
 
-    if (!prefix) prefix = this.client.defaultSettings.config[prefixType];
+    prefix ||= this.client.defaultSettings.config[prefixType];
     if (caseinsensitive) prefix = prefix.toLowerCase();
 
     if ((caseinsensitive ? data.content.toLowerCase() : data.content).startsWith(prefix)) prefixLength = prefix.length;
@@ -29,7 +30,7 @@ module.exports = function _patch(data) {
     this.commandName ??= null;
   }
 
-  original_patch.call(this, ...arguments);
+  originalPatch.call(this, data, ...rest);
 
   if (this.args) this.content = this.args.join(' ');
 };

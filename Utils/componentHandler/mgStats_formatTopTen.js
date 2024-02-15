@@ -6,7 +6,7 @@ const medals = [':first_place:', ':second_place:', ':third_place:'];
  * @param {string}sort
  * @param {string}mode
  * @param {lang}lang*/
-module.exports = async function formatTopTen(input, sort, mode, lang) {
+module.exports = function formatTopTen(input, sort, mode, lang) {
   if (input.length > 1) {
     switch (mode) {
       case 'draws': input.sort(([, a], [, b]) => b.draws - a.draws || b.wins - a.wins || a.loses - b.loses); break;

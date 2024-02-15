@@ -2,14 +2,14 @@ const tokenRegex = /(?:Session |token: )(\w*)/gi;
 
 /** @this {StringConstructor}*/
 module.exports = function debug() {
-  let debug = this.toString();
+  let debugStr = this.toString();
 
-  if (debug.includes('Sending a heartbeat.') || debug.includes('Heartbeat acknowledged')) return;
+  if (debugStr.includes('Sending a heartbeat.') || debugStr.includes('Heartbeat acknowledged')) return;
 
-  for (const match of tokenRegex.exec(debug)?.slice(1) ?? []) debug = debug.replace(match, '(CENSORED)');
+  for (const match of tokenRegex.exec(debugStr)?.slice(1) ?? []) debugStr = debugStr.replace(match, '(CENSORED)');
 
-  log.setType('API').debug(debug).setType();
-  if (debug.includes('Hit a 429')) {
+  log.setType('API').debug(debugStr).setType();
+  if (debugStr.includes('Hit a 429')) {
     if (this.isReady()) return void log.error('Hit a 429 while trying to execute a request');
 
     log.error('Hit a 429 while trying to login. Exiting.');

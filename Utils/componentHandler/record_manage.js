@@ -80,10 +80,12 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
     mkdir('./VoiceRecords/raw', { recursive: true });
   }
 
-  for (const userId of membersToRecord) connection.receiver
-    .subscribe(userId, { end: { behavior: EndBehaviorType.Manual } })
-    .pipe(new Decoder({ channels: 2, rate: 48000 }))
-    .pipe(createWriteStream(`./VoiceRecords/raw/${filename}.ogg`, { flags: 'a' }));
+  for (const userId of membersToRecord) {
+    connection.receiver
+      .subscribe(userId, { end: { behavior: EndBehaviorType.Manual } })
+      .pipe(new Decoder({ channels: 2, rate: 48000 }))
+      .pipe(createWriteStream(`./VoiceRecords/raw/${filename}.ogg`, { flags: 'a' }));
+  }
 };
 
 /**

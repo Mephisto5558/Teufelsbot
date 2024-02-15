@@ -1,6 +1,6 @@
 const
   { Message, Constants, Collection } = require('discord.js'),
-  { getTargetChannel } = require('../../Utils'),
+  { getTargetChannel, DiscordAPIErrorCodes } = require('../../Utils'),
 
   /**
    * @param {string}str
@@ -8,11 +8,14 @@ const
   // eslint-disable-next-line @stylistic/max-len
   adRegex = str => /((?=discord)(?<!support\.)(discord(?:app)?[\W_]*(com|gg|me|net|io|plus|link)\/|(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(attachments|channels)\/)|(invite|dsc)[\W_]*gg|disboard[\W_]*org/gi.test(str),
   filterOptionsExist = options => Object.keys(options).some(e => e.name != 'amount' && e.name != 'channel'),
+
+  /** @type {Record<string, (msg: Message<true>) => any>}*/
   filterCheck = {
     text: msg => msg.content.length,
     embeds: msg => msg.embeds?.length,
     mentions: msg => msg.mentions.users.size,
     images: msg => msg.attachments?.some(e => e.contentType.includes('image')),
+    /* eslint-disable-next-line camelcase */ // option name
     server_ads: msg => adRegex(msg.content) || msg.embeds?.some(e => adRegex(e.description))
   };
 
@@ -46,10 +49,11 @@ function shouldDeleteMsg(msg, options) {
  * @param {string?}before
  * @param {string?}after*/
 async function fetchMsgs(channel, limit = 250, before = undefined, after = undefined) {
+  const options = { limit: Math.min(limit, 100), before, after };
+
   let
-    collection = new Collection(),
-    options = { limit: Math.min(limit, 100), before, after },
-    lastId;
+    lastId,
+    collection = new Collection();
 
   while (collection.size < limit) {
     if (lastId) options.before = lastId;
@@ -132,7 +136,7 @@ module.exports = {
     if (this instanceof Message) {
       try { await this.delete(); }
       catch (err) {
-        if (err.code != 10008) throw err; // Unknown Message
+        if (err.code != DiscordAPIErrorCodes.UnknownMessage) throw err;
       }
     }
 

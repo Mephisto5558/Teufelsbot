@@ -15,6 +15,7 @@ module.exports = async function autocompleteGenerator(command, locale) {
   /** @type {command<'both', boolean, true>}*/
   let { options } = command.fMerge();
   if (this.options?._group) options = options.find(e => e.name == this.options._group);
+  /* eslint-disable-next-line prefer-destructuring */
   if (this.options?._subcommand) options = options.find(e => e.name == this.options._subcommand).options;
 
   /** @type {{autocompleteOptions: Exclude<commandOptions['autocompleteOptions'], Function>}} Excludes<> because we call autocompleteOptions below if it is a function*/
@@ -22,9 +23,11 @@ module.exports = async function autocompleteGenerator(command, locale) {
   if (typeof autocompleteOptions == 'function') autocompleteOptions = await autocompleteOptions.call(this);
 
   if (typeof autocompleteOptions == 'string') return [response(autocompleteOptions)];
-  if (Array.isArray(autocompleteOptions)) return autocompleteOptions
-    .filter(e => !this.focused.value || (typeof e == 'object' ? e.value.toLowerCase() : e.toLowerCase()).includes(this.focused.value.toLowerCase()))
-    .slice(0, 25).map(e => typeof e == 'object' ? e : response(e));
+  if (Array.isArray(autocompleteOptions)) {
+    return autocompleteOptions
+      .filter(e => !this.focused.value || (typeof e == 'object' ? e.value.toLowerCase() : e.toLowerCase()).includes(this.focused.value.toLowerCase()))
+      .slice(0, 25).map(e => typeof e == 'object' ? e : response(e));
+  }
 
   return [autocompleteOptions];
 };

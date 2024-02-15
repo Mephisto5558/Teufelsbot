@@ -9,6 +9,7 @@ module.exports = class Log extends Function {
     this.date = new Date().toLocaleDateString('en', { day: '2-digit', month: '2-digit', year: 'numeric' }).replaceAll('/', '-');
     bound.date = this.date;
 
+    /* eslint-disable-next-line no-constructor-return */
     return bound; // NOSONAR
   }
 

@@ -50,10 +50,11 @@ const
       if (requiredRoles?.length || disallowedMembers?.length)
 
         /** @param {import('discord.js').GuildMember}member*/
-        startOptions.exemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers?.includes(member.id));
+        startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers?.includes(member.id));
 
       const data = await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions);
-      components[0].components[0].data.url = data.messageURL;
+      // eslint-disable-next-line require-atomic-updates
+      components[0].components[0].data.url = data.messageURL; // I don't see any race donditions
 
       return this.editReply({ content: lang('started'), components });
     },
@@ -86,7 +87,9 @@ const
       };
 
       if (requiredRoles.length || disallowedMembers.length)
-        editOptions.newExemptMembers = member => !(member.roles.cache.some(r => requiredRoles?.includes(r.id)) && !disallowedMembers.includes(member.id));
+
+      /** @param {import('discord.js').GuildMember}member*/
+        editOptions.newExemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
       if (bonusEntries.length) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
 
       const data = await this.client.giveawaysManager.edit(giveawayId, editOptions);
@@ -109,7 +112,8 @@ const
       };
 
       const data = await this.client.giveawaysManager.reroll(giveawayId, rerollOptions);
-      components[0].components[0].data.url = data.messageURL;
+      // eslint-disable-next-line require-atomic-updates
+      components[0].components[0].data.url = data.messageURL; // I don't see any race donditions
 
       return this.editReply({ content: lang('rerolled'), components });
     }
@@ -213,14 +217,14 @@ module.exports = {
     }
   ],
 
-  run: async function (lang) {
+  run: function (lang) {
     if (!this.client.giveawaysManager) return this.editReply(lang('managerNotFound'));
 
     const giveawayId = this.options.getString('id');
     let giveaway;
 
     if (giveawayId) {
-      giveaway = this.client.giveawaysManager.giveaways.find(g => g.guildId == this.guild.id && g.messageId == giveawayId);
+      giveaway = this.client.giveawaysManager.giveaways.find(e => e.guildId == this.guild.id && e.messageId == giveawayId);
 
       if (!giveaway) return this.editReply(lang('notFound'));
       if (giveaway.hostedBy.slice(2, -1) != this.user.id && !this.member.permissions.has(PermissionFlagsBits.Administrator))

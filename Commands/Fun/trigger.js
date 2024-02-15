@@ -52,7 +52,7 @@ const
      * @param {lang}lang
      * @param {oldData}oldData
      * @param {string}query*/
-    get: async function (lang, oldData, query) {
+    get: function (lang, oldData, query) {
       if (!oldData.length) return this.editReply(lang('noneFound'));
 
       const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Blue });
@@ -158,11 +158,11 @@ module.exports = {
     }
   ],
 
-  run: async function (lang) {
+  run: function (lang) {
     const
       oldData = this.guild.db.triggers ?? [],
       query = this.options.getString('query_or_id')?.toLowerCase();
 
-    triggerMainFunctions[this.options.getSubcommand()].call(this, lang, oldData, query);
+    return triggerMainFunctions[this.options.getSubcommand()].call(this, lang, oldData, query);
   }
 };

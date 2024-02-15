@@ -1,6 +1,6 @@
 /** @type {import('@mephisto5558/bot-website').customPage}*/
 module.exports = {
-  run: async function (res, req, next) {
+  run: function (res, req, next) {
     return this.passport.authenticate('discord', (err, user) => {
       if (err?.code == 'invalid_grant' || err?.message == 'Failed to obtain access token') return res.redirect('/auth/discord');
       if (err) return next(err);
@@ -8,6 +8,7 @@ module.exports = {
 
       let redirectURL;
       if (req.session.redirectURL) {
+        /* eslint-disable-next-line prefer-destructuring */
         redirectURL = req.session.redirectURL;
         delete req.session.redirectURL;
       }

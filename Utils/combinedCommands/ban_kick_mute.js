@@ -4,12 +4,13 @@ const
   checkTargetManageable = require('../checkTargetManageable.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
-/**
- * @this {GuildInteraction}
- * @param {lang}lang*/
+/** @type {command<'slash', true, true>['run']}*/
+/* eslint-disable-next-line camelcase */
 module.exports = async function ban_kick_mute(lang) {
   if (this.commandName == 'timeout') this.commandName = 'mute';
   if (!['ban', 'kick', 'mute'].includes(this.commandName)) throw new Error(`"${this.commandName}" is not an accepted commandName.`);
+
+  const resEmbed = new EmbedBuilder({ title: lang('infoEmbedTitle'), color: Colors.Red });
 
   let
     noMsg, muteDurationMs,
@@ -35,12 +36,9 @@ module.exports = async function ban_kick_mute(lang) {
       title: lang('infoEmbedTitle'),
       description: lang('dmEmbedDescription', { guild: this.guild.name, mod: this.user.tag, muteDuration, reason }),
       color: Colors.Red
-    }),
-    resEmbed = new EmbedBuilder({
-      title: lang('infoEmbedTitle'),
-      description: infoEmbedDescription,
-      color: Colors.Red
     });
+
+  resEmbed.data.description = infoEmbedDescription;
 
   reason += ` | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`;
 
@@ -88,6 +86,7 @@ module.exports = async function ban_kick_mute(lang) {
       .on('collect', async selectMenu => {
         await selectMenu.deferUpdate();
 
+        /* eslint-disable-next-line no-shadow */
         for (const [, target] of selectMenu.members) {
           const err = checkTargetManageable.call(this, target, lang);
 

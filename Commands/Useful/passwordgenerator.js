@@ -48,6 +48,7 @@ module.exports = {
 
       for (let i = 0; i < length; i++) {
         // Filters the last selected entry out and selects a list entry based on a secure random number generator. Defined in Utils/prototypeRegisterer.js.
+        /* eslint-disable-next-line no-loop-func */
         const randomChar = charset.split('').filter(e => e != lastRandomChar).random();
         if (lastRandomChar + randomChar == '\n') passwordList += '\\n'; // Escape \n so it doesn't break formatting
         else passwordList += randomChar; // Adds one of the chars in the charset to the password
