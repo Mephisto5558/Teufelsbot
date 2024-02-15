@@ -1,4 +1,4 @@
-/* eslint camelcase: ["error", {allow: ["toggle_module", "toggle_command"]}]*/
+/* eslint camelcase: ["error", {allow: ["toggle_module", "toggle_command"]}] */
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),

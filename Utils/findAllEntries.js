@@ -22,7 +22,7 @@ function findAllEntries(obj, key, entryList = {}) {
 module.exports = findAllEntries;
 
 /** Tests the findAllEntries function */
-/* eslint-disable-next-line no-unused-vars*/
+/* eslint-disable-next-line no-unused-vars */
 function testFindAllEntries() {
   const testCases = [
     {
