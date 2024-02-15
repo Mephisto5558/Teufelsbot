@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError } = require('discord.js'),
   checkTargetManageable = require('../checkTargetManageable.js'),
-  /* eslint camelcase: ["error", {allow: ["ban_kick_mute"]}]*/
+  /* eslint camelcase: ["error", {allow: ["ban_kick_mute"]}] */
   ban_kick_mute = require('../combinedCommands/ban_kick_mute.js');
 
 /**
