@@ -115,6 +115,7 @@
       "11": "Noviembre",
       "12": "Diciembre"
     },
+    "saved": "Tu cumpleaños ha sido guardado.",
     "removed": "Tu cumpleaños ha sido eliminado.",
     "getUser": {
       "notFound": "{user} no tiene cumpleaños :(",
@@ -278,7 +279,7 @@
             "description": "Sólo los miembros con uno de estos roles podrán participar."
           },
           "bonus_entries": {
-            "description": "Una nueva lista de menciones de miembro/rol con la cantidad de entradas de bonos: p.ej. @Premium:5 @Normal:2"
+            "description": "Una nueva lista de menciones de miembro/rol con la cantidad de entradas de bonos: por ejemplo. @Premium:5 @Normal:2"
           }
         }
       },
