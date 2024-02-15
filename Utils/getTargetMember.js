@@ -1,6 +1,6 @@
 // jsdoc doesn't understand ternary expressions as return type
 /* eslint-disable jsdoc/valid-types */
-// eslint-disable-next-line jsdoc/require-returns-check
+/* eslint-disable-next-line jsdoc/require-returns-check*/
 /**
  * @template {Interaction|Message}T
  * @this {T}

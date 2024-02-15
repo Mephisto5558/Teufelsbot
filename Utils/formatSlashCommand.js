@@ -39,6 +39,7 @@ module.exports = function format(option, path, i18n) {
         }
 
         e.nameLocalizations ??= {};
+        /* eslint-disable-next-line no-shadow */
         const localeText = i18n.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
         if (!option.disabled && (localeText?.length < 2 || localeText?.length > 32)) {
           log.warn(

@@ -53,7 +53,7 @@ const
         startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers?.includes(member.id));
 
       const data = await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions);
-      // eslint-disable-next-line require-atomic-updates
+      /* eslint-disable-next-line require-atomic-updates */
       components[0].components[0].data.url = data.messageURL; // I don't see any race donditions
 
       return this.editReply({ content: lang('started'), components });
@@ -112,7 +112,7 @@ const
       };
 
       const data = await this.client.giveawaysManager.reroll(giveawayId, rerollOptions);
-      // eslint-disable-next-line require-atomic-updates
+      /* eslint-disable-next-line require-atomic-updates*/
       components[0].components[0].data.url = data.messageURL; // I don't see any race donditions
 
       return this.editReply({ content: lang('rerolled'), components });
