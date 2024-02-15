@@ -41,10 +41,9 @@ module.exports = {
       embed.data.image = { url: type == 'server' ? base.displayAvatarURL({ forceStatic: true, size: 512 }) : base.user.avatarURL({ forceStatic: true, size: 512 }) };
       return this.customReply({ embeds: [embed] });
     }
-    else embed.data.description = lang('global.loading');
 
     const
-      msg = await this.customReply({ embeds: [embed] }),
+      msg = await this.customReply({ embeds: [embed.setDescription(lang('global.loading'))] }),
       baseAvatar = await loadImage((type == 'server' ? base : base.user).displayAvatarURL({ extension: ImageFormat.PNG, size: 512 })),
       overlayAvatar = await loadImage(overlay.displayAvatarURL({ extension: ImageFormat.PNG, size: 512 })),
       canvas = createCanvas(baseAvatar.width, baseAvatar.height),

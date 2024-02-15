@@ -1,3 +1,4 @@
+/* eslint camelcase: ["error", {allow: ["toggle_module", "toggle_command"]}]*/
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
@@ -35,7 +36,7 @@ const
             ? lang('list.all')
             : v.map(e => {
               if (k == 'roles') return `<@&${e}>`;
-              return (k == 'channels' ? '<#' : '<@') + `${e}>`;
+              return `${k == 'channels' ? '<#' : '<@'}${e}>`;
             }).join(', '),
           inline: false
         }));
@@ -82,7 +83,7 @@ const
           .map(([k, v]) => ({
             name: lang(`embed.${k}`),
             value: Object.entries(v).filter(([, e]) => e)
-              .map(([k, v]) => lang(k) + `: **${v}**`)
+              .map(([k, v]) => `${lang(k)}: **${v}**`)
               .join('\n'),
             inline: true
           })),
@@ -139,8 +140,8 @@ const
 
       if (!channel) return this.editReply(lang('noChannel'));
       if (action == 'all') {
-        if (enabled == null) return this.editReply(lang('noEnabled'));
-        for (const action of loggerActionTypes) await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${action}`, { channel, enabled });
+        if (enabled === null) return this.editReply(lang('noEnabled'));
+        for (const actionType of loggerActionTypes) await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${actionType}`, { channel, enabled });
       }
 
       await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${action}`, { channel, enabled });
@@ -241,7 +242,7 @@ module.exports = {
     }
   ],
 
-  run: async function (lang) {
+  run: function (lang) {
     lang.__boundArgs__[0].backupPath += `.${this.options.getSubcommand().replace(/_./g, e => e[1].toUpperCase())}`;
     return setupMainFunctions[this.options.getSubcommand()].call(this, lang);
   }

@@ -34,7 +34,7 @@ const backupMainFunctions = {
 
     const
       statusObj = new Proxy({ status: null }, {
-        set: function (obj, prop, value) {
+        set(obj, prop, value) {
           obj[prop] = value;
           this.editReply({ embeds: [embed.setDescription(lang(value))] });
           return true;
@@ -129,7 +129,7 @@ const backupMainFunctions = {
     if (this.user.id != this.guild.ownerId || !checkPerm.call(this, this.client.backupSystem.get(id)))
       return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('delete.noPerm'))] });
 
-    this.client.backupSystem.remove(id);
+    await this.client.backupSystem.remove(id);
     return this.editReply({ embeds: [embed.setDescription(lang('delete.success'))] });
   },
 
@@ -138,7 +138,7 @@ const backupMainFunctions = {
    * @param {lang}lang
    * @param {EmbedBuilder}embed
    * @param {string}id*/
-  get: async function getBackup(lang, embed, id) {
+  get: function getBackup(lang, embed, id) {
     embed.setColor(Colors.White).setThumbnail(this.guild.iconURL());
 
     if (id) {
@@ -152,9 +152,7 @@ const backupMainFunctions = {
 
     embed.data.fields = this.client.backupSystem.list(this.guild.id).sort((a, b) => b.createdAt - a.createdAt)
       .first(10)
-      .map(e => ({
-        name: e.id, value: lang('get.infos', getData(e))
-      }));
+      .map(e => ({ name: e.id, value: lang('get.infos', getData(e)) }));
 
     if (embed.data.fields.length) embed.data.footer = { text: lang('get.found', this.client.backupSystem.list(this.guild.id).size) };
     return this.editReply({ embeds: [embed.setDescription(lang(embed.data.fields.length ? 'get.embedDescription' : 'get.noneFound'))] });
@@ -184,8 +182,7 @@ module.exports = {
           name: 'id',
           type: 'String',
           autocompleteOptions: function () {
-            return [...this.client.backupSystem.list().filter(checkPerm.bind(this))
-              .keys()];
+            return [...this.client.backupSystem.list().filter(checkPerm.bind(this)).keys()];
           }
         },
         { name: 'no_clear', type: 'Boolean' }
@@ -212,7 +209,7 @@ module.exports = {
     }
   ], beta: true,
 
-  run: async function (lang) {
+  run: function (lang) {
     const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
 
     return backupMainFunctions[this.options.getSubcommand()].call(this, lang, embed, this.options.getString('id'));

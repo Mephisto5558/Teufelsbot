@@ -1,12 +1,15 @@
-/** @typedef {new (this: Message, __dirname: string, __filename: string, exports: NodeExports, module: NodeModule, require: NodeRequire, lang: lang) => Function}BoundFunction*/
+/* eslint-disable-next-line jsdoc/valid-types */ // jsdoc doesn't like me using "module" as a param name
+/** @typedef {new (this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang) => Function}BoundFunction*/
 
 const
   vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
 
   /** @type {BoundFunction}*/
+  /* eslint-disable-next-line no-empty-function, func-names */
   BoundAsyncFunction = async function () { }.constructor.bind(null, ...vars),
 
   /** @type {BoundFunction}*/
+  /* eslint-disable-next-line no-new-func */
   BoundFunction = Function.bind(null, ...vars);
 
 /** @type {command<'prefix', false>}*/
@@ -21,7 +24,7 @@ module.exports = {
     if (!this.content) return;
 
     try {
-      await (this.content.includes('await') ? new BoundAsyncFunction(this.content) : new BoundFunction(this.content)).call(this, __dirname, __filename, exports, module, require, lang);
+      await (this.content.includes('await') ? new BoundAsyncFunction(this.content) : new BoundFunction(this.content)).call(this, __dirname, __filename, module, exports, require, lang);
       await this.customReply(lang('success', lang('finished', this.content)));
     }
     catch (err) { this.customReply(lang('error', { msg: lang('finished', this.content), name: err.name, err: err.message })); }

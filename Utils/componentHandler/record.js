@@ -12,7 +12,7 @@ const
  * @param {'memberAllow'|'memberDeny'|'cancel'}mode
  * @param {string}requesterId
  * @param {string}voiceChannelId*/
-module.exports = async function record(lang, mode, requesterId, voiceChannelId) {
+module.exports = function record(lang, mode, requesterId, voiceChannelId) {
   lang.__boundArgs__[0].backupPath = 'commands.useful.record';
 
   switch (mode) {

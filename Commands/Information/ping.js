@@ -18,14 +18,14 @@ module.exports = {
         description: lang(average ? 'average.loading' : 'global.loading', { current: 1, target: 20 }),
         color: Colors.Green
       }),
-      startMessagePing = performance.now(),
+      startFirstMessagePing = performance.now(),
       msg = await this.customReply({ embeds: [embed] }),
-      endMessagePing = performance.now() - startMessagePing;
+      endFirstMessagePing = performance.now() - startFirstMessagePing;
 
     if (average) {
       const
         wsPings = [this.client.ws.ping],
-        msgPings = [endMessagePing];
+        msgPings = [endFirstMessagePing];
 
       for (let i = 2; i <= 20; i++) {
         await sleep(3000);
@@ -52,7 +52,7 @@ module.exports = {
       embed.data.fields = [
         { name: lang('api'), value: `\`${Math.round(this.client.ws.ping)}\`ms`, inline: true },
         { name: lang('bot'), value: `\`${Math.abs(Date.now() - this.createdTimestamp)}\`ms`, inline: true },
-        { name: lang('messageSend'), value: `\`${Math.round(endMessagePing)}\`ms`, inline: true }
+        { name: lang('messageSend'), value: `\`${Math.round(endFirstMessagePing)}\`ms`, inline: true }
       ];
 
       delete embed.data.description;

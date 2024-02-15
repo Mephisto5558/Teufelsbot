@@ -46,7 +46,7 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'opponent', type: 'User' }],
 
-  run: async function (lang) {
+  run: function (lang) {
     const
       gameTarget = getTargetMember.call(this, { targetOptionName: 'opponent' })?.id,
       game = new TicTacToe({

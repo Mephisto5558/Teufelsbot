@@ -1,22 +1,26 @@
+/* eslint-disable jsdoc/imports-as-dependencies */
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
 
 /**
  * @this {import('discord-tictactoe')}
  * @param {Interaction}interaction
  * @param {lang}lang*/
+/* eslint-disable jsdoc/imports-as-dependencies */
 module.exports = async function playAgain(interaction, lang) {
   const
     opponent = interaction.options?.getUser('opponent'),
     { components: oldComponents } = await interaction.fetchReply(),
     components = oldComponents;
 
-  if (!components[3]?.components[0]?.customId) components[3] = new ActionRowBuilder({
-    components: [new ButtonBuilder({
-      customId: 'playAgain',
-      label: lang('global.playAgain'),
-      style: ButtonStyle.Success
-    })]
-  });
+  if (!components[3]?.components[0]?.customId) {
+    components[3] = new ActionRowBuilder({
+      components: [new ButtonBuilder({
+        customId: 'playAgain',
+        label: lang('global.playAgain'),
+        style: ButtonStyle.Success
+      })]
+    });
+  }
 
   const collector = (await interaction.editReply({ components })).createMessageComponentCollector({
     filter: i => [interaction.user.id, opponent?.id].includes(i.member.id) && i.customId == 'playAgain',
