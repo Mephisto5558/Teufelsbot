@@ -25,31 +25,34 @@ module.exports = function format(option, path, i18n) {
 
   for (const [locale] of [...i18n.availableLocales].filter(([e]) => e != i18n.config.defaultLocale)) {
     option.descriptionLocalizations ??= {};
-    let localeText = i18n.__({ locale, undefinedNotFound: true }, `${path}.description`);
+    const localeText = i18n.__({ locale, undefinedNotFound: true }, `${path}.description`);
     if (localeText?.length > 100 && !option.disabled) log.warn(`"${locale}" description localization of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
 
     if (localeText) option.descriptionLocalizations[locale] = localeText?.slice(0, 100);
     else if (!option.disabled) log.warn(`Missing "${locale}" description localization for option "${option.name}" (${path}.description)`);
 
-    if ('choices' in option) option.choices.map(e => {
-      if (e.__SCHandlerCustom) {
-        delete e.__SCHandlerCustom;
+    if ('choices' in option) {
+      option.choices.map(e => {
+        if (e.__SCHandlerCustom) {
+          delete e.__SCHandlerCustom;
+          return e;
+        }
+
+        e.nameLocalizations ??= {};
+        const localeText = i18n.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
+        if (!option.disabled && (localeText?.length < 2 || localeText?.length > 32)) {
+          log.warn(
+            `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${path}.choices.${e.value}) is too`
+            + (localeText?.length < 2 ? 'short (min length is 2)! Using undefined.' : 'long (max length is 32)! Slicing.')
+          );
+        }
+
+        if (localeText && localeText.length > 2) e.nameLocalizations[locale] = localeText.slice(0, 32);
+        else if (e.name != e.value && !option.disabled) log.warn(`Missing "${locale}" choice name localization for "${e.value}" in option "${option.name}" (${path}.choices.${e.value})`);
+
         return e;
-      }
-
-      e.nameLocalizations ??= {};
-      const localeText = i18n.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
-      if (!option.disabled && (localeText?.length < 2 || localeText?.length > 32))
-        log.warn(
-          `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${path}.choices.${e.value}) is too`
-          + (localeText?.length < 2 ? 'short (min length is 2)! Using undefined.' : 'long (max length is 32)! Slicing.')
-        );
-
-      if (localeText && localeText.length > 2) e.nameLocalizations[locale] = localeText.slice(0, 32);
-      else if (e.name != e.value && !option.disabled) log.warn(`Missing "${locale}" choice name localization for "${e.value}" in option "${option.name}" (${path}.choices.${e.value})`);
-
-      return e;
-    });
+      });
+    }
   }
 
   if ('run' in option) {
@@ -66,10 +69,12 @@ module.exports = function format(option, path, i18n) {
     return option;
   }
 
-  if ('channelTypes' in option) option.channelTypes = option.channelTypes.map(e => {
-    if (!(e in ChannelType)) throw Error(`Invalid option.channelType, got "${e}" (${path})`);
-    return isNaN(e) ? ChannelType[e] : e;
-  });
+  if ('channelTypes' in option) {
+    option.channelTypes = option.channelTypes.map(e => {
+      if (!(e in ChannelType)) throw Error(`Invalid option.channelType, got "${e}" (${path})`);
+      return isNaN(e) ? ChannelType[e] : e;
+    });
+  }
 
   if (!option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or invalid option.type, got "${option.type}" (${path})`);
   if (isNaN(option.type)) option.type = ApplicationCommandOptionType[option.type];

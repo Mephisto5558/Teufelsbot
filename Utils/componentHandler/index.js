@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 const { commandQuery, categoryQuery, allQuery, getCommands, getCommandCategories } = require('./help_utils.js');
 const { startRecording, recordControls } = require('./record_manage.js');
 

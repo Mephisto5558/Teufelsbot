@@ -43,7 +43,7 @@ module.exports = {
       clear = this.options.getBoolean('remove_attachments');
 
     /** @type {Message?}*/
-    let msg;
+    let msg, modalInteraction;
     try { msg = await this.options.getChannel('channel').messages.fetch(this.options.getString('message_id')); }
     catch (err) {
       if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
@@ -55,7 +55,9 @@ module.exports = {
     if (!msg.editable) return this.reply({ content: lang('cannotEdit'), ephemeral: true });
 
     this.showModal(modal);
-    const modalInteraction = await this.awaitModalSubmit({ filter: i => i.customId == 'newContent_modal', time: 6e5 }).catch(() => { });
+    try { modalInteraction = await this.awaitModalSubmit({ filter: i => i.customId == 'newContent_modal', time: 6e5 }); }
+    catch (err) { if (err.code != 'InteractionCollectorError') throw err; }
+
     if (!modalInteraction) return this.reply({ content: lang('timedout'), ephemeral: true });
 
     await modalInteraction.deferReply({ ephemeral: true });

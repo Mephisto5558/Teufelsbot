@@ -81,7 +81,7 @@ module.exports = {
 
       if (!isLink) button.setCustomId(`buttonCommandButton_${Date.now()}`);
 
-      const components = new Array(...msg?.components ?? []);
+      const components = msg?.components ? [...msg.components] : [];
 
       if (!msg?.components?.length || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
         components.push(new ActionRowBuilder({ components: [button] }));

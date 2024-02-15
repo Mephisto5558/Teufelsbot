@@ -18,7 +18,7 @@ module.exports = {
     }
   ],
 
-  run: async function (lang) {
+  run: function (lang) {
     const
       target = getTargetMember.call(this, { returnSelf: true }),
       avatarURL = target.displayAvatarURL({ size: this.options?.getInteger('size') ?? 2048 }),

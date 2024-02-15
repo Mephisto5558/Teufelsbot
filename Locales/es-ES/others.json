@@ -72,10 +72,6 @@
     "reportFail": "`Se ha producido un error al intentar enviar tu informe de error.\n```\n{err}\n```\nPor favor, envía un mensaje al desarrollador directamente."
   },
   "timeFormatter": {
-    "dhms": "{d} días, {h} horas, {m} minutos y {s} segundos",
-    "hms": "{h} horas, {m} minutos y {s} segundos",
-    "ms": "{m} minutos y {s} segundos",
-    "s": "{s} segundos"
   },
   "timeEvents": {
     "birthday": {

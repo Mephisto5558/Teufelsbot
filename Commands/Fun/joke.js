@@ -54,10 +54,12 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
   catch (err) {
     if ([402, 403, 522].includes(err.status)) log.error('joke.js: ', err.response);
     else if (!(err instanceof FetchError)) throw err;
-    else if (err.name !== 'AbortError') log.error(
-      `joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.status ?? err.response?.status ?? err.name}, `
-      + `${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`
-    );
+    else if (err.name !== 'AbortError') {
+      log.error(
+        `joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.status ?? err.response?.status ?? err.name}, `
+        + `${err.statusText ?? err.response?.statusText ?? err.code}: ${err.response?.data.message ?? err.message}`
+      );
+    }
   }
 
   if (typeof response == 'string') return [response.replaceAll('`', '\''), api];

@@ -26,11 +26,13 @@ module.exports = {
 
       try { await asyncExec('npm install'); }
       catch {
+        /* eslint-disable-next-line require-atomic-updates */
         restarting = false;
         return msg[getUpdateFunc(msg)](lang('updateNPMError'));
       }
     }
 
+    /* eslint-disable-next-line require-atomic-updates */
     msg = await (msg ?? this)[getUpdateFunc(msg ?? this)](lang('restarting'));
 
     let child;
@@ -41,6 +43,7 @@ module.exports = {
       );
     }
     catch (err) {
+      /* eslint-disable-next-line require-atomic-updates */
       restarting = false;
 
       log.error('Restarting Error: ', err);

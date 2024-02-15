@@ -26,8 +26,7 @@ module.exports = {
         }),
 
       embed = new EmbedBuilder({
-        title: lang('embedTitle'),
-        description: description,
+        title: lang('embedTitle'), description,
         color: Colors.DarkGold,
         footer: { text: lang('embedFooterText') }
       });

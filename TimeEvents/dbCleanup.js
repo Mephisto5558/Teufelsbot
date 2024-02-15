@@ -47,9 +47,11 @@ function cleanupAfkMessagesDB(guildId, db) {
 function cleanUpMinigamesDB(guildId, db) {
   if (!db) return;
 
-  for (const [gameId, data] of Object.entries(db)) for (const [userId, { createdAt }] of Object.entries(data)) {
-    if (getOneMonthAgo() < Number(createdAt)) continue;
-    this.db.delete('guildSettings', `${guildId}.${gameId}.${userId}`);
+  for (const [gameId, data] of Object.entries(db)) {
+    for (const [userId, { createdAt }] of Object.entries(data)) {
+      if (getOneMonthAgo() < Number(createdAt)) continue;
+      this.db.delete('guildSettings', `${guildId}.${gameId}.${userId}`);
+    }
   }
 }
 

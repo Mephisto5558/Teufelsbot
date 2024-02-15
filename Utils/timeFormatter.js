@@ -8,28 +8,28 @@ function timeFormatter(sec = 0, lang = undefined) {
     negative = sec < 0;
 
   sec = Math.abs(sec);
-  const y = Math.floor(sec / (60 * 60 * 24 * 365));
+  const year = Math.floor(sec / (60 * 60 * 24 * 365));
   sec %= 60 * 60 * 24 * 365;
-  const d = Math.floor(sec / (60 * 60 * 24));
+  const day = Math.floor(sec / (60 * 60 * 24));
   sec %= 60 * 60 * 24;
-  const h = Math.floor(sec / (60 * 60));
+  const hour = Math.floor(sec / (60 * 60));
   sec %= 60 * 60;
-  const m = Math.floor(sec / 60);
+  const minute = Math.floor(sec / 60);
   sec %= 60;
-  const s = Math.floor(sec);
+  const second = Math.floor(sec);
 
   let id = 'others.timeFormatter.';
   if (lang) {
-    if (y) id += 'ydhms';
-    else if (d) id += 'dhms';
-    else if (h) id += 'hms';
-    else id += m ? 'ms' : 's';
+    if (year) id += 'ydhms';
+    else if (day) id += 'dhms';
+    else if (hour) id += 'hms';
+    else id += minute ? 'ms' : 's';
   }
 
   return {
     total, negative,
-    formatted: lang?.(id, { y, d, h, m, s })
-    ?? `${y.toString().padStart(4, '0')}-${d.toString().padStart(2, '0')}, ${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`
+    formatted: lang?.(id, { year, day, hour, minute, second })
+    ?? `${year.toString().padStart(4, '0')}-${day.toString().padStart(2, '0')}, ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`
   };
 }
 

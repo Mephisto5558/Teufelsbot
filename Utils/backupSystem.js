@@ -57,6 +57,7 @@ class BackupSystem {
 
     statusObj.status = 'create.settings';
 
+    /* eslint-disable-next-line no-return-assign */
     const updateStatus = status => statusObj.status = status;
     const data = {
       id: id ?? guild.id + SnowflakeUtil.generate().toString(),
@@ -124,36 +125,41 @@ class BackupSystem {
               children: await Promise.all(e.children.cache.sort((a, b) => a.position - b.position).map(async child => {
                 if (Constants.TextBasedChannelTypes.includes(child.type) && !Constants.ThreadChannelTypes.includes(child.type))
                   return this.utils.fetchTextChannelData(child, saveImages, maxMessagesPerChannel);
-                if (Constants.VoiceBasedChannelTypes.includes(child.type)) return {
-                  type: child.type,
-                  name: child.name,
-                  bitrate: child.bitrate,
-                  userLimit: child.userLimit,
-                  position: child.position,
-                  permissions: this.utils.fetchChannelPermissions(child)
-                };
-                if (child.type == ChannelType.GuildForum) return {
-                  type: child.type,
-                  name: child.name,
-                  nsfw: child.nsfw,
-                  topic: child.topic,
-                  defaultAutoArchiveDuration: child.defaultAutoArchiveDuration,
-                  defaultForumLayout: child.defaultForumLayout,
-                  defaultReactionEmoji: child.defaultReactionEmoji.name,
-                  defaultSortOrder: e.defaultSortOrder,
-                  defaultThreadRateLimitPerUser: e.defaultThreadRateLimitPerUser,
-                  permissions: this.utils.fetchChannelPermissions(child),
-                  position: child.position,
-                  threads: await this.utils.fetchChannelThreads(child, saveImages, maxMessagesPerChannel),
-                  availableTags: child.availableTags.map(async e => ({ name: e.name, emoji: e.emoji?.name, moderated: e.moderated }))
-                };
+                if (Constants.VoiceBasedChannelTypes.includes(child.type)) {
+                  return {
+                    type: child.type,
+                    name: child.name,
+                    bitrate: child.bitrate,
+                    userLimit: child.userLimit,
+                    position: child.position,
+                    permissions: this.utils.fetchChannelPermissions(child)
+                  };
+                }
+                if (child.type == ChannelType.GuildForum) {
+                  return {
+                    type: child.type,
+                    name: child.name,
+                    nsfw: child.nsfw,
+                    topic: child.topic,
+                    defaultAutoArchiveDuration: child.defaultAutoArchiveDuration,
+                    defaultForumLayout: child.defaultForumLayout,
+                    defaultReactionEmoji: child.defaultReactionEmoji.name,
+                    defaultSortOrder: e.defaultSortOrder,
+                    defaultThreadRateLimitPerUser: e.defaultThreadRateLimitPerUser,
+                    permissions: this.utils.fetchChannelPermissions(child),
+                    position: child.position,
+                    threads: await this.utils.fetchChannelThreads(child, saveImages, maxMessagesPerChannel),
+                    /* eslint-disable-next-line max-nested-callbacks */
+                    availableTags: child.availableTags.map(e => ({ name: e.name, emoji: e.emoji?.name, moderated: e.moderated }))
+                  };
+                }
                 log.warn(`BackupSystem: Unhandled Channel type "${ChannelType[child.type] ?? child.type}"!`);
               }))
             }))),
           others: await Promise.all(guild.channels.cache
             .filter(e => !e.parent && ![ChannelType.GuildCategory, ...Constants.ThreadChannelTypes].includes(e.type))
             .sort((a, b) => a.position - b.position)
-            .map(async e => this.utils.fetchTextChannelData(e, saveImages, maxMessagesPerChannel)))
+            .map(e => this.utils.fetchTextChannelData(e, saveImages, maxMessagesPerChannel)))
         }
     };
 
@@ -171,7 +177,7 @@ class BackupSystem {
       const guildBackups = Object.keys(backups).filter(e => e.startsWith(guild.id));
       if (guildBackups.length > maxGuildBackups) {
         guildBackups.sort((a, b) => b - a);
-        for (const id of guildBackups.slice(0, maxGuildBackups)) await this.db.delete(this.dbName, id);
+        for (const backupId of guildBackups.slice(0, maxGuildBackups)) await this.db.delete(this.dbName, backupId);
       }
       else await this.db.update(this.dbName, data.id, data);
     }
@@ -204,20 +210,23 @@ class BackupSystem {
       statusObj.status = 'clear.items';
       for (const [, item] of [
         ...await guild.channels.fetch(), ...await guild.emojis.fetch(), ...await guild.stickers.fetch(),
-        ...(await guild.roles.fetch()).filter(r => !r.managed && r.editable && r.id != guild.id && !guild.roles.cache.find(e => e.name == r.name && e.editable))
-      ])
+        ...(await guild.roles.fetch()).filter(e => !e.managed && e.editable && e.id != guild.id && !guild.roles.cache.find(e2 => e2.name == e.name && e2.editable))
+      ]) {
         try { await item.delete(reason); }
         catch (err) {
           if (!(err instanceof DiscordAPIError)) throw err;
         }
+      }
 
       statusObj.status = 'clear.bans';
-      for (const [, { user, reason }] of await guild.bans.fetch())
-        if (!data.bans.some(e => user.id == e.id && reason == e.reason))
+      for (const [, { user, reason: banReason }] of await guild.bans.fetch()) {
+        if (!data.bans.some(e => user.id == e.id && banReason == e.reason)) {
           try { await guild.bans.remove(user.id, reason); }
           catch (err) {
             if (!(err instanceof DiscordAPIError)) throw err;
           }
+        }
+      }
 
       statusObj.status = 'clear.settings';
       await guild.edit({
@@ -261,17 +270,18 @@ class BackupSystem {
     }
 
     statusObj.status = 'load.features';
-    for (const feature of data.features)
+    for (const feature of data.features) {
       try { await guild.edit({ features: [...new Set(guild.features, feature)], reason }); }
       catch (err) {
         if (!(err instanceof DiscordAPIError)) throw err;
       }
+    }
 
     statusObj.status = 'load.roles';
     for (const { isEveryone, name, color, hoist, permissions, mentionable } of data.roles) {
-      const data = { reason, name, color, hoist, mentionable, permissions: BigInt(permissions) };
+      const roleData = { reason, name, color, hoist, mentionable, permissions: BigInt(permissions) };
       const roleToEdit = isEveryone ? guild.roles.cache.get(guild.id) : guild.roles.cache.find(e => e.name == name && e.editable);
-      await (roleToEdit?.edit(data) ?? guild.roles.create(data));
+      await (roleToEdit?.edit(roleData) ?? guild.roles.create(roleData));
     }
 
     statusObj.status = 'load.members';
@@ -281,7 +291,7 @@ class BackupSystem {
       if (!memberData.roles.length && !memberData.nickname || !member?.manageable) continue;
 
       await member.edit({
-        roles: memberData.roles?.map(e => guild.roles.cache.find(r => r.name == e)?.id).filter(e => e?.editable),
+        roles: memberData.roles?.map(e => guild.roles.cache.find(e2 => e2.name == e)?.id).filter(e => e?.editable),
         nickname: memberData.nickname ?? undefined
       });
     }
@@ -292,7 +302,7 @@ class BackupSystem {
         reason, name: category.name,
         type: ChannelType.GuildCategory,
         permissionOverwrites: category.permissions.map(e => {
-          const role = guild.roles.cache.find(r => r.name == e.name);
+          const role = guild.roles.cache.find(e2 => e2.name == e.name);
           return role ? { id: role.id, allow: BigInt(e.allow), deny: BigInt(e.deny) } : null;
         })
       });
@@ -321,11 +331,12 @@ class BackupSystem {
     }
 
     statusObj.status = 'load.bans';
-    for (const ban of data.bans)
+    for (const ban of data.bans) {
       try { await guild.bans.create(ban.id, { reason: ban.reason, deleteMessageSeconds: 0 }); }
       catch (err) {
         if (!(err instanceof DiscordAPIError)) throw err;
       }
+    }
 
     if (data.widget.channel) await guild.setWidgetSettings({ enabled: data.widget.enabled, channel: guild.channels.cache.find(e => e.name == data.widget.channel) }, reason);
 
@@ -352,7 +363,7 @@ class BackupSystem {
 
   static utils = {
     /** @param {string}url*/
-    fetchToBase64: async url => url ? (await fetch(url).then(r => r.buffer())).toString('base64') : null,
+    fetchToBase64: async url => url ? (await fetch(url).then(e => e.buffer())).toString('base64') : null,
 
     /** @param {string}str*/
     loadFromBase64: str => str ? Buffer.from(str, 'base64') : null,
@@ -429,7 +440,7 @@ class BackupSystem {
         type: channel.type == 5 && !guild.features.includes(GuildFeature.Community) ? 0 : channel.type,
         parent: category,
         permissionOverwrites: channel.permissions.reduce((acc, e) => {
-          const role = guild.roles.cache.find(r => r.name == e.name);
+          const role = guild.roles.cache.find(e2 => e2.name == e.name);
           if (role) acc.push({ id: role.id, allow: BigInt(e.allow), deny: BigInt(e.deny) });
           return acc;
         }, [])
@@ -448,11 +459,12 @@ class BackupSystem {
       const newChannel = await guild.channels.create(createOptions);
       if (Constants.TextBasedChannelTypes.includes(channel.type)) {
         let webhook;
-        if (channel.messages.length > 0)
+        if (channel.messages.length > 0) {
           try { webhook = await this.utils.loadChannelMessages(newChannel, channel.messages, null, maxMessagesPerChannel, allowedMentions); }
           catch (err) {
             if (!(err instanceof DiscordAPIError)) throw err;
           }
+        }
 
         for (const threadData of channel.threads) {
           const thread = await newChannel.threads.create({ name: threadData.name, autoArchiveDuration: threadData.autoArchiveDuration });
@@ -478,21 +490,22 @@ class BackupSystem {
 
       if (!webhook) return;
 
-      for (const msg of messages.filter(m => m.content.length > 0 || m.embeds.length > 0 || m.files.length > 0).reverse().slice(-maxMessagesPerChannel))
+      for (const msg of messages.filter(e => e.content.length > 0 || e.embeds.length > 0 || e.files.length > 0).reverse().slice(-maxMessagesPerChannel)) {
         try {
           const sentMsg = await webhook.send({
             content: msg.content.length ? msg.content : undefined,
             username: msg.username,
             avatarURL: msg.avatar,
             embeds: msg.embeds,
-            files: msg.files.map(f => new AttachmentBuilder(f.attachment, { name: f.name })),
-            allowedMentions: allowedMentions,
+            files: msg.files.map(e => new AttachmentBuilder(e.attachment, { name: e.name })),
+            allowedMentions,
             threadId: channel.isThread() ? channel.id : undefined
           });
 
           if (msg.pinned && sentMsg.pinnable && (await channel.messages.fetchPinned()).size < 50) await sentMsg.pin();
         }
         catch (err) { log.error('Backup load error:', err); }
+      }
 
       return webhook;
     }
