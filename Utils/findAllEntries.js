@@ -60,8 +60,7 @@ function testFindAllEntries() {
 
   for (const { name, input, key, expectedOutput } of testCases) {
     const result = findAllEntries(input, key);
-    if (JSON.stringify(result) !== JSON.stringify(expectedOutput)) {
+    if (JSON.stringify(result) !== JSON.stringify(expectedOutput))
       console.log(`Test case "${name}" failed. Expected: ${JSON.stringify(expectedOutput)}, Actual: ${JSON.stringify(result)}`);
-    }
   }
 }
