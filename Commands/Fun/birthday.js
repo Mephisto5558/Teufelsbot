@@ -139,7 +139,7 @@ module.exports = {
     { name: 'remove', type: 'Subcommand' }
   ],
 
-  run: async function (lang) {
+  run: function (lang) {
     return birthdayMainFunctions[this.options.getSubcommand()].call(this, lang);
   }
 };

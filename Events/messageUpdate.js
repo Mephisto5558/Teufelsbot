@@ -3,7 +3,7 @@ const { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, Butt
 /**
  * @this {Message}
  * @param {Message}newMsg*/
-module.exports = async function messageUpdate(newMsg) {
+module.exports = function messageUpdate(newMsg) {
   const setting = this.guild?.db.config?.logger?.messageUpdate ?? {};
   if (
     this.client.botType == 'dev' || !this.guild || !setting.enabled || !setting.channel

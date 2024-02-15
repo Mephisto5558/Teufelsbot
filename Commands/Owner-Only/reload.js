@@ -97,8 +97,8 @@ module.exports = {
 
     const
       msg = await this.reply(lang('global.loading')),
-      commandList = new Collection([...this.client.prefixCommands, ...this.client.slashCommands]);
-    let reloadedArray = [];
+      commandList = new Collection([...this.client.prefixCommands, ...this.client.slashCommands]),
+      reloadedArray = [];
 
     try {
       switch (this.args[0].toLowerCase()) {

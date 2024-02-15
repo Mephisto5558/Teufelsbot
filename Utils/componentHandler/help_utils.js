@@ -84,17 +84,19 @@ function createInfoFields(cmd, lang, helpLang) {
     arr.push({ name: lang('one.userPerms'), value: `\`${permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')}\``, inline: true });
 
   const cooldowns = Object.entries(cmd.cooldowns ?? {}).filter(([, e]) => e);
-  if (cooldowns.length) arr.push({
-    name: lang('one.cooldowns'), inline: false,
-    value: cooldowns.map(([k, v]) => {
-      let min = Math.floor(v / 60000),
-        sec = v % 60000 / 1000;
-      sec = sec % 1 ? sec.toFixed(2) : Math.floor(sec);
+  if (cooldowns.length) {
+    arr.push({
+      name: lang('one.cooldowns'), inline: false,
+      value: cooldowns.map(([k, v]) => {
+        const min = Math.floor(v / 60000);
+        let sec = v % 60000 / 1000;
+        sec = sec % 1 ? sec.toFixed(2) : Math.floor(sec);
 
-      if (min && sec) return `${lang('global.' + k)}: ${min}min ${sec}s`;
-      return `${lang('global.' + k)}: ` + (min ? `${min}min` : `${sec}s`);
-    }).join(', ')
-  });
+        if (min && sec) return `${lang('global.' + k)}: ${min}min ${sec}s`;
+        return `${lang('global.' + k)}: ` + (min ? `${min}min` : `${sec}s`);
+      }).join(', ')
+    });
+  }
 
   if (helpLang('usage.usage')) {
     arr.push({ name: '```' + lang('one.usage') + '```', value: helpLang('usage.usage', prefix), inline: true });
@@ -114,14 +116,14 @@ function filterCommands(cmd) {
 /**
  * @this {Interaction|Message}
  * @param {lang}lang
- * @param {string}commandQuery*/
-module.exports.commandQuery = function commandQuery(lang, commandQuery) {
+ * @param {string}query*/
+module.exports.commandQuery = function commandQuery(lang, query) {
   if (this.values && !this.values.length) return module.exports.categoryQuery.call(this, lang, this.message.components[0].components[0].data.options.find(e => e.default).value);
 
-  const command = this.client.slashCommands.get(commandQuery) ?? this.client.prefixCommands.get(commandQuery);
-  if (!filterCommands.call(this, command)) {
+  const command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);
+  if (command && !filterCommands.call(this, command)) {
     const embed = new EmbedBuilder({
-      description: lang('one.notFound', commandQuery),
+      description: lang('one.notFound', query),
       color: Colors.Red
     });
 
@@ -148,9 +150,9 @@ module.exports.commandQuery = function commandQuery(lang, commandQuery) {
 /**
  * @this {Interaction|Message}
  * @param {lang}lang
- * @param {string?}categoryQuery*/
-module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
-  if (!categoryQuery) {
+ * @param {string?}query*/
+module.exports.categoryQuery = function categoryQuery(lang, query) {
+  if (!query) {
     delete this.message.components[0].components[0].data.options.find(e => e.default)?.default;
     return module.exports.allQuery.call(this, lang);
   }
@@ -160,13 +162,13 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
     /** @type {lang}*/
     helpLang = this.client.i18n.__.bind(this.client.i18n, {
       undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang,
-      backupPath: `commands.${categoryQuery}`
+      backupPath: `commands.${query}`
     }),
     commands = getCommands.call(this),
     embed = new EmbedBuilder({
-      title: lang(`options.category.choices.${categoryQuery}`),
+      title: lang(`options.category.choices.${query}`),
       fields: commands.reduce((acc, e) => { // U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing
-        if (e.category.toLowerCase() === categoryQuery && !e.aliasOf && filterCommands.call(this, e))
+        if (e.category.toLowerCase() === query && !e.aliasOf && filterCommands.call(this, e))
           acc.push({ name: e.name, value: helpLang(`${e.name}.description`) + '\n\u200E', inline: true });
         return acc;
       }, []),
@@ -176,7 +178,7 @@ module.exports.categoryQuery = function categoryQuery(lang, categoryQuery) {
 
   if (!embed.data.fields.length) embed.data.description = lang('all.notFound');
 
-  return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, categoryQuery)] });
+  return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, query)] });
 };
 
 /**

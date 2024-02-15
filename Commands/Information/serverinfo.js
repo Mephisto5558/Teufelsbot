@@ -48,23 +48,29 @@ module.exports = {
         ]
       });
 
-    if (guild.vanityURLCode) embed.data.fields = embed.data.fields.concat([
-      { name: lang('vanityUrl'), value: guild.vanityURLCode, inline: true },
-      { name: lang('vanityUrl') + lang('uses'), value: guild.vanityURLUses, inline: true }
-    ]);
+    if (guild.vanityURLCode) {
+      embed.data.fields = embed.data.fields.concat([
+        { name: lang('vanityUrl'), value: guild.vanityURLCode, inline: true },
+        { name: lang('vanityUrl') + lang('uses'), value: guild.vanityURLUses, inline: true }
+      ]);
+    }
 
     const component = new ActionRowBuilder();
-    if (guild.icon) component.components.push(new ButtonBuilder({
-      label: lang('downloadIcon'),
-      style: ButtonStyle.Link,
-      url: guild.iconURL({ size: 2048 })
-    }));
+    if (guild.icon) {
+      component.components.push(new ButtonBuilder({
+        label: lang('downloadIcon'),
+        style: ButtonStyle.Link,
+        url: guild.iconURL({ size: 2048 })
+      }));
+    }
 
-    if (guild.banner) component.components.push(new ButtonBuilder({
-      label: lang('downloadBanner'),
-      style: ButtonStyle.Link,
-      url: guild.bannerURL({ size: 2048 })
-    }));
+    if (guild.banner) {
+      component.components.push(new ButtonBuilder({
+        label: lang('downloadBanner'),
+        style: ButtonStyle.Link,
+        url: guild.bannerURL({ size: 2048 })
+      }));
+    }
 
     return this.customReply({ embeds: [embed], components: component.components.length ? [component] : null });
   }

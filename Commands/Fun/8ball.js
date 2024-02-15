@@ -37,7 +37,7 @@ module.exports = {
     if (!input) return this.customReply(lang('noQuestion'));
 
     const now = new Date();
-    const responseList = lang.__boundThis__.localeData[lang.__boundArgs__[0].locale][lang.__boundArgs__[0].backupPath + '.responseList'];
+    const responseList = lang.__boundThis__.localeData[lang.__boundArgs__[0].locale][`${lang.__boundArgs__[0].backupPath}.responseList`];
     return this.customReply(responseList[cyrb53(input.toLowerCase(), parseInt(this.user.id) ^ cyrb53(`${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)) % responseList.length]);
   }
 };

@@ -2,6 +2,7 @@ const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
   sendChallenge = require('./rps_sendChallenge.js'),
+  /* eslint-disable-next-line id-length */
   emojis = { r: '✊', p: '🤚', s: '✌️' };
 
 /**

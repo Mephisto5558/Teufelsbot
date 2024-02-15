@@ -30,8 +30,8 @@ const
     ['phcomment', { image: 'Users image', text: 'text to comment', username: 'user\'s username' }],
     ['magik', { image: 'Image to magikify', intensity: 'number from 1 to 10' }]
   ]),
-  options = Array.from(endpoints).map(([name, b]) => ({
-    name, options: Object.entries(b).filter(([a]) => a != 'info').map(([name, description]) => ({ name, description, type: 'String' }))
+  options = Array.from(endpoints).map(([endpoint, b]) => ({
+    name: endpoint, options: Object.entries(b).filter(([a]) => a != 'info').map(([name, description]) => ({ name, description, type: 'String' }))
   }));
 
 /** @type {command<'prefix'>}*/
