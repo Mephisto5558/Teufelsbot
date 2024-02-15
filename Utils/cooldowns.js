@@ -34,6 +34,7 @@ function cooldown(name, cooldowns = {}) {
     timeStamps = this.client.cooldowns.get(name) ?? this.client.cooldowns.set(name, {}).get(name),
     cooldownList = [];
 
+  /* eslint-disable-next-line no-shadow */
   for (const [name, value] of Object.entries(cooldowns)) {
     if (!value || this[name] === null) continue;
 

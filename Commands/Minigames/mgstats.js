@@ -110,7 +110,7 @@ module.exports = {
     await this.guild.members.fetch();
 
     embed.data.title = lang('embedTitleTop10', game);
-    embed.data.description = await formatTopTen.call(this, Object.entries(data).filter(([e]) => settings == 'all_users' || this.guild.members.cache.has(e)), sort, mode, lang) || lang('noPlayers');
+    embed.data.description = formatTopTen.call(this, Object.entries(data).filter(([e]) => settings == 'all_users' || this.guild.members.cache.has(e)), sort, mode, lang) || lang('noPlayers');
 
     const component = new ActionRowBuilder({
       components: [new StringSelectMenuBuilder({
