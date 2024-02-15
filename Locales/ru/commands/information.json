@@ -10,8 +10,7 @@
         "description": "размер, который вы хотите получить"
       }
     },
-    "embedDescription": "**Аватар {user}**",
-    "downloadButton": "Загрузить картинку"
+    "embedDescription": "**Аватар {user}**"
   },
   "cmdstats": {
     "description": "Посмотрите, как часто выполнялась конкретная команда или как получить топ 10.",
@@ -57,7 +56,6 @@
     "createdAt": "Создано в",
     "requiresColons": "Требуется цвет",
     "allowedRoles": "Разрешенные роли",
-    "download": "Скачать эмодзи",
     "delete": "Удалить эмодзи"
   },
   "help": {
@@ -230,6 +228,7 @@
   },
   "uptime": {
     "description": "Получить время работы бота",
+    "embedDescriptionNoURL": "Бот был онлайн для {time}.",
     "embedDescription": "Бот был [online]({Domain}/uptime) ровно {time}."
   },
   "userinfo": {
