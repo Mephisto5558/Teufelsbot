@@ -46,5 +46,5 @@ You can add changes on [Crowdin](https://de.crowdin.com/project/teufelsbot) or e
 
 ## Others
 ### Note to the sharp overwrite in package.json
-The overwrite is required because fast-average-color-node (which requires the sharp package) and the canvas package are having compatibility issues on windows systems.<br>
+The overwrite is required because sharp (which is a dependency of the fast-average-color-node package) and the canvas package are having compatibility issues on windows systems.<br>
 See [node-canvas #930](https://github.com/Automattic/node-canvas/issues/930), [sharp #2548](https://github.com/lovell/sharp/issues/2548).
