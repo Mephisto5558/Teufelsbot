@@ -37,7 +37,7 @@ Next, you need to create a `env.json` file. If you are hosting you bot code publ
 The env file/collection needs to have all keys from the `env.json` from the Templates folder in order to work.<br>
 You do not need to set the dev stuff, this is for development.<br>
 Then, you need to create a `config.json` file. The template is in the Templates folder.<br><br>
-To run the Bot, you can run the `main.sh` or directly the `index.js` .<br><br>
+To run the Bot, run the `index.js` file.<br><br>
 You should be ready to go!
 <br>
 
