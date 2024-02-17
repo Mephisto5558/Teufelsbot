@@ -1,5 +1,5 @@
 const
-  { Message, AttachmentBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
+  { Message, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
   fetch = require('node-fetch').default;
 
 /**
@@ -60,17 +60,13 @@ module.exports = {
       });
 
     return (
-      await this.customReply(
-        content.length > 2000
-          ? { files: [new AttachmentBuilder(Buffer.from(content), { name: 'message.txt' })], components: [component] }
-          : { content, components: [component] }, null, { repliedUser: true }
-      ))
+      await this.customReply({ content, components: [component] }, null, { repliedUser: true }))
       .createMessageComponentCollector({ componentType: ComponentType.Button, filter: e => e.user.id == this.user.id })
       .on('collect', async e => {
         const reply = await e.deferReply();
 
         const newContent = await fetchAPI.call(this, lang);
-        e.message.edit(newContent.length > 2000 ? { files: [new AttachmentBuilder(Buffer.from(newContent), { name: 'message.txt' })] } : newContent);
+        e.message.edit(newContent);
         reply.delete();
       });
   }
