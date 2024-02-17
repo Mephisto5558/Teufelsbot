@@ -1,11 +1,11 @@
-/* eslint-disable jsdoc/imports-as-dependencies */
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
 
+/* eslint-disable jsdoc/imports-as-dependencies */
 /**
  * @this {import('discord-tictactoe')}
  * @param {Interaction}interaction
  * @param {lang}lang*/
-/* eslint-disable jsdoc/imports-as-dependencies */
+/* eslint-enable jsdoc/imports-as-dependencies */
 module.exports = async function playAgain(interaction, lang) {
   const
     opponent = interaction.options?.getUser('opponent'),
