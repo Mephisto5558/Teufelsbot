@@ -42,10 +42,9 @@
     "zlib-sync": "^0.1.9"
   },
   "devDependencies": {
+    "@mephisto5558/eslint-config": "^1.0.0",
     "@stylistic/eslint-plugin": "^1.6.1",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
-    "@typescript-eslint/parser": "^7.0.1",
-    "eslint": "^8.56.0",
     "eslint-plugin-jsdoc": "^48.0.5"
   },
   "repository": {
