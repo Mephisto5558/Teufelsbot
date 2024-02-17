@@ -10,10 +10,10 @@ name: njsscan sarif
 
 on:
   push:
-    branches: [ "main", "dev_backup" ]
+    branches: [ "main" ]
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "main", "dev_backup" ]
+    branches: [ "main" ]
   schedule:
     - cron: '23 1 * * 4'
 
