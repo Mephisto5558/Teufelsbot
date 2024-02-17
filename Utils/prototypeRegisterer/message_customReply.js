@@ -1,5 +1,5 @@
 const
-  { BaseInteraction, Message, DiscordAPIError } = require('discord.js'),
+  { AttachmentBuilder, BaseInteraction, Message, DiscordAPIError } = require('discord.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
 /**
@@ -15,6 +15,7 @@ function handleError(err) {
 }
 
 /**
+ * Tries different methods to reply to a message or interaction. If the content is over 2000 chars, will send an attachment instead.
  * @type {Message['customReply']}
  * @this {Message | import('discord.js').RepliableInteraction}*/
 module.exports = async function customReply(options, deleteTime = null, allowedMentions = { repliedUser: false }) {
@@ -22,6 +23,11 @@ module.exports = async function customReply(options, deleteTime = null, allowedM
 
   if (typeof options != 'object') options = { content: options };
   options.allowedMentions ??= allowedMentions;
+
+  if (options.content?.length > 2000) {
+    options.files = (options.files ?? []).concat(new AttachmentBuilder(Buffer.from(options.content), { name: 'response.txt' }));
+    delete options.content;
+  }
 
   if (this instanceof BaseInteraction) {
     try { msg = await (this.replied || this.deferred ? this.editReply(options) : this.reply(options)); }
