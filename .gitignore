@@ -4,7 +4,6 @@ logs
 package-lock.json
 /node_modules
 Temp
-.github
 /config.json
 /VoiceRecords
 /Commands/Owner-Only/test.js
