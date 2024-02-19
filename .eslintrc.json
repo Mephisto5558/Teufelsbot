@@ -1,3 +1,25 @@
 {
-  "extends": "@mephisto5558/eslint-config"
+  "extends": "@mephisto5558/eslint-config",
+  "globals": {
+    // promisified setTimeout
+    "sleep": "readonly",
+    "log": "readonly",
+    // [TYPES] see globals.d.ts
+    "lang": "writable",
+    "slashCommand": "writable",
+    "prefixCommand": "writable",
+    "command": "writable",
+    "commandOptions": "writable",
+    "bBoundFunction": "writable",
+    "Client": "writable",
+    "Message": "writable",
+    "Interaction": "writable",
+    "OptionalInteractionProperties": "writable",
+    "OptionalMessageProperties": "writable",
+    "GuildInteraction": "writable",
+    "DMInteraction": "writable"
+  },
+  "ignorePatterns": [
+    "Templates/*"
+  ]
 }
