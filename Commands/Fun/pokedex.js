@@ -29,9 +29,9 @@ module.exports = {
       }
 
       if (res) {
-        const [feet, inches] = res.height.split('\'').map(parseFloat);
+        const [feet, inches] = res.height.split('\'').map(e => Number.parseFloat(e));
         res.height = (feet * 12 + (inches || 0)) * 2.54;
-        res.height = res.height < 100 ? `${res.height}cm` : `${parseFloat((res.height / 100).toFixed(2))}m`;
+        res.height = res.height < 100 ? `${res.height}cm` : `${Number.parseFloat((res.height / 100).toFixed(2))}m`;
 
         if (res.name) cache.set(res.name.toLowerCase(), res);
       }
@@ -57,7 +57,7 @@ module.exports = {
           { name: lang('types'), value: res.types.join(', '), inline: false },
           { name: lang('abilities'), value: `${res.abilities.normal}${res.abilities.hidden ? ' and ' + res.abilities.hidden : ''}.`, inline: false },
           { name: lang('genderRatio'), value: res.gender?.join(', ') ?? lang('noGender'), inline: false },
-          { name: lang('heightWeight'), value: `${res.height}, ${(parseFloat(res.weight) / 2.205).toFixed(2)}kg`, inline: false },
+          { name: lang('heightWeight'), value: `${res.height}, ${(Number.parseFloat(res.weight) / 2.205).toFixed(2)}kg`, inline: false },
           { name: lang('evolutionLine'), value: res.family.evolutionLine.join(', ') + lang('currentStage', res.family.evolutionStage), inline: false },
           { name: lang('gen'), value: res.gen, inline: false }
         ]

@@ -33,7 +33,7 @@ function shouldDeleteMsg(msg, options) {
     && (nHas('member') || msg.user.id == options.member.id)
     && (nHas('user_type') || options.user_type == userType)
     && (nHas('only_containing') || filterCheck[options.only_containing](msg))
-    && (nHas('caps_percentage') || (options.caps_percentage >= msg.content.replace(/[^A-Z]/g, '').length / msg.content.length * 100))
+    && (nHas('caps_percentage') || (options.caps_percentage >= msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * 100))
     && (nHas('contains') || msg.content.includes(options.contains) || msg.embeds?.some(e => e.description.includes(options.contains)))
     && (nHas('does_not_contain') || msg.content.includes(options.does_not_contain) || msg.embeds?.some(e => e.description.includes(options.does_not_contain)))
     && (nHas('starts_with') || msg.content.startsWith(options.starts_with) || msg.embeds?.some(e => e.description.startsWith(options.starts_with)))
@@ -48,7 +48,7 @@ function shouldDeleteMsg(msg, options) {
  * @param {number?}limit
  * @param {string?}before
  * @param {string?}after*/
-async function fetchMsgs(channel, limit = 250, before = undefined, after = undefined) {
+async function fetchMsgs(channel, limit = 250, before, after) {
   const options = { limit: Math.min(limit, 100), before, after };
 
   let
@@ -121,7 +121,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      amount = this.options?.getInteger('amount') ?? parseInt(this.args?.[0]).limit({ min: 0, max: 1000 }),
+      amount = this.options?.getInteger('amount') ?? Number.parseInt(this.args?.[0]).limit({ min: 0, max: 1000 }),
 
       /** @type {import('discord.js').GuildTextBasedChannel}*/
       channel = getTargetChannel.call(this, { returnSelf: true }),

@@ -29,7 +29,7 @@ module.exports = async function runMessages() {
           this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', countingData.lastNumber)
           + this.client.i18n.__(
             { locale: this.guild.localeCode },
-            countingData.lastNumber + 1 != this.originalContent ? 'events.message.counting.wrongNumber' : 'events.message.counting.sameUserTwice'
+            countingData.lastNumber + 1 == this.originalContent ? 'events.message.counting.sameUserTwice' : 'events.message.counting.wrongNumber'
           )
         );
       }
@@ -37,7 +37,7 @@ module.exports = async function runMessages() {
   }
 
   if (!this.originalContent.toLowerCase().includes('--afkignore')) {
-    if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.substring(6));
+    if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.slice(6));
 
     const { createdAt, message } = (afkMessages[this.user.id]?.message ? afkMessages[this.user.id] : this.user.db.afkMessage) ?? {};
     if (message) {
@@ -55,7 +55,7 @@ module.exports = async function runMessages() {
     if (!message || e.id == this.user.id) return acc;
 
     const afkMessage = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkMsg', {
-      member: e.nickname?.startsWith('[AFK] ') ? e.nickname.substring(6) : e.displayName,
+      member: e.nickname?.startsWith('[AFK] ') ? e.nickname.slice(6) : e.displayName,
       message, timestamp: createdAt
     });
 

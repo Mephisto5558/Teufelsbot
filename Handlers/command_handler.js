@@ -1,6 +1,6 @@
 const
-  { readdir } = require('fs/promises'),
-  { resolve } = require('path'),
+  { readdir } = require('node:fs/promises'),
+  { resolve } = require('node:path'),
   { getDirectories } = require('../Utils'),
   { HideDisabledCommandLog, HideNonBetaCommandLog } = require('../config.json');
 

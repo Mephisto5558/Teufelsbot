@@ -18,11 +18,11 @@ module.exports = {
   run: async function (lang) {
     const
       guild = this.client.guilds.cache.get(this.options?.getString('guild_id') ?? this.args?.[0]) ?? this.guild,
-      channels = Array.from((await guild.channels.fetch()).values()),
+      channels = [...(await guild.channels.fetch()).values()],
       embed = new EmbedBuilder({
         title: guild.name,
         description: guild.description,
-        color: guild.icon ? parseInt((await getAverageColor(guild.iconURL())).hex.substring(1), 16) : Colors.White,
+        color: guild.icon ? Number.parseInt((await getAverageColor(guild.iconURL())).hex.slice(1), 16) : Colors.White,
         thumbnail: { url: guild.iconURL() },
         image: { url: guild.bannerURL({ size: 1024 }) },
         fields: [
@@ -49,10 +49,9 @@ module.exports = {
       });
 
     if (guild.vanityURLCode) {
-      embed.data.fields = embed.data.fields.concat([
+      embed.data.fields = [...embed.data.fields,
         { name: lang('vanityUrl'), value: guild.vanityURLCode, inline: true },
-        { name: lang('vanityUrl') + lang('uses'), value: guild.vanityURLUses, inline: true }
-      ]);
+        { name: lang('vanityUrl') + lang('uses'), value: guild.vanityURLUses, inline: true }];
     }
 
     const component = new ActionRowBuilder();

@@ -1,4 +1,4 @@
-const { randomInt } = require('crypto');
+const { randomInt } = require('node:crypto');
 
 /** @type {command<'both', false>}*/
 module.exports = {

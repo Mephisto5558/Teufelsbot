@@ -28,7 +28,7 @@ module.exports = {
 
     const embed = new EmbedBuilder({ color: data.color, image: { url: data.message } });
 
-    if (!Math.floor(Math.random() * 10000)) embed.data.title = lang('embedTitle');
+    if (!Math.floor(Math.random() * 10_000)) embed.data.title = lang('embedTitle');
 
     return this.customReply({ embeds: [embed] });
   }

@@ -34,10 +34,9 @@ module.exports = {
     if (!this.member.permissionsIn(channel).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])) return this.customReply(lang('noPerm'));
     if (!msg) return this.customReply(lang('noMsgProvided'));
 
-    if (this.member.permissionsIn(channel).has(PermissionFlagsBits.MentionEveryone)) {
-      allowedMentions.parse.push(AllowedMentionsTypes.Role);
-      allowedMentions.parse.push(AllowedMentionsTypes.Everyone);
-    }
+    if (this.member.permissionsIn(channel).has(PermissionFlagsBits.MentionEveryone))
+      allowedMentions.parse.push(AllowedMentionsTypes.Role, AllowedMentionsTypes.Everyone);
+
 
     const sentMessage = await channel.send({ content: msg.replaceAll('/n', '\n'), allowedMentions });
     await (this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent')));

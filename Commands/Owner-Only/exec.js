@@ -1,4 +1,4 @@
-const exec = require('util').promisify(require('child_process').exec);
+const exec = require('node:util').promisify(require('node:child_process').exec);
 
 /** @type {command<'prefix', false>}*/
 module.exports = {

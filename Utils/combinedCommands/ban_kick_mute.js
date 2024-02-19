@@ -59,7 +59,7 @@ module.exports = async function ban_kick_mute(lang) {
     }
 
     if (this.commandName == 'kick') await target.kick(reason);
-    else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') });
+    else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: 86_400 * this.options.getNumber('delete_days_of_messages') });
     else await target.disableCommunicationUntil(muteDurationMs, reason);
 
     resEmbed.data.description += lang('success', { user: target.user.tag, muteDuration });
@@ -82,7 +82,7 @@ module.exports = async function ban_kick_mute(lang) {
       })]
     }),
     collector = (await this.editReply({ embeds: [selectEmbed], components: [selectComponent] }))
-      .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: 60000, filter: i => i.user.id == this.user.id })
+      .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: 60_000, filter: i => i.user.id == this.user.id })
       .on('collect', async selectMenu => {
         await selectMenu.deferUpdate();
 
@@ -102,7 +102,7 @@ module.exports = async function ban_kick_mute(lang) {
           }
 
           if (this.commandName == 'kick') await target.kick(reason);
-          else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: 86400 * this.options.getNumber('delete_days_of_messages') });
+          else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: 86_400 * this.options.getNumber('delete_days_of_messages') });
           else await target.disableCommunicationUntil(muteDurationMs, reason);
 
           resEmbed.data.description += lang('success', { user: target.user.tag, muteDuration });

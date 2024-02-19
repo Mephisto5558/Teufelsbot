@@ -71,7 +71,7 @@ const
             continue;
           }
 
-          commandData[type] = (commandData[type] ?? []).concat(id);
+          commandData[type] = [...commandData[type] ?? [], id];
           count.disabled[type]++;
         }
       }
@@ -116,7 +116,7 @@ const
      * @this {GuildInteraction}
      * @param {lang}lang*/
     serverbackup: async function (lang) {
-      await this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', parseInt(backup.get(this.options.getString('allowed_to_load'))));
+      await this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', Number.parseInt(backup.get(this.options.getString('allowed_to_load'))));
       return this.editReply(lang('success'));
     },
 
@@ -136,11 +136,11 @@ const
       const
         action = this.options.getString('action'),
         channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel))?.id ?? this.channel,
-        enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? null : !this.guild.db.config.logger?.[action]?.enabled);
+        enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? undefined : !this.guild.db.config.logger?.[action]?.enabled);
 
       if (!channel) return this.editReply(lang('noChannel'));
       if (action == 'all') {
-        if (enabled === null) return this.editReply(lang('noEnabled'));
+        if (enabled == undefined) return this.editReply(lang('noEnabled'));
         for (const actionType of loggerActionTypes) await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${actionType}`, { channel, enabled });
       }
 
@@ -243,7 +243,7 @@ module.exports = {
   ],
 
   run: function (lang) {
-    lang.__boundArgs__[0].backupPath += `.${this.options.getSubcommand().replace(/_./g, e => e[1].toUpperCase())}`;
+    lang.__boundArgs__[0].backupPath += `.${this.options.getSubcommand().replaceAll(/_./g, e => e[1].toUpperCase())}`;
     return setupMainFunctions[this.options.getSubcommand()].call(this, lang);
   }
 };

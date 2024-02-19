@@ -10,7 +10,7 @@ module.exports = {
   run: async function (lang) {
     const
       channel = getTargetChannel.call(this, { returnSelf: true }).id,
-      number = parseInt(this.args[0] ?? 0);
+      number = Number.parseInt(this.args[0] ?? 0);
 
     if (isNaN(number)) return this.reply(lang('invalidNumber'));
 

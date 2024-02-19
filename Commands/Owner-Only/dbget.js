@@ -10,6 +10,6 @@ module.exports = {
     const result = this.client.db.get(this.args[0], this.args[1]);
 
     if (!result) return this.customReply(lang('notFound'));
-    return this.customReply('```json\n' + JSON.stringify(result, null, 2).substring(0, 1987) + '\n```');
+    return this.customReply('```json\n' + JSON.stringify(result, null, 2).slice(0, 1987) + '\n```');
   }
 };

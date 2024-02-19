@@ -22,8 +22,8 @@ class BackupSystem {
 
     this.utils = BackupSystem.utils;
     this.defaultSettings = {
-      maxGuildBackups: parseInt(maxGuildBackups) || 5,
-      maxMessagesPerChannel: parseInt(maxMessagesPerChannel) || 10,
+      maxGuildBackups: Number.parseInt(maxGuildBackups) || 5,
+      maxMessagesPerChannel: Number.parseInt(maxMessagesPerChannel) || 10,
       saveImages,
       clearGuildBeforeRestore
     };
@@ -203,8 +203,8 @@ class BackupSystem {
 
     let data, rulesChannel, publicUpdatesChannel;
 
-    if (!id) data = this.list(guild.id).sort((a, b) => b - a).first();
-    else data = typeof id == 'string' ? this.get(id) : id;
+    if (id) data = typeof id == 'string' ? this.get(id) : id;
+    else data = this.list(guild.id).sort((a, b) => b - a).first();
 
     if (clearGuildBeforeRestore) {
       statusObj.status = 'clear.items';
@@ -316,7 +316,7 @@ class BackupSystem {
     for (const emoji of data.emojis) {
       try { await guild.emojis.create({ name: emoji.name, attachment: emoji.url ?? this.utils.loadFromBase64(emoji.base64), reason }); }
       catch (err) {
-        if (err.code != 30008) throw err; // "Maximum number of emojis reached"
+        if (err.code != 30_008) throw err; // "Maximum number of emojis reached"
         break;
       }
     }
@@ -325,7 +325,7 @@ class BackupSystem {
     for (const sticker of data.stickers) {
       try { await guild.stickers.create({ name: sticker.name, description: sticker.description, tags: sticker.tags, file: sticker.url ?? this.utils.loadFromBase64(sticker.base64), reason }); }
       catch (err) {
-        if (err.code != 30039) throw err; // "Maximum number of stickers reached"
+        if (err.code != 30_039) throw err; // "Maximum number of stickers reached"
         break;
       }
     }

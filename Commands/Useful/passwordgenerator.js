@@ -33,9 +33,8 @@ module.exports = {
     let
       passwordList = '',
       charset = [...new Set( // new Set() makes sure there are no duplicate entries
-        defaultCharset
-          .filter(char => !exclude.includes(char)) // Remove exclude chars from the charset
-          .concat(Array.from(include)) // Add include chars to the charset
+        [...defaultCharset
+          .filter(char => !exclude.includes(char)), ...include] // Add include chars to the charset
       )].join('');
 
     if (!charset.length) return this.editReply(lang('charsetEmpty')); // Return if charset is empty
@@ -57,7 +56,7 @@ module.exports = {
       passwordList += '```\n';
     }
 
-    if (charset.length > 100) charset = charset.substring(0, 97) + '...'; // Limits the *displayed* charset length
+    if (charset.length > 100) charset = charset.slice(0, 97) + '...'; // Limits the *displayed* charset length
 
     return this.editReply(lang('success', { passwords: passwordList, charset }));
   }

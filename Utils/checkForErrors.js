@@ -38,9 +38,7 @@ module.exports = async function checkForErrors(command, lang) {
   if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return ['nsfw'];
 
   const options = command.options?.flatMap(e => e?.options?.flatMap?.(e => e?.options ?? e) ?? e?.options ?? e) ?? [];
-  for (let i = 0; i < options.length; i++) {
-    const { autocomplete, strictAutocomplete, name } = options[i];
-
+  for (const [i, { autocomplete, strictAutocomplete, name }] of options.entries()) {
     if (
       autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
       && !(await autocompleteGenerator.call({

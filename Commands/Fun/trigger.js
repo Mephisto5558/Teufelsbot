@@ -9,13 +9,13 @@ const
      * @param {oldData}oldData*/
     add: async function (lang, oldData) {
       const data = {
-        id: (parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) ?? 0) + 1,
+        id: (Number.parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) ?? 0) + 1,
         trigger: this.options.getString('trigger'),
         response: this.options.getString('response').replaceAll('/n', '\n'),
         wildcard: !!this.options.getBoolean('wildcard')
       };
 
-      await this.client.db.update('guildSettings', `${this.guild.id}.triggers`, oldData.concat(data));
+      await this.client.db.update('guildSettings', `${this.guild.id}.triggers`, [...oldData, ...data]);
       return this.editReply(lang('saved', data.trigger));
     },
 
@@ -63,8 +63,8 @@ const
 
         embed.data.title = lang('embedTitleOne', id);
         embed.data.description = lang('embedDescriptionOne', {
-          trigger: trigger.length < 1900 ? trigger : trigger.substring(0, 1897) + '...',
-          response: response.length < 1900 ? response : response.substring(0, 1897) + '...',
+          trigger: trigger.length < 1900 ? trigger : trigger.slice(0, 1897) + '...',
+          response: response.length < 1900 ? response : response.slice(0, 1897) + '...',
           wildcard: !!wildcard
         });
       }
@@ -84,8 +84,8 @@ const
           ? acc
           : acc + lang('longEmbedDescription', {
             id, wildcard: !!wildcard,
-            trigger: trigger.length < 20 ? trigger : trigger.substring(0, 17) + '...',
-            response: response.length < 20 ? response : response.substring(0, 17) + '...'
+            trigger: trigger.length < 20 ? trigger : trigger.slice(0, 17) + '...',
+            response: response.length < 20 ? response : response.slice(0, 17) + '...'
           }), '');
       }
 

@@ -78,7 +78,7 @@ module.exports = {
       if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', err.message));
     }
 
-    if (!json) await msg.edit(clear ? { content: content.substring(0, 2001), embeds: [], attachments: [], files: [], components: [] } : content.substring(0, 2001));
+    if (!json) await msg.edit(clear ? { content: content.slice(0, 2001), embeds: [], attachments: [], files: [], components: [] } : content.slice(0, 2001));
 
     return modalInteraction.editReply(lang('success', msg.url));
   }
