@@ -1,7 +1,7 @@
 const
   { Collection } = require('discord.js'),
-  { resolve, basename, dirname } = require('path'),
-  { access } = require('fs/promises'),
+  { resolve, basename, dirname } = require('node:path'),
+  { access } = require('node:fs/promises'),
   { formatSlashCommand, slashCommandsEqual } = require('../../Utils');
 
 /**
@@ -142,7 +142,7 @@ module.exports = {
     const commands = reloadedArray.reduce((acc, e) => acc + (e.startsWith('<') ? e : `\`${e}\``) + ', ', '').slice(0, -2);
     return msg.edit(lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
       count: reloadedArray.length,
-      commands: commands.length < 800 ? commands : commands.substring(0, commands.substring(0, 800).lastIndexOf('`,') + 1) + '...'
+      commands: commands.length < 800 ? commands : commands.slice(0, Math.max(0, commands.slice(0, 800).lastIndexOf('`,') + 1)) + '...'
     }));
   }
 };

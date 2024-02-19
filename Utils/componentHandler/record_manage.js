@@ -2,9 +2,9 @@ const
   { ButtonBuilder, ButtonStyle, ActionRowBuilder, Colors, PermissionFlagsBits, DiscordAPIError } = require('discord.js'),
   { entersState, joinVoiceChannel, VoiceConnectionStatus, EndBehaviorType, getVoiceConnection } = require('@discordjs/voice'),
   { Decoder } = require('prism-media').opus,
-  { createWriteStream } = require('fs'),
-  { unlink, access, mkdir } = require('fs/promises'),
-  exec = require('util').promisify(require('child_process').exec),
+  { createWriteStream } = require('node:fs'),
+  { unlink, access, mkdir } = require('node:fs/promises'),
+  exec = require('node:util').promisify(require('node:child_process').exec),
   ffmpeg = require('ffmpeg-static').default;
 
 /**
@@ -83,7 +83,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   for (const userId of membersToRecord) {
     connection.receiver
       .subscribe(userId, { end: { behavior: EndBehaviorType.Manual } })
-      .pipe(new Decoder({ channels: 2, rate: 48000 }))
+      .pipe(new Decoder({ channels: 2, rate: 48_000 }))
       .pipe(createWriteStream(`./VoiceRecords/raw/${filename}.ogg`, { flags: 'a' }));
   }
 };

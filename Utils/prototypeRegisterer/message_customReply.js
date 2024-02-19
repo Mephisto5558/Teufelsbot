@@ -49,6 +49,6 @@ module.exports = async function customReply(options, deleteTime = null, allowedM
   }
   else throw new Error(`Unsupported Class! Got ${this.constructor.name}`);
 
-  if (!isNaN(deleteTime ?? NaN) && msg?.deletable) setTimeout(msg.delete.bind(msg), deleteTime);
+  if (!isNaN(deleteTime ?? Number.NaN) && msg?.deletable) setTimeout(msg.delete.bind(msg), deleteTime);
   return msg;
 };

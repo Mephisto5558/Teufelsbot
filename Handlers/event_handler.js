@@ -1,4 +1,4 @@
-const { readdir } = require('fs/promises');
+const { readdir } = require('node:fs/promises');
 
 /** @this {Client}*/
 module.exports = async function eventHandler() {

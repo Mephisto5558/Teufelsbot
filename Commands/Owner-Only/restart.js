@@ -1,6 +1,6 @@
 const
-  { spawn, exec } = require('child_process'),
-  asyncExec = require('util').promisify(exec),
+  { spawn, exec } = require('node:child_process'),
+  asyncExec = require('node:util').promisify(exec),
   getUpdateFunc = /** @param {Message}msg*/ msg => msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply';
 
 let restarting = false;

@@ -30,7 +30,7 @@ const
     ['phcomment', { image: 'Users image', text: 'text to comment', username: 'user\'s username' }],
     ['magik', { image: 'Image to magikify', intensity: 'number from 1 to 10' }]
   ]),
-  options = Array.from(endpoints).map(([endpoint, b]) => ({
+  options = [...endpoints].map(([endpoint, b]) => ({
     name: endpoint, options: Object.entries(b).filter(([a]) => a != 'info').map(([name, description]) => ({ name, description, type: 'String' }))
   }));
 
@@ -50,7 +50,7 @@ module.exports = {
   run: async function (lang) {
     const
       cmdName = this.args?.shift() ?? this.options?.getString('type'),
-      args = this.args?.map(e => e.replace(/[<@>]/g, '')),
+      args = this.args?.map(e => e.replaceAll(/[<>@]/g, '')),
       option = options.find(e => e.name == cmdName);
 
     let data;

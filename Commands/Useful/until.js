@@ -58,7 +58,7 @@ module.exports = {
   run: function (lang) {
     const
       getInt = (k, i) => {
-        const num = this.options?.getInteger(k) ?? parseInt(this.args?.[i]) ?? null;
+        const num = this.options?.getInteger(k) ?? Number.parseInt(this.args?.[i]) ?? null;
         return isNaN(num) ? null : num;
       },
       day = getInt('day', 0),

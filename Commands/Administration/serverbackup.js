@@ -14,7 +14,7 @@ const
       emojis: backup.emojis?.length ?? 0,
       stickers: backup.stickers?.length ?? 0
     }
-    : null;
+    : undefined;
 
 /**
  * @this {import('discord.js').BaseInteraction}
@@ -33,7 +33,7 @@ const backupMainFunctions = {
     embed.data.color = Colors.White;
 
     const
-      statusObj = new Proxy({ status: null }, {
+      statusObj = new Proxy({ status: undefined }, {
         set(obj, prop, value) {
           obj[prop] = value;
           this.editReply({ embeds: [embed.setDescription(lang(value))] });
@@ -77,7 +77,7 @@ const backupMainFunctions = {
 
     // Todo: convert to componentHandler
     return (await this.editReply({ embeds: [embed.setColor(Colors.DarkRed).setDescription(lang('load.overwriteWarningDescription'))], components: [buttons] }))
-      .createMessageComponentCollector({ filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: 30000 })
+      .createMessageComponentCollector({ filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: 30_000 })
       .on('collect', async button => {
         await button.deferUpdate();
         if (button.customId != 'overwriteWarning_true') return this.editReply({ embeds: [embed.setDescription(lang('load.cancelled'))], components: [] });
@@ -91,7 +91,7 @@ const backupMainFunctions = {
           return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.enableDMs'))], components: [] });
         }
 
-        const statusObj = new Proxy({ status: null }, {
+        const statusObj = new Proxy({ status: undefined }, {
           set: function (obj, prop, value) {
             obj[prop] = value;
             msg.edit({ embeds: [embed.setDescription(lang(value))] });

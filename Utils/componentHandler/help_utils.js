@@ -88,8 +88,8 @@ function createInfoFields(cmd, lang, helpLang) {
     arr.push({
       name: lang('one.cooldowns'), inline: false,
       value: cooldowns.map(([k, v]) => {
-        const min = Math.floor(v / 60000);
-        let sec = v % 60000 / 1000;
+        const min = Math.floor(v / 60_000);
+        let sec = v % 60_000 / 1000;
         sec = sec % 1 ? sec.toFixed(2) : Math.floor(sec);
 
         if (min && sec) return `${lang('global.' + k)}: ${min}min ${sec}s`;
