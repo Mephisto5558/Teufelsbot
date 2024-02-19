@@ -1,5 +1,5 @@
 const
-  { readdir } = require('fs/promises'),
+  { readdir } = require('node:fs/promises'),
   getDirectories = require('./getDirectories.js'),
   getOwnerOnlyFolders = require('./getOwnerOnlyFolders.js'),
   ownerOnlyFolders = getOwnerOnlyFolders();

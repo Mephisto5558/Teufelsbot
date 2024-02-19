@@ -20,7 +20,7 @@ module.exports = function format(option, path, i18n) {
 
   if (option.description.length > 100) {
     if (!option.disabled) log.warn(`Description of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
-    option.description = option.description.substring(0, 100);
+    option.description = option.description.slice(0, 100);
   }
 
   for (const [locale] of [...i18n.availableLocales].filter(([e]) => e != i18n.config.defaultLocale)) {
@@ -72,12 +72,12 @@ module.exports = function format(option, path, i18n) {
 
   if ('channelTypes' in option) {
     option.channelTypes = option.channelTypes.map(e => {
-      if (!(e in ChannelType)) throw Error(`Invalid option.channelType, got "${e}" (${path})`);
+      if (!(e in ChannelType)) throw new Error(`Invalid option.channelType, got "${e}" (${path})`);
       return isNaN(e) ? ChannelType[e] : e;
     });
   }
 
-  if (!option.type || !ApplicationCommandOptionType[option.type]) throw Error(`Missing or invalid option.type, got "${option.type}" (${path})`);
+  if (!option.type || !ApplicationCommandOptionType[option.type]) throw new Error(`Missing or invalid option.type, got "${option.type}" (${path})`);
   if (isNaN(option.type)) option.type = ApplicationCommandOptionType[option.type];
 
   if ([ApplicationCommandOptionType.Number, ApplicationCommandOptionType.Integer].includes(option.type) && ('minLength' in option || 'maxLength' in option))

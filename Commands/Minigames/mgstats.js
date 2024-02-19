@@ -11,13 +11,13 @@ const
  * @param {number}all
  * @throws {SyntaxError}If `all` is `NaN`*/
 function formatStatCount(input, all) {
-  input = parseInt(input);
-  all = parseInt(all);
+  input = Number.parseInt(input);
+  all = Number.parseInt(all);
 
   if (isNaN(input)) return '`0`';
   if (isNaN(all)) throw new SyntaxError('arg all must be typeof Number! Got NaN');
 
-  return `\`${input}\`` + all ? `(\`${parseFloat((input / all * 100).toFixed(2))}%\`)` : '';
+  return `\`${input}\`` + all ? `(\`${Number.parseFloat((input / all * 100).toFixed(2))}%\`)` : '';
 }
 
 /** @type {command<'both'>}*/

@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { getHashes, createHash } = require('crypto');
+  { getHashes, createHash } = require('node:crypto');
 
 /** @type {command<'slash', false>}*/
 module.exports = {
@@ -31,7 +31,7 @@ module.exports = {
       method = this.options.getString('method'),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: lang('embedDescription', { input: input.length > 500 ? `${input.substring(0, 500)}\n...` : input, method }),
+        description: lang('embedDescription', { input: input.length > 500 ? `${input.slice(0, 500)}\n...` : input, method }),
         color: Colors.DarkGold
       });
 

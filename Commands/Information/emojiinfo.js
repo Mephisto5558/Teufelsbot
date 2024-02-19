@@ -25,7 +25,7 @@ module.exports = {
       url = emoji?.imageURL() ?? CDNRoutes.emoji(emoji.id, ImageFormat.WebP) + '?size=2048',
       embed = new EmbedBuilder({
         title: lang('embedTitle', `<:${emoji.name}:${emoji.id}>`),
-        color: parseInt((await getAverageColor(url)).hex.substring(1), 16),
+        color: Number.parseInt((await getAverageColor(url)).hex.slice(1), 16),
         thumbnail: { url },
         fields: [
           { name: lang('name'), value: emoji.name, inline: true },

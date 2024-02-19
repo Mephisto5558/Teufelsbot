@@ -1,4 +1,4 @@
-const tokenRegex = /(?:Session |token: )(\w*)/gi;
+const tokenRegex = /(?:session |token: )(\w*)/gi;
 
 /** @this {StringConstructor}*/
 module.exports = function debug() {

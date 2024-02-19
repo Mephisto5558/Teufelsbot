@@ -1,6 +1,6 @@
 const
-  { readdir } = require('fs/promises'),
-  { resolve } = require('path'),
+  { readdir } = require('node:fs/promises'),
+  { resolve } = require('node:path'),
   { getDirectories, formatSlashCommand, slashCommandsEqual } = require('../Utils'),
   { HideNonBetaCommandLog, HideDisabledCommandLog } = require('../config.json');
 
@@ -88,7 +88,7 @@ module.exports = async function slashCommandHandler() {
     }
   }
 
-  this.on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[].concat(args ?? this)));
+  this.on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[args ?? this].flat()));
 
   /* eslint-disable no-unexpected-multiline, @stylistic/indent, @stylistic/function-call-spacing */
   log

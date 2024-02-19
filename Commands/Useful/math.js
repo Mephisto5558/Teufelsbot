@@ -11,8 +11,8 @@ const
     .replaceAll('\n', ';')
     .replaceAll('÷', '/')
     .replaceAll('π', '(pi)')
-    .replace(/[\u00B2-\u00B3\u2074-\u2079]/g, e => superscripts[e])
-    .replace(/(?:√)(\(|\d+)/g, (_, e) => e === '(' ? 'sqrt(' : `sqrt(${e})`),
+    .replaceAll(/[\u00B2\u00B3\u2074-\u2079]/g, e => superscripts[e])
+    .replaceAll(/√(\(|\d+)/g, (_, e) => e === '(' ? 'sqrt(' : `sqrt(${e})`),
   addSpaces = /** @param {number}fullNum*/ fullNum => {
     if (typeof fullNum != 'number') return fullNum;
     const [num, ext] = String(fullNum).split('.');

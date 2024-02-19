@@ -15,7 +15,7 @@ module.exports = async function sendRPSChallenge(initiator, opponent = this.clie
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang(`${opponent.bot ? 'botE' : 'e'}mbedDescription`, initiator.displayName),
-      color: 0x2980B9
+      color: 0x29_80_B9
     }),
     component = new ActionRowBuilder({
       components: [
