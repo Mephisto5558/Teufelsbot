@@ -14,8 +14,8 @@ function formatStatCount(input, all) {
   input = Number.parseInt(input);
   all = Number.parseInt(all);
 
-  if (typeof input != 'number' || Number.isNaN(input)) return '`0`';
-  if (typeof all != 'number' || Number.isNaN(all)) throw new SyntaxError(`arg all must be typeof Number (and not NaN)! Got "${typeof all}"`);
+  if (!Number.parseInt(input)) return '`0`';
+  if (!Number.parseInt(all) && all != 0) throw new SyntaxError(`arg all must be typeof Number (and not NaN)! Got "${typeof all}"`);
 
   return `\`${input}\`` + (all ? `(\`${Number.parseFloat((input / all * 100).toFixed(2))}%\`)` : '');
 }
