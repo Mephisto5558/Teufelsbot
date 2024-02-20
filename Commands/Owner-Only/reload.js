@@ -17,7 +17,7 @@ async function reloadCommand(command, reloadedArray) {
     if (err.code != 'MODULE_NOT_FOUND') throw err;
   }
 
-  const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n) : null;
+  const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n) : undefined;
 
   file.filePath = command.filePath;
   file.category = command.category;
