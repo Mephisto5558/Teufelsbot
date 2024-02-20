@@ -1,7 +1,8 @@
 const
   { parseEmoji, EmbedBuilder, Colors } = require('discord.js'),
   http = require('node:http'),
-  https = require('node:https');
+  https = require('node:https'),
+  { DiscordAPIErrorCodes } = require('../../Utils');
 
 /** @param {string}url @returns {Promise<boolean|Error|string>}*/
 const checkUrl = url => new Promise((resolve, reject) => {
@@ -68,7 +69,7 @@ module.exports = {
     catch (err) {
       if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]')) // no check by err.code because it is just 50035 ("Invalid form body")
         embed.data.description = lang('error', lang('tooBig'));
-      else if (err.code != 30_008 && /* "Maximum number of emojis reached"*/ err.name != 'AbortError' && err.name != 'ConnectTimeoutError') throw err;
+      else if (err.code != DiscordAPIErrorCodes.MaximumNumberOfEmojisReached && err.name != 'AbortError' && err.name != 'ConnectTimeoutError') throw err;
 
       embed.data.description = lang('error', err.name == 'AbortError' || err.name == 'ConnectTimeoutError' ? lang('timedOut') : err.message);
     }
