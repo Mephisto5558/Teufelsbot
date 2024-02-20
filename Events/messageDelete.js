@@ -4,8 +4,8 @@ const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('di
  * @this {Message}
  * @param {lang}lang*/
 function countingHandler(lang) {
-  const lastNum = this.guild.db?.counting?.[this.channel.id]?.lastNumber ?? Number.NaN;
-  if (isNaN(this.originalContent || Number.NaN) || isNaN(lastNum) || lastNum - this.originalContent) return;
+  const lastNum = Number.parseInt(this.guild.db?.counting?.[this.channel.id]?.lastNumber);
+  if (Number.isNaN(Number.parseInt(this.originalContent)) || Number.isNaN(lastNum) || lastNum - this.originalContent) return;
 
   const embed = new EmbedBuilder({
     author: { name: this.user?.username ?? lang('unknown'), iconURL: this.member?.displayAvatarURL() },
@@ -41,8 +41,8 @@ module.exports = async function messageDelete() {
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageDelete })).entries
       .find(e => (!this.user?.id || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < 20_000) ?? {},
     embed = new EmbedBuilder({
-      author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : null,
-      thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: 128 }) } : null,
+      author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
+      thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: 128 }) } : undefined,
       description: lang('messageDelete.embedDescription', { executor: executor ? `<@${executor.id}>` : lang('someone'), channel: this.channel.name }),
       fields: [
         { name: lang('global.channel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: false },
