@@ -22,7 +22,7 @@ module.exports = {
         {
           name: 'style',
           type: 'String',
-          choices: Object.keys(ButtonStyle).filter(Number).map(String),
+          choices: Object.keys(ButtonStyle).filter(e => Number(e)).map(String),
           required: true
         },
         { name: 'emoji', type: 'String' },
