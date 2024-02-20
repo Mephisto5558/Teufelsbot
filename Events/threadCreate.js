@@ -1,4 +1,5 @@
 /** @this {import('discord.js').ThreadChannel}*/
 module.exports = function threadCreate() {
-  if (this.joinable) this.join(',');
+  /* eslint-disable-next-line unicorn/require-array-join-separator */ // `this` is ThreadChannel, not Array
+  if (this.joinable) this.join();
 };
