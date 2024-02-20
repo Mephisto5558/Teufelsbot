@@ -1,6 +1,6 @@
 const
   fetch = require('node-fetch').default,
-  { writeFile } = require('fs/promises');
+  { writeFile } = require('node:fs/promises');
 
 /** Writes all error code to a file*/
 module.exports = async function fetchAndProcess() {
@@ -8,11 +8,11 @@ module.exports = async function fetchAndProcess() {
   const codes = res.split('\n').reduce((acc, line) => {
     const [code, description] = line.slice(2, -2).split(' | ') ?? [];
     if (Number(code) && description) {
-      const name = description.split(/ +/g).reduce((nameAcc, word) => nameAcc + word[0].toUpperCase() + word.slice(1), '').replace(/\(.*?\)/g, '');
+      const name = description.split(/ +/g).reduce((nameAcc, word) => nameAcc + word[0].toUpperCase() + word.slice(1), '').replaceAll(/\(.*?\)/g, '');
       acc[name] = Number(code);
     }
     return acc;
   }, {});
 
-  return writeFile('./Utils/DiscordAPIErrorCodes.json', JSON.stringify(codes, null, 2));
+  return writeFile('./Utils/DiscordAPIErrorCodes.json', JSON.stringify(codes, undefined, 2));
 };

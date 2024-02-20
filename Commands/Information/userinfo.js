@@ -13,8 +13,8 @@ module.exports = {
   options: [{ name: 'target', type: 'User' }],
 
   run: async function (lang) {
-    this.args = this.args?.map(e => e.replace(/[<@&>]/g, '')) ?? [];
-    this.content = this.content?.replace(/[<@&>]/g, '');
+    this.args = this.args?.map(e => e.replaceAll(/[&<>@]/g, '')) ?? [];
+    this.content = this.content?.replaceAll(/[&<>@]/g, '');
 
     const
       member = getTargetMember.call(this, { returnSelf: true }),
@@ -31,7 +31,7 @@ module.exports = {
     const
       embed = new EmbedBuilder({
         title: member.user.tag,
-        color: parseInt((await getAverageColor(member.displayAvatarURL())).hex.substring(1), 16),
+        color: Number.parseInt((await getAverageColor(member.displayAvatarURL())).hex.slice(1), 16),
         thumbnail: { url: member.displayAvatarURL() },
         image: { url: bannerURL && bannerURL + '?size=1024' },
         fields: [
@@ -40,12 +40,12 @@ module.exports = {
           { name: lang('type'), value: type, inline: true },
           { name: lang('position'), value: `\`${this.guild.roles.highest.position - member.roles.highest.position + 1}\`, ${member.roles.highest}`, inline: true },
           { name: lang('roles'), value: `\`${member.roles.cache.size}\``, inline: true },
-          { name: lang('color'), value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.substring(1)})`, inline: true },
+          { name: lang('color'), value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.slice(1)})`, inline: true },
           { name: lang('createdAt'), value: `<t:${Math.round(member.user.createdTimestamp / 1000)}>`, inline: true },
           { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true },
           {
             name: lang('rolesWithPerms'), inline: false,
-            value: Array.from(member.roles.cache.values()).filter(e => e.permissions.toArray().length && e.name != '@everyone').sort((a, b) => a.name.localeCompare(b.name))
+            value: [...member.roles.cache.values()].filter(e => e.permissions.toArray().length && e.name != '@everyone').sort((a, b) => a.name.localeCompare(b.name))
               .join(', ')
           },
           {

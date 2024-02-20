@@ -16,7 +16,7 @@ const
       upvotes: post.ups ?? 0,
       downvotes: post.downs ?? 0,
       comments: post.num_comments ?? 0,
-      ratio: parseFloat(post.upvote_ratio?.toFixed(2) ?? 0),
+      ratio: Number.parseFloat(post.upvote_ratio?.toFixed(2) ?? 0),
       url: `https://www.reddit.com${post.permalink}`,
       imageURL: post.media?.oembed?.thumbnail_url ?? post.url
     };
@@ -42,7 +42,7 @@ module.exports = {
         {
           name: 'subreddit',
           type: 'String',
-          autocompleteOptions: function () { return (this.focused.value.startsWith('r/') ? this.focused.value.slice(2) : this.focused.value).replace(/\W/g, ''); }
+          autocompleteOptions: function () { return (this.focused.value.startsWith('r/') ? this.focused.value.slice(2) : this.focused.value).replaceAll(/\W/g, ''); }
         },
         { name: 'type', type: 'String' },
         { name: 'filter_nsfw', type: 'Boolean' }
@@ -59,7 +59,7 @@ module.exports = {
 
     let subreddit = this.options?.getString('subreddit') ?? this.args?.[0] ?? memeSubreddits.random();
     if (subreddit.startsWith('r/')) subreddit = subreddit.slice(2);
-    subreddit = subreddit.replace(/\W/g, '');
+    subreddit = subreddit.replaceAll(/\W/g, '');
 
     let post;
 
@@ -77,7 +77,7 @@ module.exports = {
       if (res.error) return this.customReply(lang('error', `Error: ${res.message}\nReason: ${res.reason}`));
 
       cachedSubreddits.set(`${subreddit}_${type}`, res.data);
-      setTimeout(() => cachedSubreddits.delete(`${subreddit}_${type}`), 5 * 60000);
+      setTimeout(() => cachedSubreddits.delete(`${subreddit}_${type}`), 5 * 6e4);
 
       post = fetchPost(res.data, filterNSFW);
     }
@@ -87,9 +87,9 @@ module.exports = {
     const
       embed = new EmbedBuilder({
         author: { name: `${post.author} | r/${post.subreddit}` },
-        title: post.title.length < 257 ? post.title : post.title.substring(0, 253) + '...',
+        title: post.title.length < 257 ? post.title : post.title.slice(0, 253) + '...',
         url: post.url,
-        image: { url: !post.imageURL.match(/^https?:\/\//i) ? `https://reddit.com${post.imageURL}` : post.imageURL },
+        image: { url: /^https?:\/\//i.test(post.imageURL) ? post.imageURL : `https://reddit.com${post.imageURL}` },
         footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * 100, downvotes: post.downvotes, comments: post.comments }) }
       }).setColor('Random'),
       component = new ActionRowBuilder({

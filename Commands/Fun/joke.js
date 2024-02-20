@@ -23,9 +23,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
     switch (api.name) {
       case 'jokeAPI': {
         const res = await fetch(`${api.url}?lang=en&blacklist=${blacklist}`, { timeout: 2500 }).then(e => e.json());
-
-        if (res.type == 'twopart') response = `${res.setup}\n\n||${res.delivery}||`;
-        else response = res.joke;
+        response = res.type == 'twopart' ? `${res.setup}\n\n||${res.delivery}||` : res.joke;
 
         break;
       }
@@ -114,6 +112,7 @@ module.exports = {
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('global.anotherone'),
+          /* eslint-disable-next-line unicorn/no-null */
           customId: `joke.${api.name ?? null}.${type ?? null}.${blacklist ?? null}.${maxLength ?? null}`,
           style: ButtonStyle.Primary
         })]

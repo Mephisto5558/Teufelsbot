@@ -10,9 +10,9 @@ module.exports = {
   run: async function (lang) {
     const
       channel = getTargetChannel.call(this, { returnSelf: true }).id,
-      number = parseInt(this.args[0] ?? 0);
+      number = Number.parseInt(this.args[0] ?? 0);
 
-    if (isNaN(number)) return this.reply(lang('invalidNumber'));
+    if (Number.isNaN(number)) return this.reply(lang('invalidNumber'));
 
     await this.client.db.update('guildSettings', `${this.guild.id}.counting.${channel}`, { lastNumber: number, lastAuthor: 'setcountingnumber' });
     return this.reply(lang('success', { channel, number }));

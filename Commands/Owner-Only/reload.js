@@ -1,7 +1,7 @@
 const
   { Collection } = require('discord.js'),
-  { resolve, basename, dirname } = require('path'),
-  { access } = require('fs/promises'),
+  { resolve, basename, dirname } = require('node:path'),
+  { access } = require('node:fs/promises'),
   { formatSlashCommand, slashCommandsEqual } = require('../../Utils');
 
 /**
@@ -17,7 +17,7 @@ async function reloadCommand(command, reloadedArray) {
     if (err.code != 'MODULE_NOT_FOUND') throw err;
   }
 
-  const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n) : null;
+  const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n) : undefined;
 
   file.filePath = command.filePath;
   file.category = command.category;
@@ -54,7 +54,7 @@ async function reloadCommand(command, reloadedArray) {
     this.slashCommands.set(slashFile.name, slashFile);
     reloadedArray.push(`</${slashFile.name}:${slashFile.id ?? 0}>`);
 
-    for (const alias of new Set((slashFile.aliases?.slash ?? []).concat(command.aliases?.slash))) {
+    for (const alias of new Set([...slashFile.aliases?.slash ?? [], ...command.aliases?.slash ?? []])) {
       const { id } = this.slashCommands.get(alias) ?? {};
       let cmdId;
 
@@ -142,7 +142,7 @@ module.exports = {
     const commands = reloadedArray.reduce((acc, e) => acc + (e.startsWith('<') ? e : `\`${e}\``) + ', ', '').slice(0, -2);
     return msg.edit(lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
       count: reloadedArray.length,
-      commands: commands.length < 800 ? commands : commands.substring(0, commands.substring(0, 800).lastIndexOf('`,') + 1) + '...'
+      commands: commands.length < 800 ? commands : commands.slice(0, Math.max(0, commands.slice(0, 800).lastIndexOf('`,') + 1)) + '...'
     }));
   }
 };

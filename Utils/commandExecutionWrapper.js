@@ -10,7 +10,7 @@ module.exports = async function commandExecutionWrapper(command, commandType, la
     commandName = command.aliasOf ?? command.name,
 
     /** @type {lang}*/
-    cmdLang = this.client.i18n.__.bBind(this.client.i18n, { locale: lang.__boundArgs__[0].locale, backupPath: command ? `commands.${command.category.toLowerCase()}.${commandName}` : null });
+    cmdLang = this.client.i18n.__.bBind(this.client.i18n, { locale: lang.__boundArgs__[0].locale, backupPath: command ? `commands.${command.category.toLowerCase()}.${commandName}` : undefined });
 
   log.debug(`Executing ${commandType} command ${commandName}`);
   try {

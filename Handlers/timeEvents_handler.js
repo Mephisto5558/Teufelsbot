@@ -1,6 +1,6 @@
 const
   { CronJob } = require('cron'),
-  { readdir } = require('fs/promises');
+  { readdir } = require('node:fs/promises');
 
 /** @this {Client}*/
 module.exports = async function timeEventsHandler() {

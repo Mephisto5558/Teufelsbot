@@ -6,11 +6,11 @@ const
 
   /** @type {BoundFunction}*/
   /* eslint-disable-next-line no-empty-function, func-names */
-  BoundAsyncFunction = async function () { }.constructor.bind(null, ...vars),
+  BoundAsyncFunction = async function () { }.constructor.bind(undefined, ...vars),
 
   /** @type {BoundFunction}*/
   /* eslint-disable-next-line no-new-func */
-  BoundFunction = Function.bind(null, ...vars);
+  BoundFunction = Function.bind(undefined, ...vars);
 
 /** @type {command<'prefix', false>}*/
 module.exports = {

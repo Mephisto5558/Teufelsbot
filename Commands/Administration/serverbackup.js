@@ -14,14 +14,28 @@ const
       emojis: backup.emojis?.length ?? 0,
       stickers: backup.stickers?.length ?? 0
     }
-    : null;
+    : undefined;
 
 /**
- * @this {import('discord.js').BaseInteraction}
+ * @this {GuildInteraction}
  * @param {object}backup*/
 function checkPerm(backup) {
   const creator = backup?.metadata?.[this.guild.db.serverbackup?.allowedToLoad ?? this.client.defaultSettings.serverbackup.allowedToLoad];
   return Array.isArray(creator) ? creator.includes(this.user.id) : creator == this.user.id;
+}
+
+/**
+ * @this {GuildInteraction}
+ * @param {EmbedBuilder}embed
+ * @param {lang}lang*/
+function createProxy(embed, lang) {
+  return new Proxy({ status: undefined }, {
+    set(obj, prop, value) {
+      obj[prop] = value;
+      this.editReply({ embeds: [embed.setDescription(lang(value))] });
+      return true;
+    }
+  });
 }
 
 const backupMainFunctions = {
@@ -33,13 +47,7 @@ const backupMainFunctions = {
     embed.data.color = Colors.White;
 
     const
-      statusObj = new Proxy({ status: null }, {
-        set(obj, prop, value) {
-          obj[prop] = value;
-          this.editReply({ embeds: [embed.setDescription(lang(value))] });
-          return true;
-        }
-      }),
+      statusObj = createProxy.call(this, embed, lang),
       backup = await this.client.backupSystem.create(this.guild, {
         save: true, backupMembers: true,
         metadata: [
@@ -77,7 +85,7 @@ const backupMainFunctions = {
 
     // Todo: convert to componentHandler
     return (await this.editReply({ embeds: [embed.setColor(Colors.DarkRed).setDescription(lang('load.overwriteWarningDescription'))], components: [buttons] }))
-      .createMessageComponentCollector({ filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: 30000 })
+      .createMessageComponentCollector({ filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: 3e4 })
       .on('collect', async button => {
         await button.deferUpdate();
         if (button.customId != 'overwriteWarning_true') return this.editReply({ embeds: [embed.setDescription(lang('load.cancelled'))], components: [] });
@@ -91,13 +99,7 @@ const backupMainFunctions = {
           return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.enableDMs'))], components: [] });
         }
 
-        const statusObj = new Proxy({ status: null }, {
-          set: function (obj, prop, value) {
-            obj[prop] = value;
-            msg.edit({ embeds: [embed.setDescription(lang(value))] });
-            return true;
-          }
-        });
+        const statusObj = createProxy.call(this, embed, lang);
 
         try {
           const backup = await this.client.backupSystem.load(id, this.guild, {

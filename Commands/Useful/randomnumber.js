@@ -1,4 +1,4 @@
-const { randomInt } = require('crypto');
+const { randomInt } = require('node:crypto');
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -18,8 +18,8 @@ module.exports = {
       min = this.options?.getInteger('minimum') ?? Number(this.args?.[0]),
       max = this.options?.getInteger('maximum') ?? Number(this.args?.[1]);
 
-    if (isNaN(min)) min = 0;
-    if (isNaN(max)) max = 100;
+    if (Number.isNaN(min)) min = 0;
+    if (Number.isNaN(max)) max = 100;
 
     if (min > max) [min, max] = [max, min];
 

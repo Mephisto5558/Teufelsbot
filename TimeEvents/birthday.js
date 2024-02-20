@@ -17,8 +17,8 @@ function formatBirthday(user, year) {
     .replaceAll('<guild.name>', user.guild?.name)
     .replaceAll('<bornyear>', year)
     .replaceAll('<date>', new Date().toLocaleDateString('en'))
-    .replaceAll('<age>', parseInt(year) ? new Date().getFullYear() - year : '<age>')
-    .replace(/<age>\.?/g, ''); // <guilds> gets replaced below
+    .replaceAll('<age>', Number.parseInt(year) ? new Date().getFullYear() - year : '<age>')
+    .replaceAll(/<age>\.?/g, ''); // <guilds> gets replaced below
 }
 
 module.exports = {
@@ -52,14 +52,14 @@ module.exports = {
 
         try { user = await guild.members.fetch(entry[0]); }
         catch (err) {
-          if (err.code != 10007) throw err; // "Unknown member"
-          else continue;
+          if (err.code != DiscordAPIErrorCodes.UnknownMember) throw err;
+          continue;
         }
 
         if (settings?.ch?.channel) {
           try { channel = await guild.channels.fetch(settings.ch.channel); }
           catch (err) {
-            if (err.code != 10003) throw err; // "Unknown channel"
+            if (err.code != DiscordAPIErrorCodes.UnknownChannel) throw err;
             return (await guild.fetchOwner()).send(this.i18n.__({ locale: guild?.db.config?.lang ?? guild?.localeCode }, 'others.timeEvents.birthday.unknownChannel', guild.name));
           }
 

@@ -22,7 +22,7 @@ module.exports = {
         {
           name: 'style',
           type: 'String',
-          choices: Object.keys(ButtonStyle).filter(Number).map(String),
+          choices: Object.keys(ButtonStyle).filter(e => Number(e)).map(String),
           required: true
         },
         { name: 'emoji', type: 'String' },
@@ -73,7 +73,7 @@ module.exports = {
       const button = new ButtonBuilder(custom
         ? JSON.parse(custom)
         : {
-          style: parseInt(this.options.getString('style')),
+          style: Number.parseInt(this.options.getString('style')),
           label: this.options.getString('label'),
           emoji: this.options.getString('emoji'),
           url

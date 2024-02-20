@@ -21,8 +21,8 @@ const
           hostedBy: this.user,
           botsCanWin: false,
           bonusEntries: { bonus: member => bonusEntries[member.id] },
-          embedColor: parseInt(this.options.getString('embed_color')?.substring(1) ?? 0, 16) || this.guild.db.giveaway?.embedColor || defaultSettings.embedColor,
-          embedColorEnd: parseInt(this.options.getString('embed_color_end')?.substring(1) ?? 0, 16) || this.guild.db.giveaway?.embedColorEnd || defaultSettings.embedColorEnd,
+          embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? 0, 16) || this.guild.db.giveaway?.embedColor || defaultSettings.embedColor,
+          embedColorEnd: Number.parseInt(this.options.getString('embed_color_end')?.slice(1) ?? 0, 16) || this.guild.db.giveaway?.embedColorEnd || defaultSettings.embedColorEnd,
           reaction, duration,
           messages: {
             giveaway: lang('newGiveaway'),
@@ -232,7 +232,7 @@ module.exports = {
     }
 
     const
-      bonusEntries = this.options.getString('bonus_entries')?.split(' ').map(e => ({ [e.split(':')[0].replace(/\D/g, '')]: e.split(':')[1] })),
+      bonusEntries = this.options.getString('bonus_entries')?.split(' ').map(e => ({ [e.split(':')[0].replaceAll(/\D/g, '')]: e.split(':')[1] })),
       requiredRoles = this.options.getString('required_roles')?.replace(/\D/g, '').split(' '),
       disallowedMembers = this.options.getString('exempt_member')?.replace(/\D/g, '').split(' '),
       components = [new ActionRowBuilder({

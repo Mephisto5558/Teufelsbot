@@ -17,9 +17,9 @@ function getCommandCategories() { return [...new Set(getCommands.call(this).map(
  * @param {string[]?}commandCategories*/
 function createCategoryComponent(lang, commandCategories) {
   commandCategories ??= getCommandCategories.call(this);
-  const defaultOption = (this.options?.getString('command') ? null : this.options?.getString('category'))
+  const defaultOption = (this.options?.getString('command') ? undefined : this.options?.getString('category'))
     ?? (this.client.prefixCommands.get(this.args?.[0]) ?? this.client.slashCommands.get(this.args?.[0]))?.category
-    ?? (this.values ? this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value : null);
+    ?? (this.values ? this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value : undefined);
 
   if (this.message?.components.length) {
     if (defaultOption) {
@@ -49,7 +49,7 @@ function createCategoryComponent(lang, commandCategories) {
  * @param {string}category*/
 function createCommandsComponent(lang, category) {
   const defaultOption = this.args?.[0] ?? this.options?.getString('command')
-    ?? (this.message?.components[1] ? this.message.components[1].components[0].options.find(e => e.value === this.values[0])?.value : null);
+    ?? (this.message?.components[1] ? this.message.components[1].components[0].options.find(e => e.value === this.values[0])?.value : undefined);
 
   return new ActionRowBuilder({
     components: [new StringSelectMenuBuilder({
@@ -88,8 +88,8 @@ function createInfoFields(cmd, lang, helpLang) {
     arr.push({
       name: lang('one.cooldowns'), inline: false,
       value: cooldowns.map(([k, v]) => {
-        const min = Math.floor(v / 60000);
-        let sec = v % 60000 / 1000;
+        const min = Math.floor(v / 6e4);
+        let sec = v % 6e4 / 1000;
         sec = sec % 1 ? sec.toFixed(2) : Math.floor(sec);
 
         if (min && sec) return `${lang('global.' + k)}: ${min}min ${sec}s`;
@@ -99,9 +99,12 @@ function createInfoFields(cmd, lang, helpLang) {
   }
 
   if (helpLang('usage.usage')) {
-    arr.push({ name: '```' + lang('one.usage') + '```', value: helpLang('usage.usage', prefix), inline: true });
-    arr.push({ name: '```' + lang('one.examples') + '```', value: helpLang('usage.examples', prefix), inline: true });
+    arr.push(
+      { name: '```' + lang('one.usage') + '```', value: helpLang('usage.usage', prefix), inline: true },
+      { name: '```' + lang('one.examples') + '```', value: helpLang('usage.examples', prefix), inline: true }
+    );
   }
+
 
   return arr;
 }
@@ -190,7 +193,8 @@ module.exports.allQuery = function allQuery(lang) {
     embed = new EmbedBuilder({
       title: lang('all.embedTitle'),
       description: lang(commandCategories.length ? 'all.embedDescription' : 'all.notFound'),
-      fields: commandCategories.map(e => ({ name: lang(`options.category.choices.${e.toLowerCase()}`), value: lang(`commands.${e.toLowerCase()}.categoryDescription`) + '\n‎', inline: true })),
+      // /u200E is used here to add extra space
+      fields: commandCategories.map(e => ({ name: lang(`options.category.choices.${e.toLowerCase()}`), value: lang(`commands.${e.toLowerCase()}.categoryDescription`) + '\n\u200E', inline: true })),
       footer: { text: lang('all.embedFooterText') },
       color: commandCategories.length ? Colors.Blurple : Colors.Red
     });

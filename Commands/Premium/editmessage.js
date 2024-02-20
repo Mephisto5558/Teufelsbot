@@ -72,13 +72,13 @@ module.exports = {
       else if (json.every?.(e => e.description !== undefined)) json = { embeds: json };
       json.content.length = 2000;
 
-      await msg.edit(clear ? { content: null, embeds: [], attachments: [], files: [], components: [], ...json } : json);
+      await msg.edit(clear ? { content: '', embeds: [], attachments: [], files: [], components: [], ...json } : json);
     }
     catch (err) {
       if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', err.message));
     }
 
-    if (!json) await msg.edit(clear ? { content: content.substring(0, 2001), embeds: [], attachments: [], files: [], components: [] } : content.substring(0, 2001));
+    if (!json) await msg.edit(clear ? { content: content.slice(0, 2001), embeds: [], attachments: [], files: [], components: [] } : content.slice(0, 2001));
 
     return modalInteraction.editReply(lang('success', msg.url));
   }

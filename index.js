@@ -5,7 +5,7 @@ Error.stackTraceLimit = 100;
 
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
-  { readdir } = require('fs/promises'),
+  { readdir } = require('node:fs/promises'),
   { WebServer } = require('@mephisto5558/bot-website'),
   { GiveawaysManager, gitpull, errorHandler, getCommands } = require('./Utils'),
   { discordInvite, mailAddress, Website, disableWebserver } = require('./config.json'),

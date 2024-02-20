@@ -2,8 +2,8 @@ const
   { BaseInteraction, Message, Collection, AutocompleteInteraction, User, Guild, GuildMember, ButtonBuilder, Events, Client } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
-  { randomInt } = require('crypto'),
-  { join } = require('path'),
+  { randomInt } = require('node:crypto'),
+  { join } = require('node:path'),
   { DB } = require('@mephisto5558/mongoose-db'),
   I18nProvider = require('@mephisto5558/i18n'),
   { Log, customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
@@ -29,7 +29,7 @@ if (parentUptime) {
 }
 
 global.log = new Log();
-global.sleep = require('util').promisify(setTimeout);
+global.sleep = require('node:util').promisify(setTimeout);
 
 Object.defineProperty(Array.prototype, 'random', {
   /** @type {global['Array']['prototype']['random']}*/
@@ -38,12 +38,14 @@ Object.defineProperty(Array.prototype, 'random', {
 });
 Object.defineProperty(Number.prototype, 'limit', {
   /** @type {global['Number']['prototype']['limit']}*/
-  value: function limit({ min = -Infinity, max = Infinity } = {}) { return Math.min(Math.max(Number(this), min), max); },
+  value: function limit({ min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY } = {}) { return Math.min(Math.max(Number(this), min), max); },
   enumerable: false
 });
 Object.defineProperty(Object.prototype, 'fMerge', {
   /** @type {global['Object']['prototype']['fMerge']}*/
-  value: function fMerge(obj, mode, { ...output } = { ...this }) {
+  value: function fMerge(obj, mode, { ...output }) {
+    output ??= { ...this };
+
     if (this != '[object Object]' || obj != '[object Object]') return output;
     for (const key of Object.keys({ ...this, ...obj })) {
       if (this[key] == '[object Object]') output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];

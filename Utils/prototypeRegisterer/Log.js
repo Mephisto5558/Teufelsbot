@@ -1,4 +1,4 @@
-const { appendFile, access, mkdir } = require('fs/promises');
+const { appendFile, access, mkdir } = require('node:fs/promises');
 
 module.exports = class Log extends Function {
   constructor() {

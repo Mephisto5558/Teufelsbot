@@ -2,6 +2,12 @@ const
   { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes } = require('discord.js'),
   { logSayCommandUse } = require('../../Utils');
 
+/**
+ * @param {Interaction}interaction
+ * @param {string}name*/
+// 2nd const keyword because of intellisense
+const getStringOption = (interaction, name) => interaction.options.getString(name)?.replaceAll('/n', '\n');
+
 /** @type {command<'slash', false>}*/
 module.exports = {
   name: 'embed',
@@ -57,7 +63,9 @@ module.exports = {
 
   run: async function (lang) {
     const
-      getOption = name => this.options.getString(name)?.replaceAll('/n', '\n'),
+
+      /** @type {(name: string) => string|undefined}*/
+      getOption = getStringOption.bind(undefined, this),
       custom = getOption('json'),
       allowedMentions = { parse: [AllowedMentionsTypes.User] };
 
@@ -71,7 +79,7 @@ module.exports = {
           description: getOption('description'),
           thumbnail: { url: getOption('thumbnail') },
           image: { url: getOption('image') },
-          color: parseInt(getOption('custom_color')?.substring(1) ?? 0, 16) || Colors[getOption('predefined_color')] || 0,
+          color: Number.parseInt(getOption('custom_color')?.slice(1) ?? 0, 16) || Colors[getOption('predefined_color')] || 0,
           footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
           timestamp: this.options.getBoolean('timestamp') && Math.round(Date.now() / 1000),
           author: {
@@ -81,10 +89,9 @@ module.exports = {
           }
         });
 
-      if (this.member.permissionsIn(this.channel).has(PermissionFlagsBits.MentionEveryone)) {
-        allowedMentions.parse.push(AllowedMentionsTypes.Role);
-        allowedMentions.parse.push(AllowedMentionsTypes.Everyone);
-      }
+      if (this.member.permissionsIn(this.channel).has(PermissionFlagsBits.MentionEveryone))
+        allowedMentions.parse.push(AllowedMentionsTypes.Role, AllowedMentionsTypes.Everyone);
+
 
       sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed], allowedMentions });
     }

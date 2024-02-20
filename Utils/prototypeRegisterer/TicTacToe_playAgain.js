@@ -24,7 +24,7 @@ module.exports = async function playAgain(interaction, lang) {
 
   const collector = (await interaction.editReply({ components })).createMessageComponentCollector({
     filter: i => [interaction.user.id, opponent?.id].includes(i.member.id) && i.customId == 'playAgain',
-    max: 1, componentType: ComponentType.Button, time: 15000
+    max: 1, componentType: ComponentType.Button, time: 15_000
   });
 
   collector

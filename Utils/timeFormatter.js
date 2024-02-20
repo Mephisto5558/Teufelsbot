@@ -2,6 +2,7 @@
  * @param {number}sec
  * @param {lang?}lang
  * @returns {{ total: number; negative: boolean; formatted: string }} `formatted` has the format 'year-day, hour:minute:second' if `lang` is not provided.*/
+/* eslint-disable-next-line unicorn/no-useless-undefined */
 function timeFormatter(sec = 0, lang = undefined) {
   const
     total = sec * 1000,
@@ -42,15 +43,15 @@ function testTimeFormatter() {
     { input: 0, expectedOutput: '0000-00, 00:00:00' },
     { input: 60, expectedOutput: '0000-00, 00:01:00' },
     { input: 3600, expectedOutput: '0000-00, 01:00:00' },
-    { input: 86400, expectedOutput: '0000-01, 00:00:00' },
-    { input: 604800, expectedOutput: '0000-07, 00:00:00' },
-    { input: 2592000, expectedOutput: '0000-30, 00:00:00' },
-    { input: 31536000, expectedOutput: '0001-00, 00:00:00' },
-    { input: 31536000 + 604800, expectedOutput: '0001-07, 00:00:00' },
-    { input: 31536000 + 86400 * 30, expectedOutput: '0001-30, 00:00:00' },
-    { input: 31536000 + 86400 * 365, expectedOutput: '0002-00, 00:00:00' },
-    { input: 31536000 + 86400 * 365 + 604800, expectedOutput: '0002-07, 00:00:00' },
-    { input: 31536000 + 86400 * 365 + 86400 * 30, expectedOutput: '0002-30, 00:00:00' }
+    { input: 86_400, expectedOutput: '0000-01, 00:00:00' },
+    { input: 604_800, expectedOutput: '0000-07, 00:00:00' },
+    { input: 2_592_000, expectedOutput: '0000-30, 00:00:00' },
+    { input: 31_536_000, expectedOutput: '0001-00, 00:00:00' },
+    { input: 31_536_000 + 604_800, expectedOutput: '0001-07, 00:00:00' },
+    { input: 31_536_000 + 86_400 * 30, expectedOutput: '0001-30, 00:00:00' },
+    { input: 31_536_000 + 86_400 * 365, expectedOutput: '0002-00, 00:00:00' },
+    { input: 31_536_000 + 86_400 * 365 + 604_800, expectedOutput: '0002-07, 00:00:00' },
+    { input: 31_536_000 + 86_400 * 365 + 86_400 * 30, expectedOutput: '0002-30, 00:00:00' }
   ];
 
   for (const { input, expectedOutput } of testCases) {

@@ -59,13 +59,14 @@ const
         embed.data.title = lang('getAll.embedTitle');
 
         const
-          guildMembers = (await this.guild.members.fetch()).map(e => e.id),
-          currentTime = new Date().getTime(),
+          guildMembers = new Set((await this.guild.members.fetch()).map(e => e.id)),
+          currentTime = Date.now(),
           data = Object.entries(this.client.db.get('userSettings') ?? {})
             .reduce((acc, [k, { birthday } = {}]) => {
-              if (birthday && guildMembers.includes(k)) acc.push([k, ...birthday.split('/')]);
+              if (birthday && guildMembers.has(k)) acc.push([k, ...birthday.split('/')]);
               return acc;
             }, [])
+            /* eslint-disable-next-line unicorn/no-unreadable-array-destructuring */ // It's more clear this way
             .sort(([, , month1, day1], [, , month2, day2]) => {
               const time = [new Date(currentYear, month1 - 1, day1), new Date(currentYear, month2 - 1, day2)];
               if (time[0] < currentTime) time[0].setFullYear(currentYear + 1, month1 - 1, day1);

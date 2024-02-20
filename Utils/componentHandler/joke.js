@@ -13,6 +13,7 @@ module.exports = function joke(lang, api, type, blacklist, maxLength) {
 
   this.options = {
     /** @param {string}str*/
+    /* eslint-disable unicorn/no-null */ // Mimicing discord.js behavior
     getString: str => {
       switch (str) {
         case 'api': return api == 'null' ? null : api;
@@ -22,6 +23,7 @@ module.exports = function joke(lang, api, type, blacklist, maxLength) {
       }
     },
     getInteger: () => maxLength == 'null' ? null : maxLength
+    /* eslint-enable unicorn/no-null */
   };
 
   this.update({ components: [] });

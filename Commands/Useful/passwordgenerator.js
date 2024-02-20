@@ -33,9 +33,7 @@ module.exports = {
     let
       passwordList = '',
       charset = [...new Set( // new Set() makes sure there are no duplicate entries
-        defaultCharset
-          .filter(char => !exclude.includes(char)) // Remove exclude chars from the charset
-          .concat(Array.from(include)) // Add include chars to the charset
+        [...defaultCharset.filter(char => !exclude.includes(char)), ...include] // Remove exclude chars and add include chars to the charset
       )].join('');
 
     if (!charset.length) return this.editReply(lang('charsetEmpty')); // Return if charset is empty
@@ -49,15 +47,16 @@ module.exports = {
       for (let i = 0; i < length; i++) {
         // Filters the last selected entry out and selects a list entry based on a secure random number generator. Defined in Utils/prototypeRegisterer.js.
         /* eslint-disable-next-line no-loop-func */
-        const randomChar = charset.split('').filter(e => e != lastRandomChar).random();
-        if (lastRandomChar + randomChar == '\n') passwordList += '\\n'; // Escape \n so it doesn't break formatting
-        else passwordList += randomChar; // Adds one of the chars in the charset to the password
+        const randomChar = [...charset].filter(e => e != lastRandomChar).random();
+
+        // Adds one of the chars in the charset to the passwort, escape \n so it doesn't break formatting
+        passwordList += lastRandomChar + randomChar == '\n' ? '\\n' : randomChar;
         lastRandomChar = randomChar; // Sets lastRandomChar to the last generated char
       }
       passwordList += '```\n';
     }
 
-    if (charset.length > 100) charset = charset.substring(0, 97) + '...'; // Limits the *displayed* charset length
+    if (charset.length > 100) charset = charset.slice(0, 97) + '...'; // Limits the *displayed* charset length
 
     return this.editReply(lang('success', { passwords: passwordList, charset }));
   }
