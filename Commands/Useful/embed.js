@@ -2,6 +2,12 @@ const
   { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes } = require('discord.js'),
   { logSayCommandUse } = require('../../Utils');
 
+/**
+ * @param {Interaction}interaction
+ * @param {string}name*/
+// 2nd const keyword because of intellisense
+const getStringOption = (interaction, name) => interaction.options.getString(name)?.replaceAll('/n', '\n');
+
 /** @type {command<'slash', false>}*/
 module.exports = {
   name: 'embed',
@@ -57,7 +63,9 @@ module.exports = {
 
   run: async function (lang) {
     const
-      getOption = name => this.options.getString(name)?.replaceAll('/n', '\n'),
+
+      /** @type {(name: string) => string|undefined}*/
+      getOption = getStringOption.bind(undefined, this),
       custom = getOption('json'),
       allowedMentions = { parse: [AllowedMentionsTypes.User] };
 
