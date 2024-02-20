@@ -4,7 +4,7 @@ const
     AttachmentBuilder, StickerType, Collection, DiscordAPIError, GuildVerificationLevel, GuildExplicitContentFilter
   } = require('discord.js'),
   fetch = require('node-fetch'),
-  { DiscordAPIErrorCodes } = require('../Utils');
+  DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json');
 
 class BackupSystem {
   /**
