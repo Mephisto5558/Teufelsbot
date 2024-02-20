@@ -62,7 +62,7 @@ module.exports = function format(option, path, i18n) {
 
     if (!option.type) option.type = ApplicationCommandType.ChatInput;
     else if (!ApplicationCommandType[option.type]) { if (!option.disabled) throw new Error(`Invalid option.type, got "${option.type}" (${path})`); }
-    else if (isNaN(option.type)) option.type = ApplicationCommandType[option.type];
+    else if (typeof option.type != 'number' || Number.isNaN(option.type)) option.type = ApplicationCommandType[option.type];
 
     if (option.permissions?.user?.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions.user);
     option.dmPermission ??= false;
@@ -73,12 +73,12 @@ module.exports = function format(option, path, i18n) {
   if ('channelTypes' in option) {
     option.channelTypes = option.channelTypes.map(e => {
       if (!(e in ChannelType)) throw new Error(`Invalid option.channelType, got "${e}" (${path})`);
-      return isNaN(e) ? ChannelType[e] : e;
+      return Number.parseInt(e) || ChannelType[e];
     });
   }
 
   if (!option.type || !ApplicationCommandOptionType[option.type]) throw new Error(`Missing or invalid option.type, got "${option.type}" (${path})`);
-  if (isNaN(option.type)) option.type = ApplicationCommandOptionType[option.type];
+  if (typeof option.type != 'number' || Number.isNaN(option.type)) option.type = ApplicationCommandOptionType[option.type];
 
   if ([ApplicationCommandOptionType.Number, ApplicationCommandOptionType.Integer].includes(option.type) && ('minLength' in option || 'maxLength' in option))
     throw new Error(`Number and Integer options do not support "minLength" and "maxLength" (${path})`);
