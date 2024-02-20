@@ -14,5 +14,5 @@ module.exports = async function fetchAndProcess() {
     return acc;
   }, {});
 
-  return writeFile('./Utils/DiscordAPIErrorCodes.json', JSON.stringify(codes, null, 2));
+  return writeFile('./Utils/DiscordAPIErrorCodes.json', JSON.stringify(codes, undefined, 2));
 };
