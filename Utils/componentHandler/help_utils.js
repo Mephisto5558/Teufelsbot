@@ -88,8 +88,8 @@ function createInfoFields(cmd, lang, helpLang) {
     arr.push({
       name: lang('one.cooldowns'), inline: false,
       value: cooldowns.map(([k, v]) => {
-        const min = Math.floor(v / 60_000);
-        let sec = v % 60_000 / 1000;
+        const min = Math.floor(v / 6e4);
+        let sec = v % 6e4 / 1000;
         sec = sec % 1 ? sec.toFixed(2) : Math.floor(sec);
 
         if (min && sec) return `${lang('global.' + k)}: ${min}min ${sec}s`;
@@ -99,9 +99,12 @@ function createInfoFields(cmd, lang, helpLang) {
   }
 
   if (helpLang('usage.usage')) {
-    arr.push({ name: '```' + lang('one.usage') + '```', value: helpLang('usage.usage', prefix), inline: true });
-    arr.push({ name: '```' + lang('one.examples') + '```', value: helpLang('usage.examples', prefix), inline: true });
+    arr.push(
+      { name: '```' + lang('one.usage') + '```', value: helpLang('usage.usage', prefix), inline: true },
+      { name: '```' + lang('one.examples') + '```', value: helpLang('usage.examples', prefix), inline: true }
+    );
   }
+
 
   return arr;
 }
@@ -190,7 +193,8 @@ module.exports.allQuery = function allQuery(lang) {
     embed = new EmbedBuilder({
       title: lang('all.embedTitle'),
       description: lang(commandCategories.length ? 'all.embedDescription' : 'all.notFound'),
-      fields: commandCategories.map(e => ({ name: lang(`options.category.choices.${e.toLowerCase()}`), value: lang(`commands.${e.toLowerCase()}.categoryDescription`) + '\n‎', inline: true })),
+      // /u200E is used here to add extra space
+      fields: commandCategories.map(e => ({ name: lang(`options.category.choices.${e.toLowerCase()}`), value: lang(`commands.${e.toLowerCase()}.categoryDescription`) + '\n\u200E', inline: true })),
       footer: { text: lang('all.embedFooterText') },
       color: commandCategories.length ? Colors.Blurple : Colors.Red
     });
