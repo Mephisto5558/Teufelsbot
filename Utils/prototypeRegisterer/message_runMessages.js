@@ -29,7 +29,7 @@ module.exports = async function runMessages() {
           this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', countingData.lastNumber)
           + this.client.i18n.__(
             { locale: this.guild.localeCode },
-            countingData.lastNumber + 1 == this.originalContent ? 'events.message.counting.sameUserTwice' : 'events.message.counting.wrongNumber'
+            countingData.lastAuthor == this.user.id ? 'events.message.counting.sameUserTwice' : 'events.message.counting.wrongNumber'
           )
         );
       }
