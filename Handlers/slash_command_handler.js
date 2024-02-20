@@ -88,7 +88,7 @@ module.exports = async function slashCommandHandler() {
     }
   }
 
-  this.on('interactionCreate', args => require('../Events/interactionCreate.js').call(...[args ?? this].flat()));
+  this.on('interactionCreate', interaction => require('../Events/interactionCreate.js').call(interaction));
 
   /* eslint-disable no-unexpected-multiline, @stylistic/indent, @stylistic/function-call-spacing */
   log
