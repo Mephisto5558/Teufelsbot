@@ -2,6 +2,15 @@ const
   { timeFormatter } = require('../../Utils');
 
 /**
+ * @this {Message|Interaction}
+ * @param {string}name
+ * @param {number?}i*/
+function getInteger(name, i) {
+  const num = this.options?.getInteger(name) ?? Number.parseInt(this.args?.[i]);
+  return typeof num != 'number' || Number.isNaN(num) ? undefined : num;
+}
+
+/**
  * @param {number}year
  * @param {number}month
  * @param {number}day
@@ -57,16 +66,14 @@ module.exports = {
 
   run: function (lang) {
     const
-      getInt = (k, i) => {
-        const num = this.options?.getInteger(k) ?? Number.parseInt(this.args?.[i]) ?? null;
-        return isNaN(num) ? null : num;
-      },
+      getInt = getInteger.bind(this),
       day = getInt('day', 0),
       month = getInt('month', 1) - 1,
       year = getInt('year', 2),
       hour = getInt('hour', 3),
       minute = getInt('minute', 4),
       second = getInt('second', 5),
+      /* eslint-disable-next-line unicorn/no-null */ // `undefined` would make it an `Invalid Date`
       date = day ?? month ?? year ? createDate(year, month, day, hour, minute, second) : new Date(null, null, null, hour, minute, second),
       { formatted, negative } = timeFormatter((date.getTime() - Date.now()) / 1000, lang);
 
