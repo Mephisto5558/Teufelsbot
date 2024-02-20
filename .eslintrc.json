@@ -1,4 +1,5 @@
 {
+  "root": true,
   "extends": "@mephisto5558/eslint-config",
   "globals": {
     // promisified setTimeout
