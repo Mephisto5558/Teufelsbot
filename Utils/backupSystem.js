@@ -1,5 +1,8 @@
 const
-  { SnowflakeUtil, GatewayIntentBits, ChannelType, OverwriteType, Constants, GuildFeature, AttachmentBuilder, StickerType, Collection, DiscordAPIError } = require('discord.js'),
+  {
+    SnowflakeUtil, GatewayIntentBits, ChannelType, OverwriteType, Constants, GuildFeature,
+    AttachmentBuilder, StickerType, Collection, DiscordAPIError, GuildVerificationLevel, GuildExplicitContentFilter
+  } = require('discord.js'),
   fetch = require('node-fetch'),
   { DiscordAPIErrorCodes } = require('../Utils');
 
@@ -32,7 +35,7 @@ class BackupSystem {
   /**
    * @param {string}backupId
    * @param {string}guildId*/
-  get = (backupId, guildId) => this.db.get(this.dbName, backupId ? `${(guildId ?? '') + backupId}` : null);
+  get = (backupId, guildId) => backupId ? this.db.get(this.dbName, (guildId ?? '') + backupId) : undefined;
 
   /**
    * @param {import('discord.js').Snowflake}guildId
@@ -46,10 +49,10 @@ class BackupSystem {
   remove = backupId => this.db.delete(this.dbName, backupId);
 
   /**
-   * @param {import('discord.js').Guild} guild
-   * @param {object?}                    statusObj the status property gets updated*/
+   * @param {import('discord.js').Guild}guild
+   * @param {object?}statusObj the status property gets updated*/
   create = async (guild, {
-    statusObj = {}, id = null, save = true, maxGuildBackups = this.defaultSettings.maxGuildBackups,
+    statusObj = {}, id, save = true, maxGuildBackups = this.defaultSettings.maxGuildBackups,
     backupMembers = false, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     doNotBackup = [], saveImages = this.defaultSettings.saveImages, metadata
   } = {}) => {
@@ -61,7 +64,7 @@ class BackupSystem {
     const updateStatus = status => statusObj.status = status;
     const data = {
       id: id ?? guild.id + SnowflakeUtil.generate().toString(),
-      metadata: metadata ?? null,
+      metadata: metadata ?? undefined,
       createdTimestamp: Date.now(),
       name: guild.name,
       guildId: guild.id,
@@ -77,10 +80,10 @@ class BackupSystem {
       verificationLevel: guild.verificationLevel,
       explicitContentFilter: guild.explicitContentFilter,
       defaultMessageNotifications: guild.defaultMessageNotifications,
-      afk: guild.afkChannel ? { name: guild.afkChannel.name, timeout: guild.afkTimeout } : null,
+      afk: guild.afkChannel ? { name: guild.afkChannel.name, timeout: guild.afkTimeout } : undefined,
       widget: {
         enabled: guild.widgetEnabled,
-        channel: guild.widgetChannel ? guild.widgetChannel.name : null
+        channel: guild.widgetChannel?.name
       },
       members: backupMembers
         ? (updateStatus('create.members') && await guild.members.fetch()).map(e => ({
@@ -116,7 +119,7 @@ class BackupSystem {
           name: e.name, description: e.description, tags: e.tags, ...saveImages ? { base64: await this.utils.fetchToBase64(e.url) } : { url: e.url }
         }))),
       channels: doNotBackup?.includes('channels')
-        ? null
+        ? undefined
         : {
           categories: await Promise.all(updateStatus('create.channels') && (await guild.channels.fetch()).filter(e => e.type == ChannelType.GuildCategory).sort((a, b) => a.position - b.position)
             .map(async e => ({
@@ -210,7 +213,7 @@ class BackupSystem {
       statusObj.status = 'clear.items';
       for (const [, item] of [
         ...await guild.channels.fetch(), ...await guild.emojis.fetch(), ...await guild.stickers.fetch(),
-        ...(await guild.roles.fetch()).filter(e => !e.managed && e.editable && e.id != guild.id && !guild.roles.cache.find(e2 => e2.name == e.name && e2.editable))
+        ...(await guild.roles.fetch()).filter(e => !e.managed && e.editable && e.id != guild.id && !guild.roles.cache.some(e2 => e2.name == e.name && e2.editable))
       ]) {
         try { await item.delete(reason); }
         catch (err) {
@@ -230,9 +233,10 @@ class BackupSystem {
 
       statusObj.status = 'clear.settings';
       await guild.edit({
+        /* eslint-disable unicorn/no-null */
         reason,
-        verificationLevel: guild.features.includes(GuildFeature.Community) ? undefined : null,
-        explicitContentFilter: guild.features.includes(GuildFeature.Community) ? undefined : null,
+        verificationLevel: guild.features.includes(GuildFeature.Community) ? undefined : GuildVerificationLevel.None,
+        explicitContentFilter: guild.features.includes(GuildFeature.Community) ? undefined : GuildExplicitContentFilter.Disabled,
         afkTimeout: 300,
         systemChannel: null,
         systemChannelFlags: [],
@@ -245,6 +249,7 @@ class BackupSystem {
       });
 
       if (data.widget.enabled != guild.widgetEnabled || guild.widgetChannel) await guild.setWidgetSettings({ enabled: false, channel: null }, reason);
+      /* eslint-enable unicorn/no-null */
     }
 
     statusObj.status = 'load.settings';
@@ -303,20 +308,20 @@ class BackupSystem {
         type: ChannelType.GuildCategory,
         permissionOverwrites: category.permissions.map(e => {
           const role = guild.roles.cache.find(e2 => e2.name == e.name);
-          return role ? { id: role.id, allow: BigInt(e.allow), deny: BigInt(e.deny) } : null;
+          return role ? { id: role.id, allow: BigInt(e.allow), deny: BigInt(e.deny) } : undefined;
         })
       });
 
       for (const child of category.children) await this.utils.loadChannel(child, guild, channel, maxMessagesPerChannel, allowedMentions);
     }
 
-    for (const channel of data.channels.others) await this.utils.loadChannel(channel, guild, null, maxMessagesPerChannel, allowedMentions);
+    for (const channel of data.channels.others) await this.utils.loadChannel(channel, guild, undefined, maxMessagesPerChannel, allowedMentions);
 
     statusObj.status = 'load.emojis';
     for (const emoji of data.emojis) {
       try { await guild.emojis.create({ name: emoji.name, attachment: emoji.url ?? this.utils.loadFromBase64(emoji.base64), reason }); }
       catch (err) {
-        if (err.code != 30_008) throw err; // "Maximum number of emojis reached"
+        if (err.code != DiscordAPIErrorCodes.MaximumNumberOfEmojisReached) throw err;
         break;
       }
     }
@@ -325,7 +330,7 @@ class BackupSystem {
     for (const sticker of data.stickers) {
       try { await guild.stickers.create({ name: sticker.name, description: sticker.description, tags: sticker.tags, file: sticker.url ?? this.utils.loadFromBase64(sticker.base64), reason }); }
       catch (err) {
-        if (err.code != 30_039) throw err; // "Maximum number of stickers reached"
+        if (err.code != DiscordAPIErrorCodes.MaximumNumberOfStickersReached) throw err;
         break;
       }
     }
@@ -363,10 +368,10 @@ class BackupSystem {
 
   static utils = {
     /** @param {string}url*/
-    fetchToBase64: async url => url ? (await fetch(url).then(e => e.buffer())).toString('base64') : null,
+    fetchToBase64: async url => url ? (await fetch(url).then(e => e.buffer())).toString('base64') : undefined,
 
     /** @param {string}str*/
-    loadFromBase64: str => str ? Buffer.from(str, 'base64') : null,
+    loadFromBase64: str => str ? Buffer.from(str, 'base64') : undefined,
 
     /** @param {import('discord.js').GuildChannel}channel*/
     fetchChannelPermissions: channel => channel.permissionOverwrites.cache.filter(e => e.type == OverwriteType.Role).map(e => {
@@ -377,7 +382,7 @@ class BackupSystem {
           allow: e.allow.bitfield.toString(),
           deny: e.deny.bitfield.toString()
         }
-        : null;
+        : undefined;
     }),
 
     /**
@@ -414,8 +419,8 @@ class BackupSystem {
      * @param {import('discord.js').GuildChannel}channel
      * @param {boolean}saveImages
      * @param {number}maxMessagesPerChannel*/
-    fetchChannelMessages: async (channel, saveImages, maxMessagesPerChannel) => Promise.all(
-      (await channel.messages.fetch({ limit: isNaN(maxMessagesPerChannel) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: 100 }) })).filter(e => e.author).map(async e => ({
+    fetchChannelMessages: async (channel, saveImages, maxMessagesPerChannel = 10) => Promise.all(
+      (await channel.messages.fetch({ limit: Number.isNaN(Number.parseInt(maxMessagesPerChannel)) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: 100 }) })).filter(e => e.author).map(async e => ({
         username: e.author.username,
         avatar: e.author.avatarURL(),
         content: e.cleanContent,
@@ -460,7 +465,7 @@ class BackupSystem {
       if (Constants.TextBasedChannelTypes.includes(channel.type)) {
         let webhook;
         if (channel.messages.length > 0) {
-          try { webhook = await this.utils.loadChannelMessages(newChannel, channel.messages, null, maxMessagesPerChannel, allowedMentions); }
+          try { webhook = await this.utils.loadChannelMessages(newChannel, channel.messages, undefined, maxMessagesPerChannel, allowedMentions); }
           catch (err) {
             if (!(err instanceof DiscordAPIError)) throw err;
           }
