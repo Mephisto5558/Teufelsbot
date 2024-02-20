@@ -67,6 +67,7 @@ module.exports = async function errorHandler(err, message, lang) {
           if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
         }
 
+        /* eslint-disable-next-line unicorn/no-null */
         return msg.edit({ embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', json.html_url))], components: [] });
       }
       catch (err) {
