@@ -13,7 +13,7 @@ module.exports = {
 
   run: function (lang) {
     this.args = this.args?.map(e => e.replaceAll(/[<>@]/g, '')) ?? [];
-    this.content = this.content?.replace(/[<>@]/g, '');
+    this.content = this.content?.replaceAll(/[<>@]/g, '');
 
     const role = getTargetRole({ targetOptionName: 'role', returnSelf: true });
     if (!role) return this.customReply(lang('notFound'));

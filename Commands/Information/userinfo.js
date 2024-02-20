@@ -14,7 +14,7 @@ module.exports = {
 
   run: async function (lang) {
     this.args = this.args?.map(e => e.replaceAll(/[&<>@]/g, '')) ?? [];
-    this.content = this.content?.replace(/[&<>@]/g, '');
+    this.content = this.content?.replaceAll(/[&<>@]/g, '');
 
     const
       member = getTargetMember.call(this, { returnSelf: true }),
