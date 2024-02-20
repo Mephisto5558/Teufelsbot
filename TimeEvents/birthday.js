@@ -52,14 +52,14 @@ module.exports = {
 
         try { user = await guild.members.fetch(entry[0]); }
         catch (err) {
-          if (err.code == 10_007) continue; // "Unknown member"
-          else throw err;
+          if (err.code != DiscordAPIErrorCodes.UnknownMember) throw err;
+          continue;
         }
 
         if (settings?.ch?.channel) {
           try { channel = await guild.channels.fetch(settings.ch.channel); }
           catch (err) {
-            if (err.code != 10_003) throw err; // "Unknown channel"
+            if (err.code != DiscordAPIErrorCodes.UnknownChannel) throw err;
             return (await guild.fetchOwner()).send(this.i18n.__({ locale: guild?.db.config?.lang ?? guild?.localeCode }, 'others.timeEvents.birthday.unknownChannel', guild.name));
           }
 
