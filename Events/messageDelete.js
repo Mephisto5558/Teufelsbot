@@ -49,7 +49,7 @@ module.exports = async function messageDelete() {
         { name: lang('messageDelete.content'), value: '', inline: false }
       ],
       timestamp: Date.now(),
-      color: 0x82_2A_ED
+      color: 0x822AED
     });
 
   if (this.originalContent) embed.data.fields[1].value += `${this.originalContent}\n`;
