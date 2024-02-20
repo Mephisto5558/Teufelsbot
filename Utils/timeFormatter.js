@@ -2,7 +2,8 @@
  * @param {number}sec
  * @param {lang?}lang
  * @returns {{ total: number; negative: boolean; formatted: string }} `formatted` has the format 'year-day, hour:minute:second' if `lang` is not provided.*/
-function timeFormatter(sec = 0, lang) {
+/* eslint-disable-next-line unicorn/no-useless-undefined */
+function timeFormatter(sec = 0, lang = undefined) {
   const
     total = sec * 1000,
     negative = sec < 0;
