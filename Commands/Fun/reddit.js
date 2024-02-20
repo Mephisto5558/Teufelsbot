@@ -77,7 +77,7 @@ module.exports = {
       if (res.error) return this.customReply(lang('error', `Error: ${res.message}\nReason: ${res.reason}`));
 
       cachedSubreddits.set(`${subreddit}_${type}`, res.data);
-      setTimeout(() => cachedSubreddits.delete(`${subreddit}_${type}`), 5 * 60_000);
+      setTimeout(() => cachedSubreddits.delete(`${subreddit}_${type}`), 5 * 6e4);
 
       post = fetchPost(res.data, filterNSFW);
     }
