@@ -72,7 +72,7 @@ module.exports = {
       else if (json.every?.(e => e.description !== undefined)) json = { embeds: json };
       json.content.length = 2000;
 
-      await msg.edit(clear ? { content: null, embeds: [], attachments: [], files: [], components: [], ...json } : json);
+      await msg.edit(clear ? { content: '', embeds: [], attachments: [], files: [], components: [], ...json } : json);
     }
     catch (err) {
       if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', err.message));
