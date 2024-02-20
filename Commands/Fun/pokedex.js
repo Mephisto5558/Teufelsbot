@@ -82,6 +82,6 @@ module.exports = {
         ]
       });
 
-    return msg.edit({ content: null, embeds: [embed], components: [component] });
+    return msg.edit({ content: '', embeds: [embed], components: [component] });
   }
 };

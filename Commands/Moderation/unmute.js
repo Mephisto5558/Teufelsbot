@@ -18,6 +18,8 @@ module.exports = {
 
   run: async function (lang) {
     const
+
+      /** @type {import('discord.js').GuildMember} */
       target = this.options.getMember('target'),
       reason = this.options.getString('reason') ?? lang('noReason');
 
@@ -27,6 +29,7 @@ module.exports = {
     const err = checkTargetManageable.call(this, target);
     if (err) return this.editReply(lang(err));
 
+    /* eslint-disable-next-line unicorn/no-null */
     await target.disableCommunicationUntil(null, `${reason} | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`);
     return this.editReply(lang('success', target.user.id));
   }

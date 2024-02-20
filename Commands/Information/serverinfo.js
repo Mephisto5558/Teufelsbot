@@ -71,6 +71,6 @@ module.exports = {
       }));
     }
 
-    return this.customReply({ embeds: [embed], components: component.components.length ? [component] : null });
+    return this.customReply({ embeds: [embed], components: component.components.length ? [component] : [] });
   }
 };

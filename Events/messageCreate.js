@@ -18,7 +18,7 @@ module.exports = async function messageCreate() {
   }
 
   if (this.user.bot) return;
-  if (!this.commandName) return this.guild ? this.runMessages() : null;
+  if (!this.commandName) return this.guild ? this.runMessages() : undefined;
 
   const
     command = this.client.prefixCommands.get(this.commandName),
