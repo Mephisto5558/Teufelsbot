@@ -41,10 +41,6 @@
     "stderr": "stderr:\n```\n{stderr}\n```",
     "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
   },
-  "gitpull": {
-    "description": "Führe einen git pull aus",
-    "success": "Erfolgreich gepullt."
-  },
   "reload": {
     "description": "Lädt einen Befehl oder eine Kategorie neu",
     "usage": {

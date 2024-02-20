@@ -37,10 +37,6 @@
       "examples": "{prefix}exec echo '¡Hola Mundo!'"
     }
   },
-  "gitpull": {
-    "description": "Run a git pull",
-    "success": "Ejecutado con éxito el comando."
-  },
   "reload": {
     "description": "Carga un archivo o categoría",
     "usage": {
