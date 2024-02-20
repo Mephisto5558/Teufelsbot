@@ -20,10 +20,6 @@
     "success": "{msg} sans erreurs.",
     "error": "{msg} avec l'erreur suivante:\n```\n{name}: {err}\n```"
   },
-  "gitpull": {
-    "description": "Run a git pull",
-    "success": "Commande exécutée avec succès."
-  },
   "reload": {
     "description": "recharge un fichier ou une catégorie",
     "usage": "Commande PREFIX : recharger <command | \"*\">",

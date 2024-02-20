@@ -37,10 +37,6 @@
       "examples": "{prefix}Exec эхо 'Привет мир!'"
     }
   },
-  "gitpull": {
-    "description": "Run a git pull",
-    "success": "Команда успешно выполнена."
-  },
   "reload": {
     "description": "перезагружает файл или категорию",
     "usage": {
