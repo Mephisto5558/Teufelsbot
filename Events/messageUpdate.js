@@ -27,7 +27,7 @@ module.exports = function messageUpdate(newMsg) {
         { name: lang('author'), value: `${newMsg.user.tag} (\`${newMsg.user.id}\`)`, inline: false }
       ],
       timestamp: Date.now(),
-      color: 0xE6_2A_ED
+      color: 0xE62AED
     }),
     component = new ActionRowBuilder({
       components: [new ButtonBuilder({

@@ -24,7 +24,7 @@ module.exports = async function messageDeleteBulk(channel) {
       description: lang('embedDescription', { executor: executor ? `<@${executor.id}>` : lang('events.logger.someone'), channel: channel.name, count: this.size.toString() }),
       fields: [{ name: lang('global.channel'), value: `<#${channel.id}> (\`${channel.id}\`)`, inline: false }],
       timestamp: Date.now(),
-      color: 0xED_49_8D
+      color: 0xED498D
     });
 
   if (executor) embed.data.fields.push({ name: lang('events.logger.executor'), value: `${executor.tag} (\`${executor.id}\`)`, inline: false });

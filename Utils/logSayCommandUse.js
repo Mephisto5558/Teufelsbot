@@ -23,7 +23,7 @@ module.exports = function logSayCommandUse(member, lang) {
         { name: lang('author'), value: `${member.user.tag} (\`${member.id}\`)`, inline: false }
       ],
       timestamp: Date.now(),
-      color: 0x36_39_3F
+      color: 0x36393F
     }),
     component = new ActionRowBuilder({
       components: [new ButtonBuilder({

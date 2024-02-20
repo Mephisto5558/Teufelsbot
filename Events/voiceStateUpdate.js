@@ -14,7 +14,7 @@ module.exports = function voiceStateUpdate(newState) {
     embed = new EmbedBuilder({
       author: { name: newState.member.user.tag, iconURL: newState.member.displayAvatarURL() },
       timestamp: Date.now(),
-      color: 0x36_39_3F
+      color: 0x36393F
     }),
 
     /** @type {lang}*/
