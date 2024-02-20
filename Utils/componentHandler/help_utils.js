@@ -17,9 +17,9 @@ function getCommandCategories() { return [...new Set(getCommands.call(this).map(
  * @param {string[]?}commandCategories*/
 function createCategoryComponent(lang, commandCategories) {
   commandCategories ??= getCommandCategories.call(this);
-  const defaultOption = (this.options?.getString('command') ? null : this.options?.getString('category'))
+  const defaultOption = (this.options?.getString('command') ? undefined : this.options?.getString('category'))
     ?? (this.client.prefixCommands.get(this.args?.[0]) ?? this.client.slashCommands.get(this.args?.[0]))?.category
-    ?? (this.values ? this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value : null);
+    ?? (this.values ? this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value : undefined);
 
   if (this.message?.components.length) {
     if (defaultOption) {
@@ -49,7 +49,7 @@ function createCategoryComponent(lang, commandCategories) {
  * @param {string}category*/
 function createCommandsComponent(lang, category) {
   const defaultOption = this.args?.[0] ?? this.options?.getString('command')
-    ?? (this.message?.components[1] ? this.message.components[1].components[0].options.find(e => e.value === this.values[0])?.value : null);
+    ?? (this.message?.components[1] ? this.message.components[1].components[0].options.find(e => e.value === this.values[0])?.value : undefined);
 
   return new ActionRowBuilder({
     components: [new StringSelectMenuBuilder({
