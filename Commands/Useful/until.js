@@ -7,7 +7,7 @@ const
  * @param {number?}i*/
 function getInteger(name, i) {
   const num = this.options?.getInteger(name) ?? Number.parseInt(this.args?.[i]);
-  return typeof num != 'number' || Number.isNaN(num) ? undefined : num;
+  if (Number.parseInt(num) || num == 0) return num;
 }
 
 /**
