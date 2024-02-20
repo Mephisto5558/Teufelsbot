@@ -66,6 +66,7 @@ const
               if (birthday && guildMembers.has(k)) acc.push([k, ...birthday.split('/')]);
               return acc;
             }, [])
+            /* eslint-disable-next-line unicorn/no-unreadable-array-destructuring */ // It's more clear this way
             .sort(([, , month1, day1], [, , month2, day2]) => {
               const time = [new Date(currentYear, month1 - 1, day1), new Date(currentYear, month2 - 1, day2)];
               if (time[0] < currentTime) time[0].setFullYear(currentYear + 1, month1 - 1, day1);
