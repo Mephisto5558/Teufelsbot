@@ -23,7 +23,6 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
     switch (api.name) {
       case 'jokeAPI': {
         const res = await fetch(`${api.url}?lang=en&blacklist=${blacklist}`, { timeout: 2500 }).then(e => e.json());
-
         response = res.type == 'twopart' ? `${res.setup}\n\n||${res.delivery}||` : res.joke;
 
         break;
