@@ -48,7 +48,8 @@ function shouldDeleteMsg(msg, options) {
  * @param {number?}limit
  * @param {string?}before
  * @param {string?}after*/
-async function fetchMsgs(channel, limit = 250, before, after) {
+/* eslint-disable-next-line unicorn/no-useless-undefined */
+async function fetchMsgs(channel, limit = 250, before = undefined, after = undefined) {
   const options = { limit: Math.min(limit, 100), before, after };
 
   let
@@ -61,6 +62,7 @@ async function fetchMsgs(channel, limit = 250, before, after) {
     const messages = await channel.messages.fetch(options);
     if (!messages.size) break;
 
+    /* eslint-disable-next-line unicorn/prefer-spread */ // Collection extends Map, not Array
     collection = collection.concat(messages);
     lastId = messages.last().id;
     options.limit = Math.min(limit - collection.size, 100);
@@ -130,7 +132,7 @@ module.exports = {
     let messages,
       count = 0;
 
-    if (!amount) return this.customReply(isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
+    if (!amount) return this.customReply(Number.isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
     if (options.before && options.after) return this.customReply(lang('beforeAndAfter'));
 
     if (this instanceof Message) {
