@@ -43,9 +43,8 @@ Object.defineProperty(Number.prototype, 'limit', {
 });
 Object.defineProperty(Object.prototype, 'fMerge', {
   /** @type {global['Object']['prototype']['fMerge']}*/
-  value: function fMerge(obj, mode, { ...output }) {
-    output ??= { ...this };
-
+  /* eslint-disable-next-line unicorn/no-object-as-default-parameter */
+  value: function fMerge(obj, mode, { ...output } = { ...this }) {
     if (this != '[object Object]' || obj != '[object Object]') return output;
     for (const key of Object.keys({ ...this, ...obj })) {
       if (this[key] == '[object Object]') output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];
