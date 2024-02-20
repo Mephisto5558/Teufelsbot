@@ -18,14 +18,15 @@ function handleError(err) {
  * Tries different methods to reply to a message or interaction. If the content is over 2000 chars, will send an attachment instead.
  * @type {Message['customReply']}
  * @this {Message | import('discord.js').RepliableInteraction}*/
-module.exports = async function customReply(options, deleteTime = null, allowedMentions = { repliedUser: false }) {
+
+module.exports = async function customReply(options, deleteTime, allowedMentions) {
   let msg;
 
   if (typeof options != 'object') options = { content: options };
-  options.allowedMentions ??= allowedMentions;
+  options.allowedMentions ??= allowedMentions ?? { repliedUser: false };
 
   if (options.content?.length > 2000) {
-    options.files = (options.files ?? []).concat(new AttachmentBuilder(Buffer.from(options.content), { name: 'response.txt' }));
+    options.files = [...options.files ?? [], ...new AttachmentBuilder(Buffer.from(options.content), { name: 'response.txt' })];
     delete options.content;
   }
 
@@ -49,6 +50,6 @@ module.exports = async function customReply(options, deleteTime = null, allowedM
   }
   else throw new Error(`Unsupported Class! Got ${this.constructor.name}`);
 
-  if (!isNaN(deleteTime ?? Number.NaN) && msg?.deletable) setTimeout(msg.delete.bind(msg), deleteTime);
+  if (!Number.isNaN(Number.parseInt(deleteTime)) && msg?.deletable) setTimeout(msg.delete.bind(msg), deleteTime);
   return msg;
 };
