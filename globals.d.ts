@@ -356,14 +356,14 @@ declare module 'discord.js' {
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
      * and if that also doesn't work, send the message without repling to a specific message/interaction.
      * @param deleteTime Number in Milliseconds*/
-    customReply<T>(
-      this: T,
+    customReply(
+      this: Message,
       options: string | MessagePayload | MessageEditOptions,
       deleteTime?: number,
       allowedMentions?: MessageMentionOptions | { repliedUser: false }
     ): Promise<Message>;
 
-    runMessages<T>(this: T): Promise<this>;
+    runMessages(this: Message): Promise<this>;
   }
 
   interface BaseInteraction {
