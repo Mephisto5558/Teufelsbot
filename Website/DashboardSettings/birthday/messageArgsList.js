@@ -1,4 +1,5 @@
-module.exports = (() => /** @type {import('@mephisto5558/bot-website').dashboardSetting}*/({
+/** @type {import('@mephisto5558/bot-website').dashboardSetting}*/
+module.exports = {
   name: 'Possible Arguments for Messages',
   description: `The following args are possible for the messages:<br>
 <code>&lt;user.nickname&gt;</code> - The user nickname - <code>Peter</code><br>
@@ -14,4 +15,4 @@ module.exports = (() => /** @type {import('@mephisto5558/bot-website').dashboard
 <code>&lt;age&gt;</code> - The new age of the user - <code>${new Date().getFullYear() - 2003}</code><br></p>`,
   type: 'spacer',
   position: 1
-}))();
+};
