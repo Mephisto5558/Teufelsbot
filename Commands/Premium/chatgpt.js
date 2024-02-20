@@ -24,7 +24,7 @@ async function fetchAPI(lang, deep) {
   if (['Rate limit reached', 'Too many requests'].some(e => res.error.message.startsWith(e))) return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);
   if (res.error.type == 'insufficient_quota' || res.error.message.startsWith('That model is currently overloaded') || res.error.type == 'api_not_ready_or_request_error') return lang('notAvailable');
 
-  log.error('chatgpt command API error:', JSON.stringify(res, null, 2));
+  log.error('chatgpt command API error:', JSON.stringify(res, undefined, 2));
   return lang('error');
 }
 
@@ -60,7 +60,7 @@ module.exports = {
       });
 
     return (
-      await this.customReply({ content, components: [component] }, null, { repliedUser: true }))
+      await this.customReply({ content, components: [component] }, undefined, { repliedUser: true }))
       .createMessageComponentCollector({ componentType: ComponentType.Button, filter: e => e.user.id == this.user.id })
       .on('collect', async e => {
         const reply = await e.deferReply();
