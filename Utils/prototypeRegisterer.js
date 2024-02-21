@@ -109,12 +109,12 @@ Object.defineProperties(Client.prototype, {
       catch (err) {
         if (err.code != 'MODULE_NOT_FOUND') throw err;
 
-        this.db = await new DB().init(process.env.dbConnectionStr, 'db-collections', 100);
+        this.db = await new DB().init(process.env.dbConnectionStr, 'db-collections', 100, log._log.bind(log, { file: 'debug', type: 'DB' }));
         env = this.db.get('botSettings', 'env');
       }
 
       env = env.global.fMerge(env[env.global.environment]);
-      this.db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100);
+      this.db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100, log._log.bind(log, { file: 'debug', type: 'DB' }));
 
       if (!this.db.cache.size) {
         log('Database is empty, generating default data');
@@ -180,7 +180,7 @@ Object.defineProperties(Guild.prototype, {
 Object.defineProperty(DB.prototype, 'generate', {
   /** @type {DB['generate']}*/
   value: async function generate(overwrite = false) {
-    log.setType('DB').debug(`generating db files${overwrite ? ', overwriting existing data' : ''}`).setType();
+    this.saveLog(`generating db files${overwrite ? ', overwriting existing data' : ''}`);
     await Promise.all(require('../Templates/db_collections.json').map(({ key, value }) => this.set(key, value, overwrite)));
   },
   enumerable: false
