@@ -26,7 +26,7 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
   options.allowedMentions ??= allowedMentions ?? { repliedUser: false };
 
   if (options.content?.length > 2000) {
-    options.files = [...options.files ?? [], ...new AttachmentBuilder(Buffer.from(options.content), { name: 'response.txt' })];
+    options.files = [...options.files ?? [], new AttachmentBuilder(Buffer.from(options.content), { name: 'response.txt' })];
     delete options.content;
   }
 

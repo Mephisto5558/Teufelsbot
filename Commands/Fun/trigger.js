@@ -73,8 +73,8 @@ const
         embed.data.fields = oldData.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
           name: lang('shortFieldName', id), inline: true,
           value: lang('shortFieldValue', {
-            trigger: trigger.length < 200 ? trigger : trigger.subsstring(0, 197) + '...',
-            response: response.length < 200 ? response : response.subsstring(0, 197) + '...',
+            trigger: trigger.length < 200 ? trigger : trigger.slice(0, 197) + '...',
+            response: response.length < 200 ? response : response.slice(0, 197) + '...',
             wildcard: !!wildcard
           })
         }));
