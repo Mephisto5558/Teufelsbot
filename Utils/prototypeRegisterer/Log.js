@@ -13,22 +13,19 @@ module.exports = class Log extends Function {
     return bound; // NOSONAR
   }
 
-  log(...str) { return this._log('log', ...str); }
-  warn(...str) { return this._log('warn', ...str); }
-  error(...str) { return this._log('error', ...str); }
-  debug(...str) { return this._log('debug', ...str); }
+  log(...str) { return this._log({ file: 'log' }, ...str); }
+  warn(...str) { return this._log({ file: 'warn' }, ...str); }
+  error(...str) { return this._log({ file: 'error' }, ...str); }
+  debug(...str) { return this._log({ file: 'debug' }, ...str); }
 
-  setType(type) {
-    this.type = type;
-    return this;
-  }
-
-  _log(file = 'log', ...str) {
+  _log({ file = 'log', type = 'Bot' }, ...str) {
     const
-      txt = `${new Date().toISOString()} ${this.type ?? 'Bot'} | `,
+      txt = `${new Date().toISOString()} ${type} | `,
+
+      /** @type {typeof console.log} */
       log = console[file] ?? console.log;
 
-    if (arguments.length) {
+    if (str.length) {
       if (file != 'debug') log(txt + str.join(' '));
       appendFile(`./Logs/${this.date}_${file}.log`, `${txt}${str}\n`);
       return this;

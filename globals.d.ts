@@ -162,10 +162,11 @@ declare global {
   const log: {
     /* eslint-disable @typescript-eslint/no-explicit-any */
     (...str: any[]): typeof log;
+    log(): (...str: any[]) => typeof log;
+    warn(): (...str: any[]) => typeof log;
     error: (...str: any[]) => typeof log;
     debug: (...str: any[]) => typeof log;
-    setType: (type: string) => typeof log;
-    _log(file?: string, ...str: any[]): typeof log;
+    _log({ file, type }?: { file?: string; type?: string }, ...str: any[]): typeof log;
     /* eslint-enable @typescript-eslint/no-explicit-any */
   };
 
