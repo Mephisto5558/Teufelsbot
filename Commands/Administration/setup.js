@@ -4,11 +4,9 @@ const
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'],
   getCMDs = /** @param {Client}client*/ client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])],
+  /** @type {Record<string, (this: GuildInteraction, lang: lang) =>Promise<unknown>>} */
   setupMainFunctions = {
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang*/
-    toggle_module: async function (lang) {
+    toggle_module: async function toggleModule(lang) {
       const
         module = this.options.getString('module'),
         setting = this.guild.db[module]?.enable;
@@ -17,10 +15,7 @@ const
       return this.editReply(lang('success', { name: module, state: lang(setting ? 'global.disabled' : 'global.enabled') }));
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang*/
-    toggle_command: async function (lang) {
+    toggle_command: async function toggleCommand(lang) {
       const
         command = this.options.getString('command'),
         commandData = this.guild.db.commandSettings?.[command]?.disabled ?? {},
@@ -94,8 +89,7 @@ const
       return this.editReply({ embeds: [embed] });
     },
 
-    /** @this {GuildInteraction}*/
-    language: async function () {
+    language: async function setLanguage() {
       const
         language = this.options.getString('language'),
 
@@ -112,27 +106,18 @@ const
       return this.editReply({ embeds: [embed] });
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang*/
-    serverbackup: async function (lang) {
+    serverbackup: async function serverBackup(lang) {
       await this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', Number.parseInt(backup.get(this.options.getString('allowed_to_load'))));
       return this.editReply(lang('success'));
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang*/
-    autopublish: async function (lang) {
+    autopublish: async function toggleAutopublish(lang) {
       const enabled = this.options.getBoolean('enabled');
       await this.client.db.update('guildSettings', `${this.guild.id}.config.autopublish`, enabled);
       return this.customReply(lang('success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang*/
-    logger: async function (lang) {
+    logger: async function configureLogger(lang) {
       const
         action = this.options.getString('action'),
         channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel))?.id ?? this.channel,
@@ -194,10 +179,15 @@ module.exports = {
         type: 'String',
         required: true,
         autocompleteOptions: function () {
-          return [...this.client.i18n.availableLocales.keys()]
-            .map(k => ({ name: this.client.i18n.__({ locale: k, undefinedNotFound: true }, 'global.languageName') ?? k, value: k }))
-            .filter(({ name, value }) => name.toLowerCase().includes(this.focused.value.toLowerCase()) || value.toLowerCase().includes(this.focused.value.toLowerCase()))
-            .slice(0, 25);
+          return [...this.client.i18n.availableLocales.keys()].reduce((acc, locale) => {
+            if (acc.length > 25) return acc;
+
+            const name = this.client.i18n.__({ locale, undefinedNotFound: true }, 'global.languageName') ?? locale;
+            if (name.toLowerCase().includes(this.focused.value.toLowerCase()) || locale.toLowerCase().includes(this.focused.value.toLowerCase()))
+              acc.push({ name, value: locale });
+
+            return acc;
+          }, []);
         },
         strictAutocomplete: true
       }]
