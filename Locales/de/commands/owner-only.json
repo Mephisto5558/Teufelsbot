@@ -36,10 +36,12 @@
       "usage": "{prefix}exec <sh code>",
       "examples": "{prefix}exec echo 'Hallo Welt!'"
     },
-    "finished": "Bash Code:\n```sh\n{code}\n```\n",
-    "stdout": "wurde mit folgender Ausgabe ausgeführt:\nstdout:\n```\n{stdout}\n```\n",
-    "stderr": "stderr:\n```\n{stderr}\n```",
-    "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
+    "finished": "Code:\n```sh\n{code}\n```\nwurde mit folgender Ausgabe ausgeführt:\nstdout:\n```\n{stdout}\n```\n",
+    "error": "stderr:\n```\n{stderr}\n```"
+  },
+  "gitpull": {
+    "description": "Führe einen git pull aus",
+    "success": "Erfolgreich gepullt."
   },
   "reload": {
     "description": "Lädt einen Befehl oder eine Kategorie neu",
