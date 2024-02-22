@@ -72,11 +72,12 @@
     "reportFail": "Ein Fehler ist beim Versuch, den Fehler zu melden, aufgetreten.\n```\n{err}\n```\nBitte informiere den Dev direkt."
   },
   "timeFormatter": {
-    "ydhms": "{year} Jahren, {day} Tagen, {hour} Stunden, {minute} Minuten und {second} Sekunden",
-    "dhms": "{day} Tagen, {hour} Stunden, {minute} Minuten und {second} Sekunden",
-    "hms": "{hour} Stunden, {minute} Minuten und {second} Sekunden",
-    "ms": "{minute} Minuten und {second} Sekunden",
-    "s": "{second} Sekunden"
+    "ymdhms": "{y} Jahren, {mo} Monaten, {d} Tagen, {h} Stunden, {m} Minuten und {s} Sekunden",
+    "mdhms": "{mo} Monaten, {d} Tagen, {h} Stunden, {m} Minuten und {s} Sekunden",
+    "dhms": "{d} Tagen, {h} Stunden, {m} Minuten und {s} Sekunden",
+    "hms": "{h} Stunden, {m} Minuten und {s} Sekunden",
+    "ms": "{m} Minuten und {s} Sekunden",
+    "s": "{s} Sekunden"
   },
   "timeEvents": {
     "birthday": {
