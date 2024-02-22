@@ -88,7 +88,6 @@
     "infoEmbedDescription": "Moderator: {mod}\nDuration: <t:{muteDuration}>\nReason: {reason}\n\n",
     "selectTargetEmbedDescription": "Select up to 10 members to mute. You have 60 seconds.",
     "cantPunishSelf": "You can't mute yourself!",
-    "cantPunishAdmin": "You can't mute an Administrator!",
     "noneFound": "No targets have been found.",
     "error": "I couldn't mute the target:\n{err}",
     "success": "**{user}** has been successfully muted.\n",
