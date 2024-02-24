@@ -124,7 +124,7 @@ module.exports.commandQuery = function commandQuery(lang, query) {
   if (this.values && !this.values.length) return module.exports.categoryQuery.call(this, lang, this.message.components[0].components[0].data.options.find(e => e.default).value);
 
   const command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);
-  if (command && !filterCommands.call(this, command)) {
+  if (!filterCommands.call(this, command)) {
     const embed = new EmbedBuilder({
       description: lang('one.notFound', query),
       color: Colors.Red
