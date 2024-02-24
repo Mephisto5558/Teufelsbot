@@ -73,7 +73,7 @@ module.exports = function format(option, path, i18n) {
   if ('channelTypes' in option) {
     option.channelTypes = option.channelTypes.map(e => {
       if (!(e in ChannelType)) throw new Error(`Invalid option.channelType, got "${e}" (${path})`);
-      return Number.parseInt(e) || ChannelType[e];
+      return Number.isNaN(Number.parseInt(e)) ? ChannelType[e] : Number.parseInt(e);
     });
   }
 
