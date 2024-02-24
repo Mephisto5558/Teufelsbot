@@ -11,7 +11,7 @@ function handleError(err) {
   if (!(err instanceof DiscordAPIError)) throw err;
 
   log.debug(`An error occurred while trying to send a message: ${err}`); // NOSONAR DiscordAPIError has a toStringMethod returning 'DiscordAPIError[Code]: Description'
-  return err.code != DiscordAPIErrorCodes.UnknownInteraction;
+  return ![DiscordAPIErrorCodes.UnknownInteraction, DiscordAPIErrorCodes.InvalidWebhookTokenProvided].includes(err.code);
 }
 
 /**
