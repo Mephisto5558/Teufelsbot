@@ -10,11 +10,22 @@ const
   findAllEntries = require('./findAllEntries.js'),
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
+/**
+ * @param {Record<string, any>}target
+ * @param {Record<string, any>}source
+ * @returns {object} recursively merged Object*/
+function deepMerge(target, source) {
+  for (const key of Object.keys(source))
+    target[key] = source[key] instanceof Object ? deepMerge(target[key] ?? {}, source[key]) : source[key];
+
+  return target;
+}
+
 if (!require('../config.json').HideOverwriteWarning) {
   console.warn(
     'Overwriting the following variables and functions (if they exist):'
     + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Number#limit, `
-    + 'Object#fMerge, Object#filterEmpty, Function#bBind'
+    + 'Object#filterEmpty, Function#bBind'
     + 'Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
     + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.\n'
     + 'Modifying Discord.js Message._patch method.`'
@@ -39,27 +50,6 @@ Object.defineProperty(Array.prototype, 'random', {
 Object.defineProperty(Number.prototype, 'limit', {
   /** @type {global['Number']['prototype']['limit']}*/
   value: function limit({ min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY } = {}) { return Math.min(Math.max(Number(this), min), max); },
-  enumerable: false
-});
-Object.defineProperty(Object.prototype, 'fMerge', {
-  /** @type {global['Object']['prototype']['fMerge']}*/
-  /* eslint-disable-next-line unicorn/no-object-as-default-parameter */
-  value: function fMerge(obj, mode, { ...output } = { ...this }) {
-    if (this != '[object Object]' || obj != '[object Object]') return output;
-    for (const key of Object.keys({ ...this, ...obj })) {
-      if (this[key] == '[object Object]') output[key] = key in obj ? this[key].fMerge(obj[key], mode) : this[key];
-      else if (Array.isArray(this[key])) {
-        if (key in obj) {
-          if (mode == 'overwrite') output[key] = obj[key];
-          else if (mode == 'push') for (const e of obj[key]) output[key].push(e);
-          else for (let i = 0; i < this[key].length || i < obj[key].length; i++) output[key][i] = i in obj[key] ? obj[key][i] : this[key][i];
-        }
-        else output[key] = this[key];
-      }
-      else output = { ...output, [key]: key in obj ? obj[key] : this[key] };
-    }
-    return output;
-  },
   enumerable: false
 });
 Object.defineProperty(Object.prototype, 'filterEmpty', {
@@ -113,7 +103,7 @@ Object.defineProperties(Client.prototype, {
         env = this.db.get('botSettings', 'env');
       }
 
-      env = env.global.fMerge(env[env.global.environment]);
+      env = deepMerge(env.global, env[env.global.environment]);
       this.db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100, log._log.bind(log, { file: 'debug', type: 'DB' }));
 
       if (!this.db.cache.size) {
