@@ -1,7 +1,7 @@
 {
   "categoryDescription": "Befehle, die nur für den Bot-Entwickler vorgesehen sind",
   "blacklistuser": {
-    "description": "Blockt einen User vom Benutzen des Bots",
+    "description": "(Ent)blockt einen User vom Benutzen des Bots",
     "usage": {
       "usage": "{prefix}blacklistuser [off] <User-ID>",
       "examples": "{prefix}blacklistuser 12345678901234568"
