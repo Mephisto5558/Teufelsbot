@@ -777,7 +777,7 @@
     "needConfirm": "Вы должны подтвердить это действие, написав `CLEAR ALL` в опции подтверждения!",
     "embedTitle": "Триггеры",
     "embedTitleOne": "**Триггер {id}:**",
-    "embedDescriptionOne": "Триггер:\n```\n{trigger}\n```\n**Ответ:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`",
+    "embedDescriptionOne": "**Триггер:**\n```\n{trigger}\n```\n**Ответ:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Триггер: `{trigger}`\n> Ответ: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
     "shortFieldValue": "**Триггер:**\n```\n{trigger}\n```\n**Ответ:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`\n",
