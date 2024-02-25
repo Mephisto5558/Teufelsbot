@@ -5,7 +5,7 @@
   "nonBeta": "Dieser Befehl ist kein Beta-Befehl! Dieser Bot führt nur Beta-Befehle aus.",
   "disabled": "Dieser Befehl wurde vom Bot-Developer deaktiviert. Begründung:\n{reason}",
   "nsfw": "Dieser Befehl kann nur in einem altersbegrenzten Kanal benutzt werden!",
-  "strictAutocompleteNoMatch": "Deine Eingabe muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.",
+  "strictAutocompleteNoMatch": "Deine Eingabe für die Option \"{option}\" muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.",
   "permissionDenied": {
     "embedTitle": "Unzureichende Berechtigungen",
     "embedDescriptionUser": "Du benötigst die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n`{permissions}`",
