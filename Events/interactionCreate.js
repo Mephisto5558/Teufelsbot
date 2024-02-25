@@ -15,7 +15,7 @@ module.exports = async function interactionCreate() {
   if (this.isMessageComponent()) return componentHandler.call(this, lang);
 
   const command = this.client.slashCommands.get(this.commandName);
-  if (command && this.isAutocomplete()) return this.respond(await autocompleteGenerator.call(this, command, locale));
+  if (command && this.isAutocomplete()) return this.respond(autocompleteGenerator.call(this, command, locale));
 
   const errorKey = await checkForErrors.call(this, command, lang);
   if (errorKey === true) return;
