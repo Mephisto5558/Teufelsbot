@@ -37,7 +37,7 @@
       "examples": "{prefix}exec echo 'Hallo Welt!'"
     },
     "finished": "Bash Code:\n```sh\n{code}\n```\n",
-    "stdout": "wurde mit folgender Ausgabe ausgeführt:\nstdout:\n```\n{stdout}\n```\n",
+    "stdout": "{msg} wurde mit folgender Ausgabe ausgeführt:\nstdout:\n```\n{stdout}\n```\n",
     "stderr": "stderr:\n```\n{stderr}\n```",
     "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
   },

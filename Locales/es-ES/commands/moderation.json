@@ -1,7 +1,7 @@
 {
   "categoryDescription": "Comandos para moderar el gremio",
   "ban": {
-    "description": "prohíbe a uno o varios miembros del gremio",
+    "description": "prohíbe a un miembro de la guild",
     "options": {
       "reason": {
         "description": "Los objetivo(s) deben/van a ver la razón en DMs"
@@ -13,7 +13,7 @@
         "description": "Mencione miembro(s) o pon ID(s) para banearlos. Pon un espacio entre cada objetivo."
       },
       "delete_days_of_messages": {
-        "description": "Elimina todos los mensajes del objetivo(s) de los últimos n días."
+        "description": "Borrar todos los mensajes de los objetivos de los últimos n días."
       }
     },
     "dmEmbedTitle": "Baneado",
@@ -88,6 +88,7 @@
     "infoEmbedDescription": "Moderador: {mod}\nDuración: <t:{muteDuration}>\nRazón: {reason}\n\n",
     "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para silenciar. Tienes 60 segundos.",
     "cantPunishSelf": "¡No puedes silenciarte a ti mismo!",
+    "cantPunishAdmin": "¡Los administradores no pueden ser silenciados!",
     "noneFound": "No se han encontrado objetivos.",
     "error": "No pude silenciar al objetivo:\n{err}",
     "success": "**{user}** se ha silenciado correctamente.\n",

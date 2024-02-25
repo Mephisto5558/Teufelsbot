@@ -128,6 +128,7 @@
       "newChallenge": "<@{user}> :crossed_swords: Nouveau défi duel"
     },
     "memberNotFound": "Au moins un des joueurs n'a pas été trouvé !",
+    "canceled": ":x: `{initiator}` a retiré son défi.",
     "declined": ":x: `{opponent}` ne s'est pas relevé au défi.",
     "accept": {
       "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",
