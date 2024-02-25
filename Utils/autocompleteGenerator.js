@@ -2,7 +2,7 @@
  * @this {import('discord.js').AutocompleteInteraction}
  * @param {command<*, boolean, true>}command
  * @param {string}locale*/
-module.exports = async function autocompleteGenerator(command, locale) {
+module.exports = function autocompleteGenerator(command, locale) {
   /** @param {string|number}v*/
   const response = v => ({ name: this.client.i18n.__({ locale, undefinedNotFound: true },
     `commands.${command.category.toLowerCase()}.${command.name}.options.`
@@ -20,7 +20,7 @@ module.exports = async function autocompleteGenerator(command, locale) {
 
   /** @type {{autocompleteOptions: Exclude<commandOptions['autocompleteOptions'], Function>}} Excludes<> because we call autocompleteOptions below if it is a function*/
   let { autocompleteOptions } = options.find(e => e.name == this.focused.name);
-  if (typeof autocompleteOptions == 'function') autocompleteOptions = await autocompleteOptions.call(this);
+  if (typeof autocompleteOptions == 'function') autocompleteOptions = autocompleteOptions.call(this);
 
   if (typeof autocompleteOptions == 'string') return [response(autocompleteOptions)];
   if (Array.isArray(autocompleteOptions)) {
