@@ -90,7 +90,7 @@
     "devEmbedFooterText": "Dev-Bot | Nur Beta-Befehle werden angezeigt",
     "one": {
       "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
-      "embedTitle": "Detaillierte Informationen über: `{command}`",
+      "embedTitle": "{category} » {command}",
       "embedFooterText": "Syntax: <> = erfordert, [] = optional | Präfix: \"{prefix}\"",
       "prefixAlias": "Präfix-Befehl Aliase",
       "slashAlias": "Slash-Befehl Aliase",
