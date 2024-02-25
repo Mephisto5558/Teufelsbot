@@ -1,13 +1,13 @@
-const
-  { timeFormatter } = require('../../Utils');
+const { timeFormatter } = require('../../Utils');
 
 /**
  * @this {Message|Interaction}
  * @param {string}name
- * @param {number?}i*/
-function getInteger(name, i) {
-  const num = this.options?.getInteger(name) ?? Number.parseInt(this.args?.[i]);
-  if (Number.parseInt(num) || num == 0) return num;
+ * @param {number?}i
+ * @param {number?}defaultNum
+ * @returns {number}*/
+function getInteger(name, i, defaultNum = 0) {
+  return this.options?.getInteger(name) ?? (Number.parseInt(this.args?.[i]) || defaultNum);
 }
 
 /**
@@ -15,8 +15,8 @@ function getInteger(name, i) {
  * @param {number}month
  * @param {number}day
  * @param {number[]}args*/
-function createDate(year, month, day, ...args) {
-  return year < 0 || year > 100 ? new Date(year, month, day, ...args) : new Date(new Date(year - 1900, month, day, ...args).setFullYear(year));
+function getTime(year, month, day, ...args) {
+  return year < 0 || year > 100 ? new Date(year, month, day, ...args).getTime() : new Date(year - 1900, month, day, ...args).setFullYear(year);
 }
 
 /** @type {command<'both', false>}*/
@@ -68,15 +68,14 @@ module.exports = {
     const
       getInt = getInteger.bind(this),
       day = getInt('day', 0),
-      month = getInt('month', 1) - 1,
+      month = getInt('month', 1, 1) - 1,
       year = getInt('year', 2),
       hour = getInt('hour', 3),
       minute = getInt('minute', 4),
       second = getInt('second', 5),
-      /* eslint-disable-next-line unicorn/no-null */ // `undefined` would make it an `Invalid Date`
-      date = day ?? month ?? year ? createDate(year, month, day, hour, minute, second) : new Date(null, null, null, hour, minute, second),
-      { formatted, negative } = timeFormatter((date.getTime() - Date.now()) / 1000, lang);
+      date = day || month || year ? getTime(year, month, day, hour, minute, second) : new Date().setHours(hour, minute, second),
+      { formatted, negative } = timeFormatter((date - Date.now()) / 1000, lang);
 
-    return this.reply(lang(negative ? 'untilNeg' : 'until', formatted));
+    return this.customReply(lang(negative ? 'untilNeg' : 'until', formatted));
   }
 };
