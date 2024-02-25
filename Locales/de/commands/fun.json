@@ -797,7 +797,7 @@
     "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!",
     "embedTitle": "Trigger",
     "embedTitleOne": "**Auslöser {id}:**",
-    "embedDescriptionOne": "Auslöser:\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",
+    "embedDescriptionOne": "**Auslöser**:\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Auslöser: `{trigger}`\n> Ausgabe: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
     "shortFieldValue": "**Auslöser:**\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`\n",

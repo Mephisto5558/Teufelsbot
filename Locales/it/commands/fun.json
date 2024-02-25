@@ -797,7 +797,7 @@
     "needConfirm": "Devi confermare questa azione scrivendo `CLEAR ALL` nell'opzione di conferma!",
     "embedTitle": "Trigger",
     "embedTitleOne": "**Trigger {id}:**",
-    "embedDescriptionOne": "Trigger:\n```\n{trigger}\n```\n**Risposta:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`",
+    "embedDescriptionOne": "**Trigger**:\n```\n{trigger}\n```\n**Risposta:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Risposta: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
     "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Risposta:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`\n",

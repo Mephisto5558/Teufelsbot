@@ -797,7 +797,7 @@
     "needConfirm": "Necesitas confirmar esta acción escribiendo `CLEAR ALL` en la opción de confirmación!",
     "embedTitle": "Disparadores",
     "embedTitleOne": "**Disparador {id}:**",
-    "embedDescriptionOne": "Desencadenador:\n```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Tarjeta comodín: **`{wildcard}`",
+    "embedDescriptionOne": "**Desencadenador:**\n```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Tarjeta comodín:** `{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Disparador: `{trigger}`\n> Respuesta: `{response}`\n> Comodino: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
     "shortFieldValue": "**Disparador:**\n```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Comodino: **`{wildcard}`\n",
