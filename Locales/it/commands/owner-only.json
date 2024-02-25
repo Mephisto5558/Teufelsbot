@@ -35,7 +35,11 @@
     "usage": {
       "usage": "{prefix}exec <sh code>",
       "examples": "{prefix}exec echo 'Ciao Mondo!'"
-    }
+    },
+    "finished": "Codice Bash:\n```sh\n{code}\n```\n",
+    "stdout": "{msg} con il seguente output:\nstdout:\n```\n{stdout}\n```\n",
+    "stderr": "stderr:\n```\n{stderr}\n```",
+    "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```"
   },
   "reload": {
     "description": "ricarica un file o una categoria",
