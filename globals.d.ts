@@ -102,12 +102,6 @@ declare global {
   }
 
   interface Object {
-
-    /**
-     * Merges two objects recursively together.
-     * @param mode how to handle array entries that are in both objects.*/
-    fMerge(this: object, obj: object, mode?: 'overwrite' | 'push', output?: object): object;
-
     /** Removes `null`, `undefined`, empty arrays and empty objects recursively.*/
     filterEmpty(this: object): object;
   }

@@ -15,7 +15,7 @@ module.exports = function format(option, path, i18n) {
 
   option.description ??= i18n.__({ errorNotFound: true }, `${path}.description`);
   if ('choices' in option)
-    option.choices = option.choices.map(e => typeof e == 'object' ? e.fMerge({ __SCHandlerCustom: true }) : { name: i18n.__({ undefinedNotFound: true }, `${path}.choices.${e}`) ?? e, value: e });
+    option.choices = option.choices.map(e => typeof e == 'object' ? { ...e, __SCHandlerCustom: true } : { name: i18n.__({ undefinedNotFound: true }, `${path}.choices.${e}`) ?? e, value: e });
   if ('autocompleteOptions' in option) option.autocomplete = true;
 
   if (option.description.length > 100) {
