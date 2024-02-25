@@ -13,7 +13,7 @@
             "description": "Die Backup-ID, die du laden möchtest. Verwende den Unterbefehl \"get\", um die Liste anzuzeigen."
           },
           "no_clear": {
-            "description": "Wenn auf true, cleart den Server nicht, überschreibt nur bestehende Daten (z. B. bleiben Kanäle)."
+            "description": "Wenn auf true, cleart den Server nicht, überschreibt nur bestehende Daten (z. B. bleiben Kanäle)."
           }
         }
       },
