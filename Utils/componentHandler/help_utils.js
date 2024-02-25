@@ -113,7 +113,7 @@ function createInfoFields(cmd, lang, helpLang) {
  * @this {Interaction|Message}
  * @param {command<*, boolean, true>}cmd*/
 function filterCommands(cmd) {
-  return cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta) || (ownerOnlyFolders.includes(cmd.category?.toLowerCase()) && this.user.id != this.client.application.owner.id);
+  return cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta) && (ownerOnlyFolders.includes(cmd.category?.toLowerCase()) ? this.user.id == this.client.application.owner.id : true);
 }
 
 /**
