@@ -90,7 +90,7 @@
     "devEmbedFooterText": "Dev-Bot | Nur Beta-Befehle werden angezeigt",
     "one": {
       "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
-      "embedTitle": "{category} » {command}",
+      "embedTitle": "Detaillierte Informationen über: `{command}`",
       "embedFooterText": "Syntax: <> = erfordert, [] = optional | Präfix: \"{prefix}\"",
       "prefixAlias": "Präfix-Befehl Aliase",
       "slashAlias": "Slash-Befehl Aliase",
@@ -98,7 +98,7 @@
       "botPerms": "Erforderliche Bot Berechtigungen",
       "userPerms": "Erforderliche User Berechtigungen",
       "cooldowns": "Befehls-Abklingzeiten",
-      "usage": "Anwendung",
+      "usage": "Nutzung",
       "examples": "Beispiele"
     },
     "all": {
