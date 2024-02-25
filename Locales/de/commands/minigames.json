@@ -128,6 +128,7 @@
       "newChallenge": "<@{user}> :crossed_swords: Neue Duell-Herausforderung"
     },
     "memberNotFound": "Mindestens einer der Spieler wurde nicht gefunden!",
+    "canceled": ":x: `{initiator}` hat die Herausforderung zurückgezogen.",
     "declined": ":x: `{opponent}` hat die Herausforderung nicht angenommen.",
     "accept": {
       "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",

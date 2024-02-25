@@ -128,6 +128,7 @@
       "newChallenge": "<@{user}> :crossed_swords: Новое испытание на дуэль"
     },
     "memberNotFound": "По крайней мере один из игроков не найден!",
+    "canceled": ":x: `{initiator}снял свой вызов.",
     "declined": ":x: `{opponent}` не поднимался до испытания.",
     "accept": {
       "embedTitle": ":game_die: `{player1}**VS** `{player2}`",

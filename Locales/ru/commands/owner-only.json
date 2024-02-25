@@ -35,7 +35,11 @@
     "usage": {
       "usage": "{prefix}exec <sh code>",
       "examples": "{prefix}Exec эхо 'Привет мир!'"
-    }
+    },
+    "finished": "Bash Code:\n```sh\n{code}\n```\n",
+    "stdout": "{msg} со следующим выводом:\nstdout:\n```\n{stdout}\n```\n",
+    "stderr": "stderr:\n```\n{stderr}\n```",
+    "error": "{msg} со следующей ошибкой:\n```\n{name}: {err}\n```"
   },
   "reload": {
     "description": "перезагружает файл или категорию",

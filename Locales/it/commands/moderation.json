@@ -1,7 +1,7 @@
 {
   "categoryDescription": "Comandi per moderare la gilda",
   "ban": {
-    "description": "bandisce uno o più membri dalla gilda",
+    "description": "bandisce un membro dalla gilda",
     "options": {
       "reason": {
         "description": "L'obiettivo/gli obiettivo/i vedrà la ragione nelle DM"
@@ -10,7 +10,7 @@
         "description": "Per quanto tempo vuoi ottenere gli obiettivi vietati?"
       },
       "target": {
-        "description": "Selezionare il membro da bandire. Lasciare vuoto per selezionare più membri nel passo nex."
+        "description": "Menzionare i membri o mettere ID dentro per bannarli. Metti uno spazio tra ogni obiettivo."
       },
       "delete_days_of_messages": {
         "description": "Elimina tutti i messaggi degli obiettivi degli ultimi n giorni."
@@ -32,7 +32,7 @@
     "description": "kicks a member from the guild",
     "options": {
       "target": {
-        "description": "Selezionare il membro da calciare. Lasciare vuoto per selezionare più membri nel passo nex."
+        "description": "Menzione membro(i) o metti un ID per cacciarli. Metti uno spazio tra ogni obiettivo."
       },
       "reason": {
         "description": "L'obiettivo/gli obiettivo/i vedrà la ragione nelle DM"
@@ -88,6 +88,7 @@
     "infoEmbedDescription": "Moderatore: {mod}\nDurata: <t:{muteDuration}>\nMotivo: {reason}\n\n",
     "selectTargetEmbedDescription": "Seleziona fino a 10 membri da disattivare. Hai 60 secondi.",
     "cantPunishSelf": "Non puoi mutare te stesso!",
+    "cantPunishAdmin": "Gli amministratori non possono essere mutati!",
     "noneFound": "Nessun obiettivo è stato trovato.",
     "error": "Non ho potuto silenziare il bersaglio:\n{err}",
     "success": "**{user}** è stato silenziato con successo.\n",
