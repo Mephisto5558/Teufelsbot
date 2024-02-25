@@ -15,8 +15,9 @@ const
  * @param {Record<string, any>}source
  * @returns {object} recursively merged Object*/
 function deepMerge(target, source) {
-  for (const key of Object.keys(source))
-    target[key] = source[key] instanceof Object ? deepMerge(target[key] ?? {}, source[key]) : source[key];
+  for (const key in source)
+    if (Object.hasOwn(source, key)) target[key] = source[key] instanceof Object ? deepMerge(target[key] ?? {}, source[key]) : source[key];
+
 
   return target;
 }
