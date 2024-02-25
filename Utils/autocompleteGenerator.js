@@ -13,7 +13,7 @@ module.exports = function autocompleteGenerator(command, locale) {
   value: v });
 
   /** @type {command<'both', boolean, true>}*/
-  let { options } = command.fMerge();
+  let { ...options } = command.options;
   if (this.options?._group) options = options.find(e => e.name == this.options._group);
   /* eslint-disable-next-line prefer-destructuring */
   if (this.options?._subcommand) options = options.find(e => e.name == this.options._subcommand).options;
