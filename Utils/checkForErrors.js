@@ -24,6 +24,7 @@ module.exports = async function checkForErrors(command, lang) {
 
   // DO NOT REMOVE THE FOLLOWING LINE
   if (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id) return true;
+  if (this instanceof Message && this.guild.members.me.communicationDisabledUntil) return true;
   if (command.disabled) return replyOnDisabledCommand === false ? true : ['disabled', command.disabledReason ?? 'Not provided'];
   if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? true : ['nonBeta'];
   if (!command.dmPermission && this.channel.type == ChannelType.DM) return ['guildOnly'];
