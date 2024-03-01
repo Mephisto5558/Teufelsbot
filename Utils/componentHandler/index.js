@@ -3,6 +3,7 @@ const { commandQuery, categoryQuery, allQuery, getCommands, getCommandCategories
 const { startRecording, recordControls } = require('./record_manage.js');
 
 module.exports = {
+  advice: require('./advice.js'),
   fact: require('./fact.js'),
   help_commandQuery: commandQuery,
   help_categoryQuery: categoryQuery,
