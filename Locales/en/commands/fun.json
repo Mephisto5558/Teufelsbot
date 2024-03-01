@@ -67,7 +67,7 @@
       }
     },
     "embedTitle": "Avatar Fusion: {user1} and {user2}",
-    "missingParam": "You have to mention at least one member!"
+    "missingParam": "You have to mention at least one member, excluding yourself!"
   },
   "birthday": {
     "description": "Save your birthday and I will send a message on that day.",

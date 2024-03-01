@@ -29,10 +29,10 @@ module.exports = {
       base = getTargetMember.call(this, { targetOptionName: 'base' }),
       overlay = this.options?.getMember('overlay') ?? this.mentions?.members.at(1) ?? this.member;
 
-    if (!base) return this.customReply(lang('missingParam'));
+    if (!base || base.id == overlay.id) return this.customReply(lang('missingParam'));
 
     const embed = new EmbedBuilder({
-      title: lang('embedTitle', { user1: base.user.customTag, user2: overlay.user.customTag }),
+      title: lang('embedTitle', { user1: base.displayName, user2: overlay.displayName }),
       color: Colors.White,
       footer: { text: this.user.tag }
     });
