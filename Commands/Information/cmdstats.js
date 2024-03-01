@@ -18,12 +18,16 @@ module.exports = {
 
   run: function (lang) {
     const
-      command = this.options?.getString('command') ?? this.args?.[0],
+      query = (this.options?.getString('command') ?? this.args?.[0])?.toLowerCase(),
       embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.White });
 
-    if (command) {
-      const id = this.client.application.commands.cache.find(e => e.name == command)?.id;
-      embed.data.description = lang('embedDescriptionOne', { command: id ? `</${command}:${id}>` : `\`${command}\``, count: this.client.settings.stats?.[command] ?? 0 });
+    if (query) {
+      let command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);
+      if (command?.aliasOf) command = this.client.slashCommands.get(command.aliasOf) || this.client.prefixCommands.get(command.aliasOf);
+
+      embed.data.description = lang('embedDescriptionOne', {
+        command: command?.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``, count: this.client.settings.stats?.[command.name] ?? 0
+      });
     }
     else {
       embed.data.description = lang('embedDescriptionMany');
