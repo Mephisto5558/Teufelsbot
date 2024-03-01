@@ -347,6 +347,9 @@ declare module 'discord.js' {
     /** Alias for {@link Message.author}*/
     user: Message['author'];
 
+    /** This does not exist on Messages and is only for better typing of {@link command} here */
+    options: void;
+
     /**
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
      * and if that also doesn't work, send the message without repling to a specific message/interaction.
