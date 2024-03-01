@@ -129,65 +129,6 @@
       "notFound": "Nobody has a birthday set..."
     }
   },
-  "dm": {
-    "description": "sends an user a dm",
-    "options": {
-      "toggle": {
-        "description": "toggles the ability to send you user-made dms.",
-        "options": {
-          "target": {
-            "description": "the user you want to toggle; leave this empty to toggle all users (\"*\")."
-          }
-        }
-      },
-      "blacklist": {
-        "description": "Lists all users you are currently blocking."
-      },
-      "send": {
-        "description": "Send a dm to a member of this guild.",
-        "options": {
-          "target": {
-            "description": "the user you want to send a dm to"
-          },
-          "message": {
-            "description": "the message you want to send, /n for newline"
-          },
-          "as_mod": {
-            "description": "shows 'a mod of [guild]' instead of your name"
-          }
-        }
-      }
-    },
-    "toggle": {
-      "targetAll": {
-        "saved": "no one will be",
-        "removed": "`all users`"
-      },
-      "targetOne": {
-        "name": "User `{user}`",
-        "isnt": "{user} isn't"
-      },
-      "saved": "Your blacklist entry for {user} has been saved.\nNow {state} able to send you dms by me.\nThis will not prevent guild moderators from sending dms to you.",
-      "removed": "Your blacklist entry for {user} has been removed.\nYou can now receive dms created by {user} from me."
-    },
-    "blacklist": {
-      "notFound": "> You are not blocking any users of this guild.",
-      "allBlocked": "> You are blocking everyone.",
-      "embedTitle": "Your blacklist for the `/dm send` command",
-      "embedDescription": "You are blocking the following guild members:\n{members}",
-      "embedFooterText": "Run '/dm toggle' without arguments to toggle all users and\nrun '/dm toggle' with the 'user_to_toggle' argument to toggle a specific user."
-    },
-    "send": {
-      "targetIsMe": "I cannot send DMs to myself!",
-      "permissionDenied": "You are not allowed to send dms to that user!",
-      "asModInfo": "\nUse the `as_mod` option to force the message to send.",
-      "embedTitle": "You got a message!",
-      "embedDescription": "From **{user}**\nGuild: {guild}\n\n{msg}",
-      "fromMod": "a guild moderator",
-      "embedFooterText": "If you don't want to receive user-made dms from me, run '/dm toggle' in any guild.",
-      "error": "I couldn't message this member!"
-    }
-  },
   "fact": {
     "description": "Interesting facts",
     "usage": {
@@ -334,11 +275,6 @@
     "validOptions": "Valid options are:\n`{options}`",
     "requiresArgs": "This command requires the following args in order:\n\n{args}",
     "error": "An error occurred:\n```{err}```"
-  },
-  "inspirobot": {
-    "description": "Get an inspiring quote.",
-    "error": "An error occurred.",
-    "notFound": "There are no inspiring quotes available :("
   },
   "joke": {
     "description": "sends a funny joke",
