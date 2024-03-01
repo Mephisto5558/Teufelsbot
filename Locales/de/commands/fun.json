@@ -67,7 +67,7 @@
       }
     },
     "embedTitle": "Avatar-Fusion: {user1} und {user2}",
-    "missingParam": "Du musst mindestens ein Mitglied erwähnen!"
+    "missingParam": "Du musst mindestens ein Mitglied (dich ausgeschlossen) erwähnen!"
   },
   "birthday": {
     "description": "Speichere deinen Geburtstag ein und ich werde dir eine Nachricht an diesem bedeutenden Tag senden.",
