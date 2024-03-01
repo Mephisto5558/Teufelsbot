@@ -311,8 +311,8 @@ declare global {
 
 declare module 'discord.js' {
   interface Client<Ready> {
-    prefixCommands: Discord.Collection<string, command<'prefix', boolean, Ready>>;
-    slashCommands: Discord.Collection<string, command<'slash', boolean, Ready>>;
+    prefixCommands: Discord.Collection<command['name'], command<'prefix', boolean, Ready>>;
+    slashCommands: Discord.Collection<command['name'], command<'slash', boolean, Ready>>;
     backupSystem?: BackupSystem;
     giveawaysManager?: GiveawayManagerWithOwnDatabase;
     webServer: WebServer;
