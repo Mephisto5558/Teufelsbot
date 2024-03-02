@@ -83,11 +83,15 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
     case 'r':
     case 'p':
     case 's': {
-      const choices = this.client.db.get('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`) ?? {};
-      if (opponentId == this.client.user.id) choices.player2 = ['r', 'p', 's'].random();
+      let choices = {};
+      if (opponentId == this.client.user.id) {
+        choices.player1 = mode;
+        choices.player2 = ['r', 'p', 's'].random();
+      }
+      else choices = this.client.db.get('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`) ?? {};
 
-      const player = this.user.id == initiatorId ? 'player1' : 'player2';
       if (!choices.player1 || !choices.player2) {
+        const player = this.user.id == initiatorId ? 'player1' : 'player2';
         if (choices[player]) return this.reply({ content: lang('end.alreadyChosen', lang(choices[player])), ephemeral: true });
 
         choices.startedAt ??= Date.now();
