@@ -10,15 +10,15 @@ const
  * @param {string}commandType
  * @param {lang}lang*/
 module.exports = async function commandExecutionWrapper(command, commandType, lang) {
+  const errorKey = await checkForErrors.call(this, command, lang);
+  if (errorKey === true) return;
+  else if (errorKey) return this.customReply({ embeds: [new EmbedBuilder({ description: lang(...errorKey), color: Colors.Red })], ephemeral: true });
+
   const
     commandName = command.aliasOf ?? command.name,
 
     /** @type {lang}*/
     cmdLang = this.client.i18n.__.bBind(this.client.i18n, { locale: lang.__boundArgs__[0].locale, backupPath: command ? `commands.${command.category.toLowerCase()}.${commandName}` : undefined });
-
-  const errorKey = await checkForErrors.call(this, command, lang);
-  if (errorKey === true) return;
-  else if (errorKey) return this.customReply({ embeds: [new EmbedBuilder({ description: lang(...errorKey), color: Colors.Red })], ephemeral: true });
 
   log.debug(`Executing ${commandType} command ${commandName}`);
 
