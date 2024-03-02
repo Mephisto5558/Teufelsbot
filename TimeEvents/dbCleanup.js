@@ -2,13 +2,17 @@
 const getOneMonthAgo = () => new Date().setMonth(new Date().getMonth() - 1);
 
 /**
- * Removes all giveaways that ended more than one month ago
+ * Deletes giveaway records that concluded over a month ago
  * @this {Client}
- * @param {{ ended: boolean, endAt: number }[]}db*/
-function cleanupGiveawaysDB(db) {
-  if (db) this.db.set('giveaways', db.filter(e => !e.ended || getOneMonthAgo() < e.endAt));
+ * @param {string}guildId
+ * @param {Record<string, { ended: boolean, endAt: number }>}db*/
+function cleanupGiveawaysDB(guildId, db) {
+  if (!db) return;
 
-  log('Cleaned giveaways DB');
+  for (const [id, { ended, endAt }] of Object.entries(db)) {
+    if (!ended || getOneMonthAgo() < endAt) continue;
+    this.db.delete('guildSettings', `${guildId}.giveaway.giveaways.${id}`);
+  }
 }
 
 /**
@@ -66,16 +70,16 @@ module.exports = {
     if (this.settings.lastDBCleanup == now) return void log('Already ran DB cleanup today');
     log('Started DB cleanup');
 
-    cleanupGiveawaysDB.call(this, this.db.get('giveaways'));
     for (const [guildId, guild] of Object.entries(this.db.get('guildSettings'))) {
       if (guildId == 'default') continue;
 
+      cleanupGiveawaysDB.call(this, guildId, guild.giveaway?.giveaways);
       cleanupMentionsDB.call(this, guildId, guild.lastMentions);
       cleanupAfkMessagesDB.call(this, guildId, guild.afkMessages);
       cleanUpMinigamesDB.call(this, guildId, guild.minigames);
     }
 
-    log('Cleaned lastMentions, afkMessages & minigames DB');
+    log('Cleaned giveaways, lastMentions, afkMessages & minigames DB');
 
     await this.db.update('botSettings', 'lastDBCleanup', now);
     log('Finished DB cleanup');
