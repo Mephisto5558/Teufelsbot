@@ -9,8 +9,7 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require(
 module.exports = async function playAgain(interaction, lang) {
   const
     opponent = interaction.options?.getUser('opponent'),
-    { components: oldComponents } = await interaction.fetchReply(),
-    components = oldComponents;
+    { components } = await interaction.fetchReply();
 
   if (!components[3]?.components[0]?.customId) {
     components[3] = new ActionRowBuilder({
@@ -60,9 +59,8 @@ module.exports = async function playAgain(interaction, lang) {
     .on('end', collected => {
       if (!collected.size) return;
 
-      for (const row of oldComponents)
-        for (const button of row.components) button.data.disabled = true;
+      for (let i = 0; i < 3; i++) for (const button of components[i].components) button.data.disabled = true;
 
-      interaction.editReply({ components: oldComponents });
+      interaction.editReply({ components });
     });
 };
