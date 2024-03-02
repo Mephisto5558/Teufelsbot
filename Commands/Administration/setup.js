@@ -106,6 +106,14 @@ const
       return this.editReply({ embeds: [embed] });
     },
 
+    prefix: async function setPrefix() {
+      const newPrefix = this.options.getString('new_prefix');
+      const prefixCaseInsensitive = this.options.getBoolean('case_insensitive') ?? this.guild.db.config?.prefix?.caseinsensitive ?? false;
+
+      await this.client.db.update('guildSettings', `${this.guild.id}.config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refix`, { prefix: newPrefix, caseinsensitive: prefixCaseInsensitive });
+      return this.customReply(lang('saved', newPrefix));
+    },
+
     serverbackup: async function serverBackup(lang) {
       await this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', Number.parseInt(backup.get(this.options.getString('allowed_to_load'))));
       return this.editReply(lang('success'));
@@ -191,6 +199,18 @@ module.exports = {
         },
         strictAutocomplete: true
       }]
+    },
+    {
+      name: 'prefix',
+      type: 'Subcommand',
+      options: [
+        {
+          name: 'new_prefix',
+          type: 'String',
+          required: true
+        },
+        { name: 'case_insensitive', type: 'Boolean' }
+      ]
     },
     {
       name: 'serverbackup',
