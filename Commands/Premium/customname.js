@@ -41,7 +41,7 @@ module.exports = {
 
   run: function (lang) {
     /** @type {import('discord.js').User}*/
-    let target = getTargetMember.call(this);
+    let target = getTargetMember.call(this, { returnSelf: true });
     if (this.options?.getBoolean('global') && 'user' in target) target = target.user; // target.user check for execution in dms
 
     switch (this.options?.getSubcommand() ?? this.args[0]) {
