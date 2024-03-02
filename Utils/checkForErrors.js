@@ -38,22 +38,24 @@ module.exports = async function checkForErrors(command, lang) {
 
   if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return ['nsfw'];
 
-  let [...options] = command.options;
-  if (this.options?._group) ({ options } = options.find(e => e.name == this.options._group));
-  if (this.options?._subcommand) ({ options } = options.find(e => e.name == this.options._subcommand));
+  if (command.options) {
+    let [...options] = command.options;
+    if (this.options?._group) ({ options } = options.find(e => e.name == this.options._group));
+    if (this.options?._subcommand) ({ options } = options.find(e => e.name == this.options._subcommand));
 
-  for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete }] of options.entries()) {
-    if (required && !this.options?.get(name) && !this.args?.[i])
-      return ['paramRequired', { option: name, description: descriptionLocalizations[lang.__boundArgs__[0].locale] ?? description }];
+    for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete }] of options.entries()) {
+      if (required && !this.options?.get(name) && !this.args?.[i])
+        return ['paramRequired', { option: name, description: descriptionLocalizations[lang.__boundArgs__[0].locale] ?? description }];
 
-    if (
-      autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
-      && !autocompleteGenerator.call({
-        ...this, client: this.client, user: this.user,
-        focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
-      }, command, this.guild?.db.config?.lang ?? this.guild?.localeCode)
-        .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
-    ) return ['strictAutocompleteNoMatch', name];
+      if (
+        autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
+        && !autocompleteGenerator.call({
+          ...this, client: this.client, user: this.user,
+          focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
+        }, command, this.guild?.db.config?.lang ?? this.guild?.localeCode)
+          .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
+      ) return ['strictAutocompleteNoMatch', name];
+    }
   }
 
   if (this.client.botType != 'dev') {
