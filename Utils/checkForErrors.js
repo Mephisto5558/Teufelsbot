@@ -31,7 +31,7 @@ module.exports = async function checkForErrors(command, lang) {
 
   const disabledList = this.guild?.db.commandSettings?.[command.aliasOf ?? command.name]?.disabled;
   if (disabledList) {
-    if (disabledList.members?.includes(this.user.id)) return ['notAllowed.member'];
+    if (disabledList.users?.includes(this.user.id)) return ['notAllowed.user'];
     if (disabledList.channels?.includes(this.channel.id)) return ['notAllowed.channel'];
     if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return ['notAllowed.role'];
   }
