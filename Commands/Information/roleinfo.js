@@ -15,7 +15,7 @@ module.exports = {
     this.args = this.args?.map(e => e.replaceAll(/[<>@]/g, '')) ?? [];
     this.content = this.content?.replaceAll(/[<>@]/g, '');
 
-    const role = getTargetRole({ targetOptionName: 'role', returnSelf: true });
+    const role = getTargetRole.call(this, { targetOptionName: 'role', returnSelf: true });
     if (!role) return this.customReply(lang('notFound'));
 
     const embed = new EmbedBuilder({
