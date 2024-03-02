@@ -53,7 +53,6 @@
     "creator": "Creator",
     "available": "Available",
     "createdAt": "Created At",
-    "requiresColons": "Requires Colons",
     "allowedRoles": "Allowed Roles",
     "delete": "Delete Emoji"
   },
