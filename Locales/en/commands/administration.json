@@ -184,8 +184,8 @@
           "case_insensitive": {
             "description": "Should the case of the prefix be ignored?"
           }
-        },
-        "saved": "My prefix has been changed to `{prefix}`."      },
+        }
+      },
       "serverbackup": {
         "description": "Manage options for your server backups.",
         "options": {
@@ -256,6 +256,9 @@
     "language": {
       "embedTitle": "Bot language changed!",
       "embedDescription": "The language has been set to `English`."
+    },
+    "prefix": {
+      "saved": "My prefix has been changed to `{prefix}`."
     },
     "serverbackup": {
       "success": "Successfully updated the settings!"
