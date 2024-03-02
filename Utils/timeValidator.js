@@ -4,13 +4,17 @@ const validItems = ['y', 'mth', 'w', 'd', 'h', 'min', 's', 'ms'];
  * @param {string}timeStr a time string, e.g. 3w2d
  * @returns {string[]}array of valid values*/
 function timeValidator(timeStr) {
-  if (!timeStr) return [];
+  if (!timeStr || timeStr == '-' || timeStr == '+') return [];
 
   let
     numberBuffer = '',
     unitBuffer = '';
   for (let i = 0; i < timeStr.length; i++) {
     const char = timeStr[i];
+    if (char == '-' || char == '+') {
+      numberBuffer += char;
+      continue;
+    }
 
     if (Number.isNaN(Number.parseInt(char))) unitBuffer = unitBuffer.length && Number.isNaN(Number.parseInt(timeStr[i - 1])) ? unitBuffer + char : char;
     else if (!unitBuffer.length || !Number.isNaN(Number.parseInt(timeStr[i - 1]))) numberBuffer += char;
