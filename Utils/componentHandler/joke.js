@@ -9,8 +9,6 @@ const commandExecutionWrapper = require('../commandExecutionWrapper.js');
  * @param {string}blacklist
  * @param {string}maxLength*/
 module.exports = function joke(lang, api, type, blacklist, maxLength) {
-  lang.__boundArgs__[0].backupPath = 'commands.fun.joke';
-
   this.options = {
     /** @param {string}str*/
     /* eslint-disable unicorn/no-null */ // Mimicing discord.js behavior
