@@ -123,7 +123,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      amount = this.options?.getInteger('amount') ?? Number.parseInt(this.args?.[0]).limit({ min: 0, max: 1000 }),
+      amount = this.options?.getInteger('amount') ?? Number.parseInt(this.args[0]).limit({ min: 0, max: 1000 }),
 
       /** @type {import('discord.js').GuildTextBasedChannel}*/
       channel = getTargetChannel.call(this, { returnSelf: true }),

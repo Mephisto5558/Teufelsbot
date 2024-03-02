@@ -14,7 +14,6 @@
         "description": "Which model do you want to use?"
       }
     },
-    "hello": "Hello!",
     "rateLimit": "The ratelimit has been reached. Please try again in a few seconds.",
     "notAvailable": "The API is currently not available. Please check back later.",
     "error": "The API responded with an error.",

@@ -4,6 +4,10 @@ module.exports = {
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
+  options: [
+    { name: 'database', type: 'String', required: true },
+    { name: 'key', type: 'String' }
+  ],
   beta: true,
 
   run: function (lang) {

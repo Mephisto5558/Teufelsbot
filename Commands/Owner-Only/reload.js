@@ -88,11 +88,10 @@ module.exports = {
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
+  options: [{ name: 'command_name', type: 'String' }],
   beta: true,
 
   run: async function (lang) {
-    if (!this.args[0]) return this.reply(lang('invalidCommand'));
-
     log.debug('Reloading files', this.args);
 
     const

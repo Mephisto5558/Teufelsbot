@@ -39,7 +39,7 @@ module.exports = async function checkForErrors(command, lang) {
   if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return ['nsfw'];
 
   const options = command.options?.flatMap(e => e.options?.flatMap(e => e.options ?? e) ?? e.options ?? e) ?? [];
-  for (const [i, { autocomplete, strictAutocomplete, name }] of options.entries()) {
+  for (const [i, { autocomplete, strictAutocomplete, required, name }] of options.entries()) {
     if (
       autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
       && !autocompleteGenerator.call({
@@ -48,6 +48,9 @@ module.exports = async function checkForErrors(command, lang) {
       }, command, this.guild?.db.config?.lang ?? this.guild?.localeCode)
         .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
     ) return ['strictAutocompleteNoMatch', name];
+
+    if (required && !this.options?.get(name) && !this.args?.[i])
+      return ['paramRequired', name];
   }
 
   if (this.client.botType != 'dev') {
