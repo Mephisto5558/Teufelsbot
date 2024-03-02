@@ -9,7 +9,7 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  disabled: !(Dashboard && Domain),
+  disabled: !Dashboard || !Domain,
   disabledReason: 'Missing dashboard or domain url in config.json',
 
   run: function (lang) {

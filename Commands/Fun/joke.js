@@ -112,8 +112,7 @@ module.exports = {
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('global.anotherone'),
-          /* eslint-disable-next-line unicorn/no-null */
-          customId: `joke.${api.name ?? null}.${type ?? null}.${blacklist ?? null}.${maxLength ?? null}`,
+          customId: `joke.${api.name ?? 'null'}.${type ?? 'null'}.${blacklist ?? 'null'}.${maxLength ?? 'null'}`,
           style: ButtonStyle.Primary
         })]
       });
