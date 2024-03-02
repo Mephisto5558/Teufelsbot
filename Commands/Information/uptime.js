@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { Domain } = require('../../config.json')?.Website ?? {},
+  { Website: { Domain } = {}, disableWebserver } = require('../../config.json') ?? {},
   { timeFormatter } = require('../../Utils');
 
 /** @type {command<'both', false>}*/
@@ -13,7 +13,7 @@ module.exports = {
 
   run: function (lang) {
     const embed = new EmbedBuilder({
-      description: lang(Domain ? 'embedDescription' : 'embedDescriptionNoURL', { time: timeFormatter(process.uptime(), lang).formatted, Domain }),
+      description: lang(Domain && !disableWebserver ? 'embedDescription' : 'embedDescriptionNoURL', { time: timeFormatter(process.uptime(), lang).formatted, Domain }),
       color: Colors.White
     });
 
