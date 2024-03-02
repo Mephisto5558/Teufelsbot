@@ -36,14 +36,13 @@ function updateStats(firstID, secondID, type, db) {
   return db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, (stats[against]?.[secondID] ?? 0) + 1);
 }
 
-/** @type {command<'both'>}*/
+/** @type {command<'slash'>}*/
 module.exports = {
   name: 'tictactoe',
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
-  permissions: { client: ['ManageMessages'] },
   cooldowns: { user: 5000 },
   slashCommand: true,
-  prefixCommand: true,
+  prefixCommand: false,
   options: [{ name: 'opponent', type: 'User' }],
 
   run: function (lang) {
@@ -61,6 +60,6 @@ module.exports = {
     game.on('win', data => eventCallback.call(this, [data.winner, data.loser], ['win', 'lose'], lang, game));
     game.on('tie', data => eventCallback.call(this, data.players, ['draw'], lang, game));
 
-    return this.options ? game.handleInteraction(this) : game.handleMessage(this);
+    return game.handleInteraction(this);
   }
 };
