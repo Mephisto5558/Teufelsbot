@@ -4,10 +4,6 @@
     "value": {}
   },
   {
-    "key": "giveaways",
-    "value": []
-  },
-  {
     "key": "botSettings",
     "value": {
       "env": {
@@ -69,7 +65,8 @@
         "giveaway": {
           "reaction": "🎉",
           "embedColor": 3800852,
-          "embedColorEnd": 16711680
+          "embedColorEnd": 16711680,
+          "giveaways": {}
         },
         "economy": {
           "currencyCapacity": 100,

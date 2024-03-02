@@ -2,33 +2,27 @@ const { GiveawaysManager } = require('discord-giveaways');
 
 module.exports = class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
   getAllGiveaways() {
-    return this.client.db.get('giveaways');
+    return Object.entries(this.client.db.get('guildSettings')).reduce((acc, [k, v]) => {
+      const giveaways = Object.values(v.giveaway?.giveaways ?? {});
+      if (k != 'default' && giveaways.length) acc = [...acc, ...giveaways];
+      return acc;
+    }, []);
   }
 
   /**
-   * @param {any}_
-   * @param {unknown}giveawayData
-   * @returns {Promise<true>}*/
-  async saveGiveaway(_, giveawayData) {
-    await this.client.db.push('giveaways', giveawayData);
+   * @param {import('discord.js').Snowflake}messageId
+   * @param {import('discord-giveaways').Giveaway}giveawayData*/
+  async saveGiveaway(messageId, giveawayData) {
+    await this.client.db.update('guildSettings', `${giveawayData.guildId}.giveaway.giveaways.${messageId}`, giveawayData);
     return true;
   }
 
-  /**
-   * @param {string}messageId
-   * @param {unknown}giveawayData
-   * @returns {Promise<true>}*/
-  async editGiveaway(messageId, giveawayData) {
-    const data = this.client.db.get('giveaways').filter(e => e.messageId != messageId);
-    data.push(giveawayData);
+  editGiveaway = this.saveGiveaway;
 
-    await this.client.db.set('giveaways', data);
-    return true;
-  }
-
-  /** @param {string}messageId @returns {Promise<true>}*/
+  /** @param {import('discord.js').Snowflake}messageId*/
   async deleteGiveaway(messageId) {
-    await this.client.db.set('giveaways', this.client.db.get('giveaways').filter(e => e.messageId != messageId));
+    const guildId = Object.entries(this.client.db.get('guildSettings')).find(([,v]) => v.giveaway?.giveaways?.find(e => e.messageId == messageId))[0];
+    await this.client.db.delete('guildSettings', `${guildId}.giveaway.giveaways.${messageId}`);
     return true;
   }
 };
