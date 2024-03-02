@@ -233,7 +233,7 @@
       }
     },
     "managerNotFound": "This feature is disabled or not registered.",
-    "notFound": "Your provided message id is not a valid giveaway!",
+    "notFound": "Your provided message id is not a valid giveaway or it has already ended!",
     "invalidTime": "The provided duration/add_time value is invalid!",
     "notHost": "You are not the host of this giveaway!",
     "buttonLabel": "View Giveaway",
