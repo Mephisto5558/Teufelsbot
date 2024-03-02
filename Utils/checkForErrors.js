@@ -77,7 +77,7 @@ module.exports = async function checkForErrors(command, lang) {
         color: Colors.Red
       });
 
-      if (botPermsMissing.includes(PermissionFlagsBits.SendMessages) || botPermsMissing.includes(PermissionFlagsBits.ViewChannel)) {
+      if (botPermsMissing.includes('SendMessages') || botPermsMissing.includes('ViewChannel')) {
         if (this instanceof Message && this.guild.members.me.permissionsIn(this.channel).has(PermissionFlagsBits.AddReactions)) {
           await this.react('❌');
           this.react('✍️');
