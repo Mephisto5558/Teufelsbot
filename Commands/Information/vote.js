@@ -1,20 +1,20 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { Dashboard } = require('../../config.json')?.Website ?? {};
+  { Domain } = require('../../config.json')?.Website ?? {};
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'dashboard',
+  name: 'vote',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  disabled: !Dashboard,
-  disabledReason: 'Missing dashboard url in config.json',
+  disabled: !Domain,
+  disabledReason: 'Missing domain url in config.json',
 
   run: function (lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescriptionDashboard', Dashboard),
+      description: lang('embedDescriptionVote', `${Domain}/vote`),
       color: Colors.Blurple
     });
 
