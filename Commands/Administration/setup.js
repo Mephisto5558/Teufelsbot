@@ -106,7 +106,7 @@ const
       return this.editReply({ embeds: [embed] });
     },
 
-    prefix: async function setPrefix() {
+    prefix: async function setPrefix(lang) {
       const newPrefix = this.options.getString('new_prefix');
       const prefixCaseInsensitive = this.options.getBoolean('case_insensitive') ?? this.guild.db.config?.prefix?.caseinsensitive ?? false;
 
