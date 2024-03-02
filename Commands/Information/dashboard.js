@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { Dashboard } = require('../../config.json')?.Website ?? {};
+  { Website: { Dashboard } = {}, disableWebserver } = require('../../config.json') ?? {};
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -8,8 +8,8 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  disabled: !Dashboard,
-  disabledReason: 'Missing dashboard url in config.json',
+  disabled: disableWebserver || !Dashboard,
+  disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing dashboard url in config.json',
 
   run: function (lang) {
     const embed = new EmbedBuilder({

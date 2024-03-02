@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { Domain } = require('../../config.json')?.Website ?? {};
+  { Website: { Domain } = {}, disableWebserver } = require('../../config.json') ?? {};
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -8,8 +8,8 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  disabled: !Domain,
-  disabledReason: 'Missing domain url in config.json',
+  disabled: disableWebserver || !Domain,
+  disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing domain url in config.json',
 
   run: function (lang) {
     const embed = new EmbedBuilder({
