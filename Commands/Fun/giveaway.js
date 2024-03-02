@@ -53,8 +53,8 @@ const
         startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers?.includes(member.id));
 
       const data = await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions);
-      /* eslint-disable-next-line require-atomic-updates */
-      components[0].components[0].data.url = data.messageURL; // I don't see any race donditions
+      /* eslint-disable-next-line require-atomic-updates */ // I don't see any race donditions
+      components[0].components[0].data.url = data.messageURL;
 
       return this.editReply({ content: lang('started'), components });
     },
@@ -86,11 +86,11 @@ const
         newImage: this.options.getString('image')
       };
 
-      if (requiredRoles.length || disallowedMembers.length)
-
+      if (requiredRoles?.length || disallowedMembers?.length) {
       /** @param {import('discord.js').GuildMember}member*/
         editOptions.newExemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
-      if (bonusEntries.length) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
+      }
+      if (bonusEntries?.length) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
 
       const data = await this.client.giveawaysManager.edit(giveawayId, editOptions);
       components[0].components[0].data.url = data.messageURL;
@@ -226,7 +226,7 @@ module.exports = {
     if (giveawayId) {
       giveaway = this.client.giveawaysManager.giveaways.find(e => e.guildId == this.guild.id && e.messageId == giveawayId);
 
-      if (!giveaway) return this.editReply(lang('notFound'));
+      if (!giveaway || giveaway.ended && ['edit', 'end'].includes(this.options.getSubcommand())) return this.editReply(lang('notFound'));
       if (giveaway.hostedBy.slice(2, -1) != this.user.id && !this.member.permissions.has(PermissionFlagsBits.Administrator))
         return this.editReply(lang('notHost'));
     }
