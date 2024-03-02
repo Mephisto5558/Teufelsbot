@@ -1,9 +1,7 @@
-const
-  { EmbedBuilder, Colors } = require('discord.js'),
-  { checkForErrors, commandExecutionWrapper } = require('../Utils');
+const { commandExecutionWrapper } = require('../Utils');
 
 /** @this {Message}*/
-module.exports = async function messageCreate() {
+module.exports = function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 
   if (this.botType != 'dev' && this.guild) {
@@ -24,11 +22,7 @@ module.exports = async function messageCreate() {
     command = this.client.prefixCommands.get(this.commandName),
 
     /** @type {lang}*/
-    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild?.db.config?.lang ?? this.guild?.localeCode, backupPath: 'events.command' }),
-    errorKey = await checkForErrors.call(this, command, lang);
-
-  if (errorKey === true) return;
-  else if (errorKey) return this.customReply({ embeds: [new EmbedBuilder({ description: lang(...errorKey), color: Colors.Red })] }, 1e4);
+    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild?.db.config?.lang ?? this.guild?.localeCode, backupPath: 'events.command' });
 
   return commandExecutionWrapper.call(this, command, 'prefix', lang);
 };

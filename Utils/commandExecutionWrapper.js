@@ -1,4 +1,8 @@
-const errorHandler = require('./errorHandler.js');
+const
+  { EmbedBuilder, Colors } = require('discord.js'),
+  checkForErrors = require('./checkForErrors.js'),
+  errorHandler = require('./errorHandler.js');
+
 
 /**
  * @this {Message|import('discord.js').BaseInteraction}
@@ -12,7 +16,14 @@ module.exports = async function commandExecutionWrapper(command, commandType, la
     /** @type {lang}*/
     cmdLang = this.client.i18n.__.bBind(this.client.i18n, { locale: lang.__boundArgs__[0].locale, backupPath: command ? `commands.${command.category.toLowerCase()}.${commandName}` : undefined });
 
+  const errorKey = await checkForErrors.call(this, command, lang);
+  if (errorKey === true) return;
+  else if (errorKey) return this.customReply({ embeds: [new EmbedBuilder({ description: lang(...errorKey), color: Colors.Red })], ephemeral: true });
+
   log.debug(`Executing ${commandType} command ${commandName}`);
+
+  if (!command.noDefer && !this.replied) await this.deferReply({ ephemeral: command.ephemeralDefer ?? false });
+
   try {
     await command.run.call(this, cmdLang);
     if (this.client.botType != 'dev') await this.client.db.update('botSettings', `stats.${commandName}`, (this.client.settings.stats?.[commandName] ?? 0) + 1);
