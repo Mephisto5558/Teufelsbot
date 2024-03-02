@@ -16,7 +16,7 @@ async function fetchAPI(lang, deep) {
     },
     body: JSON.stringify({
       model: 'pai-001',
-      messages: [{ role: 'user', content: this.options?.getString('message') ?? this.content ?? lang('hello') }]
+      messages: [{ role: 'user', content: this.options?.getString('message') ?? this.content }]
     })
   }).then(e => e.json());
 
@@ -37,14 +37,12 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
   premium: true,
-  options: [
-    {
-      name: 'message',
-      type: 'String',
-      maxLength: 2000,
-      required: true
-    }
-  ],
+  options: [{
+    name: 'message',
+    type: 'String',
+    maxLength: 2000,
+    required: true
+  }],
 
   run: async function (lang) {
     if (this instanceof Message) this.channel.sendTyping();
