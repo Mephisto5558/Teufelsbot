@@ -211,7 +211,7 @@ declare global {
     /** Numbers in milliseconds*/
     cooldowns?: __local.BaseCommand<initialized>['cooldowns'];
 
-    /** If true, the user must provide a value to this option.*/
+    /** If true, the user must provide a value to this option. This is also enforced for prefix commands.*/
     required?: boolean;
 
     /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled.*/

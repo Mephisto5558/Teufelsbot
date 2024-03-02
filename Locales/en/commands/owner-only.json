@@ -6,7 +6,6 @@
       "usage": "{prefix}blacklistuser [off] <user id>",
       "examples": "{prefix}blacklistuser 12345678901234568"
     },
-    "noInput": "You need to provide an id.",
     "notFound": "Found no entry for this id.",
     "saved": "`{user}` has been blacklisted from using the bot.",
     "removed": "The blacklist entry for `{user}` has been removed.",

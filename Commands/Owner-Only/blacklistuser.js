@@ -5,11 +5,10 @@ module.exports = {
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
+  options: [{ name: 'target', type: 'String', required: true }],
   beta: true,
 
   run: async function (lang) {
-    if (!this.args[0]) return this.customReply(lang('noInput'));
-
     if (this.args[0] == 'off') {
       if (!this.client.settings.blacklist.includes(this.args[1])) return this.customReply(lang('notFound'));
 

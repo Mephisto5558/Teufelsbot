@@ -7,7 +7,6 @@
         "description": "What do you want my opinion on?"
       }
     },
-    "noQuestion": "You didn't ask me anything???",
     "responseList": [
       "As I see it, yes.",
       "It is certain.",
@@ -382,8 +381,7 @@
         "description": "The channel the message gets sent to"
       }
     },
-    "noPerm": "You don't have the permission to send messages in that channel!",
-    "noMsgProvided": "You need to provide a message to send!"
+    "noPerm": "You don't have the permission to send messages in that channel!"
   },
   "sleep": {
     "description": "tells your friends that you are going to sleep",

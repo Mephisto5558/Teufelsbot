@@ -16,13 +16,13 @@ module.exports = {
 
   run: async function (lang) {
     const
-      parsedEmoji = parseEmoji(this.options?.getString('emoji') ?? this.args?.[0] ?? ''),
-      emoji = this.client.emojis.cache.get(parsedEmoji.id) ?? parsedEmoji;
+      parsedEmoji = parseEmoji(this.options?.getString('emoji') ?? this.args[0]),
+      emoji = this.client.emojis.cache.get(parsedEmoji?.id) ?? parsedEmoji;
 
-    if (!emoji.id) return this.customReply(lang('notFound'));
+    if (!emoji?.id) return this.customReply(lang('notFound'));
 
     const
-      url = emoji?.imageURL() ?? CDNRoutes.emoji(emoji.id, ImageFormat.WebP) + '?size=2048',
+      url = emoji.imageURL() ?? CDNRoutes.emoji(emoji.id, ImageFormat.WebP) + '?size=2048',
       embed = new EmbedBuilder({
         title: lang('embedTitle', `<:${emoji.name}:${emoji.id}>`),
         color: Number.parseInt((await getAverageColor(url)).hex.slice(1), 16),

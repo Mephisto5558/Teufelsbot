@@ -5,6 +5,7 @@
   "nonBeta": "This command is not a beta command! This bot runs only beta commands.",
   "disabled": "This command has been disabled by the bot dev. Reason:\n{reason}",
   "nsfw": "You cannot run NSFW Commands in a non NSFW Channel!",
+  "paramRequired": "You need to input a value for the option \"{option}\".",
   "strictAutocompleteNoMatch": "Your input for the option \"{option}\" must match one of the autocomplete suggestions. Please select one of the available options when entering the slash command.",
   "permissionDenied": {
     "embedTitle": "Insufficient Permissions",
