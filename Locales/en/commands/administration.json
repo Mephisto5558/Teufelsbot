@@ -175,6 +175,17 @@
           }
         }
       },
+      "prefix": {
+        "description": "Change the bot's prefix.",
+        "options": {
+          "new_prefix": {
+            "description": "the new bot prefix for this guild"
+          },
+          "case_insensitive": {
+            "description": "Should the case of the prefix be ignored?"
+          }
+        },
+        "saved": "My prefix has been changed to `{prefix}`."      },
       "serverbackup": {
         "description": "Manage options for your server backups.",
         "options": {
