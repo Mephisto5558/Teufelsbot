@@ -38,7 +38,10 @@ module.exports = async function checkForErrors(command, lang) {
 
   if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return ['nsfw'];
 
-  const options = command.options?.flatMap(e => e.options?.flatMap(e => e.options ?? e) ?? e.options ?? e) ?? [];
+  let [...options] = command.options;
+  if (this.options?._group) ({ options } = options.find(e => e.name == this.options._group));
+  if (this.options?._subcommand) ({ options } = options.find(e => e.name == this.options._subcommand));
+
   for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete }] of options.entries()) {
     if (required && !this.options?.get(name) && !this.args?.[i])
       return ['paramRequired', { option: name, description: descriptionLocalizations[lang.__boundArgs__[0].locale] ?? description }];

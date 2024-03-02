@@ -14,9 +14,8 @@ module.exports = function autocompleteGenerator(command, locale) {
 
   /** @type {commandOptions[]}*/
   let [...options] = command.options;
-  if (this.options?._group) options = options.find(e => e.name == this.options._group);
-  /* eslint-disable-next-line prefer-destructuring */
-  if (this.options?._subcommand) options = options.find(e => e.name == this.options._subcommand).options;
+  if (this.options?._group) ({ options } = options.find(e => e.name == this.options._group));
+  if (this.options?._subcommand) ({ options } = options.find(e => e.name == this.options._subcommand));
 
   /** @type {{autocompleteOptions: Exclude<commandOptions['autocompleteOptions'], Function>}} Excludes<> because we call autocompleteOptions below if it is a function*/
   let { autocompleteOptions } = options.find(e => e.name == this.focused.name);
