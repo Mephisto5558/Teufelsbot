@@ -8,8 +8,7 @@ module.exports = {
 
       let redirectURL;
       if (req.session.redirectURL) {
-        /* eslint-disable-next-line prefer-destructuring */
-        redirectURL = req.session.redirectURL;
+        ({ redirectURL } = req.session);
         delete req.session.redirectURL;
       }
 
