@@ -22,7 +22,7 @@ module.exports = async function commandExecutionWrapper(command, commandType, la
 
   log.debug(`Executing ${commandType} command ${commandName}`);
 
-  if (!command.noDefer && !this.replied) await this.deferReply({ ephemeral: command.ephemeralDefer ?? false });
+  if (!command.noDefer && this.replied === false) await this.deferReply({ ephemeral: command.ephemeralDefer ?? false }); // `=== false` because of Messages
 
   try {
     await command.run.call(this, cmdLang);
