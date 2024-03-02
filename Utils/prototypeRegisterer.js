@@ -82,7 +82,10 @@ Object.defineProperty(BaseInteraction.prototype, 'customReply', {
 Object.defineProperties(Client.prototype, {
   prefixCommands: { value: new Collection() },
   slashCommands: { value: new Collection() },
-  i18n: { value: new I18nProvider({ notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: join(__dirname, '/../Locales') }) },
+  i18n: { value: new I18nProvider({
+    notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: join(__dirname, '/../Locales'),
+    warnLoggingFunction: log._log.bind(log, { file: 'warn', type: 'I18n' })
+  }) },
   cooldowns: { value: new Map() },
   settings: {
     get() { return this.db?.get('botSettings') ?? {}; },
