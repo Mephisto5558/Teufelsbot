@@ -1,4 +1,5 @@
 {
+  "categoryName": "Informazioni",
   "categoryDescription": "Comandi informativi",
   "avatar": {
     "description": "mostra l'avatar dell'utente",
@@ -30,8 +31,7 @@
   "dashboard": {
     "description": "ottieni il link alla dashboard del bot",
     "embedTitle": "Dashboard",
-    "embedDescriptionDashboard": "Fare clic su [here]({url}) per aprire la dashboard.",
-    "embedDescriptionVote": "Clicca su [here]({url}) per aprire la pagina web per la votazione e la richiesta di funzionalità."
+    "embedDescriptionDashboard": "Fare clic su [here]({url}) per aprire la dashboard."
   },
   "emojiinfo": {
     "description": "Ottieni informazioni su un'emoji",
@@ -54,7 +54,6 @@
     "creator": "Creatore",
     "available": "Disponibile",
     "createdAt": "Creato Il",
-    "requiresColons": "Richiede Coloni",
     "allowedRoles": "Ruoli Consentiti",
     "delete": "Elimina Emoji"
   },
@@ -66,20 +65,7 @@
     },
     "options": {
       "category": {
-        "description": "Wich categoria si desidera ottenere informazioni su?",
-        "choices": {
-          "administration": "Amministrazione",
-          "fun": "Divertimento",
-          "gifs": "GIF",
-          "information": "Informazioni",
-          "minigames": "Minigames",
-          "moderation": "Moderazione",
-          "nsfw": "NSFW",
-          "useful": "Utile",
-          "premium": "Premium",
-          "others": "Altri",
-          "owner-only": "Solo Proprietario"
-        }
+        "description": "Wich categoria si desidera ottenere informazioni su?"
       },
       "command": {
         "description": "Comando Wich vuoi ottenere informazioni su?"
@@ -118,7 +104,7 @@
     "starts": "Inizia",
     "lastStart": "Ultimo avvio",
     "translation": "Traduzioni:\n> Inglese: {en}\n> Tedesco: {de}\n> Tutte le altre lingue sono tradotte automaticamente.\n",
-    "links": "**[Invite]({Invite})** <unk> **[Dashboard]({Dashboard})** <unk> **[Informativa sulla privacy]({PrivacyPolicy})**",
+    "links": "**[Invite]({invite})** <unk> **[Dashboard]({dashboard})** <unk> **[Informativa sulla privacy]({privacyPolicy})**",
     "embedTitle": "Statistiche",
     "embedFooterText": "Altre statistiche stanno arrivando presto!"
   },
@@ -144,20 +130,7 @@
     "messageSend": "Invia Messaggio"
   },
   "prefix": {
-    "description": "mostra o cambia il prefisso del bot della gilda",
-    "usage": {
-      "usage": "{prefix}prefisso [nuovo prefisso]",
-      "examples": "{prefix}prefisso &"
-    },
-    "options": {
-      "new_prefix": {
-        "description": "il nuovo prefisso del bot per questa gilda"
-      },
-      "case_insensitive": {
-        "description": "Il caso del prefisso va ignorato?"
-      }
-    },
-    "saved": "Il mio prefisso è stato cambiato in `{prefix}`.",
+    "description": "Mostra il prefisso bot della gilda",
     "currentPrefix": "Il mio prefisso attuale è `{prefix}`.",
     "caseInsensitive": " (case insensitive)"
   },
@@ -229,7 +202,7 @@
   "uptime": {
     "description": "Ottieni tempo di funzionamento del bot",
     "embedDescriptionNoURL": "Il bot è stato online per {time}.",
-    "embedDescription": "Il bot è stato [online]({Domain}/uptime) per {time}."
+    "embedDescription": "Il bot è stato [online]({domain}/uptime) per {time}."
   },
   "userinfo": {
     "description": "Ottieni informazioni su un membro",
@@ -244,7 +217,7 @@
     },
     "guildOwner": "Proprietario Della Gilda",
     "guildAdmin": "Amministratore Gilda",
-    "admin": "`Administrator`",
+    "admin": "`Amministratore`",
     "guildMod": "Moderatore Di Gilda",
     "guildMember": "Membro Della Gilda",
     "mention": "Menzione",
@@ -282,5 +255,10 @@
     "downloadBanner": "Scarica Banner",
     "kickMember": "Espelli Membro",
     "banMember": "Divieto Membro"
+  },
+  "vote": {
+    "description": "ottenere il link alla richiesta di funzionalità del bot e la pagina di voto",
+    "embedTitle": "Votazione",
+    "embedDescriptionVote": "Clicca su [here]({url}) per aprire la pagina web per la votazione e la richiesta di funzionalità."
   }
 }
