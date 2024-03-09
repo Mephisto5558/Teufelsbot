@@ -13,7 +13,9 @@ module.exports = {
     {
       name: 'category',
       type: 'String',
-      autocompleteOptions: help_getCommandCategories,
+      autocompleteOptions: function () {
+        return help_getCommandCategories.call(this).map(e => ({ name: this.client.i18n.__({ locale: this.locale }, `commands.${e}.categoryName`), value: e }));
+      },
       strictAutocomplete: true
     },
     {
