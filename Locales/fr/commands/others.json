@@ -1,4 +1,5 @@
 {
+  "categoryName": "Autres",
   "categoryDescription": "Commandes sans catégorie spécifique",
   "changelog": {
     "description": "Obtenir le dernier changelog.",

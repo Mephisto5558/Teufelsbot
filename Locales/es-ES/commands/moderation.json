@@ -1,4 +1,5 @@
 {
+  "categoryName": "Moderación",
   "categoryDescription": "Comandos para moderar el gremio",
   "ban": {
     "description": "prohíbe a un miembro de la guild",
@@ -83,7 +84,7 @@
       }
     },
     "dmEmbedTitle": "Silenciado",
-    "dmEmbedDescription": "Has sido silenciado de `{guild}`.\nModerador: {mod}\nhasta: <t:{muteDuration}>\nRazón: {reason}",
+    "dmEmbedDescription": "Has sido silenciado de `{guild}`.\nModerador: {mod}\nHasta: <t:{muteDuration}>\nRazón: {reason}",
     "infoEmbedTitle": "Silenciar",
     "infoEmbedDescription": "Moderador: {mod}\nDuración: <t:{muteDuration}>\nRazón: {reason}\n\n",
     "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para silenciar. Tienes 60 segundos.",

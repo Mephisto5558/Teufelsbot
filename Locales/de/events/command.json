@@ -5,6 +5,7 @@
   "nonBeta": "Dieser Befehl ist kein Beta-Befehl! Dieser Bot führt nur Beta-Befehle aus.",
   "disabled": "Dieser Befehl wurde vom Bot-Developer deaktiviert. Begründung:\n{reason}",
   "nsfw": "Dieser Befehl kann nur in einem altersbegrenzten Kanal benutzt werden!",
+  "paramRequired": "Du musst einen Wert für die Option \"{option}\" angeben.\n> {description}",
   "strictAutocompleteNoMatch": "Deine Eingabe für die Option \"{option}\" muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.",
   "permissionDenied": {
     "embedTitle": "Unzureichende Berechtigungen",
@@ -12,7 +13,8 @@
     "embedDescriptionBot": "Ich benötige die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n`{permissions}`"
   },
   "notAllowed": {
-    "member": "Dir ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!",
+    "anyone": "Niemanden ist es erlaubt, diesen Befehl ausführen (eingestellt von einem Serveradministrator)!",
+    "user": "Dir ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!",
     "channel": "Es ist nicht erlaubt, diesen Befehl in diesem Kanal auszuführen (eingestellt von einem Serveradministrator)!",
     "role": "Einer deiner Rollen ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!"
   },

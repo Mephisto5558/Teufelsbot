@@ -1,4 +1,5 @@
 {
+  "categoryName": "Модерирование",
   "categoryDescription": "Команды модерирования гильдии",
   "ban": {
     "description": "запрещает участника гильдии",
@@ -83,7 +84,7 @@
       }
     },
     "dmEmbedTitle": "Заглушён",
-    "dmEmbedDescription": "Вы были заглушены из `{guild}`.\nМодератор: {mod}\nдо: <t:{muteDuration}>\nПричина: {reason}",
+    "dmEmbedDescription": "Вы были заглушены из `{guild}`.\nМодератор: {mod}\nUntil: <t:{muteDuration}>\nПричина: {reason}",
     "infoEmbedTitle": "Заглушить",
     "infoEmbedDescription": "Модератор: {mod}\nПродолжительность: <t:{muteDuration}>\nПричина: {reason}\n\n",
     "selectTargetEmbedDescription": "Выберите до 10 участников, чтобы заглушить. У вас 60 секунд.",
