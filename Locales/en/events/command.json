@@ -5,6 +5,7 @@
   "nonBeta": "This command is not a beta command! This bot runs only beta commands.",
   "disabled": "This command has been disabled by the bot dev. Reason:\n{reason}",
   "nsfw": "You cannot run NSFW Commands in a non NSFW Channel!",
+  "paramRequired": "You need to input a value for the option \"{option}\".\n> {description}",
   "strictAutocompleteNoMatch": "Your input for the option \"{option}\" must match one of the autocomplete suggestions. Please select one of the available options when entering the slash command.",
   "permissionDenied": {
     "embedTitle": "Insufficient Permissions",
@@ -12,7 +13,8 @@
     "embedDescriptionBot": "I need the following permissions in this channel to run this command:\n`{permissions}`"
   },
   "notAllowed": {
-    "member": "You are not allowed to run this command (set by a server administrator)!",
+    "anyone": "No one is allowed to run this command (set by a server administrator)!",
+    "user": "You are not allowed to run this command (set by a server administrator)!",
     "channel": "It is not allowed to run this command in this channel (set by a server administrator)!",
     "role": "One of your roles is not allowed to run this command (set by a server administrator)!"
   },
