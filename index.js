@@ -61,7 +61,6 @@ async function processMessageEventCallback(handlerPromises, message) {
 }
 
 require('./Utils/prototypeRegisterer.js');
-configValidator();
 
 console.timeEnd('Initializing time');
 console.time('Starting time');
@@ -71,6 +70,8 @@ console.time('Starting time');
     log.error('It seems like the bot does not have internet access.');
     process.exit(1);
   }
+
+  configValidator();
 
   const client = createClient();
   await client.loadEnvAndDB();
