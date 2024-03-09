@@ -3,9 +3,7 @@ const
   autocompleteGenerator = require('./autocompleteGenerator.js'),
   cooldowns = require('./cooldowns.js'),
   permissionTranslator = require('./permissionTranslator.js'),
-  ownerOnlyFolders = require('./getOwnerOnlyFolders.js')(),
-  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
-  { replyOnDisabledCommand, replyOnNonBetaCommand } = require('../config.json');
+  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
 
 /**
  * @this {import('discord.js').BaseInteraction|Message}
@@ -23,10 +21,11 @@ module.exports = async function checkForErrors(command, lang) {
   }
 
   // DO NOT REMOVE THE FOLLOWING LINE
-  if (ownerOnlyFolders.includes(command.category) && this.user.id != this.client.application.owner.id) return true;
+  if (this.client.config.ownerOnlyFolders.includes(command.category) && this.user.id != this.client.application.owner.id) return true;
   if (this instanceof Message && this.guild?.members.me.communicationDisabledUntil) return true;
-  if (command.disabled) return replyOnDisabledCommand === false ? true : ['disabled', command.disabledReason ?? 'Not provided'];
-  if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? true : ['nonBeta'];
+  if (command.disabled) return this.client.config.replyOnDisabledCommand ? ['disabled', command.disabledReason ?? 'Not provided'] : true;
+
+  if (this.client.botType == 'dev' && !command.beta) return this.client.config.replyOnNonBetaCommand ? ['nonBeta'] : true;
   if (!command.dmPermission && this.channel.type == ChannelType.DM) return ['guildOnly'];
 
   const disabledList = this.guild?.db.commandSettings?.[command.aliasOf ?? command.name]?.disabled;

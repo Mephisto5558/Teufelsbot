@@ -71,6 +71,37 @@ declare namespace __local {
       user?: (keyof Discord.PermissionFlags)[];
     };
   });
+
+  interface Config {
+    website: {
+      baseDomain?: string;
+      domain?: string;
+      port?: string;
+      dashboard?: string;
+      privacyPolicy?: string;
+      invite?: string;
+    };
+    github: {
+      repo?: string;
+      userName?: string;
+      repoName?: string;
+    };
+
+    /** @default ['owner-only']*/
+    ownerOnlyFolders: string[];
+    discordInvite?: string;
+    mailAddress?: string;
+    hideOverwriteWarning?: boolean;
+    hideNonBetaCommandLog?: boolean;
+    hideDisabledCommandLog?: boolean;
+
+    /** @default true*/
+    replyOnDisabledCommand: boolean;
+
+    /** @default true*/
+    replyOnNonBetaCommand: boolean;
+    disableWebserver?: boolean;
+  }
 }
 
 
@@ -323,6 +354,9 @@ declare module 'discord.js' {
     defaultSettings: object;
     botType: string;
     keys: Record<string, string>;
+
+    /** The config from {@link ./config.json}.*/
+    config: __local.Config;
     loadEnvAndDB(this: Client<Ready>): Promise<void>;
 
     /** A promise that resolves to a fetched discord application once {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#ready Client#ready} was emitted.*/

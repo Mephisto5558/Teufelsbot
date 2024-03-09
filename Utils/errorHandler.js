@@ -2,7 +2,6 @@ const
   fetch = require('node-fetch').default,
   { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors } = require('discord.js'),
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
-  { Github } = require('../config.json'),
   cwd = process.cwd();
 
 /**
@@ -37,19 +36,21 @@ module.exports = async function errorHandler(err, message, lang) {
 
   if (this.botType == 'dev') return;
 
+  const { github } = this.config;
+
   msg.createMessageComponentCollector({ max: 1, componentType: ComponentType.Button, time: 6e4 })
     .on('collect', async button => {
       await button.deferUpdate();
 
       try {
-        if (!(Github?.UserName && Github.RepoName)) throw new Error('Missing GitHub username or repo name config');
+        if (!(github.userName && github.repoName)) throw new Error('Missing GitHub username or repo name config');
 
         const
-          res = await fetch(`https://api.github.com/repos/${Github.UserName}/${Github.RepoName}/issues`, {
+          res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoepoName}/issues`, {
             method: 'POST',
             headers: {
               Authorization: `Token ${this.keys.githubKey}`,
-              'User-Agent': `Bot ${Github.Repo}`
+              'User-Agent': `Bot ${github.repo}`
             },
             body: JSON.stringify({
               title: `${err.name}: "${err.message}" in command "${message.commandName}"`,

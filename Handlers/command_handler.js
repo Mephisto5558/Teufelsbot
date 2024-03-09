@@ -1,8 +1,7 @@
 const
   { readdir } = require('node:fs/promises'),
   { resolve } = require('node:path'),
-  { getDirectories } = require('../Utils'),
-  { HideDisabledCommandLog, HideNonBetaCommandLog } = require('../config.json');
+  { getDirectories } = require('../Utils');
 
 let
   enabledCommandCount = 0,
@@ -24,15 +23,15 @@ module.exports = async function commandHandler() {
       command.category = subFolder.toLowerCase();
 
       this.prefixCommands.set(command.name, command);
-      if (command.disabled) { if (!HideDisabledCommandLog) log(`Loaded Disabled Prefix Command ${command.name}`); }
-      else if (!command.beta && this.botType == 'dev') { if (!HideNonBetaCommandLog) log(`Loaded Non-Beta Prefix Command ${command.name}`); }
+      if (command.disabled) { if (!this.config.hideDisabledCommandLog) log(`Loaded Disabled Prefix Command ${command.name}`); }
+      else if (!command.beta && this.botType == 'dev') { if (!this.config.hideNonBetaCommandLog) log(`Loaded Non-Beta Prefix Command ${command.name}`); }
       else log(`Loaded Prefix Command ${command.name}`);
 
       command.disabled || (this.botType == 'dev' && !command.beta) ? disabledCommandCount++ : enabledCommandCount++;
 
       for (const alias of command.aliases?.prefix ?? []) {
         this.prefixCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
-        if (command.disabled) !HideDisabledCommandLog && log(`Loaded Alias ${alias} of Prefix Command ${command.name} (disabled)`);
+        if (command.disabled) !this.config.hideDisabledCommandLog && log(`Loaded Alias ${alias} of Prefix Command ${command.name} (disabled)`);
         else log(`Loaded Alias ${alias} of Prefix Command ${command.name}`);
         command.disabled || (this.botType == 'dev' && !command.beta) ? disabledCommandCount++ : enabledCommandCount++;
       }
@@ -40,6 +39,6 @@ module.exports = async function commandHandler() {
   }
 
   log(`Loaded ${enabledCommandCount} Enabled Prefix Commands`);
-  if (!HideDisabledCommandLog) log(`Loaded ${disabledCommandCount} Disabled/Non-Beta Prefix Commands`);
+  if (!this.config.hideDisabledCommandLog) log(`Loaded ${disabledCommandCount} Disabled/Non-Beta Prefix Commands`);
   console.log(); // Empty line
 };

@@ -1,6 +1,8 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { Website: { Domain } = {}, disableWebserver } = require('../../config.json') ?? {};
+
+  /** @type {Client['config']} */
+  { website: { domain } = {}, disableWebserver } = require('../../config.json') ?? {};
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -8,13 +10,13 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  disabled: disableWebserver || !Domain,
+  disabled: disableWebserver || !domain,
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing domain url in config.json',
 
   run: function (lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescriptionVote', `${Domain}/vote`),
+      description: lang('embedDescriptionVote', `${this.client.config.website.domain}/vote`),
       color: Colors.Blurple
     });
 
