@@ -1,4 +1,5 @@
 {
+  "categoryName": "Administration",
   "categoryDescription": "Befehle zum Managen des Servers oder konfigurieren des Bots",
   "serverbackup": {
     "description": "Verwalte deine Server-Backups.",

@@ -1,4 +1,5 @@
 {
+  "categoryName": "Sonstiges",
   "categoryDescription": "Verschiedene Befehle, die sich nicht in eine andere Kategorie einordnen lassen",
   "changelog": {
     "description": "Erhalte die neusten Änderungen.",
