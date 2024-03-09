@@ -51,10 +51,10 @@ Then, create a new file in `Locales/en/commands`. Name it `<category>.json` (Rep
 Put this in the file:
 ```json
 {
-  "categoryName": <name of the category>
+  "categoryName": <category name>
 }
 ```
-That name will be displayed at some places, like the help command.
+This name will be displayed in some places, such as the help command.
 
 ## ...add a new command
 Create a js file in one of the subdirectories of the `Commands` directory. Paste in the `command.js` template (found in the `Templates` folder.)
