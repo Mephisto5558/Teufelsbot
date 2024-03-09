@@ -1,4 +1,5 @@
 {
+  "categoryName": "Premium",
   "categoryDescription": "Comandi che (saranno) richiedono un abbonamento premium",
   "chatgpt": {
     "description": "Parla con ChatGPT!",
@@ -14,7 +15,6 @@
         "description": "Quale modello vuoi usare?"
       }
     },
-    "hello": "Ciao!",
     "rateLimit": "Il ratelimit è stato raggiunto. Riprova tra pochi secondi.",
     "notAvailable": "L'API non è attualmente disponibile. Riprova più tardi.",
     "error": "L'API ha risposto con un errore.",
