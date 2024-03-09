@@ -1,4 +1,5 @@
 {
+  "categoryName": "Moderation",
   "categoryDescription": "Befehle zur Servermoderation",
   "ban": {
     "description": "Bannt ein oder mehrere Mitglieder vom Server",
