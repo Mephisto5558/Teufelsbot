@@ -2,6 +2,7 @@ import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
 import type I18nProvider from '@mephisto5558/i18n';
 import type { WebServer } from '@mephisto5558/bot-website';
+import type Database from './database';
 import type BackupSystem from './Utils/backupSystem';
 import type GiveawayManagerWithOwnDatabase from './Utils/giveawaysManager';
 
@@ -351,7 +352,7 @@ declare module 'discord.js' {
     db: DB;
     i18n: I18nProvider;
     settings: object;
-    defaultSettings: object;
+    defaultSettings: Database.guildSettings['default'];
     botType: string;
     keys: Record<string, string>;
 
@@ -427,7 +428,7 @@ declare module 'discord.js' {
      * ```js
      * this.client.db?.get('userSettings')?.[this.id] ?? {}
      * ```*/
-    get db(): object;
+    get db(): Database.userSettings[ThisType.id];
     customName: string;
     customTag: string;
   }
@@ -435,7 +436,7 @@ declare module 'discord.js' {
   interface GuildMember {
 
     /** Searches the guildSettings DB recursively for all data of this member across all guilds.*/
-    get db(): object | undefined;
+    get db(): Record<string, unknown> | undefined;
     customName: string;
     customTag: string;
   }
@@ -446,7 +447,7 @@ declare module 'discord.js' {
      * ```js
      * this.client.db?.get('guildSettings')?.[this.id] ?? {}
      * ```*/
-    get db(): unknown;
+    get db(): Database.guildSettings[ThisType.id];
     localeCode: string;
   }
 }
@@ -469,5 +470,13 @@ declare module '@mephisto5558/mongoose-db' {
      * generates required database entries from {@link ./Templates/db_collections.json}.
      * @param overwrite overwrite existing collection, default: `false`*/
     generate(overwrite?: boolean): Promise<void>;
+
+    get(db: 'leaderboards'): Database.leaderboards;
+    get(db: 'userSettings'): Database.userSettings;
+    get(db: 'guildSettings'): Database.guildSettings;
+    get(db: 'polls'): Database.polls;
+    get(db: 'botSettings'): Database.botSettings;
+    get(db: 'backups'): Database.backups;
+    get(db: 'website'): Database.website;
   }
 }
