@@ -54,8 +54,10 @@ const
  */
 function configValidationLoop(obj, checkObj, allowNull) {
   for (const [key, value] of Object.entries(obj)) {
-    if (!(key in checkObj))
+    if (!(key in checkObj)) {
       log.warn(`Unknown key or subkey "${key}" in config.json.`);
+      continue;
+    }
 
     if (allowNull && value == undefined) continue;
 
