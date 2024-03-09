@@ -9,9 +9,7 @@ const
 function getCommands() { return [...new Set([...this.client.prefixCommands.values(), ...this.client.slashCommands.values()])].filter(filterCommands.bind(this)); }
 
 /** @this {Interaction|Message}*/
-function getCommandCategories() {
-  return [...new Set(getCommands.call(this).map(e => e.category))].map(e => this.client.i18n.__({ locale: this.locale }, `commands.${e}.categoryName`));
-}
+function getCommandCategories() { return [...new Set(getCommands.call(this).map(e => e.category))]; }
 
 /**
  * @this {Interaction|Message}
@@ -196,7 +194,11 @@ module.exports.allQuery = function allQuery(lang) {
       title: lang('all.embedTitle'),
       description: lang(commandCategories.length ? 'all.embedDescription' : 'all.notFound'),
       // /u200E is used here to add extra space
-      fields: commandCategories.map(e => ({ name: lang(`options.category.choices.${e}`), value: lang(`commands.${e}.categoryDescription`) + '\n\u200E', inline: true })),
+      fields: commandCategories.map(e => ({
+        name: lang(`commands.${e}.categoryName`),
+        value: lang(`commands.${e}.categoryDescription`) + '\n\u200E',
+        inline: true
+      })),
       footer: { text: lang('all.embedFooterText') },
       color: commandCategories.length ? Colors.Blurple : Colors.Red
     });
