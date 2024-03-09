@@ -5,6 +5,7 @@ module.exports = {
   checkTargetManageable: require('./checkTargetManageable.js'),
   commandExecutionWrapper: require('./commandExecutionWrapper.js'),
   componentHandler: require('./componentHandler.js'),
+  configValidator: require('./configValidator.js'),
   cooldowns: require('./cooldowns.js'),
 
   /** @type {Record<string, number|string>}*/
