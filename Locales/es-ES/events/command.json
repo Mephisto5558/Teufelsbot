@@ -5,6 +5,7 @@
   "nonBeta": "¡Este comando no es un comando beta! Este bot ejecuta sólo comandos beta.",
   "disabled": "Este comando ha sido deshabilitado por el desarrollador del bot. Razón:\n{reason}",
   "nsfw": "¡No puedes ejecutar comandos NSFW en un canal no NSFW!",
+  "paramRequired": "Necesitas introducir un valor para la opción \"{option}\".\n> {description}",
   "strictAutocompleteNoMatch": "Su entrada para la opción \"{option}\" debe coincidir con una de las sugerencias de autocompletado. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando barra.",
   "permissionDenied": {
     "embedTitle": "Permisos insuficientes",
@@ -12,7 +13,8 @@
     "embedDescriptionBot": "Necesito los siguientes permisos en este canal para ejecutar este comando:\n`{permissions}`"
   },
   "notAllowed": {
-    "member": "No está autorizado para ejecutar este comando (establecido por un administrador del servidor)!",
+    "anyone": "Nadie puede ejecutar este comando (establecido por un administrador del servidor)!",
+    "user": "No está autorizado para ejecutar este comando (establecido por un administrador del servidor)!",
     "channel": "No está permitido ejecutar este comando en este canal (establecido por un administrador del servidor)!",
     "role": "¡Uno de sus roles no tiene permitido ejecutar este comando (establecido por un administrador del servidor)!"
   },
