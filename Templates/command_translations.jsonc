@@ -1,0 +1,11 @@
+// replace all values enclosed with <> with the actual names.
+{
+  "<commandName>": {
+    "description": "",
+    "options": {
+      "<optionName>": {
+        "description": ""
+      }
+    }
+  }
+}
