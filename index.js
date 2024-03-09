@@ -7,7 +7,7 @@ const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
   { readdir } = require('node:fs/promises'),
   { WebServer } = require('@mephisto5558/bot-website'),
-  { GiveawaysManager, gitpull, errorHandler, getCommands } = require('./Utils'),
+  { GiveawaysManager, configValidator, gitpull, errorHandler, getCommands } = require('./Utils'),
   { discordInvite, mailAddress, Website, disableWebserver } = require('./config.json'),
 
   createClient = /** @returns {Client<false>}*/ () => new Client({
@@ -59,6 +59,7 @@ async function processMessageEventCallback(message) {
 }
 
 require('./Utils/prototypeRegisterer.js');
+configValidator();
 
 console.timeEnd('Initializing time');
 console.time('Starting time');
