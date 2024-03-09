@@ -1,4 +1,5 @@
 {
+  "categoryName": "Information",
   "categoryDescription": "Informative commands",
   "avatar": {
     "description": "shows the user's avatar",

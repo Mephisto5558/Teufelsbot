@@ -1,4 +1,5 @@
 {
+  "categoryName": "Useful",
   "categoryDescription": "Useful commands",
   "addemoji": {
     "description": "adds an emoji to this guild",

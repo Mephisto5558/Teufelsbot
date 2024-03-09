@@ -23,7 +23,7 @@ module.exports = async function checkForErrors(command, lang) {
   }
 
   // DO NOT REMOVE THE FOLLOWING LINE
-  if (ownerOnlyFolders.includes(command.category.toLowerCase()) && this.user.id != this.client.application.owner.id) return true;
+  if (ownerOnlyFolders.includes(command.category) && this.user.id != this.client.application.owner.id) return true;
   if (this instanceof Message && this.guild?.members.me.communicationDisabledUntil) return true;
   if (command.disabled) return replyOnDisabledCommand === false ? true : ['disabled', command.disabledReason ?? 'Not provided'];
   if (this.client.botType == 'dev' && !command.beta) return replyOnNonBetaCommand === false ? true : ['nonBeta'];
@@ -36,7 +36,7 @@ module.exports = async function checkForErrors(command, lang) {
     if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return ['notAllowed.role'];
   }
 
-  if (command.category.toLowerCase() == 'nsfw' && !this.channel.nsfw) return ['nsfw'];
+  if (command.category == 'nsfw' && !this.channel.nsfw) return ['nsfw'];
 
   if (command.options) {
     let [...options] = command.options;
