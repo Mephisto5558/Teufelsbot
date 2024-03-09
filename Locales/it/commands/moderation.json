@@ -1,4 +1,5 @@
 {
+  "categoryName": "Moderazione",
   "categoryDescription": "Comandi per moderare la gilda",
   "ban": {
     "description": "bandisce un membro dalla gilda",
