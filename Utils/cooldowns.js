@@ -20,7 +20,8 @@ function subCommandCooldowns(name) {
   if (!subCmd) return 0;
 
   const { cooldowns } = (groupOptions ?? this)?.options?.find?.(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand) ?? {};
-  return cooldowns ? cooldown.call(this, group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns) : 0;
+  if (cooldowns) return cooldown.call(this, group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns);
+  return 0;
 }
 
 /**
