@@ -36,13 +36,16 @@ const
 
 /**
  * @this {Client<true>}
+ * @param {Promise[]}handlerPromises
  * @param {string}message*/
-async function processMessageEventCallback(message) {
+async function processMessageEventCallback(handlerPromises, message) {
   if (message != 'Start WebServer') return;
-  process.removeListener('message', processMessageEventCallback.bind(this));
+  process.removeListener('message', processMessageEventCallback.bind(this, handlerPromises));
 
   if (this.config.disableWebserver) log('Webserver is disabled by config.json.');
   else {
+    await Promise.all(handlerPromises);
+
     this.webServer ??= await new WebServer(
       this, this.db,
       { secret: this.keys.secret, dbdLicense: this.keys.dbdLicense, webhookURL: this.keys.votingWebhookURL },
@@ -51,7 +54,7 @@ async function processMessageEventCallback(message) {
         support: { discord: this.config.discordInvite, mail: this.config.mailAddress },
         errorPagesDir: './Website/CustomSites/error', settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites'
       }, errorHandler.bind(this)
-    ).init(await getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })));
+    ).init(getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })));
   }
 
   await require('./Handlers/event_handler.js').call(this);
@@ -81,7 +84,7 @@ console.time('Starting time');
   await client.login(client.keys.token);
   log(`Logged into ${client.botType}`);
 
-  if (process.connected) process.on('message', processMessageEventCallback.bind(client));
+  if (process.connected) process.on('message', processMessageEventCallback.bind(client, handlerPromises));
 
   await Promise.all(handlerPromises);
 
@@ -90,7 +93,7 @@ console.time('Starting time');
     process.exit(1);
   }
 
-  if (!process.connected) await processMessageEventCallback.call(client, 'Start WebServer');
+  if (!process.connected) await processMessageEventCallback.call(client, handlerPromises, 'Start WebServer');
 
   client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);
 
