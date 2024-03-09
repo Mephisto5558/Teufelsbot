@@ -65,20 +65,7 @@
     },
     "options": {
       "category": {
-        "description": "Wich category do you want to get information about?",
-        "choices": {
-          "administration": "Administration",
-          "fun": "Fun",
-          "gifs": "GIFs",
-          "information": "Information",
-          "minigames": "Minigames",
-          "moderation": "Moderation",
-          "nsfw": "NSFW",
-          "useful": "Useful",
-          "premium": "Premium",
-          "others": "Others",
-          "owner-only": "Owner-Only"
-        }
+        "description": "Wich category do you want to get information about?"
       },
       "command": {
         "description": "Wich command do you want to get information about?"

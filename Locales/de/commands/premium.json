@@ -1,4 +1,5 @@
 {
+  "categoryName": "Premium",
   "categoryDescription": "Befehle, die eine Premium-Mitgliedschaft erfordern (werden)",
   "chatgpt": {
     "description": "Sprich mit ChatGPT!",
