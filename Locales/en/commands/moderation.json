@@ -1,4 +1,5 @@
 {
+  "categoryName": "Moderation",
   "categoryDescription": "Commands to moderate the guild",
   "ban": {
     "description": "bans one or multiple member(s) from the guild",
