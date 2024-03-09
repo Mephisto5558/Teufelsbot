@@ -1,4 +1,5 @@
 {
+  "categoryName": "Информация",
   "categoryDescription": "Информационные команды",
   "avatar": {
     "description": "показывает аватар пользователя",
@@ -30,8 +31,7 @@
   "dashboard": {
     "description": "получить ссылку на панель ботов",
     "embedTitle": "Панель",
-    "embedDescriptionDashboard": "Нажмите [here]({url}) для открытия панели управления.",
-    "embedDescriptionVote": "Нажмите [here]({url}) чтобы открыть веб-страницу голосования и запроса на добавление функций."
+    "embedDescriptionDashboard": "Нажмите [here]({url}) для открытия панели управления."
   },
   "emojiinfo": {
     "description": "Получить информацию о эмодзи",
@@ -46,7 +46,7 @@
     },
     "notFound": "Для этого emoji не найдено никакой информации.",
     "embedTitle": "Информация о \"{emoji}\"",
-    "unknown": "неизвестно",
+    "unknown": "неизвестен",
     "name": "Наименование",
     "id": "ID",
     "guild": "Гильдия",
@@ -54,7 +54,6 @@
     "creator": "Создатель",
     "available": "Доступно",
     "createdAt": "Создано в",
-    "requiresColons": "Требуется цвет",
     "allowedRoles": "Разрешенные роли",
     "delete": "Удалить эмодзи"
   },
@@ -66,20 +65,7 @@
     },
     "options": {
       "category": {
-        "description": "О какой категории вы хотите получить информацию?",
-        "choices": {
-          "administration": "Администрация",
-          "fun": "Веселье",
-          "gifs": "GIF",
-          "information": "Информация",
-          "minigames": "Minigames",
-          "moderation": "Модерирование",
-          "nsfw": "NSFW",
-          "useful": "Полезно",
-          "premium": "Премиум",
-          "others": "Другие",
-          "owner-only": "Только владелец"
-        }
+        "description": "О какой категории вы хотите получить информацию?"
       },
       "command": {
         "description": "Если вы хотите получить информацию о себе?"
@@ -118,7 +104,7 @@
     "starts": "Начинается",
     "lastStart": "Последний старт",
     "translation": "Переводы:\n> Английский: {en}\n> Герман: {de}\n> Все остальные языки в основном переведены.\n",
-    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Политика конфиденциальности]({PrivacyPolicy})**",
+    "links": "**[Invite]({invite})** | **[Dashboard]({dashboard})** | **[Политика конфиденциальности]({privacyPolicy})**",
     "embedTitle": "Статистика",
     "embedFooterText": "Скоро появится больше статистики!"
   },
@@ -144,20 +130,7 @@
     "messageSend": "Отправить сообщение"
   },
   "prefix": {
-    "description": "показывает или изменяет префикс бота гильдии",
-    "usage": {
-      "usage": "{prefix}префикс [new prefix]",
-      "examples": "Префикс {prefix}&"
-    },
-    "options": {
-      "new_prefix": {
-        "description": "новый префикс бота для этой гильдии"
-      },
-      "case_insensitive": {
-        "description": "Должен ли случай префикса игнорироваться?"
-      }
-    },
-    "saved": "Мой префикс был изменен на `{prefix}`.",
+    "description": "Показывает префикс бота гильдии",
     "currentPrefix": "Мой текущий префикс — `{prefix}`.",
     "caseInsensitive": " (без учета регистра)"
   },
@@ -229,7 +202,7 @@
   "uptime": {
     "description": "Получить время работы бота",
     "embedDescriptionNoURL": "Бот был онлайн для {time}.",
-    "embedDescription": "Бот был [online]({Domain}/uptime) ровно {time}."
+    "embedDescription": "Бот был [online]({domain}/uptime) ровно {time}."
   },
   "userinfo": {
     "description": "Получить информацию о участнике",
@@ -244,7 +217,7 @@
     },
     "guildOwner": "Владелец гильдии",
     "guildAdmin": "Администратор гильдии",
-    "admin": "`Administrator`",
+    "admin": "`Администратор`",
     "guildMod": "Модератор гильдии",
     "guildMember": "Член гильдии",
     "mention": "Упоминание",
@@ -282,5 +255,10 @@
     "downloadBanner": "Скачать баннер",
     "kickMember": "Выгнать участника",
     "banMember": "Забанить участника"
+  },
+  "vote": {
+    "description": "получить ссылку на запрос функции ботов и страницу голосования",
+    "embedTitle": "Голосование",
+    "embedDescriptionVote": "Нажмите [here]({url}) чтобы открыть веб-страницу голосования и запроса на добавление функций."
   }
 }

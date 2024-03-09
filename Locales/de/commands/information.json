@@ -31,8 +31,7 @@
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",
     "embedTitle": "Dashboard",
-    "embedDescriptionDashboard": "Clicke [hier]({url}) um das Dashboard zu öffnen.",
-    "embedDescriptionVote": "Clicke [hier]({url}) um die Voting- und Feature-Request-Seite zu öffnen."
+    "embedDescriptionDashboard": "Clicke [hier]({url}) um das Dashboard zu öffnen."
   },
   "emojiinfo": {
     "description": "Erhalte Informationen über ein Emoji",
@@ -55,7 +54,6 @@
     "creator": "Ersteller",
     "available": "Verfügbar",
     "createdAt": "Erstellt",
-    "requiresColons": "Benötigt Doppelpunkte",
     "allowedRoles": "Erlaubte Rollen",
     "delete": "Emoji Löschen"
   },
@@ -132,20 +130,7 @@
     "messageSend": "Nachricht senden"
   },
   "prefix": {
-    "description": "Zeigt oder ändert den Präfix des Servers.",
-    "usage": {
-      "usage": "{prefix}prefix [neuer Präfix]",
-      "examples": "{prefix}prefix &"
-    },
-    "options": {
-      "new_prefix": {
-        "description": "Der neue Präfix für diesen Server"
-      },
-      "case_insensitive": {
-        "description": "Soll die Groß/Kleinschreibung des Präfixes ignoriert werden?"
-      }
-    },
-    "saved": "Der Präfix wurde zu `{prefix}` gesetzt.",
+    "description": "Zeigt den Bot-Präfix des Servers",
     "currentPrefix": "Mein aktueller Präfix ist `{prefix}`.",
     "caseInsensitive": " (beachtet Groß/Kleinschreibung)"
   },
@@ -270,5 +255,10 @@
     "downloadBanner": "Banner Herunterladen",
     "kickMember": "Mitglied Kicken",
     "banMember": "Mitglied Bannen"
+  },
+  "vote": {
+    "description": "erhalte den Link zur Feature-Request- und Voting-Website des Bots",
+    "embedTitle": "Voting",
+    "embedDescriptionVote": "Klicke [hier]({url}) um die Voting- und Feature-Request-Seite zu öffnen."
   }
 }
