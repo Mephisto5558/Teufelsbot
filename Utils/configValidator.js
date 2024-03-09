@@ -2,18 +2,18 @@ const
   { writeFile } = require('node:fs/promises'),
   { ConnectionString } = require('mongodb-connection-string-url'),
   validConfig = {
-    Website: {
-      BaseDomain: 'string',
-      Domain: 'string',
-      Port: 'string',
-      Dashboard: 'string',
-      PrivacyPolicy: 'string',
-      Invite: 'string'
+    website: {
+      baseDomain: 'string',
+      domain: 'string',
+      port: 'string',
+      dashboard: 'string',
+      privacyPolicy: 'string',
+      invite: 'string'
     },
-    Github: {
-      Repo: 'string',
-      UserName: 'string',
-      RepoName: 'string'
+    github: {
+      repo: 'string',
+      userName: 'string',
+      repoName: 'string'
     },
     ownerOnlyFolders: ['string'],
     discordInvite: 'string',
