@@ -1,8 +1,7 @@
 const
   { readdir } = require('node:fs/promises'),
   { resolve } = require('node:path'),
-  { getDirectories, formatSlashCommand, slashCommandsEqual } = require('../Utils'),
-  { HideNonBetaCommandLog, HideDisabledCommandLog } = require('../config.json');
+  { getDirectories, formatSlashCommand, slashCommandsEqual } = require('../Utils');
 
 /** @this {Client}*/
 module.exports = async function slashCommandHandler() {
@@ -56,8 +55,8 @@ module.exports = async function slashCommandHandler() {
 
   for (const [, command] of this.slashCommands) {
     if (command.skip) continue;
-    if (command.disabled) { if (!HideDisabledCommandLog) log(`Skipped Disabled Slash Command ${command.name}`); }
-    else if (this.botType == 'dev' && !command.beta) { if (!HideNonBetaCommandLog) log(`Skipped Non-Beta Slash Command ${command.name}`); }
+    if (command.disabled) { if (!this.config.hideDisabledCommandLog) log(`Skipped Disabled Slash Command ${command.name}`); }
+    else if (this.botType == 'dev' && !command.beta) { if (!this.config.hideNonBetaCommandLog) log(`Skipped Non-Beta Slash Command ${command.name}`); }
     else {
       try {
         command.id = (await this.application.commands.create(command)).id;
