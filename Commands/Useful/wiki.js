@@ -1,8 +1,6 @@
 const
   wiki = require('wikijs').default,
-  { EmbedBuilder, Colors } = require('discord.js'),
-  { Repo } = require('../../config.json')?.Github ?? {},
-  options = { headers: { 'User-Agent': `Discord Bot${Repo ? ' (' + Repo + ')' : ''}` } };
+  { EmbedBuilder, Colors } = require('discord.js');
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -21,7 +19,8 @@ module.exports = {
   run: async function (lang) {
     const
       query = this.options?.getString('query') ?? this.content,
-      message = await this.customReply(lang('global.loading'));
+      message = await this.customReply(lang('global.loading')),
+      options = { headers: { 'User-Agent': 'Discord Bot' + (this.client.config.github.repo ? ` (${this.client.config.github.repo})` : '') } };
 
     let data;
 

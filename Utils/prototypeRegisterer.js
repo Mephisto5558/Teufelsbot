@@ -8,6 +8,9 @@ const
   I18nProvider = require('@mephisto5558/i18n'),
   { Log, customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
   findAllEntries = require('./findAllEntries.js'),
+
+  /** @type {Client['config']} */
+  config = require('../config.json'),
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
 /**
@@ -18,11 +21,16 @@ function deepMerge(target, source) {
   for (const key in source)
     if (Object.hasOwn(source, key)) target[key] = source[key] instanceof Object ? deepMerge(target[key] ?? {}, source[key]) : source[key];
 
-
   return target;
 }
 
-if (!require('../config.json').HideOverwriteWarning) {
+config.website ??= {};
+config.github ??= {};
+config.replyOnDisabledCommand ??= true;
+config.replyOnNonBetaCommand ??= true;
+config.ownerOnlyFolders = config.ownerOnlyFolders?.map(e => e?.toLowerCase()) ?? ['owner-only'];
+
+if (!config.hideOverwriteWarning) {
   console.warn(
     'Overwriting the following variables and functions (if they exist):'
     + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Number#limit, `
@@ -87,6 +95,7 @@ Object.defineProperties(Client.prototype, {
     warnLoggingFunction: log._log.bind(log, { file: 'warn', type: 'I18n' })
   }) },
   cooldowns: { value: new Map() },
+  config: { value: config },
   settings: {
     get() { return this.db?.get('botSettings') ?? {}; },
     set(val) { this.db.set('botSettings', val); }

@@ -1,6 +1,4 @@
-const
-  { EmbedBuilder, Colors } = require('discord.js'),
-  { Website: { Invite, Dashboard, PrivacyPolicy } = {}, disableWebserver } = require('../../config.json') ?? {};
+const { EmbedBuilder, Colors } = require('discord.js');
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -31,7 +29,9 @@ module.exports = {
         footer: { text: lang('embedFooterText') }
       });
 
-    if (!disableWebserver && Invite && Dashboard && PrivacyPolicy) embed.data.description += lang('links', { Invite, Dashboard, PrivacyPolicy });
+    const { website, disableWebserver } = this.client.config;
+    if (!disableWebserver && website.invite && website.dashboard && website.privacyPolicy)
+      embed.data.description += lang('links', { invite: website.invite, dashboard: website.dashboard, privacyPolicy: website.dashboard });
 
     return this.customReply({ embeds: [embed] });
   }

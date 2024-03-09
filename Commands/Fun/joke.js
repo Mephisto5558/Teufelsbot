@@ -1,7 +1,6 @@
 const
   { default: fetch, FetchError } = require('node-fetch'),
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { Github } = require('../../config.json'),
   defaultAPIList = [
     { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any' },
     { name: 'humorAPI', link: 'https://humorapi.com', url: 'https://api.humorapi.com/jokes/random' },
@@ -39,7 +38,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
       case 'icanhazdadjoke': {
         const res = await fetch(api.url, {
           headers: {
-            'User-Agent': `Discord bot (${Github?.Repo})`,
+            'User-Agent': `Discord bot (${this.config.github.repo})`,
             Accept: 'application/json'
           }
         }).then(e => e.json());

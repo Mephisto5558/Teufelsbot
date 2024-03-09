@@ -2,8 +2,7 @@
 
 const
   { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
-  permissionTranslator = require('../permissionTranslator.js'),
-  ownerOnlyFolders = require('../getOwnerOnlyFolders.js')();
+  permissionTranslator = require('../permissionTranslator.js');
 
 /** @this {Interaction|Message}*/
 function getCommands() { return [...new Set([...this.client.prefixCommands.values(), ...this.client.slashCommands.values()])].filter(filterCommands.bind(this)); }
@@ -113,7 +112,8 @@ function createInfoFields(cmd, lang, helpLang) {
  * @this {Interaction|Message}
  * @param {command<*, boolean, true>}cmd*/
 function filterCommands(cmd) {
-  return cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta) && (ownerOnlyFolders.includes(cmd.category) ? this.user.id == this.client.application.owner.id : true);
+  return cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta)
+    && (this.client.config.ownerOnlyFolders.includes(cmd.category) ? this.user.id == this.client.application.owner.id : true);
 }
 
 /**
