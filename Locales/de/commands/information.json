@@ -1,4 +1,5 @@
 {
+  "categoryName": "Informationen",
   "categoryDescription": "Informative Befehle",
   "avatar": {
     "description": "Zeigt den Avatar eines Mitglieds.",
@@ -66,20 +67,7 @@
     },
     "options": {
       "category": {
-        "description": "Über welche Kategorie möchtest du mehr erfahren?",
-        "choices": {
-          "administration": "Administration",
-          "fun": "Unterhaltung",
-          "gifs": "GIFs",
-          "information": "Informationen",
-          "minigames": "Minigames",
-          "moderation": "Moderation",
-          "nsfw": "NSFW",
-          "useful": "Nützliches",
-          "premium": "Premium",
-          "others": "Sonstiges",
-          "owner-only": "Owner-Only"
-        }
+        "description": "Über welche Kategorie möchtest du mehr erfahren?"
       },
       "command": {
         "description": "Über welchen Befehl möchtest du mehr erfahren?"
