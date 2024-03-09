@@ -1,4 +1,5 @@
 {
+  "categoryName": "Sólo propietario",
   "categoryDescription": "Comandos que deben estar disponibles sólo para el desarrollador",
   "blacklistuser": {
     "description": "bloquea que un usuario utilice el bot",
@@ -6,7 +7,6 @@
       "usage": "{prefix}blacklistuser [off] <user id>",
       "examples": "{prefix}blacklistuser 12345678901234568"
     },
-    "noInput": "Necesitas proporcionar un id.",
     "notFound": "No se encontró ninguna entrada para este id.",
     "saved": "`{user}` ha sido bloqueado de usar el bot.",
     "removed": "La entrada de la lista negra para `{user}` ha sido eliminada.",
