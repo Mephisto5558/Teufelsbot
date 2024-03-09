@@ -1,4 +1,5 @@
 {
+  "categoryName": "Information",
   "categoryDescription": "Informative commands",
   "avatar": {
     "description": "shows the user's avatar",
@@ -30,8 +31,7 @@
   "dashboard": {
     "description": "get the link to the bots's dashboard",
     "embedTitle": "Dashboard",
-    "embedDescriptionDashboard": "Click [here]({url}) to open the dashboard.",
-    "embedDescriptionVote": "Click [here]({url}) to open the voting and feature request webpage."
+    "embedDescriptionDashboard": "Click [here]({url}) to open the dashboard."
   },
   "emojiinfo": {
     "description": "Get information about an emoji",
@@ -54,7 +54,6 @@
     "creator": "Creator",
     "available": "Available",
     "createdAt": "Created At",
-    "requiresColons": "Requires Colons",
     "allowedRoles": "Allowed Roles",
     "delete": "Delete Emoji"
   },
@@ -66,20 +65,7 @@
     },
     "options": {
       "category": {
-        "description": "Wich category do you want to get information about?",
-        "choices": {
-          "administration": "Administration",
-          "fun": "Fun",
-          "gifs": "GIFs",
-          "information": "Information",
-          "minigames": "Minigames",
-          "moderation": "Moderation",
-          "nsfw": "NSFW",
-          "useful": "Useful",
-          "premium": "Premium",
-          "others": "Others",
-          "owner-only": "Owner-Only"
-        }
+        "description": "Wich category do you want to get information about?"
       },
       "command": {
         "description": "Wich command do you want to get information about?"
@@ -118,7 +104,7 @@
     "starts": "Starts",
     "lastStart": "Last start",
     "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.\n",
-    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Privacy Policy]({PrivacyPolicy})**",
+    "links": "**[Invite]({invite})** | **[Dashboard]({dashboard})** | **[Privacy Policy]({privacyPolicy})**",
     "embedTitle": "Stats",
     "embedFooterText": "More stats are coming soon!"
   },
@@ -144,20 +130,7 @@
     "messageSend": "Message Send"
   },
   "prefix": {
-    "description": "shows or changes the guild's bot prefix",
-    "usage": {
-      "usage": "{prefix}prefix [new prefix]",
-      "examples": "{prefix}prefix &"
-    },
-    "options": {
-      "new_prefix": {
-        "description": "the new bot prefix for this guild"
-      },
-      "case_insensitive": {
-        "description": "Should the case of the prefix be ignored?"
-      }
-    },
-    "saved": "My prefix has been changed to `{prefix}`.",
+    "description": "Shows guild's bot prefix",
     "currentPrefix": "My current prefix is `{prefix}`.",
     "caseInsensitive": " (case insensitive)"
   },
@@ -229,7 +202,7 @@
   "uptime": {
     "description": "Get the bot's uptime",
     "embedDescriptionNoURL": "The bot has been online for {time}.",
-    "embedDescription": "The bot has been [online]({Domain}/uptime) for {time}."
+    "embedDescription": "The bot has been [online]({domain}/uptime) for {time}."
   },
   "userinfo": {
     "description": "Get information about a member",
@@ -282,5 +255,10 @@
     "downloadBanner": "Download Banner",
     "kickMember": "Kick Member",
     "banMember": "Ban Member"
+  },
+  "vote": {
+    "description": "get the link to the bots's feature request and voting page",
+    "embedTitle": "Voting",
+    "embedDescriptionVote": "Click [here]({url}) to open the voting and feature request webpage."
   }
 }
