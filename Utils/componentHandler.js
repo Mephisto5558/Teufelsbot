@@ -17,7 +17,7 @@ module.exports = function MessageComponentHandler(lang) {
   if (disabledList.members?.includes(this.user.id)) err = 'notAllowed.member';
   else if (disabledList.channels?.includes(this.channel.id)) err = 'notAllowed.channel';
   else if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) err = 'notAllowed.role';
-  else if (command.category?.toLowerCase() == 'nsfw' && !this.channel.nsfw) err = 'nsfw';
+  else if (command.category == 'nsfw' && !this.channel.nsfw) err = 'nsfw';
   else if (cooldown) err = 'events.interaction.buttonOnCooldown';
 
   if (err) {

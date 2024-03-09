@@ -1,4 +1,5 @@
 {
+  "categoryName": "Owner-Only",
   "categoryDescription": "Commands that should be available only to the dev",
   "blacklistuser": {
     "description": "(Un)blocks a user from using the bot",

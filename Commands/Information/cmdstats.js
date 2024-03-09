@@ -32,7 +32,7 @@ module.exports = {
     else {
       embed.data.description = lang('embedDescriptionMany');
       embed.data.fields = Object.entries(this.client.settings.stats ?? {})
-        .filter(([e]) => !ownerOnlyFolders.includes((this.client.prefixCommands.get(e) ?? this.client.slashCommands.get(e))?.category.toLowerCase()))
+        .filter(([e]) => !ownerOnlyFolders.includes((this.client.prefixCommands.get(e) ?? this.client.slashCommands.get(e))?.category))
         .sort(([, a], [, b]) => b - a)
         .slice(0, 10)
         .map(([k, v]) => {
