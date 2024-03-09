@@ -176,6 +176,17 @@
           }
         }
       },
+      "prefix": {
+        "description": "Ändere den Bot-Präfix.",
+        "options": {
+          "new_prefix": {
+            "description": "der neue Präfix für diesen Server"
+          },
+          "case_insensitive": {
+            "description": "Soll die Groß/Kleinschreibung des Präfixes ignoriert werden?"
+          }
+        }
+      },
       "serverbackup": {
         "description": "Verwalte die Optionen für deine Server-Backups.",
         "options": {
@@ -246,6 +257,9 @@
     "language": {
       "embedTitle": "Sprache geändert!",
       "embedDescription": "Die Sprache wurde auf `Deutsch` gestellt."
+    },
+    "prefix": {
+      "saved": "Mein Präfix wurde zu `{prefix}` gesetzt."
     },
     "serverbackup": {
       "success": "Die Einstellungen wurden erfolgreich aktualisiert!"
