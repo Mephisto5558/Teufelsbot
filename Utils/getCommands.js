@@ -1,42 +1,41 @@
-const
-  { readdir } = require('node:fs/promises'),
-  getDirectories = require('./getDirectories.js'),
-  getOwnerOnlyFolders = require('./getOwnerOnlyFolders.js'),
-  ownerOnlyFolders = getOwnerOnlyFolders();
+/**
+ * @this {Client}
+ * @param {lang}lang*/
+module.exports = function getCommands(lang) {
+  /** @type {{category: string, subTitle: '', aliasesDisabled: boolean, list: { commandName: string, commandUsage: string, commandDescription: string, commandAlias: string }[] }[]}*/
+  const commandList = [...new Set([...this.slashCommands.values(), ...this.prefixCommands.values()])].reduce((acc, cmd) => {
+    if (this.config.ownerOnlyFolders.includes(cmd.category) || cmd.disabled || cmd.aliasOf) return acc;
 
-/** @param {lang}lang*/
-module.exports = async function getCommands(lang) {
-  const categoryCommandList = [];
-  for (const subFolder of await getDirectories('./Commands')) {
-    if (ownerOnlyFolders.includes(subFolder.toLowerCase())) continue;
-
-    const commandList = [];
-    for (const cmdFile of await readdir(`./Commands/${subFolder}`)) {
-      if (!cmdFile.endsWith('.js')) continue;
-
-      /** @type {command<'both', false>}*/
-      const cmd = require(`../Commands/${subFolder}/${cmdFile}`);
-      if (!cmd?.name || cmd.disabled) continue;
-
-      commandList.push({
-        commandName: cmd.name,
-        commandUsage:
-          (cmd.slashCommand ? 'SLASH Command: Look at the option descriptions.\n' : '')
-          + (lang(`commands.${subFolder.toLowerCase()}.${cmd.name}.usage.usage`)?.replace(/slash command:/gi, '') ?? '') || 'No information found',
-        commandDescription: cmd.description ?? lang(`commands.${subFolder.toLowerCase()}.${cmd.name}.description`) ?? 'No information found',
-        commandAlias:
-          (cmd.aliases?.prefix?.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '')
-          + (cmd.aliases?.slash?.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || lang('global.none')
-      });
+    let category = acc.find(e => e.category == cmd.category);
+    if (!category) {
+      category = {
+        category: cmd.category,
+        subTitle: '',
+        list: []
+      };
+      acc.push(category);
     }
 
-    categoryCommandList.push({
-      category: subFolder,
-      subTitle: '',
-      aliasesDisabled: !commandList.some(e => e.commandAlias),
-      list: commandList.map(e => Object.fromEntries(Object.entries(e).map(([k, v]) => [k, v.trim().replaceAll('\n', '<br>&nbsp')])))
+    category.list.push({
+      commandName: cmd.name,
+      commandUsage: (
+        (cmd.slashCommand ? 'SLASH Command: Look at the option descriptions.\n' : '')
+        + (lang(`commands.${cmd.category}.${cmd.name}.usage.usage`)?.replace(/slash command:/gi, '') ?? '') || 'No information found'
+      ).trim().replaceAll('\n', '<br>&nbsp'),
+      commandDescription: cmd.description ?? lang(`commands.${cmd.category}.${cmd.name}.description`) ?? 'No information found',
+      commandAlias: (
+        (cmd.aliases?.prefix?.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '')
+        + (cmd.aliases?.slash?.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || lang('global.none')
+      ).trim().replaceAll('\n', '<br>&nbsp')
     });
-  }
 
-  return categoryCommandList.sort((a, b) => a.category.toLowerCase() == 'others' ? 1 : b.list.length - a.list.length);
+    return acc;
+  }, []);
+
+  commandList.sort((a, b) => a.category == 'others' ? 1 : b.list.length - a.list.length);
+  return commandList.map(e => {
+    e.category = lang(`commands.${e.category}.categoryName`);
+    e.aliasesDisabled = !e.list.some(e => e.commandAlias != lang('global.none'));
+    return e;
+  });
 };
