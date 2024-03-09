@@ -259,7 +259,7 @@
       "embedDescription": "Die Sprache wurde auf `Deutsch` gestellt."
     },
     "prefix": {
-      "saved": "Das Präfix wurde zu `{prefix}` gesetzt."
+      "saved": "Mein Präfix wurde zu `{prefix}` gesetzt."
     },
     "serverbackup": {
       "success": "Die Einstellungen wurden erfolgreich aktualisiert!"
