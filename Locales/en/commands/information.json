@@ -104,7 +104,7 @@
     "starts": "Starts",
     "lastStart": "Last start",
     "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.\n",
-    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Privacy Policy]({PrivacyPolicy})**",
+    "links": "**[Invite]({invite})** | **[Dashboard]({dashboard})** | **[Privacy Policy]({privacyPolicy})**",
     "embedTitle": "Stats",
     "embedFooterText": "More stats are coming soon!"
   },
@@ -202,7 +202,7 @@
   "uptime": {
     "description": "Get the bot's uptime",
     "embedDescriptionNoURL": "The bot has been online for {time}.",
-    "embedDescription": "The bot has been [online]({Domain}/uptime) for {time}."
+    "embedDescription": "The bot has been [online]({domain}/uptime) for {time}."
   },
   "userinfo": {
     "description": "Get information about a member",

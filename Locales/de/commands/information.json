@@ -106,7 +106,7 @@
     "starts": "Starts",
     "lastStart": "Letzter Start",
     "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt.\n",
-    "links": "**[Einladung]({Invite})** | **[Dashboard]({Dashboard})** | **[Datenschutzrichtlinie]({PrivacyPolicy})**",
+    "links": "**[Einladung]({invite})** | **[Dashboard]({dashboard})** | **[Datenschutzrichtlinie]({privacyPolicy})**",
     "embedTitle": "Informationen",
     "embedFooterText": "Mehr Informationen kommen bald!"
   },
@@ -217,7 +217,7 @@
   "uptime": {
     "description": "Erhalte die Uptime des Bots",
     "embedDescriptionNoURL": "Der Bot ist online seit {time}.",
-    "embedDescription": "Der Bot ist [online]({Domain}/uptime) seit {time}."
+    "embedDescription": "Der Bot ist [online]({domain}/uptime) seit {time}."
   },
   "userinfo": {
     "description": "Erhalte Informationen über ein Mitglied",
