@@ -1,4 +1,5 @@
 {
+  "categoryName": "Información",
   "categoryDescription": "Comandos informativos",
   "avatar": {
     "description": "muestra el avatar del usuario",
@@ -30,8 +31,7 @@
   "dashboard": {
     "description": "obtener el enlace al panel de control de bots",
     "embedTitle": "Tablero",
-    "embedDescriptionDashboard": "Haz clic en [here]({url}) para abrir el panel.",
-    "embedDescriptionVote": "Haga clic en [here]({url}) para abrir la página web de solicitud de votación y función."
+    "embedDescriptionDashboard": "Haz clic en [here]({url}) para abrir el panel."
   },
   "emojiinfo": {
     "description": "Obtener información sobre un emoji",
@@ -54,7 +54,6 @@
     "creator": "Creador",
     "available": "Disponible",
     "createdAt": "Creado el",
-    "requiresColons": "Requiere Colones",
     "allowedRoles": "Rol permitido",
     "delete": "Eliminar Emoji"
   },
@@ -66,20 +65,7 @@
     },
     "options": {
       "category": {
-        "description": "¿De qué categoría quieres obtener información?",
-        "choices": {
-          "administration": "Administración",
-          "fun": "Diversión",
-          "gifs": "GIFs",
-          "information": "Información",
-          "minigames": "Minigames",
-          "moderation": "Moderación",
-          "nsfw": "NSFW",
-          "useful": "Útil",
-          "premium": "Premium",
-          "others": "Otros",
-          "owner-only": "Sólo propietario"
-        }
+        "description": "¿De qué categoría quieres obtener información?"
       },
       "command": {
         "description": "¿De qué comando quieres obtener información?"
@@ -118,7 +104,7 @@
     "starts": "Comienza",
     "lastStart": "Último inicio",
     "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina.\n",
-    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Política de privacidad]({PrivacyPolicy})**",
+    "links": "**[Invite]({invite})** | **[Dashboard]({dashboard})** | **[Política de privacidad]({privacyPolicy})**",
     "embedTitle": "Estadísticas",
     "embedFooterText": "¡Pronto habrá más estadísticas!"
   },
@@ -144,20 +130,7 @@
     "messageSend": "Enviar mensaje"
   },
   "prefix": {
-    "description": "muestra o cambia el prefijo del bot del gremio",
-    "usage": {
-      "usage": "prefijo {prefix}[nuevo prefijo]",
-      "examples": "Prefijo de {prefix}&"
-    },
-    "options": {
-      "new_prefix": {
-        "description": "el nuevo prefijo del bot para este gremio"
-      },
-      "case_insensitive": {
-        "description": "¿Debe ignorarse el caso del prefijo?"
-      }
-    },
-    "saved": "Mi prefijo ha sido cambiado a `{prefix}`.",
+    "description": "Muestra el prefijo del bot del gremio",
     "currentPrefix": "Mi prefijo actual es `{prefix}`.",
     "caseInsensitive": " (mayúsculas insensibles)"
   },
@@ -229,7 +202,7 @@
   "uptime": {
     "description": "Obtener el tiempo de actividad del bot",
     "embedDescriptionNoURL": "El bot ha estado en línea para {time}.",
-    "embedDescription": "El bot ha sido [online]({Domain}/uptime) para {time}."
+    "embedDescription": "El bot ha sido [online]({domain}/uptime) para {time}."
   },
   "userinfo": {
     "description": "Obtener información sobre un miembro",
@@ -244,7 +217,7 @@
     },
     "guildOwner": "Propietario del gremio",
     "guildAdmin": "Administrador del Gremio",
-    "admin": "`Administrator`",
+    "admin": "`Administrador`",
     "guildMod": "Moderador del gremio",
     "guildMember": "Miembro del gremio",
     "mention": "Mención",
@@ -261,8 +234,8 @@
       "name": "Banderas",
       "ActiveDeveloper": "Desarrollador activo",
       "BotHTTPInteractions": "HTTP Bot",
-      "BugHunterLevel1": "Cazador de insectos nivel 1",
-      "BugHunterLevel2": "Cazador de insectos Nivel 2",
+      "BugHunterLevel1": "Cazador de insectos Nivel 1",
+      "BugHunterLevel2": "Cazador de insectos nivel 2",
       "CertifiedModerator": "Moderador Certificado de Discord",
       "HypeSquadOnlineHouse1": "Miembro de la Casa Vivienda",
       "HypeSquadOnlineHouse2": "Miembro Brilliance de la Casa",
@@ -282,5 +255,10 @@
     "downloadBanner": "Descargar banner",
     "kickMember": "Expulsar miembro",
     "banMember": "Banear miembro"
+  },
+  "vote": {
+    "description": "obtener el enlace a la solicitud de funciones de los bots y la página de votación",
+    "embedTitle": "Votaciones",
+    "embedDescriptionVote": "Haga clic en [here]({url}) para abrir la página web de solicitud de votación y función."
   }
 }
