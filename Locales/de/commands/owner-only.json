@@ -1,4 +1,5 @@
 {
+  "categoryName": "Owner-Only",
   "categoryDescription": "Befehle, die nur für den Bot-Entwickler vorgesehen sind",
   "blacklistuser": {
     "description": "(Ent)blockt einen User vom Benutzen des Bots",
@@ -6,7 +7,6 @@
       "usage": "{prefix}blacklistuser [off] <User-ID>",
       "examples": "{prefix}blacklistuser 12345678901234568"
     },
-    "noInput": "Du musst eine ID angeben.",
     "notFound": "Dieser User ist nicht blacklisted.",
     "saved": "`{user}` wurde vom Nutzen des Bots geblacklistet.",
     "removed": "`{user}` ist nun nicht mehr geblacklisted.",
