@@ -1,4 +1,5 @@
 {
+  "categoryName": "Informationen",
   "categoryDescription": "Informative Befehle",
   "avatar": {
     "description": "Zeigt den Avatar eines Mitglieds.",
@@ -30,8 +31,7 @@
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",
     "embedTitle": "Dashboard",
-    "embedDescriptionDashboard": "Clicke [hier]({url}) um das Dashboard zu öffnen.",
-    "embedDescriptionVote": "Clicke [hier]({url}) um die Voting- und Feature-Request-Seite zu öffnen."
+    "embedDescriptionDashboard": "Clicke [hier]({url}) um das Dashboard zu öffnen."
   },
   "emojiinfo": {
     "description": "Erhalte Informationen über ein Emoji",
@@ -54,7 +54,6 @@
     "creator": "Ersteller",
     "available": "Verfügbar",
     "createdAt": "Erstellt",
-    "requiresColons": "Benötigt Doppelpunkte",
     "allowedRoles": "Erlaubte Rollen",
     "delete": "Emoji Löschen"
   },
@@ -66,20 +65,7 @@
     },
     "options": {
       "category": {
-        "description": "Über welche Kategorie möchtest du mehr erfahren?",
-        "choices": {
-          "administration": "Administration",
-          "fun": "Unterhaltung",
-          "gifs": "GIFs",
-          "information": "Informationen",
-          "minigames": "Minigames",
-          "moderation": "Moderation",
-          "nsfw": "NSFW",
-          "useful": "Nützliches",
-          "premium": "Premium",
-          "others": "Sonstiges",
-          "owner-only": "Owner-Only"
-        }
+        "description": "Über welche Kategorie möchtest du mehr erfahren?"
       },
       "command": {
         "description": "Über welchen Befehl möchtest du mehr erfahren?"
@@ -118,7 +104,7 @@
     "starts": "Starts",
     "lastStart": "Letzter Start",
     "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt.\n",
-    "links": "**[Einladung]({Invite})** | **[Dashboard]({Dashboard})** | **[Datenschutzrichtlinie]({PrivacyPolicy})**",
+    "links": "**[Einladung]({invite})** | **[Dashboard]({dashboard})** | **[Datenschutzrichtlinie]({privacyPolicy})**",
     "embedTitle": "Informationen",
     "embedFooterText": "Mehr Informationen kommen bald!"
   },
@@ -144,20 +130,7 @@
     "messageSend": "Nachricht senden"
   },
   "prefix": {
-    "description": "Zeigt oder ändert den Präfix des Servers.",
-    "usage": {
-      "usage": "{prefix}prefix [neuer Präfix]",
-      "examples": "{prefix}prefix &"
-    },
-    "options": {
-      "new_prefix": {
-        "description": "Der neue Präfix für diesen Server"
-      },
-      "case_insensitive": {
-        "description": "Soll die Groß/Kleinschreibung des Präfixes ignoriert werden?"
-      }
-    },
-    "saved": "Der Präfix wurde zu `{prefix}` gesetzt.",
+    "description": "Zeigt den Bot-Präfix des Servers",
     "currentPrefix": "Mein aktueller Präfix ist `{prefix}`.",
     "caseInsensitive": " (beachtet Groß/Kleinschreibung)"
   },
@@ -229,7 +202,7 @@
   "uptime": {
     "description": "Erhalte die Uptime des Bots",
     "embedDescriptionNoURL": "Der Bot ist online seit {time}.",
-    "embedDescription": "Der Bot ist [online]({Domain}/uptime) seit {time}."
+    "embedDescription": "Der Bot ist [online]({domain}/uptime) seit {time}."
   },
   "userinfo": {
     "description": "Erhalte Informationen über ein Mitglied",
@@ -282,5 +255,10 @@
     "downloadBanner": "Banner Herunterladen",
     "kickMember": "Mitglied Kicken",
     "banMember": "Mitglied Bannen"
+  },
+  "vote": {
+    "description": "erhalte den Link zur Feature-Request- und Voting-Website des Bots",
+    "embedTitle": "Voting",
+    "embedDescriptionVote": "Klicke [hier]({url}) um die Voting- und Feature-Request-Seite zu öffnen."
   }
 }
