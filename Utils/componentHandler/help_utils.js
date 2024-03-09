@@ -9,7 +9,9 @@ const
 function getCommands() { return [...new Set([...this.client.prefixCommands.values(), ...this.client.slashCommands.values()])].filter(filterCommands.bind(this)); }
 
 /** @this {Interaction|Message}*/
-function getCommandCategories() { return [...new Set(getCommands.call(this).map(e => e.category.toLowerCase()))]; }
+function getCommandCategories() {
+  return [...new Set(getCommands.call(this).map(e => e.category))].map(e => this.client.i18n.__({ locale: this.locale }, `commands.${e}.categoryName`));
+}
 
 /**
  * @this {Interaction|Message}
@@ -57,7 +59,7 @@ function createCommandsComponent(lang, category) {
       placeholder: lang('commandListPlaceholder'),
       minValues: 0,
       options: getCommands.call(this).reduce((acc, e) => {
-        if (e.category.toLowerCase() == category && !e.aliasOf) acc.push({ label: e.name, value: e.name, default: defaultOption == e.name });
+        if (e.category == category && !e.aliasOf) acc.push({ label: e.name, value: e.name, default: defaultOption == e.name });
         return acc;
       }, [])
     })]
@@ -113,7 +115,7 @@ function createInfoFields(cmd, lang, helpLang) {
  * @this {Interaction|Message}
  * @param {command<*, boolean, true>}cmd*/
 function filterCommands(cmd) {
-  return cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta) && (ownerOnlyFolders.includes(cmd.category?.toLowerCase()) ? this.user.id == this.client.application.owner.id : true);
+  return cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta) && (ownerOnlyFolders.includes(cmd.category) ? this.user.id == this.client.application.owner.id : true);
 }
 
 /**
@@ -137,7 +139,7 @@ module.exports.commandQuery = function commandQuery(lang, query) {
 
     /** @type {lang}*/
     helpLang = this.client.i18n.__.bind(this.client.i18n, {
-      undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang, backupPath: `commands.${command.category.toLowerCase()}.${command.name}`
+      undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang, backupPath: `commands.${command.category}.${command.name}`
     }),
     embed = new EmbedBuilder({
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
@@ -147,7 +149,7 @@ module.exports.commandQuery = function commandQuery(lang, query) {
       color: Colors.Blurple
     });
 
-  return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, command.category.toLowerCase())] });
+  return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, command.category)] });
 };
 
 /**
@@ -171,7 +173,7 @@ module.exports.categoryQuery = function categoryQuery(lang, query) {
     embed = new EmbedBuilder({
       title: lang(`options.category.choices.${query}`),
       fields: commands.reduce((acc, e) => { // U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing
-        if (e.category.toLowerCase() === query && !e.aliasOf && filterCommands.call(this, e))
+        if (e.category == query && !e.aliasOf && filterCommands.call(this, e))
           acc.push({ name: e.name, value: helpLang(`${e.name}.description`) + '\n\u200E', inline: true });
         return acc;
       }, []),
@@ -194,7 +196,7 @@ module.exports.allQuery = function allQuery(lang) {
       title: lang('all.embedTitle'),
       description: lang(commandCategories.length ? 'all.embedDescription' : 'all.notFound'),
       // /u200E is used here to add extra space
-      fields: commandCategories.map(e => ({ name: lang(`options.category.choices.${e.toLowerCase()}`), value: lang(`commands.${e.toLowerCase()}.categoryDescription`) + '\n\u200E', inline: true })),
+      fields: commandCategories.map(e => ({ name: lang(`options.category.choices.${e}`), value: lang(`commands.${e}.categoryDescription`) + '\n\u200E', inline: true })),
       footer: { text: lang('all.embedFooterText') },
       color: commandCategories.length ? Colors.Blurple : Colors.Red
     });

@@ -21,7 +21,7 @@ module.exports = async function commandHandler() {
         throw new Error(`The run function of file "${command.filePath}" is not a function. You cannot use arrow functions.`);
 
       command.filePath = resolve(`Commands/${subFolder}/${file}`);
-      command.category = subFolder;
+      command.category = subFolder.toLowerCase();
 
       this.prefixCommands.set(command.name, command);
       if (command.disabled) { if (!HideDisabledCommandLog) log(`Loaded Disabled Prefix Command ${command.name}`); }

@@ -114,7 +114,7 @@ module.exports = {
             /** @type {command<'both', boolean>} */
             const cmd = require(filePath);
             cmd.filePath = filePath;
-            cmd.category = this.args[1].split('/')[1];
+            cmd.category = this.args[1].split('/')[1].toLowerCase();
 
             await reloadCommand.call(this.client, cmd, reloadedArray);
           }

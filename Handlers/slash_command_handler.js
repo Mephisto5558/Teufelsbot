@@ -26,7 +26,7 @@ module.exports = async function slashCommandHandler() {
       try {
         command = formatSlashCommand(command, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`, this.i18n);
         command.filePath = resolve(`Commands/${subFolder}/${file}`);
-        command.category = subFolder;
+        command.category = subFolder.toLowerCase();
       }
       catch (err) {
         if (this.botType == 'dev') throw err;

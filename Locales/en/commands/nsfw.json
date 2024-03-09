@@ -1,4 +1,5 @@
 {
+  "categoryName": "NSFW",
   "categoryDescription": "NSFW commands",
   "nsfw": {
     "description": "Get an NSFW image",

@@ -5,7 +5,7 @@
 module.exports = function autocompleteGenerator(command, locale) {
   /** @param {string|number}v*/
   const response = v => ({ name: this.client.i18n.__({ locale, undefinedNotFound: true },
-    `commands.${command.category.toLowerCase()}.${command.name}.options.`
+    `commands.${command.category}.${command.name}.options.`
     + (this.options?._group ? this.options._group + '.' : '')
     + (this.options?._subcommand ? this.options._subcommand + '.' : '')
     + this.focused.name
