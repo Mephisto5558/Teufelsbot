@@ -13,6 +13,7 @@
     "embedDescriptionBot": "I need the following permissions in this channel to run this command:\n`{permissions}`"
   },
   "notAllowed": {
+    "anyone": "No one is allowed to run this command (set by a server administrator)!",
     "user": "You are not allowed to run this command (set by a server administrator)!",
     "channel": "It is not allowed to run this command in this channel (set by a server administrator)!",
     "role": "One of your roles is not allowed to run this command (set by a server administrator)!"
