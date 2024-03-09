@@ -36,13 +36,30 @@ Then, you need to install the required npm packages by running `npm install` .<b
 Next, you need to create a `env.json` file. If you are hosting you bot code public, so everyone can see it, make sure they can't see this file or use a db in MongoDB. If you do this, you only need to set the MongoDB connection string as `dbConnectionStr` to process.env.<br>
 The env file/collection needs to have all keys from the `env.json` from the Templates folder in order to work.<br>
 You do not need to set the dev stuff, this is for development.<br>
-Then, you need to create a `config.json` file. The template is in the Templates folder.<br><br>
+Then, you can create a `config.json` file. The template is in the Templates folder. You can skip this part if you don't want to set any config. The file will be created automatically then.<br><br>
 To run the Bot, run the `index.js` file.<br><br>
 You should be ready to go!
 <br>
 
-## How to add more languages and change texts
+# How to...
+## ...add more languages and change translation texts
 You can add changes on [Crowdin](https://de.crowdin.com/project/teufelsbot) or edit the language files in the `Locales` folder manually.
+
+## ...add a new category
+Create a new subfolder in the `Commands` folder. Name it how you want to name your category.<br>
+Then, create a new file in `Locales/en/commands`. Name it `<category>.json` (Replace `<category>` with the lowercase name of the folder you created in `Commands`).<br>
+Put this in the file:
+```json
+{
+  "categoryName": <name of the category>
+}
+```
+That name will be displayed at some places, like the help command.
+
+## ...add a new command
+Create a js file in one of the subdirectories of the `Commands` directory. Paste in the `command.js` template (found in the `Templates` folder.)
+Edit the properties. Many of them are optional so you could also remove them.<br>
+Then, you need to add the texts to `Locales/en/commands`. Use the `command_translations.jsonc` template.
 
 ## Others
 ### Note to the sharp overwrite in package.json
