@@ -1,4 +1,6 @@
 {
+  "categoryName": "Information",
+  "categoryDescription": "Commandes informatives",
   "avatar": {
     "description": "montre l'avatar de l'utilisateur",
     "options": {
@@ -9,12 +11,14 @@
         "description": "la taille que vous voulez obtenir"
       }
     },
-    "embedDescription": "**Avatar de {user}**",
-    "downloadButton": "Télécharger l'image"
+    "embedDescription": "**Avatar de {user}**"
   },
   "cmdstats": {
     "description": "Voyez à quelle fréquence une commande spécifique a été exécutée ou a obtenu le top 10.",
-    "usage": "PREFIX Command: cmdstats [command]",
+    "usage": {
+      "usage": "{prefix}cmdstats [command]",
+      "examples": "{prefix}cmdstats joke"
+    },
     "options": {
       "command": {
         "description": "La commande pour laquelle vous voulez obtenir des statistiques."
@@ -31,7 +35,10 @@
   },
   "emojiinfo": {
     "description": "Obtenir des informations sur un émoji",
-    "usage": "PREFIX Command: emojiinfo [emoji | emoji id]",
+    "usage": {
+      "usage": "{prefix}emojiinfo [emoji | emoji id]",
+      "examples": "{prefix}emojiinfo :derp:"
+    },
     "options": {
       "emoji": {
         "description": "L'émoji ou son identifiant sur lequel vous souhaitez obtenir des informations"
@@ -47,33 +54,42 @@
     "creator": "Créateur",
     "available": "Disponible",
     "createdAt": "Créé le",
-    "requiresColons": "Nécessite des coupons",
     "allowedRoles": "Rôles autorisés",
-    "download": "Télécharger les émoticônes"
+    "delete": "Supprimer les emojis"
   },
   "help": {
     "description": "Afficher toutes mes commandes ou rechercher une commande spécifique",
-    "usage": "Commande PREFIX : aide [command]",
+    "usage": {
+      "usage": "{prefix}aide [command]",
+      "examples": "{prefix}help joke"
+    },
     "options": {
+      "category": {
+        "description": "De quelle catégorie voulez-vous obtenir des informations ?"
+      },
       "command": {
         "description": "Quelle commande voulez-vous obtenir des statistiques?"
       }
     },
+    "categoryListPlaceholder": "Quelle catégorie de commandes voulez-vous voir?",
+    "commandListPlaceholder": "Quelle commande voulez-vous voir?",
+    "devEmbedFooterText": "Dev-Bot | Seules les commandes bêta sont affichées",
     "one": {
       "notFound": "Aucune information trouvée pour la commande `{command}`.",
       "embedTitle": "Informations détaillées sur : `{command}`",
-      "noDescription": "Aucune description trouvée",
       "embedFooterText": "Syntaxe : <> = obligatoire, [] = optionnel | Préfixe : \"{prefix}\"",
-      "lookAtDesc": "Commande SLASH : regardez les descriptions d'option.\n",
       "prefixAlias": "Alias de commande du préfixe",
       "slashAlias": "Alias de commande tranchante",
+      "aliasOf": "Alias de",
       "botPerms": "Autorisations requises pour le bot",
       "userPerms": "Autorisations utilisateur requises",
       "cooldowns": "Refroidissement du Commandement",
-      "usage": "Usage"
+      "usage": "Usage",
+      "examples": "Exemples"
     },
     "all": {
       "embedTitle": "🔰Toutes mes commandes",
+      "embedDescription": "Ce sont les différentes catégories de commandes. Veuillez en sélectionner une dans le menu déroulant.",
       "notFound": "Aucune commande trouvée...",
       "embedFooterText": "Utilisez l'option « commande » pour obtenir plus d'informations sur une commande spécifique."
     }
@@ -82,10 +98,13 @@
     "description": "affiche des statistiques et des informations sur le bot.",
     "dev": "Développeur",
     "shard": "Éclat",
+    "guild": "ID interne de la guilde",
+    "guilds": "Guildes",
     "commands": "Commandes",
     "starts": "Début",
     "lastStart": "Dernier début",
-    "links": "**[Invite]({Invite})** | **[Dashboard]({Dashboard})** | **[Politique de confidentialité]({PrivacyPolicy})**",
+    "translation": "Traductions :\n> Anglais : {en}\n> Allemand : {de}\n> Toutes les autres langues sont principalement traduites automatiquement.\n",
+    "links": "**[Invite]({invite})** | **[Dashboard]({dashboard})** | **[Politique de confidentialité]({privacyPolicy})**",
     "embedTitle": "Stats",
     "embedFooterText": "D'autres statistiques seront bientôt disponibles !"
   },
@@ -105,32 +124,28 @@
       "loading": "Ping en cours... `{current}`/`{target}`",
       "embedDescription": "Pings : `{pings}`\nPing le plus bas : `{lowest}ms`\nPing en hauteur : `{highest}ms`\nPing moyen : `{average}ms`"
     },
+    "api": "API",
+    "bot": "Bot",
     "embedTitle": "Ping",
     "messageSend": "Envoyer un message"
   },
   "prefix": {
-    "description": "affiche ou modifie le préfixe de bot de la guilde",
-    "usage": "Commande PREFIX : préfixe [nouveau préfixe]",
-    "options": {
-      "new_prefix": {
-        "description": "le nouveau préfixe de bot pour cette guilde"
-      },
-      "case_insensitive": {
-        "description": "Le cas du préfixe doit-il être ignoré ?"
-      }
-    },
-    "saved": "Mon préfixe a été changé en `{prefix}`.",
+    "description": "Affiche le préfixe de bot de guilde",
     "currentPrefix": "Mon préfixe actuel est `{prefix}`.",
     "caseInsensitive": " (insensible à la casse)"
   },
   "roleinfo": {
     "description": "Obtenir des informations sur un rôle",
-    "usage": "Commande PREFIX : roleinfo [@role | nom du rôle | id du rôle]",
+    "usage": {
+      "usage": "{prefix}roleinfo [@role | nom de rôle | id de rôle]",
+      "examples": "{prefix}roleinfo @User1"
+    },
     "options": {
       "role": {
         "description": "le rôle sur lequel vous voulez obtenir des informations"
       }
     },
+    "notFound": "Ce rôle est introuvable. Essayez d'utiliser son ID.",
     "mention": "Mentionner",
     "members": "Membres",
     "color": "Couleur",
@@ -140,7 +155,8 @@
     "position": "Position",
     "createdAt": "Créé le",
     "permissions": "Permissions",
-    "admin": "Administrateur"
+    "admin": "Administrator",
+    "delete": "Supprimer le rôle"
   },
   "serverinfo": {
     "description": "Obtenir des informations sur une guilde",
@@ -149,16 +165,33 @@
         "description": "The server ID you want to get information about. Only works for servers I'm in."
       }
     },
+    "memberStats": "`{all}` (humains : `{humans}`, Bots : `{bots}`)",
     "members": "Membres",
-    "verificationLevel": "Niveau de vérification",
+    "verificationLevel": {
+      "name": "Niveau de vérification",
+      "0": "Aucun",
+      "1": "Bas",
+      "2": "Moyenne",
+      "3": "Élevé",
+      "4": "Très haut"
+    },
+    "id": "ID",
     "createdAt": "Créé le",
-    "defaultNotifications": "Notifications par défaut",
+    "defaultNotifications": {
+      "name": "Notifications par défaut",
+      "0": "Tous les messages",
+      "1": "Mentions seulement"
+    },
     "owner": "Propriétaire",
-    "memberCount": "Nombre de membres",
     "locale": "Locale",
     "partnered": "Partenaire",
     "emojis": "Emojis",
-    "boosts": "Amplifier",
+    "boosts": {
+      "name": "Amplifier",
+      "1": ", Niveau 1",
+      "2": ", Tier 2",
+      "3": ", tiers 3"
+    },
     "roles": "Rôles",
     "channels": "Canaux",
     "vanityUrl": "URL de Vanity",
@@ -168,11 +201,15 @@
   },
   "uptime": {
     "description": "Obtenir le temps de disponibilité du bot",
-    "embedDescription": "Le bot a été [online]({Domain}/uptime) pour exactement {time}."
+    "embedDescriptionNoURL": "Le bot a été en ligne pour {time}.",
+    "embedDescription": "Le bot a été [online]({domain}/uptime) pour exactement {time}."
   },
   "userinfo": {
     "description": "Obtenir des informations sur un membre",
-    "usage": "Commande PREFIX : roleinfo [@user | nom d'utilisateur | tag utilisateur | pseudo utilisateur | pseudo utilisateur | id utilisateur]",
+    "usage": {
+      "usage": "{prefix}roleinfo [@user | nom d'utilisateur | tag d'utilisateur | pseudonyme | identifiant d'utilisateur]",
+      "examples": "{prefix}userinfo @User1"
+    },
     "options": {
       "target": {
         "description": "l'utilisateur sur lequel vous souhaitez obtenir des informations"
@@ -180,7 +217,7 @@
     },
     "guildOwner": "Propriétaire de la guilde",
     "guildAdmin": "Administrateur de la guilde",
-    "admin": "`Administrator`",
+    "admin": "`Administrateur`",
     "guildMod": "Modérateur de guilde",
     "guildMember": "Membre de la Guilde",
     "mention": "Mentionner",
@@ -197,8 +234,8 @@
       "name": "Drapeaux",
       "ActiveDeveloper": "Développeur Actif",
       "BotHTTPInteractions": "HTTP Bot",
-      "BugHunterLevel1": "Chasseur de bugs niveau 1",
-      "BugHunterLevel2": "Chasseur de bugs Niveau 2",
+      "BugHunterLevel1": "Chasseur de bugs Niveau 1",
+      "BugHunterLevel2": "Chasseur de bugs niveau 2",
       "CertifiedModerator": "Modérateur certifié Discord",
       "HypeSquadOnlineHouse1": "Membre de la Bravoure de Maison",
       "HypeSquadOnlineHouse2": "Membre brillant de la maison",
@@ -215,6 +252,13 @@
     },
     "perms": "Permissions",
     "downloadAvatar": "Télécharger l'avatar",
-    "downloadBanner": "Télécharger la bannière"
+    "downloadBanner": "Télécharger la bannière",
+    "kickMember": "Expulser le membre",
+    "banMember": "Bannir un membre"
+  },
+  "vote": {
+    "description": "obtenir le lien vers la demande de fonctionnalité et la page de vote des bots",
+    "embedTitle": "Vote",
+    "embedDescriptionVote": "Cliquez sur [here]({url}) pour ouvrir la page Web de vote et de demande de fonctionnalité."
   }
 }
