@@ -69,7 +69,7 @@ declare namespace Database {
         message: string;
         createdAt: number;
       };
-      lastVoted?: number;
+      lastVoted?: Date;
       featureRequestAutoApprove?: boolean;
       lastFeatureRequested?: number;
     } | undefined;
