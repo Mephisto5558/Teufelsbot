@@ -200,7 +200,7 @@ declare namespace Database {
   };
 
   type botSettings = {
-    env?: __local.Config;
+    env?: __local.Env;
     activity?: {
       name: string;
       type: ActivityType;

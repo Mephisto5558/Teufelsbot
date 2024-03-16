@@ -11,9 +11,6 @@ declare namespace __local {
 
   type BaseCommand<initialized extends boolean = boolean> = {
 
-    /** For slash commands, must be lowercase.*/
-    name: string;
-
     /** Numbers in milliseconds*/
     cooldowns?: { guild?: number; channel?: number; user?: number };
 
@@ -33,6 +30,11 @@ declare namespace __local {
     options?: commandOptions<initialized>[];
   }
   & (initialized extends true ? {
+
+    /**
+     * Gets set to the command's filename.
+     * For slash commands, must be lowercase.*/
+    name: string;
 
     /** Currently not used*/
     nameLocalizations?: readonly Record<string, BaseCommand<true>['name']>;
@@ -102,6 +104,21 @@ declare namespace __local {
     /** @default true*/
     replyOnNonBetaCommand: boolean;
     disableWebserver?: boolean;
+  }
+
+  interface Env {
+    environment: string;
+    keys: {
+      humorAPIKey: string;
+      rapidAPIKey: string;
+      githubKey: string;
+      chatGPTAPIKey: string;
+      dbdLicense: string;
+      votingWebhookURL?: string;
+      token: string;
+      secret: string;
+    };
+    dbConnectionStr: string;
   }
 }
 
@@ -351,10 +368,10 @@ declare module 'discord.js' {
     cooldowns: Map<string, Record<string, Map<string, number>>>;
     db: DB;
     i18n: I18nProvider;
-    settings: object;
+    settings: Database.botSettings;
     defaultSettings: Database.guildSettings['default'];
-    botType: string;
-    keys: Record<string, string>;
+    botType: __local.Env['environment'];
+    keys: __local.Env['keys'];
 
     /** The config from {@link ./config.json}.*/
     config: __local.Config;
