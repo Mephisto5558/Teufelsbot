@@ -1,8 +1,12 @@
 {
+  "categoryName": "Propriétaire uniquement",
+  "categoryDescription": "Commandes qui ne devraient être disponibles que pour le développeur",
   "blacklistuser": {
     "description": "empêche un utilisateur d'utiliser le bot",
-    "usage": "Commande PREFIX : utilisateur de la liste noire <user id>",
-    "noInput": "Vous devez fournir un identifiant.",
+    "usage": {
+      "usage": "{prefix}blacklistuser [off] <user id>",
+      "examples": "{prefix}blacklistuser 12345678901234568"
+    },
     "notFound": "Aucune entrée trouvée pour cet identifiant.",
     "saved": "`{user}` a été exclu de l'utilisation du bot.",
     "removed": "L'entrée de la liste noire pour `{user}` a été supprimée.",
@@ -10,20 +14,41 @@
   },
   "dbget": {
     "description": "interroger les données de la base de données",
-    "usage": "Commande PREFIX : dbget <database name>",
+    "usage": {
+      "usage": "{prefix}dbget <database name> <key>",
+      "examples": "{prefix}base de données dbget a.b.c"
+    },
     "notFound": "rien trouvé"
   },
   "eval": {
     "description": "injecter du code JavaScript directement dans le bot",
-    "usage": "Commande PREFIX : eval <js code>",
+    "usage": {
+      "usage": "{prefix}eval <js code>",
+      "examples": "{prefix}eval console.log('Hello World!')"
+    },
     "finished": "commande évaluée :\n```js\n{code}\n```\n",
     "success": "{msg} sans erreurs.",
     "error": "{msg} avec l'erreur suivante:\n```\n{name}: {err}\n```"
   },
+  "exec": {
+    "description": "injecter du code Bash directement dans le shell du bot",
+    "usage": {
+      "usage": "{prefix}exec <sh code>",
+      "examples": "{prefix}exec echo 'Bonjour le monde!'"
+    },
+    "finished": "Code Bash :\n```sh\n{code}\n```\n",
+    "stdout": "{msg} avec la sortie suivante:\nstdout:\n```\n{stdout}\n```\n",
+    "stderr": "stderr:\n```\n{stderr}\n```",
+    "error": "{msg} avec l'erreur suivante:\n```\n{name}: {err}\n```"
+  },
   "reload": {
     "description": "recharge un fichier ou une catégorie",
-    "usage": "Commande PREFIX : recharger <command | \"*\">",
+    "usage": {
+      "usage": "Rechargement {prefix}<\"commande\" | \"fichier\"> <Path relative to cwd>\n{prefix}rechargement <command | \"*\">",
+      "examples": "{prefix}recharge le chemin du fichier/vers/fichier\n{prefix}rechargement amusant"
+    },
     "invalidCommand": "Ce n'est pas une commande valide.",
+    "invalidPath": "Le chemin spécifié n'existe pas ! Veuillez noter la sensibilité à la casse du chemin.",
     "error": "Une erreur est survenue lors du rechargement :\n```{error}```\nVérifiez la console pour plus d'informations.",
     "noneReloaded": "Aucune commande n'a été rechargée.",
     "reloaded": "Les commandes suivantes `{count}` ont été rechargées:\n{commands}"
@@ -38,15 +63,36 @@
   },
   "restart": {
     "description": "Redémarre le bot",
-    "message": "Restarting bot...",
+    "alreadyRestarting": "Le bot effectue déjà un redémarrage, veuillez attendre qu'il se termine. Message : {url}",
+    "updatingNPM": "<a:loading:1063091916683612160> Redémarrage du bot...\nInstallation des paquets...",
+    "updateNPMError": "❌ Le redémarrage a échoué en raison d'une erreur du Musée national du Palais. Consultez la console pour plus d'informations.",
+    "restarting": "<a:loading:1063091916683612160> Redémarrage du bot...\nDémarrage du processus de nœud...",
+    "restartingError": "❌ Le redémarrage a échoué en raison d'une erreur de nœud. Consultez la console pour plus d'informations.",
     "success": "Redémarré avec succès."
   },
   "setactivity": {
     "description": "Définit l'activité du bot",
-    "usage": "Commande PREFIX : définir l'activité <activity>;[type]",
+    "usage": {
+      "usage": "{prefix}setactivity <activity>;[type]",
+      "examples": "{prefix}setactivity en cours d'exécution des commandes;lecture"
+    },
     "invalidType": "Ce n'est pas un type valide. Les types valides sont:\n`{types}`",
     "set": "Activité définie à `{name}` de type `{type}`.",
     "reset": "Activité définie à `aucun`."
+  },
+  "setchangelog": {
+    "description": "Met à jour les changelogs pour que les utilisateurs soient à jour.",
+    "success": "Le changelog a été mis à jour avec succès."
+  },
+  "setcountingnumber": {
+    "description": "Met à jour le dernier numéro de comptage d'un canal, réinitialise également le dernier auteur.",
+    "usage": {
+      "usage": "{prefix}setcountingnumber [numéro (par défaut 0)] [channel]",
+      "examples": "{prefix}setcountingnumber 7 #counting-channel"
+    },
+    "invalidNumber": "Le numéro fourni est invalide !",
+    "unknownChannel": "L'identifiant de salon fourni n'a pas été trouvé dans cette guilde !",
+    "success": "Le comptage pour <#{channel}> a été défini à **{number}**."
   },
   "test": {
     "description": "tester des trucs"

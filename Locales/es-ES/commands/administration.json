@@ -1,4 +1,5 @@
 {
+  "categoryName": "Administración",
   "categoryDescription": "Comandos usados para administrar el gremio o configurar el bot",
   "serverbackup": {
     "description": "Administre las copias de seguridad de su servidor.",
@@ -7,7 +8,7 @@
         "description": "Crea una copia de seguridad. Si hay 5+ copias, se eliminará la más antigua."
       },
       "load": {
-        "description": "Carga backup. ¡PRECAUCIÓN: borra todo! Usa \"nu_clear\" para evitarlo.",
+        "description": "Carga backup. ¡PRECAUCIÓN: borra todo! Usa \"nuclear\" para evitarlo.",
         "options": {
           "id": {
             "description": "El ID de copia de seguridad que desea cargar. Utilice el subcomando \"get\" para ver una lista de IDs."
@@ -36,7 +37,6 @@
     },
     "embedTitle": "Copia de seguridad del servidor",
     "create": {
-      "cooldown": "¡Creando copias de seguridad está en recarga! Inténtalo de nuevo en `{time}`s.",
       "settings": "<a:loading:1063091916683612160> Guardando ajustes...",
       "members": "<a:loading:1063091916683612160> Guardando miembros...",
       "bans": "<a:loading:1063091916683612160> Guardando prohibiciones...",
@@ -54,7 +54,6 @@
       "ownWebhooks": "<a:loading:1063091916683612160> Eliminando webhooks temporales..."
     },
     "load": {
-      "cooldown": "¡Cargando copias de seguridad está en recarga! Inténtalo de nuevo en `{time}`s.",
       "overwriteWarningDescription": "¡Esta acción eliminará la mayoría de su servidor! Esto incluye roles, webhooks, canales y emojis.\nSi estás seguro de que quieres hacer esto, escribe 'Sí'. Escribe 'No' para cancelar.\nTambién puedes crear una copia de seguridad antes de cargar, solo para estar seguro.",
       "noneFound": "¡No se ha encontrado ningún respaldo para este gremio!",
       "cancelled": "La carga de la copia de seguridad ha sido cancelada.",
@@ -177,6 +176,17 @@
           }
         }
       },
+      "prefix": {
+        "description": "Cambia el prefijo del bot.",
+        "options": {
+          "new_prefix": {
+            "description": "el nuevo prefijo del bot para este gremio"
+          },
+          "case_insensitive": {
+            "description": "¿Debe ignorarse el caso del prefijo?"
+          }
+        }
+      },
       "serverbackup": {
         "description": "Administrar opciones para las copias de seguridad de su servidor.",
         "options": {
@@ -248,6 +258,9 @@
       "embedTitle": "¡Idioma del bot cambiado!",
       "embedDescription": "Los siguientes mensajes serán en `{lang}`."
     },
+    "prefix": {
+      "saved": "Mi prefijo ha sido cambiado a `{prefix}`."
+    },
     "serverbackup": {
       "success": "¡Actualización exitosa de la configuración!"
     },
@@ -266,6 +279,16 @@
         "voiceChannelActivity": "canal de voz unirse/abandonar/interruptores",
         "sayCommandUsed": "uso del comando /say (o similar)"
       }
+    },
+    "tickets": {
+      "defaultButtonLabel": "Crear Ticket",
+      "disabled": "El módulo de ticket ha sido deshabilitado.",
+      "infoEmbedDescription": "Please press the button below to set a custom embed description before you can enable the ticket system by pressing the save button.\nYou can generate a valid embed [here]({url})",
+      "editButtonLabel": "Editar incrustado",
+      "previewButtonLabel": "Vista previa integrada",
+      "saveButtonLabel": "Guardar incrustado",
+      "textInputLabel": "Por favor, introduzca el JSON incrustado.",
+      "invalidEmbed": "El JSON incrustado no es válido:\n```{err}```"
     }
   }
 }
