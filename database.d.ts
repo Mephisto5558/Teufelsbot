@@ -63,7 +63,7 @@ declare namespace Database {
 
   type userSettings = {
     [userId: userId]: {
-      birthday?: `${number}/${number}/${number}`;
+      birthday?: Date;
       customName?: string;
       afkMessage?: {
         message: string;
@@ -233,7 +233,7 @@ declare namespace Database {
     };
     patreonBonuses?: Record<string, unknown>;
     lastFileClear?: `${number}/${number}`;
-    lastBirthdayCheck?: `${number}/${number}`;
+    lastBirthdayCheck?: Date;
     lastDBCleanup?: `${number}/${number}`;
     stats: {
       [commandName: string]: number | undefined;
