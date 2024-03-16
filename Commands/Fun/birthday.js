@@ -63,10 +63,11 @@ const
               return acc;
             }, [])
             .sort(([, a], [, b]) => {
-              if (a < currentTime) a.setFullYear(currentYear);
-              if (b < currentTime) b.setFullYear(currentYear);
+              const dates = [new Date(a.getTime()), new Date(b.getTime())];
+              if (dates[0] < currentTime) dates[0].setFullYear(currentYear);
+              if (dates[1] < currentTime) dates[1].setFullYear(currentYear);
 
-              return a - b;
+              return dates[0] - dates[1];
             })
             .slice(0, 10);
 
