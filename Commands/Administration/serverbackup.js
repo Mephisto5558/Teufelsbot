@@ -149,7 +149,6 @@ const backupMainFunctions = {
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'serverbackup',
   permissions: { client: ['Administrator'], user: ['Administrator'] },
   prefixCommand: false,
   slashCommand: true,

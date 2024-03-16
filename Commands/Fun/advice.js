@@ -4,7 +4,6 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'advice',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

@@ -4,7 +4,6 @@ const
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'editmessage',
   permissions: { user: ['ManageMessages'] },
   cooldowns: { user: 5000 },
   slashCommand: true,

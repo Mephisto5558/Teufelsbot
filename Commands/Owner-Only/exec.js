@@ -2,7 +2,6 @@ const exec = require('node:util').promisify(require('node:child_process').exec);
 
 /** @type {command<'prefix', false>}*/
 module.exports = {
-  name: 'exec',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

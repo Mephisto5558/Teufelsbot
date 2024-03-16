@@ -21,7 +21,6 @@ function getTime(year, month, day, ...args) {
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'until',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

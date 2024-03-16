@@ -5,7 +5,6 @@ const
 
 /** @type {command<'both'>}*/
 module.exports = {
-  name: 'userinfo',
   aliases: { prefix: ['user-info'] },
   cooldowns: { user: 1000 },
   slashCommand: true,

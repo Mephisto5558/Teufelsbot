@@ -11,7 +11,6 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'furrykiss',
   aliases: { prefix: ['furry-kiss'] },
   cooldowns: { user: 1000 },
   slashCommand: true,

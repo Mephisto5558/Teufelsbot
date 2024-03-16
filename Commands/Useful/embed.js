@@ -10,7 +10,6 @@ const getStringOption = (interaction, name) => interaction.options.getString(nam
 
 /** @type {command<'slash', false>}*/
 module.exports = {
-  name: 'embed',
   permissions: { user: ['EmbedLinks'] },
   cooldowns: { user: 200 },
   slashCommand: true,

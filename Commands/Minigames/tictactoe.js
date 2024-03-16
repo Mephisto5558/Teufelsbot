@@ -38,7 +38,6 @@ function updateStats(firstID, secondID, type, db) {
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'tictactoe',
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
   cooldowns: { user: 5000 },
   slashCommand: true,

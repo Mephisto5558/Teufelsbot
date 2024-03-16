@@ -2,7 +2,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'info',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
@@ -11,7 +10,7 @@ module.exports = {
     const
       startTime = Math.round(Date.now() / 1000 - process.uptime()),
       description
-        = `${lang('dev')}: [Mephisto5558](https://discord.com/users/691550551825055775)\n`
+        = `${lang('dev')}: [Mephisto5558](https://discord.com/users/691550551825055775)\n` // Please do not change this line
         + `${lang('shard')}: \`${this.guild.shardId}\`\n`
         + `${lang('guild')}: \`${this.guild.db.position ?? 0}\`\n`
         + `${lang('guilds')}: \`${this.client.guilds.cache.size}\`\n`

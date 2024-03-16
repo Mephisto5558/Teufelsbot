@@ -84,7 +84,6 @@ async function reloadCommand(command, reloadedArray) {
 
 /** @type {command<'prefix', false>}*/
 module.exports = {
-  name: 'reload',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

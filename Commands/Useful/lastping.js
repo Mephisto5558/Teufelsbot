@@ -4,7 +4,6 @@ const
 
 /** @type {command<'both'>}*/
 module.exports = {
-  name: 'lastping',
   cooldowns: { guild: 200, user: 1e4 },
   slashCommand: true,
   prefixCommand: true,

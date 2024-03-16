@@ -73,7 +73,6 @@ async function fetchMsgs(channel, limit = 250, before = undefined, after = undef
 
 /** @type {command<'both'>}*/
 module.exports = {
-  name: 'purge',
   aliases: { prefix: ['clear'] },
   permissions: { client: ['ManageMessages', 'ReadMessageHistory'], user: ['ManageMessages'] },
   cooldowns: { guild: 1000 },

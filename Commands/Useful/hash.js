@@ -4,7 +4,6 @@ const
 
 /** @type {command<'slash', false>}*/
 module.exports = {
-  name: 'hash',
   cooldowns: { user: 1e4 },
   slashCommand: true,
   prefixCommand: false,

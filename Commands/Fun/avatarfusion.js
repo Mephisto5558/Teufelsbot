@@ -5,7 +5,6 @@ const
 
 /** @type {command<'both'>}*/
 module.exports = {
-  name: 'avatarfusion',
   cooldowns: { user: 2000 },
   slashCommand: true,
   prefixCommand: true,

@@ -4,7 +4,6 @@ const
 
 /** @type {command<'both'>}*/
 module.exports = {
-  name: 'emojiinfo',
   aliases: { prefix: ['emoji-info'] },
   slashCommand: true,
   prefixCommand: true,

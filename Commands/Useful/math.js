@@ -21,7 +21,6 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'math',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

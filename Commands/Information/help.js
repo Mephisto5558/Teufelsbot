@@ -3,7 +3,6 @@ const { help_commandQuery, help_categoryQuery, help_allQuery, help_getCommands, 
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'help',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

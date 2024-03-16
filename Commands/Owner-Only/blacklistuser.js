@@ -2,7 +2,6 @@ const { getTargetMember } = require('../../Utils');
 
 /** @type {command<'prefix', false>}*/
 module.exports = {
-  name: 'blacklistuser',
   aliases: { prefix: ['blacklist'] },
   slashCommand: false,
   prefixCommand: true,

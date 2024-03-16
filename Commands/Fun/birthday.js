@@ -88,7 +88,6 @@ const
 
 /** @type {command<'slash', false>}*/
 module.exports = {
-  name: 'birthday',
   cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: false,

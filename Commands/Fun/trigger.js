@@ -77,7 +77,6 @@ const
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'trigger',
   permissions: { user: ['ManageMessages'] },
   slashCommand: true,
   prefixCommand: false,
