@@ -2,7 +2,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'ping',
   cooldowns: { channel: 1000 },
   slashCommand: true,
   prefixCommand: true,

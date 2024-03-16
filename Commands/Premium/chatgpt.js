@@ -30,7 +30,6 @@ async function fetchAPI(lang, deep) {
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'chatgpt',
   aliases: { prefix: ['gpt'] },
   cooldowns: { guild: 0, user: 2000 },
   slashCommand: true,

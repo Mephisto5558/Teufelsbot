@@ -102,7 +102,6 @@ const
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'giveaway',
   permissions: { user: ['ManageMessages'] },
   cooldowns: { user: 1000 },
   slashCommand: true,

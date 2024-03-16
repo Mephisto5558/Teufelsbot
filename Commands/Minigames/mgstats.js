@@ -22,7 +22,6 @@ function formatStatCount(input, all) {
 
 /** @type {command<'both'>}*/
 module.exports = {
-  name: 'mgstats',
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
   cooldowns: { user: 1000 },
   slashCommand: true,

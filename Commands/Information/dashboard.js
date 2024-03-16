@@ -6,7 +6,6 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'dashboard',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

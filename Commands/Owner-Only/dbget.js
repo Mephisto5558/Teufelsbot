@@ -1,6 +1,5 @@
 /** @type {command<'prefix', false>}*/
 module.exports = {
-  name: 'dbget',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

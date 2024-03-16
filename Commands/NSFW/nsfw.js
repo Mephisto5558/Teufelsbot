@@ -4,7 +4,6 @@ const
 
 /** @type {command<'both'>}*/
 module.exports = {
-  name: 'nsfw',
   cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: true,
