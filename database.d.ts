@@ -37,6 +37,7 @@ declare namespace Database {
   type userSettings = {
     [userId: userId]: {
       birthday?: `${number}/${number}/${number}`;
+      customName?: string;
       lastVoted?: number;
       featureRequestAutoApprove?: boolean;
       lastFeatureRequested?: number;
