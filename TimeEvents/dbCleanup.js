@@ -1,11 +1,13 @@
-/** @returns {number}milliseconds*/
+const { SnowflakeUtil } = require('discord.js');
+
+/** @returns {number}Unix timestamp*/
 const getOneMonthAgo = () => new Date().setMonth(new Date().getMonth() - 1);
 
 /**
  * Deletes giveaway records that concluded over a month ago
  * @this {Client}
  * @param {string}guildId
- * @param {Record<string, { ended: boolean, endAt: number }>}db*/
+ * @param {Exclude<import('../database').default.guildSettings['guildId']['giveaway'], undefined>['giveaways']?}db*/
 function cleanupGiveawaysDB(guildId, db) {
   if (!db) return;
 
@@ -19,7 +21,7 @@ function cleanupGiveawaysDB(guildId, db) {
  * Removes all lastMentions data older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {{ [userId: string]: { createdAt: Date } }}db*/
+ * @param {import('../database').default.guildSettings['guildId']['lastMentions']}db*/
 function cleanupMentionsDB(guildId, db) {
   if (!db) return;
 
@@ -33,7 +35,7 @@ function cleanupMentionsDB(guildId, db) {
  * Removes all AFK-Messages older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {{ [userId: string]: { createdAt: string } }}db createdAt is in seconds, not milliseconds*/
+ * @param {import('../database').default.guildSettings['guildId']['afkMessages']}db createdAt is in seconds, not milliseconds*/
 function cleanupAfkMessagesDB(guildId, db) {
   if (!db) return;
 
@@ -47,14 +49,14 @@ function cleanupAfkMessagesDB(guildId, db) {
  * Removes all AFK-Messages older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {{ [game: string]: { [userId: string]: { createdAt: string } }}}db createdAt is in seconds, not milliseconds*/
+ * @param {import('../database').default.guildSettings['guildId']['minigames']}db createdAt is in seconds, not milliseconds*/
 function cleanUpMinigamesDB(guildId, db) {
   if (!db) return;
 
   for (const [gameId, data] of Object.entries(db)) {
-    for (const [userId, { createdAt }] of Object.entries(data)) {
-      if (getOneMonthAgo() < Number(createdAt)) continue;
-      this.db.delete('guildSettings', `${guildId}.${gameId}.${userId}`);
+    for (const messageId of Object.keys(data)) {
+      if (getOneMonthAgo() < SnowflakeUtil.timestampFrom(messageId)) continue;
+      this.db.delete('guildSettings', `${guildId}.${gameId}.${messageId}`);
     }
   }
 }

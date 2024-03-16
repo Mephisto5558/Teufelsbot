@@ -1,17 +1,17 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
 
-  /** @type {Record<string, (this: GuildInteraction, lang: lang, oldData: { id:string, trigger:string, response:string, wildcard:boolean }[], query: string) => Promise<Message>>} */
+  /** @type {Record<string, (this: GuildInteraction, lang: lang, oldData: Exclude<import('../../database').default.guildSettings['']['triggers'], undefined>, query: string) => Promise<Message>>} */
   triggerMainFunctions = {
     add: async function (lang, oldData) {
       const data = {
         id: (Number.parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) ?? 0) + 1,
-        trigger: this.options.getString('trigger'),
+        trigger: this.options.getString('trigger', true),
         response: this.options.getString('response').replaceAll('/n', '\n'),
         wildcard: !!this.options.getBoolean('wildcard')
       };
 
-      await this.client.db.update('guildSettings', `${this.guild.id}.triggers`, [...oldData, data]);
+      await this.client.db.push('guildSettings', `${this.guild.id}.triggers`, data);
       return this.editReply(lang('saved', data.trigger));
     },
 
@@ -75,6 +75,14 @@ const
     }
   };
 
+/** @this {import('discord.js').AutocompleteInteraction} */
+function triggerQuery() {
+  return this.guild.db.triggers
+    ?.flatMap(e => [e.trigger, e.id])
+    .sort(e => typeof e == 'string' ? -1 : 1)
+    .map(String) ?? [];
+}
+
 /** @type {command<'slash'>}*/
 module.exports = {
   permissions: { user: ['ManageMessages'] },
@@ -104,11 +112,7 @@ module.exports = {
       options: [{
         name: 'query_or_id',
         type: 'String',
-        autocompleteOptions: function () {
-          return this.guild.db.triggers
-            ?.flatMap(e => [e.trigger, e.id]).sort(e => typeof e == 'string' ? -1 : 1)
-            .map(String) ?? [];
-        }
+        autocompleteOptions: triggerQuery
       }]
     },
     {
@@ -127,12 +131,7 @@ module.exports = {
         {
           name: 'query_or_id',
           type: 'String',
-          autocompleteOptions: function () {
-            return this.guild.db.triggers
-              ?.flatMap(e => [e.trigger, e.id])
-              .sort(e => typeof e == 'string' ? -1 : 1)
-              .map(String) ?? [];
-          }
+          autocompleteOptions: triggerQuery
         },
         { name: 'short', type: 'Boolean' }
       ]

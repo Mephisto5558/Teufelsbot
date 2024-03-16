@@ -9,7 +9,7 @@ const
     toggle_module: async function toggleModule(lang) {
       const
         module = this.options.getString('module'),
-        setting = this.guild.db[module]?.enable;
+        setting = this.guild.db[module]?.enable; // Todo: document and probably sth like `this.guild.db.modules[module]` for better typing
 
       await this.client.db.update('guildSettings', `${this.guild.id}.${module}.enable`, !setting);
       return this.editReply(lang('success', { name: module, state: lang(setting ? 'global.disabled' : 'global.enabled') }));
@@ -128,8 +128,8 @@ const
     logger: async function configureLogger(lang) {
       const
         action = this.options.getString('action'),
-        channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action]?.channel))?.id ?? this.channel,
-        enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? undefined : !this.guild.db.config.logger?.[action]?.enabled);
+        channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action].channel))?.id ?? this.channel,
+        enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? undefined : !this.guild.db.config.logger?.[action].enabled);
 
       if (!channel) return this.editReply(lang('noChannel'));
       if (action == 'all') {

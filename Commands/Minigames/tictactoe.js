@@ -20,8 +20,9 @@ async function eventCallback([player1, player2], [type1, type2 = type1], lang, g
  * @param {string}firstID
  * @param {string}secondID
  * @param {'win'|'lose'|'draw'}type
- * @param {import('@mephisto5558/mongoose-db').DB}db*/
+ * @param {Client['db']}db*/
 function updateStats(firstID, secondID, type, db) {
+  /** @type {import('../../database').default.leaderboards['TicTacToe']['userId']} */
   const stats = db.get('leaderboards', `TicTacToe.${firstID}`) ?? {};
   let against;
 
