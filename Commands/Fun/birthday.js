@@ -3,10 +3,8 @@ const
   { getTargetMember, getAge } = require('../../Utils'),
   currentYear = new Date().getFullYear(),
 
+  /** @type {Record<string, (this: GuildInteraction, lang: lang) => Promise<Message>>} */
   birthdayMainFunctions = {
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang*/
     set: async function set(lang) {
       const
         month = this.options.getInteger('month'),
@@ -21,17 +19,11 @@ const
       return this.editReply(lang('saved', diffDays));
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang*/
     remove: async function remove(lang) {
       await this.client.db.delete('userSettings', `${this.user.id}.birthday`);
       return this.editReply(lang('removed'));
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang*/
     get: async function get(lang) {
       const
         target = getTargetMember.call(this),
