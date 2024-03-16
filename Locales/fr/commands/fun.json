@@ -1,4 +1,6 @@
 {
+  "categoryName": "Amusement",
+  "categoryDescription": "Des commandes amusantes",
   "8ball": {
     "description": "Posez-moi une question.",
     "options": {
@@ -6,13 +8,12 @@
         "description": "Sur quoi voulez-vous mon opinion ?"
       }
     },
-    "noQuestion": "Vous ne m'avez rien demandé???",
     "responseList": [
       "À mes yeux, oui.",
       "C'est certain.",
       "C'est vraiment le cas.",
       "Très probablement.",
-      "« Oui. »",
+      "Oui.",
       "Yesssss",
       "Yessss Sir.",
       "Oui - définitivement.",
@@ -34,7 +35,7 @@
       "Nah",
       "Non",
       "Non.",
-      "« Non! »",
+      "Non!",
       "Nooooooo !",
       "Ma réponse est non.",
       "Mes sources disent non.",
@@ -44,9 +45,16 @@
       "Broooooo, tu es stupide, ta question n'a aucun sens?!"
     ]
   },
+  "advice": {
+    "description": "Obtenez des conseils utiles.",
+    "embedTitle": "Conseils"
+  },
   "avatarfusion": {
     "description": "Fusionne deux avatars.",
-    "usage": "Commande PREFIX : avatarfusion <base> [overlay] [avatar_type]",
+    "usage": {
+      "usage": "{prefix}avatarfusion <base> [overlay] [avatar_type]",
+      "examples": "{prefix}avatarfusion @User1 @User2 global"
+    },
     "options": {
       "base": {
         "description": "La photo de profil de qui doit être utilisée pour la base?"
@@ -59,7 +67,7 @@
       }
     },
     "embedTitle": "Fusion d'avatar : {user1} et {user2}",
-    "missingParam": "Vous devez mentionner au moins un membre !"
+    "missingParam": "Vous devez mentionner au moins un membre, à l'exclusion de vous !"
   },
   "birthday": {
     "description": "Enregistrez votre anniversaire et je vous enverrai un message ce jour-là.",
@@ -107,6 +115,7 @@
       "11": "Novembre",
       "12": "Décembre"
     },
+    "saved": "Votre anniversaire a été enregistré.",
     "removed": "Votre anniversaire a été supprimé.",
     "getUser": {
       "notFound": "{user} n'a pas d'anniversaire :(",
@@ -120,67 +129,13 @@
       "notFound": "Personne n'a de set d'anniversaire..."
     }
   },
-  "dm": {
-    "description": "envoie un utilisateur un dm",
-    "options": {
-      "toggle": {
-        "description": "active la possibilité de vous envoyer des dms créés par l'utilisateur.",
-        "options": {
-          "target": {
-            "description": "l'utilisateur que vous voulez activer; laissez vide pour basculer tous les utilisateurs (\"*\")."
-          }
-        }
-      },
-      "blacklist": {
-        "description": "Liste tous les utilisateurs que vous bloquez actuellement."
-      },
-      "send": {
-        "description": "Envoyer un dm à un membre de cette guilde.",
-        "options": {
-          "target": {
-            "description": "l'utilisateur à qui vous voulez envoyer un dm"
-          },
-          "message": {
-            "description": "le message que vous voulez envoyer, /n pour une nouvelle ligne"
-          },
-          "as_mod": {
-            "description": "affiche 'un mod de [guild]' au lieu de votre nom"
-          }
-        }
-      }
-    },
-    "toggle": {
-      "targetAll": {
-        "saved": "personne ne sera",
-        "removed": "`tous les utilisateurs`"
-      },
-      "targetOne": {
-        "name": "Utilisateur `{user}`",
-        "isnt": "{user} n'est pas"
-      },
-      "saved": "Votre entrée de liste noire pour {user} a été enregistrée.\nMaintenant, {state} peut vous envoyer des dms par moi.\nCela n'empêchera pas les modérateurs de guilde de vous envoyer des dms.",
-      "removed": "Votre entrée sur la liste noire pour {user} a été supprimée.\nVous pouvez maintenant recevoir des dms créés par {user} de moi."
-    },
-    "blacklist": {
-      "notFound": "> Vous ne bloquez aucun utilisateur de cette guilde.",
-      "allBlocked": "> Vous bloquez tout le monde.",
-      "embedTitle": "Votre blacklist pour la commande `/dm send`",
-      "embedDescription": "Vous bloquez les membres de la guilde suivants :\n{members}",
-      "embedFooterText": "Exécutez '/dm toggle' sans arguments pour basculer tous les utilisateurs et\nexécutez '/dm toggle' avec l'argument 'user_to_toggle' pour basculer vers un utilisateur spécifique."
-    },
-    "send": {
-      "targetIsMe": "Je ne peux pas m'envoyer de MP !",
-      "permissionDenied": "Vous n'êtes pas autorisé à envoyer des dms à cet utilisateur !",
-      "asModInfo": "\nUtilisez l'option `as_mod` pour forcer le message à envoyer.",
-      "embedTitle": "Vous avez reçu un message !",
-      "embedDescription": "À partir de **{user}**\nGuilde : {guild}\n\n{msg}",
-      "fromMod": "un modérateur de guilde",
-      "embedFooterText": "Si vous ne voulez pas recevoir de dms provenant de moi, exécutez '/dm toggle' dans n'importe quelle guilde.",
-      "error": "Je ne pouvais pas envoyer de message à ce membre !"
-    }
-  },
   "fact": {
-    "description": "Obtenez des faits, ils sont vraiment cool et utiles, comptez sur moi."
+    "description": "Obtenez des faits, ils sont vraiment cool et utiles, comptez sur moi.",
+    "usage": {
+      "usage": "{prefix}fact [\"fr\"|\"de\"]",
+      "examples": "{prefix}fait en"
+    },
+    "embedTitle": "Fait"
   },
   "giveaway": {
     "description": "Commandes cadeau",
@@ -279,7 +234,7 @@
       }
     },
     "managerNotFound": "Cette fonctionnalité est désactivée ou non enregistrée.",
-    "notFound": "L'identifiant du message fourni n'est pas un cadeau valide !",
+    "notFound": "Votre identifiant de message fourni n'est pas un cadeau valide ou il est déjà terminé !",
     "invalidTime": "La valeur de duration/add_time fournie est invalide !",
     "notHost": "Vous n'êtes pas l'hôte de ce cadeau !",
     "buttonLabel": "Voir le cadeau",
@@ -307,7 +262,10 @@
   },
   "image": {
     "description": "Manipulation de l'image",
-    "usage": "Commande PREFIX : image <subcommand | \"help\"> <args>",
+    "usage": {
+      "usage": "Image {prefix} <subcommand | \"help\"> <args>",
+      "examples": "{prefix}image magik https://example.com/image.png 3"
+    },
     "options": {
       "type": {
         "description": "Le type que vous voulez utiliser. Laissez ce champ vide pour obtenir une liste de types."
@@ -318,14 +276,12 @@
     "requiresArgs": "Cette commande nécessite les arguments suivants dans l'ordre :\n\n{args}",
     "error": "Une erreur est survenue :\n```{err}```"
   },
-  "inspirobot": {
-    "description": "Obtenez une citation inspirante.",
-    "error": "Une erreur est survenue.",
-    "notFound": "Il n'y a pas de devis inspirants disponibles :("
-  },
   "joke": {
     "description": "envoie une blague drôle",
-    "usage": "Commande PREFIX : blague [type]",
+    "usage": {
+      "usage": "La blague {prefix} [type]",
+      "examples": "{prefix}joke dadjoke"
+    },
     "options": {
       "api": {
         "description": "Quelle API voulez-vous utiliser ?"
@@ -353,7 +309,10 @@
   },
   "pokedex": {
     "description": "Affiche des informations à propos des pokémon spécifiés.",
-    "usage": "Commande PREFIX : pokedex <pokemon>",
+    "usage": {
+      "usage": "{prefix} <pokemon>",
+      "examples": "{prefix}Bulbasaure"
+    },
     "options": {
       "pokémon": {
         "description": "Nommer un pocket"
@@ -373,7 +332,10 @@
   },
   "reddit": {
     "description": "commandes liées à reddit",
-    "usage": "Commande PREFIX : reddit [subreddit] [type de tri]",
+    "usage": {
+      "usage": "{prefix}reddit [subreddit] [type de tri]",
+      "examples": "{prefix}reddit memes chauds"
+    },
     "options": {
       "meme": {
         "description": "obtenir un meme aléatoire",
@@ -408,7 +370,10 @@
   },
   "say": {
     "description": "Permettez-moi de dire quelque chose",
-    "usage": "Commande PREFIX : dire <msg> [channel]",
+    "usage": {
+      "usage": "{prefix}dit <msg> [channel]",
+      "examples": "{prefix}dit Bonjour vos amis ! #chat"
+    },
     "options": {
       "msg": {
         "description": "Tapez votre message ici, /n pour une nouvelle ligne"
@@ -417,8 +382,7 @@
         "description": "La chaîne à laquelle le message est envoyé"
       }
     },
-    "noPerm": "Vous n'avez pas la permission d'envoyer des messages dans ce salon !",
-    "noMsgProvided": "Vous devez fournir un message à envoyer !"
+    "noPerm": "Vous n'avez pas la permission d'envoyer des messages dans ce salon !"
   },
   "sleep": {
     "description": "dit à vos amis que vous allez dormir",
@@ -426,7 +390,8 @@
       "{user} est fatigué et va dormir :3",
       "{user} va maintenant au lit <:engelchen:725458214044303371>",
       "{user} dort maintenant, espérons-le, il/elle ne ronge pas <:gucken:725670318164672543>"
-    ]
+    ],
+    "afkMessage": "dormir"
   },
   "topic": {
     "description": "Je vous donne une question à poser.",
@@ -697,8 +662,8 @@
       "delete": {
         "description": "Supprime un déclencheur. Ceci est irréversible !",
         "options": {
-          "id": {
-            "description": "The trigger id, can be found using \"/trigger get\". Leave this empty to delete the last one."
+          "query_or_id": {
+            "description": "Le déclencheur que vous voulez supprimer. Laissez ce champ vide pour supprimer le dernier."
           }
         }
       },
@@ -713,11 +678,8 @@
       "get": {
         "description": "Récupère un ou tous les déclencheurs.",
         "options": {
-          "query": {
-            "description": "recherche un trigger par son contenu de déclencheur."
-          },
-          "id": {
-            "description": "l'identifiant du trigger peut être trouvé en utilisant \"/trigger get\""
+          "query_or_id": {
+            "description": "recherche un trigger par son contenu ou son id de déclencheur."
           },
           "short": {
             "description": "retourne autant de déclencheurs que possible"
@@ -734,8 +696,8 @@
     "confirmation": "tout effacer",
     "needConfirm": "Vous devez confirmer cette action en écrivant `CLEAR TOL` dans l'option de confirmation!",
     "embedTitle": "Déclencheurs",
-    "fieldName": "**Déclencher {id}:**",
-    "fieldValue": "```\n{trigger}\n```\n**Réponse:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`",
+    "embedTitleOne": "**Déclencher {id}:**",
+    "embedDescriptionOne": "**Déclenchement :**\n```\n{trigger}\n```\n**Réponse :**\n```\n\n{response}\n ```\n**Carte jointe:** `{wildcard}`",
     "longEmbedDescription": "ID : {id}\n> Déclenchement : `{trigger}`\n> Réponse : `{response}`\n> Caractère générique : `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
     "shortFieldValue": "**Déclenche :**\n```\n{trigger}\n```\n**Réponse :**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`\n",
@@ -743,7 +705,10 @@
   },
   "vote": {
     "description": "Créer un sondage pour quelque chose",
-    "usage": "vote <channel> [question] | [option 1] | [option 2] | <option 3> ... <option 9>",
+    "usage": {
+      "usage": "{prefix}vote <channel> [question] | [option 1] | [option 2] | <option 3> ... <option 9>",
+      "examples": "{prefix}vote #vote Êtes-vous d'accord ? | Oui | Non"
+    },
     "options": {
       "question": {
         "description": "Sur quoi voulez-vous que les gens votent?"

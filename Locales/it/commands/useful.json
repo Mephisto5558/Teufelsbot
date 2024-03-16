@@ -1,4 +1,5 @@
 {
+  "categoryName": "Utile",
   "categoryDescription": "Comandi utili",
   "addemoji": {
     "description": "aggiunge un'emoji a questa gilda",
@@ -234,7 +235,6 @@
       }
     },
     "embedTitle": "Calcolatrice",
-    "noInput": "Non hai dato nessun input!",
     "error": "Si è verificato un errore durante il tentativo di risolvere la tua espressione:\n```{err}```",
     "separated": "Risultati separati con \"<unk> \":\n{results}",
     "success": "Espressione:\n```{expression}```\nRisultato:\n```{result}```"
@@ -261,8 +261,8 @@
   "randomnumber": {
     "description": "Restituisce un numero casuale. Usa valori predefiniti per input non validi.",
     "usage": {
-      "usage": "{prefix}randomnumber [min] [max]",
-      "examples": "{prefix}randomnumber 1 10"
+      "usage": "{prefix}numero casuale [min] [max]",
+      "examples": "{prefix}numero casuale 1 10"
     },
     "options": {
       "minimum": {
@@ -272,6 +272,7 @@
         "description": "Il numero più grande possibile. Il valore predefinito è 100."
       }
     },
+    "randomNumber": "Un numero casuale {min} e {max}:\n{randomNumber}",
     "outOfRange": "Si è verificato un errore:\n````\n{err}.\n```"
   },
   "timestamp": {
@@ -290,7 +291,7 @@
     "success": "Questo è <t:{time}:R> (`<t:{time}:R>`)."
   },
   "until": {
-    "description": "Mostra quanto tempo sarà fino a una certa data/ora. Se non viene specificata alcuna data, il valore predefinito è la data corrente",
+    "description": "Shows how long it will be until a certain date/time. If no date is specified,default is current date",
     "options": {
       "day": {
         "description": "Parte del giorno della data di destinazione"

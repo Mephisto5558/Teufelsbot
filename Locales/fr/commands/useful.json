@@ -1,4 +1,6 @@
 {
+  "categoryName": "Utile",
+  "categoryDescription": "Commandes utiles",
   "addemoji": {
     "description": "ajoute un emoji à cette guilde",
     "options": {
@@ -19,11 +21,15 @@
     "success": "Ajouté avec succès **{name}** {emoji}!\n",
     "limitedToRoles": "Les émojis ont été limités aux rôles suivants :\n<@&{roles}>.",
     "error": "Impossible de créer l'émoji pour la raison :\n```\n{err}\n```",
+    "tooBig": "L'image est trop grande. La taille de fichier maximale est de 2048 kilo-octets.",
     "timedOut": "La requête a expiré. Peut-être que l'image est trop grande."
   },
   "afk": {
     "description": "Définir un statut AFK affiché lorsque vous êtes mentionné.",
-    "usage": "PREFIX Command: afk [message]",
+    "usage": {
+      "usage": "{prefix}afk [message]",
+      "examples": "{prefix}afk brb"
+    },
     "options": {
       "message": {
         "description": "Le message à définir"
@@ -34,11 +40,6 @@
     },
     "globalSuccess": "Votre AFK a été réglé sur \"{message}\" pour toutes les guildes.",
     "success": "Votre AFK a été réglé sur \"{message}\"."
-  },
-  "autopublish": {
-    "description": "publie automatiquement tout ce que n'importe qui dans n'importe quel canal d'annonce dit",
-    "usage": "Cette commande publie automatiquement tous les messages envoyés dans les canaux d'annonce.\nC'est un commutateur.",
-    "success": "Autopublising {toggle}."
   },
   "button": {
     "description": "Créer un bouton.",
@@ -110,7 +111,39 @@
             "description": "définir le titre de l'intégration"
           },
           "predefined_color": {
-            "description": "définir la couleur d'embed à partir de codes discord prédéfinis"
+            "description": "définir la couleur d'embed à partir de codes discord prédéfinis",
+            "choices": {
+              "Default": "Par défaut",
+              "White": "Blancs",
+              "Aqua": "Aquarelles",
+              "Green": "Vert",
+              "Blue": "Bleu",
+              "Yellow": "Jaune",
+              "Purple": "Violet",
+              "LuminousVividPink": "Rose vif et lumineux",
+              "Fuchsia": "Fuchsia",
+              "Gold": "Or",
+              "Orange": "Orange",
+              "Red": "Rouge",
+              "Grey": "Gris",
+              "Navy": "Navy",
+              "DarkAqua": "Aqua Sombre",
+              "DarkGreen": "Vert foncé",
+              "DarkBlue": "Bleu foncé",
+              "DarkPurple": "Violet foncé",
+              "DarkVividPink": "Rose sombre vif",
+              "DarkGold": "Or Sombre",
+              "DarkOrange": "Orange foncé",
+              "DarkRed": "Rouge foncé",
+              "DarkGrey": "Gris foncé",
+              "DarkerGrey": "Gris foncé",
+              "LightGrey": "Gris clair",
+              "DarkNavy": "Marine Sombre",
+              "Blurple": "Flou",
+              "Greyple": "Gris",
+              "DarkButNotBlack": "Sombre mais pas noir",
+              "NotQuiteBlack": "Pas tout à fait noir"
+            }
           },
           "custom_color": {
             "description": "définir un code HEX à 6 caractères personnalisé comme couleur intégrée (par exemple #ffffff)"
@@ -157,7 +190,6 @@
   },
   "hash": {
     "description": "chiffre ou décrypte votre texte avec différentes méthodes",
-    "usage": "Commande SLASH : Vous n'avez besoin que de fournir une seule option.",
     "options": {
       "input": {
         "description": "le texte que vous voulez chiffrer ou déchiffrer"
@@ -172,7 +204,10 @@
   },
   "lastping": {
     "description": "Te montre où tu as été mentionné.",
-    "usage": "PREFIX Command: lastping [#channel]\nSi l'option `channel` est utilisée, un maximum de 200 messages seront recherchés.",
+    "usage": {
+      "usage": "{prefix}lastping [#channel]\nSi l'option `channel` est utilisée, un maximum de 200 messages seront recherchés.",
+      "examples": "{prefix}lastping\n{prefix}lastping #chat\n{prefix}lastping @User1"
+    },
     "options": {
       "channel": {
         "description": "Le canal dans lequel vous voulez chercher des mentions par défaut. Par défaut pour toute la guilde."
@@ -190,15 +225,16 @@
   },
   "math": {
     "description": "Exécute des mathématiques",
-    "usage": "mathématiques [expression]",
+    "usage": {
+      "usage": "{prefix}math [expression]\n\nThis calculator supports a wide range of mathematical operations, not just the basic ones.\nYou can assign values to variables, for example: `x=10`.\nMultiple statements can be evaluated by using a new line or a semicolon, for example: `x=10; x+10` will return `20`.\nRemember to use an asterisk (`*`) for multiplication.\nThe calculator can output multiple results.Please note that unnecessary spaces can cause errors in expressions.",
+      "examples": "{prefix}mathématique 1+1"
+    },
     "options": {
       "expression": {
         "description": "Que voulez-vous que je résolve ?"
       }
     },
     "embedTitle": "Calculatrice",
-    "noInput": "Vous n'avez donné aucune entrée!",
-    "help": "Aide et Informations\n\nCette calculatrice prend en charge de nombreuses opérations mathématiques, pas seulement les opérations de base.\nVous pouvez utiliser des variables comme ceci : `x=10`.\nVous pouvez utiliser des instructions multiples en utilisant une nouvelle ligne ou un `;`. `x=10;x+10` retourne `20`.\nVous devez utiliser `*` pour le multiplicateur.\nLa calculatrice suppose l'affichage de plusieurs résultats.\nParfois, des espaces inutiles font erreur d'expression.",
     "error": "Une erreur est survenue en essayant de résoudre votre expression :\n```{err}```",
     "separated": "Résultats séparés par \"|\" :\n{results}",
     "success": "Expression :\n```{expression}```\nRésultat:\n```{result}```"
@@ -222,9 +258,29 @@
     "charsetEmpty": "vous avez exclu tous les caractères du jeu de caractères...",
     "success": "Votre mot de passe sécurisé(s):\n{passwords}\n\n||Créé avec le jeu de caractères suivant:\n```{charset}```\nUtilisez les options de commande pour ajouter ou supprimer des caractères.||"
   },
+  "randomnumber": {
+    "description": "Renvoie un nombre aléatoire. Utilise des valeurs par défaut pour les entrées non valides.",
+    "usage": {
+      "usage": "{prefix}nombre aléatoire [min] [max]",
+      "examples": "{prefix}randomnumber 1 10"
+    },
+    "options": {
+      "minimum": {
+        "description": "Le plus petit nombre possible. La valeur par défaut est 0."
+      },
+      "maximum": {
+        "description": "Le plus grand nombre possible. Par défaut, 100."
+      }
+    },
+    "randomNumber": "Un nombre aléatoire {min} et {max}:\n{randomNumber}",
+    "outOfRange": "Un des nombres spécifiés est invalide, trop grand ou trop petit !\nUn nombre le plus petit possible : `{min}`, le plus grand nombre possible : `{max}`"
+  },
   "timestamp": {
     "description": "Obtenir un horodatage pour le futur (ou passé en mettant un \"-\" en avant)",
-    "usage": "Commande PREFIX : horodatage [time]",
+    "usage": {
+      "usage": "Horodatage {prefix} [time]",
+      "examples": "`1h` = maintenant + 1h\n`-1h` = maintenant - 1h\n`1h-1h` = maintenant + 1h - 1h"
+    },
     "options": {
       "time": {
         "description": "The time from now (eg. 1w3d2h5min): 3min returns now+3min, -3min returns now-3min"
@@ -234,9 +290,37 @@
     "outOfRange": "Le temps que vous avez fourni est supérieur à 200 000 ans!",
     "success": "C'est <t:{time}:R> (`<t:{time}:R>`)."
   },
+  "until": {
+    "description": "Shows how long it will be until a certain date/time. If no date is specified,default is current date",
+    "options": {
+      "day": {
+        "description": "La partie jour de la date cible"
+      },
+      "month": {
+        "description": "La partie du mois de la date cible"
+      },
+      "year": {
+        "description": "La partie de l'année de la date cible"
+      },
+      "hour": {
+        "description": "La partie heure de la date cible"
+      },
+      "minute": {
+        "description": "La partie minute de la date cible"
+      },
+      "second": {
+        "description": "La seconde partie de la date cible"
+      }
+    },
+    "until": "C'est en {time}.",
+    "untilNeg": "That's {time} ago."
+  },
   "wiki": {
     "description": "Search for something on Wikipedia, or get a random page if no search terms were specified.",
-    "usage": "wiki <search terms>",
+    "usage": {
+      "usage": "{prefix}wiki <search term>",
+      "examples": "{prefix}wiki discord"
+    },
     "options": {
       "query": {
         "description": "Que voulez-vous rechercher ?"
