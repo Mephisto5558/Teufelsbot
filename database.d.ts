@@ -232,9 +232,9 @@ declare namespace Database {
       type: ActivityType;
     };
     patreonBonuses?: Record<string, unknown>;
-    lastFileClear?: `${number}/${number}`;
+    lastFileClear?: Date;
     lastBirthdayCheck?: Date;
-    lastDBCleanup?: `${number}/${number}`;
+    lastDBCleanup?: Date;
     stats: {
       [commandName: string]: number | undefined;
     };

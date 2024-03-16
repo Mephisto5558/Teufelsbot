@@ -1,13 +1,14 @@
-const { SnowflakeUtil } = require('discord.js');
+const
+  { SnowflakeUtil } = require('discord.js'),
 
-/** @returns {number}Unix timestamp*/
-const getOneMonthAgo = () => new Date().setMonth(new Date().getMonth() - 1);
+  /** @returns {number}Unix timestamp*/
+  getOneMonthAgo = () => new Date().setMonth(new Date().getMonth() - 1);
 
 /**
  * Deletes giveaway records that concluded over a month ago
  * @this {Client}
  * @param {string}guildId
- * @param {Exclude<import('../database').default.guildSettings['guildId']['giveaway'], undefined>['giveaways']?}db*/
+ * @param {Exclude<Exclude<import('../database').default.guildSettings[''], undefined>['giveaway'], undefined>['giveaways']}db*/
 function cleanupGiveawaysDB(guildId, db) {
   if (!db) return;
 
@@ -21,7 +22,7 @@ function cleanupGiveawaysDB(guildId, db) {
  * Removes all lastMentions data older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {import('../database').default.guildSettings['guildId']['lastMentions']}db*/
+ * @param {Exclude<import('../database').default.guildSettings[''], undefined>['lastMentions']}db*/
 function cleanupMentionsDB(guildId, db) {
   if (!db) return;
 
@@ -35,7 +36,7 @@ function cleanupMentionsDB(guildId, db) {
  * Removes all AFK-Messages older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {import('../database').default.guildSettings['guildId']['afkMessages']}db createdAt is in seconds, not milliseconds*/
+ * @param {Exclude<import('../database').default.guildSettings[''], undefined>['afkMessages']}db createdAt is in seconds, not milliseconds*/
 function cleanupAfkMessagesDB(guildId, db) {
   if (!db) return;
 
@@ -49,7 +50,7 @@ function cleanupAfkMessagesDB(guildId, db) {
  * Removes all AFK-Messages older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {import('../database').default.guildSettings['guildId']['minigames']}db createdAt is in seconds, not milliseconds*/
+ * @param {Exclude<import('../database').default.guildSettings[''], undefined>['minigames']}db*/
 function cleanUpMinigamesDB(guildId, db) {
   if (!db) return;
 
@@ -62,23 +63,23 @@ function cleanUpMinigamesDB(guildId, db) {
 }
 
 module.exports = {
-  time: '00 00 00 01 * *', // monthly
+  time: '00 00 00 01 * *',
   startNow: true,
 
   /** @this {Client}*/
   onTick: async function () {
-    const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
+    const now = new Date();
 
-    if (this.settings.lastDBCleanup == now) return void log('Already ran DB cleanup today');
+    if (this.settings.lastDBCleanup.toDateString() == now.toDateString()) return void log('Already ran DB cleanup today');
     log('Started DB cleanup');
 
-    for (const [guildId, guild] of Object.entries(this.db.get('guildSettings'))) {
+    for (const [guildId, guildSettings] of Object.entries(this.db.get('guildSettings'))) {
       if (guildId == 'default') continue;
 
-      cleanupGiveawaysDB.call(this, guildId, guild.giveaway?.giveaways);
-      cleanupMentionsDB.call(this, guildId, guild.lastMentions);
-      cleanupAfkMessagesDB.call(this, guildId, guild.afkMessages);
-      cleanUpMinigamesDB.call(this, guildId, guild.minigames);
+      cleanupGiveawaysDB.call(this, guildId, guildSettings.giveaway?.giveaways);
+      cleanupMentionsDB.call(this, guildId, guildSettings.lastMentions);
+      cleanupAfkMessagesDB.call(this, guildId, guildSettings.afkMessages);
+      cleanUpMinigamesDB.call(this, guildId, guildSettings.minigames);
     }
 
     log('Cleaned giveaways, lastMentions, afkMessages & minigames DB');
