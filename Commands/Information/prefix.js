@@ -1,6 +1,5 @@
 /** @type {command<'both'>}*/
 module.exports = {
-  name: 'prefix',
   cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: true,

@@ -8,7 +8,6 @@ const responseList = [
 
 /** @type {command<'prefix', false>}*/
 module.exports = {
-  name: 'happy',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

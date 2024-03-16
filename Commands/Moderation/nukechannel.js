@@ -2,7 +2,6 @@ const { Constants, EmbedBuilder, Colors } = require('discord.js');
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'nukechannel',
   aliases: { prefix: ['clearchannel'], slash: ['clearchannel'] },
   permissions: { client: ['ManageChannels'], user: ['ManageGuild', 'ManageChannels'] },
   cooldowns: { guild: 1e4, user: 1000 },

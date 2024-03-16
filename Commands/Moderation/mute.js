@@ -2,7 +2,6 @@ const { timeValidator } = require('../../Utils');
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'mute',
   aliases: { prefix: ['timeout'], slash: ['timeout'] },
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { user: 100 },

@@ -14,7 +14,6 @@ const
 
 /** @type {command<'prefix', false>}*/
 module.exports = {
-  name: 'eval',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

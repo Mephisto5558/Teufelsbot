@@ -16,7 +16,6 @@ const checkUrl = url => new Promise((resolve, reject) => {
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'addemoji',
   permissions: { client: ['ManageGuildExpressions'], user: ['ManageGuildExpressions'] },
   cooldowns: { user: 2000 },
   slashCommand: true,

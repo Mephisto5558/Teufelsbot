@@ -4,7 +4,6 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'changelog',
   aliases: { prefix: ['changelogs'] },
   cooldowns: { channel: 1000 },
   slashCommand: true,

@@ -45,7 +45,7 @@ module.exports = async function checkForErrors(command, lang) {
 
     for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete }] of options.entries()) {
       if (required && !this.options?.get(name) && !this.args?.[i])
-        return ['paramRequired', { option: name, description: descriptionLocalizations[lang.__boundArgs__[0].locale] ?? description }];
+        return ['paramRequired', { option: name, description: descriptionLocalizations?.[lang.__boundArgs__[0].locale] ?? description }];
 
       if (
         autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])

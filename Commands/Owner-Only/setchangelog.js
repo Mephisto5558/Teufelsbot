@@ -1,6 +1,5 @@
 /** @type {command<'prefix', false>}*/
 module.exports = {
-  name: 'setchangelog',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

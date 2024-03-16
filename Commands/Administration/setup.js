@@ -144,7 +144,6 @@ const
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'setup',
   aliases: { slash: ['config'] },
   permissions: { user: ['ManageGuild'] },
   cooldowns: { user: 1e4 },

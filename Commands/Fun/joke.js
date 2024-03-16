@@ -2,10 +2,27 @@ const
   { default: fetch, FetchError } = require('node-fetch'),
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   defaultAPIList = [
-    { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any' },
-    { name: 'humorAPI', link: 'https://humorapi.com', url: 'https://api.humorapi.com/jokes/random' },
+    { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any?lang=en&blacklist={blacklist}' },
+    {
+      name: 'humorAPI', link: 'https://humorapi.com',
+      url: 'https://api.humorapi.com/jokes/random?api-key={apiKey}&min-rating=7&max-length={maxLength}&include-tags={includeTags}&exclude-tags={blacklist}'
+    },
     { name: 'icanhazdadjoke', link: 'https://icanhazdadjoke.com', url: 'https://icanhazdadjoke.com' }
   ];
+
+/**
+ * @param {string} url
+ * @param {string} blacklist
+ * @param {string} apiKey
+ * @param {string} maxLength
+ * @param {string} includeTags*/
+function formatAPIUrl(url, blacklist, apiKey, maxLength, includeTags) {
+  return url
+    .replaceAll('{blacklist}', blacklist)
+    .replaceAll('{apiKey}', apiKey)
+    .replaceAll('{maxLength}', maxLength)
+    .replaceAll('{includeTags}', includeTags);
+}
 
 /**
  * @this {Client}
@@ -19,33 +36,18 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
   let response;
 
   try {
+    const res = await fetch(formatAPIUrl(api.url, blacklist, this.keys.humorAPIKey, maxLength, type), {
+      headers: {
+        'User-Agent': `Discord bot (${this.config.github.repo})`,
+        Accept: 'application/json'
+      },
+      timeout: 2500
+    }).then(e => e.json());
+
     switch (api.name) {
-      case 'jokeAPI': {
-        const res = await fetch(`${api.url}?lang=en&blacklist=${blacklist}`, { timeout: 2500 }).then(e => e.json());
-        response = res.type == 'twopart' ? `${res.setup}\n\n||${res.delivery}||` : res.joke;
-
-        break;
-      }
-
-      case 'humorAPI': {
-        const res = await fetch(`${api.url}?api-key=${this.keys.humorAPIKey}&min-rating=7&max-length=${maxLength}&include-tags=${type}&exclude-tags=${blacklist}`, { timeout: 2500 })
-          .then(e => e.json());
-
-        response = res.joke?.includes('Q: ') ? res.joke.replace('Q: ', '').replace('A: ', '\n||') + '||\n' : res.joke;
-        break;
-      }
-
-      case 'icanhazdadjoke': {
-        const res = await fetch(api.url, {
-          headers: {
-            'User-Agent': `Discord bot (${this.config.github.repo})`,
-            Accept: 'application/json'
-          }
-        }).then(e => e.json());
-
-        response = res.joke;
-        break;
-      }
+      case 'jokeAPI': response = res.type == 'twopart' ? `${res.setup}\n\n||${res.delivery}||` : res.joke; break;
+      case 'humorAPI': response = res.joke?.includes('Q: ') ? res.joke.replace('Q: ', '').replace('A: ', '\n||') + '||\n' : res.joke; break;
+      case 'icanhazdadjoke': response = res.joke; break;
     }
   }
   catch (err) {
@@ -67,7 +69,6 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'joke',
   cooldowns: { channel: 100 },
   slashCommand: true,
   prefixCommand: true,

@@ -4,7 +4,6 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'wiki',
   aliases: { prefix: ['wikipedia'] },
   cooldowns: { channel: 100, user: 200 },
   slashCommand: true,
