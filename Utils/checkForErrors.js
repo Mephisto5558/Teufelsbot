@@ -63,7 +63,7 @@ module.exports = async function checkForErrors(command, lang) {
     if (cooldown) return ['cooldown', cooldown];
   }
 
-  if (this.guild && (this instanceof Message || this instanceof CommandInteraction)) {
+  if (this.inGuild() && (this instanceof Message || this instanceof CommandInteraction)) {
     const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user || [], PermissionFlagsBits.SendMessages]);
     const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions?.client || [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
 
