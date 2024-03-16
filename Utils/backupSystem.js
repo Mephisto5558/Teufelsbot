@@ -6,6 +6,8 @@ const
   fetch = require('node-fetch'),
   DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json');
 
+/** @typedef {import('../database').default.backups['backupId']}backup */
+
 class BackupSystem {
   /**
    * @param {import('@mephisto5558/mongoose-db').DB}db
@@ -17,9 +19,9 @@ class BackupSystem {
    * @param {boolean}options.clearGuildBeforeRestore
    */
   constructor(db, { dbName = 'backups', maxGuildBackups = 5, maxMessagesPerChannel = 10, saveImages = false, clearGuildBeforeRestore = true } = {}) {
-    this.db = db;
-    if (!this.db) throw new Error('db is a required argument!');
+    if (!db) throw new Error('db is a required argument!');
 
+    this.db = db;
     this.dbName = dbName;
     if (!this.db.get(this.dbName)) this.db.set(this.dbName, {});
 
@@ -34,14 +36,16 @@ class BackupSystem {
 
   /**
    * @param {string}backupId
-   * @param {string}guildId*/
+   * @param {string}guildId
+   * @returns {backup | undefined}*/
   get = (backupId, guildId) => backupId ? this.db.get(this.dbName, (guildId ?? '') + backupId) : undefined;
 
   /**
    * @param {import('discord.js').Snowflake}guildId
-   * @returns {Collection<string, object>}*/
+   * @returns {Collection<string, backup>}*/
   list = guildId => {
-    const collection = new Collection(Object.entries(this.get() ?? {}));
+    /** @type {Collection<string, backup>} */
+    const collection = new Collection(Object.entries(this.db.get(this.dbName)));
     return guildId ? collection.filter(e => e?.guildId == guildId) : collection;
   };
 
@@ -50,7 +54,8 @@ class BackupSystem {
 
   /**
    * @param {import('discord.js').Guild}guild
-   * @param {object?}statusObj the status property gets updated*/
+   * @param {object?}statusObj the status property gets updated
+   * @returns {Promise<backup>}*/
   create = async (guild, {
     statusObj = {}, id, save = true, maxGuildBackups = this.defaultSettings.maxGuildBackups,
     backupMembers = false, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,

@@ -1,6 +1,8 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ComponentType, ButtonStyle } = require('discord.js'),
   DiscordAPIErrorCodes = require('../../Utils');
+
+/** @param {import('../../database').default.backups['']}backup */
 function getData(backup) {
   if (Object.keys(backup).length) {
     return {
@@ -11,16 +13,16 @@ function getData(backup) {
       })(),
       members: backup.members?.length ?? 0,
       channels: (backup.channels.categories.length + backup.channels.others.length + backup.channels.categories.reduce((acc, e) => acc + e.children.length, 0)) || 0,
-      roles: backup.roles?.length ?? 0,
-      emojis: backup.emojis?.length ?? 0,
-      stickers: backup.stickers?.length ?? 0
+      roles: backup.roles.length,
+      emojis: backup.emojis.length,
+      stickers: backup.stickers.length
     };
   }
 }
 
 /**
  * @this {GuildInteraction}
- * @param {object}backup*/
+ * @param {import('../../database').default.backups['']?}backup*/
 function checkPerm(backup) {
   const creator = backup?.metadata?.[this.guild.db.serverbackup?.allowedToLoad ?? this.client.defaultSettings.serverbackup.allowedToLoad];
   return Array.isArray(creator) ? creator.includes(this.user.id) : creator == this.user.id;
@@ -40,7 +42,7 @@ function createProxy(interaction, embed, lang) {
   });
 }
 
-/** @type {Record<string, (this: GuildInteraction, lang: lang, EmbedBuilder: embed, id?: string) => Promise<unknown>>} */
+/** @type {Record<string, (this: GuildInteraction, lang: lang, EmbedBuilder: embed, id?: string) => Promise<Message>>} */
 const backupMainFunctions = {
   create: async function createBackup(lang, embed) {
     embed.data.color = Colors.White;
@@ -147,7 +149,6 @@ const backupMainFunctions = {
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'serverbackup',
   permissions: { client: ['Administrator'], user: ['Administrator'] },
   prefixCommand: false,
   slashCommand: true,

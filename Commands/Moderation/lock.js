@@ -1,6 +1,5 @@
 /** @type {command<'both'>}*/
 module.exports = {
-  name: 'lock',
   permissions: { client: ['ManageRoles'], user: ['ManageRoles'] },
   cooldowns: { user: 1000 },
   slashCommand: true,

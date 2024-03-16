@@ -7,7 +7,6 @@ let restarting = false;
 
 /** @type {command<'prefix', false>}*/
 module.exports = {
-  name: 'restart',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

@@ -45,7 +45,7 @@ module.exports = async function checkForErrors(command, lang) {
 
     for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete }] of options.entries()) {
       if (required && !this.options?.get(name) && !this.args?.[i])
-        return ['paramRequired', { option: name, description: descriptionLocalizations[lang.__boundArgs__[0].locale] ?? description }];
+        return ['paramRequired', { option: name, description: descriptionLocalizations?.[lang.__boundArgs__[0].locale] ?? description }];
 
       if (
         autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
@@ -63,7 +63,7 @@ module.exports = async function checkForErrors(command, lang) {
     if (cooldown) return ['cooldown', cooldown];
   }
 
-  if (this.guild && (this instanceof Message || this instanceof CommandInteraction)) {
+  if (this.inGuild() && (this instanceof Message || this instanceof CommandInteraction)) {
     const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user || [], PermissionFlagsBits.SendMessages]);
     const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions?.client || [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
 

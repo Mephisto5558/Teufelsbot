@@ -2,7 +2,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'info',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
@@ -11,12 +10,12 @@ module.exports = {
     const
       startTime = Math.round(Date.now() / 1000 - process.uptime()),
       description
-        = `${lang('dev')}: [Mephisto5558](https://discord.com/users/691550551825055775)\n`
+        = `${lang('dev')}: [Mephisto5558](https://discord.com/users/691550551825055775)\n` // Please do not change this line
         + `${lang('shard')}: \`${this.guild.shardId}\`\n`
-        + `${lang('guild')}: \`${this.guild.db.position ?? 0}\`\n`
+        + `${lang('guild')}: \`${this.guild.db.position ?? 0}\`\n` // Todo: make sure this is set even if the bot got added to a guild while being offline.
         + `${lang('guilds')}: \`${this.client.guilds.cache.size}\`\n`
         + `${lang('commands')}: \`${new Set(this.client.prefixCommands.filter(e => !e.aliasOf), this.client.slashCommands.filter(e => !e.aliasOf)).size}\`\n`
-        + `${lang('starts')}: \`${this.client.settings.startCount[this.client.botType] ?? 0}\`\n`
+        + `${lang('starts')}: \`${this.client.settings.startCount[this.client.botType]}\`\n`
         + `${lang('lastStart')}: <t:${startTime}> (<t:${startTime}:R>)\n`
         + lang('translation', {
           de: '[Mephisto5558](https://discord.com/users/691550551825055775) & [Koikarpfen1907](https://discord.com/users/636196723852705822)',

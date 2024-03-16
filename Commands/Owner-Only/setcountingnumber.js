@@ -2,7 +2,6 @@ const { getTargetChannel } = require('../../Utils');
 
 /** @type {command<'prefix'>}*/
 module.exports = {
-  name: 'setcountingnumber',
   aliases: { prefix: ['setcountingnum'] },
   slashCommand: false,
   prefixCommand: true,

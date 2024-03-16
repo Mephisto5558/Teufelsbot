@@ -2,7 +2,6 @@ const { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, C
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'record',
   cooldowns: { user: 1e4 },
   slashCommand: true,
   prefixCommand: false,

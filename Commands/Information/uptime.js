@@ -4,7 +4,6 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'uptime',
   cooldowns: { channel: 100 },
   slashCommand: true,
   prefixCommand: true,

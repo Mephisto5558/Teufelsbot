@@ -1,6 +1,5 @@
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'ban',
   permissions: { client: ['BanMembers'], user: ['BanMembers'] },
   slashCommand: true,
   prefixCommand: false,

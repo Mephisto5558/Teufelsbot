@@ -2,7 +2,6 @@ const { randomInt } = require('node:crypto');
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'coinflip',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

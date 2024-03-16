@@ -22,7 +22,6 @@ function cyrb53a(str, seed = 0) {
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: '8ball',
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

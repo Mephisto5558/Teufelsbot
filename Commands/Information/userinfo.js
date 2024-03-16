@@ -5,7 +5,6 @@ const
 
 /** @type {command<'both'>}*/
 module.exports = {
-  name: 'userinfo',
   aliases: { prefix: ['user-info'] },
   cooldowns: { user: 1000 },
   slashCommand: true,
@@ -18,6 +17,8 @@ module.exports = {
 
     const
       member = getTargetMember.call(this, { returnSelf: true }),
+
+      /** @type {Exclude<import('../../database').default.userSettings[''], undefined>['birthday']} */
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       bannerURL = (await member.user.fetch()).bannerURL();
 
@@ -67,7 +68,7 @@ module.exports = {
         ]
       })];
 
-    if (birthday) embed.data.fields.splice(-2, 0, { name: lang('birthday'), value: `<t:${Math.round(new Date(birthday).getTime() / 1000)}:D> (${getAge(birthday.split('/'))})`, inline: true });
+    if (birthday) embed.data.fields.splice(-2, 0, { name: lang('birthday'), value: `<t:${Math.round(birthday.getTime() / 1000)}:D> (${getAge(birthday)})`, inline: true });
     if (member.isCommunicationDisabled()) embed.data.fields.splice(-2, 0, { name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true });
     if (member.user.flags.bitfield) {
       embed.data.fields.splice(-2, 0, {

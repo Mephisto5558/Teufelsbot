@@ -3,14 +3,10 @@ const
   { getMilliseconds } = require('better-ms'),
   { timeValidator } = require('../../Utils'),
 
+  /**
+   * @typedef {{ bonusEntries: object[], requiredRoles: string[], disallowedMembers: string[], duration: number, giveawayId: string }}options
+   * @type {Record<string, (this: GuildInteraction, lang: lang, components: ActionRowBuilder<ButtonBuilder>[], options: options) => Promise<Message>>}*/
   giveawayMainFunctions = {
-    /** @typedef {{ bonusEntries: object[], requiredRoles: string[], disallowedMembers: string[], duration: number, giveawayId: string }}mainFunctionsParams*/
-
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang
-     * @param {ActionRowBuilder<ButtonBuilder>[]}components
-     * @param {mainFunctionsParams}options*/
     create: async function (lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration }) {
       const
         defaultSettings = this.client.defaultSettings.giveaway,
@@ -43,7 +39,7 @@ const
           },
           thumbnail: this.options.getString('thumbnail'),
           image: this.options.getString('image'),
-          lastChance: this.guild.db.giveaway?.useLastChance ?? defaultSettings.useLastChance,
+          lastChance: this.guild.db.giveaway?.useLastChance,
           isDrop: this.options.getBoolean('is_drop')
         };
 
@@ -59,11 +55,6 @@ const
       return this.editReply({ content: lang('started'), components });
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang
-     * @param {ActionRowBuilder<ButtonBuilder>[]}components
-     * @param {mainFunctionsParams}options*/
     end: async function (lang, components, { giveawayId }) {
       const data = await this.client.giveawaysManager.end(giveawayId);
       components[0].components[0].data.url = data.messageURL;
@@ -71,11 +62,6 @@ const
       return this.editReply({ content: lang('ended'), components });
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang
-     * @param {ActionRowBuilder<ButtonBuilder>[]}components
-     * @param {mainFunctionsParams}options*/
     edit: async function (lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId }) {
       const editOptions = {
         addTime: duration,
@@ -98,11 +84,6 @@ const
       return this.editReply({ content: lang('edited'), components });
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang
-     * @param {ActionRowBuilder<ButtonBuilder>[]}components
-     * @param {mainFunctionsParams}options*/
     reroll: async function (lang, components, { giveawayId }) {
       const rerollOptions = {
         messages: {
@@ -121,7 +102,6 @@ const
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'giveaway',
   permissions: { user: ['ManageMessages'] },
   cooldowns: { user: 1000 },
   slashCommand: true,

@@ -1,6 +1,5 @@
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'sleep',
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,

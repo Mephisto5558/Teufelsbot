@@ -2,7 +2,6 @@ const { AllowedMentionsTypes } = require('discord.js');
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'afk',
   cooldowns: { user: 5000 },
   slashCommand: true,
   prefixCommand: true,
@@ -23,7 +22,7 @@ module.exports = {
       createdAt = Math.round(this.createdTimestamp / 1000);
 
     /* eslint-disable-next-line unicorn/prefer-ternary */ // Line too long
-    if (global || !this.guildId) await this.client.db.update('userSettings', `${this.user.id}.afkMessage`, { message, createdAt });
+    if (global || !this.inGuild()) await this.client.db.update('userSettings', `${this.user.id}.afkMessage`, { message, createdAt });
     else await this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`, { message, createdAt });
 
     if (this.member?.moderatable && this.member.displayName.length < 26 && !this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(`[AFK] ${this.member.displayName}`);

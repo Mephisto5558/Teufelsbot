@@ -3,7 +3,6 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'topic',
   cooldowns: { channel: 1e4 },
   slashCommand: true,
   prefixCommand: true,

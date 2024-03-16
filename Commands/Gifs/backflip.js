@@ -7,7 +7,6 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'backflip',
   aliases: { prefix: ['flip'] },
   cooldowns: { user: 1000 },
   slashCommand: true,

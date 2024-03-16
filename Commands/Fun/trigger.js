@@ -1,29 +1,20 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  triggerMainFunctions = {
-    /** @typedef {{ id:string, trigger:string, response:string, wildcard:boolean }[]}oldData*/
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang
-     * @param {oldData}oldData*/
+  /** @type {Record<string, (this: GuildInteraction, lang: lang, oldData: Exclude<import('../../database').default.guildSettings['']['triggers'], undefined>, query: string) => Promise<Message>>} */
+  triggerMainFunctions = {
     add: async function (lang, oldData) {
       const data = {
         id: (Number.parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) ?? 0) + 1,
-        trigger: this.options.getString('trigger'),
+        trigger: this.options.getString('trigger', true),
         response: this.options.getString('response').replaceAll('/n', '\n'),
         wildcard: !!this.options.getBoolean('wildcard')
       };
 
-      await this.client.db.update('guildSettings', `${this.guild.id}.triggers`, [...oldData, data]);
+      await this.client.db.push('guildSettings', `${this.guild.id}.triggers`, data);
       return this.editReply(lang('saved', data.trigger));
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang
-     * @param {oldData}oldData
-     * @param {string}query*/
     delete: async function (lang, oldData, query) {
       const
         { id } = (query ? Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) : Object.values(oldData).sort((a, b) => b.id - a.id)[0]) ?? {},
@@ -35,10 +26,6 @@ const
       return this.editReply(lang('deletedOne', id));
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang
-     * @param {oldData}oldData*/
     clear: async function (lang, oldData) {
       if (this.options.getString('confirmation').toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
       if (!oldData.length) return this.editReply(lang('noneFound'));
@@ -47,11 +34,6 @@ const
       return this.editReply(lang('deletedAll', oldData.length));
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang
-     * @param {oldData}oldData
-     * @param {string}query*/
     get: function (lang, oldData, query) {
       if (!oldData.length) return this.editReply(lang('noneFound'));
 
@@ -93,9 +75,16 @@ const
     }
   };
 
+/** @this {import('discord.js').AutocompleteInteraction} */
+function triggerQuery() {
+  return this.guild.db.triggers
+    ?.flatMap(e => [e.trigger, e.id])
+    .sort(e => typeof e == 'string' ? -1 : 1)
+    .map(String) ?? [];
+}
+
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'trigger',
   permissions: { user: ['ManageMessages'] },
   slashCommand: true,
   prefixCommand: false,
@@ -123,11 +112,7 @@ module.exports = {
       options: [{
         name: 'query_or_id',
         type: 'String',
-        autocompleteOptions: function () {
-          return this.guild.db.triggers
-            ?.flatMap(e => [e.trigger, e.id]).sort(e => typeof e == 'string' ? -1 : 1)
-            .map(String) ?? [];
-        }
+        autocompleteOptions: triggerQuery
       }]
     },
     {
@@ -146,12 +131,7 @@ module.exports = {
         {
           name: 'query_or_id',
           type: 'String',
-          autocompleteOptions: function () {
-            return this.guild.db.triggers
-              ?.flatMap(e => [e.trigger, e.id])
-              .sort(e => typeof e == 'string' ? -1 : 1)
-              .map(String) ?? [];
-          }
+          autocompleteOptions: triggerQuery
         },
         { name: 'short', type: 'Boolean' }
       ]

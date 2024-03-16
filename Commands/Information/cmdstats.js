@@ -2,7 +2,6 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'cmdstats',
   cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: true,
@@ -24,7 +23,7 @@ module.exports = {
       if (command?.aliasOf) command = this.client.slashCommands.get(command.aliasOf) || this.client.prefixCommands.get(command.aliasOf);
 
       embed.data.description = lang('embedDescriptionOne', {
-        command: command?.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``, count: this.client.settings.stats?.[command.name] ?? 0
+        command: command?.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``, count: this.client.settings.stats[command.name] ?? 0
       });
     }
     else {

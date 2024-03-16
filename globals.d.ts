@@ -11,9 +11,6 @@ declare namespace __local {
 
   type BaseCommand<initialized extends boolean = boolean> = {
 
-    /** For slash commands, must be lowercase.*/
-    name: string;
-
     /** Numbers in milliseconds*/
     cooldowns?: { guild?: number; channel?: number; user?: number };
 
@@ -33,6 +30,11 @@ declare namespace __local {
     options?: commandOptions<initialized>[];
   }
   & (initialized extends true ? {
+
+    /**
+     * Gets set to the command's filename.
+     * For slash commands, must be lowercase.*/
+    name: string;
 
     /** Currently not used*/
     nameLocalizations?: readonly Record<string, BaseCommand<true>['name']>;
@@ -67,6 +69,16 @@ declare namespace __local {
      * The command's full file path, used for e.g. reloading the command.*/
     filePath: readonly string;
   } : {
+
+    /** @deprecated Change the filename to the desired name instead.*/
+    name?: string;
+
+    /** @deprecated Use language files instead.*/
+    description?: string;
+
+    /** @deprecated Change the directory name to the desired category instead.*/
+    category?: string;
+
     permissions?: {
       client?: (keyof Discord.PermissionFlags)[];
       user?: (keyof Discord.PermissionFlags)[];
@@ -102,6 +114,21 @@ declare namespace __local {
     /** @default true*/
     replyOnNonBetaCommand: boolean;
     disableWebserver?: boolean;
+  }
+
+  interface Env {
+    environment: string;
+    keys: {
+      humorAPIKey: string;
+      rapidAPIKey: string;
+      githubKey: string;
+      chatGPTAPIKey: string;
+      dbdLicense: string;
+      votingWebhookURL?: string;
+      token: string;
+      secret: string;
+    };
+    dbConnectionStr: string;
   }
 }
 
@@ -351,10 +378,10 @@ declare module 'discord.js' {
     cooldowns: Map<string, Record<string, Map<string, number>>>;
     db: DB;
     i18n: I18nProvider;
-    settings: object;
+    settings: Database.botSettings;
     defaultSettings: Database.guildSettings['default'];
-    botType: string;
-    keys: Record<string, string>;
+    botType: __local.Env['environment'];
+    keys: __local.Env['keys'];
 
     /** The config from {@link ./config.json}.*/
     config: __local.Config;
@@ -426,9 +453,9 @@ declare module 'discord.js' {
 
     /**
      * ```js
-     * this.client.db?.get('userSettings')?.[this.id] ?? {}
+     * this.client.db.get('userSettings', this.id) ?? {}
      * ```*/
-    get db(): Database.userSettings[ThisType.id];
+    get db(): Exclude<Database.userSettings[''], undefined>;
     customName: string;
     customTag: string;
   }
@@ -445,9 +472,9 @@ declare module 'discord.js' {
 
     /**
      * ```js
-     * this.client.db?.get('guildSettings')?.[this.id] ?? {}
+     * this.client.db.get('guildSettings', this.id) ?? {}
      * ```*/
-    get db(): Database.guildSettings[ThisType.id];
+    get db(): Exclude<Database.guildSettings[''], undefined>;
     localeCode: string;
   }
 }

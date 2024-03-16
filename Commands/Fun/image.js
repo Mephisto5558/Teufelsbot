@@ -36,7 +36,6 @@ const
 
 /** @type {command<'prefix'>}*/
 module.exports = {
-  name: 'image',
   cooldowns: { user: 500 },
   slashCommand: false,
   prefixCommand: true,

@@ -2,7 +2,6 @@ const { getTargetMember } = require('../../Utils');
 
 /** @type {command<'prefix', false>}*/
 module.exports = {
-  name: 'blacklistuser',
   aliases: { prefix: ['blacklist'] },
   slashCommand: false,
   prefixCommand: true,
@@ -13,7 +12,7 @@ module.exports = {
   run: async function (lang) {
     const target = getTargetMember.call(this)?.id;
     if (this.args[0] == 'off') {
-      if (!this.client.settings.blacklist.includes(target)) return this.customReply(lang('notFound'));
+      if (!this.client.settings.blacklist?.includes(target)) return this.customReply(lang('notFound'));
 
       await this.client.db.update('botSettings', 'blacklist', this.client.settings.blacklist.filter(e => e != target));
       return this.customReply(lang('removed', target));

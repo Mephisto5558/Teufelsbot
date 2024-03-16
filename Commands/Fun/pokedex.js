@@ -5,7 +5,6 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  name: 'pokedex',
   prefixCommand: true,
   slashCommand: true,
   dmPermission: true,

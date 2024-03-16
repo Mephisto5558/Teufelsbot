@@ -3,10 +3,8 @@ const
   { getTargetMember, getAge } = require('../../Utils'),
   currentYear = new Date().getFullYear(),
 
+  /** @type {Record<string, (this: GuildInteraction, lang: lang) => Promise<Message>>} */
   birthdayMainFunctions = {
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang*/
     set: async function set(lang) {
       const
         month = this.options.getInteger('month'),
@@ -17,23 +15,19 @@ const
       if (today > nextBirthday) nextBirthday.setFullYear(today.getFullYear() + 1);
       const diffDays = Math.ceil(Math.abs(nextBirthday - today) / 864e5); // ms -> days
 
-      await this.client.db.update('userSettings', `${this.user.id}.birthday`, `${this.options.getInteger('year')}/${String(month).padStart(2, '0')}/${String(day).padStart(2, '0')}`);
+      await this.client.db.update('userSettings', `${this.user.id}.birthday`, new Date(this.options.getInteger('year'), month - 1, day));
       return this.editReply(lang('saved', diffDays));
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang*/
     remove: async function remove(lang) {
       await this.client.db.delete('userSettings', `${this.user.id}.birthday`);
       return this.editReply(lang('removed'));
     },
 
-    /**
-     * @this {GuildInteraction}
-     * @param {lang}lang*/
     get: async function get(lang) {
       const
+
+        /** @type {import('discord.js').GuildMember} */
         target = getTargetMember.call(this),
         doNotHide = this.options.getBoolean('do_not_hide'),
         embed = new EmbedBuilder({
@@ -45,12 +39,12 @@ const
         });
 
       if (target) {
-        embed.data.title = lang('getUser.embedTitle', target.user.customTag);
+        embed.data.title = lang('getUser.embedTitle', target.user.customName);
 
-        const data = target.user.db.birthday?.split('/');
-        if (data) {
-          const age = getAge(data) + 1;
-          embed.data.description = lang('getUser.date', { user: target.customName, month: lang(`months.${data[1]}`), day: data[2] });
+        const birthday = target.user.db.birthday;
+        if (birthday) {
+          const age = getAge(birthday) + 1;
+          embed.data.description = lang('getUser.date', { user: target.customName, month: lang(`months.${birthday.getMonth() + 1}`), day: birthday.getDate() });
           if (age < currentYear) embed.data.description += lang('getUser.newAge', age);
         }
         else embed.data.description = lang('getUser.notFound', target.customName);
@@ -61,29 +55,30 @@ const
         const
           guildMembers = new Set((await this.guild.members.fetch()).map(e => e.id)),
           currentTime = Date.now(),
-          data = Object.entries(this.client.db.get('userSettings') ?? {})
-            .reduce((acc, [k, { birthday } = {}]) => {
-              if (birthday && guildMembers.has(k)) acc.push([k, ...birthday.split('/')]);
+
+          /** @type {[import('discord.js').Snowflake, Date][]} */
+          data = Object.entries(this.client.db.get('userSettings'))
+            .reduce((acc, [k, { birthday }]) => {
+              if (birthday && guildMembers.has(k)) acc.push([k, birthday]);
               return acc;
             }, [])
-            /* eslint-disable-next-line unicorn/no-unreadable-array-destructuring */ // It's more clear this way
-            .sort(([, , month1, day1], [, , month2, day2]) => {
-              const time = [new Date(currentYear, month1 - 1, day1), new Date(currentYear, month2 - 1, day2)];
-              if (time[0] < currentTime) time[0].setFullYear(currentYear + 1, month1 - 1, day1);
-              if (time[1] < currentTime) time[1].setFullYear(currentYear + 1, month2 - 1, day2);
+            .sort(([, a], [, b]) => {
+              const dates = [new Date(a.getTime()), new Date(b.getTime())];
+              if (dates[0] < currentTime) dates[0].setFullYear(currentYear);
+              if (dates[1] < currentTime) dates[1].setFullYear(currentYear);
 
-              return time[0] - time[1];
+              return dates[0] - dates[1];
             })
             .slice(0, 10);
 
         embed.data.description = data.length ? '' : lang('getAll.notFound');
-        for (const [id, year, month, day] of data) {
+        for (const [id, date] of data) {
           const
-            date = lang('getAll.date', { month: lang(`months.${month}`), day }),
-            age = getAge([year, month, day]) + 1,
+            dateStr = lang('getAll.date', { month: lang(`months.${date.getMonth() + 1}`), day: date.getDate() }),
+            age = getAge(date) + 1,
             msg = `> <@${id}>${age < currentYear ? ' (' + age + ')' : ''}\n`;
 
-          embed.data.description += embed.data.description.includes(date) ? msg : `\n${date}${msg}`;
+          embed.data.description += embed.data.description.includes(dateStr) ? msg : `\n${dateStr}${msg}`;
         }
       }
 
@@ -96,7 +91,6 @@ const
 
 /** @type {command<'slash', false>}*/
 module.exports = {
-  name: 'birthday',
   cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: false,

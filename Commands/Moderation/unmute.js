@@ -2,7 +2,6 @@ const { checkTargetManageable } = require('../../Utils');
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  name: 'unmute',
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { user: 100 },
   slashCommand: true,

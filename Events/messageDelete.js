@@ -1,10 +1,10 @@
 const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js');
 
 /**
- * @this {Message}
+ * @this {Message<true>}
  * @param {lang}lang*/
 function countingHandler(lang) {
-  const lastNum = Number.parseInt(this.guild.db?.counting?.[this.channel.id]?.lastNumber);
+  const lastNum = Number.parseInt(this.guild.db.counting?.[this.channel.id]?.lastNumber);
   if (Number.isNaN(Number.parseInt(this.originalContent)) || Number.isNaN(lastNum) || lastNum - this.originalContent) return;
 
   const embed = new EmbedBuilder({
@@ -20,14 +20,14 @@ function countingHandler(lang) {
 
 /** @this {Message}*/
 module.exports = async function messageDelete() {
-  if (this.client.botType == 'dev' || !this.guild) return;
+  if (this.client.botType == 'dev' || !this.inGuild()) return;
 
   /** @type {lang}*/
   const lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'commands.minigames.counting.userDeletedMsg' });
   countingHandler.call(this, lang);
 
-  const setting = this.guild?.db.config?.logger?.messageDelete ?? {};
-  if (!setting.enabled || !setting.channel) return;
+  const setting = this.guild.db.config?.logger?.messageDelete;
+  if (!setting?.enabled || !setting.channel) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
   if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length)
