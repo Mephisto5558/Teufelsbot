@@ -1,0 +1,40 @@
+{
+  "categoryName": "NSFW",
+  "categoryDescription": "Commandes NSFW",
+  "nsfw": {
+    "description": "Obtenir une image NSFW",
+    "usage": {
+      "usage": "{prefix}nsfw [type]",
+      "examples": "{prefix}nsfw hentai"
+    },
+    "options": {
+      "type": {
+        "description": "Le type d'image que vous voulez voir. Par défaut, hentai.",
+        "choices": {
+          "hass": "âne hentai",
+          "hmidriff": "Hentai Taille",
+          "pgif": "Porn gif",
+          "4k": "4 Ko",
+          "hentai": "Hentai",
+          "hneko": "Hentai Neko",
+          "neko": "Neko",
+          "hkitsune": "Hentai Kitsune",
+          "anal": "Anal",
+          "hanal": "Hentai Anal",
+          "gonewild": "Abandon sauvage",
+          "ass": "Cas",
+          "pussy": "Poussière",
+          "thigh": "Cuisson",
+          "hthigh": "cuisse du Hentai",
+          "paizuri": "Paizuri",
+          "tentacle": "Tentacule",
+          "boobs": "Boobs",
+          "hboobs": "Boobs Hentai",
+          "yaoi": "Yaoi"
+        }
+      }
+    },
+    "error": "L'API a répondu par une erreur.",
+    "embedTitle": "Pourquoi vous faire horny ?"
+  }
+}
