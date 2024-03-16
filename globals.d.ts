@@ -453,9 +453,9 @@ declare module 'discord.js' {
 
     /**
      * ```js
-     * this.client.db?.get('userSettings')?.[this.id] ?? {}
+     * this.client.db.get('userSettings', this.id) ?? {}
      * ```*/
-    get db(): Database.userSettings[ThisType.id];
+    get db(): Exclude<Database.userSettings[''], undefined>;
     customName: string;
     customTag: string;
   }
@@ -472,9 +472,9 @@ declare module 'discord.js' {
 
     /**
      * ```js
-     * this.client.db?.get('guildSettings')?.[this.id] ?? {}
+     * this.client.db.get('guildSettings', this.id) ?? {}
      * ```*/
-    get db(): Database.guildSettings[ThisType.id];
+    get db(): Exclude<Database.guildSettings[''], undefined>;
     localeCode: string;
   }
 }
