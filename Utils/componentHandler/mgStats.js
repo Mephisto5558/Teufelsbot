@@ -7,13 +7,13 @@ const formatTopTen = require('./mgStats_formatTopTen.js');
  * @param {string}game
  * @param {string}wMode
  * @param {string}settings*/
-module.exports = async function mgStats(lang, game, wMode, settings) {
+module.exports = function mgStats(lang, game, wMode, settings) {
   if (wMode != 'sort') return;
 
   lang.__boundArgs__[0].backupPath = 'commands.minigames.mgstats';
 
   const [sort, mode] = this.values?.[0]?.split('_') ?? [];
-  this.message.embeds[0].data.description = await formatTopTen.call(this,
+  this.message.embeds[0].data.description = formatTopTen.call(this,
     Object.entries(
       Object.entries(this.client.db.get('leaderboards')).find(([k]) => k == game)?.[1] ?? []
     ).filter(([e]) => settings == 'all_users' || this.guild.members.cache.has(e)),
