@@ -1,8 +1,10 @@
-/** @param {[number, number, number]}date*/
-module.exports = function getAge([year, month, day]) {
+/** @param {Date}date*/
+module.exports = function getAge(date) {
   const
     now = new Date(),
     nowMonth = now.getMonth(),
-    age = now.getFullYear() - year;
-  return nowMonth - month < -1 || (nowMonth - month == -1 && now.getDate() < day) ? age - 1 : age;
+    month = date.getMonth(),
+    age = now.getFullYear() - date.getFullYear();
+
+  return nowMonth - month < -1 || (nowMonth - month == -1 && now.getDate() < date.getDate()) ? age - 1 : age;
 };
