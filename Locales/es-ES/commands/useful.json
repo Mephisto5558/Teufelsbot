@@ -35,7 +35,7 @@
         "description": "El mensaje a establecer"
       },
       "global": {
-        "description": "Establece tu AFK para todos los gremios en los que estás. Se reinicia si escribes en cualquier gremio."
+        "description": "Establecer \"AFK\" en todos los servidores. Reinicia si escribes en alguno."
       }
     },
     "globalSuccess": "Tu AFK ha sido establecido a \"{message}\" en todos los gremios.",

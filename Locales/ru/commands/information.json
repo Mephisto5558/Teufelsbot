@@ -162,7 +162,7 @@
     "description": "Получить информацию о гильдии",
     "options": {
       "guild_id": {
-        "description": "ID сервера, о котором вы хотите получить информацию. Работает только для серверов, в которых я нахожусь."
+        "description": "The server ID you want to get information about. Only works for servers I'm in."
       }
     },
     "memberStats": "`{all}` (Хуманы: `{humans}`, боты: `{bots}`)",
