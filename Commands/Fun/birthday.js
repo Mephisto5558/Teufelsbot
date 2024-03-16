@@ -37,7 +37,7 @@ const
         });
 
       if (target) {
-        embed.data.title = lang('getUser.embedTitle', target.user.customTag);
+        embed.data.title = lang('getUser.embedTitle', target.user.customName);
 
         const data = target.user.db.birthday?.split('/');
         if (data) {
