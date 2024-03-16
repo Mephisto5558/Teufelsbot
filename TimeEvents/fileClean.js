@@ -18,14 +18,14 @@ async function deleteOld(path) {
 }
 
 module.exports = {
-  time: '00 00 00 01 * *', // monthly
+  time: '00 00 00 01 * *',
   startNow: true,
 
   /** @this {Client}*/
   onTick: async function () {
-    const now = new Date().toLocaleString('en', { month: '2-digit', day: '2-digit' });
+    const now = new Date();
 
-    if (this.settings.lastFileClear == now) return void log('Already ran file deletion today');
+    if (this.settings.lastFileClear.toDateString() == now.toDateString()) return void log('Already ran file deletion today');
     log('Started file deletion');
 
     deleteOld('./VoiceRecords');
