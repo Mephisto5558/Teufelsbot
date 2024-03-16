@@ -48,8 +48,10 @@ module.exports = {
         return acc;
       }, {});
 
-      for (const [,member] of await guild.members.fetch({ user: [...birthdayUserList.keys()] })) {
-        const year = birthdayUserList.get(member.id);
+      if (!Object.keys(birthdayUserList).length) continue;
+
+      for (const [,member] of await guild.members.fetch({ user: Object.keys(birthdayUserList) })) {
+        const year = birthdayUserList[member.id];
 
         let channel;
         if (settings.ch?.channel) {
