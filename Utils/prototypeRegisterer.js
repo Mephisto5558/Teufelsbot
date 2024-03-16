@@ -142,38 +142,39 @@ Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
 Object.defineProperty(Message.prototype, 'user', { get() { return this.author; } });
 Object.assign(Message.prototype, { customReply, runMessages, _patch });
 Object.defineProperties(User.prototype, {
+  /** @type {Record<string, (this: User, val: any) => any>} */
   db: {
-    get() { return this.client.db?.get('userSettings')?.[this.id] ?? {}; },
+    get() { return this.client.db.get('userSettings', this.id) ?? {}; },
     set(val) { this.client.db.update('userSettings', this.id, val); }
   },
+
+  /** @type {Record<string, (this: User, val: any) => any>} */
   customName: {
     get() { return this.db.customName ?? this.username; },
-    set(val) { this.db.update('customName', val); }
-  },
-  customTag: {
-    get() { return (this.db.customName ?? this.username) + `#${this.discriminator}`; },
-    set() { throw new Error('You cannot set a value to User#customTag!'); }
+    set(val) { this.client.db.update('userSettings', 'customName', val); }
   }
 });
 Object.defineProperties(GuildMember.prototype, {
+  /** @type {Record<string, (this: GuildMember, val: any) => any>} */
   db: {
     get() { return findAllEntries(this.guild.db, this.id); },
     set() { throw new Error('You cannot set a value to GuildMember#db!'); }
   },
+
+  /** @type {Record<string, (this: GuildMember, val: any) => any>} */
   customName: {
     get() { return this.guild.db.customNames?.[this.id] ?? this.nickname ?? this.user.username; },
     set(val) { this.client.db.update('guildSettings', `${this.guild.id}.customNames.${this.id}`, val); }
-  },
-  customTag: {
-    get() { return (this.guild.db.customNames?.[this.id] ?? this.nickname ?? this.user.username) + `#${this.user.discriminator}`; },
-    set() { throw new Error('You cannot set a value to GuildMember#customTag!'); }
   }
 });
 Object.defineProperties(Guild.prototype, {
+  /** @type {Record<string, (this: Guild, val: any) => any>} */
   db: {
-    get() { return this.client.db?.get('guildSettings')?.[this.id] ?? {}; },
+    get() { return this.client.db.get('guildSettings', this.id) ?? {}; },
     set(val) { this.client.db.update('guildSettings', this.id, val); }
   },
+
+  /** @type {Record<string, (this: Guild, val: any) => any>} */
   localeCode: {
     get() { return this.db.config?.lang ?? this.preferredLocale.slice(0, 2) ?? this.client.defaultSettings.config.lang; },
     set(val) { this.client.db.update('guildSettings', 'config.lang', val); }
