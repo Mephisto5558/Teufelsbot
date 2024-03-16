@@ -3,7 +3,7 @@
     "CreateInstantInvite": "Créer une invitation",
     "KickMembers": "Expulser les membres",
     "BanMembers": "Bannir les membres",
-    "Administrator": "Administrateur",
+    "Administrator": "Administrator",
     "ManageChannels": "Gérer les salons",
     "ManageGuild": "Gérer le serveur",
     "AddReactions": "Ajouter des réactions",
@@ -17,7 +17,7 @@
     "EmbedLinks": "Intégrer les liens",
     "AttachFiles": "Joindre des fichiers",
     "ReadMessageHistory": "Lire l'historique des messages",
-    "MentionEveryone": "Mentionnez @everyone, @here et Alle Rollen",
+    "MentionEveryone": "Mentionnez @everyone, @here et tous les rôles",
     "UseExternalEmojis": "Utiliser les émojis externes",
     "ViewGuildInsights": "Voir les aperçus du serveur",
     "Connect": "Connecter",
@@ -29,7 +29,7 @@
     "ManageNicknames": "Gérer les surnoms",
     "ManageRoles": "Gérer les rôles",
     "ManageWebhooks": "Gérer les Webhooks",
-    "ManageGuildExpressions": "Gérer les émojis et les autocollants",
+    "ManageGuildExpressions": "Gérer les expressions de guilde",
     "UseApplicationCommands": "Utiliser les commandes de l'application",
     "RequestToSpeak": "Demande de parole",
     "ManageEvents": "Gérer les événements",
@@ -72,5 +72,15 @@
     "reportFail": "`Une erreur s'est produite en essayant d'envoyer votre rapport d'erreur.\n```\n{err}\n```\nVeuillez envoyer un message au développeur directement."
   },
   "timeFormatter": {
+    "ydhms": "{year} years, {day} days, {hour} hours, {minute} minutes and {second} seconds",
+    "dhms": "{day} jours, {hour} heures, {minute} minutes et {second} secondes",
+    "hms": "{hour} heures, {minute} minutes et {second} secondes",
+    "ms": "{minute} minutes et {second} secondes",
+    "s": "{second} secondes"
+  },
+  "timeEvents": {
+    "birthday": {
+      "unknownChannel": "INFO: Le canal configuré pour la fonction anniversaire dans la guilde `{guild}` n'existe pas! Veuillez le reconfigurer afin que je puisse envoyer des messages d'anniversaire!"
+    }
   }
 }
