@@ -316,7 +316,7 @@
     "untilNeg": "È {time} fa."
   },
   "wiki": {
-    "description": "Cerca qualcosa su Wikipedia, o ottieni una pagina casuale se non sono stati specificati termini di ricerca.",
+    "description": "Search for something on Wikipedia, or get a random page if no search terms were specified.",
     "usage": {
       "usage": "{prefix}wiki <search term>",
       "examples": "{prefix}wiki discord"
