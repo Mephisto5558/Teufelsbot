@@ -12,6 +12,33 @@ interface Embed {
   color: number;
 }
 
+type backupChannel = {
+  type: number;
+  name: string;
+  nsfw: boolean;
+  rateLimitPerUser: number;
+  topic: string;
+  permissions: {
+    name: string;
+    allow: `${bigint}`;
+    deny: `${bigint}`;
+  }[];
+  messages: {
+    username: string;
+    avatar: string;
+    content: string;
+    embeds: EmbedData[];
+
+    // Todo
+    files: unknown[];
+    pinned: boolean;
+    createdAt: `${Date}`;
+  }[];
+  isNews: boolean;
+  // Todo
+  threads: unknown[];
+};
+
 type guildId = Snowflake;
 type channelId = Snowflake;
 type messageId = Snowflake;
@@ -217,7 +244,7 @@ declare namespace Database {
         enabled: boolean?;
         channel: unknown?; // Todo
       };
-      members: {
+      members?: {
         userId: userId;
         username: string;
         discriminator: number;
@@ -255,35 +282,12 @@ declare namespace Database {
             allow: `${bigint}`;
             deny: `${bigint}`;
           }[];
-          children: {
-            type: number;
-            name: string;
-            nsfw: boolean;
-            rateLimitPerUser: number;
-            topic: string;
-            permissions: {
-              name: string;
-              allow: `${bigint}`;
-              deny: `${bigint}`;
-            }[];
-            messages: {
-              username: string;
-              avatar: string;
-              content: string;
-              embeds: EmbedData[];
-
-              // Todo
-              files: unknown[];
-              pinned: boolean;
-              createdAt: `${Date}`;
-            }[];
-            isNews: boolean;
-            // Todo
-            threads: unknown[];
-          }[];
+          children: backupChannel[];
           // Todo
-          others: unknown;
         }[];
+
+        /** Channels that are not in a category*/
+        others: backupChannel[];
       };
     };
   };
