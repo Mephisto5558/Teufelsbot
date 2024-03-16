@@ -48,7 +48,7 @@ type roleId = Snowflake;
 declare namespace Database {
   type leaderboards = {
     [gameName: string]: {
-      [userId: UserId]: {
+      [userId: userId]: {
         wins?: number;
         draws?: number;
         loses?: number;
@@ -57,18 +57,22 @@ declare namespace Database {
         lostAgainst?: Record<userId | 'AI', number>;
         wonAgainst?: Record<userId | 'AI', number>;
         against?: Record<userId | 'AI', number>;
-      };
-    };
+      } | undefined;
+    } | undefined;
   };
 
   type userSettings = {
     [userId: userId]: {
       birthday?: `${number}/${number}/${number}`;
       customName?: string;
+      afkMessage?: {
+        message: string;
+        createdAt: number;
+      };
       lastVoted?: number;
       featureRequestAutoApprove?: boolean;
       lastFeatureRequested?: number;
-    };
+    } | undefined;
   };
 
   type guildSettings = {
@@ -90,6 +94,14 @@ declare namespace Database {
           };
         };
       };
+      serverbackup: {
+        allowedToLoad: number;
+      };
+      giveaway: {
+        reaction: string;
+        embedColor: number;
+        embedColorEnd: number;
+      };
     };
 
     [guildId: guildId]: {
@@ -99,14 +111,16 @@ declare namespace Database {
           prefix?: string;
           caseinsensitive?: boolean;
         };
+        betaBotPrefix?: {
+          prefix?: string;
+          caseinsensitive?: boolean;
+        };
         lang?: string;
         autopublish: boolean;
-        logger?: {
-          ['messageUpdate' | 'messageDelete' | 'voiceChannelActivity' | 'sayCommandUsed' | 'all']: {
-            channel: channelId;
-            enabled: boolean;
-          };
-        };
+        logger?: Record<'messageUpdate' | 'messageDelete' | 'voiceChannelActivity' | 'sayCommandUsed' | 'all', {
+          channel: channelId;
+          enabled: boolean;
+        } | undefined>;
       };
       birthday?: {
         ch?: {
@@ -117,9 +131,9 @@ declare namespace Database {
             content?: string;
           };
         };
-        dm: {
+        dm?: {
           enable?: boolean;
-          msg: {
+          msg?: {
             embed?: Embed;
             content?: string;
           };
@@ -140,24 +154,30 @@ declare namespace Database {
             embed?: Embed;
             content?: string;
           };
-        };
+        } | undefined;
       };
       // TODO
       lockedChannels?: {
-        [channelId: channelId]: Record<unknown, unknown>;
+        [channelId: channelId]: Record<unknown, unknown> | undefined;
       };
-      // TODO
-      afkMessages?: Record<unknown, unknown>;
-      // TODO
+      afkMessages?: {
+        [userId: userId]: {
+          message: string;
+          createdAt: number;
+        } | undefined;
+      };
       giveaway?: {
-        [key: string]: unknown; // TODO
+        reaction?: string;
+        embedColor?: number;
+        embedColorEnd?: number;
+        useLastChance?: boolean;
         giveaways: GiveawayData[];
       };
       counting?: {
         [channelId: channelId]: {
           lastNumber: number;
           lastAuthor: userId;
-        };
+        } | undefined;
       };
       commandSettings?: {
         [commandName: string]: {
@@ -166,7 +186,7 @@ declare namespace Database {
             channels?: (channelId | '*')[];
             roles?: (roleId | '*')[];
           };
-        };
+        } | undefined;
       };
       lastMentions?: {
         [userId: userId]: {
@@ -175,28 +195,34 @@ declare namespace Database {
           author: userId;
           channel: channelId;
           createdAt: Date;
-        };
+        } | undefined;
       };
       customNames?: {
-        [userId: userId]: string;
+        [userId: userId]: string | undefined;
       };
       minigames?: {
-        [gameName: string]: {
-          [userId: userId]: {
+        rps: {
+          [messageId: messageId]: {
             player1?: 'r' | 'p' | 's';
             player2?: 'r' | 'p' | 's';
-          };
+          } | undefined;
         };
+        [gameName: string]: {
+          [messageId: messageId]: unknown; // TODO
+        } | undefined;
       };
       tickets?: {
         buttonLabel: string;
         channel: channelId;
       };
-    };
+      serverbackup?: {
+        allowedToLoad?: number;
+      };
+    } | undefined;
   };
 
   type polls = {
-    [guildId: guildId]: userId;
+    [guildId: guildId]: userId | undefined;
   };
 
   type botSettings = {
@@ -210,10 +236,10 @@ declare namespace Database {
     lastBirthdayCheck?: `${number}/${number}`;
     lastDBCleanup?: `${number}/${number}`;
     stats: {
-      [commandName: string]: number;
+      [commandName: string]: number | undefined;
     };
     startCount: {
-      [environment: string]: number;
+      [environment: string]: number | undefined;
     };
     changelog?: string;
     blacklist?: userId[];
@@ -289,7 +315,7 @@ declare namespace Database {
         /** Channels that are not in a category*/
         others: backupChannel[];
       };
-    };
+    } | undefined;
   };
 
   type website = {
@@ -299,7 +325,7 @@ declare namespace Database {
         title: string;
         body: string;
         votes?: number;
-      };
+      } | undefined;
     };
     sessions: {
       [sessionId: string]: {
@@ -361,7 +387,7 @@ declare namespace Database {
         }[];
         errors?: unknown?;
         success?: boolean?;
-      };
+      } | undefined;
     };
   };
 }
