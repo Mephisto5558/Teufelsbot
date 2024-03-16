@@ -69,6 +69,16 @@ declare namespace __local {
      * The command's full file path, used for e.g. reloading the command.*/
     filePath: readonly string;
   } : {
+
+    /** @deprecated Change the filename to the desired name instead.*/
+    name?: string;
+
+    /** @deprecated Use language files instead.*/
+    description?: string;
+
+    /** @deprecated Change the directory name to the desired category instead.*/
+    category?: string;
+
     permissions?: {
       client?: (keyof Discord.PermissionFlags)[];
       user?: (keyof Discord.PermissionFlags)[];
