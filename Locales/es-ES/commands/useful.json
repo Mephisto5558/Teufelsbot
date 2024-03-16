@@ -1,4 +1,5 @@
 {
+  "categoryName": "Útil",
   "categoryDescription": "Comandos útiles",
   "addemoji": {
     "description": "añade un emoji a este gremio",
@@ -34,7 +35,7 @@
         "description": "El mensaje a establecer"
       },
       "global": {
-        "description": "Establecer \"AFK\" en todos los servidores. Reinicia si escribes en alguno."
+        "description": "Establece tu AFK para todos los gremios en los que estás. Se reinicia si escribes en cualquier gremio."
       }
     },
     "globalSuccess": "Tu AFK ha sido establecido a \"{message}\" en todos los gremios.",
@@ -234,7 +235,6 @@
       }
     },
     "embedTitle": "Calculador",
-    "noInput": "¡No has dado ninguna entrada!",
     "error": "Ocurrió un error mientras se trataba de resolver tu expresión:\n```{err}```",
     "separated": "Resultados separados con \"|\":\n{results}",
     "success": "Expresión:\n```{expression}```\nResultado:\n```{result}```"
@@ -261,8 +261,8 @@
   "randomnumber": {
     "description": "Devuelve un número aleatorio. Utiliza valores por defecto para entradas no válidas.",
     "usage": {
-      "usage": "{prefix}randomnumber [min] [max]",
-      "examples": "{prefix}randomnumber 1 10"
+      "usage": "{prefix}número aleatorio [min] [max]",
+      "examples": "{prefix}número aleatorio 1 10"
     },
     "options": {
       "minimum": {
@@ -272,6 +272,7 @@
         "description": "El número más grande posible. Por defecto es 100."
       }
     },
+    "randomNumber": "Un número aleatorio {min} y {max}:\n{randomNumber}",
     "outOfRange": "Se ha producido un error:\n````\n{err}.\n```"
   },
   "timestamp": {
@@ -290,7 +291,7 @@
     "success": "Eso es <t:{time}:R> (`<t:{time}:R>`)."
   },
   "until": {
-    "description": "Muestra cuánto durará hasta una determinada fecha/hora. Si no se especifica ninguna fecha, por defecto es la fecha actual",
+    "description": "Shows how long it will be until a certain date/time. If no date is specified,default is current date",
     "options": {
       "day": {
         "description": "La parte del día de la fecha objetivo"

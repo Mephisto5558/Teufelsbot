@@ -1,4 +1,6 @@
 {
+  "categoryName": "Administration",
+  "categoryDescription": "Commandes utilisées pour gérer la guilde ou configurer le bot",
   "serverbackup": {
     "description": "Gérer les sauvegardes de votre serveur.",
     "options": {
@@ -52,12 +54,12 @@
       "ownWebhooks": "<a:loading:1063091916683612160> Suppression des webhooks temporaires..."
     },
     "load": {
-      "overwriteWarningTitle": "SURWRITE DU SERVEUR (IRREVERSIBLE)",
       "overwriteWarningDescription": "Cette action supprimera la plupart de votre serveur! Cela inclut les rôles, les webhooks, les canaux et les émoticônes.\nSi vous êtes sûr de vouloir faire cela, tapez 'Oui'. Tapez 'Non' pour annuler.\nVous pouvez également créer une sauvegarde avant le chargement, juste pour être sûr.",
-      "noPerm": "Seul le propriétaire du serveur peut charger les sauvegardes !",
-      "notFound": "Aucune sauvegarde avec cet ID n'a été trouvée!",
+      "noneFound": "Aucune sauvegarde n'a été trouvée pour cette guilde!",
       "cancelled": "Le chargement de la sauvegarde a été annulé.",
+      "enableDMs": "Veuillez activer le bot pour vous envoyer des MP afin que vous puissiez voir l'état du chargement.",
       "loadingEmbedDescription": "Application de la sauvegarde sur le serveur.\nCela peut prendre un certain temps, selon la taille de la sauvegarde.",
+      "noPerm": "Seul le propriétaire du serveur peut charger les sauvegardes !",
       "settings": "<a:loading:1063091916683612160> Chargement des paramètres...",
       "features": "<a:loading:1063091916683612160> Chargement des fonctionnalités du serveur...",
       "roles": "<a:loading:1063091916683612160> Chargement des rôles...",
@@ -66,22 +68,25 @@
       "emojis": "<a:loading:1063091916683612160> Chargement des émoticônes...",
       "stickers": "<a:loading:1063091916683612160> Chargement des autocollants...",
       "bans": "<a:loading:1063091916683612160> Chargement des bannis...",
-      "success": "La sauvegarde avec l'id{id} a été chargée avec succès."
+      "success": "La sauvegarde avec l'id{id} a été chargée avec succès.",
+      "error": "Une erreur est survenue lors du chargement de la sauvegarde."
     },
     "delete": {
+      "noPerm": "Seul le propriétaire de la guilde peut supprimer les sauvegardes !",
       "success": "Sauvegarde supprimée avec succès !"
     },
     "get": {
       "oneEmbedDescription": "Informations sur la sauvegarde {id}\n>>> Créée à: <t:{createdAt}>\nTaille : {size}\nMembres : {members}\nCanaux : {channels}\nRôles : {roles}\nÉmojis: {emojis}\nAutocollants : {stickers}",
       "oneNotFound": "Aucune sauvegarde n'a été trouvée avec cet ID !",
-      "found": "{amount} sauvegardes trouvées.",
       "infos": "Créé à: <t:{createdAt}>\nTaille : {size}\nMembres : {members}\nChaînes : {channels}\nRôles : {roles}\nÉmoticônes : {emojis}\nAutocollants : {stickers}",
+      "found": "{amount} sauvegardes trouvées.",
       "embedDescription": "Les sauvegardes suivantes ont été trouvées, triées par date:",
       "noneFound": "Aucune sauvegarde n'a été trouvée pour ce serveur."
     }
   },
   "selfrole": {
-    "description": "Gérer les auto-grenouilles."
+    "description": "Gérer les auto-grenouilles.",
+    "deprecated": "Cette fonctionnalité n'est plus prise en charge. Veuillez utiliser les fonctionnalités de la communauté de discorde (Onboarding) pour la gestion de auto-rôles: https://support.discord.com/hc/en-us/sections/360007770572-Community-Tools\nLes auto-rôles déjà configurés fonctionneront toujours."
   },
   "setup": {
     "description": "Définit le bot vers le haut",
@@ -167,12 +172,18 @@
         "description": "Changer la langue du bot.",
         "options": {
           "language": {
-            "description": "Dans quelle langue le garçon doit-il répondre?",
-            "choices": {
-              "de": "Allemand",
-              "en": "Anglais",
-              "ru": "Russe"
-            }
+            "description": "Dans quelle langue le garçon doit-il répondre?"
+          }
+        }
+      },
+      "prefix": {
+        "description": "Change le préfixe du bot.",
+        "options": {
+          "new_prefix": {
+            "description": "le nouveau préfixe de bot pour cette guilde"
+          },
+          "case_insensitive": {
+            "description": "Le cas du préfixe doit-il être ignoré ?"
           }
         }
       },
@@ -187,6 +198,35 @@
               "creator+owner": "Creator and Server owner",
               "admins": "Current server administrators"
             }
+          }
+        }
+      },
+      "autopublish": {
+        "description": "publier automatiquement tout ce que n'importe qui dans n'importe quel canal d'annonce.",
+        "options": {
+          "enabled": {
+            "description": "publier automatiquement tout ce que n'importe qui dans n'importe quel canal d'annonce."
+          }
+        }
+      },
+      "logger": {
+        "description": "Enregistrer les actions que le journal d'audit ne peut pas enregistrer",
+        "options": {
+          "action": {
+            "description": "L'action que vous voulez enregistrer",
+            "choices": {
+              "all": "toutes les actions",
+              "messageDelete": "supprimer le message",
+              "messageUpdate": "Modifier le message",
+              "voiceChannelActivity": "join/leave/switch voice channel",
+              "sayCommandUsed": "/say (or similar) command uses"
+            }
+          },
+          "channel": {
+            "description": "La chaîne à laquelle vous voulez envoyer le message de log"
+          },
+          "enabled": {
+            "description": "Activer (vrai) ou désactiver (faux) l'enregistrement de l'action"
           }
         }
       }
@@ -218,8 +258,37 @@
       "embedTitle": "Langue du bot modifiée !",
       "embedDescription": "Les prochains messages seront dans `{lang}`."
     },
+    "prefix": {
+      "saved": "Mon préfixe a été changé en `{prefix}`."
+    },
     "serverbackup": {
       "success": "Successfully updated the settings!"
+    },
+    "autopublish": {
+      "success": "{toggle} autopublishing."
+    },
+    "logger": {
+      "noChannel": "Vous n'avez pas spécifié de salon textuel vers lequel envoyer le log !",
+      "noEnabled": "Vous devez utiliser l'option `enabled` pour définir toutes les actions en même temps!",
+      "enabled": "Les journaux pour {action} seront envoyés à <#{channel}>.",
+      "disabled": "Les journaux pour {action} ne seront plus envoyés.",
+      "actions": {
+        "all": "toutes les actions",
+        "messageDelete": "messages supprimés",
+        "messageUpdate": "messages modifiés",
+        "voiceChannelActivity": "salon vocal joins/quittes/interrupteurs",
+        "sayCommandUsed": "/say (or similar) command uses"
+      }
+    },
+    "tickets": {
+      "defaultButtonLabel": "Créer un ticket",
+      "disabled": "Le module ticket a été désactivé.",
+      "infoEmbedDescription": "Please press the button below to set a custom embed description before you can enable the ticket system by pressing the save button.\nYou can generate a valid embed [here]({url})",
+      "editButtonLabel": "Modifier l'intégration",
+      "previewButtonLabel": "Aperçu de l'intégration",
+      "saveButtonLabel": "Enregistrer l'intégration",
+      "textInputLabel": "Veuillez entrer le JSON intégré.",
+      "invalidEmbed": "Le JSON embarqué fourni est invalide :\n```{err}```"
     }
   }
 }

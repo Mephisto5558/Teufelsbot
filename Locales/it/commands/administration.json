@@ -1,4 +1,5 @@
 {
+  "categoryName": "Amministrazione",
   "categoryDescription": "Comandi usati per gestire la gilda o configurare il bot",
   "serverbackup": {
     "description": "Gestisci i backup del server.",
@@ -10,7 +11,7 @@
         "description": "Carica un backup. ATTENZIONE: cancella tutti i dati del server! Usa \"no_clear\" per evitarlo.",
         "options": {
           "id": {
-            "description": "ID del backup che desideri caricare. Usa il comando \"get\" per visualizzare una lista di ID."
+            "description": "ID del backup che desideri caricare. Usa il comando \"GeV\" per visualizzare una lista di ID."
           },
           "no_clear": {
             "description": "Se impostato su prue, sovrascriverà solo i dati esistenti (es. i canali non verranno cancellati)."
@@ -36,7 +37,6 @@
     },
     "embedTitle": "Backup Del Server",
     "create": {
-      "cooldown": "La creazione di backup è in fase di raffreddamento! Riprova tra `{time}`s.",
       "settings": "<a:loading:1063091916683612160> Salvataggio impostazioni...",
       "members": "<a:loading:1063091916683612160> Salvataggio membri...",
       "bans": "<a:loading:1063091916683612160> Salvataggio ban...",
@@ -54,7 +54,6 @@
       "ownWebhooks": "<a:loading:1063091916683612160> Eliminazione webhook temporanei..."
     },
     "load": {
-      "cooldown": "Il caricamento dei backup è in fase di ricarica! Riprova tra `{time}`s.",
       "overwriteWarningDescription": "Questa azione eliminerà la maggior parte del tuo server! Questo include ruoli, webhook, canali ed emoji.\nSe sei sicuro di voler fare questo, digita 'Sì'. Digita 'No' per annullare.\nPotresti anche voler creare un backup prima del caricamento, solo per essere sicuro.",
       "noneFound": "Non è stato trovato alcun backup per questa gilda!",
       "cancelled": "Caricamento del backup è stato annullato.",
@@ -177,6 +176,17 @@
           }
         }
       },
+      "prefix": {
+        "description": "Cambia il prefisso del bot.",
+        "options": {
+          "new_prefix": {
+            "description": "il nuovo prefisso del bot per questa gilda"
+          },
+          "case_insensitive": {
+            "description": "Il caso del prefisso va ignorato?"
+          }
+        }
+      },
       "serverbackup": {
         "description": "Gestisci le opzioni per i backup del server.",
         "options": {
@@ -208,7 +218,7 @@
               "all": "tutte le azioni",
               "messageDelete": "messaggio eliminato",
               "messageUpdate": "modifica messaggio",
-              "voiceChannelActivity": "entrare/lasciare/commutare canale vocale",
+              "voiceChannelActivity": "join/leave/switch voice channel",
               "sayCommandUsed": "/say (o simili) comando usa"
             }
           },
@@ -247,6 +257,9 @@
     "language": {
       "embedTitle": "Lingua del bot cambiata!",
       "embedDescription": "I prossimi messaggi saranno in `{lang}`."
+    },
+    "prefix": {
+      "saved": "Il mio prefisso è stato cambiato in `{prefix}`."
     },
     "serverbackup": {
       "success": "Impostazioni aggiornate con successo!"

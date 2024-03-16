@@ -1,4 +1,5 @@
 {
+  "categoryName": "Diversión",
   "categoryDescription": "Algunos comandos divertidos",
   "8ball": {
     "description": "Hazme una pregunta.",
@@ -7,7 +8,6 @@
         "description": "¿Sobre qué opino?"
       }
     },
-    "noQuestion": "No me has preguntado nada???",
     "responseList": [
       "Tal y como yo lo veo, sí.",
       "Es cierto.",
@@ -34,8 +34,8 @@
       "Noé",
       "Nah",
       "Nu",
-      "No.",
-      "¡No!",
+      "Nu.",
+      "Nu!",
       "¡Noooooooo!",
       "Mi respuesta es no.",
       "Mis fuentes dicen que no.",
@@ -67,7 +67,7 @@
       }
     },
     "embedTitle": "Fusión de avatar: {user1} y {user2}",
-    "missingParam": "¡Tienes que mencionar al menos un miembro!"
+    "missingParam": "Tienes que mencionar al menos a un miembro, ¡excluyéndote a ti mismo!"
   },
   "birthday": {
     "description": "Salva su cumpleaños y enviaré un mensaje ese día.",
@@ -127,65 +127,6 @@
       "embedTitle": "Los próximos cumpleaños",
       "date": "**{month} {day}**\n",
       "notFound": "Nadie tiene un juego de cumpleaños..."
-    }
-  },
-  "dm": {
-    "description": "envía un dm a un usuario",
-    "options": {
-      "toggle": {
-        "description": "activa la capacidad de enviar dms hechos por el usuario.",
-        "options": {
-          "target": {
-            "description": "el usuario que desea activar; deje esto vacío para alternar todos los usuarios (\"*\")."
-          }
-        }
-      },
-      "blacklist": {
-        "description": "Enumera todos los usuarios que estás bloqueando."
-      },
-      "send": {
-        "description": "Enviar un dm a un miembro de este gremio.",
-        "options": {
-          "target": {
-            "description": "el usuario al que quieres enviar un dm"
-          },
-          "message": {
-            "description": "el mensaje que quieres enviar, /n para la nueva línea"
-          },
-          "as_mod": {
-            "description": "muestra 'un mod de [guild]' en lugar de tu nombre"
-          }
-        }
-      }
-    },
-    "toggle": {
-      "targetAll": {
-        "saved": "nadie será",
-        "removed": "`todos los usuarios`"
-      },
-      "targetOne": {
-        "name": "Usuario `{user}`",
-        "isnt": "{user} no es"
-      },
-      "saved": "Tu entrada en la lista negra para {user} ha sido guardada.\nAhora {state} puede enviarte dms por mí.\nEsto no impedirá que los moderadores del gremio te envíen dms.",
-      "removed": "Tu entrada en la lista negra para {user} ha sido eliminada.\nAhora puedes recibir dms creados por {user} de mi parte."
-    },
-    "blacklist": {
-      "notFound": "> No estás bloqueando a ningún usuario de este gremio.",
-      "allBlocked": "> Estás bloqueando a todos.",
-      "embedTitle": "Tu lista negra para el comando `/dm send`",
-      "embedDescription": "Estás bloqueando a los siguientes miembros del gremio:\n{members}",
-      "embedFooterText": "Ejecutar '/dm toggle' sin argumentos para alternar todos los usuarios y\nejecutar '/dm toggle' con el argumento 'user_to_toggle' para alternar un usuario específico."
-    },
-    "send": {
-      "targetIsMe": "¡No puedo enviar DMs a mí mismo!",
-      "permissionDenied": "¡No tienes permiso para enviar dms a ese usuario!",
-      "asModInfo": "\nUtilice la opción `as_mod` para forzar el envío del mensaje.",
-      "embedTitle": "¡Tienes un mensaje!",
-      "embedDescription": "De **{user}**\nGuild: {guild}\n\n{msg}",
-      "fromMod": "moderador de un gremio",
-      "embedFooterText": "Si no quieres recibir dms hechos por el usuario, ejecuta '/dm toggle' en cualquier gremio.",
-      "error": "¡No pude enviar mensajes a este miembro!"
     }
   },
   "fact": {
@@ -293,7 +234,7 @@
       }
     },
     "managerNotFound": "Esta función está desactivada o no está registrada.",
-    "notFound": "Su id de mensaje proporcionado no es un regalo válido!",
+    "notFound": "Su id de mensaje proporcionado no es un regalo válido o ya ha terminado!",
     "invalidTime": "¡El valor de duración/add_time proporcionado no es válido!",
     "notHost": "Usted no es el anfitrión de este regalo!",
     "buttonLabel": "Ver regalos",
@@ -335,11 +276,6 @@
     "requiresArgs": "Este comando requiere los siguientes argumentos en orden:\n\n{args}",
     "error": "Se ha producido un error:\n```{err}```"
   },
-  "inspirobot": {
-    "description": "Obtén una cita inspiradora.",
-    "error": "Se ha producido un error.",
-    "notFound": "No hay citas inspiradoras disponibles :("
-  },
   "joke": {
     "description": "envía un chiste divertido",
     "usage": {
@@ -370,41 +306,6 @@
     },
     "noAPIAvailable": "Aparentemente, actualmente no hay ninguna API disponible. Inténtalo de nuevo más tarde.",
     "embedTitle": "¿Es esto divertido?"
-  },
-  "motherweight": {
-    "description": "\"Calcula\" el peso de su madre.",
-    "options": {
-      "target": {
-        "description": "¿El peso de cuya madre desea calcular?"
-      }
-    },
-    "responsesSelf": {
-      "0": "Lo siento, parece que no tienes una madre",
-      "1": "¿Su madre recibe suficiente comida?",
-      "2": "Tu madre es tan gorda la foto del grupo desde la escuela elemental aún está imprimiendo hasta el día de hoy",
-      "3": "McDonalds se interrumpiría sin tu madre ",
-      "4": "Tu madre es tan gorda que inventó el iPad sentada en el iPhone",
-      "5": "Tu madre es tan gordas que te empujan a trabajar en un Extravador de cubo ancho",
-      "6": "Tu madre es tan gorda que cayó del árbol familiar",
-      "7": "Tu madre tiene el ecuador de tamaño de la cinta",
-      "8": "Tu madre es tan gorda que si intentas correrla, necesitarás refugiarte a mitad de camino.",
-      "9": "Tu madre es tan gorda cuando cayó en el Gran Cañón que se quedó atascada",
-      "10": "¿QUIÉN LA SALUD ES REALIZADA PARA HACERLA GRAVA?!?!"
-    },
-    "responsesOthers": {
-      "0": "Lo siento, parece que {user} no tiene una madre",
-      "1": "¿La madre de {user}recibe suficientes alimentos?",
-      "2": "La madre de {user}es tan gorda que la foto en grupo de la escuela elemental sigue imprimiendo hasta el día de hoy.",
-      "3": "McDonalds se interrumpiría sin la madre de {user}.",
-      "4": "La madre de {user}es tan gorda que inventó el iPad sentándose en el iPhone.",
-      "5": "La madre de {user}es tan gorda que trabaja en un excavador de cubo ancho ancho.",
-      "6": "La madre de {user}es tan gorda que cayó de la familia.",
-      "7": "La madre de {user}tiene el ecuador de tamaño del cinturón.",
-      "8": "La madre de {user}es tan gorda que si intentaste correrla, necesitarás refugiarte a mitad de camino.",
-      "9": "La madre de {user}es tan gorda cuando cayó en el Gran Cañón que se atascó.",
-      "10": "¿QUIÉN LA SALUD ES REALIZADA PARA HACERLA GRAVA?!?!"
-    },
-    "weight": "\nElla pesa {weight}kg."
   },
   "pokedex": {
     "description": "Muestra información sobre el pokémon especificado.",
@@ -481,8 +382,7 @@
         "description": "El canal al que se envía el mensaje"
       }
     },
-    "noPerm": "¡No tienes permiso para enviar mensajes en ese canal!",
-    "noMsgProvided": "¡Necesitas proporcionar un mensaje para enviar!"
+    "noPerm": "¡No tienes permiso para enviar mensajes en ese canal!"
   },
   "sleep": {
     "description": "dice a tus amigos que vas a dormir",
@@ -797,7 +697,7 @@
     "needConfirm": "Necesitas confirmar esta acción escribiendo `CLEAR ALL` en la opción de confirmación!",
     "embedTitle": "Disparadores",
     "embedTitleOne": "**Disparador {id}:**",
-    "embedDescriptionOne": "**Desencadenador:**\n```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Tarjeta comodín:** `{wildcard}`",
+    "embedDescriptionOne": "**Trigger:**\n```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Disparador: `{trigger}`\n> Respuesta: `{response}`\n> Comodino: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
     "shortFieldValue": "**Disparador:**\n```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Comodino: **`{wildcard}`\n",
