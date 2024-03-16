@@ -4,8 +4,8 @@ const { PermissionFlagsBits, EmbedBuilder } = require('discord.js');
  * @this {import('discord.js').VoiceState}
  * @param {import('discord.js').VoiceState}newState*/
 module.exports = function voiceStateUpdate(newState) {
-  const setting = this.guild?.db.config?.logger?.voiceChannelActivity ?? {};
-  if (this.client.botType == 'dev' || !this.guild || !setting.enabled || !setting.channel || this.channelId == newState.channelId) return;
+  const setting = this.guild.db.config?.logger?.voiceChannelActivity;
+  if (this.client.botType == 'dev' || !setting?.enabled || !setting.channel || this.channelId == newState.channelId) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
   if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;

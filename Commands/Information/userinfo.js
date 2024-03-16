@@ -17,6 +17,8 @@ module.exports = {
 
     const
       member = getTargetMember.call(this, { returnSelf: true }),
+
+      /** @type {import('../../database').default.userSettings[memberId]['birthday']} */
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       bannerURL = (await member.user.fetch()).bannerURL();
 

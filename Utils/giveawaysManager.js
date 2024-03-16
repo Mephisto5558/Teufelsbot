@@ -20,9 +20,8 @@ module.exports = class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
   editGiveaway = this.saveGiveaway;
 
   /** @param {import('discord.js').Snowflake}messageId*/
-  async deleteGiveaway(messageId) {
+  deleteGiveaway(messageId) {
     const guildId = Object.entries(this.client.db.get('guildSettings')).find(([,v]) => v.giveaway?.giveaways?.find(e => e.messageId == messageId))[0];
-    await this.client.db.delete('guildSettings', `${guildId}.giveaway.giveaways.${messageId}`);
-    return true;
+    return this.client.db.delete('guildSettings', `${guildId}.giveaway.giveaways.${messageId}`);
   }
 };

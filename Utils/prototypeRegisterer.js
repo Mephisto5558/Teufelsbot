@@ -90,18 +90,24 @@ Object.defineProperty(BaseInteraction.prototype, 'customReply', {
 Object.defineProperties(Client.prototype, {
   prefixCommands: { value: new Collection() },
   slashCommands: { value: new Collection() },
-  i18n: { value: new I18nProvider({
-    notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: join(__dirname, '/../Locales'),
-    warnLoggingFunction: log._log.bind(log, { file: 'warn', type: 'I18n' })
-  }) },
+  i18n: {
+    value: new I18nProvider({
+      notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: join(__dirname, '/../Locales'),
+      warnLoggingFunction: log._log.bind(log, { file: 'warn', type: 'I18n' })
+    })
+  },
   cooldowns: { value: new Map() },
   config: { value: config },
+
+  /** @type {Record<string, (this: Client, val: any) => any>} */
   settings: {
-    get() { return this.db?.get('botSettings') ?? {}; },
+    get() { return this.db.get('botSettings'); },
     set(val) { this.db.set('botSettings', val); }
   },
+
+  /** @type {Record<string, (this: Client, val: any) => any>} */
   defaultSettings: {
-    get() { return this.db?.get('guildSettings')?.default ?? {}; },
+    get() { return this.db.get('guildSettings', 'default'); },
     set(val) { this.db.update('guildSettings', 'default', val); }
   },
   loadEnvAndDB: {
