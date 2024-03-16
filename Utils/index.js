@@ -8,7 +8,7 @@ module.exports = {
   configValidator: require('./configValidator.js'),
   cooldowns: require('./cooldowns.js'),
 
-  /** @type {Record<string, number|string>}*/
+  /** @type {Record<string, number>}*/
   DiscordAPIErrorCodes: require('./DiscordAPIErrorCodes.json'),
   errorHandler: require('./errorHandler.js'),
   findAllEntries: require('./findAllEntries.js'),

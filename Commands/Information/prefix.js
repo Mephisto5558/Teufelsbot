@@ -6,7 +6,7 @@ module.exports = {
 
   run: function (lang) {
     const currentPrefix = this.guild.db.config?.prefix?.prefix ?? this.client.defaultSettings.config.prefix;
-    const prefixCaseInsensitive = this.guild.db.config?.prefix?.caseinsensitive ?? false;
+    const prefixCaseInsensitive = !!this.guild.db.config?.prefix?.caseinsensitive;
 
     return this.customReply(lang('currentPrefix', currentPrefix) + (prefixCaseInsensitive ? lang('caseInsensitive') : ''));
   }

@@ -3,9 +3,9 @@ const originalPatch = require('discord.js').Message.prototype._patch;
 
 /**
  * Modified from default one.
+ * @type {import('discord.js').Message['_patch']}
  * @this {Message}
- * @param {import('discord.js').APIMessage | import('discord.js').GatewayMessageUpdateDispatchData}data
- * @param {any[]}rest*/
+ **/
 module.exports = function _patch(data, ...rest) {
   if ('content' in data) {
     this.originalContent = data.content ?? null;

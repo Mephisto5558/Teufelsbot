@@ -39,7 +39,7 @@ const
           },
           thumbnail: this.options.getString('thumbnail'),
           image: this.options.getString('image'),
-          lastChance: this.guild.db.giveaway?.useLastChance ?? defaultSettings.useLastChance,
+          lastChance: this.guild.db.giveaway?.useLastChance,
           isDrop: this.options.getBoolean('is_drop')
         };
 
