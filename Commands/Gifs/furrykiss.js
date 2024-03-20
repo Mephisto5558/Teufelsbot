@@ -20,7 +20,7 @@ module.exports = {
 
   run: function (lang) {
     const
-      target = getTargetMember.call(this),
+      target = getTargetMember(this),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: lang(target ? 'embedDescriptionTarget' : 'embedDescription', { user: (this.member ?? this.user).displayName, target: target?.displayName }),

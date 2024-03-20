@@ -10,7 +10,7 @@ module.exports = {
   beta: true,
 
   run: async function (lang) {
-    const target = getTargetMember.call(this)?.id;
+    const target = getTargetMember(this)?.id;
     if (this.args[0] == 'off') {
       if (!this.client.settings.blacklist?.includes(target)) return this.customReply(lang('notFound'));
 

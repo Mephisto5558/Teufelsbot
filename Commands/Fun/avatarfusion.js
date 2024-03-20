@@ -25,7 +25,7 @@ module.exports = {
   run: async function (lang) {
     const
       type = (this.options?.getString('avatar_type') ?? 'server') == 'server',
-      base = getTargetMember.call(this, { targetOptionName: 'base' }),
+      base = getTargetMember(this, { targetOptionName: 'base' }),
       overlay = this.options?.getMember('overlay') ?? this.mentions?.members.at(1) ?? this.member;
 
     if (!base || base.id == overlay.id) return this.customReply(lang('missingParam'));

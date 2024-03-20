@@ -19,7 +19,7 @@ module.exports = {
 
   run: function (lang) {
     const
-      target = getTargetMember.call(this, { returnSelf: true }),
+      target = getTargetMember(this, { returnSelf: true }),
       avatarURL = target.displayAvatarURL({ size: this.options?.getInteger('size') ?? 2048 }),
       embed = new EmbedBuilder({
         description: lang('embedDescription', target.user?.username ?? target.username),

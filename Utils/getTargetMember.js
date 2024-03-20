@@ -1,20 +1,14 @@
-/**
- * @this {Interaction|Message}
- * @param {{ targetOptionName?: string, returnSelf?: boolean }} options
- * @param {string?} options.targetOptionName the option name for `this.options.getX(targetOptionName)`.
- * @param {boolean?} options.returnSelf return this.member or this.user if nothing else has been found
- * @returns {import('discord.js').GuildMember | import('discord.js').User | undefined}
- */
-module.exports = function getTargetMember({ targetOptionName = 'target', returnSelf } = {}) {
-  if (this.inGuild()) {
-    /** @type {import('discord.js').GuildMember?}*/
-    let target = this.options?.getMember(targetOptionName) ?? this.mentions?.members.first();
-    if (!target && this.content) target = this.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.globalName, e.nickname].some(e => [...this.args ?? [], this.content].includes(e)));
+/** @type {import('./types').getTargetMember} */
+module.exports = function getTargetMember(interaction, { targetOptionName = 'target', returnSelf } = {}) {
+  if (interaction.inGuild()) {
+    let target = interaction.options?.getMember(targetOptionName) ?? interaction.mentions?.members.first();
+    if (!target && interaction.content)
+      target = interaction.guild.members.cache.find(e => [e.user.id, e.user.username, e.user.globalName, e.nickname].some(e => [...interaction.args ?? [], interaction.content].includes(e)));
     if (target) return target;
-    if (returnSelf) return this.member;
+    if (returnSelf) return interaction.member;
   }
 
-  const target = this.options?.getUser(targetOptionName) ?? this.mentions?.users.first();
+  const target = interaction.options?.getUser(targetOptionName) ?? interaction.mentions?.users.first();
   if (target) return target;
-  if (returnSelf) return this.user;
+  if (returnSelf) return interaction.user;
 };

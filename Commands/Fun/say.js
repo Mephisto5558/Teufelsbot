@@ -30,7 +30,7 @@ module.exports = {
       allowedMentions = { parse: [AllowedMentionsTypes.User] },
 
       /** @type {import('discord.js').GuildTextBasedChannel}*/
-      channel = getTargetChannel.call(this, { returnSelf: true });
+      channel = getTargetChannel(this, { returnSelf: true });
 
     if (!this.member.permissionsIn(channel).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])) return this.customReply(lang('noPerm'));
 
