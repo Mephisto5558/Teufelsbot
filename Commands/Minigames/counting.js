@@ -18,8 +18,7 @@ module.exports = {
       counting = this.guild.db.counting ?? {},
 
       /** @type {import('discord.js').GuildTextBasedChannel}*/
-      channel = getTargetChannel.call(this, { returnSelf: true });
-
+      channel = getTargetChannel(this, { returnSelf: true });
 
     if (counting[channel.id]) {
       await this.client.db.delete('guildSettings', `${this.guild.id}.counting.${channel.id}`);

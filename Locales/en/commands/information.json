@@ -145,7 +145,6 @@
         "description": "the role you want to get information about"
       }
     },
-    "notFound": "This role could not be found. Try using its ID.",
     "mention": "Mention",
     "members": "Members",
     "color": "Color",

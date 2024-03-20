@@ -125,7 +125,7 @@ module.exports = {
       amount = this.options?.getInteger('amount') ?? Number.parseInt(this.args[0]).limit({ min: 0, max: 1000 }),
 
       /** @type {import('discord.js').GuildTextBasedChannel}*/
-      channel = getTargetChannel.call(this, { returnSelf: true }),
+      channel = getTargetChannel(this, { returnSelf: true }),
       options = Object.fromEntries(this.options?.data.map(e => [e.name, e.value]) ?? []);
 
     let messages,

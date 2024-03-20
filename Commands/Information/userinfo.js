@@ -16,7 +16,7 @@ module.exports = {
     this.content = this.content?.replaceAll(/[&<>@]/g, '');
 
     const
-      member = getTargetMember.call(this, { returnSelf: true }),
+      member = getTargetMember(this, { returnSelf: true }),
 
       /** @type {Exclude<import('../../database').default.userSettings[''], undefined>['birthday']} */
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),

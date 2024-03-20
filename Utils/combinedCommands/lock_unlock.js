@@ -10,8 +10,8 @@ module.exports = async function lock_unlock(lang) {
   const
     msg = await this.customReply(lang('global.loading')),
 
-    /** @type {import('discord.js').TextChannel}*/
-    channel = getTargetChannel.call(this, { returnSelf: true }),
+    /** @type {import('discord.js').GuildTextBasedChannel}*/
+    channel = getTargetChannel(this, { returnSelf: true }),
     reason = this.options?.getString('reason') ?? this.args?.join(' ') ?? lang('noReason'),
     embed = new EmbedBuilder({
       title: lang('embedTitle'),

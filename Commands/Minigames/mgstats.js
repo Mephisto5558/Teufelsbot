@@ -71,7 +71,7 @@ module.exports = {
 
     const
       type = this.options?.getSubcommand() ?? 'user',
-      target = getTargetMember.call(this, { returnSelf: true }),
+      target = getTargetMember(this, { returnSelf: true }),
       settings = this.options?.getString('settings'),
       leaderboards = this.client.db.get('leaderboards'),
       [game, data] = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == (this.options?.getString('game') ?? this.args[0]).toLowerCase()) ?? [],

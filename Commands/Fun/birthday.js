@@ -26,9 +26,7 @@ const
 
     get: async function get(lang) {
       const
-
-        /** @type {import('discord.js').GuildMember} */
-        target = getTargetMember.call(this),
+        target = getTargetMember(this),
         doNotHide = this.options.getBoolean('do_not_hide'),
         embed = new EmbedBuilder({
           color: Colors.Blurple,
