@@ -9,14 +9,11 @@ function timeValidator(timeStr) {
   let
     numberBuffer = '',
     unitBuffer = '';
+
   for (let i = 0; i < timeStr.length; i++) {
     const char = timeStr[i];
-    if (char == '-' || char == '+') {
-      numberBuffer += char;
-      continue;
-    }
-
-    if (Number.isNaN(Number.parseInt(char))) unitBuffer = unitBuffer.length && Number.isNaN(Number.parseInt(timeStr[i - 1])) ? unitBuffer + char : char;
+    if (char == '-' || char == '+') numberBuffer += char;
+    else if (Number.isNaN(Number.parseInt(char))) unitBuffer = unitBuffer.length && Number.isNaN(Number.parseInt(timeStr[i - 1])) ? unitBuffer + char : char;
     else if (!unitBuffer.length || !Number.isNaN(Number.parseInt(timeStr[i - 1]))) numberBuffer += char;
     else if (validItems.includes(unitBuffer)) {
       numberBuffer += unitBuffer + char;
@@ -52,8 +49,5 @@ function testTimevalidator() {
     { input: '3p2h', expectedOutput: [] }
   ];
 
-  for (const { input, expectedOutput } of testCases) {
-    const result = timeValidator(input).join(', ');
-    if (result != expectedOutput.join(', ')) console.log(`Input: "${input}" | Expected output: [${expectedOutput.join(', ')}] | Actual output: [${result}]`);
-  }
+  require('./testAFunction')(timeValidator, testCases);
 }
