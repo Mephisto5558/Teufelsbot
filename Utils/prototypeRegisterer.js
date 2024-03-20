@@ -4,13 +4,12 @@ const
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('node:crypto'),
   { join } = require('node:path'),
+  { writeFileSync } = require('node:fs'),
   { DB } = require('@mephisto5558/mongoose-db'),
   I18nProvider = require('@mephisto5558/i18n'),
   { Log, customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
   findAllEntries = require('./findAllEntries.js'),
 
-  /** @type {Client['config']} */
-  config = require('../config.json'),
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
 /**
@@ -22,6 +21,19 @@ function deepMerge(target, source) {
     if (Object.hasOwn(source, key)) target[key] = source[key] instanceof Object ? deepMerge(target[key] ?? {}, source[key]) : source[key];
 
   return target;
+}
+
+/** @type {Client['config']} */
+let config;
+try { config = require('../config.json'); }
+catch (err) {
+  if (err.code != 'MODULE_NOT_FOUND') throw err;
+  log.warn('Missing config.json. This file is required to run the bot.');
+
+  writeFileSync('../config.json', '{}');
+  config = {};
+
+  log.warn('An empty config.json has been created.');
 }
 
 config.website ??= {};
