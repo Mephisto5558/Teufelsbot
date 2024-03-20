@@ -145,7 +145,6 @@
         "description": "le rôle sur lequel vous voulez obtenir des informations"
       }
     },
-    "notFound": "Ce rôle est introuvable. Essayez d'utiliser son ID.",
     "mention": "Mentionner",
     "members": "Membres",
     "color": "Couleur",
