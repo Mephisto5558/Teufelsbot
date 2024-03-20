@@ -1,5 +1,4 @@
 const
-  { writeFile } = require('node:fs/promises'),
   { ConnectionString } = require('mongodb-connection-string-url'),
   validConfig = {
     website: {
@@ -71,17 +70,8 @@ function configValidationLoop(obj, checkObj, allowNull) {
   }
 }
 
-module.exports = async function validateConfig() {
-  let config;
-
-  try { config = require('../config.json'); }
-  catch (err) {
-    if (err.code != 'MODULE_NOT_FOUND') throw err;
-    log.warn('Missing config.json. This file is required to run the bot.');
-    await writeFile('./config.json', '{}');
-    log.warn('An empty config.json has been created.');
-  }
-
+module.exports = function validateConfig() {
+  const config = require('../config.json'); // prototypeRegisterer makes sure that the file exists
   if (config) configValidationLoop(config, validConfig, true);
 
   const env = require('../env.json');
