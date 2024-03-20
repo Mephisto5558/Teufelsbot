@@ -145,7 +145,6 @@
         "description": "el rol sobre el que quieres obtener información"
       }
     },
-    "notFound": "No se pudo encontrar este rol. Intenta usar su ID.",
     "mention": "Mención",
     "members": "Miembros",
     "color": "Color",
