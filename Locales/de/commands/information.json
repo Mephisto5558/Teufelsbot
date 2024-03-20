@@ -145,7 +145,6 @@
         "description": "Die Rolle, über welche du mehr wissen möchtest"
       }
     },
-    "notFound": "Die Rolle wurde nicht gefunden. Versuche, die Rollen-ID zu nutzen.",
     "mention": "Erwähnung",
     "members": "Mitglieder",
     "color": "Farbe",
