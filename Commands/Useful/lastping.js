@@ -19,10 +19,10 @@ module.exports = {
 
   run: function (lang) {
     const
-      target = getTargetMember.call(this, { targetOptionName: 'member' }),
+      target = getTargetMember(this, { targetOptionName: 'member' }),
 
       /** @type {import('discord.js').GuildTextBasedChannel} */
-      channel = getTargetChannel.call(this);
+      channel = getTargetChannel(this);
 
     if (target) {
       if (!channel) return this.customReply(lang('memberRequiresChannel'));

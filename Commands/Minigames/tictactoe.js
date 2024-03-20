@@ -47,7 +47,7 @@ module.exports = {
 
   run: function (lang) {
     const
-      gameTarget = getTargetMember.call(this, { targetOptionName: 'opponent' })?.id,
+      gameTarget = getTargetMember(this, { targetOptionName: 'opponent' })?.id,
       game = new TicTacToe({
         simultaneousGames: true,
         gameExpireTime: 60,
