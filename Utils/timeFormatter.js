@@ -54,8 +54,5 @@ function testTimeFormatter() {
     { input: 31_536_000 + 86_400 * 365 + 86_400 * 30, expectedOutput: '0002-30, 00:00:00' }
   ];
 
-  for (const { input, expectedOutput } of testCases) {
-    const result = timeFormatter(input).formatted;
-    if (result != expectedOutput) console.log(`Input: "${input}" | Expected output: "${expectedOutput}" | Actual output: "${result}"`);
-  }
+  require('./testAFunction')(timeFormatter, testCases);
 }
