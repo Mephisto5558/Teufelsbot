@@ -2,7 +2,7 @@ import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
 import type I18nProvider from '@mephisto5558/i18n';
 import type { WebServer } from '@mephisto5558/bot-website';
-import type Database from './database';
+import type { Database, FlattenedDatabase } from './database';
 import type BackupSystem from './Utils/backupSystem';
 import type GiveawayManagerWithOwnDatabase from './Utils/giveawaysManager';
 
@@ -378,8 +378,8 @@ declare module 'discord.js' {
     cooldowns: Map<string, Record<string, Map<string, number>>>;
     db: DB;
     i18n: I18nProvider;
-    settings: Database.botSettings;
-    defaultSettings: Database.guildSettings['default'];
+    settings: Database['botSettings'];
+    defaultSettings: Database['guildSettings']['default'];
     botType: __local.Env['environment'];
     keys: __local.Env['keys'];
 
@@ -455,7 +455,7 @@ declare module 'discord.js' {
      * ```js
      * this.client.db.get('userSettings', this.id) ?? {}
      * ```*/
-    get db(): Exclude<Database.userSettings[''], undefined>;
+    get db(): Exclude<Database['userSettings'][''], undefined>;
     customName: string;
     customTag: string;
   }
@@ -474,7 +474,7 @@ declare module 'discord.js' {
      * ```js
      * this.client.db.get('guildSettings', this.id) ?? {}
      * ```*/
-    get db(): Exclude<Database.guildSettings[''], undefined>;
+    get db(): Exclude<Database['guildSettings'][''], undefined>;
     localeCode: string;
   }
 }
@@ -498,12 +498,11 @@ declare module '@mephisto5558/mongoose-db' {
      * @param overwrite overwrite existing collection, default: `false`*/
     generate(overwrite?: boolean): Promise<void>;
 
-    get(db: 'leaderboards'): Database.leaderboards;
-    get(db: 'userSettings'): Database.userSettings;
-    get(db: 'guildSettings'): Database.guildSettings;
-    get(db: 'polls'): Database.polls;
-    get(db: 'botSettings'): Database.botSettings;
-    get(db: 'backups'): Database.backups;
-    get(db: 'website'): Database.website;
+    get<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, key?: K): K extends undefined ? FlattenedDatabase[DB] : FlattenedDatabase[DB][K];
+    update<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, key: K, value: FlattenedDatabase[DB][K]): Promise<Database[DB]>;
+    set<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, value: FlattenedDatabase[DB][K], overwrite?: boolean): Promise<Database[DB]>;
+    delete<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, key?: K): Promise<boolean>;
+    push<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, key: K, ...value: FlattenedDatabase[DB][K]): Promise<Database[DB]>;
+    pushToSet<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, key: K, ...value: FlattenedDatabase[DB][K]): Promise<Database[DB]>;
   }
 }

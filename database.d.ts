@@ -4,7 +4,7 @@ import type { Snowflake, ActivityType, GuildFeature, EmbedData } from 'discord.j
 import { __local } from './globals';
 import { GiveawayData } from 'discord-giveaways';
 
-export default Database;
+export { Database, FlattenedDatabase };
 
 interface Embed {
   title: string;
@@ -45,8 +45,8 @@ type messageId = Snowflake;
 type userId = Snowflake;
 type roleId = Snowflake;
 
-declare namespace Database {
-  type leaderboards = {
+type Database = {
+  leaderboards: {
     [gameName: string]: {
       [userId: userId]: {
         wins?: number;
@@ -61,7 +61,7 @@ declare namespace Database {
     } | undefined;
   };
 
-  type userSettings = {
+  userSettings: {
     [userId: userId]: {
       birthday?: Date;
       customName?: string;
@@ -75,7 +75,7 @@ declare namespace Database {
     } | undefined;
   };
 
-  type guildSettings = {
+  guildSettings: {
     default: {
       config: {
         prefix: string;
@@ -123,6 +123,7 @@ declare namespace Database {
         } | undefined>;
       };
       birthday?: {
+        enable?: boolean;
         ch?: {
           channel?: channelId;
           msg?: {
@@ -138,7 +139,6 @@ declare namespace Database {
             content?: string;
           };
         };
-        enable?: boolean;
       };
       triggers?: {
         id: number;
@@ -147,7 +147,7 @@ declare namespace Database {
         wildcard: boolean;
       }[];
       gatekeeper?: {
-        enabled?: boolean;
+        enable?: boolean;
         ['join' | 'leave']: {
           channel: channelId;
           message: {
@@ -221,11 +221,11 @@ declare namespace Database {
     } | undefined;
   };
 
-  type polls = {
+  polls: {
     [guildId: guildId]: userId | undefined;
   };
 
-  type botSettings = {
+  botSettings: {
     env?: __local.Env;
     activity?: {
       name: string;
@@ -245,7 +245,7 @@ declare namespace Database {
     blacklist?: userId[];
   };
 
-  type backups = {
+  backups: {
     [backupId: `${guildId}${Snowflake}`]: {
       id: `${guildId}${Snowflake}`;
       metadata: [userId | userId[]];
@@ -318,7 +318,7 @@ declare namespace Database {
     } | undefined;
   };
 
-  type website = {
+  website: {
     requests: {
       [requestId: string | `${userId}_${number}`]: {
         id: string | `${userId}_${number}`;
@@ -390,4 +390,53 @@ declare namespace Database {
       } | undefined;
     };
   };
-}
+};
+
+type FlattenedDatabase = { [DB in keyof Database]: FlattenObject<Database[DB]>; };
+
+/* https://github.com/blazejkustra/dynamode/blob/fd3abf1e420612811c3eba96ec431e00c28b2783/lib/utils/types.ts#L10
+   Flatten entity  */
+type FlattenObject<TValue> = CollapseEntries<CreateObjectEntries<TValue, TValue>>;
+
+type Entry = { key: string; value: unknown };
+type EmptyEntry<TValue> = { key: ''; value: TValue };
+type ExcludedTypes = Date | Set<unknown> | Map<unknown, unknown> | Array<unknown>;
+type ArrayEncoder = `[${bigint}]`;
+
+type EscapeArrayKey<TKey extends string> = TKey extends `${infer TKeyBefore}.${ArrayEncoder}${infer TKeyAfter}`
+  ? EscapeArrayKey<`${TKeyBefore}${ArrayEncoder}${TKeyAfter}`>
+  : TKey;
+
+// Transforms entries to one flattened type
+type CollapseEntries<TEntry extends Entry> = { [E in TEntry as EscapeArrayKey<E['key']>]: E['value']; };
+
+// Transforms array type to object
+type CreateArrayEntry<TValue, TValueInitial> = OmitItself<
+  TValue extends unknown[] ? { [k: ArrayEncoder]: TValue[number] } : TValue,
+  TValueInitial
+>;
+
+// Omit the type that references itself
+type OmitItself<TValue, TValueInitial> = TValue extends TValueInitial
+  ? EmptyEntry<TValue>
+  : OmitExcludedTypes<TValue, TValueInitial>;
+
+// Omit the type that is listed in ExcludedTypes union
+type OmitExcludedTypes<TValue, TValueInitial> = TValue extends ExcludedTypes
+  ? EmptyEntry<TValue>
+  : CreateObjectEntries<TValue, TValueInitial>;
+
+type CreateObjectEntries<TValue, TValueInitial> = TValue extends object ? {
+  // Checks that Key is of type string
+  [TKey in keyof TValue]-?: TKey extends string
+    ? // Nested key can be an object, run recursively to the bottom
+    CreateArrayEntry<TValue[TKey], TValueInitial> extends infer TNestedValue
+      ? TNestedValue extends Entry
+        ? TNestedValue['key'] extends ''
+          ? { key: TKey; value: TNestedValue['value'] }
+          : { key: `${TKey}.${TNestedValue['key']}`; value: TNestedValue['value'] } | { key: TKey; value: TValue[TKey] }
+        : never
+      : never
+    : never;
+}[keyof TValue] // Builds entry for each key
+  : EmptyEntry<TValue>;
