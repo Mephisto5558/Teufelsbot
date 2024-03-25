@@ -8,7 +8,7 @@ const
   setupMainFunctions = {
     toggle_module: async function toggleModule(lang) {
       const
-        module = this.options.getString('module'),
+        module = this.options.getString('module', true),
         setting = this.guild.db[module]?.enable; // Todo: document and probably sth like `this.guild.db.modules[module]` for better typing
 
       await this.client.db.update('guildSettings', `${this.guild.id}.${module}.enable`, !setting);
@@ -17,7 +17,7 @@ const
 
     toggle_command: async function toggleCommand(lang) {
       const
-        command = this.options.getString('command'),
+        command = this.options.getString('command', true),
         commandData = this.guild.db.commandSettings?.[command]?.disabled ?? {},
         { roles = [], channels = [], users = [] } = commandData,
         count = { enabled: { channels: 0, users: 0, roles: 0 }, disabled: { channels: 0, users: 0, roles: 0 } };
@@ -91,7 +91,7 @@ const
 
     language: async function setLanguage() {
       const
-        language = this.options.getString('language'),
+        language = this.options.getString('language', true),
 
         /** @type {lang}*/
         newLang = this.client.i18n.__.bind(this.client.i18n, { locale: this.client.i18n.availableLocales.has(language) ? language : this.client.i18n.config.defaultLocale }),
@@ -107,7 +107,7 @@ const
     },
 
     prefix: async function setPrefix(lang) {
-      const newPrefix = this.options.getString('new_prefix');
+      const newPrefix = this.options.getString('new_prefix', true);
       const prefixCaseInsensitive = this.options.getBoolean('case_insensitive') ?? this.guild.db.config?.prefix?.caseinsensitive ?? false;
 
       await this.client.db.update('guildSettings', `${this.guild.id}.config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refix`, { prefix: newPrefix, caseinsensitive: prefixCaseInsensitive });
@@ -115,7 +115,7 @@ const
     },
 
     serverbackup: async function serverBackup(lang) {
-      await this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', Number.parseInt(backup.get(this.options.getString('allowed_to_load'))));
+      await this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', Number.parseInt(backup.get(this.options.getString('allowed_to_load', true))));
       return this.editReply(lang('success'));
     },
 
@@ -127,7 +127,7 @@ const
 
     logger: async function configureLogger(lang) {
       const
-        action = this.options.getString('action'),
+        action = this.options.getString('action', true),
         channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action].channel))?.id ?? this.channel,
         enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? undefined : !this.guild.db.config.logger?.[action].enabled);
 

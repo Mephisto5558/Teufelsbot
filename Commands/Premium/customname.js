@@ -53,7 +53,7 @@ module.exports = {
       }
 
       case 'set': {
-        const newName = this.options?.getString('name') ?? (this.args[0] == 'set' ? this.args.slice(1) : this.args).join(' ').slice(0, 32);
+        const newName = this.options?.getString('name', true) ?? (this.args[0] == 'set' ? this.args.slice(1) : this.args).join(' ').slice(0, 32);
         target.customName = newName;
 
         return this.customReply(newName ? lang('set.success', newName) : lang('clear.success'));

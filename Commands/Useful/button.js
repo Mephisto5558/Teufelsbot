@@ -46,7 +46,7 @@ module.exports = {
     const
       custom = this.options.getString('json'),
       content = this.options.getString('content') ?? undefined,
-      isLink = this.options.getString('style') == ButtonStyle.Link;
+      isLink = this.options.getString('style', true) == ButtonStyle.Link;
 
     let
       msg = this.options.getString('message_id'),

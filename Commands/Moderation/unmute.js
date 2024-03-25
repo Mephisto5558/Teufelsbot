@@ -19,7 +19,7 @@ module.exports = {
     const
 
       /** @type {import('discord.js').GuildMember} */
-      target = this.options.getMember('target'),
+      target = this.options.getMember('target', true),
       reason = this.options.getString('reason') ?? lang('noReason');
 
     if (!target) return this.editReply(lang('notFound'));

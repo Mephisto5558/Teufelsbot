@@ -1,13 +1,13 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
 
-  /** @type {Record<string, (this: GuildInteraction, lang: lang, oldData: Exclude<import('../../database').default.guildSettings['']['triggers'], undefined>, query: string) => Promise<Message>>} */
+  /** @type {Record<string, (this: GuildInteraction, lang: lang, oldData: Exclude<import('../../database').Database['guildSettings']['']['triggers'], undefined>, query: string) => Promise<Message>>} */
   triggerMainFunctions = {
     add: async function (lang, oldData) {
       const data = {
         id: (Number.parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) ?? 0) + 1,
         trigger: this.options.getString('trigger', true),
-        response: this.options.getString('response').replaceAll('/n', '\n'),
+        response: this.options.getString('response', true).replaceAll('/n', '\n'),
         wildcard: !!this.options.getBoolean('wildcard')
       };
 
@@ -27,7 +27,7 @@ const
     },
 
     clear: async function (lang, oldData) {
-      if (this.options.getString('confirmation').toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
+      if (this.options.getString('confirmation', true).toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
       if (!oldData.length) return this.editReply(lang('noneFound'));
 
       await this.client.db.delete('guildSettings', `${this.guild.id}.triggers`);

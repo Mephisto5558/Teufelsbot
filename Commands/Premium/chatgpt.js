@@ -16,7 +16,7 @@ async function fetchAPI(lang, deep) {
     },
     body: JSON.stringify({
       model: 'pai-001',
-      messages: [{ role: 'user', content: this.options?.getString('message') ?? this.content }]
+      messages: [{ role: 'user', content: this.options?.getString('message', true) ?? this.content }]
     })
   }).then(e => e.json());
 
