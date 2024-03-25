@@ -26,8 +26,8 @@ module.exports = {
 
   run: function (lang) {
     const
-      input = this.options.getString('input'),
-      method = this.options.getString('method'),
+      input = this.options.getString('input', true),
+      method = this.options.getString('method', true),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: lang('embedDescription', { input: input.length > 500 ? `${input.slice(0, 500)}\n...` : input, method }),

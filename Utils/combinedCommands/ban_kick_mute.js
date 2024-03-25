@@ -17,7 +17,7 @@ module.exports = async function ban_kick_mute(lang) {
 
     /** @type {number?}*/
     muteDuration = this.options.getString('duration'),
-    reason = this.options.getString('reason');
+    reason = this.options.getString('reason', true);
 
   if (muteDuration) {
     muteDuration = getMilliseconds(muteDuration)?.limit?.({ min: 6e4, max: 2.419e9 });

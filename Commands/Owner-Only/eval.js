@@ -17,7 +17,11 @@ module.exports = {
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
-  options: [{ name: 'code', type: 'String', required: true }],
+  options: [{
+    name: 'code',
+    type: 'String',
+    required: true
+  }],
   beta: true,
 
   run: async function (lang) {

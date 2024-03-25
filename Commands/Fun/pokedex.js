@@ -16,7 +16,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      pokemon = this.options?.getString('pokémon') ?? this.args[0],
+      pokemon = this.options?.getString('pokémon', true) ?? this.args[0],
       msg = await this.customReply(lang('global.loading'));
 
     let res = cache.get(pokemon.toLowerCase());

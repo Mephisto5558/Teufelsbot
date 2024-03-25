@@ -36,7 +36,7 @@ module.exports = {
   ],
 
   run: async function (lang) {
-    let input = this.options.getString('emoji_or_url');
+    let input = this.options.getString('emoji_or_url', true);
 
     const
       limitToRoles = this.options.getString('limit_to_roles')?.split(' ').reduce((acc, e) => {

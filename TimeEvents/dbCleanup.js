@@ -8,7 +8,7 @@ const
  * Deletes giveaway records that concluded over a month ago
  * @this {Client}
  * @param {string}guildId
- * @param {Exclude<Exclude<import('../database').default.guildSettings[''], undefined>['giveaway'], undefined>['giveaways']}db*/
+ * @param {Exclude<Exclude<import('../database').Database['guildSettings'][''], undefined>['giveaway'], undefined>['giveaways']}db*/
 function cleanupGiveawaysDB(guildId, db) {
   if (!db) return;
 
@@ -22,7 +22,7 @@ function cleanupGiveawaysDB(guildId, db) {
  * Removes all lastMentions data older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {Exclude<import('../database').default.guildSettings[''], undefined>['lastMentions']}db*/
+ * @param {Exclude<import('../database').Database['guildSettings'][''], undefined>['lastMentions']}db*/
 function cleanupMentionsDB(guildId, db) {
   if (!db) return;
 
@@ -36,7 +36,7 @@ function cleanupMentionsDB(guildId, db) {
  * Removes all AFK-Messages older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {Exclude<import('../database').default.guildSettings[''], undefined>['afkMessages']}db createdAt is in seconds, not milliseconds*/
+ * @param {Exclude<import('../database').Database['guildSettings'][''], undefined>['afkMessages']}db createdAt is in seconds, not milliseconds*/
 function cleanupAfkMessagesDB(guildId, db) {
   if (!db) return;
 
@@ -50,7 +50,7 @@ function cleanupAfkMessagesDB(guildId, db) {
  * Removes all AFK-Messages older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {Exclude<import('../database').default.guildSettings[''], undefined>['minigames']}db*/
+ * @param {Exclude<import('../database').Database['guildSettings'][''], undefined>['minigames']}db*/
 function cleanUpMinigamesDB(guildId, db) {
   if (!db) return;
 
