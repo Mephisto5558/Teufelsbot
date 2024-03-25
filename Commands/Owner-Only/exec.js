@@ -5,7 +5,11 @@ module.exports = {
   slashCommand: false,
   prefixCommand: true,
   dmPermission: true,
-  options: [{ name: 'command', type: 'String', required: true }],
+  options: [{
+    name: 'command',
+    type: 'String',
+    required: true
+  }],
   beta: true,
 
   run: async function (lang) {

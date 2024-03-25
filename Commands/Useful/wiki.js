@@ -17,7 +17,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      query = this.options?.getString('query') ?? this.content,
+      query = this.options?.getString('query', true) ?? this.content,
       message = await this.customReply(lang('global.loading')),
       options = { headers: { 'User-Agent': 'Discord Bot' + (this.client.config.github.repo ? ` (${this.client.config.github.repo})` : '') } };
 

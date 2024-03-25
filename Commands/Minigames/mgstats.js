@@ -74,7 +74,7 @@ module.exports = {
       target = getTargetMember(this, { returnSelf: true }),
       settings = this.options?.getString('settings'),
       leaderboards = this.client.db.get('leaderboards'),
-      [game, data] = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == (this.options?.getString('game') ?? this.args[0]).toLowerCase()) ?? [],
+      [game, data] = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == (this.options?.getString('game', true) ?? this.args[0]).toLowerCase()) ?? [],
       [sort, mode] = this.options?.getString('sort')?.split('_') ?? [];
 
     if (!data) return this.customReply(lang('notFound', Object.keys(leaderboards).join('`, `')));

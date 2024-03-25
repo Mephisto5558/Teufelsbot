@@ -7,15 +7,15 @@ const
   birthdayMainFunctions = {
     set: async function set(lang) {
       const
-        month = this.options.getInteger('month'),
-        day = this.options.getInteger('day'),
+        month = this.options.getInteger('month', true),
+        day = this.options.getInteger('day', true),
         today = new Date(),
         nextBirthday = new Date(today.getFullYear(), month - 1, day);
 
       if (today > nextBirthday) nextBirthday.setFullYear(today.getFullYear() + 1);
       const diffDays = Math.ceil(Math.abs(nextBirthday - today) / 864e5); // ms -> days
 
-      await this.client.db.update('userSettings', `${this.user.id}.birthday`, new Date(this.options.getInteger('year'), month - 1, day));
+      await this.client.db.update('userSettings', `${this.user.id}.birthday`, new Date(this.options.getInteger('year', true), month - 1, day));
       return this.editReply(lang('saved', diffDays));
     },
 

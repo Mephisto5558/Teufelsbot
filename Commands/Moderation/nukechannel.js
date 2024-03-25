@@ -21,7 +21,7 @@ module.exports = {
   ],
 
   run: async function (lang) {
-    if (this.options.getString('confirmation')?.toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
+    if (this.options.getString('confirmation', true)?.toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
 
     const
       embed = new EmbedBuilder({

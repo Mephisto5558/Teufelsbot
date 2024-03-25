@@ -26,7 +26,7 @@ module.exports = {
     const
 
       /** @type {string}*/
-      msg = this.options?.getString('msg') ?? this.content,
+      msg = this.options?.getString('msg', true) ?? this.content,
       allowedMentions = { parse: [AllowedMentionsTypes.User] },
 
       /** @type {import('discord.js').GuildTextBasedChannel}*/

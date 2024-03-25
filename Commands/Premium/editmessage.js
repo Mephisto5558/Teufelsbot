@@ -43,7 +43,7 @@ module.exports = {
 
     /** @type {Message?}*/
     let msg, modalInteraction;
-    try { msg = await this.options.getChannel('channel').messages.fetch(this.options.getString('message_id')); }
+    try { msg = await this.options.getChannel('channel', true).messages.fetch(this.options.getString('message_id', true)); }
     catch (err) {
       if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
 

@@ -12,8 +12,8 @@ const
         defaultSettings = this.client.defaultSettings.giveaway,
         reaction = this.options.getString('reaction') ?? this.guild.db.giveaway?.reaction ?? defaultSettings.reaction,
         startOptions = {
-          winnerCount: this.options.getInteger('winner_count'),
-          prize: this.options.getString('prize'),
+          winnerCount: this.options.getInteger('winner_count', true),
+          prize: this.options.getString('prize', true),
           hostedBy: this.user,
           botsCanWin: false,
           bonusEntries: { bonus: member => bonusEntries[member.id] },
@@ -24,7 +24,7 @@ const
             giveaway: lang('newGiveaway'),
             giveawayEnded: lang('giveawayEnded'),
             inviteToParticipate:
-              `${this.options.getString('description')}\n\n`
+              `${this.options.getString('description', true)}\n\n`
               + (requiredRoles?.length ? lang('requiredRoles', `<@&${requiredRoles.join('>, <@&')}>\n`) : '')
               + (disallowedMembers?.length ? lang('disallowedMembers', `<@${disallowedMembers.join('< <@')}>\n`) : '')
               + lang('inviteToParticipate', reaction),

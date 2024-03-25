@@ -15,7 +15,7 @@ module.exports = {
 
   run: async function (lang) {
     const
-      parsedEmoji = parseEmoji(this.options?.getString('emoji') ?? this.args[0]),
+      parsedEmoji = parseEmoji(this.options?.getString('emoji', true) ?? this.args[0]),
       emoji = this.client.emojis.cache.get(parsedEmoji?.id) ?? parsedEmoji;
 
     if (!emoji?.id) return this.customReply(lang('notFound'));

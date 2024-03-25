@@ -4,7 +4,11 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
   options: [
-    { name: 'database', type: 'String', required: true },
+    {
+      name: 'database',
+      type: 'String',
+      required: true
+    },
     { name: 'key', type: 'String' }
   ],
   beta: true,

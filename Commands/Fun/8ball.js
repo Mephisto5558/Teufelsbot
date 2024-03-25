@@ -33,7 +33,7 @@ module.exports = {
 
   run: function (lang) {
     /** @type {string}*/
-    const input = this.options?.getString('question') ?? this.content;
+    const input = this.options?.getString('question', true) ?? this.content;
 
     const now = new Date();
     const responseList = lang.__boundThis__.localeData[lang.__boundArgs__[0].locale][`${lang.__boundArgs__[0].backupPath}.responseList`];

@@ -75,7 +75,7 @@ module.exports = {
         ? JSON.parse(custom)
         : {
           title: getOption('title'),
-          description: getOption('description'),
+          description: getOption('description', true),
           thumbnail: { url: getOption('thumbnail') },
           image: { url: getOption('image') },
           color: Number.parseInt(getOption('custom_color')?.slice(1) ?? 0, 16) || Colors[getOption('predefined_color')] || 0,

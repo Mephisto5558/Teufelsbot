@@ -32,7 +32,7 @@ module.exports = {
 
   run: function (lang) {
     const
-      expression = this.content ?? this.options?.getString('expression'),
+      expression = this.options?.getString('expression', true) ?? this.content,
       embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.White });
 
     let result;
