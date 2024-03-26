@@ -60,8 +60,8 @@
   "help": {
     "description": "Zeige alle meine Befehle oder erhalte Informationen über einen spezifischen.",
     "usage": {
-      "usage": "{prefix}help [[category] [command]] | [category]",
-      "examples": "{prefix}help fun joke | {prefix}help fun"
+      "usage": "{prefix}Hilfe [[category] [command]] | [category]",
+      "examples": "{prefix}hilf Spaß Witz | {prefix}hilf Spaß"
     },
     "options": {
       "category": {
