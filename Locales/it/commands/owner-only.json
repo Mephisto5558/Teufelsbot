@@ -74,7 +74,7 @@
     "description": "Imposta l'attività del bot",
     "usage": {
       "usage": "{prefix}setactivity <activity>;[type]",
-      "examples": "{prefix}setactivity eseguire i comandi;giocare"
+      "examples": "{prefix}setactivity eseguire i comandi;playing"
     },
     "invalidType": "Questo non è un tipo valido. I tipi validi sono:\n`{types}`",
     "set": "La mia attività è stata impostata a `{name}` di tipo `{type}`.",
