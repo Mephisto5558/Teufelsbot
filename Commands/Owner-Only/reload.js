@@ -11,6 +11,7 @@ const
 async function reloadCommand(command, reloadedArray) {
   delete require.cache[command.filePath];
 
+  /** @type {command<'both', boolean>} */
   let file = {};
   try { file = require(command.filePath); }
   catch (err) {
@@ -19,6 +20,7 @@ async function reloadCommand(command, reloadedArray) {
 
   const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n) : undefined;
 
+  file.name = command.name;
   file.filePath = command.filePath;
   file.category = command.category;
 
