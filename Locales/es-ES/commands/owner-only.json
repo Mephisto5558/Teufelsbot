@@ -23,8 +23,8 @@
   "eval": {
     "description": "inyectar código JavaScript directamente en el bot",
     "usage": {
-      "usage": "{prefix} <js code>",
-      "examples": "{prefix}, console.log('¡Hola Mundo!')"
+      "usage": "{prefix}eval <js code>",
+      "examples": "{prefix}eval console.log('¡Hola Mundo!')"
     },
     "finished": "comando evaluado:\n```js\n{code}\n```\n",
     "success": "{msg} sin errores.",
