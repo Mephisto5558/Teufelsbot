@@ -133,7 +133,7 @@
     "description": "Ottenere alcuni fatti, sono davvero cool e utile, contare su di me.",
     "usage": {
       "usage": "{prefix}fatto [\"en\"<unk> \"de\"]",
-      "examples": "{prefix}fact en"
+      "examples": "{prefix}fact it"
     },
     "embedTitle": "Fatto"
   },
