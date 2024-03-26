@@ -46,6 +46,27 @@ type userId = Snowflake;
 type roleId = Snowflake;
 
 type Database = {
+  botSettings: {
+    startCount: {
+      [environment: string]: number | undefined;
+    };
+    env?: __local.Env;
+    activity?: {
+      name: string;
+      type: ActivityType;
+    };
+    stats: {
+      [commandName: string]: number | undefined;
+    };
+    blacklist?: userId[];
+
+    patreonBonuses?: Record<string, unknown>;
+    lastFileClear?: Date;
+    lastBirthdayCheck?: Date;
+    lastDBCleanup?: Date;
+    changelog?: string;
+  };
+
   leaderboards: {
     [gameName: string]: {
       [userId: userId]: {
@@ -63,12 +84,13 @@ type Database = {
 
   userSettings: {
     [userId: userId]: {
-      birthday?: Date;
       customName?: string;
       afkMessage?: {
         message: string;
         createdAt: number;
       };
+
+      birthday?: Date;
       lastVoted?: Date;
       featureRequestAutoApprove?: boolean;
       lastFeatureRequested?: number;
@@ -78,8 +100,8 @@ type Database = {
   guildSettings: {
     default: {
       config: {
-        prefix: string;
         lang: string;
+        prefix: string;
         betaBotPrefix: string;
       };
       birthday: {
@@ -106,7 +128,11 @@ type Database = {
 
     [guildId: guildId]: {
       position: number;
+      customNames?: {
+        [userId: userId]: string | undefined;
+      };
       config?: {
+        lang?: string;
         prefix?: {
           prefix?: string;
           caseinsensitive?: boolean;
@@ -115,12 +141,59 @@ type Database = {
           prefix?: string;
           caseinsensitive?: boolean;
         };
-        lang?: string;
-        autopublish: boolean;
         logger?: Record<'messageUpdate' | 'messageDelete' | 'voiceChannelActivity' | 'sayCommandUsed' | 'all', {
           channel: channelId;
           enabled: boolean;
         } | undefined>;
+        autopublish: boolean;
+
+      };
+      commandSettings?: {
+        [commandName: string]: {
+          disabled: {
+            users?: (userId | '*')[];
+            channels?: (channelId | '*')[];
+            roles?: (roleId | '*')[];
+          };
+        } | undefined;
+      };
+      giveaway?: {
+        reaction?: string;
+        embedColor?: number;
+        embedColorEnd?: number;
+        useLastChance?: boolean;
+        giveaways: {
+          [messageId: messageId]: GiveawayData;
+        };
+      };
+      afkMessages?: {
+        [userId: userId]: {
+          message: string;
+          createdAt: number;
+        } | undefined;
+      };
+      triggers?: {
+        id: number;
+        trigger: string;
+        response: string;
+        wildcard: boolean;
+      }[];
+      counting?: {
+        [channelId: channelId]: {
+          lastNumber: number;
+
+          /** `undefined` only if lastNumber is `0` */
+          lastAuthor?: userId;
+        } | undefined;
+      };
+      lastMentions?: {
+        [userId: userId]: {
+          content: string;
+          url: `https://discord.com/channels/${guildId}/${channelId}/${messageId}`;
+          author: userId;
+          channel: channelId;
+          createdAt: Date;
+        } | undefined;
       };
       birthday?: {
         enable?: boolean;
@@ -140,12 +213,7 @@ type Database = {
           };
         };
       };
-      triggers?: {
-        id: number;
-        trigger: string;
-        response: string;
-        wildcard: boolean;
-      }[];
+
       gatekeeper?: {
         enable?: boolean;
         ['join' | 'leave']: {
@@ -159,46 +227,6 @@ type Database = {
       // TODO
       lockedChannels?: {
         [channelId: channelId]: Record<unknown, unknown> | undefined;
-      };
-      afkMessages?: {
-        [userId: userId]: {
-          message: string;
-          createdAt: number;
-        } | undefined;
-      };
-      giveaway?: {
-        reaction?: string;
-        embedColor?: number;
-        embedColorEnd?: number;
-        useLastChance?: boolean;
-        giveaways: GiveawayData[];
-      };
-      counting?: {
-        [channelId: channelId]: {
-          lastNumber: number;
-          lastAuthor: userId;
-        } | undefined;
-      };
-      commandSettings?: {
-        [commandName: string]: {
-          disabled: {
-            users?: (userId | '*')[];
-            channels?: (channelId | '*')[];
-            roles?: (roleId | '*')[];
-          };
-        } | undefined;
-      };
-      lastMentions?: {
-        [userId: userId]: {
-          content: string;
-          url: `https://discord.com/channels/${guildId}/${channelId}/${messageId}`;
-          author: userId;
-          channel: channelId;
-          createdAt: Date;
-        } | undefined;
-      };
-      customNames?: {
-        [userId: userId]: string | undefined;
       };
       minigames?: {
         rps: {
@@ -223,26 +251,6 @@ type Database = {
 
   polls: {
     [guildId: guildId]: userId | undefined;
-  };
-
-  botSettings: {
-    env?: __local.Env;
-    activity?: {
-      name: string;
-      type: ActivityType;
-    };
-    patreonBonuses?: Record<string, unknown>;
-    lastFileClear?: Date;
-    lastBirthdayCheck?: Date;
-    lastDBCleanup?: Date;
-    stats: {
-      [commandName: string]: number | undefined;
-    };
-    startCount: {
-      [environment: string]: number | undefined;
-    };
-    changelog?: string;
-    blacklist?: userId[];
   };
 
   backups: {
