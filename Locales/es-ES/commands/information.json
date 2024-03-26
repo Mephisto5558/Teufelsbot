@@ -60,8 +60,8 @@
   "help": {
     "description": "Mostrar todos mis comandos o buscar uno específico",
     "usage": {
-      "usage": "{prefix}ayuda [command]",
-      "examples": "{prefix}broma de ayuda"
+      "usage": "{prefix}help [[category] [command]] | [category]",
+      "examples": "{prefix}help fun joke | {prefix}help fun"
     },
     "options": {
       "category": {
