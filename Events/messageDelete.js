@@ -4,13 +4,13 @@ const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('di
  * @this {Message<true>}
  * @param {lang}lang*/
 function countingHandler(lang) {
-  const lastNum = Number.parseInt(this.guild.db.counting?.[this.channel.id]?.lastNumber);
-  if (Number.isNaN(Number.parseInt(this.originalContent)) || Number.isNaN(lastNum) || lastNum - this.originalContent) return;
+  const { lastNumber } = this.guild.db.counting?.[this.channel.id] ?? {};
+  if (Number.isNaN(Number.parseInt(this.originalContent)) || lastNumber == undefined || lastNumber - this.originalContent) return;
 
   const embed = new EmbedBuilder({
     author: { name: this.user?.username ?? lang('unknown'), iconURL: this.member?.displayAvatarURL() },
     title: lang('embedTitle'),
-    description: lang('embedDescription', { deletedNum: this.originalContent, nextNum: lastNum + 1 }),
+    description: lang('embedDescription', { deletedNum: this.originalContent, nextNum: lastNumber + 1 }),
     color: Colors.Red,
     timestamp: this.createdTimestamp
   });
