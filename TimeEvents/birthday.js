@@ -38,13 +38,13 @@ module.exports = {
     const defaultSettings = this.defaultSettings.birthday;
 
     await this.guilds.fetch();
-    for await (const [,guild] of this.guilds.cache) {
+    for (const [,guild] of this.guilds.cache) {
       const settings = guild.db.birthday;
       if (!settings?.enable) continue;
 
       /** @type {Record<import('discord.js').Snowflake, number>} */
-      const birthdayUserList = Object.entries(this.db.get('userSettings')).reduce((acc, [id, { birthday }]) => {
-        if (birthday.getMonth() == nowMonth && birthday.getDate() == nowDate) acc[id] = birthday.getFullYear();
+      const birthdayUserList = Object.entries(this.db.get('userSettings')).reduce((acc, [id, e]) => {
+        if (e.birthday?.getMonth() == nowMonth && e.birthday.getDate() == nowDate) acc[id] = e.birthday.getFullYear();
         return acc;
       }, {});
 

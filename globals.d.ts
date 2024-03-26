@@ -498,10 +498,12 @@ declare module '@mephisto5558/mongoose-db' {
      * @param overwrite overwrite existing collection, default: `false`*/
     generate(overwrite?: boolean): Promise<void>;
 
-    get<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, key?: K): K extends undefined ? FlattenedDatabase[DB] : FlattenedDatabase[DB][K];
+    get<DB extends keyof Database>(db: DB): Database[DB];
+    get<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, key: K): FlattenedDatabase[DB][K];
+
     update<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, key: K, value: FlattenedDatabase[DB][K]): Promise<Database[DB]>;
     set<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, value: FlattenedDatabase[DB][K], overwrite?: boolean): Promise<Database[DB]>;
-    delete<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, key?: K): Promise<boolean>;
+    delete<DB extends keyof Database, K extends keyof FlattenedDatabase[DB] | undefined>(db: DB, key?: K): Promise<boolean>;
     push<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, key: K, ...value: FlattenedDatabase[DB][K]): Promise<Database[DB]>;
     pushToSet<DB extends keyof Database, K extends keyof FlattenedDatabase[DB]>(db: DB, key: K, ...value: FlattenedDatabase[DB][K]): Promise<Database[DB]>;
   }
