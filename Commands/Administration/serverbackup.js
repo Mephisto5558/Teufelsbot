@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ComponentType, ButtonStyle } = require('discord.js'),
   DiscordAPIErrorCodes = require('../../Utils');
 
-/** @param {import('../../database').Database['backups']['']}backup */
+/** @param {Database<true>['backups']['']}backup */
 function getData(backup) {
   if (Object.keys(backup).length) {
     return {
@@ -22,7 +22,7 @@ function getData(backup) {
 
 /**
  * @this {GuildInteraction}
- * @param {import('../../database').Database['backups']['']?}backup*/
+ * @param {Database['backups']['']}backup*/
 function checkPerm(backup) {
   const creator = backup?.metadata?.[this.guild.db.serverbackup?.allowedToLoad ?? this.client.defaultSettings.serverbackup.allowedToLoad];
   return Array.isArray(creator) ? creator.includes(this.user.id) : creator == this.user.id;
