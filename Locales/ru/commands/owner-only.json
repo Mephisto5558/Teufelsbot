@@ -23,7 +23,7 @@
   "eval": {
     "description": "вставить код JavaScript прямо в бота",
     "usage": {
-      "usage": "{prefix}eval <js code>",
+      "usage": "{prefix}eval <код>",
       "examples": "{prefix}eval console.log('Привет мир!')"
     },
     "finished": "вычисляемая команда:\n```js\n{code}\n```\n",
