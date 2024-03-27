@@ -22,7 +22,6 @@ async function eventCallback([player1, player2], [type1, type2 = type1], lang, g
  * @param {'win'|'lose'|'draw'}type
  * @param {Client['db']}db*/
 function updateStats(firstID, secondID, type, db) {
-  /** @type {import('../../database').Database['leaderboards']['TicTacToe']['userId']} */
   const stats = db.get('leaderboards', `TicTacToe.${firstID}`) ?? {};
   let against;
 

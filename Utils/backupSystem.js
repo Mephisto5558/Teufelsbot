@@ -6,7 +6,7 @@ const
   fetch = require('node-fetch'),
   DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json');
 
-/** @typedef {import('../database').Database['backups']['backupId']}backup */
+/** @typedef {Database<true>['backups']['']}backup */
 
 class BackupSystem {
   /**

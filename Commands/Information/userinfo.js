@@ -17,8 +17,6 @@ module.exports = {
 
     const
       member = getTargetMember(this, { returnSelf: true }),
-
-      /** @type {Exclude<import('../../database').Database['userSettings'][''], undefined>['birthday']} */
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       bannerURL = (await member.user.fetch()).bannerURL();
 
