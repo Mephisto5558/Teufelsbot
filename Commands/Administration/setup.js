@@ -18,7 +18,7 @@ const
     toggle_command: async function toggleCommand(lang) {
       const
         command = this.options.getString('command', true),
-        commandData = this.guild.db.commandSettings?.[command]?.disabled ?? {},
+        commandData = this.guild.db.config?.commands?.[command]?.disabled ?? {},
         { roles = [], channels = [], users = [] } = commandData,
         count = { enabled: { channels: 0, users: 0, roles: 0 }, disabled: { channels: 0, users: 0, roles: 0 } };
 
@@ -46,7 +46,7 @@ const
       }
 
       if (this.options.data[0].options.length == (this.options.data[0].options.some(e => e.name == 'get') ? 2 : 1)) {
-        await this.client.db.update('guildSettings', `${this.guild.id}.commandSettings.${command}.disabled.users`, users.includes('*') ? users.filter(e => e != '*') : ['*', ...users]);
+        await this.client.db.update('guildSettings', `${this.guild.id}.config.commands.${command}.disabled.users`, users.includes('*') ? users.filter(e => e != '*') : ['*', ...users]);
         return this.editReply(lang(users.includes('*') ? 'enabled' : 'disabled', command));
       }
 
@@ -85,7 +85,7 @@ const
         color: Colors.White
       });
 
-      await this.client.db.update('guildSettings', `${this.guild.id}.commandSettings.${command}.disabled`, commandData);
+      await this.client.db.update('guildSettings', `${this.guild.id}.config.commands.${command}.disabled`, commandData);
       return this.editReply({ embeds: [embed] });
     },
 

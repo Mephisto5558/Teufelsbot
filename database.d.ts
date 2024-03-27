@@ -128,9 +128,6 @@ type Database = {
 
     [guildId: guildId]: {
       position: number;
-      customNames?: {
-        [userId: userId]: string | undefined;
-      };
       config?: {
         lang?: string;
         prefix?: {
@@ -146,16 +143,18 @@ type Database = {
           enabled: boolean;
         } | undefined>;
         autopublish: boolean;
-
+        commands?: {
+          [commandName: string]: {
+            disabled: {
+              users?: (userId | '*')[];
+              channels?: (channelId | '*')[];
+              roles?: (roleId | '*')[];
+            };
+          } | undefined;
+        };
       };
-      commandSettings?: {
-        [commandName: string]: {
-          disabled: {
-            users?: (userId | '*')[];
-            channels?: (channelId | '*')[];
-            roles?: (roleId | '*')[];
-          };
-        } | undefined;
+      customNames?: {
+        [userId: userId]: string | undefined;
       };
       giveaway?: {
         reaction?: string;
