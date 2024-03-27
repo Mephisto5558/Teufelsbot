@@ -8,7 +8,7 @@ const
  * Deletes giveaway records that concluded over a month ago
  * @this {Client}
  * @param {string}guildId
- * @param {Exclude<Exclude<import('../database').Database['guildSettings'][''], undefined>['giveaway'], undefined>['giveaways']}db*/
+ * @param {Exclude<Database<true>['guildSettings']['']['giveaway'], undefined>['giveaways'] | undefined}db*/
 function cleanupGiveawaysDB(guildId, db) {
   if (!db) return;
 
@@ -22,7 +22,7 @@ function cleanupGiveawaysDB(guildId, db) {
  * Removes all lastMentions data older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {Exclude<import('../database').Database['guildSettings'][''], undefined>['lastMentions']}db*/
+ * @param {Exclude<Database['guildSettings'][''], undefined>['lastMentions']}db*/
 function cleanupMentionsDB(guildId, db) {
   if (!db) return;
 
@@ -36,12 +36,12 @@ function cleanupMentionsDB(guildId, db) {
  * Removes all AFK-Messages older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {Exclude<import('../database').Database['guildSettings'][''], undefined>['afkMessages']}db createdAt is in seconds, not milliseconds*/
+ * @param {Exclude<Database['guildSettings'][''], undefined>['afkMessages']}db*/
 function cleanupAfkMessagesDB(guildId, db) {
   if (!db) return;
 
-  for (const [userId, { createdAt }] of Object.entries(db)) {
-    if (getOneMonthAgo() < Number(createdAt) * 1000) continue;
+  for (const [userId, v] of Object.entries(db)) {
+    if (getOneMonthAgo() < Number(v.createdAt) * 1000) continue;
     this.db.delete('guildSettings', `${guildId}.afkMessages.${userId}`);
   }
 }
@@ -50,7 +50,7 @@ function cleanupAfkMessagesDB(guildId, db) {
  * Removes all AFK-Messages older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {Exclude<import('../database').Database['guildSettings'][''], undefined>['minigames']}db*/
+ * @param {Exclude<Database['guildSettings'][''], undefined>['minigames']}db*/
 function cleanUpMinigamesDB(guildId, db) {
   if (!db) return;
 

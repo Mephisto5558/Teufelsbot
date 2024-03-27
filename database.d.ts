@@ -45,7 +45,8 @@ type messageId = Snowflake;
 type userId = Snowflake;
 type roleId = Snowflake;
 
-type Database = {
+/** `excludeUndefined` removes ` | undefined` on `userSettings[id]`, `guildSettings[id]`, etc.*/
+type Database<excludeUndefined extends boolean = false> = {
   botSettings: {
     startCount: {
       [environment: string]: number | undefined;
@@ -79,7 +80,7 @@ type Database = {
         wonAgainst?: Record<userId | 'AI', number>;
         against?: Record<userId | 'AI', number>;
       } | undefined;
-    } | undefined;
+    } | (excludeUndefined extends true ? never : undefined);
   };
 
   userSettings: {
@@ -94,7 +95,7 @@ type Database = {
       lastVoted?: Date;
       featureRequestAutoApprove?: boolean;
       lastFeatureRequested?: number;
-    } | undefined;
+    } | (excludeUndefined extends true ? never : undefined);
   };
 
   guildSettings: {
@@ -168,15 +169,18 @@ type Database = {
       afkMessages?: {
         [userId: userId]: {
           message: string;
+
+          /** Milliseconds */
           createdAt: number;
         } | undefined;
       };
       triggers?: {
-        id: number;
-        trigger: string;
-        response: string;
-        wildcard: boolean;
-      }[];
+        [id: `${number}`]: {
+          trigger: string;
+          response: string;
+          wildcard: boolean;
+        } | undefined;
+      };
       counting?: {
         [channelId: channelId]: {
           lastNumber: number;
@@ -245,11 +249,11 @@ type Database = {
       serverbackup?: {
         allowedToLoad?: number;
       };
-    } | undefined;
+    } | (excludeUndefined extends true ? never : undefined);
   };
 
   polls: {
-    [guildId: guildId]: userId | undefined;
+    [guildId: guildId]: userId | (excludeUndefined extends true ? never : undefined);
   };
 
   backups: {
@@ -322,7 +326,7 @@ type Database = {
         /** Channels that are not in a category*/
         others: backupChannel[];
       };
-    } | undefined;
+    } | (excludeUndefined extends true ? never : undefined);
   };
 
   website: {

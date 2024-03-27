@@ -6,6 +6,7 @@
     "sleep": "readonly",
     "log": "readonly",
     // [TYPES] see globals.d.ts
+    "Database": "writable",
     "lang": "writable",
     "slashCommand": "writable",
     "prefixCommand": "writable",
