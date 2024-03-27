@@ -688,7 +688,6 @@
       }
     },
     "saved": "Added new trigger for `{trigger}`.",
-    "idNotFound": "There is no trigger with that ID!",
     "deletedOne": "Deleted the trigger with the ID `{id}`",
     "deletedAll": "I deleted all (`{count}`) triggers.",
     "noneFound": "There are no triggers!",

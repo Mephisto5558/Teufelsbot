@@ -5,8 +5,8 @@ const
 /** @type {Message['runMessages']}*/
 module.exports = async function runMessages() {
   const
-    { afkMessages = {}, triggers = [], counting: { [this.channel.id]: countingData } = {} } = this.guild.db,
-    triggerList = triggers.filter(e => this.originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())).slice(0, 3);
+    { afkMessages = {}, triggers = {}, counting: { [this.channel.id]: countingData } = {} } = this.guild.db,
+    triggerList = Object.values(triggers).filter(e => this.originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())).slice(0, 3);
 
   if (this.client.botType != 'dev' && triggerList.length && !cooldowns.call(this, 'triggers', { channel: 1e4 }))
     for (const trigger of triggerList) this.customReply(trigger.response);

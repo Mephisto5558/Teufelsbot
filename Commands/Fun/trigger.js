@@ -1,28 +1,28 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
 
-  /** @type {Record<string, (this: GuildInteraction, lang: lang, oldData: Exclude<import('../../database').Database['guildSettings']['']['triggers'], undefined>, query: string) => Promise<Message>>} */
+  /**
+   * @type {Record<string, (this: GuildInteraction, lang: lang, oldData: Exclude<Database<true>['guildSettings']['']['triggers'], undefined>, query: string) => Promise<Message>>}*/
   triggerMainFunctions = {
     add: async function (lang, oldData) {
-      const data = {
-        id: (Number.parseInt(Object.values(oldData).sort((a, b) => b.id - a.id)[0]?.id) ?? 0) + 1,
-        trigger: this.options.getString('trigger', true),
-        response: this.options.getString('response', true).replaceAll('/n', '\n'),
-        wildcard: !!this.options.getBoolean('wildcard')
-      };
+      const
+        id = (Number.parseInt(Object.keys(oldData).sort((a, b) => Number.parseInt(b) - Number.parseInt(a))[0]) ?? 0) + 1,
+        data = {
+          trigger: this.options.getString('trigger', true),
+          response: this.options.getString('response', true).replaceAll('/n', '\n'),
+          wildcard: !!this.options.getBoolean('wildcard')
+        };
 
-      await this.client.db.push('guildSettings', `${this.guild.id}.triggers`, data);
+      await this.client.db.update('guildSettings', `${this.guild.id}.triggers.${id}`, data);
       return this.editReply(lang('saved', data.trigger));
     },
 
     delete: async function (lang, oldData, query) {
-      const
-        { id } = (query ? Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) : Object.values(oldData).sort((a, b) => b.id - a.id)[0]) ?? {},
-        filtered = oldData.filter(e => e.id != id);
+      let id;
+      if (query) id = query in oldData ? query : Object.entries(oldData).find(([,e]) => e.trigger.toLowerCase() == query.toLowerCase())[0];
+      else id = Object.keys(oldData).sort((a, b) => Number.parseInt(b) - Number.parseInt(a))[0];
 
-      if (filtered.length == oldData.length) return this.editReply(lang('idNotFound'));
-
-      await this.client.db.update('guildSettings', `${this.guild.id}.triggers`, filtered);
+      await this.client.db.delete('guildSettings', `${this.guild.id}.triggers.${id}`);
       return this.editReply(lang('deletedOne', id));
     },
 
@@ -75,12 +75,16 @@ const
     }
   };
 
-/** @this {import('discord.js').AutocompleteInteraction} */
+/**
+ * @this {import('discord.js').AutocompleteInteraction}
+ * @returns  {string[]}*/
 function triggerQuery() {
-  return this.guild.db.triggers
-    ?.flatMap(e => [e.trigger, e.id])
-    .sort(e => typeof e == 'string' ? -1 : 1)
-    .map(String) ?? [];
+  return Object.entries(this.guild.db.triggers ?? {}).reduce((acc, [k, v]) => {
+    acc[0].push(v.trigger);
+    acc[1].push(k);
+
+    return acc;
+  }, [[], []]).flat();
 }
 
 /** @type {command<'slash'>}*/
