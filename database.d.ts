@@ -88,7 +88,7 @@ type Database<excludeUndefined extends boolean = false> = {
       customName?: string;
       afkMessage?: {
         message: string;
-        createdAt: number;
+        createdAt: Date;
       };
 
       birthday?: Date;
@@ -169,9 +169,7 @@ type Database<excludeUndefined extends boolean = false> = {
       afkMessages?: {
         [userId: userId]: {
           message: string;
-
-          /** Milliseconds */
-          createdAt: number;
+          createdAt: Date;
         } | undefined;
       };
       triggers?: {

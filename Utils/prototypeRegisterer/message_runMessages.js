@@ -39,11 +39,11 @@ module.exports = async function runMessages() {
   if (!this.originalContent.toLowerCase().includes('--afkignore')) {
     if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.slice(6));
 
-    const { createdAt, message } = (afkMessages[this.user.id]?.message ? afkMessages[this.user.id] : this.user.db.afkMessage) ?? {};
+    const { createdAt, message } = (this.user.id in afkMessages ? afkMessages[this.user.id] : this.user.db.afkMessage) ?? {};
     if (message) {
       await this.client.db.delete('userSettings', `${this.user.id}.afkMessage`);
       await this.client.db.delete('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`);
-      this.customReply(this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkEnd', { timestamp: createdAt, message }));
+      this.customReply(this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkEnd', { timestamp: Math.round(createdAt.getTime() / 1000), message }));
     }
   }
 
@@ -51,12 +51,12 @@ module.exports = async function runMessages() {
   if (cooldowns.call(this, 'afkMsg', { channel: 1e4, user: 1e4 })) return this;
 
   const afkMsgs = this.mentions.members.reduce((acc, e) => {
-    const { message, createdAt } = (afkMessages[e.id]?.message ? afkMessages[e.id] : e.user.db.afkMessage) ?? {};
+    const { message, createdAt } = (e.id in afkMessages ? afkMessages[e.id] : e.user.db.afkMessage) ?? {};
     if (!message || e.id == this.user.id) return acc;
 
     const afkMessage = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkMsg', {
       member: e.nickname?.startsWith('[AFK] ') ? e.nickname.slice(6) : e.displayName,
-      message, timestamp: createdAt
+      message, timestamp: Math.round(createdAt / 1000)
     });
 
     if (acc.length + afkMessage.length >= 2000) {
