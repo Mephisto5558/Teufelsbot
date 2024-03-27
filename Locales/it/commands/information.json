@@ -164,7 +164,7 @@
         "description": "L'ID del server su cui vuoi ottenere informazioni. Funziona solo per i server in cui mi trovo."
       }
     },
-    "memberStats": "`{all}` ({humans}`, Bots: `{bots}`)",
+    "memberStats": "`{all}` (Humans: `{humans}`, Bots: `{bots}`)",
     "members": "Membri",
     "verificationLevel": {
       "name": "Livello Di Verifica",
