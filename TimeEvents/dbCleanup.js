@@ -26,8 +26,8 @@ function cleanupGiveawaysDB(guildId, db) {
 function cleanupMentionsDB(guildId, db) {
   if (!db) return;
 
-  for (const [userId, { createdAt }] of Object.entries(db)) {
-    if (getOneMonthAgo() < createdAt.getTime()) continue;
+  for (const [userId, v] of Object.entries(db)) {
+    if (getOneMonthAgo() < v.createdAt.getTime()) continue;
     this.db.delete('guildSettings', `${guildId}.lastMentions.${userId}`);
   }
 }
@@ -41,7 +41,7 @@ function cleanupAfkMessagesDB(guildId, db) {
   if (!db) return;
 
   for (const [userId, v] of Object.entries(db)) {
-    if (getOneMonthAgo() < Number(v.createdAt) * 1000) continue;
+    if (getOneMonthAgo() < v.createdAt.getTime()) continue;
     this.db.delete('guildSettings', `${guildId}.afkMessages.${userId}`);
   }
 }
