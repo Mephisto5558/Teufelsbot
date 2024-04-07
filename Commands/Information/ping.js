@@ -39,8 +39,8 @@ module.exports = {
       wsPings.sort((a, b) => a - b);
       msgPings.sort((a, b) => a - b);
 
-      const averageWsPing = Math.round(wsPings.reduce((a, b) => a + b) / 20 * 100) / 100;
-      const averageMsgPing = Math.round(msgPings.reduce((a, b) => a + b) / 20 * 100) / 100;
+      const averageWsPing = Math.round(wsPings.reduce((a, b) => a + b, 0) / 20 * 100) / 100;
+      const averageMsgPing = Math.round(msgPings.reduce((a, b) => a + b, 0) / 20 * 100) / 100;
 
       embed.data.description = lang('average.embedDescription', {
         pings: wsPings.length, wsLowest: wsPings[0], wsHighest: wsPings.at(-1), wsAverage: averageWsPing,
