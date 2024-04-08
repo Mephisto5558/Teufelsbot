@@ -28,9 +28,9 @@ function shouldDeleteMsg(msg, options) {
     bool = msg.bulkDeletable && (!options.remove_pinned || msg.pinned),
     userType = msg.user.bot ? 'bot' : 'human';
 
-  return !!(filterOptionsExist(options)
-    ? bool
-    && (nHas('member') || msg.user.id == options.member.id)
+  if (!filterOptionsExist(options)) return bool;
+  return !!(bool
+    && (nHas('member') || msg.user.id == options.member)
     && (nHas('user_type') || options.user_type == userType)
     && (nHas('only_containing') || filterCheck[options.only_containing](msg))
     && (nHas('caps_percentage') || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * 100 >= options.caps_percentage)
@@ -40,7 +40,7 @@ function shouldDeleteMsg(msg, options) {
     && (nHas('not_starts_with') || msg.content.startsWith(options.not_starts_with) || msg.embeds?.some(e => e.description.startsWith(options.not_starts_with)))
     && (nHas('ends_with') || msg.content.endsWith(options.ends_with) || msg.embeds?.some(e => e.description.endsWith(options.ends_with)))
     && (nHas('not_ends_with') || msg.content.endsWith(options.not_ends_with) || msg.embeds?.some(e => e.description.endsWith(options.not_ends_with)))
-    : bool);
+  );
 }
 
 /**
