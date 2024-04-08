@@ -258,7 +258,9 @@ type Database<excludeUndefined extends boolean = false> = {
     [backupId: `${guildId}${Snowflake}`]: {
       id: `${guildId}${Snowflake}`;
       metadata: [userId | userId[]];
-      createdTimestamp: number;
+
+      /** Backup creation date */
+      createdAt: Date;
       name: string;
       guildId: guildId;
       locale: string;
