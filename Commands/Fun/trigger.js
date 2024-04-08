@@ -6,7 +6,7 @@ const
   triggerMainFunctions = {
     add: async function (lang, oldData) {
       const
-        id = (Number.parseInt(Object.keys(oldData).sort((a, b) => Number.parseInt(b) - Number.parseInt(a))[0]) ?? 0) + 1,
+        id = (Math.max(...Object.keys(oldData).map(Number)) || 0) + 1,
         data = {
           trigger: this.options.getString('trigger', true),
           response: this.options.getString('response', true).replaceAll('/n', '\n'),
@@ -20,7 +20,9 @@ const
     delete: async function (lang, oldData, query) {
       let id;
       if (query) id = query in oldData ? query : Object.entries(oldData).find(([,e]) => e.trigger.toLowerCase() == query.toLowerCase())[0];
-      else id = Object.keys(oldData).sort((a, b) => Number.parseInt(b) - Number.parseInt(a))[0];
+      else id = Math.max(...Object.keys(oldData).map(Number)); // Returns `-Infinity` on an empty array
+
+      if (id < 0) return this.editReply(lang('noneFound'));
 
       await this.client.db.delete('guildSettings', `${this.guild.id}.triggers.${id}`);
       return this.editReply(lang('deletedOne', id));
