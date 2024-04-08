@@ -212,7 +212,7 @@ class BackupSystem {
     let data, rulesChannel, publicUpdatesChannel;
 
     if (id) data = typeof id == 'string' ? this.get(id) : id;
-    else data = this.list(guild.id).sort((a, b) => b - a).first();
+    else data = this.list(guild.id).sort((a, b) => b.createdAt - a.createdAt).first();
 
     if (clearGuildBeforeRestore) {
       statusObj.status = 'clear.items';
