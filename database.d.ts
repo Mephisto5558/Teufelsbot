@@ -129,6 +129,9 @@ type Database<excludeUndefined extends boolean = false> = {
 
     [guildId: guildId]: {
       position: number;
+
+      /** The date on which the bot left the guild. Is not set if the bot is in the guild.*/
+      leftAt?: Date;
       config?: {
         lang?: string;
         prefix?: {
