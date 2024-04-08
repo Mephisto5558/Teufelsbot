@@ -118,7 +118,7 @@ module.exports = {
     },
     { name: 'before_message', type: 'String' },
     { name: 'after_message', type: 'String' }
-  ], beta: true,
+  ],
 
   run: async function (lang) {
     const
