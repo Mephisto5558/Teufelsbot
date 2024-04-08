@@ -70,7 +70,7 @@ class BackupSystem {
     const data = {
       id: id ?? guild.id + SnowflakeUtil.generate().toString(),
       metadata: metadata ?? undefined,
-      createdTimestamp: Date.now(),
+      createdAt: new Date(),
       name: guild.name,
       guildId: guild.id,
       locale: guild.preferredLocale,
