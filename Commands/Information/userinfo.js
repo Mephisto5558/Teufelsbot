@@ -33,9 +33,10 @@ module.exports = {
         color: Number.parseInt((await getAverageColor(member.displayAvatarURL())).hex.slice(1), 16),
         thumbnail: { url: member.displayAvatarURL() },
         image: { url: bannerURL && bannerURL + '?size=1024' },
+        footer: { text: member.id },
         fields: [
           { name: lang('mention'), value: member.user.toString(), inline: true },
-          { name: 'ID', value: `\`${member.id}\``, inline: true },
+          { name: lang('displayName'), value: member.displayName, inline: true },
           { name: lang('type'), value: type, inline: true },
           { name: lang('position'), value: `\`${this.guild.roles.highest.position - member.roles.highest.position + 1}\`, ${member.roles.highest}`, inline: true },
           { name: lang('roles'), value: `\`${member.roles.cache.size}\``, inline: true },
