@@ -28,7 +28,7 @@ module.exports = {
     name: 'expression',
     type: 'String',
     required: true
-  }], beta: true,
+  }],
 
   run: function (lang) {
     const
