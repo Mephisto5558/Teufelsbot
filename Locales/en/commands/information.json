@@ -234,6 +234,7 @@
     "guildMod": "Guild Moderator",
     "guildMember": "Guild Member",
     "mention": "Mention",
+    "displayName": "Display Name",
     "type": "Type",
     "roles": "Roles",
     "position": "Position",
