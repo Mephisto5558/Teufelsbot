@@ -75,6 +75,7 @@ console.time('Starting time');
 
   const client = createClient();
   await client.loadEnvAndDB();
+
   // WIP: client.backupSystem = new BackupSystem(client.db, { dbName: 'backups', maxGuildBackups: 5 });
 
   if (client.botType != 'dev') client.giveawaysManager = new GiveawaysManager(client);

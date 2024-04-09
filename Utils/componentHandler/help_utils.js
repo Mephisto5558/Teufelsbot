@@ -193,6 +193,7 @@ module.exports.allQuery = function allQuery(lang) {
     embed = new EmbedBuilder({
       title: lang('all.embedTitle'),
       description: lang(commandCategories.length ? 'all.embedDescription' : 'all.notFound'),
+
       // /u200E is used here to add extra space
       fields: commandCategories.map(e => ({
         name: lang(`commands.${e}.categoryName`),
