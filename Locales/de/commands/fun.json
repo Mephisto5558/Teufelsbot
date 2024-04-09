@@ -688,7 +688,6 @@
       }
     },
     "saved": "Ein neuer Auslöser für `{trigger}` wurde hinzugefügt.",
-    "idNotFound": "Es existiert kein Auslöser mit dieser ID!",
     "deletedOne": "Der Auslöser mit der ID `{id}` wurde gelöscht.",
     "deletedAll": "Ich habe alle (`{count}`) Auslöser gelöscht.",
     "noneFound": "Es gibt keine Auslöser!",
