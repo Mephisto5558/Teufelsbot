@@ -16,18 +16,26 @@
   "cmdstats": {
     "description": "Zeigt an, wie oft ein spezifischer Befehl oder die Top 10 genutzt wurden.",
     "usage": {
-      "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot' ] [Befehl]",
+      "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot'] [Befehl]",
       "examples": "{prefix}cmdstats user joke"
     },
     "options": {
+      "scope": {
+        "description": "Erhalte Befehlsstatistiken entweder für den aktuellen Server, für dich oder für den Bot insgesamt.",
+        "choices": {
+          "bot": "Bot",
+          "guild": "Server",
+          "user": "Nutzer"
+        }
+      },
       "command": {
-        "description": "Für welchen Befehl möchtest du Statistiken erhalten?"
+        "description": "Der Befehl, für den du Statistiken erhalten möchtest."
       }
     },
     "embedTitle": "Befehlsstatistiken für {mode}",
-    "embedDescriptionOne": "Der {command}-Befehl wurde **{total}** male (Slash: **{slash}** | Prefix: **{prefix}**) ausgeführt.",
+    "embedDescriptionOne": "Der {command}-Befehl wurde **{total}** male (Slash: **{slash}** | Präfix: **{prefix}**) ausgeführt.",
     "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:\n",
-    "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefix: **{prefix}**)"
+    "embedFieldValue": "**{total}** (Slash: **{slash}** | Präfix: **{prefix}**)"
   },
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",
@@ -109,7 +117,7 @@
     "embedFooterText": "Mehr Informationen kommen bald!",
     "links": {
       "repo": "GitHub",
-      "invite": "Einladung",
+      "invite": "Einladen",
       "dashboard": "Dashboard",
       "privacyPolicy": "Datenschutz"
     }
