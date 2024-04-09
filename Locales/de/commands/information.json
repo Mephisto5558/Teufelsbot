@@ -25,8 +25,9 @@
       }
     },
     "embedTitle": "Befehlsstatistiken",
-    "embedDescriptionOne": "Der {command}-Befehl wurde **{count}** male ausgeführt.",
-    "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:\n"
+    "embedDescriptionOne": "Der {command}-Befehl wurde **{total}** male (Slash: **{slash}** | Prefix: **{prefix}**) ausgeführt.",
+    "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:\n",
+    "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefix: **{prefix}**)"
   },
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",

@@ -25,7 +25,6 @@
       }
     },
     "embedTitle": "Statistiche Dei Comandi",
-    "embedDescriptionOne": "Il comando {command} è stato eseguito **{count}** volte.",
     "embedDescriptionMany": "Questi sono 10 comandi più usati:\n"
   },
   "dashboard": {
