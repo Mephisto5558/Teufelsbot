@@ -16,7 +16,7 @@
   "cmdstats": {
     "description": "Vedere quanto spesso è stato eseguito un comando specifico o ottenere la top 10.",
     "usage": {
-      "usage": "{prefix}cmdstats ['guild' <unk> 'user' <unk> 'bot'] [command]",
+      "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot'] [command]",
       "examples": "{prefix}cmdstats utente scherzo"
     },
     "options": {
@@ -33,9 +33,9 @@
       }
     },
     "embedTitle": "Statistiche Dei Comandi",
-    "embedDescriptionOne": "Il comando {command} è stato eseguito **{total}** volte (Slash: **{slash}** <unk> Prefisso: **{prefix}**).",
+    "embedDescriptionOne": "Il comando {command} è stato eseguito **{total}** volte (Slash: **{slash}** | Prefisso: **{prefix}**).",
     "embedDescriptionMany": "Questi sono 10 comandi più usati:\n",
-    "embedFieldValue": "**{total}** (Slash: **{slash}** <unk> Prefisso: **{prefix}**)"
+    "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefisso: **{prefix}**)"
   },
   "dashboard": {
     "description": "ottieni il link alla dashboard del bot",
@@ -82,11 +82,11 @@
     },
     "categoryListPlaceholder": "Quale categoria di comando vuoi vedere?",
     "commandListPlaceholder": "Quale comando vuoi vedere?",
-    "devEmbedFooterText": "Dev-Bot <unk> Vengono mostrati solo i comandi beta",
+    "devEmbedFooterText": "Dev-Bot | Vengono mostrati solo i comandi beta",
     "one": {
       "notFound": "Nessuna informazione trovata per il comando `{command}`.",
       "embedTitle": "Informazioni dettagliate su: `{command}`",
-      "embedFooterText": "Sintassi: <> = obbligatorio, [] = opzionale <unk> Prefisso: \"{prefix}\"",
+      "embedFooterText": "Sintassi: <> = obbligatorio, [] = opzionale | Prefisso: \"{prefix}\"",
       "prefixAlias": "Prefisso Alias Comandi",
       "slashAlias": "Slash Command Aliases",
       "aliasOf": "Alias di",
@@ -151,7 +151,7 @@
   "roleinfo": {
     "description": "Ottieni informazioni su un ruolo",
     "usage": {
-      "usage": "{prefix}roleinfo [@role <unk> role name <unk> role id]",
+      "usage": "{prefix}roleinfo [@role | role name | role id]",
       "examples": "{prefix}roleinfo @User1"
     },
     "options": {
@@ -220,7 +220,7 @@
   "userinfo": {
     "description": "Ottieni informazioni su un membro",
     "usage": {
-      "usage": "{prefix}roleinfo [@user <unk> user <unk> user tag <unk> user nickname <unk> user id]",
+      "usage": "{prefix}roleinfo [@user | user | user tag | user nickname | user id]",
       "examples": "{prefix}userinfo @User1"
     },
     "options": {
