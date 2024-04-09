@@ -20,18 +20,16 @@
       "examples": "{prefix}cmdstats user joke"
     },
     "options": {
-      "mode": {
+      "scope": {
         "description": "Get command stats for either the current guild, you, or the bot overall.",
         "choices": {
           "bot": "Bot",
           "guild": "Guild",
           "user": "User"
-        },
-        "options": {
-          "command": {
-            "description": "The command you want to get stats for."
-          }
         }
+      },
+      "command": {
+        "description": "The command you want to get stats for."
       }
     },
     "embedTitle": "Command Stats for {mode}",
