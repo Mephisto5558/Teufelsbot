@@ -21,7 +21,7 @@ module.exports = {
   run: function (lang) {
     const
       mode = this.options?.getSubcommand(true) ?? this.args?.[0]?.toLowerCase() ?? 'bot',
-      query = (this.options?.getString('command') ?? this.args?.[1])?.toLowerCase(),
+      query = (this.options?.getString('command') ?? this.args?.[this.args?.length == 1 ? 0 : 1])?.toLowerCase(),
       cmdStats = (mode == 'guild' || mode == 'user' ? this[mode].db.cmdStats : this.client.settings.cmdStats) ?? {};
 
     let target;
