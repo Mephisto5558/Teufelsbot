@@ -16,15 +16,26 @@
   "cmdstats": {
     "description": "Vedere quanto spesso è stato eseguito un comando specifico o ottenere la top 10.",
     "usage": {
-      "examples": "{prefix}cmdstats user joke"
+      "usage": "{prefix}cmdstats ['guild' <unk> 'user' <unk> 'bot'] [command]",
+      "examples": "{prefix}cmdstats utente scherzo"
     },
     "options": {
+      "scope": {
+        "description": "Ottieni statistiche di comando per la gilda corrente, tu o il bot nel suo complesso.",
+        "choices": {
+          "bot": "Bot",
+          "guild": "Gilda",
+          "user": "Utente"
+        }
+      },
       "command": {
         "description": "Il comando per cui si desidera ottenere le statistiche."
       }
     },
     "embedTitle": "Statistiche Dei Comandi",
-    "embedDescriptionMany": "Questi sono 10 comandi più usati:\n"
+    "embedDescriptionOne": "Il comando {command} è stato eseguito **{total}** volte (Slash: **{slash}** <unk> Prefisso: **{prefix}**).",
+    "embedDescriptionMany": "Questi sono 10 comandi più usati:\n",
+    "embedFieldValue": "**{total}** (Slash: **{slash}** <unk> Prefisso: **{prefix}**)"
   },
   "dashboard": {
     "description": "ottieni il link alla dashboard del bot",
@@ -102,9 +113,14 @@
     "starts": "Inizia",
     "lastStart": "Ultimo avvio",
     "translation": "Traduzioni:\n> Inglese: {en}\n> Tedesco: {de}\n> Tutte le altre lingue sono tradotte automaticamente.\n",
-    "links": "**[Invite]({invite})** <unk> **[Dashboard]({dashboard})** <unk> **[Informativa sulla privacy]({privacyPolicy})**",
     "embedTitle": "Statistiche",
-    "embedFooterText": "Altre statistiche stanno arrivando presto!"
+    "embedFooterText": "Altre statistiche stanno arrivando presto!",
+    "links": {
+      "repo": "GitHub",
+      "invite": "Invita",
+      "dashboard": "Dashboard",
+      "privacyPolicy": "Politica Sulla Privacy"
+    }
   },
   "invite": {
     "description": "Invia un link per aggiungere il bot alla tua gilda.",
