@@ -132,7 +132,7 @@
   "fact": {
     "description": "Interesting facts",
     "usage": {
-      "usage": "{prefix}fact [\"en\"|\"de\"]",
+      "usage": "{prefix}fact [\"en\" | \"de\"]",
       "examples": "{prefix}fact en"
     },
     "embedTitle": "Fact"
