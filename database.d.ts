@@ -40,6 +40,9 @@ type backupChannel = {
   threads: unknown[];
 };
 
+/** `unknown` are commands that were executed before slash and prefix command stats got counted separately.*/
+type cmdStats = { [commandName: string]: Record<'slash' | 'prefix' | 'unknown', number | undefined> | undefined };
+
 type guildId = Snowflake;
 type channelId = Snowflake;
 type messageId = Snowflake;
@@ -57,10 +60,7 @@ type Database<excludeUndefined extends boolean = false> = {
       name: string;
       type: ActivityType;
     };
-    stats: {
-      /** `unknown` are commands that were executed before slash and prefix command stats got counted separately.*/
-      [commandName: string]: Record<'slash' | 'prefix' | 'unknown', number | undefined> | undefined;
-    };
+    cmdStats: cmdStats;
     blacklist?: userId[];
 
     patreonBonuses?: Record<string, unknown>;
@@ -97,6 +97,7 @@ type Database<excludeUndefined extends boolean = false> = {
       lastVoted?: Date;
       featureRequestAutoApprove?: boolean;
       lastFeatureRequested?: number;
+      cmdStats?: cmdStats;
     } | (excludeUndefined extends true ? never : undefined);
   };
 
@@ -253,6 +254,7 @@ type Database<excludeUndefined extends boolean = false> = {
       serverbackup?: {
         allowedToLoad?: number;
       };
+      cmdStats?: cmdStats;
     } | (excludeUndefined extends true ? never : undefined);
   };
 

@@ -16,8 +16,7 @@
   "cmdstats": {
     "description": "Voyez à quelle fréquence une commande spécifique a été exécutée ou a obtenu le top 10.",
     "usage": {
-      "usage": "{prefix}cmdstats [command]",
-      "examples": "{prefix}cmdstats joke"
+      "examples": "{prefix}cmdstats user joke"
     },
     "options": {
       "command": {
