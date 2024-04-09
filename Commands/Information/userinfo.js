@@ -84,10 +84,10 @@ module.exports = {
     }
 
     if (member.bannable && (this.member.roles.highest.position > member.roles.highest.position || this.user.id == this.guild.ownerId)) {
-      const comp = new ActionRowBuilder();
+      const component = new ActionRowBuilder();
 
       if (this.member.permissions.has(PermissionFlagsBits.KickMembers)) {
-        comp.components.push(new ButtonBuilder({
+        component.components.push(new ButtonBuilder({
           label: lang('kickMember'),
           customId: `infoCMDs.${member.id}.kick.members`,
           style: ButtonStyle.Danger
@@ -95,14 +95,14 @@ module.exports = {
       }
 
       if (this.member.permissions.has(PermissionFlagsBits.BanMembers)) {
-        comp.components.push(new ButtonBuilder({
+        component.components.push(new ButtonBuilder({
           label: lang('banMember'),
           customId: `infoCMDs.${member.id}.ban.members`,
           style: ButtonStyle.Danger
         }));
       }
 
-      if (comp.components.length) components.push(comp);
+      if (component.components.length) components.push(component);
     }
 
     return this.customReply({ embeds: [embed], components });
