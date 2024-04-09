@@ -25,7 +25,6 @@
       }
     },
     "embedTitle": "Статистика команд",
-    "embedDescriptionOne": "Команда {command} была выполнена **{count}** раз.",
     "embedDescriptionMany": "Это 10 наиболее часто используемых команд:\n"
   },
   "dashboard": {

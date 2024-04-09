@@ -58,7 +58,8 @@ type Database<excludeUndefined extends boolean = false> = {
       type: ActivityType;
     };
     stats: {
-      [commandName: string]: number | undefined;
+      /** `unknown` are commands that were executed before slash and prefix command stats got counted separately.*/
+      [commandName: string]: Record<'slash' | 'prefix' | 'unknown', number | undefined> | undefined;
     };
     blacklist?: userId[];
 

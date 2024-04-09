@@ -25,8 +25,9 @@
       }
     },
     "embedTitle": "Command Stats",
-    "embedDescriptionOne": "The {command} command has been run **{count}** times.",
-    "embedDescriptionMany": "These are 10 most used commands:\n"
+    "embedDescriptionOne": "The {command} command has been run **{total}** times (Slash: **{slash}** | Prefix: **{prefix}**).",
+    "embedDescriptionMany": "These are 10 most used commands:\n",
+    "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefix: **{prefix}**)"
   },
   "dashboard": {
     "description": "get the link to the bots's dashboard",
