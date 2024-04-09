@@ -9,7 +9,7 @@ module.exports = {
   cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: true,
-  options: [{ name: 'target', type: 'User' }], beta: true,
+  options: [{ name: 'target', type: 'User' }],
 
   run: async function (lang) {
     this.args = this.args?.map(e => e.replaceAll(/[&<>@]/g, '')) ?? [];
