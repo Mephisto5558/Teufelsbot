@@ -142,7 +142,7 @@
         "description": "Lösche auch angepinnte Nachrichten."
       },
       "caps_percentage": {
-        "description": "Wie viel CAPS muss die eine Nachricht enthalten, um gelöscht zu werden?"
+        "description": "Wie viel CAPS müssen Nachrichten mindestens enthalten, um gelöscht zu werden?"
       },
       "contains": {
         "description": "Nur Nachrichten, welche diese Phrase enthalten, werden gelöscht."
