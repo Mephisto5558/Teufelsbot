@@ -12,6 +12,9 @@ const
 
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
+global.log = new Log();
+global.sleep = require('node:util').promisify(setTimeout);
+
 /**
  * @param {Record<string, any>}target
  * @param {Record<string, any>}source
@@ -30,7 +33,7 @@ catch (err) {
   if (err.code != 'MODULE_NOT_FOUND') throw err;
   log.warn('Missing config.json. This file is required to run the bot.');
 
-  writeFileSync('../config.json', '{}');
+  writeFileSync('./config.json', '{}');
   config = {};
 
   log.warn('An empty config.json has been created.');
@@ -59,9 +62,6 @@ if (parentUptime) {
     return this.childUptime() + parentUptime;
   };
 }
-
-global.log = new Log();
-global.sleep = require('node:util').promisify(setTimeout);
 
 Object.defineProperty(Array.prototype, 'random', {
   /** @type {global['Array']['prototype']['random']}*/
