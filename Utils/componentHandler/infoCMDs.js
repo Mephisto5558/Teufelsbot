@@ -66,12 +66,14 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.deletable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
     }
+
     // fall through
     case 'roles': {
       if (item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId || !this.member.permissions.has(PermissionFlagsBits.ManageRoles))
         return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.editable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
     }
+
     // fall through
     case mode == 'delete': {
       await item.delete(`${entityType.slice(0, -1)} delete button in /${entityType.slice(0, -1)}info, member ${this.user.tag}`);

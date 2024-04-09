@@ -1,7 +1,7 @@
 const exec = require('node:util').promisify(require('node:child_process').exec);
 
 /** @returns {Promise<Error|'OK'>}*/
-module.exports = async () => {
+module.exports = async function gitpull() {
   let data;
 
   try { data = await exec('git pull', { maxBuffer: 614_400 }); }

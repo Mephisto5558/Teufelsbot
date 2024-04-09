@@ -35,6 +35,7 @@ type backupChannel = {
     createdAt: `${Date}`;
   }[];
   isNews: boolean;
+
   // Todo
   threads: unknown[];
 };
@@ -129,6 +130,9 @@ type Database<excludeUndefined extends boolean = false> = {
 
     [guildId: guildId]: {
       position: number;
+
+      /** The date on which the bot left the guild. Is not set if the bot is in the guild.*/
+      leftAt?: Date;
       config?: {
         lang?: string;
         prefix?: {
@@ -225,6 +229,7 @@ type Database<excludeUndefined extends boolean = false> = {
           };
         } | undefined;
       };
+
       // TODO
       lockedChannels?: {
         [channelId: channelId]: Record<unknown, unknown> | undefined;
@@ -258,7 +263,9 @@ type Database<excludeUndefined extends boolean = false> = {
     [backupId: `${guildId}${Snowflake}`]: {
       id: `${guildId}${Snowflake}`;
       metadata: [userId | userId[]];
-      createdTimestamp: number;
+
+      /** Backup creation date */
+      createdAt: Date;
       name: string;
       guildId: guildId;
       locale: string;
@@ -318,6 +325,7 @@ type Database<excludeUndefined extends boolean = false> = {
             deny: `${bigint}`;
           }[];
           children: backupChannel[];
+
           // Todo
         }[];
 
@@ -436,6 +444,7 @@ type OmitExcludedTypes<TValue, TValueInitial> = TValue extends ExcludedTypes
   : CreateObjectEntries<TValue, TValueInitial>;
 
 type CreateObjectEntries<TValue, TValueInitial> = TValue extends object ? {
+
   // Checks that Key is of type string
   [TKey in keyof TValue]-?: TKey extends string
     ? // Nested key can be an object, run recursively to the bottom
