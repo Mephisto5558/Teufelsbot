@@ -142,7 +142,7 @@
         "description": "Do not skip pinned messages."
       },
       "caps_percentage": {
-        "description": "How much CAPS must be at least in messages to purge it?"
+        "description": "How much CAPS must be at least in messages to purge them?"
       },
       "contains": {
         "description": "Messages must contain this phrase to get purged."
