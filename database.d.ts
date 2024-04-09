@@ -35,6 +35,7 @@ type backupChannel = {
     createdAt: `${Date}`;
   }[];
   isNews: boolean;
+
   // Todo
   threads: unknown[];
 };
@@ -228,6 +229,7 @@ type Database<excludeUndefined extends boolean = false> = {
           };
         } | undefined;
       };
+
       // TODO
       lockedChannels?: {
         [channelId: channelId]: Record<unknown, unknown> | undefined;
@@ -323,6 +325,7 @@ type Database<excludeUndefined extends boolean = false> = {
             deny: `${bigint}`;
           }[];
           children: backupChannel[];
+
           // Todo
         }[];
 
@@ -441,6 +444,7 @@ type OmitExcludedTypes<TValue, TValueInitial> = TValue extends ExcludedTypes
   : CreateObjectEntries<TValue, TValueInitial>;
 
 type CreateObjectEntries<TValue, TValueInitial> = TValue extends object ? {
+
   // Checks that Key is of type string
   [TKey in keyof TValue]-?: TKey extends string
     ? // Nested key can be an object, run recursively to the bottom
