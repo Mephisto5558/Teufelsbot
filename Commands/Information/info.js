@@ -1,4 +1,7 @@
-const { EmbedBuilder, Colors } = require('discord.js');
+const
+  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
+
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -26,12 +29,19 @@ module.exports = {
         title: lang('embedTitle'), description,
         color: Colors.DarkGold,
         footer: { text: lang('embedFooterText') }
-      });
+      }),
+      component = new ActionRowBuilder(),
+      { website, github, disableWebserver } = this.client.config;
 
-    const { website, disableWebserver } = this.client.config;
-    if (!disableWebserver && website.invite && website.dashboard && website.privacyPolicy)
-      embed.data.description += lang('links', { invite: website.invite, dashboard: website.dashboard, privacyPolicy: website.dashboard });
+    if (github.repo)
+      component.components.push(createButton(lang('links.repo'), github.repo, '<:pf_github:1055857421924433950>'));
 
-    return this.customReply({ embeds: [embed] });
+    if (!disableWebserver) {
+      if (website.invite) component.components.push(createButton(lang('links.invite'), website.invite));
+      if (website.dashboard) component.components.push(createButton(lang('links.dashboard'), website.dashboard));
+      if (website.privacyPolicy) component.components.push(createButton(lang('links.privacyPolicy'), website.privacyPolicy));
+    }
+
+    return this.customReply({ embeds: [embed], components: component.components.length ? [component] : undefined });
   }
 };

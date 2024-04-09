@@ -104,9 +104,14 @@
     "starts": "Starts",
     "lastStart": "Letzter Start",
     "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt.\n",
-    "links": "**[Einladung]({invite})** | **[Dashboard]({dashboard})** | **[Datenschutzrichtlinie]({privacyPolicy})**",
     "embedTitle": "Informationen",
-    "embedFooterText": "Mehr Informationen kommen bald!"
+    "embedFooterText": "Mehr Informationen kommen bald!",
+    "links": {
+      "repo": "GitHub",
+      "invite": "Einladung",
+      "dashboard": "Dashboard",
+      "privacyPolicy": "Datenschutz"
+    }
   },
   "invite": {
     "description": "Sendet einen Link, um den Bot auf deinem Server hinzuzufügen.",
