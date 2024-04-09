@@ -16,15 +16,15 @@
   "cmdstats": {
     "description": "Zeigt an, wie oft ein spezifischer Befehl oder die Top 10 genutzt wurden.",
     "usage": {
-      "usage": "{prefix}cmdstats [Befehl]",
-      "examples": "{prefix}cmdstats joke"
+      "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot' ] [Befehl]",
+      "examples": "{prefix}cmdstats user joke"
     },
     "options": {
       "command": {
         "description": "Für welchen Befehl möchtest du Statistiken erhalten?"
       }
     },
-    "embedTitle": "Befehlsstatistiken",
+    "embedTitle": "Befehlsstatistiken für {mode}",
     "embedDescriptionOne": "Der {command}-Befehl wurde **{total}** male (Slash: **{slash}** | Prefix: **{prefix}**) ausgeführt.",
     "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:\n",
     "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefix: **{prefix}**)"
