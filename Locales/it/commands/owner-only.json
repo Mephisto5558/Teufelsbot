@@ -44,7 +44,7 @@
   "reload": {
     "description": "ricarica un file o una categoria",
     "usage": {
-      "usage": "{prefix}ricarica <\"command\" <unk> \"file\"> <Path relative to cwd>\n{prefix}ricarica <command | \"*\">",
+      "usage": "{prefix}ricarica <\"command\" | \"file\"> <Path relative to cwd>\n{prefix}ricarica <command | \"*\">",
       "examples": "{prefix}ricaricare il file percorso/per/file\n{prefix}ricaricare il divertimento"
     },
     "invalidCommand": "Questo non è un comando valido.",

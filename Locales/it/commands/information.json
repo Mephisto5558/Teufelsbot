@@ -16,15 +16,26 @@
   "cmdstats": {
     "description": "Vedere quanto spesso è stato eseguito un comando specifico o ottenere la top 10.",
     "usage": {
-      "examples": "{prefix}cmdstats user joke"
+      "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot'] [command]",
+      "examples": "{prefix}cmdstats utente scherzo"
     },
     "options": {
+      "scope": {
+        "description": "Ottieni statistiche di comando per la gilda corrente, tu o il bot nel suo complesso.",
+        "choices": {
+          "bot": "Bot",
+          "guild": "Gilda",
+          "user": "Utente"
+        }
+      },
       "command": {
         "description": "Il comando per cui si desidera ottenere le statistiche."
       }
     },
     "embedTitle": "Statistiche Dei Comandi",
-    "embedDescriptionMany": "Questi sono 10 comandi più usati:\n"
+    "embedDescriptionOne": "Il comando {command} è stato eseguito **{total}** volte (Slash: **{slash}** | Prefisso: **{prefix}**).",
+    "embedDescriptionMany": "Questi sono 10 comandi più usati:\n",
+    "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefisso: **{prefix}**)"
   },
   "dashboard": {
     "description": "ottieni il link alla dashboard del bot",
@@ -71,11 +82,11 @@
     },
     "categoryListPlaceholder": "Quale categoria di comando vuoi vedere?",
     "commandListPlaceholder": "Quale comando vuoi vedere?",
-    "devEmbedFooterText": "Dev-Bot <unk> Vengono mostrati solo i comandi beta",
+    "devEmbedFooterText": "Dev-Bot | Vengono mostrati solo i comandi beta",
     "one": {
       "notFound": "Nessuna informazione trovata per il comando `{command}`.",
       "embedTitle": "Informazioni dettagliate su: `{command}`",
-      "embedFooterText": "Sintassi: <> = obbligatorio, [] = opzionale <unk> Prefisso: \"{prefix}\"",
+      "embedFooterText": "Sintassi: <> = obbligatorio, [] = opzionale | Prefisso: \"{prefix}\"",
       "prefixAlias": "Prefisso Alias Comandi",
       "slashAlias": "Slash Command Aliases",
       "aliasOf": "Alias di",
@@ -102,9 +113,14 @@
     "starts": "Inizia",
     "lastStart": "Ultimo avvio",
     "translation": "Traduzioni:\n> Inglese: {en}\n> Tedesco: {de}\n> Tutte le altre lingue sono tradotte automaticamente.\n",
-    "links": "**[Invite]({invite})** <unk> **[Dashboard]({dashboard})** <unk> **[Informativa sulla privacy]({privacyPolicy})**",
     "embedTitle": "Statistiche",
-    "embedFooterText": "Altre statistiche stanno arrivando presto!"
+    "embedFooterText": "Altre statistiche stanno arrivando presto!",
+    "links": {
+      "repo": "GitHub",
+      "invite": "Invita",
+      "dashboard": "Dashboard",
+      "privacyPolicy": "Politica Sulla Privacy"
+    }
   },
   "invite": {
     "description": "Invia un link per aggiungere il bot alla tua gilda.",
@@ -135,7 +151,7 @@
   "roleinfo": {
     "description": "Ottieni informazioni su un ruolo",
     "usage": {
-      "usage": "{prefix}roleinfo [@role <unk> role name <unk> role id]",
+      "usage": "{prefix}roleinfo [@role | role name | role id]",
       "examples": "{prefix}roleinfo @User1"
     },
     "options": {
@@ -204,7 +220,7 @@
   "userinfo": {
     "description": "Ottieni informazioni su un membro",
     "usage": {
-      "usage": "{prefix}roleinfo [@user <unk> user <unk> user tag <unk> user nickname <unk> user id]",
+      "usage": "{prefix}roleinfo [@user | user | user tag | user nickname | user id]",
       "examples": "{prefix}userinfo @User1"
     },
     "options": {
