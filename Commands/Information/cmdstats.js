@@ -6,27 +6,29 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  options: [{
-    name: 'mode',
-    type: 'Subcommand',
-    choices: ['bot', 'guild', 'user'],
-    options: [{
+  options: [
+    {
+      name: 'scope',
+      type: 'String',
+      choices: ['bot', 'guild', 'user']
+    },
+    {
       name: 'command',
       type: 'String',
       autocompleteOptions: function () { return [...new Set([...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()])]; },
       strictAutocomplete: true
-    }]
-  }],
+    }
+  ],
 
   run: function (lang) {
     const
-      mode = this.options?.getSubcommand(true) ?? this.args?.[0]?.toLowerCase() ?? 'bot',
+      scope = this.options?.getString('scope') ?? this.args?.[0]?.toLowerCase() ?? 'bot',
       query = (this.options?.getString('command') ?? this.args?.[this.args?.length == 1 ? 0 : 1])?.toLowerCase(),
-      cmdStats = (mode == 'guild' || mode == 'user' ? this[mode].db.cmdStats : this.client.settings.cmdStats) ?? {};
+      cmdStats = (scope == 'guild' || scope == 'user' ? this[scope].db.cmdStats : this.client.settings.cmdStats) ?? {};
 
     let target;
-    if (mode == 'guild') target = this.guild.name;
-    else if (mode == 'user') target = this.user.displayName;
+    if (scope == 'guild') target = this.guild.name;
+    else if (scope == 'user') target = this.user.displayName;
     else target = this.client.user.displayName;
 
     const embed = new EmbedBuilder({ title: lang('embedTitle', target), color: Colors.White });
