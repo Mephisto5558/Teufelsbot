@@ -25,8 +25,9 @@
       }
     },
     "embedTitle": "Command Stats",
-    "embedDescriptionOne": "The {command} command has been run **{count}** times.",
-    "embedDescriptionMany": "These are 10 most used commands:\n"
+    "embedDescriptionOne": "The {command} command has been run **{total}** times (Slash: **{slash}** | Prefix: **{prefix}**).",
+    "embedDescriptionMany": "These are 10 most used commands:\n",
+    "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefix: **{prefix}**)"
   },
   "dashboard": {
     "description": "get the link to the bots's dashboard",
@@ -104,9 +105,14 @@
     "starts": "Starts",
     "lastStart": "Last start",
     "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.\n",
-    "links": "**[Invite]({invite})** | **[Dashboard]({dashboard})** | **[Privacy Policy]({privacyPolicy})**",
     "embedTitle": "Stats",
-    "embedFooterText": "More stats are coming soon!"
+    "embedFooterText": "More stats are coming soon!",
+    "links": {
+      "repo": "GitHub",
+      "invite": "Invite",
+      "dashboard": "Dashboard",
+      "privacyPolicy": "Privacy Policy"
+    }
   },
   "invite": {
     "description": "Sends a link to add the bot to your guild.",
