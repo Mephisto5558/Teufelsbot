@@ -1,5 +1,7 @@
 /** @type {command<'prefix'>}*/
 module.exports = {
+  name: 'todo',
+  description: 'Todo list links',
   slashCommand: false,
   prefixCommand: true,
 
