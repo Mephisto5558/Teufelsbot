@@ -22,19 +22,23 @@ module.exports = {
       let command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);
       if (command?.aliasOf) command = this.client.slashCommands.get(command.aliasOf) || this.client.prefixCommands.get(command.aliasOf);
 
+      const total = Object.values(this.client.settings.stats[command.name]).reduce((acc, e) => acc + e, 0);
+
       embed.data.description = lang('embedDescriptionOne', {
-        command: command?.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``, count: this.client.settings.stats[command.name] ?? 0
+        command: command?.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``,
+        total, prefix: 0, slash: 0, ...this.client.settings.stats[command.name]
       });
     }
     else {
       embed.data.description = lang('embedDescriptionMany');
-      embed.data.fields = Object.entries(this.client.settings.stats ?? {})
-        .filter(([e]) => !this.client.config.ownerOnlyFolders.includes((this.client.prefixCommands.get(e) ?? this.client.slashCommands.get(e))?.category))
-        .sort(([, a], [, b]) => b - a)
+      embed.data.fields = Object.entries(this.client.settings.stats)
+        .filter(([k]) => !this.client.config.ownerOnlyFolders.includes((this.client.prefixCommands.get(k) ?? this.client.slashCommands.get(k))?.category))
+        .map(([k, v]) => [k, { prefix: 0, slash: 0, ...v, total: Object.values(v).reduce((acc, e) => acc + e, 0) }])
+        .sort(([, a], [, b]) => b.total - a.total)
         .slice(0, 10)
         .map(([k, v]) => {
           const id = this.client.application.commands.cache.find(e => e.name == k)?.id;
-          return { name: id ? `</${k}:${id}>` : `/${k}`, value: `**${v}**`, inline: true };
+          return { name: id ? `</${k}:${id}>` : `/${k}`, value: lang('embedFieldValue', v), inline: true };
         });
     }
 
