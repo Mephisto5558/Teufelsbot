@@ -64,7 +64,7 @@ const backupMainFunctions = {
     if (!this.client.backupSystem.get()) return this.editReply({ embeds: [embed.setDescription(lang('load.noneFound'))] });
     if (!checkPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('load.backupNoPerm'))] });
 
-    const buttons = new ActionRowBuilder({
+    const component = new ActionRowBuilder({
       components: [
         new ButtonBuilder({
           label: lang('global.true'),
@@ -80,7 +80,7 @@ const backupMainFunctions = {
     });
 
     // Todo: convert to componentHandler
-    return (await this.editReply({ embeds: [embed.setColor(Colors.DarkRed).setDescription(lang('load.overwriteWarningDescription'))], components: [buttons] }))
+    return (await this.editReply({ embeds: [embed.setColor(Colors.DarkRed).setDescription(lang('load.overwriteWarningDescription'))], components: [component] }))
       .createMessageComponentCollector({ filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: 3e4 })
       .on('collect', async button => {
         await button.deferUpdate();
@@ -112,9 +112,9 @@ const backupMainFunctions = {
       .on('end', collected => {
         if (collected.size) return;
 
-        buttons.components[0].data.disabled = true;
-        buttons.components[1].data.disabled = true;
-        return this.editReply({ components: [buttons] });
+        component.components[0].data.disabled = true;
+        component.components[1].data.disabled = true;
+        return this.editReply({ components: [component] });
       });
   },
 

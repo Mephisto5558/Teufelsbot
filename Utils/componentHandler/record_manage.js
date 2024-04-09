@@ -56,7 +56,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   const
     membersToRecord = vcCache.filter(e => e.allowed).map(e => e.userId),
     filename = `${this.message.createdTimestamp}_${voiceChannelId}_${membersToRecord.join('_')}`,
-    buttons = new ActionRowBuilder({
+    component = new ActionRowBuilder({
       components: [
         new ButtonBuilder({
           customId: `record.pause.${requesterId}.${voiceChannelId}`,
@@ -72,7 +72,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
     });
 
   embed.data.description = lang('recording', { channel: voiceChannelId, users: `<@${membersToRecord.join('>, <@')}>` });
-  this.message.edit({ embeds: [embed], components: [buttons] });
+  this.message.edit({ embeds: [embed], components: [component] });
 
   try { await access('./VoiceRecords/raw'); }
   catch (err) {
