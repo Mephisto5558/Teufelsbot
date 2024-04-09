@@ -104,14 +104,9 @@
     "starts": "Starts",
     "lastStart": "Last start",
     "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.\n",
+    "links": "**[Invite]({invite})** | **[Dashboard]({dashboard})** | **[Privacy Policy]({privacyPolicy})**",
     "embedTitle": "Stats",
-    "embedFooterText": "More stats are coming soon!",
-    "links": {
-      "repo": "GitHub",
-      "invite": "Invite",
-      "dashboard": "Dashboard",
-      "privacyPolicy": "Privacy Policy"
-    }
+    "embedFooterText": "More stats are coming soon!"
   },
   "invite": {
     "description": "Sends a link to add the bot to your guild.",
