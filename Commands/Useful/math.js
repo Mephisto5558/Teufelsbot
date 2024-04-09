@@ -14,7 +14,7 @@ const
     .replaceAll(/[\u00B2\u00B3\u2074-\u2079]/g, e => superscripts[e])
     .replaceAll(/√(\(|\d+)/g, (_, e) => e === '(' ? 'sqrt(' : `sqrt(${e})`),
   addSpaces = /** @param {number}fullNum*/ fullNum => {
-    if (typeof fullNum != 'number') return fullNum;
+    if (typeof fullNum != 'number' || !Number.isFinite(fullNum)) return fullNum;
     const [num, ext] = String(fullNum).split('.');
     return [...num].reduceRight((acc, e, i) => ((num.length - i) % 3 == 0 ? ` ${e}` : e) + acc, '') + (ext ? `.${ext}` : '');
   };
@@ -28,7 +28,7 @@ module.exports = {
     name: 'expression',
     type: 'String',
     required: true
-  }],
+  }], beta: true,
 
   run: function (lang) {
     const
