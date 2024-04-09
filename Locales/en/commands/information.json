@@ -16,15 +16,25 @@
   "cmdstats": {
     "description": "See how often a specific command has been run or get the top 10.",
     "usage": {
-      "usage": "{prefix}cmdstats [command]",
-      "examples": "{prefix}cmdstats joke"
+      "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot'] [command]",
+      "examples": "{prefix}cmdstats user joke"
     },
     "options": {
-      "command": {
-        "description": "The command you want to get stats for."
+      "mode": {
+        "description": "Get command stats for either the current guild, you, or the bot overall.",
+        "choices": {
+          "bot": "Bot",
+          "guild": "Guild",
+          "user": "User"
+        },
+        "options": {
+          "command": {
+            "description": "The command you want to get stats for."
+          }
+        }
       }
     },
-    "embedTitle": "Command Stats",
+    "embedTitle": "Command Stats for {mode}",
     "embedDescriptionOne": "The {command} command has been run **{total}** times (Slash: **{slash}** | Prefix: **{prefix}**).",
     "embedDescriptionMany": "These are 10 most used commands:\n",
     "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefix: **{prefix}**)"
