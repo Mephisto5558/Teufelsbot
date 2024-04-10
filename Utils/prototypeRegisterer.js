@@ -20,8 +20,10 @@ global.sleep = require('node:util').promisify(setTimeout);
  * @param {Record<string, any>}source
  * @returns {object} recursively merged Object*/
 function deepMerge(target, source) {
-  for (const key in source)
+  for (const key in source) {
+    if (key == '__proto__' || key == 'constructor') continue;
     if (Object.hasOwn(source, key)) target[key] = source[key] instanceof Object ? deepMerge(target[key] ?? {}, source[key]) : source[key];
+  }
 
   return target;
 }

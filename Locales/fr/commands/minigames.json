@@ -114,9 +114,9 @@
         "description": "À qui voulez-vous jouer ?"
       }
     },
-    "r": "Roche",
-    "p": "Papier",
-    "s": "Scissors",
+    "rock": "Roche",
+    "paper": "Papier",
+    "scissors": "Scissors",
     "challenge": {
       "opponentIsBot": "Vous ne pouvez pas défier les robots !",
       "opponentIsSelf": "Vous ne pouvez pas vous défier vous-même!",

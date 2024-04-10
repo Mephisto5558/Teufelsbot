@@ -114,9 +114,9 @@
         "description": "Who do you want to play against?"
       }
     },
-    "r": "Rock",
-    "p": "Paper",
-    "s": "Scissors",
+    "rock": "Rock",
+    "paper": "Paper",
+    "scissors": "Scissors",
     "challenge": {
       "opponentIsBot": "You cannot challenge bots!",
       "opponentIsSelf": "You cannot challenge yourself!",

@@ -2,8 +2,7 @@ const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
   sendChallenge = require('./rps_sendChallenge.js'),
-  /* eslint-disable-next-line id-length */
-  emojis = { r: '✊', p: '🤚', s: '✌️' };
+  emojis = { rock: '✊', paper: '🤚', scissors: '✌️' };
 
 /**
  * @this {GuildInteraction|import('discord.js').ButtonInteraction}
@@ -19,21 +18,21 @@ function sendGame(initiator, opponent, lang) {
     component = new ActionRowBuilder({
       components: [
         new ButtonBuilder({
-          customId: `rps.${initiator.id}.r.${opponent.id}`,
-          emoji: emojis.r,
-          label: lang('r'),
+          customId: `rps.${initiator.id}.rock.${opponent.id}`,
+          emoji: emojis.rock,
+          label: lang('rock'),
           style: ButtonStyle.Primary
         }),
         new ButtonBuilder({
-          customId: `rps.${initiator.id}.p.${opponent.id}`,
-          emoji: emojis.p,
-          label: lang('p'),
+          customId: `rps.${initiator.id}.paper.${opponent.id}`,
+          emoji: emojis.paper,
+          label: lang('paper'),
           style: ButtonStyle.Primary
         }),
         new ButtonBuilder({
-          customId: `rps.${initiator.id}.s.${opponent.id}`,
-          emoji: emojis.s,
-          label: lang('s'),
+          customId: `rps.${initiator.id}.scissors.${opponent.id}`,
+          emoji: emojis.scissors,
+          label: lang('scissors'),
           style: ButtonStyle.Primary
         })
       ]
@@ -47,7 +46,7 @@ function sendGame(initiator, opponent, lang) {
  * @this {import('discord.js').ButtonInteraction}
  * @param {lang}lang
  * @param {string}initiatorId
- * @param {'cancel'|'decline'|'accept'|'playAgain'|'r'|'p'|'s'}mode
+ * @param {'cancel'|'decline'|'accept'|'playAgain'|'rock'|'paper'|'scissors'}mode
  * @param {string}opponentId*/
 module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   if (this.user.id != initiatorId && this.user.id != opponentId) return;
@@ -80,15 +79,15 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
       if (opponent.user.bot) return sendGame.call(this, initiator, opponent, lang);
       return sendChallenge.call(this, this.member, initiatorId == this.user.id ? opponent : initiator, lang);
     }
-    case 'r':
-    case 'p':
-    case 's': {
+    case 'rock':
+    case 'paper':
+    case 'scissors': {
       let choices = {};
       if (opponentId == this.client.user.id) {
         choices.player1 = mode;
-        choices.player2 = ['r', 'p', 's'].random();
+        choices.player2 = ['rock', 'paper', 'scissors'].random();
       }
-      else choices = this.client.db.get('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`) ?? {};
+      else choices = this.guild.db.minigames?.rps?.[this.message.id] ?? {};
 
       if (!choices.player1 || !choices.player2) {
         const player = this.user.id == initiatorId ? 'player1' : 'player2';
@@ -106,9 +105,12 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
       await this.client.db.delete('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`);
       if (choices.player1 == choices.player2) this.message.embeds[0].data.description = lang('end.tie', emojis[mode]);
       else {
-        const winner = choices.player1 == 'r' && choices.player2 == 's' || choices.player1 == 'p' && choices.player2 == 'r' || choices.player1 == 's' && choices.player2 == 'p'
+        const winner = choices.player1 == 'rock' && choices.player2 == 'scissors'
+          || choices.player1 == 'paper' && choices.player2 == 'rock'
+          || choices.player1 == 'scissors' && choices.player2 == 'paper'
           ? initiatorId
           : opponentId;
+
         this.message.embeds[0].data.description = lang('end.win', {
           winner, winEmoji: emojis[initiatorId == winner ? choices.player1 : choices.player2],
           loseEmoji: emojis[initiatorId == winner ? choices.player2 : choices.player1]
