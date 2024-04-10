@@ -1,4 +1,5 @@
 const
+  { randomInt } = require('node:crypto'),
   { EmbedBuilder } = require('discord.js'),
   fetch = require('node-fetch');
 
@@ -27,7 +28,7 @@ module.exports = {
 
     const embed = new EmbedBuilder({ color: data.color, image: { url: data.message } });
 
-    if (!Math.floor(Math.random() * 1e4)) embed.data.title = lang('embedTitle');
+    if (!randomInt(1e4)) embed.data.title = lang('embedTitle');
 
     return this.customReply({ embeds: [embed] });
   }
