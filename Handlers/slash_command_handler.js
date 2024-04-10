@@ -90,7 +90,8 @@ module.exports = async function slashCommandHandler() {
 
   this.on('interactionCreate', interaction => require('../Events/interactionCreate.js').call(interaction));
 
-  /* eslint-disable no-unexpected-multiline, @stylistic/indent, @stylistic/function-call-spacing */
+  /* eslint-disable no-unexpected-multiline, @stylistic/indent*/
+  /* eslint @stylistic/function-call-spacing: [,, { 'allowNewlines': true }]*/
   log
     (`Registered ${registeredCommandCount} Slash Commands`) // NOSONAR
     (`Skipped ${this.slashCommands.filter(e => e.skip && delete e.skip).size} Slash Commands`)
