@@ -114,9 +114,9 @@
         "description": "Gegen wen möchtest du spielen?"
       }
     },
-    "r": "Stein",
-    "p": "Papier",
-    "s": "Schere",
+    "rock": "Stein",
+    "paper": "Papier",
+    "scissors": "Schere",
     "challenge": {
       "opponentIsBot": "Du kannst keine Bots herausfordern!",
       "opponentIsSelf": "Du kannst dich nicht selbst herausfordern!",
