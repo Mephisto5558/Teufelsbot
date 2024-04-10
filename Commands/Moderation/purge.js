@@ -5,8 +5,11 @@ const
   /**
    * @param {string}str
    * filters discord invites, invite.gg, dsc.gg, disboard.org links*/
-  /* eslint-disable-next-line @stylistic/max-len */
-  adRegex = str => /((?=discord)(?<!support\.)(discord(?:app)?[\W_]*(com|gg|me|net|io|plus|link)\/|(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(attachments|channels)\/)|(invite|dsc)[\W_]*gg|disboard[\W_]*org/gi.test(str),
+  adRegex = str => new RegExp(
+    '((?=discord)(?<!support\\.)(discord(?:app)?[\\W_]*(com|gg|me|net|io|plus|link)\\/|'
+    + '(?<=\\w\\.)\\w+\\/)(?=.)|watchanimeattheoffice[\\W_]*com)(?!\\/?(attachments|channels)\\/)'
+    + '|(invite|dsc)[\\W_]*gg|disboard[\\W_]*org', 'gi'
+  ).test(str),
   filterOptionsExist = /** @param {Record<string, string | number | boolean | undefined>}options */ options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
 
   /** @type {Record<string, (msg: Message<true>) => any>}*/
