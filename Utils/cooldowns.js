@@ -35,15 +35,14 @@ function cooldown(name, cooldowns = {}) {
     timeStamps = this.client.cooldowns.get(name) ?? this.client.cooldowns.set(name, {}).get(name),
     cooldownList = [];
 
-  /* eslint-disable-next-line no-shadow */
-  for (const [name, value] of Object.entries(cooldowns)) {
-    if (!value || this[name] === null) continue;
+  for (const [cdName, value] of Object.entries(cooldowns)) {
+    if (!value || this[cdName] === null) continue;
 
-    timeStamps[name] ??= new Map();
-    const timestamp = timeStamps[name].get(this[name].id) ?? 0;
+    timeStamps[cdName] ??= new Map();
+    const timestamp = timeStamps[cdName].get(this[cdName].id) ?? 0;
 
     if (timestamp > now) cooldownList.push(Math.round((timestamp - now) / 1000));
-    else timeStamps[name].set(this[name].id, now + value);
+    else timeStamps[cdName].set(this[cdName].id, now + value);
   }
 
   return Math.max(cooldownList) || subCommandCooldowns.call(this, name);
