@@ -114,9 +114,9 @@
         "description": "A chi vuoi giocare contro?"
       }
     },
-    "r": "Roccia",
-    "p": "Carta",
-    "s": "Forbici",
+    "rock": "Roccia",
+    "paper": "Carta",
+    "scissors": "Forbici",
     "challenge": {
       "opponentIsBot": "Non puoi sfidare i bot!",
       "opponentIsSelf": "Non puoi sfidarti!",
