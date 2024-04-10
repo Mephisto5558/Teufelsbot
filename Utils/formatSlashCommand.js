@@ -25,10 +25,11 @@ module.exports = function format(option, path, i18n) {
 
   for (const [locale] of [...i18n.availableLocales].filter(([e]) => e != i18n.config.defaultLocale)) {
     option.descriptionLocalizations ??= {};
-    const localeText = i18n.__({ locale, undefinedNotFound: true }, `${path}.description`);
-    if (localeText?.length > 100 && !option.disabled) log.warn(`"${locale}" description localization of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
+    const localizedDescription = i18n.__({ locale, undefinedNotFound: true }, `${path}.description`);
+    if (localizedDescription?.length > 100 && !option.disabled)
+      log.warn(`"${locale}" description localization of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
 
-    if (localeText) option.descriptionLocalizations[locale] = localeText?.slice(0, 100);
+    if (localizedDescription) option.descriptionLocalizations[locale] = localizedDescription?.slice(0, 100);
     else if (!option.disabled) log.warn(`Missing "${locale}" description localization for option "${option.name}" (${path}.description)`);
 
     if ('choices' in option) {
@@ -39,16 +40,16 @@ module.exports = function format(option, path, i18n) {
         }
 
         e.nameLocalizations ??= {};
-        /* eslint-disable-next-line no-shadow */
-        const localeText = i18n.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
-        if (!option.disabled && (localeText?.length < 2 || localeText?.length > 32)) {
+
+        const localizedChoice = i18n.__({ locale, undefinedNotFound: true }, `${path}.choices.${e.value}`);
+        if (!option.disabled && (localizedChoice?.length < 2 || localizedChoice?.length > 32)) {
           log.warn(
             `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${path}.choices.${e.value}) is too`
-            + (localeText?.length < 2 ? 'short (min length is 2)! Using undefined.' : 'long (max length is 32)! Slicing.')
+            + (localizedChoice?.length < 2 ? 'short (min length is 2)! Using undefined.' : 'long (max length is 32)! Slicing.')
           );
         }
 
-        if (localeText && localeText.length > 2) e.nameLocalizations[locale] = localeText.slice(0, 32);
+        if (localizedChoice && localizedChoice.length > 2) e.nameLocalizations[locale] = localizedChoice.slice(0, 32);
         else if (e.name != e.value && !option.disabled) log.warn(`Missing "${locale}" choice name localization for "${e.value}" in option "${option.name}" (${path}.choices.${e.value})`);
 
         return e;
