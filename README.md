@@ -24,7 +24,7 @@ A discord.js v14 bot with Dashboard, multiple language support, a DB and many co
 I am very open for pull requests, feature requests and everything else that helps me improve.<br>
 If you have any questions feel free to open an issue.<br>
 
-[ToDo List](http://eu.pylex.me:20958/vote) | [Bot Invite Link](http://eu.pylex.me:20958/invite)
+[ToDo List](http://us-premium.pylex.me:8006/vote) | [Bot Invite Link](http://us-premium.pylex.me:8006/invite)
 
 ## Requirements
 ```
