@@ -114,9 +114,9 @@
         "description": "¿A quién quieres jugar de nuevo?"
       }
     },
-    "r": "Roca",
-    "p": "Papel",
-    "s": "Tijeras",
+    "rock": "Roca",
+    "paper": "Papel",
+    "scissors": "Tijeras",
     "challenge": {
       "opponentIsBot": "¡No puedes retar a los bots!",
       "opponentIsSelf": "¡No puedes desafiarte a ti mismo!",
