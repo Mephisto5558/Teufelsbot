@@ -130,6 +130,8 @@ declare namespace __local {
     };
     dbConnectionStr: string;
   }
+
+  type BoundFunction = new (this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang) => FunctionConstructor;
 }
 
 
