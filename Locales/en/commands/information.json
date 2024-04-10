@@ -16,17 +16,26 @@
   "cmdstats": {
     "description": "See how often a specific command has been run or get the top 10.",
     "usage": {
-      "usage": "{prefix}cmdstats [command]",
-      "examples": "{prefix}cmdstats joke"
+      "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot'] [command]",
+      "examples": "{prefix}cmdstats user joke"
     },
     "options": {
+      "scope": {
+        "description": "Get command stats for either the current guild, you, or the bot overall.",
+        "choices": {
+          "bot": "Bot",
+          "guild": "Guild",
+          "user": "User"
+        }
+      },
       "command": {
         "description": "The command you want to get stats for."
       }
     },
-    "embedTitle": "Command Stats",
-    "embedDescriptionOne": "The {command} command has been run **{count}** times.",
-    "embedDescriptionMany": "These are 10 most used commands:\n"
+    "embedTitle": "Command Stats for {mode}",
+    "embedDescriptionOne": "The {command} command has been run **{total}** times (Slash: **{slash}** | Prefix: **{prefix}**).",
+    "embedDescriptionMany": "These are 10 most used commands:\n",
+    "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefix: **{prefix}**)"
   },
   "dashboard": {
     "description": "get the link to the bots's dashboard",
@@ -104,9 +113,14 @@
     "starts": "Starts",
     "lastStart": "Last start",
     "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.\n",
-    "links": "**[Invite]({invite})** | **[Dashboard]({dashboard})** | **[Privacy Policy]({privacyPolicy})**",
     "embedTitle": "Stats",
-    "embedFooterText": "More stats are coming soon!"
+    "embedFooterText": "More stats are coming soon!",
+    "links": {
+      "repo": "GitHub",
+      "invite": "Invite",
+      "dashboard": "Dashboard",
+      "privacyPolicy": "Privacy Policy"
+    }
   },
   "invite": {
     "description": "Sends a link to add the bot to your guild.",
@@ -220,6 +234,7 @@
     "guildMod": "Guild Moderator",
     "guildMember": "Guild Member",
     "mention": "Mention",
+    "displayName": "Display Name",
     "type": "Type",
     "roles": "Roles",
     "position": "Position",

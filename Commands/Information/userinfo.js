@@ -33,9 +33,10 @@ module.exports = {
         color: Number.parseInt((await getAverageColor(member.displayAvatarURL())).hex.slice(1), 16),
         thumbnail: { url: member.displayAvatarURL() },
         image: { url: bannerURL && bannerURL + '?size=1024' },
+        footer: { text: member.id },
         fields: [
           { name: lang('mention'), value: member.user.toString(), inline: true },
-          { name: 'ID', value: `\`${member.id}\``, inline: true },
+          { name: lang('displayName'), value: member.displayName, inline: true },
           { name: lang('type'), value: type, inline: true },
           { name: lang('position'), value: `\`${this.guild.roles.highest.position - member.roles.highest.position + 1}\`, ${member.roles.highest}`, inline: true },
           { name: lang('roles'), value: `\`${member.roles.cache.size}\``, inline: true },
@@ -84,10 +85,10 @@ module.exports = {
     }
 
     if (member.bannable && (this.member.roles.highest.position > member.roles.highest.position || this.user.id == this.guild.ownerId)) {
-      const comp = new ActionRowBuilder();
+      const component = new ActionRowBuilder();
 
       if (this.member.permissions.has(PermissionFlagsBits.KickMembers)) {
-        comp.components.push(new ButtonBuilder({
+        component.components.push(new ButtonBuilder({
           label: lang('kickMember'),
           customId: `infoCMDs.${member.id}.kick.members`,
           style: ButtonStyle.Danger
@@ -95,14 +96,14 @@ module.exports = {
       }
 
       if (this.member.permissions.has(PermissionFlagsBits.BanMembers)) {
-        comp.components.push(new ButtonBuilder({
+        component.components.push(new ButtonBuilder({
           label: lang('banMember'),
           customId: `infoCMDs.${member.id}.ban.members`,
           style: ButtonStyle.Danger
         }));
       }
 
-      if (comp.components.length) components.push(comp);
+      if (component.components.length) components.push(component);
     }
 
     return this.customReply({ embeds: [embed], components });

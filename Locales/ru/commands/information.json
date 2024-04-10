@@ -16,8 +16,7 @@
   "cmdstats": {
     "description": "Посмотрите, как часто выполнялась конкретная команда или как получить топ 10.",
     "usage": {
-      "usage": "{prefix}cmdstats [command]",
-      "examples": "{prefix}cmdstats joke"
+      "examples": "{prefix}cmdstats user joke"
     },
     "options": {
       "command": {
@@ -25,7 +24,6 @@
       }
     },
     "embedTitle": "Статистика команд",
-    "embedDescriptionOne": "Команда {command} была выполнена **{count}** раз.",
     "embedDescriptionMany": "Это 10 наиболее часто используемых команд:\n"
   },
   "dashboard": {

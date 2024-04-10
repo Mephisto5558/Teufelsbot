@@ -132,7 +132,7 @@
   "fact": {
     "description": "Ottenere alcuni fatti, sono davvero cool e utile, contare su di me.",
     "usage": {
-      "usage": "{prefix}fatto [\"en\"<unk> \"de\"]",
+      "usage": "{prefix}fact [\"en\" | \"de\"]",
       "examples": "{prefix}fact it"
     },
     "embedTitle": "Fatto"
@@ -319,7 +319,7 @@
       }
     },
     "invalidJson": "L'API ha risposto con dati non validi.",
-    "notFound": "Non sono riuscito a trovare un poke<unk> mon con quel nome!",
+    "notFound": "Non sono riuscito a trovare un pokémon con quel nome!",
     "error": "Si è verificato un errore.",
     "types": "Tipo(i)",
     "abilities": "Abilità",
@@ -363,7 +363,7 @@
     "notFound": "Nessun post corrispondente alla tua ricerca.",
     "private": "Questo subreddit è privato.",
     "error": "Si è verificato un errore:\n```{err}```",
-    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) <unk> Downvotes: {downvotes} <unk> Commenti: {comments}"
+    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) | Downvotes: {downvotes} | Commenti: {comments}"
   },
   "sad": {
     "description": "invia un emojicon triste"
@@ -688,7 +688,6 @@
       }
     },
     "saved": "Aggiunto nuovo trigger per `{trigger}`.",
-    "idNotFound": "Non c'è alcun trigger con quell'ID!",
     "deletedOne": "Eliminato il trigger con l'ID `{id}`",
     "deletedAll": "Ho eliminato tutti i trigger (`{count}`).",
     "noneFound": "Non ci sono grilletti!",
@@ -706,8 +705,8 @@
   "vote": {
     "description": "Crea un sondaggio per qualcosa",
     "usage": {
-      "usage": "{prefix}voto <channel> [question] <unk> [opzione 1] <unk> [opzione 2] <unk> <option 3> ... <option 9>",
-      "examples": "{prefix}voto #voto Stai bene? <unk> Sì <unk> No"
+      "usage": "{prefix}voto <channel> [question] | [opzione 1] | [opzione 2] | <option 3> ... <option 9>",
+      "examples": "{prefix}voto #voto Stai bene? | Sì | No"
     },
     "options": {
       "question": {
@@ -729,7 +728,7 @@
     },
     "noPerm": "Non hai il permesso di inviare messaggi in quel canale!",
     "noQuestion": "Hai bisogno di fornire una domanda per un sondaggio...",
-    "notEnoughOptions": "È necessario fornire almeno due opzioni (dividerle con un `<unk> `) per un sondaggio...",
+    "notEnoughOptions": "È necessario fornire almeno due opzioni (dividerle con un `| `) per un sondaggio...",
     "embedTitle": "Sondaggio",
     "embedFooterText": "Il creatore di questo sondaggio può reagire con ❌ per chiudere il sondaggio.",
     "buttonEmbedFooterText": "Il creatore di questo sondaggio può premere il pulsante ❌ per chiudere il sondaggio.",

@@ -7,7 +7,7 @@ const
    * filters discord invites, invite.gg, dsc.gg, disboard.org links*/
   /* eslint-disable-next-line @stylistic/max-len */
   adRegex = str => /((?=discord)(?<!support\.)(discord(?:app)?[\W_]*(com|gg|me|net|io|plus|link)\/|(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(attachments|channels)\/)|(invite|dsc)[\W_]*gg|disboard[\W_]*org/gi.test(str),
-  filterOptionsExist = options => Object.keys(options).some(e => e.name != 'amount' && e.name != 'channel'),
+  filterOptionsExist = /** @param {Record<string, string | number | boolean | undefined>}options */ options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
 
   /** @type {Record<string, (msg: Message<true>) => any>}*/
   filterCheck = {
@@ -21,26 +21,26 @@ const
 
 /**
  * @param {Message<true>}msg
- * @param {object}options*/
+ * @param {Record<string, string | number | boolean | undefined>}options*/
 function shouldDeleteMsg(msg, options) {
   const
     nHas = option => !(option in options),
     bool = msg.bulkDeletable && (!options.remove_pinned || msg.pinned),
     userType = msg.user.bot ? 'bot' : 'human';
 
-  return !!(filterOptionsExist(options)
-    ? bool
-    && (nHas('member') || msg.user.id == options.member.id)
+  if (!filterOptionsExist(options)) return bool;
+  return !!(bool
+    && (nHas('member') || msg.user.id == options.member)
     && (nHas('user_type') || options.user_type == userType)
     && (nHas('only_containing') || filterCheck[options.only_containing](msg))
-    && (nHas('caps_percentage') || (options.caps_percentage >= msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * 100))
+    && (nHas('caps_percentage') || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * 100 >= options.caps_percentage)
     && (nHas('contains') || msg.content.includes(options.contains) || msg.embeds?.some(e => e.description.includes(options.contains)))
     && (nHas('does_not_contain') || msg.content.includes(options.does_not_contain) || msg.embeds?.some(e => e.description.includes(options.does_not_contain)))
     && (nHas('starts_with') || msg.content.startsWith(options.starts_with) || msg.embeds?.some(e => e.description.startsWith(options.starts_with)))
     && (nHas('not_starts_with') || msg.content.startsWith(options.not_starts_with) || msg.embeds?.some(e => e.description.startsWith(options.not_starts_with)))
     && (nHas('ends_with') || msg.content.endsWith(options.ends_with) || msg.embeds?.some(e => e.description.endsWith(options.ends_with)))
     && (nHas('not_ends_with') || msg.content.endsWith(options.not_ends_with) || msg.embeds?.some(e => e.description.endsWith(options.not_ends_with)))
-    : bool);
+  );
 }
 
 /**

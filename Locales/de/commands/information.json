@@ -16,17 +16,26 @@
   "cmdstats": {
     "description": "Zeigt an, wie oft ein spezifischer Befehl oder die Top 10 genutzt wurden.",
     "usage": {
-      "usage": "{prefix}cmdstats [Befehl]",
-      "examples": "{prefix}cmdstats joke"
+      "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot'] [Befehl]",
+      "examples": "{prefix}cmdstats user joke"
     },
     "options": {
+      "scope": {
+        "description": "Erhalte Befehlsstatistiken entweder für den aktuellen Server, für dich oder für den Bot insgesamt.",
+        "choices": {
+          "bot": "Bot",
+          "guild": "Server",
+          "user": "Nutzer"
+        }
+      },
       "command": {
-        "description": "Für welchen Befehl möchtest du Statistiken erhalten?"
+        "description": "Der Befehl, für den du Statistiken erhalten möchtest."
       }
     },
-    "embedTitle": "Befehlsstatistiken",
-    "embedDescriptionOne": "Der {command}-Befehl wurde **{count}** male ausgeführt.",
-    "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:\n"
+    "embedTitle": "Befehlsstatistiken für {mode}",
+    "embedDescriptionOne": "Der {command}-Befehl wurde **{total}** male (Slash: **{slash}** | Präfix: **{prefix}**) ausgeführt.",
+    "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:\n",
+    "embedFieldValue": "**{total}** (Slash: **{slash}** | Präfix: **{prefix}**)"
   },
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",
@@ -104,9 +113,14 @@
     "starts": "Starts",
     "lastStart": "Letzter Start",
     "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt.\n",
-    "links": "**[Einladung]({invite})** | **[Dashboard]({dashboard})** | **[Datenschutzrichtlinie]({privacyPolicy})**",
     "embedTitle": "Informationen",
-    "embedFooterText": "Mehr Informationen kommen bald!"
+    "embedFooterText": "Mehr Informationen kommen bald!",
+    "links": {
+      "repo": "GitHub",
+      "invite": "Einladen",
+      "dashboard": "Dashboard",
+      "privacyPolicy": "Datenschutz"
+    }
   },
   "invite": {
     "description": "Sendet einen Link, um den Bot auf deinem Server hinzuzufügen.",

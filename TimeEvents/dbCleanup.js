@@ -2,7 +2,23 @@ const
   { SnowflakeUtil } = require('discord.js'),
 
   /** @returns {number}Unix timestamp*/
-  getOneMonthAgo = () => new Date().setMonth(new Date().getMonth() - 1);
+  getOneMonthAgo = () => new Date().setMonth(new Date().getMonth() - 1),
+
+  /** @returns {number}Unix timestamp*/
+  getOneYearAgo = () => new Date().setFullYear(new Date().getFullYear() - 1);
+
+/**
+ * Deletes guilds that the bot was not in for over a year
+ * @this {Client}
+ * @param {string}guildId
+ * @param {Exclude<Database<true>['guildSettings'][''], undefined>}db*/
+function cleanupGuildsDB(guildId, db) {
+  if (!db) return this.db.delete('guildSettings', guildId);
+  if (!db?.leftAt || db.leftAt.getTime() < getOneYearAgo()) return;
+
+  log.debug(`Deleted guild ${guildId} from the database.`);
+  return this.db.delete('guildSettings', guildId);
+}
 
 /**
  * Deletes giveaway records that concluded over a month ago
@@ -76,13 +92,14 @@ module.exports = {
     for (const [guildId, guildSettings] of Object.entries(this.db.get('guildSettings'))) {
       if (guildId == 'default') continue;
 
+      cleanupGuildsDB.call(this, guildId, guildSettings);
       cleanupGiveawaysDB.call(this, guildId, guildSettings.giveaway?.giveaways);
       cleanupMentionsDB.call(this, guildId, guildSettings.lastMentions);
       cleanupAfkMessagesDB.call(this, guildId, guildSettings.afkMessages);
       cleanUpMinigamesDB.call(this, guildId, guildSettings.minigames);
     }
 
-    log('Cleaned giveaways, lastMentions, afkMessages & minigames DB');
+    log('Cleaned guilds, giveaways, lastMentions, afkMessages & minigames DB');
 
     await this.db.update('botSettings', 'lastDBCleanup', now);
     log('Finished DB cleanup');

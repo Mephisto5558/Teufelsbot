@@ -70,7 +70,7 @@ class BackupSystem {
     const data = {
       id: id ?? guild.id + SnowflakeUtil.generate().toString(),
       metadata: metadata ?? undefined,
-      createdTimestamp: Date.now(),
+      createdAt: new Date(),
       name: guild.name,
       guildId: guild.id,
       locale: guild.preferredLocale,
@@ -212,7 +212,7 @@ class BackupSystem {
     let data, rulesChannel, publicUpdatesChannel;
 
     if (id) data = typeof id == 'string' ? this.get(id) : id;
-    else data = this.list(guild.id).sort((a, b) => b - a).first();
+    else data = this.list(guild.id).sort((a, b) => b.createdAt - a.createdAt).first();
 
     if (clearGuildBeforeRestore) {
       statusObj.status = 'clear.items';

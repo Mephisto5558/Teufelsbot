@@ -35,9 +35,13 @@ type backupChannel = {
     createdAt: `${Date}`;
   }[];
   isNews: boolean;
+
   // Todo
   threads: unknown[];
 };
+
+/** `unknown` are commands that were executed before slash and prefix command stats got counted separately.*/
+type cmdStats = { [commandName: string]: Record<'slash' | 'prefix' | 'unknown', number | undefined> | undefined };
 
 type guildId = Snowflake;
 type channelId = Snowflake;
@@ -56,9 +60,7 @@ type Database<excludeUndefined extends boolean = false> = {
       name: string;
       type: ActivityType;
     };
-    stats: {
-      [commandName: string]: number | undefined;
-    };
+    cmdStats: cmdStats;
     blacklist?: userId[];
 
     patreonBonuses?: Record<string, unknown>;
@@ -93,6 +95,8 @@ type Database<excludeUndefined extends boolean = false> = {
       birthday?: Date;
       lastVoted?: Exclude<WebsiteDB['userSettings'][''], undefined>['lastVoted'];
       featureRequestAutoApprove?: Exclude<WebsiteDB['userSettings'][''], undefined>['featureRequestAutoApprove'];
+      lastFeatureRequested?: number;
+      cmdStats?: cmdStats;
     } | (excludeUndefined extends true ? never : undefined);
   };
 
@@ -127,6 +131,9 @@ type Database<excludeUndefined extends boolean = false> = {
 
     [guildId: guildId]: {
       position: number;
+
+      /** The date on which the bot left the guild. Is not set if the bot is in the guild.*/
+      leftAt?: Date;
       config?: {
         lang?: string;
         prefix?: {
@@ -223,6 +230,7 @@ type Database<excludeUndefined extends boolean = false> = {
           };
         } | undefined;
       };
+
       // TODO
       lockedChannels?: {
         [channelId: channelId]: Record<unknown, unknown> | undefined;
@@ -245,6 +253,7 @@ type Database<excludeUndefined extends boolean = false> = {
       serverbackup?: {
         allowedToLoad?: number;
       };
+      cmdStats?: cmdStats;
     } | (excludeUndefined extends true ? never : undefined);
   };
 
@@ -256,7 +265,9 @@ type Database<excludeUndefined extends boolean = false> = {
     [backupId: `${guildId}${Snowflake}`]: {
       id: `${guildId}${Snowflake}`;
       metadata: [userId | userId[]];
-      createdTimestamp: number;
+
+      /** Backup creation date */
+      createdAt: Date;
       name: string;
       guildId: guildId;
       locale: string;
@@ -316,6 +327,7 @@ type Database<excludeUndefined extends boolean = false> = {
             deny: `${bigint}`;
           }[];
           children: backupChannel[];
+
           // Todo
         }[];
 
@@ -363,6 +375,7 @@ type OmitExcludedTypes<TValue, TValueInitial> = TValue extends ExcludedTypes
   : CreateObjectEntries<TValue, TValueInitial>;
 
 type CreateObjectEntries<TValue, TValueInitial> = TValue extends object ? {
+
   // Checks that Key is of type string
   [TKey in keyof TValue]-?: TKey extends string
     ? // Nested key can be an object, run recursively to the bottom
