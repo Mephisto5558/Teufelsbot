@@ -7,18 +7,18 @@ const
  * @param {import('discord.js').User}user
  * @param {number}year*/
 function formatBirthday(user, year) {
-  return this?.toString()?.replaceAll('<user.nickname>', user.displayName)
-    .replaceAll('<user.username>', user.username)
-    .replaceAll('<user.id>', user.id)
-    .replaceAll('<user.tag>', user.tag)
-    .replaceAll('<user.joinedAt>', user.joinedAt.toLocaleDateString('en'))
-    .replaceAll('<guild.id>', user.guild.id)
-    .replaceAll('<guild.memberCount>', user.guild?.memberCount)
-    .replaceAll('<guild.name>', user.guild?.name)
-    .replaceAll('<bornyear>', year)
-    .replaceAll('<date>', new Date().toLocaleDateString('en'))
-    .replaceAll('<age>', Number.parseInt(year) ? new Date().getFullYear() - year : '<age>')
-    .replaceAll(/<age>\.?/g, ''); // <guilds> gets replaced below
+  return this?.toString()?.replaceAll('{user.nickname}', user.displayName)
+    .replaceAll('{user.username}', user.username)
+    .replaceAll('{user.id}', user.id)
+    .replaceAll('{user.tag}', user.tag)
+    .replaceAll('{user.joinedAt}', user.joinedAt.toLocaleDateString('en'))
+    .replaceAll('{guild.id}', user.guild.id)
+    .replaceAll('{guild.memberCount}', user.guild?.memberCount)
+    .replaceAll('{guild.name}', user.guild?.name)
+    .replaceAll('{bornyear}', year)
+    .replaceAll('{date}', new Date().toLocaleDateString('en'))
+    .replaceAll('{age}', Number.parseInt(year) ? new Date().getFullYear() - year : '{age}')
+    .replaceAll(/{age}\.?/g, ''); // {guilds} gets replaced below
 }
 
 module.exports = {
