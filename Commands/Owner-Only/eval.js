@@ -1,14 +1,11 @@
-/* eslint-disable-next-line jsdoc/valid-types */ // jsdoc doesn't like me using "module" as a param name
-/** @typedef {new (this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang) => Function}BoundFunction*/
-
 const
   vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
 
-  /** @type {BoundFunction}*/
+  /** @type {import('../../globals').__local.BoundFunction}*/
   /* eslint-disable-next-line no-empty-function, func-names */
   BoundAsyncFunction = async function () { }.constructor.bind(undefined, ...vars),
 
-  /** @type {BoundFunction}*/
+  /** @type {import('../../globals').__local.BoundFunction}*/
   /* eslint-disable-next-line no-new-func */
   BoundFunction = Function.bind(undefined, ...vars);
 
