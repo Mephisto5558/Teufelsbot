@@ -86,26 +86,25 @@ module.exports = async function ban_kick_mute(lang) {
       .on('collect', async selectMenu => {
         await selectMenu.deferUpdate();
 
-        /* eslint-disable-next-line no-shadow */
-        for (const [, target] of selectMenu.members) {
-          const err = checkTargetManageable.call(this, target, lang);
+        for (const [, selectedMember] of selectMenu.members) {
+          const err = checkTargetManageable.call(this, selectedMember, lang);
 
           if (err) {
-            resEmbed.data.description += lang('error', { err: lang(err), user: target.user.tag });
+            resEmbed.data.description += lang('error', { err: lang(err), user: selectedMember.user.tag });
             continue;
           }
 
-          try { await target.send({ embeds: [userEmbed] }); }
+          try { await selectedMember.send({ embeds: [userEmbed] }); }
           catch {
             if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
             noMsg = true;
           }
 
-          if (this.commandName == 'kick') await target.kick(reason);
-          else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: 86_400 * this.options.getNumber('delete_days_of_messages') });
-          else await target.disableCommunicationUntil(muteDurationMs, reason);
+          if (this.commandName == 'kick') await selectedMember.kick(reason);
+          else if (this.commandName == 'ban') await selectedMember.ban({ reason, deleteMessageSeconds: 86_400 * this.options.getNumber('delete_days_of_messages') });
+          else await selectedMember.disableCommunicationUntil(muteDurationMs, reason);
 
-          resEmbed.data.description += lang('success', { user: target.user.tag, muteDuration });
+          resEmbed.data.description += lang('success', { user: selectedMember.user.tag, muteDuration });
           if (noMsg) resEmbed.data.description += lang('noDM');
         }
 
