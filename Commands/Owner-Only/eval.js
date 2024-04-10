@@ -2,8 +2,8 @@ const
   vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
 
   /** @type {import('../../globals').__local.BoundFunction}*/
-  /* eslint-disable-next-line no-empty-function, func-names */
-  BoundAsyncFunction = async function () { }.constructor.bind(undefined, ...vars),
+  /* eslint-disable-next-line no-empty-function */
+  BoundAsyncFunction = async function asyncEval() { }.constructor.bind(undefined, ...vars),
 
   /** @type {import('../../globals').__local.BoundFunction}*/
   /* eslint-disable-next-line no-new-func */
