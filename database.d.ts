@@ -1,8 +1,8 @@
 /* eslint-disable max-lines */
-
 import type { Snowflake, ActivityType, GuildFeature, EmbedData } from 'discord.js';
-import { __local } from './globals';
-import { GiveawayData } from 'discord-giveaways';
+import type { __local } from './globals';
+import type { GiveawayData } from 'discord-giveaways';
+import type { Database as WebsiteDB } from '@mephisto5558/bot-website/database';
 
 export { Database, FlattenedDatabase };
 
@@ -92,10 +92,9 @@ type Database<excludeUndefined extends boolean = false> = {
         message: string;
         createdAt: Date;
       };
-
       birthday?: Date;
-      lastVoted?: Date;
-      featureRequestAutoApprove?: boolean;
+      lastVoted?: Exclude<WebsiteDB['userSettings'][''], undefined>['lastVoted'];
+      featureRequestAutoApprove?: Exclude<WebsiteDB['userSettings'][''], undefined>['featureRequestAutoApprove'];
       lastFeatureRequested?: number;
       cmdStats?: cmdStats;
     } | (excludeUndefined extends true ? never : undefined);
@@ -169,7 +168,7 @@ type Database<excludeUndefined extends boolean = false> = {
         embedColorEnd?: number;
         useLastChance?: boolean;
         giveaways: {
-          [messageId: messageId]: GiveawayData;
+          [messageId: messageId]: ThisType<GiveawayData>;
         };
       };
       afkMessages?: {
@@ -338,79 +337,8 @@ type Database<excludeUndefined extends boolean = false> = {
     } | (excludeUndefined extends true ? never : undefined);
   };
 
-  website: {
-    requests: {
-      [requestId: string | `${userId}_${number}`]: {
-        id: string | `${userId}_${number}`;
-        title: string;
-        body: string;
-        votes?: number;
-      } | undefined;
-    };
-    sessions: {
-      [sessionId: string]: {
-        cookie: {
-          path: string;
-          _expires: Date?;
-          originalMaxAge: number?;
-          httpOnly: boolean;
-          secure?: boolean;
-          domain?: string;
-        };
-        passport?: {
-          user: {
-            id: userId;
-            username: string;
-            locale: string;
-            avatar: string;
-            banner: string?;
-          };
-        };
-        discordAuthStatus?: {
-          loading: boolean;
-          success: boolean;
-          state: {
-            error: unknown?;
-            data: unknown?;
-          };
-        };
-        redirectURL?: string;
-        r?: string;
-        user?: {
-          id: userId;
-          username: string;
-          avatar: string;
-          discriminator: `${number}`;
-          public_flags: number;
-          flags: number;
-          banner: string?;
-          accent_color: number;
-          global_name: string;
-          avatar_decoration_data: unknown?;
-          banner_color: `#${number}`;
-          mfa_enabled: boolean;
-          locale: string;
-          premium_type: number;
-          email: string;
-          verified: boolean;
-          tag: `${string}#${number}`;
-          avatarURL: string;
-        };
-        loggedInLastTime?: boolean;
-        guilds?: {
-          id: guildId;
-          name: string;
-          icon: string;
-          owner: boolean;
-          permissions: `${bigint}`;
-          features: GuildFeature[];
-        }[];
-        errors?: unknown?;
-        success?: boolean?;
-      } | undefined;
-    };
-  };
-};
+  website: WebsiteDB['website'];
+} ;
 
 type FlattenedDatabase = { [DB in keyof Database]: FlattenObject<Database[DB]>; };
 
