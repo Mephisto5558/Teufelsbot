@@ -4,8 +4,8 @@ const
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
   cachedSubreddits = new Collection(),
   fetchPost = ({ children }, filterNSFW = true) => {
-    if (filterNSFW) children = children.filter(e => !e.data.over_18);
-    if (!children[0]) return;
+    children = children.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
+    if (!children.length) return;
 
     const post = children.random().data;
 
