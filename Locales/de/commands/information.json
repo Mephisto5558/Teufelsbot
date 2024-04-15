@@ -234,6 +234,7 @@
     "guildMod": "Server Moderator",
     "guildMember": "Server Mitglied",
     "mention": "Erwähnung",
+    "displayName": "Anzeigename",
     "type": "Typ",
     "roles": "Rollen",
     "position": "Position",
