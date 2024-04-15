@@ -234,6 +234,7 @@
     "guildMod": "Moderatore Di Gilda",
     "guildMember": "Membro Della Gilda",
     "mention": "Menzione",
+    "displayName": "Nome Visualizzato",
     "type": "Tipo",
     "roles": "Ruoli",
     "position": "Posizione",
