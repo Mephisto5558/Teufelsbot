@@ -65,8 +65,10 @@ class BackupSystem {
 
     statusObj.status = 'create.settings';
 
-    /* eslint-disable-next-line no-return-assign */
-    const updateStatus = status => statusObj.status = status;
+    const updateStatus = status => {
+      statusObj.status = status;
+      return statusObj.status;
+    };
     const data = {
       id: id ?? guild.id + SnowflakeUtil.generate().toString(),
       metadata: metadata ?? undefined,
@@ -157,7 +159,6 @@ class BackupSystem {
                     permissions: this.utils.fetchChannelPermissions(child),
                     position: child.position,
                     threads: await this.utils.fetchChannelThreads(child, saveImages, maxMessagesPerChannel),
-                    /* eslint-disable-next-line max-nested-callbacks */
                     availableTags: child.availableTags.map(e => ({ name: e.name, emoji: e.emoji?.name, moderated: e.moderated }))
                   };
                 }
