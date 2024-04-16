@@ -3,10 +3,10 @@
   "slashOnly": "Questo comando è disponibile solo come comando slash: </{name}:{id}>",
   "guildOnly": "Questo comando è disponibile solo nelle gilde!",
   "nonBeta": "Questo comando non è un comando beta! Questo bot esegue solo i comandi beta.",
-  "disabled": "Questo comando è stato disabilitato dal bot dev. Motivo:\n{reason}",
+  "disabled": "Questo comando è stato disabilitato dal bot dev.",
   "nsfw": "Non puoi eseguire i comandi NSFW in un canale non NSFW!",
   "paramRequired": "Devi inserire un valore per l'opzione \"{option}\".\n> {description}",
-  "strictAutocompleteNoMatch": "Il tuo input per l'opzione \"{option}\" deve corrispondere a uno dei suggerimenti di completamento automatico. Seleziona una delle opzioni disponibili quando inserisci il comando slash.",
+  "strictAutocompleteNoMatch": "Il tuo input deve corrispondere a uno dei suggerimenti per il completamento automatico. Seleziona una delle opzioni disponibili quando inserisci il comando slash.",
   "permissionDenied": {
     "embedTitle": "Permessi Insufficienti",
     "embedDescriptionUser": "Hai bisogno dei seguenti permessi in questo canale per eseguire questo comando:\n`{permissions}`",
