@@ -48,9 +48,9 @@ const
         /** @param {import('discord.js').GuildMember}member*/
         startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers?.includes(member.id));
 
-      const data = await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions);
-      /* eslint-disable-next-line require-atomic-updates */ // I don't see any race donditions
-      components[0].components[0].data.url = data.messageURL;
+      await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions).then(data => {
+        components[0].components[0].data.url = data.messageURL; // Using .then() here to prevent eslint/require-atomic-updates
+      });
 
       return this.editReply({ content: lang('started'), components });
     },
@@ -92,9 +92,9 @@ const
         }
       };
 
-      const data = await this.client.giveawaysManager.reroll(giveawayId, rerollOptions);
-      /* eslint-disable-next-line require-atomic-updates */
-      components[0].components[0].data.url = data.messageURL; // I don't see any race donditions
+      await this.client.giveawaysManager.reroll(giveawayId, rerollOptions).then(() => {
+        components[0].components[0].data.url = giveawayId; // Using .then() here to prevent eslint/require-atomic-updates
+      });
 
       return this.editReply({ content: lang('rerolled'), components });
     }
