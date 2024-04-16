@@ -1,5 +1,13 @@
 const defaultCharset = ['abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\\=*\'"#*(){}[]'];
 
+/**
+ * Helper function to prevent eslint/no-loop-func
+ *
+ * Filters the last selected entry out and selects a list entry based on a secure random number generator (RNG). RNG defined in Utils/prototypeRegisterer.js.
+ * @param {string[]}charset
+ * @param {string?}lastRandomChar*/
+const getRandomChar = (charset, lastRandomChar) => charset.filter(e => e !== lastRandomChar).random();
+
 /** @type {command<'slash', false>}*/
 module.exports = {
   cooldowns: { user: 1000 },
@@ -44,9 +52,7 @@ module.exports = {
       passwordList += '```';
 
       for (let i = 0; i < length; i++) {
-        // Filters the last selected entry out and selects a list entry based on a secure random number generator. Defined in Utils/prototypeRegisterer.js.
-        /* eslint-disable-next-line no-loop-func */
-        const randomChar = [...charset].filter(e => e != lastRandomChar).random();
+        const randomChar = getRandomChar([...charset], lastRandomChar);
 
         // Adds one of the chars in the charset to the passwort, escape \n so it doesn't break formatting
         passwordList += lastRandomChar + randomChar == '\n' ? '\\n' : randomChar;
