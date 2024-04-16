@@ -46,18 +46,17 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
         })]
       });
 
+      lang.__boundArgs__[0].backupPath = `commands.moderation.${mode}`;
+
       this.showModal(modal);
       const submit = await this.awaitModalSubmit({ time: 30_000 }).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; });
       if (!submit) return;
 
-      await submit.deferUpdate();
-
       this.commandName = mode;
       this.options = { getMember: () => item, getString: () => submit.fields.getTextInputValue('infoCMDs_punish_reason_modal_text'), getNumber: () => 0 };
       this.editReply = this.followUp;
-      /* eslint-disable-next-line require-atomic-updates */
-      lang.__boundArgs__[0].backupPath = `commands.moderation.${mode}`;
 
+      await submit.deferUpdate();
       ban_kick_mute.call(this, lang);
       break;
     }
