@@ -36,7 +36,7 @@
       "usage": "{prefix}exec <sh code>",
       "examples": "{prefix}exec echo 'Ciao Mondo!'"
     },
-    "finished": "Codice Bash:\n```sh\n{code}\n```\n",
+    "finished": "Comando bash valutato:\n```sh\n{code}\n```\n",
     "stdout": "{msg} con il seguente output:\nstdout:\n```\n{stdout}\n```\n",
     "stderr": "stderr:\n```\n{stderr}\n```",
     "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```"
@@ -44,7 +44,7 @@
   "reload": {
     "description": "ricarica un file o una categoria",
     "usage": {
-      "usage": "{prefix}ricarica <\"command\" | \"file\"> <Path relative to cwd>\n{prefix}ricarica <command | \"*\">",
+      "usage": "{prefix}reload <\"command\" | \"file\"> <Path relative to cwd>\n{prefix}reload <command | \"*\">",
       "examples": "{prefix}ricaricare il file percorso/per/file\n{prefix}ricaricare il divertimento"
     },
     "invalidCommand": "Questo non è un comando valido.",

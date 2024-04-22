@@ -17,7 +17,7 @@
     "description": "Vedere quanto spesso è stato eseguito un comando specifico o ottenere la top 10.",
     "usage": {
       "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot'] [command]",
-      "examples": "{prefix}cmdstats utente scherzo"
+      "examples": "{prefix}cmdstats joke"
     },
     "options": {
       "scope": {
@@ -136,7 +136,7 @@
     },
     "average": {
       "loading": "Pinging... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}`\nPing più basso: `{lowest}ms`\nPing più alto: `{highest}ms`\nPing medio: `{average}ms`"
+      "embedDescription": "Pings: `{pings}`\nAPI:\n> Ping più basso: `{wsLowest}ms`\n> Ping più alto: `{wsHighest}ms`\n> Ping medio: `{wsAverage}ms`\nMessaggio Invia:\n> Ping più basso: `{msgLowest}ms`\n> Ping più alto: `{msgHighest}ms`\n> Ping medio: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
