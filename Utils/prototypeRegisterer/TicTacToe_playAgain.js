@@ -1,6 +1,6 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
 
-/* eslint-disable jsdoc/imports-as-dependencies */
+/* eslint-disable jsdoc/imports-as-dependencies -- see https://github.com/gajus/eslint-plugin-jsdoc/issues/1114*/
 /**
  * @this {import('discord-tictactoe')}
  * @param {Interaction}interaction

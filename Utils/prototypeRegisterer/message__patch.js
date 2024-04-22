@@ -1,4 +1,4 @@
-/* eslint-disable unicorn/no-null */ // Mimicing discord.js behavior
+/* eslint-disable unicorn/no-null -- Mimicing discord.js behavior */
 const originalPatch = require('discord.js').Message.prototype._patch;
 
 /**

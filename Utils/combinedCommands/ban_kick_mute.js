@@ -5,7 +5,7 @@ const
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
 /** @type {command<'slash', true, true>['run']}*/
-/* eslint-disable-next-line camelcase */
+/* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
 module.exports = async function ban_kick_mute(lang) {
   if (this.commandName == 'timeout') this.commandName = 'mute';
   if (!['ban', 'kick', 'mute'].includes(this.commandName)) throw new Error(`"${this.commandName}" is not an accepted commandName.`);

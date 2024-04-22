@@ -32,7 +32,7 @@ module.exports = {
     /** @type {{ url: string, content: string, author: import('discord.js').User|import('discord.js').Snowflake, createdAt: Date }}*/
     const { url, content, author, createdAt } = (
       channel
-        /* eslint-disable-next-line arrow-body-style */
+        /* eslint-disable-next-line arrow-body-style -- This would make the line too long */
         ? channel.messages.cache.find(e => {
           return (!target || e.author.id == target.id) && e.mentions.everyone || e.mentions.users.has(this.user.id) || e.mentions.roles.hasAny(this.member.roles.cache.keys());
         })

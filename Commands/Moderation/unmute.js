@@ -28,7 +28,7 @@ module.exports = {
     const err = checkTargetManageable.call(this, target);
     if (err) return this.editReply(lang(err));
 
-    /* eslint-disable-next-line unicorn/no-null */
+    /* eslint-disable-next-line unicorn/no-null -- `null` must be used here. */
     await target.disableCommunicationUntil(null, `${reason} | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`);
     return this.editReply(lang('success', target.user.id));
   }

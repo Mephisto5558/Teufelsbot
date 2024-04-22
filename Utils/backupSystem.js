@@ -239,7 +239,7 @@ class BackupSystem {
 
       statusObj.status = 'clear.settings';
       await guild.edit({
-        /* eslint-disable unicorn/no-null */
+        /* eslint-disable unicorn/no-null -- `null` must be used here, as `undefined` is interpreted as 'Keep current data' */
         reason,
         verificationLevel: guild.features.includes(GuildFeature.Community) ? undefined : GuildVerificationLevel.None,
         explicitContentFilter: guild.features.includes(GuildFeature.Community) ? undefined : GuildExplicitContentFilter.Disabled,
