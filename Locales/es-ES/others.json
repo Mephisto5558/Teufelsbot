@@ -17,7 +17,7 @@
     "EmbedLinks": "Incrustar enlaces",
     "AttachFiles": "Adjuntar archivos",
     "ReadMessageHistory": "Leer historial de mensajes",
-    "MentionEveryone": "Mencionar a @everyone, @aquí y a Alle Rollen",
+    "MentionEveryone": "Mencionar @everyone, @here y todos los roles",
     "UseExternalEmojis": "Usar Emojis Externos",
     "ViewGuildInsights": "Ver imágenes del servidor",
     "Connect": "Conectar",
@@ -29,7 +29,7 @@
     "ManageNicknames": "Administrar apodos",
     "ManageRoles": "Administrar roles",
     "ManageWebhooks": "Administrar Webhooks",
-    "ManageGuildExpressions": "Administrar Emojis y Stickers",
+    "ManageGuildExpressions": "Administrar Expresiones de Gremio",
     "UseApplicationCommands": "Usar comandos de aplicación",
     "RequestToSpeak": "Solicitud para hablar",
     "ManageEvents": "Administrar eventos",
@@ -73,10 +73,10 @@
   },
   "timeFormatter": {
     "ydhms": "{year} años, {day} días, {hour} horas, {minute} minutos y {second} segundos",
-    "dhms": "{d} días, {h} horas, {m} minutos y {s} segundos",
-    "hms": "{h} horas, {m} minutos y {s} segundos",
-    "ms": "{m} minutos y {s} segundos",
-    "s": "{s} segundos"
+    "dhms": "{day} días, {hour} horas, {minute} minutos y {second} segundos",
+    "hms": "{hour} horas, {minute} minutos y {second} segundos",
+    "ms": "{minute} minutos y {second} segundos",
+    "s": "{second} segundos"
   },
   "timeEvents": {
     "birthday": {
