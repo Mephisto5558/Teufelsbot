@@ -217,12 +217,12 @@ declare global {
 
   /** Custom logging, including logfiles.*/
   const log: {
-    /* eslint-disable @typescript-eslint/no-explicit-any */
+    /* eslint-disable @typescript-eslint/no-explicit-any -- using same signature as console.log */
     (...str: any[]): typeof log;
-    log(): (...str: any[]) => typeof log;
-    warn(): (...str: any[]) => typeof log;
-    error: (...str: any[]) => typeof log;
-    debug: (...str: any[]) => typeof log;
+    log(...str: any[]): typeof log;
+    warn(...str: any[]): typeof log;
+    error(...str: any[]): typeof log;
+    debug(...str: any[]): typeof log;
     _log({ file, type }?: { file?: string; type?: string }, ...str: any[]): typeof log;
     /* eslint-enable @typescript-eslint/no-explicit-any */
   };
