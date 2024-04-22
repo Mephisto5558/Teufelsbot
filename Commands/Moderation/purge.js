@@ -18,7 +18,7 @@ const
     embeds: msg => msg.embeds?.length,
     mentions: msg => msg.mentions.users.size,
     images: msg => msg.attachments?.some(e => e.contentType.includes('image')),
-    /* eslint-disable-next-line camelcase */ // option name
+    /* eslint-disable-next-line camelcase -- option name for better user-readability*/
     server_ads: msg => adRegex(msg.content) || msg.embeds?.some(e => adRegex(e.description))
   };
 
@@ -48,11 +48,10 @@ function shouldDeleteMsg(msg, options) {
 
 /**
  * @param {Message['channel']}channel
- * @param {number?}limit
  * @param {string?}before
- * @param {string?}after*/
-/* eslint-disable-next-line unicorn/no-useless-undefined */
-async function fetchMsgs(channel, limit = 250, before = undefined, after = undefined) {
+ * @param {string?}after
+ * @param {number?}limit*/
+async function fetchMsgs(channel, before, after, limit = 250) {
   const options = { limit: Math.min(limit, 100), before, after };
 
   let
@@ -150,9 +149,9 @@ module.exports = {
         || options.starts_with && options.does_not_contain == options.not_starts_with || options.ends_with && options.ends_with == options.not_ends_with
       ) return this.editReply(lang('paramsExcludeOther'));
 
-      messages = await fetchMsgs(channel, amount, options.before, options.after);
+      messages = await fetchMsgs(channel, options.before, options.after, amount);
     }
-    else messages = await fetchMsgs(channel, amount);
+    else messages = await fetchMsgs(channel, undefined, undefined, amount);
 
     messages = [...messages.filter(e => shouldDeleteMsg(e, options)).keys()];
     if (!messages.length) return this.customReply(lang('noneFound'));
