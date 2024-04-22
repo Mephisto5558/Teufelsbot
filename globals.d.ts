@@ -430,6 +430,10 @@ declare module 'discord.js' {
     runMessages(this: Message): Promise<this>;
   }
 
+  interface PartialMessage {
+    user: PartialMessage['author'];
+  }
+
   interface BaseInteraction {
 
     /**
