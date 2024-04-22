@@ -16,7 +16,7 @@
   "cmdstats": {
     "description": "Vedere quanto spesso è stato eseguito un comando specifico o ottenere la top 10.",
     "usage": {
-      "usage": "{prefix}cmdstats [command]",
+      "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot'] [command]",
       "examples": "{prefix}cmdstats joke"
     },
     "options": {
@@ -33,7 +33,7 @@
       }
     },
     "embedTitle": "Statistiche Dei Comandi",
-    "embedDescriptionOne": "Il comando {command} è stato eseguito **{count}** volte.",
+    "embedDescriptionOne": "Il comando {command} è stato eseguito **{total}** volte (Slash: **{slash}** | Prefisso: **{prefix}**).",
     "embedDescriptionMany": "Questi sono 10 comandi più usati:\n",
     "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefisso: **{prefix}**)"
   },
@@ -82,11 +82,11 @@
     },
     "categoryListPlaceholder": "Quale categoria di comando vuoi vedere?",
     "commandListPlaceholder": "Quale comando vuoi vedere?",
-    "devEmbedFooterText": "Dev-Bot <unk> Vengono mostrati solo i comandi beta",
+    "devEmbedFooterText": "Dev-Bot | Vengono mostrati solo i comandi beta",
     "one": {
       "notFound": "Nessuna informazione trovata per il comando `{command}`.",
       "embedTitle": "Informazioni dettagliate su: `{command}`",
-      "embedFooterText": "Sintassi: <> = obbligatorio, [] = opzionale <unk> Prefisso: \"{prefix}\"",
+      "embedFooterText": "Sintassi: <> = obbligatorio, [] = opzionale | Prefisso: \"{prefix}\"",
       "prefixAlias": "Prefisso Alias Comandi",
       "slashAlias": "Slash Command Aliases",
       "aliasOf": "Alias di",
@@ -112,7 +112,7 @@
     "commands": "Comandi",
     "starts": "Inizia",
     "lastStart": "Ultimo avvio",
-    "translation": "Traduzioni:\n> Inglese: {en}\n> Tedesco: {de}\n",
+    "translation": "Traduzioni:\n> Inglese: {en}\n> Tedesco: {de}\n> Tutte le altre lingue sono tradotte automaticamente.\n",
     "embedTitle": "Statistiche",
     "embedFooterText": "Altre statistiche stanno arrivando presto!",
     "links": {
@@ -136,7 +136,7 @@
     },
     "average": {
       "loading": "Pinging... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}`\nPing più basso: `{lowest}ms`\nPing più alto: `{heightest}ms`\nPing medio: `{average}ms`"
+      "embedDescription": "Pings: `{pings}`\nAPI:\n> Ping più basso: `{wsLowest}ms`\n> Ping più alto: `{wsHighest}ms`\n> Ping medio: `{wsAverage}ms`\nMessaggio Invia:\n> Ping più basso: `{msgLowest}ms`\n> Ping più alto: `{msgHighest}ms`\n> Ping medio: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -144,14 +144,14 @@
     "messageSend": "Invia Messaggio"
   },
   "prefix": {
-    "description": "mostra o cambia il prefisso del bot della gilda",
+    "description": "Mostra il prefisso bot della gilda",
     "currentPrefix": "Il mio prefisso attuale è `{prefix}`.",
     "caseInsensitive": " (case insensitive)"
   },
   "roleinfo": {
     "description": "Ottieni informazioni su un ruolo",
     "usage": {
-      "usage": "{prefix}roleinfo [@role <unk> role name <unk> role id]",
+      "usage": "{prefix}roleinfo [@role | role name | role id]",
       "examples": "{prefix}roleinfo @User1"
     },
     "options": {
@@ -201,9 +201,9 @@
     "emojis": "Emojis",
     "boosts": {
       "name": "Potenziamenti",
-      "1": "Livello 1",
-      "2": "Livello 2",
-      "3": "Livello 3"
+      "1": ", Livello 1",
+      "2": ", Livello 2",
+      "3": ", Livello 3"
     },
     "roles": "Ruoli",
     "channels": "Canali",
@@ -215,12 +215,12 @@
   "uptime": {
     "description": "Ottieni tempo di funzionamento del bot",
     "embedDescriptionNoURL": "Il bot è stato online per {time}.",
-    "embedDescription": "Il bot è stato [online]({Domain}/uptime) per {time}."
+    "embedDescription": "Il bot è stato [online]({domain}/uptime) per {time}."
   },
   "userinfo": {
     "description": "Ottieni informazioni su un membro",
     "usage": {
-      "usage": "{prefix}roleinfo [@user <unk> user <unk> user tag <unk> user nickname <unk> user id]",
+      "usage": "{prefix}roleinfo [@user | user | user tag | user nickname | user id]",
       "examples": "{prefix}userinfo @User1"
     },
     "options": {
