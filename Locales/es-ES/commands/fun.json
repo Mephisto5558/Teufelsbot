@@ -234,7 +234,7 @@
       }
     },
     "managerNotFound": "Esta función está desactivada o no está registrada.",
-    "notFound": "Su id de mensaje proporcionado no es un regalo válido o ya ha terminado!",
+    "notFound": "¡Su id de mensaje proporcionado no es un regalo válido o ya ha terminado!",
     "invalidTime": "¡El valor de duración/add_time proporcionado no es válido!",
     "notHost": "Usted no es el anfitrión de este regalo!",
     "buttonLabel": "Ver regalos",
@@ -688,7 +688,6 @@
       }
     },
     "saved": "Se ha añadido un nuevo disparador para `{trigger}`.",
-    "idNotFound": "¡No hay ningún disparador con ese ID!",
     "deletedOne": "Eliminado el disparador con el ID `{id}`",
     "deletedAll": "He eliminado todos (`{count}`) activadores.",
     "noneFound": "¡No hay activadores!",
@@ -697,7 +696,7 @@
     "needConfirm": "Necesitas confirmar esta acción escribiendo `CLEAR ALL` en la opción de confirmación!",
     "embedTitle": "Disparadores",
     "embedTitleOne": "**Disparador {id}:**",
-    "embedDescriptionOne": "**Trigger:**\n```\n{trigger}\n```\n**Response:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",
+    "embedDescriptionOne": "**Desencadenador:**\n```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Tarjeta comodín:** `{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Disparador: `{trigger}`\n> Respuesta: `{response}`\n> Comodino: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
     "shortFieldValue": "**Disparador:**\n```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Comodino: **`{wildcard}`\n",
