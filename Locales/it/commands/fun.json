@@ -67,7 +67,7 @@
       }
     },
     "embedTitle": "Avatar Fusion: {user1} e {user2}",
-    "missingParam": "Devi menzionare almeno un membro!"
+    "missingParam": "Devi menzionare almeno un membro, escluso te stesso!"
   },
   "birthday": {
     "description": "Salva il tuo compleanno e invierò un messaggio in quel giorno.",
@@ -234,7 +234,7 @@
       }
     },
     "managerNotFound": "Questa funzione è disabilitata o non registrata.",
-    "notFound": "L'id del messaggio fornito non è un giveaway valido!",
+    "notFound": "L'id del messaggio fornito non è un giveaway valido o è già finito!",
     "invalidTime": "Il valore di durazione/add_time fornito non è valido!",
     "notHost": "Non sei l'ospite di questo giveaway!",
     "buttonLabel": "Visualizza Giveaway",
