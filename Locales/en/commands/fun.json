@@ -121,7 +121,7 @@
       "notFound": "{user} has no birthday :(",
       "embedTitle": "{user}'s birthday",
       "date": "{user} has birthday on **{month} {day}**.\n",
-      "newAge": "He/She will turn **{age}** on this day."
+      "newAge": "They will turn **{age}** on this day."
     },
     "getAll": {
       "embedTitle": "The next birthdays",
