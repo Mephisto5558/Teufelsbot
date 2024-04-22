@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint-disable camelcase -- This casing is used to better display the commandName. */
 const { commandQuery, categoryQuery, allQuery, getCommands, getCommandCategories } = require('./help_utils.js');
 const { startRecording, recordControls } = require('./record_manage.js');
 

@@ -11,7 +11,7 @@ const commandExecutionWrapper = require('../commandExecutionWrapper.js');
 module.exports = function joke(lang, api, type, blacklist, maxLength) {
   this.options = {
     /** @param {string}str*/
-    /* eslint-disable unicorn/no-null */ // Mimicing discord.js behavior
+    /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior*/
     getString: str => {
       switch (str) {
         case 'api': return api == 'null' ? null : api;

@@ -64,7 +64,7 @@ async function fetchMsgs(channel, before, after, limit = 250) {
     const messages = await channel.messages.fetch(options);
     if (!messages.size) break;
 
-    /* eslint-disable-next-line unicorn/prefer-spread */ // Collection extends Map, not Array
+    /* eslint-disable-next-line unicorn/prefer-spread -- false positive: Collection extends Map, not Array*/
     collection = collection.concat(messages);
     lastId = messages.last().id;
     options.limit = Math.min(limit - collection.size, 100);

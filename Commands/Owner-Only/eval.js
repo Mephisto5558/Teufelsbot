@@ -2,11 +2,11 @@ const
   vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
 
   /** @type {import('../../globals').__local.BoundFunction}*/
-  /* eslint-disable-next-line no-empty-function */
+  /* eslint-disable-next-line no-empty-function -- It get's used (and filled) later*/
   BoundAsyncFunction = async function asyncEval() { }.constructor.bind(undefined, ...vars),
 
   /** @type {import('../../globals').__local.BoundFunction}*/
-  /* eslint-disable-next-line no-new-func */
+  /* eslint-disable-next-line no-new-func*/
   BoundFunction = Function.bind(undefined, ...vars);
 
 /** @type {command<'prefix', false>}*/

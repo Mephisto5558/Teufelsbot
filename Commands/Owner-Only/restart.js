@@ -25,7 +25,7 @@ module.exports = {
 
       try { await asyncExec('npm install'); }
       catch {
-        /* eslint-disable-next-line require-atomic-updates */
+        /* eslint-disable-next-line require-atomic-updates -- I don't see any issue */
         restarting = false;
         return msg[getUpdateFunc(msg)](lang('updateNPMError'));
       }
@@ -42,7 +42,7 @@ module.exports = {
       );
     }
     catch (err) {
-      /* eslint-disable-next-line require-atomic-updates */
+      /* eslint-disable-next-line require-atomic-updates -- I don't see any issue */
       restarting = false;
 
       log.error('Restarting Error: ', err);

@@ -3,7 +3,7 @@ const
   getTargetChannel = require('../getTargetChannel.js');
 
 /** @type {command<'slash', true, true>['run']}*/
-/* eslint-disable-next-line camelcase */
+/* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
 module.exports = async function lock_unlock(lang) {
   this.args?.shift();
 
