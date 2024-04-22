@@ -36,7 +36,7 @@
       "usage": "{prefix}exec <sh code>",
       "examples": "{prefix}exec echo '¡Hola Mundo!'"
     },
-    "finished": "comando evaluado:\n```sh\n{code}\n```\ncon la siguiente salida:\nstdout:\n```\n{stdout}\n```\n",
+    "finished": "Código de Bash:\n```sh\n{code}\n```\n",
     "stdout": "{msg} con la siguiente salida:\nstdout:\n```\n{stdout}\n```\n",
     "stderr": "stderr:\n```\n{stderr}\n```",
     "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
