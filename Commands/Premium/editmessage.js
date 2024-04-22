@@ -64,7 +64,9 @@ module.exports = {
     let json;
 
     try {
-      json = JSON.parse(content);
+      if (/^\s*[[{]/.test(content)) json = JSON.parse(content);
+      else throw new SyntaxError('Invalid JSON format');
+
       if (!Object.keys(json).length) return modalInteraction.editReply(lang('emptyJson'));
 
       if (json.description !== undefined) json = { embeds: [json] };
