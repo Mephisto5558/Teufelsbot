@@ -67,7 +67,7 @@
       }
     },
     "embedTitle": "Fusión de avatar: {user1} y {user2}",
-    "missingParam": "¡Tienes que mencionar al menos un miembro!"
+    "missingParam": "Tienes que mencionar al menos a un miembro, ¡excluyéndote a ti mismo!"
   },
   "birthday": {
     "description": "Salva su cumpleaños y enviaré un mensaje ese día.",
@@ -234,7 +234,7 @@
       }
     },
     "managerNotFound": "Esta función está desactivada o no está registrada.",
-    "notFound": "Su id de mensaje proporcionado no es un regalo válido!",
+    "notFound": "¡Su id de mensaje proporcionado no es un regalo válido o ya ha terminado!",
     "invalidTime": "¡El valor de duración/add_time proporcionado no es válido!",
     "notHost": "Usted no es el anfitrión de este regalo!",
     "buttonLabel": "Ver regalos",
