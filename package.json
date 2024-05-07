@@ -44,7 +44,7 @@
     "@stylistic/eslint-plugin": "^1.7.0",
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "eslint-plugin-jsdoc": "^48.2.3",
-    "eslint-plugin-sonarjs": "^0.25.1",
+    "eslint-plugin-sonarjs": "^1.0.3",
     "eslint-plugin-unicorn": "^52.0.0"
   },
   "repository": {
