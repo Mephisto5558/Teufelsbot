@@ -10,7 +10,7 @@
     "node": ">=18.17.0"
   },
   "dependencies": {
-    "@discordjs/voice": "^0.16.1",
+    "@discordjs/voice": "^0.17.0",
     "@mephisto5558/bot-website": "^1.5.2",
     "@mephisto5558/i18n": "^1.1.5",
     "@mephisto5558/mongoose-db": "^3.1.1",
