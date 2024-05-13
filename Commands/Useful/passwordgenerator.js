@@ -1,4 +1,4 @@
-const defaultCharset = ['abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\\=*\'"#*(){}[]'];
+const defaultCharset = [String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\=*'"#*(){}[]`];
 
 /**
  * Helper function to prevent eslint/no-loop-func
@@ -52,10 +52,11 @@ module.exports = {
       passwordList += '```';
 
       for (let i = 0; i < length; i++) {
-        const randomChar = getRandomChar([...charset], lastRandomChar);
+        // Get the random char and escape it so they it doesn't break formatting
+        const randomChar = String.raw({ raw: getRandomChar([...charset], lastRandomChar) });
 
-        // Adds one of the chars in the charset to the passwort, escape \n so it doesn't break formatting
-        passwordList += lastRandomChar + randomChar == '\n' ? '\\n' : randomChar;
+        // Adds one of the chars in the charset to the password
+        passwordList += lastRandomChar + randomChar;
         lastRandomChar = randomChar; // Sets lastRandomChar to the last generated char
       }
       passwordList += '```\n';
