@@ -61,11 +61,12 @@ const
               return acc;
             }, [])
             .sort(([, a], [, b]) => {
-              const dates = [new Date(a.getTime()), new Date(b.getTime())];
-              if (dates[0] < currentTime) dates[0].setFullYear(currentYear);
-              if (dates[1] < currentTime) dates[1].setFullYear(currentYear);
+              const
+                diffA = new Date(a).setFullYear(currentYear) - currentTime,
+                diffB = new Date(b).setFullYear(currentYear) - currentTime;
 
-              return dates[0] - dates[1];
+              if (diffA * diffB > 0) return diffA - diffB; // both are positive or both are negative
+              return diffA <= 0 && diffB > 0 ? 1 : -1;
             })
             .slice(0, 10);
 
