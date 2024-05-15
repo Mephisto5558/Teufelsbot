@@ -1,9 +1,9 @@
 const
   {
-    SnowflakeUtil, GatewayIntentBits, ChannelType, OverwriteType, Constants, GuildFeature,
-    AttachmentBuilder, StickerType, Collection, DiscordAPIError, GuildVerificationLevel, GuildExplicitContentFilter
+    SnowflakeUtil, GatewayIntentBits, ChannelType, Constants, GuildFeature,
+    StickerType, Collection, DiscordAPIError, GuildVerificationLevel, GuildExplicitContentFilter
   } = require('discord.js'),
-  fetch = require('node-fetch'),
+  utils = require('./backupSystem_utils.js'),
   DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json');
 
 /** @typedef {Database<true>['backups']['']}backup */
@@ -25,7 +25,6 @@ class BackupSystem {
     this.dbName = dbName;
     if (!this.db.get(this.dbName)) this.db.set(this.dbName, {});
 
-    this.utils = BackupSystem.utils;
     this.defaultSettings = {
       maxGuildBackups: Number.parseInt(maxGuildBackups) || 5,
       maxMessagesPerChannel: Number.parseInt(maxMessagesPerChannel) || 10,
@@ -64,11 +63,6 @@ class BackupSystem {
     if (!guild.client.options.intents.has(GatewayIntentBits.Guilds)) throw new Error('Guilds intent is required');
 
     statusObj.status = 'create.settings';
-
-    const updateStatus = status => {
-      statusObj.status = status;
-      return statusObj.status;
-    };
     const data = {
       id: id ?? guild.id + SnowflakeUtil.generate().toString(),
       metadata: metadata ?? undefined,
@@ -92,91 +86,99 @@ class BackupSystem {
         enabled: guild.widgetEnabled,
         channel: guild.widgetChannel?.name
       },
-      members: backupMembers
-        ? (updateStatus('create.members') && await guild.members.fetch()).map(e => ({
-          id: e.id,
-          username: e.user.username,
-          tag: e.user.tag,
-          nickname: e.nickname,
-          avatarUrl: e.displayAvatarURL(),
-          roles: [...e.roles.cache.map(e => e.name).values()],
-          bot: e.user.bot
-        }))
-        : [],
-      bans: doNotBackup?.includes('bans') ? [] : (updateStatus('create.bans') && await guild.bans.fetch()).map(e => ({ id: e.user.id, reason: e.reason })),
-      roles: doNotBackup?.includes('roles')
-        ? []
-        : (updateStatus('create.roles') && await guild.roles.fetch()).filter(e => !e.managed).sort((a, b) => b.position - a.position).map(e => ({
-          name: e.name,
-          color: e.color,
-          hoist: e.hoist,
-          permissions: e.permissions.bitfield.toString(),
-          mentionable: e.mentionable,
-          position: e.position,
-          isEveryone: guild.id == e.id
-        })),
-      emojis: doNotBackup?.includes('emojis')
-        ? []
-        : await Promise.all(updateStatus('create.emojis') && (await guild.emojis.fetch()).map(async e => ({
-          name: e.name, ...saveImages ? { base64: await this.utils.fetchToBase64(e.imageURL()) } : { url: e.imageURL() }
-        }))),
-      stickers: doNotBackup?.includes('stickers')
-        ? []
-        : await Promise.all(updateStatus('create.stickers') && (await guild.stickers.fetch()).filter(e => e.type != StickerType.Standard).map(async e => ({
-          name: e.name, description: e.description, tags: e.tags, ...saveImages ? { base64: await this.utils.fetchToBase64(e.url) } : { url: e.url }
-        }))),
-      channels: doNotBackup?.includes('channels')
-        ? undefined
-        : {
-          categories: await Promise.all(updateStatus('create.channels') && (await guild.channels.fetch()).filter(e => e.type == ChannelType.GuildCategory).sort((a, b) => a.position - b.position)
-            .map(async e => ({
-              name: e.name,
-              permissions: this.utils.fetchChannelPermissions(e),
-              children: await Promise.all(e.children.cache.sort((a, b) => a.position - b.position).map(async child => {
-                if (Constants.TextBasedChannelTypes.includes(child.type) && !Constants.ThreadChannelTypes.includes(child.type))
-                  return this.utils.fetchTextChannelData(child, saveImages, maxMessagesPerChannel);
-                if (Constants.VoiceBasedChannelTypes.includes(child.type)) {
-                  return {
-                    type: child.type,
-                    name: child.name,
-                    bitrate: child.bitrate,
-                    userLimit: child.userLimit,
-                    position: child.position,
-                    permissions: this.utils.fetchChannelPermissions(child)
-                  };
-                }
-                if (child.type == ChannelType.GuildForum) {
-                  return {
-                    type: child.type,
-                    name: child.name,
-                    nsfw: child.nsfw,
-                    topic: child.topic,
-                    defaultAutoArchiveDuration: child.defaultAutoArchiveDuration,
-                    defaultForumLayout: child.defaultForumLayout,
-                    defaultReactionEmoji: child.defaultReactionEmoji.name,
-                    defaultSortOrder: e.defaultSortOrder,
-                    defaultThreadRateLimitPerUser: e.defaultThreadRateLimitPerUser,
-                    permissions: this.utils.fetchChannelPermissions(child),
-                    position: child.position,
-                    threads: await this.utils.fetchChannelThreads(child, saveImages, maxMessagesPerChannel),
-                    availableTags: child.availableTags.map(e => ({ name: e.name, emoji: e.emoji?.name, moderated: e.moderated }))
-                  };
-                }
-                log.warn(`BackupSystem: Unhandled Channel type "${ChannelType[child.type] ?? child.type}"!`);
-              }))
-            }))),
-          others: await Promise.all(guild.channels.cache
-            .filter(e => !e.parent && ![ChannelType.GuildCategory, ...Constants.ThreadChannelTypes].includes(e.type))
-            .sort((a, b) => a.position - b.position)
-            .map(e => this.utils.fetchTextChannelData(e, saveImages, maxMessagesPerChannel)))
-        }
+      members: [],
+      bans: [],
+      roles: [],
+      emojis: [],
+      stickers: []
     };
+
+    if (backupMembers) {
+      statusObj.status = 'create.members';
+
+      (await guild.members.fetch()).map(e => ({
+        id: e.id,
+        username: e.user.username,
+        tag: e.user.tag,
+        nickname: e.nickname,
+        avatarUrl: e.displayAvatarURL(),
+        roles: [...e.roles.cache.map(e => e.name).values()],
+        bot: e.user.bot
+      }));
+    }
+
+    if (!doNotBackup?.includes('bans')) {
+      statusObj.status = 'create.bans';
+
+      data.bans = (await guild.bans.fetch()).map(e => ({ id: e.user.id, reason: e.reason }));
+    }
+
+    if (!doNotBackup?.includes('roles')) {
+      statusObj.status = 'create.roles';
+
+      (await guild.roles.fetch()).filter(e => !e.managed).sort((a, b) => b.position - a.position).map(e => ({
+        name: e.name,
+        color: e.color,
+        hoist: e.hoist,
+        permissions: e.permissions.bitfield.toString(),
+        mentionable: e.mentionable,
+        position: e.position,
+        isEveryone: guild.id == e.id
+      }));
+    }
+
+    if (!doNotBackup?.includes('emojis')) {
+      statusObj.status = 'create.emojis';
+
+      data.emojis = await Promise.all((await guild.emojis.fetch()).map(async e => {
+        const emojiData = { name: e.name };
+        if (saveImages) emojiData.base64 = await utils.fetchToBase64(e.imageURL());
+        else emojiData.url = e.imageURL();
+
+        return emojiData;
+      }));
+    }
+
+    if (!doNotBackup?.includes('stickers')) {
+      statusObj.status = 'create.stickers';
+
+      data.stickers = await Promise.all((await guild.stickers.fetch()).reduce(async (acc, e) => {
+        if (e.type !== StickerType.Standard) return acc;
+
+        const stickerData = { name: e.name, description: e.description, tags: e.tags };
+        if (saveImages) stickerData.base64 = await utils.fetchToBase64(e.url);
+        else stickerData.url = e.url;
+
+        acc.push(stickerData);
+        return acc;
+      }, []));
+    }
+
+    if (!doNotBackup?.includes('channels')) {
+      statusObj.status = 'create.channels';
+
+      const channels = (await guild.channels.fetch()).sort((a, b) => a.position - b.position);
+
+      data.channels = {};
+      data.channels.categories = await Promise.all(channels
+        .filter(e => e.type == ChannelType.GuildCategory)
+        .map(async e => ({
+          name: e.name,
+          permissions: utils.fetchChannelPermissions(e),
+          children: await utils.fetchCategoryChildren(e, saveImages, maxMessagesPerChannel)
+        })));
+
+      data.channels.others = await Promise.all(channels
+        .filter(e => !e.parent && ![ChannelType.GuildCategory, ...Constants.ThreadChannelTypes].includes(e.type))
+        .map(e => utils.fetchTextChannelData(e, saveImages, maxMessagesPerChannel)));
+    }
+
 
     statusObj.status = 'create.images';
     if (saveImages) {
-      data.iconBase64 = await this.utils.fetchToBase64(guild.iconURL());
-      data.splashBase64 = await this.utils.fetchToBase64(guild.splashURL());
-      data.bannerBase64 = await this.utils.fetchToBase64(guild.bannerURL());
+      data.iconBase64 = await utils.fetchToBase64(guild.iconURL());
+      data.splashBase64 = await utils.fetchToBase64(guild.splashURL());
+      data.bannerBase64 = await utils.fetchToBase64(guild.bannerURL());
     }
 
     if (save) {
@@ -268,9 +270,9 @@ class BackupSystem {
       defaultMessageNotifications: data.defaultMessageNotifications ?? undefined,
       afkTimeout: data.afk.timeout ?? undefined,
       afkChannel: data.afk?.name ? guild.channels.cache.find(e => e.name == data.afk.name && e.type == ChannelType.GuildVoice) : undefined,
-      icon: data.iconBase64 ? this.utils.loadFromBase64(data.iconBase64) : data.iconURL,
-      splash: data.splashBase64 ? this.utils.loadFromBase64(data.splashBase64) : data.splashURL,
-      banner: data.bannerBase64 ? this.utils.loadFromBase64(data.bannerBase64) : data.bannerURL
+      icon: data.iconBase64 ? utils.loadFromBase64(data.iconBase64) : data.iconURL,
+      splash: data.splashBase64 ? utils.loadFromBase64(data.splashBase64) : data.splashURL,
+      banner: data.bannerBase64 ? utils.loadFromBase64(data.bannerBase64) : data.bannerURL
     });
 
     if (data.features.includes(GuildFeature.Community)) {
@@ -318,14 +320,14 @@ class BackupSystem {
         })
       });
 
-      for (const child of category.children) await this.utils.loadChannel(child, guild, channel, maxMessagesPerChannel, allowedMentions);
+      for (const child of category.children) await utils.loadChannel(child, guild, channel, maxMessagesPerChannel, allowedMentions);
     }
 
-    for (const channel of data.channels.others) await this.utils.loadChannel(channel, guild, undefined, maxMessagesPerChannel, allowedMentions);
+    for (const channel of data.channels.others) await utils.loadChannel(channel, guild, undefined, maxMessagesPerChannel, allowedMentions);
 
     statusObj.status = 'load.emojis';
     for (const emoji of data.emojis) {
-      try { await guild.emojis.create({ name: emoji.name, attachment: emoji.url ?? this.utils.loadFromBase64(emoji.base64), reason }); }
+      try { await guild.emojis.create({ name: emoji.name, attachment: emoji.url ?? utils.loadFromBase64(emoji.base64), reason }); }
       catch (err) {
         if (err.code != DiscordAPIErrorCodes.MaximumNumberOfEmojisReached) throw err;
         break;
@@ -334,7 +336,7 @@ class BackupSystem {
 
     statusObj.status = 'load.stickers';
     for (const sticker of data.stickers) {
-      try { await guild.stickers.create({ name: sticker.name, description: sticker.description, tags: sticker.tags, file: sticker.url ?? this.utils.loadFromBase64(sticker.base64), reason }); }
+      try { await guild.stickers.create({ name: sticker.name, description: sticker.description, tags: sticker.tags, file: sticker.url ?? utils.loadFromBase64(sticker.base64), reason }); }
       catch (err) {
         if (err.code != DiscordAPIErrorCodes.MaximumNumberOfStickersReached) throw err;
         break;
@@ -372,155 +374,7 @@ class BackupSystem {
     return data;
   };
 
-  static utils = {
-    /** @param {string}url*/
-    fetchToBase64: async url => url ? (await fetch(url).then(e => e.buffer())).toString('base64') : undefined,
-
-    /** @param {string}str*/
-    loadFromBase64: str => str ? Buffer.from(str, 'base64') : undefined,
-
-    /** @param {import('discord.js').GuildChannel}channel*/
-    fetchChannelPermissions: channel => channel.permissionOverwrites.cache.filter(e => e.type == OverwriteType.Role).map(e => {
-      const role = channel.guild.roles.cache.get(e.id);
-      return role
-        ? {
-          name: role.name,
-          allow: e.allow.bitfield.toString(),
-          deny: e.deny.bitfield.toString()
-        }
-        : undefined;
-    }),
-
-    /**
-     * @param {import('discord.js').GuildChannel}channel
-     * @param {boolean}saveImages
-     * @param {number}maxMessagesPerChannel*/
-    fetchTextChannelData: async (channel, saveImages, maxMessagesPerChannel) => ({
-      type: channel.type,
-      name: channel.name,
-      nsfw: channel.nsfw,
-      isNews: channel.type == ChannelType.GuildAnnouncement,
-      rateLimitPerUser: channel.type == ChannelType.GuildText ? channel.rateLimitPerUser : undefined,
-      topic: channel.topic,
-      permissions: this.utils.fetchChannelPermissions(channel),
-      messages: await this.utils.fetchChannelMessages(channel, saveImages, maxMessagesPerChannel).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; }),
-      threads: await this.utils.fetchChannelThreads(channel, saveImages, maxMessagesPerChannel)
-    }),
-
-    /**
-     * @param {import('discord.js').GuildChannel}channel
-     * @param {boolean}saveImages
-     * @param {number}maxMessagesPerChannel*/
-    fetchChannelThreads: async (channel, saveImages, maxMessagesPerChannel) => ((await channel.threads?.fetch())?.threads ?? []).map(async e => ({
-      type: e.type,
-      name: e.name,
-      archived: e.archived,
-      autoArchiveDuration: e.autoArchiveDuration,
-      locked: e.locked,
-      rateLimitPerUser: e.rateLimitPerUser,
-      messages: await this.utils.fetchChannelMessages(e, saveImages, maxMessagesPerChannel).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; })
-    })),
-
-    /**
-     * @param {import('discord.js').GuildChannel}channel
-     * @param {boolean}saveImages
-     * @param {number}maxMessagesPerChannel*/
-    fetchChannelMessages: async (channel, saveImages, maxMessagesPerChannel = 10) => Promise.all(
-      (await channel.messages.fetch({ limit: Number.isNaN(Number.parseInt(maxMessagesPerChannel)) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: 100 }) })).filter(e => e.author).map(async e => ({
-        username: e.author.username,
-        avatar: e.author.avatarURL(),
-        content: e.cleanContent,
-        embeds: e.embeds?.map(e => e.data),
-        files: (await Promise.all(e.attachments.map(async ({ name, url }) => ({
-          name, attachment: saveImages && ['png', 'jpg', 'jpeg', 'jpe', 'jif', 'jfif', 'jfi'].includes(url) ? await this.utils.fetchToBase64(url) : url
-        })))).filter(e => e.attachment),
-        pinned: e.pinned,
-        createdAt: e.createdAt.toISOString()
-      }))
-    ),
-
-    /**
-     * @param {import('discord.js').GuildChannel}channel
-     * @param {import('discord.js').Guild}guild
-     * @param {string}category
-     * @param {number}maxMessagesPerChannel
-     * @param {import('discord.js').APIAllowedMentions}allowedMentions*/
-    loadChannel: async (channel, guild, category, maxMessagesPerChannel, allowedMentions) => {
-      const createOptions = {
-        name: channel.name,
-        type: channel.type == 5 && !guild.features.includes(GuildFeature.Community) ? 0 : channel.type,
-        parent: category,
-        permissionOverwrites: channel.permissions.reduce((acc, e) => {
-          const role = guild.roles.cache.find(e2 => e2.name == e.name);
-          if (role) acc.push({ id: role.id, allow: BigInt(e.allow), deny: BigInt(e.deny) });
-          return acc;
-        }, [])
-      };
-
-      if (Constants.TextBasedChannelTypes.includes(channel.type) && !Constants.ThreadChannelTypes.includes(channel.type)) {
-        createOptions.topic = channel.topic;
-        createOptions.nsfw = channel.nsfw;
-        createOptions.rateLimitPerUser = channel.rateLimitPerUser;
-      }
-      else if (Constants.VoiceBasedChannelTypes.includes(channel.type)) {
-        createOptions.bitrate = channel.bitrate > guild.maximumBitrate ? guild.maximumBitrate : channel.bitrate;
-        createOptions.userLimit = channel.userLimit;
-      }
-
-      const newChannel = await guild.channels.create(createOptions);
-      if (Constants.TextBasedChannelTypes.includes(channel.type)) {
-        let webhook;
-        if (channel.messages.length > 0) {
-          try { webhook = await this.utils.loadChannelMessages(newChannel, channel.messages, undefined, maxMessagesPerChannel, allowedMentions); }
-          catch (err) {
-            if (!(err instanceof DiscordAPIError)) throw err;
-          }
-        }
-
-        for (const threadData of channel.threads) {
-          const thread = await newChannel.threads.create({ name: threadData.name, autoArchiveDuration: threadData.autoArchiveDuration });
-          if (webhook) await this.utils.loadChannelMessages(thread, threadData.messages, webhook, maxMessagesPerChannel, allowedMentions);
-        }
-      }
-
-      return newChannel;
-    },
-
-    /**
-     * @param {import('discord.js').GuildTextBasedChannel}channel
-     * @param {Message[]}messages
-     * @param {import('discord.js').Webhook?}webhook
-     * @param {number}maxMessagesPerChannel
-     * @param {import('discord.js').APIAllowedMentions}allowedMentions*/
-    loadChannelMessages: async (channel, messages, webhook, maxMessagesPerChannel, allowedMentions) => {
-      try { webhook ??= await channel.createWebhook({ name: 'MessagesBackup', avatar: channel.client.user.displayAvatarURL() }); }
-      catch (err) {
-        if (![DiscordAPIErrorCodes.MaximumNumberOfWebhooksReached, DiscordAPIErrorCodes.MaximumNumberOfWebhooksPerGuildReached].includes(err.code))
-          throw err;
-      }
-
-      if (!webhook) return;
-
-      for (const msg of messages.filter(e => e.content.length > 0 || e.embeds.length > 0 || e.files.length > 0).reverse().slice(-maxMessagesPerChannel)) {
-        try {
-          const sentMsg = await webhook.send({
-            content: msg.content.length ? msg.content : undefined,
-            username: msg.username,
-            avatarURL: msg.avatar,
-            embeds: msg.embeds,
-            files: msg.files.map(e => new AttachmentBuilder(e.attachment, { name: e.name })),
-            allowedMentions,
-            threadId: channel.isThread() ? channel.id : undefined
-          });
-
-          if (msg.pinned && sentMsg.pinnable && (await channel.messages.fetchPinned()).size < 50) await sentMsg.pin();
-        }
-        catch (err) { log.error('Backup load error:', err); }
-      }
-
-      return webhook;
-    }
-  };
+  static utils = utils;
 }
 
 module.exports = BackupSystem;
