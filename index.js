@@ -4,7 +4,7 @@ console.info('Starting...');
 Error.stackTraceLimit = 100;
 
 const
-  { Client, GatewayIntentBits, AllowedMentionsTypes, Partials } = require('discord.js'),
+  { Client, GatewayIntentBits, AllowedMentionsTypes, Partials, ActivityType } = require('discord.js'),
   { readdir } = require('node:fs/promises'),
   { WebServer } = require('@mephisto5558/bot-website'),
   { GiveawaysManager, configValidator, gitpull, errorHandler, getCommands } = require('./Utils'),
@@ -31,7 +31,10 @@ const
       Partials.Channel,
       Partials.Message,
       Partials.Reaction
-    ]
+    ],
+    presence: {
+      activities: [{ name: '/help', type: ActivityType.Playing }]
+    }
   });
 
 /**
