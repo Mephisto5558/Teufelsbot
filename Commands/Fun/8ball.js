@@ -33,10 +33,11 @@ module.exports = {
 
   run: function (lang) {
     /** @type {string}*/
-    const input = this.options?.getString('question', true) ?? this.content;
+    const
+      input = this.options?.getString('question', true) ?? this.content,
+      now = new Date(),
+      responseList = lang.__boundThis__.array__(...lang.__boundArgs__, 'responseList'); // Not a nice solution but better than before
 
-    const now = new Date();
-    const responseList = lang.__boundThis__.localeData[lang.__boundArgs__[0].locale][`${lang.__boundArgs__[0].backupPath}.responseList`];
     return this.customReply(responseList[cyrb53a(input.toLowerCase(), Number.parseInt(this.user.id) ^ cyrb53a(`${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)) % responseList.length]);
   }
 };
