@@ -46,7 +46,7 @@ module.exports = async function errorHandler(err, message, lang) {
         if (!(github.userName && github.repoName)) throw new Error('Missing GitHub username or repo name config');
 
         const
-          res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoepoName}/issues`, {
+          res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
             method: 'POST',
             headers: {
               Authorization: `Token ${this.keys.githubKey}`,
@@ -73,6 +73,10 @@ module.exports = async function errorHandler(err, message, lang) {
       }
       catch (err) {
         log.error('Failed to report an error:', err.stack);
+
+        try { msg.edit({ components: [] }); }
+        catch { /* empty */ }
+
         return message.customReply(lang('reportFail', err?.message ?? 'unknown error'));
       }
     })

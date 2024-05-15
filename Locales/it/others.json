@@ -69,7 +69,7 @@
     "discordAPIErr": "Si è verificato un errore di Discord API, riprova e invia un messaggio al dev se questo continua ad accadere.",
     "alreadyReported": "Questo errore è già stato segnalato. [Link]({url}).\nSarà risolto presto.",
     "reportSuccess": "L'errore è stato segnalato. [Link]({url})",
-    "reportFail": "`Si è verificato un errore durante il tentativo di inviare la segnalazione di errore.\n```\n{err}\n```\nSi prega di inviare un messaggio diretto al dev."
+    "reportFail": "Si è verificato un errore durante il tentativo di inviare la segnalazione di errore.\n```\n{err}\n```\nSi prega di inviare un messaggio diretto al dev."
   },
   "timeFormatter": {
     "ydhms": "{year} anni, {day} giorni, {hour} ore, {minute} minuti e {second} secondi",
