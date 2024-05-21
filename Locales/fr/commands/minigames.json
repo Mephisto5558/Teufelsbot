@@ -11,10 +11,6 @@
   },
   "counting": {
     "description": "Set up a counting channel where members can show their math skills!",
-    "usage": {
-      "usage": "{prefix}compte [#canal]",
-      "examples": "{prefix}compte #counting"
-    },
     "options": {
       "channel": {
         "description": "Le canal que vous voulez ajouter (ou supprimer, si déjà ajouté) en tant que canal compteur."
@@ -39,10 +35,6 @@
   },
   "mgstats": {
     "description": "obtenir des statistiques sur l'un des mini-jeux du bot",
-    "usage": {
-      "usage": "Statistiques {prefix} <game> [user]",
-      "examples": "{prefix}mgstats tictactoe @User1"
-    },
     "options": {
       "user": {
         "description": "obtenir des statistiques sur vous-même ou sur un utilisateur spécifique",

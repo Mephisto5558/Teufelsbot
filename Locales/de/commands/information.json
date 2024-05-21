@@ -15,10 +15,6 @@
   },
   "cmdstats": {
     "description": "Zeigt an, wie oft ein spezifischer Befehl oder die Top 10 genutzt wurden.",
-    "usage": {
-      "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot'] [Befehl]",
-      "examples": "{prefix}cmdstats user joke"
-    },
     "options": {
       "scope": {
         "description": "Erhalte Befehlsstatistiken entweder für den aktuellen Server, für dich oder für den Bot insgesamt.",
@@ -44,10 +40,6 @@
   },
   "emojiinfo": {
     "description": "Erhalte Informationen über ein Emoji",
-    "usage": {
-      "usage": "{prefix}emojiinfo [Emoji | Emoji-ID]",
-      "examples": "{prefix}emojiinfo :derp:"
-    },
     "options": {
       "emoji": {
         "description": "Das Emoji oder die ID des Emojis, über den du Informationen erhalten möchtest."
@@ -68,10 +60,6 @@
   },
   "help": {
     "description": "Zeige alle meine Befehle oder erhalte Informationen über einen spezifischen.",
-    "usage": {
-      "usage": "{prefix}help [[category] [command]] | [category]",
-      "examples": "{prefix}help fun joke | {prefix}help fun"
-    },
     "options": {
       "category": {
         "description": "Über welche Kategorie möchtest du mehr erfahren?"
@@ -150,10 +138,6 @@
   },
   "roleinfo": {
     "description": "Erhalte Informationen über eine Rolle",
-    "usage": {
-      "usage": "{prefix}roleinfo [@Rolle | Rollenname | Rollen-ID]",
-      "examples": "{prefix}roleinfo @User1"
-    },
     "options": {
       "role": {
         "description": "Die Rolle, über welche du mehr wissen möchtest"
@@ -219,10 +203,6 @@
   },
   "userinfo": {
     "description": "Erhalte Informationen über ein Mitglied",
-    "usage": {
-      "usage": "{prefix}userinfo [@User | Username | User-Tag | User-Nickname | User ID]",
-      "examples": "{prefix}userinfo @User1"
-    },
     "options": {
       "target": {
         "description": "Das Mitglied über das du Informationen möchtest"

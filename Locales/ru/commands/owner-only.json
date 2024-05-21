@@ -3,10 +3,6 @@
   "categoryDescription": "Команды, которые должны быть доступны только разработчикам",
   "blacklistuser": {
     "description": "блокирует пользователя от использования бота",
-    "usage": {
-      "usage": "{prefix}blacklistuser [off] <user id>",
-      "examples": "{prefix}blacklistuser 12345678901234568"
-    },
     "notFound": "Запись для этого id не найдена.",
     "saved": "`{user}` был занесен в черный список с помощью бота.",
     "removed": "Запись «Черный список» для «{user}`» удалена.",
@@ -14,28 +10,16 @@
   },
   "dbget": {
     "description": "запрос данных из базы данных",
-    "usage": {
-      "usage": "{prefix}dbget <database name> <key>",
-      "examples": "{prefix}dbget база данных a.b.c"
-    },
     "notFound": "ничего не найдено"
   },
   "eval": {
     "description": "вставить код JavaScript прямо в бота",
-    "usage": {
-      "usage": "{prefix}eval <код>",
-      "examples": "{prefix}eval console.log('Привет мир!')"
-    },
     "finished": "вычисляемая команда:\n```js\n{code}\n```\n",
     "success": "{msg} без ошибок.",
     "error": "{msg} со следующей ошибкой:\n```\n{name}: {err}\n```"
   },
   "exec": {
     "description": "inject Bash code прямо в оболочку бота",
-    "usage": {
-      "usage": "{prefix}exec <sh code>",
-      "examples": "{prefix}Exec эхо 'Привет мир!'"
-    },
     "finished": "Evaluated bash команда:\n```sh\n{code}\n```\n",
     "stdout": "{msg} со следующим выводом:\nstdout:\n```\n{stdout}\n```\n",
     "stderr": "stderr:\n```\n{stderr}\n```",
@@ -43,10 +27,6 @@
   },
   "reload": {
     "description": "перезагружает файл или категорию",
-    "usage": {
-      "usage": "{prefix}перезагрузить <\"команда\" | \"file\"> <Path relative to cwd>\n{prefix}reload <command | \"*\">",
-      "examples": "{prefix}перезагрузит путь к файлу/файлу\n{prefix}перезагрузите весело"
-    },
     "invalidCommand": "Это не допустимая команда.",
     "invalidPath": "Указанный путь не существует! Пожалуйста, обратите внимание на регистр чувствительности пути.",
     "error": "Произошла ошибка при перезагрузке:\n```{error}```\nПроверьте консоль для получения дополнительной информации.",
@@ -72,10 +52,6 @@
   },
   "setactivity": {
     "description": "Устанавливает активность бота",
-    "usage": {
-      "usage": "{prefix}установил активность <activity>;[type]",
-      "examples": "{prefix}устанавливает активность при запуске команд;проигрывание"
-    },
     "invalidType": "Это недопустимый тип. Допустимые типы:\n`{types}`",
     "set": "Моя активность была установлена в `{name}` типа `{type}`.",
     "reset": "Моя активность была установлена в `none`."
@@ -86,10 +62,6 @@
   },
   "setcountingnumber": {
     "description": "Обновляет последний счетчик для канала, а также сбросит последний автор.",
-    "usage": {
-      "usage": "{prefix}установка счетчика [число (по умолчанию 0)] [channel]",
-      "examples": "{prefix}настройка счётчика 7 #counting-channel"
-    },
     "invalidNumber": "Указанный номер неверен!",
     "unknownChannel": "Указанный идентификатор канала не был найден в этой гильдии!",
     "success": "Счетчик для <#{channel}> установлен на **{number}**."

@@ -53,10 +53,6 @@
   },
   "lock": {
     "description": "Empêche tout le monde, sauf les administrateurs, d'écrire dans un canal.",
-    "usage": {
-      "usage": "Verrouillage {prefix} [channel] [reason]",
-      "examples": "Verrouillage {prefix}#temps de mise en veille"
-    },
     "options": {
       "channel": {
         "description": "Quelle chaîne voulez-vous verrouiller ?"
@@ -114,10 +110,6 @@
   },
   "purge": {
     "description": "supprime un nombre spécifique de messages",
-    "usage": {
-      "usage": "{prefix}purge <number> [channel]\nIl ne supprimera PAS le nombre de messages spécifiés dans le paramètre \"montant\", mais les supprimera si tous les autres paramètres sont satisfaits.",
-      "examples": "{prefix}purge 7 #chat"
-    },
     "options": {
       "amount": {
         "description": "Le nombre de messages à vérifier et peut-être à purger."
@@ -185,10 +177,6 @@
   },
   "unlock": {
     "description": "Déverrouille une chaîne verrouillée avec la commande de verrouillage.",
-    "usage": {
-      "usage": "{prefix}déverrouille [channel] [reason]",
-      "examples": "{prefix}débloque #chat Bonjour"
-    },
     "options": {
       "channel": {
         "description": "Quelle chaîne voulez-vous déverrouiller ?"
