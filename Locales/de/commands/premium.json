@@ -84,7 +84,6 @@
     "notFound": "Es gibt keine Nachricht mit dieser ID im angegebenen Kanal!",
     "notBotMessage": "Ich kann nur meine eigenen Nachrichten bearbeiten!",
     "cannotEdit": "Ich kann diese Nachricht nicht bearbeiten!",
-    "timedout": "Du hast zu lange gebraucht, um zu antworten!",
     "emptyJson": "Das von dir angegebene JSON ist leer!",
     "error": "Beim Senden deines benutzerdefinierten JSON ist ein Fehler aufgetreten:\n```{err}```\n",
     "success": "Die Nachricht wurde bearbeitet. [Link]({url})"
