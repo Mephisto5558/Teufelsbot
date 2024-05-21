@@ -3,12 +3,15 @@
   "categoryDescription": "Comandi NSFW",
   "nsfw": {
     "description": "Ottieni un'immagine NSFW",
+    "usage": {
+      "usage": "[type]"
+    },
     "options": {
       "type": {
         "description": "Il tipo di immagine che si desidera visualizzare. Predefinito per hentai.",
         "choices": {
           "hass": "Hentai culo",
-        "hmidriff": "Hentai Taille",
+          "hmidriff": "Hentai Taille",
           "pgif": "Porn gif",
           "4k": "4k",
           "hentai": "Hentai",

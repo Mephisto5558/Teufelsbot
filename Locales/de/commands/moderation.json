@@ -53,6 +53,10 @@
   },
   "lock": {
     "description": "Verbietet jedem, abgesehen von Administratoren, in einem Kanal Nachrichten zu senden.",
+    "usage": {
+      "usage": "[Kanal] [Begründung]",
+      "examples": "#chat Zeit für den Mittagsschlaf"
+    },
     "options": {
       "channel": {
         "description": "Den Kanal, den du locken möchtest"
@@ -110,6 +114,10 @@
   },
   "purge": {
     "description": "Entfernt eine bestimmte Menge an Nachrichten.",
+    "usage": {
+      "usage": "<Anzahl> [Kanal]\nEs wird NICHT die Anzahl der Nachrichten löschen, die im \"amount\"-Parameter angegeben ist, sondern diese löschen, sofern alle anderen Parameter erfüllt sind.",
+      "examples": "7 #chat"
+    },
     "options": {
       "amount": {
         "description": "Die Anzahl der Nachrichten, die überprüft und eventuell gelöscht werden."
@@ -177,6 +185,10 @@
   },
   "unlock": {
     "description": "Entsperrt einen gelockten Channel.",
+    "usage": {
+      "usage": "[Kanal] [Begründung]",
+      "examples": "#chat Guten Morgen"
+    },
     "options": {
       "channel": {
         "description": "Welchen Kanal möchtest du entsperren?"

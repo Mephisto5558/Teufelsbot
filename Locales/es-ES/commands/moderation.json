@@ -53,6 +53,10 @@
   },
   "lock": {
     "description": "Evita que todos, excepto administradores, escriban en un canal.",
+    "usage": {
+      "usage": "[channel] [reason]",
+      "examples": "#chat Tiempo para dormir"
+    },
     "options": {
       "channel": {
         "description": "¿Qué canal quieres bloquear?"
@@ -110,6 +114,10 @@
   },
   "purge": {
     "description": "elimina una cantidad específica de mensajes",
+    "usage": {
+      "usage": "<number> [channel]\nNO eliminará el número de mensajes especificados en el parámetro \"cantidad\", pero los eliminará si se cumplen todos los demás parámetros.",
+      "examples": "7 #chat"
+    },
     "options": {
       "amount": {
         "description": "La cantidad de mensajes a comprobar y tal vez purgar."
@@ -177,6 +185,10 @@
   },
   "unlock": {
     "description": "Desbloquea un canal bloqueado con el comando de bloqueo.",
+    "usage": {
+      "usage": "[channel] [reason]",
+      "examples": "#chat Buenas mañanas"
+    },
     "options": {
       "channel": {
         "description": "¿Qué canal quieres desbloquear?"

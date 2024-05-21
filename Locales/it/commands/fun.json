@@ -51,6 +51,10 @@
   },
   "avatarfusion": {
     "description": "Fusioni due avatar.",
+    "usage": {
+      "usage": "<base> [overlay] ['server' | 'global']",
+      "examples": "@User1 @User2 globale"
+    },
     "options": {
       "base": {
         "description": "Chi è l'immagine del profilo dovrebbe essere usata per la base?"
@@ -254,6 +258,10 @@
   },
   "image": {
     "description": "Manipolazione immagine",
+    "usage": {
+      "usage": "<subcommand | 'help'> <args>",
+      "examples": "magik https://example.com/image.png 3"
+    },
     "options": {
       "type": {
         "description": "Il tipo che vuoi usare. Lascia questo vuoto per ottenere un elenco di tipi."
@@ -266,6 +274,9 @@
   },
   "joke": {
     "description": "manda una battuta divertente",
+    "usage": {
+      "usage": "[type]"
+    },
     "options": {
       "api": {
         "description": "Quale API vuoi usare?"
@@ -293,6 +304,9 @@
   },
   "pokedex": {
     "description": "Visualizza le informazioni su un poke specificato mon.",
+    "usage": {
+      "usage": "<pokemon>"
+    },
     "options": {
       "pokémon": {
         "description": "Dai un nome a pokel'onorevole mon"
@@ -312,6 +326,9 @@
   },
   "reddit": {
     "description": "comandi correlati a reddit",
+    "usage": {
+      "usage": "[subreddit] [tipo di ordinamento]"
+    },
     "options": {
       "meme": {
         "description": "ottieni un meme casuale",
@@ -680,6 +697,10 @@
   },
   "vote": {
     "description": "Crea un sondaggio per qualcosa",
+    "usage": {
+      "usage": "<channel> [question] | [opzione 1] | [opzione 2] | <option 3> ... <option 9>",
+      "examples": "#voto Stai bene? | Sì | No"
+    },
     "options": {
       "question": {
         "description": "Che cosa volete che le persone voti?"
