@@ -28,7 +28,7 @@ module.exports = async function checkForErrors(command, lang) {
   if (this.client.botType == 'dev' && !command.beta) return this.client.config.replyOnNonBetaCommand ? ['nonBeta'] : true;
   if (!command.dmPermission && this.channel.type == ChannelType.DM) return ['guildOnly'];
 
-  const disabledList = this.guild?.db.config?.commands?.[command.aliasOf ?? command.name]?.disabled;
+  const disabledList = this.guild?.db.config.commands?.[command.aliasOf ?? command.name]?.disabled;
   if (disabledList && this.member.id != this.guild.ownerId) {
     if (Object.values(disabledList).some(e => e.includes('*'))) return ['notAllowed.anyone'];
     if (disabledList.users?.includes(this.user.id)) return ['notAllowed.user'];
@@ -52,7 +52,7 @@ module.exports = async function checkForErrors(command, lang) {
         && !autocompleteGenerator.call({
           ...this, client: this.client, user: this.user,
           focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
-        }, command, this.guild?.db.config?.lang ?? this.guild?.localeCode)
+        }, command, this.guild?.db.config.lang ?? this.guild?.localeCode)
           .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
       ) return ['strictAutocompleteNoMatch', name];
     }

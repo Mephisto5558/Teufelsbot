@@ -134,7 +134,7 @@ type Database<excludeUndefined extends boolean = false> = {
 
       /** The date on which the bot left the guild. Is not set if the bot is in the guild.*/
       leftAt?: Date;
-      config?: {
+      config: {
         lang?: string;
         prefix?: {
           prefix?: string;
@@ -148,7 +148,7 @@ type Database<excludeUndefined extends boolean = false> = {
           channel: channelId;
           enabled: boolean;
         } | undefined>;
-        autopublish: boolean;
+        autopublish?: boolean;
         commands?: {
           [commandName: string]: {
             disabled: {

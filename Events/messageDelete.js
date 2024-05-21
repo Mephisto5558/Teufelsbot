@@ -23,10 +23,10 @@ module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.inGuild()) return;
 
   /** @type {lang}*/
-  const lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'commands.minigames.counting.userDeletedMsg' });
+  const lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'commands.minigames.counting.userDeletedMsg' });
   countingHandler.call(this, lang);
 
-  const setting = this.guild.db.config?.logger?.messageDelete;
+  const setting = this.guild.db.config.logger?.messageDelete;
   if (!setting?.enabled || !setting.channel) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);

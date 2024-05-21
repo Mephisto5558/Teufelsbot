@@ -11,7 +11,7 @@ module.exports = function MessageComponentHandler(lang) {
     [feature, id, mode, data, ...args] = this.customId.split('.'),
     cooldown = cooldowns.call(this, `buttonPressEvent.${this.message.id}`, { user: 1000 }),
     command = this.client.slashCommands.get(feature) ?? this.client.prefixCommands.get(feature) ?? { name: feature },
-    disabledList = this.guild?.db.config?.commands?.[command.aliasOf ?? command.name]?.disabled ?? {};
+    disabledList = this.guild?.db.config.commands?.[command.aliasOf ?? command.name]?.disabled ?? {};
 
   let err;
   if (disabledList.members?.includes(this.user.id)) err = 'notAllowed.member';

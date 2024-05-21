@@ -4,7 +4,7 @@ const { PermissionFlagsBits, EmbedBuilder } = require('discord.js');
  * @this {import('discord.js').VoiceState}
  * @param {import('discord.js').VoiceState}newState*/
 module.exports = function voiceStateUpdate(newState) {
-  const setting = this.guild.db.config?.logger?.voiceChannelActivity;
+  const setting = this.guild.db.config.logger?.voiceChannelActivity;
   if (this.client.botType == 'dev' || !setting?.enabled || !setting.channel || this.channelId == newState.channelId) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
@@ -18,7 +18,7 @@ module.exports = function voiceStateUpdate(newState) {
     }),
 
     /** @type {lang}*/
-    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' });
+    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' });
 
   if (!this.channel?.id) {
     embed.data.description = lang('embedDescriptionJoin', { executor: `<@${newState.member.id}>`, newChannel: newState.channel.name });

@@ -196,7 +196,7 @@ Object.defineProperties(Guild.prototype, {
 
   /** @type {Record<string, (this: Guild, val: any) => any>} */
   localeCode: {
-    get() { return this.db.config?.lang ?? this.preferredLocale.slice(0, 2) ?? this.client.defaultSettings.config.lang; },
+    get() { return this.db.config.lang ?? this.preferredLocale.slice(0, 2) ?? this.client.defaultSettings.config.lang; },
     set(val) { this.client.db.update('guildSettings', 'config.lang', val); }
   }
 });

@@ -13,7 +13,7 @@ module.exports = function _patch(data, ...rest) {
     const prefixType = this.client.botType == 'dev' ? 'betaBotPrefix' : 'prefix';
     let
       prefixLength = 0,
-      { prefix, caseinsensitive } = this.guild?.db.config?.[prefixType] ?? {};
+      { prefix, caseinsensitive } = this.guild?.db.config[prefixType] ?? {};
 
     prefix ||= this.client.defaultSettings.config[prefixType];
     if (caseinsensitive) prefix = prefix.toLowerCase();

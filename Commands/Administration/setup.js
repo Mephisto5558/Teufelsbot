@@ -18,7 +18,7 @@ const
     toggle_command: async function toggleCommand(lang) {
       const
         command = this.options.getString('command', true),
-        commandData = this.guild.db.config?.commands?.[command]?.disabled ?? {},
+        commandData = this.guild.db.config.commands?.[command]?.disabled ?? {},
         { roles = [], channels = [], users = [] } = commandData,
         count = { enabled: { channels: 0, users: 0, roles: 0 }, disabled: { channels: 0, users: 0, roles: 0 } };
 
@@ -108,7 +108,7 @@ const
 
     prefix: async function setPrefix(lang) {
       const newPrefix = this.options.getString('new_prefix', true);
-      const prefixCaseInsensitive = this.options.getBoolean('case_insensitive') ?? this.guild.db.config?.prefix?.caseinsensitive ?? false;
+      const prefixCaseInsensitive = this.options.getBoolean('case_insensitive') ?? this.guild.db.config.prefix?.caseinsensitive ?? false;
 
       await this.client.db.update('guildSettings', `${this.guild.id}.config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refix`, { prefix: newPrefix, caseinsensitive: prefixCaseInsensitive });
       return this.customReply(lang('saved', newPrefix));
