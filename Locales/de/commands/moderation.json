@@ -97,16 +97,16 @@
   "nukechannel": {
     "description": "Löscht alle Nachrichten des Kanals, indem der Kanal dupliziert wird und der alte gelöscht wird",
     "options": {
-      "confirmation": {
-        "description": "Schreibe zur Bestätigung \"LÖSCHE KANAL\"."
-      },
       "channel": {
         "description": "Den zu nukenden Kanal"
       }
     },
-    "confirmation": "lösche kanal",
-    "needConfirm": "Du musst diese Aktion bestätigen, indem du `LÖSCHE KANAL` als `confirmation` Option angibst!",
-    "embedDescription": ":radioactive: Kanal genuked!",
+    "confirmEmbedTitle": "Nuke Channel",
+    "confirmEmbedDescription": "Bist du sicher, dass du <#{channel}> nuken möchtest?\n**Diese Aktion kann nicht rückgängig gemacht werden!**",
+    "confirmButtonLabel": "Bestätigen",
+    "cancelButtonLabel": "Abbrechen",
+    "canceledEmbedDescription": "Die Aktion wurde abgebrochen.",
+    "successEmbedDescription": ":radioactive: Kanal genuked!",
     "embedFooterText": "Genuked von {user}"
   },
   "purge": {
