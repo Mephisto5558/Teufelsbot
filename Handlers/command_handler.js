@@ -23,7 +23,11 @@ module.exports = async function commandHandler() {
       command.filePath = resolve(`Commands/${subFolder}/${file}`);
       command.category ??= subFolder.toLowerCase();
 
-      localizeUsage(command, `commands.${command.category}`, this.i18n);
+      /* For some reason, this alters the slash command as well.
+         That's why localizeUsage is only here and not in `Utils/formatSlashCommand.js`. */
+      const usage = localizeUsage(command, `commands.${command.category}.${command.name}`, this.i18n);
+      command.usage = usage[0];
+      command.usageLocalizations = usage[1];
 
       this.prefixCommands.set(command.name, command);
       if (command.disabled) { if (!this.config.hideDisabledCommandLog) log(`Loaded Disabled Prefix Command ${command.name}`); }

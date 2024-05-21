@@ -1,12 +1,10 @@
 /**
- * @param {command<'slash', boolean, true>} command
+ * @param {command<'both', false, true>} command
  * @param {string}path
- * @param {import('@mephisto5558/i18n')}i18n
- *
- * Mutates `command`.*/
+ * @param {import('@mephisto5558/i18n')}i18n*/
 module.exports = function localizeUsage(command, path, i18n) {
-  command.usage ??= {};
-  command.usageLocalizations ??= {};
+  const usageLocalizations = {};
+  let usage;
 
   for (const [locale] of i18n.availableLocales) {
     const localizedUsage = {
@@ -17,9 +15,9 @@ module.exports = function localizeUsage(command, path, i18n) {
     localizedUsage.usage &&= `{prefix}{cmdName} ${localizedUsage.usage}`.replaceAll('{cmdName}', command.name);
     localizedUsage.examples &&= `{prefix}{cmdName} ${localizedUsage.examples}`.replaceAll('{cmdName}', command.name);
 
-    if (locale == i18n.config.defaultLocale) command.usage = localizedUsage;
-    else command.usageLocalizations[locale] = localizedUsage;
+    if (locale == i18n.config.defaultLocale) usage = localizedUsage;
+    else usageLocalizations[locale] = localizedUsage;
   }
 
-  return command;
+  return [usage, usageLocalizations];
 };
