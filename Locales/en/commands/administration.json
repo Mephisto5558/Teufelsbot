@@ -84,10 +84,6 @@
       "noneFound": "No backups were found for this server."
     }
   },
-  "selfrole": {
-    "description": "Manage selfroles.",
-    "deprecated": "This feature is no longer supported. Please use discord's community features (Onboarding) for selfrole management: https://support.discord.com/hc/en-us/sections/360007770572-Community-Tools\nAlready configured selfroles will still work."
-  },
   "setup": {
     "description": "Sets the bot up",
     "options": {
