@@ -12,12 +12,12 @@ const
   ).test(str),
   filterOptionsExist = /** @param {Record<string, string | number | boolean | undefined>}options */ options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
 
-  /** @type {Record<string, (msg: Message<true>) => any>}*/
+  /** @type {Record<string, (msg: Message<true>) => boolean>}*/
   filterCheck = {
-    text: msg => msg.content.length,
-    embeds: msg => msg.embeds?.length,
-    mentions: msg => msg.mentions.users.size,
-    images: msg => msg.attachments?.some(e => e.contentType.includes('image')),
+    text: msg => !!msg.content.length,
+    embeds: msg => !!msg.embeds?.length,
+    mentions: msg => !!msg.mentions.users.size,
+    images: msg => !!msg.attachments?.some(e => e.contentType.includes('image')),
     /* eslint-disable-next-line camelcase -- option name for better user-readability*/
     server_ads: msg => adRegex(msg.content) || msg.embeds?.some(e => adRegex(e.description))
   };
@@ -27,23 +27,19 @@ const
  * @param {Record<string, string | number | boolean | undefined>}options*/
 function shouldDeleteMsg(msg, options) {
   const
-    nHas = option => !(option in options),
+    check = (fn, option) => !!(!(option in options) || msg.content[fn](option) || msg.embeds?.some(e => e.description[fn](option))),
     bool = msg.bulkDeletable && (!options.remove_pinned || msg.pinned),
     userType = msg.user.bot ? 'bot' : 'human';
 
   if (!filterOptionsExist(options)) return bool;
-  return !!(bool
-    && (nHas('member') || msg.user.id == options.member)
-    && (nHas('user_type') || options.user_type == userType)
-    && (nHas('only_containing') || filterCheck[options.only_containing](msg))
-    && (nHas('caps_percentage') || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * 100 >= options.caps_percentage)
-    && (nHas('contains') || msg.content.includes(options.contains) || msg.embeds?.some(e => e.description.includes(options.contains)))
-    && (nHas('does_not_contain') || msg.content.includes(options.does_not_contain) || msg.embeds?.some(e => e.description.includes(options.does_not_contain)))
-    && (nHas('starts_with') || msg.content.startsWith(options.starts_with) || msg.embeds?.some(e => e.description.startsWith(options.starts_with)))
-    && (nHas('not_starts_with') || msg.content.startsWith(options.not_starts_with) || msg.embeds?.some(e => e.description.startsWith(options.not_starts_with)))
-    && (nHas('ends_with') || msg.content.endsWith(options.ends_with) || msg.embeds?.some(e => e.description.endsWith(options.ends_with)))
-    && (nHas('not_ends_with') || msg.content.endsWith(options.not_ends_with) || msg.embeds?.some(e => e.description.endsWith(options.not_ends_with)))
-  );
+  return bool
+    && (!('member' in options) || msg.user.id == options.member)
+    && (!('user_type' in options) || options.user_type == userType)
+    && (!('only_containing' in options) || filterCheck[options.only_containing](msg))
+    && (!('caps_percentage' in options) || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * 100 >= options.caps_percentage)
+    && check('includes', options.contains) && check('includes', options.does_not_contain)
+    && check('startsWith', options.starts_with) && check('startsWith', options.not_starts_with)
+    && check('endsWith', options.ends_with) && check('endsWith', options.not_ends_with);
 }
 
 /**
