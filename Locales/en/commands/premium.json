@@ -4,8 +4,8 @@
   "chatgpt": {
     "description": "Talk to ChatGPT!",
     "usage": {
-      "usage": "{prefix}chatgpt <message>",
-      "examples": "{prefix}chatgpt Hello"
+      "usage": "<message>",
+      "examples": "Hello"
     },
     "options": {
       "message": {

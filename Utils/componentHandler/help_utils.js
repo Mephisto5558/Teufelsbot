@@ -66,9 +66,8 @@ function createCommandsComponent(lang, category) {
 /**
  * @this {Interaction|Message}
  * @param {command<*, boolean, true>}cmd
- * @param {lang}lang
- * @param {lang}helpLang*/
-function createInfoFields(cmd, lang, helpLang) {
+ * @param {lang}lang*/
+function createInfoFields(cmd, lang) {
   const
     arr = [],
     prefix = this.guild?.db.config?.prefix?.prefix ?? this.client.defaultSettings.config.prefix;
@@ -97,10 +96,14 @@ function createInfoFields(cmd, lang, helpLang) {
     });
   }
 
-  if (helpLang('usage.usage')) {
+  const
+    usage = (cmd.usageLocalizations[lang.__boundArgs__[0].locale]?.usage ?? cmd.usage.usage)?.replaceAll('{prefix}', prefix),
+    examples = (cmd.usageLocalizations[lang.__boundArgs__[0].locale]?.examples ?? cmd.usage.examples)?.replaceAll('{prefix}', prefix);
+
+  if (usage || examples) {
     arr.push(
-      { name: '```' + lang('one.usage') + '```', value: helpLang('usage.usage', prefix), inline: true },
-      { name: '```' + lang('one.examples') + '```', value: helpLang('usage.examples', prefix), inline: true }
+      { name: '```' + lang('one.usage') + '```', value: usage, inline: true },
+      { name: '```' + lang('one.examples') + '```', value: examples, inline: true }
     );
   }
 
@@ -142,7 +145,7 @@ module.exports.commandQuery = function commandQuery(lang, query) {
     embed = new EmbedBuilder({
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
       description: helpLang('description'),
-      fields: createInfoFields.call(this, command, lang, helpLang),
+      fields: createInfoFields.call(this, command, lang),
       footer: { text: lang('one.embedFooterText', this.guild?.db.config?.prefix ?? this.client.defaultSettings.config.prefix) },
       color: Colors.Blurple
     });

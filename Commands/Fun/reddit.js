@@ -24,6 +24,7 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
+  usage: { examples: 'memes hot' },
   cooldowns: { channel: 100 },
   slashCommand: true,
   prefixCommand: true,

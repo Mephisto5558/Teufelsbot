@@ -1,7 +1,7 @@
 const
   { readdir } = require('node:fs/promises'),
   { resolve } = require('node:path'),
-  { getDirectories } = require('../Utils');
+  { getDirectories, localizeUsage } = require('../Utils');
 
 let
   enabledCommandCount = 0,
@@ -22,6 +22,8 @@ module.exports = async function commandHandler() {
       command.name ??= file.split('.')[0];
       command.filePath = resolve(`Commands/${subFolder}/${file}`);
       command.category ??= subFolder.toLowerCase();
+
+      localizeUsage(command, `commands.${command.category}`, this.i18n);
 
       this.prefixCommands.set(command.name, command);
       if (command.disabled) { if (!this.config.hideDisabledCommandLog) log(`Loaded Disabled Prefix Command ${command.name}`); }

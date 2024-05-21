@@ -2,6 +2,7 @@ const { randomInt } = require('node:crypto');
 
 /** @type {command<'both', false>}*/
 module.exports = {
+  usage: { examples: '1 10' },
   aliases: { prefix: ['random-number'] },
   slashCommand: true,
   prefixCommand: true,

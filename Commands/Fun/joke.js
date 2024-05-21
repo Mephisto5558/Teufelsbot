@@ -69,6 +69,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
 
 /** @type {command<'both', false>}*/
 module.exports = {
+  usage: { examples: 'dadjoke' },
   cooldowns: { channel: 100 },
   slashCommand: true,
   prefixCommand: true,

@@ -16,8 +16,7 @@
   "cmdstats": {
     "description": "See how often a specific command has been run or get the top 10.",
     "usage": {
-      "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot'] [command]",
-      "examples": "{prefix}cmdstats user joke"
+      "usage": "['guild' | 'user' | 'bot'] [command]"
     },
     "options": {
       "scope": {
@@ -45,8 +44,7 @@
   "emojiinfo": {
     "description": "Get information about an emoji",
     "usage": {
-      "usage": "{prefix}emojiinfo [emoji | emoji id]",
-      "examples": "{prefix}emojiinfo :derp:"
+      "usage": "[emoji | emoji id]"
     },
     "options": {
       "emoji": {
@@ -69,8 +67,7 @@
   "help": {
     "description": "Show all my commands or search for a specific one",
     "usage": {
-      "usage": "{prefix}help [[category] [command]] | [category]",
-      "examples": "{prefix}help fun joke | {prefix}help fun"
+      "usage": "[[category] [command]]\n{prefix}{cmdName} [category]"
     },
     "options": {
       "category": {
@@ -151,8 +148,8 @@
   "roleinfo": {
     "description": "Get information about a role",
     "usage": {
-      "usage": "{prefix}roleinfo [@role | role name | role id]",
-      "examples": "{prefix}roleinfo @User1"
+      "usage": "[@role | role name | role id]",
+      "examples": "@User1"
     },
     "options": {
       "role": {
@@ -220,8 +217,8 @@
   "userinfo": {
     "description": "Get information about a member",
     "usage": {
-      "usage": "{prefix}roleinfo [@user | user name | user tag | user nickname | user id]",
-      "examples": "{prefix}userinfo @User1"
+      "usage": "[@user | user name | user tag | user nickname | user id]",
+      "examples": "@User1"
     },
     "options": {
       "target": {

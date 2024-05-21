@@ -21,6 +21,7 @@ module.exports = {
   getTargetRole: require('./getTargetRole.js'),
   gitpull: require('./gitpull.js'),
   GiveawaysManager: require('./giveawaysManager.js'),
+  localizeUsage: require('./localizeUsage.js'),
   logSayCommandUse: require('./logSayCommandUse.js'),
   slashCommandsEqual: require('./slashCommandsEqual.js'),
   permissionTranslator: require('./permissionTranslator.js'),

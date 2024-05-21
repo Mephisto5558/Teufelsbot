@@ -2,6 +2,7 @@ const { EmbedBuilder, Colors } = require('discord.js');
 
 /** @type {command<'both', false>}*/
 module.exports = {
+  usage: { examples: 'user joke' },
   cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: true,

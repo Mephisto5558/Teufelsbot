@@ -2,6 +2,7 @@ const { getTargetMember } = require('../../Utils');
 
 /** @type {command<'prefix', false>}*/
 module.exports = {
+  usage: { examples: '12345678901234568' },
   aliases: { prefix: ['blacklist'] },
   slashCommand: false,
   prefixCommand: true,

@@ -4,6 +4,7 @@ const
 
 /** @type {command<'both'>}*/
 module.exports = {
+  usage: { examples: ':derp:' },
   aliases: { prefix: ['emoji-info'] },
   slashCommand: true,
   prefixCommand: true,
