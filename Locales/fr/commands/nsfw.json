@@ -3,6 +3,9 @@
   "categoryDescription": "Commandes NSFW",
   "nsfw": {
     "description": "Obtenir une image NSFW",
+    "usage": {
+      "usage": ""
+    },
     "options": {
       "type": {
         "description": "Le type d'image que vous voulez voir. Par défaut, hentai.",
