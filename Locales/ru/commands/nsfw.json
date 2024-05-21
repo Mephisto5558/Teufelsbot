@@ -3,6 +3,9 @@
   "categoryDescription": "NSFW команды",
   "nsfw": {
     "description": "Получить изображение NSFW",
+    "usage": {
+      "usage": ""
+    },
     "options": {
       "type": {
         "description": "Тип изображения, который вы хотите увидеть. По умолчанию Hentai.",
