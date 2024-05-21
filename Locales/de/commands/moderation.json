@@ -26,8 +26,7 @@
     "noneFound": "Kein Ziel wurde gefunden.",
     "error": "Ich konnte **{user}** nicht bannen.\n{err}\n",
     "success": "**{user}** wurde erfolgreich gebannt.\n",
-    "noDM": "Ich konnte dem Ziel keine DM senden.",
-    "timedOut": "Das Menü ist abgelaufen."
+    "noDM": "Ich konnte dem Ziel keine DM senden."
   },
   "kick": {
     "description": "Kickt ein oder mehrere Mitglieder vom Server.",
@@ -48,8 +47,7 @@
     "cantPunishSelf": "Du kannst dich selbst nicht kicken!",
     "error": "Ich konnte **{user}** nicht kicken.\n{err}\n",
     "success": "**{user}** wurde erfolgreich gekickt.\n",
-    "noDM": "Ich konnte dem Ziel keine DM senden.",
-    "timedOut": "Das Menü ist abgelaufen."
+    "noDM": "Ich konnte dem Ziel keine DM senden."
   },
   "lock": {
     "description": "Verbietet jedem, abgesehen von Administratoren, in einem Kanal Nachrichten zu senden.",
@@ -94,7 +92,6 @@
     "error": "Ich konnte das Mitglied nicht muten:\n{err}",
     "success": "**{user}** wurde erfolgreich getimeouted.\n",
     "noDM": "\nIch konnte dem Ziel keine DM senden.",
-    "timedOut": "Das Menü ist abgelaufen.",
     "invalidDuration": "Die Mute-Dauer, die du angegeben hast, ist ungültig!"
   },
   "nukechannel": {

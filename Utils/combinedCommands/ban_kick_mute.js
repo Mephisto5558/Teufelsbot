@@ -117,9 +117,9 @@ module.exports = async function ban_kick_mute(lang) {
       .on('end', collected => {
         if (collected.size) return;
 
-        resEmbed.data.description = lang('timedOut');
+        resEmbed.data.description = lang('global.menuTimedOut');
         selectComponent.components[0].data.disabled = true;
-        selectComponent.components[0].data.placeholder = lang('timedOut');
+        selectComponent.components[0].data.placeholder = lang('global.menuTimedOut');
 
         return this.editReply({ embeds: [resEmbed], components: [selectComponent] });
       });

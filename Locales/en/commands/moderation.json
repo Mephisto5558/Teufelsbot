@@ -26,8 +26,7 @@
     "noneFound": "No targets have been found.",
     "error": "**{user}** couldn't be banned.\n{err}\n",
     "success": "**{user}** has been successfully banned.\n",
-    "noDM": "I couldn't DM the target.",
-    "timedOut": "This menu timed out."
+    "noDM": "I couldn't DM the target."
   },
   "kick": {
     "description": "kicks a member from the guild",
@@ -48,8 +47,7 @@
     "cantPunishSelf": "You can't kick yourself!",
     "error": "**{user}** couldn't be kicked.\n{err}\n",
     "success": "**{user}** has been successfully kicked.\n",
-    "noDM": "I couldn't DM the target.",
-    "timedOut": "This menu timed out."
+    "noDM": "I couldn't DM the target."
   },
   "lock": {
     "description": "Prevents everyone except administrators from writing in a channel.",
@@ -94,22 +92,21 @@
     "error": "I couldn't mute the target:\n{err}",
     "success": "**{user}** has been successfully muted.\n",
     "noDM": "\nI couldn't DM the target.",
-    "timedOut": "This menu timed out.",
     "invalidDuration": "The mute duration you provided is invalid!"
   },
   "nukechannel": {
     "description": "Clears all channel messages by duplicating the channel and then deleting the original one",
     "options": {
-      "confirmation": {
-        "description": "Write \"DELETE CHANNEL\" for confirmation."
-      },
       "channel": {
         "description": "The channel to nuke."
       }
     },
-    "confirmation": "delete channel",
-    "needConfirm": "You need to confirm this action by writing `DELETE CHANNEL` as the confirm option!",
-    "embedDescription": ":radioactive: Channel Nuked!",
+    "confirmEmbedTitle": "Nuke Channel",
+    "confirmEmbedDescription": "Are you sure you want to nuke <#{channel}>?\n**This action is irreversible!**",
+    "confirmButtonLabel": "Confirm",
+    "cancelButtonLabel": "Cancel",
+    "canceledEmbedDescription": "The nuking has been canceled.",
+    "successEmbedDescription": ":radioactive: Channel Nuked!",
     "embedFooterText": "Nuked by {user}"
   },
   "purge": {
