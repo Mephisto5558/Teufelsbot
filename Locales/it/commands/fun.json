@@ -52,7 +52,7 @@
   "avatarfusion": {
     "description": "Fusioni due avatar.",
     "usage": {
-      "usage": "<base> [overlay] ['server' <unk> 'global']",
+      "usage": "<base> [overlay] ['server' | 'global']",
       "examples": "@User1 @User2 globale"
     },
     "options": {
@@ -698,8 +698,8 @@
   "vote": {
     "description": "Crea un sondaggio per qualcosa",
     "usage": {
-      "usage": "<channel> [question] <unk> [opzione 1] <unk> [opzione 2] <unk> <option 3> ... <option 9>",
-      "examples": "#voto Avete bene? <unk> Sì <unk> No"
+      "usage": "<channel> [question] | [opzione 1] | [opzione 2] | <option 3> ... <option 9>",
+      "examples": "#voto Stai bene? | Sì | No"
     },
     "options": {
       "question": {
