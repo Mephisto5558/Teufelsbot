@@ -4,7 +4,7 @@ const { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, Butt
  * @this {Message}
  * @param {Message}newMsg*/
 module.exports = function messageUpdate(newMsg) {
-  const setting = this.guild?.db.config?.logger?.messageUpdate;
+  const setting = this.guild?.db.config.logger?.messageUpdate;
   if (
     this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled || !setting.channel
     || this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size && this.embeds.length && newMsg.embeds.length
@@ -16,7 +16,7 @@ module.exports = function messageUpdate(newMsg) {
   const
 
     /** @type {lang}*/
-    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config?.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
+    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
     embed = new EmbedBuilder({
       author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
       description: lang('embedDescription', { executor: `<@${newMsg.user.id}>`, channel: newMsg.channel.name }),

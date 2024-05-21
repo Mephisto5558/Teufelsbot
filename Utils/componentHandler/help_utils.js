@@ -70,7 +70,7 @@ function createCommandsComponent(lang, category) {
 function createInfoFields(cmd, lang) {
   const
     arr = [],
-    prefix = this.guild?.db.config?.prefix?.prefix ?? this.client.defaultSettings.config.prefix;
+    prefix = this.guild?.db.config.prefix?.prefix ?? this.client.defaultSettings.config.prefix;
 
   cmd ??= {};
   if (cmd.aliases?.prefix?.length) arr.push({ name: lang('one.prefixAlias'), value: `\`${cmd.aliases.prefix.join('`, `')}\``, inline: true });
@@ -141,7 +141,7 @@ module.exports.commandQuery = function commandQuery(lang, query) {
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
       description: helpLang('description'),
       fields: createInfoFields.call(this, command, lang),
-      footer: { text: lang('one.embedFooterText', this.guild?.db.config?.prefix ?? this.client.defaultSettings.config.prefix) },
+      footer: { text: lang('one.embedFooterText', this.guild?.db.config.prefix ?? this.client.defaultSettings.config.prefix) },
       color: Colors.Blurple
     });
 

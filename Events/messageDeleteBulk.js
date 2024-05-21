@@ -4,7 +4,7 @@ const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent } = require('discord.js
  * @this {import('discord.js').Collection<string,Message<true>>}
  * @param {import('discord.js').GuildTextBasedChannel}channel*/
 module.exports = async function messageDeleteBulk(channel) {
-  const setting = channel.guild.db.config?.logger?.messageDelete ?? {};
+  const setting = channel.guild.db.config.logger?.messageDelete ?? {};
   if (channel.client.botType == 'dev' || !channel.guild || !setting.enabled || !setting.channel) return;
 
   const channelToSend = channel.guild.channels.cache.get(setting.channel);
@@ -18,7 +18,7 @@ module.exports = async function messageDeleteBulk(channel) {
       .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < 2e4) ?? {},
 
     /** @type {lang} */
-    lang = channel.client.i18n.__.bBind(channel.client.i18n, { locale: channel.guild.db.config?.lang ?? channel.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),
+    lang = channel.client.i18n.__.bBind(channel.client.i18n, { locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
       description: lang('embedDescription', { executor: executor ? `<@${executor.id}>` : lang('events.logger.someone'), channel: channel.name, count: this.size.toString() }),

@@ -5,7 +5,7 @@ module.exports = function interactionCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 
   const
-    locale = this.guild?.db.config?.lang ?? this.guild?.localeCode,
+    locale = this.guild?.db.config.lang ?? this.guild?.localeCode,
 
     /** @type {lang}*/
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale, backupPath: 'events.command' });
