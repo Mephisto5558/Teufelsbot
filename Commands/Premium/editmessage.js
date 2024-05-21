@@ -57,7 +57,7 @@ module.exports = {
     try { modalInteraction = await this.awaitModalSubmit({ filter: i => i.customId == 'newContent_modal', time: 6e5 }); }
     catch (err) { if (err.code != 'InteractionCollectorError') throw err; }
 
-    if (!modalInteraction) return this.reply({ content: lang('timedout'), ephemeral: true });
+    if (!modalInteraction) return this.reply({ content: lang('global.menuTimedOut'), ephemeral: true });
 
     await modalInteraction.deferReply({ ephemeral: true });
     const content = modalInteraction.fields.getTextInputValue('newContent_text');

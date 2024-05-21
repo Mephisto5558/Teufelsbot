@@ -16,5 +16,6 @@
   "true": "Ja",
   "false": "Nein",
   "modReason": "{command}-Befehl, Moderator {user}",
-  "downloadButton": "Herunterladen"
+  "downloadButton": "Herunterladen",
+  "menuTimedOut": "Das Menü ist abgelaufen."
 }

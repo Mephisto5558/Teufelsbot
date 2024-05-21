@@ -16,5 +16,6 @@
   "true": "Yes",
   "false": "No",
   "modReason": "{command} command, moderator {user}",
-  "downloadButton": "Download"
+  "downloadButton": "Download",
+  "menuTimedOut": "This menu timed out."
 }
