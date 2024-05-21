@@ -84,7 +84,6 @@
     "notFound": "Non c'è nessun messaggio con quell'id nel canale specificato!",
     "notBotMessage": "Posso modificare solo i miei messaggi!",
     "cannotEdit": "Non posso modificare quel messaggio!",
-    "timedout": "Hai impiegato a lungo per rispondere!",
     "emptyJson": "Il JSON che hai fornito è vuoto!",
     "error": "Si è verificato un errore durante il tentativo di inviare il tuo JSON:\n```{err}```\n",
     "success": "Il messaggio è stato modificato. [Link]({url})"
