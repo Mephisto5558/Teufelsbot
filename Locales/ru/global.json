@@ -16,5 +16,6 @@
   "true": "Да",
   "false": "Нет",
   "modReason": "Команда {command} , модератор {user}",
-  "downloadButton": "Скачать"
+  "downloadButton": "Скачать",
+  "menuTimedOut": "Истекло время ожидания этого меню."
 }
