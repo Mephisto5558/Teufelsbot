@@ -3,6 +3,9 @@
   "categoryDescription": "NSFW-Befehle",
   "nsfw": {
     "description": "Erhalte ein NSFW-Bild",
+    "usage": {
+      "usage": "[Typ]"
+    },
     "options": {
       "type": {
         "description": "Die Bild-Art, die du sehen möchtest. Standard: Hentai",

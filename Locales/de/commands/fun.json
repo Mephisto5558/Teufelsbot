@@ -51,6 +51,10 @@
   },
   "avatarfusion": {
     "description": "Kombiniere zwei Profilbilder.",
+    "usage": {
+      "usage": "<base> [overlay] ['server' | 'global']",
+      "examples": "@User1 @User2 global"
+    },
     "options": {
       "base": {
         "description": "Wessen Profilbild soll für die Basis genutzt werden?"
@@ -254,6 +258,10 @@
   },
   "image": {
     "description": "Bildbearbeitung",
+    "usage": {
+      "usage": "<subcommand | 'help'> <args>",
+      "examples": "magik https://example.com/image.png 3"
+    },
     "options": {
       "type": {
         "description": "Die Art der Bildbearbeitung, die du nutzen möchtest. Lass dies leer, um alle Möglichkeiten zu sehen."
@@ -266,6 +274,9 @@
   },
   "joke": {
     "description": "Lasse den Bot einen Witz senden",
+    "usage": {
+      "usage": "[Typ]"
+    },
     "options": {
       "api": {
         "description": "Welche API soll genutzt werden?"
@@ -293,6 +304,9 @@
   },
   "pokedex": {
     "description": "Zeigt Informationen über Pokémon an.",
+    "usage": {
+      "usage": "<Pokémon>"
+    },
     "options": {
       "pokémon": {
         "description": "Nenne ein Pokémon"
@@ -312,6 +326,9 @@
   },
   "reddit": {
     "description": "Verschiedene Reddit-Befehle",
+    "usage": {
+      "usage": "[Subreddit] [Sortierung]"
+    },
     "options": {
       "meme": {
         "description": "Lasse dir ein zufälliges Meme zeigen.",
@@ -346,6 +363,10 @@
   },
   "say": {
     "description": "Lasse mich etwas sagen.",
+    "usage": {
+      "usage": "<Nachricht> [Kanal]",
+      "examples": "Hallo Freunde! #chat"
+    },
     "options": {
       "msg": {
         "description": "Was soll ich sagen? Nutze /n für einen Absatz."
@@ -676,6 +697,10 @@
   },
   "vote": {
     "description": "Erstelle eine Umfrage",
+    "usage": {
+      "usage": "<Kanal> [Frage] | [Option 1] | [Option 2] | <Option 3> ... <Option 9>",
+      "examples": "#voten Geht es dir gut? | Ja | Nein"
+    },
     "options": {
       "question": {
         "description": "Worüber soll abgestimmt werden?"

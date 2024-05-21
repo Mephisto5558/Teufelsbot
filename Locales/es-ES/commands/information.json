@@ -16,15 +16,25 @@
   "cmdstats": {
     "description": "Mira con qué frecuencia se ha ejecutado un comando específico o consigue el top 10.",
     "usage": {
-      "examples": "{prefix}cmdstats user joke"
+      "usage": "['guild' | 'user' | 'bot'] [command]"
     },
     "options": {
+      "scope": {
+        "description": "Obtén estadísticas de comando para el gremio actual, tú o el bot en general.",
+        "choices": {
+          "bot": "Bot",
+          "guild": "Gremio",
+          "user": "Usuario"
+        }
+      },
       "command": {
         "description": "El comando para el que quieres obtener estadísticas."
       }
     },
     "embedTitle": "Estadísticas de Comando",
-    "embedDescriptionMany": "Estos son los 10 comandos más utilizados:\n"
+    "embedDescriptionOne": "El comando {command} ha sido ejecutado **{count}** veces.",
+    "embedDescriptionMany": "Estos son los 10 comandos más utilizados:\n",
+    "embedFieldValue": "**{total}** (barra: **{slash}** | Prefijo: **{prefix}**)"
   },
   "dashboard": {
     "description": "obtener el enlace al panel de control de bots",
@@ -33,6 +43,9 @@
   },
   "emojiinfo": {
     "description": "Obtener información sobre un emoji",
+    "usage": {
+      "usage": "[emoji | emoji id]"
+    },
     "options": {
       "emoji": {
         "description": "El emoji o su id sobre el que quieres obtener información"
@@ -53,6 +66,9 @@
   },
   "help": {
     "description": "Mostrar todos mis comandos o buscar uno específico",
+    "usage": {
+      "usage": "[[category] [command]]\n{prefix}{cmdName} [category]"
+    },
     "options": {
       "category": {
         "description": "¿De qué categoría quieres obtener información?"
@@ -94,9 +110,14 @@
     "starts": "Comienza",
     "lastStart": "Último inicio",
     "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina.\n",
-    "links": "**[Invite]({invite})** | **[Dashboard]({dashboard})** | **[Política de privacidad]({privacyPolicy})**",
     "embedTitle": "Estadísticas",
-    "embedFooterText": "¡Pronto habrá más estadísticas!"
+    "embedFooterText": "¡Pronto habrá más estadísticas!",
+    "links": {
+      "repo": "GitHub",
+      "invite": "Invitar",
+      "dashboard": "Tablero",
+      "privacyPolicy": "Política de privacidad"
+    }
   },
   "invite": {
     "description": "Envía un enlace para añadir el bot a tu gremio.",
@@ -112,7 +133,7 @@
     },
     "average": {
       "loading": "Ping... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}`\nPing más bajo: `{lowest}ms`\nPing más alto: `{highest}ms`\nPing medio: `{average}ms`"
+      "embedDescription": "Pings: `{pings}`\nAPI:\n> El más bajo Ping: `{wsLowest}ms`\n> El más alto Ping: `{wsHighest}ms`\n> Media Ping: `{wsAverage}ms`\nMensaje Enviado:\n> Baja Ping: `{msgLowest}ms`\n> Mejor P: `{msgHighest}ms`\n> Media Ping: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -120,12 +141,16 @@
     "messageSend": "Enviar mensaje"
   },
   "prefix": {
-    "description": "Muestra el prefijo del bot del gremio",
+    "description": "muestra o cambia el prefijo del bot del gremio",
     "currentPrefix": "Mi prefijo actual es `{prefix}`.",
     "caseInsensitive": " (mayúsculas insensibles)"
   },
   "roleinfo": {
     "description": "Obtener información sobre un rol",
+    "usage": {
+      "usage": "[@role | nombre de rol | role id]",
+      "examples": "@Usuario1"
+    },
     "options": {
       "role": {
         "description": "el rol sobre el que quieres obtener información"
@@ -191,6 +216,10 @@
   },
   "userinfo": {
     "description": "Obtener información sobre un miembro",
+    "usage": {
+      "usage": "[@user | nombre de usuario | etiqueta de usuario | nick de usuario | id]",
+      "examples": "@Usuario1"
+    },
     "options": {
       "target": {
         "description": "el usuario sobre el que quieres obtener información"
@@ -202,6 +231,7 @@
     "guildMod": "Moderador del gremio",
     "guildMember": "Miembro del gremio",
     "mention": "Mención",
+    "displayName": "Mostrar nombre",
     "type": "Tipo",
     "roles": "Roles",
     "position": "Posición",

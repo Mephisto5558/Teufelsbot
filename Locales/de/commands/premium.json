@@ -3,6 +3,10 @@
   "categoryDescription": "Befehle, die eine Premium-Mitgliedschaft erfordern (werden)",
   "chatgpt": {
     "description": "Sprich mit ChatGPT!",
+    "usage": {
+      "usage": "<Nachricht>",
+      "examples": "Hallo"
+    },
     "options": {
       "message": {
         "description": "Was möchtest du ChatGPT sagen?"

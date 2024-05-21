@@ -3,6 +3,9 @@
   "categoryDescription": "Comandi che dovrebbero essere disponibili solo per il dev",
   "blacklistuser": {
     "description": "blocca un utente dall'utilizzo del bot",
+    "usage": {
+      "usage": "[off] <user id>"
+    },
     "notFound": "Nessuna voce trovata per questo id.",
     "saved": "`{user}` è stato inserito nella blacklist dall'utilizzo del bot.",
     "removed": "La voce blacklist per `{user}` è stata rimossa.",
@@ -10,16 +13,28 @@
   },
   "dbget": {
     "description": "interroga i dati dal database",
+    "usage": {
+      "usage": "<database name> <key>",
+      "examples": "database a.b.c"
+    },
     "notFound": "niente trovato"
   },
   "eval": {
     "description": "iniettare codice JavaScript direttamente nel bot",
+    "usage": {
+      "usage": "<js code>",
+      "examples": "console.log('Ciao Mondo!')"
+    },
     "finished": "comando valutato:\n```js\n{code}\n```\n",
     "success": "{msg} senza errori.",
     "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```"
   },
   "exec": {
     "description": "iniettare il codice Bash direttamente nella shell del bot",
+    "usage": {
+      "usage": "<sh code>",
+      "examples": "echo 'Ciao Mondo!'"
+    },
     "finished": "Comando bash valutato:\n```sh\n{code}\n```\n",
     "stdout": "{msg} con il seguente output:\nstdout:\n```\n{stdout}\n```\n",
     "stderr": "stderr:\n```\n{stderr}\n```",
@@ -27,6 +42,10 @@
   },
   "reload": {
     "description": "ricarica un file o una categoria",
+    "usage": {
+      "usage": "<'comando' | 'file'> <Path relative to cwd>\n{prefix}{cmdName} <command | '*'>",
+      "examples": "file percorso/per/file\n{prefix}{cmdName} divertimento"
+    },
     "invalidCommand": "Questo non è un comando valido.",
     "invalidPath": "Il percorso specificato non esiste! Si prega di notare la sensibilità caso del percorso.",
     "error": "Si è verificato un errore durante il ricaricamento:\n```{error}```\nControlla la console per maggiori informazioni.",
@@ -52,6 +71,10 @@
   },
   "setactivity": {
     "description": "Imposta l'attività del bot",
+    "usage": {
+      "usage": "<activity>;[type]",
+      "examples": "esecuzione dei comandi;riproduzione"
+    },
     "invalidType": "Questo non è un tipo valido. I tipi validi sono:\n`{types}`",
     "set": "La mia attività è stata impostata a `{name}` di tipo `{type}`.",
     "reset": "La mia attività è stata impostata su `nessuna`."
@@ -62,6 +85,10 @@
   },
   "setcountingnumber": {
     "description": "Aggiorna l'ultimo numero di conteggio per un canale, anche reimpostando l'ultimo autore.",
+    "usage": {
+      "usage": "[numero (predefinito 0)] [channel]",
+      "examples": "7 #counting-canale"
+    },
     "invalidNumber": "Il numero fornito non è valido!",
     "unknownChannel": "L'id del canale fornito non è stato trovato in questa gilda!",
     "success": "Contare per <#{channel}> è stato impostato a **{number}**."
