@@ -4,7 +4,7 @@
   "nsfw": {
     "description": "Получить изображение NSFW",
     "usage": {
-      "usage": ""
+      "usage": "[тип]"
     },
     "options": {
       "type": {
