@@ -109,7 +109,7 @@
     "commands": "Comandos",
     "starts": "Comienza",
     "lastStart": "Último inicio",
-    "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n",
+    "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina.\n",
     "embedTitle": "Estadísticas",
     "embedFooterText": "¡Pronto habrá más estadísticas!",
     "links": {
@@ -133,7 +133,7 @@
     },
     "average": {
       "loading": "Ping... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}`\nPing más bajo: `{lowest}ms`\nPing más alto: `{heightest}ms`\nPing medio: `{average}ms`"
+      "embedDescription": "Pings: `{pings}`\nAPI:\n> El más bajo Ping: `{wsLowest}ms`\n> El más alto Ping: `{wsHighest}ms`\n> Media Ping: `{wsAverage}ms`\nMensaje Enviado:\n> Baja Ping: `{msgLowest}ms`\n> Mejor P: `{msgHighest}ms`\n> Media Ping: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -212,7 +212,7 @@
   "uptime": {
     "description": "Obtener el tiempo de actividad del bot",
     "embedDescriptionNoURL": "El bot ha estado en línea para {time}.",
-    "embedDescription": "El bot ha sido [online]({Domain}/uptime) para {time}."
+    "embedDescription": "El bot ha sido [online]({domain}/uptime) para {time}."
   },
   "userinfo": {
     "description": "Obtener información sobre un miembro",
