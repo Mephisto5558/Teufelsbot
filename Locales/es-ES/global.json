@@ -16,5 +16,6 @@
   "true": "Sí",
   "false": "Nu",
   "modReason": "{command} comando, moderador {user}",
-  "downloadButton": "Descargar"
+  "downloadButton": "Descargar",
+  "menuTimedOut": "Este menú ha expirado."
 }
