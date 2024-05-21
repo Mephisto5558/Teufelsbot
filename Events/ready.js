@@ -1,4 +1,6 @@
-const { ActivityType } = require('discord.js');
+const
+  { ActivityType } = require('discord.js'),
+  guildCreate = require('./guildCreate');
 
 /** @this {Client}*/
 module.exports = async function ready() {
@@ -10,4 +12,7 @@ module.exports = async function ready() {
     if (!guild.leftAt && !this.guilds.cache.has(guildId))
       this.db.update('guildSettings', `${guildId}.leftAt`, new Date());
   }
+
+  for (const [guildId, guild] of this.guilds.cache)
+    if (!this.db.get('guildSettings', guildId)) guildCreate.call(guild);
 };
