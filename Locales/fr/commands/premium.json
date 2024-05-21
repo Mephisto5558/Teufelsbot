@@ -3,6 +3,10 @@
   "categoryDescription": "Commandes qui nécessitent un abonnement premium",
   "chatgpt": {
     "description": "Parlez à ChatGPT!",
+    "usage": {
+      "usage": "<message>",
+      "examples": "Bonjour"
+    },
     "options": {
       "message": {
         "description": "Que voulez-vous dire à ChatGPT ?"
