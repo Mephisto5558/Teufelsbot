@@ -1,6 +1,4 @@
-const
-  { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
-  localizeUsage = require('./localizeUsage.js');
+const { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js');
 
 /**
  * @param {command<'slash', boolean, true> | commandOptions<true>}option
@@ -69,8 +67,6 @@ module.exports = function format(option, path, i18n) {
 
     if (option.permissions?.user?.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions.user);
     option.dmPermission ??= false;
-
-    localizeUsage(option, path, i18n);
 
     return option;
   }
