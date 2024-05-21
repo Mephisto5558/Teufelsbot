@@ -26,8 +26,7 @@
     "noneFound": "Nessun obiettivo è stato trovato.",
     "error": "**{user}** non può essere bandito.\n{err}\n",
     "success": "**{user}** è stato bandito con successo.\n",
-    "noDM": "Non riuscivo a DM il bersaglio.",
-    "timedOut": "Questo menu è scaduto."
+    "noDM": "Non riuscivo a DM il bersaglio."
   },
   "kick": {
     "description": "kicks a member from the guild",
@@ -48,8 +47,7 @@
     "cantPunishSelf": "Non puoi calciarti!",
     "error": "**{user}** non può essere cacciato.\n{err}\n",
     "success": "**{user}** è stato espulso con successo.\n",
-    "noDM": "Non riuscivo a DM il bersaglio.",
-    "timedOut": "Questo menu è scaduto."
+    "noDM": "Non riuscivo a DM il bersaglio."
   },
   "lock": {
     "description": "Impedisce a tutti tranne gli amministratori di scrivere in un canale.",
@@ -94,22 +92,21 @@
     "error": "Non ho potuto silenziare il bersaglio:\n{err}",
     "success": "**{user}** è stato silenziato con successo.\n",
     "noDM": "\nnon sono riuscito a DM il bersaglio.",
-    "timedOut": "Questo menu è scaduto.",
     "invalidDuration": "La durata del silenziamento fornita non è valida!"
   },
   "nukechannel": {
     "description": "Cancella tutti i messaggi dei canali duplicando il canale e quindi eliminando quello originale",
     "options": {
-      "confirmation": {
-        "description": "Scrivi \"DELETE CHANNEL\" per conferma."
-      },
       "channel": {
         "description": "Il canale per nudo."
       }
     },
-    "confirmation": "elimina canale",
-    "needConfirm": "Devi confermare questa azione scrivendo `DELETE CHANNEL` come opzione di conferma!",
-    "embedDescription": ":radioactive: Canale Nutri!",
+    "confirmEmbedTitle": "Canale Nucleare",
+    "confirmEmbedDescription": "Sei sicuro di voler nuke <#{channel}>?\n**Questa azione è irreversibile!**",
+    "confirmButtonLabel": "Conferma",
+    "cancelButtonLabel": "Annulla",
+    "canceledEmbedDescription": "Il nuking è stato annullato.",
+    "successEmbedDescription": ":radioactive: Canale Nutri!",
     "embedFooterText": "Nucleato da {user}"
   },
   "purge": {
