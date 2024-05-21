@@ -16,7 +16,7 @@
   "cmdstats": {
     "description": "Vedere quanto spesso è stato eseguito un comando specifico o ottenere la top 10.",
     "usage": {
-      "usage": "['guild' <unk> 'user' <unk> 'bot'] [command]"
+      "usage": "['guild' | 'user' | 'bot'] [command]"
     },
     "options": {
       "scope": {
@@ -148,7 +148,7 @@
   "roleinfo": {
     "description": "Ottieni informazioni su un ruolo",
     "usage": {
-      "usage": "[@role <unk> role name <unk> role id]",
+      "usage": "[@role | role name | role id]",
       "examples": "@User1"
     },
     "options": {
@@ -217,7 +217,7 @@
   "userinfo": {
     "description": "Ottieni informazioni su un membro",
     "usage": {
-      "usage": "[@user <unk> user <unk> user tag <unk> user nickname <unk> user id]",
+      "usage": "roleinfo [@user | user | user tag | user nickname | user id]",
       "examples": "@User1"
     },
     "options": {
