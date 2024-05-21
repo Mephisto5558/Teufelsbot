@@ -4,6 +4,7 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
+  usage: { examples: 'discord' },
   aliases: { prefix: ['wikipedia'] },
   cooldowns: { channel: 100, user: 200 },
   slashCommand: true,

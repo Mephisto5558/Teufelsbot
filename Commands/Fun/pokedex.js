@@ -5,6 +5,7 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
+  usage: { examples: 'Bulbasaur' },
   prefixCommand: true,
   slashCommand: true,
   dmPermission: true,

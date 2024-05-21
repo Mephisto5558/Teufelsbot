@@ -49,6 +49,19 @@ declare namespace __local {
      * @see {@link command.description}*/
     descriptionLocalizations: readonly Record<string, BaseCommand<true>['description']>;
 
+    /**
+     * Command usage information for the end-user.
+     * Should be in the command file if its language-independent, otherwise in the language files.
+     *
+     * Gets modified upon initialization.*/
+    usage: { usage?: string; examples?: string };
+
+
+    /**
+     * Gets set automatically from language files.
+     * @see {@link command.usage}*/
+    usageLocalizations: readonly Record<string, BaseCommand['usage']>;
+
     /** Gets set to the lowercase folder name the command is in.*/
     category: readonly string;
 
@@ -75,6 +88,8 @@ declare namespace __local {
 
     /** @deprecated Use language files instead.*/
     description?: string;
+
+    usage?: { usage?: string; examples?: string };
 
     /** @deprecated Change the directory name to the desired category instead.*/
     category?: string;

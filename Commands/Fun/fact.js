@@ -4,6 +4,10 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
+  usage: {
+    usage: '["en" | "de"]',
+    examples: 'fact en'
+  },
   cooldowns: { channel: 100 },
   slashCommand: true,
   prefixCommand: true,

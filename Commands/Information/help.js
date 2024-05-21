@@ -3,6 +3,7 @@ const { help_commandQuery, help_categoryQuery, help_allQuery, help_getCommands, 
 
 /** @type {command<'both', false>}*/
 module.exports = {
+  usage: { examples: 'fun joke\n{prefix}{cmdName} fun' },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

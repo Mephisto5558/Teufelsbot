@@ -5,6 +5,7 @@ const
 
 /** @type {command<'both'>}*/
 module.exports = {
+  usage: { examples: 'hentai' },
   cooldowns: { user: 1000 },
   slashCommand: true,
   prefixCommand: true,

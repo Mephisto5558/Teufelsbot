@@ -4,8 +4,7 @@
   "blacklistuser": {
     "description": "(Un)blocks a user from using the bot",
     "usage": {
-      "usage": "{prefix}blacklistuser [off] <user id>",
-      "examples": "{prefix}blacklistuser 12345678901234568"
+      "usage": "[off] <user id>"
     },
     "notFound": "Found no entry for this id.",
     "saved": "`{user}` has been blacklisted from using the bot.",
@@ -15,16 +14,16 @@
   "dbget": {
     "description": "query data from the database",
     "usage": {
-      "usage": "{prefix}dbget <database name> <key>",
-      "examples": "{prefix}dbget database a.b.c"
+      "usage": "<database name> <key>",
+      "examples": "database a.b.c"
     },
     "notFound": "nothing found"
   },
   "eval": {
     "description": "inject JavaScript code directly into the bot",
     "usage": {
-      "usage": "{prefix}eval <js code>",
-      "examples": "{prefix}eval console.log('Hello World!')"
+      "usage": "<js code>",
+      "examples": "console.log('Hello World!')"
     },
     "finished": "evaluated command:\n```js\n{code}\n```\n",
     "success": "{msg} without errors.",
@@ -33,8 +32,8 @@
   "exec": {
     "description": "inject Bash code directly into the bot's shell",
     "usage": {
-      "usage": "{prefix}exec <sh code>",
-      "examples": "{prefix}exec echo 'Hello World!'"
+      "usage": "<sh code>",
+      "examples": "echo 'Hello World!'"
     },
     "finished": "Evaluated bash command:\n```sh\n{code}\n```\n",
     "stdout": "{msg} with following output:\nstdout:\n```\n{stdout}\n```\n",
@@ -44,8 +43,8 @@
   "reload": {
     "description": "reloads a file or category",
     "usage": {
-      "usage": "{prefix}reload <\"command\" | \"file\"> <Path relative to cwd>\n{prefix}reload <command | \"*\">",
-      "examples": "{prefix}reload file path/to/file\n{prefix}reload fun"
+      "usage": "<'command' | 'file'> <Path relative to cwd>\n{prefix}{cmdName} <command | '*'>",
+      "examples": "file path/to/file\n{prefix}{cmdName} fun"
     },
     "invalidCommand": "This is not a valid command.",
     "invalidPath": "The specified path does not exist! Please note the case sensitivity of the path.",
@@ -73,8 +72,8 @@
   "setactivity": {
     "description": "Sets the bot's activity",
     "usage": {
-      "usage": "{prefix}setactivity <activity>;[type]",
-      "examples": "{prefix}setactivity running commands;playing"
+      "usage": "<activity>;[type]",
+      "examples": "running commands;playing"
     },
     "invalidType": "This is not a valid type. Valid types are:\n`{types}`",
     "set": "My activity has been set to `{name}` of type `{type}`.",
@@ -87,8 +86,8 @@
   "setcountingnumber": {
     "description": "Updates the last counting number for a channel, also resetting the last author.",
     "usage": {
-      "usage": "{prefix}setcountingnumber [number (default 0)] [channel]",
-      "examples": "{prefix}setcountingnumber 7 #counting-channel"
+      "usage": "[number (default 0)] [channel]",
+      "examples": "7 #counting-channel"
     },
     "invalidNumber": "The provided number is invalid!",
     "unknownChannel": "The provided channel id has not been found in this guild!",

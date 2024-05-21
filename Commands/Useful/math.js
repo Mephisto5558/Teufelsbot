@@ -21,6 +21,7 @@ const
 
 /** @type {command<'both', false>}*/
 module.exports = {
+  usage: { examples: '1+1' },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
