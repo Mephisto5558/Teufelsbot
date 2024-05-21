@@ -11,6 +11,10 @@
   },
   "counting": {
     "description": "Imposta un canale di conteggio dove i membri possono mostrare le loro abilità matematice!",
+    "usage": {
+      "usage": "[#canale]",
+      "examples": "#conteggio"
+    },
     "options": {
       "channel": {
         "description": "Il canale che si desidera aggiungere (o rimuovere, se già aggiunto) come canale di conteggio."
@@ -35,6 +39,10 @@
   },
   "mgstats": {
     "description": "ottieni statistiche su uno dei minigiochi del bot",
+    "usage": {
+      "usage": "<game> [user]",
+      "examples": "tictactoe @User1"
+    },
     "options": {
       "user": {
         "description": "ottieni statistiche su di te o su un utente specifico",
