@@ -51,10 +51,6 @@
   },
   "avatarfusion": {
     "description": "Fusionne deux avatars.",
-    "usage": {
-      "usage": "{prefix}avatarfusion <base> [overlay] [avatar_type]",
-      "examples": "{prefix}avatarfusion @User1 @User2 global"
-    },
     "options": {
       "base": {
         "description": "La photo de profil de qui doit être utilisée pour la base?"
@@ -131,10 +127,6 @@
   },
   "fact": {
     "description": "Obtenez des faits, ils sont vraiment cool et utiles, comptez sur moi.",
-    "usage": {
-      "usage": "{prefix}fact [\"fr\"|\"de\"]",
-      "examples": "{prefix}fait en"
-    },
     "embedTitle": "Fait"
   },
   "giveaway": {
@@ -262,10 +254,6 @@
   },
   "image": {
     "description": "Manipulation de l'image",
-    "usage": {
-      "usage": "Image {prefix} <subcommand | \"help\"> <args>",
-      "examples": "{prefix}image magik https://example.com/image.png 3"
-    },
     "options": {
       "type": {
         "description": "Le type que vous voulez utiliser. Laissez ce champ vide pour obtenir une liste de types."
@@ -278,10 +266,6 @@
   },
   "joke": {
     "description": "envoie une blague drôle",
-    "usage": {
-      "usage": "La blague {prefix} [type]",
-      "examples": "{prefix}joke dadjoke"
-    },
     "options": {
       "api": {
         "description": "Quelle API voulez-vous utiliser ?"
@@ -309,10 +293,6 @@
   },
   "pokedex": {
     "description": "Affiche des informations à propos des pokémon spécifiés.",
-    "usage": {
-      "usage": "{prefix} <pokemon>",
-      "examples": "{prefix}Bulbasaure"
-    },
     "options": {
       "pokémon": {
         "description": "Nommer un pocket"
@@ -332,10 +312,6 @@
   },
   "reddit": {
     "description": "commandes liées à reddit",
-    "usage": {
-      "usage": "{prefix}reddit [subreddit] [type de tri]",
-      "examples": "{prefix}reddit memes chauds"
-    },
     "options": {
       "meme": {
         "description": "obtenir un meme aléatoire",
@@ -370,10 +346,6 @@
   },
   "say": {
     "description": "Permettez-moi de dire quelque chose",
-    "usage": {
-      "usage": "{prefix}dit <msg> [channel]",
-      "examples": "{prefix}dit Bonjour vos amis ! #chat"
-    },
     "options": {
       "msg": {
         "description": "Tapez votre message ici, /n pour une nouvelle ligne"
@@ -705,10 +677,6 @@
   },
   "vote": {
     "description": "Créer un sondage pour quelque chose",
-    "usage": {
-      "usage": "{prefix}vote <channel> [question] | [option 1] | [option 2] | <option 3> ... <option 9>",
-      "examples": "{prefix}vote #vote Êtes-vous d'accord ? | Oui | Non"
-    },
     "options": {
       "question": {
         "description": "Sur quoi voulez-vous que les gens votent?"

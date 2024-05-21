@@ -3,10 +3,6 @@
   "categoryDescription": "Comandos que deben estar disponibles sólo para el desarrollador",
   "blacklistuser": {
     "description": "bloquea que un usuario utilice el bot",
-    "usage": {
-      "usage": "{prefix}blacklistuser [off] <user id>",
-      "examples": "{prefix}blacklistuser 12345678901234568"
-    },
     "notFound": "No se encontró ninguna entrada para este id.",
     "saved": "`{user}` ha sido bloqueado de usar el bot.",
     "removed": "La entrada de la lista negra para `{user}` ha sido eliminada.",
@@ -14,28 +10,16 @@
   },
   "dbget": {
     "description": "consultar datos de la base de datos",
-    "usage": {
-      "usage": "{prefix}dbget <database name> <key>",
-      "examples": "{prefix}dbget base de datos a.b.c"
-    },
     "notFound": "nada encontrado"
   },
   "eval": {
     "description": "inyectar código JavaScript directamente en el bot",
-    "usage": {
-      "usage": "{prefix}eval <js code>",
-      "examples": "{prefix}eval console.log('¡Hola Mundo!')"
-    },
     "finished": "comando evaluado:\n```js\n{code}\n```\n",
     "success": "{msg} sin errores.",
     "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
   },
   "exec": {
     "description": "inyectar código Bash directamente en el shell del bot",
-    "usage": {
-      "usage": "{prefix}exec <sh code>",
-      "examples": "{prefix}exec echo '¡Hola Mundo!'"
-    },
     "finished": "Código de Bash:\n```sh\n{code}\n```\n",
     "stdout": "{msg} con la siguiente salida:\nstdout:\n```\n{stdout}\n```\n",
     "stderr": "stderr:\n```\n{stderr}\n```",
@@ -43,10 +27,6 @@
   },
   "reload": {
     "description": "Carga un archivo o categoría",
-    "usage": {
-      "usage": "{prefix}recargar <\"command\" | \"file\"> <Path relative to cwd>\n{prefix}recargar <command | \"*\">",
-      "examples": "{prefix}recargar la ruta/a/archivo\n{prefix}recargar la diversión"
-    },
     "invalidCommand": "Este no es un comando válido.",
     "invalidPath": "La ruta especificada no existe! Tenga en cuenta la sensibilidad de mayúsculas y minúsculas de la ruta.",
     "error": "Se ha producido un error al recargar:\n```{error}```\nCompruebe la consola para más información.",
@@ -72,10 +52,6 @@
   },
   "setactivity": {
     "description": "Establece la actividad del bot",
-    "usage": {
-      "usage": "{prefix}setactivity <activity>;[type]",
-      "examples": "{prefix}setactivity ejecutando comandos;jugando"
-    },
     "invalidType": "Este no es un tipo válido. Los tipos válidos son:\n`{types}`",
     "set": "Mi actividad ha sido establecida a `{name}` de tipo `{type}`.",
     "reset": "Mi actividad ha sido establecida a `ninguno`."
@@ -86,10 +62,6 @@
   },
   "setcountingnumber": {
     "description": "Actualiza el último número de cuenta para un canal, también restableciendo el último autor.",
-    "usage": {
-      "usage": "{prefix}setcountingnumber [number (por defecto 0)] [channel]",
-      "examples": "{prefix}setcountingnumber 7 #counting-channel"
-    },
     "invalidNumber": "¡El número proporcionado no es válido!",
     "unknownChannel": "¡La id del canal proporcionado no se ha encontrado en este gremio!",
     "success": "La cuenta para <#{channel}> se ha establecido a **{number}**."

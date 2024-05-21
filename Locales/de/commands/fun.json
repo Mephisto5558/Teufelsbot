@@ -51,10 +51,6 @@
   },
   "avatarfusion": {
     "description": "Kombiniere zwei Profilbilder.",
-    "usage": {
-      "usage": "{prefix}avatarfusion <Basis> [Überlagerung] [\"server\"|\"global\"]",
-      "examples": "{prefix}avatarfusion @User1 @User2 global"
-    },
     "options": {
       "base": {
         "description": "Wessen Profilbild soll für die Basis genutzt werden?"
@@ -131,10 +127,6 @@
   },
   "fact": {
     "description": "Interessante Fakten",
-    "usage": {
-      "usage": "{prefix}fact [\"en\"|\"de\"]",
-      "examples": "{prefix}fact de"
-    },
     "embedTitle": "Fakt"
   },
   "giveaway": {
@@ -262,10 +254,6 @@
   },
   "image": {
     "description": "Bildbearbeitung",
-    "usage": {
-      "usage": "{prefix}image <Unterbefehl | \"help\"> <Argumente>",
-      "examples": "{prefix}image magik https://example.com/bild.png 3"
-    },
     "options": {
       "type": {
         "description": "Die Art der Bildbearbeitung, die du nutzen möchtest. Lass dies leer, um alle Möglichkeiten zu sehen."
@@ -278,10 +266,6 @@
   },
   "joke": {
     "description": "Lasse den Bot einen Witz senden",
-    "usage": {
-      "usage": "{prefix}joke [Typ]",
-      "examples": "{prefix}joke dadjoke"
-    },
     "options": {
       "api": {
         "description": "Welche API soll genutzt werden?"
@@ -309,10 +293,6 @@
   },
   "pokedex": {
     "description": "Zeigt Informationen über Pokémon an.",
-    "usage": {
-      "usage": "{prefix}pokedex <Pokémon>",
-      "examples": "{prefix}pokedex Bulbasaur"
-    },
     "options": {
       "pokémon": {
         "description": "Nenne ein Pokémon"
@@ -332,10 +312,6 @@
   },
   "reddit": {
     "description": "Verschiedene Reddit-Befehle",
-    "usage": {
-      "usage": "{prefix}reddit [Subreddit] [Sortierung]",
-      "examples": "{prefix}pokedex Bulbasaur"
-    },
     "options": {
       "meme": {
         "description": "Lasse dir ein zufälliges Meme zeigen.",
@@ -370,10 +346,6 @@
   },
   "say": {
     "description": "Lasse mich etwas sagen.",
-    "usage": {
-      "usage": "{prefix}say <Nachricht> [Kanal]",
-      "examples": "{prefix}say Hi Freunde! #chat"
-    },
     "options": {
       "msg": {
         "description": "Was soll ich sagen? Nutze /n für einen Absatz."
@@ -704,10 +676,6 @@
   },
   "vote": {
     "description": "Erstelle eine Umfrage",
-    "usage": {
-      "usage": "{prefix}vote <Kanal> [Frage] | [Option 1] | [Option 2] | <Option 3> ... <Option 9>",
-      "examples": "{prefix}vote #voting Geht es euch gut? | Ja | Nein"
-    },
     "options": {
       "question": {
         "description": "Worüber soll abgestimmt werden?"

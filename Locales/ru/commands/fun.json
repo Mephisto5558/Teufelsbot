@@ -51,10 +51,6 @@
   },
   "avatarfusion": {
     "description": "Превращает две аватары.",
-    "usage": {
-      "usage": "{prefix}avatarfusion <base> [overlay] [avatar_type]",
-      "examples": "{prefix}avatarfusion @User1 @User2 глобальная"
-    },
     "options": {
       "base": {
         "description": "Кто из профильных фотографий должен быть использован для базы?"
@@ -131,10 +127,6 @@
   },
   "fact": {
     "description": "Получите некоторые факты, они действительно крутые и полезные, полагайтесь на меня.",
-    "usage": {
-      "usage": "Факт в {prefix}[\"ru\"|\"de\"]",
-      "examples": "{prefix}факт за RU"
-    },
     "embedTitle": "Факт"
   },
   "giveaway": {
@@ -262,10 +254,6 @@
   },
   "image": {
     "description": "Управление изображениями",
-    "usage": {
-      "usage": "{prefix}изображение <subcommand | \"help\"> <args>",
-      "examples": "{prefix}изображение магии https://example.com/image.png 3"
-    },
     "options": {
       "type": {
         "description": "Тип, который вы хотите использовать. Оставьте пустым, чтобы получить список типов."
@@ -278,10 +266,6 @@
   },
   "joke": {
     "description": "посылает смешную шутку",
-    "usage": {
-      "usage": "{prefix}шутить [type]",
-      "examples": "{prefix}шутить падук"
-    },
     "options": {
       "api": {
         "description": "Какой API вы хотите использовать?"
@@ -309,10 +293,6 @@
   },
   "pokedex": {
     "description": "Отображает информацию об указанном pokémon.",
-    "usage": {
-      "usage": "{prefix}покедов <pokemon>",
-      "examples": "{prefix}покедов Булбасаура"
-    },
     "options": {
       "pokémon": {
         "description": "Назовите поке́мон"
@@ -332,10 +312,6 @@
   },
   "reddit": {
     "description": "команды reddit",
-    "usage": {
-      "usage": "{prefix}реддит [subreddit] [тип сортировки]",
-      "examples": "{prefix}мемы reddit горячие"
-    },
     "options": {
       "meme": {
         "description": "получить случайный мем",
@@ -370,10 +346,6 @@
   },
   "say": {
     "description": "Позвольте мне сказать что-нибудь",
-    "usage": {
-      "usage": "{prefix}произносит <msg> [channel]",
-      "examples": "{prefix}говорит Здравствуйте, друзья! #чат"
-    },
     "options": {
       "msg": {
         "description": "Введите здесь ваше сообщение, /n для новой строки"
@@ -704,10 +676,6 @@
   },
   "vote": {
     "description": "Создать опрос",
-    "usage": {
-      "usage": "{prefix}голос <channel> [question] | [вариант 1] | [вариант 2] | <option 3> ... <option 9>",
-      "examples": "{prefix}голос #голосование Вы все верны? | Да | Нет"
-    },
     "options": {
       "question": {
         "description": "Что вы хотите, чтобы люди проголосовали?"

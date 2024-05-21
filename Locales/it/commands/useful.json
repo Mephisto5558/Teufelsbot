@@ -26,10 +26,6 @@
   },
   "afk": {
     "description": "Imposta uno stato AFK mostrato quando sei menzionato.",
-    "usage": {
-      "usage": "{prefix}afk [message]",
-      "examples": "{prefix}afk brb"
-    },
     "options": {
       "message": {
         "description": "Il messaggio da impostare"
@@ -204,10 +200,6 @@
   },
   "lastping": {
     "description": "Ti mostra dove hai parlato per ultimo.",
-    "usage": {
-      "usage": "{prefix}lastping [#channel]\nSe viene utilizzata l'opzione `channel`, verrà cercato un massimo di 200 messaggi.",
-      "examples": "{prefix}dura\n{prefix}dura #chat\n{prefix}dura @User1"
-    },
     "options": {
       "channel": {
         "description": "Il canale in cui vuoi cercare le menzioni. Predefiniti a tutta la gilda."
@@ -225,10 +217,6 @@
   },
   "math": {
     "description": "Esegue un po' di matematica",
-    "usage": {
-      "usage": "{prefix}matematica [expression]\n\nQuesta calcolatrice supporta una vasta gamma di operazioni matematiche, non solo quelle di base.\nÈ possibile assegnare valori alle variabili, ad esempio: `x=10`.\nPiù istruzioni possono essere valutate usando una nuova riga o un punto e virgola, per esempio: `x=10; x+10` restituirà `20`.\nRicordati di usare un asterisco (`*`) per la moltiplicazione.\nLa calcolatrice può produrre risultati multipli.Si prega di notare che gli spazi inutili possono causare errori nelle espressioni.",
-      "examples": "{prefix}matematica 1+1"
-    },
     "options": {
       "expression": {
         "description": "Cosa vuoi che risolva?"
@@ -260,10 +248,6 @@
   },
   "randomnumber": {
     "description": "Restituisce un numero casuale. Usa valori predefiniti per input non validi.",
-    "usage": {
-      "usage": "{prefix}numero casuale [min] [max]",
-      "examples": "{prefix}numero casuale 1 10"
-    },
     "options": {
       "minimum": {
         "description": "Il numero più piccolo possibile. Il valore predefinito è 0."
@@ -277,10 +261,6 @@
   },
   "timestamp": {
     "description": "Ottieni un timestamp per il futuro (o passato mettendo un \"-\" di fronte)",
-    "usage": {
-      "usage": "{prefix}timestamp [time]",
-      "examples": "`1h` = ora + 1h\n`-1h` = ora - 1h\n`1h-1h` = ora + 1h - 1h"
-    },
     "options": {
       "time": {
         "description": "Il tempo da ora (ad esempio 1w3d2h5min). Usa \"/help timestamp\" per ulteriori informazioni."
@@ -317,10 +297,6 @@
   },
   "wiki": {
     "description": "Search for something on Wikipedia, or get a random page if no search terms were specified.",
-    "usage": {
-      "usage": "{prefix}wiki <search term>",
-      "examples": "{prefix}wiki discord"
-    },
     "options": {
       "query": {
         "description": "Che cosa vuoi cercare?"

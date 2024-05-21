@@ -15,10 +15,6 @@
   },
   "cmdstats": {
     "description": "Vedere quanto spesso è stato eseguito un comando specifico o ottenere la top 10.",
-    "usage": {
-      "usage": "{prefix}cmdstats ['guild' | 'user' | 'bot'] [command]",
-      "examples": "{prefix}cmdstats joke"
-    },
     "options": {
       "scope": {
         "description": "Ottieni statistiche di comando per la gilda corrente, tu o il bot nel suo complesso.",
@@ -44,10 +40,6 @@
   },
   "emojiinfo": {
     "description": "Ottieni informazioni su un'emoji",
-    "usage": {
-      "usage": "{prefix}emojiinfo [emoji | emoji id]",
-      "examples": "{prefix}emojiinfo :derp:"
-    },
     "options": {
       "emoji": {
         "description": "L'emoji o il suo id che si desidera ottenere informazioni su"
@@ -68,10 +60,6 @@
   },
   "help": {
     "description": "Mostra tutti i miei comandi o cerca uno specifico",
-    "usage": {
-      "usage": "{prefix}help [[category] [command]] | [category]",
-      "examples": "{prefix}help fun joke | {prefix}help fun"
-    },
     "options": {
       "category": {
         "description": "Wich categoria si desidera ottenere informazioni su?"
@@ -150,10 +138,6 @@
   },
   "roleinfo": {
     "description": "Ottieni informazioni su un ruolo",
-    "usage": {
-      "usage": "{prefix}roleinfo [@role | role name | role id]",
-      "examples": "{prefix}roleinfo @User1"
-    },
     "options": {
       "role": {
         "description": "il ruolo che si desidera ottenere informazioni su"
@@ -219,10 +203,6 @@
   },
   "userinfo": {
     "description": "Ottieni informazioni su un membro",
-    "usage": {
-      "usage": "{prefix}roleinfo [@user | user | user tag | user nickname | user id]",
-      "examples": "{prefix}userinfo @User1"
-    },
     "options": {
       "target": {
         "description": "l'utente che si desidera ottenere informazioni su"

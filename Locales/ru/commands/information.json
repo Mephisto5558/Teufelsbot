@@ -33,10 +33,6 @@
   },
   "emojiinfo": {
     "description": "Получить информацию о эмодзи",
-    "usage": {
-      "usage": "{prefix}emojiinfo [emoji | emoji id]",
-      "examples": "{prefix}emojiinfo :derp:"
-    },
     "options": {
       "emoji": {
         "description": "Эмодзи или его идентификатор, который вы хотите получить информацию о"
@@ -57,10 +53,6 @@
   },
   "help": {
     "description": "Показать все мои команды или найти конкретный",
-    "usage": {
-      "usage": "{prefix}help [[category] [command]] | [category]",
-      "examples": "{prefix}help fun joke | {prefix}help fun"
-    },
     "options": {
       "category": {
         "description": "О какой категории вы хотите получить информацию?"
@@ -134,10 +126,6 @@
   },
   "roleinfo": {
     "description": "Получить информацию о роли",
-    "usage": {
-      "usage": "{prefix}roleinfo [@role | имя роли | id роли]",
-      "examples": "{prefix}roleinfo @User1"
-    },
     "options": {
       "role": {
         "description": "роль, которую вы хотите получить информацию о"
@@ -203,10 +191,6 @@
   },
   "userinfo": {
     "description": "Получить информацию о участнике",
-    "usage": {
-      "usage": "{prefix}roleinfo [@user | имя пользователя | тэг пользователя | ник пользователя | id пользователя]",
-      "examples": "{prefix}userinfo @User1"
-    },
     "options": {
       "target": {
         "description": "пользователь, которому вы хотите получить информацию о"

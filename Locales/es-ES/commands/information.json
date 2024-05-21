@@ -33,10 +33,6 @@
   },
   "emojiinfo": {
     "description": "Obtener información sobre un emoji",
-    "usage": {
-      "usage": "{prefix}emojiinfo [emoji | emoji id]",
-      "examples": "{prefix}emojiinfo :derp:"
-    },
     "options": {
       "emoji": {
         "description": "El emoji o su id sobre el que quieres obtener información"
@@ -57,10 +53,6 @@
   },
   "help": {
     "description": "Mostrar todos mis comandos o buscar uno específico",
-    "usage": {
-      "usage": "{prefix}help [[category] [command]] | [category]",
-      "examples": "{prefix}help fun joke | {prefix}help fun"
-    },
     "options": {
       "category": {
         "description": "¿De qué categoría quieres obtener información?"
@@ -134,10 +126,6 @@
   },
   "roleinfo": {
     "description": "Obtener información sobre un rol",
-    "usage": {
-      "usage": "{prefix}roleinfo [@role | nombre de rol | role id]",
-      "examples": "{prefix}roleinfo @User1"
-    },
     "options": {
       "role": {
         "description": "el rol sobre el que quieres obtener información"
@@ -203,10 +191,6 @@
   },
   "userinfo": {
     "description": "Obtener información sobre un miembro",
-    "usage": {
-      "usage": "{prefix}roleinfo [@user | nombre de usuario | etiqueta de usuario | apodo de usuario | ID de usuario]",
-      "examples": "{prefix}userinfo @User1"
-    },
     "options": {
       "target": {
         "description": "el usuario sobre el que quieres obtener información"

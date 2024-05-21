@@ -51,10 +51,6 @@
   },
   "avatarfusion": {
     "description": "Fusioni due avatar.",
-    "usage": {
-      "usage": "{prefix}avatarfusion <base> [overlay] [avatar_type]",
-      "examples": "{prefix}avatarfusion @User1 @User2 global"
-    },
     "options": {
       "base": {
         "description": "Chi è l'immagine del profilo dovrebbe essere usata per la base?"
@@ -131,10 +127,6 @@
   },
   "fact": {
     "description": "Ottenere alcuni fatti, sono davvero cool e utile, contare su di me.",
-    "usage": {
-      "usage": "{prefix}fact [\"en\" | \"de\"]",
-      "examples": "{prefix}fact it"
-    },
     "embedTitle": "Fatto"
   },
   "giveaway": {
@@ -262,10 +254,6 @@
   },
   "image": {
     "description": "Manipolazione immagine",
-    "usage": {
-      "usage": "{prefix}immagine <subcommand | \"help\"> <args>",
-      "examples": "{prefix}immagine magik https://example.com/image.png 3"
-    },
     "options": {
       "type": {
         "description": "Il tipo che vuoi usare. Lascia questo vuoto per ottenere un elenco di tipi."
@@ -278,10 +266,6 @@
   },
   "joke": {
     "description": "manda una battuta divertente",
-    "usage": {
-      "usage": "{prefix}scherzo [type]",
-      "examples": "{prefix}ha scherzato"
-    },
     "options": {
       "api": {
         "description": "Quale API vuoi usare?"
@@ -309,10 +293,6 @@
   },
   "pokedex": {
     "description": "Visualizza le informazioni su un poke specificato mon.",
-    "usage": {
-      "usage": "{prefix}pokedex <pokemon>",
-      "examples": "{prefix}pokedex Bulbasaur"
-    },
     "options": {
       "pokémon": {
         "description": "Dai un nome a pokel'onorevole mon"
@@ -332,10 +312,6 @@
   },
   "reddit": {
     "description": "comandi correlati a reddit",
-    "usage": {
-      "usage": "{prefix}reddit [subreddit] [tipo di ordinamento]",
-      "examples": "{prefix}reddit memes hot"
-    },
     "options": {
       "meme": {
         "description": "ottieni un meme casuale",
@@ -704,10 +680,6 @@
   },
   "vote": {
     "description": "Crea un sondaggio per qualcosa",
-    "usage": {
-      "usage": "{prefix}voto <channel> [question] | [opzione 1] | [opzione 2] | <option 3> ... <option 9>",
-      "examples": "{prefix}voto #voto Stai bene? | Sì | No"
-    },
     "options": {
       "question": {
         "description": "Che cosa volete che le persone voti?"
