@@ -21,6 +21,7 @@ module.exports = function _patch(data, ...rest) {
     if ((caseinsensitive ? data.content.toLowerCase() : data.content).startsWith(prefix)) prefixLength = prefix.length;
     else if (data.content.startsWith(`<@${this.client.user.id}>`)) prefixLength = this.client.user.id.length + 3;
 
+    if (data.content.includes('<@!')) log('Found <@! in message!'); // Temporary to see if the replaceAll is still needed
     this.args = data.content.replaceAll('<@!', '<@').slice(prefixLength).trim()
       .split(' ');
     this.commandName = prefixLength ? this.args.shift().toLowerCase() : null;
