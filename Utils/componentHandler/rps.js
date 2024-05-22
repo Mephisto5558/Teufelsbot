@@ -96,7 +96,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
         choices.startedAt ??= Date.now();
         choices[player] = mode;
 
-        await this.client.db.update('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`, choices);
+        await this.guild.updateDB(`minigames.rps.${this.message.id}`, choices);
         this.reply({ content: lang('end.saved', lang(mode)), ephemeral: true });
 
         if (!choices.player1 || !choices.player2) return;

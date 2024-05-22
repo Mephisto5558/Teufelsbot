@@ -4,7 +4,7 @@ import type { __local } from './globals';
 import type { GiveawayData } from 'discord-giveaways';
 import type { Database as WebsiteDB } from '@mephisto5558/bot-website/database';
 
-export { Database, FlattenedDatabase };
+export { Database, FlattenedDatabase, FlattenObject };
 
 interface Embed {
   title: string;

@@ -13,7 +13,7 @@ const
           wildcard: !!this.options.getBoolean('wildcard')
         };
 
-      await this.client.db.update('guildSettings', `${this.guild.id}.triggers.${id}`, data);
+      await this.guild.updateDB(`triggers.${id}`, data);
       return this.editReply(lang('saved', data.trigger));
     },
 

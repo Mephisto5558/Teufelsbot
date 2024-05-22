@@ -20,9 +20,9 @@ module.exports = {
       global = this.options?.getBoolean('global') ?? this.args?.[0] == 'global',
       message = this.options?.getString('message') ?? (this.content?.slice(global ? 7 : 0, 1000) || 'AFK');
 
-    /* eslint-disable-next-line unicorn/prefer-ternary -- This would make the line too long. */
-    if (global || !this.inGuild()) await this.client.db.update('userSettings', `${this.user.id}.afkMessage`, { message, createdAt: this.createdAt });
-    else await this.client.db.update('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`, { message, createdAt: this.createdAt });
+    await (global || !this.inGuild()
+      ? this.user.updateDB('afkMessage', { message, createdAt: this.createdAt })
+      : this.guild.updateDB(`afkMessages.${this.user.id}`, { message, createdAt: this.createdAt }));
 
     if (this.member?.moderatable && this.member.displayName.length < 26 && !this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(`[AFK] ${this.member.displayName}`);
 

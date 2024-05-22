@@ -147,6 +147,9 @@ declare namespace __local {
   }
 
   type BoundFunction = new (this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang) => FunctionConstructor;
+
+  type FlattenedGuildSettings = DBStructure.FlattenObject<Database['guildSettings']['']>;
+  type FlattenedUserSettings = DBStructure.FlattenObject<Database['userSettings']['']>;
 }
 
 
@@ -479,6 +482,13 @@ declare module 'discord.js' {
      * this.client.db.get('userSettings', this.id) ?? {}
      * ```*/
     get db(): Database<true>['userSettings'][''];
+
+    /**
+     * ```js
+     * return this.client.db.update('userSettings', `${this.id}.${key}`, value);
+     * ```*/
+    updateDB<K extends keyof __local.FlattenedUserSettings>(key: K, value: __local.FlattenedUserSettings[K]): Promise<Database<true>['userSettings']>;
+
     customName: string;
     customTag: string;
   }
@@ -498,6 +508,13 @@ declare module 'discord.js' {
      * this.client.db.get('guildSettings', this.id) ?? {}
      * ```*/
     get db(): Database<true>['guildSettings'][''];
+
+    /**
+     * ```js
+     * return this.client.db.update('guildSettings', `${this.id}.${key}`, value);
+     * ```*/
+    updateDB<K extends keyof __local.FlattenedGuildSettings>(key?: K, value: __local.FlattenedGuildSettings[K]): Promise<Database<true>['guildSettings']>;
+
     localeCode: string;
   }
 }

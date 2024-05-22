@@ -53,7 +53,8 @@ if (!config.hideOverwriteWarning) {
     + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Number#limit, `
     + 'Object#filterEmpty, Function#bBind'
     + 'Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
-    + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, Guild#db, Guild#localeCode, GuildMember#db.\n'
+    + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, Guild#db, guild#updateDB, '
+    + 'Guild#localeCode, GuildMember#db.\n'
     + 'Modifying Discord.js Message._patch method.`'
   );
 }
@@ -165,13 +166,16 @@ Object.defineProperties(User.prototype, {
   /** @type {Record<string, (this: User, val: any) => any>} */
   db: {
     get() { return this.client.db.get('userSettings', this.id) ?? {}; },
-    set(val) { this.client.db.update('userSettings', this.id, val); }
+    set(val) { this.updateDB(undefined, val); }
   },
+
+  /** @type {User['updateDB']}*/
+  updateDB: function (key, value) { return this.client.db.update('userSettings', this.id + (key ? `.${key}` : ''), value); },
 
   /** @type {Record<string, (this: User, val: any) => any>} */
   customName: {
     get() { return this.db.customName ?? this.username; },
-    set(val) { this.client.db.update('userSettings', 'customName', val); }
+    set(val) { this.updateDB('customName', val); }
   }
 });
 Object.defineProperties(GuildMember.prototype, {
@@ -184,20 +188,23 @@ Object.defineProperties(GuildMember.prototype, {
   /** @type {Record<string, (this: GuildMember, val: any) => any>} */
   customName: {
     get() { return this.guild.db.customNames?.[this.id] ?? this.nickname ?? this.user.username; },
-    set(val) { this.client.db.update('guildSettings', `${this.guild.id}.customNames.${this.id}`, val); }
+    set(val) { this.guild.updateDB(`customNames.${this.id}`, val); }
   }
 });
 Object.defineProperties(Guild.prototype, {
   /** @type {Record<string, (this: Guild, val: any) => any>} */
   db: {
     get() { return this.client.db.get('guildSettings', this.id) ?? {}; },
-    set(val) { this.client.db.update('guildSettings', this.id, val); }
+    set(val) { this.updateDB(undefined, val); }
   },
+
+  /** @type {Guild['updateDB']}*/
+  updateDB: function (key, value) { return this.client.db.update('guildSettings', this.id + (key ? `.${key}` : ''), value); },
 
   /** @type {Record<string, (this: Guild, val: any) => any>} */
   localeCode: {
     get() { return this.db.config.lang ?? this.preferredLocale.slice(0, 2) ?? this.client.defaultSettings.config.lang; },
-    set(val) { this.client.db.update('guildSettings', 'config.lang', val); }
+    set(val) { this.updateDB('config.lang', val); }
   }
 });
 

@@ -13,7 +13,7 @@ module.exports = {
 
     if (Number.isNaN(number)) return this.reply(lang('invalidNumber'));
 
-    await this.client.db.update('guildSettings', `${this.guild.id}.counting.${channel}`, { lastNumber: number, lastAuthor: 'setcountingnumber' });
+    await this.guild.updateDB(`counting.${channel}`, { lastNumber: number, lastAuthor: 'setcountingnumber' });
     return this.reply(lang('success', { channel, number }));
   }
 };

@@ -17,14 +17,14 @@ module.exports = async function runMessages() {
 
   if (countingData && Number(this.originalContent)) {
     if (countingData.lastNumber + 1 == this.originalContent && countingData.lastAuthor != this.user.id) {
-      await this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { lastNumber: countingData.lastNumber + 1, lastAuthor: this.user.id });
+      await this.guild.updateDB(`counting.${this.channel.id}`, { lastNumber: countingData.lastNumber + 1, lastAuthor: this.user.id });
       this.react('✅');
     }
     else {
       this.react('❌');
 
       if (countingData.lastNumber != 0) {
-        await this.client.db.update('guildSettings', `${this.guild.id}.counting.${this.channel.id}`, { lastNumber: 0 });
+        await this.guild.updateDB(`counting.${this.channel.id}`, { lastNumber: 0 });
         this.reply(
           this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', countingData.lastNumber)
           + this.client.i18n.__(

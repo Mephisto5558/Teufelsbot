@@ -15,7 +15,7 @@ const
       if (today > nextBirthday) nextBirthday.setFullYear(today.getFullYear() + 1);
       const diffDays = Math.ceil(Math.abs(nextBirthday - today) / 864e5); // ms -> days
 
-      await this.client.db.update('userSettings', `${this.user.id}.birthday`, new Date(this.options.getInteger('year', true), month - 1, day));
+      await this.user.updateDB('birthday', new Date(this.options.getInteger('year', true), month - 1, day));
       return this.editReply(lang('saved', diffDays));
     },
 
