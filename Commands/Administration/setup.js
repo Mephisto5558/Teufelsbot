@@ -11,7 +11,7 @@ const
         module = this.options.getString('module', true),
         setting = this.guild.db[module]?.enable; // Todo: document and probably sth like `this.guild.db.modules[module]` for better typing
 
-      await this.client.db.update('guildSettings', `${this.guild.id}.${module}.enable`, !setting);
+      await this.guild.updateDB(`${module}.enable`, !setting);
       return this.editReply(lang('success', { name: module, state: lang(setting ? 'global.disabled' : 'global.enabled') }));
     },
 
@@ -46,7 +46,7 @@ const
       }
 
       if (this.options.data[0].options.length == (this.options.data[0].options.some(e => e.name == 'get') ? 2 : 1)) {
-        await this.client.db.update('guildSettings', `${this.guild.id}.config.commands.${command}.disabled.users`, users.includes('*') ? users.filter(e => e != '*') : ['*', ...users]);
+        await this.guild.updateDB(`config.commands.${command}.disabled.users`, users.includes('*') ? users.filter(e => e != '*') : ['*', ...users]);
         return this.editReply(lang(users.includes('*') ? 'enabled' : 'disabled', command));
       }
 
@@ -85,7 +85,7 @@ const
         color: Colors.White
       });
 
-      await this.client.db.update('guildSettings', `${this.guild.id}.config.commands.${command}.disabled`, commandData);
+      await this.guild.updateDB(`config.commands.${command}.disabled`, commandData);
       return this.editReply({ embeds: [embed] });
     },
 
@@ -102,7 +102,7 @@ const
           color: Colors.Green
         });
 
-      await this.client.db.update('guildSettings', `${this.guild.id}.config.lang`, language);
+      await this.guild.updateDB('config.lang', language);
       return this.editReply({ embeds: [embed] });
     },
 
@@ -110,18 +110,18 @@ const
       const newPrefix = this.options.getString('new_prefix', true);
       const prefixCaseInsensitive = this.options.getBoolean('case_insensitive') ?? this.guild.db.config.prefix?.caseinsensitive ?? false;
 
-      await this.client.db.update('guildSettings', `${this.guild.id}.config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refix`, { prefix: newPrefix, caseinsensitive: prefixCaseInsensitive });
+      await this.guild.updateDB(`config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refix`, { prefix: newPrefix, caseinsensitive: prefixCaseInsensitive });
       return this.customReply(lang('saved', newPrefix));
     },
 
     serverbackup: async function serverBackup(lang) {
-      await this.client.db.update('guildSettings', 'serverbackup.allowedToLoad', Number.parseInt(backup.get(this.options.getString('allowed_to_load', true))));
+      await this.guild.updateDB('serverbackup.allowedToLoad', Number.parseInt(backup.get(this.options.getString('allowed_to_load', true))));
       return this.editReply(lang('success'));
     },
 
     autopublish: async function toggleAutopublish(lang) {
       const enabled = this.options.getBoolean('enabled');
-      await this.client.db.update('guildSettings', `${this.guild.id}.config.autopublish`, enabled);
+      await this.guild.updateDB('config.autopublish', enabled);
       return this.customReply(lang('success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
     },
 
@@ -134,10 +134,10 @@ const
       if (!channel) return this.editReply(lang('noChannel'));
       if (action == 'all') {
         if (enabled == undefined) return this.editReply(lang('noEnabled'));
-        for (const actionType of loggerActionTypes) await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${actionType}`, { channel, enabled });
+        for (const actionType of loggerActionTypes) await this.guild.updateDB(`config.logger.${actionType}`, { channel, enabled });
       }
 
-      await this.client.db.update('guildSettings', `${this.guild.id}.config.logger.${action}`, { channel, enabled });
+      await this.guild.updateDB(`config.logger.${action}`, { channel, enabled });
       return this.editReply(lang(enabled ? 'enabled' : 'disabled', { channel, action: lang(`actions.${action}`) }));
     }
   };

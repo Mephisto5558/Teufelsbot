@@ -42,7 +42,7 @@ module.exports = {
       color: Colors.Green
     });
 
-    await this.client.db.update('guildSettings', `${this.guild.id}.counting.${channel.id}`, { lastNumber: 0 });
+    await this.guild.updateDB(`counting.${channel.id}`, { lastNumber: 0 });
 
     if (this.channel.id == channel.id) return this.customReply({ embeds: [embed] });
     await channel.send({ embeds: [embed] });
