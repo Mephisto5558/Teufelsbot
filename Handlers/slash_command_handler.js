@@ -8,12 +8,8 @@ module.exports = async function slashCommandHandler() {
   await this.awaitReady();
 
   const applicationCommands = this.application.commands.fetch({ withLocalizations: true });
-  let
-    deletedCommandCount = 0,
-    registeredCommandCount = 0;
 
   this.slashCommands.clear();
-
   for (const subFolder of await getDirectories('./Commands')) {
     for (const file of await readdir(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
@@ -39,13 +35,13 @@ module.exports = async function slashCommandHandler() {
 
       if (!command.disabled && !command.skip) {
         for (const [, applicationCommand] of await applicationCommands) {
-          if (slashCommandsEqual(command, applicationCommand)) {
-            log(`Skipped Slash Command ${command.name}`);
+          if (!slashCommandsEqual(command, applicationCommand)) continue;
 
-            command.skip = true;
-            command.id = applicationCommand.id;
-            break;
-          }
+          log(`Skipped Slash Command ${command.name}`);
+
+          command.skip = true;
+          command.id = applicationCommand.id;
+          break;
         }
       }
 
@@ -54,24 +50,32 @@ module.exports = async function slashCommandHandler() {
     }
   }
 
+  let registeredCommandCount = 0;
   for (const [, command] of this.slashCommands) {
     if (command.skip) continue;
-    if (command.disabled) { if (!this.config.hideDisabledCommandLog) log(`Skipped Disabled Slash Command ${command.name}`); }
-    else if (this.botType == 'dev' && !command.beta) { if (!this.config.hideNonBetaCommandLog) log(`Skipped Non-Beta Slash Command ${command.name}`); }
-    else {
-      try {
-        command.id = (await this.application.commands.create(command)).id;
+    if (command.disabled) {
+      if (!this.config.hideDisabledCommandLog) log(`Skipped Disabled Slash Command ${command.name}`);
+      continue;
+    }
+    if (this.botType == 'dev' && !command.beta) {
+      if (!this.config.hideNonBetaCommandLog) log(`Skipped Non-Beta Slash Command ${command.name}`);
+      continue;
+    }
 
-        log(`Registered Slash Command ${command.name}` + (command.aliasOf ? ` (Alias of ${command.aliasOf})` : ''));
-        registeredCommandCount++;
-      }
-      catch (err) {
-        if (this.botType == 'dev') throw err;
-        log.error(`Error on registering command ${command.name}:\n`, err);
-      }
+    try {
+      command.id = (await this.application.commands.create(command)).id;
+
+      log(`Registered Slash Command ${command.name}` + (command.aliasOf ? ` (Alias of ${command.aliasOf})` : ''));
+      registeredCommandCount++;
+    }
+    catch (err) {
+      if (this.botType == 'dev') throw err;
+      log.error(`Error on registering command ${command.name}:\n`, err);
     }
   }
+  log(`Registered ${registeredCommandCount} Slash Commands`)(`Skipped ${this.slashCommands.filter(e => e.skip && delete e.skip).size} Slash Commands`);
 
+  let deletedCommandCount = 0;
   for (const [, command] of await applicationCommands) {
     const cmd = this.slashCommands.get(command.aliasOf ?? command.name);
     if (cmd && !cmd.disabled && (this.botType != 'dev' || cmd.beta)) continue;
@@ -87,15 +91,8 @@ module.exports = async function slashCommandHandler() {
       log.error(`Error on deleting command ${command.name}:\n`, err);
     }
   }
+  log(`Deleted ${deletedCommandCount} Slash Commands`);
 
   this.on('interactionCreate', interaction => require('../Events/interactionCreate.js').call(interaction));
-
-  /* eslint-disable no-unexpected-multiline, @stylistic/indent */
-  /* eslint @stylistic/function-call-spacing: [,, { 'allowNewlines': true }] */
-  log
-    (`Registered ${registeredCommandCount} Slash Commands`) // NOSONAR
-    (`Skipped ${this.slashCommands.filter(e => e.skip && delete e.skip).size} Slash Commands`)
-    (`Deleted ${deletedCommandCount} Slash Commands`)
-    ('Loaded Event interactionCreate')
-    ('Ready to receive slash commands');
+  log('Loaded Event interactionCreate')('Ready to receive slash commands');
 };
