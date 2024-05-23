@@ -168,9 +168,10 @@ Object.defineProperties(User.prototype, {
     get() { return this.client.db.get('userSettings', this.id) ?? {}; },
     set(val) { this.updateDB(undefined, val); }
   },
-
-  /** @type {User['updateDB']}*/
-  updateDB: function (key, value) { return this.client.db.update('userSettings', this.id + (key ? `.${key}` : ''), value); },
+  updateDB: {
+    /** @type {User['updateDB']}*/
+    value: function (key, value) { return this.client.db.update('userSettings', this.id + (key ? `.${key}` : ''), value); }
+  },
 
   /** @type {Record<string, (this: User, val: any) => any>} */
   customName: {
@@ -197,10 +198,11 @@ Object.defineProperties(Guild.prototype, {
     get() { return this.client.db.get('guildSettings', this.id) ?? {}; },
     set(val) { this.updateDB(undefined, val); }
   },
-
-  /** @type {Guild['updateDB']}*/
-  updateDB: function (key, value) { return this.client.db.update('guildSettings', this.id + (key ? `.${key}` : ''), value); },
-
+  updateDB: {
+    /** @type {Guild['updateDB']}*/
+    value: function (key, value) { return this.client.db.update('guildSettings', this.id + (key ? `.${key}` : ''), value); }
+  },
+  
   /** @type {Record<string, (this: Guild, val: any) => any>} */
   localeCode: {
     get() { return this.db.config.lang ?? this.preferredLocale.slice(0, 2) ?? this.client.defaultSettings.config.lang; },
