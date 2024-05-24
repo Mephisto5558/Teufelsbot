@@ -202,7 +202,7 @@ Object.defineProperties(Guild.prototype, {
     /** @type {Guild['updateDB']}*/
     value: function (key, value) { return this.client.db.update('guildSettings', this.id + (key ? `.${key}` : ''), value); }
   },
-  
+
   /** @type {Record<string, (this: Guild, val: any) => any>} */
   localeCode: {
     get() { return this.db.config.lang ?? this.preferredLocale.slice(0, 2) ?? this.client.defaultSettings.config.lang; },
