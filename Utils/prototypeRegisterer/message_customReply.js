@@ -5,7 +5,7 @@ const
 /**
  * @param {Error}err
  * @returns {boolean} `true` if no err is given, `false` on specific error codes
- * @throws {DiscordAPIError}if the error is an DiscordAPIError**/
+ * @throws {DiscordAPIError}if the error is a DiscordAPIError**/
 function handleError(err) {
   if (!err) return true;
   if (!(err instanceof DiscordAPIError)) throw err;
@@ -50,6 +50,6 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
   }
   else throw new Error(`Unsupported Class! Got ${this.constructor.name}`);
 
-  if (!Number.isNaN(Number.parseInt(deleteTime)) && msg?.deletable) setTimeout(msg.delete.bind(msg), deleteTime);
+  if (msg?.deletable && !Number.isNaN(Number.parseInt(deleteTime))) setTimeout(msg.delete.bind(msg), deleteTime);
   return msg;
 };
