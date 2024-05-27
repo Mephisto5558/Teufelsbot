@@ -31,15 +31,29 @@
       "examples": "brb"
     },
     "options": {
-      "message": {
-        "description": "The message to set"
+      "set": {
+        "description": "Set an AFK status shown when you are mentioned.",
+        "options": {
+          "message": {
+            "description": "The message to set"
+          },
+          "global": {
+            "description": "Set your AFK for all guilds you are in. Resets if you write in any guild."
+          }
+        }
       },
-      "global": {
-        "description": "Set your AFK for all guilds you are in. Resets if you write in any guild."
+      "get": {
+        "description": "Get a member's (or the whole guild's) AFK status without having to mention them.",
+        "options": {
+          "target": {
+            "description": "The member who's AFK status you want to see"
+          }
+        }
       }
     },
     "globalSuccess": "Your AFK has been set to \"{message}\" across all guilds.",
-    "success": "Your AFK has been set to \"{message}\"."
+    "success": "Your AFK has been set to \"{message}\".",
+    "getNoneFound": "No AFK messages have been found."
   },
   "button": {
     "description": "Create a button.",
