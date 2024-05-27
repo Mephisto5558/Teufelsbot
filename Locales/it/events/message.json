@@ -5,5 +5,10 @@
     "error": "SI RUINO AL **{lastNumber}**!! Il prossimo numero è **1**.\n",
     "wrongNumber": "**Non puoi contare?! Numero errato.**",
     "sameUserTwice": "**Non puoi contare due numeri di fila!**"
+  },
+  "wordchain": {
+    "error": "VOI RUINATO UNA SEGNA DI **{count}** SCRIVI AL \"**{lastChar}**\"!! Riavvia scrivendo qualsiasi parola.\n",
+    "wrongChar": "**Non puoi leggere?! Quella parola non inizia con il carattere dell'ultima parola.**",
+    "sameUserTwice": "**Non puoi dire due parole di fila!**"
   }
 }

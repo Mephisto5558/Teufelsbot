@@ -13,6 +13,10 @@
     },
     "embedDescription": "**Avatar di {user}**"
   },
+  "changelog": {
+    "description": "Ottieni l'ultimo changelog.",
+    "embedTitle": "Changelog"
+  },
   "cmdstats": {
     "description": "Vedere quanto spesso è stato eseguito un comando specifico o ottenere la top 10.",
     "usage": {
@@ -194,7 +198,7 @@
     },
     "owner": "Proprietario",
     "locale": "Localizzazione",
-    "partnered": "Collaborato",
+    "partnered": "Gilda Associata",
     "emojis": "Emojis",
     "boosts": {
       "name": "Potenziamenti",

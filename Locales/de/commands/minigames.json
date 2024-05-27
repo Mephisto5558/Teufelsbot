@@ -22,7 +22,7 @@
     },
     "added": {
       "embedTitle": "Dieser Kanal ist nun ein Counting-Kanal!",
-      "embedDescription": "Die Regeln sind simpel:\n> Starte mit **1**.\n> Füge **1** zur letzten Zahl hinzu\n> Du darfst nicht zwei Zahlen hintereinander aufzählen\nViel Spaß!",
+      "embedDescription": "Die Regeln sind simpel:\n> Starte mit **1**.\n> Füge **1** zur letzten Zahl hinzu\n> Du darfst nicht zwei Zahlen hintereinander aufzählen.\nViel Spaß!",
       "by": "Aktiviert von {user}",
       "success": "Ich habe erfolgreich <#{channel}> als Counting-Kanal hinzugefügt."
     },
@@ -150,5 +150,33 @@
       }
     },
     "newChallenge": "<@{user}> :crossed_swords: Neue Duell-Herausforderung"
+  },
+  "wordchain": {
+    "description": "Stelle einen Wortketten-Kanal ein, in dem Mitglieder ihr Vokabular zeigen können!",
+    "usage": {
+      "usage": "[#Kanal]",
+      "examples": "#wortketten"
+    },
+    "options": {
+      "channel": {
+        "description": "Der Kanal, den du als Wortketten-Kanal hinzufügen (oder entfernen, wenn schon hinzugefügt) möchtest."
+      }
+    },
+    "added": {
+      "embedTitle": "Dieser Kanal ist nun ein Wortketten-Kanal!",
+      "embedDescription": "Die Regeln sind einfach:\n> Starte mit einem beliebigen Wort.\n> Das nächste Wort muss mit dem letzten Buchstaben des letzten Wortes beginnen.\n> Du darfst nicht zwei Wörter hintereinander sagen.\nViel Spaß!",
+      "by": "Aktiviert von {user}",
+      "success": "Ich habe erfolgreich <#{channel}> als Wortketten-Kanal hinzugefügt."
+    },
+    "removed": {
+      "embedDescription": "Dieser Kanal ist nun ein Wortketten-Kanal!",
+      "by": "Deaktiviert von {user}",
+      "success": "Ich habe erfolgreich <#{channel}> als Wortketten-Kanal entfernt."
+    },
+    "userDeletedMsg": {
+      "embedTitle": "Wortketten",
+      "embedDescription": "Gelöschtes Wort: **{deletedWord}**",
+      "unknown": "Unbekannter Autor"
+    }
   }
 }
