@@ -13,6 +13,10 @@
     },
     "embedDescription": "**Avatar de {user}**"
   },
+  "changelog": {
+    "description": "Obtener la última lista de cambios.",
+    "embedTitle": "Cambios"
+  },
   "cmdstats": {
     "description": "Mira con qué frecuencia se ha ejecutado un comando específico o consigue el top 10.",
     "usage": {
@@ -194,7 +198,7 @@
     },
     "owner": "Propietario",
     "locale": "Local",
-    "partnered": "Participaron",
+    "partnered": "Gremio asociado",
     "emojis": "Emojis",
     "boosts": {
       "name": "Optimizar",

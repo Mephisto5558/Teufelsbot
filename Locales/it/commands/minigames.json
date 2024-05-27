@@ -22,7 +22,7 @@
     },
     "added": {
       "embedTitle": "Questo canale è ora un canale di conteggio!",
-      "embedDescription": "Le regole sono semplici:\n> Inizia con **1**.\n> Aggiungi **1** all'ultimo numero\n> Non puoi contare due numeri di fila\nDivertiti!",
+      "embedDescription": "Le regole sono semplici:\n> Inizia con **1**.\n> Aggiungi **1** all'ultimo numero\n> Non puoi contare due numeri di fila.\nDivertiti!",
       "by": "Aggiunto come canale di conteggio da {user}",
       "success": "Ho aggiunto con successo <#{channel}> come canale di conteggio."
     },
@@ -150,5 +150,33 @@
       }
     },
     "newChallenge": "<@{user}> :crossed_swords: Nuova sfida duello"
+  },
+  "wordchain": {
+    "description": "Imposta un canale wordchain dove i membri possono mostrare il loro vocabolario!",
+    "usage": {
+      "usage": "[#canale]",
+      "examples": "#wordchaining"
+    },
+    "options": {
+      "channel": {
+        "description": "Il canale che si desidera aggiungere (o rimuovere, se già aggiunto) come canale wordchain."
+      }
+    },
+    "added": {
+      "embedTitle": "Questo canale è ora un canale wordchain!",
+      "embedDescription": "Le regole sono semplici:\n> Inizia con qualsiasi parola.\n> La parola successiva deve iniziare con l'ultima lettera dell'ultima parola.\n> Non puoi dire due parole di fila.\nDivertiti!",
+      "by": "Aggiunto come canale di conteggio da {user}",
+      "success": "Ho aggiunto con successo <#{channel}> come canale wordchain."
+    },
+    "removed": {
+      "embedDescription": "Questo canale non è più un canale wordchain!",
+      "by": "Rimosso da {user}",
+      "success": "Ho rimosso con successo <#{channel}> come canale wordchain."
+    },
+    "userDeletedMsg": {
+      "embedTitle": "Wordchain",
+      "embedDescription": "Parola Eliminata: **{deletedWord}**",
+      "unknown": "Autore Sconosciuto"
+    }
   }
 }
