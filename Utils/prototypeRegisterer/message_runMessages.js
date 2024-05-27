@@ -34,6 +34,32 @@ async function handleCounting() {
 }
 
 /** @this {Message}*/
+async function handleWordchain() {
+  const wordchainData = this.guild.db.channelMinigames?.wordchain?.[this.channel.id];
+  if (!wordchainData) return;
+
+  if (!wordchainData.lastWordChar || wordchainData.lastWordChar == this.originalContent[0].toLowerCase() /* && wordchainData.lastAuthor != this.user.id*/) {
+    await this.guild.updateDB(
+      `channelMinigames.wordchain.${this.channel.id}`,
+      { lastWordChar: this.originalContent.at(-1).toLowerCase(), lastAuthor: this.user.id, chainedWords: wordchainData.chainedWords + 1 }
+    );
+    return this.react('✅');
+  }
+
+  this.react('❌');
+  if (!wordchainData.lastWordChar) return;
+
+  await this.guild.updateDB(`channelMinigames.wordchain.${this.channel.id}`, { chainedWords: 0 });
+  return this.reply(
+    this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.wordchain.error', { lastChar: wordchainData.lastWordChar, count: wordchainData.chainedWords })
+    + this.client.i18n.__(
+      { locale: this.guild.localeCode },
+      wordchainData.lastAuthor == this.user.id ? 'events.message.wordchain.sameUserTwice' : 'events.message.wordchain.wrongChar'
+    )
+  );
+}
+
+/** @this {Message}*/
 async function removeAfkStatus() {
   if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.slice(6));
 
@@ -72,12 +98,15 @@ module.exports = function runMessages() {
   if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: 5000 }))
     this.react('👀');
 
-  if (this.client.botType == 'dev') return this;
+  // if (this.client.botType == 'dev') return this;
 
-  if (this.guild.db.triggers) replyToTriggers();
-  if (Number(this.originalContent)) handleCounting();
-  if (!this.originalContent.toLowerCase().includes('--afkignore')) removeAfkStatus();
-  if (!cooldowns.call(this, 'afkMsg', { channel: 1e4, user: 1e4 })) sendAfkMessages();
+  if (this.guild.db.triggers) replyToTriggers.call(this);
+  if (Number(this.originalContent)) handleCounting.call(this);
+
+  // Regex to match any letter from any language (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes)
+  else if (/^\p{L}+$/u.test(this.originalContent)) handleWordchain.call(this);
+  if (!this.originalContent.toLowerCase().includes('--afkignore')) removeAfkStatus.call(this);
+  if (!cooldowns.call(this, 'afkMsg', { channel: 1e4, user: 1e4 })) sendAfkMessages.call(this);
 
   return this;
 };

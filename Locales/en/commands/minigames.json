@@ -22,7 +22,7 @@
     },
     "added": {
       "embedTitle": "This channel is now a counting channel!",
-      "embedDescription": "The rules are simple:\n> Start with **1**.\n> Add **1** to the last number\n> You can't count two numbers in a row\nHave fun!",
+      "embedDescription": "The rules are simple:\n> Start with **1**.\n> Add **1** to the last number\n> You can't count two numbers in a row.\nHave fun!",
       "by": "Enabled by {user}",
       "success": "I successfully added <#{channel}> as a counting channel."
     },
@@ -150,5 +150,33 @@
       }
     },
     "newChallenge": "<@{user}> :crossed_swords: New duel challenge"
+  },
+  "wordchain": {
+    "description": "Set up a wordchain channel where members can show their vocabulary!",
+    "usage": {
+      "usage": "[#channel]",
+      "examples": "#wordchaining"
+    },
+    "options": {
+      "channel": {
+        "description": "The channel you want to add (or remove, if already added) as a wordchain channel."
+      }
+    },
+    "added": {
+      "embedTitle": "This channel is now a wordchain channel!",
+      "embedDescription": "The rules are simple:\n> Start with any word.\n> The next word must start with the last letter of the last word.\n> You can't say two words in a row.\nHave fun!",
+      "by": "Enabled by {user}",
+      "success": "I successfully added <#{channel}> as a wordchain channel."
+    },
+    "removed": {
+      "embedDescription": "This channel is no longer a wordchain channel!",
+      "by": "Disabled by {user}",
+      "success": "I successfully removed <#{channel}> as a wordchain channel."
+    },
+    "userDeletedMsg": {
+      "embedTitle": "Wordchain",
+      "embedDescription": "Deleted Word: **{deletedWord}**",
+      "unknown": "Unknown Author"
+    }
   }
 }

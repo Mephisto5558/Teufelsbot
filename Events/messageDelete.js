@@ -2,20 +2,40 @@ const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('di
 
 /**
  * @this {Message<true>}
- * @param {lang}lang*/
-function countingHandler(lang) {
-  const { lastNumber } = this.guild.db.channelMinigames?.counting?.[this.channel.id] ?? {};
-  if (Number.isNaN(Number.parseInt(this.originalContent)) || lastNumber == undefined || lastNumber - this.originalContent) return;
-
+ * @param {lang}lang
+ * @param {string|Record<string, string>} descriptionData*/
+function sendeMinigameDeletedEmbed(lang, descriptionData) {
   const embed = new EmbedBuilder({
     author: { name: this.user?.username ?? lang('unknown'), iconURL: this.member?.displayAvatarURL() },
     title: lang('embedTitle'),
-    description: lang('embedDescription', { deletedNum: this.originalContent, nextNum: lastNumber + 1 }),
+    description: lang('embedDescription', descriptionData),
     color: Colors.Red,
     timestamp: this.createdTimestamp
   });
 
   return this.channel.send({ embeds: [embed], allowedMentions: { parse: [] } });
+}
+
+/**
+ * @this {Message<true>}
+ * @param {lang}lang*/
+function countingHandler(lang) {
+  const { lastNumber } = this.guild.db.channelMinigames?.counting?.[this.channel.id] ?? {};
+  if (lastNumber == undefined || lastNumber - this.originalContent || Number.isNaN(Number.parseInt(this.originalContent))) return;
+
+  lang.__boundArgs__[0].backupPath = 'commands.minigames.counting.userDeletedMsg';
+  return sendeMinigameDeletedEmbed.call(this, lang, { deletedNum: this.originalContent, nextNum: lastNumber + 1 });
+}
+
+/**
+ * @this {Message<true>}
+ * @param {lang}lang*/
+function wordchainHandler(lang) {
+  const { lastWordChar } = this.guild.db.channelMinigames?.wordchain?.[this.channel.id] ?? {};
+  if (!lastWordChar || !this.originalContent || !/^\p{L}+$/u.test(this.originalContent)) return;
+
+  lang.__boundArgs__[0].backupPath = 'commands.minigames.wordchain.userDeletedMsg';
+  return sendeMinigameDeletedEmbed.call(this, lang, this.originalContent);
 }
 
 /** @this {Message}*/
@@ -24,7 +44,9 @@ module.exports = async function messageDelete() {
 
   /** @type {lang}*/
   const lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'commands.minigames.counting.userDeletedMsg' });
+
   countingHandler.call(this, lang);
+  wordchainHandler.call(this, lang);
 
   const setting = this.guild.db.config.logger?.messageDelete;
   if (!setting?.enabled || !setting.channel) return;
