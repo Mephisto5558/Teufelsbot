@@ -34,7 +34,7 @@ module.exports = async function errorHandler(err, message, lang) {
     }),
     msg = await message.customReply({ embeds: [embed], components: [component] });
 
-  // if (this.botType == 'dev') return;
+  if (this.botType == 'dev') return;
 
   const { github } = this.config;
 
