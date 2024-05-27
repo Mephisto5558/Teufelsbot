@@ -98,7 +98,7 @@ module.exports = function runMessages() {
   if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: 5000 }))
     this.react('👀');
 
-  // if (this.client.botType == 'dev') return this;
+  if (this.client.botType == 'dev') return this;
 
   if (this.guild.db.triggers) replyToTriggers.call(this);
   if (Number(this.originalContent)) handleCounting.call(this);
