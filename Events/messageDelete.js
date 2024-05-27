@@ -4,7 +4,7 @@ const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('di
  * @this {Message<true>}
  * @param {lang}lang*/
 function countingHandler(lang) {
-  const { lastNumber } = this.guild.db.counting?.[this.channel.id] ?? {};
+  const { lastNumber } = this.guild.db.channelMinigames?.counting?.[this.channel.id] ?? {};
   if (Number.isNaN(Number.parseInt(this.originalContent)) || lastNumber == undefined || lastNumber - this.originalContent) return;
 
   const embed = new EmbedBuilder({

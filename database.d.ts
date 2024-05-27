@@ -183,13 +183,15 @@ type Database<excludeUndefined extends boolean = false> = {
           wildcard: boolean;
         } | undefined;
       };
-      counting?: {
-        [channelId: channelId]: {
-          lastNumber: number;
+      channelMinigames?: {
+        counting?: {
+          [channelId: channelId]: {
+            lastNumber: number;
 
-          /** `undefined` only if lastNumber is `0` */
-          lastAuthor?: userId;
-        } | undefined;
+            /** `undefined` only if lastNumber is `0` */
+            lastAuthor?: userId;
+          } | undefined;
+        };
       };
       lastMentions?: {
         [userId: userId]: {

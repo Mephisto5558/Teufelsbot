@@ -12,18 +12,18 @@ function replyToTriggers() {
 
 /** @this {Message}*/
 async function handleCounting() {
-  const countingData = this.guild.db.counting[this.channel.id];
+  const countingData = this.guild.db.channelMinigames?.counting?.[this.channel.id];
   if (!countingData) return;
 
   if (countingData.lastNumber + 1 == this.originalContent && countingData.lastAuthor != this.user.id) {
-    await this.guild.updateDB(`counting.${this.channel.id}`, { lastNumber: countingData.lastNumber + 1, lastAuthor: this.user.id });
+    await this.guild.updateDB(`channelMinigames.counting.${this.channel.id}`, { lastNumber: countingData.lastNumber + 1, lastAuthor: this.user.id });
     return this.react('✅');
   }
 
   this.react('❌');
   if (!countingData.lastNumber) return;
 
-  await this.guild.updateDB(`counting.${this.channel.id}`, { lastNumber: 0 });
+  await this.guild.updateDB(`channelMinigames.counting.${this.channel.id}`, { lastNumber: 0 });
   return this.reply(
     this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', countingData.lastNumber)
     + this.client.i18n.__(
