@@ -1,9 +1,0 @@
-{
-  "categoryName": "Others",
-  "categoryDescription": "Commands without a specific category",
-  "changelog": {
-    "description": "Get the latest changelog.",
-    "embedTitle": "Changelog",
-    "noneFound": "No information has been found."
-  }
-}

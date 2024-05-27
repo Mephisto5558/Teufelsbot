@@ -67,7 +67,6 @@ type Database<excludeUndefined extends boolean = false> = {
     lastFileClear?: Date;
     lastBirthdayCheck?: Date;
     lastDBCleanup?: Date;
-    changelog?: string;
   };
 
   leaderboards: {
