@@ -5,5 +5,10 @@
     "error": "YOU RUINED IT AT **{lastNumber}**!! The next number is **1**.\n",
     "wrongNumber": "**Can't you count?! Wrong number.**",
     "sameUserTwice": "**You can't count two numbers in a row!**"
+  },
+  "wordchain": {
+    "error": "YOU RUINED A CHAIN OF **{count}** WORDS AT \"**{lastChar}**\"!! Restart by writing any word.\n",
+    "wrongChar": "**Can't you read?! That word doesn't start with the last word's character.**",
+    "sameUserTwice": "**You can't say two words in a row!**"
   }
 }
