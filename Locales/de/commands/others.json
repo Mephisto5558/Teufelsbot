@@ -1,9 +1,0 @@
-{
-  "categoryName": "Sonstiges",
-  "categoryDescription": "Verschiedene Befehle, die sich nicht in eine andere Kategorie einordnen lassen",
-  "changelog": {
-    "description": "Erhalte die neusten Änderungen.",
-    "embedTitle": "Neuste Änderungen",
-    "noneFound": "Es wurden keine Informationen gefunden."
-  }
-}
