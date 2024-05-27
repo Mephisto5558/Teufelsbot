@@ -192,6 +192,19 @@ type Database<excludeUndefined extends boolean = false> = {
             lastAuthor?: userId;
           } | undefined;
         };
+        wordchain?: {
+          [channelId: channelId]: {
+            chainedWords: number;
+
+            /**
+             * There will always be both `lastWordChar` and `lastAuthor` or none of them present.
+             * Will always be a single lowercase character*/
+            lastWordChar?: string;
+
+            /** There will always be both `lastWordChar` and `lastAuthor` or none of them present.*/
+            lastAuthor?: userId;
+          } | undefined;
+        };
       };
       lastMentions?: {
         [userId: userId]: {
