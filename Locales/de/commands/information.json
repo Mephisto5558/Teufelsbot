@@ -13,6 +13,10 @@
     },
     "embedDescription": "**{user}'s Avatar**"
   },
+  "changelog": {
+    "description": "Erhalte die neusten Änderungen.",
+    "embedTitle": "Neuste Änderungen"
+  },
   "cmdstats": {
     "description": "Zeigt an, wie oft ein spezifischer Befehl oder die Top 10 genutzt wurden.",
     "usage": {
@@ -194,7 +198,7 @@
     },
     "owner": "Eigentümer",
     "locale": "Sprache",
-    "partnered": "Gepartnert",
+    "partnered": "Discord-Partnerserver",
     "emojis": "Emojis",
     "boosts": {
       "name": "Boosts",
