@@ -15,12 +15,13 @@ module.exports = async function commandHandler() {
 
       /** @type {command<'prefix', boolean, true>}*/
       const command = require(`../Commands/${subFolder}/${file}`);
+      command.filePath = resolve(`Commands/${subFolder}/${file}`);
+
       if (!command?.prefixCommand) continue;
       if (!command.disabled && !command.run?.toString().startsWith('function') && !command.run?.toString().startsWith('async function'))
         throw new Error(`The run function of file "${command.filePath}" is not a function. You cannot use arrow functions.`);
 
       command.name ??= file.split('.')[0];
-      command.filePath = resolve(`Commands/${subFolder}/${file}`);
       command.category ??= subFolder.toLowerCase();
 
       /* For some reason, this alters the slash command as well.
