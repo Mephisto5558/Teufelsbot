@@ -13,6 +13,10 @@
     },
     "embedDescription": "**Avatar of {user}**"
   },
+  "changelog": {
+    "description": "Get the latest changelog.",
+    "embedTitle": "Changelog"
+  },
   "cmdstats": {
     "description": "See how often a specific command has been run or get the top 10.",
     "usage": {
@@ -194,7 +198,7 @@
     },
     "owner": "Owner",
     "locale": "Locale",
-    "partnered": "Partnered",
+    "partnered": "Partnered Guild",
     "emojis": "Emojis",
     "boosts": {
       "name": "Boosts",
