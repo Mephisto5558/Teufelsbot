@@ -28,13 +28,13 @@ module.exports = async function errorHandler(err, message, lang) {
       components: [new ButtonBuilder({
         customId: 'errorHandler.reportError',
         label: lang('reportButton') + (this.botType == 'dev' ? lang('reportButtonDisabled') : ''),
-        style: ButtonStyle.Danger,
-        disabled: this.botType == 'dev'
+        style: ButtonStyle.Danger// ,
+        // disabled: this.botType == 'dev'
       })]
     }),
     msg = await message.customReply({ embeds: [embed], components: [component] });
 
-  if (this.botType == 'dev') return;
+  // if (this.botType == 'dev') return;
 
   const { github } = this.config;
 
@@ -46,6 +46,24 @@ module.exports = async function errorHandler(err, message, lang) {
         if (!(github.userName && github.repoName)) throw new Error('Missing GitHub username or repo name config');
 
         const
+          title = `${err.name}: "${err.message}" in command "${message.commandName}"`,
+          issues = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
+            method: 'GET',
+            headers: {
+              Authorization: `Token ${this.keys.githubKey}`,
+              'User-Agent': `Bot ${github.repo}`
+            }
+          }),
+          issuesJson = await issues.json();
+
+        if (!issues.ok) throw new Error(JSON.stringify(issuesJson));
+
+        if (issuesJson.filter(e => e.title == title && e.state == 'open').length) {
+          embed.data.description = lang('alreadyReported', issuesJson[0].html_url);
+          return msg.edit({ embeds: [embed], components: [] });
+        }
+
+        const
           res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
             method: 'POST',
             headers: {
@@ -53,8 +71,7 @@ module.exports = async function errorHandler(err, message, lang) {
               'User-Agent': `Bot ${github.repo}`
             },
             body: JSON.stringify({
-              title: `${err.name}: "${err.message}" in command "${message.commandName}"`,
-              body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack.replaceAll(cwd, '[cwd]')}`,
+              title, body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack.replaceAll(cwd, '[cwd]')}`,
               labels: ['bug']
             })
           }),
