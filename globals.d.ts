@@ -295,6 +295,12 @@ declare global {
     /** If true, the user must provide a value to this option. This is also enforced for prefix commands.*/
     required?: boolean;
 
+    /**
+     * Only existent for {@link commandOptions.type} `SubcommandGroup` and `Subcommand`.
+     *
+     * Makes the subcommand also work in direct messages.*/
+    dmPermission?: boolean;
+
     /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled.*/
     autocompleteOptions?: string | __local.autocompleteOptions[] | ((this: Discord.AutocompleteInteraction) => __local.autocompleteOptions[] | Promise<__local.autocompleteOptions>);
 
