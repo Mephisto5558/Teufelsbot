@@ -1,7 +1,7 @@
 {
   "cooldown": "This command or one of it's subcommands is on cooldown! Try it again in `{time}`s.",
   "slashOnly": "This command is only available as a slash command: </{name}:{id}>",
-  "guildOnly": "This command is only available in guilds!",
+  "guildOnly": "This command or one of it's subcommands is only available in guilds!",
   "nonBeta": "This command is not a beta command! This bot runs only beta commands.",
   "disabled": "This command has been disabled by the bot dev. Reason:\n{reason}",
   "nsfw": "You cannot run NSFW Commands in a non NSFW Channel!",

@@ -33,5 +33,6 @@ const options = [{
   name: '',
   type: 'Subcommand',
   cooldowns: { guild: 0, channel: 0, user: 0 },
+  dmPermission: false,
   options: []
 }];

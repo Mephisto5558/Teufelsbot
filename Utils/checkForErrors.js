@@ -43,7 +43,9 @@ module.exports = async function checkForErrors(command, lang) {
     if (this.options?._group) ({ options } = options.find(e => e.name == this.options._group));
     if (this.options?._subcommand) ({ options } = options.find(e => e.name == this.options._subcommand));
 
-    for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete }] of options.entries()) {
+    for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete, dmPermission }] of options.entries()) {
+      if (!(dmPermission ?? command.dmPermission) && this.channel.type == ChannelType.DM) return ['guildOnly'];
+
       if (required && !this.options?.get(name) && !this.args?.[i])
         return ['paramRequired', { option: name, description: descriptionLocalizations?.[lang.__boundArgs__[0].locale] ?? description }];
 
