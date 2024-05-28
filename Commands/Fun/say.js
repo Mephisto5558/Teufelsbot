@@ -19,6 +19,11 @@ module.exports = {
       name: 'channel',
       type: 'Channel',
       channelTypes: Constants.TextBasedChannelTypes
+    },
+    {
+      name: 'reply_to', type: 'String',
+      minLength: 17,
+      maxLength: 19 // No snowflake will be longer than that until 2090 (https://snowsta.mp/?s=9999999999999999999)
     }
   ],
 
@@ -30,14 +35,15 @@ module.exports = {
       allowedMentions = { parse: [AllowedMentionsTypes.User] },
 
       /** @type {import('discord.js').GuildTextBasedChannel}*/
-      channel = getTargetChannel(this, { returnSelf: true });
+      channel = getTargetChannel(this, { returnSelf: true }),
+      replyTo = this.options?.getString('reply_to');
 
     if (!this.member.permissionsIn(channel).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])) return this.customReply(lang('noPerm'));
 
     if (this.member.permissionsIn(channel).has(PermissionFlagsBits.MentionEveryone))
       allowedMentions.parse.push(AllowedMentionsTypes.Role, AllowedMentionsTypes.Everyone);
 
-    const sentMessage = await channel.send({ content: msg.replaceAll('/n', '\n'), allowedMentions });
+    const sentMessage = await channel.send({ content: msg.replaceAll('/n', '\n'), allowedMentions, reply: { messageReference: replyTo, failIfNotExists: false } });
     await (this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent')));
 
     return logSayCommandUse.call(sentMessage, this.member, lang);
