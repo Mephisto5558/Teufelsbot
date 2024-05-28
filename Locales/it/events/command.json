@@ -1,7 +1,7 @@
 {
   "cooldown": "Questo comando è in fase di ricaricamento! Riprova in `{time}`s.",
   "slashOnly": "Questo comando è disponibile solo come comando slash: </{name}:{id}>",
-  "guildOnly": "Questo comando è disponibile solo nelle gilde!",
+  "guildOnly": "Questo comando o uno dei suoi sottocomandi è disponibile solo nelle gilde!",
   "nonBeta": "Questo comando non è un comando beta! Questo bot esegue solo i comandi beta.",
   "disabled": "Questo comando è stato disabilitato dal bot dev. Motivo:\n{reason}",
   "nsfw": "Non puoi eseguire i comandi NSFW in un canale non NSFW!",
