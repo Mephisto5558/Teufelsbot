@@ -373,6 +373,9 @@
       },
       "channel": {
         "description": "The channel the message gets sent to"
+      },
+      "reply_to": {
+        "description": "The message ID you want to reply to. Must be in the same channel. Will be ignored if invalid."
       }
     },
     "noPerm": "You don't have the permission to send messages in that channel!"
