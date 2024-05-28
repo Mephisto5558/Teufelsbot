@@ -373,6 +373,9 @@
       },
       "channel": {
         "description": "In welchen Kanal soll ich die Nachricht senden?"
+      },
+      "reply_to": {
+        "description": "Die Nachrichten-ID, auf die du antworten möchtest. Muss im selben Kanal sein."
       }
     },
     "noPerm": "Du hast nicht die Berechtigung, Nachrichten in diesem Kanal zu senden!"
