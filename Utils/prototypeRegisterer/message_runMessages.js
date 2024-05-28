@@ -1,6 +1,8 @@
 const
-  { AllowedMentionsTypes } = require('discord.js'),
+  { AllowedMentionsTypes, PermissionFlagsBits } = require('discord.js'),
   cooldowns = require('../cooldowns.js');
+
+module.exports = { runMessages, removeAfkStatus };
 
 /** @this {Message}*/
 function replyToTriggers() {
@@ -59,16 +61,22 @@ async function handleWordchain() {
   );
 }
 
-/** @this {Message}*/
+/** @this {Message|import('discord.js').VoiceState}*/
 async function removeAfkStatus() {
+  if (!this.member || !this.channel || !this.guild) return; // `!this.channel || !this.guild` as typeguard
+
   if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.slice(6));
 
-  const { createdAt, message } = this.guild.db.afkMessages?.[this.user.id] ?? this.user.db.afkMessage ?? {};
+  const { createdAt, message } = this.guild.db.afkMessages?.[this.member.id] ?? this.member.user.db.afkMessage ?? {}; // `member.user` for VoiceState support
   if (!message) return;
 
-  await this.client.db.delete('userSettings', `${this.user.id}.afkMessage`);
-  await this.client.db.delete('guildSettings', `${this.guild.id}.afkMessages.${this.user.id}`);
-  return this.customReply(this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkEnd', { timestamp: Math.round(createdAt.getTime() / 1000), message }));
+  await this.client.db.delete('userSettings', `${this.member.id}.afkMessage`);
+  await this.client.db.delete('guildSettings', `${this.guild.id}.afkMessages.${this.member.id}`);
+
+  const msg = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkEnd', { timestamp: Math.round(createdAt.getTime() / 1000), message });
+  if ('customReply' in this) return this.customReply(msg);
+  if (this.channel.permissionsFor(this.member.id).has(PermissionFlagsBits.SendMessages) && this.channel.permissionsFor(this.client.user.id).has(PermissionFlagsBits.SendMessages))
+    return this.channel.send(`<@${this.member.id}>\n` + msg);
 }
 
 /** @this {Message}*/
@@ -93,8 +101,11 @@ function sendAfkMessages() {
   if (afkMsgs.length) return this.customReply({ content: afkMsgs, allowedMentions: { parse: [AllowedMentionsTypes.User] } });
 }
 
-/** @type {Message['runMessages']}*/
-module.exports = function runMessages() {
+/**
+ * @type {Message['runMessages']}
+ * @this {Message}
+ * this is here due to eslint.*/
+function runMessages() {
   if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: 5000 }))
     this.react('👀');
 
@@ -109,4 +120,4 @@ module.exports = function runMessages() {
   if (!cooldowns.call(this, 'afkMsg', { channel: 1e4, user: 1e4 })) sendAfkMessages.call(this);
 
   return this;
-};
+}

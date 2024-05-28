@@ -1,11 +1,17 @@
-const { PermissionFlagsBits, EmbedBuilder } = require('discord.js');
+const
+  { PermissionFlagsBits, EmbedBuilder } = require('discord.js'),
+  { removeAfkStatus } = require('../Utils/prototypeRegisterer/').utils;
 
 /**
  * @this {import('discord.js').VoiceState}
  * @param {import('discord.js').VoiceState}newState*/
 module.exports = function voiceStateUpdate(newState) {
+  if (this.client.botType == 'dev') return;
+
+  if (newState.channel?.id != this.guild.afkChannel?.id) removeAfkStatus.call(newState);
+
   const setting = this.guild.db.config.logger?.voiceChannelActivity;
-  if (this.client.botType == 'dev' || !setting?.enabled || !setting.channel || this.channelId == newState.channelId) return;
+  if (!setting?.enabled || !setting.channel || this.channelId == newState.channelId) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
   if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
