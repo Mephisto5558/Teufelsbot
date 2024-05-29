@@ -22,5 +22,6 @@
   "hideDisabledCommandLog": "Boolean. Hides the info that a disabled command has been loaded to client.prefixCommands/client.slashCommands. Defaults to false",
   "replyOnDisabledCommand": "Boolean. Reply with an error message if a disabled command is run. Defaults to true",
   "replyOnNonBetaCommand": "Boolean. Reply with an error message if a non-beta command is run. Defaults to true",
-  "disableWebserver": "Boolean. Disables the webserver (including the dashboard) if set to true. Defaults to false"
+  "disableWebserver": "Boolean. Disables the webserver (including the dashboard) if set to true. Defaults to false",
+  "enableConsoleFix": "Boolean. Activate this if the console on which the bot operates does not execute entered bash commands (e.g. pterodactyl). If the command runs twice, deactivate this. Defaults to false."
 }
