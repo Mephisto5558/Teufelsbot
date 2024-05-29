@@ -41,6 +41,7 @@ catch (err) {
   log.warn('An empty config.json has been created.');
 }
 
+config.devIds = new Set(config.devIds);
 config.website ??= {};
 config.github ??= {};
 config.replyOnDisabledCommand ??= true;
