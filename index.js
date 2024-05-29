@@ -90,6 +90,8 @@ console.time('Starting time');
   await client.login(client.keys.token);
   log(`Logged into ${client.botType}`);
 
+  client.awaitReady().then(app => app.client.config.devIds.add(app.owner.owner?.id ?? app.owner.id));
+
   if (process.connected) process.on('message', processMessageEventCallback.bind(client, handlerPromises));
 
   await Promise.all(handlerPromises);
