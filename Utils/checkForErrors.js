@@ -8,8 +8,77 @@ const
 /**
  * @this {import('discord.js').BaseInteraction|Message}
  * @param {command<'both', boolean, true>}command
+ * @returns {[string, Record<string, string>|string|undefined] | undefined}*/
+function checkOptions(command) {
+  let option = command;
+  if (this.options?._group) {
+    option = option.options.find(e => e.name == this.options._group);
+    if (!(option.dmPermission ?? command.dmPermission) && this.channel.type == ChannelType.DM) return ['guildOnly'];
+  }
+  if (this.options?._subcommand) {
+    option = option.options.find(e => e.name == this.options._subcommand);
+    if (!(option.dmPermission ?? command.dmPermission) && this.channel.type == ChannelType.DM) return ['guildOnly'];
+  }
+
+  if (!option.options) return;
+
+  for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete }] of option.options.entries()) {
+    if (required && !this.options?.get(name) && !this.args?.[i])
+      return ['paramRequired', { option: name, description: descriptionLocalizations?.[lang.__boundArgs__[0].locale] ?? description }];
+
+    if (
+      autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
+      && !autocompleteGenerator.call({
+        ...this, client: this.client, user: this.user,
+        focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
+      }, command, this.guild?.db.config.lang ?? this.guild?.localeCode)
+        .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
+    ) return ['strictAutocompleteNoMatch', name];
+  }
+}
+
+/**
+ * @this {GuildInteraction|Message<true>}
+ * @param {command<'both', boolean, true>}command
  * @param {lang}lang
- * @returns {[string, Record<string, string>]|boolean}The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally.*/
+ * @returns {boolean} `false` if no permission issues have been found.*/
+async function checkPerms(command, lang) {
+  const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user || [], PermissionFlagsBits.SendMessages]);
+  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions?.client || [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
+
+  if (!botPermsMissing.length && !userPermsMissing.length) return false;
+
+  const embed = new EmbedBuilder({
+    title: lang('permissionDenied.embedTitle'),
+    description: lang(
+      `permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`,
+      { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `') }
+    ),
+    color: Colors.Red
+  });
+
+  if (botPermsMissing.includes('SendMessages') || botPermsMissing.includes('ViewChannel')) {
+    if (this instanceof Message && this.guild.members.me.permissionsIn(this.channel).has(PermissionFlagsBits.AddReactions)) {
+      await this.react('❌');
+      this.react('✍️');
+    }
+
+    try { await this.user.send({ content: this.url, embeds: [embed] }); }
+    catch (err) {
+      if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
+    }
+  }
+  else await this.customReply({ embeds: [embed], ephemeral: true }, this instanceof Message ? 1e4 : 0);
+
+  return true;
+}
+
+/**
+ * @this {import('discord.js').BaseInteraction|Message}
+ * @param {command<'both', boolean, true>}command
+ * @param {lang}lang
+ * @returns {[string, Record<string, string>|string|undefined]|boolean}
+ * The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally.*/
 module.exports = async function checkForErrors(command, lang) {
   if (!command) {
     if (this instanceof Message) {
@@ -39,25 +108,8 @@ module.exports = async function checkForErrors(command, lang) {
   if (command.category == 'nsfw' && !this.channel.nsfw) return ['nsfw'];
 
   if (command.options) {
-    let [...options] = command.options;
-    if (this.options?._group) ({ options } = options.find(e => e.name == this.options._group));
-    if (this.options?._subcommand) ({ options } = options.find(e => e.name == this.options._subcommand));
-
-    for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete, dmPermission }] of options.entries()) {
-      if (!(dmPermission ?? command.dmPermission) && this.channel.type == ChannelType.DM) return ['guildOnly'];
-
-      if (required && !this.options?.get(name) && !this.args?.[i])
-        return ['paramRequired', { option: name, description: descriptionLocalizations?.[lang.__boundArgs__[0].locale] ?? description }];
-
-      if (
-        autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
-        && !autocompleteGenerator.call({
-          ...this, client: this.client, user: this.user,
-          focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
-        }, command, this.guild?.db.config.lang ?? this.guild?.localeCode)
-          .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
-      ) return ['strictAutocompleteNoMatch', name];
-    }
+    const err = checkOptions.call(this, command);
+    if (err) return err;
   }
 
   if (this.client.botType != 'dev') {
@@ -65,36 +117,5 @@ module.exports = async function checkForErrors(command, lang) {
     if (cooldown) return ['cooldown', cooldown];
   }
 
-  if (this.inGuild() && (this instanceof Message || this instanceof CommandInteraction)) {
-    const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user || [], PermissionFlagsBits.SendMessages]);
-    const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions?.client || [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
-
-    if (botPermsMissing.length || userPermsMissing.length) {
-      const embed = new EmbedBuilder({
-        title: lang('permissionDenied.embedTitle'),
-        description: lang(
-          `permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`,
-          { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `') }
-        ),
-        color: Colors.Red
-      });
-
-      if (botPermsMissing.includes('SendMessages') || botPermsMissing.includes('ViewChannel')) {
-        if (this instanceof Message && this.guild.members.me.permissionsIn(this.channel).has(PermissionFlagsBits.AddReactions)) {
-          await this.react('❌');
-          this.react('✍️');
-        }
-
-        try { await this.user.send({ content: this.url, embeds: [embed] }); }
-        catch (err) {
-          if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
-        }
-      }
-      else await this.customReply({ embeds: [embed], ephemeral: true }, this instanceof Message ? 1e4 : 0);
-
-      return true;
-    }
-  }
-
-  return false;
+  return !!(this.inGuild() && (this instanceof Message || this instanceof CommandInteraction) && await checkPerms.call(this, command, lang));
 };
