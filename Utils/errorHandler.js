@@ -36,7 +36,7 @@ module.exports = async function errorHandler(err, message, lang) {
 
   if (this.botType == 'dev') return;
 
-  const { github } = this.config;
+  const { github, devIds } = this.config;
 
   msg.createMessageComponentCollector({ max: 1, componentType: ComponentType.Button, time: 6e4 })
     .on('collect', async button => {
@@ -80,9 +80,12 @@ module.exports = async function errorHandler(err, message, lang) {
         if (!res.ok) throw new Error(JSON.stringify(json));
 
         const attachment = new AttachmentBuilder(Buffer.from(JSON.stringify({ ...message }, (_, v) => typeof v == 'bigint' ? v.toString() : v, 2)), { name: 'data.json' });
-        try { (this.application.owner.owner ?? this.application.owner).send({ content: json.html_url, files: [attachment] }); }
-        catch (err) {
-          if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
+
+        for (const dev of devIds) {
+          try { await dev.send({ content: json.html_url, files: [attachment] }); }
+          catch (err) {
+            if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
+          }
         }
 
         /* eslint-disable-next-line unicorn/no-null -- `null` must be used here, as `undefined` is interpreted as 'Keep current data'  */
