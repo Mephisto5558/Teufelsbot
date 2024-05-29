@@ -82,6 +82,10 @@ async function reloadCommand(command, reloadedArray) {
       reloadedArray.push(`</${alias}:${cmdId ?? 0}>`);
     }
   }
+  else if (!file.slashCommand && command.slashCommand) {
+    this.slashCommands.delete(command.name);
+    if (command.id) await this.application.commands.delete(command.id);
+  }
 }
 
 /** @type {command<'prefix', false>}*/
