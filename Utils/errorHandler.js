@@ -28,8 +28,8 @@ module.exports = async function errorHandler(err, message, lang) {
       components: [new ButtonBuilder({
         customId: 'errorHandler.reportError',
         label: lang('reportButton') + (this.botType == 'dev' ? lang('reportButtonDisabled') : ''),
-        style: ButtonStyle.Danger// ,
-        // disabled: this.botType == 'dev'
+        style: ButtonStyle.Danger,
+        disabled: this.botType == 'dev'
       })]
     }),
     msg = await message.customReply({ embeds: [embed], components: [component] });
