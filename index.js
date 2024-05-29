@@ -6,6 +6,7 @@ Error.stackTraceLimit = 100;
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials, ActivityType } = require('discord.js'),
   { readdir } = require('node:fs/promises'),
+  exec = require('node:util').promisify(require('node:child_process').exec),
   { WebServer } = require('@mephisto5558/bot-website'),
   { GiveawaysManager, configValidator, gitpull, errorHandler, getCommands } = require('./Utils'),
 
@@ -104,6 +105,14 @@ console.time('Starting time');
 
   log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers.\n`);
   console.timeEnd('Starting time');
+
+  if (client.config.enableConsoleFix) {
+    process.stdin.on('data', async buffer => {
+      const { stdout, stderr } = await exec(buffer.toString().trim());
+      if (stdout) console.log(`stdout: ${stdout}`);
+      if (stderr) console.log(`stderr: ${stderr}`);
+    });
+  }
 
   process
     .on('unhandledRejection', err => errorHandler.call(client, err))
