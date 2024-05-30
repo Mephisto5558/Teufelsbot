@@ -6,7 +6,7 @@ const { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, Butt
 module.exports = function messageUpdate(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (
-    this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled || !setting.channel
+    !newMsg || this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled || !setting.channel
     || this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size && this.embeds.length && newMsg.embeds.length
   ) return;
 
