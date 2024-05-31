@@ -8,8 +8,9 @@ const
 /**
  * @this {import('discord.js').BaseInteraction|Message}
  * @param {command<'both', boolean, true>}command
+ * @param {lang}lang
  * @returns {[string, Record<string, string>|string|undefined] | undefined}*/
-function checkOptions(command) {
+function checkOptions(command, lang) {
   let option = command;
   if (this.options?._group) {
     option = option.options.find(e => e.name == this.options._group);
@@ -108,7 +109,7 @@ module.exports = async function checkForErrors(command, lang) {
   if (command.category == 'nsfw' && !this.channel.nsfw) return ['nsfw'];
 
   if (command.options) {
-    const err = checkOptions.call(this, command);
+    const err = checkOptions.call(this, command, lang);
     if (err) return err;
   }
 
