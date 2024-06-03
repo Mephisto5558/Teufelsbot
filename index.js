@@ -25,6 +25,7 @@ const
       GatewayIntentBits.GuildMessages,
       GatewayIntentBits.GuildMessageReactions,
       GatewayIntentBits.GuildVoiceStates,
+      GatewayIntentBits.GuildPresences,
       GatewayIntentBits.MessageContent,
       GatewayIntentBits.DirectMessages
     ],
