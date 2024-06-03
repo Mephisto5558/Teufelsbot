@@ -234,6 +234,13 @@
     "admin": "`Administrator`",
     "guildMod": "Server Moderator",
     "guildMember": "Server Mitglied",
+    "activity": {
+      "0": "Spielt {activity}",
+      "1": "Streamt {activity}",
+      "2": "Hört to {activity}",
+      "3": "Schaut {activity}",
+      "5": "Tritt an in {activity}"
+    },
     "mention": "Erwähnung",
     "displayName": "Anzeigename",
     "type": "Typ",
