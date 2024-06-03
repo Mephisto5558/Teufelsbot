@@ -101,6 +101,7 @@ declare namespace __local {
   });
 
   interface Config {
+    devIds: Set<Discord.Snowflake>;
     website: {
       baseDomain?: string;
       domain?: string;
@@ -129,6 +130,7 @@ declare namespace __local {
     /** @default true*/
     replyOnNonBetaCommand: boolean;
     disableWebserver?: boolean;
+    enableConsoleFix?: boolean;
   }
 
   interface Env {

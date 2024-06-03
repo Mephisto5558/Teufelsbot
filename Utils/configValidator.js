@@ -1,6 +1,7 @@
 const
   { ConnectionString } = require('mongodb-connection-string-url'),
   validConfig = {
+    devIds: 'object', // set<string>
     website: {
       baseDomain: 'string',
       domain: 'string',
@@ -22,7 +23,8 @@ const
     hideDisabledCommandLog: 'boolean',
     replyOnDisabledCommand: 'boolean',
     replyOnNonBetaCommand: 'boolean',
-    disableWebServer: 'boolean'
+    disableWebServer: 'boolean',
+    enableConsoleFix: 'boolean'
   },
   validEnv = {
     global: {
