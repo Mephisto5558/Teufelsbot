@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@discordjs/voice": "^0.17.0",
-    "@mephisto5558/bot-website": "^1.5.3",
+    "@mephisto5558/bot-website": "^1.5.4",
     "@mephisto5558/i18n": "^1.2.1",
     "@mephisto5558/mongoose-db": "^3.1.1",
     "better-ms": "^1.1.7",
