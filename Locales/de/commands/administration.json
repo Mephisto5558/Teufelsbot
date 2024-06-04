@@ -172,7 +172,7 @@
           }
         }
       },
-      "prefix": {
+      "set_prefix": {
         "description": "Ändere den Bot-Präfix.",
         "options": {
           "new_prefix": {
@@ -180,6 +180,25 @@
           },
           "case_insensitive": {
             "description": "Soll die Groß/Kleinschreibung des Präfixes ignoriert werden?"
+          }
+        }
+      },
+      "add_prefix": {
+        "description": "Füge einen weiteren Präfix für den Bot hinzu.",
+        "options": {
+          "new_prefix": {
+            "description": "der neue Präfix für diesen Server"
+          },
+          "case_insensitive": {
+            "description": "Soll die Groß/Kleinschreibung des Präfixes ignoriert werden?"
+          }
+        }
+      },
+      "remove_prefix": {
+        "description": "Entferne ein Präfix für den Bot.",
+        "options": {
+          "prefix": {
+            "description": "der Präfix, der für diesen Server entfernt werden soll"
           }
         }
       },
@@ -254,8 +273,16 @@
       "embedTitle": "Sprache geändert!",
       "embedDescription": "Die Sprache wurde auf `Deutsch` gestellt."
     },
-    "prefix": {
+    "setPrefix": {
       "saved": "Mein Präfix wurde zu `{prefix}` gesetzt."
+    },
+    "addPrefix": {
+      "limitReached": "Du kannst keine weiteren Präfixe hinzufügen! Versuche zuerst, ungenutzte Präfixe zu entfernen.",
+      "saved": "`{prefix}` wurde als zusätzliches Präfix hinzugefügt."
+    },
+    "removePrefix": {
+      "removed": "Der Präfix `{prefix}` wurde entfernt.",
+      "cannotRemoveLastPrefix": "Du kannst nicht den einzigen verbleibenden Präfix löschen!"
     },
     "serverbackup": {
       "success": "Die Einstellungen wurden erfolgreich aktualisiert!"
