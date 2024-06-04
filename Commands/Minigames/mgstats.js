@@ -2,9 +2,21 @@ const
   { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
   { getTargetMember } = require('../../Utils'),
   { mgStats_formatTopTen: formatTopTen } = require('../../Utils/componentHandler/'),
-  sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
-  manageData = data => Object.entries(data ?? {}).sort(([, a], [, b]) => b - a).slice(0, 3)
-    .reduce((acc, [k, v]) => `${acc}> ` + (k == 'AI' ? k : `<@${k}>`) + `: \`${v}\`\n`, '');
+  sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'];
+
+/**
+ * @this {GuildInteraction | Message<true>}
+ * @param {Record<string, number>}data*/
+function manageData(data) {
+  if (!data) return '';
+
+  return Object.entries(data)
+    .filter(([key]) => this.guild.members.cache.has(key) || key == 'AI')
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 3)
+    .map(([key, value]) => '> ' + (key == 'AI' ? key : `<@${key}>`) + `: \`${value}\`\n`)
+    .join('');
+}
 
 /**
  * @param {number}input
@@ -64,7 +76,7 @@ module.exports = {
         }
       ]
     }
-  ], beta: 1,
+  ],
 
   run: async function (lang) {
     if (this instanceof Message && !this.args[0]) return this.customReply(lang('missingGameArg'));
@@ -97,9 +109,10 @@ module.exports = {
         + lang('draws', formatStatCount(targetData.draws, targetData.games))
         + lang('loses', formatStatCount(targetData.loses, targetData.games));
 
-        if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + (manageData(targetData.wonAgainst) || '> ' + lang('noOne')) + '\n';
-        if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + (manageData(targetData.lostAgainst) || '> ' + lang('noOne')) + '\n';
-        if (targetData.drewAgainst) embed.data.description += lang('drewAgainst') + (manageData(targetData.drewAgainst) || '> ' + lang('noOne'));
+        if (targetData.wonAgainst || targetData.lostAgainst || targetData.drewAgainst) embed.data.description += lang('statsInfo');
+        if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + (manageData.call(this, targetData.wonAgainst) || '> ' + lang('noOne')) + '\n';
+        if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + (manageData.call(this, targetData.lostAgainst) || '> ' + lang('noOne')) + '\n';
+        if (targetData.drewAgainst) embed.data.description += lang('drewAgainst') + (manageData.call(this, targetData.drewAgainst) || '> ' + lang('noOne'));
       }
       else embed.data.description = target.id == this.member.id ? lang('youNoGamesPlayed', game) : lang('userNoGamesPlayed', { user: target.username, game });
 

@@ -92,9 +92,10 @@
       }
     },
     "games": "Games: `{games}`\n\n",
+    "statsInfo": "**Stats für this guild:**\n",
     "wins": "Wins: {wins}\n",
-    "loses": "Loses: {loses}\n",
-    "draws": "Draws: {draws}\n\n",
+    "draws": "Draws: {draws}\n",
+    "loses": "Loses: {loses}\n\n",
     "noOne": "no one\n",
     "missingGameArg": "You need to give me a `game` as the first argument!",
     "notFound": "This is not a valid game entry. Valid games are:\n`{list}`",
