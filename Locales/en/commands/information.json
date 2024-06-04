@@ -87,7 +87,7 @@
     "one": {
       "notFound": "No information found for command `{command}`.",
       "embedTitle": "{category} » {command}",
-      "embedFooterText": "Syntax: <> = required, [] = optional | Prefixes: {prefix}",
+      "embedFooterText": "Syntax: <> = required, [] = optional | Prefixes: {prefixes}",
       "prefixAlias": "Prefix Command Aliases",
       "slashAlias": "Slash Command Aliases",
       "aliasOf": "Alias of",
