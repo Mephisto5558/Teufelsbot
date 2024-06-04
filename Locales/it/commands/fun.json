@@ -375,7 +375,7 @@
         "description": "Il canale al quale il messaggio viene inviato"
       },
       "reply_to": {
-        "description": "L'ID del messaggio a cui vuoi rispondere. Deve essere nello stesso canale. Verrà ignorato se non valido."
+        "description": "L'ID del messaggio a cui vuoi rispondere. Deve essere nello stesso canale."
       }
     },
     "noPerm": "Non hai il permesso di inviare messaggi in quel canale!"
