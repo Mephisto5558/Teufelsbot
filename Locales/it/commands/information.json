@@ -87,7 +87,7 @@
     "one": {
       "notFound": "Nessuna informazione trovata per il comando `{command}`.",
       "embedTitle": "Informazioni dettagliate su: `{command}`",
-      "embedFooterText": "Sintassi: <> = obbligatorio, [] = opzionale | Prefisso: \"{prefix}\"",
+      "embedFooterText": "Sintassi: <> = obbligatorio, [] = opzionale <unk> Prefissi: {prefix}",
       "prefixAlias": "Prefisso Alias Comandi",
       "slashAlias": "Slash Command Aliases",
       "aliasOf": "Alias di",
@@ -137,7 +137,7 @@
     },
     "average": {
       "loading": "Pinging... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}`\nAPI:\n> Ping più basso: `{wsLowest}ms`\n> Ping più alto: `{wsHighest}ms`\n> Ping medio: `{wsAverage}ms`\nMessaggio Invia:\n> Ping più basso: `{msgLowest}ms`\n> Ping più alto: `{msgHighest}ms`\n> Ping medio: `{msgAverage}ms`"
+      "embedDescription": "Pings: `{pings}` <unk> Durata: `{duration}s`\nAPI:\n> Ping più basso: `{wsLowest}ms`\n> Ping più alto: `{wsHighest}ms`\n> Ping medio: `{wsAverage}ms`\nMessaggio Invia:\n> Ping più basso: `{msgLowest}ms`\n> Ping più alto: `{msgHighest}ms`\n> Ping medio: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -146,7 +146,7 @@
   },
   "prefix": {
     "description": "Mostra il prefisso bot della gilda",
-    "currentPrefix": "Il mio prefisso attuale è `{prefix}`.",
+    "currentPrefixes": "I miei prefissi attuali sono:\n{prefixes}",
     "caseInsensitive": " (case insensitive)"
   },
   "roleinfo": {
@@ -234,6 +234,13 @@
     "admin": "`Amministratore`",
     "guildMod": "Moderatore Di Gilda",
     "guildMember": "Membro Della Gilda",
+    "activity": {
+      "0": "Riproduzioni {activity}",
+      "1": "Streams {activity}",
+      "2": "Ascolta {activity}",
+      "3": "Orologi {activity}",
+      "5": "In competizione in {activity}"
+    },
     "mention": "Menzione",
     "displayName": "Nome Visualizzato",
     "type": "Tipo",
