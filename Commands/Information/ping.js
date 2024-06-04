@@ -23,6 +23,7 @@ module.exports = {
 
     if (average) {
       const
+        pingStart = performance.now(),
         wsPings = [this.client.ws.ping],
         msgPings = [endFirstMessagePing];
 
@@ -36,6 +37,8 @@ module.exports = {
         msgPings.push(performance.now() - startMessagePing);
       }
 
+      const duration = Number.parseFloat(((performance.now() - pingStart) / 1000).toFixed(2));
+
       wsPings.sort((a, b) => a - b);
       msgPings.sort((a, b) => a - b);
 
@@ -43,6 +46,7 @@ module.exports = {
       const averageMsgPing = Math.round(msgPings.reduce((a, b) => a + b, 0) / 20 * 100) / 100;
 
       embed.data.description = lang('average.embedDescription', {
+        duration,
         pings: wsPings.length, wsLowest: wsPings[0], wsHighest: wsPings.at(-1), wsAverage: averageWsPing,
         msgLowest: msgPings[0].toFixed(2), msgHighest: msgPings.at(-1).toFixed(2), msgAverage: averageMsgPing
       });
