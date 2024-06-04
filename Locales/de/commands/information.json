@@ -87,7 +87,7 @@
     "one": {
       "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
       "embedTitle": "{category} » {command}",
-      "embedFooterText": "Syntax: <> = erfordert, [] = optional | Präfixe: {prefixes}",
+      "embedFooterText": "Syntax: <> = erforderlich, [] = optional | Präfixe: {prefixes}",
       "prefixAlias": "Präfix-Befehl Aliase",
       "slashAlias": "Slash-Befehl Aliase",
       "aliasOf": "Alias von",
