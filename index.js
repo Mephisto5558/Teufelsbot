@@ -58,7 +58,7 @@ async function processMessageEventCallback(handlerPromises, message) {
         domain: this.config.website.baseDomain, port: this.config.website.port,
         support: { discord: this.config.discordInvite, mail: this.config.mailAddress },
         errorPagesDir: './Website/CustomSites/error', settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites',
-        devIds: [...this.config.devIds]
+        ownerIds: [...this.config.devIds]
       }, errorHandler.bind(this)
     ).init(getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })));
   }
@@ -88,7 +88,7 @@ console.time('Starting time');
 
   // Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution
   const handlerPromises = (await readdir('./Handlers')).filter(e => e != 'event_handler.js').map(handler => require(`./Handlers/${handler}`).call(client));
-  handlerPromises.push(client.awaitReady().then(app => app.client.config.devIds.add(app.owner.owner?.id ?? app.owner.id)));
+  handlerPromises.push(client.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add(app.owner.owner?.id ?? app.owner.id)));
 
   await client.login(client.keys.token);
   log(`Logged into ${client.botType}`);
