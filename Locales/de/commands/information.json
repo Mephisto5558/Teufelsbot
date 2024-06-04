@@ -87,7 +87,7 @@
     "one": {
       "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
       "embedTitle": "{category} » {command}",
-      "embedFooterText": "Syntax: <> = erfordert, [] = optional | Präfixe: {prefixes}",
+      "embedFooterText": "Syntax: <> = erforderlich, [] = optional | Präfixe: {prefixes}",
       "prefixAlias": "Präfix-Befehl Aliase",
       "slashAlias": "Slash-Befehl Aliase",
       "aliasOf": "Alias von",
@@ -237,7 +237,7 @@
     "activity": {
       "0": "Spielt {activity}",
       "1": "Streamt {activity}",
-      "2": "Hört to {activity}",
+      "2": "Hört {activity}",
       "3": "Schaut {activity}",
       "5": "Tritt an in {activity}"
     },
