@@ -172,7 +172,7 @@
           }
         }
       },
-      "prefix": {
+      "set_prefix": {
         "description": "Change the bot's prefix.",
         "options": {
           "new_prefix": {
@@ -180,6 +180,25 @@
           },
           "case_insensitive": {
             "description": "Should the case of the prefix be ignored?"
+          }
+        }
+      },
+      "add_prefix": {
+        "description": "Add another prefix for the bot.",
+        "options": {
+          "new_prefix": {
+            "description": "the new bot prefix for this guild"
+          },
+          "case_insensitive": {
+            "description": "Should the case of the prefix be ignored?"
+          }
+        }
+      },
+      "remove_prefix": {
+        "description": "Remove a prefix for the bot.",
+        "options": {
+          "prefix": {
+            "description": "the prefix to remove for this guild"
           }
         }
       },
@@ -254,8 +273,16 @@
       "embedTitle": "Bot language changed!",
       "embedDescription": "The language has been set to `English`."
     },
-    "prefix": {
+    "setPrefix": {
       "saved": "My prefix has been changed to `{prefix}`."
+    },
+    "addPrefix": {
+      "limitReached": "You cannot add more prefixes! Try removing unused ones first.",
+      "saved": "`{prefix}` has been added as additional prefix."
+    },
+    "removePrefix": {
+      "removed": "The prefix `{prefix}` has been removed.",
+      "cannotRemoveLastPrefix": "You cannot delete the only remaining prefix!"
     },
     "serverbackup": {
       "success": "Successfully updated the settings!"
