@@ -10,16 +10,24 @@ module.exports = function _patch(data, ...rest) {
   if ('content' in data) {
     this.originalContent = data.content ?? null;
 
-    const prefixType = this.client.botType == 'dev' ? 'betaBotPrefix' : 'prefix';
+    const prefixType = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes';
     let
       prefixLength = 0,
-      { prefix, caseinsensitive } = this.guild?.db.config[prefixType] ?? {};
 
-    prefix ||= this.client.defaultSettings.config[prefixType];
-    if (caseinsensitive) prefix = prefix.toLowerCase();
+      /** @type {Database<true>['guildSettings']['']['config']['prefixes']|Database<true>['guildSettings']['']['config']['betaBotPrefixes']}*/
+      prefixes = this.guild?.db.config[prefixType];
 
-    if ((caseinsensitive ? data.content.toLowerCase() : data.content).startsWith(prefix)) prefixLength = prefix.length;
-    else if (data.content.startsWith(`<@${this.client.user.id}>`)) prefixLength = this.client.user.id.length + 3;
+    if (!prefixes?.[0].prefix) prefixes = this.client.defaultSettings.config[prefixType];
+
+    for (const { prefix, caseinsensitive } of prefixes) {
+      if (
+        (caseinsensitive ? data.content.toLowerCase() : data.content).startsWith(caseinsensitive ? prefix.toLowerCase() : prefix)
+        || data.content.startsWith(`<@${this.client.user.id}>`)
+      ) {
+        prefixLength = data.content.startsWith(`<@${this.client.user.id}>`) ? this.client.user.id.length + 3 : prefix.length;
+        break;
+      }
+    }
 
     this.args = data.content.slice(prefixLength).trim().split(' ');
     this.commandName = prefixLength ? this.args.shift().toLowerCase() : null;

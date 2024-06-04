@@ -1,8 +1,9 @@
-/* eslint camelcase: ["error", {allow: ["toggle_module", "toggle_command"]}] */
+/* eslint camelcase: ["error", {allow: ["toggle_module", "toggle_command", "\w*_prefix"]}] */
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'],
+  MAX_PREFIXES_PER_GUILD = 2,
   getCMDs = /** @param {Client}client*/ client => [...new Set([...client.prefixCommands.filter(e => !e.aliasOf).keys(), ...client.slashCommands.filter(e => !e.aliasOf).keys()])],
   /** @type {Record<string, (this: GuildInteraction, lang: lang) =>Promise<unknown>>} */
   setupMainFunctions = {
@@ -106,12 +107,44 @@ const
       return this.editReply({ embeds: [embed] });
     },
 
-    prefix: async function setPrefix(lang) {
-      const newPrefix = this.options.getString('new_prefix', true);
-      const prefixCaseInsensitive = this.options.getBoolean('case_insensitive') ?? this.guild.db.config.prefix?.caseinsensitive ?? false;
+    set_prefix: async function setPrefix(lang) {
+      await this.client.db.delete('guildSettings', `${this.guild.id}.config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`);
+      return setupMainFunctions.add_prefix.call(this, lang);
+    },
 
-      await this.guild.updateDB(`config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refix`, { prefix: newPrefix, caseinsensitive: prefixCaseInsensitive });
-      return this.customReply(lang('saved', newPrefix));
+    add_prefix: async function addPrefix(lang) {
+      const
+        prefix = this.options.getString('new_prefix', true),
+        db = this.guild.db.config[`${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`] ?? [];
+
+      let prefixInDB = db?.find(e => prefix == e.prefix);
+
+      const caseinsensitive = this.options.getBoolean('case_insensitive') ?? prefixInDB?.caseinsensitive ?? false;
+
+      if (!prefixInDB && db.length >= MAX_PREFIXES_PER_GUILD) return this.customReply(lang('limitReached'));
+
+      if (!db.length) await this.guild.updateDB(`config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`, [{ prefix, caseinsensitive }]);
+      else if (prefixInDB) {
+        prefixInDB ??= {};
+        prefixInDB.prefix = prefix;
+        prefixInDB.caseinsensitive = caseinsensitive;
+
+        if (!db.length) db.push(prefixInDB);
+        await this.guild.updateDB(`config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`, db);
+      }
+      else await this.client.db.pushToSet('guildSettings', `${this.guild.id}.config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`, { prefix, caseinsensitive });
+
+      return this.customReply(lang('saved', prefix));
+    },
+    remove_prefix: async function removePrefix(lang) {
+      const
+        prefix = this.options.getString('prefix', true),
+        db = this.guild.db.config[`${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`];
+
+      if (db.length < 2) return this.customReply(lang('cannotRemoveLastPrefix'));
+
+      await this.guild.updateDB(`config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`, db.filter(e => e.prefix != prefix));
+      return this.customReply(lang('removed', prefix));
     },
 
     serverbackup: async function serverBackup(lang) {
@@ -200,7 +233,7 @@ module.exports = {
       }]
     },
     {
-      name: 'prefix',
+      name: 'set_prefix',
       type: 'Subcommand',
       options: [
         {
@@ -209,6 +242,31 @@ module.exports = {
           required: true
         },
         { name: 'case_insensitive', type: 'Boolean' }
+      ]
+    },
+    {
+      name: 'add_prefix',
+      type: 'Subcommand',
+      options: [
+        {
+          name: 'new_prefix',
+          type: 'String',
+          required: true
+        },
+        { name: 'case_insensitive', type: 'Boolean' }
+      ]
+    },
+    {
+      name: 'remove_prefix',
+      type: 'Subcommand',
+      options: [
+        {
+          name: 'prefix',
+          type: 'String',
+          autocompleteOptions: function () { return this.guild.db.config[this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes']?.map(e => e.prefix) ?? []; },
+          strictAutocomplete: true,
+          required: true
+        }
       ]
     },
     {

@@ -87,7 +87,7 @@
     "one": {
       "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
       "embedTitle": "{category} » {command}",
-      "embedFooterText": "Syntax: <> = erfordert, [] = optional | Präfix: \"{prefix}\"",
+      "embedFooterText": "Syntax: <> = erfordert, [] = optional | Präfixe: {prefixes}",
       "prefixAlias": "Präfix-Befehl Aliase",
       "slashAlias": "Slash-Befehl Aliase",
       "aliasOf": "Alias von",
@@ -146,7 +146,7 @@
   },
   "prefix": {
     "description": "Zeigt den Bot-Präfix des Servers",
-    "currentPrefix": "Mein aktueller Präfix ist `{prefix}`.",
+    "currentPrefixes": "Meine aktuellen Präfixe lauten:\n{prefixes}",
     "caseInsensitive": " (beachtet Groß/Kleinschreibung)"
   },
   "roleinfo": {

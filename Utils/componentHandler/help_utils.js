@@ -70,7 +70,8 @@ function createCommandsComponent(lang, category) {
 function createInfoFields(cmd, lang) {
   const
     arr = [],
-    prefix = this.guild?.db.config.prefix?.prefix ?? this.client.defaultSettings.config.prefix;
+    prefixKey = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
+    prefix = this.guild?.db.config[prefixKey]?.[0].prefix ?? this.client.defaultSettings.config[prefixKey][0].prefix;
 
   cmd ??= {};
   if (cmd.aliases?.prefix?.length) arr.push({ name: lang('one.prefixAlias'), value: `\`${cmd.aliases.prefix.join('`, `')}\``, inline: true });
@@ -137,11 +138,12 @@ module.exports.commandQuery = function commandQuery(lang, query) {
     helpLang = this.client.i18n.__.bind(this.client.i18n, {
       undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang, backupPath: `commands.${command.category}.${command.name}`
     }),
+    prefixKey = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
     embed = new EmbedBuilder({
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
       description: helpLang('description'),
       fields: createInfoFields.call(this, command, lang),
-      footer: { text: lang('one.embedFooterText', this.guild?.db.config.prefix ?? this.client.defaultSettings.config.prefix) },
+      footer: { text: lang('one.embedFooterText', '"' + (this.guild?.db.config[prefixKey] ?? this.client.defaultSettings.config[prefixKey]).map(e => e.prefix).join('", "') + '"') },
       color: Colors.Blurple
     });
 
