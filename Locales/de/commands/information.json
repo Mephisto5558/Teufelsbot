@@ -87,7 +87,7 @@
     "one": {
       "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
       "embedTitle": "{category} » {command}",
-      "embedFooterText": "Syntax: <> = erfordert, [] = optional | Präfix: \"{prefix}\"",
+      "embedFooterText": "Syntax: <> = erfordert, [] = optional | Präfixe: {prefixes}",
       "prefixAlias": "Präfix-Befehl Aliase",
       "slashAlias": "Slash-Befehl Aliase",
       "aliasOf": "Alias von",
@@ -137,7 +137,7 @@
     },
     "average": {
       "loading": "Pingen... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}`\nAPI:\n> Niedrigster Ping: `{wsLowest}ms`\n> Höchster Ping: `{wsHighest}ms`\n> Durchschnittlicher Ping: `{wsAverage}ms`\nNachrichten senden:\n> Niedrigster Ping: `{msgLowest}ms`\n> Höchster Ping: `{msgHighest}ms`\n> Durchschnittlicher Ping: `{msgAverage}ms`"
+      "embedDescription": "Pings: `{pings}` | Dauer: `{duration}s`\nAPI:\n> Niedrigster Ping: `{wsLowest}ms`\n> Höchster Ping: `{wsHighest}ms`\n> Durchschnittlicher Ping: `{wsAverage}ms`\nNachrichten senden:\n> Niedrigster Ping: `{msgLowest}ms`\n> Höchster Ping: `{msgHighest}ms`\n> Durchschnittlicher Ping: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -146,7 +146,7 @@
   },
   "prefix": {
     "description": "Zeigt den Bot-Präfix des Servers",
-    "currentPrefix": "Mein aktueller Präfix ist `{prefix}`.",
+    "currentPrefixes": "Meine aktuellen Präfixe lauten:\n{prefixes}",
     "caseInsensitive": " (beachtet Groß/Kleinschreibung)"
   },
   "roleinfo": {
@@ -237,7 +237,7 @@
     "activity": {
       "0": "Spielt {activity}",
       "1": "Streamt {activity}",
-      "2": "Hört to {activity}",
+      "2": "Hört {activity}",
       "3": "Schaut {activity}",
       "5": "Tritt an in {activity}"
     },
