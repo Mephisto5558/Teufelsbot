@@ -30,7 +30,7 @@ function checkOptions(command, lang) {
     if (
       autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
       && !autocompleteGenerator.call({
-        ...this, client: this.client, user: this.user,
+        ...this, client: this.client, guild: this.guild, user: this.user,
         focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
       }, command, this.guild?.db.config.lang ?? this.guild?.localeCode)
         .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
