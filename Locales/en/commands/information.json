@@ -87,7 +87,7 @@
     "one": {
       "notFound": "No information found for command `{command}`.",
       "embedTitle": "{category} » {command}",
-      "embedFooterText": "Syntax: <> = required, [] = optional | Prefix: \"{prefix}\"",
+      "embedFooterText": "Syntax: <> = required, [] = optional | Prefixes: {prefix}",
       "prefixAlias": "Prefix Command Aliases",
       "slashAlias": "Slash Command Aliases",
       "aliasOf": "Alias of",
@@ -146,7 +146,7 @@
   },
   "prefix": {
     "description": "Shows guild's bot prefix",
-    "currentPrefix": "My current prefix is `{prefix}`.",
+    "currentPrefixes": "My current prefixes are:\n{prefixes}",
     "caseInsensitive": " (case insensitive)"
   },
   "roleinfo": {

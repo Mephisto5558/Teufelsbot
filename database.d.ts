@@ -103,8 +103,8 @@ type Database<excludeUndefined extends boolean = false> = {
     default: {
       config: {
         lang: string;
-        prefix: string;
-        betaBotPrefix: string;
+        prefixes: { prefix: string; caseinsensitive: boolean }[];
+        betaBotPrefixes: { prefix: string; caseinsensitive: boolean }[];
       };
       birthday: {
         ch: {
@@ -135,14 +135,8 @@ type Database<excludeUndefined extends boolean = false> = {
       leftAt?: Date;
       config: {
         lang?: string;
-        prefix?: {
-          prefix?: string;
-          caseinsensitive?: boolean;
-        };
-        betaBotPrefix?: {
-          prefix?: string;
-          caseinsensitive?: boolean;
-        };
+        prefixes?: { prefix: string; caseinsensitive: boolean }[];
+        betaBotPrefixes?: { prefix: string; caseinsensitive: boolean }[];
         logger?: Record<'messageUpdate' | 'messageDelete' | 'voiceChannelActivity' | 'sayCommandUsed' | 'all', {
           channel: channelId;
           enabled: boolean;
