@@ -87,7 +87,7 @@
     "one": {
       "notFound": "No information found for command `{command}`.",
       "embedTitle": "{category} » {command}",
-      "embedFooterText": "Syntax: <> = required, [] = optional | Prefix: \"{prefix}\"",
+      "embedFooterText": "Syntax: <> = required, [] = optional | Prefixes: {prefixes}",
       "prefixAlias": "Prefix Command Aliases",
       "slashAlias": "Slash Command Aliases",
       "aliasOf": "Alias of",
@@ -137,7 +137,7 @@
     },
     "average": {
       "loading": "Pinging... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}`\nAPI:\n> Lowest Ping: `{wsLowest}ms`\n> Highest Ping: `{wsHighest}ms`\n> Average Ping: `{wsAverage}ms`\nMessage Send:\n> Lowest Ping: `{msgLowest}ms`\n> Highest Ping: `{msgHighest}ms`\n> Average Ping: `{msgAverage}ms`"
+      "embedDescription": "Pings: `{pings}` | Duration: `{duration}s`\nAPI:\n> Lowest Ping: `{wsLowest}ms`\n> Highest Ping: `{wsHighest}ms`\n> Average Ping: `{wsAverage}ms`\nMessage Send:\n> Lowest Ping: `{msgLowest}ms`\n> Highest Ping: `{msgHighest}ms`\n> Average Ping: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -146,7 +146,7 @@
   },
   "prefix": {
     "description": "Shows guild's bot prefix",
-    "currentPrefix": "My current prefix is `{prefix}`.",
+    "currentPrefixes": "My current prefixes are:\n{prefixes}",
     "caseInsensitive": " (case insensitive)"
   },
   "roleinfo": {
