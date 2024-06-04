@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { evaluate, isResultSet } = require('mathjs'),
+  mathjs = require('mathjs'),
+  { evaluate, isResultSet } = mathjs.create(mathjs.all, { number: 'BigNumber' }),
   superscripts = {
     '²': '^2', '³': '^3',
     '⁴': '^4', '⁵': '^5',
