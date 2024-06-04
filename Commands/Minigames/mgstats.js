@@ -4,7 +4,7 @@ const
   { mgStats_formatTopTen: formatTopTen } = require('../../Utils/componentHandler/'),
   sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
   manageData = data => Object.entries(data ?? {}).sort(([, a], [, b]) => b - a).slice(0, 3)
-    .reduce((acc, [k, v]) => acc + `> <@${k}>: \`${v}\`\n`, '');
+    .reduce((acc, [k, v]) => `${acc}> ` + (k == 'AI' ? k : `<@${k}>`) + `: \`${v}\`\n`, '');
 
 /**
  * @param {number}input
@@ -64,7 +64,7 @@ module.exports = {
         }
       ]
     }
-  ],
+  ], beta: 1,
 
   run: async function (lang) {
     if (this instanceof Message && !this.args[0]) return this.customReply(lang('missingGameArg'));
@@ -109,7 +109,7 @@ module.exports = {
     await this.guild.members.fetch();
 
     embed.data.title = lang('embedTitleTop10', game);
-    embed.data.description = formatTopTen.call(this, Object.entries(data).filter(([e]) => settings == 'all_users' || this.guild.members.cache.has(e)), sort, mode, lang) || lang('noPlayers');
+    embed.data.description = formatTopTen.call(this, Object.keys(data).filter(e => settings == 'all_users' || this.guild.members.cache.has(e)), sort, mode, lang) || lang('noPlayers');
 
     const component = new ActionRowBuilder({
       components: [new StringSelectMenuBuilder({
