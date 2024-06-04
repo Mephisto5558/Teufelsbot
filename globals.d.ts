@@ -101,6 +101,7 @@ declare namespace __local {
   });
 
   interface Config {
+    /** Will always include the bot's user id and the application owner id*/
     devIds: Set<Discord.Snowflake>;
     website: {
       baseDomain?: string;
@@ -404,7 +405,9 @@ declare module 'discord.js' {
     slashCommands: Discord.Collection<command['name'], command<'slash', boolean, Ready>>;
     backupSystem?: BackupSystem;
     giveawaysManager?: GiveawayManagerWithOwnDatabase;
-    webServer: WebServer;
+
+    /** `undefined` if `this.botType == 'dev'`*/
+    webServer?: WebServer;
     cooldowns: Map<string, Record<string, Map<string, number>>>;
     db: DB;
     i18n: I18nProvider;
