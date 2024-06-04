@@ -26,6 +26,17 @@ module.exports = {
     if (this.client.config.devIds.has(target)) return this.customReply(lang('cantBlacklistOwner'));
 
     await this.client.db.pushToSet('botSettings', 'blacklist', target);
+
+    if (this.client.webServer) {
+      const requests = (await this.client.webServer.voteSystem.fetchAll()).reduce((acc, [,e]) => {
+        if (!e.pending && e.id.split('_')[0] == target) acc.push({ ...e, pending: true });
+        return acc;
+      }, []);
+
+      const result = await this.client.webServer.voteSystem.update(requests, this.client.user.id);
+      if (!result.success) throw new Error(JSON.stringify(result, undefined, 2));
+    }
+
     return this.customReply(lang('saved', target));
   }
 };
