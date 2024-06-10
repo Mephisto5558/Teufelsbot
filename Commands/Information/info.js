@@ -31,10 +31,12 @@ module.exports = {
         footer: { text: lang('embedFooterText') }
       }),
       component = new ActionRowBuilder(),
-      { website, github, disableWebserver } = this.client.config;
+      { website, github, discordInvite, disableWebserver } = this.client.config;
 
     if (github.repo)
       component.components.push(createButton(lang('links.repo'), github.repo, '<:pf_github:1055857421924433950>'));
+    if (discordInvite)
+      component.components.push(createButton(lang('links.discord'), discordInvite, '<:th_clyde:1143285999586267207>'));
 
     if (!disableWebserver) {
       if (website.invite) component.components.push(createButton(lang('links.invite'), website.invite));
