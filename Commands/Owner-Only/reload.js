@@ -129,7 +129,7 @@ module.exports = {
         }
         case '*': for (const [, command] of commandList) await reloadCommand.call(this.client, command, reloadedArray); break;
         default: {
-          const command = commandList.get(this.args[0]);
+          const command = commandList.get(this.args[0].toLowerCase());
           if (!command) return msg.edit(lang('invalidCommand'));
 
           await reloadCommand.call(this.client, command, reloadedArray);
