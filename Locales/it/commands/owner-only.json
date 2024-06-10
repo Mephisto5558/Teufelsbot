@@ -52,6 +52,11 @@
     "noneReloaded": "Nessun comando è stato ricaricato.",
     "reloaded": "I seguenti ` comandi{count}` sono stati ricaricati:\n{commands}"
   },
+  "reloadconfig": {
+    "description": "Ricarica il file config.json",
+    "error": "Si è verificato un errore durante il ricarico della configurazione:\n{err}",
+    "success": "Ricaricata la configurazione."
+  },
   "reloaddb": {
     "description": "Ricarica il database",
     "success": "Ricaricato il db."
