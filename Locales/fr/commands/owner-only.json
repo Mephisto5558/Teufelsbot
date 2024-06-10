@@ -52,6 +52,11 @@
     "noneReloaded": "Aucune commande n'a été rechargée.",
     "reloaded": "Les commandes suivantes `{count}` ont été rechargées:\n{commands}"
   },
+  "reloadconfig": {
+    "description": "Recharge le fichier config.json",
+    "error": "Une erreur est survenue lors du rechargement de la configuration :\n{err}",
+    "success": "Configuration rechargée."
+  },
   "reloaddb": {
     "description": "Recharge la base de données",
     "success": "Rechargé la db."

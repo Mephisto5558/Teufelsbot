@@ -52,6 +52,11 @@
     "noneReloaded": "Es wurden keine Befehle neu geladen.",
     "reloaded": "Die folgenden `{count}` Befehle wurden neu geladen:\n{commands}"
   },
+  "reloadconfig": {
+    "description": "Lädt die config.json Datei neu",
+    "error": "Ein Fehler ist während des Neuladens der Config aufgetreten:\n{err}",
+    "success": "Die Konfiguration wurde neu geladen."
+  },
   "reloaddb": {
     "description": "Lädt die Datenbank neu.",
     "success": "Die Datenbank wurde neu geladen."
