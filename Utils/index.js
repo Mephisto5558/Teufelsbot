@@ -1,3 +1,5 @@
+const { validateConfig, setDefaultConfig } = require('./configValidator.js');
+
 module.exports = {
   autocompleteGenerator: require('./autocompleteGenerator.js'),
   BackupSystem: require('./backupSystem.js'),
@@ -5,7 +7,7 @@ module.exports = {
   checkTargetManageable: require('./checkTargetManageable.js'),
   commandExecutionWrapper: require('./commandExecutionWrapper.js'),
   componentHandler: require('./componentHandler.js'),
-  configValidator: require('./configValidator.js'),
+  validateConfig,
   cooldowns: require('./cooldowns.js'),
 
   /** @type {Record<string, number>}*/
@@ -23,6 +25,7 @@ module.exports = {
   GiveawaysManager: require('./giveawaysManager.js'),
   localizeUsage: require('./localizeUsage.js'),
   logSayCommandUse: require('./logSayCommandUse.js'),
+  setDefaultConfig,
   slashCommandsEqual: require('./slashCommandsEqual.js'),
   permissionTranslator: require('./permissionTranslator.js'),
   timeFormatter: require('./timeFormatter.js'),

@@ -8,7 +8,7 @@ const
   { readdir } = require('node:fs/promises'),
   exec = require('node:util').promisify(require('node:child_process').exec),
   { WebServer } = require('@mephisto5558/bot-website'),
-  { GiveawaysManager, configValidator, gitpull, errorHandler, getCommands } = require('./Utils'),
+  { GiveawaysManager, validateConfig, gitpull, errorHandler, getCommands } = require('./Utils'),
 
   createClient = /** @returns {Client<false>}*/ () => new Client({
     shards: 'auto',
@@ -77,7 +77,7 @@ console.time('Starting time');
     process.exit(1);
   }
 
-  configValidator();
+  validateConfig();
 
   const client = createClient();
   await client.loadEnvAndDB();

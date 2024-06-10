@@ -4,11 +4,11 @@ const
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('node:crypto'),
   { join } = require('node:path'),
-  { writeFileSync } = require('node:fs'),
   { DB } = require('@mephisto5558/mongoose-db'),
   I18nProvider = require('@mephisto5558/i18n'),
   { Log, customReply, runMessages, _patch, playAgain } = require('./prototypeRegisterer/'),
   findAllEntries = require('./findAllEntries.js'),
+  { setDefaultConfig } = require('./configValidator.js'),
 
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
@@ -28,25 +28,7 @@ function deepMerge(target, source) {
   return target;
 }
 
-/** @type {Client['config']} */
-let config;
-try { config = require('../config.json'); }
-catch (err) {
-  if (err.code != 'MODULE_NOT_FOUND') throw err;
-  log.warn('Missing config.json. This file is required to run the bot.');
-
-  writeFileSync('./config.json', '{}');
-  config = {};
-
-  log.warn('An empty config.json has been created.');
-}
-
-config.devIds = new Set(config.devIds);
-config.website ??= {};
-config.github ??= {};
-config.replyOnDisabledCommand ??= true;
-config.replyOnNonBetaCommand ??= true;
-config.ownerOnlyFolders = config.ownerOnlyFolders?.map(e => e?.toLowerCase()) ?? ['owner-only'];
+const config = setDefaultConfig();
 
 if (!config.hideOverwriteWarning) {
   console.warn(
@@ -56,7 +38,7 @@ if (!config.hideOverwriteWarning) {
     + 'Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
     + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, Guild#db, guild#updateDB, '
     + 'Guild#localeCode, GuildMember#db.\n'
-    + 'Modifying Discord.js Message._patch method.`'
+    + 'Modifying Discord.js Message._patch method.'
   );
 }
 
