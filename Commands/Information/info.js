@@ -27,8 +27,7 @@ module.exports = {
 
       embed = new EmbedBuilder({
         title: lang('embedTitle'), description,
-        color: Colors.DarkGold,
-        footer: { text: lang('embedFooterText') }
+        color: Colors.DarkGold
       }),
       component = new ActionRowBuilder(),
       { website, github, discordInvite, disableWebserver } = this.client.config;
