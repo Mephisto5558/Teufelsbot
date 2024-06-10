@@ -338,7 +338,6 @@
       }
     },
     "notFound": "Es wurden keine Suchergebnisse gefunden.",
-    "visitWiki": "**Für mehr Informationen, besuche bitte Wikipedia.**",
-    "error": "Ich konnte nicht mit Wikipedia kommunizieren:\n```{err}```"
+    "visitWiki": "**Für mehr Informationen, besuche bitte Wikipedia.**"
   }
 }
