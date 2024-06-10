@@ -115,9 +115,9 @@
     "lastStart": "Último inicio",
     "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina.\n",
     "embedTitle": "Estadísticas",
-    "embedFooterText": "¡Pronto habrá más estadísticas!",
     "links": {
       "repo": "GitHub",
+      "discord": "Discordia",
       "invite": "Invitar",
       "dashboard": "Tablero",
       "privacyPolicy": "Política de privacidad"
