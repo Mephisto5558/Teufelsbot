@@ -1,5 +1,6 @@
 const
   { ConnectionString } = require('mongodb-connection-string-url'),
+  { writeFileSync } = require('node:fs'),
   validConfig = {
     devIds: 'object', // set<string>
     website: {
@@ -72,7 +73,7 @@ function configValidationLoop(obj, checkObj, allowNull) {
   }
 }
 
-module.exports = function validateConfig() {
+function validateConfig() {
   const config = require('../config.json'); // prototypeRegisterer makes sure that the file exists
   if (config) configValidationLoop(config, validConfig, true);
 
@@ -82,4 +83,30 @@ module.exports = function validateConfig() {
 
   try { void new ConnectionString(env[env.global.environment].dbConnectionStr); }
   catch (err) { throw new Error(`Error in env.json: Invalid mongoDB connection string: ${err}`); }
-};
+}
+
+function setDefaultConfig() {
+  /** @type {Client['config']} */
+  let config;
+  try { config = require('../config.json'); }
+  catch (err) {
+    if (err.code != 'MODULE_NOT_FOUND') throw err;
+    log.warn('Missing config.json. This file is required to run the bot.');
+
+    writeFileSync('./config.json', '{}');
+    config = {};
+
+    log.warn('An empty config.json has been created.');
+  }
+
+  config.devIds = new Set(config.devIds);
+  config.website ??= {};
+  config.github ??= {};
+  config.replyOnDisabledCommand ??= true;
+  config.replyOnNonBetaCommand ??= true;
+  config.ownerOnlyFolders = config.ownerOnlyFolders?.map(e => e?.toLowerCase()) ?? ['owner-only'];
+
+  return config;
+}
+
+module.exports = { configValidationLoop, validateConfig, setDefaultConfig, validConfig, validEnv };
