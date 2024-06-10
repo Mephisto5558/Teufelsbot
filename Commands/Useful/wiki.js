@@ -1,5 +1,5 @@
 const
-  wiki = require('wikijs').default,
+  wikiInit = require('wikijs').default,
   { EmbedBuilder, Colors } = require('discord.js');
 
 /** @type {command<'both', false>}*/
@@ -10,74 +10,74 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  options: [{
-    name: 'query',
-    type: 'String',
-    required: true
-  }],
+  options: [{ name: 'query', type: 'String' }],
 
   run: async function (lang) {
     const
-      query = this.options?.getString('query', true) ?? this.content,
+      query = this.options?.getString('query') ?? this.content,
       message = await this.customReply(lang('global.loading')),
-      options = { headers: { 'User-Agent': 'Discord Bot' + (this.client.config.github.repo ? ` (${this.client.config.github.repo})` : '') } };
+      headers = { 'User-Agent': 'Discord Bot' + (this.client.config.github.repo ? ` (${this.client.config.github.repo})` : '') },
+      defaultLangWiki = wikiInit({ headers, apiUrl: `https://${this.client.i18n.config.defaultLocale}.wikipedia.org/w/api.php` }),
+      wiki = wikiInit({ headers, apiUrl: `https://${this.guild.localeCode}.wikipedia.org/w/api.php` }),
+      result = query ? (await wiki.search(query, 1)).results[0] ?? (await defaultLangWiki.search(query, 1)).results[0] : await wiki.random(1);
 
-    let data;
+    if (!result) return message.edit(lang('notFound'));
 
-    try {
-      if (query) data = await wiki(options).search(query, 1);
-      else {
-        const results = await wiki(options).random(1);
-        data = await wiki(options).search(results[0], 1);
-      }
+    const
+      page = await wiki.page(result),
 
-      if (!data.results.length) return message.edit(lang('notFound'));
+      /** @type {{general:Record<string, unknown>}}*/
+      { general: info } = await page.fullInfo(),
+      summary = await page.summary(),
+      images = await page.images(),
+      embed = new EmbedBuilder({
+        title: page.title,
+        color: Colors.White,
+        thumbnail: { url: `https://wikipedia.org/static/images/project-logos/${this.guild.localeCode}wiki.png` },
+        url: page.url(),
+        image: { url: await page.mainImage() },
+        fields: Object.entries(info).reduce((acc, [k, v]) => {
+          if (!v || ['name', 'image', 'logo', 'alt', 'caption'].some(e => k.toLowerCase().includes(e))) return acc;
 
-      const
-        page = await wiki(options).page(data.results[0]),
-        { general: info } = await page.fullInfo(),
-        image = await page.mainImage(),
-        summary = await page.summary(),
-        embed = new EmbedBuilder({
-          title: data.results[0],
-          color: Colors.White,
-          thumbnail: { url: 'https://wikipedia.org/static/images/project-logos/enwiki.png' },
-          url: page.url(),
-          image: { url: image },
-          fields: Object.entries(info).reduce((acc, [k, v]) => {
-            if (!['name', 'caption'].includes(k) && !k.includes('image')) acc.push({ name: k, value: v.toString(), inline: true });
-            return acc;
-          }, [])
+          k = k.replaceAll(/([A-Z])/g, ' $1').toLowerCase().trim();
+          k = k[0].toUpperCase() + k.slice(1);
 
-        });
+          if (Array.isArray(v)) v = v.join(', ');
+          else if (v.date) v = `<t:${Math.round(v.date / 1000)}>`;
+          else if (typeof v == 'object') v = JSON.stringify(v, undefined, 2);
+          else if (typeof v == 'boolean') v = lang(`global.${v}`);
+          else v = images.find(e => e.includes(v.toString().replaceAll(' ', '_'))) ?? v.toString();
 
-      if (summary.length < 2049) embed.data.description = summary;
+          acc.push({ name: k, value: v, inline: true });
+          return acc;
+        }, []).slice(0, 25)
+      });
 
-      await message.edit({ content: '', embeds: [embed] });
-      if (embed.data.description) return;
+    // U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing;
+    if (summary.length < 2049) embed.data.description = `${summary}\n\u200E`;
 
-      let joined = '';
-      let msgs = 0;
-      for (const line of summary.split('\n')) {
-        if (msgs > 9) {
-          joined += lang('visitWiki');
-          break;
-        }
+    await message.edit({ content: '', embeds: [embed] });
+    if (embed.data.description) return;
 
-        if (joined.length >= 2000) {
-          await this.customReply(joined);
-          msgs++;
-          joined = '';
-        }
+    const msgs = summary.split('\n')
+      .flatMap(e => {
+        if (e.length < 1000) return e;
 
-        joined += `${line}\n`;
-      }
+        const halfIndex = Math.floor(e.length / 2);
+        const lastIndexBeforeHalf = e.lastIndexOf('.', halfIndex) + 1 || halfIndex;
 
-      if (joined) return this.customReply(joined);
-    }
-    catch (err) {
-      if (this.client.botType == 'dev') throw err;
-      return this.customReply(lang('error', err.message)); // todo improve this error checking
-    }
+        return [e.slice(0, lastIndexBeforeHalf), e.slice(lastIndexBeforeHalf)];
+      })
+      .reduce((acc, e, i, arr) => {
+        const accItem = acc.at(-1);
+
+        if (accItem && accItem.length + (arr[i + 1]?.length ?? 0) >= 2000) acc.push(`${e}\n`);
+        else acc.splice(-1, 1, `${accItem}${e}\n`);
+
+        return acc;
+      }, ['']);
+
+    for (const msg of msgs.slice(0, 9)) await this.customReply(msg);
+    if (msgs > 9) return this.reply(lang('visitWiki'));
   }
 };

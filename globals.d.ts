@@ -1,4 +1,5 @@
 import type Discord from 'discord.js';
+import type { RawPage } from 'wikijs';
 import type DB from '@mephisto5558/mongoose-db';
 import type I18nProvider from '@mephisto5558/i18n';
 import type { WebServer } from '@mephisto5558/bot-website';
@@ -558,4 +559,8 @@ declare module '@mephisto5558/mongoose-db' {
     push<DB extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DB]>(db: DB, key: K, ...value: DBStructure.FlattenedDatabase[DB][K]): Promise<Database[DB]>;
     pushToSet<DB extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DB]>(db: DB, key: K, ...value: DBStructure.FlattenedDatabase[DB][K]): Promise<Database[DB]>;
   }
+}
+
+declare module 'wikijs' {
+  interface Page extends RawPage {}
 }
