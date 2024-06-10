@@ -111,8 +111,8 @@ function createInfoFields(cmd, lang) {
  * @this {Interaction|Message}
  * @param {command<*, boolean, true>}cmd*/
 function filterCommands(cmd) {
-  return cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta)
-    && (this.client.config.ownerOnlyFolders.includes(cmd.category) ? this.client.config.devIds.has(this.user.id) : true);
+  return !!cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta)
+    && (!this.client.config.ownerOnlyFolders.includes(cmd.category) || this.client.config.devIds.has(this.user.id));
 }
 
 /**
