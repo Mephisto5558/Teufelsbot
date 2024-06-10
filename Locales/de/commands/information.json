@@ -115,9 +115,9 @@
     "lastStart": "Letzter Start",
     "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt.\n",
     "embedTitle": "Informationen",
-    "embedFooterText": "Mehr Informationen kommen bald!",
     "links": {
       "repo": "GitHub",
+      "discord": "Discord",
       "invite": "Einladen",
       "dashboard": "Dashboard",
       "privacyPolicy": "Datenschutz"
