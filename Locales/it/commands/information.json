@@ -115,9 +115,9 @@
     "lastStart": "Ultimo avvio",
     "translation": "Traduzioni:\n> Inglese: {en}\n> Tedesco: {de}\n> Tutte le altre lingue sono tradotte automaticamente.\n",
     "embedTitle": "Statistiche",
-    "embedFooterText": "Altre statistiche stanno arrivando presto!",
     "links": {
       "repo": "GitHub",
+      "discord": "Discord",
       "invite": "Invita",
       "dashboard": "Dashboard",
       "privacyPolicy": "Politica Sulla Privacy"
