@@ -141,7 +141,7 @@ module.exports.commandQuery = function commandQuery(lang, query) {
     prefixKey = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
     embed = new EmbedBuilder({
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
-      description: helpLang('description'),
+      description: helpLang('description') ?? command.description,
       fields: createInfoFields.call(this, command, lang),
       footer: { text: lang('one.embedFooterText', '"' + (this.guild?.db.config[prefixKey] ?? this.client.defaultSettings.config[prefixKey]).map(e => e.prefix).join('", "') + '"') },
       color: Colors.Blurple
@@ -172,7 +172,7 @@ module.exports.categoryQuery = function categoryQuery(lang, query) {
       title: lang(`commands.${query}.categoryName`),
       fields: commands.reduce((acc, e) => { // U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing
         if (e.category == query && !e.aliasOf && filterCommands.call(this, e))
-          acc.push({ name: e.name, value: helpLang(`${e.name}.description`) + '\n\u200E', inline: true });
+          acc.push({ name: e.name, value: (helpLang(`${e.name}.description`) ?? e.description) + '\n\u200E', inline: true });
         return acc;
       }, []),
       footer: { text: lang(this.client.botType == 'dev' ? 'devEmbedFooterText' : 'all.embedFooterText') },
