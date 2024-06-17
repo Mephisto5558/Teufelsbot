@@ -53,10 +53,11 @@ async function processMessageEventCallback(handlerPromises, message) {
 
     this.webServer ??= await new WebServer(
       this, this.db,
-      { secret: this.keys.secret, dbdLicense: this.keys.dbdLicense, webhookURL: this.keys.votingWebhookURL },
+      { secret: this.keys.secret, dbdLicense: this.keys.dbdLicense },
       {
         domain: this.config.website.baseDomain, port: this.config.website.port,
         support: { discord: this.config.discordInvite, mail: this.config.mailAddress },
+        webhookUrl: this.keys.votingWebhookURL,
         errorPagesDir: './Website/CustomSites/error', settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites',
         ownerIds: [...this.config.devIds]
       }, errorHandler.bind(this)
