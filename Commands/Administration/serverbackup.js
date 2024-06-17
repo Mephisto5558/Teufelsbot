@@ -6,7 +6,7 @@ const
 function getData(backup) {
   if (Object.keys(backup).length) {
     return {
-      createdAt: Math.round(backup.createdAt.getTime() / 1000),
+      createdAt: Math.round(backup.createdAt / 1000),
       size: (() => {
         const size = Buffer.byteLength(JSON.stringify(backup));
         return size > 1024 ? `${(size / 1024).toFixed(2)}KB` : `${size}B`;
