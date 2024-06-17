@@ -239,6 +239,7 @@
       "1": "Streamt {activity}",
       "2": "Hört {activity}",
       "3": "Schaut {activity}",
+      "4": "Status: \"{message}\"\n",
       "5": "Tritt an in {activity}"
     },
     "mention": "Erwähnung",
