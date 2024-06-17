@@ -1,6 +1,5 @@
 /** @type {command<'both'>}*/
 module.exports = {
-  name: '',
   aliases: { prefix: [], slash: [] },
   permissions: { client: [], user: [] },
   cooldowns: { guild: 0, channel: 0, user: 0 },
