@@ -14,12 +14,12 @@ const
 
   /** @type {Record<string, (msg: Message<true>) => boolean>}*/
   filterCheck = {
-    text: msg => !!msg.content.length,
+    text: msg => !!msg.content?.length,
     embeds: msg => !!msg.embeds?.length,
     mentions: msg => !!msg.mentions.users.size,
     images: msg => !!msg.attachments?.some(e => e.contentType.includes('image')),
     /* eslint-disable-next-line camelcase -- option name for better user-readability*/
-    server_ads: msg => adRegex(msg.content) || msg.embeds?.some(e => adRegex(e.description))
+    server_ads: msg => adRegex(msg.content) || !!msg.embeds?.some(e => adRegex(e.description))
   };
 
 /**
@@ -27,8 +27,12 @@ const
  * @param {Record<string, string | number | boolean | undefined>}options*/
 function shouldDeleteMsg(msg, options) {
   const
-    check = (fn, option) => !!(!(option in options) || msg.content[fn](option) || msg.embeds?.some(e => e.description[fn](option))),
-    bool = msg.bulkDeletable && (!options.remove_pinned || msg.pinned),
+    check = (fn, option) => !!(
+      !option
+      || msg.content?.toLowerCase()[fn](option.toLowerCase())
+      || msg.embeds?.some(e => e.description?.toLowerCase()[fn](option.toLowerCase()))
+    ),
+    bool = msg.bulkDeletable && (options.remove_pinned || !msg.pinned),
     userType = msg.user.bot ? 'bot' : 'human';
 
   if (!filterOptionsExist(options)) return bool;
@@ -36,7 +40,12 @@ function shouldDeleteMsg(msg, options) {
     && (!('member' in options) || msg.user.id == options.member)
     && (!('user_type' in options) || options.user_type == userType)
     && (!('only_containing' in options) || filterCheck[options.only_containing](msg))
-    && (!('caps_percentage' in options) || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * 100 >= options.caps_percentage)
+    && (
+      !('caps_percentage' in options && options.caps_percentage > 0)
+      || msg.content?.replaceAll(/[^A-Z]/g, '').length / (msg.content?.length ?? 0) * 100 >= options.caps_percentage
+      || !!msg.embeds?.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * 100 >= options.caps_percentage)
+      || !msg.content && !msg.embeds?.some(e => e.description)
+    )
     && check('includes', options.contains) && check('includes', options.does_not_contain)
     && check('startsWith', options.starts_with) && check('startsWith', options.not_starts_with)
     && check('endsWith', options.ends_with) && check('endsWith', options.not_ends_with);
@@ -160,3 +169,132 @@ module.exports = {
     return this.customReply(lang('success', { count, all: messages.length }), 1e4);
   }
 };
+
+/* eslint-disable unicorn/consistent-function-scoping, @stylistic/operator-linebreak, camelcase
+-- in there due to performance reasons (testing code not used in production)*/
+
+/** Tests the purge filters*/
+/* eslint-disable-next-line no-unused-vars */
+function testPurge() {
+  const
+    addEmbed = /** @param {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}[]}data*/
+    (...data) => data.reduce((acc, e) => {
+      const obj = structuredClone(e);
+
+      obj.input[0].embeds = [{ description: obj.input[0].content }];
+      delete obj.input[0].content;
+      acc.push(e, obj);
+
+      return acc;
+    }, []).sort((a, b) => ('content' in b.input[0]) - ('content' in a.input[0])),
+
+    addFlip = /** @param {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}[]}data*/
+    (...data) => data.reduce((acc, e) => {
+      const obj = structuredClone(e);
+
+      obj.input[1].does_not_contain = obj.input[1].contains;
+      obj.input[1].not_starts_with = obj.input[1].starts_with;
+      obj.input[1].not_ends_with = obj.input[1].ends_with;
+
+      delete obj.input[1].contains;
+      delete obj.input[1].starts_with;
+      delete obj.input[1].ends_with;
+
+      acc.push(e, obj);
+
+      return acc;
+    }, []).sort((a, b) => {
+      const orderMap = { contains: 0, starts_with: 1, ends_with: 2, does_not_contain: 3, not_starts_with: 4, not_ends_with: 5 };
+      return orderMap[Object.keys(a.input[1])[0]] - orderMap[Object.keys(b.input[1])[0]];
+    }),
+    msg = { bulkDeletable: true, user: {} },
+    testCases = [
+      [{ input: [{ ...msg }, { }], expectedOutput: true }],
+      [
+        { input: [{ ...msg, bulkDeletable: false }, {}], expectedOutput: false },
+        { input: [{ ...msg, bulkDeletable: true }, {}], expectedOutput: true }
+      ],
+      [
+        { input: [{ ...msg, pinned: false }, { remove_pinned: true }], expectedOutput: true },
+        { input: [{ ...msg, pinned: true }, { remove_pinned: true }], expectedOutput: true },
+        { input: [{ ...msg, pinned: false }, { remove_pinned: false }], expectedOutput: true },
+        { input: [{ ...msg, pinned: true }, { remove_pinned: false }], expectedOutput: false }
+      ],
+      [
+        { input: [{ ...msg, user: { id: '123' } }, { member: '123' }], expectedOutput: true },
+        { input: [{ ...msg, user: { id: '987' } }, { member: '123' }], expectedOutput: false }
+      ],
+      [
+        { input: [{ ...msg, user: { bot: true } }, { user_type: 'human' }], expectedOutput: false },
+        { input: [{ ...msg, user: { bot: true } }, { user_type: 'bot' }], expectedOutput: true },
+        { input: [{ ...msg, user: { bot: false } }, { user_type: 'human' }], expectedOutput: true },
+        { input: [{ ...msg, user: { bot: false } }, { user_type: 'bot' }], expectedOutput: false }
+      ],
+      [
+        { input: [{ ...msg, content: undefined }, { only_containing: 'text' }], expectedOutput: false },
+        { input: [{ ...msg, content: 'test' }, { only_containing: 'text' }], expectedOutput: true },
+        { input: [{ ...msg, embeds: undefined }, { only_containing: 'embeds' }], expectedOutput: false },
+        { input: [{ ...msg, embeds: [] }, { only_containing: 'embeds' }], expectedOutput: false },
+        { input: [{ ...msg, embeds: [{}] }, { only_containing: 'embeds' }], expectedOutput: true },
+        { input: [{ ...msg, mentions: { users: { size: 0 } } }, { only_containing: 'mentions' }], expectedOutput: false },
+        { input: [{ ...msg, mentions: { users: { size: 5 } } }, { only_containing: 'mentions' }], expectedOutput: true },
+        { input: [{ ...msg, attachments: undefined }, { only_containing: 'images' }], expectedOutput: false },
+        { input: [{ ...msg, attachments: [] }, { only_containing: 'images' }], expectedOutput: false },
+        { input: [{ ...msg, attachments: [{ contentType: 'video' }] }, { only_containing: 'images' }], expectedOutput: false },
+        { input: [{ ...msg, attachments: [{ contentType: 'image' }] }, { only_containing: 'images' }], expectedOutput: true },
+        { input: [{ ...msg, content: undefined }, { only_containing: 'server_ads' }], expectedOutput: false },
+        { input: [{ ...msg, content: 'hi' }, { only_containing: 'server_ads' }], expectedOutput: false },
+        { input: [{ ...msg, content: 'discord.gg/123' }, { only_containing: 'server_ads' }], expectedOutput: true }
+      ],
+      [
+        ...addEmbed(
+          { input: [{ ...msg, content: undefined }, { caps_percentage: 0 }], expectedOutput: true },
+          { input: [{ ...msg, content: '' }, { caps_percentage: 0 }], expectedOutput: true },
+          { input: [{ ...msg, content: 'hi' }, { caps_percentage: 0 }], expectedOutput: true },
+          { input: [{ ...msg, content: 'HI' }, { caps_percentage: 0 }], expectedOutput: true },
+          { input: [{ ...msg, content: undefined }, { caps_percentage: 10 }], expectedOutput: true },
+          { input: [{ ...msg, content: '' }, { caps_percentage: 10 }], expectedOutput: true },
+          { input: [{ ...msg, content: 'hi' }, { caps_percentage: 10 }], expectedOutput: false },
+          { input: [{ ...msg, content: 'HI' }, { caps_percentage: 10 }], expectedOutput: true },
+          { input: [{ ...msg, content: 'Hi' }, { caps_percentage: 10 }], expectedOutput: true },
+          { input: [{ ...msg, content: 'abcdefghij' }, { caps_percentage: 10 }], expectedOutput: false },
+          { input: [{ ...msg, content: 'Abcdefghij' }, { caps_percentage: 10 }], expectedOutput: true },
+          { input: [{ ...msg, content: 'Abcdefghij' }, { caps_percentage: 100 }], expectedOutput: false },
+          { input: [{ ...msg, content: 'ABCDEFGHIJ' }, { caps_percentage: 100 }], expectedOutput: true }
+        ),
+        { input: [{ ...msg, embeds: undefined }, { caps_percentage: 0 }], expectedOutput: true },
+        { input: [{ ...msg, embeds: [] }, { caps_percentage: 0 }], expectedOutput: true },
+        { input: [{ ...msg, embeds: [{}] }, { caps_percentage: 0 }], expectedOutput: true }
+      ],
+      addFlip(
+        ...addEmbed(
+          { input: [{ ...msg, content: undefined }, { contains: 'test' }], expectedOutput: false },
+          { input: [{ ...msg, content: '' }, { contains: 'test' }], expectedOutput: false },
+          { input: [{ ...msg, content: 'test' }, { contains: 'test' }], expectedOutput: true },
+          { input: [{ ...msg, content: '123test123' }, { contains: 'test' }], expectedOutput: true },
+          { input: [{ ...msg, content: '123TEST123' }, { contains: 'test' }], expectedOutput: true },
+          { input: [{ ...msg, content: '123no123' }, { contains: 'test' }], expectedOutput: false }
+        ),
+        { input: [{ ...msg, embeds: undefined }, { contains: 'test' }], expectedOutput: false },
+        { input: [{ ...msg, embeds: [] }, { contains: 'test' }], expectedOutput: false },
+        { input: [{ ...msg, embeds: [{}] }, { contains: 'test' }], expectedOutput: false }
+      ),
+      addFlip(
+        ...addEmbed(
+          { input: [{ ...msg, content: undefined }, { starts_with: 'test' }], expectedOutput: false },
+          { input: [{ ...msg, content: '' }, { starts_with: 'test' }], expectedOutput: false },
+          { input: [{ ...msg, content: 'test' }, { starts_with: 'test' }], expectedOutput: true },
+          { input: [{ ...msg, content: '123test123' }, { starts_with: 'test' }], expectedOutput: false },
+          { input: [{ ...msg, content: 'TEST123' }, { starts_with: 'test' }], expectedOutput: true },
+          { input: [{ ...msg, content: '123TEST123' }, { starts_with: 'test' }], expectedOutput: false },
+          { input: [{ ...msg, content: 'no123' }, { starts_with: 'test' }], expectedOutput: false },
+          { input: [{ ...msg, content: '123no123' }, { starts_with: 'test' }], expectedOutput: false }
+        ),
+        { input: [{ ...msg, embeds: undefined }, { starts_with: 'test' }], expectedOutput: false },
+        { input: [{ ...msg, embeds: [] }, { starts_with: 'test' }], expectedOutput: false },
+        { input: [{ ...msg, embeds: [{}] }, { starts_with: 'test' }], expectedOutput: false }
+      )
+    ].flat();
+
+  require('../../Utils/testAFunction.js')(shouldDeleteMsg, testCases);
+}
