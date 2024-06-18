@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@discordjs/voice": "^0.17.0",
-    "@mephisto5558/bot-website": "^1.5.6",
+    "@mephisto5558/bot-website": "^1.5.8",
     "@mephisto5558/i18n": "^1.2.1",
     "@mephisto5558/mongoose-db": "^3.1.2",
     "better-ms": "^1.1.7",
@@ -41,13 +41,13 @@
     "zlib-sync": "^0.1.9"
   },
   "devDependencies": {
-    "@mephisto5558/eslint-config": "^1.2.3",
+    "@mephisto5558/eslint-config": "^1.2.4",
     "@stylistic/eslint-plugin": "^2.1.0",
     "@types/node-fetch": "^2.6.11",
     "@typescript-eslint/eslint-plugin": "^7.11.0",
     "eslint-plugin-jsdoc": "^48.2.7",
     "eslint-plugin-sonarjs": "^1.0.3",
-    "eslint-plugin-unicorn": "^53.0.0"
+    "eslint-plugin-unicorn": "^54.0.0"
   },
   "repository": {
     "type": "git",

@@ -18,7 +18,8 @@ module.exports = {
     const
       member = getTargetMember(this, { returnSelf: true }),
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
-      bannerURL = (await member.user.fetch()).bannerURL();
+      bannerURL = (await member.user.fetch()).bannerURL(),
+      status = member.presence?.activities.find(e => e.type == 4);
 
     let type = member.user.bot ? 'Bot, ' : '';
 
@@ -30,7 +31,8 @@ module.exports = {
     const
       embed = new EmbedBuilder({
         title: member.user.tag,
-        description: member.presence?.activities.reduce((acc, e) => acc + (e.type == 4 ? '' : lang(`activity.${e.type}`, e.name)), ''),
+        description: (status ? lang('activity.4', status.state) : '')
+        + member.presence?.activities.reduce((acc, e) => acc + (e.type == 4 ? '' : lang(`activity.${e.type}`, e.name)), ''),
         color: Number.parseInt((await getAverageColor(member.displayAvatarURL())).hex.slice(1), 16),
         thumbnail: { url: member.displayAvatarURL() },
         image: { url: bannerURL && bannerURL + '?size=1024' },
