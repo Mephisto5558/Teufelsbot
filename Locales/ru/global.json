@@ -17,5 +17,7 @@
   "false": "Нет",
   "modReason": "Команда {command} , модератор {user}",
   "downloadButton": "Скачать",
-  "menuTimedOut": "Истекло время ожидания этого меню."
+  "menuTimedOut": "Истекло время ожидания этого меню.",
+  "unknown": "Неизвестен",
+  "unknownUser": "Неизвестный пользователь"
 }
