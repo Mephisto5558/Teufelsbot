@@ -6,7 +6,7 @@ const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('di
  * @param {string|Record<string, string>} descriptionData*/
 function sendeMinigameDeletedEmbed(lang, descriptionData) {
   const embed = new EmbedBuilder({
-    author: { name: this.user?.username ?? lang('unknown'), iconURL: this.member?.displayAvatarURL() },
+    author: { name: this.user?.username ?? lang('global.unknownUser'), iconURL: this.member?.displayAvatarURL() },
     title: lang('embedTitle'),
     description: lang('embedDescription', descriptionData),
     color: Colors.Red,

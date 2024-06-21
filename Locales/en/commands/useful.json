@@ -233,7 +233,6 @@
     "memberRequiresChannel": "The \"member\" option only works in combination with the \"channel\" option!",
     "invalid": "The selected channel is not a text channel!",
     "noneFound": "I haven't found any mentions.",
-    "unknown": "unknown",
     "embedTitle": "Last Ping",
     "embedDescription": "The last time you were mentioned was [here]({url}) from <@{author}>.\n{content}"
   },

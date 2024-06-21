@@ -33,8 +33,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Counting",
-      "embedDescription": "Deleted Number: **{deletedNum}**\nNext Number: **{nextNum}**",
-      "unknown": "Unknown Author"
+      "embedDescription": "Deleted Number: **{deletedNum}**\nNext Number: **{nextNum}**"
     }
   },
   "mgstats": {
@@ -176,8 +175,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Wordchain",
-      "embedDescription": "Deleted Word: **{deletedWord}**",
-      "unknown": "Unknown Author"
+      "embedDescription": "Deleted Word: **{deletedWord}**"
     }
   }
 }

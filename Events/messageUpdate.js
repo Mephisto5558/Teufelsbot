@@ -2,7 +2,7 @@ const { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, Butt
 
 /**
  * @this {Message}
- * @param {Message}newMsg*/
+ * @param {Message|import('discord.js').PartialMessage}newMsg*/
 module.exports = function messageUpdate(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (
@@ -18,13 +18,11 @@ module.exports = function messageUpdate(newMsg) {
     /** @type {lang}*/
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
     embed = new EmbedBuilder({
-      author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
-      description: lang('embedDescription', { executor: `<@${newMsg.user.id}>`, channel: newMsg.channel.name }),
+      description: lang('embedDescription', { executor: `${newMsg.user ? '<@' + newMsg.user.id + '>' : lang('global.unknownUser')}`, channel: newMsg.channel.name }),
       fields: [
         { name: lang('global.channel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: false },
         { name: lang('oldContent'), value: '', inline: false },
-        { name: lang('newContent'), value: '', inline: false },
-        { name: lang('author'), value: `${newMsg.user.tag} (\`${newMsg.user.id}\`)`, inline: false }
+        { name: lang('newContent'), value: '', inline: false }
       ],
       timestamp: Date.now(),
       color: 0xE62AED
@@ -37,6 +35,11 @@ module.exports = function messageUpdate(newMsg) {
       })]
     });
 
+  if (newMsg.user) {
+    embed.data.author = { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() };
+    embed.data.fields.push({ name: lang('author'), value: `${newMsg.user.tag} (\`${newMsg.user.id}\`)`, inline: false });
+  }
+
   if (this.originalContent) embed.data.fields[1].value += `${this.originalContent}\n`;
   if (newMsg.originalContent) embed.data.fields[2].value += `${newMsg.originalContent}\n`;
 
@@ -46,8 +49,8 @@ module.exports = function messageUpdate(newMsg) {
   if (this.embeds.length) embed.data.fields[1].value += lang('events.logger.embeds', this.embeds.length);
   if (newMsg.embeds.length) embed.data.fields[2].value += lang('events.logger.embeds', newMsg.embeds.length);
 
-  if (embed.data.fields[1].value == '') embed.data.fields[1].value = lang('unknown');
-  if (embed.data.fields[2].value == '') embed.data.fields[2].value = lang('unknown');
+  if (embed.data.fields[1].value == '') embed.data.fields[1].value = lang('global.unknown');
+  if (embed.data.fields[2].value == '') embed.data.fields[2].value = lang('global.unknown');
 
   if (embed.data.fields[1].value.length > 1024) embed.data.fields[1].value = embed.data.fields[1].value.slice(0, 1021) + '...';
   if (embed.data.fields[2].value.length > 1024) embed.data.fields[2].value = embed.data.fields[2].value.slice(0, 1021) + '...';
