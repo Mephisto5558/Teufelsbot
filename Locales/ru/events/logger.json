@@ -18,8 +18,7 @@
     "oldContent": "Оригинальное сообщение",
     "newContent": "Новое сообщение",
     "author": "Автор",
-    "messageLink": "Сообщение",
-    "unknown": "Неизвестен"
+    "messageLink": "Сообщение"
   },
   "voiceStateUpdate": {
     "embedDescriptionJoin": "{executor} присоединился к голосовому каналу {newChannel}.",
