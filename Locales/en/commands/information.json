@@ -57,7 +57,6 @@
     },
     "notFound": "No information found for this emoji.",
     "embedTitle": "Info about \"{emoji}\"",
-    "unknown": "unknown",
     "name": "Name",
     "id": "ID",
     "guild": "Guild",

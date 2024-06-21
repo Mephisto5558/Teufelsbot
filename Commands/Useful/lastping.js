@@ -43,7 +43,7 @@ module.exports = {
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { url, content: content ? `>>> ${content.slice(0, 200)}` : lang('unknown'), author: author.id ?? author }),
+      description: lang('embedDescription', { url, content: content ? `>>> ${content.slice(0, 200)}` : lang('global.unknown'), author: author.id ?? author }),
       timestamp: createdAt,
       color: Colors.White
     });
