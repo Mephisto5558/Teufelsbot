@@ -17,5 +17,7 @@
   "false": "Nu",
   "modReason": "{command} comando, moderador {user}",
   "downloadButton": "Descargar",
-  "menuTimedOut": "Este menú ha expirado."
+  "menuTimedOut": "Este menú ha expirado.",
+  "unknown": "Desconocido",
+  "unknownUser": "Usuario desconocido"
 }

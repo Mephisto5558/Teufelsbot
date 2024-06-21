@@ -17,5 +17,7 @@
   "false": "No",
   "modReason": "{command} comando, moderatore {user}",
   "downloadButton": "Scarica",
-  "menuTimedOut": "Questo menu è scaduto."
+  "menuTimedOut": "Questo menu è scaduto.",
+  "unknown": "Sconosciuto",
+  "unknownUser": "Utente Sconosciuto"
 }
