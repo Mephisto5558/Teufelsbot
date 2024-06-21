@@ -18,6 +18,6 @@
   "modReason": "{command} command, moderator {user}",
   "downloadButton": "Download",
   "menuTimedOut": "This menu timed out.",
-  "unknown": "Unbekannt",
+  "unknown": "Unknown",
   "unknownUser": "Unknown User"
 }
