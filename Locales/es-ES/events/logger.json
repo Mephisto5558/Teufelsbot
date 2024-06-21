@@ -18,8 +18,7 @@
     "oldContent": "Mensaje original",
     "newContent": "Nuevo mensaje",
     "author": "Autor",
-    "messageLink": "Mensaje",
-    "unknown": "Desconocido"
+    "messageLink": "Mensaje"
   },
   "voiceStateUpdate": {
     "embedDescriptionJoin": "{executor} se unió al canal de voz {newChannel}.",
