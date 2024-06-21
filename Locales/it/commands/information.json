@@ -57,7 +57,6 @@
     },
     "notFound": "Nessuna informazione trovata per questa emoji.",
     "embedTitle": "Informazioni su \"{emoji}\"",
-    "unknown": "sconosciuto",
     "name": "Nome",
     "id": "ID",
     "guild": "Gilda",
@@ -239,6 +238,7 @@
       "1": "Streams {activity}",
       "2": "Ascolta {activity}",
       "3": "Orologi {activity}",
+      "4": "Stato: \"{message}\")\n",
       "5": "In competizione in {activity}"
     },
     "mention": "Menzione",
