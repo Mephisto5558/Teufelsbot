@@ -17,5 +17,7 @@
   "false": "Nein",
   "modReason": "{command}-Befehl, Moderator {user}",
   "downloadButton": "Herunterladen",
-  "menuTimedOut": "Das Menü ist abgelaufen."
+  "menuTimedOut": "Das Menü ist abgelaufen.",
+  "unknown": "Unbekannt",
+  "unknownUser": "Unbekannter User"
 }

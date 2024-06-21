@@ -19,7 +19,7 @@ module.exports = function logSayCommandUse(member, lang) {
       description: lang('embedDescription', { executor: `<@${member.id}>`, channel: this.channel.name }),
       fields: [
         { name: lang('global.channel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: false },
-        { name: lang('content'), value: this.content ?? (this.embeds.length ? lang('events.logger.embeds', this.embeds.length) : lang('events.logger.unknown')), inline: false },
+        { name: lang('content'), value: this.content ?? (this.embeds.length ? lang('events.logger.embeds', this.embeds.length) : lang('global.unknown')), inline: false },
         { name: lang('author'), value: `${member.user.tag} (\`${member.id}\`)`, inline: false }
       ],
       timestamp: Date.now(),
