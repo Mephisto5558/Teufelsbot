@@ -32,7 +32,7 @@ function shouldDeleteMsg(msg, options) {
       || msg.content?.toLowerCase()[fn](option.toLowerCase())
       || msg.embeds?.some(e => e.description?.toLowerCase()[fn](option.toLowerCase()))
     ),
-    bool = msg.bulkDeletable && (options.remove_pinned || !msg.pinned),
+    bool = !!(msg.bulkDeletable && (options.remove_pinned || !msg.pinned)),
     userType = msg.user.bot ? 'bot' : 'human';
 
   if (!filterOptionsExist(options)) return bool;
