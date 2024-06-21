@@ -33,8 +33,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Conteggio",
-      "embedDescription": "Numero Eliminato: **{deletedNum}**\nNumero Successivo: **{nextNum}**",
-      "unknown": "Autore Sconosciuto"
+      "embedDescription": "Numero Eliminato: **{deletedNum}**\nNumero Successivo: **{nextNum}**"
     }
   },
   "mgstats": {
@@ -176,8 +175,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Wordchain",
-      "embedDescription": "Parola Eliminata: **{deletedWord}**",
-      "unknown": "Autore Sconosciuto"
+      "embedDescription": "Parola Eliminata: **{deletedWord}**"
     }
   }
 }
