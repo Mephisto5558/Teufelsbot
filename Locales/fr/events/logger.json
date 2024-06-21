@@ -18,8 +18,7 @@
     "oldContent": "Message original",
     "newContent": "Nouveau message",
     "author": "Auteur",
-    "messageLink": "Message",
-    "unknown": "Inconnu"
+    "messageLink": "Message"
   },
   "voiceStateUpdate": {
     "embedDescriptionJoin": "{executor} a rejoint le salon vocal {newChannel}.",
