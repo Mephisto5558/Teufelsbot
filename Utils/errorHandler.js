@@ -81,10 +81,14 @@ module.exports = async function errorHandler(err, message, lang) {
 
         const attachment = new AttachmentBuilder(Buffer.from(JSON.stringify({ ...message }, (_, v) => typeof v == 'bigint' ? v.toString() : v, 2)), { name: 'data.json' });
 
-        for (const dev of devIds) {
-          try { await dev.send({ content: json.html_url, files: [attachment] }); }
+        for (const devId of devIds) {
+          try {
+            const dev = await this.client.users.fetch(devId);
+            await dev.send({ content: json.html_url, files: [attachment] });
+          }
           catch (err) {
-            if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
+            if (err.code == DiscordAPIErrorCodes.UnknownUser) log.error(`Unknown Dev ID "${devId}"`);
+            else if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
           }
         }
 
