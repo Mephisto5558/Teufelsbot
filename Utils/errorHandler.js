@@ -83,7 +83,7 @@ module.exports = async function errorHandler(err, message, lang) {
 
         for (const devId of devIds) {
           try {
-            const dev = await this.client.users.fetch(devId);
+            const dev = await this.users.fetch(devId);
             await dev.send({ content: json.html_url, files: [attachment] });
           }
           catch (err) {
