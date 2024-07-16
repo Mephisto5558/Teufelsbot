@@ -14,10 +14,11 @@ module.exports = {
       startTime = Math.round(Date.now() / 1000 - process.uptime()),
       description
         = `${lang('dev')}: [Mephisto5558](https://discord.com/users/691550551825055775)\n` // Please do not change this line
-        + (this.inGuild() ?
-           `${lang('shard')}: \`${this.guild.shardId}\`\n`
-           + `${lang('guild')}: \`${this.guild.db.position}\`\n`
-          : '')
+        + (this.inGuild()
+          ? `${lang('shard')}: \`${this.guild.shardId}\`\n`
+          + `${lang('guild')}: \`${this.guild.db.position}\`\n`
+          : ''
+        )
         + `${lang('guilds')}: \`${this.client.guilds.cache.size}\`\n`
         + `${lang('commands')}: \`${new Set(this.client.prefixCommands.filter(e => !e.aliasOf), this.client.slashCommands.filter(e => !e.aliasOf)).size}\`\n`
         + `${lang('starts')}: \`${this.client.settings.startCount[this.client.botType]}\`\n`
