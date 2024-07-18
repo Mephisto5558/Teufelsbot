@@ -25,10 +25,17 @@ module.exports = {
     const msg = await this.reply(lang('global.loading'));
 
     try {
-      await (this.content.includes('await') ? new BoundAsyncFunction(this.content) : new BoundFunction(this.content)).call(this, __dirname, __filename, module, exports, require, lang);
+      await (this.content.includes('await') ? new BoundAsyncFunction(this.content) : new BoundFunction(this.content))
+        .call(this, __dirname, __filename, module, exports, require, lang);
+
       await msg.customReply(lang('success', lang('finished', this.content)));
     }
-    catch (err) { msg.customReply(lang('error', { msg: lang('finished', this.content), name: err.name, err: err.message })); }
+    catch (err) {
+      /* eslint-disable-next-line no-ex-assign -- valid use case imo*/
+      if (!(err instanceof Error)) err = new Error(err ?? lang('emptyRejection'));
+
+      msg.customReply(lang('error', { msg: lang('finished', this.content), name: err.name, err: err.message }));
+    }
 
     return log.debug(`evaluated command '${this.content}'`);
   }
