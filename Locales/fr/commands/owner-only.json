@@ -27,6 +27,7 @@
     },
     "finished": "commande évaluée :\n```js\n{code}\n```\n",
     "success": "{msg} sans erreurs.",
+    "emptyRejection": "Rejet de promesse vide",
     "error": "{msg} avec l'erreur suivante:\n```\n{name}: {err}\n```"
   },
   "exec": {

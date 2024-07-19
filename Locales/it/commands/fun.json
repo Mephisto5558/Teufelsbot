@@ -256,22 +256,6 @@
   "happy": {
     "description": "invia un messaggio felice"
   },
-  "image": {
-    "description": "Manipolazione immagine",
-    "usage": {
-      "usage": "<subcommand | 'help'> <args>",
-      "examples": "magik https://example.com/image.png 3"
-    },
-    "options": {
-      "type": {
-        "description": "Il tipo che vuoi usare. Lascia questo vuoto per ottenere un elenco di tipi."
-      }
-    },
-    "notFound": "Questa opzione non è valida. ",
-    "validOptions": "Le opzioni valide sono:\n`{options}`",
-    "requiresArgs": "Questo comando richiede i seguenti args in ordine:\n\n{args}",
-    "error": "Si è verificato un errore:\n```{err}```"
-  },
   "joke": {
     "description": "manda una battuta divertente",
     "usage": {
