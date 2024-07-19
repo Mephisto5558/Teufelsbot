@@ -256,22 +256,6 @@
   "happy": {
     "description": "Lasse den Bot eine fröhliche Nachricht senden."
   },
-  "image": {
-    "description": "Bildbearbeitung",
-    "usage": {
-      "usage": "<subcommand | 'help'> <args>",
-      "examples": "magik https://example.com/image.png 3"
-    },
-    "options": {
-      "type": {
-        "description": "Die Art der Bildbearbeitung, die du nutzen möchtest. Lass dies leer, um alle Möglichkeiten zu sehen."
-      }
-    },
-    "notFound": "Das ist keine gültige Option. ",
-    "validOptions": "Mögliche Optionen sind:\n`{options}`",
-    "requiresArgs": "Dieser Befehl benötigt folgende Argumente in Reihenfolge:\n\n{args}",
-    "error": "Ein Fehler ist aufgetreten:\n```{err}```"
-  },
   "joke": {
     "description": "Lasse den Bot einen Witz senden",
     "usage": {

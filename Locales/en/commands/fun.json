@@ -256,22 +256,6 @@
   "happy": {
     "description": "sends a happy message"
   },
-  "image": {
-    "description": "Image manipulation",
-    "usage": {
-      "usage": "<subcommand | 'help'> <args>",
-      "examples": "magik https://example.com/image.png 3"
-    },
-    "options": {
-      "type": {
-        "description": "The type you want to use. Leave this empty to get a list of types."
-      }
-    },
-    "notFound": "This is not a valid option. ",
-    "validOptions": "Valid options are:\n`{options}`",
-    "requiresArgs": "This command requires the following args in order:\n\n{args}",
-    "error": "An error occurred:\n```{err}```"
-  },
   "joke": {
     "description": "sends a funny joke",
     "usage": {
