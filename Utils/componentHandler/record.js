@@ -13,7 +13,7 @@ const
  * @param {string}requesterId
  * @param {string}voiceChannelId*/
 module.exports = function record(lang, mode, requesterId, voiceChannelId) {
-  lang.__boundArgs__[0].backupPath = 'commands.useful.record';
+  lang.__boundArgs__[0].backupPath = 'commands.premium.record';
 
   switch (mode) {
     case 'memberAllow':
@@ -21,12 +21,11 @@ module.exports = function record(lang, mode, requesterId, voiceChannelId) {
       if (this.member.voice?.channelId != voiceChannelId) return;
       if (!(this.member instanceof GuildMember)) return; // typeguard
 
-      /** @type {Collection<string, { userId: string, allowed: boolean }[]>}*/
-      const guildCache = cache.get(this.guild.id) ?? cache.set(this.guild.id, new Collection([[voiceChannelId, []]])).get(this.guild.id);
+      const
+        guildCache = cache.get(this.guild.id) ?? cache.set(this.guild.id, new Collection([[voiceChannelId, []]])).get(this.guild.id),
+        vcCache = guildCache.get(voiceChannelId) ?? guildCache.set(voiceChannelId, []).get(voiceChannelId);
 
-      /** @type {{ userId: string, allowed: boolean }[]}*/
-      const vcCache = guildCache.get(voiceChannelId) ?? guildCache.set(voiceChannelId, []).get(voiceChannelId);
-
+      if (!guildCache || !vcCache) return; // typeguard
       vcCache.push({ userId: this.user.id, allowed: mode == 'memberAllow' });
 
       this.reply({ content: lang('updated', lang(mode == 'memberAllow' ? 'allow' : 'deny')), ephemeral: true });
