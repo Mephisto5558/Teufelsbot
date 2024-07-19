@@ -27,6 +27,7 @@
     },
     "finished": "Code:\n```js\n{code}\n```\n",
     "success": "{msg} wurde fehlerlos ausgeführt.",
+    "emptyRejection": "Leere Promise-Ablehnung",
     "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
   },
   "exec": {
