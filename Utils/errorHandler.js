@@ -46,13 +46,13 @@ module.exports = async function errorHandler(err, message, lang) {
         if (!(github.userName && github.repoName)) throw new Error('Missing GitHub username or repo name config');
 
         const
-          title = `${err.name}: "${err.message}" in command "${message.commandName}"`,
+          headers = {
+            Authorization: `Token ${this.keys.githubKey}`,
+            'User-Agent': `Bot ${github.repo}`
+          },
+          title = `${err.name}: "${err.message}" in ${message.inGuild() ? '' : 'DM '}command "${message.commandName}"`,
           issues = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
-            method: 'GET',
-            headers: {
-              Authorization: `Token ${this.keys.githubKey}`,
-              'User-Agent': `Bot ${github.repo}`
-            }
+            method: 'GET', headers
           }),
           issuesJson = await issues.json();
 
@@ -65,11 +65,7 @@ module.exports = async function errorHandler(err, message, lang) {
 
         const
           res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
-            method: 'POST',
-            headers: {
-              Authorization: `Token ${this.keys.githubKey}`,
-              'User-Agent': `Bot ${github.repo}`
-            },
+            method: 'POST', headers,
             body: JSON.stringify({
               title, body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack.replaceAll(cwd, '[cwd]')}`,
               labels: ['bug']
@@ -82,17 +78,14 @@ module.exports = async function errorHandler(err, message, lang) {
         const attachment = new AttachmentBuilder(Buffer.from(JSON.stringify({ ...message }, (_, v) => typeof v == 'bigint' ? v.toString() : v, 2)), { name: 'data.json' });
 
         for (const devId of devIds) {
-          try {
-            const dev = await this.users.fetch(devId);
-            await dev.send({ content: json.html_url, files: [attachment] });
-          }
+          try { await (await this.users.fetch(devId)).send({ content: json.html_url, files: [attachment] }); }
           catch (err) {
             if (err.code == DiscordAPIErrorCodes.UnknownUser) log.error(`Unknown Dev ID "${devId}"`);
             else if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
           }
         }
 
-        /* eslint-disable-next-line unicorn/no-null -- `null` must be used here, as `undefined` is interpreted as 'Keep current data'  */
+        /* eslint-disable-next-line unicorn/no-null -- `null` must be used here, as `undefined` is interpreted as 'Keep current data' */
         return msg.edit({ embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', json.html_url))], components: [] });
       }
       catch (err) {
