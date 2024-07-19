@@ -19,7 +19,7 @@ async function deleteOld(path) {
 
 module.exports = {
   time: '00 00 00 01 * *',
-  startNow: true,
+  startNow: false,
 
   /** @this {Client}*/
   onTick: async function () {
