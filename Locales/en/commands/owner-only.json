@@ -27,6 +27,7 @@
     },
     "finished": "evaluated command:\n```js\n{code}\n```\n",
     "success": "{msg} without errors.",
+    "emptyRejection": "Empty Promise Rejection",
     "error": "{msg} with the following error:\n```\n{name}: {err}\n```"
   },
   "exec": {
