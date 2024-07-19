@@ -98,9 +98,16 @@ module.exports.recordControls = async function recordControls(lang, mode, voiceC
   const
     embed = this.message.embeds[0],
     buttons = this.message.components[0],
-    membersToRecord = cache.get(this.guild.id).get(voiceChannelId).filter(e => e.allowed)
-      .map(e => e.userId),
-    filename = `${this.message.createdTimestamp}_${voiceChannelId}_${membersToRecord.join('_')}`;
+    membersToRecord = cache.get(this.guild.id)?.get(voiceChannelId)?.filter(e => e.allowed)
+      .map(e => e.userId);
+
+  if (!membersToRecord) {
+    embed.data.description = lang('notFound');
+    embed.data.color = Colors.Red;
+    return this.update({ embeds: [embed], components: [] });
+  }
+
+  const filename = `${this.message.createdTimestamp}_${voiceChannelId}_${membersToRecord.join('_')}`;
 
   switch (mode) {
     case 'pause': {
