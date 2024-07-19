@@ -27,6 +27,7 @@
     },
     "finished": "comando valutato:\n```js\n{code}\n```\n",
     "success": "{msg} senza errori.",
+    "emptyRejection": "Rifiuto Promessa Vuota",
     "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```"
   },
   "exec": {
