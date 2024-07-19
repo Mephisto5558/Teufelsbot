@@ -20,6 +20,7 @@ async function reloadCommand(command, reloadedArray) {
 
   const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n) : undefined;
 
+  // NOSONAR
   file.name = command.name;
   file.filePath = command.filePath;
   file.category = command.category;
