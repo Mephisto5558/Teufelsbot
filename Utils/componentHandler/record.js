@@ -9,10 +9,11 @@ const
  * this.customId: `record.<mode>.<requesterId>.<voiceChannelId>.<public>`
  * @this {import('discord.js').ButtonInteraction}
  * @param {lang}lang
- * @param {'memberAllow'|'memberDeny'|'cancel'}mode
- * @param {string}requesterId
- * @param {string}voiceChannelId*/
-module.exports = function record(lang, mode, requesterId, voiceChannelId) {
+ * @param {'memberAllow'|'memberDeny'|'cancel'|'pause'|'stop'|'get'}mode
+ * @param {string}requesterId for `mode == 'get'` this will be the filename
+ * @param {string}voiceChannelId
+ * @param {'true'|'false'}isPublic*/
+module.exports = function record(lang, mode, requesterId, voiceChannelId, isPublic) {
   lang.__boundArgs__[0].backupPath = 'commands.premium.record';
 
   switch (mode) {
@@ -31,7 +32,7 @@ module.exports = function record(lang, mode, requesterId, voiceChannelId) {
       this.reply({ content: lang('updated', lang(mode == 'memberAllow' ? 'allow' : 'deny')), ephemeral: true });
 
       if (![...this.message.mentions.users.keys()].every(id => vcCache.find(e => e.userId == id))) return;
-      return startRecording.call(this, lang, requesterId, voiceChannelId, vcCache);
+      return startRecording.call(this, lang, requesterId, voiceChannelId, isPublic == 'true', vcCache);
     }
     case 'cancel': {
       if (this.user.id != requesterId) return;
@@ -41,8 +42,15 @@ module.exports = function record(lang, mode, requesterId, voiceChannelId) {
 
       return this.message.edit({ content: lang('canceled'), embeds: [], components: [] });
     }
+    case 'get': {
+      return this.reply({
+        content: lang('success'),
+        files: [`./VoiceRecords/${requesterId}.mp3`],
+        ephemeral: true
+      });
+    }
     case 'pause':
     case 'stop':
-      recordControls.call(this, lang, mode, voiceChannelId, cache);
+      recordControls.call(this, lang, mode, voiceChannelId, isPublic == 'true', cache);
   }
 };
