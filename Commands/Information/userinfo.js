@@ -32,7 +32,7 @@ module.exports = {
       embed = new EmbedBuilder({
         title: member.user.tag,
         description: (status ? lang('activity.4', status.state) : '')
-        + member.presence?.activities.reduce((acc, e) => acc + (e.type == 4 ? '' : lang(`activity.${e.type}`, e.name)), ''),
+        + member.presence?.activities.reduce((acc, e) => acc + ', ' + (e.type == 4 ? '' : lang(`activity.${e.type}`, e.name)), ''),
         color: Number.parseInt((await getAverageColor(member.displayAvatarURL())).hex.slice(1), 16),
         thumbnail: { url: member.displayAvatarURL() },
         image: { url: bannerURL && bannerURL + '?size=1024' },
