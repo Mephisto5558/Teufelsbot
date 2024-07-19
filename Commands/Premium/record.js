@@ -1,4 +1,9 @@
-const { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors } = require('discord.js');
+const
+  { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors } = require('discord.js'),
+  { access, mkdir } = require('node:fs/promises');
+
+// due to VoiceRecords being in .gitignore, we need this check
+access('./VoiceRecords/raw').catch(() => mkdir('./VoiceRecords/raw', { recursive: true }));
 
 /** @type {command<'slash'>}*/
 module.exports = {
@@ -17,7 +22,7 @@ module.exports = {
 
   run: function (lang) {
     const
-      isPublic = this.options.getBoolean('public'),
+      isPublic = !!this.options.getBoolean('public'),
 
       /** @type {import('discord.js').BaseGuildVoiceChannel?}*/
       voiceChannel = this.options.getChannel('channel') ?? this.options.getMember('target')?.voice.channel ?? this.member.voice.channel,
