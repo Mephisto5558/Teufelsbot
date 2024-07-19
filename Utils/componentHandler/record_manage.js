@@ -5,7 +5,11 @@ const
   { createWriteStream } = require('node:fs'),
   { unlink, access, mkdir } = require('node:fs/promises'),
   exec = require('node:util').promisify(require('node:child_process').exec),
-  ffmpeg = require('ffmpeg-static').default;
+
+  /** @type {string?} */
+  ffmpeg = require('ffmpeg-static');
+
+if (!ffmpeg) throw new Error('no ffmpeg');
 
 /**
  * @this {import('discord.js').ButtonInteraction}
@@ -101,11 +105,13 @@ module.exports.recordControls = async function recordControls(lang, mode, voiceC
     membersToRecord = cache.get(this.guild.id)?.get(voiceChannelId)?.filter(e => e.allowed)
       .map(e => e.userId);
 
+
   if (!membersToRecord) {
     embed.data.description = lang('notFound');
     embed.data.color = Colors.Red;
     return this.update({ embeds: [embed], components: [] });
   }
+  if (!membersToRecord.includes(this.user.id)) this.update(lang('global.noPermUser'));
 
   const filename = `${this.message.createdTimestamp}_${voiceChannelId}_${membersToRecord.join('_')}`;
 
