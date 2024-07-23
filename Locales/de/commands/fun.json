@@ -368,8 +368,8 @@
     "description": "Sage deinen Freunden, dass du schlafen gehst.",
     "responseList": [
       "{user} ist müde und geht jetzt schlafen",
-      "{user} geht jetzt ins Bettchen <:engelchen:725458214044303371>",
-      "{user} schläft jetzt, hoffentlich schnarcht er/sie nicht <:gucken:725670318164672543>"
+      "{user} geht jetzt ins Bettchen <:angel:1265278659166732320>",
+      "{user} schläft jetzt, hoffentlich schnarcht er/sie nicht <:derp_ball:1265275872630407199>"
     ],
     "afkMessage": "schläft"
   },
