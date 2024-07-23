@@ -69,9 +69,9 @@
   "restart": {
     "description": "Restarts the bot",
     "alreadyRestarting": "The bot is already performing a restart, please wait for it to finish. Message: {url}",
-    "updatingNPM": "<:loading:1265274270645354577> Restarting bot...\nInstalling packages...",
+    "updatingNPM": "<a:loading:1265274270645354577> Restarting bot...\nInstalling packages...",
     "updateNPMError": "❌ Restart failed due to an NPM error. Check the console for more information.",
-    "restarting": "<:loading:1265274270645354577> Restarting bot...\nStarting node process...",
+    "restarting": "<a:loading:1265274270645354577> Restarting bot...\nStarting node process...",
     "restartingError": "❌ Restart failed due to the an Node error. Check the console for more information.",
     "success": "✅ Successfully restarted."
   },
