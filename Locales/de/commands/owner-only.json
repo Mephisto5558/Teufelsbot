@@ -69,9 +69,9 @@
   "restart": {
     "description": "Startet den Bot neu",
     "alreadyRestarting": "Der Bot führt bereits einen Neustart durch. Bitte warte, bis er abgeschlossen ist. Nachricht: {url}",
-    "updatingNPM": "<a:loading:1063091916683612160> Bot wird neu gestartet...\nInstalliere Pakete...",
+    "updatingNPM": "<a:loading:1265274270645354577> Bot wird neu gestartet...\nInstalliere Pakete...",
     "updateNPMError": "❌ Neustart fehlgeschlagen aufgrund eines NPM-Fehlers. Überprüfe die Konsole für weitere Informationen.",
-    "restarting": "<a:loading:1063091916683612160> Bot wird neu gestartet...\nStarte Node-Prozess...",
+    "restarting": "<a:loading:1265274270645354577> Bot wird neu gestartet...\nStarte Node-Prozess...",
     "restartingError": "❌ Neustart fehlgeschlagen aufgrund eines Node-Fehlers. Überprüfe die Konsole für weitere Informationen.",
     "success": "✅ Erfolgreich neu gestartet."
   },
