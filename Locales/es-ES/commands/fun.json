@@ -360,8 +360,8 @@
     "description": "dice a tus amigos que vas a dormir",
     "responseList": [
       "{user} está cansado y ahora va a dormir :3",
-      "{user} va ahora a la cama <:engelchen:725458214044303371>",
-      "{user} duerme ahora, esperemos que no se sienta <:gucken:725670318164672543>"
+      "{user} va ahora a la cama <:angel:1265278659166732320>",
+      "{user} duerme ahora, esperemos que no se sienta <:derp_ball:1265275872630407199>"
     ],
     "afkMessage": "durmiendo"
   },
