@@ -69,9 +69,9 @@
   "restart": {
     "description": "Redémarre le bot",
     "alreadyRestarting": "Le bot effectue déjà un redémarrage, veuillez attendre qu'il se termine. Message : {url}",
-    "updatingNPM": "<a:loading:1063091916683612160> Redémarrage du bot...\nInstallation des paquets...",
+    "updatingNPM": "<a:loading:1265274270645354577> Redémarrage du bot...\nInstallation des paquets...",
     "updateNPMError": "❌ Le redémarrage a échoué en raison d'une erreur du Musée national du Palais. Consultez la console pour plus d'informations.",
-    "restarting": "<a:loading:1063091916683612160> Redémarrage du bot...\nDémarrage du processus de nœud...",
+    "restarting": "<a:loading:1265274270645354577> Redémarrage du bot...\nDémarrage du processus de nœud...",
     "restartingError": "❌ Le redémarrage a échoué en raison d'une erreur de nœud. Consultez la console pour plus d'informations.",
     "success": "Redémarré avec succès."
   },
