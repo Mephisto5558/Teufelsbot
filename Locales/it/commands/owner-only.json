@@ -9,7 +9,7 @@
     "notFound": "Nessuna voce trovata per questo id.",
     "saved": "`{user}` è stato inserito nella blacklist dall'utilizzo del bot.",
     "removed": "La voce blacklist per `{user}` è stata rimossa.",
-    "cantBlacklistOwner": "Non riesco a blacklist il proprietario del bot!"
+    "cantBlacklistDev": "Non riesco a blacklist il proprietario del bot!"
   },
   "dbget": {
     "description": "interroga i dati dal database",

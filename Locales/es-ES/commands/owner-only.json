@@ -6,7 +6,7 @@
     "notFound": "No se encontró ninguna entrada para este id.",
     "saved": "`{user}` ha sido bloqueado de usar el bot.",
     "removed": "La entrada de la lista negra para `{user}` ha sido eliminada.",
-    "cantBlacklistOwner": "¡No puedo negar al dueño del bot!"
+    "cantBlacklistDev": "¡No puedo negar al dueño del bot!"
   },
   "dbget": {
     "description": "consultar datos de la base de datos",
