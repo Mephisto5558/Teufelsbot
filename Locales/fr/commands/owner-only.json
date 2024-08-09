@@ -9,7 +9,7 @@
     "notFound": "Aucune entrée trouvée pour cet identifiant.",
     "saved": "`{user}` a été exclu de l'utilisation du bot.",
     "removed": "L'entrée de la liste noire pour `{user}` a été supprimée.",
-    "cantBlacklistOwner": "Je ne peux pas blacklister le propriétaire du bot!"
+    "cantBlacklistDev": "Je ne peux pas blacklister le propriétaire du bot!"
   },
   "dbget": {
     "description": "interroger les données de la base de données",

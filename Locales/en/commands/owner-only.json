@@ -9,7 +9,7 @@
     "notFound": "Found no entry for this id.",
     "saved": "`{user}` has been blacklisted from using the bot.",
     "removed": "The blacklist entry for `{user}` has been removed.",
-    "cantBlacklistOwner": "I can't blacklist the owner of the bot!"
+    "cantBlacklistDev": "I can't blacklist a developer of the bot!"
   },
   "dbget": {
     "description": "query data from the database",
