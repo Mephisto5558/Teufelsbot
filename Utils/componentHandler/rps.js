@@ -68,7 +68,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
 
     case 'accept': if (opponent.user.bot || this.user.id == opponentId) return sendGame.call(this, initiator, opponent, lang); break;
     case 'playAgain':
-      if (this.client.botType != 'dev') await this.client.db.update('botSettings', 'stats.rps', (this.client.settings.stats.rps ?? 0) + 1);
+      if (this.client.botType != 'dev') await this.client.db.update('botSettings', 'cmdStats.rps.slash', (this.client.settings.cmdStats.rps.slash ?? 0) + 1);
 
       if (opponent.user.bot) return sendGame.call(this, initiator, opponent, lang);
       return sendChallenge.call(this, this.member, initiatorId == this.user.id ? opponent : initiator, lang);
@@ -119,7 +119,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
         })]
       });
 
-      return this.update({ embeds: this.message.embeds, components: [component] });
+      return this.message.edit({ embeds: this.message.embeds, components: [component] });
     }
   }
 };
