@@ -31,8 +31,12 @@ function checkOptions(command, lang) {
   if (!option.options) return;
 
   for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete }] of option.options.entries()) {
-    if (required && !this.options?.get(name) && !this.args?.[i])
-      return ['paramRequired', { option: name, description: descriptionLocalizations?.[lang.__boundArgs__[0].locale ?? lang.__boundThis__.config.defaultLocale] ?? description }];
+    if (required && !this.options?.get(name) && !this.args?.[i]) {
+      return ['paramRequired', {
+        option: name,
+        description: descriptionLocalizations?.[lang.__boundArgs__[0].locale] ?? descriptionLocalizations?.[lang.__boundThis__.config.defaultLocale] ?? description
+      }];
+    }
 
     if (
       (this instanceof Message || this.isChatInputCommand())
