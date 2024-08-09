@@ -12,5 +12,5 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: function () { return this.customReply(responseList.random()); }
+  run: async function () { return this.customReply(responseList.random()); }
 };

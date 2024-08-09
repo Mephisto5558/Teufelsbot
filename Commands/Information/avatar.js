@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { getTargetMember } = require('../../Utils');
+  { getTargetMember } = require('#Utils');
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
     }
   ],
 
-  run: function (lang) {
+  run: async function (lang) {
     const
       target = getTargetMember(this, { returnSelf: true }),
       avatarURL = target.displayAvatarURL({ size: this.options?.getInteger('size') ?? 2048 }),

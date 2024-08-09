@@ -1,6 +1,6 @@
 const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { DiscordApiErrorCodes } = require('../../Utils');
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError } = require('discord.js'),
+  { DiscordApiErrorCodes } = require('#Utils');
 
 /** @type {command<'slash'>}*/
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
         {
           name: 'style',
           type: 'String',
-          choices: Object.keys(ButtonStyle).filter(e => Number(e)).map(String),
+          choices: Object.keys(ButtonStyle).filter(Number).map(String),
           required: true
         },
         { name: 'emoji', type: 'String' },
@@ -91,7 +91,8 @@ module.exports = {
       return this.editReply(custom ? lang('successJSON') : lang('success', JSON.stringify(button.data.filterEmpty())));
     }
     catch (err) {
-      return this.editReply(lang('invalidOption', err.message)); // todo: improve error handling
+      if (!(err instanceof DiscordAPIError) && !err.message?.includes('JSON at')) throw err;
+      return this.editReply(lang('invalidOption', err.message));
     }
   }
 };

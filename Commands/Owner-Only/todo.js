@@ -5,7 +5,7 @@ module.exports = {
   slashCommand: false,
   prefixCommand: true,
 
-  run: function () {
+  run: async function () {
     return this.reply(
       `[ToDo excel](<${this.client.config.website.domain}/todo>), `
       + `[Voting page](<${this.client.config.website.domain}/vote>), `

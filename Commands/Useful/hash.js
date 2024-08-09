@@ -24,7 +24,7 @@ module.exports = {
     }
   ],
 
-  run: function (lang) {
+  run: async function (lang) {
     const
       input = this.options.getString('input', true),
       method = this.options.getString('method', true),

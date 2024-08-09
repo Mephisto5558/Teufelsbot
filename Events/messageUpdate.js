@@ -1,12 +1,12 @@
 const { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 /**
- * @this {Message}
- * @param {Message|import('discord.js').PartialMessage}newMsg*/
+ * @this {import('discord.js').PartialMessage}
+ * @param {import('discord.js').PartialMessage}newMsg*/
 module.exports = function messageUpdate(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (
-    !newMsg || this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled || !setting.channel
+    this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled
     || this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size && this.embeds.length && newMsg.embeds.length
   ) return;
 
@@ -18,7 +18,7 @@ module.exports = function messageUpdate(newMsg) {
     /** @type {lang}*/
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
     embed = new EmbedBuilder({
-      description: lang('embedDescription', { executor: `${newMsg.user ? '<@' + newMsg.user.id + '>' : lang('global.unknownUser')}`, channel: newMsg.channel.name }),
+      description: lang('embedDescription', { executor: newMsg.user ? `<@${newMsg.user.id}>` : lang('global.unknownUser'), channel: newMsg.channel.name }),
       fields: [
         { name: lang('global.channel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: false },
         { name: lang('oldContent'), value: '', inline: false },

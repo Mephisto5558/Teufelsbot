@@ -1,6 +1,6 @@
 const
   { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js'),
-  { DiscordApiErrorCodes } = require('../../Utils');
+  { DiscordApiErrorCodes } = require('#Utils');
 
 /** @type {command<'slash'>}*/
 module.exports = {
@@ -53,7 +53,7 @@ module.exports = {
     if (msg.author.id != this.client.user.id) return this.reply({ content: lang('notBotMessage'), ephemeral: true });
     if (!msg.editable) return this.reply({ content: lang('cannotEdit'), ephemeral: true });
 
-    this.showModal(modal);
+    void this.showModal(modal);
     try { modalInteraction = await this.awaitModalSubmit({ filter: i => i.customId == 'newContent_modal', time: 6e5 }); }
     catch (err) { if (err.code != 'InteractionCollectorError') throw err; }
 
@@ -61,13 +61,15 @@ module.exports = {
 
     await modalInteraction.deferReply({ ephemeral: true });
     const content = modalInteraction.fields.getTextInputValue('newContent_text');
+
+    /** @type {Record<string, unknown> | undefined}*/
     let json;
 
     try {
       if (/^\s*[[{]/.test(content)) json = JSON.parse(content);
       else throw new SyntaxError('Invalid JSON format');
 
-      if (!Object.keys(json).length) return modalInteraction.editReply(lang('emptyJson'));
+      if (!json.__count__) return modalInteraction.editReply(lang('emptyJson'));
 
       if (json.description !== undefined) json = { embeds: [json] };
       else if (json.every?.(e => e.description !== undefined)) json = { embeds: json };

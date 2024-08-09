@@ -1,4 +1,4 @@
-const { checkTargetManageable } = require('../../Utils');
+const { checkTargetManageable } = require('#Utils');
 
 /** @type {command<'slash'>}*/
 module.exports = {
@@ -18,8 +18,8 @@ module.exports = {
   run: async function (lang) {
     const
 
-      /** @type {import('discord.js').GuildMember} */
-      target = this.options.getMember('target', true),
+      /** @type {import('discord.js').GuildMember?} */
+      target = this.options.getMember('target'),
       reason = this.options.getString('reason') ?? lang('noReason');
 
     if (!target) return this.editReply(lang('notFound'));

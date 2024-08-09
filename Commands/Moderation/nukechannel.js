@@ -1,6 +1,6 @@
 const { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
 
-/** @type {command<'slash'>}*/
+/** @type {command<'both'>}*/
 module.exports = {
   aliases: { prefix: ['clearchannel'], slash: ['clearchannel'] },
   permissions: { client: ['ManageChannels'], user: ['ManageGuild', 'ManageChannels'] },
@@ -45,7 +45,7 @@ module.exports = {
         const reply = await button.deferReply();
 
         if (button.customId == 'nukechannel.cancel') {
-          reply.delete();
+          void reply.delete();
           return collector.stop();
         }
 
@@ -61,8 +61,8 @@ module.exports = {
         await channel.delete(lang('global.modReason', { command: this.commandName, user: this.user.username }));
 
         if (channel.id != this.channelId) {
-          reply.delete();
-          button.message.edit({ embeds: [embed.setDescription(lang('successEmbedDescription'))], components: [] });
+          void reply.delete();
+          void button.message.edit({ embeds: [embed.setDescription(lang('successEmbedDescription'))], components: [] });
         }
 
         return cloned.send({ embeds: [nukedEmbed] });

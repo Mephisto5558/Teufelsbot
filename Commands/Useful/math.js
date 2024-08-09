@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   mathjs = require('mathjs'),
-  { evaluate, isResultSet } = mathjs.create(mathjs.all, { number: 'BigNumber' }),
+  math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
   superscripts = {
     '²': '^2', '³': '^3',
     '⁴': '^4', '⁵': '^5',
@@ -32,21 +32,25 @@ module.exports = {
     required: true
   }],
 
-  run: function (lang) {
+  run: async function (lang) {
     const
       expression = this.options?.getString('expression', true) ?? this.content,
       embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.White });
 
+    /** @type {number | number[]} */
     let result;
-    try { result = evaluate(parseSpecialChars(expression)); }
+    try { result = math.evaluate(parseSpecialChars(expression)); }
     catch (err) {
       embed.data.description = lang('error', err.message);
       embed.data.color = Colors.Red;
       return this.customReply({ embeds: [embed] });
     }
 
-    result = isResultSet(result) ? result.map(e => addSpaces(e)) : addSpaces(result);
-    if (isResultSet(result)) result = result.entries.length > 1 ? lang('separated', result.entries.join(' | ')) : result.entries[0];
+    if (math.isResultSet(result)) {
+      result = result.map(e => addSpaces(e));
+      result = result.entries.length ? lang('separated', result.entries.join(' | ')) : result.entries[0];
+    }
+    else result = addSpaces(result);
 
     return this.customReply({ embeds: [embed.setDescription(lang('success', { expression, result }))] });
   }

@@ -1,6 +1,6 @@
 const
-  { spawn, exec } = require('node:child_process'),
-  asyncExec = require('node:util').promisify(exec),
+  { spawn } = require('node:child_process'),
+  { shellExec } = require('#Utils'),
   getUpdateFunc = /** @param {Message}msg*/ msg => msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply';
 
 let restarting = false;
@@ -18,12 +18,12 @@ module.exports = {
     restarting = true;
     log(`Restarting bot, initiated by user '${this.user.tag}'...`);
 
-    /** @type {Message}*/
+    /** @type {Message<false> | undefined}*/
     let msg;
     if (!this.content.toLowerCase().includes('skipnpm')) {
       msg = await this.reply(lang('updatingNPM'));
 
-      try { await asyncExec('npm install'); }
+      try { await shellExec('npm install'); }
       catch {
         /* eslint-disable-next-line require-atomic-updates -- I don't see any issue */
         restarting = false;
@@ -52,15 +52,15 @@ module.exports = {
     child
       .on('error', () => {
         restarting = false;
-        if (msg.content != lang('restartingError')) msg[getUpdateFunc(msg)](lang('restartingError'));
+        if (msg.content != lang('restartingError')) return msg[getUpdateFunc(msg)](lang('restartingError'));
       })
       .on('exit', (code, signal) => {
         restarting = false;
 
         log.error(`Restarting Error: Exit Code ${code}, signal ${signal}`);
-        if (msg.content != lang('restartingError')) msg[getUpdateFunc(msg)](lang('restartingError'));
+        if (msg.content != lang('restartingError')) return msg[getUpdateFunc(msg)](lang('restartingError'));
       })
-      .on('message', async message => { // NOSONAR
+      .on('message', async message => {
         if (message != 'Finished starting') return;
 
         await msg[getUpdateFunc(msg)](lang('success'));

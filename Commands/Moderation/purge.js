@@ -1,6 +1,6 @@
 const
   { Message, Constants, Collection } = require('discord.js'),
-  { getTargetChannel, DiscordAPIErrorCodes } = require('../../Utils'),
+  { getTargetChannel, DiscordAPIErrorCodes } = require('#Utils'),
 
   /**
    * @param {string}str
@@ -14,12 +14,12 @@ const
 
   /** @type {Record<string, (msg: Message<true>) => boolean>}*/
   filterCheck = {
-    text: msg => !!msg.content?.length,
-    embeds: msg => !!msg.embeds?.length,
+    text: msg => !!msg.content.length,
+    embeds: msg => !!msg.embeds.length,
     mentions: msg => !!msg.mentions.users.size,
-    images: msg => !!msg.attachments?.some(e => e.contentType.includes('image')),
+    images: msg => !!msg.attachments.some(e => e.contentType.includes('image')),
     /* eslint-disable-next-line camelcase -- option name for better user-readability*/
-    server_ads: msg => adRegex(msg.content) || !!msg.embeds?.some(e => adRegex(e.description))
+    server_ads: msg => adRegex(msg.content) || !!msg.embeds.some(e => adRegex(e.description))
   };
 
 /**
@@ -29,10 +29,10 @@ function shouldDeleteMsg(msg, options) {
   const
     check = (fn, option) => !!(
       !option
-      || msg.content?.toLowerCase()[fn](option.toLowerCase())
-      || msg.embeds?.some(e => e.description?.toLowerCase()[fn](option.toLowerCase()))
+      || msg.content.toLowerCase()[fn](option.toLowerCase())
+      || msg.embeds.some(e => e.description?.toLowerCase()[fn](option.toLowerCase()))
     ),
-    bool = !!(msg.bulkDeletable && (options.remove_pinned || !msg.pinned)),
+    bool = !!(msg.bulkDeletable && (!!options.remove_pinned || !msg.pinned)),
     userType = msg.user.bot ? 'bot' : 'human';
 
   if (!filterOptionsExist(options)) return bool;
@@ -42,9 +42,9 @@ function shouldDeleteMsg(msg, options) {
     && (!('only_containing' in options) || filterCheck[options.only_containing](msg))
     && (
       !('caps_percentage' in options && options.caps_percentage > 0)
-      || msg.content?.replaceAll(/[^A-Z]/g, '').length / (msg.content?.length ?? 0) * 100 >= options.caps_percentage
-      || !!msg.embeds?.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * 100 >= options.caps_percentage)
-      || !msg.content && !msg.embeds?.some(e => e.description)
+      || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * 100 >= options.caps_percentage
+      || !!msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * 100 >= options.caps_percentage)
+      || !msg.content && !msg.embeds.some(e => e.description)
     )
     && check('includes', options.contains) && check('includes', options.does_not_contain)
     && check('startsWith', options.starts_with) && check('startsWith', options.not_starts_with)
@@ -162,7 +162,7 @@ module.exports = {
     if (!messages.length) return this.customReply(lang('noneFound'));
 
     for (let i = 0; i < messages.length; i += 100) {
-      count += (await channel.bulkDelete(messages.slice(i, i + 100)))?.size ?? 0;
+      count += (await channel.bulkDelete(messages.slice(i, i + 100))).size;
       if (messages[i + 100]) await sleep(2000);
     }
 
@@ -174,7 +174,7 @@ module.exports = {
 -- in there due to performance reasons (testing code not used in production)*/
 
 /** Tests the purge filters*/
-/* eslint-disable-next-line no-unused-vars */
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 function testPurge() {
   const
     addEmbed = /** @param {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}[]}data*/
@@ -296,5 +296,5 @@ function testPurge() {
       )
     ].flat();
 
-  require('../../Utils/testAFunction.js')(shouldDeleteMsg, testCases);
+  require('#Utils/testAFunction.js')(shouldDeleteMsg, testCases);
 }

@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { permissionTranslator, getTargetRole } = require('../../Utils');
+  { permissionTranslator, getTargetRole } = require('#Utils');
 
 /** @type {command<'both'>}*/
 module.exports = {
@@ -10,7 +10,7 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'role', type: 'Role' }],
 
-  run: function (lang) {
+  run: async function (lang) {
     this.args = this.args?.map(e => e.replaceAll(/[<>@]/g, '')) ?? [];
     this.content = this.content?.replaceAll(/[<>@]/g, '');
 
