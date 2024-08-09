@@ -2,7 +2,7 @@
 const commandExecutionWrapper = require('../commandExecutionWrapper.js');
 
 /** @type {import('.').joke}*/
-module.exports = function joke(lang, api, type, blacklist, maxLength) {
+module.exports = async function joke(lang, api, type, blacklist, maxLength) {
   this.options = {
     /** @param {string}str*/
     /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior*/
@@ -18,7 +18,7 @@ module.exports = function joke(lang, api, type, blacklist, maxLength) {
     /* eslint-enable unicorn/no-null */
   };
 
-  void this.update({ components: [] });
+  await this.update({ components: [] });
 
   return commandExecutionWrapper.call(this, this.client.slashCommands.get('joke'), 'component', lang);
 };
