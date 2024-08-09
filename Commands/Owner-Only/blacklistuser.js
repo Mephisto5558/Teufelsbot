@@ -23,7 +23,7 @@ module.exports = {
       return this.customReply(lang('removed', target));
     }
 
-    if (this.client.config.devIds.has(target)) return this.customReply(lang('cantBlacklistOwner'));
+    if (this.client.config.devIds.has(target)) return this.customReply(lang('cantBlacklistDev'));
 
     await this.client.db.pushToSet('botSettings', 'blacklist', target);
 
