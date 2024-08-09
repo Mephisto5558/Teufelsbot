@@ -32,7 +32,7 @@ module.exports = {
       embed = new EmbedBuilder({
         title: member.user.tag,
         description: (status ? lang('activity.4', status.state) : '')
-        + member.presence?.activities.reduce((acc, e) => acc + ', ' + (e.type == ActivityType.Custom ? '' : lang(`activity.${e.type}`, e.name)), ''),
+        + (member.presence?.activities.reduce((acc, e) => acc + (e.type == ActivityType.Custom ? '' : lang(`activity.${e.type}`, e.name) + ', '), '').slice(0, -2) ?? ''),
         color: Number.parseInt((await getAverageColor(member.displayAvatarURL())).hex.slice(1), 16),
         thumbnail: { url: member.displayAvatarURL() },
         image: { url: bannerURL && bannerURL + '?size=1024' },
@@ -55,7 +55,7 @@ module.exports = {
             name: lang('perms'), inline: false,
             value: `\`${member.permissions.has(PermissionFlagsBits.Administrator)
               ? lang('admin')
-              : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n)?.join('`, `') ?? lang('global.none')
+              : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')
             }\` (${member.permissions.toArray().length})`
           }
         ]
