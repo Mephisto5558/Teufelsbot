@@ -38,10 +38,11 @@ module.exports = {
       let command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);
       if (command?.aliasOf) command = this.client.slashCommands.get(command.aliasOf) ?? this.client.prefixCommands.get(command.aliasOf);
 
-      const total = Object.values(cmdStats[command.name] ?? {}).reduce((acc, e) => acc + e, 0);
+      if (!command) return this.customReply({ embeds: [embed.setDescription(lang('notFound')).setColor(Colors.Red)] });
 
+      const total = Object.values(cmdStats[command.name] ?? {}).reduce((acc, e) => acc + e, 0);
       embed.data.description = lang('embedDescriptionOne', {
-        command: command?.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``,
+        command: command.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``,
         total, slash: cmdStats[command.name]?.slash ?? 0, prefix: cmdStats[command.name]?.prefix ?? 0
       });
     }
