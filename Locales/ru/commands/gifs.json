@@ -5,16 +5,5 @@
     "description": "Сделайте задний плав!",
     "embedTitle": "Задний фон",
     "embedDescription": "{user} делает фоп!"
-  },
-  "furrykiss": {
-    "description": "кого-то еще.",
-    "options": {
-      "target": {
-        "description": "Кто вы хотите поцелуе?"
-      }
-    },
-    "embedTitle": "Furrykiss",
-    "embedDescription": "{user} kisses :3",
-    "embedDescriptionTarget": "{user} kisses {target} :3"
   }
 }
