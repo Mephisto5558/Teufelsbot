@@ -363,7 +363,7 @@ declare global {
     /**
      * Gets set automatically from language files.
      * @see {@link command.description}*/
-    descriptionLocalizations: __local.BaseCommand<true>['descriptionLocalizations'];
+    descriptionLocalizations?: __local.BaseCommand<true>['descriptionLocalizations'];
 
     type: typeof Discord.ApplicationCommandOptionType;
 
