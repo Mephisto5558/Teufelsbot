@@ -2,7 +2,7 @@
 const commandExecutionWrapper = require('../commandExecutionWrapper.js');
 
 /** @type {import('.').fact}*/
-module.exports = function fact(lang) {
-  void this.update({ components: [] });
+module.exports = async function fact(lang) {
+  await this.update({ components: [] });
   return commandExecutionWrapper.call(this, this.client.slashCommands.get('fact'), 'component', lang);
 };
