@@ -135,7 +135,7 @@
       }
     },
     "average": {
-      "loading": "Pingen... `{current}`/`{target}`",
+      "loading": "Pingen... `{current}`/`{target}`\nNächster Ping <t:{timestamp}:R>",
       "embedDescription": "Pings: `{pings}` | Dauer: `{duration}s`\nAPI:\n> Niedrigster Ping: `{wsLowest}ms`\n> Höchster Ping: `{wsHighest}ms`\n> Durchschnittlicher Ping: `{wsAverage}ms`\nNachrichten senden:\n> Niedrigster Ping: `{msgLowest}ms`\n> Höchster Ping: `{msgHighest}ms`\n> Durchschnittlicher Ping: `{msgAverage}ms`"
     },
     "api": "API",

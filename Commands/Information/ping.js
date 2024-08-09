@@ -14,7 +14,7 @@ module.exports = {
       average = this.options?.getBoolean('average') ?? this.args?.[0] == 'average',
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: lang(average ? 'average.loading' : 'global.loading', { current: 1, target: 20 }),
+        description: lang(average ? 'average.loading' : 'global.loading', { current: 1, target: 20, timestamp: Math.floor(Date.now() / 1000) + 4 }), // 4 due to the moment it takes to update the embed
         color: Colors.Green
       }),
       startFirstMessagePing = performance.now(),
@@ -24,8 +24,9 @@ module.exports = {
     if (average) {
       const
         pingStart = performance.now(),
-        wsPings = [this.client.ws.ping],
         msgPings = [endFirstMessagePing];
+
+      let wsPings = [this.client.ws.ping];
 
       for (let i = 2; i <= 20; i++) {
         await sleep(3000);
@@ -33,12 +34,13 @@ module.exports = {
         wsPings.push(this.client.ws.ping);
 
         const startMessagePing = performance.now();
-        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: i, target: 20 }))] });
+        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: i, target: 20, timestamp: Math.floor(Date.now() / 1000) + 4 }))] });
         msgPings.push(performance.now() - startMessagePing);
       }
 
       const duration = Number.parseFloat(((performance.now() - pingStart) / 1000).toFixed(2));
 
+      wsPings = wsPings.filter(e => e != -1);
       wsPings.sort((a, b) => a - b);
       msgPings.sort((a, b) => a - b);
 
