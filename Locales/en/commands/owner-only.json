@@ -1,6 +1,6 @@
 {
   "categoryName": "Owner-Only",
-  "categoryDescription": "Commands that should be available only to the dev",
+  "categoryDescription": "Commands that should be available only to a dev",
   "blacklistuser": {
     "description": "(Un)blocks a user from using the bot",
     "usage": {
@@ -22,6 +22,14 @@
       "usage": "<database name> <key>",
       "examples": "database a.b.c"
     },
+    "options": {
+      "database": {
+        "description": "The database the entry is in."
+      },
+      "key": {
+        "description": "The flattened key path"
+      }
+    },
     "notFound": "nothing found"
   },
   "eval": {
@@ -30,6 +38,11 @@
       "usage": "<js code>",
       "examples": "console.log('Hello World!')"
     },
+    "options": {
+      "code": {
+        "description": "The JavaScript code to evaluate"
+      }
+    },
     "finished": "evaluated command:\n```js\n{code}\n```\n",
     "success": "{msg} without errors.",
     "emptyRejection": "Empty Promise Rejection",
@@ -37,6 +50,11 @@
   },
   "exec": {
     "description": "inject Bash code directly into the bot's shell",
+    "options": {
+      "command": {
+        "description":"The bash command that should be executed"
+      }
+    },
     "usage": {
       "usage": "<sh code>",
       "examples": "echo 'Hello World!'"
@@ -51,6 +69,9 @@
     "usage": {
       "usage": "<'command' | 'file'> <Path relative to cwd>\n{prefix}{cmdName} <command | '*'>",
       "examples": "file path/to/file\n{prefix}{cmdName} fun"
+    },
+    "options": {
+      "command_name": "The name of the command to reload."
     },
     "invalidCommand": "This is not a valid command.",
     "invalidPath": "The specified path does not exist! Please note the case sensitivity of the path.",
