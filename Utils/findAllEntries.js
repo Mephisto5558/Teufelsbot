@@ -1,11 +1,5 @@
-/**
- * @param {Record<string, unknown>}obj
- * @param {string}key
- * @param {object?}entryList
- * @returns {Record<string, unknown>|undefined} object with found entries or `undefined` if no `obj` or no `key` has been provided*/
+/** @type {import('.').findAllEntires}*/
 function findAllEntries(obj, key, entryList = {}) {
-  if (!(obj && key)) return;
-
   const stack = [obj];
   while (stack.length) {
     const currentObj = stack.pop();
@@ -22,7 +16,7 @@ function findAllEntries(obj, key, entryList = {}) {
 module.exports = findAllEntries;
 
 /** Tests the findAllEntries function */
-/* eslint-disable-next-line no-unused-vars */
+/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
 function testFindAllEntries() {
   const testCases = [
     {

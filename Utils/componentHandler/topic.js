@@ -1,11 +1,9 @@
+/** @type {import('..').commandExecutionWrapper}*/
 const commandExecutionWrapper = require('../commandExecutionWrapper.js');
 
-/**
- * this.customId: `topic`
- * @this {import('discord.js').ButtonInteraction}
- * @param {lang}lang*/
+/** @type {import('.').topic}*/
 module.exports = function topic(lang) {
-  this.update({ components: [] });
+  void this.update({ components: [] });
 
   return commandExecutionWrapper.call(this, this.client.slashCommands.get('topic'), 'component', lang);
 };

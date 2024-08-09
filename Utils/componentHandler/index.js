@@ -1,6 +1,7 @@
 /* eslint-disable camelcase -- This casing is used to better display the commandName. */
-const { commandQuery, categoryQuery, allQuery, getCommands, getCommandCategories } = require('./help_utils.js');
-const { startRecording, recordControls } = require('./record_manage.js');
+const
+  { commandQuery, categoryQuery, allQuery, getCommands, getCommandCategories } = require('./help_utils'),
+  { startRecording, recordControls } = require('./record_manage.js');
 
 module.exports = {
   advice: require('./advice.js'),

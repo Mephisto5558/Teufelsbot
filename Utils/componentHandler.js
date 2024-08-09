@@ -3,10 +3,8 @@ const
   cooldowns = require('./cooldowns.js'),
   handlers = require('./componentHandler/');
 
-/**
- * @this {import('discord.js').MessageComponentInteraction}
- * @param {lang}lang*/
-module.exports = function MessageComponentHandler(lang) {
+/** @type {import('.').componentHandler}*/
+module.exports = function messageComponentHandler(lang) {
   const
     [feature, id, mode, data, ...args] = this.customId.split('.'),
     cooldown = cooldowns.call(this, `buttonPressEvent.${this.message.id}`, { user: 1000 }),

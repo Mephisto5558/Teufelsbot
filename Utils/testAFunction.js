@@ -1,5 +1,5 @@
 /**
- * @param {(...params: any) => any}targetFunction
+ * @param {GenericFunction}targetFunction
  * @param {{ input: string[], expectedOutput: any[] }[]}testCases*/
 module.exports = function testFunction(targetFunction, testCases) {
   for (const { input, expectedOutput } of testCases) {

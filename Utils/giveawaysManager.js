@@ -1,24 +1,22 @@
 const { GiveawaysManager } = require('discord-giveaways');
 
-module.exports = class GiveawayManagerWithOwnDatabase extends GiveawaysManager {
-  /** @returns {import('discord-giveaways').GiveawayData[]} */
+module.exports = class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
+  /** @type {import('.').GiveawaysManager['getAllGiveaways']}*/
   getAllGiveaways() {
-    return Object.values(this.client.db.get('guildSettings'))
-      .reduce((acc, v) => v.giveaway && 'giveaways' in v.giveaway ? [...acc, ...Object.values(v.giveaway.giveaways)] : acc, []);
+    return Object.values(this.client.db.get('guildSettings')).reduce((acc, v) => [...acc, ...Object.values(v.giveaway?.giveaways ?? {})], []);
   }
 
-  /**
-   * @param {import('discord.js').Snowflake}messageId
-   * @param {import('discord-giveaways').Giveaway}giveawayData*/ // `import('discord-giveaways').GiveawayData` makes everything `any` for some reason
+  /** @type {import('.').GiveawaysManager['saveGiveaway']}*/
   async saveGiveaway(messageId, giveawayData) {
     await this.client.db.update('guildSettings', `${giveawayData.guildId}.giveaway.giveaways.${messageId}`, giveawayData);
     return true;
   }
 
-  editGiveaway = this.saveGiveaway;
+  /** @type {import('.').GiveawaysManager['editGiveaway']}*/
+  editGiveaway = (...args) => this.saveGiveaway(...args);
 
-  /** @param {import('discord.js').Snowflake}messageId*/
-  deleteGiveaway(messageId) {
+  /** @type {import('.').GiveawaysManager['deleteGiveaway']}*/
+  async deleteGiveaway(messageId) {
     const { guildId } = this.getAllGiveaways().find(e => e.messageId == messageId) ?? {};
     return guildId ? this.client.db.delete('guildSettings', `${guildId}.giveaway.giveaways.${messageId}`) : true;
   }

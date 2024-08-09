@@ -27,12 +27,12 @@ module.exports = class Log extends Function {
 
     if (str.length) {
       if (file != 'debug') log(txt + str.join(' '));
-      appendFile(`./Logs/${this.date}_${file}.log`, `${txt}${str}\n`);
+      void appendFile(`./Logs/${this.date}_${file}.log`, `${txt}${str}\n`);
       return this;
     }
 
     log('\n');
-    appendFile(`./Logs/${this.date}_${file}.log`, '\n');
+    void appendFile(`./Logs/${this.date}_${file}.log`, '\n');
     return this;
   }
 };
