@@ -146,7 +146,7 @@
   "serverinfo": {
     "description": "Получить информацию о гильдии",
     "options": {
-      "guild_id": {
+      "guild_id_or_invite": {
         "description": "The server ID you want to get information about. Only works for servers I'm in."
       }
     },

@@ -174,7 +174,7 @@
   "serverinfo": {
     "description": "Obtener información sobre una hermandad",
     "options": {
-      "guild_id": {
+      "guild_id_or_invite": {
         "description": "ID del servidor para obtener información (solo en servidores en los que estoy presente)."
       }
     },
