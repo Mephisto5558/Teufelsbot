@@ -174,7 +174,7 @@
   "serverinfo": {
     "description": "Ottieni informazioni su una gilda",
     "options": {
-      "guild_id": {
+      "guild_id_or_invite": {
         "description": "L'ID del server su cui vuoi ottenere informazioni. Funziona solo per i server in cui mi trovo."
       }
     },
