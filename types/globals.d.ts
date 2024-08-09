@@ -1,11 +1,18 @@
+/* eslint-disable no-undef -- being buggy with scopes*/
+/* eslint-disable max-lines */
+
 import type Discord from 'discord.js';
-import type { RawPage } from 'wikijs';
 import type DB from '@mephisto5558/mongoose-db';
 import type I18nProvider from '@mephisto5558/i18n';
 import type { WebServer } from '@mephisto5558/bot-website';
+import type Command from '@mephisto5558/command';
 import type DBStructure from './database';
-import type BackupSystem from './Utils/backupSystem';
-import type GiveawayManagerWithOwnDatabase from './Utils/giveawaysManager';
+import type { BackupSystem, GiveawaysManager } from '#Utils';
+import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
+
+type ISODate = `${number}${number}${number}${number}-${number}${number}-${number}${number}`;
+type ISOTime = `${number}${number}:${number}${number}:${number}${number}.${number}${number}${number}`;
+type ISODateTime = `${ISODate}T${ISOTime}Z`;
 
 declare namespace __local {
   type autocompleteOptions = string | number | { name: string; value: string };
@@ -38,7 +45,7 @@ declare namespace __local {
     name: string;
 
     /** Currently not used*/
-    nameLocalizations?: readonly Record<string, BaseCommand<true>['name']>;
+    nameLocalizations?: Record<string, BaseCommand<true>['name']>;
 
     /**
      * Gets set automatically from language files.
@@ -47,8 +54,9 @@ declare namespace __local {
 
     /**
      * Gets set automatically from language files.
+     * `undefined` only for an unknown language
      * @see {@link command.description}*/
-    descriptionLocalizations: readonly Record<string, BaseCommand<true>['description']>;
+    descriptionLocalizations: Record<string, BaseCommand<true>['description'] | undefined>;
 
     /**
      * Command usage information for the end-user.
@@ -61,10 +69,10 @@ declare namespace __local {
     /**
      * Gets set automatically from language files.
      * @see {@link command.usage}*/
-    usageLocalizations: readonly Record<string, BaseCommand['usage']>;
+    usageLocalizations: Record<string, BaseCommand['usage']>;
 
     /** Gets set to the lowercase folder name the command is in.*/
-    category: readonly string;
+    category: string;
 
     permissions?: {
       client?: Discord.PermissionFlags[];
@@ -75,13 +83,13 @@ declare namespace __local {
      * **Do not set manually.**
      *
      * If the command is an alias, this property will have the original name.*/
-    aliasOf?: readonly BaseCommand['name'];
+    aliasOf?: BaseCommand['name'];
 
     /**
      * **Do not set manually.**
      *
      * The command's full file path, used for e.g. reloading the command.*/
-    filePath: readonly string;
+    filePath: string;
   } : {
 
     /** @deprecated Change the filename to the desired name instead.*/
@@ -103,7 +111,7 @@ declare namespace __local {
 
   interface Config {
     /** Will always include the bot's user id and the application owner id*/
-    devIds: Set<Discord.Snowflake>;
+    devIds: Set<Snowflake>;
     website: {
       baseDomain?: string;
       domain?: string;
@@ -150,12 +158,12 @@ declare namespace __local {
     dbConnectionStr: string;
   }
 
+  // @ts-expect-error 2681
   type BoundFunction = new (this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang) => FunctionConstructor;
 
-  type FlattenedGuildSettings = DBStructure.FlattenObject<Database['guildSettings']['']>;
-  type FlattenedUserSettings = DBStructure.FlattenObject<Database['userSettings']['']>;
+  type FlattenedGuildSettings = DBStructure.FlattenObject<NonNullable<Database['guildSettings'][Snowflake]>>;
+  type FlattenedUserSettings = DBStructure.FlattenObject<NonNullable<Database['userSettings'][Snowflake]>>;
 }
-
 
 declare global {
   namespace NodeJS {
@@ -176,8 +184,10 @@ declare global {
 
   interface Array<T> {
 
-    /** Generates a cryptographically secure random number using node:crypto.*/
-    random(this: T[]): T;
+    /**
+     * Gets a random array element by generating a cryptographically secure random number using {@link https://nodejs.org/api/crypto.html node:crypto}.
+     * May return undefined if the array is empty.*/
+    random(this: T[]): T | undefined;
   }
 
   interface Number {
@@ -187,6 +197,9 @@ declare global {
   interface Object {
     /** Removes `null`, `undefined`, empty arrays and empty objects recursively.*/
     filterEmpty(this: object): object;
+
+    /** The amount of items in the object.*/
+    __count__: number;
   }
 
   interface Function {
@@ -222,18 +235,21 @@ declare global {
     /**
      * For a given function, creates a bound function that has the same body as the original function.
      * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
-     * @param thisArg The object to be used as the this object.
-     * @param args Arguments to bind to the parameters of the function.
-     */
+     * @param thisArg The object to be used as the this object.*/
     bind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T>;
     bind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): (...args: AX[]) => R;
 
     /** A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction}*/
-    bBind<T>(this: T, thisArg: ThisParameterType<T>): bBoundFunction<T>;
-    bBind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): bBoundFunction<(...args: AX[]) => R>;
+    bBind<T extends GenericFunction>(this: T, thisArg: ThisParameterType<T>): bBoundFunction<T>;
+    bBind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): bBoundFunction<(this: T, ...args: AX[]) => R>;
   }
 
-  type Database<excludeUndefined extends boolean = false> = DBStructure.Database<excludeUndefined>;
+  interface Date {
+    /**
+     * Give a more precise return type to the method `toISOString()`:
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toISOString     */
+    toISOString(): ISODateTime;
+  }
 
   const sleep: (ms: number) => Promise<void>;
 
@@ -249,8 +265,25 @@ declare global {
     /* eslint-enable @typescript-eslint/no-explicit-any */
   };
 
-  /** bBinded I18nProvider.__ function*/
-  type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string>;
+  type Snowflake = Discord.Snowflake;
+
+  type Database = DBStructure.Database;
+
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  type GenericFunction = (...args: any) => any;
+
+  type SlashCommand = Command.SlashCommand;
+  type PrefixCommand = Command.PrefixCommand;
+  type MixedCommand = Command.MixedCommand;
+  type CommandOptions = Command.CommandOptions;
+
+  type langBoundArgs = [ { locale?: string; errorNotFound?: boolean; undefinedNotFound?: boolean; backupPath?: string } ];
+
+  /** {@link Function.prototype.bBind bBind}ed {@link I18nProvider.__} function*/
+  type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string> & { __boundArgs__: langBoundArgs };
+
+  /** same as {@link lang}, but may return `undefined` due to undefinedNotFound being true on the {@link I18nProvider.__ original function}.*/
+  type langUNF = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string | undefined> & { __boundArgs__: langBoundArgs };
 
   type slashCommand<initialized extends boolean = false> = __local.BaseCommand<initialized> & {
     slashCommand: true;
@@ -267,12 +300,12 @@ declare global {
   } & (initialized extends true ? {
 
     /** **Do not set manually.***/
-    id: readonly Discord.Snowflake;
+    id: Snowflake;
 
     /** **Do not set manually.***/
-    type: readonly Discord.ApplicationCommandType.ChatInput;
+    type: Discord.ApplicationCommandType.ChatInput;
 
-    defaultMemberPermissions: readonly Discord.PermissionsBitField;
+    defaultMemberPermissions: Discord.PermissionsBitField;
 
     dmPermission: boolean;
   } : object);
@@ -285,10 +318,10 @@ declare global {
   type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = __local.BaseCommand<initialized>
     & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
     & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
-    & { run: (
+    & { run(
       this: commandType extends 'slash' ? Interaction<guildOnly> : commandType extends 'prefix' ? Message<guildOnly> : Interaction<guildOnly> | Message<guildOnly>,
       lang: lang, client: Discord.Client<true>
-    ) => Promise<never>; };
+    ): Promise<never>; };
 
   type commandOptions<initialized extends boolean = boolean> = {
     name: string;
@@ -297,7 +330,7 @@ declare global {
     cooldowns?: __local.BaseCommand<initialized>['cooldowns'];
 
     /** If true, the user must provide a value to this option. This is also enforced for prefix commands.*/
-    required?: boolean;
+    NonNullable?: boolean;
 
     /**
      * Only existent for {@link commandOptions.type} `SubcommandGroup` and `Subcommand`.
@@ -355,7 +388,7 @@ declare global {
     channelTypes?: (typeof Discord.ChannelType)[];
   });
 
-  type bBoundFunction<OF, T extends CallableFunction> = T & {
+  type bBoundFunction<OF extends GenericFunction, T extends GenericFunction = OF> = T & {
 
     /** The original, unbound function */
     __targetFunction__: OF;
@@ -364,30 +397,26 @@ declare global {
     __boundThis__: ThisParameterType<T>;
 
     /** The arguments to which the function is bound */
-    __boundArgs__: unknown[];
+    __boundArgs__: Parameters<T> ;
   };
 
   type Client<Ready extends boolean = true> = Discord.Client<Ready>;
   type Message<inGuild extends boolean = boolean> = Discord.Message<inGuild>;
-  type Interaction<inGuild extends boolean = boolean, Cached extends Discord.CacheType = Discord.CacheType> = inGuild extends true
-    ? GuildInteraction<Cached> : GuildInteraction<Cached> | DMInteraction<Cached>;
+  type Interaction<inGuild extends boolean = boolean> = inGuild extends true
+    ? GuildInteraction : GuildInteraction | DMInteraction;
 
+  // used to not get `any` on Message property when the object is Message | Interaction
   type OptionalInteractionProperties<inGuild extends boolean = boolean> = Partial<Interaction<inGuild>>;
   type OptionalMessageProperties<inGuild extends boolean = boolean> = Partial<Message<inGuild>>;
 
   /** interface for an interaction in a guild.*/
-  interface GuildInteraction<Cached extends Discord.CacheType = Discord.CacheType> extends Discord.ChatInputCommandInteraction<Cached>, OptionalMessageProperties<true> {
-    inGuild(): true;
-    guild: Discord.Guild;
-    guildId: string;
-    guildLocale: Discord.Locale;
-    commandGuildId: Discord.Snowflake;
-    member: Discord.GuildMember;
-    memberPermissions: Readonly<Discord.PermissionsBitField>;
+  // @ts-expect-error not important due to this being like a type
+  interface GuildInteraction extends Discord.ChatInputCommandInteraction<'cached'>, OptionalMessageProperties<true> {
   }
 
   /** interface for an interaction in a direct message.*/
-  interface DMInteraction<Cached extends Discord.CacheType = Discord.CacheType> extends Discord.ChatInputCommandInteraction<Cached>, OptionalMessageProperties<false> {
+  // @ts-expect-error not important due to this being like a type
+  interface DMInteraction extends Discord.ChatInputCommandInteraction<undefined>, OptionalMessageProperties<false> {
     inGuild(): false;
     inRawGuild(): false;
     inCachedGuild(): false;
@@ -400,12 +429,20 @@ declare global {
   }
 }
 
+declare module 'discord-api-types/v10' {
+  // @ts-expect-error 2300 // overwriting Snowflake
+  export type Snowflake = Discord.Snowflake;
+}
+
 declare module 'discord.js' {
+  // @ts-expect-error 2300 // overwriting Snowflake
+  type Snowflake = `${number}`;
+
   interface Client<Ready> {
     prefixCommands: Discord.Collection<command['name'], command<'prefix', boolean, Ready>>;
     slashCommands: Discord.Collection<command['name'], command<'slash', boolean, Ready>>;
-    backupSystem?: BackupSystem;
-    giveawaysManager?: GiveawayManagerWithOwnDatabase;
+    backupSystem?: BackupSystem.BackupSystem;
+    giveawaysManager?: GiveawaysManager;
 
     /** `undefined` if `this.botType == 'dev'`*/
     webServer?: WebServer;
@@ -419,10 +456,10 @@ declare module 'discord.js' {
 
     /** The config from {@link ./config.json}.*/
     config: __local.Config;
-    loadEnvAndDB(this: Client<Ready>): Promise<void>;
+    loadEnvAndDB(this: Omit<Client<Ready>, 'db'>): Promise<void>;
 
     /** A promise that resolves to a fetched discord application once {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#ready Client#ready} was emitted.*/
-    awaitReady(this: Client<Ready>): Promise<Discord.Application>;
+    awaitReady(this: Client<Ready>): Promise<Application>;
   }
 
   interface Message {
@@ -444,8 +481,10 @@ declare module 'discord.js' {
     user: Message['author'];
 
     /** This does not exist on Messages and is only for better typing of {@link command} here */
+    /* eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- valid use case, as this property does not really exist*/
     options: void;
 
+    /* eslint-disable jsdoc/check-param-names */
     /**
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
      * and if that also doesn't work, send the message without repling to a specific message/interaction.
@@ -457,7 +496,7 @@ declare module 'discord.js' {
       allowedMentions?: MessageMentionOptions | { repliedUser: false }
     ): Promise<Message>;
 
-    runMessages(this: Message): Promise<this>;
+    runMessages: typeof TRunMessages;
   }
 
   interface PartialMessage {
@@ -470,8 +509,9 @@ declare module 'discord.js' {
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
      * and if that also doesn't work, send the message without repling to a specific message/interaction.
      * @param deleteTime Number in Milliseconds*/
-    customReply<T>(
-      this: T,
+    /* eslint-enable jsdoc/check-param-names */
+    customReply(
+      this: BaseInteraction,
       options: string | MessagePayload | InteractionReplyOptions,
       deleteTime?: number,
       allowedMentions?: MessageMentionOptions | { repliedUser: false }
@@ -493,13 +533,13 @@ declare module 'discord.js' {
      * ```js
      * this.client.db.get('userSettings', this.id) ?? {}
      * ```*/
-    get db(): Database<true>['userSettings'][''];
+    get db(): NonNullable<Database['userSettings'][Snowflake]>;
 
     /**
      * ```js
      * return this.client.db.update('userSettings', `${this.id}.${key}`, value);
      * ```*/
-    updateDB<K extends keyof __local.FlattenedUserSettings>(key: K, value: __local.FlattenedUserSettings[K]): Promise<Database<true>['userSettings']>;
+    updateDB<FDB extends __local.FlattenedUserSettings, K extends keyof FDB>(key: K, value: FDB[K]): Promise<NonNullable<Database['userSettings']>>;
 
     customName: string;
     customTag: string;
@@ -519,20 +559,22 @@ declare module 'discord.js' {
      * ```js
      * this.client.db.get('guildSettings', this.id) ?? {}
      * ```*/
-    get db(): Database<true>['guildSettings'][''];
+    get db(): NonNullable<Database['guildSettings'][Snowflake]>;
 
     /**
      * ```js
      * return this.client.db.update('guildSettings', `${this.id}.${key}`, value);
      * ```*/
-    updateDB<K extends keyof __local.FlattenedGuildSettings>(key?: K, value: __local.FlattenedGuildSettings[K]): Promise<Database<true>['guildSettings']>;
+    updateDB<FDB extends __local.FlattenedGuildSettings, K extends keyof FDB>(key: K, value: FDB[K]): Promise<Database['guildSettings']>;
+    updateDB(key: null, value: NonNullable<Database['guildSettings'][Snowflake]>): Promise<Database['guildSettings']>;
 
     localeCode: string;
   }
 }
 
+// @ts-expect-error // keeping this here for documentation reasons, even tho it doesn't do anything sadly
 declare module 'discord-tictactoe' {
-  interface TicTacToe {
+  class TicTacToe {
     playAgain(interaction: Discord.ChatInputCommandInteraction): Promise<void>;
   }
 
@@ -544,23 +586,41 @@ declare module 'discord-tictactoe' {
 }
 
 declare module '@mephisto5558/mongoose-db' {
-  class DB {
+  interface NoCacheDB {
     /**
      * generates required database entries from {@link ./Templates/db_collections.json}.
      * @param overwrite overwrite existing collection, default: `false`*/
     generate(overwrite?: boolean): Promise<void>;
 
+    get<DB extends keyof Database>(db: DB): Promise<Database[DB]>;
+    get<DB extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DB]>(db: DB, key: K): Promise<DBStructure.FlattenedDatabase[DB][K]>;
+
+    update<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB], K extends keyof FDB>(db: DB, key: K, value: FDB[K]): Promise<Database[DB]>;
+    set<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB]>(db: DB, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DB]>;
+    delete<DB extends keyof Database>(db: DB, key?: keyof DBStructure.FlattenedDatabase[DB]): Promise<boolean>;
+    push<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB], K extends keyof FDB>(db: DB, key: K, ...value: FDB[K][]): Promise<Database[DB]>;
+    pushToSet<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB], K extends keyof FDB>(db: DB, key: K, ...value: FDB[K][]): Promise<Database[DB]>;
+  }
+
+  /* eslint-disable @typescript-eslint/no-shadow -- I can't think of a better name */
+  // @ts-expect-error 2300 // overwriting the class so ofc it is declared twice
+  interface DB extends NoCacheDB {
+    get(): undefined;
     get<DB extends keyof Database>(db: DB): Database[DB];
     get<DB extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DB]>(db: DB, key: K): DBStructure.FlattenedDatabase[DB][K];
 
-    update<DB extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DB]>(db: DB, key: K, value: DBStructure.FlattenedDatabase[DB][K]): Promise<Database[DB]>;
-    set<DB extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DB]>(db: DB, value: DBStructure.FlattenedDatabase[DB][K], overwrite?: boolean): Promise<Database[DB]>;
-    delete<DB extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DB] | undefined>(db: DB, key?: K): Promise<boolean>;
-    push<DB extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DB]>(db: DB, key: K, ...value: DBStructure.FlattenedDatabase[DB][K]): Promise<Database[DB]>;
-    pushToSet<DB extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DB]>(db: DB, key: K, ...value: DBStructure.FlattenedDatabase[DB][K]): Promise<Database[DB]>;
+    update<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB], K extends keyof FDB>(db: DB, key: K, value: FDB[K]): Promise<Database[DB]>;
+    set<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB]>(db: DB, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DB]>;
+    delete<DB extends keyof Database>(db: DB, key?: keyof DBStructure.FlattenedDatabase[DB]): Promise<boolean>;
+    push<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB], K extends keyof FDB>(db: DB, key: K, ...value: FDB[K][]): Promise<Database[DB]>;
+    pushToSet<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB], K extends keyof FDB>(db: DB, key: K, ...value: FDB[K][]): Promise<Database[DB]>;
+
+    /* eslint-enable @typescript-eslint/no-shadow */
   }
 }
 
 declare module 'wikijs' {
+  // intentional. `Page` in wikijs is defined as something that is not correct. All `Page`es are `RawPages` in code
+  /* eslint-disable-next-line @typescript-eslint/no-empty-object-type */ // @ts-expect-error unable to import it
   interface Page extends RawPage {}
 }
