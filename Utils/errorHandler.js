@@ -4,11 +4,7 @@ const
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
   cwd = process.cwd();
 
-/**
- * @this {Client}
- * @param {Error}err
- * @param {Message|import('discord.js').BaseInteraction|null}message
- * @param {lang?}lang*/
+/** @type {import('.').errorHandler}*/
 module.exports = async function errorHandler(err, message, lang) {
   log.error(' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'), err.stack ?? JSON.stringify(err));
 
@@ -91,8 +87,7 @@ module.exports = async function errorHandler(err, message, lang) {
       catch (err) {
         log.error('Failed to report an error:', err.stack);
 
-        try { msg.edit({ components: [] }); }
-        catch { /* empty */ }
+        msg.edit({ components: [] }).catch(() => { /* empty */ });
 
         return message.customReply(lang('reportFail', err?.message ?? 'unknown error'));
       }

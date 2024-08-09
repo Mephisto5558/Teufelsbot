@@ -1,4 +1,4 @@
-/** @param {Date}date*/
+/** @type {import('.').getAge}*/
 module.exports = function getAge(date) {
   const
     now = new Date(),

@@ -4,20 +4,16 @@ const
   { Decoder } = require('prism-media').opus,
   { createWriteStream } = require('node:fs'),
   { unlink, access, mkdir } = require('node:fs/promises'),
-  exec = require('node:util').promisify(require('node:child_process').exec),
+
+  /** @type {import('..').shellExec}*/
+  shellExec = require('../shellExec.js'),
 
   /** @type {string?} */
   ffmpeg = require('ffmpeg-static');
 
 if (!ffmpeg) throw new Error('no ffmpeg');
 
-/**
- * @this {import('discord.js').ButtonInteraction}
- * @param {lang}lang
- * @param {string}requesterId
- * @param {string}voiceChannelId
- * @param {boolean}isPublic
- * @param {{ userId: string, allowed: boolean }[]}vcCache*/
+/** @type {import('.').record_startRecording}*/
 module.exports.startRecording = async function startRecording(lang, requesterId, voiceChannelId, isPublic, vcCache) {
   const embed = this.message.embeds[0];
 
@@ -30,7 +26,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   if (!voiceChannel) return this.editReply(lang('needVoiceChannel'));
 
   if (this.guild.members.me.voice.serverDeaf) {
-    if (this.guild.members.me.permissionsIn(voiceChannel).missing(PermissionFlagsBits.DeafenMembers)) {
+    if (this.guild.members.me.permissionsIn(voiceChannel).missing(PermissionFlagsBits.DeafenMembers).length) {
       embed.data.description = lang('deaf');
       return this.message.edit({ embeds: [embed], components: [] });
     }
@@ -41,7 +37,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   embed.data.description = lang('global.loading');
   embed.data.color = Colors.Green;
 
-  this.message.edit({ content: '', embeds: [embed], components: [] });
+  void this.message.edit({ content: '', embeds: [embed], components: [] });
 
   const connection = joinVoiceChannel({
     channelId: voiceChannelId,
@@ -53,7 +49,8 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
 
   try { await entersState(connection, VoiceConnectionStatus.Ready, 2e4); }
   catch (err) {
-    if (!(err instanceof DiscordAPIError)) throw err; // todo: check for specific error codes
+    if (!(err instanceof DiscordAPIError)) throw err;
+    console.log('record_manage Util | enterstate error', JSON.stringify(err)); // this is here to get error codes that may happen, to put them in the line above
     embed.data.description = lang('cantConnect');
     return this.message.edit({ embeds: [embed] });
   }
@@ -77,12 +74,12 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
     });
 
   embed.data.description = lang('recording', { channel: voiceChannelId, users: `<@${membersToRecord.join('>, <@')}>` });
-  this.message.edit({ embeds: [embed], components: [component] });
+  void this.message.edit({ embeds: [embed], components: [component] });
 
   try { await access('./VoiceRecords/raw'); }
   catch (err) {
     if (err.code != 'ENOENT') throw err;
-    mkdir('./VoiceRecords/raw', { recursive: true });
+    await mkdir('./VoiceRecords/raw', { recursive: true });
   }
 
   for (const userId of membersToRecord) {
@@ -93,13 +90,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   }
 };
 
-/**
- * @this {import('discord.js').ButtonInteraction}
- * @param {lang}lang
- * @param {string}mode
- * @param {string}voiceChannelId
- * @param {boolean}isPublic
- * @param {import('discord.js').Collection<string, import('discord.js').Collection<string, {userId: string, allowed: boolean}[]>>}cache*/
+/** @type {import('.').record_recordControls}*/
 module.exports.recordControls = async function recordControls(lang, mode, voiceChannelId, isPublic, cache) {
   const
     embed = this.message.embeds[0],
@@ -149,9 +140,9 @@ module.exports.recordControls = async function recordControls(lang, mode, voiceC
     }
 
     embed.data.description = lang('global.loading');
-    this.update({ embeds: [embed], components: [] });
+    void this.update({ embeds: [embed], components: [] });
 
-    await exec(`"${ffmpeg}" -f s16le -ar 48k -ac 2 -i "./VoiceRecords/raw/${filename}.ogg" "./VoiceRecords/${filename}.mp3"`);
+    await shellExec(`"${ffmpeg}" -f s16le -ar 48k -ac 2 -i "./VoiceRecords/raw/${filename}.ogg" "./VoiceRecords/${filename}.mp3"`);
     await unlink(`./VoiceRecords/raw/${filename}.ogg`);
 
     if (isPublic) {

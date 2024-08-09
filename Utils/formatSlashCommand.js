@@ -1,10 +1,6 @@
 const { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js');
 
-/**
- * @param {command<'slash', boolean, true> | commandOptions<true>}option
- * @param {string}path
- * @param {import('@mephisto5558/i18n')}i18n
- * @throws {Error} on not autofixable invalid data*/
+/** @type {import('.').formatSlashCommand}*/
 module.exports = function format(option, path, i18n) {
   if ('options' in option) option.options = option.options.map(e => format(e, `${path}.options.${e.name}`, i18n));
 
@@ -29,7 +25,7 @@ module.exports = function format(option, path, i18n) {
     if (localizedDescription?.length > 100 && !option.disabled)
       log.warn(`"${locale}" description localization of option "${option.name}" (${path}.description) is too long (max length is 100)! Slicing.`);
 
-    if (localizedDescription) option.descriptionLocalizations[locale] = localizedDescription?.slice(0, 100);
+    if (localizedDescription) option.descriptionLocalizations[locale] = localizedDescription.slice(0, 100);
     else if (!option.disabled) log.warn(`Missing "${locale}" description localization for option "${option.name}" (${path}.description)`);
 
     if ('choices' in option) {
@@ -58,6 +54,7 @@ module.exports = function format(option, path, i18n) {
   }
 
   if ('run' in option) {
+    /* eslint-disable-next-line @typescript-eslint/unbound-method -- not getting called here*/
     if (!option.disabled && !String(option.run).startsWith('function') && !String(option.run).startsWith('async function'))
       throw new Error(`The run property of file "${path}" is not a function (Got "${typeof option.run}"). You cannot use arrow functions.`);
 
@@ -73,11 +70,12 @@ module.exports = function format(option, path, i18n) {
 
   if ('channelTypes' in option) {
     option.channelTypes = option.channelTypes.map(e => {
-      if (!(e in ChannelType)) throw new Error(`Invalid option.channelType, got "${e}" (${path})`);
+      if (!(e in ChannelType)) throw new Error(`Invalid option.channelType, got ${JSON.stringify(e)} (${path})`);
       return Number.isNaN(Number.parseInt(e)) ? ChannelType[e] : Number.parseInt(e);
     });
   }
 
+  /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- user COULD forget it, this is for validation*/
   if (!option.type || !ApplicationCommandOptionType[option.type]) throw new Error(`Missing or invalid option.type, got "${option.type}" (${path})`);
   if (!Number.parseInt(option.type) && option.type != 0) option.type = ApplicationCommandOptionType[option.type];
 

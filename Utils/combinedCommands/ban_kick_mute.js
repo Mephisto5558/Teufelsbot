@@ -1,10 +1,10 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType, PermissionFlagsBits } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
-  checkTargetManageable = require('../checkTargetManageable.js'),
+  checkTargetManageable = require('../checkTargetManageable'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
-/** @type {command<'slash', true, true>['run']}*/
+/** @type {import('.').ban_kick_mute}*/
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
 module.exports = async function ban_kick_mute(lang) {
   if (this.commandName == 'timeout') this.commandName = 'mute';
@@ -28,9 +28,7 @@ module.exports = async function ban_kick_mute(lang) {
   }
 
   const
-
-    /** @type {import('discord.js').GuildMember}*/
-    target = this.options.getMember('target'),
+    target = this.options.getMember('target', true),
     infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.tag, muteDuration, reason }),
     userEmbed = new EmbedBuilder({
       title: lang('infoEmbedTitle'),
@@ -48,7 +46,7 @@ module.exports = async function ban_kick_mute(lang) {
     let err = checkTargetManageable.call(this, target);
     if (!err && target.permissions.has(PermissionFlagsBits.Administrator)) err = 'cantPunishAdmin';
     if (err) {
-      resEmbed.data.description += lang('error', { err: lang(err), user: target.user?.tag ?? target.id });
+      resEmbed.data.description += lang('error', { err: lang(err), user: target.user.tag });
       return this.editReply({ embeds: [resEmbed] });
     }
 

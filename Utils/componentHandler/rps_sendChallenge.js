@@ -1,10 +1,6 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
-/**
- * @this {GuildInteraction|Message<true>|import('discord.js').ButtonInteraction}
- * @param {import('discord.js').GuildMember}initiator
- * @param {import('discord.js').GuildMember}opponent
- * @param {lang}lang*/
+/** @type {import('.').rps_sendChallenge}*/
 /* eslint-disable-next-line unicorn/no-useless-undefined -- More convenient to call this way */
 module.exports = async function sendRPSChallenge(initiator, opponent = this.client.user, lang = undefined) {
   lang.__boundArgs__[0].backupPath = 'commands.minigames.rps.challenge';

@@ -3,10 +3,16 @@ const
     SnowflakeUtil, GatewayIntentBits, ChannelType, Constants, GuildFeature,
     StickerType, Collection, DiscordAPIError, GuildVerificationLevel, GuildExplicitContentFilter
   } = require('discord.js'),
+
+  /** @type {import('.').BackupSystem['BackupSystem']['utils']}*/
   utils = require('./backupSystem_utils.js'),
+
+  /** @type {import('.')['DiscordAPIErrorCodes']}*/
   DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json');
 
-/** @typedef {Database<true>['backups']['']}backup */
+/**
+ * @typedef {import('.').BackupSystem.BackupSystem}TBackupSystem
+ * @typedef {import('.').BackupSystem.Backup}TBackup*/
 
 class BackupSystem {
   /**
@@ -19,11 +25,9 @@ class BackupSystem {
    * @param {boolean}options.clearGuildBeforeRestore
    */
   constructor(db, { dbName = 'backups', maxGuildBackups = 5, maxMessagesPerChannel = 10, saveImages = false, clearGuildBeforeRestore = true } = {}) {
-    if (!db) throw new Error('db is a required argument!');
-
     this.db = db;
     this.dbName = dbName;
-    if (!this.db.get(this.dbName)) this.db.set(this.dbName, {});
+    if (!this.db.get(this.dbName)) void this.db.set(this.dbName, {});
 
     this.defaultSettings = {
       maxGuildBackups: Number.parseInt(maxGuildBackups) || 5,
@@ -33,28 +37,20 @@ class BackupSystem {
     };
   }
 
-  /**
-   * @param {string}backupId
-   * @param {string}guildId
-   * @returns {backup | undefined}*/
-  get = (backupId, guildId) => backupId ? this.db.get(this.dbName, (guildId ?? '') + backupId) : undefined;
+  /** @type {TBackupSystem['get']}*/
+  get = (backupId, guildId = '') => this.db.get(this.dbName, `${guildId}${backupId}`);
 
-  /**
-   * @param {import('discord.js').Snowflake}guildId
-   * @returns {Collection<string, backup>}*/
+  /** @type {TBackupSystem['list']}*/
   list = guildId => {
-    /** @type {Collection<string, backup>} */
+    /** @type {Collection<string, TBackup>} */
     const collection = new Collection(Object.entries(this.db.get(this.dbName)));
     return guildId ? collection.filter(e => e?.guildId == guildId) : collection;
   };
 
-  /** @param {string}backupId*/
+  /** @type {TBackupSystem['remove']}*/
   remove = backupId => this.db.delete(this.dbName, backupId);
 
-  /**
-   * @param {import('discord.js').Guild}guild
-   * @param {object?}statusObj the status property gets updated
-   * @returns {Promise<backup>}*/
+  /** @type {TBackupSystem['create']}*/
   create = async (guild, {
     statusObj = {}, id, save = true, maxGuildBackups = this.defaultSettings.maxGuildBackups,
     backupMembers = false, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
@@ -107,13 +103,13 @@ class BackupSystem {
       }));
     }
 
-    if (!doNotBackup?.includes('bans')) {
+    if (!doNotBackup.includes('bans')) {
       statusObj.status = 'create.bans';
 
       data.bans = (await guild.bans.fetch()).map(e => ({ id: e.user.id, reason: e.reason }));
     }
 
-    if (!doNotBackup?.includes('roles')) {
+    if (!doNotBackup.includes('roles')) {
       statusObj.status = 'create.roles';
 
       (await guild.roles.fetch()).filter(e => !e.managed).sort((a, b) => b.position - a.position).map(e => ({
@@ -127,7 +123,7 @@ class BackupSystem {
       }));
     }
 
-    if (!doNotBackup?.includes('emojis')) {
+    if (!doNotBackup.includes('emojis')) {
       statusObj.status = 'create.emojis';
 
       data.emojis = await Promise.all((await guild.emojis.fetch()).map(async e => {
@@ -139,7 +135,7 @@ class BackupSystem {
       }));
     }
 
-    if (!doNotBackup?.includes('stickers')) {
+    if (!doNotBackup.includes('stickers')) {
       statusObj.status = 'create.stickers';
 
       data.stickers = await Promise.all((await guild.stickers.fetch()).reduce(async (acc, e) => {
@@ -154,7 +150,7 @@ class BackupSystem {
       }, []));
     }
 
-    if (!doNotBackup?.includes('channels')) {
+    if (!doNotBackup.includes('channels')) {
       statusObj.status = 'create.channels';
 
       const channels = (await guild.channels.fetch()).sort((a, b) => a.position - b.position);
@@ -196,22 +192,11 @@ class BackupSystem {
     return data;
   };
 
-  /**
-   * @param {string|object|null}id Backup Id. If falsely, will use latest. If object, will use object.
-   * @param {import('discord.js').Guild}guild
-   * @param {object}options
-   * @param {object}options.statusObj the status property gets updated
-   * @param {boolean}options.clearGuildBeforeRestore
-   * @param {number}options.maxMessagesPerChannel
-   * @param {import('discord.js').APIAllowedMentions}options.allowedMentions
-   * @param {string}options.reason
-   */
+  /** @type {TBackupSystem['load']}*/
   load = async (id, guild, {
     statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     allowedMentions = [], reason = 'Backup Feature | Load'
   } = {}) => {
-    if (!guild) throw new Error('Invalid guild');
-
     let data, rulesChannel, publicUpdatesChannel;
 
     if (id) data = typeof id == 'string' ? this.get(id) : id;

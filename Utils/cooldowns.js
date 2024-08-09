@@ -19,19 +19,21 @@ function subCommandCooldowns(name) {
   const subCmd = this.options.getSubcommand(false);
   if (!subCmd) return 0;
 
-  const { cooldowns } = (groupOptions ?? this)?.options?.find?.(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand) ?? {};
+  const { cooldowns } = (groupOptions ?? this).options?.find?.(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand) ?? {};
   if (cooldowns) return cooldown.call(this, group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns);
   return 0;
 }
 
+
 /**
- * @this {Message | import('discord.js').BaseInteraction}
- * @param {string}name name of the cooldown space, eg. a command name
- * @param {Record<string, number>}cooldowns
- * @returns {number} current cooldown in seconds*/
+ * @type {import('.').cooldowns}
+ * @this {ThisParameterType<import('.').cooldowns>}
+ * Here due to `@typescript-eslint/no-invalid-this`*/
 function cooldown(name, cooldowns = {}) {
   const
     now = Date.now(),
+
+    /** @type {Map<string, number>}*/
     timeStamps = this.client.cooldowns.get(name) ?? this.client.cooldowns.set(name, {}).get(name),
     cooldownList = [];
 
