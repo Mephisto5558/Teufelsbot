@@ -1,5 +1,3 @@
-const { getTargetMember } = require('#Utils');
-
 /** @type {command<'prefix', false>}*/
 module.exports = {
   usage: { examples: '12345678901234568' },
@@ -15,7 +13,9 @@ module.exports = {
   beta: true,
 
   run: async function (lang) {
-    const target = getTargetMember(this)?.id;
+    const target = this.args[1];
+    if (!target) return this.reply('global.unknownUser');
+
     if (this.args[0] == 'off') {
       if (!this.client.settings.blacklist?.includes(target)) return this.customReply(lang('notFound'));
 
@@ -33,8 +33,10 @@ module.exports = {
         return acc;
       }, []);
 
-      const result = await this.client.webServer.voteSystem.update(requests, this.client.user.id);
-      if (!result.success) throw new Error(JSON.stringify(result, undefined, 2));
+      if (requests.length) {
+        const result = await this.client.webServer.voteSystem.update(requests, this.client.user.id);
+        if (!result.success) throw new Error(JSON.stringify(result, undefined, 2));
+      }
     }
 
     return this.customReply(lang('saved', target));

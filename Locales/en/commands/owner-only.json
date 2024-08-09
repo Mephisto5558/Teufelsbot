@@ -6,6 +6,11 @@
     "usage": {
       "usage": "[off] <user id>"
     },
+    "options": {
+      "target": {
+        "description": "The User ID you want to (un)block."
+      }
+    },
     "notFound": "Found no entry for this id.",
     "saved": "`{user}` has been blacklisted from using the bot.",
     "removed": "The blacklist entry for `{user}` has been removed.",
