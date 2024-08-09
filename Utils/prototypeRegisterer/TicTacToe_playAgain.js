@@ -1,14 +1,10 @@
 const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
 
-/* eslint-disable jsdoc/imports-as-dependencies -- see https://github.com/gajus/eslint-plugin-jsdoc/issues/1114*/
-/**
- * @this {import('discord-tictactoe')}
- * @param {Interaction}interaction
- * @param {lang}lang*/
-/* eslint-enable jsdoc/imports-as-dependencies */
+
+/** @type {import('.').playAgain}*/
 module.exports = async function playAgain(interaction, lang) {
   const
-    opponent = interaction.options?.getUser('opponent'),
+    opponent = interaction.options.getUser('opponent'),
     { components } = await interaction.fetchReply();
 
   if (!components[3]?.components[0]?.customId) {
@@ -28,7 +24,7 @@ module.exports = async function playAgain(interaction, lang) {
 
   collector
     .on('collect', async PAButton => {
-      PAButton.deferUpdate();
+      void PAButton.deferUpdate();
       collector.stop();
 
       if (interaction.member.id != PAButton.member.id && opponent?.id != interaction.client.user.id) {
@@ -51,16 +47,16 @@ module.exports = async function playAgain(interaction, lang) {
 
       if (interaction.options._hoistedOptions[0]?.user) {
         const msg = await interaction.channel.send(lang('newChallenge', interaction.options._hoistedOptions[0].user.id));
-        sleep(5000).then(msg.delete.bind(msg));
+        void sleep(5000).then(msg.delete.bind(msg));
       }
 
-      this.handleInteraction(interaction);
+      return this.handleInteraction(interaction);
     })
     .on('end', collected => {
       if (!collected.size) return;
 
       for (let i = 0; i < 3; i++) for (const button of components[i].components) button.data.disabled = true;
 
-      interaction.editReply({ components });
+      return interaction.editReply({ components });
     });
 };

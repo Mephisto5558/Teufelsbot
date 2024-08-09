@@ -1,7 +1,4 @@
-/**
- * @param {command<'both', false, true>} command
- * @param {string}path
- * @param {import('@mephisto5558/i18n')}i18n*/
+/** @type {import('.').localizeUsage}*/
 module.exports = function localizeUsage(command, path, i18n) {
   const usageLocalizations = {};
   let usage;

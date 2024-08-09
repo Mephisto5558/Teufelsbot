@@ -1,4 +1,4 @@
-/** @type {import('./types').getTargetMember} */
+/** @type {import('.').getTargetMember}*/
 module.exports = function getTargetMember(interaction, { targetOptionName = 'target', returnSelf } = {}) {
   if (interaction.inGuild()) {
     let target = interaction.options?.getMember(targetOptionName) ?? interaction.mentions?.members.first();

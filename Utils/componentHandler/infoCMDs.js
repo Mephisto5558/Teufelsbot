@@ -1,17 +1,12 @@
+/* eslint camelcase: ["error", {allow: ["ban_kick_mute"]}] */
+
 const
   { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError } = require('discord.js'),
   checkTargetManageable = require('../checkTargetManageable.js'),
-  /* eslint camelcase: ["error", {allow: ["ban_kick_mute"]}] */
-  ban_kick_mute = require('../combinedCommands/ban_kick_mute.js');
-const { DiscordAPIErrorCodes } = require('../DiscordAPIErrorCodes.json');
+  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
+  { ban_kick_mute } = require('../combinedCommands');
 
-/**
- * this.customId: `infoCMDs.<id>.<action>.<entitytype>`
- * @this {import('discord.js').ButtonInteraction}
- * @param {lang}lang
- * @param {string}id
- * @param {string}mode
- * @param {string}entityType*/
+/** @type {import('.').infoCMDs}*/
 module.exports = async function infoCMDs(lang, id, mode, entityType) {
   if (entityType != 'members') await this.deferReply();
 
@@ -48,12 +43,14 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
       lang.__boundArgs__[0].backupPath = `commands.moderation.${mode}`;
 
-      this.showModal(modal);
+      void this.showModal(modal);
       const submit = await this.awaitModalSubmit({ time: 30_000 }).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; });
       if (!submit) return;
 
       this.commandName = mode;
       this.options = { getMember: () => item, getString: () => submit.fields.getTextInputValue('infoCMDs_punish_reason_modal_text'), getNumber: () => 0 };
+
+      /* eslint-disable-next-line @typescript-eslint/unbound-method -- same class, so should be fine*/
       this.editReply = this.followUp;
 
       await submit.deferUpdate();
@@ -61,23 +58,20 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       break;
     }
 
-    case 'emojis': {
+    case 'emojis':
       if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.deletable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
-    }
 
     // fall through
-    case 'roles': {
+    case 'roles':
       if (item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId || !this.member.permissions.has(PermissionFlagsBits.ManageRoles))
         return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.editable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
-    }
 
     // fall through
-    case mode == 'delete': {
+    case mode == 'delete':
       await item.delete(`${entityType.slice(0, -1)} delete button in /${entityType.slice(0, -1)}info, member ${this.user.tag}`);
-      this.editReply({ embeds: [embed.setColor(Colors.Green).setDescription(lang('success'))] });
-    }
+      void this.editReply({ embeds: [embed.setColor(Colors.Green).setDescription(lang('success'))] });
   }
 
   for (const button of this.message.components[0].components) button.data.disabled = true;
