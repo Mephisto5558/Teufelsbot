@@ -175,7 +175,7 @@
   "serverinfo": {
     "description": "Get information about a guild",
     "options": {
-      "guild_id": {
+      "guild_id_or_invite": {
         "description": "The server ID you want to get information about. Only works for servers I'm in."
       }
     },
@@ -211,7 +211,8 @@
     "vanityUrl": "Vanity URL",
     "uses": " Uses",
     "downloadIcon": "Download Icon",
-    "downloadBanner": "Download Banner"
+    "downloadBanner": "Download Banner",
+    "joinGuild": "Join Guild"
   },
   "uptime": {
     "description": "Get the bot's uptime",
