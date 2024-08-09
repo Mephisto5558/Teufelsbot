@@ -75,12 +75,15 @@ Object.defineProperty(Number.prototype, 'limit', {
 });
 Object.defineProperties(Object.prototype, {
   /** @type {global['Object']['prototype']['filterEmpty']}*/
-  filterEmpty: function filterEmpty() {
-    return Object.entries(this).reduce((acc, [k, v]) => {
-      if (!(v === null || (typeof v == 'object' && !v.__count__)))
-        acc[k] = v instanceof Object ? v.filterEmpty() : v;
-      return acc;
-    }, {});
+  filterEmpty: {
+    value: function filterEmpty() {
+      return Object.entries(this).reduce((acc, [k, v]) => {
+        if (!(v === null || (typeof v == 'object' && !v.__count__)))
+          acc[k] = v instanceof Object ? v.filterEmpty() : v;
+        return acc;
+      }, {});
+    },
+    enumerable: false
   },
   __count__: {
     /** @type {global['Object']['prototype']['__count__']}*/
@@ -89,7 +92,8 @@ Object.defineProperties(Object.prototype, {
       for (const prop in this) if (Object.hasOwn(this, prop)) count++;
 
       return count;
-    }
+    },
+    enumerable: false
   }
 });
 Object.defineProperty(Function.prototype, 'bBind', {
