@@ -170,6 +170,7 @@ module.exports.categoryQuery = async function categoryQuery(lang, query) {
     commands = getCommands.call(this),
     embed = new EmbedBuilder({
       title: lang(`commands.${query}.categoryName`),
+      description: lang(`commands.${query}.categoryDescription`),
       fields: commands.reduce((acc, e) => { // U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing
         if (e.category == query && !e.aliasOf && filterCommands.call(this, e))
           acc.push({ name: e.name, value: (helpLang(`${e.name}.description`) ?? e.description) + '\n\u200E', inline: true });
