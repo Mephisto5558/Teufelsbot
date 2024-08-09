@@ -35,7 +35,8 @@ function checkOptions(command, lang) {
       return ['paramRequired', { option: name, description: descriptionLocalizations[lang.__boundArgs__[0].locale ?? lang.__boundThis__.config.defaultLocale] ?? description }];
 
     if (
-      autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
+      (this instanceof Message || this.isChatInputCommand())
+      && autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
       && !autocompleteGenerator.call({
         ...this, client: this.client, guild: this.guild, user: this.user,
         focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
@@ -85,7 +86,10 @@ async function checkPerms(command, lang) {
 module.exports = async function checkForErrors(command, lang) {
   if (!command) {
     if (this instanceof Message) {
-      if (this.client.slashCommands.has(this.commandName)) return ['slashOnly', { name: this.commandName, id: this.client.slashCommands.get(this.commandName).id }];
+      let cmd = this.client.slashCommands.get(this.commandName) ?? this.client.prefixCommands.get(this.commandName);
+      if (cmd?.aliasOf) cmd = this.client.slashCommands.get(cmd.aliasOf);
+      if (cmd) return ['slashOnly', { name: cmd.name, id: cmd.id }];
+
       void this.runMessages();
     }
 
