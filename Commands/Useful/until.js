@@ -1,4 +1,4 @@
-const { timeFormatter } = require('../../Utils');
+const { timeFormatter } = require('#Utils');
 
 /**
  * @this {Message|Interaction}
@@ -63,7 +63,7 @@ module.exports = {
     }
   ],
 
-  run: function (lang) {
+  run: async function (lang) {
     const
       getInt = getInteger.bind(this),
       day = getInt('day', 0),

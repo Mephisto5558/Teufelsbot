@@ -1,10 +1,12 @@
+/** @typedef {import('../../types/database').backupId}backupId*/
+
 const
   { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ComponentType, ButtonStyle } = require('discord.js'),
-  DiscordAPIErrorCodes = require('../../Utils');
+  { DiscordAPIErrorCodes } = require('#Utils');
 
-/** @param {Database<true>['backups']['']}backup */
+/** @param {Database['backups'][backupId]}backup*/
 function getData(backup) {
-  if (Object.keys(backup).length) {
+  if (backup.__count__) {
     return {
       createdAt: Math.round(backup.createdAt / 1000),
       size: (() => {
@@ -22,9 +24,9 @@ function getData(backup) {
 
 /**
  * @this {GuildInteraction}
- * @param {Database['backups']['']}backup*/
+ * @param {Database['backups'][backupId]}backup*/
 function checkPerm(backup) {
-  const creator = backup?.metadata?.[this.guild.db.serverbackup?.allowedToLoad ?? this.client.defaultSettings.serverbackup.allowedToLoad];
+  const creator = backup?.metadata[this.guild.db.serverbackup?.allowedToLoad ?? this.client.defaultSettings.serverbackup.allowedToLoad];
   return Array.isArray(creator) ? creator.includes(this.user.id) : creator == this.user.id;
 }
 
@@ -36,7 +38,7 @@ function createProxy(interaction, embed, lang) {
   return new Proxy({ status: undefined }, {
     set(obj, prop, value) {
       obj[prop] = value;
-      interaction.editReply({ embeds: [embed.setDescription(lang(value))] });
+      void interaction.editReply({ embeds: [embed.setDescription(lang(value))] });
       return true;
     }
   });
@@ -61,7 +63,7 @@ const backupMainFunctions = {
   },
 
   load: async function loadBackup(lang, embed, id) {
-    if (!this.client.backupSystem.get()) return this.editReply({ embeds: [embed.setDescription(lang('load.noneFound'))] });
+    if (!this.client.backupSystem.get(id)) return this.editReply({ embeds: [embed.setDescription(lang('load.noneFound'))] });
     if (!checkPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('load.backupNoPerm'))] });
 
     const component = new ActionRowBuilder({
@@ -105,7 +107,7 @@ const backupMainFunctions = {
           return msg.edit({ embeds: [embed.setDescription(lang('load.success', backup.id))] });
         }
         catch (err) {
-          msg.edit({ embeds: [embed.setDescription(lang('load.error'))] });
+          void msg.edit({ embeds: [embed.setDescription(lang('load.error'))] });
           return log.error('An error occurred while trying to load an backup:', err);
         }
       })
@@ -131,7 +133,7 @@ const backupMainFunctions = {
 
     if (id) {
       const backup = this.client.backupSystem.get(id);
-      return this.editReply({
+      return void this.editReply({
         embeds: [backup
           ? embed.setDescription(lang('get.oneEmbedDescription', { id, ...getData(backup) }))
           : embed.setColor(Colors.Red).setDescription(lang('get.oneNotFound'))]
@@ -143,7 +145,7 @@ const backupMainFunctions = {
       .map(e => ({ name: e.id, value: lang('get.infos', getData(e)) }));
 
     if (embed.data.fields.length) embed.data.footer = { text: lang('get.found', this.client.backupSystem.list(this.guild.id).size) };
-    return this.editReply({ embeds: [embed.setDescription(lang(embed.data.fields.length ? 'get.embedDescription' : 'get.noneFound'))] });
+    return void this.editReply({ embeds: [embed.setDescription(lang(embed.data.fields.length ? 'get.embedDescription' : 'get.noneFound'))] });
   }
 };
 

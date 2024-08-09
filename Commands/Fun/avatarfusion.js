@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, ImageFormat } = require('discord.js'),
   { createCanvas, loadImage } = require('canvas'),
-  { getTargetMember } = require('../../Utils');
+  { getTargetMember } = require('#Utils');
 
 /** @type {command<'both'>}*/
 module.exports = {

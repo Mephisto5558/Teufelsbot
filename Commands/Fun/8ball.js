@@ -31,7 +31,7 @@ module.exports = {
     required: true
   }],
 
-  run: function (lang) {
+  run: async function (lang) {
     /** @type {string}*/
     const
       input = this.options?.getString('question', true) ?? this.content,

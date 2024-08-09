@@ -13,7 +13,7 @@ module.exports = {
     { name: 'maximum', type: 'Integer' }
   ],
 
-  run: function (lang) {
+  run: async function (lang) {
     let
       min = this.options?.getInteger('minimum') ?? Number(this.args?.[0]),
       max = this.options?.getInteger('maximum') ?? Number(this.args?.[1]);

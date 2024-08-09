@@ -2,7 +2,9 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
 
   /**
-   * @type {Record<string, (this: GuildInteraction, lang: lang, oldData: Exclude<Database<true>['guildSettings']['']['triggers'], undefined>, query: string) => Promise<Message>>}*/
+   * @type {Record<string,
+   * (this: GuildInteraction, lang: lang, oldData: Exclude<Exclude<Database['guildSettings'][Snowflake], undefined>['triggers'], undefined>, query: string) => Promise<Message>>
+   * }*/
   triggerMainFunctions = {
     add: async function (lang, oldData) {
       const
@@ -30,14 +32,14 @@ const
 
     clear: async function (lang, oldData) {
       if (this.options.getString('confirmation', true).toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
-      if (!oldData.length) return this.editReply(lang('noneFound'));
+      if (!oldData.__count__) return this.editReply(lang('noneFound'));
 
       await this.client.db.delete('guildSettings', `${this.guild.id}.triggers`);
       return this.editReply(lang('deletedAll', oldData.length));
     },
 
-    get: function (lang, oldData, query) {
-      if (!oldData.length) return this.editReply(lang('noneFound'));
+    get: async function (lang, oldData, query) {
+      if (!oldData.__count__) return this.editReply(lang('noneFound'));
 
       const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Blue });
 

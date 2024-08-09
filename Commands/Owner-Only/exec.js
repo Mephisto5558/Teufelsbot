@@ -1,4 +1,4 @@
-const exec = require('node:util').promisify(require('node:child_process').exec);
+const { shellExec } = require('#Utils');
 
 /** @type {command<'prefix', false>}*/
 module.exports = {
@@ -16,7 +16,7 @@ module.exports = {
     const msg = await this.reply(lang('global.loading'));
 
     try {
-      const { stdout = lang('global.none'), stderr } = await exec(this.content);
+      const { stdout = lang('global.none'), stderr } = await shellExec(this.content);
       let response = lang('stdout', { msg: lang('finished', this.content), stdout });
       if (stderr) response += lang('stderr', stderr);
 

@@ -1,10 +1,10 @@
 const
   { Constants, PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
-  { timeValidator } = require('../../Utils'),
+  { timeValidator } = require('#Utils'),
 
   /**
-   * @typedef {{ bonusEntries: object[], requiredRoles: string[], disallowedMembers: string[], duration: number, giveawayId: string }}options
+   * @typedef {{ bonusEntries?: Record<string, string>[], requiredRoles?: string[], disallowedMembers?: string[], duration?: number, giveawayId?: string }}options
    * @type {Record<string, (this: GuildInteraction, lang: lang, components: ActionRowBuilder<ButtonBuilder>[], options: options) => Promise<Message>>}*/
   giveawayMainFunctions = {
     create: async function (lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration }) {
@@ -17,8 +17,8 @@ const
           hostedBy: this.user,
           botsCanWin: false,
           bonusEntries: { bonus: member => bonusEntries[member.id] },
-          embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? 0, 16) || this.guild.db.giveaway?.embedColor || defaultSettings.embedColor,
-          embedColorEnd: Number.parseInt(this.options.getString('embed_color_end')?.slice(1) ?? 0, 16) || this.guild.db.giveaway?.embedColorEnd || defaultSettings.embedColorEnd,
+          embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? 0, 16) || (this.guild.db.giveaway?.embedColor ?? defaultSettings.embedColor),
+          embedColorEnd: Number.parseInt(this.options.getString('embed_color_end')?.slice(1) ?? 0, 16) || (this.guild.db.giveaway?.embedColorEnd ?? defaultSettings.embedColorEnd),
           reaction, duration,
           messages: {
             giveaway: lang('newGiveaway'),
@@ -43,10 +43,10 @@ const
           isDrop: this.options.getBoolean('is_drop')
         };
 
-      if (requiredRoles?.length || disallowedMembers?.length)
+      if (requiredRoles?.length || disallowedMembers.length)
 
         /** @param {import('discord.js').GuildMember}member*/
-        startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers?.includes(member.id));
+        startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
 
       await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions).then(data => {
         components[0].components[0].data.url = data.messageURL; // Using .then() here to prevent eslint/require-atomic-updates
@@ -72,7 +72,7 @@ const
         newImage: this.options.getString('image')
       };
 
-      if (requiredRoles?.length || disallowedMembers?.length) {
+      if (requiredRoles?.length || disallowedMembers.length) {
       /** @param {import('discord.js').GuildMember}member*/
         editOptions.newExemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
       }
@@ -197,7 +197,7 @@ module.exports = {
     }
   ],
 
-  run: function (lang) {
+  run: async function (lang) {
     if (!this.client.giveawaysManager) return this.editReply(lang('managerNotFound'));
 
     const giveawayId = this.options.getString('id');
@@ -222,10 +222,12 @@ module.exports = {
           style: ButtonStyle.Link
         })]
       })],
-      durationUnformatted = this.options.getString('duration') ?? this.options.getString('add_time') ?? 0,
-      duration = getMilliseconds(durationUnformatted);
+      durationUnformatted = this.options.getString('duration') ?? this.options.getString('add_time');
 
-    if (typeof duration != 'number' && durationUnformatted) return this.editReply(lang('invalidTime'));
+    if (!durationUnformatted) return this.editReply(lang('invalidTime'));
+
+    const duration = getMilliseconds(durationUnformatted);
+    if (duration == undefined) return this.editReply(lang('invalidTime'));
 
     return giveawayMainFunctions[this.options.getSubcommand()].call(this, lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId });
   }

@@ -1,4 +1,4 @@
-const { getTargetMember } = require('../../Utils');
+const { getTargetMember } = require('#Utils');
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -38,19 +38,19 @@ module.exports = {
     }
   ],
 
-  run: function (lang) {
+  run: async function (lang) {
     let target = getTargetMember(this, { returnSelf: true });
     if (this.options?.getBoolean('global') && 'user' in target) target = target.user; // target.user check for execution in dms
 
     switch (this.options?.getSubcommand() ?? this.args[0]) {
-      case 'clear': {
+      case 'clear':
         if (target.customName) {
           if (this.options?.getBoolean('global')) target.user.customName = undefined;
           else target.customName = undefined;
         }
 
         return this.customReply(lang('clear.success'));
-      }
+
 
       case 'set': {
         const newName = this.options?.getString('name', true) ?? (this.args[0] == 'set' ? this.args.slice(1) : this.args).join(' ').slice(0, 32);

@@ -82,5 +82,9 @@
     "birthday": {
       "unknownChannel": "INFO: The channel configured for the birthday feature in guild `{guild}` does not exist! Please re-configure it so i can send birthday messages!"
     }
+  },
+  "getCommands": {
+    "lookAtOptionDesc": "SLASH Command: Look at the option descriptions.\n",
+    "noInfo": "No information found"
   }
 }

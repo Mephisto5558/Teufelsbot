@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { getTargetMember } = require('../../Utils'),
+  { getTargetMember } = require('#Utils'),
   images = [
     '1160179295885479946/furry-laughing-excitedly-hfi5mwmc56ekqv1j.gif', '1160179296279724092/giphy.gif',
     '1160179296854347786/kiss-furry.gif', '1160179297399603221/620b690b359402132ecdcf83c2187a8a28b09759_hq.gif',
@@ -18,7 +18,7 @@ module.exports = {
   dmPermission: true,
   options: [{ name: 'target', type: 'User' }],
 
-  run: function (lang) {
+  run: async function (lang) {
     const
       target = getTargetMember(this),
       embed = new EmbedBuilder({

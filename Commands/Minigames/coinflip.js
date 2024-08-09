@@ -6,5 +6,5 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: function (lang) { return this.customReply(lang(randomInt(3001) == 0 ? 'side' : 'response')); }
+  run: async function (lang) { return this.customReply(lang(randomInt(3001) == 0 ? 'side' : 'response')); }
 };

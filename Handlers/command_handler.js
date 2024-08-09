@@ -1,7 +1,8 @@
 const
   { readdir } = require('node:fs/promises'),
+  /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path` */
   { resolve } = require('node:path'),
-  { getDirectories, localizeUsage } = require('../Utils');
+  { getDirectories, localizeUsage } = require('#Utils');
 
 let
   enabledCommandCount = 0,
@@ -13,12 +14,12 @@ module.exports = async function commandHandler() {
     for (const file of await readdir(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
 
-      /** @type {command<'prefix', boolean, true>}*/
+      /** @type {Omit<command<string, boolean, true>, 'name', 'category'> | undefined}*/
       const command = require(`../Commands/${subFolder}/${file}`);
       command.filePath = resolve(`Commands/${subFolder}/${file}`);
 
       if (!command?.prefixCommand) continue;
-      if (!command.disabled && !command.run?.toString().startsWith('function') && !command.run?.toString().startsWith('async function'))
+      if (!command.disabled && !command.run.toString().startsWith('function') && !command.run.toString().startsWith('async function'))
         throw new Error(`The run function of file "${command.filePath}" is not a function. You cannot use arrow functions.`);
 
       command.name ??= file.split('.')[0];

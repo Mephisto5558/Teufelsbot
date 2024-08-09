@@ -1,6 +1,6 @@
 const
   { Constants } = require('discord.js'),
-  { setupMinigameChannel } = require('../../Utils/combinedCommands');
+  { setupMinigameChannel } = require('#Utils/combinedCommands');
 
 /** @type {command<'both'>}*/
 module.exports = {

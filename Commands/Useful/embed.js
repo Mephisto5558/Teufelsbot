@@ -1,6 +1,6 @@
 const
-  { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes } = require('discord.js'),
-  { logSayCommandUse } = require('../../Utils');
+  { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes, DiscordAPIError } = require('discord.js'),
+  { logSayCommandUse } = require('#Utils');
 
 /**
  * @param {Interaction}interaction
@@ -95,7 +95,8 @@ module.exports = {
       sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed], allowedMentions });
     }
     catch (err) {
-      return this.editReply(lang('invalidOption', err.message)); // todo: improve error handling
+      if (!(err instanceof DiscordAPIError) && !err.message?.includes('JSON at')) throw err;
+      return this.editReply(lang('invalidOption', err.message));
     }
 
     await this.editReply(custom ? lang('successJSON') : lang('success', JSON.stringify(embed.data.filterEmpty())));

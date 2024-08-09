@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { getTargetMember, getAge } = require('../../Utils'),
+  { getTargetMember, getAge } = require('#Utils'),
   currentYear = new Date().getFullYear();
 
 /**
@@ -74,7 +74,7 @@ const birthdayMainFunctions = {
         guildMembers = new Set((await this.guild.members.fetch()).map(e => e.id)),
         currentTime = Date.now(),
 
-        /** @type {[import('discord.js').Snowflake, Date][]} */
+        /** @type {[Snowflake, Date][]} */
         data = Object.entries(this.client.db.get('userSettings'))
           .reduce((acc, [k, { birthday }]) => {
             if (birthday && guildMembers.has(k)) acc.push([k, birthday]);
