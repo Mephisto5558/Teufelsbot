@@ -70,7 +70,7 @@
   "help": {
     "description": "Zeige alle meine Befehle oder erhalte Informationen über einen spezifischen.",
     "usage": {
-      "usage": "[[Kategorie] [Befehl]]\n{prefix}{cmdName} [Kategorie]"
+      "usage": "[<Kategorie> [Befehl]]\n{prefix}{cmdName} [Kategorie]"
     },
     "options": {
       "category": {
