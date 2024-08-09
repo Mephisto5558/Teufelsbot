@@ -71,7 +71,7 @@
   "help": {
     "description": "Show all my commands or search for a specific one",
     "usage": {
-      "usage": "[[category] [command]]\n{prefix}{cmdName} [category]"
+      "usage": "[<category> [command]]\n{prefix}{cmdName} [category]"
     },
     "options": {
       "category": {

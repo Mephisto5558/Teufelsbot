@@ -70,7 +70,7 @@
   "help": {
     "description": "Mostra tutti i miei comandi o cerca uno specifico",
     "usage": {
-      "usage": "[[category] [command]]\n{prefix}{cmdName} [category]"
+      "usage": "[<category> [command]]\n{prefix}{cmdName} [category]"
     },
     "options": {
       "category": {
