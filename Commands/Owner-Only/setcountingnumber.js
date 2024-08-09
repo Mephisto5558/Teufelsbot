@@ -1,4 +1,4 @@
-const { getTargetChannel } = require('../../Utils');
+const { getTargetChannel } = require('#Utils');
 
 /** @type {command<'prefix'>}*/
 module.exports = {

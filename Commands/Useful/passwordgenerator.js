@@ -1,7 +1,7 @@
 const defaultCharset = [String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\=*'"#*(){}[]`];
 
 /**
- * Helper function to prevent eslint/no-loop-func
+ * Helper function to prevent `eslint/no-loop-func`
  *
  * Filters the last selected entry out and selects a list entry based on a secure random number generator (RNG). RNG defined in Utils/prototypeRegisterer.js.
  * @param {string[]}charset
@@ -30,12 +30,12 @@ module.exports = {
     { name: 'include_chars', type: 'String' }
   ],
 
-  run: function (lang) {
+  run: async function (lang) {
     const
-      count = this.options?.getInteger('count') ?? 1,
-      exclude = this.options?.getString('exclude_chars') ?? '',
-      include = this.options?.getString('include_chars') ?? '',
-      length = this.options?.getInteger('length') ?? 12;
+      count = this.options.getInteger('count') ?? 1,
+      exclude = this.options.getString('exclude_chars') ?? '',
+      include = this.options.getString('include_chars') ?? '',
+      length = this.options.getInteger('length') ?? 12;
 
     let
       passwordList = '',

@@ -44,7 +44,7 @@ module.exports = {
   }],
 
   run: async function (lang) {
-    if (this instanceof Message) this.channel.sendTyping();
+    if (this instanceof Message) void this.channel.sendTyping();
 
     const
       content = await fetchAPI.call(this, lang),
@@ -56,15 +56,14 @@ module.exports = {
         })]
       });
 
-    return (
-      await this.customReply({ content, components: [component] }, undefined, { repliedUser: true }))
+    return (await this.customReply({ content, components: [component] }, undefined, { repliedUser: true }))
       .createMessageComponentCollector({ componentType: ComponentType.Button, filter: e => e.user.id == this.user.id })
       .on('collect', async e => {
         const reply = await e.deferReply();
 
         const newContent = await fetchAPI.call(this, lang);
-        e.message.edit(newContent);
-        reply.delete();
+        void e.message.edit(newContent);
+        return reply.delete();
       });
   }
 };

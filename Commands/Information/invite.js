@@ -2,17 +2,17 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
 
   /** @type {Client['config']} */
-  { website: { invite } = {}, disableWebserver } = require('../../config.json') ?? {};
+  { website: { invite } = {}, disableWebserver } = require('../../config.json');
 
 /** @type {command<'both', false>}*/
 module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  disabled: disableWebserver || !invite,
+  disabled: !!disableWebserver || !invite,
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing invite url in config.json',
 
-  run: function (lang) {
+  run: async function (lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', this.client.config.website.invite),

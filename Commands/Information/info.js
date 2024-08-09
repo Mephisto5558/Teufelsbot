@@ -9,7 +9,7 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: function (lang) {
+  run: async function (lang) {
     const
       startTime = Math.round(Date.now() / 1000 - process.uptime()),
       description

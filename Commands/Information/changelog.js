@@ -3,7 +3,7 @@ const
   fetch = require('node-fetch').default,
 
   /** @type {Client['config']} */
-  { github: ghConfig = {} } = require('../../config.json') ?? {};
+  { github: ghConfig = {} } = require('../../config.json');
 
 
 /** @type {string[]|undefined} */
@@ -40,7 +40,7 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
-  disabled: !ghConfig?.repoName || !ghConfig.userName,
+  disabled: !ghConfig.repoName || !ghConfig.userName,
   disabledReason: 'Missing github config in config.json',
 
   run: async function (lang) {

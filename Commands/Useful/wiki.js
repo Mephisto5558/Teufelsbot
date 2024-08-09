@@ -26,7 +26,7 @@ module.exports = {
     const
       page = await wiki.page(result),
 
-      /** @type {{general:Record<string, unknown>}}*/
+      /** @type {{general: Record<string, unknown[] | Record<string, unknown> | boolean | string>}}*/
       { general: info } = await page.fullInfo(),
       summary = await page.summary(),
       images = await page.images(),
@@ -42,13 +42,15 @@ module.exports = {
           k = k.replaceAll(/([A-Z])/g, ' $1').toLowerCase().trim();
           k = k[0].toUpperCase() + k.slice(1);
 
-          if (Array.isArray(v)) v = v.join(', ');
-          else if (v.date) v = `<t:${Math.round(v.date / 1000)}>`;
-          else if (typeof v == 'object') v = JSON.stringify(v, undefined, 2);
-          else if (typeof v == 'boolean') v = lang(`global.${v}`);
-          else v = images.find(e => e.includes(v.toString().replaceAll(' ', '_'))) ?? v.toString();
+          // very verbose if, for intellisense
+          /** @type {string} */
+          let value;
+          if (Array.isArray(v)) value = v.join(', ');
+          else if (typeof v == 'object') value = v.date instanceof Date ? `<t:${Math.round(v.date / 1000)}>` : JSON.stringify(v, undefined, 2);
+          else if (typeof v == 'boolean') value = lang(`global.${v}`);
+          else value = images.find(e => e.includes(v.toString().replaceAll(' ', '_'))) ?? v.toString(); // note: possibly not a string, but weren't able to type it all
 
-          acc.push({ name: k, value: v, inline: true });
+          acc.push({ name: k, value, inline: true });
           return acc;
         }, []).slice(0, 25)
       });
@@ -61,7 +63,7 @@ module.exports = {
 
     const msgs = summary.split('\n')
       .flatMap(e => {
-        if (e.length < 1000) return e;
+        if (e.length < 1000) return [e];
 
         const halfIndex = Math.floor(e.length / 2);
         const lastIndexBeforeHalf = e.lastIndexOf('.', halfIndex) + 1 || halfIndex;

@@ -1,4 +1,4 @@
-const { componentHandler, autocompleteGenerator, commandExecutionWrapper } = require('../Utils');
+const { componentHandler, autocompleteGenerator, commandExecutionWrapper } = require('#Utils');
 
 /** @this {import('discord.js').Interaction}*/
 module.exports = function interactionCreate() {

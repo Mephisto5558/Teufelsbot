@@ -1,12 +1,12 @@
 const
   { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
-  { getTargetMember } = require('../../Utils'),
-  { mgStats_formatTopTen: formatTopTen } = require('../../Utils/componentHandler/'),
+  { getTargetMember } = require('#Utils'),
+  { mgStats_formatTopTen: formatTopTen } = require('#Utils/componentHandler'),
   sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'];
 
 /**
  * @this {GuildInteraction | Message<true>}
- * @param {Record<string, number>}data*/
+ * @param {Record<string, number> | undefined}data*/
 function manageData(data) {
   if (!data) return '';
 
@@ -102,7 +102,7 @@ module.exports = {
     if (type == 'user') {
       embed.data.title = lang('embedTitle', { user: target.user.displayName, game });
 
-      const targetData = data?.[target.id];
+      const targetData = data[target.id];
       if (targetData?.games) {
         embed.data.description = lang('games', targetData.games)
         + lang('wins', formatStatCount(targetData.wins, targetData.games))

@@ -1,6 +1,6 @@
 const
-  { getTargetMember } = require('../../Utils'),
-  { rps_sendChallenge: sendChallenge } = require('../../Utils/componentHandler/');
+  { getTargetMember } = require('#Utils'),
+  { rps_sendChallenge: sendChallenge } = require('#Utils/componentHandler');
 
 /** @type {command<'both'>}*/
 module.exports = {

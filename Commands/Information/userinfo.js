@@ -1,7 +1,7 @@
 const
-  { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
-  { getTargetMember, getAge, permissionTranslator } = require('../../Utils');
+  { getTargetMember, getAge, permissionTranslator } = require('#Utils');
 
 /** @type {command<'both'>}*/
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
       member = getTargetMember(this, { returnSelf: true }),
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       bannerURL = (await member.user.fetch()).bannerURL(),
-      status = member.presence?.activities.find(e => e.type == 4);
+      status = member.presence?.activities.find(e => e.type == ActivityType.Custom);
 
     let type = member.user.bot ? 'Bot, ' : '';
 
@@ -32,7 +32,7 @@ module.exports = {
       embed = new EmbedBuilder({
         title: member.user.tag,
         description: (status ? lang('activity.4', status.state) : '')
-        + member.presence?.activities.reduce((acc, e) => acc + ', ' + (e.type == 4 ? '' : lang(`activity.${e.type}`, e.name)), ''),
+        + member.presence?.activities.reduce((acc, e) => acc + ', ' + (e.type == ActivityType.Custom ? '' : lang(`activity.${e.type}`, e.name)), ''),
         color: Number.parseInt((await getAverageColor(member.displayAvatarURL())).hex.slice(1), 16),
         thumbnail: { url: member.displayAvatarURL() },
         image: { url: bannerURL && bannerURL + '?size=1024' },
@@ -41,7 +41,7 @@ module.exports = {
           { name: lang('mention'), value: member.user.toString(), inline: true },
           { name: lang('displayName'), value: member.displayName, inline: true },
           { name: lang('type'), value: type, inline: true },
-          { name: lang('position'), value: `\`${this.guild.roles.highest.position - member.roles.highest.position + 1}\`, ${member.roles.highest}`, inline: true },
+          { name: lang('position'), value: `\`${this.guild.roles.highest.position - member.roles.highest.position + 1}\`, ${member.roles.highest.toString()}`, inline: true },
           { name: lang('roles'), value: `\`${member.roles.cache.size}\``, inline: true },
           { name: lang('color'), value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.slice(1)})`, inline: true },
           { name: lang('createdAt'), value: `<t:${Math.round(member.user.createdTimestamp / 1000)}>`, inline: true },

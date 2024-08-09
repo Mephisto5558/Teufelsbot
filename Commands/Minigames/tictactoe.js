@@ -1,6 +1,6 @@
 const
   TicTacToe = require('discord-tictactoe'),
-  { getTargetMember } = require('../../Utils');
+  { getTargetMember } = require('#Utils');
 
 /**
  * @this {GuildInteraction}
@@ -21,7 +21,7 @@ async function eventCallback([player1, player2], [type1, type2 = type1], lang, g
  * @param {string}secondID
  * @param {'win'|'lose'|'draw'}type
  * @param {Client['db']}db*/
-function updateStats(firstID, secondID, type, db) {
+async function updateStats(firstID, secondID, type, db) {
   const stats = db.get('leaderboards', `TicTacToe.${firstID}`) ?? {};
   let against;
 
@@ -31,9 +31,11 @@ function updateStats(firstID, secondID, type, db) {
     case 'draw': against = 'drewAgainst';
   }
 
-  db.update('leaderboards', `TicTacToe.${firstID}.games`, (stats.games ?? 0) + 1);
-  db.update('leaderboards', `TicTacToe.${firstID}.${type}s`, (stats[`${type}s`] ?? 0) + 1);
-  return db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, (stats[against]?.[secondID] ?? 0) + 1);
+  return Promise.all(
+    db.update('leaderboards', `TicTacToe.${firstID}.games`, (stats.games ?? 0) + 1),
+    db.update('leaderboards', `TicTacToe.${firstID}.${type}s`, (stats[`${type}s`] ?? 0) + 1),
+    db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, (stats[against]?.[secondID] ?? 0) + 1)
+  );
 }
 
 /** @type {command<'slash'>}*/
@@ -44,7 +46,7 @@ module.exports = {
   prefixCommand: false,
   options: [{ name: 'opponent', type: 'User' }],
 
-  run: function (lang) {
+  run: async function (lang) {
     const
       gameTarget = getTargetMember(this, { targetOptionName: 'opponent' })?.id,
       game = new TicTacToe({
@@ -54,7 +56,7 @@ module.exports = {
         commandOptionName: gameTarget == this.client.user.id ? 'thisOptionWillNotGetUsed' : 'opponent'
       });
 
-    if (gameTarget) this.channel.send(lang('newChallenge', gameTarget)).then(msg => setTimeout(() => msg.delete(), 5000));
+    if (gameTarget) void this.channel.send(lang('newChallenge', gameTarget)).then(msg => setTimeout(() => msg.delete(), 5000));
 
     game.on('win', data => eventCallback.call(this, [data.winner, data.loser], ['win', 'lose'], lang, game));
     game.on('tie', data => eventCallback.call(this, data.players, ['draw'], lang, game));

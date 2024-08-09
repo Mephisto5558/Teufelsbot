@@ -1,4 +1,4 @@
-const { getTargetMember } = require('../../Utils');
+const { getTargetMember } = require('#Utils');
 
 /** @type {command<'prefix', false>}*/
 module.exports = {
@@ -28,7 +28,7 @@ module.exports = {
     await this.client.db.pushToSet('botSettings', 'blacklist', target);
 
     if (this.client.webServer) {
-      const requests = (await this.client.webServer.voteSystem.fetchAll()).reduce((acc, [,e]) => {
+      const requests = this.client.webServer.voteSystem.fetchAll().reduce((acc, [,e]) => {
         if (!e.pending && e.id.split('_')[0] == target) acc.push({ ...e, pending: true });
         return acc;
       }, []);

@@ -1,6 +1,6 @@
 const
   { Duration } = require('better-ms'),
-  { timeValidator } = require('../../Utils');
+  { timeValidator } = require('#Utils');
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -14,7 +14,7 @@ module.exports = {
     strictAutocomplete: true
   }],
 
-  run: function (lang) {
+  run: async function (lang) {
     const { offset } = new Duration(this.options?.getString('time') ?? this.args?.[0] ?? '0.1ms');
     if (!offset) {
       const helpcmd = this.client.application.commands.cache.find(e => e.name == 'help')?.id;

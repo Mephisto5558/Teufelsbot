@@ -5,7 +5,8 @@ module.exports = {
   dmPermission: true,
 
   run: async function (lang) {
-    if (this.member.moderatable && this.member.displayName.length < 26 && !this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(`[AFK] ${this.member.displayName}`);
+    if (this.member.moderatable && this.member.displayName.length < 26 && !this.member.nickname?.startsWith('[AFK] '))
+      void this.member.setNickname(`[AFK] ${this.member.displayName}`);
 
     await this.user.updateDB('afkMessage', { message: lang('afkMessage'), createdAt: this.createdAt });
     return this.customReply(lang('responseList', this.member.customName));

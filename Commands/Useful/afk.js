@@ -58,13 +58,15 @@ module.exports = {
 
     const
       global = this.options?.getBoolean('global') ?? this.args?.[0] == 'global',
+      /* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- intentional */
       message = this.options?.getString('message') ?? (this.content?.slice(global ? 7 : 0, 1000) || 'AFK');
 
     await (global || !this.inGuild()
       ? this.user.updateDB('afkMessage', { message, createdAt: this.createdAt })
       : this.guild.updateDB(`afkMessages.${this.user.id}`, { message, createdAt: this.createdAt }));
 
-    if (this.member?.moderatable && this.member.displayName.length < 26 && !this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(`[AFK] ${this.member.displayName}`);
+    if (this.member?.moderatable && this.member.displayName.length < 26 && !this.member.nickname?.startsWith('[AFK] '))
+      void this.member.setNickname(`[AFK] ${this.member.displayName}`);
 
     return this.customReply({ content: lang(global || !this.guildId ? 'globalSuccess' : 'success', message), allowedMentions: { parse: [AllowedMentionsTypes.User] } });
   }

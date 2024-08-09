@@ -1,9 +1,8 @@
-const { errorHandler } = require('../Utils');
+const { errorHandler } = require('#Utils');
 
 /**
  * @this {Error}
- * @param {Client}client
- * @returns {Promise<void>}*/
+ * @param {Client}client*/
 module.exports = function error(client) {
-  return errorHandler.call(client, this);
+  return void errorHandler.call(client, this);
 };

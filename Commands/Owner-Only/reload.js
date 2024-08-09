@@ -1,17 +1,19 @@
 const
   { Collection } = require('discord.js'),
+  /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path`*/
   { resolve, basename, dirname } = require('node:path'),
   { access } = require('node:fs/promises'),
-  { formatSlashCommand, slashCommandsEqual } = require('../../Utils');
+  { formatSlashCommand, slashCommandsEqual } = require('#Utils');
 
 /**
  * @this {Client}
- * @param {command<'both', boolean>}command
+ * @param {command<string, boolean>}command
  * @param {string[]}reloadedArray gets modified and not returned*/
 async function reloadCommand(command, reloadedArray) {
+  /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
   delete require.cache[command.filePath];
 
-  /** @type {command<'both', boolean>} */
+  /** @type {command<string, boolean>} */
   let file = {};
   try { file = require(command.filePath); }
   catch (err) {
@@ -20,20 +22,19 @@ async function reloadCommand(command, reloadedArray) {
 
   const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n) : undefined;
 
-  // NOSONAR
-  file.name = command.name;
+  file.name = command.name; // NOSONAR S1874
   file.filePath = command.filePath;
-  file.category = command.category;
+  file.category = command.category; // NOSONAR S1874
 
-  this.prefixCommands.delete(command.name);
+  this.prefixCommands.delete(command.name); // NOSONAR S1874
   if (file.prefixCommand) {
     file.id = command.id;
-    this.prefixCommands.set(file.name, file);
-    reloadedArray.push(file.name);
+    this.prefixCommands.set(file.name, file); // NOSONAR S1874
+    reloadedArray.push(file.name); // NOSONAR S1874
 
     for (const alias of command.aliases?.prefix ?? []) this.prefixCommands.delete(alias);
     for (const alias of file.aliases?.prefix ?? []) {
-      this.prefixCommands.set(alias, { ...file, aliasOf: file.name });
+      this.prefixCommands.set(alias, { ...file, aliasOf: file.name }); // NOSONAR S1874
       reloadedArray.push(alias);
     }
   }
@@ -53,7 +54,7 @@ async function reloadCommand(command, reloadedArray) {
       }
     }
 
-    this.slashCommands.delete(command.name);
+    this.slashCommands.delete(command.name); // NOSONAR S1874
     this.slashCommands.set(slashFile.name, slashFile);
     reloadedArray.push(`</${slashFile.name}:${slashFile.id ?? 0}>`);
 
@@ -84,7 +85,7 @@ async function reloadCommand(command, reloadedArray) {
     }
   }
   else if (!file.slashCommand && command.slashCommand) {
-    this.slashCommands.delete(command.name);
+    this.slashCommands.delete(command.name); // NOSONAR S1874
     if (command.id) await this.application.commands.delete(command.id);
   }
 }
@@ -120,11 +121,12 @@ module.exports = {
             /** @type {command<'both', boolean>} */
             const cmd = require(filePath);
             cmd.filePath = filePath;
-            cmd.category = this.args[1].split('/')[1].toLowerCase();
+            cmd.category = this.args[1].split('/')[1].toLowerCase(); // NOSONAR S1874
 
             await reloadCommand.call(this.client, cmd, reloadedArray);
           }
 
+          /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
           delete require.cache[filePath];
           break;
         }
@@ -138,7 +140,7 @@ module.exports = {
       }
     }
     catch (err) {
-      msg.reply(lang('error', err.message));
+      void msg.reply(lang('error', err.message));
 
       if (this.client.botType == 'dev') throw err;
       log.error('Error while trying to reload a command:\n', err);

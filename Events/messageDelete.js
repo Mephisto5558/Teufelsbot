@@ -3,10 +3,10 @@ const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('di
 /**
  * @this {Message<true>}
  * @param {lang}lang
- * @param {string|Record<string, string>} descriptionData*/
-function sendeMinigameDeletedEmbed(lang, descriptionData) {
+ * @param {string | Record<string, string>} descriptionData*/
+async function sendeMinigameDeletedEmbed(lang, descriptionData) {
   const embed = new EmbedBuilder({
-    author: { name: this.user?.username ?? lang('global.unknownUser'), iconURL: this.member?.displayAvatarURL() },
+    author: { name: this.user.username, iconURL: this.member?.displayAvatarURL() },
     title: lang('embedTitle'),
     description: lang('embedDescription', descriptionData),
     color: Colors.Red,
@@ -38,7 +38,7 @@ function wordchainHandler(lang) {
   return sendeMinigameDeletedEmbed.call(this, lang, this.originalContent);
 }
 
-/** @this {Message}*/
+/** @this {import('discord.js').PartialMessage}*/
 module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.inGuild()) return;
 
@@ -61,7 +61,7 @@ module.exports = async function messageDelete() {
 
   const
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageDelete })).entries
-      .find(e => (!this.user?.id || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < 20_000) ?? {},
+      .find(e => (!this.user.id || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < 20_000) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
       thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: 128 }) } : undefined,

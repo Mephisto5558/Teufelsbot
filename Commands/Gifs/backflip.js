@@ -13,7 +13,7 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: function (lang) {
+  run: async function (lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', this.member?.displayName ?? this.user.displayName),

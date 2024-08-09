@@ -1,13 +1,13 @@
 const
   { EmbedBuilder } = require('discord.js'),
-  { DiscordAPIErrorCodes } = require('../Utils');
+  { DiscordAPIErrorCodes } = require('#Utils');
 
 /**
- * @this {StringConstructor}
+ * @this {StringConstructor | string | undefined}
  * @param {import('discord.js').User}user
  * @param {number}year*/
 function formatBirthday(user, year) {
-  return this?.toString()?.replaceAll('{user.nickname}', user.displayName)
+  return this?.toString().replaceAll('{user.nickname}', user.displayName)
     .replaceAll('{user.username}', user.username)
     .replaceAll('{user.id}', user.id)
     .replaceAll('{user.tag}', user.tag)
@@ -38,17 +38,17 @@ module.exports = {
     const defaultSettings = this.defaultSettings.birthday;
 
     await this.guilds.fetch();
-    for (const [,guild] of this.guilds.cache) {
+    for (const [, guild] of this.guilds.cache) {
       const settings = guild.db.birthday;
       if (!settings?.enable) continue;
 
-      /** @type {Record<import('discord.js').Snowflake, number>} */
+      /** @type {Record<Snowflake, number>} */
       const birthdayUserList = Object.entries(this.db.get('userSettings')).reduce((acc, [id, e]) => {
         if (e.birthday?.getMonth() == nowMonth && e.birthday.getDate() == nowDate) acc[id] = e.birthday.getFullYear();
         return acc;
       }, {});
 
-      if (!Object.keys(birthdayUserList).length) continue;
+      if (!birthdayUserList.__count__) continue;
 
       for (const [,member] of await guild.members.fetch({ user: Object.keys(birthdayUserList) })) {
         const year = birthdayUserList[member.id];
@@ -58,7 +58,7 @@ module.exports = {
           try { channel = await guild.channels.fetch(settings.ch.channel); }
           catch (err) {
             if (err.code != DiscordAPIErrorCodes.UnknownChannel) throw err;
-            return (await guild.fetchOwner()).send(this.i18n.__({ locale: guild?.db.config.lang ?? guild?.localeCode }, 'others.timeEvents.birthday.unknownChannel', guild.name));
+            return (await guild.fetchOwner()).send(this.i18n.__({ locale: guild.db.config.lang ?? guild.localeCode }, 'others.timeEvents.birthday.unknownChannel', guild.name));
           }
 
           const embed = new EmbedBuilder({
