@@ -6,10 +6,10 @@ module.exports = { runMessages, removeAfkStatus };
 
 /** @this {Message}*/
 function replyToTriggers() {
-  const triggerList = Object.values(this.guild.db.triggers ?? {}).filter(e => this.originalContent?.toLowerCase().includes(e.trigger.toLowerCase())).slice(0, 3);
-  if (!triggerList.length || cooldowns.call(this, 'triggers', { channel: 1e4 })) return;
+  if (cooldowns.call(this, 'triggers', { channel: 1e4 })) return;
 
-  for (const trigger of triggerList) void this.customReply(trigger.response);
+  const responseList = new Set(Object.values(this.guild.db.triggers ?? {}).filter(e => this.originalContent?.toLowerCase().includes(e.trigger.toLowerCase())).map(e => e.response));
+  for (const response of responseList) void this.customReply(response);
 }
 
 /** @this {Message}*/

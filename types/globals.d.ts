@@ -5,7 +5,8 @@ import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
 import type I18nProvider from '@mephisto5558/i18n';
 import type { WebServer } from '@mephisto5558/bot-website';
-import type Command from '@mephisto5558/command';
+
+// import type Command from '@mephisto5558/command';
 import type DBStructure from './database';
 import type { BackupSystem, GiveawaysManager } from '#Utils';
 import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
@@ -272,10 +273,10 @@ declare global {
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   type GenericFunction = (...args: any) => any;
 
-  type SlashCommand = Command.SlashCommand;
-  type PrefixCommand = Command.PrefixCommand;
-  type MixedCommand = Command.MixedCommand;
-  type CommandOptions = Command.CommandOptions;
+  /* type SlashCommand = Command.SlashCommand;
+     type PrefixCommand = Command.PrefixCommand;
+     type MixedCommand = Command.MixedCommand;
+     type CommandOptions = Command.CommandOptions; */
 
   type langBoundArgs = [ { locale?: string; errorNotFound?: boolean; undefinedNotFound?: boolean; backupPath?: string } ];
 
@@ -389,7 +390,6 @@ declare global {
   });
 
   type bBoundFunction<OF extends GenericFunction, T extends GenericFunction = OF> = T & {
-
     /** The original, unbound function */
     __targetFunction__: OF;
 
