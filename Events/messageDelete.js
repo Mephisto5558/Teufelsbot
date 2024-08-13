@@ -38,7 +38,7 @@ function wordchainHandler(lang) {
   return sendeMinigameDeletedEmbed.call(this, lang, this.originalContent);
 }
 
-/** @this {import('discord.js').PartialMessage}*/
+/** @this {Message | import('discord.js').PartialMessage}*/
 module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.inGuild()) return;
 
@@ -49,7 +49,7 @@ module.exports = async function messageDelete() {
   wordchainHandler.call(this, lang);
 
   const setting = this.guild.db.config.logger?.messageDelete;
-  if (!setting?.enabled || !setting.channel) return;
+  if (!setting?.enabled) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
   if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length)
@@ -61,7 +61,7 @@ module.exports = async function messageDelete() {
 
   const
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageDelete })).entries
-      .find(e => (!this.user.id || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < 20_000) ?? {},
+      .find(e => (!this.user?.id || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < 20_000) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
       thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: 128 }) } : undefined,
