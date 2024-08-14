@@ -20,7 +20,7 @@ module.exports = {
   run: async function (lang) {
     const
       target = getTargetMember(this, { returnSelf: true }),
-      avatarURL = target.displayAvatarURL({ size: this.options?.getInteger('size') ?? 2048 }),
+      avatarURL = target.displayAvatarURL({ size: this.options?.getInteger('size') ?? this.args.at(-1) ?? 2048 }),
       embed = new EmbedBuilder({
         description: lang('embedDescription', target.user?.username ?? target.username),
         color: Colors.White,

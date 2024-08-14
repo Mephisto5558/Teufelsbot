@@ -117,7 +117,6 @@
         "description": "The activity's type"
       }
     },
-    "invalidType": "This is not a valid type. Valid types are:\n`{types}`",
     "set": "My activity has been set to `{name}` of type `{type}`.",
     "reset": "My activity has been set to `none`."
   },
