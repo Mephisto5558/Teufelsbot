@@ -52,7 +52,7 @@
     "description": "inject Bash code directly into the bot's shell",
     "options": {
       "command": {
-        "description":"The bash command that should be executed"
+        "description": "The bash command that should be executed"
       }
     },
     "usage": {
@@ -71,7 +71,9 @@
       "examples": "file path/to/file\n{prefix}{cmdName} fun"
     },
     "options": {
-      "command_name": "The name of the command to reload."
+      "command_name": {
+        "description": "The name of the command to reload."
+      }
     },
     "invalidCommand": "This is not a valid command.",
     "invalidPath": "The specified path does not exist! Please note the case sensitivity of the path.",
