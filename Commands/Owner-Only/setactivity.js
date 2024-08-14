@@ -27,8 +27,6 @@ module.exports = {
 
     if (Number.isNaN(Number.parseInt(type))) type = ActivityType[type];
 
-    // if (!type && type != 0) return this.customReply(lang('invalidType', Object.keys(ActivityType).filter(Number).join('`, `')));
-
     this.client.user.setActivity({ name: activity, type });
     await this.client.db.update('botSettings', 'activity', { name: activity, type });
 

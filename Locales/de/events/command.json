@@ -7,6 +7,7 @@
   "nsfw": "Dieser Befehl kann nur in einem altersbegrenzten Kanal benutzt werden!",
   "paramRequired": "Du musst einen Wert für die Option \"{option}\" angeben.\n> {description}",
   "strictAutocompleteNoMatch": "Deine Eingabe für die Option \"{option}\" muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.",
+  "strictAutocompleteNoMatchWValues": "Deine Eingabe für die Option \"{option}\" muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.\n\nVerfügbare Optionen sind:\n{availableOptions}",
   "permissionDenied": {
     "embedTitle": "Unzureichende Berechtigungen",
     "embedDescriptionUser": "Du benötigst die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n`{permissions}`",
