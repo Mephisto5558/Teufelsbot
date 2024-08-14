@@ -6,7 +6,8 @@ const
   /* eslint-disable-next-line @typescript-eslint/unbound-method -- no issue with `node:path`*/
   { join } = require('node:path'),
   { DB } = require('@mephisto5558/mongoose-db'),
-  { SlashCommand, PrefixCommand, MixedCommand, CommandOptions } = require('@mephisto5558/command'),
+
+  // { SlashCommand, PrefixCommand, MixedCommand, CommandOptions } = require('@mephisto5558/command'),
   I18nProvider = require('@mephisto5558/i18n'),
   Log = require('./Log.js'),
   customReply = require('./message_customReply.js'),
@@ -23,10 +24,10 @@ module.exports = { Log, _patch, customReply, runMessages, playAgain, utils: { re
 global.log = new Log();
 global.sleep = require('node:util').promisify(setTimeout);
 
-global.SlashCommand = SlashCommand;
-global.PrefixCommand = PrefixCommand;
-global.MixedCommand = MixedCommand;
-global.CommandOptions = CommandOptions;
+/* global.SlashCommand = SlashCommand;
+   global.PrefixCommand = PrefixCommand;
+   global.MixedCommand = MixedCommand;
+   global.CommandOptions = CommandOptions; */
 
 /**
  * @param {Record<string, any>}target
