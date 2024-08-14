@@ -15,7 +15,7 @@ const
  * @this {import('discord.js').BaseInteraction|Message}
  * @param {command<'both', boolean, true>}command
  * @param {lang}lang
- * @returns {[string, Record<string, string>|string|undefined] | undefined}*/
+ * @returns {[string, Record<string, string> | string | undefined, string | undefined] | undefined}*/
 function checkOptions(command, lang) {
   /** @type {command<'both', boolean, true> | commandOptions<true>} */
   let option = command;
@@ -30,7 +30,7 @@ function checkOptions(command, lang) {
 
   if (!option.options) return;
 
-  for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete }] of option.options.entries()) {
+  for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete, autocompleteOptions, choices }] of option.options.entries()) {
     if (required && !this.options?.get(name) && !this.args?.[i]) {
       return ['paramRequired', {
         option: name,
@@ -46,7 +46,18 @@ function checkOptions(command, lang) {
         focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
       }, command, this.guild?.db.config.lang ?? this.guild?.localeCode)
         .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
-    ) return ['strictAutocompleteNoMatch', name];
+    ) {
+      if (typeof autocompleteOptions != 'function') {
+        return ['strictAutocompleteNoMatchWValues', {
+          option: name,
+          availableOptions: Array.isArray(autocompleteOptions) ? `\`${autocompleteOptions.map(e => e.value ?? e).join('`, `')}\`` : autocompleteOptions
+        }];
+      }
+      return ['strictAutocompleteNoMatch', name];
+    }
+
+    if (this instanceof Message && this.args?.[i] && choices && !choices.some(e => e.value === this.args[i]))
+      return ['strictAutocompleteNoMatchWValues', { option: name, availableOptions: `\`${choices.map(e => e.value).join('`, `')}\`` }];
   }
 }
 
