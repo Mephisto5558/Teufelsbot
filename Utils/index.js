@@ -10,7 +10,7 @@ module.exports = {
   DiscordAPIErrorCodes: require('./DiscordAPIErrorCodes.json'),
   errorHandler: require('./errorHandler.js'),
   findAllEntries: require('./findAllEntries.js'),
-  formatSlashCommand: require('./formatSlashCommand.js'),
+  formatCommand: require('./formatCommand.js'),
   getAge: require('./getAge.js'),
   getCommands: require('./getCommands.js'),
   getDirectories: require('./getDirectories.js'),

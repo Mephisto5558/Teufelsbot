@@ -21,7 +21,7 @@ export {
   cooldown as cooldowns,
   errorHandler,
   findAllEntires,
-  format as formatSlashCommand,
+  formatCommand,
   getAge,
   getCommands,
   getDirectories,
@@ -182,8 +182,8 @@ declare function findAllEntires(
 ): Record<string, unknown>;
 
 /** @throws {Error} on non-autofixable invalid data*/
-declare function format<T extends command<'slash', boolean> | commandOptions<false>>(
-  option: T, path: string, i18n: I18nProvider
+declare function formatCommand<T extends command | commandOptions<false>>(
+  option: T, path: string, id: string, i18n: I18nProvider
 ): T;
 
 declare function getAge(date: Date): number;

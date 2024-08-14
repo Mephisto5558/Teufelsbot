@@ -1,8 +1,6 @@
 const
   { readdir } = require('node:fs/promises'),
-  /* eslint-disable-next-line @typescript-eslint/unbound-method -- not in issue with `node:path`*/
-  { resolve } = require('node:path'),
-  { getDirectories, formatSlashCommand, slashCommandsEqual } = require('#Utils');
+  { getDirectories, formatCommand, slashCommandsEqual } = require('#Utils');
 
 /** @this {Client}*/
 module.exports = async function slashCommandHandler() {
@@ -19,12 +17,7 @@ module.exports = async function slashCommandHandler() {
       let command = require(`../Commands/${subFolder}/${file}`);
 
       if (!command?.slashCommand) continue;
-      try {
-        command.name ??= file.split('.')[0];
-        command = formatSlashCommand(command, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`, this.i18n);
-        command.filePath = resolve(`Commands/${subFolder}/${file}`);
-        command.category ??= subFolder.toLowerCase();
-      }
+      try { command = formatCommand(command, `Commands/${subFolder}/${file}`, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`, this.i18n); }
       catch (err) {
         if (this.botType == 'dev') throw err;
         log.error(`Error on formatting command ${command.name}:\n`, err);
