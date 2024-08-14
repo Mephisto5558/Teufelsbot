@@ -109,6 +109,14 @@
       "usage": "<activity>;[type]",
       "examples": "running commands;playing"
     },
+    "options": {
+      "activity": {
+        "description": "The status text you want me to have."
+      },
+      "type": {
+        "description": "The activity's type"
+      }
+    },
     "invalidType": "This is not a valid type. Valid types are:\n`{types}`",
     "set": "My activity has been set to `{name}` of type `{type}`.",
     "reset": "My activity has been set to `none`."
