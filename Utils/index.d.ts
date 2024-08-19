@@ -227,14 +227,14 @@ declare function getTargetRole<T extends boolean>(
 
 declare function gitpull(): Promise<Error | 'OK'>;
 
+declare type saveGiveawayMethod = (messageId: Snowflake, giveawayData: GiveawayData) => Promise<true>;
 declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
   // @ts-expect-error discord-giveaways is not typed correctly in that case.
   protected getAllGiveaways(): Promise<GiveawayData[]>;
-  protected saveGiveaway(
-    messageId: Snowflake, giveawayData: GiveawayData
-  ): Promise<true>;
-  /* eslint-disable-next-line @typescript-eslint/unbound-method */ // @ts-expect-error probably not optimal solution, but it works.
-  protected editGiveaway = this.saveGiveaway;
+
+  protected saveGiveaway: saveGiveawayMethod;
+  protected editGiveaway: saveGiveawayMethod;
+
   protected deleteGiveaway(
     messageId: Snowflake
   ): Promise<boolean>;
