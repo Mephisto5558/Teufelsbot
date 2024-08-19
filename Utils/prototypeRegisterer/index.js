@@ -180,7 +180,6 @@ Object.defineProperties(User.prototype, {
   },
   updateDB: {
     /** @type {User['updateDB']}*/
-    /* eslint-disable-next-line @typescript-eslint/require-await, @typescript-eslint/restrict-template-expressions -- I won't do `return await` | `key` is always a string */
     value: async function (key, value) { return this.client.db.update('userSettings', this.id + (key ? `.${key}` : ''), value); }
   },
 
