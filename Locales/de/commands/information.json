@@ -36,6 +36,7 @@
       }
     },
     "embedTitle": "Befehlsstatistiken für {mode}",
+    "notFound": "Es gibt keinen solchen Befehl!",
     "embedDescriptionOne": "Der {command}-Befehl wurde **{total}** male (Slash: **{slash}** | Präfix: **{prefix}**) ausgeführt.",
     "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:\n",
     "embedFieldValue": "**{total}** (Slash: **{slash}** | Präfix: **{prefix}**)"
@@ -210,7 +211,8 @@
     "vanityUrl": "Benutzerdefinierte URL",
     "uses": " Nutzungen",
     "downloadIcon": "Icon Herunterladen",
-    "downloadBanner": "Banner Herunterladen"
+    "downloadBanner": "Banner Herunterladen",
+    "joinGuild": "Server Beitreten"
   },
   "uptime": {
     "description": "Erhalte die Uptime des Bots",

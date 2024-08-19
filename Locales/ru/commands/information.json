@@ -13,18 +13,33 @@
     },
     "embedDescription": "**Аватар {user}**"
   },
+  "changelog": {
+    "description": "Получить последний список изменений.",
+    "embedTitle": "Список изменений"
+  },
   "cmdstats": {
     "description": "Посмотрите, как часто выполнялась конкретная команда или как получить топ 10.",
     "usage": {
-      "examples": "{prefix}cmdstats user joke"
+      "usage": "['guild' | 'user' | 'bot'] [command]"
     },
     "options": {
+      "scope": {
+        "description": "Получите статистику команд для текущей гильдии, вас или бота в целом.",
+        "choices": {
+          "bot": "Bot",
+          "guild": "Гильдия",
+          "user": "Пользователь"
+        }
+      },
       "command": {
         "description": "Команда, для которой вы хотите получить статистику."
       }
     },
     "embedTitle": "Статистика команд",
-    "embedDescriptionMany": "Это 10 наиболее часто используемых команд:\n"
+    "notFound": "Эта команда не существует!",
+    "embedDescriptionOne": "Команда {command} была выполнена **{count}** раз.",
+    "embedDescriptionMany": "Это 10 наиболее часто используемых команд:\n",
+    "embedFieldValue": "**{total}** (Slash: **{slash}** | Префикс: **{prefix}**)"
   },
   "dashboard": {
     "description": "получить ссылку на панель ботов",
@@ -33,6 +48,9 @@
   },
   "emojiinfo": {
     "description": "Получить информацию о эмодзи",
+    "usage": {
+      "usage": "[emoji | emoji id]"
+    },
     "options": {
       "emoji": {
         "description": "Эмодзи или его идентификатор, который вы хотите получить информацию о"
@@ -40,7 +58,6 @@
     },
     "notFound": "Для этого emoji не найдено никакой информации.",
     "embedTitle": "Информация о \"{emoji}\"",
-    "unknown": "неизвестен",
     "name": "Наименование",
     "id": "ID",
     "guild": "Гильдия",
@@ -53,6 +70,9 @@
   },
   "help": {
     "description": "Показать все мои команды или найти конкретный",
+    "usage": {
+      "usage": "[<category> [command]]\n{prefix}{cmdName} [category]"
+    },
     "options": {
       "category": {
         "description": "О какой категории вы хотите получить информацию?"
@@ -93,10 +113,15 @@
     "commands": "Команды",
     "starts": "Начинается",
     "lastStart": "Последний старт",
-    "translation": "Переводы:\n> Английский: {en}\n> Герман: {de}\n> Все остальные языки в основном переведены.\n",
-    "links": "**[Invite]({invite})** | **[Dashboard]({dashboard})** | **[Политика конфиденциальности]({privacyPolicy})**",
+    "translation": "Переводы:\n> Английский: {en}\n> Герман: {de}\n",
     "embedTitle": "Статистика",
-    "embedFooterText": "Скоро появится больше статистики!"
+    "links": {
+      "repo": "GitHub",
+      "discord": "Discord",
+      "invite": "Пригласить",
+      "dashboard": "Панель",
+      "privacyPolicy": "Политика конфиденциальности"
+    }
   },
   "invite": {
     "description": "Отправляет ссылку для добавления бота в гильдию.",
@@ -120,12 +145,16 @@
     "messageSend": "Отправить сообщение"
   },
   "prefix": {
-    "description": "Показывает префикс бота гильдии",
-    "currentPrefix": "Мой текущий префикс — `{prefix}`.",
+    "description": "показывает или изменяет префикс бота гильдии",
+    "currentPrefixes": "Мои текущие префиксы:\n{prefixes}",
     "caseInsensitive": " (без учета регистра)"
   },
   "roleinfo": {
     "description": "Получить информацию о роли",
+    "usage": {
+      "usage": "[@role | имя роли | id роли]",
+      "examples": "@Пользователь1"
+    },
     "options": {
       "role": {
         "description": "роль, которую вы хотите получить информацию о"
@@ -147,7 +176,7 @@
     "description": "Получить информацию о гильдии",
     "options": {
       "guild_id_or_invite": {
-        "description": "The server ID you want to get information about. Only works for servers I'm in."
+        "description": "ID сервера, о котором вы хотите получить информацию. Работает только для серверов, в которых я нахожусь."
       }
     },
     "memberStats": "`{all}` (Хуманы: `{humans}`, боты: `{bots}`)",
@@ -173,24 +202,29 @@
     "emojis": "Emojis",
     "boosts": {
       "name": "Усиление",
-      "1": ", Ранг 1",
-      "2": ", Ранг 2",
-      "3": ", Ранг 3"
+      "1": "Ранг 1",
+      "2": "Ранг 2",
+      "3": "Ранг 3"
     },
     "roles": "Роли",
     "channels": "Каналы",
     "vanityUrl": "Персональный URL",
     "uses": " Использовано",
     "downloadIcon": "Загрузить иконку",
-    "downloadBanner": "Скачать баннер"
+    "downloadBanner": "Скачать баннер",
+    "joinGuild": "Вступить в гильдию"
   },
   "uptime": {
     "description": "Получить время работы бота",
     "embedDescriptionNoURL": "Бот был онлайн для {time}.",
-    "embedDescription": "Бот был [online]({domain}/uptime) ровно {time}."
+    "embedDescription": "Бот был [online]({Domain}/uptime) ровно {time}."
   },
   "userinfo": {
     "description": "Получить информацию о участнике",
+    "usage": {
+      "usage": "[@user | Имя пользователя | Тег пользователя | никнейм пользователя | ID пользователя]",
+      "examples": "@Пользователь1"
+    },
     "options": {
       "target": {
         "description": "пользователь, которому вы хотите получить информацию о"
@@ -201,7 +235,16 @@
     "admin": "`Администратор`",
     "guildMod": "Модератор гильдии",
     "guildMember": "Член гильдии",
+    "activity": {
+      "0": "Играет {activity}",
+      "1": "Потоки {activity}",
+      "2": "Слушает {activity}",
+      "3": "Часы {activity}",
+      "4": "Статус: \"{message}\")\n",
+      "5": "Конкуренция в {activity}"
+    },
     "mention": "Упоминание",
+    "displayName": "Показать имя",
     "type": "Тип",
     "roles": "Роли",
     "position": "Позиция",

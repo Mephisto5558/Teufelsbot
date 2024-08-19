@@ -6,6 +6,11 @@
     "usage": {
       "usage": "[off] <user id>"
     },
+    "options": {
+      "target": {
+        "description": "L'ID de l'utilisateur que vous voulez (dé)bloquer."
+      }
+    },
     "notFound": "Aucune entrée trouvée pour cet identifiant.",
     "saved": "`{user}` a été exclu de l'utilisation du bot.",
     "removed": "L'entrée de la liste noire pour `{user}` a été supprimée.",
@@ -17,6 +22,14 @@
       "usage": "<database name> <key>",
       "examples": "base de données a.b.c"
     },
+    "options": {
+      "database": {
+        "description": "La base de données dans laquelle se trouve l'entrée."
+      },
+      "key": {
+        "description": "Le chemin de la clé aplatie"
+      }
+    },
     "notFound": "rien trouvé"
   },
   "eval": {
@@ -25,6 +38,11 @@
       "usage": "<js code>",
       "examples": "console.log('Hello World!')"
     },
+    "options": {
+      "code": {
+        "description": "Le code JavaScript à évaluer"
+      }
+    },
     "finished": "commande évaluée :\n```js\n{code}\n```\n",
     "success": "{msg} sans erreurs.",
     "emptyRejection": "Rejet de promesse vide",
@@ -32,6 +50,11 @@
   },
   "exec": {
     "description": "injecter du code Bash directement dans le shell du bot",
+    "options": {
+      "command": {
+        "description": "La commande bash qui doit être exécutée"
+      }
+    },
     "usage": {
       "usage": "<sh code>",
       "examples": "echo 'Bonjour le monde!'"
@@ -46,6 +69,11 @@
     "usage": {
       "usage": "<'command' | 'file'> <Path relative to cwd>\n{prefix}{cmdName} <command | '*'>",
       "examples": "chemin/vers/fichier\n{prefix}{cmdName} amusant"
+    },
+    "options": {
+      "command_name": {
+        "description": "Le nom de la commande à recharger."
+      }
     },
     "invalidCommand": "Ce n'est pas une commande valide.",
     "invalidPath": "Le chemin spécifié n'existe pas ! Veuillez noter la sensibilité à la casse du chemin.",
@@ -81,7 +109,14 @@
       "usage": "<activity>;[type]",
       "examples": "commandes en cours d'exécution;lecture"
     },
-    "invalidType": "Ce n'est pas un type valide. Les types valides sont:\n`{types}`",
+    "options": {
+      "activity": {
+        "description": "Le texte de statut que vous voulez que je possède."
+      },
+      "type": {
+        "description": "Le type d'activité"
+      }
+    },
     "set": "Activité définie à `{name}` de type `{type}`.",
     "reset": "Activité définie à `aucun`."
   },

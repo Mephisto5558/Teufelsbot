@@ -82,5 +82,9 @@
     "birthday": {
       "unknownChannel": "INFO: il canale configurato per la funzione di compleanno nella gilda `{guild}` non esiste! Si prega di riconfigurarlo in modo da poter inviare messaggi di compleanno!"
     }
+  },
+  "getCommands": {
+    "lookAtOptionDesc": "Comando SLASH: Guarda le descrizioni dell'opzione.\n",
+    "noInfo": "Nessuna informazione trovata"
   }
 }

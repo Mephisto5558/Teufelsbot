@@ -6,6 +6,11 @@
     "usage": {
       "usage": "[off] <Benutzer-ID>"
     },
+    "options": {
+      "target": {
+        "description": "Die Benutzer-ID, die du (ent)blocken möchtest."
+      }
+    },
     "notFound": "Dieser User ist nicht blacklisted.",
     "saved": "`{user}` wurde vom Nutzen des Bots geblacklistet.",
     "removed": "`{user}` ist nun nicht mehr geblacklisted.",
@@ -17,6 +22,14 @@
       "usage": "<Datenbank-Name> <Schlüssel>",
       "examples": "datenbank a.b.c"
     },
+    "options": {
+      "database": {
+        "description": "Die Datenbank, in der sich der Eintrag befindet."
+      },
+      "key": {
+        "description": "Der flache Schlüsselpfad"
+      }
+    },
     "notFound": "nichts gefunden"
   },
   "eval": {
@@ -25,6 +38,11 @@
       "usage": "<JS-Code>",
       "examples": "console.log('Hallo Welt!')"
     },
+    "options": {
+      "code": {
+        "description": "Der auszuführende JavaScript-Code"
+      }
+    },
     "finished": "Code:\n```js\n{code}\n```\n",
     "success": "{msg} wurde fehlerlos ausgeführt.",
     "emptyRejection": "Leere Promise-Ablehnung",
@@ -32,6 +50,11 @@
   },
   "exec": {
     "description": "Führe Bash-Code direkt in die Shell des Bots aus",
+    "options": {
+      "command": {
+        "description": "Der auszuführende Bash-Befehl"
+      }
+    },
     "usage": {
       "usage": "<SH-Code>",
       "examples": "echo 'Hallo Welt!'"
@@ -46,6 +69,11 @@
     "usage": {
       "usage": "<'command' | 'file'> <Pfad relativ zum CWD>\n{prefix}{cmdName} <Befehl| '*'>",
       "examples": "file Pfad/zur/Datei\n{prefix}{cmdName} fun"
+    },
+    "options": {
+      "command_name": {
+        "description": "Der Name des neu zu ladenden Befehls."
+      }
     },
     "invalidCommand": "Dies ist kein gültiger Befehl.",
     "invalidPath": "Der angegebene Pfad existiert nicht! Beachte auch die Groß/Kleinschreibung des Pfades.",
@@ -81,7 +109,14 @@
       "usage": "<Aktivität>;[Typ]",
       "examples": "Befehle ausführen;playing"
     },
-    "invalidType": "Das ist kein gültiger Aktivitäts-Typ. Gültige Typen sind:\n`{types}`",
+    "options": {
+      "activity": {
+        "description": "Der Status-Text, den ich haben soll."
+      },
+      "type": {
+        "description": "Der Typ der Aktivität"
+      }
+    },
     "set": "Meine Aktivität wurde zu `{name}` vom Typ `{type}` gesetzt.",
     "reset": "Meine Aktivität wurde zu `nichts` gesetzt."
   },

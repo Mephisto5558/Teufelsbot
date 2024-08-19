@@ -36,6 +36,7 @@
       }
     },
     "embedTitle": "Estadísticas de Comando",
+    "notFound": "¡Ese comando no existe!",
     "embedDescriptionOne": "El comando {command} ha sido ejecutado **{count}** veces.",
     "embedDescriptionMany": "Estos son los 10 comandos más utilizados:\n",
     "embedFieldValue": "**{total}** (barra: **{slash}** | Prefijo: **{prefix}**)"
@@ -210,7 +211,8 @@
     "vanityUrl": "URL de Vanity",
     "uses": " Usos",
     "downloadIcon": "Descargar icono",
-    "downloadBanner": "Descargar banner"
+    "downloadBanner": "Descargar banner",
+    "joinGuild": "Unirse al gremio"
   },
   "uptime": {
     "description": "Obtener el tiempo de actividad del bot",

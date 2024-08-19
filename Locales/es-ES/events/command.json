@@ -7,6 +7,7 @@
   "nsfw": "¡No puedes ejecutar comandos NSFW en un canal no NSFW!",
   "paramRequired": "Necesitas introducir un valor para la opción \"{option}\".\n> {description}",
   "strictAutocompleteNoMatch": "Su entrada para la opción \"{option}\" debe coincidir con una de las sugerencias de autocompletado. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando barra.",
+  "strictAutocompleteNoMatchWValues": "Su entrada para la opción \"{option}\" debe coincidir con una de las sugerencias de autocompletado. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando de barra.\n\nLas opciones disponibles son:\n{availableOptions}",
   "permissionDenied": {
     "embedTitle": "Permisos insuficientes",
     "embedDescriptionUser": "Necesitas los siguientes permisos en este canal para ejecutar este comando:\n`{permissions}`",

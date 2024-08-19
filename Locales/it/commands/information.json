@@ -36,6 +36,7 @@
       }
     },
     "embedTitle": "Statistiche Dei Comandi",
+    "notFound": "Questo comando non esiste!",
     "embedDescriptionOne": "Il comando {command} è stato eseguito **{total}** volte (Slash: **{slash}** | Prefisso: **{prefix}**).",
     "embedDescriptionMany": "Questi sono 10 comandi più usati:\n",
     "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefisso: **{prefix}**)"
@@ -210,7 +211,8 @@
     "vanityUrl": "Url Vanità",
     "uses": " Usi",
     "downloadIcon": "Scarica Icona",
-    "downloadBanner": "Scarica Banner"
+    "downloadBanner": "Scarica Banner",
+    "joinGuild": "Unisciti Alla Gilda"
   },
   "uptime": {
     "description": "Ottieni tempo di funzionamento del bot",

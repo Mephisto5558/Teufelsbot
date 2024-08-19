@@ -82,5 +82,9 @@
     "birthday": {
       "unknownChannel": "INFO: Der Kanal für die Geburtstagsfunktion im Server `{guild}` existiert nicht! Bitte konfiguriere ihn neu, damit ich Geburtstagsnachrichten senden kann!"
     }
+  },
+  "getCommands": {
+    "lookAtOptionDesc": "SLASH-Befehl: Lies die Beschreibungen der Befehls-Optionen.\n",
+    "noInfo": "Keine Informationen gefunden"
   }
 }
