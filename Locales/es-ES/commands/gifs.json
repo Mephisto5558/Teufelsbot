@@ -5,16 +5,5 @@
     "description": "¡Haz un contragolpe!",
     "embedTitle": "Voltear",
     "embedDescription": "¡{user} hace un contragolpe!"
-  },
-  "furrykiss": {
-    "description": "furrykiss alguien.",
-    "options": {
-      "target": {
-        "description": "¿A quién quieres besar?"
-      }
-    },
-    "embedTitle": "Furrykiss",
-    "embedDescription": "{user} kisses :3",
-    "embedDescriptionTarget": "{user} kisses {target} :3"
   }
 }
