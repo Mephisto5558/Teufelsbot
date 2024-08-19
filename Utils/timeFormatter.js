@@ -35,8 +35,7 @@ function timeFormatter(sec = 0, lang = undefined) {
 module.exports = timeFormatter;
 
 /** Tests the timeFormatter*/
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-function testTimeFormatter() {
+function _testTimeFormatter() {
   const testCases = [
     { input: 0, expectedOutput: '0000-00, 00:00:00' },
     { input: 60, expectedOutput: '0000-00, 00:01:00' },
