@@ -1,8 +1,6 @@
 const validItems = ['y', 'mth', 'w', 'd', 'h', 'min', 's', 'ms'];
 
-/**
- * @param {string}timeStr a time string, e.g. 3w2d
- * @returns {string[]}array of valid values*/
+/** @type {import('.').timeValidator}*/
 function timeValidator(timeStr) {
   if (!timeStr || timeStr == '-' || timeStr == '+') return [];
 
@@ -35,8 +33,7 @@ module.exports = timeValidator;
 
 
 /** Tests the timeValidator*/
-/* eslint-disable-next-line no-unused-vars */
-function testTimevalidator() {
+function _testTimevalidator() {
   const testCases = [
     { input: '3', expectedOutput: ['3y', '3mth', '3w', '3d', '3h', '3min', '3s', '3ms'] },
     { input: '3w', expectedOutput: ['3w'] },

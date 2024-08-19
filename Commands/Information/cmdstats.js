@@ -21,10 +21,10 @@ module.exports = {
     }
   ],
 
-  run: function (lang) {
+  run: async function (lang) {
     const
       scope = this.options?.getString('scope') ?? this.args?.[0]?.toLowerCase() ?? 'bot',
-      query = (this.options?.getString('command') ?? this.args?.[this.args?.length == 1 ? 0 : 1])?.toLowerCase(),
+      query = (this.options?.getString('command') ?? this.args?.[this.args.length == 1 ? 0 : 1])?.toLowerCase(),
       cmdStats = (scope == 'guild' || scope == 'user' ? this[scope].db.cmdStats : this.client.settings.cmdStats) ?? {};
 
     let target;
@@ -36,12 +36,13 @@ module.exports = {
 
     if (query) {
       let command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);
-      if (command?.aliasOf) command = this.client.slashCommands.get(command.aliasOf) || this.client.prefixCommands.get(command.aliasOf);
+      if (command?.aliasOf) command = this.client.slashCommands.get(command.aliasOf) ?? this.client.prefixCommands.get(command.aliasOf);
+
+      if (!command) return this.customReply({ embeds: [embed.setDescription(lang('notFound')).setColor(Colors.Red)] });
 
       const total = Object.values(cmdStats[command.name] ?? {}).reduce((acc, e) => acc + e, 0);
-
       embed.data.description = lang('embedDescriptionOne', {
-        command: command?.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``,
+        command: command.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``,
         total, slash: cmdStats[command.name]?.slash ?? 0, prefix: cmdStats[command.name]?.prefix ?? 0
       });
     }
@@ -52,7 +53,7 @@ module.exports = {
         .map(([k, v = {}]) => [k, { total: Object.values(v).reduce((acc, e) => acc + e, 0) ?? 0, slash: v.slash ?? 0, prefix: v.prefix ?? 0 }])
         .sort(([, a], [, b]) => b.total - a.total)
         .slice(0, 10)
-        .map(([k, v]) => {
+        .map((/** @type {[string, {total: number, slash: number, prefix: number}]}*/[k, v]) => {
           const id = this.client.application.commands.cache.find(e => e.name == k)?.id;
           return { name: id ? `</${k}:${id}>` : `/${k}`, value: lang('embedFieldValue', v), inline: true };
         });

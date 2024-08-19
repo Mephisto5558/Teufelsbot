@@ -1,7 +1,5 @@
 /**
- * @param {number}sec
- * @param {lang?}lang
- * @returns {{ total: number; negative: boolean; formatted: string }} `formatted` has the format 'year-day, hour:minute:second' if `lang` is not provided.*/
+ * @type {import('.').timeFormatter}*/
 /* eslint-disable-next-line unicorn/no-useless-undefined -- more convenient to call this way*/
 function timeFormatter(sec = 0, lang = undefined) {
   const
@@ -37,8 +35,7 @@ function timeFormatter(sec = 0, lang = undefined) {
 module.exports = timeFormatter;
 
 /** Tests the timeFormatter*/
-/* eslint-disable-next-line no-unused-vars */
-function testTimeFormatter() {
+function _testTimeFormatter() {
   const testCases = [
     { input: 0, expectedOutput: '0000-00, 00:00:00' },
     { input: 60, expectedOutput: '0000-00, 00:01:00' },

@@ -6,9 +6,8 @@ Error.stackTraceLimit = 100;
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials, ActivityType } = require('discord.js'),
   { readdir } = require('node:fs/promises'),
-  exec = require('node:util').promisify(require('node:child_process').exec),
   { WebServer } = require('@mephisto5558/bot-website'),
-  { GiveawaysManager, validateConfig, gitpull, errorHandler, getCommands } = require('./Utils'),
+  { prototypeRegisterer: _, GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec } = require('#Utils'),
 
   createClient = /** @returns {Client<false>}*/ () => new Client({
     shards: 'auto',
@@ -67,12 +66,10 @@ async function processMessageEventCallback(handlerPromises, message) {
   await require('./Handlers/event_handler.js').call(this);
 }
 
-require('./Utils/prototypeRegisterer.js');
-
 console.timeEnd('Initializing time');
 console.time('Starting time');
 
-(async function main() {
+void (async function main() {
   if ((await gitpull()).message?.includes('Could not resolve host')) {
     log.error('It seems like the bot does not have internet access.');
     process.exit(1);
@@ -105,14 +102,14 @@ console.time('Starting time');
 
   if (!process.connected) await processMessageEventCallback.call(client, handlerPromises, 'Start WebServer');
 
-  client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);
+  void client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);
 
   log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers.\n`);
   console.timeEnd('Starting time');
 
   if (client.config.enableConsoleFix) {
     process.stdin.on('data', async buffer => {
-      const { stdout, stderr } = await exec(buffer.toString().trim());
+      const { stdout, stderr } = await shellExec(buffer.toString().trim());
       if (stdout) console.log(`stdout: ${stdout}`);
       if (stderr) console.log(`stderr: ${stderr}`);
     });

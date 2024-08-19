@@ -1,5 +1,3 @@
-const { validateConfig, setDefaultConfig } = require('./configValidator.js');
-
 module.exports = {
   autocompleteGenerator: require('./autocompleteGenerator.js'),
   BackupSystem: require('./backupSystem.js'),
@@ -7,14 +5,12 @@ module.exports = {
   checkTargetManageable: require('./checkTargetManageable.js'),
   commandExecutionWrapper: require('./commandExecutionWrapper.js'),
   componentHandler: require('./componentHandler.js'),
-  validateConfig,
+  configValidator: require('./configValidator.js'),
   cooldowns: require('./cooldowns.js'),
-
-  /** @type {Record<string, number>}*/
   DiscordAPIErrorCodes: require('./DiscordAPIErrorCodes.json'),
   errorHandler: require('./errorHandler.js'),
   findAllEntries: require('./findAllEntries.js'),
-  formatSlashCommand: require('./formatSlashCommand.js'),
+  formatCommand: require('./formatCommand.js'),
   getAge: require('./getAge.js'),
   getCommands: require('./getCommands.js'),
   getDirectories: require('./getDirectories.js'),
@@ -25,9 +21,10 @@ module.exports = {
   GiveawaysManager: require('./giveawaysManager.js'),
   localizeUsage: require('./localizeUsage.js'),
   logSayCommandUse: require('./logSayCommandUse.js'),
-  setDefaultConfig,
   slashCommandsEqual: require('./slashCommandsEqual.js'),
   permissionTranslator: require('./permissionTranslator.js'),
+  shellExec: require('./shellExec.js'),
+  prototypeRegisterer: require('./prototypeRegisterer'),
   timeFormatter: require('./timeFormatter.js'),
   timeValidator: require('./timeValidator.js')
 };

@@ -1,18 +1,12 @@
 const formatTopTen = require('./mgStats_formatTopTen.js');
 
-/**
- * this.customId: `mgstats.<game>.<mode>.<setting>`
- * @this {import('discord.js').StringSelectMenuInteraction}
- * @param {lang}lang
- * @param {string}game
- * @param {string}wMode
- * @param {string}settings*/
-module.exports = function mgStats(lang, game, wMode, settings) {
+/** @type {import('.').mgStats}*/
+module.exports = async function mgStats(lang, game, wMode, settings) {
   if (wMode != 'sort') return;
 
   lang.__boundArgs__[0].backupPath = 'commands.minigames.mgstats';
 
-  const [sort, mode] = this.values?.[0]?.split('_') ?? [];
+  const [sort, mode] = this.values[0]?.split('_') ?? [];
   this.message.embeds[0].data.description = formatTopTen.call(this,
     Object.entries(
       Object.entries(this.client.db.get('leaderboards')).find(([k]) => k == game)?.[1] ?? []

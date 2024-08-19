@@ -48,12 +48,7 @@ const
     }
   };
 
-/**
- * @param {Record<string, unknown>} obj
- * @param {Record<string, unknown>} checkObj
- * @param {boolean} allowNull
- * @throws {Error} If the config is invalid
- */
+/** @type {import('.').configValidator.configValidationLoop}*/
 function configValidationLoop(obj, checkObj, allowNull) {
   for (const [key, value] of Object.entries(obj)) {
     if (!(key in checkObj)) {
@@ -73,9 +68,10 @@ function configValidationLoop(obj, checkObj, allowNull) {
   }
 }
 
+/** @type {import('.').configValidator.validateConfig}*/
 function validateConfig() {
-  const config = require('../config.json'); // prototypeRegisterer makes sure that the file exists
-  if (config) configValidationLoop(config, validConfig, true);
+  // prototypeRegisterer makes sure the file exists
+  configValidationLoop(require('../config.json'), validConfig, true);
 
   const env = require('../env.json');
   configValidationLoop(env, validEnv);
@@ -85,8 +81,9 @@ function validateConfig() {
   catch (err) { throw new Error(`Error in env.json: Invalid mongoDB connection string: ${err}`); }
 }
 
+/** @type {import('.').configValidator.setDefaultConfig}*/
 function setDefaultConfig() {
-  /** @type {Client['config']} */
+  /** @type {Partial<Client['config']>} */
   let config;
   try { config = require('../config.json'); }
   catch (err) {
@@ -104,7 +101,7 @@ function setDefaultConfig() {
   config.github ??= {};
   config.replyOnDisabledCommand ??= true;
   config.replyOnNonBetaCommand ??= true;
-  config.ownerOnlyFolders = config.ownerOnlyFolders?.map(e => e?.toLowerCase()) ?? ['owner-only'];
+  config.ownerOnlyFolders = config.ownerOnlyFolders?.map(e => e.toLowerCase()) ?? ['owner-only'];
 
   return config;
 }

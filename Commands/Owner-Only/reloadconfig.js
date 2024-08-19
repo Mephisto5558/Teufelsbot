@@ -1,5 +1,6 @@
 const
-  { setDefaultConfig, configValidationLoop, validConfig } = require('../../Utils/configValidator'),
+  { setDefaultConfig, configValidationLoop, validConfig } = require('#Utils').configValidator,
+  /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path` */
   { resolve } = require('node:path'),
   filePath = resolve(process.cwd(), 'config.json');
 
@@ -10,9 +11,10 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  run: function (lang) {
+  run: async function (lang) {
     log.debug(`Reloading config, initiated by user ${this.user.tag}`);
 
+    /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
     delete require.cache[filePath];
 
     const config = setDefaultConfig();

@@ -1,11 +1,8 @@
 /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior */
+/* eslint-disable-next-line @typescript-eslint/unbound-method */
 const originalPatch = require('discord.js').Message.prototype._patch;
 
-/**
- * Modified from default one.
- * @type {import('discord.js').Message['_patch']}
- * @this {Message}
- **/
+/** @type {import('.')._patch}**/
 module.exports = function _patch(data, ...rest) {
   if ('content' in data) {
     this.originalContent = data.content ?? null;

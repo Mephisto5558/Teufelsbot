@@ -3,12 +3,11 @@ const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  cooldowns: { channel: 1e4 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
 
-  run: function (lang) {
+  run: async function (lang) {
     const
       embed = new EmbedBuilder({
         title: lang('embedTitle'),

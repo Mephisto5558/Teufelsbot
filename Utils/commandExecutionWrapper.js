@@ -1,14 +1,13 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
+
+  /** @type {import('.').checkForErrors} Getting type info while preventing circular import*/
   checkForErrors = require('./checkForErrors.js'),
+
+  /** @type {import('.').errorHandler}*/
   errorHandler = require('./errorHandler.js');
 
-
-/**
- * @this {Message|import('discord.js').BaseInteraction}
- * @param {command<'both', boolean, true>}command
- * @param {string}commandType
- * @param {lang}lang*/
+/** @type {import('.').commandExecutionWrapper}*/
 module.exports = async function commandExecutionWrapper(command, commandType, lang) {
   const errorKey = await checkForErrors.call(this, command, lang);
   if (errorKey === true) return;

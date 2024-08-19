@@ -3,21 +3,18 @@ const
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
 /**
- * @param {Error}err
+ * @param {Error | undefined}err
  * @returns {boolean} `true` if no err is given, `false` on specific error codes
- * @throws {DiscordAPIError}if the error is a DiscordAPIError**/
+ * @throws {DiscordAPIError}if the error is not a DiscordAPIError**/
 function handleError(err) {
   if (!err) return true;
   if (!(err instanceof DiscordAPIError)) throw err;
 
-  log.debug(`An error occurred while trying to send a message: ${err}`); // NOSONAR DiscordAPIError has a toStringMethod returning 'DiscordAPIError[Code]: Description'
+  log.debug(`An error occurred while trying to send a message: ${err.toString()}`);
   return ![DiscordAPIErrorCodes.UnknownInteraction, DiscordAPIErrorCodes.InvalidWebhookTokenProvided].includes(err.code);
 }
 
-/**
- * Tries different methods to reply to a message or interaction. If the content is over 2000 chars, will send an attachment instead.
- * @type {Message['customReply']}
- * @this {Message | import('discord.js').RepliableInteraction}*/
+/** @type {import('.').customReply}*/
 
 module.exports = async function customReply(options, deleteTime, allowedMentions) {
   let msg;

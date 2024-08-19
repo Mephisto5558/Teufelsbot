@@ -1,7 +1,6 @@
 const
   { readdir } = require('node:fs/promises'),
-  { resolve } = require('node:path'),
-  { getDirectories, localizeUsage } = require('../Utils');
+  { getDirectories, localizeUsage, formatCommand } = require('#Utils');
 
 let
   enabledCommandCount = 0,
@@ -13,16 +12,12 @@ module.exports = async function commandHandler() {
     for (const file of await readdir(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
 
-      /** @type {command<'prefix', boolean, true>}*/
-      const command = require(`../Commands/${subFolder}/${file}`);
-      command.filePath = resolve(`Commands/${subFolder}/${file}`);
+      /** @type {Omit<command<string, boolean, true>, 'name', 'category'> | undefined}*/
+      const commandFile = require(`../Commands/${subFolder}/${file}`);
 
-      if (!command?.prefixCommand) continue;
-      if (!command.disabled && !command.run?.toString().startsWith('function') && !command.run?.toString().startsWith('async function'))
-        throw new Error(`The run function of file "${command.filePath}" is not a function. You cannot use arrow functions.`);
+      if (!commandFile?.prefixCommand) continue;
 
-      command.name ??= file.split('.')[0];
-      command.category ??= subFolder.toLowerCase();
+      command = formatCommand(commandFile, `Commands/${subFolder}/${file}`, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`, this.i18n);
 
       /* For some reason, this alters the slash command as well.
          That's why localizeUsage is only here and not in `Utils/formatSlashCommand.js`. */

@@ -1,7 +1,6 @@
 const
   { readdir } = require('node:fs/promises'),
-  { resolve } = require('node:path'),
-  { getDirectories, formatSlashCommand, slashCommandsEqual } = require('../Utils');
+  { getDirectories, formatCommand, slashCommandsEqual } = require('#Utils');
 
 /** @this {Client}*/
 module.exports = async function slashCommandHandler() {
@@ -14,16 +13,11 @@ module.exports = async function slashCommandHandler() {
     for (const file of await readdir(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
 
-      /** @type {command<'slash', boolean, true>}*/
+      /** @type {Omit<command<string, boolean, true>, 'name' | 'category'> | undefined}*/
       let command = require(`../Commands/${subFolder}/${file}`);
 
-      if (!command.slashCommand) continue;
-      try {
-        command.name ??= file.split('.')[0];
-        command = formatSlashCommand(command, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`, this.i18n);
-        command.filePath = resolve(`Commands/${subFolder}/${file}`);
-        command.category ??= subFolder.toLowerCase();
-      }
+      if (!command?.slashCommand) continue;
+      try { command = formatCommand(command, `Commands/${subFolder}/${file}`, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`, this.i18n); }
       catch (err) {
         if (this.botType == 'dev') throw err;
         log.error(`Error on formatting command ${command.name}:\n`, err);

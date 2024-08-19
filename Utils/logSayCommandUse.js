@@ -1,12 +1,9 @@
 const { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel } = require('discord.js');
 
-/**
- * @this {Message<true>}
- * @param {import('discord.js').GuildMember}member
- * @param {lang}lang*/
-module.exports = function logSayCommandUse(member, lang) {
+/** @type {import('.').logSayCommandUse}*/
+module.exports = async function logSayCommandUse(member, lang) {
   const setting = this.guild.db.config.logger?.sayCommandUsed;
-  if (this.client.botType == 'dev' || !setting?.enabled || !setting.channel) return;
+  if (this.client.botType == 'dev' || !setting?.enabled) return;
 
   const channel = this.guild.channels.cache.get(setting.channel);
   if (!(channel instanceof TextChannel) || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
@@ -19,7 +16,7 @@ module.exports = function logSayCommandUse(member, lang) {
       description: lang('embedDescription', { executor: `<@${member.id}>`, channel: this.channel.name }),
       fields: [
         { name: lang('global.channel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: false },
-        { name: lang('content'), value: this.content ?? (this.embeds.length ? lang('events.logger.embeds', this.embeds.length) : lang('global.unknown')), inline: false },
+        { name: lang('content'), value: this.content || (this.embeds.length ? lang('events.logger.embeds', this.embeds.length) : lang('global.unknown')), inline: false },
         { name: lang('author'), value: `${member.user.tag} (\`${member.id}\`)`, inline: false }
       ],
       timestamp: Date.now(),

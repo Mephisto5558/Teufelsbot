@@ -41,13 +41,7 @@ function sendGame(initiator, opponent, lang) {
   return this.message.edit({ embeds: [embed], components: [component] });
 }
 
-/**
- * this.customId: `rps.<initiatorId>.<mode>.<opponentId>`
- * @this {import('discord.js').ButtonInteraction}
- * @param {lang}lang
- * @param {string}initiatorId
- * @param {'cancel'|'decline'|'accept'|'playAgain'|'rock'|'paper'|'scissors'}mode
- * @param {string}opponentId*/
+/** @type {import('.').rps}*/
 module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   if (this.user.id != initiatorId && this.user.id != opponentId) return;
   if (mode.length != 1) await this.deferUpdate();
@@ -68,17 +62,17 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
 
   switch (mode) {
     case 'cancel':
-    case 'decline': {
+    case 'decline':
       this.message.embeds[0].data.description = lang(this.user.id == initiator.id ? 'canceled' : 'declined', this.member.displayName);
       return this.message.edit({ embeds: this.message.embeds, components: [] });
-    }
+
     case 'accept': if (opponent.user.bot || this.user.id == opponentId) return sendGame.call(this, initiator, opponent, lang); break;
-    case 'playAgain': {
-      if (this.client.botType != 'dev') await this.client.db.update('botSettings', 'stats.rps', (this.client.settings.stats.rps ?? 0) + 1);
+    case 'playAgain':
+      if (this.client.botType != 'dev') await this.client.db.update('botSettings', 'cmdStats.rps.slash', (this.client.settings.cmdStats.rps.slash ?? 0) + 1);
 
       if (opponent.user.bot) return sendGame.call(this, initiator, opponent, lang);
       return sendChallenge.call(this, this.member, initiatorId == this.user.id ? opponent : initiator, lang);
-    }
+
     case 'rock':
     case 'paper':
     case 'scissors': {
@@ -87,7 +81,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
         choices.player1 = mode;
         choices.player2 = ['rock', 'paper', 'scissors'].random();
       }
-      else choices = this.guild.db.minigames?.rps?.[this.message.id] ?? {};
+      else choices = this.guild.db.minigames?.rps[this.message.id] ?? {};
 
       if (!choices.player1 || !choices.player2) {
         const player = this.user.id == initiatorId ? 'player1' : 'player2';
@@ -97,7 +91,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
         choices[player] = mode;
 
         await this.guild.updateDB(`minigames.rps.${this.message.id}`, choices);
-        this.reply({ content: lang('end.saved', lang(mode)), ephemeral: true });
+        void this.reply({ content: lang('end.saved', lang(mode)), ephemeral: true });
 
         if (!choices.player1 || !choices.player2) return;
       }
@@ -125,7 +119,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
         })]
       });
 
-      return this.update({ embeds: this.message.embeds, components: [component] });
+      return this.message.edit({ embeds: this.message.embeds, components: [component] });
     }
   }
 };

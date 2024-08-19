@@ -1,16 +1,23 @@
 const
   { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction } = require('discord.js'),
+
+  /** @type {import('.').autocompleteGenerator}*/
   autocompleteGenerator = require('./autocompleteGenerator.js'),
   cooldowns = require('./cooldowns.js'),
+
+  /** @type {import('.').permissionTranslator}*/
   permissionTranslator = require('./permissionTranslator.js'),
+
+  /** @type {import('.')['DiscordAPIErrorCodes']}*/
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
 
 /**
  * @this {import('discord.js').BaseInteraction|Message}
  * @param {command<'both', boolean, true>}command
  * @param {lang}lang
- * @returns {[string, Record<string, string>|string|undefined] | undefined}*/
+ * @returns {[string, Record<string, string> | string | undefined, string | undefined] | undefined}*/
 function checkOptions(command, lang) {
+  /** @type {command<'both', boolean, true> | commandOptions<true>} */
   let option = command;
   if (this.options?._group) {
     option = option.options.find(e => e.name == this.options._group);
@@ -23,18 +30,34 @@ function checkOptions(command, lang) {
 
   if (!option.options) return;
 
-  for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete }] of option.options.entries()) {
-    if (required && !this.options?.get(name) && !this.args?.[i])
-      return ['paramRequired', { option: name, description: descriptionLocalizations?.[lang.__boundArgs__[0].locale] ?? description }];
+  for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete, autocompleteOptions, choices }] of option.options.entries()) {
+    if (required && !this.options?.get(name) && !this.args?.[i]) {
+      return ['paramRequired', {
+        option: name,
+        description: descriptionLocalizations?.[lang.__boundArgs__[0].locale] ?? descriptionLocalizations?.[lang.__boundThis__.config.defaultLocale] ?? description
+      }];
+    }
 
     if (
-      autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
+      (this instanceof Message || this.isChatInputCommand())
+      && autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
       && !autocompleteGenerator.call({
         ...this, client: this.client, guild: this.guild, user: this.user,
         focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
       }, command, this.guild?.db.config.lang ?? this.guild?.localeCode)
         .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
-    ) return ['strictAutocompleteNoMatch', name];
+    ) {
+      if (typeof autocompleteOptions != 'function') {
+        return ['strictAutocompleteNoMatchWValues', {
+          option: name,
+          availableOptions: Array.isArray(autocompleteOptions) ? `\`${autocompleteOptions.map(e => e.value ?? e).join('`, `')}\`` : autocompleteOptions
+        }];
+      }
+      return ['strictAutocompleteNoMatch', name];
+    }
+
+    if (this instanceof Message && this.args?.[i] && choices && !choices.some(e => e.value === this.args[i]))
+      return ['strictAutocompleteNoMatchWValues', { option: name, availableOptions: `\`${choices.map(e => e.value).join('`, `')}\`` }];
   }
 }
 
@@ -44,8 +67,8 @@ function checkOptions(command, lang) {
  * @param {lang}lang
  * @returns {boolean} `false` if no permission issues have been found.*/
 async function checkPerms(command, lang) {
-  const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user || [], PermissionFlagsBits.SendMessages]);
-  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions?.client || [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
+  const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user ?? [], PermissionFlagsBits.SendMessages]);
+  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions?.client ?? [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
 
   if (!botPermsMissing.length && !userPermsMissing.length) return false;
 
@@ -61,7 +84,7 @@ async function checkPerms(command, lang) {
   if (botPermsMissing.includes('SendMessages') || botPermsMissing.includes('ViewChannel')) {
     if (this instanceof Message && this.guild.members.me.permissionsIn(this.channel).has(PermissionFlagsBits.AddReactions)) {
       await this.react('❌');
-      this.react('✍️');
+      void this.react('✍️'); // don't need to wait here
     }
 
     try { await this.user.send({ content: this.url, embeds: [embed] }); }
@@ -74,17 +97,15 @@ async function checkPerms(command, lang) {
   return true;
 }
 
-/**
- * @this {import('discord.js').BaseInteraction|Message}
- * @param {command<'both', boolean, true>}command
- * @param {lang}lang
- * @returns {[string, Record<string, string>|string|undefined]|boolean}
- * The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally.*/
+/** @type {import('.').checkForErrors}*/
 module.exports = async function checkForErrors(command, lang) {
   if (!command) {
     if (this instanceof Message) {
-      if (this.client.slashCommands.has(this.commandName)) return ['slashOnly', { name: this.commandName, id: this.client.slashCommands.get(this.commandName).id }];
-      this.runMessages();
+      let cmd = this.client.slashCommands.get(this.commandName) ?? this.client.prefixCommands.get(this.commandName);
+      if (cmd?.aliasOf) cmd = this.client.slashCommands.get(cmd.aliasOf);
+      if (cmd) return ['slashOnly', { name: cmd.name, id: cmd.id }];
+
+      void this.runMessages();
     }
 
     return true;

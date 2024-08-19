@@ -1,11 +1,6 @@
 const medals = [':first_place:', ':second_place:', ':third_place:'];
 
-/**
- * @this {import('discord.js').BaseInteraction|Message}
- * @param {{draws?:number, wins?:number, loses?:number}[]}input
- * @param {string}sort
- * @param {string}mode
- * @param {lang}lang*/
+/** @type {import('.').mgStats_formatTopTen}*/
 module.exports = function formatTopTen(input, sort, mode, lang) {
   if (input.length > 1) {
     switch (mode) {

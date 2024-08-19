@@ -26,7 +26,7 @@ const
       if (!getCMDs(this.client).includes(command)) return this.editReply(lang('notFound'));
 
       if (this.options.getBoolean('get')) {
-        const fields = [['roles', roles], ['channels', channels], ['users', users]].filter(([, e]) => e?.length).map(([k, v]) => ({
+        const fields = [['roles', roles], ['channels', channels], ['users', users]].filter(([, e]) => e.length).map(([k, v]) => ({
           name: lang(k),
           value: v.includes('*')
             ? lang('list.all')
@@ -117,7 +117,7 @@ const
         prefix = this.options.getString('new_prefix', true),
         db = this.guild.db.config[`${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`] ?? [];
 
-      let prefixInDB = db?.find(e => prefix == e.prefix);
+      let prefixInDB = db.find(e => prefix == e.prefix);
 
       const caseinsensitive = this.options.getBoolean('case_insensitive') ?? prefixInDB?.caseinsensitive ?? false;
 

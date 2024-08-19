@@ -3,10 +3,10 @@ const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('di
 /**
  * @this {Message<true>}
  * @param {lang}lang
- * @param {string|Record<string, string>} descriptionData*/
-function sendeMinigameDeletedEmbed(lang, descriptionData) {
+ * @param {string | Record<string, string>} descriptionData*/
+async function sendeMinigameDeletedEmbed(lang, descriptionData) {
   const embed = new EmbedBuilder({
-    author: { name: this.user?.username ?? lang('global.unknownUser'), iconURL: this.member?.displayAvatarURL() },
+    author: { name: this.user.username, iconURL: this.member?.displayAvatarURL() },
     title: lang('embedTitle'),
     description: lang('embedDescription', descriptionData),
     color: Colors.Red,
@@ -38,7 +38,7 @@ function wordchainHandler(lang) {
   return sendeMinigameDeletedEmbed.call(this, lang, this.originalContent);
 }
 
-/** @this {Message}*/
+/** @this {Message | import('discord.js').PartialMessage}*/
 module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.inGuild()) return;
 
@@ -49,7 +49,7 @@ module.exports = async function messageDelete() {
   wordchainHandler.call(this, lang);
 
   const setting = this.guild.db.config.logger?.messageDelete;
-  if (!setting?.enabled || !setting.channel) return;
+  if (!setting?.enabled) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
   if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length)

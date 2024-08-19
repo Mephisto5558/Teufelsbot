@@ -126,7 +126,7 @@
   "invite": {
     "description": "Sendet einen Link, um den Bot auf deinem Server hinzuzufügen.",
     "embedTitle": "Einladen",
-    "embedDescription": "Vielen Dank für dein Interesse! Klicke [hier]({url}) um mich auf deinen Server hinzuzufügen."
+    "embedDescription": "Vielen Dank für dein Interesse! Klicke [hier]({url}), um mich auf deinen Server hinzuzufügen."
   },
   "ping": {
     "description": "Erhalte den Ping des Bots",
@@ -283,6 +283,6 @@
   "vote": {
     "description": "erhalte den Link zur Feature-Request- und Voting-Website des Bots",
     "embedTitle": "Voting",
-    "embedDescriptionVote": "Klicke [hier]({url}) um die Voting- und Feature-Request-Seite zu öffnen."
+    "embedDescriptionVote": "Klicke [hier]({url}), um die Voting- und Feature-Request-Seite zu öffnen."
   }
 }

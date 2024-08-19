@@ -1,4 +1,4 @@
-const { timeValidator } = require('../../Utils');
+const { timeValidator } = require('#Utils');
 
 /** @type {command<'slash'>}*/
 module.exports = {
@@ -27,5 +27,5 @@ module.exports = {
     }
   ],
 
-  run: require('../../Utils/combinedCommands').ban_kick_mute
+  run: require('#Utils/combinedCommands').ban_kick_mute
 };

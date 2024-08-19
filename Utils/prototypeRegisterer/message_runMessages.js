@@ -6,10 +6,10 @@ module.exports = { runMessages, removeAfkStatus };
 
 /** @this {Message}*/
 function replyToTriggers() {
-  const triggerList = Object.values(this.guild.db.triggers ?? {}).filter(e => this.originalContent?.toLowerCase()?.includes(e.trigger.toLowerCase())).slice(0, 3);
-  if (!triggerList.length || cooldowns.call(this, 'triggers', { channel: 1e4 })) return;
+  if (cooldowns.call(this, 'triggers', { channel: 1e4 })) return;
 
-  for (const trigger of triggerList) this.customReply(trigger.response);
+  const responseList = new Set(Object.values(this.guild.db.triggers ?? {}).filter(e => this.originalContent?.toLowerCase().includes(e.trigger.toLowerCase())).map(e => e.response));
+  for (const response of responseList) void this.customReply(response);
 }
 
 /** @this {Message}*/
@@ -22,7 +22,7 @@ async function handleCounting() {
     return this.react('✅');
   }
 
-  this.react('❌');
+  void this.react('❌');
   if (!countingData.lastNumber) return;
 
   await this.guild.updateDB(`channelMinigames.counting.${this.channel.id}`, { lastNumber: 0 });
@@ -48,7 +48,7 @@ async function handleWordchain() {
     return this.react('✅');
   }
 
-  this.react('❌');
+  void this.react('❌');
   if (!wordchainData.lastWordChar) return;
 
   await this.guild.updateDB(`channelMinigames.wordchain.${this.channel.id}`, { chainedWords: 0 });
@@ -61,11 +61,14 @@ async function handleWordchain() {
   );
 }
 
-/** @this {Message|import('discord.js').VoiceState}*/
+/**
+ * @type {import('.')['utils']['removeAfkStatus']}
+ * @this {ThisParameterType<import('.')['utils']['removeAfkStatus']>}
+ * Here due to `@typescript-eslint/no-invalid-this`*/
 async function removeAfkStatus() {
   if (!this.member || !this.channel || !this.guild) return; // `!this.channel || !this.guild` as typeguard
 
-  if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) this.member.setNickname(this.member.nickname.slice(6));
+  if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) void this.member.setNickname(this.member.nickname.slice(6));
 
   const { createdAt, message } = this.guild.db.afkMessages?.[this.member.id] ?? this.member.user.db.afkMessage ?? {}; // `member.user` for VoiceState support
   if (!message) return;
@@ -80,9 +83,9 @@ async function removeAfkStatus() {
 }
 
 /** @this {Message}*/
-function sendAfkMessages() {
+async function sendAfkMessages() {
   const afkMsgs = this.mentions.members.reduce((acc, e) => {
-    const { message, createdAt } = this.guild.db.afkMessages?.[this.user.id] ?? this.user.db.afkMessage ?? {};
+    const { message, createdAt } = this.guild.db.afkMessages?.[e.user.id] ?? e.user.db.afkMessage ?? {};
     if (!message || e.id == this.user.id) return acc;
 
     const afkMessage = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkMsg', {
@@ -91,7 +94,7 @@ function sendAfkMessages() {
     });
 
     if (acc.length + afkMessage.length >= 2000) {
-      this.customReply(acc);
+      void this.customReply(acc);
       acc = '';
     }
 
@@ -101,23 +104,23 @@ function sendAfkMessages() {
   if (afkMsgs.length) return this.customReply({ content: afkMsgs, allowedMentions: { parse: [AllowedMentionsTypes.User] } });
 }
 
+/* eslint-disable jsdoc/valid-types -- `this` is set from `@type`, but `@typescript-eslint/no-invalid-this` does not recognize that.*/
 /**
- * @type {Message['runMessages']}
- * @this {Message}
- * this is here due to eslint.*/
+ * @type {import('.').runMessages}
+ * @this*/ /* eslint-enable jsdoc/valid-types*/
 function runMessages() {
   if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: 5000 }))
-    this.react('👀');
+    void this.react('👀');
 
   if (this.client.botType == 'dev') return this;
 
   if (this.guild.db.triggers) replyToTriggers.call(this);
-  if (Number(this.originalContent)) handleCounting.call(this);
+  if (Number(this.originalContent)) void handleCounting.call(this);
 
   // Regex to match any letter from any language (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes)
-  else if (/^\p{L}+$/u.test(this.originalContent)) handleWordchain.call(this);
-  if (!this.originalContent.toLowerCase().includes('--afkignore')) removeAfkStatus.call(this);
-  if (!cooldowns.call(this, 'afkMsg', { channel: 1e4, user: 1e4 })) sendAfkMessages.call(this);
+  else if (/^\p{L}+$/u.test(this.originalContent)) void handleWordchain.call(this);
+  if (!this.originalContent.toLowerCase().includes('--afkignore')) void removeAfkStatus.call(this);
+  if (!cooldowns.call(this, 'afkMsg', { channel: 1e4, user: 1e4 })) void sendAfkMessages.call(this);
 
   return this;
 }

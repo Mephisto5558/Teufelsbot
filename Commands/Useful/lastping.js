@@ -1,6 +1,6 @@
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
-  { getTargetChannel, getTargetMember } = require('../../Utils');
+  { getTargetChannel, getTargetMember } = require('#Utils');
 
 /** @type {command<'both'>}*/
 module.exports = {
@@ -17,11 +17,11 @@ module.exports = {
     { name: 'member', type: 'User' }
   ],
 
-  run: function (lang) {
+  run: async function (lang) {
     const
       target = getTargetMember(this, { targetOptionName: 'member' }),
 
-      /** @type {import('discord.js').GuildTextBasedChannel} */
+      /** @type {import('discord.js').GuildTextBasedChannel | undefined}*/
       channel = getTargetChannel(this);
 
     if (target) {
@@ -29,7 +29,6 @@ module.exports = {
       if (!channel.isTextBased()) return this.customReply(lang('invalidChannel'));
     }
 
-    /** @type {{ url: string, content: string, author: import('discord.js').User|import('discord.js').Snowflake, createdAt: Date }}*/
     const { url, content, author, createdAt } = (
       channel
         /* eslint-disable-next-line arrow-body-style -- This would make the line too long */
@@ -43,7 +42,7 @@ module.exports = {
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { url, content: content ? `>>> ${content.slice(0, 200)}` : lang('global.unknown'), author: author.id ?? author }),
+      description: lang('embedDescription', { url, content: content ? `>>> ${content.slice(0, 200)}` : lang('global.unknown'), author: author?.id ?? author }),
       timestamp: createdAt,
       color: Colors.White
     });

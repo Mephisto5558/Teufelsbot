@@ -11,10 +11,10 @@ const
  * Deletes guilds that the bot was not in for over a year
  * @this {Client}
  * @param {string}guildId
- * @param {Exclude<Database<true>['guildSettings'][''], undefined>}db*/
-function cleanupGuildsDB(guildId, db) {
+ * @param {Database['guildSettings'][Snowflake] | undefined}db*/
+async function cleanupGuildsDB(guildId, db) {
   if (!db) return this.db.delete('guildSettings', guildId);
-  if (!db?.leftAt || db.leftAt.getTime() < getOneYearAgo()) return;
+  if (!db.leftAt || db.leftAt.getTime() < getOneYearAgo()) return;
 
   log.debug(`Deleted guild ${guildId} from the database.`);
   return this.db.delete('guildSettings', guildId);
@@ -24,13 +24,13 @@ function cleanupGuildsDB(guildId, db) {
  * Deletes giveaway records that concluded over a month ago
  * @this {Client}
  * @param {string}guildId
- * @param {Exclude<Database<true>['guildSettings']['']['giveaway'], undefined>['giveaways'] | undefined}db*/
+ * @param {Exclude<Exclude<Database['guildSettings'][Snowflake], undefined>['giveaway'], undefined>['giveaways'] | undefined}db*/
 function cleanupGiveawaysDB(guildId, db) {
   if (!db) return;
 
   for (const [id, { ended, endAt }] of Object.entries(db)) {
     if (!ended || getOneMonthAgo() < endAt) continue;
-    this.db.delete('guildSettings', `${guildId}.giveaway.giveaways.${id}`);
+    void this.db.delete('guildSettings', `${guildId}.giveaway.giveaways.${id}`);
   }
 }
 
@@ -44,7 +44,7 @@ function cleanupMentionsDB(guildId, db) {
 
   for (const [userId, v] of Object.entries(db)) {
     if (getOneMonthAgo() < v.createdAt.getTime()) continue;
-    this.db.delete('guildSettings', `${guildId}.lastMentions.${userId}`);
+    void this.db.delete('guildSettings', `${guildId}.lastMentions.${userId}`);
   }
 }
 
@@ -58,7 +58,7 @@ function cleanupAfkMessagesDB(guildId, db) {
 
   for (const [userId, v] of Object.entries(db)) {
     if (getOneMonthAgo() < v.createdAt.getTime()) continue;
-    this.db.delete('guildSettings', `${guildId}.afkMessages.${userId}`);
+    void this.db.delete('guildSettings', `${guildId}.afkMessages.${userId}`);
   }
 }
 
@@ -73,7 +73,7 @@ function cleanUpMinigamesDB(guildId, db) {
   for (const [gameId, data] of Object.entries(db)) {
     for (const messageId of Object.keys(data)) {
       if (getOneMonthAgo() < SnowflakeUtil.timestampFrom(messageId)) continue;
-      this.db.delete('guildSettings', `${guildId}.${gameId}.${messageId}`);
+      void this.db.delete('guildSettings', `${guildId}.${gameId}.${messageId}`);
     }
   }
 }
@@ -89,7 +89,9 @@ module.exports = {
     if (this.settings.lastDBCleanup.toDateString() == now.toDateString()) return void log('Already ran DB cleanup today');
     log('Started DB cleanup');
 
-    for (const [guildId, guildSettings] of Object.entries(this.db.get('guildSettings'))) {
+    // See https://github.com/microsoft/TypeScript/issues/43756 for why using let here
+    let /** @type {Snowflake}*/guildId, /** @type {Database['guildSettings'][Snowflake]}*/guildSettings;
+    for ([guildId, guildSettings] of Object.entries(this.db.get('guildSettings'))) {
       if (guildId == 'default') continue;
 
       cleanupGuildsDB.call(this, guildId, guildSettings);

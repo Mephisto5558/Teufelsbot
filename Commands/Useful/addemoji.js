@@ -2,9 +2,9 @@ const
   { parseEmoji, EmbedBuilder, Colors } = require('discord.js'),
   http = require('node:http'),
   https = require('node:https'),
-  { DiscordAPIErrorCodes } = require('../../Utils');
+  { DiscordAPIErrorCodes } = require('#Utils');
 
-/** @param {string}url @returns {Promise<boolean|Error|string>}*/
+/** @param {string}url @returns {Promise<boolean | Error | string>}*/
 const checkUrl = url => new Promise((resolve, reject) => {
   const req = (url.startsWith('https') ? https : http).request(url, { method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode > 199 && res.statusCode < 400));
 

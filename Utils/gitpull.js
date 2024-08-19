@@ -1,10 +1,11 @@
-const exec = require('node:util').promisify(require('node:child_process').exec);
+/** @type {import('.').shellExec} */
+const shellExec = require('./shellExec.js');
 
-/** @returns {Promise<Error|'OK'>}*/
+/** @type {import('.').gitpull}*/
 module.exports = async function gitpull() {
   let data;
 
-  try { data = await exec('git pull', { maxBuffer: 614_400 }); }
+  try { data = await shellExec('git pull', { maxBuffer: 614_400 }); }
   catch (err) {
     log.error(`GIT PULL\nExec error: ${err}`);
     return err;

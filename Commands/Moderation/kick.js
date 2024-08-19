@@ -12,5 +12,5 @@ module.exports = {
     { name: 'target', type: 'User' }
   ],
 
-  run: require('../../Utils/combinedCommands').ban_kick_mute
+  run: require('#Utils/combinedCommands').ban_kick_mute
 };
