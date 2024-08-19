@@ -36,6 +36,7 @@
       }
     },
     "embedTitle": "Estadísticas de Comando",
+    "notFound": "¡Ese comando no existe!",
     "embedDescriptionOne": "El comando {command} ha sido ejecutado **{count}** veces.",
     "embedDescriptionMany": "Estos son los 10 comandos más utilizados:\n",
     "embedFieldValue": "**{total}** (barra: **{slash}** | Prefijo: **{prefix}**)"
@@ -70,7 +71,7 @@
   "help": {
     "description": "Mostrar todos mis comandos o buscar uno específico",
     "usage": {
-      "usage": "[[category] [command]]\n{prefix}{cmdName} [category]"
+      "usage": "[<category> [command]]\n{prefix}{cmdName} [category]"
     },
     "options": {
       "category": {
@@ -174,7 +175,7 @@
   "serverinfo": {
     "description": "Obtener información sobre una hermandad",
     "options": {
-      "guild_id": {
+      "guild_id_or_invite": {
         "description": "ID del servidor para obtener información (solo en servidores en los que estoy presente)."
       }
     },
@@ -210,7 +211,8 @@
     "vanityUrl": "URL de Vanity",
     "uses": " Usos",
     "downloadIcon": "Descargar icono",
-    "downloadBanner": "Descargar banner"
+    "downloadBanner": "Descargar banner",
+    "joinGuild": "Unirse al gremio"
   },
   "uptime": {
     "description": "Obtener el tiempo de actividad del bot",
