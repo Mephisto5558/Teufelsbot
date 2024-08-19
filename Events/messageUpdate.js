@@ -2,7 +2,7 @@ const { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, Butt
 
 /**
  * @this {import('discord.js').PartialMessage}
- * @param {import('discord.js').PartialMessage}newMsg*/
+ * @param {import('discord.js').Message}newMsg*/
 module.exports = function messageUpdate(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (
@@ -18,11 +18,13 @@ module.exports = function messageUpdate(newMsg) {
     /** @type {lang}*/
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
     embed = new EmbedBuilder({
-      description: lang('embedDescription', { executor: newMsg.user ? `<@${newMsg.user.id}>` : lang('global.unknownUser'), channel: newMsg.channel.name }),
+      author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
+      description: lang('embedDescription', { executor: `<@${newMsg.user.id}>`, channel: newMsg.channel.name }),
       fields: [
         { name: lang('global.channel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: false },
         { name: lang('oldContent'), value: '', inline: false },
-        { name: lang('newContent'), value: '', inline: false }
+        { name: lang('newContent'), value: '', inline: false },
+        { name: lang('author'), value: `${newMsg.user.tag} (\`${newMsg.user.id}\`)`, inline: false }
       ],
       timestamp: Date.now(),
       color: 0xE62AED
@@ -34,11 +36,6 @@ module.exports = function messageUpdate(newMsg) {
         style: ButtonStyle.Link
       })]
     });
-
-  if (newMsg.user) {
-    embed.data.author = { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() };
-    embed.data.fields.push({ name: lang('author'), value: `${newMsg.user.tag} (\`${newMsg.user.id}\`)`, inline: false });
-  }
 
   if (this.originalContent) embed.data.fields[1].value += `${this.originalContent}\n`;
   if (newMsg.originalContent) embed.data.fields[2].value += `${newMsg.originalContent}\n`;
