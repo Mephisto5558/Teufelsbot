@@ -36,6 +36,7 @@
       }
     },
     "embedTitle": "Statistiche Dei Comandi",
+    "notFound": "Questo comando non esiste!",
     "embedDescriptionOne": "Il comando {command} è stato eseguito **{total}** volte (Slash: **{slash}** | Prefisso: **{prefix}**).",
     "embedDescriptionMany": "Questi sono 10 comandi più usati:\n",
     "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefisso: **{prefix}**)"
@@ -70,7 +71,7 @@
   "help": {
     "description": "Mostra tutti i miei comandi o cerca uno specifico",
     "usage": {
-      "usage": "[[category] [command]]\n{prefix}{cmdName} [category]"
+      "usage": "[<category> [command]]\n{prefix}{cmdName} [category]"
     },
     "options": {
       "category": {
@@ -174,7 +175,7 @@
   "serverinfo": {
     "description": "Ottieni informazioni su una gilda",
     "options": {
-      "guild_id": {
+      "guild_id_or_invite": {
         "description": "L'ID del server su cui vuoi ottenere informazioni. Funziona solo per i server in cui mi trovo."
       }
     },
@@ -210,7 +211,8 @@
     "vanityUrl": "Url Vanità",
     "uses": " Usi",
     "downloadIcon": "Scarica Icona",
-    "downloadBanner": "Scarica Banner"
+    "downloadBanner": "Scarica Banner",
+    "joinGuild": "Unisciti Alla Gilda"
   },
   "uptime": {
     "description": "Ottieni tempo di funzionamento del bot",
