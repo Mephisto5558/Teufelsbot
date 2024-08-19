@@ -1,21 +1,34 @@
 {
   "categoryName": "Owner-Only",
-  "categoryDescription": "Commands that should be available only to the dev",
+  "categoryDescription": "Commands that should be available only to a dev",
   "blacklistuser": {
     "description": "(Un)blocks a user from using the bot",
     "usage": {
       "usage": "[off] <user id>"
     },
+    "options": {
+      "target": {
+        "description": "The User ID you want to (un)block."
+      }
+    },
     "notFound": "Found no entry for this id.",
     "saved": "`{user}` has been blacklisted from using the bot.",
     "removed": "The blacklist entry for `{user}` has been removed.",
-    "cantBlacklistOwner": "I can't blacklist the owner of the bot!"
+    "cantBlacklistDev": "I can't blacklist a developer of the bot!"
   },
   "dbget": {
     "description": "query data from the database",
     "usage": {
       "usage": "<database name> <key>",
       "examples": "database a.b.c"
+    },
+    "options": {
+      "database": {
+        "description": "The database the entry is in."
+      },
+      "key": {
+        "description": "The flattened key path"
+      }
     },
     "notFound": "nothing found"
   },
@@ -25,6 +38,11 @@
       "usage": "<js code>",
       "examples": "console.log('Hello World!')"
     },
+    "options": {
+      "code": {
+        "description": "The JavaScript code to evaluate"
+      }
+    },
     "finished": "evaluated command:\n```js\n{code}\n```\n",
     "success": "{msg} without errors.",
     "emptyRejection": "Empty Promise Rejection",
@@ -32,6 +50,11 @@
   },
   "exec": {
     "description": "inject Bash code directly into the bot's shell",
+    "options": {
+      "command": {
+        "description": "The bash command that should be executed"
+      }
+    },
     "usage": {
       "usage": "<sh code>",
       "examples": "echo 'Hello World!'"
@@ -46,6 +69,11 @@
     "usage": {
       "usage": "<'command' | 'file'> <Path relative to cwd>\n{prefix}{cmdName} <command | '*'>",
       "examples": "file path/to/file\n{prefix}{cmdName} fun"
+    },
+    "options": {
+      "command_name": {
+        "description": "The name of the command to reload."
+      }
     },
     "invalidCommand": "This is not a valid command.",
     "invalidPath": "The specified path does not exist! Please note the case sensitivity of the path.",
@@ -81,7 +109,14 @@
       "usage": "<activity>;[type]",
       "examples": "running commands;playing"
     },
-    "invalidType": "This is not a valid type. Valid types are:\n`{types}`",
+    "options": {
+      "activity": {
+        "description": "The status text you want me to have."
+      },
+      "type": {
+        "description": "The activity's type"
+      }
+    },
     "set": "My activity has been set to `{name}` of type `{type}`.",
     "reset": "My activity has been set to `none`."
   },
