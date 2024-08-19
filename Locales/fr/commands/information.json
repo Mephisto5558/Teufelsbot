@@ -13,18 +13,33 @@
     },
     "embedDescription": "**Avatar de {user}**"
   },
+  "changelog": {
+    "description": "Obtenir le dernier changelog.",
+    "embedTitle": "Historique des modifications"
+  },
   "cmdstats": {
     "description": "Voyez à quelle fréquence une commande spécifique a été exécutée ou a obtenu le top 10.",
     "usage": {
-      "examples": "{prefix}cmdstats user joke"
+      "usage": "['guild' | 'user' | 'bot'] [command]"
     },
     "options": {
+      "scope": {
+        "description": "Récupère les statistiques de commande pour la guilde actuelle, vous ou le bot dans son ensemble.",
+        "choices": {
+          "bot": "Bot",
+          "guild": "Guilde",
+          "user": "Utilisateur"
+        }
+      },
       "command": {
         "description": "La commande pour laquelle vous voulez obtenir des statistiques."
       }
     },
     "embedTitle": "Statistiques de la commande",
-    "embedDescriptionMany": "Voici 10 commandes les plus utilisées :\n"
+    "notFound": "Cette commande n'existe pas !",
+    "embedDescriptionOne": "La commande {command} a été exécutée **{count}** fois.",
+    "embedDescriptionMany": "Voici 10 commandes les plus utilisées :\n",
+    "embedFieldValue": "**{total}** (Slash: **{slash}** | Préfixe : **{prefix}**)"
   },
   "dashboard": {
     "description": "obtenir le lien vers le tableau de bord du bot",
@@ -33,6 +48,9 @@
   },
   "emojiinfo": {
     "description": "Obtenir des informations sur un émoji",
+    "usage": {
+      "usage": "[emoji | emoji id]"
+    },
     "options": {
       "emoji": {
         "description": "L'émoji ou son identifiant sur lequel vous souhaitez obtenir des informations"
@@ -40,7 +58,6 @@
     },
     "notFound": "Aucune information trouvée pour cet emoji.",
     "embedTitle": "Infos sur \"{emoji}\"",
-    "unknown": "inconnue",
     "name": "Nom",
     "id": "ID",
     "guild": "Guilde",
@@ -53,6 +70,9 @@
   },
   "help": {
     "description": "Afficher toutes mes commandes ou rechercher une commande spécifique",
+    "usage": {
+      "usage": "[<category> [command]]\n{prefix}{cmdName} [category]"
+    },
     "options": {
       "category": {
         "description": "De quelle catégorie voulez-vous obtenir des informations ?"
@@ -93,10 +113,15 @@
     "commands": "Commandes",
     "starts": "Début",
     "lastStart": "Dernier début",
-    "translation": "Traductions :\n> Anglais : {en}\n> Allemand : {de}\n> Toutes les autres langues sont principalement traduites automatiquement.\n",
-    "links": "**[Invite]({invite})** | **[Dashboard]({dashboard})** | **[Politique de confidentialité]({privacyPolicy})**",
+    "translation": "Traductions :\n> Anglais : {en}\n> Allemand : {de}\n",
     "embedTitle": "Stats",
-    "embedFooterText": "D'autres statistiques seront bientôt disponibles !"
+    "links": {
+      "repo": "GitHub",
+      "discord": "Discord.",
+      "invite": "Inviter",
+      "dashboard": "Tableau de bord",
+      "privacyPolicy": "Politique de confidentialité"
+    }
   },
   "invite": {
     "description": "Envoie un lien pour ajouter le bot à votre guilde.",
@@ -120,12 +145,16 @@
     "messageSend": "Envoyer un message"
   },
   "prefix": {
-    "description": "Affiche le préfixe de bot de guilde",
-    "currentPrefix": "Mon préfixe actuel est `{prefix}`.",
+    "description": "affiche ou modifie le préfixe de bot de la guilde",
+    "currentPrefixes": "Mes préfixes actuels sont:\n{prefixes}",
     "caseInsensitive": " (insensible à la casse)"
   },
   "roleinfo": {
     "description": "Obtenir des informations sur un rôle",
+    "usage": {
+      "usage": "[@role | nom du rôle | id du rôle]",
+      "examples": "@Utilisateur1"
+    },
     "options": {
       "role": {
         "description": "le rôle sur lequel vous voulez obtenir des informations"
@@ -140,14 +169,14 @@
     "position": "Position",
     "createdAt": "Créé le",
     "permissions": "Permissions",
-    "admin": "Administrator",
+    "admin": "Administrateur",
     "delete": "Supprimer le rôle"
   },
   "serverinfo": {
     "description": "Obtenir des informations sur une guilde",
     "options": {
-      "guild_id": {
-        "description": "The server ID you want to get information about. Only works for servers I'm in."
+      "guild_id_or_invite": {
+        "description": "L'ID du serveur sur lequel vous voulez obtenir des informations. Fonctionne uniquement pour les serveurs dans lesquels je suis entré."
       }
     },
     "memberStats": "`{all}` (humains : `{humans}`, Bots : `{bots}`)",
@@ -182,15 +211,20 @@
     "vanityUrl": "URL de Vanity",
     "uses": "Utilisations",
     "downloadIcon": "Télécharger l'icône",
-    "downloadBanner": "Télécharger la bannière"
+    "downloadBanner": "Télécharger la bannière",
+    "joinGuild": "Rejoindre la Guilde"
   },
   "uptime": {
     "description": "Obtenir le temps de disponibilité du bot",
     "embedDescriptionNoURL": "Le bot a été en ligne pour {time}.",
-    "embedDescription": "Le bot a été [online]({domain}/uptime) pour exactement {time}."
+    "embedDescription": "Le bot a été [online]({Domain}/uptime) pour exactement {time}."
   },
   "userinfo": {
     "description": "Obtenir des informations sur un membre",
+    "usage": {
+      "usage": "[@user | nom d'utilisateur | tag utilisateur | pseudonyme | identifiant d'utilisateur]",
+      "examples": "@Utilisateur1"
+    },
     "options": {
       "target": {
         "description": "l'utilisateur sur lequel vous souhaitez obtenir des informations"
@@ -201,7 +235,16 @@
     "admin": "`Administrateur`",
     "guildMod": "Modérateur de guilde",
     "guildMember": "Membre de la Guilde",
+    "activity": {
+      "0": "Joue {activity}",
+      "1": "Streams {activity}",
+      "2": "Écoute {activity}",
+      "3": "Montres {activity}",
+      "4": "Statut : \"{message}\")\n",
+      "5": "Compétition en {activity}"
+    },
     "mention": "Mentionner",
+    "displayName": "Nom affiché",
     "type": "Type de texte",
     "roles": "Rôles",
     "position": "Position",
