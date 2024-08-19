@@ -10,8 +10,7 @@ function handleError(err) {
   if (!err) return true;
   if (!(err instanceof DiscordAPIError)) throw err;
 
-  /* eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- DiscordAPIError has a toStringMethod returning 'DiscordAPIError[Code]: Description'*/
-  log.debug(`An error occurred while trying to send a message: ${err}`);
+  log.debug(`An error occurred while trying to send a message: ${err.toString()}`);
   return ![DiscordAPIErrorCodes.UnknownInteraction, DiscordAPIErrorCodes.InvalidWebhookTokenProvided].includes(err.code);
 }
 
