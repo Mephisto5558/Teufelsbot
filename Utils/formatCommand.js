@@ -83,7 +83,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
   }
 
   /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- user COULD forget it, this is for validation*/
-  if (!option.type || !ApplicationCommandOptionType[option.type]) throw new Error(`Missing or invalid option.type, got "${option.type}" (${id})`);
+  if (!ApplicationCommandOptionType[option.type]) throw new Error(`Missing or invalid option.type, got "${option.type}" (${id})`);
   if (!Number.parseInt(option.type) && option.type != 0) option.type = ApplicationCommandOptionType[option.type];
 
   if ([ApplicationCommandOptionType.Number, ApplicationCommandOptionType.Integer].includes(option.type) && ('minLength' in option || 'maxLength' in option))
