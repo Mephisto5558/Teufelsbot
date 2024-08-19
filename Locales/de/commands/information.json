@@ -36,6 +36,7 @@
       }
     },
     "embedTitle": "Befehlsstatistiken für {mode}",
+    "notFound": "Es gibt keinen solchen Befehl!",
     "embedDescriptionOne": "Der {command}-Befehl wurde **{total}** male (Slash: **{slash}** | Präfix: **{prefix}**) ausgeführt.",
     "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:\n",
     "embedFieldValue": "**{total}** (Slash: **{slash}** | Präfix: **{prefix}**)"
@@ -70,7 +71,7 @@
   "help": {
     "description": "Zeige alle meine Befehle oder erhalte Informationen über einen spezifischen.",
     "usage": {
-      "usage": "[[Kategorie] [Befehl]]\n{prefix}{cmdName} [Kategorie]"
+      "usage": "[<Kategorie> [Befehl]]\n{prefix}{cmdName} [Kategorie]"
     },
     "options": {
       "category": {
@@ -135,7 +136,7 @@
       }
     },
     "average": {
-      "loading": "Pingen... `{current}`/`{target}`",
+      "loading": "Pingen... `{current}`/`{target}`\nNächster Ping <t:{timestamp}:R>",
       "embedDescription": "Pings: `{pings}` | Dauer: `{duration}s`\nAPI:\n> Niedrigster Ping: `{wsLowest}ms`\n> Höchster Ping: `{wsHighest}ms`\n> Durchschnittlicher Ping: `{wsAverage}ms`\nNachrichten senden:\n> Niedrigster Ping: `{msgLowest}ms`\n> Höchster Ping: `{msgHighest}ms`\n> Durchschnittlicher Ping: `{msgAverage}ms`"
     },
     "api": "API",
@@ -174,7 +175,7 @@
   "serverinfo": {
     "description": "Erhalte Informationen über einen Server",
     "options": {
-      "guild_id": {
+      "guild_id_or_invite": {
         "description": "Die Server-ID, über die du Infos einholen möchtest. Funktioniert nur für Server, in denen ich bin."
       }
     },
@@ -210,7 +211,8 @@
     "vanityUrl": "Benutzerdefinierte URL",
     "uses": " Nutzungen",
     "downloadIcon": "Icon Herunterladen",
-    "downloadBanner": "Banner Herunterladen"
+    "downloadBanner": "Banner Herunterladen",
+    "joinGuild": "Server Beitreten"
   },
   "uptime": {
     "description": "Erhalte die Uptime des Bots",
