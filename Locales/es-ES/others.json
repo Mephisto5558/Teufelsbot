@@ -82,5 +82,9 @@
     "birthday": {
       "unknownChannel": "INFO: ¡El canal configurado para la función de cumpleaños en el gremio `{guild}` no existe! ¡Por favor, vuelva a configurarlo para que pueda enviar mensajes de cumpleaños!"
     }
+  },
+  "getCommands": {
+    "lookAtOptionDesc": "Orden SLASH: Mira las descripciones de opciones.\n",
+    "noInfo": "No se encontró información"
   }
 }
