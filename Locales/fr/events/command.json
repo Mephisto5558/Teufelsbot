@@ -7,6 +7,7 @@
   "nsfw": "Vous ne pouvez pas exécuter des commandes NSFW dans un salon non NSFW !",
   "paramRequired": "Vous devez entrer une valeur pour l'option \"{option}\".\n> {description}",
   "strictAutocompleteNoMatch": "Votre entrée pour l'option \"{option}\" doit correspondre à l'une des suggestions de saisie automatique. Veuillez sélectionner une des options disponibles lors de la saisie de la commande slash.",
+  "strictAutocompleteNoMatchWValues": "Votre entrée pour l'option \"{option}\" doit correspondre à l'une des suggestions de saisie automatique. Veuillez sélectionner l'une des options disponibles lors de la saisie de la commande slash.\n\nLes options disponibles sont:\n{availableOptions}",
   "permissionDenied": {
     "embedTitle": "Autorisations insuffisantes",
     "embedDescriptionUser": "Vous avez besoin des permissions suivantes dans ce salon pour exécuter cette commande:\n`{permissions}`",
