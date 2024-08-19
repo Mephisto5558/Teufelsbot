@@ -174,8 +174,7 @@ module.exports = {
 -- in there due to performance reasons (testing code not used in production)*/
 
 /** Tests the purge filters*/
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-function testPurge() {
+function _testPurge() {
   const
     addEmbed = /** @param {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}[]}data*/
     (...data) => data.reduce((acc, e) => {

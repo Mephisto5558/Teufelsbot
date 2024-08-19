@@ -16,8 +16,7 @@ function findAllEntries(obj, key, entryList = {}) {
 module.exports = findAllEntries;
 
 /** Tests the findAllEntries function */
-/* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-function testFindAllEntries() {
+function _testFindAllEntries() {
   const testCases = [
     {
       name: 'Single match',
