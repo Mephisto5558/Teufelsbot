@@ -539,7 +539,7 @@ declare module 'discord.js' {
      * ```js
      * return this.client.db.update('userSettings', `${this.id}.${key}`, value);
      * ```*/
-    updateDB<FDB extends __local.FlattenedUserSettings, K extends keyof FDB>(key: K, value: FDB[K]): Promise<NonNullable<Database['userSettings']>>;
+    updateDB<FDB extends __local.FlattenedUserSettings, K extends keyof FDB & string>(this: User, key: K, value: FDB[K]): Promise<NonNullable<Database['userSettings']>>;
 
     customName: string;
     customTag: string;
@@ -565,8 +565,8 @@ declare module 'discord.js' {
      * ```js
      * return this.client.db.update('guildSettings', `${this.id}.${key}`, value);
      * ```*/
-    updateDB<FDB extends __local.FlattenedGuildSettings, K extends keyof FDB>(key: K, value: FDB[K]): Promise<Database['guildSettings']>;
-    updateDB(key: null, value: NonNullable<Database['guildSettings'][Snowflake]>): Promise<Database['guildSettings']>;
+    updateDB<FDB extends __local.FlattenedGuildSettings, K extends keyof FDB>(this: Guild, key: K, value: FDB[K]): Promise<Database['guildSettings']>;
+    updateDB(this: Guild, key: null, value: NonNullable<Database['guildSettings'][Snowflake]>): Promise<Database['guildSettings']>;
 
     localeCode: string;
   }
