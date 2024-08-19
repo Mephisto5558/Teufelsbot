@@ -7,7 +7,7 @@ const
 module.exports = function formatCommand(option, path, id, i18n) {
   if ('options' in option) option.options = option.options.map(e => formatCommand(e, path, `${id}.options.${e.name}`, i18n));
 
-  if ('run' in option) option.name ??= id.split('.').at(-1);
+  if ('run' in option) option.name ??= id.split('.').at(-1); // NOSONAR
   if (/[A-Z]/.test(option.name)) {
     if (!option.disabled) log.error(`${option.name} (${id}) has uppercase letters! Fixing`);
     option.name = option.name.toLowerCase();
@@ -63,10 +63,10 @@ module.exports = function formatCommand(option, path, id, i18n) {
       throw new Error(`The run property of file "${id}" is not a function (Got "${typeof option.run}"). You cannot use arrow functions.`);
 
     option.filePath ??= resolve(path);
-    option.category ??= basename(dirname(path)).toLowerCase();
+    option.category ??= basename(dirname(path)).toLowerCase(); // NOSONAR
 
     if (!option.type) option.type = ApplicationCommandType.ChatInput;
-    else if (!ApplicationCommandType[option.type]) { if (!option.disabled) throw new Error(`Invalid option.type, got "${option.type}" (${id})`); }
+    else if (!(option.type in ApplicationCommandOptionType)) { if (!option.disabled) throw new Error(`Invalid option.type, got "${option.type}" (${id})`); }
     else if (!Number.parseInt(option.type) && option.type != 0) option.type = ApplicationCommandType[option.type];
 
     if (option.permissions?.user?.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions.user);
@@ -82,8 +82,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
     });
   }
 
-  /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- user COULD forget it, this is for validation*/
-  if (!ApplicationCommandOptionType[option.type]) throw new Error(`Missing or invalid option.type, got "${option.type}" (${id})`);
+  if (!(option.type in ApplicationCommandOptionType)) throw new Error(`Missing or invalid option.type, got "${option.type}" (${id})`);
   if (!Number.parseInt(option.type) && option.type != 0) option.type = ApplicationCommandOptionType[option.type];
 
   if ([ApplicationCommandOptionType.Number, ApplicationCommandOptionType.Integer].includes(option.type) && ('minLength' in option || 'maxLength' in option))
