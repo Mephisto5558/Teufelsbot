@@ -36,6 +36,7 @@
       }
     },
     "embedTitle": "Command Stats for {mode}",
+    "notFound": "That command does not exist!",
     "embedDescriptionOne": "The {command} command has been run **{total}** times (Slash: **{slash}** | Prefix: **{prefix}**).",
     "embedDescriptionMany": "These are 10 most used commands:\n",
     "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefix: **{prefix}**)"
@@ -70,7 +71,7 @@
   "help": {
     "description": "Show all my commands or search for a specific one",
     "usage": {
-      "usage": "[[category] [command]]\n{prefix}{cmdName} [category]"
+      "usage": "[<category> [command]]\n{prefix}{cmdName} [category]"
     },
     "options": {
       "category": {
@@ -135,7 +136,7 @@
       }
     },
     "average": {
-      "loading": "Pinging... `{current}`/`{target}`",
+      "loading": "Pinging... `{current}`/`{target}`\nNext ping <t:{timestamp}:R>",
       "embedDescription": "Pings: `{pings}` | Duration: `{duration}s`\nAPI:\n> Lowest Ping: `{wsLowest}ms`\n> Highest Ping: `{wsHighest}ms`\n> Average Ping: `{wsAverage}ms`\nMessage Send:\n> Lowest Ping: `{msgLowest}ms`\n> Highest Ping: `{msgHighest}ms`\n> Average Ping: `{msgAverage}ms`"
     },
     "api": "API",
@@ -174,7 +175,7 @@
   "serverinfo": {
     "description": "Get information about a guild",
     "options": {
-      "guild_id": {
+      "guild_id_or_invite": {
         "description": "The server ID you want to get information about. Only works for servers I'm in."
       }
     },
@@ -210,7 +211,8 @@
     "vanityUrl": "Vanity URL",
     "uses": " Uses",
     "downloadIcon": "Download Icon",
-    "downloadBanner": "Download Banner"
+    "downloadBanner": "Download Banner",
+    "joinGuild": "Join Guild"
   },
   "uptime": {
     "description": "Get the bot's uptime",
