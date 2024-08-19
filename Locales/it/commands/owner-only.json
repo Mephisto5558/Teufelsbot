@@ -6,16 +6,29 @@
     "usage": {
       "usage": "[off] <user id>"
     },
+    "options": {
+      "target": {
+        "description": "L'ID utente che si desidera (un)bloccare."
+      }
+    },
     "notFound": "Nessuna voce trovata per questo id.",
     "saved": "`{user}` è stato inserito nella blacklist dall'utilizzo del bot.",
     "removed": "La voce blacklist per `{user}` è stata rimossa.",
-    "cantBlacklistOwner": "Non riesco a blacklist il proprietario del bot!"
+    "cantBlacklistDev": "Non riesco a blacklist il proprietario del bot!"
   },
   "dbget": {
     "description": "interroga i dati dal database",
     "usage": {
       "usage": "<database name> <key>",
       "examples": "database a.b.c"
+    },
+    "options": {
+      "database": {
+        "description": "Il database in cui è inserito."
+      },
+      "key": {
+        "description": "Il percorso chiave appiattito"
+      }
     },
     "notFound": "niente trovato"
   },
@@ -25,6 +38,11 @@
       "usage": "<js code>",
       "examples": "console.log('Ciao Mondo!')"
     },
+    "options": {
+      "code": {
+        "description": "Il codice JavaScript da valutare"
+      }
+    },
     "finished": "comando valutato:\n```js\n{code}\n```\n",
     "success": "{msg} senza errori.",
     "emptyRejection": "Rifiuto Promessa Vuota",
@@ -32,6 +50,11 @@
   },
   "exec": {
     "description": "iniettare il codice Bash direttamente nella shell del bot",
+    "options": {
+      "command": {
+        "description": "Il comando bash che dovrebbe essere eseguito"
+      }
+    },
     "usage": {
       "usage": "<sh code>",
       "examples": "echo 'Ciao Mondo!'"
@@ -46,6 +69,11 @@
     "usage": {
       "usage": "<'comando' | 'file'> <Path relative to cwd>\n{prefix}{cmdName} <command | '*'>",
       "examples": "file percorso/per/file\n{prefix}{cmdName} divertimento"
+    },
+    "options": {
+      "command_name": {
+        "description": "Il nome del comando da ricaricare."
+      }
     },
     "invalidCommand": "Questo non è un comando valido.",
     "invalidPath": "Il percorso specificato non esiste! Si prega di notare la sensibilità caso del percorso.",
@@ -81,7 +109,14 @@
       "usage": "<activity>;[type]",
       "examples": "esecuzione dei comandi;riproduzione"
     },
-    "invalidType": "Questo non è un tipo valido. I tipi validi sono:\n`{types}`",
+    "options": {
+      "activity": {
+        "description": "Il testo di stato che vuoi che abbia."
+      },
+      "type": {
+        "description": "Tipo di attività"
+      }
+    },
     "set": "La mia attività è stata impostata a `{name}` di tipo `{type}`.",
     "reset": "La mia attività è stata impostata su `nessuna`."
   },
