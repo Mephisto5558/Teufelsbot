@@ -83,9 +83,9 @@ function createInfoFields(cmd, lang) {
   if (cmd.aliases?.prefix?.length) arr.push({ name: lang('one.prefixAlias'), value: `\`${cmd.aliases.prefix.join('`, `')}\``, inline: true });
   if (cmd.aliases?.slash?.length) arr.push({ name: lang('one.slashAlias'), value: `\`${cmd.aliases.slash.join('`, `')}\``, inline: true });
   if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: `\`${cmd.aliasOf}\``, inline: true });
-  if (cmd.permissions?.client?.length)
+  if (cmd.permissions?.client?.length > 0)
     arr.push({ name: lang('one.botPerms'), value: `\`${permissionTranslator(cmd.permissions.client, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')}\``, inline: false });
-  if (cmd.permissions?.user?.length)
+  if (cmd.permissions?.user?.length > 0)
     arr.push({ name: lang('one.userPerms'), value: `\`${permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')}\``, inline: true });
 
   const cooldowns = Object.entries(cmd.cooldowns ?? {}).filter(([, e]) => e);

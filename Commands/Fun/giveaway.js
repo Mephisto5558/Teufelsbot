@@ -25,8 +25,8 @@ const
             giveawayEnded: lang('giveawayEnded'),
             inviteToParticipate:
               `${this.options.getString('description', true)}\n\n`
-              + (requiredRoles?.length ? lang('requiredRoles', `<@&${requiredRoles.join('>, <@&')}>\n`) : '')
-              + (disallowedMembers?.length ? lang('disallowedMembers', `<@${disallowedMembers.join('< <@')}>\n`) : '')
+              + (requiredRoles?.length > 0 ? lang('requiredRoles', `<@&${requiredRoles.join('>, <@&')}>\n`) : '')
+              + (disallowedMembers?.length > 0 ? lang('disallowedMembers', `<@${disallowedMembers.join('< <@')}>\n`) : '')
               + lang('inviteToParticipate', reaction),
             winMessage: { content: lang('winMessage'), components },
             drawing: lang('drawing'),
@@ -43,7 +43,7 @@ const
           isDrop: this.options.getBoolean('is_drop')
         };
 
-      if (requiredRoles?.length || disallowedMembers.length)
+      if (requiredRoles?.length > 0 || disallowedMembers.length > 0)
 
         /** @param {import('discord.js').GuildMember}member*/
         startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
@@ -72,11 +72,11 @@ const
         newImage: this.options.getString('image')
       };
 
-      if (requiredRoles?.length || disallowedMembers.length) {
+      if (requiredRoles?.length > 0 || disallowedMembers.length > 0) {
       /** @param {import('discord.js').GuildMember}member*/
         editOptions.newExemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
       }
-      if (bonusEntries?.length) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
+      if (bonusEntries?.length > 0) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
 
       const data = await this.client.giveawaysManager.edit(giveawayId, editOptions);
       components[0].components[0].data.url = data.messageURL;

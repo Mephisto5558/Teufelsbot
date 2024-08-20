@@ -37,6 +37,7 @@ module.exports = {
         url: page.url(),
         image: { url: await page.mainImage() },
         fields: Object.entries(info).reduce((acc, [k, v]) => {
+          /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- TODO: this will be improved, but I'll have to type everything better for that.*/
           if (!v || ['name', 'image', 'logo', 'alt', 'caption'].some(e => k.toLowerCase().includes(e))) return acc;
 
           k = k.replaceAll(/([A-Z])/g, ' $1').toLowerCase().trim();

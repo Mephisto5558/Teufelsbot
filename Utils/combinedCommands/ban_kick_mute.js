@@ -15,8 +15,8 @@ module.exports = async function ban_kick_mute(lang) {
   let
     noMsg, muteDurationMs,
 
-    /** @type {number?}*/
-    muteDuration = this.options.getString('duration'),
+    /** @type {number}*/
+    muteDuration = this.options.getString('duration') ?? 0,
     reason = this.options.getString('reason', true);
 
   if (muteDuration) {

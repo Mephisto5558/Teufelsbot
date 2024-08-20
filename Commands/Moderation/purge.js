@@ -24,7 +24,7 @@ const
 
 /**
  * @param {Message<true>}msg
- * @param {Record<string, string | number | boolean | undefined>}options*/
+ * @param {Record<string, string | number | boolean | undefined> & {remove_pinned?: boolean}}options*/ // todo: better typing
 function shouldDeleteMsg(msg, options) {
   const
     check = (fn, option) => !!(
@@ -139,7 +139,7 @@ module.exports = {
       count = 0;
 
     if (!amount) return this.customReply(Number.isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
-    if (options.before && options.after) return this.customReply(lang('beforeAndAfter'));
+    if (options.before != undefined && options.after != undefined) return this.customReply(lang('beforeAndAfter'));
 
     if (this instanceof Message) {
       try { await this.delete(); }
@@ -151,7 +151,8 @@ module.exports = {
     if (filterOptionsExist(options)) {
       if (
         options.contains?.includes(options.does_not_contain) || options.does_not_contains?.includes(options.contains)
-        || options.starts_with && options.does_not_contain == options.not_starts_with || options.ends_with && options.ends_with == options.not_ends_with
+        || options.starts_with != undefined && options.does_not_contain == options.not_starts_with
+        || options.ends_with != undefined && options.ends_with == options.not_ends_with
       ) return this.editReply(lang('paramsExcludeOther'));
 
       messages = await fetchMsgs(channel, options.before, options.after, amount);

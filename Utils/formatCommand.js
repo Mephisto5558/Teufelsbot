@@ -69,7 +69,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
     else if (!(option.type in ApplicationCommandOptionType)) { if (!option.disabled) throw new Error(`Invalid option.type, got "${option.type}" (${id})`); }
     else if (!Number.parseInt(option.type) && option.type != 0) option.type = ApplicationCommandType[option.type];
 
-    if (option.permissions?.user?.length) option.defaultMemberPermissions = new PermissionsBitField(option.permissions.user);
+    if (option.permissions?.user?.length > 0) option.defaultMemberPermissions = new PermissionsBitField(option.permissions.user);
     option.dmPermission ??= false;
 
     return option;

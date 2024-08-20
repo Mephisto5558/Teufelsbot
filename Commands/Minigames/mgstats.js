@@ -103,7 +103,7 @@ module.exports = {
       embed.data.title = lang('embedTitle', { user: target.user.displayName, game });
 
       const targetData = data[target.id];
-      if (targetData?.games) {
+      if (targetData?.games > 0) {
         embed.data.description = lang('games', targetData.games)
         + lang('wins', formatStatCount(targetData.wins, targetData.games))
         + lang('draws', formatStatCount(targetData.draws, targetData.games))

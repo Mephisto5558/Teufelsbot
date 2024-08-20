@@ -2,7 +2,7 @@
 module.exports = function equal(a, b) {
   if (!a?.toString() && !b?.toString()) return true;
   if (typeof a == 'string' || typeof b == 'string') return a == b;
-  if (a == undefined && b?.__count__ || b == undefined && !a?.__count__) return true;
+  if (a == undefined && !(b?.__count__ ?? 0) || b == undefined && !(a?.__count__ ?? 0)) return true;
   if (
     !!a != !!b || a.name != b.name || a.description != b.description || a.type != b.type || a.autocomplete != b.autocomplete || a.dmPermission != b.dmPermission
     || a.value != b.value || (a.options?.length ?? 0) != (b.options?.length ?? 0) || (a.channelTypes?.length ?? 0) != (b.channelTypes?.length ?? 0)

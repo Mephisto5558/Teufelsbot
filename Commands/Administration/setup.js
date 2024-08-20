@@ -164,7 +164,7 @@ const
         channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action].channel))?.id ?? this.channel,
         enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? undefined : !this.guild.db.config.logger?.[action].enabled);
 
-      if (!channel) return this.editReply(lang('noChannel'));
+      if (channel == undefined) return this.editReply(lang('noChannel'));
       if (action == 'all') {
         if (enabled == undefined) return this.editReply(lang('noEnabled'));
         for (const actionType of loggerActionTypes) await this.guild.updateDB(`config.logger.${actionType}`, { channel, enabled });
