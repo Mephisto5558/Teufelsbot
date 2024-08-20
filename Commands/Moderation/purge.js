@@ -170,14 +170,14 @@ module.exports = {
   }
 };
 
-/* eslint-disable unicorn/consistent-function-scoping, @stylistic/operator-linebreak, camelcase
+/* eslint-disable unicorn/consistent-function-scoping, camelcase
 -- in there due to performance reasons (testing code not used in production)*/
 
 /** Tests the purge filters*/
 function _testPurge() {
-  const
-    addEmbed = /** @param {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}[]}data*/
-    (...data) => data.reduce((acc, e) => {
+  /** @param {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}[]}data*/
+  function addEmbed(...data) {
+    return data.reduce((acc, e) => {
       const obj = structuredClone(e);
 
       obj.input[0].embeds = [{ description: obj.input[0].content }];
@@ -185,10 +185,12 @@ function _testPurge() {
       acc.push(e, obj);
 
       return acc;
-    }, []).sort((a, b) => ('content' in b.input[0]) - ('content' in a.input[0])),
+    }, []).sort((a, b) => ('content' in b.input[0]) - ('content' in a.input[0]));
+  }
 
-    addFlip = /** @param {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}[]}data*/
-    (...data) => data.reduce((acc, e) => {
+  /** @param {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}[]}data*/
+  function addFlip(...data) {
+    return data.reduce((acc, e) => {
       const obj = structuredClone(e);
 
       obj.input[1].does_not_contain = obj.input[1].contains;
@@ -205,10 +207,13 @@ function _testPurge() {
     }, []).sort((a, b) => {
       const orderMap = { contains: 0, starts_with: 1, ends_with: 2, does_not_contain: 3, not_starts_with: 4, not_ends_with: 5 };
       return orderMap[Object.keys(a.input[1])[0]] - orderMap[Object.keys(b.input[1])[0]];
-    }),
+    });
+  }
+
+  const
     msg = { bulkDeletable: true, user: {} },
     testCases = [
-      [{ input: [{ ...msg }, { }], expectedOutput: true }],
+      [{ input: [{ ...msg }, {}], expectedOutput: true }],
       [
         { input: [{ ...msg, bulkDeletable: false }, {}], expectedOutput: false },
         { input: [{ ...msg, bulkDeletable: true }, {}], expectedOutput: true }
