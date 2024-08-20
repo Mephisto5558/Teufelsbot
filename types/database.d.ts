@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import type { Snowflake, ActivityType, GuildFeature, EmbedData } from 'discord.js';
+import type { Snowflake, ActivityType, GuildFeature, EmbedData, OverwriteType } from 'discord.js';
 import type { __local, ISODateTime } from './globals';
 import type { GiveawayData } from 'discord-giveaways';
 import type { Database as WebsiteDB } from '@mephisto5558/bot-website/database';
@@ -228,9 +228,7 @@ type Database = {
           };
         };
       };
-
-      // TODO
-      lockedChannels?: Record<channelId, Record<string, unknown> | undefined>;
+      lockedChannels?: Record<channelId, Record<Snowflake, OverwriteType | undefined> | undefined>;
       minigames?: {
         rps: Record<messageId, {
           player1?: 'r' | 'p' | 's';
