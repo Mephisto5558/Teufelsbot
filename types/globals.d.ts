@@ -14,6 +14,7 @@ type ISODate = `${number}${number}${number}${number}-${number}${number}-${number
 type ISOTime = `${number}${number}:${number}${number}:${number}${number}.${number}${number}${number}`;
 type ISODateTime = `${ISODate}T${ISOTime}Z`;
 
+// #region __local
 declare namespace __local {
   type autocompleteOptions = string | number | { name: string; value: string };
 
@@ -165,7 +166,11 @@ declare namespace __local {
   type FlattenedUserSettings = DBStructure.FlattenObject<NonNullable<Database['userSettings'][Snowflake]>>;
 }
 
+// #endregion
+
+// #region global
 declare global {
+  // #region Buildins
   namespace NodeJS {
     interface Process {
 
@@ -192,6 +197,10 @@ declare global {
 
   interface Number {
     limit(options?: { min?: number; max?: number }): number;
+
+    /** @returns If the number is more than `min` and less than `max`.*/
+    inRange(options: { min?: number; max?: number }): boolean;
+    inRange(min?: number, max?: number): boolean;
   }
 
   interface Object {
@@ -251,6 +260,9 @@ declare global {
     toISOString(): ISODateTime;
   }
 
+  // #endregion
+
+  // #region custom
   const sleep: (ms: number) => Promise<void>;
 
   /** Custom logging, including logfiles.*/
@@ -285,6 +297,9 @@ declare global {
   /** same as {@link lang}, but may return `undefined` due to undefinedNotFound being true on the {@link I18nProvider.__ original function}.*/
   type langUNF = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string | undefined> & { __boundArgs__: langBoundArgs };
 
+  // #endregion
+
+  // #region commands
   type slashCommand<initialized extends boolean = false> = __local.BaseCommand<initialized> & {
     slashCommand: true;
     aliases?: { slash?: __local.BaseCommand['name'][] };
@@ -392,6 +407,8 @@ declare global {
     channelTypes?: (typeof Discord.ChannelType)[];
   });
 
+  // #endregion
+
   type bBoundFunction<OF extends GenericFunction, T extends GenericFunction = OF> = T & {
     /** The original, unbound function */
     __targetFunction__: OF;
@@ -403,6 +420,7 @@ declare global {
     __boundArgs__: Parameters<T> ;
   };
 
+  // #region discord.js globals
   type Client<Ready extends boolean = true> = Discord.Client<Ready>;
   type Message<inGuild extends boolean = boolean> = Discord.Message<inGuild>;
   type Interaction<inGuild extends boolean = boolean> = inGuild extends true
@@ -437,13 +455,18 @@ declare global {
     member: null;
     memberPermissions: null;
   }
+
+  // #endregion
 }
+
+// #endregion
 
 declare module 'discord-api-types/v10' {
   // @ts-expect-error 2300 // overwriting Snowflake
   export type Snowflake = Discord.Snowflake;
 }
 
+// #region discord.js
 declare module 'discord.js' {
   // @ts-expect-error 2300 // overwriting Snowflake
   type Snowflake = `${number}`;
@@ -581,6 +604,8 @@ declare module 'discord.js' {
   }
 }
 
+// #endregion
+
 // @ts-expect-error // keeping this here for documentation reasons, even tho it doesn't do anything sadly
 declare module 'discord-tictactoe' {
   class TicTacToe {
@@ -594,6 +619,7 @@ declare module 'discord-tictactoe' {
   }
 }
 
+// #region mongoose-db
 declare module '@mephisto5558/mongoose-db' {
   interface NoCacheDB {
     /**
@@ -627,6 +653,8 @@ declare module '@mephisto5558/mongoose-db' {
     /* eslint-enable @typescript-eslint/no-shadow */
   }
 }
+
+// #endregion
 
 declare module 'wikijs' {
   // intentional. `Page` in wikijs is defined as something that is not correct. All `Page`es are `RawPages` in code

@@ -4,9 +4,9 @@ const
   https = require('node:https'),
   { DiscordAPIErrorCodes } = require('#Utils');
 
-/** @param {string}url @returns {Promise<boolean | Error | string>}*/
+/** @param {string}url @returns {Promise<boolean>}*/
 const checkUrl = url => new Promise((resolve, reject) => {
-  const req = (url.startsWith('https') ? https : http).request(url, { method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode > 199 && res.statusCode < 400));
+  const req = (url.startsWith('https') ? https : http).request(url, { method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode.inRange(199, 400)));
 
   req
     .on('timeout', () => req.destroy({ name: 'AbortError', message: 'Request timed out' }))

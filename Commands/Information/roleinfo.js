@@ -34,13 +34,13 @@ module.exports = {
 
     if (role.permissions.has(PermissionFlagsBits.Administrator)) embed.data.fields.at(-1).value = `\`${lang('admin')}\` (\`${role.permissions.toArray().length}\`)`;
     else {
-      const perms = permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n)?.join('`, `') ?? lang('global.none');
+      const perms = permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n).join('`, `');
       embed.data.fields.at(-1).value = '`'
       + (perms.length < 1017 ? `${perms}\`` : perms.slice(0, perms.slice(0, 1013).lastIndexOf(',')) + '...')
       + `(\`${role.permissions.toArray().length}\`)`;
     }
 
-    if (role.members.size && role.members.size < 16) embed.data.fields.splice(9, 0, { name: lang('members'), value: [...role.members.values()].join(', '), inline: false });
+    if (role.members.size.inRange(0, 16)) embed.data.fields.splice(9, 0, { name: lang('members'), value: [...role.members.values()].join(', '), inline: false });
 
     if (role.icon) embed.data.thumbnail = { url: `https://cdn.discordapp.com/role-icons/${role.guild.id}/${role.icon}.webp?size=80&quality=lossless` };
     else if (role.color) embed.data.thumbnail = { url: `https://dummyimage.com/80x80/${role.hexColor.slice(1)}/${role.hexColor.slice(1)}.png` };

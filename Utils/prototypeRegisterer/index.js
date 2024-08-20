@@ -47,7 +47,7 @@ const config = setDefaultConfig();
 if (!config.hideOverwriteWarning) {
   console.warn(
     'Overwriting the following variables and functions (if they exist):'
-    + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Number#limit, `
+    + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Number#limit, Number#inRange`
     + 'Object#filterEmpty, Object#__count__, Function#bBind'
     + 'Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
     + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, Guild#db, guild#updateDB, '
@@ -64,15 +64,26 @@ if (parentUptime) {
   };
 }
 
+// #region BuildIn
 Object.defineProperty(Array.prototype, 'random', {
   /** @type {global['Array']['prototype']['random']}*/
   value: function random() { return this[randomInt(this.length)]; },
   enumerable: false
 });
-Object.defineProperty(Number.prototype, 'limit', {
-  /** @type {global['Number']['prototype']['limit']}*/
-  value: function limit({ min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY } = {}) { return Math.min(Math.max(Number(this), min), max); },
-  enumerable: false
+Object.defineProperties(Number.prototype, {
+  limit: {
+    /** @type {global['Number']['prototype']['limit']}*/
+    value: function limit({ min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY } = {}) { return Math.min(Math.max(Number(this), min), max); },
+    enumerable: false
+  },
+  inRange: {
+    /** @type {global['Number']['prototype']['inRange']}*/
+    value: function inRange(min, max) {
+      if (typeof min == 'object') ({ min, max }) = min;
+      return Number(this) > (min ?? Number.NEGATIVE_INFINITY) && Number(this) < (max ?? Number.POSITIVE_INFINITY);
+    },
+    enumerable: false
+  }
 });
 Object.defineProperties(Object.prototype, {
   /** @type {global['Object']['prototype']['filterEmpty']}*/
@@ -108,6 +119,10 @@ Object.defineProperty(Function.prototype, 'bBind', {
   },
   enumerable: false
 });
+
+// #endregion
+
+// #region Discord.js
 Object.defineProperty(BaseInteraction.prototype, 'customReply', {
   value: customReply,
   enumerable: false
@@ -220,6 +235,9 @@ Object.defineProperties(Guild.prototype, {
   }
 });
 
+// #endregion
+
+// #region mongoose-db
 Object.defineProperty(DB.prototype, 'generate', {
   /** @type {DB['generate']}*/
   value: async function generate(overwrite = false) {
@@ -228,6 +246,10 @@ Object.defineProperty(DB.prototype, 'generate', {
   },
   enumerable: false
 });
+
+// #endregion
+
+// #region discord-tictactoe
 TicTacToe.prototype.playAgain = playAgain;
 
 /**
@@ -249,3 +271,5 @@ GameBoardButtonBuilder.prototype.createButton = function createButton(row, col) 
   }
   return button.setCustomId(buttonIndex.toString()).setStyle(this.buttonStyles[buttonData]);
 };
+
+// #endregion

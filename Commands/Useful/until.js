@@ -7,7 +7,8 @@ const { timeFormatter } = require('#Utils');
  * @param {number?}defaultNum
  * @returns {number}*/
 function getInteger(name, i, defaultNum = 0) {
-  return this.options?.getInteger(name) ?? (Number.parseInt(this.args?.[i]) || defaultNum);
+  const num = Number.parseInt(this.args?.[i]);
+  return this.options?.getInteger(name) ?? (Number.isNaN(num) ? defaultNum : num);
 }
 
 /**
@@ -16,7 +17,7 @@ function getInteger(name, i, defaultNum = 0) {
  * @param {number}day
  * @param {number[]}args*/
 function getTime(year, month, day, ...args) {
-  return year < 0 || year > 100 ? new Date(year, month, day, ...args).getTime() : new Date(year - 1900, month, day, ...args).setFullYear(year);
+  return year.inRange(-1, 101) ? new Date(year - 1900, month, day, ...args).setFullYear(year) : new Date(year, month, day, ...args).getTime();
 }
 
 /** @type {command<'both', false>}*/
