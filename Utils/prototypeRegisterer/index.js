@@ -79,8 +79,13 @@ Object.defineProperties(Number.prototype, {
   inRange: {
     /** @type {global['Number']['prototype']['inRange']}*/
     value: function inRange(min, max) {
-      if (typeof min == 'object') ({ min, max }) = min;
-      return Number(this) > (min ?? Number.NEGATIVE_INFINITY) && Number(this) < (max ?? Number.POSITIVE_INFINITY);
+      let minRange, maxRange;
+      if (typeof min == 'object') {
+        maxRange = min.max;
+        minRange = min.min;
+      }
+
+      return Number(this) > (minRange ?? min ?? Number.NEGATIVE_INFINITY) && Number(this) < (maxRange ?? max ?? Number.POSITIVE_INFINITY);
     },
     enumerable: false
   }
