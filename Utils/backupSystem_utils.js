@@ -69,19 +69,15 @@ async function fetchChannelMessages(channel, saveImages, maxMessagesPerChannel =
 
 /** @type {import('.').BackupSystem.Utils['fetchChannelPermissions']}*/
 function fetchChannelPermissions(channel) {
-  return channel.permissionOverwrites.cache
-    .filter(e => e.type == OverwriteType.Role)
+  return channel.permissionOverwrites.cache.reduce((acc, e) => {
+    if (e.type != OverwriteType.Role) return acc;
 
-    .map(e => {
-      const role = channel.guild.roles.cache.get(e.id);
-      if (!role) return undefined; /* eslint-disable-line unicorn/no-useless-undefined -- prevents `eslint/array-callback-return`*/
+    const role = channel.guild.roles.cache.get(e.id);
+    if (role)
+      acc.push({ name: role.name, allow: e.allow.bitfield.toString(), deny: e.deny.bitfield.toString() });
 
-      return {
-        name: role.name,
-        allow: e.allow.bitfield.toString(),
-        deny: e.deny.bitfield.toString()
-      };
-    });
+    return acc;
+  }, []);
 }
 
 /** @type {import('.').BackupSystem.Utils['fetchChannelThreads']}*/

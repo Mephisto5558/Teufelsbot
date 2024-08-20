@@ -76,7 +76,7 @@ declare namespace BackupSystem {
       channel: GuildTextBasedChannel, saveImages: boolean, maxMessagesPerChannel: number
     ): Promise<backupChannel['messages']>;
 
-    fetchChannelPermissions(channel: GuildChannel): (backupChannel['permissions'][0] | undefined)[];
+    fetchChannelPermissions(channel: GuildChannel): backupChannel['permissions'];
 
     fetchChannelThreads(
       channel: GuildChannel, saveImages: boolean, maxMessagesPerChannel: number
