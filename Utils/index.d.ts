@@ -263,7 +263,7 @@ declare function equal<T extends command<'both', boolean, true> | commandOptions
 
 /** @returns `formatted` has the format `year-day, hour:minute:second` if `lang` is not provided.*/
 declare function timeFormatter<T extends lang | undefined>(
-  sec?: number, lang?: T
+  options: { sec?: number; lang?: T }
 ): {
   total: number; negative: boolean;
   formatted: T extends undefined

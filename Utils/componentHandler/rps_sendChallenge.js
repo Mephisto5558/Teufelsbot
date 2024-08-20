@@ -1,8 +1,9 @@
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 /** @type {import('.').rps_sendChallenge}*/
-/* eslint-disable-next-line unicorn/no-useless-undefined -- More convenient to call this way */
-module.exports = async function sendRPSChallenge(initiator, opponent = this.client.user, lang = undefined) {
+module.exports = async function sendRPSChallenge({ initiator, opponent, lang }) {
+  opponent ??= this.client.user;
+
   lang.__boundArgs__[0].backupPath = 'commands.minigames.rps.challenge';
 
   if (opponent.bot && opponent.id != this.client.user.id) return this.replied ? this.editReply(lang('opponentIsBot')) : this.reply(lang('opponentIsBot'));

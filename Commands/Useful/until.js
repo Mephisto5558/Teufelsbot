@@ -74,7 +74,7 @@ module.exports = {
       minute = getInt('minute', 4),
       second = getInt('second', 5),
       date = day || month || year ? getTime(year, month, day, hour, minute, second) : new Date().setHours(hour, minute, second),
-      { formatted, negative } = timeFormatter((date - Date.now()) / 1000, lang);
+      { formatted, negative } = timeFormatter({ sec: (date - Date.now()) / 1000, lang });
 
     return this.customReply(lang(negative ? 'untilNeg' : 'until', formatted));
   }

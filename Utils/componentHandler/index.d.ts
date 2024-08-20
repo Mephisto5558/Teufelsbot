@@ -113,7 +113,7 @@ declare function reddit<
 
 declare function rps_sendChallenge(
   this: GuildInteraction | Message<true> | ButtonInteraction<'cached'>,
-  initiator: GuildMember, opponent: GuildMember | undefined, lang: lang
+  options: { initiator: GuildMember; opponent?: GuildMember; lang?: lang }
 ): Promise<InteractionResponse | Message>;
 declare function rps<
   INITIATOR_ID extends Snowflake, MODE extends 'cancel' | 'decline' | 'accept' | 'playAgain' | 'rock' | 'paper' | 'scissors',

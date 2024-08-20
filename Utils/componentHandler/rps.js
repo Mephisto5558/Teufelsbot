@@ -71,7 +71,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
       if (this.client.botType != 'dev') await this.client.db.update('botSettings', 'cmdStats.rps.slash', (this.client.settings.cmdStats.rps.slash ?? 0) + 1);
 
       if (opponent.user.bot) return sendGame.call(this, initiator, opponent, lang);
-      return sendChallenge.call(this, this.member, initiatorId == this.user.id ? opponent : initiator, lang);
+      return sendChallenge.call(this, { initiator: this.member, opponent: initiatorId == this.user.id ? opponent : initiator, lang });
 
     case 'rock':
     case 'paper':

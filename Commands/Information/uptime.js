@@ -13,7 +13,7 @@ module.exports = {
     const embed = new EmbedBuilder({
       description: lang(
         this.client.config.website.domain && !this.client.config.disableWebserver ? 'embedDescription' : 'embedDescriptionNoURL',
-        { time: timeFormatter(process.uptime(), lang).formatted, domain: this.client.config.website.domain }
+        { time: timeFormatter({ sec: process.uptime(), lang }).formatted, domain: this.client.config.website.domain }
       ),
       color: Colors.White
     });
