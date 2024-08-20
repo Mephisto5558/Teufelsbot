@@ -3,7 +3,7 @@ const
 
   /**
    * @type {Record<string,
-   * (this: GuildInteraction, lang: lang, oldData: Exclude<Exclude<Database['guildSettings'][Snowflake], undefined>['triggers'], undefined>, query: string) => Promise<Message>>
+   * (this: GuildInteraction, lang: lang, oldData: NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['triggers']>, query: string) => Promise<Message>>
    * }*/
   triggerMainFunctions = {
     add: async function (lang, oldData) {

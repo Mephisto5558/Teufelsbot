@@ -17,19 +17,22 @@ module.exports = async function lock_unlock(lang) {
       title: lang('embedTitle'),
       description: lang('embedDescription', { mod: this.user.username, reason }),
       color: Colors.Red
-    });
+    }),
+    roles = await this.guild.roles.fetch(),
+    members = await this.guild.members.fetch();
 
-  /** @type {Record<Snowflake, import('discord.js').OverwriteType> | undefined}*/
+  /** @type {NonNullable<import('../../types/database').Database['guildSettings'][Snowflake]>['lockedChannels']} */
   let overwrites;
 
   if (this.commandName == 'lock') {
-    overwrites = await channel.permissionOverwrites.cache.reduce(async (acc, e) => {
+    overwrites = channel.permissionOverwrites.cache.reduce((acc, e) => {
       if (
         e.allow.has(PermissionFlagsBits.SendMessages) && !e.allow.has(PermissionFlagsBits.Administrator)
-        && (e.type == OverwriteType.Role && (await this.guild.roles.fetch(e.id))?.editable || (await this.guild.members.fetch(e.id)).manageable)
-      ) return { ...await acc, [e.id]: e.type };
+        && (e.type == OverwriteType.Role && roles.get(e.id)?.editable || members.get(e.id).manageable)
+      ) acc[e.id] = e.type;
+
       return acc;
-    }, Promise.resolve({}));
+    }, {});
 
     if (
       this.guild.roles.everyone.editable
@@ -39,12 +42,10 @@ module.exports = async function lock_unlock(lang) {
     if (overwrites.__count__) await this.guild.updateDB(`lockedChannels.${channel.id}`, overwrites);
   }
   else {
-    /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive */
-    overwrites = Object.entries(this.guild.db.lockedChannels?.[channel.id] ?? {}).filter(async ([k, v]) => {
-      if (channel.permissionOverwrites.cache.get(k)?.allow.has(PermissionFlagsBits.SendMessages)) return;
-      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive */
-      if (v == OverwriteType.Role) return (await this.guild.roles.fetch(k))?.position - this.guild.members.me.roles.highest.position < 0;
-      return (await this.guild.members.fetch(k)).manageable;
+    overwrites = Object.entries(this.guild.db.lockedChannels?.[channel.id] ?? {}).filter(([k, v]) => {
+      if (channel.permissionOverwrites.cache.get(k)?.allow.has(PermissionFlagsBits.SendMessages)) return false;
+      if (v == OverwriteType.Role) return roles.get(k).position - this.guild.members.me.roles.highest.position < 0;
+      return members.get(k).manageable;
     });
 
     if (!overwrites.length) return msg.edit(lang('notLocked'));

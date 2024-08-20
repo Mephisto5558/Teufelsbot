@@ -1,4 +1,4 @@
-const { AllowedMentionsTypes } = require('discord.js');
+const { AllowedMentionsTypes, Message } = require('discord.js');
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -28,17 +28,19 @@ module.exports = {
 
   run: async function (lang) {
     if (this.options?.getSubcommand() == 'get') {
-      const target = this.options.getMember('target');
+      if (this instanceof Message) return; // typeguard
+
+      const target = this.inGuild() ? this.options.getMember('target') : this.options.getUser('target') ?? this.user;
       if (target) {
-        const { message, createdAt } = this.guild.db.afkMessages?.[this.user.id] ?? this.user.db.afkMessage ?? {};
+        const { message, createdAt } = this.guild?.db.afkMessages?.[target.id] ?? ('user' in target ? target.user : target).db.afkMessage ?? {};
         if (!message) return this.customReply(lang('getNoneFound'));
 
         return this.customReply(lang('events.message.afkMsg', {
-          member: target.nickname?.startsWith('[AFK] ') ? target.nickname.slice(6) : target.displayName,
-          message, timestamp: Math.round(createdAt / 1000)
+          member: target.displayName.replace(/^\[AFK] /, ''), message, timestamp: Math.round(createdAt / 1000)
         }));
       }
 
+      if (!this.inGuild()) return; // typeguard
       const afkMessages = this.guild.members.cache.reduce((acc, e) => {
         const { message, createdAt } = this.guild.db.afkMessages?.[e.user.id] ?? e.user.db.afkMessage ?? {};
         if (message) {

@@ -92,8 +92,8 @@ type Database = {
       createdAt: Date;
     };
     birthday?: Date;
-    lastVoted?: Exclude<WebsiteDB['userSettings'][Snowflake], undefined>['lastVoted'];
-    featureRequestAutoApprove?: Exclude<WebsiteDB['userSettings'][Snowflake], undefined>['featureRequestAutoApprove'];
+    lastVoted?: NonNullable<WebsiteDB['userSettings'][Snowflake]>['lastVoted'];
+    featureRequestAutoApprove?: NonNullable<WebsiteDB['userSettings'][Snowflake]>['featureRequestAutoApprove'];
     lastFeatureRequested?: number;
     cmdStats?: cmdStats;
   } | undefined>;

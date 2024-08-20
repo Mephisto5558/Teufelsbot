@@ -1,13 +1,12 @@
 const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent } = require('discord.js');
 
 /**
- * @this {import('discord.js').Collection<string, Message<true>>}
+ * @this {import('discord.js').Collection<string, Message<true> | import('discord.js').PartialMessage>}
  * @param {import('discord.js').GuildTextBasedChannel}channel*/
 module.exports = async function messageDeleteBulk(channel) {
-  const setting = channel.guild.db.config.logger?.messageDelete ?? {};
+  const setting = channel.guild.db.config.logger?.messageDelete;
 
-  /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- could be a partial channel, not able to type that tho*/
-  if (channel.client.botType == 'dev' || !channel.guild || !setting.enabled || !setting.channel) return;
+  if (channel.client.botType == 'dev' || !setting?.enabled) return;
 
   const channelToSend = channel.guild.channels.cache.get(setting.channel);
   if (!channelToSend || channelToSend.permissionsFor(channel.guild.members.me).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length)

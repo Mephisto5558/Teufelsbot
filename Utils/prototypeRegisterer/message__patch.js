@@ -11,7 +11,7 @@ module.exports = function _patch(data, ...rest) {
     let
       prefixLength = 0,
 
-      /** @type {Database<true>['guildSettings']['']['config']['prefixes']|Database<true>['guildSettings']['']['config']['betaBotPrefixes']}*/
+      /** @type {NonNullable<Database['guildSettings'][Snowflake]>['config']['prefixes'] | NonNullable<Database['guildSettings'][Snowflake]>['config']['betaBotPrefixes']}*/
       prefixes = this.guild?.db.config[prefixType];
 
     if (!prefixes?.[0].prefix) prefixes = this.client.defaultSettings.config[prefixType];

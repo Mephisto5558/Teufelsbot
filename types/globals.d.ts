@@ -1,4 +1,3 @@
-/* eslint-disable no-undef -- being buggy with scopes*/
 /* eslint-disable max-lines */
 
 import type Discord from 'discord.js';
@@ -320,7 +319,11 @@ declare global {
     & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
     & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
     & { run(
-      this: commandType extends 'slash' ? Interaction<guildOnly> : commandType extends 'prefix' ? Message<guildOnly> : Interaction<guildOnly> | Message<guildOnly>,
+      this: commandType extends 'slash'
+        ? Interaction<guildOnly>
+        : commandType extends 'prefix'
+          ? Message<guildOnly extends true ? true : boolean>
+          : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>,
       lang: lang, client: Discord.Client<true>
     ): Promise<never>; };
 
@@ -405,6 +408,13 @@ declare global {
   type Interaction<inGuild extends boolean = boolean> = inGuild extends true
     ? GuildInteraction : GuildInteraction | DMInteraction;
 
+  // @ts-expect-error // inGuild needs to be overwritten otherwise typeguarding doesn't work.
+  interface PartialGuildMessage extends Discord.Partialize<Message<true>, 'type' | 'system' | 'pinned' | 'tts', 'content' | 'cleanContent' | 'author' | 'user'> {
+    inGuild(): this is PartialMessage<true>;
+  }
+
+  type PartialMessage<inGuild extends boolean = boolean> = inGuild extends true ? PartialGuildMessage : Discord.PartialMessage;
+
   // used to not get `any` on Message property when the object is Message | Interaction
   type OptionalInteractionProperties<inGuild extends boolean = boolean> = Partial<Interaction<inGuild>>;
   type OptionalMessageProperties<inGuild extends boolean = boolean> = Partial<Message<inGuild>>;
@@ -484,7 +494,7 @@ declare module 'discord.js' {
     /* eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- valid use case, as this property does not really exist*/
     options: void;
 
-    /* eslint-disable jsdoc/check-param-names */
+
     /**
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
      * and if that also doesn't work, send the message without repling to a specific message/interaction.
@@ -509,7 +519,6 @@ declare module 'discord.js' {
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
      * and if that also doesn't work, send the message without repling to a specific message/interaction.
      * @param deleteTime Number in Milliseconds*/
-    /* eslint-enable jsdoc/check-param-names */
     customReply(
       this: BaseInteraction,
       options: string | MessagePayload | InteractionReplyOptions,
