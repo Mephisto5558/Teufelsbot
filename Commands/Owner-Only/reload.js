@@ -3,7 +3,7 @@ const
   /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path`*/
   { resolve, basename, dirname } = require('node:path'),
   { access } = require('node:fs/promises'),
-  { formatSlashCommand, slashCommandsEqual } = require('#Utils');
+  { formatCommand, slashCommandsEqual } = require('#Utils');
 
 /**
  * @this {Client}
@@ -20,11 +20,9 @@ async function reloadCommand(command, reloadedArray) {
     if (err.code != 'MODULE_NOT_FOUND') throw err;
   }
 
-  const slashFile = file.slashCommand ? formatSlashCommand(file, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n) : undefined;
-
-  file.name = command.name; // NOSONAR S1874
-  file.filePath = command.filePath;
-  file.category = command.category; // NOSONAR S1874
+  const slashFile = file.slashCommand
+    ? formatCommand(file, command.filePath, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n)
+    : undefined;
 
   this.prefixCommands.delete(command.name); // NOSONAR S1874
   if (file.prefixCommand) {
