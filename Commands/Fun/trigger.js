@@ -21,7 +21,7 @@ const
 
     delete: async function (lang, oldData, query) {
       let id;
-      if (query) id = query in oldData ? query : Object.entries(oldData).find(([,e]) => e.trigger.toLowerCase() == query.toLowerCase())[0];
+      if (query) id = query in oldData ? query : Object.entries(oldData).find(([,e]) => e.trigger.toLowerCase() == query.toLowerCase())?.[0];
       else id = Math.max(...Object.keys(oldData).map(Number)); // Returns `-Infinity` on an empty array
 
       if (id < 0) return this.editReply(lang('noneFound'));
