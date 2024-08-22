@@ -27,7 +27,8 @@ If you have any questions feel free to open an issue.<br>
 
 ## Requirements
 ```
-Node.js 18.17.0 or newer
+Node.js >=18.17.0 for prod
+Node.js >=20.11.0 for dev
 MongoDB set up
 ```
 
