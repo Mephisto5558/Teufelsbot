@@ -106,6 +106,8 @@ module.exports = {
     const
       msg = await this.reply(lang('global.loading')),
       commandList = new Collection([...this.client.prefixCommands, ...this.client.slashCommands]),
+
+      /** @type {(string | undefined)[]}*/
       reloadedArray = [];
 
     try {
@@ -148,7 +150,7 @@ module.exports = {
       log.error('Error while trying to reload a command:\n', err);
     }
 
-    const commands = reloadedArray.reduce((acc, e) => acc + (e.startsWith('<') ? e : `\`${e}\``) + ', ', '').slice(0, -2);
+    const commands = reloadedArray.filter(Boolean).reduce((acc, e) => acc + (e.startsWith('<') ? e : `\`${e}\``) + ', ', '').slice(0, -2);
     return msg.edit(lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
       count: reloadedArray.length,
       commands: commands.length < 800 ? commands : commands.slice(0, Math.max(0, commands.slice(0, 800).lastIndexOf('`,') + 1)) + '...'
