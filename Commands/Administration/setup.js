@@ -311,7 +311,7 @@ module.exports = {
         { name: 'enabled', type: 'Boolean' }
       ]
     }
-  ], beta: true,
+  ],
 
   run: function (lang) {
     lang.__boundArgs__[0].backupPath += `.${this.options.getSubcommand().replaceAll(/_./g, e => e[1].toUpperCase())}`;
