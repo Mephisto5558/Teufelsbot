@@ -61,17 +61,17 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
     case 'emojis':
       if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.deletable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
+      break;
 
-    // fall through
     case 'roles':
       if (item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId || !this.member.permissions.has(PermissionFlagsBits.ManageRoles))
         return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.editable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
+  }
 
-    // fall through
-    case mode == 'delete':
-      await item.delete(`${entityType.slice(0, -1)} delete button in /${entityType.slice(0, -1)}info, member ${this.user.tag}`);
-      void this.editReply({ embeds: [embed.setColor(Colors.Green).setDescription(lang('success'))] });
+  if (mode == 'delete') {
+    await item.delete(`${entityType.slice(0, -1)} delete button in /${entityType.slice(0, -1)}info, member ${this.user.tag}`);
+    void this.editReply({ embeds: [embed.setColor(Colors.Green).setDescription(lang('success'))] });
   }
 
   for (const button of this.message.components[0].components) button.data.disabled = true;
