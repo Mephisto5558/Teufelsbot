@@ -95,13 +95,17 @@ const
         language = this.options.getString('language', true),
 
         /** @type {lang}*/
-        newLang = this.client.i18n.__.bind(this.client.i18n, { locale: this.client.i18n.availableLocales.has(language) ? language : this.client.i18n.config.defaultLocale }),
-        { category, name } = this.client.slashCommands.get(this.commandName),
-        embed = new EmbedBuilder({
-          title: newLang(`commands.${category.toLowerCase()}.${name}.language.embedTitle`),
-          description: newLang(`commands.${category.toLowerCase()}.${name}.language.embedDescription`, newLang('global.languageName')),
-          color: Colors.Green
-        });
+        newLang = this.client.i18n.__.bind(this.client.i18n, { locale: this.client.i18n.availableLocales.has(language) ? language : this.client.i18n.config.defaultLocale });
+
+      /** @type {command<'slash', true, true>}*/
+      let { aliasOf, name, category } = this.client.slashCommands.get(this.commandName);
+      if (aliasOf) ({ name, category } = this.client.slashCommands.get(aliasOf));
+
+      const embed = new EmbedBuilder({
+        title: newLang(`commands.${category.toLowerCase()}.${name}.language.embedTitle`),
+        description: newLang(`commands.${category.toLowerCase()}.${name}.language.embedDescription`, newLang('global.languageName')),
+        color: Colors.Green
+      });
 
       await this.guild.updateDB('config.lang', language);
       return this.editReply({ embeds: [embed] });
@@ -307,7 +311,7 @@ module.exports = {
         { name: 'enabled', type: 'Boolean' }
       ]
     }
-  ],
+  ], beta: true,
 
   run: function (lang) {
     lang.__boundArgs__[0].backupPath += `.${this.options.getSubcommand().replaceAll(/_./g, e => e[1].toUpperCase())}`;
