@@ -68,7 +68,6 @@ module.exports = async function messageDelete() {
       description: lang('messageDelete.embedDescription', { executor: executor ? `<@${executor.id}>` : lang('someone'), channel: this.channel.name }),
       fields: [
         { name: lang('global.channel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: true },
-        { name: lang('messageDelete.author'), value: `${this.user.tag} (\`${this.user.id}\`)`, inline: true },
         { name: lang('messageDelete.content'), value: '', inline: false }
       ],
       timestamp: Date.now(),
@@ -84,6 +83,8 @@ module.exports = async function messageDelete() {
   if (!field.value) field.value += lang('unknownContent');
   else if (field.value.length > 1024) field.value = field.value.slice(0, 1021) + '...';
 
+  // We don't get the user if the message is not cached
+  if (this.user) embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (\`${this.user.id}\`)`, inline: true });
   if (executor) embed.data.fields.push({ name: lang('executor'), value: `${executor.tag} (\`${executor.id}\`)`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('reason'), value: reason, inline: false });
 
