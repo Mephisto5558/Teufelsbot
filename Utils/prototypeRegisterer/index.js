@@ -152,8 +152,8 @@ Object.defineProperties(Client.prototype, {
 
   /** @type {Record<string, (this: Client, val: any) => any>} */
   defaultSettings: {
-    get() { return this.db.get('guildSettings', 'default'); },
-    set(val) { void this.db.update('guildSettings', 'default', val); }
+    get() { return this.db.get('botSettings', 'defaultGuild'); },
+    set(val) { void this.db.update('botSettings', 'defaultGuild', val); }
   },
   loadEnvAndDB: {
     /** @type {Client['loadEnvAndDB']}*/

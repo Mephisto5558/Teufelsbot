@@ -483,7 +483,7 @@ declare module 'discord.js' {
     db: DB;
     i18n: I18nProvider;
     settings: Database['botSettings'];
-    defaultSettings: Database['guildSettings']['default'];
+    defaultSettings: Database['botSettings']['defaultGuild'];
     botType: __local.Env['environment'];
     keys: __local.Env['keys'];
 
