@@ -40,25 +40,40 @@ async function handleWordchain() {
   const wordchainData = this.guild.db.channelMinigames?.wordchain?.[this.channel.id];
   if (!wordchainData) return;
 
-  if (!wordchainData.lastWordChar || wordchainData.lastWordChar == this.originalContent[0].toLowerCase() /* && wordchainData.lastAuthor != this.user.id*/) {
+  const
+    firstWord = this.originalContent.split(/ +/g)[0].toLowerCase(),
+    lastWordChar = wordchainData.lastWord?.at(-1);
+
+  if (
+    !wordchainData.lastWord || lastWordChar == firstWord[0]
+    && (!wordchainData.lastWordBefore || wordchainData.lastWordBefore != firstWord)
+    && wordchainData.lastAuthor != this.user.id
+  ) {
     await this.guild.updateDB(
       `channelMinigames.wordchain.${this.channel.id}`,
-      { lastWordChar: this.originalContent.at(-1).toLowerCase(), lastAuthor: this.user.id, chainedWords: wordchainData.chainedWords + 1 }
+      {
+        lastWord: firstWord, lastWordBefore: wordchainData.lastWord,
+        lastAuthor: this.user.id, chainedWords: wordchainData.chainedWords + 1
+      }
     );
     return this.react('✅');
   }
 
   void this.react('❌');
-  if (!wordchainData.lastWordChar) return;
+  if (!lastWordChar) return;
+
+  let msgId;
+  if (wordchainData.lastAuthor == this.user.id) msgId = 'events.message.wordchain.sameUserTwice';
+  else if (firstWord == wordchainData.lastWordBefore) msgId = 'events.message.wordchain.inALoop';
+  else msgId = 'events.message.wordchain.wrongChar';
 
   await this.guild.updateDB(`channelMinigames.wordchain.${this.channel.id}`, { chainedWords: 0 });
-  return this.reply(
-    this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.wordchain.error', { lastChar: wordchainData.lastWordChar, count: wordchainData.chainedWords })
-    + this.client.i18n.__(
-      { locale: this.guild.localeCode },
-      wordchainData.lastAuthor == this.user.id ? 'events.message.wordchain.sameUserTwice' : 'events.message.wordchain.wrongChar'
-    )
-  );
+  if (wordchainData.chainedWords > 1) {
+    return this.reply(
+      this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.wordchain.error', { lastChar: lastWordChar, count: wordchainData.chainedWords })
+      + this.client.i18n.__({ locale: this.guild.localeCode }, msgId)
+    );
+  }
 }
 
 /**

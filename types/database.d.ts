@@ -175,9 +175,12 @@ type Database = {
         chainedWords: number;
 
         /**
-         * There will always be both `lastWordChar` and `lastAuthor` or none of them present.
+         * There will always be both `lastWord` and `lastAuthor` or none of them present.
          * Will always be a single lowercase character*/
-        lastWordChar?: string;
+        lastWord?: string;
+
+        /** The last word of the message before the `lastWord`*/
+        lastWordBefore?: string;
 
         /** There will always be both `lastWordChar` and `lastAuthor` or none of them present.*/
         lastAuthor?: userId;
