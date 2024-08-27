@@ -9,6 +9,9 @@ const
   /* eslint-disable-next-line no-new-func*/
   BoundFunction = Function.bind(undefined, ...vars);
 
+/** @param {number}ms*/
+const timeout = ms => new Promise((_, rej) => setTimeout(rej, ms, 'eval timed out.'));
+
 /** @type {command<'prefix', false>}*/
 module.exports = {
   slashCommand: false,
@@ -25,8 +28,11 @@ module.exports = {
     const msg = await this.reply(lang('global.loading'));
 
     try {
-      await (this.content.includes('await') ? new BoundAsyncFunction(this.content) : new BoundFunction(this.content))
-        .call(this, __dirname, __filename, module, exports, require, lang);
+      await Promise.race([
+        (this.content.includes('await') ? new BoundAsyncFunction(this.content) : new BoundFunction(this.content))
+          .call(this, __dirname, __filename, module, exports, require, lang),
+        timeout(6e5) // 10min
+      ]);
 
       return await msg.customReply(lang('success', lang('finished', this.content)));
     }
