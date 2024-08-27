@@ -13,7 +13,7 @@ module.exports = {
     {
       name: 'channel',
       type: 'Channel',
-      channelTypes: Constants.TextBasedChannelTypes,
+      channelTypes: Constants.GuildTextBasedChannelTypes,
       required: true
     },
     {

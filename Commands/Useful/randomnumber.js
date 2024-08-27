@@ -16,12 +16,12 @@ module.exports = {
   run: async function (lang) {
     let
       min = this.options?.getInteger('minimum') ?? Number(this.args?.[0]),
-      max = this.options?.getInteger('maximum') ?? Number(this.args?.[1]);
-
-    if (Number.isNaN(min)) min = 0;
-    if (Number.isNaN(max)) max = 100;
+      max = this.options?.getInteger('maximum') ?? Number(this.args?.[1] ?? 0);
 
     if (min > max) [min, max] = [max, min];
+
+    if (Number.isNaN(min)) min = 0;
+    if (Number.isNaN(max) || min == max && min == 0) max = 100;
 
     try {
       const randomNumber = randomInt(min, max + 1).toLocaleString(lang.__boundArgs__[0].locale);

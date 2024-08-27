@@ -30,13 +30,16 @@ function checkOptions(command, lang) {
 
   if (!option.options) return;
 
-  for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete, autocompleteOptions, choices }] of option.options.entries()) {
+  for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete, autocompleteOptions, choices, channelTypes }] of option.options.entries()) {
     if (required && !this.options?.get(name) && !this.args?.[i]) {
       return ['paramRequired', {
         option: name,
         description: descriptionLocalizations?.[lang.__boundArgs__[0].locale] ?? descriptionLocalizations?.[lang.__boundThis__.config.defaultLocale] ?? description
       }];
     }
+
+    if (channelTypes && (this.options?.get(name) || this.args?.[i]) && !channelTypes.includes(this.options?.getChannel(name).type ?? this.mentions.channels.at(i)?.type))
+      return ['invalidChannelType', name];
 
     if (
       (this instanceof Message || this.isChatInputCommand())

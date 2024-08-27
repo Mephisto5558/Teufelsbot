@@ -1,4 +1,6 @@
-const { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
+const
+  { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
+  { getTargetChannel } = require('#Utils');
 
 /** @type {command<'both'>}*/
 module.exports = {
@@ -10,12 +12,14 @@ module.exports = {
   options: [{
     name: 'channel',
     type: 'Channel',
-    channelTypes: Constants.TextBasedChannelTypes
+    channelTypes: Constants.GuildTextBasedChannelTypes.filter(e => !Constants.ThreadChannelTypes.includes(e))
   }],
 
   run: async function (lang) {
     const
-      channel = this.options?.getChannel('channel') ?? this.mentions?.channels.first() ?? this.channel,
+
+      /** @type {Exclude<import('discord.js').GuildTextBasedChannel, import('discord.js').AnyThreadChannel>}*/
+      channel = getTargetChannel(this, { returnSelf: true }),
       embed = new EmbedBuilder({
         title: lang('confirmEmbedTitle'),
         description: lang('confirmEmbedDescription', channel.id),
@@ -56,9 +60,14 @@ module.exports = {
             image: { url: 'https://i.giphy.com/XUFPGrX5Zis6Y.gif' },
             footer: { text: lang('embedFooterText', this.user.username) }
           }),
-          cloned = await channel.clone({ reason: lang('global.modReason', { command: this.commandName, user: this.user.username }) });
+          reason = lang('global.modReason', { command: this.commandName, user: this.user.username }),
+          cloned = await channel.clone({ reason });
 
-        await channel.delete(lang('global.modReason', { command: this.commandName, user: this.user.username }));
+
+        for (const [, webhook] of await channel.fetchWebhooks())
+          await webhook.edit({ channel: cloned.id, reason });
+
+        await channel.delete(reason);
 
         if (channel.id != this.channelId) {
           void reply.delete();
