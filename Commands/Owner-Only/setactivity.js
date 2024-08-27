@@ -14,7 +14,7 @@ module.exports = {
     {
       name: 'type',
       type: 'String',
-      choices: [...new Set(Object.entries(ActivityType).flat().map(String))]
+      choices: Object.entries(ActivityType).flatMap(([e]) => e)
     }
   ],
 

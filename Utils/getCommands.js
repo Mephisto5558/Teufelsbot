@@ -1,7 +1,7 @@
 /** @type {import('.').getCommands}*/
 module.exports = function getCommands(lang) {
   /** @type {{category: string, subTitle: '', aliasesDisabled: boolean, list: { commandName: string, commandUsage: string, commandDescription: string, commandAlias: string }[] }[]}*/
-  const commandList = [...new Set([...this.slashCommands.values(), ...this.prefixCommands.values()])].reduce((/** @type {string[]}*/ acc, cmd) => {
+  const commandList = [...this.slashCommands.values(), ...this.prefixCommands.values()].unique().reduce((/** @type {string[]}*/ acc, cmd) => {
     if (this.config.ownerOnlyFolders.includes(cmd.category) || cmd.disabled || cmd.aliasOf) return acc;
 
     let category = acc.find(e => e.category == cmd.category);

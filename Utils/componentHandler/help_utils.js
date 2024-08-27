@@ -9,12 +9,12 @@ const
 /**
  * @type {import('.').help_getCommands}
  * @this {ThisParameterType<import('.').help_getCommands>}*/ // This is here due to eslint
-function getCommands() { return [...new Set([...this.client.prefixCommands.values(), ...this.client.slashCommands.values()])].filter(filterCommands.bind(this)); }
+function getCommands() { return [...this.client.prefixCommands.values(), ...this.client.slashCommands.values()].unique().filter(filterCommands.bind(this)); }
 
 /**
  * @type {import('.').help_getCommandCategories}
  * @this {ThisParameterType<import('.').help_getCommandCategories>}*/ // This is here due to eslint
-function getCommandCategories() { return [...new Set(getCommands.call(this).map(e => e.category))]; }
+function getCommandCategories() { return getCommands.call(this).map(e => e.category).unique(); }
 
 /**
  * @this {Interaction|Message}

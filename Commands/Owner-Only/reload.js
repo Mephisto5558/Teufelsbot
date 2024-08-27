@@ -56,7 +56,7 @@ async function reloadCommand(command, reloadedArray) {
     this.slashCommands.set(slashFile.name, slashFile);
     reloadedArray.push(`</${slashFile.name}:${slashFile.id ?? 0}>`);
 
-    for (const alias of new Set([...slashFile.aliases?.slash ?? [], ...command.aliases?.slash ?? []])) {
+    for (const alias of [...slashFile.aliases?.slash ?? [], ...command.aliases?.slash ?? []].unique()) {
       const { id } = this.slashCommands.get(alias) ?? {};
       let cmdId;
 

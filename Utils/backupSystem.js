@@ -264,12 +264,12 @@ class BackupSystem {
       data.features = data.features.filter(e => e != GuildFeature.Community);
       rulesChannel = guild.rulesChannel ?? await guild.channels.create({ name: 'temp_rules', type: ChannelType.GuildText });
       publicUpdatesChannel = guild.publicUpdatesChannel ?? await guild.channels.create({ name: 'temp_updates', type: ChannelType.GuildText });
-      await guild.edit({ features: [...new Set(guild.features, GuildFeature.Community)], rulesChannel, publicUpdatesChannel, reason });
+      await guild.edit({ features: [...guild.features, GuildFeature.Community].unique(), rulesChannel, publicUpdatesChannel, reason });
     }
 
     statusObj.status = 'load.features';
     for (const feature of data.features) {
-      try { await guild.edit({ features: [...new Set(guild.features, feature)], reason }); }
+      try { await guild.edit({ features: [...guild.features, feature].unique(), reason }); }
       catch (err) {
         if (!(err instanceof DiscordAPIError)) throw err;
       }

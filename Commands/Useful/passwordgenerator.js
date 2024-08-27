@@ -39,9 +39,8 @@ module.exports = {
 
     let
       passwordList = '',
-      charset = [...new Set( // new Set() makes sure there are no duplicate entries
-        [...defaultCharset.filter(char => !exclude.includes(char)), ...include] // Remove exclude chars and add include chars to the charset
-      )].join('');
+      charset = [...defaultCharset.filter(char => !exclude.includes(char)), ...include] // Remove exclude chars and add include chars to the charset
+        .unique().join(''); // Remove duplicates and join to a string.
 
     if (!charset.length) return this.editReply(lang('charsetEmpty')); // Return if charset is empty
 

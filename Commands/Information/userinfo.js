@@ -32,7 +32,12 @@ module.exports = {
       embed = new EmbedBuilder({
         title: member.user.tag,
         description: (status ? lang('activity.4', status.state) : '')
-        + (member.presence?.activities.reduce((acc, e) => acc + (e.type == ActivityType.Custom ? '' : lang(`activity.${e.type}`, e.name) + ', '), '').slice(0, -2) ?? ''),
+        + (
+          member.presence?.activities.reduce((/** @type {string[]}*/acc, e) => {
+            if (e.type != ActivityType.Custom) acc.push(lang(`activity.${e.type}`, e.name));
+            return acc;
+          }, []).unique().join(', ') ?? ''
+        ),
         color: Number.parseInt((await getAverageColor(member.displayAvatarURL())).hex.slice(1), 16),
         thumbnail: { url: member.displayAvatarURL() },
         image: { url: bannerURL && bannerURL + '?size=1024' },
