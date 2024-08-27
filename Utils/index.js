@@ -1,4 +1,5 @@
 module.exports = {
+  afk: require('./afk.js'),
   autocompleteGenerator: require('./autocompleteGenerator.js'),
   BackupSystem: require('./backupSystem.js'),
   checkForErrors: require('./checkForErrors.js'),
