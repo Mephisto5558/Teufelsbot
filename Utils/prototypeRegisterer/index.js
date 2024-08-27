@@ -47,8 +47,8 @@ const config = setDefaultConfig();
 if (!config.hideOverwriteWarning) {
   console.warn(
     'Overwriting the following variables and functions (if they exist):'
-    + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Number#limit, Number#inRange`
-    + 'Object#filterEmpty, Object#__count__, Function#bBind'
+    + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Array#unique, `
+    + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind'
     + 'Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
     + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, Guild#db, guild#updateDB, '
     + 'Guild#localeCode, GuildMember#db.\n'
@@ -65,10 +65,17 @@ if (parentUptime) {
 }
 
 // #region BuildIn
-Object.defineProperty(Array.prototype, 'random', {
-  /** @type {global['Array']['prototype']['random']}*/
-  value: function random() { return this[randomInt(this.length)]; },
-  enumerable: false
+Object.defineProperties(Array.prototype, {
+  random: {
+    /** @type {global['Array']['prototype']['random']}*/
+    value: function random() { return this[randomInt(this.length)]; },
+    enumerable: false
+  },
+  unique: {
+    /** @type {global['Array']['prototype']['unique']}*/
+    value: function unique() { return [...new Set(this)]; },
+    enumerable: false
+  }
 });
 Object.defineProperties(Number.prototype, {
   limit: {
