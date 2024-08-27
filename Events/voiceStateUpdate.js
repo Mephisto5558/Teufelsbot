@@ -1,6 +1,6 @@
 const
   { PermissionFlagsBits, EmbedBuilder } = require('discord.js'),
-  { utils: { removeAfkStatus } } = require('#Utils').prototypeRegisterer;
+  { removeAfkStatus, setAfkStatus } = require('#Utils').afk;
 
 /**
  * @this {import('discord.js').VoiceState}
@@ -9,6 +9,7 @@ module.exports = function voiceStateUpdate(newState) {
   if (this.client.botType == 'dev') return;
 
   if (newState.channel?.id != this.guild.afkChannel?.id) void removeAfkStatus.call(newState);
+  else if (newState.channel?.id == this.guild.afkChannel?.id) void setAfkStatus.call(newState);
 
   const setting = this.guild.db.config.logger?.voiceChannelActivity;
   if (!setting?.enabled || this.channelId == newState.channelId) return;

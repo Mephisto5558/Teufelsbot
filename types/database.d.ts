@@ -67,6 +67,33 @@ type Database = {
     };
     cmdStats: cmdStats;
     blacklist?: userId[];
+    defaultGuild: {
+      config: {
+        lang: string;
+        prefixes: { prefix: string; caseinsensitive: boolean }[];
+        betaBotPrefixes: { prefix: string; caseinsensitive: boolean }[];
+      };
+      birthday: {
+        ch: {
+          msg: {
+            embed: Embed;
+          };
+        };
+        dm: {
+          msg: {
+            embed: Embed;
+          };
+        };
+      };
+      serverbackup: {
+        allowedToLoad: number;
+      };
+      giveaway: {
+        reaction: string;
+        embedColor: number;
+        embedColorEnd: number;
+      };
+    };
 
     patreonBonuses?: Record<string, unknown>;
     lastFileClear?: Date;
@@ -98,154 +125,127 @@ type Database = {
     cmdStats?: cmdStats;
   } | undefined>;
 
-  guildSettings: {
-    default: {
-      config: {
-        lang: string;
-        prefixes: { prefix: string; caseinsensitive: boolean }[];
-        betaBotPrefixes: { prefix: string; caseinsensitive: boolean }[];
-      };
-      birthday: {
-        ch: {
-          msg: {
-            embed: Embed;
-          };
+  guildSettings: Record<guildId, {
+    position: number;
+
+    /** The date on which the bot left the guild. Is not set if the bot is in the guild.*/
+    leftAt?: Date;
+    config: {
+      lang?: Database['botSettings']['defaultGuild']['config']['lang'];
+      prefixes?: Database['botSettings']['defaultGuild']['config']['prefixes'];
+      betaBotPrefixes?: Database['botSettings']['defaultGuild']['config']['betaBotPrefixes'];
+      logger?: Record<'messageUpdate' | 'messageDelete' | 'voiceChannelActivity' | 'sayCommandUsed' | 'all', {
+        channel: channelId;
+        enabled: boolean;
+      } | undefined>;
+      autopublish?: boolean;
+      commands?: Record<string, {
+        disabled: {
+          users?: (userId | '*')[];
+          channels?: (channelId | '*')[];
+          roles?: (roleId | '*')[];
         };
-        dm: {
-          msg: {
-            embed: Embed;
-          };
+      } | undefined>;
+    };
+    customNames?: Record<userId, string | undefined>;
+    giveaway?: {
+      reaction?: string;
+      embedColor?: number;
+      embedColorEnd?: number;
+      useLastChance?: boolean;
+      giveaways: Record<messageId, ThisType<GiveawayData>>;
+    };
+    afkMessages?: Record<userId, {
+      message: string;
+      createdAt: Date;
+    } | undefined>;
+    triggers?: Record<`${number}`, {
+      trigger: string;
+      response: string;
+      wildcard: boolean;
+    } | undefined>;
+    channelMinigames?: {
+      counting?: Record<channelId, {
+        lastNumber: number;
+
+        /** `undefined` only if lastNumber is `0` */
+        lastAuthor?: userId;
+      } | undefined>;
+      wordchain?: Record<channelId, {
+        chainedWords: number;
+
+        /**
+         * There will always be both `lastWord` and `lastAuthor` or none of them present.
+         * Will always be a single lowercase character*/
+        lastWord?: string;
+
+        /** The last word of the message before the `lastWord`*/
+        lastWordBefore?: string;
+
+        /** There will always be both `lastWordChar` and `lastAuthor` or none of them present.*/
+        lastAuthor?: userId;
+      } | undefined>;
+    };
+    lastMentions?: Record<userId, {
+      content: string;
+      url: `https://discord.com/channels/${guildId}/${channelId}/${messageId}`;
+      author: userId;
+      channel: channelId;
+      createdAt: Date;
+    } | undefined>;
+    birthday?: {
+      enable?: boolean;
+      ch?: {
+        channel?: channelId;
+        msg?: {
+          enable?: boolean;
+          embed?: Embed;
+          content?: string;
         };
       };
-      serverbackup: {
-        allowedToLoad: number;
-      };
-      giveaway: {
-        reaction: string;
-        embedColor: number;
-        embedColorEnd: number;
+      dm?: {
+        enable?: boolean;
+        msg?: {
+          embed?: Embed;
+          content?: string;
+        };
       };
     };
 
-    [guildId: guildId]: {
-      position: number;
-
-      /** The date on which the bot left the guild. Is not set if the bot is in the guild.*/
-      leftAt?: Date;
-      config: {
-        lang?: string;
-        prefixes?: { prefix: string; caseinsensitive: boolean }[];
-        betaBotPrefixes?: { prefix: string; caseinsensitive: boolean }[];
-        logger?: Record<'messageUpdate' | 'messageDelete' | 'voiceChannelActivity' | 'sayCommandUsed' | 'all', {
-          channel: channelId;
-          enabled: boolean;
-        } | undefined>;
-        autopublish?: boolean;
-        commands?: Record<string, {
-          disabled: {
-            users?: (userId | '*')[];
-            channels?: (channelId | '*')[];
-            roles?: (roleId | '*')[];
-          };
-        } | undefined>;
-      };
-      customNames?: Record<userId, string | undefined>;
-      giveaway?: {
-        reaction?: string;
-        embedColor?: number;
-        embedColorEnd?: number;
-        useLastChance?: boolean;
-        giveaways: Record<messageId, ThisType<GiveawayData>>;
-      };
-      afkMessages?: Record<userId, {
-        message: string;
-        createdAt: Date;
-      } | undefined>;
-      triggers?: Record<`${number}`, {
-        trigger: string;
-        response: string;
-        wildcard: boolean;
-      } | undefined>;
-      channelMinigames?: {
-        counting?: Record<channelId, {
-          lastNumber: number;
-
-          /** `undefined` only if lastNumber is `0` */
-          lastAuthor?: userId;
-        } | undefined>;
-        wordchain?: Record<channelId, {
-          chainedWords: number;
-
-          /**
-           * There will always be both `lastWordChar` and `lastAuthor` or none of them present.
-           * Will always be a single lowercase character*/
-          lastWordChar?: string;
-
-          /** There will always be both `lastWordChar` and `lastAuthor` or none of them present.*/
-          lastAuthor?: userId;
-        } | undefined>;
-      };
-      lastMentions?: Record<userId, {
-        content: string;
-        url: `https://discord.com/channels/${guildId}/${channelId}/${messageId}`;
-        author: userId;
+    gatekeeper?: {
+      enable?: boolean;
+      join?: {
         channel: channelId;
-        createdAt: Date;
-      } | undefined>;
-      birthday?: {
-        enable?: boolean;
-        ch?: {
-          channel?: channelId;
-          msg?: {
-            enable?: boolean;
-            embed?: Embed;
-            content?: string;
-          };
-        };
-        dm?: {
-          enable?: boolean;
-          msg?: {
-            embed?: Embed;
-            content?: string;
-          };
+        message: {
+          embed?: Embed;
+          content?: string;
         };
       };
-
-      gatekeeper?: {
-        enable?: boolean;
-        join?: {
-          channel: channelId;
-          message: {
-            embed?: Embed;
-            content?: string;
-          };
-        };
-        leave?: {
-          channel: channelId;
-          message: {
-            embed?: Embed;
-            content?: string;
-          };
-        };
-      };
-      lockedChannels?: Record<channelId, Record<Snowflake, OverwriteType | undefined> | undefined>;
-      minigames?: {
-        rps: Record<messageId, {
-          player1?: 'r' | 'p' | 's';
-          player2?: 'r' | 'p' | 's';
-        } | undefined>;
-        [gameName: string]: Record<messageId, unknown> | undefined;
-      };
-      tickets?: {
-        buttonLabel: string;
+      leave?: {
         channel: channelId;
+        message: {
+          embed?: Embed;
+          content?: string;
+        };
       };
-      serverbackup?: {
-        allowedToLoad?: number;
-      };
-      cmdStats?: cmdStats;
-    } | undefined;
-  };
+    };
+    lockedChannels?: Record<channelId, Record<Snowflake, OverwriteType | undefined> | undefined>;
+    minigames?: {
+      rps: Record<messageId, {
+        player1?: 'r' | 'p' | 's';
+        player2?: 'r' | 'p' | 's';
+      } | undefined>;
+      [gameName: string]: Record<messageId, unknown> | undefined;
+    };
+    tickets?: {
+      buttonLabel: string;
+      channel: channelId;
+    };
+    serverbackup?: {
+      allowedToLoad?: number;
+    };
+    cmdStats?: cmdStats;
+  } | undefined>;
 
   polls: Record<guildId, userId | undefined>;
 

@@ -42,10 +42,10 @@ module.exports = function formatCommand(option, path, id, i18n) {
         e.nameLocalizations ??= {};
 
         const localizedChoice = i18n.__({ locale, undefinedNotFound: true }, `${id}.choices.${e.value}`);
-        if (!option.disabled && !localizedChoice?.length.inRange(1, 32)) {
+        if (!option.disabled && localizedChoice && !localizedChoice.length.inRange(1, 33)) {
           log.warn(
-            `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${id}.choices.${e.value}) is too`
-            + (localizedChoice?.length < 2 ? 'short (min length is 2)! Using undefined.' : 'long (max length is 32)! Slicing.')
+            `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${id}.choices.${e.value}) is too `
+            + (localizedChoice.length < 2 ? 'short (min length is 2)! Using undefined.' : 'long (max length is 32)! Slicing.')
           );
         }
 

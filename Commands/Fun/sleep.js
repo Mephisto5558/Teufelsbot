@@ -1,3 +1,5 @@
+const { toggleAfkPrefix } = require('#Utils').afk;
+
 /** @type {command<'both', false>}*/
 module.exports = {
   slashCommand: false,
@@ -5,8 +7,7 @@ module.exports = {
   dmPermission: true,
 
   run: async function (lang) {
-    if (this.member.moderatable && this.member.displayName.length < 26 && !this.member.nickname?.startsWith('[AFK] '))
-      void this.member.setNickname(`[AFK] ${this.member.displayName}`);
+    void toggleAfkPrefix(this.member);
 
     await this.user.updateDB('afkMessage', { message: lang('afkMessage'), createdAt: this.createdAt });
     return this.customReply(lang('responseList', this.member.customName));

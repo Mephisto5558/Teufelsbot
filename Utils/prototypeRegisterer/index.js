@@ -11,7 +11,7 @@ const
   I18nProvider = require('@mephisto5558/i18n'),
   Log = require('./Log.js'),
   customReply = require('./message_customReply.js'),
-  { runMessages, removeAfkStatus } = require('./message_runMessages.js'),
+  { runMessages } = require('./message_runMessages.js'),
   _patch = require('./message__patch.js'),
   playAgain = require('./TicTacToe_playAgain.js'),
   findAllEntries = require('../findAllEntries.js'),
@@ -19,7 +19,7 @@ const
 
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
-module.exports = { Log, _patch, customReply, runMessages, playAgain, utils: { removeAfkStatus } };
+module.exports = { Log, _patch, customReply, runMessages, playAgain };
 
 global.log = new Log();
 global.sleep = require('node:util').promisify(setTimeout);
@@ -47,8 +47,8 @@ const config = setDefaultConfig();
 if (!config.hideOverwriteWarning) {
   console.warn(
     'Overwriting the following variables and functions (if they exist):'
-    + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Number#limit, Number#inRange`
-    + 'Object#filterEmpty, Object#__count__, Function#bBind'
+    + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Array#unique, `
+    + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind'
     + 'Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
     + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, Guild#db, guild#updateDB, '
     + 'Guild#localeCode, GuildMember#db.\n'
@@ -65,10 +65,17 @@ if (parentUptime) {
 }
 
 // #region BuildIn
-Object.defineProperty(Array.prototype, 'random', {
-  /** @type {global['Array']['prototype']['random']}*/
-  value: function random() { return this[randomInt(this.length)]; },
-  enumerable: false
+Object.defineProperties(Array.prototype, {
+  random: {
+    /** @type {global['Array']['prototype']['random']}*/
+    value: function random() { return this[randomInt(this.length)]; },
+    enumerable: false
+  },
+  unique: {
+    /** @type {global['Array']['prototype']['unique']}*/
+    value: function unique() { return [...new Set(this)]; },
+    enumerable: false
+  }
 });
 Object.defineProperties(Number.prototype, {
   limit: {
@@ -152,8 +159,8 @@ Object.defineProperties(Client.prototype, {
 
   /** @type {Record<string, (this: Client, val: any) => any>} */
   defaultSettings: {
-    get() { return this.db.get('guildSettings', 'default'); },
-    set(val) { void this.db.update('guildSettings', 'default', val); }
+    get() { return this.db.get('botSettings', 'defaultGuild'); },
+    set(val) { void this.db.update('botSettings', 'defaultGuild', val); }
   },
   loadEnvAndDB: {
     /** @type {Client['loadEnvAndDB']}*/
