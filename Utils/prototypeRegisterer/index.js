@@ -11,7 +11,7 @@ const
   I18nProvider = require('@mephisto5558/i18n'),
   Log = require('./Log.js'),
   customReply = require('./message_customReply.js'),
-  { runMessages, removeAfkStatus } = require('./message_runMessages.js'),
+  { runMessages } = require('./message_runMessages.js'),
   _patch = require('./message__patch.js'),
   playAgain = require('./TicTacToe_playAgain.js'),
   findAllEntries = require('../findAllEntries.js'),
@@ -19,7 +19,7 @@ const
 
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
-module.exports = { Log, _patch, customReply, runMessages, playAgain, utils: { removeAfkStatus } };
+module.exports = { Log, _patch, customReply, runMessages, playAgain };
 
 global.log = new Log();
 global.sleep = require('node:util').promisify(setTimeout);

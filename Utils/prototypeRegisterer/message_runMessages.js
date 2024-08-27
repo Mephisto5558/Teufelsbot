@@ -1,8 +1,8 @@
 const
-  { AllowedMentionsTypes, PermissionFlagsBits } = require('discord.js'),
-  cooldowns = require('../cooldowns.js');
+  cooldowns = require('../cooldowns.js'),
+  { removeAfkStatus, sendAfkMessages } = require('../afk.js');
 
-module.exports = { runMessages, removeAfkStatus };
+module.exports = { runMessages };
 
 /** @this {Message}*/
 function replyToTriggers() {
@@ -74,49 +74,6 @@ async function handleWordchain() {
       + this.client.i18n.__({ locale: this.guild.localeCode }, msgId)
     );
   }
-}
-
-/**
- * @type {import('.')['utils']['removeAfkStatus']}
- * @this {ThisParameterType<import('.')['utils']['removeAfkStatus']>}
- * Here due to `@typescript-eslint/no-invalid-this`*/
-async function removeAfkStatus() {
-  if (!this.member || !this.channel || !this.guild) return; // `!this.channel || !this.guild` as typeguard
-
-  if (this.member.moderatable && this.member.nickname?.startsWith('[AFK] ')) void this.member.setNickname(this.member.nickname.slice(6));
-
-  const { createdAt, message } = this.guild.db.afkMessages?.[this.member.id] ?? this.member.user.db.afkMessage ?? {}; // `member.user` for VoiceState support
-  if (!message) return;
-
-  await this.client.db.delete('userSettings', `${this.member.id}.afkMessage`);
-  await this.client.db.delete('guildSettings', `${this.guild.id}.afkMessages.${this.member.id}`);
-
-  const msg = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkEnd', { timestamp: Math.round(createdAt.getTime() / 1000), message });
-  if ('customReply' in this) return this.customReply(msg);
-  if (this.channel.permissionsFor(this.member.id).has(PermissionFlagsBits.SendMessages) && this.channel.permissionsFor(this.client.user.id).has(PermissionFlagsBits.SendMessages))
-    return this.channel.send(`<@${this.member.id}>\n` + msg);
-}
-
-/** @this {Message}*/
-async function sendAfkMessages() {
-  const afkMsgs = this.mentions.members.reduce((acc, e) => {
-    const { message, createdAt } = this.guild.db.afkMessages?.[e.user.id] ?? e.user.db.afkMessage ?? {};
-    if (!message || e.id == this.user.id) return acc;
-
-    const afkMessage = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkMsg', {
-      member: e.nickname?.startsWith('[AFK] ') ? e.nickname.slice(6) : e.displayName,
-      message, timestamp: Math.round(createdAt / 1000)
-    });
-
-    if (acc.length + afkMessage.length >= 2000) {
-      void this.customReply(acc);
-      acc = '';
-    }
-
-    return `${acc}${afkMessage}\n`;
-  }, '');
-
-  if (afkMsgs.length) return this.customReply({ content: afkMsgs, allowedMentions: { parse: [AllowedMentionsTypes.User] } });
 }
 
 /* eslint-disable jsdoc/valid-types -- `this` is set from `@type`, but `@typescript-eslint/no-invalid-this` does not recognize that.*/

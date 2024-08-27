@@ -1,13 +1,12 @@
 import type TicTacToe from 'discord-tictactoe';
-import type { InteractionReplyOptions, InteractionResponse, MessageEditOptions, MessageMentionOptions, MessagePayload, RepliableInteraction, VoiceState } from 'discord.js';
+import type { InteractionReplyOptions, InteractionResponse, MessageEditOptions, MessageMentionOptions, MessagePayload, RepliableInteraction } from 'discord.js';
 
 export {
   Log,
   _patch,
   customReply,
   runMessages,
-  playAgain,
-  utils
+  playAgain
 };
 
 declare class Log extends Function {
@@ -44,7 +43,3 @@ declare function playAgain(
   this: TicTacToe,
   interaction: Interaction, lang: lang
 ): Promise<void>;
-
-declare namespace utils {
-  function removeAfkStatus(this: Message | VoiceState): Promise<Message | undefined>;
-}

@@ -2,7 +2,7 @@ import type {
   DMChannel, GuildChannel, GuildMember, Role, User, Collection, Guild, Snowflake,
   APIAllowedMentions, Message, BaseInteraction, MessageComponentInteraction,
   AutocompleteInteraction, CategoryChannel, GuildTextBasedChannel, GuildChannelManager,
-  Webhook
+  Webhook, VoiceState
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
 import type { GiveawaysManager, GiveawayData } from 'discord-giveaways';
@@ -11,6 +11,7 @@ import type I18nProvider from '@mephisto5558/i18n';
 import type { Database, backupChannel, backupId } from '../types/database';
 
 export {
+  afk,
   autocompleteGenerator,
   BackupSystem,
   checkForErrors,
@@ -42,6 +43,21 @@ export {
 export { default as DiscordAPIErrorCodes } from './DiscordAPIErrorCodes.json';
 export { default as prototypeRegisterer } from './prototypeRegisterer';
 
+declare namespace afk {
+  function getAfkStatus(this: Interaction | Message, target: GuildMember | User, lang: lang): Promise<Message>;
+  function listAfkStatuses(this: GuildInteraction | Message<true>, lang: lang): Promise<Message>;
+  function setAfkStatus<T extends Interaction | Message | VoiceState>(
+    this: T, lang: T extends VoiceState ? undefined : lang, global?: boolean, message?: string
+  ): Promise<T extends VoiceState ? undefined : Message>;
+
+  function removeAfkStatus(this: Message | VoiceState): Promise<Message | undefined>;
+  function sendAfkMessages(this: Message): Promise<Message | undefined>;
+
+  /**
+   * @returns `undefined` if the bot cannot change the member's nickname. Otherwise a `boolean` indicating if the member currently has the prefix.
+   * @default prefix='[AFK] '*/// eslint-disable-line jsdoc/informative-docs
+  function toggleAfkPrefix(member: GuildMember, prefix?: string): Promise<boolean | undefined>;
+}
 
 declare function autocompleteGenerator(
   this: AutocompleteInteraction | Message,
