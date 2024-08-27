@@ -8,6 +8,7 @@
   "paramRequired": "You need to input a value for the option \"{option}\".\n> {description}",
   "strictAutocompleteNoMatch": "Your input for the option \"{option}\" must match one of the autocomplete suggestions. Please select one of the available options when entering the slash command.",
   "strictAutocompleteNoMatchWValues": "Your input for the option \"{option}\" must match one of the autocomplete suggestions. Please select one of the available options when entering the slash command.\n\nAvailable options are:\n{availableOptions}",
+  "invalidChannelType": "The channel you inputted for the option \"{option}\" must be one of the channel type choices. Please select one of the available options when entering the slash command.",
   "permissionDenied": {
     "embedTitle": "Insufficient Permissions",
     "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n`{permissions}`",

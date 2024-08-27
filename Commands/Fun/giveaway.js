@@ -137,7 +137,7 @@ module.exports = {
         {
           name: 'channel',
           type: 'Channel',
-          channelTypes: Constants.TextBasedChannelTypes
+          channelTypes: Constants.GuildTextBasedChannelTypes
         },
         { name: 'reaction', type: 'String' },
         { name: 'thumbnail', type: 'String' },

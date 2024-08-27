@@ -18,7 +18,7 @@ module.exports = {
     {
       name: 'channel',
       type: 'Channel',
-      channelTypes: Constants.TextBasedChannelTypes
+      channelTypes: Constants.GuildTextBasedChannelTypes
     },
     {
       name: 'reply_to', type: 'String',
