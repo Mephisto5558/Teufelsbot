@@ -144,7 +144,7 @@ module.exports = {
         { name: 'short', type: 'Boolean' }
       ]
     }
-  ], beta: 1,
+  ],
 
   run: function (lang) {
     const
