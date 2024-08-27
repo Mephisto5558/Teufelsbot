@@ -8,7 +8,7 @@ const
   triggerMainFunctions = {
     add: async function (lang, oldData) {
       const
-        id = (Math.max(...Object.keys(oldData).map(Number)) || 0) + 1,
+        id = Math.max(...Object.keys(oldData).map(Number), 0) || 0 + 1,
         data = {
           trigger: this.options.getString('trigger', true),
           response: this.options.getString('response', true).replaceAll('/n', '\n'),
@@ -21,7 +21,7 @@ const
 
     delete: async function (lang, oldData, query) {
       let id;
-      if (query) id = query in oldData ? query : Object.entries(oldData).find(([,e]) => e.trigger.toLowerCase() == query.toLowerCase())?.[0];
+      if (query) id = query in oldData ? query : Object.entries(oldData).find(([tId, { trigger }]) => trigger.toLowerCase() == query.toLowerCase() || tId.toLowerCase() == query.toLowerCase())?.[0];
       else id = Math.max(...Object.keys(oldData).map(Number)); // Returns `-Infinity` on an empty array
 
       if (id < 0) return this.editReply(lang('noneFound'));
@@ -35,7 +35,7 @@ const
       if (!oldData.__count__) return this.editReply(lang('noneFound'));
 
       await this.client.db.delete('guildSettings', `${this.guild.id}.triggers`);
-      return this.editReply(lang('deletedAll', oldData.length));
+      return this.editReply(lang('deletedAll', oldData.__count__));
     },
 
     get: async function (lang, oldData, query) {
@@ -55,8 +55,8 @@ const
         });
       }
       else if (this.options.getBoolean('short')) {
-        embed.data.description = oldData.length > 25 ? lang('first25') : ' ';
-        embed.data.fields = oldData.slice(0, 25).map(({ id, trigger, response, wildcard }) => ({
+        embed.data.description = oldData.__count__ > 25 ? lang('first25') : ' ';
+        embed.data.fields = Object.entries(oldData).slice(0, 25).map(([id, { trigger, response, wildcard }]) => ({
           name: lang('shortFieldName', id), inline: true,
           value: lang('shortFieldValue', {
             trigger: trigger.length < 200 ? trigger : trigger.slice(0, 197) + '...',
@@ -66,7 +66,7 @@ const
         }));
       }
       else {
-        embed.data.description = oldData.reduce((acc, { id, trigger, response, wildcard }) => acc.length >= 3800
+        embed.data.description = Object.entries(oldData).reduce((acc, [id, { trigger, response, wildcard }]) => acc.length >= 3800
           ? acc
           : acc + lang('longEmbedDescription', {
             id, wildcard: !!wildcard,
@@ -144,7 +144,7 @@ module.exports = {
         { name: 'short', type: 'Boolean' }
       ]
     }
-  ],
+  ], beta: 1,
 
   run: function (lang) {
     const
