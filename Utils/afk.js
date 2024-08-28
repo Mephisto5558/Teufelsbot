@@ -43,7 +43,7 @@ module.exports.setAfkStatus = async function setAfkStatus(lang, global, message)
     ? user.updateDB('afkMessage', { message, createdAt: this.createdAt })
     : this.guild.updateDB(`afkMessages.${user.id}`, { message, createdAt: this.createdAt }));
 
-  if (this.member) void toggleAfkPrefix(this.member);
+  if (this.member) void toggleAfkPrefix(this.member, 'set');
 
   if (this instanceof VoiceState) return;
   return this.customReply({ content: lang(global || !this.guild ? 'globalSuccess' : 'success', message), allowedMentions: { parse: [AllowedMentionsTypes.User] } });
@@ -59,7 +59,7 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
   const { createdAt, message } = this.guild.db.afkMessages?.[this.member.id] ?? this.member.user.db.afkMessage ?? {}; // `member.user` for VoiceState support
   if (!message) return;
 
-  void toggleAfkPrefix(this.member);
+  void toggleAfkPrefix(this.member, 'unset');
 
   await this.client.db.delete('userSettings', `${this.member.id}.afkMessage`);
   await this.client.db.delete('guildSettings', `${this.guild.id}.afkMessages.${this.member.id}`);
@@ -96,10 +96,10 @@ module.exports.sendAfkMessages = async function sendAfkMessages() {
 };
 
 /** @type {import('.')['afk']['toggleAfkPrefix']}*/
-async function toggleAfkPrefix(member, prefix = '[AFK] ') {
+async function toggleAfkPrefix(member, mode, prefix = '[AFK] ') {
   if (!member.moderatable) return;
 
-  if (member.nickname?.startsWith(prefix)) {
+  if (mode == 'unset') {
     await member.setNickname(member.nickname.slice(prefix.length));
     return false;
   }

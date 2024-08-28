@@ -55,8 +55,8 @@ declare namespace afk {
 
   /**
    * @returns `undefined` if the bot cannot change the member's nickname. Otherwise a `boolean` indicating if the member currently has the prefix.
-   * @default prefix='[AFK] '*/// eslint-disable-line jsdoc/informative-docs
-  function toggleAfkPrefix(member: GuildMember, prefix?: string): Promise<boolean | undefined>;
+   * @default prefix='[AFK] '; mode='unset'*/
+  function toggleAfkPrefix(member: GuildMember, mode?: 'set' | 'unset', prefix?: string): Promise<boolean | undefined>;
 }
 
 declare function autocompleteGenerator(
