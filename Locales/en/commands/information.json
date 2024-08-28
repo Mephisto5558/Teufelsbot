@@ -66,6 +66,7 @@
     "available": "Available",
     "createdAt": "Created At",
     "allowedRoles": "Allowed Roles",
+    "addToServer": "Add to a Server",
     "delete": "Delete Emoji"
   },
   "help": {

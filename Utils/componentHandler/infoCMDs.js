@@ -1,14 +1,14 @@
 /* eslint camelcase: ["error", {allow: ["ban_kick_mute"]}] */
 
 const
-  { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError } = require('discord.js'),
+  { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError, GuildEmoji } = require('discord.js'),
   checkTargetManageable = require('../checkTargetManageable.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
   { ban_kick_mute } = require('../combinedCommands');
 
 /** @type {import('.').infoCMDs}*/
 module.exports = async function infoCMDs(lang, id, mode, entityType) {
-  if (entityType != 'members') await this.deferReply();
+  if (entityType != 'members' && mode != 'addToServer') await this.deferReply();
 
   lang.__boundArgs__[0].backupPath = `events.command.infoCMDs.${entityType}`;
 
@@ -50,7 +50,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       this.commandName = mode;
       this.options = { getMember: () => item, getString: () => submit.fields.getTextInputValue('infoCMDs_punish_reason_modal_text'), getNumber: () => 0 };
 
-      /* eslint-disable-next-line @typescript-eslint/unbound-method -- same class, so should be fine*/
+
       this.editReply = this.followUp;
 
       await submit.deferUpdate();
@@ -59,6 +59,60 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
     }
 
     case 'emojis':
+      if (mode == 'addToServer') {
+        const modal = new ModalBuilder({
+          title: lang('modalTitle'),
+          customId: `infoCMDs.${id}.addToServerCMD.emojis`,
+          components: [new ActionRowBuilder({
+            components: [new TextInputBuilder({
+              customId: 'targetGuildId',
+              label: lang('textInputLabel'),
+              style: TextInputStyle.Short,
+              minLength: 17, // Snowflake length min & max
+              maxLength: 19,
+              required: true
+            })]
+          })]
+        });
+
+        void this.showModal(modal);
+        break;
+      }
+
+      if (mode == 'addToServerCMD') {
+        if (!this.isModalSubmit() || !(item instanceof GuildEmoji)) return; // typeguard
+
+        const guildId = this.fields.getTextInputValue('targetGuildId');
+
+
+        let
+          /** @type {import('discord.js').Guild|undefined}*/guild,
+          /** @type {import('discord.js').GuildMember | undefined}*/guildMember;
+
+        try {
+          guild = await this.client.guilds.fetch(guildId);
+          guildMember = await guild.members.fetch(this.user.id);
+        }
+        catch (err) {
+          if (err.code == DiscordAPIErrorCodes.UnknownGuild) return this.customReply({ embeds: [embed.setDescription(lang('unknownGuild'))] });
+          if (err.code == DiscordAPIErrorCodes.UnknownMember) return this.customReply({ embeds: [embed.setDescription(lang('notAMember'))] });
+
+          throw err;
+        }
+
+        if (!guildMember.permissions.has(PermissionFlagsBits.ManageGuildExpressions))
+          return this.customReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+        if (!guild.members.me.permissions.has(PermissionFlagsBits.ManageGuildExpressions))
+          return this.customReply({ embeds: [embed.setDescription(lang('noPerm'))] });
+        if (guild.emojis.cache.has(id))
+          return this.editReply({ embeds: [embed.setDescription(lang('commands.useful.addemoji.isGuildEmoji'))] });
+
+        await this.guild.emojis.create({
+          attachment: item.imageURL(), name: item.name,
+          reason: `emoji add to server button in /${entityType.slice(0, -1)}info, member ${this.user.tag}, server ${this.guild.id}`, user: this.user.tag
+        });
+      }
+
       if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.deletable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
       break;
