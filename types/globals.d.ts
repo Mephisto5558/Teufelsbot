@@ -1,11 +1,9 @@
-/* eslint-disable max-lines */
-
 import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
 import type I18nProvider from '@mephisto5558/i18n';
 import type { WebServer } from '@mephisto5558/bot-website';
 
-// import type Command from '@mephisto5558/command';
+import type Command from '@mephisto5558/command';
 import type DBStructure from './database';
 import type { BackupSystem, GiveawaysManager } from '#Utils';
 import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
@@ -17,98 +15,6 @@ type ISODateTime = `${ISODate}T${ISOTime}Z`;
 // #region __local
 declare namespace __local {
   type autocompleteOptions = string | number | { name: string; value: string };
-
-  type BaseCommand<initialized extends boolean = boolean> = {
-
-    /** Numbers in milliseconds*/
-    cooldowns?: { guild?: number; channel?: number; user?: number };
-
-    /** Makes the command also work in direct messages.*/
-    dmPermission?: boolean;
-
-    /** Beta commands are the only commands that get loaded when `client.env == 'dev'`.*/
-    beta?: boolean;
-
-    /** This command will not be loaded*/
-    disabled?: boolean;
-
-    /** If enabled in {@link ./config.json} and set here, will be shown to the user when they try to run the command.*/
-    disabledReason?: string;
-
-    /** Slash command options*/
-    options?: commandOptions<initialized>[];
-  }
-  & (initialized extends true ? {
-
-    /**
-     * Gets set to the command's filename.
-     * For slash commands, must be lowercase.*/
-    name: string;
-
-    /** Currently not used*/
-    nameLocalizations?: Record<string, BaseCommand<true>['name']>;
-
-    /**
-     * Gets set automatically from language files.
-     * For slash commands, can not be longer then 100 chars.*/
-    description: string;
-
-    /**
-     * Gets set automatically from language files.
-     * `undefined` only for an unknown language
-     * @see {@link command.description}*/
-    descriptionLocalizations: Record<string, BaseCommand<true>['description'] | undefined>;
-
-    /**
-     * Command usage information for the end-user.
-     * Should be in the command file if its language-independent, otherwise in the language files.
-     *
-     * Gets modified upon initialization.*/
-    usage: { usage?: string; examples?: string };
-
-
-    /**
-     * Gets set automatically from language files.
-     * @see {@link command.usage}*/
-    usageLocalizations: Record<string, BaseCommand['usage']>;
-
-    /** Gets set to the lowercase folder name the command is in.*/
-    category: string;
-
-    permissions?: {
-      client?: Discord.PermissionFlags[];
-      user?: Discord.PermissionFlags[];
-    };
-
-    /**
-     * **Do not set manually.**
-     *
-     * If the command is an alias, this property will have the original name.*/
-    aliasOf?: BaseCommand['name'];
-
-    /**
-     * **Do not set manually.**
-     *
-     * The command's full file path, used for e.g. reloading the command.*/
-    filePath: string;
-  } : {
-
-    /** @deprecated Change the filename to the desired name instead.*/
-    name?: string;
-
-    /** @deprecated Use language files instead.*/
-    description?: string;
-
-    usage?: { usage?: string; examples?: string };
-
-    /** @deprecated Change the directory name to the desired category instead.*/
-    category?: string;
-
-    permissions?: {
-      client?: (keyof Discord.PermissionFlags)[];
-      user?: (keyof Discord.PermissionFlags)[];
-    };
-  });
 
   interface Config {
     /** Will always include the bot's user id and the application owner id*/
@@ -287,10 +193,19 @@ declare global {
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   type GenericFunction = (...args: any) => any;
 
-  /* type SlashCommand = Command.SlashCommand;
-     type PrefixCommand = Command.PrefixCommand;
-     type MixedCommand = Command.MixedCommand;
-     type CommandOptions = Command.CommandOptions; */
+
+  type SlashCommand<guildOnly extends boolean = boolean> = Command.SlashCommand<guildOnly>;
+  const SlashCommand: typeof Command.SlashCommand;
+
+  type PrefixCommand<guildOnly extends boolean = boolean> = Command.PrefixCommand<guildOnly>;
+  const PrefixCommand: typeof Command.PrefixCommand;
+
+  type MixedCommand<guildOnly extends boolean = boolean> = Command.MixedCommand<guildOnly>;
+  const MixedCommand: typeof Command.MixedCommand;
+
+  type CommandOptions<T_parent extends SlashCommand | PrefixCommand | MixedCommand> = Command.CommandOptions<T_parent>;
+  const CommandOptions: typeof Command.CommandOptions;
+
 
   type langBoundArgs = [ { locale?: string; errorNotFound?: boolean; undefinedNotFound?: boolean; backupPath?: string } ];
 
@@ -299,116 +214,6 @@ declare global {
 
   /** same as {@link lang}, but may return `undefined` due to undefinedNotFound being true on the {@link I18nProvider.__ original function}.*/
   type langUNF = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string | undefined> & { __boundArgs__: langBoundArgs };
-
-  // #endregion
-
-  // #region commands
-  type slashCommand<initialized extends boolean = false> = __local.BaseCommand<initialized> & {
-    slashCommand: true;
-    aliases?: { slash?: __local.BaseCommand['name'][] };
-
-    /** Do not deferReply to the interaction*/
-    noDefer?: boolean;
-
-    /**
-     * Do `interaction.deferReply({ ephemeral: true })`.
-     *
-     * Gets ignored if {@link command.noDefer} is `true`.*/
-    ephemeralDefer?: boolean;
-  } & (initialized extends true ? {
-
-    /** **Do not set manually.***/
-    id: Snowflake;
-
-    /** **Do not set manually.***/
-    type: Discord.ApplicationCommandType.ChatInput;
-
-    defaultMemberPermissions: Discord.PermissionsBitField;
-
-    dmPermission: boolean;
-  } : object);
-
-  type prefixCommand<initialized extends boolean = false> = __local.BaseCommand<initialized> & {
-    prefixCommand: true;
-    aliases?: { prefix?: __local.BaseCommand['name'][] };
-  };
-
-  type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = __local.BaseCommand<initialized>
-    & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
-    & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
-    & { run(
-      this: commandType extends 'slash'
-        ? Interaction<guildOnly>
-        : commandType extends 'prefix'
-          ? Message<guildOnly extends true ? true : boolean>
-          : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>,
-      lang: lang, client: Discord.Client<true>
-    ): Promise<never>; };
-
-  type commandOptions<initialized extends boolean = boolean> = {
-    name: string;
-
-    /** Numbers in milliseconds*/
-    cooldowns?: __local.BaseCommand<initialized>['cooldowns'];
-
-    /** If true, the user must provide a value to this option. This is also enforced for prefix commands.*/
-    NonNullable?: boolean;
-
-    /**
-     * Only existent for {@link commandOptions.type} `SubcommandGroup` and `Subcommand`.
-     *
-     * Makes the subcommand also work in direct messages.*/
-    dmPermission?: boolean;
-
-    /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled.*/
-    autocompleteOptions?: string | __local.autocompleteOptions[] | ((this: Discord.AutocompleteInteraction) => __local.autocompleteOptions[] | Promise<__local.autocompleteOptions>);
-
-    /**
-     * Return an error message to the user, if their input is not included in {@link commandOptions.autocompleteOptions}.
-     * Note that this happens for Messages as well.*/
-    strictAutocomplete?: boolean;
-
-    options?: commandOptions<initialized>[];
-
-    minValue?: number;
-    maxValue?: number;
-    minLength?: number;
-    maxLength?: number;
-  } & (initialized extends true ? {
-    nameLocalizations?: __local.BaseCommand<true>['nameLocalizations'];
-
-    /**
-     * Gets set automatically from language files.
-     * @see {@link command.description}*/
-    description: __local.BaseCommand<true>['description'];
-
-    /**
-     * Gets set automatically from language files.
-     * @see {@link command.description}*/
-    descriptionLocalizations?: __local.BaseCommand<true>['descriptionLocalizations'];
-
-    type: typeof Discord.ApplicationCommandOptionType;
-
-    /** Choices the user must choose from. Can not be more then 25.*/
-    choices?: {
-      name: string;
-      nameLocalizations?: __local.BaseCommand<true>['nameLocalizations'];
-      value: string | number;
-    }[];
-    autocomplete?: boolean;
-    channelTypes?: (keyof typeof Discord.ChannelType)[];
-  } : {
-    type: keyof typeof Discord.ApplicationCommandOptionType;
-
-    /** Choices the user must choose from. Can not be more then 25.*/
-    choices?: (string | number | {
-      name: string;
-      nameLocalizations?: __local.BaseCommand<true>['nameLocalizations'];
-      value: string | number;
-    })[];
-
-    channelTypes?: (typeof Discord.ChannelType)[];
-  });
 
   // #endregion
 
@@ -475,8 +280,8 @@ declare module 'discord.js' {
   type Snowflake = `${number}`;
 
   interface Client<Ready> {
-    prefixCommands: Discord.Collection<command['name'], command<'prefix', boolean, Ready>>;
-    slashCommands: Discord.Collection<command['name'], command<'slash', boolean, Ready>>;
+    prefixCommands: Discord.Collection<PrefixCommand['name'], PrefixCommand>;
+    slashCommands: Discord.Collection<SlashCommand['name'], SlashCommand>;
     backupSystem?: BackupSystem.BackupSystem;
     giveawaysManager?: GiveawaysManager;
 
@@ -516,7 +321,7 @@ declare module 'discord.js' {
     /** Alias for {@link Message.author}*/
     user: Message['author'];
 
-    /** This does not exist on Messages and is only for better typing of {@link command} here */
+    /** This does not exist on Messages and is only for better typing of {@link SlashCommand} here */
     /* eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- valid use case, as this property does not really exist*/
     options: void;
 

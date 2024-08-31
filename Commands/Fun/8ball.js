@@ -20,16 +20,13 @@ function cyrb53a(str, seed = 0) {
   return 2_097_152 * (h2 >>> 0) + (h1 >>> 11);
 }
 
-/** @type {command<'both', false>}*/
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new MixedCommand({
   dmPermission: true,
-  options: [{
+  options: [new CommandOptions({
     name: 'question',
     type: 'String',
     required: true
-  }],
+  })],
 
   run: async function (lang) {
     /** @type {string}*/
@@ -40,4 +37,4 @@ module.exports = {
 
     return this.customReply(responseList[cyrb53a(input.toLowerCase(), Number.parseInt(this.user.id) ^ cyrb53a(`${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)) % responseList.length]);
   }
-};
+});

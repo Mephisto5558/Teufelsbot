@@ -149,35 +149,32 @@ const backupMainFunctions = {
   }
 };
 
-/** @type {command<'slash'>}*/
-module.exports = {
+module.exports = new SlashCommand({
   permissions: { client: ['Administrator'], user: ['Administrator'] },
-  prefixCommand: false,
-  slashCommand: true,
   disabled: true,
   disabledReason: 'This command is still in development',
   options: [
-    {
+    new CommandOptions({
       name: 'create',
       type: 'Subcommand',
       cooldowns: { guild: 18e5 } // 30min
-    },
-    {
+    }),
+    new CommandOptions({
       name: 'load',
       type: 'Subcommand',
       cooldowns: { guild: 3e5 }, // 5min
       options: [
-        {
+        new CommandOptions({
           name: 'id',
           type: 'String',
           autocompleteOptions: function () {
             return [...this.client.backupSystem.list().filter(checkPerm.bind(this)).keys()];
           }
-        },
-        { name: 'no_clear', type: 'Boolean' }
+        }),
+        new CommandOptions({ name: 'no_clear', type: 'Boolean' })
       ]
-    },
-    {
+    }),
+    new CommandOptions({
       name: 'get',
       type: 'Subcommand',
       options: [{
@@ -185,22 +182,23 @@ module.exports = {
         type: 'String',
         autocompleteOptions: function () { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
       }]
-    },
-    {
+    }),
+    new CommandOptions({
       name: 'delete',
       type: 'Subcommand',
-      options: [{
+      options: [new CommandOptions({
         name: 'id',
         type: 'String',
         required: true,
         autocompleteOptions: function () { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
-      }]
-    }
-  ], beta: true,
+      })]
+    })
+  ],
+  beta: true,
 
   run: function (lang) {
     const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
 
     return backupMainFunctions[this.options.getSubcommand()].call(this, lang, embed, this.options.getString('id'));
   }
-};
+});

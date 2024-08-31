@@ -12,6 +12,7 @@ export default [
       globals: {
         // promisified setTimeout
         sleep: 'readonly',
+        // see #Utils/prototypeRegisterer/index.js
         log: 'readonly',
         SlashCommand: 'readonly',
         PrefixCommand: 'readonly',
@@ -23,10 +24,6 @@ export default [
         Database: 'writable',
         lang: 'writable',
         langUNF: 'writable',
-        slashCommand: 'writable',
-        prefixCommand: 'writable',
-        command: 'writable',
-        commandOptions: 'writable',
         bBoundFunction: 'writable',
         Client: 'writable',
         Message: 'writable',
