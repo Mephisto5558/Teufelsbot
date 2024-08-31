@@ -35,6 +35,6 @@ module.exports = {
     }
 
     const global = this.options?.getBoolean('global') ?? this.args?.[0] == 'global';
-    return setAfkStatus.call(this, global, this.options?.getString('message') ?? this.content?.slice(global ? 7 : 0, 1000));
+    return setAfkStatus.call(this, lang, global, this.options?.getString('message') ?? this.content?.slice(global ? 7 : 0, 1000));
   }
 };
