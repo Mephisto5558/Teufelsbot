@@ -16,7 +16,7 @@ module.exports = new MixedCommand({
       member = getTargetMember(this, { returnSelf: true }),
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       bannerURL = (await member.user.fetch()).bannerURL(),
-      status = member.presence?.activities.find(e => e.type == ActivityType.Custom);
+      status = member.presence?.activities.find(e => e.type == ActivityType.Custom && e.state);
 
     let type = member.user.bot ? 'Bot, ' : '';
 
