@@ -8,8 +8,10 @@ const
 module.exports = function voiceStateUpdate(newState) {
   if (this.client.botType == 'dev') return;
 
-  if (newState.channel?.id != this.guild.afkChannel?.id) void removeAfkStatus.call(newState);
-  else if (newState.channel?.id == this.guild.afkChannel?.id) void setAfkStatus.call(newState);
+  if (this.guild.afkChannel) {
+    if (newState.channel?.id != this.guild.afkChannel.id) void removeAfkStatus.call(newState);
+    else if (newState.channel.id == this.guild.afkChannel.id) void setAfkStatus.call(newState);
+  }
 
   const setting = this.guild.db.config.logger?.voiceChannelActivity;
   if (!setting?.enabled || this.channelId == newState.channelId) return;
