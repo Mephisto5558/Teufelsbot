@@ -38,10 +38,14 @@ module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
  * @this {ThisParameterType<import('.')['afk']['setAfkStatus']>}
  * Here due to `@typescript-eslint/no-invalid-this`*/
 module.exports.setAfkStatus = async function setAfkStatus(lang, global, message) {
-  const user = this.member?.user;
+  const
+    user = this.member?.user,
+    createdAt = this.createdAt ?? new Date();
+  message ||= 'AFK';
+
   await (global || !this.guild
-    ? user.updateDB('afkMessage', { message, createdAt: this.createdAt })
-    : this.guild.updateDB(`afkMessages.${user.id}`, { message, createdAt: this.createdAt }));
+    ? user.updateDB('afkMessage', { message, createdAt })
+    : this.guild.updateDB(`afkMessages.${user.id}`, { message, createdAt }));
 
   if (this.member) void setAfkPrefix(this.member);
 
