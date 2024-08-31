@@ -32,8 +32,6 @@ module.exports = new MixedCommand({
     }
 
     const global = this.options?.getBoolean('global') ?? this.args?.[0] == 'global';
-
-    /* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- intentional */
-    return setAfkStatus.call(this, global, this.options?.getString('message') ?? (this.content?.slice(global ? 7 : 0, 1000) || 'AFK'));
+    return setAfkStatus.call(this, global, this.options?.getString('message') ?? this.content?.slice(global ? 7 : 0, 1000));
   }
 });
