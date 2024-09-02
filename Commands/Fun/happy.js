@@ -6,11 +6,8 @@ const responseList = [
   'https://i.redd.it/goq4k091vrdc1.jpeg'
 ];
 
-/** @type {command<'prefix', false>}*/
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new PrefixCommand({
   dmPermission: true,
 
   run: async function () { return this.customReply(responseList.random()); }
-};
+});

@@ -3,10 +3,7 @@ const
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
 
 
-/** @type {command<'both', false>}*/
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new MixedCommand({
   dmPermission: true,
 
   run: async function (lang) {
@@ -48,4 +45,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: component.components.length ? [component] : undefined });
   }
-};
+});

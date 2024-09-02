@@ -194,17 +194,17 @@ declare global {
   type GenericFunction = (...args: any) => any;
 
 
-  type SlashCommand<guildOnly extends boolean | undefined = undefined> = Command.SlashCommand<guildOnly>;
+  type SlashCommand<canBeDM extends boolean | undefined = undefined> = Command.SlashCommand<canBeDM>;
   const SlashCommand: typeof Command.SlashCommand;
 
-  type PrefixCommand<guildOnly extends boolean | undefined = undefined> = Command.PrefixCommand<guildOnly>;
+  type PrefixCommand<canBeDM extends boolean | undefined = undefined> = Command.PrefixCommand<canBeDM>;
   const PrefixCommand: typeof Command.PrefixCommand;
 
-  type MixedCommand<guildOnly extends boolean | undefined = undefined> = Command.MixedCommand<guildOnly>;
+  type MixedCommand<canBeDM extends boolean | undefined = undefined> = Command.MixedCommand<canBeDM>;
   const MixedCommand: typeof Command.MixedCommand;
 
-  type CommandOptions<T_parent extends SlashCommand | PrefixCommand | MixedCommand | CommandOptions = MixedCommand> = Command.CommandOptions<T_parent>;
-  const CommandOptions: typeof Command.CommandOptions;
+  type CommandOption<T_parent extends SlashCommand | PrefixCommand | MixedCommand | CommandOption = MixedCommand> = Command.CommandOption<T_parent>;
+  const CommandOption: typeof Command.CommandOption;
 
 
   type langBoundArgs = [ { locale?: string; errorNotFound?: boolean; undefinedNotFound?: boolean; backupPath?: string } ];

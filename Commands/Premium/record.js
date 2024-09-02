@@ -5,19 +5,16 @@ const
 // due to VoiceRecords being in .gitignore, we need this check
 access('./VoiceRecords/raw').catch(() => mkdir('./VoiceRecords/raw', { recursive: true }));
 
-/** @type {command<'slash'>}*/
-module.exports = {
+module.exports = new SlashCommand({
   cooldowns: { user: 1e4 },
-  slashCommand: true,
-  prefixCommand: false,
   options: [
-    { name: 'target', type: 'User' },
-    {
+    new CommandOption({ name: 'target', type: 'User' }),
+    new CommandOption({
       name: 'channel',
       type: 'Channel',
       channelTypes: Constants.VoiceBasedChannelTypes
-    },
-    { name: 'public', type: 'Boolean' }
+    }),
+    new CommandOption({ name: 'public', type: 'Boolean' })
   ],
 
   run: async function (lang) {
@@ -72,4 +69,4 @@ module.exports = {
       components
     });
   }
-};
+});

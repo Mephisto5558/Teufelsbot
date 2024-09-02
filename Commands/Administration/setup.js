@@ -184,38 +184,38 @@ module.exports = new SlashCommand({
   permissions: { user: ['ManageGuild'] },
   cooldowns: { user: 1e4 },
   options: [
-    new CommandOptions({
+    new CommandOption({
       name: 'toggle_module',
       type: 'Subcommand',
-      options: [new CommandOptions({
+      options: [new CommandOption({
         name: 'module',
         type: 'String',
         required: true,
         choices: ['gatekeeper', 'birthday']
       })]
     }),
-    new CommandOptions({
+    new CommandOption({
       name: 'toggle_command',
       type: 'Subcommand',
       options: [
-        new CommandOptions({
+        new CommandOption({
           name: 'command',
           type: 'String',
           required: true,
           autocompleteOptions: function () { return getCMDs(this.client); },
           strictAutocomplete: true
         }),
-        new CommandOptions({ name: 'get', type: 'Boolean' }),
-        ...Array.from({ length: 6 }, (_, i) => new CommandOptions({ type: 'Role', name: `role_${i + 1}` })),
-        ...Array.from({ length: 6 }, (_, i) => new CommandOptions({ type: 'Channel', name: `channel_${i + 1}`, channelTypes: Constants.GuildTextBasedChannelTypes })),
-        ...Array.from({ length: 6 }, (_, i) => new CommandOptions({ type: 'User', name: `member_${i + 1}` }))
+        new CommandOption({ name: 'get', type: 'Boolean' }),
+        ...Array.from({ length: 6 }, (_, i) => new CommandOption({ type: 'Role', name: `role_${i + 1}` })),
+        ...Array.from({ length: 6 }, (_, i) => new CommandOption({ type: 'Channel', name: `channel_${i + 1}`, channelTypes: Constants.GuildTextBasedChannelTypes })),
+        ...Array.from({ length: 6 }, (_, i) => new CommandOption({ type: 'User', name: `member_${i + 1}` }))
       ]
     }),
-    new CommandOptions({
+    new CommandOption({
       name: 'language',
       type: 'Subcommand',
       cooldowns: { guild: 1e4 },
-      options: [new CommandOptions({
+      options: [new CommandOption({
         name: 'language',
         type: 'String',
         required: true,
@@ -233,35 +233,35 @@ module.exports = new SlashCommand({
         strictAutocomplete: true
       })]
     }),
-    new CommandOptions({
+    new CommandOption({
       name: 'set_prefix',
       type: 'Subcommand',
       options: [
-        new CommandOptions({
+        new CommandOption({
           name: 'new_prefix',
           type: 'String',
           required: true
         }),
-        new CommandOptions({ name: 'case_insensitive', type: 'Boolean' })
+        new CommandOption({ name: 'case_insensitive', type: 'Boolean' })
       ]
     }),
-    new CommandOptions({
+    new CommandOption({
       name: 'add_prefix',
       type: 'Subcommand',
       options: [
-        new CommandOptions({
+        new CommandOption({
           name: 'new_prefix',
           type: 'String',
           required: true
         }),
-        new CommandOptions({ name: 'case_insensitive', type: 'Boolean' })
+        new CommandOption({ name: 'case_insensitive', type: 'Boolean' })
       ]
     }),
-    new CommandOptions({
+    new CommandOption({
       name: 'remove_prefix',
       type: 'Subcommand',
       options: [
-        new CommandOptions({
+        new CommandOption({
           name: 'prefix',
           type: 'String',
           autocompleteOptions: function () { return this.guild.db.config[this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes']?.map(e => e.prefix) ?? []; },
@@ -270,10 +270,10 @@ module.exports = new SlashCommand({
         })
       ]
     }),
-    new CommandOptions({
+    new CommandOption({
       name: 'serverbackup',
       type: 'Subcommand',
-      options: [new CommandOptions({
+      options: [new CommandOption({
         name: 'allowed_to_load',
         type: 'String',
         required: true,
@@ -281,31 +281,31 @@ module.exports = new SlashCommand({
         strictAutocomplete: true
       })]
     }),
-    new CommandOptions({
+    new CommandOption({
       name: 'autopublish',
       type: 'Subcommand',
-      options: [new CommandOptions({
+      options: [new CommandOption({
         name: 'enabled',
         type: 'Boolean',
         required: true
       })]
     }),
-    new CommandOptions({
+    new CommandOption({
       name: 'logger',
       type: 'Subcommand',
       options: [
-        new CommandOptions({
+        new CommandOption({
           name: 'action',
           type: 'String',
           required: true,
           choices: ['all', ...loggerActionTypes]
         }),
-        new CommandOptions({
+        new CommandOption({
           name: 'channel',
           type: 'Channel',
           channelTypes: Constants.GuildTextBasedChannelTypes
         }),
-        new CommandOptions({ name: 'enabled', type: 'Boolean' })
+        new CommandOption({ name: 'enabled', type: 'Boolean' })
       ]
     })
   ],

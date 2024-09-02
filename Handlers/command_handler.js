@@ -12,7 +12,7 @@ module.exports = async function commandHandler() {
     for (const file of await readdir(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
 
-      /** @type {Omit<command<string, boolean, true>, 'name', 'category'> | undefined}*/
+      /** @type {SlashCommand | PrefixCommand | MixedCommand | undefined}*/
       const commandFile = require(`../Commands/${subFolder}/${file}`);
 
       if (!commandFile?.prefixCommand) continue;

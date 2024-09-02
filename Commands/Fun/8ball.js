@@ -22,7 +22,7 @@ function cyrb53a(str, seed = 0) {
 
 module.exports = new MixedCommand({
   dmPermission: true,
-  options: [new CommandOptions({
+  options: [new CommandOption({
     name: 'question',
     type: 'String',
     required: true

@@ -20,48 +20,45 @@ function getTime(year, month, day, ...args) {
   return year.inRange(-1, 101) ? new Date(year - 1900, month, day, ...args).setFullYear(year) : new Date(year, month, day, ...args).getTime();
 }
 
-/** @type {command<'both', false>}*/
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new MixedCommand({
   dmPermission: true,
   options: [
-    {
+    new CommandOption({
       name: 'day',
       type: 'Integer',
       minValue: 1,
       maxValue: 31
-    },
-    {
+    }),
+    new CommandOption({
       name: 'month',
       type: 'Integer',
       minValue: 1,
       maxValue: 12
-    },
-    {
+    }),
+    new CommandOption({
       name: 'year',
       type: 'Integer',
       minValue: 0,
       maxValue: 2e5
-    },
-    {
+    }),
+    new CommandOption({
       name: 'hour',
       type: 'Integer',
       minValue: 0,
       maxValue: 23
-    },
-    {
+    }),
+    new CommandOption({
       name: 'minute',
       type: 'Integer',
       minValue: 0,
       maxValue: 59
-    },
-    {
+    }),
+    new CommandOption({
       name: 'second',
       type: 'Integer',
       minValue: 0,
       maxValue: 59
-    }
+    })
   ],
 
   run: async function (lang) {
@@ -78,4 +75,4 @@ module.exports = {
 
     return this.customReply(lang(negative ? 'untilNeg' : 'until', formatted));
   }
-};
+});

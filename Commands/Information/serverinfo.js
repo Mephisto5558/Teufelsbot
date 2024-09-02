@@ -2,12 +2,9 @@ const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Guild } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
-/** @type {command<'both'>}*/
-module.exports = {
+module.exports = new CommandOption({
   aliases: { prefix: ['server-info', 'guildinfo', 'guild-info'] },
   cooldowns: { user: 1000 },
-  slashCommand: true,
-  prefixCommand: true,
   options: [{
     name: 'guild_id_or_invite',
     type: 'String',
@@ -93,4 +90,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components });
   }
-};
+});

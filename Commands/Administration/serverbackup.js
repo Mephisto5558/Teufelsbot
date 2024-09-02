@@ -154,27 +154,27 @@ module.exports = new SlashCommand({
   disabled: true,
   disabledReason: 'This command is still in development',
   options: [
-    new CommandOptions({
+    new CommandOption({
       name: 'create',
       type: 'Subcommand',
       cooldowns: { guild: 18e5 } // 30min
     }),
-    new CommandOptions({
+    new CommandOption({
       name: 'load',
       type: 'Subcommand',
       cooldowns: { guild: 3e5 }, // 5min
       options: [
-        new CommandOptions({
+        new CommandOption({
           name: 'id',
           type: 'String',
           autocompleteOptions: function () {
             return [...this.client.backupSystem.list().filter(checkPerm.bind(this)).keys()];
           }
         }),
-        new CommandOptions({ name: 'no_clear', type: 'Boolean' })
+        new CommandOption({ name: 'no_clear', type: 'Boolean' })
       ]
     }),
-    new CommandOptions({
+    new CommandOption({
       name: 'get',
       type: 'Subcommand',
       options: [{
@@ -183,10 +183,10 @@ module.exports = new SlashCommand({
         autocompleteOptions: function () { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
       }]
     }),
-    new CommandOptions({
+    new CommandOption({
       name: 'delete',
       type: 'Subcommand',
-      options: [new CommandOptions({
+      options: [new CommandOption({
         name: 'id',
         type: 'String',
         required: true,

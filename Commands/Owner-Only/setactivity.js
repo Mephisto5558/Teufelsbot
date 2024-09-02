@@ -1,21 +1,18 @@
 const { ActivityType } = require('discord.js');
 
-/** @type {command<'prefix', false>}*/
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new PrefixCommand({
   dmPermission: true,
   options: [
-    {
+    new CommandOption({
       name: 'activity',
       type: 'String',
       required: true
-    },
-    {
+    }),
+    new CommandOption({
       name: 'type',
       type: 'String',
       choices: Object.entries(ActivityType).flatMap(([e]) => e)
-    }
+    })
   ],
 
   run: async function (lang) {
@@ -32,4 +29,4 @@ module.exports = {
 
     return this.customReply(activity ? lang('set', { name: activity, type: ActivityType[type] }) : lang('reset'));
   }
-};
+});

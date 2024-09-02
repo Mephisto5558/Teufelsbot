@@ -2,26 +2,23 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   { getHashes, createHash } = require('node:crypto');
 
-/** @type {command<'slash', false>}*/
-module.exports = {
+module.exports = new SlashCommand({
   cooldowns: { user: 1e4 },
-  slashCommand: true,
-  prefixCommand: false,
   dmPermission: true,
   ephemeralDefer: true,
   options: [
-    {
+    new CommandOption({
       name: 'input',
       type: 'String',
       required: true
-    },
-    {
+    }),
+    new CommandOption({
       name: 'method',
       type: 'String',
       autocompleteOptions: getHashes(),
       strictAutocomplete: true,
       required: true
-    }
+    })
   ],
 
   run: async function (lang) {
@@ -36,4 +33,4 @@ module.exports = {
 
     return this.editReply({ content: lang('text', createHash(method).update(input).digest('hex')), embeds: [embed] });
   }
-};
+});

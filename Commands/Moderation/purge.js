@@ -78,53 +78,50 @@ async function fetchMsgs(channel, before, after, limit = 250) {
   return collection;
 }
 
-/** @type {command<'both'>}*/
-module.exports = {
+module.exports = new MixedCommand({
   aliases: { prefix: ['clear'] },
   permissions: { client: ['ManageMessages', 'ReadMessageHistory'], user: ['ManageMessages'] },
   cooldowns: { guild: 1000 },
-  slashCommand: true,
-  prefixCommand: true,
   ephemeralDefer: true,
   options: [
-    {
+    new CommandOption({
       name: 'amount',
       type: 'Integer',
       minValue: 1,
       maxValue: 1000,
       required: true
-    },
-    {
+    }),
+    new CommandOption({
       name: 'only_containing',
       type: 'String',
       choices: ['text', 'mentions', 'server_ads', 'images', 'embeds']
-    },
-    { name: 'member', type: 'User' },
-    {
+    }),
+    new CommandOption({ name: 'member', type: 'User' }),
+    new CommandOption({
       name: 'channel',
       type: 'Channel',
       channelTypes: Constants.GuildTextBasedChannelTypes
-    },
-    { name: 'remove_pinned', type: 'Boolean' },
-    {
+    }),
+    new CommandOption({ name: 'remove_pinned', type: 'Boolean' }),
+    new CommandOption({
       name: 'caps_percentage',
       type: 'Number',
       minValue: 1,
       maxValue: 100
-    },
-    { name: 'contains', type: 'String' },
-    { name: 'does_not_contain', type: 'String' },
-    { name: 'starts_with', type: 'String' },
-    { name: 'not_starts_with', type: 'String' },
-    { name: 'ends_with', type: 'String' },
-    { name: 'not_ends_with', type: 'String' },
-    {
+    }),
+    new CommandOption({ name: 'contains', type: 'String' }),
+    new CommandOption({ name: 'does_not_contain', type: 'String' }),
+    new CommandOption({ name: 'starts_with', type: 'String' }),
+    new CommandOption({ name: 'not_starts_with', type: 'String' }),
+    new CommandOption({ name: 'ends_with', type: 'String' }),
+    new CommandOption({ name: 'not_ends_with', type: 'String' }),
+    new CommandOption({
       name: 'user_type',
       type: 'String',
       choices: ['bot', 'human']
-    },
-    { name: 'before_message', type: 'String' },
-    { name: 'after_message', type: 'String' }
+    }),
+    new CommandOption({ name: 'before_message', type: 'String' }),
+    new CommandOption({ name: 'after_message', type: 'String' })
   ],
 
   run: async function (lang) {
@@ -169,7 +166,7 @@ module.exports = {
 
     return this.customReply(lang('success', { count, all: messages.length }), 1e4);
   }
-};
+});
 
 /* eslint-disable unicorn/consistent-function-scoping, camelcase
 -- in there due to performance reasons (testing code not used in production)*/

@@ -1,9 +1,6 @@
-/** @type {command<'prefix'>}*/
-module.exports = {
+module.exports = new PrefixCommand({
   name: 'todo',
   description: 'Todo list links',
-  slashCommand: false,
-  prefixCommand: true,
 
   run: async function () {
     return this.reply(
@@ -12,4 +9,4 @@ module.exports = {
       + '[Notes in the support server](<https://discord.com/channels/1011956895529041950/1183014623507656745>)'
     );
   }
-};
+});

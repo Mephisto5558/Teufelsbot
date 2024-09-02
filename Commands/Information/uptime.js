@@ -2,11 +2,7 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   { timeFormatter } = require('#Utils');
 
-/** @type {command<'both', false>}*/
-module.exports = {
-  cooldowns: { channel: 100 },
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new MixedCommand({
   dmPermission: true,
 
   run: async function (lang) {
@@ -20,4 +16,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed] });
   }
-};
+});

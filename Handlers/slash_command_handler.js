@@ -13,7 +13,7 @@ module.exports = async function slashCommandHandler() {
     for (const file of await readdir(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
 
-      /** @type {Omit<command<string, boolean, true>, 'name' | 'category'> | undefined}*/
+      /** @type {SlashCommand | PrefixCommand | MixedCommand | undefined}*/
       let command = require(`../Commands/${subFolder}/${file}`);
 
       if (!command?.slashCommand) continue;
@@ -40,7 +40,7 @@ module.exports = async function slashCommandHandler() {
       }
 
       this.slashCommands.set(command.name, command);
-      for (const alias of command.aliases?.slash ?? []) this.slashCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
+      for (const alias of command.aliases.slash ?? []) this.slashCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
     }
   }
 

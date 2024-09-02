@@ -1,41 +1,38 @@
 const { getTargetMember } = require('#Utils');
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   aliases: { prefix: ['custom-name'] },
   cooldowns: { user: 3e4 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   premium: true,
   options: [
-    {
+    new CommandOption({
       name: 'set',
       type: 'Subcommand',
       options: [
-        {
+        new CommandOption({
           name: 'name',
           type: 'String',
           minLength: 2,
           maxLength: 32,
           required: true
-        },
-        { name: 'global', type: 'Boolean' }
+        }),
+        new CommandOption({ name: 'global', type: 'Boolean' })
       ]
-    },
-    {
+    }),
+    new CommandOption({
       name: 'get',
       type: 'Subcommand',
       options: [
-        { name: 'target', type: 'User' },
-        { name: 'global', type: 'Boolean' }
+        new CommandOption({ name: 'target', type: 'User' }),
+        new CommandOption({ name: 'global', type: 'Boolean' })
       ]
-    },
-    {
+    }),
+    new CommandOption({
       name: 'clear',
       type: 'Subcommand',
-      options: [{ name: 'global', type: 'Boolean' }]
-    }
+      options: [new CommandOption({ name: 'global', type: 'Boolean' })]
+    })
   ],
 
   run: async function (lang) {
@@ -62,4 +59,4 @@ module.exports = {
       default: return this.customReply(lang(target.id == this.user.id ? 'get.successYou' : 'get.successOther', target.customName));
     }
   }
-};
+});

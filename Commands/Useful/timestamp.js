@@ -2,17 +2,14 @@ const
   { Duration } = require('better-ms'),
   { timeValidator } = require('#Utils');
 
-/** @type {command<'both', false>}*/
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new MixedCommand({
   dmPermission: true,
-  options: [{
+  options: [new CommandOption({
     name: 'time',
     type: 'String',
     autocompleteOptions: function () { return timeValidator(this.focused.value); },
     strictAutocomplete: true
-  }],
+  })],
 
   run: async function (lang) {
     const { offset } = new Duration(this.options?.getString('time') ?? this.args?.[0] ?? '0.1ms');
@@ -26,4 +23,4 @@ module.exports = {
 
     return this.customReply(lang('success', { time: Math.round(time / 1000) }));
   }
-};
+});

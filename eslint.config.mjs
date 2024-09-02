@@ -17,7 +17,7 @@ export default [
         SlashCommand: 'readonly',
         PrefixCommand: 'readonly',
         MixedCommand: 'readonly',
-        CommandOptions: 'readonly',
+        CommandOption: 'readonly',
         // [TYPES] see globals.d.ts
         GenericFunction: 'writable',
         Snowflake: 'writable',

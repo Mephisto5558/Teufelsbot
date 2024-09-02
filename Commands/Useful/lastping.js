@@ -2,19 +2,16 @@ const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   { getTargetChannel, getTargetMember } = require('#Utils');
 
-/** @type {command<'both'>}*/
-module.exports = {
+module.exports = new MixedCommand({
   cooldowns: { guild: 200, user: 1e4 },
-  slashCommand: true,
-  prefixCommand: true,
   ephemeralDefer: true,
   options: [
-    {
+    new CommandOption({
       name: 'channel',
       type: 'Channel',
       channelTypes: Constants.GuildTextBasedChannelTypes
-    },
-    { name: 'member', type: 'User' }
+    }),
+    new CommandOption({ name: 'member', type: 'User' })
   ],
 
   run: async function (lang) {
@@ -44,4 +41,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed] });
   }
-};
+});

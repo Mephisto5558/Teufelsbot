@@ -28,20 +28,17 @@ async function fetchAPI(lang, deep) {
   return lang('error');
 }
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   aliases: { prefix: ['gpt'] },
-  cooldowns: { guild: 0, user: 2000 },
-  slashCommand: true,
-  prefixCommand: true,
+  cooldowns: { user: 2000 },
   dmPermission: true,
   premium: true,
-  options: [{
+  options: [new CommandOption({
     name: 'message',
     type: 'String',
     maxLength: 2000,
     required: true
-  }],
+  })],
 
   run: async function (lang) {
     if (this instanceof Message) void this.channel.sendTyping();
@@ -66,4 +63,4 @@ module.exports = {
         return reply.delete();
       });
   }
-};
+});

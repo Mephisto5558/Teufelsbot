@@ -7,13 +7,13 @@ const
 
 /**
  * @this {Client}
- * @param {command<string, boolean>}command
+ * @param {SlashCommand | PrefixCommand | MixedCommand}command
  * @param {string[]}reloadedArray gets modified and not returned*/
 async function reloadCommand(command, reloadedArray) {
   /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
   delete require.cache[command.filePath];
 
-  /** @type {command<string, boolean>} */
+  /** @type {SlashCommand | PrefixCommand | MixedCommand} */
   let file = {};
   try { file = require(command.filePath); }
   catch (err) {
@@ -30,8 +30,8 @@ async function reloadCommand(command, reloadedArray) {
     this.prefixCommands.set(file.name, file); // NOSONAR S1874
     reloadedArray.push(file.name); // NOSONAR S1874
 
-    for (const alias of command.aliases?.prefix ?? []) this.prefixCommands.delete(alias);
-    for (const alias of file.aliases?.prefix ?? []) {
+    for (const alias of command.aliases.prefix ?? []) this.prefixCommands.delete(alias);
+    for (const alias of file.aliases.prefix ?? []) {
       this.prefixCommands.set(alias, { ...file, aliasOf: file.name }); // NOSONAR S1874
       reloadedArray.push(alias);
     }
@@ -56,7 +56,7 @@ async function reloadCommand(command, reloadedArray) {
     this.slashCommands.set(slashFile.name, slashFile);
     reloadedArray.push(`</${slashFile.name}:${slashFile.id ?? 0}>`);
 
-    for (const alias of [...slashFile.aliases?.slash ?? [], ...command.aliases?.slash ?? []].unique()) {
+    for (const alias of [...slashFile.aliases?.slash ?? [], ...command.aliases.slash ?? []].unique()) {
       const { id } = this.slashCommands.get(alias) ?? {};
       let cmdId;
 
@@ -84,20 +84,17 @@ async function reloadCommand(command, reloadedArray) {
   }
   else if (!file.slashCommand && command.slashCommand) {
     this.slashCommands.delete(command.name); // NOSONAR S1874
-    if (command.id) await this.application.commands.delete(command.id);
+    await this.application.commands.delete(command.id);
   }
 }
 
-/** @type {command<'prefix', false>}*/
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new PrefixCommand({
   dmPermission: true,
-  options: [{
+  options: [new CommandOption({
     name: 'command_name',
     type: 'String',
     required: true
-  }],
+  })],
   beta: true,
 
   run: async function (lang) {
@@ -122,7 +119,7 @@ module.exports = {
           }
 
           if (this.args[1]?.startsWith('Commands/')) {
-            /** @type {command<'both', boolean>} */
+            /** @type {MixedCommand} */
             const cmd = require(filePath);
             cmd.filePath = filePath;
             cmd.category = this.args[1].split('/')[1].toLowerCase(); // NOSONAR S1874
@@ -156,4 +153,4 @@ module.exports = {
       commands: commands.length < 800 ? commands : commands.slice(0, Math.max(0, commands.slice(0, 800).lastIndexOf('`,') + 1)) + '...'
     }));
   }
-};
+});

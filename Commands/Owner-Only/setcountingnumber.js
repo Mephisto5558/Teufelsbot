@@ -1,10 +1,7 @@
 const { getTargetChannel } = require('#Utils');
 
-/** @type {command<'prefix'>}*/
-module.exports = {
+module.exports = new PrefixCommand({
   aliases: { prefix: ['setcountingnum'] },
-  slashCommand: false,
-  prefixCommand: true,
 
   run: async function (lang) {
     const
@@ -16,4 +13,4 @@ module.exports = {
     await this.guild.updateDB(`channelMinigames.counting.${channel}`, { lastNumber: number, lastAuthor: 'setcountingnumber' });
     return this.reply(lang('success', { channel, number }));
   }
-};
+});

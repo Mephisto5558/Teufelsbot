@@ -1,9 +1,6 @@
 const { setAfkPrefix } = require('#Utils').afk;
 
-/** @type {command<'both', false>}*/
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new PrefixCommand({
   dmPermission: true,
 
   run: async function (lang) {
@@ -12,4 +9,4 @@ module.exports = {
     await this.user.updateDB('afkMessage', { message: lang('afkMessage'), createdAt: this.createdAt });
     return this.customReply(lang('responseList', this.member.customName));
   }
-};
+});

@@ -1,16 +1,13 @@
 const { randomInt } = require('node:crypto');
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   usage: { examples: '1 10' },
   aliases: { prefix: ['random-number'] },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   ephemeralDefer: true,
   options: [
-    { name: 'minimum', type: 'Integer' },
-    { name: 'maximum', type: 'Integer' }
+    new CommandOption({ name: 'minimum', type: 'Integer' }),
+    new CommandOption({ name: 'maximum', type: 'Integer' })
   ],
 
   run: async function (lang) {
@@ -36,4 +33,4 @@ module.exports = {
       }));
     }
   }
-};
+});

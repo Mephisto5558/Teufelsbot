@@ -2,15 +2,12 @@ const
   wikiInit = require('wikijs').default,
   { EmbedBuilder, Colors } = require('discord.js');
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   usage: { examples: 'discord' },
   aliases: { prefix: ['wikipedia'] },
   cooldowns: { channel: 100, user: 200 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
-  options: [{ name: 'query', type: 'String' }],
+  options: [new CommandOption({ name: 'query', type: 'String' })],
 
   run: async function (lang) {
     const
@@ -83,4 +80,4 @@ module.exports = {
     for (const msg of msgs.slice(0, 9)) await this.customReply(msg);
     if (msgs > 9) return this.reply(lang('visitWiki'));
   }
-};
+});

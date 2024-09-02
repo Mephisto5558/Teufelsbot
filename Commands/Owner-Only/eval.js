@@ -12,16 +12,13 @@ const
 /** @param {number}ms*/
 const timeout = ms => new Promise((_, rej) => setTimeout(rej, ms, 'eval timed out.'));
 
-/** @type {command<'prefix', false>}*/
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new PrefixCommand({
   dmPermission: true,
-  options: [{
+  options: [new CommandOption({
     name: 'code',
     type: 'String',
     required: true
-  }],
+  })],
   beta: true,
 
   run: async function (lang) {
@@ -44,4 +41,4 @@ module.exports = {
     }
     finally { log.debug(`evaluated command '${this.content}'`); }
   }
-};
+});

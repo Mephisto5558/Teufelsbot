@@ -7,7 +7,7 @@ const
   { join } = require('node:path'),
   { DB } = require('@mephisto5558/mongoose-db'),
 
-  { SlashCommand, PrefixCommand, MixedCommand, CommandOptions } = require('@mephisto5558/command'),
+  { SlashCommand, PrefixCommand, MixedCommand, CommandOption } = require('@mephisto5558/command'),
   I18nProvider = require('@mephisto5558/i18n'),
   Log = require('./Log.js'),
   customReply = require('./message_customReply.js'),
@@ -27,7 +27,7 @@ global.sleep = require('node:util').promisify(setTimeout);
 global.SlashCommand = SlashCommand;
 global.PrefixCommand = PrefixCommand;
 global.MixedCommand = MixedCommand;
-global.CommandOptions = CommandOptions;
+global.CommandOption = CommandOption;
 
 /**
  * @param {Record<string, any>}target

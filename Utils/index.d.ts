@@ -66,7 +66,7 @@ declare namespace afk {
 
 declare function autocompleteGenerator(
   this: AutocompleteInteraction | Message,
-  command: MixedCommand, locale: string
+  command: SlashCommand<true> | PrefixCommand<true> | MixedCommand<true>, locale: string
 ): { name: string | number; value: string | number }[] | undefined;
 
 type MaybeWithUndefined<X, T extends boolean> = T extends true ? X : X | undefined;
@@ -169,7 +169,7 @@ declare namespace BackupSystem {
 /** @returns The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally.*/
 declare function checkForErrors(
   this: BaseInteraction | Message,
-  command: MixedCommand | undefined, lang: lang
+  command: SlashCommand<boolean> | PrefixCommand<boolean> | MixedCommand<boolean> | undefined, lang: lang
 ): [string, Record<string, string> | string | undefined] | boolean;
 
 /** @returns the error message id to use with i18n.*/
@@ -180,7 +180,7 @@ declare function checkTargetManageable(
 
 declare function commandExecutionWrapper(
   this: BaseInteraction | Message,
-  command: MixedCommand | undefined, commandType: string, lang: lang
+  command: SlashCommand<boolean> | PrefixCommand<boolean> | MixedCommand<boolean> | undefined, commandType: string, lang: lang
 ): Promise<Message | undefined>;
 
 declare function componentHandler(
@@ -203,7 +203,7 @@ declare function findAllEntires(
 ): Record<string, unknown>;
 
 /** @throws {Error} on non-autofixable invalid data*/
-declare function formatCommand<T extends MixedCommand | CommandOptions<MixedCommand>>(
+declare function formatCommand<T extends MixedCommand | CommandOption>(
   option: T, path: string, id: string, i18n: I18nProvider
 ): T;
 
@@ -278,7 +278,7 @@ declare function shellExec(
   command: string, options?: ExecOptions
 ): PromiseWithChild<{ stdout: string;stderr: string }>;
 
-declare function equal<T extends MixedCommand | CommandOptions<MixedCommand> | undefined>(
+declare function equal<T extends MixedCommand | CommandOption | undefined>(
   a: T, b: T
 ): boolean;
 

@@ -38,13 +38,10 @@ async function updateStats(firstID, secondID, type, db) {
   );
 }
 
-/** @type {command<'slash'>}*/
-module.exports = {
+module.exports = new SlashCommand({
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
   cooldowns: { user: 5000 },
-  slashCommand: true,
-  prefixCommand: false,
-  options: [{ name: 'opponent', type: 'User' }],
+  options: [new CommandOption({ name: 'opponent', type: 'User' })],
 
   run: async function (lang) {
     const
@@ -63,4 +60,4 @@ module.exports = {
 
     return game.handleInteraction(this);
   }
-};
+});
