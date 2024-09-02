@@ -3,7 +3,7 @@ const
   { getDirectories, formatCommand, slashCommandsEqual } = require('#Utils');
 
 /** @this {Client}*/
-module.exports = async function slashCommandHandler() {
+module.exports = async function slashCommandLoader() {
   await this.awaitReady();
 
   const applicationCommands = this.application.commands.fetch({ withLocalizations: true });

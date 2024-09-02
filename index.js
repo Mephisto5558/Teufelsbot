@@ -40,15 +40,15 @@ const
 
 /**
  * @this {Client<true>}
- * @param {Promise[]}handlerPromises
+ * @param {Promise[]}loaderPromises
  * @param {string}message*/
-async function processMessageEventCallback(handlerPromises, message) {
+async function processMessageEventCallback(loaderPromises, message) {
   if (message != 'Start WebServer') return;
-  process.removeListener('message', processMessageEventCallback.bind(this, handlerPromises));
+  process.removeListener('message', processMessageEventCallback.bind(this, loaderPromises));
 
   if (this.config.disableWebserver) log('Webserver is disabled by config.json.');
   else {
-    await Promise.all(handlerPromises);
+    await Promise.all(loaderPromises);
 
     this.webServer ??= await new WebServer(
       this, this.db,
@@ -63,7 +63,7 @@ async function processMessageEventCallback(handlerPromises, message) {
     ).init(getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })));
   }
 
-  await require('./Handlers/event_handler.js').call(this);
+  await require('./Loaders/event_loader.js').call(this);
 }
 
 console.timeEnd('Initializing time');
@@ -84,23 +84,23 @@ void (async function main() {
 
   if (client.botType != 'dev') client.giveawaysManager = new GiveawaysManager(client);
 
-  // Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution
-  const handlerPromises = (await readdir('./Handlers')).filter(e => e != 'event_handler.js').map(handler => require(`./Handlers/${handler}`).call(client));
-  handlerPromises.push(client.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add(app.owner.owner?.id ?? app.owner.id)));
+  // Event loader gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution
+  const loaderPromises = (await readdir('./Loaders')).filter(e => e != 'event_loader.js').map(loader => require(`./Loaders/${loader}`).call(client));
+  loaderPromises.push(client.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add(app.owner.owner?.id ?? app.owner.id)));
 
   await client.login(client.keys.token);
   log(`Logged into ${client.botType}`);
 
-  if (process.connected) process.on('message', processMessageEventCallback.bind(client, handlerPromises));
+  if (process.connected) process.on('message', processMessageEventCallback.bind(client, loaderPromises));
 
-  await Promise.all(handlerPromises);
+  await Promise.all(loaderPromises);
 
   if (process.send?.('Finished starting') === false) {
     log.error('Could not tell the parent to kill itself. Exiting to prevent duplicate code execution.');
     process.exit(1);
   }
 
-  if (!process.connected) await processMessageEventCallback.call(client, handlerPromises, 'Start WebServer');
+  if (!process.connected) await processMessageEventCallback.call(client, loaderPromises, 'Start WebServer');
 
   void client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);
 

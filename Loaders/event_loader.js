@@ -1,7 +1,7 @@
 const { readdir } = require('node:fs/promises');
 
 /** @this {Client}*/
-module.exports = async function eventHandler() {
+module.exports = async function eventLoader() {
   let eventCount = 0;
   for (const file of await readdir('./Events')) {
     if (!file.endsWith('js') || file == 'interactionCreate.js') continue; // InteractionCreate gets loaded after all slash commands are registred
