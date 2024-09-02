@@ -1,4 +1,6 @@
-const { readdir } = require('node:fs/promises');
+const
+  { readdir } = require('node:fs/promises'),
+  { errorHandler } = require('#Utils');
 
 /** @this {Client}*/
 module.exports = async function eventLoader() {
@@ -6,8 +8,19 @@ module.exports = async function eventLoader() {
   for (const file of await readdir('./Events')) {
     if (!file.endsWith('js') || file == 'interactionCreate.js') continue; // InteractionCreate gets loaded after all slash commands are registred
 
-    const eventName = file.split('.')[0];
-    this.on(eventName, (...args) => args.length == 1 && args[0] instanceof this.constructor ? require(`../Events/${file}`).call(this) : require(`../Events/${file}`).call(...args, this));
+    const
+      eventName = file.split('.')[0],
+
+      /** @type {CallableFunction}*/
+      event = require(`../Events/${file}`);
+
+    this.on(eventName, async (...args) => {
+      const eventArgs = [...args, this].unique();
+
+      try { await event.call(...eventArgs); }
+      catch (err) { await errorHandler.call(this, err, eventArgs); }
+    });
+
     log(`Loaded Event ${eventName}`);
     eventCount++;
   }

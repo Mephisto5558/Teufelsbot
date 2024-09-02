@@ -193,7 +193,7 @@ declare function cooldown(
 
 declare function errorHandler(
   this: Client,
-  err: Error, message: BaseInteraction | Message | null, lang?: lang
+  err: Error, context?: unknown, lang?: lang
 ): Promise<void>;
 
 declare function findAllEntires(

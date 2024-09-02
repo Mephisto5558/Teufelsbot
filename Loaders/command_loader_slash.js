@@ -1,6 +1,6 @@
 const
   { readdir } = require('node:fs/promises'),
-  { getDirectories, formatCommand, slashCommandsEqual } = require('#Utils');
+  { getDirectories, formatCommand, slashCommandsEqual, errorHandler } = require('#Utils');
 
 /** @this {Client}*/
 module.exports = async function slashCommandLoader() {
@@ -87,6 +87,10 @@ module.exports = async function slashCommandLoader() {
   }
   log(`Deleted ${deletedCommandCount} Slash Commands`);
 
-  this.on('interactionCreate', interaction => require('../Events/interactionCreate.js').call(interaction));
+  this.on('interactionCreate', async interaction => {
+    try { await require('../Events/interactionCreate.js').call(interaction); }
+    catch (err) { await errorHandler.call(this, err, interaction); }
+  });
+
   log('Loaded Event interactionCreate')('Ready to receive slash commands');
 };
