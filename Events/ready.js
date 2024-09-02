@@ -13,6 +13,9 @@ module.exports = async function ready() {
       void this.db.update('guildSettings', `${guildId}.leftAt`, new Date());
   }
 
-  for (const [guildId, guild] of this.guilds.cache)
-    if (!this.db.get('guildSettings', guildId)) void guildCreate.call(guild);
+  for (const [, guild] of this.guilds.cache) {
+    if (!('config' in guild.db)) void guildCreate.call(guild);
+
+    void this.db.delete('guildSettings', `${guild.id}.leftAt`);
+  }
 };
