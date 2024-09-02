@@ -5,8 +5,8 @@ module.exports = async function guildCreate() {
 
   if (!this.db.position)
     await this.updateDB('position', (Math.max(...Object.values(this.client.db.get('guildSettings')).map(e => e.position)) || 0) + 1);
-  /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/strict-boolean-expressions -- it is made sure here that it is set.*/
-  if (!this.db.config) await this.updateDB('config', {});
+
+  if (!('config' in this.db)) await this.updateDB('config', {});
 
   await this.client.db.delete('guildSettings', `${this.id}.leftAt`);
 };
