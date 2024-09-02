@@ -194,16 +194,16 @@ declare global {
   type GenericFunction = (...args: any) => any;
 
 
-  type SlashCommand<guildOnly extends boolean = boolean> = Command.SlashCommand<guildOnly>;
+  type SlashCommand<guildOnly extends boolean | undefined = undefined> = Command.SlashCommand<guildOnly>;
   const SlashCommand: typeof Command.SlashCommand;
 
-  type PrefixCommand<guildOnly extends boolean = boolean> = Command.PrefixCommand<guildOnly>;
+  type PrefixCommand<guildOnly extends boolean | undefined = undefined> = Command.PrefixCommand<guildOnly>;
   const PrefixCommand: typeof Command.PrefixCommand;
 
-  type MixedCommand<guildOnly extends boolean = boolean> = Command.MixedCommand<guildOnly>;
+  type MixedCommand<guildOnly extends boolean | undefined = undefined> = Command.MixedCommand<guildOnly>;
   const MixedCommand: typeof Command.MixedCommand;
 
-  type CommandOptions<T_parent extends SlashCommand | PrefixCommand | MixedCommand> = Command.CommandOptions<T_parent>;
+  type CommandOptions<T_parent extends SlashCommand | PrefixCommand | MixedCommand | CommandOptions = MixedCommand> = Command.CommandOptions<T_parent>;
   const CommandOptions: typeof Command.CommandOptions;
 
 
@@ -320,11 +320,6 @@ declare module 'discord.js' {
 
     /** Alias for {@link Message.author}*/
     user: Message['author'];
-
-    /** This does not exist on Messages and is only for better typing of {@link SlashCommand} here */
-    /* eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- valid use case, as this property does not really exist*/
-    options: void;
-
 
     /**
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
