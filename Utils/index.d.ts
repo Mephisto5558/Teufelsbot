@@ -22,7 +22,6 @@ export {
   cooldown as cooldowns,
   errorHandler,
   findAllEntires,
-  formatCommand,
   getAge,
   getCommands,
   getDirectories,
@@ -31,7 +30,6 @@ export {
   getTargetRole,
   gitpull,
   GiveawaysManagerWithOwnDatabase as GiveawaysManager,
-  localizeUsage,
   logSayCommandUse,
   permissionTranslator,
   shellExec,
@@ -202,11 +200,6 @@ declare function findAllEntires(
   obj: Record<string, unknown>, key: string, entryList?: Record<string, unknown>
 ): Record<string, unknown>;
 
-/** @throws {Error} on non-autofixable invalid data*/
-declare function formatCommand<T extends MixedCommand | CommandOption>(
-  option: T, path: string, id: string, i18n: I18nProvider
-): T;
-
 declare function getAge(date: Date): number;
 
 declare function getCommands(
@@ -260,10 +253,6 @@ declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
     messageId: Snowflake
   ): Promise<boolean>;
 }
-
-declare function localizeUsage<CMD extends MixedCommand>(
-  command: CMD, path: string, i18n: I18nProvider
-): [CMD['usage'], Record<string, CMD['usage']>] | [];
 
 declare function logSayCommandUse(
   this: Message<true>,
