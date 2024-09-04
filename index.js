@@ -64,6 +64,7 @@ async function processMessageEventCallback(handlerPromises, message) {
   }
 
   await require('./Handlers/event_handler.js').call(this);
+  await require('./Events/ready.js').call(this); // Run due to it not being ran on ready, before the handler is loaded
 }
 
 console.timeEnd('Initializing time');

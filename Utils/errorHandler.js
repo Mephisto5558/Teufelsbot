@@ -12,7 +12,9 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
 
     /** @type {Record<string, unknown>}*/
     contextData = (!Array.isArray(context) && context !== undefined ? [context] : context).reduce((acc, e) => {
-      acc[e?.constructor.name ?? Date.now().toString()] = e; // `Date.now` to prevent overwriting on multiple `undefined`
+      try { acc[e?.constructor.name ?? Date.now().toString()] = { ...e }; } // `Date.now` to prevent overwriting on multiple `undefined`
+      catch { acc[e?.constructor.name ?? Date.now().toString()] = e; } // `Date.now` to prevent overwriting on multiple `undefined`
+
       return acc;
     }, {}),
     message = Object.values(contextData).find(e => e instanceof Message || e instanceof BaseInteraction);
