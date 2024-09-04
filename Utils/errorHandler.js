@@ -1,12 +1,29 @@
 const
   fetch = require('node-fetch').default,
-  { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction } = require('discord.js'),
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
-  cwd = process.cwd();
+  cwd = process.cwd(),
+  stringifyReplacer = (_, v) => typeof v == 'bigint' ? v.toString() : v;
 
 /** @type {import('.').errorHandler}*/
-module.exports = async function errorHandler(err, message, lang) {
-  log.error(' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'), err.stack ?? JSON.stringify(err));
+/* eslint-disable-next-line unicorn/no-useless-undefined -- lang is optional and doesn't have a default value.*/
+module.exports = async function errorHandler(err, context = [], lang = undefined) {
+  const
+
+    /** @type {Record<string, unknown>}*/
+    contextData = (!Array.isArray(context) && context !== undefined ? [context] : context).reduce((acc, e) => {
+      try { acc[e?.constructor.name ?? Date.now().toString()] = { ...e }; } // `Date.now` to prevent overwriting on multiple `undefined`
+      catch { acc[e?.constructor.name ?? Date.now().toString()] = e; } // `Date.now` to prevent overwriting on multiple `undefined`
+
+      return acc;
+    }, {}),
+    message = Object.values(contextData).find(e => e instanceof Message || e instanceof BaseInteraction);
+
+  log.error(
+    ' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'),
+    err.stack ?? JSON.stringify(err),
+    contextData.__count__ ? `\nAdditional Context:\n${JSON.stringify(contextData)}` : ''
+  );
 
   if (!message || !lang) return;
 
@@ -71,10 +88,10 @@ module.exports = async function errorHandler(err, message, lang) {
 
         if (!res.ok) throw new Error(JSON.stringify(json));
 
-        const attachment = new AttachmentBuilder(Buffer.from(JSON.stringify({ ...message }, (_, v) => typeof v == 'bigint' ? v.toString() : v, 2)), { name: 'data.json' });
+        const files = Object.entries(contextData).map(([k, v]) => new AttachmentBuilder(Buffer.from(JSON.stringify({ ...v }, stringifyReplacer, 2)), { name: `${k.toLowerCase()}.json` }));
 
         for (const devId of devIds) {
-          try { await (await this.users.fetch(devId)).send({ content: json.html_url, files: [attachment] }); }
+          try { await (await this.users.fetch(devId)).send({ content: json.html_url, files }); }
           catch (err) {
             if (err.code == DiscordAPIErrorCodes.UnknownUser) log.error(`Unknown Dev ID "${devId}"`);
             else if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;

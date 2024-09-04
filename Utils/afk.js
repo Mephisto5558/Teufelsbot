@@ -38,12 +38,16 @@ module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
  * @this {ThisParameterType<import('.')['afk']['setAfkStatus']>}
  * Here due to `@typescript-eslint/no-invalid-this`*/
 module.exports.setAfkStatus = async function setAfkStatus(lang, global, message) {
-  const user = this.member?.user;
-  await (global || !this.guild
-    ? user.updateDB('afkMessage', { message, createdAt: this.createdAt })
-    : this.guild.updateDB(`afkMessages.${user.id}`, { message, createdAt: this.createdAt }));
+  const
+    user = this.member?.user,
+    createdAt = this.createdAt ?? new Date();
+  message ||= 'AFK';
 
-  if (this.member) void toggleAfkPrefix(this.member);
+  await (global || !this.guild
+    ? user.updateDB('afkMessage', { message, createdAt })
+    : this.guild.updateDB(`afkMessages.${user.id}`, { message, createdAt }));
+
+  if (this.member) void setAfkPrefix(this.member);
 
   if (this instanceof VoiceState) return;
   return this.customReply({ content: lang(global || !this.guild ? 'globalSuccess' : 'success', message), allowedMentions: { parse: [AllowedMentionsTypes.User] } });
@@ -56,10 +60,10 @@ module.exports.setAfkStatus = async function setAfkStatus(lang, global, message)
 module.exports.removeAfkStatus = async function removeAfkStatus() {
   if (!this.member || !this.channel || !this.guild) return; // `!this.channel || !this.guild` as typeguard
 
-  void toggleAfkPrefix(this.member);
-
   const { createdAt, message } = this.guild.db.afkMessages?.[this.member.id] ?? this.member.user.db.afkMessage ?? {}; // `member.user` for VoiceState support
   if (!message) return;
+
+  void unsetAfkPrefix(this.member);
 
   await this.client.db.delete('userSettings', `${this.member.id}.afkMessage`);
   await this.client.db.delete('guildSettings', `${this.guild.id}.afkMessages.${this.member.id}`);
@@ -95,18 +99,20 @@ module.exports.sendAfkMessages = async function sendAfkMessages() {
   if (afkMsgs.length) return this.customReply({ content: afkMsgs, allowedMentions: { parse: [AllowedMentionsTypes.User] } });
 };
 
-/** @type {import('.')['afk']['toggleAfkPrefix']}*/
-async function toggleAfkPrefix(member, prefix = '[AFK] ') {
-  if (!member.moderatable) return;
+/** @type {import('.')['afk']['setAfkPrefix']}*/
+async function setAfkPrefix(member, prefix = '[AFK] ') {
+  if (!member.moderatable || member.displayName.length > 31 - prefix.length || member.nickname?.startsWith(prefix)) return;
 
-  if (member.nickname?.startsWith(prefix)) {
-    await member.setNickname(member.nickname.slice(prefix.length));
-    return false;
-  }
-
-  if (member.displayName.length < 32 - prefix.length) {
-    await member.setNickname(`${prefix}${member.displayName}`);
-    return true;
-  }
+  await member.setNickname(`${prefix}${member.displayName}`);
+  return true;
 }
-module.exports.toggleAfkPrefix = toggleAfkPrefix;
+
+/** @type {import('.')['afk']['unsetAfkPrefix']}*/
+async function unsetAfkPrefix(member, prefix = '[AFK] ') {
+  if (!member.moderatable || !member.nickname?.startsWith(prefix)) return;
+
+  await member.setNickname(member.nickname.slice(prefix.length));
+  return false;
+}
+module.exports.setAfkPrefix = setAfkPrefix;
+module.exports.unsetAfkPrefix = unsetAfkPrefix;

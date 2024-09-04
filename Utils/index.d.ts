@@ -54,9 +54,14 @@ declare namespace afk {
   function sendAfkMessages(this: Message): Promise<Message | undefined>;
 
   /**
-   * @returns `undefined` if the bot cannot change the member's nickname. Otherwise a `boolean` indicating if the member currently has the prefix.
+   * @returns `undefined` if the bot cannot change the member's nickname or it already has the prefix. Otherwise `true` indicating success.
    * @default prefix='[AFK] '*/// eslint-disable-line jsdoc/informative-docs
-  function toggleAfkPrefix(member: GuildMember, prefix?: string): Promise<boolean | undefined>;
+  function setAfkPrefix(member: GuildMember, prefix?: string): Promise<true | undefined>;
+
+  /**
+   * @returns `undefined` if the bot cannot change the member's nickname or it doesn't have the prefix. Otherwise `true` indicating success.
+   * @default prefix='[AFK] '*/// eslint-disable-line jsdoc/informative-docs
+  function unsetAfkPrefix(member: GuildMember, prefix?: string): Promise<true | undefined>;
 }
 
 declare function autocompleteGenerator(
@@ -190,7 +195,7 @@ declare function cooldown(
 
 declare function errorHandler(
   this: Client,
-  err: Error, message: BaseInteraction | Message | null, lang?: lang
+  err: Error, context?: unknown, lang?: lang
 ): Promise<void>;
 
 declare function findAllEntires(
