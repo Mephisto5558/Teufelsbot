@@ -8,7 +8,7 @@
   "paramRequired": "Du musst einen Wert für die Option \"{option}\" angeben.\n> {description}",
   "strictAutocompleteNoMatch": "Deine Eingabe für die Option \"{option}\" muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.",
   "strictAutocompleteNoMatchWValues": "Deine Eingabe für die Option \"{option}\" muss einem der Autocomplete-Vorschläge entsprechen. Bitte wähle eine der verfügbaren Optionen bei der Befehlseingabe im Slash-Befehl aus.\n\nVerfügbare Optionen sind:\n{availableOptions}",
-  "invalidChannelType": "Der Kanal, den du für die Option „{option}“ eingegeben hast, muss einer der zur Auswahl stehenden Kanaltypen sein. Bitte wähle eine der verfügbaren Optionen, bei der Eingabe des Slash-Befehls.",
+  "invalidChannelType": "Der Kanal, den du für die Option \"{option}\" eingegeben hast, muss einer der zur Auswahl stehenden Kanaltypen sein. Bitte wähle eine der verfügbaren Optionen, bei der Eingabe des Slash-Befehls.",
   "permissionDenied": {
     "embedTitle": "Unzureichende Berechtigungen",
     "embedDescriptionUser": "Du benötigst die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n`{permissions}`",
