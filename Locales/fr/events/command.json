@@ -8,6 +8,7 @@
   "paramRequired": "Vous devez entrer une valeur pour l'option \"{option}\".\n> {description}",
   "strictAutocompleteNoMatch": "Votre entrée pour l'option \"{option}\" doit correspondre à l'une des suggestions de saisie automatique. Veuillez sélectionner une des options disponibles lors de la saisie de la commande slash.",
   "strictAutocompleteNoMatchWValues": "Votre entrée pour l'option \"{option}\" doit correspondre à l'une des suggestions de saisie automatique. Veuillez sélectionner l'une des options disponibles lors de la saisie de la commande slash.\n\nLes options disponibles sont:\n{availableOptions}",
+  "invalidChannelType": "Le canal que vous avez saisi pour l'option \"{option}\" doit être l'un des choix de type de canal. Veuillez sélectionner une des options disponibles lors de la saisie de la commande slash.",
   "permissionDenied": {
     "embedTitle": "Autorisations insuffisantes",
     "embedDescriptionUser": "Vous avez besoin des permissions suivantes dans ce salon pour exécuter cette commande:\n`{permissions}`",

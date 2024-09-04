@@ -8,7 +8,8 @@
   },
   "wordchain": {
     "error": "VOI RUINATO UNA SEGNA DI **{count}** SCRIVI AL \"**{lastChar}**\"!! Riavvia scrivendo qualsiasi parola.\n",
-    "wrongChar": "**Non puoi leggere?! Quella parola non inizia con il carattere dell'ultima parola.**",
-    "sameUserTwice": "**Non puoi dire due parole di fila!**"
+    "sameUserTwice": "**Non puoi dire due parole di fila!**",
+    "inALoop": "**Perché stai andando in un cerchio?! Quella parola è stata usata solo di recente!**",
+    "wrongChar": "**Non puoi leggere?! Quella parola non inizia con il carattere dell'ultima parola.**"
   }
 }
