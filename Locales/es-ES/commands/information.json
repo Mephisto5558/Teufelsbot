@@ -240,7 +240,7 @@
       "1": "Streams {activity}",
       "2": "Escucha a {activity}",
       "3": "Viste {activity}",
-      "4": "Estado: \"{message}\")\n",
+      "4": "Estado: \"{message}\"\n",
       "5": "Compitiendo en {activity}"
     },
     "mention": "Mención",

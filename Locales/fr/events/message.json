@@ -8,7 +8,8 @@
   },
   "wordchain": {
     "error": "VOUS RECONNAISSEZ UNE CHAÎNE DE **{count}** MOTS À \"**{lastChar}**\"!! Redémarrez en écrivant n'importe quel mot.\n",
-    "wrongChar": "**Vous ne pouvez pas lire?! Ce mot ne commence pas par le caractère du dernier mot.**",
-    "sameUserTwice": "**Tu ne peux pas dire deux mots de suite !**"
+    "sameUserTwice": "**Tu ne peux pas dire deux mots de suite !**",
+    "inALoop": "**Pourquoi tu vas dans un cercle?! Ce mot n'a été utilisé que récemment!**",
+    "wrongChar": "**Vous ne pouvez pas lire?! Ce mot ne commence pas par le caractère du dernier mot.**"
   }
 }
