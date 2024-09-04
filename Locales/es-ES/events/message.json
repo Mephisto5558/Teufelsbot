@@ -8,7 +8,8 @@
   },
   "wordchain": {
     "error": "HAS RUINADO UNA CADENA DE **{count}** FUNCIONA A \"**{lastChar}**\"!! Reinicia escribiendo cualquier palabra.\n",
-    "wrongChar": "**¿No puedes leer?! Esa palabra no empieza con el carácter de la última palabra.**",
-    "sameUserTwice": "**¡No puedes decir dos palabras seguidas!**"
+    "sameUserTwice": "**¡No puedes decir dos palabras seguidas!**",
+    "inALoop": "**¿Por qué vas en un círculo?! ¡Esa palabra sólo se usó recientemente!**",
+    "wrongChar": "**¿No puedes leer?! Esa palabra no empieza con el carácter de la última palabra.**"
   }
 }
