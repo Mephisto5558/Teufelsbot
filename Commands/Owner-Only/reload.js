@@ -70,7 +70,7 @@ async function reloadCommand(command, reloadedArray) {
           log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${file.name})`); // NOSONAR S1874
         }
         else {
-          cmdId = (await this.application.commands.create({ ...file, name: alias.name })).id;
+          cmdId = (await this.application.commands.create({ ...file, name: alias })).id;
           log(`Reloaded Slash Command ${alias} (Alias of ${file.name})`); // NOSONAR S1874
         }
 
