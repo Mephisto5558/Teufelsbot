@@ -15,14 +15,12 @@ async function reloadCommand(command, reloadedArray) {
 
   /** @type {SlashCommand | PrefixCommand | MixedCommand} */
   let file = {};
-  try { file = require(command.filePath); }
+  try {
+    file = formatCommand(require(command.filePath), command.filePath, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n);
+  }
   catch (err) {
     if (err.code != 'MODULE_NOT_FOUND') throw err;
   }
-
-  const slashFile = file.slashCommand
-    ? formatCommand(file, command.filePath, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n)
-    : undefined;
 
   this.prefixCommands.delete(command.name); // NOSONAR S1874
   if (file.prefixCommand) {
@@ -37,46 +35,46 @@ async function reloadCommand(command, reloadedArray) {
     }
   }
 
-  if (slashFile) {
-    const equal = slashCommandsEqual(slashFile, command);
-    if (equal) slashFile.id = command.id;
+  if (file.slashCommand) {
+    const equal = slashCommandsEqual(file, command);
+    if (equal) file.id = command.id;
     else {
       if (command.id) await this.application.commands.delete(command.id);
-      if (slashFile.disabled || this.botType == 'dev' && !slashFile.beta) {
-        slashFile.id = command.id;
-        log(`Skipped/Deleted Disabled Slash Command ${slashFile.name}`);
+      if (file.disabled || this.botType == 'dev' && !file.beta) {
+        file.id = command.id;
+        log(`Skipped/Deleted Disabled Slash Command ${file.name}`); // NOSONAR S1874
       }
       else {
-        slashFile.id = (await this.application.commands.create(slashFile)).id;
-        log(`Reloaded Slash Command ${slashFile.name}`);
+        file.id = (await this.application.commands.create(file)).id;
+        log(`Reloaded Slash Command ${file.name}`); // NOSONAR S1874
       }
     }
 
     this.slashCommands.delete(command.name); // NOSONAR S1874
-    this.slashCommands.set(slashFile.name, slashFile);
-    reloadedArray.push(`</${slashFile.name}:${slashFile.id ?? 0}>`);
+    this.slashCommands.set(file.name, file); // NOSONAR S1874
+    reloadedArray.push(`</${file.name}:${file.id ?? 0}>`); // NOSONAR S1874
 
-    for (const alias of [...slashFile.aliases?.slash ?? [], ...command.aliases.slash ?? []].unique()) {
+    for (const alias of [...file.aliases?.slash ?? [], ...command.aliases?.slash ?? []].unique()) {
       const { id } = this.slashCommands.get(alias) ?? {};
       let cmdId;
 
       if (equal) {
         this.slashCommands.delete(alias);
-        this.slashCommands.set(alias, { ...slashFile, id, aliasOf: slashFile.name });
+        this.slashCommands.set(alias, { ...file, id, aliasOf: file.name }); // NOSONAR S1874
       }
       else {
         this.slashCommands.delete(alias);
 
-        if (slashFile.disabled || this.botType == 'dev' && !slashFile.beta) {
+        if (file.disabled || this.botType == 'dev' && !file.beta) {
           if (id) await this.application.commands.delete(id);
-          log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${slashFile.name})`);
+          log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${file.name})`); // NOSONAR S1874
         }
         else {
-          cmdId = (await this.application.commands.create({ ...slashFile, name: alias.name })).id;
-          log(`Reloaded Slash Command ${alias} (Alias of ${slashFile.name})`);
+          cmdId = (await this.application.commands.create({ ...file, name: alias.name })).id;
+          log(`Reloaded Slash Command ${alias} (Alias of ${file.name})`); // NOSONAR S1874
         }
 
-        this.slashCommands.set(alias, { ...slashFile, id: cmdId, aliasOf: slashFile.name });
+        this.slashCommands.set(alias, { ...file, id: cmdId, aliasOf: file.name }); // NOSONAR S1874
       }
 
       reloadedArray.push(`</${alias}:${cmdId ?? 0}>`);
@@ -147,7 +145,7 @@ module.exports = new PrefixCommand({
       log.error('Error while trying to reload a command:\n', err);
     }
 
-    const commands = reloadedArray.filter(Boolean).reduce((acc, e) => acc + (e.startsWith('<') ? e : `\`${e}\``) + ', ', '').slice(0, -2);
+    const commands = reloadedArray.filter(Boolean).map(e => e.startsWith('<') ? e : `\`${e}\``).join(', ');
     return msg.edit(lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
       count: reloadedArray.length,
       commands: commands.length < 800 ? commands : commands.slice(0, Math.max(0, commands.slice(0, 800).lastIndexOf('`,') + 1)) + '...'
