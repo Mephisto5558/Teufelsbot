@@ -195,7 +195,7 @@
         }
       },
       "remove_prefix": {
-        "description": "Entferne ein Präfix für den Bot.",
+        "description": "Entferne einen Präfix für den Bot.",
         "options": {
           "prefix": {
             "description": "der Präfix, der für diesen Server entfernt werden soll"
