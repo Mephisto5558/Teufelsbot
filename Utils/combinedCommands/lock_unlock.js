@@ -8,7 +8,7 @@ module.exports = async function lock_unlock(lang) {
   this.args?.shift();
 
   const
-    msg = await this.customReply(lang('global.loading')),
+    msg = await this.customReply(lang('global.loading', getEmoji('loading'))),
 
     /** @type {import('discord.js').BaseGuildTextChannel}*/
     channel = getTargetChannel(this, { returnSelf: true }),

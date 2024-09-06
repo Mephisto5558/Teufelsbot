@@ -33,12 +33,13 @@ function checkPerm(backup) {
 /**
  * @param {GuildInteraction}interaction
  * @param {EmbedBuilder}embed
- * @param {lang}lang*/
-function createProxy(interaction, embed, lang) {
+ * @param {lang}lang
+ * @param {Record<string, string | number> | string | number}langKeys*/
+function createProxy(interaction, embed, lang, langKeys) {
   return new Proxy({ status: undefined }, {
     set(obj, prop, value) {
       obj[prop] = value;
-      void interaction.editReply({ embeds: [embed.setDescription(lang(value))] });
+      void interaction.editReply({ embeds: [embed.setDescription(lang(value, langKeys))] });
       return true;
     }
   });
@@ -50,7 +51,7 @@ const backupMainFunctions = {
     embed.data.color = Colors.White;
 
     const
-      statusObj = createProxy(this, embed, lang),
+      statusObj = createProxy(this, embed, lang, getEmoji('loading')),
       backup = await this.client.backupSystem.create(this.guild, {
         save: true, backupMembers: true,
         metadata: [
@@ -64,7 +65,7 @@ const backupMainFunctions = {
 
   load: async function loadBackup(lang, embed, id) {
     if (!this.client.backupSystem.get(id)) return this.editReply({ embeds: [embed.setDescription(lang('load.noneFound'))] });
-    if (!checkPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('load.backupNoPerm'))] });
+    if (!checkPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('load.noPerm'))] });
 
     const component = new ActionRowBuilder({
       components: [
@@ -97,7 +98,7 @@ const backupMainFunctions = {
           return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('load.enableDMs'))], components: [] });
         }
 
-        const statusObj = createProxy.call(this, embed, lang);
+        const statusObj = createProxy.call(this, embed, lang, getEmoji('loading'));
 
         try {
           const backup = await this.client.backupSystem.load(id, this.guild, {

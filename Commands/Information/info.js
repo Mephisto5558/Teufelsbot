@@ -36,9 +36,9 @@ module.exports = {
       { website, github, discordInvite, disableWebserver } = this.client.config;
 
     if (github.repo)
-      component.components.push(createButton(lang('links.repo'), github.repo, '<:icon_github:1265277659282145383>'));
+      component.components.push(createButton(lang('links.repo'), github.repo, getEmoji('icon_github')));
     if (discordInvite)
-      component.components.push(createButton(lang('links.discord'), discordInvite, '<:icon_discord:1265278382443204719>'));
+      component.components.push(createButton(lang('links.discord'), discordInvite, getEmoji('icon_discord')));
 
     if (!disableWebserver) {
       if (website.invite) component.components.push(createButton(lang('links.invite'), website.invite));

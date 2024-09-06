@@ -1,7 +1,7 @@
 {
   "languageName": "English",
   "messageSent": "Message sent!",
-  "loading": "<a:loading:1265274270645354577> Loading...",
+  "loading": "{emoji} Loading...",
   "channel": "Channel",
   "guild": "Guild",
   "user": "User",
