@@ -8,6 +8,8 @@ const
   { readdir } = require('node:fs/promises'),
   { WebServer } = require('@mephisto5558/bot-website'),
   { prototypeRegisterer: _, GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec } = require('#Utils'),
+  /* eslint-disable-next-line @typescript-eslint/unbound-method -- fine here*/
+  syncEmojis = require('./TimeEvents/syncEmojis.js').onTick,
 
   createClient = /** @returns {Client<false>}*/ () => new Client({
     shards: 'auto',
@@ -77,6 +79,7 @@ void (async function main() {
   }
 
   validateConfig();
+  await syncEmojis();
 
   const client = createClient();
   await client.loadEnvAndDB();
@@ -84,6 +87,9 @@ void (async function main() {
   // WIP: client.backupSystem = new BackupSystem(client.db, { dbName: 'backups', maxGuildBackups: 5 });
 
   if (client.botType != 'dev') client.giveawaysManager = new GiveawaysManager(client);
+
+  /** @param {string}emoji*/
+  global.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();
 
   // Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution
   const handlerPromises = (await readdir('./Handlers')).filter(e => e != 'event_handler.js').map(handler => require(`./Handlers/${handler}`).call(client));

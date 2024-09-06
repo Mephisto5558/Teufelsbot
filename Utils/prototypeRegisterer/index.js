@@ -47,12 +47,13 @@ const config = setDefaultConfig();
 if (!config.hideOverwriteWarning) {
   console.warn(
     'Overwriting the following variables and functions (if they exist):'
-    + `Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} global.sleep, global.log, Array#random, Array#unique, `
+    + '\n  Globals:    global.sleep, global.log, global.getEmoji'
+    + `\n  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} Array#random, Array#unique, `
     + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind'
-    + 'Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
+    + '\n  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
     + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, Guild#db, guild#updateDB, '
-    + 'Guild#localeCode, GuildMember#db.\n'
-    + 'Modifying Discord.js Message._patch method.'
+    + 'Guild#localeCode, GuildMember#db'
+    + '\n  Modifying Discord.js Message._patch method.'
   );
 }
 

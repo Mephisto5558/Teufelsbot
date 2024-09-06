@@ -14,7 +14,10 @@ module.exports = {
       average = this.options?.getBoolean('average') ?? this.args?.[0] == 'average',
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: lang(average ? 'average.loading' : 'global.loading', { current: 1, target: 20, timestamp: Math.floor(Date.now() / 1000) + 4 }), // 4 due to the moment it takes to update the embed
+        description: lang(
+          average ? 'average.loading' : 'global.loading',
+          { emoji: getEmoji('loading'), current: 1, target: 20, timestamp: Math.floor(Date.now() / 1000) + 4 }
+        ), // 4 due to the moment it takes to update the embed
         color: Colors.Green
       }),
       startFirstMessagePing = performance.now(),

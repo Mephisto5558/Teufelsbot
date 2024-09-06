@@ -1,7 +1,7 @@
 {
   "languageName": "Español",
   "messageSent": "¡Mensaje enviado!",
-  "loading": "<a:loading:1265274270645354577> Cargando...",
+  "loading": "{emoji} Cargando...",
   "channel": "Canal",
   "guild": "Gremio",
   "user": "Usuario",

@@ -368,8 +368,8 @@
     "description": "tells your friends that you are going to sleep",
     "responseList": [
       "{user} is tired and goes now to sleep :3",
-      "{user} goes now to bed <:angel:1265278659166732320>",
-      "{user} sleeps now, hopefully he/she doesn't snores <:derp_ball:1265275872630407199>"
+      "{user} goes now to bed {emoji}",
+      "{user} sleeps now, hopefully he/she doesn't snores {emoji}"
     ],
     "afkMessage": "sleeping"
   },

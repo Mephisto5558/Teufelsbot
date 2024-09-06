@@ -42,7 +42,7 @@ module.exports = {
     }
 
     const
-      msg = await this.customReply({ embeds: [embed.setDescription(lang('global.loading'))] }),
+      msg = await this.customReply({ embeds: [embed.setDescription(lang('global.loading', getEmoji('loading')))] }),
       baseAvatar = await loadImage((type == 'server' ? base : base.user).displayAvatarURL({ extension: ImageFormat.PNG, size: 512 })),
       overlayAvatar = await loadImage(overlay.displayAvatarURL({ extension: ImageFormat.PNG, size: 512 })),
       canvas = createCanvas(baseAvatar.width, baseAvatar.height),

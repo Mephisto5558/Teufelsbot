@@ -360,8 +360,8 @@
     "description": "dit à vos amis que vous allez dormir",
     "responseList": [
       "{user} est fatigué et va dormir :3",
-      "{user} va maintenant au lit <:angel:1265278659166732320>",
-      "{user} dort maintenant, espérons-le, il/elle ne ronge pas <:derp_ball:1265275872630407199>"
+      "{user} va maintenant au lit {emoji}",
+      "{user} dort maintenant, espérons-le, il/elle ne ronge pas {emoji}"
     ],
     "afkMessage": "dormir"
   },

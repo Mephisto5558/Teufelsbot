@@ -10,6 +10,6 @@ module.exports = {
     void setAfkPrefix(this.member, 'set');
 
     await this.user.updateDB('afkMessage', { message: lang('afkMessage'), createdAt: this.createdAt });
-    return this.customReply(lang('responseList', this.member.customName));
+    return this.customReply(lang('responseList', { user: this.member.customName, emoji: [getEmoji('angel'), getEmoji('derp_ball')].random() }));
   }
 };

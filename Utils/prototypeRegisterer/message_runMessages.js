@@ -77,10 +77,9 @@ async function handleWordchain() {
   }
 }
 
-/* eslint-disable jsdoc/valid-types -- `this` is set from `@type`, but `@typescript-eslint/no-invalid-this` does not recognize that.*/
 /**
  * @type {import('.').runMessages}
- * @this*/ /* eslint-enable jsdoc/valid-types*/
+ * @this {ThisParameterType<import('.').runMessages>}*/
 function runMessages() {
   if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: 5000 }))
     void this.react('👀');
@@ -92,7 +91,8 @@ function runMessages() {
 
   // Regex to match any letter from any language (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes)
   else if (/^\p{L}+$/u.test(this.originalContent)) void handleWordchain.call(this);
-  if (!this.originalContent.toLowerCase().includes('--afkignore')) void removeAfkStatus.call(this);
+  if (!this.originalContent.toLowerCase().includes('--afkignore') && !(this.originalContent.startsWith('(') && this.originalContent.endsWith(')')))
+    void removeAfkStatus.call(this);
   if (!cooldowns.call(this, 'afkMsg', { channel: 1e4, user: 1e4 })) void sendAfkMessages.call(this);
 
   return this;

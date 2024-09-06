@@ -9,16 +9,30 @@ export {
   playAgain
 };
 
-declare class Log extends Function {
-  constructor();
+declare enum LogLevels {
+  debug = 0,
+  log = 1,
+  info = 2,
+  warn = 3,
+  error = 4
+}
 
+declare class Log extends Function {
+  /** @default logLevel='log'; logFilesDir='./Logs'*/
+  constructor(logLevel?: keyof typeof LogLevels, logFileDir?: string);
+
+  date: `${number}${number}-${number}${number}-${number}${number}${number}${number}`;
+  logLevel: keyof typeof LogLevels;
+  logFilesDir: string;
+
+  debug(...str: unknown[]): this;
   log(...str: unknown[]): this;
+  info(...str: unknown[]): this;
   warn(...str: unknown[]): this;
   error(...str: unknown[]): this;
-  debug(...str: unknown[]): this;
 
   /** @default file='log'; type='Bot' */
-  _log({ file, type }: { file?: string; type?: string }, ...str: unknown[]): this;
+  _log({ file, type }: { file?: keyof typeof LogLevels; type?: string }, ...str: unknown[]): this;
 }
 
 /** Modified from the default one to set additional properties and modify the message content. */

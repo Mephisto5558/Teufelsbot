@@ -58,7 +58,7 @@ module.exports.setAfkStatus = async function setAfkStatus(lang, global, message)
  * @this {ThisParameterType<import('.')['afk']['removeAfkStatus']>}
  * Here due to `@typescript-eslint/no-invalid-this`*/
 module.exports.removeAfkStatus = async function removeAfkStatus() {
-  if (!this.member || !this.channel || !this.guild) return; // `!this.channel || !this.guild` as typeguard
+  if (!this.member || !this.guild) return; // `!this.guild` as typeguard
 
   const { createdAt, message } = this.guild.db.afkMessages?.[this.member.id] ?? this.member.user.db.afkMessage ?? {}; // `member.user` for VoiceState support
   if (!message) return;
@@ -70,7 +70,7 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
 
   const msg = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkEnd', { timestamp: Math.round(createdAt.getTime() / 1000), message });
   if ('customReply' in this) return this.customReply(msg);
-  if (this.channel.permissionsFor(this.member.id).has(PermissionFlagsBits.SendMessages) && this.channel.permissionsFor(this.client.user.id).has(PermissionFlagsBits.SendMessages))
+  if (this.channel?.permissionsFor(this.member.id).has(PermissionFlagsBits.SendMessages) && this.channel.permissionsFor(this.client.user.id).has(PermissionFlagsBits.SendMessages))
     return this.channel.send(`<@${this.member.id}>\n` + msg);
 };
 

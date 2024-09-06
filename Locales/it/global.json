@@ -1,7 +1,7 @@
 {
   "languageName": "Italiano",
   "messageSent": "Messaggio inviato!",
-  "loading": "<a:loading:1265274270645354577> Caricamento...",
+  "loading": "{emoji} Caricamento...",
   "channel": "Canale",
   "guild": "Gilda",
   "user": "Utente",
