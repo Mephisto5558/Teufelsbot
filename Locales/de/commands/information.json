@@ -145,7 +145,7 @@
     "messageSend": "Nachricht senden"
   },
   "prefix": {
-    "description": "Zeigt den Bot-Präfix des Servers",
+    "description": "Zeigt die Bot-Präfixe des Servers",
     "currentPrefixes": "Meine aktuellen Präfixe lauten:\n{prefixes}",
     "caseInsensitive": " (beachtet Groß/Kleinschreibung)"
   },
