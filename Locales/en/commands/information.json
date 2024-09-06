@@ -145,7 +145,7 @@
     "messageSend": "Message Send"
   },
   "prefix": {
-    "description": "Shows guild's bot prefix",
+    "description": "Shows guild's bot prefixes",
     "currentPrefixes": "My current prefixes are:\n{prefixes}",
     "caseInsensitive": " (case insensitive)"
   },
