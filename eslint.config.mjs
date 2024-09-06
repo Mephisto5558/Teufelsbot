@@ -14,6 +14,7 @@ export default [
         sleep: 'readonly',
         // see #Utils/prototypeRegisterer/index.js
         log: 'readonly',
+        getEmoji: 'readonly',
         SlashCommand: 'readonly',
         PrefixCommand: 'readonly',
         MixedCommand: 'readonly',

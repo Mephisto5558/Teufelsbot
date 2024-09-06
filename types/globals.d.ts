@@ -186,6 +186,9 @@ declare global {
     /* eslint-enable @typescript-eslint/no-explicit-any */
   };
 
+  /** Get an application Emoji's mention by it's name.*/
+  const getEmoji: (emoji: string) => `<a:${string}:${number}>` | `<${string}:${number}>` | undefined;
+
   type Snowflake = Discord.Snowflake;
 
   type Database = DBStructure.Database;
