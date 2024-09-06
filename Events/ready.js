@@ -4,6 +4,8 @@ const
 
 /** @this {Client<true>}*/
 module.exports = async function ready() {
+  await this.application.emojis.fetch(); // Required for global.getEmoji() to work
+
   this.user.setActivity(this.settings.activity ?? { name: '/help', type: ActivityType.Playing });
   log('Ready to receive prefix commands');
 

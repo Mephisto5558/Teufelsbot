@@ -13,6 +13,7 @@ export default [
         // promisified setTimeout
         sleep: 'readonly',
         log: 'readonly',
+        getEmoji: 'readonly',
         SlashCommand: 'readonly',
         PrefixCommand: 'readonly',
         MixedCommand: 'readonly',
