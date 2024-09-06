@@ -146,9 +146,11 @@ module.exports = new PrefixCommand({
     }
 
     const commands = reloadedArray.filter(Boolean).map(e => e.startsWith('<') ? e : `\`${e}\``).join(', ');
-    return msg.edit(lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
+    void msg.edit(lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
       count: reloadedArray.length,
       commands: commands.length < 800 ? commands : commands.slice(0, Math.max(0, commands.slice(0, 800).lastIndexOf('`,') + 1)) + '...'
     }));
+
+    log.debug('Finished reloading commands.');
   }
 });
