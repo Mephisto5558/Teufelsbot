@@ -10,7 +10,7 @@ module.exports = new PrefixCommand({
   beta: true,
 
   run: async function (lang) {
-    const msg = await this.reply(lang('global.loading'));
+    const msg = await this.reply(lang('global.loading', getEmoji('loading')));
 
     try {
       const { stdout = lang('global.none'), stderr } = await shellExec(this.content);

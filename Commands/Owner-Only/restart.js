@@ -18,7 +18,7 @@ module.exports = new PrefixCommand({
     /** @type {Message<false> | undefined}*/
     let msg;
     if (!this.content.toLowerCase().includes('skipnpm')) {
-      msg = await this.reply(lang('updatingNPM'));
+      msg = await this.reply(lang('updatingNPM', getEmoji('loading')));
 
       try { await shellExec('npm install'); }
       catch {
@@ -29,7 +29,7 @@ module.exports = new PrefixCommand({
     }
 
     /* eslint-disable-next-line require-atomic-updates */
-    msg = await (msg ?? this)[getUpdateFunc(msg ?? this)](lang('restarting'));
+    msg = await (msg ?? this)[getUpdateFunc(msg ?? this)](lang('restarting', getEmoji('loading')));
 
     let child;
     try {

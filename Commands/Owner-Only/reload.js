@@ -99,7 +99,7 @@ module.exports = new PrefixCommand({
     log.debug('Reloading files', this.args);
 
     const
-      msg = await this.reply(lang('global.loading')),
+      msg = await this.reply(lang('global.loading', getEmoji('loading'))),
       commandList = new Collection([...this.client.prefixCommands, ...this.client.slashCommands]),
 
       /** @type {(string | undefined)[]}*/

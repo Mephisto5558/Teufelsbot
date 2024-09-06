@@ -15,7 +15,7 @@ module.exports = new MixedCommand({
   run: async function (lang) {
     const
       pokemon = this.options?.getString('pokémon', true) ?? this.args[0],
-      msg = await this.customReply(lang('global.loading'));
+      msg = await this.customReply(lang('global.loading', getEmoji('loading')));
 
     let res = cache.get(pokemon.toLowerCase());
     if (!res) {
