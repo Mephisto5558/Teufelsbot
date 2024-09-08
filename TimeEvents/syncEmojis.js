@@ -38,7 +38,7 @@ module.exports = {
       if (!this.application.emojis.cache.size) await this.application.emojis.fetch();
     }
 
-    log('Syncing emojis between clients...').debug('Syncing emojis between clients...');
+    log('Started emoji sync').debug('Started emoji sync');
     const clients = Object.entries(config).map(([k, v]) => [k, v.keys.token]).filter(([, v]) => v);
 
     for (const [env1, token1] of clients) {
@@ -60,6 +60,6 @@ module.exports = {
 
     // Log out of the clients
     for (const session of Object.values(sessions)) if (this != session) void session.destroy();
-    log('Done syncing emojis.').debug('Done syncing emojis.');
+    log('Finished emoji sync').debug('Finished emoji sync');
   }
 };
