@@ -86,7 +86,7 @@ module.exports = {
   onTick: async function () {
     const now = new Date();
 
-    if (this.settings.timeEvents.lastDBCleanup.toDateString() == now.toDateString()) return void log('Already ran DB cleanup today');
+    if (this.settings.timeEvents.lastDBCleanup?.toDateString() == now.toDateString()) return void log('Already ran DB cleanup today');
     log('Started DB cleanup');
 
     // See https://github.com/microsoft/TypeScript/issues/43756 for why using let here

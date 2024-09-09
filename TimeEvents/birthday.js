@@ -32,7 +32,7 @@ module.exports = {
       nowMonth = now.getMonth(),
       nowDate = now.getDate();
 
-    if (this.settings.timeEvents.lastBirthdayCheck.toDateString() == now.toDateString()) return void log('Already ran birthday check today');
+    if (this.settings.timeEvents.lastBirthdayCheck?.toDateString() == now.toDateString()) return void log('Already ran birthday check today');
     log('Started birthday check');
 
     const defaultSettings = this.defaultSettings.birthday;

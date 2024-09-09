@@ -22,7 +22,6 @@ module.exports = {
   GiveawaysManager: require('./giveawaysManager.js'),
   localizeUsage: require('./localizeUsage.js'),
   logSayCommandUse: require('./logSayCommandUse.js'),
-  slashCommandsEqual: require('./slashCommandsEqual.js'),
   permissionTranslator: require('./permissionTranslator.js'),
   shellExec: require('./shellExec.js'),
   prototypeRegisterer: require('./prototypeRegisterer'),
