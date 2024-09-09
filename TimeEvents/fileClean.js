@@ -25,13 +25,13 @@ module.exports = {
   onTick: async function () {
     const now = new Date();
 
-    if (this.settings.lastFileClear.toDateString() == now.toDateString()) return void log('Already ran file deletion today');
+    if (this.settings.timeEvents.lastFileClear.toDateString() == now.toDateString()) return void log('Already ran file deletion today');
     log('Started file deletion');
 
     void deleteOld('./VoiceRecords');
     void deleteOld('./Logs');
 
-    await this.db.update('botSettings', 'lastFileClear', now);
+    await this.db.update('botSettings', 'timeEvents.lastFileClear', now);
     log('Finished file deletion');
   }
 };
