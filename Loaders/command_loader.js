@@ -16,7 +16,7 @@ module.exports = async function commandLoader() {
       if (!fileName.endsWith('.js')) continue;
 
       /** @type {SlashCommand | PrefixCommand | MixedCommand | undefined}*/
-      const command = require(join(COMMANDS_FOLDER, categoryFolder, fileName));
+      const command = require(join(process.cwd(), COMMANDS_FOLDER, categoryFolder, fileName));
       if (!command) continue;
 
       if (command.slashCommand) this.commands.slash.set(command.name, command);

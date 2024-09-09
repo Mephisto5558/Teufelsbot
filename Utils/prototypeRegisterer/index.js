@@ -141,8 +141,9 @@ Object.defineProperty(BaseInteraction.prototype, 'customReply', {
   enumerable: false
 });
 Object.defineProperties(Client.prototype, {
-  prefixCommands: { value: new Collection() },
-  slashCommands: { value: new Collection() },
+  commands: {
+    value: { slash: new Collection(), prefix: new Collection() }
+  },
   i18n: {
     value: new I18nProvider({
       notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: join(process.cwd(), 'Locales'),

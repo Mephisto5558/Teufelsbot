@@ -283,8 +283,10 @@ declare module 'discord.js' {
   type Snowflake = `${number}`;
 
   interface Client<Ready> {
-    prefixCommands: Discord.Collection<PrefixCommand['name'], PrefixCommand>;
-    slashCommands: Discord.Collection<SlashCommand['name'], SlashCommand>;
+    commands: {
+      slash: Discord.Collection<SlashCommand['name'], SlashCommand | MixedCommand>;
+      prefix: Discord.Collection<PrefixCommand['name'], PrefixCommand | MixedCommand>;
+    };
     backupSystem?: BackupSystem.BackupSystem;
     giveawaysManager?: GiveawaysManager;
 
