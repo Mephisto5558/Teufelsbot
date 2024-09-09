@@ -67,6 +67,12 @@ type Database = {
     };
     cmdStats: cmdStats;
     blacklist?: userId[];
+    timeEvents: {
+      lastFileClear?: Date;
+      lastBirthdayCheck?: Date;
+      lastDBCleanup?: Date;
+      lastEmojiSync?: Date;
+    };
     defaultGuild: {
       config: {
         lang: string;
@@ -96,9 +102,6 @@ type Database = {
     };
 
     patreonBonuses?: Record<string, unknown>;
-    lastFileClear?: Date;
-    lastBirthdayCheck?: Date;
-    lastDBCleanup?: Date;
   };
 
   leaderboards: Record<string, Record<userId, {

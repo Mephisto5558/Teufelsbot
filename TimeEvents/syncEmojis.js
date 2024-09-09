@@ -28,6 +28,10 @@ module.exports = {
 
   /** @this {Client | void}*/
   onTick: async function () {
+    const now = new Date();
+
+    if (this.settings.timeEvents.lastEmojiSync.toDateString() == now.toDateString()) return void log('Already ran emoji sync today');
+
     /** @type {Record<string, Client | undefined>} */
     const sessions = {};
 
@@ -60,6 +64,9 @@ module.exports = {
 
     // Log out of the clients
     for (const session of Object.values(sessions)) if (this != session) void session.destroy();
+
+    await this.db.update('botSettings', 'timeEvents.lastEmojiSync', now);
+
     log('Finished emoji sync').debug('Finished emoji sync');
   }
 };
