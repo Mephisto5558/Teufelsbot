@@ -86,7 +86,7 @@ module.exports = {
   onTick: async function () {
     const now = new Date();
 
-    if (this.settings.lastDBCleanup.toDateString() == now.toDateString()) return void log('Already ran DB cleanup today');
+    if (this.settings.timeEvents.lastDBCleanup?.toDateString() == now.toDateString()) return void log('Already ran DB cleanup today');
     log('Started DB cleanup');
 
     // See https://github.com/microsoft/TypeScript/issues/43756 for why using let here
@@ -101,7 +101,7 @@ module.exports = {
 
     log('Cleaned guilds, giveaways, lastMentions, afkMessages & minigames DB');
 
-    await this.db.update('botSettings', 'lastDBCleanup', now);
+    await this.db.update('botSettings', 'timeEvents.lastDBCleanup', now);
     log('Finished DB cleanup');
   }
 };

@@ -32,7 +32,7 @@ module.exports = {
       nowMonth = now.getMonth(),
       nowDate = now.getDate();
 
-    if (this.settings.lastBirthdayCheck.toDateString() == now.toDateString()) return void log('Already ran birthday check today');
+    if (this.settings.timeEvents.lastBirthdayCheck?.toDateString() == now.toDateString()) return void log('Already ran birthday check today');
     log('Started birthday check');
 
     const defaultSettings = this.defaultSettings.birthday;
@@ -85,7 +85,7 @@ module.exports = {
       }
     }
 
-    await this.db.update('botSettings', 'lastBirthdayCheck', now);
+    await this.db.update('botSettings', 'timeEvents.lastBirthdayCheck', now);
     log('Finished birthday check');
   }
 };

@@ -22,9 +22,9 @@ module.exports = {
   GiveawaysManager: require('./giveawaysManager.js'),
   localizeUsage: require('./localizeUsage.js'),
   logSayCommandUse: require('./logSayCommandUse.js'),
-  slashCommandsEqual: require('./slashCommandsEqual.js'),
   permissionTranslator: require('./permissionTranslator.js'),
   shellExec: require('./shellExec.js'),
+  slashCommandsEqual: require('./slashCommandsEqual.js'),
   prototypeRegisterer: require('./prototypeRegisterer'),
   timeFormatter: require('./timeFormatter.js'),
   timeValidator: require('./timeValidator.js')

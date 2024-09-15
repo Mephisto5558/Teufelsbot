@@ -1,4 +1,8 @@
-const { ActivityType } = require('discord.js');
+const
+  { ActivityType } = require('discord.js'),
+
+  /** @type {Record<string, ActivityType | string | undefined>}*/
+  ActivityTypes = Object.fromEntries(Object.entries(ActivityType).map(([k, v]) => [k.toLowerCase(), v]));
 
 /** @type {command<'prefix', false>}*/
 module.exports = {
@@ -7,29 +11,29 @@ module.exports = {
   dmPermission: true,
   options: [
     {
-      name: 'activity',
-      type: 'String',
-      required: true
-    },
-    {
       name: 'type',
       type: 'String',
-      choices: Object.entries(ActivityType).flatMap(([e]) => e)
-    }
+      choices: Object.entries(ActivityType).flatMap(([e]) => e.toLowerCase())
+    },
+    { name: 'activity', type: 'String' }
   ],
 
   run: async function (lang) {
-    const
-      args = this.content.split(';'),
-      activity = args.shift();
+    if (!this.content) {
+      await this.client.db.delete('botSettings', 'activity');
+      return this.customReply(lang('reset'));
+    }
 
-    let type = args[0] ? ActivityType[Object.keys(ActivityType).find(e => e.toLowerCase() == args[0].toLowerCase())] : ActivityType.Playing;
+    const activity = {
+      type: ActivityTypes[this.args[0].toLowerCase()],
+      name: this.args.slice(1).join(' ')
+    };
 
-    if (Number.isNaN(Number.parseInt(type))) type = ActivityType[type];
+    if (typeof activity.type == 'string') activity.type = ActivityType[activity.type];
 
-    this.client.user.setActivity({ name: activity, type });
-    await this.client.db.update('botSettings', 'activity', { name: activity, type });
+    this.client.user.setActivity(activity);
+    await this.client.db.update('botSettings', 'activity', activity);
 
-    return this.customReply(activity ? lang('set', { name: activity, type: ActivityType[type] }) : lang('reset'));
+    return this.customReply(lang('set', { name: activity.name, type: ActivityType[activity.type] }));
   }
 };
