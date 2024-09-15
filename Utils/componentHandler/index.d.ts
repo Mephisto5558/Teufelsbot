@@ -60,7 +60,7 @@ declare function infoCMDs<
   MODE extends 'kick' | 'ban' | 'delete' | 'addToServer' | 'addToServerCMD',
   ENTITY_TYPE extends 'members' | 'emojis' | 'roles'
 >(
-  this: ButtonInteraction | ModalSubmitInteraction & { customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}` },
+  this: (ButtonInteraction | ModalSubmitInteraction) & { customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}` },
   lang: lang, id: ID, mode: MODE, entityType: ENTITY_TYPE
 ): Promise<InteractionResponse | Message | undefined>;
 
