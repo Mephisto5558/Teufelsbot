@@ -1,5 +1,5 @@
 /* eslint-disable camelcase */
-import type { BaseInteraction, ButtonInteraction, Collection, GuildMember, InteractionResponse, ModalSubmitInteraction, StringSelectMenuInteraction } from 'discord.js';
+import type { BaseInteraction, ButtonInteraction, Collection, GuildMember, InteractionResponse, StringSelectMenuInteraction } from 'discord.js';
 import type { commandExecutionWrapper } from '..';
 
 export {
@@ -57,10 +57,10 @@ declare function help<TYPE extends 'command' | 'category' | 'all'>(
 
 declare function infoCMDs<
   ID extends Snowflake,
-  MODE extends 'kick' | 'ban' | 'delete' | 'addToServer' | 'addToServerCMD',
+  MODE extends 'kick' | 'ban' | 'delete' | 'addToGuild' | 'addToSelectedGuild',
   ENTITY_TYPE extends 'members' | 'emojis' | 'roles'
 >(
-  this: (ButtonInteraction | ModalSubmitInteraction) & { customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}` },
+  this: (ButtonInteraction | StringSelectMenuInteraction) & { customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}` },
   lang: lang, id: ID, mode: MODE, entityType: ENTITY_TYPE
 ): Promise<InteractionResponse | Message | undefined>;
 
