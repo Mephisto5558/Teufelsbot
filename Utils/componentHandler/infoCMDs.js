@@ -68,7 +68,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
               customId: `infoCMDs.${id}.addToSelectedGuild.emojis`,
               minValues: 1,
               options: this.client.guilds.cache.filter(e => e.members.cache.has(this.user.id) && !e.emojis.cache.has(item.id)).map(e => ({ label: e.name, value: e.id })),
-              placeholder: lang('selectMenuPlaceholder')
+              placeholder: lang('add.selectMenuPlaceholder')
             })]
           })
         ];
@@ -107,7 +107,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
           });
         }
 
-        return this.editReply(lang('success'));
+        return this.editReply(lang('add.success'));
       }
       else if (mode == 'delete') {
         if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
