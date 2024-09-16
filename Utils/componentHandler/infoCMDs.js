@@ -62,22 +62,20 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
     case 'emojis':
       if (mode == 'addToGuild') {
         const components = [
-          new ActionRowBuilder({ components: this.message.components[0].components.filter(e => !e.customId.includes('addToGuild')) }),
+          new ActionRowBuilder({ components: this.message.components[0].components.filter(e => !e.customId?.includes('addToGuild')).map(e => e.data) }),
           new ActionRowBuilder({
             components: [new StringSelectMenuBuilder({
               customId: `infoCMDs.${id}.addToSelectedGuild.emojis`,
               minValues: 1,
-              /* eslint-disable-next-line unicorn/no-useless-spread -- not an array*/
-              options: [...this.client.guilds.cache.filter(guild => guild.members.cache.find(member => member.id == this.user.id)).flatMap(e => [{ label: e.name, value: e.id }])],
+              options: this.client.guilds.cache.filter(e => e.members.cache.has(this.user.id) && !e.emojis.cache.has(item.id)).map(e => ({ label: e.name, value: e.id })),
               placeholder: lang('selectMenuPlaceholder')
             })]
           })
         ];
 
-        return this.message.edit({ components });
+        return this.update({ components });
       }
-
-      if (mode == 'addToSelectedGuild') {
+      else if (mode == 'addToSelectedGuild') {
         if (!this.isStringSelectMenu() || !(item instanceof GuildEmoji)) return; // typeguard
 
         for (const guildId of this.values) {
@@ -103,15 +101,19 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
           if (guild.emojis.cache.has(id))
             return this.editReply({ embeds: [embed.setDescription(lang('commands.useful.addemoji.isGuildEmoji'))] });
 
-          await this.guild.emojis.create({
+          await guild.emojis.create({
             attachment: item.imageURL(), name: item.name,
             reason: `emoji add to server button in /${entityType.slice(0, -1)}info, member ${this.user.tag}, server ${this.guild.id}`, user: this.user.tag
           });
         }
+
+        return this.editReply(lang('success'));
+      }
+      else if (mode == 'delete') {
+        if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+        if (!item.deletable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
       }
 
-      if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
-      if (!item.deletable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
       break;
 
     case 'roles':
