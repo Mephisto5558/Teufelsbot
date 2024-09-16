@@ -25,7 +25,11 @@
       "embedTitle": "Delete Emoji",
       "notFound": "The emoji could not be found.",
       "noPerm": "I do not have permission to delete emojis!",
-      "success": "The emoji has been successfully deleted."
+      "success": "The emoji has been successfully deleted.",
+      "add": {
+        "selectMenuPlaceholder": "Select the guild(s) you want to add the emoji to.",
+        "success": "The emoji has been successfully added to the selected guild(s)."
+      }
     },
     "roles": {
       "embedTitle": "Delete Role",

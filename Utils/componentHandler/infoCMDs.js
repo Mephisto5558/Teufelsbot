@@ -1,14 +1,14 @@
 /* eslint camelcase: ["error", {allow: ["ban_kick_mute"]}] */
 
 const
-  { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError } = require('discord.js'),
+  { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError, GuildEmoji, StringSelectMenuBuilder } = require('discord.js'),
   checkTargetManageable = require('../checkTargetManageable.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
   { ban_kick_mute } = require('../combinedCommands');
 
 /** @type {import('.').infoCMDs}*/
 module.exports = async function infoCMDs(lang, id, mode, entityType) {
-  if (entityType != 'members') await this.deferReply();
+  if (entityType != 'members' && mode != 'addToGuild') await this.deferReply();
 
   lang.__boundArgs__[0].backupPath = `events.command.infoCMDs.${entityType}`;
 
@@ -50,7 +50,8 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       this.commandName = mode;
       this.options = { getMember: () => item, getString: () => submit.fields.getTextInputValue('infoCMDs_punish_reason_modal_text'), getNumber: () => 0 };
 
-      /* eslint-disable-next-line @typescript-eslint/unbound-method -- same class, so should be fine*/
+
+      /* eslint-disable-next-line @typescript-eslint/unbound-method -- fine because it has the same `this`*/
       this.editReply = this.followUp;
 
       await submit.deferUpdate();
@@ -59,8 +60,60 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
     }
 
     case 'emojis':
-      if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
-      if (!item.deletable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
+      if (mode == 'addToGuild') {
+        const components = [
+          new ActionRowBuilder({ components: this.message.components[0].components.filter(e => !e.customId?.includes('addToGuild')).map(e => e.data) }),
+          new ActionRowBuilder({
+            components: [new StringSelectMenuBuilder({
+              customId: `infoCMDs.${id}.addToSelectedGuild.emojis`,
+              minValues: 1,
+              options: this.client.guilds.cache.filter(e => e.members.cache.has(this.user.id) && !e.emojis.cache.has(item.id)).map(e => ({ label: e.name, value: e.id })),
+              placeholder: lang('add.selectMenuPlaceholder')
+            })]
+          })
+        ];
+
+        return this.update({ components });
+      }
+      else if (mode == 'addToSelectedGuild') {
+        if (!this.isStringSelectMenu() || !(item instanceof GuildEmoji)) return; // typeguard
+
+        for (const guildId of this.values) {
+          let
+            /** @type {import('discord.js').Guild|undefined}*/guild,
+            /** @type {import('discord.js').GuildMember | undefined}*/guildMember;
+
+          try {
+            guild = await this.client.guilds.fetch(guildId);
+            guildMember = await guild.members.fetch(this.user.id);
+          }
+          catch (err) {
+            if (err.code == DiscordAPIErrorCodes.UnknownGuild) return this.customReply({ embeds: [embed.setDescription(lang('unknownGuild'))] });
+            if (err.code == DiscordAPIErrorCodes.UnknownMember) return this.customReply({ embeds: [embed.setDescription(lang('notAMember'))] });
+
+            throw err;
+          }
+
+          if (!guildMember.permissions.has(PermissionFlagsBits.ManageGuildExpressions))
+            return this.customReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+          if (!guild.members.me.permissions.has(PermissionFlagsBits.ManageGuildExpressions))
+            return this.customReply({ embeds: [embed.setDescription(lang('noPerm'))] });
+          if (guild.emojis.cache.has(id))
+            return this.editReply({ embeds: [embed.setDescription(lang('commands.useful.addemoji.isGuildEmoji'))] });
+
+          await guild.emojis.create({
+            attachment: item.imageURL(), name: item.name,
+            reason: `emoji add to server button in /${entityType.slice(0, -1)}info, member ${this.user.tag}, server ${this.guild.id}`, user: this.user.tag
+          });
+        }
+
+        return this.editReply(lang('add.success'));
+      }
+      else if (mode == 'delete') {
+        if (!this.member.permissions.has(PermissionFlagsBits.ManageGuildExpressions)) return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
+        if (!item.deletable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
+      }
+
       break;
 
     case 'roles':
