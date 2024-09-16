@@ -44,6 +44,11 @@ module.exports = {
             label: lang('global.downloadButton'),
             style: ButtonStyle.Link,
             url
+          }),
+          new ButtonBuilder({
+            customId: `infoCMDs.${emoji.id}.addToGuild.emojis`,
+            label: lang('addToGuild'),
+            style: ButtonStyle.Primary
           })
         ]
       });
