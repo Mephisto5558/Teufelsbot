@@ -92,9 +92,6 @@ void (async function main() {
   /** @param {string}emoji*/
   global.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();
 
-  /** @param {string}emoji*/
-  global.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();^
-  
   // Event loader gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution
   const loaderPromises = (await readdir('./Loaders')).filter(e => e != 'event_loader.js').map(loader => require(`./Loaders/${loader}`).call(client));
   loaderPromises.push(client.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add(app.owner.owner?.id ?? app.owner.id)));
