@@ -25,7 +25,11 @@
       "embedTitle": "Eliminar Emoji",
       "notFound": "El emoji no pudo ser encontrado.",
       "noPerm": "¡No tengo permiso para eliminar emojis!",
-      "success": "El emoji se ha eliminado correctamente."
+      "success": "El emoji se ha eliminado correctamente.",
+      "add": {
+        "selectMenuPlaceholder": "Selecciona el/los gremio(s) a los que quieres añadir los emojis.",
+        "success": "El emoji se ha añadido con éxito al gremio(s) seleccionado(s)."
+      }
     },
     "roles": {
       "embedTitle": "Eliminar rol",
