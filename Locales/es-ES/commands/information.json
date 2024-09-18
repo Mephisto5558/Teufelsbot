@@ -66,6 +66,7 @@
     "available": "Disponible",
     "createdAt": "Creado el",
     "allowedRoles": "Rol permitido",
+    "addToGuild": "Añadir a un gremio",
     "delete": "Eliminar Emoji"
   },
   "help": {
