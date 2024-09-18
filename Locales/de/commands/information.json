@@ -66,6 +66,7 @@
     "available": "Verfügbar",
     "createdAt": "Erstellt",
     "allowedRoles": "Erlaubte Rollen",
+    "addToGuild": "Zum Server hinzufügen",
     "delete": "Emoji Löschen"
   },
   "help": {

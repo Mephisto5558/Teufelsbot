@@ -25,7 +25,11 @@
       "embedTitle": "Supprimer les emojis",
       "notFound": "L'emoji n'a pas pu être trouvé.",
       "noPerm": "Je n'ai pas la permission de supprimer des émoticônes !",
-      "success": "L'emoji a été supprimé avec succès."
+      "success": "L'emoji a été supprimé avec succès.",
+      "add": {
+        "selectMenuPlaceholder": "Sélectionnez la/les guilde(s) à laquelle vous voulez ajouter l'émoji.",
+        "success": "L'emoji a été ajouté avec succès à la ou aux guildes sélectionnées."
+      }
     },
     "roles": {
       "embedTitle": "Supprimer le rôle",
