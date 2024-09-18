@@ -66,6 +66,7 @@
     "available": "Disponibile",
     "createdAt": "Creato Il",
     "allowedRoles": "Ruoli Consentiti",
+    "addToGuild": "Aggiungi a una Gilda",
     "delete": "Elimina Emoji"
   },
   "help": {
