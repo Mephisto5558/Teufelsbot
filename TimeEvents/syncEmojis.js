@@ -1,15 +1,13 @@
 const
   { Client } = require('discord.js'),
-  config = require('../env.json'),
-
-  /** @type {Record<string, Client | undefined>} */
-  sessions = {};
+  config = require('../env.json');
 
 /**
+ * @param {Record<string, Client | undefined>}sessions
  * @param {string} env
  * @param {string} token
  * @returns {Promise<Client<true>>}*/
-async function getClient(env, token) {
+async function getClient(sessions, env, token) {
   const client = sessions[env] ?? new Client({ intents: [] });
   if (!sessions[env]) {
     sessions[env] = client;
@@ -30,6 +28,13 @@ module.exports = {
 
   /** @this {Client | void}*/
   onTick: async function () {
+    const now = new Date();
+
+    if (this.settings.timeEvents.lastEmojiSync?.toDateString() == now.toDateString()) return void log('Already ran emoji sync today');
+
+    /** @type {Record<string, Client | undefined>} */
+    const sessions = {};
+
     if (this instanceof Client && this.isReady() && !sessions[this.botType]) {
       sessions[this.botType] = this;
 
@@ -37,16 +42,16 @@ module.exports = {
       if (!this.application.emojis.cache.size) await this.application.emojis.fetch();
     }
 
-    log('Syncing emojis between clients...').debug('Syncing emojis between clients...');
+    log('Started emoji sync').debug('Started emoji sync');
     const clients = Object.entries(config).map(([k, v]) => [k, v.keys.token]).filter(([, v]) => v);
 
     for (const [env1, token1] of clients) {
-      const client1 = await getClient(env1, token1);
+      const client1 = await getClient(sessions, env1, token1);
 
       for (const [env2, token2] of clients) {
         if (env1 == env2) continue;
 
-        const client2 = await getClient(env2, token2);
+        const client2 = await getClient(sessions, env2, token2);
 
         for (const [, emoji] of client2.application.emojis.cache) {
           if (client1.application.emojis.cache.some(e => e.name == emoji.name)) continue;
@@ -57,6 +62,11 @@ module.exports = {
       }
     }
 
-    log('Done syncing emojis.').debug('Done syncing emojis.');
+    // Log out of the clients
+    for (const session of Object.values(sessions)) if (this != session) void session.destroy();
+
+    await this.db.update('botSettings', 'timeEvents.lastEmojiSync', now);
+
+    log('Finished emoji sync').debug('Finished emoji sync');
   }
 };

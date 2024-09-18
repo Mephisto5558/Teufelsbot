@@ -57,10 +57,10 @@ declare function help<TYPE extends 'command' | 'category' | 'all'>(
 
 declare function infoCMDs<
   ID extends Snowflake,
-  MODE extends 'kick' | 'ban' | 'delete',
+  MODE extends 'kick' | 'ban' | 'delete' | 'addToGuild' | 'addToSelectedGuild',
   ENTITY_TYPE extends 'members' | 'emojis' | 'roles'
 >(
-  this: ButtonInteraction & { customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}` },
+  this: (ButtonInteraction | StringSelectMenuInteraction) & { customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}` },
   lang: lang, id: ID, mode: MODE, entityType: ENTITY_TYPE
 ): Promise<InteractionResponse | Message | undefined>;
 

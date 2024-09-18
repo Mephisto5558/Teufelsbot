@@ -27,17 +27,9 @@
       "startCount": {},
       "stats": {},
       "blacklist": [],
-      "patreonBonuses": {}
-    }
-  },
-  {
-    "key": "userSettings",
-    "value": {}
-  },
-  {
-    "key": "guildSettings",
-    "value": {
-      "default": {
+      "patreonBonuses": {},
+      "timeEvents": {},
+      "defaultGuild": {
         "config": {
           "prefix": ".",
           "betaBotPrefix": "..",
@@ -132,6 +124,14 @@
         }
       }
     }
+  },
+  {
+    "key": "userSettings",
+    "value": {}
+  },
+  {
+    "key": "guildSettings",
+    "value": {}
   },
   {
     "key": "polls",

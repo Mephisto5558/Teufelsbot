@@ -79,10 +79,11 @@ void (async function main() {
   }
 
   validateConfig();
-  await syncEmojis();
 
   const client = createClient();
   await client.loadEnvAndDB();
+
+  await syncEmojis.call(client);
 
   // WIP: client.backupSystem = new BackupSystem(client.db, { dbName: 'backups', maxGuildBackups: 5 });
 
