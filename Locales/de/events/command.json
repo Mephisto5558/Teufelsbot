@@ -25,7 +25,11 @@
       "embedTitle": "Emoji Löschen",
       "notFound": "Das Emoji konnte nicht gefunden werden.",
       "noPerm": "Ich habe keine Berechtigung, Emojis zu löschen!",
-      "success": "Das Emoji wurde erfolgreich gelöscht."
+      "success": "Das Emoji wurde erfolgreich gelöscht.",
+      "add": {
+        "selectMenuPlaceholder": "Wähle den/die Server aus, zu denen du das Emoji hinzufügen möchtest.",
+        "success": "Das Emoji wurde erfolgreich zu den ausgewählten Servern hinzugefügt."
+      }
     },
     "roles": {
       "embedTitle": "Rolle Löschen",
