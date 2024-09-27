@@ -18,7 +18,7 @@ module.exports = {
       message = await this.customReply(lang('global.loading', getEmoji('loading'))),
       headers = { 'User-Agent': 'Discord Bot' + (this.client.config.github.repo ? ` (${this.client.config.github.repo})` : '') },
       defaultLangWiki = wikiInit({ headers, apiUrl: `https://${this.client.i18n.config.defaultLocale}.wikipedia.org/w/api.php` }),
-      wiki = wikiInit({ headers, apiUrl: `https://${this.guild.localeCode}.wikipedia.org/w/api.php` }),
+      wiki = wikiInit({ headers, apiUrl: `https://${this.guild?.localeCode ?? lang.__boundThis__.config.defaultLocale}.wikipedia.org/w/api.php` }),
       result = query ? (await wiki.search(query, 1)).results[0] ?? (await defaultLangWiki.search(query, 1)).results[0] : await wiki.random(1);
 
     if (!result) return message.edit(lang('notFound'));
