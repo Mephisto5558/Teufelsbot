@@ -32,50 +32,47 @@ function formatStatCount(input, all) {
   return `\`${input}\`` + (all ? `(\`${Number.parseFloat((input / all * 100).toFixed(2))}%\`)` : '');
 }
 
-/** @type {command<'both'>}*/
-module.exports = {
+module.exports = new MixedCommand({
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
   cooldowns: { user: 1000 },
-  slashCommand: true,
-  prefixCommand: true,
   options: [
-    {
+    new CommandOption({
       name: 'user',
       type: 'Subcommand',
       options: [
-        {
+        new CommandOption({
           name: 'game',
           type: 'String',
           required: true,
           autocompleteOptions: function () { return Object.keys(this.client.db.get('leaderboards')); },
           strictAutocomplete: true
-        },
-        { name: 'target', type: 'User' }
+        }),
+        new CommandOption({ name: 'target', type: 'User' })
       ]
-    },
-    {
+    }),
+    new CommandOption({
       name: 'leaderboard',
       type: 'Subcommand',
       options: [
-        {
+        new CommandOption({
           name: 'game',
           type: 'String',
           required: true,
           autocompleteOptions: function () { return Object.keys(this.client.db.get('leaderboards')); },
           strictAutocomplete: true
-        },
-        {
+        }),
+        new CommandOption({
           name: 'sort',
           type: 'String',
           choices: sortOptions
-        },
-        {
+        }),
+        new CommandOption({
           name: 'settings',
           type: 'String',
           choices: ['all_users']
-        }
+        })
       ]
-    }
+    })
   ],
 
   run: async function (lang) {
@@ -136,4 +133,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: [component] });
   }
-};
+});

@@ -3,17 +3,14 @@ const
   fetch = require('node-fetch').default,
   cache = new Collection();
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   usage: { examples: 'Bulbasaur' },
-  prefixCommand: true,
-  slashCommand: true,
   dmPermission: true,
-  options: [{
+  options: [new CommandOption({
     name: 'pokémon',
     type: 'String',
     required: true
-  }],
+  })],
 
   run: async function (lang) {
     const
@@ -84,4 +81,4 @@ module.exports = {
 
     return msg.edit({ content: '', embeds: [embed], components: [component] });
   }
-};
+});

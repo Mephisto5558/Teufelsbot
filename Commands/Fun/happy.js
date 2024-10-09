@@ -7,10 +7,7 @@ const responseList = [
 
 let addedEmoji = false;
 
-/** @type {command<'prefix', false>}*/
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new PrefixCommand({
   dmPermission: true,
 
   run: async function () {
@@ -21,4 +18,4 @@ module.exports = {
 
     return this.customReply(responseList.random());
   }
-};
+});

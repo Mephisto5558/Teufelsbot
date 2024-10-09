@@ -12,22 +12,19 @@ export default [
       globals: {
         // promisified setTimeout
         sleep: 'readonly',
+        // see #Utils/prototypeRegisterer/index.js
         log: 'readonly',
         getEmoji: 'readonly',
         SlashCommand: 'readonly',
         PrefixCommand: 'readonly',
         MixedCommand: 'readonly',
-        CommandOptions: 'readonly',
+        CommandOption: 'readonly',
         // [TYPES] see globals.d.ts
         GenericFunction: 'writable',
         Snowflake: 'writable',
         Database: 'writable',
         lang: 'writable',
         langUNF: 'writable',
-        slashCommand: 'writable',
-        prefixCommand: 'writable',
-        command: 'writable',
-        commandOptions: 'writable',
         bBoundFunction: 'writable',
         Client: 'writable',
         Message: 'writable',

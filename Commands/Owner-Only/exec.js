@@ -1,15 +1,12 @@
 const { shellExec } = require('#Utils');
 
-/** @type {command<'prefix', false>}*/
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new PrefixCommand({
   dmPermission: true,
-  options: [{
+  options: [new CommandOption({
     name: 'command',
     type: 'String',
     required: true
-  }],
+  })],
   beta: true,
 
   run: async function (lang) {
@@ -26,4 +23,4 @@ module.exports = {
 
     return log.debug(`executed bash command '${this.content}'`);
   }
-};
+});

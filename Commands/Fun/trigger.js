@@ -1,10 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
 
-  /**
-   * @type {Record<string,
-   * (this: GuildInteraction, lang: lang, oldData: NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['triggers']>, query: string) => Promise<Message>>
-   * }*/
+  /** @type {Record<string, (this: GuildInteraction, lang: lang, oldData: NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['triggers']>, query: string) => Promise<Message>>}* */
   triggerMainFunctions = {
     add: async function (lang, oldData) {
       const
@@ -91,59 +88,56 @@ function triggerQuery() {
   }, [[], []]).flat();
 }
 
-/** @type {command<'slash'>}*/
-module.exports = {
+module.exports = new SlashCommand({
   permissions: { user: ['ManageMessages'] },
-  slashCommand: true,
-  prefixCommand: false,
   options: [
-    {
+    new CommandOption({
       name: 'add',
       type: 'Subcommand',
       options: [
-        {
+        new CommandOption({
           name: 'trigger',
           type: 'String',
           required: true
-        },
-        {
+        }),
+        new CommandOption({
           name: 'response',
           type: 'String',
           required: true
-        },
-        { name: 'wildcard', type: 'Boolean' }
+        }),
+        new CommandOption({ name: 'wildcard', type: 'Boolean' })
       ]
-    },
-    {
+    }),
+    new CommandOption({
       name: 'delete',
       type: 'Subcommand',
-      options: [{
+      options: [new CommandOption({
         name: 'query_or_id',
         type: 'String',
         autocompleteOptions: triggerQuery
-      }]
-    },
-    {
+      })]
+    }),
+    new CommandOption({
       name: 'clear',
       type: 'Subcommand',
-      options: [{
+      options: [new CommandOption({
         name: 'confirmation',
         type: 'String',
         required: true
-      }]
-    },
-    {
+      })]
+    }),
+    new CommandOption({
       name: 'get',
       type: 'Subcommand',
       options: [
-        {
+        new CommandOption({
           name: 'query_or_id',
           type: 'String',
           autocompleteOptions: triggerQuery
-        },
-        { name: 'short', type: 'Boolean' }
+        }),
+        new CommandOption({ name: 'short', type: 'Boolean' })
       ]
-    }
+    })
   ],
 
   run: function (lang) {
@@ -153,4 +147,4 @@ module.exports = {
 
     return triggerMainFunctions[this.options.getSubcommand()].call(this, lang, oldData, query);
   }
-};
+});

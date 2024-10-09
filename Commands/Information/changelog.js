@@ -33,12 +33,9 @@ async function getCommits() {
   });
 }
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   aliases: { prefix: ['changelogs'] },
   cooldowns: { channel: 1e4 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   disabled: !ghConfig.repoName || !ghConfig.userName,
   disabledReason: 'Missing github config in config.json',
@@ -60,4 +57,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed] });
   }
-};
+});

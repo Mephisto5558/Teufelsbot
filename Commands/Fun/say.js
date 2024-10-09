@@ -2,29 +2,26 @@ const
   { Constants, PermissionFlagsBits, Message, AllowedMentionsTypes } = require('discord.js'),
   { getTargetChannel, logSayCommandUse } = require('#Utils');
 
-/** @type {command<'both'>}*/
-module.exports = {
+module.exports = new MixedCommand({
   cooldowns: { user: 200 },
-  slashCommand: true,
-  prefixCommand: true,
   ephemeralDefer: true,
   options: [
-    {
+    new CommandOption({
       name: 'msg',
       type: 'String',
       maxLength: 2000,
       required: true
-    },
-    {
+    }),
+    new CommandOption({
       name: 'channel',
       type: 'Channel',
       channelTypes: Constants.GuildTextBasedChannelTypes
-    },
-    {
+    }),
+    new CommandOption({
       name: 'reply_to', type: 'String',
       minLength: 17,
       maxLength: 19 // No snowflake will be longer than that until 2090 (https://snowsta.mp/?s=9999999999999999999)
-    }
+    })
   ],
 
   run: async function (lang) {
@@ -48,4 +45,4 @@ module.exports = {
 
     return logSayCommandUse.call(sentMessage, this.member, lang);
   }
-};
+});

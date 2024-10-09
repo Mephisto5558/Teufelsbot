@@ -2,26 +2,23 @@ const
   { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js'),
   { DiscordApiErrorCodes } = require('#Utils');
 
-/** @type {command<'slash'>}*/
-module.exports = {
+module.exports = new SlashCommand({
   permissions: { user: ['ManageMessages'] },
   cooldowns: { user: 5000 },
-  slashCommand: true,
-  prefixCommand: false,
   noDefer: true,
   options: [
-    {
+    new CommandOption({
       name: 'channel',
       type: 'Channel',
       channelTypes: Constants.GuildTextBasedChannelTypes,
       required: true
-    },
-    {
+    }),
+    new CommandOption({
       name: 'message_id',
       type: 'String',
       required: true
-    },
-    { name: 'remove_attachments', type: 'Boolean' }
+    }),
+    new CommandOption({ name: 'remove_attachments', type: 'Boolean' })
   ],
 
   run: async function (lang) {
@@ -85,4 +82,4 @@ module.exports = {
 
     return modalInteraction.editReply(lang('success', msg.url));
   }
-};
+});

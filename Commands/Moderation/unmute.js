@@ -1,18 +1,15 @@
 const { checkTargetManageable } = require('#Utils');
 
-/** @type {command<'slash'>}*/
-module.exports = {
+module.exports = new SlashCommand({
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { user: 100 },
-  slashCommand: true,
-  prefixCommand: false,
   options: [
-    {
+    new CommandOption({
       name: 'target',
       type: 'User',
       required: true
-    },
-    { name: 'reason', type: 'String' }
+    }),
+    new CommandOption({ name: 'reason', type: 'String' })
   ],
 
   run: async function (lang) {
@@ -32,4 +29,4 @@ module.exports = {
     await target.disableCommunicationUntil(null, `${reason} | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`);
     return this.editReply(lang('success', target.user.id));
   }
-};
+});

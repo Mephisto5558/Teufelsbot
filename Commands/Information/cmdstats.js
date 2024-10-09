@@ -1,24 +1,21 @@
 const { EmbedBuilder, Colors } = require('discord.js');
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   usage: { examples: 'user joke' },
   cooldowns: { user: 1000 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   options: [
-    {
+    new CommandOption({
       name: 'scope',
       type: 'String',
       choices: ['bot', 'guild', 'user']
-    },
-    {
+    }),
+    new CommandOption({
       name: 'command',
       type: 'String',
       autocompleteOptions: function () { return [...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()].unique(); },
       strictAutocomplete: true
-    }
+    })
   ],
 
   run: async function (lang) {
@@ -61,4 +58,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed] });
   }
-};
+});

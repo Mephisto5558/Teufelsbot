@@ -20,17 +20,14 @@ const
     return [...num].reduceRight((acc, e, i) => ((num.length - i) % 3 == 0 ? ` ${e}` : e) + acc, '') + (ext ? `.${ext}` : '');
   };
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   usage: { examples: '1+1' },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
-  options: [{
+  options: [new CommandOption({
     name: 'expression',
     type: 'String',
     required: true
-  }],
+  })],
 
   run: async function (lang) {
     const
@@ -54,4 +51,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed.setDescription(lang('success', { expression, result }))] });
   }
-};
+});

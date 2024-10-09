@@ -1,15 +1,12 @@
-/** @type {command<'prefix', false>}*/
-module.exports = {
+module.exports = new PrefixCommand({
   usage: { examples: '12345678901234568' },
   aliases: { prefix: ['blacklist'] },
-  slashCommand: false,
-  prefixCommand: true,
   dmPermission: true,
-  options: [{
+  options: [new CommandOption({
     name: 'target',
     type: 'String',
     required: true
-  }],
+  })],
   beta: true,
 
   run: async function (lang) {
@@ -41,4 +38,4 @@ module.exports = {
 
     return this.customReply(lang('saved', target));
   }
-};
+});

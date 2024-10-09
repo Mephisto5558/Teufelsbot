@@ -13,11 +13,11 @@ const
 
 /**
  * @this {import('discord.js').BaseInteraction|Message}
- * @param {command<'both', boolean, true>}command
+ * @param {MixedCommand}command
  * @param {lang}lang
  * @returns {[string, Record<string, string> | string | undefined, string | undefined] | undefined}*/
 function checkOptions(command, lang) {
-  /** @type {command<'both', boolean, true> | commandOptions<true>} */
+  /** @type {MixedCommand | CommandOption}*/
   let option = command;
   if (this.options?._group) {
     option = option.options.find(e => e.name == this.options._group);
@@ -34,7 +34,7 @@ function checkOptions(command, lang) {
     if (required && !this.options?.get(name) && !this.args?.[i]) {
       return ['paramRequired', {
         option: name,
-        description: descriptionLocalizations?.[lang.__boundArgs__[0].locale] ?? descriptionLocalizations?.[lang.__boundThis__.config.defaultLocale] ?? description
+        description: descriptionLocalizations[lang.__boundArgs__[0].locale] ?? descriptionLocalizations[lang.__boundThis__.config.defaultLocale] ?? description
       }];
     }
 
@@ -59,19 +59,19 @@ function checkOptions(command, lang) {
       return ['strictAutocompleteNoMatch', name];
     }
 
-    if (this instanceof Message && this.args?.[i] && choices && !choices.some(e => e.value === this.args[i]))
+    if (this instanceof Message && this.args?.[i] && !choices.some(e => e.value === this.args[i]))
       return ['strictAutocompleteNoMatchWValues', { option: name, availableOptions: `\`${choices.map(e => e.value).join('`, `')}\`` }];
   }
 }
 
 /**
  * @this {GuildInteraction|Message<true>}
- * @param {command<'both', boolean, true>}command
+ * @param {MixedCommand}command
  * @param {lang}lang
  * @returns {boolean} `false` if no permission issues have been found.*/
 async function checkPerms(command, lang) {
-  const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user ?? [], PermissionFlagsBits.SendMessages]);
-  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions?.client ?? [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
+  const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
+  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions.client, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
 
   if (!botPermsMissing.length && !userPermsMissing.length) return false;
 

@@ -8,26 +8,23 @@ const defaultCharset = [String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRS
  * @param {string?}lastRandomChar*/
 const getRandomChar = (charset, lastRandomChar) => charset.filter(e => e !== lastRandomChar).random();
 
-/** @type {command<'slash', false>}*/
-module.exports = {
+module.exports = new SlashCommand({
   cooldowns: { user: 1000 },
-  slashCommand: true,
-  prefixCommand: false,
   dmPermission: true,
   ephemeralDefer: true,
   options: [
-    {
+    new CommandOption({
       name: 'length',
       type: 'Integer',
       maxValue: 1750
-    },
-    {
+    }),
+    new CommandOption({
       name: 'count',
       type: 'Integer',
       maxValue: 500
-    },
-    { name: 'exclude_chars', type: 'String' },
-    { name: 'include_chars', type: 'String' }
+    }),
+    new CommandOption({ name: 'exclude_chars', type: 'String' }),
+    new CommandOption({ name: 'include_chars', type: 'String' })
   ],
 
   run: async function (lang) {
@@ -65,4 +62,4 @@ module.exports = {
 
     return this.editReply(lang('success', { passwords: passwordList, charset }));
   }
-};
+});

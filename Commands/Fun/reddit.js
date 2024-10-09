@@ -22,32 +22,29 @@ const
     };
   };
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   usage: { examples: 'memes hot' },
   cooldowns: { channel: 100 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   options: [
-    {
+    new CommandOption({
       name: 'meme',
       type: 'Subcommand',
       options: [{ name: 'filter_nsfw', type: 'Boolean' }]
-    },
-    {
+    }),
+    new CommandOption({
       name: 'subreddit',
       type: 'Subcommand',
       options: [
-        {
+        new CommandOption({
           name: 'subreddit',
           type: 'String',
           autocompleteOptions: function () { return (this.focused.value.startsWith('r/') ? this.focused.value.slice(2) : this.focused.value).replaceAll(/\W/g, ''); }
-        },
-        { name: 'type', type: 'String' },
-        { name: 'filter_nsfw', type: 'Boolean' }
+        }),
+        new CommandOption({ name: 'type', type: 'String' }),
+        new CommandOption({ name: 'filter_nsfw', type: 'Boolean' })
       ]
-    }
+    })
   ],
   disabled: true,
   disabledReason: 'Reddit has blocked the bot\'s IP.',
@@ -109,4 +106,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: [component] });
   }
-};
+});

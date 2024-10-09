@@ -2,18 +2,15 @@ const
   { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
   { getTargetChannel } = require('#Utils');
 
-/** @type {command<'both'>}*/
-module.exports = {
+module.exports = new MixedCommand({
   aliases: { prefix: ['clearchannel'], slash: ['clearchannel'] },
   permissions: { client: ['ManageChannels'], user: ['ManageGuild', 'ManageChannels'] },
   cooldowns: { guild: 1e4, user: 1000 },
-  slashCommand: true,
-  prefixCommand: true,
-  options: [{
+  options: [new CommandOption({
     name: 'channel',
     type: 'Channel',
     channelTypes: Constants.GuildTextBasedChannelTypes.filter(e => !Constants.ThreadChannelTypes.includes(e))
-  }],
+  })],
 
   run: async function (lang) {
     const
@@ -83,4 +80,4 @@ module.exports = {
         return msg.customReply({ embeds: [embed], components: [component] });
       });
   }
-};
+});
