@@ -25,7 +25,11 @@
       "embedTitle": "Elimina Emoji",
       "notFound": "Non è stato possibile trovare le emoji.",
       "noPerm": "Non ho il permesso di eliminare emojis!",
-      "success": "L'emoji è stata eliminata con successo."
+      "success": "L'emoji è stata eliminata con successo.",
+      "add": {
+        "selectMenuPlaceholder": "Seleziona la gilda a cui vuoi aggiungere le emoji.",
+        "success": "L'emoji è stata aggiunta con successo alla gilda selezionata."
+      }
     },
     "roles": {
       "embedTitle": "Elimina Ruolo",

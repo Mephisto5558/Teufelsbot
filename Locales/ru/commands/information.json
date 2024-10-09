@@ -66,6 +66,7 @@
     "available": "Доступно",
     "createdAt": "Создано в",
     "allowedRoles": "Разрешенные роли",
+    "addToGuild": "Добавить в гильдию",
     "delete": "Удалить эмодзи"
   },
   "help": {

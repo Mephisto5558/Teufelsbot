@@ -1,5 +1,6 @@
 const
   { SnowflakeUtil } = require('discord.js'),
+  { writeFile } = require('node:fs/promises'),
 
   /** @returns {number}Unix timestamp*/
   getOneMonthAgo = () => new Date().setMonth(new Date().getMonth() - 1),
@@ -7,12 +8,28 @@ const
   /** @returns {number}Unix timestamp*/
   getOneYearAgo = () => new Date().setFullYear(new Date().getFullYear() - 1);
 
+
+/**
+ * Writes the data to a file.
+ * @this {Client}*/
+async function backupDBs() {
+  const data = this.db.reduce().reduce((acc, { key, value }) => {
+    acc[key] = value;
+    return acc;
+  }, {});
+
+  return writeFile(`dbbackup_${new Date().toISOString().split('T')[0]}.json`, JSON.stringify(data));
+}
+
 /**
  * Deletes guilds that the bot was not in for over a year
  * @this {Client}
  * @param {string}guildId
  * @param {Database['guildSettings'][Snowflake] | undefined}db*/
 async function cleanupGuildsDB(guildId, db) {
+  if (this.guilds.cache.get(guildId) && (!db || !(!db.leftAt || db.leftAt.getTime() < getOneYearAgo())))
+    throw new Error(`This should never happen: tried to delete a guild DB while the bot is still in the guild | ${guildId} | ${JSON.stringify(db)}`); // TODO: remove after 1st November 2024
+
   if (!db) return this.db.delete('guildSettings', guildId);
   if (!db.leftAt || db.leftAt.getTime() < getOneYearAgo()) return;
 
@@ -87,6 +104,11 @@ module.exports = {
     const now = new Date();
 
     if (this.settings.timeEvents.lastDBCleanup?.toDateString() == now.toDateString()) return void log('Already ran DB cleanup today');
+
+    log('Started DB backup');
+    await backupDBs();
+    log('Backed up DBs');
+
     log('Started DB cleanup');
 
     // See https://github.com/microsoft/TypeScript/issues/43756 for why using let here

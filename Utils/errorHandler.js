@@ -12,9 +12,7 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
 
     /** @type {Record<string, unknown>}*/
     contextData = (!Array.isArray(context) && context !== undefined ? [context] : context).reduce((acc, e) => {
-      try { acc[e?.constructor.name ?? Date.now().toString()] = { ...e }; } // `Date.now` to prevent overwriting on multiple `undefined`
-      catch { acc[e?.constructor.name ?? Date.now().toString()] = e; } // `Date.now` to prevent overwriting on multiple `undefined`
-
+      acc[e?.constructor.name ?? Date.now().toString()] = e; // `Date.now` to prevent overwriting on multiple `undefined`
       return acc;
     }, {}),
     message = Object.values(contextData).find(e => e instanceof Message || e instanceof BaseInteraction);
@@ -22,7 +20,7 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
   log.error(
     ' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'),
     err.stack ?? JSON.stringify(err),
-    contextData.__count__ ? `\nAdditional Context:\n${JSON.stringify(contextData)}` : ''
+    contextData.__count__ ? `\nAdditional Context:\n${JSON.stringify(contextData, stringifyReplacer)}` : ''
   );
 
   if (!message || !lang) return;
@@ -88,7 +86,7 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
 
         if (!res.ok) throw new Error(JSON.stringify(json));
 
-        const files = Object.entries(contextData).map(([k, v]) => new AttachmentBuilder(Buffer.from(JSON.stringify({ ...v }, stringifyReplacer, 2)), { name: `${k.toLowerCase()}.json` }));
+        const files = Object.entries(contextData).map(([k, v]) => new AttachmentBuilder(Buffer.from(JSON.stringify(v, stringifyReplacer, 2)), { name: `${k.toLowerCase()}.json` }));
 
         for (const devId of devIds) {
           try { await (await this.users.fetch(devId)).send({ content: json.html_url, files }); }
