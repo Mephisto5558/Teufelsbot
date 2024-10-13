@@ -150,7 +150,7 @@ declare namespace __local {
       humorAPIKey: string;
       rapidAPIKey: string;
       githubKey: string;
-      chatGPTAPIKey: string;
+      chatGPTApiKey: string;
       dbdLicense: string;
       votingWebhookURL?: string;
       token: string;

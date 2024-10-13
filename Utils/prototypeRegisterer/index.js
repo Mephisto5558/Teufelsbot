@@ -21,8 +21,8 @@ const
 
 module.exports = { Log, _patch, customReply, runMessages, playAgain };
 
-global.log = new Log();
-global.sleep = require('node:util').promisify(setTimeout);
+globalThis.log = new Log();
+globalThis.sleep = require('node:util').promisify(setTimeout);
 
 /* global.SlashCommand = SlashCommand;
    global.PrefixCommand = PrefixCommand;

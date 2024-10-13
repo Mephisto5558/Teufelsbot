@@ -50,7 +50,9 @@ module.exports = {
 
     if (this.guild.emojis.cache.has(emoticon.id)) return this.editReply({ embeds: [embed.setDescription(lang('isGuildEmoji'))] });
     if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
-    else if (!/^(https?:\/\/)?(www\.)?.*\.(jpg|jpeg|png|webp|svg|gif)(\?.*)?$/i.test(input)) return this.editReply({ embeds: [embed.setDescription(lang('invalidUrl'))] });
+    /* eslint-disable-next-line regexp/prefer-quantifier -- "www" is preferred to be written out for readability*/
+    else if (!/^(?:https?:\/\/)?(?:www\.)?.*?\.(?:gif|jpeg|jpg|png|svg|webp)(?:\?.*)?$/i.test(input))
+      return this.editReply({ embeds: [embed.setDescription(lang('invalidUrl'))] });
     if (!input.startsWith('http')) input = `https://${input}`;
 
     try {

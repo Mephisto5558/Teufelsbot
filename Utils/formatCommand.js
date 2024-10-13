@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib*/
 const
   { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
   /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path`*/
@@ -7,7 +8,7 @@ const
 module.exports = function formatCommand(option, path, id, i18n) {
   if ('options' in option) option.options = option.options.map(e => formatCommand(e, path, `${id}.options.${e.name}`, i18n));
 
-  if ('run' in option) option.name ??= id.split('.').at(-1); // NOSONAR
+  if ('run' in option) option.name ??= id.split('.').at(-1);
   if (/[A-Z]/.test(option.name)) {
     if (!option.disabled) log.error(`${option.name} (${id}) has uppercase letters! Fixing`);
     option.name = option.name.toLowerCase();

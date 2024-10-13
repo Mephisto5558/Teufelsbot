@@ -9,7 +9,7 @@ module.exports.getAfkStatus = async function getAfkStatus(target, lang) {
   if (!message) return this.customReply(lang('getNoneFound'));
 
   return this.customReply(lang('events.message.afkMsg', {
-    member: target.displayName.replace(/^\[AFK] /, ''), message, timestamp: Math.round(createdAt / 1000)
+    member: target.displayName.replace(/^\[AFK\] /, ''), message, timestamp: Math.round(createdAt / 1000)
   }));
 };
 

@@ -40,7 +40,7 @@ module.exports = {
           /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- TODO: this will be improved, but I'll have to type everything better for that.*/
           if (!v || ['name', 'image', 'logo', 'alt', 'caption'].some(e => k.toLowerCase().includes(e))) return acc;
 
-          k = k.replaceAll(/([A-Z])/g, ' $1').toLowerCase().trim();
+          k = k.replaceAll(/(?=[A-Z])/g, ' ').toLowerCase().trim();
           k = k[0].toUpperCase() + k.slice(1);
 
           // very verbose if, for intellisense

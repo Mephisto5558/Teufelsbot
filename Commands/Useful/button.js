@@ -53,7 +53,7 @@ module.exports = {
       url = this.options.getString('url');
 
     if (isLink) {
-      if (!/^((discord|https?):\/\/)?[\w.-]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
+      if (!/^(?:(?:discord|https?):\/\/)?[\w\-.]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
       if (!url.startsWith('http') && !url.startsWith('discord')) url = `https://${url}`;
     }
 

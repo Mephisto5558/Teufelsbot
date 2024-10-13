@@ -23,13 +23,15 @@ async function getCommits() {
         'User-Agent': `Bot ${github.repo}`
       }
     }),
+
+    /** @type {{ commit: { message: string } }[]}*/
     json = await res.json();
 
   if (!res.ok) throw new Error(JSON.stringify(json));
 
   return json.map(e => {
     if (e.commit.message.length > 100) e.commit.message = e.commit.message.slice(0, 97) + '...';
-    return `- ${e.commit.message.replaceAll(/(\(#\d+\)).*/gs, '$1')}`;
+    return `- ${e.commit.message.replace(/(?<=\(#\d+\)).*/s, '')}`;
   });
 }
 

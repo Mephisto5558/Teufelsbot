@@ -26,7 +26,7 @@ module.exports = function _patch(data, ...rest) {
       }
     }
 
-    this.args = data.content.slice(prefixLength).trim().split(/\s+/g);
+    this.args = data.content.slice(prefixLength).trim().split(/\s+/);
     this.commandName = prefixLength ? this.args.shift().toLowerCase() : null;
   }
   else {

@@ -6,7 +6,6 @@ const
   BoundAsyncFunction = async function asyncEval() { }.constructor.bind(undefined, ...vars),
 
   /** @type {import('../../types/globals').__local.BoundFunction}*/
-  /* eslint-disable-next-line no-new-func*/
   BoundFunction = Function.bind(undefined, ...vars);
 
 /** @param {number}ms*/

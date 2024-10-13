@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when the code is in the new lib*/
 const
   { Collection } = require('discord.js'),
   /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path`*/
@@ -22,15 +23,15 @@ async function reloadCommand(command, reloadedArray) {
     if (err.code != 'MODULE_NOT_FOUND') throw err;
   }
 
-  this.prefixCommands.delete(command.name); // NOSONAR S1874
+  this.prefixCommands.delete(command.name);
   if (file.prefixCommand) {
     file.id = command.id;
-    this.prefixCommands.set(file.name, file); // NOSONAR S1874
-    reloadedArray.push(file.name); // NOSONAR S1874
+    this.prefixCommands.set(file.name, file);
+    reloadedArray.push(file.name);
 
     for (const alias of command.aliases?.prefix ?? []) this.prefixCommands.delete(alias);
     for (const alias of file.aliases?.prefix ?? []) {
-      this.prefixCommands.set(alias, { ...file, aliasOf: file.name }); // NOSONAR S1874
+      this.prefixCommands.set(alias, { ...file, aliasOf: file.name });
       reloadedArray.push(alias);
     }
   }
@@ -42,17 +43,17 @@ async function reloadCommand(command, reloadedArray) {
       if (command.id) await this.application.commands.delete(command.id);
       if (file.disabled || this.botType == 'dev' && !file.beta) {
         file.id = command.id;
-        log(`Skipped/Deleted Disabled Slash Command ${file.name}`); // NOSONAR S1874
+        log(`Skipped/Deleted Disabled Slash Command ${file.name}`);
       }
       else {
         file.id = (await this.application.commands.create(file)).id;
-        log(`Reloaded Slash Command ${file.name}`); // NOSONAR S1874
+        log(`Reloaded Slash Command ${file.name}`);
       }
     }
 
-    this.slashCommands.delete(command.name); // NOSONAR S1874
-    this.slashCommands.set(file.name, file); // NOSONAR S1874
-    reloadedArray.push(`</${file.name}:${file.id ?? 0}>`); // NOSONAR S1874
+    this.slashCommands.delete(command.name);
+    this.slashCommands.set(file.name, file);
+    reloadedArray.push(`</${file.name}:${file.id ?? 0}>`);
 
     for (const alias of [...file.aliases?.slash ?? [], ...command.aliases?.slash ?? []].unique()) {
       const { id } = this.slashCommands.get(alias) ?? {};
@@ -60,28 +61,28 @@ async function reloadCommand(command, reloadedArray) {
 
       if (equal) {
         this.slashCommands.delete(alias);
-        this.slashCommands.set(alias, { ...file, id, aliasOf: file.name }); // NOSONAR S1874
+        this.slashCommands.set(alias, { ...file, id, aliasOf: file.name });
       }
       else {
         this.slashCommands.delete(alias);
 
         if (file.disabled || this.botType == 'dev' && !file.beta) {
           if (id) await this.application.commands.delete(id);
-          log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${file.name})`); // NOSONAR S1874
+          log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${file.name})`);
         }
         else {
           cmdId = (await this.application.commands.create({ ...file, name: alias })).id;
-          log(`Reloaded Slash Command ${alias} (Alias of ${file.name})`); // NOSONAR S1874
+          log(`Reloaded Slash Command ${alias} (Alias of ${file.name})`);
         }
 
-        this.slashCommands.set(alias, { ...file, id: cmdId, aliasOf: file.name }); // NOSONAR S1874
+        this.slashCommands.set(alias, { ...file, id: cmdId, aliasOf: file.name });
       }
 
       reloadedArray.push(`</${alias}:${cmdId ?? 0}>`);
     }
   }
   else if (!file.slashCommand && command.slashCommand) {
-    this.slashCommands.delete(command.name); // NOSONAR S1874
+    this.slashCommands.delete(command.name);
     if (command.id) await this.application.commands.delete(command.id);
   }
 }
@@ -123,7 +124,7 @@ module.exports = {
             /** @type {command<'both', boolean>} */
             const cmd = require(filePath);
             cmd.filePath = filePath;
-            cmd.category = this.args[1].split('/')[1].toLowerCase(); // NOSONAR S1874
+            cmd.category = this.args[1].split('/')[1].toLowerCase();
 
             await reloadCommand.call(this.client, cmd, reloadedArray);
           }

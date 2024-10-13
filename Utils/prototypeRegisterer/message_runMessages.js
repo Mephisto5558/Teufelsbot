@@ -42,7 +42,7 @@ async function handleWordchain() {
   if (!wordchainData) return;
 
   const
-    firstWord = this.originalContent.split(/ +/g)[0].toLowerCase(),
+    firstWord = this.originalContent.split(/\s+/)[0].toLowerCase(),
     lastWordChar = wordchainData.lastWord?.at(-1);
 
   if (

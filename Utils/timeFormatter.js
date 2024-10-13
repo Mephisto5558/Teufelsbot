@@ -27,7 +27,7 @@ function timeFormatter({ sec = 0, lang }) {
   return {
     total, negative,
     formatted: lang?.(id, { year, day, hour, minute, second })
-    ?? `${year.toString().padStart(4, '0')}-${day.toString().padStart(2, '0')}, ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`
+      ?? `${year.toString().padStart(4, '0')}-${day.toString().padStart(2, '0')}, ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`
   };
 }
 

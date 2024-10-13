@@ -22,8 +22,8 @@ module.exports = function formatTopTen(input, sort, mode, lang) {
     acc.length > 3997
       ? '...'
       : `${medals[i] ?? i + 1 + '.'} <@${id}>\n`
-      + '> ' + lang('wins', stats.wins ?? 0)
-      + '> ' + lang('loses', stats.loses ?? 0)
-      + '> ' + lang('draws', stats.draws ?? 0)
+        + '> ' + lang('wins', stats.wins ?? 0)
+        + '> ' + lang('loses', stats.loses ?? 0)
+        + '> ' + lang('draws', stats.draws ?? 0)
   ), '');
 };

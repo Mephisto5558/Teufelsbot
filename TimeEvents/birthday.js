@@ -18,7 +18,7 @@ function formatBirthday(user, year) {
     .replaceAll('{bornyear}', year)
     .replaceAll('{date}', new Date().toLocaleDateString('en'))
     .replaceAll('{age}', Number.parseInt(year) ? new Date().getFullYear() - year : '{age}')
-    .replaceAll(/{age}\.?/g, ''); // {guilds} gets replaced below
+    .replaceAll(/\{age\}\.?/g, ''); // {guilds} gets replaced below
 }
 
 module.exports = {

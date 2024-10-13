@@ -1,4 +1,4 @@
-const { gitpull } = require('../../../../../Utils');
+const { gitpull } = require('#Utils');
 
 /** @type {import('@mephisto5558/bot-website').customPage}*/
 module.exports = {

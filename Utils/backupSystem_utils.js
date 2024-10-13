@@ -137,7 +137,7 @@ async function loadChannel(channel, guild, category, maxMessagesPerChannel, allo
     createOptions.rateLimitPerUser = channel.rateLimitPerUser;
   }
   else if (Constants.VoiceBasedChannelTypes.includes(channel.type)) {
-    createOptions.bitrate = channel.bitrate > guild.maximumBitrate ? guild.maximumBitrate : channel.bitrate;
+    createOptions.bitrate = Math.min(channel.bitrate, guild.maximumBitrate);
     createOptions.userLimit = channel.userLimit;
   }
 
