@@ -13,6 +13,7 @@ export {
   help,
   infoCMDs,
   joke,
+  marin,
   mgStats_formatTopTen,
   mgStats,
   record_startRecording,
@@ -69,6 +70,10 @@ declare function joke<
 >(
   this: ButtonInteraction & { customId: `joke.${API}.${TYPE}.${BLACKLIST}.${MAX_LENGTH}` },
   lang: lang, api: API, type: TYPE, blacklist: BLACKLIST, maxLength: MAX_LENGTH
+): ComponentReturnType;
+
+declare function marin(
+  this: ButtonInteraction & { customId: 'marin' }, lang: lang
 ): ComponentReturnType;
 
 declare function mgStats_formatTopTen(
