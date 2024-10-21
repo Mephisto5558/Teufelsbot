@@ -46,7 +46,7 @@
     "zlib-sync": "^0.1.9"
   },
   "devDependencies": {
-    "@mephisto5558/eslint-config": "file:../libs/eslint-config",
+    "@mephisto5558/eslint-config": "^2.1.0",
     "@types/node-fetch": "^2.6.11",
     "eslint": "^9.9.1"
   },
