@@ -10,7 +10,7 @@ let addedEmoji = false;
 module.exports = new PrefixCommand({
   dmPermission: true,
 
-  run: async function () {
+  async run() {
     if (!addedEmoji) {
       responseList.push(getEmoji('derp_ball'));
       addedEmoji = true;

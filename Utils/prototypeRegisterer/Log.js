@@ -28,7 +28,7 @@ module.exports = class Log extends Function {
     /* eslint-enable no-multi-assign */
 
     /* eslint-disable-next-line no-constructor-return -- That return is required for the code to work. */
-    return bound; // NOSONAR
+    return bound;
   }
 
   debug(...str) { return this._log({ file: 'debug' }, ...str); }

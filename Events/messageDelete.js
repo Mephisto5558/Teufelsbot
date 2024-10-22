@@ -1,4 +1,7 @@
-const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js');
+const
+  { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js'),
+  { embedFieldValueMaxLength, suffix } = require('#Utils').constants,
+  TWENTY_SEC = 2e4;
 
 /**
  * @this {Message<true> | PartialMessage<true>}
@@ -61,7 +64,7 @@ module.exports = async function messageDelete() {
 
   const
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageDelete })).entries
-      .find(e => (!this.user || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < 20_000) ?? {},
+      .find(e => (!this.user || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
       thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: 128 }) } : undefined,
@@ -74,14 +77,14 @@ module.exports = async function messageDelete() {
       color: 0x822AED
     });
 
-  const field = embed.data.fields.at(-1);
+  const field = embed.data.fields.last();
   if (this.originalContent) field.value += `${this.originalContent}\n`;
   if (this.attachments.size) field.value += this.attachments.map(e => `[${e.url}](${e.name})`).join(', ') + '\n';
   if (this.embeds.length) field.value += lang('embeds', this.embeds.length) + '\n';
   if (this.components.length) field.value += lang('messageDelete.components', this.components.length);
 
   if (!field.value) field.value += lang('unknownContent');
-  else if (field.value.length > 1024) field.value = field.value.slice(0, 1021) + '...';
+  else if (field.value.length > embedFieldValueMaxLength) field.value = field.value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
 
   // We don't get the user if the message is not cached
   if (this.user) embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (\`${this.user.id}\`)`, inline: true });

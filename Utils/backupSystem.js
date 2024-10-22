@@ -24,16 +24,15 @@ class BackupSystem {
    * @param {boolean}options.saveImages
    * @param {boolean}options.clearGuildBeforeRestore
    */
+  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- default class values*/
   constructor(db, { dbName = 'backups', maxGuildBackups = 5, maxMessagesPerChannel = 10, saveImages = false, clearGuildBeforeRestore = true } = {}) {
     this.db = db;
     this.dbName = dbName;
     if (!this.db.get(this.dbName)) void this.db.set(this.dbName, {});
 
     this.defaultSettings = {
-      maxGuildBackups: Number.parseInt(maxGuildBackups) || 5,
-      maxMessagesPerChannel: Number.parseInt(maxMessagesPerChannel) || 10,
-      saveImages,
-      clearGuildBeforeRestore
+      maxGuildBackups, saveImages,
+      clearGuildBeforeRestore, maxMessagesPerChannel
     };
   }
 
@@ -181,10 +180,10 @@ class BackupSystem {
       const backups = this.db.get(this.dbName);
       backups[data.id] = data;
 
-      const guildBackups = Object.keys(backups).filter(e => e.startsWith(guild.id));
+      let guildBackups = Object.keys(backups).filter(e => e.startsWith(guild.id));
       if (guildBackups.length > maxGuildBackups) {
-        guildBackups.sort((a, b) => b - a);
-        for (const backupId of guildBackups.slice(0, maxGuildBackups)) await this.db.delete(this.dbName, backupId);
+        guildBackups = guildBackups.toSorted().reverse().slice(0, maxGuildBackups);
+        for (const backupId of guildBackups) await this.db.delete(this.dbName, backupId);
       }
       else await this.db.update(this.dbName, data.id, data);
     }

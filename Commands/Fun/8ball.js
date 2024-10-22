@@ -2,6 +2,7 @@
  * https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js
  * @param {string}str
  * @param {number}seed*/
+/* eslint-disable sonarjs/sonar-no-magic-numbers -- yes magic numbers*/
 function cyrb53a(str, seed = 0) {
   let
     h1 = 0xDE_AD_BE_EF ^ seed,
@@ -19,6 +20,7 @@ function cyrb53a(str, seed = 0) {
 
   return 2_097_152 * (h2 >>> 0) + (h1 >>> 11);
 }
+/* eslint-enable sonarjs/sonar-no-magic-numbers*/
 
 module.exports = new MixedCommand({
   dmPermission: true,
@@ -28,7 +30,7 @@ module.exports = new MixedCommand({
     required: true
   })],
 
-  run: async function (lang) {
+  async run(lang) {
     /** @type {string}*/
     const
       input = this.options?.getString('question', true) ?? this.content,

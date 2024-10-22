@@ -2,7 +2,7 @@
 module.exports = {
   title: 'Your IP',
 
-  run: function (res, req) {
+  run(res, req) {
     return res.send(req.header('x-forwarded-for') ?? req.socket.remoteAddress ?? 'unknown');
   }
 };

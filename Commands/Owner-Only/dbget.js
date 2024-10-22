@@ -1,3 +1,7 @@
+const
+  { messageMaxLength } = require('#Utils').constants,
+  suffix = '```';
+
 module.exports = new PrefixCommand({
   dmPermission: true,
   options: [
@@ -10,10 +14,10 @@ module.exports = new PrefixCommand({
   ],
   beta: true,
 
-  run: async function (lang) {
+  async run(lang) {
     const result = this.client.db.get(this.args[0], this.args[1]);
 
     if (!result) return this.customReply(lang('notFound'));
-    return this.customReply('```json\n' + JSON.stringify(result, undefined, 2).slice(0, 1987) + '\n```');
+    return this.customReply('```json\n' + JSON.stringify(result, undefined, 2).slice(0, messageMaxLength - suffix.length) + `\n${suffix}`);
   }
 });

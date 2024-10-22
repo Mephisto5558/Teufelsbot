@@ -1,6 +1,6 @@
 const
   { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js'),
-  { DiscordApiErrorCodes } = require('#Utils');
+  { DiscordApiErrorCodes, constants: { messageMaxLength } } = require('#Utils');
 
 module.exports = new SlashCommand({
   permissions: { user: ['ManageMessages'] },
@@ -21,7 +21,7 @@ module.exports = new SlashCommand({
     new CommandOption({ name: 'remove_attachments', type: 'Boolean' })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       modal = new ModalBuilder({
         title: lang('modalTitle'),
@@ -78,7 +78,7 @@ module.exports = new SlashCommand({
       if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', err.message));
     }
 
-    if (!json) await msg.edit(clear ? { content: content.slice(0, 2001), embeds: [], attachments: [], files: [], components: [] } : content.slice(0, 2001));
+    if (!json) await msg.edit(clear ? { content: content.slice(0, messageMaxLength + 1), embeds: [], attachments: [], files: [], components: [] } : content.slice(0, messageMaxLength));
 
     return modalInteraction.editReply(lang('success', msg.url));
   }

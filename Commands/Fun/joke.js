@@ -1,6 +1,8 @@
 const
   { default: fetch, FetchError } = require('node-fetch'),
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
+  HTTP_STATUS_CLOUDFLARE_BLOCKED = 522, // https://community.cloudflare.com/t/communitytip-behebung-von-fehler-522-connection-timed-out/398740
   defaultAPIList = [
     { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any?lang=en&blacklist={blacklist}' },
     {
@@ -24,6 +26,8 @@ function formatAPIUrl(url, blacklist, apiKey, maxLength, includeTags) {
     .replaceAll('{includeTags}', includeTags);
 }
 
+const defaultMaxLength = 2000;
+
 /**
  * @this {Client}
  * @param {{ name: string, link: string, url: string }[]}apiList
@@ -31,7 +35,7 @@ function formatAPIUrl(url, blacklist, apiKey, maxLength, includeTags) {
  * @param {string}blacklist
  * @param {number?}maxLength
  * @returns {[string, { name: string, link: string, url: string }] | []}*/
-async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000) {
+async function getJoke(apiList = [], type = '', blacklist = '', maxLength = defaultMaxLength) {
   const api = apiList.random();
   let response;
 
@@ -47,11 +51,12 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = 2000
     switch (api.name) {
       case 'jokeAPI': response = res.type == 'twopart' ? `${res.setup}\n\n||${res.delivery}||` : res.joke; break;
       case 'humorAPI': response = res.joke?.includes('Q: ') ? res.joke.replace('Q: ', '').replace('A: ', '\n||') + '||\n' : res.joke; break;
-      case 'icanhazdadjoke': response = res.joke; break;
+      default: response = res.joke; break;
     }
   }
   catch (err) {
-    if ([402, 403, 522].includes(err.status)) log.error('joke.js: ', err.response);
+    if ([HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN, HTTP_STATUS_CLOUDFLARE_BLOCKED].includes(err.status))
+      log.error('joke.js: ', err.response);
     else if (err instanceof FetchError)
       log.error(`joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.name} ${err.code ? ', ' + err.code : ''}: ${err.message}`);
     else throw err;
@@ -88,7 +93,7 @@ module.exports = new MixedCommand({
     })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       apiStr = this.options?.getString('api'),
       type = this.options?.getString('type') ?? this.args?.[0],

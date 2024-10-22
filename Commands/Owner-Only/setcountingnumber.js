@@ -3,7 +3,7 @@ const { getTargetChannel } = require('#Utils');
 module.exports = new PrefixCommand({
   aliases: { prefix: ['setcountingnum'] },
 
-  run: async function (lang) {
+  async run(lang) {
     const
       channel = getTargetChannel(this, { returnSelf: true }).id,
       number = Number.parseInt(this.args[0] ?? 0);

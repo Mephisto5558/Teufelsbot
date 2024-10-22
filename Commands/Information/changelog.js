@@ -3,7 +3,11 @@ const
   fetch = require('node-fetch').default,
 
   /** @type {Client['config']} */
-  { github: ghConfig = {} } = require('../../config.json');
+  { github: ghConfig = {} } = require('../../config.json'),
+
+  CACHE_TIMEOUT = 432e5, // 12h
+  MAX_COMMIT_LENGTH = 100,
+  suffix = '...';
 
 
 /** @type {string[]|undefined} */
@@ -23,13 +27,15 @@ async function getCommits() {
         'User-Agent': `Bot ${github.repo}`
       }
     }),
+
+    /** @type {{ commit: { message: string } }[]}*/
     json = await res.json();
 
   if (!res.ok) throw new Error(JSON.stringify(json));
 
   return json.map(e => {
-    if (e.commit.message.length > 100) e.commit.message = e.commit.message.slice(0, 97) + '...';
-    return `- ${e.commit.message.replaceAll(/(\(#\d+\)).*/gs, '$1')}`;
+    if (e.commit.message.length > MAX_COMMIT_LENGTH) e.commit.message = e.commit.message.slice(0, MAX_COMMIT_LENGTH - suffix.length) + suffix;
+    return `- ${e.commit.message.replace(/(?<=\(#\d+\)).*/s, '')}`;
   });
 }
 
@@ -40,7 +46,7 @@ module.exports = new MixedCommand({
   disabled: !ghConfig.repoName || !ghConfig.userName,
   disabledReason: 'Missing github config in config.json',
 
-  run: async function (lang) {
+  async run(lang) {
     const
       changelog = commitsCache ?? await getCommits.call(this.client),
       embed = new EmbedBuilder({
@@ -52,7 +58,7 @@ module.exports = new MixedCommand({
 
     if (!commitsCache) {
       commitsCache = changelog;
-      setTimeout(() => { commitsCache = undefined; }, 432e5); // 12h
+      setTimeout(() => { commitsCache = undefined; }, CACHE_TIMEOUT);
     }
 
     return this.customReply({ embeds: [embed] });

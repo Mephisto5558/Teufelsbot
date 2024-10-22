@@ -7,11 +7,12 @@ const
    * @typedef {{ bonusEntries?: Record<string, string>[], requiredRoles?: string[], disallowedMembers?: string[], duration?: number, giveawayId?: string }}options
    * @type {Record<string, (this: GuildInteraction, lang: lang, components: ActionRowBuilder<ButtonBuilder>[], options: options) => Promise<Message>>}*/
   giveawayMainFunctions = {
-    create: async function (lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration }) {
+    async create(lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration }) {
       const
         defaultSettings = this.client.defaultSettings.giveaway,
         reaction = this.options.getString('reaction') ?? this.guild.db.giveaway?.reaction ?? defaultSettings.reaction,
         startOptions = {
+          reaction, duration,
           winnerCount: this.options.getInteger('winner_count', true),
           prize: this.options.getString('prize', true),
           hostedBy: this.user,
@@ -19,7 +20,6 @@ const
           bonusEntries: { bonus: member => bonusEntries[member.id] },
           embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? 0, 16) || (this.guild.db.giveaway?.embedColor ?? defaultSettings.embedColor),
           embedColorEnd: Number.parseInt(this.options.getString('embed_color_end')?.slice(1) ?? 0, 16) || (this.guild.db.giveaway?.embedColorEnd ?? defaultSettings.embedColorEnd),
-          reaction, duration,
           messages: {
             giveaway: lang('newGiveaway'),
             giveawayEnded: lang('giveawayEnded'),
@@ -55,14 +55,14 @@ const
       return this.editReply({ content: lang('started'), components });
     },
 
-    end: async function (lang, components, { giveawayId }) {
+    async end(lang, components, { giveawayId }) {
       const data = await this.client.giveawaysManager.end(giveawayId);
       components[0].components[0].data.url = data.messageURL;
 
       return this.editReply({ content: lang('ended'), components });
     },
 
-    edit: async function (lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId }) {
+    async edit(lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId }) {
       const editOptions = {
         addTime: duration,
         newBonusEntries: {},
@@ -84,7 +84,7 @@ const
       return this.editReply({ content: lang('edited'), components });
     },
 
-    reroll: async function (lang, components, { giveawayId }) {
+    async reroll(lang, components, { giveawayId }) {
       const rerollOptions = {
         messages: {
           congrat: { content: lang('rerollWinners'), components },
@@ -123,7 +123,7 @@ module.exports = new SlashCommand({
           name: 'duration',
           type: 'String',
           required: true,
-          autocompleteOptions: function () { return timeValidator(this.focused.value); }
+          autocompleteOptions() { return timeValidator(this.focused.value); }
         }),
         new CommandOption({
           name: 'winner_count',
@@ -167,7 +167,7 @@ module.exports = new SlashCommand({
         new CommandOption({
           name: 'add_time',
           type: 'String',
-          autocompleteOptions: function () { return timeValidator(this.focused.value); },
+          autocompleteOptions() { return timeValidator(this.focused.value); },
           strictAutocomplete: true
         }),
         new CommandOption({
@@ -194,7 +194,7 @@ module.exports = new SlashCommand({
     })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     if (!this.client.giveawaysManager) return this.editReply(lang('managerNotFound'));
 
     const giveawayId = this.options.getString('id');
@@ -204,7 +204,7 @@ module.exports = new SlashCommand({
       giveaway = this.client.giveawaysManager.giveaways.find(e => e.guildId == this.guild.id && e.messageId == giveawayId);
 
       if (!giveaway || giveaway.ended && ['edit', 'end'].includes(this.options.getSubcommand())) return this.editReply(lang('notFound'));
-      if (giveaway.hostedBy.slice(2, -1) != this.user.id && !this.member.permissions.has(PermissionFlagsBits.Administrator))
+      if (giveaway.hostedBy.id != this.user.id && !this.member.permissions.has(PermissionFlagsBits.Administrator))
         return this.editReply(lang('notHost'));
     }
 

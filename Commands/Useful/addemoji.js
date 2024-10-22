@@ -6,6 +6,7 @@ const
 
 /** @param {string}url @returns {Promise<boolean>}*/
 const checkUrl = url => new Promise((resolve, reject) => {
+  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- status codes 2xx and 3xx*/
   const req = (url.startsWith('https') ? https : http).request(url, { method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode.inRange(199, 400)));
 
   req
@@ -32,7 +33,7 @@ module.exports = new SlashCommand({
     new CommandOption({ name: 'limit_to_roles', type: 'String' })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     let input = this.options.getString('emoji_or_url', true);
 
     const
@@ -47,14 +48,16 @@ module.exports = new SlashCommand({
 
     if (this.guild.emojis.cache.has(emoticon.id)) return this.editReply({ embeds: [embed.setDescription(lang('isGuildEmoji'))] });
     if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
-    else if (!/^(https?:\/\/)?(www\.)?.*\.(jpg|jpeg|png|webp|svg|gif)(\?.*)?$/i.test(input)) return this.editReply({ embeds: [embed.setDescription(lang('invalidUrl'))] });
+    /* eslint-disable-next-line regexp/prefer-quantifier -- "www" is preferred to be written out for readability*/
+    else if (!/^(?:https?:\/\/)?(?:www\.)?.*?\.(?:gif|jpeg|jpg|png|svg|webp)(?:\?.*)?$/i.test(input))
+      return this.editReply({ embeds: [embed.setDescription(lang('invalidUrl'))] });
     if (!input.startsWith('http')) input = `https://${input}`;
 
     try {
       if (!await checkUrl(input)) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
 
       const emoji = await this.guild.emojis.create({
-        attachment: input, name,
+        name, attachment: input,
         reason: lang('global.modReason', { command: this.commandName, user: this.user.tag }),
         roles: limitToRoles
       });

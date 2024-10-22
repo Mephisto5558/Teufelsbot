@@ -5,7 +5,7 @@ const
 module.exports = new MixedCommand({
   dmPermission: true,
 
-  run: async function (lang) {
+  async run(lang) {
     const embed = new EmbedBuilder({
       description: lang(
         this.client.config.website.domain && !this.client.config.disableWebserver ? 'embedDescription' : 'embedDescriptionNoURL',

@@ -1,7 +1,9 @@
-const medals = [':first_place:', ':second_place:', ':third_place:'];
+const
+  medals = [':first_place:', ':second_place:', ':third_place:'],
+  { messageMaxLength } = require('../constants');
 
 /** @type {import('.').mgStats_formatTopTen}*/
-module.exports = function formatTopTen(input, sort, mode, lang) {
+module.exports = function formatTopTen(input, sort, mode, lang, maxLength = messageMaxLength) {
   if (input.length > 1) {
     switch (mode) {
       case 'draws': input.sort(([, a], [, b]) => b.draws - a.draws || b.wins - a.wins || a.loses - b.loses); break;
@@ -19,11 +21,11 @@ module.exports = function formatTopTen(input, sort, mode, lang) {
   }
 
   return input.slice(0, 10).reduce((acc, [id, stats], i) => acc + (
-    acc.length > 3997
+    acc.length > maxLength
       ? '...'
       : `${medals[i] ?? i + 1 + '.'} <@${id}>\n`
-      + '> ' + lang('wins', stats.wins ?? 0)
-      + '> ' + lang('loses', stats.loses ?? 0)
-      + '> ' + lang('draws', stats.draws ?? 0)
+        + '> ' + lang('wins', stats.wins ?? 0)
+        + '> ' + lang('loses', stats.loses ?? 0)
+        + '> ' + lang('draws', stats.draws ?? 0)
   ), '');
 };

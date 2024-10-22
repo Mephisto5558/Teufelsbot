@@ -1,4 +1,6 @@
-const { EmbedBuilder, PermissionFlagsBits, AuditLogEvent } = require('discord.js');
+const
+  { EmbedBuilder, PermissionFlagsBits, AuditLogEvent } = require('discord.js'),
+  TWENTY_SEC = 2e4;
 
 /**
  * @this {import('discord.js').Collection<string, Message<true> | import('discord.js').PartialMessage>}
@@ -16,7 +18,7 @@ module.exports = async function messageDeleteBulk(channel) {
 
   const
     { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageBulkDelete })).entries
-      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < 2e4) ?? {},
+      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},
 
     /** @type {lang} */
     lang = channel.client.i18n.__.bBind(channel.client.i18n, { locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),

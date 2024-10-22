@@ -1,13 +1,19 @@
-const { timeFormatter } = require('#Utils');
+const
+  { timeFormatter } = require('#Utils'),
+
+  // TODO: document why this is needed
+  DATE_START = 1900;
 
 /**
  * @this {Message|Interaction}
  * @param {string}name
- * @param {number?}i
  * @param {number?}defaultNum
  * @returns {number}*/
-function getInteger(name, i, defaultNum = 0) {
-  const num = Number.parseInt(this.args?.[i]);
+function getInteger(name, defaultNum = 0) {
+  const
+    position = module.exports.options.findIndex(e => e.name == name),
+    num = Number.parseInt(this.args?.[position]);
+
   return this.options?.getInteger(name) ?? (Number.isNaN(num) ? defaultNum : num);
 }
 
@@ -17,7 +23,11 @@ function getInteger(name, i, defaultNum = 0) {
  * @param {number}day
  * @param {number[]}args*/
 function getTime(year, month, day, ...args) {
-  return year.inRange(-1, 101) ? new Date(year - 1900, month, day, ...args).setFullYear(year) : new Date(year, month, day, ...args).getTime();
+  const
+    allowedYearStart = -1, // "-1" to include "0"
+    allowedYearEnd = 101;
+
+  return year.inRange(allowedYearStart, allowedYearEnd) ? new Date(year - DATE_START, month, day, ...args).setFullYear(year) : new Date(year, month, day, ...args).getTime();
 }
 
 module.exports = new MixedCommand({
@@ -61,15 +71,15 @@ module.exports = new MixedCommand({
     })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       getInt = getInteger.bind(this),
-      day = getInt('day', 0),
-      month = getInt('month', 1, 1) - 1,
-      year = getInt('year', 2),
-      hour = getInt('hour', 3),
-      minute = getInt('minute', 4),
-      second = getInt('second', 5),
+      day = getInt('day'),
+      month = getInt('month', 1) - 1,
+      year = getInt('year'),
+      hour = getInt('hour'),
+      minute = getInt('minute'),
+      second = getInt('second'),
       date = day || month || year ? getTime(year, month, day, hour, minute, second) : new Date().setHours(hour, minute, second),
       { formatted, negative } = timeFormatter({ sec: (date - Date.now()) / 1000, lang });
 

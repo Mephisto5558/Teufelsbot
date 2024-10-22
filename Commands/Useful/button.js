@@ -39,7 +39,7 @@ module.exports = new SlashCommand({
     })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       custom = this.options.getString('json'),
       content = this.options.getString('content') ?? undefined,
@@ -50,7 +50,7 @@ module.exports = new SlashCommand({
       url = this.options.getString('url');
 
     if (isLink) {
-      if (!/^((discord|https?):\/\/)?[\w.-]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
+      if (!/^(?:(?:discord|https?):\/\/)?[\w\-.]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
       if (!url.startsWith('http') && !url.startsWith('discord')) url = `https://${url}`;
     }
 

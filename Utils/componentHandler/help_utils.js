@@ -4,7 +4,8 @@ const
   { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
 
   /** @type {import('..').permissionTranslator}*/
-  permissionTranslator = require('../permissionTranslator.js');
+  permissionTranslator = require('../permissionTranslator.js'),
+  { secsInMinute } = require('../timeFormatter.js');
 
 /**
  * @type {import('.').help_getCommands}
@@ -93,8 +94,8 @@ function createInfoFields(cmd, lang) {
     arr.push({
       name: lang('one.cooldowns'), inline: false,
       value: cooldowns.map(([k, v]) => {
-        const min = Math.floor(v / 6e4);
-        let sec = v % 6e4 / 1000;
+        const min = Math.floor(v / secsInMinute * 1000);
+        let sec = v % secsInMinute;
         sec = sec % 1 ? sec.toFixed(2) : Math.floor(sec);
 
         if (min && sec) return `${lang('global.' + k)}: ${min}min ${sec}s`;
@@ -122,7 +123,7 @@ function filterCommands(cmd) {
 }
 
 /** @type {import('.').help_commandQuery}*/
-module.exports.commandQuery = function commandQuery(lang, query) {
+module.exports.commandQuery = async function commandQuery(lang, query) {
   if (this.values && !this.values.length) return module.exports.categoryQuery.call(this, lang, this.message.components[0].components[0].data.options.find(e => e.default).value);
 
   const command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);
@@ -146,7 +147,7 @@ module.exports.commandQuery = function commandQuery(lang, query) {
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
       description: helpLang('description') ?? command.description,
       fields: createInfoFields.call(this, command, lang),
-      footer: { text: lang('one.embedFooterText', '"' + (this.guild?.db.config[prefixKey] ?? this.client.defaultSettings.config[prefixKey]).map(e => e.prefix).join('", "') + '"') },
+      footer: { text: lang('one.embedFooterText', `"${(this.guild?.db.config[prefixKey] ?? this.client.defaultSettings.config[prefixKey]).map(e => e.prefix).join('", "')}"`) },
       color: Colors.Blurple
     });
 

@@ -1,6 +1,8 @@
 /* eslint camelcase: ["error", {allow: ["toggle_module", "toggle_command", "\w*_prefix"]}] */
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
+  { autocompleteOptionsMaxAmt } = require('#Utils').constants,
+  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- this is like an enum*/
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'],
   MAX_PREFIXES_PER_GUILD = 2,
@@ -202,7 +204,7 @@ module.exports = new SlashCommand({
           name: 'command',
           type: 'String',
           required: true,
-          autocompleteOptions: function () { return getCMDs(this.client); },
+          autocompleteOptions() { return getCMDs(this.client); },
           strictAutocomplete: true
         }),
         new CommandOption({ name: 'get', type: 'Boolean' }),
@@ -219,9 +221,9 @@ module.exports = new SlashCommand({
         name: 'language',
         type: 'String',
         required: true,
-        autocompleteOptions: function () {
+        autocompleteOptions() {
           return [...this.client.i18n.availableLocales.keys()].reduce((acc, locale) => {
-            if (acc.length > 25) return acc;
+            if (acc.length > autocompleteOptionsMaxAmt) return acc;
 
             const name = this.client.i18n.__({ locale, undefinedNotFound: true }, 'global.languageName') ?? locale;
             if (name.toLowerCase().includes(this.focused.value.toLowerCase()) || locale.toLowerCase().includes(this.focused.value.toLowerCase()))
@@ -264,7 +266,7 @@ module.exports = new SlashCommand({
         new CommandOption({
           name: 'prefix',
           type: 'String',
-          autocompleteOptions: function () { return this.guild.db.config[this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes']?.map(e => e.prefix) ?? []; },
+          autocompleteOptions() { return this.guild.db.config[this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes']?.map(e => e.prefix) ?? []; },
           strictAutocomplete: true,
           required: true
         })
@@ -310,7 +312,7 @@ module.exports = new SlashCommand({
     })
   ],
 
-  run: function (lang) {
+  async run(lang) {
     lang.__boundArgs__[0].backupPath += `.${this.options.getSubcommand().replaceAll(/_./g, e => e[1].toUpperCase())}`;
     return setupMainFunctions[this.options.getSubcommand()].call(this, lang);
   }

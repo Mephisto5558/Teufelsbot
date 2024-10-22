@@ -5,10 +5,11 @@ const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require(
 module.exports = async function playAgain(interaction, lang) {
   const
     opponent = interaction.options.getUser('opponent'),
-    { components } = await interaction.fetchReply();
+    { components } = await interaction.fetchReply(),
+    lastRow = 3;
 
-  if (!components[3]?.components[0]?.customId) {
-    components[3] = new ActionRowBuilder({
+  if (!components[lastRow]?.components[0]?.customId) {
+    components[lastRow] = new ActionRowBuilder({
       components: [new ButtonBuilder({
         customId: 'playAgain',
         label: lang('global.playAgain'),
@@ -46,8 +47,11 @@ module.exports = async function playAgain(interaction, lang) {
       }
 
       if (interaction.options._hoistedOptions[0]?.user) {
-        const msg = await interaction.channel.send(lang('newChallenge', interaction.options._hoistedOptions[0].user.id));
-        void sleep(5000).then(msg.delete.bind(msg));
+        const
+          msg = await interaction.channel.send(lang('newChallenge', interaction.options._hoistedOptions[0].user.id)),
+          sleepTime = 5000;
+
+        void sleep(sleepTime).then(msg.delete.bind(msg));
       }
 
       return this.handleInteraction(interaction);
@@ -55,7 +59,7 @@ module.exports = async function playAgain(interaction, lang) {
     .on('end', collected => {
       if (!collected.size) return;
 
-      for (let i = 0; i < 3; i++) for (const button of components[i].components) button.data.disabled = true;
+      for (let i = 0; i < lastRow; i++) for (const button of components[i].components) button.data.disabled = true;
 
       return interaction.editReply({ components });
     });

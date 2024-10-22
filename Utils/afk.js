@@ -1,4 +1,12 @@
-const { AllowedMentionsTypes, PermissionFlagsBits, VoiceState } = require('discord.js');
+const
+  { AllowedMentionsTypes, PermissionFlagsBits, VoiceState } = require('discord.js'),
+  { messageMaxLength, memberNameMaxLength } = require('#Utils').constants,
+  nicknamePrefix = '[AFK] ',
+  nicknameRegex = /^[AFK] /;
+
+
+module.exports.nicknamePrefix = nicknamePrefix;
+module.exports.nicknameRegex = nicknameRegex;
 
 /**
  * @type {import('.')['afk']['getAfkStatus']}
@@ -9,7 +17,7 @@ module.exports.getAfkStatus = async function getAfkStatus(target, lang) {
   if (!message) return this.customReply(lang('getNoneFound'));
 
   return this.customReply(lang('events.message.afkMsg', {
-    member: target.displayName.replace(/^\[AFK] /, ''), message, timestamp: Math.round(createdAt / 1000)
+    message, member: target.displayName.replace(nicknameRegex, ''), timestamp: Math.round(createdAt / 1000)
   }));
 };
 
@@ -22,8 +30,8 @@ module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
     const { message, createdAt } = this.guild.db.afkMessages?.[e.user.id] ?? e.user.db.afkMessage ?? {};
     if (message) {
       acc.push('- ' + lang('events.message.afkMsg', {
-        member: e.nickname?.startsWith('[AFK] ') ? e.nickname.slice(6) : e.displayName,
-        message, timestamp: Math.round(createdAt / 1000)
+        message, member: e.nickname?.startsWith(nicknamePrefix) ? e.nickname.slice(nicknamePrefix.length) : e.displayName,
+        timestamp: Math.round(createdAt / 1000)
       }));
     }
 
@@ -84,11 +92,11 @@ module.exports.sendAfkMessages = async function sendAfkMessages() {
     if (!message || e.id == this.user.id) return acc;
 
     const afkMessage = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkMsg', {
-      member: e.nickname?.startsWith('[AFK] ') ? e.nickname.slice(6) : e.displayName,
-      message, timestamp: Math.round(createdAt / 1000)
+      message, member: e.nickname?.startsWith(nicknamePrefix) ? e.nickname.slice(nicknamePrefix.length) : e.displayName,
+      timestamp: Math.round(createdAt / 1000)
     });
 
-    if (acc.length + afkMessage.length >= 2000) {
+    if (acc.length + afkMessage.length >= messageMaxLength) {
       void this.customReply(acc);
       acc = '';
     }
@@ -100,15 +108,15 @@ module.exports.sendAfkMessages = async function sendAfkMessages() {
 };
 
 /** @type {import('.')['afk']['setAfkPrefix']}*/
-async function setAfkPrefix(member, prefix = '[AFK] ') {
-  if (!member.moderatable || member.displayName.length > 31 - prefix.length || member.nickname?.startsWith(prefix)) return;
+async function setAfkPrefix(member, prefix = nicknamePrefix) {
+  if (!member.moderatable || member.displayName.length >= memberNameMaxLength - prefix.length || member.nickname?.startsWith(prefix)) return;
 
   await member.setNickname(`${prefix}${member.displayName}`);
   return true;
 }
 
 /** @type {import('.')['afk']['unsetAfkPrefix']}*/
-async function unsetAfkPrefix(member, prefix = '[AFK] ') {
+async function unsetAfkPrefix(member, prefix = nicknamePrefix) {
   if (!member.moderatable || !member.nickname?.startsWith(prefix)) return;
 
   await member.setNickname(member.nickname.slice(prefix.length));

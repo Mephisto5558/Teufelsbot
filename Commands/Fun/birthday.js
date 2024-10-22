@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   { getTargetMember, getAge } = require('#Utils'),
+  { dayInSecs } = require('#Utils/timeFormatter'),
   currentYear = new Date().getFullYear();
 
 /**
@@ -14,6 +15,7 @@ function sortDates(a, b = Date.now(), currentTime = Date.now()) {
     diffB = new Date(b).setFullYear(currentYear) - currentTime;
 
   if (diffA * diffB > 0) return diffA - diffB; // both are positive or both are negative
+  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- sorting function; so not a magic number*/
   return diffA <= 0 && diffB >= 0 ? 1 : -1;
 }
 
@@ -27,7 +29,7 @@ const birthdayMainFunctions = {
       nextBirthday = new Date(today.getFullYear(), month - 1, day);
 
     if (today > nextBirthday) nextBirthday.setFullYear(today.getFullYear() + 1);
-    const diffDays = Math.ceil(Math.abs(nextBirthday - today) / 864e5); // ms -> days
+    const diffDays = Math.ceil(Math.abs(nextBirthday - today) / dayInSecs * 1000);
 
     await this.user.updateDB('birthday', new Date(this.options.getInteger('year', true), month - 1, day));
     return this.editReply(lang('saved', diffDays));
@@ -60,7 +62,7 @@ const birthdayMainFunctions = {
         embed.data.description = lang('getUser.date', {
           user: target.customName,
           month: lang(`months.${birthday.getMonth() + 1}`), day: birthday.getDate(),
-          daysUntil: Math.round(Math.abs(Date.now() - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / 864e5) // 864e5 = ms per day
+          daysUntil: Math.round(Math.abs(Date.now() - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / dayInSecs * 1000)
         });
 
         if (age < currentYear) embed.data.description += lang('getUser.newAge', age);
@@ -143,7 +145,7 @@ module.exports = new SlashCommand({
     new CommandOption({ name: 'remove', type: 'Subcommand' })
   ],
 
-  run: function (lang) {
+  run(lang) {
     return birthdayMainFunctions[this.options.getSubcommand()].call(this, lang);
   }
 });

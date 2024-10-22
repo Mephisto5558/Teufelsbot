@@ -16,7 +16,7 @@ module.exports = new MixedCommand({ // or `SlashCommand` or `PrefixCommand`
     choices: ['']
   })],
 
-  run: function (lang) {
+  run(lang) {
 
   }
 });

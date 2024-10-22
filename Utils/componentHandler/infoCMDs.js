@@ -21,6 +21,10 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
   if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], ephemeral: true });
 
+  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- last char is an "s"*/
+  const entityTypeSingular = entityType.slice(0, -1);
+
+  /* eslint-disable sonarjs/switch-without-default -- entityType is a union.*/
   switch (entityType) {
     case 'members': {
       if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']))
@@ -49,10 +53,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
       this.commandName = mode;
       this.options = { getMember: () => item, getString: () => submit.fields.getTextInputValue('infoCMDs_punish_reason_modal_text'), getNumber: () => 0 };
-
-
-      /* eslint-disable-next-line @typescript-eslint/unbound-method -- fine because it has the same `this`*/
-      this.editReply = this.followUp;
+      this.editReply = this.followUp.bind(this);
 
       await submit.deferUpdate();
       ban_kick_mute.call(this, lang);
@@ -103,7 +104,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
           await guild.emojis.create({
             attachment: item.imageURL(), name: item.name,
-            reason: `emoji add to server button in /${entityType.slice(0, -1)}info, member ${this.user.tag}, server ${this.guild.id}`, user: this.user.tag
+            reason: `emoji add to server button in /${entityTypeSingular}info, member ${this.user.tag}, server ${this.guild.id}`, user: this.user.tag
           });
         }
 
@@ -123,7 +124,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
   }
 
   if (mode == 'delete') {
-    await item.delete(`${entityType.slice(0, -1)} delete button in /${entityType.slice(0, -1)}info, member ${this.user.tag}`);
+    await item.delete(`${entityTypeSingular} delete button in /${entityTypeSingular}info, member ${this.user.tag}`);
     void this.editReply({ embeds: [embed.setColor(Colors.Green).setDescription(lang('success'))] });
   }
 

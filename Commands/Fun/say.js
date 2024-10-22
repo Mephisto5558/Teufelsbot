@@ -24,7 +24,7 @@ module.exports = new MixedCommand({
     })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
 
       /** @type {string}*/
@@ -40,7 +40,7 @@ module.exports = new MixedCommand({
     if (this.member.permissionsIn(channel).has(PermissionFlagsBits.MentionEveryone))
       allowedMentions.parse.push(AllowedMentionsTypes.Role, AllowedMentionsTypes.Everyone);
 
-    const sentMessage = await channel.send({ content: msg.replaceAll('/n', '\n'), allowedMentions, reply: { messageReference: replyTo, failIfNotExists: false } });
+    const sentMessage = await channel.send({ allowedMentions, content: msg.replaceAll('/n', '\n'), reply: { messageReference: replyTo, failIfNotExists: false } });
     await (this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent')));
 
     return logSayCommandUse.call(sentMessage, this.member, lang);

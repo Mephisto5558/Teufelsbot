@@ -1,3 +1,5 @@
+/* eslint-disable sonarjs/no-extend-native */
+
 const
   { BaseInteraction, Message, Collection, AutocompleteInteraction, User, Guild, GuildMember, ButtonBuilder, Events, Client } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
@@ -21,8 +23,8 @@ const
 
 module.exports = { Log, _patch, customReply, runMessages, playAgain };
 
-global.log = new Log();
-global.sleep = require('node:util').promisify(setTimeout);
+globalThis.log = new Log();
+globalThis.sleep = require('node:util').promisify(setTimeout);
 
 global.SlashCommand = SlashCommand;
 global.PrefixCommand = PrefixCommand;
@@ -48,7 +50,7 @@ if (!config.hideOverwriteWarning) {
   console.warn(
     'Overwriting the following variables and functions (if they exist):'
     + '\n  Globals:    global.sleep, global.log, global.getEmoji'
-    + `\n  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} Array#random, Array#unique, `
+    + `\n  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} Array#random, Array#unique, Array#last, String#last, `
     + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind'
     + '\n  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
     + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, Guild#db, guild#updateDB, '
@@ -76,7 +78,19 @@ Object.defineProperties(Array.prototype, {
     /** @type {global['Array']['prototype']['unique']}*/
     value: function unique() { return [...new Set(this)]; },
     enumerable: false
+  },
+  last: {
+    /** @type {global['Array']['prototype']['last']}*/
+    /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- "-1" is last index*/
+    value: function last() { return this.at(-1); },
+    enumerable: false
   }
+});
+Object.defineProperty(String.prototype, 'last', {
+  /** @type {global['String']['prototype']['last']}*/
+  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- "-1" is last index*/
+  value: function last() { return this.at(-1); },
+  enumerable: false
 });
 Object.defineProperties(Number.prototype, {
   limit: {
@@ -209,7 +223,7 @@ Object.defineProperties(User.prototype, {
   },
   updateDB: {
     /** @type {User['updateDB']}*/
-    value: async function (key, value) { return this.client.db.update('userSettings', this.id + (key ? `.${key}` : ''), value); }
+    value: async function updateDB(key, value) { return this.client.db.update('userSettings', `${this.id}${key ? '.' + key : ''}`, value); }
   },
 
   /** @type {Record<string, (this: User, val: any) => any>} */
@@ -239,7 +253,7 @@ Object.defineProperties(Guild.prototype, {
   },
   updateDB: {
     /** @type {Guild['updateDB']}*/
-    value: function (key, value) { return this.client.db.update('guildSettings', this.id + (key ? `.${key}` : ''), value); }
+    value: function updateDB(key, value) { return this.client.db.update('guildSettings', this.id + (key ? `.${key}` : ''), value); }
   },
 
   /** @type {Record<string, (this: Guild, val: any) => any>} */
@@ -264,26 +278,32 @@ Object.defineProperty(DB.prototype, 'generate', {
 // #endregion
 
 // #region discord-tictactoe
-TicTacToe.prototype.playAgain = playAgain;
+Object.defineProperty(TicTacToe.prototype, 'playAgain', {
+  value: playAgain,
+  enumerable: false
+});
 
 /**
  * @param {number}row
  * @param {number}col*/
-GameBoardButtonBuilder.prototype.createButton = function createButton(row, col) {
-  const
-    button = new ButtonBuilder(),
-    buttonIndex = row * this.boardSize + col,
-    buttonData = this.boardData[buttonIndex];
+Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
+  value: function createButton(row, col) {
+    const
+      button = new ButtonBuilder(),
+      buttonIndex = row * this.boardSize + col,
+      buttonData = this.boardData[buttonIndex];
 
-  // Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
-  if (buttonData === 0) button.setLabel('\u200B');
-  else {
-    if (this.customEmojies) button.setEmoji(this.emojies[buttonData]);
-    else button.setLabel(this.buttonLabels[buttonData - 1]);
+    // Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
+    if (buttonData === 0) button.setLabel('\u200B');
+    else {
+      if (this.customEmojies) button.setEmoji(this.emojies[buttonData]);
+      else button.setLabel(this.buttonLabels[buttonData - 1]);
 
-    if (this.disableButtonsAfterUsed) button.setDisabled(true);
-  }
-  return button.setCustomId(buttonIndex.toString()).setStyle(this.buttonStyles[buttonData]);
-};
+      if (this.disableButtonsAfterUsed) button.setDisabled(true);
+    }
+    return button.setCustomId(buttonIndex.toString()).setStyle(this.buttonStyles[buttonData]);
+  },
+  enumerable: false
+});
 
 // #endregion

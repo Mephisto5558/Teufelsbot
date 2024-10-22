@@ -30,6 +30,9 @@ module.exports = async function sendRPSChallenge({ initiator, opponent, lang }) 
       ]
     });
 
-  const msg = await this.customReply({ content: opponent.bot ? undefined : `<@${opponent.id}>`, embeds: [embed], components: [component] });
-  if (!opponent.bot) return msg.reply(lang('newChallenge', opponent.id)).then(e => setTimeout(e.delete.bind(e), 5000));
+  const
+    msg = await this.customReply({ content: opponent.bot ? undefined : `<@${opponent.id}>`, embeds: [embed], components: [component] }),
+    deleteTime = 5000;
+
+  if (!opponent.bot) return msg.reply(lang('newChallenge', opponent.id)).then(e => setTimeout(e.delete.bind(e), deleteTime));
 };

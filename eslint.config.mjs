@@ -36,8 +36,7 @@ export default [
     },
     plugins,
     rules: {
-      "@typescript-eslint/promise-function-async": "off", // slowest rule overall
-      "@typescript-eslint/no-meaningless-void-operator": "off" // second slowest rule overall
+      "sonarjs/no-implicit-dependencies": "off" // Does not support package.json "imports" field
     }
   }
 ];

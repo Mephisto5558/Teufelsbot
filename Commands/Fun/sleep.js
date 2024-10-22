@@ -3,7 +3,7 @@ const { setAfkPrefix } = require('#Utils').afk;
 module.exports = new PrefixCommand({
   dmPermission: true,
 
-  run: async function (lang) {
+  async run(lang) {
     void setAfkPrefix(this.member, 'set');
 
     await this.user.updateDB('afkMessage', { message: lang('afkMessage'), createdAt: this.createdAt });

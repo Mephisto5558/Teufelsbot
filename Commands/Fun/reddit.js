@@ -1,6 +1,10 @@
 const
   { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   fetch = require('node-fetch').default,
+  { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
+  { embedMaxTitleLength } = require('#Utils').constants,
+  { secsInMinute, suffix } = require('#Utils/timeFormatter'),
+  CACHE_DELETE_TIME = secsInMinute * 5, // eslint-disable-line sonarjs/sonar-no-magic-numbers -- 5min
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
   cachedSubreddits = new Collection(),
   fetchPost = ({ children }, filterNSFW = true) => {
@@ -39,7 +43,7 @@ module.exports = new MixedCommand({
         new CommandOption({
           name: 'subreddit',
           type: 'String',
-          autocompleteOptions: function () { return (this.focused.value.startsWith('r/') ? this.focused.value.slice(2) : this.focused.value).replaceAll(/\W/g, ''); }
+          autocompleteOptions() { return (this.focused.value.startsWith('r/') ? this.focused.value.slice(2) : this.focused.value).replaceAll(/\W/g, ''); }
         }),
         new CommandOption({ name: 'type', type: 'String' }),
         new CommandOption({ name: 'filter_nsfw', type: 'Boolean' })
@@ -49,7 +53,7 @@ module.exports = new MixedCommand({
   disabled: true,
   disabledReason: 'Reddit has blocked the bot\'s IP.',
 
-  run: async function (lang) {
+  async run(lang) {
     const
       filterNSFW = !this.channel.nsfw || (this.options?.getBoolean('filter_nsfw') ?? true),
       type = this.options?.getString('type') ?? this.args?.[1] ?? 'hot';
@@ -69,12 +73,12 @@ module.exports = new MixedCommand({
         return this.customReply(lang('notFound'));
       }
 
-      if (res.error == 404) return this.customReply(lang('notFound'));
+      if (res.error == HTTP_STATUS_NOT_FOUND) return this.customReply(lang('notFound'));
       if (res.reason == 'private') return this.customReply(lang('private'));
       if (res.error) return this.customReply(lang('error', `Error: ${res.message}\nReason: ${res.reason}`));
 
       cachedSubreddits.set(`${subreddit}_${type}`, res.data);
-      setTimeout(() => cachedSubreddits.delete(`${subreddit}_${type}`), 5 * 6e4);
+      setTimeout(() => cachedSubreddits.delete(`${subreddit}_${type}`), CACHE_DELETE_TIME);
 
       post = fetchPost(res.data, filterNSFW);
     }
@@ -84,7 +88,7 @@ module.exports = new MixedCommand({
     const
       embed = new EmbedBuilder({
         author: { name: `${post.author} | r/${post.subreddit}` },
-        title: post.title.length < 257 ? post.title : post.title.slice(0, 253) + '...',
+        title: post.title.length > embedMaxTitleLength ? post.title.slice(0, embedMaxTitleLength - suffix.length) + suffix : post.title,
         url: post.url,
         image: { url: /^https?:\/\//i.test(post.imageURL) ? post.imageURL : `https://reddit.com${post.imageURL}` },
         footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * 100, downvotes: post.downvotes, comments: post.comments }) }

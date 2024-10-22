@@ -1,6 +1,7 @@
 const
   TicTacToe = require('discord-tictactoe'),
-  { getTargetMember } = require('#Utils');
+  { getTargetMember } = require('#Utils'),
+  CHALLENGE_DELETE_TIME = 5000; // 5s
 
 /**
  * @this {GuildInteraction}
@@ -43,7 +44,7 @@ module.exports = new SlashCommand({
   cooldowns: { user: 5000 },
   options: [new CommandOption({ name: 'opponent', type: 'User' })],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       gameTarget = getTargetMember(this, { targetOptionName: 'opponent' })?.id,
       game = new TicTacToe({
@@ -53,7 +54,7 @@ module.exports = new SlashCommand({
         commandOptionName: gameTarget == this.client.user.id ? 'thisOptionWillNotGetUsed' : 'opponent'
       });
 
-    if (gameTarget) void this.channel.send(lang('newChallenge', gameTarget)).then(msg => setTimeout(() => msg.delete(), 5000));
+    if (gameTarget) void this.channel.send(lang('newChallenge', gameTarget)).then(msg => setTimeout(() => msg.delete(), CHALLENGE_DELETE_TIME));
 
     game.on('win', data => eventCallback.call(this, [data.winner, data.loser], ['win', 'lose'], lang, game));
     game.on('tie', data => eventCallback.call(this, data.players, ['draw'], lang, game));

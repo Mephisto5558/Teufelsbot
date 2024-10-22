@@ -2,7 +2,7 @@ module.exports = new PrefixCommand({
   name: 'todo',
   description: 'Todo list links',
 
-  run: async function () {
+  async run() {
     return this.reply(
       `[ToDo excel](<${this.client.config.website.domain}/todo>), `
       + `[Voting page](<${this.client.config.website.domain}/vote>), `

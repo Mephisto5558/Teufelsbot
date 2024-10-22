@@ -1,6 +1,6 @@
 const
   { readdir } = require('node:fs/promises'),
-  { getDirectories, formatCommand, slashCommandsEqual, errorHandler } = require('#Utils');
+  { getDirectories, formatCommand, filename, slashCommandsEqual, errorHandler } = require('#Utils');
 
 /** @this {Client}*/
 module.exports = async function slashCommandLoader() {
@@ -17,7 +17,7 @@ module.exports = async function slashCommandLoader() {
       let command = require(`../Commands/${subFolder}/${file}`);
 
       if (!command?.slashCommand) continue;
-      try { command = formatCommand(command, `Commands/${subFolder}/${file}`, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`, this.i18n); }
+      try { command = formatCommand(command, `Commands/${subFolder}/${file}`, `commands.${subFolder.toLowerCase()}.${filename(file)}`, this.i18n); }
       catch (err) {
         if (this.botType == 'dev') throw err;
         log.error(`Error on formatting command ${command.name}:\n`, err);

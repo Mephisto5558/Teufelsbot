@@ -9,7 +9,7 @@ module.exports = new PrefixCommand({
   dmPermission: true,
   beta: true,
 
-  run: async function (lang) {
+  async run(lang) {
     if (restarting) return this.reply(lang('alreadyRestarting', restarting));
 
     restarting = true;

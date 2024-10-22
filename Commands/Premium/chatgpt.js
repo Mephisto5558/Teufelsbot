@@ -16,7 +16,10 @@ async function fetchAPI(lang, deep) {
     },
     body: JSON.stringify({
       model: 'pai-001',
-      messages: [{ role: 'user', content: this.options?.getString('message', true) ?? this.content }]
+      messages: [
+        { role: 'system', content: 'Your name is "Teufelsbot", you are a helpfull discord bot. Reply consize and in the same language as the user.' },
+        { role: 'user', content: this.options?.getString('message', true) ?? this.content }
+      ]
     })
   }).then(e => e.json());
 
@@ -40,7 +43,7 @@ module.exports = new MixedCommand({
     required: true
   })],
 
-  run: async function (lang) {
+  async run(lang) {
     if (this instanceof Message) void this.channel.sendTyping();
 
     const

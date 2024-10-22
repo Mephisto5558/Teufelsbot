@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { getHashes, createHash } = require('node:crypto');
+  { getHashes, createHash } = require('node:crypto'),
+  { embedDescriptionMaxLength } = require('#Utils').constants;
 
 module.exports = new SlashCommand({
   cooldowns: { user: 1e4 },
@@ -21,13 +22,13 @@ module.exports = new SlashCommand({
     })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       input = this.options.getString('input', true),
       method = this.options.getString('method', true),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: lang('embedDescription', { input: input.length > 500 ? `${input.slice(0, 500)}\n...` : input, method }),
+        description: lang('embedDescription', { input: input.length > embedDescriptionMaxLength ? `${input.slice(0, embedDescriptionMaxLength)}\n...` : input, method }),
         color: Colors.DarkGold
       });
 

@@ -12,7 +12,7 @@ module.exports = new SlashCommand({
     new CommandOption({ name: 'reason', type: 'String' })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
 
       /** @type {import('discord.js').GuildMember?} */

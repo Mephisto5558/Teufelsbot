@@ -9,6 +9,7 @@ const
 module.exports = async function record(lang, mode, requesterId, voiceChannelId, isPublic) {
   lang.__boundArgs__[0].backupPath = 'commands.premium.record';
 
+  /* eslint-disable-next-line sonarjs/switch-without-default -- mode is a union*/
   switch (mode) {
     case 'memberAllow':
     case 'memberDeny': {

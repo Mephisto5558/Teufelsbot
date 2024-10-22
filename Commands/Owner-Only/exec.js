@@ -9,7 +9,7 @@ module.exports = new PrefixCommand({
   })],
   beta: true,
 
-  run: async function (lang) {
+  async run(lang) {
     const msg = await this.reply(lang('global.loading', getEmoji('loading')));
 
     try {

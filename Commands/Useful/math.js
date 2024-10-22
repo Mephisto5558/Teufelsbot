@@ -2,6 +2,7 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   mathjs = require('mathjs'),
   math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
+  SPLIT_POS = 3, // "1 234 567"
   superscripts = {
     '²': '^2', '³': '^3',
     '⁴': '^4', '⁵': '^5',
@@ -13,11 +14,11 @@ const
     .replaceAll('÷', '/')
     .replaceAll('π', '(pi)')
     .replaceAll(/[\u00B2\u00B3\u2074-\u2079]/g, e => superscripts[e])
-    .replaceAll(/√(\(|\d+)/g, (_, e) => e === '(' ? 'sqrt(' : `sqrt(${e})`),
+    .replaceAll(/√(?<val>\(|\d+)/g, (_, val) => val === '(' ? 'sqrt(' : `sqrt(${val})`),
   addSpaces = /** @param {number}fullNum*/ fullNum => {
     if (typeof fullNum != 'number' || !Number.isFinite(fullNum)) return String(fullNum);
     const [num, ext] = String(fullNum).split('.');
-    return [...num].reduceRight((acc, e, i) => ((num.length - i) % 3 == 0 ? ` ${e}` : e) + acc, '') + (ext ? `.${ext}` : '');
+    return [...num].reduceRight((acc, e, i) => ((num.length - i) % SPLIT_POS == 0 ? ` ${e}` : e) + acc, '') + (ext ? `.${ext}` : '');
   };
 
 module.exports = new MixedCommand({
@@ -29,7 +30,7 @@ module.exports = new MixedCommand({
     required: true
   })],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       expression = this.options?.getString('expression', true) ?? this.content,
       embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.White });

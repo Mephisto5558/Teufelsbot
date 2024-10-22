@@ -10,7 +10,7 @@ module.exports = new MixedCommand({
     new CommandOption({ name: 'maximum', type: 'Integer' })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     let
       min = this.options?.getInteger('minimum') ?? Number(this.args?.[0]),
       max = this.options?.getInteger('maximum') ?? Number(this.args?.[1] ?? 0);

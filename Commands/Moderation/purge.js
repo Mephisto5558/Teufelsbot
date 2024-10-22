@@ -6,9 +6,9 @@ const
    * @param {string}str
    * filters discord invites, invite.gg, dsc.gg, disboard.org links*/
   adRegex = str => new RegExp(
-    String.raw`((?=discord)(?<!support\.)(discord(?:app)?[\W_]*(com|gg|me|net|io|plus|link)\/|`
-    + String.raw`(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(attachments|channels)\/)`
-    + String.raw`|(invite|dsc)[\W_]*gg|disboard[\W_]*org`, 'gi'
+    String.raw`(?:(?=discord)(?<!support\.)(?:discord(?:app)?[\W_]*(?:com|gg|io|link|me|net|plus)\/|`
+    + String.raw`(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(?:attachments|channels)\/)`
+    + String.raw`|(?:dsc|invite)[\W_]*gg|disboard[\W_]*org`, 'i'
   ).test(str),
   filterOptionsExist = /** @param {Record<string, string | number | boolean | undefined>}options */ options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
 
@@ -22,9 +22,7 @@ const
     server_ads: msg => adRegex(msg.content) || !!msg.embeds.some(e => adRegex(e.description))
   };
 
-/**
- * @param {Message<true>}msg
- * @param {Record<string, string | number | boolean | undefined> & {remove_pinned?: boolean}}options*/ // todo: better typing
+/** @type {import('./purge')['shouldDeleteMsg']}*/
 function shouldDeleteMsg(msg, options) {
   const
     check = (fn, option) => !!(
@@ -32,31 +30,36 @@ function shouldDeleteMsg(msg, options) {
       || msg.content.toLowerCase()[fn](option.toLowerCase())
       || msg.embeds.some(e => e.description?.toLowerCase()[fn](option.toLowerCase()))
     ),
+    checkCaps = () => !('caps_percentage' in options && options.caps_percentage > 0)
+      || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * 100 >= options.caps_percentage
+      || !!msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * 100 >= options.caps_percentage)
+      || !msg.content && !msg.embeds.some(e => e.description),
     bool = !!(msg.bulkDeletable && (!!options.remove_pinned || !msg.pinned)),
     userType = msg.user.bot ? 'bot' : 'human';
 
   if (!filterOptionsExist(options)) return bool;
+
+  /* eslint-disable-next-line sonarjs/expression-complexity -- good readability*/
   return bool
+
+    // todo: is options.member actually a snowflake?
     && (!('member' in options) || msg.user.id == options.member)
     && (!('user_type' in options) || options.user_type == userType)
     && (!('only_containing' in options) || filterCheck[options.only_containing](msg))
-    && (
-      !('caps_percentage' in options && options.caps_percentage > 0)
-      || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * 100 >= options.caps_percentage
-      || !!msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * 100 >= options.caps_percentage)
-      || !msg.content && !msg.embeds.some(e => e.description)
-    )
+    && checkCaps()
     && check('includes', options.contains) && check('includes', options.does_not_contain)
     && check('startsWith', options.starts_with) && check('startsWith', options.not_starts_with)
     && check('endsWith', options.ends_with) && check('endsWith', options.not_ends_with);
 }
+
+const maxMsgs = 250;
 
 /**
  * @param {Message['channel']}channel
  * @param {string?}before
  * @param {string?}after
  * @param {number?}limit*/
-async function fetchMsgs(channel, before, after, limit = 250) {
+async function fetchMsgs(channel, before, after, limit = maxMsgs) {
   const options = { limit: Math.min(limit, 100), before, after };
 
   let
@@ -124,7 +127,7 @@ module.exports = new MixedCommand({
     new CommandOption({ name: 'after_message', type: 'String' })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       amount = this.options?.getInteger('amount', true) ?? Number.parseInt(this.args[0]).limit({ min: 0, max: 1000 }),
 
@@ -159,9 +162,10 @@ module.exports = new MixedCommand({
     messages = [...messages.filter(e => shouldDeleteMsg(e, options)).keys()];
     if (!messages.length) return this.customReply(lang('noneFound'));
 
+    const sleepTime = 2000;
     for (let i = 0; i < messages.length; i += 100) {
       count += (await channel.bulkDelete(messages.slice(i, i + 100))).size;
-      if (messages[i + 100]) await sleep(2000);
+      if (messages[i + 100]) await sleep(sleepTime);
     }
 
     return this.customReply(lang('success', { count, all: messages.length }), 1e4);
@@ -183,7 +187,7 @@ function _testPurge() {
       acc.push(e, obj);
 
       return acc;
-    }, []).sort((a, b) => ('content' in b.input[0]) - ('content' in a.input[0]));
+    }, []).sort((a, b) => Number('content' in b.input[0]) - Number('content' in a.input[0]));
   }
 
   /** @param {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}[]}data*/

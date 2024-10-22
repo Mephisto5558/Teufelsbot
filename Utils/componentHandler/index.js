@@ -3,6 +3,7 @@ const
   { commandQuery, categoryQuery, allQuery, getCommands, getCommandCategories } = require('./help_utils'),
   { startRecording, recordControls } = require('./record_manage.js');
 
+
 module.exports = {
   advice: require('./advice.js'),
   fact: require('./fact.js'),
@@ -24,3 +25,6 @@ module.exports = {
   rps: require('./rps.js'),
   topic: require('./topic.js')
 };
+
+try { module.exports.marin = require('./marin.js'); }
+catch (err) { if (err.code != 'MODULE_NOT_FOUND') throw err; }

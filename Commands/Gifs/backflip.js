@@ -10,7 +10,7 @@ module.exports = new MixedCommand({
   cooldowns: { user: 1000 },
   dmPermission: true,
 
-  run: async function (lang) {
+  async run(lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', this.member?.displayName ?? this.user.displayName),

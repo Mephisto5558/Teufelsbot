@@ -8,7 +8,7 @@ module.exports = new MixedCommand({
   cooldowns: { user: 1000 },
   options: [{ name: 'target', type: 'User' }],
 
-  run: async function (lang) {
+  async run(lang) {
     this.args = this.args?.map(e => e.replaceAll(/[&<>@]/g, '')) ?? [];
     this.content = this.content?.replaceAll(/[&<>@]/g, '');
 
@@ -46,19 +46,8 @@ module.exports = new MixedCommand({
           { name: lang('roles'), value: `\`${member.roles.cache.size}\``, inline: true },
           { name: lang('color'), value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.slice(1)})`, inline: true },
           { name: lang('createdAt'), value: `<t:${Math.round(member.user.createdTimestamp / 1000)}>`, inline: true },
-          { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true },
-          {
-            name: lang('rolesWithPerms'), inline: false,
-            value: [...member.roles.cache.values()].filter(e => e.permissions.toArray().length && e.name != '@everyone').sort((a, b) => a.name.localeCompare(b.name))
-              .join(', ')
-          },
-          {
-            name: lang('perms'), inline: false,
-            value: `\`${member.permissions.has(PermissionFlagsBits.Administrator)
-              ? lang('admin')
-              : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')
-            }\` (${member.permissions.toArray().length})`
-          }
+          { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true }
+
         ]
       }),
       components = [new ActionRowBuilder({
@@ -71,14 +60,28 @@ module.exports = new MixedCommand({
         ]
       })];
 
-    if (birthday) embed.data.fields.splice(-2, 0, { name: lang('birthday'), value: `<t:${Math.round(birthday.getTime() / 1000)}:D> (${getAge(birthday)})`, inline: true });
-    if (member.isCommunicationDisabled()) embed.data.fields.splice(-2, 0, { name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true });
+    if (birthday) embed.data.fields.push({ name: lang('birthday'), value: `<t:${Math.round(birthday.getTime() / 1000)}:D> (${getAge(birthday)})`, inline: true });
+    if (member.isCommunicationDisabled()) embed.data.fields.push({ name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true });
     if (member.user.flags.bitfield) {
-      embed.data.fields.splice(-2, 0, {
+      embed.data.fields.push({
         name: lang('flags.name'), inline: false,
-        value: member.user.flags.toArray().reduce((acc, e) => Number(e) ? acc : acc + lang('flags.' + e) + '`, `', '`').slice(0, -3)
+        value: '`' + member.user.flags.toArray().map(e => lang(`flags.${e}`)).join('`, `') + '`'
       });
     }
+    embed.addFields(
+      {
+        name: lang('rolesWithPerms'), inline: false,
+        value: [...member.roles.cache.values()].filter(e => e.permissions.toArray().length && e.name != '@everyone').sort((a, b) => a.name.localeCompare(b.name))
+          .join(', ')
+      },
+      {
+        name: lang('perms'), inline: false,
+        value: `\`${member.permissions.has(PermissionFlagsBits.Administrator)
+          ? lang('admin')
+          : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')
+        }\` (${member.permissions.toArray().length})`
+      }
+    );
 
     if (bannerURL) {
       components[0].components.push(new ButtonBuilder({

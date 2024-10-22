@@ -8,7 +8,7 @@ const
 function getData(backup) {
   if (backup.__count__) {
     return {
-      createdAt: Math.round(backup.createdAt / 1000),
+      createdAt: Math.round(backup.createdAt.getTime() / 1000),
       size: (() => {
         const size = Buffer.byteLength(JSON.stringify(backup));
         return size > 1024 ? `${(size / 1024).toFixed(2)}KB` : `${size}B`;
@@ -102,8 +102,8 @@ const backupMainFunctions = {
 
         try {
           const backup = await this.client.backupSystem.load(id, this.guild, {
-            reason: lang('global.modReason', { command: `${this.commandName} load`, user: this.user.tag }),
-            statusObj, clearGuildBeforeRestore: !this.options.getBoolean('no_clear')
+            statusObj, reason: lang('global.modReason', { command: `${this.commandName} load`, user: this.user.tag }),
+            clearGuildBeforeRestore: !this.options.getBoolean('no_clear')
           });
           return msg.edit({ embeds: [embed.setDescription(lang('load.success', backup.id))] });
         }
@@ -168,7 +168,7 @@ module.exports = new SlashCommand({
         new CommandOption({
           name: 'id',
           type: 'String',
-          autocompleteOptions: function () {
+          autocompleteOptions() {
             return [...this.client.backupSystem.list().filter(checkPerm.bind(this)).keys()];
           }
         }),
@@ -181,7 +181,7 @@ module.exports = new SlashCommand({
       options: [{
         name: 'id',
         type: 'String',
-        autocompleteOptions: function () { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
+        autocompleteOptions() { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
       }]
     }),
     new CommandOption({
@@ -191,13 +191,13 @@ module.exports = new SlashCommand({
         name: 'id',
         type: 'String',
         required: true,
-        autocompleteOptions: function () { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
+        autocompleteOptions() { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
       })]
     })
   ],
   beta: true,
 
-  run: function (lang) {
+  run(lang) {
     const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
 
     return backupMainFunctions[this.options.getSubcommand()].call(this, lang, embed, this.options.getString('id'));

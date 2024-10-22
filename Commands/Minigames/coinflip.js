@@ -1,7 +1,9 @@
-const { randomInt } = require('node:crypto');
+const
+  { randomInt } = require('node:crypto'),
+  MAX = 3001;
 
 module.exports = new MixedCommand({
   dmPermission: true,
 
-  run: async function (lang) { return this.customReply(lang(randomInt(3001) == 0 ? 'side' : 'response')); }
+  async run(lang) { return this.customReply(lang(randomInt(MAX) == 0 ? 'side' : 'response')); }
 });

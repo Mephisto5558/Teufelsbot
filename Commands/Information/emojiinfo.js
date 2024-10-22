@@ -1,7 +1,7 @@
 const
   { parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
-  emojiURLRegex = /https:\/\/cdn.discordapp.com\/emojis\/(\d+)/;
+  emojiURLRegex = /https:\/\/cdn\.discordapp\.com\/emojis\/(?<id>\d+)/;
 
 module.exports = new MixedCommand({
   usage: { examples: ':derp:' },
@@ -12,10 +12,10 @@ module.exports = new MixedCommand({
     required: true
   })],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       parsedEmoji = parseEmoji(this.options?.getString('emoji', true) ?? this.args[0]),
-      emoji = this.client.emojis.cache.get(parsedEmoji?.id ?? emojiURLRegex.exec(this.content)?.[1]) ?? parsedEmoji;
+      emoji = this.client.emojis.cache.get(parsedEmoji?.id ?? emojiURLRegex.exec(this.content)?.groups.id) ?? parsedEmoji;
 
     if (!emoji.id) return this.customReply(lang('notFound'));
 

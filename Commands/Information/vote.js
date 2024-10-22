@@ -9,7 +9,7 @@ module.exports = new MixedCommand({
   disabled: !!disableWebserver || !domain,
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing domain url in config.json',
 
-  run: async function (lang) {
+  async run(lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescriptionVote', `${this.client.config.website.domain}/vote`),

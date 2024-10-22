@@ -3,6 +3,9 @@
     "module": "Node16",
     "moduleResolution": "Node16",
     "target": "ESNext",
+    "lib": [
+      "ESNext"
+    ],
     "noEmit": true,
     "allowJs": true,
     "esModuleInterop": true,

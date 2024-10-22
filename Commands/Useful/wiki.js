@@ -1,6 +1,8 @@
 const
   wikiInit = require('wikijs').default,
-  { EmbedBuilder, Colors } = require('discord.js');
+  { EmbedBuilder, Colors } = require('discord.js'),
+  { embedFieldMaxAmt, messageMaxLength } = require('#Utils').constants,
+  MAX_MSGS = 9;
 
 module.exports = new MixedCommand({
   usage: { examples: 'discord' },
@@ -9,7 +11,7 @@ module.exports = new MixedCommand({
   dmPermission: true,
   options: [new CommandOption({ name: 'query', type: 'String' })],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       query = this.options?.getString('query') ?? this.content,
       message = await this.customReply(lang('global.loading', getEmoji('loading'))),
@@ -37,24 +39,25 @@ module.exports = new MixedCommand({
           /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- TODO: this will be improved, but I'll have to type everything better for that.*/
           if (!v || ['name', 'image', 'logo', 'alt', 'caption'].some(e => k.toLowerCase().includes(e))) return acc;
 
-          k = k.replaceAll(/([A-Z])/g, ' $1').toLowerCase().trim();
+          k = k.replaceAll(/(?=[A-Z])/g, ' ').toLowerCase().trim();
           k = k[0].toUpperCase() + k.slice(1);
 
           // very verbose if, for intellisense
           /** @type {string} */
           let value;
           if (Array.isArray(v)) value = v.join(', ');
-          else if (typeof v == 'object') value = v.date instanceof Date ? `<t:${Math.round(v.date / 1000)}>` : JSON.stringify(v, undefined, 2);
+          else if (typeof v == 'object') value = v.date instanceof Date ? `<t:${Math.round(v.date.getTime() / 1000)}>` : JSON.stringify(v, undefined, 2);
           else if (typeof v == 'boolean') value = lang(`global.${v}`);
           else value = images.find(e => e.includes(v.toString().replaceAll(' ', '_'))) ?? v.toString(); // note: possibly not a string, but weren't able to type it all
 
-          acc.push({ name: k, value, inline: true });
+          acc.push({ name: k, inline: true, value });
           return acc;
-        }, []).slice(0, 25)
+        }, []).slice(0, embedFieldMaxAmt + 1)
       });
 
     // U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing;
-    if (summary.length < 2049) embed.data.description = `${summary}\n\u200E`;
+    const maxSummaryLength = 2049;
+    if (summary.length < maxSummaryLength) embed.data.description = `${summary}\n\u200E`;
 
     await message.edit({ content: '', embeds: [embed] });
     if (embed.data.description) return;
@@ -69,15 +72,16 @@ module.exports = new MixedCommand({
         return [e.slice(0, lastIndexBeforeHalf), e.slice(lastIndexBeforeHalf)];
       })
       .reduce((acc, e, i, arr) => {
-        const accItem = acc.at(-1);
+        const accItem = acc.last();
 
-        if (accItem && accItem.length + (arr[i + 1]?.length ?? 0) >= 2000) acc.push(`${e}\n`);
+        if (accItem && accItem.length + (arr[i + 1]?.length ?? 0) > messageMaxLength) acc.push(`${e}\n`);
+        /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- last index*/
         else acc.splice(-1, 1, `${accItem}${e}\n`);
 
         return acc;
       }, ['']);
 
-    for (const msg of msgs.slice(0, 9)) await this.customReply(msg);
-    if (msgs > 9) return this.reply(lang('visitWiki'));
+    for (const msg of msgs.slice(0, MAX_MSGS)) await this.customReply(msg);
+    if (msgs > MAX_MSGS) return this.reply(lang('visitWiki'));
   }
 });

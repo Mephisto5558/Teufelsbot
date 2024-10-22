@@ -17,7 +17,7 @@ module.exports = new MixedCommand({
     strictAutocomplete: true
   })],
 
-  run: async function (lang) {
+  async run(lang) {
     const data = await fetch(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') ?? this.args?.[0] ?? 'hentai').toLowerCase()}`).then(e => e.json());
     if (!data?.success) {
       void this.customReply(lang('error'));

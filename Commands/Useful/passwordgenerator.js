@@ -1,4 +1,9 @@
-const defaultCharset = [String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\=*'"#*(){}[]`];
+const
+  DEFAULT_CHARSET = [String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\=*'"#*(){}[]`],
+  DEFAULT_PASSWORD_LENGTH = 12,
+  MAX_MESSAGE_LENGTH = 1740,
+  MAX_DISPLAYED_CHARSET_LEN = 100,
+  suffix = '...';
 
 /**
  * Helper function to prevent `eslint/no-loop-func`
@@ -27,24 +32,25 @@ module.exports = new SlashCommand({
     new CommandOption({ name: 'include_chars', type: 'String' })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       count = this.options.getInteger('count') ?? 1,
       exclude = this.options.getString('exclude_chars') ?? '',
       include = this.options.getString('include_chars') ?? '',
-      length = this.options.getInteger('length') ?? 12;
+      length = this.options.getInteger('length') ?? DEFAULT_PASSWORD_LENGTH;
 
     let
       passwordList = '',
-      charset = [...defaultCharset.filter(char => !exclude.includes(char)), ...include] // Remove exclude chars and add include chars to the charset
+      charset = [...DEFAULT_CHARSET.filter(char => !exclude.includes(char)), ...include] // Remove exclude chars and add include chars to the charset
         .unique().join(''); // Remove duplicates and join to a string.
 
     if (!charset.length) return this.editReply(lang('charsetEmpty')); // Return if charset is empty
 
     for (let i = 0; i < count; i++) {
       let lastRandomChar;
-      if (passwordList.length + length > 1740) break;
+      if (passwordList.length + length > MAX_MESSAGE_LENGTH) break;
 
+      /* eslint-disable-next-line sonarjs/no-hardcoded-credentials -- false positive*/
       passwordList += '```';
 
       for (let i = 0; i < length; i++) {
@@ -55,10 +61,13 @@ module.exports = new SlashCommand({
         passwordList += lastRandomChar + randomChar;
         lastRandomChar = randomChar; // Sets lastRandomChar to the last generated char
       }
+
+      /* eslint-disable-next-line sonarjs/no-hardcoded-credentials -- false positive*/
       passwordList += '```\n';
     }
 
-    if (charset.length > 100) charset = charset.slice(0, 97) + '...'; // Limits the *displayed* charset length
+    // Limits the *displayed* charset length
+    if (charset.length > MAX_DISPLAYED_CHARSET_LEN) charset = charset.slice(0, MAX_DISPLAYED_CHARSET_LEN - suffix.length) + suffix;
 
     return this.editReply(lang('success', { passwords: passwordList, charset }));
   }

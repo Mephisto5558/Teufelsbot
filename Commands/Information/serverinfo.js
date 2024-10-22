@@ -8,10 +8,10 @@ module.exports = new CommandOption({
   options: [{
     name: 'guild_id_or_invite',
     type: 'String',
-    autocompleteOptions: function () { return this.client.guilds.cache.filter(e => e.members.cache.has(this.member.id)).map(e => e.id); }
+    autocompleteOptions() { return this.client.guilds.cache.filter(e => e.members.cache.has(this.member.id)).map(e => e.id); }
   }],
 
-  run: async function (lang) {
+  async run(lang) {
     const id = this.options?.getString('guild_id_or_invite') ?? this.args?.[0];
 
     /** @type {Guild | import('discord.js').InviteGuild | undefined}*/

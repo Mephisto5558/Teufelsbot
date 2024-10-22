@@ -19,7 +19,7 @@ module.exports = new MixedCommand({
     })
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       type = (this.options?.getString('avatar_type') ?? 'server') == 'server',
       base = getTargetMember(this, { targetOptionName: 'base' }),

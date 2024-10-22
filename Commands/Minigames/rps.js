@@ -7,7 +7,7 @@ module.exports = new MixedCommand({
   cooldowns: { user: 1000 },
   options: [new CommandOption({ name: 'opponent', type: 'User' })],
 
-  run: function (lang) {
+  run(lang) {
     return sendChallenge.call(this, this.member, getTargetMember(this, { targetOptionName: 'opponent' }), lang);
   }
 });
