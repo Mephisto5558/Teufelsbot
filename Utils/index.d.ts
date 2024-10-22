@@ -38,7 +38,7 @@ export {
   permissionTranslator,
   shellExec,
   equal as slashCommandsEqual,
-  timeFormatter,
+  TTormatter as timeFormatter,
   timeValidator
 };
 
@@ -283,21 +283,12 @@ declare function permissionTranslator<T extends string | string[]>(
 
 declare function shellExec(
   command: string, options?: ExecOptions
-): PromiseWithChild<{ stdout: string;stderr: string }>;
+): PromiseWithChild<{ stdout: string; stderr: string }>;
 
 declare function equal<T extends command<'both', boolean, true> | commandOptions<true> | undefined>(
   a: T, b: T
 ): boolean;
 
-/** @returns `formatted` has the format `year-day, hour:minute:second` if `lang` is not provided.*/
-declare function timeFormatter<T extends lang | undefined>(
-  options: { sec?: number; lang?: T }
-): {
-  total: number; negative: boolean;
-  formatted: T extends undefined
-    ? `${number}${number}${number}${number}-${number}${number}, ${number}${number}:${number}${number}:${number}${number}`
-    : string;
-};
 
 /** @param timeStr a time string, @example '3w2d', '5h' */
 declare function timeValidator<T extends string | undefined>(
@@ -317,6 +308,23 @@ declare namespace configValidator {
   type validConfigEntry = 'object' | 'string' | 'boolean' | 'number' | { [key: string]: validConfigEntry };
   const validConfig: Record<string, validConfigEntry>;
   const validEnv: Record<string, validConfigEntry>;
+}
+
+/** @returns `formatted` has the format `year-day, hour:minute:second` if `lang` is not provided.*/
+declare namespace TTormatter {
+  function timeFormatter<T extends lang | undefined>(
+    options: { sec?: number; lang?: T }
+  ): {
+    total: number; negative: boolean;
+    formatted: T extends undefined
+      ? `${number}${number}${number}${number}-${number}${number}, ${number}${number}:${number}${number}:${number}${number}`
+      : string;
+  };
+
+  const
+    secsInMinute: number, minutesInHour: number, hoursInDay: number,
+    weekInDays: number, monthInDays: number, yearInDays: number,
+    hourInSecs: number, dayInSecs: number, weekInSecs: number, monthInSecs: number, yearInSecs: number;
 }
 
 declare namespace constants {

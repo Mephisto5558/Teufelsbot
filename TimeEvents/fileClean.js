@@ -1,6 +1,6 @@
 const
   { readdir, stat, unlink, access, mkdir } = require('node:fs/promises'),
-  { weekInSecs } = require('#Utils/timeFormatter');
+  { weekInSecs } = require('#Utils').timeFormatter;
 
 /** @param {string}path*/
 async function deleteOld(path) {

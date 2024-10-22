@@ -2,8 +2,7 @@ const
   { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   fetch = require('node-fetch').default,
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
-  { embedMaxTitleLength } = require('#Utils').constants,
-  { secsInMinute, suffix } = require('#Utils/timeFormatter'),
+  { constants: { embedMaxTitleLength, suffix }, timeFormatter: { secsInMinute } } = require('#Utils'),
   CACHE_DELETE_TIME = secsInMinute * 5, // eslint-disable-line sonarjs/sonar-no-magic-numbers -- 5min
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
   cachedSubreddits = new Collection(),

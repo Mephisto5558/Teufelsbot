@@ -1,7 +1,7 @@
 const
   { Duration } = require('better-ms'),
   { timeValidator } = require('#Utils'),
-  { yearInSecs } = require('#Utils/timeFormatter'),
+  { yearInSecs } = require('#Utils').timeFormatter,
   MAX_YEAR_SECS = yearInSecs * 1000 * 2e5; // eslint-disable-line sonarjs/sonar-no-magic-numbers -- 200000y
 
 /** @type {command<'both', false>}*/
