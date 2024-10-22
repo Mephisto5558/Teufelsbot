@@ -26,7 +26,7 @@ module.exports = {
   startNow: true,
 
   /** @this {Client}*/
-  onTick: async function () {
+  async onTick() {
     const
       now = new Date(),
       nowMonth = now.getMonth(),

@@ -39,15 +39,17 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
 
   void this.message.edit({ content: '', embeds: [embed], components: [] });
 
-  const connection = joinVoiceChannel({
-    channelId: voiceChannelId,
-    guildId: this.guildId,
-    selfDeaf: false,
-    selfMute: true,
-    adapterCreator: this.guild.voiceAdapterCreator
-  });
+  const
+    connection = joinVoiceChannel({
+      channelId: voiceChannelId,
+      guildId: this.guildId,
+      selfDeaf: false,
+      selfMute: true,
+      adapterCreator: this.guild.voiceAdapterCreator
+    }),
+    connectionTimeout = 2e4;
 
-  try { await entersState(connection, VoiceConnectionStatus.Ready, 2e4); }
+  try { await entersState(connection, VoiceConnectionStatus.Ready, connectionTimeout); }
   catch (err) {
     if (!(err instanceof DiscordAPIError)) throw err;
     console.log('record_manage Util | enterstate error', JSON.stringify(err)); // this is here to get error codes that may happen, to put them in the line above

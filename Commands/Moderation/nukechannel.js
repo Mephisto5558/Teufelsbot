@@ -15,7 +15,7 @@ module.exports = {
     channelTypes: Constants.GuildTextBasedChannelTypes.filter(e => !Constants.ThreadChannelTypes.includes(e))
   }],
 
-  run: async function (lang) {
+  async run(lang) {
     const
 
       /** @type {Exclude<import('discord.js').GuildTextBasedChannel, import('discord.js').AnyThreadChannel>}*/

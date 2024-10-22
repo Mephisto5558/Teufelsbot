@@ -1,4 +1,7 @@
-const { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
+const
+  { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  MAX_FIELD_VALUE_LENGTH = 1024,
+  suffix = '...';
 
 /**
  * @this {import('discord.js').PartialMessage}
@@ -7,7 +10,7 @@ module.exports = function messageUpdate(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (
     this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled
-    || this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size && this.embeds.length && newMsg.embeds.length
+    || this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size && this.embeds.length === newMsg.embeds.length
   ) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
@@ -49,8 +52,8 @@ module.exports = function messageUpdate(newMsg) {
   if (embed.data.fields[1].value == '') embed.data.fields[1].value = lang('global.unknown');
   if (embed.data.fields[2].value == '') embed.data.fields[2].value = lang('global.unknown');
 
-  if (embed.data.fields[1].value.length > 1024) embed.data.fields[1].value = embed.data.fields[1].value.slice(0, 1021) + '...';
-  if (embed.data.fields[2].value.length > 1024) embed.data.fields[2].value = embed.data.fields[2].value.slice(0, 1021) + '...';
+  if (embed.data.fields[1].value.length > MAX_FIELD_VALUE_LENGTH) embed.data.fields[1].value = embed.data.fields[1].value.slice(0, MAX_FIELD_VALUE_LENGTH - suffix.length) + suffix;
+  if (embed.data.fields[2].value.length > MAX_FIELD_VALUE_LENGTH) embed.data.fields[2].value = embed.data.fields[2].value.slice(0, MAX_FIELD_VALUE_LENGTH - suffix.length) + suffix;
 
   return channelToSend.send({ embeds: [embed], components: [component] });
 };

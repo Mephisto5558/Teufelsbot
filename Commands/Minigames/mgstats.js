@@ -2,7 +2,8 @@ const
   { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
   { getTargetMember } = require('#Utils'),
   { mgStats_formatTopTen: formatTopTen } = require('#Utils/componentHandler'),
-  sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'];
+  sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
+  TOPLIST_MAX_USERS = 3;
 
 /**
  * @this {GuildInteraction | Message<true>}
@@ -13,7 +14,7 @@ function manageData(data) {
   return Object.entries(data)
     .filter(([key]) => this.guild.members.cache.has(key) || key == 'AI')
     .sort(([, a], [, b]) => b - a)
-    .slice(0, 3)
+    .slice(0, TOPLIST_MAX_USERS)
     .map(([key, value]) => '> ' + (key == 'AI' ? key : `<@${key}>`) + `: \`${value}\`\n`)
     .join('');
 }
@@ -47,7 +48,7 @@ module.exports = {
           name: 'game',
           type: 'String',
           required: true,
-          autocompleteOptions: function () { return Object.keys(this.client.db.get('leaderboards')); },
+          autocompleteOptions() { return Object.keys(this.client.db.get('leaderboards')); },
           strictAutocomplete: true
         },
         { name: 'target', type: 'User' }
@@ -61,7 +62,7 @@ module.exports = {
           name: 'game',
           type: 'String',
           required: true,
-          autocompleteOptions: function () { return Object.keys(this.client.db.get('leaderboards')); },
+          autocompleteOptions() { return Object.keys(this.client.db.get('leaderboards')); },
           strictAutocomplete: true
         },
         {
@@ -78,7 +79,7 @@ module.exports = {
     }
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     if (this instanceof Message && !this.args[0]) return this.customReply(lang('missingGameArg'));
 
     const
@@ -128,7 +129,7 @@ module.exports = {
       components: [new StringSelectMenuBuilder({
         customId: `mgstats.${game}.sort.${settings}`,
         options: sortOptions.map(value => ({
-          label: lang(`options.leaderboard.options.sort.choices.${value}`), value,
+          value, label: lang(`options.leaderboard.options.sort.choices.${value}`),
           default: value == (sort ? `${sort}_${mode}` : 'm_wins')
         }))
       })]

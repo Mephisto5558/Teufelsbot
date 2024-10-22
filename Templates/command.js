@@ -19,7 +19,7 @@ module.exports = {
     choices: ['']
   }],
 
-  run: function (lang) {
+  run(lang) {
 
   }
 };

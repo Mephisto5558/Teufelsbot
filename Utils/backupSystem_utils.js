@@ -3,7 +3,8 @@ const
   fetch = require('node-fetch'),
 
   /** @type {import('.')['DiscordAPIErrorCodes']}*/
-  DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json');
+  DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json'),
+  maxPinnedMessages = 50;
 
 /** @type {import('.').BackupSystem.Utils['fetchToBase64']}*/
 async function fetchToBase64(url) {
@@ -174,16 +175,16 @@ async function loadChannelMessages(channel, messages, webhook, maxMessagesPerCha
   for (const msg of messages.filter(e => e.content.length > 0 || e.embeds.length > 0 || e.files.length > 0).reverse().slice(-maxMessagesPerChannel)) {
     try {
       const sentMsg = await webhook.send({
+        allowedMentions,
         content: msg.content.length ? msg.content : undefined,
         username: msg.username,
         avatarURL: msg.avatar,
         embeds: msg.embeds,
         files: msg.files.map(e => new AttachmentBuilder(e.attachment, { name: e.name })),
-        allowedMentions,
         threadId: channel.isThread() ? channel.id : undefined
       });
 
-      if (msg.pinned && sentMsg.pinnable && (await channel.messages.fetchPinned()).size < 50) await sentMsg.pin();
+      if (msg.pinned && sentMsg.pinnable && (await channel.messages.fetchPinned()).size < maxPinnedMessages) await sentMsg.pin();
     }
     catch (err) { log.error('Backup load error:', err); }
   }

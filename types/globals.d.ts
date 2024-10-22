@@ -1,4 +1,4 @@
-/* eslint-disable max-lines */
+/* eslint-disable sonarjs/no-built-in-override */
 
 import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
@@ -6,6 +6,7 @@ import type I18nProvider from '@mephisto5558/i18n';
 import type { WebServer } from '@mephisto5558/bot-website';
 
 // import type Command from '@mephisto5558/command';
+import type locals from './locals';
 import type DBStructure from './database';
 import type { BackupSystem, GiveawaysManager } from '#Utils';
 import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
@@ -13,160 +14,6 @@ import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
 type ISODate = `${number}${number}${number}${number}-${number}${number}-${number}${number}`;
 type ISOTime = `${number}${number}:${number}${number}:${number}${number}.${number}${number}${number}`;
 type ISODateTime = `${ISODate}T${ISOTime}Z`;
-
-// #region __local
-declare namespace __local {
-  type autocompleteOptions = string | number | { name: string; value: string };
-
-  type BaseCommand<initialized extends boolean = boolean> = {
-
-    /** Numbers in milliseconds*/
-    cooldowns?: { guild?: number; channel?: number; user?: number };
-
-    /** Makes the command also work in direct messages.*/
-    dmPermission?: boolean;
-
-    /** Beta commands are the only commands that get loaded when `client.env == 'dev'`.*/
-    beta?: boolean;
-
-    /** This command will not be loaded*/
-    disabled?: boolean;
-
-    /** If enabled in {@link ./config.json} and set here, will be shown to the user when they try to run the command.*/
-    disabledReason?: string;
-
-    /** Slash command options*/
-    options?: commandOptions<initialized>[];
-  }
-  & (initialized extends true ? {
-
-    /**
-     * Gets set to the command's filename.
-     * For slash commands, must be lowercase.*/
-    name: string;
-
-    /** Currently not used*/
-    nameLocalizations?: Record<string, BaseCommand<true>['name']>;
-
-    /**
-     * Gets set automatically from language files.
-     * For slash commands, can not be longer then 100 chars.*/
-    description: string;
-
-    /**
-     * Gets set automatically from language files.
-     * `undefined` only for an unknown language
-     * @see {@link command.description}*/
-    descriptionLocalizations: Record<string, BaseCommand<true>['description'] | undefined>;
-
-    /**
-     * Command usage information for the end-user.
-     * Should be in the command file if its language-independent, otherwise in the language files.
-     *
-     * Gets modified upon initialization.*/
-    usage: { usage?: string; examples?: string };
-
-
-    /**
-     * Gets set automatically from language files.
-     * @see {@link command.usage}*/
-    usageLocalizations: Record<string, BaseCommand['usage']>;
-
-    /** Gets set to the lowercase folder name the command is in.*/
-    category: string;
-
-    permissions?: {
-      client?: Discord.PermissionFlags[];
-      user?: Discord.PermissionFlags[];
-    };
-
-    /**
-     * **Do not set manually.**
-     *
-     * If the command is an alias, this property will have the original name.*/
-    aliasOf?: BaseCommand['name'];
-
-    /**
-     * **Do not set manually.**
-     *
-     * The command's full file path, used for e.g. reloading the command.*/
-    filePath: string;
-  } : {
-
-    /** @deprecated Change the filename to the desired name instead.*/
-    name?: string;
-
-    /** @deprecated Use language files instead.*/
-    description?: string;
-
-    usage?: { usage?: string; examples?: string };
-
-    /** @deprecated Change the directory name to the desired category instead.*/
-    category?: string;
-
-    permissions?: {
-      client?: (keyof Discord.PermissionFlags)[];
-      user?: (keyof Discord.PermissionFlags)[];
-    };
-  });
-
-  interface Config {
-    /** Will always include the bot's user id and the application owner id*/
-    devIds: Set<Snowflake>;
-    website: {
-      baseDomain?: string;
-      domain?: string;
-      port?: string;
-      dashboard?: string;
-      privacyPolicy?: string;
-      invite?: string;
-    };
-    github: {
-      repo?: string;
-      userName?: string;
-      repoName?: string;
-    };
-
-    /** @default ['owner-only']*/
-    ownerOnlyFolders: string[];
-    discordInvite?: string;
-    mailAddress?: string;
-    hideOverwriteWarning?: boolean;
-    hideNonBetaCommandLog?: boolean;
-    hideDisabledCommandLog?: boolean;
-
-    /** @default true*/
-    replyOnDisabledCommand: boolean;
-
-    /** @default true*/
-    replyOnNonBetaCommand: boolean;
-    disableWebserver?: boolean;
-    enableConsoleFix?: boolean;
-  }
-
-  interface Env {
-    environment: string;
-    keys: {
-      humorAPIKey: string;
-      rapidAPIKey: string;
-      githubKey: string;
-      chatGPTApiKey: string;
-      dbdLicense: string;
-      votingWebhookURL?: string;
-      token: string;
-      secret: string;
-    };
-    dbConnectionStr: string;
-  }
-
-  // @ts-expect-error 2681
-  type BoundFunction = new (this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang) => FunctionConstructor;
-
-  type FlattenedGuildSettings = DBStructure.FlattenObject<NonNullable<Database['guildSettings'][Snowflake]>>;
-  type FlattenedUserSettings = DBStructure.FlattenObject<NonNullable<Database['userSettings'][Snowflake]>>;
-}
-
-// #endregion
 
 // #region global
 declare global {
@@ -196,6 +43,9 @@ declare global {
 
     /** Returns an array with no duplicates by converting it to a `Set` and back to an array.*/
     unique(this: T[]): T[];
+
+    /** Returns the array's last element. Shorthand for `arr.at(-1)`. */
+    last(this: T[]): T | undefined;
   }
 
   interface Number {
@@ -204,6 +54,15 @@ declare global {
     /** @returns If the number is more than `min` and less than `max`.*/
     inRange(options: { min?: number; max?: number }): boolean;
     inRange(min?: number, max?: number): boolean;
+  }
+
+  interface BigInt {
+    toString(radix?: 10): `${bigint}`;
+  }
+
+  interface String {
+    /** Returns the string's last element. Shorthand for `str.at(-1)`. */
+    last(this: string): string | undefined;
   }
 
   interface Object {
@@ -283,7 +142,7 @@ declare global {
   /** Get an application Emoji's mention by it's name.*/
   const getEmoji: (emoji: string) => `<a:${string}:${number}>` | `<${string}:${number}>` | undefined;
 
-  type Snowflake = Discord.Snowflake;
+  type Snowflake = `${bigint}`;
 
   type Database = DBStructure.Database;
 
@@ -306,9 +165,9 @@ declare global {
   // #endregion
 
   // #region commands
-  type slashCommand<initialized extends boolean = false> = __local.BaseCommand<initialized> & {
+  type slashCommand<initialized extends boolean = false> = locals.BaseCommand<initialized> & {
     slashCommand: true;
-    aliases?: { slash?: __local.BaseCommand['name'][] };
+    aliases?: { slash?: locals.BaseCommand['name'][] };
 
     /** Do not deferReply to the interaction*/
     noDefer?: boolean;
@@ -331,12 +190,12 @@ declare global {
     dmPermission: boolean;
   } : object);
 
-  type prefixCommand<initialized extends boolean = false> = __local.BaseCommand<initialized> & {
+  type prefixCommand<initialized extends boolean = false> = locals.BaseCommand<initialized> & {
     prefixCommand: true;
-    aliases?: { prefix?: __local.BaseCommand['name'][] };
+    aliases?: { prefix?: locals.BaseCommand['name'][] };
   };
 
-  type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = __local.BaseCommand<initialized>
+  type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = locals.BaseCommand<initialized>
     & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
     & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
     & { run(
@@ -352,7 +211,7 @@ declare global {
     name: string;
 
     /** Numbers in milliseconds*/
-    cooldowns?: __local.BaseCommand<initialized>['cooldowns'];
+    cooldowns?: locals.BaseCommand<initialized>['cooldowns'];
 
     /** If true, the user must provide a value to this option. This is also enforced for prefix commands.*/
     NonNullable?: boolean;
@@ -364,7 +223,7 @@ declare global {
     dmPermission?: boolean;
 
     /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled.*/
-    autocompleteOptions?: string | __local.autocompleteOptions[] | ((this: Discord.AutocompleteInteraction) => __local.autocompleteOptions[] | Promise<__local.autocompleteOptions>);
+    autocompleteOptions?: string | locals.autocompleteOptions[] | ((this: Discord.AutocompleteInteraction) => locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>);
 
     /**
      * Return an error message to the user, if their input is not included in {@link commandOptions.autocompleteOptions}.
@@ -378,24 +237,24 @@ declare global {
     minLength?: number;
     maxLength?: number;
   } & (initialized extends true ? {
-    nameLocalizations?: __local.BaseCommand<true>['nameLocalizations'];
+    nameLocalizations?: locals.BaseCommand<true>['nameLocalizations'];
 
     /**
      * Gets set automatically from language files.
      * @see {@link command.description}*/
-    description: __local.BaseCommand<true>['description'];
+    description: locals.BaseCommand<true>['description'];
 
     /**
      * Gets set automatically from language files.
      * @see {@link command.description}*/
-    descriptionLocalizations?: __local.BaseCommand<true>['descriptionLocalizations'];
+    descriptionLocalizations?: locals.BaseCommand<true>['descriptionLocalizations'];
 
     type: typeof Discord.ApplicationCommandOptionType;
 
     /** Choices the user must choose from. Can not be more then 25.*/
     choices?: {
       name: string;
-      nameLocalizations?: __local.BaseCommand<true>['nameLocalizations'];
+      nameLocalizations?: locals.BaseCommand<true>['nameLocalizations'];
       value: string | number;
     }[];
     autocomplete?: boolean;
@@ -406,7 +265,7 @@ declare global {
     /** Choices the user must choose from. Can not be more then 25.*/
     choices?: (string | number | {
       name: string;
-      nameLocalizations?: __local.BaseCommand<true>['nameLocalizations'];
+      nameLocalizations?: locals.BaseCommand<true>['nameLocalizations'];
       value: string | number;
     })[];
 
@@ -467,16 +326,13 @@ declare global {
 
 // #endregion
 
-declare module 'discord-api-types/v10' {
+// #region discord.js
+declare module 'discord-api-types/globals' {
   // @ts-expect-error 2300 // overwriting Snowflake
-  export type Snowflake = Discord.Snowflake;
+  export type Snowflake = globalThis.Snowflake;
 }
 
-// #region discord.js
 declare module 'discord.js' {
-  // @ts-expect-error 2300 // overwriting Snowflake
-  type Snowflake = `${number}`;
-
   interface Client<Ready> {
     prefixCommands: Discord.Collection<command['name'], command<'prefix', boolean, Ready>>;
     slashCommands: Discord.Collection<command['name'], command<'slash', boolean, Ready>>;
@@ -490,11 +346,11 @@ declare module 'discord.js' {
     i18n: I18nProvider;
     settings: Database['botSettings'];
     defaultSettings: Database['botSettings']['defaultGuild'];
-    botType: __local.Env['environment'];
-    keys: __local.Env['keys'];
+    botType: locals.Env['environment'];
+    keys: locals.Env['keys'];
 
     /** The config from {@link ./config.json}.*/
-    config: __local.Config;
+    config: locals.Config;
     loadEnvAndDB(this: Omit<Client<Ready>, 'db'>): Promise<void>;
 
     /** A promise that resolves to a fetched discord application once {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#ready Client#ready} was emitted.*/
@@ -577,7 +433,7 @@ declare module 'discord.js' {
      * ```js
      * return this.client.db.update('userSettings', `${this.id}.${key}`, value);
      * ```*/
-    updateDB<FDB extends __local.FlattenedUserSettings, K extends keyof FDB & string>(this: User, key: K, value: FDB[K]): Promise<NonNullable<Database['userSettings']>>;
+    updateDB<FDB extends locals.FlattenedUserSettings, K extends keyof FDB & string>(this: User, key: K, value: FDB[K]): Promise<NonNullable<Database['userSettings']>>;
 
     customName: string;
     customTag: string;
@@ -603,7 +459,7 @@ declare module 'discord.js' {
      * ```js
      * return this.client.db.update('guildSettings', `${this.id}.${key}`, value);
      * ```*/
-    updateDB<FDB extends __local.FlattenedGuildSettings, K extends keyof FDB>(this: Guild, key: K, value: FDB[K]): Promise<Database['guildSettings']>;
+    updateDB<FDB extends locals.FlattenedGuildSettings, K extends keyof FDB>(this: Guild, key: K, value: FDB[K]): Promise<Database['guildSettings']>;
     updateDB(this: Guild, key: null, value: NonNullable<Database['guildSettings'][Snowflake]>): Promise<Database['guildSettings']>;
 
     localeCode: string;

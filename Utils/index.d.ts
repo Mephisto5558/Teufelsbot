@@ -21,6 +21,7 @@ export {
   configValidator,
   cooldown as cooldowns,
   errorHandler,
+  filename,
   findAllEntires,
   formatCommand,
   getAge,
@@ -44,6 +45,9 @@ export { default as DiscordAPIErrorCodes } from './DiscordAPIErrorCodes.json';
 export { default as prototypeRegisterer } from './prototypeRegisterer';
 
 declare namespace afk {
+  const nicknamePrefix: string;
+  const nicknameRegex: RegExp;
+
   function getAfkStatus(this: Interaction | Message, target: GuildMember | User, lang: lang): Promise<Message>;
   function listAfkStatuses(this: GuildInteraction | Message<true>, lang: lang): Promise<Message>;
   function setAfkStatus<T extends Interaction | Message | VoiceState>(
@@ -162,7 +166,7 @@ declare namespace BackupSystem {
       reason?: string;
     }): Promise<void>;
 
-    static utils: Utils;
+    static readonly utils: Utils;
   }
 }
 
@@ -197,6 +201,8 @@ declare function errorHandler(
   this: Client,
   err: Error, context?: unknown, lang?: lang
 ): Promise<void>;
+
+declare function filename(path: string): string;
 
 declare function findAllEntires(
   obj: Record<string, unknown>, key: string, entryList?: Record<string, unknown>
@@ -251,7 +257,7 @@ declare function gitpull(): Promise<Error | 'OK'>;
 declare type saveGiveawayMethod = (messageId: Snowflake, giveawayData: GiveawayData) => Promise<true>;
 declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
   // @ts-expect-error discord-giveaways is not typed correctly in that case.
-  protected getAllGiveaways(): Promise<GiveawayData[]>;
+  protected getAllGiveaways(): GiveawayData[];
 
   protected saveGiveaway: saveGiveawayMethod;
   protected editGiveaway: saveGiveawayMethod;

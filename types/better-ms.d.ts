@@ -13,8 +13,8 @@ declare module 'better-ms' {
     static toNow(earlier: Date | number | string, showIn: boolean): string;
     private static parse(pattern: string): number;
 
-    static regex: RegExp;
-    static commas: RegExp;
-    static aan: RegExp;
+    static readonly regex: RegExp;
+    static readonly commas: RegExp;
+    static readonly aan: RegExp;
   }
 }

@@ -1,7 +1,7 @@
 const
   { parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
-  emojiURLRegex = /https:\/\/cdn.discordapp.com\/emojis\/(?<id>\d+)/;
+  emojiURLRegex = /https:\/\/cdn\.discordapp\.com\/emojis\/(?<id>\d+)/;
 
 /** @type {command<'both'>}*/
 module.exports = {
@@ -15,7 +15,7 @@ module.exports = {
     required: true
   }],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       parsedEmoji = parseEmoji(this.options?.getString('emoji', true) ?? this.args[0]),
       emoji = this.client.emojis.cache.get(parsedEmoji?.id ?? emojiURLRegex.exec(this.content)?.groups.id) ?? parsedEmoji;

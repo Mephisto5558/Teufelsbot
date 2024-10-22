@@ -26,6 +26,7 @@ export {
 };
 
 type ComponentReturnType = ReturnType<typeof commandExecutionWrapper>;
+type Response = InteractionResponse | Message | undefined;
 
 declare function advice(
   this: ButtonInteraction & { customId: 'fact' },
@@ -63,7 +64,7 @@ declare function infoCMDs<
 >(
   this: (ButtonInteraction | StringSelectMenuInteraction) & { customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}` },
   lang: lang, id: ID, mode: MODE, entityType: ENTITY_TYPE
-): Promise<InteractionResponse | Message | undefined>;
+): Promise<Response>;
 
 declare function joke<
   API extends string, TYPE extends string, BLACKLIST extends string, MAX_LENGTH extends `${number}`
@@ -100,9 +101,11 @@ declare function record_recordControls(
   this: ButtonInteraction,
   lang: lang, mode: string, voiceChannelId: voiceChannelId, isPublic: boolean,
   cache: Collection<guildId, Collection<voiceChannelId, { userId: Snowflake; allowed: boolean }[]>>
-): Promise<InteractionResponse | Message | undefined>;
+): Promise<Response>;
+
+type ControlElements = 'pause' | 'stop';
 declare function record<
-  MODE extends 'memberAllow' | 'memberDeny' | 'cancel' | 'pause' | 'stop' | 'get',
+  MODE extends 'memberAllow' | 'memberDeny' | 'cancel' | ControlElements | 'get',
   REQUESTER_ID extends MODE extends 'get' ? string : Snowflake, VOICE_CHANNEL_ID extends Snowflake, IS_PUBLIC extends `${boolean}`
 >(
   this: ButtonInteraction & { customId: `record.${MODE}.${REQUESTER_ID}.${VOICE_CHANNEL_ID}.${IS_PUBLIC}` },
@@ -120,13 +123,15 @@ declare function rps_sendChallenge(
   this: GuildInteraction | Message<true> | ButtonInteraction<'cached'>,
   options: { initiator: GuildMember; opponent?: GuildMember; lang?: lang }
 ): Promise<InteractionResponse | Message>;
+
+type PlayOptions = 'rock' | 'paper' | 'scissors';
 declare function rps<
-  INITIATOR_ID extends Snowflake, MODE extends 'cancel' | 'decline' | 'accept' | 'playAgain' | 'rock' | 'paper' | 'scissors',
+  INITIATOR_ID extends Snowflake, MODE extends 'cancel' | 'decline' | 'accept' | 'playAgain' | PlayOptions,
   OPPONENT_ID extends Snowflake
 >(
   this: ButtonInteraction & { customId: `rps.${INITIATOR_ID}.${MODE}.${OPPONENT_ID}` },
   lang: lang, initiatorId: INITIATOR_ID, mode: MODE, opponentId: OPPONENT_ID
-): Promise<InteractionResponse | Message | undefined>;
+): Promise<Response>;
 
 declare function topic(
   this: ButtonInteraction & { customId: 'topic' },

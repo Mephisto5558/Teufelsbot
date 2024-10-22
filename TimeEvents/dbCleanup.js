@@ -100,7 +100,7 @@ module.exports = {
   startNow: false,
 
   /** @this {Client}*/
-  onTick: async function () {
+  async onTick() {
     const now = new Date();
 
     if (this.settings.timeEvents.lastDBCleanup?.toDateString() == now.toDateString()) return void log('Already ran DB cleanup today');

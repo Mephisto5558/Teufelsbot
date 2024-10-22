@@ -1,6 +1,7 @@
 const
   { AttachmentBuilder, BaseInteraction, Message, DiscordAPIError } = require('discord.js'),
-  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
+  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
+  MAX_MESSAGE_LENGTH = 2000;
 
 /**
  * @param {Error | undefined}err
@@ -22,7 +23,7 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
   if (typeof options != 'object') options = { content: options };
   options.allowedMentions ??= allowedMentions ?? { repliedUser: false };
 
-  if (options.content?.length > 2000) {
+  if (options.content?.length > MAX_MESSAGE_LENGTH) {
     options.files = [...options.files ?? [], new AttachmentBuilder(Buffer.from(options.content), { name: 'response.txt' })];
     delete options.content;
   }

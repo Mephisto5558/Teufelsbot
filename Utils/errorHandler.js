@@ -76,7 +76,7 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
 
         const
           res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
-            method: 'POST', headers,
+            headers, method: 'POST',
             body: JSON.stringify({
               title, body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack.replaceAll(cwd, '[cwd]')}`,
               labels: ['bug']

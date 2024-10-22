@@ -1,6 +1,8 @@
 const
   { Duration } = require('better-ms'),
-  { timeValidator } = require('#Utils');
+  { timeValidator } = require('#Utils'),
+  { yearInSecs } = require('#Utils/timeFormatter'),
+  MAX_YEAR_SECS = yearInSecs * 1000 * 2e5; // eslint-disable-line sonarjs/sonar-no-magic-numbers -- 200000y
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -10,11 +12,11 @@ module.exports = {
   options: [{
     name: 'time',
     type: 'String',
-    autocompleteOptions: function () { return timeValidator(this.focused.value); },
+    autocompleteOptions() { return timeValidator(this.focused.value); },
     strictAutocomplete: true
   }],
 
-  run: async function (lang) {
+  async run(lang) {
     const { offset } = new Duration(this.options?.getString('time') ?? this.args?.[0] ?? '0.1ms');
     if (!offset) {
       const helpcmd = this.client.application.commands.cache.find(e => e.name == 'help')?.id;
@@ -22,7 +24,7 @@ module.exports = {
     }
 
     const time = this.createdTimestamp + offset;
-    if (Math.abs(time) > 62_492_231_808e5) return this.customReply(lang('outOfRange')); // 200000y
+    if (Math.abs(time) > MAX_YEAR_SECS) return this.customReply(lang('outOfRange'));
 
     return this.customReply(lang('success', { time: Math.round(time / 1000) }));
   }

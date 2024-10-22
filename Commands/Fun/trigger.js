@@ -1,12 +1,14 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
+  MAX_FIELD_AMT = 25,
+  suffix = '...',
 
   /**
    * @type {Record<string,
    * (this: GuildInteraction, lang: lang, oldData: NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['triggers']>, query: string) => Promise<Message>>
    * }*/
   triggerMainFunctions = {
-    add: async function (lang, oldData) {
+    async add(lang, oldData) {
       const
         id = Math.max(...Object.keys(oldData).map(Number), 0) || 0 + 1,
         data = {
@@ -19,7 +21,7 @@ const
       return this.editReply(lang('saved', data.trigger));
     },
 
-    delete: async function (lang, oldData, query) {
+    async delete(lang, oldData, query) {
       let id;
       if (query) id = query in oldData ? query : Object.entries(oldData).find(([tId, { trigger }]) => trigger.toLowerCase() == query.toLowerCase() || tId.toLowerCase() == query.toLowerCase())?.[0];
       else id = Math.max(...Object.keys(oldData).map(Number)); // Returns `-Infinity` on an empty array
@@ -30,7 +32,7 @@ const
       return this.editReply(lang('deletedOne', id));
     },
 
-    clear: async function (lang, oldData) {
+    async clear(lang, oldData) {
       if (this.options.getString('confirmation', true).toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
       if (!oldData.__count__) return this.editReply(lang('noneFound'));
 
@@ -38,7 +40,7 @@ const
       return this.editReply(lang('deletedAll', oldData.__count__));
     },
 
-    get: async function (lang, oldData, query) {
+    async get(lang, oldData, query) {
       if (!oldData.__count__) return this.editReply(lang('noneFound'));
 
       const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Blue });
@@ -47,31 +49,38 @@ const
         const { id, trigger, response, wildcard } = Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) ?? {};
         if (!trigger) return this.editReply(lang('notFound'));
 
+        const maxLength = 1900;
         embed.data.title = lang('embedTitleOne', id);
         embed.data.description = lang('embedDescriptionOne', {
-          trigger: trigger.length < 1900 ? trigger : trigger.slice(0, 1897) + '...',
-          response: response.length < 1900 ? response : response.slice(0, 1897) + '...',
+          trigger: trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix,
+          response: response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix,
           wildcard: !!wildcard
         });
       }
       else if (this.options.getBoolean('short')) {
-        embed.data.description = oldData.__count__ > 25 ? lang('first25') : ' ';
-        embed.data.fields = Object.entries(oldData).slice(0, 25).map(([id, { trigger, response, wildcard }]) => ({
+        const maxLength = 200;
+
+        embed.data.description = oldData.__count__ > MAX_FIELD_AMT ? lang('first25') : ' ';
+        embed.data.fields = Object.entries(oldData).slice(0, MAX_FIELD_AMT).map(([id, { trigger, response, wildcard }]) => ({
           name: lang('shortFieldName', id), inline: true,
           value: lang('shortFieldValue', {
-            trigger: trigger.length < 200 ? trigger : trigger.slice(0, 197) + '...',
-            response: response.length < 200 ? response : response.slice(0, 197) + '...',
+            trigger: trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix,
+            response: response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix,
             wildcard: !!wildcard
           })
         }));
       }
       else {
-        embed.data.description = Object.entries(oldData).reduce((acc, [id, { trigger, response, wildcard }]) => acc.length >= 3800
+        const
+          maxDescriptionLength = 3800,
+          maxLength = 20;
+
+        embed.data.description = Object.entries(oldData).reduce((acc, [id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
           ? acc
           : acc + lang('longEmbedDescription', {
             id, wildcard: !!wildcard,
-            trigger: trigger.length < 20 ? trigger : trigger.slice(0, 17) + '...',
-            response: response.length < 20 ? response : response.slice(0, 17) + '...'
+            trigger: trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix,
+            response: response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix
           }), '');
       }
 
@@ -146,7 +155,7 @@ module.exports = {
     }
   ],
 
-  run: function (lang) {
+  run(lang) {
     const
       oldData = this.guild.db.triggers ?? [],
       query = this.options.getString('query_or_id')?.toLowerCase();

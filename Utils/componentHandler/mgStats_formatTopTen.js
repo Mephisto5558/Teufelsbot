@@ -1,4 +1,6 @@
-const medals = [':first_place:', ':second_place:', ':third_place:'];
+const
+  medals = [':first_place:', ':second_place:', ':third_place:'],
+  MAX_MESSAGE_LENGTH = 3997; // 4000-3 because of "..."
 
 /** @type {import('.').mgStats_formatTopTen}*/
 module.exports = function formatTopTen(input, sort, mode, lang) {
@@ -19,7 +21,7 @@ module.exports = function formatTopTen(input, sort, mode, lang) {
   }
 
   return input.slice(0, 10).reduce((acc, [id, stats], i) => acc + (
-    acc.length > 3997
+    acc.length > MAX_MESSAGE_LENGTH
       ? '...'
       : `${medals[i] ?? i + 1 + '.'} <@${id}>\n`
         + '> ' + lang('wins', stats.wins ?? 0)

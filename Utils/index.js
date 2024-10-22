@@ -10,6 +10,7 @@ module.exports = {
   cooldowns: require('./cooldowns.js'),
   DiscordAPIErrorCodes: require('./DiscordAPIErrorCodes.json'),
   errorHandler: require('./errorHandler.js'),
+  filename: require('./filename.js'),
   findAllEntries: require('./findAllEntries.js'),
   formatCommand: require('./formatCommand.js'),
   getAge: require('./getAge.js'),

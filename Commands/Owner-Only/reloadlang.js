@@ -5,7 +5,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  run: async function (lang) {
+  async run(lang) {
     log.debug(`Reloading language files, initiated by user ${this.user.tag}`);
 
     await this.client.i18n.loadAllLocales();

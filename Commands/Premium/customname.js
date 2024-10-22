@@ -38,7 +38,7 @@ module.exports = {
     }
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     let target = getTargetMember(this, { returnSelf: true });
     if (this.options?.getBoolean('global') && 'user' in target) target = target.user; // target.user check for execution in dms
 

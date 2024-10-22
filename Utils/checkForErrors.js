@@ -9,7 +9,8 @@ const
   permissionTranslator = require('./permissionTranslator.js'),
 
   /** @type {import('.')['DiscordAPIErrorCodes']}*/
-  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
+  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
+  isValidType =/** @param {Message|import('discord.js').BaseInteraction}type*/ type => type instanceof Message || type.isChatInputCommand();
 
 /**
  * @this {import('discord.js').BaseInteraction|Message}
@@ -41,10 +42,9 @@ function checkOptions(command, lang) {
     if (channelTypes && (this.options?.get(name) || this.args?.[i]) && !channelTypes.includes(this.options?.getChannel(name).type ?? this.mentions.channels.at(i)?.type))
       return ['invalidChannelType', name];
 
+    const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]));
     if (
-      (this instanceof Message || this.isChatInputCommand())
-      && autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i])
-      && !autocompleteGenerator.call({
+      isValidType(this) && autocompleteIsUsed() && !autocompleteGenerator.call({
         ...this, client: this.client, guild: this.guild, user: this.user,
         focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
       }, command, this.guild?.db.config.lang ?? this.guild?.localeCode)

@@ -1,6 +1,6 @@
 const
   { readdir } = require('node:fs/promises'),
-  { getDirectories, localizeUsage, formatCommand } = require('#Utils');
+  { getDirectories, localizeUsage, formatCommand, filename } = require('#Utils');
 
 let
   enabledCommandCount = 0,
@@ -17,7 +17,7 @@ module.exports = async function commandHandler() {
 
       if (!commandFile?.prefixCommand) continue;
 
-      const command = formatCommand(commandFile, `Commands/${subFolder}/${file}`, `commands.${subFolder.toLowerCase()}.${file.slice(0, -3)}`, this.i18n);
+      const command = formatCommand(commandFile, `Commands/${subFolder}/${file}`, `commands.${subFolder.toLowerCase()}.${filename(file)}`, this.i18n);
 
       /* For some reason, this alters the slash command as well.
          That's why localizeUsage is only here and not in `Utils/formatSlashCommand.js`. */
@@ -30,13 +30,16 @@ module.exports = async function commandHandler() {
       else if (!command.beta && this.botType == 'dev') { if (!this.config.hideNonBetaCommandLog) log(`Loaded Non-Beta Prefix Command ${command.name}`); }
       else log(`Loaded Prefix Command ${command.name}`);
 
-      command.disabled || (this.botType == 'dev' && !command.beta) ? disabledCommandCount++ : enabledCommandCount++;
+      if (command.disabled || (this.botType == 'dev' && !command.beta)) disabledCommandCount++;
+      else enabledCommandCount++;
 
       for (const alias of command.aliases?.prefix ?? []) {
         this.prefixCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
         if (command.disabled) !this.config.hideDisabledCommandLog && log(`Loaded Alias ${alias} of Prefix Command ${command.name} (disabled)`);
         else log(`Loaded Alias ${alias} of Prefix Command ${command.name}`);
-        command.disabled || (this.botType == 'dev' && !command.beta) ? disabledCommandCount++ : enabledCommandCount++;
+
+        if (command.disabled || (this.botType == 'dev' && !command.beta)) disabledCommandCount++;
+        else enabledCommandCount++;
       }
     }
   }

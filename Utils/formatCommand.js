@@ -2,13 +2,14 @@
 const
   { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
   /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path`*/
-  { resolve, dirname, basename } = require('node:path');
+  { resolve, dirname, basename } = require('node:path'),
+  CHOICE_MAX_LENGTH = 32;
 
 /** @type {import('.').formatCommand}*/
 module.exports = function formatCommand(option, path, id, i18n) {
   if ('options' in option) option.options = option.options.map(e => formatCommand(e, path, `${id}.options.${e.name}`, i18n));
 
-  if ('run' in option) option.name ??= id.split('.').at(-1);
+  if ('run' in option) option.name ??= id.split('.').last();
   if (/[A-Z]/.test(option.name)) {
     if (!option.disabled) log.error(`${option.name} (${id}) has uppercase letters! Fixing`);
     option.name = option.name.toLowerCase();
@@ -43,14 +44,14 @@ module.exports = function formatCommand(option, path, id, i18n) {
         e.nameLocalizations ??= {};
 
         const localizedChoice = i18n.__({ locale, undefinedNotFound: true }, `${id}.choices.${e.value}`);
-        if (!option.disabled && localizedChoice && !localizedChoice.length.inRange(1, 33)) {
+        if (!option.disabled && localizedChoice && !localizedChoice.length.inRange(1, CHOICE_MAX_LENGTH + 1)) {
           log.warn(
             `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${id}.choices.${e.value}) is too `
-            + (localizedChoice.length < 2 ? 'short (min length is 2)! Using undefined.' : 'long (max length is 32)! Slicing.')
+            + (localizedChoice.length < 2 ? 'short (min length is 2)! Using undefined.' : `long (max length is ${CHOICE_MAX_LENGTH})! Slicing.`)
           );
         }
 
-        if (localizedChoice && localizedChoice.length > 2) e.nameLocalizations[locale] = localizedChoice.slice(0, 32);
+        if (localizedChoice && localizedChoice.length > 2) e.nameLocalizations[locale] = localizedChoice.slice(0, CHOICE_MAX_LENGTH);
         else if (e.name != e.value && !option.disabled) log.warn(`Missing "${locale}" choice name localization for "${e.value}" in option "${option.name}" (${id}.choices.${e.value})`);
 
         return e;
@@ -60,11 +61,11 @@ module.exports = function formatCommand(option, path, id, i18n) {
 
   if ('run' in option) {
     /* eslint-disable-next-line @typescript-eslint/unbound-method -- not getting called here*/
-    if (!option.disabled && !String(option.run).startsWith('function') && !String(option.run).startsWith('async function'))
+    if (!option.disabled && !['function', 'async function', 'async run(', 'run('].some(e => String(option.run).startsWith(e)))
       throw new Error(`The run property of file "${id}" is not a function (Got "${typeof option.run}"). You cannot use arrow functions.`);
 
     option.filePath ??= resolve(path);
-    option.category ??= basename(dirname(path)).toLowerCase(); // NOSONAR
+    option.category ??= basename(dirname(path)).toLowerCase();
 
     if (!option.type) option.type = ApplicationCommandType.ChatInput;
     else if (!(option.type in ApplicationCommandOptionType)) { if (!option.disabled) throw new Error(`Invalid option.type, got "${option.type}" (${id})`); }

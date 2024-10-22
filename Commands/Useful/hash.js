@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { getHashes, createHash } = require('node:crypto');
+  { getHashes, createHash } = require('node:crypto'),
+  MAX_DESCRIPTION_LENGTH = 500;
 
 /** @type {command<'slash', false>}*/
 module.exports = {
@@ -24,13 +25,13 @@ module.exports = {
     }
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       input = this.options.getString('input', true),
       method = this.options.getString('method', true),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: lang('embedDescription', { input: input.length > 500 ? `${input.slice(0, 500)}\n...` : input, method }),
+        description: lang('embedDescription', { input: input.length > MAX_DESCRIPTION_LENGTH ? `${input.slice(0, MAX_DESCRIPTION_LENGTH)}\n...` : input, method }),
         color: Colors.DarkGold
       });
 

@@ -1,4 +1,4 @@
-const { getAfkStatus, listAfkStatuses, setAfkStatus } = require('#Utils').afk;
+const { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus } = require('#Utils').afk;
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
     }
   ],
 
-  run: function (lang) {
+  run(lang) {
     if (this.options?.getSubcommand() == 'get') {
       const target = this.inGuild() ? this.options.getMember('target') : this.options.getUser('target') ?? this.user;
       if (target) return getAfkStatus.call(this, target, lang);
@@ -35,6 +35,6 @@ module.exports = {
     }
 
     const global = this.options?.getBoolean('global') ?? this.args?.[0] == 'global';
-    return setAfkStatus.call(this, lang, global, this.options?.getString('message') ?? this.content?.slice(global ? 7 : 0, 1000));
+    return setAfkStatus.call(this, lang, global, this.options?.getString('message') ?? this.content?.slice(global ? nicknamePrefix.length + 1 : 0, 1000));
   }
 };

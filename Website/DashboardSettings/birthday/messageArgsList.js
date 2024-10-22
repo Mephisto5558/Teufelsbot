@@ -1,3 +1,5 @@
+const exampleYear = 2003;
+
 /** @type {import('@mephisto5558/bot-website').dashboardSetting}*/
 module.exports = {
   name: 'Possible Arguments for Messages',
@@ -10,9 +12,9 @@ module.exports = {
 <code>{guild.id}</code> - The guild id - <code>123456789012345678</code><br>
 <code>{guild.membercount}</code> - The guild member count - <code>23</code><br>
 <code>{guild.name}</code> - The guild name - <code>Peter's Egirl paradise</code><br>
-<code>{bornyear}</code> - The year the user was born - <code>2003</code><br>
+<code>{bornyear}</code> - The year the user was born - <code>${exampleYear}</code><br>
 <code>{date}</code> - The current date - <code>${new Date().toLocaleDateString('en')}</code><br>
-<code>{age}</code> - The new age of the user - <code>${new Date().getFullYear() - 2003}</code><br></p>`,
+<code>{age}</code> - The new age of the user - <code>${new Date().getFullYear() - exampleYear}</code><br></p>`,
   type: 'spacer',
   position: 1
 };

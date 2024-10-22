@@ -22,7 +22,7 @@ module.exports = {
       name: 'duration',
       type: 'String',
       required: true,
-      autocompleteOptions: function () { return timeValidator(this.focused.value); },
+      autocompleteOptions() { return timeValidator(this.focused.value); },
       strictAutocomplete: true
     }
   ],

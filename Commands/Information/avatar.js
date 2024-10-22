@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES } = require('discord.js'),
   { getTargetMember } = require('#Utils');
 
 /** @type {command<'both', false>}*/
@@ -13,14 +13,14 @@ module.exports = {
     {
       name: 'size',
       type: 'Integer',
-      choices: [16, 32, 56, 64, 96, 128, 256, 300, 512, 600, 1024, 2048]
+      choices: ALLOWED_SIZES
     }
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       target = getTargetMember(this, { returnSelf: true }),
-      avatarURL = target.displayAvatarURL({ size: this.options?.getInteger('size') ?? this.args?.at(-1) ?? 2048 }),
+      avatarURL = target.displayAvatarURL({ size: this.options?.getInteger('size') ?? this.args?.last() ?? 2048 }),
       embed = new EmbedBuilder({
         description: lang('embedDescription', target.user?.username ?? target.username),
         color: Colors.White,

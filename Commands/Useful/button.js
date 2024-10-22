@@ -42,7 +42,7 @@ module.exports = {
     }
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       custom = this.options.getString('json'),
       content = this.options.getString('content') ?? undefined,

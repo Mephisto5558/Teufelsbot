@@ -6,7 +6,7 @@ const
 module.exports = async function fetchAndProcess() {
   const res = await fetch('https://gist.githubusercontent.com/Dziurwa14/de2498e5ee28d2089f095aa037957cbb/raw/codes.md').then(e => e.text());
   const codes = res.split('\n').reduce((acc, line) => {
-    const [code, description] = line.slice(2, -2).replaceAll(/[',`’]|[(.:].*/g, '').split(' | ');
+    const [code, description] = line.replaceAll(/^\|\s|\|$|[',`’]|[(.:].*/g, '').split(' | ');
 
     if (Number(code) && description) {
       const name = description.trim().split(/[\s\-_]+/)

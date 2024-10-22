@@ -5,7 +5,7 @@ module.exports = {
   prefixCommand: true,
   beta: true,
 
-  run: async function (lang) {
+  async run(lang) {
     const
       prefixesKey = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
       currentPrefixes = (this.guild.db.config[prefixesKey] ?? this.client.defaultSettings.config[prefixesKey]).map(e => `\`${e.prefix}\` ${e.caseinsensitive ? lang('caseInsensitive') : ''}`);

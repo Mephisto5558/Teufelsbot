@@ -8,7 +8,7 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: async function (lang) {
+  async run(lang) {
     const
       embed = new EmbedBuilder({
         title: lang('embedTitle'),

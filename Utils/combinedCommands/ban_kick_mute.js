@@ -2,7 +2,8 @@ const
   { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType, PermissionFlagsBits } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable'),
-  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
+  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
+  { dayInSecs } = require('../timeFormatter');
 
 /** @type {import('.').ban_kick_mute}*/
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
@@ -57,7 +58,7 @@ module.exports = async function ban_kick_mute(lang) {
     }
 
     if (this.commandName == 'kick') await target.kick(reason);
-    else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: 86_400 * this.options.getNumber('delete_days_of_messages') });
+    else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: dayInSecs * this.options.getNumber('delete_days_of_messages') });
     else await target.disableCommunicationUntil(muteDurationMs, reason);
 
     resEmbed.data.description += lang('success', { user: target.user.tag, muteDuration });
@@ -99,7 +100,7 @@ module.exports = async function ban_kick_mute(lang) {
           }
 
           if (this.commandName == 'kick') await selectedMember.kick(reason);
-          else if (this.commandName == 'ban') await selectedMember.ban({ reason, deleteMessageSeconds: 86_400 * this.options.getNumber('delete_days_of_messages') });
+          else if (this.commandName == 'ban') await selectedMember.ban({ reason, deleteMessageSeconds: dayInSecs * this.options.getNumber('delete_days_of_messages') });
           else await selectedMember.disableCommunicationUntil(muteDurationMs, reason);
 
           resEmbed.data.description += lang('success', { user: selectedMember.user.tag, muteDuration });

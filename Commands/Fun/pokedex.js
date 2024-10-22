@@ -1,6 +1,10 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection } = require('discord.js'),
   fetch = require('node-fetch').default,
+  { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
+  INCHES_IN_FEET = 12,
+  CENTIMETERS_IN_INCH = 2.54,
+  KILOGRAMS_IN_POUND = 2.205,
   cache = new Collection();
 
 /** @type {command<'both', false>}*/
@@ -15,7 +19,7 @@ module.exports = {
     required: true
   }],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       pokemon = this.options?.getString('pokémon', true) ?? this.args[0],
       msg = await this.customReply(lang('global.loading', getEmoji('loading')));
@@ -30,14 +34,14 @@ module.exports = {
 
       if (res) {
         const [feet, inches] = res.height.split('\'').map(e => Number.parseFloat(e));
-        res.height = (feet * 12 + (inches || 0)) * 2.54;
+        res.height = (feet * INCHES_IN_FEET + (inches || 0)) * CENTIMETERS_IN_INCH;
         res.height = res.height < 100 ? `${res.height}cm` : `${Number.parseFloat((res.height / 100).toFixed(2))}m`;
 
         if (res.name) cache.set(res.name.toLowerCase(), res);
       }
     }
 
-    if (!res || res.error == 404) return msg.edit(lang('notFound'));
+    if (!res || res.error == HTTP_STATUS_NOT_FOUND) return msg.edit(lang('notFound'));
     if (res.error) {
       log.error('pokedex.js: The api returned an error!', res);
       return msg.edit(lang('error'));
@@ -57,7 +61,7 @@ module.exports = {
           { name: lang('types'), value: res.types.join(', '), inline: false },
           { name: lang('abilities'), value: `${res.abilities.normal}${res.abilities.hidden ? ' and ' + res.abilities.hidden : ''}.`, inline: false },
           { name: lang('genderRatio'), value: res.gender?.join(', ') ?? lang('noGender'), inline: false },
-          { name: lang('heightWeight'), value: `${res.height}, ${(Number.parseFloat(res.weight) / 2.205).toFixed(2)}kg`, inline: false },
+          { name: lang('heightWeight'), value: `${res.height}, ${(Number.parseFloat(res.weight) / KILOGRAMS_IN_POUND).toFixed(2)}kg`, inline: false },
           { name: lang('evolutionLine'), value: res.family.evolutionLine.join(', ') + lang('currentStage', res.family.evolutionStage), inline: false },
           { name: lang('gen'), value: res.gen, inline: false }
         ]

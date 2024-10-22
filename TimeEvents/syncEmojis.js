@@ -27,7 +27,7 @@ module.exports = {
   startNow: false, // Getting ran even before logging into the client
 
   /** @this {Client | void}*/
-  onTick: async function () {
+  async onTick() {
     const now = new Date();
 
     if (this.settings.timeEvents.lastEmojiSync?.toDateString() == now.toDateString()) return void log('Already ran emoji sync today');

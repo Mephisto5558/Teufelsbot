@@ -6,7 +6,7 @@ module.exports = {
   slashCommand: false,
   prefixCommand: true,
 
-  run: async function (lang) {
+  async run(lang) {
     const
       channel = getTargetChannel(this, { returnSelf: true }).id,
       number = Number.parseInt(this.args[0] ?? 0);

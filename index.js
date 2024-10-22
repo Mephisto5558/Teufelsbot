@@ -7,7 +7,7 @@ const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials, ActivityType } = require('discord.js'),
   { readdir } = require('node:fs/promises'),
   { WebServer } = require('@mephisto5558/bot-website'),
-  { prototypeRegisterer: _, GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec } = require('#Utils'),
+  { GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec } = require('#Utils'),
   /* eslint-disable-next-line @typescript-eslint/unbound-method -- fine here*/
   syncEmojis = require('./TimeEvents/syncEmojis.js').onTick,
 

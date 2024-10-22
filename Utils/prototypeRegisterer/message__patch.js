@@ -21,7 +21,7 @@ module.exports = function _patch(data, ...rest) {
         (caseinsensitive ? data.content.toLowerCase() : data.content).startsWith(caseinsensitive ? prefix.toLowerCase() : prefix)
         || data.content.startsWith(`<@${this.client.user.id}>`)
       ) {
-        prefixLength = data.content.startsWith(`<@${this.client.user.id}>`) ? this.client.user.id.length + 3 : prefix.length;
+        prefixLength = (data.content.startsWith(`<@${this.client.user.id}>`) ? `<@${this.client.user.id}>` : prefix).length;
         break;
       }
     }
