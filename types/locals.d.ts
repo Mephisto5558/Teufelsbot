@@ -21,7 +21,7 @@ type BaseCommand<initialized extends boolean = boolean> = {
   disabledReason?: string;
 
   /** Slash command options*/
-  options?: commandOptions<initialized>[];
+  options?: CommandOption[];
 }
 & (initialized extends true ? {
 
@@ -41,7 +41,7 @@ type BaseCommand<initialized extends boolean = boolean> = {
   /**
    * Gets set automatically from language files.
    * `undefined` only for an unknown language
-   * @see {@link command.description}*/
+   * @see {@link BaseCommand.description BaseCommand<true>.description }*/
   descriptionLocalizations: Record<string, BaseCommand<true>['description'] | undefined>;
 
   /**
@@ -54,7 +54,7 @@ type BaseCommand<initialized extends boolean = boolean> = {
 
   /**
    * Gets set automatically from language files.
-   * @see {@link command.usage}*/
+   * @see {@link BaseCommand.usage BaseCommand<true>.usage}*/
   usageLocalizations: Record<string, BaseCommand['usage']>;
 
   /** Gets set to the lowercase folder name the command is in.*/

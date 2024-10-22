@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when the code is in the new lib*/
 const
   { Collection } = require('discord.js'),
   /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path`*/
@@ -34,8 +33,8 @@ async function reloadCommand(command, reloadedArray) {
     this.prefixCommands.set(file.name, file);
     reloadedArray.push(file.name);
 
-    for (const alias of command.aliases?.prefix ?? []) this.prefixCommands.delete(alias);
-    for (const alias of file.aliases?.prefix ?? []) {
+    for (const alias of command.aliases.prefix ?? []) this.prefixCommands.delete(alias);
+    for (const alias of file.aliases.prefix ?? []) {
       this.prefixCommands.set(alias, { ...file, aliasOf: file.name });
       reloadedArray.push(alias);
     }
@@ -58,9 +57,9 @@ async function reloadCommand(command, reloadedArray) {
 
     this.slashCommands.delete(command.name);
     this.slashCommands.set(file.name, file);
-    reloadedArray.push(`</${file.name}:${file.id ?? 0}>`);
+    reloadedArray.push(`</${file.name}:${file.id}>`);
 
-    for (const alias of [...file.aliases?.slash ?? [], ...command.aliases?.slash ?? []].unique()) {
+    for (const alias of [...file.aliases.slash ?? [], ...command.aliases.slash ?? []].unique()) {
       const { id } = this.slashCommands.get(alias) ?? {};
       let cmdId;
 
@@ -86,9 +85,9 @@ async function reloadCommand(command, reloadedArray) {
       reloadedArray.push(`</${alias}:${cmdId ?? 0}>`);
     }
   }
-  else if (!file.slashCommand && command.slashCommand) {
+  else if (command.slashCommand) {
     this.slashCommands.delete(command.name);
-    if (command.id) await this.application.commands.delete(command.id);
+    await this.application.commands.delete(command.id);
   }
 }
 

@@ -9,6 +9,25 @@ const
     slash: { enabled: 0, disabled: 0 }
   };
 
+/**
+ * @this {Client<false>}
+ * @param {string}alias
+ * @param {SlashCommand | PrefixCommand | MixedCommand}command
+ * @param {string}type
+ */
+function loadAlias(alias, command, type) {
+  this.commands[type].set(alias, { ...command, name: alias, aliasOf: command.name });
+  if (command.disabled) {
+    commandCount[type].disabled++;
+    if (!this.config.hideDisabledCommandLog)
+      log(`Loaded Alias ${alias} of ${type[0].toUpperCase()}${type.slice(1)} Command ${command.name} (disabled)`);
+  }
+  else log(`Loaded Alias ${alias} of ${type[0].toUpperCase()}${type.slice(1)} Command ${command.name}`);
+
+  if (this.botType == 'dev' && !command.beta) commandCount[type].disabled++;
+  else commandCount[type].enabled++;
+}
+
 /** @this {Client<false>}*/
 module.exports = async function commandLoader() {
   for (const categoryFolder of await getDirectories(COMMANDS_FOLDER)) {
@@ -43,18 +62,8 @@ module.exports = async function commandLoader() {
       }
 
       for (const type of ['prefix', 'slash']) {
-        for (const alias of command.aliases[type] ?? []) {
-          this.commands[type].set(alias, { ...command, name: alias, aliasOf: command.name });
-          if (command.disabled) {
-            commandCount[type].disabled++;
-            if (!this.config.hideDisabledCommandLog)
-              log(`Loaded Alias ${alias} of ${type[0].toUpperCase()}${type.slice(1)} Command ${command.name} (disabled)`);
-          }
-          else log(`Loaded Alias ${alias} of ${type[0].toUpperCase()}${type.slice(1)} Command ${command.name}`);
-
-          if (this.botType == 'dev' && !command.beta) commandCount[type].disabled++;
-          else commandCount[type].enabled++;
-        }
+        for (const alias of command.aliases[type] ?? [])
+          loadAlias.call(this, alias, command, type);
       }
     }
   }

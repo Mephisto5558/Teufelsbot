@@ -26,10 +26,10 @@ module.exports = { Log, _patch, customReply, runMessages, playAgain };
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
 
-global.SlashCommand = SlashCommand;
-global.PrefixCommand = PrefixCommand;
-global.MixedCommand = MixedCommand;
-global.CommandOption = CommandOption;
+globalThis.SlashCommand = SlashCommand;
+globalThis.PrefixCommand = PrefixCommand;
+globalThis.MixedCommand = MixedCommand;
+globalThis.CommandOption = CommandOption;
 
 /**
  * @param {Record<string, any>}target
