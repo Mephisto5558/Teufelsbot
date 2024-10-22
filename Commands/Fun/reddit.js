@@ -2,10 +2,9 @@ const
   { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   fetch = require('node-fetch').default,
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
-  { secsInMinute } = require('#Utils/timeFormatter'),
+  { embedMaxTitleLength } = require('#Utils').constants,
+  { secsInMinute, suffix } = require('#Utils/timeFormatter'),
   CACHE_DELETE_TIME = secsInMinute * 5, // eslint-disable-line sonarjs/sonar-no-magic-numbers -- 5min
-  MAX_TITLE_LENGTH = 257,
-  suffix = '...',
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
   cachedSubreddits = new Collection(),
   fetchPost = ({ children }, filterNSFW = true) => {
@@ -92,7 +91,7 @@ module.exports = {
     const
       embed = new EmbedBuilder({
         author: { name: `${post.author} | r/${post.subreddit}` },
-        title: post.title.length < MAX_TITLE_LENGTH ? post.title : post.title.slice(0, MAX_TITLE_LENGTH - suffix.length) + suffix,
+        title: post.title.length > embedMaxTitleLength ? post.title.slice(0, embedMaxTitleLength - suffix.length) + suffix : post.title,
         url: post.url,
         image: { url: /^https?:\/\//i.test(post.imageURL) ? post.imageURL : `https://reddit.com${post.imageURL}` },
         footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * 100, downvotes: post.downvotes, comments: post.comments }) }

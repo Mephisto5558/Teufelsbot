@@ -1,8 +1,7 @@
 const
   wikiInit = require('wikijs').default,
   { EmbedBuilder, Colors } = require('discord.js'),
-  MAX_FIELDS = 25,
-  MAX_MSG_LENGTH = 2000,
+  { embedFieldMaxAmt, messageMaxLength } = require('#Utils').constants,
   MAX_MSGS = 9;
 
 /** @type {command<'both', false>}*/
@@ -56,7 +55,7 @@ module.exports = {
 
           acc.push({ name: k, inline: true, value });
           return acc;
-        }, []).slice(0, MAX_FIELDS)
+        }, []).slice(0, embedFieldMaxAmt + 1)
       });
 
     // U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing;
@@ -78,7 +77,7 @@ module.exports = {
       .reduce((acc, e, i, arr) => {
         const accItem = acc.last();
 
-        if (accItem && accItem.length + (arr[i + 1]?.length ?? 0) >= MAX_MSG_LENGTH) acc.push(`${e}\n`);
+        if (accItem && accItem.length + (arr[i + 1]?.length ?? 0) > messageMaxLength) acc.push(`${e}\n`);
         /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- last index*/
         else acc.splice(-1, 1, `${accItem}${e}\n`);
 

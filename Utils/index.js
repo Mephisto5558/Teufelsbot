@@ -7,6 +7,7 @@ module.exports = {
   commandExecutionWrapper: require('./commandExecutionWrapper.js'),
   componentHandler: require('./componentHandler.js'),
   configValidator: require('./configValidator.js'),
+  constants: require('./constants.js'),
   cooldowns: require('./cooldowns.js'),
   DiscordAPIErrorCodes: require('./DiscordAPIErrorCodes.json'),
   errorHandler: require('./errorHandler.js'),

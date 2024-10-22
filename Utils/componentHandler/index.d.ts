@@ -80,7 +80,8 @@ declare function marin(
 declare function mgStats_formatTopTen(
   this: BaseInteraction | Message,
   input: { draws?: number; wins?: number; loses?: number }[],
-  sort: 'f' | undefined, mode: 'draws' | 'losses' | 'alphabet_user' | 'alphabet_nick' | undefined, lang: lang
+  sort: 'f' | undefined, mode: 'draws' | 'losses' | 'alphabet_user' | 'alphabet_nick' | undefined, lang: lang,
+  maxLength?: number
 ): string;
 declare function mgStats<
   GAME extends string, MODE extends 'sort' | undefined, SETTINGS extends 'all_users' | undefined

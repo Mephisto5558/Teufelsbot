@@ -1,8 +1,7 @@
 const
   { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js'),
-  TWENTY_SEC = 2e4,
-  MAX_FIELD_VALUE_LENGTH = 1024,
-  suffix = '...';
+  { embedFieldValueMaxLength, suffix } = require('#Utils').constants,
+  TWENTY_SEC = 2e4;
 
 /**
  * @this {Message<true> | PartialMessage<true>}
@@ -85,7 +84,7 @@ module.exports = async function messageDelete() {
   if (this.components.length) field.value += lang('messageDelete.components', this.components.length);
 
   if (!field.value) field.value += lang('unknownContent');
-  else if (field.value.length > MAX_FIELD_VALUE_LENGTH) field.value = field.value.slice(0, MAX_FIELD_VALUE_LENGTH - suffix.length) + suffix;
+  else if (field.value.length > embedFieldValueMaxLength) field.value = field.value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
 
   // We don't get the user if the message is not cached
   if (this.user) embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (\`${this.user.id}\`)`, inline: true });

@@ -1,7 +1,6 @@
 const
   { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  MAX_FIELD_VALUE_LENGTH = 1024,
-  suffix = '...';
+  { embedFieldValueMaxLength, suffix } = require('#Utils').constants;
 
 /**
  * @this {import('discord.js').PartialMessage}
@@ -52,8 +51,8 @@ module.exports = function messageUpdate(newMsg) {
   if (embed.data.fields[1].value == '') embed.data.fields[1].value = lang('global.unknown');
   if (embed.data.fields[2].value == '') embed.data.fields[2].value = lang('global.unknown');
 
-  if (embed.data.fields[1].value.length > MAX_FIELD_VALUE_LENGTH) embed.data.fields[1].value = embed.data.fields[1].value.slice(0, MAX_FIELD_VALUE_LENGTH - suffix.length) + suffix;
-  if (embed.data.fields[2].value.length > MAX_FIELD_VALUE_LENGTH) embed.data.fields[2].value = embed.data.fields[2].value.slice(0, MAX_FIELD_VALUE_LENGTH - suffix.length) + suffix;
+  if (embed.data.fields[1].value.length > embedFieldValueMaxLength) embed.data.fields[1].value = embed.data.fields[1].value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
+  if (embed.data.fields[2].value.length > embedFieldValueMaxLength) embed.data.fields[2].value = embed.data.fields[2].value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
 
   return channelToSend.send({ embeds: [embed], components: [component] });
 };

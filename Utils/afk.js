@@ -1,9 +1,8 @@
 const
   { AllowedMentionsTypes, PermissionFlagsBits, VoiceState } = require('discord.js'),
+  { messageMaxLength, memberNameMaxLength } = require('#Utils').constants,
   nicknamePrefix = '[AFK] ',
-  nicknameRegex = /^[AFK] /,
-  MAX_MESSAGE_LENGTH = 2000,
-  MAX_NAME_LENGTH = 32;
+  nicknameRegex = /^[AFK] /;
 
 
 module.exports.nicknamePrefix = nicknamePrefix;
@@ -97,7 +96,7 @@ module.exports.sendAfkMessages = async function sendAfkMessages() {
       timestamp: Math.round(createdAt / 1000)
     });
 
-    if (acc.length + afkMessage.length >= MAX_MESSAGE_LENGTH) {
+    if (acc.length + afkMessage.length >= messageMaxLength) {
       void this.customReply(acc);
       acc = '';
     }
@@ -110,7 +109,7 @@ module.exports.sendAfkMessages = async function sendAfkMessages() {
 
 /** @type {import('.')['afk']['setAfkPrefix']}*/
 async function setAfkPrefix(member, prefix = nicknamePrefix) {
-  if (!member.moderatable || member.displayName.length >= MAX_NAME_LENGTH - prefix.length || member.nickname?.startsWith(prefix)) return;
+  if (!member.moderatable || member.displayName.length >= memberNameMaxLength - prefix.length || member.nickname?.startsWith(prefix)) return;
 
   await member.setNickname(`${prefix}${member.displayName}`);
   return true;

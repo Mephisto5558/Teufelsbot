@@ -1,7 +1,6 @@
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
-  { getTargetChannel, getTargetMember } = require('#Utils'),
-  MAX_DESCRIPTION_LENGTH = 200;
+  { getTargetChannel, getTargetMember, constants: { embedDescriptionMaxLength } } = require('#Utils');
 
 /** @type {command<'both'>}*/
 module.exports = {
@@ -38,7 +37,7 @@ module.exports = {
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { url, content: content ? `>>> ${content.slice(0, MAX_DESCRIPTION_LENGTH)}` : lang('global.unknown'), author: author?.id ?? author }),
+      description: lang('embedDescription', { url, content: content ? `>>> ${content.slice(0, embedDescriptionMaxLength)}` : lang('global.unknown'), author: author?.id ?? author }),
       timestamp: createdAt,
       color: Colors.White
     });
