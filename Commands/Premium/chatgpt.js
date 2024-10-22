@@ -46,7 +46,7 @@ module.exports = {
     required: true
   }],
 
-  run: async function (lang) {
+  async run(lang) {
     if (this instanceof Message) void this.channel.sendTyping();
 
     const

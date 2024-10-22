@@ -60,7 +60,7 @@ module.exports = {
     }
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
 
       /** @type {(name: string) => string|undefined}*/

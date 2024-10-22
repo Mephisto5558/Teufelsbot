@@ -11,7 +11,7 @@ module.exports = {
   dmPermission: true,
   beta: true,
 
-  run: async function (lang) {
+  async run(lang) {
     log.debug(`Reloading config, initiated by user ${this.user.tag}`);
 
     /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */

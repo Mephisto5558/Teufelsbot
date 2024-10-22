@@ -4,7 +4,7 @@ const
   handlers = require('./componentHandler/');
 
 /** @type {import('.').componentHandler}*/
-module.exports = function messageComponentHandler(lang) {
+module.exports = async function messageComponentHandler(lang) {
   const
     [feature, id, mode, data, ...args] = this.customId.split('.'),
     cooldown = cooldowns.call(this, `buttonPressEvent.${this.message.id}`, { user: 1000 }),

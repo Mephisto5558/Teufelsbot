@@ -4,7 +4,8 @@ const
   /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path`*/
   { resolve, basename, dirname } = require('node:path'),
   { access } = require('node:fs/promises'),
-  { formatCommand, slashCommandsEqual } = require('#Utils');
+  { formatCommand, slashCommandsEqual, filename } = require('#Utils'),
+  MAX_COMMANDLIST_LENGTH = 800;
 
 /**
  * @this {Client}
@@ -17,7 +18,11 @@ async function reloadCommand(command, reloadedArray) {
   /** @type {command<string, boolean>} */
   let file = {};
   try {
-    file = formatCommand(require(command.filePath), command.filePath, `commands.${basename(dirname(command.filePath)).toLowerCase()}.${basename(command.filePath).slice(0, -3)}`, this.i18n);
+    file = formatCommand(
+      require(command.filePath), command.filePath,
+      `commands.${basename(dirname(command.filePath)).toLowerCase()}.${filename(command.filePath)}`,
+      this.i18n
+    );
   }
   catch (err) {
     if (err.code != 'MODULE_NOT_FOUND') throw err;
@@ -99,7 +104,7 @@ module.exports = {
   }],
   beta: true,
 
-  run: async function (lang) {
+  async run(lang) {
     log.debug('Reloading files', this.args);
 
     const
@@ -152,7 +157,7 @@ module.exports = {
     const commands = reloadedArray.filter(Boolean).map(e => e.startsWith('<') ? e : `\`${e}\``).join(', ');
     void msg.edit(lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
       count: reloadedArray.length,
-      commands: commands.length < 800 ? commands : commands.slice(0, Math.max(0, commands.slice(0, 800).lastIndexOf('`,') + 1)) + '...'
+      commands: commands.length < MAX_COMMANDLIST_LENGTH ? commands : commands.slice(0, Math.max(0, commands.slice(0, MAX_COMMANDLIST_LENGTH).lastIndexOf('`,') + 1)) + '...'
     }));
 
     log.debug('Finished reloading commands.');

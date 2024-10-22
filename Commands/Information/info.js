@@ -9,7 +9,7 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: async function (lang) {
+  async run(lang) {
     const
       startTime = Math.round(Date.now() / 1000 - process.uptime()),
       description
@@ -29,7 +29,7 @@ module.exports = {
         }),
 
       embed = new EmbedBuilder({
-        title: lang('embedTitle'), description,
+        description, title: lang('embedTitle'),
         color: Colors.DarkGold
       }),
       component = new ActionRowBuilder(),

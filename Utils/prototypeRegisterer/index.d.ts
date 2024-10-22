@@ -9,6 +9,7 @@ export {
   playAgain
 };
 
+/* eslint-disable sonarjs/sonar-no-magic-numbers -- this is literally an enum.*/
 declare enum LogLevels {
   debug = 0,
   log = 1,
@@ -16,6 +17,7 @@ declare enum LogLevels {
   warn = 3,
   error = 4
 }
+/* eslint-enable sonarjs/sonar-no-magic-numbers*/
 
 declare class Log extends Function {
   /** @default logLevel='log'; logFilesDir='./Logs'*/

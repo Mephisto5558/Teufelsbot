@@ -1,6 +1,7 @@
 /* eslint-disable max-lines */
 import type { Snowflake, ActivityType, GuildFeature, EmbedData, OverwriteType } from 'discord.js';
-import type { __local, ISODateTime } from './globals';
+import type { ISODateTime } from './globals';
+import type { Env } from './locals';
 import type { GiveawayData } from 'discord-giveaways';
 import type { Database as WebsiteDB } from '@mephisto5558/bot-website/database';
 
@@ -28,9 +29,10 @@ type backupChannel = {
     avatar: string;
     content: string;
     embeds: EmbedData[];
-
-    // Todo
-    files: unknown[];
+    files: {
+      name: string;
+      attachment: `https://cdn.discordapp.com/attachments/${Snowflake}/${Snowflake}/${string}`;
+    }[];
     pinned: boolean;
     createdAt: `${ISODateTime}`;
   }[];
@@ -46,7 +48,6 @@ type backupChannel = {
   }[];
 };
 
-type commandName = string;
 type guildId = Snowflake;
 type channelId = Snowflake;
 type messageId = Snowflake;
@@ -55,12 +56,12 @@ type roleId = Snowflake;
 type backupId = `${guildId}${Snowflake}`;
 
 /** `unknown` are commands that were executed before slash and prefix command stats got counted separately.*/
-type cmdStats = Record<commandName, Record<'slash' | 'prefix' | 'unknown', number | undefined> | undefined>;
+type cmdStats = Record<string, Record<'slash' | 'prefix' | 'unknown', number | undefined> | undefined>;
 
 type Database = {
   botSettings: {
     startCount: Record<string, number | undefined>;
-    env?: __local.Env;
+    env?: Env;
     activity?: {
       name: string;
       type: ActivityType;
@@ -276,7 +277,7 @@ type Database = {
     };
     widget: {
       enabled: boolean | null;
-      channel: unknown; // Todo
+      channel: string | null;
     };
     members?: {
       userId: userId;
@@ -317,11 +318,9 @@ type Database = {
           deny: `${bigint}`;
         }[];
         children: backupChannel[];
-
-        // Todo
       }[];
 
-      /** Channels that are not in a category*/
+      /** Channels which are not in a category*/
       others: backupChannel[];
     };
   } | undefined>;

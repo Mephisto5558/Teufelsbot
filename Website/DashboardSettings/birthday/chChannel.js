@@ -5,6 +5,6 @@ module.exports = {
   id: 'chChannel',
   name: 'Channel',
   description: 'The channel to witch the birthday announcement will get send',
-  type: function () { return this.formTypes.channelsSelect(false, Constants.GuildTextBasedChannelTypes); },
+  type() { return this.formTypes.channelsSelect(false, Constants.GuildTextBasedChannelTypes); },
   position: 2
 };

@@ -12,7 +12,7 @@ module.exports = {
   disabled: !!disableWebserver || !dashboard,
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing dashboard url in config.json',
 
-  run: async function (lang) {
+  async run(lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescriptionDashboard', this.client.config.website.dashboard),

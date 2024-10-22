@@ -4,11 +4,11 @@ module.exports = {
   timeZone: undefined,
 
   /** @this {Client}*/
-  onTick: async function () {
+  async onTick() {
 
   },
   /** @this {Client}*/
-  onComplete: async function () {
+  async onComplete() {
     
   }
 };

@@ -2,6 +2,7 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   mathjs = require('mathjs'),
   math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
+  SPLIT_POS = 3, // "1 234 567"
   superscripts = {
     '²': '^2', '³': '^3',
     '⁴': '^4', '⁵': '^5',
@@ -17,7 +18,7 @@ const
   addSpaces = /** @param {number}fullNum*/ fullNum => {
     if (typeof fullNum != 'number' || !Number.isFinite(fullNum)) return String(fullNum);
     const [num, ext] = String(fullNum).split('.');
-    return [...num].reduceRight((acc, e, i) => ((num.length - i) % 3 == 0 ? ` ${e}` : e) + acc, '') + (ext ? `.${ext}` : '');
+    return [...num].reduceRight((acc, e, i) => ((num.length - i) % SPLIT_POS == 0 ? ` ${e}` : e) + acc, '') + (ext ? `.${ext}` : '');
   };
 
 /** @type {command<'both', false>}*/
@@ -32,7 +33,7 @@ module.exports = {
     required: true
   }],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       expression = this.options?.getString('expression', true) ?? this.content,
       embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.White });

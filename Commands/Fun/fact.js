@@ -13,7 +13,7 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: async function (lang) {
+  async run(lang) {
     const
       data = await fetch(`https://uselessfacts.jsph.pl/api/v2/facts/random?language=${lang.__boundArgs__[0].locale}`).then(e => e.json()),
       embed = new EmbedBuilder({

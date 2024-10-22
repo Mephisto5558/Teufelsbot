@@ -12,7 +12,7 @@ module.exports = {
   }],
   beta: true,
 
-  run: async function (lang) {
+  async run(lang) {
     const target = this.args[1];
     if (!target) return this.reply('global.unknownUser');
 

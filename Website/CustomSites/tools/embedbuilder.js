@@ -2,7 +2,7 @@
 module.exports = {
   title: 'Embedbuilder',
 
-  run: function (res, req) {
+  run(res, req) {
     const query = req.originalUrl.split(/(?=\?)/).pop(); // Keep the "?" | using ?data=e30= because e30= is {} in base64 so we don't have default values
     return res.send(
       `<iframe src="https://glitchii.github.io/embedbuilder?nouser&hidemenu&data=e30=${query?.startsWith('?') ? '&' + query.slice(1) : ''}"`

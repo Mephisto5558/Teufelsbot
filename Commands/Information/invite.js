@@ -12,7 +12,7 @@ module.exports = {
   disabled: !!disableWebserver || !invite,
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing invite url in config.json',
 
-  run: async function (lang) {
+  async run(lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', this.client.config.website.invite),

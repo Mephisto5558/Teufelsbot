@@ -1,6 +1,7 @@
 const
   { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js'),
-  { DiscordApiErrorCodes } = require('#Utils');
+  { DiscordApiErrorCodes } = require('#Utils'),
+  MAX_MESSAGE_LENGTH = 2001;
 
 /** @type {command<'slash'>}*/
 module.exports = {
@@ -24,7 +25,7 @@ module.exports = {
     { name: 'remove_attachments', type: 'Boolean' }
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       modal = new ModalBuilder({
         title: lang('modalTitle'),
@@ -81,7 +82,7 @@ module.exports = {
       if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', err.message));
     }
 
-    if (!json) await msg.edit(clear ? { content: content.slice(0, 2001), embeds: [], attachments: [], files: [], components: [] } : content.slice(0, 2001));
+    if (!json) await msg.edit(clear ? { content: content.slice(0, MAX_MESSAGE_LENGTH), embeds: [], attachments: [], files: [], components: [] } : content.slice(0, MAX_MESSAGE_LENGTH));
 
     return modalInteraction.editReply(lang('success', msg.url));
   }

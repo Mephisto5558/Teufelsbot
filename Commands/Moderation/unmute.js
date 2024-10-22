@@ -15,7 +15,7 @@ module.exports = {
     { name: 'reason', type: 'String' }
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
 
       /** @type {import('discord.js').GuildMember?} */

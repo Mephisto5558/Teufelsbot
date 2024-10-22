@@ -2,7 +2,8 @@ const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
   sendChallenge = require('./rps_sendChallenge.js'),
-  emojis = { rock: '✊', paper: '🤚', scissors: '✌️' };
+  emojis = { rock: '✊', paper: '🤚', scissors: '✌️' },
+  winningAgainst = { rock: 'scissors', paper: 'rock', scissors: 'paper' };
 
 /**
  * @this {GuildInteraction|import('discord.js').ButtonInteraction}
@@ -60,6 +61,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
     return this.message.edit({ embeds: this.message.embeds, components: [] });
   }
 
+  /* eslint-disable-next-line sonarjs/switch-without-default -- mode is a union*/
   switch (mode) {
     case 'cancel':
     case 'decline':
@@ -99,11 +101,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
       await this.client.db.delete('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`);
       if (choices.player1 == choices.player2) this.message.embeds[0].data.description = lang('end.tie', emojis[mode]);
       else {
-        const winner = choices.player1 == 'rock' && choices.player2 == 'scissors'
-          || choices.player1 == 'paper' && choices.player2 == 'rock'
-          || choices.player1 == 'scissors' && choices.player2 == 'paper'
-          ? initiatorId
-          : opponentId;
+        const winner = winningAgainst[choices.player1] == choices.player2 ? initiatorId : opponentId;
 
         this.message.embeds[0].data.description = lang('end.win', {
           winner, winEmoji: emojis[initiatorId == winner ? choices.player1 : choices.player2],

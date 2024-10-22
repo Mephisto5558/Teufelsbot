@@ -6,6 +6,7 @@ const
 
 /** @param {string}url @returns {Promise<boolean>}*/
 const checkUrl = url => new Promise((resolve, reject) => {
+  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- status codes 2xx and 3xx*/
   const req = (url.startsWith('https') ? https : http).request(url, { method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode.inRange(199, 400)));
 
   req
@@ -35,7 +36,7 @@ module.exports = {
     { name: 'limit_to_roles', type: 'String' }
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     let input = this.options.getString('emoji_or_url', true);
 
     const
@@ -59,7 +60,7 @@ module.exports = {
       if (!await checkUrl(input)) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
 
       const emoji = await this.guild.emojis.create({
-        attachment: input, name,
+        name, attachment: input,
         reason: lang('global.modReason', { command: this.commandName, user: this.user.tag }),
         roles: limitToRoles
       });

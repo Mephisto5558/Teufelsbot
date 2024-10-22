@@ -18,7 +18,7 @@ module.exports = {
     { name: 'activity', type: 'String' }
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     if (!this.content) {
       await this.client.db.delete('botSettings', 'activity');
       return this.customReply(lang('reset'));

@@ -13,7 +13,7 @@ module.exports = {
     {
       name: 'category',
       type: 'String',
-      autocompleteOptions: function () {
+      autocompleteOptions() {
         return help_getCommandCategories.call(this).map(e => ({ name: this.client.i18n.__({ locale: this.locale }, `commands.${e}.categoryName`), value: e }));
       },
       strictAutocomplete: true
@@ -21,15 +21,15 @@ module.exports = {
     {
       name: 'command',
       type: 'String',
-      autocompleteOptions: function () { return help_getCommands.call(this).map(e => e.name); },
+      autocompleteOptions() { return help_getCommands.call(this).map(e => e.name); },
       strictAutocomplete: true
     }
   ],
 
-  run: function (lang) {
+  run(lang) {
     const
-      categoryQuery = (this.options?.getString('category') ?? this.args?.at(-2))?.toLowerCase(),
-      commandQuery = (this.options?.getString('command') ?? this.args?.at(-1))?.toLowerCase();
+      categoryQuery = (this.options?.getString('category') ?? this.args?.at(module.exports.options.findIndex(e => e.name == 'category')))?.toLowerCase(),
+      commandQuery = (this.options?.getString('command') ?? this.args?.at(module.exports.options.findIndex(e => e.name == 'command')))?.toLowerCase();
 
     if (commandQuery) return help_commandQuery.call(this, lang, commandQuery);
     if (categoryQuery) return help_categoryQuery.call(this, lang, categoryQuery);

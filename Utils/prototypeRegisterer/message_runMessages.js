@@ -43,7 +43,7 @@ async function handleWordchain() {
 
   const
     firstWord = this.originalContent.split(/\s+/)[0].toLowerCase(),
-    lastWordChar = wordchainData.lastWord?.at(-1);
+    lastWordChar = wordchainData.lastWord?.last();
 
   if (
     !wordchainData.lastWord || lastWordChar == firstWord[0]

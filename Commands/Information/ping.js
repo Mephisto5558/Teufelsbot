@@ -9,7 +9,7 @@ module.exports = {
   beta: true,
   options: [{ name: 'average', type: 'Boolean' }],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       average = this.options?.getBoolean('average') ?? this.args?.[0] == 'average',
       embed = new EmbedBuilder({
@@ -26,13 +26,14 @@ module.exports = {
 
     if (average) {
       const
+        maxPings = 20,
         pingStart = performance.now(),
         msgPings = [endFirstMessagePing];
 
       let wsPings = [this.client.ws.ping];
 
-      for (let i = 2; i <= 20; i++) {
-        await sleep(3000);
+      for (let sleepTime = 3000, i = 2; i <= maxPings; i++) {
+        await sleep(sleepTime);
 
         wsPings.push(this.client.ws.ping);
 
@@ -43,17 +44,17 @@ module.exports = {
 
       const duration = Number.parseFloat(((performance.now() - pingStart) / 1000).toFixed(2));
 
-      wsPings = wsPings.filter(e => e != -1);
+      wsPings = wsPings.filter(e => e > 0);
       wsPings.sort((a, b) => a - b);
       msgPings.sort((a, b) => a - b);
 
-      const averageWsPing = Math.round(wsPings.reduce((a, b) => a + b, 0) / 20 * 100) / 100;
-      const averageMsgPing = Math.round(msgPings.reduce((a, b) => a + b, 0) / 20 * 100) / 100;
+      const averageWsPing = Math.round(wsPings.reduce((a, b) => a + b, 0) / maxPings * 100) / 100;
+      const averageMsgPing = Math.round(msgPings.reduce((a, b) => a + b, 0) / maxPings * 100) / 100;
 
       embed.data.description = lang('average.embedDescription', {
         duration,
-        pings: wsPings.length, wsLowest: wsPings[0], wsHighest: wsPings.at(-1), wsAverage: averageWsPing,
-        msgLowest: msgPings[0].toFixed(2), msgHighest: msgPings.at(-1).toFixed(2), msgAverage: averageMsgPing
+        pings: wsPings.length, wsLowest: wsPings[0], wsHighest: wsPings.last(), wsAverage: averageWsPing,
+        msgLowest: msgPings[0].toFixed(2), msgHighest: msgPings.last().toFixed(2), msgAverage: averageMsgPing
       });
     }
     else {

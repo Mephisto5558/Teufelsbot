@@ -10,7 +10,7 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'opponent', type: 'User' }],
 
-  run: function (lang) {
+  run(lang) {
     return sendChallenge.call(this, this.member, getTargetMember(this, { targetOptionName: 'opponent' }), lang);
   }
 };

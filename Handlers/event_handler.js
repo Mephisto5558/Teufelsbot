@@ -1,6 +1,6 @@
 const
   { readdir } = require('node:fs/promises'),
-  { errorHandler } = require('#Utils');
+  { filename, errorHandler } = require('#Utils');
 
 /** @this {Client}*/
 module.exports = async function eventHandler() {
@@ -9,7 +9,7 @@ module.exports = async function eventHandler() {
     if (!file.endsWith('js') || file == 'interactionCreate.js') continue; // InteractionCreate gets loaded after all slash commands are registred
 
     const
-      eventName = file.split('.')[0],
+      eventName = filename(file),
 
       /** @type {CallableFunction}*/
       event = require(`../Events/${file}`);

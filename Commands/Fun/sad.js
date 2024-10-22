@@ -6,5 +6,5 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
 
-  run: async function () { return this.customReply(responseList.random()); }
+  async run() { return this.customReply(responseList.random()); }
 };

@@ -9,6 +9,7 @@ Temp
 /Commands/Owner-Only/test.js
 .vscode
 /Website/CustomSites/tw
+/eslint-timings.md
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json

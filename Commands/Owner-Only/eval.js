@@ -6,7 +6,9 @@ const
   BoundAsyncFunction = async function asyncEval() { }.constructor.bind(undefined, ...vars),
 
   /** @type {import('../../types/globals').__local.BoundFunction}*/
-  BoundFunction = Function.bind(undefined, ...vars);
+  BoundFunction = Function.bind(undefined, ...vars),
+
+  TIMEOUT_MS = 6e5; // 10min
 
 /** @param {number}ms*/
 const timeout = ms => new Promise((_, rej) => setTimeout(rej, ms, 'eval timed out.'));
@@ -23,14 +25,14 @@ module.exports = {
   }],
   beta: true,
 
-  run: async function (lang) {
+  async run(lang) {
     const msg = await this.reply(lang('global.loading', getEmoji('loading')));
 
     try {
       await Promise.race([
         (this.content.includes('await') ? new BoundAsyncFunction(this.content) : new BoundFunction(this.content))
           .call(this, __dirname, __filename, module, exports, require, lang),
-        timeout(6e5) // 10min
+        timeout(TIMEOUT_MS)
       ]);
 
       return await msg.customReply(lang('success', lang('finished', this.content)));

@@ -16,12 +16,12 @@ module.exports = {
     {
       name: 'command',
       type: 'String',
-      autocompleteOptions: function () { return [...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()].unique(); },
+      autocompleteOptions() { return [...this.client.prefixCommands.keys(), ...this.client.slashCommands.keys()].unique(); },
       strictAutocomplete: true
     }
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       scope = this.options?.getString('scope') ?? this.args?.[0]?.toLowerCase() ?? 'bot',
       query = (this.options?.getString('command') ?? this.args?.[this.args.length == 1 ? 0 : 1])?.toLowerCase(),
@@ -42,8 +42,8 @@ module.exports = {
 
       const total = Object.values(cmdStats[command.name] ?? {}).reduce((acc, e) => acc + e, 0);
       embed.data.description = lang('embedDescriptionOne', {
-        command: command.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``,
-        total, slash: cmdStats[command.name]?.slash ?? 0, prefix: cmdStats[command.name]?.prefix ?? 0
+        total, command: command.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``,
+        slash: cmdStats[command.name]?.slash ?? 0, prefix: cmdStats[command.name]?.prefix ?? 0
       });
     }
     else {

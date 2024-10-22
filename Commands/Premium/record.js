@@ -20,7 +20,7 @@ module.exports = {
     { name: 'public', type: 'Boolean' }
   ],
 
-  run: async function (lang) {
+  async run(lang) {
     const
       isPublic = !!this.options.getBoolean('public'),
 
