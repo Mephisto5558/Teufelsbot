@@ -1,11 +1,11 @@
 /* eslint camelcase: ["error", {allow: ["toggle_module", "toggle_command", "\w*_prefix"]}] */
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
+  { autocompleteOptionsMaxAmt } = require('#Utils').constants,
   /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- this is like an enum*/
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'],
   MAX_PREFIXES_PER_GUILD = 2,
-  MAX_AUTOCOMPLETE_OPTIONS = 25,
   getCMDs = /** @param {Client}client*/ client => [...client.prefixCommands, ...client.slashCommands].filter(([,e]) => !e.aliasOf).map(([e]) => e).unique(),
   /** @type {Record<string, (this: GuildInteraction, lang: lang) =>Promise<unknown>>} */
   setupMainFunctions = {
@@ -226,7 +226,7 @@ module.exports = {
         required: true,
         autocompleteOptions() {
           return [...this.client.i18n.availableLocales.keys()].reduce((acc, locale) => {
-            if (acc.length > MAX_AUTOCOMPLETE_OPTIONS) return acc;
+            if (acc.length > autocompleteOptionsMaxAmt) return acc;
 
             const name = this.client.i18n.__({ locale, undefinedNotFound: true }, 'global.languageName') ?? locale;
             if (name.toLowerCase().includes(this.focused.value.toLowerCase()) || locale.toLowerCase().includes(this.focused.value.toLowerCase()))

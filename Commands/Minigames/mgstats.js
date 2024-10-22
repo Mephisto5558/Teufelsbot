@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
-  { getTargetMember } = require('#Utils'),
+  { getTargetMember, constants: { embedDescriptionMaxLength } } = require('#Utils'),
   { mgStats_formatTopTen: formatTopTen } = require('#Utils/componentHandler'),
   sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
   TOPLIST_MAX_USERS = 3;
@@ -123,7 +123,9 @@ module.exports = {
     await this.guild.members.fetch();
 
     embed.data.title = lang('embedTitleTop10', game);
-    embed.data.description = formatTopTen.call(this, Object.keys(data).filter(e => settings == 'all_users' || this.guild.members.cache.has(e)), sort, mode, lang) || lang('noPlayers');
+    embed.data.description = formatTopTen.call(
+      this, Object.keys(data).filter(e => settings == 'all_users' || this.guild.members.cache.has(e)), sort, mode, lang, embedDescriptionMaxLength
+    ) || lang('noPlayers');
 
     const component = new ActionRowBuilder({
       components: [new StringSelectMenuBuilder({

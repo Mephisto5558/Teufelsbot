@@ -1,7 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  MAX_FIELD_AMT = 25,
-  suffix = '...',
+  { embedMaxFieldAmt, suffix } = require('#Utils').constants,
 
   /**
    * @type {Record<string,
@@ -60,8 +59,8 @@ const
       else if (this.options.getBoolean('short')) {
         const maxLength = 200;
 
-        embed.data.description = oldData.__count__ > MAX_FIELD_AMT ? lang('first25') : ' ';
-        embed.data.fields = Object.entries(oldData).slice(0, MAX_FIELD_AMT).map(([id, { trigger, response, wildcard }]) => ({
+        embed.data.description = oldData.__count__ > embedMaxFieldAmt ? lang('first25') : ' ';
+        embed.data.fields = Object.entries(oldData).slice(0, embedMaxFieldAmt + 1).map(([id, { trigger, response, wildcard }]) => ({
           name: lang('shortFieldName', id), inline: true,
           value: lang('shortFieldValue', {
             trigger: trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix,
