@@ -2,13 +2,10 @@ const
   { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { permissionTranslator, getTargetRole } = require('#Utils');
 
-/** @type {command<'both'>}*/
-module.exports = {
+module.exports = new MixedCommand({
   aliases: { prefix: ['role-info'] },
   cooldowns: { user: 1000 },
-  slashCommand: true,
-  prefixCommand: true,
-  options: [{ name: 'role', type: 'Role' }],
+  options: [new CommandOption({ name: 'role', type: 'Role' })],
 
   async run(lang) {
     this.args = this.args?.map(e => e.replaceAll(/[<>@]/g, '')) ?? [];
@@ -61,4 +58,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components });
   }
-};
+});

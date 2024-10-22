@@ -3,17 +3,14 @@ const
   { getAverageColor } = require('fast-average-color-node'),
   emojiURLRegex = /https:\/\/cdn\.discordapp\.com\/emojis\/(?<id>\d+)/;
 
-/** @type {command<'both'>}*/
-module.exports = {
+module.exports = new MixedCommand({
   usage: { examples: ':derp:' },
   aliases: { prefix: ['emoji-info'] },
-  slashCommand: true,
-  prefixCommand: true,
-  options: [{
+  options: [new CommandOption({
     name: 'emoji',
     type: 'String',
     required: true
-  }],
+  })],
 
   async run(lang) {
     const
@@ -65,4 +62,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: [component] });
   }
-};
+});

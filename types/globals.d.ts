@@ -5,7 +5,7 @@ import type DB from '@mephisto5558/mongoose-db';
 import type I18nProvider from '@mephisto5558/i18n';
 import type { WebServer } from '@mephisto5558/bot-website';
 
-// import type Command from '@mephisto5558/command';
+import type Command from '@mephisto5558/command';
 import type locals from './locals';
 import type DBStructure from './database';
 import type { BackupSystem, GiveawaysManager } from '#Utils';
@@ -149,10 +149,19 @@ declare global {
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   type GenericFunction = (...args: any) => any;
 
-  /* type SlashCommand = Command.SlashCommand;
-     type PrefixCommand = Command.PrefixCommand;
-     type MixedCommand = Command.MixedCommand;
-     type CommandOptions = Command.CommandOptions; */
+
+  type SlashCommand<canBeDM extends boolean | undefined = undefined> = Command.SlashCommand<canBeDM>;
+  const SlashCommand: typeof Command.SlashCommand;
+
+  type PrefixCommand<canBeDM extends boolean | undefined = undefined> = Command.PrefixCommand<canBeDM>;
+  const PrefixCommand: typeof Command.PrefixCommand;
+
+  type MixedCommand<canBeDM extends boolean | undefined = undefined> = Command.MixedCommand<canBeDM>;
+  const MixedCommand: typeof Command.MixedCommand;
+
+  type CommandOption<T_parent extends SlashCommand | PrefixCommand | MixedCommand | CommandOption = MixedCommand> = Command.CommandOption<T_parent>;
+  const CommandOption: typeof Command.CommandOption;
+
 
   type langBoundArgs = [ { locale?: string; errorNotFound?: boolean; undefinedNotFound?: boolean; backupPath?: string } ];
 
@@ -161,116 +170,6 @@ declare global {
 
   /** same as {@link lang}, but may return `undefined` due to undefinedNotFound being true on the {@link I18nProvider.__ original function}.*/
   type langUNF = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string | undefined> & { __boundArgs__: langBoundArgs };
-
-  // #endregion
-
-  // #region commands
-  type slashCommand<initialized extends boolean = false> = locals.BaseCommand<initialized> & {
-    slashCommand: true;
-    aliases?: { slash?: locals.BaseCommand['name'][] };
-
-    /** Do not deferReply to the interaction*/
-    noDefer?: boolean;
-
-    /**
-     * Do `interaction.deferReply({ ephemeral: true })`.
-     *
-     * Gets ignored if {@link command.noDefer} is `true`.*/
-    ephemeralDefer?: boolean;
-  } & (initialized extends true ? {
-
-    /** **Do not set manually.***/
-    id: Snowflake;
-
-    /** **Do not set manually.***/
-    type: Discord.ApplicationCommandType.ChatInput;
-
-    defaultMemberPermissions: Discord.PermissionsBitField;
-
-    dmPermission: boolean;
-  } : object);
-
-  type prefixCommand<initialized extends boolean = false> = locals.BaseCommand<initialized> & {
-    prefixCommand: true;
-    aliases?: { prefix?: locals.BaseCommand['name'][] };
-  };
-
-  type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = locals.BaseCommand<initialized>
-    & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
-    & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
-    & { run(
-      this: commandType extends 'slash'
-        ? Interaction<guildOnly>
-        : commandType extends 'prefix'
-          ? Message<guildOnly extends true ? true : boolean>
-          : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>,
-      lang: lang, client: Discord.Client<true>
-    ): Promise<never>; };
-
-  type commandOptions<initialized extends boolean = boolean> = {
-    name: string;
-
-    /** Numbers in milliseconds*/
-    cooldowns?: locals.BaseCommand<initialized>['cooldowns'];
-
-    /** If true, the user must provide a value to this option. This is also enforced for prefix commands.*/
-    NonNullable?: boolean;
-
-    /**
-     * Only existent for {@link commandOptions.type} `SubcommandGroup` and `Subcommand`.
-     *
-     * Makes the subcommand also work in direct messages.*/
-    dmPermission?: boolean;
-
-    /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled.*/
-    autocompleteOptions?: string | locals.autocompleteOptions[] | ((this: Discord.AutocompleteInteraction) => locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>);
-
-    /**
-     * Return an error message to the user, if their input is not included in {@link commandOptions.autocompleteOptions}.
-     * Note that this happens for Messages as well.*/
-    strictAutocomplete?: boolean;
-
-    options?: commandOptions<initialized>[];
-
-    minValue?: number;
-    maxValue?: number;
-    minLength?: number;
-    maxLength?: number;
-  } & (initialized extends true ? {
-    nameLocalizations?: locals.BaseCommand<true>['nameLocalizations'];
-
-    /**
-     * Gets set automatically from language files.
-     * @see {@link command.description}*/
-    description: locals.BaseCommand<true>['description'];
-
-    /**
-     * Gets set automatically from language files.
-     * @see {@link command.description}*/
-    descriptionLocalizations?: locals.BaseCommand<true>['descriptionLocalizations'];
-
-    type: typeof Discord.ApplicationCommandOptionType;
-
-    /** Choices the user must choose from. Can not be more then 25.*/
-    choices?: {
-      name: string;
-      nameLocalizations?: locals.BaseCommand<true>['nameLocalizations'];
-      value: string | number;
-    }[];
-    autocomplete?: boolean;
-    channelTypes?: (keyof typeof Discord.ChannelType)[];
-  } : {
-    type: keyof typeof Discord.ApplicationCommandOptionType;
-
-    /** Choices the user must choose from. Can not be more then 25.*/
-    choices?: (string | number | {
-      name: string;
-      nameLocalizations?: locals.BaseCommand<true>['nameLocalizations'];
-      value: string | number;
-    })[];
-
-    channelTypes?: (typeof Discord.ChannelType)[];
-  });
 
   // #endregion
 
@@ -334,8 +233,10 @@ declare module 'discord-api-types/globals' {
 
 declare module 'discord.js' {
   interface Client<Ready> {
-    prefixCommands: Discord.Collection<command['name'], command<'prefix', boolean, Ready>>;
-    slashCommands: Discord.Collection<command['name'], command<'slash', boolean, Ready>>;
+    commands: {
+      slash: Discord.Collection<SlashCommand['name'], SlashCommand | MixedCommand>;
+      prefix: Discord.Collection<PrefixCommand['name'], PrefixCommand | MixedCommand>;
+    };
     backupSystem?: BackupSystem.BackupSystem;
     giveawaysManager?: GiveawaysManager;
 
@@ -374,11 +275,6 @@ declare module 'discord.js' {
 
     /** Alias for {@link Message.author}*/
     user: Message['author'];
-
-    /** This does not exist on Messages and is only for better typing of {@link command} here */
-    /* eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- valid use case, as this property does not really exist*/
-    options: void;
-
 
     /**
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,

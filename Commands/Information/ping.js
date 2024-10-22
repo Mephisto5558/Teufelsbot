@@ -1,13 +1,10 @@
 const { EmbedBuilder, Colors } = require('discord.js');
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   cooldowns: { channel: 1000 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   beta: true,
-  options: [{ name: 'average', type: 'Boolean' }],
+  options: [new CommandOption({ name: 'average', type: 'Boolean' })],
 
   async run(lang) {
     const
@@ -69,4 +66,4 @@ module.exports = {
 
     return msg.edit({ embeds: [embed] });
   }
-};
+});

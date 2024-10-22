@@ -1,29 +1,26 @@
 const { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus } = require('#Utils').afk;
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   cooldowns: { user: 5000 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   options: [
-    {
+    new CommandOption({
       name: 'set',
       type: 'Subcommand',
       options: [
-        {
+        new CommandOption({
           name: 'message',
           type: 'String',
           maxLength: 1000
-        },
-        { name: 'global', type: 'Boolean' }
+        }),
+        new CommandOption({ name: 'global', type: 'Boolean' })
       ]
-    },
-    {
+    }),
+    new CommandOption({
       name: 'get',
       type: 'Subcommand',
-      options: [{ name: 'target', type: 'User' }]
-    }
+      options: [new CommandOption({ name: 'target', type: 'User' })]
+    })
   ],
 
   run(lang) {
@@ -37,4 +34,4 @@ module.exports = {
     const global = this.options?.getBoolean('global') ?? this.args?.[0] == 'global';
     return setAfkStatus.call(this, lang, global, this.options?.getString('message') ?? this.content?.slice(global ? nicknamePrefix.length + 1 : 0, 1000));
   }
-};
+});

@@ -4,17 +4,14 @@ const
   { yearInSecs } = require('#Utils/timeFormatter'),
   MAX_YEAR_SECS = yearInSecs * 1000 * 2e5; // eslint-disable-line sonarjs/sonar-no-magic-numbers -- 200000y
 
-/** @type {command<'both', false>}*/
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new MixedCommand({
   dmPermission: true,
-  options: [{
+  options: [new CommandOption({
     name: 'time',
     type: 'String',
     autocompleteOptions() { return timeValidator(this.focused.value); },
     strictAutocomplete: true
-  }],
+  })],
 
   async run(lang) {
     const { offset } = new Duration(this.options?.getString('time') ?? this.args?.[0] ?? '0.1ms');
@@ -28,4 +25,4 @@ module.exports = {
 
     return this.customReply(lang('success', { time: Math.round(time / 1000) }));
   }
-};
+});

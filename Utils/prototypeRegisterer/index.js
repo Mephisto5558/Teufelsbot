@@ -9,7 +9,7 @@ const
   { join } = require('node:path'),
   { DB } = require('@mephisto5558/mongoose-db'),
 
-  // { SlashCommand, PrefixCommand, MixedCommand, CommandOptions } = require('@mephisto5558/command'),
+  { SlashCommand, PrefixCommand, MixedCommand, CommandOption } = require('@mephisto5558/command'),
   I18nProvider = require('@mephisto5558/i18n'),
   Log = require('./Log.js'),
   customReply = require('./message_customReply.js'),
@@ -26,10 +26,10 @@ module.exports = { Log, _patch, customReply, runMessages, playAgain };
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
 
-/* global.SlashCommand = SlashCommand;
-   global.PrefixCommand = PrefixCommand;
-   global.MixedCommand = MixedCommand;
-   global.CommandOptions = CommandOptions; */
+globalThis.SlashCommand = SlashCommand;
+globalThis.PrefixCommand = PrefixCommand;
+globalThis.MixedCommand = MixedCommand;
+globalThis.CommandOption = CommandOption;
 
 /**
  * @param {Record<string, any>}target
@@ -155,8 +155,9 @@ Object.defineProperty(BaseInteraction.prototype, 'customReply', {
   enumerable: false
 });
 Object.defineProperties(Client.prototype, {
-  prefixCommands: { value: new Collection() },
-  slashCommands: { value: new Collection() },
+  commands: {
+    value: { slash: new Collection(), prefix: new Collection() }
+  },
   i18n: {
     value: new I18nProvider({
       notFoundMessage: 'TEXT_NOT_FOUND: {key}', localesPath: join(process.cwd(), 'Locales'),

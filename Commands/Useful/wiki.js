@@ -4,15 +4,12 @@ const
   { embedFieldMaxAmt, messageMaxLength } = require('#Utils').constants,
   MAX_MSGS = 9;
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   usage: { examples: 'discord' },
   aliases: { prefix: ['wikipedia'] },
   cooldowns: { channel: 100, user: 200 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
-  options: [{ name: 'query', type: 'String' }],
+  options: [new CommandOption({ name: 'query', type: 'String' })],
 
   async run(lang) {
     const
@@ -87,4 +84,4 @@ module.exports = {
     for (const msg of msgs.slice(0, MAX_MSGS)) await this.customReply(msg);
     if (msgs > MAX_MSGS) return this.reply(lang('visitWiki'));
   }
-};
+});
