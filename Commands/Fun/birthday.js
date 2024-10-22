@@ -1,7 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { getTargetMember, getAge } = require('#Utils'),
-  { dayInSecs } = require('#Utils/timeFormatter'),
+  { getTargetMember, getAge, timeFormatter: { dayInSecs } } = require('#Utils'),
   currentYear = new Date().getFullYear();
 
 /**

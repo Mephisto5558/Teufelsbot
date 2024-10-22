@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { timeFormatter } = require('#Utils');
+  { timeFormatter } = require('#Utils').timeFormatter;
 
 /** @type {command<'both', false>}*/
 module.exports = {

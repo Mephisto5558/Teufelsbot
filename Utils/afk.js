@@ -1,6 +1,6 @@
 const
   { AllowedMentionsTypes, PermissionFlagsBits, VoiceState } = require('discord.js'),
-  { messageMaxLength, memberNameMaxLength } = require('#Utils').constants,
+  { messageMaxLength, memberNameMaxLength } = require('./constants'),
   nicknamePrefix = '[AFK] ',
   nicknameRegex = /^[AFK] /;
 

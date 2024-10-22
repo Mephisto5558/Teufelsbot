@@ -3,7 +3,7 @@ const
   { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
   /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path`*/
   { resolve, dirname, basename } = require('node:path'),
-  { choicesMaxAmt } = require('./constants');
+  { choicesMaxAmt, choiceValueMaxLength } = require('./constants');
 
 /** @type {import('.').formatCommand}*/
 module.exports = function formatCommand(option, path, id, i18n) {
@@ -35,6 +35,8 @@ module.exports = function formatCommand(option, path, id, i18n) {
     else if (!option.disabled) log.warn(`Missing "${locale}" description localization for option "${option.name}" (${id}.description)`);
 
     if ('choices' in option) {
+      if (option.choices.length > choicesMaxAmt) throw new Error(`Too many choices (${option.choices.length}) found for option "${option.name}"). Max is ${choicesMaxAmt}.`);
+
       option.choices.map(e => {
         if (e.__SCHandlerCustom) {
           delete e.__SCHandlerCustom;
@@ -44,14 +46,14 @@ module.exports = function formatCommand(option, path, id, i18n) {
         e.nameLocalizations ??= {};
 
         const localizedChoice = i18n.__({ locale, undefinedNotFound: true }, `${id}.choices.${e.value}`);
-        if (!option.disabled && localizedChoice && !localizedChoice.length.inRange(1, choicesMaxAmt + 1)) {
+        if (!option.disabled && localizedChoice && !localizedChoice.length.inRange(1, choiceValueMaxLength + 1)) {
           log.warn(
             `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${id}.choices.${e.value}) is too `
-            + (localizedChoice.length < 2 ? 'short (min length is 2)! Using undefined.' : `long (max length is ${choicesMaxAmt})! Slicing.`)
+            + (localizedChoice.length < 2 ? 'short (min length is 2)! Using undefined.' : `long (max length is ${choiceValueMaxLength})! Slicing.`)
           );
         }
 
-        if (localizedChoice && localizedChoice.length > 2) e.nameLocalizations[locale] = localizedChoice.slice(0, choicesMaxAmt + 1);
+        if (localizedChoice && localizedChoice.length > 2) e.nameLocalizations[locale] = localizedChoice.slice(0, choiceValueMaxLength + 1);
         else if (e.name != e.value && !option.disabled) log.warn(`Missing "${locale}" choice name localization for "${e.value}" in option "${option.name}" (${id}.choices.${e.value})`);
 
         return e;

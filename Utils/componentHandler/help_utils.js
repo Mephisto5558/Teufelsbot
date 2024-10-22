@@ -5,7 +5,7 @@ const
 
   /** @type {import('..').permissionTranslator}*/
   permissionTranslator = require('../permissionTranslator.js'),
-  { secsInMinute } = require('../timeFormatter.js');
+  { secsInMinute } = require('../timeFormatter');
 
 /**
  * @type {import('.').help_getCommands}
