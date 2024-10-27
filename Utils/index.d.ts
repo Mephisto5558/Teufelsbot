@@ -108,21 +108,19 @@ declare namespace BackupSystem {
       channel: GuildChannel, saveImages: boolean, maxMessagesPerChannel: number
     ): Promise<backupChannel['threads']>;
 
-    fetchMessageAttachments(message: Message, saveImages: boolean): Promise<{
-      name: string; attachment?: string;
-    }>;
+    fetchMessageAttachments(message: Message, saveImages: boolean): Promise<backupChannel['messages'][number]['attachments']>;
 
     fetchTextChannelData(
       channel: GuildChannel, saveImages: boolean, maxMessagesPerChannel: number
     ): Promise<backupChannel>;
 
     loadChannel(
-      channel: GuildChannel, guild: Guild, category: string, maxMessagesPerChannel: number,
+      channel: backupChannel, guild: Guild, category: string, maxMessagesPerChannel: number,
       allowedMentions: APIAllowedMentions
     ): ReturnType<GuildChannelManager['create']>;
 
     loadChannelMessages<T extends Webhook | undefined>(
-      channel: GuildTextBasedChannel, messages: Message[], webhook: T,
+      channel: GuildTextBasedChannel, messages: backupChannel['messages'], webhook: T,
       maxMessagesPerChannel: number, allowedMentions: APIAllowedMentions
     ): Promise<T extends Webhook ? T : undefined>;
   };
