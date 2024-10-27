@@ -6,9 +6,9 @@ module.exports = { runMessages };
 
 /** @this {Message}*/
 function replyToTriggers() {
-  if (cooldowns.call(this, 'triggers', { channel: 1e4 })) return;
+  if (!Number(this.guild.db.triggers?.__count__) || cooldowns.call(this, 'triggers', { channel: 1e4 })) return;
 
-  const responseList = Object.values(this.guild.db.triggers ?? {})
+  const responseList = Object.values(this.guild.db.triggers)
     .filter(e => this.originalContent?.toLowerCase().includes(e.trigger.toLowerCase())).map(e => e.response);
   for (const response of responseList.unique()) void this.customReply(response);
 }
