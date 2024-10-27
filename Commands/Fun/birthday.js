@@ -61,7 +61,7 @@ const birthdayMainFunctions = {
         embed.data.description = lang('getUser.date', {
           user: target.customName,
           month: lang(`months.${birthday.getMonth() + 1}`), day: birthday.getDate(),
-          daysUntil: Math.round(Math.abs(Date.now() - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / dayInSecs * 1000)
+          daysUntil: Math.round(Math.abs(Date.now() - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / (dayInSecs * 1000))
         });
 
         if (age < currentYear) embed.data.description += lang('getUser.newAge', age);
