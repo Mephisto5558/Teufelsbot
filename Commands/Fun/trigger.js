@@ -1,11 +1,10 @@
+/** @typedef {NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['triggers']>}triggers*/
+
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   { embedMaxFieldAmt, suffix } = require('#Utils').constants,
 
-  /**
-   * @type {Record<string,
-   * (this: GuildInteraction, lang: lang, oldData: NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['triggers']>, query: string) => Promise<Message>>
-   * }*/
+  /** @type {Record<string, (this: GuildInteraction, lang: lang, oldData: triggers, query: string) => Promise<Message>>}*/
   triggerMainFunctions = {
     async add(lang, oldData) {
       const
@@ -45,7 +44,8 @@ const
       const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Blue });
 
       if (query) {
-        const { id, trigger, response, wildcard } = Object.values(oldData).find(e => e.id == query || e.trigger.toLowerCase() == query) ?? {};
+        /** @type {[keyof triggers, NonNullable<triggers[keyof triggers]>]}*//* eslint-disable-line jsdoc/valid-types -- false positive*/
+        const [id, { trigger, response, wildcard }] = Object.entries(oldData).find(([k, v]) => k == query || v.trigger.toLowerCase() == query) ?? {};
         if (!trigger) return this.editReply(lang('notFound'));
 
         const maxLength = 1900;
