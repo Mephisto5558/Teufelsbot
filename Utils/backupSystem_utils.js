@@ -61,7 +61,7 @@ async function fetchChannelMessages(channel, saveImages, maxMessagesPerChannel =
       avatar: e.author.avatarURL(),
       content: e.cleanContent,
       embeds: e.embeds.map(e => e.data),
-      files: await fetchMessageAttachments(e, saveImages),
+      attachments: await fetchMessageAttachments(e, saveImages),
       pinned: e.pinned,
       createdAt: e.createdAt.toISOString()
     }))
@@ -98,9 +98,8 @@ async function fetchChannelThreads(channel, saveImages, maxMessagesPerChannel) {
 
 /** @type {import('.').BackupSystem.Utils['fetchMessageAttachments']}*/
 async function fetchMessageAttachments(message, saveImages) {
-  const imageExtensions = new Set(['png', 'jpg', 'jpeg', 'jpe', 'jif', 'jfif', 'jfi']);
   return (await Promise.all(message.attachments.map(async ({ name, url }) => ({
-    name, attachment: saveImages && imageExtensions.has(url) ? await fetchToBase64(url) : url
+    name, attachment: saveImages ? await fetchToBase64(url) : url
   })))).filter(e => e.attachment);
 }
 
@@ -172,7 +171,7 @@ async function loadChannelMessages(channel, messages, webhook, maxMessagesPerCha
 
   if (!webhook) return;
 
-  for (const msg of messages.filter(e => e.content.length > 0 || e.embeds.length > 0 || e.files.length > 0).reverse().slice(-maxMessagesPerChannel)) {
+  for (const msg of messages.filter(e => e.content.length > 0 || e.embeds.length > 0 || e.attachments.length > 0).reverse().slice(-maxMessagesPerChannel)) {
     try {
       const sentMsg = await webhook.send({
         allowedMentions,
@@ -180,7 +179,7 @@ async function loadChannelMessages(channel, messages, webhook, maxMessagesPerCha
         username: msg.username,
         avatarURL: msg.avatar,
         embeds: msg.embeds,
-        files: msg.files.map(e => new AttachmentBuilder(e.attachment, { name: e.name })),
+        files: msg.attachments.map(e => new AttachmentBuilder(e.attachment, { name: e.name })),
         threadId: channel.isThread() ? channel.id : undefined
       });
 

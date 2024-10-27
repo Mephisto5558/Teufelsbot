@@ -137,16 +137,16 @@ class BackupSystem {
     if (!doNotBackup.includes('stickers')) {
       statusObj.status = 'create.stickers';
 
-      data.stickers = await Promise.all((await guild.stickers.fetch()).reduce(async (acc, e) => {
-        if (e.type !== StickerType.Standard) return acc;
+      data.stickers = await (await guild.stickers.fetch()).reduce(async (acc, e) => {
+        if (e.type == StickerType.Standard) return acc;
 
         const stickerData = { name: e.name, description: e.description, tags: e.tags };
         if (saveImages) stickerData.base64 = await utils.fetchToBase64(e.url);
         else stickerData.url = e.url;
 
-        acc.push(stickerData);
+        (await acc).push(stickerData);
         return acc;
-      }, []));
+      }, Promise.resolve([]));
     }
 
     if (!doNotBackup.includes('channels')) {
@@ -196,6 +196,7 @@ class BackupSystem {
     statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     allowedMentions = [], reason = 'Backup Feature | Load'
   } = {}) => {
+    /** @type {NonNullable<NonNullable<import('../types/database').Database['backups']>[`${Snowflake}${Snowflake}`]>}*//* eslint-disable-line jsdoc/valid-types -- false positive*/
     let data, rulesChannel, publicUpdatesChannel;
 
     if (id == undefined) data = this.list(guild.id).sort((a, b) => b.createdAt - a.createdAt).first();
@@ -246,13 +247,13 @@ class BackupSystem {
 
     statusObj.status = 'load.settings';
     await guild.edit({
-      reason, name: data.name ?? undefined,
-      verificationLevel: data.verificationLevel ?? undefined,
-      explicitContentFilter: data.explicitContentFilter ?? undefined,
-      systemChannelFlags: data.systemChannelFlags ?? undefined,
-      preferredLocale: data.locale ?? undefined,
-      defaultMessageNotifications: data.defaultMessageNotifications ?? undefined,
-      afkTimeout: data.afk.timeout ?? undefined,
+      reason, name: data.name,
+      verificationLevel: data.verificationLevel,
+      explicitContentFilter: data.explicitContentFilter,
+      systemChannelFlags: data.systemChannelFlags,
+      preferredLocale: data.locale,
+      defaultMessageNotifications: data.defaultMessageNotifications,
+      afkTimeout: data.afk.timeout,
       afkChannel: data.afk?.name ? guild.channels.cache.find(e => e.name == data.afk.name && e.type == ChannelType.GuildVoice) : undefined,
       icon: data.iconBase64 ? utils.loadFromBase64(data.iconBase64) : data.iconURL,
       splash: data.splashBase64 ? utils.loadFromBase64(data.splashBase64) : data.splashURL,
@@ -288,13 +289,13 @@ class BackupSystem {
       if (!memberData.roles.length && !memberData.nickname || !member?.manageable) continue;
 
       await member.edit({
-        roles: memberData.roles?.map(e => guild.roles.cache.find(e2 => e2.name == e)?.id).filter(e => e?.editable),
+        roles: memberData.roles.map(e => guild.roles.cache.find(e2 => e2.name == e)?.id).filter(e => e?.editable),
         nickname: memberData.nickname ?? undefined
       });
     }
 
     statusObj.status = 'load.channels';
-    for (const category of data.channels?.categories ?? []) {
+    for (const category of data.channels.categories) {
       const channel = await guild.channels.create({
         reason, name: category.name,
         type: ChannelType.GuildCategory,

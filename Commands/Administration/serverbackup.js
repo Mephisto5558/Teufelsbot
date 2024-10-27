@@ -53,7 +53,7 @@ const backupMainFunctions = {
     const
       statusObj = createProxy(this, embed, lang, getEmoji('loading')),
       backup = await this.client.backupSystem.create(this.guild, {
-        save: true, backupMembers: true,
+        save: true, saveImages: true, backupMembers: true,
         metadata: [
           this.user.id, this.guild.ownerId, [this.user.id, this.guild.ownerId],
           [...this.guild.members.cache.filter(e => e.permissions.has(PermissionFlagsBits.Administrator)).keys()]
