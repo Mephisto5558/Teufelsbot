@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import type { Snowflake, ActivityType, GuildFeature, EmbedData, OverwriteType, Base64String, GuildChannelType } from 'discord.js';
+import type { ActivityType, GuildFeature, EmbedData, OverwriteType, Base64String, GuildChannelType } from 'discord.js';
 import type { ISODateTime } from './globals';
 import type { Env } from './locals';
 import type { GiveawayData } from 'discord-giveaways';
