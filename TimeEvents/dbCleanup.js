@@ -106,7 +106,7 @@ module.exports = {
     if (this.settings.timeEvents.lastDBCleanup?.toDateString() == now.toDateString()) return void log('Already ran DB cleanup today');
 
     log('Started DB backup');
-    await backupDBs();
+    await backupDBs.call(this);
     log('Backed up DBs');
 
     log('Started DB cleanup');
