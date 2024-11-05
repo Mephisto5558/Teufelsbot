@@ -1,6 +1,11 @@
 {
   "categoryName": "Minigames",
-  "categoryDescription": "Minigiochi per giocare con altri membri",
+  "categoryDescription": "Minigiochi per giocare con da soli o con altri membri",
+  "clickcounter": {
+    "description": "Quanto spesso la tua gilda può fare clic su questo pulsante?",
+    "embedDescription": "Clic attuali: 0",
+    "buttonLabel": "Clicca me!"
+  },
   "coinflip": {
     "description": "Capovolgi una moneta!",
     "response": [
