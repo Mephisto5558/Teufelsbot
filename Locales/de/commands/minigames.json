@@ -3,9 +3,9 @@
   "categoryDescription": "Minigames zum allein oder mit anderen Mitgliedern Spielen",
   "clickcounter": {
     "description": "Wie oft kann dein Server den Button drücken?",
-    "embedDescription": "Aktuelle Clicks: 0",
-    "embedFooterText": "Letzter Click von {user}",
-    "buttonLabel": "Click mich!"
+    "embedDescription": "Aktuelle Klicks: 0",
+    "embedFooterText": "Letzter Klick von {user}",
+    "buttonLabel": "Klick mich!"
   },
   "coinflip": {
     "description": "Wirf eine Münze!",
