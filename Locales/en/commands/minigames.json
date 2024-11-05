@@ -4,6 +4,7 @@
   "clickcounter": {
     "description": "How often can your guild click this button?",
     "embedDescription": "Current clicks: 0",
+    "embedFooterText": "Last click by {user}",
     "buttonLabel": "Click me!"
   },
   "coinflip": {

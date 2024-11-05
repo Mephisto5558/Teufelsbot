@@ -4,6 +4,7 @@
   "clickcounter": {
     "description": "Wie oft kann dein Server den Button drücken?",
     "embedDescription": "Aktuelle clicks: 0",
+    "embedFooterText": "Letzter Click von {user}",
     "buttonLabel": "Click mich!"
   },
   "coinflip": {
