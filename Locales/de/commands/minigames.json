@@ -3,7 +3,7 @@
   "categoryDescription": "Minigames zum allein oder mit anderen Mitgliedern Spielen",
   "clickcounter": {
     "description": "Wie oft kann dein Server den Button drücken?",
-    "embedDescription": "Aktuelle clicks: 0",
+    "embedDescription": "Aktuelle Clicks: 0",
     "embedFooterText": "Letzter Click von {user}",
     "buttonLabel": "Click mich!"
   },
