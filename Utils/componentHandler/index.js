@@ -6,6 +6,7 @@ const
 
 module.exports = {
   advice: require('./advice.js'),
+  clickCounter: require('./clickCounter.js'),
   fact: require('./fact.js'),
   help_commandQuery: commandQuery,
   help_categoryQuery: categoryQuery,
