@@ -1,5 +1,5 @@
 const
-  { timeFormatter } = require('#Utils'),
+  { timeFormatter } = require('#Utils').timeFormatter,
 
   // TODO: document why this is needed
   DATE_START = 1900;

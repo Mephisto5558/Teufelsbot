@@ -12,7 +12,7 @@ const
   yearInSecs = dayInSecs * yearInDays;
 
 /**
- * @type {import('.').timeFormatter}*/
+ * @type {import('.').timeFormatter['timeFormatter']}*/
 function timeFormatter({ sec = 0, lang } = {}) {
   const
     total = sec * 1000,

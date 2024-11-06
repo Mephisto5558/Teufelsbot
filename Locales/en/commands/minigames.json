@@ -1,6 +1,12 @@
 {
   "categoryName": "Minigames",
-  "categoryDescription": "Minigames to play with other members",
+  "categoryDescription": "Minigames to play with alone or with other members",
+  "clickcounter": {
+    "description": "How often can your guild click this button?",
+    "embedDescription": "Current clicks: 0",
+    "embedFooterText": "Last click by {user}",
+    "buttonLabel": "Click me!"
+  },
   "coinflip": {
     "description": "Flip a coin!",
     "response": [

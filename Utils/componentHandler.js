@@ -1,6 +1,9 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   cooldowns = require('./cooldowns.js'),
+
+  /** @type {import('.').errorHandler}*/
+  errorHandler = require('./errorHandler.js'),
   handlers = require('./componentHandler/');
 
 /** @type {import('.').componentHandler}*/
@@ -23,5 +26,6 @@ module.exports = async function messageComponentHandler(lang) {
     return this.reply({ embeds: [embed], ephemeral: true });
   }
 
-  if (handlers[feature]) return handlers[feature].call(this, lang, id, mode, data, args);
+  try { if (handlers[feature]) return await handlers[feature].call(this, lang, id, mode, data, args); }
+  catch (err) { return errorHandler.call(this.client, err, this, lang); }
 };

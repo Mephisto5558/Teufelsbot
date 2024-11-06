@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import type { Snowflake, ActivityType, GuildFeature, EmbedData, OverwriteType } from 'discord.js';
+import type { ActivityType, GuildFeature, EmbedData, OverwriteType, Base64String, GuildChannelType } from 'discord.js';
 import type { ISODateTime } from './globals';
 import type { Env } from './locals';
 import type { GiveawayData } from 'discord-giveaways';
@@ -14,7 +14,7 @@ interface Embed {
 }
 
 type backupChannel = {
-  type: number;
+  type: GuildChannelType;
   name: string;
   nsfw: boolean;
   rateLimitPerUser: number;
@@ -29,9 +29,9 @@ type backupChannel = {
     avatar: string;
     content: string;
     embeds: EmbedData[];
-    files: {
+    attachments: {
       name: string;
-      attachment: `https://cdn.discordapp.com/attachments/${Snowflake}/${Snowflake}/${string}`;
+      attachment: `https://cdn.discordapp.com/attachments/${Snowflake}/${Snowflake}/${string}` & {} | Base64String;
     }[];
     pinned: boolean;
     createdAt: `${ISODateTime}`;
@@ -301,14 +301,14 @@ type Database = {
       position: number;
       isEveryone: boolean;
     }[];
-    emojis: {
+    emojis: ({
       name: string;
-      url: string;
-    }[];
-    stickers: {
+    } & ({ url: `https://cdn.discordapp.com/emojis/${Snowflake}.png` } | { base64: Base64String }))[];
+    stickers: ({
       name: string;
-      url: string;
-    }[];
+      description: string | null;
+      tags: string | null;
+    } & ({ url: `https://cdn.discordapp.com/stickers/${Snowflake}.png` } | { base64: Base64String }))[];
     channels: {
       categories: {
         name: string;

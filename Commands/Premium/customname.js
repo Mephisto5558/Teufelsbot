@@ -1,4 +1,4 @@
-const { getTargetMember } = require('#Utils');
+const { getTargetMember, constants: { memberNameMaxLength } } = require('#Utils');
 
 module.exports = new MixedCommand({
   aliases: { prefix: ['custom-name'] },
@@ -50,7 +50,7 @@ module.exports = new MixedCommand({
 
 
       case 'set': {
-        const newName = this.options?.getString('name', true) ?? (this.args[0] == 'set' ? this.args.slice(1) : this.args).join(' ').slice(0, 32);
+        const newName = this.options?.getString('name', true) ?? (this.args[0] == 'set' ? this.args.slice(1) : this.args).join(' ').slice(0, memberNameMaxLength + 1);
         target.customName = newName;
 
         return this.customReply(newName ? lang('set.success', newName) : lang('clear.success'));

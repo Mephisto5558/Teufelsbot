@@ -4,6 +4,7 @@ import type { commandExecutionWrapper } from '..';
 
 export {
   advice,
+  clickCounter,
   fact,
   help_commandQuery,
   help_categoryQuery,
@@ -29,8 +30,13 @@ type ComponentReturnType = ReturnType<typeof commandExecutionWrapper>;
 type Response = InteractionResponse | Message | undefined;
 
 declare function advice(
-  this: ButtonInteraction & { customId: 'fact' },
+  this: ButtonInteraction & { customId: 'advice' },
   lang: lang
+): ComponentReturnType;
+
+declare function clickCounter<COUNT extends `${number}`>(
+  this: ButtonInteraction & { customId: `clickCounter.${COUNT}` },
+  lang: lang, count: COUNT
 ): ComponentReturnType;
 
 declare function fact(
