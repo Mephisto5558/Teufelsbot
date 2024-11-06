@@ -93,7 +93,7 @@
     },
     "games": "Juegos: `{games}`\n\n",
     "wins": "Victorias: {wins}\n",
-    "loses": "Pérdidas: {loses}\n",
+    "losses": "Pérdidas: {losses}\n",
     "draws": "Dibujos: {draws}\n\n",
     "noOne": "nadie\n",
     "missingGameArg": "¡Necesitas darme un `juego` como el primer argumento!",
