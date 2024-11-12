@@ -61,7 +61,6 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
     return this.message.edit({ embeds: this.message.embeds, components: [] });
   }
 
-  /* eslint-disable-next-line sonarjs/switch-without-default -- mode is a union*/
   switch (mode) {
     case 'cancel':
     case 'decline':
@@ -119,5 +118,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
 
       return this.message.edit({ embeds: this.message.embeds, components: [component] });
     }
+
+    default: throw new Error('Unsupported mode');
   }
 };

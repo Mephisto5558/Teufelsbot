@@ -1,3 +1,4 @@
+/* eslint-disable custom/sonar-no-magic-numbers -- these are constants*/
 module.exports = {
   autocompleteOptionsMaxAmt: 25,
   embedTitleMaxLength: 256,

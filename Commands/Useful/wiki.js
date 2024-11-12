@@ -78,7 +78,6 @@ module.exports = {
         const accItem = acc.last();
 
         if (accItem && accItem.length + (arr[i + 1]?.length ?? 0) > messageMaxLength) acc.push(`${e}\n`);
-        /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- last index*/
         else acc.splice(-1, 1, `${accItem}${e}\n`);
 
         return acc;

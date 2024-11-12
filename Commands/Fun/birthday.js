@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { getTargetMember, getAge, timeFormatter: { dayInSecs } } = require('#Utils'),
+  { getTargetMember, getAge, timeFormatter: { dayInSecs, monthInDaysMax, yearInMonths } } = require('#Utils'),
   currentYear = new Date().getFullYear();
 
 /**
@@ -14,7 +14,6 @@ function sortDates(a, b = Date.now(), currentTime = Date.now()) {
     diffB = new Date(b).setFullYear(currentYear) - currentTime;
 
   if (diffA * diffB > 0) return diffA - diffB; // both are positive or both are negative
-  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- sorting function; so not a magic number*/
   return diffA <= 0 && diffB >= 0 ? 1 : -1;
 }
 
@@ -118,19 +117,20 @@ module.exports = {
           type: 'Integer',
           required: true,
           minValue: 1,
-          maxValue: 31
+          maxValue: monthInDaysMax
         },
         {
           name: 'month',
           type: 'Integer',
           required: true,
           minValue: 1,
-          maxValue: 12
+          maxValue: yearInMonths
         },
         {
           name: 'year',
           type: 'Integer',
           required: true,
+          /* eslint-disable-next-line custom/sonar-no-magic-numbers -- min. year*/
           minValue: 1900,
           maxValue: currentYear
         }

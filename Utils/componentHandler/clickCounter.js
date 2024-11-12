@@ -8,12 +8,9 @@ module.exports = async function clickCounter(lang, count) {
 
   count = Number(count) + 1;
 
-  /* eslint-disable camelcase, sonarjs/sonar-no-magic-numbers -- `-1` is last item */
   embed.description = embed.description.split(':').toSpliced(-1, 1, count).join(': ');
-  embed.footer = { text: lang('embedFooterText', this.member.displayName), icon_url: this.member.displayAvatarURL() };
-
-  button.custom_id = this.customId.split('.').toSpliced(-1, 1, count).join('.');
-  /* eslint-enable camelcase, sonarjs/sonar-no-magic-numbers */
+  embed.footer = { text: lang('embedFooterText', this.member.displayName), icon_url: this.member.displayAvatarURL() }; /* eslint-disable-line camelcase */
+  button.custom_id = this.customId.split('.').toSpliced(-1, 1, count).join('.'); /* eslint-disable-line camelcase */
 
   return this.update({ embeds: this.message.embeds, components: this.message.components });
 };

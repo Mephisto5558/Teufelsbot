@@ -1,4 +1,4 @@
-/* eslint camelcase: ["error", {allow: ["ban_kick_mute"]}] */
+/* eslint camelcase: [error, { allow: [ban_kick_mute] }] */
 
 const
   { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError, GuildEmoji, StringSelectMenuBuilder } = require('discord.js'),
@@ -21,10 +21,8 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
   if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], ephemeral: true });
 
-  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- last char is an "s"*/
   const entityTypeSingular = entityType.slice(0, -1);
 
-  /* eslint-disable sonarjs/switch-without-default -- entityType is a union.*/
   switch (entityType) {
     case 'members': {
       if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']))
@@ -121,6 +119,9 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       if (item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId || !this.member.permissions.has(PermissionFlagsBits.ManageRoles))
         return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.editable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
+      break;
+
+    default: throw new Error('Unsupported mode');
   }
 
   if (mode == 'delete') {

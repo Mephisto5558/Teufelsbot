@@ -3,12 +3,14 @@ const
   minutesInHour = 60,
   hoursInDay = 24,
   weekInDays = 7,
-  monthInDays = 30,
+  monthInDaysAvg = 30,
+  monthInDaysMax = 31,
   yearInDays = 365,
+  yearInMonths = 12,
   hourInSecs = secsInMinute * minutesInHour,
   dayInSecs = hourInSecs * hoursInDay,
   weekInSecs = dayInSecs * weekInDays,
-  monthInSecs = dayInSecs * monthInDays,
+  monthInSecs = dayInSecs * monthInDaysAvg,
   yearInSecs = dayInSecs * yearInDays;
 
 /**
@@ -44,7 +46,10 @@ function timeFormatter({ sec = 0, lang } = {}) {
   };
 }
 
-module.exports = { timeFormatter, secsInMinute, minutesInHour, hoursInDay, weekInDays, monthInDays, yearInDays, hourInSecs, dayInSecs, weekInSecs, monthInSecs, yearInSecs };
+module.exports = {
+  timeFormatter,
+  secsInMinute, minutesInHour, hoursInDay, weekInDays, monthInDaysAvg, monthInDaysMax, yearInDays, yearInMonths, hourInSecs, dayInSecs, weekInSecs, monthInSecs, yearInSecs
+};
 
 /** Tests the timeFormatter*/
 function _testTimeFormatter() {

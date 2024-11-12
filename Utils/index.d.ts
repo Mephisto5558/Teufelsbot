@@ -321,7 +321,7 @@ declare namespace TTormatter {
 
   const
     secsInMinute: number, minutesInHour: number, hoursInDay: number,
-    weekInDays: number, monthInDays: number, yearInDays: number,
+    weekInDays: number, monthInDays: number, yearInDays: number, yearInMonths: number,
     hourInSecs: number, dayInSecs: number, weekInSecs: number, monthInSecs: number, yearInSecs: number;
 }
 

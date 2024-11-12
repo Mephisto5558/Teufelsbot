@@ -1,13 +1,12 @@
 const
   { appendFile, access, mkdir } = require('node:fs/promises'),
-  /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path`*/
   { join } = require('node:path');
 
 const logLevels = {
   debug: 0,
   log: 1,
   info: 2,
-  warn: 3,
+  warn: 3, /* eslint-disable-line custom/sonar-no-magic-numbers -- this is like an enum*/
   error: 4
 };
 

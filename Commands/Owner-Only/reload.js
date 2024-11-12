@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when the code is in the new lib*/
+/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib*/
 const
   { Collection } = require('discord.js'),
-  /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path`*/
   { resolve, basename, dirname } = require('node:path'),
   { access } = require('node:fs/promises'),
   { formatCommand, slashCommandsEqual, filename } = require('#Utils'),

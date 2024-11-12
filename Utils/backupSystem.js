@@ -24,7 +24,6 @@ class BackupSystem {
    * @param {boolean}options.saveImages
    * @param {boolean}options.clearGuildBeforeRestore
    */
-  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- default class values*/
   constructor(db, { dbName = 'backups', maxGuildBackups = 5, maxMessagesPerChannel = 10, saveImages = false, clearGuildBeforeRestore = true } = {}) {
     this.db = db;
     this.dbName = dbName;
