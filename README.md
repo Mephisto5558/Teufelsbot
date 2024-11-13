@@ -64,6 +64,5 @@ Edit the properties. Many of them are optional so you could also remove them.<br
 Then, you need to add the texts to `Locales/en/commands`. Use the `command_translations.jsonc` template.
 
 ## Others
-### Note to the sharp overwrite in package.json
-The overwrite is required because sharp (which is a dependency of the fast-average-color-node package) and the canvas package are having compatibility issues on windows systems.<br>
-See [node-canvas #930](https://github.com/Automattic/node-canvas/issues/930), [sharp #2548](https://github.com/lovell/sharp/issues/2548).
+### Note to the discord-api-types overwrite in package.json
+The overwrite is required because in order to correctly overwrite discord.js Types.
