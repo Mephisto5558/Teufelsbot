@@ -43,7 +43,6 @@
     "wikijs": "^6.4.1"
   },
   "optionalDependencies": {
-    "@img/sharp-win32-x64": "$sharp",
     "bufferutil": "^4.0.8",
     "utf-8-validate": "^6.0.5",
     "zlib-sync": "^0.1.9"
