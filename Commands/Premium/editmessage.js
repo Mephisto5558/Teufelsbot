@@ -1,9 +1,7 @@
-import { constants } from '#Utils';
-
 const
   { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js'),
-  { DiscordApiErrorCodes, constants: { messageMaxLength } } = require('#Utils'),
-  MODALSUBMIT_TIMEOUT;
+  { DiscordApiErrorCodes, constants: { messageMaxLength, msInSecond } } = require('#Utils'),
+  MODALSUBMIT_TIMEOUT = msInSecond * 30; /* eslint-disable-line custom/sonar-no-magic-numbers */
 
 /** @type {command<'slash'>}*/
 module.exports = {
@@ -77,7 +75,7 @@ module.exports = {
 
       if (json.description !== undefined) json = { embeds: [json] };
       else if (json.every?.(e => e.description !== undefined)) json = { embeds: json };
-      json.content.length = constants.messageMaxLength;
+      json.content.length = messageMaxLength;
 
       await msg.edit(clear ? { content: '', embeds: [], attachments: [], files: [], components: [], ...json } : json);
     }
