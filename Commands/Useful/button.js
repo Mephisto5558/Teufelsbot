@@ -1,9 +1,10 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError } = require('discord.js'),
-  { DiscordApiErrorCodes } = require('#Utils');
+  { DiscordApiErrorCodes, constants } = require('#Utils');
 
 /** @type {command<'slash'>}*/
 module.exports = {
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 500 },
   slashCommand: true,
   prefixCommand: false,
@@ -28,7 +29,7 @@ module.exports = {
         {
           name: 'label',
           type: 'String',
-          maxLength: 80
+          maxLength: constants.buttonLabelMaxLength
         },
         {
           name: 'url',

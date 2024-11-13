@@ -2,6 +2,7 @@ const { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus } = require(
 
 /** @type {command<'both', false>}*/
 module.exports = {
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 5000 },
   slashCommand: true,
   prefixCommand: true,

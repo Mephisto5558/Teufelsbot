@@ -18,6 +18,7 @@ const checkUrl = url => new Promise((resolve, reject) => {
 /** @type {command<'slash'>}*/
 module.exports = {
   permissions: { client: ['ManageGuildExpressions'], user: ['ManageGuildExpressions'] },
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 2000 },
   slashCommand: true,
   prefixCommand: false,

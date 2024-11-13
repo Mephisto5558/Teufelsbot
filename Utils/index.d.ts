@@ -146,7 +146,7 @@ declare namespace BackupSystem {
 
     create(guild: Guild, options?: {
       statusObj?: StatusObject;
-      id?: string;
+      id?: backupId;
       save?: boolean;
       maxGuildBackups?: number;
       backupMembers?: boolean;
@@ -320,12 +320,13 @@ declare namespace TTormatter {
   };
 
   const
-    secsInMinute: number, minutesInHour: number, hoursInDay: number,
-    weekInDays: number, monthInDays: number, yearInDays: number, yearInMonths: number,
-    hourInSecs: number, dayInSecs: number, weekInSecs: number, monthInSecs: number, yearInSecs: number;
+    msInSecond: number, secsInMinute: number, minutesInHour: number, hoursInDay: number,
+    daysInWeek: number, daysInMonthAvg: number, daysInMonthMax: number, daysInYear: number, monthsInYear: number,
+    secsInHour: number, secsInDay: number, secsInWeek: number, secsInMonth: number, secsInYear: number;
 }
 
 declare namespace constants {
+  /* eslint-disable custom/sonar-no-magic-numbers */
   const
     autocompleteOptionsMaxAmt = 25,
     embedTitleMaxLength = 256,
@@ -339,5 +340,12 @@ declare namespace constants {
     choiceNameMinLength = 1,
     choiceNameMaxLength = 100,
     choiceValueMaxLength = 100,
+    buttonLabelMaxLength: 80,
+    auditLogReasonMaxLength: 400,
+    maxBanMessageDeleteDays: 7,
+    snowflakeMinLength: 17,
+    snowflakeMaxLength: 19,
+    HTTP_STATUS_BLOCKED: 522,
     suffix = '...';
+  /* eslint-enable custom/sonar-no-magic-numbers */
 }

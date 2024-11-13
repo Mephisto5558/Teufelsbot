@@ -7,6 +7,8 @@ const
   /** @type {import('.').BackupSystem['BackupSystem']['utils']}*/
   utils = require('./backupSystem_utils.js'),
 
+  { secsInMinute } = require('./timeFormatter.js'),
+
   /** @type {import('.')['DiscordAPIErrorCodes']}*/
   DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json');
 
@@ -229,7 +231,7 @@ class BackupSystem {
         reason,
         verificationLevel: guild.features.includes(GuildFeature.Community) ? undefined : GuildVerificationLevel.None,
         explicitContentFilter: guild.features.includes(GuildFeature.Community) ? undefined : GuildExplicitContentFilter.Disabled,
-        afkTimeout: 300,
+        afkTimeout: secsInMinute * 5, /* eslint-disable-line custom/sonar-no-magic-numbers */
         systemChannel: null,
         systemChannelFlags: [],
         preferredLocale: null,

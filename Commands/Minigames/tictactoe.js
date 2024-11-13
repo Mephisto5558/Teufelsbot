@@ -42,6 +42,7 @@ async function updateStats(firstID, secondID, type, db) {
 /** @type {command<'slash'>}*/
 module.exports = {
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 5000 },
   slashCommand: true,
   prefixCommand: false,
@@ -52,6 +53,7 @@ module.exports = {
       gameTarget = getTargetMember(this, { targetOptionName: 'opponent' })?.id,
       game = new TicTacToe({
         simultaneousGames: true,
+        /* eslint-disable-next-line custom/sonar-no-magic-numbers -- todo: maybe refactor to infinite expire by sending a custom challenge button+handler*/
         gameExpireTime: 60,
         language: lang.__boundArgs__[0].locale,
         commandOptionName: gameTarget == this.client.user.id ? 'thisOptionWillNotGetUsed' : 'opponent'

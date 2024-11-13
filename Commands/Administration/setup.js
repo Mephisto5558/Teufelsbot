@@ -211,11 +211,11 @@ module.exports = {
           strictAutocomplete: true
         },
         { name: 'get', type: 'Boolean' },
-
-        // TODO: convert to autocomplete
+        /* eslint-disable custom/sonar-no-magic-numbers -- TODO: convert to selectMenu*/
         ...Array.from({ length: 6 }, (_, i) => ({ type: 'Role', name: `role_${i + 1}` })),
         ...Array.from({ length: 6 }, (_, i) => ({ type: 'Channel', name: `channel_${i + 1}`, channelTypes: Constants.GuildTextBasedChannelTypes })),
         ...Array.from({ length: 6 }, (_, i) => ({ type: 'User', name: `member_${i + 1}` }))
+        /* eslint-enable custom/sonar-no-magic-numbers */
       ]
     },
     {

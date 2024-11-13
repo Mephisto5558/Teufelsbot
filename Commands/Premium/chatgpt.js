@@ -1,6 +1,7 @@
 const
   { Message, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
-  fetch = require('node-fetch').default;
+  fetch = require('node-fetch').default,
+  { messageMaxLength } = require('#Utils').constants;
 
 /**
  * @this {Interaction|Message}
@@ -34,6 +35,7 @@ async function fetchAPI(lang, deep) {
 /** @type {command<'both', false>}*/
 module.exports = {
   aliases: { prefix: ['gpt'] },
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { guild: 0, user: 2000 },
   slashCommand: true,
   prefixCommand: true,
@@ -42,7 +44,7 @@ module.exports = {
   options: [{
     name: 'message',
     type: 'String',
-    maxLength: 2000,
+    maxLength: messageMaxLength,
     required: true
   }],
 

@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { embedFieldValueMaxLength, suffix } = require('#Utils').constants;
+  { embedFieldValueMaxLength, suffix } = require('#Utils').constants,
+  PINK = 0xE62AED;
 
 /**
  * @this {import('discord.js').PartialMessage}
@@ -29,7 +30,7 @@ module.exports = function messageUpdate(newMsg) {
         { name: lang('author'), value: `${newMsg.user.tag} (\`${newMsg.user.id}\`)`, inline: false }
       ],
       timestamp: Date.now(),
-      color: 0xE62AED
+      color: PINK
     }),
     component = new ActionRowBuilder({
       components: [new ButtonBuilder({
