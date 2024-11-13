@@ -1,4 +1,5 @@
-/* eslint-disable camelcase -- This casing is used to better display the commandNames.*/
+/* eslint camelcase: [error, { allow: [_] }] -- This casing is used to better display the commandName. */
+
 
 export {
   ban_kick_mute,

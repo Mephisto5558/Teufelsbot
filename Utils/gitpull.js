@@ -5,7 +5,7 @@ const shellExec = require('./shellExec.js');
 module.exports = async function gitpull() {
   let data;
 
-  try { data = await shellExec('git pull', { maxBuffer: 614_400 }); }
+  try { data = await shellExec('git pull'); }
   catch (err) {
     log.error(`GIT PULL\nExec error: ${err}`);
     return err;

@@ -1,6 +1,7 @@
 const
   cooldowns = require('../cooldowns.js'),
-  { removeAfkStatus, sendAfkMessages } = require('../afk.js');
+  { removeAfkStatus, sendAfkMessages } = require('../afk.js'),
+  MESSAGES_COOLDOWN = require('#Utils').timeFormatter.msInSecond * 5; /* eslint-disable-line custom/sonar-no-magic-numbers -- 5s*/
 
 module.exports = { runMessages };
 
@@ -81,7 +82,7 @@ async function handleWordchain() {
  * @type {import('.').runMessages}
  * @this {ThisParameterType<import('.').runMessages>}*/
 function runMessages() {
-  if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: 5000 }))
+  if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: MESSAGES_COOLDOWN }))
     void this.react('👀');
 
   if (this.client.botType == 'dev') return this;

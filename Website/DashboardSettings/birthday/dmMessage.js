@@ -4,5 +4,5 @@ module.exports = {
   name: 'DM Message',
   description: 'The message the member will get, if enabled',
   type: 'embedBuilder',
-  position: 5
+  position: 5 /* eslint-disable-line custom/sonar-no-magic-numbers */
 };

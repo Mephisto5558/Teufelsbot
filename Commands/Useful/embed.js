@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes, DiscordAPIError } = require('discord.js'),
-  { logSayCommandUse } = require('#Utils');
+  { logSayCommandUse, constants } = require('#Utils');
 
 /**
  * @param {Interaction}interaction
@@ -11,6 +11,7 @@ const getStringOption = (interaction, name) => interaction.options.getString(nam
 /** @type {command<'slash', false>}*/
 module.exports = {
   permissions: { user: ['EmbedLinks'] },
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 200 },
   slashCommand: true,
   prefixCommand: false,
@@ -29,7 +30,7 @@ module.exports = {
         {
           name: 'content',
           type: 'String',
-          maxLength: 2000
+          maxLength: constants.messageMaxLength
         },
         { name: 'title', type: 'String' },
         {

@@ -3,6 +3,7 @@ const { getTargetMember, constants: { memberNameMaxLength } } = require('#Utils'
 /** @type {command<'both', false>}*/
 module.exports = {
   aliases: { prefix: ['custom-name'] },
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 3e4 },
   slashCommand: true,
   prefixCommand: true,

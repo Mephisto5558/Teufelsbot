@@ -1,7 +1,10 @@
 const
   { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js'),
   { embedFieldValueMaxLength, suffix } = require('#Utils').constants,
+  PURPLE = 0x822AED,
+  AUDITLOG_FETCHLIMIT = 6,
   TWENTY_SEC = 2e4;
+
 
 /**
  * @this {Message<true> | PartialMessage<true>}
@@ -63,7 +66,7 @@ module.exports = async function messageDelete() {
   lang.__boundArgs__[0].backupPath = 'events.logger';
 
   const
-    { executor, reason } = (await this.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageDelete })).entries
+    { executor, reason } = (await this.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageDelete })).entries
       .find(e => (!this.user || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
@@ -74,7 +77,7 @@ module.exports = async function messageDelete() {
         { name: lang('messageDelete.content'), value: '', inline: false }
       ],
       timestamp: Date.now(),
-      color: 0x822AED
+      color: PURPLE
     });
 
   const field = embed.data.fields.last();

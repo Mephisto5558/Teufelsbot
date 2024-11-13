@@ -8,6 +8,7 @@ const
 module.exports = {
   usage: { examples: 'discord' },
   aliases: { prefix: ['wikipedia'] },
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { channel: 100, user: 200 },
   slashCommand: true,
   prefixCommand: true,
@@ -78,7 +79,6 @@ module.exports = {
         const accItem = acc.last();
 
         if (accItem && accItem.length + (arr[i + 1]?.length ?? 0) > messageMaxLength) acc.push(`${e}\n`);
-        /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- last index*/
         else acc.splice(-1, 1, `${accItem}${e}\n`);
 
         return acc;

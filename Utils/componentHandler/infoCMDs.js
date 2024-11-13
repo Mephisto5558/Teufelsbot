@@ -1,10 +1,13 @@
-/* eslint camelcase: ["error", {allow: ["ban_kick_mute"]}] */
+/* eslint camelcase: [error, { allow: [ban_kick_mute] }] */
 
 const
   { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError, GuildEmoji, StringSelectMenuBuilder } = require('discord.js'),
+  { ban_kick_mute } = require('../combinedCommands'),
+  { auditLogReasonMaxLength } = require('../constants.js'),
+  { msInSecond } = require('../timeFormatter.js'),
   checkTargetManageable = require('../checkTargetManageable.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
-  { ban_kick_mute } = require('../combinedCommands');
+  MODALSUBMIT_MAXTIME = msInSecond * 30; // eslint-disable-line custom/sonar-no-magic-numbers
 
 /** @type {import('.').infoCMDs}*/
 module.exports = async function infoCMDs(lang, id, mode, entityType) {
@@ -21,10 +24,8 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
   if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], ephemeral: true });
 
-  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- last char is an "s"*/
   const entityTypeSingular = entityType.slice(0, -1);
 
-  /* eslint-disable sonarjs/switch-without-default -- entityType is a union.*/
   switch (entityType) {
     case 'members': {
       if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']))
@@ -38,7 +39,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
         components: [new ActionRowBuilder({
           components: [new TextInputBuilder({
             label: lang('modalTextLabel'),
-            maxLength: 500,
+            maxLength: auditLogReasonMaxLength,
             customId: 'infoCMDs_punish_reason_modal_text',
             style: TextInputStyle.Short
           })]
@@ -48,7 +49,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       lang.__boundArgs__[0].backupPath = `commands.moderation.${mode}`;
 
       void this.showModal(modal);
-      const submit = await this.awaitModalSubmit({ time: 30_000 }).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; });
+      const submit = await this.awaitModalSubmit({ time: MODALSUBMIT_MAXTIME }).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; });
       if (!submit) return;
 
       this.commandName = mode;
@@ -121,6 +122,9 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       if (item.position > this.member.roles.highest.position && this.user.id != this.guild.ownerId || !this.member.permissions.has(PermissionFlagsBits.ManageRoles))
         return this.editReply({ embeds: [embed.setDescription(lang('global.noPermUser'))] });
       if (!item.editable) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
+      break;
+
+    default: throw new Error('Unsupported mode');
   }
 
   if (mode == 'delete') {
@@ -129,5 +133,5 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
   }
 
   for (const button of this.message.components[0].components) button.data.disabled = true;
-  return this.message.edit({ components: this.message.components }).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; }); // todo check specific error code
+  return this.message.edit({ components: this.message.components }).catch(err => { if (err.code != DiscordAPIErrorCodes.UnknownMessage) throw err; });
 };

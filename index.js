@@ -8,7 +8,7 @@ const
   { readdir } = require('node:fs/promises'),
   { WebServer } = require('@mephisto5558/bot-website'),
   { GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec } = require('#Utils'),
-  /* eslint-disable-next-line @typescript-eslint/unbound-method -- fine here*/
+  /* eslint-disable-next-line custom/unbound-method -- fine here*/
   syncEmojis = require('./TimeEvents/syncEmojis.js').onTick,
 
   createClient = /** @returns {Client<false>}*/ () => new Client({

@@ -9,7 +9,6 @@ const
 module.exports = async function record(lang, mode, requesterId, voiceChannelId, isPublic) {
   lang.__boundArgs__[0].backupPath = 'commands.premium.record';
 
-  /* eslint-disable-next-line sonarjs/switch-without-default -- mode is a union*/
   switch (mode) {
     case 'memberAllow':
     case 'memberDeny': {
@@ -46,5 +45,8 @@ module.exports = async function record(lang, mode, requesterId, voiceChannelId, 
     case 'pause':
     case 'stop':
       recordControls.call(this, lang, mode, voiceChannelId, isPublic == 'true', cache);
+      break;
+
+    default: throw new Error('Unsupported mode');
   }
 };

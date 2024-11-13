@@ -1,6 +1,5 @@
 const
   { setDefaultConfig, configValidationLoop, validConfig } = require('#Utils').configValidator,
-  /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path` */
   { resolve } = require('node:path'),
   filePath = resolve(process.cwd(), 'config.json');
 

@@ -1,10 +1,14 @@
+import { constants } from '#Utils';
+
 const
   { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js'),
-  { DiscordApiErrorCodes, constants: { messageMaxLength } } = require('#Utils');
+  { DiscordApiErrorCodes, constants: { messageMaxLength } } = require('#Utils'),
+  MODALSUBMIT_TIMEOUT;
 
 /** @type {command<'slash'>}*/
 module.exports = {
   permissions: { user: ['ManageMessages'] },
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 5000 },
   slashCommand: true,
   prefixCommand: false,
@@ -54,7 +58,7 @@ module.exports = {
     if (!msg.editable) return this.reply({ content: lang('cannotEdit'), ephemeral: true });
 
     void this.showModal(modal);
-    try { modalInteraction = await this.awaitModalSubmit({ filter: i => i.customId == 'newContent_modal', time: 6e5 }); }
+    try { modalInteraction = await this.awaitModalSubmit({ filter: i => i.customId == 'newContent_modal', time: MODALSUBMIT_TIMEOUT }); }
     catch (err) { if (err.code != 'InteractionCollectorError') throw err; }
 
     if (!modalInteraction) return this.reply({ content: lang('global.menuTimedOut'), ephemeral: true });
@@ -73,7 +77,7 @@ module.exports = {
 
       if (json.description !== undefined) json = { embeds: [json] };
       else if (json.every?.(e => e.description !== undefined)) json = { embeds: json };
-      json.content.length = 2000;
+      json.content.length = constants.messageMaxLength;
 
       await msg.edit(clear ? { content: '', embeds: [], attachments: [], files: [], components: [], ...json } : json);
     }
