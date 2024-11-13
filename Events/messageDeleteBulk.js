@@ -1,6 +1,8 @@
 const
   { EmbedBuilder, PermissionFlagsBits, AuditLogEvent } = require('discord.js'),
-  TWENTY_SEC = 2e4;
+  { msInSecond } = require('#Utils').timeFormatter,
+  RED = 0xED498D,
+  AUDITLOG_FETCHLIMIT = 6;
 
 /**
  * @this {import('discord.js').Collection<string, Message<true> | import('discord.js').PartialMessage>}
@@ -17,8 +19,8 @@ module.exports = async function messageDeleteBulk(channel) {
   await sleep(1000); // Makes sure the audit log gets created before trying to fetch it
 
   const
-    { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: 6, type: AuditLogEvent.MessageBulkDelete })).entries
-      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},
+    { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageBulkDelete })).entries
+      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < msInSecond * 20) ?? {}, // eslint-disable-line custom/sonar-no-magic-numbers
 
     /** @type {lang} */
     lang = channel.client.i18n.__.bBind(channel.client.i18n, { locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),
@@ -27,7 +29,7 @@ module.exports = async function messageDeleteBulk(channel) {
       description: lang('embedDescription', { executor: executor ? `<@${executor.id}>` : lang('events.logger.someone'), channel: channel.name, count: this.size.toString() }),
       fields: [{ name: lang('global.channel'), value: `<#${channel.id}> (\`${channel.id}\`)`, inline: false }],
       timestamp: Date.now(),
-      color: 0xED498D
+      color: RED
     });
 
   if (executor) embed.data.fields.push({ name: lang('events.logger.executor'), value: `${executor.tag} (\`${executor.id}\`)`, inline: false });

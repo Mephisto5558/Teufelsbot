@@ -41,9 +41,7 @@ function shouldDeleteMsg(msg, options) {
 
   /* eslint-disable-next-line sonarjs/expression-complexity -- good readability*/
   return bool
-
-    // todo: is options.member actually a snowflake?
-    && (!('member' in options) || msg.user.id == options.member)
+    && (!('member' in options) || msg.user.id == options.member.id)
     && (!('user_type' in options) || options.user_type == userType)
     && (!('only_containing' in options) || filterCheck[options.only_containing](msg))
     && checkCaps()
@@ -175,7 +173,7 @@ module.exports = {
   }
 };
 
-/* eslint-disable unicorn/consistent-function-scoping, camelcase
+/* eslint-disable unicorn/consistent-function-scoping, camelcase, custom/sonar-no-magic-numbers
 -- in there due to performance reasons (testing code not used in production)*/
 
 /** Tests the purge filters*/

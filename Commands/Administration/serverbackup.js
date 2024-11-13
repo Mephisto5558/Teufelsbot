@@ -2,7 +2,8 @@
 
 const
   { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ComponentType, ButtonStyle } = require('discord.js'),
-  { DiscordAPIErrorCodes } = require('#Utils');
+  { DiscordAPIErrorCodes, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
+  COLLECTOR_TIMEOUT = msInSecond * 30; /* eslint-disable-line custom/sonar-no-magic-numbers */
 
 /** @param {Database['backups'][backupId]}backup*/
 function getData(backup) {
@@ -84,7 +85,7 @@ const backupMainFunctions = {
 
     // Todo: convert to componentHandler
     return (await this.editReply({ embeds: [embed.setColor(Colors.DarkRed).setDescription(lang('load.overwriteWarningDescription'))], components: [component] }))
-      .createMessageComponentCollector({ filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: 3e4 })
+      .createMessageComponentCollector({ filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: COLLECTOR_TIMEOUT })
       .on('collect', async button => {
         await button.deferUpdate();
         if (button.customId != 'overwriteWarning_true') return this.editReply({ embeds: [embed.setDescription(lang('load.cancelled'))], components: [] });
@@ -161,12 +162,12 @@ module.exports = {
     {
       name: 'create',
       type: 'Subcommand',
-      cooldowns: { guild: 18e5 } // 30min
+      cooldowns: { guild: msInSecond * secsInMinute * 30 } /* eslint-disable-line custom/sonar-no-magic-numbers */
     },
     {
       name: 'load',
       type: 'Subcommand',
-      cooldowns: { guild: 3e5 }, // 5min
+      cooldowns: { guild: msInSecond * secsInMinute * 5 }, /* eslint-disable-line custom/sonar-no-magic-numbers */
       options: [
         {
           name: 'id',

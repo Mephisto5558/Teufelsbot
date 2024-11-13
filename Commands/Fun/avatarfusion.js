@@ -5,6 +5,7 @@ const
 
 /** @type {command<'both'>}*/
 module.exports = {
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 2000 },
   slashCommand: true,
   prefixCommand: true,

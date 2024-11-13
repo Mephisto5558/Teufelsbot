@@ -1,7 +1,7 @@
 const
-  { timeFormatter } = require('#Utils').timeFormatter,
+  { timeFormatter, daysInMonthMax, monthsInYear, secsInHour, hoursInDay, minutesInHour } = require('#Utils').timeFormatter,
 
-  // TODO: document why this is needed
+  /** @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#interpretation_of_two-digit_years */
   DATE_START = 1900;
 
 /**
@@ -40,37 +40,38 @@ module.exports = {
       name: 'day',
       type: 'Integer',
       minValue: 1,
-      maxValue: 31
+      maxValue: daysInMonthMax
     },
     {
       name: 'month',
       type: 'Integer',
       minValue: 1,
-      maxValue: 12
+      maxValue: monthsInYear
     },
     {
       name: 'year',
       type: 'Integer',
       minValue: 0,
+      /* eslint-disable-next-line custom/sonar-no-magic-numbers -- max years*/
       maxValue: 2e5
     },
     {
       name: 'hour',
       type: 'Integer',
       minValue: 0,
-      maxValue: 23
+      maxValue: hoursInDay - 1
     },
     {
       name: 'minute',
       type: 'Integer',
       minValue: 0,
-      maxValue: 59
+      maxValue: minutesInHour - 1
     },
     {
       name: 'second',
       type: 'Integer',
       minValue: 0,
-      maxValue: 59
+      maxValue: secsInHour - 1
     }
   ],
 

@@ -1,4 +1,7 @@
-const { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js');
+const
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
+  { msInSecond, secsInMinute } = require('#Utils').timeFormatter,
+  BUTTON_TIME = msInSecond * secsInMinute * 15;/* eslint-disable-line custom/sonar-no-magic-numbers -- 15s*/
 
 
 /** @type {import('.').playAgain}*/
@@ -20,7 +23,7 @@ module.exports = async function playAgain(interaction, lang) {
 
   const collector = (await interaction.editReply({ components })).createMessageComponentCollector({
     filter: i => [interaction.user.id, opponent?.id].includes(i.member.id) && i.customId == 'playAgain',
-    max: 1, componentType: ComponentType.Button, time: 15_000
+    max: 1, componentType: ComponentType.Button, time: BUTTON_TIME
   });
 
   collector

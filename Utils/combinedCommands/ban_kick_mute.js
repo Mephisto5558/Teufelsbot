@@ -3,7 +3,7 @@ const
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
-  { dayInSecs } = require('../timeFormatter');
+  { secsInDay, secsInMinute, msInSecond } = require('../timeFormatter');
 
 /** @type {import('.').ban_kick_mute}*/
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
@@ -21,7 +21,7 @@ module.exports = async function ban_kick_mute(lang) {
     reason = this.options.getString('reason', true);
 
   if (muteDuration) {
-    muteDuration = getMilliseconds(muteDuration).limit?.({ min: 6e4, max: 2.419e9 });
+    muteDuration = getMilliseconds(muteDuration).limit?.({ min: msInSecond * secsInMinute, max: msInSecond * secsInDay * 28 }); // eslint-disable-line custom/sonar-no-magic-numbers -- 28d
     if (!muteDuration || typeof muteDuration == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
 
     muteDurationMs = muteDuration + Date.now();
@@ -58,7 +58,7 @@ module.exports = async function ban_kick_mute(lang) {
     }
 
     if (this.commandName == 'kick') await target.kick(reason);
-    else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: dayInSecs * this.options.getNumber('delete_days_of_messages') });
+    else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
     else await target.disableCommunicationUntil(muteDurationMs, reason);
 
     resEmbed.data.description += lang('success', { user: target.user.tag, muteDuration });
@@ -81,7 +81,7 @@ module.exports = async function ban_kick_mute(lang) {
       })]
     }),
     collector = (await this.editReply({ embeds: [selectEmbed], components: [selectComponent] }))
-      .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: 6e4, filter: i => i.user.id == this.user.id })
+      .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: msInSecond * secsInMinute, filter: i => i.user.id == this.user.id })
       .on('collect', async selectMenu => {
         await selectMenu.deferUpdate();
 
@@ -100,7 +100,7 @@ module.exports = async function ban_kick_mute(lang) {
           }
 
           if (this.commandName == 'kick') await selectedMember.kick(reason);
-          else if (this.commandName == 'ban') await selectedMember.ban({ reason, deleteMessageSeconds: dayInSecs * this.options.getNumber('delete_days_of_messages') });
+          else if (this.commandName == 'ban') await selectedMember.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
           else await selectedMember.disableCommunicationUntil(muteDurationMs, reason);
 
           resEmbed.data.description += lang('success', { user: selectedMember.user.tag, muteDuration });

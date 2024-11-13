@@ -12,11 +12,12 @@ module.exports = {
   async run(lang) {
     const
       average = this.options?.getBoolean('average') ?? this.args?.[0] == 'average',
+      maxPings = 20,
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: lang(
           average ? 'average.loading' : 'global.loading',
-          { emoji: getEmoji('loading'), current: 1, target: 20, timestamp: Math.floor(Date.now() / 1000) + 4 }
+          { emoji: getEmoji('loading'), current: 1, target: maxPings, timestamp: Math.floor(Date.now() / 1000) + 4 }
         ), // 4 due to the moment it takes to update the embed
         color: Colors.Green
       }),
@@ -26,7 +27,6 @@ module.exports = {
 
     if (average) {
       const
-        maxPings = 20,
         pingStart = performance.now(),
         msgPings = [endFirstMessagePing];
 
@@ -38,7 +38,7 @@ module.exports = {
         wsPings.push(this.client.ws.ping);
 
         const startMessagePing = performance.now();
-        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: i, target: 20, timestamp: Math.floor(Date.now() / 1000) + 4 }))] });
+        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: i, target: maxPings, timestamp: Math.floor(Date.now() / 1000) + 4 }))] });
         msgPings.push(performance.now() - startMessagePing);
       }
 

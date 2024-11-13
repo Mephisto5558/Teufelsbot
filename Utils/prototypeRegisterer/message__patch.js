@@ -1,5 +1,5 @@
 /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior */
-/* eslint-disable-next-line @typescript-eslint/unbound-method */
+/* eslint-disable-next-line custom/unbound-method */
 const originalPatch = require('discord.js').Message.prototype._patch;
 
 /** @type {import('.')._patch}**/

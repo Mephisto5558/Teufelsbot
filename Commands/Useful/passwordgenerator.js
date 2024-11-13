@@ -1,6 +1,8 @@
 const
   DEFAULT_CHARSET = [String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\=*'"#*(){}[]`],
   DEFAULT_PASSWORD_LENGTH = 12,
+  MAX_PASSWORD_LENGTH = 1750,
+  MAX_PASSWORDS = 500,
   MAX_MESSAGE_LENGTH = 1740,
   MAX_DISPLAYED_CHARSET_LEN = 100,
   suffix = '...';
@@ -24,12 +26,12 @@ module.exports = {
     {
       name: 'length',
       type: 'Integer',
-      maxValue: 1750
+      maxValue: MAX_PASSWORD_LENGTH
     },
     {
       name: 'count',
       type: 'Integer',
-      maxValue: 500
+      maxValue: MAX_PASSWORDS
     },
     { name: 'exclude_chars', type: 'String' },
     { name: 'include_chars', type: 'String' }
