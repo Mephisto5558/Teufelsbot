@@ -1,5 +1,3 @@
-import { constants } from '#Utils';
-
 const
   { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js'),
   { DiscordApiErrorCodes, constants: { messageMaxLength, msInSecond } } = require('#Utils'),
@@ -8,7 +6,6 @@ const
 /** @type {command<'slash'>}*/
 module.exports = {
   permissions: { user: ['ManageMessages'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 5000 },
   slashCommand: true,
