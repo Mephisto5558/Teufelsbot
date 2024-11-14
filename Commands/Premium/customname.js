@@ -2,6 +2,7 @@ const { getTargetMember, constants: { memberNameMaxLength } } = require('#Utils'
 
 module.exports = new MixedCommand({
   aliases: { prefix: ['custom-name'] },
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 3e4 },
   dmPermission: true,
   premium: true,

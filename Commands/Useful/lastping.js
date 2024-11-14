@@ -3,6 +3,7 @@ const
   { getTargetChannel, getTargetMember, constants: { embedDescriptionMaxLength } } = require('#Utils');
 
 module.exports = new MixedCommand({
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { guild: 200, user: 1e4 },
   ephemeralDefer: true,
   options: [

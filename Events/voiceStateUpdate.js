@@ -1,6 +1,7 @@
 const
   { PermissionFlagsBits, EmbedBuilder } = require('discord.js'),
-  { removeAfkStatus, setAfkStatus } = require('#Utils').afk;
+  { removeAfkStatus, setAfkStatus } = require('#Utils').afk,
+  GRAY = 0x36393F;
 
 /**
  * @this {import('discord.js').VoiceState}
@@ -23,7 +24,7 @@ module.exports = function voiceStateUpdate(newState) {
     embed = new EmbedBuilder({
       author: { name: newState.member.user.tag, iconURL: newState.member.displayAvatarURL() },
       timestamp: Date.now(),
-      color: 0x36393F
+      color: GRAY
     }),
 
     /** @type {lang}*/

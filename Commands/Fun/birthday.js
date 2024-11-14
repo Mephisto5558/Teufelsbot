@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { getTargetMember, getAge, timeFormatter: { dayInSecs } } = require('#Utils'),
+  { getTargetMember, getAge, timeFormatter: { secsInDay, daysInMonthMax, monthsInYear } } = require('#Utils'),
   currentYear = new Date().getFullYear();
 
 /**
@@ -14,7 +14,6 @@ function sortDates(a, b = Date.now(), currentTime = Date.now()) {
     diffB = new Date(b).setFullYear(currentYear) - currentTime;
 
   if (diffA * diffB > 0) return diffA - diffB; // both are positive or both are negative
-  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- sorting function; so not a magic number*/
   return diffA <= 0 && diffB >= 0 ? 1 : -1;
 }
 
@@ -28,7 +27,7 @@ const birthdayMainFunctions = {
       nextBirthday = new Date(today.getFullYear(), month - 1, day);
 
     if (today > nextBirthday) nextBirthday.setFullYear(today.getFullYear() + 1);
-    const diffDays = Math.ceil(Math.abs(nextBirthday - today) / dayInSecs * 1000);
+    const diffDays = Math.ceil(Math.abs(nextBirthday - today) / secsInDay * 1000);
 
     await this.user.updateDB('birthday', new Date(this.options.getInteger('year', true), month - 1, day));
     return this.editReply(lang('saved', diffDays));
@@ -61,7 +60,7 @@ const birthdayMainFunctions = {
         embed.data.description = lang('getUser.date', {
           user: target.customName,
           month: lang(`months.${birthday.getMonth() + 1}`), day: birthday.getDate(),
-          daysUntil: Math.round(Math.abs(Date.now() - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / (dayInSecs * 1000))
+          daysUntil: Math.round(Math.abs(Date.now() - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / (secsInDay * 1000))
         });
 
         if (age < currentYear) embed.data.description += lang('getUser.newAge', age);
@@ -115,19 +114,20 @@ module.exports = new SlashCommand({
           type: 'Integer',
           required: true,
           minValue: 1,
-          maxValue: 31
+          maxValue: daysInMonthMax
         }),
         new CommandOption({
           name: 'month',
           type: 'Integer',
           required: true,
           minValue: 1,
-          maxValue: 12
+          maxValue: monthsInYear
         }),
         new CommandOption({
           name: 'year',
           type: 'Integer',
           required: true,
+          /* eslint-disable-next-line custom/sonar-no-magic-numbers -- min. year*/
           minValue: 1900,
           maxValue: currentYear
         })

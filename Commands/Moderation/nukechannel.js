@@ -1,6 +1,7 @@
 const
   { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
-  { getTargetChannel } = require('#Utils');
+  { getTargetChannel } = require('#Utils'),
+  collectorTimeout = 3e4;
 
 module.exports = new MixedCommand({
   aliases: { prefix: ['clearchannel'], slash: ['clearchannel'] },
@@ -39,7 +40,7 @@ module.exports = new MixedCommand({
 
     const
       msg = await this.customReply({ embeds: [embed], components: [component] }),
-      collector = msg.createMessageComponentCollector({ filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: 3e4 });
+      collector = msg.createMessageComponentCollector({ filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: collectorTimeout });
 
     collector
       .on('collect', async button => {

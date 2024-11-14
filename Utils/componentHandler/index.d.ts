@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+/* eslint camelcase: [error, { allow: [_] }] -- This casing is used to better display the commandName. */
 import type { BaseInteraction, ButtonInteraction, Collection, GuildMember, InteractionResponse, StringSelectMenuInteraction } from 'discord.js';
 import type { commandExecutionWrapper } from '..';
 

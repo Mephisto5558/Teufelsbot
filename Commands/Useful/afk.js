@@ -1,6 +1,7 @@
 const { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus } = require('#Utils').afk;
 
 module.exports = new MixedCommand({
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 5000 },
   dmPermission: true,
   options: [

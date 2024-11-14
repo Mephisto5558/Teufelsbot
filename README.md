@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/github/license/Mephisto5558/Teufelsbot)](https://github.com/Mephisto5558/Teufelsbot/blob/main/LICENSE)
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Mephisto5558_Teufelsbot&metric=ncloc)](https://sonarcloud.io/component_measures?metric=ncloc&id=Mephisto5558_Teufelsbot)
 [![wakatime](https://wakatime.com/badge/github/Mephisto5558/Teufelsbot.svg)](https://wakatime.com/badge/github/Mephisto5558/Teufelsbot)<br>
-[![CodeQL](https://github.com/Mephisto5558/Teufelsbot/actions/workflows/codeql.yml/badge.svg)](https://github.com/Mephisto5558/Teufelsbot/actions/workflows/codeql.yml)
+[![CodeQL](https://github.com/Mephisto5558/Teufelsbot/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Mephisto5558/Teufelsbot/actions/workflows/github-code-scanning/codeql)
 [![ESLint](https://github.com/Mephisto5558/Teufelsbot/actions/workflows/eslint.yml/badge.svg?branch=main)](https://github.com/Mephisto5558/Teufelsbot/actions/workflows/eslint.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Mephisto5558_Teufelsbot&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Mephisto5558_Teufelsbot)
 [![Crowdin](https://badges.crowdin.net/teufelsbot/localized.svg)](https://crowdin.com/project/teufelsbot)<br>
@@ -64,6 +64,5 @@ Edit the properties. Many of them are optional so you could also remove them.<br
 Then, you need to add the texts to `Locales/en/commands`. Use the `command_translations.jsonc` template.
 
 ## Others
-### Note to the sharp overwrite in package.json
-The overwrite is required because sharp (which is a dependency of the fast-average-color-node package) and the canvas package are having compatibility issues on windows systems.<br>
-See [node-canvas #930](https://github.com/Automattic/node-canvas/issues/930), [sharp #2548](https://github.com/lovell/sharp/issues/2548).
+### Note to the discord-api-types overwrite in package.json
+The overwrite is required because in order to correctly overwrite discord.js Types.

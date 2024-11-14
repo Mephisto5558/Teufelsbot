@@ -1,9 +1,10 @@
 const
   { EmbedBuilder, Colors, ImageFormat } = require('discord.js'),
-  { createCanvas, loadImage } = require('canvas'),
+  { Canvas, loadImage } = require('skia-canvas'),
   { getTargetMember } = require('#Utils');
 
 module.exports = new MixedCommand({
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 2000 },
   options: [
     new CommandOption({
@@ -42,7 +43,7 @@ module.exports = new MixedCommand({
       msg = await this.customReply({ embeds: [embed.setDescription(lang('global.loading', getEmoji('loading')))] }),
       baseAvatar = await loadImage((type == 'server' ? base : base.user).displayAvatarURL({ extension: ImageFormat.PNG, size: 512 })),
       overlayAvatar = await loadImage(overlay.displayAvatarURL({ extension: ImageFormat.PNG, size: 512 })),
-      canvas = createCanvas(baseAvatar.width, baseAvatar.height),
+      canvas = new Canvas(baseAvatar.width, baseAvatar.height),
       ctx = canvas.getContext('2d');
 
     ctx.globalAlpha = 0.5;
@@ -52,6 +53,6 @@ module.exports = new MixedCommand({
     delete embed.data.description;
     embed.data.image = { url: 'attachment://avatarfusion.png' };
 
-    return msg.edit({ embeds: [embed], files: [{ attachment: canvas.toBuffer(), name: 'avatarfusion.png' }] });
+    return msg.edit({ embeds: [embed], files: [{ attachment: await canvas.toBuffer(), name: 'avatarfusion.png' }] });
   }
 });

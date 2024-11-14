@@ -1,15 +1,16 @@
 const
   { Constants, PermissionFlagsBits, Message, AllowedMentionsTypes } = require('discord.js'),
-  { getTargetChannel, logSayCommandUse } = require('#Utils');
+  { getTargetChannel, logSayCommandUse, constants } = require('#Utils');
 
 module.exports = new MixedCommand({
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 200 },
   ephemeralDefer: true,
   options: [
     new CommandOption({
       name: 'msg',
       type: 'String',
-      maxLength: 2000,
+      maxLength: constants.messageMaxLength,
       required: true
     }),
     new CommandOption({
@@ -19,8 +20,8 @@ module.exports = new MixedCommand({
     }),
     new CommandOption({
       name: 'reply_to', type: 'String',
-      minLength: 17,
-      maxLength: 19 // No snowflake will be longer than that until 2090 (https://snowsta.mp/?s=9999999999999999999)
+      minLength: constants.snowflakeMinLength,
+      maxLength: constants.snowflakeMaxLength
     })
   ],
 

@@ -1,6 +1,5 @@
 const
   { Collection } = require('discord.js'),
-  /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path`*/
   { resolve, basename, dirname } = require('node:path'),
   { access } = require('node:fs/promises'),
   { formatCommand, slashCommandsEqual, filename } = require('#Utils'),

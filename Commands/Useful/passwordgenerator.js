@@ -1,6 +1,8 @@
 const
   DEFAULT_CHARSET = [String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\=*'"#*(){}[]`],
   DEFAULT_PASSWORD_LENGTH = 12,
+  MAX_PASSWORD_LENGTH = 1750,
+  MAX_PASSWORDS = 500,
   MAX_MESSAGE_LENGTH = 1740,
   MAX_DISPLAYED_CHARSET_LEN = 100,
   suffix = '...';
@@ -21,12 +23,12 @@ module.exports = new SlashCommand({
     new CommandOption({
       name: 'length',
       type: 'Integer',
-      maxValue: 1750
+      maxValue: MAX_PASSWORD_LENGTH
     }),
     new CommandOption({
       name: 'count',
       type: 'Integer',
-      maxValue: 500
+      maxValue: MAX_PASSWORDS
     }),
     new CommandOption({ name: 'exclude_chars', type: 'String' }),
     new CommandOption({ name: 'include_chars', type: 'String' })

@@ -1,6 +1,7 @@
 const
   fetch = require('node-fetch').default,
   { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction } = require('discord.js'),
+  { msInSecond, secsInMinute } = require('./timeFormatter.js'),
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
   cwd = process.cwd(),
   stringifyReplacer = (_, v) => typeof v == 'bigint' ? v.toString() : v;
@@ -49,7 +50,7 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
 
   const { github, devIds } = this.config;
 
-  msg.createMessageComponentCollector({ max: 1, componentType: ComponentType.Button, time: 6e4 })
+  msg.createMessageComponentCollector({ max: 1, componentType: ComponentType.Button, time: msInSecond * secsInMinute })
     .on('collect', async button => {
       await button.deferUpdate();
 

@@ -105,7 +105,7 @@ module.exports = new MixedCommand({
         embed.data.description = lang('games', targetData.games)
         + lang('wins', formatStatCount(targetData.wins, targetData.games))
         + lang('draws', formatStatCount(targetData.draws, targetData.games))
-        + lang('loses', formatStatCount(targetData.loses, targetData.games));
+        + lang('losses', formatStatCount(targetData.losses, targetData.games));
 
         if (targetData.wonAgainst || targetData.lostAgainst || targetData.drewAgainst) embed.data.description += lang('statsInfo');
         if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + (manageData.call(this, targetData.wonAgainst) || '> ' + lang('noOne')) + '\n';

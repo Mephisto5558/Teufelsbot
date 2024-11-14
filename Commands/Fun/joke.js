@@ -2,7 +2,8 @@ const
   { default: fetch, FetchError } = require('node-fetch'),
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
-  HTTP_STATUS_CLOUDFLARE_BLOCKED = 522, // https://community.cloudflare.com/t/communitytip-behebung-von-fehler-522-connection-timed-out/398740
+  { messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } = require('#Utils').constants,
+  TIMEOUT = 2500,
   defaultAPIList = [
     { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any?lang=en&blacklist={blacklist}' },
     {
@@ -45,7 +46,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = defa
         'User-Agent': `Discord bot (${this.config.github.repo})`,
         Accept: 'application/json'
       },
-      timeout: 2500
+      timeout: TIMEOUT
     }).then(e => e.json());
 
     switch (api.name) {
@@ -89,7 +90,7 @@ module.exports = new MixedCommand({
       name: 'max_length',
       type: 'Integer',
       minValue: 10,
-      maxValue: 2000
+      maxValue: messageMaxLength
     })
   ],
 

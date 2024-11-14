@@ -1,8 +1,8 @@
-/* eslint camelcase: ["error", {allow: ["toggle_module", "toggle_command", "\w*_prefix"]}] */
+/* eslint camelcase: [error, {allow: [toggle_module, toggle_command, \w*_prefix]}] */
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   { autocompleteOptionsMaxAmt } = require('#Utils').constants,
-  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- this is like an enum*/
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers -- this is like an enum*/
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'],
   MAX_PREFIXES_PER_GUILD = 2,
@@ -208,9 +208,11 @@ module.exports = new SlashCommand({
           strictAutocomplete: true
         }),
         new CommandOption({ name: 'get', type: 'Boolean' }),
+        /* eslint-disable custom/sonar-no-magic-numbers -- TODO: convert to selectMenu*/
         ...Array.from({ length: 6 }, (_, i) => new CommandOption({ type: 'Role', name: `role_${i + 1}` })),
         ...Array.from({ length: 6 }, (_, i) => new CommandOption({ type: 'Channel', name: `channel_${i + 1}`, channelTypes: Constants.GuildTextBasedChannelTypes })),
         ...Array.from({ length: 6 }, (_, i) => new CommandOption({ type: 'User', name: `member_${i + 1}` }))
+        /* eslint-enable custom/sonar-no-magic-numbers */
       ]
     }),
     new CommandOption({

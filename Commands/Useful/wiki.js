@@ -7,6 +7,7 @@ const
 module.exports = new MixedCommand({
   usage: { examples: 'discord' },
   aliases: { prefix: ['wikipedia'] },
+  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { channel: 100, user: 200 },
   dmPermission: true,
   options: [new CommandOption({ name: 'query', type: 'String' })],
@@ -75,7 +76,6 @@ module.exports = new MixedCommand({
         const accItem = acc.last();
 
         if (accItem && accItem.length + (arr[i + 1]?.length ?? 0) > messageMaxLength) acc.push(`${e}\n`);
-        /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- last index*/
         else acc.splice(-1, 1, `${accItem}${e}\n`);
 
         return acc;

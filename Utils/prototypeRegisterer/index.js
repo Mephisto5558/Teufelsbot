@@ -5,7 +5,6 @@ const
   TicTacToe = require('discord-tictactoe'),
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('node:crypto'),
-  /* eslint-disable-next-line @typescript-eslint/unbound-method -- no issue with `node:path`*/
   { join } = require('node:path'),
   { DB } = require('@mephisto5558/mongoose-db'),
 
@@ -60,7 +59,7 @@ if (!config.hideOverwriteWarning) {
 }
 
 if (parentUptime) {
-  /* eslint-disable-next-line @typescript-eslint/unbound-method -- still on the same class*/
+  /* eslint-disable-next-line custom/unbound-method -- still on the same class*/
   process.childUptime = process.uptime;
   process.uptime = function uptime() {
     return this.childUptime() + parentUptime;
@@ -81,14 +80,12 @@ Object.defineProperties(Array.prototype, {
   },
   last: {
     /** @type {global['Array']['prototype']['last']}*/
-    /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- "-1" is last index*/
     value: function last() { return this.at(-1); },
     enumerable: false
   }
 });
 Object.defineProperty(String.prototype, 'last', {
   /** @type {global['String']['prototype']['last']}*/
-  /* eslint-disable-next-line sonarjs/sonar-no-magic-numbers -- "-1" is last index*/
   value: function last() { return this.at(-1); },
   enumerable: false
 });

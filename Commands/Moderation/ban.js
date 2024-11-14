@@ -1,3 +1,5 @@
+const { maxBanMessageDeleteDays } = require('#Utils').constants;
+
 module.exports = new SlashCommand({
   permissions: { client: ['BanMembers'], user: ['BanMembers'] },
   options: [
@@ -10,7 +12,7 @@ module.exports = new SlashCommand({
       name: 'delete_days_of_messages',
       type: 'Number',
       minValue: 1,
-      maxValue: 7
+      maxValue: maxBanMessageDeleteDays
     }),
     new CommandOption({ name: 'target', type: 'User' })
   ],

@@ -85,7 +85,7 @@
     },
     "games": "Игры: `{games}\n\n",
     "wins": "Побед: {wins}\n",
-    "loses": "Потеряно: {loses}\n",
+    "losses": "Потеряно: {losses}\n",
     "draws": "Ничья: {draws}\n\n",
     "noOne": "никто не\n",
     "missingGameArg": "Нужно дать мне игру в качестве первого аргумента!",

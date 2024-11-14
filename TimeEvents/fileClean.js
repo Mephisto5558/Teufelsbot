@@ -1,13 +1,13 @@
 const
   { readdir, stat, unlink, access, mkdir } = require('node:fs/promises'),
-  { weekInSecs } = require('#Utils').timeFormatter;
+  { secsInWeek } = require('#Utils').timeFormatter;
 
 /** @param {string}path*/
 async function deleteOld(path) {
   try { await access(path); }
   catch { return mkdir(path); }
 
-  const time = new Date(Date.now() - weekInSecs * 2 * 1000).getTime();
+  const time = new Date(Date.now() - secsInWeek * 2 * 1000).getTime();
   for (const file of await readdir(path, { withFileTypes: true })) {
     const pathStr = `${path}/${file.name}`;
 
