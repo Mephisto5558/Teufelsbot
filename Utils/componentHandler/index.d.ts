@@ -27,20 +27,21 @@ export {
 };
 
 type ComponentReturnType = ReturnType<typeof commandExecutionWrapper>;
-type Response = InteractionResponse | Message | undefined;
+type Response<Cached extends boolean = boolean> = InteractionResponse<Cached> | Message<Cached> | undefined;
+type GuildButtonInteraction = ButtonInteraction<'cached'>;
 
 declare function advice(
-  this: ButtonInteraction & { customId: 'advice' },
+  this: GuildButtonInteraction & { customId: 'advice' },
   lang: lang
 ): ComponentReturnType;
 
 declare function clickCounter<COUNT extends `${number}`>(
-  this: ButtonInteraction & { customId: `clickCounter.${COUNT}` },
+  this: GuildButtonInteraction & { customId: `clickCounter.${COUNT}` },
   lang: lang, count: COUNT
 ): ComponentReturnType;
 
 declare function fact(
-  this: ButtonInteraction & { customId: 'fact' },
+  this: ButtonInteraction<undefined> & { customId: 'fact' },
   lang: lang
 ): ComponentReturnType;
 
@@ -59,7 +60,7 @@ declare function help_allQuery(
   lang: lang
 ): Promise<Message>;
 declare function help<TYPE extends 'command' | 'category' | 'all'>(
-  this: StringSelectMenuInteraction & { customId: `help.${TYPE}` },
+  this: StringSelectMenuInteraction<undefined> & { customId: `help.${TYPE}` },
   lang: lang, type: TYPE
 ): Promise<Message>;
 
@@ -68,23 +69,23 @@ declare function infoCMDs<
   MODE extends 'kick' | 'ban' | 'delete' | 'addToGuild' | 'addToSelectedGuild',
   ENTITY_TYPE extends 'members' | 'emojis' | 'roles'
 >(
-  this: (ButtonInteraction | StringSelectMenuInteraction) & { customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}` },
+  this: (GuildButtonInteraction | StringSelectMenuInteraction<'cached'>) & { customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}` },
   lang: lang, id: ID, mode: MODE, entityType: ENTITY_TYPE
-): Promise<Response>;
+): Promise<Response<true>>;
 
 declare function joke<
   API extends string, TYPE extends string, BLACKLIST extends string, MAX_LENGTH extends `${number}`
 >(
-  this: ButtonInteraction & { customId: `joke.${API}.${TYPE}.${BLACKLIST}.${MAX_LENGTH}` },
+  this: ButtonInteraction<undefined> & { customId: `joke.${API}.${TYPE}.${BLACKLIST}.${MAX_LENGTH}` },
   lang: lang, api: API, type: TYPE, blacklist: BLACKLIST, maxLength: MAX_LENGTH
 ): ComponentReturnType;
 
 declare function marin(
-  this: ButtonInteraction & { customId: 'marin' }, lang: lang
+  this: ButtonInteraction<undefined> & { customId: 'marin' }, lang: lang
 ): ComponentReturnType;
 
 declare function mgStats_formatTopTen(
-  this: BaseInteraction | Message,
+  this: BaseInteraction<'cached'> | Message<true>,
   input: { draws?: number; wins?: number; loses?: number }[],
   sort: 'f' | undefined, mode: 'draws' | 'losses' | 'alphabet_user' | 'alphabet_nick' | undefined, lang: lang,
   maxLength?: number
@@ -92,12 +93,12 @@ declare function mgStats_formatTopTen(
 declare function mgStats<
   GAME extends string, MODE extends 'sort' | undefined, SETTINGS extends 'all_users' | undefined
 >(
-  this: StringSelectMenuInteraction & { customId: `mgstats.${GAME}.${MODE}.${SETTINGS}` },
+  this: StringSelectMenuInteraction<'cached'> & { customId: `mgstats.${GAME}.${MODE}.${SETTINGS}` },
   lang: lang, game: GAME, wMode: MODE, settings: SETTINGS
 ): Promise<MODE extends 'sort' ? InteractionResponse : undefined>;
 
 declare function record_startRecording(
-  this: ButtonInteraction,
+  this: GuildButtonInteraction,
   lang: lang, requesterId: Snowflake, voiceChannelId: Snowflake, isPublic: boolean,
   vcCache: { userId: Snowflake; allowed: boolean }[]
 ): Promise<Message | undefined>;
@@ -105,29 +106,29 @@ declare function record_startRecording(
 type guildId = Snowflake;
 type voiceChannelId = Snowflake;
 declare function record_recordControls(
-  this: ButtonInteraction,
+  this: GuildButtonInteraction,
   lang: lang, mode: string, voiceChannelId: voiceChannelId, isPublic: boolean,
   cache: Collection<guildId, Collection<voiceChannelId, { userId: Snowflake; allowed: boolean }[]>>
-): Promise<Response>;
+): Promise<Response<true>>;
 
 type ControlElements = 'pause' | 'stop';
 declare function record<
   MODE extends 'memberAllow' | 'memberDeny' | 'cancel' | ControlElements | 'get',
   REQUESTER_ID extends MODE extends 'get' ? string : Snowflake, VOICE_CHANNEL_ID extends Snowflake, IS_PUBLIC extends `${boolean}`
 >(
-  this: ButtonInteraction & { customId: `record.${MODE}.${REQUESTER_ID}.${VOICE_CHANNEL_ID}.${IS_PUBLIC}` },
+  this: GuildButtonInteraction & { customId: `record.${MODE}.${REQUESTER_ID}.${VOICE_CHANNEL_ID}.${IS_PUBLIC}` },
   lang: lang, mode: MODE, requesterId: REQUESTER_ID, voiceChannelId: VOICE_CHANNEL_ID, isPublic: IS_PUBLIC
 ): Promise<Message | undefined>;
 
 declare function reddit<
   SUBREDDIT extends string, TYPE extends string, FILTER_NSFW extends `${boolean}`
 >(
-  this: ButtonInteraction & { customId: `reddit.${SUBREDDIT}.${TYPE}.${FILTER_NSFW}` },
+  this: ButtonInteraction<undefined> & { customId: `reddit.${SUBREDDIT}.${TYPE}.${FILTER_NSFW}` },
   lang: lang, subreddit: SUBREDDIT, type: TYPE, filterNSFW: FILTER_NSFW
 ): ComponentReturnType;
 
 declare function rps_sendChallenge(
-  this: GuildInteraction | Message<true> | ButtonInteraction<'cached'>,
+  this: GuildInteraction | Message<true> | GuildButtonInteraction,
   options: { initiator: GuildMember; opponent?: GuildMember; lang?: lang }
 ): Promise<InteractionResponse | Message>;
 
@@ -136,11 +137,11 @@ declare function rps<
   INITIATOR_ID extends Snowflake, MODE extends 'cancel' | 'decline' | 'accept' | 'playAgain' | PlayOptions,
   OPPONENT_ID extends Snowflake
 >(
-  this: ButtonInteraction & { customId: `rps.${INITIATOR_ID}.${MODE}.${OPPONENT_ID}` },
+  this: GuildButtonInteraction & { customId: `rps.${INITIATOR_ID}.${MODE}.${OPPONENT_ID}` },
   lang: lang, initiatorId: INITIATOR_ID, mode: MODE, opponentId: OPPONENT_ID
-): Promise<Response>;
+): Promise<Response<true>>;
 
 declare function topic(
-  this: ButtonInteraction & { customId: 'topic' },
+  this: ButtonInteraction<undefined> & { customId: 'topic' },
   lang: lang
 ): ComponentReturnType;
