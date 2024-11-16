@@ -1,6 +1,6 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
-  { msInSecond, secsInMinute } = require('#Utils').timeFormatter,
+  { msInSecond, secsInMinute } = require('../timeFormatter.js'),
   BUTTON_TIME = msInSecond * secsInMinute * 15;/* eslint-disable-line custom/sonar-no-magic-numbers -- 15s*/
 
 
