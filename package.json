@@ -26,19 +26,19 @@
     "@mephisto5558/i18n": "^1.2.2",
     "@mephisto5558/mongoose-db": "3.1.3",
     "better-ms": "^1.1.7",
-    "cron": "^3.2.0",
+    "cron": "^3.2.1",
     "discord-giveaways": "^6.0.1",
     "discord-tictactoe": "^4.2.0",
     "discord.js": "^14.16.3",
     "fast-average-color-node": "^3.1.0",
     "ffmpeg-static": "^5.2.0",
-    "mathjs": "^13.2.1",
+    "mathjs": "^13.2.2",
     "mongodb-connection-string-url": "^3.0.1",
     "node-fetch": "^2.7.0",
     "opusscript": "^0.0.8",
     "prism-media": "^1.3.5",
     "skia-canvas": "^1.0.2",
-    "sodium-native": "^4.3.0",
+    "sodium-native": "^4.3.1",
     "wikijs": "^6.4.1"
   },
   "optionalDependencies": {
@@ -47,9 +47,9 @@
     "zlib-sync": "^0.1.9"
   },
   "devDependencies": {
-    "@mephisto5558/eslint-config": "^3.0.4",
-    "@types/node-fetch": "^2.6.12",
-    "discord-api-types": "^0.37.104",
+    "@mephisto5558/eslint-config": "latest",
+    "@types/node-fetch": "^2",
+    "discord-api-types": "latest",
     "eslint": "^9.14.0"
   },
   "overrides": {
