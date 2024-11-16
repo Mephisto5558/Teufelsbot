@@ -74,7 +74,7 @@ module.exports = {
     embed.addFields(
       {
         name: lang('rolesWithPerms'), inline: false,
-        value: [...member.roles.cache.values()].filter(e => e.permissions.toArray().length && e.name != '@everyone').sort((a, b) => a.name.localeCompare(b.name))
+        value: [...member.roles.cache.values()].filter(e => e.permissions.toArray().length && e.name != '@everyone').sort((a, b) => b.position - a.position)
           .join(', ')
       },
       {
