@@ -7,7 +7,7 @@ const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials, ActivityType } = require('discord.js'),
   { readdir } = require('node:fs/promises'),
   { WebServer } = require('@mephisto5558/bot-website'),
-  { GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec } = require('#Utils'),
+  { GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */ } = require('#Utils'),
   /* eslint-disable-next-line custom/unbound-method -- fine here*/
   syncEmojis = require('./TimeEvents/syncEmojis.js').onTick,
 
@@ -85,7 +85,7 @@ void (async function main() {
 
   await syncEmojis.call(client);
 
-  // WIP: client.backupSystem = new BackupSystem(client.db, { dbName: 'backups', maxGuildBackups: 5 });
+  // WIP: client.backupSystem = new BackupSystem(client.db, { dbName: 'backups' });
 
   if (client.botType != 'dev') client.giveawaysManager = new GiveawaysManager(client);
 

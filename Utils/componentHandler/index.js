@@ -1,7 +1,8 @@
 /* eslint camelcase: [error, { allow: [_] }] -- This casing is used to better display the commandName. */
 const
   { commandQuery, categoryQuery, allQuery, getCommands, getCommandCategories } = require('./help_utils'),
-  { startRecording, recordControls } = require('./record_manage.js');
+  { startRecording, recordControls } = require('./record_manage.js'),
+  { hasPerm, createProxy } = require('./serverbackup_utils.js');
 
 
 module.exports = {
@@ -24,6 +25,9 @@ module.exports = {
   reddit: require('./reddit.js'),
   rps_sendChallenge: require('./rps_sendChallenge.js'),
   rps: require('./rps.js'),
+  serverbackup_hasPerm: hasPerm,
+  serverbackup_createProxy: createProxy,
+  serverbackup: require('./serverbackup.js'),
   topic: require('./topic.js')
 };
 
