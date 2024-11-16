@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, PermissionFlagsBits, AuditLogEvent } = require('discord.js'),
+  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter,
   RED = 0xED498D,
   AUDITLOG_FETCHLIMIT = 6;
@@ -10,7 +10,7 @@ const
 module.exports = async function messageDeleteBulk(channel) {
   const setting = channel.guild.db.config.logger?.messageDelete;
 
-  if (channel.client.botType == 'dev' || !setting?.enabled) return;
+  if (channel.client.botType == 'dev' || !setting?.enabled || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
 
   const channelToSend = channel.guild.channels.cache.get(setting.channel);
   if (!channelToSend || channelToSend.permissionsFor(channel.guild.members.me).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length)

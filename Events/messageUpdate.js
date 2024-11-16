@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { MessageFlags, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { embedFieldValueMaxLength, suffix } = require('#Utils').constants,
   PINK = 0xE62AED;
 
@@ -8,10 +8,10 @@ const
  * @param {import('discord.js').Message}newMsg*/
 module.exports = function messageUpdate(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
-  if (
-    this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled
-    || this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size && this.embeds.length === newMsg.embeds.length
-  ) return;
+  if (this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading))
+    return;
+  if (this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size && this.embeds.length === newMsg.embeds.length)
+    return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
   if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
