@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js'),
+  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js'),
   { embedFieldValueMaxLength, suffix } = require('#Utils').constants,
   PURPLE = 0x822AED,
   AUDITLOG_FETCHLIMIT = 6,
@@ -46,7 +46,7 @@ function wordchainHandler(lang) {
 
 /** @this {Message | PartialMessage}*/
 module.exports = async function messageDelete() {
-  if (this.client.botType == 'dev' || !this.inGuild()) return;
+  if (this.client.botType == 'dev' || !this.inGuild() || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
 
   /** @type {lang}*/
   const lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'commands.minigames.counting.userDeletedMsg' });
