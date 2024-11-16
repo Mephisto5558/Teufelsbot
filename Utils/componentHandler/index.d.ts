@@ -1,6 +1,6 @@
 /* eslint camelcase: [error, { allow: [_] }] -- This casing is used to better display the commandName. */
 import type { BaseInteraction, ButtonInteraction, Collection, GuildMember, InteractionResponse, StringSelectMenuInteraction } from 'discord.js';
-import type { commandExecutionWrapper } from '..';
+import type { BackupSystem, commandExecutionWrapper } from '..';
 
 export {
   advice,
@@ -22,6 +22,9 @@ export {
   reddit,
   rps_sendChallenge,
   rps,
+  serverbackup_hasPerm,
+  serverbackup_createProxy,
+  serverbackup,
   topic
 };
 
@@ -134,6 +137,24 @@ declare function rps<
 >(
   this: GuildButtonInteraction & { customId: `rps.${INITIATOR_ID}.${MODE}.${OPPONENT_ID}` },
   lang: lang, initiatorId: INITIATOR_ID, mode: MODE, opponentId: OPPONENT_ID
+): Promise<Response<true>>;
+
+declare function serverbackup_hasPerm(
+  this: GuildInteraction | GuildButtonInteraction,
+  backup: Database['backups'][keyof Database['backups']]
+): boolean;
+
+declare function serverbackup_createProxy(
+  interaction: GuildInteraction | GuildButtonInteraction,
+  embed: EmbedBuilder, lang: lang,
+  langKeys: Record<string, string | number> | string | number
+): BackupSystem.StatusObject;
+
+declare function serverbackup<
+  MODE extends 'load', BACKUP_ID extends keyof Database['backups'], OPTION extends 'start' | 'cancel', CLEAR_GUILD_BEFORE_RESTORE extends `${boolean}`
+>(
+  this: GuildButtonInteraction & { customId: `serverbackup.${MODE}.${BACKUP_ID}.${OPTION}.${CLEAR_GUILD_BEFORE_RESTORE}` },
+  lang: lang, mode: MODE, backupId: BACKUP_ID, option: OPTION, clearGuildBeforeRestore: CLEAR_GUILD_BEFORE_RESTORE
 ): Promise<Response<true>>;
 
 declare function topic(
