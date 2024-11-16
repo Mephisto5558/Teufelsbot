@@ -4,7 +4,6 @@ import type { BackupSystem, commandExecutionWrapper } from '..';
 
 export {
   advice,
-  clickCounter,
   fact,
   help_commandQuery,
   help_categoryQuery,
@@ -36,11 +35,6 @@ type GuildButtonInteraction = ButtonInteraction<'cached'>;
 declare function advice(
   this: GuildButtonInteraction & { customId: 'advice' },
   lang: lang
-): ComponentReturnType;
-
-declare function clickCounter<COUNT extends `${number}`>(
-  this: GuildButtonInteraction & { customId: `clickCounter.${COUNT}` },
-  lang: lang, count: COUNT
 ): ComponentReturnType;
 
 declare function fact(
