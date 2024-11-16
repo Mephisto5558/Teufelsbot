@@ -1,7 +1,7 @@
 const
   cooldowns = require('../cooldowns.js'),
   { removeAfkStatus, sendAfkMessages } = require('../afk.js'),
-  MESSAGES_COOLDOWN = require('#Utils').timeFormatter.msInSecond * 5; /* eslint-disable-line custom/sonar-no-magic-numbers -- 5s*/
+  MESSAGES_COOLDOWN = require('../timeFormatter.js').msInSecond * 5; /* eslint-disable-line custom/sonar-no-magic-numbers -- 5s*/
 
 module.exports = { runMessages };
 
