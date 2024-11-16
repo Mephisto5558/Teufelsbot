@@ -138,7 +138,7 @@ declare global {
   };
 
   /** Get an application Emoji's mention by it's name.*/
-  const getEmoji: (emoji: string) => `<a:${string}:${number}>` | `<${string}:${number}>` | undefined;
+  const getEmoji: (emoji: string) => `<a:${string}:${Snowflake}>` | `<${string}:${Snowflake}>` | undefined;
 
   type Snowflake = `${bigint}`;
 
