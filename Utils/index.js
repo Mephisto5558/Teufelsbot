@@ -24,7 +24,6 @@ module.exports = {
   logSayCommandUse: require('./logSayCommandUse.js'),
   permissionTranslator: require('./permissionTranslator.js'),
   shellExec: require('./shellExec.js'),
-  slashCommandsEqual: require('./slashCommandsEqual.js'),
   prototypeRegisterer: require('./prototypeRegisterer'),
   timeFormatter: require('./timeFormatter.js'),
   timeValidator: require('./timeValidator.js')

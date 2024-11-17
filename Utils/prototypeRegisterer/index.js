@@ -7,7 +7,6 @@ const
   { randomInt } = require('node:crypto'),
   { join } = require('node:path'),
   { DB } = require('@mephisto5558/mongoose-db'),
-
   { SlashCommand, PrefixCommand, MixedCommand, CommandOption } = require('@mephisto5558/command'),
   I18nProvider = require('@mephisto5558/i18n'),
   Log = require('./Log.js'),

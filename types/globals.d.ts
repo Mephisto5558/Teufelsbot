@@ -148,13 +148,13 @@ declare global {
   type GenericFunction = (...args: any) => any;
 
 
-  type SlashCommand<canBeDM extends boolean | undefined = undefined> = Command.SlashCommand<canBeDM>;
+  type SlashCommand<canBeDM extends boolean = false> = Command.SlashCommand<canBeDM>;
   const SlashCommand: typeof Command.SlashCommand;
 
-  type PrefixCommand<canBeDM extends boolean | undefined = undefined> = Command.PrefixCommand<canBeDM>;
+  type PrefixCommand<canBeDM extends boolean = false> = Command.PrefixCommand<canBeDM>;
   const PrefixCommand: typeof Command.PrefixCommand;
 
-  type MixedCommand<canBeDM extends boolean | undefined = undefined> = Command.MixedCommand<canBeDM>;
+  type MixedCommand<canBeDM extends boolean = false> = Command.MixedCommand<canBeDM>;
   const MixedCommand: typeof Command.MixedCommand;
 
   type CommandOption<T_name extends Lowercase<string>> = Command.CommandOption<T_name>;

@@ -35,7 +35,6 @@ export {
   logSayCommandUse,
   permissionTranslator,
   shellExec,
-  equal as slashCommandsEqual,
   TTormatter as timeFormatter,
   timeValidator
 };
@@ -271,11 +270,6 @@ declare function permissionTranslator<T extends string | string[]>(
 declare function shellExec(
   command: string, options?: ExecOptions
 ): PromiseWithChild<{ stdout: string; stderr: string }>;
-
-declare function equal<T extends MixedCommand | CommandOption | undefined>(
-  a: T, b: T
-): boolean;
-
 
 /** @param timeStr a time string, @example '3w2d', '5h' */
 declare function timeValidator<T extends string | undefined>(
