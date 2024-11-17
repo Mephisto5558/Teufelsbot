@@ -157,7 +157,7 @@ declare global {
   type MixedCommand<canBeDM extends boolean | undefined = undefined> = Command.MixedCommand<canBeDM>;
   const MixedCommand: typeof Command.MixedCommand;
 
-  type CommandOption<T_parent extends SlashCommand | PrefixCommand | MixedCommand | CommandOption = MixedCommand> = Command.CommandOption<T_parent>;
+  type CommandOption<T_name extends Lowercase<string>> = Command.CommandOption<T_name>;
   const CommandOption: typeof Command.CommandOption;
 
 
