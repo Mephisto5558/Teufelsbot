@@ -1,6 +1,5 @@
 const
   { readdir } = require('node:fs/promises'),
-  /* eslint-disable-next-line @typescript-eslint/unbound-method -- not an issue with `node:path`*/
   { join } = require('node:path'),
   { getDirectories } = require('#Utils'),
   COMMANDS_FOLDER = './Commands',
@@ -41,8 +40,9 @@ module.exports = async function commandLoader() {
       if (command.slashCommand) this.commands.slash.set(command.name, command);
       if (command.prefixCommand) this.commands.prefix.set(command.name, command);
 
-      let commandType = command.slashCommand ? 'Slash ' : '';
-      if (command.prefixCommand) commandType += `${commandType ? '& ' : ''} 'Prefix Command`;
+      let commandType;
+      if (command.slashCommand) commandType = command.prefixCommand ? 'Slash & Prefix Command' : 'Slash Command';
+      else commandType = 'Prefix Command';
 
       if (command.disabled) {
         if (!this.config.hideDisabledCommandLog) log(`Loaded Disabled ${commandType} ${command.name}`);
