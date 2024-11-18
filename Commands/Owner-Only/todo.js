@@ -1,6 +1,5 @@
 module.exports = new PrefixCommand({
-  name: 'todo',
-  description: 'Todo list links',
+  dmPermission: true,
 
   async run() {
     return this.reply(

@@ -6,7 +6,7 @@ const
 module.exports = new MixedCommand({
   aliases: { prefix: ['user-info'] },
   cooldowns: { user: 1000 },
-  options: [{ name: 'target', type: 'User' }],
+  options: [new CommandOption({ name: 'target', type: 'User' })],
 
   async run(lang) {
     this.args = this.args?.map(e => e.replaceAll(/[&<>@]/g, '')) ?? [];

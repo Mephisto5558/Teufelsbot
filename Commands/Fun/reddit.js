@@ -33,7 +33,7 @@ module.exports = new MixedCommand({
     new CommandOption({
       name: 'meme',
       type: 'Subcommand',
-      options: [{ name: 'filter_nsfw', type: 'Boolean' }]
+      options: [new CommandOption({ name: 'filter_nsfw', type: 'Boolean' })]
     }),
     new CommandOption({
       name: 'subreddit',

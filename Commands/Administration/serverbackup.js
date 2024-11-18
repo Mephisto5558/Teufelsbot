@@ -120,11 +120,11 @@ module.exports = new SlashCommand({
     new CommandOption({
       name: 'get',
       type: 'Subcommand',
-      options: [{
+      options: [new CommandOption({
         name: 'id',
         type: 'String',
         autocompleteOptions() { return [...this.client.backupSystem.list(this.guild.id).keys()]; }
-      }]
+      })]
     }),
     new CommandOption({
       name: 'delete',

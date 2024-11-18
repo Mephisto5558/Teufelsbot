@@ -2,14 +2,14 @@ const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Guild } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node');
 
-module.exports = new CommandOption({
+module.exports = new MixedCommand({
   aliases: { prefix: ['server-info', 'guildinfo', 'guild-info'] },
   cooldowns: { user: 1000 },
-  options: [{
+  options: [new CommandOption({
     name: 'guild_id_or_invite',
     type: 'String',
     autocompleteOptions() { return this.client.guilds.cache.filter(e => e.members.cache.has(this.member.id)).map(e => e.id); }
-  }],
+  })],
 
   async run(lang) {
     const id = this.options?.getString('guild_id_or_invite') ?? this.args?.[0];
