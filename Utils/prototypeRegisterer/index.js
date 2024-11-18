@@ -24,10 +24,12 @@ module.exports = { Log, _patch, customReply, runMessages, playAgain };
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
 
-globalThis.SlashCommand = SlashCommand;
-globalThis.PrefixCommand = PrefixCommand;
-globalThis.MixedCommand = MixedCommand;
-globalThis.CommandOption = CommandOption;
+/* eslint-disable unicorn/no-null -- must be `null` for binding*/
+globalThis.SlashCommand = SlashCommand.bind(null, globalThis.log);
+globalThis.PrefixCommand = PrefixCommand.bind(null, globalThis.log);
+globalThis.MixedCommand = MixedCommand.bind(null, globalThis.log);
+globalThis.CommandOption = CommandOption.bind(null, globalThis.log);
+/* eslint-enable unicorn/no-null*/
 
 /**
  * @param {Record<string, any>}target
