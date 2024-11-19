@@ -111,7 +111,7 @@
     "shard": "Shard",
     "guild": "Interne Server-ID",
     "guilds": "Server",
-    "commands": "Befehle",
+    "commands": "Befehle: `{total}`\n> Slash & Prefix: `{combined}`\n> Slash: `{slash}`\n> Prefix: `{prefix}`\n",
     "starts": "Starts",
     "lastStart": "Letzter Start",
     "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt.\n",
