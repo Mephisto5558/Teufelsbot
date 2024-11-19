@@ -111,7 +111,6 @@
     "shard": "Fragmento",
     "guild": "ID de Gremio Interno",
     "guilds": "Gremios",
-    "commands": "Comandos",
     "starts": "Comienza",
     "lastStart": "Último inicio",
     "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina.\n",

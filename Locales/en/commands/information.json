@@ -111,7 +111,7 @@
     "shard": "Shard",
     "guild": "Internal Guild ID",
     "guilds": "Guilds",
-    "commands": "Commands",
+    "commands": "Commands: `{total}`\n> Slash & Prefix: `{combined}`\n> Slash: `{slash}`\n> Prefix: `{prefix}`\n",
     "starts": "Starts",
     "lastStart": "Last start",
     "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.\n",
