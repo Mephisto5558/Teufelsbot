@@ -6,11 +6,8 @@ module.exports = {
       if (err) return next(err);
       if (!user) return res.redirect('/auth/discord');
 
-      let redirectURL;
-      if (req.session.redirectURL) {
-        ({ redirectURL } = req.session);
-        delete req.session.redirectURL;
-      }
+      const redirectURL = req.session.redirectURL;
+      if (redirectURL) delete req.session.redirectURL;
 
       req.logIn(user, err => err ? next(err) : res.redirect(redirectURL ?? '/'));
     })(req, res, next);
