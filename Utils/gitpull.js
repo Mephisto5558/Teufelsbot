@@ -1,7 +1,6 @@
-/** @type {import('.').shellExec} */
 const
-  shellExec = require('./shellExec.js'),
-  origin = /'(?<branch>.*)'/.exec((await shellExec('git status').catch(() => { /** empty */ }))?.stdout.split('\n')[1] ?? '')?.groups.branch;
+  /** @type {import('.').shellExec}*/shellExec = require('./shellExec.js'),
+  /** @type {Promise<string>}*/origin = shellExec('git status').catch(() => { /** empty */ }).then(e => /'(?<branch>.*)'/.exec(e)?.stdout.split('\n')[1]?.groups.branch);
 
 /** @type {import('.').gitpull}*/
 module.exports = async function gitpull() {
@@ -13,7 +12,7 @@ module.exports = async function gitpull() {
     return err;
   }
 
-  if (origin && !data.stderr.includes(`-> ${origin}`)) return 'OK';
+  if (await origin && !data.stderr.includes(`-> ${await origin}`)) return 'OK';
 
   log(
     'GIT PULL\n'
