@@ -32,7 +32,7 @@
     "discord.js": "^14.16.3",
     "fast-average-color-node": "^3.1.0",
     "ffmpeg-static": "^5.2.0",
-    "mathjs": "^13.2.2",
+    "mathjs": "^14.0.0",
     "mongodb-connection-string-url": "^3.0.1",
     "node-fetch": "^2.7.0",
     "opusscript": "^0.0.8",
