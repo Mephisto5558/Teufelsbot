@@ -112,7 +112,7 @@ void (async function main() {
 
   void client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);
 
-  log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers.\n`);
+  log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers in ${client.i18n.availableLocales.size} languages.\n`);
   console.timeEnd('Starting time');
 
   if (client.config.enableConsoleFix) {
