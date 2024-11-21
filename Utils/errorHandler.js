@@ -3,8 +3,7 @@ const
   { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction } = require('discord.js'),
   { msInSecond, secsInMinute } = require('./timeFormatter.js'),
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
-  cwd = process.cwd(),
-  stringifyReplacer = (_, v) => typeof v == 'bigint' ? v.toString() : v;
+  cwd = process.cwd();
 
 /** @type {import('.').errorHandler}*/
 /* eslint-disable-next-line unicorn/no-useless-undefined -- lang is optional and doesn't have a default value.*/
@@ -16,7 +15,22 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
       acc[e?.constructor.name ?? Date.now().toString()] = e; // `Date.now` to prevent overwriting on multiple `undefined`
       return acc;
     }, {}),
+    seen = new Set(),
     message = Object.values(contextData).find(e => e instanceof Message || e instanceof BaseInteraction);
+
+  /**
+   * @param {string}_
+   * @param {Record<string, unknown>}v*/
+  function stringifyReplacer(_, v) {
+    if (typeof v == 'bigint') return v.toString();
+    /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive*/
+    if (v != undefined && typeof v === 'object') {
+      if (seen.has(v)) return '[Circular]';
+      seen.add(v);
+    }
+
+    return v;
+  }
 
   log.error(
     ' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'),
