@@ -248,7 +248,6 @@
     },
     "embedTitle": "Rechner",
     "error": "Beim Berechnen ist ein Fehler aufgetreten:\n```{err}```",
-    "separated": "Ergebnisse, mit \"|\" separiert:\n{results}",
     "success": "Ausdruck:\n```{expression}```\nErgebnis:\n```{result}```"
   },
   "passwordgenerator": {

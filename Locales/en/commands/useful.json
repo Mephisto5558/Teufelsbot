@@ -248,7 +248,6 @@
     },
     "embedTitle": "Calculator",
     "error": "An error occurred while trying to solve your expression:\n```{err}```",
-    "separated": "Results separated with \"|\":\n{results}",
     "success": "Expression:\n```{expression}```\nResult:\n```{result}```"
   },
   "passwordgenerator": {
