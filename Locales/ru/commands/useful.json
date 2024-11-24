@@ -224,7 +224,6 @@
     },
     "embedTitle": "Калькулятор",
     "error": "Произошла ошибка при попытке решить ваше выражение:\n```{err}```",
-    "separated": "Результаты, разделенные \"|\":\n{results}",
     "success": "Выражение:\n```{expression}```\nРезультат:\n```{result}```"
   },
   "passwordgenerator": {
