@@ -8,7 +8,8 @@ module.exports = {
 <code>{user.username}</code> - The user name - <code>Peter Lustig</code><br>
 <code>{user.id}</code> - The user id - <code>123456789012345678</code><br>
 <code>{user.tag}</code> - The user name with tag - <code>Peter Lustig#0001</code><br>
-<code>{user.joinedAt}</code> - The date the user joined discord - <code>01/01/2015</code><br>
+<code>{user.createdAt}</code> - The date the user joined discord - <code>01/01/2015</code><br>
+<code>{user.joinedAt}</code> - The date the user joined the guild - <code>01/01/2015</code><br>
 <code>{guild.id}</code> - The guild id - <code>123456789012345678</code><br>
 <code>{guild.membercount}</code> - The guild member count - <code>23</code><br>
 <code>{guild.name}</code> - The guild name - <code>Peter's Egirl paradise</code><br>
