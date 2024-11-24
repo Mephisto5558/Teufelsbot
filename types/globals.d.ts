@@ -136,6 +136,7 @@ declare global {
     debug(...args: Parameters<Console['debug']>): typeof log;
     _log({ file, type }?: { file?: string; type?: string }, ...args: Parameters<Console['log']>): typeof log;
   };
+  type log = typeof log;
 
   /** Get an application Emoji's mention by it's name.*/
   const getEmoji: (emoji: string) => `<a:${string}:${Snowflake}>` | `<${string}:${Snowflake}>` | undefined;
@@ -212,7 +213,7 @@ declare global {
     cooldowns?: locals.BaseCommand<initialized>['cooldowns'];
 
     /** If true, the user must provide a value to this option. This is also enforced for prefix commands.*/
-    NonNullable?: boolean;
+    required?: boolean;
 
     /**
      * Only existent for {@link commandOptions.type} `SubcommandGroup` and `Subcommand`.
@@ -325,7 +326,7 @@ declare global {
 // #endregion
 
 // #region discord.js
-declare module 'discord-api-types/globals' {
+declare module 'discord-api-types/v10' {
   // @ts-expect-error 2300 // overwriting Snowflake
   export type Snowflake = globalThis.Snowflake;
 }
@@ -352,7 +353,7 @@ declare module 'discord.js' {
     loadEnvAndDB(this: Omit<Client<Ready>, 'db'>): Promise<void>;
 
     /** A promise that resolves to a fetched discord application once {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#ready Client#ready} was emitted.*/
-    awaitReady(this: Client<Ready>): Promise<Application>;
+    awaitReady(this: Client<Ready>): Promise<ClientApplication>;
   }
 
   interface Message {
@@ -485,30 +486,30 @@ declare module '@mephisto5558/mongoose-db' {
     /**
      * generates required database entries from {@link ./Templates/db_collections.json}.
      * @param overwrite overwrite existing collection, default: `false`*/
-    generate(overwrite?: boolean): Promise<void>;
+    generate(this: NoCacheDB, overwrite?: boolean): Promise<void>;
 
-    get<DB extends keyof Database>(db: DB): Promise<Database[DB]>;
-    get<DB extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DB]>(db: DB, key: K): Promise<DBStructure.FlattenedDatabase[DB][K]>;
+    get<DBK extends keyof Database>(this: NoCacheDB, db: DBK): Promise<Database[DBK]>;
+    get<DBK extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DBK]>(this: NoCacheDB, db: DBK, key: K): Promise<DBStructure.FlattenedDatabase[DBK][K]>;
 
-    update<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB], K extends keyof FDB>(db: DB, key: K, value: FDB[K]): Promise<Database[DB]>;
-    set<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB]>(db: DB, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DB]>;
-    delete<DB extends keyof Database>(db: DB, key?: keyof DBStructure.FlattenedDatabase[DB]): Promise<boolean>;
-    push<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB], K extends keyof FDB>(db: DB, key: K, ...value: FDB[K][]): Promise<Database[DB]>;
-    pushToSet<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB], K extends keyof FDB>(db: DB, key: K, ...value: FDB[K][]): Promise<Database[DB]>;
+    update<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: NoCacheDB, db: DBK, key: K, value: FDB[K]): Promise<Database[DBK]>;
+    set<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK]>(this: NoCacheDB, db: DBK, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DBK]>;
+    delete<DBK extends keyof Database>(this: NoCacheDB, db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
+    push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: NoCacheDB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
+    pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: NoCacheDB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
   }
 
   /* eslint-disable @typescript-eslint/no-shadow -- I can't think of a better name */
   // @ts-expect-error 2300 // overwriting the class so ofc it is declared twice
   interface DB extends NoCacheDB {
     get(): undefined;
-    get<DB extends keyof Database>(db: DB): Database[DB];
-    get<DB extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DB]>(db: DB, key: K): DBStructure.FlattenedDatabase[DB][K];
+    get<DBK extends keyof Database>(this: DB, db: DBK): Database[DBK];
+    get<DBK extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DBK]>(this: DB, db: DBK, key: K): DBStructure.FlattenedDatabase[DBK][K];
 
-    update<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB], K extends keyof FDB>(db: DB, key: K, value: FDB[K]): Promise<Database[DB]>;
-    set<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB]>(db: DB, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DB]>;
-    delete<DB extends keyof Database>(db: DB, key?: keyof DBStructure.FlattenedDatabase[DB]): Promise<boolean>;
-    push<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB], K extends keyof FDB>(db: DB, key: K, ...value: FDB[K][]): Promise<Database[DB]>;
-    pushToSet<DB extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DB], K extends keyof FDB>(db: DB, key: K, ...value: FDB[K][]): Promise<Database[DB]>;
+    update<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, value: FDB[K]): Promise<Database[DBK]>;
+    set<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK]>(this: DB, db: DBK, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DBK]>;
+    delete<DBK extends keyof Database>(this: DB, db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
+    push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
+    pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
 
     /* eslint-enable @typescript-eslint/no-shadow */
   }
@@ -518,6 +519,6 @@ declare module '@mephisto5558/mongoose-db' {
 
 declare module 'wikijs' {
   // intentional. `Page` in wikijs is defined as something that is not correct. All `Page`es are `RawPages` in code
-  /* eslint-disable-next-line @typescript-eslint/no-empty-object-type */ // @ts-expect-error unable to import it
+  /* eslint-disable-next-line @typescript-eslint/no-empty-object-type */
   interface Page extends RawPage {}
 }

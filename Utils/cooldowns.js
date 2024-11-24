@@ -33,11 +33,14 @@ function cooldown(name, cooldowns = {}) {
   const
     now = Date.now(),
 
-    /** @type {Map<string, number>}*/
+    /** @type {Record<string, Map<string, number>>}*/
     timeStamps = this.client.cooldowns.get(name) ?? this.client.cooldowns.set(name, {}).get(name),
     cooldownList = [];
 
-  for (const [cdName, value] of Object.entries(cooldowns)) {
+  let
+    /** @type {keyof NonNullable<Parameters<import('.').cooldowns>['1']>}*/cdName,
+    /** @type {NonNullable<Parameters<import('.').cooldowns>['1']>[cdName]}*/value;
+  for ([cdName, value] of Object.entries(cooldowns)) {
     if (!value || this[cdName] === null) continue;
 
     timeStamps[cdName] ??= new Map();

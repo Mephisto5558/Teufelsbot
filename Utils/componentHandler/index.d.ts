@@ -83,7 +83,7 @@ declare function marin(
 
 declare function mgStats_formatTopTen(
   this: BaseInteraction<'cached'> | Message<true>,
-  input: { draws?: number; wins?: number; loses?: number }[],
+  input: [Snowflake, { draws?: number; wins?: number; loses?: number }][],
   sort: 'f' | undefined, mode: 'draws' | 'losses' | 'alphabet_user' | 'alphabet_nick' | undefined, lang: lang,
   maxLength?: number
 ): string;

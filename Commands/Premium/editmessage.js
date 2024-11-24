@@ -64,8 +64,8 @@ module.exports = {
     await modalInteraction.deferReply({ ephemeral: true });
     const content = modalInteraction.fields.getTextInputValue('newContent_text');
 
-    /** @type {Record<string, unknown> | undefined}*/
-    let json;
+    /** @type {Record<string, unknown>}*/
+    let json = {};
 
     try {
       if (/^\s*[[{]/.test(content)) json = JSON.parse(content);
@@ -83,7 +83,7 @@ module.exports = {
       if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', err.message));
     }
 
-    if (!json) await msg.edit(clear ? { content: content.slice(0, messageMaxLength + 1), embeds: [], attachments: [], files: [], components: [] } : content.slice(0, messageMaxLength));
+    if (!json.__count__) await msg.edit(clear ? { content: content.slice(0, messageMaxLength + 1), embeds: [], attachments: [], files: [], components: [] } : content.slice(0, messageMaxLength));
 
     return modalInteraction.editReply(lang('success', msg.url));
   }

@@ -5,8 +5,9 @@ Error.stackTraceLimit = 100;
 
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials, ActivityType } = require('discord.js'),
-  { readdir } = require('node:fs/promises'),
   { WebServer } = require('@mephisto5558/bot-website'),
+  handlers = require('./Handlers'),
+  events = require('./Events'),
   { GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */ } = require('#Utils'),
   /* eslint-disable-next-line custom/unbound-method -- fine here*/
   syncEmojis = require('./TimeEvents/syncEmojis.js').onTick,
@@ -65,39 +66,49 @@ async function processMessageEventCallback(handlerPromises, message) {
     ).init(getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })));
   }
 
-  await require('./Handlers/event_handler.js').call(this);
-  await require('./Events/ready.js').call(this); // Run due to it not being ran on ready, before the handler is loaded
+  await handlers.eventHandler.call(this);
+  await events.ready.call(this); // Run due to it not being ran on ready, before the handler is loaded
+}
+
+/**
+ * @this {Client<false>}
+ * @param {string}token
+ * @returns {Promise<Client<true>>}*/
+async function loginClient(token) {
+  await this.login(token);
+  log(`Logged into ${this.botType}`);
+
+  return this;
 }
 
 console.timeEnd('Initializing time');
 console.time('Starting time');
 
 void (async function main() {
-  if ((await gitpull()).message?.includes('Could not resolve host')) {
+  if ((await gitpull()).message.includes('Could not resolve host')) {
     log.error('It seems like the bot does not have internet access.');
     process.exit(1);
   }
 
   validateConfig();
 
-  const client = createClient();
-  await client.loadEnvAndDB();
+  const newClient = createClient();
+  await newClient.loadEnvAndDB();
 
-  await syncEmojis.call(client);
+  await syncEmojis.call(newClient);
 
-  // WIP: client.backupSystem = new BackupSystem(client.db, { dbName: 'backups' });
+  // WIP: newClient.backupSystem = new BackupSystem(newClient.db, { dbName: 'backups' });
 
-  if (client.botType != 'dev') client.giveawaysManager = new GiveawaysManager(client);
+  if (newClient.botType != 'dev') newClient.giveawaysManager = new GiveawaysManager(newClient);
+
+  /** Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution*/
+  const handlerPromises = Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(([,handler]) => handler.call(newClient));
+  handlerPromises.push(newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add('owner' in app.owner ? app.owner.owner.id : app.owner?.id)));
+
+  const client = await loginClient(newClient.keys.token);
 
   /** @param {string}emoji*/
   globalThis.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();
-
-  // Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution
-  const handlerPromises = (await readdir('./Handlers')).filter(e => e != 'event_handler.js').map(handler => require(`./Handlers/${handler}`).call(client));
-  handlerPromises.push(client.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add(app.owner.owner?.id ?? app.owner.id)));
-
-  await client.login(client.keys.token);
-  log(`Logged into ${client.botType}`);
 
   if (process.connected) process.on('message', processMessageEventCallback.bind(client, handlerPromises));
 

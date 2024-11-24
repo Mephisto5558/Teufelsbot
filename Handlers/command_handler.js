@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib*/
 const
   { readdir } = require('node:fs/promises'),
   { getDirectories, localizeUsage, formatCommand, filename } = require('#Utils');
@@ -12,7 +13,7 @@ module.exports = async function commandHandler() {
     for (const file of await readdir(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
 
-      /** @type {Omit<command<string, boolean, true>, 'name', 'category'> | undefined}*/
+      /** @type {Omit<command<string, boolean, true>, 'name' | 'category'> | undefined}*/
       const commandFile = require(`../Commands/${subFolder}/${file}`);
 
       if (!commandFile?.prefixCommand) continue;

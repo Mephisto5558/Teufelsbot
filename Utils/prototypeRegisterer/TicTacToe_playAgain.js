@@ -27,7 +27,7 @@ module.exports = async function playAgain(interaction, lang) {
   });
 
   collector
-    .on('collect', async PAButton => {
+    .on('collect', /** @param {import('discord.js').ButtonInteraction}PAButton*/async PAButton => {
       void PAButton.deferUpdate();
       collector.stop();
 

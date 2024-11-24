@@ -37,7 +37,7 @@ async function handleCounting() {
   );
 }
 
-/** @this {Message}*/
+/** @this {Message<true>}*/
 async function handleWordchain() {
   const wordchainData = this.guild.db.channelMinigames?.wordchain?.[this.channel.id];
   if (!wordchainData) return;

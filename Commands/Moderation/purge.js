@@ -25,7 +25,8 @@ const
 /** @type {import('./purge')['shouldDeleteMsg']}*/
 function shouldDeleteMsg(msg, options) {
   const
-    check = (fn, option) => !!(
+    /* eslint-disable-next-line jsdoc/require-param -- false positive*/
+    check = /** @param {GenericFunction}fn @param {string}option*/ (fn, option) => !!(
       !option
       || msg.content.toLowerCase()[fn](option.toLowerCase())
       || msg.embeds.some(e => e.description?.toLowerCase()[fn](option.toLowerCase()))
@@ -177,8 +178,9 @@ module.exports = {
 -- in there due to performance reasons (testing code not used in production)*/
 
 /** Tests the purge filters*/
+/** @typedef {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}}data */
 function _testPurge() {
-  /** @param {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}[]}data*/
+  /** @param {data[]}data*/
   function addEmbed(...data) {
     return data.reduce((acc, e) => {
       const obj = structuredClone(e);
@@ -188,10 +190,10 @@ function _testPurge() {
       acc.push(e, obj);
 
       return acc;
-    }, []).sort((a, b) => Number('content' in b.input[0]) - Number('content' in a.input[0]));
+    }, []).sort((/** @type {data}*/a, /** @type {data}*/b) => Number('content' in b.input[0]) - Number('content' in a.input[0]));
   }
 
-  /** @param {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}[]}data*/
+  /** @param {data[]}data*/
   function addFlip(...data) {
     return data.reduce((acc, e) => {
       const obj = structuredClone(e);
@@ -207,7 +209,7 @@ function _testPurge() {
       acc.push(e, obj);
 
       return acc;
-    }, []).sort((a, b) => {
+    }, []).sort((/** @type {data}*/a, /** @type {data}*/b) => {
       const orderMap = { contains: 0, starts_with: 1, ends_with: 2, does_not_contain: 3, not_starts_with: 4, not_ends_with: 5 };
       return orderMap[Object.keys(a.input[1])[0]] - orderMap[Object.keys(b.input[1])[0]];
     });

@@ -193,7 +193,7 @@ declare function componentHandler(
 
 declare function cooldown(
   this: BaseInteraction | Message,
-  name: string, cooldowns?: Record<string, number>
+  name: string, cooldowns?: Record<'user' | 'guild' | 'channel', number>
 ): number;
 
 declare function errorHandler(
@@ -251,7 +251,7 @@ declare function getTargetRole<T extends boolean>(
   { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
 ): MaybeWithUndefined<Role, T>;
 
-declare function gitpull(): Promise<Error | 'OK'>;
+declare function gitpull(): Promise<Error | { message: 'OK' }>;
 
 declare type saveGiveawayMethod = (messageId: Snowflake, giveawayData: GiveawayData) => Promise<true>;
 declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
