@@ -83,6 +83,7 @@ function fetchChannelPermissions(channel) {
 
 /** @type {import('.').BackupSystem.Utils['fetchChannelThreads']}*/
 async function fetchChannelThreads(channel, saveImages, maxMessagesPerChannel) {
+  /** @type {import('discord.js').ThreadChannel[] | undefined} */
   const threads = (await channel.threads?.fetch())?.threads;
 
   return threads?.map(async e => ({

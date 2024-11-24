@@ -1,11 +1,13 @@
 /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior */
+
+/** @type {Message['_patch']} */
 /* eslint-disable-next-line custom/unbound-method */
 const originalPatch = require('discord.js').Message.prototype._patch;
 
 /** @type {import('.')._patch}**/
 module.exports = function _patch(data, ...rest) {
   if ('content' in data) {
-    this.originalContent = data.content ?? null;
+    this.originalContent = 'content' in data ? data.content : null;
 
     const prefixType = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes';
     let

@@ -1,5 +1,5 @@
 import type TicTacToe from 'discord-tictactoe';
-import type { InteractionReplyOptions, InteractionResponse, MessageEditOptions, MessageMentionOptions, MessagePayload, RepliableInteraction } from 'discord.js';
+import type { GuildTextBasedChannel, InteractionResponse, MessageMentionOptions, RepliableInteraction, CommandInteractionOption } from 'discord.js';
 
 export {
   Log,
@@ -46,7 +46,9 @@ declare function _patch(
  * @default allowedMentions={repliedUser: false}*/
 declare function customReply(
   this: RepliableInteraction | Message,
-  options: string | InteractionReplyOptions | MessagePayload | MessageEditOptions,
+
+  // options: string | InteractionReplyOptions | MessagePayload | MessageEditOptions,
+  options: string | Parameters<RepliableInteraction['reply' | 'editReply' | 'followUp'] | Message['edit' | 'reply'] | GuildTextBasedChannel['send']>['0'],
   deleteTime?: number,
   allowedMentions?: MessageMentionOptions
 ): Promise<InteractionResponse | Message>;
@@ -55,5 +57,5 @@ declare function runMessages<T extends Message>(this: T): T;
 
 declare function playAgain(
   this: TicTacToe,
-  interaction: Interaction, lang: lang
+  interaction: Interaction & { options: { _hoistedOptions: CommandInteractionOption[] } }, lang: lang
 ): Promise<void>;

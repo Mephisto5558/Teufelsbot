@@ -2,8 +2,9 @@ const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
 
-/** @this {Client<true>}*/
-/** @param {command}cmd*/
+/**
+ * @this {Client<true>}
+ * @param {command}cmd*/
 function commandListFilter(cmd) {
   /* eslint-disable-next-line @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib*/
   return !(cmd.aliasOf || this.config.ownerOnlyFolders.includes(cmd.category) || cmd.disabled);

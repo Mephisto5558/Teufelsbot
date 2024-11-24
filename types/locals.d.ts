@@ -130,7 +130,7 @@ interface Config {
 }
 
 interface Env {
-  environment: string;
+  environment: EnvJSON['global']['environment'];
   keys: {
     humorAPIKey: string;
     rapidAPIKey: string;
@@ -138,11 +138,26 @@ interface Env {
     chatGPTApiKey: string;
     dbdLicense: string;
     votingWebhookURL?: string;
-    token: string;
-    secret: string;
   };
-  dbConnectionStr: string;
 }
+
+type EnvJSON = Record<'main' | 'dev', {
+  dbConnectionStr: string;
+  token: string;
+  secret: string;
+}> & {
+  global: {
+    environment: 'main' | 'dev';
+    keys: {
+      humorAPIKey: string;
+      rapidAPIKey: string;
+      githubKey: string;
+      chatGPTApiKey: string;
+      dbdLicense: string;
+      votingWebhookURL?: string;
+    };
+  };
+};
 
 // @ts-expect-error 2681
 type BoundFunction = new (this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang) => FunctionConstructor;

@@ -13,7 +13,7 @@ const
   isValidType =/** @param {Message|import('discord.js').BaseInteraction}type*/ type => type instanceof Message || type.isChatInputCommand();
 
 /**
- * @this {import('discord.js').BaseInteraction|Message}
+ * @this {Interaction|Message}
  * @param {command<'both', boolean, true>}command
  * @param {lang}lang
  * @returns {[string, Record<string, string> | string | undefined, string | undefined] | undefined}*/

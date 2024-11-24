@@ -80,6 +80,8 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
           issues = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
             method: 'GET', headers
           }),
+
+          /** @type {{ title: string, state: 'open' | 'closed' }[]} */
           issuesJson = await issues.json();
 
         if (!issues.ok) throw new Error(JSON.stringify(issuesJson));
@@ -97,6 +99,8 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
               labels: ['bug']
             })
           }),
+
+          /** @type {{ html_url: string }}*/
           json = await res.json();
 
         if (!res.ok) throw new Error(JSON.stringify(json));

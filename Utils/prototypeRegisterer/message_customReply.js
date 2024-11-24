@@ -18,9 +18,12 @@ function handleError(err) {
 /** @type {import('.').customReply}*/
 
 module.exports = async function customReply(options, deleteTime, allowedMentions) {
+  /** @type {Message|undefined}*/
   let msg;
 
   if (typeof options != 'object') options = { content: options };
+  else if ('options' in options) ({ options } = options);
+
   options.allowedMentions ??= allowedMentions ?? { repliedUser: false };
 
   if (options.content?.length > messageMaxLength) {
@@ -46,7 +49,6 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
       msg = await this.channel.send(options);
     }
   }
-  else throw new Error(`Unsupported Class! Got ${this.constructor.name}`);
 
   if (msg?.deletable && !Number.isNaN(Number.parseInt(deleteTime))) setTimeout(msg.delete.bind(msg), deleteTime);
   return msg;

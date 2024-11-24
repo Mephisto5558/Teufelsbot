@@ -5,6 +5,8 @@ const
   INCHES_IN_FEET = 12,
   CENTIMETERS_IN_INCH = 2.54,
   KILOGRAMS_IN_POUND = 2.205,
+
+  /** @type {Collection<string, { height: string, name: string, types: string[], abilities: Record<string, string>, gender?: string[], family: Record<string, string> }>} */
   cache = new Collection();
 
 /** @type {command<'both', false>}*/

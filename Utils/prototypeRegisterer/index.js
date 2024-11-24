@@ -133,7 +133,9 @@ Object.defineProperties(Object.prototype, {
   }
 });
 Object.defineProperty(Function.prototype, 'bBind', {
-  /** @type {global['Function']['prototype']['bBind']}*/
+  /**
+   * @type {global['Function']['prototype']['bBind']}
+   * @this {CallableFunction}*/
   value: function bBind(thisArg, ...args) {
     const bound = this.bind(thisArg, ...args);
     bound.__targetFunction__ = this;
@@ -177,23 +179,24 @@ Object.defineProperties(Client.prototype, {
   loadEnvAndDB: {
     /** @type {Client['loadEnvAndDB']}*/
     value: async function loadEnvAndDB() {
-      let env;
+      let /** @type {import('../../types/locals').EnvJSON}*/env, db;
       try { env = require('../../env.json'); }
       catch (err) {
         if (err.code != 'MODULE_NOT_FOUND') throw err;
 
-        this.db = await new DB().init(process.env.dbConnectionStr, 'db-collections', 100, log._log.bind(log, { file: 'debug', type: 'DB' }));
-        env = this.db.get('botSettings', 'env');
+        db = await new DB().init(process.env.dbConnectionStr, 'db-collections', 100, log._log.bind(log, { file: 'debug', type: 'DB' }));
+        env = db.get('botSettings', 'env');
       }
 
       env = deepMerge(env.global, env[env.global.environment]);
-      this.db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100, log._log.bind(log, { file: 'debug', type: 'DB' }));
+      db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100, log._log.bind(log, { file: 'debug', type: 'DB' }));
 
-      if (!this.db.cache.size) {
+      if (!db.cache.size) {
         log('Database is empty, generating default data');
-        await this.db.generate();
+        await db.generate();
       }
 
+      this.db = db;
       this.botType = env.environment;
       this.keys = env.keys;
     }
@@ -206,10 +209,18 @@ Object.defineProperties(Client.prototype, {
   }
 });
 Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
+  /** @this {AutocompleteInteraction}*/
   get() { return this.options.getFocused(true); },
+
+  /**
+   * @this {AutocompleteInteraction}
+   * @param {AutocompleteInteraction['focused']['value']}val */
   set(val) { this.options.data.find(e => e.focused).value = val; }
 });
-Object.defineProperty(Message.prototype, 'user', { get() { return this.author; } });
+Object.defineProperty(Message.prototype, 'user', {
+  /** @this {Message}*/
+  get() { return this.author; }
+});
 Object.assign(Message.prototype, { customReply, runMessages, _patch });
 Object.defineProperties(User.prototype, {
   /** @type {Record<string, (this: User, val: any) => any>} */
@@ -279,10 +290,10 @@ Object.defineProperty(TicTacToe.prototype, 'playAgain', {
   enumerable: false
 });
 
-/**
- * @param {number}row
- * @param {number}col*/
 Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
+  /**
+   * @param {number}row
+   * @param {number}col*/
   value: function createButton(row, col) {
     const
       button = new ButtonBuilder(),

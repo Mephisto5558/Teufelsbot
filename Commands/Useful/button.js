@@ -47,19 +47,21 @@ module.exports = {
     const
       custom = this.options.getString('json'),
       content = this.options.getString('content') ?? undefined,
-      isLink = this.options.getString('style', true) == ButtonStyle.Link;
+      isLink = this.options.getString('style', true) == ButtonStyle.Link,
 
-    let
-      msg = this.options.getString('message_id'),
-      url = this.options.getString('url');
+      /** @type {`${bigint}` | null}*/
+      msgId = this.options.getString('message_id');
+
+    let url = this.options.getString('url');
 
     if (isLink) {
       if (!/^(?:(?:discord|https?):\/\/)?[\w\-.]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
       if (!url.startsWith('http') && !url.startsWith('discord')) url = `https://${url}`;
     }
 
-    if (msg) {
-      try { msg = await this.channel.messages.fetch(msg); }
+    let msg;
+    if (msgId) {
+      try { msg = await this.channel.messages.fetch(msgId); }
       catch (err) {
         if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
         return this.editReply(lang('msgNotFound'));
@@ -83,7 +85,7 @@ module.exports = {
 
       const components = msg?.components ? [...msg.components] : [];
 
-      if (!msg?.components?.length || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
+      if (!msg?.components.length || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
         components.push(new ActionRowBuilder({ components: [button] }));
 
       await (msg?.edit({ content, components }) ?? this.channel.send({ content, components }));
