@@ -4,17 +4,18 @@ const
 
 /**
  * @this {StringConstructor | string | undefined}
- * @param {import('discord.js').User}user
+ * @param {import('discord.js').GuildMember}member
  * @param {number}year*/
-function formatBirthday(user, year) {
-  return this?.toString().replaceAll('{user.nickname}', user.displayName)
-    .replaceAll('{user.username}', user.username)
-    .replaceAll('{user.id}', user.id)
-    .replaceAll('{user.tag}', user.tag)
-    .replaceAll('{user.joinedAt}', user.joinedAt.toLocaleDateString('en'))
-    .replaceAll('{guild.id}', user.guild.id)
-    .replaceAll('{guild.memberCount}', user.guild?.memberCount)
-    .replaceAll('{guild.name}', user.guild?.name)
+function formatBirthday(member, year) {
+  return this?.toString().replaceAll('{user.nickname}', member.displayName)
+    .replaceAll('{user.username}', member.user.username)
+    .replaceAll('{user.id}', member.id)
+    .replaceAll('{user.tag}', member.user.tag)
+    .replaceAll('{user.createdAt}', member.user.createdAt.toLocaleDateString('en'))
+    .replaceAll('{user.joinedAt}', member.joinedAt.toLocaleDateString('en'))
+    .replaceAll('{guild.id}', member.guild.id)
+    .replaceAll('{guild.memberCount}', member.guild.memberCount)
+    .replaceAll('{guild.name}', member.guild.name)
     .replaceAll('{bornyear}', year)
     .replaceAll('{date}', new Date().toLocaleDateString('en'))
     .replaceAll('{age}', Number.parseInt(year) ? new Date().getFullYear() - year : '{age}')

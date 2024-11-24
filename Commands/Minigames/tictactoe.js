@@ -1,6 +1,6 @@
 const
   TicTacToe = require('discord-tictactoe'),
-  { getTargetMember } = require('#Utils'),
+  { getTargetMember, timeFormatter: { secsInMinute } } = require('#Utils'),
   CHALLENGE_DELETE_TIME = 5000; // 5s
 
 /**
@@ -53,8 +53,7 @@ module.exports = {
       gameTarget = getTargetMember(this, { targetOptionName: 'opponent' })?.id,
       game = new TicTacToe({
         simultaneousGames: true,
-        /* eslint-disable-next-line custom/sonar-no-magic-numbers -- todo: maybe refactor to infinite expire by sending a custom challenge button+handler*/
-        gameExpireTime: 60,
+        gameExpireTime: secsInMinute,
         language: lang.__boundArgs__[0].locale,
         commandOptionName: gameTarget == this.client.user.id ? 'thisOptionWillNotGetUsed' : 'opponent'
       });

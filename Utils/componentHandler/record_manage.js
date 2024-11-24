@@ -31,7 +31,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
       return this.message.edit({ embeds: [embed], components: [] });
     }
 
-    await this.guild.members.me.voice.setDeaf(false, `Record start command, member ${this.guild.cache.get(requesterId).user.tag}`);
+    await this.guild.members.me.voice.setDeaf(false, `Record start command, member ${this.guild.members.cache.get(requesterId).user.tag}`);
   }
 
   embed.data.description = lang('global.loading', getEmoji('loading'));

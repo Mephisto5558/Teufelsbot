@@ -11,11 +11,11 @@ module.exports = async function messageComponentHandler(lang) {
   const
     [feature, id, mode, data, ...args] = this.customId.split('.'),
     cooldown = cooldowns.call(this, `buttonPressEvent.${this.message.id}`, { user: 1000 }),
-    command = this.client.slashCommands.get(feature) ?? this.client.prefixCommands.get(feature) ?? { name: feature },
+    command = this.client.slashCommands.get(feature) ?? this.client.prefixCommands.get(feature) ?? { name: feature, aliasOf: undefined },
     disabledList = this.guild?.db.config.commands?.[command.aliasOf ?? command.name]?.disabled ?? {};
 
   let err;
-  if (disabledList.members?.includes(this.user.id)) err = 'notAllowed.member';
+  if (disabledList.users?.includes(this.user.id)) err = 'notAllowed.user';
   else if (disabledList.channels?.includes(this.channel.id)) err = 'notAllowed.channel';
   else if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) err = 'notAllowed.role';
   else if (command.category == 'nsfw' && !this.channel.nsfw) err = 'nsfw';

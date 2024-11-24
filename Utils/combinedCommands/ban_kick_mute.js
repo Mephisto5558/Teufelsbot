@@ -94,7 +94,7 @@ module.exports = async function ban_kick_mute(lang) {
           }
 
           try { await selectedMember.send({ embeds: [userEmbed] }); }
-          catch {
+          catch (err) {
             if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
             noMsg = true;
           }
