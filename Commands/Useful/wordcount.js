@@ -24,6 +24,6 @@ module.exports = {
     if (!msg.content) return this.customReply(lang('noContent'));
 
     if (msgId && this instanceof ChatInputCommandInteraction) void this.deleteReply();
-    return this.channel.send({ content: lang('words', msg.content.match(/\b\w+\b/g)?.length ?? 0), reply: { messageReference: msgId } });
+    return this.channel.send({ content: lang('words', msg.content.match(/[\p{P}\p{Z}]+/gu)?.length ?? 0), reply: { messageReference: msgId } });
   }
 };
