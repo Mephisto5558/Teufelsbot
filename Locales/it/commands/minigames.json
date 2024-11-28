@@ -4,6 +4,7 @@
   "clickcounter": {
     "description": "Quanto spesso la tua gilda può fare clic su questo pulsante?",
     "embedDescription": "Clic attuali: 0",
+    "embedFooterText": "Ultimo clic di {user}",
     "buttonLabel": "Clicca me!"
   },
   "coinflip": {
