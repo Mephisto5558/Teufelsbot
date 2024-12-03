@@ -1,4 +1,6 @@
-/** @typedef {NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['triggers']>}triggers*/
+/**
+ * @typedef {NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['triggers']>}triggers
+ * @typedef {[keyof triggers, NonNullable<triggers[keyof triggers]>]}triggersArray*//* eslint-disable-line jsdoc/valid-types -- false positive*/
 
 const
   { EmbedBuilder, Colors } = require('discord.js'),
@@ -21,7 +23,11 @@ const
 
     async delete(lang, oldData, query) {
       let id;
-      if (query) id = query in oldData ? query : Object.entries(oldData).find(([tId, { trigger }]) => trigger.toLowerCase() == query.toLowerCase() || tId.toLowerCase() == query.toLowerCase())?.[0];
+      if (query) {
+        id = query in oldData
+          ? query
+          : Object.entries(oldData).find((/** @type {triggersArray}*/[tId, { trigger }]) => trigger.toLowerCase() == query.toLowerCase() || tId.toLowerCase() == query.toLowerCase())?.[0];
+      }
       else id = Math.max(...Object.keys(oldData).map(Number)); // Returns `-Infinity` on an empty array
 
       if (id < 0) return this.editReply(lang('noneFound'));
@@ -44,7 +50,7 @@ const
       const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Blue });
 
       if (query) {
-        /** @type {[keyof triggers, NonNullable<triggers[keyof triggers]>]}*//* eslint-disable-line jsdoc/valid-types -- false positive*/
+        /** @type {triggersArray}*/
         const [id, { trigger, response, wildcard }] = Object.entries(oldData).find(([k, v]) => k == query || v.trigger.toLowerCase() == query) ?? {};
         if (!trigger) return this.editReply(lang('notFound'));
 
@@ -60,7 +66,7 @@ const
         const maxLength = 200;
 
         embed.data.description = oldData.__count__ > embedMaxFieldAmt ? lang('first25') : ' ';
-        embed.data.fields = Object.entries(oldData).slice(0, embedMaxFieldAmt + 1).map(([id, { trigger, response, wildcard }]) => ({
+        embed.data.fields = Object.entries(oldData).slice(0, embedMaxFieldAmt + 1).map((/** @type {triggersArray}*/[id, { trigger, response, wildcard }]) => ({
           name: lang('shortFieldName', id), inline: true,
           value: lang('shortFieldValue', {
             trigger: trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix,
@@ -74,7 +80,7 @@ const
           maxDescriptionLength = 3800,
           maxLength = 20;
 
-        embed.data.description = Object.entries(oldData).reduce((acc, [id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
+        embed.data.description = Object.entries(oldData).reduce((acc, /** @type {triggersArray}*/[id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
           ? acc
           : acc + lang('longEmbedDescription', {
             id, wildcard: !!wildcard,

@@ -42,13 +42,8 @@ module.exports = new MixedCommand({
 
     switch (this.options?.getSubcommand() ?? this.args[0]) {
       case 'clear':
-        if (target.customName) {
-          if (this.options?.getBoolean('global')) target.user.customName = undefined;
-          else target.customName = undefined;
-        }
-
+        target.customName &&= undefined;
         return this.customReply(lang('clear.success'));
-
 
       case 'set': {
         const newName = this.options?.getString('name', true) ?? (this.args[0] == 'set' ? this.args.slice(1) : this.args).join(' ').slice(0, memberNameMaxLength + 1);

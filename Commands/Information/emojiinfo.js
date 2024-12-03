@@ -17,7 +17,7 @@ module.exports = new MixedCommand({
       parsedEmoji = parseEmoji(this.options?.getString('emoji', true) ?? this.args[0]),
       emoji = this.client.emojis.cache.get(parsedEmoji?.id ?? emojiURLRegex.exec(this.content)?.groups.id) ?? parsedEmoji;
 
-    if (!emoji.id) return this.customReply(lang('notFound'));
+    if (!emoji?.id) return this.customReply(lang('notFound'));
 
     const
       url = emoji.imageURL() ?? CDNRoutes.emoji(emoji.id, ImageFormat.WebP) + '?size=2048',

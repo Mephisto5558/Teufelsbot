@@ -6,7 +6,7 @@ const
   winningAgainst = { rock: 'scissors', paper: 'rock', scissors: 'paper' };
 
 /**
- * @this {GuildInteraction|import('discord.js').ButtonInteraction}
+ * @this {GuildInteraction|import('discord.js').ButtonInteraction<'cached'>}
  * @param {import('discord.js').GuildMember}initiator
  * @param {import('discord.js').GuildMember}opponent
  * @param {lang}lang*/
@@ -77,13 +77,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
     case 'rock':
     case 'paper':
     case 'scissors': {
-      let choices = {};
-      if (opponentId == this.client.user.id) {
-        choices.player1 = mode;
-        choices.player2 = ['rock', 'paper', 'scissors'].random();
-      }
-      else choices = this.guild.db.minigames?.rps[this.message.id] ?? {};
-
+      const choices = opponentId == this.client.user.id ? { player1: mode, player2: ['rock', 'paper', 'scissors'].random() } : this.guild.db.minigames?.rps[this.message.id] ?? {};
       if (!choices.player1 || !choices.player2) {
         const player = this.user.id == initiatorId ? 'player1' : 'player2';
         if (choices[player]) return this.reply({ content: lang('end.alreadyChosen', lang(choices[player])), ephemeral: true });

@@ -12,7 +12,7 @@ module.exports = async function record(lang, mode, requesterId, voiceChannelId, 
   switch (mode) {
     case 'memberAllow':
     case 'memberDeny': {
-      if (this.member.voice?.channelId != voiceChannelId) return;
+      if (this.member.voice.channelId != voiceChannelId) return;
       if (!(this.member instanceof GuildMember)) return; // typeguard
 
       const

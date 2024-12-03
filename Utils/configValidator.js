@@ -73,12 +73,13 @@ function validateConfig() {
   // prototypeRegisterer makes sure the file exists
   configValidationLoop(require('../config.json'), validConfig, true);
 
+  /** @type {import('../types/locals').EnvJSON}*/
   const env = require('../env.json');
   configValidationLoop(env, validEnv);
-  if (!env[env.global.environment]) throw new Error('Error in env.json: Value in "environment" does not match any environment. Set "environment" to "main" if you don\'t know what you are doing.');
+  if (!(env.global.environment in env)) throw new Error('Error in env.json: Value in "environment" does not match any environment. Set "environment" to "main" if you don\'t know what you are doing.');
 
   try { void new ConnectionString(env[env.global.environment].dbConnectionStr); }
-  catch (err) { throw new Error(`Error in env.json: Invalid mongoDB connection string: ${err}`); }
+  catch (err) { throw new Error(`Error in env.json: Invalid mongoDB connection string: ${err.toString()}`); }
 }
 
 /** @type {import('.').configValidator.setDefaultConfig}*/

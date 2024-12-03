@@ -6,22 +6,23 @@ const
   CACHE_DELETE_TIME = secsInMinute * 5, // eslint-disable-line custom/sonar-no-magic-numbers -- 5min
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
   cachedSubreddits = new Collection(),
-  fetchPost = ({ children }, filterNSFW = true) => {
+  fetchPost = (/** @type { {children: { data: unknown }[] }}*/{ children }, filterNSFW = true) => {
     children = children.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
     if (!children.length) return;
 
+    /** @type {Record<string, string | number | Record<string, unknown> | undefined>}*/
     const post = children.random().data;
 
     return {
-      title: post.title,
-      subreddit: post.subreddit,
-      author: post.author,
-      upvotes: post.ups ?? 0,
-      downvotes: post.downs ?? 0,
-      comments: post.num_comments ?? 0,
+      title: String(post.title),
+      subreddit: String(post.subreddit),
+      author: String(post.author),
+      upvotes: Number(post.ups ?? 0),
+      downvotes: Number(post.downs ?? 0),
+      comments: Number(post.num_comments ?? 0),
       ratio: Number.parseFloat(post.upvote_ratio?.toFixed(2) ?? 0),
-      url: `https://www.reddit.com${post.permalink}`,
-      imageURL: post.media?.oembed?.thumbnail_url ?? post.url
+      url: `https://www.reddit.com${post.permalink.toString()}`,
+      imageURL: String(post.media?.oembed?.thumbnail_url ?? post.url)
     };
   };
 
@@ -65,6 +66,7 @@ module.exports = new MixedCommand({
 
     if (cachedSubreddits.has(`${subreddit}_${type}`)) post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`), filterNSFW);
     else {
+      /** @type {{}}*/
       let res;
       try { res = await fetch(`https://reddit.com/r/${subreddit}/${type}.json`, { follow: 1 }).then(res => res.json()); }
       catch (err) {

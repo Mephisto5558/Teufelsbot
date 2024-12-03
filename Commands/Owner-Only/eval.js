@@ -1,11 +1,11 @@
 const
   vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
 
-  /** @type {import('../../globals').__local.BoundFunction}*/
+  /** @type {import('../../types/locals').BoundFunction}*/
   /* eslint-disable-next-line @typescript-eslint/no-empty-function -- It get's used (and filled) later*/
   BoundAsyncFunction = async function asyncEval() { }.constructor.bind(undefined, ...vars),
 
-  /** @type {import('../../types/globals').__local.BoundFunction}*/
+  /** @type {import('../../types/locals').BoundFunction}*/
   BoundFunction = Function.bind(undefined, ...vars),
 
   TIMEOUT_MS = 6e5; // 10min

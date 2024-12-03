@@ -44,26 +44,28 @@ module.exports = new SlashCommand({
     const
       custom = this.options.getString('json'),
       content = this.options.getString('content') ?? undefined,
-      isLink = this.options.getString('style', true) == ButtonStyle.Link;
+      isLink = this.options.getString('style', true) == ButtonStyle.Link,
 
-    let
-      msg = this.options.getString('message_id'),
-      url = this.options.getString('url');
+      /** @type {`${bigint}` | null}*//* eslint-disable-line jsdoc/valid-types -- false positive */
+      msgId = this.options.getString('message_id');
+
+    let url = this.options.getString('url');
 
     if (isLink) {
       if (!/^(?:(?:discord|https?):\/\/)?[\w\-.]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
       if (!url.startsWith('http') && !url.startsWith('discord')) url = `https://${url}`;
     }
 
-    if (msg) {
-      try { msg = await this.channel.messages.fetch(msg); }
+    let msg;
+    if (msgId) {
+      try { msg = await this.channel.messages.fetch(msgId); }
       catch (err) {
         if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
         return this.editReply(lang('msgNotFound'));
       }
 
       if (msg.user.id != this.client.user.id) return this.editReply(lang('botIsNotAuthor'));
-      if (msg.components[4] && this.options.getBoolean('new_row') || msg.components[4]?.components?.[4]) return this.editReply(lang('buttonLimit'));
+      if (msg.components.length >= 4 && this.options.getBoolean('new_row') || msg.components[4].components.length >= 4) return this.editReply(lang('buttonLimit'));
     }
 
     try {
@@ -80,7 +82,7 @@ module.exports = new SlashCommand({
 
       const components = msg?.components ? [...msg.components] : [];
 
-      if (!msg?.components?.length || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
+      if (!(msg?.components.length ?? 0) || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
         components.push(new ActionRowBuilder({ components: [button] }));
 
       await (msg?.edit({ content, components }) ?? this.channel.send({ content, components }));

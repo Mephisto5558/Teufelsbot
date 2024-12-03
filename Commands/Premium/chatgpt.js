@@ -9,6 +9,7 @@ const
  * @param {boolean?}deep
  * @returns {Promise<string>}*/
 async function fetchAPI(lang, deep) {
+  /** @type {{choices: {message: {content: string}}[]} | {error: {message: string, type: string}}} */
   const res = await fetch('https://api.pawan.krd/v1/chat/completions', { // https://github.com/PawanOsman/ChatGPT
     method: 'POST',
     headers: {
@@ -18,15 +19,19 @@ async function fetchAPI(lang, deep) {
     body: JSON.stringify({
       model: 'pai-001',
       messages: [
-        { role: 'system', content: 'Your name is "Teufelsbot", you are a helpfull discord bot. Reply consize and in the same language as the user.' },
+        { role: 'system', content: 'Your name is "Teufelsbot", you are a helpful discord bot. Reply consize and in the same language as the user.' },
         { role: 'user', content: this.options?.getString('message', true) ?? this.content }
       ]
     })
   }).then(e => e.json());
+  await this.reply(JSON.stringify(res));
 
-  if (res.choices?.[0].message.content) return res.choices[0].message.content;
-  if (['Rate limit reached', 'Too many requests'].some(e => res.error.message.startsWith(e))) return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);
-  if (res.error.type == 'insufficient_quota' || res.error.message.startsWith('That model is currently overloaded') || res.error.type == 'api_not_ready_or_request_error') return lang('notAvailable');
+  if ('error' in res) {
+    if (['Rate limit reached', 'Too many requests'].some(e => res.error.message.startsWith(e))) return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);
+    if (res.error.type == 'insufficient_quota' || res.error.message.startsWith('That model is currently overloaded') || res.error.type == 'api_not_ready_or_request_error') return lang('notAvailable');
+  }
+
+  if ('choices' in res && res.choices[0].message.content) return res.choices[0].message.content;
 
   log.error('chatgpt command API error:', JSON.stringify(res, undefined, 2));
   return lang('error');

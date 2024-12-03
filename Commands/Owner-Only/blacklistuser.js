@@ -25,7 +25,7 @@ module.exports = new PrefixCommand({
     await this.client.db.pushToSet('botSettings', 'blacklist', target);
 
     if (this.client.webServer) {
-      const requests = this.client.webServer.voteSystem.fetchAll().reduce((acc, [,e]) => {
+      const requests = this.client.webServer.voteSystem.fetchAll().reduce((acc, e) => {
         if (!e.pending && e.id.split('_')[0] == target) acc.push({ ...e, pending: true });
         return acc;
       }, []);

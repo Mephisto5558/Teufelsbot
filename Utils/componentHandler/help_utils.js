@@ -1,5 +1,3 @@
-/** @typedef {import('discord.js').Interaction}Interaction*/
-
 const
   { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
 

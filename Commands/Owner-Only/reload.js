@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib*/
 const
   { Collection } = require('discord.js'),
   { resolve, basename, dirname } = require('node:path'),

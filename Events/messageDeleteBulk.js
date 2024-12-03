@@ -10,7 +10,7 @@ const
 module.exports = async function messageDeleteBulk(channel) {
   const setting = channel.guild.db.config.logger?.messageDelete;
 
-  if (channel.client.botType == 'dev' || !setting?.enabled || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
+  if (channel.client.botType == 'dev' || !setting?.enabled || !this.some(e => !e.flags.has(MessageFlags.Ephemeral) && !e.flags.has(MessageFlags.Loading))) return;
 
   const channelToSend = channel.guild.channels.cache.get(setting.channel);
   if (!channelToSend || channelToSend.permissionsFor(channel.guild.members.me).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length)

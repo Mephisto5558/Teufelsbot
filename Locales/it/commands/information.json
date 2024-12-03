@@ -111,7 +111,7 @@
     "shard": "Frammento",
     "guild": "Id Della Gilda Interna",
     "guilds": "Gilde",
-    "commands": "Comandi",
+    "commands": "Comandi: `{total}`\n> Slash & Prefix: `{combined}`\n> Slash: `{slash}`\n> Prefisso: `{prefix}`\n",
     "starts": "Inizia",
     "lastStart": "Ultimo avvio",
     "translation": "Traduzioni:\n> Inglese: {en}\n> Tedesco: {de}\n> Tutte le altre lingue sono tradotte automaticamente.\n",

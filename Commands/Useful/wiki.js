@@ -1,5 +1,7 @@
 const
-  wikiInit = require('wikijs').default,
+
+  /** @type {import('../../node_modules/wikijs/index')}*/
+  { default: wikiInit } = require('wikijs'),
   { EmbedBuilder, Colors } = require('discord.js'),
   { embedFieldMaxAmt, messageMaxLength } = require('#Utils').constants,
   MAX_MSGS = 9;
@@ -19,7 +21,9 @@ module.exports = new MixedCommand({
       headers = { 'User-Agent': 'Discord Bot' + (this.client.config.github.repo ? ` (${this.client.config.github.repo})` : '') },
       defaultLangWiki = wikiInit({ headers, apiUrl: `https://${this.client.i18n.config.defaultLocale}.wikipedia.org/w/api.php` }),
       wiki = wikiInit({ headers, apiUrl: `https://${this.guild?.localeCode ?? lang.__boundThis__.config.defaultLocale}.wikipedia.org/w/api.php` }),
-      result = query ? (await wiki.search(query, 1)).results[0] ?? (await defaultLangWiki.search(query, 1)).results[0] : await wiki.random(1);
+
+      /** @type {string|undefined} */
+      result = query ? (await wiki.search(query, 1)).results[0] ?? (await defaultLangWiki.search(query, 1)).results[0] : (await wiki.random(1))[0];
 
     if (!result) return message.edit(lang('notFound'));
 
@@ -37,8 +41,7 @@ module.exports = new MixedCommand({
         url: page.url(),
         image: { url: await page.mainImage() },
         fields: Object.entries(info).reduce((acc, [k, v]) => {
-          /* eslint-disable-next-line @typescript-eslint/strict-boolean-expressions -- TODO: this will be improved, but I'll have to type everything better for that.*/
-          if (!v || ['name', 'image', 'logo', 'alt', 'caption'].some(e => k.toLowerCase().includes(e))) return acc;
+          if (['name', 'image', 'logo', 'alt', 'caption'].some(e => k.toLowerCase().includes(e))) return acc;
 
           k = k.replaceAll(/(?=[A-Z])/g, ' ').toLowerCase().trim();
           k = k[0].toUpperCase() + k.slice(1);
@@ -54,10 +57,10 @@ module.exports = new MixedCommand({
           acc.push({ name: k, inline: true, value });
           return acc;
         }, []).slice(0, embedFieldMaxAmt + 1)
-      });
+      }),
+      maxSummaryLength = 2049;
 
     // U+200E (LEFT-TO-RIGHT MARK) is used to make a newline for better spacing;
-    const maxSummaryLength = 2049;
     if (summary.length < maxSummaryLength) embed.data.description = `${summary}\n\u200E`;
 
     await message.edit({ content: '', embeds: [embed] });
@@ -82,6 +85,6 @@ module.exports = new MixedCommand({
       }, ['']);
 
     for (const msg of msgs.slice(0, MAX_MSGS)) await this.customReply(msg);
-    if (msgs > MAX_MSGS) return this.reply(lang('visitWiki'));
+    if (msgs.length > MAX_MSGS) return this.reply(lang('visitWiki'));
   }
 });

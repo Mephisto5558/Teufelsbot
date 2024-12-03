@@ -248,7 +248,6 @@
     },
     "embedTitle": "Rechner",
     "error": "Beim Berechnen ist ein Fehler aufgetreten:\n```{err}```",
-    "separated": "Ergebnisse, mit \"|\" separiert:\n{results}",
     "success": "Ausdruck:\n```{expression}```\nErgebnis:\n```{result}```"
   },
   "passwordgenerator": {
@@ -338,5 +337,20 @@
     },
     "notFound": "Es wurden keine Suchergebnisse gefunden.",
     "visitWiki": "**Für mehr Informationen, besuche bitte Wikipedia.**"
+  },
+  "wordcount": {
+    "description": "Zähle die Wörter in einer Nachricht",
+    "usage": "[Nachrichten-ID]",
+    "options": {
+      "message_id": {
+        "description": "Die Nachrichten-ID. Muss eine Nachricht aus diesem Kanal sein."
+      },
+      "message": {
+        "description": "Der Text, der gezählt werden soll. Alternative zur \"message\"-Option."
+      }
+    },
+    "notFound": "Die angegebene Nachricht wurde nicht gefunden.",
+    "noContent": "Die angegebene Nachricht enthält keinen Text.",
+    "words": "Die angegebene Nachricht enthält {wordCount} Wörter."
   }
 }

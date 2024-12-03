@@ -32,24 +32,13 @@ module.exports = new MixedCommand({
 
   async run(lang) {
     const
-      expression = this.options?.getString('expression', true) ?? this.content,
+      expression = parseSpecialChars(this.options?.getString('expression', true) ?? this.content),
       embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.White });
 
-    /** @type {number | number[]} */
     let result;
-    try { result = math.evaluate(parseSpecialChars(expression)); }
-    catch (err) {
-      embed.data.description = lang('error', err.message);
-      embed.data.color = Colors.Red;
-      return this.customReply({ embeds: [embed] });
-    }
+    try { result = math.evaluate(expression); }
+    catch (err) { return this.customReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('error', err.message))] }); }
 
-    if (math.isResultSet(result)) {
-      result = result.map(e => addSpaces(e));
-      result = result.entries.length ? lang('separated', result.entries.join(' | ')) : result.entries[0];
-    }
-    else result = addSpaces(result);
-
-    return this.customReply({ embeds: [embed.setDescription(lang('success', { expression, result }))] });
+    return this.customReply({ embeds: [embed.setDescription(lang('success', { expression, result: addSpaces(result) }))] });
   }
 });

@@ -224,7 +224,6 @@
     },
     "embedTitle": "Calcolatrice",
     "error": "Si è verificato un errore durante il tentativo di risolvere la tua espressione:\n```{err}```",
-    "separated": "Risultati separati con \"<unk> \":\n{results}",
     "success": "Espressione:\n```{expression}```\nRisultato:\n```{result}```"
   },
   "passwordgenerator": {

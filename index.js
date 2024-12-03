@@ -5,8 +5,9 @@ Error.stackTraceLimit = 100;
 
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials, ActivityType } = require('discord.js'),
-  { readdir } = require('node:fs/promises'),
   { WebServer } = require('@mephisto5558/bot-website'),
+  loaders = require('./Loaders'),
+  events = require('./Events'),
   { GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */ } = require('#Utils'),
   /* eslint-disable-next-line custom/unbound-method -- fine here*/
   syncEmojis = require('./TimeEvents/syncEmojis.js').onTick,
@@ -42,15 +43,15 @@ const
 
 /**
  * @this {Client<true>}
- * @param {Promise[]}loaderPromises
+ * @param {Promise[]}handlerPromises
  * @param {string}message*/
-async function processMessageEventCallback(loaderPromises, message) {
+async function processMessageEventCallback(handlerPromises, message) {
   if (message != 'Start WebServer') return;
-  process.removeListener('message', processMessageEventCallback.bind(this, loaderPromises));
+  process.removeListener('message', processMessageEventCallback.bind(this, handlerPromises));
 
   if (this.config.disableWebserver) log('Webserver is disabled by config.json.');
   else {
-    await Promise.all(loaderPromises);
+    await Promise.all(handlerPromises);
 
     this.webServer ??= await new WebServer(
       this, this.db,
@@ -65,54 +66,64 @@ async function processMessageEventCallback(loaderPromises, message) {
     ).init(getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })));
   }
 
-  await require('./Loaders/event_loader.js').call(this);
-  await require('./Events/ready.js').call(this); // Run due to it not being ran on ready, before the handler is loaded
+  loaders.eventLoader.call(this);
+  await events.ready.call(this); // Run due to it not being ran on ready, before the handler is loaded
+}
+
+/**
+ * @this {Client<false>}
+ * @param {string}token
+ * @returns {Promise<Client<true>>}*/
+async function loginClient(token) {
+  await this.login(token);
+  log(`Logged into ${this.botType}`);
+
+  return this;
 }
 
 console.timeEnd('Initializing time');
 console.time('Starting time');
 
 void (async function main() {
-  if ((await gitpull()).message?.includes('Could not resolve host')) {
+  if ((await gitpull()).message.includes('Could not resolve host')) {
     log.error('It seems like the bot does not have internet access.');
     process.exit(1);
   }
 
   validateConfig();
 
-  const client = createClient();
-  await client.loadEnvAndDB();
+  const newClient = createClient();
+  await newClient.loadEnvAndDB();
 
-  await syncEmojis.call(client);
+  await syncEmojis.call(newClient);
 
-  // WIP: client.backupSystem = new BackupSystem(client.db, { dbName: 'backups' });
+  // WIP: newClient.backupSystem = new BackupSystem(newClient.db, { dbName: 'backups' });
 
-  if (client.botType != 'dev') client.giveawaysManager = new GiveawaysManager(client);
+  if (newClient.botType != 'dev') newClient.giveawaysManager = new GiveawaysManager(newClient);
+
+  /** Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution*/
+  const handlerPromises = Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(([,handler]) => handler.call(newClient));
+  handlerPromises.push(newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add('owner' in app.owner ? app.owner.owner.id : app.owner?.id)));
+
+  const client = await loginClient.call(newClient, newClient.keys.token);
 
   /** @param {string}emoji*/
   globalThis.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();
 
-  // Event loader gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution
-  const loaderPromises = (await readdir('./Loaders')).filter(e => e != 'event_loader.js').map(loader => require(`./Loaders/${loader}`).call(client));
-  loaderPromises.push(client.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add(app.owner.owner?.id ?? app.owner.id)));
+  if (process.connected) process.on('message', processMessageEventCallback.bind(client, handlerPromises));
 
-  await client.login(client.keys.token);
-  log(`Logged into ${client.botType}`);
-
-  if (process.connected) process.on('message', processMessageEventCallback.bind(client, loaderPromises));
-
-  await Promise.all(loaderPromises);
+  await Promise.all(handlerPromises);
 
   if (process.send?.('Finished starting') === false) {
     log.error('Could not tell the parent to kill itself. Exiting to prevent duplicate code execution.');
     process.exit(1);
   }
 
-  if (!process.connected) await processMessageEventCallback.call(client, loaderPromises, 'Start WebServer');
+  if (!process.connected) await processMessageEventCallback.call(client, handlerPromises, 'Start WebServer');
 
   void client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);
 
-  log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers.\n`);
+  log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers in ${client.i18n.availableLocales.size} languages.\n`);
   console.timeEnd('Starting time');
 
   if (client.config.enableConsoleFix) {

@@ -30,7 +30,7 @@ module.exports = {
   async onTick() {
     const now = new Date();
 
-    if (this.settings.timeEvents.lastEmojiSync?.toDateString() == now.toDateString()) return void log('Already ran emoji sync today');
+    if (this?.settings.timeEvents.lastEmojiSync?.toDateString() == now.toDateString()) return void log('Already ran emoji sync today');
 
     /** @type {Record<string, Client | undefined>} */
     const sessions = {};

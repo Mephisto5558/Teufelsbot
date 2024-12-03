@@ -12,6 +12,8 @@ module.exports = new MixedCommand({
 
   async run(lang) {
     const
+
+      /** @type {{text: string, source: string, source_url: string}}*/
       data = await fetch(`https://uselessfacts.jsph.pl/api/v2/facts/random?language=${lang.__boundArgs__[0].locale}`).then(e => e.json()),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),

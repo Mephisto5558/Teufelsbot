@@ -48,7 +48,7 @@ module.exports = new MixedCommand({
           { name: lang('boosts.name'), value: `\`${guild.premiumSubscriptionCount}\`` + (guild.premiumTier ? lang(`boosts.${guild.premiumTier}`) : ''), inline: true },
           channels && {
             name: lang('channels'), inline: false,
-            value: Object.entries(channels.reduce((acc, { type }) => ({ ...acc, [type]: (acc[type] ?? 0) + 1 }), {}))
+            value: Object.entries(channels.reduce((acc, e) => ({ ...acc, [e.type]: (acc[e.type] ?? 0) + 1 }), {}))
               .map(([k, v]) => `${lang('others.ChannelTypes.plural.' + k)}: \`${v}\``).join(', ')
           }
         ]
