@@ -39,10 +39,6 @@ export default [
         GuildInteraction: 'writable',
         DMInteraction: 'writable'
       }
-    },
-    plugins,
-    rules: {
-      "sonarjs/no-implicit-dependencies": "off" // Does not support package.json "imports" field
     }
   }
 ];
