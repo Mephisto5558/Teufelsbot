@@ -2,20 +2,17 @@ const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   { getTargetChannel, getTargetMember, constants: { embedDescriptionMaxLength } } = require('#Utils');
 
-/** @type {command<'both'>}*/
-module.exports = {
+module.exports = new MixedCommand({
   /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { guild: 200, user: 1e4 },
-  slashCommand: true,
-  prefixCommand: true,
   ephemeralDefer: true,
   options: [
-    {
+    new CommandOption({
       name: 'channel',
       type: 'Channel',
       channelTypes: Constants.GuildTextBasedChannelTypes
-    },
-    { name: 'member', type: 'User' }
+    }),
+    new CommandOption({ name: 'member', type: 'User' })
   ],
 
   async run(lang) {
@@ -45,4 +42,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed] });
   }
-};
+});

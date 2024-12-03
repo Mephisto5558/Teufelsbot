@@ -3,10 +3,7 @@ const
   { resolve } = require('node:path'),
   filePath = resolve(process.cwd(), 'config.json');
 
-/** @type {command<'prefix', false>}*/
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new PrefixCommand({
   dmPermission: true,
   beta: true,
 
@@ -24,4 +21,4 @@ module.exports = {
     this.client.config = config;
     return this.customReply(lang('success'));
   }
-};
+});

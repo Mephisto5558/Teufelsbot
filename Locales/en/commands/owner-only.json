@@ -136,5 +136,8 @@
   },
   "test": {
     "description": "testing stuff"
+  },
+  "todo": {
+    "description": "Get the links to the bot dev's todo lists."
   }
 }

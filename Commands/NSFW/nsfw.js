@@ -3,14 +3,11 @@ const
   { EmbedBuilder } = require('discord.js'),
   fetch = require('node-fetch');
 
-/** @type {command<'both'>}*/
-module.exports = {
+module.exports = new MixedCommand({
   usage: { examples: 'hentai' },
   cooldowns: { user: 1000 },
-  slashCommand: true,
-  prefixCommand: true,
   ephemeralDefer: true,
-  options: [{
+  options: [new CommandOption({
     name: 'type',
     type: 'String',
     autocompleteOptions: [
@@ -18,7 +15,7 @@ module.exports = {
       'gonewild', 'ass', 'pussy', 'thigh', 'hthigh', 'paizuri', 'tentacle', 'boobs', 'hboobs', 'yaoi'
     ],
     strictAutocomplete: true
-  }],
+  })],
 
   async run(lang) {
     /** @type {{success: boolean, color: number, message: string}}*/
@@ -34,4 +31,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed] });
   }
-};
+});

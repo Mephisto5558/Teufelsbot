@@ -34,10 +34,7 @@ function getCommandCount(client) {
   return count;
 }
 
-/** @type {command<'both', false>}*/
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new MixedCommand({
   dmPermission: true,
 
   async run(lang) {
@@ -79,4 +76,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: component.components.length ? [component] : undefined });
   }
-};
+});

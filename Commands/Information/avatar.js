@@ -2,19 +2,16 @@ const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES } = require('discord.js'),
   { getTargetMember } = require('#Utils');
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   cooldowns: { user: 1000 },
-  slashCommand: true,
-  prefixCommand: true,
   dmPermission: true,
   options: [
-    { name: 'target', type: 'User' },
-    {
+    new CommandOption({ name: 'target', type: 'User' }),
+    new CommandOption({
       name: 'size',
       type: 'Integer',
       choices: ALLOWED_SIZES
-    }
+    })
   ],
 
   async run(lang) {
@@ -37,4 +34,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components: [component] });
   }
-};
+});

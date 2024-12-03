@@ -9,17 +9,14 @@ const
   /** @type {Collection<string, { height: string, name: string, types: string[], abilities: Record<string, string>, gender?: string[], family: Record<string, string> }>} */
   cache = new Collection();
 
-/** @type {command<'both', false>}*/
-module.exports = {
+module.exports = new MixedCommand({
   usage: { examples: 'Bulbasaur' },
-  prefixCommand: true,
-  slashCommand: true,
   dmPermission: true,
-  options: [{
+  options: [new CommandOption({
     name: 'pokémon',
     type: 'String',
     required: true
-  }],
+  })],
 
   async run(lang) {
     const
@@ -92,4 +89,4 @@ module.exports = {
 
     return msg.edit({ content: '', embeds: [embed], components: [component] });
   }
-};
+});

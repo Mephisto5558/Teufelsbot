@@ -2,18 +2,15 @@ const
   { messageMaxLength } = require('#Utils').constants,
   suffix = '```';
 
-/** @type {command<'prefix', false>}*/
-module.exports = {
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new PrefixCommand({
   dmPermission: true,
   options: [
-    {
+    new CommandOption({
       name: 'database',
       type: 'String',
       required: true
-    },
-    { name: 'key', type: 'String' }
+    }),
+    new CommandOption({ name: 'key', type: 'String' })
   ],
   beta: true,
 
@@ -23,4 +20,4 @@ module.exports = {
     if (!result) return this.customReply(lang('notFound'));
     return this.customReply('```json\n' + JSON.stringify(result, undefined, 2).slice(0, messageMaxLength - suffix.length) + `\n${suffix}`);
   }
-};
+});

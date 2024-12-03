@@ -15,26 +15,23 @@ const checkUrl = url => new Promise((resolve, reject) => {
     .end();
 });
 
-/** @type {command<'slash'>}*/
-module.exports = {
+module.exports = new SlashCommand({
   permissions: { client: ['ManageGuildExpressions'], user: ['ManageGuildExpressions'] },
   /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 2000 },
-  slashCommand: true,
-  prefixCommand: false,
   options: [
-    {
+    new CommandOption({
       name: 'emoji_or_url',
       type: 'String',
       required: true
-    },
-    {
+    }),
+    new CommandOption({
       name: 'name',
       type: 'String',
       minLength: 2,
       maxLength: 32
-    },
-    { name: 'limit_to_roles', type: 'String' }
+    }),
+    new CommandOption({ name: 'limit_to_roles', type: 'String' })
   ],
 
   async run(lang) {
@@ -79,4 +76,4 @@ module.exports = {
 
     return this.editReply({ embeds: [embed.setColor(Colors.Green)] });
   }
-};
+});

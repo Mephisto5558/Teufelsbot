@@ -3,18 +3,15 @@ const
   { getTargetChannel } = require('#Utils'),
   collectorTimeout = 3e4;
 
-/** @type {command<'both'>}*/
-module.exports = {
+module.exports = new MixedCommand({
   aliases: { prefix: ['clearchannel'], slash: ['clearchannel'] },
   permissions: { client: ['ManageChannels'], user: ['ManageGuild', 'ManageChannels'] },
   cooldowns: { guild: 1e4, user: 1000 },
-  slashCommand: true,
-  prefixCommand: true,
-  options: [{
+  options: [new CommandOption({
     name: 'channel',
     type: 'Channel',
     channelTypes: Constants.GuildTextBasedChannelTypes.filter(e => !Constants.ThreadChannelTypes.includes(e))
-  }],
+  })],
 
   async run(lang) {
     const
@@ -84,4 +81,4 @@ module.exports = {
         return msg.customReply({ embeds: [embed], components: [component] });
       });
   }
-};
+});

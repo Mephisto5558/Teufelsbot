@@ -2,45 +2,42 @@ const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError } = require('discord.js'),
   { DiscordApiErrorCodes, constants } = require('#Utils');
 
-/** @type {command<'slash'>}*/
-module.exports = {
+module.exports = new SlashCommand({
   /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 500 },
-  slashCommand: true,
-  prefixCommand: false,
   ephemeralDefer: true,
   options: [
-    {
+    new CommandOption({
       name: 'json',
       type: 'Subcommand',
-      options: [{ name: 'json', type: 'String' }]
-    },
-    {
+      options: [new CommandOption({ name: 'json', type: 'String' })]
+    }),
+    new CommandOption({
       name: 'custom',
       type: 'Subcommand',
       options: [
-        {
+        new CommandOption({
           name: 'style',
           type: 'String',
           choices: Object.keys(ButtonStyle).filter(Number).map(String),
           required: true
-        },
-        { name: 'emoji', type: 'String' },
-        {
+        }),
+        new CommandOption({ name: 'emoji', type: 'String' }),
+        new CommandOption({
           name: 'label',
           type: 'String',
           maxLength: constants.buttonLabelMaxLength
-        },
-        {
+        }),
+        new CommandOption({
           name: 'url',
           type: 'String',
           maxLength: 1000
-        },
-        { name: 'new_row', type: 'Boolean' },
-        { name: 'content', type: 'String' },
-        { name: 'message_id', type: 'String' }
+        }),
+        new CommandOption({ name: 'new_row', type: 'Boolean' }),
+        new CommandOption({ name: 'content', type: 'String' }),
+        new CommandOption({ name: 'message_id', type: 'String' })
       ]
-    }
+    })
   ],
 
   async run(lang) {
@@ -98,4 +95,4 @@ module.exports = {
       return this.editReply(lang('invalidOption', err.message));
     }
   }
-};
+});

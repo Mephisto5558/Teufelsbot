@@ -3,27 +3,24 @@ const
   { DiscordApiErrorCodes, constants: { messageMaxLength, msInSecond } } = require('#Utils'),
   MODALSUBMIT_TIMEOUT = msInSecond * 30; /* eslint-disable-line custom/sonar-no-magic-numbers */
 
-/** @type {command<'slash'>}*/
-module.exports = {
+module.exports = new SlashCommand({
   permissions: { user: ['ManageMessages'] },
   /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 5000 },
-  slashCommand: true,
-  prefixCommand: false,
   noDefer: true,
   options: [
-    {
+    new CommandOption({
       name: 'channel',
       type: 'Channel',
       channelTypes: Constants.GuildTextBasedChannelTypes,
       required: true
-    },
-    {
+    }),
+    new CommandOption({
       name: 'message_id',
       type: 'String',
       required: true
-    },
-    { name: 'remove_attachments', type: 'Boolean' }
+    }),
+    new CommandOption({ name: 'remove_attachments', type: 'Boolean' })
   ],
 
   async run(lang) {
@@ -87,4 +84,4 @@ module.exports = {
 
     return modalInteraction.editReply(lang('success', msg.url));
   }
-};
+});

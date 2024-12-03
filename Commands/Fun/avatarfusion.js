@@ -3,24 +3,21 @@ const
   { Canvas, loadImage } = require('skia-canvas'),
   { getTargetMember } = require('#Utils');
 
-/** @type {command<'both'>}*/
-module.exports = {
+module.exports = new MixedCommand({
   /* eslint-disable-next-line custom/sonar-no-magic-numbers */
   cooldowns: { user: 2000 },
-  slashCommand: true,
-  prefixCommand: true,
   options: [
-    {
+    new CommandOption({
       name: 'base',
       type: 'User',
       required: true
-    },
-    { name: 'overlay', type: 'User' },
-    {
+    }),
+    new CommandOption({ name: 'overlay', type: 'User' }),
+    new CommandOption({
       name: 'avatar_type',
       type: 'String',
       choices: ['server', 'global']
-    }
+    })
   ],
 
   async run(lang) {
@@ -58,4 +55,4 @@ module.exports = {
 
     return msg.edit({ embeds: [embed], files: [{ attachment: await canvas.toBuffer(), name: 'avatarfusion.png' }] });
   }
-};
+});

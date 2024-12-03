@@ -6,7 +6,7 @@ Error.stackTraceLimit = 100;
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials, ActivityType } = require('discord.js'),
   { WebServer } = require('@mephisto5558/bot-website'),
-  handlers = require('./Handlers'),
+  loaders = require('./Loaders'),
   events = require('./Events'),
   { GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */ } = require('#Utils'),
   /* eslint-disable-next-line custom/unbound-method -- fine here*/
@@ -66,7 +66,7 @@ async function processMessageEventCallback(handlerPromises, message) {
     ).init(getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })));
   }
 
-  handlers.eventHandler.call(this);
+  loaders.eventLoader.call(this);
   await events.ready.call(this); // Run due to it not being ran on ready, before the handler is loaded
 }
 
