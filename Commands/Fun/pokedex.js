@@ -35,9 +35,11 @@ module.exports = {
       }
 
       if (res) {
-        const [feet, inches] = res.height.split('\'').map(e => Number.parseFloat(e));
-        res.height = (feet * INCHES_IN_FEET + (inches || 0)) * CENTIMETERS_IN_INCH;
-        res.height = res.height < 100 ? `${res.height}cm` : `${Number.parseFloat((res.height / 100).toFixed(2))}m`;
+        const
+          [feet, inches] = res.height.split('\'').map(e => Number.parseFloat(e)),
+          height = (feet * INCHES_IN_FEET + (inches || 0)) * CENTIMETERS_IN_INCH;
+
+        res.height = height < 100 ? `${height}cm` : `${Number.parseFloat((height / 100).toFixed(2))}m`;
 
         if (res.name) cache.set(res.name.toLowerCase(), res);
       }

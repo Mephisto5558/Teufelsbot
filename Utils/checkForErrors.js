@@ -42,7 +42,7 @@ function checkOptions(command, lang) {
     if (channelTypes && (this.options?.get(name) || this.args?.[i]) && !channelTypes.includes(this.options?.getChannel(name).type ?? this.mentions.channels.at(i)?.type))
       return ['invalidChannelType', name];
 
-    const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]));
+    const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]) != undefined);
     if (
       isValidType(this) && autocompleteIsUsed() && !autocompleteGenerator.call({
         ...this, client: this.client, guild: this.guild, user: this.user,
