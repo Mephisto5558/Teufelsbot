@@ -12,7 +12,7 @@ module.exports = async function gitpull() {
     return err;
   }
 
-  if (!data.stderr.includes(`-> ${await origin}`)) return 'OK';
+  if (!data.stderr.includes(`-> ${await origin}`)) return { message: 'OK' };
 
   log(
     'GIT PULL\n'

@@ -66,7 +66,7 @@ async function processMessageEventCallback(handlerPromises, message) {
     ).init(getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })));
   }
 
-  await handlers.eventHandler.call(this);
+  handlers.eventHandler.call(this);
   await events.ready.call(this); // Run due to it not being ran on ready, before the handler is loaded
 }
 
@@ -105,7 +105,7 @@ void (async function main() {
   const handlerPromises = Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(([,handler]) => handler.call(newClient));
   handlerPromises.push(newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add('owner' in app.owner ? app.owner.owner.id : app.owner?.id)));
 
-  const client = await loginClient(newClient.keys.token);
+  const client = await loginClient.call(newClient, newClient.keys.token);
 
   /** @param {string}emoji*/
   globalThis.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();
