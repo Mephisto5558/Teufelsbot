@@ -13,5 +13,5 @@ module.exports = async function timeEventsHandler() {
     log(`Loaded Cron Job ${name}`);
   }
 
-  log(`Loaded ${jobs.__count__} Jobs\n`);
+  log(`Loaded ${jobs.__count__} Cron Jobs\n`);
 };
