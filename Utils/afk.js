@@ -1,6 +1,7 @@
 const
   { AllowedMentionsTypes, PermissionFlagsBits, VoiceState } = require('discord.js'),
   { messageMaxLength, memberNameMaxLength } = require('./constants'),
+  { msInSecond } = require('./timeFormatter'),
   nicknamePrefix = '[AFK] ',
   nicknameRegex = /^[AFK] /;
 
@@ -17,7 +18,7 @@ module.exports.getAfkStatus = async function getAfkStatus(target, lang) {
   if (!message) return this.customReply(lang('getNoneFound'));
 
   return this.customReply(lang('events.message.afkMsg', {
-    message, member: target.displayName.replace(nicknameRegex, ''), timestamp: Math.round(createdAt / 1000)
+    message, member: target.displayName.replace(nicknameRegex, ''), timestamp: Math.round(createdAt / msInSecond)
   }));
 };
 
@@ -31,7 +32,7 @@ module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
     if (message) {
       acc.push('- ' + lang('events.message.afkMsg', {
         message, member: e.nickname?.startsWith(nicknamePrefix) ? e.nickname.slice(nicknamePrefix.length) : e.displayName,
-        timestamp: Math.round(createdAt / 1000)
+        timestamp: Math.round(createdAt / msInSecond)
       }));
     }
 
@@ -76,7 +77,7 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
   await this.client.db.delete('userSettings', `${this.member.id}.afkMessage`);
   await this.client.db.delete('guildSettings', `${this.guild.id}.afkMessages.${this.member.id}`);
 
-  const msg = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkEnd', { timestamp: Math.round(createdAt.getTime() / 1000), message });
+  const msg = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkEnd', { timestamp: Math.round(createdAt.getTime() / msInSecond), message });
   if ('customReply' in this) return this.customReply(msg);
   if (this.channel?.permissionsFor(this.member.id).has(PermissionFlagsBits.SendMessages) && this.channel.permissionsFor(this.client.user.id).has(PermissionFlagsBits.SendMessages))
     return this.channel.send(`<@${this.member.id}>\n` + msg);
@@ -93,7 +94,7 @@ module.exports.sendAfkMessages = async function sendAfkMessages() {
 
     const afkMessage = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkMsg', {
       message, member: e.nickname?.startsWith(nicknamePrefix) ? e.nickname.slice(nicknamePrefix.length) : e.displayName,
-      timestamp: Math.round(createdAt / 1000)
+      timestamp: Math.round(createdAt / msInSecond)
     });
 
     if (acc.length + afkMessage.length >= messageMaxLength) {

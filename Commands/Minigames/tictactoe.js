@@ -1,7 +1,7 @@
 const
   TicTacToe = require('discord-tictactoe'),
-  { getTargetMember, timeFormatter: { secsInMinute } } = require('#Utils'),
-  CHALLENGE_DELETE_TIME = 5000; // 5s
+  { getTargetMember, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
+  CHALLENGE_DELETE_TIME = msInSecond * 5; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s*/
 
 /**
  * @this {GuildInteraction}
@@ -42,8 +42,7 @@ async function updateStats(firstID, secondID, type, db) {
 /** @type {command<'slash'>}*/
 module.exports = {
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { user: 5000 },
+  cooldowns: { user: msInSecond * 5 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s*/
   slashCommand: true,
   prefixCommand: false,
   options: [{ name: 'opponent', type: 'User' }],

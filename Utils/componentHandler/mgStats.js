@@ -1,4 +1,4 @@
-const formatTopTen = require('./mgStats_formatTopTen.js');
+const formatTop = require('./mgStats_format.js');
 
 /** @type {import('.').mgStats}*/
 module.exports = async function mgStats(lang, game, wMode, settings) {
@@ -7,7 +7,7 @@ module.exports = async function mgStats(lang, game, wMode, settings) {
   lang.__boundArgs__[0].backupPath = 'commands.minigames.mgstats';
 
   const [sort, mode] = this.values[0]?.split('_') ?? [];
-  this.message.embeds[0].data.description = formatTopTen.call(this,
+  this.message.embeds[0].data.description = formatTop.call(this,
     Object.entries(
       Object.entries(this.client.db.get('leaderboards')).find(([k]) => k == game)?.[1] ?? []
     ).filter(([e]) => settings == 'all_users' || this.guild.members.cache.has(e)),

@@ -1,4 +1,4 @@
-module.exports = {
+const utils = {
   afk: require('./afk.js'),
   autocompleteGenerator: require('./autocompleteGenerator.js'),
   BackupSystem: require('./backupSystem.js'),
@@ -31,3 +31,5 @@ module.exports = {
   timeFormatter: require('./timeFormatter.js'),
   timeValidator: require('./timeValidator.js')
 };
+
+module.exports = utils;

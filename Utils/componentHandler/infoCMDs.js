@@ -7,7 +7,7 @@ const
   { msInSecond } = require('../timeFormatter.js'),
   checkTargetManageable = require('../checkTargetManageable.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
-  MODALSUBMIT_MAXTIME = msInSecond * 30; // eslint-disable-line custom/sonar-no-magic-numbers
+  MODALSUBMIT_MAXTIME = msInSecond * 30; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
 
 /** @type {import('.').infoCMDs}*/
 module.exports = async function infoCMDs(lang, id, mode, entityType) {

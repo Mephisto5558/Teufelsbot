@@ -4,5 +4,5 @@ module.exports = {
   name: 'Leave Message',
   description: 'Set your own leave message or embed!',
   type: 'embedBuilder',
-  position: 4
+  position: 4 /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 };

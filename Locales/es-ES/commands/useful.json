@@ -85,7 +85,7 @@
     "invalidURL": "¡La URL proporcionada no es válida!",
     "msgNotFound": "¡El id de mensaje proporcionado no se encontró en este canal!",
     "botIsNotAuthor": "Sólo puedo editar mis propios mensajes!",
-    "buttonLimit": "Un mensaje no puede tener más de 5 filas o 25 botones!",
+    "buttonLimitReached": "Un mensaje no puede tener más de 5 filas o 25 botones!",
     "invalidOption": "**¡Una de tus opciones no es válida!**\n\n```{err}```",
     "invalidJSON": "**¡Tu JSON no es válido!**\n\n```{err}```",
     "successJSON": "¡Tu botón ha sido enviado!",

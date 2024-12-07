@@ -3,6 +3,7 @@ const
   fetch = require('node-fetch').default,
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
   INCHES_IN_FEET = 12,
+  CENTIMETERS_IN_METER = 100,
   CENTIMETERS_IN_INCH = 2.54,
   KILOGRAMS_IN_POUND = 2.205,
 
@@ -39,7 +40,7 @@ module.exports = {
           [feet, inches] = res.height.split('\'').map(e => Number.parseFloat(e)),
           height = (feet * INCHES_IN_FEET + (inches || 0)) * CENTIMETERS_IN_INCH;
 
-        res.height = height < 100 ? `${height}cm` : `${Number.parseFloat((height / 100).toFixed(2))}m`;
+        res.height = height < CENTIMETERS_IN_METER ? `${height}cm` : `${Number.parseFloat((height / CENTIMETERS_IN_METER).toFixed(2))}m`;
 
         if (res.name) cache.set(res.name.toLowerCase(), res);
       }

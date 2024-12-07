@@ -1,13 +1,15 @@
 const
   cooldowns = require('../cooldowns.js'),
   { removeAfkStatus, sendAfkMessages } = require('../afk.js'),
-  MESSAGES_COOLDOWN = require('../timeFormatter.js').msInSecond * 5; /* eslint-disable-line custom/sonar-no-magic-numbers -- 5s*/
+  { msInSecond } = require('../timeFormatter.js'),
+  MESSAGES_COOLDOWN = msInSecond * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s*/
+  TEN_SECONDS = msInSecond * 10;
 
 module.exports = { runMessages };
 
 /** @this {Message}*/
 function replyToTriggers() {
-  if (!Number(this.guild.db.triggers?.__count__) || cooldowns.call(this, 'triggers', { channel: 1e4 })) return;
+  if (!Number(this.guild.db.triggers?.__count__) || cooldowns.call(this, 'triggers', { channel: TEN_SECONDS })) return;
 
   const responseList = Object.values(this.guild.db.triggers)
     .filter(e => this.originalContent?.toLowerCase().includes(e.trigger.toLowerCase())).map(e => e.response);
@@ -44,7 +46,7 @@ async function handleWordchain() {
 
   const
     firstWord = this.originalContent.split(/\s+/)[0].toLowerCase(),
-    lastWordChar = wordchainData.lastWord?.last();
+    lastWordChar = wordchainData.lastWord?.at(-1);
 
   if (
     !wordchainData.lastWord || lastWordChar == firstWord[0]
@@ -94,7 +96,7 @@ function runMessages() {
   else if (/^\p{L}+$/u.test(this.originalContent)) void handleWordchain.call(this);
   if (!this.originalContent.toLowerCase().includes('--afkignore') && !(this.originalContent.startsWith('(') && this.originalContent.endsWith(')')))
     void removeAfkStatus.call(this);
-  if (!cooldowns.call(this, 'afkMsg', { channel: 1e4, user: 1e4 })) void sendAfkMessages.call(this);
+  if (!cooldowns.call(this, 'afkMsg', { channel: TEN_SECONDS, user: TEN_SECONDS })) void sendAfkMessages.call(this);
 
   return this;
 }

@@ -2,7 +2,7 @@ const
   { default: fetch, FetchError } = require('node-fetch'),
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
-  { messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } = require('#Utils').constants,
+  { constants: { messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED }, timeFormatter: { msInSecond } } = require('#Utils'),
   TIMEOUT = 2500,
   defaultAPIList = [
     { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any?lang=en&blacklist={blacklist}' },
@@ -27,8 +27,6 @@ function formatAPIUrl(url, blacklist, apiKey, maxLength, includeTags) {
     .replaceAll('{includeTags}', includeTags);
 }
 
-const defaultMaxLength = 2000;
-
 /**
  * @this {Client}
  * @param {{ name: string, link: string, url: string }[]}apiList
@@ -36,7 +34,7 @@ const defaultMaxLength = 2000;
  * @param {string}blacklist
  * @param {number?}maxLength
  * @returns {[string, { name: string, link: string, url: string }] | []}*/
-async function getJoke(apiList = [], type = '', blacklist = '', maxLength = defaultMaxLength) {
+async function getJoke(apiList = [], type = '', blacklist = '', maxLength = messageMaxLength) {
   const api = apiList.random();
   let response;
 
@@ -73,7 +71,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = defa
 /** @type {command<'both', false>}*/
 module.exports = {
   usage: { examples: 'dadjoke' },
-  cooldowns: { channel: 100 },
+  cooldowns: { channel: msInSecond / 10 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

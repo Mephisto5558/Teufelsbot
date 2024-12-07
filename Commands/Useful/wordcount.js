@@ -1,8 +1,10 @@
-const { ChatInputCommandInteraction } = require('discord.js');
+const
+  { ChatInputCommandInteraction } = require('discord.js'),
+  { msInSecond } = require('#Utils').timeFormatter;
 
 /** @type {command<'both'>}*/
 module.exports = {
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

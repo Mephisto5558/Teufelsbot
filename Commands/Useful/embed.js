@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes, DiscordAPIError } = require('discord.js'),
-  { logSayCommandUse, constants } = require('#Utils');
+  { logSayCommandUse, constants, timeFormatter: { msInSecond } } = require('#Utils');
 
 /**
  * @param {Interaction}interaction
@@ -11,7 +11,7 @@ const getStringOption = (interaction, name) => interaction.options.getString(nam
 /** @type {command<'slash', false>}*/
 module.exports = {
   permissions: { user: ['EmbedLinks'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
+  /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
   cooldowns: { user: 200 },
   slashCommand: true,
   prefixCommand: false,
@@ -81,7 +81,7 @@ module.exports = {
           image: { url: getOption('image') },
           color: Number.parseInt(getOption('custom_color')?.slice(1) ?? 0, 16) || Colors[getOption('predefined_color')] || 0,
           footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
-          timestamp: this.options.getBoolean('timestamp') && Math.round(Date.now() / 1000),
+          timestamp: this.options.getBoolean('timestamp') && Math.round(Date.now() / msInSecond),
           author: {
             name: getOption('author_name'),
             url: getOption('author_url'),

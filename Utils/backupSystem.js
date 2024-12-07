@@ -231,7 +231,7 @@ class BackupSystem {
         reason,
         verificationLevel: guild.features.includes(GuildFeature.Community) ? undefined : GuildVerificationLevel.None,
         explicitContentFilter: guild.features.includes(GuildFeature.Community) ? undefined : GuildExplicitContentFilter.Disabled,
-        afkTimeout: secsInMinute * 5, /* eslint-disable-line custom/sonar-no-magic-numbers */
+        afkTimeout: secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5mins*/
         systemChannel: null,
         systemChannelFlags: [],
         preferredLocale: null,

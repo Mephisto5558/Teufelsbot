@@ -13,7 +13,7 @@ export {
   help,
   infoCMDs,
   joke,
-  mgStats_formatTopTen,
+  mgStats_formatTop,
   mgStats,
   record_startRecording,
   record_recordControls,
@@ -76,7 +76,7 @@ declare function joke<
   lang: lang, api: API, type: TYPE, blacklist: BLACKLIST, maxLength: MAX_LENGTH
 ): ComponentReturnType;
 
-declare function mgStats_formatTopTen(
+declare function mgStats_formatTop(
   this: BaseInteraction<'cached'> | Message<true>,
   input: [Snowflake, { draws?: number; wins?: number; loses?: number }][],
   sort: 'f' | undefined, mode: 'draws' | 'losses' | 'alphabet_user' | 'alphabet_nick' | undefined, lang: lang,

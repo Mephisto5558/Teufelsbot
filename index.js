@@ -1,7 +1,8 @@
 console.time('Initializing time');
 console.info('Starting...');
 
-Error.stackTraceLimit = 100;
+const maxStackTraceLimit = 100;
+Error.stackTraceLimit = maxStackTraceLimit;
 
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials, ActivityType } = require('discord.js'),
@@ -10,7 +11,7 @@ const
   events = require('./Events'),
   { GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */ } = require('#Utils'),
   /* eslint-disable-next-line custom/unbound-method -- fine here*/
-  syncEmojis = require('./TimeEvents/syncEmojis.js').onTick,
+  { onTick: syncEmojis } = require('./TimeEvents').syncEmojis,
 
   createClient = /** @returns {Client<false>}*/ () => new Client({
     shards: 'auto',
@@ -105,6 +106,7 @@ void (async function main() {
   const handlerPromises = Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(([,handler]) => handler.call(newClient));
   handlerPromises.push(newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add('owner' in app.owner ? app.owner.owner.id : app.owner?.id)));
 
+  /** @type {Client<true>}*/
   const client = await loginClient.call(newClient, newClient.keys.token);
 
   /** @param {string}emoji*/

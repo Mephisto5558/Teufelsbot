@@ -1,10 +1,10 @@
-const { timeValidator } = require('#Utils');
+const { timeValidator, timeFormatter: { msInSecond } } = require('#Utils');
 
 /** @type {command<'slash'>}*/
 module.exports = {
   aliases: { prefix: ['timeout'], slash: ['timeout'] },
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
-  cooldowns: { user: 100 },
+  cooldowns: { user: msInSecond / 10 },
   slashCommand: true,
   prefixCommand: false,
   options: [

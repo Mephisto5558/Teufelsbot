@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { getTargetMember, getAge, timeFormatter: { secsInDay, daysInMonthMax, monthsInYear } } = require('#Utils'),
+  { getTargetMember, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, monthsInYear } } = require('#Utils'),
   currentYear = new Date().getFullYear();
 
 /**
@@ -27,7 +27,7 @@ const birthdayMainFunctions = {
       nextBirthday = new Date(today.getFullYear(), month - 1, day);
 
     if (today > nextBirthday) nextBirthday.setFullYear(today.getFullYear() + 1);
-    const diffDays = Math.ceil(Math.abs(nextBirthday - today) / secsInDay * 1000);
+    const diffDays = Math.ceil(Math.abs(nextBirthday - today) / secsInDay * msInSecond);
 
     await this.user.updateDB('birthday', new Date(this.options.getInteger('year', true), month - 1, day));
     return this.editReply(lang('saved', diffDays));
@@ -60,7 +60,7 @@ const birthdayMainFunctions = {
         embed.data.description = lang('getUser.date', {
           user: target.customName,
           month: lang(`months.${birthday.getMonth() + 1}`), day: birthday.getDate(),
-          daysUntil: Math.round(Math.abs(Date.now() - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / (secsInDay * 1000))
+          daysUntil: Math.round(Math.abs(Date.now() - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / (secsInDay * msInSecond))
         });
 
         if (age < currentYear) embed.data.description += lang('getUser.newAge', age);
@@ -103,7 +103,7 @@ const birthdayMainFunctions = {
 
 /** @type {command<'slash', false>}*/
 module.exports = {
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,
@@ -130,7 +130,7 @@ module.exports = {
           name: 'year',
           type: 'Integer',
           required: true,
-          /* eslint-disable-next-line custom/sonar-no-magic-numbers -- min. year*/
+          /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- min. year*/
           minValue: 1900,
           maxValue: currentYear
         }

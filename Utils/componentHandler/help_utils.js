@@ -3,7 +3,7 @@ const
 
   /** @type {import('..').permissionTranslator}*/
   permissionTranslator = require('../permissionTranslator.js'),
-  { secsInMinute } = require('../timeFormatter');
+  { secsInMinute, msInSecond } = require('../timeFormatter');
 
 /**
  * @type {import('.').help_getCommands}
@@ -92,7 +92,7 @@ function createInfoFields(cmd, lang) {
     arr.push({
       name: lang('one.cooldowns'), inline: false,
       value: cooldowns.map(([k, v]) => {
-        const min = Math.floor(v / secsInMinute * 1000);
+        const min = Math.floor(v / secsInMinute * msInSecond);
         let sec = v % secsInMinute;
         sec = sec % 1 ? sec.toFixed(2) : Math.floor(sec);
 

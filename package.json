@@ -48,10 +48,10 @@
   },
   "devDependencies": {
     "@mephisto5558/eslint-config": "latest",
-    "@types/node": "^22.9.3",
+    "@types/node": "^22.10.1",
     "@types/node-fetch": "2",
     "discord-api-types": "latest",
-    "eslint": "^9.15.0"
+    "eslint": "^9.16.0"
   },
   "overrides": {
     "discord-api-types": "$discord-api-types"

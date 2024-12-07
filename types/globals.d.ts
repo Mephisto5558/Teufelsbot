@@ -2,7 +2,7 @@
 
 import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
-import type I18nProvider from '@mephisto5558/i18n';
+import type { default as I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
 import type { WebServer } from '@mephisto5558/bot-website';
 
 // import type Command from '@mephisto5558/command';
@@ -43,9 +43,6 @@ declare global {
 
     /** Returns an array with no duplicates by converting it to a `Set` and back to an array.*/
     unique(this: T[]): T[];
-
-    /** Returns the array's last element. Shorthand for `arr.at(-1)`. */
-    last(this: T[]): T | undefined;
   }
 
   interface Number {
@@ -57,12 +54,8 @@ declare global {
   }
 
   interface BigInt {
-    toString(radix?: 10): `${bigint}`;
-  }
 
-  interface String {
-    /** Returns the string's last element. Shorthand for `str.at(-1)`. */
-    last(this: string): string | undefined;
+    toString(radix?: 10): `${bigint}`;
   }
 
   interface Object {
@@ -382,6 +375,9 @@ declare module 'discord.js' {
     /**
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
      * and if that also doesn't work, send the message without repling to a specific message/interaction.
+     *
+     * Sends the content as a file if it is larger than the maximum allowed message length (2000).
+     * If that is the case and the content is just one codeblock, it will strip the codeblock and send a file in the codeblock's language format.
      * @param deleteTime Number in Milliseconds*/
     customReply(
       this: Message,
@@ -402,6 +398,9 @@ declare module 'discord.js' {
     /**
      * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
      * and if that also doesn't work, send the message without repling to a specific message/interaction.
+     *
+     * Sends the content as a file if it is larger than the maximum allowed message length (2000).
+     * If that is the case and the content is just one codeblock, it will strip the codeblock and send a file in the codeblock's language format.
      * @param deleteTime Number in Milliseconds*/
     customReply(
       this: BaseInteraction,
@@ -461,7 +460,7 @@ declare module 'discord.js' {
     updateDB<FDB extends locals.FlattenedGuildSettings, K extends keyof FDB>(this: Guild, key: K, value: FDB[K]): Promise<Database['guildSettings']>;
     updateDB(this: Guild, key: null, value: NonNullable<Database['guildSettings'][Snowflake]>): Promise<Database['guildSettings']>;
 
-    localeCode: string;
+    localeCode: LangLocaleCode;
   }
 }
 
@@ -486,16 +485,16 @@ declare module '@mephisto5558/mongoose-db' {
     /**
      * generates required database entries from {@link ./Templates/db_collections.json}.
      * @param overwrite overwrite existing collection, default: `false`*/
-    generate(this: NoCacheDB, overwrite?: boolean): Promise<void>;
+    generate(overwrite?: boolean): Promise<void>;
 
-    get<DBK extends keyof Database>(this: NoCacheDB, db: DBK): Promise<Database[DBK]>;
-    get<DBK extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DBK]>(this: NoCacheDB, db: DBK, key: K): Promise<DBStructure.FlattenedDatabase[DBK][K]>;
+    get<DBK extends keyof Database>(db: DBK): Promise<Database[DBK]>;
+    get<DBK extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DBK]>(db: DBK, key: K): Promise<DBStructure.FlattenedDatabase[DBK][K]>;
 
-    update<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: NoCacheDB, db: DBK, key: K, value: FDB[K]): Promise<Database[DBK]>;
-    set<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK]>(this: NoCacheDB, db: DBK, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DBK]>;
-    delete<DBK extends keyof Database>(this: NoCacheDB, db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
-    push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: NoCacheDB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
-    pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: NoCacheDB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
+    update<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(db: DBK, key: K, value: FDB[K]): Promise<Database[DBK]>;
+    set<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK]>(db: DBK, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DBK]>;
+    delete<DBK extends keyof Database>(db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
+    push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
+    pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
   }
 
   /* eslint-disable @typescript-eslint/no-shadow -- I can't think of a better name */
@@ -510,7 +509,6 @@ declare module '@mephisto5558/mongoose-db' {
     delete<DBK extends keyof Database>(this: DB, db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
     push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
     pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
-
     /* eslint-enable @typescript-eslint/no-shadow */
   }
 }

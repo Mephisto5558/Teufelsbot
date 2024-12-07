@@ -1,6 +1,7 @@
 const
   fetch = require('node-fetch').default,
-  { writeFile } = require('node:fs/promises');
+  { writeFile } = require('node:fs/promises'),
+  { JSON_SPACES } = require('./constants');
 
 /** Writes all error codes to a file*/
 module.exports = async function fetchAndProcess() {
@@ -17,5 +18,5 @@ module.exports = async function fetchAndProcess() {
     return acc;
   }, {});
 
-  return writeFile('./Utils/DiscordAPIErrorCodes.json', JSON.stringify(codes, undefined, 2));
+  return writeFile('./Utils/DiscordAPIErrorCodes.json', JSON.stringify(codes, undefined, JSON_SPACES));
 };

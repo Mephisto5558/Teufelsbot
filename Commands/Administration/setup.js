@@ -1,8 +1,8 @@
 /* eslint camelcase: [error, {allow: [toggle_module, toggle_command, \w*_prefix]}] */
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
-  { autocompleteOptionsMaxAmt } = require('#Utils').constants,
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers -- this is like an enum*/
+  { constants: { autocompleteOptionsMaxAmt }, timeFormatter: { msInSecond } } = require('#Utils'),
+  /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- this is like an enum*/
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'],
   MAX_PREFIXES_PER_GUILD = 2,
@@ -185,7 +185,7 @@ const
 module.exports = {
   aliases: { slash: ['config'] },
   permissions: { user: ['ManageGuild'] },
-  cooldowns: { user: 1e4 },
+  cooldowns: { user: msInSecond * 10 },
   slashCommand: true,
   prefixCommand: false,
   options: [
@@ -211,17 +211,17 @@ module.exports = {
           strictAutocomplete: true
         },
         { name: 'get', type: 'Boolean' },
-        /* eslint-disable custom/sonar-no-magic-numbers -- TODO: convert to selectMenu*/
+        /* eslint-disable @typescript-eslint/no-magic-numbers -- TODO: convert to selectMenu*/
         ...Array.from({ length: 6 }, (_, i) => ({ type: 'Role', name: `role_${i + 1}` })),
         ...Array.from({ length: 6 }, (_, i) => ({ type: 'Channel', name: `channel_${i + 1}`, channelTypes: Constants.GuildTextBasedChannelTypes })),
         ...Array.from({ length: 6 }, (_, i) => ({ type: 'User', name: `member_${i + 1}` }))
-        /* eslint-enable custom/sonar-no-magic-numbers */
+        /* eslint-enable @typescript-eslint/no-magic-numbers */
       ]
     },
     {
       name: 'language',
       type: 'Subcommand',
-      cooldowns: { guild: 1e4 },
+      cooldowns: { guild: msInSecond * 10 },
       options: [{
         name: 'language',
         type: 'String',

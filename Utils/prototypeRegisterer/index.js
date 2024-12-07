@@ -1,5 +1,3 @@
-/* eslint-disable sonarjs/no-extend-native */
-
 const
   { BaseInteraction, Message, Collection, AutocompleteInteraction, User, Guild, GuildMember, ButtonBuilder, Events, Client } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
@@ -7,9 +5,7 @@ const
   { randomInt } = require('node:crypto'),
   { join } = require('node:path'),
   { DB } = require('@mephisto5558/mongoose-db'),
-
-  // { SlashCommand, PrefixCommand, MixedCommand, CommandOptions } = require('@mephisto5558/command'),
-  I18nProvider = require('@mephisto5558/i18n'),
+  I18nProvider = require('@mephisto5558/i18n').default,
   Log = require('./Log.js'),
   customReply = require('./message_customReply.js'),
   { runMessages } = require('./message_runMessages.js'),
@@ -17,6 +13,7 @@ const
   playAgain = require('./TicTacToe_playAgain.js'),
   findAllEntries = require('../findAllEntries.js'),
   { setDefaultConfig } = require('../configValidator.js'),
+  defaultValueLoggingMaxJSONLength = 100,
 
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
@@ -24,11 +21,6 @@ module.exports = { Log, _patch, customReply, runMessages, playAgain };
 
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
-
-/* global.SlashCommand = SlashCommand;
-   global.PrefixCommand = PrefixCommand;
-   global.MixedCommand = MixedCommand;
-   global.CommandOptions = CommandOptions; */
 
 /**
  * @param {Record<string, any>}target
@@ -49,7 +41,7 @@ if (!config.hideOverwriteWarning) {
   console.warn(
     'Overwriting the following variables and functions (if they exist):'
     + '\n  Globals:    global.sleep, global.log, global.getEmoji'
-    + `\n  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} Array#random, Array#unique, Array#last, String#last, `
+    + `\n  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} Array#random, Array#unique, `
     + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind'
     + '\n  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
     + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, Guild#db, guild#updateDB, '
@@ -77,17 +69,7 @@ Object.defineProperties(Array.prototype, {
     /** @type {global['Array']['prototype']['unique']}*/
     value: function unique() { return [...new Set(this)]; },
     enumerable: false
-  },
-  last: {
-    /** @type {global['Array']['prototype']['last']}*/
-    value: function last() { return this.at(-1); },
-    enumerable: false
   }
-});
-Object.defineProperty(String.prototype, 'last', {
-  /** @type {global['String']['prototype']['last']}*/
-  value: function last() { return this.at(-1); },
-  enumerable: false
 });
 Object.defineProperties(Number.prototype, {
   limit: {
@@ -179,17 +161,17 @@ Object.defineProperties(Client.prototype, {
   loadEnvAndDB: {
     /** @type {Client['loadEnvAndDB']}*/
     value: async function loadEnvAndDB() {
-      let /** @type {import('../../types/locals').EnvJSON}*/env, db;
+      let /** @type {import('../../types/locals').EnvJSON}*/env, /** @type {import('@mephisto5558/mongoose-db').DB | undefined}*/db;
       try { env = require('../../env.json'); }
       catch (err) {
         if (err.code != 'MODULE_NOT_FOUND') throw err;
 
-        db = await new DB().init(process.env.dbConnectionStr, 'db-collections', 100, log._log.bind(log, { file: 'debug', type: 'DB' }));
+        db = await new DB().init(process.env.dbConnectionStr, 'db-collections', defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' }));
         env = db.get('botSettings', 'env');
       }
 
       env = deepMerge(env.global, env[env.global.environment]);
-      db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100, log._log.bind(log, { file: 'debug', type: 'DB' }));
+      db ??= await new DB().init(env.dbConnectionStr, 'db-collections', defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' }));
 
       if (!db.cache.size) {
         log('Database is empty, generating default data');
@@ -263,9 +245,9 @@ Object.defineProperties(Guild.prototype, {
     value: function updateDB(key, value) { return this.client.db.update('guildSettings', this.id + (key ? `.${key}` : ''), value); }
   },
 
-  /** @type {Record<string, (this: Guild, val: any) => any>} */
+  /** @type {Record<string, (this: Guild, val: Guild['localeCode']) => Guild['localeCode']>} */
   localeCode: {
-    get() { return this.db.config.lang ?? this.preferredLocale.slice(0, 2); },
+    get() { return this.db.config.lang ?? (this.preferredLocale.startsWith('en') ? 'en' : this.preferredLocale); },
     set(val) { void this.updateDB('config.lang', val); }
   }
 });

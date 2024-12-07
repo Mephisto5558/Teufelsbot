@@ -1,6 +1,9 @@
 const
   { Message, Constants, Collection } = require('discord.js'),
-  { getTargetChannel, DiscordAPIErrorCodes } = require('#Utils'),
+  { getTargetChannel, DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt } } = require('#Utils'),
+  maxPercentage = 100,
+  maxMsgsToFetch = 100,
+  maxAllowedPurgeAmt = 1000,
 
   /**
    * @param {string}str
@@ -32,8 +35,8 @@ function shouldDeleteMsg(msg, options) {
       || msg.embeds.some(e => e.description?.toLowerCase()[fn](option.toLowerCase()))
     ),
     checkCaps = () => !('caps_percentage' in options && options.caps_percentage > 0)
-      || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * 100 >= options.caps_percentage
-      || !!msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * 100 >= options.caps_percentage)
+      || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * maxPercentage >= options.caps_percentage
+      || msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * maxPercentage >= options.caps_percentage)
       || !msg.content && !msg.embeds.some(e => e.description),
     bool = !!(msg.bulkDeletable && (!!options.remove_pinned || !msg.pinned)),
     userType = msg.user.bot ? 'bot' : 'human';
@@ -59,7 +62,7 @@ const maxMsgs = 250;
  * @param {string?}after
  * @param {number?}limit*/
 async function fetchMsgs(channel, before, after, limit = maxMsgs) {
-  const options = { limit: Math.min(limit, 100), before, after };
+  const options = { limit: Math.min(limit, maxMsgsToFetch), before, after };
 
   let
     lastId,
@@ -73,8 +76,8 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
 
     /* eslint-disable-next-line unicorn/prefer-spread -- false positive: Collection extends Map, not Array*/
     collection = collection.concat(messages);
-    lastId = messages.last().id;
-    options.limit = Math.min(limit - collection.size, 100);
+    lastId = messages.at(-1).id;
+    options.limit = Math.min(limit - collection.size, maxMsgsToFetch);
   }
 
   return collection;
@@ -84,7 +87,7 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
 module.exports = {
   aliases: { prefix: ['clear'] },
   permissions: { client: ['ManageMessages', 'ReadMessageHistory'], user: ['ManageMessages'] },
-  cooldowns: { guild: 1000 },
+  cooldowns: { guild: msInSecond },
   slashCommand: true,
   prefixCommand: true,
   ephemeralDefer: true,
@@ -93,7 +96,7 @@ module.exports = {
       name: 'amount',
       type: 'Integer',
       minValue: 1,
-      maxValue: 1000,
+      maxValue: maxAllowedPurgeAmt,
       required: true
     },
     {
@@ -112,7 +115,7 @@ module.exports = {
       name: 'caps_percentage',
       type: 'Number',
       minValue: 1,
-      maxValue: 100
+      maxValue: maxPercentage
     },
     { name: 'contains', type: 'String' },
     { name: 'does_not_contain', type: 'String' },
@@ -131,13 +134,14 @@ module.exports = {
 
   async run(lang) {
     const
-      amount = this.options?.getInteger('amount', true) ?? Number.parseInt(this.args[0]).limit({ min: 0, max: 1000 }),
+      amount = this.options?.getInteger('amount', true) ?? Number.parseInt(this.args[0]).limit({ min: 0, max: maxAllowedPurgeAmt }),
 
       /** @type {import('discord.js').GuildTextBasedChannel}*/
       channel = getTargetChannel(this, { returnSelf: true }),
       options = Object.fromEntries(this.options?.data.map(e => [e.name, e.value]) ?? []);
 
-    let messages,
+    let
+      messages,
       count = 0;
 
     if (!amount) return this.customReply(Number.isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
@@ -165,16 +169,16 @@ module.exports = {
     if (!messages.length) return this.customReply(lang('noneFound'));
 
     const sleepTime = 2000;
-    for (let i = 0; i < messages.length; i += 100) {
-      count += (await channel.bulkDelete(messages.slice(i, i + 100))).size;
-      if (messages[i + 100]) await sleep(sleepTime);
+    for (let i = 0; i < messages.length; i += bulkDeleteMaxMessageAmt) {
+      count += (await channel.bulkDelete(messages.slice(i, i + bulkDeleteMaxMessageAmt))).size;
+      if (messages[i + bulkDeleteMaxMessageAmt]) await sleep(sleepTime);
     }
 
-    return this.customReply(lang('success', { count, all: messages.length }), 1e4);
+    return this.customReply(lang('success', { count, all: messages.length }), msInSecond * 10);
   }
 };
 
-/* eslint-disable unicorn/consistent-function-scoping, camelcase, custom/sonar-no-magic-numbers
+/* eslint-disable unicorn/consistent-function-scoping, camelcase, @typescript-eslint/no-magic-numbers
 -- in there due to performance reasons (testing code not used in production)*/
 
 /** Tests the purge filters*/

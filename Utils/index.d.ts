@@ -319,33 +319,42 @@ declare namespace TTormatter {
       : string;
   };
 
+  /* eslint-disable @typescript-eslint/no-magic-numbers */
   const
-    msInSecond: number, secsInMinute: number, minutesInHour: number, hoursInDay: number,
-    daysInWeek: number, daysInMonthAvg: number, daysInMonthMax: number, daysInYear: number, monthsInYear: number,
+    msInSecond: 1000, secsInMinute: 60, minutesInHour: 60, hoursInDay: 24,
+    daysInWeek: 7, daysInMonthAvg: 30, daysInMonthMax: 31, daysInYear: 365, monthsInYear: 12,
     secsInHour: number, secsInDay: number, secsInWeek: number, secsInMonth: number, secsInYear: number;
+  /* eslint-enable @typescript-eslint/no-magic-numbers */
 }
 
 declare namespace constants {
-  /* eslint-disable custom/sonar-no-magic-numbers */
+  /* eslint-disable @typescript-eslint/no-magic-numbers */
   const
-    autocompleteOptionsMaxAmt = 25,
-    embedTitleMaxLength = 256,
-    embedDescriptionMaxLength = 4096,
-    embedFieldMaxAmt = 25,
-    embedFieldValueMaxLength = 1024,
-    messageMaxLength = 2000,
-    memberNameMinLength = 1,
-    memberNameMaxLength = 32,
-    choicesMaxAmt = 25,
-    choiceNameMinLength = 1,
-    choiceNameMaxLength = 100,
-    choiceValueMaxLength = 100,
+    pinnedMessagesMaxAmt: 50,
+    autocompleteOptionsMaxAmt: 25,
+    embedTitleMaxLength: 256,
+    embedDescriptionMaxLength: 4096,
+    embedFieldMaxAmt: 25,
+    embedFieldValueMaxLength: 1024,
+    messageMaxLength: 2000,
+    memberNameMinLength: 1,
+    memberNameMaxLength: 32,
+    choicesMaxAmt: 25,
+    choiceNameMinLength: 1,
+    choiceNameMaxLength: 100,
+    choiceValueMinLength: 2,
+    choiceValueMaxLength: 100,
     buttonLabelMaxLength: 80,
+    messageActionrowMaxAmt: 5,
+    actionrowButtonMaxAmt: 5,
     auditLogReasonMaxLength: 400,
     maxBanMessageDeleteDays: 7,
+    emojiNameMinLength: 2,
+    emojiNameMaxLength: 32,
     snowflakeMinLength: 17,
     snowflakeMaxLength: 19,
+    bulkDeleteMaxMessageAmt: 100,
     HTTP_STATUS_BLOCKED: 522,
-    suffix = '...';
-  /* eslint-enable custom/sonar-no-magic-numbers */
+    suffix: '...';
+  /* eslint-enable @typescript-eslint/no-magic-numbers */
 }

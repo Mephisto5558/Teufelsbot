@@ -3,16 +3,17 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ButtonStyle } = require('discord.js'),
   { timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
-  { serverbackup_hasPerm: hasPerm, serverbackup_createProxy: createProxy } = require('#Utils/componentHandler');
+  { serverbackup_hasPerm: hasPerm, serverbackup_createProxy: createProxy } = require('#Utils/componentHandler'),
+  BYTES_IN_KILOBITE = 1024;
 
 /** @param {Database['backups'][backupId]}backup*/
 function getData(backup) {
   if (backup.__count__) {
     return {
-      createdAt: Math.round(backup.createdAt.getTime() / 1000),
+      createdAt: Math.round(backup.createdAt.getTime() / msInSecond),
       size: (() => {
         const size = Buffer.byteLength(JSON.stringify(backup));
-        return size > 1024 ? `${(size / 1024).toFixed(2)}KB` : `${size}B`;
+        return size > BYTES_IN_KILOBITE ? `${(size / BYTES_IN_KILOBITE).toFixed(2)}KB` : `${size}B`;
       })(),
       members: backup.members?.length ?? 0,
       channels: (backup.channels.categories.length + backup.channels.others.length + backup.channels.categories.reduce((acc, e) => acc + e.children.length, 0)) || 0,
@@ -103,12 +104,12 @@ module.exports = {
     {
       name: 'create',
       type: 'Subcommand',
-      cooldowns: { guild: msInSecond * secsInMinute * 30 } /* eslint-disable-line custom/sonar-no-magic-numbers */
+      cooldowns: { guild: msInSecond * secsInMinute * 30 } /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30mins */
     },
     {
       name: 'load',
       type: 'Subcommand',
-      cooldowns: { guild: msInSecond * secsInMinute * 5 }, /* eslint-disable-line custom/sonar-no-magic-numbers */
+      cooldowns: { guild: msInSecond * secsInMinute * 5 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers  -- 5mins */
       options: [
         {
           name: 'id',

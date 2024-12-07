@@ -4,7 +4,8 @@ const
 
   /** @type {import('.')['DiscordAPIErrorCodes']}*/
   DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json'),
-  maxPinnedMessages = 50;
+  { pinnedMessagesMaxAmt } = require('./constants'),
+  maxMessagesPerChannelLimit = 100;
 
 /** @type {import('.').BackupSystem.Utils['fetchToBase64']}*/
 async function fetchToBase64(url) {
@@ -53,7 +54,7 @@ async function fetchCategoryChildren(category, saveImages, maxMessagesPerChannel
 
 /** @type {import('.').BackupSystem.Utils['fetchChannelMessages']}*/
 async function fetchChannelMessages(channel, saveImages, maxMessagesPerChannel = 10) {
-  const messages = await channel.messages.fetch({ limit: Number.isNaN(Number.parseInt(maxMessagesPerChannel)) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: 100 }) });
+  const messages = await channel.messages.fetch({ limit: Number.isNaN(Number.parseInt(maxMessagesPerChannel)) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: maxMessagesPerChannelLimit }) });
 
   return Promise.all(
     messages.filter(e => e.author).map(async e => ({
@@ -184,7 +185,7 @@ async function loadChannelMessages(channel, messages, webhook, maxMessagesPerCha
         threadId: channel.isThread() ? channel.id : undefined
       });
 
-      if (msg.pinned && sentMsg.pinnable && (await channel.messages.fetchPinned()).size < maxPinnedMessages) await sentMsg.pin();
+      if (msg.pinned && sentMsg.pinnable && (await channel.messages.fetchPinned()).size < pinnedMessagesMaxAmt) await sentMsg.pin();
     }
     catch (err) { log.error('Backup load error:', err); }
   }

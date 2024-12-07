@@ -1,5 +1,7 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { msInSecond } = require('#Utils').timeFormatter,
+
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
 
 /**
@@ -42,7 +44,7 @@ module.exports = {
 
   async run(lang) {
     const
-      startTime = Math.round(Date.now() / 1000 - process.uptime()),
+      startTime = Math.round(Date.now() / msInSecond - process.uptime()),
       description
         = `${lang('dev')}: [Mephisto5558](https://discord.com/users/691550551825055775)\n` // Please do not change this line
         + (this.inGuild()

@@ -1,5 +1,5 @@
 const
-  { timeFormatter, daysInMonthMax, monthsInYear, secsInHour, hoursInDay, minutesInHour } = require('#Utils').timeFormatter,
+  { timeFormatter, daysInMonthMax, monthsInYear, secsInHour, hoursInDay, minutesInHour, msInSecond } = require('#Utils').timeFormatter,
 
   /** @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#interpretation_of_two-digit_years */
   DATE_START = 1900;
@@ -52,7 +52,7 @@ module.exports = {
       name: 'year',
       type: 'Integer',
       minValue: 0,
-      /* eslint-disable-next-line custom/sonar-no-magic-numbers -- max years*/
+      /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- max years*/
       maxValue: 2e5
     },
     {
@@ -85,7 +85,7 @@ module.exports = {
       minute = getInt('minute'),
       second = getInt('second'),
       date = day || month || year ? getTime(year, month, day, hour, minute, second) : new Date().setHours(hour, minute, second),
-      { formatted, negative } = timeFormatter({ sec: (date - Date.now()) / 1000, lang });
+      { formatted, negative } = timeFormatter({ sec: (date - Date.now()) / msInSecond, lang });
 
     return this.customReply(lang(negative ? 'untilNeg' : 'until', formatted));
   }

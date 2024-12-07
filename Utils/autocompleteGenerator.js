@@ -1,4 +1,4 @@
-const MAX_AUTOCOMPLETE_OPTIONS = 25;
+const { autocompleteOptionsMaxAmt } = require('./constants');
 
 /** @type {import('.').autocompleteGenerator}*/
 module.exports = function autocompleteGenerator(command, locale) {
@@ -24,7 +24,7 @@ module.exports = function autocompleteGenerator(command, locale) {
   if (Array.isArray(autocompleteOptions)) {
     return autocompleteOptions
       .filter(e => !this.focused.value || (typeof e == 'object' ? e.value.toLowerCase() : e.toLowerCase()).includes(this.focused.value.toLowerCase()))
-      .slice(0, MAX_AUTOCOMPLETE_OPTIONS).map(e => typeof e == 'object' ? e : response(e));
+      .slice(0, autocompleteOptionsMaxAmt).map(e => typeof e == 'object' ? e : response(e));
   }
 
   return [autocompleteOptions];

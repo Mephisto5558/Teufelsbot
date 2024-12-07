@@ -1,8 +1,7 @@
 const
   { Duration } = require('better-ms'),
-  { timeValidator } = require('#Utils'),
-  { secsInYear } = require('#Utils').timeFormatter,
-  MAX_YEAR_SECS = secsInYear * 1000 * 2e5; // eslint-disable-line custom/sonar-no-magic-numbers -- 200000y
+  { timeValidator, timeFormatter: { secsInYear, msInSecond } } = require('#Utils'),
+  MAX_YEAR_SECS = secsInYear * msInSecond * 2e5; // eslint-disable-line @typescript-eslint/no-magic-numbers -- 200000y
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -26,6 +25,6 @@ module.exports = {
     const time = this.createdTimestamp + offset;
     if (Math.abs(time) > MAX_YEAR_SECS) return this.customReply(lang('outOfRange'));
 
-    return this.customReply(lang('success', { time: Math.round(time / 1000) }));
+    return this.customReply(lang('success', { time: Math.round(time / msInSecond) }));
   }
 };

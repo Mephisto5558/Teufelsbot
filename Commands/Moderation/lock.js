@@ -1,9 +1,11 @@
-const { Constants } = require('discord.js');
+const
+  { Constants } = require('discord.js'),
+  { msInSecond } = require('#Utils').timeFormatter;
 
 /** @type {command<'both'>}*/
 module.exports = {
   permissions: { client: ['ManageRoles'], user: ['ManageRoles'] },
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   slashCommand: true,
   prefixCommand: true,
   options: [

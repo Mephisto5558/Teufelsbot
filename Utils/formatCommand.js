@@ -2,13 +2,13 @@
 const
   { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
   { resolve, dirname, basename } = require('node:path'),
-  { choicesMaxAmt, choiceValueMaxLength } = require('./constants');
+  { choicesMaxAmt, choiceValueMinLength, choiceValueMaxLength, descriptionMaxLength } = require('./constants');
 
 /** @type {import('.').formatCommand}*/
 module.exports = function formatCommand(option, path, id, i18n) {
   if ('options' in option) option.options = option.options.map(e => formatCommand(e, path, `${id}.options.${e.name}`, i18n));
 
-  if ('run' in option) option.name ??= id.split('.').last();
+  if ('run' in option) option.name ??= id.split('.').at(-1);
   if (/[A-Z]/.test(option.name)) {
     if (!option.disabled) log.error(`${option.name} (${id}) has uppercase letters! Fixing`);
     option.name = option.name.toLowerCase();
@@ -19,18 +19,18 @@ module.exports = function formatCommand(option, path, id, i18n) {
     option.choices = option.choices.map(e => typeof e == 'object' ? { ...e, __SCHandlerCustom: true } : { name: i18n.__({ undefinedNotFound: true }, `${id}.choices.${e}`) ?? e, value: e });
   if ('autocompleteOptions' in option) option.autocomplete = true;
 
-  if (option.description.length > 100) {
+  if (option.description.length > descriptionMaxLength) {
     if (!option.disabled) log.warn(`Description of option "${option.name}" (${id}.description) is too long (max length is 100)! Slicing.`);
-    option.description = option.description.slice(0, 100);
+    option.description = option.description.slice(0, descriptionMaxLength);
   }
 
   for (const [locale] of [...i18n.availableLocales].filter(([e]) => e != i18n.config.defaultLocale)) {
     option.descriptionLocalizations ??= {};
     const localizedDescription = i18n.__({ locale, undefinedNotFound: true }, `${id}.description`);
-    if (localizedDescription?.length > 100 && !option.disabled)
+    if (localizedDescription?.length > descriptionMaxLength && !option.disabled)
       log.warn(`"${locale}" description localization of option "${option.name}" (${id}.description) is too long (max length is 100)! Slicing.`);
 
-    if (localizedDescription) option.descriptionLocalizations[locale] = localizedDescription.slice(0, 100);
+    if (localizedDescription) option.descriptionLocalizations[locale] = localizedDescription.slice(0, descriptionMaxLength);
     else if (!option.disabled) log.warn(`Missing "${locale}" description localization for option "${option.name}" (${id}.description)`);
 
     if ('choices' in option) {
@@ -48,11 +48,11 @@ module.exports = function formatCommand(option, path, id, i18n) {
         if (!option.disabled && localizedChoice && !localizedChoice.length.inRange(1, choiceValueMaxLength + 1)) {
           log.warn(
             `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${id}.choices.${e.value}) is too `
-            + (localizedChoice.length < 2 ? 'short (min length is 2)! Using undefined.' : `long (max length is ${choiceValueMaxLength})! Slicing.`)
+            + (localizedChoice.length < choiceValueMinLength ? 'short (min length is 2)! Using undefined.' : `long (max length is ${choiceValueMaxLength})! Slicing.`)
           );
         }
 
-        if (localizedChoice && localizedChoice.length > 2) e.nameLocalizations[locale] = localizedChoice.slice(0, choiceValueMaxLength + 1);
+        if (localizedChoice && localizedChoice.length > choiceValueMinLength) e.nameLocalizations[locale] = localizedChoice.slice(0, choiceValueMaxLength + 1);
         else if (e.name != e.value && !option.disabled) log.warn(`Missing "${locale}" choice name localization for "${e.value}" in option "${option.name}" (${id}.choices.${e.value})`);
 
         return e;

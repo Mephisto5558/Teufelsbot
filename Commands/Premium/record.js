@@ -1,13 +1,14 @@
 const
   { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors } = require('discord.js'),
-  { access, mkdir } = require('node:fs/promises');
+  { access, mkdir } = require('node:fs/promises'),
+  { msInSecond } = require('#Utils').timeFormatter;
 
 // due to VoiceRecords being in .gitignore, we need this check
 access('./VoiceRecords/raw').catch(() => mkdir('./VoiceRecords/raw', { recursive: true }));
 
 /** @type {command<'slash'>}*/
 module.exports = {
-  cooldowns: { user: 1e4 },
+  cooldowns: { user: msInSecond * 10 },
   slashCommand: true,
   prefixCommand: false,
   options: [

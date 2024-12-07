@@ -2,13 +2,15 @@ const
   { appendFile, access, mkdir } = require('node:fs/promises'),
   { join } = require('node:path');
 
+/* eslint-disable @typescript-eslint/no-magic-numbers -- this is like an enum */
 const logLevels = {
   debug: 0,
   log: 1,
   info: 2,
-  warn: 3, /* eslint-disable-line custom/sonar-no-magic-numbers -- this is like an enum*/
+  warn: 3,
   error: 4
 };
+/* eslint-enable @typescript-eslint/no-magic-numbers */
 
 module.exports = class Log extends Function {
   constructor(logLevel = 'log', logFilesDir = './Logs') {

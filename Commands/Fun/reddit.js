@@ -2,8 +2,9 @@ const
   { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   fetch = require('node-fetch').default,
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
-  { constants: { embedMaxTitleLength, suffix }, timeFormatter: { secsInMinute } } = require('#Utils'),
-  CACHE_DELETE_TIME = secsInMinute * 5, // eslint-disable-line custom/sonar-no-magic-numbers -- 5min
+  { constants: { embedMaxTitleLength, suffix }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
+  CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
+  maxPercentage = 100,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
   cachedSubreddits = new Collection(),
   fetchPost = (/** @type { {children: { data: unknown }[] }}*/{ children }, filterNSFW = true) => {
@@ -29,7 +30,7 @@ const
 /** @type {command<'both', false>}*/
 module.exports = {
   usage: { examples: 'memes hot' },
-  cooldowns: { channel: 100 },
+  cooldowns: { channel: msInSecond / 10 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
@@ -95,7 +96,7 @@ module.exports = {
         title: post.title.length > embedMaxTitleLength ? post.title.slice(0, embedMaxTitleLength - suffix.length) + suffix : post.title,
         url: post.url,
         image: { url: /^https?:\/\//i.test(post.imageURL) ? post.imageURL : `https://reddit.com${post.imageURL}` },
-        footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * 100, downvotes: post.downvotes, comments: post.comments }) }
+        footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * maxPercentage, downvotes: post.downvotes, comments: post.comments }) }
       }).setColor('Random'),
       component = new ActionRowBuilder({
         components: [

@@ -1,11 +1,11 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   { getHashes, createHash } = require('node:crypto'),
-  { embedDescriptionMaxLength } = require('#Utils').constants;
+  { constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
 /** @type {command<'slash', false>}*/
 module.exports = {
-  cooldowns: { user: 1e4 },
+  cooldowns: { user: msInSecond },
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,

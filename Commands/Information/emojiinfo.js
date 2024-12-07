@@ -1,6 +1,7 @@
 const
   { parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
+  { msInSecond } = require('#Utils').timeFormatter,
   emojiURLRegex = /https:\/\/cdn\.discordapp\.com\/emojis\/(?<id>\d+)/;
 
 /** @type {command<'both'>}*/
@@ -35,7 +36,7 @@ module.exports = {
           { name: lang('animated'), value: lang(`global.${emoji.animated}`), inline: true },
           { name: lang('creator'), value: (await emoji.fetchAuthor?.())?.username ?? lang('global.unknownUser'), inline: true },
           { name: lang('available'), value: emoji.available ? lang(`global.${emoji.available}`) : lang('global.unknown'), inline: true },
-          { name: lang('createdAt'), value: emoji.createdTimestamp ? `<t:${Math.round(emoji.createdTimestamp / 1000)}>` : lang('global.unknown'), inline: true }
+          { name: lang('createdAt'), value: emoji.createdTimestamp ? `<t:${Math.round(emoji.createdTimestamp / msInSecond)}>` : lang('global.unknown'), inline: true }
         ]
       }),
       component = new ActionRowBuilder({

@@ -103,7 +103,7 @@
     "invalidURL": "Die angegebene URL ist ungültig!",
     "msgNotFound": "Die angegebene Nachrichten-ID wurde in diesem Kanal nicht gefunden!",
     "botIsNotAuthor": "Ich kann nur meine eigenen Nachrichten bearbeiten!",
-    "buttonLimit": "Eine Nachricht kann nicht mehr als 5 Reihen oder 25 Buttons haben!",
+    "buttonLimitReached": "Eine Nachricht kann nicht mehr als 5 Reihen oder 25 Buttons haben!",
     "invalidOption": "**Eine der angegebenen Optionen ist ungültig!**\n\n```{err}```",
     "invalidJSON": "**Dein JSON ist ungültig!**\n\n```{err}```",
     "successJSON": "Dein Button wurde gesendet!",

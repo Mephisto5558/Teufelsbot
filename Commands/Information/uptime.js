@@ -1,10 +1,10 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  { timeFormatter } = require('#Utils').timeFormatter;
+  { timeFormatter, msInSecond } = require('#Utils').timeFormatter;
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  cooldowns: { channel: 100 },
+  cooldowns: { channel: msInSecond / 10 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

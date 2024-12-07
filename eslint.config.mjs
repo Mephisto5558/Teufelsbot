@@ -1,4 +1,4 @@
-import config, { plugins } from '@mephisto5558/eslint-config';
+import config from '@mephisto5558/eslint-config';
 
 /**
  * @type { import('eslint').Linter.Config[] }
@@ -6,7 +6,12 @@ import config, { plugins } from '@mephisto5558/eslint-config';
 export default [
   ...config,
   {
-    ignores: ['Templates/**']
+    name: 'templates',
+    files: ['Templates/*.{js,ts}'],
+    rules: {
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-unused-vars': 'off'
+    }
   },
   {
     name: 'overwrite',

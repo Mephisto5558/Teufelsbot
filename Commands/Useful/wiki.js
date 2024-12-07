@@ -3,15 +3,14 @@ const
   /** @type {import('../../node_modules/wikijs/index')}*/
   { default: wikiInit } = require('wikijs'),
   { EmbedBuilder, Colors } = require('discord.js'),
-  { embedFieldMaxAmt, messageMaxLength } = require('#Utils').constants,
+  { constants: { embedFieldMaxAmt, messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
   MAX_MSGS = 9;
 
 /** @type {command<'both', false>}*/
 module.exports = {
   usage: { examples: 'discord' },
   aliases: { prefix: ['wikipedia'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { channel: 100, user: 200 },
+  cooldowns: { channel: msInSecond / 10, user: msInSecond / 10 * 2 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
@@ -53,7 +52,7 @@ module.exports = {
           /** @type {string} */
           let value;
           if (Array.isArray(v)) value = v.join(', ');
-          else if (typeof v == 'object') value = v.date instanceof Date ? `<t:${Math.round(v.date.getTime() / 1000)}>` : JSON.stringify(v, undefined, 2);
+          else if (typeof v == 'object') value = v.date instanceof Date ? `<t:${Math.round(v.date.getTime() / msInSecond)}>` : JSON.stringify(v, undefined, 2);
           else if (typeof v == 'boolean') value = lang(`global.${v}`);
           else value = images.find(e => e.includes(v.toString().replaceAll(' ', '_'))) ?? v.toString(); // note: possibly not a string, but weren't able to type it all
 
@@ -71,7 +70,7 @@ module.exports = {
 
     const msgs = summary.split('\n')
       .flatMap(e => {
-        if (e.length < 1000) return [e];
+        if (e.length < messageMaxLength) return [e];
 
         const halfIndex = Math.floor(e.length / 2);
         const lastIndexBeforeHalf = e.lastIndexOf('.', halfIndex) + 1 || halfIndex;
@@ -79,7 +78,7 @@ module.exports = {
         return [e.slice(0, lastIndexBeforeHalf), e.slice(lastIndexBeforeHalf)];
       })
       .reduce((acc, e, i, arr) => {
-        const accItem = acc.last();
+        const accItem = acc.at(-1);
 
         if (accItem && accItem.length + (arr[i + 1]?.length ?? 0) > messageMaxLength) acc.push(`${e}\n`);
         else acc.splice(-1, 1, `${accItem}${e}\n`);

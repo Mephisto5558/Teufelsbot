@@ -1,6 +1,7 @@
 const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  fetch = require('node-fetch').default;
+  fetch = require('node-fetch').default,
+  { msInSecond } = require('#Utils').timeFormatter;
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -8,7 +9,7 @@ module.exports = {
     usage: '["en" | "de"]',
     examples: 'fact en'
   },
-  cooldowns: { channel: 100 },
+  cooldowns: { channel: msInSecond / 10 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

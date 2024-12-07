@@ -1,10 +1,9 @@
-const { getTargetMember, constants: { memberNameMaxLength } } = require('#Utils');
+const { getTargetMember, constants: { memberNameMinLength, memberNameMaxLength }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils');
 
 /** @type {command<'both', false>}*/
 module.exports = {
   aliases: { prefix: ['custom-name'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { user: 3e4 },
+  cooldowns: { user: msInSecond * secsInMinute / 2 }, // 30s
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
@@ -17,8 +16,8 @@ module.exports = {
         {
           name: 'name',
           type: 'String',
-          minLength: 2,
-          maxLength: 32,
+          minLength: memberNameMinLength,
+          maxLength: memberNameMaxLength,
           required: true
         },
         { name: 'global', type: 'Boolean' }

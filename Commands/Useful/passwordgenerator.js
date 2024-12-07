@@ -1,4 +1,5 @@
 const
+  { msInSecond } = require('#Utils').timeFormatter,
   DEFAULT_CHARSET = [String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\=*'"#*(){}[]`],
   DEFAULT_PASSWORD_LENGTH = 12,
   MAX_PASSWORD_LENGTH = 1750,
@@ -17,7 +18,7 @@ const getRandomChar = (charset, lastRandomChar) => charset.filter(e => e !== las
 
 /** @type {command<'slash', false>}*/
 module.exports = {
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,
@@ -55,7 +56,7 @@ module.exports = {
       let lastRandomChar;
       if (passwordList.length + length > MAX_MESSAGE_LENGTH) break;
 
-      /* eslint-disable-next-line sonarjs/no-hardcoded-credentials -- false positive*/
+      /* eslint-disable-next-line sonarjs/no-hardcoded-passwords -- false positive*/
       passwordList += '```';
 
       for (let i = 0; i < length; i++) {
@@ -67,7 +68,7 @@ module.exports = {
         lastRandomChar = randomChar; // Sets lastRandomChar to the last generated char
       }
 
-      /* eslint-disable-next-line sonarjs/no-hardcoded-credentials -- false positive*/
+      /* eslint-disable-next-line sonarjs/no-hardcoded-passwords -- false positive*/
       passwordList += '```\n';
     }
 

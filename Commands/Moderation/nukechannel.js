@@ -1,13 +1,13 @@
 const
   { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
-  { getTargetChannel } = require('#Utils'),
+  { getTargetChannel, timeFormatter: { msInSecond } } = require('#Utils'),
   collectorTimeout = 3e4;
 
 /** @type {command<'both'>}*/
 module.exports = {
   aliases: { prefix: ['clearchannel'], slash: ['clearchannel'] },
   permissions: { client: ['ManageChannels'], user: ['ManageGuild', 'ManageChannels'] },
-  cooldowns: { guild: 1e4, user: 1000 },
+  cooldowns: { guild: msInSecond * 10, user: msInSecond * 10 },
   slashCommand: true,
   prefixCommand: true,
   options: [{

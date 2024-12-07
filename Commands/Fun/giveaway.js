@@ -1,7 +1,7 @@
 const
   { Constants, PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
-  { timeValidator } = require('#Utils'),
+  { timeValidator, timeFormatter: { msInSecond } } = require('#Utils'),
 
   /**
    * @typedef {{ bonusEntries?: Record<string, string>[], requiredRoles?: string[], disallowedMembers?: string[], duration?: number, giveawayId?: string }}options
@@ -103,7 +103,7 @@ const
 /** @type {command<'slash'>}*/
 module.exports = {
   permissions: { user: ['ManageMessages'] },
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   slashCommand: true,
   prefixCommand: false,
   ephemeralDefer: true,

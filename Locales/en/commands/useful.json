@@ -103,7 +103,7 @@
     "invalidURL": "The provided URL is invalid!",
     "msgNotFound": "The message id you provided was not found in this channel!",
     "botIsNotAuthor": "I can only edit my own messages!",
-    "buttonLimit": "A message cannot have more then 5 rows or 25 buttons!",
+    "buttonLimitReached": "A message cannot have more then 5 rows or 25 buttons!",
     "invalidOption": "**One of your options is invalid!**\n\n```{err}```",
     "invalidJSON": "**Your JSON is invalid!**\n\n```{err}```",
     "successJSON": "Your button has been sent!",

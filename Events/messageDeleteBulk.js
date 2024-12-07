@@ -16,11 +16,11 @@ module.exports = async function messageDeleteBulk(channel) {
   if (!channelToSend || channelToSend.permissionsFor(channel.guild.members.me).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length)
     return;
 
-  await sleep(1000); // Makes sure the audit log gets created before trying to fetch it
+  await sleep(msInSecond); // Makes sure the audit log gets created before trying to fetch it
 
   const
     { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageBulkDelete })).entries
-      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < msInSecond * 20) ?? {}, // eslint-disable-line custom/sonar-no-magic-numbers
+      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < msInSecond * 20) ?? {}, // eslint-disable-line @typescript-eslint/no-magic-numbers
 
     /** @type {lang} */
     lang = channel.client.i18n.__.bBind(channel.client.i18n, { locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),

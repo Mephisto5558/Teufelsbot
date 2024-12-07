@@ -1,12 +1,12 @@
 const
-  { ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
-  { getTargetMember, getAge, permissionTranslator } = require('#Utils');
+  { getTargetMember, getAge, permissionTranslator, timeFormatter: { msInSecond } } = require('#Utils');
 
 /** @type {command<'both'>}*/
 module.exports = {
   aliases: { prefix: ['user-info'] },
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   slashCommand: true,
   prefixCommand: true,
   options: [{ name: 'target', type: 'User' }],
@@ -48,8 +48,8 @@ module.exports = {
           { name: lang('position'), value: `\`${this.guild.roles.highest.position - member.roles.highest.position + 1}\`, ${member.roles.highest.toString()}`, inline: true },
           { name: lang('roles'), value: `\`${member.roles.cache.size}\``, inline: true },
           { name: lang('color'), value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.slice(1)})`, inline: true },
-          { name: lang('createdAt'), value: `<t:${Math.round(member.user.createdTimestamp / 1000)}>`, inline: true },
-          { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / 1000)}>`, inline: true }
+          { name: lang('createdAt'), value: `<t:${Math.round(member.user.createdTimestamp / msInSecond)}>`, inline: true },
+          { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / msInSecond)}>`, inline: true }
 
         ]
       }),
@@ -58,13 +58,13 @@ module.exports = {
           new ButtonBuilder({
             label: lang('downloadAvatar'),
             style: ButtonStyle.Link,
-            url: member.displayAvatarURL({ size: 2048 })
+            url: member.displayAvatarURL({ size: ALLOWED_SIZES.at(-1) })
           })
         ]
       })];
 
-    if (birthday) embed.data.fields.push({ name: lang('birthday'), value: `<t:${Math.round(birthday.getTime() / 1000)}:D> (${getAge(birthday)})`, inline: true });
-    if (member.isCommunicationDisabled()) embed.data.fields.push({ name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / 1000)}>`, inline: true });
+    if (birthday) embed.data.fields.push({ name: lang('birthday'), value: `<t:${Math.round(birthday.getTime() / msInSecond)}:D> (${getAge(birthday)})`, inline: true });
+    if (member.isCommunicationDisabled()) embed.data.fields.push({ name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / msInSecond)}>`, inline: true });
     if (member.user.flags.bitfield) {
       embed.data.fields.push({
         name: lang('flags.name'), inline: false,

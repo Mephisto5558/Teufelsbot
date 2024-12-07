@@ -7,8 +7,9 @@ module.exports = {
   async onTick() {
 
   },
+
   /** @this {Client}*/
   async onComplete() {
-    
+
   }
 };

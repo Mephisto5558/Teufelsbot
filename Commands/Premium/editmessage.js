@@ -1,13 +1,12 @@
 const
   { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js'),
-  { DiscordApiErrorCodes, constants: { messageMaxLength, msInSecond } } = require('#Utils'),
-  MODALSUBMIT_TIMEOUT = msInSecond * 30; /* eslint-disable-line custom/sonar-no-magic-numbers */
+  { DiscordApiErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
+  MODALSUBMIT_TIMEOUT = msInSecond * secsInMinute / 2; // 30s
 
 /** @type {command<'slash'>}*/
 module.exports = {
   permissions: { user: ['ManageMessages'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { user: 5000 },
+  cooldowns: { user: msInSecond * 5 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
   slashCommand: true,
   prefixCommand: false,
   noDefer: true,

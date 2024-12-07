@@ -12,13 +12,15 @@ const
   secsInDay = secsInHour * hoursInDay,
   secsInWeek = secsInDay * daysInWeek,
   secsInMonth = secsInDay * daysInMonthAvg,
-  secsInYear = secsInDay * daysInYear;
+  secsInYear = secsInDay * daysInYear,
+  YEAR_STR_LENGTH = 4,
+  DATETIME_STR_LENGTH = 2;
 
 /**
  * @type {import('.').timeFormatter['timeFormatter']}*/
 function timeFormatter({ sec = 0, lang } = {}) {
   const
-    total = sec * 1000,
+    total = sec * msInSecond,
     negative = sec < 0;
 
   sec = Math.abs(sec);
@@ -43,7 +45,8 @@ function timeFormatter({ sec = 0, lang } = {}) {
   return {
     total, negative,
     formatted: lang?.(id, { year, day, hour, minute, second })
-      ?? `${year.toString().padStart(4, '0')}-${day.toString().padStart(2, '0')}, ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`
+      ?? `${year.toString().padStart(YEAR_STR_LENGTH, '0')}-${day.toString().padStart(DATETIME_STR_LENGTH, '0')}, `
+      + `${hour.toString().padStart(DATETIME_STR_LENGTH, '0')}:${minute.toString().padStart(DATETIME_STR_LENGTH, '0')}:${second.toString().padStart(DATETIME_STR_LENGTH, '0')}`
   };
 }
 

@@ -1,6 +1,7 @@
 const
   { ConnectionString } = require('mongodb-connection-string-url'),
   { writeFileSync } = require('node:fs'),
+  configPath = require('node:path').resolve(process.cwd(), 'config.json'),
   validConfig = {
     devIds: 'object', // set<string>
     website: {
@@ -71,7 +72,7 @@ function configValidationLoop(obj, checkObj, allowNull) {
 /** @type {import('.').configValidator.validateConfig}*/
 function validateConfig() {
   // prototypeRegisterer makes sure the file exists
-  configValidationLoop(require('../config.json'), validConfig, true);
+  configValidationLoop(require(configPath), validConfig, true);
 
   /** @type {import('../types/locals').EnvJSON}*/
   const env = require('../env.json');
@@ -86,12 +87,12 @@ function validateConfig() {
 function setDefaultConfig() {
   /** @type {Partial<Client['config']>} */
   let config;
-  try { config = require('../config.json'); }
+  try { config = require(configPath); }
   catch (err) {
     if (err.code != 'MODULE_NOT_FOUND') throw err;
     log.warn('Missing config.json. This file is required to run the bot.');
 
-    writeFileSync('./config.json', '{}');
+    writeFileSync(configPath, '{}');
     config = {};
 
     log.warn('An empty config.json has been created.');

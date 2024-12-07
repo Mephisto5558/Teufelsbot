@@ -85,7 +85,7 @@
     "invalidURL": "L'URL fournie est invalide !",
     "msgNotFound": "L'identifiant du message que vous avez fourni n'a pas été trouvé dans ce salon !",
     "botIsNotAuthor": "Je ne peux modifier que mes propres messages!",
-    "buttonLimit": "Un message ne peut pas avoir plus de 5 lignes ou 25 boutons !",
+    "buttonLimitReached": "Un message ne peut pas avoir plus de 5 lignes ou 25 boutons !",
     "invalidOption": "**Une de vos options est invalide !**\n\n```{err}```",
     "invalidJSON": "**Votre JSON est invalide !**\n\n```{err}```",
     "successJSON": "Votre bouton a été envoyé !",

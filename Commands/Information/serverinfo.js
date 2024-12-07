@@ -1,11 +1,12 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Guild } = require('discord.js'),
-  { getAverageColor } = require('fast-average-color-node');
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Guild, ALLOWED_SIZES } = require('discord.js'),
+  { getAverageColor } = require('fast-average-color-node'),
+  { msInSecond } = require('#Utils').timeFormatter;
 
 /** @type {command<'both'>}*/
 module.exports = {
   aliases: { prefix: ['server-info', 'guildinfo', 'guild-info'] },
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   slashCommand: true,
   prefixCommand: true,
   options: [{
@@ -33,7 +34,7 @@ module.exports = {
         description: guild.description,
         color: guild.icon ? Number.parseInt((await getAverageColor(guild.iconURL())).hex.slice(1), 16) : Colors.White,
         thumbnail: { url: guild.iconURL() },
-        image: { url: guild.bannerURL({ size: 1024 }) },
+        image: { url: guild.bannerURL({ size: ALLOWED_SIZES.at(-3) }) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 3rd largest resolution */
         fields: [
           guild instanceof Guild && { name: lang('members'), value: lang('memberStats', {
             all: guild.memberCount,
@@ -41,7 +42,7 @@ module.exports = {
           }), inline: true },
           { name: lang('verificationLevel.name'), value: lang(`verificationLevel.${guild.verificationLevel}`), inline: true },
           { name: lang('id'), value: `\`${guild.id}\``, inline: true },
-          { name: lang('createdAt'), value: `<t:${Math.round(guild.createdTimestamp / 1000)}>`, inline: true },
+          { name: lang('createdAt'), value: `<t:${Math.round(guild.createdTimestamp / msInSecond)}>`, inline: true },
           guild instanceof Guild && { name: lang('defaultNotifications.name'), value: lang(`defaultNotifications.${guild.defaultMessageNotifications}`), inline: true },
           guild instanceof Guild && { name: lang('owner'), value: `<@${guild.ownerId}>`, inline: true },
           guild instanceof Guild && { name: lang('locale'), value: guild.preferredLocale, inline: true },
@@ -69,7 +70,7 @@ module.exports = {
       components[0].components.push(new ButtonBuilder({
         label: lang('downloadIcon'),
         style: ButtonStyle.Link,
-        url: guild.iconURL({ size: 2048 })
+        url: guild.iconURL({ size: ALLOWED_SIZES.at(-2) }) /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 2nd largest resolution */
       }));
     }
 
@@ -77,7 +78,7 @@ module.exports = {
       components[0].components.push(new ButtonBuilder({
         label: lang('downloadBanner'),
         style: ButtonStyle.Link,
-        url: guild.bannerURL({ size: 2048 })
+        url: guild.bannerURL({ size: ALLOWED_SIZES.at(-2) }) /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 2nd largest resolution */
       }));
     }
 

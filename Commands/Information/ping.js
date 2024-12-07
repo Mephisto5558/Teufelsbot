@@ -1,8 +1,12 @@
-const { EmbedBuilder, Colors } = require('discord.js');
+const
+  { EmbedBuilder, Colors } = require('discord.js'),
+  { msInSecond } = require('#Utils').timeFormatter,
+  maxPercentage = 100,
+  embedUpdateSecs = 4;
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  cooldowns: { channel: 1000 },
+  cooldowns: { channel: msInSecond },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
@@ -17,8 +21,8 @@ module.exports = {
         title: lang('embedTitle'),
         description: lang(
           average ? 'average.loading' : 'global.loading',
-          { emoji: getEmoji('loading'), current: 1, target: maxPings, timestamp: Math.floor(Date.now() / 1000) + 4 }
-        ), // 4 due to the moment it takes to update the embed
+          { emoji: getEmoji('loading'), current: 1, target: maxPings, timestamp: Math.floor(Date.now() / msInSecond) + embedUpdateSecs }
+        ),
         color: Colors.Green
       }),
       startFirstMessagePing = performance.now(),
@@ -38,23 +42,23 @@ module.exports = {
         wsPings.push(this.client.ws.ping);
 
         const startMessagePing = performance.now();
-        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: i, target: maxPings, timestamp: Math.floor(Date.now() / 1000) + 4 }))] });
+        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: i, target: maxPings, timestamp: Math.floor(Date.now() / msInSecond) + embedUpdateSecs }))] });
         msgPings.push(performance.now() - startMessagePing);
       }
 
-      const duration = Number.parseFloat(((performance.now() - pingStart) / 1000).toFixed(2));
+      const duration = Number.parseFloat(((performance.now() - pingStart) / msInSecond).toFixed(2));
 
       wsPings = wsPings.filter(e => e > 0);
       wsPings.sort((a, b) => a - b);
       msgPings.sort((a, b) => a - b);
 
-      const averageWsPing = Math.round(wsPings.reduce((a, b) => a + b, 0) / maxPings * 100) / 100;
-      const averageMsgPing = Math.round(msgPings.reduce((a, b) => a + b, 0) / maxPings * 100) / 100;
+      const averageWsPing = Math.round(wsPings.reduce((a, b) => a + b, 0) / maxPings * maxPercentage) / maxPercentage;
+      const averageMsgPing = Math.round(msgPings.reduce((a, b) => a + b, 0) / maxPings * maxPercentage) / maxPercentage;
 
       embed.data.description = lang('average.embedDescription', {
         duration,
-        pings: wsPings.length, wsLowest: wsPings[0], wsHighest: wsPings.last(), wsAverage: averageWsPing,
-        msgLowest: msgPings[0].toFixed(2), msgHighest: msgPings.last().toFixed(2), msgAverage: averageMsgPing
+        pings: wsPings.length, wsLowest: wsPings[0], wsHighest: wsPings.at(-1), wsAverage: averageWsPing,
+        msgLowest: msgPings[0].toFixed(2), msgHighest: msgPings.at(-1).toFixed(2), msgAverage: averageMsgPing
       });
     }
     else {

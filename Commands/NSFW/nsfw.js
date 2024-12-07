@@ -1,12 +1,14 @@
 const
   { randomInt } = require('node:crypto'),
   { EmbedBuilder } = require('discord.js'),
-  fetch = require('node-fetch');
+  fetch = require('node-fetch'),
+  { msInSecond } = require('#Utils').timeFormatter,
+  secretChance = 1e4; // 1 in 10_000
 
 /** @type {command<'both'>}*/
 module.exports = {
   usage: { examples: 'hentai' },
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   slashCommand: true,
   prefixCommand: true,
   ephemeralDefer: true,
@@ -30,7 +32,7 @@ module.exports = {
 
     const embed = new EmbedBuilder({ color: data.color, image: { url: data.message } });
 
-    if (!randomInt(1e4)) embed.data.title = lang('embedTitle');
+    if (!randomInt(secretChance)) embed.data.title = lang('embedTitle');
 
     return this.customReply({ embeds: [embed] });
   }

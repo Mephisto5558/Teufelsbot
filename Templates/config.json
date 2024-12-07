@@ -1,5 +1,7 @@
 {
-  "devIds": ["Array of discord user IDs. the application owner will always be in here."],
+  "devIds": [
+    "Array of discord user IDs. the application owner will always be in here."
+  ],
   "website": {
     "baseDomain": "Domain URL without port (if empty uses localhost)",
     "domain": "Full Domain URL (if empty uses localhost)",
@@ -17,7 +19,7 @@
     "Array of folder names which contain owner-only commands. Case insensitive. Defaults to 'owner-only'"
   ],
   "discordInvite": "Support Server URL. Optional",
-  "mailAddress":"Support Mail address. Optional",
+  "mailAddress": "Support Mail address. Optional",
   "hideOverwriteWarning": "Boolean. Hides the \"Overwriting following variables and functions\" warning, Defaults to false",
   "hideNonBetaCommandLog": "Boolean. Hides the info that a non-beta slash command has been skipped. Defaults to false",
   "hideDisabledCommandLog": "Boolean. Hides the info that a disabled command has been loaded to client.prefixCommands/client.slashCommands. Defaults to false",

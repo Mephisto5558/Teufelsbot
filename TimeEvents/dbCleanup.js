@@ -27,9 +27,6 @@ async function backupDBs() {
  * @param {string}guildId
  * @param {Database['guildSettings'][Snowflake] | undefined}db*/
 async function cleanupGuildsDB(guildId, db) {
-  if (this.guilds.cache.get(guildId) && (!db || !(!db.leftAt || db.leftAt.getTime() < getOneYearAgo())))
-    throw new Error(`This should never happen: tried to delete a guild DB while the bot is still in the guild | ${guildId} | ${JSON.stringify(db)}`); // TODO: remove after 1st December 2024
-
   if (!db) return this.db.delete('guildSettings', guildId);
   if (!db.leftAt || db.leftAt.getTime() < getOneYearAgo()) return;
 

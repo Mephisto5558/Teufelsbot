@@ -1,9 +1,10 @@
 const
   { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
-  { getTargetMember, constants: { embedDescriptionMaxLength } } = require('#Utils'),
-  { mgStats_formatTopTen: formatTopTen } = require('#Utils/componentHandler'),
+  { getTargetMember, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
   sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
-  TOPLIST_MAX_USERS = 3;
+  TOPLIST_MAX_USERS = 3,
+  maxPercentage = 100;
 
 /**
  * @this {GuildInteraction | Message<true>}
@@ -30,13 +31,13 @@ function formatStatCount(input, all) {
   if (!Number.parseInt(input)) return '`0`';
   if (!Number.parseInt(all) && all != 0) throw new SyntaxError(`arg all must be typeof Number (and not NaN)! Got "${typeof all}"`);
 
-  return `\`${input}\`` + (all ? `(\`${Number.parseFloat((input / all * 100).toFixed(2))}%\`)` : '');
+  return `\`${input}\`` + (all ? `(\`${Number.parseFloat((input / all * maxPercentage).toFixed(2))}%\`)` : '');
 }
 
 /** @type {command<'both'>}*/
 module.exports = {
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   slashCommand: true,
   prefixCommand: true,
   options: [
@@ -123,7 +124,7 @@ module.exports = {
     await this.guild.members.fetch();
 
     embed.data.title = lang('embedTitleTop10', game);
-    embed.data.description = formatTopTen.call(
+    embed.data.description = formatTop.call(
       this, Object.keys(data).filter(e => settings == 'all_users' || this.guild.members.cache.has(e)), sort, mode, lang, embedDescriptionMaxLength
     ) || lang('noPlayers');
 

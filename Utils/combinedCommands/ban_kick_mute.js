@@ -21,11 +21,11 @@ module.exports = async function ban_kick_mute(lang) {
     reason = this.options.getString('reason', true);
 
   if (muteDuration) {
-    muteDuration = getMilliseconds(muteDuration).limit?.({ min: msInSecond * secsInMinute, max: msInSecond * secsInDay * 28 }); // eslint-disable-line custom/sonar-no-magic-numbers -- 28d
+    muteDuration = getMilliseconds(muteDuration).limit?.({ min: msInSecond * secsInMinute, max: msInSecond * secsInDay * 28 }); // eslint-disable-line @typescript-eslint/no-magic-numbers -- 28d
     if (!muteDuration || typeof muteDuration == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
 
     muteDurationMs = muteDuration + Date.now();
-    muteDuration = Math.round(muteDurationMs / 1000);
+    muteDuration = Math.round(muteDurationMs / msInSecond);
   }
 
   const

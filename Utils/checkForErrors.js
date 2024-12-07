@@ -1,15 +1,12 @@
 const
   { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction } = require('discord.js'),
-
-  /** @type {import('.').autocompleteGenerator}*/
-  autocompleteGenerator = require('./autocompleteGenerator.js'),
+  /** @type {import('.').autocompleteGenerator}*/autocompleteGenerator = require('./autocompleteGenerator.js'),
   cooldowns = require('./cooldowns.js'),
+  /** @type {import('.').permissionTranslator}*/ permissionTranslator = require('./permissionTranslator.js'),
+  /** @type {import('.')['timeFormatter']}*/{ msInSecond } = require('./timeFormatter'),
+  /** @type {import('.')['DiscordAPIErrorCodes']}*/DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
+  PERM_ERR_MSG_DELETETIME = msInSecond * 10,
 
-  /** @type {import('.').permissionTranslator}*/
-  permissionTranslator = require('./permissionTranslator.js'),
-
-  /** @type {import('.')['DiscordAPIErrorCodes']}*/
-  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
   isValidType =/** @param {Message|import('discord.js').BaseInteraction}type*/ type => type instanceof Message || type.isChatInputCommand();
 
 /**
@@ -95,7 +92,7 @@ async function checkPerms(command, lang) {
       if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
     }
   }
-  else await this.customReply({ embeds: [embed], ephemeral: true }, this instanceof Message ? 1e4 : 0);
+  else await this.customReply({ embeds: [embed], ephemeral: true }, this instanceof Message ? PERM_ERR_MSG_DELETETIME : 0);
 
   return true;
 }

@@ -1,5 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
+  { msInSecond } = require('./timeFormatter'),
   cooldowns = require('./cooldowns.js'),
 
   /** @type {import('.').errorHandler}*/
@@ -10,7 +11,7 @@ const
 module.exports = async function messageComponentHandler(lang) {
   const
     [feature, id, mode, data, ...args] = this.customId.split('.'),
-    cooldown = cooldowns.call(this, `buttonPressEvent.${this.message.id}`, { user: 1000 }),
+    cooldown = cooldowns.call(this, `buttonPressEvent.${this.message.id}`, { user: msInSecond }),
     command = this.client.slashCommands.get(feature) ?? this.client.prefixCommands.get(feature) ?? { name: feature, aliasOf: undefined },
     disabledList = this.guild?.db.config.commands?.[command.aliasOf ?? command.name]?.disabled ?? {};
 

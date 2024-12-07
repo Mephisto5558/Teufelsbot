@@ -1,11 +1,12 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   fetch = require('node-fetch').default,
+  { msInSecond, secsInDay } = require('#Utils').timeFormatter,
 
   /** @type {Client['config']} */
-  { github: ghConfig = {} } = require('../../config.json'),
+  { github: ghConfig = {} } = require(require('node:path').resolve(process.cwd(), 'config.json')),
 
-  CACHE_TIMEOUT = 432e5, // 12h
+  CACHE_TIMEOUT = msInSecond * secsInDay / 2, // 12h
   MAX_COMMIT_LENGTH = 100,
   suffix = '...';
 
@@ -42,7 +43,7 @@ async function getCommits() {
 /** @type {command<'both', false>}*/
 module.exports = {
   aliases: { prefix: ['changelogs'] },
-  cooldowns: { channel: 1e4 },
+  cooldowns: { channel: msInSecond * 10 },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

@@ -1,11 +1,11 @@
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
-  { getTargetChannel, getTargetMember, constants: { embedDescriptionMaxLength } } = require('#Utils');
+  { getTargetChannel, getTargetMember, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
 /** @type {command<'both'>}*/
 module.exports = {
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { guild: 200, user: 1e4 },
+  /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
+  cooldowns: { guild: 200, user: msInSecond * 10 },
   slashCommand: true,
   prefixCommand: true,
   ephemeralDefer: true,

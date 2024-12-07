@@ -1,4 +1,6 @@
-const { randomInt } = require('node:crypto');
+const
+  { randomInt } = require('node:crypto'),
+  defaultMaxNum = 100;
 
 /** @type {command<'both', false>}*/
 module.exports = {
@@ -21,7 +23,7 @@ module.exports = {
     if (min > max) [min, max] = [max, min];
 
     if (Number.isNaN(min)) min = 0;
-    if (Number.isNaN(max) || min == max && min == 0) max = 100;
+    if (Number.isNaN(max) || min == max && min == 0) max = defaultMaxNum;
 
     try {
       const randomNumber = randomInt(min, max + 1).toLocaleString(lang.__boundArgs__[0].locale);

@@ -1,6 +1,6 @@
 const
-  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors } = require('discord.js'),
-  { embedFieldValueMaxLength, suffix } = require('#Utils').constants,
+  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors, ALLOWED_SIZES } = require('discord.js'),
+  { constants: { embedFieldValueMaxLength, suffix }, timeFormatter: { msInSecond } } = require('#Utils'),
   PURPLE = 0x822AED,
   AUDITLOG_FETCHLIMIT = 6,
   TWENTY_SEC = 2e4;
@@ -61,7 +61,7 @@ module.exports = async function messageDelete() {
   if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length)
     return;
 
-  await sleep(1000); // Make sure the audit log gets created before trying to fetch it
+  await sleep(msInSecond); // Make sure the audit log gets created before trying to fetch it
 
   lang.__boundArgs__[0].backupPath = 'events.logger';
 
@@ -70,7 +70,7 @@ module.exports = async function messageDelete() {
       .find(e => (!this.user || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
-      thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: 128 }) } : undefined,
+      thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: ALLOWED_SIZES[3] }) } : undefined, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 3rd valid resolution */
       description: lang('messageDelete.embedDescription', { executor: executor ? `<@${executor.id}>` : lang('someone'), channel: this.channel.name }),
       fields: [
         { name: lang('global.channel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: true },
@@ -80,7 +80,7 @@ module.exports = async function messageDelete() {
       color: PURPLE
     });
 
-  const field = embed.data.fields.last();
+  const field = embed.data.fields.at(-1);
   if (this.originalContent) field.value += `${this.originalContent}\n`;
   if (this.attachments.size) field.value += this.attachments.map(e => `[${e.url}](${e.name})`).join(', ') + '\n';
   if (this.embeds.length) field.value += lang('embeds', this.embeds.length) + '\n';

@@ -1,11 +1,11 @@
 const
-  { getTargetMember } = require('#Utils'),
+  { getTargetMember, timeFormatter: { msInSecond } } = require('#Utils'),
   { rps_sendChallenge: sendChallenge } = require('#Utils/componentHandler');
 
 /** @type {command<'both'>}*/
 module.exports = {
   aliases: { prefix: ['rockpaperscissors'] },
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   slashCommand: true,
   prefixCommand: true,
   options: [{ name: 'opponent', type: 'User' }],

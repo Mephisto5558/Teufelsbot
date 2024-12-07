@@ -1,10 +1,10 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES } = require('discord.js'),
-  { getTargetMember } = require('#Utils');
+  { getTargetMember, timeFormatter: { msInSecond } } = require('#Utils');
 
 /** @type {command<'both', false>}*/
 module.exports = {
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
@@ -20,7 +20,8 @@ module.exports = {
   async run(lang) {
     const
       target = getTargetMember(this, { returnSelf: true }),
-      avatarURL = target.displayAvatarURL({ size: this.options?.getInteger('size') ?? this.args?.last() ?? 2048 }),
+      /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 2nd largest resolution */
+      avatarURL = target.displayAvatarURL({ size: this.options?.getInteger('size') ?? this.args?.at(-1) ?? ALLOWED_SIZES.at(-2) }),
       embed = new EmbedBuilder({
         description: lang('embedDescription', target.user?.username ?? target.username),
         color: Colors.White,
