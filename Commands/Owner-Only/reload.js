@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
 const
-  { Collection } = require('discord.js'),
+  { Collection, codeBlock } = require('discord.js'),
   { resolve, basename, dirname } = require('node:path'),
   { access } = require('node:fs/promises'),
   { formatCommand, slashCommandsEqual, filename } = require('#Utils'),
@@ -147,7 +147,7 @@ module.exports = {
       }
     }
     catch (err) {
-      void msg.reply(lang('error', err.message));
+      void msg.reply(lang('error', codeBlock(err.message)));
 
       if (this.client.botType == 'dev') throw err;
       log.error('Error while trying to reload a command:\n', err);

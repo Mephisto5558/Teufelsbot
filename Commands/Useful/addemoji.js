@@ -1,13 +1,13 @@
 const
-  { parseEmoji, EmbedBuilder, Colors } = require('discord.js'),
+  { parseEmoji, EmbedBuilder, Colors, codeBlock } = require('discord.js'),
   http = require('node:http'),
   https = require('node:https'),
-  { DiscordAPIErrorCodes } = require('#Utils');
+  { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils');
 
-/** @param {string}url @returns {Promise<boolean>}*/
+/** @param {string}url @returns {Promise<boolean>} */
 const checkUrl = url => new Promise((resolve, reject) => {
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers -- status codes 2xx and 3xx*/
-  const req = (url.startsWith('https') ? https : http).request(url, { method: 'HEAD', timeout: 5000 }, res => resolve(res.statusCode.inRange(199, 400)));
+  /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- status codes 2xx and 3xx */
+  const req = (url.startsWith('https') ? https : http).request(url, { method: 'HEAD', timeout: msInSecond * 5 }, res => resolve(res.statusCode.inRange(199, 400)));
 
   req
     .on('timeout', () => req.destroy({ name: 'AbortError', message: 'Request timed out' }))
@@ -15,11 +15,10 @@ const checkUrl = url => new Promise((resolve, reject) => {
     .end();
 });
 
-/** @type {command<'slash'>}*/
+/** @type {command<'slash'>} */
 module.exports = {
   permissions: { client: ['ManageGuildExpressions'], user: ['ManageGuildExpressions'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { user: 2000 },
+  cooldowns: { user: msInSecond * 2 },
   slashCommand: true,
   prefixCommand: false,
   options: [
@@ -31,8 +30,8 @@ module.exports = {
     {
       name: 'name',
       type: 'String',
-      minLength: 2,
-      maxLength: 32
+      minLength: emojiNameMinLength,
+      maxLength: emojiNameMaxLength
     },
     { name: 'limit_to_roles', type: 'String' }
   ],
@@ -47,12 +46,12 @@ module.exports = {
         return acc;
       }, []),
       emoticon = parseEmoji(input),
-      name = this.options.getString('name')?.slice(0, 32) ?? (emoticon.id ? emoticon.name : 'emoji'),
+      name = this.options.getString('name') ?? (emoticon.id ? emoticon.name : 'emoji'), // todo: what's the default emoji name on PartialEmoji?
       embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
 
     if (this.guild.emojis.cache.has(emoticon.id)) return this.editReply({ embeds: [embed.setDescription(lang('isGuildEmoji'))] });
     if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
-    /* eslint-disable-next-line regexp/prefer-quantifier -- "www" is preferred to be written out for readability*/
+    /* eslint-disable-next-line regexp/prefer-quantifier -- "www" is preferred to be written out for readability */
     else if (!/^(?:https?:\/\/)?(?:www\.)?.*?\.(?:gif|jpeg|jpg|png|svg|webp)(?:\?.*)?$/i.test(input))
       return this.editReply({ embeds: [embed.setDescription(lang('invalidUrl'))] });
     if (!input.startsWith('http')) input = `https://${input}`;
@@ -71,10 +70,10 @@ module.exports = {
     }
     catch (err) {
       if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]')) // no check by err.code because it is just 50035 ("Invalid form body")
-        embed.data.description = lang('error', lang('tooBig'));
+        embed.data.description = lang('error', codeBlock(lang('tooBig')));
       else if (err.code != DiscordAPIErrorCodes.MaximumNumberOfEmojisReached && err.name != 'AbortError' && err.name != 'ConnectTimeoutError') throw err;
 
-      embed.data.description = lang('error', err.name == 'AbortError' || err.name == 'ConnectTimeoutError' ? lang('timedOut') : err.message);
+      embed.data.description = lang('error', codeBlock(err.name == 'AbortError' || err.name == 'ConnectTimeoutError' ? lang('timedOut') : err.message));
     }
 
     return this.editReply({ embeds: [embed.setColor(Colors.Green)] });

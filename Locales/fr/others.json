@@ -69,7 +69,7 @@
     "discordAPIErr": "Une erreur d'API Discord s'est produite, veuillez réessayer et envoyer un message au développeur si cela se produit.",
     "alreadyReported": "Cette erreur a déjà été signalée. [Link]({url}).\nElle sera bientôt corrigée.",
     "reportSuccess": "L'erreur a été signalée. [Link]({url})",
-    "reportFail": "Une erreur s'est produite en essayant d'envoyer votre rapport d'erreur.\n```\n{err}\n```\nVeuillez envoyer un message au développeur directement."
+    "reportFail": "Une erreur s'est produite en essayant d'envoyer votre rapport d'erreur.\n{err}\nVeuillez envoyer un message au développeur directement."
   },
   "timeFormatter": {
     "ydhms": "{year} years, {day} days, {hour} hours, {minute} minutes and {second} seconds",

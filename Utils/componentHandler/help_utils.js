@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
+  { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder, codeBlock } = require('discord.js'),
 
   /** @type {import('..').permissionTranslator} */
   permissionTranslator = require('../permissionTranslator.js'),
@@ -106,8 +106,8 @@ function createInfoFields(cmd, lang) {
     usage = (cmd.usageLocalizations[lang.__boundArgs__[0].locale]?.usage ?? cmd.usage.usage)?.replaceAll('{prefix}', prefix),
     examples = (cmd.usageLocalizations[lang.__boundArgs__[0].locale]?.examples ?? cmd.usage.examples)?.replaceAll('{prefix}', prefix);
 
-  if (usage) arr.push({ name: '```' + lang('one.usage') + '```', value: usage, inline: true });
-  if (examples) arr.push({ name: '```' + lang('one.examples') + '```', value: examples, inline: true });
+  if (usage) arr.push({ name: codeBlock(lang('one.usage')), value: usage, inline: true });
+  if (examples) arr.push({ name: codeBlock(lang('one.examples')), value: examples, inline: true });
 
   return arr;
 }

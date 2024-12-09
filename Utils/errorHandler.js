@@ -1,6 +1,6 @@
 const
   fetch = require('node-fetch').default,
-  { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction, codeBlock } = require('discord.js'),
   { msInSecond, secsInMinute } = require('./timeFormatter.js'),
   { JSON_SPACES } = require('./constants'),
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
@@ -123,7 +123,7 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
 
         msg.edit({ components: [] }).catch(() => { /* empty */ });
 
-        return message.customReply(lang('reportFail', err?.message ?? 'unknown error'));
+        return message.customReply(lang('reportFail', codeBlock(err?.message ?? 'unknown error')));
       }
     })
     .on('end', collected => {

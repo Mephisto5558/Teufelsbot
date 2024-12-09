@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes, DiscordAPIError } = require('discord.js'),
+  { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes, DiscordAPIError, codeBlock } = require('discord.js'),
   { logSayCommandUse, constants, timeFormatter: { msInSecond } } = require('#Utils');
 
 /**
@@ -97,10 +97,10 @@ module.exports = {
     }
     catch (err) {
       if (!(err instanceof DiscordAPIError) && !err.message?.includes('JSON at')) throw err;
-      return this.editReply(lang('invalidOption', err.message));
+      return this.editReply(lang('invalidOption', codeBlock(err.message)));
     }
 
-    await this.editReply(custom ? lang('successJSON') : lang('success', JSON.stringify(embed.data.filterEmpty())));
+    await this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(embed.data.filterEmpty()))));
     return logSayCommandUse.call(sentMessage, this.member, lang);
   }
 };

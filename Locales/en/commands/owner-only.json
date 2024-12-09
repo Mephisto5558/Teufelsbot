@@ -43,7 +43,7 @@
         "description": "The JavaScript code to evaluate"
       }
     },
-    "finished": "evaluated command:\n```js\n{code}\n```\n",
+    "finished": "evaluated command:\n{code}\n",
     "success": "{msg} without errors.",
     "emptyRejection": "Empty Promise Rejection",
     "error": "{msg} with the following error:\n```\n{name}: {err}\n```"
@@ -59,9 +59,9 @@
       "usage": "<sh code>",
       "examples": "echo 'Hello World!'"
     },
-    "finished": "Evaluated bash command:\n```sh\n{code}\n```\n",
-    "stdout": "{msg} with following output:\nstdout:\n```\n{stdout}\n```\n",
-    "stderr": "stderr:\n```\n{stderr}\n```",
+    "finished": "Evaluated bash command:\n{code}\n",
+    "stdout": "{msg} with following output:\nstdout:\n{stdout}\n",
+    "stderr": "stderr:\n{stderr}",
     "error": "{msg} with the following error:\n```\n{name}: {err}\n```"
   },
   "reload": {
@@ -77,7 +77,7 @@
     },
     "invalidCommand": "This is not a valid command.",
     "invalidPath": "The specified path does not exist! Please note the case sensitivity of the path.",
-    "error": "An error occurred while reloading:\n```{error}```\nCheck the console for more information.",
+    "error": "An error occurred while reloading:\n{error}\nCheck the console for more information.",
     "noneReloaded": "No commands have been reloaded.",
     "reloaded": "The following `{count}` command(s) has/have been reloaded:\n{commands}"
   },

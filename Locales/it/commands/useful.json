@@ -20,7 +20,7 @@
     "notFound": "L'url fornito non è stato trovato.",
     "success": "Aggiunto con successo **{name}** {emoji}!\n",
     "limitedToRoles": "Le emoji sono state limitate ai seguenti ruoli:\n<@&{roles}>.",
-    "error": "Impossibile creare le emoji per il motivo:\n```\n{err}\n```",
+    "error": "Impossibile creare le emoji per il motivo:\n{err}",
     "tooBig": "L'immagine è troppo grande. La dimensione massima del file è di 2048 kilobyte.",
     "timedOut": "La richiesta è scaduta. Forse l'immagine è di grandi dimensioni."
   },
@@ -256,7 +256,7 @@
       }
     },
     "randomNumber": "Un numero casuale {min} e {max}:\n{randomNumber}",
-    "outOfRange": "Si è verificato un errore:\n````\n{err}.\n```"
+    "outOfRange": "Si è verificato un errore:\n{err}."
   },
   "timestamp": {
     "description": "Ottieni un timestamp per il futuro (o passato mettendo un \"-\" di fronte)",

@@ -3,7 +3,7 @@
  * @typedef {[keyof triggers, NonNullable<triggers[keyof triggers]>]}triggersArray *//* eslint-disable-line jsdoc/valid-types -- false positive */
 
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, codeBlock } = require('discord.js'),
   { embedMaxFieldAmt, suffix } = require('#Utils').constants,
 
   /** @type {Record<string, (this: GuildInteraction, lang: lang, oldData: triggers, query: string) => Promise<Message>>} */
@@ -57,8 +57,8 @@ const
         const maxLength = 1900;
         embed.data.title = lang('embedTitleOne', id);
         embed.data.description = lang('embedDescriptionOne', {
-          trigger: trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix,
-          response: response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix,
+          trigger: codeBlock(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
+          response: codeBlock(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix),
           wildcard: !!wildcard
         });
       }
@@ -69,8 +69,8 @@ const
         embed.data.fields = Object.entries(oldData).slice(0, embedMaxFieldAmt + 1).map((/** @type {triggersArray} */[id, { trigger, response, wildcard }]) => ({
           name: lang('shortFieldName', id), inline: true,
           value: lang('shortFieldValue', {
-            trigger: trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix,
-            response: response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix,
+            trigger: codeBlock(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
+            response: codeBlock(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix),
             wildcard: !!wildcard
           })
         }));

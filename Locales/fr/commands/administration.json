@@ -288,7 +288,7 @@
       "previewButtonLabel": "Aperçu de l'intégration",
       "saveButtonLabel": "Enregistrer l'intégration",
       "textInputLabel": "Veuillez entrer le JSON intégré.",
-      "invalidEmbed": "Le JSON embarqué fourni est invalide :\n```{err}```"
+      "invalidEmbed": "Le JSON embarqué fourni est invalide :\n{err}"
     }
   }
 }

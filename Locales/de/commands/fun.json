@@ -339,7 +339,7 @@
     },
     "notFound": "Kein Post passte zu deiner Suche.",
     "private": "Dieser Subreddit ist privat.",
-    "error": "Ein Fehler ist aufgetreten:\n```{err}```",
+    "error": "Ein Fehler ist aufgetreten:\n{err}",
     "embedFooterText": "Upvotes: {upvotes} ({ratio}%) | Downvotes: {downvotes} | Kommentare: {comments}"
   },
   "sad": {
@@ -676,10 +676,10 @@
     "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!",
     "embedTitle": "Trigger",
     "embedTitleOne": "**Auslöser {id}:**",
-    "embedDescriptionOne": "**Auslöser:**\n```\n{trigger}\n```\n**Antwort:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",
+    "embedDescriptionOne": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** `{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Auslöser: `{trigger}`\n> Ausgabe: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Auslöser:**\n```\n{trigger}\n```\n**Ausgabe:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`\n",
+    "shortFieldValue": "**Auslöser:**\n{trigger}\n**Ausgabe:**\n{response}\n**Wildcard:** `{wildcard}`\n",
     "first25": "Die ersten 25 Auslöser. Erhalte mehr per `short` Option."
   },
   "vote": {

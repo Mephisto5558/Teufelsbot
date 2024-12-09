@@ -288,7 +288,7 @@
       "previewButtonLabel": "Vista previa integrada",
       "saveButtonLabel": "Guardar incrustado",
       "textInputLabel": "Por favor, introduzca el JSON incrustado.",
-      "invalidEmbed": "El JSON incrustado no es válido:\n```{err}```"
+      "invalidEmbed": "El JSON incrustado no es válido:\n{err}"
     }
   }
 }

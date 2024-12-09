@@ -262,7 +262,7 @@
     "notFound": "Ce n'est pas une option valide. ",
     "validOptions": "Les options valides sont:\n`{options}`",
     "requiresArgs": "Cette commande nécessite les arguments suivants dans l'ordre :\n\n{args}",
-    "error": "Une erreur est survenue :\n```{err}```"
+    "error": "Une erreur est survenue :\n{err}"
   },
   "joke": {
     "description": "envoie une blague drôle",
@@ -669,10 +669,10 @@
     "needConfirm": "Vous devez confirmer cette action en écrivant `CLEAR TOL` dans l'option de confirmation!",
     "embedTitle": "Déclencheurs",
     "embedTitleOne": "**Déclencher {id}:**",
-    "embedDescriptionOne": "**Déclenchement :**\n```\n{trigger}\n```\n**Réponse :**\n```\n\n{response}\n ```\n**Carte jointe:** `{wildcard}`",
+    "embedDescriptionOne": "**Déclenchement :**\n{trigger}\n**Réponse :**\n{response}\n **Carte jointe:** `{wildcard}`",
     "longEmbedDescription": "ID : {id}\n> Déclenchement : `{trigger}`\n> Réponse : `{response}`\n> Caractère générique : `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Déclenche :**\n```\n{trigger}\n```\n**Réponse :**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`\n",
+    "shortFieldValue": "**Déclenche :**\n{trigger}\n**Réponse :**\n{response}\n**Wildcard:** `{wildcard}`\n",
     "first25": "Les 25 premiers déclencheurs. Obtenez plus avec l'option `short`."
   },
   "vote": {

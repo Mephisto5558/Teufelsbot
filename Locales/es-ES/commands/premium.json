@@ -82,7 +82,7 @@
     "cannotEdit": "¡No puedo editar ese mensaje!",
     "timedout": "¡Has tardado mucho en responder!",
     "emptyJson": "¡El JSON que proporcionaste está vacío!",
-    "error": "Ocurrió un error mientras se trataba de enviar tu JSON personalizado:\n```{err}```\n",
+    "error": "Ocurrió un error mientras se trataba de enviar tu JSON personalizado:\n{err}",
     "success": "El mensaje ha sido editado. [Link]({url})"
   },
   "record": {

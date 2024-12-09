@@ -20,7 +20,7 @@
     "notFound": "L'url fournie n'a pas été trouvée.",
     "success": "Ajouté avec succès **{name}** {emoji}!\n",
     "limitedToRoles": "Les émojis ont été limités aux rôles suivants :\n<@&{roles}>.",
-    "error": "Impossible de créer l'émoji pour la raison :\n```\n{err}\n```",
+    "error": "Impossible de créer l'émoji pour la raison :\n{err}",
     "tooBig": "L'image est trop grande. La taille de fichier maximale est de 2048 kilo-octets.",
     "timedOut": "La requête a expiré. Peut-être que l'image est trop grande."
   },
@@ -243,7 +243,7 @@
       }
     },
     "charsetEmpty": "vous avez exclu tous les caractères du jeu de caractères...",
-    "success": "Votre mot de passe sécurisé(s):\n{passwords}\n\n||Créé avec le jeu de caractères suivant:\n```{charset}```\nUtilisez les options de commande pour ajouter ou supprimer des caractères.||"
+    "success": "Votre mot de passe sécurisé(s):\n{passwords}\n\n||Créé avec le jeu de caractères suivant:\n{charset}\nUtilisez les options de commande pour ajouter ou supprimer des caractères.||"
   },
   "randomnumber": {
     "description": "Renvoie un nombre aléatoire. Utilise des valeurs par défaut pour les entrées non valides.",

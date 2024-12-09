@@ -262,7 +262,7 @@
     "notFound": "Это недопустимый параметр. ",
     "validOptions": "Допустимые параметры:\n`{options}`",
     "requiresArgs": "Эта команда требует следующие аргументы по порядку:\n\n{args}",
-    "error": "Произошла ошибка:\n```{err}```"
+    "error": "Произошла ошибка:\n{err}"
   },
   "joke": {
     "description": "посылает смешную шутку",
@@ -668,10 +668,10 @@
     "needConfirm": "Вы должны подтвердить это действие, написав `CLEAR ALL` в опции подтверждения!",
     "embedTitle": "Триггеры",
     "embedTitleOne": "**Триггер {id}:**",
-    "embedDescriptionOne": "**Триггер:**\n```\n{trigger}\n```\n**Ответ:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",
+    "embedDescriptionOne": "**Триггер:**\n{trigger}\n**Ответ:**\n{response}\n**Wildcard:** `{wildcard}`",
     "longEmbedDescription": "ID: {id}\n> Триггер: `{trigger}`\n> Ответ: `{response}`\n> Wildcard: `{wildcard}`\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Триггер:**\n```\n{trigger}\n```\n**Ответ:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`\n",
+    "shortFieldValue": "**Триггер:**\n{trigger}\n**Ответ:**\n{response}\n**Wildcard: **`{wildcard}`\n",
     "first25": "Первые 25 триггеров. Получите больше с опцией `short`."
   },
   "vote": {

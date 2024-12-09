@@ -20,7 +20,7 @@
     "notFound": "The provided url was not found.",
     "success": "Successfully added **{name}** {emoji}!\n",
     "limitedToRoles": "The emoji has been limited to the following roles:\n<@&{roles}>.",
-    "error": "Unable to create the emoji for reason:\n```\n{err}\n```",
+    "error": "Unable to create the emoji for reason:\n{err}",
     "tooBig": "The image is too big. The maximum filesize is 2048 kilobytes.",
     "timedOut": "The request timed out. Maybe the image is to large."
   },
@@ -104,10 +104,9 @@
     "msgNotFound": "The message id you provided was not found in this channel!",
     "botIsNotAuthor": "I can only edit my own messages!",
     "buttonLimitReached": "A message cannot have more then 5 rows or 25 buttons!",
-    "invalidOption": "**One of your options is invalid!**\n\n```{err}```",
-    "invalidJSON": "**Your JSON is invalid!**\n\n```{err}```",
+    "invalidOption": "**One of your options is invalid!**\n\n{err}",
     "successJSON": "Your button has been sent!",
-    "success": "Your button has been sent! Below is the button code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
+    "success": "Your button has been sent! Below is the button code.\nIf you want to send it again, use the `json` subcommand.\n{json}"
   },
   "embed": {
     "description": "sends a custom embed; you can do newlines with \"/n\".",
@@ -197,10 +196,9 @@
         }
       }
     },
-    "invalidOption": "**One of your options invalid!**\n\n```{err}```",
-    "invalidJSON": "**Your JSON is invalid!**\n\n```{err}```",
+    "invalidOption": "**One of your options invalid!**\n\n{err}",
     "successJSON": "Your embed has been sent!",
-    "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
+    "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n{json}"
   },
   "hash": {
     "description": "encrypts or decrypts your text with various methods",
@@ -247,8 +245,8 @@
       }
     },
     "embedTitle": "Calculator",
-    "error": "An error occurred while trying to solve your expression:\n```{err}```",
-    "success": "Expression:\n```{expression}```\nResult:\n```{result}```"
+    "error": "An error occurred while trying to solve your expression:\n{err}",
+    "success": "Expression:\n{expression}\nResult:\n{result}"
   },
   "passwordgenerator": {
     "description": "generates a cryptographically strong password",
@@ -267,7 +265,7 @@
       }
     },
     "charsetEmpty": "you excluded all chars of the charset...",
-    "success": "Your secure password(s):\n{passwords}\n\n||Created with the following charset:\n```{charset}```\nUse the command options to add or remove chars.||"
+    "success": "Your secure password(s):\n{passwords}\n\n||Created with the following charset:\n{charset}\nUse the command options to add or remove chars.||"
   },
   "randomnumber": {
     "description": "Returns a random number. Uses default values for invalid inputs.",

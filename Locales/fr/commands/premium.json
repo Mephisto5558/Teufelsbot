@@ -85,7 +85,7 @@
     "notBotMessage": "Je ne peux modifier que mes propres messages!",
     "cannotEdit": "Je ne peux pas modifier ce message !",
     "emptyJson": "Le JSON que vous avez fourni est vide!",
-    "error": "Une erreur est survenue en essayant d'envoyer votre JSON personnalisé :\n```{err}```\n",
+    "error": "Une erreur est survenue en essayant d'envoyer votre JSON personnalisé :\n{err}",
     "success": "Le message a été modifié. [Link]({url})"
   },
   "record": {

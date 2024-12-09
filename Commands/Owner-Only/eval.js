@@ -1,4 +1,5 @@
 const
+  { codeBlock } = require('discord.js'),
   vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
 
   /** @type {import('../../types/locals').BoundFunction} */
@@ -35,13 +36,13 @@ module.exports = {
         timeout(TIMEOUT_MS)
       ]);
 
-      return await msg.customReply(lang('success', lang('finished', this.content)));
+      return await msg.customReply(lang('success', lang('finished', codeBlock('js', this.content))));
     }
     catch (err) {
       /* eslint-disable-next-line no-ex-assign -- valid use case imo */
       if (!(err instanceof Error)) err = new Error(err ?? lang('emptyRejection'));
 
-      return msg.customReply(lang('error', { msg: lang('finished', this.content), name: err.name, err: err.message }));
+      return msg.customReply(lang('error', { msg: lang('finished', codeBlock('js', this.content)), name: err.name, err: err.message }));
     }
     finally { log.debug(`evaluated command '${this.content}'`); }
   }

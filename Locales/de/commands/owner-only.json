@@ -43,7 +43,7 @@
         "description": "Der auszuführende JavaScript-Code"
       }
     },
-    "finished": "Code:\n```js\n{code}\n```\n",
+    "finished": "Code:\n{code}\n",
     "success": "{msg} wurde fehlerlos ausgeführt.",
     "emptyRejection": "Leere Promise-Ablehnung",
     "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
@@ -59,9 +59,9 @@
       "usage": "<SH-Code>",
       "examples": "echo 'Hallo Welt!'"
     },
-    "finished": "Bash Code:\n```sh\n{code}\n```\n",
-    "stdout": "{msg} wurde mit folgender Ausgabe ausgeführt:\nstdout:\n```\n{stdout}\n```\n",
-    "stderr": "stderr:\n```\n{stderr}\n```",
+    "finished": "Bash Code:\n{code}\n",
+    "stdout": "{msg} wurde mit folgender Ausgabe ausgeführt:\nstdout:\n{stdout}\n",
+    "stderr": "stderr:\n{stderr}",
     "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
   },
   "reload": {
@@ -77,7 +77,7 @@
     },
     "invalidCommand": "Dies ist kein gültiger Befehl.",
     "invalidPath": "Der angegebene Pfad existiert nicht! Beachte auch die Groß/Kleinschreibung des Pfades.",
-    "error": "Ein Fehler ist während des Neuladens aufgetreten:\n```{error}```\nÜberprüfe die Konsole für mehr Informationen.",
+    "error": "Ein Fehler ist während des Neuladens aufgetreten:\n{error}\nÜberprüfe die Konsole für mehr Informationen.",
     "noneReloaded": "Es wurden keine Befehle neu geladen.",
     "reloaded": "Die folgenden `{count}` Befehle wurden neu geladen:\n{commands}"
   },

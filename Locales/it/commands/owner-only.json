@@ -43,7 +43,7 @@
         "description": "Il codice JavaScript da valutare"
       }
     },
-    "finished": "comando valutato:\n```js\n{code}\n```\n",
+    "finished": "comando valutato:\n{code}\n",
     "success": "{msg} senza errori.",
     "emptyRejection": "Rifiuto Promessa Vuota",
     "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```"
@@ -59,9 +59,9 @@
       "usage": "<sh code>",
       "examples": "echo 'Ciao Mondo!'"
     },
-    "finished": "Comando bash valutato:\n```sh\n{code}\n```\n",
-    "stdout": "{msg} con il seguente output:\nstdout:\n```\n{stdout}\n```\n",
-    "stderr": "stderr:\n```\n{stderr}\n```",
+    "finished": "Comando bash valutato:\n{code}\n",
+    "stdout": "{msg} con il seguente output:\nstdout:{stdout}\n",
+    "stderr": "stderr:\n{stderr}",
     "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```"
   },
   "reload": {

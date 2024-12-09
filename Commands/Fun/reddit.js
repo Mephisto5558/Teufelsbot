@@ -1,5 +1,5 @@
 const
-  { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require('discord.js'),
   fetch = require('node-fetch').default,
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
   { constants: { embedMaxTitleLength, suffix }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
@@ -79,7 +79,7 @@ module.exports = {
 
       if (res.error == HTTP_STATUS_NOT_FOUND) return this.customReply(lang('notFound'));
       if (res.reason == 'private') return this.customReply(lang('private'));
-      if (res.error) return this.customReply(lang('error', `Error: ${res.message}\nReason: ${res.reason}`));
+      if (res.error) return this.customReply(lang('error', codeBlock`Error: ${res.message}\nReason: ${res.reason}`));
 
       cachedSubreddits.set(`${subreddit}_${type}`, res.data);
       setTimeout(() => cachedSubreddits.delete(`${subreddit}_${type}`), CACHE_DELETE_TIME);

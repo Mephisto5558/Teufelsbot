@@ -14,15 +14,15 @@
   },
   "eval": {
     "description": "вставить код JavaScript прямо в бота",
-    "finished": "вычисляемая команда:\n```js\n{code}\n```\n",
+    "finished": "вычисляемая команда:\n{code}\n",
     "success": "{msg} без ошибок.",
     "error": "{msg} со следующей ошибкой:\n```\n{name}: {err}\n```"
   },
   "exec": {
     "description": "inject Bash code прямо в оболочку бота",
-    "finished": "Evaluated bash команда:\n```sh\n{code}\n```\n",
-    "stdout": "{msg} со следующим выводом:\nstdout:\n```\n{stdout}\n```\n",
-    "stderr": "stderr:\n```\n{stderr}\n```",
+    "finished": "Evaluated bash команда:\n{code}\n",
+    "stdout": "{msg} со следующим выводом:\nstdout:\n{stdout}\n",
+    "stderr": "stderr:\n{stderr}",
     "error": "{msg} со следующей ошибкой:\n```\n{name}: {err}\n```"
   },
   "reload": {

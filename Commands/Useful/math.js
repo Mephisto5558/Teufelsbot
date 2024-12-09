@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, codeBlock } = require('discord.js'),
   mathjs = require('mathjs'),
   math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
   SPLIT_POS = 3, // "1 234 567"
@@ -40,8 +40,8 @@ module.exports = {
 
     let result;
     try { result = math.evaluate(expression); }
-    catch (err) { return this.customReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('error', err.message))] }); }
+    catch (err) { return this.customReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('error', codeBlock(err.message)))] }); }
 
-    return this.customReply({ embeds: [embed.setDescription(lang('success', { expression, result: addSpaces(result) }))] });
+    return this.customReply({ embeds: [embed.setDescription(lang('success', { expression: codeBlock(expression), result: codeBlock(addSpaces(result)) }))] });
   }
 };
