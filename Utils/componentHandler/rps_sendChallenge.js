@@ -2,7 +2,7 @@ const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
   BLUE = 0x2980B9;
 
-/** @type {import('.').rps_sendChallenge}*/
+/** @type {import('.').rps_sendChallenge} */
 module.exports = async function sendRPSChallenge({ initiator, opponent, lang }) {
   opponent ??= this.client.user;
 

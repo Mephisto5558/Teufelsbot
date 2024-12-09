@@ -2,7 +2,7 @@ const
   events = require('../Events'),
   { errorHandler } = require('#Utils');
 
-/** @this {Client}*/
+/** @this {Client} */
 module.exports = function eventHandler() {
   for (const [name, event] of Object.entries(events)) {
     if (name == 'interactionCreate') continue; // InteractionCreate gets loaded after all slash commands are registred

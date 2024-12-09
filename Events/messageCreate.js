@@ -1,6 +1,6 @@
 const { commandExecutionWrapper } = require('#Utils');
 
-/** @this {Message}*/
+/** @this {Message} */
 module.exports = function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 
@@ -21,7 +21,7 @@ module.exports = function messageCreate() {
   const
     command = this.client.prefixCommands.get(this.commandName),
 
-    /** @type {lang}*/
+    /** @type {lang} */
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild?.db.config.lang ?? this.guild?.localeCode, backupPath: 'events.command' });
 
   return commandExecutionWrapper.call(this, command, 'prefix', lang);

@@ -4,10 +4,10 @@ const
   { constants: { messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
 /**
- * @this {Interaction|Message}
+ * @this {Interaction | Message}
  * @param {lang}lang
  * @param {boolean?}deep
- * @returns {Promise<string>}*/
+ * @returns {Promise<string>} */
 async function fetchAPI(lang, deep) {
   /** @type {{choices: {message: {content: string}}[]} | {error: {message: string, type: string}}} */
   const res = await fetch('https://api.pawan.krd/v1/chat/completions', { // https://github.com/PawanOsman/ChatGPT
@@ -37,7 +37,7 @@ async function fetchAPI(lang, deep) {
   return lang('error');
 }
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   aliases: { prefix: ['gpt'] },
   cooldowns: { user: msInSecond * 2 },

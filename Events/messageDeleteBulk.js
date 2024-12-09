@@ -6,7 +6,7 @@ const
 
 /**
  * @this {import('discord.js').Collection<string, Message<true> | import('discord.js').PartialMessage>}
- * @param {import('discord.js').GuildTextBasedChannel}channel*/
+ * @param {import('discord.js').GuildTextBasedChannel}channel */
 module.exports = async function messageDeleteBulk(channel) {
   const setting = channel.guild.db.config.logger?.messageDelete;
 
@@ -20,7 +20,7 @@ module.exports = async function messageDeleteBulk(channel) {
 
   const
     { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageBulkDelete })).entries
-      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < msInSecond * 20) ?? {}, // eslint-disable-line @typescript-eslint/no-magic-numbers
+      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < msInSecond * 20) ?? {}, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
     /** @type {lang} */
     lang = channel.client.i18n.__.bBind(channel.client.i18n, { locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),

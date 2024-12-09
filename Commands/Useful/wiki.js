@@ -1,12 +1,12 @@
 const
 
-  /** @type {import('../../node_modules/wikijs/index')}*/
+  /** @type {import('../../node_modules/wikijs/index')} */
   { default: wikiInit } = require('wikijs'),
   { EmbedBuilder, Colors } = require('discord.js'),
   { constants: { embedFieldMaxAmt, messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
   MAX_MSGS = 9;
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   usage: { examples: 'discord' },
   aliases: { prefix: ['wikipedia'] },
@@ -24,7 +24,7 @@ module.exports = {
       defaultLangWiki = wikiInit({ headers, apiUrl: `https://${this.client.i18n.config.defaultLocale}.wikipedia.org/w/api.php` }),
       wiki = wikiInit({ headers, apiUrl: `https://${this.guild?.localeCode ?? lang.__boundThis__.config.defaultLocale}.wikipedia.org/w/api.php` }),
 
-      /** @type {string|undefined} */
+      /** @type {string | undefined} */
       result = query ? (await wiki.search(query, 1)).results[0] ?? (await defaultLangWiki.search(query, 1)).results[0] : (await wiki.random(1))[0];
 
     if (!result) return message.edit(lang('notFound'));
@@ -32,7 +32,7 @@ module.exports = {
     const
       page = await wiki.page(result),
 
-      /** @type {{general: Record<string, unknown[] | Record<string, unknown> | boolean | string>}}*/
+      /** @type {{general: Record<string, unknown[] | Record<string, unknown> | boolean | string>}} */
       { general: info } = await page.fullInfo(),
       summary = await page.summary(),
       images = await page.images(),

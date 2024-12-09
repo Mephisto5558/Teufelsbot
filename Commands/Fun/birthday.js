@@ -7,7 +7,7 @@ const
  * @param {Date | number} a
  * @param {Date | number | undefined} b @default Date.now()
  * @param {Date | number | undefined} currentTime @default Date.now()
- * @returns {number} negative if `a > b`, positive if `a < b`, `0` otherwise*/
+ * @returns {number} negative if `a > b`, positive if `a < b`, `0` otherwise */
 function sortDates(a, b = Date.now(), currentTime = Date.now()) {
   const
     diffA = new Date(a).setFullYear(currentYear) - currentTime,
@@ -101,7 +101,7 @@ const birthdayMainFunctions = {
   }
 };
 
-/** @type {command<'slash', false>}*/
+/** @type {command<'slash', false>} */
 module.exports = {
   cooldowns: { user: msInSecond },
   slashCommand: true,
@@ -130,7 +130,7 @@ module.exports = {
           name: 'year',
           type: 'Integer',
           required: true,
-          /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- min. year*/
+          /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- min. year */
           minValue: 1900,
           maxValue: currentYear
         }

@@ -4,7 +4,7 @@ const
   { msInSecond } = require('#Utils').timeFormatter,
   emojiURLRegex = /https:\/\/cdn\.discordapp\.com\/emojis\/(?<id>\d+)/;
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   usage: { examples: ':derp:' },
   aliases: { prefix: ['emoji-info'] },

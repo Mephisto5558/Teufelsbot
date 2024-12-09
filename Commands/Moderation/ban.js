@@ -1,6 +1,6 @@
 const { maxBanMessageDeleteDays } = require('#Utils').constants;
 
-/** @type {command<'slash'>}*/
+/** @type {command<'slash'>} */
 module.exports = {
   permissions: { client: ['BanMembers'], user: ['BanMembers'] },
   slashCommand: true,

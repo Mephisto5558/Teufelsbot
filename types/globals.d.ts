@@ -21,7 +21,7 @@ declare global {
   namespace NodeJS {
     interface Process {
 
-      /** The real process uptime. This property only exists if process args include uptime=...*/
+      /** The real process uptime. This property only exists if process args include uptime=... */
       childUptime?(): number;
 
       /**
@@ -29,7 +29,7 @@ declare global {
        *
        * `process.childUptime() + parentUptime`
        *
-       * Otherwise it is the default `process.uptime()`*/
+       * Otherwise it is the default `process.uptime()` */
       uptime(): number;
     }
   }
@@ -38,17 +38,17 @@ declare global {
 
     /**
      * Gets a random array element by generating a cryptographically secure random number using {@link https://nodejs.org/api/crypto.html node:crypto}.
-     * May return undefined if the array is empty.*/
+     * May return undefined if the array is empty. */
     random(this: T[]): T | undefined;
 
-    /** Returns an array with no duplicates by converting it to a `Set` and back to an array.*/
+    /** Returns an array with no duplicates by converting it to a `Set` and back to an array. */
     unique(this: T[]): T[];
   }
 
   interface Number {
     limit(options?: { min?: number; max?: number }): number;
 
-    /** @returns If the number is more than `min` and less than `max`.*/
+    /** @returns If the number is more than `min` and less than `max`. */
     inRange(options: { min?: number; max?: number }): boolean;
     inRange(min?: number, max?: number): boolean;
   }
@@ -59,10 +59,10 @@ declare global {
   }
 
   interface Object {
-    /** Removes `null`, `undefined`, empty arrays and empty objects recursively.*/
+    /** Removes `null`, `undefined`, empty arrays and empty objects recursively. */
     filterEmpty(this: object): object;
 
-    /** The amount of items in the object.*/
+    /** The amount of items in the object. */
     __count__: number;
   }
 
@@ -99,11 +99,11 @@ declare global {
     /**
      * For a given function, creates a bound function that has the same body as the original function.
      * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
-     * @param thisArg The object to be used as the this object.*/
+     * @param thisArg The object to be used as the this object. */
     bind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T>;
     bind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): (...args: AX[]) => R;
 
-    /** A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction}*/
+    /** A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction} */
     bBind<T extends GenericFunction>(this: T, thisArg: ThisParameterType<T>): bBoundFunction<T>;
     bBind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): bBoundFunction<(this: T, ...args: AX[]) => R>;
   }
@@ -120,7 +120,7 @@ declare global {
   // #region custom
   const sleep: (ms: number) => Promise<void>;
 
-  /** Custom logging, including logfiles.*/
+  /** Custom logging, including logfiles. */
   const log: {
     (...args: Parameters<Console['log']>): typeof log;
     log(...args: Parameters<Console['log']>): typeof log;
@@ -131,7 +131,7 @@ declare global {
   };
   type log = typeof log;
 
-  /** Get an application Emoji's mention by it's name.*/
+  /** Get an application Emoji's mention by it's name. */
   const getEmoji: (emoji: string) => `<a:${string}:${Snowflake}>` | `<${string}:${Snowflake}>` | undefined;
 
   type Snowflake = `${bigint}`;
@@ -148,10 +148,10 @@ declare global {
 
   type langBoundArgs = [ { locale?: string; errorNotFound?: boolean; undefinedNotFound?: boolean; backupPath?: string } ];
 
-  /** {@link Function.prototype.bBind bBind}ed {@link I18nProvider.__} function*/
+  /** {@link Function.prototype.bBind bBind}ed {@link I18nProvider.__} function */
   type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string> & { __boundArgs__: langBoundArgs };
 
-  /** same as {@link lang}, but may return `undefined` due to undefinedNotFound being true on the {@link I18nProvider.__ original function}.*/
+  /** same as {@link lang}, but may return `undefined` due to undefinedNotFound being true on the {@link I18nProvider.__ original function}. */
   type langUNF = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string | undefined> & { __boundArgs__: langBoundArgs };
 
   // #endregion
@@ -161,20 +161,20 @@ declare global {
     slashCommand: true;
     aliases?: { slash?: locals.BaseCommand['name'][] };
 
-    /** Do not deferReply to the interaction*/
+    /** Do not deferReply to the interaction */
     noDefer?: boolean;
 
     /**
      * Do `interaction.deferReply({ ephemeral: true })`.
      *
-     * Gets ignored if {@link command.noDefer} is `true`.*/
+     * Gets ignored if {@link command.noDefer} is `true`. */
     ephemeralDefer?: boolean;
   } & (initialized extends true ? {
 
-    /** **Do not set manually.***/
+    /** **Do not set manually.** */
     id: Snowflake;
 
-    /** **Do not set manually.***/
+    /** **Do not set manually.** */
     type: Discord.ApplicationCommandType.ChatInput;
 
     defaultMemberPermissions: Discord.PermissionsBitField;
@@ -202,24 +202,24 @@ declare global {
   type commandOptions<initialized extends boolean = boolean> = {
     name: string;
 
-    /** Numbers in milliseconds*/
+    /** Numbers in milliseconds */
     cooldowns?: locals.BaseCommand<initialized>['cooldowns'];
 
-    /** If true, the user must provide a value to this option. This is also enforced for prefix commands.*/
+    /** If true, the user must provide a value to this option. This is also enforced for prefix commands. */
     required?: boolean;
 
     /**
      * Only existent for {@link commandOptions.type} `SubcommandGroup` and `Subcommand`.
      *
-     * Makes the subcommand also work in direct messages.*/
+     * Makes the subcommand also work in direct messages. */
     dmPermission?: boolean;
 
-    /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled.*/
+    /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled. */
     autocompleteOptions?: string | locals.autocompleteOptions[] | ((this: Discord.AutocompleteInteraction) => locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>);
 
     /**
      * Return an error message to the user, if their input is not included in {@link commandOptions.autocompleteOptions}.
-     * Note that this happens for Messages as well.*/
+     * Note that this happens for Messages as well. */
     strictAutocomplete?: boolean;
 
     options?: commandOptions<initialized>[];
@@ -233,17 +233,17 @@ declare global {
 
     /**
      * Gets set automatically from language files.
-     * @see {@link command.description}*/
+     * @see {@link command.description} */
     description: locals.BaseCommand<true>['description'];
 
     /**
      * Gets set automatically from language files.
-     * @see {@link command.description}*/
+     * @see {@link command.description} */
     descriptionLocalizations?: locals.BaseCommand<true>['descriptionLocalizations'];
 
     type: typeof Discord.ApplicationCommandOptionType;
 
-    /** Choices the user must choose from. Can not be more then 25.*/
+    /** Choices the user must choose from. Can not be more then 25. */
     choices?: {
       name: string;
       nameLocalizations?: locals.BaseCommand<true>['nameLocalizations'];
@@ -254,7 +254,7 @@ declare global {
   } : {
     type: keyof typeof Discord.ApplicationCommandOptionType;
 
-    /** Choices the user must choose from. Can not be more then 25.*/
+    /** Choices the user must choose from. Can not be more then 25. */
     choices?: (string | number | {
       name: string;
       nameLocalizations?: locals.BaseCommand<true>['nameLocalizations'];
@@ -294,12 +294,12 @@ declare global {
   type OptionalInteractionProperties<inGuild extends boolean = boolean> = Partial<Interaction<inGuild>>;
   type OptionalMessageProperties<inGuild extends boolean = boolean> = Partial<Message<inGuild>>;
 
-  /** interface for an interaction in a guild.*/
+  /** interface for an interaction in a guild. */
   // @ts-expect-error not important due to this being like a type
   interface GuildInteraction extends Discord.ChatInputCommandInteraction<'cached'>, OptionalMessageProperties<true> {
   }
 
-  /** interface for an interaction in a direct message.*/
+  /** interface for an interaction in a direct message. */
   // @ts-expect-error not important due to this being like a type
   interface DMInteraction extends Discord.ChatInputCommandInteraction<undefined>, OptionalMessageProperties<false> {
     inGuild(): false;
@@ -331,7 +331,7 @@ declare module 'discord.js' {
     backupSystem?: BackupSystem.BackupSystem;
     giveawaysManager?: GiveawaysManager;
 
-    /** `undefined` if `this.botType == 'dev'`*/
+    /** `undefined` if `this.botType == 'dev'` */
     webServer?: WebServer;
     cooldowns: Map<string, Record<string, Map<string, number>>>;
     db: DB;
@@ -341,11 +341,11 @@ declare module 'discord.js' {
     botType: locals.Env['environment'];
     keys: locals.Env['keys'];
 
-    /** The config from {@link ./config.json}.*/
+    /** The config from {@link ./config.json}. */
     config: locals.Config;
     loadEnvAndDB(this: Omit<Client<Ready>, 'db'>): Promise<void>;
 
-    /** A promise that resolves to a fetched discord application once {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#ready Client#ready} was emitted.*/
+    /** A promise that resolves to a fetched discord application once {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#ready Client#ready} was emitted. */
     awaitReady(this: Client<Ready>): Promise<ClientApplication>;
   }
 
@@ -355,20 +355,20 @@ declare module 'discord.js' {
      * The original content of the message. This is a custom property set in 'prototypeRegisterer.js'.
      *
      * This property requires the GatewayIntentBits.MessageContent privileged intent
-     * for guild messages that do not mention the client.*/
+     * for guild messages that do not mention the client. */
     originalContent: string | null;
 
-    /** The arguments of the message. It slices out the prefix and splits the message content on spaces. This is a custom property set in 'prototypeRegisterer.js'.*/
+    /** The arguments of the message. It slices out the prefix and splits the message content on spaces. This is a custom property set in 'prototypeRegisterer.js'. */
     args: string[] | null;
 
-    /** The first word of the {@link Message.originalContent original content}. `null` if the content is empty. This is a custom property set in 'prototypeRegisterer.js'.*/
+    /** The first word of the {@link Message.originalContent original content}. `null` if the content is empty. This is a custom property set in 'prototypeRegisterer.js'. */
     commandName: string | null;
 
-    /** Alias for {@link Message.author}*/
+    /** Alias for {@link Message.author} */
     user: Message['author'];
 
     /** This does not exist on Messages and is only for better typing of {@link command} here */
-    /* eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- valid use case, as this property does not really exist*/
+    /* eslint-disable-next-line @typescript-eslint/no-invalid-void-type -- valid use case, as this property does not really exist */
     options: void;
 
 
@@ -378,7 +378,7 @@ declare module 'discord.js' {
      *
      * Sends the content as a file if it is larger than the maximum allowed message length (2000).
      * If that is the case and the content is just one codeblock, it will strip the codeblock and send a file in the codeblock's language format.
-     * @param deleteTime Number in Milliseconds*/
+     * @param deleteTime Number in Milliseconds */
     customReply(
       this: Message,
       options: string | MessagePayload | MessageEditOptions,
@@ -401,7 +401,7 @@ declare module 'discord.js' {
      *
      * Sends the content as a file if it is larger than the maximum allowed message length (2000).
      * If that is the case and the content is just one codeblock, it will strip the codeblock and send a file in the codeblock's language format.
-     * @param deleteTime Number in Milliseconds*/
+     * @param deleteTime Number in Milliseconds */
     customReply(
       this: BaseInteraction,
       options: string | MessagePayload | InteractionReplyOptions,
@@ -415,7 +415,7 @@ declare module 'discord.js' {
     /**
      * ```js
      * this.options.getFocused(true)
-     * ```*/
+     * ``` */
     get focused(): AutocompleteFocusedOption;
   }
 
@@ -424,13 +424,13 @@ declare module 'discord.js' {
     /**
      * ```js
      * this.client.db.get('userSettings', this.id) ?? {}
-     * ```*/
+     * ``` */
     get db(): NonNullable<Database['userSettings'][Snowflake]>;
 
     /**
      * ```js
      * return this.client.db.update('userSettings', `${this.id}.${key}`, value);
-     * ```*/
+     * ``` */
     updateDB<FDB extends locals.FlattenedUserSettings, K extends keyof FDB & string>(this: User, key: K, value: FDB[K]): Promise<NonNullable<Database['userSettings']>>;
 
     customName: string;
@@ -439,7 +439,7 @@ declare module 'discord.js' {
 
   interface GuildMember {
 
-    /** Searches the guildSettings DB recursively for all data of this member across all guilds.*/
+    /** Searches the guildSettings DB recursively for all data of this member across all guilds. */
     get db(): Record<string, unknown> | undefined;
     customName: string;
     customTag: string;
@@ -450,13 +450,13 @@ declare module 'discord.js' {
     /**
      * ```js
      * this.client.db.get('guildSettings', this.id) ?? {}
-     * ```*/
+     * ``` */
     get db(): NonNullable<Database['guildSettings'][Snowflake]>;
 
     /**
      * ```js
      * return this.client.db.update('guildSettings', `${this.id}.${key}`, value);
-     * ```*/
+     * ``` */
     updateDB<FDB extends locals.FlattenedGuildSettings, K extends keyof FDB>(this: Guild, key: K, value: FDB[K]): Promise<Database['guildSettings']>;
     updateDB(this: Guild, key: null, value: NonNullable<Database['guildSettings'][Snowflake]>): Promise<Database['guildSettings']>;
 
@@ -474,7 +474,7 @@ declare module 'discord-tictactoe' {
 
   interface GameBoardButtonBuilder {
 
-    /** Overwrite to make empty spaces look empty by using a zero width space.*/
+    /** Overwrite to make empty spaces look empty by using a zero width space. */
     createButton(row: number, col: number): Discord.ButtonBuilder;
   }
 }
@@ -484,7 +484,7 @@ declare module '@mephisto5558/mongoose-db' {
   interface NoCacheDB {
     /**
      * generates required database entries from {@link ./Templates/db_collections.json}.
-     * @param overwrite overwrite existing collection, default: `false`*/
+     * @param overwrite overwrite existing collection, default: `false` */
     generate(overwrite?: boolean): Promise<void>;
 
     get<DBK extends keyof Database>(db: DBK): Promise<Database[DBK]>;

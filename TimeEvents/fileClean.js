@@ -2,7 +2,7 @@ const
   { readdir, stat, unlink, access, mkdir } = require('node:fs/promises'),
   { secsInWeek, msInSecond } = require('#Utils').timeFormatter;
 
-/** @param {string}path*/
+/** @param {string}path */
 async function deleteOld(path) {
   try { await access(path); }
   catch { return mkdir(path); }
@@ -23,7 +23,7 @@ module.exports = {
   time: '00 00 00 01 * *',
   startNow: false,
 
-  /** @this {Client}*/
+  /** @this {Client} */
   async onTick() {
     const now = new Date();
 

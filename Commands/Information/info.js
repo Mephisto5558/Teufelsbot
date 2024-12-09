@@ -6,13 +6,13 @@ const
 
 /**
  * @this {Client<true>}
- * @param {command}cmd*/
+ * @param {command}cmd */
 function commandListFilter(cmd) {
-  /* eslint-disable-next-line @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib*/
+  /* eslint-disable-next-line @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
   return !(cmd.aliasOf || this.config.ownerOnlyFolders.includes(cmd.category) || cmd.disabled);
 }
 
-/** @param {Client<true>}client*/
+/** @param {Client<true>}client */
 function getCommandCount(client) {
   const
     commands = new Set([
@@ -36,7 +36,7 @@ function getCommandCount(client) {
   return count;
 }
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   slashCommand: true,
   prefixCommand: true,

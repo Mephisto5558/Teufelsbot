@@ -2,7 +2,7 @@ const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   { getTargetChannel, getTargetMember, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
   cooldowns: { guild: 200, user: msInSecond * 10 },
@@ -22,7 +22,7 @@ module.exports = {
     const
       target = getTargetMember(this, { targetOptionName: 'member' }),
 
-      /** @type {import('discord.js').GuildTextBasedChannel | undefined}*/
+      /** @type {import('discord.js').GuildTextBasedChannel | undefined} */
       channel = getTargetChannel(this);
 
     if (target) {

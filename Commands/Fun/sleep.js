@@ -1,6 +1,6 @@
 const { setAfkPrefix } = require('#Utils').afk;
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   slashCommand: false,
   prefixCommand: true,

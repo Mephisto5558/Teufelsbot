@@ -4,7 +4,7 @@ const
   /** @type {Client['config']} */
   { website: { invite } = {}, disableWebserver } = require(require('node:path').resolve(process.cwd(), 'config.json'));
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   slashCommand: true,
   prefixCommand: true,

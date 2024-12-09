@@ -5,7 +5,7 @@ const
 
 /**
  * @this {import('discord.js').VoiceState}
- * @param {import('discord.js').VoiceState}newState*/
+ * @param {import('discord.js').VoiceState}newState */
 module.exports = function voiceStateUpdate(newState) {
   if (this.client.botType == 'dev') return;
 
@@ -27,7 +27,7 @@ module.exports = function voiceStateUpdate(newState) {
       color: GRAY
     }),
 
-    /** @type {lang}*/
+    /** @type {lang} */
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' }),
     oldChannelField = () => ({ name: lang('oldChannel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: false }),
     newChannelField = () => ({ name: lang('newChannel'), value: `<#${newState.channel.id}> (\`${newState.channel.id}\`)`, inline: false });

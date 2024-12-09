@@ -1,4 +1,4 @@
-/** @type {command<'prefix', false>}*/
+/** @type {command<'prefix', false>} */
 module.exports = {
   slashCommand: false,
   prefixCommand: true,

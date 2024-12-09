@@ -5,7 +5,7 @@ const
 /**
  * @this {StringConstructor | string | undefined}
  * @param {import('discord.js').GuildMember}member
- * @param {number}year*/
+ * @param {number}year */
 function formatBirthday(member, year) {
   return this?.toString().replaceAll('{user.nickname}', member.displayName)
     .replaceAll('{user.username}', member.user.username)
@@ -26,7 +26,7 @@ module.exports = {
   time: '00 00 00 * * *',
   startNow: true,
 
-  /** @this {Client}*/
+  /** @this {Client} */
   async onTick() {
     const
       now = new Date(),

@@ -10,7 +10,7 @@ const
   /** @type {Collection<string, { height: string, name: string, types: string[], abilities: Record<string, string>, gender?: string[], family: Record<string, string> }>} */
   cache = new Collection();
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   usage: { examples: 'Bulbasaur' },
   prefixCommand: true,

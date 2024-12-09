@@ -2,13 +2,13 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   getTargetChannel = require('../getTargetChannel.js');
 
-/** @type {import('.').setupMinigameChannel}*/
+/** @type {import('.').setupMinigameChannel} */
 module.exports = async function setupMinigameChannel(lang) {
   const
     game = this.commandName,
     gameData = this.guild.db.channelMinigames?.[game] ?? {},
 
-    /** @type {import('discord.js').GuildTextBasedChannel}*/
+    /** @type {import('discord.js').GuildTextBasedChannel} */
     channel = getTargetChannel(this, { returnSelf: true });
 
   if (gameData[channel.id]) {

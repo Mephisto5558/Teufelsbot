@@ -2,7 +2,7 @@ const
   { ChatInputCommandInteraction } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter;
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   cooldowns: { user: msInSecond },
   slashCommand: true,
@@ -20,7 +20,7 @@ module.exports = {
   async run(lang) {
     const
       msgId = this.options?.getString('message_id') ?? this.args?.[0],
-      msg = msgId ? await this.channel.messages.fetch(msgId).catch(() => { /* empty*/ }) : { content: this.options?.getString('message') };
+      msg = msgId ? await this.channel.messages.fetch(msgId).catch(() => { /* empty */ }) : { content: this.options?.getString('message') };
 
     if (!msg) return this.customReply(lang('notFound'));
     if (!msg.content) return this.customReply(lang('noContent'));

@@ -1,4 +1,4 @@
-/** @type {command<'slash'>}*/
+/** @type {command<'slash'>} */
 module.exports = {
   permissions: { client: ['KickMembers'], user: ['KickMembers'] },
   slashCommand: true,

@@ -12,7 +12,7 @@ module.exports.nicknameRegex = nicknameRegex;
 /**
  * @type {import('.')['afk']['getAfkStatus']}
  * @this {ThisParameterType<import('.')['afk']['getAfkStatus']>}
- * Here due to `@typescript-eslint/no-invalid-this`*/
+ * Here due to `@typescript-eslint/no-invalid-this` */
 module.exports.getAfkStatus = async function getAfkStatus(target, lang) {
   const { message, createdAt } = this.guild?.db.afkMessages?.[target.id] ?? ('user' in target ? target.user : target).db.afkMessage ?? {};
   if (!message) return this.customReply(lang('getNoneFound'));
@@ -25,7 +25,7 @@ module.exports.getAfkStatus = async function getAfkStatus(target, lang) {
 /**
  * @type {import('.')['afk']['listAfkStatuses']}
  * @this {ThisParameterType<import('.')['afk']['listAfkStatuses']>}
- * Here due to `@typescript-eslint/no-invalid-this`*/
+ * Here due to `@typescript-eslint/no-invalid-this` */
 module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
   const afkMessages = this.guild.members.cache.reduce((acc, e) => {
     const { message, createdAt } = this.guild.db.afkMessages?.[e.user.id] ?? e.user.db.afkMessage ?? {};
@@ -45,12 +45,12 @@ module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
 /**
  * @type {import('.')['afk']['setAfkStatus']}
  * @this {ThisParameterType<import('.')['afk']['setAfkStatus']>}
- * Here due to `@typescript-eslint/no-invalid-this`*/
+ * Here due to `@typescript-eslint/no-invalid-this` */
 module.exports.setAfkStatus = async function setAfkStatus(lang, global, message) {
   const
     user = this.member?.user,
     createdAt = this.createdAt ?? new Date();
-  message ||= 'AFK'; // eslint-disable-line @typescript-eslint/prefer-nullish-coalescing
+  message ||= 'AFK'; /* eslint-disable-line @typescript-eslint/prefer-nullish-coalescing */
 
   await (global || !this.guild
     ? user.updateDB('afkMessage', { message, createdAt })
@@ -65,7 +65,7 @@ module.exports.setAfkStatus = async function setAfkStatus(lang, global, message)
 /**
  * @type {import('.')['afk']['removeAfkStatus']}
  * @this {ThisParameterType<import('.')['afk']['removeAfkStatus']>}
- * Here due to `@typescript-eslint/no-invalid-this`*/
+ * Here due to `@typescript-eslint/no-invalid-this` */
 module.exports.removeAfkStatus = async function removeAfkStatus() {
   if (!this.member || !this.guild) return; // `!this.guild` as typeguard
 
@@ -86,7 +86,7 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
 /**
  * @type {import('.')['afk']['sendAfkMessages']}
  * @this {ThisParameterType<import('.')['afk']['sendAfkMessages']>}
- * Here due to `@typescript-eslint/no-invalid-this`*/
+ * Here due to `@typescript-eslint/no-invalid-this` */
 module.exports.sendAfkMessages = async function sendAfkMessages() {
   const afkMsgs = this.mentions.members.reduce((acc, e) => {
     const { message, createdAt } = this.guild.db.afkMessages?.[e.user.id] ?? e.user.db.afkMessage ?? {};
@@ -108,7 +108,7 @@ module.exports.sendAfkMessages = async function sendAfkMessages() {
   if (afkMsgs.length) return this.customReply({ content: afkMsgs, allowedMentions: { parse: [AllowedMentionsTypes.User] } });
 };
 
-/** @type {import('.')['afk']['setAfkPrefix']}*/
+/** @type {import('.')['afk']['setAfkPrefix']} */
 async function setAfkPrefix(member, prefix = nicknamePrefix) {
   if (!member.moderatable || member.displayName.length >= memberNameMaxLength - prefix.length || member.nickname?.startsWith(prefix)) return;
 
@@ -116,7 +116,7 @@ async function setAfkPrefix(member, prefix = nicknamePrefix) {
   return true;
 }
 
-/** @type {import('.')['afk']['unsetAfkPrefix']}*/
+/** @type {import('.')['afk']['unsetAfkPrefix']} */
 async function unsetAfkPrefix(member, prefix = nicknamePrefix) {
   if (!member.moderatable || !member.nickname?.startsWith(prefix)) return;
 

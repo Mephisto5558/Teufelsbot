@@ -1,6 +1,6 @@
 const utils = require('./help_utils.js');
 
-/** @type {import('.').help}*/
+/** @type {import('.').help} */
 module.exports = async function help(lang, type) {
   lang.__boundArgs__[0].backupPath = 'commands.information.help';
 

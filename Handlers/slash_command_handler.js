@@ -2,7 +2,7 @@ const
   { readdir } = require('node:fs/promises'),
   { getDirectories, formatCommand, filename, slashCommandsEqual, errorHandler } = require('#Utils');
 
-/** @this {Client}*/
+/** @this {Client} */
 module.exports = async function slashCommandHandler() {
   await this.awaitReady();
 
@@ -13,7 +13,7 @@ module.exports = async function slashCommandHandler() {
     for (const file of await readdir(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
 
-      /** @type {Omit<command<string, boolean, true>, 'name' | 'category'> | undefined}*/
+      /** @type {Omit<command<string, boolean, true>, 'name' | 'category'> | undefined} */
       let command = require(`../Commands/${subFolder}/${file}`);
 
       if (!command?.slashCommand) continue;

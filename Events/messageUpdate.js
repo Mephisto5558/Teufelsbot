@@ -5,7 +5,7 @@ const
 
 /**
  * @this {Message | import('discord.js').PartialMessage}
- * @param {Message}newMsg*/
+ * @param {Message}newMsg */
 module.exports = function messageUpdate(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading))
@@ -18,7 +18,7 @@ module.exports = function messageUpdate(newMsg) {
 
   const
 
-    /** @type {lang}*/
+    /** @type {lang} */
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
     embed = new EmbedBuilder({
       author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },

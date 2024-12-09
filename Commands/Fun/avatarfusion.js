@@ -4,7 +4,7 @@ const
   { getTargetMember, timeFormatter: { msInSecond } } = require('#Utils'),
   IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   cooldowns: { user: msInSecond * 2 },
   slashCommand: true,

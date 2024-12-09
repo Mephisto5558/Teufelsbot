@@ -6,7 +6,7 @@ const
 /**
  * @param {Error | undefined}err
  * @returns {boolean} `true` if no err is given, `false` on specific error codes
- * @throws {DiscordAPIError}if the error is not a DiscordAPIError**/
+ * @throws {DiscordAPIError}if the error is not a DiscordAPIError* */
 function handleError(err) {
   if (!err) return true;
   if (!(err instanceof DiscordAPIError)) throw err;
@@ -15,10 +15,10 @@ function handleError(err) {
   return ![DiscordAPIErrorCodes.UnknownInteraction, DiscordAPIErrorCodes.InvalidWebhookTokenProvided].includes(err.code);
 }
 
-/** @type {import('.').customReply}*/
+/** @type {import('.').customReply} */
 
 module.exports = async function customReply(options, deleteTime, allowedMentions) {
-  /** @type {Message|undefined}*/
+  /** @type {Message | undefined} */
   let msg;
 
   if (typeof options != 'object') options = { content: options };

@@ -5,7 +5,7 @@ const
   { msInSecond } = require('#Utils').timeFormatter,
   secretChance = 1e4; // 1 in 10_000
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   usage: { examples: 'hentai' },
   cooldowns: { user: msInSecond },
@@ -23,7 +23,7 @@ module.exports = {
   }],
 
   async run(lang) {
-    /** @type {{success: boolean, color: number, message: string}}*/
+    /** @type {{success: boolean, color: number, message: string}} */
     const data = await fetch(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') ?? this.args?.[0] ?? 'hentai').toLowerCase()}`).then(e => e.json());
     if (!data.success) {
       void this.customReply(lang('error'));

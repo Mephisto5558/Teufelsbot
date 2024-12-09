@@ -1,6 +1,6 @@
 const { checkTargetManageable, timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {command<'slash'>}*/
+/** @type {command<'slash'>} */
 module.exports = {
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
   cooldowns: { user: msInSecond / 10 },

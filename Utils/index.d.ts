@@ -60,12 +60,12 @@ declare namespace afk {
 
   /**
    * @returns `undefined` if the bot cannot change the member's nickname or it already has the prefix. Otherwise `true` indicating success.
-   * @default prefix='[AFK] '*/// eslint-disable-line jsdoc/informative-docs
+   * @default prefix='[AFK] ' *//* eslint-disable-line jsdoc/informative-docs */
   function setAfkPrefix(member: GuildMember, prefix?: string): Promise<true | undefined>;
 
   /**
    * @returns `undefined` if the bot cannot change the member's nickname or it doesn't have the prefix. Otherwise `true` indicating success.
-   * @default prefix='[AFK] '*/// eslint-disable-line jsdoc/informative-docs
+   * @default prefix='[AFK] ' *//* eslint-disable-line jsdoc/informative-docs */
   function unsetAfkPrefix(member: GuildMember, prefix?: string): Promise<true | undefined>;
 }
 
@@ -156,7 +156,7 @@ declare namespace BackupSystem {
       metadata?: unknown;
     }): Promise<Backup>;
 
-    /** @param id If falsely, will use latest.*/
+    /** @param id If falsely, will use latest. */
     load(id: string | object | null, guild: Guild, options?: {
       statusObj?: StatusObject;
       clearGuildBeforeRestore?: boolean;
@@ -169,13 +169,13 @@ declare namespace BackupSystem {
   }
 }
 
-/** @returns The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally.*/
+/** @returns The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally. */
 declare function checkForErrors(
   this: BaseInteraction | Message,
   command: command<'both', boolean, true> | undefined, lang: lang
 ): [string, Record<string, string> | string | undefined] | boolean;
 
-/** @returns the error message id to use with i18n.*/
+/** @returns the error message id to use with i18n. */
 declare function checkTargetManageable(
   this: Interaction | Message,
   member: GuildMember
@@ -207,7 +207,7 @@ declare function findAllEntires(
   obj: Record<string, unknown>, key: string, entryList?: Record<string, unknown>
 ): Record<string, unknown>;
 
-/** @throws {Error} on non-autofixable invalid data*/
+/** @throws {Error} on non-autofixable invalid data */
 declare function formatCommand<T extends command | commandOptions<false>>(
   option: T, path: string, id: string, i18n: I18nProvider
 ): T;
@@ -233,19 +233,19 @@ declare function getDirectories(
   path: string
 ): Promise<string>;
 
-/** @default targetOptionName = 'channel'*/
+/** @default targetOptionName = 'channel' */
 declare function getTargetChannel<I extends Interaction | Message, T extends boolean>(
   interaction: I,
   { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildChannel, T> : MaybeWithUndefined<DMChannel, T>;
 
-/** @default targetOptionName = 'target'*/
+/** @default targetOptionName = 'target' */
 declare function getTargetMember<I extends Interaction | Message, T extends boolean>(
   interaction: I,
   { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
 
-/** @default targetOptionName = 'target'*/
+/** @default targetOptionName = 'target' */
 declare function getTargetRole<T extends boolean>(
   interaction: GuildInteraction | Message<true>,
   { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
@@ -294,11 +294,11 @@ declare function timeValidator<T extends string | undefined>(
 ): T extends undefined | '' | '-' | '+' ? [] : string[];
 
 declare namespace configValidator {
-  /** @throws {Error} on invalid key or subkey.*/
+  /** @throws {Error} on invalid key or subkey. */
   function validateConfig(): void;
   function setDefaultConfig(): Partial<Client['config']>;
 
-  /** @throws {Error} on invalid key or subkey type.*/
+  /** @throws {Error} on invalid key or subkey type. */
   function configValidationLoop(
     obj: Record<string, unknown>, checkObj: Record<string, unknown>, allowNull?: boolean
   ): void;
@@ -308,7 +308,7 @@ declare namespace configValidator {
   const validEnv: Record<string, validConfigEntry>;
 }
 
-/** @returns `formatted` has the format `year-day, hour:minute:second` if `lang` is not provided.*/
+/** @returns `formatted` has the format `year-day, hour:minute:second` if `lang` is not provided. */
 declare namespace TTormatter {
   function timeFormatter<T extends lang | undefined>(
     options: { sec?: number; lang?: T }

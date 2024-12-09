@@ -4,7 +4,7 @@ const
   maxPercentage = 100,
   embedUpdateSecs = 4;
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   cooldowns: { channel: msInSecond },
   slashCommand: true,

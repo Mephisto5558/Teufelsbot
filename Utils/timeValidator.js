@@ -1,6 +1,6 @@
 const validItems = ['y', 'mth', 'w', 'd', 'h', 'min', 's', 'ms'];
 
-/** @type {import('.').timeValidator}*/
+/** @type {import('.').timeValidator} */
 function timeValidator(timeStr) {
   if (!timeStr || timeStr == '-' || timeStr == '+') return [];
 
@@ -32,7 +32,7 @@ function timeValidator(timeStr) {
 module.exports = timeValidator;
 
 
-/** Tests the timeValidator*/
+/** Tests the timeValidator */
 function _testTimevalidator() {
   const testCases = [
     { input: '3', expectedOutput: ['3y', '3mth', '3w', '3d', '3h', '3min', '3s', '3ms'] },

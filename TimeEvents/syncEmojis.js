@@ -6,7 +6,7 @@ const
  * @param {Record<string, Client | undefined>}sessions
  * @param {string} env
  * @param {string} token
- * @returns {Promise<Client<true>>}*/
+ * @returns {Promise<Client<true>>} */
 async function getClient(sessions, env, token) {
   const client = sessions[env] ?? new Client({ intents: [] });
   if (!sessions[env]) {
@@ -26,7 +26,7 @@ module.exports = {
   time: '00 00 00 * * *',
   startNow: false, // Getting ran even before logging into the client
 
-  /** @this {Client | void}*/
+  /** @this {Client | void} */
   async onTick() {
     const now = new Date();
 

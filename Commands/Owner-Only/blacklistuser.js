@@ -1,4 +1,4 @@
-/** @type {command<'prefix', false>}*/
+/** @type {command<'prefix', false>} */
 module.exports = {
   usage: { examples: '12345678901234568' },
   aliases: { prefix: ['blacklist'] },

@@ -1,6 +1,6 @@
 const formatTop = require('./mgStats_format.js');
 
-/** @type {import('.').mgStats}*/
+/** @type {import('.').mgStats} */
 module.exports = async function mgStats(lang, game, wMode, settings) {
   if (wMode != 'sort') return;
 

@@ -17,7 +17,7 @@ const
   DATETIME_STR_LENGTH = 2;
 
 /**
- * @type {import('.').timeFormatter['timeFormatter']}*/
+ * @type {import('.').timeFormatter['timeFormatter']} */
 function timeFormatter({ sec = 0, lang } = {}) {
   const
     total = sec * msInSecond,
@@ -56,7 +56,7 @@ module.exports = {
   daysInYear, monthsInYear, secsInHour, secsInDay, secsInWeek, secsInMonth, secsInYear
 };
 
-/** Tests the timeFormatter*/
+/** Tests the timeFormatter */
 function _testTimeFormatter() {
   const testCases = [
     { input: { sec: 0 }, expectedOutput: '0000-00, 00:00:00' },

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers -- these are constants*/
+/* eslint-disable @typescript-eslint/no-magic-numbers -- these are constants */
 module.exports = {
   pinnedMessagesMaxAmt: 50, // per channel
   autocompleteOptionsMaxAmt: 25,

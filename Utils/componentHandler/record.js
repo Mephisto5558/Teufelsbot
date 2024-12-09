@@ -2,10 +2,10 @@ const
   { Collection, GuildMember } = require('discord.js'),
   { startRecording, recordControls } = require('./record_manage.js'),
 
-  /** @type {Collection<string, Collection<string, {userId: string, allowed: boolean}[]>>}*/
+  /** @type {Collection<string, Collection<string, {userId: string, allowed: boolean}[]>>} */
   cache = new Collection();
 
-/** @type {import('.').record}*/
+/** @type {import('.').record} */
 module.exports = async function record(lang, mode, requesterId, voiceChannelId, isPublic) {
   lang.__boundArgs__[0].backupPath = 'commands.premium.record';
 

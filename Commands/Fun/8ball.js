@@ -1,8 +1,8 @@
 /**
  * https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js
  * @param {string}str
- * @param {number}seed*/
-/* eslint-disable @typescript-eslint/no-magic-numbers -- yes magic numbers*/
+ * @param {number}seed */
+/* eslint-disable @typescript-eslint/no-magic-numbers -- yes magic numbers */
 function cyrb53a(str, seed = 0) {
   let
     h1 = 0xDE_AD_BE_EF ^ seed,
@@ -20,9 +20,9 @@ function cyrb53a(str, seed = 0) {
 
   return 2_097_152 * (h2 >>> 0) + (h1 >>> 11);
 }
-/* eslint-enable @typescript-eslint/no-magic-numbers*/
+/* eslint-enable @typescript-eslint/no-magic-numbers */
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   slashCommand: true,
   prefixCommand: true,
@@ -34,7 +34,7 @@ module.exports = {
   }],
 
   async run(lang) {
-    /** @type {string}*/
+    /** @type {string} */
     const
       input = this.options?.getString('question', true) ?? this.content,
       now = new Date(),

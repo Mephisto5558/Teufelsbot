@@ -2,7 +2,7 @@ const
   { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel } = require('discord.js'),
   GREY = 0x36393F;
 
-/** @type {import('.').logSayCommandUse}*/
+/** @type {import('.').logSayCommandUse} */
 module.exports = async function logSayCommandUse(member, lang) {
   const setting = this.guild.db.config.logger?.sayCommandUsed;
   if (this.client.botType == 'dev' || !setting?.enabled) return;

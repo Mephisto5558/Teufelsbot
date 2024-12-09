@@ -1,8 +1,8 @@
 const { autocompleteOptionsMaxAmt } = require('./constants');
 
-/** @type {import('.').autocompleteGenerator}*/
+/** @type {import('.').autocompleteGenerator} */
 module.exports = function autocompleteGenerator(command, locale) {
-  /** @param {string|number}v*/
+  /** @param {string | number}v */
   const response = v => ({ name: this.client.i18n.__({ locale, undefinedNotFound: true },
     `commands.${command.category}.${command.name}.options.`
     + (this.options?._group ? this.options._group + '.' : '')
@@ -11,12 +11,12 @@ module.exports = function autocompleteGenerator(command, locale) {
     + `.choices.${v}`) ?? v,
   value: v });
 
-  /** @type {commandOptions[]}*/
+  /** @type {commandOptions[]} */
   let [...options] = command.options;
   if (this.options?._group) ({ options } = options.find(e => e.name == this.options._group));
   if (this.options?._subcommand) ({ options } = options.find(e => e.name == this.options._subcommand));
 
-  /** @type {{autocompleteOptions: Exclude<commandOptions['autocompleteOptions'], Function>}} Excludes<> because we call autocompleteOptions below if it is a function*/
+  /** @type {{autocompleteOptions: Exclude<commandOptions['autocompleteOptions'], Function>}} Excludes<> because we call autocompleteOptions below if it is a function */
   let { autocompleteOptions } = options.find(e => e.name == this.focused.name) ?? {};
   if (typeof autocompleteOptions == 'function') autocompleteOptions = autocompleteOptions.call(this);
 

@@ -2,7 +2,7 @@ const
   { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors } = require('discord.js'),
   getTargetChannel = require('../getTargetChannel.js');
 
-/** @type {import('.').lock_unlock}*/
+/** @type {import('.').lock_unlock} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
 module.exports = async function lock_unlock(lang) {
   this.args?.shift();
@@ -10,7 +10,7 @@ module.exports = async function lock_unlock(lang) {
   const
     msg = await this.customReply(lang('global.loading', getEmoji('loading'))),
 
-    /** @type {import('discord.js').BaseGuildTextChannel}*/
+    /** @type {import('discord.js').BaseGuildTextChannel} */
     channel = getTargetChannel(this, { returnSelf: true }),
     reason = this.options?.getString('reason') ?? this.args?.join(' ') ?? lang('noReason'),
     embed = new EmbedBuilder({

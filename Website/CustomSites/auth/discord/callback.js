@@ -1,4 +1,4 @@
-/** @type {import('@mephisto5558/bot-website').customPage}*/
+/** @type {import('@mephisto5558/bot-website').customPage} */
 module.exports = {
   run(res, req, next) {
     return this.passport.authenticate('discord', (err, user) => {

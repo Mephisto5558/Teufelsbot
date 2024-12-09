@@ -1,19 +1,19 @@
 const
   vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
 
-  /** @type {import('../../types/locals').BoundFunction}*/
-  /* eslint-disable-next-line @typescript-eslint/no-empty-function -- It get's used (and filled) later*/
+  /** @type {import('../../types/locals').BoundFunction} */
+  /* eslint-disable-next-line @typescript-eslint/no-empty-function -- It get's used (and filled) later */
   BoundAsyncFunction = async function asyncEval() { }.constructor.bind(undefined, ...vars),
 
-  /** @type {import('../../types/locals').BoundFunction}*/
+  /** @type {import('../../types/locals').BoundFunction} */
   BoundFunction = Function.bind(undefined, ...vars),
 
   TIMEOUT_MS = 6e5; // 10min
 
-/** @param {number}ms*/
+/** @param {number}ms */
 const timeout = ms => new Promise((_, rej) => setTimeout(rej, ms, 'eval timed out.'));
 
-/** @type {command<'prefix', false>}*/
+/** @type {command<'prefix', false>} */
 module.exports = {
   slashCommand: false,
   prefixCommand: true,
@@ -38,7 +38,7 @@ module.exports = {
       return await msg.customReply(lang('success', lang('finished', this.content)));
     }
     catch (err) {
-      /* eslint-disable-next-line no-ex-assign -- valid use case imo*/
+      /* eslint-disable-next-line no-ex-assign -- valid use case imo */
       if (!(err instanceof Error)) err = new Error(err ?? lang('emptyRejection'));
 
       return msg.customReply(lang('error', { msg: lang('finished', this.content), name: err.name, err: err.message }));

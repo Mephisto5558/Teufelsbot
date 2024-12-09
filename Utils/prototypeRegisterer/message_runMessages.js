@@ -2,12 +2,12 @@ const
   cooldowns = require('../cooldowns.js'),
   { removeAfkStatus, sendAfkMessages } = require('../afk.js'),
   { msInSecond } = require('../timeFormatter.js'),
-  MESSAGES_COOLDOWN = msInSecond * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s*/
+  MESSAGES_COOLDOWN = msInSecond * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
   TEN_SECONDS = msInSecond * 10;
 
 module.exports = { runMessages };
 
-/** @this {Message}*/
+/** @this {Message<true>} */
 function replyToTriggers() {
   if (!Number(this.guild.db.triggers?.__count__) || cooldowns.call(this, 'triggers', { channel: TEN_SECONDS })) return;
 
@@ -16,7 +16,7 @@ function replyToTriggers() {
   for (const response of responseList.unique()) void this.customReply(response);
 }
 
-/** @this {Message}*/
+/** @this {Message<true>} */
 async function handleCounting() {
   const countingData = this.guild.db.channelMinigames?.counting?.[this.channel.id];
   if (!countingData) return;
@@ -39,7 +39,7 @@ async function handleCounting() {
   );
 }
 
-/** @this {Message<true>}*/
+/** @this {Message<true>} */
 async function handleWordchain() {
   const wordchainData = this.guild.db.channelMinigames?.wordchain?.[this.channel.id];
   if (!wordchainData) return;
@@ -82,7 +82,7 @@ async function handleWordchain() {
 
 /**
  * @type {import('.').runMessages}
- * @this {ThisParameterType<import('.').runMessages>}*/
+ * @this {ThisParameterType<import('.').runMessages>} */
 function runMessages() {
   if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: MESSAGES_COOLDOWN }))
     void this.react('👀');

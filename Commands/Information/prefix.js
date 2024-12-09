@@ -1,6 +1,6 @@
 const { msInSecond } = require('#Utils').timeFormatter;
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   cooldowns: { user: msInSecond },
   slashCommand: true,

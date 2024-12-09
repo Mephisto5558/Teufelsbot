@@ -1,4 +1,4 @@
-/** @type {command<'prefix'>}*/
+/** @type {command<'prefix'>} */
 module.exports = {
   name: 'todo',
   slashCommand: false,

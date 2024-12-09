@@ -2,7 +2,7 @@ const
   { afk: { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus }, timeFormatter: { msInSecond } } = require('#Utils'),
   maxAllowedAFKMsgLength = 1000;
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   cooldowns: { user: msInSecond * 5 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
   slashCommand: true,

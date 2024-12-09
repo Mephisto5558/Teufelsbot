@@ -6,10 +6,10 @@ const
   winningAgainst = { rock: 'scissors', paper: 'rock', scissors: 'paper' };
 
 /**
- * @this {GuildInteraction|import('discord.js').ButtonInteraction<'cached'>}
+ * @this {GuildInteraction | import('discord.js').ButtonInteraction<'cached'>}
  * @param {import('discord.js').GuildMember}initiator
  * @param {import('discord.js').GuildMember}opponent
- * @param {lang}lang*/
+ * @param {lang}lang */
 function sendGame(initiator, opponent, lang) {
   const
     embed = new EmbedBuilder({
@@ -42,7 +42,7 @@ function sendGame(initiator, opponent, lang) {
   return this.message.edit({ embeds: [embed], components: [component] });
 }
 
-/** @type {import('.').rps}*/
+/** @type {import('.').rps} */
 module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   if (this.user.id != initiatorId && this.user.id != opponentId) return;
   if (mode.length != 1) await this.deferUpdate();

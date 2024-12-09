@@ -1,14 +1,14 @@
 const
   TicTacToe = require('discord-tictactoe'),
   { getTargetMember, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
-  CHALLENGE_DELETE_TIME = msInSecond * 5; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s*/
+  CHALLENGE_DELETE_TIME = msInSecond * 5; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
 
 /**
  * @this {GuildInteraction}
  * @param {import('discord.js').GuildMember[]}players
- * @param {('win'|'lose'|'draw')[]}types
+ * @param {('win' | 'lose' | 'draw')[]}types
  * @param {lang}lang
- * @param {TicTacToe}game*/
+ * @param {TicTacToe}game */
 async function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
   if (player1.id == this.client.user.id || player2.id == this.client.user.id) return;
 
@@ -20,8 +20,8 @@ async function eventCallback([player1, player2], [type1, type2 = type1], lang, g
 /**
  * @param {string}firstID
  * @param {string}secondID
- * @param {'win'|'lose'|'draw'}type
- * @param {Client['db']}db*/
+ * @param {'win' | 'lose' | 'draw'}type
+ * @param {Client['db']}db */
 async function updateStats(firstID, secondID, type, db) {
   const stats = db.get('leaderboards', `TicTacToe.${firstID}`) ?? {};
   let against;
@@ -39,10 +39,10 @@ async function updateStats(firstID, secondID, type, db) {
   ]);
 }
 
-/** @type {command<'slash'>}*/
+/** @type {command<'slash'>} */
 module.exports = {
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
-  cooldowns: { user: msInSecond * 5 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s*/
+  cooldowns: { user: msInSecond * 5 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
   slashCommand: true,
   prefixCommand: false,
   options: [{ name: 'opponent', type: 'User' }],

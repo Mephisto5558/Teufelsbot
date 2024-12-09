@@ -6,12 +6,11 @@ const
   CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
   maxPercentage = 100,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
-  cachedSubreddits = new Collection(),
-  fetchPost = (/** @type { {children: { data: unknown }[] }}*/{ children }, filterNSFW = true) => {
+  /** @type {import('./reddit').Cache} */cachedSubreddits = new Collection(),
+  fetchPost = (/** @type {import('./reddit').RedditPage} */{ children }, filterNSFW = true) => {
     children = children.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
     if (!children.length) return;
 
-    /** @type {Record<string, string | number | Record<string, unknown> | undefined>}*/
     const post = children.random().data;
 
     return {
@@ -27,7 +26,7 @@ const
     };
   };
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   usage: { examples: 'memes hot' },
   cooldowns: { channel: msInSecond / 10 },
@@ -70,7 +69,7 @@ module.exports = {
 
     if (cachedSubreddits.has(`${subreddit}_${type}`)) post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`), filterNSFW);
     else {
-      /** @type {{}}*/
+      /** @type {{error: true, reason: number | string, message: string, reason: string} | {error: false, data: import('./reddit').RedditPage}} */
       let res;
       try { res = await fetch(`https://reddit.com/r/${subreddit}/${type}.json`, { follow: 1 }).then(res => res.json()); }
       catch (err) {

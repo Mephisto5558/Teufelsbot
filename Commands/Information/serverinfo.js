@@ -3,7 +3,7 @@ const
   { getAverageColor } = require('fast-average-color-node'),
   { msInSecond } = require('#Utils').timeFormatter;
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   aliases: { prefix: ['server-info', 'guildinfo', 'guild-info'] },
   cooldowns: { user: msInSecond },
@@ -18,8 +18,10 @@ module.exports = {
   async run(lang) {
     const id = this.options?.getString('guild_id_or_invite') ?? this.args?.[0];
 
-    /** @type {Guild | import('discord.js').InviteGuild | undefined}*/
-    let guild, /** @type { import('discord.js').Invite | undefined}*/invite;
+    let
+      /** @type {Guild | import('discord.js').InviteGuild | undefined} */guild,
+      /** @type { import('discord.js').Invite | undefined} */invite;
+
     if (id) {
       guild = this.client.guilds.cache.get(id);
       if (!guild) invite = await this.client.fetchInvite(id).catch(() => { /** empty */ });

@@ -49,7 +49,7 @@ const
     }
   };
 
-/** @type {import('.').configValidator.configValidationLoop}*/
+/** @type {import('.').configValidator.configValidationLoop} */
 function configValidationLoop(obj, checkObj, allowNull) {
   for (const [key, value] of Object.entries(obj)) {
     if (!(key in checkObj)) {
@@ -69,12 +69,12 @@ function configValidationLoop(obj, checkObj, allowNull) {
   }
 }
 
-/** @type {import('.').configValidator.validateConfig}*/
+/** @type {import('.').configValidator.validateConfig} */
 function validateConfig() {
   // prototypeRegisterer makes sure the file exists
   configValidationLoop(require(configPath), validConfig, true);
 
-  /** @type {import('../types/locals').EnvJSON}*/
+  /** @type {import('../types/locals').EnvJSON} */
   const env = require('../env.json');
   configValidationLoop(env, validEnv);
   if (!(env.global.environment in env)) throw new Error('Error in env.json: Value in "environment" does not match any environment. Set "environment" to "main" if you don\'t know what you are doing.');
@@ -83,7 +83,7 @@ function validateConfig() {
   catch (err) { throw new Error(`Error in env.json: Invalid mongoDB connection string: ${err.toString()}`); }
 }
 
-/** @type {import('.').configValidator.setDefaultConfig}*/
+/** @type {import('.').configValidator.setDefaultConfig} */
 function setDefaultConfig() {
   /** @type {Partial<Client['config']>} */
   let config;

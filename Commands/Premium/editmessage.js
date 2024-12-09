@@ -3,7 +3,7 @@ const
   { DiscordApiErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
   MODALSUBMIT_TIMEOUT = msInSecond * secsInMinute / 2; // 30s
 
-/** @type {command<'slash'>}*/
+/** @type {command<'slash'>} */
 module.exports = {
   permissions: { user: ['ManageMessages'] },
   cooldowns: { user: msInSecond * 5 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
@@ -42,7 +42,7 @@ module.exports = {
       }),
       clear = this.options.getBoolean('remove_attachments');
 
-    /** @type {Message?}*/
+    /** @type {Message?} */
     let msg, modalInteraction;
     try { msg = await this.options.getChannel('channel', true).messages.fetch(this.options.getString('message_id', true)); }
     catch (err) {
@@ -63,7 +63,7 @@ module.exports = {
     await modalInteraction.deferReply({ ephemeral: true });
     const content = modalInteraction.fields.getTextInputValue('newContent_text');
 
-    /** @type {Record<string, unknown>}*/
+    /** @type {import('discord.js').APIEmbed & { content: string }} */
     let json = {};
 
     try {

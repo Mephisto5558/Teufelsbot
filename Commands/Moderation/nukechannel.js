@@ -3,7 +3,7 @@ const
   { getTargetChannel, timeFormatter: { msInSecond } } = require('#Utils'),
   collectorTimeout = 3e4;
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   aliases: { prefix: ['clearchannel'], slash: ['clearchannel'] },
   permissions: { client: ['ManageChannels'], user: ['ManageGuild', 'ManageChannels'] },
@@ -19,7 +19,7 @@ module.exports = {
   async run(lang) {
     const
 
-      /** @type {Exclude<import('discord.js').GuildTextBasedChannel, import('discord.js').AnyThreadChannel>}*/
+      /** @type {Exclude<import('discord.js').GuildTextBasedChannel, import('discord.js').AnyThreadChannel>} */
       channel = getTargetChannel(this, { returnSelf: true }),
       embed = new EmbedBuilder({
         title: lang('confirmEmbedTitle'),

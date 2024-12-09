@@ -9,19 +9,19 @@ const
     '⁶': '^6', '⁷': '^7',
     '⁸': '^8', '⁹': '^9'
   },
-  parseSpecialChars = /** @param {string}str*/ str => str
+  parseSpecialChars = /** @param {string}str */ str => str
     .replaceAll('\n', ';')
     .replaceAll('÷', '/')
     .replaceAll('π', '(pi)')
     .replaceAll(/[\u00B2\u00B3\u2074-\u2079]/g, e => superscripts[e])
     .replaceAll(/√(?<val>\(|\d+)/g, (_, val) => val === '(' ? 'sqrt(' : `sqrt(${val})`),
-  addSpaces = /** @param {number}fullNum*/ fullNum => {
+  addSpaces = /** @param {number}fullNum */ fullNum => {
     if (typeof fullNum != 'number' || !Number.isFinite(fullNum)) return String(fullNum);
     const [num, ext] = String(fullNum).split('.');
     return [...num].reduceRight((acc, e, i) => ((num.length - i) % SPLIT_POS == 0 ? ` ${e}` : e) + acc, '') + (ext ? `.${ext}` : '');
   };
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   usage: { examples: '1+1' },
   slashCommand: true,

@@ -1,10 +1,10 @@
 const
   { ActivityType } = require('discord.js'),
 
-  /** @type {Record<string, ActivityType | string | undefined>}*/
+  /** @type {Record<string, ActivityType | string | undefined>} */
   ActivityTypes = Object.fromEntries(Object.entries(ActivityType).map(([k, v]) => [k.toLowerCase(), v]));
 
-/** @type {command<'prefix', false>}*/
+/** @type {command<'prefix', false>} */
 module.exports = {
   slashCommand: false,
   prefixCommand: true,

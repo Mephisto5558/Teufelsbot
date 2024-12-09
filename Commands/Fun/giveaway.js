@@ -5,7 +5,7 @@ const
 
   /**
    * @typedef {{ bonusEntries?: Record<string, string>[], requiredRoles?: string[], disallowedMembers?: string[], duration?: number, giveawayId?: string }}options
-   * @type {Record<string, (this: GuildInteraction, lang: lang, components: ActionRowBuilder<ButtonBuilder>[], options: options) => Promise<Message>>}*/
+   * @type {Record<string, (this: GuildInteraction, lang: lang, components: ActionRowBuilder<ButtonBuilder>[], options: options) => Promise<Message>>} */
   giveawayMainFunctions = {
     async create(lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration }) {
       const
@@ -45,7 +45,7 @@ const
 
       if (requiredRoles?.length > 0 || disallowedMembers.length > 0)
 
-        /** @param {import('discord.js').GuildMember}member*/
+        /** @param {import('discord.js').GuildMember}member */
         startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
 
       await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions).then(data => {
@@ -73,7 +73,7 @@ const
       };
 
       if (requiredRoles?.length > 0 || disallowedMembers.length > 0) {
-      /** @param {import('discord.js').GuildMember}member*/
+      /** @param {import('discord.js').GuildMember}member */
         editOptions.newExemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
       }
       if (bonusEntries?.length > 0) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
@@ -100,7 +100,7 @@ const
     }
   };
 
-/** @type {command<'slash'>}*/
+/** @type {command<'slash'>} */
 module.exports = {
   permissions: { user: ['ManageMessages'] },
   cooldowns: { user: msInSecond },

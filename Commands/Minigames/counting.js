@@ -3,7 +3,7 @@ const
   { msInSecond } = require('#Utils').timeFormatter,
   { setupMinigameChannel } = require('#Utils/combinedCommands');
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   permissions: { user: ['ManageChannels'] },
   cooldowns: { channel: msInSecond },

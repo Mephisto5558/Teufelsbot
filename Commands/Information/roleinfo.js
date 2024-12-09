@@ -3,7 +3,7 @@ const
   { permissionTranslator, getTargetRole, timeFormatter: { msInSecond } } = require('#Utils'),
   ROLE_DISPLAY_THRESHOLD = 16;
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   aliases: { prefix: ['role-info'] },
   cooldowns: { user: msInSecond },

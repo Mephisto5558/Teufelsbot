@@ -3,11 +3,11 @@ const
   { msInSecond } = require('./timeFormatter'),
   cooldowns = require('./cooldowns.js'),
 
-  /** @type {import('.').errorHandler}*/
+  /** @type {import('.').errorHandler} */
   errorHandler = require('./errorHandler.js'),
   handlers = require('./componentHandler/');
 
-/** @type {import('.').componentHandler}*/
+/** @type {import('.').componentHandler} */
 module.exports = async function messageComponentHandler(lang) {
   const
     [feature, id, mode, data, ...args] = this.customId.split('.'),

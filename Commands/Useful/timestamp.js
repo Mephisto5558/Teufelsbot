@@ -3,7 +3,7 @@ const
   { timeValidator, timeFormatter: { secsInYear, msInSecond } } = require('#Utils'),
   MAX_YEAR_SECS = secsInYear * msInSecond * 2e5; // eslint-disable-line @typescript-eslint/no-magic-numbers -- 200000y
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   slashCommand: true,
   prefixCommand: true,

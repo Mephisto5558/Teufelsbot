@@ -8,7 +8,7 @@ const
 
 /**
  * @this {GuildInteraction | Message<true>}
- * @param {Record<string, number> | undefined}data*/
+ * @param {Record<string, number> | undefined}data */
 function manageData(data) {
   if (!data) return '';
 
@@ -23,7 +23,7 @@ function manageData(data) {
 /**
  * @param {number}input
  * @param {number}all
- * @throws {SyntaxError}If `all` is `NaN`*/
+ * @throws {SyntaxError}If `all` is `NaN` */
 function formatStatCount(input, all) {
   input = Number.parseInt(input);
   all = Number.parseInt(all);
@@ -34,7 +34,7 @@ function formatStatCount(input, all) {
   return `\`${input}\`` + (all ? `(\`${Number.parseFloat((input / all * maxPercentage).toFixed(2))}%\`)` : '');
 }
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   aliases: { prefix: ['leaderboard'], slash: ['leaderboard'] },
   cooldowns: { user: msInSecond },

@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES } = require('discord.js'),
   { getTargetMember, timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   cooldowns: { user: msInSecond },
   slashCommand: true,

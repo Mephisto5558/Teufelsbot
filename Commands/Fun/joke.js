@@ -18,7 +18,7 @@ const
  * @param {string} blacklist
  * @param {string} apiKey
  * @param {string} maxLength
- * @param {string} includeTags*/
+ * @param {string} includeTags */
 function formatAPIUrl(url, blacklist, apiKey, maxLength, includeTags) {
   return url
     .replaceAll('{blacklist}', blacklist)
@@ -33,7 +33,7 @@ function formatAPIUrl(url, blacklist, apiKey, maxLength, includeTags) {
  * @param {string}type
  * @param {string}blacklist
  * @param {number?}maxLength
- * @returns {[string, { name: string, link: string, url: string }] | []}*/
+ * @returns {[string, { name: string, link: string, url: string }] | []} */
 async function getJoke(apiList = [], type = '', blacklist = '', maxLength = messageMaxLength) {
   const api = apiList.random();
   let response;
@@ -68,7 +68,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
   return apiList.length ? getJoke.call(this, apiList, type, blacklist, maxLength) : [];
 }
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   usage: { examples: 'dadjoke' },
   cooldowns: { channel: msInSecond / 10 },

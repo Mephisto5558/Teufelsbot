@@ -5,7 +5,7 @@ const
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
   { secsInDay, secsInMinute, msInSecond } = require('../timeFormatter');
 
-/** @type {import('.').ban_kick_mute}*/
+/** @type {import('.').ban_kick_mute} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
 module.exports = async function ban_kick_mute(lang) {
   if (this.commandName == 'timeout') this.commandName = 'mute';
@@ -16,12 +16,12 @@ module.exports = async function ban_kick_mute(lang) {
   let
     noMsg, muteDurationMs,
 
-    /** @type {number}*/
+    /** @type {number} */
     muteDuration = this.options.getString('duration') ?? 0,
     reason = this.options.getString('reason', true);
 
   if (muteDuration) {
-    muteDuration = getMilliseconds(muteDuration).limit?.({ min: msInSecond * secsInMinute, max: msInSecond * secsInDay * 28 }); // eslint-disable-line @typescript-eslint/no-magic-numbers -- 28d
+    muteDuration = getMilliseconds(muteDuration).limit?.({ min: msInSecond * secsInMinute, max: msInSecond * secsInDay * 28 }); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 28d */
     if (!muteDuration || typeof muteDuration == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
 
     muteDurationMs = muteDuration + Date.now();

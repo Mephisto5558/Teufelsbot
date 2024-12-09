@@ -9,7 +9,7 @@ const
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
   MODALSUBMIT_MAXTIME = msInSecond * 30; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
 
-/** @type {import('.').infoCMDs}*/
+/** @type {import('.').infoCMDs} */
 module.exports = async function infoCMDs(lang, id, mode, entityType) {
   if (entityType != 'members' && mode != 'addToGuild') await this.deferReply();
 
@@ -82,8 +82,8 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
         for (const guildId of this.values) {
           let
-            /** @type {import('discord.js').Guild|undefined}*/guild,
-            /** @type {import('discord.js').GuildMember | undefined}*/guildMember;
+            /** @type {import('discord.js').Guild | undefined} */guild,
+            /** @type {import('discord.js').GuildMember | undefined} */guildMember;
 
           try {
             guild = await this.client.guilds.fetch(guildId);

@@ -6,12 +6,12 @@ const
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
   cwd = process.cwd();
 
-/** @type {import('.').errorHandler}*/
-/* eslint-disable-next-line unicorn/no-useless-undefined -- lang is optional and doesn't have a default value.*/
+/** @type {import('.').errorHandler} */
+/* eslint-disable-next-line unicorn/no-useless-undefined -- lang is optional and doesn't have a default value. */
 module.exports = async function errorHandler(err, context = [], lang = undefined) {
   const
 
-    /** @type {Record<string, unknown>}*/
+    /** @type {Record<string, unknown>} */
     contextData = (!Array.isArray(context) && context !== undefined ? [context] : context).reduce((acc, e) => {
       acc[e?.constructor.name ?? Date.now().toString()] = e; // `Date.now` to prevent overwriting on multiple `undefined`
       return acc;
@@ -21,10 +21,9 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
 
   /**
    * @param {string}_
-   * @param {Record<string, unknown>}v*/
+   * @param {bigint | Record<string, unknown> | undefined}v */
   function stringifyReplacer(_, v) {
     if (typeof v == 'bigint') return v.toString();
-    /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive*/
     if (v != undefined && typeof v === 'object') {
       if (seen.has(v)) return '[Circular]';
       seen.add(v);
@@ -101,7 +100,7 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
             })
           }),
 
-          /** @type {{ html_url: string }}*/
+          /** @type {{ html_url: string }} */
           json = await res.json();
 
         if (!res.ok) throw new Error(JSON.stringify(json));

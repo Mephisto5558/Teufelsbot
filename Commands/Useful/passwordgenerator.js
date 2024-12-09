@@ -13,10 +13,10 @@ const
  *
  * Filters the last selected entry out and selects a list entry based on a secure random number generator (RNG). RNG defined in Utils/prototypeRegisterer.js.
  * @param {string[]}charset
- * @param {string?}lastRandomChar*/
+ * @param {string?}lastRandomChar */
 const getRandomChar = (charset, lastRandomChar) => charset.filter(e => e !== lastRandomChar).random();
 
-/** @type {command<'slash', false>}*/
+/** @type {command<'slash', false>} */
 module.exports = {
   cooldowns: { user: msInSecond },
   slashCommand: true,
@@ -56,7 +56,7 @@ module.exports = {
       let lastRandomChar;
       if (passwordList.length + length > MAX_MESSAGE_LENGTH) break;
 
-      /* eslint-disable-next-line sonarjs/no-hardcoded-passwords -- false positive*/
+      /* eslint-disable-next-line sonarjs/no-hardcoded-passwords -- false positive */
       passwordList += '```';
 
       for (let i = 0; i < length; i++) {
@@ -68,7 +68,7 @@ module.exports = {
         lastRandomChar = randomChar; // Sets lastRandomChar to the last generated char
       }
 
-      /* eslint-disable-next-line sonarjs/no-hardcoded-passwords -- false positive*/
+      /* eslint-disable-next-line sonarjs/no-hardcoded-passwords -- false positive */
       passwordList += '```\n';
     }
 

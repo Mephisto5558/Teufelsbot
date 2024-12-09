@@ -1,12 +1,12 @@
 /**
  * @typedef {NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['triggers']>}triggers
- * @typedef {[keyof triggers, NonNullable<triggers[keyof triggers]>]}triggersArray*//* eslint-disable-line jsdoc/valid-types -- false positive*/
+ * @typedef {[keyof triggers, NonNullable<triggers[keyof triggers]>]}triggersArray *//* eslint-disable-line jsdoc/valid-types -- false positive */
 
 const
   { EmbedBuilder, Colors } = require('discord.js'),
   { embedMaxFieldAmt, suffix } = require('#Utils').constants,
 
-  /** @type {Record<string, (this: GuildInteraction, lang: lang, oldData: triggers, query: string) => Promise<Message>>}*/
+  /** @type {Record<string, (this: GuildInteraction, lang: lang, oldData: triggers, query: string) => Promise<Message>>} */
   triggerMainFunctions = {
     async add(lang, oldData) {
       const
@@ -26,7 +26,7 @@ const
       if (query) {
         id = query in oldData
           ? query
-          : Object.entries(oldData).find((/** @type {triggersArray}*/[tId, { trigger }]) => trigger.toLowerCase() == query.toLowerCase() || tId.toLowerCase() == query.toLowerCase())?.[0];
+          : Object.entries(oldData).find((/** @type {triggersArray} */[tId, { trigger }]) => trigger.toLowerCase() == query.toLowerCase() || tId.toLowerCase() == query.toLowerCase())?.[0];
       }
       else id = Math.max(...Object.keys(oldData).map(Number)); // Returns `-Infinity` on an empty array
 
@@ -50,7 +50,7 @@ const
       const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Blue });
 
       if (query) {
-        /** @type {triggersArray}*/
+        /** @type {triggersArray} */
         const [id, { trigger, response, wildcard }] = Object.entries(oldData).find(([k, v]) => k == query || v.trigger.toLowerCase() == query) ?? {};
         if (!trigger) return this.editReply(lang('notFound'));
 
@@ -66,7 +66,7 @@ const
         const maxLength = 200;
 
         embed.data.description = oldData.__count__ > embedMaxFieldAmt ? lang('first25') : ' ';
-        embed.data.fields = Object.entries(oldData).slice(0, embedMaxFieldAmt + 1).map((/** @type {triggersArray}*/[id, { trigger, response, wildcard }]) => ({
+        embed.data.fields = Object.entries(oldData).slice(0, embedMaxFieldAmt + 1).map((/** @type {triggersArray} */[id, { trigger, response, wildcard }]) => ({
           name: lang('shortFieldName', id), inline: true,
           value: lang('shortFieldValue', {
             trigger: trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix,
@@ -80,7 +80,7 @@ const
           maxDescriptionLength = 3800,
           maxLength = 20;
 
-        embed.data.description = Object.entries(oldData).reduce((acc, /** @type {triggersArray}*/[id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
+        embed.data.description = Object.entries(oldData).reduce((acc, /** @type {triggersArray} */[id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
           ? acc
           : acc + lang('longEmbedDescription', {
             id, wildcard: !!wildcard,
@@ -95,7 +95,7 @@ const
 
 /**
  * @this {import('discord.js').AutocompleteInteraction}
- * @returns  {string[]}*/
+ * @returns  {string[]} */
 function triggerQuery() {
   return Object.entries(this.guild.db.triggers ?? {}).reduce((acc, [k, v]) => {
     acc[0].push(v.trigger);
@@ -105,7 +105,7 @@ function triggerQuery() {
   }, [[], []]).flat();
 }
 
-/** @type {command<'slash'>}*/
+/** @type {command<'slash'>} */
 module.exports = {
   permissions: { user: ['ManageMessages'] },
   slashCommand: true,

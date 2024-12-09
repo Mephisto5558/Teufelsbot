@@ -1,4 +1,4 @@
-/** @type {import('.').getTargetChannel}*/
+/** @type {import('.').getTargetChannel} */
 module.exports = function getTargetChannel(interaction, { targetOptionName = 'channel', returnSelf } = {}) {
   let target = interaction.options?.getChannel(targetOptionName) ?? interaction.mentions?.channels.first();
 

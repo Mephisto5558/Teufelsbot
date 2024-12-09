@@ -5,7 +5,7 @@ const
   { createWriteStream } = require('node:fs'),
   { unlink, access, mkdir } = require('node:fs/promises'),
 
-  /** @type {import('..').shellExec}*/
+  /** @type {import('..').shellExec} */
   shellExec = require('../shellExec.js'),
 
   /** @type {string?} */
@@ -13,7 +13,7 @@ const
 
 if (!ffmpeg) throw new Error('no ffmpeg');
 
-/** @type {import('.').record_startRecording}*/
+/** @type {import('.').record_startRecording} */
 module.exports.startRecording = async function startRecording(lang, requesterId, voiceChannelId, isPublic, vcCache) {
   const embed = this.message.embeds[0];
 
@@ -92,7 +92,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   }
 };
 
-/** @type {import('.').record_recordControls}*/
+/** @type {import('.').record_recordControls} */
 module.exports.recordControls = async function recordControls(lang, mode, voiceChannelId, isPublic, cache) {
   const
     embed = this.message.embeds[0],

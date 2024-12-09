@@ -1,6 +1,6 @@
 const { getTargetMember, constants: { memberNameMinLength, memberNameMaxLength }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils');
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   aliases: { prefix: ['custom-name'] },
   cooldowns: { user: msInSecond * secsInMinute / 2 }, // 30s

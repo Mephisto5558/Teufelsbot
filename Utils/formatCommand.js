@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib*/
+/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
 const
   { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
   { resolve, dirname, basename } = require('node:path'),
   { choicesMaxAmt, choiceValueMinLength, choiceValueMaxLength, descriptionMaxLength } = require('./constants');
 
-/** @type {import('.').formatCommand}*/
+/** @type {import('.').formatCommand} */
 module.exports = function formatCommand(option, path, id, i18n) {
   if ('options' in option) option.options = option.options.map(e => formatCommand(e, path, `${id}.options.${e.name}`, i18n));
 
@@ -61,7 +61,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
   }
 
   if ('run' in option) {
-    /* eslint-disable-next-line custom/unbound-method -- not getting called here*/
+    /* eslint-disable-next-line custom/unbound-method -- not getting called here */
     if (!option.disabled && !['function', 'async function', 'async run(', 'run('].some(e => String(option.run).startsWith(e)))
       throw new Error(`The run property of file "${id}" is not a function (Got "${typeof option.run}"). You cannot use arrow functions.`);
 

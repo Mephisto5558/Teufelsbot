@@ -5,10 +5,10 @@ const
   DATE_START = 1900;
 
 /**
- * @this {Message|Interaction}
+ * @this {Message | Interaction}
  * @param {string}name
  * @param {number?}defaultNum
- * @returns {number}*/
+ * @returns {number} */
 function getInteger(name, defaultNum = 0) {
   const
     position = module.exports.options.findIndex(e => e.name == name),
@@ -21,7 +21,7 @@ function getInteger(name, defaultNum = 0) {
  * @param {number}year
  * @param {number}month
  * @param {number}day
- * @param {number[]}args*/
+ * @param {number[]}args */
 function getTime(year, month, day, ...args) {
   const
     allowedYearStart = -1, // "-1" to include "0"
@@ -30,7 +30,7 @@ function getTime(year, month, day, ...args) {
   return year.inRange(allowedYearStart, allowedYearEnd) ? new Date(year - DATE_START, month, day, ...args).setFullYear(year) : new Date(year, month, day, ...args).getTime();
 }
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   slashCommand: true,
   prefixCommand: true,
@@ -52,7 +52,7 @@ module.exports = {
       name: 'year',
       type: 'Integer',
       minValue: 0,
-      /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- max years*/
+      /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- max years */
       maxValue: 2e5
     },
     {

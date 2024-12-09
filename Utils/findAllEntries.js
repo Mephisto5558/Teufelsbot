@@ -1,4 +1,4 @@
-/** @type {import('.').findAllEntires}*/
+/** @type {import('.').findAllEntires} */
 function findAllEntries(obj, key, entryList = {}) {
   const stack = [obj];
   while (stack.length) {

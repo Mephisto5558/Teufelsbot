@@ -4,11 +4,11 @@ const
 
 /**
  * @param {Interaction}interaction
- * @param {string}name*/
+ * @param {string}name */
 // 2nd const keyword because of intellisense
 const getStringOption = (interaction, name) => interaction.options.getString(name)?.replaceAll('/n', '\n');
 
-/** @type {command<'slash', false>}*/
+/** @type {command<'slash', false>} */
 module.exports = {
   permissions: { user: ['EmbedLinks'] },
   /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
@@ -64,7 +64,7 @@ module.exports = {
   async run(lang) {
     const
 
-      /** @type {(name: string) => string|undefined}*/
+      /** @type {(name: string) => string | undefined} */
       getOption = getStringOption.bind(undefined, this),
       custom = getOption('json'),
       allowedMentions = { parse: [AllowedMentionsTypes.User] };

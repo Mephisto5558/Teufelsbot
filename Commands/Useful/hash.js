@@ -3,7 +3,7 @@ const
   { getHashes, createHash } = require('node:crypto'),
   { constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {command<'slash', false>}*/
+/** @type {command<'slash', false>} */
 module.exports = {
   cooldowns: { user: msInSecond },
   slashCommand: true,

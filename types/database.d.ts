@@ -55,7 +55,7 @@ type userId = Snowflake;
 type roleId = Snowflake;
 type backupId = `${guildId}${Snowflake}`;
 
-/** `unknown` are commands that were executed before slash and prefix command stats got counted separately.*/
+/** `unknown` are commands that were executed before slash and prefix command stats got counted separately. */
 type cmdStats = Record<string, Record<'slash' | 'prefix' | 'unknown', number | undefined> | undefined>;
 
 type Database = {
@@ -132,7 +132,7 @@ type Database = {
   guildSettings: Record<guildId, {
     position: number;
 
-    /** The date on which the bot left the guild. Is not set if the bot is in the guild.*/
+    /** The date on which the bot left the guild. Is not set if the bot is in the guild. */
     leftAt?: Date;
     config: {
       lang?: Database['botSettings']['defaultGuild']['config']['lang'];
@@ -180,13 +180,13 @@ type Database = {
 
         /**
          * There will always be both `lastWord` and `lastAuthor` or none of them present.
-         * Will always be a single lowercase character*/
+         * Will always be a single lowercase character */
         lastWord?: string;
 
-        /** The last word of the message before the `lastWord`*/
+        /** The last word of the message before the `lastWord` */
         lastWordBefore?: string;
 
-        /** There will always be both `lastWordChar` and `lastAuthor` or none of them present.*/
+        /** There will always be both `lastWordChar` and `lastAuthor` or none of them present. */
         lastAuthor?: userId;
       } | undefined>;
     };
@@ -320,7 +320,7 @@ type Database = {
         children: backupChannel[];
       }[];
 
-      /** Channels which are not in a category*/
+      /** Channels which are not in a category */
       others: backupChannel[];
     };
   } | undefined>;

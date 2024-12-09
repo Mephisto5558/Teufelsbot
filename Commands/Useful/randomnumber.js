@@ -2,7 +2,7 @@ const
   { randomInt } = require('node:crypto'),
   defaultMaxNum = 100;
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   usage: { examples: '1 10' },
   aliases: { prefix: ['random-number'] },

@@ -17,10 +17,10 @@ module.exports = class Log extends Function {
     access(logFilesDir).catch(() => mkdir(logFilesDir));
     super('...str', 'return this.log(...str)');
 
-    /** @type {this}*/
+    /** @type {this} */
     const bound = this.bind(this);
 
-    /* eslint-disable no-multi-assign -- this just makes more sense.*/
+    /* eslint-disable no-multi-assign -- this just makes more sense. */
     /* Setting it to `this` is required for top-level calls,
        Setting it to `bound` is required for chained calls */
     this.date = bound.date = new Date().toLocaleDateString('en', { day: '2-digit', month: '2-digit', year: 'numeric' }).replaceAll('/', '-');

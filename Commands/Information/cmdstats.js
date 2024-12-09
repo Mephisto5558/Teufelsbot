@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter;
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   usage: { examples: 'user joke' },
   cooldowns: { user: msInSecond },
@@ -55,7 +55,7 @@ module.exports = {
         .map(([k, v = {}]) => [k, { total: Object.values(v).reduce((acc, e) => acc + e, 0) ?? 0, slash: v.slash ?? 0, prefix: v.prefix ?? 0 }])
         .sort(([, a], [, b]) => b.total - a.total)
         .slice(0, 10)
-        .map((/** @type {[string, {total: number, slash: number, prefix: number}]}*/[k, v]) => {
+        .map((/** @type {[string, {total: number, slash: number, prefix: number}]} */[k, v]) => {
           const id = this.client.application.commands.cache.find(e => e.name == k)?.id;
           return { name: id ? `</${k}:${id}>` : `/${k}`, value: lang('embedFieldValue', v), inline: true };
         });

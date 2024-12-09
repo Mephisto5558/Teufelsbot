@@ -10,10 +10,10 @@ const
   handlers = require('./Handlers'),
   events = require('./Events'),
   { GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */ } = require('#Utils'),
-  /* eslint-disable-next-line custom/unbound-method -- fine here*/
+  /* eslint-disable-next-line custom/unbound-method -- fine here */
   { onTick: syncEmojis } = require('./TimeEvents').syncEmojis,
 
-  createClient = /** @returns {Client<false>}*/ () => new Client({
+  createClient = /** @returns {Client<false>} */ () => new Client({
     shards: 'auto',
     failIfNotExists: false,
     allowedMentions: {
@@ -45,7 +45,7 @@ const
 /**
  * @this {Client<true>}
  * @param {Promise[]}handlerPromises
- * @param {string}message*/
+ * @param {string}message */
 async function processMessageEventCallback(handlerPromises, message) {
   if (message != 'Start WebServer') return;
   process.removeListener('message', processMessageEventCallback.bind(this, handlerPromises));
@@ -74,7 +74,7 @@ async function processMessageEventCallback(handlerPromises, message) {
 /**
  * @this {Client<false>}
  * @param {string}token
- * @returns {Promise<Client<true>>}*/
+ * @returns {Promise<Client<true>>} */
 async function loginClient(token) {
   await this.login(token);
   log(`Logged into ${this.botType}`);
@@ -102,14 +102,14 @@ void (async function main() {
 
   if (newClient.botType != 'dev') newClient.giveawaysManager = new GiveawaysManager(newClient);
 
-  /** Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution*/
+  /** Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution */
   const handlerPromises = Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(([,handler]) => handler.call(newClient));
   handlerPromises.push(newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add('owner' in app.owner ? app.owner.owner.id : app.owner?.id)));
 
-  /** @type {Client<true>}*/
+  /** @type {Client<true>} */
   const client = await loginClient.call(newClient, newClient.keys.token);
 
-  /** @param {string}emoji*/
+  /** @param {string}emoji */
   globalThis.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();
 
   if (process.connected) process.on('message', processMessageEventCallback.bind(client, handlerPromises));

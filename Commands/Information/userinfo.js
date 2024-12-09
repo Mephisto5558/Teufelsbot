@@ -3,7 +3,7 @@ const
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMember, getAge, permissionTranslator, timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   aliases: { prefix: ['user-info'] },
   cooldowns: { user: msInSecond },
@@ -32,7 +32,7 @@ module.exports = {
       embed = new EmbedBuilder({
         title: member.user.tag,
         description: (status ? lang('activity.4', status.state) : '') + (
-          member.presence?.activities.reduce((/** @type {string[]}*/acc, e) => {
+          member.presence?.activities.reduce((/** @type {string[]} */acc, e) => {
             if (e.type != ActivityType.Custom) acc.push(lang(`activity.${e.type}`, e.name));
             return acc;
           }, []).unique().join(', ') ?? ''

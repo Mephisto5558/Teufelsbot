@@ -25,7 +25,7 @@ globalThis.sleep = require('node:util').promisify(setTimeout);
 /**
  * @param {Record<string, any>}target
  * @param {Record<string, any>}source
- * @returns {object} recursively merged Object*/
+ * @returns {object} recursively merged Object */
 function deepMerge(target, source) {
   for (const key in source) {
     if (key == '__proto__' || key == 'constructor') continue;
@@ -51,7 +51,7 @@ if (!config.hideOverwriteWarning) {
 }
 
 if (parentUptime) {
-  /* eslint-disable-next-line custom/unbound-method -- still on the same class*/
+  /* eslint-disable-next-line custom/unbound-method -- still on the same class */
   process.childUptime = process.uptime;
   process.uptime = function uptime() {
     return this.childUptime() + parentUptime;
@@ -61,24 +61,24 @@ if (parentUptime) {
 // #region BuildIn
 Object.defineProperties(Array.prototype, {
   random: {
-    /** @type {global['Array']['prototype']['random']}*/
+    /** @type {global['Array']['prototype']['random']} */
     value: function random() { return this[randomInt(this.length)]; },
     enumerable: false
   },
   unique: {
-    /** @type {global['Array']['prototype']['unique']}*/
+    /** @type {global['Array']['prototype']['unique']} */
     value: function unique() { return [...new Set(this)]; },
     enumerable: false
   }
 });
 Object.defineProperties(Number.prototype, {
   limit: {
-    /** @type {global['Number']['prototype']['limit']}*/
+    /** @type {global['Number']['prototype']['limit']} */
     value: function limit({ min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY } = {}) { return Math.min(Math.max(Number(this), min), max); },
     enumerable: false
   },
   inRange: {
-    /** @type {global['Number']['prototype']['inRange']}*/
+    /** @type {global['Number']['prototype']['inRange']} */
     value: function inRange(min, max) {
       let minRange, maxRange;
       if (typeof min == 'object') {
@@ -92,7 +92,7 @@ Object.defineProperties(Number.prototype, {
   }
 });
 Object.defineProperties(Object.prototype, {
-  /** @type {global['Object']['prototype']['filterEmpty']}*/
+  /** @type {global['Object']['prototype']['filterEmpty']} */
   filterEmpty: {
     value: function filterEmpty() {
       return Object.entries(this).reduce((acc, [k, v]) => {
@@ -104,7 +104,7 @@ Object.defineProperties(Object.prototype, {
     enumerable: false
   },
   __count__: {
-    /** @type {global['Object']['prototype']['__count__']}*/
+    /** @type {global['Object']['prototype']['__count__']} */
     get: function get() {
       let count = 0;
       for (const prop in this) if (Object.hasOwn(this, prop)) count++;
@@ -117,7 +117,7 @@ Object.defineProperties(Object.prototype, {
 Object.defineProperty(Function.prototype, 'bBind', {
   /**
    * @type {global['Function']['prototype']['bBind']}
-   * @this {CallableFunction}*/
+   * @this {CallableFunction} */
   value: function bBind(thisArg, ...args) {
     const bound = this.bind(thisArg, ...args);
     bound.__targetFunction__ = this;
@@ -159,9 +159,9 @@ Object.defineProperties(Client.prototype, {
     set(val) { void this.db.update('botSettings', 'defaultGuild', val); }
   },
   loadEnvAndDB: {
-    /** @type {Client['loadEnvAndDB']}*/
+    /** @type {Client['loadEnvAndDB']} */
     value: async function loadEnvAndDB() {
-      let /** @type {import('../../types/locals').EnvJSON}*/env, /** @type {import('@mephisto5558/mongoose-db').DB | undefined}*/db;
+      let /** @type {import('../../types/locals').EnvJSON} */env, /** @type {import('@mephisto5558/mongoose-db').DB | undefined} */db;
       try { env = require('../../env.json'); }
       catch (err) {
         if (err.code != 'MODULE_NOT_FOUND') throw err;
@@ -184,14 +184,14 @@ Object.defineProperties(Client.prototype, {
     }
   },
   awaitReady: {
-    /** @type {Client['awaitReady']}*/
+    /** @type {Client['awaitReady']} */
     value: async function awaitReady() {
       return new Promise(res => this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch())));
     }
   }
 });
 Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
-  /** @this {AutocompleteInteraction}*/
+  /** @this {AutocompleteInteraction} */
   get() { return this.options.getFocused(true); },
 
   /**
@@ -200,7 +200,7 @@ Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
   set(val) { this.options.data.find(e => e.focused).value = val; }
 });
 Object.defineProperty(Message.prototype, 'user', {
-  /** @this {Message}*/
+  /** @this {Message} */
   get() { return this.author; }
 });
 Object.assign(Message.prototype, { customReply, runMessages, _patch });
@@ -211,7 +211,7 @@ Object.defineProperties(User.prototype, {
     set(val) { void this.updateDB(undefined, val); }
   },
   updateDB: {
-    /** @type {User['updateDB']}*/
+    /** @type {User['updateDB']} */
     value: async function updateDB(key, value) { return this.client.db.update('userSettings', `${this.id}${key ? '.' + key : ''}`, value); }
   },
 
@@ -241,7 +241,7 @@ Object.defineProperties(Guild.prototype, {
     set(val) { void this.updateDB(undefined, val); }
   },
   updateDB: {
-    /** @type {Guild['updateDB']}*/
+    /** @type {Guild['updateDB']} */
     value: function updateDB(key, value) { return this.client.db.update('guildSettings', this.id + (key ? `.${key}` : ''), value); }
   },
 
@@ -256,7 +256,7 @@ Object.defineProperties(Guild.prototype, {
 
 // #region mongoose-db
 Object.defineProperty(DB.prototype, 'generate', {
-  /** @type {DB['generate']}*/
+  /** @type {DB['generate']} */
   value: async function generate(overwrite = false) {
     this.saveLog(`generating db files${overwrite ? ', overwriting existing data' : ''}`);
     await Promise.all(require('../../Templates/db_collections.json').map(({ key, value }) => this.set(key, value, overwrite)));
@@ -275,7 +275,7 @@ Object.defineProperty(TicTacToe.prototype, 'playAgain', {
 Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
   /**
    * @param {number}row
-   * @param {number}col*/
+   * @param {number}col */
   value: function createButton(row, col) {
     const
       button = new ButtonBuilder(),

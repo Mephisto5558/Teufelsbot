@@ -1,24 +1,24 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
 
-  /** @type {import('..').permissionTranslator}*/
+  /** @type {import('..').permissionTranslator} */
   permissionTranslator = require('../permissionTranslator.js'),
   { secsInMinute, msInSecond } = require('../timeFormatter');
 
 /**
  * @type {import('.').help_getCommands}
- * @this {ThisParameterType<import('.').help_getCommands>}*/ // This is here due to eslint
+ * @this {ThisParameterType<import('.').help_getCommands>} */ // This is here due to eslint
 function getCommands() { return [...this.client.prefixCommands.values(), ...this.client.slashCommands.values()].unique().filter(filterCommands.bind(this)); }
 
 /**
  * @type {import('.').help_getCommandCategories}
- * @this {ThisParameterType<import('.').help_getCommandCategories>}*/ // This is here due to eslint
+ * @this {ThisParameterType<import('.').help_getCommandCategories>} */ // This is here due to eslint
 function getCommandCategories() { return getCommands.call(this).map(e => e.category).unique(); }
 
 /**
- * @this {Interaction|Message}
+ * @this {Interaction | Message}
  * @param {lang}lang
- * @param {string[]?}commandCategories*/
+ * @param {string[]?}commandCategories */
 function createCategoryComponent(lang, commandCategories) {
   commandCategories ??= getCommandCategories.call(this);
   const defaultOption = (this.options?.getString('command') ? undefined : this.options?.getString('category'))
@@ -48,9 +48,9 @@ function createCategoryComponent(lang, commandCategories) {
 }
 
 /**
- * @this {Interaction|Message}
+ * @this {Interaction | Message}
  * @param {lang}lang
- * @param {string}category*/
+ * @param {string}category */
 function createCommandsComponent(lang, category) {
   const defaultOption = this.args?.[1] ?? this.options?.getString('command')
     ?? (this.message?.components[1] ? this.message.components[1].components[0].options.find(e => e.value === this.values[0])?.value : undefined);
@@ -69,9 +69,9 @@ function createCommandsComponent(lang, category) {
 }
 
 /**
- * @this {Interaction|Message}
+ * @this {Interaction | Message}
  * @param {command<string, boolean, true> | undefined}cmd
- * @param {lang}lang*/
+ * @param {lang}lang */
 function createInfoFields(cmd, lang) {
   const
     arr = [],
@@ -113,14 +113,14 @@ function createInfoFields(cmd, lang) {
 }
 
 /**
- * @this {Interaction|Message}
- * @param {command<string, boolean, true> | undefined}cmd*/
+ * @this {Interaction | Message}
+ * @param {command<string, boolean, true> | undefined}cmd */
 function filterCommands(cmd) {
   return !!cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta)
     && (!this.client.config.ownerOnlyFolders.includes(cmd.category) || this.client.config.devIds.has(this.user.id));
 }
 
-/** @type {import('.').help_commandQuery}*/
+/** @type {import('.').help_commandQuery} */
 module.exports.commandQuery = async function commandQuery(lang, query) {
   if (this.values && !this.values.length) return module.exports.categoryQuery.call(this, lang, this.message.components[0].components[0].data.options.find(e => e.default).value);
 
@@ -136,7 +136,7 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
 
   const
 
-    /** @type {langUNF}*/
+    /** @type {langUNF} */
     helpLang = this.client.i18n.__.bind(this.client.i18n, {
       undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang, backupPath: `commands.${command.category}.${command.name}`
     }),
@@ -152,7 +152,7 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
   return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, command.category)] });
 };
 
-/** @type {import('.').help_categoryQuery}*/
+/** @type {import('.').help_categoryQuery} */
 module.exports.categoryQuery = async function categoryQuery(lang, query) {
   if (!query) {
     delete this.message?.components[0].components[0].data.options.find(e => e.default)?.default;
@@ -161,7 +161,7 @@ module.exports.categoryQuery = async function categoryQuery(lang, query) {
 
   const
 
-    /** @type {langUNF}*/
+    /** @type {langUNF} */
     helpLang = this.client.i18n.__.bind(this.client.i18n, {
       undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang,
       backupPath: `commands.${query}`
@@ -184,7 +184,7 @@ module.exports.categoryQuery = async function categoryQuery(lang, query) {
   return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, query)] });
 };
 
-/** @type {import('.').help_allQuery}*/
+/** @type {import('.').help_allQuery} */
 module.exports.allQuery = async function allQuery(lang) {
   const
     commandCategories = getCommandCategories.call(this),

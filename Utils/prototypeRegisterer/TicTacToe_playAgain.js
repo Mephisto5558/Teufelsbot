@@ -1,10 +1,10 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
   { msInSecond, secsInMinute } = require('../timeFormatter.js'),
-  BUTTON_TIME = msInSecond * secsInMinute * 15; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 15s*/
+  BUTTON_TIME = msInSecond * secsInMinute * 15; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 15s */
 
 
-/** @type {import('.').playAgain}*/
+/** @type {import('.').playAgain} */
 module.exports = async function playAgain(interaction, lang) {
   const
     opponent = interaction.options.getUser('opponent'),
@@ -27,7 +27,7 @@ module.exports = async function playAgain(interaction, lang) {
   });
 
   collector
-    .on('collect', /** @param {import('discord.js').ButtonInteraction}PAButton*/async PAButton => {
+    .on('collect', /** @param {import('discord.js').ButtonInteraction}PAButton */async PAButton => {
       void PAButton.deferUpdate();
       collector.stop();
 

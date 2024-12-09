@@ -2,12 +2,12 @@
 const
   { Constants, EmbedBuilder, Colors } = require('discord.js'),
   { constants: { autocompleteOptionsMaxAmt }, timeFormatter: { msInSecond } } = require('#Utils'),
-  /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- this is like an enum*/
+  /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- this is like an enum */
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'],
   MAX_PREFIXES_PER_GUILD = 2,
-  getCMDs = /** @param {Client}client*/ client => [...client.prefixCommands, ...client.slashCommands].filter(([,e]) => !e.aliasOf).map(([e]) => e).unique(),
-  /** @type {Record<string, (this: GuildInteraction, lang: lang) =>Promise<unknown>>} */
+  getCMDs = /** @param {Client}client */ client => [...client.prefixCommands, ...client.slashCommands].filter(([,e]) => !e.aliasOf).map(([e]) => e).unique(),
+  /** @type {Record<string, (this: GuildInteraction, lang: lang) => Promise<void>>} */
   setupMainFunctions = {
     toggle_module: async function toggleModule(lang) {
       const
@@ -96,10 +96,10 @@ const
       const
         language = this.options.getString('language', true),
 
-        /** @type {lang}*/
+        /** @type {lang} */
         newLang = this.client.i18n.__.bind(this.client.i18n, { locale: this.client.i18n.availableLocales.has(language) ? language : this.client.i18n.config.defaultLocale });
 
-      /** @type {command<'slash', true, true>}*/
+      /** @type {command<'slash', true, true>} */
       let { aliasOf, name, category } = this.client.slashCommands.get(this.commandName);
       if (aliasOf) ({ name, category } = this.client.slashCommands.get(aliasOf));
 
@@ -181,7 +181,7 @@ const
     }
   };
 
-/** @type {command<'slash'>}*/
+/** @type {command<'slash'>} */
 module.exports = {
   aliases: { slash: ['config'] },
   permissions: { user: ['ManageGuild'] },
@@ -211,7 +211,7 @@ module.exports = {
           strictAutocomplete: true
         },
         { name: 'get', type: 'Boolean' },
-        /* eslint-disable @typescript-eslint/no-magic-numbers -- TODO: convert to selectMenu*/
+        /* eslint-disable @typescript-eslint/no-magic-numbers -- TODO: convert to selectMenu */
         ...Array.from({ length: 6 }, (_, i) => ({ type: 'Role', name: `role_${i + 1}` })),
         ...Array.from({ length: 6 }, (_, i) => ({ type: 'Channel', name: `channel_${i + 1}`, channelTypes: Constants.GuildTextBasedChannelTypes })),
         ...Array.from({ length: 6 }, (_, i) => ({ type: 'User', name: `member_${i + 1}` }))

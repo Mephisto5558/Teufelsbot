@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib*/
+/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
 const
   { Collection } = require('discord.js'),
   { resolve, basename, dirname } = require('node:path'),
@@ -9,7 +9,7 @@ const
 /**
  * @this {Client}
  * @param {command<string, boolean>}command
- * @param {string[]}reloadedArray gets modified and not returned*/
+ * @param {string[]}reloadedArray gets modified and not returned */
 async function reloadCommand(command, reloadedArray) {
   /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
   delete require.cache[command.filePath];
@@ -91,7 +91,7 @@ async function reloadCommand(command, reloadedArray) {
   }
 }
 
-/** @type {command<'prefix', false>}*/
+/** @type {command<'prefix', false>} */
 module.exports = {
   slashCommand: false,
   prefixCommand: true,
@@ -110,7 +110,7 @@ module.exports = {
       msg = await this.reply(lang('global.loading', getEmoji('loading'))),
       commandList = new Collection([...this.client.prefixCommands, ...this.client.slashCommands]),
 
-      /** @type {(string | undefined)[]}*/
+      /** @type {(string | undefined)[]} */
       reloadedArray = [];
 
     try {

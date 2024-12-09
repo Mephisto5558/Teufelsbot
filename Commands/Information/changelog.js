@@ -11,12 +11,12 @@ const
   suffix = '...';
 
 
-/** @type {string[]|undefined} */
+/** @type {string[] | undefined} */
 let commitsCache;
 
 /**
  * @this {Client}
- * @returns {Promise<string[]>}*/
+ * @returns {Promise<string[]>} */
 async function getCommits() {
   const { github } = this.config;
 
@@ -29,7 +29,7 @@ async function getCommits() {
       }
     }),
 
-    /** @type {{ commit: { message: string } }[]}*/
+    /** @type {{ commit: { message: string } }[]} */
     json = await res.json();
 
   if (!res.ok) throw new Error(JSON.stringify(json));
@@ -40,7 +40,7 @@ async function getCommits() {
   });
 }
 
-/** @type {command<'both', false>}*/
+/** @type {command<'both', false>} */
 module.exports = {
   aliases: { prefix: ['changelogs'] },
   cooldowns: { channel: msInSecond * 10 },

@@ -7,7 +7,7 @@ const
 
   /**
    * @param {string}str
-   * filters discord invites, invite.gg, dsc.gg, disboard.org links*/
+   * filters discord invites, invite.gg, dsc.gg, disboard.org links */
   adRegex = str => new RegExp(
     String.raw`(?:(?=discord)(?<!support\.)(?:discord(?:app)?[\W_]*(?:com|gg|io|link|me|net|plus)\/|`
     + String.raw`(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(?:attachments|channels)\/)`
@@ -15,21 +15,21 @@ const
   ).test(str),
   filterOptionsExist = /** @param {Record<string, string | number | boolean | undefined>}options */ options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
 
-  /** @type {Record<string, (msg: Message<true>) => boolean>}*/
+  /** @type {Record<string, (msg: Message<true>) => boolean>} */
   filterCheck = {
     text: msg => !!msg.content.length,
     embeds: msg => !!msg.embeds.length,
     mentions: msg => !!msg.mentions.users.size,
     images: msg => !!msg.attachments.some(e => e.contentType.includes('image')),
-    /* eslint-disable-next-line camelcase -- option name for better user-readability*/
+    /* eslint-disable-next-line camelcase -- option name for better user-readability */
     server_ads: msg => adRegex(msg.content) || !!msg.embeds.some(e => adRegex(e.description))
   };
 
-/** @type {import('./purge')['shouldDeleteMsg']}*/
+/** @type {import('./purge')['shouldDeleteMsg']} */
 function shouldDeleteMsg(msg, options) {
   const
-    /* eslint-disable-next-line jsdoc/require-param -- false positive*/
-    check = /** @param {GenericFunction}fn @param {string}option*/ (fn, option) => !!(
+    /* eslint-disable-next-line jsdoc/require-param -- false positive */
+    check = /** @param {GenericFunction}fn @param {string}option */ (fn, option) => !!(
       !option
       || msg.content.toLowerCase()[fn](option.toLowerCase())
       || msg.embeds.some(e => e.description?.toLowerCase()[fn](option.toLowerCase()))
@@ -43,7 +43,7 @@ function shouldDeleteMsg(msg, options) {
 
   if (!filterOptionsExist(options)) return bool;
 
-  /* eslint-disable-next-line sonarjs/expression-complexity -- good readability*/
+  /* eslint-disable-next-line sonarjs/expression-complexity -- good readability */
   return bool
     && (!('member' in options) || msg.user.id == options.member.id)
     && (!('user_type' in options) || options.user_type == userType)
@@ -60,7 +60,7 @@ const maxMsgs = 250;
  * @param {Message['channel']}channel
  * @param {string?}before
  * @param {string?}after
- * @param {number?}limit*/
+ * @param {number?}limit */
 async function fetchMsgs(channel, before, after, limit = maxMsgs) {
   const options = { limit: Math.min(limit, maxMsgsToFetch), before, after };
 
@@ -74,7 +74,7 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
     const messages = await channel.messages.fetch(options);
     if (!messages.size) break;
 
-    /* eslint-disable-next-line unicorn/prefer-spread -- false positive: Collection extends Map, not Array*/
+    /* eslint-disable-next-line unicorn/prefer-spread -- false positive: Collection extends Map, not Array */
     collection = collection.concat(messages);
     lastId = messages.at(-1).id;
     options.limit = Math.min(limit - collection.size, maxMsgsToFetch);
@@ -83,7 +83,7 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
   return collection;
 }
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   aliases: { prefix: ['clear'] },
   permissions: { client: ['ManageMessages', 'ReadMessageHistory'], user: ['ManageMessages'] },
@@ -136,7 +136,7 @@ module.exports = {
     const
       amount = this.options?.getInteger('amount', true) ?? Number.parseInt(this.args[0]).limit({ min: 0, max: maxAllowedPurgeAmt }),
 
-      /** @type {import('discord.js').GuildTextBasedChannel}*/
+      /** @type {import('discord.js').GuildTextBasedChannel} */
       channel = getTargetChannel(this, { returnSelf: true }),
       options = Object.fromEntries(this.options?.data.map(e => [e.name, e.value]) ?? []);
 
@@ -179,12 +179,12 @@ module.exports = {
 };
 
 /* eslint-disable unicorn/consistent-function-scoping, camelcase, @typescript-eslint/no-magic-numbers
--- in there due to performance reasons (testing code not used in production)*/
+-- in there due to performance reasons (testing code not used in production) */
 
-/** Tests the purge filters*/
+/** Tests the purge filters */
 /** @typedef {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}}data */
 function _testPurge() {
-  /** @param {data[]}data*/
+  /** @param {data[]}data */
   function addEmbed(...data) {
     return data.reduce((acc, e) => {
       const obj = structuredClone(e);
@@ -194,10 +194,10 @@ function _testPurge() {
       acc.push(e, obj);
 
       return acc;
-    }, []).sort((/** @type {data}*/a, /** @type {data}*/b) => Number('content' in b.input[0]) - Number('content' in a.input[0]));
+    }, []).sort((/** @type {data} */a, /** @type {data} */b) => Number('content' in b.input[0]) - Number('content' in a.input[0]));
   }
 
-  /** @param {data[]}data*/
+  /** @param {data[]}data */
   function addFlip(...data) {
     return data.reduce((acc, e) => {
       const obj = structuredClone(e);
@@ -213,7 +213,7 @@ function _testPurge() {
       acc.push(e, obj);
 
       return acc;
-    }, []).sort((/** @type {data}*/a, /** @type {data}*/b) => {
+    }, []).sort((/** @type {data} */a, /** @type {data} */b) => {
       const orderMap = { contains: 0, starts_with: 1, ends_with: 2, does_not_contain: 3, not_starts_with: 4, not_ends_with: 5 };
       return orderMap[Object.keys(a.input[1])[0]] - orderMap[Object.keys(b.input[1])[0]];
     });

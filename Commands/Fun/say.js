@@ -2,7 +2,7 @@ const
   { Constants, PermissionFlagsBits, Message, AllowedMentionsTypes } = require('discord.js'),
   { getTargetChannel, logSayCommandUse, constants } = require('#Utils');
 
-/** @type {command<'both'>}*/
+/** @type {command<'both'>} */
 module.exports = {
   /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
   cooldowns: { user: 200 },
@@ -31,11 +31,11 @@ module.exports = {
   async run(lang) {
     const
 
-      /** @type {string}*/
+      /** @type {string} */
       msg = this.options?.getString('msg', true) ?? this.content,
       allowedMentions = { parse: [AllowedMentionsTypes.User] },
 
-      /** @type {import('discord.js').GuildTextBasedChannel}*/
+      /** @type {import('discord.js').GuildTextBasedChannel} */
       channel = getTargetChannel(this, { returnSelf: true }),
       replyTo = this.options?.getString('reply_to');
 

@@ -2,7 +2,7 @@ const
   medals = [':first_place:', ':second_place:', ':third_place:'],
   { messageMaxLength } = require('../constants');
 
-/** @type {import('.').mgStats_formatTop}*/
+/** @type {import('.').mgStats_formatTop} */
 module.exports = function formatTop(input, sort, mode, lang, maxLength = messageMaxLength, amt = 10) {
   if (input.length > 1) {
     switch (mode) {
