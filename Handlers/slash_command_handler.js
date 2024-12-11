@@ -88,7 +88,7 @@ module.exports = async function slashCommandHandler() {
   log(`Deleted ${deletedCommandCount} Slash Commands`);
 
   this.on('interactionCreate', async interaction => {
-    try { await require('../Events/interactionCreate.js').call(interaction); }
+    try { await require('../Events').interactionCreate.call(interaction); }
     catch (err) { await errorHandler.call(this, err, interaction); }
   });
 
