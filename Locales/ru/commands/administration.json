@@ -76,9 +76,9 @@
       "success": "Резервная копия успешно удалена!"
     },
     "get": {
-      "oneEmbedDescription": "**Информация о резервной копии `{id}`**\n>> Создана в: <t:{createdAt}>\nРазмер: {size}\nУчастники: {members}\nКаналы: {channels}\nРоли: {roles}\nEmojis: {emojis}\nСтикеры: {stickers}",
+      "oneEmbedDescription": "**Информация о резервной копии `{id}`**\n>> Создана в: {createdAt}\nРазмер: {size}\nУчастники: {members}\nКаналы: {channels}\nРоли: {roles}\nEmojis: {emojis}\nСтикеры: {stickers}",
       "oneNotFound": "Резервная копия с таким ID не найдена!",
-      "infos": "Создано: <t:{createdAt}>\nРазмер: {size}\nУчастники: {members}\nКаналы: {channels}\nРоли: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "infos": "Создано: {createdAt}\nРазмер: {size}\nУчастники: {members}\nКаналы: {channels}\nРоли: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "found": "Найдено {amount} резервных копий.",
       "embedDescription": "Найдены следующие резервные копии, отсортированные по дате:",
       "noneFound": "Резервные копии для этого сервера не найдены."

@@ -267,7 +267,7 @@
     },
     "invalid": "¡El tiempo que proporcionaste no es válido! Usa {command} y busca `timestamp` para obtener información mor.",
     "outOfRange": "El tiempo especificado es mayor que 200,000 años!",
-    "success": "Eso es <t:{time}:R> (`<t:{time}:R>`)."
+    "success": "Eso es {time} (`{time}`)."
   },
   "until": {
     "description": "Shows how long it will be until a certain date/time. If no date is specified,default is current date",

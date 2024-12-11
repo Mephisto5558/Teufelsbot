@@ -1,6 +1,6 @@
 {
-  "afkMsg": "`{member}` è AFK: {message} - <t:{timestamp}:R>",
-  "afkEnd": "Bentornato, ho rimosso il tuo AFK. Sei stato AFK da <t:{timestamp}>.\nIl tuo messaggio AFK era: \"{message}\"",
+  "afkMsg": "`{member}` è AFK: {message} - {timestamp}",
+  "afkEnd": "Bentornato, ho rimosso il tuo AFK. Sei stato AFK da {timestamp}.\nIl tuo messaggio AFK era: \"{message}\"",
   "counting": {
     "error": "SI RUINO AL **{lastNumber}**!! Il prossimo numero è **1**.\n",
     "wrongNumber": "**Non puoi contare?! Numero errato.**",

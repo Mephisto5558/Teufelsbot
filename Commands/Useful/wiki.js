@@ -3,7 +3,7 @@ const
   /** @type {import('../../node_modules/wikijs/index')} */
   { default: wikiInit } = require('wikijs'),
   { EmbedBuilder, Colors } = require('discord.js'),
-  { constants: { embedFieldMaxAmt, messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { constants: { embedFieldMaxAmt, messageMaxLength }, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
   MAX_MSGS = 9;
 
 /** @type {command<'both', false>} */
@@ -52,7 +52,7 @@ module.exports = {
           /** @type {string} */
           let value;
           if (Array.isArray(v)) value = v.join(', ');
-          else if (typeof v == 'object') value = v.date instanceof Date ? `<t:${Math.round(v.date.getTime() / msInSecond)}>` : JSON.stringify(v, undefined, 2);
+          else if (typeof v == 'object') value = v.date instanceof Date ? timestamp(v.date) : JSON.stringify(v, undefined, 2);
           else if (typeof v == 'boolean') value = lang(`global.${v}`);
           else value = images.find(e => e.includes(v.toString().replaceAll(' ', '_'))) ?? v.toString(); // note: possibly not a string, but weren't able to type it all
 

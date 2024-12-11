@@ -2,7 +2,7 @@ import type {
   DMChannel, GuildChannel, GuildMember, Role, User, Collection, Guild, Snowflake,
   APIAllowedMentions, Message, BaseInteraction, MessageComponentInteraction,
   AutocompleteInteraction, CategoryChannel, GuildTextBasedChannel, GuildChannelManager,
-  Webhook, VoiceState
+  Webhook, VoiceState, TimestampStylesString, DateResolvable
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
 import type { GiveawaysManager, GiveawayData } from 'discord-giveaways';
@@ -320,6 +320,9 @@ declare namespace TTormatter {
       ? `${number}${number}${number}${number}-${number}${number}, ${number}${number}:${number}${number}:${number}${number}`
       : string;
   };
+
+  function timestamp(time: DateResolvable): `<t:${number}>`;
+  function timestamp<T extends TimestampStylesString>(time: DateResolvable, code: T): `<t:${number}:${T}>`;
 
   /* eslint-disable @typescript-eslint/no-magic-numbers */
   const

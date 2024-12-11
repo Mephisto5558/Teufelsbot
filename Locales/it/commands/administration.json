@@ -76,9 +76,9 @@
       "success": "Il backup è stato eliminato con successo!"
     },
     "get": {
-      "oneEmbedDescription": "**Informazioni sul backup `{id}`**\n>>> Creato a: <t:{createdAt}>\nDimensione: {size}\nMembri: {members}\nCanali: {channels}\nRuoli: {roles}\nEmojis: {emojis}\nAdesivi: {stickers}",
+      "oneEmbedDescription": "**Informazioni sul backup `{id}`**\n>>> Creato a: {createdAt}\nDimensione: {size}\nMembri: {members}\nCanali: {channels}\nRuoli: {roles}\nEmojis: {emojis}\nAdesivi: {stickers}",
       "oneNotFound": "Non è stato trovato alcun backup con quell'ID!",
-      "infos": "Creato a: <t:{createdAt}>\nDimensione: {size}\nMembri: {members}\nCanali: {channels}\nRuoli: {roles}\nEmojis: {emojis}\nAdesivi: {stickers}",
+      "infos": "Creato a: {createdAt}\nDimensione: {size}\nMembri: {members}\nCanali: {channels}\nRuoli: {roles}\nEmojis: {emojis}\nAdesivi: {stickers}",
       "found": "Trovati {amount} backup.",
       "embedDescription": "Sono stati trovati i seguenti backup, ordinati per data:",
       "noneFound": "Non è stato trovato alcun backup per questo server."

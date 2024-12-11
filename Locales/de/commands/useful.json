@@ -296,7 +296,7 @@
     },
     "invalid": "Die angegebene Zeit ist ungültig! Nutze {command} und suche nach `timestamp` für mehr Informationen.",
     "outOfRange": "Die angegebene Zeit überschreitet das Limit von 200.000 Jahren!",
-    "success": "Das ist <t:{time}:R> (`<t:{time}:R>`)."
+    "success": "Das ist {time} (`{time}`)."
   },
   "until": {
     "description": "Wie lange es bis zu einem bestimmten Datum/Zeit dauert. Wenn kein Datum, Standard: aktuelles Datum",

@@ -1,8 +1,8 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
-  { msInSecond } = require('#Utils').timeFormatter,
+  { EmbedBuilder, Colors, TimestampStyles } = require('discord.js'),
+  { msInSecond, timestamp } = require('#Utils').timeFormatter,
   maxPercentage = 100,
-  embedUpdateSecs = 4;
+  embedUpdateMs = msInSecond * 4; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 4s */
 
 /** @type {command<'both', false>} */
 module.exports = {
@@ -21,7 +21,7 @@ module.exports = {
         title: lang('embedTitle'),
         description: lang(
           average ? 'average.loading' : 'global.loading',
-          { emoji: getEmoji('loading'), current: 1, target: maxPings, timestamp: Math.floor(Date.now() / msInSecond) + embedUpdateSecs }
+          { emoji: getEmoji('loading'), current: 1, target: maxPings, timestamp: timestamp(Date.now() + embedUpdateMs, TimestampStyles.RelativeTime) }
         ),
         color: Colors.Green
       }),
@@ -42,7 +42,7 @@ module.exports = {
         wsPings.push(this.client.ws.ping);
 
         const startMessagePing = performance.now();
-        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: i, target: maxPings, timestamp: Math.floor(Date.now() / msInSecond) + embedUpdateSecs }))] });
+        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: i, target: maxPings, timestamp: timestamp(Date.now() + embedUpdateMs) }))] });
         msgPings.push(performance.now() - startMessagePing);
       }
 

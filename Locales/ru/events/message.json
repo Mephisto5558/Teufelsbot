@@ -1,6 +1,6 @@
 {
-  "afkMsg": "`{member}` AFK: {message} - <t:{timestamp}:R>",
-  "afkEnd": "С возвращением, я удалил ваш AFK. Вы были AFK с <t:{timestamp}>.\nВаше сообщение AFK: \"{message}\"",
+  "afkMsg": "`{member}` AFK: {message} - {timestamp}",
+  "afkEnd": "С возвращением, я удалил ваш AFK. Вы были AFK с {timestamp}.\nВаше сообщение AFK: \"{message}\"",
   "counting": {
     "error": "ВЫ ЗАВЕРШЕНЫ НА **{lastNumber}**!! Следующее число: **1**.\n",
     "wrongNumber": "**Нельзя посчитать?! Неверное число.**",

@@ -16,8 +16,7 @@ const
   YEAR_STR_LENGTH = 4,
   DATETIME_STR_LENGTH = 2;
 
-/**
- * @type {import('.').timeFormatter['timeFormatter']} */
+/** @type {import('.').timeFormatter['timeFormatter']} */
 function timeFormatter({ sec = 0, lang } = {}) {
   const
     total = sec * msInSecond,
@@ -50,8 +49,18 @@ function timeFormatter({ sec = 0, lang } = {}) {
   };
 }
 
+/**
+ * @type {import('.').timeFormatter['timestamp']}
+ * @param {Parameters<import('.').timeFormatter['timestamp']>[0]}time
+ * @param {Parameters<import('.').timeFormatter['timestamp']>[1] | undefined}code
+ * @returns {`<t:${number}>` | `<t:${number}:${NonNullable<code>}>`} *//* eslint-disable-line jsdoc/valid-types -- false positive */
+function timestamp(time, code) {
+  const date = Math.round(new Date(time).getTime() / msInSecond);
+  return code ? `<t:${date}:${code}>` : `<t:${date}>`;
+}
+
 module.exports = {
-  timeFormatter,
+  timeFormatter, timestamp,
   msInSecond, secsInMinute, minutesInHour, hoursInDay, daysInWeek, daysInMonthAvg, daysInMonthMax,
   daysInYear, monthsInYear, secsInHour, secsInDay, secsInWeek, secsInMonth, secsInYear
 };

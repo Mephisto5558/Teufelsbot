@@ -76,9 +76,9 @@
       "success": "¡Copia de seguridad eliminada con éxito!"
     },
     "get": {
-      "oneEmbedDescription": "**Información sobre la copia de seguridad `{id}`**\n>>> Creada en: <t:{createdAt}>\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "oneEmbedDescription": "**Información sobre la copia de seguridad `{id}`**\n>>> Creada en: {createdAt}\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "oneNotFound": "¡No se encontró copia de seguridad con ese ID!",
-      "infos": "Creado en: <t:{createdAt}>\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "infos": "Creado en: {createdAt}\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "found": "Se encontraron {amount} copias de seguridad.",
       "embedDescription": "Se han encontrado las siguientes copias de seguridad, ordenadas por fecha:",
       "noneFound": "No se encontraron copias de seguridad para este servidor."

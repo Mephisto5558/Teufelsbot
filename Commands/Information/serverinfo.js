@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Guild, ALLOWED_SIZES } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
-  { msInSecond } = require('#Utils').timeFormatter;
+  { msInSecond, timestamp } = require('#Utils').timeFormatter;
 
 /** @type {command<'both'>} */
 module.exports = {
@@ -44,7 +44,7 @@ module.exports = {
           }), inline: true },
           { name: lang('verificationLevel.name'), value: lang(`verificationLevel.${guild.verificationLevel}`), inline: true },
           { name: lang('id'), value: `\`${guild.id}\``, inline: true },
-          { name: lang('createdAt'), value: `<t:${Math.round(guild.createdTimestamp / msInSecond)}>`, inline: true },
+          { name: lang('createdAt'), value: timestamp(guild.createdTimestamp), inline: true },
           guild instanceof Guild && { name: lang('defaultNotifications.name'), value: lang(`defaultNotifications.${guild.defaultMessageNotifications}`), inline: true },
           guild instanceof Guild && { name: lang('owner'), value: `<@${guild.ownerId}>`, inline: true },
           guild instanceof Guild && { name: lang('locale'), value: guild.preferredLocale, inline: true },

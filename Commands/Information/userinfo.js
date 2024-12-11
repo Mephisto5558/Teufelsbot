@@ -1,7 +1,7 @@
 const
-  { ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES } = require('discord.js'),
+  { ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES, TimestampStyles } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
-  { getTargetMember, getAge, permissionTranslator, timeFormatter: { msInSecond } } = require('#Utils');
+  { getTargetMember, getAge, permissionTranslator, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
 
 /** @type {command<'both'>} */
 module.exports = {
@@ -45,8 +45,8 @@ module.exports = {
           { name: lang('position'), value: `\`${this.guild.roles.highest.position - member.roles.highest.position + 1}\`, ${member.roles.highest.toString()}`, inline: true },
           { name: lang('roles'), value: `\`${member.roles.cache.size}\``, inline: true },
           { name: lang('color'), value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.slice(1)})`, inline: true },
-          { name: lang('createdAt'), value: `<t:${Math.round(member.user.createdTimestamp / msInSecond)}>`, inline: true },
-          { name: lang('joinedAt'), value: `<t:${Math.round(member.joinedTimestamp / msInSecond)}>`, inline: true }
+          { name: lang('createdAt'), value: timestamp(member.user.createdTimestamp), inline: true },
+          { name: lang('joinedAt'), value: timestamp(member.joinedTimestamp), inline: true }
 
         ]
       }),
@@ -60,8 +60,8 @@ module.exports = {
         ]
       })];
 
-    if (birthday) embed.data.fields.push({ name: lang('birthday'), value: `<t:${Math.round(birthday.getTime() / msInSecond)}:D> (${getAge(birthday)})`, inline: true });
-    if (member.isCommunicationDisabled()) embed.data.fields.push({ name: lang('timedOutUntil'), value: `<t:${Math.round(member.communicationDisabledUntilTimestamp / msInSecond)}>`, inline: true });
+    if (birthday) embed.data.fields.push({ name: lang('birthday'), value: `${timestamp(birthday, TimestampStyles.LongDate)} (${getAge(birthday)})`, inline: true });
+    if (member.isCommunicationDisabled()) embed.data.fields.push({ name: lang('timedOutUntil'), value: timestamp(member.communicationDisabledUntilTimestamp), inline: true });
     if (member.user.flags.bitfield) {
       embed.data.fields.push({
         name: lang('flags.name'), inline: false,

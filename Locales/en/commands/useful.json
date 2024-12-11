@@ -296,7 +296,7 @@
     },
     "invalid": "The time you provided is invalid! Use {command} and search for `timestamp` for mor information.",
     "outOfRange": "The specified time is greater than 200,000 years!",
-    "success": "That's <t:{time}:R> (`<t:{time}:R>`)."
+    "success": "That's {time} (`{time}`)."
   },
   "until": {
     "description": "Shows how long it will be until a certain date/time. If no date is specified,default is current date",

@@ -76,9 +76,9 @@
       "success": "Sauvegarde supprimée avec succès !"
     },
     "get": {
-      "oneEmbedDescription": "Informations sur la sauvegarde {id}\n>>> Créée à: <t:{createdAt}>\nTaille : {size}\nMembres : {members}\nCanaux : {channels}\nRôles : {roles}\nÉmojis: {emojis}\nAutocollants : {stickers}",
+      "oneEmbedDescription": "Informations sur la sauvegarde {id}\n>>> Créée à: {createdAt}\nTaille : {size}\nMembres : {members}\nCanaux : {channels}\nRôles : {roles}\nÉmojis: {emojis}\nAutocollants : {stickers}",
       "oneNotFound": "Aucune sauvegarde n'a été trouvée avec cet ID !",
-      "infos": "Créé à: <t:{createdAt}>\nTaille : {size}\nMembres : {members}\nChaînes : {channels}\nRôles : {roles}\nÉmoticônes : {emojis}\nAutocollants : {stickers}",
+      "infos": "Créé à: {createdAt}\nTaille : {size}\nMembres : {members}\nChaînes : {channels}\nRôles : {roles}\nÉmoticônes : {emojis}\nAutocollants : {stickers}",
       "found": "{amount} sauvegardes trouvées.",
       "embedDescription": "Les sauvegardes suivantes ont été trouvées, triées par date:",
       "noneFound": "Aucune sauvegarde n'a été trouvée pour ce serveur."

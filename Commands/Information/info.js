@@ -1,6 +1,6 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { msInSecond } = require('#Utils').timeFormatter,
+  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, TimestampStyles } = require('discord.js'),
+  { msInSecond, timestamp } = require('#Utils').timeFormatter,
 
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
 
@@ -55,7 +55,7 @@ module.exports = {
         + `${lang('guilds')}: \`${this.client.guilds.cache.size}\`\n`
         + lang('commands', getCommandCount(this.client))
         + `${lang('starts')}: \`${this.client.settings.startCount[this.client.botType]}\`\n`
-        + `${lang('lastStart')}: <t:${startTime}> (<t:${startTime}:R>)\n`
+        + `${lang('lastStart')}: ${timestamp(startTime)} ${timestamp(startTime, TimestampStyles.RelativeTime)}\n`
         + lang('translation', {
           de: '[Mephisto5558](https://discord.com/users/691550551825055775) & [Koikarpfen1907](https://discord.com/users/636196723852705822)',
           en: '[Mephisto5558](https://discord.com/users/691550551825055775) & [PenguinLeo](https://discord.com/users/740930989798195253)'

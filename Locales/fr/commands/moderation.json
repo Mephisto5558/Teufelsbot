@@ -80,9 +80,9 @@
       }
     },
     "dmEmbedTitle": "Coupé en sourdine",
-    "dmEmbedDescription": "Vous avez été rendu muet de `{guild}`.\nModérateur : {mod}\nJusqu'à : <t:{muteDuration}>\nRaison : {reason}",
+    "dmEmbedDescription": "Vous avez été rendu muet de `{guild}`.\nModérateur : {mod}\nJusqu'à : {muteDuration} ({muteDurationRelative})\nRaison : {reason}",
     "infoEmbedTitle": "Couper le son",
-    "infoEmbedDescription": "Modérateur : {mod}\nDurée : <t:{muteDuration}>\nRaison : {reason}\n\n",
+    "infoEmbedDescription": "Modérateur : {mod}\nDurée : {muteDuration} ({muteDurationRelative})\nRaison : {reason}\n\n",
     "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres pour être muet. Vous avez 60 secondes.",
     "cantPunishSelf": "Vous ne pouvez pas vous masquer vous-même!",
     "cantPunishAdmin": "Les administrateurs ne peuvent pas être muets !",

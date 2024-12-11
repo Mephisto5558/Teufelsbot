@@ -82,9 +82,9 @@
       }
     },
     "dmEmbedTitle": "Silenziato",
-    "dmEmbedDescription": "Sei stato mutato da `{guild}`.\nModeratore: {mod}\nUntil: <t:{muteDuration}>\nMotivo: {reason}",
+    "dmEmbedDescription": "Sei stato mutato da `{guild}`.\nModeratore: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nMotivo: {reason}",
     "infoEmbedTitle": "Silenzia",
-    "infoEmbedDescription": "Moderatore: {mod}\nDurata: <t:{muteDuration}>\nMotivo: {reason}\n\n",
+    "infoEmbedDescription": "Moderatore: {mod}\nDurata: {muteDuration} ({muteDurationRelative})\nMotivo: {reason}\n\n",
     "selectTargetEmbedDescription": "Seleziona fino a 10 membri da disattivare. Hai 60 secondi.",
     "cantPunishSelf": "Non puoi mutare te stesso!",
     "cantPunishAdmin": "Gli amministratori non possono essere mutati!",

@@ -2,7 +2,7 @@
 
 const
   { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
+  { timeFormatter: { msInSecond, secsInMinute, timestamp } } = require('#Utils'),
   { serverbackup_hasPerm: hasPerm, serverbackup_createProxy: createProxy } = require('#Utils/componentHandler'),
   BYTES_IN_KILOBITE = 1024;
 
@@ -10,7 +10,7 @@ const
 function getData(backup) {
   if (backup.__count__) {
     return {
-      createdAt: Math.round(backup.createdAt.getTime() / msInSecond),
+      createdAt: timestamp(backup.createdAt),
       size: (() => {
         const size = Buffer.byteLength(JSON.stringify(backup));
         return size > BYTES_IN_KILOBITE ? `${(size / BYTES_IN_KILOBITE).toFixed(2)}KB` : `${size}B`;

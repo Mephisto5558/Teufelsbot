@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { permissionTranslator, getTargetRole, timeFormatter: { msInSecond } } = require('#Utils'),
+  { permissionTranslator, getTargetRole, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
   ROLE_DISPLAY_THRESHOLD = 16;
 
 /** @type {command<'both'>} */
@@ -25,7 +25,7 @@ module.exports = {
         { name: lang('managed'), value: lang(`global.${role.managed}`), inline: true },
         { name: lang('position'), value: `\`${this.guild.roles.highest.position - role.position + 1}\``, inline: true },
         { name: 'ID', value: `\`${role.id}\``, inline: true },
-        { name: lang('createdAt'), value: `<t:${Math.round(role.createdTimestamp / msInSecond)}>`, inline: true }
+        { name: lang('createdAt'), value: timestamp(role.createdTimestamp), inline: true }
       ]
     });
 

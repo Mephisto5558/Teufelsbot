@@ -82,9 +82,9 @@
       }
     },
     "dmEmbedTitle": "Muted",
-    "dmEmbedDescription": "You have been muted from `{guild}`.\nModerator: {mod}\nUntil: <t:{muteDuration}>\nReason: {reason}",
+    "dmEmbedDescription": "You have been muted from `{guild}`.\nModerator: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nReason: {reason}",
     "infoEmbedTitle": "Mute",
-    "infoEmbedDescription": "Moderator: {mod}\nDuration: <t:{muteDuration}>\nReason: {reason}\n\n",
+    "infoEmbedDescription": "Moderator: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nReason: {reason}\n\n",
     "selectTargetEmbedDescription": "Select up to 10 members to mute. You have 60 seconds.",
     "cantPunishSelf": "You can't mute yourself!",
     "cantPunishAdmin": "Administrators cannot be muted!",
