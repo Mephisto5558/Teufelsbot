@@ -639,6 +639,23 @@
           }
         }
       },
+      "edit": {
+        "description": "Edit an existing trigger.",
+        "options": {
+          "query_or_id": {
+            "description": "The trigger you want to edit."
+          },
+          "trigger": {
+            "description": "the text you want the bot to respond to. Leave empty to keep the current one."
+          },
+          "response": {
+            "description": "the response the bot should send. Leave empty to keep the current one."
+          },
+          "wildcard": {
+            "description": "look for the trigger anywhere in the message (default: the current value or true)"
+          }
+        }
+      },
       "delete": {
         "description": "Delete a trigger. This is irreversible!",
         "options": {
@@ -668,6 +685,7 @@
       }
     },
     "saved": "Added new trigger for `{trigger}`.",
+    "edited": "The trigger with the for `${trigger}` has been edited.",
     "deletedOne": "Deleted the trigger with the ID `{id}`",
     "deletedAll": "I deleted all (`{count}`) triggers.",
     "noneFound": "There are no triggers!",

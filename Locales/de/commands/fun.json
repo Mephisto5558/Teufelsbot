@@ -639,6 +639,23 @@
           }
         }
       },
+      "edit": {
+        "description": "Bearbeite einen Trigger.",
+        "options": {
+          "query_or_id": {
+            "description": "Welchen Trigger möchtest du bearbeiten?"
+          },
+          "trigger": {
+            "description": "Worauf soll der Bot reagieren? Leerlassen, um den aktuellen zu behalten."
+          },
+          "response": {
+            "description": "Was soll der Bot auf den Trigger antworten? Leerlassen, um den aktuellen zu behalten."
+          },
+          "wildcard": {
+            "description": "Sucht den Trigger in der gesamten Nachricht (Standard: der aktuelle Wert oder True)"
+          }
+        }
+      },
       "delete": {
         "description": "Lösche einen Trigger. Dies ist unumkehrbar!",
         "options": {
@@ -668,6 +685,7 @@
       }
     },
     "saved": "Ein neuer Auslöser für `{trigger}` wurde hinzugefügt.",
+    "edited": "Der Auslöser mit der für `{trigger}` wurde bearbeitet.",
     "deletedOne": "Der Auslöser mit der ID `{id}` wurde gelöscht.",
     "deletedAll": "Ich habe alle (`{count}`) Auslöser gelöscht.",
     "noneFound": "Es gibt keine Auslöser!",
