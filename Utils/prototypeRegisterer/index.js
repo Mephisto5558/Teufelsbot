@@ -1,3 +1,4 @@
+/* eslint-disable sonarjs/no-extend-native */
 const
   { BaseInteraction, Message, Collection, AutocompleteInteraction, User, Guild, GuildMember, ButtonBuilder, Events, Client } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
@@ -5,7 +6,7 @@ const
   { randomInt } = require('node:crypto'),
   { join } = require('node:path'),
   { DB } = require('@mephisto5558/mongoose-db'),
-  I18nProvider = require('@mephisto5558/i18n').default,
+  { I18nProvider } = require('@mephisto5558/i18n'),
   Log = require('./Log.js'),
   customReply = require('./message_customReply.js'),
   { runMessages } = require('./message_runMessages.js'),

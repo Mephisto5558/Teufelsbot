@@ -2,7 +2,7 @@
 
 import type Discord from 'discord.js';
 import type DB from '@mephisto5558/mongoose-db';
-import type { default as I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
+import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
 import type { WebServer } from '@mephisto5558/bot-website';
 
 // import type Command from '@mephisto5558/command';

@@ -7,7 +7,7 @@ import type {
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
 import type { GiveawaysManager, GiveawayData } from 'discord-giveaways';
 import type { DB } from '@mephisto5558/mongoose-db';
-import type I18nProvider from '@mephisto5558/i18n';
+import type { I18nProvider } from '@mephisto5558/i18n';
 import type { Database, backupChannel, backupId } from '../types/database';
 
 export {
@@ -58,15 +58,17 @@ declare namespace afk {
   function removeAfkStatus(this: Message | VoiceState): Promise<Message | undefined>;
   function sendAfkMessages(this: Message): Promise<Message | undefined>;
 
+  /* eslint-disable jsdoc/informative-docs */
   /**
    * @returns `undefined` if the bot cannot change the member's nickname or it already has the prefix. Otherwise `true` indicating success.
-   * @default prefix='[AFK] ' *//* eslint-disable-line jsdoc/informative-docs */
+   * @default prefix='[AFK] ' */
   function setAfkPrefix(member: GuildMember, prefix?: string): Promise<true | undefined>;
 
   /**
    * @returns `undefined` if the bot cannot change the member's nickname or it doesn't have the prefix. Otherwise `true` indicating success.
-   * @default prefix='[AFK] ' *//* eslint-disable-line jsdoc/informative-docs */
+   * @default prefix='[AFK] ' */
   function unsetAfkPrefix(member: GuildMember, prefix?: string): Promise<true | undefined>;
+  /* eslint-enable jsdoc/informative-docs */
 }
 
 declare function autocompleteGenerator(
