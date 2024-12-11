@@ -8,7 +8,7 @@ const
  * @param {import('discord.js').GuildMember[]}players
  * @param {('win' | 'lose' | 'draw')[]}types
  * @param {lang}lang
- * @param {TicTacToe}game */
+ * @param {import('../../types/globals').TicTacToe}game */
 async function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
   if (player1.id == this.client.user.id || player2.id == this.client.user.id) return;
 
