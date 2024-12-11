@@ -12,9 +12,6 @@ module.exports = {
   options: [{ name: 'role', type: 'Role' }],
 
   async run(lang) {
-    this.args = this.args?.map(e => e.replaceAll(/[<>@]/g, '')) ?? [];
-    this.content = this.content?.replaceAll(/[<>@]/g, '');
-
     const role = getTargetRole(this, { targetOptionName: 'role', returnSelf: true });
     const embed = new EmbedBuilder({
       title: role.name,

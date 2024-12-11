@@ -12,9 +12,6 @@ module.exports = {
   options: [{ name: 'target', type: 'User' }],
 
   async run(lang) {
-    this.args = this.args?.map(e => e.replaceAll(/[&<>@]/g, '')) ?? [];
-    this.content = this.content?.replaceAll(/[&<>@]/g, '');
-
     const
       member = getTargetMember(this, { returnSelf: true }),
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
