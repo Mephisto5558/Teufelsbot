@@ -113,6 +113,7 @@ module.exports = {
       /** @type {(string | undefined)[]} */
       reloadedArray = [];
 
+    let errorOccurred;
     try {
       switch (this.args[0].toLowerCase()) {
         case 'file': {
@@ -147,18 +148,22 @@ module.exports = {
       }
     }
     catch (err) {
-      void msg.reply(lang('error', codeBlock(err.message)));
+      errorOccurred = true;
+
+      void msg.edit(lang('error', codeBlock(err.message)));
 
       if (this.client.botType == 'dev') throw err;
       log.error('Error while trying to reload a command:\n', err);
     }
 
-    const commands = reloadedArray.filter(Boolean).map(e => e.startsWith('<') ? e : `\`${e}\``).join(', ');
-    void msg.edit(lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
-      count: reloadedArray.length,
-      commands: commands.length < MAX_COMMANDLIST_LENGTH ? commands : commands.slice(0, Math.max(0, commands.slice(0, MAX_COMMANDLIST_LENGTH).lastIndexOf('`,') + 1)) + '...'
-    }));
+    const
+      commands = reloadedArray.filter(Boolean).map(e => e.startsWith('<') ? e : `\`${e}\``).join(', '),
+      replyText = lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
+        count: reloadedArray.length,
+        commands: commands.length < MAX_COMMANDLIST_LENGTH ? commands : commands.slice(0, Math.max(0, commands.slice(0, MAX_COMMANDLIST_LENGTH).lastIndexOf('`,') + 1)) + '...'
+      });
 
+    void (errorOccurred ? msg.reply(replyText) : msg.edit(replyText));
     log.debug('Finished reloading commands.');
   }
 };
