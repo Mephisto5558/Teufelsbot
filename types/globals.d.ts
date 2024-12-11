@@ -349,7 +349,6 @@ declare module '@mephisto5558/mongoose-db' {
     pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
   }
 
-  /* eslint-disable @typescript-eslint/no-shadow -- I can't think of a better name */
   // @ts-expect-error 2300 // overwriting the class so ofc it is declared twice
   interface DB extends NoCacheDB {
     get(): undefined;
@@ -361,7 +360,6 @@ declare module '@mephisto5558/mongoose-db' {
     delete<DBK extends keyof Database>(this: DB, db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
     push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
     pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
-    /* eslint-enable @typescript-eslint/no-shadow */
   }
 }
 

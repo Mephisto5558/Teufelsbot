@@ -20,7 +20,8 @@ module.exports = async function messageDeleteBulk(channel) {
 
   const
     { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageBulkDelete })).entries
-      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < msInSecond * 20) ?? {}, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+      /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 20s */
+      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < msInSecond * 20) ?? {},
 
     /** @type {lang} */
     lang = channel.client.i18n.__.bBind(channel.client.i18n, { locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),

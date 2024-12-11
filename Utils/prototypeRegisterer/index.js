@@ -1,4 +1,4 @@
-/* eslint-disable sonarjs/no-extend-native */
+/* eslint-disable no-extend-native */
 const
   { BaseInteraction, Message, Collection, AutocompleteInteraction, User, Guild, GuildMember, ButtonBuilder, Events, Client } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
