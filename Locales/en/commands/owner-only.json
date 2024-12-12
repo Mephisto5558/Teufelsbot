@@ -138,6 +138,9 @@
     "description": "testing stuff"
   },
   "todo": {
-    "description": "Get links to the developer's todo list(s)."
+    "description": "Get links to the developer's todo list(s).",
+    "list": "ToDo Excel",
+    "website": "Voting Website",
+    "discordNotes": "Dev notes in the support server"
   }
 }
