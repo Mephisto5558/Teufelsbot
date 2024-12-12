@@ -46,7 +46,7 @@ module.exports = {
         return acc;
       }, []),
       emoticon = parseEmoji(input),
-      name = this.options.getString('name') ?? (emoticon.id ? emoticon.name : 'emoji'), // todo: what's the default emoji name on PartialEmoji?
+      name = this.options.getString('name') ?? (emoticon.id ? emoticon.name : 'emoji'),
       embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
 
     if (this.guild.emojis.cache.has(emoticon.id)) return this.editReply({ embeds: [embed.setDescription(lang('isGuildEmoji'))] });
