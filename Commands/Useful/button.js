@@ -1,6 +1,6 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError, codeBlock } = require('discord.js'),
-  { DiscordApiErrorCodes, constants: { buttonLabelMaxLength, messageActionrowMaxAmt, actionRowMaxButtonAmt }, timeFormatter: { msInSecond } } = require('#Utils');
+  { DiscordApiErrorCodes, constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionrowMaxAmt, actionRowMaxButtonAmt }, timeFormatter: { msInSecond } } = require('#Utils');
 
 /** @type {command<'slash'>} */
 module.exports = {
@@ -33,7 +33,7 @@ module.exports = {
         {
           name: 'url',
           type: 'String',
-          maxLength: 1000
+          maxLength: buttonURLMaxLength
         },
         { name: 'new_row', type: 'Boolean' },
         { name: 'content', type: 'String' },

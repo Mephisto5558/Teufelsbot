@@ -16,6 +16,7 @@ module.exports = {
   choiceValueMinLength: 2,
   choiceValueMaxLength: 100,
   buttonLabelMaxLength: 80,
+  buttonURLMaxLength: 512,
   messageActionrowMaxAmt: 5,
   actionrowButtonMaxAmt: 5,
   auditLogReasonMaxLength: 400, // 512, "by Mod xyz, command xy"
