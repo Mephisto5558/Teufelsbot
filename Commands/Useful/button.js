@@ -33,7 +33,7 @@ module.exports = {
         {
           name: 'url',
           type: 'String',
-          maxLength: 1000 /* eslint-disable-line @typescript-eslint/no-magic-numbers -- todo: find out max valid button url length */
+          maxLength: 1000
         },
         { name: 'new_row', type: 'Boolean' },
         { name: 'content', type: 'String' },
@@ -47,11 +47,16 @@ module.exports = {
       custom = this.options.getString('json'),
       content = this.options.getString('content') ?? undefined,
       isLink = this.options.getString('style', true) == ButtonStyle.Link,
+      emoji = this.options.getString('emoji'),
 
       /** @type {`${bigint}` | null}*//* eslint-disable-line jsdoc/valid-types -- false positive */
       msgId = this.options.getString('message_id');
 
-    let url = this.options.getString('url');
+    let
+      url = this.options.getString('url'),
+      label = this.options.getString('label');
+
+    if (!label && !emoji) label = '\u200E'; // U+200E (LEFT-TO-RIGHT MARK) is used as invisible text
 
     if (isLink) {
       if (!/^(?:(?:discord|https?):\/\/)?[\w\-.]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
@@ -76,9 +81,7 @@ module.exports = {
         ? JSON.parse(custom)
         : {
           style: Number.parseInt(this.options.getString('style')),
-          label: this.options.getString('label'),
-          emoji: this.options.getString('emoji'),
-          url
+          label, emoji, url
         });
 
       if (!isLink) button.setCustomId(`buttonCommandButton_${Date.now()}`);
