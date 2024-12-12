@@ -1,5 +1,6 @@
 /** @type {import('.').slashCommandsEqual} */
 module.exports = function equal(a, b) {
+  /* eslint-disable-next-line @typescript-eslint/no-base-to-string -- Intentional for now - */
   if (!a?.toString() && !b?.toString()) return true;
   if (typeof a == 'string' || typeof b == 'string') return a == b;
   if (a == undefined && !(b?.__count__ ?? 0) || b == undefined && !(a?.__count__ ?? 0)) return true;
