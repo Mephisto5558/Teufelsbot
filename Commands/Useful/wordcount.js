@@ -12,7 +12,7 @@ module.exports = {
     {
       name: 'message_id',
       type: 'String',
-      autocompleteOptions() { return [...this.channel.messages.cache.keys()]; }
+      autocompleteOptions() { return [...this.channel.messages.cache.filter(e => e.content).keys()]; }
     },
     { name: 'message', type: 'String' }
   ],
