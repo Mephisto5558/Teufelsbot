@@ -78,7 +78,7 @@
         "description": "Das Mitglied wird dies in einer DM sehen."
       },
       "duration": {
-        "description": "Wie lange du das Ziel timeouten möchtest (z. B. 1w3d2h5min, min. 1min, max. 28d)"
+        "description": "Wie lange du das Ziel timeouten möchtest (z. B. 1w3d2h5min, min. 1min, max. 28d)"
       }
     },
     "dmEmbedTitle": "Getimeouted",
@@ -87,7 +87,7 @@
     "infoEmbedDescription": "Moderator: {mod}\nBis: {muteDuration} ({muteDurationRelative})\nGrund: {reason}\n\n",
     "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Timeouten aus. Du hast 60 Sekunden Zeit.",
     "cantPunishSelf": "Du kannst dich selbst nicht timeouten!",
-    "cantPunishAdmin": "Administratoren können nicht getimeouted werden!",
+    "cantPunishAdmin": "Administratoren können nicht gemuted werden!",
     "noneFound": "Kein Ziel wurde gefunden.",
     "error": "Ich konnte das Mitglied nicht muten:\n{err}",
     "success": "{user} wurde erfolgreich getimeouted.\n",
