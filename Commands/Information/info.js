@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
   { msInSecond, timestamp } = require('#Utils').timeFormatter,
-  userURL = id => `https://discord.com/users${id}`,
+  userURL = id => `https://discord.com/users/${id}`,
 
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
 
