@@ -1,5 +1,5 @@
 const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, userMention } = require('discord.js'),
   { msInSecond, secsInMinute } = require('../timeFormatter.js'),
   BUTTON_TIME = msInSecond * secsInMinute * 15; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 15s */
 
@@ -50,11 +50,10 @@ module.exports = async function playAgain(interaction, lang) {
       }
 
       if (interaction.options._hoistedOptions[0]?.user) {
-        const
-          msg = await interaction.channel.send(lang('newChallenge', interaction.options._hoistedOptions[0].user.id)),
-          sleepTime = 5000;
+        const msg = await interaction.channel.send(lang('newChallenge', userMention(interaction.options._hoistedOptions[0].user.id)));
 
-        void sleep(sleepTime).then(msg.delete.bind(msg));
+        /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 5s */
+        void sleep(msInSecond * 5).then(msg.delete.bind(msg));
       }
 
       return this.handleInteraction(interaction);
