@@ -45,7 +45,7 @@ module.exports = {
 
   async run(lang) {
     const
-      startTime = Math.round(Date.now() / msInSecond - process.uptime()),
+      startTime = Date.now() - process.uptime() * msInSecond,
       description
         = `${lang('dev')}: ${hyperlink('Mephisto5558', userURL('691550551825055775'))}\n` // Please do not change this line
         + (this.inGuild()
