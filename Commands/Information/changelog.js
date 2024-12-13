@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  fetch = require('node-fetch').default,
-  { msInSecond, secsInDay } = require('#Utils').timeFormatter,
+  fetch = import('node-fetch').then(e => e.default),
+  { timeFormatter: { msInSecond, secsInDay } } = require('#Utils'),
 
   /** @type {Client['config']} */
   { github: ghConfig = {} } = require(require('node:path').resolve(process.cwd(), 'config.json')),
@@ -21,7 +21,7 @@ async function getCommits() {
   const { github } = this.config;
 
   const
-    res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/commits?per_page=25`, {
+    res = await (await fetch)(`https://api.github.com/repos/${github.userName}/${github.repoName}/commits?per_page=25`, {
       method: 'GET',
       headers: {
         Authorization: `Token ${this.keys.githubKey}`,

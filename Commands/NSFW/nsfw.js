@@ -1,7 +1,7 @@
 const
   { randomInt } = require('node:crypto'),
   { EmbedBuilder } = require('discord.js'),
-  fetch = require('node-fetch'),
+  fetch = import('node-fetch').then(e => e.default),
   { msInSecond } = require('#Utils').timeFormatter,
   secretChance = 1e4; // 1 in 10_000
 
@@ -24,7 +24,7 @@ module.exports = {
 
   async run(lang) {
     /** @type {{success: boolean, color: number, message: string}} */
-    const data = await fetch(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') ?? this.args?.[0] ?? 'hentai').toLowerCase()}`).then(e => e.json());
+    const data = await (await fetch)(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') ?? this.args?.[0] ?? 'hentai').toLowerCase()}`).then(e => e.json());
     if (!data.success) {
       void this.customReply(lang('error'));
       return log.error('NSFW Command API Error: ', JSON.stringify(data));

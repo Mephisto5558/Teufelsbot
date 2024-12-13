@@ -1,6 +1,6 @@
 const
   { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require('discord.js'),
-  fetch = require('node-fetch').default,
+  fetch = import('node-fetch').then(e => e.default),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
   { constants: { embedMaxTitleLength, suffix }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
   CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
@@ -71,7 +71,7 @@ module.exports = {
     else {
       /** @type {{error: true, reason: number | string, message: string, reason: string} | {error: false, data: import('./reddit').RedditPage}} */
       let res;
-      try { res = await fetch(`https://reddit.com/r/${subreddit}/${type}.json`, { follow: 1 }).then(res => res.json()); }
+      try { res = await (await fetch)(`https://reddit.com/r/${subreddit}/${type}.json`, { follow: 1 }).then(res => res.json()); }
       catch (err) {
         if (err.type != 'max-redirect') throw err;
         return this.customReply(lang('notFound'));

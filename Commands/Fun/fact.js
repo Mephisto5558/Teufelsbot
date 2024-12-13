@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink } = require('discord.js'),
-  fetch = require('node-fetch').default,
+  fetch = import('node-fetch').then(e => e.default),
   { msInSecond } = require('#Utils').timeFormatter;
 
 /** @type {command<'both', false>} */
@@ -18,7 +18,7 @@ module.exports = {
     const
 
       /** @type {{text: string, source: string, source_url: string}} */
-      data = await fetch(`https://uselessfacts.jsph.pl/api/v2/facts/random?language=${lang.__boundArgs__[0].locale}`).then(e => e.json()),
+      data = await (await fetch)(`https://uselessfacts.jsph.pl/api/v2/facts/random?language=${lang.__boundArgs__[0].locale}`).then(e => e.json()),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
         description: `${data.text}\n\nSource: ${hyperlink(data.source, data.source_url)}`,

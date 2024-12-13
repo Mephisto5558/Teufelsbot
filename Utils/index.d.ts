@@ -94,7 +94,7 @@ declare namespace BackupSystem {
   type Backup = Database['backups'][backupId];
 
   type Utils = {
-    fetchToBase64<T extends string | undefined>(url?: T): Promise<T>;
+    fetchToBase64<T extends string | undefined>(url?: T): Promise<T extends undefined ? undefined : string>;
     loadFromBase64<T extends string | undefined>(base64Str?: T): T extends undefined ? undefined : Buffer;
 
     fetchCategoryChildren(
