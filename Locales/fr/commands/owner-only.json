@@ -12,8 +12,8 @@
       }
     },
     "notFound": "Aucune entrée trouvée pour cet identifiant.",
-    "saved": "`{user}` a été exclu de l'utilisation du bot.",
-    "removed": "L'entrée de la liste noire pour `{user}` a été supprimée.",
+    "saved": "{user} a été exclu de l'utilisation du bot.",
+    "removed": "L'entrée de la liste noire pour {user} a été supprimée.",
     "cantBlacklistDev": "Je ne peux pas blacklister le propriétaire du bot!"
   },
   "dbget": {
@@ -79,7 +79,7 @@
     "invalidPath": "Le chemin spécifié n'existe pas ! Veuillez noter la sensibilité à la casse du chemin.",
     "error": "Une erreur est survenue lors du rechargement :\n{error}\nVérifiez la console pour plus d'informations.",
     "noneReloaded": "Aucune commande n'a été rechargée.",
-    "reloaded": "Les commandes suivantes `{count}` ont été rechargées:\n{commands}"
+    "reloaded": "Les commandes suivantes {count} ont été rechargées:\n{commands}"
   },
   "reloadconfig": {
     "description": "Recharge le fichier config.json",
@@ -117,7 +117,7 @@
         "description": "Le type d'activité"
       }
     },
-    "set": "Activité définie à `{name}` de type `{type}`.",
+    "set": "Activité définie à {name} de type {type}.",
     "reset": "Activité définie à `aucun`."
   },
   "setchangelog": {

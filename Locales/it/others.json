@@ -62,7 +62,7 @@
   },
   "errorHandler": {
     "embedTitle": "Whoooops",
-    "embedDescription": "Si è verificato un errore imprevisto!\n\nComando: `{command}`",
+    "embedDescription": "Si è verificato un errore imprevisto!\n\nComando: {command}",
     "embedFooterText": "Segnalare questo errore invierà le opzioni del comando privatamente al dev.",
     "reportButton": "Segnala questo errore",
     "reportButtonDisabled": " (Disabilitato a causa della versione dev)",
@@ -80,7 +80,7 @@
   },
   "timeEvents": {
     "birthday": {
-      "unknownChannel": "INFO: il canale configurato per la funzione di compleanno nella gilda `{guild}` non esiste! Si prega di riconfigurarlo in modo da poter inviare messaggi di compleanno!"
+      "unknownChannel": "INFO: il canale configurato per la funzione di compleanno nella gilda {guild} non esiste! Si prega di riconfigurarlo in modo da poter inviare messaggi di compleanno!"
     }
   },
   "getCommands": {

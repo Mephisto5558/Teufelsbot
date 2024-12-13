@@ -1,5 +1,5 @@
 const
-  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, userMention, channelMention } = require('discord.js'),
+  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, userMention, channelMention, inlineCode } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter,
   RED = 0xED498D,
   AUDITLOG_FETCHLIMIT = 6;
@@ -28,12 +28,12 @@ module.exports = async function messageDeleteBulk(channel) {
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
       description: lang('embedDescription', { executor: executor ? userMention(executor.id) : lang('events.logger.someone'), channel: channel.name, count: this.size.toString() }),
-      fields: [{ name: lang('global.channel'), value: `${channelMention(channel.id)} (\`${channel.id}\`)`, inline: false }],
+      fields: [{ name: lang('global.channel'), value: `${channelMention(channel.id)} (${inlineCode(channel.id)})`, inline: false }],
       timestamp: Date.now(),
       color: RED
     });
 
-  if (executor) embed.data.fields.push({ name: lang('events.logger.executor'), value: `${executor.tag} (\`${executor.id}\`)`, inline: false });
+  if (executor) embed.data.fields.push({ name: lang('events.logger.executor'), value: `${executor.tag} (${inlineCode(executor.id)})`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('events.logger.reason'), value: reason, inline: false });
 
   return channelToSend.send({ embeds: [embed] });

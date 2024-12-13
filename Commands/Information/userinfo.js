@@ -1,5 +1,5 @@
 const
-  { ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES, TimestampStyles, hyperlink } = require('discord.js'),
+  { ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMember, getAge, permissionTranslator, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
 
@@ -42,8 +42,8 @@ module.exports = {
           { name: lang('mention'), value: member.user.toString(), inline: true },
           { name: lang('displayName'), value: member.displayName, inline: true },
           { name: lang('type'), value: type, inline: true },
-          { name: lang('position'), value: `\`${this.guild.roles.highest.position - member.roles.highest.position + 1}\`, ${member.roles.highest.toString()}`, inline: true },
-          { name: lang('roles'), value: `\`${member.roles.cache.size}\``, inline: true },
+          { name: lang('position'), value: `${inlineCode(this.guild.roles.highest.position - member.roles.highest.position + 1)}, ${member.roles.highest.toString()}`, inline: true },
+          { name: lang('roles'), value: inlineCode(member.roles.cache.size), inline: true },
           { name: lang('color'), value: hyperlink(member.displayHexColor, `https://www.color-hex.com/color/${member.displayHexColor.slice(1)}`), inline: true },
           { name: lang('createdAt'), value: timestamp(member.user.createdTimestamp), inline: true },
           { name: lang('joinedAt'), value: timestamp(member.joinedTimestamp), inline: true }
@@ -65,7 +65,7 @@ module.exports = {
     if (member.user.flags.bitfield) {
       embed.data.fields.push({
         name: lang('flags.name'), inline: false,
-        value: '`' + member.user.flags.toArray().map(e => lang(`flags.${e}`)).join('`, `') + '`'
+        value: member.user.flags.toArray().map(e => inlineCode(lang(`flags.${e}`))).join(', ')
       });
     }
     embed.addFields(
@@ -76,10 +76,10 @@ module.exports = {
       },
       {
         name: lang('perms'), inline: false,
-        value: `\`${member.permissions.has(PermissionFlagsBits.Administrator)
-          ? lang('admin')
-          : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')
-        }\` (${member.permissions.toArray().length})`
+        value: `${member.permissions.has(PermissionFlagsBits.Administrator)
+          ? inlineCode(lang('admin'))
+          : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', ')
+        } (${member.permissions.toArray().length})`
       }
     );
 

@@ -18,7 +18,7 @@
       }
     },
     "dmEmbedTitle": "Banni",
-    "dmEmbedDescription": "Vous avez été banni de `{guild}`.\nModérateur : {mod}\nRaison : {reason}",
+    "dmEmbedDescription": "Vous avez été banni de {guild}.\nModérateur : {mod}\nRaison : {reason}",
     "infoEmbedTitle": "Bannir",
     "infoEmbedDescription": "Modérateur : {mod}\nRaison : {reason}\n\n",
     "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres à bannir. Vous avez 60 secondes.",
@@ -40,7 +40,7 @@
       }
     },
     "dmEmbedTitle": "Expulsé",
-    "dmEmbedDescription": "Vous avez été éjecté de `{guild}`.\nModérateur : {mod}\nRaison : {reason}",
+    "dmEmbedDescription": "Vous avez été éjecté de {guild}.\nModérateur : {mod}\nRaison : {reason}",
     "infoEmbedTitle": "Expulser",
     "infoEmbedDescription": "Modérateur : {mod}\nRaison : {reason}\n\n",
     "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres à expulser. Vous avez 60 secondes.",
@@ -80,7 +80,7 @@
       }
     },
     "dmEmbedTitle": "Coupé en sourdine",
-    "dmEmbedDescription": "Vous avez été rendu muet de `{guild}`.\nModérateur : {mod}\nJusqu'à : {muteDuration} ({muteDurationRelative})\nRaison : {reason}",
+    "dmEmbedDescription": "Vous avez été rendu muet de {guild}.\nModérateur : {mod}\nJusqu'à : {muteDuration} ({muteDurationRelative})\nRaison : {reason}",
     "infoEmbedTitle": "Couper le son",
     "infoEmbedDescription": "Modérateur : {mod}\nDurée : {muteDuration} ({muteDurationRelative})\nRaison : {reason}\n\n",
     "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres pour être muet. Vous avez 60 secondes.",

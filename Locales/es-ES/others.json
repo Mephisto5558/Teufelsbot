@@ -62,7 +62,7 @@
   },
   "errorHandler": {
     "embedTitle": "Ojos",
-    "embedDescription": "¡Se ha producido un error inesperado!\n\nComando: `{command}`",
+    "embedDescription": "¡Se ha producido un error inesperado!\n\nComando: {command}",
     "embedFooterText": "Informar de este error enviará las opciones de comando en privado al desarrollador.",
     "reportButton": "Reportar este error",
     "reportButtonDisabled": " (Deshabilitado debido a la versión dev)",
@@ -80,7 +80,7 @@
   },
   "timeEvents": {
     "birthday": {
-      "unknownChannel": "INFO: ¡El canal configurado para la función de cumpleaños en el gremio `{guild}` no existe! ¡Por favor, vuelva a configurarlo para que pueda enviar mensajes de cumpleaños!"
+      "unknownChannel": "INFO: ¡El canal configurado para la función de cumpleaños en el gremio {guild} no existe! ¡Por favor, vuelva a configurarlo para que pueda enviar mensajes de cumpleaños!"
     }
   },
   "getCommands": {

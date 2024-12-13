@@ -232,7 +232,7 @@
       }
     },
     "toggleModule": {
-      "success": "Le module `{name}` a été {state}."
+      "success": "Le module {name} a été {state}."
     },
     "toggleCommand": {
       "notFound": "Ce n'est pas une commande valide !",
@@ -241,9 +241,9 @@
         "embedTitle": "Rôles/canaux/membres interdits pour la commande {command}",
         "embedDescription": "Aucun rôle, salon ou membre n'est actuellement pas autorisé."
       },
-      "enabled": "La commande `{command}` est maintenant activée.",
-      "disabled": "La commande `{command}` est maintenant désactivée.",
-      "isDisabled": "La commande `{command}` est désactivée pour tous les membres. Vous pouvez la réactiver en exécutant </setup toggle_command:{id}> sans spécifier aucun rôle, salon ou membre.",
+      "enabled": "La commande {command} est maintenant activée.",
+      "disabled": "La commande {command} est maintenant désactivée.",
+      "isDisabled": "La commande {command} est désactivée pour tous les membres. Vous pouvez la réactiver en exécutant </setup toggle_command:{id}> sans spécifier aucun rôle, salon ou membre.",
       "roles": "Rôles",
       "channels": "Canaux",
       "users": "Membres",
@@ -256,10 +256,10 @@
     },
     "language": {
       "embedTitle": "Langue du bot modifiée !",
-      "embedDescription": "Les prochains messages seront dans `{lang}`."
+      "embedDescription": "Les prochains messages seront dans {lang}."
     },
     "prefix": {
-      "saved": "Mon préfixe a été changé en `{prefix}`."
+      "saved": "Mon préfixe a été changé en {prefix}."
     },
     "serverbackup": {
       "success": "Successfully updated the settings!"

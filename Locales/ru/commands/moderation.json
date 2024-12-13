@@ -18,7 +18,7 @@
       }
     },
     "dmEmbedTitle": "Забанен",
-    "dmEmbedDescription": "Вы были заблокированы на `{guild}`.\nМодератор: {mod}\nПричина: {reason}",
+    "dmEmbedDescription": "Вы были заблокированы на {guild}.\nМодератор: {mod}\nПричина: {reason}",
     "infoEmbedTitle": "Бан",
     "infoEmbedDescription": "Модератор: {mod}\nПричина: {reason}\n\n",
     "selectTargetEmbedDescription": "Выберите до 10 участников, чтобы заблокировать. У вас есть 60 секунд.",
@@ -40,7 +40,7 @@
       }
     },
     "dmEmbedTitle": "Кикнут",
-    "dmEmbedDescription": "Вы были выгнаны из `{guild}`.\nМодератор: {mod}\nПричина: {reason}",
+    "dmEmbedDescription": "Вы были выгнаны из {guild}.\nМодератор: {mod}\nПричина: {reason}",
     "infoEmbedTitle": "Кик",
     "infoEmbedDescription": "Модератор: {mod}\nПричина: {reason}\n\n",
     "selectTargetEmbedDescription": "Выберите до 10 участников, чтобы выгнать. У вас 60 секунд.",
@@ -80,7 +80,7 @@
       }
     },
     "dmEmbedTitle": "Заглушён",
-    "dmEmbedDescription": "Вы были заглушены из `{guild}`.\nМодератор: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nПричина: {reason}",
+    "dmEmbedDescription": "Вы были заглушены из {guild}.\nМодератор: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nПричина: {reason}",
     "infoEmbedTitle": "Заглушить",
     "infoEmbedDescription": "Модератор: {mod}\nПродолжительность: {muteDuration} ({muteDurationRelative})\nПричина: {reason}\n\n",
     "selectTargetEmbedDescription": "Выберите до 10 участников, чтобы заглушить. У вас 60 секунд.",

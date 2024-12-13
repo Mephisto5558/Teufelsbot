@@ -16,7 +16,7 @@
     },
     "embedTitle": "AddEmoji",
     "isGuildEmoji": "That emoji is already on this guild!",
-    "invalidUrl": "The provided argument is not a valid url or emoji!\nThe url must end with `jpg`, `jpeg`, `png`, `webp`, `svg` or `gif`.\nExample: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "invalidUrl": "The provided argument is not a valid url or emoji!\nThe url must end with {validFormats}.\nExample: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "The provided url was not found.",
     "success": "Successfully added {name} {emoji}!\n",
     "limitedToRoles": "The emoji has been limited to the following roles:\n{roles}.",
@@ -211,8 +211,8 @@
       }
     },
     "embedTitle": "Hash Function",
-    "embedDescription": "Your input: `{input}`\nHash method: `{method}`",
-    "text": "Your hashed string:\n`{hash}`"
+    "embedDescription": "Your input: {input}\nHash method: {method}",
+    "text": "Your hashed string:\n{hash}"
   },
   "lastping": {
     "description": "Shows you where you got last mentioned.",
@@ -281,7 +281,7 @@
       }
     },
     "randomNumber": "A random number {min} and {max}:\n{randomNumber}",
-    "outOfRange": "One of the specified numbers is invalid, too large or too small!\nSmallest possible number: `{min}`, largest possible number: `{max}`"
+    "outOfRange": "One of the specified numbers is invalid, too large or too small!\nSmallest possible number: {min}, largest possible number: {max}"
   },
   "timestamp": {
     "description": "Get a timestamp for the future (or past by putting a \"-\" in front)",
@@ -296,7 +296,7 @@
     },
     "invalid": "The time you provided is invalid! Use {command} and search for `timestamp` for mor information.",
     "outOfRange": "The specified time is greater than 200,000 years!",
-    "success": "That's {time} (`{time}`)."
+    "success": "That's {time} ({raw})."
   },
   "until": {
     "description": "Shows how long it will be until a certain date/time. If no date is specified,default is current date",

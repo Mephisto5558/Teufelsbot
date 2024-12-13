@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, inlineCode } = require('discord.js'),
   { hasPerm, createProxy } = require('./serverbackup_utils.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
@@ -32,7 +32,7 @@ module.exports = async function serverbackup(lang, _mode, id, option, clearGuild
       clearGuildBeforeRestore: clearGuildBeforeRestore == 'true'
     });
 
-    return msg.edit({ embeds: [embed.setDescription(lang('success', backup.id))] });
+    return msg.edit({ embeds: [embed.setDescription(lang('success', inlineCode(backup.id)))] });
   }
   catch (err) {
     void msg.edit({ embeds: [embed.setDescription(lang('error'))] });

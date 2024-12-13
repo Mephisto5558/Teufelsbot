@@ -25,8 +25,7 @@
     "embedDescriptionLeave": "{executor} dejó el canal de voz {oldChannel}.",
     "embedDescriptionMove": "{executor} ha cambiado del canal de voz {oldChannel} a {newChannel}.",
     "oldChannel": "Canal anterior",
-    "newChannel": "Canal actual",
-    "unknown": "`desconocido`"
+    "newChannel": "Canal actual"
   },
   "sayCommandUsed": {
     "embedDescription": "{executor} usó un comando en {channel} que hace que el bot envíe un mensaje.",

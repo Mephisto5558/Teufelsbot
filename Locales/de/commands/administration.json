@@ -45,7 +45,7 @@
       "stickers": "{emoji} Sichere Sticker...",
       "channels": "{emoji} Sichere Kanäle, Threads und Nachrichten...",
       "images": "{emoji} Sichere Icon, Splash und Banner...",
-      "success": "Das Backup mit der ID `{id}` wurde erfolgreich erstellt!\nNutze </serverbackup get:{cmdId}> für mehr Informationen zum Backup."
+      "success": "Das Backup mit der ID {id} wurde erfolgreich erstellt!\nNutze </serverbackup get:{cmdId}> für mehr Informationen zum Backup."
     },
     "clear": {
       "items": "{emoji} Lösche Emojis, Sticker und Rollen...",
@@ -68,7 +68,7 @@
       "emojis": "{emoji} Lade Emojis...",
       "stickers": "{emoji} Lade Sticker...",
       "bans": "{emoji} Lade Bans...",
-      "success": "Das Backup mit der ID `{id}` wurde geladen.",
+      "success": "Das Backup mit der ID {id} wurde geladen.",
       "error": "Beim Laden des Backups ist ein Fehler aufgetreten."
     },
     "delete": {
@@ -76,7 +76,7 @@
       "success": "Das Backup wurde erfolgreich gelöscht!"
     },
     "get": {
-      "oneEmbedDescription": "**Informationen zu Backup `{id}`**\n>>> Erstellt am: {createdAt}\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "oneEmbedDescription": "**Informationen zu Backup {id}**\n>>> Erstellt am: {createdAt}\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "oneNotFound": "Es wurde kein Backup mit dieser ID gefunden!",
       "infos": ">>> Erstellt am: {createdAt}\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "found": "Es wurden {amount} Backups gefunden.",
@@ -247,7 +247,7 @@
       }
     },
     "toggleModule": {
-      "success": "Das `{name}` Modul wurde {state}."
+      "success": "Das {name} Modul wurde {state}."
     },
     "toggleCommand": {
       "notFound": "Das ist kein gültiger Befehl!",
@@ -256,9 +256,9 @@
         "embedTitle": "Verbotene Rollen/Kanäle/Mitglieder für Befehl {command}",
         "embedDescription": "Keine Rollen, Kanäle oder Mitglieder sind momentan verboten."
       },
-      "enabled": "Der `{command}` Befehl ist nun aktiviert.",
-      "disabled": "Der `{command}` Befehl ist nun deaktiviert.",
-      "isDisabled": "Der `{command}` Befehl ist für alle Mitglieder deaktiviert. Du kannst ihn wieder aktivieren, indem du </setup toggle_command:{id}> ausführst, ohne eine Rolle, einen Kanal oder ein Mitglied zu spezifizieren.",
+      "enabled": "Der {command} Befehl ist nun aktiviert.",
+      "disabled": "Der {command} Befehl ist nun deaktiviert.",
+      "isDisabled": "Der {command} Befehl ist für alle Mitglieder deaktiviert. Du kannst ihn wieder aktivieren, indem du </setup toggle_command:{id}> ausführst, ohne eine Rolle, einen Kanal oder ein Mitglied zu spezifizieren.",
       "roles": "Rollen",
       "channels": "Kanäle",
       "users": "Mitglieder",
@@ -271,17 +271,17 @@
     },
     "language": {
       "embedTitle": "Sprache geändert!",
-      "embedDescription": "Die Sprache wurde auf `Deutsch` gestellt."
+      "embedDescription": "Die Sprache wurde auf {lang} gestellt."
     },
     "setPrefix": {
-      "saved": "Mein Präfix wurde zu `{prefix}` gesetzt."
+      "saved": "Mein Präfix wurde zu {prefix} gesetzt."
     },
     "addPrefix": {
       "limitReached": "Du kannst keine weiteren Präfixe hinzufügen! Versuche zuerst, ungenutzte Präfixe zu entfernen.",
-      "saved": "`{prefix}` wurde als zusätzliches Präfix hinzugefügt."
+      "saved": "{prefix} wurde als zusätzliches Präfix hinzugefügt."
     },
     "removePrefix": {
-      "removed": "Der Präfix `{prefix}` wurde entfernt.",
+      "removed": "Der Präfix {prefix} wurde entfernt.",
       "cannotRemoveLastPrefix": "Du kannst nicht den einzigen verbleibenden Präfix löschen!"
     },
     "serverbackup": {

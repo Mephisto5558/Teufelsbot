@@ -9,5 +9,5 @@
     "missesRole": "¡No puedo eliminar tu rol <@&{role}> porque no lo tienes!",
     "removeSuccess": "He eliminado tu rol <@&{role}>."
   },
-  "buttonOnCooldown": "¡Este botón está en enfriamiento! Inténtalo de nuevo en `{time}`s."
+  "buttonOnCooldown": "¡Este botón está en enfriamiento! Inténtalo de nuevo en {time}s."
 }

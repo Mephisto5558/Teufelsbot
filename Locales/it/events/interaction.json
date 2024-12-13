@@ -9,5 +9,5 @@
     "missesRole": "Non posso rimuovere il tuo ruolo <@&{role}> perché non lo hai!",
     "removeSuccess": "Ho rimosso il tuo ruolo <@&{role}>."
   },
-  "buttonOnCooldown": "Questo pulsante è in fase di ricarica! Riprova in `{time}`s."
+  "buttonOnCooldown": "Questo pulsante è in fase di ricarica! Riprova in {time}s."
 }

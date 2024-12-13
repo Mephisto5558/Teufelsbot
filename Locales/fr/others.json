@@ -62,7 +62,7 @@
   },
   "errorHandler": {
     "embedTitle": "Oups",
-    "embedDescription": "Une erreur inattendue s'est produite !\n\nCommande : `{command}`",
+    "embedDescription": "Une erreur inattendue s'est produite !\n\nCommande : {command}",
     "embedFooterText": "Signaler cette erreur enverra les options de commande en privé au développeur.",
     "reportButton": "Signaler cette erreur",
     "reportButtonDisabled": " (Désactivé en raison de la version du développement)",
@@ -80,7 +80,7 @@
   },
   "timeEvents": {
     "birthday": {
-      "unknownChannel": "INFO: Le canal configuré pour la fonction anniversaire dans la guilde `{guild}` n'existe pas! Veuillez le reconfigurer afin que je puisse envoyer des messages d'anniversaire!"
+      "unknownChannel": "INFO: Le canal configuré pour la fonction anniversaire dans la guilde {guild} n'existe pas! Veuillez le reconfigurer afin que je puisse envoyer des messages d'anniversaire!"
     }
   }
 }

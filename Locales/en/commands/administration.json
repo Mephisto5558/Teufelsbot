@@ -45,7 +45,7 @@
       "stickers": "{emoji} Saving stickers...",
       "channels": "{emoji} Saving channels, threads, and messages...",
       "images": "{emoji} Saving icon, slash, and banner...",
-      "success": "The backup with the ID `{id}` has been created successfully!\nUse </serverbackup get:{cmdId}> for more information about the backup."
+      "success": "The backup with the ID {id} has been created successfully!\nUse </serverbackup get:{cmdId}> for more information about the backup."
     },
     "clear": {
       "items": "{emoji} Deleting emojis, stickers, and roles...",
@@ -68,7 +68,7 @@
       "emojis": "{emoji} Loading emojis...",
       "stickers": "{emoji} Loading stickers...",
       "bans": "{emoji} Loading bans...",
-      "success": "Successfully loaded the backup with id `{id}`.",
+      "success": "Successfully loaded the backup with id {id}.",
       "error": "An error occurred while trying to load the backup."
     },
     "delete": {
@@ -76,7 +76,7 @@
       "success": "Successfully deleted the backup!"
     },
     "get": {
-      "oneEmbedDescription": "**Information about backup `{id}`**\n>>> Created at: {createdAt}\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "oneEmbedDescription": "**Information about backup {id}**\n>>> Created at: {createdAt}\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "oneNotFound": "No backup was found with that ID!",
       "infos": ">>> Created at: {createdAt}\nSize: {size}\nMembers: {members}\nChannels: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "found": "Found {amount} backups.",
@@ -247,7 +247,7 @@
       }
     },
     "toggleModule": {
-      "success": "The `{name}` module has been {state}."
+      "success": "The {name} module has been {state}."
     },
     "toggleCommand": {
       "notFound": "This is not a valid command!",
@@ -256,9 +256,9 @@
         "embedTitle": "Disallowed roles/channels/members for command {command}",
         "embedDescription": "No roles, channels or members are currently disallowed."
       },
-      "enabled": "The `{command}` command is now enabled.",
-      "disabled": "The `{command}` command is now disabled.",
-      "isDisabled": "The `{command}` command is disabled for all members. You can re-enable it by running </setup toggle_command:{id}> without specifying any role, channel or member.",
+      "enabled": "The {command} command is now enabled.",
+      "disabled": "The {command} command is now disabled.",
+      "isDisabled": "The {command} command is disabled for all members. You can re-enable it by running </setup toggle_command:{id}> without specifying any role, channel or member.",
       "roles": "Roles",
       "channels": "Channels",
       "users": "Members",
@@ -271,17 +271,17 @@
     },
     "language": {
       "embedTitle": "Bot language changed!",
-      "embedDescription": "The language has been set to `English`."
+      "embedDescription": "The language has been set to {lang}."
     },
     "setPrefix": {
-      "saved": "My prefix has been changed to `{prefix}`."
+      "saved": "My prefix has been changed to {prefix}."
     },
     "addPrefix": {
       "limitReached": "You cannot add more prefixes! Try removing unused ones first.",
-      "saved": "`{prefix}` has been added as additional prefix."
+      "saved": "{prefix} has been added as additional prefix."
     },
     "removePrefix": {
-      "removed": "The prefix `{prefix}` has been removed.",
+      "removed": "The prefix {prefix} has been removed.",
       "cannotRemoveLastPrefix": "You cannot delete the only remaining prefix!"
     },
     "serverbackup": {

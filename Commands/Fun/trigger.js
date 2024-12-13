@@ -11,7 +11,7 @@ const findTriggerId = (query, data) => query in data
   : Object.entries(data).find((/** @type {triggersArray} */[, { trigger }]) => trigger.toLowerCase() == query.toLowerCase())?.[0];
 
 const
-  { EmbedBuilder, Colors, codeBlock } = require('discord.js'),
+  { EmbedBuilder, Colors, codeBlock, inlineCode } = require('discord.js'),
   { embedMaxFieldAmt, suffix } = require('#Utils').constants,
 
   /** @type {Record<string, (this: GuildInteraction, lang: lang, oldData: triggers, query: string) => Promise<Message>>} */
@@ -26,7 +26,7 @@ const
         };
 
       await this.guild.updateDB(`triggers.${id}`, data);
-      return this.editReply(lang('saved', data.trigger));
+      return this.editReply(lang('saved', inlineCode(data.trigger)));
     },
 
     async edit(lang, oldData, query) {
@@ -45,7 +45,7 @@ const
       };
 
       await this.guild.updateDB(`triggers.${id}`, data);
-      return this.editReply(lang('saved', data.trigger));
+      return this.editReply(lang('edited', inlineCode(data.trigger)));
     },
 
     async delete(lang, oldData, query) {
@@ -53,7 +53,7 @@ const
       if (id < 0) return this.editReply(lang('noneFound'));
 
       await this.client.db.delete('guildSettings', `${this.guild.id}.triggers.${id}`);
-      return this.editReply(lang('deletedOne', id));
+      return this.editReply(lang('deletedOne', inlineCode(id)));
     },
 
     async clear(lang, oldData) {
@@ -61,7 +61,7 @@ const
       if (!oldData.__count__) return this.editReply(lang('noneFound'));
 
       await this.client.db.delete('guildSettings', `${this.guild.id}.triggers`);
-      return this.editReply(lang('deletedAll', oldData.__count__));
+      return this.editReply(lang('deletedAll', inlineCode(oldData.__count__)));
     },
 
     async get(lang, oldData, query) {
@@ -79,7 +79,7 @@ const
         embed.data.description = lang('embedDescriptionOne', {
           trigger: codeBlock(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
           response: codeBlock(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix),
-          wildcard: !!wildcard
+          wildcard: inlineCode(wildcard)
         });
       }
       else if (this.options.getBoolean('short')) {
@@ -91,7 +91,7 @@ const
           value: lang('shortFieldValue', {
             trigger: codeBlock(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
             response: codeBlock(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix),
-            wildcard: !!wildcard
+            wildcard: inlineCode(wildcard)
           })
         }));
       }
@@ -103,9 +103,9 @@ const
         embed.data.description = Object.entries(oldData).reduce((acc, /** @type {triggersArray} */[id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
           ? acc
           : acc + lang('longEmbedDescription', {
-            id, wildcard: !!wildcard,
-            trigger: trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix,
-            response: response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix
+            id, wildcard: inlineCode(wildcard),
+            trigger: inlineCode(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
+            response: inlineCode(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix)
           }), '');
       }
 

@@ -1,3 +1,5 @@
+const { inlineCode } = require('discord.js');
+
 /** @type {command<'prefix', false>} */
 module.exports = {
   usage: { examples: '12345678901234568' },
@@ -20,7 +22,7 @@ module.exports = {
       if (!this.client.settings.blacklist?.includes(target)) return this.customReply(lang('notFound'));
 
       await this.client.db.update('botSettings', 'blacklist', this.client.settings.blacklist.filter(e => e != target));
-      return this.customReply(lang('removed', target));
+      return this.customReply(lang('removed', inlineCode(target)));
     }
 
     if (this.client.config.devIds.has(target)) return this.customReply(lang('cantBlacklistDev'));
@@ -39,6 +41,6 @@ module.exports = {
       }
     }
 
-    return this.customReply(lang('saved', target));
+    return this.customReply(lang('saved', inlineCode(target)));
   }
 };

@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, bold } = require('discord.js'),
+  { EmbedBuilder, Colors, bold, inlineCode } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter;
 
 /** @type {command<'both', false>} */
@@ -44,7 +44,7 @@ module.exports = {
 
       const total = bold(Object.values(cmdStats[command.name] ?? {}).reduce((acc, e) => acc + e, 0));
       embed.data.description = lang('embedDescriptionOne', {
-        total, command: command.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``,
+        total, command: command.id ? `</${command.name}:${command.id}>` : inlineCode(command.name),
         slash: bold(cmdStats[command.name]?.slash ?? 0), prefix: bold(cmdStats[command.name]?.prefix ?? 0)
       });
     }

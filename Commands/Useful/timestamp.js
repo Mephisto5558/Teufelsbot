@@ -1,5 +1,5 @@
 const
-  { TimestampStyles } = require('discord.js'),
+  { TimestampStyles, inlineCode } = require('discord.js'),
   { Duration } = require('better-ms'),
   { timeValidator, timeFormatter: { secsInYear, msInSecond, timestamp } } = require('#Utils'),
   MAX_YEAR_SECS = secsInYear * msInSecond * 2e5; // eslint-disable-line @typescript-eslint/no-magic-numbers -- 200000y
@@ -26,6 +26,7 @@ module.exports = {
     const time = this.createdTimestamp + offset;
     if (Math.abs(time) > MAX_YEAR_SECS) return this.customReply(lang('outOfRange'));
 
-    return this.customReply(lang('success', { time: timestamp(time, TimestampStyles.RelativeTime) }));
+    const stamp = timestamp(time, TimestampStyles.RelativeTime);
+    return this.customReply(lang('success', { time: stamp, raw: inlineCode(stamp) }));
   }
 };

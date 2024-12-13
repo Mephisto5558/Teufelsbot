@@ -91,13 +91,13 @@
         }
       }
     },
-    "games": "Juegos: `{games}`\n\n",
+    "games": "Juegos: {games}\n\n",
     "wins": "Victorias: {wins}\n",
     "losses": "Pérdidas: {losses}\n",
     "draws": "Dibujos: {draws}\n\n",
     "noOne": "nadie\n",
     "missingGameArg": "¡Necesitas darme un `juego` como el primer argumento!",
-    "notFound": "Esta no es una entrada de juego válida. Los juegos válidos son:\n`{list}`",
+    "notFound": "Esta no es una entrada de juego válida. Los juegos válidos son:\n{list}",
     "wonAgainst": "Victorias contra:\n",
     "lostAgainst": "Perdido contra:\n",
     "drewAgainst": "En contra:\n",
@@ -129,10 +129,10 @@
       "newChallenge": "{user} :crossed_swords: Nuevo desafío en duelo"
     },
     "memberNotFound": "Al menos uno de los jugadores no ha sido encontrado!",
-    "canceled": ":x: `{initiator}` ha retirado su desafío.",
-    "declined": ":x:{opponent}` no se levanta al reto.",
+    "canceled": ":x: {initiator} ha retirado su desafío.",
+    "declined": ":x: {opponent} no se levanta al reto.",
     "accept": {
-      "embedTitle": ":game_die: `{player1}` **VS** `{player2}",
+      "embedTitle": ":game_die: {player1} **VS** {player2}",
       "embedDescription": "¡Selecciona tu objeto!"
     },
     "end": {

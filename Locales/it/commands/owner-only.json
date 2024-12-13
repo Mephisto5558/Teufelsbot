@@ -12,8 +12,8 @@
       }
     },
     "notFound": "Nessuna voce trovata per questo id.",
-    "saved": "`{user}` è stato inserito nella blacklist dall'utilizzo del bot.",
-    "removed": "La voce blacklist per `{user}` è stata rimossa.",
+    "saved": "{user} è stato inserito nella blacklist dall'utilizzo del bot.",
+    "removed": "La voce blacklist per {user} è stata rimossa.",
     "cantBlacklistDev": "Non riesco a blacklist il proprietario del bot!"
   },
   "dbget": {
@@ -77,9 +77,9 @@
     },
     "invalidCommand": "Questo non è un comando valido.",
     "invalidPath": "Il percorso specificato non esiste! Si prega di notare la sensibilità caso del percorso.",
-    "error": "Si è verificato un errore durante il ricaricamento:\n```{error}```\nControlla la console per maggiori informazioni.",
+    "error": "Si è verificato un errore durante il ricaricamento:\n{error}\nControlla la console per maggiori informazioni.",
     "noneReloaded": "Nessun comando è stato ricaricato.",
-    "reloaded": "I seguenti ` comandi{count}` sono stati ricaricati:\n{commands}"
+    "reloaded": "I seguenti comandi {count} sono stati ricaricati:\n{commands}"
   },
   "reloadconfig": {
     "description": "Ricarica il file config.json",
@@ -117,7 +117,7 @@
         "description": "Tipo di attività"
       }
     },
-    "set": "La mia attività è stata impostata a `{name}` di tipo `{type}`.",
+    "set": "La mia attività è stata impostata a {name} di tipo {type}.",
     "reset": "La mia attività è stata impostata su `nessuna`."
   },
   "setchangelog": {

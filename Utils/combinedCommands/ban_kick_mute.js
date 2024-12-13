@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType, PermissionFlagsBits, TimestampStyles, bold } = require('discord.js'),
+  { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType, PermissionFlagsBits, TimestampStyles, bold, inlineCode } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
@@ -34,7 +34,7 @@ module.exports = async function ban_kick_mute(lang) {
     infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.tag, muteDuration, muteDurationRelative, reason }),
     userEmbed = new EmbedBuilder({
       title: lang('infoEmbedTitle'),
-      description: lang('dmEmbedDescription', { guild: this.guild.name, mod: this.user.tag, muteDuration, muteDurationRelative, reason }),
+      description: lang('dmEmbedDescription', { guild: inlineCode(this.guild.name), mod: this.user.tag, muteDuration, muteDurationRelative, reason }),
       color: Colors.Red
     });
 

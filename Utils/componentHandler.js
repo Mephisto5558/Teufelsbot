@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, inlineCode } = require('discord.js'),
   { msInSecond } = require('./timeFormatter'),
   cooldowns = require('./cooldowns.js'),
 
@@ -23,7 +23,7 @@ module.exports = async function messageComponentHandler(lang) {
   else if (cooldown) err = 'events.interaction.buttonOnCooldown';
 
   if (err) {
-    const embed = new EmbedBuilder({ description: lang(err, cooldown), color: Colors.Red });
+    const embed = new EmbedBuilder({ description: lang(err, inlineCode(cooldown)), color: Colors.Red });
     return this.reply({ embeds: [embed], ephemeral: true });
   }
 

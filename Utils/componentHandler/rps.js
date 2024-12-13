@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, userMention } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, userMention, inlineCode } = require('discord.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
   sendChallenge = require('./rps_sendChallenge.js'),
   emojis = { rock: '✊', paper: '🤚', scissors: '✌️' },
@@ -13,7 +13,7 @@ const
 function sendGame(initiator, opponent, lang) {
   const
     embed = new EmbedBuilder({
-      title: lang('accept.embedTitle', { player1: initiator.displayName, player2: opponent.displayName }),
+      title: lang('accept.embedTitle', { player1: inlineCode(initiator.displayName), player2: inlineCode(opponent.displayName) }),
       description: lang('accept.embedDescription')
     }).setColor('Random'),
     component = new ActionRowBuilder({
@@ -64,7 +64,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   switch (mode) {
     case 'cancel':
     case 'decline':
-      this.message.embeds[0].data.description = lang(this.user.id == initiator.id ? 'canceled' : 'declined', this.member.displayName);
+      this.message.embeds[0].data.description = lang(this.user.id == initiator.id ? 'canceled' : 'declined', inlineCode(this.member.displayName));
       return this.message.edit({ embeds: this.message.embeds, components: [] });
 
     case 'accept': if (opponent.user.bot || this.user.id == opponentId) return sendGame.call(this, initiator, opponent, lang); break;

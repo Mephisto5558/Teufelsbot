@@ -68,7 +68,7 @@
       "emojis": "{emoji} Cargando emojis...",
       "stickers": "{emoji} Cargando pegatinas...",
       "bans": "{emoji} Cargando prohibiciones...",
-      "success": "Copia de seguridad cargada con éxito con id `{id}`.",
+      "success": "Copia de seguridad cargada con éxito con id {id}.",
       "error": "Ocurrió un error mientras se trataba de cargar la copia de seguridad."
     },
     "delete": {
@@ -76,7 +76,7 @@
       "success": "¡Copia de seguridad eliminada con éxito!"
     },
     "get": {
-      "oneEmbedDescription": "**Información sobre la copia de seguridad `{id}`**\n>>> Creada en: {createdAt}\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "oneEmbedDescription": "**Información sobre la copia de seguridad {id}**\n>>> Creada en: {createdAt}\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "oneNotFound": "¡No se encontró copia de seguridad con ese ID!",
       "infos": "Creado en: {createdAt}\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "found": "Se encontraron {amount} copias de seguridad.",
@@ -232,7 +232,7 @@
       }
     },
     "toggleModule": {
-      "success": "El módulo `{name}` ha sido {state}."
+      "success": "El módulo {name} ha sido {state}."
     },
     "toggleCommand": {
       "notFound": "¡Este comando no es válido!",
@@ -243,7 +243,7 @@
       },
       "enabled": "El comando `{command}está ahora habilitado.",
       "disabled": "El comando `{command}ahora está deshabilitado.",
-      "isDisabled": "El comando `{command}` está deshabilitado para todos los miembros. Puedes reactivarlo ejecutando </setup toggle_command:{id}> sin especificar ningún rol, canal o miembro.",
+      "isDisabled": "El comando {command} está deshabilitado para todos los miembros. Puedes reactivarlo ejecutando </setup toggle_command:{id}> sin especificar ningún rol, canal o miembro.",
       "roles": "Roles",
       "channels": "Canales",
       "users": "Miembros",
@@ -256,10 +256,10 @@
     },
     "language": {
       "embedTitle": "¡Idioma del bot cambiado!",
-      "embedDescription": "Los siguientes mensajes serán en `{lang}`."
+      "embedDescription": "Los siguientes mensajes serán en {lang}."
     },
     "prefix": {
-      "saved": "Mi prefijo ha sido cambiado a `{prefix}`."
+      "saved": "Mi prefijo ha sido cambiado a {prefix}."
     },
     "serverbackup": {
       "success": "¡Actualización exitosa de la configuración!"

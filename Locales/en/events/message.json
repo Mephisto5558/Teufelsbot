@@ -1,5 +1,5 @@
 {
-  "afkMsg": "`{member}` is AFK: {message} - {timestamp}",
+  "afkMsg": "{member} is AFK: {message} - {timestamp}",
   "afkEnd": "Welcome back, I removed your AFK. You have been AFK since {timestamp}.\nYour AFK message was: \"{message}\"",
   "counting": {
     "error": "YOU RUINED IT AT {lastNumber}!! The next number is **1**.\n",

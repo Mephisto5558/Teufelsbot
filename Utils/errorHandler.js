@@ -1,6 +1,6 @@
 const
   fetch = require('node-fetch').default,
-  { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction, codeBlock, hyperlink } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction, codeBlock, hyperlink, inlineCode } = require('discord.js'),
   { msInSecond, secsInMinute } = require('./timeFormatter.js'),
   { JSON_SPACES } = require('./constants'),
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
@@ -46,7 +46,7 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
     { aliasOf } = this.slashCommands.get(message.commandName) ?? this.prefixCommands.get(message.commandName) ?? {},
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { command: aliasOf ? this.slashCommands.get(aliasOf)?.name ?? this.prefixCommands.get(aliasOf)?.name : message.commandName }),
+      description: lang('embedDescription', inlineCode(aliasOf ? this.slashCommands.get(aliasOf)?.name ?? this.prefixCommands.get(aliasOf)?.name : message.commandName)),
       footer: { text: lang('embedFooterText') },
       color: Colors.DarkRed
     }),

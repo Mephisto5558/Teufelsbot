@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder } = require('discord.js'),
+  { EmbedBuilder, inlineCode } = require('discord.js'),
   { DiscordAPIErrorCodes } = require('#Utils');
 
 /**
@@ -59,7 +59,7 @@ module.exports = {
           try { channel = await guild.channels.fetch(settings.ch.channel); }
           catch (err) {
             if (err.code != DiscordAPIErrorCodes.UnknownChannel) throw err;
-            return (await guild.fetchOwner()).send(this.i18n.__({ locale: guild.db.config.lang ?? guild.localeCode }, 'others.timeEvents.birthday.unknownChannel', guild.name));
+            return (await guild.fetchOwner()).send(this.i18n.__({ locale: guild.db.config.lang ?? guild.localeCode }, 'others.timeEvents.birthday.unknownChannel', inlineCode(guild.name)));
           }
 
           const embed = new EmbedBuilder({

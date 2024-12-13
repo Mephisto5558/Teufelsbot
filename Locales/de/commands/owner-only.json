@@ -12,8 +12,8 @@
       }
     },
     "notFound": "Dieser User ist nicht blacklisted.",
-    "saved": "`{user}` wurde vom Nutzen des Bots geblacklistet.",
-    "removed": "`{user}` ist nun nicht mehr geblacklisted.",
+    "saved": "{user} wurde vom Nutzen des Bots geblacklistet.",
+    "removed": "{user} ist nun nicht mehr geblacklisted.",
     "cantBlacklistDev": "Ich kann einen Developer des Bots nicht blacklisten!"
   },
   "dbget": {
@@ -79,7 +79,7 @@
     "invalidPath": "Der angegebene Pfad existiert nicht! Beachte auch die Groß/Kleinschreibung des Pfades.",
     "error": "Ein Fehler ist während des Neuladens aufgetreten:\n{error}\nÜberprüfe die Konsole für mehr Informationen.",
     "noneReloaded": "Es wurden keine Befehle neu geladen.",
-    "reloaded": "Die folgenden `{count}` Befehle wurden neu geladen:\n{commands}"
+    "reloaded": "Die folgenden {count} Befehle wurden neu geladen:\n{commands}"
   },
   "reloadconfig": {
     "description": "Lädt die config.json Datei neu",
@@ -117,7 +117,7 @@
         "description": "Der Typ der Aktivität"
       }
     },
-    "set": "Meine Aktivität wurde zu `{name}` vom Typ `{type}` gesetzt.",
+    "set": "Meine Aktivität wurde zu {name} vom Typ {type} gesetzt.",
     "reset": "Meine Aktivität wurde zu `nichts` gesetzt."
   },
   "setchangelog": {

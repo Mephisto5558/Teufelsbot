@@ -16,7 +16,7 @@
     },
     "embedTitle": "AddEmoji",
     "isGuildEmoji": "Quelle emoji sono già in questa gilda!",
-    "invalidUrl": "L'argomento fornito non è un url valido o emoji!\nL'url deve terminare con `jpg`, `jpeg`, `png`, `webp`, `svg` o `gif`.\nEsempio: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "invalidUrl": "L'argomento fornito non è un url valido o emoji!\nL'url deve terminare con {validFormats}.\nEsempio: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "L'url fornito non è stato trovato.",
     "success": "Aggiunto con successo {name} {emoji}!\n",
     "limitedToRoles": "Le emoji sono state limitate ai seguenti ruoli:\n{roles}.",
@@ -86,10 +86,10 @@
     "msgNotFound": "L'id del messaggio fornito non è stato trovato in questo canale!",
     "botIsNotAuthor": "Posso modificare solo i miei messaggi!",
     "buttonLimitReached": "Un messaggio non può avere più di 5 righe o 25 pulsanti!",
-    "invalidOption": "**Una delle tue opzioni non è valida!**\n\n```{err}```",
-    "invalidJSON": "**Il tuo JSON non è valido!**\n\n```{err}```",
+    "invalidOption": "**Una delle tue opzioni non è valida!**\n\n{err}",
+    "invalidJSON": "**Il tuo JSON non è valido!**\n\n{err}",
     "successJSON": "Il tuo pulsante è stato inviato!",
-    "success": "Il tuo pulsante è stato inviato! Sotto c'è il codice del pulsante.\nSe vuoi inviarlo di nuovo, usa il sottocomando `json`.\n\n```json\n{json}\n```"
+    "success": "Il tuo pulsante è stato inviato! Sotto c'è il codice del pulsante.\nSe vuoi inviarlo di nuovo, usa il sottocomando `json`.\n\n{json}"
   },
   "embed": {
     "description": "invia un embed personalizzato; puoi fare newlines con \"/n\".",
@@ -179,10 +179,10 @@
         }
       }
     },
-    "invalidOption": "**Una delle tue opzioni non è valida!**\n\n```{err}```",
-    "invalidJSON": "**Il tuo JSON non è valido!**\n\n```{err}```",
+    "invalidOption": "**Una delle tue opzioni non è valida!**\n\n{err}",
+    "invalidJSON": "**Il tuo JSON non è valido!**\n\n{err}",
     "successJSON": "Il tuo embed è stato inviato!",
-    "success": "Il tuo embed è stato inviato! Sotto c'è il codice incorporato.\nSe vuoi inviarlo di nuovo, usa il sottocomando `json`.\n\n```json\n{json}\n```"
+    "success": "Il tuo embed è stato inviato! Sotto c'è il codice incorporato.\nSe vuoi inviarlo di nuovo, usa il sottocomando `json`.\n\n{json}"
   },
   "hash": {
     "description": "crittografa o decrittografa il testo con vari metodi",
@@ -195,8 +195,8 @@
       }
     },
     "embedTitle": "Funzione Hash",
-    "embedDescription": "Il tuo input: `{input}`\nMetodo Hash: `{method}`",
-    "text": "La tua stringa hashing:\n`{hash}`"
+    "embedDescription": "Il tuo input: {input}\nMetodo Hash: {method}",
+    "text": "La tua stringa hashing:\n{hash}"
   },
   "lastping": {
     "description": "Ti mostra dove hai parlato per ultimo.",
@@ -223,8 +223,8 @@
       }
     },
     "embedTitle": "Calcolatrice",
-    "error": "Si è verificato un errore durante il tentativo di risolvere la tua espressione:\n```{err}```",
-    "success": "Espressione:\n```{expression}```\nRisultato:\n```{result}```"
+    "error": "Si è verificato un errore durante il tentativo di risolvere la tua espressione:\n{err}",
+    "success": "Espressione:\n{expression}\nRisultato:\n{result}"
   },
   "passwordgenerator": {
     "description": "genera una password crittograficamente forte",
@@ -243,7 +243,7 @@
       }
     },
     "charsetEmpty": "hai escluso tutti i caratteri del charset...",
-    "success": "La tua password sicura:\n{passwords}\n\n<unk> <unk> Creata con il seguente set di caratteri:\n```{charset}```\nUsa le opzioni di comando per aggiungere o rimuovere caratteri.<unk> <unk>"
+    "success": "La tua password sicura:\n{passwords}\n\n<unk> <unk> Creata con il seguente set di caratteri:\n{charset}\nUsa le opzioni di comando per aggiungere o rimuovere caratteri.<unk> <unk>"
   },
   "randomnumber": {
     "description": "Restituisce un numero casuale. Usa valori predefiniti per input non validi.",
@@ -267,7 +267,7 @@
     },
     "invalid": "Il tempo che hai fornito non è valido! Usa {command} e cerca `timestamp` per informazioni mor.",
     "outOfRange": "Il tempo specificato è maggiore di 200.000 anni!",
-    "success": "Questo è {time} (`{time}`)."
+    "success": "Questo è {time} ({raw})."
   },
   "until": {
     "description": "Shows how long it will be until a certain date/time. If no date is specified,default is current date",
@@ -303,6 +303,6 @@
     },
     "notFound": "Nessun risultato trovato.",
     "visitWiki": "Per ulteriori informazioni, visita la pagina Wikipedia.",
-    "error": "Impossibile parlare con Wikipedia:\n```{err}```"
+    "error": "Impossibile parlare con Wikipedia:\n{err}"
   }
 }

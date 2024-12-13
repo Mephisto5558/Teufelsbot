@@ -1,4 +1,5 @@
 const
+  { inlineCode } = require('discord.js'),
   { randomInt } = require('node:crypto'),
   defaultMaxNum = 100;
 
@@ -33,8 +34,8 @@ module.exports = {
       if (!(err instanceof RangeError || err.code == 'ERR_INVALID_ARG_TYPE')) throw err;
 
       return this.customReply(lang('outOfRange', {
-        min: Number.MIN_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale),
-        max: Number.MAX_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale)
+        min: inlineCode(Number.MIN_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale)),
+        max: inlineCode(Number.MAX_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale))
       }));
     }
   }

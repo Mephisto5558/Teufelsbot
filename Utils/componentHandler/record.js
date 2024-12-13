@@ -1,5 +1,5 @@
 const
-  { Collection, GuildMember } = require('discord.js'),
+  { Collection, GuildMember, inlineCode } = require('discord.js'),
   { startRecording, recordControls } = require('./record_manage.js'),
 
   /** @type {Collection<string, Collection<string, {userId: string, allowed: boolean}[]>>} */
@@ -22,7 +22,7 @@ module.exports = async function record(lang, mode, requesterId, voiceChannelId, 
       if (!guildCache || !vcCache) return; // typeguard
       vcCache.push({ userId: this.user.id, allowed: mode == 'memberAllow' });
 
-      void this.reply({ content: lang('updated', lang(mode == 'memberAllow' ? 'allow' : 'deny')), ephemeral: true });
+      void this.reply({ content: lang('updated', inlineCode(lang(mode == 'memberAllow' ? 'allow' : 'deny'))), ephemeral: true });
 
       if (![...this.message.mentions.users.keys()].every(id => vcCache.find(e => e.userId == id))) return;
       return startRecording.call(this, lang, requesterId, voiceChannelId, isPublic == 'true', vcCache);

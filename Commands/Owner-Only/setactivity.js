@@ -1,5 +1,5 @@
 const
-  { ActivityType } = require('discord.js'),
+  { ActivityType, inlineCode } = require('discord.js'),
 
   /** @type {Record<string, ActivityType | string | undefined>} */
   ActivityTypes = Object.fromEntries(Object.entries(ActivityType).map(([k, v]) => [k.toLowerCase(), v]));
@@ -34,6 +34,6 @@ module.exports = {
     this.client.user.setActivity(activity);
     await this.client.db.update('botSettings', 'activity', activity);
 
-    return this.customReply(lang('set', { name: activity.name, type: ActivityType[activity.type] }));
+    return this.customReply(lang('set', { name: inlineCode(activity.name), type: inlineCode(ActivityType[activity.type]) }));
   }
 };

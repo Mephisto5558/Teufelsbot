@@ -260,7 +260,7 @@
       }
     },
     "notFound": "Это недопустимый параметр. ",
-    "validOptions": "Допустимые параметры:\n`{options}`",
+    "validOptions": "Допустимые параметры:\n{options}",
     "requiresArgs": "Эта команда требует следующие аргументы по порядку:\n\n{args}",
     "error": "Произошла ошибка:\n{err}"
   },
@@ -338,7 +338,7 @@
     },
     "notFound": "Нет сообщений, соответствующих вашему запросу.",
     "private": "Этот сабреддит является приватным.",
-    "error": "Произошла ошибка:\n```{err}```",
+    "error": "Произошла ошибка:\n{err}",
     "embedFooterText": "Голоса: {upvotes} ({ratio}%) | Голоса: {downvotes} | Комментарии: {comments}"
   },
   "sad": {
@@ -659,19 +659,19 @@
         }
       }
     },
-    "saved": "Добавлен новый триггер для `{trigger}`.",
-    "deletedOne": "Удален триггер с ID `{id}`",
-    "deletedAll": "Я удалил все (`{count}`) триггеры.",
+    "saved": "Добавлен новый триггер для {trigger}.",
+    "deletedOne": "Удален триггер с ID {id}",
+    "deletedAll": "Я удалил все ({count}) триггеры.",
     "noneFound": "Нет триггеров!",
     "notFound": "Триггер не соответствует вашему запросу.",
     "confirmation": "очистить все",
     "needConfirm": "Вы должны подтвердить это действие, написав `CLEAR ALL` в опции подтверждения!",
     "embedTitle": "Триггеры",
     "embedTitleOne": "**Триггер {id}:**",
-    "embedDescriptionOne": "**Триггер:**\n{trigger}\n**Ответ:**\n{response}\n**Wildcard:** `{wildcard}`",
-    "longEmbedDescription": "ID: {id}\n> Триггер: `{trigger}`\n> Ответ: `{response}`\n> Wildcard: `{wildcard}`\n\n",
+    "embedDescriptionOne": "**Триггер:**\n{trigger}\n**Ответ:**\n{response}\n**Wildcard:** {wildcard}",
+    "longEmbedDescription": "ID: {id}\n> Триггер: {trigger}\n> Ответ: {response}\n> Wildcard: {wildcard}\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Триггер:**\n{trigger}\n**Ответ:**\n{response}\n**Wildcard: **`{wildcard}`\n",
+    "shortFieldValue": "**Триггер:**\n{trigger}\n**Ответ:**\n{response}\n**Wildcard: **{wildcard}\n",
     "first25": "Первые 25 триггеров. Получите больше с опцией `short`."
   },
   "vote": {

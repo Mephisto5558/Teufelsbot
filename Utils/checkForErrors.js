@@ -1,5 +1,5 @@
 const
-  { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction } = require('discord.js'),
+  { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction, inlineCode } = require('discord.js'),
   /** @type {import('.').autocompleteGenerator} */autocompleteGenerator = require('./autocompleteGenerator.js'),
   cooldowns = require('./cooldowns.js'),
   /** @type {import('.').permissionTranslator} */ permissionTranslator = require('./permissionTranslator.js'),
@@ -50,14 +50,14 @@ function checkOptions(command, lang) {
       if (typeof autocompleteOptions != 'function') {
         return ['strictAutocompleteNoMatchWValues', {
           option: name,
-          availableOptions: Array.isArray(autocompleteOptions) ? `\`${autocompleteOptions.map(e => e.value ?? e).join('`, `')}\`` : autocompleteOptions
+          availableOptions: Array.isArray(autocompleteOptions) ? autocompleteOptions.map(e => e.value ?? e).map(inlineCode).join(', ') : autocompleteOptions
         }];
       }
       return ['strictAutocompleteNoMatch', name];
     }
 
     if (this instanceof Message && this.args?.[i] && choices && !choices.some(e => e.value === this.args[i]))
-      return ['strictAutocompleteNoMatchWValues', { option: name, availableOptions: `\`${choices.map(e => e.value).join('`, `')}\`` }];
+      return ['strictAutocompleteNoMatchWValues', { option: name, availableOptions: choices.map(e => inlineCode(e.value)).join(', ') }];
   }
 }
 
@@ -76,7 +76,7 @@ async function checkPerms(command, lang) {
     title: lang('permissionDenied.embedTitle'),
     description: lang(
       `permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`,
-      { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `') }
+      { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', ') }
     ),
     color: Colors.Red
   });
@@ -136,7 +136,7 @@ module.exports = async function checkForErrors(command, lang) {
 
   if (this.client.botType != 'dev') {
     const cooldown = cooldowns.call(this, command.name, command.cooldowns);
-    if (cooldown) return ['cooldown', cooldown];
+    if (cooldown) return ['cooldown', inlineCode(cooldown)];
   }
 
   return !!(this.inGuild() && (this instanceof Message || this instanceof CommandInteraction) && await checkPerms.call(this, command, lang));

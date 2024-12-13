@@ -1,5 +1,5 @@
 const
-  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors, ALLOWED_SIZES, hyperlink, channelMention, userMention, bold } = require('discord.js'),
+  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors, ALLOWED_SIZES, hyperlink, channelMention, userMention, bold, inlineCode } = require('discord.js'),
   { constants: { embedFieldValueMaxLength, suffix }, timeFormatter: { msInSecond } } = require('#Utils'),
   PURPLE = 0x822AED,
   AUDITLOG_FETCHLIMIT = 6,
@@ -73,7 +73,7 @@ module.exports = async function messageDelete() {
       thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: ALLOWED_SIZES[3] }) } : undefined, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 3rd valid resolution */
       description: lang('messageDelete.embedDescription', { executor: executor ? userMention(executor.id) : lang('someone'), channel: this.channel.name }),
       fields: [
-        { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (\`${this.channel.id}\`)`, inline: true },
+        { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: true },
         { name: lang('messageDelete.content'), value: '', inline: false }
       ],
       timestamp: Date.now(),
@@ -90,8 +90,8 @@ module.exports = async function messageDelete() {
   else if (field.value.length > embedFieldValueMaxLength) field.value = field.value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
 
   // We don't get the user if the message is not cached
-  if (this.user) embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (\`${this.user.id}\`)`, inline: true });
-  if (executor) embed.data.fields.push({ name: lang('executor'), value: `${executor.tag} (\`${executor.id}\`)`, inline: false });
+  if (this.user) embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (${inlineCode(this.user.id)})`, inline: true });
+  if (executor) embed.data.fields.push({ name: lang('executor'), value: `${executor.tag} (${inlineCode(executor.id)})`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('reason'), value: reason, inline: false });
 
   return channelToSend.send({ embeds: [embed] });

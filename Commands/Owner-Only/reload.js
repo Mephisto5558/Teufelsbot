@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
 const
-  { Collection, codeBlock } = require('discord.js'),
+  { Collection, codeBlock, inlineCode } = require('discord.js'),
   { resolve, basename, dirname } = require('node:path'),
   { access } = require('node:fs/promises'),
   { formatCommand, slashCommandsEqual, filename } = require('#Utils'),
@@ -157,9 +157,9 @@ module.exports = {
     }
 
     const
-      commands = reloadedArray.filter(Boolean).map(e => e.startsWith('<') ? e : `\`${e}\``).join(', '),
+      commands = reloadedArray.filter(Boolean).map(e => e.startsWith('<') ? e : inlineCode(e)).join(', '),
       replyText = lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
-        count: reloadedArray.length,
+        count: inlineCode(reloadedArray.length),
         commands: commands.length < MAX_COMMANDLIST_LENGTH ? commands : commands.slice(0, Math.max(0, commands.slice(0, MAX_COMMANDLIST_LENGTH).lastIndexOf('`,') + 1)) + '...'
       });
 

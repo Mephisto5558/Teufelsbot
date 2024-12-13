@@ -1,8 +1,11 @@
 const
-  { parseEmoji, EmbedBuilder, Colors, codeBlock, roleMention, CDNRoutes, ImageFormat, bold } = require('discord.js'),
+  { parseEmoji, EmbedBuilder, Colors, codeBlock, roleMention, CDNRoutes, ImageFormat, bold, inlineCode } = require('discord.js'),
   http = require('node:http'),
   https = require('node:https'),
-  { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils');
+  { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils'),
+
+  validImageFormats = ['gif', 'jpeg', 'jpg', 'png', 'svg', 'webp'],
+  urlRegex = new RegExp(String.raw`^(?:https?:\/\/)?(?:w{3}\.)?.*?\.(?:${validImageFormats.join('|')})(?:\?.*)?$`, 'i');
 
 /** @param {string}url @returns {Promise<boolean>} */
 const checkUrl = url => new Promise((resolve, reject) => {
@@ -51,9 +54,9 @@ module.exports = {
 
     if (this.guild.emojis.cache.has(emoticon.id)) return this.editReply({ embeds: [embed.setDescription(lang('isGuildEmoji'))] });
     if (emoticon.id) input = `https://cdn.discordapp.com/${CDNRoutes.emoji(emoticon.id, emoticon.animated ? ImageFormat.GIF : ImageFormat.PNG)}`;
-    /* eslint-disable-next-line regexp/prefer-quantifier -- "www" is preferred to be written out for readability */
-    else if (!/^(?:https?:\/\/)?(?:www\.)?.*?\.(?:gif|jpeg|jpg|png|svg|webp)(?:\?.*)?$/i.test(input))
-      return this.editReply({ embeds: [embed.setDescription(lang('invalidUrl'))] });
+
+    else if (!urlRegex.test(input))
+      return this.editReply({ embeds: [embed.setDescription(lang('invalidUrl', validImageFormats.map(inlineCode).join(', ')))] });
     if (!input.startsWith('http')) input = `https://${input}`;
 
     try {

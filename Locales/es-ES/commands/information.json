@@ -86,8 +86,8 @@
     "commandListPlaceholder": "¿Qué comando quieres ver?",
     "devEmbedFooterText": "Dev-Bot | Solo se muestran comandos beta",
     "one": {
-      "notFound": "No se ha encontrado información para el comando `{command}`.",
-      "embedTitle": "Información detallada sobre: `{command}`",
+      "notFound": "No se ha encontrado información para el comando {command}.",
+      "embedTitle": "Información detallada sobre: {command}",
       "embedFooterText": "Sintaxis: <> = requerido, [] = opcional | Prefijos: {prefix}",
       "prefixAlias": "Alias de comandos de prefijo",
       "slashAlias": "Alias de Comandos Slash",
@@ -111,7 +111,7 @@
     "shard": "Fragmento",
     "guild": "ID de Gremio Interno",
     "guilds": "Gremios",
-    "commands": "Comandos: `{total}`\n> Slash & Prefix: `{combined}`\n> Slash: `{slash}`\n> Prefijo: `{prefix}`\n",
+    "commands": "Comandos: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefijo: {prefix}\n",
     "starts": "Comienza",
     "lastStart": "Último inicio",
     "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina.\n",
@@ -137,8 +137,8 @@
       }
     },
     "average": {
-      "loading": "Ping... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}` | Duración: `{duration}s`\nAPI:\n> El más bajo Ping: `{wsLowest}ms`\n> El más alto Ping: `{wsHighest}ms`\n> Media Ping: `{wsAverage}ms`\nMensaje Enviado:\n> Baja Pendida: `{msgLowest}ms`\n> Mejor Peste: `{msgHighest}ms`\n> Media Ping: `{msgAverage}ms`"
+      "loading": "Ping... {current}/{target}",
+      "embedDescription": "Pings: {pings} | Duración: `{duration}s`\nAPI:\n> El más bajo Ping: `{wsLowest}ms`\n> El más alto Ping: `{wsHighest}ms`\n> Media Ping: `{wsAverage}ms`\nMensaje Enviado:\n> Baja Pendida: `{msgLowest}ms`\n> Mejor Peste: `{msgHighest}ms`\n> Media Ping: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -180,7 +180,7 @@
         "description": "ID del servidor para obtener información (solo en servidores en los que estoy presente)."
       }
     },
-    "memberStats": "`{all}` (Humanos: `{humans}`, Botos: `{bots}`)",
+    "memberStats": "{all} (Humanos: {humans}, Botos: {bots})",
     "members": "Miembros",
     "verificationLevel": {
       "name": "Nivel de verificación",
@@ -233,7 +233,7 @@
     },
     "guildOwner": "Propietario del gremio",
     "guildAdmin": "Administrador del Gremio",
-    "admin": "`Administrador`",
+    "admin": "Administrador",
     "guildMod": "Moderador del gremio",
     "guildMember": "Miembro del gremio",
     "activity": {

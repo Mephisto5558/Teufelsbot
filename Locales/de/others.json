@@ -62,7 +62,7 @@
   },
   "errorHandler": {
     "embedTitle": "Hupsala",
-    "embedDescription": "Ein unerwarteter Fehler ist aufgetreten!\n\nBefehl: `{command}`",
+    "embedDescription": "Ein unerwarteter Fehler ist aufgetreten!\n\nBefehl: {command}",
     "embedFooterText": "Das Melden dieses Fehlers wird die Befehlsoptionen privat an den Entwickler senden.",
     "reportButton": "Melde diesen Fehler",
     "reportButtonDisabled": " (Deaktiviert wegen Dev-Version)",
@@ -81,7 +81,7 @@
   },
   "timeEvents": {
     "birthday": {
-      "unknownChannel": "INFO: Der Kanal für die Geburtstagsfunktion im Server `{guild}` existiert nicht! Bitte konfiguriere ihn neu, damit ich Geburtstagsnachrichten senden kann!"
+      "unknownChannel": "INFO: Der Kanal für die Geburtstagsfunktion im Server {guild} existiert nicht! Bitte konfiguriere ihn neu, damit ich Geburtstagsnachrichten senden kann!"
     }
   },
   "getCommands": {

@@ -684,20 +684,20 @@
         }
       }
     },
-    "saved": "Added new trigger for `{trigger}`.",
+    "saved": "Added new trigger for {trigger}.",
     "edited": "The trigger with the for `${trigger}` has been edited.",
-    "deletedOne": "Deleted the trigger with the ID `{id}`",
-    "deletedAll": "I deleted all (`{count}`) triggers.",
+    "deletedOne": "Deleted the trigger with the ID {id}",
+    "deletedAll": "I deleted all ({count}) triggers.",
     "noneFound": "There are no triggers!",
     "notFound": "No trigger matched your query.",
     "confirmation": "clear all",
     "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
     "embedTitle": "Triggers",
     "embedTitleOne": "**Trigger {id}:**",
-    "embedDescriptionOne": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard:** `{wildcard}`",
-    "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Response: `{response}`\n> Wildcard: `{wildcard}`\n\n",
+    "embedDescriptionOne": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard:** {wildcard}",
+    "longEmbedDescription": "ID: {id}\n> Trigger: {trigger}\n> Response: {response}\n> Wildcard: {wildcard}\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard: **`{wildcard}`\n",
+    "shortFieldValue": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard: **{wildcard}\n",
     "first25": "The first 25 triggers. Get more with the `short` option."
   },
   "vote": {

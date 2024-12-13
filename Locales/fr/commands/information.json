@@ -85,8 +85,8 @@
     "commandListPlaceholder": "Quelle commande voulez-vous voir?",
     "devEmbedFooterText": "Dev-Bot | Seules les commandes bêta sont affichées",
     "one": {
-      "notFound": "Aucune information trouvée pour la commande `{command}`.",
-      "embedTitle": "Informations détaillées sur : `{command}`",
+      "notFound": "Aucune information trouvée pour la commande {command}.",
+      "embedTitle": "Informations détaillées sur : {command}",
       "embedFooterText": "Syntaxe : <> = obligatoire, [] = optionnel | Préfixe : \"{prefix}\"",
       "prefixAlias": "Alias de commande du préfixe",
       "slashAlias": "Alias de commande tranchante",
@@ -135,8 +135,8 @@
       }
     },
     "average": {
-      "loading": "Ping en cours... `{current}`/`{target}`",
-      "embedDescription": "Pings : `{pings}`\nPing le plus bas : `{lowest}ms`\nPing en hauteur : `{highest}ms`\nPing moyen : `{average}ms`"
+      "loading": "Ping en cours... {current}/{target}`",
+      "embedDescription": "Pings : {pings}\nPing le plus bas : `{lowest}ms`\nPing en hauteur : `{highest}ms`\nPing moyen : `{average}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -178,7 +178,7 @@
         "description": "L'ID du serveur sur lequel vous voulez obtenir des informations. Fonctionne uniquement pour les serveurs dans lesquels je suis entré."
       }
     },
-    "memberStats": "`{all}` (humains : `{humans}`, Bots : `{bots}`)",
+    "memberStats": "{all} (humains : {humans}, Bots : {bots})",
     "members": "Membres",
     "verificationLevel": {
       "name": "Niveau de vérification",
@@ -231,7 +231,7 @@
     },
     "guildOwner": "Propriétaire de la guilde",
     "guildAdmin": "Administrateur de la guilde",
-    "admin": "`Administrateur`",
+    "admin": "Administrateur",
     "guildMod": "Modérateur de guilde",
     "guildMember": "Membre de la Guilde",
     "activity": {

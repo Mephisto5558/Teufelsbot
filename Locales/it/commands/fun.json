@@ -667,19 +667,19 @@
         }
       }
     },
-    "saved": "Aggiunto nuovo trigger per `{trigger}`.",
-    "deletedOne": "Eliminato il trigger con l'ID `{id}`",
-    "deletedAll": "Ho eliminato tutti i trigger (`{count}`).",
+    "saved": "Aggiunto nuovo trigger per {trigger}.",
+    "deletedOne": "Eliminato il trigger con l'ID {id}",
+    "deletedAll": "Ho eliminato tutti i trigger ({count}).",
     "noneFound": "Non ci sono grilletti!",
     "notFound": "Nessun trigger corrisponde alla tua interrogazione.",
     "confirmation": "cancella tutto",
     "needConfirm": "Devi confermare questa azione scrivendo `CLEAR ALL` nell'opzione di conferma!",
     "embedTitle": "Trigger",
     "embedTitleOne": "**Trigger {id}:**",
-    "embedDescriptionOne": "**Trigger**:\n{trigger}\n**Risposta:**\n{response}\n**Wildcard:** `{wildcard}`",
-    "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Risposta: `{response}`\n> Wildcard: `{wildcard}`\n\n",
+    "embedDescriptionOne": "**Trigger**:\n{trigger}\n**Risposta:**\n{response}\n**Wildcard:** {wildcard}",
+    "longEmbedDescription": "ID: {id}\n> Trigger: {trigger}\n> Risposta: {response}\n> Wildcard: {wildcard}\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Trigger:**\n{trigger}\n**Risposta:**\n{response}\n**Wildcard: **`{wildcard}`\n",
+    "shortFieldValue": "**Trigger:**\n{trigger}\n**Risposta:**\n{response}\n**Wildcard: **{wildcard}\n",
     "first25": "I primi 25 trigger. Ottieni di più con l'opzione `short`."
   },
   "vote": {

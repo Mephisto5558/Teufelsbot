@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, TimestampStyles } = require('discord.js'),
+  { EmbedBuilder, Colors, TimestampStyles, inlineCode } = require('discord.js'),
   { msInSecond, timestamp } = require('#Utils').timeFormatter,
   maxPercentage = 100,
   embedUpdateMs = msInSecond * 4; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 4s */
@@ -42,7 +42,7 @@ module.exports = {
         wsPings.push(this.client.ws.ping);
 
         const startMessagePing = performance.now();
-        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: i, target: maxPings, timestamp: timestamp(Date.now() + embedUpdateMs) }))] });
+        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: inlineCode(i), target: inlineCode(maxPings), timestamp: timestamp(Date.now() + embedUpdateMs) }))] });
         msgPings.push(performance.now() - startMessagePing);
       }
 
@@ -57,15 +57,15 @@ module.exports = {
 
       embed.data.description = lang('average.embedDescription', {
         duration,
-        pings: wsPings.length, wsLowest: wsPings[0], wsHighest: wsPings.at(-1), wsAverage: averageWsPing,
+        pings: inlineCode(wsPings.length), wsLowest: wsPings[0], wsHighest: wsPings.at(-1), wsAverage: averageWsPing,
         msgLowest: msgPings[0].toFixed(2), msgHighest: msgPings.at(-1).toFixed(2), msgAverage: averageMsgPing
       });
     }
     else {
       embed.data.fields = [
-        { name: lang('api'), value: `\`${Math.round(this.client.ws.ping)}\`ms`, inline: true },
-        { name: lang('bot'), value: `\`${Math.abs(Date.now() - this.createdTimestamp)}\`ms`, inline: true },
-        { name: lang('messageSend'), value: `\`${Math.round(endFirstMessagePing)}\`ms`, inline: true }
+        { name: lang('api'), value: `${inlineCode(Math.round(this.client.ws.ping))}ms`, inline: true },
+        { name: lang('bot'), value: `${inlineCode(Math.abs(Date.now() - this.createdTimestamp))}ms`, inline: true },
+        { name: lang('messageSend'), value: `${inlineCode(Math.round(endFirstMessagePing))}ms`, inline: true }
       ];
 
       delete embed.data.description;

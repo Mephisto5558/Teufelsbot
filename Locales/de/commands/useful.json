@@ -16,7 +16,7 @@
     },
     "embedTitle": "AddEmoji",
     "isGuildEmoji": "Dieser Emoji ist bereits auf diesem Server!",
-    "invalidUrl": "Das angegebene Argument ist kein gültiges Emoji oder URL!\nEine gültige URL muss eine der folgenden Endungen haben: `jpg`, `jpeg`, `png`, `webp`, `svg` oder `gif`.\nBeispiel: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "invalidUrl": "Das angegebene Argument ist kein gültiges Emoji oder URL!\nEine gültige URL muss eine der folgenden Endungen haben: {validFormats}.\nBeispiel: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "Die angegebene URL wurde nicht gefunden.",
     "success": "{name} wurde erfolgreich hinzugefügt {emoji}!\n",
     "limitedToRoles": "Das Emoji wurde zu den folgenden Rollen limitiert:\n{roles}.",
@@ -211,8 +211,8 @@
       }
     },
     "embedTitle": "Hash Funktion",
-    "embedDescription": "Dein Input: `{input}`\nHash Methode: `{method}`",
-    "text": "Dein gehashter Text:\n`{hash}`"
+    "embedDescription": "Dein Input: {input}\nHash Methode: {method}",
+    "text": "Dein gehashter Text:\n{hash}"
   },
   "lastping": {
     "description": "Finde heraus, wer dich zuletzt erwähnt hat.",
@@ -281,7 +281,7 @@
       }
     },
     "randomNumber": "Eine Zufallszahl zwischen {min} und {max}:\n{randomNumber}",
-    "outOfRange": "Eine der angegebenen Zahlen ist ungültig, zu groß oder zu klein!\nKleinste mögliche Zahl: `{min}`, größte mögliche Zahl: `{max}`"
+    "outOfRange": "Eine der angegebenen Zahlen ist ungültig, zu groß oder zu klein!\nKleinste mögliche Zahl: {min}, größte mögliche Zahl: {max}"
   },
   "timestamp": {
     "description": "Erhalte einen Timestamp für die Zukunft (oder Vergangenheit, indem du \"-\" nutzt)",
@@ -296,7 +296,7 @@
     },
     "invalid": "Die angegebene Zeit ist ungültig! Nutze {command} und suche nach `timestamp` für mehr Informationen.",
     "outOfRange": "Die angegebene Zeit überschreitet das Limit von 200.000 Jahren!",
-    "success": "Das ist {time} (`{time}`)."
+    "success": "Das ist {time} ({raw})."
   },
   "until": {
     "description": "Wie lange es bis zu einem bestimmten Datum/Zeit dauert. Wenn kein Datum, Standard: aktuelles Datum",

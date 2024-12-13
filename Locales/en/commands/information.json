@@ -86,7 +86,7 @@
     "commandListPlaceholder": "Which command do you want to see?",
     "devEmbedFooterText": "Dev-Bot | Only beta commands are shown",
     "one": {
-      "notFound": "No information found for command `{command}`.",
+      "notFound": "No information found for command {command}.",
       "embedTitle": "{category} » {command}",
       "embedFooterText": "Syntax: <> = required, [] = optional | Prefixes: {prefixes}",
       "prefixAlias": "Prefix Command Aliases",
@@ -111,7 +111,7 @@
     "shard": "Shard",
     "guild": "Internal Guild ID",
     "guilds": "Guilds",
-    "commands": "Commands: `{total}`\n> Slash & Prefix: `{combined}`\n> Slash: `{slash}`\n> Prefix: `{prefix}`\n",
+    "commands": "Commands: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefix: {prefix}\n",
     "starts": "Starts",
     "lastStart": "Last start",
     "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.\n",
@@ -137,8 +137,8 @@
       }
     },
     "average": {
-      "loading": "Pinging... `{current}`/`{target}`\nNext ping {timestamp}",
-      "embedDescription": "Pings: `{pings}` | Duration: `{duration}s`\nAPI:\n> Lowest Ping: `{wsLowest}ms`\n> Highest Ping: `{wsHighest}ms`\n> Average Ping: `{wsAverage}ms`\nMessage Send:\n> Lowest Ping: `{msgLowest}ms`\n> Highest Ping: `{msgHighest}ms`\n> Average Ping: `{msgAverage}ms`"
+      "loading": "Pinging... {current}/{target}\nNext ping {timestamp}",
+      "embedDescription": "Pings: {pings} | Duration: `{duration}s`\nAPI:\n> Lowest Ping: `{wsLowest}ms`\n> Highest Ping: `{wsHighest}ms`\n> Average Ping: `{wsAverage}ms`\nMessage Send:\n> Lowest Ping: `{msgLowest}ms`\n> Highest Ping: `{msgHighest}ms`\n> Average Ping: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -180,7 +180,7 @@
         "description": "The server ID you want to get information about. Only works for servers I'm in."
       }
     },
-    "memberStats": "`{all}` (Humans: `{humans}`, Bots: `{bots}`)",
+    "memberStats": "{all} (Humans: {humans}, Bots: {bots})",
     "members": "Members",
     "verificationLevel": {
       "name": "Verification Level",
@@ -234,7 +234,7 @@
     },
     "guildOwner": "Guild Owner",
     "guildAdmin": "Guild Administrator",
-    "admin": "`Administrator`",
+    "admin": "Administrator",
     "guildMod": "Guild Moderator",
     "guildMember": "Guild Member",
     "activity": {

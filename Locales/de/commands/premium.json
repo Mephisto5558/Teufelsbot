@@ -119,7 +119,7 @@
     "resume": "Setze Aufnahme fort",
     "stop": "Stoppe Aufnahme",
     "get": "Erhalte die Aufnahme",
-    "updated": "Deine Antwort wurde zu `{permission}` gesetzt. Ich warte auf die Antworten der anderen Mitglieder.",
+    "updated": "Deine Antwort wurde zu {permission} gesetzt. Ich warte auf die Antworten der anderen Mitglieder.",
     "paused": "🔇 Ich habe die Aufnahme von {channel} pausiert.",
     "recording": "🎙️ Ich nehme nun {channel} ({users}) auf!",
     "notFound": "Deine Aufnahme wurde nicht gefunden!",

@@ -1,5 +1,5 @@
 {
-  "cooldown": "This command or one of it's subcommands is on cooldown! Try it again in `{time}`s.",
+  "cooldown": "This command or one of it's subcommands is on cooldown! Try it again in {time}s.",
   "slashOnly": "This command is only available as a slash command: </{name}:{id}>",
   "guildOnly": "This command or one of it's subcommands is only available in guilds!",
   "nonBeta": "This command is not a beta command! This bot runs only beta commands.",
@@ -11,8 +11,8 @@
   "invalidChannelType": "The channel you inputted for the option \"{option}\" must be one of the channel type choices. Please select one of the available options when entering the slash command.",
   "permissionDenied": {
     "embedTitle": "Insufficient Permissions",
-    "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n`{permissions}`",
-    "embedDescriptionBot": "I need the following permissions in this channel to run this command:\n`{permissions}`"
+    "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n{permissions}",
+    "embedDescriptionBot": "I need the following permissions in this channel to run this command:\n`permissions}"
   },
   "notAllowed": {
     "anyone": "No one is allowed to run this command (set by a server administrator)!",

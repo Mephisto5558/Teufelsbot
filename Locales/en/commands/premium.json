@@ -119,7 +119,7 @@
     "resume": "Resume Recording",
     "stop": "Stop Recording",
     "get": "Get the Recording",
-    "updated": "Your response has been set to `{permission}`. I am waiting for the other members to reply.",
+    "updated": "Your response has been set to {permission}. I am waiting for the other members to reply.",
     "paused": "🔇 I paused recording {channel}.",
     "recording": "🎙️ I am now recording {channel} ({users})!",
     "notFound": "Your recording has not been found!",

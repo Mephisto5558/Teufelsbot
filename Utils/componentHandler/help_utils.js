@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder, codeBlock } = require('discord.js'),
+  { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder, codeBlock, inlineCode } = require('discord.js'),
 
   /** @type {import('..').permissionTranslator} */
   permissionTranslator = require('../permissionTranslator.js'),
@@ -79,13 +79,13 @@ function createInfoFields(cmd, lang) {
     prefix = this.guild?.db.config[prefixKey]?.[0].prefix ?? this.client.defaultSettings.config[prefixKey][0].prefix;
 
   cmd ??= {};
-  if (cmd.aliases?.prefix?.length) arr.push({ name: lang('one.prefixAlias'), value: `\`${cmd.aliases.prefix.join('`, `')}\``, inline: true });
-  if (cmd.aliases?.slash?.length) arr.push({ name: lang('one.slashAlias'), value: `\`${cmd.aliases.slash.join('`, `')}\``, inline: true });
-  if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: `\`${cmd.aliasOf}\``, inline: true });
+  if (cmd.aliases?.prefix?.length) arr.push({ name: lang('one.prefixAlias'), value: cmd.aliases.prefix.map(inlineCode).join(', '), inline: true });
+  if (cmd.aliases?.slash?.length) arr.push({ name: lang('one.slashAlias'), value: cmd.aliases.slash.map(inlineCode).join(', '), inline: true });
+  if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: inlineCode(cmd.aliasOf), inline: true });
   if (cmd.permissions?.client?.length > 0)
-    arr.push({ name: lang('one.botPerms'), value: `\`${permissionTranslator(cmd.permissions.client, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')}\``, inline: false });
+    arr.push({ name: lang('one.botPerms'), value: permissionTranslator(cmd.permissions.client, lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', '), inline: false });
   if (cmd.permissions?.user?.length > 0)
-    arr.push({ name: lang('one.userPerms'), value: `\`${permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `')}\``, inline: true });
+    arr.push({ name: lang('one.userPerms'), value: permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', '), inline: true });
 
   const cooldowns = Object.entries(cmd.cooldowns ?? {}).filter(([, e]) => e);
   if (cooldowns.length) {
@@ -127,7 +127,7 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
   const command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);
   if (!filterCommands.call(this, command)) {
     const embed = new EmbedBuilder({
-      description: lang('one.notFound', query),
+      description: lang('one.notFound', inlineCode(query)),
       color: Colors.Red
     });
 

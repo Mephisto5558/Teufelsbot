@@ -1,5 +1,5 @@
 const
-  { parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits, roleMention } = require('discord.js'),
+  { parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits, roleMention, inlineCode } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { timestamp } = require('#Utils').timeFormatter,
   emojiURLRegex = /https:\/\/cdn\.discordapp\.com\/emojis\/(?<id>\d+)/;
@@ -31,8 +31,8 @@ module.exports = {
         thumbnail: { url },
         fields: [
           { name: lang('name'), value: emoji.name, inline: true },
-          { name: lang('id'), value: `\`${emoji.id}\``, inline: true },
-          { name: lang('guild'), value: emoji.guild?.name ? `${emoji.guild.name} (\`${emoji.guild.id}\`)` : lang('global.unknown'), inline: true },
+          { name: lang('id'), value: inlineCode(emoji.id), inline: true },
+          { name: lang('guild'), value: emoji.guild?.name ? `${emoji.guild.name} (${inlineCode(emoji.guild.id)})` : lang('global.unknown'), inline: true },
           { name: lang('animated'), value: lang(`global.${emoji.animated}`), inline: true },
           { name: lang('creator'), value: (await emoji.fetchAuthor?.())?.username ?? lang('global.unknownUser'), inline: true },
           { name: lang('available'), value: emoji.available ? lang(`global.${emoji.available}`) : lang('global.unknown'), inline: true },

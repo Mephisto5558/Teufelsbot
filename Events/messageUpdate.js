@@ -1,5 +1,5 @@
 const
-  { MessageFlags, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink, userMention, channelMention } = require('discord.js'),
+  { MessageFlags, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink, userMention, channelMention, inlineCode } = require('discord.js'),
   { embedFieldValueMaxLength, suffix } = require('#Utils').constants,
   PINK = 0xE62AED;
 
@@ -24,10 +24,10 @@ module.exports = function messageUpdate(newMsg) {
       author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
       description: lang('embedDescription', { executor: userMention(newMsg.user.id), channel: newMsg.channel.name }),
       fields: [
-        { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (\`${this.channel.id}\`)`, inline: false },
+        { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false },
         { name: lang('oldContent'), value: '', inline: false },
         { name: lang('newContent'), value: '', inline: false },
-        { name: lang('author'), value: `${newMsg.user.tag} (\`${newMsg.user.id}\`)`, inline: false }
+        { name: lang('author'), value: `${newMsg.user.tag} (${inlineCode(newMsg.user.id)})`, inline: false }
       ],
       timestamp: Date.now(),
       color: PINK

@@ -86,8 +86,8 @@
     "commandListPlaceholder": "Quale comando vuoi vedere?",
     "devEmbedFooterText": "Dev-Bot | Vengono mostrati solo i comandi beta",
     "one": {
-      "notFound": "Nessuna informazione trovata per il comando `{command}`.",
-      "embedTitle": "Informazioni dettagliate su: `{command}`",
+      "notFound": "Nessuna informazione trovata per il comando {command}.",
+      "embedTitle": "Informazioni dettagliate su: {command}",
       "embedFooterText": "Sintassi: <> = obbligatorio, [] = opzionale <unk> Prefissi: {prefix}",
       "prefixAlias": "Prefisso Alias Comandi",
       "slashAlias": "Slash Command Aliases",
@@ -111,7 +111,7 @@
     "shard": "Frammento",
     "guild": "Id Della Gilda Interna",
     "guilds": "Gilde",
-    "commands": "Comandi: `{total}`\n> Slash & Prefix: `{combined}`\n> Slash: `{slash}`\n> Prefisso: `{prefix}`\n",
+    "commands": "Comandi: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefisso: {prefix}\n",
     "starts": "Inizia",
     "lastStart": "Ultimo avvio",
     "translation": "Traduzioni:\n> Inglese: {en}\n> Tedesco: {de}\n> Tutte le altre lingue sono tradotte automaticamente.\n",
@@ -137,8 +137,8 @@
       }
     },
     "average": {
-      "loading": "Pinging... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}` <unk> Durata: `{duration}s`\nAPI:\n> Ping più basso: `{wsLowest}ms`\n> Ping più alto: `{wsHighest}ms`\n> Ping medio: `{wsAverage}ms`\nMessaggio Invia:\n> Ping più basso: `{msgLowest}ms`\n> Ping più alto: `{msgHighest}ms`\n> Ping medio: `{msgAverage}ms`"
+      "loading": "Pinging... {current}/{target}",
+      "embedDescription": "Pings: {pings} <unk> Durata: `{duration}s`\nAPI:\n> Ping più basso: `{wsLowest}ms`\n> Ping più alto: `{wsHighest}ms`\n> Ping medio: `{wsAverage}ms`\nMessaggio Invia:\n> Ping più basso: `{msgLowest}ms`\n> Ping più alto: `{msgHighest}ms`\n> Ping medio: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -180,7 +180,7 @@
         "description": "L'ID del server su cui vuoi ottenere informazioni. Funziona solo per i server in cui mi trovo."
       }
     },
-    "memberStats": "`{all}` (Humans: `{humans}`, Bots: `{bots}`)",
+    "memberStats": "{all} (Humans: {humans}, Bots: {bots})",
     "members": "Membri",
     "verificationLevel": {
       "name": "Livello Di Verifica",
@@ -233,7 +233,7 @@
     },
     "guildOwner": "Proprietario Della Gilda",
     "guildAdmin": "Amministratore Gilda",
-    "admin": "`Amministratore`",
+    "admin": "Amministratore",
     "guildMod": "Moderatore Di Gilda",
     "guildMember": "Membro Della Gilda",
     "activity": {

@@ -25,8 +25,7 @@
     "embedDescriptionLeave": "{executor} a quitté le salon vocal {oldChannel}.",
     "embedDescriptionMove": "{executor} est passé du canal vocal {oldChannel} à {newChannel}.",
     "oldChannel": "Chaîne précédente",
-    "newChannel": "Chaîne actuelle",
-    "unknown": "`inconnu`"
+    "newChannel": "Chaîne actuelle"
   },
   "sayCommandUsed": {
     "embedDescription": "{executor} a utilisé une commande dans {channel} qui fait envoyer un message au bot.",

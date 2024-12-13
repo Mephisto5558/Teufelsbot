@@ -1,5 +1,5 @@
 const
-  { PermissionFlagsBits, EmbedBuilder, channelMention, userMention } = require('discord.js'),
+  { PermissionFlagsBits, EmbedBuilder, channelMention, userMention, inlineCode } = require('discord.js'),
   { removeAfkStatus, setAfkStatus } = require('#Utils').afk,
   GRAY = 0x36393F;
 
@@ -29,8 +29,8 @@ module.exports = function voiceStateUpdate(newState) {
 
     /** @type {lang} */
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' }),
-    oldChannelField = () => ({ name: lang('oldChannel'), value: `${channelMention(this.channel.id)} (\`${this.channel.id}\`)`, inline: false }),
-    newChannelField = () => ({ name: lang('newChannel'), value: `${channelMention(newState.channel.id)} (\`${newState.channel.id}\`)`, inline: false });
+    oldChannelField = () => ({ name: lang('oldChannel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false }),
+    newChannelField = () => ({ name: lang('newChannel'), value: `${channelMention(newState.channel.id)} (${inlineCode(newState.channel.id)})`, inline: false });
 
   if (!this.channel?.id) {
     embed.data.description = lang('embedDescriptionJoin', { executor: userMention(newState.member.id), newChannel: newState.channel.name });

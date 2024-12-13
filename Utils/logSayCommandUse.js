@@ -1,5 +1,5 @@
 const
-  { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel, userMention, channelMention } = require('discord.js'),
+  { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel, userMention, channelMention, inlineCode } = require('discord.js'),
   GREY = 0x36393F;
 
 /** @type {import('.').logSayCommandUse} */
@@ -17,9 +17,9 @@ module.exports = async function logSayCommandUse(member, lang) {
       author: { name: member.user.tag, iconURL: member.displayAvatarURL() },
       description: lang('embedDescription', { executor: userMention(member.id), channel: this.channel.name }),
       fields: [
-        { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (\`${this.channel.id}\`)`, inline: false },
+        { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false },
         { name: lang('content'), value: this.content || (this.embeds.length ? lang('events.logger.embeds', this.embeds.length) : lang('global.unknown')), inline: false },
-        { name: lang('author'), value: `${member.user.tag} (\`${member.id}\`)`, inline: false }
+        { name: lang('author'), value: `${member.user.tag} (${inlineCode(member.id)})`, inline: false }
       ],
       timestamp: Date.now(),
       color: GREY

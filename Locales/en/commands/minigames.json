@@ -96,18 +96,18 @@
         }
       }
     },
-    "games": "Games: `{games}`\n\n",
+    "games": "Games: {games}\n\n",
     "statsInfo": "**Stats für this guild:**\n",
     "wins": "Wins: {wins}\n",
     "draws": "Draws: {draws}\n",
     "losses": "Loses: {losses}\n\n",
     "noOne": "no one\n",
     "missingGameArg": "You need to give me a `game` as the first argument!",
-    "notFound": "This is not a valid game entry. Valid games are:\n`{list}`",
+    "notFound": "This is not a valid game entry. Valid games are:\n{list}",
     "wonAgainst": "Won against:\n",
     "lostAgainst": "Lost against:\n",
     "drewAgainst": "Drew against:\n",
-    "embedTitle": "`{user}`'s {game} stats",
+    "embedTitle": "{user}'s {game} stats",
     "embedTitleTop10": "Top 10 {game} players",
     "noPlayers": "It looks like no one has played yet...",
     "youNoGamesPlayed": "You have not played any {game} games yet.",
@@ -135,10 +135,10 @@
       "newChallenge": "{user} :crossed_swords: New duel challenge"
     },
     "memberNotFound": "At least one of the players has not been found!",
-    "canceled": ":x: `{initiator}` has withdrawn their challenge.",
-    "declined": ":x: `{opponent}` did not rise up to the challenge.",
+    "canceled": ":x: {initiator} has withdrawn their challenge.",
+    "declined": ":x: {opponent} did not rise up to the challenge.",
     "accept": {
-      "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",
+      "embedTitle": ":game_die: {player1} **VS** {player2}",
       "embedDescription": "Select your item!"
     },
     "end": {

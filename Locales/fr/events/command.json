@@ -1,5 +1,5 @@
 {
-  "cooldown": "Cette commande est en cours de rechargement! Réessayez dans `{time}`s.",
+  "cooldown": "Cette commande est en cours de rechargement! Réessayez dans {time}s.",
   "slashOnly": "Cette commande n'est disponible qu'en tant que commande slash: </{name}:{id}>",
   "guildOnly": "Cette commande ou l'une de ses sous-commandes n'est disponible que dans les guildes !",
   "nonBeta": "Cette commande n'est pas une commande bêta! Ce bot n'exécute que des commandes bêta.",
@@ -11,8 +11,8 @@
   "invalidChannelType": "Le canal que vous avez saisi pour l'option \"{option}\" doit être l'un des choix de type de canal. Veuillez sélectionner une des options disponibles lors de la saisie de la commande slash.",
   "permissionDenied": {
     "embedTitle": "Autorisations insuffisantes",
-    "embedDescriptionUser": "Vous avez besoin des permissions suivantes dans ce salon pour exécuter cette commande:\n`{permissions}`",
-    "embedDescriptionBot": "J'ai besoin des permissions suivantes dans ce salon pour exécuter cette commande:\n`{permissions}`"
+    "embedDescriptionUser": "Vous avez besoin des permissions suivantes dans ce salon pour exécuter cette commande:\n{permissions}",
+    "embedDescriptionBot": "J'ai besoin des permissions suivantes dans ce salon pour exécuter cette commande:\n{permissions}"
   },
   "notAllowed": {
     "anyone": "Personne n'est autorisé à exécuter cette commande (définie par un administrateur du serveur)!",

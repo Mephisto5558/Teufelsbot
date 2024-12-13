@@ -1,5 +1,5 @@
 {
-  "afkMsg": "`{member}` AFK: {message} - {timestamp}",
+  "afkMsg": "{member} AFK: {message} - {timestamp}",
   "afkEnd": "С возвращением, я удалил ваш AFK. Вы были AFK с {timestamp}.\nВаше сообщение AFK: \"{message}\"",
   "counting": {
     "error": "ВЫ ЗАВЕРШЕНЫ НА {lastNumber}!! Следующее число: **1**.\n",

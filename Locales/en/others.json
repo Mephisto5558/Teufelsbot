@@ -62,7 +62,7 @@
   },
   "errorHandler": {
     "embedTitle": "Whoooops",
-    "embedDescription": "An unexpected error occurred!\n\nCommand: `{command}`",
+    "embedDescription": "An unexpected error occurred!\n\nCommand: {command}",
     "embedFooterText": "Reporting this error will send the command options privately to the dev.",
     "reportButton": "Report this Error",
     "reportButtonDisabled": " (Disabled due to dev version)",
@@ -80,7 +80,7 @@
   },
   "timeEvents": {
     "birthday": {
-      "unknownChannel": "INFO: The channel configured for the birthday feature in guild `{guild}` does not exist! Please re-configure it so i can send birthday messages!"
+      "unknownChannel": "INFO: The channel configured for the birthday feature in guild {guild} does not exist! Please re-configure it so i can send birthday messages!"
     }
   },
   "getCommands": {

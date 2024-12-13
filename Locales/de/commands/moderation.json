@@ -18,7 +18,7 @@
       }
     },
     "dmEmbedTitle": "Gebannt",
-    "dmEmbedDescription": "Du wurdest von `{guild}` gebannt.\nModerator: {mod}\nBegründung: {reason}",
+    "dmEmbedDescription": "Du wurdest von {guild} gebannt.\nModerator: {mod}\nBegründung: {reason}",
     "infoEmbedTitle": "Bann",
     "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
     "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Bannen aus. Du hast 60 Sekunden Zeit.",
@@ -39,7 +39,7 @@
       }
     },
     "dmEmbedTitle": "Gekickt",
-    "dmEmbedDescription": "Du wurdest von `{guild}` gekickt.\nModerator: {mod}\nBegründung: {reason}",
+    "dmEmbedDescription": "Du wurdest von {guild} gekickt.\nModerator: {mod}\nBegründung: {reason}",
     "infoEmbedTitle": "Kick",
     "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}\n\n",
     "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Kicken aus. Du hast 60 Sekundenn Zeit.",
@@ -82,7 +82,7 @@
       }
     },
     "dmEmbedTitle": "Getimeouted",
-    "dmEmbedDescription": "Du wurdest in `{guild}` getimeouted.\nModerator: {mod}\nBis: {muteDuration} ({muteDurationRelative})\nBegründung: {reason}",
+    "dmEmbedDescription": "Du wurdest in {guild} getimeouted.\nModerator: {mod}\nBis: {muteDuration} ({muteDurationRelative})\nBegründung: {reason}",
     "infoEmbedTitle": "Timeout",
     "infoEmbedDescription": "Moderator: {mod}\nBis: {muteDuration} ({muteDurationRelative})\nGrund: {reason}\n\n",
     "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Timeouten aus. Du hast 60 Sekunden Zeit.",

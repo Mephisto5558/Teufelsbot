@@ -68,7 +68,7 @@
       "emojis": "{emoji} Caricamento emojis...",
       "stickers": "{emoji} Caricamento adesivi...",
       "bans": "{emoji} Caricamento ban...",
-      "success": "Hai caricato con successo il backup con id `{id}`.",
+      "success": "Hai caricato con successo il backup con id {id}.",
       "error": "Si è verificato un errore durante il tentativo di caricare il backup."
     },
     "delete": {
@@ -76,7 +76,7 @@
       "success": "Il backup è stato eliminato con successo!"
     },
     "get": {
-      "oneEmbedDescription": "**Informazioni sul backup `{id}`**\n>>> Creato a: {createdAt}\nDimensione: {size}\nMembri: {members}\nCanali: {channels}\nRuoli: {roles}\nEmojis: {emojis}\nAdesivi: {stickers}",
+      "oneEmbedDescription": "**Informazioni sul backup {id}**\n>>> Creato a: {createdAt}\nDimensione: {size}\nMembri: {members}\nCanali: {channels}\nRuoli: {roles}\nEmojis: {emojis}\nAdesivi: {stickers}",
       "oneNotFound": "Non è stato trovato alcun backup con quell'ID!",
       "infos": "Creato a: {createdAt}\nDimensione: {size}\nMembri: {members}\nCanali: {channels}\nRuoli: {roles}\nEmojis: {emojis}\nAdesivi: {stickers}",
       "found": "Trovati {amount} backup.",
@@ -232,7 +232,7 @@
       }
     },
     "toggleModule": {
-      "success": "Il modulo `{name}` è stato {state}."
+      "success": "Il modulo {name} è stato {state}."
     },
     "toggleCommand": {
       "notFound": "Questo non è un comando valido!",
@@ -241,9 +241,9 @@
         "embedTitle": "Ruoli non consentiti/canali/membri per il comando {command}",
         "embedDescription": "Nessun ruolo, canali o membri sono attualmente non consentiti."
       },
-      "enabled": "Il comando `{command}` è ora abilitato.",
-      "disabled": "Il comando `{command}` è ora disabilitato.",
-      "isDisabled": "Il comando `{command}` è disabilitato per tutti i membri. Puoi riattivarlo eseguendo </setup toggle_command:{id}> senza specificare alcun ruolo, canale o membro.",
+      "enabled": "Il comando {command} è ora abilitato.",
+      "disabled": "Il comando {command} è ora disabilitato.",
+      "isDisabled": "Il comando {command} è disabilitato per tutti i membri. Puoi riattivarlo eseguendo </setup toggle_command:{id}> senza specificare alcun ruolo, canale o membro.",
       "roles": "Ruoli",
       "channels": "Canali",
       "users": "Membri",
@@ -256,10 +256,10 @@
     },
     "language": {
       "embedTitle": "Lingua del bot cambiata!",
-      "embedDescription": "I prossimi messaggi saranno in `{lang}`."
+      "embedDescription": "I prossimi messaggi saranno in {lang}."
     },
     "prefix": {
-      "saved": "Il mio prefisso è stato cambiato in `{prefix}`."
+      "saved": "Il mio prefisso è stato cambiato in {prefix}."
     },
     "serverbackup": {
       "success": "Impostazioni aggiornate con successo!"

@@ -1,6 +1,6 @@
 /* eslint camelcase: [error, {allow: [toggle_module, toggle_command, \w*_prefix]}] */
 const
-  { Constants, EmbedBuilder, Colors, roleMention, channelMention, userMention, channelLink, bold } = require('discord.js'),
+  { Constants, EmbedBuilder, Colors, roleMention, channelMention, userMention, channelLink, bold, inlineCode } = require('discord.js'),
   { constants: { autocompleteOptionsMaxAmt }, timeFormatter: { msInSecond } } = require('#Utils'),
   /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- this is like an enum */
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
@@ -15,7 +15,7 @@ const
         setting = this.guild.db[module]?.enable; // Todo: document and probably sth like `this.guild.db.modules[module]` for better typing
 
       await this.guild.updateDB(`${module}.enable`, !setting);
-      return this.editReply(lang('success', { name: module, state: lang(setting ? 'global.disabled' : 'global.enabled') }));
+      return this.editReply(lang('success', { name: inlineCode(module), state: lang(setting ? 'global.disabled' : 'global.enabled') }));
     },
 
     toggle_command: async function toggleCommand(lang) {
@@ -52,10 +52,10 @@ const
 
       if (this.options.data[0].options.length == (this.options.data[0].options.some(e => e.name == 'get') ? 2 : 1)) {
         await this.guild.updateDB(`config.commands.${command}.disabled.users`, users.includes('*') ? users.filter(e => e != '*') : ['*', ...users]);
-        return this.editReply(lang(users.includes('*') ? 'enabled' : 'disabled', command));
+        return this.editReply(lang(users.includes('*') ? 'enabled' : 'disabled', inlineCode(command)));
       }
 
-      if (users.includes('*')) return this.editReply(lang('isDisabled', { command, id: this.command.id }));
+      if (users.includes('*')) return this.editReply(lang('isDisabled', { command: inlineCode(command), id: this.command.id }));
 
       for (const [typeIndex, typeFilter] of ['role', 'member', 'channel'].entries()) {
         const ids = this.options.data[0].options.filter(e => e.name.includes(typeFilter)).map(e => e.value).unique();
@@ -142,7 +142,7 @@ const
       }
       else await this.client.db.pushToSet('guildSettings', `${this.guild.id}.config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`, { prefix, caseinsensitive });
 
-      return this.customReply(lang('saved', prefix));
+      return this.customReply(lang('saved', inlineCode(prefix)));
     },
     remove_prefix: async function removePrefix(lang) {
       const
@@ -152,7 +152,7 @@ const
       if (db.length < 2) return this.customReply(lang('cannotRemoveLastPrefix'));
 
       await this.guild.updateDB(`config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`, db.filter(e => e.prefix != prefix));
-      return this.customReply(lang('removed', prefix));
+      return this.customReply(lang('removed', inlineCode(prefix)));
     },
 
     serverbackup: async function serverBackup(lang) {

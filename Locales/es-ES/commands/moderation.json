@@ -18,7 +18,7 @@
       }
     },
     "dmEmbedTitle": "Baneado",
-    "dmEmbedDescription": "Has sido baneado de `{guild}`.\nModerador: {mod}\nRazón: {reason}",
+    "dmEmbedDescription": "Has sido baneado de {guild}.\nModerador: {mod}\nRazón: {reason}",
     "infoEmbedTitle": "Banear",
     "infoEmbedDescription": "Moderador: {mod}\nRazón: {reason}\n\n",
     "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para banear. Tienes 60 segundos.",
@@ -39,7 +39,7 @@
       }
     },
     "dmEmbedTitle": "Expulsado",
-    "dmEmbedDescription": "Has sido expulsado de `{guild}`.\nModerador: {mod}\nRazón: {reason}",
+    "dmEmbedDescription": "Has sido expulsado de {guild}.\nModerador: {mod}\nRazón: {reason}",
     "infoEmbedTitle": "Patear",
     "infoEmbedDescription": "Moderador: {mod}\nRazón: {reason}\n\n",
     "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para expulsar. Tienes 60 segundos.",
@@ -82,7 +82,7 @@
       }
     },
     "dmEmbedTitle": "Silenciado",
-    "dmEmbedDescription": "Has sido silenciado de `{guild}`.\nModerador: {mod}\nHasta: {muteDuration} ({muteDurationRelative})\nRazón: {reason}",
+    "dmEmbedDescription": "Has sido silenciado de {guild}.\nModerador: {mod}\nHasta: {muteDuration} ({muteDurationRelative})\nRazón: {reason}",
     "infoEmbedTitle": "Silenciar",
     "infoEmbedDescription": "Moderador: {mod}\nDuración: {muteDuration} ({muteDurationRelative})\nRazón: {reason}\n\n",
     "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para silenciar. Tienes 60 segundos.",

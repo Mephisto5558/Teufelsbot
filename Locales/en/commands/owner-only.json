@@ -12,8 +12,8 @@
       }
     },
     "notFound": "Found no entry for this id.",
-    "saved": "`{user}` has been blacklisted from using the bot.",
-    "removed": "The blacklist entry for `{user}` has been removed.",
+    "saved": "{user} has been blacklisted from using the bot.",
+    "removed": "The blacklist entry for {user} has been removed.",
     "cantBlacklistDev": "I can't blacklist a developer of the bot!"
   },
   "dbget": {
@@ -79,7 +79,7 @@
     "invalidPath": "The specified path does not exist! Please note the case sensitivity of the path.",
     "error": "An error occurred while reloading:\n{error}\nCheck the console for more information.",
     "noneReloaded": "No commands have been reloaded.",
-    "reloaded": "The following `{count}` command(s) has/have been reloaded:\n{commands}"
+    "reloaded": "The following {count} command(s) has/have been reloaded:\n{commands}"
   },
   "reloadconfig": {
     "description": "Reloads the config.json file",
@@ -117,7 +117,7 @@
         "description": "The activity's type"
       }
     },
-    "set": "My activity has been set to `{name}` of type `{type}`.",
+    "set": "My activity has been set to {name} of type {type}.",
     "reset": "My activity has been set to `none`."
   },
   "setchangelog": {

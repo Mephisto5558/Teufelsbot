@@ -96,18 +96,18 @@
         }
       }
     },
-    "games": "Spiele: `{games}`\n\n",
+    "games": "Spiele: {games}\n\n",
     "statsInfo": "**Statistiken für diesen Server:**\n",
     "wins": "Gewonnen: {wins}\n",
     "draws": "Unentschieden: {draws}\n",
     "losses": "Verloren: {losses}\n\n",
     "noOne": "niemand\n",
     "missingGameArg": "Du musst mir ein Spiel als erstes Argument geben!",
-    "notFound": "Dies ist kein gültiges Spiel. Gültige Spiele sind:\n`{list}`",
+    "notFound": "Dies ist kein gültiges Spiel. Gültige Spiele sind:\n{list}",
     "wonAgainst": "Gewonnen gegen:\n",
     "lostAgainst": "Verloren gegen:\n",
     "drewAgainst": "Unentschieden gegen:\n",
-    "embedTitle": "`{user}`'s {game} Statistiken",
+    "embedTitle": "{user}'s {game} Statistiken",
     "embedTitleTop10": "Top 10 {game} Spieler",
     "noPlayers": "Es sieht so aus, als hätte noch niemand gespielt...",
     "youNoGamesPlayed": "Du hast noch nie {game} gespielt.",
@@ -135,10 +135,10 @@
       "newChallenge": "{user} :crossed_swords: Neue Duell-Herausforderung"
     },
     "memberNotFound": "Mindestens einer der Spieler wurde nicht gefunden!",
-    "canceled": ":x: `{initiator}` hat die Herausforderung zurückgezogen.",
-    "declined": ":x: `{opponent}` hat die Herausforderung nicht angenommen.",
+    "canceled": ":x: {initiator} hat die Herausforderung zurückgezogen.",
+    "declined": ":x: {opponent} hat die Herausforderung nicht angenommen.",
     "accept": {
-      "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",
+      "embedTitle": ":game_die: {player1} **VS** {player2}",
       "embedDescription": "Wähle deinen Zug!"
     },
     "end": {

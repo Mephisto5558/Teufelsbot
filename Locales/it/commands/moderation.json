@@ -18,7 +18,7 @@
       }
     },
     "dmEmbedTitle": "Bannato",
-    "dmEmbedDescription": "Sei stato bannato da `{guild}`.\nModeratore: {mod}\nMotivo: {reason}",
+    "dmEmbedDescription": "Sei stato bannato da {guild}.\nModeratore: {mod}\nMotivo: {reason}",
     "infoEmbedTitle": "Banna",
     "infoEmbedDescription": "Moderatore: {mod}\nMotivo: {reason}\n\n",
     "selectTargetEmbedDescription": "Seleziona fino a 10 membri da bandire. Hai 60 secondi.",
@@ -39,7 +39,7 @@
       }
     },
     "dmEmbedTitle": "Kicked",
-    "dmEmbedDescription": "Sei stato cacciato da `{guild}`.\nModeratore: {mod}\nMotivo: {reason}",
+    "dmEmbedDescription": "Sei stato cacciato da {guild}.\nModeratore: {mod}\nMotivo: {reason}",
     "infoEmbedTitle": "Espelli",
     "infoEmbedDescription": "Moderatore: {mod}\nMotivo: {reason}\n\n",
     "selectTargetEmbedDescription": "Seleziona fino a 10 membri da calciare. Hai 60 secondi.",
@@ -82,7 +82,7 @@
       }
     },
     "dmEmbedTitle": "Silenziato",
-    "dmEmbedDescription": "Sei stato mutato da `{guild}`.\nModeratore: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nMotivo: {reason}",
+    "dmEmbedDescription": "Sei stato mutato da {guild}.\nModeratore: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nMotivo: {reason}",
     "infoEmbedTitle": "Silenzia",
     "infoEmbedDescription": "Moderatore: {mod}\nDurata: {muteDuration} ({muteDurationRelative})\nMotivo: {reason}\n\n",
     "selectTargetEmbedDescription": "Seleziona fino a 10 membri da disattivare. Hai 60 secondi.",

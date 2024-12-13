@@ -16,7 +16,7 @@
     },
     "embedTitle": "Añadir Emoji",
     "isGuildEmoji": "¡Ese emoji ya está en este gremio!",
-    "invalidUrl": "¡El argumento proporcionado no es una url válida o emoji!\nLa url debe terminar con `jpg`, `jpeg`, `png`, `webp`, `svg` o `gif`.\nEjemplo: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "invalidUrl": "¡El argumento proporcionado no es una url válida o emoji!\nLa url debe terminar con {validFormats}.\nEjemplo: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "No se encontró la url proporcionada.",
     "success": "¡Se ha añadido con éxito {name} {emoji}!\n",
     "limitedToRoles": "El emoji se ha limitado a los siguientes roles:\n{roles}.",
@@ -195,8 +195,8 @@
       }
     },
     "embedTitle": "Función Hash",
-    "embedDescription": "Tu entrada: `{input}`\nMétodo Hash: `{method}`",
-    "text": "Tu cadena cifrada:\n`{hash}`"
+    "embedDescription": "Tu entrada: {input}\nMétodo Hash: {method}",
+    "text": "Tu cadena cifrada:\n{hash}"
   },
   "lastping": {
     "description": "Te muestra dónde te mencionaron por última vez.",
@@ -267,7 +267,7 @@
     },
     "invalid": "¡El tiempo que proporcionaste no es válido! Usa {command} y busca `timestamp` para obtener información mor.",
     "outOfRange": "El tiempo especificado es mayor que 200,000 años!",
-    "success": "Eso es {time} (`{time}`)."
+    "success": "Eso es {time} ({raw})."
   },
   "until": {
     "description": "Shows how long it will be until a certain date/time. If no date is specified,default is current date",

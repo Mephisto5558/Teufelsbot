@@ -1,7 +1,7 @@
 /** @typedef {import('../../types/database').backupId}backupId */
 
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ButtonStyle, inlineCode } = require('discord.js'),
   { timeFormatter: { msInSecond, secsInMinute, timestamp } } = require('#Utils'),
   { serverbackup_hasPerm: hasPerm, serverbackup_createProxy: createProxy } = require('#Utils/componentHandler'),
   BYTES_IN_KILOBITE = 1024;
@@ -39,7 +39,7 @@ const backupMainFunctions = {
         ], statusObj
       });
 
-    return this.editReply({ embeds: [embed.setDescription(lang('create.success', { id: backup.id, cmdId: this.commandId }))] });
+    return this.editReply({ embeds: [embed.setDescription(lang('create.success', { id: inlineCode(backup.id), cmdId: this.commandId }))] });
   },
 
   load: async function loadBackup(lang, embed, id) {
@@ -79,7 +79,7 @@ const backupMainFunctions = {
       const backup = this.client.backupSystem.get(id);
       return void this.editReply({
         embeds: [backup
-          ? embed.setDescription(lang('get.oneEmbedDescription', { id, ...getData(backup) }))
+          ? embed.setDescription(lang('get.oneEmbedDescription', { id: inlineCode(id), ...getData(backup) }))
           : embed.setColor(Colors.Red).setDescription(lang('get.oneNotFound'))]
       });
     }

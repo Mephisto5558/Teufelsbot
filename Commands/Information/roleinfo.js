@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink, CDNRoutes, ImageFormat } = require('discord.js'),
+  { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink, CDNRoutes, ImageFormat, inlineCode } = require('discord.js'),
   { permissionTranslator, getTargetRole, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
   ROLE_DISPLAY_THRESHOLD = 16;
 
@@ -23,24 +23,24 @@ module.exports = {
         { name: lang('mentionable'), value: lang(`global.${role.mentionable}`), inline: true },
         { name: lang('hoist'), value: lang(`global.${role.hoist}`), inline: true },
         { name: lang('managed'), value: lang(`global.${role.managed}`), inline: true },
-        { name: lang('position'), value: `\`${this.guild.roles.highest.position - role.position + 1}\``, inline: true },
-        { name: 'ID', value: `\`${role.id}\``, inline: true },
+        { name: lang('position'), value: inlineCode(this.guild.roles.highest.position - role.position + 1), inline: true },
+        { name: 'ID', value: inlineCode(role.id), inline: true },
         { name: lang('createdAt'), value: timestamp(role.createdTimestamp), inline: true }
       ]
     });
 
     if (role.members.size.inRange(0, ROLE_DISPLAY_THRESHOLD)) embed.data.fields.push({ name: lang('members'), value: [...role.members.values()].join(', '), inline: false });
 
-    if (role.permissions.has(PermissionFlagsBits.Administrator)) embed.data.fields.at(-1).value = `\`${lang('admin')}\` (\`${role.permissions.toArray().length}\`)`;
+    if (role.permissions.has(PermissionFlagsBits.Administrator)) embed.data.fields.at(-1).value = `${inlineCode(lang('admin'))} (${inlineCode(role.permissions.toArray().length)})`;
     else {
       const
-        perms = permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n).join('`, `'),
+        perms = permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', '),
         maxLength = 1017,
         suffix = '...';
 
       embed.data.fields.at(-1).value = '`'
-      + (perms.length < maxLength ? `${perms}\`` : perms.slice(0, perms.slice(0, maxLength - suffix.length).lastIndexOf(',')) + suffix)
-      + `(\`${role.permissions.toArray().length}\`)`;
+      + (perms.length < maxLength ? perms : perms.slice(0, perms.slice(0, maxLength - suffix.length).lastIndexOf(',')) + suffix)
+      + `(${inlineCode(role.permissions.toArray().length)})`;
     }
 
 

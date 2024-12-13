@@ -18,7 +18,7 @@
       }
     },
     "dmEmbedTitle": "Banned",
-    "dmEmbedDescription": "You have been banned from `{guild}`.\nModerator: {mod}\nReason: {reason}",
+    "dmEmbedDescription": "You have been banned from {guild}.\nModerator: {mod}\nReason: {reason}",
     "infoEmbedTitle": "Ban",
     "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
     "selectTargetEmbedDescription": "Select up to 10 members to ban. You have 60 seconds.",
@@ -39,7 +39,7 @@
       }
     },
     "dmEmbedTitle": "Kicked",
-    "dmEmbedDescription": "You have been kicked from `{guild}`.\nModerator: {mod}\nReason: {reason}",
+    "dmEmbedDescription": "You have been kicked from {guild}.\nModerator: {mod}\nReason: {reason}",
     "infoEmbedTitle": "Kick",
     "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
     "selectTargetEmbedDescription": "Select up to 10 members to kick. You have 60 seconds.",
@@ -82,7 +82,7 @@
       }
     },
     "dmEmbedTitle": "Muted",
-    "dmEmbedDescription": "You have been muted from `{guild}`.\nModerator: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nReason: {reason}",
+    "dmEmbedDescription": "You have been muted from {guild}.\nModerator: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nReason: {reason}",
     "infoEmbedTitle": "Mute",
     "infoEmbedDescription": "Moderator: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nReason: {reason}\n\n",
     "selectTargetEmbedDescription": "Select up to 10 members to mute. You have 60 seconds.",

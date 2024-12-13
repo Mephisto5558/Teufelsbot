@@ -684,20 +684,20 @@
         }
       }
     },
-    "saved": "Ein neuer Auslöser für `{trigger}` wurde hinzugefügt.",
-    "edited": "Der Auslöser mit der für `{trigger}` wurde bearbeitet.",
-    "deletedOne": "Der Auslöser mit der ID `{id}` wurde gelöscht.",
-    "deletedAll": "Ich habe alle (`{count}`) Auslöser gelöscht.",
+    "saved": "Ein neuer Auslöser für {trigger} wurde hinzugefügt.",
+    "edited": "Der Auslöser mit der für {trigger} wurde bearbeitet.",
+    "deletedOne": "Der Auslöser mit der ID {id} wurde gelöscht.",
+    "deletedAll": "Ich habe alle ({count}) Auslöser gelöscht.",
     "noneFound": "Es gibt keine Auslöser!",
     "notFound": "Kein Auslöser passt zu deiner Suchanfrage.",
     "confirmation": "lösche alles",
     "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!",
     "embedTitle": "Trigger",
     "embedTitleOne": "**Auslöser {id}:**",
-    "embedDescriptionOne": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** `{wildcard}`",
-    "longEmbedDescription": "ID: {id}\n> Auslöser: `{trigger}`\n> Ausgabe: `{response}`\n> Wildcard: `{wildcard}`\n\n",
+    "embedDescriptionOne": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** {wildcard}",
+    "longEmbedDescription": "ID: {id}\n> Auslöser: {trigger}\n> Ausgabe: {response}\n> Wildcard: {wildcard}\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Auslöser:**\n{trigger}\n**Ausgabe:**\n{response}\n**Wildcard:** `{wildcard}`\n",
+    "shortFieldValue": "**Auslöser:**\n{trigger}\n**Ausgabe:**\n{response}\n**Wildcard:** {wildcard}\n",
     "first25": "Die ersten 25 Auslöser. Erhalte mehr per `short` Option."
   },
   "vote": {

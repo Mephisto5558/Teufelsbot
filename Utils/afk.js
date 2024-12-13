@@ -1,5 +1,5 @@
 const
-  { AllowedMentionsTypes, PermissionFlagsBits, VoiceState, TimestampStyles, userMention } = require('discord.js'),
+  { AllowedMentionsTypes, PermissionFlagsBits, VoiceState, TimestampStyles, userMention, inlineCode } = require('discord.js'),
   { messageMaxLength, memberNameMaxLength } = require('./constants'),
   { timestamp } = require('./timeFormatter'),
   nicknamePrefix = '[AFK] ',
@@ -18,7 +18,7 @@ module.exports.getAfkStatus = async function getAfkStatus(target, lang) {
   if (!message) return this.customReply(lang('getNoneFound'));
 
   return this.customReply(lang('events.message.afkMsg', {
-    message, member: target.displayName.replace(nicknameRegex, ''), timestamp: timestamp(createdAt, TimestampStyles.RelativeTime)
+    message, member: inlineCode(target.displayName.replace(nicknameRegex, '')), timestamp: timestamp(createdAt, TimestampStyles.RelativeTime)
   }));
 };
 

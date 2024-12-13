@@ -16,7 +16,7 @@
     },
     "embedTitle": "Ajouter une émoticône",
     "isGuildEmoji": "Cet émoji est déjà sur cette guilde!",
-    "invalidUrl": "L'argument fourni n'est pas une url valide ou un emoji!\nL'url doit se terminer par `jpg`, `jpeg`, `png`, `webp`, `svg` ou `gif`.\nExemple : https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "invalidUrl": "L'argument fourni n'est pas une url valide ou un emoji!\nL'url doit se terminer par {validFormats}.\nExemple : https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "L'url fournie n'a pas été trouvée.",
     "success": "Ajouté avec succès {name} {emoji}!\n",
     "limitedToRoles": "Les émojis ont été limités aux rôles suivants:\n{roles}.",
@@ -86,10 +86,10 @@
     "msgNotFound": "L'identifiant du message que vous avez fourni n'a pas été trouvé dans ce salon !",
     "botIsNotAuthor": "Je ne peux modifier que mes propres messages!",
     "buttonLimitReached": "Un message ne peut pas avoir plus de 5 lignes ou 25 boutons !",
-    "invalidOption": "**Une de vos options est invalide !**\n\n```{err}```",
-    "invalidJSON": "**Votre JSON est invalide !**\n\n```{err}```",
+    "invalidOption": "**Une de vos options est invalide !**\n\n{err}",
+    "invalidJSON": "**Votre JSON est invalide !**\n\n{err}",
     "successJSON": "Votre bouton a été envoyé !",
-    "success": "Ton bouton a été envoyé ! Ci-dessous est le code du bouton.\nSi tu veux l'envoyer à nouveau, utilise la sous-commande `json`.\n\n```json\n{json}\n```"
+    "success": "Ton bouton a été envoyé ! Ci-dessous est le code du bouton.\nSi tu veux l'envoyer à nouveau, utilise la sous-commande `json`.\n\n{json}`"
   },
   "embed": {
     "description": "envoie un embed; vous pouvez faire des nouvelles lignes avec \"/n\".",
@@ -179,10 +179,10 @@
         }
       }
     },
-    "invalidOption": "**Une de vos options est invalide !**\n\n```{err}```",
-    "invalidJSON": "**Votre JSON est invalide !**\n\n```{err}```",
+    "invalidOption": "**Une de vos options est invalide !**\n\n{err}",
+    "invalidJSON": "**Votre JSON est invalide !**\n\n{err}",
     "successJSON": "Votre intégration a été envoyée !",
-    "success": "Votre intégration a été envoyée ! Ci-dessous le code embed.\nSi vous voulez l'envoyer à nouveau, utilisez la sous-commande `json`.\n\n```json\n{json}\n```"
+    "success": "Votre intégration a été envoyée ! Ci-dessous le code embed.\nSi vous voulez l'envoyer à nouveau, utilisez la sous-commande `json`.\n\n{json}"
   },
   "hash": {
     "description": "chiffre ou décrypte votre texte avec différentes méthodes",
@@ -195,8 +195,8 @@
       }
     },
     "embedTitle": "Fonction Hash",
-    "embedDescription": "Votre entrée : `{input}`\nMéthode de hachage : `{method}`",
-    "text": "Votre chaîne hachée :\n`{hash}`"
+    "embedDescription": "Votre entrée : {input}\nMéthode de hachage : {method}",
+    "text": "Votre chaîne hachée :\n{hash}"
   },
   "lastping": {
     "description": "Te montre où tu as été mentionné.",
@@ -223,8 +223,8 @@
       }
     },
     "embedTitle": "Calculatrice",
-    "error": "Une erreur est survenue en essayant de résoudre votre expression :\n```{err}```",
-    "success": "Expression :\n```{expression}```\nRésultat:\n```{result}```"
+    "error": "Une erreur est survenue en essayant de résoudre votre expression :\n{err}",
+    "success": "Expression :\n{expression}\nRésultat:\n{result}"
   },
   "passwordgenerator": {
     "description": "génère un mot de passe cryptographiquement fort",
@@ -256,7 +256,7 @@
       }
     },
     "randomNumber": "Un nombre aléatoire {min} et {max}:\n{randomNumber}",
-    "outOfRange": "Un des nombres spécifiés est invalide, trop grand ou trop petit !\nUn nombre le plus petit possible : `{min}`, le plus grand nombre possible : `{max}`"
+    "outOfRange": "Un des nombres spécifiés est invalide, trop grand ou trop petit !\nUn nombre le plus petit possible : {min}, le plus grand nombre possible : {max}"
   },
   "timestamp": {
     "description": "Obtenir un horodatage pour le futur (ou passé en mettant un \"-\" en avant)",
@@ -271,7 +271,7 @@
     },
     "invalid": "L'heure que vous avez fournie n'est pas valide ! Utilisez {command} et recherchez `timestamp` pour obtenir des informations sur la mor.",
     "outOfRange": "Le temps que vous avez fourni est supérieur à 200 000 ans!",
-    "success": "C'est {time} (`{time}`)."
+    "success": "C'est {time} ({raw})."
   },
   "until": {
     "description": "Shows how long it will be until a certain date/time. If no date is specified,default is current date",
@@ -307,6 +307,6 @@
     },
     "notFound": "Aucun résultat trouvé.",
     "visitWiki": "Pour plus d'informations, veuillez visiter la page Wikipédia.",
-    "error": "Impossible de parler à Wikipédia:\n```{err}```"
+    "error": "Impossible de parler à Wikipédia:\n{err}"
   }
 }
