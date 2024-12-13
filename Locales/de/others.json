@@ -62,14 +62,14 @@
   },
   "errorHandler": {
     "embedTitle": "Hupsala",
-    "embedDescription": "Ein unerwarteter Fehler ist aufgetreten!\n\nBefehl: `{command}`",
+    "embedDescription": "Ein unerwarteter Fehler ist aufgetreten!\n\nBefehl: {command}",
     "embedFooterText": "Das Melden dieses Fehlers wird die Befehlsoptionen privat an den Entwickler senden.",
     "reportButton": "Melde diesen Fehler",
     "reportButtonDisabled": " (Deaktiviert wegen Dev-Version)",
     "discordAPIErr": "Ein Fehler in der Discord API ist aufgetreten, bitte versuche es erneut und informiere den Dev, wenn dies weiterhin auftritt.",
-    "alreadyReported": "Dieser Fehler wurde bereits gemeldet. [Link]({url}).\nEs wird bald behoben.",
-    "reportSuccess": "Der Fehler wurde gemeldet. [Link]({url})",
-    "reportFail": "Ein Fehler ist beim Versuch, den Fehler zu melden, aufgetreten.\n```\n{err}\n```\nBitte informiere den Dev direkt."
+    "alreadyReported": "Dieser Fehler wurde bereits gemeldet. {link}.\nEr wird bald behoben.",
+    "reportSuccess": "Der Fehler wurde gemeldet. {link}",
+    "reportFail": "Ein Fehler ist beim Versuch, den Fehler zu melden, aufgetreten.\n{err}\nBitte informiere den Dev direkt."
   },
   "timeFormatter": {
     "ydhms": "{year} Jahren, {day} Tagen, {hour} Stunden, {minute} Minuten und {second} Sekunden",
@@ -80,7 +80,7 @@
   },
   "timeEvents": {
     "birthday": {
-      "unknownChannel": "INFO: Der Kanal für die Geburtstagsfunktion im Server `{guild}` existiert nicht! Bitte konfiguriere ihn neu, damit ich Geburtstagsnachrichten senden kann!"
+      "unknownChannel": "INFO: Der Kanal für die Geburtstagsfunktion im Server {guild} existiert nicht! Bitte konfiguriere ihn neu, damit ich Geburtstagsnachrichten senden kann!"
     }
   },
   "getCommands": {
