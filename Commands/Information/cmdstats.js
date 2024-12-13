@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, bold, inlineCode } = require('discord.js'),
-  { msInSecond } = require('#Utils').timeFormatter;
+  { timeFormatter: { msInSecond }, commandMention } = require('#Utils');
 
 /** @type {command<'both', false>} */
 module.exports = {
@@ -44,7 +44,7 @@ module.exports = {
 
       const total = bold(Object.values(cmdStats[command.name] ?? {}).reduce((acc, e) => acc + e, 0));
       embed.data.description = lang('embedDescriptionOne', {
-        total, command: command.id ? `</${command.name}:${command.id}>` : inlineCode(command.name),
+        total, command: 'id' in command ? commandMention(command.name, command.id) : inlineCode(command.name),
         slash: bold(cmdStats[command.name]?.slash ?? 0), prefix: bold(cmdStats[command.name]?.prefix ?? 0)
       });
     }
@@ -57,7 +57,7 @@ module.exports = {
         .slice(0, 10)
         .map((/** @type {[string, {total: number, slash: number, prefix: number}]} */[k, v]) => {
           const id = this.client.application.commands.cache.find(e => e.name == k)?.id;
-          return { name: id ? `</${k}:${id}>` : `/${k}`, value: lang('embedFieldValue', { total: bold(v.total), ...v }), inline: true };
+          return { name: id ? commandMention(k, id) : `/${k}`, value: lang('embedFieldValue', { total: bold(v.total), ...v }), inline: true };
         });
     }
 

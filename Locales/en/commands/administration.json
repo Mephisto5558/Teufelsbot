@@ -45,7 +45,7 @@
       "stickers": "{emoji} Saving stickers...",
       "channels": "{emoji} Saving channels, threads, and messages...",
       "images": "{emoji} Saving icon, slash, and banner...",
-      "success": "The backup with the ID {id} has been created successfully!\nUse </serverbackup get:{cmdId}> for more information about the backup."
+      "success": "The backup with the ID {id} has been created successfully!\nUse {cmd} for more information about the backup."
     },
     "clear": {
       "items": "{emoji} Deleting emojis, stickers, and roles...",
@@ -258,12 +258,12 @@
       },
       "enabled": "The {command} command is now enabled.",
       "disabled": "The {command} command is now disabled.",
-      "isDisabled": "The {command} command is disabled for all members. You can re-enable it by running </setup toggle_command:{id}> without specifying any role, channel or member.",
+      "isDisabled": "The {command} command is disabled for all members. You can re-enable it by running {commandMention} without specifying any role, channel or member.",
       "roles": "Roles",
       "channels": "Channels",
       "users": "Members",
       "embedTitle": "Updated Command Settings for \"{commandName}\"",
-      "embedDescription": "The following amount of roles/channels/members have been changed:\n||View all disallowed roles/channels/members by using </setup toggle_command:{id}> with the `get` option.||\n",
+      "embedDescription": "The following amount of roles/channels/members have been changed:\n||View all disallowed roles/channels/members by using {commandMention} with the `get` option.||\n",
       "embed": {
         "enabled": "Removed (Allowed)",
         "disabled": "Added (Disallowed)"

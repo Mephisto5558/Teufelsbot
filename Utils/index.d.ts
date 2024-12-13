@@ -17,6 +17,7 @@ export {
   checkForErrors,
   checkTargetManageable,
   commandExecutionWrapper,
+  commandMention,
   componentHandler,
   configValidator,
   constants,
@@ -187,6 +188,11 @@ declare function commandExecutionWrapper(
   this: BaseInteraction | Message,
   command: command<'both', boolean, true> | undefined, commandType: string, lang: lang
 ): Promise<Message | undefined>;
+
+/** Formats an application command name and id into a command mention.*/
+declare function commandMention<CommandName extends string, CommandId extends Snowflake>(
+  name: CommandName, id: CommandId
+): `</${CommandName}:${CommandId}>`;
 
 declare function componentHandler(
   this: MessageComponentInteraction,

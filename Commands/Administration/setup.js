@@ -1,7 +1,7 @@
 /* eslint camelcase: [error, {allow: [toggle_module, toggle_command, \w*_prefix]}] */
 const
   { Constants, EmbedBuilder, Colors, roleMention, channelMention, userMention, channelLink, bold, inlineCode } = require('discord.js'),
-  { constants: { autocompleteOptionsMaxAmt }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { constants: { autocompleteOptionsMaxAmt }, timeFormatter: { msInSecond }, commandMention } = require('#Utils'),
   /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- this is like an enum */
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'],
@@ -55,7 +55,7 @@ const
         return this.editReply(lang(users.includes('*') ? 'enabled' : 'disabled', inlineCode(command)));
       }
 
-      if (users.includes('*')) return this.editReply(lang('isDisabled', { command: inlineCode(command), id: this.command.id }));
+      if (users.includes('*')) return this.editReply(lang('isDisabled', { command: inlineCode(command), commandMention: commandMention(`${this.commandName} toggle_command`, this.command.id) }));
 
       for (const [typeIndex, typeFilter] of ['role', 'member', 'channel'].entries()) {
         const ids = this.options.data[0].options.filter(e => e.name.includes(typeFilter)).map(e => e.value).unique();
@@ -78,7 +78,7 @@ const
 
       const embed = new EmbedBuilder({
         title: lang('embedTitle', command),
-        description: lang('embedDescription', this.command.id),
+        description: lang('embedDescription', commandMention(`${this.commandName} toggle_command`, this.command.id)),
         fields: Object.entries(count).filter(([, v]) => Object.values(v).find(Boolean))
           .map(([k, v]) => ({
             name: lang(`embed.${k}`),

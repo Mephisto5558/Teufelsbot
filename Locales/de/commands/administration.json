@@ -45,7 +45,7 @@
       "stickers": "{emoji} Sichere Sticker...",
       "channels": "{emoji} Sichere Kanäle, Threads und Nachrichten...",
       "images": "{emoji} Sichere Icon, Splash und Banner...",
-      "success": "Das Backup mit der ID {id} wurde erfolgreich erstellt!\nNutze </serverbackup get:{cmdId}> für mehr Informationen zum Backup."
+      "success": "Das Backup mit der ID {id} wurde erfolgreich erstellt!\nNutze {cmd} für mehr Informationen zum Backup."
     },
     "clear": {
       "items": "{emoji} Lösche Emojis, Sticker und Rollen...",
@@ -258,12 +258,12 @@
       },
       "enabled": "Der {command} Befehl ist nun aktiviert.",
       "disabled": "Der {command} Befehl ist nun deaktiviert.",
-      "isDisabled": "Der {command} Befehl ist für alle Mitglieder deaktiviert. Du kannst ihn wieder aktivieren, indem du </setup toggle_command:{id}> ausführst, ohne eine Rolle, einen Kanal oder ein Mitglied zu spezifizieren.",
+      "isDisabled": "Der {command} Befehl ist für alle Mitglieder deaktiviert. Du kannst ihn wieder aktivieren, indem du {commandMention} ausführst, ohne eine Rolle, einen Kanal oder ein Mitglied zu spezifizieren.",
       "roles": "Rollen",
       "channels": "Kanäle",
       "users": "Mitglieder",
       "embedTitle": "Aktualisierte Befehl-Einstellungen für \"{commandName}\"",
-      "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sieh alle verbotenen Rollen/Kanäle/Mitglieder, indem du </setup toggle_command:{id}> mit der `get` Option ausführst.||\n",
+      "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sieh alle verbotenen Rollen/Kanäle/Mitglieder, indem du {commandMention} mit der `get` Option ausführst.||\n",
       "embed": {
         "enabled": "Entfernt (Erlaubt)",
         "disabled": "Hinzugefügt (Verboten)"

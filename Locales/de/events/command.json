@@ -1,6 +1,6 @@
 {
   "cooldown": "Dieser Befehl oder einer seiner Unterbefehle ist im Cooldown! Versuche es erneut in {time}s.",
-  "slashOnly": "Dieser Befehl ist nur als Slash-Befehl verfügbar: </{name}:{id}>",
+  "slashOnly": "Dieser Befehl ist nur als Slash-Befehl verfügbar: {command}",
   "guildOnly": "Dieser Befehl oder einer seiner Unterbefehle ist nur auf Servern verfügbar!",
   "nonBeta": "Dieser Befehl ist kein Beta-Befehl! Dieser Bot führt nur Beta-Befehle aus.",
   "disabled": "Dieser Befehl wurde vom Bot-Developer deaktiviert. Begründung:\n{reason}",

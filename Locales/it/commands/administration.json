@@ -45,7 +45,7 @@
       "stickers": "{emoji} Salvataggio adesivi...",
       "channels": "{emoji} Salvataggio di canali, thread e messaggi...",
       "images": "{emoji} Saving icon, splash, and banner...",
-      "success": "Il backup con l'ID {id} è stato creato con successo!\nUsa </serverbackup get:{cmdId}> per ulteriori informazioni sul backup."
+      "success": "Il backup con l'ID {id} è stato creato con successo!\nUsa {cmd} per ulteriori informazioni sul backup."
     },
     "clear": {
       "items": "{emoji} Eliminazione di emoji, adesivi e ruoli...",
@@ -243,12 +243,12 @@
       },
       "enabled": "Il comando {command} è ora abilitato.",
       "disabled": "Il comando {command} è ora disabilitato.",
-      "isDisabled": "Il comando {command} è disabilitato per tutti i membri. Puoi riattivarlo eseguendo </setup toggle_command:{id}> senza specificare alcun ruolo, canale o membro.",
+      "isDisabled": "Il comando {command} è disabilitato per tutti i membri. Puoi riattivarlo eseguendo {commandMention} senza specificare alcun ruolo, canale o membro.",
       "roles": "Ruoli",
       "channels": "Canali",
       "users": "Membri",
       "embedTitle": "Impostazioni di comando aggiornate per \"{commandName}\"",
-      "embedDescription": "La seguente quantità di ruoli/canali/membri è stata modificata:\n<unk> <unk> Visualizza tutti i ruoli non consentiti/canali/membri utilizzando </setup toggle_command:{id}> con l'opzione `get`.<unk> <unk>\n",
+      "embedDescription": "La seguente quantità di ruoli/canali/membri è stata modificata:\n<unk> <unk> Visualizza tutti i ruoli non consentiti/canali/membri utilizzando {commandMention} con l'opzione `get`.<unk> <unk>\n",
       "embed": {
         "enabled": "Rimosso (Permesso)",
         "disabled": "Aggiunto (Non Consentito)"

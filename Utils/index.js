@@ -5,6 +5,7 @@ const utils = {
   checkForErrors: require('./checkForErrors.js'),
   checkTargetManageable: require('./checkTargetManageable.js'),
   commandExecutionWrapper: require('./commandExecutionWrapper.js'),
+  commandMention: require('./commandMention.js'),
   componentHandler: require('./componentHandler.js'),
   configValidator: require('./configValidator.js'),
   constants: require('./constants.js'),

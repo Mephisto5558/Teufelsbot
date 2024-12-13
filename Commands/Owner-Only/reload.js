@@ -3,7 +3,7 @@ const
   { Collection, codeBlock, inlineCode } = require('discord.js'),
   { resolve, basename, dirname } = require('node:path'),
   { access } = require('node:fs/promises'),
-  { formatCommand, slashCommandsEqual, filename } = require('#Utils'),
+  { formatCommand, slashCommandsEqual, filename, commandMention } = require('#Utils'),
   MAX_COMMANDLIST_LENGTH = 800;
 
 /**
@@ -57,7 +57,7 @@ async function reloadCommand(command, reloadedArray) {
 
     this.slashCommands.delete(command.name);
     this.slashCommands.set(file.name, file);
-    reloadedArray.push(`</${file.name}:${file.id ?? 0}>`);
+    reloadedArray.push(commandMention(file.name, file.id ?? 0));
 
     for (const alias of [...file.aliases?.slash ?? [], ...command.aliases?.slash ?? []].unique()) {
       const { id } = this.slashCommands.get(alias) ?? {};
@@ -82,7 +82,7 @@ async function reloadCommand(command, reloadedArray) {
         this.slashCommands.set(alias, { ...file, id: cmdId, aliasOf: file.name });
       }
 
-      reloadedArray.push(`</${alias}:${cmdId ?? 0}>`);
+      reloadedArray.push(commandMention(alias, cmdId ?? 0));
     }
   }
   else if (!file.slashCommand && command.slashCommand) {

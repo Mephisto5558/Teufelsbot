@@ -45,7 +45,7 @@
       "stickers": "{emoji} Guardando stickers...",
       "channels": "{emoji} Guardando canales, hilos y mensajes...",
       "images": "{emoji} Saving icon, splash, and banner...",
-      "success": "¡La copia de seguridad con el ID {id} se ha creado correctamente!\nUse </serverbackup get:{cmdId}> para más información sobre la copia de seguridad."
+      "success": "¡La copia de seguridad con el ID {id} se ha creado correctamente!\nUse {cmd} para más información sobre la copia de seguridad."
     },
     "clear": {
       "items": "{emoji} Eliminando emojis, estampas y roles...",
@@ -243,12 +243,12 @@
       },
       "enabled": "El comando `{command}está ahora habilitado.",
       "disabled": "El comando `{command}ahora está deshabilitado.",
-      "isDisabled": "El comando {command} está deshabilitado para todos los miembros. Puedes reactivarlo ejecutando </setup toggle_command:{id}> sin especificar ningún rol, canal o miembro.",
+      "isDisabled": "El comando {command} está deshabilitado para todos los miembros. Puedes reactivarlo ejecutando {commandMention} sin especificar ningún rol, canal o miembro.",
       "roles": "Roles",
       "channels": "Canales",
       "users": "Miembros",
       "embedTitle": "Configuración de comandos actualizada para \"{commandName}\"",
-      "embedDescription": "La siguiente cantidad de roles/canales/miembros han sido cambiados:\n||Ver todos los roles/canales/miembros no permitidos usando </setup toggle_command:{id}> con la opción `get`.||\n",
+      "embedDescription": "La siguiente cantidad de roles/canales/miembros han sido cambiados:\n||Ver todos los roles/canales/miembros no permitidos usando {commandMention} con la opción `get`.||\n",
       "embed": {
         "enabled": "Eliminado (Permitido)",
         "disabled": "Agregado (no permitido)"

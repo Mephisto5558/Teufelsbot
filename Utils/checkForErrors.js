@@ -2,6 +2,7 @@ const
   { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction, inlineCode } = require('discord.js'),
   /** @type {import('.').autocompleteGenerator} */autocompleteGenerator = require('./autocompleteGenerator.js'),
   cooldowns = require('./cooldowns.js'),
+  /** @type {import('.').commandMention} */ commandMention = require('./commandMention.js'),
   /** @type {import('.').permissionTranslator} */ permissionTranslator = require('./permissionTranslator.js'),
   /** @type {import('.')['timeFormatter']} */{ msInSecond } = require('./timeFormatter'),
   /** @type {import('.')['DiscordAPIErrorCodes']} */DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
@@ -13,7 +14,7 @@ const
  * @this {Interaction | Message}
  * @param {command<'both', boolean, true>}command
  * @param {lang}lang
- * @returns {[string, Record<string, string> | string | undefined, string | undefined] | undefined} */
+ * @returns {[string, Record<string, string> | string | undefined] | undefined} */
 function checkOptions(command, lang) {
   /** @type {command<'both', boolean, true> | commandOptions<true>} */
   let option = command;
@@ -103,7 +104,7 @@ module.exports = async function checkForErrors(command, lang) {
     if (this instanceof Message) {
       let cmd = this.client.slashCommands.get(this.commandName) ?? this.client.prefixCommands.get(this.commandName);
       if (cmd?.aliasOf) cmd = this.client.slashCommands.get(cmd.aliasOf);
-      if (cmd) return ['slashOnly', { name: cmd.name, id: cmd.id }];
+      if (cmd) return ['slashOnly', commandMention(cmd.name, cmd.id)];
 
       void this.runMessages();
     }

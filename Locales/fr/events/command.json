@@ -1,6 +1,6 @@
 {
   "cooldown": "Cette commande est en cours de rechargement! Réessayez dans {time}s.",
-  "slashOnly": "Cette commande n'est disponible qu'en tant que commande slash: </{name}:{id}>",
+  "slashOnly": "Cette commande n'est disponible qu'en tant que commande slash: {command}",
   "guildOnly": "Cette commande ou l'une de ses sous-commandes n'est disponible que dans les guildes !",
   "nonBeta": "Cette commande n'est pas une commande bêta! Ce bot n'exécute que des commandes bêta.",
   "disabled": "Cette commande a été désactivée par le développeur bot. Raison :\n{reason}",

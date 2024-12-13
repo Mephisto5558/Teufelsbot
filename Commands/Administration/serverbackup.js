@@ -1,5 +1,7 @@
 /** @typedef {import('../../types/database').backupId}backupId */
 
+import { commandMention } from '#Utils';
+
 const
   { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ButtonStyle, inlineCode } = require('discord.js'),
   { timeFormatter: { msInSecond, secsInMinute, timestamp } } = require('#Utils'),
@@ -39,7 +41,7 @@ const backupMainFunctions = {
         ], statusObj
       });
 
-    return this.editReply({ embeds: [embed.setDescription(lang('create.success', { id: inlineCode(backup.id), cmdId: this.commandId }))] });
+    return this.editReply({ embeds: [embed.setDescription(lang('create.success', { id: inlineCode(backup.id), cmd: commandMention(this.commandName, this.commandId) }))] });
   },
 
   load: async function loadBackup(lang, embed, id) {

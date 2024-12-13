@@ -1,7 +1,7 @@
 const
   { TimestampStyles, inlineCode } = require('discord.js'),
   { Duration } = require('better-ms'),
-  { timeValidator, timeFormatter: { secsInYear, msInSecond, timestamp } } = require('#Utils'),
+  { timeValidator, timeFormatter: { secsInYear, msInSecond, timestamp }, commandMention } = require('#Utils'),
   MAX_YEAR_SECS = secsInYear * msInSecond * 2e5; // eslint-disable-line @typescript-eslint/no-magic-numbers -- 200000y
 
 /** @type {command<'both', false>} */
@@ -20,7 +20,7 @@ module.exports = {
     const { offset } = new Duration(this.options?.getString('time') ?? this.args?.[0] ?? '0.1ms');
     if (!offset) {
       const helpcmd = this.client.application.commands.cache.find(e => e.name == 'help')?.id;
-      return this.customReply(lang('invalid', helpcmd ? `</help:${helpcmd}>` : '/help'));
+      return this.customReply(lang('invalid', helpcmd ? commandMention('help', helpcmd) : '/help'));
     }
 
     const time = this.createdTimestamp + offset;

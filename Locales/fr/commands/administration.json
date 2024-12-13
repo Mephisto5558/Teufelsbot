@@ -45,7 +45,7 @@
       "stickers": "{emoji} Enregistrement des autocollants...",
       "channels": "{emoji} Enregistrement des canaux, des fils et des messages...",
       "images": "{emoji} Saving icon, splash, and banner...",
-      "success": "La sauvegarde avec l'ID {id} a été créée avec succès !\nUtilisez </serverbackup get:{cmdId}> pour plus d'informations sur la sauvegarde."
+      "success": "La sauvegarde avec l'ID {id} a été créée avec succès !\nUtilisez {cmd} pour plus d'informations sur la sauvegarde."
     },
     "clear": {
       "items": "{emoji} Suppression des émoticônes, des autocollants et des rôles...",
@@ -243,12 +243,12 @@
       },
       "enabled": "La commande {command} est maintenant activée.",
       "disabled": "La commande {command} est maintenant désactivée.",
-      "isDisabled": "La commande {command} est désactivée pour tous les membres. Vous pouvez la réactiver en exécutant </setup toggle_command:{id}> sans spécifier aucun rôle, salon ou membre.",
+      "isDisabled": "La commande {command} est désactivée pour tous les membres. Vous pouvez la réactiver en exécutant {commandMention} sans spécifier aucun rôle, salon ou membre.",
       "roles": "Rôles",
       "channels": "Canaux",
       "users": "Membres",
       "embedTitle": "Paramètres de commande mis à jour pour \"{commandName}\"",
-      "embedDescription": "Le nombre de rôles/canaux/membres suivants ont été changés:\n||Voir tous les rôles/canaux/membres interdits en utilisant </setup toggle_command:{id}> avec l'option `get`.||\n",
+      "embedDescription": "Le nombre de rôles/canaux/membres suivants ont été changés:\n||Voir tous les rôles/canaux/membres interdits en utilisant {commandMention} avec l'option `get`.||\n",
       "embed": {
         "enabled": "Supprimé (autorisé)",
         "disabled": "Ajouté (rejeté)"
