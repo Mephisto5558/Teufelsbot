@@ -1,5 +1,5 @@
 const
-  { ChatInputCommandInteraction } = require('discord.js'),
+  { ChatInputCommandInteraction, bold } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter;
 
 /** @type {command<'both'>} */
@@ -26,6 +26,6 @@ module.exports = {
     if (!msg.content) return this.customReply(lang('noContent'));
 
     if (msgId && this instanceof ChatInputCommandInteraction) void this.deleteReply();
-    return this.channel.send({ content: lang('words', msg.content.match(/[\p{P}\p{Z}]+/gu)?.length ?? 0), reply: { messageReference: msgId } });
+    return this.channel.send({ content: lang('words', bold(msg.content.match(/[\p{P}\p{Z}]+/gu)?.length ?? 0)), reply: { messageReference: msgId } });
   }
 };
