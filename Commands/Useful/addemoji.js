@@ -1,5 +1,5 @@
 const
-  { parseEmoji, EmbedBuilder, Colors, codeBlock, roleMention } = require('discord.js'),
+  { parseEmoji, EmbedBuilder, Colors, codeBlock, roleMention, CDNRoutes, ImageFormat } = require('discord.js'),
   http = require('node:http'),
   https = require('node:https'),
   { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils');
@@ -50,7 +50,7 @@ module.exports = {
       embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
 
     if (this.guild.emojis.cache.has(emoticon.id)) return this.editReply({ embeds: [embed.setDescription(lang('isGuildEmoji'))] });
-    if (emoticon.id) input = `https://cdn.discordapp.com/emojis/${emoticon.id}.${emoticon.animated ? 'gif' : 'png'}`;
+    if (emoticon.id) input = `https://cdn.discordapp.com/${CDNRoutes.emoji(emoticon.id, emoticon.animated ? ImageFormat.GIF : ImageFormat.PNG)}`;
     /* eslint-disable-next-line regexp/prefer-quantifier -- "www" is preferred to be written out for readability */
     else if (!/^(?:https?:\/\/)?(?:www\.)?.*?\.(?:gif|jpeg|jpg|png|svg|webp)(?:\?.*)?$/i.test(input))
       return this.editReply({ embeds: [embed.setDescription(lang('invalidUrl'))] });
