@@ -138,9 +138,9 @@
     "description": "testet Sachen"
   },
   "todo": {
-    "description": "Erhalte Link(s) zu den Todo-Listen des Developers.",
+    "description": "Erhalte Link(s) zu den To-do-Listen des Developers.",
     "list": "ToDo Excel",
     "website": "Voting Website",
-    "discordNotes": "Dev notes im Support-Server"
+    "discordNotes": "Dev Notes im Support-Server"
   }
 }
