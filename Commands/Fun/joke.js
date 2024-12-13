@@ -48,7 +48,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
         'User-Agent': `Discord bot (${this.config.github.repo})`,
         Accept: 'application/json'
       },
-      signal: timeoutSignal
+      signal: timeoutSignal.signal
     }).then(e => e.json());
 
     switch (api.name) {
