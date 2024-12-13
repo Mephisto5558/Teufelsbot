@@ -67,6 +67,7 @@
     "reportButton": "Report this Error",
     "reportButtonDisabled": " (Disabled due to dev version)",
     "discordAPIErr": "A Discord API Error occurred, please try again and message the dev if this keeps happening.",
+    "link": "Link",
     "alreadyReported": "This error has already been reported. {link}.\nIt will be fixed soon.",
     "reportSuccess": "The error has been reported. {link}",
     "reportFail": "An error occurred while trying to send your error report.\n{err}\nPlease message the dev directly."
