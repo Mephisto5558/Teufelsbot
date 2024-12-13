@@ -2,16 +2,16 @@ const
   { SnowflakeUtil } = require('discord.js'),
   { writeFile } = require('node:fs/promises'),
 
-  /** @returns {number}Unix timestamp*/
+  /** @returns {number}Unix timestamp */
   getOneMonthAgo = () => new Date().setMonth(new Date().getMonth() - 1),
 
-  /** @returns {number}Unix timestamp*/
+  /** @returns {number}Unix timestamp */
   getOneYearAgo = () => new Date().setFullYear(new Date().getFullYear() - 1);
 
 
 /**
  * Writes the data to a file.
- * @this {Client}*/
+ * @this {Client} */
 async function backupDBs() {
   const data = this.db.reduce().reduce((acc, { key, value }) => {
     acc[key] = value;
@@ -25,11 +25,8 @@ async function backupDBs() {
  * Deletes guilds that the bot was not in for over a year
  * @this {Client}
  * @param {string}guildId
- * @param {Database['guildSettings'][Snowflake] | undefined}db*/
+ * @param {Database['guildSettings'][Snowflake] | undefined}db */
 async function cleanupGuildsDB(guildId, db) {
-  if (this.guilds.cache.get(guildId) && (!db || !(!db.leftAt || db.leftAt.getTime() < getOneYearAgo())))
-    throw new Error(`This should never happen: tried to delete a guild DB while the bot is still in the guild | ${guildId} | ${JSON.stringify(db)}`); // TODO: remove after 1st December 2024
-
   if (!db) return this.db.delete('guildSettings', guildId);
   if (!db.leftAt || db.leftAt.getTime() < getOneYearAgo()) return;
 
@@ -41,7 +38,7 @@ async function cleanupGuildsDB(guildId, db) {
  * Deletes giveaway records that concluded over a month ago
  * @this {Client}
  * @param {string}guildId
- * @param {NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['giveaway']>['giveaways'] | undefined}db*/
+ * @param {NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['giveaway']>['giveaways'] | undefined}db */
 function cleanupGiveawaysDB(guildId, db) {
   if (!db) return;
 
@@ -55,7 +52,7 @@ function cleanupGiveawaysDB(guildId, db) {
  * Removes all lastMentions data older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {NonNullable<Database['guildSettings'][Snowflake]>['lastMentions']}db*/
+ * @param {NonNullable<Database['guildSettings'][Snowflake]>['lastMentions']}db */
 function cleanupMentionsDB(guildId, db) {
   if (!db) return;
 
@@ -69,7 +66,7 @@ function cleanupMentionsDB(guildId, db) {
  * Removes all AFK-Messages older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {NonNullable<Database['guildSettings'][Snowflake]>['afkMessages']}db*/
+ * @param {NonNullable<Database['guildSettings'][Snowflake]>['afkMessages']}db */
 function cleanupAfkMessagesDB(guildId, db) {
   if (!db) return;
 
@@ -83,7 +80,7 @@ function cleanupAfkMessagesDB(guildId, db) {
  * Removes all AFK-Messages older than one month
  * @this {Client}
  * @param {string}guildId
- * @param {NonNullable<Database['guildSettings'][Snowflake]>['minigames']}db*/
+ * @param {NonNullable<Database['guildSettings'][Snowflake]>['minigames']}db */
 function cleanUpMinigamesDB(guildId, db) {
   if (!db) return;
 
@@ -99,7 +96,7 @@ module.exports = {
   time: '00 00 00 01 * *',
   startNow: false,
 
-  /** @this {Client}*/
+  /** @this {Client} */
   async onTick() {
     const now = new Date();
 
@@ -112,7 +109,7 @@ module.exports = {
     log('Started DB cleanup');
 
     // See https://github.com/microsoft/TypeScript/issues/43756 for why using let here
-    let /** @type {Snowflake}*/guildId, /** @type {Database['guildSettings'][Snowflake]}*/guildSettings;
+    let /** @type {Snowflake} */guildId, /** @type {Database['guildSettings'][Snowflake]} */guildSettings;
     for ([guildId, guildSettings] of Object.entries(this.db.get('guildSettings'))) {
       cleanupGuildsDB.call(this, guildId, guildSettings);
       cleanupGiveawaysDB.call(this, guildId, guildSettings.giveaway?.giveaways);

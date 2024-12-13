@@ -1,12 +1,12 @@
 const
-  { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
-  { getTargetChannel } = require('#Utils'),
+  { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, channelMention } = require('discord.js'),
+  { getTargetChannel, timeFormatter: { msInSecond } } = require('#Utils'),
   collectorTimeout = 3e4;
 
 module.exports = new MixedCommand({
   aliases: { prefix: ['clearchannel'], slash: ['clearchannel'] },
   permissions: { client: ['ManageChannels'], user: ['ManageGuild', 'ManageChannels'] },
-  cooldowns: { guild: 1e4, user: 1000 },
+  cooldowns: { guild: msInSecond * 10, user: msInSecond * 10 },
   options: [new CommandOption({
     name: 'channel',
     type: 'Channel',
@@ -16,11 +16,11 @@ module.exports = new MixedCommand({
   async run(lang) {
     const
 
-      /** @type {Exclude<import('discord.js').GuildTextBasedChannel, import('discord.js').AnyThreadChannel>}*/
+      /** @type {Exclude<import('discord.js').GuildTextBasedChannel, import('discord.js').AnyThreadChannel>} */
       channel = getTargetChannel(this, { returnSelf: true }),
       embed = new EmbedBuilder({
         title: lang('confirmEmbedTitle'),
-        description: lang('confirmEmbedDescription', channel.id),
+        description: lang('confirmEmbedDescription', channelMention(channel.id)),
         color: Colors.Red
       }),
       component = new ActionRowBuilder({

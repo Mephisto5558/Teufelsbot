@@ -1,16 +1,15 @@
 const
+  { EmbedBuilder, Colors, bold } = require('discord.js'),
 
-  /** @type {import('../../node_modules/wikijs/index')}*/
+  /** @type {import('../../node_modules/wikijs/index')} */
   { default: wikiInit } = require('wikijs'),
-  { EmbedBuilder, Colors } = require('discord.js'),
-  { embedFieldMaxAmt, messageMaxLength } = require('#Utils').constants,
+  { constants: { embedFieldMaxAmt, messageMaxLength }, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
   MAX_MSGS = 9;
 
 module.exports = new MixedCommand({
   usage: { examples: 'discord' },
   aliases: { prefix: ['wikipedia'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { channel: 100, user: 200 },
+  cooldowns: { channel: msInSecond / 10, user: msInSecond / 10 * 2 },
   dmPermission: true,
   options: [new CommandOption({ name: 'query', type: 'String' })],
 
@@ -22,7 +21,7 @@ module.exports = new MixedCommand({
       defaultLangWiki = wikiInit({ headers, apiUrl: `https://${this.client.i18n.config.defaultLocale}.wikipedia.org/w/api.php` }),
       wiki = wikiInit({ headers, apiUrl: `https://${this.guild?.localeCode ?? lang.__boundThis__.config.defaultLocale}.wikipedia.org/w/api.php` }),
 
-      /** @type {string|undefined} */
+      /** @type {string | undefined} */
       result = query ? (await wiki.search(query, 1)).results[0] ?? (await defaultLangWiki.search(query, 1)).results[0] : (await wiki.random(1))[0];
 
     if (!result) return message.edit(lang('notFound'));
@@ -30,7 +29,7 @@ module.exports = new MixedCommand({
     const
       page = await wiki.page(result),
 
-      /** @type {{general: Record<string, unknown[] | Record<string, unknown> | boolean | string>}}*/
+      /** @type {{general: Record<string, unknown[] | Record<string, unknown> | boolean | string>}} */
       { general: info } = await page.fullInfo(),
       summary = await page.summary(),
       images = await page.images(),
@@ -50,7 +49,7 @@ module.exports = new MixedCommand({
           /** @type {string} */
           let value;
           if (Array.isArray(v)) value = v.join(', ');
-          else if (typeof v == 'object') value = v.date instanceof Date ? `<t:${Math.round(v.date.getTime() / 1000)}>` : JSON.stringify(v, undefined, 2);
+          else if (typeof v == 'object') value = v.date instanceof Date ? timestamp(v.date) : JSON.stringify(v, undefined, 2);
           else if (typeof v == 'boolean') value = lang(`global.${v}`);
           else value = images.find(e => e.includes(v.toString().replaceAll(' ', '_'))) ?? v.toString(); // note: possibly not a string, but weren't able to type it all
 
@@ -68,7 +67,7 @@ module.exports = new MixedCommand({
 
     const msgs = summary.split('\n')
       .flatMap(e => {
-        if (e.length < 1000) return [e];
+        if (e.length < messageMaxLength) return [e];
 
         const halfIndex = Math.floor(e.length / 2);
         const lastIndexBeforeHalf = e.lastIndexOf('.', halfIndex) + 1 || halfIndex;
@@ -76,7 +75,7 @@ module.exports = new MixedCommand({
         return [e.slice(0, lastIndexBeforeHalf), e.slice(lastIndexBeforeHalf)];
       })
       .reduce((acc, e, i, arr) => {
-        const accItem = acc.last();
+        const accItem = acc.at(-1);
 
         if (accItem && accItem.length + (arr[i + 1]?.length ?? 0) > messageMaxLength) acc.push(`${e}\n`);
         else acc.splice(-1, 1, `${accItem}${e}\n`);
@@ -85,6 +84,6 @@ module.exports = new MixedCommand({
       }, ['']);
 
     for (const msg of msgs.slice(0, MAX_MSGS)) await this.customReply(msg);
-    if (msgs.length > MAX_MSGS) return this.reply(lang('visitWiki'));
+    if (msgs.length > MAX_MSGS) return this.reply(bold(lang('visitWiki')));
   }
 });

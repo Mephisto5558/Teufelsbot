@@ -1,20 +1,23 @@
 const
+  { bold } = require('discord.js'),
   cooldowns = require('../cooldowns.js'),
   { removeAfkStatus, sendAfkMessages } = require('../afk.js'),
-  MESSAGES_COOLDOWN = require('../timeFormatter.js').msInSecond * 5; /* eslint-disable-line custom/sonar-no-magic-numbers -- 5s*/
+  { msInSecond } = require('../timeFormatter.js'),
+  MESSAGES_COOLDOWN = msInSecond * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
+  TEN_SECONDS = msInSecond * 10;
 
 module.exports = { runMessages };
 
-/** @this {Message}*/
+/** @this {Message<true>} */
 function replyToTriggers() {
-  if (!Number(this.guild.db.triggers?.__count__) || cooldowns.call(this, 'triggers', { channel: 1e4 })) return;
+  if (!Number(this.guild.db.triggers?.__count__) || cooldowns.call(this, 'triggers', { channel: TEN_SECONDS })) return;
 
   const responseList = Object.values(this.guild.db.triggers)
     .filter(e => this.originalContent?.toLowerCase().includes(e.trigger.toLowerCase())).map(e => e.response);
   for (const response of responseList.unique()) void this.customReply(response);
 }
 
-/** @this {Message}*/
+/** @this {Message<true>} */
 async function handleCounting() {
   const countingData = this.guild.db.channelMinigames?.counting?.[this.channel.id];
   if (!countingData) return;
@@ -29,22 +32,22 @@ async function handleCounting() {
 
   await this.guild.updateDB(`channelMinigames.counting.${this.channel.id}`, { lastNumber: 0 });
   return this.reply(
-    this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', countingData.lastNumber)
-    + this.client.i18n.__(
+    this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', bold(countingData.lastNumber))
+    + bold(this.client.i18n.__(/* eslint-disable-line sonarjs/no-incorrect-string-concat -- false positive */
       { locale: this.guild.localeCode },
       countingData.lastAuthor == this.user.id ? 'events.message.counting.sameUserTwice' : 'events.message.counting.wrongNumber'
-    )
+    ))
   );
 }
 
-/** @this {Message<true>}*/
+/** @this {Message<true>} */
 async function handleWordchain() {
   const wordchainData = this.guild.db.channelMinigames?.wordchain?.[this.channel.id];
   if (!wordchainData) return;
 
   const
     firstWord = this.originalContent.split(/\s+/)[0].toLowerCase(),
-    lastWordChar = wordchainData.lastWord?.last();
+    lastWordChar = wordchainData.lastWord?.at(-1);
 
   if (
     !wordchainData.lastWord || lastWordChar == firstWord[0]
@@ -72,15 +75,15 @@ async function handleWordchain() {
   await this.guild.updateDB(`channelMinigames.wordchain.${this.channel.id}`, { chainedWords: 0 });
   if (wordchainData.chainedWords > 1) {
     return this.reply(
-      this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.wordchain.error', { lastChar: lastWordChar, count: wordchainData.chainedWords })
-      + this.client.i18n.__({ locale: this.guild.localeCode }, msgId)
+      this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.wordchain.error', { lastChar: bold(lastWordChar), count: bold(wordchainData.chainedWords) })
+      + bold(this.client.i18n.__({ locale: this.guild.localeCode }, msgId)) /* eslint-disable-line sonarjs/no-incorrect-string-concat -- false positive */
     );
   }
 }
 
 /**
  * @type {import('.').runMessages}
- * @this {ThisParameterType<import('.').runMessages>}*/
+ * @this {ThisParameterType<import('.').runMessages>} */
 function runMessages() {
   if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: MESSAGES_COOLDOWN }))
     void this.react('👀');
@@ -94,7 +97,7 @@ function runMessages() {
   else if (/^\p{L}+$/u.test(this.originalContent)) void handleWordchain.call(this);
   if (!this.originalContent.toLowerCase().includes('--afkignore') && !(this.originalContent.startsWith('(') && this.originalContent.endsWith(')')))
     void removeAfkStatus.call(this);
-  if (!cooldowns.call(this, 'afkMsg', { channel: 1e4, user: 1e4 })) void sendAfkMessages.call(this);
+  if (!cooldowns.call(this, 'afkMsg', { channel: TEN_SECONDS, user: TEN_SECONDS })) void sendAfkMessages.call(this);
 
   return this;
 }

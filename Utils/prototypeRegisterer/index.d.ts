@@ -18,7 +18,7 @@ declare enum LogLevels {
 }
 
 declare class Log extends Function {
-  /** @default logLevel='log'; logFilesDir='./Logs'*/
+  /** @default logLevel='log'; logFilesDir='./Logs' */
   constructor(logLevel?: keyof typeof LogLevels, logFileDir?: string);
 
   date: `${number}${number}-${number}${number}-${number}${number}${number}${number}`;
@@ -43,7 +43,7 @@ declare function _patch(
 
 /**
  * Tries different methods to reply to a message or interaction. If the content is over 2000 chars, will send an attachment instead.
- * @default allowedMentions={repliedUser: false}*/
+ * @default allowedMentions={repliedUser: false} */
 declare function customReply(
   this: RepliableInteraction | Message,
 
@@ -53,7 +53,7 @@ declare function customReply(
   allowedMentions?: MessageMentionOptions
 ): Promise<InteractionResponse | Message>;
 
-declare function runMessages<T extends Message>(this: T): T;
+declare function runMessages<T extends Message<true>>(this: T): T;
 
 declare function playAgain(
   this: TicTacToe,

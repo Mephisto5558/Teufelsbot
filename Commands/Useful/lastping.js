@@ -1,10 +1,10 @@
 const
-  { Constants, EmbedBuilder, Colors } = require('discord.js'),
-  { getTargetChannel, getTargetMember, constants: { embedDescriptionMaxLength } } = require('#Utils');
+  { Constants, EmbedBuilder, Colors, hyperlink } = require('discord.js'),
+  { getTargetChannel, getTargetMember, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
 module.exports = new MixedCommand({
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { guild: 200, user: 1e4 },
+  /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
+  cooldowns: { guild: 200, user: msInSecond * 10 },
   ephemeralDefer: true,
   options: [
     new CommandOption({
@@ -19,7 +19,7 @@ module.exports = new MixedCommand({
     const
       target = getTargetMember(this, { targetOptionName: 'member' }),
 
-      /** @type {import('discord.js').GuildTextBasedChannel | undefined}*/
+      /** @type {import('discord.js').GuildTextBasedChannel | undefined} */
       channel = getTargetChannel(this);
 
     if (target) {
@@ -35,7 +35,11 @@ module.exports = new MixedCommand({
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { url, content: content ? `>>> ${content.slice(0, embedDescriptionMaxLength)}` : lang('global.unknown'), author: author?.id ?? author }),
+      description: lang('embedDescription', {
+        author,
+        link: hyperlink(lang('global.here'), url),
+        content: content ? `>>> ${content.slice(0, embedDescriptionMaxLength)}` : lang('global.unknown')
+      }),
       timestamp: createdAt,
       color: Colors.White
     });

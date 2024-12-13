@@ -1,4 +1,7 @@
-const { randomInt } = require('node:crypto');
+const
+  { inlineCode } = require('discord.js'),
+  { randomInt } = require('node:crypto'),
+  defaultMaxNum = 100;
 
 module.exports = new MixedCommand({
   usage: { examples: '1 10' },
@@ -18,7 +21,7 @@ module.exports = new MixedCommand({
     if (min > max) [min, max] = [max, min];
 
     if (Number.isNaN(min)) min = 0;
-    if (Number.isNaN(max) || min == max && min == 0) max = 100;
+    if (Number.isNaN(max) || min == max && min == 0) max = defaultMaxNum;
 
     try {
       const randomNumber = randomInt(min, max + 1).toLocaleString(lang.__boundArgs__[0].locale);
@@ -28,8 +31,8 @@ module.exports = new MixedCommand({
       if (!(err instanceof RangeError || err.code == 'ERR_INVALID_ARG_TYPE')) throw err;
 
       return this.customReply(lang('outOfRange', {
-        min: Number.MIN_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale),
-        max: Number.MAX_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale)
+        min: inlineCode(Number.MIN_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale)),
+        max: inlineCode(Number.MAX_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale))
       }));
     }
   }

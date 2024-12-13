@@ -11,7 +11,7 @@
         "description": "the size you want to get"
       }
     },
-    "embedDescription": "**Avatar of {user}**"
+    "embedDescription": "Avatar of {user}"
   },
   "changelog": {
     "description": "Get the latest changelog.",
@@ -37,14 +37,14 @@
     },
     "embedTitle": "Command Stats for {mode}",
     "notFound": "That command does not exist!",
-    "embedDescriptionOne": "The {command} command has been run **{total}** times (Slash: **{slash}** | Prefix: **{prefix}**).",
+    "embedDescriptionOne": "The {command} command has been run {total} times (Slash: {slash} | Prefix: {prefix}).",
     "embedDescriptionMany": "These are 10 most used commands:\n",
-    "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefix: **{prefix}**)"
+    "embedFieldValue": "{total} (Slash: {slash} | Prefix: {prefix})"
   },
   "dashboard": {
     "description": "get the link to the bots's dashboard",
     "embedTitle": "Dashboard",
-    "embedDescriptionDashboard": "Click [here]({url}) to open the dashboard."
+    "embedDescriptionDashboard": "Click {link} to open the dashboard."
   },
   "emojiinfo": {
     "description": "Get information about an emoji",
@@ -86,7 +86,7 @@
     "commandListPlaceholder": "Which command do you want to see?",
     "devEmbedFooterText": "Dev-Bot | Only beta commands are shown",
     "one": {
-      "notFound": "No information found for command `{command}`.",
+      "notFound": "No information found for command {command}.",
       "embedTitle": "{category} » {command}",
       "embedFooterText": "Syntax: <> = required, [] = optional | Prefixes: {prefixes}",
       "prefixAlias": "Prefix Command Aliases",
@@ -111,7 +111,7 @@
     "shard": "Shard",
     "guild": "Internal Guild ID",
     "guilds": "Guilds",
-    "commands": "Commands: `{total}`\n> Slash & Prefix: `{combined}`\n> Slash: `{slash}`\n> Prefix: `{prefix}`\n",
+    "commands": "Commands: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefix: {prefix}\n",
     "starts": "Starts",
     "lastStart": "Last start",
     "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.\n",
@@ -127,7 +127,7 @@
   "invite": {
     "description": "Sends a link to add the bot to your guild.",
     "embedTitle": "Invite",
-    "embedDescription": "Thank you for your interest! Click [here]({url}) to add me to your guild. ^^"
+    "embedDescription": "Thank you for your interest! Click {link} to add me to your guild. ^^"
   },
   "ping": {
     "description": "Get the bot's ping",
@@ -137,8 +137,8 @@
       }
     },
     "average": {
-      "loading": "Pinging... `{current}`/`{target}`\nNext ping <t:{timestamp}:R>",
-      "embedDescription": "Pings: `{pings}` | Duration: `{duration}s`\nAPI:\n> Lowest Ping: `{wsLowest}ms`\n> Highest Ping: `{wsHighest}ms`\n> Average Ping: `{wsAverage}ms`\nMessage Send:\n> Lowest Ping: `{msgLowest}ms`\n> Highest Ping: `{msgHighest}ms`\n> Average Ping: `{msgAverage}ms`"
+      "loading": "Pinging... {current}/{target}\nNext ping {timestamp}",
+      "embedDescription": "Pings: {pings} | Duration: `{duration}s`\nAPI:\n> Lowest Ping: `{wsLowest}ms`\n> Highest Ping: `{wsHighest}ms`\n> Average Ping: `{wsAverage}ms`\nMessage Send:\n> Lowest Ping: `{msgLowest}ms`\n> Highest Ping: `{msgHighest}ms`\n> Average Ping: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -180,7 +180,7 @@
         "description": "The server ID you want to get information about. Only works for servers I'm in."
       }
     },
-    "memberStats": "`{all}` (Humans: `{humans}`, Bots: `{bots}`)",
+    "memberStats": "{all} (Humans: {humans}, Bots: {bots})",
     "members": "Members",
     "verificationLevel": {
       "name": "Verification Level",
@@ -217,8 +217,9 @@
   },
   "uptime": {
     "description": "Get the bot's uptime",
+    "online": "online",
     "embedDescriptionNoURL": "The bot has been online for {time}.",
-    "embedDescription": "The bot has been [online]({domain}/uptime) for {time}."
+    "embedDescription": "The bot has been {link} for {time}."
   },
   "userinfo": {
     "description": "Get information about a member",
@@ -233,7 +234,7 @@
     },
     "guildOwner": "Guild Owner",
     "guildAdmin": "Guild Administrator",
-    "admin": "`Administrator`",
+    "admin": "Administrator",
     "guildMod": "Guild Moderator",
     "guildMember": "Guild Member",
     "activity": {
@@ -284,6 +285,6 @@
   "vote": {
     "description": "get the link to the bots's feature request and voting page",
     "embedTitle": "Voting",
-    "embedDescriptionVote": "Click [here]({url}) to open the voting and feature request webpage."
+    "embedDescriptionVote": "Click {link} to open the voting and feature request webpage."
   }
 }

@@ -1,6 +1,6 @@
 const dateMonthOffset = -1;
 
-/** @type {import('.').getAge}*/
+/** @type {import('.').getAge} */
 module.exports = function getAge(date) {
   const
     now = new Date(),

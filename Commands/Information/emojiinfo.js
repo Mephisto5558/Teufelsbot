@@ -1,6 +1,7 @@
 const
-  { parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
+  { parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits, roleMention, inlineCode } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
+  { timestamp } = require('#Utils').timeFormatter,
   emojiURLRegex = /https:\/\/cdn\.discordapp\.com\/emojis\/(?<id>\d+)/;
 
 module.exports = new MixedCommand({
@@ -27,12 +28,12 @@ module.exports = new MixedCommand({
         thumbnail: { url },
         fields: [
           { name: lang('name'), value: emoji.name, inline: true },
-          { name: lang('id'), value: `\`${emoji.id}\``, inline: true },
-          { name: lang('guild'), value: emoji.guild?.name ? `${emoji.guild.name} (\`${emoji.guild.id}\`)` : lang('global.unknown'), inline: true },
+          { name: lang('id'), value: inlineCode(emoji.id), inline: true },
+          { name: lang('guild'), value: emoji.guild?.name ? `${emoji.guild.name} (${inlineCode(emoji.guild.id)})` : lang('global.unknown'), inline: true },
           { name: lang('animated'), value: lang(`global.${emoji.animated}`), inline: true },
           { name: lang('creator'), value: (await emoji.fetchAuthor?.())?.username ?? lang('global.unknownUser'), inline: true },
           { name: lang('available'), value: emoji.available ? lang(`global.${emoji.available}`) : lang('global.unknown'), inline: true },
-          { name: lang('createdAt'), value: emoji.createdTimestamp ? `<t:${Math.round(emoji.createdTimestamp / 1000)}>` : lang('global.unknown'), inline: true }
+          { name: lang('createdAt'), value: emoji.createdTimestamp ? timestamp(emoji.createdTimestamp) : lang('global.unknown'), inline: true }
         ]
       }),
       component = new ActionRowBuilder({
@@ -58,7 +59,7 @@ module.exports = new MixedCommand({
       }));
     }
 
-    if (emoji.roles?.cache.size) embed.data.fields.push({ name: lang('allowedRoles'), value: `<@&${emoji.roles.cache.map(e => e.id).join('>, <@&')}>`, inline: false });
+    if (emoji.roles?.cache.size) embed.data.fields.push({ name: lang('allowedRoles'), value: emoji.roles.cache.map(e => roleMention(e.id)).join(', '), inline: false });
 
     return this.customReply({ embeds: [embed], components: [component] });
   }

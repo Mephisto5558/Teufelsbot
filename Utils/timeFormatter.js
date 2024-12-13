@@ -12,13 +12,14 @@ const
   secsInDay = secsInHour * hoursInDay,
   secsInWeek = secsInDay * daysInWeek,
   secsInMonth = secsInDay * daysInMonthAvg,
-  secsInYear = secsInDay * daysInYear;
+  secsInYear = secsInDay * daysInYear,
+  YEAR_STR_LENGTH = 4,
+  DATETIME_STR_LENGTH = 2;
 
-/**
- * @type {import('.').timeFormatter['timeFormatter']}*/
+/** @type {import('.').timeFormatter['timeFormatter']} */
 function timeFormatter({ sec = 0, lang } = {}) {
   const
-    total = sec * 1000,
+    total = sec * msInSecond,
     negative = sec < 0;
 
   sec = Math.abs(sec);
@@ -43,17 +44,28 @@ function timeFormatter({ sec = 0, lang } = {}) {
   return {
     total, negative,
     formatted: lang?.(id, { year, day, hour, minute, second })
-      ?? `${year.toString().padStart(4, '0')}-${day.toString().padStart(2, '0')}, ${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}:${second.toString().padStart(2, '0')}`
+      ?? `${year.toString().padStart(YEAR_STR_LENGTH, '0')}-${day.toString().padStart(DATETIME_STR_LENGTH, '0')}, `
+      + `${hour.toString().padStart(DATETIME_STR_LENGTH, '0')}:${minute.toString().padStart(DATETIME_STR_LENGTH, '0')}:${second.toString().padStart(DATETIME_STR_LENGTH, '0')}`
   };
 }
 
+/**
+ * @type {import('.').timeFormatter['timestamp']}
+ * @param {Parameters<import('.').timeFormatter['timestamp']>[0]}time
+ * @param {Parameters<import('.').timeFormatter['timestamp']>[1] | undefined}code
+ * @returns {`<t:${number}>` | `<t:${number}:${NonNullable<code>}>`} *//* eslint-disable-line jsdoc/valid-types -- false positive */
+function timestamp(time, code) {
+  const date = Math.round(new Date(time).getTime() / msInSecond);
+  return code ? `<t:${date}:${code}>` : `<t:${date}>`;
+}
+
 module.exports = {
-  timeFormatter,
+  timeFormatter, timestamp,
   msInSecond, secsInMinute, minutesInHour, hoursInDay, daysInWeek, daysInMonthAvg, daysInMonthMax,
   daysInYear, monthsInYear, secsInHour, secsInDay, secsInWeek, secsInMonth, secsInYear
 };
 
-/** Tests the timeFormatter*/
+/** Tests the timeFormatter */
 function _testTimeFormatter() {
   const testCases = [
     { input: { sec: 0 }, expectedOutput: '0000-00, 00:00:00' },

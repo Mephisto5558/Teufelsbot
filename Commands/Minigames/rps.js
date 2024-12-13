@@ -1,10 +1,10 @@
 const
-  { getTargetMember } = require('#Utils'),
+  { getTargetMember, timeFormatter: { msInSecond } } = require('#Utils'),
   { rps_sendChallenge: sendChallenge } = require('#Utils/componentHandler');
 
 module.exports = new MixedCommand({
   aliases: { prefix: ['rockpaperscissors'] },
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   options: [new CommandOption({ name: 'opponent', type: 'User' })],
 
   run(lang) {

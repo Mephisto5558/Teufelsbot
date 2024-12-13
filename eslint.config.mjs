@@ -1,12 +1,17 @@
-import config, { plugins } from '@mephisto5558/eslint-config';
+import config from '@mephisto5558/eslint-config';
 
 /**
  * @type { import('eslint').Linter.Config[] }
- * This config lists all rules from every plugin it uses.*/
+ * This config lists all rules from every plugin it uses. */
 export default [
   ...config,
   {
-    ignores: ['Templates/**']
+    name: 'templates',
+    files: ['Templates/*.{js,ts}'],
+    rules: {
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-unused-vars': 'off'
+    }
   },
   {
     name: 'overwrite',
@@ -37,7 +42,6 @@ export default [
         DMInteraction: 'writable'
       }
     },
-    plugins,
     rules: {
       "sonarjs/no-implicit-dependencies": "off" // Does not support package.json "imports" field
     }

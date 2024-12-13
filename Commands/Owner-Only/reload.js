@@ -1,15 +1,14 @@
-/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib*/
 const
-  { Collection } = require('discord.js'),
+  { Collection, codeBlock, inlineCode } = require('discord.js'),
   { resolve, basename, dirname } = require('node:path'),
   { access } = require('node:fs/promises'),
-  { formatCommand, slashCommandsEqual, filename } = require('#Utils'),
+  { formatCommand, slashCommandsEqual, filename, commandMention } = require('#Utils'),
   MAX_COMMANDLIST_LENGTH = 800;
 
 /**
  * @this {Client}
  * @param {SlashCommand | PrefixCommand | MixedCommand}command
- * @param {string[]}reloadedArray gets modified and not returned*/
+ * @param {string[]}reloadedArray gets modified and not returned */
 async function reloadCommand(command, reloadedArray) {
   /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
   delete require.cache[command.filePath];
@@ -57,7 +56,7 @@ async function reloadCommand(command, reloadedArray) {
 
     this.slashCommands.delete(command.name);
     this.slashCommands.set(file.name, file);
-    reloadedArray.push(`</${file.name}:${file.id}>`);
+    reloadedArray.push(commandMention(file.name, file.id));
 
     for (const alias of [...file.aliases.slash ?? [], ...command.aliases.slash ?? []].unique()) {
       const { id } = this.slashCommands.get(alias) ?? {};
@@ -82,7 +81,7 @@ async function reloadCommand(command, reloadedArray) {
         this.slashCommands.set(alias, { ...file, id: cmdId, aliasOf: file.name });
       }
 
-      reloadedArray.push(`</${alias}:${cmdId ?? 0}>`);
+      reloadedArray.push(commandMention(alias, cmdId ?? 0));
     }
   }
   else if (command.slashCommand) {
@@ -107,9 +106,10 @@ module.exports = new PrefixCommand({
       msg = await this.reply(lang('global.loading', getEmoji('loading'))),
       commandList = new Collection([...this.client.prefixCommands, ...this.client.slashCommands]),
 
-      /** @type {(string | undefined)[]}*/
+      /** @type {(string | undefined)[]} */
       reloadedArray = [];
 
+    let errorOccurred;
     try {
       switch (this.args[0].toLowerCase()) {
         case 'file': {
@@ -144,18 +144,22 @@ module.exports = new PrefixCommand({
       }
     }
     catch (err) {
-      void msg.reply(lang('error', err.message));
+      errorOccurred = true;
+
+      void msg.edit(lang('error', codeBlock(err.message)));
 
       if (this.client.botType == 'dev') throw err;
       log.error('Error while trying to reload a command:\n', err);
     }
 
-    const commands = reloadedArray.filter(Boolean).map(e => e.startsWith('<') ? e : `\`${e}\``).join(', ');
-    void msg.edit(lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
-      count: reloadedArray.length,
-      commands: commands.length < MAX_COMMANDLIST_LENGTH ? commands : commands.slice(0, Math.max(0, commands.slice(0, MAX_COMMANDLIST_LENGTH).lastIndexOf('`,') + 1)) + '...'
-    }));
+    const
+      commands = reloadedArray.filter(Boolean).map(e => e.startsWith('<') ? e : inlineCode(e)).join(', '),
+      replyText = lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
+        count: inlineCode(reloadedArray.length),
+        commands: commands.length < MAX_COMMANDLIST_LENGTH ? commands : commands.slice(0, Math.max(0, commands.slice(0, MAX_COMMANDLIST_LENGTH).lastIndexOf('`,') + 1)) + '...'
+      });
 
+    void (errorOccurred ? msg.reply(replyText) : msg.edit(replyText));
     log.debug('Finished reloading commands.');
   }
 });

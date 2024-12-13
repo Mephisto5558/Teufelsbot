@@ -20,16 +20,16 @@
       "embedTitle": "Ce salon est maintenant un canal de comptage !",
       "embedDescription": "Les règles sont simples :\n> Commencer par **1**.\n> Ajouter **1** au dernier numéro\n> Vous ne pouvez pas compter deux nombres dans une ligne\nAmusez-vous !",
       "by": "Ajouté en tant que canal comptant par {user}",
-      "success": "J'ai ajouté avec succès <#{channel}> en tant que canal de comptage"
+      "success": "J'ai ajouté avec succès {channel} en tant que canal de comptage"
     },
     "removed": {
       "embedDescription": "Ce salon n'est plus un canal de comptage !",
       "by": "Supprimé par {user}",
-      "success": "J'ai supprimé avec succès <#{channel}> en tant que canal de comptage"
+      "success": "J'ai supprimé avec succès {channel} en tant que canal de comptage"
     },
     "userDeletedMsg": {
       "embedTitle": "Comptage",
-      "embedDescription": "Numéro supprimé : **{deletedNum}**\nNuméro suivant : **{nextNum}**",
+      "embedDescription": "Numéro supprimé : {deletedNum}\nNuméro suivant : {nextNum}",
       "unknown": "Auteur inconnu"
     }
   },
@@ -83,17 +83,17 @@
         }
       }
     },
-    "games": "Jeux : `{games}`\n\n",
+    "games": "Jeux : {games}\n\n",
     "wins": "Victoires : {wins}\n",
     "losses": "Pertes : {losses}\n",
     "draws": "Tirages : {draws}\n\n",
     "noOne": "personne\n",
     "missingGameArg": "Tu dois me donner un `jeu` comme premier argument!",
-    "notFound": "Ce n'est pas une entrée de jeu valide. Les jeux valides sont:\n`{list}`",
+    "notFound": "Ce n'est pas une entrée de jeu valide. Les jeux valides sont:\n{list}",
     "wonAgainst": "Gagné contre :\n",
     "lostAgainst": "Perdu contre :\n",
     "drewAgainst": "Faire piquer contre :\n",
-    "embedTitle": "`{user}`a {game} stats",
+    "embedTitle": "{user}a {game} stats",
     "embedTitleTop10": "Top 10 des joueurs {game}",
     "noPlayers": "On dirait que personne n'a encore gagné...",
     "youNoGamesPlayed": "Vous n'avez encore joué aucune partie de {game}.",
@@ -113,25 +113,25 @@
       "opponentIsBot": "Vous ne pouvez pas défier les robots !",
       "opponentIsSelf": "Vous ne pouvez pas vous défier vous-même!",
       "embedTitle": "format@@0 Rock Paper Scissors",
-      "embedDescription": "**{user}** vous a défié en duel!",
+      "embedDescription":"{user} vous a défié en duel!",
       "botEmbedDescription": "Vous m'avez défié en duel!",
       "start": "Début",
       "accept": "Accepter",
       "decline": "Refuser",
-      "newChallenge": "<@{user}> :crossed_swords: Nouveau défi duel"
+      "newChallenge": "{user} :crossed_swords: Nouveau défi duel"
     },
     "memberNotFound": "Au moins un des joueurs n'a pas été trouvé !",
-    "canceled": ":x: `{initiator}` a retiré son défi.",
-    "declined": ":x: `{opponent}` ne s'est pas relevé au défi.",
+    "canceled": ":x: {initiator} a retiré son défi.",
+    "declined": ":x: {opponent} ne s'est pas relevé au défi.",
     "accept": {
-      "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",
+      "embedTitle": ":game_die: {player1} **VS** {player2}",
       "embedDescription": "Sélectionnez votre objet!"
     },
     "end": {
       "alreadyChosen": "Vous avez déjà sélectionné {move}! Veuillez attendre que votre adversaire choisisse.",
       "saved": "Votre sélection a été enregistrée !",
       "tie": "Personne n'a gagné la partie, c'est une égalité! {emoji} = {emoji}",
-      "win": ":tada: <@{winner}> a gagné la partie ! {winEmoji} > {loseEmoji}"
+      "win": ":tada: {winner} a gagné la partie ! {winEmoji} > {loseEmoji}"
     }
   },
   "tictactoe": {
@@ -141,6 +141,6 @@
         "description": "À qui voulez-vous jouer ?"
       }
     },
-    "newChallenge": "<@{user}> :crossed_swords: Nouveau défi duel"
+    "newChallenge": "{user} :crossed_swords: Nouveau défi duel"
   }
 }

@@ -1,18 +1,19 @@
-/** @typedef {import('../../types/database').backupId}backupId*/
+/** @typedef {import('../../types/database').backupId}backupId */
 
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  { timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
-  { serverbackup_hasPerm: hasPerm, serverbackup_createProxy: createProxy } = require('#Utils/componentHandler');
+  { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ButtonStyle, inlineCode } = require('discord.js'),
+  { timeFormatter: { msInSecond, secsInMinute, timestamp }, commandMention } = require('#Utils'),
+  { serverbackup_hasPerm: hasPerm, serverbackup_createProxy: createProxy } = require('#Utils/componentHandler'),
+  BYTES_IN_KILOBITE = 1024;
 
-/** @param {Database['backups'][backupId]}backup*/
+/** @param {Database['backups'][backupId]}backup */
 function getData(backup) {
   if (backup.__count__) {
     return {
-      createdAt: Math.round(backup.createdAt.getTime() / 1000),
+      createdAt: timestamp(backup.createdAt),
       size: (() => {
         const size = Buffer.byteLength(JSON.stringify(backup));
-        return size > 1024 ? `${(size / 1024).toFixed(2)}KB` : `${size}B`;
+        return size > BYTES_IN_KILOBITE ? `${(size / BYTES_IN_KILOBITE).toFixed(2)}KB` : `${size}B`;
       })(),
       members: backup.members?.length ?? 0,
       channels: (backup.channels.categories.length + backup.channels.others.length + backup.channels.categories.reduce((acc, e) => acc + e.children.length, 0)) || 0,
@@ -38,7 +39,7 @@ const backupMainFunctions = {
         ], statusObj
       });
 
-    return this.editReply({ embeds: [embed.setDescription(lang('create.success', { id: backup.id, cmdId: this.commandId }))] });
+    return this.editReply({ embeds: [embed.setDescription(lang('create.success', { id: inlineCode(backup.id), cmd: commandMention(this.commandName, this.commandId) }))] });
   },
 
   load: async function loadBackup(lang, embed, id) {
@@ -78,7 +79,7 @@ const backupMainFunctions = {
       const backup = this.client.backupSystem.get(id);
       return void this.editReply({
         embeds: [backup
-          ? embed.setDescription(lang('get.oneEmbedDescription', { id, ...getData(backup) }))
+          ? embed.setDescription(lang('get.oneEmbedDescription', { id: inlineCode(id), ...getData(backup) }))
           : embed.setColor(Colors.Red).setDescription(lang('get.oneNotFound'))]
       });
     }
@@ -100,12 +101,12 @@ module.exports = new SlashCommand({
     new CommandOption({
       name: 'create',
       type: 'Subcommand',
-      cooldowns: { guild: msInSecond * secsInMinute * 30 } /* eslint-disable-line custom/sonar-no-magic-numbers */
+      cooldowns: { guild: msInSecond * secsInMinute * 30 } /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30mins */
     }),
     new CommandOption({
       name: 'load',
       type: 'Subcommand',
-      cooldowns: { guild: msInSecond * secsInMinute * 5 }, /* eslint-disable-line custom/sonar-no-magic-numbers */
+      cooldowns: { guild: msInSecond * secsInMinute * 5 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers  -- 5mins */
       options: [
         new CommandOption({
           name: 'id',

@@ -1,8 +1,8 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, hyperlink } = require('discord.js'),
 
   /** @type {Client['config']} */
-  { website: { domain } = {}, disableWebserver } = require('../../config.json');
+  { website: { domain } = {}, disableWebserver } = require(require('node:path').resolve(process.cwd(), 'config.json'));
 
 module.exports = new MixedCommand({
   dmPermission: true,
@@ -12,7 +12,7 @@ module.exports = new MixedCommand({
   async run(lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescriptionVote', `${this.client.config.website.domain}/vote`),
+      description: lang('embedDescriptionVote', hyperlink(lang('global.here'), `${this.client.config.website.domain}/vote`)),
       color: Colors.Blurple
     });
 

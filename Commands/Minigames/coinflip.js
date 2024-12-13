@@ -1,9 +1,9 @@
 const
   { randomInt } = require('node:crypto'),
-  MAX = 3001;
+  SIDE_CHANCE = 3000; // 1 in 3000
 
 module.exports = new MixedCommand({
   dmPermission: true,
 
-  async run(lang) { return this.customReply(lang(randomInt(MAX) == 0 ? 'side' : 'response')); }
+  async run(lang) { return this.customReply(lang(randomInt(SIDE_CHANCE) == 0 ? 'side' : 'response')); }
 });

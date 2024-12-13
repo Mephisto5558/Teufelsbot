@@ -1,8 +1,8 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, userMention, bold } = require('discord.js'),
   BLUE = 0x2980B9;
 
-/** @type {import('.').rps_sendChallenge}*/
+/** @type {import('.').rps_sendChallenge} */
 module.exports = async function sendRPSChallenge({ initiator, opponent, lang }) {
   opponent ??= this.client.user;
 
@@ -14,7 +14,7 @@ module.exports = async function sendRPSChallenge({ initiator, opponent, lang }) 
   const
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang(`${opponent.bot ? 'botE' : 'e'}mbedDescription`, initiator.displayName),
+      description: lang(`${opponent.bot ? 'botE' : 'e'}mbedDescription`, bold(initiator.displayName)),
       color: BLUE
     }),
     component = new ActionRowBuilder({
@@ -33,8 +33,8 @@ module.exports = async function sendRPSChallenge({ initiator, opponent, lang }) 
     });
 
   const
-    msg = await this.customReply({ content: opponent.bot ? undefined : `<@${opponent.id}>`, embeds: [embed], components: [component] }),
+    msg = await this.customReply({ content: opponent.bot ? undefined : userMention(opponent.id), embeds: [embed], components: [component] }),
     deleteTime = 5000;
 
-  if (!opponent.bot) return msg.reply(lang('newChallenge', opponent.id)).then(e => setTimeout(e.delete.bind(e), deleteTime));
+  if (!opponent.bot) return msg.reply(lang('newChallenge', userMention(opponent.id))).then(e => setTimeout(e.delete.bind(e), deleteTime));
 };

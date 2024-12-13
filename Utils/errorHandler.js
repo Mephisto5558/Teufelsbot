@@ -1,16 +1,17 @@
 const
-  fetch = require('node-fetch').default,
-  { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction, codeBlock, hyperlink, inlineCode } = require('discord.js'),
+  fetch = import('node-fetch').then(e => e.default),
   { msInSecond, secsInMinute } = require('./timeFormatter.js'),
+  { JSON_SPACES } = require('./constants'),
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
   cwd = process.cwd();
 
-/** @type {import('.').errorHandler}*/
-/* eslint-disable-next-line unicorn/no-useless-undefined -- lang is optional and doesn't have a default value.*/
+/** @type {import('.').errorHandler} */
+/* eslint-disable-next-line unicorn/no-useless-undefined -- lang is optional and doesn't have a default value. */
 module.exports = async function errorHandler(err, context = [], lang = undefined) {
   const
 
-    /** @type {Record<string, unknown>}*/
+    /** @type {Record<string, unknown>} */
     contextData = (!Array.isArray(context) && context !== undefined ? [context] : context).reduce((acc, e) => {
       acc[e?.constructor.name ?? Date.now().toString()] = e; // `Date.now` to prevent overwriting on multiple `undefined`
       return acc;
@@ -20,10 +21,9 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
 
   /**
    * @param {string}_
-   * @param {Record<string, unknown>}v*/
+   * @param {bigint | Record<string, unknown> | undefined}v */
   function stringifyReplacer(_, v) {
     if (typeof v == 'bigint') return v.toString();
-    /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive*/
     if (v != undefined && typeof v === 'object') {
       if (seen.has(v)) return '[Circular]';
       seen.add(v);
@@ -46,7 +46,7 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
     { aliasOf } = this.slashCommands.get(message.commandName) ?? this.prefixCommands.get(message.commandName) ?? {},
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', { command: aliasOf ? this.slashCommands.get(aliasOf)?.name ?? this.prefixCommands.get(aliasOf)?.name : message.commandName }),
+      description: lang('embedDescription', inlineCode(aliasOf ? this.slashCommands.get(aliasOf)?.name ?? this.prefixCommands.get(aliasOf)?.name : message.commandName)),
       footer: { text: lang('embedFooterText') },
       color: Colors.DarkRed
     }),
@@ -77,7 +77,7 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
             'User-Agent': `Bot ${github.repo}`
           },
           title = `${err.name}: "${err.message}" in ${message.inGuild() ? '' : 'DM '}command "${message.commandName}"`,
-          issues = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
+          issues = await (await fetch)(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
             method: 'GET', headers
           }),
 
@@ -87,12 +87,12 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
         if (!issues.ok) throw new Error(JSON.stringify(issuesJson));
 
         if (issuesJson.filter(e => e.title == title && e.state == 'open').length) {
-          embed.data.description = lang('alreadyReported', issuesJson[0].html_url);
+          embed.data.description = lang('alreadyReported', hyperlink(lang('link'), issuesJson[0].html_url));
           return msg.edit({ embeds: [embed], components: [] });
         }
 
         const
-          res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
+          res = await (await fetch)(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
             headers, method: 'POST',
             body: JSON.stringify({
               title, body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack.replaceAll(cwd, '[cwd]')}`,
@@ -100,12 +100,12 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
             })
           }),
 
-          /** @type {{ html_url: string }}*/
+          /** @type {{ html_url: string }} */
           json = await res.json();
 
         if (!res.ok) throw new Error(JSON.stringify(json));
 
-        const files = Object.entries(contextData).map(([k, v]) => new AttachmentBuilder(Buffer.from(JSON.stringify(v, stringifyReplacer, 2)), { name: `${k.toLowerCase()}.json` }));
+        const files = Object.entries(contextData).map(([k, v]) => new AttachmentBuilder(Buffer.from(JSON.stringify(v, stringifyReplacer, JSON_SPACES)), { name: `${k.toLowerCase()}.json` }));
 
         for (const devId of devIds) {
           try { await (await this.users.fetch(devId)).send({ content: json.html_url, files }); }
@@ -116,14 +116,14 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
         }
 
         /* eslint-disable-next-line unicorn/no-null -- `null` must be used here, as `undefined` is interpreted as 'Keep current data' */
-        return msg.edit({ embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', json.html_url))], components: [] });
+        return msg.edit({ embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', hyperlink(lang('link'), json.html_url)))], components: [] });
       }
       catch (err) {
         log.error('Failed to report an error:', err.stack);
 
         msg.edit({ components: [] }).catch(() => { /* empty */ });
 
-        return message.customReply(lang('reportFail', err?.message ?? 'unknown error'));
+        return message.customReply(lang('reportFail', codeBlock(err?.message ?? 'unknown error')));
       }
     })
     .on('end', collected => {

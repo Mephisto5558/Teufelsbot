@@ -1,9 +1,8 @@
-const { getTargetMember, constants: { memberNameMaxLength } } = require('#Utils');
+const { getTargetMember, constants: { memberNameMinLength, memberNameMaxLength }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils');
 
 module.exports = new MixedCommand({
   aliases: { prefix: ['custom-name'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { user: 3e4 },
+  cooldowns: { user: msInSecond * secsInMinute / 2 }, // 30s
   dmPermission: true,
   premium: true,
   options: [
@@ -14,8 +13,8 @@ module.exports = new MixedCommand({
         new CommandOption({
           name: 'name',
           type: 'String',
-          minLength: 2,
-          maxLength: 32,
+          minLength: memberNameMinLength,
+          maxLength: memberNameMaxLength,
           required: true
         }),
         new CommandOption({ name: 'global', type: 'Boolean' })

@@ -1,12 +1,11 @@
 const
-  { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants } = require('discord.js'),
-  { DiscordApiErrorCodes, constants: { messageMaxLength, msInSecond } } = require('#Utils'),
-  MODALSUBMIT_TIMEOUT = msInSecond * 30; /* eslint-disable-line custom/sonar-no-magic-numbers */
+  { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants, codeBlock, hyperlink } = require('discord.js'),
+  { DiscordApiErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
+  MODALSUBMIT_TIMEOUT = msInSecond * secsInMinute / 2; // 30s
 
 module.exports = new SlashCommand({
   permissions: { user: ['ManageMessages'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { user: 5000 },
+  cooldowns: { user: msInSecond * 5 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
   noDefer: true,
   options: [
     new CommandOption({
@@ -40,7 +39,7 @@ module.exports = new SlashCommand({
       }),
       clear = this.options.getBoolean('remove_attachments');
 
-    /** @type {Message?}*/
+    /** @type {Message?} */
     let msg, modalInteraction;
     try { msg = await this.options.getChannel('channel', true).messages.fetch(this.options.getString('message_id', true)); }
     catch (err) {
@@ -61,7 +60,7 @@ module.exports = new SlashCommand({
     await modalInteraction.deferReply({ ephemeral: true });
     const content = modalInteraction.fields.getTextInputValue('newContent_text');
 
-    /** @type {Record<string, unknown>}*/
+    /** @type {import('discord.js').APIEmbed & { content: string }} */
     let json = {};
 
     try {
@@ -77,11 +76,11 @@ module.exports = new SlashCommand({
       await msg.edit(clear ? { content: '', embeds: [], attachments: [], files: [], components: [], ...json } : json);
     }
     catch (err) {
-      if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', err.message));
+      if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', codeBlock(err.message)));
     }
 
     if (!json.__count__) await msg.edit(clear ? { content: content.slice(0, messageMaxLength + 1), embeds: [], attachments: [], files: [], components: [] } : content.slice(0, messageMaxLength));
 
-    return modalInteraction.editReply(lang('success', msg.url));
+    return modalInteraction.editReply(lang('success', hyperlink(lang('link'), msg.url)));
   }
 });

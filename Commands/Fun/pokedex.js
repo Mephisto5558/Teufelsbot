@@ -1,8 +1,9 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection } = require('discord.js'),
-  fetch = require('node-fetch').default,
+  fetch = import('node-fetch').then(e => e.default),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
   INCHES_IN_FEET = 12,
+  CENTIMETERS_IN_METER = 100,
   CENTIMETERS_IN_INCH = 2.54,
   KILOGRAMS_IN_POUND = 2.205,
 
@@ -25,7 +26,7 @@ module.exports = new MixedCommand({
 
     let res = cache.get(pokemon.toLowerCase());
     if (!res) {
-      try { res = (await fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(e => e.json()))?.[0]; }
+      try { res = (await (await fetch)(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(e => e.json()))?.[0]; }
       catch (err) {
         if (err.type != 'invalid-json') throw err;
         return msg.edit(lang('invalidJson'));
@@ -36,7 +37,7 @@ module.exports = new MixedCommand({
           [feet, inches] = res.height.split('\'').map(e => Number.parseFloat(e)),
           height = (feet * INCHES_IN_FEET + (inches || 0)) * CENTIMETERS_IN_INCH;
 
-        res.height = height < 100 ? `${height}cm` : `${Number.parseFloat((height / 100).toFixed(2))}m`;
+        res.height = height < CENTIMETERS_IN_METER ? `${height}cm` : `${Number.parseFloat((height / CENTIMETERS_IN_METER).toFixed(2))}m`;
 
         if (res.name) cache.set(res.name.toLowerCase(), res);
       }

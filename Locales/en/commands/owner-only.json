@@ -12,8 +12,8 @@
       }
     },
     "notFound": "Found no entry for this id.",
-    "saved": "`{user}` has been blacklisted from using the bot.",
-    "removed": "The blacklist entry for `{user}` has been removed.",
+    "saved": "{user} has been blacklisted from using the bot.",
+    "removed": "The blacklist entry for {user} has been removed.",
     "cantBlacklistDev": "I can't blacklist a developer of the bot!"
   },
   "dbget": {
@@ -43,7 +43,7 @@
         "description": "The JavaScript code to evaluate"
       }
     },
-    "finished": "evaluated command:\n```js\n{code}\n```\n",
+    "finished": "evaluated command:\n{code}\n",
     "success": "{msg} without errors.",
     "emptyRejection": "Empty Promise Rejection",
     "error": "{msg} with the following error:\n```\n{name}: {err}\n```"
@@ -59,9 +59,9 @@
       "usage": "<sh code>",
       "examples": "echo 'Hello World!'"
     },
-    "finished": "Evaluated bash command:\n```sh\n{code}\n```\n",
-    "stdout": "{msg} with following output:\nstdout:\n```\n{stdout}\n```\n",
-    "stderr": "stderr:\n```\n{stderr}\n```",
+    "finished": "Evaluated bash command:\n{code}\n",
+    "stdout": "{msg} with following output:\nstdout:\n{stdout}\n",
+    "stderr": "stderr:\n{stderr}",
     "error": "{msg} with the following error:\n```\n{name}: {err}\n```"
   },
   "reload": {
@@ -77,9 +77,9 @@
     },
     "invalidCommand": "This is not a valid command.",
     "invalidPath": "The specified path does not exist! Please note the case sensitivity of the path.",
-    "error": "An error occurred while reloading:\n```{error}```\nCheck the console for more information.",
+    "error": "An error occurred while reloading:\n{error}\nCheck the console for more information.",
     "noneReloaded": "No commands have been reloaded.",
-    "reloaded": "The following `{count}` command(s) has/have been reloaded:\n{commands}"
+    "reloaded": "The following {count} command(s) has/have been reloaded:\n{commands}"
   },
   "reloadconfig": {
     "description": "Reloads the config.json file",
@@ -117,7 +117,7 @@
         "description": "The activity's type"
       }
     },
-    "set": "My activity has been set to `{name}` of type `{type}`.",
+    "set": "My activity has been set to {name} of type {type}.",
     "reset": "My activity has been set to `none`."
   },
   "setchangelog": {
@@ -132,12 +132,15 @@
     },
     "invalidNumber": "The provided number is invalid!",
     "unknownChannel": "The provided channel id has not been found in this guild!",
-    "success": "Counting for <#{channel}> has been set to **{number}**."
+    "success": "Counting for {channel} has been set to {number}."
   },
   "test": {
     "description": "testing stuff"
   },
   "todo": {
-    "description": "Get the links to the bot dev's todo lists."
+    "description": "Get links to the developer's todo list(s).",
+    "list": "ToDo Excel",
+    "website": "Voting Website",
+    "discordNotes": "Dev notes in the support server"
   }
 }

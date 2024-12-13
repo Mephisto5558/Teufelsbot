@@ -1,10 +1,11 @@
-module.exports = {
+const utils = {
   afk: require('./afk.js'),
   autocompleteGenerator: require('./autocompleteGenerator.js'),
   BackupSystem: require('./backupSystem.js'),
   checkForErrors: require('./checkForErrors.js'),
   checkTargetManageable: require('./checkTargetManageable.js'),
   commandExecutionWrapper: require('./commandExecutionWrapper.js'),
+  commandMention: require('./commandMention.js'),
   componentHandler: require('./componentHandler.js'),
   configValidator: require('./configValidator.js'),
   constants: require('./constants.js'),
@@ -28,3 +29,5 @@ module.exports = {
   timeFormatter: require('./timeFormatter.js'),
   timeValidator: require('./timeValidator.js')
 };
+
+module.exports = utils;

@@ -1,11 +1,11 @@
 const
-  { EmbedBuilder, Colors, ImageFormat } = require('discord.js'),
+  { EmbedBuilder, Colors, ImageFormat, ALLOWED_SIZES } = require('discord.js'),
   { Canvas, loadImage } = require('skia-canvas'),
-  { getTargetMember } = require('#Utils');
+  { getTargetMember, timeFormatter: { msInSecond } } = require('#Utils'),
+  IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 module.exports = new MixedCommand({
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { user: 2000 },
+  cooldowns: { user: msInSecond * 2 },
   options: [
     new CommandOption({
       name: 'base',
@@ -35,18 +35,18 @@ module.exports = new MixedCommand({
     });
 
     if (base.id == overlay.id) {
-      embed.data.image = { url: type == 'server' ? base.displayAvatarURL({ forceStatic: true, size: 512 }) : base.user.avatarURL({ forceStatic: true, size: 512 }) };
+      embed.data.image = { url: type == 'server' ? base.displayAvatarURL({ forceStatic: true, size: IMAGE_SIZE }) : base.user.avatarURL({ forceStatic: true, size: IMAGE_SIZE }) };
       return this.customReply({ embeds: [embed] });
     }
 
     const
       msg = await this.customReply({ embeds: [embed.setDescription(lang('global.loading', getEmoji('loading')))] }),
-      baseAvatar = await loadImage((type == 'server' ? base : base.user).displayAvatarURL({ extension: ImageFormat.PNG, size: 512 })),
-      overlayAvatar = await loadImage(overlay.displayAvatarURL({ extension: ImageFormat.PNG, size: 512 })),
+      baseAvatar = await loadImage((type == 'server' ? base : base.user).displayAvatarURL({ extension: ImageFormat.PNG, size: IMAGE_SIZE })),
+      overlayAvatar = await loadImage(overlay.displayAvatarURL({ extension: ImageFormat.PNG, size: IMAGE_SIZE })),
       canvas = new Canvas(baseAvatar.width, baseAvatar.height),
       ctx = canvas.getContext('2d');
 
-    ctx.globalAlpha = 0.5;
+    ctx.globalAlpha = 0.5; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
     ctx.drawImage(baseAvatar, 0, 0);
     ctx.drawImage(overlayAvatar, 0, 0, baseAvatar.width, baseAvatar.height);
 

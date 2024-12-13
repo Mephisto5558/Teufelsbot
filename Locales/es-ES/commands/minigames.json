@@ -24,16 +24,16 @@
       "embedTitle": "¡Este canal es ahora un canal de cuenta!",
       "embedDescription": "Las reglas son simples:\n> Comenzar con **1**.\n> Añade **1** al último número\n> No puedes contar dos números seguidos\n¡Diviértete!",
       "by": "Añadido como canal de recuento por {user}",
-      "success": "Añadí con éxito <#{channel}> como canal de conteo."
+      "success": "Añadí con éxito {channel} como canal de conteo."
     },
     "removed": {
       "embedDescription": "¡Este canal ya no es un canal de cuento!",
       "by": "Eliminado por {user}",
-      "success": "He eliminado con éxito <#{channel}> como canal de conteo."
+      "success": "He eliminado con éxito {channel} como canal de conteo."
     },
     "userDeletedMsg": {
       "embedTitle": "Contando",
-      "embedDescription": "Número eliminado: **{deletedNum}**\nSiguiente Número: **{nextNum}**",
+      "embedDescription": "Número eliminado: {deletedNum}\nSiguiente Número: {nextNum}",
       "unknown": "Autor desconocido"
     }
   },
@@ -91,13 +91,13 @@
         }
       }
     },
-    "games": "Juegos: `{games}`\n\n",
+    "games": "Juegos: {games}\n\n",
     "wins": "Victorias: {wins}\n",
     "losses": "Pérdidas: {losses}\n",
     "draws": "Dibujos: {draws}\n\n",
     "noOne": "nadie\n",
     "missingGameArg": "¡Necesitas darme un `juego` como el primer argumento!",
-    "notFound": "Esta no es una entrada de juego válida. Los juegos válidos son:\n`{list}`",
+    "notFound": "Esta no es una entrada de juego válida. Los juegos válidos son:\n{list}",
     "wonAgainst": "Victorias contra:\n",
     "lostAgainst": "Perdido contra:\n",
     "drewAgainst": "En contra:\n",
@@ -121,25 +121,25 @@
       "opponentIsBot": "¡No puedes retar a los bots!",
       "opponentIsSelf": "¡No puedes desafiarte a ti mismo!",
       "embedTitle": "Piedra de papel tijeras",
-      "embedDescription": "**{user}** te ha desafiado a un duelo!",
+      "embedDescription": "{user} te ha desafiado a un duelo!",
       "botEmbedDescription": "¡Me has desafiado a un duelo!",
       "start": "Comenzar",
       "accept": "Aceptar",
       "decline": "Rechazar",
-      "newChallenge": "<@{user}> :crossed_swords: Nuevo desafío en duelo"
+      "newChallenge": "{user} :crossed_swords: Nuevo desafío en duelo"
     },
     "memberNotFound": "Al menos uno de los jugadores no ha sido encontrado!",
-    "canceled": ":x: `{initiator}` ha retirado su desafío.",
-    "declined": ":x:{opponent}` no se levanta al reto.",
+    "canceled": ":x: {initiator} ha retirado su desafío.",
+    "declined": ":x: {opponent} no se levanta al reto.",
     "accept": {
-      "embedTitle": ":game_die: `{player1}` **VS** `{player2}",
+      "embedTitle": ":game_die: {player1} **VS** {player2}",
       "embedDescription": "¡Selecciona tu objeto!"
     },
     "end": {
       "alreadyChosen": "¡Ya has seleccionado {move}! Por favor espera a que tu oponente elija.",
       "saved": "¡Su selección ha sido guardada!",
       "tie": "Nadie ha ganado el juego, ¡es un empate! {emoji} = {emoji}",
-      "win": ":tada: <@{winner}> ganó el juego! {winEmoji} > {loseEmoji}"
+      "win": ":tada: {winner} ganó el juego! {winEmoji} > {loseEmoji}"
     }
   },
   "tictactoe": {
@@ -149,6 +149,6 @@
         "description": "¿A quién quieres jugar de nuevo?"
       }
     },
-    "newChallenge": "<@{user}> :crossed_swords: Nuevo desafío en duelo"
+    "newChallenge": "{user} :crossed_swords: Nuevo desafío en duelo"
   }
 }

@@ -6,7 +6,7 @@ const
 /**
  * @param {Error | undefined}err
  * @returns {boolean} `true` if no err is given, `false` on specific error codes
- * @throws {DiscordAPIError}if the error is not a DiscordAPIError**/
+ * @throws {DiscordAPIError}if the error is not a DiscordAPIError* */
 function handleError(err) {
   if (!err) return true;
   if (!(err instanceof DiscordAPIError)) throw err;
@@ -15,10 +15,10 @@ function handleError(err) {
   return ![DiscordAPIErrorCodes.UnknownInteraction, DiscordAPIErrorCodes.InvalidWebhookTokenProvided].includes(err.code);
 }
 
-/** @type {import('.').customReply}*/
+/** @type {import('.').customReply} */
 
 module.exports = async function customReply(options, deleteTime, allowedMentions) {
-  /** @type {Message|undefined}*/
+  /** @type {Message | undefined} */
   let msg;
 
   if (typeof options != 'object') options = { content: options };
@@ -26,8 +26,16 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
 
   options.allowedMentions ??= allowedMentions ?? { repliedUser: false };
 
-  if (options.content?.length > messageMaxLength) {
-    options.files = [...options.files ?? [], new AttachmentBuilder(Buffer.from(options.content), { name: 'response.txt' })];
+  if (options.content && options.content.length > messageMaxLength) {
+    const match = /```(?<ext>\n?\w+\n)?(?<code>.*?)\n?```/.exec(options.content); // matches one code block, it's code, and the language (extention) it is in.
+
+    options.files = [
+      ...options.files ?? [],
+      match?.[0].length == options.content.length
+        ? new AttachmentBuilder(Buffer.from(match.groups.code), { name: `content.${match.groups.ext}` })
+        : new AttachmentBuilder(Buffer.from(options.content), { name: 'content.txt' })
+    ];
+
     delete options.content;
   }
 

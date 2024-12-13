@@ -1,11 +1,14 @@
+const { hyperlink, channelLink } = require('discord.js');
+
 module.exports = new PrefixCommand({
   dmPermission: true,
 
-  async run() {
+  async run(lang) {
     return this.reply(
-      `[ToDo excel](<${this.client.config.website.domain}/todo>), `
-      + `[Voting page](<${this.client.config.website.domain}/vote>), `
-      + '[Notes in the support server](<https://discord.com/channels/1011956895529041950/1183014623507656745>)'
+      hyperlink(lang('list'), `<${this.client.config.website.domain}/todo>`)
+      /* eslint-disable-next-line sonarjs/no-incorrect-string-concat -- is correct */
+      + hyperlink(lang('website'), `<${this.client.config.website.domain}/vote>`)
+      + hyperlink(lang('discordNotes'), `<${channelLink('1183014623507656745', '1011956895529041950')}>`)
     );
   }
 });

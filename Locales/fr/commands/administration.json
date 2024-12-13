@@ -45,7 +45,7 @@
       "stickers": "{emoji} Enregistrement des autocollants...",
       "channels": "{emoji} Enregistrement des canaux, des fils et des messages...",
       "images": "{emoji} Saving icon, splash, and banner...",
-      "success": "La sauvegarde avec l'ID {id} a été créée avec succès !\nUtilisez </serverbackup get:{cmdId}> pour plus d'informations sur la sauvegarde."
+      "success": "La sauvegarde avec l'ID {id} a été créée avec succès !\nUtilisez {cmd} pour plus d'informations sur la sauvegarde."
     },
     "clear": {
       "items": "{emoji} Suppression des émoticônes, des autocollants et des rôles...",
@@ -76,9 +76,9 @@
       "success": "Sauvegarde supprimée avec succès !"
     },
     "get": {
-      "oneEmbedDescription": "Informations sur la sauvegarde {id}\n>>> Créée à: <t:{createdAt}>\nTaille : {size}\nMembres : {members}\nCanaux : {channels}\nRôles : {roles}\nÉmojis: {emojis}\nAutocollants : {stickers}",
+      "oneEmbedDescription": "Informations sur la sauvegarde {id}\n>>> Créée à: {createdAt}\nTaille : {size}\nMembres : {members}\nCanaux : {channels}\nRôles : {roles}\nÉmojis: {emojis}\nAutocollants : {stickers}",
       "oneNotFound": "Aucune sauvegarde n'a été trouvée avec cet ID !",
-      "infos": "Créé à: <t:{createdAt}>\nTaille : {size}\nMembres : {members}\nChaînes : {channels}\nRôles : {roles}\nÉmoticônes : {emojis}\nAutocollants : {stickers}",
+      "infos": "Créé à: {createdAt}\nTaille : {size}\nMembres : {members}\nChaînes : {channels}\nRôles : {roles}\nÉmoticônes : {emojis}\nAutocollants : {stickers}",
       "found": "{amount} sauvegardes trouvées.",
       "embedDescription": "Les sauvegardes suivantes ont été trouvées, triées par date:",
       "noneFound": "Aucune sauvegarde n'a été trouvée pour ce serveur."
@@ -232,7 +232,7 @@
       }
     },
     "toggleModule": {
-      "success": "Le module `{name}` a été {state}."
+      "success": "Le module {name} a été {state}."
     },
     "toggleCommand": {
       "notFound": "Ce n'est pas une commande valide !",
@@ -241,14 +241,14 @@
         "embedTitle": "Rôles/canaux/membres interdits pour la commande {command}",
         "embedDescription": "Aucun rôle, salon ou membre n'est actuellement pas autorisé."
       },
-      "enabled": "La commande `{command}` est maintenant activée.",
-      "disabled": "La commande `{command}` est maintenant désactivée.",
-      "isDisabled": "La commande `{command}` est désactivée pour tous les membres. Vous pouvez la réactiver en exécutant </setup toggle_command:{id}> sans spécifier aucun rôle, salon ou membre.",
+      "enabled": "La commande {command} est maintenant activée.",
+      "disabled": "La commande {command} est maintenant désactivée.",
+      "isDisabled": "La commande {command} est désactivée pour tous les membres. Vous pouvez la réactiver en exécutant {commandMention} sans spécifier aucun rôle, salon ou membre.",
       "roles": "Rôles",
       "channels": "Canaux",
       "users": "Membres",
       "embedTitle": "Paramètres de commande mis à jour pour \"{commandName}\"",
-      "embedDescription": "Le nombre de rôles/canaux/membres suivants ont été changés:\n||Voir tous les rôles/canaux/membres interdits en utilisant </setup toggle_command:{id}> avec l'option `get`.||\n",
+      "embedDescription": "Le nombre de rôles/canaux/membres suivants ont été changés:\n||Voir tous les rôles/canaux/membres interdits en utilisant {commandMention} avec l'option `get`.||\n",
       "embed": {
         "enabled": "Supprimé (autorisé)",
         "disabled": "Ajouté (rejeté)"
@@ -256,10 +256,10 @@
     },
     "language": {
       "embedTitle": "Langue du bot modifiée !",
-      "embedDescription": "Les prochains messages seront dans `{lang}`."
+      "embedDescription": "Les prochains messages seront dans {lang}."
     },
     "prefix": {
-      "saved": "Mon préfixe a été changé en `{prefix}`."
+      "saved": "Mon préfixe a été changé en {prefix}."
     },
     "serverbackup": {
       "success": "Successfully updated the settings!"
@@ -270,7 +270,7 @@
     "logger": {
       "noChannel": "Vous n'avez pas spécifié de salon textuel vers lequel envoyer le log !",
       "noEnabled": "Vous devez utiliser l'option `enabled` pour définir toutes les actions en même temps!",
-      "enabled": "Les journaux pour {action} seront envoyés à <#{channel}>.",
+      "enabled": "Les journaux pour {action} seront envoyés à {channel}.",
       "disabled": "Les journaux pour {action} ne seront plus envoyés.",
       "actions": {
         "all": "toutes les actions",
@@ -288,7 +288,7 @@
       "previewButtonLabel": "Aperçu de l'intégration",
       "saveButtonLabel": "Enregistrer l'intégration",
       "textInputLabel": "Veuillez entrer le JSON intégré.",
-      "invalidEmbed": "Le JSON embarqué fourni est invalide :\n```{err}```"
+      "invalidEmbed": "Le JSON embarqué fourni est invalide :\n{err}"
     }
   }
 }

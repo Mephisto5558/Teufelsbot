@@ -1,11 +1,11 @@
 const
-  { Constants, PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
+  { Constants, PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder, roleMention, userMention } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
-  { timeValidator } = require('#Utils'),
+  { timeValidator, timeFormatter: { msInSecond } } = require('#Utils'),
 
   /**
    * @typedef {{ bonusEntries?: Record<string, string>[], requiredRoles?: string[], disallowedMembers?: string[], duration?: number, giveawayId?: string }}options
-   * @type {Record<string, (this: GuildInteraction, lang: lang, components: ActionRowBuilder<ButtonBuilder>[], options: options) => Promise<Message>>}*/
+   * @type {Record<string, (this: GuildInteraction, lang: lang, components: ActionRowBuilder<ButtonBuilder>[], options: options) => Promise<Message>>} */
   giveawayMainFunctions = {
     async create(lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration }) {
       const
@@ -25,8 +25,8 @@ const
             giveawayEnded: lang('giveawayEnded'),
             inviteToParticipate:
               `${this.options.getString('description', true)}\n\n`
-              + (requiredRoles?.length > 0 ? lang('requiredRoles', `<@&${requiredRoles.join('>, <@&')}>\n`) : '')
-              + (disallowedMembers?.length > 0 ? lang('disallowedMembers', `<@${disallowedMembers.join('< <@')}>\n`) : '')
+              + (requiredRoles?.length > 0 ? lang('requiredRoles', `${requiredRoles.map(roleMention).join(', ')}\n`) : '')
+              + (disallowedMembers?.length > 0 ? lang('disallowedMembers', `${disallowedMembers.map(userMention).join(', ')}\n`) : '')
               + lang('inviteToParticipate', reaction),
             winMessage: { content: lang('winMessage'), components },
             drawing: lang('drawing'),
@@ -45,7 +45,7 @@ const
 
       if (requiredRoles?.length > 0 || disallowedMembers.length > 0)
 
-        /** @param {import('discord.js').GuildMember}member*/
+        /** @param {import('discord.js').GuildMember}member */
         startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
 
       await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions).then(data => {
@@ -73,7 +73,7 @@ const
       };
 
       if (requiredRoles?.length > 0 || disallowedMembers.length > 0) {
-      /** @param {import('discord.js').GuildMember}member*/
+      /** @param {import('discord.js').GuildMember}member */
         editOptions.newExemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
       }
       if (bonusEntries?.length > 0) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
@@ -102,7 +102,7 @@ const
 
 module.exports = new SlashCommand({
   permissions: { user: ['ManageMessages'] },
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   ephemeralDefer: true,
   options: [
     new CommandOption({

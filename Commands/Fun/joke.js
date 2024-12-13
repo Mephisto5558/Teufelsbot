@@ -1,8 +1,8 @@
 const
-  { default: fetch, FetchError } = require('node-fetch'),
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  fetch = import('node-fetch').then(e => ({ fetch: e.default, AbortError: e.AbortError, FetchError: e.FetchError })),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink } = require('discord.js'),
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
-  { messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED } = require('#Utils').constants,
+  { constants: { messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED }, timeFormatter: { msInSecond } } = require('#Utils'),
   TIMEOUT = 2500,
   defaultAPIList = [
     { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any?lang=en&blacklist={blacklist}' },
@@ -18,7 +18,7 @@ const
  * @param {string} blacklist
  * @param {string} apiKey
  * @param {string} maxLength
- * @param {string} includeTags*/
+ * @param {string} includeTags */
 function formatAPIUrl(url, blacklist, apiKey, maxLength, includeTags) {
   return url
     .replaceAll('{blacklist}', blacklist)
@@ -27,27 +27,28 @@ function formatAPIUrl(url, blacklist, apiKey, maxLength, includeTags) {
     .replaceAll('{includeTags}', includeTags);
 }
 
-const defaultMaxLength = 2000;
-
 /**
  * @this {Client}
  * @param {{ name: string, link: string, url: string }[]}apiList
  * @param {string}type
  * @param {string}blacklist
  * @param {number?}maxLength
- * @returns {[string, { name: string, link: string, url: string }] | []}*/
-async function getJoke(apiList = [], type = '', blacklist = '', maxLength = defaultMaxLength) {
+ * @returns {[string, { name: string, link: string, url: string }] | []} */
+async function getJoke(apiList = [], type = '', blacklist = '', maxLength = messageMaxLength) {
   const api = apiList.random();
   let response;
 
   try {
+    const timeoutSignal = new AbortController();
+    setTimeout(() => timeoutSignal.abort(), TIMEOUT);
+
     /** @type {{type?: string, joke?: string, setup?: string, delivery?: string}} */
-    const res = await fetch(formatAPIUrl(api.url, blacklist, this.keys.humorAPIKey, maxLength, type), {
+    const res = await (await fetch).fetch(formatAPIUrl(api.url, blacklist, this.keys.humorAPIKey, maxLength, type), {
       headers: {
         'User-Agent': `Discord bot (${this.config.github.repo})`,
         Accept: 'application/json'
       },
-      timeout: TIMEOUT
+      signal: timeoutSignal
     }).then(e => e.json());
 
     switch (api.name) {
@@ -59,9 +60,9 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = defa
   catch (err) {
     if ([HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN, HTTP_STATUS_CLOUDFLARE_BLOCKED].includes(err.status))
       log.error('joke.js: ', err.response);
-    else if (err instanceof FetchError)
+    else if (err instanceof (await fetch).FetchError)
       log.error(`joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.name} ${err.code ? ', ' + err.code : ''}: ${err.message}`);
-    else throw err;
+    else if (!(err instanceof (await fetch).AbortError)) throw err;
   }
 
   if (typeof response == 'string') return [response.replaceAll('`', '\''), api];
@@ -72,7 +73,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = defa
 
 module.exports = new MixedCommand({
   usage: { examples: 'dadjoke' },
-  cooldowns: { channel: 100 },
+  cooldowns: { channel: msInSecond / 10 },
   dmPermission: true,
   options: [
     new CommandOption({
@@ -108,7 +109,7 @@ module.exports = new MixedCommand({
     const
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: `${joke}\n- [${api.name}](${api.link})`
+        description: `${joke}\n- ${hyperlink(api.name, api.link)}`
       }).setColor('Random'),
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({

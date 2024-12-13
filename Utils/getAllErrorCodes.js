@@ -1,10 +1,11 @@
 const
-  fetch = require('node-fetch').default,
-  { writeFile } = require('node:fs/promises');
+  fetch = import('node-fetch').then(e => e.default),
+  { writeFile } = require('node:fs/promises'),
+  { JSON_SPACES } = require('./constants');
 
-/** Writes all error codes to a file*/
+/** Writes all error codes to a file */
 module.exports = async function fetchAndProcess() {
-  const res = await fetch('https://gist.githubusercontent.com/Dziurwa14/de2498e5ee28d2089f095aa037957cbb/raw/codes.md').then(e => e.text());
+  const res = await (await fetch)('https://gist.githubusercontent.com/Dziurwa14/de2498e5ee28d2089f095aa037957cbb/raw/codes.md').then(e => e.text());
   const codes = res.split('\n').reduce((acc, line) => {
     const [code, description] = line.replaceAll(/^\|\s|\|$|[',`’]|[(.:].*/g, '').split(' | ');
 
@@ -17,5 +18,5 @@ module.exports = async function fetchAndProcess() {
     return acc;
   }, {});
 
-  return writeFile('./Utils/DiscordAPIErrorCodes.json', JSON.stringify(codes, undefined, 2));
+  return writeFile('./Utils/DiscordAPIErrorCodes.json', JSON.stringify(codes, undefined, JSON_SPACES));
 };

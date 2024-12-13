@@ -21,10 +21,10 @@ module.exports = new MixedCommand({ // or `SlashCommand` or `PrefixCommand`
   }
 });
 
-// do not copy anything below, that are just explanations.
-// strictAutocomplete makes it like choices but without max. options
-// subcommand groups and subcommands can have cooldowns as well (subcommand group, subcommand and normal command cooldown are checked)
-/** @type {CommandOption}*/
+/* do not copy anything below, that are just explanations.
+   strictAutocomplete makes it like choices but without max. options
+   subcommand groups and subcommands can have cooldowns as well (subcommand group, subcommand and normal command cooldown are checked) */
+/** @type {CommandOption} */
 const options = [{
   name: '',
   type: 'Subcommand',

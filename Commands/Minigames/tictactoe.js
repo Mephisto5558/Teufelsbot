@@ -1,14 +1,15 @@
 const
+  { userMention } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
-  { getTargetMember, timeFormatter: { secsInMinute } } = require('#Utils'),
-  CHALLENGE_DELETE_TIME = 5000; // 5s
+  { getTargetMember, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
+  CHALLENGE_DELETE_TIME = msInSecond * 5; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
 
 /**
  * @this {GuildInteraction}
  * @param {import('discord.js').GuildMember[]}players
- * @param {('win'|'lose'|'draw')[]}types
+ * @param {('win' | 'lose' | 'draw')[]}types
  * @param {lang}lang
- * @param {TicTacToe}game*/
+ * @param {import('../../types/globals').TicTacToe}game */
 async function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
   if (player1.id == this.client.user.id || player2.id == this.client.user.id) return;
 
@@ -20,8 +21,8 @@ async function eventCallback([player1, player2], [type1, type2 = type1], lang, g
 /**
  * @param {string}firstID
  * @param {string}secondID
- * @param {'win'|'lose'|'draw'}type
- * @param {Client['db']}db*/
+ * @param {'win' | 'lose' | 'draw'}type
+ * @param {Client['db']}db */
 async function updateStats(firstID, secondID, type, db) {
   const stats = db.get('leaderboards', `TicTacToe.${firstID}`) ?? {};
   let against;
@@ -41,8 +42,7 @@ async function updateStats(firstID, secondID, type, db) {
 
 module.exports = new SlashCommand({
   aliases: { prefix: ['ttt'], slash: ['ttt'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { user: 5000 },
+  cooldowns: { user: msInSecond * 5 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
   options: [new CommandOption({ name: 'opponent', type: 'User' })],
 
   async run(lang) {
@@ -55,7 +55,7 @@ module.exports = new SlashCommand({
         commandOptionName: gameTarget == this.client.user.id ? 'thisOptionWillNotGetUsed' : 'opponent'
       });
 
-    if (gameTarget) void this.channel.send(lang('newChallenge', gameTarget)).then(msg => setTimeout(() => msg.delete(), CHALLENGE_DELETE_TIME));
+    if (gameTarget) void this.channel.send(lang('newChallenge', userMention(gameTarget))).then(msg => setTimeout(() => msg.delete(), CHALLENGE_DELETE_TIME));
 
     game.on('win', data => eventCallback.call(this, [data.winner, data.loser], ['win', 'lose'], lang, game));
     game.on('tie', data => eventCallback.call(this, data.players, ['draw'], lang, game));

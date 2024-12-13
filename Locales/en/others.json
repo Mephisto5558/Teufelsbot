@@ -62,14 +62,15 @@
   },
   "errorHandler": {
     "embedTitle": "Whoooops",
-    "embedDescription": "An unexpected error occurred!\n\nCommand: `{command}`",
+    "embedDescription": "An unexpected error occurred!\n\nCommand: {command}",
     "embedFooterText": "Reporting this error will send the command options privately to the dev.",
     "reportButton": "Report this Error",
     "reportButtonDisabled": " (Disabled due to dev version)",
     "discordAPIErr": "A Discord API Error occurred, please try again and message the dev if this keeps happening.",
-    "alreadyReported": "This error has already been reported. [Link]({url}).\nIt will be fixed soon.",
-    "reportSuccess": "The error has been reported. [Link]({url})",
-    "reportFail": "An error occurred while trying to send your error report.\n```\n{err}\n```\nPlease message the dev directly."
+    "link": "Link",
+    "alreadyReported": "This error has already been reported. {link}.\nIt will be fixed soon.",
+    "reportSuccess": "The error has been reported. {link}",
+    "reportFail": "An error occurred while trying to send your error report.\n{err}\nPlease message the dev directly."
   },
   "timeFormatter": {
     "ydhms": "{year} years, {day} days, {hour} hours, {minute} minutes and {second} seconds",
@@ -80,7 +81,7 @@
   },
   "timeEvents": {
     "birthday": {
-      "unknownChannel": "INFO: The channel configured for the birthday feature in guild `{guild}` does not exist! Please re-configure it so i can send birthday messages!"
+      "unknownChannel": "INFO: The channel configured for the birthday feature in guild {guild} does not exist! Please re-configure it so i can send birthday messages!"
     }
   },
   "getCommands": {

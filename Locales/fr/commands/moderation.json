@@ -18,14 +18,14 @@
       }
     },
     "dmEmbedTitle": "Banni",
-    "dmEmbedDescription": "Vous avez été banni de `{guild}`.\nModérateur : {mod}\nRaison : {reason}",
+    "dmEmbedDescription": "Vous avez été banni de {guild}.\nModérateur : {mod}\nRaison : {reason}",
     "infoEmbedTitle": "Bannir",
     "infoEmbedDescription": "Modérateur : {mod}\nRaison : {reason}\n\n",
     "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres à bannir. Vous avez 60 secondes.",
     "cantPunishSelf": "Vous ne pouvez pas vous bannir vous-même!",
     "noneFound": "Aucune cible n'a été trouvée.",
-    "error": "**{user}** n'a pas pu être banni.\n{err}\n",
-    "success": "**{user}** a été banni avec succès.\n",
+    "error": "{user} n'a pas pu être banni.\n{err}\n",
+    "success": "{user} a été banni avec succès.\n",
     "noDM": "Je n'ai pas pu gérer la cible avec le DM.",
     "timedOut": "Ce menu a expiré."
   },
@@ -40,14 +40,14 @@
       }
     },
     "dmEmbedTitle": "Expulsé",
-    "dmEmbedDescription": "Vous avez été éjecté de `{guild}`.\nModérateur : {mod}\nRaison : {reason}",
+    "dmEmbedDescription": "Vous avez été éjecté de {guild}.\nModérateur : {mod}\nRaison : {reason}",
     "infoEmbedTitle": "Expulser",
     "infoEmbedDescription": "Modérateur : {mod}\nRaison : {reason}\n\n",
     "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres à expulser. Vous avez 60 secondes.",
     "noneFound": "Aucune cible n'a été trouvée.",
     "cantPunishSelf": "Vous ne pouvez pas vous expulser vous-même!",
-    "error": "**{user}** n'a pas pu être éjecté.\n{err}\n",
-    "success": "**{user}** a été expulsé avec succès.\n",
+    "error": "{user} n'a pas pu être éjecté.\n{err}\n",
+    "success": "{user} a été expulsé avec succès.\n",
     "noDM": "Je n'ai pas pu gérer la cible avec le DM.",
     "timedOut": "Ce menu a expiré."
   },
@@ -80,15 +80,15 @@
       }
     },
     "dmEmbedTitle": "Coupé en sourdine",
-    "dmEmbedDescription": "Vous avez été rendu muet de `{guild}`.\nModérateur : {mod}\nJusqu'à : <t:{muteDuration}>\nRaison : {reason}",
+    "dmEmbedDescription": "Vous avez été rendu muet de {guild}.\nModérateur : {mod}\nJusqu'à : {muteDuration} ({muteDurationRelative})\nRaison : {reason}",
     "infoEmbedTitle": "Couper le son",
-    "infoEmbedDescription": "Modérateur : {mod}\nDurée : <t:{muteDuration}>\nRaison : {reason}\n\n",
+    "infoEmbedDescription": "Modérateur : {mod}\nDurée : {muteDuration} ({muteDurationRelative})\nRaison : {reason}\n\n",
     "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres pour être muet. Vous avez 60 secondes.",
     "cantPunishSelf": "Vous ne pouvez pas vous masquer vous-même!",
     "cantPunishAdmin": "Les administrateurs ne peuvent pas être muets !",
     "noneFound": "Aucune cible n'a été trouvée.",
     "error": "Je n'ai pas pu rendre muet la cible :\n{err}",
-    "success": "**{user}** a été rendu muet avec succès.\n",
+    "success": "{user} a été rendu muet avec succès.\n",
     "noDM": "\nI couldn't DM the target.",
     "timedOut": "Ce menu a expiré.",
     "invalidDuration": "La durée de mute que vous avez fournie est invalide !"
@@ -205,6 +205,6 @@
     "notFound": "Je n'ai pas pu trouver ce membre !",
     "notMuted": "Ce membre n'est pas muet !",
     "moderator": "Modérateur",
-    "success": "Délai d'attente retiré pour le membre <@{user}>."
+    "success": "Délai d'attente retiré pour le membre {user}."
   }
 }

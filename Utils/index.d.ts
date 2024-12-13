@@ -2,12 +2,12 @@ import type {
   DMChannel, GuildChannel, GuildMember, Role, User, Collection, Guild, Snowflake,
   APIAllowedMentions, Message, BaseInteraction, MessageComponentInteraction,
   AutocompleteInteraction, CategoryChannel, GuildTextBasedChannel, GuildChannelManager,
-  Webhook, VoiceState
+  Webhook, VoiceState, TimestampStylesString, DateResolvable
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
 import type { GiveawaysManager, GiveawayData } from 'discord-giveaways';
 import type { DB } from '@mephisto5558/mongoose-db';
-import type I18nProvider from '@mephisto5558/i18n';
+import type { I18nProvider } from '@mephisto5558/i18n';
 import type { Database, backupChannel, backupId } from '../types/database';
 
 export {
@@ -17,6 +17,7 @@ export {
   checkForErrors,
   checkTargetManageable,
   commandExecutionWrapper,
+  commandMention,
   componentHandler,
   configValidator,
   constants,
@@ -55,15 +56,17 @@ declare namespace afk {
   function removeAfkStatus(this: Message | VoiceState): Promise<Message | undefined>;
   function sendAfkMessages(this: Message): Promise<Message | undefined>;
 
+  /* eslint-disable jsdoc/informative-docs */
   /**
    * @returns `undefined` if the bot cannot change the member's nickname or it already has the prefix. Otherwise `true` indicating success.
-   * @default prefix='[AFK] '*/// eslint-disable-line jsdoc/informative-docs
+   * @default prefix='[AFK] ' */
   function setAfkPrefix(member: GuildMember, prefix?: string): Promise<true | undefined>;
 
   /**
    * @returns `undefined` if the bot cannot change the member's nickname or it doesn't have the prefix. Otherwise `true` indicating success.
-   * @default prefix='[AFK] '*/// eslint-disable-line jsdoc/informative-docs
+   * @default prefix='[AFK] ' */
   function unsetAfkPrefix(member: GuildMember, prefix?: string): Promise<true | undefined>;
+  /* eslint-enable jsdoc/informative-docs */
 }
 
 declare function autocompleteGenerator(
@@ -88,7 +91,7 @@ declare namespace BackupSystem {
   type Backup = Database['backups'][backupId];
 
   type Utils = {
-    fetchToBase64<T extends string | undefined>(url?: T): Promise<T>;
+    fetchToBase64<T extends string | undefined>(url?: T): Promise<T extends undefined ? undefined : string>;
     loadFromBase64<T extends string | undefined>(base64Str?: T): T extends undefined ? undefined : Buffer;
 
     fetchCategoryChildren(
@@ -153,7 +156,7 @@ declare namespace BackupSystem {
       metadata?: unknown;
     }): Promise<Backup>;
 
-    /** @param id If falsely, will use latest.*/
+    /** @param id If falsely, will use latest. */
     load(id: string | object | null, guild: Guild, options?: {
       statusObj?: StatusObject;
       clearGuildBeforeRestore?: boolean;
@@ -166,13 +169,13 @@ declare namespace BackupSystem {
   }
 }
 
-/** @returns The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally.*/
+/** @returns The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally. */
 declare function checkForErrors(
   this: BaseInteraction | Message,
   command: SlashCommand<boolean> | PrefixCommand<boolean> | MixedCommand<boolean> | undefined, lang: lang
 ): [string, Record<string, string> | string | undefined] | boolean;
 
-/** @returns the error message id to use with i18n.*/
+/** @returns the error message id to use with i18n. */
 declare function checkTargetManageable(
   this: Interaction | Message,
   member: GuildMember
@@ -182,6 +185,11 @@ declare function commandExecutionWrapper(
   this: BaseInteraction | Message,
   command: SlashCommand<boolean> | PrefixCommand<boolean> | MixedCommand<boolean> | undefined, commandType: string, lang: lang
 ): Promise<Message | undefined>;
+
+/** Formats an application command name and id into a command mention.*/
+declare function commandMention<CommandName extends string, CommandId extends Snowflake>(
+  name: CommandName, id: CommandId
+): `</${CommandName}:${CommandId}>`;
 
 declare function componentHandler(
   this: MessageComponentInteraction,
@@ -225,19 +233,19 @@ declare function getDirectories(
   path: string
 ): Promise<string>;
 
-/** @default targetOptionName = 'channel'*/
+/** @default targetOptionName = 'channel' */
 declare function getTargetChannel<I extends Interaction | Message, T extends boolean>(
   interaction: I,
   { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildChannel, T> : MaybeWithUndefined<DMChannel, T>;
 
-/** @default targetOptionName = 'target'*/
+/** @default targetOptionName = 'target' */
 declare function getTargetMember<I extends Interaction | Message, T extends boolean>(
   interaction: I,
   { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
 
-/** @default targetOptionName = 'target'*/
+/** @default targetOptionName = 'target' */
 declare function getTargetRole<T extends boolean>(
   interaction: GuildInteraction | Message<true>,
   { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
@@ -277,11 +285,11 @@ declare function timeValidator<T extends string | undefined>(
 ): T extends undefined | '' | '-' | '+' ? [] : string[];
 
 declare namespace configValidator {
-  /** @throws {Error} on invalid key or subkey.*/
+  /** @throws {Error} on invalid key or subkey. */
   function validateConfig(): void;
   function setDefaultConfig(): Partial<Client['config']>;
 
-  /** @throws {Error} on invalid key or subkey type.*/
+  /** @throws {Error} on invalid key or subkey type. */
   function configValidationLoop(
     obj: Record<string, unknown>, checkObj: Record<string, unknown>, allowNull?: boolean
   ): void;
@@ -291,7 +299,7 @@ declare namespace configValidator {
   const validEnv: Record<string, validConfigEntry>;
 }
 
-/** @returns `formatted` has the format `year-day, hour:minute:second` if `lang` is not provided.*/
+/** @returns `formatted` has the format `year-day, hour:minute:second` if `lang` is not provided. */
 declare namespace TTormatter {
   function timeFormatter<T extends lang | undefined>(
     options: { sec?: number; lang?: T }
@@ -302,33 +310,46 @@ declare namespace TTormatter {
       : string;
   };
 
+  function timestamp(time: DateResolvable): `<t:${number}>`;
+  function timestamp<T extends TimestampStylesString>(time: DateResolvable, code: T): `<t:${number}:${T}>`;
+
+  /* eslint-disable @typescript-eslint/no-magic-numbers */
   const
-    msInSecond: number, secsInMinute: number, minutesInHour: number, hoursInDay: number,
-    daysInWeek: number, daysInMonthAvg: number, daysInMonthMax: number, daysInYear: number, monthsInYear: number,
+    msInSecond: 1000, secsInMinute: 60, minutesInHour: 60, hoursInDay: 24,
+    daysInWeek: 7, daysInMonthAvg: 30, daysInMonthMax: 31, daysInYear: 365, monthsInYear: 12,
     secsInHour: number, secsInDay: number, secsInWeek: number, secsInMonth: number, secsInYear: number;
+  /* eslint-enable @typescript-eslint/no-magic-numbers */
 }
 
 declare namespace constants {
-  /* eslint-disable custom/sonar-no-magic-numbers */
+  /* eslint-disable @typescript-eslint/no-magic-numbers */
   const
-    autocompleteOptionsMaxAmt = 25,
-    embedTitleMaxLength = 256,
-    embedDescriptionMaxLength = 4096,
-    embedFieldMaxAmt = 25,
-    embedFieldValueMaxLength = 1024,
-    messageMaxLength = 2000,
-    memberNameMinLength = 1,
-    memberNameMaxLength = 32,
-    choicesMaxAmt = 25,
-    choiceNameMinLength = 1,
-    choiceNameMaxLength = 100,
-    choiceValueMaxLength = 100,
+    pinnedMessagesMaxAmt: 50,
+    autocompleteOptionsMaxAmt: 25,
+    embedTitleMaxLength: 256,
+    embedDescriptionMaxLength: 4096,
+    embedFieldMaxAmt: 25,
+    embedFieldValueMaxLength: 1024,
+    messageMaxLength: 2000,
+    memberNameMinLength: 1,
+    memberNameMaxLength: 32,
+    choicesMaxAmt: 25,
+    choiceNameMinLength: 1,
+    choiceNameMaxLength: 100,
+    choiceValueMinLength: 2,
+    choiceValueMaxLength: 100,
     buttonLabelMaxLength: 80,
+    buttonURLMaxLength: 512,
+    messageActionrowMaxAmt: 5,
+    actionrowButtonMaxAmt: 5,
     auditLogReasonMaxLength: 400,
     maxBanMessageDeleteDays: 7,
+    emojiNameMinLength: 2,
+    emojiNameMaxLength: 32,
     snowflakeMinLength: 17,
     snowflakeMaxLength: 19,
+    bulkDeleteMaxMessageAmt: 100,
     HTTP_STATUS_BLOCKED: 522,
-    suffix = '...';
-  /* eslint-enable custom/sonar-no-magic-numbers */
+    suffix: '...';
+  /* eslint-enable @typescript-eslint/no-magic-numbers */
 }

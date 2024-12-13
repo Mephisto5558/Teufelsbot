@@ -1,22 +1,20 @@
 const
-  { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction } = require('discord.js'),
-
-  /** @type {import('.').autocompleteGenerator}*/
-  autocompleteGenerator = require('./autocompleteGenerator.js'),
+  { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction, inlineCode } = require('discord.js'),
+  /** @type {import('.').autocompleteGenerator} */autocompleteGenerator = require('./autocompleteGenerator.js'),
   cooldowns = require('./cooldowns.js'),
+  /** @type {import('.').commandMention} */ commandMention = require('./commandMention.js'),
+  /** @type {import('.').permissionTranslator} */ permissionTranslator = require('./permissionTranslator.js'),
+  /** @type {import('.')['timeFormatter']} */{ msInSecond } = require('./timeFormatter'),
+  /** @type {import('.')['DiscordAPIErrorCodes']} */DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
+  PERM_ERR_MSG_DELETETIME = msInSecond * 10,
 
-  /** @type {import('.').permissionTranslator}*/
-  permissionTranslator = require('./permissionTranslator.js'),
-
-  /** @type {import('.')['DiscordAPIErrorCodes']}*/
-  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
-  isValidType =/** @param {Message|import('discord.js').BaseInteraction}type*/ type => type instanceof Message || type.isChatInputCommand();
+  isValidType =/** @param {Message | import('discord.js').BaseInteraction}type */ type => type instanceof Message || type.isChatInputCommand();
 
 /**
- * @this {Interaction|Message}
+ * @this {Interaction | Message}
  * @param {MixedCommand}command
  * @param {lang}lang
- * @returns {[string, Record<string, string> | string | undefined, string | undefined] | undefined}*/
+ * @returns {[string, Record<string, string> | string | undefined] | undefined} */
 function checkOptions(command, lang) {
   /** @type {MixedCommand | CommandOption}*/
   let option = command;
@@ -53,22 +51,22 @@ function checkOptions(command, lang) {
       if (typeof autocompleteOptions != 'function') {
         return ['strictAutocompleteNoMatchWValues', {
           option: name,
-          availableOptions: Array.isArray(autocompleteOptions) ? `\`${autocompleteOptions.map(e => e.value ?? e).join('`, `')}\`` : autocompleteOptions
+          availableOptions: Array.isArray(autocompleteOptions) ? autocompleteOptions.map(e => e.value ?? e).map(inlineCode).join(', ') : autocompleteOptions
         }];
       }
       return ['strictAutocompleteNoMatch', name];
     }
 
     if (this instanceof Message && this.args?.[i] && !choices.some(e => e.value === this.args[i]))
-      return ['strictAutocompleteNoMatchWValues', { option: name, availableOptions: `\`${choices.map(e => e.value).join('`, `')}\`` }];
+      return ['strictAutocompleteNoMatchWValues', { option: name, availableOptions: choices.map(e => inlineCode(e.value)).join(', ') }];
   }
 }
 
 /**
- * @this {GuildInteraction|Message<true>}
+ * @this {GuildInteraction | Message<true>}
  * @param {MixedCommand}command
  * @param {lang}lang
- * @returns {boolean} `false` if no permission issues have been found.*/
+ * @returns {boolean} `false` if no permission issues have been found. */
 async function checkPerms(command, lang) {
   const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions.user, PermissionFlagsBits.SendMessages]);
   const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions.client, PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
@@ -79,7 +77,7 @@ async function checkPerms(command, lang) {
     title: lang('permissionDenied.embedTitle'),
     description: lang(
       `permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`,
-      { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, lang.__boundArgs__[0].locale, this.client.i18n).join('`, `') }
+      { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', ') }
     ),
     color: Colors.Red
   });
@@ -95,18 +93,18 @@ async function checkPerms(command, lang) {
       if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
     }
   }
-  else await this.customReply({ embeds: [embed], ephemeral: true }, this instanceof Message ? 1e4 : 0);
+  else await this.customReply({ embeds: [embed], ephemeral: true }, this instanceof Message ? PERM_ERR_MSG_DELETETIME : 0);
 
   return true;
 }
 
-/** @type {import('.').checkForErrors}*/
+/** @type {import('.').checkForErrors} */
 module.exports = async function checkForErrors(command, lang) {
   if (!command) {
     if (this instanceof Message) {
       let cmd = this.client.slashCommands.get(this.commandName) ?? this.client.prefixCommands.get(this.commandName);
       if (cmd?.aliasOf) cmd = this.client.slashCommands.get(cmd.aliasOf);
-      if (cmd) return ['slashOnly', { name: cmd.name, id: cmd.id }];
+      if (cmd) return ['slashOnly', commandMention(cmd.name, cmd.id)];
 
       void this.runMessages();
     }
@@ -139,7 +137,7 @@ module.exports = async function checkForErrors(command, lang) {
 
   if (this.client.botType != 'dev') {
     const cooldown = cooldowns.call(this, command.name, command.cooldowns);
-    if (cooldown) return ['cooldown', cooldown];
+    if (cooldown) return ['cooldown', inlineCode(cooldown)];
   }
 
   return !!(this.inGuild() && (this instanceof Message || this instanceof CommandInteraction) && await checkPerms.call(this, command, lang));

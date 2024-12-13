@@ -3,12 +3,13 @@ module.exports = {
   startNow: false,
   timeZone: undefined,
 
-  /** @this {Client}*/
+  /** @this {Client} */
   async onTick() {
 
   },
-  /** @this {Client}*/
+
+  /** @this {Client} */
   async onComplete() {
-    
+
   }
 };

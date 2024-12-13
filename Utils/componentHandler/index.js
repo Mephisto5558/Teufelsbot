@@ -16,7 +16,7 @@ module.exports = {
   help: require('./help.js'),
   infoCMDs: require('./infoCMDs.js'),
   joke: require('./joke.js'),
-  mgStats_formatTopTen: require('./mgStats_formatTopTen.js'),
+  mgStats_formatTop: require('./mgStats_formatTop.js'),
   mgstats: require('./mgStats.js'),
   record_startRecording: startRecording,
   record_recordControls: recordControls,

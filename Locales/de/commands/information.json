@@ -11,7 +11,7 @@
         "description": "Wie groß soll das Bild sein?"
       }
     },
-    "embedDescription": "**{user}'s Avatar**"
+    "embedDescription": "{user}'s Avatar"
   },
   "changelog": {
     "description": "Erhalte die neusten Änderungen.",
@@ -37,14 +37,14 @@
     },
     "embedTitle": "Befehlsstatistiken für {mode}",
     "notFound": "Es gibt keinen solchen Befehl!",
-    "embedDescriptionOne": "Der {command}-Befehl wurde **{total}** male (Slash: **{slash}** | Präfix: **{prefix}**) ausgeführt.",
+    "embedDescriptionOne": "Der {command}-Befehl wurde {total} male (Slash: {slash} | Präfix: {prefix}) ausgeführt.",
     "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:\n",
-    "embedFieldValue": "**{total}** (Slash: **{slash}** | Präfix: **{prefix}**)"
+    "embedFieldValue": "{total} (Slash: {slash} | Präfix: {prefix})"
   },
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",
     "embedTitle": "Dashboard",
-    "embedDescriptionDashboard": "Klicke [hier]({url}), um das Dashboard zu öffnen."
+    "embedDescriptionDashboard": "Klicke {link}, um das Dashboard zu öffnen."
   },
   "emojiinfo": {
     "description": "Erhalte Informationen über ein Emoji",
@@ -86,7 +86,7 @@
     "commandListPlaceholder": "Welchen Befehl möchtest du sehen?",
     "devEmbedFooterText": "Dev-Bot | Nur Beta-Befehle werden angezeigt",
     "one": {
-      "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: `{command}`.",
+      "notFound": "Ich habe keine Informationen zu diesem Befehl gefunden: {command}.",
       "embedTitle": "{category} » {command}",
       "embedFooterText": "Syntax: <> = erforderlich, [] = optional | Präfixe: {prefixes}",
       "prefixAlias": "Präfix-Befehl Aliase",
@@ -111,7 +111,7 @@
     "shard": "Shard",
     "guild": "Interne Server-ID",
     "guilds": "Server",
-    "commands": "Befehle: `{total}`\n> Slash & Präfix: `{combined}`\n> Slash: `{slash}`\n> Präfix: `{prefix}`\n",
+    "commands": "Befehle: {total}\n> Slash & Präfix: {combined}\n> Slash: {slash}\n> Präfix: {prefix}\n",
     "starts": "Starts",
     "lastStart": "Letzter Start",
     "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt.\n",
@@ -127,7 +127,7 @@
   "invite": {
     "description": "Sendet einen Link, um den Bot auf deinem Server hinzuzufügen.",
     "embedTitle": "Einladen",
-    "embedDescription": "Vielen Dank für dein Interesse! Klicke [hier]({url}), um mich auf deinen Server hinzuzufügen."
+    "embedDescription": "Vielen Dank für dein Interesse! Klicke {link}, um mich auf deinen Server hinzuzufügen."
   },
   "ping": {
     "description": "Erhalte den Ping des Bots",
@@ -137,8 +137,8 @@
       }
     },
     "average": {
-      "loading": "Pingen... `{current}`/`{target}`\nNächster Ping <t:{timestamp}:R>",
-      "embedDescription": "Pings: `{pings}` | Dauer: `{duration}s`\nAPI:\n> Niedrigster Ping: `{wsLowest}ms`\n> Höchster Ping: `{wsHighest}ms`\n> Durchschnittlicher Ping: `{wsAverage}ms`\nNachrichten senden:\n> Niedrigster Ping: `{msgLowest}ms`\n> Höchster Ping: `{msgHighest}ms`\n> Durchschnittlicher Ping: `{msgAverage}ms`"
+      "loading": "Pingen... {current}/{target}\nNächster Ping {timestamp}",
+      "embedDescription": "Pings: {pings} | Dauer: `{duration}s`\nAPI:\n> Niedrigster Ping: `{wsLowest}ms`\n> Höchster Ping: `{wsHighest}ms`\n> Durchschnittlicher Ping: `{wsAverage}ms`\nNachrichten senden:\n> Niedrigster Ping: `{msgLowest}ms`\n> Höchster Ping: `{msgHighest}ms`\n> Durchschnittlicher Ping: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -180,7 +180,7 @@
         "description": "Die Server-ID, über die du Infos einholen möchtest. Funktioniert nur für Server, in denen ich bin."
       }
     },
-    "memberStats": "`{all}` (Menschen: `{humans}`, Bots: `{bots}`)",
+    "memberStats": "{all} (Menschen: {humans}, Bots: {bots})",
     "members": "Mitglieder",
     "verificationLevel": {
       "name": "Verifizierungsstufe",
@@ -217,13 +217,14 @@
   },
   "uptime": {
     "description": "Erhalte die Uptime des Bots",
+    "online": "online",
     "embedDescriptionNoURL": "Der Bot ist online seit {time}.",
-    "embedDescription": "Der Bot ist [online]({domain}/uptime) seit {time}."
+    "embedDescription": "Der Bot ist {link} seit {time}."
   },
   "userinfo": {
     "description": "Erhalte Informationen über ein Mitglied",
     "usage": {
-      "usage": "[@Benutzer| Benutzername | Benutzer-Tag | Nickname | Benutzer-ID]",
+      "usage": "[@Benutzer | Benutzername | Benutzer-Tag | Nickname | Benutzer-ID]",
       "examples": "@User1"
     },
     "options": {
@@ -233,7 +234,7 @@
     },
     "guildOwner": "Servereigentümer",
     "guildAdmin": "Server Administrator",
-    "admin": "`Administrator`",
+    "admin": "Administrator",
     "guildMod": "Server Moderator",
     "guildMember": "Server Mitglied",
     "activity": {
@@ -284,6 +285,6 @@
   "vote": {
     "description": "erhalte den Link zur Feature-Request- und Voting-Website des Bots",
     "embedTitle": "Voting",
-    "embedDescriptionVote": "Klicke [hier]({url}), um die Voting- und Feature-Request-Seite zu öffnen."
+    "embedDescriptionVote": "Klicke {link}, um die Voting- und Feature-Request-Seite zu öffnen."
   }
 }

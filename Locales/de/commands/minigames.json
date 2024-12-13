@@ -30,16 +30,16 @@
       "embedTitle": "Dieser Kanal ist nun ein Counting-Kanal!",
       "embedDescription": "Die Regeln sind simpel:\n> Starte mit **1**.\n> Füge **1** zur letzten Zahl hinzu\n> Du darfst nicht zwei Zahlen hintereinander aufzählen.\nViel Spaß!",
       "by": "Aktiviert von {user}",
-      "success": "Ich habe erfolgreich <#{channel}> als Counting-Kanal hinzugefügt."
+      "success": "Ich habe erfolgreich {channel} als Counting-Kanal hinzugefügt."
     },
     "removed": {
       "embedDescription": "Dieser Kanal ist kein Counting-Kanal mehr!",
       "by": "Deaktiviert von {user}",
-      "success": "Ich habe erfolgreich <#{channel}> als Counting-Kanal entfernt."
+      "success": "Ich habe erfolgreich {channel} als Counting-Kanal entfernt."
     },
     "userDeletedMsg": {
       "embedTitle": "Counting",
-      "embedDescription": "Gelöschte Zahl: **{deletedNum}**\nNächste Zahl: **{nextNum}**"
+      "embedDescription": "Gelöschte Zahl: {deletedNum}\nNächste Zahl: {nextNum}"
     }
   },
   "mgstats": {
@@ -96,18 +96,18 @@
         }
       }
     },
-    "games": "Spiele: `{games}`\n\n",
+    "games": "Spiele: {games}\n\n",
     "statsInfo": "**Statistiken für diesen Server:**\n",
     "wins": "Gewonnen: {wins}\n",
     "draws": "Unentschieden: {draws}\n",
     "losses": "Verloren: {losses}\n\n",
     "noOne": "niemand\n",
     "missingGameArg": "Du musst mir ein Spiel als erstes Argument geben!",
-    "notFound": "Dies ist kein gültiges Spiel. Gültige Spiele sind:\n`{list}`",
+    "notFound": "Dies ist kein gültiges Spiel. Gültige Spiele sind:\n{list}",
     "wonAgainst": "Gewonnen gegen:\n",
     "lostAgainst": "Verloren gegen:\n",
     "drewAgainst": "Unentschieden gegen:\n",
-    "embedTitle": "`{user}`'s {game} Statistiken",
+    "embedTitle": "{user}'s {game} Statistiken",
     "embedTitleTop10": "Top 10 {game} Spieler",
     "noPlayers": "Es sieht so aus, als hätte noch niemand gespielt...",
     "youNoGamesPlayed": "Du hast noch nie {game} gespielt.",
@@ -127,25 +127,25 @@
       "opponentIsBot": "Du kannst keine Bots herausfordern!",
       "opponentIsSelf": "Du kannst dich nicht selbst herausfordern!",
       "embedTitle": "Schere, Stein, Papier",
-      "embedDescription": "**{user}** hat dich zu einem Duell herausgefordert!",
+      "embedDescription": "{user} hat dich zu einem Duell herausgefordert!",
       "botEmbedDescription": "Du hast mich zu einem Duell herausgefordert!",
       "start": "Start",
       "accept": "Annehmen",
       "decline": "Ablehnen",
-      "newChallenge": "<@{user}> :crossed_swords: Neue Duell-Herausforderung"
+      "newChallenge": "{user} :crossed_swords: Neue Duell-Herausforderung"
     },
     "memberNotFound": "Mindestens einer der Spieler wurde nicht gefunden!",
-    "canceled": ":x: `{initiator}` hat die Herausforderung zurückgezogen.",
-    "declined": ":x: `{opponent}` hat die Herausforderung nicht angenommen.",
+    "canceled": ":x: {initiator} hat die Herausforderung zurückgezogen.",
+    "declined": ":x: {opponent} hat die Herausforderung nicht angenommen.",
     "accept": {
-      "embedTitle": ":game_die: `{player1}` **VS** `{player2}`",
+      "embedTitle": ":game_die: {player1} **VS** {player2}",
       "embedDescription": "Wähle deinen Zug!"
     },
     "end": {
       "alreadyChosen": "Du hast bereits {move} ausgewählt! Bitte warte darauf, dass dein Gegner wählt.",
       "saved": "Deine Auswahl wurde gespeichert!",
       "tie": "Niemand hat das Spiel gewonnen, es ist ein Unentschieden! {emoji} = {emoji}",
-      "win": ":tada: <@{winner}> hat das Spiel gewonnen! {winEmoji} > {loseEmoji}"
+      "win": ":tada: {winner} hat das Spiel gewonnen! {winEmoji} > {loseEmoji}"
     }
   },
   "tictactoe": {
@@ -155,7 +155,7 @@
         "description": "Gegen wen möchtest du spielen?"
       }
     },
-    "newChallenge": "<@{user}> :crossed_swords: Neue Duell-Herausforderung"
+    "newChallenge": "{user} :crossed_swords: Neue Duell-Herausforderung"
   },
   "wordchain": {
     "description": "Stelle einen Wortketten-Kanal ein, in dem Mitglieder ihr Vokabular zeigen können!",
@@ -172,16 +172,16 @@
       "embedTitle": "Dieser Kanal ist nun ein Wortketten-Kanal!",
       "embedDescription": "Die Regeln sind einfach:\n> Starte mit einem beliebigen Wort.\n> Das nächste Wort muss mit dem letzten Buchstaben des letzten Wortes beginnen.\n> Du darfst nicht zwei Wörter hintereinander sagen.\nViel Spaß!",
       "by": "Aktiviert von {user}",
-      "success": "Ich habe erfolgreich <#{channel}> als Wortketten-Kanal hinzugefügt."
+      "success": "Ich habe erfolgreich {channel} als Wortketten-Kanal hinzugefügt."
     },
     "removed": {
       "embedDescription": "Dieser Kanal ist nun ein Wortketten-Kanal!",
       "by": "Deaktiviert von {user}",
-      "success": "Ich habe erfolgreich <#{channel}> als Wortketten-Kanal entfernt."
+      "success": "Ich habe erfolgreich {channel} als Wortketten-Kanal entfernt."
     },
     "userDeletedMsg": {
       "embedTitle": "Wortketten",
-      "embedDescription": "Gelöschtes Wort: **{deletedWord}**"
+      "embedDescription": "Gelöschtes Wort: {deletedWord}"
     }
   }
 }

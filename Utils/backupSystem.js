@@ -4,17 +4,17 @@ const
     StickerType, Collection, DiscordAPIError, GuildVerificationLevel, GuildExplicitContentFilter
   } = require('discord.js'),
 
-  /** @type {import('.').BackupSystem['BackupSystem']['utils']}*/
+  /** @type {import('.').BackupSystem['BackupSystem']['utils']} */
   utils = require('./backupSystem_utils.js'),
 
   { secsInMinute } = require('./timeFormatter.js'),
 
-  /** @type {import('.')['DiscordAPIErrorCodes']}*/
+  /** @type {import('.')['DiscordAPIErrorCodes']} */
   DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json');
 
 /**
  * @typedef {import('.').BackupSystem.BackupSystem}TBackupSystem
- * @typedef {import('.').BackupSystem.Backup}TBackup*/
+ * @typedef {import('.').BackupSystem.Backup}TBackup */
 
 class BackupSystem {
   /**
@@ -37,20 +37,20 @@ class BackupSystem {
     };
   }
 
-  /** @type {TBackupSystem['get']}*/
+  /** @type {TBackupSystem['get']} */
   get = (backupId, guildId = '') => this.db.get(this.dbName, `${guildId}${backupId}`);
 
-  /** @type {TBackupSystem['list']}*/
+  /** @type {TBackupSystem['list']} */
   list = guildId => {
     /** @type {Collection<string, TBackup>} */
     const collection = new Collection(Object.entries(this.db.get(this.dbName)));
     return guildId ? collection.filter(e => e?.guildId == guildId) : collection;
   };
 
-  /** @type {TBackupSystem['remove']}*/
+  /** @type {TBackupSystem['remove']} */
   remove = backupId => this.db.delete(this.dbName, backupId);
 
-  /** @type {TBackupSystem['create']}*/
+  /** @type {TBackupSystem['create']} */
   create = async (guild, {
     statusObj = {}, id, save = true, maxGuildBackups = this.defaultSettings.maxGuildBackups,
     backupMembers = false, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
@@ -60,6 +60,7 @@ class BackupSystem {
 
     statusObj.status = 'create.settings';
     const data = {
+      /* eslint-disable-next-line sonarjs/no-incorrect-string-concat -- false positive */
       id: id ?? guild.id + SnowflakeUtil.generate().toString(),
       metadata: metadata ?? undefined,
       createdAt: new Date(),
@@ -192,12 +193,12 @@ class BackupSystem {
     return data;
   };
 
-  /** @type {TBackupSystem['load']}*/
+  /** @type {TBackupSystem['load']} */
   load = async (id, guild, {
     statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     allowedMentions = [], reason = 'Backup Feature | Load'
   } = {}) => {
-    /** @type {NonNullable<NonNullable<import('../types/database').Database['backups']>[`${Snowflake}${Snowflake}`]>}*//* eslint-disable-line jsdoc/valid-types -- false positive*/
+    /** @type {NonNullable<NonNullable<import('../types/database').Database['backups']>[`${Snowflake}${Snowflake}`]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
     let data, rulesChannel, publicUpdatesChannel;
 
     if (id == undefined) data = this.list(guild.id).sort((a, b) => b.createdAt - a.createdAt).first();
@@ -231,7 +232,7 @@ class BackupSystem {
         reason,
         verificationLevel: guild.features.includes(GuildFeature.Community) ? undefined : GuildVerificationLevel.None,
         explicitContentFilter: guild.features.includes(GuildFeature.Community) ? undefined : GuildExplicitContentFilter.Disabled,
-        afkTimeout: secsInMinute * 5, /* eslint-disable-line custom/sonar-no-magic-numbers */
+        afkTimeout: secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5mins */
         systemChannel: null,
         systemChannelFlags: [],
         preferredLocale: null,

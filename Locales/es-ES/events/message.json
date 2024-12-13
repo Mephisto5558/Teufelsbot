@@ -1,15 +1,15 @@
 {
-  "afkMsg": "`{member}` está AFK: {message} - <t:{timestamp}:R>",
-  "afkEnd": "Bienvenido de nuevo, he eliminado tu AFK. Has estado AFK desde <t:{timestamp}>.\nTu mensaje AFK fue: \"{message}\"",
+  "afkMsg": "{member} está AFK: {message} - {timestamp}",
+  "afkEnd": "Bienvenido de nuevo, quité tu AFK. Has estado AFK desde {timestamp}.\nTu mensaje AFK fue: \"{message}\"",
   "counting": {
-    "error": "HAS RUINADO EN **{lastNumber}**!! El siguiente número es **1**.\n",
-    "wrongNumber": "**¡No puedes contar?! Número incorrecto.**",
-    "sameUserTwice": "**¡No puedes contar dos números en una fila!**"
+    "error": "¡HAS RUINADO EN {lastNumber}!! El siguiente número es **1**.\n",
+    "wrongNumber": "¡No puedes contar?! Número incorrecto.",
+    "sameUserTwice": "¡No puedes contar dos números en una fila!"
   },
   "wordchain": {
-    "error": "HAS RUINADO UNA CADENA DE **{count}** FUNCIONA A \"**{lastChar}**\"!! Reinicia escribiendo cualquier palabra.\n",
-    "sameUserTwice": "**¡No puedes decir dos palabras seguidas!**",
-    "inALoop": "**¿Por qué vas en un círculo?! ¡Esa palabra sólo se usó recientemente!**",
-    "wrongChar": "**¿No puedes leer?! Esa palabra no empieza con el carácter de la última palabra.**"
+    "error": "HAS RUINADO UNA CADENA DE {count} FUNCIONA A \"{lastChar}\"!! Reinicia escribiendo cualquier palabra.\n",
+    "sameUserTwice": "¡No puedes decir dos palabras seguidas!",
+    "inALoop": "¡¿Por qué vas en un círculo?! ¡Esa palabra fue utilizada recientemente!",
+    "wrongChar": "¡No puedes leer?! Esa palabra no empieza con el carácter de la última palabra."
   }
 }

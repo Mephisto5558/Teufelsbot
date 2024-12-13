@@ -85,8 +85,9 @@
     "notBotMessage": "Ich kann nur meine eigenen Nachrichten bearbeiten!",
     "cannotEdit": "Ich kann diese Nachricht nicht bearbeiten!",
     "emptyJson": "Das von dir angegebene JSON ist leer!",
-    "error": "Beim Senden deines benutzerdefinierten JSON ist ein Fehler aufgetreten:\n```{err}```\n",
-    "success": "Die Nachricht wurde bearbeitet. [Link]({url})"
+    "link": "Link",
+    "error": "Beim Senden deines benutzerdefinierten JSON ist ein Fehler aufgetreten:\n{err}\n",
+    "success": "Die Nachricht wurde bearbeitet. {link}"
   },
   "record": {
     "description": "Nimmt einen Sprachkanal auf. Benötigt Bestätigung von Mitgliedern.",
@@ -106,7 +107,7 @@
     "cannotJoin": "Ich kann diesem Sprachkanal nicht beitreten! Stelle sicher, dass der Kanal nicht voll ist und ich die benötigten Berechtigungen habe, um ihm beizutreten.",
     "deaf": "Ich bin momentan taub geschaltet und kann das nicht ändern!",
     "embedTitle": "Sprachrekorder",
-    "embedDescription": "<@{user}> möchte dich/euch in <#{channel}> aufnehmen.\n**{publicOrPrivate}**\nBitte drücke einen Button, um die Aufnahme deiner Stimme zu erlauben oder zu verbieten.",
+    "embedDescription": "{user} möchte dich/euch in {channel} aufnehmen.\n{publicOrPrivate}\nBitte drücke einen Button, um die Aufnahme deiner Stimme zu erlauben oder zu verbieten.",
     "isPublic": "Die Aufnahme wird für alle Servermitglieder verfügbar sein.",
     "isPrivate": "Die Aufnahme wird nur für die Mitglieder zugänglich sein, die der Aufnahme zugestimmt haben.",
     "cantConnect": "Ich konnte mich nicht mit dem Sprachkanal verbinden! Bitte versuche es erneut.",
@@ -118,9 +119,9 @@
     "resume": "Setze Aufnahme fort",
     "stop": "Stoppe Aufnahme",
     "get": "Erhalte die Aufnahme",
-    "updated": "Deine Antwort wurde zu `{permission}` gesetzt. Ich warte auf die Antworten der anderen Mitglieder.",
-    "paused": "🔇 Ich habe die Aufnahme von <#{channel}> pausiert.",
-    "recording": "🎙️ Ich nehme nun <#{channel}> ({users}) auf!",
+    "updated": "Deine Antwort wurde zu {permission} gesetzt. Ich warte auf die Antworten der anderen Mitglieder.",
+    "paused": "🔇 Ich habe die Aufnahme von {channel} pausiert.",
+    "recording": "🎙️ Ich nehme nun {channel} ({users}) auf!",
     "notFound": "Deine Aufnahme wurde nicht gefunden!",
     "privateReady": "Drücke den Button um die Aufnahme zu erhalten.",
     "success": "🔉 Hier ist deine Aufnahme!"

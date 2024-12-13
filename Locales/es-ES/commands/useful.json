@@ -16,11 +16,11 @@
     },
     "embedTitle": "Añadir Emoji",
     "isGuildEmoji": "¡Ese emoji ya está en este gremio!",
-    "invalidUrl": "¡El argumento proporcionado no es una url válida o emoji!\nLa url debe terminar con `jpg`, `jpeg`, `png`, `webp`, `svg` o `gif`.\nEjemplo: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "invalidUrl": "¡El argumento proporcionado no es una url válida o emoji!\nLa url debe terminar con {validFormats}.\nEjemplo: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "No se encontró la url proporcionada.",
-    "success": "¡Se ha añadido con éxito **{name}** {emoji}!\n",
-    "limitedToRoles": "El emoji se ha limitado a los siguientes roles:\n<@&{roles}>.",
-    "error": "No se puede crear el emoji por la razón:\n```\n{err}\n```",
+    "success": "¡Se ha añadido con éxito {name} {emoji}!\n",
+    "limitedToRoles": "El emoji se ha limitado a los siguientes roles:\n{roles}.",
+    "error": "No se puede crear el emoji por la razón:\n{err}",
     "tooBig": "La imagen es demasiado grande. El tamaño máximo es de 2048 kilobytes.",
     "timedOut": "Se ha agotado el tiempo de espera. Tal vez la imagen es grande."
   },
@@ -85,11 +85,11 @@
     "invalidURL": "¡La URL proporcionada no es válida!",
     "msgNotFound": "¡El id de mensaje proporcionado no se encontró en este canal!",
     "botIsNotAuthor": "Sólo puedo editar mis propios mensajes!",
-    "buttonLimit": "Un mensaje no puede tener más de 5 filas o 25 botones!",
-    "invalidOption": "**¡Una de tus opciones no es válida!**\n\n```{err}```",
-    "invalidJSON": "**¡Tu JSON no es válido!**\n\n```{err}```",
+    "buttonLimitReached": "Un mensaje no puede tener más de 5 filas o 25 botones!",
+    "invalidOption": "**¡Una de tus opciones no es válida!**\n\n{err}",
+    "invalidJSON": "**¡Tu JSON no es válido!**\n\n{err}",
     "successJSON": "¡Tu botón ha sido enviado!",
-    "success": "¡Tu botón ha sido enviado! Debajo está el código del botón.\nSi quieres enviarlo de nuevo, utiliza el subcomando `json`.\n\n```json\n{json}\n```"
+    "success": "¡Tu botón ha sido enviado! Debajo está el código del botón.\nSi quieres enviarlo de nuevo, utiliza el subcomando `json`.\n\n{json}"
   },
   "embed": {
     "description": "envía un embebido personalizado; puedes hacer nuevas líneas con \"/n\".",
@@ -179,10 +179,10 @@
         }
       }
     },
-    "invalidOption": "**¡Una de tus opciones no es válida!**\n\n```{err}```",
-    "invalidJSON": "**¡Tu JSON no es válido!**\n\n```{err}```",
+    "invalidOption": "**¡Una de tus opciones no es válida!**\n\n{err}",
+    "invalidJSON": "**¡Tu JSON no es válido!**\n\n{err}",
     "successJSON": "¡Tu embed ha sido enviado!",
-    "success": "¡Tu incrusto ha sido enviado! Debajo está el código incrustado.\nSi quieres enviarlo de nuevo, utiliza el subcomando `json`.\n\n```json\n{json}\n```"
+    "success": "¡Tu incrusto ha sido enviado! Debajo está el código incrustado.\nSi quieres enviarlo de nuevo, utiliza el subcomando `json`.\n\n{json}"
   },
   "hash": {
     "description": "encripta o desencripta su texto con varios métodos",
@@ -195,8 +195,8 @@
       }
     },
     "embedTitle": "Función Hash",
-    "embedDescription": "Tu entrada: `{input}`\nMétodo Hash: `{method}`",
-    "text": "Tu cadena cifrada:\n`{hash}`"
+    "embedDescription": "Tu entrada: {input}\nMétodo Hash: {method}",
+    "text": "Tu cadena cifrada:\n{hash}"
   },
   "lastping": {
     "description": "Te muestra dónde te mencionaron por última vez.",
@@ -213,7 +213,7 @@
     "noneFound": "No he encontrado ninguna mención.",
     "unknown": "desconocido",
     "embedTitle": "Último ping",
-    "embedDescription": "La última vez que te mencionaron fue [here]({url}) de <@{author}>.\n{content}"
+    "embedDescription": "La última vez que te mencionaron fue {link} de {author}.\n{content}"
   },
   "math": {
     "description": "Ejecuta algunas matemáticas",
@@ -223,8 +223,8 @@
       }
     },
     "embedTitle": "Calculador",
-    "error": "Ocurrió un error mientras se trataba de resolver tu expresión:\n```{err}```",
-    "success": "Expresión:\n```{expression}```\nResultado:\n```{result}```"
+    "error": "Ocurrió un error mientras se trataba de resolver tu expresión:\n{err}",
+    "success": "Expresión:\n{expression}\nResultado:\n{result}"
   },
   "passwordgenerator": {
     "description": "genera una contraseña criptográficamente fuerte",
@@ -243,7 +243,7 @@
       }
     },
     "charsetEmpty": "ha excluido todos los caracteres del juego de caracteres...",
-    "success": "Su contraseña(s) segura(s):\n{passwords}\n\n||Creada con el siguiente conjunto de caracteres:\n```{charset}```\nUtilice las opciones de comando para agregar o eliminar caracteres.||"
+    "success": "Su contraseña(s) segura(s):\n{passwords}\n\n||Creada con el siguiente conjunto de caracteres:\n{charset}\nUtilice las opciones de comando para agregar o eliminar caracteres.||"
   },
   "randomnumber": {
     "description": "Devuelve un número aleatorio. Utiliza valores por defecto para entradas no válidas.",
@@ -256,7 +256,7 @@
       }
     },
     "randomNumber": "Un número aleatorio {min} y {max}:\n{randomNumber}",
-    "outOfRange": "Se ha producido un error:\n````\n{err}.\n```"
+    "outOfRange": "Se ha producido un error:\n{err}."
   },
   "timestamp": {
     "description": "Obtén una marca de tiempo para el futuro (o pasado poniendo un \"-\" en frente)",
@@ -267,7 +267,7 @@
     },
     "invalid": "¡El tiempo que proporcionaste no es válido! Usa {command} y busca `timestamp` para obtener información mor.",
     "outOfRange": "El tiempo especificado es mayor que 200,000 años!",
-    "success": "Eso es <t:{time}:R> (`<t:{time}:R>`)."
+    "success": "Eso es {time} ({raw})."
   },
   "until": {
     "description": "Shows how long it will be until a certain date/time. If no date is specified,default is current date",
@@ -302,7 +302,7 @@
       }
     },
     "notFound": "No se han encontrado resultados.",
-    "visitWiki": "**Para más información, por favor visita la página de Wikipedia.**",
-    "error": "No se pudo hablar con Wikipedia:\n```{err}```"
+    "visitWiki": "Para más información, por favor visita la página de Wikipedia.",
+    "error": "No se pudo hablar con Wikipedia:\n{err}"
   }
 }

@@ -1,10 +1,9 @@
-import type Discord from 'discord.js';
 import type DBStructure from './database';
 
 type autocompleteOptions = string | number | { name: string; value: string };
 
 interface Config {
-  /** Will always include the bot's user id and the application owner id*/
+  /** Will always include the bot's user id and the application owner id */
   devIds: Set<Snowflake>;
   website: {
     baseDomain?: string;
@@ -20,7 +19,7 @@ interface Config {
     repoName?: string;
   };
 
-  /** @default ['owner-only']*/
+  /** @default ['owner-only'] */
   ownerOnlyFolders: string[];
   discordInvite?: string;
   mailAddress?: string;
@@ -28,10 +27,10 @@ interface Config {
   hideNonBetaCommandLog?: boolean;
   hideDisabledCommandLog?: boolean;
 
-  /** @default true*/
+  /** @default true */
   replyOnDisabledCommand: boolean;
 
-  /** @default true*/
+  /** @default true */
   replyOnNonBetaCommand: boolean;
   disableWebserver?: boolean;
   enableConsoleFix?: boolean;

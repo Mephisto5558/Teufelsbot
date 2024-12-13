@@ -2,7 +2,7 @@ const
   { readdir } = require('node:fs/promises'),
   { getDirectories, formatCommand, filename, slashCommandsEqual, errorHandler } = require('#Utils');
 
-/** @this {Client}*/
+/** @this {Client} */
 module.exports = async function slashCommandLoader() {
   await this.awaitReady();
 
@@ -13,7 +13,7 @@ module.exports = async function slashCommandLoader() {
     for (const file of await readdir(`./Commands/${subFolder}`)) {
       if (!file.endsWith('.js')) continue;
 
-      /** @type {SlashCommand | PrefixCommand | MixedCommand | undefined}*/
+      /** @type {SlashCommand | PrefixCommand | MixedCommand | undefined} */
       let command = require(`../Commands/${subFolder}/${file}`);
 
       if (!command?.slashCommand) continue;
@@ -88,7 +88,7 @@ module.exports = async function slashCommandLoader() {
   log(`Deleted ${deletedCommandCount} Slash Commands`);
 
   this.on('interactionCreate', async interaction => {
-    try { await require('../Events/interactionCreate.js').call(interaction); }
+    try { await require('../Events').interactionCreate.call(interaction); }
     catch (err) { await errorHandler.call(this, err, interaction); }
   });
 

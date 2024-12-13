@@ -1,4 +1,4 @@
-/** @type {import('.').checkTargetManageable}*/
+/** @type {import('.').checkTargetManageable} */
 module.exports = function checkTargetManageable(member) {
   if (member.id == this.member.id) return 'cantPunishSelf';
   if (!member.manageable) return 'global.noPermBot';

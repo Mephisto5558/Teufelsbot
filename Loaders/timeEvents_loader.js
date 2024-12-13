@@ -2,7 +2,7 @@ const
   { CronJob } = require('cron'),
   jobs = require('../TimeEvents');
 
-/** @this {Client}*/
+/** @this {Client} */
 module.exports = async function timeEventsLoader() {
   if (this.botType == 'dev') return void log('Disabled timed events due to dev version.');
 
@@ -13,5 +13,5 @@ module.exports = async function timeEventsLoader() {
     log(`Loaded Cron Job ${name}`);
   }
 
-  log(`Loaded ${jobs.__count__} Jobs\n`);
+  log(`Loaded ${jobs.__count__} Cron Jobs\n`);
 };

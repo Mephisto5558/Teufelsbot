@@ -1,16 +1,18 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
+  { msInSecond, timestamp } = require('#Utils').timeFormatter,
+  userURL = id => `https://discord.com/users${id}`,
+
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
 
 /**
  * @this {Client<true>}
- * @param {command}cmd*/
+ * @param {SlashCommand | PrefixCommand | MixedCommand}cmd */
 function commandListFilter(cmd) {
-  /* eslint-disable-next-line @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib*/
   return !(cmd.aliasOf || this.config.ownerOnlyFolders.includes(cmd.category) || cmd.disabled);
 }
 
-/** @param {Client<true>}client*/
+/** @param {Client<true>}client */
 function getCommandCount(client) {
   const
     commands = new Set([
@@ -31,7 +33,7 @@ function getCommandCount(client) {
     else if (client.prefixCommands.has(command)) count.prefix++;
   }
 
-  return count;
+  return Object.fromEntries(Object.entries(count).map(([k, v]) => [k, inlineCode(v)]));
 }
 
 module.exports = new MixedCommand({
@@ -39,21 +41,21 @@ module.exports = new MixedCommand({
 
   async run(lang) {
     const
-      startTime = Math.round(Date.now() / 1000 - process.uptime()),
+      startTime = Math.round(Date.now() / msInSecond - process.uptime()),
       description
-        = `${lang('dev')}: [Mephisto5558](https://discord.com/users/691550551825055775)\n` // Please do not change this line
+        = `${lang('dev')}: ${hyperlink('Mephisto5558', userURL('691550551825055775'))}\n` // Please do not change this line
         + (this.inGuild()
-          ? `${lang('shard')}: \`${this.guild.shardId}\`\n`
-          + `${lang('guild')}: \`${this.guild.db.position}\`\n`
+          ? `${lang('shard')}: ${inlineCode(this.guild.shardId)}\n`
+          + `${lang('guild')}: ${inlineCode(this.guild.db.position)}\n`
           : ''
         )
-        + `${lang('guilds')}: \`${this.client.guilds.cache.size}\`\n`
+        + `${lang('guilds')}: ${inlineCode(this.client.guilds.cache.size)}\n`
         + lang('commands', getCommandCount(this.client))
-        + `${lang('starts')}: \`${this.client.settings.startCount[this.client.botType]}\`\n`
-        + `${lang('lastStart')}: <t:${startTime}> (<t:${startTime}:R>)\n`
+        + `${lang('starts')}: ${inlineCode(this.client.settings.startCount[this.client.botType])}\n`
+        + `${lang('lastStart')}: ${timestamp(startTime)} ${timestamp(startTime, TimestampStyles.RelativeTime)}\n`
         + lang('translation', {
-          de: '[Mephisto5558](https://discord.com/users/691550551825055775) & [Koikarpfen1907](https://discord.com/users/636196723852705822)',
-          en: '[Mephisto5558](https://discord.com/users/691550551825055775) & [PenguinLeo](https://discord.com/users/740930989798195253)'
+          de: `${hyperlink('Mephisto5558', userURL('691550551825055775'))} & ${hyperlink('Koikarpfen1907', userURL('636196723852705822'))}`,
+          en: `${hyperlink('Mephisto5558', userURL('691550551825055775'))} & ${hyperlink('PenguinLeo', userURL('740930989798195253'))}`
         }),
 
       embed = new EmbedBuilder({

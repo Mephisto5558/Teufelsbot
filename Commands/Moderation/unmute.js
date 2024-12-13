@@ -1,8 +1,10 @@
-const { checkTargetManageable } = require('#Utils');
+const
+  { userMention } = require('discord.js'),
+  { checkTargetManageable, timeFormatter: { msInSecond } } = require('#Utils');
 
 module.exports = new SlashCommand({
   permissions: { client: ['MuteMembers'], user: ['MuteMembers'] },
-  cooldowns: { user: 100 },
+  cooldowns: { user: msInSecond / 10 },
   options: [
     new CommandOption({
       name: 'target',
@@ -27,6 +29,6 @@ module.exports = new SlashCommand({
 
     /* eslint-disable-next-line unicorn/no-null -- `null` must be used here. */
     await target.disableCommunicationUntil(null, `${reason} | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`);
-    return this.editReply(lang('success', target.user.id));
+    return this.editReply(lang('success', userMention(target.user.id)));
   }
 });

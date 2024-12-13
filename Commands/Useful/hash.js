@@ -1,10 +1,10 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, inlineCode } = require('discord.js'),
   { getHashes, createHash } = require('node:crypto'),
-  { embedDescriptionMaxLength } = require('#Utils').constants;
+  { constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
 module.exports = new SlashCommand({
-  cooldowns: { user: 1e4 },
+  cooldowns: { user: msInSecond },
   dmPermission: true,
   ephemeralDefer: true,
   options: [
@@ -28,10 +28,13 @@ module.exports = new SlashCommand({
       method = this.options.getString('method', true),
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: lang('embedDescription', { input: input.length > embedDescriptionMaxLength ? `${input.slice(0, embedDescriptionMaxLength)}\n...` : input, method }),
+        description: lang('embedDescription', {
+          input: inlineCode(input.length > embedDescriptionMaxLength ? `${input.slice(0, embedDescriptionMaxLength)}\n...` : input),
+          method: inlineCode(method)
+        }),
         color: Colors.DarkGold
       });
 
-    return this.editReply({ content: lang('text', createHash(method).update(input).digest('hex')), embeds: [embed] });
+    return this.editReply({ content: lang('text', inlineCode(createHash(method).update(input).digest('hex'))), embeds: [embed] });
   }
 });

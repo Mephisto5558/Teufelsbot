@@ -1,12 +1,13 @@
 const
-  { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors } = require('discord.js'),
-  { access, mkdir } = require('node:fs/promises');
+  { Constants, ButtonBuilder, EmbedBuilder, ButtonStyle, ActionRowBuilder, Colors, userMention, channelMention, bold } = require('discord.js'),
+  { access, mkdir } = require('node:fs/promises'),
+  { msInSecond } = require('#Utils').timeFormatter;
 
 // due to VoiceRecords being in .gitignore, we need this check
 access('./VoiceRecords/raw').catch(() => mkdir('./VoiceRecords/raw', { recursive: true }));
 
 module.exports = new SlashCommand({
-  cooldowns: { user: 1e4 },
+  cooldowns: { user: msInSecond * 10 },
   options: [
     new CommandOption({ name: 'target', type: 'User' }),
     new CommandOption({
@@ -21,7 +22,7 @@ module.exports = new SlashCommand({
     const
       isPublic = !!this.options.getBoolean('public'),
 
-      /** @type {import('discord.js').VoiceBasedChannel?}*/
+      /** @type {import('discord.js').VoiceBasedChannel?} */
       voiceChannel = this.options.getChannel('channel') ?? this.options.getMember('target')?.voice.channel ?? this.member.voice.channel,
       target = voiceChannel?.members.get(this.options.getMember('target')?.id),
       targets = (target ? [target] : [...voiceChannel?.members.values() ?? []]).filter(e => e.voice.channel && !e.user.bot);
@@ -35,7 +36,7 @@ module.exports = new SlashCommand({
     const
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: lang('embedDescription', { user: this.user.id, channel: voiceChannel.id, publicOrPrivate: lang(isPublic ? 'isPublic' : 'isPrivate') }),
+        description: lang('embedDescription', { user: userMention(this.user.id), channel: channelMention(voiceChannel.id), publicOrPrivate: bold(lang(isPublic ? 'isPublic' : 'isPrivate')) }),
         footer: { text: this.user.username, iconURL: this.member.displayAvatarURL({ forceStatic: true }) },
         color: Colors.Red
       }),

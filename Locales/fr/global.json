@@ -1,7 +1,7 @@
 {
   "languageName": "Français",
   "messageSent": "Message envoyé !",
-  "loading": "{emoji} Chargement en cours...",
+  "loading": "Chargement de la version {emoji}...",
   "channel": "Chaîne",
   "guild": "Guilde",
   "user": "Utilisateur",
@@ -19,5 +19,6 @@
   "downloadButton": "Télécharger",
   "menuTimedOut": "Ce menu a expiré.",
   "unknown": "Inconnu",
-  "unknownUser": "Utilisateur inconnu"
+  "unknownUser": "Utilisateur inconnu",
+  "here": "ici"
 }

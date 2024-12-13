@@ -1,15 +1,11 @@
 /* eslint-disable sonarjs/no-built-in-override */
 
 import type Discord from 'discord.js';
-import type DB from '@mephisto5558/mongoose-db';
-import type I18nProvider from '@mephisto5558/i18n';
-import type { WebServer } from '@mephisto5558/bot-website';
+import type DiscordTicTacToe from 'discord-tictactoe';
+import type { I18nProvider } from '@mephisto5558/i18n';
 
 import type Command from '@mephisto5558/command';
-import type locals from './locals';
 import type DBStructure from './database';
-import type { BackupSystem, GiveawaysManager } from '#Utils';
-import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
 
 type ISODate = `${number}${number}${number}${number}-${number}${number}-${number}${number}`;
 type ISOTime = `${number}${number}:${number}${number}:${number}${number}.${number}${number}${number}`;
@@ -21,7 +17,7 @@ declare global {
   namespace NodeJS {
     interface Process {
 
-      /** The real process uptime. This property only exists if process args include uptime=...*/
+      /** The real process uptime. This property only exists if process args include uptime=... */
       childUptime?(): number;
 
       /**
@@ -29,7 +25,7 @@ declare global {
        *
        * `process.childUptime() + parentUptime`
        *
-       * Otherwise it is the default `process.uptime()`*/
+       * Otherwise it is the default `process.uptime()` */
       uptime(): number;
     }
   }
@@ -38,38 +34,31 @@ declare global {
 
     /**
      * Gets a random array element by generating a cryptographically secure random number using {@link https://nodejs.org/api/crypto.html node:crypto}.
-     * May return undefined if the array is empty.*/
+     * May return undefined if the array is empty. */
     random(this: T[]): T | undefined;
 
-    /** Returns an array with no duplicates by converting it to a `Set` and back to an array.*/
+    /** Returns an array with no duplicates by converting it to a `Set` and back to an array. */
     unique(this: T[]): T[];
-
-    /** Returns the array's last element. Shorthand for `arr.at(-1)`. */
-    last(this: T[]): T | undefined;
   }
 
   interface Number {
     limit(options?: { min?: number; max?: number }): number;
 
-    /** @returns If the number is more than `min` and less than `max`.*/
+    /** @returns If the number is more than `min` and less than `max`. */
     inRange(options: { min?: number; max?: number }): boolean;
     inRange(min?: number, max?: number): boolean;
   }
 
   interface BigInt {
+
     toString(radix?: 10): `${bigint}`;
   }
 
-  interface String {
-    /** Returns the string's last element. Shorthand for `str.at(-1)`. */
-    last(this: string): string | undefined;
-  }
-
   interface Object {
-    /** Removes `null`, `undefined`, empty arrays and empty objects recursively.*/
+    /** Removes `null`, `undefined`, empty arrays and empty objects recursively. */
     filterEmpty(this: object): object;
 
-    /** The amount of items in the object.*/
+    /** The amount of items in the object. */
     __count__: number;
   }
 
@@ -106,11 +95,11 @@ declare global {
     /**
      * For a given function, creates a bound function that has the same body as the original function.
      * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
-     * @param thisArg The object to be used as the this object.*/
+     * @param thisArg The object to be used as the this object. */
     bind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T>;
     bind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): (...args: AX[]) => R;
 
-    /** A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction}*/
+    /** A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction} */
     bBind<T extends GenericFunction>(this: T, thisArg: ThisParameterType<T>): bBoundFunction<T>;
     bBind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): bBoundFunction<(this: T, ...args: AX[]) => R>;
   }
@@ -127,7 +116,7 @@ declare global {
   // #region custom
   const sleep: (ms: number) => Promise<void>;
 
-  /** Custom logging, including logfiles.*/
+  /** Custom logging, including logfiles. */
   const log: {
     (...args: Parameters<Console['log']>): typeof log;
     log(...args: Parameters<Console['log']>): typeof log;
@@ -137,7 +126,7 @@ declare global {
     _log({ file, type }?: { file?: string; type?: string }, ...args: Parameters<Console['log']>): typeof log;
   };
 
-  /** Get an application Emoji's mention by it's name.*/
+  /** Get an application Emoji's mention by it's name. */
   const getEmoji: (emoji: string) => `<a:${string}:${Snowflake}>` | `<${string}:${Snowflake}>` | undefined;
 
   type Snowflake = `${bigint}`;
@@ -163,10 +152,10 @@ declare global {
 
   type langBoundArgs = [ { locale?: string; errorNotFound?: boolean; undefinedNotFound?: boolean; backupPath?: string } ];
 
-  /** {@link Function.prototype.bBind bBind}ed {@link I18nProvider.__} function*/
+  /** {@link Function.prototype.bBind bBind}ed {@link I18nProvider.__} function */
   type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string> & { __boundArgs__: langBoundArgs };
 
-  /** same as {@link lang}, but may return `undefined` due to undefinedNotFound being true on the {@link I18nProvider.__ original function}.*/
+  /** same as {@link lang}, but may return `undefined` due to undefinedNotFound being true on the {@link I18nProvider.__ original function}. */
   type langUNF = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string | undefined> & { __boundArgs__: langBoundArgs };
 
   // #endregion
@@ -199,12 +188,12 @@ declare global {
   type OptionalInteractionProperties<inGuild extends boolean = boolean> = Partial<Interaction<inGuild>>;
   type OptionalMessageProperties<inGuild extends boolean = boolean> = Partial<Message<inGuild>>;
 
-  /** interface for an interaction in a guild.*/
+  /** interface for an interaction in a guild. */
   // @ts-expect-error not important due to this being like a type
   interface GuildInteraction extends Discord.ChatInputCommandInteraction<'cached'>, OptionalMessageProperties<true> {
   }
 
-  /** interface for an interaction in a direct message.*/
+  /** interface for an interaction in a direct message. */
   // @ts-expect-error not important due to this being like a type
   interface DMInteraction extends Discord.ChatInputCommandInteraction<undefined>, OptionalMessageProperties<false> {
     inGuild(): false;
@@ -223,145 +212,6 @@ declare global {
 
 // #endregion
 
-// #region discord.js
-declare module 'discord-api-types/v10' {
-  // @ts-expect-error 2300 // overwriting Snowflake
-  export type Snowflake = globalThis.Snowflake;
-}
-
-declare module 'discord.js' {
-  interface Client<Ready> {
-    commands: {
-      slash: Discord.Collection<SlashCommand['name'], SlashCommand | MixedCommand>;
-      prefix: Discord.Collection<PrefixCommand['name'], PrefixCommand | MixedCommand>;
-    };
-    backupSystem?: BackupSystem.BackupSystem;
-    giveawaysManager?: GiveawaysManager;
-
-    /** `undefined` if `this.botType == 'dev'`*/
-    webServer?: WebServer;
-    cooldowns: Map<string, Record<string, Map<string, number>>>;
-    db: DB;
-    i18n: I18nProvider;
-    settings: Database['botSettings'];
-    defaultSettings: Database['botSettings']['defaultGuild'];
-    botType: locals.Env['environment'];
-    keys: locals.Env['keys'];
-
-    /** The config from {@link ./config.json}.*/
-    config: locals.Config;
-    loadEnvAndDB(this: Omit<Client<Ready>, 'db'>): Promise<void>;
-
-    /** A promise that resolves to a fetched discord application once {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#ready Client#ready} was emitted.*/
-    awaitReady(this: Client<Ready>): Promise<ClientApplication>;
-  }
-
-  interface Message {
-
-    /**
-     * The original content of the message. This is a custom property set in 'prototypeRegisterer.js'.
-     *
-     * This property requires the GatewayIntentBits.MessageContent privileged intent
-     * for guild messages that do not mention the client.*/
-    originalContent: string | null;
-
-    /** The arguments of the message. It slices out the prefix and splits the message content on spaces. This is a custom property set in 'prototypeRegisterer.js'.*/
-    args: string[] | null;
-
-    /** The first word of the {@link Message.originalContent original content}. `null` if the content is empty. This is a custom property set in 'prototypeRegisterer.js'.*/
-    commandName: string | null;
-
-    /** Alias for {@link Message.author}*/
-    user: Message['author'];
-
-    /**
-     * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
-     * and if that also doesn't work, send the message without repling to a specific message/interaction.
-     * @param deleteTime Number in Milliseconds*/
-    customReply(
-      this: Message,
-      options: string | MessagePayload | MessageEditOptions,
-      deleteTime?: number,
-      allowedMentions?: MessageMentionOptions | { repliedUser: false }
-    ): Promise<Message>;
-
-    runMessages: typeof TRunMessages;
-  }
-
-  interface PartialMessage {
-    user: PartialMessage['author'];
-  }
-
-  interface BaseInteraction {
-
-    /**
-     * A general reply function for messages and interactions. Will edit the message/interaction if possible, else reply to it,
-     * and if that also doesn't work, send the message without repling to a specific message/interaction.
-     * @param deleteTime Number in Milliseconds*/
-    customReply(
-      this: BaseInteraction,
-      options: string | MessagePayload | InteractionReplyOptions,
-      deleteTime?: number,
-      allowedMentions?: MessageMentionOptions | { repliedUser: false }
-    ): Promise<Message>;
-  }
-
-  interface AutocompleteInteraction {
-
-    /**
-     * ```js
-     * this.options.getFocused(true)
-     * ```*/
-    get focused(): AutocompleteFocusedOption;
-  }
-
-  interface User {
-
-    /**
-     * ```js
-     * this.client.db.get('userSettings', this.id) ?? {}
-     * ```*/
-    get db(): NonNullable<Database['userSettings'][Snowflake]>;
-
-    /**
-     * ```js
-     * return this.client.db.update('userSettings', `${this.id}.${key}`, value);
-     * ```*/
-    updateDB<FDB extends locals.FlattenedUserSettings, K extends keyof FDB & string>(this: User, key: K, value: FDB[K]): Promise<NonNullable<Database['userSettings']>>;
-
-    customName: string;
-    customTag: string;
-  }
-
-  interface GuildMember {
-
-    /** Searches the guildSettings DB recursively for all data of this member across all guilds.*/
-    get db(): Record<string, unknown> | undefined;
-    customName: string;
-    customTag: string;
-  }
-
-  interface Guild {
-
-    /**
-     * ```js
-     * this.client.db.get('guildSettings', this.id) ?? {}
-     * ```*/
-    get db(): NonNullable<Database['guildSettings'][Snowflake]>;
-
-    /**
-     * ```js
-     * return this.client.db.update('guildSettings', `${this.id}.${key}`, value);
-     * ```*/
-    updateDB<FDB extends locals.FlattenedGuildSettings, K extends keyof FDB>(this: Guild, key: K, value: FDB[K]): Promise<Database['guildSettings']>;
-    updateDB(this: Guild, key: null, value: NonNullable<Database['guildSettings'][Snowflake]>): Promise<Database['guildSettings']>;
-
-    localeCode: string;
-  }
-}
-
-// #endregion
-
 // @ts-expect-error // keeping this here for documentation reasons, even tho it doesn't do anything sadly
 declare module 'discord-tictactoe' {
   class TicTacToe {
@@ -370,9 +220,13 @@ declare module 'discord-tictactoe' {
 
   interface GameBoardButtonBuilder {
 
-    /** Overwrite to make empty spaces look empty by using a zero width space.*/
+    /** Overwrite to make empty spaces look empty by using a zero width space. */
     createButton(row: number, col: number): Discord.ButtonBuilder;
   }
+}
+
+export declare class TicTacToe extends DiscordTicTacToe {
+  playAgain(interaction: Discord.ChatInputCommandInteraction): Promise<void>;
 }
 
 // #region mongoose-db
@@ -380,20 +234,19 @@ declare module '@mephisto5558/mongoose-db' {
   interface NoCacheDB {
     /**
      * generates required database entries from {@link ./Templates/db_collections.json}.
-     * @param overwrite overwrite existing collection, default: `false`*/
-    generate(this: NoCacheDB, overwrite?: boolean): Promise<void>;
+     * @param overwrite overwrite existing collection, default: `false` */
+    generate(overwrite?: boolean): Promise<void>;
 
-    get<DBK extends keyof Database>(this: NoCacheDB, db: DBK): Promise<Database[DBK]>;
-    get<DBK extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DBK]>(this: NoCacheDB, db: DBK, key: K): Promise<DBStructure.FlattenedDatabase[DBK][K]>;
+    get<DBK extends keyof Database>(db: DBK): Promise<Database[DBK]>;
+    get<DBK extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DBK]>(db: DBK, key: K): Promise<DBStructure.FlattenedDatabase[DBK][K]>;
 
-    update<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: NoCacheDB, db: DBK, key: K, value: FDB[K]): Promise<Database[DBK]>;
-    set<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK]>(this: NoCacheDB, db: DBK, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DBK]>;
-    delete<DBK extends keyof Database>(this: NoCacheDB, db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
-    push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: NoCacheDB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
-    pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: NoCacheDB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
+    update<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(db: DBK, key: K, value: FDB[K]): Promise<Database[DBK]>;
+    set<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK]>(db: DBK, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DBK]>;
+    delete<DBK extends keyof Database>(db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
+    push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
+    pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
   }
 
-  /* eslint-disable @typescript-eslint/no-shadow -- I can't think of a better name */
   // @ts-expect-error 2300 // overwriting the class so ofc it is declared twice
   interface DB extends NoCacheDB {
     get(): undefined;
@@ -405,8 +258,6 @@ declare module '@mephisto5558/mongoose-db' {
     delete<DBK extends keyof Database>(this: DB, db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
     push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
     pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
-
-    /* eslint-enable @typescript-eslint/no-shadow */
   }
 }
 

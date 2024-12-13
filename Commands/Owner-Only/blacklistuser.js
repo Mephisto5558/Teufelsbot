@@ -1,3 +1,5 @@
+const { inlineCode } = require('discord.js');
+
 module.exports = new PrefixCommand({
   usage: { examples: '12345678901234568' },
   aliases: { prefix: ['blacklist'] },
@@ -17,7 +19,7 @@ module.exports = new PrefixCommand({
       if (!this.client.settings.blacklist?.includes(target)) return this.customReply(lang('notFound'));
 
       await this.client.db.update('botSettings', 'blacklist', this.client.settings.blacklist.filter(e => e != target));
-      return this.customReply(lang('removed', target));
+      return this.customReply(lang('removed', inlineCode(target)));
     }
 
     if (this.client.config.devIds.has(target)) return this.customReply(lang('cantBlacklistDev'));
@@ -36,6 +38,6 @@ module.exports = new PrefixCommand({
       }
     }
 
-    return this.customReply(lang('saved', target));
+    return this.customReply(lang('saved', inlineCode(target)));
   }
 });

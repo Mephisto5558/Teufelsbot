@@ -1,19 +1,19 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, userMention, inlineCode } = require('discord.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
   sendChallenge = require('./rps_sendChallenge.js'),
   emojis = { rock: '✊', paper: '🤚', scissors: '✌️' },
   winningAgainst = { rock: 'scissors', paper: 'rock', scissors: 'paper' };
 
 /**
- * @this {GuildInteraction|import('discord.js').ButtonInteraction<'cached'>}
+ * @this {GuildInteraction | import('discord.js').ButtonInteraction<'cached'>}
  * @param {import('discord.js').GuildMember}initiator
  * @param {import('discord.js').GuildMember}opponent
- * @param {lang}lang*/
+ * @param {lang}lang */
 function sendGame(initiator, opponent, lang) {
   const
     embed = new EmbedBuilder({
-      title: lang('accept.embedTitle', { player1: initiator.displayName, player2: opponent.displayName }),
+      title: lang('accept.embedTitle', { player1: inlineCode(initiator.displayName), player2: inlineCode(opponent.displayName) }),
       description: lang('accept.embedDescription')
     }).setColor('Random'),
     component = new ActionRowBuilder({
@@ -42,7 +42,7 @@ function sendGame(initiator, opponent, lang) {
   return this.message.edit({ embeds: [embed], components: [component] });
 }
 
-/** @type {import('.').rps}*/
+/** @type {import('.').rps} */
 module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   if (this.user.id != initiatorId && this.user.id != opponentId) return;
   if (mode.length != 1) await this.deferUpdate();
@@ -64,7 +64,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   switch (mode) {
     case 'cancel':
     case 'decline':
-      this.message.embeds[0].data.description = lang(this.user.id == initiator.id ? 'canceled' : 'declined', this.member.displayName);
+      this.message.embeds[0].data.description = lang(this.user.id == initiator.id ? 'canceled' : 'declined', inlineCode(this.member.displayName));
       return this.message.edit({ embeds: this.message.embeds, components: [] });
 
     case 'accept': if (opponent.user.bot || this.user.id == opponentId) return sendGame.call(this, initiator, opponent, lang); break;
@@ -97,7 +97,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
         const winner = winningAgainst[choices.player1] == choices.player2 ? initiatorId : opponentId;
 
         this.message.embeds[0].data.description = lang('end.win', {
-          winner, winEmoji: emojis[initiatorId == winner ? choices.player1 : choices.player2],
+          winner: userMention(winner), winEmoji: emojis[initiatorId == winner ? choices.player1 : choices.player2],
           loseEmoji: emojis[initiatorId == winner ? choices.player2 : choices.player1]
         });
       }

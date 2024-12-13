@@ -1,11 +1,11 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType, PermissionFlagsBits } = require('discord.js'),
+  { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType, PermissionFlagsBits, TimestampStyles, bold, inlineCode } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
-  { secsInDay, secsInMinute, msInSecond } = require('../timeFormatter');
+  { secsInDay, secsInMinute, msInSecond, timestamp } = require('../timeFormatter');
 
-/** @type {import('.').ban_kick_mute}*/
+/** @type {import('.').ban_kick_mute} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
 module.exports = async function ban_kick_mute(lang) {
   if (this.commandName == 'timeout') this.commandName = 'mute';
@@ -14,26 +14,27 @@ module.exports = async function ban_kick_mute(lang) {
   const resEmbed = new EmbedBuilder({ title: lang('infoEmbedTitle'), color: Colors.Red });
 
   let
-    noMsg, muteDurationMs,
+    noMsg, muteDurationMs, muteDurationRelative,
 
-    /** @type {number}*/
+    /** @type {number} */
     muteDuration = this.options.getString('duration') ?? 0,
     reason = this.options.getString('reason', true);
 
   if (muteDuration) {
-    muteDuration = getMilliseconds(muteDuration).limit?.({ min: msInSecond * secsInMinute, max: msInSecond * secsInDay * 28 }); // eslint-disable-line custom/sonar-no-magic-numbers -- 28d
+    muteDuration = getMilliseconds(muteDuration).limit?.({ min: msInSecond * secsInMinute, max: msInSecond * secsInDay * 28 }); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 28d */
     if (!muteDuration || typeof muteDuration == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
 
-    muteDurationMs = muteDuration + Date.now();
-    muteDuration = Math.round(muteDurationMs / 1000);
+    muteDurationMs = Date.now() + muteDuration;
+    muteDuration = timestamp(muteDurationMs);
+    muteDurationRelative = timestamp(muteDurationMs, TimestampStyles.RelativeTime);
   }
 
   const
     target = this.options.getMember('target', true),
-    infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.tag, muteDuration, reason }),
+    infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.tag, muteDuration, muteDurationRelative, reason }),
     userEmbed = new EmbedBuilder({
       title: lang('infoEmbedTitle'),
-      description: lang('dmEmbedDescription', { guild: this.guild.name, mod: this.user.tag, muteDuration, reason }),
+      description: lang('dmEmbedDescription', { guild: inlineCode(this.guild.name), mod: this.user.tag, muteDuration, muteDurationRelative, reason }),
       color: Colors.Red
     });
 
@@ -47,7 +48,7 @@ module.exports = async function ban_kick_mute(lang) {
     let err = checkTargetManageable.call(this, target);
     if (!err && target.permissions.has(PermissionFlagsBits.Administrator)) err = 'cantPunishAdmin';
     if (err) {
-      resEmbed.data.description += lang('error', { err: lang(err), user: target.user.tag });
+      resEmbed.data.description += lang('error', { err: lang(err), user: bold(target.user.tag) });
       return this.editReply({ embeds: [resEmbed] });
     }
 
@@ -61,7 +62,7 @@ module.exports = async function ban_kick_mute(lang) {
     else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
     else await target.disableCommunicationUntil(muteDurationMs, reason);
 
-    resEmbed.data.description += lang('success', { user: target.user.tag, muteDuration });
+    resEmbed.data.description += lang('success', { user: bold(target.user.tag), muteDuration, muteDurationRelative });
     if (noMsg) resEmbed.data.description += lang('noDM');
 
     return this.editReply({ embeds: [resEmbed] });
@@ -103,7 +104,7 @@ module.exports = async function ban_kick_mute(lang) {
           else if (this.commandName == 'ban') await selectedMember.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
           else await selectedMember.disableCommunicationUntil(muteDurationMs, reason);
 
-          resEmbed.data.description += lang('success', { user: selectedMember.user.tag, muteDuration });
+          resEmbed.data.description += lang('success', { user: bold(selectedMember.user.tag), muteDuration, muteDurationRelative });
           if (noMsg) resEmbed.data.description += lang('noDM');
         }
 

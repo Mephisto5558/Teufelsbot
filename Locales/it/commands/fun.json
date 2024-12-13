@@ -52,7 +52,7 @@
   "avatarfusion": {
     "description": "Fusioni due avatar.",
     "usage": {
-      "usage": "<base> [overlay] ['server' | 'global']",
+      "usage": "<base> [overlay] ['server' <unk> 'global']",
       "examples": "@User1 @User2 globale"
     },
     "options": {
@@ -115,13 +115,13 @@
       "11": "Novembre",
       "12": "Dicembre"
     },
-    "saved": "Il tuo compleanno è stato salvato.",
+    "saved": "Il tuo compleanno è stato salvato. Concelebrerai di nuovo il tuo compleanno **in {days} giorni**.",
     "removed": "Il tuo compleanno è stato rimosso.",
     "getUser": {
       "notFound": "{user} non ha compleanno :(",
       "embedTitle": "compleanno di {user}",
-      "date": "{user} ha il compleanno il **{month} {day}**. È in **{daysUntil}** giorni!\n",
-      "newAge": "Si accenderà **{age}** in quel giorno."
+      "date": "{user} ha il compleanno il **{month} {day}**. È in {daysUntil} giorni!\n",
+      "newAge": "Si accenderà {age} in quel giorno."
     },
     "getAll": {
       "embedTitle": "I prossimi compleanni",
@@ -130,7 +130,7 @@
     }
   },
   "fact": {
-    "description": "Ottenere alcuni fatti, sono davvero cool e utile, contare su di me.",
+    "description": "Curiosità interessanti",
     "embedTitle": "Fatto"
   },
   "giveaway": {
@@ -297,7 +297,7 @@
       }
     },
     "invalidJson": "L'API ha risposto con dati non validi.",
-    "notFound": "Non sono riuscito a trovare un pokémon con quel nome!",
+    "notFound": "Non sono riuscito a trovare un poke<unk> mon con quel nome!",
     "error": "Si è verificato un errore.",
     "types": "Tipo(i)",
     "abilities": "Abilità",
@@ -305,7 +305,7 @@
     "noGender": "Senza Gender",
     "heightWeight": "Altezza e peso",
     "evolutionLine": "Riga evolutiva",
-    "currentStage": "\nFase corrente di Evolution: {stage}",
+    "currentStage": "\nFase Attuale Di Evolutione: {stage}",
     "gen": "Generazione"
   },
   "reddit": {
@@ -339,8 +339,8 @@
     },
     "notFound": "Nessun post corrispondente alla tua ricerca.",
     "private": "Questo subreddit è privato.",
-    "error": "Si è verificato un errore:\n```{err}```",
-    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) | Downvotes: {downvotes} | Commenti: {comments}"
+    "error": "Si è verificato un errore:\n{err}",
+    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) <unk> Downvotes: {downvotes} <unk> Commenti: {comments}"
   },
   "sad": {
     "description": "invia un emojicon triste"
@@ -348,8 +348,8 @@
   "say": {
     "description": "Permettetemi di dire qualcosa",
     "usage": {
-      "usage": "{prefix}dice <msg> [channel]",
-      "examples": "{prefix}dice Ciao Amici! #chat"
+      "usage": "<msg> [channel]",
+      "examples": "Ciao Amici! #chat"
     },
     "options": {
       "msg": {
@@ -639,6 +639,23 @@
           }
         }
       },
+      "edit": {
+        "description": "Modifica un trigger esistente.",
+        "options": {
+          "query_or_id": {
+            "description": "Il trigger che vuoi modificare."
+          },
+          "trigger": {
+            "description": "il testo a cui si desidera rispondere il bot. Lasciare vuoto per mantenere quello attuale."
+          },
+          "response": {
+            "description": "la risposta che il bot dovrebbe inviare. Lasciare vuoto per mantenere quella attuale."
+          },
+          "wildcard": {
+            "description": "cerca il trigger in qualsiasi punto del messaggio (predefinito: il valore corrente o true)"
+          }
+        }
+      },
       "delete": {
         "description": "Elimina un trigger. Questo è irreversibile!",
         "options": {
@@ -667,26 +684,27 @@
         }
       }
     },
-    "saved": "Aggiunto nuovo trigger per `{trigger}`.",
-    "deletedOne": "Eliminato il trigger con l'ID `{id}`",
-    "deletedAll": "Ho eliminato tutti i trigger (`{count}`).",
+    "saved": "Aggiunto nuovo trigger per {trigger}.",
+    "edited": "Il trigger con il `${trigger}` è stato modificato.",
+    "deletedOne": "Eliminato il trigger con l'ID {id}",
+    "deletedAll": "Ho eliminato tutti i trigger ({count}).",
     "noneFound": "Non ci sono grilletti!",
     "notFound": "Nessun trigger corrisponde alla tua interrogazione.",
     "confirmation": "cancella tutto",
     "needConfirm": "Devi confermare questa azione scrivendo `CLEAR ALL` nell'opzione di conferma!",
     "embedTitle": "Trigger",
     "embedTitleOne": "**Trigger {id}:**",
-    "embedDescriptionOne": "**Trigger**:\n```\n{trigger}\n```\n**Risposta:**\n```\n{response}\n```\n**Wildcard:** `{wildcard}`",
-    "longEmbedDescription": "ID: {id}\n> Trigger: `{trigger}`\n> Risposta: `{response}`\n> Wildcard: `{wildcard}`\n\n",
+    "embedDescriptionOne": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard:** {wildcard}",
+    "longEmbedDescription": "ID: {id}\n> Trigger: {trigger}\n> Risposta: {response}\n> Wildcard: {wildcard}\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Trigger:**\n```\n{trigger}\n```\n**Risposta:**\n```\n{response}\n```\n**Wildcard: **`{wildcard}`\n",
+    "shortFieldValue": "**Trigger:**\n{trigger}\n**Risposta:**\n{response}\n**Wildcard: **{wildcard}\n",
     "first25": "I primi 25 trigger. Ottieni di più con l'opzione `short`."
   },
   "vote": {
     "description": "Crea un sondaggio per qualcosa",
     "usage": {
-      "usage": "<channel> [question] | [opzione 1] | [opzione 2] | <option 3> ... <option 9>",
-      "examples": "#voto Stai bene? | Sì | No"
+      "usage": "<channel> [question] <unk> [opzione 1] <unk> [opzione 2] <unk> <option 3> ... <option 9>",
+      "examples": "#voto Avete bene? <unk> Sì <unk> No"
     },
     "options": {
       "question": {
@@ -708,7 +726,7 @@
     },
     "noPerm": "Non hai il permesso di inviare messaggi in quel canale!",
     "noQuestion": "Hai bisogno di fornire una domanda per un sondaggio...",
-    "notEnoughOptions": "È necessario fornire almeno due opzioni (dividerle con un `| `) per un sondaggio...",
+    "notEnoughOptions": "È necessario fornire almeno due opzioni (dividerle con un `<unk> `) per un sondaggio...",
     "embedTitle": "Sondaggio",
     "embedFooterText": "Il creatore di questo sondaggio può reagire con ❌ per chiudere il sondaggio.",
     "buttonEmbedFooterText": "Il creatore di questo sondaggio può premere il pulsante ❌ per chiudere il sondaggio.",

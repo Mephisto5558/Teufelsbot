@@ -11,7 +11,7 @@
         "description": "el tamaño que quieres obtener"
       }
     },
-    "embedDescription": "**Avatar de {user}**"
+    "embedDescription": "Avatar de {user}"
   },
   "changelog": {
     "description": "Obtener la última lista de cambios.",
@@ -35,16 +35,16 @@
         "description": "El comando para el que quieres obtener estadísticas."
       }
     },
-    "embedTitle": "Estadísticas de Comando",
+    "embedTitle": "Estadísticas de Comando para {mode}",
     "notFound": "¡Ese comando no existe!",
-    "embedDescriptionOne": "El comando {command} ha sido ejecutado **{count}** veces.",
+    "embedDescriptionOne": "El comando {command} ha sido ejecutado {total} veces (Slash: {slash} | Prefijo: {prefix}).",
     "embedDescriptionMany": "Estos son los 10 comandos más utilizados:\n",
-    "embedFieldValue": "**{total}** (barra: **{slash}** | Prefijo: **{prefix}**)"
+    "embedFieldValue": "{total} (barra: {slash} | Prefijo: {prefix})"
   },
   "dashboard": {
     "description": "obtener el enlace al panel de control de bots",
     "embedTitle": "Tablero",
-    "embedDescriptionDashboard": "Haz clic en [here]({url}) para abrir el panel."
+    "embedDescriptionDashboard": "Haz clic en {link} para abrir el panel."
   },
   "emojiinfo": {
     "description": "Obtener información sobre un emoji",
@@ -86,9 +86,9 @@
     "commandListPlaceholder": "¿Qué comando quieres ver?",
     "devEmbedFooterText": "Dev-Bot | Solo se muestran comandos beta",
     "one": {
-      "notFound": "No se ha encontrado información para el comando `{command}`.",
-      "embedTitle": "Información detallada sobre: `{command}`",
-      "embedFooterText": "Sintaxis: <> = requerido, [] = opcional | Prefijos: {prefix}",
+      "notFound": "No se encontró información para el comando {command}.",
+      "embedTitle": "{category} » {command}",
+      "embedFooterText": "Sintaxis: <> = requerido, [] = opcional | Prefijos: {prefixes}",
       "prefixAlias": "Alias de comandos de prefijo",
       "slashAlias": "Alias de Comandos Slash",
       "aliasOf": "Alias de",
@@ -111,7 +111,7 @@
     "shard": "Fragmento",
     "guild": "ID de Gremio Interno",
     "guilds": "Gremios",
-    "commands": "Comandos: `{total}`\n> Slash & Prefix: `{combined}`\n> Slash: `{slash}`\n> Prefijo: `{prefix}`\n",
+    "commands": "Comandos: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefijo: {prefix}\n",
     "starts": "Comienza",
     "lastStart": "Último inicio",
     "translation": "Traducciones:\n> Inglés: {en}\n> Alemán: {de}\n> Todos los demás idiomas están principalmente traducidos a máquina.\n",
@@ -127,7 +127,7 @@
   "invite": {
     "description": "Envía un enlace para añadir el bot a tu gremio.",
     "embedTitle": "Invitar",
-    "embedDescription": "¡Gracias por tu interés! Haz clic en [here]({url}) para añadirme a tu gremio. ^^"
+    "embedDescription": "¡Gracias por tu interés! Haz clic en {link} para añadirme a tu gremio. ^"
   },
   "ping": {
     "description": "Consigue el ping del bot",
@@ -137,8 +137,8 @@
       }
     },
     "average": {
-      "loading": "Ping... `{current}`/`{target}`",
-      "embedDescription": "Pings: `{pings}` | Duración: `{duration}s`\nAPI:\n> El más bajo Ping: `{wsLowest}ms`\n> El más alto Ping: `{wsHighest}ms`\n> Media Ping: `{wsAverage}ms`\nMensaje Enviado:\n> Baja Pendida: `{msgLowest}ms`\n> Mejor Peste: `{msgHighest}ms`\n> Media Ping: `{msgAverage}ms`"
+      "loading": "Ping... {current}/{target}\nSiguiente ping {timestamp}",
+      "embedDescription": "Pings: {pings} | Duración: `{duration}s`\nAPI:\n> Ping más bajo: `{wsLowest}ms`\n> Ping más alto: `{wsHighest}ms`\n> Ping medio: `{wsAverage}ms`\nMensaje Enviado:\n> Pin más bajo: `{msgLowest}ms`\n> Ping más alto: `{msgHighest}ms`\n> Ping medio: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -146,7 +146,7 @@
     "messageSend": "Enviar mensaje"
   },
   "prefix": {
-    "description": "muestra o cambia el prefijo del bot del gremio",
+    "description": "Muestra los prefijos del bot del gremio",
     "currentPrefixes": "Mis prefijos actuales son:\n{prefixes}",
     "caseInsensitive": " (mayúsculas insensibles)"
   },
@@ -180,7 +180,7 @@
         "description": "ID del servidor para obtener información (solo en servidores en los que estoy presente)."
       }
     },
-    "memberStats": "`{all}` (Humanos: `{humans}`, Botos: `{bots}`)",
+    "memberStats": "{all} (Humanos: {humans}, Bots: {bots})",
     "members": "Miembros",
     "verificationLevel": {
       "name": "Nivel de verificación",
@@ -203,9 +203,9 @@
     "emojis": "Emojis",
     "boosts": {
       "name": "Optimizar",
-      "1": "Nivel 1",
-      "2": "Nivel 2",
-      "3": "Nivel 3"
+      "1": ", Nivel 1",
+      "2": ", Nivel 2",
+      "3": ", Nivel 3"
     },
     "roles": "Roles",
     "channels": "Canales",
@@ -217,8 +217,9 @@
   },
   "uptime": {
     "description": "Obtener el tiempo de actividad del bot",
+    "online": "en línea",
     "embedDescriptionNoURL": "El bot ha estado en línea para {time}.",
-    "embedDescription": "El bot ha sido [online]({domain}/uptime) para {time}."
+    "embedDescription": "El bot ha sido {link} para {time}."
   },
   "userinfo": {
     "description": "Obtener información sobre un miembro",
@@ -233,7 +234,7 @@
     },
     "guildOwner": "Propietario del gremio",
     "guildAdmin": "Administrador del Gremio",
-    "admin": "`Administrador`",
+    "admin": "Administrador",
     "guildMod": "Moderador del gremio",
     "guildMember": "Miembro del gremio",
     "activity": {
@@ -284,6 +285,6 @@
   "vote": {
     "description": "obtener el enlace a la solicitud de funciones de los bots y la página de votación",
     "embedTitle": "Votaciones",
-    "embedDescriptionVote": "Haga clic en [here]({url}) para abrir la página web de solicitud de votación y función."
+    "embedDescriptionVote": "Haga clic en {link} para abrir la página web de la solicitud de votación y funcionalidad."
   }
 }

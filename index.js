@@ -1,7 +1,8 @@
 console.time('Initializing time');
 console.info('Starting...');
 
-Error.stackTraceLimit = 100;
+const maxStackTraceLimit = 100;
+Error.stackTraceLimit = maxStackTraceLimit;
 
 const
   { Client, GatewayIntentBits, AllowedMentionsTypes, Partials, ActivityType } = require('discord.js'),
@@ -9,10 +10,10 @@ const
   loaders = require('./Loaders'),
   events = require('./Events'),
   { GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */ } = require('#Utils'),
-  /* eslint-disable-next-line custom/unbound-method -- fine here*/
-  syncEmojis = require('./TimeEvents/syncEmojis.js').onTick,
+  /* eslint-disable-next-line custom/unbound-method -- fine here */
+  { onTick: syncEmojis } = require('./TimeEvents').syncEmojis,
 
-  createClient = /** @returns {Client<false>}*/ () => new Client({
+  createClient = /** @returns {Client<false>} */ () => new Client({
     shards: 'auto',
     failIfNotExists: false,
     allowedMentions: {
@@ -44,7 +45,7 @@ const
 /**
  * @this {Client<true>}
  * @param {Promise[]}handlerPromises
- * @param {string}message*/
+ * @param {string}message */
 async function processMessageEventCallback(handlerPromises, message) {
   if (message != 'Start WebServer') return;
   process.removeListener('message', processMessageEventCallback.bind(this, handlerPromises));
@@ -73,7 +74,7 @@ async function processMessageEventCallback(handlerPromises, message) {
 /**
  * @this {Client<false>}
  * @param {string}token
- * @returns {Promise<Client<true>>}*/
+ * @returns {Promise<Client<true>>} */
 async function loginClient(token) {
   await this.login(token);
   log(`Logged into ${this.botType}`);
@@ -101,25 +102,26 @@ void (async function main() {
 
   if (newClient.botType != 'dev') newClient.giveawaysManager = new GiveawaysManager(newClient);
 
-  /** Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution*/
-  const handlerPromises = Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(([,handler]) => handler.call(newClient));
-  handlerPromises.push(newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add('owner' in app.owner ? app.owner.owner.id : app.owner?.id)));
+  /** Event loader gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution */
+  const loaderPromises = Object.entries(loaders).filter(([k]) => k != 'eventLoader').map(([,loader]) => loader.call(newClient));
+  loaderPromises.push(newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add('owner' in app.owner ? app.owner.owner.id : app.owner?.id)));
 
+  /** @type {Client<true>} */
   const client = await loginClient.call(newClient, newClient.keys.token);
 
-  /** @param {string}emoji*/
+  /** @param {string}emoji */
   globalThis.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();
 
-  if (process.connected) process.on('message', processMessageEventCallback.bind(client, handlerPromises));
+  if (process.connected) process.on('message', processMessageEventCallback.bind(client, loaderPromises));
 
-  await Promise.all(handlerPromises);
+  await Promise.all(loaderPromises);
 
   if (process.send?.('Finished starting') === false) {
     log.error('Could not tell the parent to kill itself. Exiting to prevent duplicate code execution.');
     process.exit(1);
   }
 
-  if (!process.connected) await processMessageEventCallback.call(client, handlerPromises, 'Start WebServer');
+  if (!process.connected) await processMessageEventCallback.call(client, loaderPromises, 'Start WebServer');
 
   void client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);
 

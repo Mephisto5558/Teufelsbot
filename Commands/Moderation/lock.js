@@ -1,8 +1,10 @@
-const { Constants } = require('discord.js');
+const
+  { Constants } = require('discord.js'),
+  { msInSecond } = require('#Utils').timeFormatter;
 
 module.exports = new MixedCommand({
   permissions: { client: ['ManageRoles'], user: ['ManageRoles'] },
-  cooldowns: { user: 1000 },
+  cooldowns: { user: msInSecond },
   options: [
     new CommandOption({ name: 'channel', type: 'Channel', channelTypes: Constants.GuildTextBasedChannelTypes }),
     new CommandOption({ name: 'reason', type: 'String' })

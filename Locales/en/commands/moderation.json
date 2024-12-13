@@ -18,14 +18,14 @@
       }
     },
     "dmEmbedTitle": "Banned",
-    "dmEmbedDescription": "You have been banned from `{guild}`.\nModerator: {mod}\nReason: {reason}",
+    "dmEmbedDescription": "You have been banned from {guild}.\nModerator: {mod}\nReason: {reason}",
     "infoEmbedTitle": "Ban",
     "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
     "selectTargetEmbedDescription": "Select up to 10 members to ban. You have 60 seconds.",
     "cantPunishSelf": "You can't ban yourself!",
     "noneFound": "No targets have been found.",
-    "error": "**{user}** couldn't be banned.\n{err}\n",
-    "success": "**{user}** has been successfully banned.\n",
+    "error": "{user} couldn't be banned.\n{err}\n",
+    "success": "{user} has been successfully banned.\n",
     "noDM": "I couldn't DM the target."
   },
   "kick": {
@@ -39,14 +39,14 @@
       }
     },
     "dmEmbedTitle": "Kicked",
-    "dmEmbedDescription": "You have been kicked from `{guild}`.\nModerator: {mod}\nReason: {reason}",
+    "dmEmbedDescription": "You have been kicked from {guild}.\nModerator: {mod}\nReason: {reason}",
     "infoEmbedTitle": "Kick",
     "infoEmbedDescription": "Moderator: {mod}\nReason: {reason}\n\n",
     "selectTargetEmbedDescription": "Select up to 10 members to kick. You have 60 seconds.",
     "noneFound": "No targets have been found.",
     "cantPunishSelf": "You can't kick yourself!",
-    "error": "**{user}** couldn't be kicked.\n{err}\n",
-    "success": "**{user}** has been successfully kicked.\n",
+    "error": "{user} couldn't be kicked.\n{err}\n",
+    "success": "{user} has been successfully kicked.\n",
     "noDM": "I couldn't DM the target."
   },
   "lock": {
@@ -82,15 +82,15 @@
       }
     },
     "dmEmbedTitle": "Muted",
-    "dmEmbedDescription": "You have been muted from `{guild}`.\nModerator: {mod}\nUntil: <t:{muteDuration}>\nReason: {reason}",
+    "dmEmbedDescription": "You have been muted from {guild}.\nModerator: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nReason: {reason}",
     "infoEmbedTitle": "Mute",
-    "infoEmbedDescription": "Moderator: {mod}\nDuration: <t:{muteDuration}>\nReason: {reason}\n\n",
+    "infoEmbedDescription": "Moderator: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nReason: {reason}\n\n",
     "selectTargetEmbedDescription": "Select up to 10 members to mute. You have 60 seconds.",
     "cantPunishSelf": "You can't mute yourself!",
     "cantPunishAdmin": "Administrators cannot be muted!",
     "noneFound": "No targets have been found.",
     "error": "I couldn't mute the target:\n{err}",
-    "success": "**{user}** has been successfully muted.\n",
+    "success": "{user} has been successfully muted.\n",
     "noDM": "\nI couldn't DM the target.",
     "invalidDuration": "The mute duration you provided is invalid!"
   },
@@ -102,7 +102,7 @@
       }
     },
     "confirmEmbedTitle": "Nuke Channel",
-    "confirmEmbedDescription": "Are you sure you want to nuke <#{channel}>?\n**This action is irreversible!**",
+    "confirmEmbedDescription": "Are you sure you want to nuke {channel}?\n**This action is irreversible!**",
     "confirmButtonLabel": "Confirm",
     "cancelButtonLabel": "Cancel",
     "canceledEmbedDescription": "The nuking has been canceled.",
@@ -214,6 +214,6 @@
     "notFound": "I couldn't find that member!",
     "notMuted": "This member is not muted!",
     "moderator": "Moderator",
-    "success": "Removed timeout for member <@{user}>."
+    "success": "Removed timeout for member {user}."
   }
 }

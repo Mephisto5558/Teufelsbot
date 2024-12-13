@@ -45,7 +45,7 @@
       "stickers": "{emoji} Sichere Sticker...",
       "channels": "{emoji} Sichere Kanäle, Threads und Nachrichten...",
       "images": "{emoji} Sichere Icon, Splash und Banner...",
-      "success": "Das Backup mit der ID `{id}` wurde erfolgreich erstellt!\nNutze </serverbackup get:{cmdId}> für mehr Informationen zum Backup."
+      "success": "Das Backup mit der ID {id} wurde erfolgreich erstellt!\nNutze {cmd} für mehr Informationen zum Backup."
     },
     "clear": {
       "items": "{emoji} Lösche Emojis, Sticker und Rollen...",
@@ -68,7 +68,7 @@
       "emojis": "{emoji} Lade Emojis...",
       "stickers": "{emoji} Lade Sticker...",
       "bans": "{emoji} Lade Bans...",
-      "success": "Das Backup mit der ID `{id}` wurde geladen.",
+      "success": "Das Backup mit der ID {id} wurde geladen.",
       "error": "Beim Laden des Backups ist ein Fehler aufgetreten."
     },
     "delete": {
@@ -76,9 +76,9 @@
       "success": "Das Backup wurde erfolgreich gelöscht!"
     },
     "get": {
-      "oneEmbedDescription": "**Informationen zu Backup `{id}`**\n>>> Erstellt am: <t:{createdAt}>\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "oneEmbedDescription": "**Informationen zu Backup {id}**\n>>> Erstellt am: {createdAt}\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "oneNotFound": "Es wurde kein Backup mit dieser ID gefunden!",
-      "infos": ">>> Erstellt am: <t:{createdAt}>\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "infos": ">>> Erstellt am: {createdAt}\nGröße: {size}\nMitglieder: {members}\nKanäle: {channels}\nRollen: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "found": "Es wurden {amount} Backups gefunden.",
       "embedDescription": "Die folgenden Backups wurden gefunden, sortiert nach Datum:",
       "noneFound": "Es wurden keine Backups für diesen Server gefunden."
@@ -247,7 +247,7 @@
       }
     },
     "toggleModule": {
-      "success": "Das `{name}` Modul wurde {state}."
+      "success": "Das {name} Modul wurde {state}."
     },
     "toggleCommand": {
       "notFound": "Das ist kein gültiger Befehl!",
@@ -256,14 +256,14 @@
         "embedTitle": "Verbotene Rollen/Kanäle/Mitglieder für Befehl {command}",
         "embedDescription": "Keine Rollen, Kanäle oder Mitglieder sind momentan verboten."
       },
-      "enabled": "Der `{command}` Befehl ist nun aktiviert.",
-      "disabled": "Der `{command}` Befehl ist nun deaktiviert.",
-      "isDisabled": "Der `{command}` Befehl ist für alle Mitglieder deaktiviert. Du kannst ihn wieder aktivieren, indem du </setup toggle_command:{id}> ausführst, ohne eine Rolle, einen Kanal oder ein Mitglied zu spezifizieren.",
+      "enabled": "Der {command} Befehl ist nun aktiviert.",
+      "disabled": "Der {command} Befehl ist nun deaktiviert.",
+      "isDisabled": "Der {command} Befehl ist für alle Mitglieder deaktiviert. Du kannst ihn wieder aktivieren, indem du {commandMention} ausführst, ohne eine Rolle, einen Kanal oder ein Mitglied zu spezifizieren.",
       "roles": "Rollen",
       "channels": "Kanäle",
       "users": "Mitglieder",
       "embedTitle": "Aktualisierte Befehl-Einstellungen für \"{commandName}\"",
-      "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sieh alle verbotenen Rollen/Kanäle/Mitglieder, indem du </setup toggle_command:{id}> mit der `get` Option ausführst.||\n",
+      "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sieh alle verbotenen Rollen/Kanäle/Mitglieder, indem du {commandMention} mit der `get` Option ausführst.||\n",
       "embed": {
         "enabled": "Entfernt (Erlaubt)",
         "disabled": "Hinzugefügt (Verboten)"
@@ -271,17 +271,17 @@
     },
     "language": {
       "embedTitle": "Sprache geändert!",
-      "embedDescription": "Die Sprache wurde auf `Deutsch` gestellt."
+      "embedDescription": "Die Sprache wurde auf {lang} gestellt."
     },
     "setPrefix": {
-      "saved": "Mein Präfix wurde zu `{prefix}` gesetzt."
+      "saved": "Mein Präfix wurde zu {prefix} gesetzt."
     },
     "addPrefix": {
       "limitReached": "Du kannst keine weiteren Präfixe hinzufügen! Versuche zuerst, ungenutzte Präfixe zu entfernen.",
-      "saved": "`{prefix}` wurde als zusätzliches Präfix hinzugefügt."
+      "saved": "{prefix} wurde als zusätzliches Präfix hinzugefügt."
     },
     "removePrefix": {
-      "removed": "Der Präfix `{prefix}` wurde entfernt.",
+      "removed": "Der Präfix {prefix} wurde entfernt.",
       "cannotRemoveLastPrefix": "Du kannst nicht den einzigen verbleibenden Präfix löschen!"
     },
     "serverbackup": {
@@ -293,7 +293,7 @@
     "logger": {
       "noChannel": "Du hast keinen Textkanal angegeben, zu dem das Protokoll gesendet werden soll!",
       "noEnabled": "Du musst die `enabled` Option nutzen, wenn du alle Actions auf einmal einstellen möchtest!",
-      "enabled": "Protokolle für {action} werden an <#{channel}> gesendet.",
+      "enabled": "Protokolle für {action} werden an {channel} gesendet.",
       "disabled": "Protokolle für {action} werden nicht mehr gesendet.",
       "actions": {
         "all": "Alle Aktionen",
@@ -302,16 +302,6 @@
         "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
         "sayCommandUsed": "/say, /embed Befehls-Verwendung"
       }
-    },
-    "tickets": {
-      "defaultButtonLabel": "Erstelle Ticket",
-      "disabled": "Das Ticket-Modul wurde deaktiviert.",
-      "infoEmbedDescription": "Bitte drücke den untenstehenden Button, um eine benutzerdefinierte Embed-Beschreibung festzulegen, bevor du das Ticket-System durch Drücken des Speichern-Buttons aktivieren kannst.\nDu kannst [hier]({url}) ein gültiges Embed generieren.",
-      "editButtonLabel": "Embed bearbeiten",
-      "previewButtonLabel": "Embed-Vorschau",
-      "saveButtonLabel": "Embed speichern",
-      "textInputLabel": "Bitte gib das Embed-JSON ein.",
-      "invalidEmbed": "Das angegebene JSON ist ungültig:\n```{err}```"
     }
   }
 }

@@ -1,16 +1,16 @@
 const
   { Message, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
-  fetch = require('node-fetch').default,
-  { messageMaxLength } = require('#Utils').constants;
+  fetch = import('node-fetch').then(e => e.default),
+  { constants: { messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
 /**
- * @this {Interaction|Message}
+ * @this {Interaction | Message}
  * @param {lang}lang
  * @param {boolean?}deep
- * @returns {Promise<string>}*/
+ * @returns {Promise<string>} */
 async function fetchAPI(lang, deep) {
   /** @type {{choices: {message: {content: string}}[]} | {error: {message: string, type: string}}} */
-  const res = await fetch('https://api.pawan.krd/v1/chat/completions', { // https://github.com/PawanOsman/ChatGPT
+  const res = await (await fetch)('https://api.pawan.krd/v1/chat/completions', { // https://github.com/PawanOsman/ChatGPT
     method: 'POST',
     headers: {
       Authorization: `Bearer ${this.client.keys.chatGPTApiKey}`,
@@ -39,8 +39,7 @@ async function fetchAPI(lang, deep) {
 
 module.exports = new MixedCommand({
   aliases: { prefix: ['gpt'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
-  cooldowns: { user: 2000 },
+  cooldowns: { user: msInSecond * 2 },
   dmPermission: true,
   premium: true,
   options: [new CommandOption({

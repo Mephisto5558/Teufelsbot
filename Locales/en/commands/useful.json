@@ -16,11 +16,11 @@
     },
     "embedTitle": "AddEmoji",
     "isGuildEmoji": "That emoji is already on this guild!",
-    "invalidUrl": "The provided argument is not a valid url or emoji!\nThe url must end with `jpg`, `jpeg`, `png`, `webp`, `svg` or `gif`.\nExample: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
+    "invalidUrl": "The provided argument is not a valid url or emoji!\nThe url must end with {validFormats}.\nExample: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "The provided url was not found.",
-    "success": "Successfully added **{name}** {emoji}!\n",
-    "limitedToRoles": "The emoji has been limited to the following roles:\n<@&{roles}>.",
-    "error": "Unable to create the emoji for reason:\n```\n{err}\n```",
+    "success": "Successfully added {name} {emoji}!\n",
+    "limitedToRoles": "The emoji has been limited to the following roles:\n{roles}.",
+    "error": "Unable to create the emoji for reason:\n{err}",
     "tooBig": "The image is too big. The maximum filesize is 2048 kilobytes.",
     "timedOut": "The request timed out. Maybe the image is to large."
   },
@@ -103,11 +103,10 @@
     "invalidURL": "The provided URL is invalid!",
     "msgNotFound": "The message id you provided was not found in this channel!",
     "botIsNotAuthor": "I can only edit my own messages!",
-    "buttonLimit": "A message cannot have more then 5 rows or 25 buttons!",
-    "invalidOption": "**One of your options is invalid!**\n\n```{err}```",
-    "invalidJSON": "**Your JSON is invalid!**\n\n```{err}```",
+    "buttonLimitReached": "A message cannot have more then 5 rows or 25 buttons!",
+    "invalidOption": "**One of your options is invalid!**\n\n{err}",
     "successJSON": "Your button has been sent!",
-    "success": "Your button has been sent! Below is the button code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
+    "success": "Your button has been sent! Below is the button code.\nIf you want to send it again, use the `json` subcommand.\n{json}"
   },
   "embed": {
     "description": "sends a custom embed; you can do newlines with \"/n\".",
@@ -197,10 +196,9 @@
         }
       }
     },
-    "invalidOption": "**One of your options invalid!**\n\n```{err}```",
-    "invalidJSON": "**Your JSON is invalid!**\n\n```{err}```",
+    "invalidOption": "**One of your options invalid!**\n\n{err}",
     "successJSON": "Your embed has been sent!",
-    "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n\n```json\n{json}\n```"
+    "success": "Your embed has been sent! Below is the embed code.\nIf you want to send it again, use the `json` subcommand.\n{json}"
   },
   "hash": {
     "description": "encrypts or decrypts your text with various methods",
@@ -213,8 +211,8 @@
       }
     },
     "embedTitle": "Hash Function",
-    "embedDescription": "Your input: `{input}`\nHash method: `{method}`",
-    "text": "Your hashed string:\n`{hash}`"
+    "embedDescription": "Your input: {input}\nHash method: {method}",
+    "text": "Your hashed string:\n{hash}"
   },
   "lastping": {
     "description": "Shows you where you got last mentioned.",
@@ -234,7 +232,7 @@
     "invalid": "The selected channel is not a text channel!",
     "noneFound": "I haven't found any mentions.",
     "embedTitle": "Last Ping",
-    "embedDescription": "The last time you were mentioned was [here]({url}) from <@{author}>.\n{content}"
+    "embedDescription": "The last time you were mentioned was {link} from {author}.\n{content}"
   },
   "math": {
     "description": "Runs some math",
@@ -247,8 +245,8 @@
       }
     },
     "embedTitle": "Calculator",
-    "error": "An error occurred while trying to solve your expression:\n```{err}```",
-    "success": "Expression:\n```{expression}```\nResult:\n```{result}```"
+    "error": "An error occurred while trying to solve your expression:\n{err}",
+    "success": "Expression:\n{expression}\nResult:\n{result}"
   },
   "passwordgenerator": {
     "description": "generates a cryptographically strong password",
@@ -267,7 +265,7 @@
       }
     },
     "charsetEmpty": "you excluded all chars of the charset...",
-    "success": "Your secure password(s):\n{passwords}\n\n||Created with the following charset:\n```{charset}```\nUse the command options to add or remove chars.||"
+    "success": "Your secure password(s):\n{passwords}\n\n||Created with the following charset:\n{charset}\nUse the command options to add or remove chars.||"
   },
   "randomnumber": {
     "description": "Returns a random number. Uses default values for invalid inputs.",
@@ -283,7 +281,7 @@
       }
     },
     "randomNumber": "A random number {min} and {max}:\n{randomNumber}",
-    "outOfRange": "One of the specified numbers is invalid, too large or too small!\nSmallest possible number: `{min}`, largest possible number: `{max}`"
+    "outOfRange": "One of the specified numbers is invalid, too large or too small!\nSmallest possible number: {min}, largest possible number: {max}"
   },
   "timestamp": {
     "description": "Get a timestamp for the future (or past by putting a \"-\" in front)",
@@ -298,7 +296,7 @@
     },
     "invalid": "The time you provided is invalid! Use {command} and search for `timestamp` for mor information.",
     "outOfRange": "The specified time is greater than 200,000 years!",
-    "success": "That's <t:{time}:R> (`<t:{time}:R>`)."
+    "success": "That's {time} ({raw})."
   },
   "until": {
     "description": "Shows how long it will be until a certain date/time. If no date is specified,default is current date",
@@ -336,7 +334,7 @@
       }
     },
     "notFound": "No results found.",
-    "visitWiki": "**For more information, please visit the Wikipedia page.**"
+    "visitWiki": "For more information, please visit the Wikipedia page."
   },
   "wordcount": {
     "description": "Count the words a message has",

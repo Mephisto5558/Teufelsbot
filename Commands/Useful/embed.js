@@ -1,16 +1,16 @@
 const
-  { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes, DiscordAPIError } = require('discord.js'),
-  { logSayCommandUse, constants } = require('#Utils');
+  { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes, DiscordAPIError, codeBlock } = require('discord.js'),
+  { logSayCommandUse, constants, timeFormatter: { msInSecond } } = require('#Utils');
 
 /**
  * @param {Interaction}interaction
- * @param {string}name*/
+ * @param {string}name */
 // 2nd const keyword because of intellisense
 const getStringOption = (interaction, name) => interaction.options.getString(name)?.replaceAll('/n', '\n');
 
 module.exports = new SlashCommand({
   permissions: { user: ['EmbedLinks'] },
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
+  /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
   cooldowns: { user: 200 },
   dmPermission: true,
   ephemeralDefer: true,
@@ -61,7 +61,7 @@ module.exports = new SlashCommand({
   async run(lang) {
     const
 
-      /** @type {(name: string) => string|undefined}*/
+      /** @type {(name: string) => string | undefined} */
       getOption = getStringOption.bind(undefined, this),
       custom = getOption('json'),
       allowedMentions = { parse: [AllowedMentionsTypes.User] };
@@ -78,7 +78,7 @@ module.exports = new SlashCommand({
           image: { url: getOption('image') },
           color: Number.parseInt(getOption('custom_color')?.slice(1) ?? 0, 16) || Colors[getOption('predefined_color')] || 0,
           footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
-          timestamp: this.options.getBoolean('timestamp') && Math.round(Date.now() / 1000),
+          timestamp: this.options.getBoolean('timestamp') && Math.round(Date.now() / msInSecond),
           author: {
             name: getOption('author_name'),
             url: getOption('author_url'),
@@ -94,10 +94,10 @@ module.exports = new SlashCommand({
     }
     catch (err) {
       if (!(err instanceof DiscordAPIError) && !err.message?.includes('JSON at')) throw err;
-      return this.editReply(lang('invalidOption', err.message));
+      return this.editReply(lang('invalidOption', codeBlock(err.message)));
     }
 
-    await this.editReply(custom ? lang('successJSON') : lang('success', JSON.stringify(embed.data.filterEmpty())));
+    await this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(embed.data.filterEmpty()))));
     return logSayCommandUse.call(sentMessage, this.member, lang);
   }
 });

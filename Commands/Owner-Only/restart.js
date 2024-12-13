@@ -1,7 +1,7 @@
 const
   { spawn } = require('node:child_process'),
   { shellExec } = require('#Utils'),
-  getUpdateFunc = /** @param {Message}msg*/ msg => msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply';
+  getUpdateFunc = /** @param {Message}msg */msg => msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply';
 
 let restarting = false;
 
@@ -15,7 +15,7 @@ module.exports = new PrefixCommand({
     restarting = true;
     log(`Restarting bot, initiated by user '${this.user.tag}'...`);
 
-    /** @type {Message<false> | undefined}*/
+    /** @type {Message<false> | undefined} */
     let msg;
     if (!this.content.toLowerCase().includes('skipnpm')) {
       msg = await this.reply(lang('updatingNPM', getEmoji('loading')));

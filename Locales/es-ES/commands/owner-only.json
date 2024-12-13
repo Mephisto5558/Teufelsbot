@@ -4,8 +4,8 @@
   "blacklistuser": {
     "description": "bloquea que un usuario utilice el bot",
     "notFound": "No se encontró ninguna entrada para este id.",
-    "saved": "`{user}` ha sido bloqueado de usar el bot.",
-    "removed": "La entrada de la lista negra para `{user}` ha sido eliminada.",
+    "saved": "{user} ha sido bloqueado de usar el bot.",
+    "removed": "La entrada de la lista negra para {user} ha sido eliminada.",
     "cantBlacklistDev": "¡No puedo negar al dueño del bot!"
   },
   "dbget": {
@@ -14,24 +14,24 @@
   },
   "eval": {
     "description": "inyectar código JavaScript directamente en el bot",
-    "finished": "comando evaluado:\n```js\n{code}\n```\n",
+    "finished": "comando evaluado:\n{code}\n",
     "success": "{msg} sin errores.",
     "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
   },
   "exec": {
     "description": "inyectar código Bash directamente en el shell del bot",
-    "finished": "Código de Bash:\n```sh\n{code}\n```\n",
-    "stdout": "{msg} con la siguiente salida:\nstdout:\n```\n{stdout}\n```\n",
-    "stderr": "stderr:\n```\n{stderr}\n```",
+    "finished": "Código de Bash:\n{code}\n",
+    "stdout": "{msg} con la siguiente salida:\nstdout:\n{stdout}\n",
+    "stderr": "stderr:\n{stderr}",
     "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
   },
   "reload": {
     "description": "Carga un archivo o categoría",
     "invalidCommand": "Este no es un comando válido.",
     "invalidPath": "La ruta especificada no existe! Tenga en cuenta la sensibilidad de mayúsculas y minúsculas de la ruta.",
-    "error": "Se ha producido un error al recargar:\n```{error}```\nCompruebe la consola para más información.",
+    "error": "Se ha producido un error al recargar:\n{error}\nCompruebe la consola para más información.",
     "noneReloaded": "Ningún comando ha sido recargado.",
-    "reloaded": "El siguiente `{count}`comando(s) ha/han sido recargados:\n{commands}"
+    "reloaded": "El siguiente {count} comando(s) ha/han sido recargados:\n{commands}"
   },
   "reloaddb": {
     "description": "Recarga la base de datos",
@@ -52,8 +52,8 @@
   },
   "setactivity": {
     "description": "Establece la actividad del bot",
-    "invalidType": "Este no es un tipo válido. Los tipos válidos son:\n`{types}`",
-    "set": "Mi actividad ha sido establecida a `{name}` de tipo `{type}`.",
+    "invalidType": "Este no es un tipo válido. Los tipos válidos son:\n{types}",
+    "set": "Mi actividad ha sido establecida a {name} de tipo {type}.",
     "reset": "Mi actividad ha sido establecida a `ninguno`."
   },
   "setchangelog": {
@@ -64,7 +64,7 @@
     "description": "Actualiza el último número de cuenta para un canal, también restableciendo el último autor.",
     "invalidNumber": "¡El número proporcionado no es válido!",
     "unknownChannel": "¡La id del canal proporcionado no se ha encontrado en este gremio!",
-    "success": "La cuenta para <#{channel}> se ha establecido a **{number}**."
+    "success": "La cuenta para {channel} se ha establecido a {number}."
   },
   "test": {
     "description": "testear cosas"

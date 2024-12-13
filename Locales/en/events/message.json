@@ -1,15 +1,15 @@
 {
-  "afkMsg": "`{member}` is AFK: {message} - <t:{timestamp}:R>",
-  "afkEnd": "Welcome back, I removed your AFK. You have been AFK since <t:{timestamp}>.\nYour AFK message was: \"{message}\"",
+  "afkMsg": "{member} is AFK: {message} - {timestamp}",
+  "afkEnd": "Welcome back, I removed your AFK. You have been AFK since {timestamp}.\nYour AFK message was: \"{message}\"",
   "counting": {
-    "error": "YOU RUINED IT AT **{lastNumber}**!! The next number is **1**.\n",
-    "wrongNumber": "**Can't you count?! Wrong number.**",
-    "sameUserTwice": "**You can't count two numbers in a row!**"
+    "error": "YOU RUINED IT AT {lastNumber}!! The next number is **1**.\n",
+    "wrongNumber": "Can't you count?! Wrong number.",
+    "sameUserTwice": "You can't count two numbers in a row!"
   },
   "wordchain": {
-    "error": "YOU RUINED A CHAIN OF **{count}** WORDS AT \"**{lastChar}**\"!! Restart by writing any word.\n",
-    "sameUserTwice": "**You can't say two words in a row!**",
-    "inALoop": "**Why are you going in a circle?! That word was only used recently!**",
-    "wrongChar": "**Can't you read?! That word doesn't start with the last word's character.**"
+    "error": "YOU RUINED A CHAIN OF {count} WORDS AT \"{lastChar}\"!! Restart by writing any word.\n",
+    "sameUserTwice": "You can't say two words in a row!",
+    "inALoop": "Why are you going in a circle?! That word was only used recently!",
+    "wrongChar": "Can't you read?! That word doesn't start with the last word's character."
   }
 }

@@ -1,22 +1,23 @@
 const
   { ChannelType, OverwriteType, Constants, GuildFeature, AttachmentBuilder, DiscordAPIError } = require('discord.js'),
-  fetch = require('node-fetch'),
+  fetch = import('node-fetch').then(e => e.default),
 
-  /** @type {import('.')['DiscordAPIErrorCodes']}*/
+  /** @type {import('.')['DiscordAPIErrorCodes']} */
   DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json'),
-  maxPinnedMessages = 50;
+  { pinnedMessagesMaxAmt } = require('./constants'),
+  maxMessagesPerChannelLimit = 100;
 
-/** @type {import('.').BackupSystem.Utils['fetchToBase64']}*/
+/** @type {import('.').BackupSystem.Utils['fetchToBase64']} */
 async function fetchToBase64(url) {
-  if (url) return fetch(url).then(e => e.buffer()).then(e => e.toString('base64'));
+  if (url) return (await (await fetch)(url)).arrayBuffer().then(e => Buffer.from(e).toString('base64'));
 }
 
-/** @type {import('.').BackupSystem.Utils['loadFromBase64']}*/
+/** @type {import('.').BackupSystem.Utils['loadFromBase64']} */
 function loadFromBase64(base64Str) {
   if (base64Str) return Buffer.from(base64Str, 'base64');
 }
 
-/** @type {import('.').BackupSystem.Utils['fetchCategoryChildren']}*/
+/** @type {import('.').BackupSystem.Utils['fetchCategoryChildren']} */
 async function fetchCategoryChildren(category, saveImages, maxMessagesPerChannel) {
   return Promise.all(category.children.cache
     .sort((a, b) => a.position - b.position)
@@ -51,9 +52,9 @@ async function fetchCategoryChildren(category, saveImages, maxMessagesPerChannel
     }));
 }
 
-/** @type {import('.').BackupSystem.Utils['fetchChannelMessages']}*/
+/** @type {import('.').BackupSystem.Utils['fetchChannelMessages']} */
 async function fetchChannelMessages(channel, saveImages, maxMessagesPerChannel = 10) {
-  const messages = await channel.messages.fetch({ limit: Number.isNaN(Number.parseInt(maxMessagesPerChannel)) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: 100 }) });
+  const messages = await channel.messages.fetch({ limit: Number.isNaN(Number.parseInt(maxMessagesPerChannel)) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: maxMessagesPerChannelLimit }) });
 
   return Promise.all(
     messages.filter(e => e.author).map(async e => ({
@@ -68,7 +69,7 @@ async function fetchChannelMessages(channel, saveImages, maxMessagesPerChannel =
   );
 }
 
-/** @type {import('.').BackupSystem.Utils['fetchChannelPermissions']}*/
+/** @type {import('.').BackupSystem.Utils['fetchChannelPermissions']} */
 function fetchChannelPermissions(channel) {
   return channel.permissionOverwrites.cache.reduce((acc, e) => {
     if (e.type != OverwriteType.Role) return acc;
@@ -81,7 +82,7 @@ function fetchChannelPermissions(channel) {
   }, []);
 }
 
-/** @type {import('.').BackupSystem.Utils['fetchChannelThreads']}*/
+/** @type {import('.').BackupSystem.Utils['fetchChannelThreads']} */
 async function fetchChannelThreads(channel, saveImages, maxMessagesPerChannel) {
   /** @type {import('discord.js').ThreadChannel[] | undefined} */
   const threads = (await channel.threads?.fetch())?.threads;
@@ -97,14 +98,14 @@ async function fetchChannelThreads(channel, saveImages, maxMessagesPerChannel) {
   })) ?? [];
 }
 
-/** @type {import('.').BackupSystem.Utils['fetchMessageAttachments']}*/
+/** @type {import('.').BackupSystem.Utils['fetchMessageAttachments']} */
 async function fetchMessageAttachments(message, saveImages) {
   return (await Promise.all(message.attachments.map(async ({ name, url }) => ({
     name, attachment: saveImages ? await fetchToBase64(url) : url
   })))).filter(e => e.attachment);
 }
 
-/** @type {import('.').BackupSystem.Utils['fetchTextChannelData']}*/
+/** @type {import('.').BackupSystem.Utils['fetchTextChannelData']} */
 async function fetchTextChannelData(channel, saveImages, maxMessagesPerChannel) {
   return {
     type: channel.type,
@@ -119,7 +120,7 @@ async function fetchTextChannelData(channel, saveImages, maxMessagesPerChannel) 
   };
 }
 
-/** @type {import('.').BackupSystem.Utils['loadChannel']}*/
+/** @type {import('.').BackupSystem.Utils['loadChannel']} */
 async function loadChannel(channel, guild, category, maxMessagesPerChannel, allowedMentions) {
   const createOptions = {
     name: channel.name,
@@ -144,7 +145,7 @@ async function loadChannel(channel, guild, category, maxMessagesPerChannel, allo
 
   const newChannel = await guild.channels.create(createOptions);
   if (Constants.TextBasedChannelTypes.includes(channel.type)) {
-    /** @type {import('discord.js').Webhook | undefined}*/
+    /** @type {import('discord.js').Webhook | undefined} */
     let webhook;
     if (channel.messages.length > 0) {
       try { webhook = await loadChannelMessages(newChannel, channel.messages, undefined, maxMessagesPerChannel, allowedMentions); }
@@ -162,7 +163,7 @@ async function loadChannel(channel, guild, category, maxMessagesPerChannel, allo
   return newChannel;
 }
 
-/** @type {import('.').BackupSystem.Utils['loadChannelMessages']}*/
+/** @type {import('.').BackupSystem.Utils['loadChannelMessages']} */
 async function loadChannelMessages(channel, messages, webhook, maxMessagesPerChannel, allowedMentions) {
   try { webhook ??= await channel.createWebhook({ name: 'MessagesBackup', avatar: channel.client.user.displayAvatarURL() }); }
   catch (err) {
@@ -184,7 +185,7 @@ async function loadChannelMessages(channel, messages, webhook, maxMessagesPerCha
         threadId: channel.isThread() ? channel.id : undefined
       });
 
-      if (msg.pinned && sentMsg.pinnable && (await channel.messages.fetchPinned()).size < maxPinnedMessages) await sentMsg.pin();
+      if (msg.pinned && sentMsg.pinnable && (await channel.messages.fetchPinned()).size < pinnedMessagesMaxAmt) await sentMsg.pin();
     }
     catch (err) { log.error('Backup load error:', err); }
   }

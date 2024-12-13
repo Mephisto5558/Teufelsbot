@@ -1,6 +1,6 @@
 {
-  "cooldown": "¡Este comando está en tiempo de recarga! Inténtalo de nuevo en `{time}`s.",
-  "slashOnly": "¡Este comando sólo está disponible como un comando slash: </{name}:{id}>",
+  "cooldown": "¡Este comando o uno de sus subcomandos está en tiempo de espera! Inténtalo de nuevo en {time}s.",
+  "slashOnly": "Este comando solo está disponible como un comando slash: {command}",
   "guildOnly": "¡Este comando o uno de sus subcomandos sólo está disponible en guilds!",
   "nonBeta": "¡Este comando no es un comando beta! Este bot ejecuta sólo comandos beta.",
   "disabled": "Este comando ha sido deshabilitado por el desarrollador del bot. Razón:\n{reason}",
@@ -11,8 +11,8 @@
   "invalidChannelType": "El canal que introdujo para la opción \"{option}\" debe ser una de las opciones de tipo de canal. Por favor, seleccione una de las opciones disponibles cuando ingrese el comando barra.",
   "permissionDenied": {
     "embedTitle": "Permisos insuficientes",
-    "embedDescriptionUser": "Necesitas los siguientes permisos en este canal para ejecutar este comando:\n`{permissions}`",
-    "embedDescriptionBot": "Necesito los siguientes permisos en este canal para ejecutar este comando:\n`{permissions}`"
+    "embedDescriptionUser": "Necesitas los siguientes permisos en este canal para ejecutar este comando:\n{permissions}",
+    "embedDescriptionBot": "Necesito los siguientes permisos en este canal para ejecutar este comando:\n`permissions}"
   },
   "notAllowed": {
     "anyone": "Nadie puede ejecutar este comando (establecido por un administrador del servidor)!",

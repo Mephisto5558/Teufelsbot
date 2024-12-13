@@ -85,8 +85,9 @@
     "notBotMessage": "I can only edit my own messages!",
     "cannotEdit": "I cannot edit that message!",
     "emptyJson": "The JSON you provided is empty!",
-    "error": "An error occurred while trying to send your custom JSON:\n```{err}```\n",
-    "success": "The message has been edited. [Link]({url})"
+    "link": "Link",
+    "error": "An error occurred while trying to send your custom JSON:\n{err}\n",
+    "success": "The message has been edited. {link}"
   },
   "record": {
     "description": "Record a voice channel. Needs approval from users.",
@@ -106,7 +107,7 @@
     "cannotJoin": "I can not join that voice channel! Make sure the channel is not full and I have the needed permissions.",
     "deaf": "I am currently deafened and i cannot undeaf myself!",
     "embedTitle": "VoiceRecorder",
-    "embedDescription": "<@{user}> wants to record you in voice channel <#{channel}>.\n**{publicOrPrivate}**\nPlease press a button to allow or deny the recording of your voice.",
+    "embedDescription": "{user} wants to record you in voice channel {channel}.\n{publicOrPrivate}\nPlease press a button to allow or deny the recording of your voice.",
     "isPublic": "This recording will be available to every member of the guild.",
     "isPrivate": "This recording will be only available for the current members of the voice channel that allowed the recording.",
     "cantConnect": "I could not connect to the voice channel! Please try again.",
@@ -118,9 +119,9 @@
     "resume": "Resume Recording",
     "stop": "Stop Recording",
     "get": "Get the Recording",
-    "updated": "Your response has been set to `{permission}`. I am waiting for the other members to reply.",
-    "paused": "🔇 I paused recording <#{channel}>.",
-    "recording": "🎙️ I am now recording <#{channel}> ({users})!",
+    "updated": "Your response has been set to {permission}. I am waiting for the other members to reply.",
+    "paused": "🔇 I paused recording {channel}.",
+    "recording": "🎙️ I am now recording {channel} ({users})!",
     "notFound": "Your recording has not been found!",
     "privateReady": "Press the button to get the recording.",
     "success": "🔉 Here is your recording!"

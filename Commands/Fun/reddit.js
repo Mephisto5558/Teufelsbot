@@ -1,16 +1,16 @@
 const
-  { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
-  fetch = require('node-fetch').default,
+  { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require('discord.js'),
+  fetch = import('node-fetch').then(e => e.default),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
-  { constants: { embedMaxTitleLength, suffix }, timeFormatter: { secsInMinute } } = require('#Utils'),
-  CACHE_DELETE_TIME = secsInMinute * 5, // eslint-disable-line custom/sonar-no-magic-numbers -- 5min
+  { constants: { embedMaxTitleLength, suffix }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
+  CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
+  maxPercentage = 100,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
-  cachedSubreddits = new Collection(),
-  fetchPost = (/** @type { {children: { data: unknown }[] }}*/{ children }, filterNSFW = true) => {
+  /** @type {import('./reddit').Cache} */cachedSubreddits = new Collection(),
+  fetchPost = (/** @type {import('./reddit').RedditPage} */{ children }, filterNSFW = true) => {
     children = children.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
     if (!children.length) return;
 
-    /** @type {Record<string, string | number | Record<string, unknown> | undefined>}*/
     const post = children.random().data;
 
     return {
@@ -28,7 +28,7 @@ const
 
 module.exports = new MixedCommand({
   usage: { examples: 'memes hot' },
-  cooldowns: { channel: 100 },
+  cooldowns: { channel: msInSecond / 10 },
   dmPermission: true,
   options: [
     new CommandOption({
@@ -66,9 +66,9 @@ module.exports = new MixedCommand({
 
     if (cachedSubreddits.has(`${subreddit}_${type}`)) post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`), filterNSFW);
     else {
-      /** @type {{}}*/
+      /** @type {{error: true, reason: number | string, message: string, reason: string} | {error: false, data: import('./reddit').RedditPage}} */
       let res;
-      try { res = await fetch(`https://reddit.com/r/${subreddit}/${type}.json`, { follow: 1 }).then(res => res.json()); }
+      try { res = await (await fetch)(`https://reddit.com/r/${subreddit}/${type}.json`, { follow: 1 }).then(res => res.json()); }
       catch (err) {
         if (err.type != 'max-redirect') throw err;
         return this.customReply(lang('notFound'));
@@ -76,7 +76,7 @@ module.exports = new MixedCommand({
 
       if (res.error == HTTP_STATUS_NOT_FOUND) return this.customReply(lang('notFound'));
       if (res.reason == 'private') return this.customReply(lang('private'));
-      if (res.error) return this.customReply(lang('error', `Error: ${res.message}\nReason: ${res.reason}`));
+      if (res.error) return this.customReply(lang('error', codeBlock`Error: ${res.message}\nReason: ${res.reason}`));
 
       cachedSubreddits.set(`${subreddit}_${type}`, res.data);
       setTimeout(() => cachedSubreddits.delete(`${subreddit}_${type}`), CACHE_DELETE_TIME);
@@ -92,7 +92,7 @@ module.exports = new MixedCommand({
         title: post.title.length > embedMaxTitleLength ? post.title.slice(0, embedMaxTitleLength - suffix.length) + suffix : post.title,
         url: post.url,
         image: { url: /^https?:\/\//i.test(post.imageURL) ? post.imageURL : `https://reddit.com${post.imageURL}` },
-        footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * 100, downvotes: post.downvotes, comments: post.comments }) }
+        footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * maxPercentage, downvotes: post.downvotes, comments: post.comments }) }
       }).setColor('Random'),
       component = new ActionRowBuilder({
         components: [

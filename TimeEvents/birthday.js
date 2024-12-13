@@ -1,11 +1,11 @@
 const
-  { EmbedBuilder } = require('discord.js'),
+  { EmbedBuilder, inlineCode } = require('discord.js'),
   { DiscordAPIErrorCodes } = require('#Utils');
 
 /**
  * @this {StringConstructor | string | undefined}
  * @param {import('discord.js').GuildMember}member
- * @param {number}year*/
+ * @param {number}year */
 function formatBirthday(member, year) {
   return this?.toString().replaceAll('{user.nickname}', member.displayName)
     .replaceAll('{user.username}', member.user.username)
@@ -26,7 +26,7 @@ module.exports = {
   time: '00 00 00 * * *',
   startNow: true,
 
-  /** @this {Client}*/
+  /** @this {Client} */
   async onTick() {
     const
       now = new Date(),
@@ -59,7 +59,7 @@ module.exports = {
           try { channel = await guild.channels.fetch(settings.ch.channel); }
           catch (err) {
             if (err.code != DiscordAPIErrorCodes.UnknownChannel) throw err;
-            return (await guild.fetchOwner()).send(this.i18n.__({ locale: guild.db.config.lang ?? guild.localeCode }, 'others.timeEvents.birthday.unknownChannel', guild.name));
+            return (await guild.fetchOwner()).send(this.i18n.__({ locale: guild.db.config.lang ?? guild.localeCode }, 'others.timeEvents.birthday.unknownChannel', inlineCode(guild.name)));
           }
 
           const embed = new EmbedBuilder({

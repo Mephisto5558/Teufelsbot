@@ -1,9 +1,10 @@
 const
+  { userMention } = require('discord.js'),
   medals = [':first_place:', ':second_place:', ':third_place:'],
   { messageMaxLength } = require('../constants');
 
-/** @type {import('.').mgStats_formatTopTen}*/
-module.exports = function formatTopTen(input, sort, mode, lang, maxLength = messageMaxLength) {
+/** @type {import('.').mgStats_formatTop} */
+module.exports = function formatTop(input, sort, mode, lang, maxLength = messageMaxLength, amt = 10) {
   if (input.length > 1) {
     switch (mode) {
       case 'draws': input.sort(([, a], [, b]) => b.draws - a.draws || b.wins - a.wins || a.losses - b.losses); break;
@@ -20,10 +21,10 @@ module.exports = function formatTopTen(input, sort, mode, lang, maxLength = mess
     if (sort == 'f') input.reverse();
   }
 
-  return input.slice(0, 10).reduce((acc, [id, stats], i) => acc + (
+  return input.slice(0, amt).reduce((acc, [id, stats], i) => acc + (
     acc.length > maxLength
       ? '...'
-      : `${medals[i] ?? i + 1 + '.'} <@${id}>\n`
+      : `${medals[i] ?? i + 1 + '.'} ${userMention(id)}\n`
         + '> ' + lang('wins', stats.wins ?? 0)
         + '> ' + lang('losses', stats.losses ?? 0)
         + '> ' + lang('draws', stats.draws ?? 0)

@@ -117,7 +117,7 @@
       "notFound": "{user} no tiene cumpleaños :(",
       "embedTitle": "Cumpleaños de {user}",
       "date": "{user} ha cumpleaños el **{month} {day}**.\n",
-      "newAge": "Le girará **{age}** este día."
+      "newAge": "Le girará {age} este día."
     },
     "getAll": {
       "embedTitle": "Los próximos cumpleaños",
@@ -260,9 +260,9 @@
       }
     },
     "notFound": "Esta no es una opción válida. ",
-    "validOptions": "Las opciones válidas son:\n`{options}`",
+    "validOptions": "Las opciones válidas son:\n{options}",
     "requiresArgs": "Este comando requiere los siguientes argumentos en orden:\n\n{args}",
-    "error": "Se ha producido un error:\n```{err}```"
+    "error": "Se ha producido un error:\n{err}"
   },
   "joke": {
     "description": "envía un chiste divertido",
@@ -338,7 +338,7 @@
     },
     "notFound": "No hay publicaciones que coincidan con tu búsqueda.",
     "private": "Este subreddit es privado.",
-    "error": "Se ha producido un error:\n```{err}```",
+    "error": "Se ha producido un error:\n{err}",
     "embedFooterText": "Mejores: {upvotes} ({ratio}%) | Abajos: {downvotes} | Comentarios: {comments}"
   },
   "sad": {
@@ -659,19 +659,19 @@
         }
       }
     },
-    "saved": "Se ha añadido un nuevo disparador para `{trigger}`.",
-    "deletedOne": "Eliminado el disparador con el ID `{id}`",
-    "deletedAll": "He eliminado todos (`{count}`) activadores.",
+    "saved": "Se ha añadido un nuevo disparador para {trigger}.",
+    "deletedOne": "Eliminado el disparador con el ID {id}",
+    "deletedAll": "He eliminado todos ({count}) activadores.",
     "noneFound": "¡No hay activadores!",
     "notFound": "Ningún disparador coincide con su consulta.",
     "confirmation": "borrar todo",
     "needConfirm": "Necesitas confirmar esta acción escribiendo `CLEAR ALL` en la opción de confirmación!",
     "embedTitle": "Disparadores",
     "embedTitleOne": "**Disparador {id}:**",
-    "embedDescriptionOne": "**Desencadenador:**\n```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Tarjeta comodín:** `{wildcard}`",
-    "longEmbedDescription": "ID: {id}\n> Disparador: `{trigger}`\n> Respuesta: `{response}`\n> Comodino: `{wildcard}`\n\n",
+    "embedDescriptionOne": "**Desencadenador:**\n{trigger}\n**Respuesta:**\n{response}\n**Tarjeta comodín:** {wildcard}",
+    "longEmbedDescription": "ID: {id}\n> Disparador: {trigger}\n> Respuesta: {response}\n> Comodino: {wildcard}\n\n",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Disparador:**\n```\n{trigger}\n```\n**Respuesta:**\n```\n{response}\n```\n**Comodino: **`{wildcard}`\n",
+    "shortFieldValue": "**Disparador:**\n{trigger}\n**Respuesta:**\n{response}\n**Comodino: **{wildcard}\n",
     "first25": "Los primeros 25 disparadores. Obtenga más con la opción 'corto'."
   },
   "vote": {

@@ -11,7 +11,7 @@
         "description": "la taille que vous voulez obtenir"
       }
     },
-    "embedDescription": "**Avatar de {user}**"
+    "embedDescription": "Avatar de {user}"
   },
   "changelog": {
     "description": "Obtenir le dernier changelog.",
@@ -37,14 +37,14 @@
     },
     "embedTitle": "Statistiques de la commande",
     "notFound": "Cette commande n'existe pas !",
-    "embedDescriptionOne": "La commande {command} a été exécutée **{count}** fois.",
+    "embedDescriptionOne": "La commande {command} a été exécutée {count} fois.",
     "embedDescriptionMany": "Voici 10 commandes les plus utilisées :\n",
-    "embedFieldValue": "**{total}** (Slash: **{slash}** | Préfixe : **{prefix}**)"
+    "embedFieldValue": "{total} (Slash: {slash} | Préfixe : {prefix})"
   },
   "dashboard": {
     "description": "obtenir le lien vers le tableau de bord du bot",
     "embedTitle": "Tableau de bord",
-    "embedDescriptionDashboard": "Cliquez sur [here]({url}) pour ouvrir le tableau de bord."
+    "embedDescriptionDashboard": "Cliquez sur {link} pour ouvrir le tableau de bord."
   },
   "emojiinfo": {
     "description": "Obtenir des informations sur un émoji",
@@ -85,8 +85,8 @@
     "commandListPlaceholder": "Quelle commande voulez-vous voir?",
     "devEmbedFooterText": "Dev-Bot | Seules les commandes bêta sont affichées",
     "one": {
-      "notFound": "Aucune information trouvée pour la commande `{command}`.",
-      "embedTitle": "Informations détaillées sur : `{command}`",
+      "notFound": "Aucune information trouvée pour la commande {command}.",
+      "embedTitle": "Informations détaillées sur : {command}",
       "embedFooterText": "Syntaxe : <> = obligatoire, [] = optionnel | Préfixe : \"{prefix}\"",
       "prefixAlias": "Alias de commande du préfixe",
       "slashAlias": "Alias de commande tranchante",
@@ -125,7 +125,7 @@
   "invite": {
     "description": "Envoie un lien pour ajouter le bot à votre guilde.",
     "embedTitle": "Inviter",
-    "embedDescription": "Merci de votre intérêt ! Cliquez sur [here]({url}) pour m'ajouter à votre guilde. ^^"
+    "embedDescription": "Merci de votre intérêt ! Cliquez sur {link} pour m'ajouter à votre guilde. ^^"
   },
   "ping": {
     "description": "Obtenir le ping du bot",
@@ -135,8 +135,8 @@
       }
     },
     "average": {
-      "loading": "Ping en cours... `{current}`/`{target}`",
-      "embedDescription": "Pings : `{pings}`\nPing le plus bas : `{lowest}ms`\nPing en hauteur : `{highest}ms`\nPing moyen : `{average}ms`"
+      "loading": "Ping en cours... {current}/{target}`",
+      "embedDescription": "Pings : {pings}\nPing le plus bas : `{lowest}ms`\nPing en hauteur : `{highest}ms`\nPing moyen : `{average}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -178,7 +178,7 @@
         "description": "L'ID du serveur sur lequel vous voulez obtenir des informations. Fonctionne uniquement pour les serveurs dans lesquels je suis entré."
       }
     },
-    "memberStats": "`{all}` (humains : `{humans}`, Bots : `{bots}`)",
+    "memberStats": "{all} (humains : {humans}, Bots : {bots})",
     "members": "Membres",
     "verificationLevel": {
       "name": "Niveau de vérification",
@@ -216,7 +216,7 @@
   "uptime": {
     "description": "Obtenir le temps de disponibilité du bot",
     "embedDescriptionNoURL": "Le bot a été en ligne pour {time}.",
-    "embedDescription": "Le bot a été [online]({Domain}/uptime) pour exactement {time}."
+    "embedDescription": "Le bot a été {link} pour exactement {time}."
   },
   "userinfo": {
     "description": "Obtenir des informations sur un membre",
@@ -231,7 +231,7 @@
     },
     "guildOwner": "Propriétaire de la guilde",
     "guildAdmin": "Administrateur de la guilde",
-    "admin": "`Administrateur`",
+    "admin": "Administrateur",
     "guildMod": "Modérateur de guilde",
     "guildMember": "Membre de la Guilde",
     "activity": {
@@ -282,6 +282,6 @@
   "vote": {
     "description": "obtenir le lien vers la demande de fonctionnalité et la page de vote des bots",
     "embedTitle": "Vote",
-    "embedDescriptionVote": "Cliquez sur [here]({url}) pour ouvrir la page Web de vote et de demande de fonctionnalité."
+    "embedDescriptionVote": "Cliquez sur {link} pour ouvrir la page Web de vote et de demande de fonctionnalité."
   }
 }

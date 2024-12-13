@@ -1,12 +1,12 @@
 const
   { Client } = require('discord.js'),
-  config = require('../env.json');
+  envJSON = require('../env.json');
 
 /**
  * @param {Record<string, Client | undefined>}sessions
  * @param {string} env
  * @param {string} token
- * @returns {Promise<Client<true>>}*/
+ * @returns {Promise<Client<true>>} */
 async function getClient(sessions, env, token) {
   const client = sessions[env] ?? new Client({ intents: [] });
   if (!sessions[env]) {
@@ -26,7 +26,7 @@ module.exports = {
   time: '00 00 00 * * *',
   startNow: false, // Getting ran even before logging into the client
 
-  /** @this {Client | void}*/
+  /** @this {Client | void} */
   async onTick() {
     const now = new Date();
 
@@ -43,7 +43,7 @@ module.exports = {
     }
 
     log('Started emoji sync').debug('Started emoji sync');
-    const clients = Object.entries(config).map(([k, v]) => [k, v.keys.token]).filter(([, v]) => v);
+    const clients = Object.entries(envJSON).map(([k, v]) => [k, v.keys.token]).filter(([, v]) => v);
 
     for (const [env1, token1] of clients) {
       const client1 = await getClient(sessions, env1, token1);

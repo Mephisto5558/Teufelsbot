@@ -1,11 +1,11 @@
 const
-  { MessageFlags, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { MessageFlags, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink, userMention, channelMention, inlineCode } = require('discord.js'),
   { embedFieldValueMaxLength, suffix } = require('#Utils').constants,
   PINK = 0xE62AED;
 
 /**
  * @this {Message | import('discord.js').PartialMessage}
- * @param {Message}newMsg*/
+ * @param {Message}newMsg */
 module.exports = function messageUpdate(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading))
@@ -18,16 +18,16 @@ module.exports = function messageUpdate(newMsg) {
 
   const
 
-    /** @type {lang}*/
+    /** @type {lang} */
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
     embed = new EmbedBuilder({
       author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
-      description: lang('embedDescription', { executor: `<@${newMsg.user.id}>`, channel: newMsg.channel.name }),
+      description: lang('embedDescription', { executor: userMention(newMsg.user.id), channel: newMsg.channel.name }),
       fields: [
-        { name: lang('global.channel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: false },
+        { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false },
         { name: lang('oldContent'), value: '', inline: false },
         { name: lang('newContent'), value: '', inline: false },
-        { name: lang('author'), value: `${newMsg.user.tag} (\`${newMsg.user.id}\`)`, inline: false }
+        { name: lang('author'), value: `${newMsg.user.tag} (${inlineCode(newMsg.user.id)})`, inline: false }
       ],
       timestamp: Date.now(),
       color: PINK
@@ -43,8 +43,8 @@ module.exports = function messageUpdate(newMsg) {
   if (this.originalContent) embed.data.fields[1].value += `${this.originalContent}\n`;
   if (newMsg.originalContent) embed.data.fields[2].value += `${newMsg.originalContent}\n`;
 
-  if (this.attachments.size) embed.data.fields[1].value += this.attachments.map(e => `[${e.url}](${e.name})`).join(', ') + '\n';
-  if (newMsg.attachments.size) embed.data.fields[2].value += newMsg.attachments.map(e => `[${e.url}](${e.name})`).join(', ') + '\n';
+  if (this.attachments.size) embed.data.fields[1].value += this.attachments.map(e => hyperlink(e.url, e.name)).join(', ') + '\n';
+  if (newMsg.attachments.size) embed.data.fields[2].value += newMsg.attachments.map(e => hyperlink(e.url, e.name)).join(', ') + '\n';
 
   if (this.embeds.length) embed.data.fields[1].value += lang('events.logger.embeds', this.embeds.length);
   if (newMsg.embeds.length) embed.data.fields[2].value += lang('events.logger.embeds', newMsg.embeds.length);

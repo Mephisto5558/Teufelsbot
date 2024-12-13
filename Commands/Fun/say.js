@@ -3,7 +3,7 @@ const
   { getTargetChannel, logSayCommandUse, constants } = require('#Utils');
 
 module.exports = new MixedCommand({
-  /* eslint-disable-next-line custom/sonar-no-magic-numbers */
+  /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
   cooldowns: { user: 200 },
   ephemeralDefer: true,
   options: [
@@ -28,11 +28,11 @@ module.exports = new MixedCommand({
   async run(lang) {
     const
 
-      /** @type {string}*/
+      /** @type {string} */
       msg = this.options?.getString('msg', true) ?? this.content,
       allowedMentions = { parse: [AllowedMentionsTypes.User] },
 
-      /** @type {import('discord.js').GuildTextBasedChannel}*/
+      /** @type {import('discord.js').GuildTextBasedChannel} */
       channel = getTargetChannel(this, { returnSelf: true }),
       replyTo = this.options?.getString('reply_to');
 

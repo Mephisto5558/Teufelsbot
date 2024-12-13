@@ -1,10 +1,13 @@
 const
   { Message, Constants, Collection } = require('discord.js'),
-  { getTargetChannel, DiscordAPIErrorCodes } = require('#Utils'),
+  { getTargetChannel, DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt } } = require('#Utils'),
+  maxPercentage = 100,
+  maxMsgsToFetch = 100,
+  maxAllowedPurgeAmt = 1000,
 
   /**
    * @param {string}str
-   * filters discord invites, invite.gg, dsc.gg, disboard.org links*/
+   * filters discord invites, invite.gg, dsc.gg, disboard.org links */
   adRegex = str => new RegExp(
     String.raw`(?:(?=discord)(?<!support\.)(?:discord(?:app)?[\W_]*(?:com|gg|io|link|me|net|plus)\/|`
     + String.raw`(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(?:attachments|channels)\/)`
@@ -12,35 +15,35 @@ const
   ).test(str),
   filterOptionsExist = /** @param {Record<string, string | number | boolean | undefined>}options */ options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
 
-  /** @type {Record<string, (msg: Message<true>) => boolean>}*/
+  /** @type {Record<string, (msg: Message<true>) => boolean>} */
   filterCheck = {
     text: msg => !!msg.content.length,
     embeds: msg => !!msg.embeds.length,
     mentions: msg => !!msg.mentions.users.size,
     images: msg => !!msg.attachments.some(e => e.contentType.includes('image')),
-    /* eslint-disable-next-line camelcase -- option name for better user-readability*/
+    /* eslint-disable-next-line camelcase -- option name for better user-readability */
     server_ads: msg => adRegex(msg.content) || !!msg.embeds.some(e => adRegex(e.description))
   };
 
-/** @type {import('./purge')['shouldDeleteMsg']}*/
+/** @type {import('./purge')['shouldDeleteMsg']} */
 function shouldDeleteMsg(msg, options) {
   const
-    /* eslint-disable-next-line jsdoc/require-param -- false positive*/
-    check = /** @param {GenericFunction}fn @param {string}option*/ (fn, option) => !!(
+    /* eslint-disable-next-line jsdoc/require-param -- false positive */
+    check = /** @param {GenericFunction}fn @param {string}option */ (fn, option) => !!(
       !option
       || msg.content.toLowerCase()[fn](option.toLowerCase())
       || msg.embeds.some(e => e.description?.toLowerCase()[fn](option.toLowerCase()))
     ),
     checkCaps = () => !('caps_percentage' in options && options.caps_percentage > 0)
-      || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * 100 >= options.caps_percentage
-      || !!msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * 100 >= options.caps_percentage)
+      || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * maxPercentage >= options.caps_percentage
+      || msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * maxPercentage >= options.caps_percentage)
       || !msg.content && !msg.embeds.some(e => e.description),
     bool = !!(msg.bulkDeletable && (!!options.remove_pinned || !msg.pinned)),
     userType = msg.user.bot ? 'bot' : 'human';
 
   if (!filterOptionsExist(options)) return bool;
 
-  /* eslint-disable-next-line sonarjs/expression-complexity -- good readability*/
+  /* eslint-disable-next-line sonarjs/expression-complexity -- good readability */
   return bool
     && (!('member' in options) || msg.user.id == options.member.id)
     && (!('user_type' in options) || options.user_type == userType)
@@ -57,9 +60,9 @@ const maxMsgs = 250;
  * @param {Message['channel']}channel
  * @param {string?}before
  * @param {string?}after
- * @param {number?}limit*/
+ * @param {number?}limit */
 async function fetchMsgs(channel, before, after, limit = maxMsgs) {
-  const options = { limit: Math.min(limit, 100), before, after };
+  const options = { limit: Math.min(limit, maxMsgsToFetch), before, after };
 
   let
     lastId,
@@ -71,10 +74,10 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
     const messages = await channel.messages.fetch(options);
     if (!messages.size) break;
 
-    /* eslint-disable-next-line unicorn/prefer-spread -- false positive: Collection extends Map, not Array*/
+    /* eslint-disable-next-line unicorn/prefer-spread -- false positive: Collection extends Map, not Array */
     collection = collection.concat(messages);
-    lastId = messages.last().id;
-    options.limit = Math.min(limit - collection.size, 100);
+    lastId = messages.at(-1).id;
+    options.limit = Math.min(limit - collection.size, maxMsgsToFetch);
   }
 
   return collection;
@@ -83,14 +86,14 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
 module.exports = new MixedCommand({
   aliases: { prefix: ['clear'] },
   permissions: { client: ['ManageMessages', 'ReadMessageHistory'], user: ['ManageMessages'] },
-  cooldowns: { guild: 1000 },
+  cooldowns: { guild: msInSecond },
   ephemeralDefer: true,
   options: [
     new CommandOption({
       name: 'amount',
       type: 'Integer',
       minValue: 1,
-      maxValue: 1000,
+      maxValue: maxAllowedPurgeAmt,
       required: true
     }),
     new CommandOption({
@@ -109,7 +112,7 @@ module.exports = new MixedCommand({
       name: 'caps_percentage',
       type: 'Number',
       minValue: 1,
-      maxValue: 100
+      maxValue: maxPercentage
     }),
     new CommandOption({ name: 'contains', type: 'String' }),
     new CommandOption({ name: 'does_not_contain', type: 'String' }),
@@ -128,13 +131,14 @@ module.exports = new MixedCommand({
 
   async run(lang) {
     const
-      amount = this.options?.getInteger('amount', true) ?? Number.parseInt(this.args[0]).limit({ min: 0, max: 1000 }),
+      amount = this.options?.getInteger('amount', true) ?? Number.parseInt(this.args[0]).limit({ min: 0, max: maxAllowedPurgeAmt }),
 
-      /** @type {import('discord.js').GuildTextBasedChannel}*/
+      /** @type {import('discord.js').GuildTextBasedChannel} */
       channel = getTargetChannel(this, { returnSelf: true }),
       options = Object.fromEntries(this.options?.data.map(e => [e.name, e.value]) ?? []);
 
-    let messages,
+    let
+      messages,
       count = 0;
 
     if (!amount) return this.customReply(Number.isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
@@ -162,22 +166,22 @@ module.exports = new MixedCommand({
     if (!messages.length) return this.customReply(lang('noneFound'));
 
     const sleepTime = 2000;
-    for (let i = 0; i < messages.length; i += 100) {
-      count += (await channel.bulkDelete(messages.slice(i, i + 100))).size;
-      if (messages[i + 100]) await sleep(sleepTime);
+    for (let i = 0; i < messages.length; i += bulkDeleteMaxMessageAmt) {
+      count += (await channel.bulkDelete(messages.slice(i, i + bulkDeleteMaxMessageAmt))).size;
+      if (messages[i + bulkDeleteMaxMessageAmt]) await sleep(sleepTime);
     }
 
-    return this.customReply(lang('success', { count, all: messages.length }), 1e4);
+    return this.customReply(lang('success', { count, all: messages.length }), msInSecond * 10);
   }
 });
 
-/* eslint-disable unicorn/consistent-function-scoping, camelcase, custom/sonar-no-magic-numbers
--- in there due to performance reasons (testing code not used in production)*/
+/* eslint-disable unicorn/consistent-function-scoping, camelcase, @typescript-eslint/no-magic-numbers
+-- in there due to performance reasons (testing code not used in production) */
 
-/** Tests the purge filters*/
+/** Tests the purge filters */
 /** @typedef {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}}data */
 function _testPurge() {
-  /** @param {data[]}data*/
+  /** @param {data[]}data */
   function addEmbed(...data) {
     return data.reduce((acc, e) => {
       const obj = structuredClone(e);
@@ -187,10 +191,10 @@ function _testPurge() {
       acc.push(e, obj);
 
       return acc;
-    }, []).sort((/** @type {data}*/a, /** @type {data}*/b) => Number('content' in b.input[0]) - Number('content' in a.input[0]));
+    }, []).sort((/** @type {data} */a, /** @type {data} */b) => Number('content' in b.input[0]) - Number('content' in a.input[0]));
   }
 
-  /** @param {data[]}data*/
+  /** @param {data[]}data */
   function addFlip(...data) {
     return data.reduce((acc, e) => {
       const obj = structuredClone(e);
@@ -206,7 +210,7 @@ function _testPurge() {
       acc.push(e, obj);
 
       return acc;
-    }, []).sort((/** @type {data}*/a, /** @type {data}*/b) => {
+    }, []).sort((/** @type {data} */a, /** @type {data} */b) => {
       const orderMap = { contains: 0, starts_with: 1, ends_with: 2, does_not_contain: 3, not_starts_with: 4, not_ends_with: 5 };
       return orderMap[Object.keys(a.input[1])[0]] - orderMap[Object.keys(b.input[1])[0]];
     });

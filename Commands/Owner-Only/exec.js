@@ -1,4 +1,6 @@
-const { shellExec } = require('#Utils');
+const
+  { codeBlock } = require('discord.js'),
+  { shellExec } = require('#Utils');
 
 module.exports = new PrefixCommand({
   dmPermission: true,
@@ -14,12 +16,12 @@ module.exports = new PrefixCommand({
 
     try {
       const { stdout = lang('global.none'), stderr } = await shellExec(this.content);
-      let response = lang('stdout', { msg: lang('finished', this.content), stdout });
-      if (stderr) response += lang('stderr', stderr);
+      let response = lang('stdout', { msg: lang('finished', codeBlock('sh', this.content)), stdout: codeBlock(stdout) });
+      if (stderr) response += lang('stderr', codeBlock(stderr));
 
       await msg.customReply(response);
     }
-    catch (err) { return msg.customReply(lang('error', { msg: lang('finished', this.content), name: err.name, err: err.message })); }
+    catch (err) { return msg.customReply(lang('error', { msg: lang('finished', codeBlock('sh', this.content)), name: err.name, err: err.message })); }
 
     return log.debug(`executed bash command '${this.content}'`);
   }

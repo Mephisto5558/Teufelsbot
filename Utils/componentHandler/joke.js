@@ -1,11 +1,11 @@
-/** @type {import('..').commandExecutionWrapper}*/
+/** @type {import('..').commandExecutionWrapper} */
 const commandExecutionWrapper = require('../commandExecutionWrapper.js');
 
-/** @type {import('.').joke}*/
+/** @type {import('.').joke} */
 module.exports = async function joke(lang, api, type, blacklist, maxLength) {
   this.options = {
-    /** @param {string}str*/
-    /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior*/
+    /** @param {string}str */
+    /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior */
     getString: str => {
       switch (str) {
         case 'api': return api == 'null' ? null : api;

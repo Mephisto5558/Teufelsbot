@@ -1,5 +1,4 @@
-/* eslint-disable sonarjs/no-extend-native */
-
+/* eslint-disable no-extend-native */
 const
   { BaseInteraction, Message, Collection, AutocompleteInteraction, User, Guild, GuildMember, ButtonBuilder, Events, Client } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
@@ -8,7 +7,7 @@ const
   { join } = require('node:path'),
   { DB } = require('@mephisto5558/mongoose-db'),
   { SlashCommand, PrefixCommand, MixedCommand, CommandOption } = require('@mephisto5558/command'),
-  I18nProvider = require('@mephisto5558/i18n'),
+  { I18nProvider } = require('@mephisto5558/i18n'),
   Log = require('./Log.js'),
   customReply = require('./message_customReply.js'),
   { runMessages } = require('./message_runMessages.js'),
@@ -16,6 +15,7 @@ const
   playAgain = require('./TicTacToe_playAgain.js'),
   findAllEntries = require('../findAllEntries.js'),
   { setDefaultConfig } = require('../configValidator.js'),
+  defaultValueLoggingMaxJSONLength = 100,
 
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
@@ -34,7 +34,7 @@ globalThis.CommandOption = CommandOption.bind(null, globalThis.log);
 /**
  * @param {Record<string, any>}target
  * @param {Record<string, any>}source
- * @returns {object} recursively merged Object*/
+ * @returns {object} recursively merged Object */
 function deepMerge(target, source) {
   for (const key in source) {
     if (key == '__proto__' || key == 'constructor') continue;
@@ -50,7 +50,7 @@ if (!config.hideOverwriteWarning) {
   console.warn(
     'Overwriting the following variables and functions (if they exist):'
     + '\n  Globals:    global.sleep, global.log, global.getEmoji'
-    + `\n  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} Array#random, Array#unique, Array#last, String#last, `
+    + `\n  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} Array#random, Array#unique, `
     + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind'
     + '\n  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
     + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, Guild#db, guild#updateDB, '
@@ -60,7 +60,7 @@ if (!config.hideOverwriteWarning) {
 }
 
 if (parentUptime) {
-  /* eslint-disable-next-line custom/unbound-method -- still on the same class*/
+  /* eslint-disable-next-line custom/unbound-method -- still on the same class */
   process.childUptime = process.uptime;
   process.uptime = function uptime() {
     return this.childUptime() + parentUptime;
@@ -70,34 +70,24 @@ if (parentUptime) {
 // #region BuildIn
 Object.defineProperties(Array.prototype, {
   random: {
-    /** @type {global['Array']['prototype']['random']}*/
+    /** @type {global['Array']['prototype']['random']} */
     value: function random() { return this[randomInt(this.length)]; },
     enumerable: false
   },
   unique: {
-    /** @type {global['Array']['prototype']['unique']}*/
+    /** @type {global['Array']['prototype']['unique']} */
     value: function unique() { return [...new Set(this)]; },
-    enumerable: false
-  },
-  last: {
-    /** @type {global['Array']['prototype']['last']}*/
-    value: function last() { return this.at(-1); },
     enumerable: false
   }
 });
-Object.defineProperty(String.prototype, 'last', {
-  /** @type {global['String']['prototype']['last']}*/
-  value: function last() { return this.at(-1); },
-  enumerable: false
-});
 Object.defineProperties(Number.prototype, {
   limit: {
-    /** @type {global['Number']['prototype']['limit']}*/
+    /** @type {global['Number']['prototype']['limit']} */
     value: function limit({ min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY } = {}) { return Math.min(Math.max(Number(this), min), max); },
     enumerable: false
   },
   inRange: {
-    /** @type {global['Number']['prototype']['inRange']}*/
+    /** @type {global['Number']['prototype']['inRange']} */
     value: function inRange(min, max) {
       let minRange, maxRange;
       if (typeof min == 'object') {
@@ -111,7 +101,7 @@ Object.defineProperties(Number.prototype, {
   }
 });
 Object.defineProperties(Object.prototype, {
-  /** @type {global['Object']['prototype']['filterEmpty']}*/
+  /** @type {global['Object']['prototype']['filterEmpty']} */
   filterEmpty: {
     value: function filterEmpty() {
       return Object.entries(this).reduce((acc, [k, v]) => {
@@ -123,7 +113,7 @@ Object.defineProperties(Object.prototype, {
     enumerable: false
   },
   __count__: {
-    /** @type {global['Object']['prototype']['__count__']}*/
+    /** @type {global['Object']['prototype']['__count__']} */
     get: function get() {
       let count = 0;
       for (const prop in this) if (Object.hasOwn(this, prop)) count++;
@@ -136,7 +126,7 @@ Object.defineProperties(Object.prototype, {
 Object.defineProperty(Function.prototype, 'bBind', {
   /**
    * @type {global['Function']['prototype']['bBind']}
-   * @this {CallableFunction}*/
+   * @this {CallableFunction} */
   value: function bBind(thisArg, ...args) {
     const bound = this.bind(thisArg, ...args);
     bound.__targetFunction__ = this;
@@ -179,19 +169,19 @@ Object.defineProperties(Client.prototype, {
     set(val) { void this.db.update('botSettings', 'defaultGuild', val); }
   },
   loadEnvAndDB: {
-    /** @type {Client['loadEnvAndDB']}*/
+    /** @type {Client['loadEnvAndDB']} */
     value: async function loadEnvAndDB() {
-      let /** @type {import('../../types/locals').EnvJSON}*/env, db;
+      let /** @type {import('../../types/locals').EnvJSON} */env, /** @type {import('@mephisto5558/mongoose-db').DB | undefined} */db;
       try { env = require('../../env.json'); }
       catch (err) {
         if (err.code != 'MODULE_NOT_FOUND') throw err;
 
-        db = await new DB().init(process.env.dbConnectionStr, 'db-collections', 100, log._log.bind(log, { file: 'debug', type: 'DB' }));
+        db = await new DB().init(process.env.dbConnectionStr, 'db-collections', defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' }));
         env = db.get('botSettings', 'env');
       }
 
       env = deepMerge(env.global, env[env.global.environment]);
-      db ??= await new DB().init(env.dbConnectionStr, 'db-collections', 100, log._log.bind(log, { file: 'debug', type: 'DB' }));
+      db ??= await new DB().init(env.dbConnectionStr, 'db-collections', defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' }));
 
       if (!db.cache.size) {
         log('Database is empty, generating default data');
@@ -204,14 +194,14 @@ Object.defineProperties(Client.prototype, {
     }
   },
   awaitReady: {
-    /** @type {Client['awaitReady']}*/
+    /** @type {Client['awaitReady']} */
     value: async function awaitReady() {
       return new Promise(res => this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch())));
     }
   }
 });
 Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
-  /** @this {AutocompleteInteraction}*/
+  /** @this {AutocompleteInteraction} */
   get() { return this.options.getFocused(true); },
 
   /**
@@ -220,7 +210,7 @@ Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
   set(val) { this.options.data.find(e => e.focused).value = val; }
 });
 Object.defineProperty(Message.prototype, 'user', {
-  /** @this {Message}*/
+  /** @this {Message} */
   get() { return this.author; }
 });
 Object.assign(Message.prototype, { customReply, runMessages, _patch });
@@ -231,7 +221,7 @@ Object.defineProperties(User.prototype, {
     set(val) { void this.updateDB(undefined, val); }
   },
   updateDB: {
-    /** @type {User['updateDB']}*/
+    /** @type {User['updateDB']} */
     value: async function updateDB(key, value) { return this.client.db.update('userSettings', `${this.id}${key ? '.' + key : ''}`, value); }
   },
 
@@ -261,13 +251,13 @@ Object.defineProperties(Guild.prototype, {
     set(val) { void this.updateDB(undefined, val); }
   },
   updateDB: {
-    /** @type {Guild['updateDB']}*/
+    /** @type {Guild['updateDB']} */
     value: function updateDB(key, value) { return this.client.db.update('guildSettings', this.id + (key ? `.${key}` : ''), value); }
   },
 
-  /** @type {Record<string, (this: Guild, val: any) => any>} */
+  /** @type {Record<string, (this: Guild, val: Guild['localeCode']) => Guild['localeCode']>} */
   localeCode: {
-    get() { return this.db.config.lang ?? this.preferredLocale.slice(0, 2); },
+    get() { return this.db.config.lang ?? (this.preferredLocale.startsWith('en') ? 'en' : this.preferredLocale); },
     set(val) { void this.updateDB('config.lang', val); }
   }
 });
@@ -276,7 +266,7 @@ Object.defineProperties(Guild.prototype, {
 
 // #region mongoose-db
 Object.defineProperty(DB.prototype, 'generate', {
-  /** @type {DB['generate']}*/
+  /** @type {DB['generate']} */
   value: async function generate(overwrite = false) {
     this.saveLog(`generating db files${overwrite ? ', overwriting existing data' : ''}`);
     await Promise.all(require('../../Templates/db_collections.json').map(({ key, value }) => this.set(key, value, overwrite)));
@@ -295,7 +285,7 @@ Object.defineProperty(TicTacToe.prototype, 'playAgain', {
 Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
   /**
    * @param {number}row
-   * @param {number}col*/
+   * @param {number}col */
   value: function createButton(row, col) {
     const
       button = new ButtonBuilder(),

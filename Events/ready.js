@@ -2,7 +2,7 @@ const
   { ActivityType } = require('discord.js'),
   guildCreate = require('./guildCreate');
 
-/** @this {Client<true>}*/
+/** @this {Client<true>} */
 module.exports = async function ready() {
   await this.application.emojis.fetch(); // Required for global.getEmoji() to work
 

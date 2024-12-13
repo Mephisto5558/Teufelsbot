@@ -1,7 +1,6 @@
 const
   { setDefaultConfig, configValidationLoop, validConfig } = require('#Utils').configValidator,
-  { resolve } = require('node:path'),
-  filePath = resolve(process.cwd(), 'config.json');
+  filePath = require('node:path').resolve(process.cwd(), 'config.json');
 
 module.exports = new PrefixCommand({
   dmPermission: true,
