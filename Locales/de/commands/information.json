@@ -224,7 +224,7 @@
   "userinfo": {
     "description": "Erhalte Informationen über ein Mitglied",
     "usage": {
-      "usage": "[@Benutzer| Benutzername | Benutzer-Tag | Nickname | Benutzer-ID]",
+      "usage": "[@Benutzer | Benutzername | Benutzer-Tag | Nickname | Benutzer-ID]",
       "examples": "@User1"
     },
     "options": {
