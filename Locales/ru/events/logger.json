@@ -11,7 +11,7 @@
     "components": "Компоненты {count}"
   },
   "messageDeleteBulk": {
-    "embedDescription": "{count} сообщений были удалены пользователем {executor} в {channel}."
+    "embedDescription": "{count} сообщения были удалены {executor} в {channel}."
   },
   "messageUpdate": {
     "embedDescription": "{executor} отредактировал сообщение в {channel}.",

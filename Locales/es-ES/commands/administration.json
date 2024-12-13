@@ -39,19 +39,19 @@
     "create": {
       "settings": "{emoji} Guardando ajustes...",
       "members": "{emoji} Guardando miembros...",
-      "bans": "{emoji} Guardando prohibiciones...",
-      "roles": "{emoji} Guardando roles...",
+      "bans": "{emoji} Guardando Bloques...",
+      "roles": "{emoji} Ahorrando roles...",
       "emojis": "{emoji} Saving emojis...",
-      "stickers": "{emoji} Guardando stickers...",
+      "stickers": "{emoji} Ahorrando stickers...",
       "channels": "{emoji} Guardando canales, hilos y mensajes...",
-      "images": "{emoji} Saving icon, splash, and banner...",
-      "success": "¡La copia de seguridad con el ID {id} se ha creado correctamente!\nUse {cmd} para más información sobre la copia de seguridad."
+      "images": "{emoji} Guardando icono, tajo y banner...",
+      "success": "¡La copia de seguridad con el ID {id} ha sido creada con éxito!\nUse {cmd} para más información sobre la copia de seguridad."
     },
     "clear": {
-      "items": "{emoji} Eliminando emojis, estampas y roles...",
-      "bans": "{emoji} Eliminando baneos...",
-      "settings": "{emoji} Eliminando ajustes...",
-      "ownWebhooks": "{emoji} Eliminando webhooks temporales..."
+      "items": "{emoji} Eliminando emojis, pegatinas y roles...",
+      "bans": "{emoji} eliminando Bloques...",
+      "settings": "{emoji} eliminando ajustes...",
+      "ownWebhooks": "{emoji} Borrando webhooks temporales..."
     },
     "load": {
       "overwriteWarningDescription": "¡Esta acción eliminará la mayoría de su servidor! Esto incluye roles, webhooks, canales y emojis.\nSi estás seguro de que quieres hacer esto, escribe 'Sí'. Escribe 'No' para cancelar.\nTambién puedes crear una copia de seguridad antes de cargar, solo para estar seguro.",
@@ -60,14 +60,14 @@
       "enableDMs": "Por favor, activa el bot para enviarte DMs para que puedas ver el estado de carga.",
       "loadingEmbedDescription": "Aplicando copia de seguridad al servidor.\nEsto puede tardar un poco, dependiendo del tamaño de la copia de seguridad.",
       "noPerm": "¡Sólo el propietario del servidor puede cargar copias de seguridad!",
-      "settings": "{emoji} Cargando ajustes...",
-      "features": "{emoji} Cargando características del servidor...",
-      "roles": "{emoji} Cargando roles...",
-      "members": "{emoji} Cargando roles de miembro y apodos...",
+      "settings": "{emoji} cargando ajustes...",
+      "features": "{emoji} cargando características del servidor...",
+      "roles": "{emoji} cargando roles...",
+      "members": "{emoji} Cargando roles y nicks...",
       "channels": "{emoji} Cargando canales, hilos y mensajes...",
-      "emojis": "{emoji} Cargando emojis...",
+      "emojis": "{emoji} cargando emojis...",
       "stickers": "{emoji} Cargando pegatinas...",
-      "bans": "{emoji} Cargando prohibiciones...",
+      "bans": "{emoji} cargando bans...",
       "success": "Copia de seguridad cargada con éxito con id {id}.",
       "error": "Ocurrió un error mientras se trataba de cargar la copia de seguridad."
     },
@@ -78,15 +78,11 @@
     "get": {
       "oneEmbedDescription": "**Información sobre la copia de seguridad {id}**\n>>> Creada en: {createdAt}\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
       "oneNotFound": "¡No se encontró copia de seguridad con ese ID!",
-      "infos": "Creado en: {createdAt}\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
-      "found": "Se encontraron {amount} copias de seguridad.",
+      "infos": ">>> Creado en: {createdAt}\nTamaño: {size}\nMiembros: {members}\nCanales: {channels}\nRoles: {roles}\nEmojis: {emojis}\nStickers: {stickers}",
+      "found": "Se encontraron copias de seguridad {amount}.",
       "embedDescription": "Se han encontrado las siguientes copias de seguridad, ordenadas por fecha:",
       "noneFound": "No se encontraron copias de seguridad para este servidor."
     }
-  },
-  "selfrole": {
-    "description": "Gestionar auto-roles.",
-    "deprecated": "Esta característica ya no es compatible. Por favor, utilice las características de la comunidad de Discord (Onboarding) para la gestión de auto-rol: https://support.discord.com/hc/en-us/sections/360007770572-Community-Tools\nLos autoroles ya configurados seguirán funcionando."
   },
   "setup": {
     "description": "Establece el bot",
@@ -176,7 +172,7 @@
           }
         }
       },
-      "prefix": {
+      "set_prefix": {
         "description": "Cambia el prefijo del bot.",
         "options": {
           "new_prefix": {
@@ -184,6 +180,25 @@
           },
           "case_insensitive": {
             "description": "¿Debe ignorarse el caso del prefijo?"
+          }
+        }
+      },
+      "add_prefix": {
+        "description": "Añade otro prefijo para el bot.",
+        "options": {
+          "new_prefix": {
+            "description": "el nuevo prefijo del bot para este gremio"
+          },
+          "case_insensitive": {
+            "description": "¿Debe ignorarse el caso del prefijo?"
+          }
+        }
+      },
+      "remove_prefix": {
+        "description": "Remueve un prefijo para el bot.",
+        "options": {
+          "prefix": {
+            "description": "el prefijo a eliminar para este gremio"
           }
         }
       },
@@ -202,10 +217,10 @@
         }
       },
       "autopublish": {
-        "description": "publica automáticamente todo lo que cualquier persona en cualquier canal de anuncio dice",
+        "description": "publicar automáticamente todo lo que diga cualquiera en cualquier canal de anuncios.",
         "options": {
           "enabled": {
-            "description": "publica automáticamente todo lo que cualquier persona en cualquier canal de anuncio dice"
+            "description": "publicar automáticamente todo lo que diga cualquiera en cualquier canal de anuncios."
           }
         }
       },
@@ -241,14 +256,14 @@
         "embedTitle": "No se permiten roles/canales/miembros para el comando {command}",
         "embedDescription": "No hay roles, canales o miembros actualmente no están permitidos."
       },
-      "enabled": "El comando `{command}está ahora habilitado.",
-      "disabled": "El comando `{command}ahora está deshabilitado.",
+      "enabled": "El comando {command} está ahora habilitado.",
+      "disabled": "El comando {command} está deshabilitado.",
       "isDisabled": "El comando {command} está deshabilitado para todos los miembros. Puedes reactivarlo ejecutando {commandMention} sin especificar ningún rol, canal o miembro.",
       "roles": "Roles",
       "channels": "Canales",
       "users": "Miembros",
       "embedTitle": "Configuración de comandos actualizada para \"{commandName}\"",
-      "embedDescription": "La siguiente cantidad de roles/canales/miembros han sido cambiados:\n||Ver todos los roles/canales/miembros no permitidos usando {commandMention} con la opción `get`.||\n",
+      "embedDescription": "La siguiente cantidad de roles/canales/miembros han sido cambiados:\n||Ver todos los roles/canales/miembros no permitidos usando {commandMention} con la opción `obtener`.||\n",
       "embed": {
         "enabled": "Eliminado (Permitido)",
         "disabled": "Agregado (no permitido)"
@@ -256,10 +271,18 @@
     },
     "language": {
       "embedTitle": "¡Idioma del bot cambiado!",
-      "embedDescription": "Los siguientes mensajes serán en {lang}."
+      "embedDescription": "El idioma ha sido cambiado a {lang}."
     },
-    "prefix": {
+    "setPrefix": {
       "saved": "Mi prefijo ha sido cambiado a {prefix}."
+    },
+    "addPrefix": {
+      "limitReached": "¡No puedes añadir más prefijos! Intenta eliminar los no utilizados primero.",
+      "saved": "{prefix} ha sido añadido como prefijo adicional."
+    },
+    "removePrefix": {
+      "removed": "El prefijo {prefix} ha sido eliminado.",
+      "cannotRemoveLastPrefix": "¡No puedes eliminar el único prefijo restante!"
     },
     "serverbackup": {
       "success": "¡Actualización exitosa de la configuración!"
@@ -270,8 +293,8 @@
     "logger": {
       "noChannel": "¡No especificaste un canal de texto para enviar el registro!",
       "noEnabled": "¡Necesitas usar la opción `enabled` para establecer todas las acciones a la vez!",
-      "enabled": "Los registros para {action} se enviarán a {channel}.",
-      "disabled": "Los registros para {action} ya no se enviarán.",
+      "enabled": "Los registros de {action} se enviarán a {channel}.",
+      "disabled": "Los registros de {action} ya no serán enviados.",
       "actions": {
         "all": "todas las acciones",
         "messageDelete": "mensajes borrados",
@@ -279,16 +302,6 @@
         "voiceChannelActivity": "canal de voz unirse/abandonar/interruptores",
         "sayCommandUsed": "uso del comando /say (o similar)"
       }
-    },
-    "tickets": {
-      "defaultButtonLabel": "Crear Ticket",
-      "disabled": "El módulo de ticket ha sido deshabilitado.",
-      "infoEmbedDescription": "Please press the button below to set a custom embed description before you can enable the ticket system by pressing the save button.\nYou can generate a valid embed [here]({url})",
-      "editButtonLabel": "Editar incrustado",
-      "previewButtonLabel": "Vista previa integrada",
-      "saveButtonLabel": "Guardar incrustado",
-      "textInputLabel": "Por favor, introduzca el JSON incrustado.",
-      "invalidEmbed": "El JSON incrustado no es válido:\n{err}"
     }
   }
 }

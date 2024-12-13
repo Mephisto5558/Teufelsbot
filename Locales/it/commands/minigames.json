@@ -29,12 +29,12 @@
     "added": {
       "embedTitle": "Questo canale è ora un canale di conteggio!",
       "embedDescription": "Le regole sono semplici:\n> Inizia con **1**.\n> Aggiungi **1** all'ultimo numero\n> Non puoi contare due numeri di fila.\nDivertiti!",
-      "by": "Aggiunto come canale di conteggio da {user}",
+      "by": "Abilitato da {user}",
       "success": "Ho aggiunto con successo {channel} come canale di conteggio."
     },
     "removed": {
       "embedDescription": "Questo canale non è più un canale di conteggio!",
-      "by": "Rimosso da {user}",
+      "by": "Disabilitato da {user}",
       "success": "Ho rimosso con successo {channel} come canale di conteggio."
     },
     "userDeletedMsg": {
@@ -103,15 +103,15 @@
     "losses": "Perdite: {losses}\n\n",
     "noOne": "nessuno\n",
     "missingGameArg": "Devi darmi un `gioco` come primo argomento!",
-    "notFound": "Questo non è un gioco valido. I giochi validi sono:\n{list}",
+    "notFound": "Questa non è una voce di gioco valida. I giochi validi sono:\n{list}",
     "wonAgainst": "Vinto contro:\n",
     "lostAgainst": "Persi contro:\n",
-    "drewAgainst": "Drew contro:\n",
-    "embedTitle": "Statistiche di{user}'s {game}",
+    "drewAgainst": "Sogno contro:\n",
+    "embedTitle": "Statistiche {user}di {game}",
     "embedTitleTop10": "Top 10 {game} giocatori",
-    "noPlayers": "Sembra che nessuno abbia ancora vinto...",
-    "youNoGamesPlayed": "Non hai ancora giocato {game} partite.",
-    "userNoGamesPlayed": "{user} non ha ancora giocato {game} partite."
+    "noPlayers": "Sembra che nessuno abbia ancora giocato...",
+    "youNoGamesPlayed": "Non hai ancora giocato nessuna partita {game}.",
+    "userNoGamesPlayed": "{user} non ha ancora giocato nessuna partita {game}."
   },
   "rps": {
     "description": "Gioca forbici di carta rock contro i tuoi amici o il bot",
@@ -127,22 +127,22 @@
       "opponentIsBot": "Non puoi sfidare i bot!",
       "opponentIsSelf": "Non puoi sfidarti!",
       "embedTitle": "Forbici Di Carta Roccia",
-      "embedDescription": "{user} ti ha sfidato in duello!",
+      "embedDescription": "{user} ti ha sfidato a un duello!",
       "botEmbedDescription": "Mi hai sfidato a un duello!",
       "start": "Inizia",
       "accept": "Accetta",
       "decline": "Rifiuta",
-      "newChallenge": "{user} :crossed_swords: Nuova sfida duello"
+      "newChallenge": "{user} :crossed_swords: Nuova sfida duel"
     },
     "memberNotFound": "Almeno uno dei giocatori non è stato trovato!",
-    "canceled": ":x: {initiator} ha ritirato la loro sfida.",
+    "canceled": ":x: {initiator} ha ritirato la sua sfida.",
     "declined": ":x: {opponent} non è salito alla sfida.",
     "accept": {
       "embedTitle": ":game_die: {player1} **VS** {player2}",
       "embedDescription": "Seleziona il tuo oggetto!"
     },
     "end": {
-      "alreadyChosen": "Hai già selezionato {move}! Attendi che il tuo avversario scelga.",
+      "alreadyChosen": "Hai già selezionato {move}! Si prega di attendere che il tuo avversario scelga.",
       "saved": "La tua selezione è stata salvata!",
       "tie": "Nessuno ha vinto la partita, è una cravatta! {emoji} = {emoji}",
       "win": ":tada: {winner} ha vinto la partita! {winEmoji} > {loseEmoji}"
@@ -155,7 +155,7 @@
         "description": "A chi vuoi giocare contro?"
       }
     },
-    "newChallenge": "{user} :crossed_swords: Nuova sfida duello"
+    "newChallenge": "{user} :crossed_swords: Nuova sfida duel"
   },
   "wordchain": {
     "description": "Imposta un canale wordchain dove i membri possono mostrare il loro vocabolario!",
@@ -171,12 +171,12 @@
     "added": {
       "embedTitle": "Questo canale è ora un canale wordchain!",
       "embedDescription": "Le regole sono semplici:\n> Inizia con qualsiasi parola.\n> La parola successiva deve iniziare con l'ultima lettera dell'ultima parola.\n> Non puoi dire due parole di fila.\nDivertiti!",
-      "by": "Aggiunto come canale di conteggio da {user}",
+      "by": "Abilitato da {user}",
       "success": "Ho aggiunto con successo {channel} come canale wordchain."
     },
     "removed": {
       "embedDescription": "Questo canale non è più un canale wordchain!",
-      "by": "Rimosso da {user}",
+      "by": "Disabilitato da {user}",
       "success": "Ho rimosso con successo {channel} come canale wordchain."
     },
     "userDeletedMsg": {

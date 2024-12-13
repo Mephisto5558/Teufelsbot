@@ -8,7 +8,7 @@
     "embedDescription": "Un mensaje fue eliminado por {executor} en {channel}.",
     "content": "Contenido del mensaje",
     "author": "Autor",
-    "components": "{count} componentes"
+    "components": "Componentes {count}"
   },
   "messageDeleteBulk": {
     "embedDescription": "{count} mensajes fueron eliminados por {executor} en {channel}."
@@ -23,7 +23,7 @@
   "voiceStateUpdate": {
     "embedDescriptionJoin": "{executor} se unió al canal de voz {newChannel}.",
     "embedDescriptionLeave": "{executor} dejó el canal de voz {oldChannel}.",
-    "embedDescriptionMove": "{executor} ha cambiado del canal de voz {oldChannel} a {newChannel}.",
+    "embedDescriptionMove": "{executor} cambió del canal de voz {oldChannel} a {newChannel}.",
     "oldChannel": "Canal anterior",
     "newChannel": "Canal actual"
   },

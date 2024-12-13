@@ -78,7 +78,7 @@
         "description": "Das Mitglied wird dies in einer DM sehen."
       },
       "duration": {
-        "description": "Wie lange du das Ziel timeouten möchtest (z. B. 1w3d2h5min, min. 1min, max. 28d)"
+        "description": "Wie lange du das Ziel timeouten möchtest (z. B. 1w3d2h5min, min. 1min, max. 28d)"
       }
     },
     "dmEmbedTitle": "Getimeouted",

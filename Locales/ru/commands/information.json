@@ -35,16 +35,16 @@
         "description": "Команда, для которой вы хотите получить статистику."
       }
     },
-    "embedTitle": "Статистика команд",
+    "embedTitle": "Статистика команд для {mode}",
     "notFound": "Эта команда не существует!",
-    "embedDescriptionOne": "Команда {command} была выполнена {count} раз.",
+    "embedDescriptionOne": "Команда {command} была запущена {total} раз (Slash: {slash} | Префикс: {prefix}).",
     "embedDescriptionMany": "Это 10 наиболее часто используемых команд:\n",
     "embedFieldValue": "{total} (Slash: {slash} | Префикс: {prefix})"
   },
   "dashboard": {
     "description": "получить ссылку на панель ботов",
     "embedTitle": "Панель",
-    "embedDescriptionDashboard": "Нажмите {link} для открытия панели управления."
+    "embedDescriptionDashboard": "Нажмите {link} , чтобы открыть панель управления."
   },
   "emojiinfo": {
     "description": "Получить информацию о эмодзи",
@@ -86,9 +86,9 @@
     "commandListPlaceholder": "Какую команду вы хотите увидеть?",
     "devEmbedFooterText": "Dev-Bot | Отображаются только бета-команды",
     "one": {
-      "notFound": "Информация для команды{command}`.",
-      "embedTitle": "Подробная информация о: {command}",
-      "embedFooterText": "Синтаксис: <> = обязательно, [] = необязательный | Префикс: \"{prefix}\"",
+      "notFound": "Информация для команды {command} не найдена.",
+      "embedTitle": "{category} » {command}",
+      "embedFooterText": "Синтаксис: <> = обязательно, [] = необязательные | Префиксы: {prefixes}",
       "prefixAlias": "Алиасы команд префикса",
       "slashAlias": "Псевдонимы команды слэша",
       "aliasOf": "Псевдоним",
@@ -127,7 +127,7 @@
   "invite": {
     "description": "Отправляет ссылку для добавления бота в гильдию.",
     "embedTitle": "Пригласить",
-    "embedDescription": "Спасибо за ваш интерес! Нажмите {link}, чтобы добавить меня в свою гильдию. ^^"
+    "embedDescription": "Спасибо за ваш интерес! Нажмите {link} , чтобы добавить меня в свою гильдию. ^^"
   },
   "ping": {
     "description": "Получить пинг бота",
@@ -137,8 +137,8 @@
       }
     },
     "average": {
-      "loading": "Пинг... {current}/{target}",
-      "embedDescription": "Пинги: {pings}\nСамый низкий Ping: `{lowest}ms`\nНаибольший Ping: `{highest}ms`\nСредний Ping: `{average}ms`"
+      "loading": "Пинг... {current}/{target}\nСледующий пинг {timestamp}",
+      "embedDescription": "Пинг: {pings} | Длительность: `{duration}s`\nAPI:\n> Наименьший Ping: `{wsLowest}ms`\n> Наивысший пинг: `{wsHighest}ms`\n> Средний пинг: `{wsAverage}ms`\nСообщение Send:\n> Наименьший пинг: `{msgLowest}ms`\n> Наивысший пинг: `{msgHighest}ms`\n> Средний пинг: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -146,7 +146,7 @@
     "messageSend": "Отправить сообщение"
   },
   "prefix": {
-    "description": "показывает или изменяет префикс бота гильдии",
+    "description": "Показывает префиксы ботов гильдии",
     "currentPrefixes": "Мои текущие префиксы:\n{prefixes}",
     "caseInsensitive": " (без учета регистра)"
   },
@@ -180,7 +180,7 @@
         "description": "ID сервера, о котором вы хотите получить информацию. Работает только для серверов, в которых я нахожусь."
       }
     },
-    "memberStats": "{all} (Хуманы: {humans}, боты: {bots})",
+    "memberStats": "{all} (хуманы: {humans}, боты: {bots})",
     "members": "Члены Комитета",
     "verificationLevel": {
       "name": "Уровень верификации",
@@ -217,8 +217,9 @@
   },
   "uptime": {
     "description": "Получить время работы бота",
+    "online": "онлайн",
     "embedDescriptionNoURL": "Бот был онлайн для {time}.",
-    "embedDescription": "Бот был {link} ровно {time}."
+    "embedDescription": "Бот был {link} для {time}."
   },
   "userinfo": {
     "description": "Получить информацию о участнике",
@@ -284,6 +285,6 @@
   "vote": {
     "description": "получить ссылку на запрос функции ботов и страницу голосования",
     "embedTitle": "Голосование",
-    "embedDescriptionVote": "Нажмите {link} чтобы открыть веб-страницу голосования и запроса на добавление функций."
+    "embedDescriptionVote": "Нажмите {link} , чтобы открыть веб-страницу голосования и запроса функций."
   }
 }

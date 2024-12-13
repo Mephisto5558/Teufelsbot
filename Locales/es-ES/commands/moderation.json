@@ -24,7 +24,7 @@
     "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para banear. Tienes 60 segundos.",
     "cantPunishSelf": "¡No puedes banearte a ti mismo!",
     "noneFound": "No se han encontrado objetivos.",
-    "error": "{user} no se pudo banear.\n{err}\n",
+    "error": "{user} no pudo ser baneado.\n{err}\n",
     "success": "{user} ha sido baneado con éxito.\n",
     "noDM": "No pude DM el objetivo."
   },
@@ -82,15 +82,15 @@
       }
     },
     "dmEmbedTitle": "Silenciado",
-    "dmEmbedDescription": "Has sido silenciado de {guild}.\nModerador: {mod}\nHasta: {muteDuration} ({muteDurationRelative})\nRazón: {reason}",
+    "dmEmbedDescription": "Has sido silenciado desde {guild}.\nModerador: {mod}\nHasta: {muteDuration} ({muteDurationRelative})\nRazón: {reason}",
     "infoEmbedTitle": "Silenciar",
-    "infoEmbedDescription": "Moderador: {mod}\nDuración: {muteDuration} ({muteDurationRelative})\nRazón: {reason}\n\n",
+    "infoEmbedDescription": "Moderador: {mod}\nhasta: {muteDuration} ({muteDurationRelative})\nRazón: {reason}\n\n",
     "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para silenciar. Tienes 60 segundos.",
     "cantPunishSelf": "¡No puedes silenciarte a ti mismo!",
     "cantPunishAdmin": "¡Los administradores no pueden ser silenciados!",
     "noneFound": "No se han encontrado objetivos.",
     "error": "No pude silenciar al objetivo:\n{err}",
-    "success": "{user} se ha silenciado correctamente.\n",
+    "success": "{user} ha sido silenciado con éxito.\n",
     "noDM": "\nNo pude DM al objetivo.",
     "invalidDuration": "¡La duración del silencio que proporcionaste no es válida!"
   },
@@ -102,11 +102,11 @@
       }
     },
     "confirmEmbedTitle": "Canal nuclear",
-    "confirmEmbedDescription": "¿Estás seguro de que quieres nuclear {channel}?\n**¡Esta acción es irreversible!**",
+    "confirmEmbedDescription": "¿Estás seguro de que quieres nuclearizar {channel}?\n**¡Esta acción es irreversible!**",
     "confirmButtonLabel": "Confirmar",
     "cancelButtonLabel": "Cancelar",
     "canceledEmbedDescription": "El bombero ha sido cancelado.",
-    "successEmbedDescription": "¡Canal de :radioactive: Nuked!",
+    "successEmbedDescription": "¡Canal :radioactive: Nucleado!",
     "embedFooterText": "Nutrido por {user}"
   },
   "purge": {
@@ -178,7 +178,7 @@
     "beforeAndAfter": "La opción `before` no se puede utilizar junto con la opción `after`!",
     "paramsExcludeOther": "¡Uno de sus parámetros hace imposible otro parámetro! (por ejemplo. `starts_with` = \"a\" y `not_starts_with` = \"a\")",
     "noneFound": "No se han encontrado mensajes eliminables que coincidan con sus parámetros.",
-    "success": "{count}/{all} mensajes eliminados correctamente."
+    "success": "Se han eliminado correctamente los mensajes {count}/{all}."
   },
   "unlock": {
     "description": "Desbloquea un canal bloqueado con el comando de bloqueo.",
