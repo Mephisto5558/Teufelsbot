@@ -1,7 +1,7 @@
 {
   "languageName": "Italiano",
   "messageSent": "Messaggio inviato!",
-  "loading": "{emoji} Caricamento...",
+  "loading": "Caricamento {emoji}...",
   "channel": "Canale",
   "guild": "Gilda",
   "user": "Utente",
@@ -15,9 +15,10 @@
   "noPermBot": "Non ho il permesso di farlo!",
   "true": "Sì",
   "false": "No",
-  "modReason": "{command} comando, moderatore {user}",
+  "modReason": "Comando {command} , moderatore {user}",
   "downloadButton": "Scarica",
   "menuTimedOut": "Questo menu è scaduto.",
   "unknown": "Sconosciuto",
-  "unknownUser": "Utente Sconosciuto"
+  "unknownUser": "Utente Sconosciuto",
+  "here": "qui"
 }
