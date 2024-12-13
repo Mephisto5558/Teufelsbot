@@ -1,8 +1,8 @@
 {
   "categoryName": "Solo Proprietario",
-  "categoryDescription": "Comandi che dovrebbero essere disponibili solo per il dev",
+  "categoryDescription": "Comandi che dovrebbero essere disponibili solo per un dev",
   "blacklistuser": {
-    "description": "blocca un utente dall'utilizzo del bot",
+    "description": "(Un)blocca un utente dall'uso del bot",
     "usage": {
       "usage": "[off] <user id>"
     },
@@ -12,9 +12,9 @@
       }
     },
     "notFound": "Nessuna voce trovata per questo id.",
-    "saved": "{user} è stato inserito nella blacklist dall'utilizzo del bot.",
+    "saved": "{user} è stato blacklist dall'uso del bot.",
     "removed": "La voce blacklist per {user} è stata rimossa.",
-    "cantBlacklistDev": "Non riesco a blacklist il proprietario del bot!"
+    "cantBlacklistDev": "Non riesco a blacklist uno sviluppatore del bot!"
   },
   "dbget": {
     "description": "interroga i dati dal database",
@@ -60,14 +60,14 @@
       "examples": "echo 'Ciao Mondo!'"
     },
     "finished": "Comando bash valutato:\n{code}\n",
-    "stdout": "{msg} con il seguente output:\nstdout:{stdout}\n",
+    "stdout": "{msg} con il seguente output:\nstdout:\n{stdout}\n",
     "stderr": "stderr:\n{stderr}",
     "error": "{msg} con il seguente errore:\n```\n{name}: {err}\n```"
   },
   "reload": {
     "description": "ricarica un file o una categoria",
     "usage": {
-      "usage": "<'comando' | 'file'> <Path relative to cwd>\n{prefix}{cmdName} <command | '*'>",
+      "usage": "<'comando' <unk> 'file'> <Path relative to cwd>\n{prefix}{cmdName} <command | '*'>",
       "examples": "file percorso/per/file\n{prefix}{cmdName} divertimento"
     },
     "options": {
@@ -97,9 +97,9 @@
   "restart": {
     "description": "Riavvia il bot",
     "alreadyRestarting": "Il bot sta già effettuando un riavvio, si prega di attendere che finisca. Messaggio: {url}",
-    "updatingNPM": "{emoji} Riavvio del bot...\nInstallazione dei pacchetti...",
+    "updatingNPM": "{emoji} Riavvio bot...\nInstallazione pacchetti...",
     "updateNPMError": "❌ Riavvio non riuscito a causa di un errore NPM. Controllare la console per ulteriori informazioni.",
-    "restarting": "{emoji} Riavvio del bot...\nAvvio del processo del nodo...",
+    "restarting": "{emoji} Riavvio del bot...\nAvvio del processo node...",
     "restartingError": "❌ Riavvio non riuscito a causa di un errore Nodo. Controllare la console per maggiori informazioni.",
     "success": "✅ Riavviato correttamente."
   },
@@ -117,7 +117,7 @@
         "description": "Tipo di attività"
       }
     },
-    "set": "La mia attività è stata impostata a {name} di tipo {type}.",
+    "set": "La mia attività è stata impostata su {name} di tipo {type}.",
     "reset": "La mia attività è stata impostata su `nessuna`."
   },
   "setchangelog": {
@@ -132,9 +132,15 @@
     },
     "invalidNumber": "Il numero fornito non è valido!",
     "unknownChannel": "L'id del canale fornito non è stato trovato in questa gilda!",
-    "success": "Contare per {channel} è stato impostato a {number}."
+    "success": "Contare per {channel} è stato impostato su {number}."
   },
   "test": {
     "description": "prova roba"
+  },
+  "todo": {
+    "description": "Ottieni link alla lista di todo dello sviluppatore.",
+    "list": "ToDo Excel",
+    "website": "Voto Sito Web",
+    "discordNotes": "Note di dev nel server di supporto"
   }
 }
