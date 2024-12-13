@@ -15,8 +15,8 @@ module.exports = {
   beta: true,
 
   async run(lang) {
-    const target = this.args[1];
-    if (!target) return this.reply('global.unknownUser');
+    const target = this.args[1] ?? this.args[0];
+    if (!target) return this.reply(lang('global.unknownUser'));
 
     if (this.args[0] == 'off') {
       if (!this.client.settings.blacklist?.includes(target)) return this.customReply(lang('notFound'));
