@@ -105,10 +105,6 @@
   },
   "setactivity": {
     "description": "Définit l'activité du bot",
-    "usage": {
-      "usage": "<activity>;[type]",
-      "examples": "commandes en cours d'exécution;lecture"
-    },
     "options": {
       "activity": {
         "description": "Le texte de statut que vous voulez que je possède."

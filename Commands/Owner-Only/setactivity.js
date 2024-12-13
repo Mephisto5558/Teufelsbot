@@ -19,15 +19,15 @@ module.exports = {
   ],
 
   async run(lang) {
-    if (!this.content) {
+    const activity = {
+      type: ActivityTypes[this.args[0]?.toLowerCase()],
+      name: this.args.slice(1).join(' ')
+    };
+
+    if (activity.name) {
       await this.client.db.delete('botSettings', 'activity');
       return this.customReply(lang('reset'));
     }
-
-    const activity = {
-      type: ActivityTypes[this.args[0].toLowerCase()],
-      name: this.args.slice(1).join(' ')
-    };
 
     if (typeof activity.type == 'string') activity.type = ActivityType[activity.type];
 

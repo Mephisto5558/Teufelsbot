@@ -106,8 +106,8 @@
   "setactivity": {
     "description": "Setzte die Aktivität des Bots",
     "usage": {
-      "usage": "<Aktivität>;[Typ]",
-      "examples": "Befehle ausführen;playing"
+      "usage": "[Typ] [Aktivität]",
+      "examples": "playing Befehle ausführen"
     },
     "options": {
       "activity": {
