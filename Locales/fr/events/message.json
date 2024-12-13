@@ -1,15 +1,15 @@
 {
-  "afkMsg": "`{member}` est AFK: {message} - <t:{timestamp}:R>",
-  "afkEnd": "Bienvenue, j'ai retiré votre AFK. Vous êtes AFK depuis <t:{timestamp}>.",
+  "afkMsg": "{member} est AFK: {message} - {timestamp}",
+  "afkEnd": "Bienvenue, j'ai retiré votre AFK. Vous êtes AFK depuis {timestamp}.",
   "counting": {
-    "error": "VOUS ETES RUINÉ À **{lastNumber}**!! Le prochain nombre est **1**.\n",
-    "wrongNumber": "**Vous ne pouvez pas compter ?! Mauvais nombre.**",
-    "sameUserTwice": "**Vous ne pouvez pas compter deux nombres à la suite !**"
+    "error": "VOUS ETES RUINÉ À {lastNumber}!! Le prochain nombre est **1**.\n",
+    "wrongNumber": "Vous ne pouvez pas compter ?! Mauvais nombre.",
+    "sameUserTwice": "Vous ne pouvez pas compter deux nombres à la suite !"
   },
   "wordchain": {
-    "error": "VOUS RECONNAISSEZ UNE CHAÎNE DE **{count}** MOTS À \"**{lastChar}**\"!! Redémarrez en écrivant n'importe quel mot.\n",
-    "sameUserTwice": "**Tu ne peux pas dire deux mots de suite !**",
-    "inALoop": "**Pourquoi tu vas dans un cercle?! Ce mot n'a été utilisé que récemment!**",
-    "wrongChar": "**Vous ne pouvez pas lire?! Ce mot ne commence pas par le caractère du dernier mot.**"
+    "error": "VOUS RECONNAISSEZ UNE CHAÎNE DE {count} MOTS À \"{lastChar}\"!! Redémarrez en écrivant n'importe quel mot.\n",
+    "sameUserTwice": "Tu ne peux pas dire deux mots de suite !",
+    "inALoop": "Pourquoi tu vas dans un cercle?! Ce mot n'a été utilisé que récemment!",
+    "wrongChar": "Vous ne pouvez pas lire?! Ce mot ne commence pas par le caractère du dernier mot."
   }
 }
