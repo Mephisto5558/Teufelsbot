@@ -1,7 +1,7 @@
 {
   "languageName": "Español",
   "messageSent": "¡Mensaje enviado!",
-  "loading": "{emoji} Cargando...",
+  "loading": "{emoji} cargando...",
   "channel": "Canal",
   "guild": "Gremio",
   "user": "Usuario",
@@ -15,9 +15,10 @@
   "noPermBot": "¡No tengo permiso para hacer eso!",
   "true": "Sí",
   "false": "Nu",
-  "modReason": "{command} comando, moderador {user}",
+  "modReason": "Comando {command} , moderador {user}",
   "downloadButton": "Descargar",
   "menuTimedOut": "Este menú ha expirado.",
   "unknown": "Desconocido",
-  "unknownUser": "Usuario desconocido"
+  "unknownUser": "Usuario desconocido",
+  "here": "aqui"
 }
