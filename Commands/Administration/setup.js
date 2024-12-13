@@ -1,6 +1,6 @@
 /* eslint camelcase: [error, {allow: [toggle_module, toggle_command, \w*_prefix]}] */
 const
-  { Constants, EmbedBuilder, Colors, roleMention, channelMention, userMention, channelLink } = require('discord.js'),
+  { Constants, EmbedBuilder, Colors, roleMention, channelMention, userMention, channelLink, bold } = require('discord.js'),
   { constants: { autocompleteOptionsMaxAmt }, timeFormatter: { msInSecond } } = require('#Utils'),
   /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- this is like an enum */
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
@@ -83,7 +83,7 @@ const
           .map(([k, v]) => ({
             name: lang(`embed.${k}`),
             value: Object.entries(v).filter(([, e]) => e)
-              .map(([k, v]) => `${lang(k)}: **${v}**`)
+              .map(([k, v]) => `${lang(k)}: ${bold(v)}`)
               .join('\n'),
             inline: true
           })),

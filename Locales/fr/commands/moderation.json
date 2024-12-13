@@ -24,8 +24,8 @@
     "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres à bannir. Vous avez 60 secondes.",
     "cantPunishSelf": "Vous ne pouvez pas vous bannir vous-même!",
     "noneFound": "Aucune cible n'a été trouvée.",
-    "error": "**{user}** n'a pas pu être banni.\n{err}\n",
-    "success": "**{user}** a été banni avec succès.\n",
+    "error": "{user} n'a pas pu être banni.\n{err}\n",
+    "success": "{user} a été banni avec succès.\n",
     "noDM": "Je n'ai pas pu gérer la cible avec le DM.",
     "timedOut": "Ce menu a expiré."
   },
@@ -46,8 +46,8 @@
     "selectTargetEmbedDescription": "Sélectionnez jusqu'à 10 membres à expulser. Vous avez 60 secondes.",
     "noneFound": "Aucune cible n'a été trouvée.",
     "cantPunishSelf": "Vous ne pouvez pas vous expulser vous-même!",
-    "error": "**{user}** n'a pas pu être éjecté.\n{err}\n",
-    "success": "**{user}** a été expulsé avec succès.\n",
+    "error": "{user} n'a pas pu être éjecté.\n{err}\n",
+    "success": "{user} a été expulsé avec succès.\n",
     "noDM": "Je n'ai pas pu gérer la cible avec le DM.",
     "timedOut": "Ce menu a expiré."
   },
@@ -88,7 +88,7 @@
     "cantPunishAdmin": "Les administrateurs ne peuvent pas être muets !",
     "noneFound": "Aucune cible n'a été trouvée.",
     "error": "Je n'ai pas pu rendre muet la cible :\n{err}",
-    "success": "**{user}** a été rendu muet avec succès.\n",
+    "success": "{user} a été rendu muet avec succès.\n",
     "noDM": "\nI couldn't DM the target.",
     "timedOut": "Ce menu a expiré.",
     "invalidDuration": "La durée de mute que vous avez fournie est invalide !"

@@ -39,7 +39,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Counting",
-      "embedDescription": "Deleted Number: **{deletedNum}**\nNext Number: **{nextNum}**"
+      "embedDescription": "Deleted Number: {deletedNum}\nNext Number: {nextNum}"
     }
   },
   "mgstats": {
@@ -127,7 +127,7 @@
       "opponentIsBot": "You cannot challenge bots!",
       "opponentIsSelf": "You cannot challenge yourself!",
       "embedTitle": "Rock Paper Scissors",
-      "embedDescription": "**{user}** challenged you to a duel!",
+      "embedDescription": "{user} challenged you to a duel!",
       "botEmbedDescription": "You have challenged me to a duel!",
       "start": "Start",
       "accept": "Accept",
@@ -181,7 +181,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Wordchain",
-      "embedDescription": "Deleted Word: **{deletedWord}**"
+      "embedDescription": "Deleted Word: {deletedWord}"
     }
   }
 }

@@ -1,5 +1,5 @@
 const
-  { parseEmoji, EmbedBuilder, Colors, codeBlock, roleMention, CDNRoutes, ImageFormat } = require('discord.js'),
+  { parseEmoji, EmbedBuilder, Colors, codeBlock, roleMention, CDNRoutes, ImageFormat, bold } = require('discord.js'),
   http = require('node:http'),
   https = require('node:https'),
   { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils');
@@ -65,7 +65,7 @@ module.exports = {
         roles: limitToRoles
       });
 
-      embed.data.description = lang('success', { name: emoji.name, emoji });
+      embed.data.description = lang('success', { name: bold(emoji.name), emoji });
       if (limitToRoles?.length > 0) embed.data.description += lang('limitedToRoles', limitToRoles.map(roleMention).join(', '));
     }
     catch (err) {

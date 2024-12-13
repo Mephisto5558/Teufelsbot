@@ -1,4 +1,5 @@
 const
+  { bold } = require('discord.js'),
   cooldowns = require('../cooldowns.js'),
   { removeAfkStatus, sendAfkMessages } = require('../afk.js'),
   { msInSecond } = require('../timeFormatter.js'),
@@ -31,11 +32,11 @@ async function handleCounting() {
 
   await this.guild.updateDB(`channelMinigames.counting.${this.channel.id}`, { lastNumber: 0 });
   return this.reply(
-    this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', countingData.lastNumber)
-    + this.client.i18n.__(
+    this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', bold(countingData.lastNumber))
+    + bold(this.client.i18n.__(/* eslint-disable-line sonarjs/no-incorrect-string-concat -- false positive */
       { locale: this.guild.localeCode },
       countingData.lastAuthor == this.user.id ? 'events.message.counting.sameUserTwice' : 'events.message.counting.wrongNumber'
-    )
+    ))
   );
 }
 
@@ -74,8 +75,8 @@ async function handleWordchain() {
   await this.guild.updateDB(`channelMinigames.wordchain.${this.channel.id}`, { chainedWords: 0 });
   if (wordchainData.chainedWords > 1) {
     return this.reply(
-      this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.wordchain.error', { lastChar: lastWordChar, count: wordchainData.chainedWords })
-      + this.client.i18n.__({ locale: this.guild.localeCode }, msgId)
+      this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.wordchain.error', { lastChar: bold(lastWordChar), count: bold(wordchainData.chainedWords) })
+      + bold(this.client.i18n.__({ locale: this.guild.localeCode }, msgId)) /* eslint-disable-line sonarjs/no-incorrect-string-concat -- false positive */
     );
   }
 }

@@ -1,8 +1,8 @@
 const
+  { EmbedBuilder, Colors, bold } = require('discord.js'),
 
   /** @type {import('../../node_modules/wikijs/index')} */
   { default: wikiInit } = require('wikijs'),
-  { EmbedBuilder, Colors } = require('discord.js'),
   { constants: { embedFieldMaxAmt, messageMaxLength }, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
   MAX_MSGS = 9;
 
@@ -87,6 +87,6 @@ module.exports = {
       }, ['']);
 
     for (const msg of msgs.slice(0, MAX_MSGS)) await this.customReply(msg);
-    if (msgs.length > MAX_MSGS) return this.reply(lang('visitWiki'));
+    if (msgs.length > MAX_MSGS) return this.reply(bold(lang('visitWiki')));
   }
 };

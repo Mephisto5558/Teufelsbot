@@ -39,7 +39,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Conteggio",
-      "embedDescription": "Numero Eliminato: **{deletedNum}**\nNumero Successivo: **{nextNum}**"
+      "embedDescription": "Numero Eliminato: {deletedNum}\nNumero Successivo: {nextNum}"
     }
   },
   "mgstats": {
@@ -127,7 +127,7 @@
       "opponentIsBot": "Non puoi sfidare i bot!",
       "opponentIsSelf": "Non puoi sfidarti!",
       "embedTitle": "Forbici Di Carta Roccia",
-      "embedDescription": "**{user}** ti ha sfidato in duello!",
+      "embedDescription": "{user} ti ha sfidato in duello!",
       "botEmbedDescription": "Mi hai sfidato a un duello!",
       "start": "Inizia",
       "accept": "Accetta",
@@ -181,7 +181,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Wordchain",
-      "embedDescription": "Parola Eliminata: **{deletedWord}**"
+      "embedDescription": "Parola Eliminata: {deletedWord}"
     }
   }
 }

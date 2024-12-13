@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, userMention } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, userMention, bold } = require('discord.js'),
   BLUE = 0x2980B9;
 
 /** @type {import('.').rps_sendChallenge} */
@@ -14,7 +14,7 @@ module.exports = async function sendRPSChallenge({ initiator, opponent, lang }) 
   const
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang(`${opponent.bot ? 'botE' : 'e'}mbedDescription`, initiator.displayName),
+      description: lang(`${opponent.bot ? 'botE' : 'e'}mbedDescription`, bold(initiator.displayName)),
       color: BLUE
     }),
     component = new ActionRowBuilder({

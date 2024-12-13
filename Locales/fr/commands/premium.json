@@ -106,7 +106,7 @@
     "cannotJoin": "Je ne peux pas rejoindre ce canal vocal ! Assurez-vous que le canal n'est pas complet et que j'ai les autorisations nécessaires.",
     "deaf": "Je suis actuellement sourd et je ne peux pas être sourd moi-même!",
     "embedTitle": "Enregistreur vocal",
-    "embedDescription": "{user} veut vous enregistrer dans le salon vocal {channel}.\n**{publicOrPrivate}**\nVeuillez appuyer sur un bouton pour autoriser ou refuser l'enregistrement de votre voix.",
+    "embedDescription": "{user} veut vous enregistrer dans le salon vocal {channel}.\n{publicOrPrivate}\nVeuillez appuyer sur un bouton pour autoriser ou refuser l'enregistrement de votre voix.",
     "isPublic": "Cet enregistrement sera disponible pour chaque membre de la guilde.",
     "isPrivate": "Cet enregistrement ne sera disponible que pour les membres actuels du salon vocal qui ont autorisé l'enregistrement.",
     "cantConnect": "Je n'ai pas pu me connecter au salon vocal ! Veuillez réessayer.",

@@ -107,7 +107,7 @@
     "cannotJoin": "Ich kann diesem Sprachkanal nicht beitreten! Stelle sicher, dass der Kanal nicht voll ist und ich die benötigten Berechtigungen habe, um ihm beizutreten.",
     "deaf": "Ich bin momentan taub geschaltet und kann das nicht ändern!",
     "embedTitle": "Sprachrekorder",
-    "embedDescription": "{user} möchte dich/euch in {channel} aufnehmen.\n**{publicOrPrivate}**\nBitte drücke einen Button, um die Aufnahme deiner Stimme zu erlauben oder zu verbieten.",
+    "embedDescription": "{user} möchte dich/euch in {channel} aufnehmen.\n{publicOrPrivate}\nBitte drücke einen Button, um die Aufnahme deiner Stimme zu erlauben oder zu verbieten.",
     "isPublic": "Die Aufnahme wird für alle Servermitglieder verfügbar sein.",
     "isPrivate": "Die Aufnahme wird nur für die Mitglieder zugänglich sein, die der Aufnahme zugestimmt haben.",
     "cantConnect": "Ich konnte mich nicht mit dem Sprachkanal verbinden! Bitte versuche es erneut.",

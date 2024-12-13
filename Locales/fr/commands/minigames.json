@@ -29,7 +29,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Comptage",
-      "embedDescription": "Numéro supprimé : **{deletedNum}**\nNuméro suivant : **{nextNum}**",
+      "embedDescription": "Numéro supprimé : {deletedNum}\nNuméro suivant : {nextNum}",
       "unknown": "Auteur inconnu"
     }
   },
@@ -113,7 +113,7 @@
       "opponentIsBot": "Vous ne pouvez pas défier les robots !",
       "opponentIsSelf": "Vous ne pouvez pas vous défier vous-même!",
       "embedTitle": "format@@0 Rock Paper Scissors",
-      "embedDescription": "**{user}** vous a défié en duel!",
+      "embedDescription":"{user} vous a défié en duel!",
       "botEmbedDescription": "Vous m'avez défié en duel!",
       "start": "Début",
       "accept": "Accepter",

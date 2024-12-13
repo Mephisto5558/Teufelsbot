@@ -24,8 +24,8 @@
     "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para banear. Tienes 60 segundos.",
     "cantPunishSelf": "¡No puedes banearte a ti mismo!",
     "noneFound": "No se han encontrado objetivos.",
-    "error": "**{user}** no se pudo banear.\n{err}\n",
-    "success": "**{user}** ha sido baneado con éxito.\n",
+    "error": "{user} no se pudo banear.\n{err}\n",
+    "success": "{user} ha sido baneado con éxito.\n",
     "noDM": "No pude DM el objetivo."
   },
   "kick": {
@@ -45,8 +45,8 @@
     "selectTargetEmbedDescription": "Selecciona hasta 10 miembros para expulsar. Tienes 60 segundos.",
     "noneFound": "No se han encontrado objetivos.",
     "cantPunishSelf": "¡No puedes expulsarte a ti mismo!",
-    "error": "**{user}** no pudo ser expulsado.\n{err}\n",
-    "success": "**{user}** ha sido expulsado con éxito.\n",
+    "error": "{user} no pudo ser expulsado.\n{err}\n",
+    "success": "{user} ha sido expulsado con éxito.\n",
     "noDM": "No pude DM el objetivo."
   },
   "lock": {
@@ -90,7 +90,7 @@
     "cantPunishAdmin": "¡Los administradores no pueden ser silenciados!",
     "noneFound": "No se han encontrado objetivos.",
     "error": "No pude silenciar al objetivo:\n{err}",
-    "success": "**{user}** se ha silenciado correctamente.\n",
+    "success": "{user} se ha silenciado correctamente.\n",
     "noDM": "\nNo pude DM al objetivo.",
     "invalidDuration": "¡La duración del silencio que proporcionaste no es válida!"
   },

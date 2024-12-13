@@ -1,5 +1,5 @@
 const
-  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors, ALLOWED_SIZES, hyperlink, channelMention, userMention } = require('discord.js'),
+  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors, ALLOWED_SIZES, hyperlink, channelMention, userMention, bold } = require('discord.js'),
   { constants: { embedFieldValueMaxLength, suffix }, timeFormatter: { msInSecond } } = require('#Utils'),
   PURPLE = 0x822AED,
   AUDITLOG_FETCHLIMIT = 6,
@@ -30,7 +30,7 @@ function countingHandler(lang) {
   if (lastNumber == undefined || lastNumber - this.originalContent || Number.isNaN(Number.parseInt(this.originalContent))) return;
 
   lang.__boundArgs__[0].backupPath = 'commands.minigames.counting.userDeletedMsg';
-  return sendeMinigameDeletedEmbed.call(this, lang, { deletedNum: this.originalContent, nextNum: lastNumber + 1 });
+  return sendeMinigameDeletedEmbed.call(this, lang, { deletedNum: bold(this.originalContent), nextNum: bold(lastNumber + 1) });
 }
 
 /**
@@ -41,7 +41,7 @@ function wordchainHandler(lang) {
   if (!lastWordChar || !this.originalContent || !/^\p{L}+$/u.test(this.originalContent)) return;
 
   lang.__boundArgs__[0].backupPath = 'commands.minigames.wordchain.userDeletedMsg';
-  return sendeMinigameDeletedEmbed.call(this, lang, this.originalContent);
+  return sendeMinigameDeletedEmbed.call(this, lang, bold(this.originalContent));
 }
 
 /** @this {Message | PartialMessage} */

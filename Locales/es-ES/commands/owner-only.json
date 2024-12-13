@@ -64,7 +64,7 @@
     "description": "Actualiza el último número de cuenta para un canal, también restableciendo el último autor.",
     "invalidNumber": "¡El número proporcionado no es válido!",
     "unknownChannel": "¡La id del canal proporcionado no se ha encontrado en este gremio!",
-    "success": "La cuenta para {channel} se ha establecido a **{number}**."
+    "success": "La cuenta para {channel} se ha establecido a {number}."
   },
   "test": {
     "description": "testear cosas"

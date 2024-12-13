@@ -106,7 +106,7 @@
     "cannotJoin": "Non posso entrare in quel canale vocale! Assicurati che il canale non sia pieno e ho i permessi necessari.",
     "deaf": "Sono assordato e non posso non sordare me stesso!",
     "embedTitle": "VoiceRecorder",
-    "embedDescription": "{user} vuole registrarti nel canale vocale {channel}.\n**{publicOrPrivate}**\nPremi un pulsante per consentire o negare la registrazione della tua voce.",
+    "embedDescription": "{user} vuole registrarti nel canale vocale {channel}.\n{publicOrPrivate}\nPremi un pulsante per consentire o negare la registrazione della tua voce.",
     "isPublic": "Questa registrazione sarà disponibile per ogni membro della gilda.",
     "isPrivate": "Questa registrazione sarà disponibile solo per i membri attuali del canale vocale che hanno permesso la registrazione.",
     "cantConnect": "Non ho potuto connettermi al canale vocale! Riprova.",

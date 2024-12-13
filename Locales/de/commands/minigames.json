@@ -39,7 +39,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Counting",
-      "embedDescription": "Gelöschte Zahl: **{deletedNum}**\nNächste Zahl: **{nextNum}**"
+      "embedDescription": "Gelöschte Zahl: {deletedNum}\nNächste Zahl: {nextNum}"
     }
   },
   "mgstats": {
@@ -127,7 +127,7 @@
       "opponentIsBot": "Du kannst keine Bots herausfordern!",
       "opponentIsSelf": "Du kannst dich nicht selbst herausfordern!",
       "embedTitle": "Schere, Stein, Papier",
-      "embedDescription": "**{user}** hat dich zu einem Duell herausgefordert!",
+      "embedDescription": "{user} hat dich zu einem Duell herausgefordert!",
       "botEmbedDescription": "Du hast mich zu einem Duell herausgefordert!",
       "start": "Start",
       "accept": "Annehmen",
@@ -181,7 +181,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Wortketten",
-      "embedDescription": "Gelöschtes Wort: **{deletedWord}**"
+      "embedDescription": "Gelöschtes Wort: {deletedWord}"
     }
   }
 }

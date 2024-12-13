@@ -11,7 +11,7 @@
         "description": "Wie groß soll das Bild sein?"
       }
     },
-    "embedDescription": "**{user}'s Avatar**"
+    "embedDescription": "{user}'s Avatar"
   },
   "changelog": {
     "description": "Erhalte die neusten Änderungen.",
@@ -37,9 +37,9 @@
     },
     "embedTitle": "Befehlsstatistiken für {mode}",
     "notFound": "Es gibt keinen solchen Befehl!",
-    "embedDescriptionOne": "Der {command}-Befehl wurde **{total}** male (Slash: **{slash}** | Präfix: **{prefix}**) ausgeführt.",
+    "embedDescriptionOne": "Der {command}-Befehl wurde {total} male (Slash: {slash} | Präfix: {prefix}) ausgeführt.",
     "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:\n",
-    "embedFieldValue": "**{total}** (Slash: **{slash}** | Präfix: **{prefix}**)"
+    "embedFieldValue": "{total} (Slash: {slash} | Präfix: {prefix})"
   },
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",

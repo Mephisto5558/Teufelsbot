@@ -2,14 +2,14 @@
   "afkMsg": "`{member}` ist AFK: {message} - {timestamp}",
   "afkEnd": "Willkommen zurück, ich habe deinen AFK-Status entfernt. Du warst AFK seit {timestamp}.\nDeine AFK-Nachricht war: \"{message}\"",
   "counting": {
-    "error": "DU HAST ES BEI **{lastNumber}** RUINIERT!! Die nächste Zahl ist **1**.\n",
-    "wrongNumber": "**Kannst du nicht zählen?! Falsche Zahl.**",
-    "sameUserTwice": "**Du kannst nicht zwei Zahlen hintereinander aufzählen!**"
+    "error": "DU HAST ES BEI {lastNumber} RUINIERT!! Die nächste Zahl ist **1**.\n",
+    "wrongNumber": "Kannst du nicht zählen?! Falsche Zahl.",
+    "sameUserTwice": "Du kannst nicht zwei Zahlen hintereinander aufzählen!"
   },
   "wordchain": {
-    "error": "DU HAST EINE KETTE VON **{count}** WÖRTERN BEI \"**{lastChar}**\" RUINIERT!! Starte neu, indem du irgendein Wort schreibst.\n",
-    "sameUserTwice": "**Du kannst nicht zwei Wörter hintereinander nennen!**",
-    "inALoop": "**Warum drehst du dich im Kreis?! Dieses Wort wurde erst vor kurzem verwendet!**",
-    "wrongChar": "**Kannst du nicht lesen?! Dieses Wort startet nicht mit dem letzten Buchstaben des vorherigen Wortes.**"
+    "error": "DU HAST EINE KETTE VON {count} WÖRTERN BEI \"{lastChar}\" RUINIERT!! Starte neu, indem du irgendein Wort schreibst.\n",
+    "sameUserTwice": "Du kannst nicht zwei Wörter hintereinander nennen!",
+    "inALoop": "Warum drehst du dich im Kreis?! Dieses Wort wurde erst vor kurzem verwendet!",
+    "wrongChar": "Kannst du nicht lesen?! Dieses Wort startet nicht mit dem letzten Buchstaben des vorherigen Wortes."
   }
 }

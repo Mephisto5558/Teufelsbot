@@ -11,7 +11,7 @@
         "description": "la dimensione che si desidera ottenere"
       }
     },
-    "embedDescription": "**Avatar di {user}**"
+    "embedDescription": "Avatar di {user}"
   },
   "changelog": {
     "description": "Ottieni l'ultimo changelog.",
@@ -37,9 +37,9 @@
     },
     "embedTitle": "Statistiche Dei Comandi",
     "notFound": "Questo comando non esiste!",
-    "embedDescriptionOne": "Il comando {command} è stato eseguito **{total}** volte (Slash: **{slash}** | Prefisso: **{prefix}**).",
+    "embedDescriptionOne": "Il comando {command} è stato eseguito {total} volte (Slash: {slash} | Prefisso: {prefix}).",
     "embedDescriptionMany": "Questi sono 10 comandi più usati:\n",
-    "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefisso: **{prefix}**)"
+    "embedFieldValue": "{total} (Slash: {slash} | Prefisso: {prefix})"
   },
   "dashboard": {
     "description": "ottieni il link alla dashboard del bot",

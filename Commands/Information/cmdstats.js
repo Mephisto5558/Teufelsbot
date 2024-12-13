@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, bold } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter;
 
 /** @type {command<'both', false>} */
@@ -42,22 +42,22 @@ module.exports = {
 
       if (!command) return this.customReply({ embeds: [embed.setDescription(lang('notFound')).setColor(Colors.Red)] });
 
-      const total = Object.values(cmdStats[command.name] ?? {}).reduce((acc, e) => acc + e, 0);
+      const total = bold(Object.values(cmdStats[command.name] ?? {}).reduce((acc, e) => acc + e, 0));
       embed.data.description = lang('embedDescriptionOne', {
         total, command: command.id ? `</${command.name}:${command.id}>` : `\`${command.name}\``,
-        slash: cmdStats[command.name]?.slash ?? 0, prefix: cmdStats[command.name]?.prefix ?? 0
+        slash: bold(cmdStats[command.name]?.slash ?? 0), prefix: bold(cmdStats[command.name]?.prefix ?? 0)
       });
     }
     else {
       embed.data.description = lang('embedDescriptionMany');
       embed.data.fields = Object.entries(cmdStats)
         .filter(([k]) => !this.client.config.ownerOnlyFolders.includes((this.client.prefixCommands.get(k) ?? this.client.slashCommands.get(k))?.category))
-        .map(([k, v = {}]) => [k, { total: Object.values(v).reduce((acc, e) => acc + e, 0) ?? 0, slash: v.slash ?? 0, prefix: v.prefix ?? 0 }])
+        .map(([k, v = {}]) => [k, { total: Object.values(v).reduce((acc, e) => acc + e, 0) ?? 0, slash: bold(v.slash ?? 0), prefix: bold(v.prefix ?? 0) }])
         .sort(([, a], [, b]) => b.total - a.total)
         .slice(0, 10)
         .map((/** @type {[string, {total: number, slash: number, prefix: number}]} */[k, v]) => {
           const id = this.client.application.commands.cache.find(e => e.name == k)?.id;
-          return { name: id ? `</${k}:${id}>` : `/${k}`, value: lang('embedFieldValue', v), inline: true };
+          return { name: id ? `</${k}:${id}>` : `/${k}`, value: lang('embedFieldValue', { total: bold(v.total), ...v }), inline: true };
         });
     }
 

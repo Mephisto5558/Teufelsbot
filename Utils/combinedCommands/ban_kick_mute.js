@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType, PermissionFlagsBits, TimestampStyles } = require('discord.js'),
+  { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType, PermissionFlagsBits, TimestampStyles, bold } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
@@ -48,7 +48,7 @@ module.exports = async function ban_kick_mute(lang) {
     let err = checkTargetManageable.call(this, target);
     if (!err && target.permissions.has(PermissionFlagsBits.Administrator)) err = 'cantPunishAdmin';
     if (err) {
-      resEmbed.data.description += lang('error', { err: lang(err), user: target.user.tag });
+      resEmbed.data.description += lang('error', { err: lang(err), user: bold(target.user.tag) });
       return this.editReply({ embeds: [resEmbed] });
     }
 
@@ -62,7 +62,7 @@ module.exports = async function ban_kick_mute(lang) {
     else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
     else await target.disableCommunicationUntil(muteDurationMs, reason);
 
-    resEmbed.data.description += lang('success', { user: target.user.tag, muteDuration, muteDurationRelative });
+    resEmbed.data.description += lang('success', { user: bold(target.user.tag), muteDuration, muteDurationRelative });
     if (noMsg) resEmbed.data.description += lang('noDM');
 
     return this.editReply({ embeds: [resEmbed] });
@@ -104,7 +104,7 @@ module.exports = async function ban_kick_mute(lang) {
           else if (this.commandName == 'ban') await selectedMember.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
           else await selectedMember.disableCommunicationUntil(muteDurationMs, reason);
 
-          resEmbed.data.description += lang('success', { user: selectedMember.user.tag, muteDuration, muteDurationRelative });
+          resEmbed.data.description += lang('success', { user: bold(selectedMember.user.tag), muteDuration, muteDurationRelative });
           if (noMsg) resEmbed.data.description += lang('noDM');
         }
 

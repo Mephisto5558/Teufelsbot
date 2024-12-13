@@ -103,7 +103,7 @@
     "cannotJoin": "¡No puedo unirme a ese canal de voz! Asegúrate de que el canal no está lleno y tengo los permisos necesarios.",
     "deaf": "¡Estoy ensordecedora y no puedo dejar de matarme!",
     "embedTitle": "Grabador de voz",
-    "embedDescription": "{user} quiere grabarte en el canal de voz {channel}.\n**{publicOrPrivate}**\nPresione un botón para permitir o denegar la grabación de su voz.",
+    "embedDescription": "{user} quiere grabarte en el canal de voz {channel}.\n{publicOrPrivate}\nPresione un botón para permitir o denegar la grabación de su voz.",
     "isPublic": "Esta grabación estará disponible para todos los miembros del gremio.",
     "isPrivate": "Esta grabación sólo estará disponible para los miembros actuales del canal de voz que permitieron la grabación.",
     "cantConnect": "¡No pude conectar con el canal de voz! Por favor, inténtalo de nuevo.",

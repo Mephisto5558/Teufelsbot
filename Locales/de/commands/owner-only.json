@@ -132,7 +132,7 @@
     },
     "invalidNumber": "Die angegebene Zahl ist ungültig!",
     "unknownChannel": "Die angegebene Kanal-ID wurde in diesem Server nicht gefunden!",
-    "success": "Counting für {channel} wurde zu **{number}** gesetzt."
+    "success": "Counting für {channel} wurde zu {number} gesetzt."
   },
   "test": {
     "description": "testet Sachen"

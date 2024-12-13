@@ -11,7 +11,7 @@
         "description": "the size you want to get"
       }
     },
-    "embedDescription": "**Avatar of {user}**"
+    "embedDescription": "Avatar of {user}"
   },
   "changelog": {
     "description": "Get the latest changelog.",
@@ -37,9 +37,9 @@
     },
     "embedTitle": "Command Stats for {mode}",
     "notFound": "That command does not exist!",
-    "embedDescriptionOne": "The {command} command has been run **{total}** times (Slash: **{slash}** | Prefix: **{prefix}**).",
+    "embedDescriptionOne": "The {command} command has been run {total} times (Slash: {slash} | Prefix: {prefix}).",
     "embedDescriptionMany": "These are 10 most used commands:\n",
-    "embedFieldValue": "**{total}** (Slash: **{slash}** | Prefix: **{prefix}**)"
+    "embedFieldValue": "{total} (Slash: {slash} | Prefix: {prefix})"
   },
   "dashboard": {
     "description": "get the link to the bots's dashboard",

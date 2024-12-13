@@ -11,7 +11,7 @@
         "description": "la taille que vous voulez obtenir"
       }
     },
-    "embedDescription": "**Avatar de {user}**"
+    "embedDescription": "Avatar de {user}"
   },
   "changelog": {
     "description": "Obtenir le dernier changelog.",
@@ -37,9 +37,9 @@
     },
     "embedTitle": "Statistiques de la commande",
     "notFound": "Cette commande n'existe pas !",
-    "embedDescriptionOne": "La commande {command} a été exécutée **{count}** fois.",
+    "embedDescriptionOne": "La commande {command} a été exécutée {count} fois.",
     "embedDescriptionMany": "Voici 10 commandes les plus utilisées :\n",
-    "embedFieldValue": "**{total}** (Slash: **{slash}** | Préfixe : **{prefix}**)"
+    "embedFieldValue": "{total} (Slash: {slash} | Préfixe : {prefix})"
   },
   "dashboard": {
     "description": "obtenir le lien vers le tableau de bord du bot",

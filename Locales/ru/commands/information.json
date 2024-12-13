@@ -11,7 +11,7 @@
         "description": "размер, который вы хотите получить"
       }
     },
-    "embedDescription": "**Аватар {user}**"
+    "embedDescription": "Аватар {user}"
   },
   "changelog": {
     "description": "Получить последний список изменений.",
@@ -37,9 +37,9 @@
     },
     "embedTitle": "Статистика команд",
     "notFound": "Эта команда не существует!",
-    "embedDescriptionOne": "Команда {command} была выполнена **{count}** раз.",
+    "embedDescriptionOne": "Команда {command} была выполнена {count} раз.",
     "embedDescriptionMany": "Это 10 наиболее часто используемых команд:\n",
-    "embedFieldValue": "**{total}** (Slash: **{slash}** | Префикс: **{prefix}**)"
+    "embedFieldValue": "{total} (Slash: {slash} | Префикс: {prefix})"
   },
   "dashboard": {
     "description": "получить ссылку на панель ботов",

@@ -29,7 +29,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Подсчёт",
-      "embedDescription": "Удалено число: **{deletedNum}**\nСледующее число: **{nextNum}**",
+      "embedDescription": "Удалено число: {deletedNum}\nСледующее число: {nextNum}",
       "unknown": "Неизвестный автор"
     }
   },
@@ -113,7 +113,7 @@
       "opponentIsBot": "Вы не можете бросить вызов ботам!",
       "opponentIsSelf": "Вы не можете бросить вызов себе!",
       "embedTitle": "Ножницы из бумаги для камня",
-      "embedDescription": "**{user}** бросил Вам вызов на поединк!",
+      "embedDescription": "{user} бросил Вам вызов на поединк!",
       "botEmbedDescription": "Вы бросили меня на поединка!",
       "start": "Начать",
       "accept": "Принять",

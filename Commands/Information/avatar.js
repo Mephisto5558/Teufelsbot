@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES } = require('discord.js'),
+  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES, bold } = require('discord.js'),
   { getTargetMember, timeFormatter: { msInSecond } } = require('#Utils');
 
 /** @type {command<'both', false>} */
@@ -23,7 +23,7 @@ module.exports = {
       /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 2nd largest resolution */
       avatarURL = target.displayAvatarURL({ size: this.options?.getInteger('size') ?? this.args?.at(-1) ?? ALLOWED_SIZES.at(-2) }),
       embed = new EmbedBuilder({
-        description: lang('embedDescription', target.user?.username ?? target.username),
+        description: bold(lang('embedDescription', target.user?.username ?? target.username)),
         color: Colors.White,
         image: { url: avatarURL },
         footer: { text: this.user.username }

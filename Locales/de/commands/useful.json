@@ -18,7 +18,7 @@
     "isGuildEmoji": "Dieser Emoji ist bereits auf diesem Server!",
     "invalidUrl": "Das angegebene Argument ist kein gültiges Emoji oder URL!\nEine gültige URL muss eine der folgenden Endungen haben: `jpg`, `jpeg`, `png`, `webp`, `svg` oder `gif`.\nBeispiel: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "Die angegebene URL wurde nicht gefunden.",
-    "success": "**{name}** wurde erfolgreich hinzugefügt {emoji}!\n",
+    "success": "{name} wurde erfolgreich hinzugefügt {emoji}!\n",
     "limitedToRoles": "Das Emoji wurde zu den folgenden Rollen limitiert:\n{roles}.",
     "error": "Das Emoji konnte aus folgendem Grund nicht hinzugefügt werden:\n{err}",
     "tooBig": "Das Bild ist zu groß. Die maximale Dateigröße beträgt 2048 Kilobytes.",
@@ -334,7 +334,7 @@
       }
     },
     "notFound": "Es wurden keine Suchergebnisse gefunden.",
-    "visitWiki": "**Für mehr Informationen, besuche bitte Wikipedia.**"
+    "visitWiki": "Für mehr Informationen, besuche bitte Wikipedia."
   },
   "wordcount": {
     "description": "Zähle die Wörter in einer Nachricht",

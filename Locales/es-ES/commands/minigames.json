@@ -33,7 +33,7 @@
     },
     "userDeletedMsg": {
       "embedTitle": "Contando",
-      "embedDescription": "Número eliminado: **{deletedNum}**\nSiguiente Número: **{nextNum}**",
+      "embedDescription": "Número eliminado: {deletedNum}\nSiguiente Número: {nextNum}",
       "unknown": "Autor desconocido"
     }
   },
@@ -121,7 +121,7 @@
       "opponentIsBot": "¡No puedes retar a los bots!",
       "opponentIsSelf": "¡No puedes desafiarte a ti mismo!",
       "embedTitle": "Piedra de papel tijeras",
-      "embedDescription": "**{user}** te ha desafiado a un duelo!",
+      "embedDescription": "{user} te ha desafiado a un duelo!",
       "botEmbedDescription": "¡Me has desafiado a un duelo!",
       "start": "Comenzar",
       "accept": "Aceptar",
