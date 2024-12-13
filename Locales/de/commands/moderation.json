@@ -87,7 +87,7 @@
     "infoEmbedDescription": "Moderator: {mod}\nBis: {muteDuration} ({muteDurationRelative})\nGrund: {reason}\n\n",
     "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Timeouten aus. Du hast 60 Sekunden Zeit.",
     "cantPunishSelf": "Du kannst dich selbst nicht timeouten!",
-    "cantPunishAdmin": "Administratoren können nicht gemuted werden!",
+    "cantPunishAdmin": "Administratoren können nicht getimeouted werden!",
     "noneFound": "Kein Ziel wurde gefunden.",
     "error": "Ich konnte das Mitglied nicht muten:\n{err}",
     "success": "{user} wurde erfolgreich getimeouted.\n",
