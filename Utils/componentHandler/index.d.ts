@@ -120,8 +120,8 @@ declare function reddit<
 ): ComponentReturnType;
 
 declare function rps_sendChallenge(
-  this: GuildInteraction | Message<true> | GuildButtonInteraction,
-  options: { initiator: GuildMember; opponent?: GuildMember; lang?: lang }
+  this: GuildInteraction | Message<true> | GuildButtonInteraction, lang: lang,
+  initiator: GuildMember, opponent?: GuildMember
 ): Promise<InteractionResponse | Message>;
 
 type PlayOptions = 'rock' | 'paper' | 'scissors';
