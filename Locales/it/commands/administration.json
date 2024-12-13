@@ -270,7 +270,7 @@
     "logger": {
       "noChannel": "Non hai specificato un canale di testo a cui inviare il registro!",
       "noEnabled": "È necessario utilizzare l'opzione `enabled` per impostare tutte le azioni contemporaneamente!",
-      "enabled": "I registri per {action} verranno inviati a <#{channel}>.",
+      "enabled": "I registri per {action} verranno inviati a {channel}.",
       "disabled": "I registri per {action} non saranno più inviati.",
       "actions": {
         "all": "tutte le azioni",

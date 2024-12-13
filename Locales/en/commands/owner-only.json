@@ -132,7 +132,7 @@
     },
     "invalidNumber": "The provided number is invalid!",
     "unknownChannel": "The provided channel id has not been found in this guild!",
-    "success": "Counting for <#{channel}> has been set to **{number}**."
+    "success": "Counting for {channel} has been set to **{number}**."
   },
   "test": {
     "description": "testing stuff"

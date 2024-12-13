@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Guild, ALLOWED_SIZES } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Guild, ALLOWED_SIZES, userMention } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { msInSecond, timestamp } = require('#Utils').timeFormatter;
 
@@ -46,7 +46,7 @@ module.exports = {
           { name: lang('id'), value: `\`${guild.id}\``, inline: true },
           { name: lang('createdAt'), value: timestamp(guild.createdTimestamp), inline: true },
           guild instanceof Guild && { name: lang('defaultNotifications.name'), value: lang(`defaultNotifications.${guild.defaultMessageNotifications}`), inline: true },
-          guild instanceof Guild && { name: lang('owner'), value: `<@${guild.ownerId}>`, inline: true },
+          guild instanceof Guild && { name: lang('owner'), value: userMention(guild.ownerId), inline: true },
           guild instanceof Guild && { name: lang('locale'), value: guild.preferredLocale, inline: true },
           { name: lang('partnered'), value: lang(`global.${guild.partnered}`), inline: true },
           guild instanceof Guild && { name: lang('emojis'), value: `\`${guild.emojis.cache.size}\``, inline: true },

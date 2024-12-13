@@ -205,6 +205,6 @@
     "notFound": "Je n'ai pas pu trouver ce membre !",
     "notMuted": "Ce membre n'est pas muet !",
     "moderator": "Modérateur",
-    "success": "Délai d'attente retiré pour le membre <@{user}>."
+    "success": "Délai d'attente retiré pour le membre {user}."
   }
 }

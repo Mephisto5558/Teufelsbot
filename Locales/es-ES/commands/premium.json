@@ -83,7 +83,7 @@
     "timedout": "¡Has tardado mucho en responder!",
     "emptyJson": "¡El JSON que proporcionaste está vacío!",
     "error": "Ocurrió un error mientras se trataba de enviar tu JSON personalizado:\n{err}",
-    "success": "El mensaje ha sido editado. [Link]({url})"
+    "success": "El mensaje ha sido editado. {link}"
   },
   "record": {
     "description": "Grabar un canal de voz. Necesita la aprobación de los usuarios.",
@@ -103,7 +103,7 @@
     "cannotJoin": "¡No puedo unirme a ese canal de voz! Asegúrate de que el canal no está lleno y tengo los permisos necesarios.",
     "deaf": "¡Estoy ensordecedora y no puedo dejar de matarme!",
     "embedTitle": "Grabador de voz",
-    "embedDescription": "<@{user}> quiere grabarte en el canal de voz <#{channel}>.\n**{publicOrPrivate}**\nPresione un botón para permitir o denegar la grabación de su voz.",
+    "embedDescription": "{user} quiere grabarte en el canal de voz {channel}.\n**{publicOrPrivate}**\nPresione un botón para permitir o denegar la grabación de su voz.",
     "isPublic": "Esta grabación estará disponible para todos los miembros del gremio.",
     "isPrivate": "Esta grabación sólo estará disponible para los miembros actuales del canal de voz que permitieron la grabación.",
     "cantConnect": "¡No pude conectar con el canal de voz! Por favor, inténtalo de nuevo.",
@@ -116,8 +116,8 @@
     "stop": "Detener grabación",
     "get": "Obtener la grabación",
     "updated": "Tu respuesta ha sido establecida a `{permission}`. Estoy esperando a que los otros miembros respondan.",
-    "paused": "🔇 Pusí la grabación <#{channel}>.",
-    "recording": "🎙️ ¡Ahora estoy grabando <#{channel}> ({users})!",
+    "paused": "🔇 Pusí la grabación {channel}.",
+    "recording": "🎙️ ¡Ahora estoy grabando {channel} ({users})!",
     "notFound": "¡La grabación no ha sido encontrada!",
     "privateReady": "Pulse el botón para obtener la grabación.",
     "success": "🔉 ¡Aquí está su grabación!"

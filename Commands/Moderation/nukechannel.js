@@ -1,5 +1,5 @@
 const
-  { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
+  { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, channelMention } = require('discord.js'),
   { getTargetChannel, timeFormatter: { msInSecond } } = require('#Utils'),
   collectorTimeout = 3e4;
 
@@ -23,7 +23,7 @@ module.exports = {
       channel = getTargetChannel(this, { returnSelf: true }),
       embed = new EmbedBuilder({
         title: lang('confirmEmbedTitle'),
-        description: lang('confirmEmbedDescription', channel.id),
+        description: lang('confirmEmbedDescription', channelMention(channel.id)),
         color: Colors.Red
       }),
       component = new ActionRowBuilder({

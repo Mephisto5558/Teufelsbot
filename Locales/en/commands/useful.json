@@ -19,7 +19,7 @@
     "invalidUrl": "The provided argument is not a valid url or emoji!\nThe url must end with `jpg`, `jpeg`, `png`, `webp`, `svg` or `gif`.\nExample: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "The provided url was not found.",
     "success": "Successfully added **{name}** {emoji}!\n",
-    "limitedToRoles": "The emoji has been limited to the following roles:\n<@&{roles}>.",
+    "limitedToRoles": "The emoji has been limited to the following roles:\n{roles}.",
     "error": "Unable to create the emoji for reason:\n{err}",
     "tooBig": "The image is too big. The maximum filesize is 2048 kilobytes.",
     "timedOut": "The request timed out. Maybe the image is to large."
@@ -232,7 +232,7 @@
     "invalid": "The selected channel is not a text channel!",
     "noneFound": "I haven't found any mentions.",
     "embedTitle": "Last Ping",
-    "embedDescription": "The last time you were mentioned was [here]({url}) from <@{author}>.\n{content}"
+    "embedDescription": "The last time you were mentioned was {link} from {author}.\n{content}"
   },
   "math": {
     "description": "Runs some math",

@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, userMention } = require('discord.js'),
   BLUE = 0x2980B9;
 
 /** @type {import('.').rps_sendChallenge} */
@@ -33,8 +33,8 @@ module.exports = async function sendRPSChallenge({ initiator, opponent, lang }) 
     });
 
   const
-    msg = await this.customReply({ content: opponent.bot ? undefined : `<@${opponent.id}>`, embeds: [embed], components: [component] }),
+    msg = await this.customReply({ content: opponent.bot ? undefined : userMention(opponent.id), embeds: [embed], components: [component] }),
     deleteTime = 5000;
 
-  if (!opponent.bot) return msg.reply(lang('newChallenge', opponent.id)).then(e => setTimeout(e.delete.bind(e), deleteTime));
+  if (!opponent.bot) return msg.reply(lang('newChallenge', userMention(opponent.id))).then(e => setTimeout(e.delete.bind(e), deleteTime));
 };

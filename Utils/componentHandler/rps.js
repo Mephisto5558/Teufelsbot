@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, userMention } = require('discord.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
   sendChallenge = require('./rps_sendChallenge.js'),
   emojis = { rock: '✊', paper: '🤚', scissors: '✌️' },
@@ -97,7 +97,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
         const winner = winningAgainst[choices.player1] == choices.player2 ? initiatorId : opponentId;
 
         this.message.embeds[0].data.description = lang('end.win', {
-          winner, winEmoji: emojis[initiatorId == winner ? choices.player1 : choices.player2],
+          winner: userMention(winner), winEmoji: emojis[initiatorId == winner ? choices.player1 : choices.player2],
           loseEmoji: emojis[initiatorId == winner ? choices.player2 : choices.player1]
         });
       }

@@ -44,7 +44,7 @@
   "dashboard": {
     "description": "obtenir le lien vers le tableau de bord du bot",
     "embedTitle": "Tableau de bord",
-    "embedDescriptionDashboard": "Cliquez sur [here]({url}) pour ouvrir le tableau de bord."
+    "embedDescriptionDashboard": "Cliquez sur {link} pour ouvrir le tableau de bord."
   },
   "emojiinfo": {
     "description": "Obtenir des informations sur un émoji",
@@ -125,7 +125,7 @@
   "invite": {
     "description": "Envoie un lien pour ajouter le bot à votre guilde.",
     "embedTitle": "Inviter",
-    "embedDescription": "Merci de votre intérêt ! Cliquez sur [here]({url}) pour m'ajouter à votre guilde. ^^"
+    "embedDescription": "Merci de votre intérêt ! Cliquez sur {link} pour m'ajouter à votre guilde. ^^"
   },
   "ping": {
     "description": "Obtenir le ping du bot",
@@ -216,7 +216,7 @@
   "uptime": {
     "description": "Obtenir le temps de disponibilité du bot",
     "embedDescriptionNoURL": "Le bot a été en ligne pour {time}.",
-    "embedDescription": "Le bot a été [online]({Domain}/uptime) pour exactement {time}."
+    "embedDescription": "Le bot a été {link} pour exactement {time}."
   },
   "userinfo": {
     "description": "Obtenir des informations sur un membre",
@@ -282,6 +282,6 @@
   "vote": {
     "description": "obtenir le lien vers la demande de fonctionnalité et la page de vote des bots",
     "embedTitle": "Vote",
-    "embedDescriptionVote": "Cliquez sur [here]({url}) pour ouvrir la page Web de vote et de demande de fonctionnalité."
+    "embedDescriptionVote": "Cliquez sur {link} pour ouvrir la page Web de vote et de demande de fonctionnalité."
   }
 }

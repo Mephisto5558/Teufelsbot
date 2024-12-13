@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, userMention } = require('discord.js'),
   { getTargetMember, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, monthsInYear } } = require('#Utils'),
   currentYear = new Date().getFullYear();
 
@@ -88,7 +88,7 @@ const birthdayMainFunctions = {
         const
           dateStr = lang('getAll.date', { month: lang(`months.${date.getMonth() + 1}`), day: date.getDate() }),
           age = getAge(date) + 1,
-          msg = `> <@${id}>${age < currentYear ? ' (' + age + ')' : ''}\n`;
+          msg = '> ' + userMention(id) + (age < currentYear ? ` (${age})` : '') + '\n';
 
         embed.data.description += embed.data.description.includes(dateStr) ? msg : `\n${dateStr}${msg}`;
       }

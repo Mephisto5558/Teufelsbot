@@ -293,7 +293,7 @@
     "logger": {
       "noChannel": "You did not specify a text channel to send the log to!",
       "noEnabled": "You need to use the `enabled` option to set all actions at once!",
-      "enabled": "Logs for {action} will be sent to <#{channel}>.",
+      "enabled": "Logs for {action} will be sent to {channel}.",
       "disabled": "Logs for {action} will no longer be sent.",
       "actions": {
         "all": "all actions",

@@ -1,5 +1,5 @@
 const
-  { parseEmoji, EmbedBuilder, Colors, codeBlock } = require('discord.js'),
+  { parseEmoji, EmbedBuilder, Colors, codeBlock, roleMention } = require('discord.js'),
   http = require('node:http'),
   https = require('node:https'),
   { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils');
@@ -66,7 +66,7 @@ module.exports = {
       });
 
       embed.data.description = lang('success', { name: emoji.name, emoji });
-      if (limitToRoles?.length > 0) embed.data.description += lang('limitedToRoles', `<@&${limitToRoles.join('>, <@&')}>`);
+      if (limitToRoles?.length > 0) embed.data.description += lang('limitedToRoles', limitToRoles.map(roleMention).join(', '));
     }
     catch (err) {
       if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]')) // no check by err.code because it is just 50035 ("Invalid form body")

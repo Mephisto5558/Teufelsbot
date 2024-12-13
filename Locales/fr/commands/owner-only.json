@@ -132,7 +132,7 @@
     },
     "invalidNumber": "Le numéro fourni est invalide !",
     "unknownChannel": "L'identifiant de salon fourni n'a pas été trouvé dans cette guilde !",
-    "success": "Le comptage pour <#{channel}> a été défini à **{number}**."
+    "success": "Le comptage pour {channel} a été défini à **{number}**."
   },
   "test": {
     "description": "tester des trucs"

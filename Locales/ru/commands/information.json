@@ -44,7 +44,7 @@
   "dashboard": {
     "description": "получить ссылку на панель ботов",
     "embedTitle": "Панель",
-    "embedDescriptionDashboard": "Нажмите [here]({url}) для открытия панели управления."
+    "embedDescriptionDashboard": "Нажмите {link} для открытия панели управления."
   },
   "emojiinfo": {
     "description": "Получить информацию о эмодзи",
@@ -127,7 +127,7 @@
   "invite": {
     "description": "Отправляет ссылку для добавления бота в гильдию.",
     "embedTitle": "Пригласить",
-    "embedDescription": "Спасибо за ваш интерес! Нажмите [here]({url}), чтобы добавить меня в свою гильдию. ^^"
+    "embedDescription": "Спасибо за ваш интерес! Нажмите {link}, чтобы добавить меня в свою гильдию. ^^"
   },
   "ping": {
     "description": "Получить пинг бота",
@@ -218,7 +218,7 @@
   "uptime": {
     "description": "Получить время работы бота",
     "embedDescriptionNoURL": "Бот был онлайн для {time}.",
-    "embedDescription": "Бот был [online]({Domain}/uptime) ровно {time}."
+    "embedDescription": "Бот был {link} ровно {time}."
   },
   "userinfo": {
     "description": "Получить информацию о участнике",
@@ -284,6 +284,6 @@
   "vote": {
     "description": "получить ссылку на запрос функции ботов и страницу голосования",
     "embedTitle": "Голосование",
-    "embedDescriptionVote": "Нажмите [here]({url}) чтобы открыть веб-страницу голосования и запроса на добавление функций."
+    "embedDescriptionVote": "Нажмите {link} чтобы открыть веб-страницу голосования и запроса на добавление функций."
   }
 }

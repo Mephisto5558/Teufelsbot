@@ -1,5 +1,5 @@
 const
-  { MessageFlags, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { MessageFlags, EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink, userMention, channelMention } = require('discord.js'),
   { embedFieldValueMaxLength, suffix } = require('#Utils').constants,
   PINK = 0xE62AED;
 
@@ -22,9 +22,9 @@ module.exports = function messageUpdate(newMsg) {
     lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
     embed = new EmbedBuilder({
       author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
-      description: lang('embedDescription', { executor: `<@${newMsg.user.id}>`, channel: newMsg.channel.name }),
+      description: lang('embedDescription', { executor: userMention(newMsg.user.id), channel: newMsg.channel.name }),
       fields: [
-        { name: lang('global.channel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: false },
+        { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (\`${this.channel.id}\`)`, inline: false },
         { name: lang('oldContent'), value: '', inline: false },
         { name: lang('newContent'), value: '', inline: false },
         { name: lang('author'), value: `${newMsg.user.tag} (\`${newMsg.user.id}\`)`, inline: false }
@@ -43,8 +43,8 @@ module.exports = function messageUpdate(newMsg) {
   if (this.originalContent) embed.data.fields[1].value += `${this.originalContent}\n`;
   if (newMsg.originalContent) embed.data.fields[2].value += `${newMsg.originalContent}\n`;
 
-  if (this.attachments.size) embed.data.fields[1].value += this.attachments.map(e => `[${e.url}](${e.name})`).join(', ') + '\n';
-  if (newMsg.attachments.size) embed.data.fields[2].value += newMsg.attachments.map(e => `[${e.url}](${e.name})`).join(', ') + '\n';
+  if (this.attachments.size) embed.data.fields[1].value += this.attachments.map(e => hyperlink(e.url, e.name)).join(', ') + '\n';
+  if (newMsg.attachments.size) embed.data.fields[2].value += newMsg.attachments.map(e => hyperlink(e.url, e.name)).join(', ') + '\n';
 
   if (this.embeds.length) embed.data.fields[1].value += lang('events.logger.embeds', this.embeds.length);
   if (newMsg.embeds.length) embed.data.fields[2].value += lang('events.logger.embeds', newMsg.embeds.length);

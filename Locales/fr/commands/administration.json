@@ -270,7 +270,7 @@
     "logger": {
       "noChannel": "Vous n'avez pas spécifié de salon textuel vers lequel envoyer le log !",
       "noEnabled": "Vous devez utiliser l'option `enabled` pour définir toutes les actions en même temps!",
-      "enabled": "Les journaux pour {action} seront envoyés à <#{channel}>.",
+      "enabled": "Les journaux pour {action} seront envoyés à {channel}.",
       "disabled": "Les journaux pour {action} ne seront plus envoyés.",
       "actions": {
         "all": "toutes les actions",

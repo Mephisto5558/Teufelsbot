@@ -1,5 +1,5 @@
 const
-  { ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES, TimestampStyles } = require('discord.js'),
+  { ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES, TimestampStyles, hyperlink } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMember, getAge, permissionTranslator, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
 
@@ -44,7 +44,7 @@ module.exports = {
           { name: lang('type'), value: type, inline: true },
           { name: lang('position'), value: `\`${this.guild.roles.highest.position - member.roles.highest.position + 1}\`, ${member.roles.highest.toString()}`, inline: true },
           { name: lang('roles'), value: `\`${member.roles.cache.size}\``, inline: true },
-          { name: lang('color'), value: `[${member.displayHexColor}](https://www.color-hex.com/color/${member.displayHexColor.slice(1)})`, inline: true },
+          { name: lang('color'), value: hyperlink(member.displayHexColor, `https://www.color-hex.com/color/${member.displayHexColor.slice(1)}`), inline: true },
           { name: lang('createdAt'), value: timestamp(member.user.createdTimestamp), inline: true },
           { name: lang('joinedAt'), value: timestamp(member.joinedTimestamp), inline: true }
 

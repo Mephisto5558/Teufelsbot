@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, channelMention } = require('discord.js'),
   getTargetChannel = require('../getTargetChannel.js');
 
 /** @type {import('.').setupMinigameChannel} */
@@ -23,7 +23,7 @@ module.exports = async function setupMinigameChannel(lang) {
     if (this.channel.id == channel.id) return this.customReply({ embeds: [embed] });
 
     await channel.send({ embeds: [embed] });
-    return this.customReply(lang('removed.success', channel.id));
+    return this.customReply(lang('removed.success', channelMention(channel.id)));
   }
 
   const embed = new EmbedBuilder({
@@ -40,5 +40,5 @@ module.exports = async function setupMinigameChannel(lang) {
   if (this.channel.id == channel.id) return this.customReply({ embeds: [embed] });
   await channel.send({ embeds: [embed] });
 
-  return this.customReply(lang('added.success', channel.id));
+  return this.customReply(lang('added.success', channelMention(channel.id)));
 };

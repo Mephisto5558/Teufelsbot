@@ -30,12 +30,12 @@
       "embedTitle": "Questo canale è ora un canale di conteggio!",
       "embedDescription": "Le regole sono semplici:\n> Inizia con **1**.\n> Aggiungi **1** all'ultimo numero\n> Non puoi contare due numeri di fila.\nDivertiti!",
       "by": "Aggiunto come canale di conteggio da {user}",
-      "success": "Ho aggiunto con successo <#{channel}> come canale di conteggio."
+      "success": "Ho aggiunto con successo {channel} come canale di conteggio."
     },
     "removed": {
       "embedDescription": "Questo canale non è più un canale di conteggio!",
       "by": "Rimosso da {user}",
-      "success": "Ho rimosso con successo <#{channel}> come canale di conteggio."
+      "success": "Ho rimosso con successo {channel} come canale di conteggio."
     },
     "userDeletedMsg": {
       "embedTitle": "Conteggio",
@@ -132,7 +132,7 @@
       "start": "Inizia",
       "accept": "Accetta",
       "decline": "Rifiuta",
-      "newChallenge": "<@{user}> :crossed_swords: Nuova sfida duello"
+      "newChallenge": "{user} :crossed_swords: Nuova sfida duello"
     },
     "memberNotFound": "Almeno uno dei giocatori non è stato trovato!",
     "canceled": ":x: `{initiator}` ha ritirato la loro sfida.",
@@ -145,7 +145,7 @@
       "alreadyChosen": "Hai già selezionato {move}! Attendi che il tuo avversario scelga.",
       "saved": "La tua selezione è stata salvata!",
       "tie": "Nessuno ha vinto la partita, è una cravatta! {emoji} = {emoji}",
-      "win": ":tada: <@{winner}> ha vinto la partita! {winEmoji} > {loseEmoji}"
+      "win": ":tada: {winner} ha vinto la partita! {winEmoji} > {loseEmoji}"
     }
   },
   "tictactoe": {
@@ -155,7 +155,7 @@
         "description": "A chi vuoi giocare contro?"
       }
     },
-    "newChallenge": "<@{user}> :crossed_swords: Nuova sfida duello"
+    "newChallenge": "{user} :crossed_swords: Nuova sfida duello"
   },
   "wordchain": {
     "description": "Imposta un canale wordchain dove i membri possono mostrare il loro vocabolario!",
@@ -172,12 +172,12 @@
       "embedTitle": "Questo canale è ora un canale wordchain!",
       "embedDescription": "Le regole sono semplici:\n> Inizia con qualsiasi parola.\n> La parola successiva deve iniziare con l'ultima lettera dell'ultima parola.\n> Non puoi dire due parole di fila.\nDivertiti!",
       "by": "Aggiunto come canale di conteggio da {user}",
-      "success": "Ho aggiunto con successo <#{channel}> come canale wordchain."
+      "success": "Ho aggiunto con successo {channel} come canale wordchain."
     },
     "removed": {
       "embedDescription": "Questo canale non è più un canale wordchain!",
       "by": "Rimosso da {user}",
-      "success": "Ho rimosso con successo <#{channel}> come canale wordchain."
+      "success": "Ho rimosso con successo {channel} come canale wordchain."
     },
     "userDeletedMsg": {
       "embedTitle": "Wordchain",

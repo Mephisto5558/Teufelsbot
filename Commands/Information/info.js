@@ -1,6 +1,7 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, TimestampStyles } = require('discord.js'),
+  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, TimestampStyles, hyperlink } = require('discord.js'),
   { msInSecond, timestamp } = require('#Utils').timeFormatter,
+  userURL = id => `https://discord.com/users${id}`,
 
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
 
@@ -46,7 +47,7 @@ module.exports = {
     const
       startTime = Math.round(Date.now() / msInSecond - process.uptime()),
       description
-        = `${lang('dev')}: [Mephisto5558](https://discord.com/users/691550551825055775)\n` // Please do not change this line
+        = `${lang('dev')}: ${hyperlink('Mephisto5558', userURL('691550551825055775'))}\n` // Please do not change this line
         + (this.inGuild()
           ? `${lang('shard')}: \`${this.guild.shardId}\`\n`
           + `${lang('guild')}: \`${this.guild.db.position}\`\n`
@@ -57,8 +58,8 @@ module.exports = {
         + `${lang('starts')}: \`${this.client.settings.startCount[this.client.botType]}\`\n`
         + `${lang('lastStart')}: ${timestamp(startTime)} ${timestamp(startTime, TimestampStyles.RelativeTime)}\n`
         + lang('translation', {
-          de: '[Mephisto5558](https://discord.com/users/691550551825055775) & [Koikarpfen1907](https://discord.com/users/636196723852705822)',
-          en: '[Mephisto5558](https://discord.com/users/691550551825055775) & [PenguinLeo](https://discord.com/users/740930989798195253)'
+          de: `${hyperlink('Mephisto5558', userURL('691550551825055775'))} & ${hyperlink('Koikarpfen1907', userURL('636196723852705822'))}`,
+          en: `${hyperlink('Mephisto5558', userURL('691550551825055775'))} & ${hyperlink('PenguinLeo', userURL('740930989798195253'))}`
         }),
 
       embed = new EmbedBuilder({

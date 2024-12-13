@@ -1,5 +1,5 @@
 const
-  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors, ALLOWED_SIZES } = require('discord.js'),
+  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors, ALLOWED_SIZES, hyperlink, channelMention, userMention } = require('discord.js'),
   { constants: { embedFieldValueMaxLength, suffix }, timeFormatter: { msInSecond } } = require('#Utils'),
   PURPLE = 0x822AED,
   AUDITLOG_FETCHLIMIT = 6,
@@ -71,9 +71,9 @@ module.exports = async function messageDelete() {
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
       thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: ALLOWED_SIZES[3] }) } : undefined, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 3rd valid resolution */
-      description: lang('messageDelete.embedDescription', { executor: executor ? `<@${executor.id}>` : lang('someone'), channel: this.channel.name }),
+      description: lang('messageDelete.embedDescription', { executor: executor ? userMention(executor.id) : lang('someone'), channel: this.channel.name }),
       fields: [
-        { name: lang('global.channel'), value: `<#${this.channel.id}> (\`${this.channel.id}\`)`, inline: true },
+        { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (\`${this.channel.id}\`)`, inline: true },
         { name: lang('messageDelete.content'), value: '', inline: false }
       ],
       timestamp: Date.now(),
@@ -82,7 +82,7 @@ module.exports = async function messageDelete() {
 
   const field = embed.data.fields.at(-1);
   if (this.originalContent) field.value += `${this.originalContent}\n`;
-  if (this.attachments.size) field.value += this.attachments.map(e => `[${e.url}](${e.name})`).join(', ') + '\n';
+  if (this.attachments.size) field.value += this.attachments.map(e => hyperlink(e.url, e.name)).join(', ') + '\n';
   if (this.embeds.length) field.value += lang('embeds', this.embeds.length) + '\n';
   if (this.components.length) field.value += lang('messageDelete.components', this.components.length);
 

@@ -67,8 +67,8 @@
     "reportButton": "Segnala questo errore",
     "reportButtonDisabled": " (Disabilitato a causa della versione dev)",
     "discordAPIErr": "Si è verificato un errore di Discord API, riprova e invia un messaggio al dev se questo continua ad accadere.",
-    "alreadyReported": "Questo errore è già stato segnalato. [Link]({url}).\nSarà risolto presto.",
-    "reportSuccess": "L'errore è stato segnalato. [Link]({url})",
+    "alreadyReported": "Questo errore è già stato segnalato. {link}.\nSarà risolto presto.",
+    "reportSuccess": "L'errore è stato segnalato. {link}",
     "reportFail": "Si è verificato un errore durante il tentativo di inviare la segnalazione di errore.\n{err}\nSi prega di inviare un messaggio diretto al dev."
   },
   "timeFormatter": {

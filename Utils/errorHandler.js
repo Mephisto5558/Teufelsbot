@@ -1,6 +1,6 @@
 const
   fetch = require('node-fetch').default,
-  { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction, codeBlock } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction, codeBlock, hyperlink } = require('discord.js'),
   { msInSecond, secsInMinute } = require('./timeFormatter.js'),
   { JSON_SPACES } = require('./constants'),
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
@@ -87,7 +87,7 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
         if (!issues.ok) throw new Error(JSON.stringify(issuesJson));
 
         if (issuesJson.filter(e => e.title == title && e.state == 'open').length) {
-          embed.data.description = lang('alreadyReported', issuesJson[0].html_url);
+          embed.data.description = lang('alreadyReported', hyperlink(lang('link'), issuesJson[0].html_url));
           return msg.edit({ embeds: [embed], components: [] });
         }
 
@@ -116,7 +116,7 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
         }
 
         /* eslint-disable-next-line unicorn/no-null -- `null` must be used here, as `undefined` is interpreted as 'Keep current data' */
-        return msg.edit({ embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', json.html_url))], components: [] });
+        return msg.edit({ embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', hyperlink(lang('link'), json.html_url)))], components: [] });
       }
       catch (err) {
         log.error('Failed to report an error:', err.stack);

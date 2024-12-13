@@ -102,7 +102,7 @@
       }
     },
     "confirmEmbedTitle": "Nuke Channel",
-    "confirmEmbedDescription": "Are you sure you want to nuke <#{channel}>?\n**This action is irreversible!**",
+    "confirmEmbedDescription": "Are you sure you want to nuke {channel}?\n**This action is irreversible!**",
     "confirmButtonLabel": "Confirm",
     "cancelButtonLabel": "Cancel",
     "canceledEmbedDescription": "The nuking has been canceled.",
@@ -214,6 +214,6 @@
     "notFound": "I couldn't find that member!",
     "notMuted": "This member is not muted!",
     "moderator": "Moderator",
-    "success": "Removed timeout for member <@{user}>."
+    "success": "Removed timeout for member {user}."
   }
 }

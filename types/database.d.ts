@@ -1,5 +1,5 @@
 /* eslint-disable max-lines */
-import type { ActivityType, GuildFeature, EmbedData, OverwriteType, Base64String, GuildChannelType } from 'discord.js';
+import type { ActivityType, GuildFeature, EmbedData, OverwriteType, Base64String, GuildChannelType, messageLink } from 'discord.js';
 import type { ISODateTime } from './globals';
 import type { Env } from './locals';
 import type { GiveawayData } from 'discord-giveaways';
@@ -192,7 +192,7 @@ type Database = {
     };
     lastMentions?: Record<userId, {
       content: string;
-      url: `https://discord.com/channels/${guildId}/${channelId}/${messageId}`;
+      url: ReturnType<typeof messageLink<channelId, messageId, guildId>>;
       author: userId;
       channel: channelId;
       createdAt: Date;

@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, hyperlink } = require('discord.js'),
 
   /** @type {Client['config']} */
   { website: { dashboard } = {}, disableWebserver } = require(require('node:path').resolve(process.cwd(), 'config.json'));
@@ -15,7 +15,7 @@ module.exports = {
   async run(lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescriptionDashboard', this.client.config.website.dashboard),
+      description: lang('embedDescriptionDashboard', hyperlink(lang('globals.here', this.client.config.website.dashboard))),
       color: Colors.Blurple
     });
 

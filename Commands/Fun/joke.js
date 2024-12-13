@@ -1,6 +1,6 @@
 const
   { default: fetch, FetchError } = require('node-fetch'),
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink } = require('discord.js'),
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
   { constants: { messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED }, timeFormatter: { msInSecond } } = require('#Utils'),
   TIMEOUT = 2500,
@@ -109,7 +109,7 @@ module.exports = {
     const
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: `${joke}\n- [${api.name}](${api.link})`
+        description: `${joke}\n- ${hyperlink(api.name, api.link)}`
       }).setColor('Random'),
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({

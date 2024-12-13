@@ -1,6 +1,6 @@
 /* eslint camelcase: [error, {allow: [toggle_module, toggle_command, \w*_prefix]}] */
 const
-  { Constants, EmbedBuilder, Colors } = require('discord.js'),
+  { Constants, EmbedBuilder, Colors, roleMention, channelMention, userMention, channelLink } = require('discord.js'),
   { constants: { autocompleteOptionsMaxAmt }, timeFormatter: { msInSecond } } = require('#Utils'),
   /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- this is like an enum */
   backup = new Map([['creator', 0], ['owner', 1], ['creator+owner', 2], ['admins', 3]]),
@@ -28,13 +28,15 @@ const
       if (!getCMDs(this.client).includes(command)) return this.editReply(lang('notFound'));
 
       if (this.options.getBoolean('get')) {
-        const fields = [['roles', roles], ['channels', channels], ['users', users]].filter(([, e]) => e.length).map(([k, v]) => ({
+        /** @type {[[string, (Snowflake | '*')[]],[string, (Snowflake | '*')[]],[string, (Snowflake | '*')[]]]} */
+        const fieldList = [['roles', roles], ['channels', channels], ['users', users]];
+        const fields = fieldList.filter(([, e]) => e.length).map(([k, v]) => ({
           name: lang(k),
           value: v.includes('*')
             ? lang('list.all')
-            : v.map(e => {
-              if (k == 'roles') return `<@&${e}>`;
-              return `${k == 'channels' ? '<#' : '<@'}${e}>`;
+            : v.map(/** @param {Snowflake}e*/e => {
+              if (k == 'roles') return roleMention(e);
+              return k == 'channels' ? channelMention(e) : userMention(e);
             }).join(', '),
           inline: false
         }));
@@ -167,7 +169,7 @@ const
     logger: async function configureLogger(lang) {
       const
         action = this.options.getString('action', true),
-        channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action].channel))?.id ?? this.channel,
+        channel = (this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action].channel))?.id ?? this.channel?.id,
         enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? undefined : !this.guild.db.config.logger?.[action].enabled);
 
       if (channel == undefined) return this.editReply(lang('noChannel'));
@@ -177,7 +179,7 @@ const
       }
 
       await this.guild.updateDB(`config.logger.${action}`, { channel, enabled });
-      return this.editReply(lang(enabled ? 'enabled' : 'disabled', { channel, action: lang(`actions.${action}`) }));
+      return this.editReply(lang(enabled ? 'enabled' : 'disabled', { channel: channelLink(channel), action: lang(`actions.${action}`) }));
     }
   };
 

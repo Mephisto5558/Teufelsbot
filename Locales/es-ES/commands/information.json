@@ -44,7 +44,7 @@
   "dashboard": {
     "description": "obtener el enlace al panel de control de bots",
     "embedTitle": "Tablero",
-    "embedDescriptionDashboard": "Haz clic en [here]({url}) para abrir el panel."
+    "embedDescriptionDashboard": "Haz clic en {link} para abrir el panel."
   },
   "emojiinfo": {
     "description": "Obtener información sobre un emoji",
@@ -127,7 +127,7 @@
   "invite": {
     "description": "Envía un enlace para añadir el bot a tu gremio.",
     "embedTitle": "Invitar",
-    "embedDescription": "¡Gracias por tu interés! Haz clic en [here]({url}) para añadirme a tu gremio. ^^"
+    "embedDescription": "¡Gracias por tu interés! Haz clic en {link} para añadirme a tu gremio. ^^"
   },
   "ping": {
     "description": "Consigue el ping del bot",
@@ -218,7 +218,7 @@
   "uptime": {
     "description": "Obtener el tiempo de actividad del bot",
     "embedDescriptionNoURL": "El bot ha estado en línea para {time}.",
-    "embedDescription": "El bot ha sido [online]({domain}/uptime) para {time}."
+    "embedDescription": "El bot ha sido {link} para {time}."
   },
   "userinfo": {
     "description": "Obtener información sobre un miembro",
@@ -284,6 +284,6 @@
   "vote": {
     "description": "obtener el enlace a la solicitud de funciones de los bots y la página de votación",
     "embedTitle": "Votaciones",
-    "embedDescriptionVote": "Haga clic en [here]({url}) para abrir la página web de solicitud de votación y función."
+    "embedDescriptionVote": "Haga clic en {link} para abrir la página web de solicitud de votación y función."
   }
 }

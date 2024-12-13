@@ -30,12 +30,12 @@
       "embedTitle": "This channel is now a counting channel!",
       "embedDescription": "The rules are simple:\n> Start with **1**.\n> Add **1** to the last number\n> You can't count two numbers in a row.\nHave fun!",
       "by": "Enabled by {user}",
-      "success": "I successfully added <#{channel}> as a counting channel."
+      "success": "I successfully added {channel} as a counting channel."
     },
     "removed": {
       "embedDescription": "This channel is no longer a counting channel!",
       "by": "Disabled by {user}",
-      "success": "I successfully removed <#{channel}> as a counting channel."
+      "success": "I successfully removed {channel} as a counting channel."
     },
     "userDeletedMsg": {
       "embedTitle": "Counting",
@@ -132,7 +132,7 @@
       "start": "Start",
       "accept": "Accept",
       "decline": "Decline",
-      "newChallenge": "<@{user}> :crossed_swords: New duel challenge"
+      "newChallenge": "{user} :crossed_swords: New duel challenge"
     },
     "memberNotFound": "At least one of the players has not been found!",
     "canceled": ":x: `{initiator}` has withdrawn their challenge.",
@@ -145,7 +145,7 @@
       "alreadyChosen": "You have already selected {move}! Please wait for your opponent to choose.",
       "saved": "Your selection has been saved!",
       "tie": "No one won the game, it's a tie! {emoji} = {emoji}",
-      "win": ":tada: <@{winner}> won the game! {winEmoji} > {loseEmoji}"
+      "win": ":tada: {winner} won the game! {winEmoji} > {loseEmoji}"
     }
   },
   "tictactoe": {
@@ -155,7 +155,7 @@
         "description": "Who do you want to play against?"
       }
     },
-    "newChallenge": "<@{user}> :crossed_swords: New duel challenge"
+    "newChallenge": "{user} :crossed_swords: New duel challenge"
   },
   "wordchain": {
     "description": "Set up a wordchain channel where members can show their vocabulary!",
@@ -172,12 +172,12 @@
       "embedTitle": "This channel is now a wordchain channel!",
       "embedDescription": "The rules are simple:\n> Start with any word.\n> The next word must start with the last letter of the last word.\n> You can't say two words in a row.\nHave fun!",
       "by": "Enabled by {user}",
-      "success": "I successfully added <#{channel}> as a wordchain channel."
+      "success": "I successfully added {channel} as a wordchain channel."
     },
     "removed": {
       "embedDescription": "This channel is no longer a wordchain channel!",
       "by": "Disabled by {user}",
-      "success": "I successfully removed <#{channel}> as a wordchain channel."
+      "success": "I successfully removed {channel} as a wordchain channel."
     },
     "userDeletedMsg": {
       "embedTitle": "Wordchain",

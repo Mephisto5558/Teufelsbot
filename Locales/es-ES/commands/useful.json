@@ -19,7 +19,7 @@
     "invalidUrl": "¡El argumento proporcionado no es una url válida o emoji!\nLa url debe terminar con `jpg`, `jpeg`, `png`, `webp`, `svg` o `gif`.\nEjemplo: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "No se encontró la url proporcionada.",
     "success": "¡Se ha añadido con éxito **{name}** {emoji}!\n",
-    "limitedToRoles": "El emoji se ha limitado a los siguientes roles:\n<@&{roles}>.",
+    "limitedToRoles": "El emoji se ha limitado a los siguientes roles:\n{roles}.",
     "error": "No se puede crear el emoji por la razón:\n{err}",
     "tooBig": "La imagen es demasiado grande. El tamaño máximo es de 2048 kilobytes.",
     "timedOut": "Se ha agotado el tiempo de espera. Tal vez la imagen es grande."
@@ -213,7 +213,7 @@
     "noneFound": "No he encontrado ninguna mención.",
     "unknown": "desconocido",
     "embedTitle": "Último ping",
-    "embedDescription": "La última vez que te mencionaron fue [here]({url}) de <@{author}>.\n{content}"
+    "embedDescription": "La última vez que te mencionaron fue {link} de {author}.\n{content}"
   },
   "math": {
     "description": "Ejecuta algunas matemáticas",

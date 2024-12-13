@@ -20,12 +20,12 @@
       "embedTitle": "Этот канал теперь является счетчиком!",
       "embedDescription": "Правила проста:\n> Начать с **1**.\n> Добавить **1** к последнему номеру\n> Вы не можете посчитать два числа в строке\nУдачи!",
       "by": "Добавлено как счетчик канала {user}",
-      "success": "Я успешно добавил <#{channel}> в качестве счетчика канала."
+      "success": "Я успешно добавил {channel} в качестве счетчика канала."
     },
     "removed": {
       "embedDescription": "Этот канал больше не является счетчиком!",
       "by": "Удалено {user}",
-      "success": "Я успешно удалил <#{channel}> в качестве счетчика канала."
+      "success": "Я успешно удалил {channel} в качестве счетчика канала."
     },
     "userDeletedMsg": {
       "embedTitle": "Подсчёт",
@@ -118,7 +118,7 @@
       "start": "Начать",
       "accept": "Принять",
       "decline": "Отклонить",
-      "newChallenge": "<@{user}> :crossed_swords: Новое испытание на дуэль"
+      "newChallenge": "{user} :crossed_swords: Новое испытание на дуэль"
     },
     "memberNotFound": "По крайней мере один из игроков не найден!",
     "canceled": ":x: `{initiator}снял свой вызов.",
@@ -131,7 +131,7 @@
       "alreadyChosen": "Вы уже выбрали {move}! Пожалуйста, дождитесь выбора противника.",
       "saved": "Ваш выбор был сохранен!",
       "tie": "Никто не выиграл игру, это галстук! {emoji} = {emoji}",
-      "win": ":tada: <@{winner}> выиграл игру! {winEmoji} > {loseEmoji}"
+      "win": ":tada: {winner} выиграл игру! {winEmoji} > {loseEmoji}"
     }
   },
   "tictactoe": {
@@ -141,6 +141,6 @@
         "description": "Кто ты хочешь играть снова?"
       }
     },
-    "newChallenge": "<@{user}> :crossed_swords: Новое испытание на дуэль"
+    "newChallenge": "{user} :crossed_swords: Новое испытание на дуэль"
   }
 }

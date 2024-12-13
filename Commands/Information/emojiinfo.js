@@ -1,5 +1,5 @@
 const
-  { parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
+  { parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits, roleMention } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { timestamp } = require('#Utils').timeFormatter,
   emojiURLRegex = /https:\/\/cdn\.discordapp\.com\/emojis\/(?<id>\d+)/;
@@ -62,7 +62,7 @@ module.exports = {
       }));
     }
 
-    if (emoji.roles?.cache.size) embed.data.fields.push({ name: lang('allowedRoles'), value: `<@&${emoji.roles.cache.map(e => e.id).join('>, <@&')}>`, inline: false });
+    if (emoji.roles?.cache.size) embed.data.fields.push({ name: lang('allowedRoles'), value: emoji.roles.cache.map(e => roleMention(e.id)).join(', '), inline: false });
 
     return this.customReply({ embeds: [embed], components: [component] });
   }

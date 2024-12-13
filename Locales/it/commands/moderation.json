@@ -102,7 +102,7 @@
       }
     },
     "confirmEmbedTitle": "Canale Nucleare",
-    "confirmEmbedDescription": "Sei sicuro di voler nuke <#{channel}>?\n**Questa azione è irreversibile!**",
+    "confirmEmbedDescription": "Sei sicuro di voler nuke {channel}?\n**Questa azione è irreversibile!**",
     "confirmButtonLabel": "Conferma",
     "cancelButtonLabel": "Annulla",
     "canceledEmbedDescription": "Il nuking è stato annullato.",
@@ -214,6 +214,6 @@
     "notFound": "Non sono riuscito a trovare quell'membro!",
     "notMuted": "Questo membro non è mutato!",
     "moderator": "Moderatore",
-    "success": "Timeout rimosso per il membro <@{user}>."
+    "success": "Timeout rimosso per il membro {user}."
   }
 }

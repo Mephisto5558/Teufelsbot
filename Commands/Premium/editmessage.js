@@ -1,5 +1,5 @@
 const
-  { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants, codeBlock } = require('discord.js'),
+  { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants, codeBlock, hyperlink } = require('discord.js'),
   { DiscordApiErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
   MODALSUBMIT_TIMEOUT = msInSecond * secsInMinute / 2; // 30s
 
@@ -84,6 +84,6 @@ module.exports = {
 
     if (!json.__count__) await msg.edit(clear ? { content: content.slice(0, messageMaxLength + 1), embeds: [], attachments: [], files: [], components: [] } : content.slice(0, messageMaxLength));
 
-    return modalInteraction.editReply(lang('success', msg.url));
+    return modalInteraction.editReply(lang('success', hyperlink(lang('link'), msg.url)));
   }
 };

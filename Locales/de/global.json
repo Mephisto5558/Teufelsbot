@@ -19,5 +19,6 @@
   "downloadButton": "Herunterladen",
   "menuTimedOut": "Das Menü ist abgelaufen.",
   "unknown": "Unbekannt",
-  "unknownUser": "Unbekannter Nutzer"
+  "unknownUser": "Unbekannter Nutzer",
+  "here": "hier"
 }

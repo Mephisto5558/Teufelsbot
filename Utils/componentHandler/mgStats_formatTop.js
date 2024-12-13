@@ -1,4 +1,5 @@
 const
+  { userMention } = require('discord.js'),
   medals = [':first_place:', ':second_place:', ':third_place:'],
   { messageMaxLength } = require('../constants');
 
@@ -23,7 +24,7 @@ module.exports = function formatTop(input, sort, mode, lang, maxLength = message
   return input.slice(0, amt).reduce((acc, [id, stats], i) => acc + (
     acc.length > maxLength
       ? '...'
-      : `${medals[i] ?? i + 1 + '.'} <@${id}>\n`
+      : `${medals[i] ?? i + 1 + '.'} ${userMention(id)}\n`
         + '> ' + lang('wins', stats.wins ?? 0)
         + '> ' + lang('losses', stats.losses ?? 0)
         + '> ' + lang('draws', stats.draws ?? 0)

@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js'),
+  { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink } = require('discord.js'),
   { permissionTranslator, getTargetRole, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
   ROLE_DISPLAY_THRESHOLD = 16;
 
@@ -19,7 +19,7 @@ module.exports = {
       fields: [
         { name: lang('mention'), value: role.toString(), inline: true },
         { name: lang('members'), value: role.members.size, inline: true },
-        { name: lang('color'), value: `[${role.hexColor}](https://www.color-hex.com/color/${role.hexColor.slice(1)})`, inline: true },
+        { name: lang('color'), value: hyperlink(role.hexColor, `https://www.color-hex.com/color/${role.hexColor.slice(1)}`), inline: true },
         { name: lang('mentionable'), value: lang(`global.${role.mentionable}`), inline: true },
         { name: lang('hoist'), value: lang(`global.${role.hoist}`), inline: true },
         { name: lang('managed'), value: lang(`global.${role.managed}`), inline: true },

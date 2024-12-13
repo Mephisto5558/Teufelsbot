@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder } = require('discord.js'),
+  { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder, userMention } = require('discord.js'),
   { getTargetMember, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
   sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
@@ -16,7 +16,7 @@ function manageData(data) {
     .filter(([key]) => this.guild.members.cache.has(key) || key == 'AI')
     .sort(([, a], [, b]) => b - a)
     .slice(0, TOPLIST_MAX_USERS)
-    .map(([key, value]) => '> ' + (key == 'AI' ? key : `<@${key}>`) + `: \`${value}\`\n`)
+    .map(([key, value]) => '> ' + (key == 'AI' ? key : userMention(key)) + `: \`${value}\`\n`)
     .join('');
 }
 

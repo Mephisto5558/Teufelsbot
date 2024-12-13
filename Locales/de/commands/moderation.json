@@ -102,7 +102,7 @@
       }
     },
     "confirmEmbedTitle": "Nuke Channel",
-    "confirmEmbedDescription": "Bist du sicher, dass du <#{channel}> nuken möchtest?\n**Diese Aktion kann nicht rückgängig gemacht werden!**",
+    "confirmEmbedDescription": "Bist du sicher, dass du {channel} nuken möchtest?\n**Diese Aktion kann nicht rückgängig gemacht werden!**",
     "confirmButtonLabel": "Bestätigen",
     "cancelButtonLabel": "Abbrechen",
     "canceledEmbedDescription": "Die Aktion wurde abgebrochen.",
@@ -214,6 +214,6 @@
     "notFound": "Ich konnte dieses Mitglied nicht finden!",
     "notMuted": "Dieses Mitglied ist nicht getimeouted!",
     "moderator": "Moderator",
-    "success": "Der Timeout für <@{user}> wurde entfernt."
+    "success": "Der Timeout für {user} wurde entfernt."
   }
 }

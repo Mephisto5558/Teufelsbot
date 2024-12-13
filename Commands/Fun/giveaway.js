@@ -1,5 +1,5 @@
 const
-  { Constants, PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
+  { Constants, PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder, roleMention, userMention } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
   { timeValidator, timeFormatter: { msInSecond } } = require('#Utils'),
 
@@ -25,8 +25,8 @@ const
             giveawayEnded: lang('giveawayEnded'),
             inviteToParticipate:
               `${this.options.getString('description', true)}\n\n`
-              + (requiredRoles?.length > 0 ? lang('requiredRoles', `<@&${requiredRoles.join('>, <@&')}>\n`) : '')
-              + (disallowedMembers?.length > 0 ? lang('disallowedMembers', `<@${disallowedMembers.join('< <@')}>\n`) : '')
+              + (requiredRoles?.length > 0 ? lang('requiredRoles', `${requiredRoles.map(roleMention).join(', ')}\n`) : '')
+              + (disallowedMembers?.length > 0 ? lang('disallowedMembers', `${disallowedMembers.map(userMention).join(', ')}\n`) : '')
               + lang('inviteToParticipate', reaction),
             winMessage: { content: lang('winMessage'), components },
             drawing: lang('drawing'),

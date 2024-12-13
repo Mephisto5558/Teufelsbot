@@ -1,5 +1,5 @@
 const
-  { ButtonBuilder, ButtonStyle, ActionRowBuilder, Colors, PermissionFlagsBits, DiscordAPIError } = require('discord.js'),
+  { ButtonBuilder, ButtonStyle, ActionRowBuilder, Colors, PermissionFlagsBits, DiscordAPIError, channelMention, userMention } = require('discord.js'),
   { entersState, joinVoiceChannel, VoiceConnectionStatus, EndBehaviorType, getVoiceConnection } = require('@discordjs/voice'),
   { Decoder } = require('prism-media').opus,
   { createWriteStream } = require('node:fs'),
@@ -75,7 +75,7 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
       ]
     });
 
-  embed.data.description = lang('recording', { channel: voiceChannelId, users: `<@${membersToRecord.join('>, <@')}>` });
+  embed.data.description = lang('recording', { channel: channelMention(voiceChannelId), users: membersToRecord.map(userMention).join(', ') });
   void this.message.edit({ embeds: [embed], components: [component] });
 
   try { await access('./VoiceRecords/raw'); }
@@ -115,12 +115,12 @@ module.exports.recordControls = async function recordControls(lang, mode, voiceC
     await this.guild.members.me.voice.setDeaf(!deaf, `voice record pause/resume button, member ${this.user.tag}`);
 
     if (deaf) {
-      embed.data.description = lang('recording', { channel: voiceChannelId, users: `<@${membersToRecord.join('>, <@')}>` });
+      embed.data.description = lang('recording', { channel: voiceChannelId, users: membersToRecord.map(userMention).join(', ') });
       embed.data.color = Colors.Green;
       buttons.components[0].data.label = lang('pause');
     }
     else {
-      embed.data.description = lang('paused', voiceChannelId);
+      embed.data.description = lang('paused', channelMention(voiceChannelId));
       embed.data.color = Colors.Red;
       buttons.components[0].data.label = lang('resume');
     }

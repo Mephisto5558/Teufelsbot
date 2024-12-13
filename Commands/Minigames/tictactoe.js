@@ -1,4 +1,5 @@
 const
+  { userMention } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
   { getTargetMember, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
   CHALLENGE_DELETE_TIME = msInSecond * 5; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
@@ -57,7 +58,7 @@ module.exports = {
         commandOptionName: gameTarget == this.client.user.id ? 'thisOptionWillNotGetUsed' : 'opponent'
       });
 
-    if (gameTarget) void this.channel.send(lang('newChallenge', gameTarget)).then(msg => setTimeout(() => msg.delete(), CHALLENGE_DELETE_TIME));
+    if (gameTarget) void this.channel.send(lang('newChallenge', userMention(gameTarget))).then(msg => setTimeout(() => msg.delete(), CHALLENGE_DELETE_TIME));
 
     game.on('win', data => eventCallback.call(this, [data.winner, data.loser], ['win', 'lose'], lang, game));
     game.on('tie', data => eventCallback.call(this, data.players, ['draw'], lang, game));

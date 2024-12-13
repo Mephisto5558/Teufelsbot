@@ -293,7 +293,7 @@
     "logger": {
       "noChannel": "Du hast keinen Textkanal angegeben, zu dem das Protokoll gesendet werden soll!",
       "noEnabled": "Du musst die `enabled` Option nutzen, wenn du alle Actions auf einmal einstellen möchtest!",
-      "enabled": "Protokolle für {action} werden an <#{channel}> gesendet.",
+      "enabled": "Protokolle für {action} werden an {channel} gesendet.",
       "disabled": "Protokolle für {action} werden nicht mehr gesendet.",
       "actions": {
         "all": "Alle Aktionen",

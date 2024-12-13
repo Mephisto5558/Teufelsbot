@@ -132,7 +132,7 @@
     },
     "invalidNumber": "Il numero fornito non è valido!",
     "unknownChannel": "L'id del canale fornito non è stato trovato in questa gilda!",
-    "success": "Contare per <#{channel}> è stato impostato a **{number}**."
+    "success": "Contare per {channel} è stato impostato a **{number}**."
   },
   "test": {
     "description": "prova roba"

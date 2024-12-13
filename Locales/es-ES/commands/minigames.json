@@ -24,12 +24,12 @@
       "embedTitle": "¡Este canal es ahora un canal de cuenta!",
       "embedDescription": "Las reglas son simples:\n> Comenzar con **1**.\n> Añade **1** al último número\n> No puedes contar dos números seguidos\n¡Diviértete!",
       "by": "Añadido como canal de recuento por {user}",
-      "success": "Añadí con éxito <#{channel}> como canal de conteo."
+      "success": "Añadí con éxito {channel} como canal de conteo."
     },
     "removed": {
       "embedDescription": "¡Este canal ya no es un canal de cuento!",
       "by": "Eliminado por {user}",
-      "success": "He eliminado con éxito <#{channel}> como canal de conteo."
+      "success": "He eliminado con éxito {channel} como canal de conteo."
     },
     "userDeletedMsg": {
       "embedTitle": "Contando",
@@ -126,7 +126,7 @@
       "start": "Comenzar",
       "accept": "Aceptar",
       "decline": "Rechazar",
-      "newChallenge": "<@{user}> :crossed_swords: Nuevo desafío en duelo"
+      "newChallenge": "{user} :crossed_swords: Nuevo desafío en duelo"
     },
     "memberNotFound": "Al menos uno de los jugadores no ha sido encontrado!",
     "canceled": ":x: `{initiator}` ha retirado su desafío.",
@@ -139,7 +139,7 @@
       "alreadyChosen": "¡Ya has seleccionado {move}! Por favor espera a que tu oponente elija.",
       "saved": "¡Su selección ha sido guardada!",
       "tie": "Nadie ha ganado el juego, ¡es un empate! {emoji} = {emoji}",
-      "win": ":tada: <@{winner}> ganó el juego! {winEmoji} > {loseEmoji}"
+      "win": ":tada: {winner} ganó el juego! {winEmoji} > {loseEmoji}"
     }
   },
   "tictactoe": {
@@ -149,6 +149,6 @@
         "description": "¿A quién quieres jugar de nuevo?"
       }
     },
-    "newChallenge": "<@{user}> :crossed_swords: Nuevo desafío en duelo"
+    "newChallenge": "{user} :crossed_swords: Nuevo desafío en duelo"
   }
 }

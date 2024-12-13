@@ -44,7 +44,7 @@
   "dashboard": {
     "description": "Erhalte den Link zum Dashboard",
     "embedTitle": "Dashboard",
-    "embedDescriptionDashboard": "Klicke [hier]({url}), um das Dashboard zu öffnen."
+    "embedDescriptionDashboard": "Klicke {link}, um das Dashboard zu öffnen."
   },
   "emojiinfo": {
     "description": "Erhalte Informationen über ein Emoji",
@@ -127,7 +127,7 @@
   "invite": {
     "description": "Sendet einen Link, um den Bot auf deinem Server hinzuzufügen.",
     "embedTitle": "Einladen",
-    "embedDescription": "Vielen Dank für dein Interesse! Klicke [hier]({url}), um mich auf deinen Server hinzuzufügen."
+    "embedDescription": "Vielen Dank für dein Interesse! Klicke {link}, um mich auf deinen Server hinzuzufügen."
   },
   "ping": {
     "description": "Erhalte den Ping des Bots",
@@ -217,8 +217,9 @@
   },
   "uptime": {
     "description": "Erhalte die Uptime des Bots",
+    "online": "online",
     "embedDescriptionNoURL": "Der Bot ist online seit {time}.",
-    "embedDescription": "Der Bot ist [online]({domain}/uptime) seit {time}."
+    "embedDescription": "Der Bot ist {link} seit {time}."
   },
   "userinfo": {
     "description": "Erhalte Informationen über ein Mitglied",
@@ -284,6 +285,6 @@
   "vote": {
     "description": "erhalte den Link zur Feature-Request- und Voting-Website des Bots",
     "embedTitle": "Voting",
-    "embedDescriptionVote": "Klicke [hier]({url}), um die Voting- und Feature-Request-Seite zu öffnen."
+    "embedDescriptionVote": "Klicke {link}, um die Voting- und Feature-Request-Seite zu öffnen."
   }
 }

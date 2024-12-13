@@ -44,7 +44,7 @@
   "dashboard": {
     "description": "get the link to the bots's dashboard",
     "embedTitle": "Dashboard",
-    "embedDescriptionDashboard": "Click [here]({url}) to open the dashboard."
+    "embedDescriptionDashboard": "Click {link} to open the dashboard."
   },
   "emojiinfo": {
     "description": "Get information about an emoji",
@@ -127,7 +127,7 @@
   "invite": {
     "description": "Sends a link to add the bot to your guild.",
     "embedTitle": "Invite",
-    "embedDescription": "Thank you for your interest! Click [here]({url}) to add me to your guild. ^^"
+    "embedDescription": "Thank you for your interest! Click {link} to add me to your guild. ^^"
   },
   "ping": {
     "description": "Get the bot's ping",
@@ -217,8 +217,9 @@
   },
   "uptime": {
     "description": "Get the bot's uptime",
+    "online": "online",
     "embedDescriptionNoURL": "The bot has been online for {time}.",
-    "embedDescription": "The bot has been [online]({domain}/uptime) for {time}."
+    "embedDescription": "The bot has been {link} for {time}."
   },
   "userinfo": {
     "description": "Get information about a member",
@@ -284,6 +285,6 @@
   "vote": {
     "description": "get the link to the bots's feature request and voting page",
     "embedTitle": "Voting",
-    "embedDescriptionVote": "Click [here]({url}) to open the voting and feature request webpage."
+    "embedDescriptionVote": "Click {link} to open the voting and feature request webpage."
   }
 }

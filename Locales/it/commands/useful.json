@@ -19,7 +19,7 @@
     "invalidUrl": "L'argomento fornito non è un url valido o emoji!\nL'url deve terminare con `jpg`, `jpeg`, `png`, `webp`, `svg` o `gif`.\nEsempio: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "L'url fornito non è stato trovato.",
     "success": "Aggiunto con successo **{name}** {emoji}!\n",
-    "limitedToRoles": "Le emoji sono state limitate ai seguenti ruoli:\n<@&{roles}>.",
+    "limitedToRoles": "Le emoji sono state limitate ai seguenti ruoli:\n{roles}.",
     "error": "Impossibile creare le emoji per il motivo:\n{err}",
     "tooBig": "L'immagine è troppo grande. La dimensione massima del file è di 2048 kilobyte.",
     "timedOut": "La richiesta è scaduta. Forse l'immagine è di grandi dimensioni."
@@ -213,7 +213,7 @@
     "noneFound": "Non ho trovato alcuna menzione.",
     "unknown": "sconosciuto",
     "embedTitle": "Ultimo Ping",
-    "embedDescription": "L'ultima volta che sei stato menzionato è stata [here]({url}) da <@{author}>.\n{content}"
+    "embedDescription": "L'ultima volta che sei stato menzionato è stata {link} da {author}.\n{content}"
   },
   "math": {
     "description": "Esegue un po' di matematica",

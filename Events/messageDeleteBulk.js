@@ -1,5 +1,5 @@
 const
-  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent } = require('discord.js'),
+  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, userMention, channelMention } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter,
   RED = 0xED498D,
   AUDITLOG_FETCHLIMIT = 6;
@@ -27,8 +27,8 @@ module.exports = async function messageDeleteBulk(channel) {
     lang = channel.client.i18n.__.bBind(channel.client.i18n, { locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
-      description: lang('embedDescription', { executor: executor ? `<@${executor.id}>` : lang('events.logger.someone'), channel: channel.name, count: this.size.toString() }),
-      fields: [{ name: lang('global.channel'), value: `<#${channel.id}> (\`${channel.id}\`)`, inline: false }],
+      description: lang('embedDescription', { executor: executor ? userMention(executor.id) : lang('events.logger.someone'), channel: channel.name, count: this.size.toString() }),
+      fields: [{ name: lang('global.channel'), value: `${channelMention(channel.id)} (\`${channel.id}\`)`, inline: false }],
       timestamp: Date.now(),
       color: RED
     });

@@ -1,4 +1,6 @@
-const { checkTargetManageable, timeFormatter: { msInSecond } } = require('#Utils');
+const
+  { userMention } = require('discord.js'),
+  { checkTargetManageable, timeFormatter: { msInSecond } } = require('#Utils');
 
 /** @type {command<'slash'>} */
 module.exports = {
@@ -30,6 +32,6 @@ module.exports = {
 
     /* eslint-disable-next-line unicorn/no-null -- `null` must be used here. */
     await target.disableCommunicationUntil(null, `${reason} | ${lang('global.modReason', { command: this.commandName, user: this.user.tag })}`);
-    return this.editReply(lang('success', target.user.id));
+    return this.editReply(lang('success', userMention(target.user.id)));
   }
 };
