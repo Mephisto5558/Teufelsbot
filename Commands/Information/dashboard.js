@@ -15,7 +15,7 @@ module.exports = {
   async run(lang) {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescriptionDashboard', hyperlink(lang('globals.here', this.client.config.website.dashboard))),
+      description: lang('embedDescriptionDashboard', hyperlink(lang('global.here', this.client.config.website.dashboard))),
       color: Colors.Blurple
     });
 
