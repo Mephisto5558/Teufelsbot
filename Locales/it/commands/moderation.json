@@ -18,7 +18,7 @@
       }
     },
     "dmEmbedTitle": "Bannato",
-    "dmEmbedDescription": "Sei stato bannato da {guild}.\nModeratore: {mod}\nMotivo: {reason}",
+    "dmEmbedDescription": "Sei stato bandito da {guild}.\nModeratore: {mod}\nMotivo: {reason}",
     "infoEmbedTitle": "Banna",
     "infoEmbedDescription": "Moderatore: {mod}\nMotivo: {reason}\n\n",
     "selectTargetEmbedDescription": "Seleziona fino a 10 membri da bandire. Hai 60 secondi.",
@@ -45,7 +45,7 @@
     "selectTargetEmbedDescription": "Seleziona fino a 10 membri da calciare. Hai 60 secondi.",
     "noneFound": "Nessun obiettivo è stato trovato.",
     "cantPunishSelf": "Non puoi calciarti!",
-    "error": "{user} non può essere cacciato.\n{err}\n",
+    "error": "{user} non può essere kickato.\n{err}\n",
     "success": "{user} è stato espulso con successo.\n",
     "noDM": "Non riuscivo a DM il bersaglio."
   },
@@ -65,7 +65,7 @@
     },
     "noReason": "nessun motivo specificato",
     "embedTitle": "Canale bloccato!",
-    "embedDescription": "Questo canale è stato bloccato.\nModeratore: {mod}\nMotivo: {reason}",
+    "embedDescription": "Questo canale è stato bloccato. Moderatore\n: {mod}\nMotivo: {reason}",
     "success": "Il canale è stato bloccato."
   },
   "mute": {
@@ -84,7 +84,7 @@
     "dmEmbedTitle": "Silenziato",
     "dmEmbedDescription": "Sei stato mutato da {guild}.\nModeratore: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nMotivo: {reason}",
     "infoEmbedTitle": "Silenzia",
-    "infoEmbedDescription": "Moderatore: {mod}\nDurata: {muteDuration} ({muteDurationRelative})\nMotivo: {reason}\n\n",
+    "infoEmbedDescription": "Moderatore: {mod}\nUntil: {muteDuration} ({muteDurationRelative})\nMotivo: {reason}\n\n",
     "selectTargetEmbedDescription": "Seleziona fino a 10 membri da disattivare. Hai 60 secondi.",
     "cantPunishSelf": "Non puoi mutare te stesso!",
     "cantPunishAdmin": "Gli amministratori non possono essere mutati!",
@@ -106,7 +106,7 @@
     "confirmButtonLabel": "Conferma",
     "cancelButtonLabel": "Annulla",
     "canceledEmbedDescription": "Il nuking è stato annullato.",
-    "successEmbedDescription": ":radioactive: Canale Nutri!",
+    "successEmbedDescription": ":radioactive: Canale Nucleato!",
     "embedFooterText": "Nucleato da {user}"
   },
   "purge": {
@@ -197,7 +197,7 @@
     "noReason": "nessun motivo specificato",
     "notLocked": "Questo canale non è bloccato!",
     "embedTitle": "Canale sbloccato!",
-    "embedDescription": "Questo canale è stato sbloccato.\nModeratore: {mod}\nMotivo: {reason}",
+    "embedDescription": "Questo canale è stato sbloccato. Moderatore\n: {mod}\nMotivo: {reason}",
     "success": "Il canale è stato sbloccato."
   },
   "unmute": {
