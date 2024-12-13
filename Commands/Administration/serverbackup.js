@@ -1,10 +1,8 @@
 /** @typedef {import('../../types/database').backupId}backupId */
 
-import { commandMention } from '#Utils';
-
 const
   { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ButtonStyle, inlineCode } = require('discord.js'),
-  { timeFormatter: { msInSecond, secsInMinute, timestamp } } = require('#Utils'),
+  { timeFormatter: { msInSecond, secsInMinute, timestamp }, commandMention } = require('#Utils'),
   { serverbackup_hasPerm: hasPerm, serverbackup_createProxy: createProxy } = require('#Utils/componentHandler'),
   BYTES_IN_KILOBITE = 1024;
 
