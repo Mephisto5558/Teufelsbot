@@ -1,5 +1,7 @@
 /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior */
 
+const { userMention } = require('discord.js');
+
 /** @type {Message['_patch']} */
 /* eslint-disable-next-line custom/unbound-method */
 const originalPatch = require('discord.js').Message.prototype._patch;
@@ -7,26 +9,20 @@ const originalPatch = require('discord.js').Message.prototype._patch;
 /** @type {import('.')._patch} */
 module.exports = function _patch(data, ...rest) {
   if ('content' in data) {
-    this.originalContent = 'content' in data ? data.content : null;
+    this.originalContent = data.content;
 
     const prefixType = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes';
-    let
-      prefixLength = 0,
 
-      /** @type {NonNullable<Database['guildSettings'][Snowflake]>['config']['prefixes'] | NonNullable<Database['guildSettings'][Snowflake]>['config']['betaBotPrefixes']} */
-      prefixes = this.guild?.db.config[prefixType];
-
+    let prefixes = this.guild?.db.config[prefixType];
     if (!prefixes?.[0].prefix) prefixes = this.client.defaultSettings.config[prefixType];
 
-    for (const { prefix, caseinsensitive } of prefixes) {
-      if (
-        (caseinsensitive ? data.content.toLowerCase() : data.content).startsWith(caseinsensitive ? prefix.toLowerCase() : prefix)
-        || data.content.startsWith(`<@${this.client.user.id}>`)
-      ) {
-        prefixLength = (data.content.startsWith(`<@${this.client.user.id}>`) ? `<@${this.client.user.id}>` : prefix).length;
-        break;
-      }
-    }
+    const
+      clientUserMention = userMention(this.client.user.id),
+      prefixLength = (
+        data.content.startsWith(clientUserMention)
+          ? clientUserMention
+          : prefixes.find(({ prefix, caseinsensitive }) => (caseinsensitive ? data.content.toLowerCase() : data.content).startsWith(caseinsensitive ? prefix.toLowerCase() : prefix))?.prefix
+      )?.length ?? 0;
 
     this.args = data.content.slice(prefixLength).trim().split(/\s+/);
     this.commandName = prefixLength ? this.args.shift().toLowerCase() : null;
@@ -39,5 +35,5 @@ module.exports = function _patch(data, ...rest) {
 
   originalPatch.call(this, data, ...rest);
 
-  if (this.args) this.content = this.args.join(' ').trim();
+  if (this.args) this.content = this.args.join(' ');
 };
