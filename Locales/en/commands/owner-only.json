@@ -106,8 +106,8 @@
   "setactivity": {
     "description": "Sets the bot's activity",
     "usage": {
-      "usage": "<activity>;[type]",
-      "examples": "running commands;playing"
+      "usage": "[type] [activity]",
+      "examples": "playing running commands"
     },
     "options": {
       "activity": {

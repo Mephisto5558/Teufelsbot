@@ -3,7 +3,7 @@ const
   BLUE = 0x2980B9;
 
 /** @type {import('.').rps_sendChallenge} */
-module.exports = async function sendRPSChallenge({ initiator, opponent, lang }) {
+module.exports = async function sendRPSChallenge(lang, initiator, opponent) {
   opponent ??= this.client.user;
 
   lang.__boundArgs__[0].backupPath = 'commands.minigames.rps.challenge';

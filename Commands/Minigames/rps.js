@@ -11,6 +11,6 @@ module.exports = {
   options: [{ name: 'opponent', type: 'User' }],
 
   run(lang) {
-    return sendChallenge.call(this, this.member, getTargetMember(this, { targetOptionName: 'opponent' }), lang);
+    return sendChallenge.call(this, lang, this.member, getTargetMember(this, { targetOptionName: 'opponent' }));
   }
 };

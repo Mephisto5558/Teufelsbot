@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
   { msInSecond, timestamp } = require('#Utils').timeFormatter,
-  userURL = id => `https://discord.com/users${id}`,
+  userURL = id => `https://discord.com/users/${id}`,
 
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
 
@@ -45,7 +45,7 @@ module.exports = {
 
   async run(lang) {
     const
-      startTime = Math.round(Date.now() / msInSecond - process.uptime()),
+      startTime = Date.now() - process.uptime() * msInSecond,
       description
         = `${lang('dev')}: ${hyperlink('Mephisto5558', userURL('691550551825055775'))}\n` // Please do not change this line
         + (this.inGuild()
