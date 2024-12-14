@@ -250,7 +250,7 @@ declare function getTargetChannel<I extends Interaction | Message, T extends boo
 
 export declare function __getTargetMember<I extends Interaction | Message, T extends boolean>(
   interaction: I,
-  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T }, seenList: I extends GuildInteraction | Message<true> ? GuildMember[] : User[]
+  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T }, seenList: Map<Snowflake, I extends GuildInteraction | Message<true> ? GuildMember : User>
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
 
 /** @default targetOptionName = `target${index}` */
