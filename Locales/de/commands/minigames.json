@@ -175,7 +175,7 @@
       "success": "Ich habe erfolgreich {channel} als Wortketten-Kanal hinzugefügt."
     },
     "removed": {
-      "embedDescription": "Dieser Kanal ist nun kein Wortketten-Kanal mehr.",
+      "embedDescription": "Dieser Kanal ist nun ein Wortketten-Kanal!",
       "by": "Deaktiviert von {user}",
       "success": "Ich habe erfolgreich {channel} als Wortketten-Kanal entfernt."
     },
