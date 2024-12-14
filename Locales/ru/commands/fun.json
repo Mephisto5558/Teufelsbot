@@ -339,7 +339,7 @@
     "notFound": "Нет сообщений, соответствующих вашему запросу.",
     "private": "Этот сабреддит является приватным.",
     "error": "Произошла ошибка:\n{err}",
-    "embedFooterText": "Голоса: {upvotes} ({ratio}%) | Голоса: {downvotes} | Комментарии: {comments}"
+    "embedFooterText": "Голоса: {upvotes} ({ratio}) | Голоса: {downvotes} | Комментарии: {comments}"
   },
   "sad": {
     "description": "посылает грустный emojicon"

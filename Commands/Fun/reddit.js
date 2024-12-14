@@ -11,18 +11,15 @@ const
     children = children.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
     if (!children.length) return;
 
-    const post = children.random().data;
+    const
+      post = children.random().data,
+      imageURL = post.media?.oembed?.thumbnail_url ?? post.url;
 
     return {
-      title: String(post.title),
-      subreddit: String(post.subreddit),
-      author: String(post.author),
-      upvotes: Number(post.ups ?? 0),
-      downvotes: Number(post.downs ?? 0),
-      comments: Number(post.num_comments ?? 0),
-      ratio: Number.parseFloat(post.upvote_ratio?.toFixed(2) ?? 0),
-      url: `https://www.reddit.com${post.permalink.toString()}`,
-      imageURL: String(post.media?.oembed?.thumbnail_url ?? post.url)
+      ...post,
+      upvoteRatio: `${post.upvote_ratio * maxPercentage}%`,
+      permalink: `https://www.reddit.com${post.permalink}`,
+      imageURL: /^https?:\/\//i.test(imageURL) ? imageURL : `https://reddit.com${imageURL}`
     };
   };
 
@@ -53,8 +50,6 @@ module.exports = {
       ]
     }
   ],
-  disabled: true,
-  disabledReason: 'Reddit has blocked the bot\'s IP.',
 
   async run(lang) {
     const
@@ -69,17 +64,25 @@ module.exports = {
 
     if (cachedSubreddits.has(`${subreddit}_${type}`)) post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`), filterNSFW);
     else {
-      /** @type {{error: true, reason: number | string, message: string, reason: string} | {error: false, data: import('./reddit').RedditPage}} */
-      let res;
-      try { res = await (await fetch)(`https://reddit.com/r/${subreddit}/${type}.json`, { follow: 1 }).then(res => res.json()); }
+      let /** @type {import('./reddit').RedditResponse | import('./reddit').RedditErrorResponse} */res;
+      try {
+        res = await (await fetch)(`https://oauth.reddit.com/r/${subreddit}/${type}.json`, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+          },
+          follow: 1
+        }).then(res => res.json());
+      }
       catch (err) {
         if (err.type != 'max-redirect') throw err;
         return this.customReply(lang('notFound'));
       }
 
-      if (res.error == HTTP_STATUS_NOT_FOUND) return this.customReply(lang('notFound'));
-      if (res.reason == 'private') return this.customReply(lang('private'));
-      if (res.error) return this.customReply(lang('error', codeBlock`Error: ${res.message}\nReason: ${res.reason}`));
+      if ('error' in res) {
+        if (res.error == HTTP_STATUS_NOT_FOUND) return this.customReply(lang('notFound'));
+        if (res.reason == 'private') return this.customReply(lang('private'));
+        return this.customReply(lang('error', codeBlock`Error: ${res.message}\nReason: ${res.reason}`));
+      }
 
       cachedSubreddits.set(`${subreddit}_${type}`, res.data);
       setTimeout(() => cachedSubreddits.delete(`${subreddit}_${type}`), CACHE_DELETE_TIME);
@@ -91,17 +94,17 @@ module.exports = {
 
     const
       embed = new EmbedBuilder({
-        author: { name: `${post.author} | r/${post.subreddit}` },
+        author: { name: `${post.author} | ${post.subreddit_name_prefixed}` },
         title: post.title.length > embedMaxTitleLength ? post.title.slice(0, embedMaxTitleLength - suffix.length) + suffix : post.title,
-        url: post.url,
-        image: { url: /^https?:\/\//i.test(post.imageURL) ? post.imageURL : `https://reddit.com${post.imageURL}` },
-        footer: { text: lang('embedFooterText', { upvotes: post.upvotes, ratio: post.ratio * maxPercentage, downvotes: post.downvotes, comments: post.comments }) }
+        url: post.permalink,
+        image: { url: post.imageURL },
+        footer: { text: lang('embedFooterText', { upvotes: post.ups, ratio: post.upvoteRatio, downvotes: post.downs, comments: post.num_comments }) }
       }).setColor('Random'),
       component = new ActionRowBuilder({
         components: [
           new ButtonBuilder({
             label: lang('global.anotherone'),
-            customId: `reddit.${subreddit}.${type}.${filterNSFW}`,
+            customId: `reddit.${post.subreddit}.${type}.${filterNSFW}`,
             style: ButtonStyle.Primary
           }),
           new ButtonBuilder({

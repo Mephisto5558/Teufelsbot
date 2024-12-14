@@ -339,7 +339,7 @@
     "notFound": "No hay publicaciones que coincidan con tu búsqueda.",
     "private": "Este subreddit es privado.",
     "error": "Se ha producido un error:\n{err}",
-    "embedFooterText": "Mejores: {upvotes} ({ratio}%) | Abajos: {downvotes} | Comentarios: {comments}"
+    "embedFooterText": "Mejores: {upvotes} ({ratio}) | Abajos: {downvotes} | Comentarios: {comments}"
   },
   "sad": {
     "description": "envía un emojicon triste"
