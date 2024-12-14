@@ -20,8 +20,12 @@ module.exports = {
   async run(lang) {
     const
       target = getTargetMembers(this, { returnSelf: true }),
-      /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 2nd largest resolution */
-      avatarURL = target.displayAvatarURL({ size: this.options?.getInteger('size') ?? this.args?.at(-1) ?? ALLOWED_SIZES.at(-2) }),
+
+      avatarURL = target.displayAvatarURL({
+        size: this.options?.getInteger('size')
+          ?? (ALLOWED_SIZES.includes(Number.parseInt(this.args?.at(-1))) ? this.args?.at(-1) : undefined)
+          ?? ALLOWED_SIZES.at(-2) /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 2nd largest resolution */
+      }),
       embed = new EmbedBuilder({
         description: bold(lang('embedDescription', target.user?.username ?? target.username)),
         color: Colors.White,
