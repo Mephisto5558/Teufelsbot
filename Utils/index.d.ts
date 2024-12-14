@@ -37,6 +37,7 @@ export {
   localizeUsage,
   logSayCommandUse,
   permissionTranslator,
+  seededHash,
   shellExec,
   equal as slashCommandsEqual,
   TTormatter as timeFormatter,
@@ -286,6 +287,9 @@ declare function logSayCommandUse(
 declare function permissionTranslator<T extends string | string[]>(
   perms: T, locale: string | undefined, i18n: I18nProvider
 ): T;
+
+/** https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js */
+declare function seededHash(str: string, seed?: number): number;
 
 declare function shellExec(
   command: string, options?: ExecOptions

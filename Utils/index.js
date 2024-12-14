@@ -26,6 +26,7 @@ const utils = {
   localizeUsage: require('./localizeUsage.js'),
   logSayCommandUse: require('./logSayCommandUse.js'),
   permissionTranslator: require('./permissionTranslator.js'),
+  seededHash: require('./seededHash.js'),
   shellExec: require('./shellExec.js'),
   slashCommandsEqual: require('./slashCommandsEqual.js'),
   prototypeRegisterer: require('./prototypeRegisterer'),
