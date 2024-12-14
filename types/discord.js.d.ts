@@ -8,7 +8,7 @@ import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
 import type locals from './locals';
 
 
-declare module 'discord-api-types/v10' {
+declare module '../node_modules/discord.js/node_modules/discord-api-types/v10' {
   // @ts-expect-error 2300 // overwriting Snowflake
   export type Snowflake = globalThis.Snowflake;
 }

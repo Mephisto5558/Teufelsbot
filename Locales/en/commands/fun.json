@@ -364,6 +364,18 @@
     },
     "noPerm": "You don't have the permission to send messages in that channel!"
   },
+  "ship": {
+    "description": "Get a percentage on how much two users like each other.",
+    "usage": "<user> [user]",
+    "options": {
+      "user1": {
+        "description": "Who do you want to ship?"
+      },
+      "user2": {
+        "description": "With who do you want to ship? Leave empty to select yourself."
+      }
+    }
+  },
   "sleep": {
     "description": "tells your friends that you are going to sleep",
     "responseList": [

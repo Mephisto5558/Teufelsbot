@@ -299,7 +299,7 @@
     "success": "Das ist {time} ({raw})."
   },
   "until": {
-    "description": "Wie lange es bis zu einem bestimmten Datum/Zeit dauert. Wenn kein Datum, Standard: aktuelles Datum",
+    "description": "Wie lange es bis zu einem bestimmten Zeitpunkt dauert. Wenn kein Datum gegeben, dann aktuelles Datum",
     "options": {
       "day": {
         "description": "Der Tag des Zieldatums."

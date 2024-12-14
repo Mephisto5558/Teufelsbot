@@ -218,7 +218,7 @@ Object.defineProperties(User.prototype, {
 
   /** @type {Record<string, (this: User, val: any) => any>} */
   customName: {
-    get() { return this.db.customName ?? this.username; },
+    get() { return this.db.customName ?? this.displayName; },
     set(val) { void this.updateDB('customName', val); }
   }
 });
@@ -231,7 +231,7 @@ Object.defineProperties(GuildMember.prototype, {
 
   /** @type {Record<string, (this: GuildMember, val: any) => any>} */
   customName: {
-    get() { return this.guild.db.customNames?.[this.id] ?? this.nickname ?? this.user.username; },
+    get() { return this.guild.db.customNames?.[this.id] ?? this.displayName; },
     set(val) { void this.guild.updateDB(`customNames.${this.id}`, val); }
   }
 });

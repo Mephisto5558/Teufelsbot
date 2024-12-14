@@ -49,7 +49,7 @@ module.exports = {
       isLink = this.options.getString('style', true) == ButtonStyle.Link,
       emoji = this.options.getString('emoji'),
 
-      /** @type {`${bigint}` | null}*//* eslint-disable-line jsdoc/valid-types -- false positive */
+      /** @type {Snowflake | null} */
       msgId = this.options.getString('message_id');
 
     let

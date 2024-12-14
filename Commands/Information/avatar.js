@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES, bold } = require('discord.js'),
-  { getTargetMember, timeFormatter: { msInSecond } } = require('#Utils');
+  { getTargetMembers, timeFormatter: { msInSecond } } = require('#Utils');
 
 /** @type {command<'both', false>} */
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
 
   async run(lang) {
     const
-      target = getTargetMember(this, { returnSelf: true }),
+      target = getTargetMembers(this, { returnSelf: true }),
       /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 2nd largest resolution */
       avatarURL = target.displayAvatarURL({ size: this.options?.getInteger('size') ?? this.args?.at(-1) ?? ALLOWED_SIZES.at(-2) }),
       embed = new EmbedBuilder({

@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder, userMention, inlineCode } = require('discord.js'),
-  { getTargetMember, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { getTargetMembers, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
   sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
   TOPLIST_MAX_USERS = 3,
@@ -85,7 +85,7 @@ module.exports = {
 
     const
       type = this.options?.getSubcommand() ?? 'user',
-      target = getTargetMember(this, { returnSelf: true }),
+      target = getTargetMembers(this, { returnSelf: true }),
       settings = this.options?.getString('settings'),
       leaderboards = this.client.db.get('leaderboards'),
       [game, data] = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == (this.options?.getString('game', true) ?? this.args[0]).toLowerCase()) ?? [],

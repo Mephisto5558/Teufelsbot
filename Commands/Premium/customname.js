@@ -1,4 +1,4 @@
-const { getTargetMember, constants: { memberNameMinLength, memberNameMaxLength }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils');
+const { getTargetMembers, constants: { memberNameMinLength, memberNameMaxLength }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils');
 
 /** @type {command<'both', false>} */
 module.exports = {
@@ -39,7 +39,7 @@ module.exports = {
   ],
 
   async run(lang) {
-    let target = getTargetMember(this, { returnSelf: true });
+    let target = getTargetMembers(this, { returnSelf: true });
     if (this.options?.getBoolean('global') && 'user' in target) target = target.user; // target.user check for execution in dms
 
     switch (this.options?.getSubcommand() ?? this.args[0]) {
