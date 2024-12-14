@@ -1,12 +1,9 @@
-const dateMonthOffset = -1;
-
 /** @type {import('.').getAge} */
 module.exports = function getAge(date) {
   const
     now = new Date(),
-    nowMonth = now.getMonth(),
-    month = date.getMonth(),
-    age = now.getFullYear() - date.getFullYear();
+    age = now.getFullYear() - date.getFullYear(),
+    month = now.getMonth() - date.getMonth();
 
-  return nowMonth - month < dateMonthOffset || (nowMonth - month == dateMonthOffset && now.getDate() < date.getDate()) ? age - 1 : age;
+  return month < 0 || (month == 0 && now.getDate() < date.getDate()) ? age - 1 : age;
 };
