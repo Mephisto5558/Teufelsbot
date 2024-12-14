@@ -17,10 +17,12 @@ function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList
 }
 
 /** @type {import('.').getTargetMembers} */
-module.exports = function getTargetMembers(interaction, targetSettings = [{}]) {
+module.exports = function getTargetMembers(interaction, targetSettings = []) {
+  if (!targetSettings.length) return;
+
   const members = [...(Array.isArray(targetSettings) ? targetSettings : [targetSettings]).reduce((/** @type {Map}*/acc, { targetOptionName, returnSelf }, i) => {
     const member = getTargetMember(interaction, { targetOptionName: targetOptionName ?? `target${i || ''}`, returnSelf }, acc);
-    acc.set(member.id, member);
+    acc.set(member?.id ?? `target${i || ''}`, member);
     return acc;
   }, new Map()).values()];
 
