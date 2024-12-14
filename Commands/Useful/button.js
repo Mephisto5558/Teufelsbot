@@ -12,7 +12,11 @@ module.exports = {
     {
       name: 'json',
       type: 'Subcommand',
-      options: [{ name: 'json', type: 'String' }]
+      options: [{
+        name: 'json',
+        type: 'String',
+        required: true
+      }]
     },
     {
       name: 'custom',
@@ -44,7 +48,7 @@ module.exports = {
 
   async run(lang) {
     const
-      custom = this.options.getString('json'),
+      custom = this.options.getString('json', true),
       content = this.options.getString('content') ?? undefined,
       isLink = this.options.getString('style', true) == ButtonStyle.Link,
       emoji = this.options.getString('emoji'),
