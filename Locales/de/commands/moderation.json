@@ -84,7 +84,7 @@
     "dmEmbedTitle": "Getimeouted",
     "dmEmbedDescription": "Du wurdest in {guild} getimeouted.\nModerator: {mod}\nBis: {muteDuration} ({muteDurationRelative})\nBegründung: {reason}",
     "infoEmbedTitle": "Timeout",
-    "infoEmbedDescription": "Moderator: {mod}\nBis: {muteDuration} ({muteDurationRelative})\nBegründung: {reason}\n\n",
+    "infoEmbedDescription": "Moderator: {mod}\nBis: {muteDuration} ({muteDurationRelative})\nGrund: {reason}\n\n",
     "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Timeouten aus. Du hast 60 Sekunden Zeit.",
     "cantPunishSelf": "Du kannst dich selbst nicht timeouten!",
     "cantPunishAdmin": "Administratoren können nicht getimeouted werden!",
