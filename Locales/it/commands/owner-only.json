@@ -105,6 +105,10 @@
   },
   "setactivity": {
     "description": "Imposta l'attività del bot",
+    "usage": {
+      "usage": "[type] [activity]",
+      "examples": "riproduzione di comandi in esecuzione"
+    },
     "options": {
       "activity": {
         "description": "Il testo di stato che vuoi che abbia."

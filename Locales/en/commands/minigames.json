@@ -175,7 +175,7 @@
       "success": "I successfully added {channel} as a wordchain channel."
     },
     "removed": {
-      "embedDescription": "This channel is no longer a wordchain channel!",
+      "embedDescription": "This channel is no longer a wordchain channel.",
       "by": "Disabled by {user}",
       "success": "I successfully removed {channel} as a wordchain channel."
     },
