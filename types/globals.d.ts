@@ -50,7 +50,6 @@ declare global {
   }
 
   interface BigInt {
-
     toString(radix?: 10): `${bigint}`;
   }
 
