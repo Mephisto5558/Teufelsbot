@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, userMention, bold } = require('discord.js'),
-  { getTargetMember, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, monthsInYear } } = require('#Utils'),
+  { getTargetMembers, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, monthsInYear } } = require('#Utils'),
   currentYear = new Date().getFullYear();
 
 /**
@@ -40,7 +40,7 @@ const birthdayMainFunctions = {
 
   get: async function get(lang) {
     const
-      target = getTargetMember(this),
+      target = getTargetMembers(this),
       doNotHide = this.options.getBoolean('do_not_hide'),
       embed = new EmbedBuilder({
         color: Colors.Blurple,

@@ -1,7 +1,7 @@
 const
   { userMention } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
-  { getTargetMember, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
+  { getTargetMembers, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
   CHALLENGE_DELETE_TIME = msInSecond * 5; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
 
 /**
@@ -50,7 +50,7 @@ module.exports = {
 
   async run(lang) {
     const
-      gameTarget = getTargetMember(this, { targetOptionName: 'opponent' })?.id,
+      gameTarget = getTargetMembers(this, { targetOptionName: 'opponent' })?.id,
       game = new TicTacToe({
         simultaneousGames: true,
         gameExpireTime: secsInMinute,

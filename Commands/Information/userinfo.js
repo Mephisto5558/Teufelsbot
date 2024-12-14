@@ -1,7 +1,7 @@
 const
   { ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
-  { getTargetMember, getAge, permissionTranslator, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
+  { getTargetMembers, getAge, permissionTranslator, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
 
 /** @type {command<'both'>} */
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
 
   async run(lang) {
     const
-      member = getTargetMember(this, { returnSelf: true }),
+      member = getTargetMembers(this, { returnSelf: true }),
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       bannerURL = (await member.user.fetch()).bannerURL(),
       status = member.presence?.activities.find(e => e.type == ActivityType.Custom && e.state);

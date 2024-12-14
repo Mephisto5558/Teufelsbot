@@ -30,7 +30,7 @@ export {
   getCommands,
   getDirectories,
   getTargetChannel,
-  getTargetMember,
+  getTargetMembers,
   getTargetRole,
   gitpull,
   GiveawaysManagerWithOwnDatabase as GiveawaysManager,
@@ -40,7 +40,7 @@ export {
   seededHash,
   shellExec,
   equal as slashCommandsEqual,
-  TTormatter as timeFormatter,
+  TFormatter as timeFormatter,
   timeValidator
 };
 
@@ -248,11 +248,18 @@ declare function getTargetChannel<I extends Interaction | Message, T extends boo
   { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildChannel, T> : MaybeWithUndefined<DMChannel, T>;
 
-/** @default targetOptionName = 'target' */
-declare function getTargetMember<I extends Interaction | Message, T extends boolean>(
+export declare function __getTargetMember<I extends Interaction | Message, T extends boolean>(
   interaction: I,
-  { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
+  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T }, seenList: I extends GuildInteraction | Message<true> ? GuildMember[] : User[]
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
+
+/** @default targetOptionName = `target${index}` */
+declare function getTargetMembers<
+  I extends Interaction | Message, Opts extends { targetOptionName?: string; returnSelf?: boolean }, O extends Opts | Opts[]>(
+  interaction: I, options: O
+): I extends GuildInteraction | Message<true>
+  ? (O extends Opts ? GuildMember | undefined : (GuildMember | undefined)[])
+  : (O extends Opts ? User | undefined : (User | undefined)[]);
 
 /** @default targetOptionName = 'target' */
 declare function getTargetRole<T extends boolean>(
@@ -321,7 +328,7 @@ declare namespace configValidator {
 }
 
 /** @returns `formatted` has the format `year-day, hour:minute:second` if `lang` is not provided. */
-declare namespace TTormatter {
+declare namespace TFormatter {
   function timeFormatter<T extends lang | undefined>(
     options: { sec?: number; lang?: T }
   ): {

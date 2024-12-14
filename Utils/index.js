@@ -19,7 +19,7 @@ const utils = {
   getCommands: require('./getCommands.js'),
   getDirectories: require('./getDirectories.js'),
   getTargetChannel: require('./getTargetChannel.js'),
-  getTargetMember: require('./getTargetMember.js'),
+  getTargetMembers: require('./getTargetMembers.js'),
   getTargetRole: require('./getTargetRole.js'),
   gitpull: require('./gitpull.js'),
   GiveawaysManager: require('./giveawaysManager.js'),

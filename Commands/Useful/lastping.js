@@ -1,6 +1,6 @@
 const
   { Constants, EmbedBuilder, Colors, hyperlink, userMention } = require('discord.js'),
-  { getTargetChannel, getTargetMember, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
+  { getTargetMembers, getTargetChannel, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
 /** @type {command<'both'>} */
 module.exports = {
@@ -20,10 +20,8 @@ module.exports = {
 
   async run(lang) {
     const
-      target = getTargetMember(this, { targetOptionName: 'member' }),
-
-      /** @type {import('discord.js').GuildTextBasedChannel | undefined} */
-      channel = getTargetChannel(this);
+      target = getTargetMembers(this, { targetOptionName: 'member' }),
+      /** @type {import('discord.js').GuildTextBasedChannel | undefined} */channel = getTargetChannel(this);
 
     if (target) {
       if (!channel) return this.customReply(lang('memberRequiresChannel'));
