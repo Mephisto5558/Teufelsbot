@@ -18,6 +18,7 @@ const
     return {
       ...post,
       upvoteRatio: `${post.upvote_ratio * maxPercentage}%`,
+      downs: post.downs || Math.round(post.ups / post.upvote_ratio - post.ups), // post.downs is always 0 for some reason
       permalink: `https://www.reddit.com${post.permalink}`,
       imageURL: /^https?:\/\//i.test(imageURL) ? imageURL : `https://reddit.com${imageURL}`
     };
