@@ -364,6 +364,18 @@
     },
     "noPerm": "Du hast nicht die Berechtigung, Nachrichten in diesem Kanal zu senden!"
   },
+  "ship": {
+    "description": "Berechnet die Prozentzahl der Zuneigung zweier Nutzer.",
+    "usage": "<Nutzer> [Nutzer]",
+    "options": {
+      "user1": {
+        "description": "Wen möchtest du shippen?"
+      },
+      "user2": {
+        "description": "Mit wem möchtest du user1 shippen? Standart: du"
+      }
+    }
+  },
   "sleep": {
     "description": "Sage deinen Freunden, dass du schlafen gehst.",
     "responseList": [
