@@ -1,6 +1,6 @@
 const
-  { userMention } = require('discord.js'),
   { createHash } = require('node:crypto'),
+  { getTargetMembers } = require('#Utils'),
   maxPercentage = 100,
   hashPartLength = 5,
 
@@ -25,12 +25,11 @@ module.exports = {
     { name: 'user2', type: 'User' }
   ],
 
-  async run() {
-    const
-      user1 = this.options?.getUser('user1', true) ?? this.mentions.users.first(),
-      user2 = this.options?.getUser('user2') ?? this.mentions.users.at(1);
+  async run(lang) {
+    const [user1, user2] = getTargetMembers(this, [{ targetOptionName: 'user1' }, { targetOptionName: 'user2', returnSelf: true }]);
 
-    return this.customReply(`${userMention(user1.id)} :heart: ${userMention(user2.id)}: ${calculatePercentage(user1, user2)}%`);
+    if (!user1 || !user2) return lang('global.unknownUser');
+    return this.customReply(`${user1.customName} :heart: ${user2.customName}: ${calculatePercentage(user1, user2)}%`);
   }
 };
 
