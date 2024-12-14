@@ -364,6 +364,18 @@
     },
     "noPerm": "Non hai il permesso di inviare messaggi in quel canale!"
   },
+  "ship": {
+    "description": "Ottenere una percentuale su quanto due utenti come l'un l'altro.",
+    "usage": "<user> [user]",
+    "options": {
+      "user1": {
+        "description": "Chi vuole spedire?"
+      },
+      "user2": {
+        "description": "Con chi vuoi spedire? Lasciare vuoto per selezionare te stesso."
+      }
+    }
+  },
   "sleep": {
     "description": "dice ai tuoi amici che stai per dormire",
     "responseList": [
