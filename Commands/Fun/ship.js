@@ -37,7 +37,7 @@ module.exports = {
  * @param {Snowflake}user1Id
  * @param {Snowflake}user2Id */
 function calculatePercentage(user1Id, user2Id) {
-  const customShip = customShips.find(e => e[0] == user1Id && e[1] == user2Id || e[0] == user2Id && e[1] == user2Id);
+  const customShip = customShips.find(e => e[0] == user1Id && e[1] == user2Id || e[0] == user2Id && e[1] == user1Id);
   if (customShip) return customShip[2];
 
   const combinedHash = createHash('sha256').update(
