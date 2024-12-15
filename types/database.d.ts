@@ -4,6 +4,7 @@ import type { ISODateTime } from './globals';
 import type { Env } from './locals';
 import type { GiveawayData } from 'discord-giveaways';
 import type { Database as WebsiteDB } from '@mephisto5558/bot-website/database';
+import type { Locale } from '@mephisto5558/i18n';
 
 export type { Database, FlattenedDatabase, FlattenObject, backupId, backupChannel };
 
@@ -117,6 +118,7 @@ type Database = {
   } | undefined> | undefined>;
 
   userSettings: Record<userId, {
+    localeCode?: Locale;
     customName?: string;
     afkMessage?: {
       message: string;

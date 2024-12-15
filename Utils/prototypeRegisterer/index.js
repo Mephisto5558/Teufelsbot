@@ -45,7 +45,7 @@ if (!config.hideOverwriteWarning) {
     + `\n  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} Array#random, Array#unique, `
     + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind'
     + '\n  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
-    + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, Guild#db, guild#updateDB, '
+    + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, User#localeCode, Guild#db, guild#updateDB, '
     + 'Guild#localeCode, GuildMember#db'
     + '\n  Modifying Discord.js Message._patch method.'
   );
@@ -220,6 +220,16 @@ Object.defineProperties(User.prototype, {
   customName: {
     get() { return this.db.customName ?? this.displayName; },
     set(val) { void this.updateDB('customName', val); }
+  },
+
+  /** @type {Record<string, (this: User, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale | undefined>} */
+  localeCode: {
+    // website db user locale can be `null`
+    get() {
+      const locale = this.db.localeCode ?? Object.values(this.client.db.get('website').sessions).find(e => e.user?.id == this.id)?.user?.locale ?? undefined;
+      return locale?.startsWith('en') ? 'en' : locale;
+    },
+    set(val) { void this.updateDB('localeCode', val); }
   }
 });
 Object.defineProperties(GuildMember.prototype, {

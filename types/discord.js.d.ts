@@ -124,6 +124,8 @@ declare module 'discord.js' {
 
     customName: string;
     customTag: string;
+
+    get localeCode(): LangLocaleCode | undefined;
   }
 
   interface GuildMember {
