@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes, DiscordAPIError, codeBlock } = require('discord.js'),
-  { logSayCommandUse, constants, timeFormatter: { msInSecond } } = require('#Utils');
+  { logSayCommandUse, constants } = require('#Utils');
 
 /**
  * @param {Interaction}interaction
@@ -81,7 +81,7 @@ module.exports = {
           image: { url: getOption('image') },
           color: Number.parseInt(getOption('custom_color')?.slice(1) ?? 0, 16) || Colors[getOption('predefined_color')] || 0,
           footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
-          timestamp: this.options.getBoolean('timestamp') && Math.round(Date.now() / msInSecond),
+          timestamp: this.options.getBoolean('timestamp') && Date.now(),
           author: {
             name: getOption('author_name'),
             url: getOption('author_url'),
