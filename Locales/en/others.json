@@ -83,16 +83,6 @@
   "timeEvents": {
     "birthday": {
       "unknownChannel": "INFO: The channel configured for the birthday feature in guild {guild} does not exist! Please re-configure it so i can send birthday messages!"
-    },
-    "votingReminder": {
-      "embedTitle": "Voting Reminder",
-      "embedDescription": "You have voted for a feature request recently, and now you can vote again.\n\n-# This reminder only gets send for two weeks (once per week) after you voted.",
-      "embedFooterText": "Last vote at",
-      "buttonLabelVote": "Vote",
-      "buttonLabelDisable": "Disable Reminder",
-      "buttonLabelEnable": "Enable Reminder",
-      "disabled": "Voting reminders have been disabled for you. You can press the same button at any time to enable them again.",
-      "enabled": "Voting reminders have been enabled for you. You can press the same button at any time to disable them again."
     }
   },
   "getCommands": {
