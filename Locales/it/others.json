@@ -73,11 +73,11 @@
     "reportFail": "Si è verificato un errore durante il tentativo di inviare la segnalazione di errore.\n{err}\nSi prega di inviare un messaggio diretto al dev."
   },
   "timeFormatter": {
-    "ydhms": "{year} anni, {day} giorni, {hour} ore, {minute} minuti e {second} secondi",
-    "dhms": "{day} giorni, {hour} ore, {minute} minuti e {second} secondi",
-    "hms": "{hour} ore, {minute} minuti e {second} secondi",
-    "ms": "{minute} minuti e {second} secondi",
-    "s": "{second} secondi"
+    "ydhms": "{years} anni, {days} giorni, {hours} ore, {minutes} minuti e {seconds} secondi",
+    "dhms": "{days} giorni, {hours} ore, {minutes} minuti e {seconds} secondi",
+    "hms": "{hours} ore, {minutes} minuti e {seconds} secondi",
+    "ms": "{minutes} minuti e {seconds} secondi",
+    "s": "{seconds} secondi"
   },
   "timeEvents": {
     "birthday": {

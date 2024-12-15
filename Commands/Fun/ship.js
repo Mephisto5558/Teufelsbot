@@ -28,7 +28,7 @@ module.exports = {
   async run(lang) {
     const [user1, user2] = getTargetMembers(this, [{ targetOptionName: 'user1' }, { targetOptionName: 'user2', returnSelf: true }]);
 
-    if (!user1 || !user2) return lang('global.unknownUser');
+    if (!user1 || !user2) return this.customReply(lang('global.unknownUser'));
     return this.customReply(`${user1.customName} :heart: ${user2.customName}: ${calculatePercentage(user1, user2)}%`);
   }
 };
@@ -37,7 +37,7 @@ module.exports = {
  * @param {Snowflake}user1Id
  * @param {Snowflake}user2Id */
 function calculatePercentage(user1Id, user2Id) {
-  const customShip = customShips.find(e => e[0] == user1Id && e[1] == user2Id || e[0] == user2Id && e[1] == user2Id);
+  const customShip = customShips.find(e => e[0] == user1Id && e[1] == user2Id || e[0] == user2Id && e[1] == user1Id);
   if (customShip) return customShip[2];
 
   const combinedHash = createHash('sha256').update(

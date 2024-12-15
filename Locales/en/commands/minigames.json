@@ -139,11 +139,11 @@
     "declined": ":x: {opponent} did not rise up to the challenge.",
     "accept": {
       "embedTitle": ":game_die: {player1} **VS** {player2}",
-      "embedDescription": "Select your item!"
+      "embedDescription": "Select your move!"
     },
     "end": {
       "alreadyChosen": "You have already selected {move}! Please wait for your opponent to choose.",
-      "saved": "Your selection has been saved!",
+      "chosen": "{user} has selected their move!",
       "tie": "No one won the game, it's a tie! {emoji} = {emoji}",
       "win": ":tada: {winner} won the game! {winEmoji} > {loseEmoji}"
     }

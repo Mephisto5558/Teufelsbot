@@ -24,7 +24,7 @@ module.exports = {
       name: this.args.slice(1).join(' ')
     };
 
-    if (activity.name) {
+    if (!activity.name) {
       await this.client.db.delete('botSettings', 'activity');
       return this.customReply(lang('reset'));
     }
