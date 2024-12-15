@@ -1,7 +1,7 @@
 const
   { PermissionFlagsBits, VoiceState, TimestampStyles, userMention, inlineCode } = require('discord.js'),
   { messageMaxLength, memberNameMaxLength } = require('./constants'),
-  { timestamp } = require('./timeFormatter'),
+  { timestamp, timeFormatter } = require('./timeFormatter'),
   nicknamePrefix = '[AFK] ',
   nicknameRegex = /^[AFK] /;
 
@@ -77,7 +77,10 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
   await this.client.db.delete('userSettings', `${this.member.id}.afkMessage`);
   await this.client.db.delete('guildSettings', `${this.guild.id}.afkMessages.${this.member.id}`);
 
-  const msg = this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.afkEnd', { timestamp: timestamp(createdAt), message });
+  const
+    /** @type {lang} */lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.localeCode }),
+    msg = lang('events.message.afkEnd', { timestamp: timestamp(createdAt), formattedTime: timeFormatter(createdAt, lang).formatted, message });
+
   if ('customReply' in this) return this.customReply(msg);
   if (this.channel?.permissionsFor(this.member.id).has(PermissionFlagsBits.SendMessages) && this.channel.permissionsFor(this.client.user.id).has(PermissionFlagsBits.SendMessages))
     return this.channel.send(`${userMention(this.member.id)}\n${msg}`);
