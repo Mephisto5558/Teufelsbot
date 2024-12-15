@@ -1,5 +1,5 @@
 const
-  { AllowedMentionsTypes, PermissionFlagsBits, VoiceState, TimestampStyles, userMention, inlineCode } = require('discord.js'),
+  { PermissionFlagsBits, VoiceState, TimestampStyles, userMention, inlineCode } = require('discord.js'),
   { messageMaxLength, memberNameMaxLength } = require('./constants'),
   { timestamp } = require('./timeFormatter'),
   nicknamePrefix = '[AFK] ',
@@ -59,7 +59,7 @@ module.exports.setAfkStatus = async function setAfkStatus(lang, global, message)
   if (this.member) void setAfkPrefix(this.member);
 
   if (this instanceof VoiceState) return;
-  return this.customReply({ content: lang(global || !this.guild ? 'globalSuccess' : 'success', message), allowedMentions: { parse: [AllowedMentionsTypes.User] } });
+  return this.customReply({ content: lang(global || !this.guild ? 'globalSuccess' : 'success', message), allowedMentions: { repliedUser: true } });
 };
 
 /**
@@ -105,7 +105,7 @@ module.exports.sendAfkMessages = async function sendAfkMessages() {
     return `${acc}${afkMessage}\n`;
   }, '');
 
-  if (afkMsgs.length) return this.customReply({ content: afkMsgs, allowedMentions: { parse: [AllowedMentionsTypes.User] } });
+  if (afkMsgs.length) return this.customReply({ content: afkMsgs });
 };
 
 /** @type {import('.')['afk']['setAfkPrefix']} */
