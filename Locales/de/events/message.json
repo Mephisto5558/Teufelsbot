@@ -1,6 +1,6 @@
 {
   "afkMsg": "{member} ist AFK: {message} - {timestamp}",
-  "afkEnd": "Willkommen zurück, ich habe deinen AFK-Status entfernt. Du warst AFK seit {timestamp}.\nDeine AFK-Nachricht war: \"{message}\"",
+  "afkEnd": "Willkommen zurück, ich habe deinen AFK-Status entfernt. Du warst AFK seit {timestamp} (für {formattedTime}).\nDeine AFK-Nachricht war: \"{message}\"",
   "counting": {
     "error": "DU HAST ES BEI {lastNumber} RUINIERT!! Die nächste Zahl ist **1**.\n",
     "wrongNumber": "Kannst du nicht zählen?! Falsche Zahl.",
