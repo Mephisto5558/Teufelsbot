@@ -6,6 +6,7 @@ export {
   _patch,
   customReply,
   runMessages,
+  sendChallengeMention,
   playAgain
 };
 
@@ -59,3 +60,6 @@ declare function playAgain(
   this: TicTacToe,
   interaction: Interaction & { options: { _hoistedOptions: CommandInteractionOption[] } }, lang: lang
 ): Promise<void>;
+
+/** Sends the challenge mention after waiting 10s, then waits 5s and deletes its afterwards. */
+declare function sendChallengeMention(msg: Interaction, userId: Snowflake, lang: lang): Promise<void>;

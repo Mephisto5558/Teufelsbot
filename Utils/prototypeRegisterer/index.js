@@ -11,14 +11,14 @@ const
   customReply = require('./message_customReply.js'),
   { runMessages } = require('./message_runMessages.js'),
   _patch = require('./message__patch.js'),
-  playAgain = require('./TicTacToe_playAgain.js'),
+  { playAgain, sendChallengeMention } = require('./TicTacToe_playAgain.js'),
   findAllEntries = require('../findAllEntries.js'),
   { setDefaultConfig } = require('../configValidator.js'),
   defaultValueLoggingMaxJSONLength = 100,
 
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
-module.exports = { Log, _patch, customReply, runMessages, playAgain };
+module.exports = { Log, _patch, customReply, runMessages, playAgain, sendChallengeMention };
 
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
