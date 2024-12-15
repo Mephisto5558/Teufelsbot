@@ -1,37 +1,90 @@
 {
   "categoryName": "Sólo propietario",
-  "categoryDescription": "Comandos que deben estar disponibles sólo para el desarrollador",
+  "categoryDescription": "Comandos que deben estar disponibles sólo para un desarrollador",
   "blacklistuser": {
-    "description": "bloquea que un usuario utilice el bot",
+    "description": "(Des)bloquea que un usuario use el bot",
+    "usage": {
+      "usage": "[off] <user id>"
+    },
+    "options": {
+      "target": {
+        "description": "El ID de usuario que desea (des)bloquear."
+      }
+    },
     "notFound": "No se encontró ninguna entrada para este id.",
-    "saved": "{user} ha sido bloqueado de usar el bot.",
+    "saved": "{user} ha sido bloqueado por usar el bot.",
     "removed": "La entrada de la lista negra para {user} ha sido eliminada.",
-    "cantBlacklistDev": "¡No puedo negar al dueño del bot!"
+    "cantBlacklistDev": "¡No puedo negar la lista de desarrolladores del bot!"
   },
   "dbget": {
     "description": "consultar datos de la base de datos",
+    "usage": {
+      "usage": "<database name> <key>",
+      "examples": "base de datos a.b.c"
+    },
+    "options": {
+      "database": {
+        "description": "La base de datos en la que está la entrada."
+      },
+      "key": {
+        "description": "La ruta de clave aplanada"
+      }
+    },
     "notFound": "nada encontrado"
   },
   "eval": {
     "description": "inyectar código JavaScript directamente en el bot",
+    "usage": {
+      "usage": "<js code>",
+      "examples": "console.log('¡Hola Mundo!')"
+    },
+    "options": {
+      "code": {
+        "description": "El código JavaScript a evaluar"
+      }
+    },
     "finished": "comando evaluado:\n{code}\n",
     "success": "{msg} sin errores.",
+    "emptyRejection": "Rechazo de la promesa vacía",
     "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
   },
   "exec": {
     "description": "inyectar código Bash directamente en el shell del bot",
-    "finished": "Código de Bash:\n{code}\n",
+    "options": {
+      "command": {
+        "description": "El comando bash que debe ser ejecutado"
+      }
+    },
+    "usage": {
+      "usage": "<sh code>",
+      "examples": "echo '¡Hola Mundo!'"
+    },
+    "finished": "Comando de bash evaluado:\n{code}\n",
     "stdout": "{msg} con la siguiente salida:\nstdout:\n{stdout}\n",
     "stderr": "stderr:\n{stderr}",
     "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
   },
   "reload": {
     "description": "Carga un archivo o categoría",
+    "usage": {
+      "usage": "<'command' | 'file'> <Path relative to cwd>\n{prefix}{cmdName} <command | '*'>",
+      "examples": "archivo ruta/a/archivo\n{prefix}{cmdName} diversión"
+    },
+    "options": {
+      "command_name": {
+        "description": "El nombre del comando a recargar."
+      }
+    },
     "invalidCommand": "Este no es un comando válido.",
     "invalidPath": "La ruta especificada no existe! Tenga en cuenta la sensibilidad de mayúsculas y minúsculas de la ruta.",
-    "error": "Se ha producido un error al recargar:\n{error}\nCompruebe la consola para más información.",
+    "error": "Se ha producido un error al recargar:\n{error}\nComprueba la consola para más información.",
     "noneReloaded": "Ningún comando ha sido recargado.",
-    "reloaded": "El siguiente {count} comando(s) ha/han sido recargados:\n{commands}"
+    "reloaded": "Los siguientes comando(s) {count} han sido recargados:\n{commands}"
+  },
+  "reloadconfig": {
+    "description": "Recarga el archivo config.json",
+    "error": "Se ha producido un error al recargar la configuración:\n{err}",
+    "success": "Recargada la configuración."
   },
   "reloaddb": {
     "description": "Recarga la base de datos",
@@ -52,8 +105,19 @@
   },
   "setactivity": {
     "description": "Establece la actividad del bot",
-    "invalidType": "Este no es un tipo válido. Los tipos válidos son:\n{types}",
-    "set": "Mi actividad ha sido establecida a {name} de tipo {type}.",
+    "usage": {
+      "usage": "[type] [activity]",
+      "examples": "reproduciendo comandos en ejecución"
+    },
+    "options": {
+      "activity": {
+        "description": "El texto de estado que quieres que tenga."
+      },
+      "type": {
+        "description": "Tipo de actividad"
+      }
+    },
+    "set": "Mi actividad se ha establecido en {name} de tipo {type}.",
     "reset": "Mi actividad ha sido establecida a `ninguno`."
   },
   "setchangelog": {
@@ -62,11 +126,21 @@
   },
   "setcountingnumber": {
     "description": "Actualiza el último número de cuenta para un canal, también restableciendo el último autor.",
+    "usage": {
+      "usage": "[número (por defecto 0)] [channel]",
+      "examples": "7 #contador-canal"
+    },
     "invalidNumber": "¡El número proporcionado no es válido!",
     "unknownChannel": "¡La id del canal proporcionado no se ha encontrado en este gremio!",
-    "success": "La cuenta para {channel} se ha establecido a {number}."
+    "success": "La cuenta para {channel} se ha establecido en {number}."
   },
   "test": {
     "description": "testear cosas"
+  },
+  "todo": {
+    "description": "Obtener enlaces a las listas de tareas del desarrollador.",
+    "list": "ToDo Excel",
+    "website": "Sitio web de votación",
+    "discordNotes": "Notas Dev en el servidor de soporte"
   }
 }
