@@ -327,11 +327,9 @@ declare namespace configValidator {
   const validEnv: Record<string, validConfigEntry>;
 }
 
-/** @returns `formatted` has the format `year-day, hour:minute:second` if `lang` is not provided. */
 declare namespace TFormatter {
-  function timeFormatter<T extends lang | undefined>(
-    options: { sec?: number; lang?: T }
-  ): {
+  /** @param ms the time value in milliseconds since midnight, January 1, 1970 UTC. */
+  function timeFormatter<T extends lang | undefined>(ms: number | Date, lang?: T): {
     total: number; negative: boolean;
     formatted: T extends undefined
       ? `${number}${number}${number}${number}-${number}${number}, ${number}${number}:${number}${number}:${number}${number}`
