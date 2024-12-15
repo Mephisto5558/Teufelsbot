@@ -80,15 +80,17 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
       const choices = opponentId == this.client.user.id ? { player1: mode, player2: ['rock', 'paper', 'scissors'].random() } : this.guild.db.minigames?.rps[this.message.id] ?? {};
       if (!choices.player1 || !choices.player2) {
         const player = this.user.id == initiatorId ? 'player1' : 'player2';
-        if (choices[player]) return this.reply({ content: lang('end.alreadyChosen', lang(choices[player])), ephemeral: true });
+        if (choices[player]) return this.followUp({ content: lang('end.alreadyChosen', lang(choices[player])), ephemeral: true });
 
         choices.startedAt ??= Date.now();
         choices[player] = mode;
 
-        await this.guild.updateDB(`minigames.rps.${this.message.id}`, choices);
-        void this.reply({ content: lang('end.saved', lang(mode)), ephemeral: true });
-
-        if (!choices.player1 || !choices.player2) return;
+        if (!choices.player1 || !choices.player2) {
+          this.message.embeds[0].data.description += '\n' + lang('end.chosen', userMention(this.user.id));
+          void this.message.edit({ embeds: this.message.embeds });
+          await this.guild.updateDB(`minigames.rps.${this.message.id}`, choices);
+          return;
+        }
       }
 
       await this.client.db.delete('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`);
