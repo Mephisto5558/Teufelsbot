@@ -17,10 +17,11 @@ function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList
 }
 
 /** @type {import('.').getTargetMembers} */
-module.exports = function getTargetMembers(interaction, targetSettings = []) {
-  if (!targetSettings.length) return;
+module.exports = function getTargetMembers(interaction, targetSettings) {
+  let settings = Array.isArray(targetSettings) ? targetSettings : [targetSettings];
+  if (!targetSettings || !settings.length) settings = [{}];
 
-  const members = [...(Array.isArray(targetSettings) ? targetSettings : [targetSettings]).reduce((/** @type {Map}*/acc, { targetOptionName, returnSelf }, i) => {
+  const members = [...settings.reduce((/** @type {Map}*/acc, { targetOptionName, returnSelf }, i) => {
     const member = getTargetMember(interaction, { targetOptionName: targetOptionName ?? `target${i || ''}`, returnSelf }, acc);
     acc.set(member?.id ?? `target${i || ''}`, member);
     return acc;

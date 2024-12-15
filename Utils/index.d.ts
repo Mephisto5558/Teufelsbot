@@ -255,11 +255,11 @@ export declare function __getTargetMember<I extends Interaction | Message, T ext
 
 /** @default targetOptionName = `target${index}` */
 declare function getTargetMembers<
-  I extends Interaction | Message, Opts extends { targetOptionName?: string; returnSelf?: boolean }, O extends Opts | Opts[]>(
+  I extends Interaction | Message, Opts extends { targetOptionName?: string; returnSelf?: boolean }, O extends Opts | Opts[] | undefined>(
   interaction: I, options: O
 ): I extends GuildInteraction | Message<true>
-  ? (O extends Opts ? GuildMember | undefined : (GuildMember | undefined)[])
-  : (O extends Opts ? User | undefined : (User | undefined)[]);
+  ? (O extends Opts | undefined ? GuildMember | undefined : (GuildMember | undefined)[])
+  : (O extends Opts | undefined ? User | undefined : (User | undefined)[]);
 
 /** @default targetOptionName = 'target' */
 declare function getTargetRole<T extends boolean>(
