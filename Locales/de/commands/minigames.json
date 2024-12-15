@@ -143,7 +143,7 @@
     },
     "end": {
       "alreadyChosen": "Du hast bereits {move} ausgewählt! Bitte warte darauf, dass dein Gegner wählt.",
-      "saved": "Deine Auswahl wurde gespeichert!",
+      "chosen": "{user} hat seinen/ihren Zug gewählt!",
       "tie": "Niemand hat das Spiel gewonnen, es ist ein Unentschieden! {emoji} = {emoji}",
       "win": ":tada: {winner} hat das Spiel gewonnen! {winEmoji} > {loseEmoji}"
     }
