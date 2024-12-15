@@ -139,11 +139,11 @@
     "declined": ":x: {opponent} non è salito alla sfida.",
     "accept": {
       "embedTitle": ":game_die: {player1} **VS** {player2}",
-      "embedDescription": "Seleziona il tuo oggetto!"
+      "embedDescription": "Seleziona la tua mossa!"
     },
     "end": {
       "alreadyChosen": "Hai già selezionato {move}! Si prega di attendere che il tuo avversario scelga.",
-      "saved": "La tua selezione è stata salvata!",
+      "chosen": "{user} ha selezionato la loro mossa!",
       "tie": "Nessuno ha vinto la partita, è una cravatta! {emoji} = {emoji}",
       "win": ":tada: {winner} ha vinto la partita! {winEmoji} > {loseEmoji}"
     }
@@ -175,7 +175,7 @@
       "success": "Ho aggiunto con successo {channel} come canale wordchain."
     },
     "removed": {
-      "embedDescription": "Questo canale non è più un canale wordchain!",
+      "embedDescription": "Questo canale non è più un canale wordchain.",
       "by": "Disabilitato da {user}",
       "success": "Ho rimosso con successo {channel} come canale wordchain."
     },
