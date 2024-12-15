@@ -87,12 +87,12 @@
     "votingReminder": {
       "embedTitle": "Voting-Erinnerung",
       "embedDescription": "Du hast neulich für ein Feature-Request abgestimmt und nun kannst du erneut abstimmen.\n\n-# Diese Erinnerung wird nur zwei Wochen lang (einmal pro Woche) gesendet, nachdem du abgestimmt hast.",
-      "embedFooterText": "Letztes mal abgestimmt am",
-      "buttonLabelVote": "Vote",
+      "embedFooterText": "Letztes Mal abgestimmt am",
+      "buttonLabelVote": "Abstimmen",
       "buttonLabelDisable": "Erinnerung deaktivieren",
       "buttonLabelEnable": "Erinnerung aktivieren",
-      "disabled": "Voting-Erinnerungen wurden für dich deaktiviert. Du kannst jederzeit den selben Button drücken, um sie wieder zu aktivieren.",
-      "enabled": "Voting-Erinnerung wurden für dich aktiviert. Du kannst jederzeit den selben Button drücken, um sie wieder zu deaktivieren."
+      "disabled": "Voting-Erinnerungen wurden für dich deaktiviert. Du kannst jederzeit denselben Button drücken, um sie wieder zu aktivieren.",
+      "enabled": "Voting-Erinnerung wurden für dich aktiviert. Du kannst jederzeit denselben Button drücken, um sie wieder zu deaktivieren."
     }
   },
   "getCommands": {
