@@ -83,6 +83,16 @@
   "timeEvents": {
     "birthday": {
       "unknownChannel": "INFO: il canale configurato per la funzione di compleanno nella gilda {guild} non esiste! Si prega di riconfigurarlo in modo da poter inviare messaggi di compleanno!"
+    },
+    "votingReminder": {
+      "embedTitle": "Promemoria Di Votazione",
+      "embedDescription": "Avete votato di recente per una richiesta di funzionalità e ora potete votare di nuovo.\n\n-# Questo promemoria viene inviato solo per due settimane (una volta alla settimana) dopo aver votato.",
+      "embedFooterText": "Ultimo voto alle",
+      "buttonLabelVote": "VOTAZIONI",
+      "buttonLabelDisable": "Disabilita Promemoria",
+      "buttonLabelEnable": "Abilita Promemoria",
+      "disabled": "I promemoria di voto sono stati disabilitati per te. Puoi premere lo stesso pulsante in qualsiasi momento per attivarli nuovamente.",
+      "enabled": "I promemoria di voto sono stati abilitati per te. Puoi premere lo stesso pulsante in qualsiasi momento per disabilitarli nuovamente."
     }
   },
   "getCommands": {
