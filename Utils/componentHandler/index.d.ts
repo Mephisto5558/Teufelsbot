@@ -24,7 +24,8 @@ export {
   serverbackup_hasPerm,
   serverbackup_createProxy,
   serverbackup,
-  topic
+  topic,
+  votingReminder
 };
 
 type ComponentReturnType = ReturnType<typeof commandExecutionWrapper>;
@@ -154,4 +155,9 @@ declare function serverbackup<
 declare function topic(
   this: ButtonInteraction<undefined> & { customId: 'topic' },
   lang: lang
+): ComponentReturnType;
+
+declare function votingReminder<MODE extends 'enable' | 'disable'>(
+  this: ButtonInteraction<'raw'> & { customId: `votingReminder.${MODE}` },
+  lang: lang, mode: MODE
 ): ComponentReturnType;

@@ -26,5 +26,6 @@ module.exports = {
   serverbackup_hasPerm: hasPerm,
   serverbackup_createProxy: createProxy,
   serverbackup: require('./serverbackup.js'),
-  topic: require('./topic.js')
+  topic: require('./topic.js'),
+  votingReminder: require('./votingReminder.js')
 };

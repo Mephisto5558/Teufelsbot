@@ -4,6 +4,7 @@ import type { ISODateTime } from './globals';
 import type { Env } from './locals';
 import type { GiveawayData } from 'discord-giveaways';
 import type { Database as WebsiteDB } from '@mephisto5558/bot-website/database';
+import type { Locale } from '@mephisto5558/i18n';
 
 export type { Database, FlattenedDatabase, FlattenObject, backupId, backupChannel };
 
@@ -73,10 +74,11 @@ type Database = {
       lastBirthdayCheck?: Date;
       lastDBCleanup?: Date;
       lastEmojiSync?: Date;
+      lastVotingReminder?: Date;
     };
     defaultGuild: {
       config: {
-        lang: string;
+        lang: Locale;
         prefixes: { prefix: string; caseinsensitive: boolean }[];
         betaBotPrefixes: { prefix: string; caseinsensitive: boolean }[];
       };
@@ -117,6 +119,7 @@ type Database = {
   } | undefined> | undefined>;
 
   userSettings: Record<userId, {
+    localeCode?: Locale;
     customName?: string;
     afkMessage?: {
       message: string;
@@ -126,6 +129,7 @@ type Database = {
     lastVoted?: NonNullable<WebsiteDB['userSettings'][Snowflake]>['lastVoted'];
     featureRequestAutoApprove?: NonNullable<WebsiteDB['userSettings'][Snowflake]>['featureRequestAutoApprove'];
     lastFeatureRequested?: number;
+    votingReminderDisabled?: boolean;
     cmdStats?: cmdStats;
   } | undefined>;
 
