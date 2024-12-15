@@ -73,12 +73,11 @@
     "reportFail": "An error occurred while trying to send your error report.\n{err}\nPlease message the dev directly."
   },
   "timeFormatter": {
-    "ymdhms": "{years} years, {months} months, {days} days, {hours} hours, {minutes} minutes and {seconds} seconds",
-    "mdhms": "{months} months, {days} days, {hours} hours, {minutes} minutes and {seconds} seconds",
-    "dhms": "{days} days, {hours} hours, {minutes} minutes and {seconds} seconds",
-    "hms": "{hours} hours, {minutes} minutes and {seconds} seconds",
-    "ms": "{minutes} minutes and {seconds} seconds",
-    "s": "{seconds} seconds"
+    "ydhms": "{year} years, {day} days, {hour} hours, {minute} minutes and {second} seconds",
+    "dhms": "{day} days, {hour} hours, {minute} minutes and {second} seconds",
+    "hms": "{hour} hours, {minute} minutes and {second} seconds",
+    "ms": "{minute} minutes and {second} seconds",
+    "s": "{second} seconds"
   },
   "timeEvents": {
     "birthday": {
