@@ -49,19 +49,25 @@ module.exports = {
         return acc;
       }, {});
 
-      if (!birthdayUserList.__count__) continue;
+      if (!birthdayUserList.__count__ || !settings.ch?.channel && !settings.dm?.enable) continue;
+
+      let channel;
+      if (settings.ch?.channel) {
+        try { channel = await guild.channels.fetch(settings.ch.channel); }
+        catch (err) {
+          if (err.code != DiscordAPIErrorCodes.UnknownChannel) throw err;
+          const owner = await guild.fetchOwner();
+          return owner.send(this.i18n.__({ locale: owner.user.localeCode ?? guild.localeCode }, 'others.timeEvents.birthday.unknownChannel', inlineCode(guild.name)))
+            .catch(() => {
+              if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
+            });
+        }
+      }
 
       for (const [,member] of await guild.members.fetch({ user: Object.keys(birthdayUserList) })) {
         const year = birthdayUserList[member.id];
 
-        let channel;
-        if (settings.ch?.channel) {
-          try { channel = await guild.channels.fetch(settings.ch.channel); }
-          catch (err) {
-            if (err.code != DiscordAPIErrorCodes.UnknownChannel) throw err;
-            return (await guild.fetchOwner()).send(this.i18n.__({ locale: guild.db.config.lang ?? guild.localeCode }, 'others.timeEvents.birthday.unknownChannel', inlineCode(guild.name)));
-          }
-
+        if (channel) {
           const embed = new EmbedBuilder({
             title: formatBirthday.call(settings.ch.msg?.embed?.title ?? defaultSettings.ch.msg.embed.title, member, year),
             description: formatBirthday.call(settings.ch.msg?.embed?.description ?? defaultSettings.ch.msg.embed.description, member, year),
