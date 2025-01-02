@@ -160,7 +160,7 @@ declare global {
     noDefer?: boolean;
 
     /**
-     * Do `interaction.deferReply({ ephemeral: true })`.
+     * Do `interaction.deferReply({ flags: MessageFlags.Ephemeral })`.
      *
      * Gets ignored if {@link command.noDefer} is `true`. */
     ephemeralDefer?: boolean;
@@ -278,12 +278,13 @@ declare global {
   type Interaction<inGuild extends boolean = boolean> = inGuild extends true
     ? GuildInteraction : GuildInteraction | DMInteraction;
 
-  // @ts-expect-error // inGuild needs to be overwritten otherwise typeguarding doesn't work.
-  interface PartialGuildMessage extends Discord.Partialize<Message<true>, 'type' | 'system' | 'pinned' | 'tts', 'content' | 'cleanContent' | 'author' | 'user'> {
-    inGuild(): this is PartialMessage<true>;
-  }
-
-  type PartialMessage<inGuild extends boolean = boolean> = inGuild extends true ? PartialGuildMessage : Discord.PartialMessage;
+  type PartialMessage<inGuild extends boolean = boolean> = Discord.PartialMessage & (
+    inGuild extends true ? {
+      guild: Message<true>['guild'];
+      guildId: Message<true>['guildId'];
+      inGuild(): true;
+    } : never
+  );
 
   // used to not get `any` on Message property when the object is Message | Interaction
   type OptionalInteractionProperties<inGuild extends boolean = boolean> = Partial<Interaction<inGuild>>;
