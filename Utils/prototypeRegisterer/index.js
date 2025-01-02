@@ -133,8 +133,7 @@ Object.defineProperty(Function.prototype, 'bBind', {
 
 // #region Discord.js
 Object.defineProperty(BaseInteraction.prototype, 'customReply', {
-  value: customReply,
-  enumerable: false
+  value: customReply
 });
 Object.defineProperties(Client.prototype, {
   prefixCommands: { value: new Collection() },
@@ -271,16 +270,14 @@ Object.defineProperty(DB.prototype, 'generate', {
   value: async function generate(overwrite = false) {
     this.saveLog(`generating db files${overwrite ? ', overwriting existing data' : ''}`);
     await Promise.all(require('../../Templates/db_collections.json').map(({ key, value }) => this.set(key, value, overwrite)));
-  },
-  enumerable: false
+  }
 });
 
 // #endregion
 
 // #region discord-tictactoe
 Object.defineProperty(TicTacToe.prototype, 'playAgain', {
-  value: playAgain,
-  enumerable: false
+  value: playAgain
 });
 
 Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
@@ -302,8 +299,7 @@ Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
       if (this.disableButtonsAfterUsed) button.setDisabled(true);
     }
     return button.setCustomId(buttonIndex.toString()).setStyle(this.buttonStyles[buttonData]);
-  },
-  enumerable: false
+  }
 });
 
 // #endregion
