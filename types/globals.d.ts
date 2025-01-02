@@ -330,7 +330,7 @@ export declare class TicTacToe extends DiscordTicTacToe {
   playAgain(interaction: Discord.ChatInputCommandInteraction): Promise<void>;
 }
 
-// #region mongoose-db
+// #region own libs
 declare module '@mephisto5558/mongoose-db' {
   interface NoCacheDB {
     /**
@@ -359,6 +359,12 @@ declare module '@mephisto5558/mongoose-db' {
     delete<DBK extends keyof Database>(this: DB, db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
     push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
     pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
+  }
+}
+
+declare module 'express' {
+  interface Request {
+    user?: NonNullable<Database['website']['sessions'][keyof Database['website']['sessions']]>['user'];
   }
 }
 
