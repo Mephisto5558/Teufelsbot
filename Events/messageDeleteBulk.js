@@ -5,8 +5,8 @@ const
   AUDITLOG_FETCHLIMIT = 6;
 
 /**
- * @this {import('discord.js').Collection<string, Message<true> | import('discord.js').PartialMessage>}
- * @param {import('discord.js').GuildTextBasedChannel}channel */
+ * @this {import('discord.js').ClientEvents['messageDeleteBulk'][0]}
+ * @param {import('discord.js').ClientEvents['messageDeleteBulk'][1]}channel */
 module.exports = async function messageDeleteBulk(channel) {
   const setting = channel.guild.db.config.logger?.messageDelete;
 

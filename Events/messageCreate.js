@@ -1,6 +1,6 @@
 const { commandExecutionWrapper } = require('#Utils');
 
-/** @this {Message} */
+/** @this {import('discord.js').ClientEvents['messageCreate'][0]} */
 module.exports = function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 
