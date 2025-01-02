@@ -5,7 +5,7 @@ function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList
     if (seenList.has(target?.id)) target = undefined;
     if (!target && interaction.content) {
       target = interaction.guild.members.cache.find(e => !seenList.has(e.id) && [e.user.id, e.user.username, e.user.globalName, e.nickname, e.customName]
-        .some(e => e && interaction.content.includes(e)));
+        .some(e => !!e && interaction.content.includes(e)));
     }
     if (target) return target;
     if (returnSelf) return interaction.member;

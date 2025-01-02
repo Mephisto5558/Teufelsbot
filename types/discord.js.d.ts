@@ -8,10 +8,16 @@ import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
 import type locals from './locals';
 
 
+/* eslint-disable @typescript-eslint/ban-ts-comment -- depending on the module resolution, one of these might not error out. */
 declare module '../node_modules/discord.js/node_modules/discord-api-types/v10' {
-  // @ts-expect-error 2300 // overwriting Snowflake
+  // @ts-ignore 2300 // overwriting Snowflake
   export type Snowflake = globalThis.Snowflake;
 }
+declare module 'discord-api-types/v10' {
+  // @ts-ignore 2300 // overwriting Snowflake
+  export type Snowflake = globalThis.Snowflake;
+}
+/* eslint-enable @typescript-eslint/ban-ts-comment */
 
 declare module 'discord.js' {
   interface Client<Ready> {
@@ -80,6 +86,7 @@ declare module 'discord.js' {
 
   interface PartialMessage {
     user: PartialMessage['author'];
+    inGuild(): boolean;
   }
 
   interface BaseInteraction {

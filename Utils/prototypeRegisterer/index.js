@@ -198,7 +198,7 @@ Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
   /**
    * @this {AutocompleteInteraction}
    * @param {AutocompleteInteraction['focused']['value']}val */
-  set(val) { this.options.data.find(e => e.focused).value = val; }
+  set(val) { this.options.data.find(e => !!e.focused).value = val; }
 });
 Object.defineProperty(Message.prototype, 'user', {
   /** @this {Message} */

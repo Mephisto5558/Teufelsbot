@@ -290,7 +290,7 @@ class BackupSystem {
       if (!memberData.roles.length && !memberData.nickname || !member?.manageable) continue;
 
       await member.edit({
-        roles: memberData.roles.map(e => guild.roles.cache.find(e2 => e2.name == e)?.id).filter(e => e?.editable),
+        roles: memberData.roles.map(e => guild.roles.cache.find(e2 => e2.name == e && e2.editable)?.id).filter(Boolean),
         nickname: memberData.nickname ?? undefined
       });
     }

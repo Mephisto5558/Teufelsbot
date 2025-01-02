@@ -30,7 +30,7 @@ const
       if (this.options.getBoolean('get')) {
         /** @type {[[string, (Snowflake | '*')[]],[string, (Snowflake | '*')[]],[string, (Snowflake | '*')[]]]} */
         const fieldList = [['roles', roles], ['channels', channels], ['users', users]];
-        const fields = fieldList.filter(([, e]) => e.length).map(([k, v]) => ({
+        const fields = fieldList.filter(([, e]) => !!e.length).map(([k, v]) => ({
           name: lang(k),
           value: v.includes('*')
             ? lang('list.all')
@@ -79,10 +79,11 @@ const
       const embed = new EmbedBuilder({
         title: lang('embedTitle', command),
         description: lang('embedDescription', commandMention(`${this.commandName} toggle_command`, this.command.id)),
-        fields: Object.entries(count).filter(([, v]) => Object.values(v).find(Boolean))
+        fields: Object.entries(count).filter(([, v]) => Object.values(v).some(Boolean))
           .map(([k, v]) => ({
             name: lang(`embed.${k}`),
-            value: Object.entries(v).filter(([, e]) => e)
+            value: Object.entries(v)
+              .filter(([, e]) => !!e)
               .map(([k, v]) => `${lang(k)}: ${bold(v)}`)
               .join('\n'),
             inline: true

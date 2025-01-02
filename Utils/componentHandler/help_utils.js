@@ -8,7 +8,7 @@ const
 /**
  * @type {import('.').help_getCommands}
  * @this {ThisParameterType<import('.').help_getCommands>} */ // This is here due to eslint
-function getCommands() { return [...this.client.prefixCommands.values(), ...this.client.slashCommands.values()].unique().filter(filterCommands.bind(this)); }
+function getCommands() { return [...this.client.prefixCommands.values(), ...this.client.slashCommands.values()].unique().filter(e => !!filterCommands.call(this, e)); }
 
 /**
  * @type {import('.').help_getCommandCategories}
@@ -87,7 +87,7 @@ function createInfoFields(cmd, lang) {
   if (cmd.permissions?.user?.length > 0)
     arr.push({ name: lang('one.userPerms'), value: permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', '), inline: true });
 
-  const cooldowns = Object.entries(cmd.cooldowns ?? {}).filter(([, e]) => e);
+  const cooldowns = Object.entries(cmd.cooldowns ?? {}).filter(([, e]) => !!e);
   if (cooldowns.length) {
     arr.push({
       name: lang('one.cooldowns'), inline: false,

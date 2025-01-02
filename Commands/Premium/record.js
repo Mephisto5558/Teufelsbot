@@ -28,7 +28,7 @@ module.exports = {
       /** @type {import('discord.js').VoiceBasedChannel?} */
       voiceChannel = this.options.getChannel('channel') ?? this.options.getMember('target')?.voice.channel ?? this.member.voice.channel,
       target = voiceChannel?.members.get(this.options.getMember('target')?.id),
-      targets = (target ? [target] : [...voiceChannel?.members.values() ?? []]).filter(e => e.voice.channel && !e.user.bot);
+      targets = (target ? [target] : [...voiceChannel?.members.values() ?? []]).filter(e => !!e.voice.channel && !e.user.bot);
 
     if (!voiceChannel) return this.editReply(lang('needVoiceChannel'));
     if (!voiceChannel.joinable) return this.editReply(lang('cannotJoin'));
