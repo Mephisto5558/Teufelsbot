@@ -255,7 +255,8 @@ export declare function __getTargetMember<I extends Interaction | Message, T ext
 
 /** @default targetOptionName = `target${index}` */
 declare function getTargetMembers<
-  I extends Interaction | Message, Opts extends { targetOptionName?: string; returnSelf?: boolean }, O extends Opts | Opts[] | undefined>(
+  I extends Interaction | Message, Opts extends { targetOptionName?: string; returnSelf?: boolean }, O extends Opts | Opts[] | undefined
+>(
   interaction: I, options: O
 ): I extends GuildInteraction | Message<true>
   ? (O extends Opts | undefined ? GuildMember | undefined : (GuildMember | undefined)[])
