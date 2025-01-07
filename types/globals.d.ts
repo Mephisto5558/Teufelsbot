@@ -185,14 +185,20 @@ declare global {
   type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = locals.BaseCommand<initialized>
     & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
     & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
-    & { run(
-      this: commandType extends 'slash'
-        ? Interaction<guildOnly>
-        : commandType extends 'prefix'
-          ? Message<guildOnly extends true ? true : boolean>
-          : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>,
-      lang: lang, client: Discord.Client<true>
-    ): Promise<never>; };
+    & {
+      /**
+       * `undefined` is only allowed if the command has Subcommands or Subcommand groups that have their own files.
+       * **Must be explicitly set, even if `undefined`.**
+       */
+      run(
+        this: commandType extends 'slash'
+          ? Interaction<guildOnly>
+          : commandType extends 'prefix'
+            ? Message<guildOnly extends true ? true : boolean>
+            : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>,
+        lang: lang, client: Discord.Client<true>
+      ): Promise<never> | undefined;
+    };
 
   type commandOptions<initialized extends boolean = boolean> = {
     name: string;
