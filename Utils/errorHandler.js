@@ -8,7 +8,7 @@ const
 
 /** @type {import('.').errorHandler} */
 /* eslint-disable-next-line unicorn/no-useless-undefined -- lang is optional and doesn't have a default value. */
-module.exports = async function errorHandler(err, context = [], lang = undefined) {
+module.exports = async function errorHandler(err, context = [this], lang = undefined) {
   const
 
     /** @type {Record<string, unknown>} */
