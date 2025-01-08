@@ -1,7 +1,5 @@
 import type { ActionRowBuilder, ButtonBuilder } from 'discord.js';
 
-type OmitFirstParameter<T extends GenericFunction> = Parameters<T> extends [unknown, ...infer Rest] ? Rest : never;
-
 type fn = NonNullable<command<'slash'>['run']>;
 
 type data = {
