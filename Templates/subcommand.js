@@ -1,12 +1,11 @@
-// This template is for use in subcommand(groups) that have their own file.
+// This template is for use in subcommand(groups) that have their own file. Expects index.d.ts
 
+/** @type {import('.')} */
 module.exports = {
-  /** @type {NonNullable<command<'slash'>['options']>[number]['options']} */
   options: [
 
   ],
 
-  /** @type {command<'slash'>['run']} */
   async run(lang) {
 
   }
