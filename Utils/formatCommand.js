@@ -69,7 +69,6 @@ module.exports = function formatCommand(option, path, id, i18n) {
     if (!path.endsWith('.js')) { // assume it is a dir
       option.filePath ??= resolve(path, 'index.js');
 
-      /* eslint-disable-next-line custom/unbound-method -- will be fixed when commands are moved to their own lib */
       const originalRun = option.run;
       option.run = async function runWrapper(lang, ...args) {
         await originalRun?.call(this, lang, ...args);
@@ -80,9 +79,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
         return require(resolve(path, `${subcommand}.js`)).run.call(this, lang, ...args);
       };
     }
-
-    /* eslint-disable-next-line custom/unbound-method -- not getting called here */
-    if (!option.disabled && !['function', 'async function', 'async run(', 'run('].some(e => String(option.run).startsWith(e)))
+    else if (!option.disabled && !['function', 'async function', 'async run(', 'run('].some(e => String(option.run).startsWith(e)))
       throw new Error(`The run property of file "${id}" is not a function (Got "${typeof option.run}"). You cannot use arrow functions.`);
 
     option.filePath ??= resolve(path);

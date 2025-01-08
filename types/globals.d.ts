@@ -190,14 +190,15 @@ declare global {
        * `undefined` is only allowed if the command has Subcommands or Subcommand groups that have their own files.
        * **Must be explicitly set, even if `undefined`.**
        */
-      run(
+      run: ((
         this: commandType extends 'slash'
           ? Interaction<guildOnly>
           : commandType extends 'prefix'
             ? Message<guildOnly extends true ? true : boolean>
             : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>,
         lang: lang, client: Discord.Client<true>
-      ): Promise<never> | undefined;
+      ) => Promise<never>)
+      | undefined;
     };
 
   type commandOptions<initialized extends boolean = boolean> = {
