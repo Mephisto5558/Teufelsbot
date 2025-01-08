@@ -4,9 +4,8 @@ const
 
   getCMDs = /** @param {Client}client */ client => [...client.prefixCommands, ...client.slashCommands].filter(([,e]) => !e.aliasOf).map(([e]) => e).unique();
 
-
+/** @type {import('.')} */
 module.exports = {
-  /** @type {NonNullable<command<'slash'>['options']>[number]['options']} */
   options: [
     {
       name: 'command',
@@ -23,7 +22,6 @@ module.exports = {
     /* eslint-enable @typescript-eslint/no-magic-numbers */
   ],
 
-  /** @type {command<'slash'>['run']} */
   async run(lang) {
     const
       command = this.options.getString('command', true),

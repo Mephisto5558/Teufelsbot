@@ -2,8 +2,8 @@ const
   { EmbedBuilder, Colors } = require('discord.js'),
   { constants: { autocompleteOptionsMaxAmt } } = require('#Utils');
 
+/** @type {import('.')} */
 module.exports = {
-  /** @type {NonNullable<command<'slash'>['options']>[number]['options']} */
   options: [{
     name: 'language',
     type: 'String',
@@ -22,7 +22,6 @@ module.exports = {
     strictAutocomplete: true
   }],
 
-  /** @type {command<'slash'>['run']} */
   async run() {
     const
       language = this.options.getString('language', true),

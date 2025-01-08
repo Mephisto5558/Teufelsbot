@@ -2,8 +2,8 @@ const
   { inlineCode } = require('discord.js'),
   MAX_PREFIXES_PER_GUILD = 2;
 
+/** @type {import('.')} */
 module.exports = {
-  /** @type {NonNullable<command<'slash'>['options']>[number]['options']} */
   options: [
     {
       name: 'new_prefix',
@@ -13,7 +13,6 @@ module.exports = {
     { name: 'case_insensitive', type: 'Boolean' }
   ],
 
-  /** @type {command<'slash'>['run']} */
   async run(lang) {
     const
       prefix = this.options.getString('new_prefix', true),

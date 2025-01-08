@@ -1,7 +1,7 @@
 const { inlineCode } = require('discord.js');
 
+/** @type {import('.')} */
 module.exports = {
-  /** @type {NonNullable<command<'slash'>['options']>[number]['options']} */
   options: [{
     name: 'module',
     type: 'String',
@@ -9,7 +9,6 @@ module.exports = {
     choices: ['gatekeeper', 'birthday']
   }],
 
-  /** @type {command<'slash'>['run']} */
   async run(lang) {
     const
       module = this.options.getString('module', true),

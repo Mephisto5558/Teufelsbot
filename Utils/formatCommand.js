@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
 const
-  { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
+  { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType, Message } = require('discord.js'),
   { resolve, dirname, basename } = require('node:path'),
   { choicesMaxAmt, choiceValueMinLength, choiceValueMaxLength, descriptionMaxLength } = require('./constants');
 
@@ -71,12 +71,13 @@ module.exports = function formatCommand(option, path, id, i18n) {
 
       const originalRun = option.run;
       option.run = async function runWrapper(lang, ...args) {
-        await originalRun?.call(this, lang, ...args);
+        const additionalParams = await originalRun?.call(this, lang, ...args);
+        if (additionalParams === false || additionalParams instanceof Message) return;
 
         const subcommand = this.options?.getSubcommandGroup(false) ?? this.options?.getSubcommand(true) ?? this.args[0];
 
         lang.__boundArgs__[0].backupPath += `.${subcommand.replaceAll(/_./g, e => e[1].toUpperCase())}`;
-        return require(resolve(path, `${subcommand}.js`)).run.call(this, lang, ...args);
+        return require(resolve(path, `${subcommand}.js`)).run.call(this, lang, additionalParams, ...args);
       };
     }
     else if (!option.disabled && !['function', 'async function', 'async run(', 'run('].some(e => String(option.run).startsWith(e)))

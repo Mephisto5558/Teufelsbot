@@ -1,7 +1,7 @@
 const { inlineCode } = require('discord.js');
 
+/** @type {import('.')} */
 module.exports = {
-  /** @type {NonNullable<command<'slash'>['options']>[number]['options']} */
   options: [
     {
       name: 'prefix',
@@ -12,7 +12,6 @@ module.exports = {
     }
   ],
 
-  /** @type {command<'slash'>['run']} */
   async run(lang) {
     const
       prefix = this.options.getString('prefix', true),

@@ -2,8 +2,8 @@ const
   { Constants, channelLink } = require('discord.js'),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'];
 
+/** @type {import('.')} */
 module.exports = {
-  /** @type {NonNullable<command<'slash'>['options']>[number]['options']} */
   options: [
     {
       name: 'action',
@@ -19,7 +19,6 @@ module.exports = {
     { name: 'enabled', type: 'Boolean' }
   ],
 
-  /** @type {command<'slash'>['run']} */
   async run(lang) {
     const
       action = this.options.getString('action', true),
