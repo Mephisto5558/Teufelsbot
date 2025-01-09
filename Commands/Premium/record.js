@@ -47,12 +47,12 @@ module.exports = {
         new ActionRowBuilder({
           components: [
             new ButtonBuilder({
-              customId: `record.memberAllow.${this.user.id}.${voiceChannel.id}.${isPublic}`,
+              customId: `${this.commandName}.memberAllow.${this.user.id}.${voiceChannel.id}.${isPublic}`,
               label: lang('allow'),
               style: ButtonStyle.Success
             }),
             new ButtonBuilder({
-              customId: `record.memberDeny.${this.user.id}.${voiceChannel.id}.${isPublic}`,
+              customId: `${this.commandName}.memberDeny.${this.user.id}.${voiceChannel.id}.${isPublic}`,
               label: lang('deny'),
               style: ButtonStyle.Danger
             })
@@ -60,7 +60,7 @@ module.exports = {
         }),
         new ActionRowBuilder({
           components: [new ButtonBuilder({
-            customId: `record.cancel.${this.user.id}.${voiceChannel.id}`,
+            customId: `${this.commandName}.cancel.${this.user.id}.${voiceChannel.id}`,
             label: lang('global.cancel'),
             style: ButtonStyle.Danger
           })]

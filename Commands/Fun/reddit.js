@@ -105,7 +105,7 @@ module.exports = {
         components: [
           new ButtonBuilder({
             label: lang('global.anotherone'),
-            customId: `reddit.${post.subreddit}.${type}.${filterNSFW}`,
+            customId: `${this.commandName}.${post.subreddit}.${type}.${filterNSFW}`,
             style: ButtonStyle.Primary
           }),
           new ButtonBuilder({

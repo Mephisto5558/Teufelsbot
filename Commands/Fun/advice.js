@@ -18,7 +18,7 @@ module.exports = {
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('global.anotherone'),
-          customId: 'advice',
+          customId: this.commandName,
           style: ButtonStyle.Primary
         })]
       });
