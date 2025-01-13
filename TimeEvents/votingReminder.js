@@ -4,7 +4,7 @@ const
 
 module.exports = {
   time: '00 00 00 * * 1',
-  startNow: true,
+  startNow: false,
 
   /** @this {Client} */
   async onTick() {
