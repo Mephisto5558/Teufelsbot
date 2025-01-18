@@ -52,7 +52,7 @@
   "avatarfusion": {
     "description": "Fusioni due avatar.",
     "usage": {
-      "usage": "<base> [overlay] ['server' | 'global']",
+      "usage": "<base> [overlay] ['server' <unk> 'global']",
       "examples": "@User1 @User2 globale"
     },
     "options": {
@@ -239,7 +239,7 @@
     "ended": "Il giveaway è finito!",
     "edited": "Il giveaway è stato modificato!",
     "rerolled": "Il giveaway è stato risolto!",
-    "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
+    "newGiveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
     "giveawayEnded": "🎉🎉 GIVEAWAY ENDED 🎉🎉",
     "requiredRoles": "Devi avere almeno uno di questi ruoli per vincere: {roles}",
     "inviteToParticipate": "Reagire con {emoji} per partecipare!",
@@ -716,7 +716,7 @@
   "vote": {
     "description": "Crea un sondaggio per qualcosa",
     "usage": {
-      "usage": "<channel> [question] | [opzione 1] | [opzione 2] | <option 3> ... <option 9>",
+      "usage": "<channel> [question] <unk> [opzione 1] <unk> [opzione 2] <unk> <option 3> ... <option 9>",
       "examples": "#voto Avete bene? | Sì | No"
     },
     "options": {
