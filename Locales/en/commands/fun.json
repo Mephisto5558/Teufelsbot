@@ -125,7 +125,8 @@
     },
     "getAll": {
       "embedTitle": "The next birthdays",
-      "date": "**{month} {day}**\n",
+      "today": "**Today**",
+      "date": "**{month} {day}**",
       "notFound": "Nobody has a birthday set..."
     }
   },
