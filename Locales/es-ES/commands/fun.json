@@ -240,7 +240,7 @@
     "edited": "¡El regalo ha sido editado!",
     "rerolled": "¡El regalo ha sido releído!",
     "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
-    "giveawayEnded": "'🎉🎉 GIVEAWAY ENDED 🎉🎉🎉",
+    "giveawayEnded": "🎉🎉 GIVEAWAY ENDED 🎉🎉🎉",
     "requiredRoles": "Necesitas tener al menos uno de estos roles para ganar: {roles}",
     "inviteToParticipate": "¡React con {emoji} para participar!",
     "winMessage": "¡Enhorabuena, {winners}! ¡Has ganado **{this.prize}**!",

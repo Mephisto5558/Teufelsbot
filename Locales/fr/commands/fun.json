@@ -235,7 +235,7 @@
     "edited": "Le cadeau a été modifié !",
     "rerolled": "Le cadeau a été relancé !",
     "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
-    "giveawayEnded": "'🎉🎉 GIVEAWAY ENDED 🎉🎉",
+    "giveawayEnded": "🎉🎉 GIVEAWAY ENDED 🎉🎉",
     "requiredRoles": "Vous devez avoir au moins un de ces rôles pour gagner: {roles}",
     "inviteToParticipate": "Réagissez avec {emoji} pour participer!",
     "winMessage": "Félicitations, {winners}! Vous avez gagné **{this.prize}**!",

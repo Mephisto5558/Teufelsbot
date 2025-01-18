@@ -235,7 +235,7 @@
     "edited": "Отдача была отредактирована!",
     "rerolled": "Отдача была восстановлена!",
     "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
-    "giveawayEnded": "'🎉🎉 GIVEAWAY ENDED 🎉🎉",
+    "giveawayEnded": "🎉🎉 GIVEAWAY ENDED 🎉🎉",
     "requiredRoles": "Вам нужно иметь хотя бы одну из ролей для того, чтобы выиграть: {roles}",
     "inviteToParticipate": "Отправляйтесь с {emoji}, чтобы принять участие!",
     "winMessage": "Поздравляем, {winners}! Вы выиграли **{this.prize}**!",
