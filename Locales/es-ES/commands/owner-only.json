@@ -43,7 +43,7 @@
         "description": "El código JavaScript a evaluar"
       }
     },
-    "finished": "comando evaluado:\n{code}\n",
+    "finished": "comando evaluado:\n{code}",
     "success": "{msg} sin errores.",
     "emptyRejection": "Rechazo de la promesa vacía",
     "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
@@ -59,8 +59,8 @@
       "usage": "<sh code>",
       "examples": "echo '¡Hola Mundo!'"
     },
-    "finished": "Comando de bash evaluado:\n{code}\n",
-    "stdout": "{msg} con la siguiente salida:\nstdout:\n{stdout}\n",
+    "finished": "Comando de bash evaluado:\n{code}",
+    "stdout": "{msg} con la siguiente salida:\nstdout:\n{stdout}",
     "stderr": "stderr:\n{stderr}",
     "error": "{msg} con el siguiente error:\n```\n{name}: {err}\n```"
   },

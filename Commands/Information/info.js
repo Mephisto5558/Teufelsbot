@@ -54,7 +54,7 @@ module.exports = {
             : ''
           )
           + `${lang('guilds')}: ${inlineCode(this.client.guilds.cache.size)}\n`
-          + lang('commands', getCommandCount(this.client))
+          + `${lang('commands', getCommandCount(this.client))}\n`
           + `${lang('starts')}: ${inlineCode(this.client.settings.startCount[this.client.botType])}\n`
           + `${lang('lastStart')}: ${timestamp(startTime)} ${timestamp(startTime, TimestampStyles.RelativeTime)}\n`
           + lang('translation', {

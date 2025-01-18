@@ -268,7 +268,7 @@
       "channels": "Channels",
       "users": "Members",
       "embedTitle": "Updated Command Settings for \"{commandName}\"",
-      "embedDescription": "The following amount of roles/channels/members have been changed:\n||View all disallowed roles/channels/members by using {commandMention} with the `get` option.||\n",
+      "embedDescription": "The following amount of roles/channels/members have been changed:\n||View all disallowed roles/channels/members by using {commandMention} with the `get` option.||",
       "embed": {
         "enabled": "Removed (Allowed)",
         "disabled": "Added (Disallowed)"

@@ -38,7 +38,7 @@
     "embedTitle": "Статистика команд для {mode}",
     "notFound": "Эта команда не существует!",
     "embedDescriptionOne": "Команда {command} была запущена {total} раз (Slash: {slash} | Префикс: {prefix}).",
-    "embedDescriptionMany": "Это 10 наиболее часто используемых команд:\n",
+    "embedDescriptionMany": "Это 10 наиболее часто используемых команд:",
     "embedFieldValue": "{total} (Slash: {slash} | Префикс: {prefix})"
   },
   "dashboard": {
@@ -111,10 +111,10 @@
     "shard": "Осколок",
     "guild": "Внутренний ID Гильдии",
     "guilds": "Гильдии",
-    "commands": "Команды: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Префикс: {prefix}\n",
+    "commands": "Команды: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Префикс: {prefix}",
     "starts": "Начинается",
     "lastStart": "Последний старт",
-    "translation": "Переводы:\n> Английский: {en}\n> Герман: {de}\n",
+    "translation": "Переводы:\n> Английский: {en}\n> Герман: {de}",
     "embedTitle": "Статистика",
     "links": {
       "repo": "GitHub",
@@ -242,7 +242,7 @@
       "1": "Потоки {activity}",
       "2": "Слушает {activity}",
       "3": "Часы {activity}",
-      "4": "Статус: \"{message}\"\n",
+      "4": "Статус: \"{message}\"",
       "5": "Конкуренция в {activity}"
     },
     "mention": "Упоминание",

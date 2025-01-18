@@ -43,7 +43,7 @@
         "description": "Le code JavaScript à évaluer"
       }
     },
-    "finished": "commande évaluée :\n{code}\n",
+    "finished": "commande évaluée :\n{code}",
     "success": "{msg} sans erreurs.",
     "emptyRejection": "Rejet de promesse vide",
     "error": "{msg} avec l'erreur suivante:\n```\n{name}: {err}\n```"
@@ -59,8 +59,8 @@
       "usage": "<sh code>",
       "examples": "echo 'Bonjour le monde!'"
     },
-    "finished": "Commande bash évaluée :\n{code}\n",
-    "stdout": "{msg} avec la sortie suivante:\nstdout:\n{stdout}\n",
+    "finished": "Commande bash évaluée :\n{code}",
+    "stdout": "{msg} avec la sortie suivante:\nstdout:\n{stdout}",
     "stderr": "stderr:\n{stderr}",
     "error": "{msg} avec l'erreur suivante:\n```\n{name}: {err}\n```"
   },

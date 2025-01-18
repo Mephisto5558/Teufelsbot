@@ -120,13 +120,13 @@
     "getUser": {
       "notFound": "{user} no tiene cumpleaños :(",
       "embedTitle": "Cumpleaños de {user}",
-      "date": "{user} ha cumpleaños el **{month} {day}**. ¡Eso está en {daysUntil} días!\n",
+      "date": "{user} ha cumpleaños el **{month} {day}**. ¡Eso está en {daysUntil} días!",
       "newAge": "Ellos girarán {age} ese día."
     },
     "getAll": {
       "embedTitle": "Los próximos cumpleaños",
-      "today": "**Hoy**",
-      "date": "**{month} {day}**",
+      "today": "Hoy",
+      "date": "{month} {day}",
       "notFound": "Nadie tiene un juego de cumpleaños..."
     }
   },
@@ -706,11 +706,11 @@
     "confirmation": "borrar todo",
     "needConfirm": "Necesitas confirmar esta acción escribiendo `CLEAR ALL` en la opción de confirmación!",
     "embedTitle": "Disparadores",
-    "embedTitleOne": "**Disparador {id}:**",
+    "embedTitleOne": "Disparador {id}:",
     "embedDescriptionOne": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard:** {wildcard}",
-    "longEmbedDescription": "ID: {id}\n> Disparador: {trigger}\n> Respuesta: {response}\n> Comodino: {wildcard}\n\n",
+    "longEmbedDescription": "ID: {id}\n> Disparador: {trigger}\n> Respuesta: {response}\n> Comodino: {wildcard}",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Disparador:**\n{trigger}\n**Respuesta:**\n{response}\n**Comodino: **{wildcard}\n",
+    "shortFieldValue": "**Disparador:**\n{trigger}\n**Respuesta:**\n{response}\n**Comodino: **{wildcard}",
     "first25": "Los primeros 25 disparadores. Obtenga más con la opción 'corto'."
   },
   "vote": {

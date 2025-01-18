@@ -86,7 +86,7 @@
     "cannotEdit": "Je ne peux pas modifier ce message !",
     "emptyJson": "Le JSON que vous avez fourni est vide!",
     "link": "Lier",
-    "error": "Une erreur est survenue lors de l'envoi de votre JSON personnalisé :\n{err}\n",
+    "error": "Une erreur est survenue lors de l'envoi de votre JSON personnalisé :\n{err}",
     "success": "Le message a été modifié. {link}"
   },
   "record": {

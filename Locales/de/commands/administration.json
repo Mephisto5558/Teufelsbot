@@ -268,7 +268,7 @@
       "channels": "Kanäle",
       "users": "Mitglieder",
       "embedTitle": "Aktualisierte Befehl-Einstellungen für \"{commandName}\"",
-      "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sieh alle verbotenen Rollen/Kanäle/Mitglieder, indem du {commandMention} mit der `get` Option ausführst.||\n",
+      "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sieh alle verbotenen Rollen/Kanäle/Mitglieder, indem du {commandMention} mit der `get` Option ausführst.||",
       "embed": {
         "enabled": "Entfernt (Erlaubt)",
         "disabled": "Hinzugefügt (Verboten)"

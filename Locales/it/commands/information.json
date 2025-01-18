@@ -38,7 +38,7 @@
     "embedTitle": "Statistiche di Comando per {mode}",
     "notFound": "Questo comando non esiste!",
     "embedDescriptionOne": "Il comando {command} è stato eseguito {total} volte (Slash: {slash} <unk> Prefisso: {prefix}).",
-    "embedDescriptionMany": "Questi sono 10 comandi più usati:\n",
+    "embedDescriptionMany": "Questi sono 10 comandi più usati:",
     "embedFieldValue": "{total} (Slash: {slash} <unk> Prefisso: {prefix})"
   },
   "dashboard": {
@@ -111,10 +111,10 @@
     "shard": "Frammento",
     "guild": "Id Della Gilda Interna",
     "guilds": "Gilde",
-    "commands": "Comandi: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefisso: {prefix}\n",
+    "commands": "Comandi: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefisso: {prefix}",
     "starts": "Inizia",
     "lastStart": "Ultimo avvio",
-    "translation": "Traduzioni:\n> Italiano: {en}\n> Tedesco: {de}\n> Tutte le altre lingue sono tradotte automaticamente.\n",
+    "translation": "Traduzioni:\n> Italiano: {en}\n> Tedesco: {de}\n> Tutte le altre lingue sono tradotte automaticamente.",
     "embedTitle": "Statistiche",
     "links": {
       "repo": "GitHub",
@@ -242,7 +242,7 @@
       "1": "Streams {activity}",
       "2": "Ascolta {activity}",
       "3": "Orologi {activity}",
-      "4": "Stato: \"{message}\"\n",
+      "4": "Stato: \"{message}\"",
       "5": "In competizione in {activity}"
     },
     "mention": "Menzione",

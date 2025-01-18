@@ -43,7 +43,7 @@
         "description": "Der auszuführende JavaScript-Code"
       }
     },
-    "finished": "Code:\n{code}\n",
+    "finished": "Code:\n{code}",
     "success": "{msg} wurde fehlerlos ausgeführt.",
     "emptyRejection": "Leere Promise-Ablehnung",
     "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
@@ -59,8 +59,8 @@
       "usage": "<SH-Code>",
       "examples": "echo 'Hallo Welt!'"
     },
-    "finished": "Bash Code:\n{code}\n",
-    "stdout": "{msg} wurde mit folgender Ausgabe ausgeführt:\nstdout:\n{stdout}\n",
+    "finished": "Bash Code:\n{code}",
+    "stdout": "{msg} wurde mit folgender Ausgabe ausgeführt:\nstdout:\n{stdout}",
     "stderr": "stderr:\n{stderr}",
     "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
   },

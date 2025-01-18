@@ -116,12 +116,12 @@
     "getUser": {
       "notFound": "{user} n'a pas d'anniversaire :(",
       "embedTitle": "Anniversaire de {user}",
-      "date": "{user} a l'anniversaire le **{month} {day}**.\n",
+      "date": "{user} a l'anniversaire le **{month} {day}**.",
       "newAge": "Il/Elle tournera {age} ce jour."
     },
     "getAll": {
       "embedTitle": "Les prochains anniversaires",
-      "date": "**{month} {day}**",
+      "date": "{month} {day}",
       "notFound": "Personne n'a de set d'anniversaire..."
     }
   },
@@ -668,11 +668,11 @@
     "confirmation": "tout effacer",
     "needConfirm": "Vous devez confirmer cette action en écrivant `CLEAR TOL` dans l'option de confirmation!",
     "embedTitle": "Déclencheurs",
-    "embedTitleOne": "**Déclencher {id}:**",
+    "embedTitleOne": "Déclencher {id}:",
     "embedDescriptionOne": "**Déclenchement :**\n{trigger}\n**Réponse :**\n{response}\n **Carte jointe:** {wildcard}",
-    "longEmbedDescription": "ID : {id}\n> Déclenchement : {trigger}\n> Réponse : {response}\n> Caractère générique : {wildcard}\n\n",
+    "longEmbedDescription": "ID : {id}\n> Déclenchement : {trigger}\n> Réponse : {response}\n> Caractère générique : {wildcard}",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Déclenche :**\n{trigger}\n**Réponse :**\n{response}\n**Wildcard:** {wildcard}\n",
+    "shortFieldValue": "**Déclenche :**\n{trigger}\n**Réponse :**\n{response}\n**Wildcard:** {wildcard}",
     "first25": "Les 25 premiers déclencheurs. Obtenez plus avec l'option `short`."
   },
   "vote": {

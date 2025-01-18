@@ -86,7 +86,7 @@
     "cannotEdit": "Non posso modificare quel messaggio!",
     "emptyJson": "Il JSON che hai fornito è vuoto!",
     "link": "Link",
-    "error": "Si è verificato un errore durante il tentativo di inviare il tuo JSON:\n{err}\n",
+    "error": "Si è verificato un errore durante il tentativo di inviare il tuo JSON:\n{err}",
     "success": "Il messaggio è stato modificato. {link}"
   },
   "record": {
