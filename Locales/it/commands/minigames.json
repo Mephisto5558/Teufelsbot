@@ -97,7 +97,7 @@
       }
     },
     "games": "Giochi: {games}",
-    "statsInfo": "Statistiche fu<unk> r questa gilda:",
+    "statsInfo": "Statistiche per questa gilda:",
     "wins": "Vittorie: {wins}",
     "draws": "Disegni: {draws}",
     "losses": "Perdite: {losses}",

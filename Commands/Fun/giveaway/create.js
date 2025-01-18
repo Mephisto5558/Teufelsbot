@@ -1,5 +1,5 @@
 const
-  { Constants, roleMention, userMention } = require('discord.js'),
+  { Constants, roleMention, userMention, bold } = require('discord.js'),
   { timeValidator } = require('#Utils');
 
 /** @type {import('.')} */
@@ -56,8 +56,8 @@ module.exports = {
         embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? 0, 16) || (this.guild.db.giveaway?.embedColor ?? defaultSettings.embedColor),
         embedColorEnd: Number.parseInt(this.options.getString('embed_color_end')?.slice(1) ?? 0, 16) || (this.guild.db.giveaway?.embedColorEnd ?? defaultSettings.embedColorEnd),
         messages: {
-          giveaway: lang('newGiveaway'),
-          giveawayEnded: lang('giveawayEnded'),
+          giveaway: bold(lang('newGiveaway')),
+          giveawayEnded: bold(lang('giveawayEnded')),
           inviteToParticipate:
             `${this.options.getString('description', true)}\n\n`
             + (requiredRoles?.length > 0 ? lang('requiredRoles', `${requiredRoles.map(roleMention).join(', ')}\n`) : '')
