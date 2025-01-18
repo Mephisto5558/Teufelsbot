@@ -244,8 +244,13 @@
             "description": "Aktiviere (true) oder deaktiviere (false) das Protokollieren dieser Aktion"
           }
         }
+      },
+      "birthday": {
+        "description": "Konfiguriere die Geburtstagsnachricht und den Kanal."
       }
     },
+    "link": "Link",
+    "useDashboard": "Nutze das Dashboard ({link}), um diese Einstellung zu modifizieren.",
     "toggleModule": {
       "success": "Das {name} Modul wurde {state}."
     },
