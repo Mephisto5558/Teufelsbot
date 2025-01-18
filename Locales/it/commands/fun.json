@@ -125,6 +125,7 @@
     },
     "getAll": {
       "embedTitle": "I prossimi compleanni",
+      "today": "**Oggi**",
       "date": "**{month} {day}**",
       "notFound": "Nessuno ha un set di compleanno..."
     }
