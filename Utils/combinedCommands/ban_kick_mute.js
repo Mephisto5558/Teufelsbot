@@ -31,7 +31,7 @@ module.exports = async function ban_kick_mute(lang) {
 
   const
     target = this.options.getMember('target', true),
-    infoEmbedDescription = lang('infoEmbedDescription', { mod: this.user.tag, muteDuration, muteDurationRelative, reason }),
+    infoEmbedDescription = `${lang('infoEmbedDescription', { mod: this.user.tag, muteDuration, muteDurationRelative, reason })}\n\n`,
     userEmbed = new EmbedBuilder({
       title: lang('infoEmbedTitle'),
       description: lang('dmEmbedDescription', { guild: inlineCode(this.guild.name), mod: this.user.tag, muteDuration, muteDurationRelative, reason }),
@@ -48,7 +48,7 @@ module.exports = async function ban_kick_mute(lang) {
     let err = checkTargetManageable.call(this, target);
     if (!err && target.permissions.has(PermissionFlagsBits.Administrator)) err = 'cantPunishAdmin';
     if (err) {
-      resEmbed.data.description += lang('error', { err: lang(err), user: bold(target.user.tag) });
+      resEmbed.data.description += `${lang('error', { err: lang(err), user: bold(target.user.tag) })}\n`;
       return this.editReply({ embeds: [resEmbed] });
     }
 
@@ -62,7 +62,7 @@ module.exports = async function ban_kick_mute(lang) {
     else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
     else await target.disableCommunicationUntil(muteDurationMs, reason);
 
-    resEmbed.data.description += lang('success', { user: bold(target.user.tag), muteDuration, muteDurationRelative });
+    resEmbed.data.description += `${lang('success', { user: bold(target.user.tag), muteDuration, muteDurationRelative })}\n`;
     if (noMsg) resEmbed.data.description += lang('noDM');
 
     return this.editReply({ embeds: [resEmbed] });
@@ -90,7 +90,7 @@ module.exports = async function ban_kick_mute(lang) {
           const err = checkTargetManageable.call(this, selectedMember, lang);
 
           if (err) {
-            resEmbed.data.description += lang('error', { err: lang(err), user: selectedMember.user.tag });
+            resEmbed.data.description += `${lang('error', { err: lang(err), user: selectedMember.user.tag })}\n`;
             continue;
           }
 
@@ -104,7 +104,7 @@ module.exports = async function ban_kick_mute(lang) {
           else if (this.commandName == 'ban') await selectedMember.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
           else await selectedMember.disableCommunicationUntil(muteDurationMs, reason);
 
-          resEmbed.data.description += lang('success', { user: bold(selectedMember.user.tag), muteDuration, muteDurationRelative });
+          resEmbed.data.description += `${lang('success', { user: bold(selectedMember.user.tag), muteDuration, muteDurationRelative })}\n`;
           if (noMsg) resEmbed.data.description += lang('noDM');
         }
 

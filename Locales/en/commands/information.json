@@ -38,7 +38,7 @@
     "embedTitle": "Command Stats for {mode}",
     "notFound": "That command does not exist!",
     "embedDescriptionOne": "The {command} command has been run {total} times (Slash: {slash} | Prefix: {prefix}).",
-    "embedDescriptionMany": "These are 10 most used commands:\n",
+    "embedDescriptionMany": "These are 10 most used commands:",
     "embedFieldValue": "{total} (Slash: {slash} | Prefix: {prefix})"
   },
   "dashboard": {
@@ -111,10 +111,10 @@
     "shard": "Shard",
     "guild": "Internal Guild ID",
     "guilds": "Guilds",
-    "commands": "Commands: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefix: {prefix}\n",
+    "commands": "Commands: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefix: {prefix}",
     "starts": "Starts",
     "lastStart": "Last start",
-    "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.\n",
+    "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.",
     "embedTitle": "Stats",
     "links": {
       "repo": "GitHub",
@@ -242,7 +242,7 @@
       "1": "Streams {activity}",
       "2": "Listens to {activity}",
       "3": "Watches {activity}",
-      "4": "Status: \"{message}\"\n",
+      "4": "Status: \"{message}\"",
       "5": "Competing in {activity}"
     },
     "mention": "Mention",

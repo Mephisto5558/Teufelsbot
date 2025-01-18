@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder, userMention, inlineCode } = require('discord.js'),
+  { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder, userMention, inlineCode, bold } = require('discord.js'),
   { getTargetMembers, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
   sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
@@ -106,15 +106,15 @@ module.exports = {
 
       const targetData = data[target.id];
       if (targetData?.games > 0) {
-        embed.data.description = lang('games', inlineCode(targetData.games))
-          + lang('wins', formatStatCount(targetData.wins, targetData.games))
-          + lang('draws', formatStatCount(targetData.draws, targetData.games))
-          + lang('losses', formatStatCount(targetData.losses, targetData.games));
+        embed.data.description = `${lang('games', inlineCode(targetData.games))}\n\n`
+          + `${lang('wins', formatStatCount(targetData.wins, targetData.games))}\n`
+          + `${lang('draws', formatStatCount(targetData.draws, targetData.games))}\n`
+          + `${lang('losses', formatStatCount(targetData.losses, targetData.games))}\n\n`;
 
-        if (targetData.wonAgainst || targetData.lostAgainst || targetData.drewAgainst) embed.data.description += lang('statsInfo');
-        if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + (manageData.call(this, targetData.wonAgainst) || '> ' + lang('noOne')) + '\n';
-        if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + (manageData.call(this, targetData.lostAgainst) || '> ' + lang('noOne')) + '\n';
-        if (targetData.drewAgainst) embed.data.description += lang('drewAgainst') + (manageData.call(this, targetData.drewAgainst) || '> ' + lang('noOne'));
+        if (targetData.wonAgainst || targetData.lostAgainst || targetData.drewAgainst) embed.data.description += `${bold(lang('statsInfo'))}\n`;
+        if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + '\n' + (manageData.call(this, targetData.wonAgainst) || '> ' + lang('noOne')) + '\n\n';
+        if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + '\n' + (manageData.call(this, targetData.lostAgainst) || '> ' + lang('noOne')) + '\n\n';
+        if (targetData.drewAgainst) embed.data.description += lang('drewAgainst') + '\n' + (manageData.call(this, targetData.drewAgainst) || '> ' + lang('noOne')) + '\n';
       }
       else embed.data.description = target.id == this.member.id ? lang('youNoGamesPlayed', game) : lang('userNoGamesPlayed', { user: target.username, game });
 

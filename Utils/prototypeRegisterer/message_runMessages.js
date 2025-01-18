@@ -33,7 +33,7 @@ async function handleCounting() {
   await this.guild.updateDB(`channelMinigames.counting.${this.channel.id}`, { lastNumber: 0 });
   return this.reply(
     this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', bold(countingData.lastNumber))
-    + bold(this.client.i18n.__(/* eslint-disable-line sonarjs/no-incorrect-string-concat -- false positive */
+    + '\n' + bold(this.client.i18n.__(
       { locale: this.guild.localeCode },
       countingData.lastAuthor == this.user.id ? 'events.message.counting.sameUserTwice' : 'events.message.counting.wrongNumber'
     ))
@@ -76,7 +76,7 @@ async function handleWordchain() {
   if (wordchainData.chainedWords > 1) {
     return this.reply(
       this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.wordchain.error', { lastChar: bold(lastWordChar), count: bold(wordchainData.chainedWords) })
-      + bold(this.client.i18n.__({ locale: this.guild.localeCode }, msgId)) /* eslint-disable-line sonarjs/no-incorrect-string-concat -- false positive */
+      + '\n' + bold(this.client.i18n.__({ locale: this.guild.localeCode }, msgId))
     );
   }
 }

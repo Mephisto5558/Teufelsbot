@@ -63,7 +63,7 @@ const birthdayMainFunctions = {
           daysUntil: bold(Math.round(Math.abs(Date.now() - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / (secsInDay * msInSecond)))
         });
 
-        if (age < currentYear) embed.data.description += lang('getUser.newAge', bold(age));
+        if (age < currentYear) embed.data.description += `\n${lang('getUser.newAge', bold(age))}`;
       }
       else embed.data.description = lang('getUser.notFound', target.customName);
     }
@@ -86,9 +86,11 @@ const birthdayMainFunctions = {
       embed.data.description = data.length ? '' : lang('getAll.notFound');
       for (const [id, date] of data) {
         const
-          dateStr = date.getMonth() == today.getMonth() && date.getDate() == today.getDate()
-            ? `${lang('getAll.today')} 🎉`
-            : lang('getAll.date', { month: lang(`months.${date.getMonth() + 1}`), day: date.getDate() }),
+          dateStr = bold(
+            date.getMonth() == today.getMonth() && date.getDate() == today.getDate()
+              ? `${lang('getAll.today')} 🎉`
+              : lang('getAll.date', { month: lang(`months.${date.getMonth() + 1}`), day: date.getDate() })
+          ),
           age = getAge(date) + 1,
           msg = '> ' + userMention(id) + (age < currentYear ? ` (${age})` : '') + '\n';
 

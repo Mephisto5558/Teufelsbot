@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, codeBlock, inlineCode } = require('discord.js'),
+  { EmbedBuilder, Colors, codeBlock, inlineCode, bold } = require('discord.js'),
   { embedMaxFieldAmt, suffix } = require('#Utils').constants,
   { triggerQuery, findTriggerId } = require('./_utils');
 
@@ -25,7 +25,7 @@ module.exports = {
       if (!trigger) return this.editReply(lang('notFound'));
 
       const maxLength = 1900;
-      embed.data.title = lang('embedTitleOne', id);
+      embed.data.title = bold(lang('embedTitleOne', id));
       embed.data.description = lang('embedDescriptionOne', {
         trigger: codeBlock(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
         response: codeBlock(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix),
@@ -56,7 +56,7 @@ module.exports = {
           id, wildcard: inlineCode(wildcard),
           trigger: inlineCode(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
           response: inlineCode(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix)
-        }), '');
+        }) + '\n\n', '');
     }
 
     return this.editReply({ embeds: [embed] });

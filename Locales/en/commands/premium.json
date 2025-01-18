@@ -86,7 +86,7 @@
     "cannotEdit": "I cannot edit that message!",
     "emptyJson": "The JSON you provided is empty!",
     "link": "Link",
-    "error": "An error occurred while trying to send your custom JSON:\n{err}\n",
+    "error": "An error occurred while trying to send your custom JSON:\n{err}",
     "success": "The message has been edited. {link}"
   },
   "record": {

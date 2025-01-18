@@ -38,7 +38,7 @@
     "embedTitle": "Statistiques de la commande",
     "notFound": "Cette commande n'existe pas !",
     "embedDescriptionOne": "La commande {command} a été exécutée {count} fois.",
-    "embedDescriptionMany": "Voici 10 commandes les plus utilisées :\n",
+    "embedDescriptionMany": "Voici 10 commandes les plus utilisées :",
     "embedFieldValue": "{total} (Slash: {slash} | Préfixe : {prefix})"
   },
   "dashboard": {
@@ -112,7 +112,7 @@
     "guilds": "Guildes",
     "starts": "Début",
     "lastStart": "Dernier début",
-    "translation": "Traductions :\n> Anglais : {en}\n> Allemand : {de}\n",
+    "translation": "Traductions :\n> Anglais : {en}\n> Allemand : {de}",
     "embedTitle": "Stats",
     "links": {
       "repo": "GitHub",
@@ -239,7 +239,7 @@
       "1": "Streams {activity}",
       "2": "Écoute {activity}",
       "3": "Montres {activity}",
-      "4": "Statut : \"{message}\"\n",
+      "4": "Statut : \"{message}\"",
       "5": "Compétition en {activity}"
     },
     "mention": "Mentionner",
