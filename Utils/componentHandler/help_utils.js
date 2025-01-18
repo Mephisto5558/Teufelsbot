@@ -145,7 +145,7 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
       description: helpLang('description') ?? command.description,
       fields: createInfoFields.call(this, command, lang),
-      footer: { text: lang('one.embedFooterText', `"${(this.guild?.db.config[prefixKey] ?? this.client.defaultSettings.config[prefixKey]).map(e => e.prefix).join('", ")}"`) },
+      footer: { text: lang('one.embedFooterText', `"${(this.guild?.db.config[prefixKey] ?? this.client.defaultSettings.config[prefixKey]).map(e => e.prefix).join('", "')}"`) },
       color: Colors.Blurple
     });
 
