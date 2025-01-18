@@ -135,6 +135,8 @@ Object.defineProperty(Function.prototype, 'bBind', {
 Object.defineProperty(BaseInteraction.prototype, 'customReply', {
   value: customReply
 });
+
+// Note: Classes that re-reference client (e.g. GiveawaysManager, DB) MUST have a valueOf() function to prevent recursive JSON stringify'ing DoS'ing the whole node process
 Object.defineProperties(Client.prototype, {
   prefixCommands: { value: new Collection() },
   slashCommands: { value: new Collection() },
