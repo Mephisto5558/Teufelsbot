@@ -244,8 +244,13 @@
             "description": "Enable (true) or disable (false) logging the action"
           }
         }
+      },
+      "birthday": {
+        "description": "Configure the birthday channel and message."
       }
     },
+    "link": "Link",
+    "useDashboard": "Use the dashboard ({link}) to modify this setting.",
     "toggleModule": {
       "success": "The {name} module has been {state}."
     },
