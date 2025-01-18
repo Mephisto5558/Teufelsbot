@@ -20,4 +20,8 @@ module.exports = class GiveawaysManagerWithOwnDatabase extends GiveawaysManager 
     const { guildId } = this.getAllGiveaways().find(e => e.messageId == messageId) ?? {};
     return guildId ? this.client.db.delete('guildSettings', `${guildId}.giveaway.giveaways.${messageId}`) : true;
   }
+
+  valueOf() {
+    return this.constructor.name;
+  }
 };

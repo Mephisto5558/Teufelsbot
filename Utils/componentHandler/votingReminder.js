@@ -1,10 +1,10 @@
-const { ButtonStyle } = require('discord.js');
+const { ButtonStyle, MessageFlags } = require('discord.js');
 
 /** @type {import('.').votingReminder} */
 module.exports = async function votingReminder(lang, mode) {
   lang.__boundArgs__[0].backupPath = 'others.timeEvents.votingReminder';
 
-  await this.deferReply({ ephemeral: true });
+  await this.deferReply({ flags: MessageFlags.Ephemeral });
   await this.user.updateDB('votingReminderDisabled', mode == 'disable');
 
   /** @type {import('discord.js').APIButtonComponentWithCustomId} */

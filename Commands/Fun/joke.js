@@ -117,7 +117,7 @@ module.exports = {
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('global.anotherone'),
-          customId: `joke.${api.name ?? 'null'}.${type ?? 'null'}.${blacklist ?? 'null'}.${maxLength ?? 'null'}`,
+          customId: `${this.commandName}.${api.name ?? 'null'}.${type ?? 'null'}.${blacklist ?? 'null'}.${maxLength ?? 'null'}`,
           style: ButtonStyle.Primary
         })]
       });

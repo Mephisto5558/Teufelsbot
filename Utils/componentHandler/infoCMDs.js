@@ -1,7 +1,10 @@
 /* eslint camelcase: [error, { allow: [ban_kick_mute] }] */
 
 const
-  { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError, GuildEmoji, StringSelectMenuBuilder } = require('discord.js'),
+  {
+    EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle,
+    DiscordAPIError, GuildEmoji, StringSelectMenuBuilder, MessageFlags
+  } = require('discord.js'),
   { ban_kick_mute } = require('../combinedCommands'),
   { auditLogReasonMaxLength } = require('../constants.js'),
   { msInSecond } = require('../timeFormatter.js'),
@@ -22,16 +25,16 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
         throw err;
     });
 
-  if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], ephemeral: true });
+  if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], flags: MessageFlags.Ephemeral });
 
   const entityTypeSingular = entityType.slice(0, -1);
 
   switch (entityType) {
     case 'members': {
       if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']))
-        return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], ephemeral: true });
+        return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], flags: MessageFlags.Ephemeral });
       const err = checkTargetManageable.call(this, item);
-      if (err) return this.reply({ embeds: [embed.setDescription(lang(err))], ephemeral: true });
+      if (err) return this.reply({ embeds: [embed.setDescription(lang(err))], flags: MessageFlags.Ephemeral });
 
       const modal = new ModalBuilder({
         title: lang('modalTitle'),

@@ -1,19 +1,31 @@
+/**
+ * @template T
+ * @param {string}query
+ * @param {(e: T) => boolean}filter
+ * @param {import('discord.js').Collection<Snowflake, T>}cache
+ * @returns {T | undefined} */
+const searchCache = (query, filter, cache) => cache.find(e => filter(e) && [
+  e.id, e.user?.username ?? e.username, e.user?.globalName ?? e.globalName, e.nickname, e.customName
+].some(e => !!e && query.includes(e)));
+
 /** @type {import('.').__getTargetMember} */
 function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList) {
   if (interaction.inGuild()) {
     let target = interaction.options?.getMember(targetOptionName) ?? interaction.mentions?.members.at(seenList.length) ?? interaction.mentions?.members.first();
-    if (seenList.has(target?.id)) target = undefined;
-    if (!target && interaction.content) {
-      target = interaction.guild.members.cache.find(e => !seenList.has(e.id) && [e.user.id, e.user.username, e.user.globalName, e.nickname, e.customName]
-        .some(e => e && interaction.content.includes(e)));
+    if (interaction.content) {
+      if (!target || seenList.has(target.id)) target = searchCache(interaction.content, e => !seenList.has(e.id), interaction.guild.members.cache);
+      target ??= searchCache(interaction.content, e => !seenList.has(e.id), interaction.client.users.cache);
     }
-    if (target) return target;
-    if (returnSelf) return interaction.member;
+
+    if (target && !seenList.has(target.id)) return target;
+    return returnSelf && !seenList.has(interaction.member.id) ? interaction.member : undefined;
   }
 
-  const target = interaction.options?.getUser(targetOptionName) ?? interaction.mentions?.users.at(seenList.length) ?? interaction.mentions?.users.first();
+  let target = interaction.options?.getUser(targetOptionName) ?? interaction.mentions?.users.at(seenList.length) ?? interaction.mentions?.users.first();
+  if ((!target || seenList.has(target.id)) && interaction.content) target = searchCache(interaction.content, e => !seenList.has(e.id), interaction.client.users.cache);
   if (target && !seenList.has(target.id)) return target;
-  if (returnSelf) return interaction.user;
+
+  if (returnSelf && !seenList.has(interaction.user.id)) return interaction.user;
 }
 
 /** @type {import('.').getTargetMembers} */

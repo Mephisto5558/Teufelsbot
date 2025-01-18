@@ -1,5 +1,5 @@
 const
-  { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction, inlineCode } = require('discord.js'),
+  { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction, inlineCode, MessageFlags } = require('discord.js'),
   /** @type {import('.').autocompleteGenerator} */autocompleteGenerator = require('./autocompleteGenerator.js'),
   cooldowns = require('./cooldowns.js'),
   /** @type {import('.').commandMention} */ commandMention = require('./commandMention.js'),
@@ -93,7 +93,7 @@ async function checkPerms(command, lang) {
       if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
     }
   }
-  else await this.customReply({ embeds: [embed], ephemeral: true }, this instanceof Message ? PERM_ERR_MSG_DELETETIME : 0);
+  else await this.customReply({ embeds: [embed], flags: MessageFlags.Ephemeral }, this instanceof Message ? PERM_ERR_MSG_DELETETIME : 0);
 
   return true;
 }

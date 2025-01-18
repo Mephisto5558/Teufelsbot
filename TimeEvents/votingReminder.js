@@ -2,14 +2,9 @@ const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageFlags } = require('discord.js'),
   { msInSecond, secsInWeek } = require('#Utils').timeFormatter;
 
-/** @param {Client} client */
-async function waitForLogin(client) {
-  while (!client.token) await sleep(10);
-}
-
 module.exports = {
   time: '00 00 00 * * 1',
-  startNow: true,
+  startNow: false,
 
   /** @this {Client} */
   async onTick() {
@@ -36,7 +31,6 @@ module.exports = {
       }),
       users = Object.entries(this.db.get('userSettings')).filter(([, e]) => !e.votingReminderDisabled && e.lastVoted > today - msInSecond * secsInWeek * 2);
 
-    await waitForLogin(this);
     log('Started sending voting reminders').debug('Started sending voting reminders');
 
     let /** @type {import('discord.js').User | undefined} */user; // required for typing

@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, userMention, inlineCode } = require('discord.js'),
+  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, userMention, inlineCode, MessageFlags } = require('discord.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
   sendChallenge = require('./rps_sendChallenge.js'),
   emojis = { rock: '✊', paper: '🤚', scissors: '✌️' },
@@ -80,7 +80,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
       const choices = opponentId == this.client.user.id ? { player1: mode, player2: ['rock', 'paper', 'scissors'].random() } : this.guild.db.minigames?.rps[this.message.id] ?? {};
       if (!choices.player1 || !choices.player2) {
         const player = this.user.id == initiatorId ? 'player1' : 'player2';
-        if (choices[player]) return this.followUp({ content: lang('end.alreadyChosen', lang(choices[player])), ephemeral: true });
+        if (choices[player]) return this.followUp({ content: lang('end.alreadyChosen', lang(choices[player])), flags: MessageFlags.Ephemeral });
 
         choices.startedAt ??= Date.now();
         choices[player] = mode;

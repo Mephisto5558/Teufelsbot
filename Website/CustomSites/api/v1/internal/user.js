@@ -8,6 +8,6 @@ module.exports = {
     if (!req.user)
       return res.status(HTTP_STATUS_UNAUTHORIZED).json({ errorCode: HTTP_STATUS_UNAUTHORIZED, error: 'Not logged in' });
 
-    return res.json({ ...req.user, dev: this.client.config.devIds.has(req.user.id) });
+    return res.json({ ...req.user, avatarUrl: this.client.users.cache.get(req.user.id)?.avatar ?? req.user.avatar, dev: this.client.config.devIds.has(req.user.id) });
   }
 };

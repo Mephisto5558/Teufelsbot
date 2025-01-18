@@ -53,8 +53,8 @@ module.exports = {
     ctx.drawImage(overlayAvatar, 0, 0, baseAvatar.width, baseAvatar.height);
 
     delete embed.data.description;
-    embed.data.image = { url: 'attachment://avatarfusion.png' };
+    embed.data.image = { url: `attachment://${this.commandName}.png` };
 
-    return msg.edit({ embeds: [embed], files: [{ attachment: await canvas.toBuffer(), name: 'avatarfusion.png' }] });
+    return msg.edit({ embeds: [embed], files: [{ attachment: await canvas.toBuffer(), name: `${this.commandName}.png` }] });
   }
 };

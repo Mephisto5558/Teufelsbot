@@ -136,6 +136,8 @@ declare global {
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   type GenericFunction = (...args: any) => any;
 
+  type OmitFirstParameter<T extends GenericFunction> = Parameters<T> extends [unknown, ...infer Rest] ? Rest : never;
+
   /* type SlashCommand = Command.SlashCommand;
      type PrefixCommand = Command.PrefixCommand;
      type MixedCommand = Command.MixedCommand;
@@ -160,7 +162,7 @@ declare global {
     noDefer?: boolean;
 
     /**
-     * Do `interaction.deferReply({ ephemeral: true })`.
+     * Do `interaction.deferReply({ flags: MessageFlags.Ephemeral })`.
      *
      * Gets ignored if {@link command.noDefer} is `true`. */
     ephemeralDefer?: boolean;
@@ -185,14 +187,21 @@ declare global {
   type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = locals.BaseCommand<initialized>
     & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
     & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
-    & { run(
-      this: commandType extends 'slash'
-        ? Interaction<guildOnly>
-        : commandType extends 'prefix'
-          ? Message<guildOnly extends true ? true : boolean>
-          : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>,
-      lang: lang, client: Discord.Client<true>
-    ): Promise<never>; };
+    & {
+      /**
+       * `undefined` is only allowed if the command has Subcommands or Subcommand groups that have their own files.
+       * **Must be explicitly set, even if `undefined`.**
+       */
+      run: ((
+        this: commandType extends 'slash'
+          ? Interaction<guildOnly>
+          : commandType extends 'prefix'
+            ? Message<guildOnly extends true ? true : boolean>
+            : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>,
+        lang: lang, client: Discord.Client<true>
+      ) => Promise<never>)
+      | undefined;
+    };
 
   type commandOptions<initialized extends boolean = boolean> = {
     name: string;
@@ -278,12 +287,13 @@ declare global {
   type Interaction<inGuild extends boolean = boolean> = inGuild extends true
     ? GuildInteraction : GuildInteraction | DMInteraction;
 
-  // @ts-expect-error // inGuild needs to be overwritten otherwise typeguarding doesn't work.
-  interface PartialGuildMessage extends Discord.Partialize<Message<true>, 'type' | 'system' | 'pinned' | 'tts', 'content' | 'cleanContent' | 'author' | 'user'> {
-    inGuild(): this is PartialMessage<true>;
-  }
-
-  type PartialMessage<inGuild extends boolean = boolean> = inGuild extends true ? PartialGuildMessage : Discord.PartialMessage;
+  type PartialMessage<inGuild extends boolean = boolean> = Discord.PartialMessage & (
+    inGuild extends true ? {
+      guild: Message<true>['guild'];
+      guildId: Message<true>['guildId'];
+      inGuild(): true;
+    } : never
+  );
 
   // used to not get `any` on Message property when the object is Message | Interaction
   type OptionalInteractionProperties<inGuild extends boolean = boolean> = Partial<Interaction<inGuild>>;
@@ -330,7 +340,7 @@ export declare class TicTacToe extends DiscordTicTacToe {
   playAgain(interaction: Discord.ChatInputCommandInteraction): Promise<void>;
 }
 
-// #region mongoose-db
+// #region own libs
 declare module '@mephisto5558/mongoose-db' {
   interface NoCacheDB {
     /**
@@ -359,6 +369,12 @@ declare module '@mephisto5558/mongoose-db' {
     delete<DBK extends keyof Database>(this: DB, db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
     push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
     pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
+  }
+}
+
+declare module 'express' {
+  interface Request {
+    user?: NonNullable<Database['website']['sessions'][keyof Database['website']['sessions']]>['user'];
   }
 }
 

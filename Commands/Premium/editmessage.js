@@ -1,5 +1,5 @@
 const
-  { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants, codeBlock, hyperlink } = require('discord.js'),
+  { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants, codeBlock, hyperlink, MessageFlags } = require('discord.js'),
   { DiscordApiErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
   MODALSUBMIT_TIMEOUT = msInSecond * secsInMinute / 2; // 30s
 
@@ -48,19 +48,19 @@ module.exports = {
     catch (err) {
       if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
 
-      return this.reply({ content: lang('notFound'), ephemeral: true });
+      return this.reply({ content: lang('notFound'), flags: MessageFlags.Ephemeral });
     }
 
-    if (msg.author.id != this.client.user.id) return this.reply({ content: lang('notBotMessage'), ephemeral: true });
-    if (!msg.editable) return this.reply({ content: lang('cannotEdit'), ephemeral: true });
+    if (msg.author.id != this.client.user.id) return this.reply({ content: lang('notBotMessage'), flags: MessageFlags.Ephemeral });
+    if (!msg.editable) return this.reply({ content: lang('cannotEdit'), flags: MessageFlags.Ephemeral });
 
     void this.showModal(modal);
     try { modalInteraction = await this.awaitModalSubmit({ filter: i => i.customId == 'newContent_modal', time: MODALSUBMIT_TIMEOUT }); }
     catch (err) { if (err.code != 'InteractionCollectorError') throw err; }
 
-    if (!modalInteraction) return this.reply({ content: lang('global.menuTimedOut'), ephemeral: true });
+    if (!modalInteraction) return this.reply({ content: lang('global.menuTimedOut'), flags: MessageFlags.Ephemeral });
 
-    await modalInteraction.deferReply({ ephemeral: true });
+    await modalInteraction.deferReply({ flags: MessageFlags.Ephemeral });
     const content = modalInteraction.fields.getTextInputValue('newContent_text');
 
     /** @type {import('discord.js').APIEmbed & { content: string }} */

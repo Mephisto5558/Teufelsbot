@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
 const
-  { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType } = require('discord.js'),
+  { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType, Message } = require('discord.js'),
   { resolve, dirname, basename } = require('node:path'),
   { choicesMaxAmt, choiceValueMinLength, choiceValueMaxLength, descriptionMaxLength } = require('./constants');
 
 /** @type {import('.').formatCommand} */
 module.exports = function formatCommand(option, path, id, i18n) {
-  if ('options' in option) option.options = option.options.map(e => formatCommand(e, path, `${id}.options.${e.name}`, i18n));
+  if ('options' in option) {
+    // assume it is a dir and is in the top-level or one in (subcommand group)
+    if (!path.endsWith('.js') && ('run' in option || option.type == ApplicationCommandOptionType[ApplicationCommandOptionType.SubcommandGroup]))
+      option.options = option.options.map(e => ({ ...e, options: [...e.options ?? [], ...require(resolve(path, e.name)).options ?? []] }));
+    option.options = option.options.map(e => formatCommand(e, path, `${id}.options.${e.name}`, i18n));
+  }
 
   if ('run' in option) option.name ??= id.split('.').at(-1);
   if (/[A-Z]/.test(option.name)) {
@@ -61,8 +66,21 @@ module.exports = function formatCommand(option, path, id, i18n) {
   }
 
   if ('run' in option) {
-    /* eslint-disable-next-line custom/unbound-method -- not getting called here */
-    if (!option.disabled && !['function', 'async function', 'async run(', 'run('].some(e => String(option.run).startsWith(e)))
+    if (!path.endsWith('.js')) { // assume it is a dir
+      option.filePath ??= resolve(path, 'index.js');
+
+      const originalRun = option.run;
+      option.run = async function runWrapper(lang, ...args) {
+        const additionalParams = await originalRun?.call(this, lang, ...args);
+        if (additionalParams === false || additionalParams instanceof Message) return;
+
+        const subcommand = this.options?.getSubcommandGroup(false) ?? this.options?.getSubcommand(true) ?? this.args[0];
+
+        lang.__boundArgs__[0].backupPath += `.${subcommand.replaceAll(/_./g, e => e[1].toUpperCase())}`;
+        return require(resolve(path, `${subcommand}.js`)).run.call(this, lang, additionalParams, ...args);
+      };
+    }
+    else if (!option.disabled && !['function', 'async function', 'async run(', 'run('].some(e => String(option.run).startsWith(e)))
       throw new Error(`The run property of file "${id}" is not a function (Got "${typeof option.run}"). You cannot use arrow functions.`);
 
     option.filePath ??= resolve(path);

@@ -15,10 +15,12 @@ module.exports = {
     const
       member = getTargetMembers(this, { returnSelf: true }),
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
-      bannerURL = (await member.user.fetch()).bannerURL(),
-      status = member.presence?.activities.find(e => e.type == ActivityType.Custom && e.state);
+      status = member.presence?.activities.find(e => e.type == ActivityType.Custom && !!e.state);
 
     let type = member.user.bot ? 'Bot, ' : '';
+
+    // // Force fetch is required to fetch a user banner: https://discord.js.org/docs/packages/discord.js/14.17.2/User:Class#banner
+    if (!member.banner && !member.user.banner) await member.fetch(true);
 
     if (member.guild.ownerId == member.id) type += lang('guildOwner');
     else if (member.permissions.has(PermissionFlagsBits.Administrator)) type += lang('guildAdmin');
@@ -36,7 +38,7 @@ module.exports = {
         ),
         color: Number.parseInt((await getAverageColor(member.displayAvatarURL())).hex.slice(1), 16),
         thumbnail: { url: member.displayAvatarURL() },
-        image: { url: bannerURL && bannerURL + '?size=1024' },
+        image: { url: member.displayBannerURL({ size: ALLOWED_SIZES.at(-3) }) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 3rd largest resolution */
         footer: { text: member.id },
         fields: [
           { name: lang('mention'), value: member.user.toString(), inline: true },
@@ -71,7 +73,7 @@ module.exports = {
     embed.addFields(
       {
         name: lang('rolesWithPerms'), inline: false,
-        value: [...member.roles.cache.values()].filter(e => e.permissions.toArray().length && e.name != '@everyone').sort((a, b) => b.position - a.position)
+        value: [...member.roles.cache.values()].filter(e => e.permissions.bitfield != 0 && e.name != '@everyone').sort((a, b) => b.position - a.position)
           .join(', ')
       },
       {
@@ -83,11 +85,11 @@ module.exports = {
       }
     );
 
-    if (bannerURL) {
+    if (member.banner || member.user.banner) {
       components[0].components.push(new ButtonBuilder({
         label: lang('downloadBanner'),
         style: ButtonStyle.Link,
-        url: bannerURL + '?size=2048'
+        url: member.displayBannerURL({ size: ALLOWED_SIZES.at(-1) })
       }));
     }
 

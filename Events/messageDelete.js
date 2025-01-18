@@ -7,7 +7,7 @@ const
 
 
 /**
- * @this {Message<true> | PartialMessage<true>}
+ * @this {import('discord.js').OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
  * @param {lang}lang
  * @param {string | Record<string, string>} descriptionData */
 async function sendeMinigameDeletedEmbed(lang, descriptionData) {
@@ -23,7 +23,7 @@ async function sendeMinigameDeletedEmbed(lang, descriptionData) {
 }
 
 /**
- * @this {Message<true> | PartialMessage<true>}
+ * @this {import('discord.js').OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
  * @param {lang}lang */
 function countingHandler(lang) {
   const { lastNumber } = this.guild.db.channelMinigames?.counting?.[this.channel.id] ?? {};
@@ -34,7 +34,7 @@ function countingHandler(lang) {
 }
 
 /**
- * @this {Message<true> | PartialMessage<true>}
+ * @this {import('discord.js').OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
  * @param {lang}lang */
 function wordchainHandler(lang) {
   const { lastWordChar } = this.guild.db.channelMinigames?.wordchain?.[this.channel.id] ?? {};
@@ -44,9 +44,9 @@ function wordchainHandler(lang) {
   return sendeMinigameDeletedEmbed.call(this, lang, bold(this.originalContent));
 }
 
-/** @this {Message | PartialMessage} */
+/** @this {import('discord.js').ClientEvents['messageDelete'][0]} */
 module.exports = async function messageDelete() {
-  if (this.client.botType == 'dev' || !this.inGuild() || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
+  if (this.client.botType == 'dev' || !this.guild || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
 
   /** @type {lang} */
   const lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'commands.minigames.counting.userDeletedMsg' });
@@ -67,7 +67,7 @@ module.exports = async function messageDelete() {
 
   const
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageDelete })).entries
-      .find(e => (!this.user || e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},
+      .find(e => (e.target.id == this.user.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
       thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: ALLOWED_SIZES[3] }) } : undefined, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 3rd valid resolution */

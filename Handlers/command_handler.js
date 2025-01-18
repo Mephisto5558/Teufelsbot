@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
 const
   { readdir } = require('node:fs/promises'),
+  { resolve } = require('node:path'),
   { getDirectories, localizeUsage, formatCommand, filename } = require('#Utils');
 
 let
@@ -10,15 +11,21 @@ let
 /** @this {Client<false>} */
 module.exports = async function commandHandler() {
   for (const subFolder of await getDirectories('./Commands')) {
-    for (const file of await readdir(`./Commands/${subFolder}`)) {
-      if (!file.endsWith('.js')) continue;
+    for (const file of await readdir(`./Commands/${subFolder}`, { withFileTypes: true })) {
+      if (!file.name.endsWith('.js') && !file.isDirectory()) continue;
+
+      const filePath = resolve(file.parentPath, file.name);
 
       /** @type {Omit<command<string, boolean, true>, 'name' | 'category'> | undefined} */
-      const commandFile = require(`../Commands/${subFolder}/${file}`);
+      let commandFile;
+      try { commandFile = require(filePath); }
+      catch (err) {
+        if (err.code != 'MODULE_NOT_FOUND') throw err;
+      }
 
       if (!commandFile?.prefixCommand) continue;
 
-      const command = formatCommand(commandFile, `Commands/${subFolder}/${file}`, `commands.${subFolder.toLowerCase()}.${filename(file)}`, this.i18n);
+      const command = formatCommand(commandFile, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n);
 
       /* For some reason, this alters the slash command as well.
          That's why localizeUsage is only here and not in `Utils/formatSlashCommand.js`. */

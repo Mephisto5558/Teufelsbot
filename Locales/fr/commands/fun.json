@@ -121,7 +121,7 @@
     },
     "getAll": {
       "embedTitle": "Les prochains anniversaires",
-      "date": "**{month} {day}**\n",
+      "date": "**{month} {day}**",
       "notFound": "Personne n'a de set d'anniversaire..."
     }
   },

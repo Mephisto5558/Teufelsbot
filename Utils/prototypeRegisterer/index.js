@@ -133,9 +133,10 @@ Object.defineProperty(Function.prototype, 'bBind', {
 
 // #region Discord.js
 Object.defineProperty(BaseInteraction.prototype, 'customReply', {
-  value: customReply,
-  enumerable: false
+  value: customReply
 });
+
+// Note: Classes that re-reference client (e.g. GiveawaysManager, DB) MUST have a valueOf() function to prevent recursive JSON stringify'ing DoS'ing the whole node process
 Object.defineProperties(Client.prototype, {
   prefixCommands: { value: new Collection() },
   slashCommands: { value: new Collection() },
@@ -198,7 +199,7 @@ Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
   /**
    * @this {AutocompleteInteraction}
    * @param {AutocompleteInteraction['focused']['value']}val */
-  set(val) { this.options.data.find(e => e.focused).value = val; }
+  set(val) { this.options.data.find(e => !!e.focused).value = val; }
 });
 Object.defineProperty(Message.prototype, 'user', {
   /** @this {Message} */
@@ -271,16 +272,14 @@ Object.defineProperty(DB.prototype, 'generate', {
   value: async function generate(overwrite = false) {
     this.saveLog(`generating db files${overwrite ? ', overwriting existing data' : ''}`);
     await Promise.all(require('../../Templates/db_collections.json').map(({ key, value }) => this.set(key, value, overwrite)));
-  },
-  enumerable: false
+  }
 });
 
 // #endregion
 
 // #region discord-tictactoe
 Object.defineProperty(TicTacToe.prototype, 'playAgain', {
-  value: playAgain,
-  enumerable: false
+  value: playAgain
 });
 
 Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
@@ -302,8 +301,7 @@ Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
       if (this.disableButtonsAfterUsed) button.setDisabled(true);
     }
     return button.setCustomId(buttonIndex.toString()).setStyle(this.buttonStyles[buttonData]);
-  },
-  enumerable: false
+  }
 });
 
 // #endregion

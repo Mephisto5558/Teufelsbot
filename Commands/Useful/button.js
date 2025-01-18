@@ -24,8 +24,8 @@ module.exports = {
       options: [
         {
           name: 'style',
-          type: 'String',
-          choices: Object.keys(ButtonStyle).filter(Number).map(String),
+          type: 'Number',
+          choices: Object.values(ButtonStyle).filter(e => typeof e == 'number'),
           required: true
         },
         { name: 'emoji', type: 'String' },
@@ -50,7 +50,7 @@ module.exports = {
     const
       custom = this.options.getString('json', true),
       content = this.options.getString('content') ?? undefined,
-      isLink = this.options.getString('style', true) == ButtonStyle.Link,
+      isLink = ButtonStyle[ButtonStyle[this.options.getNumber('style', true)]] == ButtonStyle.Link,
       emoji = this.options.getString('emoji'),
 
       /** @type {Snowflake | null} */
@@ -84,7 +84,7 @@ module.exports = {
       const button = new ButtonBuilder(custom
         ? JSON.parse(custom)
         : {
-          style: Number.parseInt(this.options.getString('style')),
+          style: this.options.getNumber('style', true),
           label, emoji, url
         });
 

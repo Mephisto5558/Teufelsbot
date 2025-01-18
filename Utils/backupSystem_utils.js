@@ -102,7 +102,7 @@ async function fetchChannelThreads(channel, saveImages, maxMessagesPerChannel) {
 async function fetchMessageAttachments(message, saveImages) {
   return (await Promise.all(message.attachments.map(async ({ name, url }) => ({
     name, attachment: saveImages ? await fetchToBase64(url) : url
-  })))).filter(e => e.attachment);
+  })))).filter(e => !!e.attachment);
 }
 
 /** @type {import('.').BackupSystem.Utils['fetchTextChannelData']} */
