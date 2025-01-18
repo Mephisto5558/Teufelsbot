@@ -244,8 +244,13 @@
             "description": "Habilitar (verdadero) o deshabilitar (falso) el registro de la acción"
           }
         }
+      },
+      "birthday": {
+        "description": "Configurar el canal y el mensaje del cumpleaños."
       }
     },
+    "link": "Enlace",
+    "useDashboard": "Utiliza el panel ({link}) para modificar esta configuración.",
     "toggleModule": {
       "success": "El módulo {name} ha sido {state}."
     },
