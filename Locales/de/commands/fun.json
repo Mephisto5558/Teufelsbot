@@ -120,13 +120,13 @@
     "getUser": {
       "notFound": "{user} hat kein Geburtstag :(",
       "embedTitle": "{user}'s Geburtstag",
-      "date": "{user} hat am **{day}. {month}.** Geburtstag. Das ist in {daysUntil} Tagen!\n",
+      "date": "{user} hat am **{day}. {month}.** Geburtstag. Das ist in {daysUntil} Tagen!",
       "newAge": "Er/Sie wird {age} Jahre alt."
     },
     "getAll": {
       "embedTitle": "Die nächsten Geburtstage",
-      "today": "**Heute**",
-      "date": "**{day}. {month}**",
+      "today": "Heute",
+      "date": "{day}. {month}",
       "notFound": "Niemand hat seinen Geburtstag angegeben..."
     }
   },
@@ -240,7 +240,7 @@
     "edited": "Das Giveaway wurde bearbeitet!",
     "rerolled": "Die Gewinner-Auslosung wurde wiederholt!",
     "newGiveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
-    "giveawayEnded": "'🎉🎉 **GIVEAWAY BEENDET** 🎉🎉",
+    "giveawayEnded": "🎉🎉 GIVEAWAY BEENDET 🎉🎉",
     "requiredRoles": "Du musst mindestens eine dieser Rollen haben, um zu gewinnen: {roles}",
     "inviteToParticipate": "Reagiere mit {emoji}, um teilzunehmen!",
     "winMessage": "Gratulation, {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
@@ -706,11 +706,11 @@
     "confirmation": "lösche alles",
     "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!",
     "embedTitle": "Trigger",
-    "embedTitleOne": "**Auslöser {id}:**",
+    "embedTitleOne": "Auslöser {id}:",
     "embedDescriptionOne": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** {wildcard}",
-    "longEmbedDescription": "ID: {id}\n> Auslöser: {trigger}\n> Ausgabe: {response}\n> Wildcard: {wildcard}\n\n",
+    "longEmbedDescription": "ID: {id}\n> Auslöser: {trigger}\n> Ausgabe: {response}\n> Wildcard: {wildcard}",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Auslöser:**\n{trigger}\n**Ausgabe:**\n{response}\n**Wildcard:** {wildcard}\n",
+    "shortFieldValue": "**Auslöser:**\n{trigger}\n**Ausgabe:**\n{response}\n**Wildcard:** {wildcard}",
     "first25": "Die ersten 25 Auslöser. Erhalte mehr per `short` Option."
   },
   "vote": {
