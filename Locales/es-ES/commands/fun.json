@@ -125,7 +125,8 @@
     },
     "getAll": {
       "embedTitle": "Los próximos cumpleaños",
-      "date": "**{month} {day}**\n",
+      "today": "**Hoy**",
+      "date": "**{month} {day}**",
       "notFound": "Nadie tiene un juego de cumpleaños..."
     }
   },
