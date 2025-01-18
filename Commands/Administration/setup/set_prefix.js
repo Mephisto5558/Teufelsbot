@@ -1,4 +1,4 @@
-const addPrefix = require('./set_prefix');
+const addPrefix = require('./add_prefix');
 
 /** @type {import('.')} */
 module.exports = {
