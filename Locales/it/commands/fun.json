@@ -52,7 +52,7 @@
   "avatarfusion": {
     "description": "Fusioni due avatar.",
     "usage": {
-      "usage": "<base> [overlay] ['server' <unk> 'global']",
+      "usage": "<base> [overlay] ['server' | 'global']",
       "examples": "@User1 @User2 globale"
     },
     "options": {
@@ -239,8 +239,8 @@
     "ended": "Il giveaway è finito!",
     "edited": "Il giveaway è stato modificato!",
     "rerolled": "Il giveaway è stato risolto!",
-    "newGiveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
-    "giveawayEnded": "'🎉🎉 **GIVEAWAY ENDED** 🎉🎉",
+    "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
+    "giveawayEnded": "🎉🎉 GIVEAWAY ENDED 🎉🎉",
     "requiredRoles": "Devi avere almeno uno di questi ruoli per vincere: {roles}",
     "inviteToParticipate": "Reagire con {emoji} per partecipare!",
     "winMessage": "Congratulazioni, {winners}! Hai vinto **{this.prize}**!",
@@ -298,7 +298,7 @@
       }
     },
     "invalidJson": "L'API ha risposto con dati non validi.",
-    "notFound": "Non sono riuscito a trovare un poke<unk> mon con quel nome!",
+    "notFound": "Non sono riuscito a trovare un pokemon con quel nome!",
     "error": "Si è verificato un errore.",
     "types": "Tipo(i)",
     "abilities": "Abilità",
@@ -341,7 +341,7 @@
     "notFound": "Nessun post corrispondente alla tua ricerca.",
     "private": "Questo subreddit è privato.",
     "error": "Si è verificato un errore:\n{err}",
-    "embedFooterText": "Upvotes: {upvotes} ({ratio}) <unk> Downvotes: {downvotes} <unk> Commenti: {comments}"
+    "embedFooterText": "Upvotes: {upvotes} ({ratio}) | Downvotes: {downvotes} | Commenti: {comments}"
   },
   "sad": {
     "description": "invia un emojicon triste"
@@ -716,8 +716,8 @@
   "vote": {
     "description": "Crea un sondaggio per qualcosa",
     "usage": {
-      "usage": "<channel> [question] <unk> [opzione 1] <unk> [opzione 2] <unk> <option 3> ... <option 9>",
-      "examples": "#voto Avete bene? <unk> Sì <unk> No"
+      "usage": "<channel> [question] | [opzione 1] | [opzione 2] | <option 3> ... <option 9>",
+      "examples": "#voto Avete bene? | Sì | No"
     },
     "options": {
       "question": {
@@ -739,7 +739,7 @@
     },
     "noPerm": "Non hai il permesso di inviare messaggi in quel canale!",
     "noQuestion": "Hai bisogno di fornire una domanda per un sondaggio...",
-    "notEnoughOptions": "È necessario fornire almeno due opzioni (dividerle con un `<unk> `) per un sondaggio...",
+    "notEnoughOptions": "È necessario fornire almeno due opzioni (dividerle con un `|`) per un sondaggio...",
     "embedTitle": "Sondaggio",
     "embedFooterText": "Il creatore di questo sondaggio può reagire con ❌ per chiudere il sondaggio.",
     "buttonEmbedFooterText": "Il creatore di questo sondaggio può premere il pulsante ❌ per chiudere il sondaggio.",

@@ -243,7 +243,7 @@
       }
     },
     "charsetEmpty": "hai escluso tutti i caratteri del charset...",
-    "success": "La tua password sicura:\n{passwords}\n\n<unk> <unk> Creata con il seguente set di caratteri:\n{charset}\nUsa le opzioni di comando per aggiungere o rimuovere caratteri.<unk> <unk>"
+    "success": "La tua password sicura:\n{passwords}\n\n||Creata con il seguente set di caratteri:\n{charset}\nUsa le opzioni di comando per aggiungere o rimuovere caratteri.||"
   },
   "randomnumber": {
     "description": "Restituisce un numero casuale. Usa valori predefiniti per input non validi.",
