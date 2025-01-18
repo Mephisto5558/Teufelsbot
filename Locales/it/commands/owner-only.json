@@ -67,7 +67,7 @@
   "reload": {
     "description": "ricarica un file o una categoria",
     "usage": {
-      "usage": "<'comando' | 'file'> <Path relative to cwd>\n{prefix}{cmdName} <command | '*'>",
+      "usage": "<'comando' <unk> 'file'> <Path relative to cwd>\n{prefix}{cmdName} <command | '*'>",
       "examples": "file percorso/per/file\n{prefix}{cmdName} divertimento"
     },
     "options": {
