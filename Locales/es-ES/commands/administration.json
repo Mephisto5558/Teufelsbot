@@ -268,7 +268,7 @@
       "channels": "Canales",
       "users": "Miembros",
       "embedTitle": "Configuración de comandos actualizada para \"{commandName}\"",
-      "embedDescription": "La siguiente cantidad de roles/canales/miembros han sido cambiados:\n||Ver todos los roles/canales/miembros no permitidos usando {commandMention} con la opción `obtener`.||\n",
+      "embedDescription": "La siguiente cantidad de roles/canales/miembros han sido cambiados:\n||Ver todos los roles/canales/miembros no permitidos usando {commandMention} con la opción `obtener`.||",
       "embed": {
         "enabled": "Eliminado (Permitido)",
         "disabled": "Agregado (no permitido)"
