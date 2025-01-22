@@ -110,7 +110,7 @@ type Database = {
   leaderboards: Record<string, Record<userId, {
     wins?: number;
     draws?: number;
-    loses?: number;
+    losses?: number;
     games?: number;
     drewAgainst?: Record<userId | 'AI', number>;
     lostAgainst?: Record<userId | 'AI', number>;
@@ -289,6 +289,7 @@ type Database = {
       discriminator: number;
       nickname: string | null;
       avatarUrl: string;
+      bannerUrl: string;
       roles: string[]; // Rolename
       bot: boolean;
     }[];

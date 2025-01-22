@@ -1,8 +1,8 @@
 const
   { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder, userMention, inlineCode, bold } = require('discord.js'),
-  { getTargetMembers, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { getTargetMembers, getCommandName, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
-  sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
+  sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_losses', 'f_losses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
   TOPLIST_MAX_USERS = 3,
   maxPercentage = 100;
 
@@ -130,7 +130,7 @@ module.exports = {
 
     const component = new ActionRowBuilder({
       components: [new StringSelectMenuBuilder({
-        customId: `mgstats.${game}.sort.${settings}`,
+        customId: `${getCommandName.call(this.client, this.command)}.${game}.sort.${settings}`,
         options: sortOptions.map(value => ({
           value, label: lang(`options.leaderboard.options.sort.choices.${value}`),
           default: value == (sort ? `${sort}_${mode}` : 'm_wins')

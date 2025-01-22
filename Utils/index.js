@@ -16,6 +16,7 @@ const utils = {
   findAllEntries: require('./findAllEntries.js'),
   formatCommand: require('./formatCommand.js'),
   getAge: require('./getAge.js'),
+  getCommandName: require('./getCommandName.js'),
   getCommands: require('./getCommands.js'),
   getDirectories: require('./getDirectories.js'),
   getTargetChannel: require('./getTargetChannel.js'),
