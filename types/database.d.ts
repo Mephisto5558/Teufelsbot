@@ -289,6 +289,7 @@ type Database = {
       discriminator: number;
       nickname: string | null;
       avatarUrl: string;
+      bannerUrl: string;
       roles: string[]; // Rolename
       bot: boolean;
     }[];

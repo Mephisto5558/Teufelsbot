@@ -98,6 +98,7 @@ class BackupSystem {
         tag: e.user.tag,
         nickname: e.nickname,
         avatarUrl: e.displayAvatarURL(),
+        bannerUrl: e.displayBannerURL(),
         roles: [...e.roles.cache.map(e => e.name).values()],
         bot: e.user.bot
       }));
