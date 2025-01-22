@@ -52,7 +52,7 @@ module.exports = {
 
     if (!charset.length) return this.editReply(lang('charsetEmpty')); // Return if charset is empty
 
-    // Loop over the amount of passswords to be generated, break early if the length of all passwords combined is greater than `MAX_MESSAGE_LENGTH`
+    // Loop over the amount of passwords to be generated, break early if the length of all passwords combined is greater than `MAX_MESSAGE_LENGTH`
     for (let i = 0; i < count && passwordList.join('\n').length < MAX_MESSAGE_LENGTH; i++) {
       let
         lastRandomChar,

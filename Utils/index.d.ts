@@ -27,6 +27,7 @@ export {
   findAllEntires,
   formatCommand,
   getAge,
+  getCommandName,
   getCommands,
   getDirectories,
   getTargetChannel,
@@ -222,6 +223,11 @@ declare function formatCommand<T extends command | commandOptions<false>>(
 ): T;
 
 declare function getAge(date: Date): number;
+
+/**
+ * Gets the original command name, not the alias name
+ * @param command the command object or its name */
+declare function getCommandName(command: command | string): string;
 
 declare function getCommands(
   this: Client,
