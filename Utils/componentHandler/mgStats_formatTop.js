@@ -5,28 +5,30 @@ const
 
 /** @type {import('.').mgStats_formatTop} */
 module.exports = function formatTop(input, sort, mode, lang, maxLength = messageMaxLength, amt = 10) {
+  const data = input.map(([id, e]) => [id, { wins: 0, draws: 0, losses: 0, ...e }]);
+
   if (input.length > 1) {
     switch (mode) {
-      case 'draws': input.sort(([, a], [, b]) => b.draws - a.draws || b.wins - a.wins || a.losses - b.losses); break;
-      case 'losses': input.sort(([, a], [, b]) => b.losses - a.losses || a.wins - b.wins || b.draws - a.draws); break;
-      case 'alphabet_user': input.sort(([, a], [, b]) => this.guild.members.cache.get(a).user.username.localeCompare(
+      case 'draws': data.sort(([, a], [, b]) => b.draws - a.draws || b.wins - a.wins || a.losses - b.losses); break;
+      case 'losses': data.sort(([, a], [, b]) => b.losses - a.losses || a.wins - b.wins || b.draws - a.draws); break;
+      case 'alphabet_user': data.sort(([a], [b]) => this.guild.members.cache.get(a).user.username.localeCompare(
         this.guild.members.cache.get(b).user.username, lang.__boundArgs__[0].locale, { sensitivity: 'base' }
       )); break;
-      case 'alphabet_nick': input.sort(([, a], [, b]) => this.guild.members.cache.get(a).displayName.localeCompare(
+      case 'alphabet_nick': data.sort(([a], [b]) => this.guild.members.cache.get(a).displayName.localeCompare(
         this.guild.members.cache.get(b).displayName, lang.__boundArgs__[0].locale, { sensitivity: 'base' }
       )); break;
-      default: input.sort(([, a], [, b]) => b.wins - a.wins || a.draws - b.draws || a.losses - b.losses);
+      default: data.sort(([, a], [, b]) => b.wins - a.wins || a.draws - b.draws || a.losses - b.losses);
     }
 
-    if (sort == 'f') input.reverse();
+    if (sort == 'f') data.reverse();
   }
 
-  return input.slice(0, amt).reduce((acc, [id, stats], i) => acc + (
+  return data.slice(0, amt).reduce((acc, [id, stats], i) => acc + (
     acc.length > maxLength
       ? '...'
       : `${medals[i] ?? i + 1 + '.'} ${userMention(id)}\n`
-        + '> ' + lang('wins', stats.wins ?? 0)
-        + '> ' + lang('losses', stats.losses ?? 0)
-        + '> ' + lang('draws', stats.draws ?? 0)
+        + `> ${lang('wins', stats.wins)}\n`
+        + `> ${lang('losses', stats.losses)}\n`
+        + `> ${lang('draws', stats.draws)}\n\n`
   ), '');
 };
