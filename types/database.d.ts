@@ -178,7 +178,13 @@ type Database = {
 
         /** `undefined` only if lastNumber is `0` */
         lastAuthor?: userId;
+
+        /** The hightest number ever counted in this channel. */
+        highScore?: number;
       } | undefined>;
+
+      /** The hightest number ever counted in any counting channel in this guild. */
+      countingHighScore?: number;
       wordchain?: Record<channelId, {
         chainedWords: number;
 
