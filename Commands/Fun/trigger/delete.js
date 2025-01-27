@@ -14,7 +14,7 @@ module.exports = {
     const id = query ? Number(findTriggerId(query, oldData) ?? -1) : Math.max(...Object.keys(oldData).map(Number));
     if (id < 0) return this.editReply(lang('noneFound'));
 
-    await this.client.db.delete('guildSettings', `${this.guild.id}.triggers.${id}`);
+    await this.guild.deleteDB(`triggers.${id}`);
     return this.editReply(lang('deletedOne', inlineCode(id)));
   }
 };
