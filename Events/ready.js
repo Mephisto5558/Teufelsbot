@@ -18,6 +18,6 @@ module.exports = async function ready() {
   for (const [, guild] of this.guilds.cache) {
     if (!('config' in guild.db)) void guildCreate.call(guild);
 
-    void this.db.delete('guildSettings', `${guild.id}.leftAt`);
+    if ('leftAt' in guild.db) void guild.deleteDB('leftAt');
   }
 };

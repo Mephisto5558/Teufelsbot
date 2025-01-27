@@ -12,7 +12,7 @@ module.exports = {
   ],
 
   async run(lang) {
-    await this.client.db.delete('guildSettings', `${this.guild.id}.config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`);
+    await this.guild.deleteDB(`config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`);
     return addPrefix.run.call(this, lang);
   }
 };

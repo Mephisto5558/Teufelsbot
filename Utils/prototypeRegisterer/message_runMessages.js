@@ -23,16 +23,27 @@ async function handleCounting() {
   if (!countingData) return;
 
   if (countingData.lastNumber + 1 == this.originalContent && countingData.lastAuthor != this.user.id) {
-    await this.guild.updateDB(`channelMinigames.counting.${this.channel.id}`, { lastNumber: countingData.lastNumber + 1, lastAuthor: this.user.id });
+    await this.guild.updateDB(`channelMinigames.counting.${this.channel.id}`, {
+      lastNumber: countingData.lastNumber + 1,
+      lastAuthor: this.user.id,
+      highScore: Math.max(countingData.highScore ?? 0, countingData.lastNumber + 1)
+    });
+    await this.guild.updateDB('channelMinigames.countingHighScore', Math.max(this.guild.db.channelMinigames.countingHighScore ?? 0, countingData.lastNumber + 1));
+
     return this.react('✅');
   }
 
   void this.react('❌');
   if (!countingData.lastNumber) return;
 
-  await this.guild.updateDB(`channelMinigames.counting.${this.channel.id}`, { lastNumber: 0 });
+  await this.guild.deleteDB(`channelMinigames.counting.${this.channel.id}.lastNumber`);
+  await this.guild.deleteDB(`channelMinigames.counting.${this.channel.id}.lastAuthor`);
+
   return this.reply(
-    this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.counting.error', bold(countingData.lastNumber))
+    this.client.i18n.__(
+      { locale: this.guild.localeCode }, 'events.message.counting.error',
+      { lastNumber: bold(countingData.lastNumber), channelHighScore: bold(countingData.highScore ?? 0), guildHighscore: bold(this.guild.db.channelMinigames?.countingHighScore ?? 0) }
+    )
     + '\n' + bold(this.client.i18n.__(
       { locale: this.guild.localeCode },
       countingData.lastAuthor == this.user.id ? 'events.message.counting.sameUserTwice' : 'events.message.counting.wrongNumber'

@@ -34,7 +34,7 @@ const birthdayMainFunctions = {
   },
 
   remove: async function remove(lang) {
-    await this.client.db.delete('userSettings', `${this.user.id}.birthday`);
+    await this.user.deleteDB('birthday');
     return this.editReply(lang('removed'));
   },
 

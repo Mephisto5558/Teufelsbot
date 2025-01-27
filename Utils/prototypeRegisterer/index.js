@@ -216,6 +216,14 @@ Object.defineProperties(User.prototype, {
     /** @type {User['updateDB']} */
     value: async function updateDB(key, value) { return this.client.db.update('userSettings', `${this.id}${key ? '.' + key : ''}`, value); }
   },
+  deleteDB: {
+    /** @type {User['deleteDB']} */
+    value: async function deleteDB(key) {
+      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- just to be safe*/
+      if (!key) throw new Error('Missing key; cannot delete user using this method!');
+      return this.client.db.delete('userSettings', `${this.id}.${key}`);
+    }
+  },
 
   /** @type {Record<string, (this: User, val: any) => any>} */
   customName: {
@@ -255,6 +263,14 @@ Object.defineProperties(Guild.prototype, {
   updateDB: {
     /** @type {Guild['updateDB']} */
     value: function updateDB(key, value) { return this.client.db.update('guildSettings', this.id + (key ? `.${key}` : ''), value); }
+  },
+  deleteDB: {
+    /** @type {Guild['deleteDB']} */
+    value: async function deleteDB(key) {
+      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- just to be safe*/
+      if (!key) throw new Error('Missing key; cannot delete guild using this method!');
+      return this.client.db.delete('guildSettings', `${this.id}.${key}`);
+    }
   },
 
   /** @type {Record<string, (this: Guild, val: Guild['localeCode']) => Guild['localeCode']>} */

@@ -12,7 +12,7 @@ module.exports = {
     if (this.options.getString('confirmation', true).toLowerCase() != lang('confirmation')) return this.editReply(lang('needConfirm'));
     if (!oldData.__count__) return this.editReply(lang('noneFound'));
 
-    await this.client.db.delete('guildSettings', `${this.guild.id}.triggers`);
+    await this.guild.deleteDB('triggers');
     return this.editReply(lang('deletedAll', inlineCode(oldData.__count__)));
   }
 };
