@@ -35,7 +35,7 @@ type backupChannel = {
       attachment: `https://cdn.discordapp.com/attachments/${Snowflake}/${Snowflake}/${string}` & {} | Base64String;
     }[];
     pinned: boolean;
-    createdAt: `${ISODateTime}`;
+    createdAt: ISODateTime;
   }[];
   isNews: boolean;
   threads: {

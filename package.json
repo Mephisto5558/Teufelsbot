@@ -50,7 +50,7 @@
   "devDependencies": {
     "@mephisto5558/eslint-config": "latest",
     "@types/node": "^22.10.5",
-    "eslint": "^9.17.0"
+    "eslint": "^9.19.0"
   },
   "repository": {
     "type": "git",
