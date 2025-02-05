@@ -4,7 +4,8 @@ const
   { removeAfkStatus, sendAfkMessages } = require('../afk.js'),
   { msInSecond } = require('../timeFormatter.js'),
   MESSAGES_COOLDOWN = msInSecond * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
-  TEN_SECONDS = msInSecond * 10;
+  TEN_SECONDS = msInSecond * 10,
+  WORDCOUNT_MIN_WORDS = 5;
 
 module.exports = { runMessages };
 
@@ -92,6 +93,21 @@ async function handleWordchain() {
   }
 }
 
+/** @this {Message<true>} */
+async function handleWordcounter() {
+  /* eslint-disable-next-line regexp/no-super-linear-move -- char amount is limited to 4000 */
+  const wordCount = this.content.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu).length;
+
+  if (this.guild.db.wordCounter?.enabled) {
+    const { wordCounter } = this.guild.db;
+    await this.guild.updateDB('wordCounter.sum', wordCounter.sum + wordCount);
+    await this.guild.updateDB(`wordCounter.channel.${this.channel.id}`, (wordCounter[this.channel.id] ?? 0) + wordCount);
+  }
+
+  if (this.user.db.wordCounter?.enabled)
+    await this.user.updateDB('wordCounter.sum', this.user.db.wordCounter.sum + wordCount);
+}
+
 /**
  * @type {import('.').runMessages}
  * @this {ThisParameterType<import('.').runMessages>} */
@@ -103,6 +119,7 @@ function runMessages() {
 
   if (this.guild.db.triggers) replyToTriggers.call(this);
   if (Number(this.originalContent)) void handleCounting.call(this);
+  if (this.originalContent.length > WORDCOUNT_MIN_WORDS) void handleWordcounter.call(this);
 
   // Regex to match any letter from any language (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes)
   else if (/^\p{L}+$/u.test(this.originalContent)) void handleWordchain.call(this);
