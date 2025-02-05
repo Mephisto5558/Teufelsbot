@@ -131,6 +131,10 @@ type Database = {
     lastFeatureRequested?: number;
     votingReminderDisabled?: boolean;
     cmdStats?: cmdStats;
+    wordCounter?: {
+      enabled?: boolean;
+      sum?: number;
+    };
   } | undefined>;
 
   guildSettings: Record<guildId, {
@@ -225,7 +229,6 @@ type Database = {
         };
       };
     };
-
     gatekeeper?: {
       enable?: boolean;
       join?: {
@@ -259,6 +262,11 @@ type Database = {
       allowedToLoad?: number;
     };
     cmdStats?: cmdStats;
+    wordCounter?: {
+      enabled: boolean;
+      sum: number;
+      channels: Record<channelId, number>;
+    };
   } | undefined>;
 
   polls: Record<guildId, userId | undefined>;
