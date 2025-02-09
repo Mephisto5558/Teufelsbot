@@ -3,7 +3,10 @@ module.exports = {
   options: [],
 
   async run(lang) {
-    await (this.guild.db.wordCounter ? this.guild.updateDB('wordCounter.enabled', !this.guild.db.wordCounter.enabled) : this.guild.updateDB('wordCounter', { enabled: true, sum: 0, channels: {} }));
+    await (this.guild.db.wordCounter
+      ? this.guild.updateDB('wordCounter.enabled', !this.guild.db.wordCounter.enabled)
+      : this.guild.updateDB('wordCounter', { enabled: true, sum: 0, channels: {}, members: {} })
+    );
     return this.customReply(lang(this.guild.db.wordCounter.enabled ? 'enabled' : 'disabled'));
   }
 };

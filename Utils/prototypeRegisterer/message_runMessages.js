@@ -96,12 +96,17 @@ async function handleWordchain() {
 /** @this {Message<true>} */
 async function handleWordcounter() {
   /* eslint-disable-next-line regexp/no-super-linear-move -- char amount is limited to 4000 */
-  const wordCount = this.content.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu).length;
+  const wordCount = this.content.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu).length; // Matches letter(s) that can have apostrophes in them
 
   if (this.guild.db.wordCounter?.enabled) {
     const { wordCounter } = this.guild.db;
-    await this.guild.updateDB('wordCounter.sum', wordCounter.sum + wordCount);
-    await this.guild.updateDB(`wordCounter.channel.${this.channel.id}`, (wordCounter[this.channel.id] ?? 0) + wordCount);
+    void this.guild.updateDB('wordCounter.sum', wordCounter.sum + wordCount);
+
+    void this.guild.updateDB(`wordCounter.channels.${this.channel.id}`, (wordCounter.channels[this.channel.id] ?? 0) + wordCount);
+
+    const memberConter = wordCounter.members[this.user.id];
+    void this.guild.updateDB(`wordCounter.members.${this.user.id}.sum`, (memberConter?.sum ?? 0) + wordCount);
+    void this.guild.updateDB(`wordCounter.members.${this.user.id}.channels${this.channel.id}`, (memberConter?.channels[this.channel.id] ?? 0) + wordCount);
   }
 
   if (this.user.db.wordCounter?.enabled)
