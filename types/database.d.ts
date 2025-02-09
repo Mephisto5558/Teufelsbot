@@ -265,7 +265,11 @@ type Database = {
     wordCounter?: {
       enabled: boolean;
       sum: number;
-      channels: Record<channelId, number>;
+      channels: Record<channelId, number | undefined>;
+      members: Record<userId, {
+        sum: number;
+        channels: Record<channelId, number | undefined>;
+      } | undefined>;
     };
   } | undefined>;
 
