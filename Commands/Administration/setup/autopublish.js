@@ -7,7 +7,7 @@ module.exports = {
   }],
 
   async run(lang) {
-    const enabled = this.options.getBoolean('enabled');
+    const enabled = this.options.getBoolean('enabled', true);
     await this.guild.updateDB('config.autopublish', enabled);
     return this.customReply(lang('success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
   }
