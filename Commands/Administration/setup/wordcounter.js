@@ -1,12 +1,18 @@
 /** @type {import('.')} */
 module.exports = {
-  options: [],
+  options: [{
+    name: 'enabled',
+    type: 'Boolean',
+    required: true
+  }],
 
   async run(lang) {
+    const enabled = this.options.getBoolean('enabled', true);
     await (this.guild.db.wordCounter
-      ? this.guild.updateDB('wordCounter.enabled', !this.guild.db.wordCounter.enabled)
-      : this.guild.updateDB('wordCounter', { enabled: true, sum: 0, channels: {}, members: {} })
+      ? this.guild.updateDB('wordCounter.enabled', enabled)
+      : this.guild.updateDB('wordCounter', { enabled, sum: 0, channels: {}, members: {} })
     );
-    return this.customReply(lang(this.guild.db.wordCounter.enabled ? 'enabled' : 'disabled'));
+
+    return this.customReply(lang('success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
   }
 };

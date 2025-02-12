@@ -247,6 +247,14 @@
       },
       "birthday": {
         "description": "Configure the birthday channel and message."
+      },
+      "wordcounter": {
+        "description": "Enable (true) or disable (false) counting words in all user messages for stats.",
+        "options": {
+          "enabled": {
+            "description": "Count the amount of words members sent for statistics."
+          }
+        }
       }
     },
     "link": "Link",
@@ -307,6 +315,9 @@
         "voiceChannelActivity": "voice channel joins/leaves/switches",
         "sayCommandUsed": "/say (or similar) command uses"
       }
+    },
+    "wordcounter": {
+      "success": "{toggle} word counting."
     }
   }
 }
