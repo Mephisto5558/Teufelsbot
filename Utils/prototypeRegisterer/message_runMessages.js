@@ -5,7 +5,7 @@ const
   { msInSecond } = require('../timeFormatter.js'),
   MESSAGES_COOLDOWN = msInSecond * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
   TEN_SECONDS = msInSecond * 10,
-  WORDCOUNT_MIN_WORDS = 5;
+  WORDCOUNT_MIN_CHARS = 3;
 
 module.exports = { runMessages };
 
@@ -93,10 +93,12 @@ async function handleWordchain() {
   }
 }
 
-/** @this {Message<true>} */
-async function handleWordcounter() {
+/**
+ * @this {Message<true>}
+ * @param {string}cleanMsg */
+async function handleWordcounter(cleanMsg) {
   /* eslint-disable-next-line regexp/no-super-linear-move -- char amount is limited to 4000 */
-  const wordCount = this.content.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu).length; // Matches letter(s) that can have apostrophes in them
+  const wordCount = cleanMsg.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu).length; // Matches letter(s) that can have apostrophes in them
 
   if (this.guild.db.wordCounter?.enabled) {
     const { wordCounter } = this.guild.db;
@@ -109,7 +111,7 @@ async function handleWordcounter() {
     void this.guild.updateDB(`wordCounter.members.${this.user.id}.channels${this.channel.id}`, (memberConter?.channels[this.channel.id] ?? 0) + wordCount);
   }
 
-  if (this.user.db.wordCounter?.enabled)
+  if (this.user.db.wordCounter?.enabled) // todo command for this
     await this.user.updateDB('wordCounter.sum', this.user.db.wordCounter.sum + wordCount);
 }
 
@@ -124,7 +126,10 @@ function runMessages() {
 
   if (this.guild.db.triggers) replyToTriggers.call(this);
   if (Number(this.originalContent)) void handleCounting.call(this);
-  if (this.originalContent.length > WORDCOUNT_MIN_WORDS) void handleWordcounter.call(this);
+  if (this.originalContent.length > WORDCOUNT_MIN_CHARS) {
+    const cleanMsg = this.content.replaceAll(/<[#/:@t]:?(?:[\s\w]+:)?(?:\w|\d+)>/g, ''); // Removes emoji, timestamp, command, member and channel mentions
+    if (cleanMsg.length > WORDCOUNT_MIN_CHARS) void handleWordcounter.call(this, cleanMsg);
+  }
 
   // Regex to match any letter from any language (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes)
   else if (/^\p{L}+$/u.test(this.originalContent)) void handleWordchain.call(this);
