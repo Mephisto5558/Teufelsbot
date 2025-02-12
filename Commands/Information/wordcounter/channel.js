@@ -1,4 +1,4 @@
-/** @type {import('.')} */
+/** @type {import('.').default} */
 module.exports = {
   options: [
 
