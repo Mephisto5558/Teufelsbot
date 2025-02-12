@@ -10,7 +10,7 @@ module.exports = {
     const enabled = this.options.getBoolean('enabled', true);
     await (this.guild.db.wordCounter
       ? this.guild.updateDB('wordCounter.enabled', enabled)
-      : this.guild.updateDB('wordCounter', { enabled, sum: 0, channels: {}, members: {} })
+      : this.guild.updateDB('wordCounter', { enabled, enabledAt: new Date(), sum: 0, channels: {}, members: {} })
     );
 
     return this.customReply(lang('success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));

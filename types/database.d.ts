@@ -264,6 +264,7 @@ type Database = {
     cmdStats?: cmdStats;
     wordCounter?: {
       enabled: boolean;
+      enabledAt: Date;
       sum: number;
       channels: Record<channelId, number | undefined>;
       members: Record<userId, {
