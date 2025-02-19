@@ -278,7 +278,7 @@ declare global {
     __boundThis__: ThisParameterType<T>;
 
     /** The arguments to which the function is bound */
-    __boundArgs__: Parameters<T> ;
+    __boundArgs__: Parameters<T>;
   };
 
   // #region discord.js globals
