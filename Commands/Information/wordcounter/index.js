@@ -4,13 +4,13 @@ module.exports = {
   prefixCommand: false,
   dmPermission: true,
   options: [
-    { name: 'guild', type: 'Subcommand' },
+    { name: 'guild', type: 'SubcommandGroup' },
     {
       name: 'channel',
-      type: 'Subcommand',
+      type: 'SubcommandGroup',
       dmPermission: false
     },
-    { name: 'user', type: 'Subcommand' }
+    { name: 'user', type: 'SubcommandGroup' }
   ], beta: 1,
 
   run: undefined
