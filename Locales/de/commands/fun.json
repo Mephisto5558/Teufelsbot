@@ -120,7 +120,7 @@
     "getUser": {
       "notFound": "{user} hat kein Geburtstag :(",
       "embedTitle": "{user}'s Geburtstag",
-      "date": "{user} hat am **{day}. {month}.** Geburtstag. Das ist in {daysUntil} Tagen!",
+      "date": "{user} hat am **{day}. {month}** Geburtstag. Das ist in {daysUntil} Tagen!",
       "newAge": "Er/Sie wird {age} Jahre alt."
     },
     "getAll": {
