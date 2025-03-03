@@ -1,8 +1,9 @@
 /** @type {import('.').default} */
 module.exports = {
-  options: [
-
-  ],
+  options: [{
+    name: 'get',
+    type: 'Subcommand'
+  }],
 
   async run(lang) {
 

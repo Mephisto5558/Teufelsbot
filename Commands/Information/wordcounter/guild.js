@@ -6,14 +6,18 @@ const
 /** @type {import('.').default} */
 module.exports = {
   options: [{
-    name: 'guild_id',
-    type: 'String',
-    autocompleteOptions: function () {
-      return this.client.guilds.cache
-        .filter(e => e.members.cache.has(this.user.id))
-        .map(e => ({ name: e.name, value: e.id }));
-    },
-    strictAutocomplete: true
+    name: 'get',
+    type: 'Subcommand',
+    options: [{
+      name: 'guild_id',
+      type: 'String',
+      autocompleteOptions: function () {
+        return this.client.guilds.cache
+          .filter(e => e.members.cache.has(this.user.id))
+          .map(e => ({ name: e.name, value: e.id }));
+      },
+      strictAutocomplete: true
+    }]
   }],
 
   async run(lang) {
