@@ -247,6 +247,14 @@
       },
       "birthday": {
         "description": "Konfiguriere die Geburtstagsnachricht und den Kanal."
+      },
+      "wordcounter": {
+        "description": "Zähle Wörter in allen Nachrichten.",
+        "options": {
+          "enabled": {
+            "description": "Zähle Wörter in allen Nachrichten."
+          }
+        }
       }
     },
     "link": "Link",
@@ -307,6 +315,9 @@
         "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
         "sayCommandUsed": "/say, /embed Befehls-Verwendung"
       }
+    },
+    "wordcounter": {
+      "success": "Wortzählung wurde {toggle}."
     }
   }
 }
