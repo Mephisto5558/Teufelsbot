@@ -23,7 +23,6 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
    * @param {string}_
    * @param {bigint | Record<string, unknown> | undefined}v */
   function stringifyReplacer(_, v) {
-    if (typeof v == 'bigint') return v.toString();
     if (v != undefined && typeof v === 'object') {
       if (seen.has(v)) return '[Circular]';
       seen.add(v);
