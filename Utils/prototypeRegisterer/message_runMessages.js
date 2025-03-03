@@ -100,19 +100,31 @@ async function handleWordcounter(cleanMsg) {
   /* eslint-disable-next-line regexp/no-super-linear-move -- char amount is limited to 4000 */
   const wordCount = cleanMsg.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu).length; // Matches letter(s) that can have apostrophes in them
 
+  const dbPromises = [];
   if (this.guild.db.wordCounter?.enabled) {
     const { wordCounter } = this.guild.db;
-    void this.guild.updateDB('wordCounter.sum', wordCounter.sum + wordCount);
-
-    void this.guild.updateDB(`wordCounter.channels.${this.channel.id}`, (wordCounter.channels[this.channel.id] ?? 0) + wordCount);
-
     const memberConter = wordCounter.members[this.user.id];
-    void this.guild.updateDB(`wordCounter.members.${this.user.id}.sum`, (memberConter?.sum ?? 0) + wordCount);
-    void this.guild.updateDB(`wordCounter.members.${this.user.id}.channels${this.channel.id}`, (memberConter?.channels[this.channel.id] ?? 0) + wordCount);
+
+    dbPromises.push(
+      this.guild.updateDB('wordCounter.sum', wordCounter.sum + wordCount),
+      this.guild.updateDB(`wordCounter.channels.${this.channel.id}`, (wordCounter.channels[this.channel.id] ?? 0) + wordCount),
+      this.guild.updateDB(`wordCounter.members.${this.user.id}.sum`, (memberConter?.sum ?? 0) + wordCount),
+      this.guild.updateDB(`wordCounter.members.${this.user.id}.channels.${this.channel.id}`, (memberConter?.channels[this.channel.id] ?? 0) + wordCount)
+    );
   }
 
-  if (this.user.db.wordCounter?.enabled) // todo command for this
-    await this.user.updateDB('wordCounter.sum', this.user.db.wordCounter.sum + wordCount);
+  if (this.user.db.wordCounter?.enabled) {
+    const { wordCounter } = this.user.db;
+    const guildCounter = wordCounter.guilds[this.guild.id];
+
+    dbPromises.push(
+      this.user.updateDB('wordCounter.sum', wordCounter.sum + wordCount),
+      this.user.updateDB(`wordCounter.guilds.${this.guild.id}.sum`, (guildCounter?.sum ?? 0) + wordCount),
+      this.user.updateDB(`wordCounter.guilds.${this.guild.id}.channels.${this.channel.id}`, (guildCounter?.channels[this.channel.id] ?? 0) + wordCount)
+    );
+  }
+
+  return Promise.allSettled(dbPromises);
 }
 
 /**
