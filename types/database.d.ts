@@ -132,8 +132,13 @@ type Database = {
     votingReminderDisabled?: boolean;
     cmdStats?: cmdStats;
     wordCounter?: {
-      enabled?: boolean;
-      sum?: number;
+      enabled: boolean;
+      enabledAt?: Date;
+      sum: number;
+      guilds: Record<guildId, {
+        sum: number;
+        channels: Record<channelId, number | undefined>;
+      } | undefined>;
     };
   } | undefined>;
 
@@ -264,7 +269,7 @@ type Database = {
     cmdStats?: cmdStats;
     wordCounter?: {
       enabled: boolean;
-      enabledAt: Date;
+      enabledAt?: Date;
       sum: number;
       channels: Record<channelId, number | undefined>;
       members: Record<userId, {

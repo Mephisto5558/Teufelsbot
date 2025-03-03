@@ -1,29 +1,6 @@
 {
   "categoryName": "Information",
   "categoryDescription": "Informative commands",
-  "wordcounter": {
-    "description": "See how many words were said in a guild, a channel or by a member.",
-    "options": {
-      "guild": {
-        "description": "See the top channels and top members of a guild.",
-        "options": {
-          "guild_id": {
-            "description": "The target guild's ID. Defaults to this one."
-          }
-        }
-      },
-      "channel": {},
-      "user": {}
-    },
-    "guild": {
-      "invalidGuild": "The guild id provided is invalid.",
-      "notEnabled": "Word counting is not enabled. An Administrator can enable it by running {command}.",
-      "embedTitle": "{guild} Stats",
-      "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}",
-      "channelEmbedTitle": "Channel stats",
-      "memberEmbedTitle": "Member stats"
-    }
-  },
   "avatar": {
     "description": "shows the user's avatar",
     "options": {
@@ -309,5 +286,51 @@
     "description": "get the link to the bots's feature request and voting page",
     "embedTitle": "Voting",
     "embedDescriptionVote": "Click {link} to open the voting and feature request webpage."
+  },
+  "wordcounter": {
+    "description": "See how many words were said in a guild, a channel or by a member.",
+    "options": {
+      "guild": {
+        "description": "See the top channels and top members of a guild.",
+        "options": {
+          "guild_id": {
+            "description": "The target guild's ID. Defaults to this one."
+          }
+        }
+      },
+      "channel": {},
+      "user": {
+        "description": "Configure the wordcounter for you of see your words.",
+        "options": {
+          "enable": {
+            "description": "Enable or disable the wordcounter for you.",
+            "options": {
+              "enabled": {
+                "description": "Enable or disable the wordcounter for you."
+              }
+            }
+          },
+          "get": {
+            "description": "See the amount of words you said."
+          }
+        }
+      }
+    },
+    "guild": {
+      "invalidGuild": "The guild id provided is invalid.",
+      "notEnabled": "Word counting is not enabled. An Administrator can enable it by running {command}.",
+      "embedTitle": "{guild} Stats",
+      "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}",
+      "channelEmbedTitle": "Channel stats",
+      "memberEmbedTitle": "Member stats"
+    },
+    "user": {
+      "enable": {
+        "success": "{toggle} word counting for you."
+      },
+      "get": {
+        
+      }
+    }
   }
 }
