@@ -29,7 +29,7 @@ const
 function shouldDeleteMsg(msg, options) {
   const
     /* eslint-disable-next-line jsdoc/require-param -- false positive */
-    check = /** @param {GenericFunction}fn @param {string}option */ (fn, option) => !!(
+    check = /** @param {(...args: unknown[]) => boolean}fn @param {string}option */ (fn, option) => !!(
       !option
       || msg.content.toLowerCase()[fn](option.toLowerCase())
       || msg.embeds.some(e => !!e.description?.toLowerCase()[fn](option.toLowerCase()))
