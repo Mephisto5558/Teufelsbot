@@ -126,7 +126,7 @@ module.exports = {
     embed.data.title = lang('embedTitleTop10', game);
     embed.data.description = formatTop.call(
       this, Object.entries(data).filter(e => settings == 'all_users' || this.guild.members.cache.has(e[0])), sort, mode, lang, embedDescriptionMaxLength
-    ) || lang('noPlayers');
+    ) || lang('noPlayers'); /* eslint-disable-line @typescript-eslint/prefer-nullish-coalescing -- the function can return an empty string */
 
     const component = new ActionRowBuilder({
       components: [new StringSelectMenuBuilder({

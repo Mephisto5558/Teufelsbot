@@ -29,11 +29,9 @@ const
 function shouldDeleteMsg(msg, options) {
   const
     /* eslint-disable-next-line jsdoc/require-param -- false positive */
-    check = /** @param {(...args: unknown[]) => boolean}fn @param {string}option */ (fn, option) => !!(
-      !option
-      || msg.content.toLowerCase()[fn](option.toLowerCase())
-      || msg.embeds.some(e => !!e.description?.toLowerCase()[fn](option.toLowerCase()))
-    ),
+    check = /** @param {(...args: unknown[]) => boolean}fn @param {string}option */ (fn, option) => !option
+      || !!msg.content.toLowerCase()[fn](option.toLowerCase())
+      || !!msg.embeds.some(e => !!e.description?.toLowerCase()[fn](option.toLowerCase())),
     checkCaps = () => !('caps_percentage' in options && options.caps_percentage > 0)
       || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * maxPercentage >= options.caps_percentage
       || msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * maxPercentage >= options.caps_percentage)
