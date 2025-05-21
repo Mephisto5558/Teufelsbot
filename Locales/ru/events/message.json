@@ -2,7 +2,7 @@
   "afkMsg": "{member} - AFK: {message} - {timestamp}",
   "afkEnd": "С возвращением, я удалил ваш AFK. Вы были AFK с {timestamp} ({formattedTime}).\nВаше сообщение AFK было: \"{message}\"",
   "counting": {
-    "error": "ВЫ ЗАВЕРШЕНЫ НА {lastNumber}!! Следующий номер: **1**.",
+    "error": "ВЫ ЗАВЕРШЕНЫ НА {lastNumber}!! Высокий рейтинг этого канала {channelHighscore}, высота гильдии - {guildHighscore}.\nСледующее число - **1**.",
     "wrongNumber": "Вы не можете посчитать?! Неправильный номер.",
     "sameUserTwice": "Нельзя подсчитать два числа подряд!"
   },

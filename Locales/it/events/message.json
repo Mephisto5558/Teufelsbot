@@ -2,7 +2,7 @@
   "afkMsg": "{member} è AFK: {message} - {timestamp}",
   "afkEnd": "Bentornato, ho rimosso il tuo AFK. Sei stato AFK da {timestamp} ({formattedTime}).\nIl tuo messaggio AFK era: \"{message}\"",
   "counting": {
-    "error": "RIPRISTINATO A {lastNumber}!! Il numero successivo è **1**.",
+    "error": "VOI RUINATO A {lastNumber}!! Il punteggio superiore di questo canale è {channelHighscore}, il punteggio superiore di questa gilda è {guildHighscore}.\nIl numero successivo è **1**.",
     "wrongNumber": "Non puoi contare?! Numero errato.",
     "sameUserTwice": "Non puoi contare due numeri di fila!"
   },
