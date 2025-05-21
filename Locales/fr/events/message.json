@@ -2,7 +2,7 @@
   "afkMsg": "{member} est AFK: {message} - {timestamp}",
   "afkEnd": "Bienvenue, j'ai retiré votre AFK. Vous êtes AFK depuis {timestamp} ({formattedTime}).\nVotre message AFK était : \"{message}\"",
   "counting": {
-    "error": "VOUS RECONNAISSEZ À {lastNumber}!! Le prochain nombre est **1**.",
+    "error": "VOUS LE RECONNAISSEZ À {lastNumber}!! Ce canal est {channelHighscore}, le meilleur score de cette guilde est {guildHighscore}.\nLe prochain nombre est **1**.",
     "wrongNumber": "Vous ne pouvez pas compter ?! Numéro incorrect.",
     "sameUserTwice": "Vous ne pouvez pas compter deux nombres à la suite !"
   },
