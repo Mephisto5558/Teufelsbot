@@ -131,6 +131,15 @@ type Database = {
     lastFeatureRequested?: number;
     votingReminderDisabled?: boolean;
     cmdStats?: cmdStats;
+    wordCounter?: {
+      enabled: boolean;
+      enabledAt?: Date;
+      sum: number;
+      guilds: Record<guildId, {
+        sum: number;
+        channels: Record<channelId, number | undefined>;
+      } | undefined>;
+    };
   } | undefined>;
 
   guildSettings: Record<guildId, {
@@ -225,7 +234,6 @@ type Database = {
         };
       };
     };
-
     gatekeeper?: {
       enable?: boolean;
       join?: {
@@ -259,6 +267,16 @@ type Database = {
       allowedToLoad?: number;
     };
     cmdStats?: cmdStats;
+    wordCounter?: {
+      enabled: boolean;
+      enabledAt?: Date;
+      sum: number;
+      channels: Record<channelId, number | undefined>;
+      members: Record<userId, {
+        sum: number;
+        channels: Record<channelId, number | undefined>;
+      } | undefined>;
+    };
   } | undefined>;
 
   polls: Record<guildId, userId | undefined>;
