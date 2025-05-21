@@ -383,6 +383,7 @@ declare namespace constants {
     snowflakeMaxLength: 19,
     bulkDeleteMaxMessageAmt: 100,
     HTTP_STATUS_BLOCKED: 522,
+    JSON_SPACES: 2,
     suffix: '...';
   /* eslint-enable @typescript-eslint/no-magic-numbers */
 }

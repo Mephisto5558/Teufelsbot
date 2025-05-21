@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, userMention, bold } = require('discord.js'),
-  { getTargetMembers, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, monthsInYear } } = require('#Utils'),
+  { getTargetMembers, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, daysInYear, monthsInYear } } = require('#Utils'),
   currentYear = new Date().getFullYear();
 
 /**
@@ -55,12 +55,18 @@ const birthdayMainFunctions = {
 
       const birthday = target.user.db.birthday;
       if (birthday) {
-        const age = getAge(birthday) + 1;
+        birthday.setHours(0, 0, 0, 0);
+
+        const
+          daysUntil = Math.round(
+            Math.abs(new Date().setHours(0, 0, 0, 0) - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / (secsInDay * msInSecond) * 2
+          ) / 2 % daysInYear, // * 2) / 2 rounds it to the nearest .5
+          age = getAge(birthday) + (daysUntil > 0 ? 1 : 0);
 
         embed.data.description = lang('getUser.date', {
           user: target.customName,
           month: lang(`months.${birthday.getMonth() + 1}`), day: birthday.getDate(),
-          daysUntil: bold(Math.round(Math.abs(Date.now() - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / (secsInDay * msInSecond)))
+          daysUntil: bold(daysUntil)
         });
 
         if (age < currentYear) embed.data.description += `\n${lang('getUser.newAge', bold(age))}`;

@@ -43,7 +43,7 @@ if (!config.hideOverwriteWarning) {
     'Overwriting the following variables and functions (if they exist):'
     + '\n  Globals:    global.sleep, global.log, global.getEmoji'
     + `\n  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} Array#random, Array#unique, `
-    + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind'
+    + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind, BigInt#toJSON'
     + '\n  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
     + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, User#localeCode, Guild#db, guild#updateDB, '
     + 'Guild#localeCode, GuildMember#db'
@@ -125,6 +125,12 @@ Object.defineProperty(Function.prototype, 'bBind', {
     bound.__boundThis__ = thisArg;
     bound.__boundArgs__ = args;
     return bound;
+  },
+  enumerable: false
+});
+Object.defineProperty(BigInt.prototype, 'toJSON', {
+  value: function stringify() {
+    return this.toString();
   },
   enumerable: false
 });
