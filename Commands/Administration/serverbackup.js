@@ -145,7 +145,7 @@ module.exports = {
   run(lang) {
     const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
 
-    lang.__boundArgs__[0].backupPath += `.${this.options.getSubcommand()}`;
+    lang.__boundArgs__[0].backupPath.push(`${lang.__boundArgs__[0].backupPath[0]}.${this.options.getSubcommand()}`);
     return backupMainFunctions[this.options.getSubcommand()].call(this, lang, embed, this.options.getString('id'));
   }
 };

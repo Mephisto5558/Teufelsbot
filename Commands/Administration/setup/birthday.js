@@ -10,7 +10,6 @@ module.exports = {
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing domain url in config.json',
 
   async run(lang) {
-    lang.__boundArgs__[0].backupPath = lang.__boundArgs__[0].backupPath.slice(0, lang.__boundArgs__[0].backupPath.lastIndexOf('.'));
     return this.customReply(lang('useDashboard', hyperlink(lang('link'), `${this.client.config.website.domain}/guild/${this.guild.id}#birthday`)));
   }
 };

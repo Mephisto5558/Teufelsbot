@@ -2,7 +2,7 @@
 
 import type Discord from 'discord.js';
 import type DiscordTicTacToe from 'discord-tictactoe';
-import type { I18nProvider } from '@mephisto5558/i18n';
+import type { i18nFuncConfig, I18nProvider } from '@mephisto5558/i18n';
 
 import type locals from './locals';
 import type DBStructure from './database';
@@ -143,7 +143,7 @@ declare global {
      type MixedCommand = Command.MixedCommand;
      type CommandOptions = Command.CommandOptions; */
 
-  type langBoundArgs = [ { locale?: string; errorNotFound?: boolean; undefinedNotFound?: boolean; backupPath?: string } ];
+  type langBoundArgs = [i18nFuncConfig];
 
   /** {@link Function.prototype.bBind bBind}ed {@link I18nProvider.__} function */
   type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string> & { __boundArgs__: langBoundArgs };
