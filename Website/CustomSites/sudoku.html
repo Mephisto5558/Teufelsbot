@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en' style='background-color: darkslategrey; visibility: hidden /* removed via js when page loaded */;'>
+<html lang='en' style='background-color: darkslategrey; /* removed via js when page loaded */;'>
   <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -8,11 +8,14 @@
     <title>Sudoku</title>
 
     <script type='module' src='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js'
-      onload="loadLocal('css', 'index.css', 'https://mephisto5558.github.io/Website-Assets/min/css/sudoku.css')">
+      onload="loadLocal('css', '/css/sudoku.css', 'https://mephisto5558.github.io/Website-Assets/min/css/sudoku.css')">
     </script>
   </head>
   <body>
-    <div id='sudoku-container'>
+    <div id='loading-container'>
+      <p>Loading Sudoku...</p>
+    </div>
+    <div id='sudoku-container' style='visibility: hidden; /* removed via js when sudoku loaded */'>
       <table id='sudoku'>
         <caption>Sudoku of the day</caption>
 
@@ -131,15 +134,12 @@
             <td><input data-group='9' data-col='9' data-row='9' type='number' required autocomplete='off' title='' /></td>
           </tr>
         </tbody>
-        <tfoot>
-          <tr>
-            <th colspan='1000'>
-              <button id='regenerate-btn'>Generate new</button>
-            </th>
-          </tr>
-        </tfoot>
       </table>
       <p id='timer'>00:00</p>
+      <div id='btn-container'>  
+        <button id='regenerate-btn'>Generate new</button>
+        <button id='share-btn' disabled title='Work in progress'>Share Sudoku</button>
+      </div>
 
       <p class='info-text' id='error-info'>There is a duplicate number in the red area.</p>
       <p class='info-text' id='win-info'>You won! Refresh this page to get a new Sudoku.</p>
