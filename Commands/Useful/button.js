@@ -48,7 +48,7 @@ module.exports = {
 
   async run(lang) {
     const
-      custom = this.options.getString('json', true),
+      custom = this.options.getString('json'),
       content = this.options.getString('content') ?? undefined,
       isLink = ButtonStyle[ButtonStyle[this.options.getNumber('style', true)]] == ButtonStyle.Link,
       emoji = this.options.getString('emoji'),
