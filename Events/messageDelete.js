@@ -49,7 +49,7 @@ module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.guild || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
 
   /** @type {lang} */
-  const lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'commands.minigames.counting.userDeletedMsg' });
+  const lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['commands.minigames.counting.userDeletedMsg'] });
 
   countingHandler.call(this, lang);
   wordchainHandler.call(this, lang);

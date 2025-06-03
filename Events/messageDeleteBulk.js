@@ -24,7 +24,7 @@ module.exports = async function messageDeleteBulk(channel) {
       .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < msInSecond * 20) ?? {},
 
     /** @type {lang} */
-    lang = channel.client.i18n.__.bBind(channel.client.i18n, { locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPath: 'events.logger.messageDeleteBulk' }),
+    lang = channel.client.i18n.__.bBind(channel.client.i18n, { locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPath: ['events.logger.messageDeleteBulk'] }),
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
       description: lang('embedDescription', { executor: executor ? userMention(executor.id) : lang('events.logger.someone'), channel: channel.name, count: this.size.toString() }),
