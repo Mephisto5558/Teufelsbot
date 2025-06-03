@@ -120,7 +120,7 @@
     "getUser": {
       "notFound": "{user} hat kein Geburtstag :(",
       "embedTitle": "{user}'s Geburtstag",
-      "date": "{user} hat am **{day}. {month}** Geburtstag. Das ist in {daysUntil} Tagen!",
+      "date": "{user} hat am **{day}. {month}.** Geburtstag. Das ist in {daysUntil} Tagen!",
       "newAge": "Er/Sie wird {age} Jahre alt."
     },
     "getAll": {
@@ -712,7 +712,7 @@
     "edit": {
       "noneFound": "Es gibt keine Auslöser!",
       "notFound": "Kein Auslöser passt zu deiner Suchanfrage.",
-      "edited": "Der Auslöser mit der für {trigger} wurde bearbeitet."
+      "edited": "Der Auslöser für {trigger} wurde bearbeitet."
     },
     "delete": {
       "noneFound": "Es gibt keine Auslöser!",
@@ -724,12 +724,14 @@
       "deletedAll": "Ich habe alle ({count}) Auslöser gelöscht."
     },
     "get": {
+      "noneFound": "Es gibt keine Auslöser!",
+      "notFound": "Kein Auslöser passt zu deiner Suchanfrage.",
       "embedTitle": "Trigger",
       "embedTitleOne": "Auslöser {id}:",
       "embedDescriptionOne": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** {wildcard}",
-      "longEmbedDescription": "ID: {id}\n> Auslöser: {trigger}\n> Ausgabe: {response}\n> Wildcard: {wildcard}",
+      "longEmbedDescription": "ID: {id}\n> Auslöser: {trigger}\n> Antwort: {response}\n> Wildcard: {wildcard}",
       "shortFieldName": "ID {id}",
-      "shortFieldValue": "**Auslöser:**\n{trigger}\n**Ausgabe:**\n{response}\n**Wildcard:** {wildcard}",
+      "shortFieldValue": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** {wildcard}",
       "first25": "Die ersten 25 Auslöser. Erhalte mehr per `short` Option."
     }
   },

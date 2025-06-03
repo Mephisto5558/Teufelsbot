@@ -712,11 +712,11 @@
     "edit": {
       "noneFound": "There are no triggers!",
       "notFound": "No trigger matched your query.",
-      "edited": "The trigger with the for `${trigger}` has been edited."
+      "edited": "The trigger for {trigger} has been edited."
     },
     "delete": {
       "noneFound": "There are no triggers!",
-      "deletedOne": "Deleted the trigger with the ID {id}"
+      "deletedOne": "Deleted the trigger with the ID {id}."
     },
     "clear": {
       "confirmation": "clear all",
