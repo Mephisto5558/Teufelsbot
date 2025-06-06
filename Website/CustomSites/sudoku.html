@@ -181,6 +181,17 @@
           </tr>
         </tbody>
       </table>
+
+      <div id='difficulty-container'>
+        <label for='difficulty-slider'>Holes</label>
+        <input id='difficulty-slider' list='difficulty-label' type='range' />
+        <output for='difficulty-label'></output>
+        <datalist id='difficulty-labels'>
+          <option label='Easy'></option>
+          <option label='Hard'></option>
+        </datalist>
+      </div>
+
       <div id='btn-container'>
         <button id='regenerate-btn'>Generate new</button>
         <button id='share-btn' disabled title='Work in progress'>Share Sudoku</button>
