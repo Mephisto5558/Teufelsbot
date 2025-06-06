@@ -184,7 +184,7 @@
 
       <div id='difficulty-container'>
         <label for='difficulty-slider'>Holes</label>
-        <input id='difficulty-slider' list='difficulty-label' type='range' />
+        <input id='difficulty-slider' list='difficulty-label' type='range' title='Applied to the next generated Sudoku.' />
         <output for='difficulty-label'></output>
         <datalist id='difficulty-labels'>
           <option label='Easy'></option>
@@ -194,7 +194,7 @@
 
       <div id='btn-container'>
         <button id='regenerate-btn'>Generate new</button>
-        <button id='share-btn' disabled title='Work in progress'>Share Sudoku</button>
+        <button id='share-btn'>Share Sudoku</button>
       </div>
 
       <p class='info-text' id='error-info'>There is a duplicate number in the red area.</p>
