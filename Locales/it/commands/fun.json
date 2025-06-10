@@ -232,27 +232,36 @@
     },
     "managerNotFound": "Questa funzione è disabilitata o non registrata.",
     "notFound": "L'id del messaggio fornito non è un giveaway valido o è già finito!",
-    "invalidTime": "Il valore di durazione/add_time fornito non è valido!",
     "notHost": "Non sei l'ospite di questo giveaway!",
     "buttonLabel": "Visualizza Giveaway",
-    "started": "Il giveaway è iniziato!",
-    "ended": "Il giveaway è finito!",
-    "edited": "Il giveaway è stato modificato!",
-    "rerolled": "Il giveaway è stato risolto!",
-    "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
-    "giveawayEnded": "🎉🎉 GIVEAWAY ENDED 🎉🎉",
-    "requiredRoles": "Devi avere almeno uno di questi ruoli per vincere: {roles}",
-    "inviteToParticipate": "Reagire con {emoji} per partecipare!",
-    "winMessage": "Congratulazioni, {winners}! Hai vinto **{this.prize}**!",
-    "drawing": "Disegno: {timestamp}",
-    "dropMessage": "Sii il primo a reagire con {emoji}!!",
-    "embedFooterText": "{this.winnerCount} vincitore(i)",
-    "noWinner": "Giveaway annullato, nessun partecipante valido.",
-    "winners": "Vincitori:",
-    "rerollWinners": "🎉 Nuovi vincitori: {winners}! Congratulazioni, hai vinto **{this.prize}**!",
-    "rerollNoWinner": "Nessun partecipante valido, nessun nuovo vincitore può essere scelto!",
-    "endedAt": "Terminato il",
-    "hostedBy": "Ospitato da: {this.hostedBy}"
+    "invalidTime": "Il valore di durazione/add_time fornito non è valido!",
+    "create": {
+      "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
+      "giveawayEnded": "🎉🎉 GIVEAWAY ENDED 🎉🎉",
+      "requiredRoles": "Devi avere almeno uno di questi ruoli per vincere: {roles}",
+      "disallowedMembers": "I seguenti membri non possono partecipare: {members}",
+      "inviteToParticipate": "Reagire con {emoji} per partecipare!",
+      "winMessage": "Congratulazioni, {winners}! Hai vinto **{this.prize}**!",
+      "drawing": "Disegno: {timestamp}",
+      "dropMessage": "Sii il primo a reagire con {emoji}!!",
+      "embedFooterText": "{this.winnerCount} vincitore(i)",
+      "noWinner": "Giveaway annullato, nessun partecipante valido.",
+      "winners": "Vincitori:",
+      "endedAt": "Terminato il",
+      "hostedBy": "Ospitato da: {this.hostedBy}",
+      "started": "Il giveaway è iniziato!"
+    },
+    "end": {
+      "ended": "Il giveaway è finito!"
+    },
+    "edit": {
+      "edited": "Il giveaway è stato modificato!"
+    },
+    "reroll": {
+      "rerollWinners": "🎉 Nuovi vincitori: {winners}! Congratulazioni, hai vinto **{this.prize}**!",
+      "rerollNoWinner": "Nessun partecipante valido, nessun nuovo vincitore può essere scelto!",
+      "rerolled": "Il giveaway è stato risolto!"
+    }
   },
   "happy": {
     "description": "invia un messaggio felice"
@@ -697,21 +706,34 @@
         }
       }
     },
-    "saved": "Aggiunto nuovo trigger per {trigger}.",
-    "edited": "Il trigger con il `${trigger}` è stato modificato.",
-    "deletedOne": "Eliminato il trigger con l'ID {id}",
-    "deletedAll": "Ho eliminato tutti i trigger ({count}).",
-    "noneFound": "Non ci sono grilletti!",
-    "notFound": "Nessun trigger corrisponde alla tua interrogazione.",
-    "confirmation": "cancella tutto",
-    "needConfirm": "Devi confermare questa azione scrivendo `CLEAR ALL` nell'opzione di conferma!",
-    "embedTitle": "Trigger",
-    "embedTitleOne": "Trigger {id}:",
-    "embedDescriptionOne": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard:** {wildcard}",
-    "longEmbedDescription": "ID: {id}\n> Trigger: {trigger}\n> Risposta: {response}\n> Wildcard: {wildcard}",
-    "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Trigger:**\n{trigger}\n**Risposta:**\n{response}\n**Wildcard: **{wildcard}",
-    "first25": "I primi 25 trigger. Ottieni di più con l'opzione `short`."
+    "add": {
+      "saved": "Aggiunto nuovo trigger per {trigger}."
+    },
+    "edit": {
+      "noneFound": "Non ci sono grilletti!",
+      "notFound": "Nessun trigger corrisponde alla tua interrogazione.",
+      "edited": "Il trigger per {trigger} è stato modificato."
+    },
+    "delete": {
+      "noneFound": "Non ci sono grilletti!",
+      "deletedOne": "Eliminato il trigger con l'ID {id}."
+    },
+    "clear": {
+      "confirmation": "cancella tutto",
+      "needConfirm": "Devi confermare questa azione scrivendo `CLEAR ALL` nell'opzione di conferma!",
+      "deletedAll": "Ho eliminato tutti i trigger ({count})."
+    },
+    "get": {
+      "noneFound": "Non ci sono grilletti!",
+      "notFound": "Nessun trigger corrisponde alla tua interrogazione.",
+      "embedTitle": "Trigger",
+      "embedTitleOne": "Trigger {id}:",
+      "embedDescriptionOne": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard:** {wildcard}",
+      "longEmbedDescription": "ID: {id}\n> Trigger: {trigger}\n> Risposta: {response}\n> Wildcard: {wildcard}",
+      "shortFieldName": "ID {id}",
+      "shortFieldValue": "**Trigger:**\n{trigger}\n**Risposta:**\n{response}\n**Wildcard: **{wildcard}",
+      "first25": "I primi 25 trigger. Ottieni di più con l'opzione `short`."
+    }
   },
   "vote": {
     "description": "Crea un sondaggio per qualcosa",
