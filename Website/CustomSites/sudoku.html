@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en' style='background-color: darkslategrey; /* removed via js when page loaded */'>
+<html lang='en' style='visibility: hidden; background-color: darkslategrey; /* removed via js when page loaded */'>
   <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
@@ -12,7 +12,7 @@
     </script>
   </head>
   <body>
-    <header style='visibility: hidden; /* removed via js when sudoku loaded */'>
+    <header>
       <time id='timer' datetime='PT0S'></time>
       <h1>Sudoku of the day</h1>
       <div id='color-switcher-container'>
@@ -28,10 +28,11 @@
     </header>
 
     <div id='loading-container'>
-      <p>Loading Sudoku...</p>
+      <h1>Loading Sudoku...</h1>
+      <p id='loading-status'></p>
     </div>
 
-    <main id='sudoku-container' style='visibility: hidden; /* removed via js when sudoku loaded */'>
+    <main id='sudoku-container'>
       <table id='sudoku'></table>
       <table id='number-overview' role='presentation'>
         <colgroup>
