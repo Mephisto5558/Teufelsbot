@@ -12,141 +12,27 @@
     </script>
   </head>
   <body>
-    <span id='timer'></span>
-    <div id='color-switcher-container' style='visibility: hidden; /* removed via js when sudoku loaded */'>
-      <div id='bg-color'>
-        <label for='bg-color-switch'>Switch BG Color</label>
-        <input id='bg-color-switch' type='color' data-css-property='--background-color' autocomplete='off'></input>
-      </div>      
-      <div id='fg-color'>
-        <label for='fg-color-switch'>Switch Text Color</label>
-        <input id='fg-color-switch' type='color' data-css-property='--foreground-color' autocomplete='off'></input>
+    <header style='visibility: hidden; /* removed via js when sudoku loaded */'>
+      <time id='timer' datetime='PT0S'></time>
+      <h1>Sudoku of the day</h1>
+      <div id='color-switcher-container'>
+        <div id='bg-color'>
+          <label for='bg-color-switch'>Switch BG Color</label>
+          <input id='bg-color-switch' type='color' data-css-property='--background-color' autocomplete='off'></input>
+        </div>
+        <div id='fg-color'>
+          <label for='fg-color-switch'>Switch Text Color</label>
+          <input id='fg-color-switch' type='color' data-css-property='--foreground-color' autocomplete='off'></input>
+        </div>
       </div>
-    </div>
+    </header>
+
     <div id='loading-container'>
       <p>Loading Sudoku...</p>
     </div>
-    <div id='sudoku-container' style='visibility: hidden; /* removed via js when sudoku loaded */'>
-      <table id='sudoku'>
-        <caption>Sudoku of the day</caption>
 
-        <colgroup>
-          <col /><col /><col />
-        </colgroup>
-        <colgroup>
-          <col /><col /><col />
-        </colgroup>
-        <colgroup>
-          <col /><col /><col />
-        </colgroup>
-
-        <tbody>
-          <tr>
-            <td><input data-group='1' data-col='1' data-row='1' type='number' required autocomplete='off' title='' aria-label='Row 1, Column 1' /></td>
-            <!-- TODO: aria-label to all cells when generating them via js -->
-            <td><input data-group='1' data-col='2' data-row='1' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='1' data-col='3' data-row='1' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='2' data-col='4' data-row='1' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='2' data-col='5' data-row='1' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='2' data-col='6' data-row='1' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='3' data-col='7' data-row='1' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='3' data-col='8' data-row='1' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='3' data-col='9' data-row='1' type='number' required autocomplete='off' title='' /></td>
-          </tr>
-          <tr>
-            <td><input data-group='1' data-col='1' data-row='2' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='1' data-col='2' data-row='2' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='1' data-col='3' data-row='2' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='2' data-col='4' data-row='2' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='2' data-col='5' data-row='2' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='2' data-col='6' data-row='2' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='3' data-col='7' data-row='2' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='3' data-col='8' data-row='2' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='3' data-col='9' data-row='2' type='number' required autocomplete='off' title='' /></td>
-          </tr>
-          <tr>
-            <td><input data-group='1' data-col='1' data-row='3' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='1' data-col='2' data-row='3' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='1' data-col='3' data-row='3' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='2' data-col='4' data-row='3' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='2' data-col='5' data-row='3' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='2' data-col='6' data-row='3' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='3' data-col='7' data-row='3' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='3' data-col='8' data-row='3' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='3' data-col='9' data-row='3' type='number' required autocomplete='off' title='' /></td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <td><input data-group='4' data-col='1' data-row='4' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='4' data-col='2' data-row='4' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='4' data-col='3' data-row='4' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='5' data-col='4' data-row='4' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='5' data-col='5' data-row='4' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='5' data-col='6' data-row='4' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='6' data-col='7' data-row='4' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='6' data-col='8' data-row='4' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='6' data-col='9' data-row='4' type='number' required autocomplete='off' title='' /></td>
-          </tr>
-          <tr>
-            <td><input data-group='4' data-col='1' data-row='5' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='4' data-col='2' data-row='5' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='4' data-col='3' data-row='5' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='5' data-col='4' data-row='5' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='5' data-col='5' data-row='5' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='5' data-col='6' data-row='5' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='6' data-col='7' data-row='5' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='6' data-col='8' data-row='5' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='6' data-col='9' data-row='5' type='number' required autocomplete='off' title='' /></td>
-          </tr>
-          <tr>
-            <td><input data-group='4' data-col='1' data-row='6' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='4' data-col='2' data-row='6' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='4' data-col='3' data-row='6' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='5' data-col='4' data-row='6' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='5' data-col='5' data-row='6' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='5' data-col='6' data-row='6' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='6' data-col='7' data-row='6' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='6' data-col='8' data-row='6' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='6' data-col='9' data-row='6' type='number' required autocomplete='off' title='' /></td>
-          </tr>
-        </tbody>
-        <tbody>
-          <tr>
-            <td><input data-group='7' data-col='1' data-row='7' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='7' data-col='2' data-row='7' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='7' data-col='3' data-row='7' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='8' data-col='4' data-row='7' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='8' data-col='5' data-row='7' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='8' data-col='6' data-row='7' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='9' data-col='7' data-row='7' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='9' data-col='8' data-row='7' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='9' data-col='9' data-row='7' type='number' required autocomplete='off' title='' /></td>
-          </tr>
-          <tr>
-            <td><input data-group='7' data-col='1' data-row='8' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='7' data-col='2' data-row='8' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='7' data-col='3' data-row='8' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='8' data-col='4' data-row='8' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='8' data-col='5' data-row='8' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='8' data-col='6' data-row='8' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='9' data-col='7' data-row='8' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='9' data-col='8' data-row='8' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='9' data-col='9' data-row='8' type='number' required autocomplete='off' title='' /></td>
-          </tr>
-          <tr>
-            <td><input data-group='7' data-col='1' data-row='9' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='7' data-col='2' data-row='9' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='7' data-col='3' data-row='9' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='8' data-col='4' data-row='9' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='8' data-col='5' data-row='9' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='8' data-col='6' data-row='9' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='9' data-col='7' data-row='9' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='9' data-col='8' data-row='9' type='number' required autocomplete='off' title='' /></td>
-            <td><input data-group='9' data-col='9' data-row='9' type='number' required autocomplete='off' title='' /></td>
-          </tr>
-        </tbody>
-      </table>
+    <main id='sudoku-container' style='visibility: hidden; /* removed via js when sudoku loaded */'>
+      <table id='sudoku'></table>
       <table id='number-overview' role='presentation'>
         <colgroup>
           <col /><col /><col />
@@ -173,7 +59,7 @@
             <td>6: <span>0</span></td>
           </tr>
         </tbody>
-        
+
         <tbody>
           <tr>
             <td>7: <span>0</span></td>
@@ -183,7 +69,7 @@
         </tbody>
       </table>
 
-      <div id='difficulty-container'>
+      <div id='settings-container'>
         <label for='difficulty-slider'>Holes</label>
         <input id='difficulty-slider' list='difficulty-label' type='range' title='Applied to the next generated Sudoku.' />
         <output for='difficulty-label'></output>
@@ -191,6 +77,15 @@
           <option label='Easy'></option>
           <option label='Hard'></option>
         </datalist>
+
+        <div id='size-option-container'>
+          <label for='size-option'>Box Size (x*x)</label>
+          <input id='size-option' type='number' min='2' step='1' autocomplete='off' />
+          <div id='stepper-buttons'>
+            <button aria-label='Increase size' id='stepper-up'>+</button>
+            <button aria-label='Decrease size' id='stepper-down'>-</button>
+          </div>
+        </div>
       </div>
 
       <div id='btn-container'>
@@ -203,7 +98,7 @@
         <p id='error-info'>There is a duplicate number in the red area.</p>
         <p id='win-info'>You won! Click the button above to generate a new Sudoku.</p>
       </div>
-    </div>
+    </main>
 
     <script src='https://cdn.jsdelivr.net/gh/nastyox/Rando.js@master/code/plain-javascript/2.0.0/rando-min.js'
       integrity='sha384-bg0hn0TbmCi0Kb7oWNdYcxKVZ2//IIpXuSogkFix17okkIkLY48YZhFMD802ZwRa' crossorigin='anonymous'>
