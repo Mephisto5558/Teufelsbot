@@ -9,9 +9,11 @@
     <meta name="description" content="A simple Sudoku game with configurable size and difficulty.">
 
     <script type='module' src='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js'
-      onload="loadLocal('css', '/css/sudoku.css', 'https://mephisto5558.github.io/Website-Assets/min/css/sudoku.css')"^
+      onload="loadLocal('css', '/css/sudoku.css', 'https://mephisto5558.github.io/Website-Assets/min/css/sudoku.css')"
       onerror="alert('An error occurred during ressource loading. Please check your internet connection and reload the page.')">
     </script>
+    <script type='module' src='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js?1'
+      onload="loadLocal('css', '/css/sudoku-mobile.css', 'https://mephisto5558.github.io/Website-Assets/min/css/sudoku-mobile.css', { media: '(max-width: 600px)' })"></script>
   </head>
   <body>
     <header>
@@ -74,8 +76,8 @@
     <script src='https://cdn.jsdelivr.net/gh/nastyox/Rando.js@master/code/plain-javascript/2.0.0/rando-min.js'
       integrity='sha384-bg0hn0TbmCi0Kb7oWNdYcxKVZ2//IIpXuSogkFix17okkIkLY48YZhFMD802ZwRa' crossorigin='anonymous'>
     </script>
-    <script type='module' src='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js?1'
-      onload="loadLocal('script', 'index.js', 'https://mephisto5558.github.io/Website-Assets/min/js/sudoku/index.js', true)">
-      </script>
+    <script type='module' src='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js?2'
+      onload="loadLocal('script', 'index.js', 'https://mephisto5558.github.io/Website-Assets/min/js/sudoku/index.js', { type: 'module' })">
+    </script>
   </body>
 </html>
