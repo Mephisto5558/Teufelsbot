@@ -8,7 +8,8 @@
     <title>Sudoku</title>
 
     <script type='module' src='https://mephisto5558.github.io/Website-Assets/min/js/loadLocal.js'
-      onload="loadLocal('css', '/css/sudoku.css', 'https://mephisto5558.github.io/Website-Assets/min/css/sudoku.css')">
+      onload="loadLocal('css', '/css/sudoku.css', 'https://mephisto5558.github.io/Website-Assets/min/css/sudoku.css')"^
+      onerror="alert('An error occurred during ressource loading. Please check your internet connection and reload the page.')">
     </script>
   </head>
   <body>
@@ -30,6 +31,7 @@
     <div id='loading-container'>
       <h1>Loading Sudoku...</h1>
       <p id='loading-status'></p>
+      <button id='cancel-loading'>Cancel</button>
     </div>
 
     <main id='sudoku-container'>
