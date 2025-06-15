@@ -14,7 +14,7 @@ module.exports = {
   ],
 
   async run(lang) {
-    lang.__boundArgs__[0].backupPath += `.${this.options.getSubcommand(true)}`;
+    lang.__boundArgs__[0].backupPath[0] += `.${this.options.getSubcommand(true)}`;
 
     if (this.options.getSubcommand(true) == 'enable') {
       const enabled = this.options.getBoolean('enabled', true);
