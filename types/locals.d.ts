@@ -114,7 +114,7 @@ interface Config {
     repoName?: string;
   };
 
-  /** @default ['owner-only'] */
+  /** @default ['dev-only'] */
   ownerOnlyFolders: string[];
   discordInvite?: string;
   mailAddress?: string;

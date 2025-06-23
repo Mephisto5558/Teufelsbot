@@ -105,7 +105,7 @@ function setDefaultConfig() {
   config.github ??= {};
   config.replyOnDisabledCommand ??= true;
   config.replyOnNonBetaCommand ??= true;
-  config.ownerOnlyFolders = config.ownerOnlyFolders?.map(e => e.toLowerCase()) ?? ['owner-only'];
+  config.ownerOnlyFolders = config.ownerOnlyFolders?.map(e => e.toLowerCase()) ?? ['dev-only'];
 
   return config;
 }
