@@ -333,22 +333,19 @@
         }
       }
     },
+    "notEnabled": "Word counting is not enabled. An Administrator can enable it by running {command}.",
+    "memberEmbedTitle": "Member stats",
+    "memberEmbedDescription": "These are the top {amt} members:",
     "guild": {
       "invalidGuild": "The guild id provided is invalid.",
-      "notEnabled": "Word counting is not enabled. An Administrator can enable it by running {command}.",
       "embedTitle": "{guild} Stats",
       "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}",
       "channelEmbedTitle": "Channel stats",
-      "channelEmbedDescription": "These are the top {amt} channels:",
-      "memberEmbedTitle": "Member stats",
-      "memberEmbedDescription": "These are the top {amt} members:"
+      "channelEmbedDescription": "These are the top {amt} channels:"
     },
     "channel": {
-      "notEnabled": "Word counting is not enabled. An Administrator can enable it by running {command}.",
       "embedTitle": "#{channel} Stats",
-      "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}",
-      "memberEmbedTitle": "Member stats",
-      "memberEmbedDescription": "These are the top {amt} members:"
+      "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}"
     },
     "user": {
       "enable": {
