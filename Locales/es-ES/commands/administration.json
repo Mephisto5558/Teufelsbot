@@ -247,6 +247,14 @@
       },
       "birthday": {
         "description": "Configurar el canal y el mensaje del cumpleaños."
+      },
+      "wordcounter": {
+        "description": "Habilitar (verdadero) o deshabilitar (falso) el recuento de palabras en todos los mensajes de usuario para las estadísticas.",
+        "options": {
+          "enabled": {
+            "description": "Contar la cantidad de palabras que los miembros han enviado para estadísticas."
+          }
+        }
       }
     },
     "link": "Enlace",
@@ -307,6 +315,9 @@
         "voiceChannelActivity": "canal de voz unirse/abandonar/interruptores",
         "sayCommandUsed": "uso del comando /say (o similar)"
       }
+    },
+    "wordcounter": {
+      "success": "{toggle} palabras contando."
     }
   }
 }

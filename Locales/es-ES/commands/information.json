@@ -286,5 +286,78 @@
     "description": "obtener el enlace a la solicitud de funciones de los bots y la página de votación",
     "embedTitle": "Votaciones",
     "embedDescriptionVote": "Haga clic en {link} para abrir la página web de la solicitud de votación y funcionalidad."
+  },
+  "wordcounter": {
+    "description": "Mira cuántas palabras se han dicho en un gremio, un canal o por un miembro.",
+    "options": {
+      "guild": {
+        "description": "Mira los canales más altos y los miembros más altos de un gremio.",
+        "options": {
+          "get": {
+            "description": "Mira los canales más altos y los miembros más altos de un gremio.",
+            "options": {
+              "guild_id": {
+                "description": "El ID del gremio objetivo. Por defecto éste."
+              }
+            }
+          }
+        }
+      },
+      "channel": {
+        "description": "Ver a los miembros más destacados de un canal.",
+        "options": {
+          "get": {
+            "description": "Ver a los miembros más destacados de un canal.",
+            "options": {
+              "channel": {
+                "description": "El canal de destino. Por defecto éste."
+              }
+            }
+          }
+        }
+      },
+      "user": {
+        "description": "Activa el contador de palabras para ti o muestra el conteo de palabras.",
+        "options": {
+          "enable": {
+            "description": "Activa o desactiva el contador de palabras para ti.",
+            "options": {
+              "enabled": {
+                "description": "Activa o desactiva el contador de palabras para ti."
+              }
+            }
+          },
+          "get": {
+            "description": "Vea la cantidad de palabras que ha dicho."
+          }
+        }
+      }
+    },
+    "notEnabled": "El conteo de palabras no está habilitado para el gremio seleccionado. Un administrador puede habilitarlo ejecutando {command}.",
+    "memberEmbedTitle": "Estadísticas de miembros",
+    "memberEmbedDescription": "Estos son los mejores miembros de {amt}:",
+    "guild": {
+      "invalidGuild": "El id del gremio proporcionado no es válido.",
+      "embedTitle": "Estadísticas {guild}",
+      "embedDescription": "Las palabras totales enviadas desde el comienzo de la recuperación en {enabledAt}: {amount}",
+      "channelEmbedTitle": "Estadísticas del canal",
+      "channelEmbedDescription": "Estos son los canales {amt} más destacados:"
+    },
+    "channel": {
+      "embedTitle": "Estadísticas #{channel}",
+      "embedDescription": "Las palabras totales enviadas desde el comienzo de la recuperación en {enabledAt}: {amount}"
+    },
+    "user": {
+      "enable": {
+        "success": "Cuento de palabras {toggle} para ti."
+      },
+      "get": {
+        "notEnabledUser": "El recuento de palabras no está habilitado para ti. Puedes activarlo para tu usuario ejecutando {command}.",
+        "embedTitle": "Estadísticas {user}",
+        "embedDescription": "Las palabras totales que enviaste desde el comienzo de la recuperación en {enabledAt}: {amount}",
+        "guildEmbedTitle": "Estadísticas del gremio",
+        "guildEmbedDescription": "Estos son tus gremios {amt} superiores:"
+      }
+    }
   }
 }
