@@ -286,5 +286,78 @@
     "description": "erhalte den Link zur Feature-Request- und Voting-Website des Bots",
     "embedTitle": "Voting",
     "embedDescriptionVote": "Klicke {link}, um die Voting- und Feature-Request-Seite zu öffnen."
+  },
+    "wordcounter": {
+    "description": "Zeigt an, wie viele Wörter in einem Server, einem Kanal oder von einem Mitglied gesendet wurden.",
+    "options": {
+      "guild": {
+        "description": "Zeigt die Top-Kanäle und Mitglieder eines Servers an.",
+        "options": {
+          "get": {
+            "description": "Die Top-Kanäle und Mitglieder eines Servers anzeigen.",
+            "options": {
+              "guild_id": {
+                "description": "Die ID des Zielservers. Standard: aktueller Server."
+              }
+            }
+          }
+        }
+      },
+      "channel": {
+        "description": "Die Top-Mitglieder eines Kanals anzeigen.",
+        "options": {
+          "get": {
+            "description": "Die Top-Mitglieder eines Kanals anzeigen.",
+            "options": {
+              "channel": {
+                "description": "Der Zielkanal. Standart: aktueller Kanal"
+              }
+            }
+          }
+        }
+      },
+      "user": {
+        "description": "Aktiviere oder deaktiviere den Wordcounter für dich oder zeige deine Wortzahl.",
+        "options": {
+          "enable": {
+            "description": "Aktiviere oder deaktiviere den Wortzähler für dich.",
+            "options": {
+              "enabled": {
+                "description": "Aktiviere oder deaktiviere den Wortzähler für dich."
+              }
+            }
+          },
+          "get": {
+            "description": "Zeige die Anzahl der von dir geschriebenen Wörter an."
+          }
+        }
+      }
+    },
+    "notEnabled": "Der Wordcounter für den Server ist nicht aktiviert. Ein Administrator kann ihn durch Ausführen von {command} aktivieren.",
+    "memberEmbedTitle": "Mitglieder-Stats",
+    "memberEmbedDescription": "Dies sind die Top {amt} Mitglieder:",
+    "guild": {
+      "invalidGuild": "Die angegebene Server-ID ist ungültig.",
+      "embedTitle": "{guild} Stats",
+      "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} gesendeten Wörter: {amt}",
+      "channelEmbedTitle": "Kanal-Stats",
+      "channelEmbedDescription": "Dies sind die Top {amt} Kanäle:"
+    },
+    "channel": {
+      "embedTitle": "#{channel} Stats",
+      "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} gesendeten Wörter: {amt}"
+    },
+    "user": {
+      "enable": {
+        "success": "{toggle} Wordcounting für dich."
+      },
+      "get": {
+        "notEnabledUser": "Der Wordcounter ist für dich nicht aktiviert. Du kannst ihn für deinen Benutzer aktivieren, indem du {command} ausführst.",
+        "embedTitle": "{user} Stats",
+        "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} von dir gesendeten Wörter: {amt}",
+        "guildEmbedTitle": "Sever-Stats",
+        "guildEmbedDescription": "Dies sind deine Top {amt} Server:"
+      }
+    }
   }
 }

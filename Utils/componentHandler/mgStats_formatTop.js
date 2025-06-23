@@ -1,7 +1,7 @@
 const
   { userMention } = require('discord.js'),
-  medals = [':first_place:', ':second_place:', ':third_place:'],
-  { messageMaxLength } = require('../constants');
+  { messageMaxLength } = require('../constants'),
+  { convertToMedal } = require('../convertToMedal');
 
 /** @type {import('.').mgStats_formatTop} */
 module.exports = function formatTop(input, sort, mode, lang, maxLength = messageMaxLength, amt = 10) {
@@ -26,7 +26,7 @@ module.exports = function formatTop(input, sort, mode, lang, maxLength = message
   return data.slice(0, amt).reduce((acc, [id, stats], i) => acc + (
     acc.length > maxLength
       ? '...'
-      : `${medals[i] ?? i + 1 + '.'} ${userMention(id)}\n`
+      : `${convertToMedal(i)} ${userMention(id)}\n`
         + `> ${lang('wins', stats.wins)}\n`
         + `> ${lang('losses', stats.losses)}\n`
         + `> ${lang('draws', stats.draws)}\n\n`

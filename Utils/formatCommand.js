@@ -4,12 +4,20 @@ const
   { resolve, dirname, basename } = require('node:path'),
   { choicesMaxAmt, choiceValueMinLength, choiceValueMaxLength, descriptionMaxLength } = require('./constants');
 
+function getOptionalFile(path) {
+  try { return require(path); }
+  catch (err) {
+    if (err.code != 'MODULE_NOT_FOUND') throw err;
+    return {};
+  }
+}
+
 /** @type {import('.').formatCommand} */
 module.exports = function formatCommand(option, path, id, i18n) {
   if ('options' in option) {
     // assume it is a dir and is in the top-level or one in (subcommand group)
     if (!path.endsWith('.js') && ('run' in option || option.type == ApplicationCommandOptionType[ApplicationCommandOptionType.SubcommandGroup]))
-      option.options = option.options.map(e => ({ ...e, options: [...e.options ?? [], ...require(resolve(path, e.name)).options ?? []] }));
+      option.options = option.options.map(e => ({ ...e, options: [...e.options ?? [], ...getOptionalFile(resolve(path, e.name)).options ?? []] }));
     option.options = option.options.map(e => formatCommand(e, path, `${id}.options.${e.name}`, i18n));
   }
 

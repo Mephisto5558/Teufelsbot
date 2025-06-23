@@ -286,5 +286,78 @@
     "description": "get the link to the bots's feature request and voting page",
     "embedTitle": "Voting",
     "embedDescriptionVote": "Click {link} to open the voting and feature request webpage."
+  },
+  "wordcounter": {
+    "description": "See how many words were said in a guild, a channel or by a member.",
+    "options": {
+      "guild": {
+        "description": "See the top channels and top members of a guild.",
+        "options": {
+          "get": {
+            "description": "See the top channels and top members of a guild.",
+            "options": {
+              "guild_id": {
+                "description": "The target guild's ID. Defaults to this one."
+              }
+            }
+          }
+        }
+      },
+      "channel": {
+        "description": "See the top members of a channel.",
+        "options": {
+          "get": {
+            "description": "See the top members of a channel.",
+            "options": {
+              "channel": {
+                "description": "The target channel. Defaults to this one."
+              }
+            }
+          }
+        }
+      },
+      "user": {
+        "description": "Toggle the wordcounter for you or display your word count.",
+        "options": {
+          "enable": {
+            "description": "Enable or disable the wordcounter for you.",
+            "options": {
+              "enabled": {
+                "description": "Enable or disable the wordcounter for you."
+              }
+            }
+          },
+          "get": {
+            "description": "See the amount of words you said."
+          }
+        }
+      }
+    },
+    "notEnabled": "Word counting is not enabled for the selected guild. An Administrator can enable it by running {command}.",
+    "memberEmbedTitle": "Member stats",
+    "memberEmbedDescription": "These are the top {amt} members:",
+    "guild": {
+      "invalidGuild": "The guild id provided is invalid.",
+      "embedTitle": "{guild} Stats",
+      "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}",
+      "channelEmbedTitle": "Channel stats",
+      "channelEmbedDescription": "These are the top {amt} channels:"
+    },
+    "channel": {
+      "embedTitle": "#{channel} Stats",
+      "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}"
+    },
+    "user": {
+      "enable": {
+        "success": "{toggle} word counting for you."
+      },
+      "get": {
+        "notEnabledUser": "Word counting is not enabled for you. You can enable it for your user by running {command}.",
+        "embedTitle": "{user} stats",
+        "embedDescription": "The total amount words you sent since the start of recoding at {enabledAt}: {amount}",
+        "guildEmbedTitle": "Guild stats",
+        "guildEmbedDescription": "These are your top {amt} guilds:"
+      }
+    }
   }
 }

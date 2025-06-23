@@ -21,7 +21,8 @@ module.exports = {
     { name: 'serverbackup', type: 'Subcommand' },
     { name: 'autopublish', type: 'Subcommand' },
     { name: 'logger', type: 'Subcommand' },
-    { name: 'birthday', type: 'Subcommand' }
+    { name: 'birthday', type: 'Subcommand' },
+    { name: 'wordcounter', type: 'Subcommand' }
   ],
 
   run: undefined

@@ -4,7 +4,8 @@ const
   { removeAfkStatus, sendAfkMessages } = require('../afk.js'),
   { msInSecond } = require('../timeFormatter.js'),
   MESSAGES_COOLDOWN = msInSecond * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
-  TEN_SECONDS = msInSecond * 10;
+  TEN_SECONDS = msInSecond * 10,
+  WORDCOUNT_MIN_CHARS = 3;
 
 module.exports = { runMessages };
 
@@ -93,6 +94,40 @@ async function handleWordchain() {
 }
 
 /**
+ * @this {Message<true>}
+ * @param {string}cleanMsg */
+async function handleWordcounter(cleanMsg) {
+  /* eslint-disable-next-line regexp/no-super-linear-move -- char amount is limited to 4000 */
+  const wordCount = cleanMsg.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu).length; // Matches letter(s) that can have apostrophes in them
+
+  const dbPromises = [];
+  if (this.guild.db.wordCounter?.enabled) {
+    const { wordCounter } = this.guild.db;
+    const memberConter = wordCounter.members[this.user.id];
+
+    dbPromises.push(
+      this.guild.updateDB('wordCounter.sum', wordCounter.sum + wordCount),
+      this.guild.updateDB(`wordCounter.channels.${this.channel.id}`, (wordCounter.channels[this.channel.id] ?? 0) + wordCount),
+      this.guild.updateDB(`wordCounter.members.${this.user.id}.sum`, (memberConter?.sum ?? 0) + wordCount),
+      this.guild.updateDB(`wordCounter.members.${this.user.id}.channels.${this.channel.id}`, (memberConter?.channels[this.channel.id] ?? 0) + wordCount)
+    );
+  }
+
+  if (this.user.db.wordCounter?.enabled) {
+    const { wordCounter } = this.user.db;
+    const guildCounter = wordCounter.guilds[this.guild.id];
+
+    dbPromises.push(
+      this.user.updateDB('wordCounter.sum', wordCounter.sum + wordCount),
+      this.user.updateDB(`wordCounter.guilds.${this.guild.id}.sum`, (guildCounter?.sum ?? 0) + wordCount),
+      this.user.updateDB(`wordCounter.guilds.${this.guild.id}.channels.${this.channel.id}`, (guildCounter?.channels[this.channel.id] ?? 0) + wordCount)
+    );
+  }
+
+  return Promise.allSettled(dbPromises);
+}
+
+/**
  * @type {import('.').runMessages}
  * @this {ThisParameterType<import('.').runMessages>} */
 function runMessages() {
@@ -103,6 +138,10 @@ function runMessages() {
 
   if (this.guild.db.triggers) replyToTriggers.call(this);
   if (Number(this.originalContent)) void handleCounting.call(this);
+  if (this.originalContent.length > WORDCOUNT_MIN_CHARS) {
+    const cleanMsg = this.content.replaceAll(/<[#/:@t]:?(?:[\s\w]+:)?(?:\w|\d+)>/g, ''); // Removes emoji, timestamp, command, member and channel mentions
+    if (cleanMsg.length > WORDCOUNT_MIN_CHARS) void handleWordcounter.call(this, cleanMsg);
+  }
 
   // Regex to match any letter from any language (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes)
   else if (/^\p{L}+$/u.test(this.originalContent)) void handleWordchain.call(this);
