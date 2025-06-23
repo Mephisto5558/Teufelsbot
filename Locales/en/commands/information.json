@@ -335,13 +335,13 @@
     },
     "notEnabled": "Word counting is not enabled for the selected guild. An Administrator can enable it by running {command}.",
     "memberEmbedTitle": "Member stats",
-    "memberEmbedDescription": "These are the top {amt} members:",
+    "memberEmbedDescription": "These are the top {amount} members:",
     "guild": {
       "invalidGuild": "The guild id provided is invalid.",
       "embedTitle": "{guild} Stats",
       "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}",
       "channelEmbedTitle": "Channel stats",
-      "channelEmbedDescription": "These are the top {amt} channels:"
+      "channelEmbedDescription": "These are the top {amount} channels:"
     },
     "channel": {
       "embedTitle": "#{channel} Stats",
@@ -356,7 +356,7 @@
         "embedTitle": "{user} stats",
         "embedDescription": "The total amount words you sent since the start of recoding at {enabledAt}: {amount}",
         "guildEmbedTitle": "Guild stats",
-        "guildEmbedDescription": "These are your top {amt} guilds:"
+        "guildEmbedDescription": "These are your top {amount} guilds:"
       }
     }
   }

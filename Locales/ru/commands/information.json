@@ -335,13 +335,13 @@
     },
     "notEnabled": "Счетчик слов для выбранной гильдии не включен. Администратор может включить его, запустив {command}.",
     "memberEmbedTitle": "Статистика участника",
-    "memberEmbedDescription": "Топ {amt} участников:",
+    "memberEmbedDescription": "Топ {amount} участников:",
     "guild": {
       "invalidGuild": "Указанный идентификатор гильдии неверен.",
       "embedTitle": "Статистика {guild}",
       "embedDescription": "Общее количество слов, отправленных с начала перекодировки на {enabledAt}: {amount}",
       "channelEmbedTitle": "Статистика каналов",
-      "channelEmbedDescription": "Топ {amt} каналов:"
+      "channelEmbedDescription": "Топ {amount} каналов:"
     },
     "channel": {
       "embedTitle": "Статистика #{channel}",
@@ -356,7 +356,7 @@
         "embedTitle": "Статистика {user}",
         "embedDescription": "Общее количество слов, которое вы послали с начала перекодировки на {enabledAt}: {amount}",
         "guildEmbedTitle": "Статистика гильдии",
-        "guildEmbedDescription": "Это ваши топ- {amt} гильдии:"
+        "guildEmbedDescription": "Это ваши топ- {amount} гильдии:"
       }
     }
   }

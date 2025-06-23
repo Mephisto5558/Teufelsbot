@@ -335,13 +335,13 @@
     },
     "notEnabled": "Der Wordcounter für den Server ist nicht aktiviert. Ein Administrator kann ihn durch Ausführen von {command} aktivieren.",
     "memberEmbedTitle": "Mitglieder-Stats",
-    "memberEmbedDescription": "Dies sind die Top {amt} Mitglieder:",
+    "memberEmbedDescription": "Dies sind die Top {amount} Mitglieder:",
     "guild": {
       "invalidGuild": "Die angegebene Server-ID ist ungültig.",
       "embedTitle": "{guild} Stats",
       "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} gesendeten Wörter: {amount}",
       "channelEmbedTitle": "Kanal-Stats",
-      "channelEmbedDescription": "Dies sind die Top {amt} Kanäle:"
+      "channelEmbedDescription": "Dies sind die Top {amount} Kanäle:"
     },
     "channel": {
       "embedTitle": "#{channel} Stats",
@@ -356,7 +356,7 @@
         "embedTitle": "{user} Stats",
         "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} von dir gesendeten Wörter: {amount}",
         "guildEmbedTitle": "Sever-Stats",
-        "guildEmbedDescription": "Dies sind deine Top {amt} Server:"
+        "guildEmbedDescription": "Dies sind deine Top {amount} Server:"
       }
     }
   }
