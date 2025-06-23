@@ -1,10 +1,16 @@
-import type { EmbedField, Guild } from 'discord.js';
+import type { EmbedField, Guild, User } from 'discord.js';
 
 type data = {
   options?: commandOptions<false>[];
   run: NonNullable<command<'slash', false>['run']>;
 };
 export default data;
+
+export function getTopGuilds(
+  this: GuildInteraction | DMInteraction,
+  _lang: lang, user: User,
+  amt?: number
+): EmbedField[];
 
 export function getTopChannels(
   this: GuildInteraction | DMInteraction,

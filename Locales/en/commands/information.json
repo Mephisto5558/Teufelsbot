@@ -351,7 +351,13 @@
       "enable": {
         "success": "{toggle} word counting for you."
       },
-      "get": {}
+      "get": {
+        "notEnabledUser": "Word counting is not enabled for you. You can enable it for your user by running {command}.",
+        "embedTitle": "{user} stats",
+        "embedDescription": "The total amount words you sent since the start of recoding at {enabledAt}: {amount}",
+        "guildEmbedTitle": "Guild stats",
+        "guildEmbedDescription": "These are your top {amt} guilds:"
+      }
     }
   }
 }
