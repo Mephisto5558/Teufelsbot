@@ -317,7 +317,7 @@
         }
       },
       "user": {
-        "description": "Configure the wordcounter for you of see your words.",
+        "description": "Toggle the wordcounter for you or display your word count.",
         "options": {
           "enable": {
             "description": "Enable or disable the wordcounter for you.",
