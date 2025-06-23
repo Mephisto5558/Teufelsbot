@@ -339,12 +339,15 @@
       "embedTitle": "{guild} Stats",
       "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}",
       "channelEmbedTitle": "Channel stats",
-      "memberEmbedTitle": "Member stats"
+      "memberEmbedTitle": "Member stats",
+      "memberEmbedDescription": "These are the top {amt} members:"
     },
     "channel": {
       "notEnabled": "Word counting is not enabled. An Administrator can enable it by running {command}.",
-      "embedTitle": "{channel} Stats",
-      "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}"
+      "embedTitle": "#{channel} Stats",
+      "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}",
+      "memberEmbedTitle": "Member stats",
+      "memberEmbedDescription": "These are the top {amt} members:"
     },
     "user": {
       "enable": {
