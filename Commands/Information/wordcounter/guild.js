@@ -31,8 +31,11 @@ module.exports = {
     const
       embed = new EmbedBuilder({
         title: lang('embedTitle', guild.name),
-        thumbnail: { url: this.guild.iconURL() },
-        description: lang('embedDescription', { enabledAt: time(this.guild.db.wordCounter.enabledAt, TimestampStyles.ShortDateTime), amount: bold(this.guild.db.wordCounter.sum) })
+        thumbnail: { url: guild.iconURL() },
+        description: lang('embedDescription', {
+          enabledAt: time(guild.db.wordCounter.enabledAt, TimestampStyles.ShortDateTime),
+          amount: bold(guild.db.wordCounter.sum)
+        })
       }),
       channelEmbed = new EmbedBuilder({
         title: lang('channelEmbedTitle'),
