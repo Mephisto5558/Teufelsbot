@@ -8,10 +8,18 @@ export default data;
 
 export function getTopChannels(
   this: GuildInteraction | DMInteraction,
-  _lang: lang, guild: Guild, amt?: number
+  _lang: lang, guild: Guild,
+  amt?: number
 ): EmbedField[];
 
 export function getTopMembers(
   this: GuildInteraction | DMInteraction,
-  lang: lang, guild: Guild
+  lang: lang, guild: Guild,
+  amt?: number
+): EmbedField[];
+
+export function getTopChannelMembers(
+  this: GuildInteraction | DMInteraction,
+  lang: lang, guild: Guild, channelId: Snowflake,
+  amt?: number
 ): EmbedField[];

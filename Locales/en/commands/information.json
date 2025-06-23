@@ -293,12 +293,29 @@
       "guild": {
         "description": "See the top channels and top members of a guild.",
         "options": {
-          "guild_id": {
-            "description": "The target guild's ID. Defaults to this one."
+          "get": {
+            "description": "See the top channels and top members of a guild.",
+            "options": {
+              "guild_id": {
+                "description": "The target guild's ID. Defaults to this one."
+              }
+            }
           }
         }
       },
-      "channel": {},
+      "channel": {
+        "description": "See the top members of a channel.",
+        "options": {
+          "get": {
+            "description": "See the top members of a channel.",
+            "options": {
+              "channel": {
+                "description": "The target channel. Defaults to this one."
+              }
+            }
+          }
+        }
+      },
       "user": {
         "description": "Configure the wordcounter for you of see your words.",
         "options": {
@@ -324,13 +341,16 @@
       "channelEmbedTitle": "Channel stats",
       "memberEmbedTitle": "Member stats"
     },
+    "channel": {
+      "notEnabled": "Word counting is not enabled. An Administrator can enable it by running {command}.",
+      "embedTitle": "{channel} Stats",
+      "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}"
+    },
     "user": {
       "enable": {
         "success": "{toggle} word counting for you."
       },
-      "get": {
-        
-      }
+      "get": {}
     }
   }
 }
