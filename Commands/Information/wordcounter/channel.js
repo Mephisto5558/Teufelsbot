@@ -35,7 +35,7 @@ module.exports = {
       memberEmbed = new EmbedBuilder({
         title: lang('memberEmbedTitle'),
         description: lang('memberEmbedDescription', 10),
-        fields: getTopChannelMembers.call(this, lang, this.guild, channel.id, 10)
+        fields: getTopChannelMembers(this.guild, channel.id, 10)
       });
 
     return this.customReply({ embeds: [embed, memberEmbed] });

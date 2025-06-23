@@ -6,26 +6,7 @@ type data = {
 };
 export default data;
 
-export function getTopGuilds(
-  this: GuildInteraction | DMInteraction,
-  _lang: lang, user: User,
-  amt?: number
-): EmbedField[];
-
-export function getTopChannels(
-  this: GuildInteraction | DMInteraction,
-  _lang: lang, guild: Guild,
-  amt?: number
-): EmbedField[];
-
-export function getTopMembers(
-  this: GuildInteraction | DMInteraction,
-  lang: lang, guild: Guild,
-  amt?: number
-): EmbedField[];
-
-export function getTopChannelMembers(
-  this: GuildInteraction | DMInteraction,
-  lang: lang, guild: Guild, channelId: Snowflake,
-  amt?: number
-): EmbedField[];
+export function getTopGuilds(user: User, amt?: number): EmbedField[];
+export function getTopChannels(guild: Guild, amt?: number): EmbedField[];
+export function getTopMembers(guild: Guild, amt?: number): EmbedField[];
+export function getTopChannelMembers(guild: Guild, channelId: Snowflake, amt?: number): EmbedField[];

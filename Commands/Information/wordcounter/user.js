@@ -46,7 +46,7 @@ module.exports = {
       guildEmbed = new EmbedBuilder({
         title: lang('guildEmbedTitle'),
         description: lang('guildEmbedDescription', 10),
-        fields: getTopGuilds.call(this, lang, this.user, 10)
+        fields: getTopGuilds(this.user, 10)
       });
 
     await this.customReply({ embeds: [embed] });
