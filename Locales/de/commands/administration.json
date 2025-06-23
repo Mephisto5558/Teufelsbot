@@ -249,7 +249,7 @@
         "description": "Konfiguriere die Geburtstagsnachricht und den Kanal."
       },
       "wordcounter": {
-        "description": "Zähle Wörter in allen Nachrichten.",
+        "description": "Aktiviere (true) oder deaktiviere (false) Wörter in allen Nachrichten für Stats.",
         "options": {
           "enabled": {
             "description": "Zähle Wörter in allen Nachrichten."
