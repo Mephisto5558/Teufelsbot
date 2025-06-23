@@ -25,5 +25,5 @@ module.exports.getTopChannelMembers = function getTopChannelMembers(_lang, guild
     .filter(([, v]) => Boolean(v))
     .toSorted(([, a], [, b]) => b - a)
     .slice(0, amt)
-    .map(([k, { sum: v }], i) => ({ name: `${i + 1}. ${userMention(k)}`, value: bold(v), inline: false }));
+    .map(([k, v], i) => ({ name: `${i + 1}. ${userMention(k)}`, value: bold(v), inline: false }));
 };
