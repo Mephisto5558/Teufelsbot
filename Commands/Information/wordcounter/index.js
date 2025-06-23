@@ -11,7 +11,7 @@ module.exports = {
       dmPermission: false
     },
     { name: 'user', type: 'SubcommandGroup' }
-  ], beta: 1,
+  ],
 
   run: undefined
 };
