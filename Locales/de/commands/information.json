@@ -333,7 +333,7 @@
         }
       }
     },
-    "notEnabled": "Der Wordcounter ist nicht aktiviert. Ein Administrator kann ihn durch Ausführen von {command} aktivieren.",
+    "notEnabled": "Der Wordcounter für den Server ist nicht aktiviert. Ein Administrator kann ihn durch Ausführen von {command} aktivieren.",
     "memberEmbedTitle": "Mitglieder-Stats",
     "memberEmbedDescription": "Dies sind die Top {amt} Mitglieder:",
     "guild": {

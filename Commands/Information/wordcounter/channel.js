@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, time, TimestampStyles, bold } = require('discord.js'),
+  { EmbedBuilder, time, TimestampStyles, bold, Colors } = require('discord.js'),
   { commandMention } = require('#Utils'),
   { getTopChannelMembers } = require('./_utils');
 
@@ -29,12 +29,14 @@ module.exports = {
         title: lang('embedTitle', channel.name),
         description: lang('embedDescription', {
           enabledAt: time(new Date(Math.max(this.guild.db.wordCounter.enabledAt, this.channel.createdAt)), TimestampStyles.ShortDateTime),
-          amount: bold(this.guild.db.wordCounter.channels[channel.id])
-        })
+          amount: bold(this.guild.db.wordCounter.channels[channel.id] ?? 0)
+        }),
+        color: Colors.Blurple
       }),
       memberEmbed = new EmbedBuilder({
         title: lang('memberEmbedTitle'),
         description: lang('memberEmbedDescription', 10),
+        color: Colors.Blurple,
         fields: getTopChannelMembers(this.guild, channel.id, 10)
       });
 

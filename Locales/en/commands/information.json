@@ -333,7 +333,7 @@
         }
       }
     },
-    "notEnabled": "Word counting is not enabled. An Administrator can enable it by running {command}.",
+    "notEnabled": "Word counting is not enabled for the selected guild. An Administrator can enable it by running {command}.",
     "memberEmbedTitle": "Member stats",
     "memberEmbedDescription": "These are the top {amt} members:",
     "guild": {

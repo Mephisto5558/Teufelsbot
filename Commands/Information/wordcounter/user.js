@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, bold, time, TimestampStyles, MessageFlags } = require('discord.js'),
+  { EmbedBuilder, bold, time, TimestampStyles, MessageFlags, Colors } = require('discord.js'),
   { commandMention } = require('#Utils'),
   { getTopGuilds } = require('./_utils');
 
@@ -41,11 +41,13 @@ module.exports = {
         description: lang('embedDescription', {
           enabledAt: time(this.user.db.wordCounter.enabledAt, TimestampStyles.ShortDateTime),
           amount: bold(this.user.db.wordCounter.sum)
-        })
+        }),
+        color: Colors.Blurple
       }),
       guildEmbed = new EmbedBuilder({
         title: lang('guildEmbedTitle'),
         description: lang('guildEmbedDescription', 10),
+        color: Colors.Blurple,
         fields: getTopGuilds(this.user, 10)
       });
 

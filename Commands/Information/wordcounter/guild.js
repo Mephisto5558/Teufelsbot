@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, bold, time, TimestampStyles } = require('discord.js'),
+  { EmbedBuilder, bold, time, TimestampStyles, Colors } = require('discord.js'),
   { commandMention } = require('#Utils'),
   { getTopChannels, getTopMembers } = require('./_utils');
 
@@ -40,11 +40,13 @@ module.exports = {
       channelEmbed = new EmbedBuilder({
         title: lang('channelEmbedTitle'),
         description: lang('channelEmbedDescription', 10),
+        color: Colors.Blurple,
         fields: getTopChannels(guild, 10)
       }),
       memberEmbed = new EmbedBuilder({
         title: lang('memberEmbedTitle'),
         description: lang('memberEmbedDescription', 10),
+        color: Colors.Blurple,
         fields: getTopMembers(guild, 10)
       });
 
