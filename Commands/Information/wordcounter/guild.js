@@ -39,12 +39,12 @@ module.exports = {
       }),
       channelEmbed = new EmbedBuilder({
         title: lang('channelEmbedTitle'),
-        description: lang('channelEmbedDescription'),
+        description: lang('channelEmbedDescription', 10),
         fields: getTopChannels.call(this, lang, guild, 10)
       }),
       memberEmbed = new EmbedBuilder({
         title: lang('memberEmbedTitle'),
-        description: lang('memberEmbedDescription'),
+        description: lang('memberEmbedDescription', 10),
         fields: getTopMembers.call(this, lang, guild, 10)
       });
 

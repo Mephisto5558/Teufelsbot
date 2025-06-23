@@ -339,6 +339,7 @@
       "embedTitle": "{guild} Stats",
       "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}",
       "channelEmbedTitle": "Channel stats",
+      "channelEmbedDescription": "These are the top {amt} channels:",
       "memberEmbedTitle": "Member stats",
       "memberEmbedDescription": "These are the top {amt} members:"
     },

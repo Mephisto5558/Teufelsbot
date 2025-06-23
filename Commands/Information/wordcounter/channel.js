@@ -34,7 +34,7 @@ module.exports = {
       }),
       memberEmbed = new EmbedBuilder({
         title: lang('memberEmbedTitle'),
-        description: lang('memberEmbedDescription'),
+        description: lang('memberEmbedDescription', 10),
         fields: getTopChannelMembers.call(this, lang, this.guild, channel.id, 10)
       });
 
