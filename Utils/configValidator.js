@@ -5,12 +5,14 @@ const
   validConfig = {
     devIds: 'object', // set<string>
     website: {
-      baseDomain: 'string',
       domain: 'string',
-      port: 'string',
+      port: 'number',
       dashboard: 'string',
       privacyPolicy: 'string',
-      invite: 'string'
+      invite: 'string',
+      uptime: 'string',
+      vote: 'string',
+      todo: 'string'
     },
     github: {
       repo: 'string',

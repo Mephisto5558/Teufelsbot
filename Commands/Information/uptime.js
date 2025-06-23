@@ -10,10 +10,14 @@ module.exports = {
   dmPermission: true,
 
   async run(lang) {
+    const { website: { domain, port = 0, uptime }, disableWebserver } = this.client.config;
+
     const embed = new EmbedBuilder({
       description: lang(
-        this.client.config.website.domain && !this.client.config.disableWebserver ? 'embedDescription' : 'embedDescriptionNoURL',
-        { time: timeFormatter(Date.now() - process.uptime() * msInSecond, lang).formatted, link: hyperlink(lang('online'), `${this.client.config.website.domain}/uptime`) }
+        domain && uptime && !disableWebserver ? 'embedDescription' : 'embedDescriptionNoURL', {
+          time: timeFormatter(Date.now() - process.uptime() * msInSecond, lang).formatted,
+          link: hyperlink(lang('online'), `${domain}${port ? ':' + port : ''}/${uptime}`)
+        }
       ),
       color: Colors.White
     });

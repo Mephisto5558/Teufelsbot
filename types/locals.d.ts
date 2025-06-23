@@ -99,12 +99,14 @@ interface Config {
   /** Will always include the bot's user id and the application owner id */
   devIds: Set<Snowflake>;
   website: {
-    baseDomain?: string;
     domain?: string;
-    port?: string;
+    port?: number;
     dashboard?: string;
     privacyPolicy?: string;
     invite?: string;
+    uptime?: string;
+    vote?: string;
+    todo?: string;
   };
   github: {
     repo?: string;

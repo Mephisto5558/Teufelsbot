@@ -74,10 +74,11 @@ module.exports = {
     if (discordInvite)
       component.components.push(createButton(lang('links.discord'), discordInvite, getEmoji('icon_discord')));
 
-    if (!disableWebserver) {
-      if (website.invite) component.components.push(createButton(lang('links.invite'), website.invite));
-      if (website.dashboard) component.components.push(createButton(lang('links.dashboard'), website.dashboard));
-      if (website.privacyPolicy) component.components.push(createButton(lang('links.privacyPolicy'), website.privacyPolicy));
+    if (!disableWebserver && website.domain) {
+      const domain = website.domain + (website.port ?? 0 ? ':' + website.port : '');
+      if (website.invite) component.components.push(createButton(lang('links.invite'), `${domain}/${website.invite}`));
+      if (website.dashboard) component.components.push(createButton(lang('links.dashboard'), `${domain}/${website.dashboard}`));
+      if (website.privacyPolicy) component.components.push(createButton(lang('links.privacyPolicy'), `${domain}/${website.privacyPolicy}`));
     }
 
     return this.customReply({ embeds: [embed], components: component.components.length ? [component] : undefined });

@@ -21,7 +21,7 @@ module.exports = {
         components: [
           new ButtonBuilder({
             style: ButtonStyle.Link,
-            url: `${this.config.website.domain}/vote`
+            url: `${this.config.website.domain}${this.config.website.port ?? 0 ? ':' + this.config.website.port : ''}/${this.config.website.vote}`
           }),
           new ButtonBuilder({
             style: ButtonStyle.Danger,
