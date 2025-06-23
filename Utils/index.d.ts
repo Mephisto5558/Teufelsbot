@@ -21,6 +21,7 @@ export {
   componentHandler,
   configValidator,
   constants,
+  convertToMedal,
   cooldown as cooldowns,
   errorHandler,
   filename,
@@ -201,6 +202,8 @@ declare function componentHandler(
   lang: lang
 ): Promise<unknown>;
 
+declare function convertToMedal(i: number): string;
+
 declare function cooldown(
   this: BaseInteraction | Message,
   name: string, cooldowns?: Record<'user' | 'guild' | 'channel', number>
@@ -342,6 +345,7 @@ declare namespace TFormatter {
       ? `${number}${number}${number}${number}-${number}${number}, ${number}${number}:${number}${number}:${number}${number}`
       : string;
   };
+
 
   function timestamp(time: DateResolvable): `<t:${number}>`;
   function timestamp<T extends TimestampStylesString>(time: DateResolvable, code: T): `<t:${number}:${T}>`;
