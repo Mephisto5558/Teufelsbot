@@ -10,14 +10,14 @@ const
  * @this {GuildInteraction | Message<true>}
  * @param {Record<string, number> | undefined}data */
 function manageData(data) {
-  if (!data) return '';
+  if (!data) return;
 
   return Object.entries(data)
     .filter(([key]) => this.guild.members.cache.has(key) || key == 'AI')
     .sort(([, a], [, b]) => b - a)
     .slice(0, TOPLIST_MAX_USERS)
     .map(([key, value]) => '> ' + (key == 'AI' ? key : userMention(key)) + `: ${inlineCode(value)}`)
-    .join('\n');
+    .join('\n') || undefined;
 }
 
 /**
@@ -112,9 +112,9 @@ module.exports = {
           + `${lang('losses', formatStatCount(targetData.losses, targetData.games))}\n\n`;
 
         if (targetData.wonAgainst || targetData.lostAgainst || targetData.drewAgainst) embed.data.description += `${bold(lang('statsInfo'))}\n`;
-        if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + '\n' + (manageData.call(this, targetData.wonAgainst) || '> ' + lang('noOne')) + '\n\n';
-        if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + '\n' + (manageData.call(this, targetData.lostAgainst) || '> ' + lang('noOne')) + '\n\n';
-        if (targetData.drewAgainst) embed.data.description += lang('drewAgainst') + '\n' + (manageData.call(this, targetData.drewAgainst) || '> ' + lang('noOne')) + '\n';
+        if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + '\n' + (manageData.call(this, targetData.wonAgainst) ?? '> ' + lang('noOne')) + '\n\n';
+        if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + '\n' + (manageData.call(this, targetData.lostAgainst) ?? '> ' + lang('noOne')) + '\n\n';
+        if (targetData.drewAgainst) embed.data.description += lang('drewAgainst') + '\n' + (manageData.call(this, targetData.drewAgainst) ?? '> ' + lang('noOne')) + '\n';
       }
       else embed.data.description = target.id == this.member.id ? lang('youNoGamesPlayed', game) : lang('userNoGamesPlayed', { user: target.username, game });
 
@@ -126,7 +126,7 @@ module.exports = {
     embed.data.title = lang('embedTitleTop10', game);
     embed.data.description = formatTop.call(
       this, Object.entries(data).filter(e => settings == 'all_users' || this.guild.members.cache.has(e[0])), sort, mode, lang, embedDescriptionMaxLength
-    ) || lang('noPlayers'); /* eslint-disable-line @typescript-eslint/prefer-nullish-coalescing -- the function can return an empty string */
+    ) ?? lang('noPlayers');
 
     const component = new ActionRowBuilder({
       components: [new StringSelectMenuBuilder({

@@ -1,10 +1,11 @@
 const
   { userMention } = require('discord.js'),
   { messageMaxLength } = require('../constants'),
-  { convertToMedal } = require('../convertToMedal');
+  convertToMedal = require('../convertToMedal');
 
 /** @type {import('.').mgStats_formatTop} */
 module.exports = function formatTop(input, sort, mode, lang, maxLength = messageMaxLength, amt = 10) {
+  /** @type {[Snowflake, {wins: number, draws: number, losses: number}][]} */
   const data = input.map(([id, e]) => [id, { wins: 0, draws: 0, losses: 0, ...e }]);
 
   if (input.length > 1) {
@@ -30,5 +31,5 @@ module.exports = function formatTop(input, sort, mode, lang, maxLength = message
         + `> ${lang('wins', stats.wins)}\n`
         + `> ${lang('losses', stats.losses)}\n`
         + `> ${lang('draws', stats.draws)}\n\n`
-  ), '');
+  ), '') || undefined;
 };
