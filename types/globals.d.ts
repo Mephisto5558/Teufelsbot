@@ -385,3 +385,12 @@ declare module 'wikijs' {
   /* eslint-disable-next-line @typescript-eslint/no-empty-object-type */
   interface Page extends RawPage {}
 }
+
+declare module 'moment' {
+  /** Only available if `moment-precise-range-plugin` is imported after importing `moment`.*/
+  export function preciseDiff<returnValueObject extends boolean>(
+    d1: MomentInput, d2: MomentInput, returnValueObject: returnValueObject
+  ): returnValueObject extends true
+    ? { years: number; months: number; days: number; hours: number; minutes: number; firstDateWasLater: boolean }
+    : string;
+}
