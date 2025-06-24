@@ -63,7 +63,3 @@ This name will be displayed in some places, such as the help command.
 Create a js file in one of the subdirectories of the `Commands` directory. Paste in the `command.js` template (found in the `Templates` folder.)
 Edit the properties. Many of them are optional so you could also remove them.<br>
 Then, you need to add the texts to `Locales/en/commands`. Use the `command_translations.jsonc` template.
-
-## Others
-### Note to the discord-api-types overwrite in package.json
-The overwrite is required because in order to correctly overwrite discord.js Types.
