@@ -1,5 +1,5 @@
 type data = {
-  options?: commandOptions<false>[];
-  run: NonNullable<command<'slash'>['run']>;
+  options?: SlashCommand['options'];
+  run: SlashCommand['run'];
 };
 export= data;

@@ -1,15 +1,12 @@
 const { seededHash } = require('#Utils');
 
-/** @type {command<'both', false>} */
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new MixedCommand({
   dmPermission: true,
-  options: [{
+  options: [new CommandOption({
     name: 'question',
     type: 'String',
     required: true
-  }],
+  })],
 
   async run(lang) {
     const
@@ -22,4 +19,4 @@ module.exports = {
       ^ seededHash(`${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()}`)) % responseList.length
     ]);
   }
-};
+});

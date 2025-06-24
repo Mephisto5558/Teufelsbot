@@ -1,10 +1,7 @@
 const { hyperlink, channelLink } = require('discord.js');
 
-/** @type {command<'prefix'>} */
-module.exports = {
-  name: 'todo',
-  slashCommand: false,
-  prefixCommand: true,
+module.exports = new PrefixCommand({
+  dmPermission: true,
 
   async run(lang) {
     const { domain, port = 0, todo, vote } = this.client.config.website;
@@ -16,4 +13,4 @@ module.exports = {
       + hyperlink(lang('discordNotes'), `<${channelLink('1183014623507656745', '1011956895529041950')}>`)
     );
   }
-};
+});

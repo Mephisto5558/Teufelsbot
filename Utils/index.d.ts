@@ -26,7 +26,6 @@ export {
   errorHandler,
   filename,
   findAllEntires,
-  formatCommand,
   getAge,
   getCommandName,
   getCommands,
@@ -36,12 +35,10 @@ export {
   getTargetRole,
   gitpull,
   GiveawaysManagerWithOwnDatabase as GiveawaysManager,
-  localizeUsage,
   logSayCommandUse,
   permissionTranslator,
   seededHash,
   shellExec,
-  equal as slashCommandsEqual,
   TFormatter as timeFormatter,
   timeValidator
 };
@@ -77,7 +74,7 @@ declare namespace afk {
 
 declare function autocompleteGenerator(
   this: AutocompleteInteraction | Message,
-  command: command<'both', boolean, true>, locale: string
+  command: SlashCommand<true> | PrefixCommand<true> | MixedCommand<true>, locale: string
 ): { name: string | number; value: string | number }[] | undefined;
 
 type MaybeWithUndefined<X, T extends boolean> = T extends true ? X : X | undefined;
@@ -178,7 +175,7 @@ declare namespace BackupSystem {
 /** @returns The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally. */
 declare function checkForErrors(
   this: BaseInteraction | Message,
-  command: command<'both', boolean, true> | undefined, lang: lang
+  command: SlashCommand<boolean> | PrefixCommand<boolean> | MixedCommand<boolean> | undefined, lang: lang
 ): [string, Record<string, string> | string | undefined] | boolean;
 
 /** @returns the error message id to use with i18n. */
@@ -189,7 +186,7 @@ declare function checkTargetManageable(
 
 declare function commandExecutionWrapper(
   this: BaseInteraction | Message,
-  command: command<'both', boolean, true> | undefined, commandType: string, lang: lang
+  command: SlashCommand<boolean> | PrefixCommand<boolean> | MixedCommand<boolean> | undefined, commandType: string, lang: lang
 ): Promise<Message | undefined>;
 
 /** Formats an application command name and id into a command mention.*/
@@ -220,17 +217,12 @@ declare function findAllEntires(
   obj: Record<string, unknown>, key: string, entryList?: Record<string, unknown>
 ): Record<string, unknown>;
 
-/** @throws {Error} on non-autofixable invalid data */
-declare function formatCommand<T extends command | commandOptions<false>>(
-  option: T, path: string, id: string, i18n: I18nProvider
-): T;
-
 declare function getAge(date: Date): number;
 
 /**
  * Gets the original command name, not the alias name
  * @param command the command object or its name */
-declare function getCommandName(command: command | string): string;
+declare function getCommandName(command: SlashCommand | PrefixCommand | MixedCommand | string): string;
 
 declare function getCommands(
   this: Client,
@@ -292,10 +284,6 @@ declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
   ): Promise<boolean>;
 }
 
-declare function localizeUsage<CMD extends command<'both', false>>(
-  command: CMD, path: string, i18n: I18nProvider
-): [CMD['usage'], Record<string, CMD['usage']>] | [];
-
 declare function logSayCommandUse(
   this: Message<true>,
   member: GuildMember, lang: lang
@@ -311,11 +299,6 @@ declare function seededHash(str: string, seed?: number): number;
 declare function shellExec(
   command: string, options?: ExecOptions
 ): PromiseWithChild<{ stdout: string; stderr: string }>;
-
-declare function equal<T extends command<'both', boolean, true> | commandOptions<true> | undefined>(
-  a: T, b: T
-): boolean;
-
 
 /** @param timeStr a time string, @example '3w2d', '5h' */
 declare function timeValidator<T extends string | undefined>(
@@ -345,7 +328,6 @@ declare namespace TFormatter {
       ? `${number}${number}${number}${number}-${number}${number}, ${number}${number}:${number}${number}:${number}${number}`
       : string;
   };
-
 
   function timestamp(time: DateResolvable): `<t:${number}>`;
   function timestamp<T extends TimestampStylesString>(time: DateResolvable, code: T): `<t:${number}:${T}>`;

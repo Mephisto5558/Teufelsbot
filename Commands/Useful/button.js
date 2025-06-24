@@ -2,48 +2,45 @@ const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError, codeBlock } = require('discord.js'),
   { DiscordApiErrorCodes, constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionrowMaxAmt, actionRowMaxButtonAmt }, timeFormatter: { msInSecond } } = require('#Utils');
 
-/** @type {command<'slash'>} */
-module.exports = {
+module.exports = new SlashCommand({
   cooldowns: { user: msInSecond / 2 },
-  slashCommand: true,
-  prefixCommand: false,
   ephemeralDefer: true,
   options: [
-    {
+    new CommandOption({
       name: 'json',
       type: 'Subcommand',
-      options: [{
+      options: [new CommandOption({
         name: 'json',
         type: 'String',
         required: true
-      }]
-    },
-    {
+      })]
+    }),
+    new CommandOption({
       name: 'custom',
       type: 'Subcommand',
       options: [
-        {
+        new CommandOption({
           name: 'style',
           type: 'Number',
           choices: Object.values(ButtonStyle).filter(e => typeof e == 'number'),
           required: true
-        },
-        { name: 'emoji', type: 'String' },
-        {
+        }),
+        new CommandOption({ name: 'emoji', type: 'String' }),
+        new CommandOption({
           name: 'label',
           type: 'String',
           maxLength: buttonLabelMaxLength
-        },
-        {
+        }),
+        new CommandOption({
           name: 'url',
           type: 'String',
           maxLength: buttonURLMaxLength
-        },
-        { name: 'new_row', type: 'Boolean' },
-        { name: 'content', type: 'String' },
-        { name: 'message_id', type: 'String' }
+        }),
+        new CommandOption({ name: 'new_row', type: 'Boolean' }),
+        new CommandOption({ name: 'content', type: 'String' }),
+        new CommandOption({ name: 'message_id', type: 'String' })
       ]
-    }
+    })
   ],
 
   async run(lang) {
@@ -105,4 +102,4 @@ module.exports = {
       return this.editReply(lang('invalidOption', codeBlock(err.message)));
     }
   }
-};
+});

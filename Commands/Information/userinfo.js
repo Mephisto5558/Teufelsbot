@@ -3,13 +3,10 @@ const
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers, getAge, permissionTranslator, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
 
-/** @type {command<'both'>} */
-module.exports = {
+module.exports = new MixedCommand({
   aliases: { prefix: ['user-info'] },
   cooldowns: { user: msInSecond },
-  slashCommand: true,
-  prefixCommand: true,
-  options: [{ name: 'target', type: 'User' }],
+  options: [new CommandOption({ name: 'target', type: 'User' })],
 
   async run(lang) {
     const
@@ -117,4 +114,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed], components });
   }
-};
+});

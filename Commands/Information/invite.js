@@ -4,10 +4,7 @@ const
   /** @type {Client['config']} */
   { website = {}, disableWebserver } = require(require('node:path').resolve(process.cwd(), 'config.json'));
 
-/** @type {command<'both', false>} */
-module.exports = {
-  slashCommand: true,
-  prefixCommand: true,
+module.exports = new MixedCommand({
   dmPermission: true,
   disabled: !!disableWebserver || !website.domain || !website.invite,
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing invite or domain url path in config.json',
@@ -23,4 +20,4 @@ module.exports = {
 
     return this.customReply({ embeds: [embed] });
   }
-};
+});

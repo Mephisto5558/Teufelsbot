@@ -4,7 +4,7 @@ const
   { getDirectories, formatCommand, filename, slashCommandsEqual, errorHandler } = require('#Utils');
 
 /** @this {Client} */
-module.exports = async function slashCommandHandler() {
+module.exports = async function slashCommandLoader() {
   await this.awaitReady();
 
   const applicationCommands = this.application.commands.fetch({ withLocalizations: true });
@@ -16,7 +16,7 @@ module.exports = async function slashCommandHandler() {
 
       const filePath = resolve(file.parentPath, file.name);
 
-      /** @type {Omit<command<string, boolean, true>, 'name' | 'category'> | undefined} */
+      /** @type {SlashCommand | PrefixCommand | MixedCommand | undefined} */
       let command;
       try { command = require(filePath); }
       catch (err) {
@@ -48,7 +48,7 @@ module.exports = async function slashCommandHandler() {
       }
 
       this.slashCommands.set(command.name, command);
-      for (const alias of command.aliases?.slash ?? []) this.slashCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
+      for (const alias of command.aliases.slash ?? []) this.slashCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
     }
   }
 

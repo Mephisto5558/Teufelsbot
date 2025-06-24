@@ -1,8 +1,8 @@
 import type { EmbedField, Guild, User } from 'discord.js';
 
 type data = {
-  options?: commandOptions<false>[];
-  run: NonNullable<command<'slash', false>['run']>;
+  options?: SlashCommand['options'];
+  run: SlashCommand['run'];
 };
 export default data;
 

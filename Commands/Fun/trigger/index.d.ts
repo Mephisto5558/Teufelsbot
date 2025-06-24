@@ -1,18 +1,16 @@
 import type { AutocompleteInteraction } from 'discord.js';
 
-type fn = NonNullable<command<'slash'>['run']>;
-
 type data = {
-  options?: commandOptions<false>[];
+  options?: SlashCommand['options'];
   run(
-    this: ThisParameterType<fn>,
-    lang: Parameters<fn>[0],
+    this: ThisParameterType<SlashCommand['run']>,
+    lang: Parameters<SlashCommand['run']>[0],
     options: {
       oldData: triggers;
       query: string;
     },
-    ...rest: OmitFirstParameter<fn>
-  ): ReturnType<fn>;
+    ...rest: OmitFirstParameter<SlashCommand['run']>
+  ): ReturnType<SlashCommand['run']>;
 };
 export default data;
 

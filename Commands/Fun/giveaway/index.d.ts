@@ -1,18 +1,16 @@
 import type { ActionRowBuilder, ButtonBuilder } from 'discord.js';
 
-type fn = NonNullable<command<'slash'>['run']>;
-
 type data = {
-  options?: commandOptions<false>[];
+  options?: SlashCommand['options'];
   run(
-    this: ThisParameterType<fn>,
-    lang: Parameters<fn>[0],
+    this: ThisParameterType<SlashCommand['run']>,
+    lang: Parameters<SlashCommand['run']>[0],
     options: {
       components: ActionRowBuilder<ButtonBuilder>[];
       bonusEntries?: Record<string, string>[]; requiredRoles?: string[];
       disallowedMembers?: string[]; duration?: number;
     },
-    ...rest: OmitFirstParameter<fn>
-  ): ReturnType<fn>;
+    ...rest: OmitFirstParameter<SlashCommand['run']>
+  ): ReturnType<SlashCommand['run']>;
 };
 export= data;
