@@ -1,12 +1,12 @@
 const
   { EmbedBuilder, Colors, TimestampStyles, inlineCode } = require('discord.js'),
-  { msInSecond, timestamp } = require('#Utils').timeFormatter,
+  { timeFormatter: { msInSecond, timestamp }, toMs: { secToMs } } = require('#Utils'),
   maxPercentage = 100,
-  embedUpdateMs = msInSecond * 4; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 4s */
+  embedUpdateMs = secToMs(4); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 /** @type {command<'both', false>} */
 module.exports = {
-  cooldowns: { channel: msInSecond },
+  cooldowns: { channel: secToMs(1) },
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

@@ -1,10 +1,10 @@
 const
-  { afk: { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { afk: { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus }, toMs: { secToMs } } = require('#Utils'),
   maxAllowedAFKMsgLength = 1000;
 
 /** @type {command<'both', false>} */
 module.exports = {
-  cooldowns: { user: msInSecond * 5 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
+  cooldowns: { user: secToMs(5) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers*/
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

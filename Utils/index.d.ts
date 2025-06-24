@@ -43,7 +43,8 @@ export {
   shellExec,
   equal as slashCommandsEqual,
   TFormatter as timeFormatter,
-  timeValidator
+  timeValidator,
+  toMs
 };
 
 export { default as DiscordAPIErrorCodes } from './DiscordAPIErrorCodes.json';
@@ -357,6 +358,15 @@ declare namespace TFormatter {
     secsInHour: number, secsInDay: number, secsInWeek: number, secsInMonth: number, secsInYear: number;
   /* eslint-enable @typescript-eslint/no-magic-numbers */
 }
+
+declare namespace toMs {
+  function secToMs(secs: number): number;
+  function minToMs(mins: number): number;
+  function hourToMs(hours: number): number;
+  function dayToMs(days: number): number;
+  function yearToMs(years: number): number;
+}
+
 
 declare namespace constants {
   /* eslint-disable @typescript-eslint/no-magic-numbers */

@@ -33,7 +33,8 @@ const utils = {
   slashCommandsEqual: require('./slashCommandsEqual.js'),
   prototypeRegisterer: require('./prototypeRegisterer'),
   timeFormatter: require('./timeFormatter.js'),
-  timeValidator: require('./timeValidator.js')
+  timeValidator: require('./timeValidator.js'),
+  toMs: require('./toMs.js')
 };
 
 module.exports = utils;

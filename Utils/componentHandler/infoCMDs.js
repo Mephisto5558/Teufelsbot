@@ -7,10 +7,10 @@ const
   } = require('discord.js'),
   { ban_kick_mute } = require('../combinedCommands'),
   { auditLogReasonMaxLength } = require('../constants.js'),
-  { msInSecond } = require('../timeFormatter.js'),
+  { secToMs } = require('../toMs.js'),
   checkTargetManageable = require('../checkTargetManageable.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
-  MODALSUBMIT_MAXTIME = msInSecond * 30; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
+  MODALSUBMIT_MAXTIME = secToMs(30); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 /** @type {import('.').infoCMDs} */
 module.exports = async function infoCMDs(lang, id, mode, entityType) {

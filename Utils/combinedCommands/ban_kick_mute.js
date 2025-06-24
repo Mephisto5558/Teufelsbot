@@ -3,7 +3,8 @@ const
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
-  { secsInDay, secsInMinute, msInSecond, timestamp } = require('../timeFormatter');
+  { secsInDay, timestamp } = require('../timeFormatter'),
+  { dayToMs, minToMs } = require('../toMs.js');
 
 /** @type {import('.').ban_kick_mute} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
@@ -21,7 +22,7 @@ module.exports = async function ban_kick_mute(lang) {
     reason = this.options.getString('reason', true);
 
   if (muteDuration) {
-    muteDuration = getMilliseconds(muteDuration).limit?.({ min: msInSecond * secsInMinute, max: msInSecond * secsInDay * 28 }); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 28d */
+    muteDuration = getMilliseconds(muteDuration).limit?.({ min: minToMs(1), max: dayToMs(28) }); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
     if (!muteDuration || typeof muteDuration == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
 
     muteDurationMs = Date.now() + muteDuration;
@@ -82,7 +83,7 @@ module.exports = async function ban_kick_mute(lang) {
       })]
     }),
     collector = (await this.editReply({ embeds: [selectEmbed], components: [selectComponent] }))
-      .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: msInSecond * secsInMinute, filter: i => i.user.id == this.user.id })
+      .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: minToMs(1), filter: i => i.user.id == this.user.id })
       .on('collect', async selectMenu => {
         await selectMenu.deferUpdate();
 

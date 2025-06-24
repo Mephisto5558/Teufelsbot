@@ -11,8 +11,7 @@ const getStringOption = (interaction, name) => interaction.options.getString(nam
 /** @type {command<'slash', false>} */
 module.exports = {
   permissions: { user: ['EmbedLinks'] },
-  /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
-  cooldowns: { user: 200 },
+  cooldowns: { user: 200 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,

@@ -2,7 +2,7 @@
 
 const
   { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ButtonStyle, inlineCode } = require('discord.js'),
-  { timeFormatter: { msInSecond, secsInMinute, timestamp }, commandMention } = require('#Utils'),
+  { timeFormatter: { timestamp }, commandMention, toMs: { minToMs } } = require('#Utils'),
   { serverbackup_hasPerm: hasPerm, serverbackup_createProxy: createProxy } = require('#Utils/componentHandler'),
   BYTES_IN_KILOBITE = 1024;
 
@@ -104,12 +104,12 @@ module.exports = {
     {
       name: 'create',
       type: 'Subcommand',
-      cooldowns: { guild: msInSecond * secsInMinute * 30 } /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30mins */
+      cooldowns: { guild: minToMs(30) } /* eslint-disable-line @typescript-eslint/no-magic-numbers */
     },
     {
       name: 'load',
       type: 'Subcommand',
-      cooldowns: { guild: msInSecond * secsInMinute * 5 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers  -- 5mins */
+      cooldowns: { guild: minToMs(5) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
       options: [
         {
           name: 'id',

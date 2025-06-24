@@ -2,7 +2,8 @@ const
   { TimestampStyles, inlineCode } = require('discord.js'),
   { Duration } = require('better-ms'),
   { timeValidator, timeFormatter: { secsInYear, msInSecond, timestamp }, commandMention } = require('#Utils'),
-  MAX_YEAR_SECS = secsInYear * msInSecond * 2e5; // eslint-disable-line @typescript-eslint/no-magic-numbers -- 200000y
+  MAX_YEARS = 2e5,
+  MAX_YEAR_SECS = secsInYear * msInSecond * MAX_YEARS;
 
 /** @type {command<'both', false>} */
 module.exports = {

@@ -1,12 +1,12 @@
 const
   { EmbedBuilder, Colors, ImageFormat, ALLOWED_SIZES } = require('discord.js'),
   { Canvas, loadImage } = require('skia-canvas'),
-  { getTargetMembers, timeFormatter: { msInSecond } } = require('#Utils'),
+  { getTargetMembers, toMs: { secToMs } } = require('#Utils'),
   IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 /** @type {command<'both'>} */
 module.exports = {
-  cooldowns: { user: msInSecond * 2 },
+  cooldowns: { user: secToMs(2) },
   slashCommand: true,
   prefixCommand: true,
   options: [

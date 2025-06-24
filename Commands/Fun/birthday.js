@@ -1,7 +1,8 @@
 const
   { EmbedBuilder, Colors, userMention, bold } = require('discord.js'),
   { getTargetMembers, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, daysInYear, monthsInYear } } = require('#Utils'),
-  currentYear = new Date().getFullYear();
+  currentYear = new Date().getFullYear(),
+  MIN_YEAR = 1900;
 
 /**
  * @param {Date | number} a
@@ -140,8 +141,7 @@ module.exports = {
           name: 'year',
           type: 'Integer',
           required: true,
-          /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- min. year */
-          minValue: 1900,
+          minValue: MIN_YEAR,
           maxValue: currentYear
         }
       ]
