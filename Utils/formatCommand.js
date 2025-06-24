@@ -1,0 +1,123 @@
+/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
+const
+  { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType, Message } = require('discord.js'),
+  { resolve, dirname, basename } = require('node:path'),
+  { choicesMaxAmt, choiceValueMinLength, choiceValueMaxLength, descriptionMaxLength } = require('./constants');
+
+function getOptionalFile(path) {
+  try { return require(path); }
+  catch (err) {
+    if (err.code != 'MODULE_NOT_FOUND') throw err;
+    return {};
+  }
+}
+
+/** @type {import('.').formatCommand} */
+module.exports = function formatCommand(option, path, id, i18n) {
+  if ('options' in option) {
+    // assume it is a dir and is in the top-level or one in (subcommand group)
+    if (!path.endsWith('.js') && ('run' in option || option.type == ApplicationCommandOptionType[ApplicationCommandOptionType.SubcommandGroup]))
+      option.options = option.options.map(e => ({ ...e, options: [...e.options ?? [], ...getOptionalFile(resolve(path, e.name)).options ?? []] }));
+    option.options = option.options.map(e => formatCommand(e, path, `${id}.options.${e.name}`, i18n));
+  }
+
+  if ('run' in option) option.name ??= id.split('.').at(-1);
+  if (/[A-Z]/.test(option.name)) {
+    if (!option.disabled) log.error(`${option.name} (${id}) has uppercase letters! Fixing`);
+    option.name = option.name.toLowerCase();
+  }
+
+  option.description ??= i18n.__({ errorNotFound: true }, `${id}.description`);
+  if ('choices' in option)
+    option.choices = option.choices.map(e => typeof e == 'object' ? { ...e, __SCHandlerCustom: true } : { name: i18n.__({ undefinedNotFound: true }, `${id}.choices.${e}`) ?? e, value: e });
+  if ('autocompleteOptions' in option) option.autocomplete = true;
+
+  if (option.description.length > descriptionMaxLength) {
+    if (!option.disabled) log.warn(`Description of option "${option.name}" (${id}.description) is too long (max length is 100)! Slicing.`);
+    option.description = option.description.slice(0, descriptionMaxLength);
+  }
+
+  for (const [locale] of [...i18n.availableLocales].filter(([e]) => e != i18n.config.defaultLocale)) {
+    option.descriptionLocalizations ??= {};
+    const localizedDescription = i18n.__({ locale, undefinedNotFound: true }, `${id}.description`);
+    if (localizedDescription?.length > descriptionMaxLength && !option.disabled)
+      log.warn(`"${locale}" description localization of option "${option.name}" (${id}.description) is too long (max length is 100)! Slicing.`);
+
+    if (localizedDescription) option.descriptionLocalizations[locale] = localizedDescription.slice(0, descriptionMaxLength);
+    else if (!option.disabled) log.warn(`Missing "${locale}" description localization for option "${option.name}" (${id}.description)`);
+
+    if ('choices' in option) {
+      if (option.choices.length > choicesMaxAmt) throw new Error(`Too many choices (${option.choices.length}) found for option "${option.name}"). Max is ${choicesMaxAmt}.`);
+
+      option.choices.map(e => {
+        if (e.__SCHandlerCustom) {
+          delete e.__SCHandlerCustom;
+          return e;
+        }
+
+        e.nameLocalizations ??= {};
+
+        const localizedChoice = i18n.__({ locale, undefinedNotFound: true }, `${id}.choices.${e.value}`);
+        if (!option.disabled && localizedChoice && !localizedChoice.length.inRange(1, choiceValueMaxLength + 1)) {
+          log.warn(
+            `"${locale}" choice name localization for "${e.value}" of option "${option.name}" (${id}.choices.${e.value}) is too `
+            + (localizedChoice.length < choiceValueMinLength ? 'short (min length is 2)! Using undefined.' : `long (max length is ${choiceValueMaxLength})! Slicing.`)
+          );
+        }
+
+        if (localizedChoice && localizedChoice.length > choiceValueMinLength) e.nameLocalizations[locale] = localizedChoice.slice(0, choiceValueMaxLength + 1);
+        else if (e.name != e.value && !option.disabled) log.warn(`Missing "${locale}" choice name localization for "${e.value}" in option "${option.name}" (${id}.choices.${e.value})`);
+
+        return e;
+      });
+    }
+  }
+
+  if ('run' in option) {
+    if (!path.endsWith('.js')) { // assume it is a dir
+      option.filePath ??= resolve(path, 'index.js');
+
+      const originalRun = option.run;
+      option.run = async function runWrapper(lang, ...args) {
+        const additionalParams = await originalRun?.call(this, lang, ...args);
+        if (additionalParams === false || additionalParams instanceof Message) return;
+
+        const subcommand = this.options?.getSubcommandGroup(false) ?? this.options?.getSubcommand(true) ?? this.args[0];
+
+        lang.__boundArgs__[0].backupPath.push(`${lang.__boundArgs__[0].backupPath[0]}.${subcommand.replaceAll(/_./g, e => e[1].toUpperCase())}`);
+        return require(resolve(path, `${subcommand}.js`)).run.call(this, lang, additionalParams, ...args);
+      };
+    }
+    else if (!option.disabled && !['function', 'async function', 'async run(', 'run('].some(e => String(option.run).startsWith(e)))
+      throw new Error(`The run property of file "${id}" is not a function (Got "${typeof option.run}"). You cannot use arrow functions.`);
+
+    option.filePath ??= resolve(path);
+    option.category ??= basename(dirname(path)).toLowerCase();
+
+    if (!option.type) option.type = ApplicationCommandType.ChatInput;
+    else if (!(option.type in ApplicationCommandOptionType)) { if (!option.disabled) throw new Error(`Invalid option.type, got "${option.type}" (${id})`); }
+    else if (!Number.parseInt(option.type) && option.type != 0) option.type = ApplicationCommandType[option.type];
+
+    if (option.permissions?.user?.length > 0) option.defaultMemberPermissions = new PermissionsBitField(option.permissions.user);
+    option.dmPermission ??= false;
+
+    return option;
+  }
+
+  if ('channelTypes' in option) {
+    option.channelTypes = option.channelTypes.map(e => {
+      if (!(e in ChannelType)) throw new Error(`Invalid option.channelType, got ${JSON.stringify(e)} (${id})`);
+      return Number.isNaN(Number.parseInt(e)) ? ChannelType[e] : Number.parseInt(e);
+    });
+  }
+
+  if (!(option.type in ApplicationCommandOptionType)) throw new Error(`Missing or invalid option.type, got "${option.type}" (${id})`);
+  if (!Number.parseInt(option.type) && option.type != 0) option.type = ApplicationCommandOptionType[option.type];
+
+  if ([ApplicationCommandOptionType.Number, ApplicationCommandOptionType.Integer].includes(option.type) && ('minLength' in option || 'maxLength' in option))
+    throw new Error(`Number and Integer options do not support "minLength" and "maxLength" (${id})`);
+  if (option.type == ApplicationCommandOptionType.String && ('minValue' in option || 'maxValue' in option))
+    throw new Error(`String options do not support "minValue" and "maxValue" (${id})`);
+
+  return option;
+};

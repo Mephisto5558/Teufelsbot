@@ -36,8 +36,8 @@ module.exports = new MixedCommand({
         suffix = '...';
 
       embed.data.fields.at(-1).value = '`'
-      + (perms.length < maxLength ? perms : perms.slice(0, perms.slice(0, maxLength - suffix.length).lastIndexOf(',')) + suffix)
-      + `(${inlineCode(role.permissions.toArray().length)})`;
+        + (perms.length < maxLength ? perms : perms.slice(0, perms.slice(0, maxLength - suffix.length).lastIndexOf(',')) + suffix)
+        + `(${inlineCode(role.permissions.toArray().length)})`;
     }
 
 

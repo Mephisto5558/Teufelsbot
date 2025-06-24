@@ -73,15 +73,26 @@
     "reportFail": "Si è verificato un errore durante il tentativo di inviare la segnalazione di errore.\n{err}\nSi prega di inviare un messaggio diretto al dev."
   },
   "timeFormatter": {
-    "ydhms": "{year} anni, {day} giorni, {hour} ore, {minute} minuti e {second} secondi",
-    "dhms": "{day} giorni, {hour} ore, {minute} minuti e {second} secondi",
-    "hms": "{hour} ore, {minute} minuti e {second} secondi",
-    "ms": "{minute} minuti e {second} secondi",
-    "s": "{second} secondi"
+    "ymdhms": "{years} anni, {months} mesi, {days} giorni, {hours} ore, {minutes} minuti e {seconds} secondi",
+    "mdhms": "{months} mesi, {days} giorni, {hours} ore, {minutes} minuti e {seconds} secondi",
+    "dhms": "{days} giorni, {hours} ore, {minutes} minuti e {seconds} secondi",
+    "hms": "{hours} ore, {minutes} minuti e {seconds} secondi",
+    "ms": "{minutes} minuti e {seconds} secondi",
+    "s": "{seconds} secondi"
   },
   "timeEvents": {
     "birthday": {
       "unknownChannel": "INFO: il canale configurato per la funzione di compleanno nella gilda {guild} non esiste! Si prega di riconfigurarlo in modo da poter inviare messaggi di compleanno!"
+    },
+    "votingReminder": {
+      "embedTitle": "Promemoria Di Votazione",
+      "embedDescription": "Avete votato di recente per una richiesta di funzionalità e ora potete votare di nuovo.\n\n-# Questo promemoria viene inviato solo per due settimane (una volta alla settimana) dopo aver votato.",
+      "embedFooterText": "Ultimo voto alle",
+      "buttonLabelVote": "VOTAZIONI",
+      "buttonLabelDisable": "Disabilita Promemoria",
+      "buttonLabelEnable": "Abilita Promemoria",
+      "disabled": "I promemoria di voto sono stati disabilitati per te. Puoi premere lo stesso pulsante in qualsiasi momento per attivarli nuovamente.",
+      "enabled": "I promemoria di voto sono stati abilitati per te. Puoi premere lo stesso pulsante in qualsiasi momento per disabilitarli nuovamente."
     }
   },
   "getCommands": {

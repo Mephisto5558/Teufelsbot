@@ -38,7 +38,7 @@
     "embedTitle": "Статистика команд для {mode}",
     "notFound": "Эта команда не существует!",
     "embedDescriptionOne": "Команда {command} была запущена {total} раз (Slash: {slash} | Префикс: {prefix}).",
-    "embedDescriptionMany": "Это 10 наиболее часто используемых команд:\n",
+    "embedDescriptionMany": "Это 10 наиболее часто используемых команд:",
     "embedFieldValue": "{total} (Slash: {slash} | Префикс: {prefix})"
   },
   "dashboard": {
@@ -111,10 +111,10 @@
     "shard": "Осколок",
     "guild": "Внутренний ID Гильдии",
     "guilds": "Гильдии",
-    "commands": "Команды: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Префикс: {prefix}\n",
+    "commands": "Команды: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Префикс: {prefix}",
     "starts": "Начинается",
     "lastStart": "Последний старт",
-    "translation": "Переводы:\n> Английский: {en}\n> Герман: {de}\n",
+    "translation": "Переводы:\n> Английский: {en}\n> Герман: {de}",
     "embedTitle": "Статистика",
     "links": {
       "repo": "GitHub",
@@ -242,7 +242,7 @@
       "1": "Потоки {activity}",
       "2": "Слушает {activity}",
       "3": "Часы {activity}",
-      "4": "Статус: \"{message}\"\n",
+      "4": "Статус: \"{message}\"",
       "5": "Конкуренция в {activity}"
     },
     "mention": "Упоминание",
@@ -286,5 +286,78 @@
     "description": "получить ссылку на запрос функции ботов и страницу голосования",
     "embedTitle": "Голосование",
     "embedDescriptionVote": "Нажмите {link} , чтобы открыть веб-страницу голосования и запроса функций."
+  },
+  "wordcounter": {
+    "description": "Посмотрите, сколько слов было сказано в гильдии, канале или члене.",
+    "options": {
+      "guild": {
+        "description": "Смотрите лучшие каналы и лучшие члены гильдии.",
+        "options": {
+          "get": {
+            "description": "Смотрите лучшие каналы и лучшие члены гильдии.",
+            "options": {
+              "guild_id": {
+                "description": "ID целевой гильдии. По умолчанию этой."
+              }
+            }
+          }
+        }
+      },
+      "channel": {
+        "description": "Смотрите топ участников канала.",
+        "options": {
+          "get": {
+            "description": "Смотрите топ участников канала.",
+            "options": {
+              "channel": {
+                "description": "Целевой канал. По умолчанию этот канал."
+              }
+            }
+          }
+        }
+      },
+      "user": {
+        "description": "Переключите счетчик слов для вас или отобразите количество слов.",
+        "options": {
+          "enable": {
+            "description": "Включение или отключение счётчика слов для вас.",
+            "options": {
+              "enabled": {
+                "description": "Включение или отключение счётчика слов для вас."
+              }
+            }
+          },
+          "get": {
+            "description": "Смотрите количество слов, которые вы сказали."
+          }
+        }
+      }
+    },
+    "notEnabled": "Счетчик слов для выбранной гильдии не включен. Администратор может включить его, запустив {command}.",
+    "memberEmbedTitle": "Статистика участника",
+    "memberEmbedDescription": "Топ {amount} участников:",
+    "guild": {
+      "invalidGuild": "Указанный идентификатор гильдии неверен.",
+      "embedTitle": "Статистика {guild}",
+      "embedDescription": "Общее количество слов, отправленных с начала перекодировки на {enabledAt}: {amount}",
+      "channelEmbedTitle": "Статистика каналов",
+      "channelEmbedDescription": "Топ {amount} каналов:"
+    },
+    "channel": {
+      "embedTitle": "Статистика #{channel}",
+      "embedDescription": "Общее количество слов, отправленных с начала перекодировки на {enabledAt}: {amount}"
+    },
+    "user": {
+      "enable": {
+        "success": "{toggle} слово подсчитывает для вас."
+      },
+      "get": {
+        "notEnabledUser": "Счетчик слов для вас не включен. Вы можете включить его для вашего пользователя, запустив {command}.",
+        "embedTitle": "Статистика {user}",
+        "embedDescription": "Общее количество слов, которое вы послали с начала перекодировки на {enabledAt}: {amount}",
+        "guildEmbedTitle": "Статистика гильдии",
+        "guildEmbedDescription": "Это ваши топ- {amount} гильдии:"
+      }
+    }
   }
 }

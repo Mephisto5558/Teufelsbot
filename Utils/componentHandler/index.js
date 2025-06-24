@@ -4,7 +4,6 @@ const
   { startRecording, recordControls } = require('./record_manage.js'),
   { hasPerm, createProxy } = require('./serverbackup_utils.js');
 
-
 module.exports = {
   advice: require('./advice.js'),
   fact: require('./fact.js'),
@@ -27,8 +26,6 @@ module.exports = {
   serverbackup_hasPerm: hasPerm,
   serverbackup_createProxy: createProxy,
   serverbackup: require('./serverbackup.js'),
-  topic: require('./topic.js')
+  topic: require('./topic.js'),
+  votingReminder: require('./votingReminder.js')
 };
-
-try { module.exports.marin = require('./marin.js'); }
-catch (err) { if (err.code != 'MODULE_NOT_FOUND') throw err; }

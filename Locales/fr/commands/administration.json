@@ -248,7 +248,7 @@
       "channels": "Canaux",
       "users": "Membres",
       "embedTitle": "Paramètres de commande mis à jour pour \"{commandName}\"",
-      "embedDescription": "Le nombre de rôles/canaux/membres suivants ont été changés:\n||Voir tous les rôles/canaux/membres interdits en utilisant {commandMention} avec l'option `get`.||\n",
+      "embedDescription": "Le nombre de rôles/canaux/membres suivants ont été changés:\n||Voir tous les rôles/canaux/membres interdits en utilisant {commandMention} avec l'option `get`.||",
       "embed": {
         "enabled": "Supprimé (autorisé)",
         "disabled": "Ajouté (rejeté)"

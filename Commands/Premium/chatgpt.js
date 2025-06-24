@@ -24,7 +24,6 @@ async function fetchAPI(lang, deep) {
       ]
     })
   }).then(e => e.json());
-  await this.reply(JSON.stringify(res));
 
   if ('error' in res) {
     if (['Rate limit reached', 'Too many requests'].some(e => res.error.message.startsWith(e))) return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);

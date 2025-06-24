@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { EmbedBuilder, Colors, MessageFlags } = require('discord.js'),
 
   /** @type {import('.').checkForErrors} Getting type info while preventing circular import */
   checkForErrors = require('./checkForErrors.js'),
@@ -11,17 +11,17 @@ const
 module.exports = async function commandExecutionWrapper(command, commandType, lang) {
   const errorKey = await checkForErrors.call(this, command, lang);
   if (errorKey === true) return;
-  else if (errorKey) return this.customReply({ embeds: [new EmbedBuilder({ description: lang(...errorKey), color: Colors.Red })], ephemeral: true });
+  else if (errorKey) return this.customReply({ embeds: [new EmbedBuilder({ description: lang(...errorKey), color: Colors.Red })], flags: MessageFlags.Ephemeral });
 
   const
     commandName = command.aliasOf ?? command.name,
 
     /** @type {lang} */
-    cmdLang = this.client.i18n.__.bBind(this.client.i18n, { locale: lang.__boundArgs__[0].locale, backupPath: command ? `commands.${command.category}.${commandName}` : undefined });
+    cmdLang = this.client.i18n.__.bBind(this.client.i18n, { locale: lang.__boundArgs__[0].locale, backupPath: command ? [`commands.${command.category}.${commandName}`] : undefined });
 
   log.debug(`Executing ${commandType} command ${commandName}`);
 
-  if (!command.noDefer && this.replied === false) await this.deferReply({ ephemeral: command.ephemeralDefer ?? false }); // `=== false` because of Messages
+  if (!command.noDefer && this.replied === false) await this.deferReply({ flags: command.ephemeralDefer ? MessageFlags.Ephemeral : undefined }); // `=== false` because of Messages
 
   try {
     await command.run.call(this, cmdLang);

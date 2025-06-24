@@ -1,13 +1,13 @@
 {
   "afkMsg": "{member} est AFK: {message} - {timestamp}",
-  "afkEnd": "Bienvenue, j'ai retiré votre AFK. Vous êtes AFK depuis {timestamp}.\nVotre message AFK était : \"{message}\"",
+  "afkEnd": "Bienvenue, j'ai retiré votre AFK. Vous êtes AFK depuis {timestamp} ({formattedTime}).\nVotre message AFK était : \"{message}\"",
   "counting": {
-    "error": "VOUS RECONNAISSEZ À {lastNumber}!! Le prochain nombre est **1**.\n",
+    "error": "VOUS LE RECONNAISSEZ À {lastNumber}!! Ce canal est {channelHighscore}, le meilleur score de cette guilde est {guildHighscore}.\nLe prochain nombre est **1**.",
     "wrongNumber": "Vous ne pouvez pas compter ?! Numéro incorrect.",
     "sameUserTwice": "Vous ne pouvez pas compter deux nombres à la suite !"
   },
   "wordchain": {
-    "error": "VOUS RECONNAISSEZ UNE CHAÎNE DE {count} MOTS À \"{lastChar}\"!! Redémarrez en écrivant n'importe quel mot.\n",
+    "error": "VOUS RECONNAISSEZ UNE CHAÎNE DE {count} MOTS À \"{lastChar}\"!! Redémarrez en écrivant n'importe quel mot.",
     "sameUserTwice": "Vous ne pouvez pas dire deux mots de suite !",
     "inALoop": "« Pourquoi est-ce que vous allez dans un cercle? Ce mot n'a été utilisé que récemment! »",
     "wrongChar": "Vous ne pouvez pas lire?! Ce mot ne commence pas par le caractère du dernier mot."

@@ -1,0 +1,146 @@
+{
+  "categoryName": "Dev-Only",
+  "categoryDescription": "Befehle, die nur für den Bot-Entwickler vorgesehen sind",
+  "blacklistuser": {
+    "description": "(Ent)blockt einen User vom Benutzen des Bots",
+    "usage": {
+      "usage": "[off] <Benutzer-ID>"
+    },
+    "options": {
+      "target": {
+        "description": "Die Benutzer-ID, die du (ent)blocken möchtest."
+      }
+    },
+    "notFound": "Dieser User ist nicht blacklisted.",
+    "saved": "{user} wurde vom Nutzen des Bots geblacklistet.",
+    "removed": "{user} ist nun nicht mehr geblacklisted.",
+    "cantBlacklistDev": "Ich kann einen Developer des Bots nicht blacklisten!"
+  },
+  "dbget": {
+    "description": "Erhalte Daten aus der Datenbank",
+    "usage": {
+      "usage": "<Datenbank-Name> <Schlüssel>",
+      "examples": "datenbank a.b.c"
+    },
+    "options": {
+      "database": {
+        "description": "Die Datenbank, in der sich der Eintrag befindet."
+      },
+      "key": {
+        "description": "Der flache Schlüsselpfad"
+      }
+    },
+    "notFound": "nichts gefunden"
+  },
+  "eval": {
+    "description": "Führe JavaScript Code mit dem Bot aus",
+    "usage": {
+      "usage": "<JS-Code>",
+      "examples": "console.log('Hallo Welt!')"
+    },
+    "options": {
+      "code": {
+        "description": "Der auszuführende JavaScript-Code"
+      }
+    },
+    "finished": "Code:\n{code}",
+    "success": "{msg} wurde fehlerlos ausgeführt.",
+    "emptyRejection": "Leere Promise-Ablehnung",
+    "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
+  },
+  "exec": {
+    "description": "Führe Bash-Code direkt in die Shell des Bots aus",
+    "options": {
+      "command": {
+        "description": "Der auszuführende Bash-Befehl"
+      }
+    },
+    "usage": {
+      "usage": "<SH-Code>",
+      "examples": "echo 'Hallo Welt!'"
+    },
+    "finished": "Bash Code:\n{code}",
+    "stdout": "{msg} wurde mit folgender Ausgabe ausgeführt:\nstdout:\n{stdout}",
+    "stderr": "stderr:\n{stderr}",
+    "error": "{msg} wurde mit dem folgenden Fehler ausgeführt:\n```\n{name}: {err}\n```"
+  },
+  "reload": {
+    "description": "Lädt einen Befehl oder eine Kategorie neu",
+    "usage": {
+      "usage": "<'command' | 'file'> <Pfad relativ zum CWD>\n{prefix}{cmdName} <Befehl| '*'>",
+      "examples": "file Pfad/zur/Datei\n{prefix}{cmdName} fun"
+    },
+    "options": {
+      "command_name": {
+        "description": "Der Name des neu zu ladenden Befehls."
+      }
+    },
+    "invalidCommand": "Dies ist kein gültiger Befehl.",
+    "invalidPath": "Der angegebene Pfad existiert nicht! Beachte auch die Groß/Kleinschreibung des Pfades.",
+    "error": "Ein Fehler ist während des Neuladens aufgetreten:\n{error}\nÜberprüfe die Konsole für mehr Informationen.",
+    "noneReloaded": "Es wurden keine Befehle neu geladen.",
+    "reloaded": "Die folgenden {count} Befehle wurden neu geladen:\n{commands}"
+  },
+  "reloadconfig": {
+    "description": "Lädt die config.json Datei neu",
+    "error": "Ein Fehler ist während des Neuladens der Config aufgetreten:\n{err}",
+    "success": "Die Konfiguration wurde neu geladen."
+  },
+  "reloaddb": {
+    "description": "Lädt die Datenbank neu.",
+    "success": "Die Datenbank wurde neu geladen."
+  },
+  "reloadlang": {
+    "description": "Lädt alle Sprachdateien neu",
+    "success": "Alle Sprachdateien wurden neu geladen."
+  },
+  "restart": {
+    "description": "Startet den Bot neu",
+    "alreadyRestarting": "Der Bot führt bereits einen Neustart durch. Bitte warte, bis er abgeschlossen ist. Nachricht: {url}",
+    "updatingNPM": "{emoji} Bot wird neu gestartet...\nInstalliere Pakete...",
+    "updateNPMError": "❌ Neustart fehlgeschlagen aufgrund eines NPM-Fehlers. Überprüfe die Konsole für weitere Informationen.",
+    "restarting": "{emoji} Bot wird neu gestartet...\nStarte Node-Prozess...",
+    "restartingError": "❌ Neustart fehlgeschlagen aufgrund eines Node-Fehlers. Überprüfe die Konsole für weitere Informationen.",
+    "success": "✅ Erfolgreich neu gestartet."
+  },
+  "setactivity": {
+    "description": "Setzte die Aktivität des Bots",
+    "usage": {
+      "usage": "[Typ] [Aktivität]",
+      "examples": "playing Befehle ausführen"
+    },
+    "options": {
+      "activity": {
+        "description": "Der Status-Text, den ich haben soll."
+      },
+      "type": {
+        "description": "Der Typ der Aktivität"
+      }
+    },
+    "set": "Meine Aktivität wurde zu {name} vom Typ {type} gesetzt.",
+    "reset": "Meine Aktivität wurde zu `nichts` gesetzt."
+  },
+  "setchangelog": {
+    "description": "Aktualisiert den Changelog, sodass Nutzer auf dem neusten Stand sind.",
+    "success": "Der Changelog wurde erfolgreich aktualisiert."
+  },
+  "setcountingnumber": {
+    "description": "Aktualisiert die letzte Counting-Zahl für einen Kanal, setzt auch den letzten Autor zurück.",
+    "usage": {
+      "usage": "[Zahl (Standard 0)] [Kanal]",
+      "examples": "7 #zähl-kanal"
+    },
+    "invalidNumber": "Die angegebene Zahl ist ungültig!",
+    "unknownChannel": "Die angegebene Kanal-ID wurde in diesem Server nicht gefunden!",
+    "success": "Counting für {channel} wurde zu {number} gesetzt."
+  },
+  "test": {
+    "description": "testet Sachen"
+  },
+  "todo": {
+    "description": "Erhalte Link(s) zu den To-do-Listen des Developers.",
+    "list": "ToDo Excel",
+    "website": "Voting Website",
+    "discordNotes": "Dev Notes im Support-Server"
+  }
+}

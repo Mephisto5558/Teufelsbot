@@ -1,6 +1,12 @@
 const
-  { ChatInputCommandInteraction } = require('discord.js'),
+  { ChatInputCommandInteraction, bold } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter;
+
+/**
+ * @param {Client}client
+ * @param {{ guildId: Snowflake, channelId: Snowflake, messageId: Snowflake }}reference
+ * @returns {Message<true> | undefined}*/
+const getMessageFromReference = (client, reference = {}) => client.guilds.cache.get(reference.guildId)?.channels.cache.get(reference.channelId)?.messages.cache.get(reference.messageId);
 
 module.exports = new MixedCommand({
   cooldowns: { user: msInSecond },
@@ -11,7 +17,7 @@ module.exports = new MixedCommand({
     new CommandOption({
       name: 'message_id',
       type: 'String',
-      autocompleteOptions() { return [...this.channel.messages.cache.keys()]; }
+      autocompleteOptions() { return [...this.channel.messages.cache.filter(e => e.content).keys()]; }
     }),
     new CommandOption({ name: 'message', type: 'String' })
   ],
@@ -19,12 +25,15 @@ module.exports = new MixedCommand({
   async run(lang) {
     const
       msgId = this.options?.getString('message_id') ?? this.args?.[0],
-      msg = msgId ? await this.channel.messages.fetch(msgId).catch(() => { /* empty */ }) : { content: this.options?.getString('message') };
+      msg = msgId
+        ? await this.channel.messages.fetch(msgId).catch(() => { /* empty */ })
+        /* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- intentional - `this.content` can be an empty string */
+        : { content: this.options?.getString('message') ?? (this.content || getMessageFromReference(this.client, this.reference)?.content) };
 
     if (!msg) return this.customReply(lang('notFound'));
     if (!msg.content) return this.customReply(lang('noContent'));
 
     if (msgId && this instanceof ChatInputCommandInteraction) void this.deleteReply();
-    return this.channel.send({ content: lang('words', msg.content.match(/[\p{P}\p{Z}]+/gu)?.length ?? 0), reply: { messageReference: msgId } });
+    return this.channel.send({ content: lang('words', bold(msg.content.match(/[\p{P}\p{Z}]+/gu)?.length ?? 0)), reply: { messageReference: msgId } });
   }
 });

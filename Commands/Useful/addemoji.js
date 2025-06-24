@@ -66,7 +66,7 @@ module.exports = new SlashCommand({
       });
 
       embed.data.description = lang('success', { name: bold(emoji.name), emoji });
-      if (limitToRoles?.length > 0) embed.data.description += lang('limitedToRoles', limitToRoles.map(roleMention).join(', '));
+      if (limitToRoles?.length > 0) embed.data.description += `\n${lang('limitedToRoles', limitToRoles.map(roleMention).join(', '))}`;
     }
     catch (err) {
       if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]')) // no check by err.code because it is just 50035 ("Invalid form body")

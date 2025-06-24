@@ -1,11 +1,27 @@
 const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, userMention } = require('discord.js'),
   { msInSecond, secsInMinute } = require('../timeFormatter.js'),
   BUTTON_TIME = msInSecond * secsInMinute * 15; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 15s */
 
+/** @type {import('.').sendChallengeMention} */
+async function sendChallengeMention(msg, userId, lang) {
+  await sleep(msInSecond * 10);
 
-/** @type {import('.').playAgain} */
-module.exports = async function playAgain(interaction, lang) {
+  const reply = await msg.fetchReply().catch(() => { /* empty */ });
+  // challenge has been accepted - the accept button does not exist
+
+  if (reply?.components[0]?.components?.[0].customId != 'yes') return;
+
+  const mentionMsg = await reply.reply(lang('newChallenge', userMention(userId)));
+
+  await sleep(msInSecond * 5); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
+  void mentionMsg.delete().catch(() => { /* empty */ });
+}
+
+/**
+ * @type {import('.').playAgain}
+ * @this {ThisType<import('.').playAgain>}*/
+async function playAgain(interaction, lang) {
   const
     opponent = interaction.options.getUser('opponent'),
     { components } = await interaction.fetchReply(),
@@ -27,7 +43,7 @@ module.exports = async function playAgain(interaction, lang) {
   });
 
   collector
-    .on('collect', /** @param {import('discord.js').ButtonInteraction}PAButton */async PAButton => {
+    .on('collect', /** @param {import('discord.js').ButtonInteraction}PAButton */PAButton => {
       void PAButton.deferUpdate();
       collector.stop();
 
@@ -49,13 +65,7 @@ module.exports = async function playAgain(interaction, lang) {
         interaction.user = PAButton.user;
       }
 
-      if (interaction.options._hoistedOptions[0]?.user) {
-        const
-          msg = await interaction.channel.send(lang('newChallenge', interaction.options._hoistedOptions[0].user.id)),
-          sleepTime = 5000;
-
-        void sleep(sleepTime).then(msg.delete.bind(msg));
-      }
+      if (interaction.options._hoistedOptions[0]?.user) void sendChallengeMention(interaction, interaction.options._hoistedOptions[0].user.id, lang);
 
       return this.handleInteraction(interaction);
     })
@@ -66,4 +76,6 @@ module.exports = async function playAgain(interaction, lang) {
 
       return interaction.editReply({ components });
     });
-};
+}
+
+module.exports = { playAgain, sendChallengeMention };

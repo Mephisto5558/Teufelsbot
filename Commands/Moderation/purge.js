@@ -20,25 +20,23 @@ const
     text: msg => !!msg.content.length,
     embeds: msg => !!msg.embeds.length,
     mentions: msg => !!msg.mentions.users.size,
-    images: msg => !!msg.attachments.some(e => e.contentType.includes('image')),
+    images: msg => msg.attachments.some(e => e.contentType.includes('image')),
     /* eslint-disable-next-line camelcase -- option name for better user-readability */
-    server_ads: msg => adRegex(msg.content) || !!msg.embeds.some(e => adRegex(e.description))
+    server_ads: msg => adRegex(msg.content) || msg.embeds.some(e => adRegex(e.description))
   };
 
 /** @type {import('./purge')['shouldDeleteMsg']} */
 function shouldDeleteMsg(msg, options) {
   const
     /* eslint-disable-next-line jsdoc/require-param -- false positive */
-    check = /** @param {GenericFunction}fn @param {string}option */ (fn, option) => !!(
-      !option
-      || msg.content.toLowerCase()[fn](option.toLowerCase())
-      || msg.embeds.some(e => e.description?.toLowerCase()[fn](option.toLowerCase()))
-    ),
+    check = /** @param {(...args: unknown[]) => boolean}fn @param {string}option */ (fn, option) => !option
+      || !!msg.content.toLowerCase()[fn](option.toLowerCase())
+      || msg.embeds.some(e => !!e.description?.toLowerCase()[fn](option.toLowerCase())),
     checkCaps = () => !('caps_percentage' in options && options.caps_percentage > 0)
       || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * maxPercentage >= options.caps_percentage
       || msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * maxPercentage >= options.caps_percentage)
-      || !msg.content && !msg.embeds.some(e => e.description),
-    bool = !!(msg.bulkDeletable && (!!options.remove_pinned || !msg.pinned)),
+      || !msg.content && !msg.embeds.some(e => !!e.description),
+    bool = msg.bulkDeletable && (!!options.remove_pinned || !msg.pinned),
     userType = msg.user.bot ? 'bot' : 'human';
 
   if (!filterOptionsExist(options)) return bool;

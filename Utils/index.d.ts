@@ -21,22 +21,25 @@ export {
   componentHandler,
   configValidator,
   constants,
+  convertToMedal,
   cooldown as cooldowns,
   errorHandler,
   filename,
   findAllEntires,
   getAge,
+  getCommandName,
   getCommands,
   getDirectories,
   getTargetChannel,
-  getTargetMember,
+  getTargetMembers,
   getTargetRole,
   gitpull,
   GiveawaysManagerWithOwnDatabase as GiveawaysManager,
   logSayCommandUse,
   permissionTranslator,
+  seededHash,
   shellExec,
-  TTormatter as timeFormatter,
+  TFormatter as timeFormatter,
   timeValidator
 };
 
@@ -196,6 +199,8 @@ declare function componentHandler(
   lang: lang
 ): Promise<unknown>;
 
+declare function convertToMedal(i: number): string;
+
 declare function cooldown(
   this: BaseInteraction | Message,
   name: string, cooldowns?: Record<'user' | 'guild' | 'channel', number>
@@ -213,6 +218,11 @@ declare function findAllEntires(
 ): Record<string, unknown>;
 
 declare function getAge(date: Date): number;
+
+/**
+ * Gets the original command name, not the alias name
+ * @param command the command object or its name */
+declare function getCommandName(command: SlashCommand | PrefixCommand | MixedCommand | string): string;
 
 declare function getCommands(
   this: Client,
@@ -239,11 +249,19 @@ declare function getTargetChannel<I extends Interaction | Message, T extends boo
   { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildChannel, T> : MaybeWithUndefined<DMChannel, T>;
 
-/** @default targetOptionName = 'target' */
-declare function getTargetMember<I extends Interaction | Message, T extends boolean>(
+export declare function __getTargetMember<I extends Interaction | Message, T extends boolean>(
   interaction: I,
-  { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
+  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T }, seenList: Map<Snowflake, I extends GuildInteraction | Message<true> ? GuildMember : User>
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
+
+/** @default targetOptionName = `target${index}` */
+declare function getTargetMembers<
+  I extends Interaction | Message, Opts extends { targetOptionName?: string; returnSelf?: boolean }, O extends Opts | Opts[] | undefined
+>(
+  interaction: I, options: O
+): I extends GuildInteraction | Message<true>
+  ? (O extends Opts | undefined ? GuildMember | undefined : (GuildMember | undefined)[])
+  : (O extends Opts | undefined ? User | undefined : (User | undefined)[]);
 
 /** @default targetOptionName = 'target' */
 declare function getTargetRole<T extends boolean>(
@@ -275,6 +293,9 @@ declare function permissionTranslator<T extends string | string[]>(
   perms: T, locale: string | undefined, i18n: I18nProvider
 ): T;
 
+/** https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js */
+declare function seededHash(str: string, seed?: number): number;
+
 declare function shellExec(
   command: string, options?: ExecOptions
 ): PromiseWithChild<{ stdout: string; stderr: string }>;
@@ -299,11 +320,9 @@ declare namespace configValidator {
   const validEnv: Record<string, validConfigEntry>;
 }
 
-/** @returns `formatted` has the format `year-day, hour:minute:second` if `lang` is not provided. */
-declare namespace TTormatter {
-  function timeFormatter<T extends lang | undefined>(
-    options: { sec?: number; lang?: T }
-  ): {
+declare namespace TFormatter {
+  /** @param ms the time value in milliseconds since midnight, January 1, 1970 UTC. */
+  function timeFormatter<T extends lang | undefined>(ms: number | Date, lang?: T): {
     total: number; negative: boolean;
     formatted: T extends undefined
       ? `${number}${number}${number}${number}-${number}${number}, ${number}${number}:${number}${number}:${number}${number}`
@@ -350,6 +369,7 @@ declare namespace constants {
     snowflakeMaxLength: 19,
     bulkDeleteMaxMessageAmt: 100,
     HTTP_STATUS_BLOCKED: 522,
+    JSON_SPACES: 2,
     suffix: '...';
   /* eslint-enable @typescript-eslint/no-magic-numbers */
 }

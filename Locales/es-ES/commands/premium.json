@@ -3,6 +3,10 @@
   "categoryDescription": "Comandos que (necesitarán) una membresía premium",
   "chatgpt": {
     "description": "¡Habla con ChatGPT!",
+    "usage": {
+      "usage": "<mensaje>",
+      "examples": "Hola"
+    },
     "options": {
       "message": {
         "description": "¿Qué quieres decirle a ChatGPT?"
@@ -80,8 +84,8 @@
     "notFound": "¡No hay ningún mensaje con ese id en el canal especificado!",
     "notBotMessage": "Sólo puedo editar mis propios mensajes!",
     "cannotEdit": "¡No puedo editar ese mensaje!",
-    "timedout": "¡Has tardado mucho en responder!",
     "emptyJson": "¡El JSON que proporcionaste está vacío!",
+    "link": "Enlace",
     "error": "Ocurrió un error mientras se trataba de enviar tu JSON personalizado:\n{err}",
     "success": "El mensaje ha sido editado. {link}"
   },
@@ -117,7 +121,7 @@
     "get": "Obtener la grabación",
     "updated": "Tu respuesta ha sido establecida a {permission}. Estoy esperando a que los otros miembros respondan.",
     "paused": "🔇 Pusí la grabación {channel}.",
-    "recording": "🎙️ ¡Ahora estoy grabando {channel} ({users})!",
+    "recording": "🎙️ Ahora estoy grabando {channel} ({users})!",
     "notFound": "¡La grabación no ha sido encontrada!",
     "privateReady": "Pulse el botón para obtener la grabación.",
     "success": "🔉 ¡Aquí está su grabación!"

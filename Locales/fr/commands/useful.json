@@ -18,7 +18,7 @@
     "isGuildEmoji": "Cet émoji est déjà sur cette guilde!",
     "invalidUrl": "L'argument fourni n'est pas une url valide ou un emoji!\nL'url doit se terminer par {validFormats}.\nExemple : https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "L'url fournie n'a pas été trouvée.",
-    "success": "Ajouté avec succès {name} {emoji}!\n",
+    "success": "Ajouté avec succès {name} {emoji}!",
     "limitedToRoles": "Les émojis ont été limités aux rôles suivants:\n{roles}.",
     "error": "Impossible de créer l'émoji pour la raison :\n{err}",
     "tooBig": "L'image est trop grande. La taille de fichier maximale est de 2048 kilo-octets.",

@@ -1,5 +1,5 @@
 const
-  { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction, inlineCode } = require('discord.js'),
+  { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction, inlineCode, MessageFlags } = require('discord.js'),
   /** @type {import('.').autocompleteGenerator} */autocompleteGenerator = require('./autocompleteGenerator.js'),
   cooldowns = require('./cooldowns.js'),
   /** @type {import('.').commandMention} */ commandMention = require('./commandMention.js'),
@@ -93,7 +93,7 @@ async function checkPerms(command, lang) {
       if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
     }
   }
-  else await this.customReply({ embeds: [embed], ephemeral: true }, this instanceof Message ? PERM_ERR_MSG_DELETETIME : 0);
+  else await this.customReply({ embeds: [embed], flags: MessageFlags.Ephemeral }, this instanceof Message ? PERM_ERR_MSG_DELETETIME : 0);
 
   return true;
 }
@@ -104,7 +104,10 @@ module.exports = async function checkForErrors(command, lang) {
     if (this instanceof Message) {
       let cmd = this.client.slashCommands.get(this.commandName) ?? this.client.prefixCommands.get(this.commandName);
       if (cmd?.aliasOf) cmd = this.client.slashCommands.get(cmd.aliasOf);
-      if (cmd) return ['slashOnly', commandMention(cmd.name, cmd.id)];
+      if (cmd) {
+        if (this.client.botType == 'dev' && !cmd.beta) return this.client.config.replyOnNonBetaCommand ? ['nonBeta'] : true;
+        return ['slashOnly', commandMention(cmd.name, cmd.id)];
+      }
 
       void this.runMessages();
     }

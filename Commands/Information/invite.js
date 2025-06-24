@@ -2,17 +2,19 @@ const
   { EmbedBuilder, Colors, hyperlink } = require('discord.js'),
 
   /** @type {Client['config']} */
-  { website: { invite } = {}, disableWebserver } = require(require('node:path').resolve(process.cwd(), 'config.json'));
+  { website = {}, disableWebserver } = require(require('node:path').resolve(process.cwd(), 'config.json'));
 
 module.exports = new MixedCommand({
   dmPermission: true,
-  disabled: !!disableWebserver || !invite,
-  disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing invite url in config.json',
+  disabled: !!disableWebserver || !website.domain || !website.invite,
+  disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing invite or domain url path in config.json',
 
   async run(lang) {
+    const { domain, port = 0, invite } = this.client.config.website;
+
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', hyperlink(lang('global.here'), this.client.config.website.invite)),
+      description: lang('embedDescription', hyperlink(lang('global.here'), `${domain}${port ? ':' + port : ''}/${invite}`)),
       color: Colors.Blue
     });
 

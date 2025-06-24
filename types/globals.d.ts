@@ -2,7 +2,7 @@
 
 import type Discord from 'discord.js';
 import type DiscordTicTacToe from 'discord-tictactoe';
-import type { I18nProvider } from '@mephisto5558/i18n';
+import type { i18nFuncConfig, I18nProvider } from '@mephisto5558/i18n';
 
 import type Command from '@mephisto5558/command';
 import type DBStructure from './database';
@@ -50,7 +50,6 @@ declare global {
   }
 
   interface BigInt {
-
     toString(radix?: 10): `${bigint}`;
   }
 
@@ -136,6 +135,7 @@ declare global {
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
   type GenericFunction = (...args: any) => any;
 
+  type OmitFirstParameter<T extends GenericFunction> = Parameters<T> extends [unknown, ...infer Rest] ? Rest : never;
 
   type SlashCommand<canBeDM extends boolean = false> = Command.SlashCommand<canBeDM>;
   const SlashCommand: typeof Command.SlashCommand;
@@ -150,7 +150,7 @@ declare global {
   const CommandOption: typeof Command.CommandOption;
 
 
-  type langBoundArgs = [ { locale?: string; errorNotFound?: boolean; undefinedNotFound?: boolean; backupPath?: string } ];
+  type langBoundArgs = [i18nFuncConfig];
 
   /** {@link Function.prototype.bBind bBind}ed {@link I18nProvider.__} function */
   type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string> & { __boundArgs__: langBoundArgs };
@@ -168,7 +168,7 @@ declare global {
     __boundThis__: ThisParameterType<T>;
 
     /** The arguments to which the function is bound */
-    __boundArgs__: Parameters<T> ;
+    __boundArgs__: Parameters<T>;
   };
 
   // #region discord.js globals
@@ -177,12 +177,13 @@ declare global {
   type Interaction<inGuild extends boolean = boolean> = inGuild extends true
     ? GuildInteraction : GuildInteraction | DMInteraction;
 
-  // @ts-expect-error // inGuild needs to be overwritten otherwise typeguarding doesn't work.
-  interface PartialGuildMessage extends Discord.Partialize<Message<true>, 'type' | 'system' | 'pinned' | 'tts', 'content' | 'cleanContent' | 'author' | 'user'> {
-    inGuild(): this is PartialMessage<true>;
-  }
-
-  type PartialMessage<inGuild extends boolean = boolean> = inGuild extends true ? PartialGuildMessage : Discord.PartialMessage;
+  type PartialMessage<inGuild extends boolean = boolean> = Discord.PartialMessage & (
+    inGuild extends true ? {
+      guild: Message<true>['guild'];
+      guildId: Message<true>['guildId'];
+      inGuild(): true;
+    } : never
+  );
 
   // used to not get `any` on Message property when the object is Message | Interaction
   type OptionalInteractionProperties<inGuild extends boolean = boolean> = Partial<Interaction<inGuild>>;
@@ -229,7 +230,7 @@ export declare class TicTacToe extends DiscordTicTacToe {
   playAgain(interaction: Discord.ChatInputCommandInteraction): Promise<void>;
 }
 
-// #region mongoose-db
+// #region own libs
 declare module '@mephisto5558/mongoose-db' {
   interface NoCacheDB {
     /**
@@ -258,6 +259,12 @@ declare module '@mephisto5558/mongoose-db' {
     delete<DBK extends keyof Database>(this: DB, db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
     push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
     pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
+  }
+}
+
+declare module 'express' {
+  interface Request {
+    user?: NonNullable<Database['website']['sessions'][keyof Database['website']['sessions']]>['user'];
   }
 }
 

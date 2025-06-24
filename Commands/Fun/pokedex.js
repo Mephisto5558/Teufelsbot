@@ -45,7 +45,7 @@ module.exports = new MixedCommand({
 
     if (!res || res.error == HTTP_STATUS_NOT_FOUND) return msg.edit(lang('notFound'));
     if (res.error) {
-      log.error('pokedex.js: The api returned an error!', res);
+      log.error(`${this.commandName}.js: The api returned an error!`, res);
       return msg.edit(lang('error'));
     }
 

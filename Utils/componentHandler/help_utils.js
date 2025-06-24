@@ -8,7 +8,7 @@ const
 /**
  * @type {import('.').help_getCommands}
  * @this {ThisParameterType<import('.').help_getCommands>} */ // This is here due to eslint
-function getCommands() { return [...this.client.prefixCommands.values(), ...this.client.slashCommands.values()].unique().filter(filterCommands.bind(this)); }
+function getCommands() { return [...this.client.prefixCommands.values(), ...this.client.slashCommands.values()].unique().filter(e => !!filterCommands.call(this, e)); }
 
 /**
  * @type {import('.').help_getCommandCategories}
@@ -87,7 +87,7 @@ function createInfoFields(cmd, lang) {
   if (cmd.permissions.user.length > 0)
     arr.push({ name: lang('one.userPerms'), value: permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', '), inline: true });
 
-  const cooldowns = Object.entries(cmd.cooldowns).filter(([, e]) => e);
+  const cooldowns = Object.entries(cmd.cooldowns ?? {}).filter(([, e]) => !!e);
   if (cooldowns.length) {
     arr.push({
       name: lang('one.cooldowns'), inline: false,
@@ -138,7 +138,7 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
 
     /** @type {langUNF} */
     helpLang = this.client.i18n.__.bind(this.client.i18n, {
-      undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang, backupPath: `commands.${command.category}.${command.name}`
+      undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang, backupPath: [`commands.${command.category}.${command.name}`]
     }),
     prefixKey = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
     embed = new EmbedBuilder({
@@ -164,7 +164,7 @@ module.exports.categoryQuery = async function categoryQuery(lang, query) {
     /** @type {langUNF} */
     helpLang = this.client.i18n.__.bind(this.client.i18n, {
       undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang,
-      backupPath: `commands.${query}`
+      backupPath: [`commands.${query}`]
     }),
     commands = getCommands.call(this),
     embed = new EmbedBuilder({

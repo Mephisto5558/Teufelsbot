@@ -24,7 +24,8 @@ export {
   serverbackup_hasPerm,
   serverbackup_createProxy,
   serverbackup,
-  topic
+  topic,
+  votingReminder
 };
 
 type ComponentReturnType = ReturnType<typeof commandExecutionWrapper>;
@@ -78,7 +79,7 @@ declare function joke<
 
 declare function mgStats_formatTop(
   this: BaseInteraction<'cached'> | Message<true>,
-  input: [Snowflake, { draws?: number; wins?: number; loses?: number }][],
+  input: [Snowflake, { draws?: number; wins?: number; losses?: number }][],
   sort: 'f' | undefined, mode: 'draws' | 'losses' | 'alphabet_user' | 'alphabet_nick' | undefined, lang: lang,
   maxLength?: number
 ): string;
@@ -120,8 +121,8 @@ declare function reddit<
 ): ComponentReturnType;
 
 declare function rps_sendChallenge(
-  this: GuildInteraction | Message<true> | GuildButtonInteraction,
-  options: { initiator: GuildMember; opponent?: GuildMember; lang?: lang }
+  this: GuildInteraction | Message<true> | GuildButtonInteraction, lang: lang,
+  initiator: GuildMember, opponent?: GuildMember
 ): Promise<InteractionResponse | Message>;
 
 type PlayOptions = 'rock' | 'paper' | 'scissors';
@@ -154,4 +155,9 @@ declare function serverbackup<
 declare function topic(
   this: ButtonInteraction<undefined> & { customId: 'topic' },
   lang: lang
+): ComponentReturnType;
+
+declare function votingReminder<MODE extends 'enable' | 'disable'>(
+  this: ButtonInteraction<'raw'> & { customId: `votingReminder.${MODE}` },
+  lang: lang, mode: MODE
 ): ComponentReturnType;

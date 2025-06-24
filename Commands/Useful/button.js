@@ -9,7 +9,11 @@ module.exports = new SlashCommand({
     new CommandOption({
       name: 'json',
       type: 'Subcommand',
-      options: [new CommandOption({ name: 'json', type: 'String' })]
+      options: [new CommandOption({
+        name: 'json',
+        type: 'String',
+        required: true
+      })]
     }),
     new CommandOption({
       name: 'custom',
@@ -17,8 +21,8 @@ module.exports = new SlashCommand({
       options: [
         new CommandOption({
           name: 'style',
-          type: 'String',
-          choices: Object.keys(ButtonStyle).filter(Number).map(String),
+          type: 'Number',
+          choices: Object.values(ButtonStyle).filter(e => typeof e == 'number'),
           required: true
         }),
         new CommandOption({ name: 'emoji', type: 'String' }),
@@ -43,10 +47,10 @@ module.exports = new SlashCommand({
     const
       custom = this.options.getString('json'),
       content = this.options.getString('content') ?? undefined,
-      isLink = this.options.getString('style', true) == ButtonStyle.Link,
+      isLink = ButtonStyle[ButtonStyle[this.options.getNumber('style', true)]] == ButtonStyle.Link,
       emoji = this.options.getString('emoji'),
 
-      /** @type {`${bigint}` | null}*//* eslint-disable-line jsdoc/valid-types -- false positive */
+      /** @type {Snowflake | null} */
       msgId = this.options.getString('message_id');
 
     let
@@ -77,7 +81,7 @@ module.exports = new SlashCommand({
       const button = new ButtonBuilder(custom
         ? JSON.parse(custom)
         : {
-          style: Number.parseInt(this.options.getString('style')),
+          style: this.options.getNumber('style', true),
           label, emoji, url
         });
 

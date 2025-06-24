@@ -1,5 +1,6 @@
 const
   { readdir } = require('node:fs/promises'),
+  { resolve } = require('node:path'),
   { getDirectories, formatCommand, filename, slashCommandsEqual, errorHandler } = require('#Utils');
 
 /** @this {Client} */
@@ -10,14 +11,21 @@ module.exports = async function slashCommandLoader() {
 
   this.slashCommands.clear();
   for (const subFolder of await getDirectories('./Commands')) {
-    for (const file of await readdir(`./Commands/${subFolder}`)) {
-      if (!file.endsWith('.js')) continue;
+    for (const file of await readdir(`./Commands/${subFolder}`, { withFileTypes: true })) {
+      if (!file.name.endsWith('.js') && !file.isDirectory()) continue;
+
+      const filePath = resolve(file.parentPath, file.name);
 
       /** @type {SlashCommand | PrefixCommand | MixedCommand | undefined} */
-      let command = require(`../Commands/${subFolder}/${file}`);
+      let command;
+      try { command = require(filePath); }
+      catch (err) {
+        if (err.code != 'MODULE_NOT_FOUND') throw err;
+      }
 
       if (!command?.slashCommand) continue;
-      try { command = formatCommand(command, `Commands/${subFolder}/${file}`, `commands.${subFolder.toLowerCase()}.${filename(file)}`, this.i18n); }
+
+      try { command = formatCommand(command, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n); }
       catch (err) {
         if (this.botType == 'dev') throw err;
         log.error(`Error on formatting command ${command.name}:\n`, err);

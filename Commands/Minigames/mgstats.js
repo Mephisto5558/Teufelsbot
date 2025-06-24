@@ -1,8 +1,8 @@
 const
-  { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder, userMention, inlineCode } = require('discord.js'),
-  { getTargetMember, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
+  { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder, userMention, inlineCode, bold } = require('discord.js'),
+  { getTargetMembers, getCommandName, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
-  sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_loses', 'f_loses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
+  sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_losses', 'f_losses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
   TOPLIST_MAX_USERS = 3,
   maxPercentage = 100;
 
@@ -16,8 +16,8 @@ function manageData(data) {
     .filter(([key]) => this.guild.members.cache.has(key) || key == 'AI')
     .sort(([, a], [, b]) => b - a)
     .slice(0, TOPLIST_MAX_USERS)
-    .map(([key, value]) => '> ' + (key == 'AI' ? key : userMention(key)) + `: ${inlineCode(value)}\n`)
-    .join('');
+    .map(([key, value]) => '> ' + (key == 'AI' ? key : userMention(key)) + `: ${inlineCode(value)}`)
+    .join('\n');
 }
 
 /**
@@ -82,7 +82,7 @@ module.exports = new MixedCommand({
 
     const
       type = this.options?.getSubcommand() ?? 'user',
-      target = getTargetMember(this, { returnSelf: true }),
+      target = getTargetMembers(this, { returnSelf: true }),
       settings = this.options?.getString('settings'),
       leaderboards = this.client.db.get('leaderboards'),
       [game, data] = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == (this.options?.getString('game', true) ?? this.args[0]).toLowerCase()) ?? [],
@@ -103,15 +103,15 @@ module.exports = new MixedCommand({
 
       const targetData = data[target.id];
       if (targetData?.games > 0) {
-        embed.data.description = lang('games', inlineCode(targetData.games))
-        + lang('wins', formatStatCount(targetData.wins, targetData.games))
-        + lang('draws', formatStatCount(targetData.draws, targetData.games))
-        + lang('losses', formatStatCount(targetData.losses, targetData.games));
+        embed.data.description = `${lang('games', inlineCode(targetData.games))}\n\n`
+          + `${lang('wins', formatStatCount(targetData.wins, targetData.games))}\n`
+          + `${lang('draws', formatStatCount(targetData.draws, targetData.games))}\n`
+          + `${lang('losses', formatStatCount(targetData.losses, targetData.games))}\n\n`;
 
-        if (targetData.wonAgainst || targetData.lostAgainst || targetData.drewAgainst) embed.data.description += lang('statsInfo');
-        if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + (manageData.call(this, targetData.wonAgainst) || '> ' + lang('noOne')) + '\n';
-        if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + (manageData.call(this, targetData.lostAgainst) || '> ' + lang('noOne')) + '\n';
-        if (targetData.drewAgainst) embed.data.description += lang('drewAgainst') + (manageData.call(this, targetData.drewAgainst) || '> ' + lang('noOne'));
+        if (targetData.wonAgainst || targetData.lostAgainst || targetData.drewAgainst) embed.data.description += `${bold(lang('statsInfo'))}\n`;
+        if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + '\n' + (manageData.call(this, targetData.wonAgainst) || '> ' + lang('noOne')) + '\n\n';
+        if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + '\n' + (manageData.call(this, targetData.lostAgainst) || '> ' + lang('noOne')) + '\n\n';
+        if (targetData.drewAgainst) embed.data.description += lang('drewAgainst') + '\n' + (manageData.call(this, targetData.drewAgainst) || '> ' + lang('noOne')) + '\n';
       }
       else embed.data.description = target.id == this.member.id ? lang('youNoGamesPlayed', game) : lang('userNoGamesPlayed', { user: target.username, game });
 
@@ -122,12 +122,12 @@ module.exports = new MixedCommand({
 
     embed.data.title = lang('embedTitleTop10', game);
     embed.data.description = formatTop.call(
-      this, Object.keys(data).filter(e => settings == 'all_users' || this.guild.members.cache.has(e)), sort, mode, lang, embedDescriptionMaxLength
-    ) || lang('noPlayers');
+      this, Object.entries(data).filter(e => settings == 'all_users' || this.guild.members.cache.has(e[0])), sort, mode, lang, embedDescriptionMaxLength
+    ) || lang('noPlayers'); /* eslint-disable-line @typescript-eslint/prefer-nullish-coalescing -- the function can return an empty string */
 
     const component = new ActionRowBuilder({
       components: [new StringSelectMenuBuilder({
-        customId: `mgstats.${game}.sort.${settings}`,
+        customId: `${getCommandName.call(this.client, this.command)}.${game}.sort.${settings}`,
         options: sortOptions.map(value => ({
           value, label: lang(`options.leaderboard.options.sort.choices.${value}`),
           default: value == (sort ? `${sort}_${mode}` : 'm_wins')

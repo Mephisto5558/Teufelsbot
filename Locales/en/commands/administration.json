@@ -244,8 +244,21 @@
             "description": "Enable (true) or disable (false) logging the action"
           }
         }
+      },
+      "birthday": {
+        "description": "Configure the birthday channel and message."
+      },
+      "wordcounter": {
+        "description": "Enable (true) or disable (false) counting words in all user messages for stats.",
+        "options": {
+          "enabled": {
+            "description": "Count the amount of words members sent for statistics."
+          }
+        }
       }
     },
+    "link": "Link",
+    "useDashboard": "Use the dashboard ({link}) to modify this setting.",
     "toggleModule": {
       "success": "The {name} module has been {state}."
     },
@@ -263,7 +276,7 @@
       "channels": "Channels",
       "users": "Members",
       "embedTitle": "Updated Command Settings for \"{commandName}\"",
-      "embedDescription": "The following amount of roles/channels/members have been changed:\n||View all disallowed roles/channels/members by using {commandMention} with the `get` option.||\n",
+      "embedDescription": "The following amount of roles/channels/members have been changed:\n||View all disallowed roles/channels/members by using {commandMention} with the `get` option.||",
       "embed": {
         "enabled": "Removed (Allowed)",
         "disabled": "Added (Disallowed)"
@@ -302,6 +315,9 @@
         "voiceChannelActivity": "voice channel joins/leaves/switches",
         "sayCommandUsed": "/say (or similar) command uses"
       }
+    },
+    "wordcounter": {
+      "success": "{toggle} word counting."
     }
   }
 }

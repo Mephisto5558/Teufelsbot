@@ -14,7 +14,7 @@ module.exports = new MixedCommand({
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('global.anotherone'),
-          customId: 'topic',
+          customId: this.commandName,
           style: ButtonStyle.Primary
         })]
       });

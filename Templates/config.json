@@ -3,12 +3,14 @@
     "Array of discord user IDs. the application owner will always be in here."
   ],
   "website": {
-    "baseDomain": "Domain URL without port (if empty uses localhost)",
-    "domain": "Full Domain URL (if empty uses localhost)",
-    "port": "The Port",
-    "dashboard": "Dashboard URL",
-    "privacyPolicy": "Privacy Policy URL",
-    "invite": "Discord Invite Link"
+    "domain": "Domain URL without port (if empty uses localhost)",
+    "port": "The Port (type number)",
+    "dashboard": "Dashboard url path",
+    "privacyPolicy": "Privacy Policy url path",
+    "invite": "Discord invite url path",
+    "uptime": "Uptime url path",
+    "vote": "Voting url path",
+    "todo": "Todo url path"
   },
   "github": {
     "repo": "Repo URL",

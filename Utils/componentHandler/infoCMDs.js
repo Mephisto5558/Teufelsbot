@@ -1,7 +1,10 @@
 /* eslint camelcase: [error, { allow: [ban_kick_mute] }] */
 
 const
-  { EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, DiscordAPIError, GuildEmoji, StringSelectMenuBuilder } = require('discord.js'),
+  {
+    EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle,
+    DiscordAPIError, GuildEmoji, StringSelectMenuBuilder, MessageFlags
+  } = require('discord.js'),
   { ban_kick_mute } = require('../combinedCommands'),
   { auditLogReasonMaxLength } = require('../constants.js'),
   { msInSecond } = require('../timeFormatter.js'),
@@ -13,7 +16,7 @@ const
 module.exports = async function infoCMDs(lang, id, mode, entityType) {
   if (entityType != 'members' && mode != 'addToGuild') await this.deferReply();
 
-  lang.__boundArgs__[0].backupPath = `events.command.infoCMDs.${entityType}`;
+  lang.__boundArgs__[0].backupPath[0] = `events.command.infoCMDs.${entityType}`;
 
   const
     embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red }),
@@ -22,16 +25,16 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
         throw err;
     });
 
-  if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], ephemeral: true });
+  if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], flags: MessageFlags.Ephemeral });
 
   const entityTypeSingular = entityType.slice(0, -1);
 
   switch (entityType) {
     case 'members': {
       if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']))
-        return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], ephemeral: true });
+        return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], flags: MessageFlags.Ephemeral });
       const err = checkTargetManageable.call(this, item);
-      if (err) return this.reply({ embeds: [embed.setDescription(lang(err))], ephemeral: true });
+      if (err) return this.reply({ embeds: [embed.setDescription(lang(err))], flags: MessageFlags.Ephemeral });
 
       const modal = new ModalBuilder({
         title: lang('modalTitle'),
@@ -46,7 +49,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
         })]
       });
 
-      lang.__boundArgs__[0].backupPath = `commands.moderation.${mode}`;
+      lang.__boundArgs__[0].backupPath.push(`commands.moderation.${mode}`);
 
       void this.showModal(modal);
       const submit = await this.awaitModalSubmit({ time: MODALSUBMIT_MAXTIME }).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; });

@@ -50,7 +50,7 @@ module.exports = async function lock_unlock(lang) {
 
     if (!overwrites.length) return msg.edit(lang('notLocked'));
 
-    await this.client.db.delete('guildSettings', `${this.guild.id}.lockedChannels.${channel.id}`);
+    await this.guild.deleteDB(`lockedChannels.${channel.id}`);
   }
 
   await channel.send({ embeds: [embed] });

@@ -1,7 +1,7 @@
 const
   { EmbedBuilder, Colors, ImageFormat, ALLOWED_SIZES } = require('discord.js'),
   { Canvas, loadImage } = require('skia-canvas'),
-  { getTargetMember, timeFormatter: { msInSecond } } = require('#Utils'),
+  { getTargetMembers, timeFormatter: { msInSecond } } = require('#Utils'),
   IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 module.exports = new MixedCommand({
@@ -23,10 +23,9 @@ module.exports = new MixedCommand({
   async run(lang) {
     const
       type = (this.options?.getString('avatar_type') ?? 'server') == 'server',
-      base = getTargetMember(this, { targetOptionName: 'base' }),
-      overlay = this.options?.getMember('overlay') ?? this.mentions?.members.at(1) ?? this.member;
+      [base, overlay] = getTargetMembers(this, [{ targetOptionName: 'base' }, { targetOptionName: 'overlay', returnSelf: true }]);
 
-    if (!base || base.id == overlay.id) return this.customReply(lang('missingParam'));
+    if (!base || !overlay || base.id == overlay.id) return this.customReply(lang('missingParam'));
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle', { user1: base.displayName, user2: overlay.displayName }),
@@ -51,8 +50,8 @@ module.exports = new MixedCommand({
     ctx.drawImage(overlayAvatar, 0, 0, baseAvatar.width, baseAvatar.height);
 
     delete embed.data.description;
-    embed.data.image = { url: 'attachment://avatarfusion.png' };
+    embed.data.image = { url: `attachment://${this.commandName}.png` };
 
-    return msg.edit({ embeds: [embed], files: [{ attachment: await canvas.toBuffer(), name: 'avatarfusion.png' }] });
+    return msg.edit({ embeds: [embed], files: [{ attachment: await canvas.toBuffer(), name: `${this.commandName}.png` }] });
   }
 });

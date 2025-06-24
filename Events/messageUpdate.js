@@ -4,8 +4,8 @@ const
   PINK = 0xE62AED;
 
 /**
- * @this {Message | import('discord.js').PartialMessage}
- * @param {Message}newMsg */
+ * @this {import('discord.js').ClientEvents['messageUpdate'][0]}
+ * @param {import('discord.js').ClientEvents['messageUpdate'][1]}newMsg */
 module.exports = function messageUpdate(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading))
@@ -19,7 +19,7 @@ module.exports = function messageUpdate(newMsg) {
   const
 
     /** @type {lang} */
-    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.messageUpdate' }),
+    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['events.logger.messageUpdate'] }),
     embed = new EmbedBuilder({
       author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
       description: lang('embedDescription', { executor: userMention(newMsg.user.id), channel: newMsg.channel.name }),

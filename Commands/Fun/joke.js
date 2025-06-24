@@ -48,7 +48,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
         'User-Agent': `Discord bot (${this.config.github.repo})`,
         Accept: 'application/json'
       },
-      signal: timeoutSignal
+      signal: timeoutSignal.signal
     }).then(e => e.json());
 
     switch (api.name) {
@@ -114,7 +114,7 @@ module.exports = new MixedCommand({
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('global.anotherone'),
-          customId: `joke.${api.name ?? 'null'}.${type ?? 'null'}.${blacklist ?? 'null'}.${maxLength ?? 'null'}`,
+          customId: `${this.commandName}.${api.name ?? 'null'}.${type ?? 'null'}.${blacklist ?? 'null'}.${maxLength ?? 'null'}`,
           style: ButtonStyle.Primary
         })]
       });

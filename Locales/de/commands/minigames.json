@@ -79,8 +79,8 @@
               "f_wins": "Wenigste Siege",
               "m_draws": "Meiste Unentschieden",
               "f_draws": "Wenigste Unentschieden",
-              "m_loses": "Meiste Niederlagen",
-              "f_loses": "Wenigste Niederlagen",
+              "m_losses": "Meiste Niederlagen",
+              "f_losses": "Wenigste Niederlagen",
               "m_alphabet_user": "Benutzernamen (absteigend)",
               "f_alphabet_user": "Benutzernamen (aufsteigend)",
               "m_alphabet_nick": "Spitznamen (absteigend)",
@@ -96,17 +96,17 @@
         }
       }
     },
-    "games": "Spiele: {games}\n\n",
-    "statsInfo": "**Statistiken für diesen Server:**\n",
-    "wins": "Gewonnen: {wins}\n",
-    "draws": "Unentschieden: {draws}\n",
-    "losses": "Verloren: {losses}\n\n",
-    "noOne": "niemand\n",
+    "games": "Spiele: {games}",
+    "statsInfo": "Statistiken für diesen Server:",
+    "wins": "Gewonnen: {wins}",
+    "draws": "Unentschieden: {draws}",
+    "losses": "Verloren: {losses}",
+    "noOne": "niemand",
     "missingGameArg": "Du musst mir ein Spiel als erstes Argument geben!",
     "notFound": "Dies ist kein gültiges Spiel. Gültige Spiele sind:\n{list}",
-    "wonAgainst": "Gewonnen gegen:\n",
-    "lostAgainst": "Verloren gegen:\n",
-    "drewAgainst": "Unentschieden gegen:\n",
+    "wonAgainst": "Gewonnen gegen:",
+    "lostAgainst": "Verloren gegen:",
+    "drewAgainst": "Unentschieden gegen:",
     "embedTitle": "{user}'s {game} Statistiken",
     "embedTitleTop10": "Top 10 {game} Spieler",
     "noPlayers": "Es sieht so aus, als hätte noch niemand gespielt...",
@@ -143,7 +143,7 @@
     },
     "end": {
       "alreadyChosen": "Du hast bereits {move} ausgewählt! Bitte warte darauf, dass dein Gegner wählt.",
-      "saved": "Deine Auswahl wurde gespeichert!",
+      "chosen": "{user} hat seinen/ihren Zug gewählt!",
       "tie": "Niemand hat das Spiel gewonnen, es ist ein Unentschieden! {emoji} = {emoji}",
       "win": ":tada: {winner} hat das Spiel gewonnen! {winEmoji} > {loseEmoji}"
     }
@@ -175,7 +175,7 @@
       "success": "Ich habe erfolgreich {channel} als Wortketten-Kanal hinzugefügt."
     },
     "removed": {
-      "embedDescription": "Dieser Kanal ist nun ein Wortketten-Kanal!",
+      "embedDescription": "Dieser Kanal ist kein Wortketten-Kanal mehr.",
       "by": "Deaktiviert von {user}",
       "success": "Ich habe erfolgreich {channel} als Wortketten-Kanal entfernt."
     },

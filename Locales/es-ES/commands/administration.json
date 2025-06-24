@@ -244,8 +244,21 @@
             "description": "Habilitar (verdadero) o deshabilitar (falso) el registro de la acción"
           }
         }
+      },
+      "birthday": {
+        "description": "Configurar el canal y el mensaje del cumpleaños."
+      },
+      "wordcounter": {
+        "description": "Habilitar (verdadero) o deshabilitar (falso) el recuento de palabras en todos los mensajes de usuario para las estadísticas.",
+        "options": {
+          "enabled": {
+            "description": "Contar la cantidad de palabras que los miembros han enviado para estadísticas."
+          }
+        }
       }
     },
+    "link": "Enlace",
+    "useDashboard": "Utiliza el panel ({link}) para modificar esta configuración.",
     "toggleModule": {
       "success": "El módulo {name} ha sido {state}."
     },
@@ -263,7 +276,7 @@
       "channels": "Canales",
       "users": "Miembros",
       "embedTitle": "Configuración de comandos actualizada para \"{commandName}\"",
-      "embedDescription": "La siguiente cantidad de roles/canales/miembros han sido cambiados:\n||Ver todos los roles/canales/miembros no permitidos usando {commandMention} con la opción `obtener`.||\n",
+      "embedDescription": "La siguiente cantidad de roles/canales/miembros han sido cambiados:\n||Ver todos los roles/canales/miembros no permitidos usando {commandMention} con la opción `obtener`.||",
       "embed": {
         "enabled": "Eliminado (Permitido)",
         "disabled": "Agregado (no permitido)"
@@ -302,6 +315,9 @@
         "voiceChannelActivity": "canal de voz unirse/abandonar/interruptores",
         "sayCommandUsed": "uso del comando /say (o similar)"
       }
+    },
+    "wordcounter": {
+      "success": "{toggle} palabras contando."
     }
   }
 }

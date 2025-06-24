@@ -120,12 +120,13 @@
     "getUser": {
       "notFound": "{user} hat kein Geburtstag :(",
       "embedTitle": "{user}'s Geburtstag",
-      "date": "{user} hat am **{day}. {month}.** Geburtstag. Das ist in {daysUntil} Tagen!\n",
+      "date": "{user} hat am **{day}. {month}.** Geburtstag. Das ist in {daysUntil} Tagen!",
       "newAge": "Er/Sie wird {age} Jahre alt."
     },
     "getAll": {
       "embedTitle": "Die nächsten Geburtstage",
-      "date": "**{day}. {month}**\n",
+      "today": "Heute",
+      "date": "{day}. {month}",
       "notFound": "Niemand hat seinen Geburtstag angegeben..."
     }
   },
@@ -231,27 +232,36 @@
     },
     "managerNotFound": "Dieses Feature ist deaktiviert oder nicht registriert.",
     "notFound": "Die angegebene Nachrichten-ID ist kein gültiges Giveaway oder das Giveaway ist bereits beendet!",
-    "invalidTime": "Die angegebene Dauer bzw. der `add_time` Wert ist ungültig!",
     "notHost": "Du bist nicht der Veranstalter dieses Giveaways!",
     "buttonLabel": "Giveaway ansehen",
-    "started": "Das Giveaway wurde gestartet!",
-    "ended": "Das Giveaway wurde beendet!",
-    "edited": "Das Giveaway wurde bearbeitet!",
-    "rerolled": "Die Gewinner-Auslosung wurde wiederholt!",
-    "newGiveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
-    "giveawayEnded": "'🎉🎉 **GIVEAWAY BEENDET** 🎉🎉",
-    "requiredRoles": "Du musst mindestens eine dieser Rollen haben, um zu gewinnen: {roles}",
-    "inviteToParticipate": "Reagiere mit {emoji}, um teilzunehmen!",
-    "winMessage": "Gratulation, {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
-    "drawing": "Gewinner-Auslosung: {timestamp}",
-    "dropMessage": "Sei die/der Erste, die/der mit {emoji} reagiert!!",
-    "embedFooterText": "{this.winnerCount} Gewinner*innen",
-    "noWinner": "Das Giveaway wurde abgebrochen da es keine gültigen Teilnehmer gab.",
-    "winners": "Gewinner*innen:",
-    "rerollWinners": "🎉 Neue Gewinner*innen: {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
-    "rerollNoWinner": "Keine gültigen Teilnehmer; keine neuen Gewinner*innen wurden gefunden!",
-    "endedAt": "Endete am",
-    "hostedBy": "Veranstaltet von: {this.hostedBy}"
+    "invalidTime": "Die angegebene Dauer bzw. der `add_time` Wert ist ungültig!",
+    "create": {
+      "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
+      "giveawayEnded": "🎉🎉 GIVEAWAY BEENDET 🎉🎉",
+      "requiredRoles": "Du musst mindestens eine dieser Rollen haben, um zu gewinnen: {roles}",
+      "disallowedMembers": "Die folgenden Mitglieder dürfen nicht teilnehmen: {members}",
+      "inviteToParticipate": "Reagiere mit {emoji}, um teilzunehmen!",
+      "winMessage": "Gratulation, {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
+      "drawing": "Gewinner-Auslosung: {timestamp}",
+      "dropMessage": "Sei die/der Erste, die/der mit {emoji} reagiert!!",
+      "embedFooterText": "{this.winnerCount} Gewinner*innen",
+      "noWinner": "Das Giveaway wurde abgebrochen da es keine gültigen Teilnehmer gab.",
+      "winners": "Gewinner*innen:",
+      "endedAt": "Endete am",
+      "hostedBy": "Veranstaltet von: {this.hostedBy}",
+      "started": "Das Giveaway wurde gestartet!"
+    },
+    "end": {
+      "ended": "Das Giveaway wurde beendet!"
+    },
+    "edit": {
+      "edited": "Das Giveaway wurde bearbeitet!"
+    },
+    "reroll": {
+      "rerollWinners": "🎉 Neue Gewinner*innen: {winners}! Du hast/Ihr habt **{this.prize}** gewonnen!",
+      "rerollNoWinner": "Keine gültigen Teilnehmer; keine neuen Gewinner*innen wurden gefunden!",
+      "rerolled": "Die Gewinner-Auslosung wurde wiederholt!"
+    }
   },
   "happy": {
     "description": "Lasse den Bot eine fröhliche Nachricht senden."
@@ -343,7 +353,7 @@
     "notFound": "Kein Post passte zu deiner Suche.",
     "private": "Dieser Subreddit ist privat.",
     "error": "Ein Fehler ist aufgetreten:\n{err}",
-    "embedFooterText": "Upvotes: {upvotes} ({ratio}%) | Downvotes: {downvotes} | Kommentare: {comments}"
+    "embedFooterText": "Upvotes: {upvotes} ({ratio}) | Downvotes: {downvotes} | Kommentare: {comments}"
   },
   "sad": {
     "description": "Lasse den Bot ein trauriges Emoji senden."
@@ -366,6 +376,18 @@
       }
     },
     "noPerm": "Du hast nicht die Berechtigung, Nachrichten in diesem Kanal zu senden!"
+  },
+  "ship": {
+    "description": "Berechnet die Prozentzahl der Zuneigung zweier Nutzer.",
+    "usage": "<Nutzer> [Nutzer]",
+    "options": {
+      "user1": {
+        "description": "Wen möchtest du shippen?"
+      },
+      "user2": {
+        "description": "Mit wem möchtest du user1 shippen? Standard: du"
+      }
+    }
   },
   "sleep": {
     "description": "Sage deinen Freunden, dass du schlafen gehst.",
@@ -687,21 +709,34 @@
         }
       }
     },
-    "saved": "Ein neuer Auslöser für {trigger} wurde hinzugefügt.",
-    "edited": "Der Auslöser mit der für {trigger} wurde bearbeitet.",
-    "deletedOne": "Der Auslöser mit der ID {id} wurde gelöscht.",
-    "deletedAll": "Ich habe alle ({count}) Auslöser gelöscht.",
-    "noneFound": "Es gibt keine Auslöser!",
-    "notFound": "Kein Auslöser passt zu deiner Suchanfrage.",
-    "confirmation": "lösche alles",
-    "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!",
-    "embedTitle": "Trigger",
-    "embedTitleOne": "**Auslöser {id}:**",
-    "embedDescriptionOne": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** {wildcard}",
-    "longEmbedDescription": "ID: {id}\n> Auslöser: {trigger}\n> Ausgabe: {response}\n> Wildcard: {wildcard}\n\n",
-    "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Auslöser:**\n{trigger}\n**Ausgabe:**\n{response}\n**Wildcard:** {wildcard}\n",
-    "first25": "Die ersten 25 Auslöser. Erhalte mehr per `short` Option."
+    "add": {
+      "saved": "Ein neuer Auslöser für {trigger} wurde hinzugefügt."
+    },
+    "edit": {
+      "noneFound": "Es gibt keine Auslöser!",
+      "notFound": "Kein Auslöser passt zu deiner Suchanfrage.",
+      "edited": "Der Auslöser für {trigger} wurde bearbeitet."
+    },
+    "delete": {
+      "noneFound": "Es gibt keine Auslöser!",
+      "deletedOne": "Der Auslöser mit der ID {id} wurde gelöscht."
+    },
+    "clear": {
+      "confirmation": "lösche alles",
+      "needConfirm": "Du musst diese Aktion durch Eingabe von `LÖSCHE ALLES` in der confirm Option bestätigen!",
+      "deletedAll": "Ich habe alle ({count}) Auslöser gelöscht."
+    },
+    "get": {
+      "noneFound": "Es gibt keine Auslöser!",
+      "notFound": "Kein Auslöser passt zu deiner Suchanfrage.",
+      "embedTitle": "Trigger",
+      "embedTitleOne": "Auslöser {id}:",
+      "embedDescriptionOne": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** {wildcard}",
+      "longEmbedDescription": "ID: {id}\n> Auslöser: {trigger}\n> Antwort: {response}\n> Wildcard: {wildcard}",
+      "shortFieldName": "ID {id}",
+      "shortFieldValue": "**Auslöser:**\n{trigger}\n**Antwort:**\n{response}\n**Wildcard:** {wildcard}",
+      "first25": "Die ersten 25 Auslöser. Erhalte mehr per `short` Option."
+    }
   },
   "vote": {
     "description": "Erstelle eine Umfrage",

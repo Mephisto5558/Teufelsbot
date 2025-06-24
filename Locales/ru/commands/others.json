@@ -1,9 +1,0 @@
-{
-  "categoryName": "Другие",
-  "categoryDescription": "Команды без определенной категории",
-  "changelog": {
-    "description": "Получить последний список изменений.",
-    "embedTitle": "Список изменений",
-    "noneFound": "Информация не найдена."
-  }
-}

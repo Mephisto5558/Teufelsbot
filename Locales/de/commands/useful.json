@@ -18,7 +18,7 @@
     "isGuildEmoji": "Dieser Emoji ist bereits auf diesem Server!",
     "invalidUrl": "Das angegebene Argument ist kein gültiges Emoji oder URL!\nEine gültige URL muss eine der folgenden Endungen haben: {validFormats}.\nBeispiel: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "Die angegebene URL wurde nicht gefunden.",
-    "success": "{name} wurde erfolgreich hinzugefügt {emoji}!\n",
+    "success": "{name} wurde erfolgreich hinzugefügt {emoji}!",
     "limitedToRoles": "Das Emoji wurde zu den folgenden Rollen limitiert:\n{roles}.",
     "error": "Das Emoji konnte aus folgendem Grund nicht hinzugefügt werden:\n{err}",
     "tooBig": "Das Bild ist zu groß. Die maximale Dateigröße beträgt 2048 Kilobytes.",
@@ -299,7 +299,7 @@
     "success": "Das ist {time} ({raw})."
   },
   "until": {
-    "description": "Wie lange es bis zu einem bestimmten Datum/Zeit dauert. Wenn kein Datum, Standard: aktuelles Datum",
+    "description": "Wie lange es bis zu einem bestimmten Zeitpunkt dauert. Wenn kein Datum gegeben, dann aktuelles Datum",
     "options": {
       "day": {
         "description": "Der Tag des Zieldatums."

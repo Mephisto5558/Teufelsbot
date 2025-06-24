@@ -2,17 +2,19 @@ const
   { EmbedBuilder, Colors, hyperlink } = require('discord.js'),
 
   /** @type {Client['config']} */
-  { website: { dashboard } = {}, disableWebserver } = require(require('node:path').resolve(process.cwd(), 'config.json'));
+  { website = {}, disableWebserver } = require(require('node:path').resolve(process.cwd(), 'config.json'));
 
 module.exports = new MixedCommand({
   dmPermission: true,
-  disabled: !!disableWebserver || !dashboard,
-  disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing dashboard url in config.json',
+  disabled: !!disableWebserver || !website.domain || !website.dashboard,
+  disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing dashboard or domain url path in config.json',
 
   async run(lang) {
+    const { domain, port = 0, dashboard } = this.client.config.website;
+
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescriptionDashboard', hyperlink(lang('globals.here', this.client.config.website.dashboard))),
+      description: lang('embedDescriptionDashboard', hyperlink(lang('global.here'), `${domain}${port ? ':' + port : ''}/${dashboard}`)),
       color: Colors.Blurple
     });
 

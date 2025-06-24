@@ -8,7 +8,7 @@ const
 
 /** @type {import('.').errorHandler} */
 /* eslint-disable-next-line unicorn/no-useless-undefined -- lang is optional and doesn't have a default value. */
-module.exports = async function errorHandler(err, context = [], lang = undefined) {
+module.exports = async function errorHandler(err, context = [this], lang = undefined) {
   const
 
     /** @type {Record<string, unknown>} */
@@ -23,7 +23,6 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
    * @param {string}_
    * @param {bigint | Record<string, unknown> | undefined}v */
   function stringifyReplacer(_, v) {
-    if (typeof v == 'bigint') return v.toString();
     if (v != undefined && typeof v === 'object') {
       if (seen.has(v)) return '[Circular]';
       seen.add(v);
@@ -32,15 +31,24 @@ module.exports = async function errorHandler(err, context = [], lang = undefined
     return v;
   }
 
-  log.error(
-    ' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'),
-    err.stack ?? JSON.stringify(err),
-    contextData.__count__ ? `\nAdditional Context:\n${JSON.stringify(contextData, stringifyReplacer)}` : ''
-  );
+  try {
+    log.error(
+      ' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'),
+      err.stack ?? JSON.stringify(err),
+      contextData.__count__ ? `\nAdditional Context:\n${JSON.stringify(contextData, stringifyReplacer)}` : ''
+    );
+  }
+  catch (err2) {
+    log.error(
+      ' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'),
+      err.stack ?? JSON.stringify(err),
+      '\nCould not log additional context due to error', err2.stack ?? JSON.stringify(err2)
+    );
+  }
 
   if (!message || !lang) return;
 
-  lang.__boundArgs__[0].backupPath = 'others.errorHandler';
+  lang.__boundArgs__[0].backupPath[0] = 'others.errorHandler';
 
   const
     { aliasOf } = this.slashCommands.get(message.commandName) ?? this.prefixCommands.get(message.commandName) ?? {},

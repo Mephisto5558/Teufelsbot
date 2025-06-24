@@ -73,15 +73,26 @@
     "reportFail": "Ein Fehler ist beim Versuch, den Fehler zu melden, aufgetreten.\n{err}\nBitte informiere den Dev direkt."
   },
   "timeFormatter": {
-    "ydhms": "{year} Jahren, {day} Tagen, {hour} Stunden, {minute} Minuten und {second} Sekunden",
-    "dhms": "{day} Tagen, {hour} Stunden, {minute} Minuten und {second} Sekunden",
-    "hms": "{hour} Stunden, {minute} Minuten und {second} Sekunden",
-    "ms": "{minute} Minuten und {second} Sekunden",
-    "s": "{second} Sekunden"
+    "ymdhms": "{years} Jahren, {months} Monaten, {days} Tagen, {hours} Stunden, {minutes} Minuten und {seconds} Sekunden",
+    "mdhms": "{months} Monaten, {days} Tagen, {hours} Stunden, {minutes} Minuten und {seconds} Sekunden",
+    "dhms": "{days} Tagen, {hours} Stunden, {minutes} Minuten und {seconds} Sekunden",
+    "hms": "{hours} Stunden, {minutes} Minuten und {seconds} Sekunden",
+    "ms": "{minutes} Minuten und {seconds} Sekunden",
+    "s": "{seconds} Sekunden"
   },
   "timeEvents": {
     "birthday": {
       "unknownChannel": "INFO: Der Kanal für die Geburtstagsfunktion im Server {guild} existiert nicht! Bitte konfiguriere ihn neu, damit ich Geburtstagsnachrichten senden kann!"
+    },
+    "votingReminder": {
+      "embedTitle": "Voting-Erinnerung",
+      "embedDescription": "Du hast neulich für ein Feature-Request abgestimmt und nun kannst du erneut abstimmen.\n\n-# Diese Erinnerung wird nur zwei Wochen lang (einmal pro Woche) gesendet, nachdem du abgestimmt hast.",
+      "embedFooterText": "Letztes Mal abgestimmt am",
+      "buttonLabelVote": "Abstimmen",
+      "buttonLabelDisable": "Erinnerung deaktivieren",
+      "buttonLabelEnable": "Erinnerung aktivieren",
+      "disabled": "Voting-Erinnerungen wurden für dich deaktiviert. Du kannst jederzeit denselben Button drücken, um sie wieder zu aktivieren.",
+      "enabled": "Voting-Erinnerung wurden für dich aktiviert. Du kannst jederzeit denselben Button drücken, um sie wieder zu deaktivieren."
     }
   },
   "getCommands": {

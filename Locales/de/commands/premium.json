@@ -86,7 +86,7 @@
     "cannotEdit": "Ich kann diese Nachricht nicht bearbeiten!",
     "emptyJson": "Das von dir angegebene JSON ist leer!",
     "link": "Link",
-    "error": "Beim Senden deines benutzerdefinierten JSON ist ein Fehler aufgetreten:\n{err}\n",
+    "error": "Beim Senden deines benutzerdefinierten JSON ist ein Fehler aufgetreten:\n{err}",
     "success": "Die Nachricht wurde bearbeitet. {link}"
   },
   "record": {

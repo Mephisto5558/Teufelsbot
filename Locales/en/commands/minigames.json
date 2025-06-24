@@ -79,8 +79,8 @@
               "f_wins": "Fewest Wins",
               "m_draws": "Most Draws",
               "f_draws": "Fewest Draws",
-              "m_loses": "Most Loses",
-              "f_loses": "Fewest Loses",
+              "m_losses": "Most Losses",
+              "f_losses": "Fewest Losses",
               "m_alphabet_user": "Usernames (Descending)",
               "f_alphabet_user": "Usernames (Ascending)",
               "m_alphabet_nick": "Nicknames (Descending)",
@@ -96,17 +96,17 @@
         }
       }
     },
-    "games": "Games: {games}\n\n",
-    "statsInfo": "**Stats für this guild:**\n",
-    "wins": "Wins: {wins}\n",
-    "draws": "Draws: {draws}\n",
-    "losses": "Loses: {losses}\n\n",
-    "noOne": "no one\n",
+    "games": "Games: {games}",
+    "statsInfo": "Stats für this guild:",
+    "wins": "Wins: {wins}",
+    "draws": "Draws: {draws}",
+    "losses": "Losses: {losses}",
+    "noOne": "no one",
     "missingGameArg": "You need to give me a `game` as the first argument!",
     "notFound": "This is not a valid game entry. Valid games are:\n{list}",
-    "wonAgainst": "Won against:\n",
-    "lostAgainst": "Lost against:\n",
-    "drewAgainst": "Drew against:\n",
+    "wonAgainst": "Won against:",
+    "lostAgainst": "Lost against:",
+    "drewAgainst": "Drew against:",
     "embedTitle": "{user}'s {game} stats",
     "embedTitleTop10": "Top 10 {game} players",
     "noPlayers": "It looks like no one has played yet...",
@@ -139,11 +139,11 @@
     "declined": ":x: {opponent} did not rise up to the challenge.",
     "accept": {
       "embedTitle": ":game_die: {player1} **VS** {player2}",
-      "embedDescription": "Select your item!"
+      "embedDescription": "Select your move!"
     },
     "end": {
       "alreadyChosen": "You have already selected {move}! Please wait for your opponent to choose.",
-      "saved": "Your selection has been saved!",
+      "chosen": "{user} has selected their move!",
       "tie": "No one won the game, it's a tie! {emoji} = {emoji}",
       "win": ":tada: {winner} won the game! {winEmoji} > {loseEmoji}"
     }
@@ -175,7 +175,7 @@
       "success": "I successfully added {channel} as a wordchain channel."
     },
     "removed": {
-      "embedDescription": "This channel is no longer a wordchain channel!",
+      "embedDescription": "This channel is no longer a wordchain channel.",
       "by": "Disabled by {user}",
       "success": "I successfully removed {channel} as a wordchain channel."
     },

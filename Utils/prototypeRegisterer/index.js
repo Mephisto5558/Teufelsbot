@@ -12,14 +12,14 @@ const
   customReply = require('./message_customReply.js'),
   { runMessages } = require('./message_runMessages.js'),
   _patch = require('./message__patch.js'),
-  playAgain = require('./TicTacToe_playAgain.js'),
+  { playAgain, sendChallengeMention } = require('./TicTacToe_playAgain.js'),
   findAllEntries = require('../findAllEntries.js'),
   { setDefaultConfig } = require('../configValidator.js'),
   defaultValueLoggingMaxJSONLength = 100,
 
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
 
-module.exports = { Log, _patch, customReply, runMessages, playAgain };
+module.exports = { Log, _patch, customReply, runMessages, playAgain, sendChallengeMention };
 
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
@@ -51,9 +51,9 @@ if (!config.hideOverwriteWarning) {
     'Overwriting the following variables and functions (if they exist):'
     + '\n  Globals:    global.sleep, global.log, global.getEmoji'
     + `\n  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} Array#random, Array#unique, `
-    + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind'
+    + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind, BigInt#toJSON'
     + '\n  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
-    + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, Guild#db, guild#updateDB, '
+    + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, User#localeCode, Guild#db, guild#updateDB, '
     + 'Guild#localeCode, GuildMember#db'
     + '\n  Modifying Discord.js Message._patch method.'
   );
@@ -136,14 +136,21 @@ Object.defineProperty(Function.prototype, 'bBind', {
   },
   enumerable: false
 });
+Object.defineProperty(BigInt.prototype, 'toJSON', {
+  value: function stringify() {
+    return this.toString();
+  },
+  enumerable: false
+});
 
 // #endregion
 
 // #region Discord.js
 Object.defineProperty(BaseInteraction.prototype, 'customReply', {
-  value: customReply,
-  enumerable: false
+  value: customReply
 });
+
+// Note: Classes that re-reference client (e.g. GiveawaysManager, DB) MUST have a valueOf() function to prevent recursive JSON stringify'ing DoS'ing the whole node process
 Object.defineProperties(Client.prototype, {
   commands: {
     value: { slash: new Collection(), prefix: new Collection() }
@@ -207,7 +214,7 @@ Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
   /**
    * @this {AutocompleteInteraction}
    * @param {AutocompleteInteraction['focused']['value']}val */
-  set(val) { this.options.data.find(e => e.focused).value = val; }
+  set(val) { this.options.data.find(e => !!e.focused).value = val; }
 });
 Object.defineProperty(Message.prototype, 'user', {
   /** @this {Message} */
@@ -224,11 +231,29 @@ Object.defineProperties(User.prototype, {
     /** @type {User['updateDB']} */
     value: async function updateDB(key, value) { return this.client.db.update('userSettings', `${this.id}${key ? '.' + key : ''}`, value); }
   },
+  deleteDB: {
+    /** @type {User['deleteDB']} */
+    value: async function deleteDB(key) {
+      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- just to be safe*/
+      if (!key) throw new Error('Missing key; cannot delete user using this method!');
+      return this.client.db.delete('userSettings', `${this.id}.${key}`);
+    }
+  },
 
   /** @type {Record<string, (this: User, val: any) => any>} */
   customName: {
-    get() { return this.db.customName ?? this.username; },
+    get() { return this.db.customName ?? this.displayName; },
     set(val) { void this.updateDB('customName', val); }
+  },
+
+  /** @type {Record<string, (this: User, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale | undefined>} */
+  localeCode: {
+    // website db user locale can be `null`
+    get() {
+      const locale = this.db.localeCode ?? Object.values(this.client.db.get('website').sessions).find(e => e.user?.id == this.id)?.user?.locale ?? undefined;
+      return locale?.startsWith('en') ? 'en' : locale;
+    },
+    set(val) { void this.updateDB('localeCode', val); }
   }
 });
 Object.defineProperties(GuildMember.prototype, {
@@ -240,7 +265,7 @@ Object.defineProperties(GuildMember.prototype, {
 
   /** @type {Record<string, (this: GuildMember, val: any) => any>} */
   customName: {
-    get() { return this.guild.db.customNames?.[this.id] ?? this.nickname ?? this.user.username; },
+    get() { return this.guild.db.customNames?.[this.id] ?? this.displayName; },
     set(val) { void this.guild.updateDB(`customNames.${this.id}`, val); }
   }
 });
@@ -253,6 +278,14 @@ Object.defineProperties(Guild.prototype, {
   updateDB: {
     /** @type {Guild['updateDB']} */
     value: function updateDB(key, value) { return this.client.db.update('guildSettings', this.id + (key ? `.${key}` : ''), value); }
+  },
+  deleteDB: {
+    /** @type {Guild['deleteDB']} */
+    value: async function deleteDB(key) {
+      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- just to be safe*/
+      if (!key) throw new Error('Missing key; cannot delete guild using this method!');
+      return this.client.db.delete('guildSettings', `${this.id}.${key}`);
+    }
   },
 
   /** @type {Record<string, (this: Guild, val: Guild['localeCode']) => Guild['localeCode']>} */
@@ -270,16 +303,14 @@ Object.defineProperty(DB.prototype, 'generate', {
   value: async function generate(overwrite = false) {
     this.saveLog(`generating db files${overwrite ? ', overwriting existing data' : ''}`);
     await Promise.all(require('../../Templates/db_collections.json').map(({ key, value }) => this.set(key, value, overwrite)));
-  },
-  enumerable: false
+  }
 });
 
 // #endregion
 
 // #region discord-tictactoe
 Object.defineProperty(TicTacToe.prototype, 'playAgain', {
-  value: playAgain,
-  enumerable: false
+  value: playAgain
 });
 
 Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
@@ -301,8 +332,7 @@ Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
       if (this.disableButtonsAfterUsed) button.setDisabled(true);
     }
     return button.setCustomId(buttonIndex.toString()).setStyle(this.buttonStyles[buttonData]);
-  },
-  enumerable: false
+  }
 });
 
 // #endregion

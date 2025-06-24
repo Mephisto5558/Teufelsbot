@@ -43,7 +43,7 @@ module.exports = {
     }
 
     log('Started emoji sync').debug('Started emoji sync');
-    const clients = Object.entries(envJSON).map(([k, v]) => [k, v.keys.token]).filter(([, v]) => v);
+    const clients = Object.entries(envJSON).map(([k, v]) => [k, v.keys.token]).filter(([, v]) => !!v);
 
     for (const [env1, token1] of clients) {
       const client1 = await getClient(sessions, env1, token1);

@@ -28,6 +28,8 @@ async function backupDBs() {
  * @param {Database['guildSettings'][Snowflake] | undefined}db */
 async function cleanupGuildsDB(guildId, db) {
   if (!db) return this.db.delete('guildSettings', guildId);
+
+  if (this.guilds.cache.has(guildId)) return this.db.delete('guildSettings', `${guildId}.leftAt`);
   if (!db.leftAt || db.leftAt.getTime() < getOneYearAgo()) return;
 
   log.debug(`Deleted guild ${guildId} from the database.`);

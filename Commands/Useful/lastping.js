@@ -1,6 +1,6 @@
 const
-  { Constants, EmbedBuilder, Colors, hyperlink } = require('discord.js'),
-  { getTargetChannel, getTargetMember, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
+  { Constants, EmbedBuilder, Colors, hyperlink, userMention } = require('discord.js'),
+  { getTargetMembers, getTargetChannel, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
 module.exports = new MixedCommand({
   /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
@@ -17,10 +17,8 @@ module.exports = new MixedCommand({
 
   async run(lang) {
     const
-      target = getTargetMember(this, { targetOptionName: 'member' }),
-
-      /** @type {import('discord.js').GuildTextBasedChannel | undefined} */
-      channel = getTargetChannel(this);
+      target = getTargetMembers(this, { targetOptionName: 'member' }),
+      /** @type {import('discord.js').GuildTextBasedChannel | undefined} */channel = getTargetChannel(this);
 
     if (target) {
       if (!channel) return this.customReply(lang('memberRequiresChannel'));
@@ -36,7 +34,7 @@ module.exports = new MixedCommand({
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', {
-        author,
+        author: userMention(author),
         link: hyperlink(lang('global.here'), url),
         content: content ? `>>> ${content.slice(0, embedDescriptionMaxLength)}` : lang('global.unknown')
       }),

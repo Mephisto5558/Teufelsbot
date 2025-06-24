@@ -4,6 +4,7 @@ import type { ISODateTime } from './globals';
 import type { Env } from './locals';
 import type { GiveawayData } from 'discord-giveaways';
 import type { Database as WebsiteDB } from '@mephisto5558/bot-website/database';
+import type { Locale } from '@mephisto5558/i18n';
 
 export type { Database, FlattenedDatabase, FlattenObject, backupId, backupChannel };
 
@@ -34,7 +35,7 @@ type backupChannel = {
       attachment: `https://cdn.discordapp.com/attachments/${Snowflake}/${Snowflake}/${string}` & {} | Base64String;
     }[];
     pinned: boolean;
-    createdAt: `${ISODateTime}`;
+    createdAt: ISODateTime;
   }[];
   isNews: boolean;
   threads: {
@@ -73,10 +74,11 @@ type Database = {
       lastBirthdayCheck?: Date;
       lastDBCleanup?: Date;
       lastEmojiSync?: Date;
+      lastVotingReminder?: Date;
     };
     defaultGuild: {
       config: {
-        lang: string;
+        lang: Locale;
         prefixes: { prefix: string; caseinsensitive: boolean }[];
         betaBotPrefixes: { prefix: string; caseinsensitive: boolean }[];
       };
@@ -108,7 +110,7 @@ type Database = {
   leaderboards: Record<string, Record<userId, {
     wins?: number;
     draws?: number;
-    loses?: number;
+    losses?: number;
     games?: number;
     drewAgainst?: Record<userId | 'AI', number>;
     lostAgainst?: Record<userId | 'AI', number>;
@@ -117,6 +119,7 @@ type Database = {
   } | undefined> | undefined>;
 
   userSettings: Record<userId, {
+    localeCode?: Locale;
     customName?: string;
     afkMessage?: {
       message: string;
@@ -126,7 +129,17 @@ type Database = {
     lastVoted?: NonNullable<WebsiteDB['userSettings'][Snowflake]>['lastVoted'];
     featureRequestAutoApprove?: NonNullable<WebsiteDB['userSettings'][Snowflake]>['featureRequestAutoApprove'];
     lastFeatureRequested?: number;
+    votingReminderDisabled?: boolean;
     cmdStats?: cmdStats;
+    wordCounter?: {
+      enabled: boolean;
+      enabledAt?: Date;
+      sum: number;
+      guilds: Record<guildId, {
+        sum: number;
+        channels: Record<channelId, number | undefined>;
+      } | undefined>;
+    };
   } | undefined>;
 
   guildSettings: Record<guildId, {
@@ -174,7 +187,13 @@ type Database = {
 
         /** `undefined` only if lastNumber is `0` */
         lastAuthor?: userId;
+
+        /** The hightest number ever counted in this channel. */
+        highScore?: number;
       } | undefined>;
+
+      /** The hightest number ever counted in any counting channel in this guild. */
+      countingHighScore?: number;
       wordchain?: Record<channelId, {
         chainedWords: number;
 
@@ -215,7 +234,6 @@ type Database = {
         };
       };
     };
-
     gatekeeper?: {
       enable?: boolean;
       join?: {
@@ -249,6 +267,16 @@ type Database = {
       allowedToLoad?: number;
     };
     cmdStats?: cmdStats;
+    wordCounter?: {
+      enabled: boolean;
+      enabledAt?: Date;
+      sum: number;
+      channels: Record<channelId, number | undefined>;
+      members: Record<userId, {
+        sum: number;
+        channels: Record<channelId, number | undefined>;
+      } | undefined>;
+    };
   } | undefined>;
 
   polls: Record<guildId, userId | undefined>;
@@ -285,6 +313,7 @@ type Database = {
       discriminator: number;
       nickname: string | null;
       avatarUrl: string;
+      bannerUrl: string;
       roles: string[]; // Rolename
       bot: boolean;
     }[];

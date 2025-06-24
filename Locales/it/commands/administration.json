@@ -248,7 +248,7 @@
       "channels": "Canali",
       "users": "Membri",
       "embedTitle": "Impostazioni di comando aggiornate per \"{commandName}\"",
-      "embedDescription": "La seguente quantità di ruoli/canali/membri è stata modificata:\n<unk> <unk> Visualizza tutti i ruoli non consentiti/canali/membri utilizzando {commandMention} con l'opzione `get`.<unk> <unk>\n",
+      "embedDescription": "La seguente quantità di ruoli/canali/membri è stata modificata:\n||Visualizza tutti i ruoli non consentiti/canali/membri utilizzando {commandMention} con l'opzione `get`.||",
       "embed": {
         "enabled": "Rimosso (Permesso)",
         "disabled": "Aggiunto (Non Consentito)"

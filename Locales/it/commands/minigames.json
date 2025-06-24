@@ -79,8 +79,8 @@
               "f_wins": "Meno Vittorie",
               "m_draws": "Più Disegni",
               "f_draws": "Meno Disegni",
-              "m_loses": "Maggior Perdite",
-              "f_loses": "Meno Perdite",
+              "m_losses": "Maggior Perdite",
+              "f_losses": "Meno Perdite",
               "m_alphabet_user": "Username (discendente)",
               "f_alphabet_user": "Username (Ascending)",
               "m_alphabet_nick": "Nickname (discendente)",
@@ -96,17 +96,17 @@
         }
       }
     },
-    "games": "Giochi: {games}\n\n",
-    "statsInfo": "**Statistiche fu<unk> r questa gilda:**\n",
-    "wins": "Vittorie: {wins}\n",
-    "draws": "Disegni: {draws}\n",
-    "losses": "Perdite: {losses}\n\n",
-    "noOne": "nessuno\n",
+    "games": "Giochi: {games}",
+    "statsInfo": "Statistiche per questa gilda:",
+    "wins": "Vittorie: {wins}",
+    "draws": "Disegni: {draws}",
+    "losses": "Perdite: {losses}",
+    "noOne": "nessuno",
     "missingGameArg": "Devi darmi un `gioco` come primo argomento!",
     "notFound": "Questa non è una voce di gioco valida. I giochi validi sono:\n{list}",
-    "wonAgainst": "Vinto contro:\n",
-    "lostAgainst": "Persi contro:\n",
-    "drewAgainst": "Sogno contro:\n",
+    "wonAgainst": "Vinto contro:",
+    "lostAgainst": "Persi contro:",
+    "drewAgainst": "Sogno contro:",
     "embedTitle": "Statistiche {user}di {game}",
     "embedTitleTop10": "Top 10 {game} giocatori",
     "noPlayers": "Sembra che nessuno abbia ancora giocato...",
@@ -139,11 +139,11 @@
     "declined": ":x: {opponent} non è salito alla sfida.",
     "accept": {
       "embedTitle": ":game_die: {player1} **VS** {player2}",
-      "embedDescription": "Seleziona il tuo oggetto!"
+      "embedDescription": "Seleziona la tua mossa!"
     },
     "end": {
       "alreadyChosen": "Hai già selezionato {move}! Si prega di attendere che il tuo avversario scelga.",
-      "saved": "La tua selezione è stata salvata!",
+      "chosen": "{user} ha selezionato la loro mossa!",
       "tie": "Nessuno ha vinto la partita, è una cravatta! {emoji} = {emoji}",
       "win": ":tada: {winner} ha vinto la partita! {winEmoji} > {loseEmoji}"
     }
@@ -175,7 +175,7 @@
       "success": "Ho aggiunto con successo {channel} come canale wordchain."
     },
     "removed": {
-      "embedDescription": "Questo canale non è più un canale wordchain!",
+      "embedDescription": "Questo canale non è più un canale wordchain.",
       "by": "Disabilitato da {user}",
       "success": "Ho rimosso con successo {channel} come canale wordchain."
     },

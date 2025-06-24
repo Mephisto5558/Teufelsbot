@@ -39,7 +39,9 @@ module.exports = new MixedCommand({
         wsPings.push(this.client.ws.ping);
 
         const startMessagePing = performance.now();
-        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', { current: inlineCode(i), target: inlineCode(maxPings), timestamp: timestamp(Date.now() + embedUpdateMs) }))] });
+        await msg.edit({ embeds: [embed.setDescription(
+          lang('average.loading', { current: inlineCode(i), target: inlineCode(maxPings), timestamp: timestamp(Date.now() + embedUpdateMs, TimestampStyles.RelativeTime) })
+        )] });
         msgPings.push(performance.now() - startMessagePing);
       }
 

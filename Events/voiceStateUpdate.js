@@ -4,9 +4,9 @@ const
   GRAY = 0x36393F;
 
 /**
- * @this {import('discord.js').VoiceState}
- * @param {import('discord.js').VoiceState}newState */
-module.exports = function voiceStateUpdate(newState) {
+ * @this {import('discord.js').ClientEvents['voiceStateUpdate'][0]}
+ * @param {import('discord.js').ClientEvents['voiceStateUpdate'][1]}newState */
+module.exports = async function voiceStateUpdate(newState) {
   if (this.client.botType == 'dev') return;
 
   if (this.guild.afkChannel) {
@@ -18,7 +18,7 @@ module.exports = function voiceStateUpdate(newState) {
   if (!setting?.enabled || this.channelId == newState.channelId) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
-  if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
+  if (!channelToSend?.isTextBased() || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
 
   const
     embed = new EmbedBuilder({
@@ -28,7 +28,7 @@ module.exports = function voiceStateUpdate(newState) {
     }),
 
     /** @type {lang} */
-    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: 'events.logger.voiceStateUpdate' }),
+    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['events.logger.voiceStateUpdate'] }),
     oldChannelField = () => ({ name: lang('oldChannel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false }),
     newChannelField = () => ({ name: lang('newChannel'), value: `${channelMention(newState.channel.id)} (${inlineCode(newState.channel.id)})`, inline: false });
 

@@ -10,7 +10,7 @@ module.exports = async function logSayCommandUse(member, lang) {
   const channel = this.guild.channels.cache.get(setting.channel);
   if (!(channel instanceof TextChannel) || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
 
-  lang.__boundArgs__[0].backupPath = 'events.logger.sayCommandUsed';
+  lang.__boundArgs__[0].backupPath[0] = 'events.logger.sayCommandUsed';
 
   const
     embed = new EmbedBuilder({

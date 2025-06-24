@@ -2,17 +2,19 @@ const
   { EmbedBuilder, Colors, hyperlink } = require('discord.js'),
 
   /** @type {Client['config']} */
-  { website: { domain } = {}, disableWebserver } = require(require('node:path').resolve(process.cwd(), 'config.json'));
+  { website = {}, disableWebserver } = require(require('node:path').resolve(process.cwd(), 'config.json'));
 
 module.exports = new MixedCommand({
   dmPermission: true,
-  disabled: !!disableWebserver || !domain,
-  disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing domain url in config.json',
+  disabled: !!disableWebserver || !website.domain || !website.vote,
+  disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing domain or vote url path in config.json',
 
   async run(lang) {
+    const { domain, port = 0, vote } = this.client.config.website;
+
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescriptionVote', hyperlink(lang('global.here'), `${this.client.config.website.domain}/vote`)),
+      description: lang('embedDescriptionVote', hyperlink(lang('global.here'), `${domain}/${port ? ':' + port : ''}/${vote}`)),
       color: Colors.Blurple
     });
 

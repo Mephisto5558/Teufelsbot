@@ -39,37 +39,37 @@ const backupMainFunctions = {
         ], statusObj
       });
 
-    return this.editReply({ embeds: [embed.setDescription(lang('create.success', { id: inlineCode(backup.id), cmd: commandMention(this.commandName, this.commandId) }))] });
+    return this.editReply({ embeds: [embed.setDescription(lang('success', { id: inlineCode(backup.id), cmd: commandMention(this.commandName, this.commandId) }))] });
   },
 
   load: async function loadBackup(lang, embed, id) {
-    if (!this.client.backupSystem.get(id)) return this.editReply({ embeds: [embed.setDescription(lang('load.noneFound'))] });
-    if (!hasPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('load.noPerm'))] });
+    if (!this.client.backupSystem.get(id)) return this.editReply({ embeds: [embed.setDescription(lang('noneFound'))] });
+    if (!hasPerm.call(this, this.client.backupSystem.get(id))) return this.editReply({ embeds: [embed.setDescription(lang('noPerm'))] });
 
     const component = new ActionRowBuilder({
       components: [
         new ButtonBuilder({
           label: lang('global.true'),
-          customId: `serverbackup.load.${id}.start.${!this.options.getBoolean('no_clear')}`,
+          customId: `${this.commandName}.${this.options.getSubcommand()}.${id}.start.${!this.options.getBoolean('no_clear')}`,
           style: ButtonStyle.Danger
         }),
         new ButtonBuilder({
           label: lang('global.false'),
-          customId: `serverbackup.load.${id}.cancel`,
+          customId: `${this.commandName}.${this.options.getSubcommand()}.${id}.cancel`,
           style: ButtonStyle.Success
         })
       ]
     });
 
-    return this.editReply({ embeds: [embed.setColor(Colors.DarkRed).setDescription(lang('load.overwriteWarningDescription'))], components: [component] });
+    return this.editReply({ embeds: [embed.setColor(Colors.DarkRed).setDescription(lang('overwriteWarningDescription'))], components: [component] });
   },
 
   delete: async function deleteBackup(lang, embed, id) {
     if (this.user.id != this.guild.ownerId || !hasPerm.call(this, this.client.backupSystem.get(id)))
-      return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('delete.noPerm'))] });
+      return this.editReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('noPerm'))] });
 
     await this.client.backupSystem.remove(id);
-    return this.editReply({ embeds: [embed.setDescription(lang('delete.success'))] });
+    return this.editReply({ embeds: [embed.setDescription(lang('success'))] });
   },
 
   get: function getBackup(lang, embed, id) {
@@ -79,17 +79,17 @@ const backupMainFunctions = {
       const backup = this.client.backupSystem.get(id);
       return void this.editReply({
         embeds: [backup
-          ? embed.setDescription(lang('get.oneEmbedDescription', { id: inlineCode(id), ...getData(backup) }))
-          : embed.setColor(Colors.Red).setDescription(lang('get.oneNotFound'))]
+          ? embed.setDescription(lang('oneEmbedDescription', { id: inlineCode(id), ...getData(backup) }))
+          : embed.setColor(Colors.Red).setDescription(lang('oneNotFound'))]
       });
     }
 
     embed.data.fields = this.client.backupSystem.list(this.guild.id).sort((a, b) => b.createdAt - a.createdAt)
       .first(10)
-      .map(e => ({ name: e.id, value: lang('get.infos', getData(e)) }));
+      .map(e => ({ name: e.id, value: lang('infos', getData(e)) }));
 
-    if (embed.data.fields.length) embed.data.footer = { text: lang('get.found', this.client.backupSystem.list(this.guild.id).size) };
-    return void this.editReply({ embeds: [embed.setDescription(lang(embed.data.fields.length ? 'get.embedDescription' : 'get.noneFound'))] });
+    if (embed.data.fields.length) embed.data.footer = { text: lang('found', this.client.backupSystem.list(this.guild.id).size) };
+    return void this.editReply({ embeds: [embed.setDescription(lang(embed.data.fields.length ? 'embedDescription' : 'noneFound'))] });
   }
 };
 
@@ -143,6 +143,7 @@ module.exports = new SlashCommand({
   run(lang) {
     const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
 
+    lang.__boundArgs__[0].backupPath.push(`${lang.__boundArgs__[0].backupPath[0]}.${this.options.getSubcommand()}`);
     return backupMainFunctions[this.options.getSubcommand()].call(this, lang, embed, this.options.getString('id'));
   }
 });

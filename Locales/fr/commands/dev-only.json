@@ -1,0 +1,146 @@
+{
+  "categoryName": "Propriétaire uniquement",
+  "categoryDescription": "Commandes qui ne devraient être disponibles que pour un développeur",
+  "blacklistuser": {
+    "description": "(Dé)bloque un utilisateur d'utiliser le bot",
+    "usage": {
+      "usage": "[off] <user id>"
+    },
+    "options": {
+      "target": {
+        "description": "L'ID de l'utilisateur que vous voulez (dé)bloquer."
+      }
+    },
+    "notFound": "Aucune entrée trouvée pour cet identifiant.",
+    "saved": "{user} a été exclu d'utiliser le bot.",
+    "removed": "L'entrée de la liste noire pour {user} a été supprimée.",
+    "cantBlacklistDev": "Je ne peux pas mettre en liste noire un développeur du bot !"
+  },
+  "dbget": {
+    "description": "interroger les données de la base de données",
+    "usage": {
+      "usage": "<database name> <key>",
+      "examples": "base de données a.b.c"
+    },
+    "options": {
+      "database": {
+        "description": "La base de données dans laquelle se trouve l'entrée."
+      },
+      "key": {
+        "description": "Le chemin de la clé aplatie"
+      }
+    },
+    "notFound": "rien trouvé"
+  },
+  "eval": {
+    "description": "injecter du code JavaScript directement dans le bot",
+    "usage": {
+      "usage": "<js code>",
+      "examples": "console.log('Hello World!')"
+    },
+    "options": {
+      "code": {
+        "description": "Le code JavaScript à évaluer"
+      }
+    },
+    "finished": "commande évaluée :\n{code}",
+    "success": "{msg} sans erreurs.",
+    "emptyRejection": "Rejet de promesse vide",
+    "error": "{msg} avec l'erreur suivante:\n```\n{name}: {err}\n```"
+  },
+  "exec": {
+    "description": "injecter du code Bash directement dans le shell du bot",
+    "options": {
+      "command": {
+        "description": "La commande bash qui doit être exécutée"
+      }
+    },
+    "usage": {
+      "usage": "<sh code>",
+      "examples": "echo 'Bonjour le monde!'"
+    },
+    "finished": "Commande bash évaluée :\n{code}",
+    "stdout": "{msg} avec la sortie suivante:\nstdout:\n{stdout}",
+    "stderr": "stderr:\n{stderr}",
+    "error": "{msg} avec l'erreur suivante:\n```\n{name}: {err}\n```"
+  },
+  "reload": {
+    "description": "recharge un fichier ou une catégorie",
+    "usage": {
+      "usage": "<'command' | 'file'> <Path relative to cwd>\n{prefix}{cmdName} <command | '*'>",
+      "examples": "chemin/vers/fichier\n{prefix}{cmdName} amusant"
+    },
+    "options": {
+      "command_name": {
+        "description": "Le nom de la commande à recharger."
+      }
+    },
+    "invalidCommand": "Ce n'est pas une commande valide.",
+    "invalidPath": "Le chemin spécifié n'existe pas ! Veuillez noter la sensibilité à la casse du chemin.",
+    "error": "Une erreur s'est produite lors du rechargement :\n{error}\nVérifiez la console pour plus d'informations.",
+    "noneReloaded": "Aucune commande n'a été rechargée.",
+    "reloaded": "Les commandes {count} suivantes ont été rechargées :\n{commands}"
+  },
+  "reloadconfig": {
+    "description": "Recharge le fichier config.json",
+    "error": "Une erreur est survenue lors du rechargement de la configuration :\n{err}",
+    "success": "Configuration rechargée."
+  },
+  "reloaddb": {
+    "description": "Recharge la base de données",
+    "success": "Rechargé la db."
+  },
+  "reloadlang": {
+    "description": "Recharge tous les fichiers de langue",
+    "success": "Rechargé tous les fichiers de langue."
+  },
+  "restart": {
+    "description": "Redémarre le bot",
+    "alreadyRestarting": "Le bot effectue déjà un redémarrage, veuillez attendre qu'il se termine. Message : {url}",
+    "updatingNPM": "{emoji} Redémarrage du bot...\nInstallation des paquets...",
+    "updateNPMError": "❌ Le redémarrage a échoué en raison d'une erreur du Musée national du Palais. Consultez la console pour plus d'informations.",
+    "restarting": "{emoji} Redémarrage du bot...\nDémarrage du processus de nœud...",
+    "restartingError": "❌ Le redémarrage a échoué en raison d'une erreur de nœud. Consultez la console pour plus d'informations.",
+    "success": "✅ Redémarré avec succès."
+  },
+  "setactivity": {
+    "description": "Définit l'activité du bot",
+    "usage": {
+      "usage": "[type] [activity]",
+      "examples": "jouer aux commandes en cours d'exécution"
+    },
+    "options": {
+      "activity": {
+        "description": "Le texte de statut que vous voulez que je possède."
+      },
+      "type": {
+        "description": "Le type d'activité"
+      }
+    },
+    "set": "Mon activité a été réglée sur {name} de type {type}.",
+    "reset": "Activité définie à `aucun`."
+  },
+  "setchangelog": {
+    "description": "Met à jour les changelogs pour que les utilisateurs soient à jour.",
+    "success": "Le changelog a été mis à jour avec succès."
+  },
+  "setcountingnumber": {
+    "description": "Met à jour le dernier numéro de comptage d'un canal, réinitialise également le dernier auteur.",
+    "usage": {
+      "usage": "[number (défaut 0)] [channel]",
+      "examples": "7 #counting-channel"
+    },
+    "invalidNumber": "Le numéro fourni est invalide !",
+    "unknownChannel": "L'identifiant de salon fourni n'a pas été trouvé dans cette guilde !",
+    "success": "Le comptage pour {channel} a été réglé sur {number}."
+  },
+  "test": {
+    "description": "tester des trucs"
+  },
+  "todo": {
+    "description": "Obtenir des liens vers la ou les listes de tâches du développeur.",
+    "list": "ToDo Excel",
+    "website": "Site Web de vote",
+    "discordNotes": "Notes de développement sur le serveur de support"
+  }
+}

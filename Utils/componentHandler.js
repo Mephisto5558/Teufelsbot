@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, inlineCode } = require('discord.js'),
+  { EmbedBuilder, Colors, inlineCode, MessageFlags } = require('discord.js'),
   { msInSecond } = require('./timeFormatter'),
   cooldowns = require('./cooldowns.js'),
 
@@ -24,7 +24,7 @@ module.exports = async function messageComponentHandler(lang) {
 
   if (err) {
     const embed = new EmbedBuilder({ description: lang(err, inlineCode(cooldown)), color: Colors.Red });
-    return this.reply({ embeds: [embed], ephemeral: true });
+    return this.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
   }
 
   try { if (handlers[feature]) return await handlers[feature].call(this, lang, id, mode, data, args); }

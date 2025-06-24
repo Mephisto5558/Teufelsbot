@@ -23,7 +23,7 @@ module.exports = function autocompleteGenerator(command, locale) {
   if (typeof autocompleteOptions == 'string') return [response(autocompleteOptions)];
   if (Array.isArray(autocompleteOptions)) {
     return autocompleteOptions
-      .filter(e => !this.focused.value || (typeof e == 'object' ? e.value.toLowerCase() : e.toLowerCase()).includes(this.focused.value.toLowerCase()))
+      .filter(e => !this.focused.value || (typeof e == 'object' ? e.value.toLowerCase() : e.toString().toLowerCase()).includes(this.focused.value.toLowerCase()))
       .slice(0, autocompleteOptionsMaxAmt).map(e => typeof e == 'object' ? e : response(e));
   }
 

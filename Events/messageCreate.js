@@ -1,6 +1,6 @@
 const { commandExecutionWrapper } = require('#Utils');
 
-/** @this {Message} */
+/** @this {import('discord.js').ClientEvents['messageCreate'][0]} */
 module.exports = function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 
@@ -22,7 +22,7 @@ module.exports = function messageCreate() {
     command = this.client.prefixCommands.get(this.commandName),
 
     /** @type {lang} */
-    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild?.db.config.lang ?? this.guild?.localeCode, backupPath: 'events.command' });
+    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.inGuild() ? this.guild.db.config.lang ?? this.guild.localeCode : this.user.localeCode, backupPath: ['events.command'] });
 
   return commandExecutionWrapper.call(this, command, 'prefix', lang);
 };

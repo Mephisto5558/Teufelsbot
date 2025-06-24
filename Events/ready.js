@@ -2,7 +2,7 @@ const
   { ActivityType } = require('discord.js'),
   guildCreate = require('./guildCreate');
 
-/** @this {Client<true>} */
+/** @this {import('discord.js').ClientEvents['ready'][0]} */
 module.exports = async function ready() {
   await this.application.emojis.fetch(); // Required for global.getEmoji() to work
 
@@ -18,6 +18,6 @@ module.exports = async function ready() {
   for (const [, guild] of this.guilds.cache) {
     if (!('config' in guild.db)) void guildCreate.call(guild);
 
-    void this.db.delete('guildSettings', `${guild.id}.leftAt`);
+    if ('leftAt' in guild.db) void guild.deleteDB('leftAt');
   }
 };

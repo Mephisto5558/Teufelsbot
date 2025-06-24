@@ -1,5 +1,5 @@
 const
-  { getTargetMember, timeFormatter: { msInSecond } } = require('#Utils'),
+  { getTargetMembers, timeFormatter: { msInSecond } } = require('#Utils'),
   { rps_sendChallenge: sendChallenge } = require('#Utils/componentHandler');
 
 module.exports = new MixedCommand({
@@ -8,6 +8,6 @@ module.exports = new MixedCommand({
   options: [new CommandOption({ name: 'opponent', type: 'User' })],
 
   run(lang) {
-    return sendChallenge.call(this, this.member, getTargetMember(this, { targetOptionName: 'opponent' }), lang);
+    return sendChallenge.call(this, lang, this.member, getTargetMembers(this, { targetOptionName: 'opponent' }));
   }
 });
