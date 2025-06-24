@@ -133,15 +133,10 @@ declare global {
 
   type Database = DBStructure.Database;
 
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any -- used only as generic constraint */
   type GenericFunction = (...args: any) => any;
 
   type OmitFirstParameter<T extends GenericFunction> = Parameters<T> extends [unknown, ...infer Rest] ? Rest : never;
-
-  /* type SlashCommand = Command.SlashCommand;
-     type PrefixCommand = Command.PrefixCommand;
-     type MixedCommand = Command.MixedCommand;
-     type CommandOptions = Command.CommandOptions; */
 
   type langBoundArgs = [i18nFuncConfig];
 

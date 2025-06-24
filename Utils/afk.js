@@ -50,7 +50,7 @@ module.exports.setAfkStatus = async function setAfkStatus(lang, global, message)
   const
     user = this.member?.user,
     createdAt = this.createdAt ?? new Date();
-  message ||= 'AFK'; /* eslint-disable-line @typescript-eslint/prefer-nullish-coalescing */
+  message ||= 'AFK'; /* eslint-disable-line @typescript-eslint/prefer-nullish-coalescing -- message can be an empty string */
 
   await (global || !this.guild
     ? user.updateDB('afkMessage', { message, createdAt })
