@@ -10,47 +10,10 @@ import type { DB } from '@mephisto5558/mongoose-db';
 import type { I18nProvider } from '@mephisto5558/i18n';
 import type { Database, backupChannel, backupId } from '../types/database';
 
-export {
-  afk,
-  autocompleteGenerator,
-  BackupSystem,
-  checkForErrors,
-  checkTargetManageable,
-  commandExecutionWrapper,
-  commandMention,
-  componentHandler,
-  configValidator,
-  constants,
-  convertToMedal,
-  cooldown as cooldowns,
-  errorHandler,
-  filename,
-  findAllEntires,
-  formatCommand,
-  getAge,
-  getCommandName,
-  getCommands,
-  getDirectories,
-  getTargetChannel,
-  getTargetMembers,
-  getTargetRole,
-  gitpull,
-  GiveawaysManagerWithOwnDatabase as GiveawaysManager,
-  localizeUsage,
-  logSayCommandUse,
-  permissionTranslator,
-  seededHash,
-  shellExec,
-  equal as slashCommandsEqual,
-  TFormatter as timeFormatter,
-  timeValidator,
-  toMs
-};
-
 export { default as DiscordAPIErrorCodes } from './DiscordAPIErrorCodes.json';
 export { default as prototypeRegisterer } from './prototypeRegisterer';
 
-declare namespace afk {
+export declare namespace afk {
   const nicknamePrefix: string;
   const nicknameRegex: RegExp;
 
@@ -76,13 +39,13 @@ declare namespace afk {
   /* eslint-enable jsdoc/informative-docs */
 }
 
-declare function autocompleteGenerator(
+export declare function autocompleteGenerator(
   this: AutocompleteInteraction | Message,
   command: command<'both', boolean, true>, locale: string
 ): { name: string | number; value: string | number }[] | undefined;
 
 type MaybeWithUndefined<X, T extends boolean> = T extends true ? X : X | undefined;
-declare namespace BackupSystem {
+export declare namespace BackupSystem {
   interface Options {
     dbName?: string;
     maxGuildBackups?: number;
@@ -177,63 +140,64 @@ declare namespace BackupSystem {
 }
 
 /** @returns The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally. */
-declare function checkForErrors(
+export declare function checkForErrors(
   this: BaseInteraction | Message,
   command: command<'both', boolean, true> | undefined, lang: lang
 ): [string, Record<string, string> | string | undefined] | boolean;
 
 /** @returns the error message id to use with i18n. */
-declare function checkTargetManageable(
+export declare function checkTargetManageable(
   this: Interaction | Message,
   member: GuildMember
 ): string | undefined;
 
-declare function commandExecutionWrapper(
+export declare function commandExecutionWrapper(
   this: BaseInteraction | Message,
   command: command<'both', boolean, true> | undefined, commandType: string, lang: lang
 ): Promise<Message | undefined>;
 
 /** Formats an application command name and id into a command mention.*/
-declare function commandMention<CommandName extends string, CommandId extends Snowflake>(
+export declare function commandMention<CommandName extends string, CommandId extends Snowflake>(
   name: CommandName, id: CommandId
 ): `</${CommandName}:${CommandId}>`;
 
-declare function componentHandler(
+export declare function componentHandler(
   this: MessageComponentInteraction,
   lang: lang
 ): Promise<unknown>;
 
-declare function convertToMedal(i: number): string;
+export declare function convertToMedal(i: number): string;
 
+export { cooldown as cooldowns };
 declare function cooldown(
   this: BaseInteraction | Message,
   name: string, cooldowns?: Record<'user' | 'guild' | 'channel', number>
 ): number;
 
-declare function errorHandler(
+export declare function errorHandler(
   this: Client,
   err: Error, context?: unknown, lang?: lang
 ): Promise<void>;
 
-declare function filename(path: string): string;
+export declare function filename(path: string): string;
 
-declare function findAllEntires(
+export declare function findAllEntires(
   obj: Record<string, unknown>, key: string, entryList?: Record<string, unknown>
 ): Record<string, unknown>;
 
 /** @throws {Error} on non-autofixable invalid data */
-declare function formatCommand<T extends command | commandOptions<false>>(
+export declare function formatCommand<T extends command | commandOptions<false>>(
   option: T, path: string, id: string, i18n: I18nProvider
 ): T;
 
-declare function getAge(date: Date): number;
+export declare function getAge(date: Date): number;
 
 /**
  * Gets the original command name, not the alias name
  * @param command the command object or its name */
-declare function getCommandName(command: command | string): string;
+export declare function getCommandName(command: command | string): string;
 
-declare function getCommands(
+export declare function getCommands(
   this: Client,
   lang: langUNF
 ): {
@@ -248,12 +212,12 @@ declare function getCommands(
   }[];
 }[];
 
-declare function getDirectories(
+export declare function getDirectories(
   path: string
 ): Promise<string>;
 
 /** @default targetOptionName = 'channel' */
-declare function getTargetChannel<I extends Interaction | Message, T extends boolean>(
+export declare function getTargetChannel<I extends Interaction | Message, T extends boolean>(
   interaction: I,
   { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildChannel, T> : MaybeWithUndefined<DMChannel, T>;
@@ -264,7 +228,7 @@ export declare function __getTargetMember<I extends Interaction | Message, T ext
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
 
 /** @default targetOptionName = `target${index}` */
-declare function getTargetMembers<
+export declare function getTargetMembers<
   I extends Interaction | Message, Opts extends { targetOptionName?: string; returnSelf?: boolean }, O extends Opts | Opts[] | undefined
 >(
   interaction: I, options: O
@@ -273,13 +237,14 @@ declare function getTargetMembers<
   : (O extends Opts | undefined ? User | undefined : (User | undefined)[]);
 
 /** @default targetOptionName = 'target' */
-declare function getTargetRole<T extends boolean>(
+export declare function getTargetRole<T extends boolean>(
   interaction: GuildInteraction | Message<true>,
   { targetOptionName, returnSelf }: { targetOptionName?: string; returnSelf?: T }
 ): MaybeWithUndefined<Role, T>;
 
-declare function gitpull(): Promise<Error | { message: 'OK' }>;
+export declare function gitpull(): Promise<Error | { message: 'OK' }>;
 
+export { GiveawaysManagerWithOwnDatabase as GiveawaysManager };
 declare type saveGiveawayMethod = (messageId: Snowflake, giveawayData: GiveawayData) => Promise<true>;
 declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
   // @ts-expect-error discord-giveaways is not typed correctly in that case.
@@ -293,37 +258,38 @@ declare class GiveawaysManagerWithOwnDatabase extends GiveawaysManager {
   ): Promise<boolean>;
 }
 
-declare function localizeUsage<CMD extends command<'both', false>>(
+export declare function localizeUsage<CMD extends command<'both', false>>(
   command: CMD, path: string, i18n: I18nProvider
 ): [CMD['usage'], Record<string, CMD['usage']>] | [];
 
-declare function logSayCommandUse(
+export declare function logSayCommandUse(
   this: Message<true>,
   member: GuildMember, lang: lang
 ): Promise<Message<true> | undefined>;
 
-declare function permissionTranslator<T extends string | string[]>(
+export declare function permissionTranslator<T extends string | string[]>(
   perms: T, locale: string | undefined, i18n: I18nProvider
 ): T;
 
 /** https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js */
-declare function seededHash(str: string, seed?: number): number;
+export declare function seededHash(str: string, seed?: number): number;
 
-declare function shellExec(
+export declare function shellExec(
   command: string, options?: ExecOptions
 ): PromiseWithChild<{ stdout: string; stderr: string }>;
 
+export { equal as slashCommandsEqual };
 declare function equal<T extends command<'both', boolean, true> | commandOptions<true> | undefined>(
   a: T, b: T
 ): boolean;
 
 
 /** @param timeStr a time string, @example '3w2d', '5h' */
-declare function timeValidator<T extends string | undefined>(
+export declare function timeValidator<T extends string | undefined>(
   timeStr?: T
 ): T extends undefined | '' | '-' | '+' ? [] : string[];
 
-declare namespace configValidator {
+export declare namespace configValidator {
   /** @throws {Error} on invalid key or subkey. */
   function validateConfig(): void;
   function setDefaultConfig(): Partial<Client['config']>;
@@ -338,6 +304,7 @@ declare namespace configValidator {
   const validEnv: Record<string, validConfigEntry>;
 }
 
+export { TFormatter as timeFormatter };
 declare namespace TFormatter {
   /** @param ms the time value in milliseconds since midnight, January 1, 1970 UTC. */
   function timeFormatter<T extends lang | undefined>(ms: number | Date, lang?: T): {
@@ -359,7 +326,7 @@ declare namespace TFormatter {
   /* eslint-enable @typescript-eslint/no-magic-numbers */
 }
 
-declare namespace toMs {
+export declare namespace toMs {
   function secToMs(secs: number): number;
   function minToMs(mins: number): number;
   function hourToMs(hours: number): number;
@@ -368,7 +335,7 @@ declare namespace toMs {
 }
 
 
-declare namespace constants {
+export declare namespace constants {
   /* eslint-disable @typescript-eslint/no-magic-numbers */
   const
     pinnedMessagesMaxAmt: 50,

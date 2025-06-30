@@ -59,8 +59,9 @@ type CreateObjectEntries<TValue, TValueInitial> = TValue extends object ? {
 
   // Checks that Key is of type string
   [TKey in keyof TValue]-?: TKey extends string
-    ? // Nested key can be an object, run recursively to the bottom
-    CreateArrayEntry<TValue[TKey], TValueInitial> extends infer TNestedValue
+
+    // Nested key can be an object, run recursively to the bottom
+    ? CreateArrayEntry<TValue[TKey], TValueInitial> extends infer TNestedValue
       ? TNestedValue extends Entry
         ? TNestedValue['key'] extends ''
           ? { key: TKey; value: TNestedValue['value'] }
