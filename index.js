@@ -62,7 +62,7 @@ async function processMessageEventCallback(handlerPromises, message) {
         support: { discord: this.config.discordInvite, mail: this.config.mailAddress },
         webhookUrl: this.keys.votingWebhookURL,
         errorPagesDir: './Website/CustomSites/error', settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites',
-        ownerIds: [...this.config.devIds]
+        ownerIds: [...this.config.devIds], defaultAPIVersion: 1
       }, errorHandler.bind(this)
     ).init({}, { commands: getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })) });
   }
