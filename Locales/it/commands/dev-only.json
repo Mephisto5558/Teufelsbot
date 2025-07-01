@@ -100,7 +100,7 @@
     "updatingNPM": "{emoji} Riavvio bot...\nInstallazione pacchetti...",
     "updateNPMError": "❌ Riavvio non riuscito a causa di un errore NPM. Controllare la console per ulteriori informazioni.",
     "restarting": "{emoji} Riavvio del bot...\nAvvio del processo node...",
-    "restartingError": "❌ Riavvio non riuscito a causa di un errore Node. Controllare la console per maggiori informazioni.",
+    "restartingError": "❌ Riavvio non riuscito a causa di un errore Nodo. Controllare la console per maggiori informazioni.",
     "success": "✅ Riavviato correttamente."
   },
   "setactivity": {
