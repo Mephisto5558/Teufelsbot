@@ -49,7 +49,7 @@
   },
   "devDependencies": {
     "@mephisto5558/eslint-config": "latest",
-    "@types/node": "^22.15.21",
+    "@types/node": "^24.0.8",
     "eslint": "^9.27.0"
   },
   "repository": {
