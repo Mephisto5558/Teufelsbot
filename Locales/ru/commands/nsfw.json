@@ -11,7 +11,7 @@
         "description": "Тип изображения, который вы хотите увидеть. По умолчанию Hentai.",
         "choices": {
           "hass": "Хентай пасс",
-          "hmidriff": "Hentai Taille",
+          "hmidriff": "Hentai Midriff",
           "pgif": "Porn gif",
           "4k": "4к",
           "hentai": "Hentai",
