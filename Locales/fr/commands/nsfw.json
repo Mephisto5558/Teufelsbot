@@ -11,7 +11,7 @@
         "description": "Le type d'image que vous voulez voir. Par défaut, hentai.",
         "choices": {
           "hass": "âne hentai",
-          "hmidriff": "Hentai Taille",
+          "hmidriff": "Hentai Midriff",
           "pgif": "Porn gif",
           "4k": "4 Ko",
           "hentai": "Hentai",
