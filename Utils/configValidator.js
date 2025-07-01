@@ -8,7 +8,6 @@ const
       domain: 'string',
       port: 'number',
       dashboard: 'string',
-      dashboardRedirectURL: 'string',
       privacyPolicy: 'string',
       invite: 'string',
       uptime: 'string',

@@ -6,7 +6,6 @@
     "domain": "Domain URL without port (if empty uses localhost)",
     "port": "The Port (type number)",
     "dashboard": "Dashboard url path",
-    "dashboardRedirectURL": "Dashboard rdirect URL for login",
     "privacyPolicy": "Privacy Policy url path",
     "invite": "Discord invite url path",
     "uptime": "Uptime url path",
