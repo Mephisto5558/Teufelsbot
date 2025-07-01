@@ -37,7 +37,7 @@
     },
     "embedTitle": "Befehlsstatistiken für {mode}",
     "notFound": "Es gibt keinen solchen Befehl!",
-    "embedDescriptionOne": "Der {command}-Befehl wurde {total} Mal (Slash: {slash} | Präfix: {prefix}) ausgeführt.",
+    "embedDescriptionOne": "Der {command}-Befehl wurde {total} male (Slash: {slash} | Präfix: {prefix}) ausgeführt.",
     "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:",
     "embedFieldValue": "{total} (Slash: {slash} | Präfix: {prefix})"
   },
@@ -92,8 +92,8 @@
       "prefixAlias": "Präfix-Befehl Aliase",
       "slashAlias": "Slash-Befehl Aliase",
       "aliasOf": "Alias von",
-      "botPerms": "Erforderliche Bot-Berechtigungen",
-      "userPerms": "Erforderliche User-Berechtigungen",
+      "botPerms": "Erforderliche Bot Berechtigungen",
+      "userPerms": "Erforderliche User Berechtigungen",
       "cooldowns": "Befehls-Abklingzeiten",
       "usage": "Nutzung",
       "examples": "Beispiele"
@@ -143,7 +143,7 @@
     "api": "API",
     "bot": "Bot",
     "embedTitle": "Ping",
-    "messageSend": "Nachrichten senden"
+    "messageSend": "Nachricht senden"
   },
   "prefix": {
     "description": "Zeigt die Bot-Präfixe des Servers",
@@ -233,10 +233,10 @@
       }
     },
     "guildOwner": "Servereigentümer",
-    "guildAdmin": "Serveradministrator",
+    "guildAdmin": "Server Administrator",
     "admin": "Administrator",
-    "guildMod": "Servermoderator",
-    "guildMember": "Servermitglied",
+    "guildMod": "Server Moderator",
+    "guildMember": "Server Mitglied",
     "activity": {
       "0": "Spielt {activity}",
       "1": "Streamt {activity}",
@@ -268,13 +268,13 @@
       "HypeSquadOnlineHouse3": "House Balance Mitglied",
       "Hypesquad": "HypeSquad Events Mitglied",
       "Partner": "Gepartnerter Servereigentümer",
-      "PremiumEarlySupporter": "Nitro-Supporter der ersten Stunde",
+      "PremiumEarlySupporter": "Nitro Supporter Der Ersten Stunde",
       "Quarantined": "In Quarantäne",
       "Spammer": "Spammer",
       "Staff": "Discord Mitarbeiter",
-      "TeamPseudoUser": "Team-Pseudo-Nutzer",
+      "TeamPseudoUser": "Team-Pseudo Nutzer",
       "VerifiedBot": "Verifizierter Bot",
-      "VerifiedDeveloper": "Verifizierter Bot-Entwickler der ersten Stunde"
+      "VerifiedDeveloper": "Verifizierter Bot-Entwickler Der Ersten Stunde"
     },
     "perms": "Berechtigungen",
     "downloadAvatar": "Avatar Herunterladen",
@@ -355,7 +355,7 @@
         "notEnabledUser": "Der Wordcounter ist für dich nicht aktiviert. Du kannst ihn für deinen Benutzer aktivieren, indem du {command} ausführst.",
         "embedTitle": "{user} Stats",
         "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} von dir gesendeten Wörter: {amount}",
-        "guildEmbedTitle": "Server-Stats",
+        "guildEmbedTitle": "Sever-Stats",
         "guildEmbedDescription": "Dies sind deine Top {amount} Server:"
       }
     }
