@@ -2,19 +2,25 @@ const
   { appendFile, access, mkdir } = require('node:fs/promises'),
   { join } = require('node:path');
 
-/* eslint-disable @typescript-eslint/no-magic-numbers -- this is like an enum */
 const logLevels = {
+  /* eslint-disable @typescript-eslint/no-magic-numbers -- this is like an enum */
   debug: 0,
   log: 1,
   info: 2,
   warn: 3,
   error: 4
+  /* eslint-enable @typescript-eslint/no-magic-numbers */
 };
-/* eslint-enable @typescript-eslint/no-magic-numbers */
 
 module.exports = class Log extends Function {
   constructor(logLevel = 'log', logFilesDir = './Logs') {
-    access(logFilesDir).catch(() => mkdir(logFilesDir));
+    access(logFilesDir).catch(err => {
+      if (err.code != 'ENOENT') throw err;
+
+      // constructor functions cannot be async and we don't want an extra `init` function. We just hope the system has enough time to create the dir.
+      void mkdir(logFilesDir);
+    });
+
     super('...str', 'return this.log(...str)');
 
     /** @type {this} */
@@ -23,7 +29,7 @@ module.exports = class Log extends Function {
     /* eslint-disable no-multi-assign -- this just makes more sense. */
     /* Setting it to `this` is required for top-level calls,
        Setting it to `bound` is required for chained calls */
-    this.date = bound.date = new Date().toLocaleDateString('en', { day: '2-digit', month: '2-digit', year: 'numeric' }).replaceAll('/', '-');
+    this.date = bound.date = new Date().toISOString().split('T')[0];
     this.logLevel = bound.logLevel = logLevel;
     this.logFilesDir = bound.logFilesDir = logFilesDir;
     /* eslint-enable no-multi-assign */

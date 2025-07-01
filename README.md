@@ -23,8 +23,8 @@ A discord.js v14 bot with Dashboard, multiple language support, a DB and many co
 I am very open for pull requests, feature requests and everything else that helps me improve.<br>
 If you have any questions feel free to open an issue.<br>
 
-# [Add the bot to your server](http://us-premium.pylex.xyz:8006/invite)
-[ToDo List](http://us-premium.pylex.xyz:8006/vote)
+# [Add the bot to your server](http://us-la-01.wisp.uno:8006/invite)
+[ToDo List](http://us-la-01.wisp.uno:8006/vote)
 
 ## Requirements
 ```
@@ -63,7 +63,3 @@ This name will be displayed in some places, such as the help command.
 Create a js file in one of the subdirectories of the `Commands` directory. Paste in the `command.js` template (found in the `Templates` folder.)
 Edit the properties. Many of them are optional so you could also remove them.<br>
 Then, you need to add the texts to `Locales/en/commands`. Use the `command_translations.jsonc` template.
-
-## Others
-### Note to the discord-api-types overwrite in package.json
-The overwrite is required because in order to correctly overwrite discord.js Types.

@@ -12,7 +12,7 @@ module.exports = async function setupMinigameChannel(lang) {
     channel = getTargetChannel(this, { returnSelf: true });
 
   if (gameData[channel.id]) {
-    await this.client.db.delete('guildSettings', `${this.guild.id}.channelMinigames.${game}.${channel.id}`);
+    await this.guild.deleteDB(`channelMinigames.${game}.${channel.id}`);
 
     const embed = new EmbedBuilder({
       description: lang('removed.embedDescription'),

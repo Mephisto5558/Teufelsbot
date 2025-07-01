@@ -1,6 +1,6 @@
 const
   { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, channelMention } = require('discord.js'),
-  { getTargetChannel, timeFormatter: { msInSecond } } = require('#Utils'),
+  { getTargetChannel, timeFormatter: { msInSecond }, getCommandName } = require('#Utils'),
   collectorTimeout = 3e4;
 
 /** @type {command<'both'>} */
@@ -18,6 +18,7 @@ module.exports = {
 
   async run(lang) {
     const
+      getCommand = getCommandName.bind(this.client),
 
       /** @type {Exclude<import('discord.js').GuildTextBasedChannel, import('discord.js').AnyThreadChannel>} */
       channel = getTargetChannel(this, { returnSelf: true }),
@@ -30,12 +31,12 @@ module.exports = {
         components: [
           new ButtonBuilder({
             label: lang('confirmButtonLabel'),
-            customId: 'nukechannel.confirm',
+            customId: `${getCommand(this.command)}.confirm`,
             style: ButtonStyle.Danger
           }),
           new ButtonBuilder({
             label: lang('cancelButtonLabel'),
-            customId: 'nukechannel.cancel',
+            customId: `${getCommand(this.command)}.cancel`,
             style: ButtonStyle.Success
           })
         ]
@@ -49,7 +50,7 @@ module.exports = {
       .on('collect', async button => {
         const reply = await button.deferReply();
 
-        if (button.customId == 'nukechannel.cancel') {
+        if (button.customId == `${getCommand(this.command)}.cancel`) {
           void reply.delete();
           return collector.stop();
         }
@@ -61,7 +62,7 @@ module.exports = {
             image: { url: 'https://i.giphy.com/XUFPGrX5Zis6Y.gif' },
             footer: { text: lang('embedFooterText', this.user.username) }
           }),
-          reason = lang('global.modReason', { command: this.commandName, user: this.user.username }),
+          reason = lang('global.modReason', { command: getCommand(this.command), user: this.user.username }),
           cloned = await channel.clone({ reason });
 
 

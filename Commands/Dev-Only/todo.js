@@ -7,10 +7,12 @@ module.exports = {
   prefixCommand: true,
 
   async run(lang) {
+    const { domain, port = 0, todo, vote } = this.client.config.website;
+    const domainUrl = domain + (port ? ':' + port : '');
+
     return this.reply(
-      hyperlink(lang('list'), `<${this.client.config.website.domain}/todo>`)
-      /* eslint-disable-next-line sonarjs/no-incorrect-string-concat -- is correct */
-      + hyperlink(lang('website'), `<${this.client.config.website.domain}/vote>`)
+      (domain ? hyperlink(lang('list'), `<${domainUrl}/${todo}>`) : '')
+      + (domain ? hyperlink(lang('website'), `<${domainUrl}/${vote}>`) : '')
       + hyperlink(lang('discordNotes'), `<${channelLink('1183014623507656745', '1011956895529041950')}>`)
     );
   }

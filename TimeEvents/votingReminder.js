@@ -4,7 +4,7 @@ const
 
 module.exports = {
   time: '00 00 00 * * 1',
-  startNow: true,
+  startNow: false,
 
   /** @this {Client} */
   async onTick() {
@@ -15,13 +15,13 @@ module.exports = {
 
     const
       today = new Date().setHours(0, 0, 0),
-      lang = this.i18n.__.bBind(this.i18n, { backupPath: 'others.timeEvents.votingReminder' }),
+      lang = this.i18n.__.bBind(this.i18n, { backupPath: ['others.timeEvents.votingReminder'] }),
       embed = new EmbedBuilder({ color: Colors.White }),
       component = new ActionRowBuilder({
         components: [
           new ButtonBuilder({
             style: ButtonStyle.Link,
-            url: `${this.config.website.domain}/vote`
+            url: `${this.config.website.domain}${this.config.website.port ?? 0 ? ':' + this.config.website.port : ''}/${this.config.website.vote}`
           }),
           new ButtonBuilder({
             style: ButtonStyle.Danger,

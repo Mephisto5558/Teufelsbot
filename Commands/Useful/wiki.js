@@ -54,7 +54,8 @@ module.exports = {
           if (Array.isArray(v)) value = v.join(', ');
           else if (typeof v == 'object') value = v.date instanceof Date ? timestamp(v.date) : JSON.stringify(v, undefined, 2);
           else if (typeof v == 'boolean') value = lang(`global.${v}`);
-          else value = images.find(e => e.includes(v.toString().replaceAll(' ', '_'))) ?? v.toString(); // note: possibly not a string, but weren't able to type it all
+          /* eslint-disable-next-line @typescript-eslint/no-unnecessary-type-conversion -- possibly not a string, but we aren't able to type it all */
+          else value = images.find(e => e.includes(v.toString().replaceAll(' ', '_'))) ?? v.toString();
 
           acc.push({ name: k, inline: true, value });
           return acc;

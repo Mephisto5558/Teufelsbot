@@ -38,7 +38,7 @@
     "embedTitle": "Befehlsstatistiken für {mode}",
     "notFound": "Es gibt keinen solchen Befehl!",
     "embedDescriptionOne": "Der {command}-Befehl wurde {total} male (Slash: {slash} | Präfix: {prefix}) ausgeführt.",
-    "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:\n",
+    "embedDescriptionMany": "Dies sind die 10 am häufigsten genutzten Befehle:",
     "embedFieldValue": "{total} (Slash: {slash} | Präfix: {prefix})"
   },
   "dashboard": {
@@ -111,10 +111,10 @@
     "shard": "Shard",
     "guild": "Interne Server-ID",
     "guilds": "Server",
-    "commands": "Befehle: {total}\n> Slash & Präfix: {combined}\n> Slash: {slash}\n> Präfix: {prefix}\n",
+    "commands": "Befehle: {total}\n> Slash & Präfix: {combined}\n> Slash: {slash}\n> Präfix: {prefix}",
     "starts": "Starts",
     "lastStart": "Letzter Start",
-    "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt.\n",
+    "translation": "Übersetzungen:\n> Englisch: {en}\n> Deutsch: {de}\n> Alle anderen Sprachen sind größtenteils maschinell übersetzt.",
     "embedTitle": "Informationen",
     "links": {
       "repo": "GitHub",
@@ -242,7 +242,7 @@
       "1": "Streamt {activity}",
       "2": "Hört {activity}",
       "3": "Schaut {activity}",
-      "4": "Status: \"{message}\"\n",
+      "4": "Status: \"{message}\"",
       "5": "Tritt an in {activity}"
     },
     "mention": "Erwähnung",
@@ -286,5 +286,78 @@
     "description": "erhalte den Link zur Feature-Request- und Voting-Website des Bots",
     "embedTitle": "Voting",
     "embedDescriptionVote": "Klicke {link}, um die Voting- und Feature-Request-Seite zu öffnen."
+  },
+  "wordcounter": {
+    "description": "Zeigt an, wie viele Wörter in einem Server, einem Kanal oder von einem Mitglied gesendet wurden.",
+    "options": {
+      "guild": {
+        "description": "Zeigt die Top-Kanäle und Mitglieder eines Servers an.",
+        "options": {
+          "get": {
+            "description": "Zeigt die Top-Kanäle und Mitglieder eines Servers an.",
+            "options": {
+              "guild_id": {
+                "description": "Die ID des Zielservers. Standard: aktueller Server."
+              }
+            }
+          }
+        }
+      },
+      "channel": {
+        "description": "Die Top-Mitglieder eines Kanals anzeigen.",
+        "options": {
+          "get": {
+            "description": "Die Top-Mitglieder eines Kanals anzeigen.",
+            "options": {
+              "channel": {
+                "description": "Der Zielkanal. Standard: aktueller Kanal."
+              }
+            }
+          }
+        }
+      },
+      "user": {
+        "description": "Aktiviere oder deaktiviere den Wordcounter für dich oder zeige deine Wortzahl.",
+        "options": {
+          "enable": {
+            "description": "Aktiviere oder deaktiviere den Wordcounter für dich.",
+            "options": {
+              "enabled": {
+                "description": "Aktiviere oder deaktiviere den Wordcounter für dich."
+              }
+            }
+          },
+          "get": {
+            "description": "Zeige die Anzahl der von dir geschriebenen Wörter an."
+          }
+        }
+      }
+    },
+    "notEnabled": "Der Wordcounter für den Server ist nicht aktiviert. Ein Administrator kann ihn durch Ausführen von {command} aktivieren.",
+    "memberEmbedTitle": "Mitglieder-Stats",
+    "memberEmbedDescription": "Dies sind die Top {amount} Mitglieder:",
+    "guild": {
+      "invalidGuild": "Die angegebene Server-ID ist ungültig.",
+      "embedTitle": "{guild} Stats",
+      "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} gesendeten Wörter: {amount}",
+      "channelEmbedTitle": "Kanal-Stats",
+      "channelEmbedDescription": "Dies sind die Top {amount} Kanäle:"
+    },
+    "channel": {
+      "embedTitle": "#{channel} Stats",
+      "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} gesendeten Wörter: {amount}"
+    },
+    "user": {
+      "enable": {
+        "success": "{toggle} Wordcounter für dich."
+      },
+      "get": {
+        "notEnabledUser": "Der Wordcounter ist für dich nicht aktiviert. Du kannst ihn für deinen Benutzer aktivieren, indem du {command} ausführst.",
+        "embedTitle": "{user} Stats",
+        "embedDescription": "Die Gesamtzahl der seit Beginn der Aufzeichnung am {enabledAt} von dir gesendeten Wörter: {amount}",
+        "guildEmbedTitle": "Sever-Stats",
+        "guildEmbedDescription": "Dies sind deine Top {amount} Server:"
+      }
+    }
   }
 }

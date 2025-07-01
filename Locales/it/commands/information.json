@@ -20,7 +20,7 @@
   "cmdstats": {
     "description": "Vedere quanto spesso è stato eseguito un comando specifico o ottenere la top 10.",
     "usage": {
-      "usage": "['guild' <unk> 'user' <unk> 'bot'] [command]"
+      "usage": "['guild' | 'user' | 'bot'] [command]"
     },
     "options": {
       "scope": {
@@ -37,9 +37,9 @@
     },
     "embedTitle": "Statistiche di Comando per {mode}",
     "notFound": "Questo comando non esiste!",
-    "embedDescriptionOne": "Il comando {command} è stato eseguito {total} volte (Slash: {slash} <unk> Prefisso: {prefix}).",
-    "embedDescriptionMany": "Questi sono 10 comandi più usati:\n",
-    "embedFieldValue": "{total} (Slash: {slash} <unk> Prefisso: {prefix})"
+    "embedDescriptionOne": "Il comando {command} è stato eseguito {total} volte (Slash: {slash} | Prefisso: {prefix}).",
+    "embedDescriptionMany": "Questi sono 10 comandi più usati:",
+    "embedFieldValue": "{total} (Slash: {slash} | Prefisso: {prefix})"
   },
   "dashboard": {
     "description": "ottieni il link alla dashboard del bot",
@@ -84,11 +84,11 @@
     },
     "categoryListPlaceholder": "Quale categoria di comando vuoi vedere?",
     "commandListPlaceholder": "Quale comando vuoi vedere?",
-    "devEmbedFooterText": "Dev-Bot <unk> Vengono mostrati solo i comandi beta",
+    "devEmbedFooterText": "Dev-Bot | Vengono mostrati solo i comandi beta",
     "one": {
       "notFound": "Nessuna informazione trovata per il comando {command}.",
       "embedTitle": "{category} » {command}",
-      "embedFooterText": "Sintassi: <> = obbligatorio, [] = opzionale <unk> Prefissi: {prefixes}",
+      "embedFooterText": "Sintassi: <> = obbligatorio, [] = opzionale | Prefissi: {prefixes}",
       "prefixAlias": "Prefisso Alias Comandi",
       "slashAlias": "Slash Command Aliases",
       "aliasOf": "Alias di",
@@ -111,10 +111,10 @@
     "shard": "Frammento",
     "guild": "Id Della Gilda Interna",
     "guilds": "Gilde",
-    "commands": "Comandi: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefisso: {prefix}\n",
+    "commands": "Comandi: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefisso: {prefix}",
     "starts": "Inizia",
     "lastStart": "Ultimo avvio",
-    "translation": "Traduzioni:\n> Italiano: {en}\n> Tedesco: {de}\n> Tutte le altre lingue sono tradotte automaticamente.\n",
+    "translation": "Traduzioni:\n> Italiano: {en}\n> Tedesco: {de}\n> Tutte le altre lingue sono tradotte automaticamente.",
     "embedTitle": "Statistiche",
     "links": {
       "repo": "GitHub",
@@ -138,7 +138,7 @@
     },
     "average": {
       "loading": "Pinging... {current}/{target}\nProssimo ping {timestamp}",
-      "embedDescription": "Pings: {pings} <unk> Durata: `{duration}s`\nAPI:\n> Ping più basso: `{wsLowest}ms`\n> Ping più alto: `{wsHighest}ms`\n> Ping medio: `{wsAverage}ms`\nMessaggio Invia:\n> Ping più basso: `{msgLowest}ms`\n> Ping più alto: `{msgHighest}ms`\n> Ping medio: `{msgAverage}ms`"
+      "embedDescription": "Pings: {pings} | Durata: `{duration}s`\nAPI:\n> Ping più basso: `{wsLowest}ms`\n> Ping più alto: `{wsHighest}ms`\n> Ping medio: `{wsAverage}ms`\nMessaggio Invia:\n> Ping più basso: `{msgLowest}ms`\n> Ping più alto: `{msgHighest}ms`\n> Ping medio: `{msgAverage}ms`"
     },
     "api": "API",
     "bot": "Bot",
@@ -153,7 +153,7 @@
   "roleinfo": {
     "description": "Ottieni informazioni su un ruolo",
     "usage": {
-      "usage": "[@role <unk> role name <unk> role id]",
+      "usage": "[@role | role name | role id]",
       "examples": "@User1"
     },
     "options": {
@@ -224,7 +224,7 @@
   "userinfo": {
     "description": "Ottieni informazioni su un membro",
     "usage": {
-      "usage": "[@user <unk> user <unk> user tag <unk> user nickname <unk> user id]",
+      "usage": "[@user | user | user tag | user nickname | user id]",
       "examples": "@User1"
     },
     "options": {
@@ -242,7 +242,7 @@
       "1": "Streams {activity}",
       "2": "Ascolta {activity}",
       "3": "Orologi {activity}",
-      "4": "Stato: \"{message}\"\n",
+      "4": "Stato: \"{message}\"",
       "5": "In competizione in {activity}"
     },
     "mention": "Menzione",

@@ -18,7 +18,7 @@
     "isGuildEmoji": "Эмодзи уже на этой гильдии!",
     "invalidUrl": "Предоставленный аргумент не является допустимым url или emoji!\nURL должен заканчиваться {validFormats}.\nПример: https://www.google.com/images/branding/googlelogo/1x/googlelogo_dark_color_272x92dp.png",
     "notFound": "Указанный url не найден.",
-    "success": "Успешно добавлено {name} {emoji}!\n",
+    "success": "Успешно добавлено {name} {emoji}!",
     "limitedToRoles": "Эмодзи ограничены следующими ролями:\n{roles}.",
     "error": "Невозможно создать эмодзи по причине:\n{err}",
     "tooBig": "Изображение слишком большое. Максимальный размер файла составляет 2048 килобайт.",

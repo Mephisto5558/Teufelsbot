@@ -36,13 +36,13 @@ module.exports = {
         timeout(TIMEOUT_MS)
       ]);
 
-      return await msg.customReply(lang('success', lang('finished', codeBlock('js', this.content))));
+      return await msg.customReply(lang('success', `${lang('finished', codeBlock('js', this.content))}\n`));
     }
     catch (err) {
       /* eslint-disable-next-line no-ex-assign -- valid use case imo */
       if (!(err instanceof Error)) err = new Error(err ?? lang('emptyRejection'));
 
-      return msg.customReply(lang('error', { msg: lang('finished', codeBlock('js', this.content)), name: err.name, err: err.message }));
+      return msg.customReply(lang('error', { msg: `${lang('finished', codeBlock('js', this.content))}\n`, name: err.name, err: err.message }));
     }
     finally { log.debug(`evaluated command '${this.content}'`); }
   }

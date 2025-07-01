@@ -6,7 +6,7 @@ package-lock.json
 Temp
 /config.json
 /VoiceRecords
-/Commands/Owner-Only/test.js
+/Commands/Dev-Only/test.js
 .vscode
 /Website/CustomSites/tw
 /eslint-timings.md

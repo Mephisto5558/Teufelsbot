@@ -5,13 +5,15 @@ const
   validConfig = {
     devIds: 'object', // set<string>
     website: {
-      baseDomain: 'string',
       domain: 'string',
-      port: 'string',
+      port: 'number',
       dashboard: 'string',
       dashboardRedirectURL: 'string',
       privacyPolicy: 'string',
-      invite: 'string'
+      invite: 'string',
+      uptime: 'string',
+      vote: 'string',
+      todo: 'string'
     },
     github: {
       repo: 'string',
@@ -104,7 +106,7 @@ function setDefaultConfig() {
   config.github ??= {};
   config.replyOnDisabledCommand ??= true;
   config.replyOnNonBetaCommand ??= true;
-  config.ownerOnlyFolders = config.ownerOnlyFolders?.map(e => e.toLowerCase()) ?? ['owner-only'];
+  config.ownerOnlyFolders = config.ownerOnlyFolders?.map(e => e.toLowerCase()) ?? ['dev-only'];
 
   return config;
 }

@@ -50,7 +50,7 @@ module.exports.setAfkStatus = async function setAfkStatus(lang, global, message)
   const
     user = this.member?.user,
     createdAt = this.createdAt ?? new Date();
-  message ||= 'AFK'; /* eslint-disable-line @typescript-eslint/prefer-nullish-coalescing */
+  message ||= 'AFK'; /* eslint-disable-line @typescript-eslint/prefer-nullish-coalescing -- message can be an empty string */
 
   await (global || !this.guild
     ? user.updateDB('afkMessage', { message, createdAt })
@@ -74,8 +74,8 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
 
   void unsetAfkPrefix(this.member);
 
-  await this.client.db.delete('userSettings', `${this.member.id}.afkMessage`);
-  await this.client.db.delete('guildSettings', `${this.guild.id}.afkMessages.${this.member.id}`);
+  await this.member.user.deleteDB('afkMessage');
+  await this.guild.deleteDB(`afkMessages.${this.member.id}`);
 
   const
     /** @type {lang} */lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.localeCode }),

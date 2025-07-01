@@ -120,12 +120,13 @@
     "getUser": {
       "notFound": "{user} no tiene cumpleaños :(",
       "embedTitle": "Cumpleaños de {user}",
-      "date": "{user} ha cumpleaños el **{month} {day}**. ¡Eso está en {daysUntil} días!\n",
+      "date": "{user} ha cumpleaños el **{month} {day}**. ¡Eso está en {daysUntil} días!",
       "newAge": "Ellos girarán {age} ese día."
     },
     "getAll": {
       "embedTitle": "Los próximos cumpleaños",
-      "date": "**{month} {day}**\n",
+      "today": "Hoy",
+      "date": "{month} {day}",
       "notFound": "Nadie tiene un juego de cumpleaños..."
     }
   },
@@ -231,27 +232,36 @@
     },
     "managerNotFound": "Esta función está desactivada o no está registrada.",
     "notFound": "Su id de mensaje proporcionado no es un regalo válido o ya ha terminado!",
-    "invalidTime": "¡El valor de duración/add_time proporcionado no es válido!",
     "notHost": "Usted no es el anfitrión de este regalo!",
     "buttonLabel": "Ver regalos",
-    "started": "¡El regalo ha comenzado!",
-    "ended": "¡El regalo ha terminado!",
-    "edited": "¡El regalo ha sido editado!",
-    "rerolled": "¡El regalo ha sido releído!",
-    "newGiveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
-    "giveawayEnded": "'🎉🎉 **GIVEAWAY ENDED** 🎉🎉🎉",
-    "requiredRoles": "Necesitas tener al menos uno de estos roles para ganar: {roles}",
-    "inviteToParticipate": "¡React con {emoji} para participar!",
-    "winMessage": "¡Enhorabuena, {winners}! ¡Has ganado **{this.prize}**!",
-    "drawing": "Dibujando: {timestamp}",
-    "dropMessage": "Sé el primero en reaccionar con {emoji}!!",
-    "embedFooterText": "{this.winnerCount} ganador(es)",
-    "noWinner": "Regalos cancelados, no hay participantes válidos.",
-    "winners": "Ganador(es):",
-    "rerollWinners": "🎉 Nuevos ganador(es): {winners}! Enhorabuena, has ganado **{this.prize}**!",
-    "rerollNoWinner": "No hay participantes válidos, no se puede elegir ningún ganador(es) nuevo!",
-    "endedAt": "Terminado el",
-    "hostedBy": "Alojado por: {this.hostedBy}"
+    "invalidTime": "¡El valor de duración/add_time proporcionado no es válido!",
+    "create": {
+      "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
+      "giveawayEnded": "🎉🎉 GIVEAWAY ENDED 🎉🎉",
+      "requiredRoles": "Necesitas tener al menos uno de estos roles para ganar: {roles}",
+      "disallowedMembers": "Los siguientes miembros no pueden participar: {members}",
+      "inviteToParticipate": "¡React con {emoji} para participar!",
+      "winMessage": "¡Enhorabuena, {winners}! ¡Has ganado **{this.prize}**!",
+      "drawing": "Dibujando: {timestamp}",
+      "dropMessage": "Sé el primero en reaccionar con {emoji}!!",
+      "embedFooterText": "{this.winnerCount} ganador(es)",
+      "noWinner": "Regalos cancelados, no hay participantes válidos.",
+      "winners": "Ganador(es):",
+      "endedAt": "Terminado el",
+      "hostedBy": "Alojado por: {this.hostedBy}",
+      "started": "¡El regalo ha comenzado!"
+    },
+    "end": {
+      "ended": "¡El regalo ha terminado!"
+    },
+    "edit": {
+      "edited": "¡El regalo ha sido editado!"
+    },
+    "reroll": {
+      "rerollWinners": "🎉 Nuevos ganador(es): {winners}! Enhorabuena, has ganado **{this.prize}**!",
+      "rerollNoWinner": "No hay participantes válidos, no se puede elegir ningún ganador(es) nuevo!",
+      "rerolled": "¡El regalo ha sido releído!"
+    }
   },
   "happy": {
     "description": "envía un mensaje feliz"
@@ -696,21 +706,34 @@
         }
       }
     },
-    "saved": "Se ha añadido un nuevo gatillo para {trigger}.",
-    "edited": "El gatillo con el para `${trigger}` ha sido editado.",
-    "deletedOne": "Eliminado el gatillo con el ID {id}",
-    "deletedAll": "He eliminado todos los activadores ({count}).",
-    "noneFound": "¡No hay activadores!",
-    "notFound": "Ningún disparador coincide con su consulta.",
-    "confirmation": "borrar todo",
-    "needConfirm": "Necesitas confirmar esta acción escribiendo `CLEAR ALL` en la opción de confirmación!",
-    "embedTitle": "Disparadores",
-    "embedTitleOne": "**Disparador {id}:**",
-    "embedDescriptionOne": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard:** {wildcard}",
-    "longEmbedDescription": "ID: {id}\n> Disparador: {trigger}\n> Respuesta: {response}\n> Comodino: {wildcard}\n\n",
-    "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Disparador:**\n{trigger}\n**Respuesta:**\n{response}\n**Comodino: **{wildcard}\n",
-    "first25": "Los primeros 25 disparadores. Obtenga más con la opción 'corto'."
+    "add": {
+      "saved": "Se ha añadido un nuevo gatillo para {trigger}."
+    },
+    "edit": {
+      "noneFound": "¡No hay activadores!",
+      "notFound": "Ningún disparador coincide con su consulta.",
+      "edited": "El gatillo para {trigger} ha sido editado."
+    },
+    "delete": {
+      "noneFound": "¡No hay activadores!",
+      "deletedOne": "Se ha eliminado el gatillo con el ID {id}."
+    },
+    "clear": {
+      "confirmation": "borrar todo",
+      "needConfirm": "Necesitas confirmar esta acción escribiendo `CLEAR ALL` en la opción de confirmación!",
+      "deletedAll": "He eliminado todos los activadores ({count})."
+    },
+    "get": {
+      "noneFound": "¡No hay activadores!",
+      "notFound": "Ningún disparador coincide con su consulta.",
+      "embedTitle": "Disparadores",
+      "embedTitleOne": "Disparador {id}:",
+      "embedDescriptionOne": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard:** {wildcard}",
+      "longEmbedDescription": "ID: {id}\n> Disparador: {trigger}\n> Respuesta: {response}\n> Comodino: {wildcard}",
+      "shortFieldName": "ID {id}",
+      "shortFieldValue": "**Disparador:**\n{trigger}\n**Respuesta:**\n{response}\n**Comodino: **{wildcard}",
+      "first25": "Los primeros 25 disparadores. Obtenga más con la opción 'corto'."
+    }
   },
   "vote": {
     "description": "Crear una encuesta para algo",

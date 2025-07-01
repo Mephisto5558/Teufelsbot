@@ -4,12 +4,20 @@ const
   { resolve, dirname, basename } = require('node:path'),
   { choicesMaxAmt, choiceValueMinLength, choiceValueMaxLength, descriptionMaxLength } = require('./constants');
 
+function getOptionalFile(path) {
+  try { return require(path); }
+  catch (err) {
+    if (err.code != 'MODULE_NOT_FOUND') throw err;
+    return {};
+  }
+}
+
 /** @type {import('.').formatCommand} */
 module.exports = function formatCommand(option, path, id, i18n) {
   if ('options' in option) {
     // assume it is a dir and is in the top-level or one in (subcommand group)
     if (!path.endsWith('.js') && ('run' in option || option.type == ApplicationCommandOptionType[ApplicationCommandOptionType.SubcommandGroup]))
-      option.options = option.options.map(e => ({ ...e, options: [...e.options ?? [], ...require(resolve(path, e.name)).options ?? []] }));
+      option.options = option.options.map(e => ({ ...e, options: [...e.options ?? [], ...getOptionalFile(resolve(path, e.name)).options ?? []] }));
     option.options = option.options.map(e => formatCommand(e, path, `${id}.options.${e.name}`, i18n));
   }
 
@@ -76,7 +84,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
 
         const subcommand = this.options?.getSubcommandGroup(false) ?? this.options?.getSubcommand(true) ?? this.args[0];
 
-        lang.__boundArgs__[0].backupPath += `.${subcommand.replaceAll(/_./g, e => e[1].toUpperCase())}`;
+        lang.__boundArgs__[0].backupPath.push(`${lang.__boundArgs__[0].backupPath[0]}.${subcommand.replaceAll(/_./g, e => e[1].toUpperCase())}`);
         return require(resolve(path, `${subcommand}.js`)).run.call(this, lang, additionalParams, ...args);
       };
     }

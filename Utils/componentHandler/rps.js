@@ -47,7 +47,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   if (this.user.id != initiatorId && this.user.id != opponentId) return;
   if (mode.length != 1) await this.deferUpdate();
 
-  lang.__boundArgs__[0].backupPath = 'commands.minigames.rps';
+  lang.__boundArgs__[0].backupPath[0] = 'commands.minigames.rps';
 
   let initiator, opponent;
   try {
@@ -93,7 +93,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
         }
       }
 
-      await this.client.db.delete('guildSettings', `${this.guild.id}.minigames.rps.${this.message.id}`);
+      await this.guild.deleteDB(`minigames.rps.${this.message.id}`);
       if (choices.player1 == choices.player2) this.message.embeds[0].data.description = lang('end.tie', emojis[mode]);
       else {
         const winner = winningAgainst[choices.player1] == choices.player2 ? initiatorId : opponentId;

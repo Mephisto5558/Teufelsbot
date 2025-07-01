@@ -9,6 +9,7 @@ const utils = {
   componentHandler: require('./componentHandler.js'),
   configValidator: require('./configValidator.js'),
   constants: require('./constants.js'),
+  convertToMedal: require('./convertToMedal.js'),
   cooldowns: require('./cooldowns.js'),
   DiscordAPIErrorCodes: require('./DiscordAPIErrorCodes.json'),
   errorHandler: require('./errorHandler.js'),
@@ -16,6 +17,7 @@ const utils = {
   findAllEntries: require('./findAllEntries.js'),
   formatCommand: require('./formatCommand.js'),
   getAge: require('./getAge.js'),
+  getCommandName: require('./getCommandName.js'),
   getCommands: require('./getCommands.js'),
   getDirectories: require('./getDirectories.js'),
   getTargetChannel: require('./getTargetChannel.js'),
@@ -31,7 +33,8 @@ const utils = {
   slashCommandsEqual: require('./slashCommandsEqual.js'),
   prototypeRegisterer: require('./prototypeRegisterer'),
   timeFormatter: require('./timeFormatter.js'),
-  timeValidator: require('./timeValidator.js')
+  timeValidator: require('./timeValidator.js'),
+  toMs: require('./toMs.js')
 };
 
 module.exports = utils;

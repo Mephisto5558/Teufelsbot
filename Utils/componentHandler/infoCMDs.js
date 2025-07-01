@@ -7,16 +7,16 @@ const
   } = require('discord.js'),
   { ban_kick_mute } = require('../combinedCommands'),
   { auditLogReasonMaxLength } = require('../constants.js'),
-  { msInSecond } = require('../timeFormatter.js'),
+  { secToMs } = require('../toMs.js'),
   checkTargetManageable = require('../checkTargetManageable.js'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
-  MODALSUBMIT_MAXTIME = msInSecond * 30; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 30s */
+  MODALSUBMIT_MAXTIME = secToMs(30); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 /** @type {import('.').infoCMDs} */
 module.exports = async function infoCMDs(lang, id, mode, entityType) {
   if (entityType != 'members' && mode != 'addToGuild') await this.deferReply();
 
-  lang.__boundArgs__[0].backupPath = `events.command.infoCMDs.${entityType}`;
+  lang.__boundArgs__[0].backupPath[0] = `events.command.infoCMDs.${entityType}`;
 
   const
     embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red }),
@@ -49,7 +49,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
         })]
       });
 
-      lang.__boundArgs__[0].backupPath = `commands.moderation.${mode}`;
+      lang.__boundArgs__[0].backupPath.push(`commands.moderation.${mode}`);
 
       void this.showModal(modal);
       const submit = await this.awaitModalSubmit({ time: MODALSUBMIT_MAXTIME }).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; });

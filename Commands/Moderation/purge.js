@@ -20,38 +20,37 @@ const
     text: msg => !!msg.content.length,
     embeds: msg => !!msg.embeds.length,
     mentions: msg => !!msg.mentions.users.size,
-    images: msg => !!msg.attachments.some(e => e.contentType.includes('image')),
+    images: msg => msg.attachments.some(e => e.contentType.includes('image')),
     /* eslint-disable-next-line camelcase -- option name for better user-readability */
-    server_ads: msg => adRegex(msg.content) || !!msg.embeds.some(e => adRegex(e.description))
+    server_ads: msg => adRegex(msg.content) || msg.embeds.some(e => adRegex(e.description))
   };
 
 /** @type {import('./purge')['shouldDeleteMsg']} */
 function shouldDeleteMsg(msg, options) {
   const
-    /* eslint-disable-next-line jsdoc/require-param -- false positive */
-    check = /** @param {GenericFunction}fn @param {string}option */ (fn, option) => !!(
-      !option
-      || msg.content.toLowerCase()[fn](option.toLowerCase())
-      || msg.embeds.some(e => !!e.description?.toLowerCase()[fn](option.toLowerCase()))
-    ),
+
+    /** @type {(fn: (...args: unknown[]) => boolean, option: string) => boolean}*/
+    check = (fn, option) => !option
+      || !!msg.content.toLowerCase()[fn](option.toLowerCase())
+      || msg.embeds.some(e => !!e.description?.toLowerCase()[fn](option.toLowerCase())),
     checkCaps = () => !('caps_percentage' in options && options.caps_percentage > 0)
       || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * maxPercentage >= options.caps_percentage
       || msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * maxPercentage >= options.caps_percentage)
       || !msg.content && !msg.embeds.some(e => !!e.description),
-    bool = !!(msg.bulkDeletable && (!!options.remove_pinned || !msg.pinned)),
+    bool = msg.bulkDeletable && (!!options.remove_pinned || !msg.pinned),
     userType = msg.user.bot ? 'bot' : 'human';
 
   if (!filterOptionsExist(options)) return bool;
 
-  /* eslint-disable-next-line sonarjs/expression-complexity -- good readability */
+  /* eslint-disable-next-line sonarjs/expression-complexity -- good enough readability */
   return bool
     && (!('member' in options) || msg.user.id == options.member.id)
     && (!('user_type' in options) || options.user_type == userType)
     && (!('only_containing' in options) || filterCheck[options.only_containing](msg))
     && checkCaps()
-    && check('includes', options.contains) && check('includes', options.does_not_contain)
-    && check('startsWith', options.starts_with) && check('startsWith', options.not_starts_with)
-    && check('endsWith', options.ends_with) && check('endsWith', options.not_ends_with);
+    && check('includes', options.contains) && !check('includes', options.does_not_contain)
+    && check('startsWith', options.starts_with) && !check('startsWith', options.not_starts_with)
+    && check('endsWith', options.ends_with) && !check('endsWith', options.not_ends_with);
 }
 
 const maxMsgs = 250;
@@ -190,7 +189,7 @@ function _testPurge() {
       const obj = structuredClone(e);
 
       obj.input[0].embeds = [{ description: obj.input[0].content }];
-      delete obj.input[0].content;
+      obj.input[0].content = '';
       acc.push(e, obj);
 
       return acc;
@@ -220,7 +219,7 @@ function _testPurge() {
   }
 
   const
-    msg = { bulkDeletable: true, user: {} },
+    msg = { bulkDeletable: true, user: {}, content: '', attachments: [], embeds: [] },
     testCases = [
       [{ input: [{ ...msg }, {}], expectedOutput: true }],
       [
@@ -244,28 +243,24 @@ function _testPurge() {
         { input: [{ ...msg, user: { bot: false } }, { user_type: 'bot' }], expectedOutput: false }
       ],
       [
-        { input: [{ ...msg, content: undefined }, { only_containing: 'text' }], expectedOutput: false },
+        { input: [{ ...msg, content: '' }, { only_containing: 'text' }], expectedOutput: false },
         { input: [{ ...msg, content: 'test' }, { only_containing: 'text' }], expectedOutput: true },
-        { input: [{ ...msg, embeds: undefined }, { only_containing: 'embeds' }], expectedOutput: false },
         { input: [{ ...msg, embeds: [] }, { only_containing: 'embeds' }], expectedOutput: false },
         { input: [{ ...msg, embeds: [{}] }, { only_containing: 'embeds' }], expectedOutput: true },
         { input: [{ ...msg, mentions: { users: { size: 0 } } }, { only_containing: 'mentions' }], expectedOutput: false },
         { input: [{ ...msg, mentions: { users: { size: 5 } } }, { only_containing: 'mentions' }], expectedOutput: true },
-        { input: [{ ...msg, attachments: undefined }, { only_containing: 'images' }], expectedOutput: false },
         { input: [{ ...msg, attachments: [] }, { only_containing: 'images' }], expectedOutput: false },
         { input: [{ ...msg, attachments: [{ contentType: 'video' }] }, { only_containing: 'images' }], expectedOutput: false },
         { input: [{ ...msg, attachments: [{ contentType: 'image' }] }, { only_containing: 'images' }], expectedOutput: true },
-        { input: [{ ...msg, content: undefined }, { only_containing: 'server_ads' }], expectedOutput: false },
+        { input: [{ ...msg, content: '' }, { only_containing: 'server_ads' }], expectedOutput: false },
         { input: [{ ...msg, content: 'hi' }, { only_containing: 'server_ads' }], expectedOutput: false },
         { input: [{ ...msg, content: 'discord.gg/123' }, { only_containing: 'server_ads' }], expectedOutput: true }
       ],
       [
         ...addEmbed(
-          { input: [{ ...msg, content: undefined }, { caps_percentage: 0 }], expectedOutput: true },
           { input: [{ ...msg, content: '' }, { caps_percentage: 0 }], expectedOutput: true },
           { input: [{ ...msg, content: 'hi' }, { caps_percentage: 0 }], expectedOutput: true },
           { input: [{ ...msg, content: 'HI' }, { caps_percentage: 0 }], expectedOutput: true },
-          { input: [{ ...msg, content: undefined }, { caps_percentage: 10 }], expectedOutput: true },
           { input: [{ ...msg, content: '' }, { caps_percentage: 10 }], expectedOutput: true },
           { input: [{ ...msg, content: 'hi' }, { caps_percentage: 10 }], expectedOutput: false },
           { input: [{ ...msg, content: 'HI' }, { caps_percentage: 10 }], expectedOutput: true },
@@ -275,26 +270,22 @@ function _testPurge() {
           { input: [{ ...msg, content: 'Abcdefghij' }, { caps_percentage: 100 }], expectedOutput: false },
           { input: [{ ...msg, content: 'ABCDEFGHIJ' }, { caps_percentage: 100 }], expectedOutput: true }
         ),
-        { input: [{ ...msg, embeds: undefined }, { caps_percentage: 0 }], expectedOutput: true },
         { input: [{ ...msg, embeds: [] }, { caps_percentage: 0 }], expectedOutput: true },
         { input: [{ ...msg, embeds: [{}] }, { caps_percentage: 0 }], expectedOutput: true }
       ],
       addFlip(
         ...addEmbed(
-          { input: [{ ...msg, content: undefined }, { contains: 'test' }], expectedOutput: false },
           { input: [{ ...msg, content: '' }, { contains: 'test' }], expectedOutput: false },
           { input: [{ ...msg, content: 'test' }, { contains: 'test' }], expectedOutput: true },
           { input: [{ ...msg, content: '123test123' }, { contains: 'test' }], expectedOutput: true },
           { input: [{ ...msg, content: '123TEST123' }, { contains: 'test' }], expectedOutput: true },
           { input: [{ ...msg, content: '123no123' }, { contains: 'test' }], expectedOutput: false }
         ),
-        { input: [{ ...msg, embeds: undefined }, { contains: 'test' }], expectedOutput: false },
         { input: [{ ...msg, embeds: [] }, { contains: 'test' }], expectedOutput: false },
         { input: [{ ...msg, embeds: [{}] }, { contains: 'test' }], expectedOutput: false }
       ),
       addFlip(
         ...addEmbed(
-          { input: [{ ...msg, content: undefined }, { starts_with: 'test' }], expectedOutput: false },
           { input: [{ ...msg, content: '' }, { starts_with: 'test' }], expectedOutput: false },
           { input: [{ ...msg, content: 'test' }, { starts_with: 'test' }], expectedOutput: true },
           { input: [{ ...msg, content: '123test123' }, { starts_with: 'test' }], expectedOutput: false },
@@ -303,7 +294,6 @@ function _testPurge() {
           { input: [{ ...msg, content: 'no123' }, { starts_with: 'test' }], expectedOutput: false },
           { input: [{ ...msg, content: '123no123' }, { starts_with: 'test' }], expectedOutput: false }
         ),
-        { input: [{ ...msg, embeds: undefined }, { starts_with: 'test' }], expectedOutput: false },
         { input: [{ ...msg, embeds: [] }, { starts_with: 'test' }], expectedOutput: false },
         { input: [{ ...msg, embeds: [{}] }, { starts_with: 'test' }], expectedOutput: false }
       )

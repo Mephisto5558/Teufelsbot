@@ -5,7 +5,7 @@ const
 
 /** @type {import('.').serverbackup} */
 module.exports = async function serverbackup(lang, _mode, id, option, clearGuildBeforeRestore) {
-  lang.__boundArgs__[0].backupPath = 'commands.administration.serverbackup.load';
+  lang.__boundArgs__[0].backupPath.push('commands.administration.serverbackup.load');
 
   for (const component of this.message.components[0].components) component.data.disabled = true;
   await this.update({ components: this.message.components });

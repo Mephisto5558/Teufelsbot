@@ -2,7 +2,8 @@ const
   { timeFormatter, daysInMonthMax, monthsInYear, secsInHour, hoursInDay, minutesInHour } = require('#Utils').timeFormatter,
 
   /** @see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#interpretation_of_two-digit_years */
-  DATE_START = 1900;
+  DATE_START = 1900,
+  MAX_YEARS = 2e5;
 
 /**
  * @this {Message | Interaction}
@@ -52,8 +53,7 @@ module.exports = {
       name: 'year',
       type: 'Integer',
       minValue: 0,
-      /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- max years */
-      maxValue: 2e5
+      maxValue: MAX_YEARS
     },
     {
       name: 'hour',

@@ -11,8 +11,7 @@ const getStringOption = (interaction, name) => interaction.options.getString(nam
 /** @type {command<'slash', false>} */
 module.exports = {
   permissions: { user: ['EmbedLinks'] },
-  /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
-  cooldowns: { user: 200 },
+  cooldowns: { user: 200 }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
   slashCommand: true,
   prefixCommand: false,
   dmPermission: true,
@@ -79,7 +78,7 @@ module.exports = {
           description: getOption('description', true),
           thumbnail: { url: getOption('thumbnail') },
           image: { url: getOption('image') },
-          color: Number.parseInt(getOption('custom_color')?.slice(1) ?? 0, 16) || Colors[getOption('predefined_color')] || 0,
+          color: (Number.parseInt(getOption('custom_color')?.slice(1) ?? 0, 16) || Colors[getOption('predefined_color')]) ?? 0,
           footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
           timestamp: this.options.getBoolean('timestamp') && Date.now(),
           author: {

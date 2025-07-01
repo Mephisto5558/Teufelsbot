@@ -23,7 +23,6 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
    * @param {string}_
    * @param {bigint | Record<string, unknown> | undefined}v */
   function stringifyReplacer(_, v) {
-    if (typeof v == 'bigint') return v.toString();
     if (v != undefined && typeof v === 'object') {
       if (seen.has(v)) return '[Circular]';
       seen.add(v);
@@ -32,15 +31,24 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
     return v;
   }
 
-  log.error(
-    ' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'),
-    err.stack ?? JSON.stringify(err),
-    contextData.__count__ ? `\nAdditional Context:\n${JSON.stringify(contextData, stringifyReplacer)}` : ''
-  );
+  try {
+    log.error(
+      ' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'),
+      err.stack ?? JSON.stringify(err),
+      contextData.__count__ ? `\nAdditional Context:\n${JSON.stringify(contextData, stringifyReplacer)}` : ''
+    );
+  }
+  catch (err2) {
+    log.error(
+      ' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'),
+      err.stack ?? JSON.stringify(err),
+      '\nCould not log additional context due to error', err2.stack ?? JSON.stringify(err2)
+    );
+  }
 
   if (!message || !lang) return;
 
-  lang.__boundArgs__[0].backupPath = 'others.errorHandler';
+  lang.__boundArgs__[0].backupPath[0] = 'others.errorHandler';
 
   const
     { aliasOf } = this.slashCommands.get(message.commandName) ?? this.prefixCommands.get(message.commandName) ?? {},

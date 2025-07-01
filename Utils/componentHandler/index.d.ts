@@ -79,10 +79,10 @@ declare function joke<
 
 declare function mgStats_formatTop(
   this: BaseInteraction<'cached'> | Message<true>,
-  input: [Snowflake, { draws?: number; wins?: number; loses?: number }][],
+  input: [Snowflake, { draws?: number; wins?: number; losses?: number }][],
   sort: 'f' | undefined, mode: 'draws' | 'losses' | 'alphabet_user' | 'alphabet_nick' | undefined, lang: lang,
   maxLength?: number
-): string;
+): string | undefined;
 declare function mgStats<
   GAME extends string, MODE extends 'sort' | undefined, SETTINGS extends 'all_users' | undefined
 >(

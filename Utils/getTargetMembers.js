@@ -30,6 +30,7 @@ function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList
 
 /** @type {import('.').getTargetMembers} */
 module.exports = function getTargetMembers(interaction, targetSettings) {
+  /** @type {NonNullable<Exclude<Parameters<import('.').getTargetMembers>[1], Array>>[] | undefined} */
   let settings = Array.isArray(targetSettings) ? targetSettings : [targetSettings];
   if (!targetSettings || !settings.length) settings = [{}];
 

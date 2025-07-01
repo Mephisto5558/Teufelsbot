@@ -129,6 +129,8 @@ declare module 'discord.js' {
      * ``` */
     updateDB<FDB extends locals.FlattenedUserSettings, K extends keyof FDB & string>(this: User, key: K, value: FDB[K]): Promise<NonNullable<Database['userSettings']>>;
 
+    deleteDB(this: Guild, key: keyof locals.FlattenedUserSettings): ReturnType<DB['delete']>;
+
     customName: string;
     customTag: string;
 
@@ -157,6 +159,8 @@ declare module 'discord.js' {
      * ``` */
     updateDB<FDB extends locals.FlattenedGuildSettings, K extends keyof FDB>(this: Guild, key: K, value: FDB[K]): Promise<Database['guildSettings']>;
     updateDB(this: Guild, key: null, value: NonNullable<Database['guildSettings'][Snowflake]>): Promise<Database['guildSettings']>;
+
+    deleteDB(this: Guild, key: keyof locals.FlattenedGuildSettings): ReturnType<DB['delete']>;
 
     localeCode: LangLocaleCode;
   }

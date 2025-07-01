@@ -1,11 +1,11 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, userMention } = require('discord.js'),
-  { msInSecond, secsInMinute } = require('../timeFormatter.js'),
-  BUTTON_TIME = msInSecond * secsInMinute * 15; /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 15s */
+  { secToMs, minToMs } = require('../toMs.js'),
+  BUTTON_TIME = minToMs(15); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 /** @type {import('.').sendChallengeMention} */
 async function sendChallengeMention(msg, userId, lang) {
-  await sleep(msInSecond * 10);
+  await sleep(secToMs(10));
 
   const reply = await msg.fetchReply().catch(() => { /* empty */ });
   // challenge has been accepted - the accept button does not exist
@@ -14,7 +14,7 @@ async function sendChallengeMention(msg, userId, lang) {
 
   const mentionMsg = await reply.reply(lang('newChallenge', userMention(userId)));
 
-  await sleep(msInSecond * 5); /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5s */
+  await sleep(secToMs(5)); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
   void mentionMsg.delete().catch(() => { /* empty */ });
 }
 

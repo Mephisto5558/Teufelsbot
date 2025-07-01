@@ -38,7 +38,7 @@
     "embedTitle": "Command Stats for {mode}",
     "notFound": "That command does not exist!",
     "embedDescriptionOne": "The {command} command has been run {total} times (Slash: {slash} | Prefix: {prefix}).",
-    "embedDescriptionMany": "These are 10 most used commands:\n",
+    "embedDescriptionMany": "These are 10 most used commands:",
     "embedFieldValue": "{total} (Slash: {slash} | Prefix: {prefix})"
   },
   "dashboard": {
@@ -111,10 +111,10 @@
     "shard": "Shard",
     "guild": "Internal Guild ID",
     "guilds": "Guilds",
-    "commands": "Commands: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefix: {prefix}\n",
+    "commands": "Commands: {total}\n> Slash & Prefix: {combined}\n> Slash: {slash}\n> Prefix: {prefix}",
     "starts": "Starts",
     "lastStart": "Last start",
-    "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.\n",
+    "translation": "Translations:\n> English: {en}\n> German: {de}\n> All other languages are mostly machine translated.",
     "embedTitle": "Stats",
     "links": {
       "repo": "GitHub",
@@ -242,7 +242,7 @@
       "1": "Streams {activity}",
       "2": "Listens to {activity}",
       "3": "Watches {activity}",
-      "4": "Status: \"{message}\"\n",
+      "4": "Status: \"{message}\"",
       "5": "Competing in {activity}"
     },
     "mention": "Mention",
@@ -286,5 +286,78 @@
     "description": "get the link to the bots's feature request and voting page",
     "embedTitle": "Voting",
     "embedDescriptionVote": "Click {link} to open the voting and feature request webpage."
+  },
+  "wordcounter": {
+    "description": "See how many words were said in a guild, a channel or by a member.",
+    "options": {
+      "guild": {
+        "description": "See the top channels and top members of a guild.",
+        "options": {
+          "get": {
+            "description": "See the top channels and top members of a guild.",
+            "options": {
+              "guild_id": {
+                "description": "The target guild's ID. Defaults to this one."
+              }
+            }
+          }
+        }
+      },
+      "channel": {
+        "description": "See the top members of a channel.",
+        "options": {
+          "get": {
+            "description": "See the top members of a channel.",
+            "options": {
+              "channel": {
+                "description": "The target channel. Defaults to this one."
+              }
+            }
+          }
+        }
+      },
+      "user": {
+        "description": "Toggle the wordcounter for you or display your word count.",
+        "options": {
+          "enable": {
+            "description": "Enable or disable the wordcounter for you.",
+            "options": {
+              "enabled": {
+                "description": "Enable or disable the wordcounter for you."
+              }
+            }
+          },
+          "get": {
+            "description": "See the amount of words you said."
+          }
+        }
+      }
+    },
+    "notEnabled": "Word counting is not enabled for the selected guild. An Administrator can enable it by running {command}.",
+    "memberEmbedTitle": "Member stats",
+    "memberEmbedDescription": "These are the top {amount} members:",
+    "guild": {
+      "invalidGuild": "The guild id provided is invalid.",
+      "embedTitle": "{guild} Stats",
+      "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}",
+      "channelEmbedTitle": "Channel stats",
+      "channelEmbedDescription": "These are the top {amount} channels:"
+    },
+    "channel": {
+      "embedTitle": "#{channel} Stats",
+      "embedDescription": "The total amount words sent since the start of recoding at {enabledAt}: {amount}"
+    },
+    "user": {
+      "enable": {
+        "success": "{toggle} word counting for you."
+      },
+      "get": {
+        "notEnabledUser": "Word counting is not enabled for you. You can enable it for your user by running {command}.",
+        "embedTitle": "{user} stats",
+        "embedDescription": "The total amount words you sent since the start of recoding at {enabledAt}: {amount}",
+        "guildEmbedTitle": "Guild stats",
+        "guildEmbedDescription": "These are your top {amount} guilds:"
+      }
+    }
   }
 }

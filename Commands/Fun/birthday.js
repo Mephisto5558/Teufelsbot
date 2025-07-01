@@ -1,19 +1,20 @@
 const
   { EmbedBuilder, Colors, userMention, bold } = require('discord.js'),
-  { getTargetMembers, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, monthsInYear } } = require('#Utils'),
-  currentYear = new Date().getFullYear();
+  { getTargetMembers, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, daysInYear, monthsInYear } } = require('#Utils'),
+  currentYear = new Date().getFullYear(),
+  MIN_YEAR = 1900;
 
 /**
  * @param {Date | number} a
  * @param {Date | number | undefined} b @default Date.now()
- * @param {Date | number | undefined} currentTime @default Date.now()
  * @returns {number} negative if `a > b`, positive if `a < b`, `0` otherwise */
-function sortDates(a, b = Date.now(), currentTime = Date.now()) {
+function sortDates(a, b = Date.now()) {
   const
-    diffA = new Date(a).setFullYear(currentYear) - currentTime,
-    diffB = new Date(b).setFullYear(currentYear) - currentTime;
+    todayMs = new Date().setHours(0, 0, 0, 0),
+    diffA = new Date(a).setFullYear(currentYear) - todayMs,
+    diffB = new Date(b).setFullYear(currentYear) - todayMs;
 
-  if (diffA * diffB > 0) return diffA - diffB; // both are positive or both are negative
+  if (diffA * diffB >= 0) return diffA - diffB; // both are positive (or 0) OR both are negative (or 0)
   return diffA <= 0 && diffB >= 0 ? 1 : -1;
 }
 
@@ -27,14 +28,14 @@ const birthdayMainFunctions = {
       nextBirthday = new Date(today.getFullYear(), month - 1, day);
 
     if (today > nextBirthday) nextBirthday.setFullYear(today.getFullYear() + 1);
-    const diffDays = Math.ceil(Math.abs(nextBirthday - today) / secsInDay * msInSecond);
+    const diffDays = Math.floor((nextBirthday - today) / (secsInDay * msInSecond));
 
     await this.user.updateDB('birthday', new Date(this.options.getInteger('year', true), month - 1, day));
     return this.editReply(lang('saved', diffDays));
   },
 
   remove: async function remove(lang) {
-    await this.client.db.delete('userSettings', `${this.user.id}.birthday`);
+    await this.user.deleteDB('birthday');
     return this.editReply(lang('removed'));
   },
 
@@ -55,15 +56,21 @@ const birthdayMainFunctions = {
 
       const birthday = target.user.db.birthday;
       if (birthday) {
-        const age = getAge(birthday) + 1;
+        birthday.setHours(0, 0, 0, 0);
+
+        const
+          daysUntil = Math.round(
+            Math.abs(new Date().setHours(0, 0, 0, 0) - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / (secsInDay * msInSecond) * 2
+          ) / 2 % daysInYear, // * 2) / 2 rounds it to the nearest .5
+          age = getAge(birthday) + (daysUntil > 0 ? 1 : 0);
 
         embed.data.description = lang('getUser.date', {
           user: target.customName,
           month: lang(`months.${birthday.getMonth() + 1}`), day: birthday.getDate(),
-          daysUntil: bold(Math.round(Math.abs(Date.now() - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / (secsInDay * msInSecond)))
+          daysUntil: bold(daysUntil)
         });
 
-        if (age < currentYear) embed.data.description += lang('getUser.newAge', bold(age));
+        if (age < currentYear) embed.data.description += `\n${lang('getUser.newAge', bold(age))}`;
       }
       else embed.data.description = lang('getUser.notFound', target.customName);
     }
@@ -72,7 +79,7 @@ const birthdayMainFunctions = {
 
       const
         guildMembers = new Set((await this.guild.members.fetch()).map(e => e.id)),
-        currentTime = Date.now(),
+        today = new Date(),
 
         /** @type {[Snowflake, Date][]} */
         data = Object.entries(this.client.db.get('userSettings'))
@@ -80,17 +87,21 @@ const birthdayMainFunctions = {
             if (birthday && guildMembers.has(k)) acc.push([k, birthday]);
             return acc;
           }, [])
-          .sort(([, a], [, b]) => sortDates(a, b, currentTime))
+          .sort(([, a], [, b]) => sortDates(a, b))
           .slice(0, 10);
 
       embed.data.description = data.length ? '' : lang('getAll.notFound');
       for (const [id, date] of data) {
         const
-          dateStr = lang('getAll.date', { month: lang(`months.${date.getMonth() + 1}`), day: date.getDate() }),
+          dateStr = bold(
+            date.getMonth() == today.getMonth() && date.getDate() == today.getDate()
+              ? `${lang('getAll.today')} 🎉`
+              : lang('getAll.date', { month: lang(`months.${date.getMonth() + 1}`), day: date.getDate() })
+          ),
           age = getAge(date) + 1,
           msg = '> ' + userMention(id) + (age < currentYear ? ` (${age})` : '') + '\n';
 
-        embed.data.description += embed.data.description.includes(dateStr) ? msg : `\n${dateStr}${msg}`;
+        embed.data.description += embed.data.description.includes(dateStr) ? msg : `\n${dateStr}\n${msg}`;
       }
     }
 
@@ -130,8 +141,7 @@ module.exports = {
           name: 'year',
           type: 'Integer',
           required: true,
-          /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- min. year */
-          minValue: 1900,
+          minValue: MIN_YEAR,
           maxValue: currentYear
         }
       ]

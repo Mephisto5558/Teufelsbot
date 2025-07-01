@@ -2,7 +2,7 @@
 
 import type Discord from 'discord.js';
 import type DiscordTicTacToe from 'discord-tictactoe';
-import type { I18nProvider } from '@mephisto5558/i18n';
+import type { i18nFuncConfig, I18nProvider } from '@mephisto5558/i18n';
 
 import type locals from './locals';
 import type DBStructure from './database';
@@ -133,17 +133,12 @@ declare global {
 
   type Database = DBStructure.Database;
 
-  /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+  /* eslint-disable-next-line @typescript-eslint/no-explicit-any -- used only as generic constraint */
   type GenericFunction = (...args: any) => any;
 
   type OmitFirstParameter<T extends GenericFunction> = Parameters<T> extends [unknown, ...infer Rest] ? Rest : never;
 
-  /* type SlashCommand = Command.SlashCommand;
-     type PrefixCommand = Command.PrefixCommand;
-     type MixedCommand = Command.MixedCommand;
-     type CommandOptions = Command.CommandOptions; */
-
-  type langBoundArgs = [ { locale?: string; errorNotFound?: boolean; undefinedNotFound?: boolean; backupPath?: string } ];
+  type langBoundArgs = [i18nFuncConfig];
 
   /** {@link Function.prototype.bBind bBind}ed {@link I18nProvider.__} function */
   type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string> & { __boundArgs__: langBoundArgs };
@@ -278,7 +273,7 @@ declare global {
     __boundThis__: ThisParameterType<T>;
 
     /** The arguments to which the function is bound */
-    __boundArgs__: Parameters<T> ;
+    __boundArgs__: Parameters<T>;
   };
 
   // #region discord.js globals
@@ -384,4 +379,13 @@ declare module 'wikijs' {
   // intentional. `Page` in wikijs is defined as something that is not correct. All `Page`es are `RawPages` in code
   /* eslint-disable-next-line @typescript-eslint/no-empty-object-type */
   interface Page extends RawPage {}
+}
+
+declare module 'moment' {
+  /** Only available if `moment-precise-range-plugin` is imported after importing `moment`.*/
+  export function preciseDiff<returnValueObject extends boolean>(
+    d1: MomentInput, d2: MomentInput, returnValueObject: returnValueObject
+  ): returnValueObject extends true
+    ? { years: number; months: number; days: number; hours: number; minutes: number; firstDateWasLater: boolean }
+    : string;
 }

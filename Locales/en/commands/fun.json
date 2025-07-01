@@ -120,12 +120,13 @@
     "getUser": {
       "notFound": "{user} has no birthday :(",
       "embedTitle": "{user}'s birthday",
-      "date": "{user} has birthday on **{month} {day}**. That's in {daysUntil} days!\n",
+      "date": "{user} has birthday on **{month} {day}**. That's in {daysUntil} days!",
       "newAge": "They will turn {age} on that day."
     },
     "getAll": {
       "embedTitle": "The next birthdays",
-      "date": "**{month} {day}**\n",
+      "today": "Today",
+      "date": "{month} {day}",
       "notFound": "Nobody has a birthday set..."
     }
   },
@@ -231,27 +232,36 @@
     },
     "managerNotFound": "This feature is disabled or not registered.",
     "notFound": "Your provided message id is not a valid giveaway or it has already ended!",
-    "invalidTime": "The provided duration/add_time value is invalid!",
     "notHost": "You are not the host of this giveaway!",
     "buttonLabel": "View Giveaway",
-    "started": "The giveaway has started!",
-    "ended": "The giveaway has been ended!",
-    "edited": "The giveaway has been edited!",
-    "rerolled": "The giveaway has been rerolled!",
-    "newGiveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
-    "giveawayEnded": "'🎉🎉 **GIVEAWAY ENDED** 🎉🎉",
-    "requiredRoles": "You need to have at least one of this roles in order to win: {roles}",
-    "inviteToParticipate": "React with {emoji} to participate!",
-    "winMessage": "Congratulations, {winners}! You won **{this.prize}**!",
-    "drawing": "Drawing: {timestamp}",
-    "dropMessage": "Be the first to react with {emoji}!!",
-    "embedFooterText": "{this.winnerCount} winner(s)",
-    "noWinner": "Giveaway cancelled, no valid participators.",
-    "winners": "Winner(s):",
-    "rerollWinners": "🎉 New winner(s): {winners}! Congratulations, you won **{this.prize}**!",
-    "rerollNoWinner": "No valid participators, no new winner(s) can be chosen!",
-    "endedAt": "Ended at",
-    "hostedBy": "Hosted by: {this.hostedBy}"
+    "invalidTime": "The provided duration/add_time value is invalid!",
+    "create": {
+      "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
+      "giveawayEnded": "🎉🎉 GIVEAWAY ENDED 🎉🎉",
+      "requiredRoles": "You need to have at least one of this roles in order to win: {roles}",
+      "disallowedMembers": "The following members are not allowed to participate: {members}",
+      "inviteToParticipate": "React with {emoji} to participate!",
+      "winMessage": "Congratulations, {winners}! You won **{this.prize}**!",
+      "drawing": "Drawing: {timestamp}",
+      "dropMessage": "Be the first to react with {emoji}!!",
+      "embedFooterText": "{this.winnerCount} winner(s)",
+      "noWinner": "Giveaway cancelled, no valid participators.",
+      "winners": "Winner(s):",
+      "endedAt": "Ended at",
+      "hostedBy": "Hosted by: {this.hostedBy}",
+      "started": "The giveaway has started!"
+    },
+    "end": {
+      "ended": "The giveaway has been ended!"
+    },
+    "edit": {
+      "edited": "The giveaway has been edited!"
+    },
+    "reroll": {
+      "rerollWinners": "🎉 New winner(s): {winners}! Congratulations, you won **{this.prize}**!",
+      "rerollNoWinner": "No valid participators, no new winner(s) can be chosen!",
+      "rerolled": "The giveaway has been rerolled!"
+    }
   },
   "happy": {
     "description": "sends a happy message"
@@ -696,21 +706,34 @@
         }
       }
     },
-    "saved": "Added new trigger for {trigger}.",
-    "edited": "The trigger with the for `${trigger}` has been edited.",
-    "deletedOne": "Deleted the trigger with the ID {id}",
-    "deletedAll": "I deleted all ({count}) triggers.",
-    "noneFound": "There are no triggers!",
-    "notFound": "No trigger matched your query.",
-    "confirmation": "clear all",
-    "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
-    "embedTitle": "Triggers",
-    "embedTitleOne": "**Trigger {id}:**",
-    "embedDescriptionOne": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard:** {wildcard}",
-    "longEmbedDescription": "ID: {id}\n> Trigger: {trigger}\n> Response: {response}\n> Wildcard: {wildcard}\n\n",
-    "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard: **{wildcard}\n",
-    "first25": "The first 25 triggers. Get more with the `short` option."
+    "add": {
+      "saved": "Added new trigger for {trigger}."
+    },
+    "edit": {
+      "noneFound": "There are no triggers!",
+      "notFound": "No trigger matched your query.",
+      "edited": "The trigger for {trigger} has been edited."
+    },
+    "delete": {
+      "noneFound": "There are no triggers!",
+      "deletedOne": "Deleted the trigger with the ID {id}."
+    },
+    "clear": {
+      "confirmation": "clear all",
+      "needConfirm": "You need to confirm this action by writing `CLEAR ALL` in the confirm option!",
+      "deletedAll": "I deleted all ({count}) triggers."
+    },
+    "get": {
+      "noneFound": "There are no triggers!",
+      "notFound": "No trigger matched your query.",
+      "embedTitle": "Triggers",
+      "embedTitleOne": "Trigger {id}:",
+      "embedDescriptionOne": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard:** {wildcard}",
+      "longEmbedDescription": "ID: {id}\n> Trigger: {trigger}\n> Response: {response}\n> Wildcard: {wildcard}",
+      "shortFieldName": "ID {id}",
+      "shortFieldValue": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard: **{wildcard}",
+      "first25": "The first 25 triggers. Get more with the `short` option."
+    }
   },
   "vote": {
     "description": "Create a poll for something",

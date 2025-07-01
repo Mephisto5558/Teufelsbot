@@ -244,8 +244,21 @@
             "description": "Aktiviere (true) oder deaktiviere (false) das Protokollieren dieser Aktion"
           }
         }
+      },
+      "birthday": {
+        "description": "Konfiguriere die Geburtstagsnachricht und den Kanal."
+      },
+      "wordcounter": {
+        "description": "Aktiviere (true) oder deaktiviere (false) Wörter in allen Nachrichten für Stats.",
+        "options": {
+          "enabled": {
+            "description": "Zähle Wörter in allen Nachrichten."
+          }
+        }
       }
     },
+    "link": "Link",
+    "useDashboard": "Nutze das Dashboard ({link}), um diese Einstellung zu modifizieren.",
     "toggleModule": {
       "success": "Das {name} Modul wurde {state}."
     },
@@ -263,7 +276,7 @@
       "channels": "Kanäle",
       "users": "Mitglieder",
       "embedTitle": "Aktualisierte Befehl-Einstellungen für \"{commandName}\"",
-      "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sieh alle verbotenen Rollen/Kanäle/Mitglieder, indem du {commandMention} mit der `get` Option ausführst.||\n",
+      "embedDescription": "Die folgende Anzahl an Rollen/Kanälen/Mitgliedern wurde geändert:\n||Sieh alle verbotenen Rollen/Kanäle/Mitglieder, indem du {commandMention} mit der `get` Option ausführst.||",
       "embed": {
         "enabled": "Entfernt (Erlaubt)",
         "disabled": "Hinzugefügt (Verboten)"
@@ -302,6 +315,9 @@
         "voiceChannelActivity": "Sprachkanal beitreten/verlassen/wechseln",
         "sayCommandUsed": "/say, /embed Befehls-Verwendung"
       }
+    },
+    "wordcounter": {
+      "success": "Wortzählung wurde {toggle}."
     }
   }
 }

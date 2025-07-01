@@ -116,12 +116,12 @@
     "getUser": {
       "notFound": "У {user} нет дня рождения :(",
       "embedTitle": "День рождения {user}",
-      "date": "У {user} день рождения **{month} {day}**.\n",
+      "date": "У {user} день рождения **{month} {day}**.",
       "newAge": "В этот день они превратят {age}."
     },
     "getAll": {
       "embedTitle": "Следующие дни рождения",
-      "date": "**{month} {day}**\n",
+      "date": "{month} {day}",
       "notFound": "Никто не набрал день рождения..."
     }
   },
@@ -234,8 +234,8 @@
     "ended": "Выдача завершена!",
     "edited": "Отдача была отредактирована!",
     "rerolled": "Отдача была восстановлена!",
-    "newGiveaway": "🎉🎉 **GIVEAWAY** 🎉🎉",
-    "giveawayEnded": "'🎉🎉 **GIVEAWAY ENDED** 🎉🎉",
+    "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
+    "giveawayEnded": "🎉🎉 GIVEAWAY ENDED 🎉🎉",
     "requiredRoles": "Вам нужно иметь хотя бы одну из ролей для того, чтобы выиграть: {roles}",
     "inviteToParticipate": "Отправляйтесь с {emoji}, чтобы принять участие!",
     "winMessage": "Поздравляем, {winners}! Вы выиграли **{this.prize}**!",
@@ -667,11 +667,11 @@
     "confirmation": "очистить все",
     "needConfirm": "Вы должны подтвердить это действие, написав `CLEAR ALL` в опции подтверждения!",
     "embedTitle": "Триггеры",
-    "embedTitleOne": "**Триггер {id}:**",
+    "embedTitleOne": "Триггер {id}:",
     "embedDescriptionOne": "**Триггер:**\n{trigger}\n**Ответ:**\n{response}\n**Wildcard:** {wildcard}",
-    "longEmbedDescription": "ID: {id}\n> Триггер: {trigger}\n> Ответ: {response}\n> Wildcard: {wildcard}\n\n",
+    "longEmbedDescription": "ID: {id}\n> Триггер: {trigger}\n> Ответ: {response}\n> Wildcard: {wildcard}",
     "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Триггер:**\n{trigger}\n**Ответ:**\n{response}\n**Wildcard: **{wildcard}\n",
+    "shortFieldValue": "**Триггер:**\n{trigger}\n**Ответ:**\n{response}\n**Wildcard: **{wildcard}",
     "first25": "Первые 25 триггеров. Получите больше с опцией `short`."
   },
   "vote": {
