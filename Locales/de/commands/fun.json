@@ -90,7 +90,7 @@
         "description": "Erhalte eine Liste der nächsten Geburtstage.",
         "options": {
           "target": {
-            "description": "Wessen Geburtstag willst du einsehen? Lass dieses Feld frei, um die nächsten 10 Geburtstage zu sehen"
+            "description": "Wessen Geburtstag willst du einsehen? Lasse dieses Feld frei, um die nächsten 10 Geburtstage zu sehen"
           },
           "do_not_hide": {
             "description": "Verstecke meine Antwort nicht vor anderen Usern."
@@ -150,7 +150,7 @@
             "description": "In welchem Kanal soll das Giveaway stattfinden?"
           },
           "duration": {
-            "description": "Wie lang soll das Giveaway dauern: z. B. 1w3d2h5min"
+            "description": "Wie lange soll das Giveaway dauern: z. B. 1w3d2h5min"
           },
           "winner_count": {
             "description": "Wie viele Gewinner gibt es?"
@@ -314,7 +314,7 @@
     "genderRatio": "Geschlechtsverhältnis",
     "noGender": "Geschlechtslos",
     "heightWeight": "Höhe und Gewicht",
-    "evolutionLine": "Evolutionäre Linie",
+    "evolutionLine": "Entwicklungslinie",
     "currentStage": "\nAktuelles Entwicklungsstadium: {stage}",
     "gen": "Generation"
   },
@@ -447,7 +447,7 @@
       "Welches Wort oder Sprichwort aus der Vergangenheit sollte deiner Meinung nach zurückkommen?",
       "Wie soll der Erfolg gemessen werden? Und wer ist nach dieser Messung die erfolgreichste Person, die du kennst?",
       "Was ist dein \"Guilty Pleasure\"?",
-      "Gab es jemals ein Ereignis in deinem Leben, das sich jeder Erklärung widersetzte?",
+      "Gab es jemals ein Ereignis in deinem Leben, das sich jeder Erklärung widerSetze?",
       "Wenn du die Antwort auf eine Frage zu deiner Zukunft erfahren könnten, welche wäre die Frage?",
       "Hat jemand jemals dein Leben gerettet?",
       "Welchen Nutzen bringst du der Gruppe, wenn du mit Freunden abhängst?",
@@ -690,7 +690,7 @@
         "description": "Lösche alle Trigger. Dies ist unumkehrbar!",
         "options": {
           "confirmation": {
-            "description": "Schreibe \"LÖSCHE ALLES\" um die Löschung ALLER TRIGGER zu bestätigen."
+            "description": "Schreibe \"LÖSCHE ALLES\", um die Löschung ALLER TRIGGER zu bestätigen."
           }
         }
       },

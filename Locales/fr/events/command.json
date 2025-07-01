@@ -12,7 +12,7 @@
   "permissionDenied": {
     "embedTitle": "Autorisations insuffisantes",
     "embedDescriptionUser": "Vous avez besoin des permissions suivantes dans ce salon pour exécuter cette commande :\n{permissions}",
-    "embedDescriptionBot": "J'ai besoin des permissions suivantes dans ce salon pour exécuter cette commande :\n`permissions}"
+    "embedDescriptionBot": "J'ai besoin des permissions suivantes dans ce salon pour exécuter cette commande :\n{permissions}"
   },
   "notAllowed": {
     "anyone": "Personne n'est autorisé à exécuter cette commande (définie par un administrateur du serveur)!",

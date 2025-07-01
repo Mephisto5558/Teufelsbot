@@ -12,7 +12,7 @@
   "permissionDenied": {
     "embedTitle": "Insufficient Permissions",
     "embedDescriptionUser": "You need the following permissions in this channel to run this command:\n{permissions}",
-    "embedDescriptionBot": "I need the following permissions in this channel to run this command:\n`permissions}"
+    "embedDescriptionBot": "I need the following permissions in this channel to run this command:\n{permissions}"
   },
   "notAllowed": {
     "anyone": "No one is allowed to run this command (set by a server administrator)!",

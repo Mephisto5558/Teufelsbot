@@ -100,7 +100,7 @@
     "updatingNPM": "{emoji} Restarting bot...\nInstalling packages...",
     "updateNPMError": "❌ Restart failed due to an NPM error. Check the console for more information.",
     "restarting": "{emoji} Restarting bot...\nStarting node process...",
-    "restartingError": "❌ Restart failed due to the an Node error. Check the console for more information.",
+    "restartingError": "❌ Restart failed due to a Node error. Check the console for more information.",
     "success": "✅ Successfully restarted."
   },
   "setactivity": {

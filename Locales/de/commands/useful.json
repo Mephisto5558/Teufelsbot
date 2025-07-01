@@ -25,14 +25,14 @@
     "timedOut": "Zeitüberschreitung bei der Anfrage. Eventuell ist das Bild zu groß."
   },
   "afk": {
-    "description": "Setzte einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
+    "description": "Setze einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
     "usage": {
       "usage": "[Nachricht]",
       "examples": "Bin gleich wieder da"
     },
     "options": {
       "set": {
-        "description": "Setzte einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
+        "description": "Setze einen AFK-Status welcher angezeigt wird, wenn du erwähnt wirst.",
         "options": {
           "message": {
             "description": "Die zu setzende Nachricht"
@@ -62,12 +62,12 @@
         "description": "Erstelle einen Button aus den Rohdaten von JSON.",
         "options": {
           "json": {
-            "description": "JSON Daten, aus denen der Button erstellt wird."
+            "description": "JSON-Daten, aus denen der Button erstellt wird."
           }
         }
       },
       "custom": {
-        "description": "Erstelle deinen eigenen Button mit vielen verscheiden Optionen",
+        "description": "Erstelle deinen eigenen Button mit vielen verschiedenen Optionen",
         "options": {
           "style": {
             "description": "Welchen Style soll dein Button haben?",
@@ -80,7 +80,7 @@
             }
           },
           "emoji": {
-            "description": "Das Emoji, der auf dem Button angezeigt werden soll. Wird von der \"label\" Option überschreiben."
+            "description": "Das Emoji, das auf dem Button angezeigt werden soll. Wird von der \"label\" Option überschreiben."
           },
           "label": {
             "description": "Der Text, der auf dem Button angezeigt werden soll. Überschreibt die \"emoji\" Option."
@@ -112,7 +112,7 @@
     "description": "Sendet ein benutzerdefiniertes Embed; Du kannst Zeilenumbrüche mit \"/n\" machen.",
     "options": {
       "custom": {
-        "description": "Erstelle dein eigenes Embed mit vielen verscheiden Optionen",
+        "description": "Erstelle dein eigenes Embed mit vielen verschiedenen Optionen",
         "options": {
           "description": {
             "description": "Setze den Embed-Text, nutze \"/n\" für Zeilenumbrüche."
@@ -121,10 +121,10 @@
             "description": "Setze eine Nachricht über dem Embed"
           },
           "title": {
-            "description": "Setzte den Embed-Titel"
+            "description": "Setze den Embed-Titel"
           },
           "predefined_color": {
-            "description": "Setzte die Embed-Farbe zu einer von Discord vordefinierten Farbe",
+            "description": "Setze die Embed-Farbe zu einer der von Discord vordefinierten Farben",
             "choices": {
               "Default": "Standard",
               "White": "Weiß",
@@ -159,16 +159,16 @@
             }
           },
           "custom_color": {
-            "description": "Setzte einen eigenen 6-Zeichen HEX-Code als Embed-Farbe (z. B. #ffffff)"
+            "description": "Setze einen eigenen 6-Zeichen HEX-Code als Embed-Farbe (z. B. #ffffff)"
           },
           "footer_text": {
-            "description": "Setzte den Footer-Text"
+            "description": "Setze den Footer-Text"
           },
           "footer_icon": {
-            "description": "Setzte die Footer Icon-URL"
+            "description": "Setze die Footer Icon-URL"
           },
           "image": {
-            "description": "Setzte die Embed Bild URL"
+            "description": "Setze die Embed Bild URL"
           },
           "thumbnail": {
             "description": "Setze die Thumbnail-URL"
@@ -177,13 +177,13 @@
             "description": "Setze den Timestamp"
           },
           "author_name": {
-            "description": "Setzte den Autorennamen"
+            "description": "Setze den Autorennamen"
           },
           "author_url": {
             "description": "Setze die Autor-URL"
           },
           "author_icon": {
-            "description": "Setzte die Autor-Icon-URL"
+            "description": "Setze die Autor-Icon-URL"
           }
         }
       },
@@ -191,7 +191,7 @@
         "description": "Erstelle ein Embed von rohem JSON.",
         "options": {
           "json": {
-            "description": "JSON Daten aus denen das Embed erstellt wird."
+            "description": "JSON-Daten, aus denen das Embed erstellt wird."
           }
         }
       }
@@ -270,7 +270,7 @@
   "randomnumber": {
     "description": "Gibt eine Zufallszahl aus. Nutzt bei ungültigen Eingaben die Standardwerte.",
     "usage": {
-      "usage": "[Mimimum] [Maximum]"
+      "usage": "[Minimum] [Maximum]"
     },
     "options": {
       "minimum": {
