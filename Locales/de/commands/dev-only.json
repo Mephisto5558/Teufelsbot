@@ -104,7 +104,7 @@
     "success": "✅ Erfolgreich neu gestartet."
   },
   "setactivity": {
-    "description": "Setzte die Aktivität des Bots",
+    "description": "Setze die Aktivität des Bots",
     "usage": {
       "usage": "[Typ] [Aktivität]",
       "examples": "playing Befehle ausführen"
