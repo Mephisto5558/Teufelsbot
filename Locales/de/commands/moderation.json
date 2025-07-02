@@ -42,7 +42,7 @@
     "dmEmbedDescription": "Du wurdest von {guild} gekickt.\nModerator: {mod}\nBegründung: {reason}",
     "infoEmbedTitle": "Kick",
     "infoEmbedDescription": "Moderator: {mod}\nBegründung: {reason}",
-    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Kicken aus. Du hast 60 Sekunden Zeit.",
+    "selectTargetEmbedDescription": "Wähle bis zu 10 Mitglieder zum Kicken aus. Du hast 60 Sekundenn Zeit.",
     "noneFound": "Kein Ziel wurde gefunden.",
     "cantPunishSelf": "Du kannst dich selbst nicht kicken!",
     "error": "Ich konnte {user} nicht kicken.\n{err}",
@@ -157,7 +157,7 @@
         "description": "Nur Nachrichten, welche mit dieser Phrase enden, werden gelöscht."
       },
       "not_ends_with": {
-        "description": "Nur Nachrichten, welche nicht mit dieser Phrase enden, werden gelöscht."
+        "description": "Nur Nachrichten, welche nicht mit dieser Phrase beginnen, werden gelöscht."
       },
       "user_type": {
         "description": "Nur Nachrichten von diesem User-Typ werden gelöscht.",
