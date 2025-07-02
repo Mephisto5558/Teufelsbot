@@ -37,14 +37,14 @@
     },
     "embedTitle": "Sauvegarde du serveur",
     "create": {
-      "settings": "{emoji} Enregistrement des paramètres...",
+      "settings": "{emoji} Sauvegarde des paramètres...",
       "members": "{emoji} Sauvegarde des membres...",
       "bans": "{emoji} Sauvegarde des bannis...",
       "roles": "{emoji} Sauvegarde des rôles...",
       "emojis": "{emoji} Saving emojis...",
-      "stickers": "{emoji} Enregistrement des autocollants...",
+      "stickers": "{emoji} Sauvegarde des autocollants...",
       "channels": "{emoji} Enregistrement des canaux, des fils et des messages...",
-      "images": "{emoji} Saving icon, splash, and banner...",
+      "images": "Icône, barre oblique et bannière d'enregistrement {emoji}...",
       "success": "La sauvegarde avec l'ID {id} a été créée avec succès !\nUtilisez {cmd} pour plus d'informations sur la sauvegarde."
     },
     "clear": {
@@ -59,16 +59,16 @@
       "cancelled": "Le chargement de la sauvegarde a été annulé.",
       "enableDMs": "Veuillez activer le bot pour vous envoyer des MP afin que vous puissiez voir l'état du chargement.",
       "loadingEmbedDescription": "Application de la sauvegarde sur le serveur.\nCela peut prendre un certain temps, selon la taille de la sauvegarde.",
-      "noPerm": "Seul le propriétaire du serveur peut charger les sauvegardes !",
-      "settings": "{emoji} Chargement des paramètres...",
+      "noPerm": "Seul le propriétaire de la guilde peut charger des sauvegardes !",
+      "settings": "Chargement des paramètres {emoji}...",
       "features": "{emoji} Chargement des fonctionnalités du serveur...",
-      "roles": "{emoji} Chargement des rôles...",
+      "roles": "Rôles de chargement {emoji}...",
       "members": "{emoji} Chargement des rôles des membres et des surnoms...",
       "channels": "{emoji} Chargement des canaux, des fils et des messages...",
       "emojis": "{emoji} Chargement des émoticônes...",
       "stickers": "{emoji} Chargement des autocollants...",
       "bans": "{emoji} Chargement des bannis...",
-      "success": "La sauvegarde avec l'id{id} a été chargée avec succès.",
+      "success": "La sauvegarde avec l'id {id} a été chargée avec succès.",
       "error": "Une erreur est survenue lors du chargement de la sauvegarde."
     },
     "delete": {
@@ -76,17 +76,13 @@
       "success": "Sauvegarde supprimée avec succès !"
     },
     "get": {
-      "oneEmbedDescription": "Informations sur la sauvegarde {id}\n>>> Créée à: {createdAt}\nTaille : {size}\nMembres : {members}\nCanaux : {channels}\nRôles : {roles}\nÉmojis: {emojis}\nAutocollants : {stickers}",
+      "oneEmbedDescription": "**Informations sur la sauvegarde {id}**\n>>> Créé à: {createdAt}\nTaille : {size}\nMembres : {members}\nCanaux : {channels}\nRôles : {roles}\nEmojis: {emojis}\nStickers : {stickers}",
       "oneNotFound": "Aucune sauvegarde n'a été trouvée avec cet ID !",
-      "infos": "Créé à: {createdAt}\nTaille : {size}\nMembres : {members}\nChaînes : {channels}\nRôles : {roles}\nÉmoticônes : {emojis}\nAutocollants : {stickers}",
-      "found": "{amount} sauvegardes trouvées.",
+      "infos": ">>> Créé à: {createdAt}\nTaille : {size}\nMembres : {members}\nCanaux : {channels}\nRôles : {roles}\nEmojis: {emojis}\nStickers : {stickers}",
+      "found": "Sauvegardes {amount} trouvées.",
       "embedDescription": "Les sauvegardes suivantes ont été trouvées, triées par date:",
       "noneFound": "Aucune sauvegarde n'a été trouvée pour ce serveur."
     }
-  },
-  "selfrole": {
-    "description": "Gérer les auto-grenouilles.",
-    "deprecated": "Cette fonctionnalité n'est plus prise en charge. Veuillez utiliser les fonctionnalités de la communauté de discorde (Onboarding) pour la gestion de auto-rôles: https://support.discord.com/hc/en-us/sections/360007770572-Community-Tools\nLes auto-rôles déjà configurés fonctionneront toujours."
   },
   "setup": {
     "description": "Définit le bot vers le haut",
@@ -176,7 +172,7 @@
           }
         }
       },
-      "prefix": {
+      "set_prefix": {
         "description": "Change le préfixe du bot.",
         "options": {
           "new_prefix": {
@@ -184,6 +180,25 @@
           },
           "case_insensitive": {
             "description": "Le cas du préfixe doit-il être ignoré ?"
+          }
+        }
+      },
+      "add_prefix": {
+        "description": "Ajouter un autre préfixe pour le bot.",
+        "options": {
+          "new_prefix": {
+            "description": "le nouveau préfixe de bot pour cette guilde"
+          },
+          "case_insensitive": {
+            "description": "Le cas du préfixe doit-il être ignoré ?"
+          }
+        }
+      },
+      "remove_prefix": {
+        "description": "Supprime un préfixe pour le bot.",
+        "options": {
+          "prefix": {
+            "description": "le préfixe à supprimer pour cette guilde"
           }
         }
       },
@@ -229,8 +244,21 @@
             "description": "Activer (vrai) ou désactiver (faux) l'enregistrement de l'action"
           }
         }
+      },
+      "birthday": {
+        "description": "Configurer la chaîne d'anniversaire et le message."
+      },
+      "wordcounter": {
+        "description": "Activer (vrai) ou désactiver (faux) comptant les mots dans tous les messages utilisateur pour les statistiques.",
+        "options": {
+          "enabled": {
+            "description": "Compter le nombre de mots envoyés par les membres pour les statistiques."
+          }
+        }
       }
     },
+    "link": "Lier",
+    "useDashboard": "Utilisez le tableau de bord ({link}) pour modifier ce paramètre.",
     "toggleModule": {
       "success": "Le module {name} a été {state}."
     },
@@ -256,10 +284,18 @@
     },
     "language": {
       "embedTitle": "Langue du bot modifiée !",
-      "embedDescription": "Les prochains messages seront dans {lang}."
+      "embedDescription": "La langue a été définie sur {lang}."
     },
-    "prefix": {
+    "setPrefix": {
       "saved": "Mon préfixe a été changé en {prefix}."
+    },
+    "addPrefix": {
+      "limitReached": "Vous ne pouvez pas ajouter plus de préfixes ! Essayez d'abord de supprimer les préfixes non utilisés.",
+      "saved": "{prefix} a été ajouté en tant que préfixe supplémentaire."
+    },
+    "removePrefix": {
+      "removed": "Le préfixe {prefix} a été supprimé.",
+      "cannotRemoveLastPrefix": "Vous ne pouvez pas supprimer le seul préfixe restant!"
     },
     "serverbackup": {
       "success": "Successfully updated the settings!"
@@ -280,15 +316,8 @@
         "sayCommandUsed": "/say (or similar) command uses"
       }
     },
-    "tickets": {
-      "defaultButtonLabel": "Créer un ticket",
-      "disabled": "Le module ticket a été désactivé.",
-      "infoEmbedDescription": "Please press the button below to set a custom embed description before you can enable the ticket system by pressing the save button.\nYou can generate a valid embed [here]({url})",
-      "editButtonLabel": "Modifier l'intégration",
-      "previewButtonLabel": "Aperçu de l'intégration",
-      "saveButtonLabel": "Enregistrer l'intégration",
-      "textInputLabel": "Veuillez entrer le JSON intégré.",
-      "invalidEmbed": "Le JSON embarqué fourni est invalide :\n{err}"
+    "wordcounter": {
+      "success": "Comptage de mots {toggle}."
     }
   }
 }
