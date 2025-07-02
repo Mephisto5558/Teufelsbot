@@ -11,7 +11,7 @@
     "PrioritySpeaker": "Very Important Speaker",
     "Stream": "Video",
     "ViewChannel": "Kanäle ansehen",
-    "SendMessages": "Nachrichten versenden und Posts erstellen",
+    "SendMessages": "Nachrichten versenden",
     "SendTTSMessages": "Text-zu-Sprache-Nachrichten senden",
     "ManageMessages": "Nachrichten verwalten",
     "EmbedLinks": "Links einbetten",
@@ -92,7 +92,7 @@
       "buttonLabelDisable": "Erinnerung deaktivieren",
       "buttonLabelEnable": "Erinnerung aktivieren",
       "disabled": "Voting-Erinnerungen wurden für dich deaktiviert. Du kannst jederzeit denselben Button drücken, um sie wieder zu aktivieren.",
-      "enabled": "Voting-Erinnerungen wurden für dich aktiviert. Du kannst jederzeit denselben Button drücken, um sie wieder zu deaktivieren."
+      "enabled": "Voting-Erinnerung wurden für dich aktiviert. Du kannst jederzeit denselben Button drücken, um sie wieder zu deaktivieren."
     }
   },
   "getCommands": {
