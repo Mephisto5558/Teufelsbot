@@ -15,10 +15,10 @@
     "embedDescriptionBot": "Ich benötige die folgenden Berechtigungen in diesem Kanal, um diesen Befehl auszuführen:\n{permissions}"
   },
   "notAllowed": {
-    "anyone": "Niemandem ist es erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!",
+    "anyone": "Niemanden ist es erlaubt, diesen Befehl ausführen (eingestellt von einem Serveradministrator)!",
     "user": "Dir ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!",
     "channel": "Es ist nicht erlaubt, diesen Befehl in diesem Kanal auszuführen (eingestellt von einem Serveradministrator)!",
-    "role": "Mit einer deiner Rollen ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!"
+    "role": "Einer deiner Rollen ist es nicht erlaubt, diesen Befehl auszuführen (eingestellt von einem Serveradministrator)!"
   },
   "infoCMDs": {
     "emojis": {
