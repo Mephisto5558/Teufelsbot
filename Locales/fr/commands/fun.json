@@ -16,8 +16,8 @@
       "Oui.",
       "Yesssss",
       "Yessss Sir.",
-      "Oui - définitivement.",
-      "Votre question me réjouit, ma réponse est: bien sûr.",
+      "Oui - absolument.",
+      "Votre question me réjouit, ma réponse est : bien sûr.",
       "Vous pouvez vous y fier.",
       "Les perspectives sont bonnes.",
       "Les signes pointent vers le oui.",
@@ -51,6 +51,10 @@
   },
   "avatarfusion": {
     "description": "Fusionne deux avatars.",
+    "usage": {
+      "usage": "<base> [overlay] ['server' | 'global']",
+      "examples": "@User1 @User2 global"
+    },
     "options": {
       "base": {
         "description": "La photo de profil de qui doit être utilisée pour la base?"
@@ -111,22 +115,23 @@
       "11": "Novembre",
       "12": "Décembre"
     },
-    "saved": "Votre anniversaire a été enregistré.",
+    "saved": "Votre anniversaire a été enregistré. Vous célébrerez à nouveau votre anniversaire **dans les jours {days}**.",
     "removed": "Votre anniversaire a été supprimé.",
     "getUser": {
       "notFound": "{user} n'a pas d'anniversaire :(",
       "embedTitle": "Anniversaire de {user}",
       "date": "{user} a l'anniversaire le **{month} {day}**.",
-      "newAge": "Il/Elle tournera {age} ce jour."
+      "newAge": "Ils tourneront {age} ce jour-là."
     },
     "getAll": {
       "embedTitle": "Les prochains anniversaires",
+      "today": "Aujourd'hui",
       "date": "{month} {day}",
       "notFound": "Personne n'a de set d'anniversaire..."
     }
   },
   "fact": {
-    "description": "Obtenez des faits, ils sont vraiment cool et utiles, comptez sur moi.",
+    "description": "Les faits intéressants",
     "embedTitle": "Fait"
   },
   "giveaway": {
@@ -226,46 +231,46 @@
       }
     },
     "managerNotFound": "Cette fonctionnalité est désactivée ou non enregistrée.",
-    "notFound": "Votre identifiant de message fourni n'est pas un cadeau valide ou il est déjà terminé !",
-    "invalidTime": "La valeur de duration/add_time fournie est invalide !",
+    "notFound": "L'identifiant du message fourni n'est pas un cadeau valide !",
     "notHost": "Vous n'êtes pas l'hôte de ce cadeau !",
     "buttonLabel": "Voir le cadeau",
-    "started": "Le cadeau a commencé!",
-    "ended": "Le cadeau est terminé !",
-    "edited": "Le cadeau a été modifié !",
-    "rerolled": "Le cadeau a été relancé !",
-    "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
-    "giveawayEnded": "🎉🎉 GIVEAWAY ENDED 🎉🎉",
-    "requiredRoles": "Vous devez avoir au moins un de ces rôles pour gagner: {roles}",
-    "inviteToParticipate": "Réagissez avec {emoji} pour participer!",
-    "winMessage": "Félicitations, {winners}! Vous avez gagné **{this.prize}**!",
-    "drawing": "Dessin : {timestamp}",
-    "dropMessage": "Soyez le premier à réagir avec {emoji}!!",
-    "embedFooterText": "{this.winnerCount} gagnant(s)",
-    "noWinner": "Don annulé, aucun participant valide.",
-    "winners": "Gagnant(s) :",
-    "rerollWinners": "🎉 Nouveau(x) gagnant(s): {winners}! Félicitations, vous avez gagné **{this.prize}**!",
-    "rerollNoWinner": "Aucun participant valide, aucun nouveau gagnant ne peut être choisi !",
-    "endedAt": "Terminé le",
-    "hostedBy": "Hébergé par: {this.hostedBy}"
+    "invalidTime": "La valeur de duration/add_time fournie est invalide !",
+    "create": {
+      "newGiveaway": "🎉🎉 GIVEAWAY 🎉🎉",
+      "giveawayEnded": "🎉🎉 GIVEAWAY ENDED 🎉🎉",
+      "requiredRoles": "Vous devez avoir au moins un de ces rôles pour gagner: {roles}",
+      "disallowedMembers": "Les membres suivants ne sont pas autorisés à participer : {members}",
+      "inviteToParticipate": "Réagissez avec {emoji} pour participer!",
+      "winMessage": "Félicitations, {winners}! Vous avez gagné **{this.prize}**!",
+      "drawing": "Dessin : {timestamp}",
+      "dropMessage": "Soyez le premier à réagir avec {emoji}!!",
+      "embedFooterText": "{this.winnerCount} gagnant(s)",
+      "noWinner": "Don annulé, aucun participant valide.",
+      "winners": "Gagnant(s) :",
+      "endedAt": "Terminé le",
+      "hostedBy": "Hébergé par : {this.hostedBy}",
+      "started": "Le cadeau a commencé!"
+    },
+    "end": {
+      "ended": "Le cadeau est terminé !"
+    },
+    "edit": {
+      "edited": "Le cadeau a été modifié !"
+    },
+    "reroll": {
+      "rerollWinners": "🎉 Nouveau(x) gagnant(s): {winners}! Félicitations, vous avez gagné **{this.prize}**!",
+      "rerollNoWinner": "Aucun participant valide, aucun nouveau gagnant ne peut être choisi !",
+      "rerolled": "Le cadeau a été relancé !"
+    }
   },
   "happy": {
     "description": "envoie un message heureux"
   },
-  "image": {
-    "description": "Manipulation de l'image",
-    "options": {
-      "type": {
-        "description": "Le type que vous voulez utiliser. Laissez ce champ vide pour obtenir une liste de types."
-      }
-    },
-    "notFound": "Ce n'est pas une option valide. ",
-    "validOptions": "Les options valides sont:\n{options}",
-    "requiresArgs": "Cette commande nécessite les arguments suivants dans l'ordre :\n\n{args}",
-    "error": "Une erreur est survenue :\n{err}"
-  },
   "joke": {
     "description": "envoie une blague drôle",
+    "usage": {
+      "usage": "[type]"
+    },
     "options": {
       "api": {
         "description": "Quelle API voulez-vous utiliser ?"
@@ -293,6 +298,9 @@
   },
   "pokedex": {
     "description": "Affiche des informations à propos des pokémon spécifiés.",
+    "usage": {
+      "usage": "<pokemon>"
+    },
     "options": {
       "pokémon": {
         "description": "Nommer un pocket"
@@ -307,11 +315,14 @@
     "noGender": "Sans sexe",
     "heightWeight": "Hauteur et poids",
     "evolutionLine": "Ligne évolutionniste",
-    "currentStage": "\nEtape d'évolution actuelle: {stage}",
+    "currentStage": "\nPhase d'évolution actuelle: {stage}",
     "gen": "Générer"
   },
   "reddit": {
     "description": "commandes liées à reddit",
+    "usage": {
+      "usage": "[subreddit] [type de tri]"
+    },
     "options": {
       "meme": {
         "description": "obtenir un meme aléatoire",
@@ -339,29 +350,48 @@
     "notFound": "Aucun message ne correspond à votre recherche.",
     "private": "Ce subreddit est privé.",
     "error": "Une erreur est survenue :\n{err}",
-    "embedFooterText": "Upvotes : {upvotes} ({ratio}) | Downvotes : {downvotes} | Commentaires: {comments}"
+    "embedFooterText": "Votes positifs : {upvotes} ({ratio}) | votes négatifs : {downvotes} | Commentaires : {comments}"
   },
   "sad": {
     "description": "envoie un emojicon triste"
   },
   "say": {
     "description": "Permettez-moi de dire quelque chose",
+    "usage": {
+      "usage": "<msg> [channel]",
+      "examples": "Bonjour Amis ! #chat"
+    },
     "options": {
       "msg": {
         "description": "Tapez votre message ici, /n pour une nouvelle ligne"
       },
       "channel": {
         "description": "La chaîne à laquelle le message est envoyé"
+      },
+      "reply_to": {
+        "description": "L'ID du message auquel vous voulez répondre. Doit être dans le même canal. Sera ignoré si invalide."
       }
     },
     "noPerm": "Vous n'avez pas la permission d'envoyer des messages dans ce salon !"
+  },
+  "ship": {
+    "description": "Obtenez un pourcentage sur le nombre de deux utilisateurs qui se plaisent l'un à l'autre.",
+    "usage": "<user> [user]",
+    "options": {
+      "user1": {
+        "description": "Qui voulez-vous expédier ?"
+      },
+      "user2": {
+        "description": "Avec qui voulez-vous expédier ? Laissez vide pour vous sélectionner."
+      }
+    }
   },
   "sleep": {
     "description": "dit à vos amis que vous allez dormir",
     "responseList": [
       "{user} est fatigué et va dormir :3",
-      "{user} va maintenant au lit {emoji}",
-      "{user} dort maintenant, espérons-le, il/elle ne ronge pas {emoji}"
+      "{user} va dormir {emoji}",
+      "{user} dort maintenant, j'espère qu'il/elle ne ronge pas {emoji}"
     ],
     "afkMessage": "dormir"
   },
@@ -631,6 +661,23 @@
           }
         }
       },
+      "edit": {
+        "description": "Modifier un déclencheur existant.",
+        "options": {
+          "query_or_id": {
+            "description": "Le déclencheur que vous voulez modifier."
+          },
+          "trigger": {
+            "description": "le texte auquel vous voulez que le bot réponde. Laissez vide pour garder le texte actuel."
+          },
+          "response": {
+            "description": "la réponse que le bot devrait envoyer. Laissez vide pour garder la réponse actuelle."
+          },
+          "wildcard": {
+            "description": "chercher le déclencheur n'importe où dans le message (par défaut: la valeur courante ou vrai)"
+          }
+        }
+      },
       "delete": {
         "description": "Supprime un déclencheur. Ceci est irréversible !",
         "options": {
@@ -648,7 +695,7 @@
         }
       },
       "get": {
-        "description": "Récupère un ou tous les déclencheurs.",
+        "description": "Obtenir un ou tous les déclencheurs",
         "options": {
           "query_or_id": {
             "description": "recherche un trigger par son contenu ou son id de déclencheur."
@@ -659,24 +706,41 @@
         }
       }
     },
-    "saved": "Ajout d'un nouveau déclencheur pour {trigger}.",
-    "idNotFound": "Il n'y a pas de déclencheur avec cet identifiant !",
-    "deletedOne": "Déclencheur supprimé avec l'ID {id}",
-    "deletedAll": "J'ai supprimé tous les déclencheurs ({count}).",
-    "noneFound": "Il n'y a pas de déclencheurs !",
-    "notFound": "Aucun déclencheur ne correspond à votre requête.",
-    "confirmation": "tout effacer",
-    "needConfirm": "Vous devez confirmer cette action en écrivant `CLEAR TOL` dans l'option de confirmation!",
-    "embedTitle": "Déclencheurs",
-    "embedTitleOne": "Déclencher {id}:",
-    "embedDescriptionOne": "**Déclenchement :**\n{trigger}\n**Réponse :**\n{response}\n **Carte jointe:** {wildcard}",
-    "longEmbedDescription": "ID : {id}\n> Déclenchement : {trigger}\n> Réponse : {response}\n> Caractère générique : {wildcard}",
-    "shortFieldName": "ID {id}",
-    "shortFieldValue": "**Déclenche :**\n{trigger}\n**Réponse :**\n{response}\n**Wildcard:** {wildcard}",
-    "first25": "Les 25 premiers déclencheurs. Obtenez plus avec l'option `short`."
+    "add": {
+      "saved": "Ajout d'un nouveau déclencheur pour {trigger}."
+    },
+    "edit": {
+      "noneFound": "Il n'y a pas de déclencheurs !",
+      "notFound": "Aucun déclencheur ne correspond à votre requête.",
+      "edited": "Le déclencheur pour {trigger} a été modifié."
+    },
+    "delete": {
+      "noneFound": "Il n'y a pas de déclencheurs !",
+      "deletedOne": "Déclencheur supprimé avec l'ID {id}."
+    },
+    "clear": {
+      "confirmation": "tout effacer",
+      "needConfirm": "Vous devez confirmer cette action en écrivant `CLEAR TOL` dans l'option de confirmation!",
+      "deletedAll": "J'ai supprimé tous les déclencheurs ({count})."
+    },
+    "get": {
+      "noneFound": "Il n'y a pas de déclencheurs !",
+      "notFound": "Aucun déclencheur ne correspond à votre requête.",
+      "embedTitle": "Déclencheurs",
+      "embedTitleOne": "Déclencher {id}:",
+      "embedDescriptionOne": "**Trigger:**\n{trigger}\n**Response:**\n{response}\n**Wildcard:** {wildcard}",
+      "longEmbedDescription": "ID : {id}\n> Déclenchement : {trigger}\n> Réponse : {response}\n> Caractère générique : {wildcard}",
+      "shortFieldName": "ID {id}",
+      "shortFieldValue": "**Déclenche:**\n{trigger}\n**Réponse :**\n{response}\n**Caractère générique : **{wildcard}",
+      "first25": "Les 25 premiers déclencheurs. Obtenez plus avec l'option `short`."
+    }
   },
   "vote": {
     "description": "Créer un sondage pour quelque chose",
+    "usage": {
+      "usage": "<channel> [question] | [option 1] | [option 2] | <option 3> ... <option 9>",
+      "examples": "#vote Êtes-vous le bien? | Oui | Non"
+    },
     "options": {
       "question": {
         "description": "Sur quoi voulez-vous que les gens votent?"
