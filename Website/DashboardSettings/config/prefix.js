@@ -9,7 +9,7 @@ module.exports = {
   get(option, options) {
     return (this.db.get('guildSettings', `${options.guild.id}.${option.optionId}`) ?? this.db.get('botSettings', `defaultGuild.${option.optionId}`)).map(e => e.prefix);
   },
-  set(option, options) {
+  async set(option, options) {
     return this.db.pushToSet('guildSettings', `${options.guild.id}.${option.optionId}`, ...options.newData);
   }
 };
