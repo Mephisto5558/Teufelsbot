@@ -1,4 +1,4 @@
-/** @typedef {import('../../types/database').backupId}backupId */
+/** @typedef {import('../../types/database').backupId} backupId */
 
 const
   { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ButtonStyle, inlineCode } = require('discord.js'),
@@ -6,7 +6,7 @@ const
   { serverbackup_hasPerm: hasPerm, serverbackup_createProxy: createProxy } = require('#Utils/componentHandler'),
   BYTES_IN_KILOBITE = 1024;
 
-/** @param {Database['backups'][backupId]}backup */
+/** @param {Database['backups'][backupId]} backup */
 function getData(backup) {
   if (backup.__count__) {
     return {

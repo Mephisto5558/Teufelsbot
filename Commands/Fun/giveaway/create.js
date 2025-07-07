@@ -80,7 +80,7 @@ module.exports = {
 
     if (requiredRoles?.length > 0 || disallowedMembers.length > 0)
 
-      /** @param {import('discord.js').GuildMember}member */
+      /** @param {import('discord.js').GuildMember} member */
       startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
 
     await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions).then(data => {

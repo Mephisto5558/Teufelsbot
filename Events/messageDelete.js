@@ -8,7 +8,7 @@ const
 
 /**
  * @this {import('discord.js').OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
- * @param {lang}lang
+ * @param {lang} lang
  * @param {string | Record<string, string>} descriptionData */
 async function sendeMinigameDeletedEmbed(lang, descriptionData) {
   const embed = new EmbedBuilder({
@@ -24,7 +24,7 @@ async function sendeMinigameDeletedEmbed(lang, descriptionData) {
 
 /**
  * @this {import('discord.js').OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
- * @param {lang}lang */
+ * @param {lang} lang */
 function countingHandler(lang) {
   const { lastNumber } = this.guild.db.channelMinigames?.counting?.[this.channel.id] ?? {};
   if (lastNumber == undefined || lastNumber - this.originalContent || Number.isNaN(Number.parseInt(this.originalContent))) return;
@@ -35,7 +35,7 @@ function countingHandler(lang) {
 
 /**
  * @this {import('discord.js').OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
- * @param {lang}lang */
+ * @param {lang} lang */
 function wordchainHandler(lang) {
   const { lastWordChar } = this.guild.db.channelMinigames?.wordchain?.[this.channel.id] ?? {};
   if (!lastWordChar || !this.originalContent || !/^\p{L}+$/u.test(this.originalContent)) return;

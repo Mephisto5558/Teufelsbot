@@ -8,8 +8,8 @@ const
 
 /**
  * @this {Client}
- * @param {command<string, boolean>}command
- * @param {string[]}reloadedArray gets modified and not returned */
+ * @param {command<string, boolean>} command
+ * @param {string[]} reloadedArray gets modified and not returned */
 async function reloadCommand(command, reloadedArray) {
   /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
   delete require.cache[command.filePath];

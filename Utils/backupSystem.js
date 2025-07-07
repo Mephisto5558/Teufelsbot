@@ -13,18 +13,18 @@ const
   DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json');
 
 /**
- * @typedef {import('.').BackupSystem.BackupSystem}TBackupSystem
- * @typedef {import('.').BackupSystem.Backup}TBackup */
+ * @typedef {import('.').BackupSystem.BackupSystem} TBackupSystem
+ * @typedef {import('.').BackupSystem.Backup} TBackup */
 
 class BackupSystem {
   /**
-   * @param {import('@mephisto5558/mongoose-db').DB}db
-   * @param {object}options
-   * @param {string}options.dbName
-   * @param {number}options.maxGuildBackups
-   * @param {number}options.maxMessagesPerChannel
-   * @param {boolean}options.saveImages
-   * @param {boolean}options.clearGuildBeforeRestore
+   * @param {import('@mephisto5558/mongoose-db').DB} db
+   * @param {object} options
+   * @param {string} options.dbName
+   * @param {number} options.maxGuildBackups
+   * @param {number} options.maxMessagesPerChannel
+   * @param {boolean} options.saveImages
+   * @param {boolean} options.clearGuildBeforeRestore
    */
   constructor(db, { dbName = 'backups', maxGuildBackups = 5, maxMessagesPerChannel = 10, saveImages = false, clearGuildBeforeRestore = true } = {}) {
     this.db = db;

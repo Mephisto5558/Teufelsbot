@@ -4,7 +4,7 @@ const commandExecutionWrapper = require('../commandExecutionWrapper.js');
 /** @type {import('.').joke} */
 module.exports = async function joke(lang, api, type, blacklist, maxLength) {
   this.options = {
-    /** @param {string}str */
+    /** @param {string} str */
     /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior */
     getString: str => {
       switch (str) {

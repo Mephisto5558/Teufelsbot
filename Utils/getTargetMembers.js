@@ -1,8 +1,8 @@
 /**
  * @template T
- * @param {string}query
- * @param {(e: T) => boolean}filter
- * @param {import('discord.js').Collection<Snowflake, T>}cache
+ * @param {string} query
+ * @param {(e: T) => boolean} filter
+ * @param {import('discord.js').Collection<Snowflake, T>} cache
  * @returns {T | undefined} */
 const searchCache = (query, filter, cache) => cache.find(e => filter(e) && [
   e.id, e.user?.username ?? e.username, e.user?.globalName ?? e.globalName, e.nickname, e.customName
@@ -34,7 +34,7 @@ module.exports = function getTargetMembers(interaction, targetSettings) {
   let settings = Array.isArray(targetSettings) ? targetSettings : [targetSettings];
   if (!targetSettings || !settings.length) settings = [{}];
 
-  const members = [...settings.reduce((/** @type {Map}*/acc, { targetOptionName, returnSelf }, i) => {
+  const members = [...settings.reduce((/** @type {Map} */ acc, { targetOptionName, returnSelf }, i) => {
     const member = getTargetMember(interaction, { targetOptionName: targetOptionName ?? `target${i || ''}`, returnSelf }, acc);
     acc.set(member?.id ?? `target${i || ''}`, member);
     return acc;

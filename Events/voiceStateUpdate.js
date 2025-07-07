@@ -5,7 +5,7 @@ const
 
 /**
  * @this {import('discord.js').ClientEvents['voiceStateUpdate'][0]}
- * @param {import('discord.js').ClientEvents['voiceStateUpdate'][1]}newState */
+ * @param {import('discord.js').ClientEvents['voiceStateUpdate'][1]} newState */
 module.exports = async function voiceStateUpdate(newState) {
   if (this.client.botType == 'dev') return;
 

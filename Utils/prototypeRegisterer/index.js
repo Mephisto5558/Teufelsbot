@@ -24,8 +24,8 @@ globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
 
 /**
- * @param {Record<string, any>}target
- * @param {Record<string, any>}source
+ * @param {Record<string, any>} target
+ * @param {Record<string, any>} source
  * @returns {object} recursively merged Object */
 function deepMerge(target, source) {
   for (const key in source) {
@@ -169,7 +169,7 @@ Object.defineProperties(Client.prototype, {
   loadEnvAndDB: {
     /** @type {Client['loadEnvAndDB']} */
     value: async function loadEnvAndDB() {
-      let /** @type {import('../../types/locals').EnvJSON} */env, /** @type {import('@mephisto5558/mongoose-db').DB | undefined} */db;
+      let /** @type {import('../../types/locals').EnvJSON} */ env, /** @type {import('@mephisto5558/mongoose-db').DB | undefined} */ db;
       try { env = require('../../env.json'); }
       catch (err) {
         if (err.code != 'MODULE_NOT_FOUND') throw err;
@@ -204,7 +204,7 @@ Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
 
   /**
    * @this {AutocompleteInteraction}
-   * @param {import('discord.js').AutocompleteInteraction['focused']['value']}val */
+   * @param {import('discord.js').AutocompleteInteraction['focused']['value']} val */
   set(val) { this.options.data.find(e => !!e.focused).value = val; }
 });
 Object.defineProperty(Message.prototype, 'user', {
@@ -225,7 +225,7 @@ Object.defineProperties(User.prototype, {
   deleteDB: {
     /** @type {import('discord.js').User['deleteDB']} */
     value: async function deleteDB(key) {
-      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- just to be safe*/
+      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- just to be safe */
       if (!key) throw new Error('Missing key; cannot delete user using this method!');
       return this.client.db.delete('userSettings', `${this.id}.${key}`);
     }
@@ -273,7 +273,7 @@ Object.defineProperties(Guild.prototype, {
   deleteDB: {
     /** @type {import('discord.js').Guild['deleteDB']} */
     value: async function deleteDB(key) {
-      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- just to be safe*/
+      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- just to be safe */
       if (!key) throw new Error('Missing key; cannot delete guild using this method!');
       return this.client.db.delete('guildSettings', `${this.id}.${key}`);
     }
@@ -306,8 +306,8 @@ Object.defineProperty(TicTacToe.prototype, 'playAgain', {
 
 Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
   /**
-   * @param {number}row
-   * @param {number}col */
+   * @param {number} row
+   * @param {number} col */
   value: function createButton(row, col) {
     const
       button = new ButtonBuilder(),

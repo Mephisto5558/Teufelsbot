@@ -4,7 +4,7 @@ const
 
 /** @type {command<'both', false>} */
 module.exports = {
-  cooldowns: { user: secToMs(5) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers*/
+  cooldowns: { user: secToMs(5) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers */
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,

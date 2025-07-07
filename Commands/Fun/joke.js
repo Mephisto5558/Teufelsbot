@@ -29,10 +29,10 @@ function formatAPIUrl(url, blacklist, apiKey, maxLength, includeTags) {
 
 /**
  * @this {Client}
- * @param {{ name: string, link: string, url: string }[]}apiList
- * @param {string}type
- * @param {string}blacklist
- * @param {number?}maxLength
+ * @param {{ name: string, link: string, url: string }[]} apiList
+ * @param {string} type
+ * @param {string} blacklist
+ * @param {number?} maxLength
  * @returns {[string, { name: string, link: string, url: string }] | []} */
 async function getJoke(apiList = [], type = '', blacklist = '', maxLength = messageMaxLength) {
   const api = apiList.random();
@@ -42,7 +42,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
     const timeoutSignal = new AbortController();
     setTimeout(() => timeoutSignal.abort(), TIMEOUT);
 
-    /** @type {{type?: string, joke?: string, setup?: string, delivery?: string}} */
+    /** @type {{ type?: string, joke?: string, setup?: string, delivery?: string }} */
     const res = await (await fetch).fetch(formatAPIUrl(api.url, blacklist, this.keys.humorAPIKey, maxLength, type), {
       headers: {
         'User-Agent': `Discord bot (${this.config.github.repo})`,

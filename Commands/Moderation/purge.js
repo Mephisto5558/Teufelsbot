@@ -6,14 +6,14 @@ const
   maxAllowedPurgeAmt = 1000,
 
   /**
-   * @param {string}str
+   * @param {string} str
    * filters discord invites, invite.gg, dsc.gg, disboard.org links */
   adRegex = str => new RegExp(
     String.raw`(?:(?=discord)(?<!support\.)(?:discord(?:app)?[\W_]*(?:com|gg|io|link|me|net|plus)\/|`
     + String.raw`(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(?:attachments|channels)\/)`
     + String.raw`|(?:dsc|invite)[\W_]*gg|disboard[\W_]*org`, 'i'
   ).test(str),
-  filterOptionsExist = /** @param {Record<string, string | number | boolean | undefined>}options */ options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
+  filterOptionsExist = /** @param {Record<string, string | number | boolean | undefined>} options */ options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
 
   /** @type {Record<string, (msg: Message<true>) => boolean>} */
   filterCheck = {
@@ -29,7 +29,7 @@ const
 function shouldDeleteMsg(msg, options) {
   const
 
-    /** @type {(fn: (...args: unknown[]) => boolean, option: string) => boolean}*/
+    /** @type {(fn: (...args: unknown[]) => boolean, option: string) => boolean} */
     check = (fn, option) => !option
       || !!msg.content.toLowerCase()[fn](option.toLowerCase())
       || msg.embeds.some(e => !!e.description?.toLowerCase()[fn](option.toLowerCase())),
@@ -56,10 +56,10 @@ function shouldDeleteMsg(msg, options) {
 const maxMsgs = 250;
 
 /**
- * @param {Message['channel']}channel
- * @param {string?}before
- * @param {string?}after
- * @param {number?}limit */
+ * @param {Message['channel']} channel
+ * @param {string?} before
+ * @param {string?} after
+ * @param {number?} limit */
 async function fetchMsgs(channel, before, after, limit = maxMsgs) {
   const options = { limit: Math.min(limit, maxMsgsToFetch), before, after };
 
@@ -181,9 +181,9 @@ module.exports = {
 -- in there due to performance reasons (testing code not used in production) */
 
 /** Tests the purge filters */
-/** @typedef {{input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean}}data */
+/** @typedef {{ input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean }} data */
 function _testPurge() {
-  /** @param {data[]}data */
+  /** @param {data[]} data */
   function addEmbed(...data) {
     return data.reduce((acc, e) => {
       const obj = structuredClone(e);
@@ -193,10 +193,10 @@ function _testPurge() {
       acc.push(e, obj);
 
       return acc;
-    }, []).sort((/** @type {data} */a, /** @type {data} */b) => Number('content' in b.input[0]) - Number('content' in a.input[0]));
+    }, []).sort((/** @type {data} */ a, /** @type {data} */ b) => Number('content' in b.input[0]) - Number('content' in a.input[0]));
   }
 
-  /** @param {data[]}data */
+  /** @param {data[]} data */
   function addFlip(...data) {
     return data.reduce((acc, e) => {
       const obj = structuredClone(e);
@@ -212,7 +212,7 @@ function _testPurge() {
       acc.push(e, obj);
 
       return acc;
-    }, []).sort((/** @type {data} */a, /** @type {data} */b) => {
+    }, []).sort((/** @type {data} */ a, /** @type {data} */ b) => {
       const orderMap = { contains: 0, starts_with: 1, ends_with: 2, does_not_contain: 3, not_starts_with: 4, not_ends_with: 5 };
       return orderMap[Object.keys(a.input[1])[0]] - orderMap[Object.keys(b.input[1])[0]];
     });

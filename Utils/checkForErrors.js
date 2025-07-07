@@ -1,19 +1,19 @@
 const
   { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction, inlineCode, MessageFlags } = require('discord.js'),
-  /** @type {import('.').autocompleteGenerator} */autocompleteGenerator = require('./autocompleteGenerator.js'),
+  /** @type {import('.').autocompleteGenerator} */ autocompleteGenerator = require('./autocompleteGenerator.js'),
   cooldowns = require('./cooldowns.js'),
   /** @type {import('.').commandMention} */ commandMention = require('./commandMention.js'),
   /** @type {import('.').permissionTranslator} */ permissionTranslator = require('./permissionTranslator.js'),
-  /** @type {import('.')['timeFormatter']} */{ msInSecond } = require('./timeFormatter'),
-  /** @type {import('.')['DiscordAPIErrorCodes']} */DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
+  /** @type {import('.')['timeFormatter']} */ { msInSecond } = require('./timeFormatter'),
+  /** @type {import('.')['DiscordAPIErrorCodes']} */ DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
   PERM_ERR_MSG_DELETETIME = msInSecond * 10,
 
-  isValidType =/** @param {Message | import('discord.js').BaseInteraction}type */ type => type instanceof Message || type.isChatInputCommand();
+  isValidType =/** @param {Message | import('discord.js').BaseInteraction} type */ type => type instanceof Message || type.isChatInputCommand();
 
 /**
  * @this {Interaction | Message}
- * @param {command<'both', boolean, true>}command
- * @param {lang}lang
+ * @param {command<'both', boolean, true>} command
+ * @param {lang} lang
  * @returns {[string, Record<string, string> | string | undefined] | undefined} */
 function checkOptions(command, lang) {
   /** @type {command<'both', boolean, true> | commandOptions<true>} */
@@ -64,8 +64,8 @@ function checkOptions(command, lang) {
 
 /**
  * @this {GuildInteraction | Message<true>}
- * @param {command<'both', boolean, true>}command
- * @param {lang}lang
+ * @param {command<'both', boolean, true>} command
+ * @param {lang} lang
  * @returns {boolean} `false` if no permission issues have been found. */
 async function checkPerms(command, lang) {
   const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user ?? [], PermissionFlagsBits.SendMessages]);

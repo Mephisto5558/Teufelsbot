@@ -5,8 +5,8 @@ const
 /**
  * A wrapper for {@link cooldown}, used for subcommand(group) support.
  * @this {ChatInputCommandInteraction}
- * @param {string}name
- * @param {number}maxDepth
+ * @param {string} name
+ * @param {number} maxDepth
  * @returns {number} current cooldown in seconds
  *
  * Default maxDepth=2 */
@@ -43,8 +43,8 @@ function cooldown(name, cooldowns = {}) {
     cooldownList = [];
 
   let
-    /** @type {keyof NonNullable<Parameters<import('.').cooldowns>['1']>} */cdName,
-    /** @type {NonNullable<Parameters<import('.').cooldowns>['1']>[cdName]} */value;
+    /** @type {keyof NonNullable<Parameters<import('.').cooldowns>['1']>} */ cdName,
+    /** @type {NonNullable<Parameters<import('.').cooldowns>['1']>[cdName]} */ value;
   for ([cdName, value] of Object.entries(cooldowns)) {
     if (!value || this[cdName] === null) continue;
 

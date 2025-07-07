@@ -20,8 +20,8 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
     message = Object.values(contextData).find(e => e instanceof Message || e instanceof BaseInteraction);
 
   /**
-   * @param {string}_
-   * @param {bigint | Record<string, unknown> | undefined}v */
+   * @param {string} _
+   * @param {bigint | Record<string, unknown> | undefined} v */
   function stringifyReplacer(_, v) {
     if (v != undefined && typeof v === 'object') {
       if (seen.has(v)) return '[Circular]';

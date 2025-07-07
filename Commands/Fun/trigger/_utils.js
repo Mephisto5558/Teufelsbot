@@ -1,7 +1,7 @@
 /** @type {import('.').findTriggerId} */
 const findTriggerId = (query, data) => query in data
   ? query
-  : Object.entries(data).find((/** @type {import('.').triggersArray} */[, { trigger }]) => trigger.toLowerCase() == query.toLowerCase())?.[0];
+  : Object.entries(data).find((/** @type {import('.').triggersArray} */ [, { trigger }]) => trigger.toLowerCase() == query.toLowerCase())?.[0];
 
 /**
  * @type {import('.').triggerQuery}

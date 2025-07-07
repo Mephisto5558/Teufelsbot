@@ -55,7 +55,7 @@ module.exports = {
         .map(([k, v = {}]) => [k, { total: Object.values(v).reduce((acc, e) => acc + e, 0) ?? 0, slash: bold(v.slash ?? 0), prefix: bold(v.prefix ?? 0) }])
         .sort(([, a], [, b]) => b.total - a.total)
         .slice(0, 10)
-        .map((/** @type {[string, {total: number, slash: number, prefix: number}]} */[k, v]) => {
+        .map((/** @type {[string, { total: number, slash: number, prefix: number }]} */ [k, v]) => {
           const id = this.client.application.commands.cache.find(e => e.name == k)?.id;
           return { name: id ? commandMention(k, id) : `/${k}`, value: lang('embedFieldValue', { total: bold(v.total), ...v }), inline: true };
         });

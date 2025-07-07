@@ -44,8 +44,8 @@ const
 
 /**
  * @this {Client<true>}
- * @param {Promise[]}handlerPromises
- * @param {string}message */
+ * @param {Promise[]} handlerPromises
+ * @param {string} message */
 async function processMessageEventCallback(handlerPromises, message) {
   if (message != 'Start WebServer') return;
   process.removeListener('message', processMessageEventCallback.bind(this, handlerPromises));
@@ -73,7 +73,7 @@ async function processMessageEventCallback(handlerPromises, message) {
 
 /**
  * @this {Client<false>}
- * @param {string}token
+ * @param {string} token
  * @returns {Promise<Client<true>>} */
 async function loginClient(token) {
   await this.login(token);
@@ -109,7 +109,7 @@ void (async function main() {
   /** @type {Client<true>} */
   const client = await loginClient.call(newClient, newClient.keys.token);
 
-  /** @param {string}emoji */
+  /** @param {string} emoji */
   globalThis.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();
 
   if (process.connected) process.on('message', processMessageEventCallback.bind(client, handlerPromises));

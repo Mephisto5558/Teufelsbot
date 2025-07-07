@@ -3,7 +3,7 @@ const
   envJSON = require('../env.json');
 
 /**
- * @param {Record<string, Client | undefined>}sessions
+ * @param {Record<string, Client | undefined>} sessions
  * @param {string} env
  * @param {string} token
  * @returns {Promise<Client<true>>} */

@@ -36,7 +36,7 @@ module.exports = {
       const maxLength = 200;
 
       embed.data.description = oldData.__count__ > embedMaxFieldAmt ? lang('first25') : ' ';
-      embed.data.fields = Object.entries(oldData).slice(0, embedMaxFieldAmt + 1).map((/** @type {import('.').triggersArray} */[id, { trigger, response, wildcard }]) => ({
+      embed.data.fields = Object.entries(oldData).slice(0, embedMaxFieldAmt + 1).map((/** @type {import('.').triggersArray} */ [id, { trigger, response, wildcard }]) => ({
         name: lang('shortFieldName', id), inline: true,
         value: lang('shortFieldValue', {
           trigger: codeBlock(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
@@ -50,7 +50,7 @@ module.exports = {
         maxDescriptionLength = 3800,
         maxLength = 20;
 
-      embed.data.description = Object.entries(oldData).reduce((acc, /** @type {import('.').triggersArray} */[id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
+      embed.data.description = Object.entries(oldData).reduce((acc, /** @type {import('.').triggersArray} */ [id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
         ? acc
         : acc + lang('longEmbedDescription', {
           id, wildcard: inlineCode(wildcard),

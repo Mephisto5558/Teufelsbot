@@ -7,8 +7,8 @@ const
 
 /**
  * @this {Message | Interaction}
- * @param {string}name
- * @param {number?}defaultNum
+ * @param {string} name
+ * @param {number?} defaultNum
  * @returns {number} */
 function getInteger(name, defaultNum = 0) {
   const
@@ -19,10 +19,10 @@ function getInteger(name, defaultNum = 0) {
 }
 
 /**
- * @param {number}year
- * @param {number}month
- * @param {number}day
- * @param {number[]}args */
+ * @param {number} year
+ * @param {number} month
+ * @param {number} day
+ * @param {number[]} args */
 function getTime(year, month, day, ...args) {
   const
     allowedYearStart = -1, // "-1" to include "0"

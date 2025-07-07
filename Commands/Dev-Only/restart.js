@@ -1,7 +1,7 @@
 const
   { spawn } = require('node:child_process'),
   { shellExec } = require('#Utils'),
-  getUpdateFunc = /** @param {Message}msg */msg => msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply';
+  getUpdateFunc = /** @param {Message} msg */ msg => msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply';
 
 let restarting = false;
 

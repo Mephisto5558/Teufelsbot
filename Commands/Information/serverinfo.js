@@ -19,8 +19,8 @@ module.exports = {
     const id = this.options?.getString('guild_id_or_invite') ?? this.args?.[0];
 
     let
-      /** @type {Guild | import('discord.js').InviteGuild | undefined} */guild,
-      /** @type { import('discord.js').Invite | undefined} */invite;
+      /** @type {Guild | import('discord.js').InviteGuild | undefined} */ guild,
+      /** @type {import('discord.js').Invite | undefined} */ invite;
 
     if (id) {
       guild = this.client.guilds.cache.get(id);
