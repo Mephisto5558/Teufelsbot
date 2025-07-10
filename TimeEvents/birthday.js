@@ -4,8 +4,8 @@ const
 
 /**
  * @this {StringConstructor | string | undefined}
- * @param {import('discord.js').GuildMember}member
- * @param {number}year */
+ * @param {import('discord.js').GuildMember} member
+ * @param {number} year */
 function formatBirthday(member, year) {
   return this?.toString().replaceAll('{user.nickname}', member.displayName)
     .replaceAll('{user.username}', member.user.username)
@@ -39,10 +39,10 @@ module.exports = {
     const defaultSettings = this.defaultSettings.birthday;
 
     /**
-     * @param {'ch' | 'dm'}type
-     * @param {NonNullable<NonNullable<import('../types/database').Database['guildSettings'][Snowflake]>['birthday']>}settings
-     * @param {import('discord.js').GuildMember}member
-     * @param {number}year */
+     * @param {'ch' | 'dm'} type
+     * @param {NonNullable<NonNullable<import('../types/database').Database['guildSettings'][Snowflake]>['birthday']>} settings
+     * @param {import('discord.js').GuildMember} member
+     * @param {number} year */
     function createEmbed(type, settings, member, year) {
       return new EmbedBuilder({
         title: formatBirthday.call(settings[type].msg?.embed?.title ?? defaultSettings[type].msg.embed.title, member, year),

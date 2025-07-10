@@ -7,9 +7,9 @@ const
 
 /**
  * @this {GuildInteraction | import('discord.js').ButtonInteraction<'cached'>}
- * @param {import('discord.js').GuildMember}initiator
- * @param {import('discord.js').GuildMember}opponent
- * @param {lang}lang */
+ * @param {import('discord.js').GuildMember} initiator
+ * @param {import('discord.js').GuildMember} opponent
+ * @param {lang} lang */
 function sendGame(initiator, opponent, lang) {
   const
     embed = new EmbedBuilder({

@@ -13,7 +13,7 @@ module.exports = {
 
   async run(lang) {
     const
-      /** @type {string} */input = this.options?.getString('question', true) ?? this.content,
+      /** @type {string} */ input = this.options?.getString('question', true) ?? this.content,
       now = new Date(),
       responseList = lang.__boundThis__.array__(...lang.__boundArgs__, 'responseList'); // Not a nice solution but better than before
 

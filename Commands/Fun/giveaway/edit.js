@@ -39,7 +39,7 @@ module.exports = {
     };
 
     if (requiredRoles?.length > 0 || disallowedMembers.length > 0) {
-    /** @param {import('discord.js').GuildMember}member */
+    /** @param {import('discord.js').GuildMember} member */
       editOptions.newExemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
     }
     if (bonusEntries?.length > 0) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];

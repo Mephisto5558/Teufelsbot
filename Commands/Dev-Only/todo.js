@@ -12,8 +12,8 @@ module.exports = {
 
     return this.reply(
       (domain ? hyperlink(lang('list'), `<${domainUrl}/${todo}>`) : '')
-      + (domain ? hyperlink(lang('website'), `<${domainUrl}/${vote}>`) : '')
-      + hyperlink(lang('discordNotes'), `<${channelLink('1183014623507656745', '1011956895529041950')}>`)
+      + (domain ? '\n' + hyperlink(lang('website'), `<${domainUrl}/${vote}>`) : '')
+      + '\n' + hyperlink(lang('discordNotes'), `<${channelLink('1183014623507656745', '1011956895529041950')}>`)
     );
   }
 };

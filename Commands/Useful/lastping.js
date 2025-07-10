@@ -20,7 +20,7 @@ module.exports = {
   async run(lang) {
     const
       target = getTargetMembers(this, { targetOptionName: 'member' }),
-      /** @type {import('discord.js').GuildTextBasedChannel | undefined} */channel = getTargetChannel(this);
+      /** @type {import('discord.js').GuildTextBasedChannel | undefined} */ channel = getTargetChannel(this);
 
     if (target) {
       if (!channel) return this.customReply(lang('memberRequiresChannel'));

@@ -5,10 +5,10 @@ const
 
 /**
  * @this {GuildInteraction}
- * @param {import('discord.js').GuildMember[]}players
- * @param {('win' | 'lose' | 'draw')[]}types
- * @param {lang}lang
- * @param {import('../../types/globals').TicTacToe}game */
+ * @param {import('discord.js').GuildMember[]} players
+ * @param {('win' | 'lose' | 'draw')[]} types
+ * @param {lang} lang
+ * @param {import('../../types/globals').TicTacToe} game */
 async function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
   if (player1.id == this.client.user.id || player2.id == this.client.user.id) return;
 
@@ -18,10 +18,10 @@ async function eventCallback([player1, player2], [type1, type2 = type1], lang, g
 }
 
 /**
- * @param {string}firstID
- * @param {string}secondID
- * @param {'win' | 'lose' | 'draw'}type
- * @param {Client['db']}db */
+ * @param {string} firstID
+ * @param {string} secondID
+ * @param {'win' | 'lose' | 'draw'} type
+ * @param {Client['db']} db */
 async function updateStats(firstID, secondID, type, db) {
   const stats = db.get('leaderboards', `TicTacToe.${firstID}`) ?? {};
   let against;

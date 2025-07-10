@@ -2,7 +2,7 @@ const
   { EmbedBuilder, Colors, Constants, inlineCode, roleMention, channelMention, userMention, bold } = require('discord.js'),
   { commandMention } = require('#Utils'),
 
-  getCMDs = /** @param {Client}client */ client => [...client.prefixCommands, ...client.slashCommands].filter(([,e]) => !e.aliasOf).map(([e]) => e).unique();
+  getCMDs = /** @param {Client} client */ client => [...client.prefixCommands, ...client.slashCommands].filter(([,e]) => !e.aliasOf).map(([e]) => e).unique();
 
 /** @type {import('.')} */
 module.exports = {
@@ -32,13 +32,13 @@ module.exports = {
     if (!getCMDs(this.client).includes(command)) return this.editReply(lang('notFound'));
 
     if (this.options.getBoolean('get')) {
-      /** @type {[[string, (Snowflake | '*')[]],[string, (Snowflake | '*')[]],[string, (Snowflake | '*')[]]]} */
+      /** @type {[[string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]]]} */
       const fieldList = [['roles', roles], ['channels', channels], ['users', users]];
       const fields = fieldList.filter(([, e]) => !!e.length).map(([k, v]) => ({
         name: lang(k),
         value: v.includes('*')
           ? lang('list.all')
-          : v.map(/** @param {Snowflake}e*/e => {
+          : v.map(/** @param {Snowflake} e */ e => {
             if (k == 'roles') return roleMention(e);
             return k == 'channels' ? channelMention(e) : userMention(e);
           }).join(', '),

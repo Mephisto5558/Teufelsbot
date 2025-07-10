@@ -3,8 +3,8 @@ const
   { logSayCommandUse, constants } = require('#Utils');
 
 /**
- * @param {Interaction}interaction
- * @param {string}name */
+ * @param {Interaction} interaction
+ * @param {string} name */
 // 2nd const keyword because of intellisense
 const getStringOption = (interaction, name) => interaction.options.getString(name)?.replaceAll('/n', '\n');
 

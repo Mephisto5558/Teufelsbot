@@ -156,7 +156,7 @@ export declare function commandExecutionWrapper(
   command: command<'both', boolean, true> | undefined, commandType: string, lang: lang
 ): Promise<Message | undefined>;
 
-/** Formats an application command name and id into a command mention.*/
+/** Formats an application command name and id into a command mention. */
 export declare function commandMention<CommandName extends string, CommandId extends Snowflake>(
   name: CommandName, id: CommandId
 ): `</${CommandName}:${CommandId}>`;

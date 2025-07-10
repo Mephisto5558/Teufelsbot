@@ -3,9 +3,9 @@ const
   { msInSecond } = require('#Utils').timeFormatter;
 
 /**
- * @param {Client}client
- * @param {{ guildId: Snowflake, channelId: Snowflake, messageId: Snowflake }}reference
- * @returns {Message<true> | undefined}*/
+ * @param {Client} client
+ * @param {{ guildId: Snowflake, channelId: Snowflake, messageId: Snowflake }} reference
+ * @returns {Message<true> | undefined} */
 const getMessageFromReference = (client, reference = {}) => client.guilds.cache.get(reference.guildId)?.channels.cache.get(reference.channelId)?.messages.cache.get(reference.messageId);
 
 /** @type {command<'both'>} */

@@ -17,8 +17,8 @@ function getCommandCategories() { return getCommands.call(this).map(e => e.categ
 
 /**
  * @this {Interaction | Message}
- * @param {lang}lang
- * @param {string[]?}commandCategories */
+ * @param {lang} lang
+ * @param {string[]?} commandCategories */
 function createCategoryComponent(lang, commandCategories) {
   commandCategories ??= getCommandCategories.call(this);
   const defaultOption = (this.options?.getString('command') ? undefined : this.options?.getString('category'))
@@ -49,8 +49,8 @@ function createCategoryComponent(lang, commandCategories) {
 
 /**
  * @this {Interaction | Message}
- * @param {lang}lang
- * @param {string}category */
+ * @param {lang} lang
+ * @param {string} category */
 function createCommandsComponent(lang, category) {
   const defaultOption = this.args?.[1] ?? this.options?.getString('command')
     ?? (this.message?.components[1] ? this.message.components[1].components[0].options.find(e => e.value === this.values[0])?.value : undefined);
@@ -70,8 +70,8 @@ function createCommandsComponent(lang, category) {
 
 /**
  * @this {Interaction | Message}
- * @param {command<string, boolean, true> | undefined}cmd
- * @param {lang}lang */
+ * @param {command<string, boolean, true> | undefined} cmd
+ * @param {lang} lang */
 function createInfoFields(cmd, lang) {
   const
     arr = [],
@@ -114,7 +114,7 @@ function createInfoFields(cmd, lang) {
 
 /**
  * @this {Interaction | Message}
- * @param {command<string, boolean, true> | undefined}cmd */
+ * @param {command<string, boolean, true> | undefined} cmd */
 function filterCommands(cmd) {
   return !!cmd?.name && !cmd.disabled && (this.client.botType != 'dev' || cmd.beta)
     && (!this.client.config.ownerOnlyFolders.includes(cmd.category) || this.client.config.devIds.has(this.user.id));

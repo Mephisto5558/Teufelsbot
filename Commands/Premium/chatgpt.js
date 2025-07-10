@@ -5,11 +5,11 @@ const
 
 /**
  * @this {Interaction | Message}
- * @param {lang}lang
- * @param {boolean?}deep
+ * @param {lang} lang
+ * @param {boolean?} deep
  * @returns {Promise<string>} */
 async function fetchAPI(lang, deep) {
-  /** @type {{choices: {message: {content: string}}[]} | {error: {message: string, type: string}}} */
+  /** @type {{ choices: { message: { content: string } }[] } | { error: { message: string, type: string } }} */
   const res = await (await fetch)('https://api.pawan.krd/v1/chat/completions', { // https://github.com/PawanOsman/ChatGPT
     method: 'POST',
     headers: {

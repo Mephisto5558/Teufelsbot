@@ -5,7 +5,7 @@ const
 
 /**
  * @this {import('discord.js').ClientEvents['messageUpdate'][0]}
- * @param {import('discord.js').ClientEvents['messageUpdate'][1]}newMsg */
+ * @param {import('discord.js').ClientEvents['messageUpdate'][1]} newMsg */
 module.exports = function messageUpdate(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading))

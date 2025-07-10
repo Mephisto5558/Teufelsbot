@@ -6,7 +6,7 @@ const
 
 /**
  * @this {import('discord.js').ClientEvents['messageDeleteBulk'][0]}
- * @param {import('discord.js').ClientEvents['messageDeleteBulk'][1]}channel */
+ * @param {import('discord.js').ClientEvents['messageDeleteBulk'][1]} channel */
 module.exports = async function messageDeleteBulk(channel) {
   const setting = channel.guild.db.config.logger?.messageDelete;
 

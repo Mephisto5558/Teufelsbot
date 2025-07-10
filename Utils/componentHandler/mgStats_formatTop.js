@@ -5,7 +5,7 @@ const
 
 /** @type {import('.').mgStats_formatTop} */
 module.exports = function formatTop(input, sort, mode, lang, maxLength = messageMaxLength, amt = 10) {
-  /** @type {[Snowflake, {wins: number, draws: number, losses: number}][]} */
+  /** @type {[Snowflake, { wins: number, draws: number, losses: number }][]} */
   const data = input.map(([id, e]) => [id, { wins: 0, draws: 0, losses: 0, ...e }]);
 
   if (input.length > 1) {

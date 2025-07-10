@@ -32,7 +32,7 @@ module.exports = {
     const
       page = await wiki.page(result),
 
-      /** @type {{general: Record<string, unknown[] | Record<string, unknown> | boolean | string>}} */
+      /** @type {{ general: Record<string, unknown[] | Record<string, unknown> | boolean | string> }} */
       { general: info } = await page.fullInfo(),
       summary = await page.summary(),
       images = await page.images(),

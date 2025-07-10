@@ -33,7 +33,7 @@ module.exports = {
 
     log('Started sending voting reminders').debug('Started sending voting reminders');
 
-    let /** @type {import('discord.js').User | undefined} */user; // required for typing
+    let /** @type {import('discord.js').User | undefined} */ user; // required for typing
     for ({ value: user } of await Promise.allSettled(users.map(e => this.users.fetch(e[0])))) {
       if (!user) continue;
 
