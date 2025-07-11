@@ -21,7 +21,7 @@ module.exports = async function lock_unlock(lang) {
     roles = await this.guild.roles.fetch(),
     members = await this.guild.members.fetch();
 
-  /** @type {NonNullable<import('../../types/database').Database['guildSettings'][Snowflake]>['lockedChannels']} */
+  /** @type {NonNullable<Database['guildSettings'][Snowflake]>['lockedChannels']} */
   let overwrites;
 
   if (this.commandName == 'lock') {

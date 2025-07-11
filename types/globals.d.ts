@@ -342,40 +342,16 @@ declare module '@mephisto5558/mongoose-db' {
      * generates required database entries from {@link ./Templates/db_collections.json}.
      * @param overwrite overwrite existing collection, default: `false` */
     generate(overwrite?: boolean): Promise<void>;
-
-    get<DBK extends keyof Database>(db: DBK): Promise<Database[DBK]>;
-    get<DBK extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DBK]>(db: DBK, key: K): Promise<
-      Database[DBK] extends Record<string | number, unknown> ? DBStructure.FlattenedDatabase[DBK][K] | undefined : DBStructure.FlattenedDatabase[DBK][K]
-    >;
-    update<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(db: DBK, key: K, value: FDB[K]): Promise<Database[DBK]>;
-    set<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK]>(db: DBK, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DBK]>;
-    delete<DBK extends keyof Database>(db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
-    push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
-    pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
-  }
-
-  // @ts-expect-error 2300 // overwriting the class so ofc it is declared twice
-  interface DB extends NoCacheDB {
-    get(): undefined;
-    get<DBK extends keyof Database>(this: DB, db: DBK): Database[DBK];
-    get<DBK extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DBK]>(this: DB, db: DBK, key: K): (
-      Database[DBK] extends Record<string | number, unknown> ? DBStructure.FlattenedDatabase[DBK][K] | undefined : DBStructure.FlattenedDatabase[DBK][K]
-    );
-    update<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, value: FDB[K]): Promise<Database[DBK]>;
-    set<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK]>(this: DB, db: DBK, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DBK]>;
-    delete<DBK extends keyof Database>(this: DB, db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
-    push<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
-    pushToSet<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, ...value: FDB[K][]): Promise<Database[DBK]>;
   }
 }
+
+// #endregion
 
 declare module 'express' {
   interface Request {
     user?: NonNullable<Database['website']['sessions'][keyof Database['website']['sessions']]>['user'];
   }
 }
-
-// #endregion
 
 declare module 'wikijs' {
   // intentional. `Page` in wikijs is defined as something that is not correct. All `Page`es are `RawPages` in code

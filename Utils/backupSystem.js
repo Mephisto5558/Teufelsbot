@@ -198,7 +198,7 @@ class BackupSystem {
     statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     allowedMentions = [], reason = 'Backup Feature | Load'
   } = {}) => {
-    /** @type {NonNullable<NonNullable<import('../types/database').Database['backups']>[import('../types/database').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
+    /** @type {NonNullable<Database['backups'][import('../types/database').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
     let data, rulesChannel, publicUpdatesChannel;
 
     if (id == undefined) data = this.list(guild.id).sort((a, b) => b.createdAt - a.createdAt).first();
