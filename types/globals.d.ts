@@ -194,7 +194,7 @@ declare global {
             ? Message<guildOnly extends true ? true : boolean>
             : Interaction<guildOnly> | Message<guildOnly extends true ? true : boolean>,
         lang: lang, client: Discord.Client<true>
-      ) => Promise<never>)
+      ) => Promise<unknown>)
       | undefined;
     };
 
@@ -344,8 +344,9 @@ declare module '@mephisto5558/mongoose-db' {
     generate(overwrite?: boolean): Promise<void>;
 
     get<DBK extends keyof Database>(db: DBK): Promise<Database[DBK]>;
-    get<DBK extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DBK]>(db: DBK, key: K): Promise<DBStructure.FlattenedDatabase[DBK][K]>;
-
+    get<DBK extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DBK]>(db: DBK, key: K): Promise<
+      Database[DBK] extends Record<string | number, unknown> ? DBStructure.FlattenedDatabase[DBK][K] | undefined : DBStructure.FlattenedDatabase[DBK][K]
+    >;
     update<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(db: DBK, key: K, value: FDB[K]): Promise<Database[DBK]>;
     set<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK]>(db: DBK, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DBK]>;
     delete<DBK extends keyof Database>(db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;
@@ -357,8 +358,9 @@ declare module '@mephisto5558/mongoose-db' {
   interface DB extends NoCacheDB {
     get(): undefined;
     get<DBK extends keyof Database>(this: DB, db: DBK): Database[DBK];
-    get<DBK extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DBK]>(this: DB, db: DBK, key: K): DBStructure.FlattenedDatabase[DBK][K];
-
+    get<DBK extends keyof Database, K extends keyof DBStructure.FlattenedDatabase[DBK]>(this: DB, db: DBK, key: K): (
+      Database[DBK] extends Record<string | number, unknown> ? DBStructure.FlattenedDatabase[DBK][K] | undefined : DBStructure.FlattenedDatabase[DBK][K]
+    );
     update<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK], K extends keyof FDB>(this: DB, db: DBK, key: K, value: FDB[K]): Promise<Database[DBK]>;
     set<DBK extends keyof Database, FDB extends DBStructure.FlattenedDatabase[DBK]>(this: DB, db: DBK, value: FDB[keyof FDB], overwrite?: boolean): Promise<Database[DBK]>;
     delete<DBK extends keyof Database>(this: DB, db: DBK, key?: keyof DBStructure.FlattenedDatabase[DBK]): Promise<boolean>;

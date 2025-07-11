@@ -26,7 +26,7 @@ module.exports = {
     }
   ],
 
-  run(lang) {
+  async run(lang) {
     const
       categoryQuery = (this.options?.getString('category') ?? this.args?.at(module.exports.options.findIndex(e => e.name == 'category')))?.toLowerCase(),
       commandQuery = (this.options?.getString('command') ?? this.args?.at(module.exports.options.findIndex(e => e.name == 'command')))?.toLowerCase();

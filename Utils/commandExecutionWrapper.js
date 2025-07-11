@@ -10,8 +10,7 @@ const
 /** @type {import('.').commandExecutionWrapper} */
 module.exports = async function commandExecutionWrapper(command, commandType, lang) {
   const errorKey = await checkForErrors.call(this, command, lang);
-  if (errorKey === true) return;
-  else if (errorKey) return this.customReply({ embeds: [new EmbedBuilder({ description: lang(...errorKey), color: Colors.Red })], flags: MessageFlags.Ephemeral });
+  if (errorKey !== false) return errorKey === true ? undefined : this.customReply({ embeds: [new EmbedBuilder({ description: lang(...errorKey), color: Colors.Red })], flags: MessageFlags.Ephemeral });
 
   const
     commandName = command.aliasOf ?? command.name,

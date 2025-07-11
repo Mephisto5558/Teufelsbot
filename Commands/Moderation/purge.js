@@ -13,7 +13,7 @@ const
     + String.raw`(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(?:attachments|channels)\/)`
     + String.raw`|(?:dsc|invite)[\W_]*gg|disboard[\W_]*org`, 'i'
   ).test(str),
-  filterOptionsExist = /** @param {Record<string, string | number | boolean | undefined>} options */ options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
+  filterOptionsExist = /** @param {Record<string, string | number | boolean>} options */ options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
 
   /** @type {Record<string, (msg: Message<true>) => boolean>} */
   filterCheck = {

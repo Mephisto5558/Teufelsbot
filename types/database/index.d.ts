@@ -16,7 +16,7 @@ type Database = {
   leaderboards: leaderboards;
   userSettings: userSettings;
   guildSettings: guildSettings;
-  polls: Record<guildId, userId | undefined>;
+  polls: Record<guildId, userId>;
   backups: backups;
   website: WebsiteDB['website'];
 };

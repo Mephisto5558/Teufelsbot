@@ -44,7 +44,7 @@ class BackupSystem {
   list = guildId => {
     /** @type {Collection<string, TBackup>} */
     const collection = new Collection(Object.entries(this.db.get(this.dbName)));
-    return guildId ? collection.filter(e => e?.guildId == guildId) : collection;
+    return guildId ? collection.filter(e => e.guildId == guildId) : collection;
   };
 
   /** @type {TBackupSystem['remove']} */

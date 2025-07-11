@@ -136,7 +136,7 @@ declare function rps<
 
 declare function serverbackup_hasPerm(
   this: GuildInteraction | GuildButtonInteraction,
-  backup: Database['backups'][keyof Database['backups']]
+  backup?: Database['backups'][keyof Database['backups']]
 ): boolean;
 
 declare function serverbackup_createProxy(

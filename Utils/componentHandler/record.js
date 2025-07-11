@@ -44,8 +44,7 @@ module.exports = async function record(lang, mode, requesterId, voiceChannelId, 
 
     case 'pause':
     case 'stop':
-      recordControls.call(this, lang, mode, voiceChannelId, isPublic == 'true', cache);
-      break;
+      return recordControls.call(this, lang, mode, voiceChannelId, isPublic == 'true', cache);
 
     default: throw new Error('Unsupported mode');
   }

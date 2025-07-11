@@ -60,7 +60,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       this.editReply = this.followUp.bind(this);
 
       await submit.deferUpdate();
-      ban_kick_mute.call(this, lang);
+      await ban_kick_mute.call(this, lang);
       break;
     }
 

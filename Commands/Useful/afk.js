@@ -28,7 +28,7 @@ module.exports = {
     }
   ],
 
-  run(lang) {
+  async run(lang) {
     if (this.options?.getSubcommand() == 'get') {
       const target = this.inGuild() ? this.options.getMember('target') : this.options.getUser('target') ?? this.user;
       if (target) return getAfkStatus.call(this, target, lang);

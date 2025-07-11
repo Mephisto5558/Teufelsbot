@@ -10,7 +10,7 @@ module.exports = {
   prefixCommand: true,
   options: [{ name: 'opponent', type: 'User' }],
 
-  run(lang) {
+  async run(lang) {
     return sendChallenge.call(this, lang, this.member, getTargetMembers(this, { targetOptionName: 'opponent' }));
   }
 };

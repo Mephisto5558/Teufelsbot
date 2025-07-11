@@ -3,7 +3,7 @@ const
   envJSON = require('../env.json');
 
 /**
- * @param {Record<string, Client | undefined>} sessions
+ * @param {Record<string, Client>} sessions
  * @param {string} env
  * @param {string} token
  * @returns {Promise<Client<true>>} */
@@ -32,7 +32,7 @@ module.exports = {
 
     if (this?.settings.timeEvents.lastEmojiSync?.toDateString() == now.toDateString()) return void log('Already ran emoji sync today');
 
-    /** @type {Record<string, Client | undefined>} */
+    /** @type {Record<string, Client>} */
     const sessions = {};
 
     if (this instanceof Client && this.isReady() && !sessions[this.botType]) {

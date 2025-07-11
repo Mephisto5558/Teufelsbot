@@ -57,7 +57,7 @@ function checkOptions(command, lang) {
       return ['strictAutocompleteNoMatch', name];
     }
 
-    if (this instanceof Message && this.args?.[i] && choices && !choices.some(e => e.value === this.args[i]))
+    if (this instanceof Message && this.args?.[i] && choices && !choices.some(e => e.value == this.args[i]))
       return ['strictAutocompleteNoMatchWValues', { option: name, availableOptions: choices.map(e => inlineCode(e.value)).join(', ') }];
   }
 }
@@ -66,7 +66,7 @@ function checkOptions(command, lang) {
  * @this {GuildInteraction | Message<true>}
  * @param {command<'both', boolean, true>} command
  * @param {lang} lang
- * @returns {boolean} `false` if no permission issues have been found. */
+ * @returns {Promise<boolean>} `false` if no permission issues have been found. */
 async function checkPerms(command, lang) {
   const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user ?? [], PermissionFlagsBits.SendMessages]);
   const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions?.client ?? [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
@@ -143,5 +143,5 @@ module.exports = async function checkForErrors(command, lang) {
     if (cooldown) return ['cooldown', inlineCode(cooldown)];
   }
 
-  return !!(this.inGuild() && (this instanceof Message || this instanceof CommandInteraction) && await checkPerms.call(this, command, lang));
+  return this.inGuild() && (this instanceof Message || this instanceof CommandInteraction) && await checkPerms.call(this, command, lang);
 };

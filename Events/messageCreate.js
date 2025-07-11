@@ -1,7 +1,7 @@
 const { commandExecutionWrapper } = require('#Utils');
 
 /** @this {import('discord.js').ClientEvents['messageCreate'][0]} */
-module.exports = function messageCreate() {
+module.exports = async function messageCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 
   if (this.botType != 'dev' && this.inGuild()) {

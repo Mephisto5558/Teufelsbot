@@ -1,7 +1,7 @@
 const { componentHandler, autocompleteGenerator, commandExecutionWrapper } = require('#Utils');
 
 /** @this {import('discord.js').ClientEvents['interactionCreate'][0]} */
-module.exports = function interactionCreate() {
+module.exports = async function interactionCreate() {
   if (this.client.settings.blacklist?.includes(this.user.id)) return;
 
   const

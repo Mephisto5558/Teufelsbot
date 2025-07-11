@@ -143,7 +143,7 @@ export declare namespace BackupSystem {
 export declare function checkForErrors(
   this: BaseInteraction | Message,
   command: command<'both', boolean, true> | undefined, lang: lang
-): [string, Record<string, string> | string | undefined] | boolean;
+): Promise<[string, Record<string, string> | string | undefined] | boolean>;
 
 /** @returns the error message id to use with i18n. */
 export declare function checkTargetManageable(

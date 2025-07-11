@@ -42,7 +42,7 @@ type BaseCommand<initialized extends boolean = boolean> = {
    * Gets set automatically from language files.
    * `undefined` only for an unknown language
    * @see {@link command.description} */
-  descriptionLocalizations: Record<string, BaseCommand<true>['description'] | undefined>;
+  descriptionLocalizations: Record<string, BaseCommand<true>['description']>;
 
   /**
    * Command usage information for the end-user.

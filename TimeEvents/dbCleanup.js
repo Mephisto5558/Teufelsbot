@@ -113,7 +113,7 @@ module.exports = {
     // See https://github.com/microsoft/TypeScript/issues/43756 for why using let here
     let /** @type {Snowflake} */ guildId, /** @type {Database['guildSettings'][Snowflake]} */ guildSettings;
     for ([guildId, guildSettings] of Object.entries(this.db.get('guildSettings'))) {
-      cleanupGuildsDB.call(this, guildId, guildSettings);
+      void cleanupGuildsDB.call(this, guildId, guildSettings);
       cleanupGiveawaysDB.call(this, guildId, guildSettings.giveaway?.giveaways);
       cleanupMentionsDB.call(this, guildId, guildSettings.lastMentions);
       cleanupAfkMessagesDB.call(this, guildId, guildSettings.afkMessages);

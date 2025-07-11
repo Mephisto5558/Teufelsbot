@@ -25,7 +25,7 @@ async function sendeMinigameDeletedEmbed(lang, descriptionData) {
 /**
  * @this {import('discord.js').OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
  * @param {lang} lang */
-function countingHandler(lang) {
+async function countingHandler(lang) {
   const { lastNumber } = this.guild.db.channelMinigames?.counting?.[this.channel.id] ?? {};
   if (lastNumber == undefined || lastNumber - this.originalContent || Number.isNaN(Number.parseInt(this.originalContent))) return;
 
@@ -36,7 +36,7 @@ function countingHandler(lang) {
 /**
  * @this {import('discord.js').OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
  * @param {lang} lang */
-function wordchainHandler(lang) {
+async function wordchainHandler(lang) {
   const { lastWordChar } = this.guild.db.channelMinigames?.wordchain?.[this.channel.id] ?? {};
   if (!lastWordChar || !this.originalContent || !/^\p{L}+$/u.test(this.originalContent)) return;
 
@@ -51,8 +51,8 @@ module.exports = async function messageDelete() {
   /** @type {lang} */
   const lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['commands.minigames.counting.userDeletedMsg'] });
 
-  countingHandler.call(this, lang);
-  wordchainHandler.call(this, lang);
+  void countingHandler.call(this, lang);
+  void wordchainHandler.call(this, lang);
 
   const setting = this.guild.db.config.logger?.messageDelete;
   if (!setting?.enabled) return;

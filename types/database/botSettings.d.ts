@@ -5,7 +5,7 @@ import type { Env } from '../locals';
 import type { cmdStats, userId, Embed } from './common';
 
 export type botSettings = {
-  startCount: Record<string, number | undefined>;
+  startCount: Record<string, number>;
   env?: Env;
   activity?: {
     name: string;

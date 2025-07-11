@@ -16,7 +16,7 @@ export type guildSettings = Record<guildId, {
     logger?: Record<'messageUpdate' | 'messageDelete' | 'voiceChannelActivity' | 'sayCommandUsed' | 'all', {
       channel: channelId;
       enabled: boolean;
-    } | undefined>;
+    }>;
     autopublish?: boolean;
     commands?: Record<string, {
       disabled: {
@@ -24,9 +24,9 @@ export type guildSettings = Record<guildId, {
         channels?: (channelId | '*')[];
         roles?: (roleId | '*')[];
       };
-    } | undefined>;
+    }>;
   };
-  customNames?: Record<userId, string | undefined>;
+  customNames?: Record<userId, string>;
   giveaway?: {
     reaction?: string;
     embedColor?: number;
@@ -37,12 +37,12 @@ export type guildSettings = Record<guildId, {
   afkMessages?: Record<userId, {
     message: string;
     createdAt: Date;
-  } | undefined>;
+  }>;
   triggers?: Record<`${number}`, {
     trigger: string;
     response: string;
     wildcard: boolean;
-  } | undefined>;
+  }>;
   channelMinigames?: {
     counting?: Record<channelId, {
       lastNumber: number;
@@ -52,7 +52,7 @@ export type guildSettings = Record<guildId, {
 
       /** The hightest number ever counted in this channel. */
       highScore?: number;
-    } | undefined>;
+    }>;
 
     /** The hightest number ever counted in any counting channel in this guild. */
     countingHighScore?: number;
@@ -69,7 +69,7 @@ export type guildSettings = Record<guildId, {
 
       /** There will always be both `lastWordChar` and `lastAuthor` or none of them present. */
       lastAuthor?: userId;
-    } | undefined>;
+    }>;
   };
   lastMentions?: Record<userId, {
     content: string;
@@ -77,7 +77,7 @@ export type guildSettings = Record<guildId, {
     author: userId;
     channel: channelId;
     createdAt: Date;
-  } | undefined>;
+  }>;
   birthday?: {
     enable?: boolean;
     ch?: {
@@ -113,13 +113,13 @@ export type guildSettings = Record<guildId, {
       };
     };
   };
-  lockedChannels?: Record<channelId, Record<Snowflake, OverwriteType | undefined> | undefined>;
+  lockedChannels?: Record<channelId, Record<Snowflake, OverwriteType>>;
   minigames?: {
     rps: Record<messageId, {
       player1?: 'r' | 'p' | 's';
       player2?: 'r' | 'p' | 's';
-    } | undefined>;
-    [gameName: string]: Record<messageId, unknown> | undefined;
+    }>;
+    [gameName: string]: Record<messageId, unknown>;
   };
   tickets?: {
     buttonLabel: string;
@@ -133,10 +133,10 @@ export type guildSettings = Record<guildId, {
     enabled: boolean;
     enabledAt?: Date;
     sum: number;
-    channels: Record<channelId, number | undefined>;
+    channels: Record<channelId, number>;
     members: Record<userId, {
       sum: number;
-      channels: Record<channelId, number | undefined>;
-    } | undefined>;
+      channels: Record<channelId, number>;
+    }>;
   };
-} | undefined>;
+}>;

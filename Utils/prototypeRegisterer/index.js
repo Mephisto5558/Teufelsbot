@@ -237,7 +237,7 @@ Object.defineProperties(User.prototype, {
     set(val) { void this.updateDB('customName', val); }
   },
 
-  /** @type {Record<string, (this: User, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale | undefined>} */
+  /** @type {Record<string, (this: User, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale>} */
   localeCode: {
     // website db user locale can be `null`
     get() {

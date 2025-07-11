@@ -109,4 +109,4 @@ export type backups = Record<backupId, {
     /** Channels which are not in a category */
     others: backupChannel[];
   };
-} | undefined>;
+}>;

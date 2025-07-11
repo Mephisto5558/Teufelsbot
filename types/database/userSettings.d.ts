@@ -22,7 +22,7 @@ export type userSettings = Record<userId, {
     sum: number;
     guilds: Record<guildId, {
       sum: number;
-      channels: Record<channelId, number | undefined>;
-    } | undefined>;
+      channels: Record<channelId, number>;
+    }>;
   };
-} | undefined>;
+}>;

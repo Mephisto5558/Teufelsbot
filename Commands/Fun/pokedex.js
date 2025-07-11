@@ -38,7 +38,7 @@ module.exports = {
       if (res) {
         const
           [feet, inches] = res.height.split('\'').map(e => Number.parseFloat(e)),
-          height = (feet * INCHES_IN_FEET + (inches || 0)) * CENTIMETERS_IN_INCH;
+          height = (feet * INCHES_IN_FEET + (Number.isNaN(inches) ? 0 : inches ?? 0)) * CENTIMETERS_IN_INCH;
 
         res.height = height < CENTIMETERS_IN_METER ? `${height}cm` : `${Number.parseFloat((height / CENTIMETERS_IN_METER).toFixed(2))}m`;
 

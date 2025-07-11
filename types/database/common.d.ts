@@ -6,7 +6,7 @@ export type roleId = Snowflake;
 export type backupId = `${guildId}${Snowflake}`;
 
 /** `unknown` are commands that were executed before slash and prefix command stats got counted separately. */
-export type cmdStats = Record<string, Record<'slash' | 'prefix' | 'unknown', number | undefined> | undefined>;
+export type cmdStats = Record<string, Record<'slash' | 'prefix' | 'unknown', number>>;
 
 export interface Embed {
   title: string;

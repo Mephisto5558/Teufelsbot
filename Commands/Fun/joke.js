@@ -33,7 +33,7 @@ function formatAPIUrl(url, blacklist, apiKey, maxLength, includeTags) {
  * @param {string} type
  * @param {string} blacklist
  * @param {number?} maxLength
- * @returns {[string, { name: string, link: string, url: string }] | []} */
+ * @returns {Promise<[string, { name: string, link: string, url: string }] | []>} */
 async function getJoke(apiList = [], type = '', blacklist = '', maxLength = messageMaxLength) {
   const api = apiList.random();
   let response;
@@ -107,7 +107,7 @@ module.exports = {
       maxLength = this.options?.getInteger('max_length'),
       [joke, api] = await getJoke.call(this.client, apiStr ? [defaultAPIList.find(e => e.name == apiStr)] : defaultAPIList, type, blacklist, maxLength);
 
-    if (!joke) return this.customReply(lang('noAPIAvailable'));
+    if (!joke || !api) return this.customReply(lang('noAPIAvailable'));
 
     const
       embed = new EmbedBuilder({
@@ -117,7 +117,7 @@ module.exports = {
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('global.anotherone'),
-          customId: `${this.commandName}.${api.name ?? 'null'}.${type ?? 'null'}.${blacklist ?? 'null'}.${maxLength ?? 'null'}`,
+          customId: `${this.commandName}.${api.name}.${type ?? 'null'}.${blacklist ?? 'null'}.${maxLength ?? 'null'}`,
           style: ButtonStyle.Primary
         })]
       });

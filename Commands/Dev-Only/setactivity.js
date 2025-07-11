@@ -1,7 +1,5 @@
 const
   { ActivityType, inlineCode } = require('discord.js'),
-
-  /** @type {Record<string, ActivityType | string | undefined>} */
   ActivityTypes = Object.fromEntries(Object.entries(ActivityType).map(([k, v]) => [k.toLowerCase(), v]));
 
 /** @type {command<'prefix', false>} */
