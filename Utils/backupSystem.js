@@ -18,7 +18,7 @@ const
 
 class BackupSystem {
   /**
-   * @param {import('@mephisto5558/mongoose-db').DB} db
+   * @param {import('@mephisto5558/mongoose-db').DB<Database>} db
    * @param {object} options
    * @param {string} options.dbName
    * @param {number} options.maxGuildBackups
@@ -28,8 +28,11 @@ class BackupSystem {
    */
   constructor(db, { dbName = 'backups', maxGuildBackups = 5, maxMessagesPerChannel = 10, saveImages = false, clearGuildBeforeRestore = true } = {}) {
     this.db = db;
+
+    if (!this.db.get(dbName)) void this.db.set(dbName, {});
+
+    /** @type {'backups'} for typing */
     this.dbName = dbName;
-    if (!this.db.get(this.dbName)) void this.db.set(this.dbName, {});
 
     this.defaultSettings = {
       maxGuildBackups, saveImages,

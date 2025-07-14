@@ -169,7 +169,7 @@ Object.defineProperties(Client.prototype, {
   loadEnvAndDB: {
     /** @type {Client['loadEnvAndDB']} */
     value: async function loadEnvAndDB() {
-      let /** @type {import('../../types/locals').EnvJSON} */ env, /** @type {import('@mephisto5558/mongoose-db').DB | undefined} */ db;
+      let /** @type {import('../../types/locals').EnvJSON} */ env, /** @type {import('@mephisto5558/mongoose-db').DB<Database> | undefined} */ db;
       try { env = require('../../env.json'); }
       catch (err) {
         if (err.code != 'MODULE_NOT_FOUND') throw err;
@@ -241,7 +241,7 @@ Object.defineProperties(User.prototype, {
   localeCode: {
     // website db user locale can be `null`
     get() {
-      const locale = this.db.localeCode ?? Object.values(this.client.db.get('website').sessions).find(e => e.user?.id == this.id)?.user?.locale ?? undefined;
+      const locale = this.db.localeCode ?? Object.values(this.client.db.get('website', 'sessions')).find(e => e.user?.id == this.id)?.user?.locale ?? undefined;
       return locale?.startsWith('en') ? 'en' : locale;
     },
     set(val) { void this.updateDB('localeCode', val); }
@@ -290,7 +290,7 @@ Object.defineProperties(Guild.prototype, {
 
 // #region mongoose-db
 Object.defineProperty(DB.prototype, 'generate', {
-  /** @type {import('discord.js').DB['generate']} */
+  /** @type {import('@mephisto5558/mongoose-db').DB['generate']} */
   value: async function generate(overwrite = false) {
     this.saveLog(`generating db files${overwrite ? ', overwriting existing data' : ''}`);
     await Promise.all(require('../../Templates/db_collections.json').map(({ key, value }) => this.set(key, value, overwrite)));
