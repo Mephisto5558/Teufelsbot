@@ -18,8 +18,8 @@ async function eventCallback([player1, player2], [type1, type2 = type1], lang, g
 }
 
 /**
- * @param {string} firstID
- * @param {string} secondID
+ * @param {Snowflake} firstID
+ * @param {Snowflake} secondID
  * @param {'win' | 'lose' | 'draw'} type
  * @param {Client['db']} db */
 async function updateStats(firstID, secondID, type, db) {

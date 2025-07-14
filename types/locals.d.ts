@@ -1,5 +1,5 @@
 import type Discord from 'discord.js';
-import type { FlattenObject } from '@mephisto5558/mongoose-db';
+import type { SettingsPaths } from '@mephisto5558/mongoose-db';
 
 type autocompleteOptions = string | number | { name: string; value: string };
 
@@ -164,5 +164,5 @@ type EnvJSON = Record<'main' | 'dev', {
 // @ts-expect-error 2681
 type BoundFunction = new (this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang) => FunctionConstructor;
 
-type FlattenedGuildSettings = FlattenObject<NonNullable<Database['guildSettings'][Snowflake]>>;
-type FlattenedUserSettings = FlattenObject<NonNullable<Database['userSettings'][Snowflake]>>;
+type FlattenedGuildSettings = SettingsPaths<Database['guildSettings'][Snowflake]>;
+type FlattenedUserSettings = SettingsPaths<Database['userSettings'][Snowflake]>;
