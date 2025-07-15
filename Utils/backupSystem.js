@@ -18,7 +18,7 @@ const
 
 class BackupSystem {
   /**
-   * @param {import('@mephisto5558/mongoose-db').DB<Database>} db
+   * @param {Client['db']} db
    * @param {object} options
    * @param {string} options.dbName
    * @param {number} options.maxGuildBackups
