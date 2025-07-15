@@ -8,6 +8,7 @@ import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
 import type locals from './locals';
 
 
+// Source: https://github.com/Mephisto5558/Teufelsbot/blob/21fe71d254beb4d7a2c6f32f1add26947879290b/types/discord.js.d.ts#L11-L20
 /* eslint-disable @typescript-eslint/ban-ts-comment -- depending on the module resolution, one of these might not error out. */
 declare module '../node_modules/discord.js/node_modules/discord-api-types/v10' {
   // @ts-ignore 2300 // overwriting Snowflake
@@ -29,7 +30,7 @@ declare module 'discord.js' {
     /** `undefined` if `this.botType == 'dev'` */
     webServer?: WebServer;
     cooldowns: Map<string, Record<string, Map<string, number>>>;
-    db: DB;
+    db: DB<Database>;
     i18n: I18nProvider;
     settings: Database['botSettings'];
     defaultSettings: Database['botSettings']['defaultGuild'];
@@ -129,7 +130,7 @@ declare module 'discord.js' {
      * ``` */
     updateDB<FDB extends locals.FlattenedUserSettings, K extends keyof FDB & string>(this: User, key: K, value: FDB[K]): Promise<NonNullable<Database['userSettings']>>;
 
-    deleteDB(this: Guild, key: keyof locals.FlattenedUserSettings): ReturnType<DB['delete']>;
+    deleteDB(this: Guild, key: locals.FlattenedUserSettings): ReturnType<DB<Database>['delete']>;
 
     customName: string;
     customTag: string;
@@ -160,7 +161,7 @@ declare module 'discord.js' {
     updateDB<FDB extends locals.FlattenedGuildSettings, K extends keyof FDB>(this: Guild, key: K, value: FDB[K]): Promise<Database['guildSettings']>;
     updateDB(this: Guild, key: null, value: NonNullable<Database['guildSettings'][Snowflake]>): Promise<Database['guildSettings']>;
 
-    deleteDB(this: Guild, key: keyof locals.FlattenedGuildSettings): ReturnType<DB['delete']>;
+    deleteDB(this: Guild, key: locals.FlattenedGuildSettings): ReturnType<DB<Database>['delete']>;
 
     localeCode: LangLocaleCode;
   }

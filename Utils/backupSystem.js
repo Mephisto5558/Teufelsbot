@@ -18,7 +18,7 @@ const
 
 class BackupSystem {
   /**
-   * @param {import('@mephisto5558/mongoose-db').DB} db
+   * @param {Client['db']} db
    * @param {object} options
    * @param {string} options.dbName
    * @param {number} options.maxGuildBackups
@@ -28,8 +28,11 @@ class BackupSystem {
    */
   constructor(db, { dbName = 'backups', maxGuildBackups = 5, maxMessagesPerChannel = 10, saveImages = false, clearGuildBeforeRestore = true } = {}) {
     this.db = db;
+
+    if (!this.db.get(dbName)) void this.db.set(dbName, {});
+
+    /** @type {'backups'} for typing */
     this.dbName = dbName;
-    if (!this.db.get(this.dbName)) void this.db.set(this.dbName, {});
 
     this.defaultSettings = {
       maxGuildBackups, saveImages,
@@ -198,7 +201,7 @@ class BackupSystem {
     statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     allowedMentions = [], reason = 'Backup Feature | Load'
   } = {}) => {
-    /** @type {NonNullable<NonNullable<import('../types/database').Database['backups']>[import('../types/database').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
+    /** @type {NonNullable<Database['backups'][import('../types/database').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
     let data, rulesChannel, publicUpdatesChannel;
 
     if (id == undefined) data = this.list(guild.id).sort((a, b) => b.createdAt - a.createdAt).first();

@@ -40,7 +40,7 @@ module.exports = {
 
     /**
      * @param {'ch' | 'dm'} type
-     * @param {NonNullable<NonNullable<import('../types/database').Database['guildSettings'][Snowflake]>['birthday']>} settings
+     * @param {NonNullable<Database['guildSettings'][Snowflake]['birthday']>} settings
      * @param {import('discord.js').GuildMember} member
      * @param {number} year */
     function createEmbed(type, settings, member, year) {

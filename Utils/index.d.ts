@@ -97,10 +97,12 @@ export declare namespace BackupSystem {
 
   /* eslint-disable-next-line @typescript-eslint/no-shadow -- false positive */
   class BackupSystem {
-    constructor(db: DB, options?: Options);
+    constructor(db: DB<Database>, options?: Options);
 
-    db: DB;
-    dbName: Options['dbName'];
+    db: DB<Database>;
+
+    /** Note: This can also be any other string, just called "backups" for DB typing. */
+    dbName: 'backups';
     defaultSettings: {
       maxGuildBackups: Required<Options['maxGuildBackups']>;
       maxMessagesPerChannel: number;

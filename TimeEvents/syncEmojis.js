@@ -65,7 +65,7 @@ module.exports = {
     // Log out of the clients
     for (const session of Object.values(sessions)) if (this != session) void session.destroy();
 
-    await this.db.update('botSettings', 'timeEvents.lastEmojiSync', now);
+    await this?.db.update('botSettings', 'timeEvents.lastEmojiSync', now);
 
     log('Finished emoji sync').debug('Finished emoji sync');
   }
