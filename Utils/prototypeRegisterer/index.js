@@ -267,8 +267,10 @@ Object.defineProperties(Guild.prototype, {
     set(val) { void this.updateDB(undefined, val); }
   },
   updateDB: {
-    /** @type {import('discord.js').Guild['updateDB']} */
-    value: function updateDB(key, value) { return this.client.db.update('guildSettings', this.id + (key ? `.${key}` : ''), value); }
+    /**
+     * @type {import('discord.js').Guild['updateDB']}
+     * @this {Guild} */
+    value: async function updateDB(key, value) { return this.client.db.update('guildSettings', `${this.id}${key ? '.' + key : ''}`, value); }
   },
   deleteDB: {
     /** @type {import('discord.js').Guild['deleteDB']} */

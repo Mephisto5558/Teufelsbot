@@ -61,6 +61,13 @@ declare global {
     __count__: number;
   }
 
+  interface ObjectConstructor {
+    // allows key to be more specific (e.g. Snowflake instead of string)
+    entries<T extends object>(obj: T): ({ [K in keyof T]: [K, T[K]] })[keyof T][];
+
+    keys<T extends object>(obj: T): (keyof T)[];
+  }
+
   interface Function {
     // Only typing | Fixes return types | https://github.com/microsoft/TypeScript/blob/c790dc1dc7ff67e619a5a60fc109b7548f171322/src/lib/es5.d.ts#L313
 
