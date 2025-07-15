@@ -54,8 +54,8 @@ module.exports = {
           { name: lang('boosts.name'), value: `${inlineCode(guild.premiumSubscriptionCount)}${guild.premiumTier ? lang('boosts.' + guild.premiumTier) : ''}`, inline: true },
           channels && {
             name: lang('channels'), inline: false,
-            value: Object.entries(channels.reduce((acc, e) => ({ ...acc, [e.type]: (acc[e.type] ?? 0) + 1 }), {}))
-              .map(([k, v]) => `${lang('others.ChannelTypes.plural.' + k)}: ${inlineCode(v)}`).join(', ')
+            value: Object.entries(channels.reduce((acc, e) => e ? { ...acc, [e.type]: (acc[e.type] ?? 0) + 1 } : acc, {}))
+              .map(/** @param {[import('discord.js').ChannelType, number]} arr */ ([k, v]) => `${lang('others.ChannelTypes.plural.' + k)}: ${inlineCode(v)}`).join(', ')
           }
         ]
       });

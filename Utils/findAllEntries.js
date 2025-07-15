@@ -2,6 +2,7 @@
 function findAllEntries(obj, key, entryList = {}) {
   const stack = [obj];
   while (stack.length) {
+    /** @type {Record<string, unknown>} */
     const currentObj = stack.pop();
 
     for (const [oKey, oVal] of Object.entries(currentObj)) {

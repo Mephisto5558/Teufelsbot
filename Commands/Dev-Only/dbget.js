@@ -16,6 +16,7 @@ module.exports = {
   beta: true,
 
   async run(lang) {
+    /** @type {unknown} will be fixed with the next version of `@mephisto5558/mongoose-db` */
     const result = this.client.db.get(this.args[0], this.args[1]);
     return this.customReply(result ? codeBlock('json', JSON.stringify(result, undefined, 2)) : lang('notFound'));
   }
