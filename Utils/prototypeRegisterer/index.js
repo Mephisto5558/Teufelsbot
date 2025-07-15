@@ -169,7 +169,7 @@ Object.defineProperties(Client.prototype, {
   loadEnvAndDB: {
     /** @type {Client['loadEnvAndDB']} */
     value: async function loadEnvAndDB() {
-      let /** @type {import('../../types/locals').EnvJSON} */ env, /** @type {import('@mephisto5558/mongoose-db').DB<Database> | undefined} */ db;
+      let /** @type {import('../../types/locals').EnvJSON} */ env, /** @type {Client['db'] | undefined} */ db;
       try { env = require('../../env.json'); }
       catch (err) {
         if (err.code != 'MODULE_NOT_FOUND') throw err;
