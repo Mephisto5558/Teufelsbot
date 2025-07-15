@@ -57,7 +57,7 @@ function checkOptions(command, lang) {
       return ['strictAutocompleteNoMatch', name];
     }
 
-    if (this instanceof Message && this.args?.[i] && choices && !choices.some(e => e.value == this.args[i]))
+    if (this instanceof Message && this.args[i] && choices && !choices.some(e => e.value == this.args[i]))
       return ['strictAutocompleteNoMatchWValues', { option: name, availableOptions: choices.map(e => inlineCode(e.value)).join(', ') }];
   }
 }

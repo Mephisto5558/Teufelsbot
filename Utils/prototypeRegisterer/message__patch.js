@@ -29,11 +29,11 @@ module.exports = function _patch(data, ...rest) {
   }
   else {
     this.originalContent ??= null;
-    this.args ??= null;
+    this.args = [];
     this.commandName ??= null;
   }
 
   originalPatch.call(this, data, ...rest);
 
-  if (this.args) this.content = this.args.join(' ');
+  if (this.args.length) this.content = this.args.join(' ');
 };

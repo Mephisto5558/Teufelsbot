@@ -55,7 +55,7 @@ declare module 'discord.js' {
     originalContent: string | null;
 
     /** The arguments of the message. It slices out the prefix and splits the message content on spaces. This is a custom property set in 'prototypeRegisterer.js'. */
-    args: string[] | null;
+    args: string[];
 
     /** The first word of the {@link Message.originalContent original content}. `null` if the content is empty. This is a custom property set in 'prototypeRegisterer.js'. */
     commandName: string | null;
