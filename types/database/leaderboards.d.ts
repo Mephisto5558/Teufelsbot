@@ -1,6 +1,6 @@
 import type { userId } from './common';
 
-export type leaderboards = Record<'TicTacToe' | (string & {}), Record<userId, {
+export type leaderboards = Record<'TicTacToe' | string & {}, Record<userId, {
   wins?: number;
   draws?: number;
   losses?: number;
