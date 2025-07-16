@@ -11,7 +11,8 @@
         "description": "размер, который вы хотите получить"
       }
     },
-    "embedDescription": "Аватар {user}"
+    "embedDescription": "Аватар {user}",
+    "averageColor": "Средний цвет"
   },
   "changelog": {
     "description": "Получить последний список изменений.",
