@@ -108,6 +108,19 @@
     "successJSON": "Dein Button wurde gesendet!",
     "success": "Dein Button wurde gesendet! Unten ist der Button Code.\nWenn du ihn erneut senden möchtest, nutze den `json` Unterbefehl.\n{json}"
   },
+  "choose": {
+    "description": "Lass mich aus einer beliebigen Anzahl von Optionen auswählen.",
+    "usage": {
+      "usage": "<Option 1>;[Option 2];[Option 3];..."
+    },
+    "options": {
+      "options": {
+        "description": "Die Optionen, durch Semikolons getrennt."
+      }
+    },
+    "choice": "Ich wähle \"{choice}\"!",
+    "choiceLong": "Ich wähle:\n{choice}"
+  },
   "embed": {
     "description": "Sendet ein benutzerdefiniertes Embed; Du kannst Zeilenumbrüche mit \"/n\" machen.",
     "options": {
