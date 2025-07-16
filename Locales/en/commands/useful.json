@@ -108,19 +108,6 @@
     "successJSON": "Your button has been sent!",
     "success": "Your button has been sent! Below is the button code.\nIf you want to send it again, use the `json` subcommand.\n{json}"
   },
-  "choose": {
-    "description": "Let me choose between any amount of options.",
-    "usage": {
-      "usage": "<option 1>;[option 2];[option 3];..."
-    },
-    "options": {
-      "options": {
-        "description": "The given options, separated by semicolons."
-      }
-    },
-    "choice": "I choose \"{choice}\"!",
-    "choiceLong": "I chose:\n{choice}"
-  },
   "embed": {
     "description": "sends a custom embed; you can do newlines with \"/n\".",
     "options": {
