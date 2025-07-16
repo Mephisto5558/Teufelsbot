@@ -23,20 +23,15 @@ module.exports = { Log, _patch, customReply, runMessages, playAgain, sendChallen
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
 
-/**
- * @param {Record<string, any>} target
- * @param {Record<string, any>} source
- * @returns {object} recursively merged Object */
-function deepMerge(target, source) {
-  for (const key in source) {
-    if (key == '__proto__' || key == 'constructor') continue;
-    if (Object.hasOwn(source, key)) target[key] = source[key] instanceof Object ? deepMerge(target[key] ?? {}, source[key]) : source[key];
-  }
-
-  return target;
-}
-
 const config = setDefaultConfig();
+
+const requiredEnv = [
+  'environment',
+  'humorAPIKey', 'rapidAPIKey',
+  'githubKey', 'chatGPTApiKey',
+  'dbdLicense',
+  'dbConnectionStr', 'token', 'secret'
+];
 
 if (!config.hideOverwriteWarning) {
   console.warn(
@@ -169,26 +164,26 @@ Object.defineProperties(Client.prototype, {
   loadEnvAndDB: {
     /** @type {Client['loadEnvAndDB']} */
     value: async function loadEnvAndDB() {
-      let /** @type {import('../../types/locals').EnvJSON} */ env, /** @type {Client['db'] | undefined} */ db;
-      try { env = require('../../env.json'); }
-      catch (err) {
-        if (err.code != 'MODULE_NOT_FOUND') throw err;
-
-        db = await new DB().init(process.env.dbConnectionStr, 'db-collections', defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' }));
-        env = db.get('botSettings', 'env');
+      process.loadEnvFile('.env');
+      if (process.env.environment != 'main') {
+        try { process.loadEnvFile(`.env.${process.env.environment}`); }
+        catch (err) {
+          if (err.code != 'ENOENT') throw new Error(`Missing "env.${process.env.environment}" file. Tried to import based on "environment" env variable in ".env".`);
+          throw err;
+        }
       }
 
-      env = deepMerge(env.global, env[env.global.environment]);
-      db ??= await new DB().init(env.dbConnectionStr, 'db-collections', defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' }));
+      const missingEnv = requiredEnv.filter(e => !process.env[e]);
+      if (missingEnv.length) throw new Error(`Missing environment variable(s) "${missingEnv.join('", "')}"`);
 
+      const db = await new DB().init(process.env.dbConnectionStr, 'db-collections', defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' }));
       if (!db.cache.size) {
         log('Database is empty, generating default data');
         await db.generate();
       }
 
       this.db = db;
-      this.botType = env.environment;
-      this.keys = env.keys;
+      this.botType = process.env.environment;
     }
   },
   awaitReady: {

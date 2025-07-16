@@ -34,8 +34,7 @@ declare module 'discord.js' {
     i18n: I18nProvider;
     settings: Database['botSettings'];
     defaultSettings: Database['botSettings']['defaultGuild'];
-    botType: locals.Env['environment'];
-    keys: locals.Env['keys'];
+    botType: NodeJS.ProcessEnv['environment'];
 
     /** The config from {@link ./config.json}. */
     config: locals.Config;

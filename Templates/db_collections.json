@@ -6,24 +6,6 @@
   {
     "key": "botSettings",
     "value": {
-      "env": {
-        "global": {
-          "environment": "main",
-          "keys": {
-            "humorAPIKey": "",
-            "rapidAPIKey": "",
-            "githubKey": "",
-            "WebsiteKey": ""
-          }
-        },
-        "main": {
-          "dbConnectionStr": "",
-          "keys": {
-            "token": "",
-            "secret": ""
-          }
-        }
-      },
       "startCount": {},
       "stats": {},
       "blacklist": [],

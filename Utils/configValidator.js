@@ -1,5 +1,4 @@
 const
-  { ConnectionString } = require('mongodb-connection-string-url'),
   { writeFileSync } = require('node:fs'),
   configPath = require('node:path').resolve(process.cwd(), 'config.json'),
   validConfig = {
@@ -29,30 +28,10 @@ const
     replyOnNonBetaCommand: 'boolean',
     disableWebServer: 'boolean',
     enableConsoleFix: 'boolean'
-  },
-  validEnv = {
-    global: {
-      environment: 'string',
-      keys: {
-        humorAPIKey: 'string',
-        rapidAPIKey: 'string',
-        githubKey: 'string',
-        chatGPTApiKey: 'string',
-        dbdLicense: 'string',
-        votingWebhookURL: 'string'
-      }
-    },
-    main: {
-      dbConnectionStr: 'string',
-      keys: {
-        token: 'string',
-        secret: 'string'
-      }
-    }
   };
 
 /** @type {import('.').configValidator.configValidationLoop} */
-function configValidationLoop(obj, checkObj, allowNull) {
+function configValidationLoop(obj = require(configPath), checkObj = validConfig, allowNull = true) {
   for (const [key, value] of Object.entries(obj)) {
     if (!(key in checkObj)) {
       log.warn(`Unknown key or subkey "${key}" in config.json.`);
@@ -69,20 +48,6 @@ function configValidationLoop(obj, checkObj, allowNull) {
 
     if (typeof value == 'object') return configValidationLoop(value, checkObj[key]);
   }
-}
-
-/** @type {import('.').configValidator.validateConfig} */
-function validateConfig() {
-  // prototypeRegisterer makes sure the file exists
-  configValidationLoop(require(configPath), validConfig, true);
-
-  /** @type {import('../types/locals').EnvJSON} */
-  const env = require('../env.json');
-  configValidationLoop(env, validEnv);
-  if (!(env.global.environment in env)) throw new Error('Error in env.json: Value in "environment" does not match any environment. Set "environment" to "main" if you don\'t know what you are doing.');
-
-  try { void new ConnectionString(env[env.global.environment].dbConnectionStr); }
-  catch (err) { throw new Error(`Error in env.json: Invalid mongoDB connection string: ${err.toString()}`); }
 }
 
 /** @type {import('.').configValidator.setDefaultConfig} */
@@ -110,4 +75,4 @@ function setDefaultConfig() {
   return config;
 }
 
-module.exports = { configValidationLoop, validateConfig, setDefaultConfig, validConfig, validEnv };
+module.exports = { configValidationLoop, setDefaultConfig, validConfig };

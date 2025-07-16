@@ -1,6 +1,5 @@
 logs
 *.log
-/env.json
 package-lock.json
 /node_modules
 Temp
@@ -72,4 +71,6 @@ typings/
 
 # dotenv environment variables file
 .env
-.env.test
+.env.*
+!.env.example
+!.env.template

@@ -9,7 +9,7 @@ const
   { WebServer } = require('@mephisto5558/bot-website'),
   handlers = require('./Handlers'),
   events = require('./Events'),
-  { GiveawaysManager, configValidator: { validateConfig }, gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */ } = require('#Utils'),
+  { GiveawaysManager, configValidator: { configValidationLoop }, gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */ } = require('#Utils'),
   /* eslint-disable-next-line custom/unbound-method -- fine here */
   { onTick: syncEmojis } = require('./TimeEvents').syncEmojis,
 
@@ -56,11 +56,11 @@ async function processMessageEventCallback(handlerPromises, message) {
 
     this.webServer ??= await new WebServer(
       this, this.db,
-      { secret: this.keys.secret, dbdLicense: this.keys.dbdLicense },
+      { secret: process.env.secret, dbdLicense: process.env.dbdLicense },
       {
         domain: this.config.website.domain, port: this.config.website.port,
         support: { discord: this.config.discordInvite, mail: this.config.mailAddress },
-        webhookUrl: this.keys.votingWebhookURL,
+        webhookUrl: process.env.votingWebhookURL,
         errorPagesDir: './Website/CustomSites/error', settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites',
         ownerIds: [...this.config.devIds], defaultAPIVersion: 1
       }, errorHandler.bind(this)
@@ -91,7 +91,7 @@ void (async function main() {
     process.exit(1);
   }
 
-  validateConfig();
+  configValidationLoop();
 
   const newClient = createClient();
   await newClient.loadEnvAndDB();
@@ -107,7 +107,7 @@ void (async function main() {
   handlerPromises.push(newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add('owner' in app.owner ? app.owner.owner.id : app.owner?.id)));
 
   /** @type {Client<true>} */
-  const client = await loginClient.call(newClient, newClient.keys.token);
+  const client = await loginClient.call(newClient, process.env.token);
 
   /** @param {string} emoji */
   globalThis.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();

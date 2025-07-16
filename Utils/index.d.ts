@@ -292,8 +292,6 @@ export declare function timeValidator<T extends string | undefined>(
 ): T extends undefined | '' | '-' | '+' ? [] : string[];
 
 export declare namespace configValidator {
-  /** @throws {Error} on invalid key or subkey. */
-  function validateConfig(): void;
   function setDefaultConfig(): Partial<Client['config']>;
 
   /** @throws {Error} on invalid key or subkey type. */
@@ -303,7 +301,6 @@ export declare namespace configValidator {
 
   type validConfigEntry = 'object' | 'string' | 'boolean' | 'number' | { [key: string]: validConfigEntry };
   const validConfig: Record<string, validConfigEntry>;
-  const validEnv: Record<string, validConfigEntry>;
 }
 
 export { TFormatter as timeFormatter };

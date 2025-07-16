@@ -1,12 +1,10 @@
 import type { ActivityType } from 'discord.js';
 import type { Locale } from '@mephisto5558/i18n';
 
-import type { Env } from '../locals';
 import type { cmdStats, userId, Embed } from './common';
 
 export type botSettings = {
   startCount: Record<string, number>;
-  env?: Env;
   activity?: {
     name: string;
     type: ActivityType;

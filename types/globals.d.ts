@@ -28,6 +28,19 @@ declare global {
        * Otherwise it is the default `process.uptime()` */
       uptime(): number;
     }
+
+    interface ProcessEnv {
+      environment: 'main' | 'dev' | string & {};
+      humorAPIKey: string;
+      rapidAPIKey: string;
+      githubKey: string;
+      chatGPTApiKey: string;
+      dbdLicense: string;
+      votingWebhookURL?: string;
+      token: string;
+      secret: string;
+      dbConnectionStr: string;
+    }
   }
 
   interface Array<T> {

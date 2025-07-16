@@ -33,13 +33,15 @@ MongoDB set up
 ```
 
 ## How to set it up
-First, you clone the repository, by using `git clone https://github.com/Mephisto5558/Teufelsbot`.<br>
-Then, you need to install the required npm packages by running `npm install` .<br>
-Next, you need to create a `env.json` file. If you are hosting you bot code public, so everyone can see it, make sure they can't see this file or use a db in MongoDB. If you do this, you only need to set the MongoDB connection string as `dbConnectionStr` to process.env.<br>
-The env file/collection needs to have all keys from the `env.json` from the Templates folder in order to work.<br>
-You do not need to set the dev stuff, this is for development.<br>
-Then, you can create a `config.json` file. The template is in the Templates folder. You can skip this part if you don't want to set any config. The file will be created automatically then.<br><br>
-To run the Bot, run the `index.js` file.<br><br>
+1. Clone the repository, by using `git clone https://github.com/Mephisto5558/Teufelsbot`.
+2. Install the required npm packages by running `npm install`.
+3. Create a `.env` file. The template is in the `Templates` folder.<br>
+Copy the contents of this template into your `.env` file and fill in the values.<br>
+The bot will additionally load the file specified by the `environment` variable in the `.env` file (except when it's `main`). For example, if `environment=dev` is set in `.env`, the bot will load `.env.dev`.<br>
+This allows for different configurations for different environments (e.g., development and production).<br>
+4. Create a `config.json` file. The template is in the `Templates` folder. You can skip this part if you don't want to set any config. The file will be created automatically then.
+5. To run the Bot, execute `node index.js`.
+
 You should be ready to go!
 <br>
 

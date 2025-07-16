@@ -1,6 +1,7 @@
 const
-  { Client } = require('discord.js'),
-  envJSON = require('../env.json');
+  { readdir, readFile } = require('node:fs/promises'),
+  { parseEnv } = require('node:util'),
+  { Client } = require('discord.js');
 
 /**
  * @param {Record<string, Client>} sessions
@@ -43,13 +44,20 @@ module.exports = {
     }
 
     log('Started emoji sync').debug('Started emoji sync');
-    const clients = Object.entries(envJSON).map(([k, v]) => [k, v.keys.token]).filter(([, v]) => !!v);
+
+    /** @type {[string, string][]} */
+    const clients = await Promise.all((await readdir('.', { withFileTypes: true })).reduce(async (acc, e) => {
+      if (!e.isFile() || !e.name.startsWith('.env')) return acc;
+
+      const { token, environment = 'main' } = parseEnv(await readFile(e.parentPath, { encoding: 'utf8' }));
+      if (token && !acc.some(e => e.token == token)) acc.push([environment, token]);
+    }, []));
 
     for (const [env1, token1] of clients) {
       const client1 = await getClient(sessions, env1, token1);
 
       for (const [env2, token2] of clients) {
-        if (env1 == env2) continue;
+        if (token1 == token2) continue;
 
         const client2 = await getClient(sessions, env2, token2);
 

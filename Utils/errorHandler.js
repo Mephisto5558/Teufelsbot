@@ -81,7 +81,7 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
 
         const
           headers = {
-            Authorization: `Token ${this.keys.githubKey}`,
+            Authorization: `Token ${process.env.githubKey}`,
             'User-Agent': `Bot ${github.repo}`
           },
           title = `${err.name}: "${err.message}" in ${message.inGuild() ? '' : 'DM '}command "${message.commandName}"`,
