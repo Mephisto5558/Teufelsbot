@@ -5,6 +5,8 @@ const
   GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
   { randomInt } = require('node:crypto'),
   { join } = require('node:path'),
+  { parseEnv } = require('node:util'),
+  { readFile } = require('node:fs/promises'),
   { DB } = require('@mephisto5558/mongoose-db'),
   { I18nProvider } = require('@mephisto5558/i18n'),
   Log = require('./Log.js'),
@@ -166,7 +168,10 @@ Object.defineProperties(Client.prototype, {
     value: async function loadEnvAndDB() {
       process.loadEnvFile('.env');
       if (process.env.environment != 'main') {
-        try { process.loadEnvFile(`.env.${process.env.environment}`); }
+        try {
+          // process.loadEnvFile does not overwrite existing keys
+          Object.assign(process.env, parseEnv(await readFile(`.env.${process.env.environment}`, { encoding: 'utf8' })));
+        }
         catch (err) {
           if (err.code != 'ENOENT') throw new Error(`Missing "env.${process.env.environment}" file. Tried to import based on "environment" env variable in ".env".`);
           throw err;
