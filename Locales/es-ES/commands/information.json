@@ -11,7 +11,8 @@
         "description": "el tamaño que quieres obtener"
       }
     },
-    "embedDescription": "Avatar de {user}"
+    "embedDescription": "Avatar de {user}",
+    "averageColor": "Color promedio"
   },
   "changelog": {
     "description": "Obtener la última lista de cambios.",
