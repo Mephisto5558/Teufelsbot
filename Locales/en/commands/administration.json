@@ -294,8 +294,7 @@
       "saved": "{prefix} has been added as additional prefix."
     },
     "removePrefix": {
-      "removed": "The prefix {prefix} has been removed.",
-      "cannotRemoveLastPrefix": "You cannot delete the only remaining prefix!"
+      "removed": "The prefix {prefix} has been removed."
     },
     "serverbackup": {
       "success": "Successfully updated the settings!"

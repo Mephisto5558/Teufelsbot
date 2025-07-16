@@ -15,11 +15,10 @@ module.exports = {
   async run(lang) {
     const
       prefix = this.options.getString('prefix', true),
-      db = this.guild.db.config[`${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`];
+      prefixType = `${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`,
+      db = this.guild.db.config[prefixType];
 
-    if (db.length < 2) return this.customReply(lang('cannotRemoveLastPrefix'));
-
-    await this.guild.updateDB(`config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`, db.filter(e => e.prefix != prefix));
+    await (db.length < 2 ? this.guild.deleteDB(`config.${prefixType}`) : this.guild.updateDB(`config.${prefixType}`, db.filter(e => e.prefix != prefix)));
     return this.customReply(lang('removed', inlineCode(prefix)));
   }
 };

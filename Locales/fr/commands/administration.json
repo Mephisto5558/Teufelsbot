@@ -294,8 +294,7 @@
       "saved": "{prefix} a été ajouté en tant que préfixe supplémentaire."
     },
     "removePrefix": {
-      "removed": "Le préfixe {prefix} a été supprimé.",
-      "cannotRemoveLastPrefix": "Vous ne pouvez pas supprimer le seul préfixe restant!"
+      "removed": "Le préfixe {prefix} a été supprimé."
     },
     "serverbackup": {
       "success": "Successfully updated the settings!"

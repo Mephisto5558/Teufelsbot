@@ -294,8 +294,7 @@
       "saved": "{prefix} был добавлен как дополнительный префикс."
     },
     "removePrefix": {
-      "removed": "Префикс {prefix} удален.",
-      "cannotRemoveLastPrefix": "Вы не можете удалить только оставшийся префикс!"
+      "removed": "Префикс {prefix} удален."
     },
     "serverbackup": {
       "success": "Настройки успешно обновлены!"
