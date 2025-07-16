@@ -52,6 +52,9 @@ declare global {
 
     /** Returns an array with no duplicates by converting it to a `Set` and back to an array. */
     unique(this: T[]): T[];
+
+    /* eslint-disable-next-line @typescript-eslint/no-explicit-any -- same as in the original definition */
+    filter(this: T[], predicate: BooleanConstructor, thisArg?: any): (T extends false | 0 | '' | null | undefined ? never : T)[];
   }
 
   interface Number {
