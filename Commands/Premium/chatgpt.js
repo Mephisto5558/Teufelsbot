@@ -1,6 +1,6 @@
 const
   { Message, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
-  fetch = import('node-fetch').then(e => e.default),
+  fetch = require('node-fetch').default,
   { constants: { messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
 /**
@@ -10,7 +10,7 @@ const
  * @returns {Promise<string>} */
 async function fetchAPI(lang, deep) {
   /** @type {{ choices: { message: { content: string } }[] } | { error: { message: string, type: string } }} */
-  const res = await (await fetch)('https://api.pawan.krd/v1/chat/completions', { // https://github.com/PawanOsman/ChatGPT
+  const res = await fetch('https://api.pawan.krd/v1/chat/completions', { // https://github.com/PawanOsman/ChatGPT
     method: 'POST',
     headers: {
       Authorization: `Bearer ${this.client.keys.chatGPTApiKey}`,

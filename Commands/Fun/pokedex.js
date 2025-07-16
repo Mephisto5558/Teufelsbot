@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection } = require('discord.js'),
-  fetch = import('node-fetch').then(e => e.default),
+  fetch = require('node-fetch').default,
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
   INCHES_IN_FEET = 12,
   CENTIMETERS_IN_METER = 100,
@@ -29,7 +29,7 @@ module.exports = {
 
     let res = cache.get(pokemon.toLowerCase());
     if (!res) {
-      try { res = (await (await fetch)(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(e => e.json()))?.[0]; }
+      try { res = (await fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(e => e.json()))?.[0]; }
       catch (err) {
         if (err.type != 'invalid-json') throw err;
         return msg.edit(lang('invalidJson'));

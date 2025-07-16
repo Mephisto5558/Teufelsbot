@@ -1,5 +1,5 @@
 const
-  fetch = import('node-fetch').then(e => ({ fetch: e.default, AbortError: e.AbortError, FetchError: e.FetchError })),
+  { default: fetch, AbortError, FetchError } = require('node-fetch'),
   { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink } = require('discord.js'),
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
   { constants: { messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED }, timeFormatter: { msInSecond } } = require('#Utils'),
@@ -43,7 +43,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
     setTimeout(() => timeoutSignal.abort(), TIMEOUT);
 
     /** @type {{ type?: string, joke?: string, setup?: string, delivery?: string }} */
-    const res = await (await fetch).fetch(formatAPIUrl(api.url, blacklist, this.keys.humorAPIKey, maxLength, type), {
+    const res = await fetch(formatAPIUrl(api.url, blacklist, this.keys.humorAPIKey, maxLength, type), {
       headers: {
         'User-Agent': `Discord bot (${this.config.github.repo})`,
         Accept: 'application/json'
@@ -60,9 +60,9 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
   catch (err) {
     if ([HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN, HTTP_STATUS_CLOUDFLARE_BLOCKED].includes(err.status))
       log.error('joke.js: ', err.response);
-    else if (err instanceof (await fetch).FetchError)
+    else if (err instanceof FetchError)
       log.error(`joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.name} ${err.code ? ', ' + err.code : ''}: ${err.message}`);
-    else if (!(err instanceof (await fetch).AbortError)) throw err;
+    else if (!(err instanceof AbortError)) throw err;
   }
 
   if (typeof response == 'string') return [response.replaceAll('`', '\''), api];

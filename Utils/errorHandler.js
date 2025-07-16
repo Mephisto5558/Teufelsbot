@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction, codeBlock, hyperlink, inlineCode } = require('discord.js'),
-  fetch = import('node-fetch').then(e => e.default),
+  fetch = require('node-fetch').default,
   { msInSecond, secsInMinute } = require('./timeFormatter.js'),
   { JSON_SPACES } = require('./constants'),
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
@@ -85,7 +85,7 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
             'User-Agent': `Bot ${github.repo}`
           },
           title = `${err.name}: "${err.message}" in ${message.inGuild() ? '' : 'DM '}command "${message.commandName}"`,
-          issues = await (await fetch)(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
+          issues = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
             method: 'GET', headers
           }),
 
@@ -100,7 +100,7 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
         }
 
         const
-          res = await (await fetch)(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
+          res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
             headers, method: 'POST',
             body: JSON.stringify({
               title, body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack.replaceAll(cwd, '[cwd]')}`,

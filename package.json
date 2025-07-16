@@ -11,7 +11,7 @@
     "eslint:check-time": "export TIMING=1 || set TIMING=50 && eslint --no-cache >eslint-timings.md"
   },
   "engines": {
-    "node": ">=20.12.0"
+    "node": ">=20.19.0"
   },
   "imports": {
     "#Utils": "./Utils/index.js",

@@ -1,6 +1,6 @@
 const
   { ChannelType, OverwriteType, Constants, GuildFeature, AttachmentBuilder, DiscordAPIError } = require('discord.js'),
-  fetch = import('node-fetch').then(e => e.default),
+  fetch = require('node-fetch').default,
 
   /** @type {import('.')['DiscordAPIErrorCodes']} */
   DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json'),
@@ -9,7 +9,7 @@ const
 
 /** @type {import('.').BackupSystem.Utils['fetchToBase64']} */
 async function fetchToBase64(url) {
-  if (url) return (await (await fetch)(url)).arrayBuffer().then(e => Buffer.from(e).toString('base64'));
+  if (url) return (await fetch(url)).arrayBuffer().then(e => Buffer.from(e).toString('base64'));
 }
 
 /** @type {import('.').BackupSystem.Utils['loadFromBase64']} */

@@ -1,6 +1,6 @@
 const
   { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require('discord.js'),
-  fetch = import('node-fetch').then(e => e.default),
+  fetch = require('node-fetch').default,
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
   { constants: { embedMaxTitleLength, suffix }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
   CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
@@ -67,7 +67,7 @@ module.exports = {
     else {
       let /** @type {import('./reddit').RedditResponse | import('./reddit').RedditErrorResponse} */ res;
       try {
-        res = await (await fetch)(`https://oauth.reddit.com/r/${subreddit}/${type}.json`, {
+        res = await fetch(`https://oauth.reddit.com/r/${subreddit}/${type}.json`, {
           headers: {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
           },

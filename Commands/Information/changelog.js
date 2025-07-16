@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors } = require('discord.js'),
-  fetch = import('node-fetch').then(e => e.default),
+  fetch = require('node-fetch').default,
   { timeFormatter: { msInSecond, secsInDay } } = require('#Utils'),
 
   /** @type {Client['config']} */
@@ -21,7 +21,7 @@ async function getCommits() {
   const { github } = this.config;
 
   const
-    res = await (await fetch)(`https://api.github.com/repos/${github.userName}/${github.repoName}/commits?per_page=25`, {
+    res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/commits?per_page=25`, {
       method: 'GET',
       headers: {
         Authorization: `Token ${this.keys.githubKey}`,
