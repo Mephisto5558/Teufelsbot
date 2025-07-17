@@ -25,4 +25,8 @@ export type userSettings = Record<userId, {
       channels: Record<channelId, number>;
     }>;
   };
+  pageViews?: Record<string, {
+    count: number;
+    lastVisited: Date;
+  }>;
 }>;
