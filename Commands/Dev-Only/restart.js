@@ -21,6 +21,7 @@ module.exports = {
     /** @type {Message<false> | undefined} */
     let msg;
     if (!this.content.toLowerCase().includes('skipnpm')) {
+      log('Installing npm packages...');
       msg = await this.reply(lang('updatingNPM', getEmoji('loading')));
 
       try { await shellExec('npm install'); }
