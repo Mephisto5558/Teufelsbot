@@ -64,7 +64,11 @@ async function processMessageEventCallback(handlerPromises, message) {
         errorPagesDir: './Website/CustomSites/error', settingsPath: './Website/DashboardSettings', customPagesPath: './Website/CustomSites',
         ownerIds: [...this.config.devIds], defaultAPIVersion: 1
       }, errorHandler.bind(this)
-    ).init({}, { commands: getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })) });
+    ).init(
+      {},
+      { commands: getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })) },
+      { votingPath: this.config.website.vote }
+    );
   }
 
   handlers.eventHandler.call(this);
