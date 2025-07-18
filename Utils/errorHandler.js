@@ -32,11 +32,14 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
   }
 
   try {
-    log.error(
+    const msg = [
       ' [Error Handling] :: Uncaught Error' + (message?.commandName ? `\nCommand: ${message.commandName}\n` : '\n'),
-      err.stack ?? JSON.stringify(err),
-      contextData.__count__ ? `\nAdditional Context:\n${JSON.stringify(contextData, stringifyReplacer)}` : ''
-    );
+      err.stack ?? JSON.stringify(err)
+    ];
+
+    log
+      ._logToConsole({ file: 'error' }, ...msg, 'Additional Context: See error.log')
+      ._logToFile({ file: 'error' }, ...msg, `Additional Context:\n${JSON.stringify(contextData, stringifyReplacer)}`);
   }
   catch (err2) {
     log.error(
