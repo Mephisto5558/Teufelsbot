@@ -1,25 +1,26 @@
 const
+  { Client } = require('discord.js'),
   { readdir, readFile } = require('node:fs/promises'),
+  { join } = require('node:path'),
   { parseEnv } = require('node:util'),
-  { Client } = require('discord.js');
+  { DiscordAPIErrorCodes } = require('#Utils');
 
 /**
- * @param {Record<string, Client>} sessions
  * @param {string} env
- * @param {string} token
- * @returns {Promise<Client<true>>} */
-async function getClient(sessions, env, token) {
-  const client = sessions[env] ?? new Client({ intents: [] });
-  if (!sessions[env]) {
-    sessions[env] = client;
+ * @param {string} token */
+async function getClient(env, token) {
+  if (!token) return;
 
-    await client.login(token);
-    await client.application.fetch();
-    await client.application.emojis.fetch();
-
-    log.debug(`Logged into "${client.application.name}" (${env})`);
+  const client = new Client({ intents: [] });
+  try { await client.login(token); }
+  catch (err) {
+    if (err.code == DiscordAPIErrorCodes.InvalidToken) return void log.error(`Invalid token ${token} for env "${env}"`);
+    throw err;
   }
+  await client.application.fetch();
+  await client.application.emojis.fetch();
 
+  log.debug(`Logged into "${client.application.name}" (${env})`);
   return client;
 }
 
@@ -33,45 +34,48 @@ module.exports = {
 
     if (this?.settings.timeEvents.lastEmojiSync?.toDateString() == now.toDateString()) return void log('Already ran emoji sync today');
 
-    /** @type {Record<string, Client>} */
-    const sessions = {};
-
-    if (this instanceof Client && this.isReady() && !sessions[this.botType]) {
-      sessions[this.botType] = this;
-
+    if (this instanceof Client && this.isReady()) {
       if (!this.application.name) await this.application.fetch();
       if (!this.application.emojis.cache.size) await this.application.emojis.fetch();
     }
 
     log('Started emoji sync').debug('Started emoji sync');
 
-    /** @type {[string, string][]} */
-    const clients = await Promise.all((await readdir('.', { withFileTypes: true })).reduce(async (acc, e) => {
+    const clients = await (await readdir('.', { withFileTypes: true })).reduce(async (acc, e) => {
       if (!e.isFile() || !e.name.startsWith('.env')) return acc;
 
-      const { token, environment = 'main' } = parseEnv(await readFile(e.parentPath, { encoding: 'utf8' }));
-      if (token && !acc.some(e => e.token == token)) acc.push([environment, token]);
-    }, []));
+      const { token, environment = 'main' } = parseEnv(await readFile(join(e.parentPath, e.name), 'utf8'));
+      if (!token || (await acc).some(e => e.token == token)) return acc;
 
-    for (const [env1, token1] of clients) {
-      const client1 = await getClient(sessions, env1, token1);
+      const client = await getClient(environment, token);
+      if (client) (await acc).push(client);
 
-      for (const [env2, token2] of clients) {
-        if (token1 == token2) continue;
+      return acc;
+    }, Promise.resolve(this?.isReady() ? [this] : []));
 
-        const client2 = await getClient(sessions, env2, token2);
+    if (clients.length < 2) log('Not enough clients to sync.');
+    else {
+      for (const [name, emoji] of new Map(clients.flatMap(e => e.application.emojis.cache.map(e => [e.name, e])))) {
+        for (const client of clients) {
+          if (client.application.emojis.cache.some(e => e.name == name)) continue;
 
-        for (const [, emoji] of client2.application.emojis.cache) {
-          if (client1.application.emojis.cache.some(e => e.name == emoji.name)) continue;
+          try {
+            await client.application.emojis.create({
+              name, attachment: emoji.imageURL({ extension: emoji.animated ? 'gif' : undefined })
+            });
 
-          await client1.application.emojis.create({ name: emoji.name, attachment: emoji.imageURL({ extension: emoji.animated ? 'gif' : undefined }) });
-          log.debug(`Created emoji "${emoji.name}" on client "${client1.application.name}" from "${client2.application.name}"`);
+            log.debug(`Created emoji "${name}" on client "${client.application.name}"`);
+          }
+          catch (err) {
+            if (err.code != DiscordAPIErrorCodes.MaximumNumberOfEmojisReached) throw err;
+            log.error(`Failed to create emoji ${emoji.name} (${emoji.id}) on ${client.botType} client "${client.application.name}":`, err.message);
+          }
         }
       }
     }
 
-    // Log out of the clients
-    for (const session of Object.values(sessions)) if (this != session) void session.destroy();
+    // Log out of the clients except the original one
+    for (const client of clients) if (client != this) void client.destroy();
 
     await this?.db.update('botSettings', 'timeEvents.lastEmojiSync', now);
 
