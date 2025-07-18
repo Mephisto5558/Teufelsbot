@@ -6,6 +6,7 @@ import type { i18nFuncConfig, I18nProvider } from '@mephisto5558/i18n';
 
 import type locals from './locals';
 import type DBStructure from './database';
+import type { Log } from '../Utils/prototypeRegisterer';
 
 type ISODate = `${number}${number}${number}${number}-${number}${number}-${number}${number}`;
 type ISOTime = `${number}${number}:${number}${number}:${number}${number}.${number}${number}${number}`;
@@ -139,15 +140,8 @@ declare global {
   const sleep: (ms: number) => Promise<void>;
 
   /** Custom logging, including logfiles. */
-  const log: {
-    (...args: Parameters<Console['log']>): typeof log;
-    log(...args: Parameters<Console['log']>): typeof log;
-    warn(...args: Parameters<Console['warn']>): typeof log;
-    error(...args: Parameters<Console['error']>): typeof log;
-    debug(...args: Parameters<Console['debug']>): typeof log;
-    _log({ file, type }?: { file?: string; type?: string }, ...args: Parameters<Console['log']>): typeof log;
-  };
-  type log = typeof log;
+  const log: typeof Log;
+  type log = typeof Log;
 
   /** Get an application Emoji's mention by it's name. */
   const getEmoji: (emoji: string) => `<a:${string}:${Snowflake}>` | `<${string}:${Snowflake}>` | undefined;

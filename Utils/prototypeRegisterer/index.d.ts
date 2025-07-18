@@ -2,7 +2,8 @@ import type TicTacToe from 'discord-tictactoe';
 import type { GuildTextBasedChannel, InteractionResponse, MessageMentionOptions, RepliableInteraction, CommandInteractionOption } from 'discord.js';
 
 export {
-  Log,
+  LogClass as Log,
+  type Log as LogInterface,
   _patch,
   customReply,
   runMessages,
@@ -18,23 +19,26 @@ declare enum LogLevels {
   error = 4
 }
 
-declare class Log extends Function {
-  /** @default logLevel='log'; logFilesDir='./Logs' */
-  constructor(logLevel?: keyof typeof LogLevels, logFileDir?: string);
-
+interface Log extends CallableFunction {
   date: `${number}${number}-${number}${number}-${number}${number}${number}${number}`;
   logLevel: keyof typeof LogLevels;
   logFilesDir: string;
 
+  (...str: unknown[]): this;
   debug(...str: unknown[]): this;
   log(...str: unknown[]): this;
   info(...str: unknown[]): this;
   warn(...str: unknown[]): this;
   error(...str: unknown[]): this;
 
-  /** @default file='log'; type='Bot' */
-  _log({ file, type }: { file?: keyof typeof LogLevels; type?: string }, ...str: unknown[]): this;
+  _logToConsole({ file, type, prefix }?: { file?: keyof typeof LogLevels; type?: string; prefix?: string }, ...args: unknown[]): this;
+  _logToFile({ file, type, prefix }?: { file?: keyof typeof LogLevels | string & {}; type?: string; prefix?: string }, ...args: unknown[]): this;
+
+  /** @default file='log'; type='Bot'; prefix='<ISODate> <type> | ' */
+  _log({ file, type, prefix }?: { file?: keyof typeof LogLevels; type?: string; prefix?: string }, ...args: unknown[]): this;
 }
+
+declare const LogClass: new(logLevel?: keyof typeof LogLevels, logFileDir?: string) => Log;
 
 /** Modified from the default one to set additional properties and modify the message content. */
 declare function _patch(

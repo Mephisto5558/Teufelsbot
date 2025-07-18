@@ -22,6 +22,7 @@ const
 
 module.exports = { Log, _patch, customReply, runMessages, playAgain, sendChallengeMention };
 
+/** @type {import('.').LogInterface} */
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
 
