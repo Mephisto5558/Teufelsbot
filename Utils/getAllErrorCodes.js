@@ -10,7 +10,7 @@ module.exports = async function fetchAndProcess() {
     const [code, description] = line.replaceAll(/^\|\s|\|$|[',`’]|[(.:].*/g, '').split(' | ');
 
     if (Number(code) && description) {
-      const name = description.trim().split(/[\s\-_]+/)
+      const name = description.trim().replaceAll('/', 'Or').split(/[\s\-_]+/)
         .reduce((nameAcc, word) => nameAcc + word[0].toUpperCase() + (/^[ A-Z_]+$/.test(description) ? word.slice(1).toLowerCase() : word.slice(1)), '');
       acc[name] = Number(code);
     }
