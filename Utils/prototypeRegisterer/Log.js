@@ -44,20 +44,27 @@ module.exports = class Log extends Function {
   warn(...str) { return this._log({ file: 'warn' }, ...str); }
   error(...str) { return this._log({ file: 'error' }, ...str); }
 
-  /** @type {import('.').Log['_log']} */
-  _log({ file = 'log', type = 'Bot' }, ...str) {
-    const
-      txt = `${new Date().toISOString()} ${type} | `,
-      log = console[file];
+  /** @type {import('.').LogInterface['_logToConsole']} */
+  _logToConsole({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` }, ...str) {
+    const log = console[file];
 
-    if (str.length) {
-      if (logLevels[file] >= logLevels[this.logLevel]) log(txt + str.join(' '));
-      void appendFile(join(this.logFilesDir, `${this.date}_${file}.log`), `${txt}${str.join(' ')}\n`);
-      return this;
-    }
+    if (!str.length) log('\n');
+    else if (logLevels[file] >= logLevels[this.logLevel]) log(prefix + str.join(' '));
 
-    log('\n');
-    void appendFile(join(this.logFilesDir, `${this.date}_${file}.log`), '\n');
+    return this;
+  }
+
+  /** @type {import('.').LogInterface['_logToFile']} */
+  _logToFile({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` }, ...str) {
+    void appendFile(join(this.logFilesDir, `${this.date}_${file}.log`), str.length ? `${prefix}${str.join(' ')}\n` : '\n');
+    return this;
+  }
+
+  /** @type {import('.').LogInterface['_log']} */
+  _log({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` }, ...str) {
+    this._logToConsole({ file, type, prefix }, ...str);
+    this._logToFile({ file, type, prefix }, ...str);
+
     return this;
   }
 };
