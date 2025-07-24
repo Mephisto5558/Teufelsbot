@@ -53,8 +53,10 @@ module.exports = {
         hostedBy: this.user,
         botsCanWin: false,
         bonusEntries: { bonus: member => bonusEntries[member.id] },
-        embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? 0, 16) || (this.guild.db.giveaway?.embedColor ?? defaultSettings.embedColor),
-        embedColorEnd: Number.parseInt(this.options.getString('embed_color_end')?.slice(1) ?? 0, 16) || (this.guild.db.giveaway?.embedColorEnd ?? defaultSettings.embedColorEnd),
+        embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? 0, 16)
+          || (this.guild.db.giveaway?.embedColor ?? defaultSettings.embedColor),
+        embedColorEnd: Number.parseInt(this.options.getString('embed_color_end')?.slice(1) ?? 0, 16)
+          || (this.guild.db.giveaway?.embedColorEnd ?? defaultSettings.embedColorEnd),
         messages: {
           giveaway: bold(lang('newGiveaway')),
           giveawayEnded: bold(lang('giveawayEnded')),

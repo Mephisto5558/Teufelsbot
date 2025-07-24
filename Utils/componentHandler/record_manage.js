@@ -52,7 +52,9 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   try { await entersState(connection, VoiceConnectionStatus.Ready, connectionTimeout); }
   catch (err) {
     if (!(err instanceof DiscordAPIError)) throw err;
-    console.log('record_manage Util | enterstate error', JSON.stringify(err)); // this is here to get error codes that may happen, to put them in the line above
+
+    // this is here to get error codes that may happen, to add them to the throw condition
+    log.error('record_manage Util | enterState error', JSON.stringify(err));
     embed.data.description = lang('cantConnect');
     return this.message.edit({ embeds: [embed] });
   }

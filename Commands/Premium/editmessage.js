@@ -82,7 +82,11 @@ module.exports = {
       if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', codeBlock(err.message)));
     }
 
-    if (!json.__count__) await msg.edit(clear ? { content: content.slice(0, messageMaxLength + 1), embeds: [], attachments: [], files: [], components: [] } : content.slice(0, messageMaxLength));
+    if (!json.__count__) {
+      await msg.edit(clear
+        ? { content: content.slice(0, messageMaxLength + 1), embeds: [], attachments: [], files: [], components: [] }
+        : content.slice(0, messageMaxLength));
+    }
 
     return modalInteraction.editReply(lang('success', hyperlink(lang('link'), msg.url)));
   }

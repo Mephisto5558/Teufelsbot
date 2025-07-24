@@ -60,7 +60,8 @@ const birthdayMainFunctions = {
 
         const
           daysUntil = Math.round(
-            Math.abs(new Date().setHours(0, 0, 0, 0) - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / (secsInDay * msInSecond) * 2
+            Math.abs(new Date().setHours(0, 0, 0, 0) - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1))
+            / (secsInDay * msInSecond) * 2
           ) / 2 % daysInYear, // * 2) / 2 rounds it to the nearest .5
           age = getAge(birthday) + (daysUntil > 0 ? 1 : 0);
 

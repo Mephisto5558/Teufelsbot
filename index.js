@@ -9,7 +9,10 @@ const
   { WebServer } = require('@mephisto5558/bot-website'),
   handlers = require('./Handlers'),
   events = require('./Events'),
-  { GiveawaysManager, configValidator: { configValidationLoop }, gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */ } = require('#Utils'),
+  {
+    GiveawaysManager, configValidator: { configValidationLoop },
+    gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */
+  } = require('#Utils'),
   /* eslint-disable-next-line custom/unbound-method -- fine here */
   { onTick: syncEmojis } = require('./TimeEvents').syncEmojis,
 
@@ -107,8 +110,10 @@ void (async function main() {
   if (newClient.botType != 'dev') newClient.giveawaysManager = new GiveawaysManager(newClient);
 
   /** Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution */
-  const handlerPromises = Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(([,handler]) => handler.call(newClient));
-  handlerPromises.push(newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add('owner' in app.owner ? app.owner.owner.id : app.owner?.id)));
+  const handlerPromises = [
+    ...Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(([,handler]) => handler.call(newClient)),
+    newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add(app.owner.owner?.id ?? app.owner?.id))
+  ];
 
   /** @type {Client<true>} */
   const client = await loginClient.call(newClient, process.env.token);
@@ -129,7 +134,10 @@ void (async function main() {
 
   void client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);
 
-  log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers in ${client.i18n.availableLocales.size} languages.\n`);
+  log(
+    `Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers `
+    + `in ${client.i18n.availableLocales.size} languages.\n`
+  );
   console.timeEnd('Starting time');
 
   if (client.config.enableConsoleFix) {

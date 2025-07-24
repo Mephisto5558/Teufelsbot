@@ -31,7 +31,10 @@ module.exports = {
       embed = new EmbedBuilder({
         description: bold(lang('embedDescription', target.user?.username ?? target.username)),
         image: { url: avatarURL },
-        fields: [{ name: lang('averageColor'), value: hyperlink(averageColor, `https://www.color-hex.com/color/${averageColor.slice(1)}`), inline: true }],
+        fields: [{
+          name: lang('averageColor'), inline: true,
+          value: hyperlink(averageColor, `https://www.color-hex.com/color/${averageColor.slice(1)}`)
+        }],
         color: Number.parseInt(averageColor.slice(1), 16),
         footer: { text: this.user.username }
       }),

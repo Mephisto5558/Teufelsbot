@@ -44,7 +44,9 @@ module.exports = {
 
     const
       msg = await this.customReply({ embeds: [embed], components: [component] }),
-      collector = msg.createMessageComponentCollector({ filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: collectorTimeout });
+      collector = msg.createMessageComponentCollector({
+        filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: collectorTimeout
+      });
 
     collector
       .on('collect', async button => {

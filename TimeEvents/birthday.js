@@ -71,21 +71,29 @@ module.exports = {
           if (err.code != DiscordAPIErrorCodes.UnknownChannel) throw err;
 
           const owner = await guild.fetchOwner();
-          return owner.send(this.i18n.__({ locale: owner.user.localeCode ?? guild.localeCode }, 'others.timeEvents.birthday.unknownChannel', inlineCode(guild.name)))
-            .catch(() => {
-              if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
-            });
+          return owner.send(this.i18n.__(
+            { locale: owner.user.localeCode ?? guild.localeCode }, 'others.timeEvents.birthday.unknownChannel', inlineCode(guild.name)
+          )).catch(() => {
+            if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
+          });
         }
       }
 
       for (const [,member] of await guild.members.fetch({ user: Object.keys(birthdayUserList) })) {
         const year = birthdayUserList[member.id];
 
-        if (channel)
-          await channel.send({ content: formatBirthday.call(settings.ch.msg?.content, member, year), embeds: [createEmbed('ch', settings, member, year)] });
+        if (channel) {
+          await channel.send({
+            content: formatBirthday.call(settings.ch.msg?.content, member, year), embeds: [createEmbed('ch', settings, member, year)]
+          });
+        }
 
         if (settings.dm?.enable) {
-          try { await member.send({ content: formatBirthday.call(settings.dm.msg?.content, member, year), embeds: [createEmbed('dm', settings, member, year)] }); }
+          try {
+            await member.send({
+              content: formatBirthday.call(settings.dm.msg?.content, member, year), embeds: [createEmbed('dm', settings, member, year)]
+            });
+          }
           catch (err) {
             if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
           }

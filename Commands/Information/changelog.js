@@ -62,7 +62,9 @@ module.exports = {
 
     if (!commitsCache) {
       commitsCache = changelog;
-      setTimeout(() => { commitsCache = undefined; }, CACHE_TIMEOUT);
+      setTimeout(() => {
+        commitsCache = undefined;
+      }, CACHE_TIMEOUT);
     }
 
     return this.customReply({ embeds: [embed] });

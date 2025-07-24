@@ -36,17 +36,29 @@ const requiredEnv = [
   'dbConnectionStr', 'token', 'secret'
 ];
 
+const overwrites = Object.fromEntries(Object.entries({
+  globals: ['globalThis.sleep', 'globalThis.log', 'globalThis.getEmoji'], // TODO: getEmoji should probably not be global
+  vanilla: [
+    parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
+    'Array#random', 'Array#unique', 'Number#limit', 'Number#inRange',
+    'Object#filterEmpty', 'Object#__count__', 'Function#bBind', 'BigInt#toJSON'
+  ],
+  discordJs: [
+    'BaseInteraction#customReply', 'Message#user', 'Message#customReply', 'Message#runMessages', 'Client#prefixCommands',
+    'Client#slashCommands', 'Client#cooldowns', 'Client#loadEnvAndDB', 'Client#awaitReady', 'Client#defaultSettings',
+    'Client#settings', 'AutocompleteInteraction#focused', 'User#db', 'User#updateDB', 'User#localeCode', 'Guild#db',
+    'Guild#updateDB', 'Guild#localeCode', 'GuildMember#db'
+  ]
+}).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
+
 if (!config.hideOverwriteWarning) {
-  console.warn(
-    'Overwriting the following variables and functions (if they exist):'
-    + '\n  Globals:    global.sleep, global.log, global.getEmoji'
-    + `\n  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} Array#random, Array#unique, `
-    + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind, BigInt#toJSON'
-    + '\n  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
-    + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, User#localeCode, Guild#db, guild#updateDB, '
-    + 'Guild#localeCode, GuildMember#db'
-    + '\n  Modifying Discord.js Message._patch method.'
-  );
+  console.warn([
+    'Overwriting the following variables and functions (if they exist):',
+    `  Globals:    ${overwrites.globals}`,
+    `  Vanilla:    ${overwrites.vanilla}`,
+    `  Discord.js: ${overwrites.discordJs}`,
+    '  Modifying Discord.js Message._patch method.'
+  ].join('\n'));
 }
 
 if (parentUptime) {
@@ -73,7 +85,9 @@ Object.defineProperties(Array.prototype, {
 Object.defineProperties(Number.prototype, {
   limit: {
     /** @type {global['Number']['prototype']['limit']} */
-    value: function limit({ min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY } = {}) { return Math.min(Math.max(Number(this), min), max); },
+    value: function limit({ min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY } = {}) {
+      return Math.min(Math.max(Number(this), min), max);
+    },
     enumerable: false
   },
   inRange: {
@@ -140,7 +154,8 @@ Object.defineProperty(BaseInteraction.prototype, 'customReply', {
   value: customReply
 });
 
-// Note: Classes that re-reference client (e.g. GiveawaysManager, DB) MUST have a valueOf() function to prevent recursive JSON stringify'ing DoS'ing the whole node process
+/* Note: Classes that re-reference client (e.g. GiveawaysManager, DB) MUST have a valueOf() function
+   to prevent recursive JSON stringify'ing DoS'ing the whole node process */
 Object.defineProperties(Client.prototype, {
   prefixCommands: { value: new Collection() },
   slashCommands: { value: new Collection() },
@@ -174,7 +189,8 @@ Object.defineProperties(Client.prototype, {
           Object.assign(process.env, parseEnv(await readFile(`.env.${process.env.environment}`, { encoding: 'utf8' })));
         }
         catch (err) {
-          if (err.code != 'ENOENT') throw new Error(`Missing "env.${process.env.environment}" file. Tried to import based on "environment" env variable in ".env".`);
+          if (err.code != 'ENOENT')
+            throw new Error(`Missing "env.${process.env.environment}" file. Tried to import based on "environment" env variable in ".env".`);
           throw err;
         }
       }
@@ -182,7 +198,10 @@ Object.defineProperties(Client.prototype, {
       const missingEnv = requiredEnv.filter(e => !process.env[e]);
       if (missingEnv.length) throw new Error(`Missing environment variable(s) "${missingEnv.join('", "')}"`);
 
-      const db = await new DB().init(process.env.dbConnectionStr, 'db-collections', defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' }));
+      const db = await new DB().init(
+        process.env.dbConnectionStr, 'db-collections',
+        defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' })
+      );
       if (!db.cache.size) {
         log('Database is empty, generating default data');
         await db.generate();
@@ -242,7 +261,8 @@ Object.defineProperties(User.prototype, {
   localeCode: {
     // website db user locale can be `null`
     get() {
-      const locale = this.db.localeCode ?? Object.values(this.client.db.get('website', 'sessions')).find(e => e.user?.id == this.id)?.user?.locale ?? undefined;
+      const locale = this.db.localeCode
+        ?? Object.values(this.client.db.get('website', 'sessions')).find(e => e.user?.id == this.id)?.user?.locale ?? undefined;
       return locale?.startsWith('en') ? 'en' : locale;
     },
     set(val) { void this.updateDB('localeCode', val); }

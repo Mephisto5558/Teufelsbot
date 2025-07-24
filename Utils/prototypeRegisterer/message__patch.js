@@ -21,7 +21,8 @@ module.exports = function _patch(data, ...rest) {
       prefixLength = (
         data.content.startsWith(clientUserMention)
           ? clientUserMention
-          : prefixes.find(({ prefix, caseinsensitive }) => (caseinsensitive ? data.content.toLowerCase() : data.content).startsWith(caseinsensitive ? prefix.toLowerCase() : prefix))?.prefix
+          : prefixes.find(({ prefix, caseinsensitive }) => (caseinsensitive ? data.content.toLowerCase() : data.content)
+            .startsWith(caseinsensitive ? prefix.toLowerCase() : prefix))?.prefix
       )?.length ?? 0;
 
     this.args = data.content.slice(prefixLength).trim().split(/\s+/);

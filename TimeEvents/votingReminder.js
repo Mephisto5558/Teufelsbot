@@ -29,7 +29,8 @@ module.exports = {
           })
         ]
       }),
-      users = Object.entries(this.db.get('userSettings')).filter(([, e]) => !e.votingReminderDisabled && e.lastVoted > today - msInSecond * secsInWeek * 2);
+      users = Object.entries(this.db.get('userSettings'))
+        .filter(([, e]) => !e.votingReminderDisabled && e.lastVoted > today - msInSecond * secsInWeek * 2);
 
     log('Started sending voting reminders').debug('Started sending voting reminders');
 

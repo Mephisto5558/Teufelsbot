@@ -28,7 +28,10 @@ module.exports = {
     }
 
     const { url, content, author, createdAt } = (channel
-      ? channel.messages.cache.find(e => (!target || e.author.id == target.id) && e.mentions.everyone || e.mentions.users.has(this.user.id) || e.mentions.roles.hasAny(this.member.roles.cache.keys()))
+      ? channel.messages.cache.find(
+          e => (!target || e.author.id == target.id) && e.mentions.everyone
+            || e.mentions.users.has(this.user.id) || e.mentions.roles.hasAny(this.member.roles.cache.keys())
+        )
       : this.guild.db.lastMentions?.[this.user.id]) ?? {};
 
     if (!url) return this.customReply(lang('noneFound'));

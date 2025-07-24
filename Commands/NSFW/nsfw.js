@@ -24,7 +24,8 @@ module.exports = {
 
   async run(lang) {
     /** @type {{ success: boolean, color: number, message: string }} */
-    const data = await fetch(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') ?? this.args?.[0] ?? 'hentai').toLowerCase()}`).then(e => e.json());
+    const data = await fetch(`https://nekobot.xyz/api/image?type=${(this.options?.getString('type') ?? this.args?.[0] ?? 'hentai').toLowerCase()}`)
+      .then(e => e.json());
     if (!data.success) {
       void this.customReply(lang('error'));
       return log.error('NSFW Command API Error: ', JSON.stringify(data));

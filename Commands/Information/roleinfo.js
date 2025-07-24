@@ -1,5 +1,8 @@
 const
-  { EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink, CDNRoutes, ImageFormat, inlineCode } = require('discord.js'),
+  {
+    EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle,
+    hyperlink, CDNRoutes, ImageFormat, inlineCode
+  } = require('discord.js'),
   { permissionTranslator, getTargetRole, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
   ROLE_DISPLAY_THRESHOLD = 16;
 
@@ -29,9 +32,11 @@ module.exports = {
       ]
     });
 
-    if (role.members.size.inRange(0, ROLE_DISPLAY_THRESHOLD)) embed.data.fields.push({ name: lang('members'), value: [...role.members.values()].join(', '), inline: false });
+    if (role.members.size.inRange(0, ROLE_DISPLAY_THRESHOLD))
+      embed.data.fields.push({ name: lang('members'), value: [...role.members.values()].join(', '), inline: false });
 
-    if (role.permissions.has(PermissionFlagsBits.Administrator)) embed.data.fields.at(-1).value = `${inlineCode(lang('admin'))} (${inlineCode(role.permissions.toArray().length)})`;
+    if (role.permissions.has(PermissionFlagsBits.Administrator))
+      embed.data.fields.at(-1).value = `${inlineCode(lang('admin'))} (${inlineCode(role.permissions.toArray().length)})`;
     else {
       const
         perms = permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', '),
@@ -47,14 +52,15 @@ module.exports = {
     if (role.icon) embed.data.thumbnail = { url: `https://cdn.discordapp.com${CDNRoutes.roleIcon(role.id, role.icon, ImageFormat.WebP)}?size=80&quality=lossless` };
     else if (role.colors.primaryColor) embed.data.thumbnail = { url: `https://dummyimage.com/80x80/${role.hexColor.slice(1)}/${role.hexColor.slice(1)}.png` };
 
-    const components = this.member.permissions.has(PermissionFlagsBits.ManageRoles) && role.editable && (this.member.roles.highest.position > role.position || this.user.id == this.guild.ownerId)
+    const components = this.member.permissions.has(PermissionFlagsBits.ManageRoles) && role.editable
+      && (this.member.roles.highest.position > role.position || this.user.id == this.guild.ownerId)
       ? [new ActionRowBuilder({
-        components: [new ButtonBuilder({
-          label: lang('delete'),
-          customId: `infoCMDs.${role.id}.delete.roles`,
-          style: ButtonStyle.Danger
+          components: [new ButtonBuilder({
+            label: lang('delete'),
+            customId: `infoCMDs.${role.id}.delete.roles`,
+            style: ButtonStyle.Danger
+          })]
         })]
-      })]
       : [];
 
     return this.customReply({ embeds: [embed], components });

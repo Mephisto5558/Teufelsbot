@@ -69,7 +69,8 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
 
     case 'accept': if (opponent.user.bot || this.user.id == opponentId) return sendGame.call(this, initiator, opponent, lang); break;
     case 'playAgain':
-      if (this.client.botType != 'dev') await this.client.db.update('botSettings', 'cmdStats.rps.slash', (this.client.settings.cmdStats.rps?.slash ?? 0) + 1);
+      if (this.client.botType != 'dev')
+        await this.client.db.update('botSettings', 'cmdStats.rps.slash', (this.client.settings.cmdStats.rps?.slash ?? 0) + 1);
 
       if (opponent.user.bot) return sendGame.call(this, initiator, opponent, lang);
       return sendChallenge.call(this, lang, this.member, initiatorId == this.user.id ? opponent : initiator);
@@ -77,7 +78,9 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
     case 'rock':
     case 'paper':
     case 'scissors': {
-      const choices = opponentId == this.client.user.id ? { player1: mode, player2: ['rock', 'paper', 'scissors'].random() } : this.guild.db.minigames?.rps[this.message.id] ?? {};
+      const choices = opponentId == this.client.user.id
+        ? { player1: mode, player2: ['rock', 'paper', 'scissors'].random() }
+        : this.guild.db.minigames?.rps[this.message.id] ?? {};
       if (!choices.player1 || !choices.player2) {
         const player = this.user.id == initiatorId ? 'player1' : 'player2';
         if (choices[player]) return this.followUp({ content: lang('end.alreadyChosen', lang(choices[player])), flags: MessageFlags.Ephemeral });

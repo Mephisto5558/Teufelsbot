@@ -37,6 +37,9 @@ module.exports = {
     }
 
     const global = this.options?.getBoolean('global') ?? this.args?.[0] == 'global';
-    return setAfkStatus.call(this, lang, global, this.options?.getString('message') ?? this.content?.slice(global ? nicknamePrefix.length + 1 : 0, maxAllowedAFKMsgLength));
+    return setAfkStatus.call(
+      this, lang, global,
+      this.options?.getString('message') ?? this.content?.slice(global ? nicknamePrefix.length + 1 : 0, maxAllowedAFKMsgLength)
+    );
   }
 };

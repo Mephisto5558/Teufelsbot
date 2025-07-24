@@ -11,7 +11,8 @@ function timeValidator(timeStr) {
   for (let i = 0; i < timeStr.length; i++) {
     const char = timeStr[i];
     if (char == '-' || char == '+') numberBuffer += char;
-    else if (Number.isNaN(Number.parseInt(char))) unitBuffer = unitBuffer.length && Number.isNaN(Number.parseInt(timeStr[i - 1])) ? unitBuffer + char : char;
+    else if (Number.isNaN(Number.parseInt(char)))
+      unitBuffer = unitBuffer.length && Number.isNaN(Number.parseInt(timeStr[i - 1])) ? unitBuffer + char : char;
     else if (!unitBuffer.length || !Number.isNaN(Number.parseInt(timeStr[i - 1]))) numberBuffer += char;
     else if (validItems.includes(unitBuffer)) {
       numberBuffer += unitBuffer + char;
