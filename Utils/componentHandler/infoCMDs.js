@@ -52,7 +52,9 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
       lang.__boundArgs__[0].backupPath.push(`commands.moderation.${mode}`);
 
       void this.showModal(modal);
-      const submit = await this.awaitModalSubmit({ time: MODALSUBMIT_MAXTIME }).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; });
+      const submit = await this.awaitModalSubmit({ time: MODALSUBMIT_MAXTIME }).catch(err => {
+        if (!(err instanceof DiscordAPIError)) throw err;
+      });
       if (!submit) return;
 
       this.commandName = mode;
@@ -147,5 +149,7 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
   }
 
   for (const button of this.message.components[0].components) button.data.disabled = true;
-  return this.message.edit({ components: this.message.components }).catch(err => { if (err.code != DiscordAPIErrorCodes.UnknownMessage) throw err; });
+  return this.message.edit({ components: this.message.components }).catch(err => {
+    if (err.code != DiscordAPIErrorCodes.UnknownMessage) throw err;
+  });
 };

@@ -43,7 +43,10 @@ module.exports = {
           isGuild && { name: lang('members'), value: lang('memberStats', {
             all: inlineCode(guild.memberCount),
             ...Object.fromEntries((await guild.members.fetch())
-              .reduce((acc, e) => { acc[e.user.bot ? 0 : 1][1]++; return acc; }, [['humans', 0], ['bots', 0]])
+              .reduce((acc, e) => {
+                acc[e.user.bot ? 0 : 1][1]++;
+                return acc;
+              }, [['humans', 0], ['bots', 0]])
               .map(([k, v]) => [k, inlineCode(v)]))
           }), inline: true },
           { name: lang('verificationLevel.name'), value: lang(`verificationLevel.${guild.verificationLevel}`), inline: true },
