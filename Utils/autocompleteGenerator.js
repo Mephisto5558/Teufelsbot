@@ -28,7 +28,7 @@ module.exports = function autocompleteGenerator(command, locale) {
       .filter(e => !this.focused.value || (
         typeof e == 'object' ? e.value.toLowerCase() : e.toString().toLowerCase()
       ).includes(this.focused.value.toLowerCase()))
-      .slice(0, autocompleteOptionsMaxAmt).map(e => typeof e == 'object' ? e : response(e));
+      .slice(0, autocompleteOptionsMaxAmt).map(e => (typeof e == 'object' ? e : response(e)));
   }
 
   return [autocompleteOptions];

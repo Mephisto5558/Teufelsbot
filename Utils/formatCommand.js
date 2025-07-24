@@ -29,11 +29,11 @@ module.exports = function formatCommand(option, path, id, i18n) {
 
   option.description ??= i18n.__({ errorNotFound: true }, `${id}.description`);
   if ('choices' in option) {
-    option.choices = option.choices.map(
-      e => typeof e == 'object'
+    option.choices = option.choices.map(e => (
+      typeof e == 'object'
         ? { ...e, __SCHandlerCustom: true }
         : { name: i18n.__({ undefinedNotFound: true }, `${id}.choices.${e}`) ?? e, value: e }
-    );
+    ));
   }
   if ('autocompleteOptions' in option) option.autocomplete = true;
 
