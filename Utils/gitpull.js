@@ -1,6 +1,8 @@
 const
   /** @type {import('.').shellExec} */ shellExec = require('./shellExec.js'),
-  /** @type {Promise<string>} */ origin = shellExec('git status').catch(() => { /** empty */ }).then(e => /'(?<branch>.*)'/.exec(e?.stdout.split('\n')[1])?.groups.branch);
+  /** @type {Promise<string>} */ origin = shellExec('git status')
+    .catch(() => { /** empty */ })
+    .then(e => /'(?<branch>.*)'/.exec(e?.stdout.split('\n')[1])?.groups.branch);
 
 /** @type {import('.').gitpull} */
 module.exports = async function gitpull() {

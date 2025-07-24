@@ -160,7 +160,9 @@ module.exports = {
       commands = reloadedArray.filter(Boolean).map(e => e.startsWith('<') ? e : inlineCode(e)).join(', '),
       replyText = lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
         count: inlineCode(reloadedArray.length),
-        commands: commands.length < MAX_COMMANDLIST_LENGTH ? commands : commands.slice(0, Math.max(0, commands.slice(0, MAX_COMMANDLIST_LENGTH).lastIndexOf('`,') + 1)) + '...'
+        commands: commands.length < MAX_COMMANDLIST_LENGTH
+          ? commands
+          : commands.slice(0, Math.max(0, commands.slice(0, MAX_COMMANDLIST_LENGTH).lastIndexOf('`,') + 1)) + '...'
       });
 
     void (errorOccurred ? msg.reply(replyText) : msg.edit(replyText));

@@ -1,5 +1,8 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType, PermissionFlagsBits, TimestampStyles, bold, inlineCode } = require('discord.js'),
+  {
+    EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType,
+    PermissionFlagsBits, TimestampStyles, bold, inlineCode
+  } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
@@ -22,7 +25,8 @@ module.exports = async function ban_kick_mute(lang) {
     reason = this.options.getString('reason', true);
 
   if (muteDuration) {
-    muteDuration = getMilliseconds(muteDuration).limit?.({ min: minToMs(1), max: dayToMs(28) }); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+    /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
+    muteDuration = getMilliseconds(muteDuration).limit?.({ min: minToMs(1), max: dayToMs(28) });
     if (!muteDuration || typeof muteDuration == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
 
     muteDurationMs = Date.now() + muteDuration;
@@ -60,7 +64,8 @@ module.exports = async function ban_kick_mute(lang) {
     }
 
     if (this.commandName == 'kick') await target.kick(reason);
-    else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
+    else if (this.commandName == 'ban')
+      await target.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
     else await target.disableCommunicationUntil(muteDurationMs, reason);
 
     resEmbed.data.description += `${lang('success', { user: bold(target.user.tag), muteDuration, muteDurationRelative })}\n`;
@@ -102,7 +107,8 @@ module.exports = async function ban_kick_mute(lang) {
           }
 
           if (this.commandName == 'kick') await selectedMember.kick(reason);
-          else if (this.commandName == 'ban') await selectedMember.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
+          else if (this.commandName == 'ban')
+            await selectedMember.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
           else await selectedMember.disableCommunicationUntil(muteDurationMs, reason);
 
           resEmbed.data.description += `${lang('success', { user: bold(selectedMember.user.tag), muteDuration, muteDurationRelative })}\n`;

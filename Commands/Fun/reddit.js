@@ -44,7 +44,8 @@ module.exports = {
         {
           name: 'subreddit',
           type: 'String',
-          autocompleteOptions() { return (this.focused.value.startsWith('r/') ? this.focused.value.slice(2) : this.focused.value).replaceAll(/\W/g, ''); }
+          /* eslint-disable-next-line sonarjs/anchor-precedence -- intentional; suggested fix triggers different rule */
+          autocompleteOptions() { return this.focused.value.replaceAll(/^r\\|\W/g, ''); }
         },
         { name: 'type', type: 'String' },
         { name: 'filter_nsfw', type: 'Boolean' }

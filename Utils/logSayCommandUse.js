@@ -1,5 +1,8 @@
 const
-  { PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel, userMention, channelMention, inlineCode } = require('discord.js'),
+  {
+    PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel,
+    userMention, channelMention, inlineCode
+  } = require('discord.js'),
   GREY = 0x36393F;
 
 /** @type {import('.').logSayCommandUse} */
@@ -8,7 +11,10 @@ module.exports = async function logSayCommandUse(member, lang) {
   if (this.client.botType == 'dev' || !setting?.enabled) return;
 
   const channel = this.guild.channels.cache.get(setting.channel);
-  if (!(channel instanceof TextChannel) || this.guild.members.me.permissionsIn(channel).missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length) return;
+  if (
+    !(channel instanceof TextChannel) || this.guild.members.me.permissionsIn(channel)
+      .missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length
+  ) return;
 
   lang.__boundArgs__[0].backupPath[0] = 'events.logger.sayCommandUsed';
 
@@ -18,7 +24,10 @@ module.exports = async function logSayCommandUse(member, lang) {
       description: lang('embedDescription', { executor: userMention(member.id), channel: this.channel.name }),
       fields: [
         { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false },
-        { name: lang('content'), value: this.content || (this.embeds.length ? lang('events.logger.embeds', this.embeds.length) : lang('global.unknown')), inline: false },
+        {
+          name: lang('content'), inline: false,
+          value: this.content || (this.embeds.length ? lang('events.logger.embeds', this.embeds.length) : lang('global.unknown'))
+        },
         { name: lang('author'), value: `${member.user.tag} (${inlineCode(member.id)})`, inline: false }
       ],
       timestamp: Date.now(),

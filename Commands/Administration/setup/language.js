@@ -27,7 +27,9 @@ module.exports = {
       language = this.options.getString('language', true),
 
       /** @type {lang} */
-      newLang = this.client.i18n.__.bind(this.client.i18n, { locale: this.client.i18n.availableLocales.has(language) ? language : this.client.i18n.config.defaultLocale });
+      newLang = this.client.i18n.__.bind(
+        this.client.i18n, { locale: this.client.i18n.availableLocales.has(language) ? language : this.client.i18n.config.defaultLocale }
+      );
 
     /** @type {command<'slash', true, true>} */
     let { aliasOf, name, category } = this.client.slashCommands.get(this.commandName);

@@ -40,7 +40,10 @@ declare module 'discord.js' {
     config: locals.Config;
     loadEnvAndDB(this: Omit<Client<Ready>, 'db'>): Promise<void>;
 
-    /** A promise that resolves to a fetched discord application once {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#ready Client#ready} was emitted. */
+    /**
+     * A promise that resolves to a fetched discord application once
+     * {@link https://discord.js.org/docs/packages/discord.js/14.14.1/Client:Class#ready Client#ready}
+     * was emitted. */
     awaitReady(this: Client<Ready>): Promise<ClientApplication>;
   }
 
@@ -53,10 +56,14 @@ declare module 'discord.js' {
      * for guild messages that do not mention the client. */
     originalContent: string | null;
 
-    /** The arguments of the message. It slices out the prefix and splits the message content on spaces. This is a custom property set in 'prototypeRegisterer.js'. */
+    /**
+     * The arguments of the message. It slices out the prefix and splits the message content on spaces.
+     * This is a custom property set in 'prototypeRegisterer.js'. */
     args: string[];
 
-    /** The first word of the {@link Message.originalContent original content}. `null` if the content is empty. This is a custom property set in 'prototypeRegisterer.js'. */
+    /**
+     * The first word of the {@link Message.originalContent original content}.
+     * `null` if the content is empty. This is a custom property set in 'prototypeRegisterer.js'. */
     commandName: string | null;
 
     /** Alias for {@link Message.author} */
@@ -127,7 +134,9 @@ declare module 'discord.js' {
      * ```js
      * return this.client.db.update('userSettings', `${this.id}.${key}`, value);
      * ``` */
-    updateDB<FDB extends locals.FlattenedUserSettings, K extends keyof FDB & string>(this: User, key: K, value: FDB[K]): Promise<NonNullable<Database['userSettings']>>;
+    updateDB<FDB extends locals.FlattenedUserSettings, K extends keyof FDB & string>(
+      this: User, key: K, value: FDB[K]
+    ): Promise<NonNullable<Database['userSettings']>>;
 
     deleteDB(this: Guild, key: locals.FlattenedUserSettings): ReturnType<DB<Database>['delete']>;
 

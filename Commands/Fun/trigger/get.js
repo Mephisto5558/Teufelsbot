@@ -36,27 +36,31 @@ module.exports = {
       const maxLength = 200;
 
       embed.data.description = oldData.__count__ > embedMaxFieldAmt ? lang('first25') : ' ';
-      embed.data.fields = Object.entries(oldData).slice(0, embedMaxFieldAmt + 1).map((/** @type {import('.').triggersArray} */ [id, { trigger, response, wildcard }]) => ({
-        name: lang('shortFieldName', id), inline: true,
-        value: lang('shortFieldValue', {
-          trigger: codeBlock(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
-          response: codeBlock(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix),
-          wildcard: inlineCode(wildcard)
-        })
-      }));
+      embed.data.fields = Object.entries(oldData)
+        .slice(0, embedMaxFieldAmt + 1)
+        .map((/** @type {import('.').triggersArray} */ [id, { trigger, response, wildcard }]) => ({
+          name: lang('shortFieldName', id), inline: true,
+          value: lang('shortFieldValue', {
+            trigger: codeBlock(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
+            response: codeBlock(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix),
+            wildcard: inlineCode(wildcard)
+          })
+        }));
     }
     else {
       const
         maxDescriptionLength = 3800,
         maxLength = 20;
 
-      embed.data.description = Object.entries(oldData).reduce((acc, /** @type {import('.').triggersArray} */ [id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
-        ? acc
-        : acc + lang('longEmbedDescription', {
-          id, wildcard: inlineCode(wildcard),
-          trigger: inlineCode(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
-          response: inlineCode(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix)
-        }) + '\n\n', '');
+      embed.data.description = Object.entries(oldData)
+        .reduce((acc, /** @type {import('.').triggersArray} */ [id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
+          ? acc
+          : acc + lang('longEmbedDescription', {
+            id, wildcard: inlineCode(wildcard),
+            trigger: inlineCode(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
+            response: inlineCode(response.length < maxLength ? response : response.slice(0, maxLength - suffix.length) + suffix)
+          }) + '\n\n',
+        '');
     }
 
     return this.editReply({ embeds: [embed] });

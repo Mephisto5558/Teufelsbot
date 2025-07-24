@@ -74,19 +74,19 @@ module.exports = {
       embed = new EmbedBuilder(custom
         ? JSON.parse(custom)
         : {
-          title: getOption('title'),
-          description: getOption('description', true),
-          thumbnail: { url: getOption('thumbnail') },
-          image: { url: getOption('image') },
-          color: (Number.parseInt(getOption('custom_color')?.slice(1) ?? 0, 16) || Colors[getOption('predefined_color')]) ?? 0,
-          footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
-          timestamp: this.options.getBoolean('timestamp') && Date.now(),
-          author: {
-            name: getOption('author_name'),
-            url: getOption('author_url'),
-            iconURL: getOption('author_icon')
-          }
-        });
+            title: getOption('title'),
+            description: getOption('description', true),
+            thumbnail: { url: getOption('thumbnail') },
+            image: { url: getOption('image') },
+            color: (Number.parseInt(getOption('custom_color')?.slice(1) ?? 0, 16) || Colors[getOption('predefined_color')]) ?? 0,
+            footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
+            timestamp: this.options.getBoolean('timestamp') && Date.now(),
+            author: {
+              name: getOption('author_name'),
+              url: getOption('author_url'),
+              iconURL: getOption('author_icon')
+            }
+          });
 
       if (this.member.permissionsIn(this.channel).has(PermissionFlagsBits.MentionEveryone))
         allowedMentions.parse.push(AllowedMentionsTypes.Role, AllowedMentionsTypes.Everyone);

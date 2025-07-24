@@ -39,7 +39,10 @@ module.exports = {
     const
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: lang('embedDescription', { user: userMention(this.user.id), channel: channelMention(voiceChannel.id), publicOrPrivate: bold(lang(isPublic ? 'isPublic' : 'isPrivate')) }),
+        description: lang('embedDescription', {
+          user: userMention(this.user.id), channel: channelMention(voiceChannel.id),
+          publicOrPrivate: bold(lang(isPublic ? 'isPublic' : 'isPrivate'))
+        }),
         footer: { text: this.user.username, iconURL: this.member.displayAvatarURL({ forceStatic: true }) },
         color: Colors.Red
       }),

@@ -30,39 +30,56 @@ module.exports = {
     guild ??= invite?.guild ?? this.guild;
 
     const
-      channels = guild instanceof Guild ? [...(await guild.channels.fetch()).values()] : undefined,
+      isGuild = guild instanceof Guild,
+      channels = isGuild ? [...(await guild.channels.fetch()).values()] : undefined,
       embed = new EmbedBuilder({
         title: guild.name,
         description: guild.description,
         color: guild.icon ? Number.parseInt((await getAverageColor(guild.iconURL())).hex.slice(1), 16) : Colors.White,
         thumbnail: { url: guild.iconURL() },
-        image: { url: guild.bannerURL({ size: ALLOWED_SIZES.at(-3) }) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 3rd largest resolution */
+        /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 3rd largest resolution */
+        image: { url: guild.bannerURL({ size: ALLOWED_SIZES.at(-3) }) },
         fields: [
-          guild instanceof Guild && { name: lang('members'), value: lang('memberStats', {
+          isGuild && { name: lang('members'), value: lang('memberStats', {
             all: inlineCode(guild.memberCount),
-            ...Object.fromEntries((await guild.members.fetch()).reduce((acc, e) => { acc[e.user.bot ? 0 : 1][1]++; return acc; }, [['humans', 0], ['bots', 0]]).map(([k, v]) => [k, inlineCode(v)]))
+            ...Object.fromEntries((await guild.members.fetch())
+              .reduce((acc, e) => {
+                acc[e.user.bot ? 0 : 1][1]++;
+                return acc;
+              }, [['humans', 0], ['bots', 0]])
+              .map(([k, v]) => [k, inlineCode(v)]))
           }), inline: true },
           { name: lang('verificationLevel.name'), value: lang(`verificationLevel.${guild.verificationLevel}`), inline: true },
           { name: lang('id'), value: inlineCode(guild.id), inline: true },
           { name: lang('createdAt'), value: timestamp(guild.createdTimestamp), inline: true },
-          guild instanceof Guild && { name: lang('defaultNotifications.name'), value: lang(`defaultNotifications.${guild.defaultMessageNotifications}`), inline: true },
-          guild instanceof Guild && { name: lang('owner'), value: userMention(guild.ownerId), inline: true },
-          guild instanceof Guild && { name: lang('locale'), value: guild.preferredLocale, inline: true },
-          { name: lang('partnered'), value: lang(`global.${guild.partnered}`), inline: true },
-          guild instanceof Guild && { name: lang('emojis'), value: inlineCode(guild.emojis.cache.size), inline: true },
-          guild instanceof Guild && { name: lang('roles'), value: inlineCode(guild.roles.cache.size), inline: true },
-          { name: lang('boosts.name'), value: `${inlineCode(guild.premiumSubscriptionCount)}${guild.premiumTier ? lang('boosts.' + guild.premiumTier) : ''}`, inline: true },
+          ...isGuild
+            ? [
+                { name: lang('defaultNotifications.name'), value: lang(`defaultNotifications.${guild.defaultMessageNotifications}`), inline: true },
+                { name: lang('owner'), value: userMention(guild.ownerId), inline: true },
+                { name: lang('locale'), value: guild.preferredLocale, inline: true },
+                { name: lang('partnered'), value: lang(`global.${guild.partnered}`), inline: true },
+                { name: lang('emojis'), value: inlineCode(guild.emojis.cache.size), inline: true },
+                { name: lang('roles'), value: inlineCode(guild.roles.cache.size), inline: true }
+              ]
+            : [{ name: lang('partnered'), value: lang(`global.${guild.partnered}`), inline: true }],
+          {
+            name: lang('boosts.name'), inline: true,
+            value: `${inlineCode(guild.premiumSubscriptionCount)}${guild.premiumTier ? lang('boosts.' + guild.premiumTier) : ''}`
+          },
           channels && {
             name: lang('channels'), inline: false,
             value: Object.entries(channels.reduce((acc, e) => e ? { ...acc, [e.type]: (acc[e.type] ?? 0) + 1 } : acc, {}))
-              .map(/** @param {[import('discord.js').ChannelType, number]} arr */ ([k, v]) => `${lang('others.ChannelTypes.plural.' + k)}: ${inlineCode(v)}`).join(', ')
+              .map((
+                /** @type {[import('discord.js').ChannelType, number]} */ [k, v]
+              ) => `${lang('others.ChannelTypes.plural.' + k)}: ${inlineCode(v)}`)
+              .join(', ')
           }
         ]
       });
 
     if (guild.vanityURLCode) {
       embed.data.fields.push({ name: lang('vanityUrl'), value: guild.vanityURLCode, inline: true });
-      if (guild instanceof Guild) embed.data.fields.push({ name: lang('vanityUrl') + lang('uses'), value: guild.vanityURLUses, inline: true });
+      if (isGuild) embed.data.fields.push({ name: lang('vanityUrl') + lang('uses'), value: guild.vanityURLUses, inline: true });
     }
 
     const components = [];
@@ -84,7 +101,7 @@ module.exports = {
       }));
     }
 
-    if (!(guild instanceof Guild)) {
+    if (!isGuild) {
       components.push(new ActionRowBuilder({ components: [new ButtonBuilder({
         label: lang('joinGuild'),
         style: ButtonStyle.Link,

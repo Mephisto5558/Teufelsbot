@@ -8,7 +8,8 @@ module.exports = async function sendRPSChallenge(lang, initiator, opponent) {
 
   lang.__boundArgs__[0].backupPath[0] = 'commands.minigames.rps.challenge';
 
-  if (opponent.bot && opponent.id != this.client.user.id) return this.replied ? this.editReply(lang('opponentIsBot')) : this.reply(lang('opponentIsBot'));
+  if (opponent.bot && opponent.id != this.client.user.id)
+    return this.replied ? this.editReply(lang('opponentIsBot')) : this.reply(lang('opponentIsBot'));
   if (opponent.id == initiator.id) return this.replied ? this.editReply(lang('opponentIsSelf')) : this.reply(lang('opponentIsSelf'));
 
   const

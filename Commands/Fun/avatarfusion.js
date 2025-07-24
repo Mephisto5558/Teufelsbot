@@ -37,7 +37,11 @@ module.exports = {
     });
 
     if (base.id == overlay.id) {
-      embed.data.image = { url: type == 'server' ? base.displayAvatarURL({ forceStatic: true, size: IMAGE_SIZE }) : base.user.avatarURL({ forceStatic: true, size: IMAGE_SIZE }) };
+      embed.data.image = {
+        url: type == 'server'
+          ? base.displayAvatarURL({ forceStatic: true, size: IMAGE_SIZE })
+          : base.user.avatarURL({ forceStatic: true, size: IMAGE_SIZE })
+      };
       return this.customReply({ embeds: [embed] });
     }
 

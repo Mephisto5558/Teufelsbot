@@ -17,7 +17,8 @@ function subCommandCooldowns(name, maxDepth = 2) {
   let groupOptions;
   const group = this.options.getSubcommandGroup(false);
   if (group && !depth) {
-    groupOptions = this.client.slashCommands.get(this.commandName)?.options?.find(e => e.name == group && e.type == ApplicationCommandOptionType.SubcommandGroup);
+    groupOptions = this.client.slashCommands.get(this.commandName)?.options
+      ?.find(e => e.name == group && e.type == ApplicationCommandOptionType.SubcommandGroup);
     if (groupOptions?.cooldowns) return cooldown.call(this, `${name}.${group}`, groupOptions.cooldowns);
   }
 

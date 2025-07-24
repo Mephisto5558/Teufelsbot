@@ -12,7 +12,8 @@ const
 /**
  * Helper function to prevent `eslint/no-loop-func`
  *
- * Filters the last selected entry out and selects a list entry based on a secure random number generator (RNG). RNG defined in Utils/prototypeRegisterer.js.
+ * Filters the last selected entry out and selects a list entry based on a secure random number generator (RNG).
+ * RNG defined in Utils/prototypeRegisterer.js.
  * @param {string[]} charset
  * @param {string?} lastRandomChar */
 const getRandomChar = (charset, lastRandomChar) => charset.filter(e => e !== lastRandomChar).random();
@@ -47,7 +48,8 @@ module.exports = {
       length = this.options.getInteger('length') ?? DEFAULT_PASSWORD_LENGTH,
       /** @type {`\`\`\`${string}\`\`\``[]} */ passwordList = []; /* eslint-disable-line jsdoc/valid-types -- false positive */
 
-    let charset = [...DEFAULT_CHARSET.filter(char => !exclude.includes(char)), ...include] // Remove exclude chars and add include chars to the charset
+    // Remove exclude chars and add include chars to the charset
+    let charset = [...DEFAULT_CHARSET.filter(char => !exclude.includes(char)), ...include]
       .unique().join(''); // Remove duplicates and join to a string.
 
     if (!charset.length) return this.editReply(lang('charsetEmpty')); // Return if charset is empty

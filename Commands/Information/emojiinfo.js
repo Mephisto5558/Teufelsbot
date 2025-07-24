@@ -1,5 +1,8 @@
 const
-  { parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits, roleMention, inlineCode } = require('discord.js'),
+  {
+    parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle,
+    PermissionFlagsBits, roleMention, inlineCode
+  } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { timestamp } = require('#Utils').timeFormatter,
   emojiURLRegex = /https:\/\/cdn\.discordapp\.com\/emojis\/(?<id>\d+)/;
@@ -30,14 +33,14 @@ module.exports = {
         color: Number.parseInt((await getAverageColor(url)).hex.slice(1), 16),
         thumbnail: { url },
         fields: [
-          { name: lang('name'), value: emoji.name, inline: true },
-          { name: lang('id'), value: inlineCode(emoji.id), inline: true },
-          { name: lang('guild'), value: emoji.guild?.name ? `${emoji.guild.name} (${inlineCode(emoji.guild.id)})` : lang('global.unknown'), inline: true },
-          { name: lang('animated'), value: lang(`global.${emoji.animated}`), inline: true },
-          { name: lang('creator'), value: (await emoji.fetchAuthor?.())?.username ?? lang('global.unknownUser'), inline: true },
-          { name: lang('available'), value: emoji.available ? lang(`global.${emoji.available}`) : lang('global.unknown'), inline: true },
-          { name: lang('createdAt'), value: emoji.createdTimestamp ? timestamp(emoji.createdTimestamp) : lang('global.unknown'), inline: true }
-        ]
+          [lang('name'), emoji.name],
+          [lang('id'), inlineCode(emoji.id)],
+          [lang('guild'), emoji.guild?.name ? `${emoji.guild.name} (${inlineCode(emoji.guild.id)})` : lang('global.unknown')],
+          [lang('animated'), lang(`global.${emoji.animated}`)],
+          [lang('creator'), (await emoji.fetchAuthor?.())?.username ?? lang('global.unknownUser')],
+          [lang('available'), emoji.available ? lang(`global.${emoji.available}`) : lang('global.unknown')],
+          [lang('createdAt'), emoji.createdTimestamp ? timestamp(emoji.createdTimestamp) : lang('global.unknown')]
+        ].map(([k, v]) => ({ name: k, value: v, inline: true }))
       }),
       component = new ActionRowBuilder({
         components: [
@@ -62,7 +65,8 @@ module.exports = {
       }));
     }
 
-    if (emoji.roles?.cache.size) embed.data.fields.push({ name: lang('allowedRoles'), value: emoji.roles.cache.map(e => roleMention(e.id)).join(', '), inline: false });
+    if (emoji.roles?.cache.size)
+      embed.data.fields.push({ name: lang('allowedRoles'), value: emoji.roles.cache.map(e => roleMention(e.id)).join(', '), inline: false });
 
     return this.customReply({ embeds: [embed], components: [component] });
   }

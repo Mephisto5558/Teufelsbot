@@ -27,7 +27,8 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
   options.allowedMentions ??= allowedMentions ?? { repliedUser: false };
 
   if (options.content && options.content.length > messageMaxLength) {
-    const match = /```(?<ext>\n?\w+\n)?(?<code>(?:.|\n)+)```/.exec(options.content); // matches one code block, it's code, and the language (extention) it is in.
+    // matches one code block, it's code, and the language (extention) it is in.
+    const match = /```(?<ext>\n?\w+\n)?(?<code>(?:.|\n)+)```/.exec(options.content);
 
     options.files = [
       ...options.files ?? [],

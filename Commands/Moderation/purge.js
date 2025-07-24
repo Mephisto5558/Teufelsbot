@@ -6,14 +6,16 @@ const
   maxAllowedPurgeAmt = 1000,
 
   /**
-   * @param {string} str
+   * @type {(str: string) => boolean}
    * filters discord invites, invite.gg, dsc.gg, disboard.org links */
   adRegex = str => new RegExp(
     String.raw`(?:(?=discord)(?<!support\.)(?:discord(?:app)?[\W_]*(?:com|gg|io|link|me|net|plus)\/|`
     + String.raw`(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(?:attachments|channels)\/)`
     + String.raw`|(?:dsc|invite)[\W_]*gg|disboard[\W_]*org`, 'i'
   ).test(str),
-  filterOptionsExist = /** @param {Record<string, string | number | boolean>} options */ options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
+
+  /** @type {(options: Record<string, string | number | boolean>) => boolean} */
+  filterOptionsExist = options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
 
   /** @type {Record<string, (msg: Message<true>) => boolean>} */
   filterCheck = {
@@ -35,7 +37,8 @@ function shouldDeleteMsg(msg, options) {
       || msg.embeds.some(e => !!e.description?.toLowerCase()[fn](option.toLowerCase())),
     checkCaps = () => !('caps_percentage' in options && options.caps_percentage > 0)
       || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * maxPercentage >= options.caps_percentage
-      || msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * maxPercentage >= options.caps_percentage)
+      || msg.embeds.some(e => e.description?.replaceAll(/[^A-Z]/g, '').length / (e.description?.length ?? 0) * maxPercentage
+        >= options.caps_percentage)
       || !msg.content && !msg.embeds.some(e => !!e.description),
     bool = msg.bulkDeletable && (!!options.remove_pinned || !msg.pinned),
     userType = msg.user.bot ? 'bot' : 'human';

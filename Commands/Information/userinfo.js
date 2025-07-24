@@ -1,5 +1,8 @@
 const
-  { ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
+  {
+    ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle,
+    ALLOWED_SIZES, TimestampStyles, hyperlink, inlineCode
+  } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers, getAge, permissionTranslator, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
 
@@ -38,19 +41,22 @@ module.exports = {
         ),
         color: Number.parseInt((await getAverageColor(member.displayAvatarURL())).hex.slice(1), 16),
         thumbnail: { url: member.displayAvatarURL() },
-        image: { url: member.displayBannerURL({ size: ALLOWED_SIZES.at(-3) }) }, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 3rd largest resolution */
+        /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 3rd largest resolution */
+        image: { url: member.displayBannerURL({ size: ALLOWED_SIZES.at(-3) }) },
         footer: { text: member.id },
         fields: [
-          { name: lang('mention'), value: member.user.toString(), inline: true },
-          { name: lang('displayName'), value: member.displayName, inline: true },
-          { name: lang('type'), value: type, inline: true },
-          { name: lang('position'), value: `${inlineCode(this.guild.roles.highest.position - member.roles.highest.position + 1)}, ${member.roles.highest.toString()}`, inline: true },
-          { name: lang('roles'), value: inlineCode(member.roles.cache.size), inline: true },
-          { name: lang('color'), value: hyperlink(member.displayHexColor, `https://www.color-hex.com/color/${member.displayHexColor.slice(1)}`), inline: true },
-          { name: lang('createdAt'), value: timestamp(member.user.createdTimestamp), inline: true },
-          { name: lang('joinedAt'), value: timestamp(member.joinedTimestamp), inline: true }
-
-        ]
+          [lang('mention'), member.user.toString()],
+          [lang('displayName'), member.displayName],
+          [lang('type'), type],
+          [
+            lang('position'),
+            `${inlineCode(this.guild.roles.highest.position - member.roles.highest.position + 1)}, ${member.roles.highest.toString()}`
+          ],
+          [lang('roles'), inlineCode(member.roles.cache.size)],
+          [lang('color'), hyperlink(member.displayHexColor, `https://www.color-hex.com/color/${member.displayHexColor.slice(1)}`)],
+          [lang('createdAt'), timestamp(member.user.createdTimestamp)],
+          [lang('joinedAt'), timestamp(member.joinedTimestamp)]
+        ].map(([k, v]) => ({ name: k, value: v, inline: true }))
       }),
       components = [new ActionRowBuilder({
         components: [
@@ -62,8 +68,14 @@ module.exports = {
         ]
       })];
 
-    if (birthday) embed.data.fields.push({ name: lang('birthday'), value: `${timestamp(birthday, TimestampStyles.LongDate)} (${getAge(birthday)})`, inline: true });
-    if (member.isCommunicationDisabled()) embed.data.fields.push({ name: lang('timedOutUntil'), value: timestamp(member.communicationDisabledUntilTimestamp), inline: true });
+    if (birthday) {
+      embed.data.fields.push({
+        name: lang('birthday'), inline: true,
+        value: `${timestamp(birthday, TimestampStyles.LongDate)} (${getAge(birthday)})`
+      });
+    }
+    if (member.isCommunicationDisabled())
+      embed.data.fields.push({ name: lang('timedOutUntil'), value: timestamp(member.communicationDisabledUntilTimestamp), inline: true });
     if (member.user.flags.bitfield) {
       embed.data.fields.push({
         name: lang('flags.name'), inline: false,
@@ -73,7 +85,9 @@ module.exports = {
     embed.addFields(
       {
         name: lang('rolesWithPerms'), inline: false,
-        value: [...member.roles.cache.values()].filter(e => e.permissions.bitfield != 0 && e.name != '@everyone').sort((a, b) => b.position - a.position)
+        value: [...member.roles.cache.values()]
+          .filter(e => e.permissions.bitfield != 0 && e.name != '@everyone')
+          .sort((a, b) => b.position - a.position)
           .join(', ')
       },
       {

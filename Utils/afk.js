@@ -69,7 +69,8 @@ module.exports.setAfkStatus = async function setAfkStatus(lang, global, message)
 module.exports.removeAfkStatus = async function removeAfkStatus() {
   if (!this.member || !this.guild) return; // `!this.guild` as typeguard
 
-  const { createdAt, message } = this.guild.db.afkMessages?.[this.member.id] ?? this.member.user.db.afkMessage ?? {}; // `member.user` for VoiceState support
+  // `member.user` for VoiceState support
+  const { createdAt, message } = this.guild.db.afkMessages?.[this.member.id] ?? this.member.user.db.afkMessage ?? {};
   if (!message) return;
 
   void unsetAfkPrefix(this.member);
@@ -82,8 +83,10 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
     msg = lang('events.message.afkEnd', { timestamp: timestamp(createdAt), formattedTime: timeFormatter(createdAt, lang).formatted, message });
 
   if ('customReply' in this) return this.customReply(msg);
-  if (this.channel?.permissionsFor(this.member.id).has(PermissionFlagsBits.SendMessages) && this.channel.permissionsFor(this.client.user.id).has(PermissionFlagsBits.SendMessages))
-    return this.channel.send(`${userMention(this.member.id)}\n${msg}`);
+  if (
+    this.channel?.permissionsFor(this.member.id).has(PermissionFlagsBits.SendMessages)
+    && this.channel.permissionsFor(this.client.user.id).has(PermissionFlagsBits.SendMessages)
+  ) return this.channel.send(`${userMention(this.member.id)}\n${msg}`);
 };
 
 /**

@@ -105,7 +105,10 @@ module.exports = {
       type = this.options?.getString('type') ?? this.args?.[0],
       blacklist = this.options?.getString('blacklist'),
       maxLength = this.options?.getInteger('max_length'),
-      [joke, api] = await getJoke.call(this.client, apiStr ? [defaultAPIList.find(e => e.name == apiStr)] : defaultAPIList, type, blacklist, maxLength);
+      [joke, api] = await getJoke.call(
+        this.client, apiStr ? [defaultAPIList.find(e => e.name == apiStr)] : defaultAPIList,
+        type, blacklist, maxLength
+      );
 
     if (!joke || !api) return this.customReply(lang('noAPIAvailable'));
 

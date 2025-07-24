@@ -75,7 +75,9 @@ module.exports = async function slashCommandHandler() {
       log.error(`Error on registering command ${command.name}:\n`, err);
     }
   }
-  log(`Registered ${registeredCommandCount} Slash Commands`)(`Skipped ${this.slashCommands.filter(e => e.skip && delete e.skip).size} Slash Commands`);
+
+  log(`Registered ${registeredCommandCount} Slash Commands`);
+  log(`Skipped ${this.slashCommands.filter(e => e.skip && delete e.skip).size} Slash Commands`);
 
   let deletedCommandCount = 0;
   for (const [, command] of await applicationCommands) {

@@ -1,5 +1,8 @@
 const
-  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors, ALLOWED_SIZES, hyperlink, channelMention, userMention, bold, inlineCode } = require('discord.js'),
+  {
+    MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, Colors, ALLOWED_SIZES,
+    hyperlink, channelMention, userMention, bold, inlineCode
+  } = require('discord.js'),
   { constants: { embedFieldValueMaxLength, suffix }, timeFormatter: { msInSecond } } = require('#Utils'),
   PURPLE = 0x822AED,
   AUDITLOG_FETCHLIMIT = 6,
@@ -49,7 +52,9 @@ module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.guild || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
 
   /** @type {lang} */
-  const lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['commands.minigames.counting.userDeletedMsg'] });
+  const lang = this.client.i18n.__.bBind(this.client.i18n, {
+    locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['commands.minigames.counting.userDeletedMsg']
+  });
 
   void countingHandler.call(this, lang);
   void wordchainHandler.call(this, lang);
@@ -58,8 +63,10 @@ module.exports = async function messageDelete() {
   if (!setting?.enabled) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
-  if (!channelToSend || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length)
-    return;
+  if (
+    !channelToSend || this.guild.members.me.permissionsIn(channelToSend)
+      .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length
+  ) return;
 
   await sleep(msInSecond); // Make sure the audit log gets created before trying to fetch it
 
@@ -70,8 +77,11 @@ module.exports = async function messageDelete() {
       .find(e => (e.target.id == this.user?.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,
-      thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: ALLOWED_SIZES[3] }) } : undefined, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 3rd valid resolution */
-      description: lang('messageDelete.embedDescription', { executor: executor ? userMention(executor.id) : lang('someone'), channel: this.channel.name }),
+      /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 3rd valid resolution */
+      thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: ALLOWED_SIZES[3] }) } : undefined,
+      description: lang('messageDelete.embedDescription', {
+        executor: executor ? userMention(executor.id) : lang('someone'), channel: this.channel.name
+      }),
       fields: [
         { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: true },
         { name: lang('messageDelete.content'), value: '', inline: false }
@@ -90,7 +100,8 @@ module.exports = async function messageDelete() {
   else if (field.value.length > embedFieldValueMaxLength) field.value = field.value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
 
   // We don't get the user if the message is not cached
-  if (this.user) embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (${inlineCode(this.user.id)})`, inline: true });
+  if (this.user)
+    embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (${inlineCode(this.user.id)})`, inline: true });
   if (executor) embed.data.fields.push({ name: lang('executor'), value: `${executor.tag} (${inlineCode(executor.id)})`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('reason'), value: reason, inline: false });
 

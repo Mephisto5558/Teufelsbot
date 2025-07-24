@@ -47,7 +47,9 @@ declare global {
   interface Array<T> {
 
     /**
-     * Gets a random array element by generating a cryptographically secure random number using {@link https://nodejs.org/api/crypto.html node:crypto}.
+     * Gets a random array element by generating a cryptographically secure random number using
+     * {@link https://nodejs.org/api/crypto.html node:crypto}.
+     *
      * May return undefined if the array is empty. */
     random(this: T[]): T | undefined;
 
@@ -158,10 +160,14 @@ declare global {
   type langBoundArgs = [i18nFuncConfig];
 
   /** {@link Function.prototype.bBind bBind}ed {@link I18nProvider.__} function */
-  type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string> & { __boundArgs__: langBoundArgs };
+  type lang = bBoundFunction<
+    I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string
+  > & { __boundArgs__: langBoundArgs };
 
   /** same as {@link lang}, but may return `undefined` due to undefinedNotFound being true on the {@link I18nProvider.__ original function}. */
-  type langUNF = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string | undefined> & { __boundArgs__: langBoundArgs };
+  type langUNF = bBoundFunction<
+    I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string | undefined
+  > & { __boundArgs__: langBoundArgs };
 
   // #endregion
 
@@ -196,7 +202,10 @@ declare global {
     aliases?: { prefix?: locals.BaseCommand['name'][] };
   };
 
-  type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = locals.BaseCommand<initialized>
+  type command<
+    commandType extends 'prefix' | 'slash' | 'both' = 'both',
+    guildOnly extends boolean = true, initialized extends boolean = false
+  > = locals.BaseCommand<initialized>
     & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
     & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
     & {
@@ -231,7 +240,9 @@ declare global {
     dmPermission?: boolean;
 
     /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled. */
-    autocompleteOptions?: string | locals.autocompleteOptions[] | ((this: Discord.AutocompleteInteraction) => locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>);
+    autocompleteOptions?: string | locals.autocompleteOptions[] | (
+      (this: Discord.AutocompleteInteraction) => locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>
+    );
 
     /**
      * Return an error message to the user, if their input is not included in {@link commandOptions.autocompleteOptions}.

@@ -3,6 +3,12 @@ const
   fetch = require('node-fetch').default,
   { constants: { messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
+const RATE_LIMIT_MSGS = ['Rate limit reached', 'Too many requests'];
+
+/** @param {{ type: string, message: string }} err */
+const isUnavailable = err => ['insufficient_quota', 'api_not_ready_or_request_error'].includes(err.type)
+  || err.message.startsWith('That model is currently overloaded');
+
 /**
  * @this {Interaction | Message}
  * @param {lang} lang
@@ -26,8 +32,10 @@ async function fetchAPI(lang, deep) {
   }).then(e => e.json());
 
   if ('error' in res) {
-    if (['Rate limit reached', 'Too many requests'].some(e => res.error.message.startsWith(e))) return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);
-    if (res.error.type == 'insufficient_quota' || res.error.message.startsWith('That model is currently overloaded') || res.error.type == 'api_not_ready_or_request_error') return lang('notAvailable');
+    if (RATE_LIMIT_MSGS.some(e => res.error.message.startsWith(e)))
+      return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);
+    if (isUnavailable(res.error))
+      return lang('notAvailable');
   }
 
   if ('choices' in res && res.choices[0].message.content) return res.choices[0].message.content;

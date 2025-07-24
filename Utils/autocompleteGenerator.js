@@ -16,14 +16,18 @@ module.exports = function autocompleteGenerator(command, locale) {
   if (this.options?._group) ({ options } = options.find(e => e.name == this.options._group));
   if (this.options?._subcommand) ({ options } = options.find(e => e.name == this.options._subcommand));
 
-  /** @type {{ autocompleteOptions: Exclude<commandOptions['autocompleteOptions'], Function> }} Excludes<> because we call autocompleteOptions below if it is a function */
+  /**
+   * @type {{ autocompleteOptions: Exclude<commandOptions['autocompleteOptions'], Function> }}
+   * Excludes<> because we call autocompleteOptions below if it is a function */
   let { autocompleteOptions } = options.find(e => e.name == this.focused.name) ?? {};
   if (typeof autocompleteOptions == 'function') autocompleteOptions = autocompleteOptions.call(this);
 
   if (typeof autocompleteOptions == 'string') return [response(autocompleteOptions)];
   if (Array.isArray(autocompleteOptions)) {
     return autocompleteOptions
-      .filter(e => !this.focused.value || (typeof e == 'object' ? e.value.toLowerCase() : e.toString().toLowerCase()).includes(this.focused.value.toLowerCase()))
+      .filter(e => !this.focused.value || (
+        typeof e == 'object' ? e.value.toLowerCase() : e.toString().toLowerCase()
+      ).includes(this.focused.value.toLowerCase()))
       .slice(0, autocompleteOptionsMaxAmt).map(e => typeof e == 'object' ? e : response(e));
   }
 
