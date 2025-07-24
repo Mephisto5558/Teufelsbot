@@ -34,17 +34,19 @@ module.exports = async function commandHandler() {
       command.usageLocalizations = usage[1];
 
       this.prefixCommands.set(command.name, command);
-      if (command.disabled) { if (!this.config.hideDisabledCommandLog) log(`Loaded Disabled Prefix Command ${command.name}`); }
-      else if (!command.beta && this.botType == 'dev') { if (!this.config.hideNonBetaCommandLog) log(`Loaded Non-Beta Prefix Command ${command.name}`); }
-      else log(`Loaded Prefix Command ${command.name}`);
+      if (command.disabled) {
+        if (!this.config.hideDisabledCommandLog) log(`Loaded Disabled Prefix Command ${command.name}`);
+      }
+      else if (command.beta || this.botType != 'dev') log(`Loaded Prefix Command ${command.name}`);
+      else if (!this.config.hideNonBetaCommandLog) log(`Loaded Non-Beta Prefix Command ${command.name}`);
 
       if (command.disabled || (this.botType == 'dev' && !command.beta)) disabledCommandCount++;
       else enabledCommandCount++;
 
       for (const alias of command.aliases?.prefix ?? []) {
         this.prefixCommands.set(alias, { ...command, name: alias, aliasOf: command.name });
-        if (command.disabled) !this.config.hideDisabledCommandLog && log(`Loaded Alias ${alias} of Prefix Command ${command.name} (disabled)`);
-        else log(`Loaded Alias ${alias} of Prefix Command ${command.name}`);
+        if (!command.disabled) log(`Loaded Alias ${alias} of Prefix Command ${command.name}`);
+        else if (!this.config.hideDisabledCommandLog) log(`Loaded Alias ${alias} of Prefix Command ${command.name} (disabled)`);
 
         if (command.disabled || (this.botType == 'dev' && !command.beta)) disabledCommandCount++;
         else enabledCommandCount++;

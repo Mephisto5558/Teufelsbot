@@ -141,7 +141,9 @@ export declare namespace BackupSystem {
   }
 }
 
-/** @returns The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally. */
+/**
+ * @returns The error key and replacement values for `lang()` or `false` if no error.
+ * Returns `true` if error happend but has been handled internally. */
 export declare function checkForErrors(
   this: BaseInteraction | Message,
   command: command<'both', boolean, true> | undefined, lang: lang
@@ -226,7 +228,8 @@ export declare function getTargetChannel<I extends Interaction | Message, T exte
 
 export declare function __getTargetMember<I extends Interaction | Message, T extends boolean>(
   interaction: I,
-  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T }, seenList: Map<Snowflake, I extends GuildInteraction | Message<true> ? GuildMember : User>
+  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T },
+  seenList: Map<Snowflake, I extends GuildInteraction | Message<true> ? GuildMember : User>
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
 
 /** @default targetOptionName = `target${index}` */

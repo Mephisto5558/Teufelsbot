@@ -12,8 +12,9 @@ module.exports = {
 
     return res.json({
       ...req.user,
+      avatarURL: this.client.users.cache.get(req.user.id)
       /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 1024 */
-      avatarURL: this.client.users.cache.get(req.user.id)?.avatarURL({ size: req.user.avatar.match(/\?size=(?<size>\d+)/)?.groups?.size ?? ALLOWED_SIZES[6] }) ?? req.user.avatar,
+        ?.avatarURL({ size: req.user.avatar.match(/\?size=(?<size>\d+)/)?.groups?.size ?? ALLOWED_SIZES[6] }) ?? req.user.avatar,
       dev: this.client.config.devIds.has(req.user.id)
     });
   }

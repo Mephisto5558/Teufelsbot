@@ -1,8 +1,10 @@
+/** @typedef {{ commandName: string, commandUsage: string, commandDescription: string, commandAlias: string }[]} commandList */
+
 /** @type {import('.').getCommands} */
 module.exports = function getCommands(lang) {
-  /** @type {{ category: string, subTitle: '', aliasesDisabled: boolean, list: { commandName: string, commandUsage: string, commandDescription: string, commandAlias: string }[] }[]} */
+  /** @type {{ category: string, subTitle: '', aliasesDisabled: boolean, list: commandList }[]} */
   const commandList = [...this.slashCommands.values(), ...this.prefixCommands.values()].unique().reduce((
-    /** @type {{ category: string, subTitle: string, list: Record<string, string>[] }[]} */ acc, cmd
+    /** @type {{ category: string, subTitle: string, list: commandList }[]} */ acc, cmd
   ) => {
     if (this.config.ownerOnlyFolders.includes(cmd.category) || cmd.disabled || cmd.aliasOf) return acc;
 

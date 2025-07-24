@@ -16,7 +16,10 @@ function getData(backup) {
         return size > BYTES_IN_KILOBITE ? `${(size / BYTES_IN_KILOBITE).toFixed(2)}KB` : `${size}B`;
       })(),
       members: backup.members?.length ?? 0,
-      channels: (backup.channels.categories.length + backup.channels.others.length + backup.channels.categories.reduce((acc, e) => acc + e.children.length, 0)) || 0,
+      channels: (
+        backup.channels.categories.length + backup.channels.others.length
+        + backup.channels.categories.reduce((acc, e) => acc + e.children.length, 0)
+      ) || 0,
       roles: backup.roles.length,
       emojis: backup.emojis.length,
       stickers: backup.stickers.length
@@ -39,7 +42,9 @@ const backupMainFunctions = {
         ], statusObj
       });
 
-    return this.editReply({ embeds: [embed.setDescription(lang('success', { id: inlineCode(backup.id), cmd: commandMention(this.commandName, this.commandId) }))] });
+    return this.editReply({
+      embeds: [embed.setDescription(lang('success', { id: inlineCode(backup.id), cmd: commandMention(this.commandName, this.commandId) }))]
+    });
   },
 
   load: async function loadBackup(lang, embed, id) {

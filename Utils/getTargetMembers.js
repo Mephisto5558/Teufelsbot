@@ -11,7 +11,8 @@ const searchCache = (query, filter, cache) => cache.find(e => filter(e) && [
 /** @type {import('.').__getTargetMember} */
 function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList) {
   if (interaction.inGuild()) {
-    let target = interaction.options?.getMember(targetOptionName) ?? interaction.mentions?.members.at(seenList.length) ?? interaction.mentions?.members.first();
+    let target = interaction.options?.getMember(targetOptionName)
+      ?? interaction.mentions?.members.at(seenList.length) ?? interaction.mentions?.members.first();
     if (interaction.content) {
       if (!target || seenList.has(target.id)) target = searchCache(interaction.content, e => !seenList.has(e.id), interaction.guild.members.cache);
       target ??= searchCache(interaction.content, e => !seenList.has(e.id), interaction.client.users.cache);
@@ -21,8 +22,11 @@ function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList
     return returnSelf && !seenList.has(interaction.member.id) ? interaction.member : undefined;
   }
 
-  let target = interaction.options?.getUser(targetOptionName) ?? interaction.mentions?.users.at(seenList.length) ?? interaction.mentions?.users.first();
-  if ((!target || seenList.has(target.id)) && interaction.content) target = searchCache(interaction.content, e => !seenList.has(e.id), interaction.client.users.cache);
+  let target = interaction.options?.getUser(targetOptionName)
+    ?? interaction.mentions?.users.at(seenList.length)
+    ?? interaction.mentions?.users.first();
+  if ((!target || seenList.has(target.id)) && interaction.content)
+    target = searchCache(interaction.content, e => !seenList.has(e.id), interaction.client.users.cache);
   if (target && !seenList.has(target.id)) return target;
 
   if (returnSelf && !seenList.has(interaction.user.id)) return interaction.user;

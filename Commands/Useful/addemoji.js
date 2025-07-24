@@ -9,8 +9,9 @@ const
 
 /** @param {string} url @returns {Promise<boolean>} */
 const checkUrl = url => new Promise((resolve, reject) => {
+  const req = (url.startsWith('https') ? https : http)
   /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- status codes 2xx and 3xx */
-  const req = (url.startsWith('https') ? https : http).request(url, { method: 'HEAD', timeout: msInSecond * 5 }, res => resolve(res.statusCode.inRange(199, 400)));
+    .request(url, { method: 'HEAD', timeout: msInSecond * 5 }, res => resolve(res.statusCode.inRange(199, 400)));
 
   req
     .on('timeout', () => req.destroy({ name: 'AbortError', message: 'Request timed out' }))
@@ -74,9 +75,14 @@ module.exports = {
     catch (err) {
       if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]')) // no check by err.code because it is just 50035 ("Invalid form body")
         embed.data.description = lang('error', codeBlock(lang('tooBig')));
-      else if (err.code != DiscordAPIErrorCodes.MaximumNumberOfEmojisReached && err.name != 'AbortError' && err.name != 'ConnectTimeoutError') throw err;
+      else if (err.code != DiscordAPIErrorCodes.MaximumNumberOfEmojisReached && err.name != 'AbortError' && err.name != 'ConnectTimeoutError')
+        throw err;
 
-      embed.data.description = lang('error', codeBlock(err.name == 'AbortError' || err.name == 'ConnectTimeoutError' ? lang('timedOut') : err.message));
+      embed.data.description = lang('error', codeBlock(
+        err.name == 'AbortError' || err.name == 'ConnectTimeoutError'
+          ? lang('timedOut')
+          : err.message
+      ));
     }
 
     return this.editReply({ embeds: [embed.setColor(Colors.Green)] });

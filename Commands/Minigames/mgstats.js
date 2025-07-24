@@ -2,7 +2,10 @@ const
   { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder, userMention, inlineCode, bold } = require('discord.js'),
   { getTargetMembers, getCommandName, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
-  sortOptions = ['m_wins', 'f_wins', 'm_draws', 'f_draws', 'm_losses', 'f_losses', 'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'],
+  sortOptions = [
+    'm_wins', 'f_wins', 'm_draws', 'f_draws', 'm_losses', 'f_losses',
+    'm_alphabet_user', 'f_alphabet_user', 'm_alphabet_nick', 'f_alphabet_nick'
+  ],
   TOPLIST_MAX_USERS = 3,
   maxPercentage = 100;
 
@@ -88,7 +91,8 @@ module.exports = {
       target = getTargetMembers(this, { returnSelf: true }),
       settings = this.options?.getString('settings'),
       leaderboards = this.client.db.get('leaderboards'),
-      [game, data] = Object.entries(leaderboards).find(([k]) => k.toLowerCase() == (this.options?.getString('game', true) ?? this.args[0]).toLowerCase()) ?? [],
+      [game, data] = Object.entries(leaderboards)
+        .find(([k]) => k.toLowerCase() == (this.options?.getString('game', true) ?? this.args[0]).toLowerCase()) ?? [],
       [sort, mode] = this.options?.getString('sort')?.split('_') ?? [];
 
     if (!data) return this.customReply(lang('notFound', Object.keys(leaderboards).map(inlineCode).join(', ')));
@@ -112,11 +116,18 @@ module.exports = {
           + `${lang('losses', formatStatCount(targetData.losses, targetData.games))}\n\n`;
 
         if (targetData.wonAgainst || targetData.lostAgainst || targetData.drewAgainst) embed.data.description += `${bold(lang('statsInfo'))}\n`;
-        if (targetData.wonAgainst) embed.data.description += lang('wonAgainst') + '\n' + (manageData.call(this, targetData.wonAgainst) ?? '> ' + lang('noOne')) + '\n\n';
-        if (targetData.lostAgainst) embed.data.description += lang('lostAgainst') + '\n' + (manageData.call(this, targetData.lostAgainst) ?? '> ' + lang('noOne')) + '\n\n';
-        if (targetData.drewAgainst) embed.data.description += lang('drewAgainst') + '\n' + (manageData.call(this, targetData.drewAgainst) ?? '> ' + lang('noOne')) + '\n';
+        if (targetData.wonAgainst)
+          embed.data.description += lang('wonAgainst') + '\n' + (manageData.call(this, targetData.wonAgainst) ?? '> ' + lang('noOne')) + '\n\n';
+        if (targetData.lostAgainst)
+          embed.data.description += lang('lostAgainst') + '\n' + (manageData.call(this, targetData.lostAgainst) ?? '> ' + lang('noOne')) + '\n\n';
+        if (targetData.drewAgainst)
+          embed.data.description += lang('drewAgainst') + '\n' + (manageData.call(this, targetData.drewAgainst) ?? '> ' + lang('noOne')) + '\n';
       }
-      else embed.data.description = target.id == this.member.id ? lang('youNoGamesPlayed', game) : lang('userNoGamesPlayed', { user: target.username, game });
+      else {
+        embed.data.description = target.id == this.member.id
+          ? lang('youNoGamesPlayed', game)
+          : lang('userNoGamesPlayed', { user: target.username, game });
+      }
 
       return this.customReply({ embeds: [embed] });
     }
@@ -125,7 +136,8 @@ module.exports = {
 
     embed.data.title = lang('embedTitleTop10', game);
     embed.data.description = formatTop.call(
-      this, Object.entries(data).filter(e => settings == 'all_users' || this.guild.members.cache.has(e[0])), sort, mode, lang, embedDescriptionMaxLength
+      this, Object.entries(data).filter(e => settings == 'all_users' || this.guild.members.cache.has(e[0])),
+      sort, mode, lang, embedDescriptionMaxLength
     ) ?? lang('noPlayers');
 
     const component = new ActionRowBuilder({

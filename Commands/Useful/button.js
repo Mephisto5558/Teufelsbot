@@ -1,6 +1,9 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError, codeBlock } = require('discord.js'),
-  { DiscordApiErrorCodes, constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionrowMaxAmt, actionRowMaxButtonAmt }, timeFormatter: { msInSecond } } = require('#Utils');
+  {
+    DiscordApiErrorCodes, timeFormatter: { msInSecond },
+    constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionrowMaxAmt, actionRowMaxButtonAmt }
+  } = require('#Utils');
 
 /** @type {command<'slash'>} */
 module.exports = {
@@ -76,17 +79,19 @@ module.exports = {
       }
 
       if (msg.user.id != this.client.user.id) return this.editReply(lang('botIsNotAuthor'));
-      if (msg.components.length >= messageActionrowMaxAmt && this.options.getBoolean('new_row') || msg.components[messageActionrowMaxAmt - 1].components.length >= actionRowMaxButtonAmt)
-        return this.editReply(lang('buttonLimitReached'));
+      if (
+        msg.components.length >= messageActionrowMaxAmt && this.options.getBoolean('new_row')
+        || msg.components[messageActionrowMaxAmt - 1].components.length >= actionRowMaxButtonAmt
+      ) return this.editReply(lang('buttonLimitReached'));
     }
 
     try {
       const button = new ButtonBuilder(custom
         ? JSON.parse(custom)
         : {
-          style: this.options.getNumber('style', true),
-          label, emoji, url
-        });
+            style: this.options.getNumber('style', true),
+            label, emoji, url
+          });
 
       if (!isLink) button.setCustomId(`buttonCommandButton_${Date.now()}`);
 

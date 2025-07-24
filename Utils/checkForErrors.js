@@ -29,16 +29,24 @@ function checkOptions(command, lang) {
 
   if (!option.options) return;
 
-  for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete, autocompleteOptions, choices, channelTypes }] of option.options.entries()) {
+  for (const [i, data] of option.options.entries()) {
+    const {
+      required, name, description, descriptionLocalizations, autocomplete,
+      strictAutocomplete, autocompleteOptions, choices, channelTypes
+    } = data;
+
     if (required && !this.options?.get(name) && !this.args?.[i]) {
       return ['paramRequired', {
         option: name,
-        description: descriptionLocalizations?.[lang.__boundArgs__[0].locale] ?? descriptionLocalizations?.[lang.__boundThis__.config.defaultLocale] ?? description
+        description: descriptionLocalizations?.[lang.__boundArgs__[0].locale]
+          ?? descriptionLocalizations?.[lang.__boundThis__.config.defaultLocale] ?? description
       }];
     }
 
-    if (channelTypes && (this.options?.get(name) || this.args?.[i]) && !channelTypes.includes(this.options?.getChannel(name).type ?? this.mentions.channels.at(i)?.type))
-      return ['invalidChannelType', name];
+    if (
+      channelTypes && (this.options?.get(name) || this.args?.[i])
+      && !channelTypes.includes(this.options?.getChannel(name).type ?? this.mentions.channels.at(i)?.type)
+    ) return ['invalidChannelType', name];
 
     const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]) != undefined);
     if (
@@ -51,7 +59,9 @@ function checkOptions(command, lang) {
       if (typeof autocompleteOptions != 'function') {
         return ['strictAutocompleteNoMatchWValues', {
           option: name,
-          availableOptions: Array.isArray(autocompleteOptions) ? autocompleteOptions.map(e => e.value ?? e).map(inlineCode).join(', ') : autocompleteOptions
+          availableOptions: Array.isArray(autocompleteOptions)
+            ? autocompleteOptions.map(e => e.value ?? e).map(inlineCode).join(', ')
+            : autocompleteOptions
         }];
       }
       return ['strictAutocompleteNoMatch', name];
@@ -69,16 +79,17 @@ function checkOptions(command, lang) {
  * @returns {Promise<boolean>} `false` if no permission issues have been found. */
 async function checkPerms(command, lang) {
   const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user ?? [], PermissionFlagsBits.SendMessages]);
-  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions?.client ?? [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
+  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel)
+    .missing([...command.permissions?.client ?? [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
 
   if (!botPermsMissing.length && !userPermsMissing.length) return false;
 
   const embed = new EmbedBuilder({
     title: lang('permissionDenied.embedTitle'),
-    description: lang(
-      `permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`,
-      { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', ') }
-    ),
+    description: lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, {
+      permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing,
+        lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', ')
+    }),
     color: Colors.Red
   });
 

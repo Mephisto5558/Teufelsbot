@@ -51,7 +51,9 @@ module.exports = {
     else {
       embed.data.description = lang('embedDescriptionMany');
       embed.data.fields = Object.entries(cmdStats)
-        .filter(([k]) => !this.client.config.ownerOnlyFolders.includes((this.client.prefixCommands.get(k) ?? this.client.slashCommands.get(k))?.category))
+        .filter(([k]) => !this.client.config.ownerOnlyFolders.includes(
+          (this.client.prefixCommands.get(k) ?? this.client.slashCommands.get(k))?.category
+        ))
         .map(([k, v = {}]) => [k, { total: Object.values(v).reduce((acc, e) => acc + e, 0), slash: bold(v.slash ?? 0), prefix: bold(v.prefix ?? 0) }])
         .sort(([, a], [, b]) => b.total - a.total)
         .slice(0, 10)

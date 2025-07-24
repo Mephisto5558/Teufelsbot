@@ -53,7 +53,9 @@ declare function customReply(
   this: RepliableInteraction | Message,
 
   // options: string | InteractionReplyOptions | MessagePayload | MessageEditOptions,
-  options: string | Parameters<RepliableInteraction['reply' | 'editReply' | 'followUp'] | Message['edit' | 'reply'] | GuildTextBasedChannel['send']>['0'],
+  options: string | Parameters<
+    RepliableInteraction['reply' | 'editReply' | 'followUp'] | Message['edit' | 'reply'] | GuildTextBasedChannel['send']
+  >['0'],
   deleteTime?: number,
   allowedMentions?: MessageMentionOptions
 ): Promise<InteractionResponse | Message>;

@@ -18,7 +18,10 @@ module.exports = async function voiceStateUpdate(newState) {
   if (!setting?.enabled || this.channelId == newState.channelId) return;
 
   const channelToSend = this.guild.channels.cache.get(setting.channel);
-  if (!channelToSend?.isTextBased() || this.guild.members.me.permissionsIn(channelToSend).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length) return;
+  if (
+    !channelToSend?.isTextBased() || this.guild.members.me.permissionsIn(channelToSend)
+      .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length
+  ) return;
 
   const
     embed = new EmbedBuilder({
@@ -28,16 +31,24 @@ module.exports = async function voiceStateUpdate(newState) {
     }),
 
     /** @type {lang} */
-    lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['events.logger.voiceStateUpdate'] }),
-    oldChannelField = () => ({ name: lang('oldChannel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false }),
-    newChannelField = () => ({ name: lang('newChannel'), value: `${channelMention(newState.channel.id)} (${inlineCode(newState.channel.id)})`, inline: false });
+    lang = this.client.i18n.__.bBind(this.client.i18n, {
+      locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['events.logger.voiceStateUpdate']
+    }),
+    oldChannelField = () => (
+      { name: lang('oldChannel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false }
+    ),
+    newChannelField = () => (
+      { name: lang('newChannel'), value: `${channelMention(newState.channel.id)} (${inlineCode(newState.channel.id)})`, inline: false }
+    );
 
   if (!this.channel?.id) {
     embed.data.description = lang('embedDescriptionJoin', { executor: userMention(newState.member.id), newChannel: newState.channel.name });
     embed.data.fields = [newChannelField()];
   }
   else if (newState.channelId) {
-    embed.data.description = lang('embedDescriptionMove', { executor: userMention(newState.member.id), oldChannel: this.channel.name, newChannel: newState.channel.name });
+    embed.data.description = lang('embedDescriptionMove', {
+      executor: userMention(newState.member.id), oldChannel: this.channel.name, newChannel: newState.channel.name
+    });
     embed.data.fields = [oldChannelField(), newChannelField()];
   }
   else {

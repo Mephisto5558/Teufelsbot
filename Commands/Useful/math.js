@@ -42,6 +42,8 @@ module.exports = {
     try { result = math.evaluate(expression); }
     catch (err) { return this.customReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('error', codeBlock(err.message)))] }); }
 
-    return this.customReply({ embeds: [embed.setDescription(lang('success', { expression: codeBlock(expression), result: codeBlock(addSpaces(result)) }))] });
+    return this.customReply({ embeds: [
+      embed.setDescription(lang('success', { expression: codeBlock(expression), result: codeBlock(addSpaces(result)) }))
+    ] });
   }
 };

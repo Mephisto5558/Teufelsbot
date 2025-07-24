@@ -198,7 +198,8 @@ class BackupSystem {
 
   /** @type {TBackupSystem['load']} */
   load = async (id, guild, {
-    statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
+    statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore,
+    maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     allowedMentions = [], reason = 'Backup Feature | Load'
   } = {}) => {
     /** @type {NonNullable<Database['backups'][import('../types/database').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
@@ -211,7 +212,8 @@ class BackupSystem {
       statusObj.status = 'clear.items';
       for (const [, item] of [
         ...await guild.channels.fetch(), ...await guild.emojis.fetch(), ...await guild.stickers.fetch(),
-        ...(await guild.roles.fetch()).filter(e => !e.managed && e.editable && e.id != guild.id && !guild.roles.cache.some(e2 => e2.name == e.name && e2.editable))
+        ...(await guild.roles.fetch())
+          .filter(e => !e.managed && e.editable && e.id != guild.id && !guild.roles.cache.some(e2 => e2.name == e.name && e2.editable))
       ]) {
         try { await item.delete(reason); }
         catch (err) {
@@ -326,7 +328,12 @@ class BackupSystem {
 
     statusObj.status = 'load.stickers';
     for (const sticker of data.stickers) {
-      try { await guild.stickers.create({ name: sticker.name, description: sticker.description, tags: sticker.tags, file: sticker.url ?? utils.loadFromBase64(sticker.base64), reason }); }
+      try {
+        await guild.stickers.create({
+          name: sticker.name, description: sticker.description, tags: sticker.tags,
+          file: sticker.url ?? utils.loadFromBase64(sticker.base64), reason
+        });
+      }
       catch (err) {
         if (err.code != DiscordAPIErrorCodes.MaximumNumberOfStickersReached) throw err;
         break;
@@ -341,7 +348,8 @@ class BackupSystem {
       }
     }
 
-    if (data.widget.channel) await guild.setWidgetSettings({ enabled: data.widget.enabled, channel: guild.channels.cache.find(e => e.name == data.widget.channel) }, reason);
+    if (data.widget.channel)
+      await guild.setWidgetSettings({ enabled: data.widget.enabled, channel: guild.channels.cache.find(e => e.name == data.widget.channel) }, reason);
 
     if (rulesChannel || publicUpdatesChannel) {
       statusObj.status = 'load.settings';

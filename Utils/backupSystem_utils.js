@@ -54,7 +54,11 @@ async function fetchCategoryChildren(category, saveImages, maxMessagesPerChannel
 
 /** @type {import('.').BackupSystem.Utils['fetchChannelMessages']} */
 async function fetchChannelMessages(channel, saveImages, maxMessagesPerChannel = 10) {
-  const messages = await channel.messages.fetch({ limit: Number.isNaN(Number.parseInt(maxMessagesPerChannel)) ? 10 : maxMessagesPerChannel.limit({ min: 1, max: maxMessagesPerChannelLimit }) });
+  const messages = await channel.messages.fetch({
+    limit: Number.isNaN(Number.parseInt(maxMessagesPerChannel))
+      ? 10
+      : maxMessagesPerChannel.limit({ min: 1, max: maxMessagesPerChannelLimit })
+  });
 
   return Promise.all(
     messages.filter(e => e.author).map(async e => ({
@@ -115,7 +119,9 @@ async function fetchTextChannelData(channel, saveImages, maxMessagesPerChannel) 
     rateLimitPerUser: channel.type == ChannelType.GuildText ? channel.rateLimitPerUser : undefined,
     topic: channel.topic,
     permissions: fetchChannelPermissions(channel),
-    messages: await fetchChannelMessages(channel, saveImages, maxMessagesPerChannel).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; }),
+    messages: await fetchChannelMessages(channel, saveImages, maxMessagesPerChannel).catch(err => {
+      if (!(err instanceof DiscordAPIError)) throw err;
+    }),
     threads: await fetchChannelThreads(channel, saveImages, maxMessagesPerChannel)
   };
 }
@@ -173,7 +179,10 @@ async function loadChannelMessages(channel, messages, webhook, maxMessagesPerCha
 
   if (!webhook) return;
 
-  for (const msg of messages.filter(e => e.content.length > 0 || e.embeds.length > 0 || e.attachments.length > 0).reverse().slice(-maxMessagesPerChannel)) {
+  for (const msg of messages
+    .filter(e => e.content.length > 0 || e.embeds.length > 0 || e.attachments.length > 0)
+    .reverse().slice(-maxMessagesPerChannel)
+  ) {
     try {
       const sentMsg = await webhook.send({
         allowedMentions,

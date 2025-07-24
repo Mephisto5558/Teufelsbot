@@ -28,7 +28,9 @@ module.exports = {
 
     try {
       const randomNumber = randomInt(min, max + 1).toLocaleString(lang.__boundArgs__[0].locale);
-      return this.customReply(lang('randomNumber', { randomNumber, min: min.toLocaleString(lang.__boundArgs__[0].locale), max: max.toLocaleString(lang.__boundArgs__[0].locale) }));
+      return this.customReply(lang('randomNumber', {
+        randomNumber, min: min.toLocaleString(lang.__boundArgs__[0].locale), max: max.toLocaleString(lang.__boundArgs__[0].locale)
+      }));
     }
     catch (err) {
       if (!(err instanceof RangeError || err.code == 'ERR_INVALID_ARG_TYPE')) throw err;

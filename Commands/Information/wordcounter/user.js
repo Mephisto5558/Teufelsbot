@@ -31,8 +31,11 @@ module.exports = {
       return this.customReply(lang('success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
     }
 
-    if (!this.user.db.wordCounter?.enabled)
-      return this.customReply(lang('notEnabledUser', commandMention(`${this.command.name} ${this.options.getSubcommandGroup()} enable`, this.command.id)));
+    if (!this.user.db.wordCounter?.enabled) {
+      return this.customReply(lang(
+        'notEnabledUser', commandMention(`${this.command.name} ${this.options.getSubcommandGroup()} enable`, this.command.id)
+      ));
+    }
 
     const
       embed = new EmbedBuilder({
