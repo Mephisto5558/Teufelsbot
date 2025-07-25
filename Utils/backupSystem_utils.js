@@ -181,7 +181,7 @@ async function loadChannelMessages(channel, messages, webhook, maxMessagesPerCha
 
   for (const msg of messages
     .filter(e => e.content.length > 0 || e.embeds.length > 0 || e.attachments.length > 0)
-    .reverse().slice(-maxMessagesPerChannel)
+    .toReversed().slice(-maxMessagesPerChannel)
   ) {
     try {
       const sentMsg = await webhook.send({

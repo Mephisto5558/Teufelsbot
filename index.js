@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 console.time('Initializing time');
 console.info('Starting...');
 

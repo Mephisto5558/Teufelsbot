@@ -187,7 +187,7 @@ class BackupSystem {
 
       let guildBackups = Object.keys(backups).filter(e => e.startsWith(guild.id));
       if (guildBackups.length > maxGuildBackups) {
-        guildBackups = guildBackups.toSorted().reverse().slice(0, maxGuildBackups);
+        guildBackups = guildBackups.toSorted().toReversed().slice(0, maxGuildBackups);
         for (const backupId of guildBackups) await this.db.delete(this.dbName, backupId);
       }
       else await this.db.update(this.dbName, data.id, data);
