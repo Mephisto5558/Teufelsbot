@@ -183,7 +183,7 @@ module.exports = {
 /* eslint-disable unicorn/consistent-function-scoping, camelcase, @typescript-eslint/no-magic-numbers
 -- in there due to performance reasons (testing code not used in production) */
 
-/** Tests the purge filters */
+/** tests the purge filters */
 /** @typedef {{ input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean }} data */
 function _testPurge() {
   /** @param {data[]} data */

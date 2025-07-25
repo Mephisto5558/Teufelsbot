@@ -259,10 +259,10 @@ Object.defineProperties(User.prototype, {
 
   /** @type {Record<string, (this: User, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale>} */
   localeCode: {
-    // website db user locale can be `null`
     get() {
       const locale = this.db.localeCode
-        ?? Object.values(this.client.db.get('website', 'sessions')).find(e => e.user?.id == this.id)?.user?.locale ?? undefined;
+        ?? Object.values(this.client.db.get('website', 'sessions')).find(e => e.user?.id == this.id)?.user?.locale
+        ?? undefined; // website db user locale can be `null`
       return locale?.startsWith('en') ? 'en' : locale;
     },
     set(val) { void this.updateDB('localeCode', val); }

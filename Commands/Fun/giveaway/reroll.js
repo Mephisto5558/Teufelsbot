@@ -15,7 +15,7 @@ module.exports = {
     };
 
     await this.client.giveawaysManager.reroll(giveawayId, rerollOptions).then(() => {
-      components[0].components[0].data.url = giveawayId; // Using .then() here to prevent eslint/require-atomic-updates
+      components[0].components[0].data.url = giveawayId; // using .then() here to prevent `eslint/require-atomic-updates`
     });
 
     return this.editReply({ content: lang('rerolled'), components });
