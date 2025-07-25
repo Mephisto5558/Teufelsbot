@@ -16,7 +16,6 @@ function findAllEntries(obj, key, entryList = {}) {
 
 module.exports = findAllEntries;
 
-/** Tests the findAllEntries function */
 function _testFindAllEntries() {
   const testCases = [
     {

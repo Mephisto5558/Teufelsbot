@@ -47,7 +47,7 @@ module.exports = {
     const
       startTime = Date.now() - process.uptime() * msInSecond,
       description
-        = `${lang('dev')}: ${hyperlink('Mephisto5558', userURL('691550551825055775'))}\n` // Please do not change this line
+        = `${lang('dev')}: ${hyperlink('Mephisto5558', userURL('691550551825055775'))}\n` // Please do not change this line.
           + (this.inGuild()
             ? `${lang('shard')}: ${inlineCode(this.guild.shardId)}\n`
             + `${lang('guild')}: ${inlineCode(this.guild.db.position)}\n`
