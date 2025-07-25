@@ -1,4 +1,4 @@
-import type { EmbedData, Base64String, GuildChannelType, GuildFeature } from 'discord.js';
+import type { EmbedData, Base64String, GuildChannelType, GuildFeature, GuildChannel, BaseGuildVoiceChannel, Role } from 'discord.js';
 import type { ISODateTime } from '../globals';
 
 import type { userId, backupId, guildId } from './common';
@@ -51,13 +51,13 @@ export type backups = Record<backupId, {
   iconURL: string;
   splashURL: string | null;
   bannerURL: string | null;
-  systemChannel: string; // Channelname
+  systemChannel: GuildChannel['name'];
   systemChannelFlags?: number;
   verificationLevel: number;
   explicitContentFilter: number;
   defaultMessageNotifications: number;
   afk?: {
-    name: string; // Channelname
+    name: BaseGuildVoiceChannel['name'];
     timeout: number;
   };
   widget: {
@@ -71,7 +71,7 @@ export type backups = Record<backupId, {
     nickname: string | null;
     avatarUrl: string;
     bannerUrl: string;
-    roles: string[]; // Rolename
+    roles: Role['name'][];
     bot: boolean;
   }[];
   bans: {
