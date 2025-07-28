@@ -36,24 +36,23 @@ const requiredEnv = [
   'dbConnectionStr', 'token', 'secret'
 ];
 
-  overwrites = Object.fromEntries(Object.entries({
-    globals: ['globalThis.sleep()', 'globalThis.log()', 'globalThis.getEmoji()'], // TODO: getEmoji should probably not be global
-    vanilla: [
-      parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
-      'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()',
-      'Object#filterEmpty()', 'Object#__count__', 'BigInt#toJSON()'
-    ],
-    discordJs: [
-      'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
-      'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config',
-      'Client#loadEnvAndDB()', 'Client#awaitReady()',
-      'Message#originalContent', 'Message#args', 'Message#commandName', 'Message#user', 'Message#customReply()', 'Message#runMessages',
-      'BaseInteraction#customReply()', 'AutocompleteInteraction#focused',
-      'User#localeCode', 'User#db', 'User#updateDB()', 'User#deleteDB()',
-      'GuildMember#db', 'GuildMember#localeCode',
-      'Guild#localeCode', 'Guild#db', 'Guild#updateDB()', 'Guild#deleteDB()'
-    ]
-  }).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
+const overwrites = Object.fromEntries(Object.entries({
+  globals: ['globalThis.sleep()', 'globalThis.log()'],
+  vanilla: [
+    parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
+    'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()', 'Object#__count__', 'BigInt#toJSON()'
+  ],
+  discordJs: [
+    'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
+    'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config',
+    'Client#loadEnvAndDB()', 'Client#awaitReady()',
+    'Message#originalContent', 'Message#args', 'Message#commandName', 'Message#user', 'Message#customReply()', 'Message#runMessages',
+    'BaseInteraction#customReply()', 'AutocompleteInteraction#focused',
+    'User#localeCode', 'User#db', 'User#updateDB()', 'User#deleteDB()',
+    'GuildMember#db', 'GuildMember#localeCode',
+    'Guild#localeCode', 'Guild#db', 'Guild#updateDB()', 'Guild#deleteDB()'
+  ]
+}).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
 
 if (!config.hideOverwriteWarning) {
   console.warn([
@@ -270,6 +269,14 @@ Object.defineProperties(GuildMember.prototype, {
   customName: {
     get() { return this.guild.db.customNames?.[this.id] ?? this.displayName; },
     set(val) { void this.guild.updateDB(`customNames.${this.id}`, val); }
+  },
+
+  /** @type {Record<string, (this: GuildMember, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale>} */
+  localeCode: {
+    get() {
+      return this.user.localeCode ?? this.guild.localeCode;
+    },
+    set(val) { void this.user.updateDB('localeCode', val); }
   }
 });
 Object.defineProperties(Guild.prototype, {

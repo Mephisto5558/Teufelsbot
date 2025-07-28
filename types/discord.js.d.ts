@@ -154,6 +154,12 @@ declare module 'discord.js' {
     get db(): Record<string, unknown> | undefined;
     customName: string;
     customTag: string;
+
+    /**
+     * ```js
+     *  this.user.localeCode ?? this.guild.localeCode
+     * ``` */
+    get localeCode(): LangLocaleCode | undefined;
   }
 
   interface Guild {
