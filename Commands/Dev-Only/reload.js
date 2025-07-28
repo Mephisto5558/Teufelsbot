@@ -61,7 +61,7 @@ async function reloadCommand(command, reloadedArray) {
 
     for (const alias of [...file.aliases?.slash ?? [], ...command.aliases?.slash ?? []].unique()) {
       const { id } = this.slashCommands.get(alias) ?? {};
-      let cmdId;
+      let cmdId = id;
 
       if (equal) {
         this.slashCommands.delete(alias);
@@ -72,6 +72,8 @@ async function reloadCommand(command, reloadedArray) {
 
         if (file.disabled || this.botType == 'dev' && !file.beta) {
           if (id) await this.application.commands.delete(id);
+          cmdId = undefined;
+
           log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${file.name})`);
         }
         else {
@@ -113,7 +115,7 @@ module.exports = {
       /** @type {(string | undefined)[]} */
       reloadedArray = [];
 
-    let errorOccurred;
+    let errorOccurred = false;
     try {
       switch (this.args[0].toLowerCase()) {
         case 'file': {

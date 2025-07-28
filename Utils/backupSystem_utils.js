@@ -150,7 +150,7 @@ async function loadChannel(channel, guild, category, maxMessagesPerChannel, allo
 
   const newChannel = await guild.channels.create(createOptions);
   if (Constants.TextBasedChannelTypes.includes(channel.type)) {
-    /** @type {import('discord.js').Webhook | undefined} */
+    /** @type {import('discord.js').Webhook<import('discord.js').WebhookType.Incoming> | undefined} */
     let webhook;
     if (channel.messages.length > 0) {
       try { webhook = await loadChannelMessages(newChannel, channel.messages, undefined, maxMessagesPerChannel, allowedMentions); }

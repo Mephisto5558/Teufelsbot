@@ -1,5 +1,8 @@
 const
-  { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants, codeBlock, hyperlink, MessageFlags } = require('discord.js'),
+  {
+    ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, MessageFlags, DiscordjsErrorCodes,
+    Constants, codeBlock, hyperlink
+  } = require('discord.js'),
   { DiscordApiErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute }, toMs: { secToMs } } = require('#Utils'),
   MODALSUBMIT_TIMEOUT = msInSecond * secsInMinute / 2; // 30s
 
@@ -42,12 +45,11 @@ module.exports = {
       }),
       clear = this.options.getBoolean('remove_attachments');
 
-    /** @type {Message?} */
+    /** @type {Message | undefined} */
     let msg, modalInteraction;
     try { msg = await this.options.getChannel('channel', true).messages.fetch(this.options.getString('message_id', true)); }
     catch (err) {
       if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
-
       return this.reply({ content: lang('notFound'), flags: MessageFlags.Ephemeral });
     }
 
@@ -56,7 +58,7 @@ module.exports = {
 
     void this.showModal(modal);
     try { modalInteraction = await this.awaitModalSubmit({ filter: i => i.customId == 'newContent_modal', time: MODALSUBMIT_TIMEOUT }); }
-    catch (err) { if (err.code != 'InteractionCollectorError') throw err; }
+    catch (err) { if (err.code != DiscordjsErrorCodes.InteractionCollectorError) throw err; }
 
     if (!modalInteraction) return this.reply({ content: lang('global.menuTimedOut'), flags: MessageFlags.Ephemeral });
 

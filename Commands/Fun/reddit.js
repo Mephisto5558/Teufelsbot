@@ -6,23 +6,27 @@ const
   CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
   maxPercentage = 100,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
-  /** @type {import('./reddit').Cache} */ cachedSubreddits = new Collection(),
-  fetchPost = (/** @type {import('./reddit').RedditPage} */ { children }, filterNSFW = true) => {
-    children = children.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
-    if (!children.length) return;
+  /** @type {import('./reddit').Cache} */ cachedSubreddits = new Collection();
 
-    const
-      post = children.random().data,
-      imageURL = post.media?.oembed?.thumbnail_url ?? post.url;
+/**
+ * @param {Partial<import('./reddit').RedditPage>} page
+ * @param {boolean} filterNSFW */
+function fetchPost({ children } = {}, filterNSFW = true) {
+  children = children?.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
+  if (!(children?.length ?? 0)) return;
 
-    return {
-      ...post,
-      upvoteRatio: `${post.upvote_ratio * maxPercentage}%`,
-      downs: post.downs || Math.round(post.ups / post.upvote_ratio - post.ups), // post.downs is always 0 for some reason
-      permalink: `https://www.reddit.com${post.permalink}`,
-      imageURL: /^https?:\/\//i.test(imageURL) ? imageURL : `https://reddit.com${imageURL}`
-    };
+  const
+    post = children.random().data,
+    imageURL = post.media?.oembed?.thumbnail_url ?? post.url;
+
+  return {
+    ...post,
+    upvoteRatio: `${post.upvote_ratio * maxPercentage}%`,
+    downs: post.downs || Math.round(post.ups / post.upvote_ratio - post.ups), // post.downs is always 0 for some reason
+    permalink: `https://www.reddit.com${post.permalink}`,
+    imageURL: /^https?:\/\//i.test(imageURL) ? imageURL : `https://reddit.com${imageURL}`
   };
+}
 
 /** @type {command<'both', false>} */
 module.exports = {
@@ -62,10 +66,8 @@ module.exports = {
     if (subreddit.startsWith('r/')) subreddit = subreddit.slice(2);
     subreddit = subreddit.replaceAll(/\W/g, '');
 
-    let post;
-
-    if (cachedSubreddits.has(`${subreddit}_${type}`)) post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`), filterNSFW);
-    else {
+    let post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`), filterNSFW);
+    if (!post) {
       let /** @type {import('./reddit').RedditResponse | import('./reddit').RedditErrorResponse} */ res;
       try {
         res = await fetch(`https://oauth.reddit.com/r/${subreddit}/${type}.json`, {
