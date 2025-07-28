@@ -50,22 +50,19 @@ module.exports = {
 
     // Remove exclude chars and add include chars to the charset
     let charset = [...DEFAULT_CHARSET.filter(char => !exclude.includes(char)), ...include]
-      .unique().join(''); // Remove duplicates and join to a string.
+      .unique(); // Remove duplicates
 
     if (!charset.length) return this.editReply(lang('charsetEmpty')); // Return if charset is empty
 
     // Loop over the amount of passwords to be generated, break early if the length of all passwords combined is greater than `MAX_MESSAGE_LENGTH`
     for (let i = 0; i < count && passwordList.join('\n').length < MAX_MESSAGE_LENGTH; i++) {
-      let
-        lastRandomChar,
-        password = '';
-
-      for (let i = 0; i < length; i++) {
+      let password = '';
+      for (let lastRandomChar, i = 0; i < length; i++) {
         // Get the random char and escape it so they it doesn't break formatting
         const randomChar = String.raw({ raw: getRandomChar(charset, lastRandomChar) });
 
         // Adds one of the chars in the charset to the password
-        password += lastRandomChar + randomChar;
+        password += randomChar;
         lastRandomChar = randomChar; // Sets lastRandomChar to the last generated char
       }
 
@@ -74,8 +71,8 @@ module.exports = {
     }
 
     // Limits the *displayed* charset length
-    if (charset.length > MAX_DISPLAYED_CHARSET_LEN) charset = charset.slice(0, MAX_DISPLAYED_CHARSET_LEN - suffix.length) + suffix;
+    if (charset.length > MAX_DISPLAYED_CHARSET_LEN) charset = charset.slice(0, MAX_DISPLAYED_CHARSET_LEN - suffix.length).join('') + suffix;
 
-    return this.editReply(lang('success', { passwords: passwordList.join('\n'), charset: codeBlock(charset) }));
+    return this.editReply(lang('success', { passwords: passwordList.join('\n'), charset: codeBlock(charset.join('')) }));
   }
 };
