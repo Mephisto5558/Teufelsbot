@@ -6,7 +6,7 @@ const
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
-  { secsInDay, timestamp } = require('../timeFormatter'),
+  { secsInDay, timestamp, daysInMonthMin } = require('../timeFormatter'),
   { dayToMs, minToMs } = require('../toMs.js');
 
 /** @type {import('.').ban_kick_mute} */
@@ -18,15 +18,15 @@ module.exports = async function ban_kick_mute(lang) {
   const resEmbed = new EmbedBuilder({ title: lang('infoEmbedTitle'), color: Colors.Red });
 
   let
-    noMsg, muteDurationMs, muteDurationRelative,
+    noMsg = false,
+    muteDurationMs, muteDurationRelative,
 
     /** @type {number} */
     muteDuration = this.options.getString('duration') ?? 0,
     reason = this.options.getString('reason', true);
 
   if (muteDuration) {
-    /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
-    muteDuration = getMilliseconds(muteDuration).limit?.({ min: minToMs(1), max: dayToMs(28) });
+    muteDuration = getMilliseconds(muteDuration).limit?.({ min: minToMs(1), max: dayToMs(daysInMonthMin) });
     if (!muteDuration || typeof muteDuration == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
 
     muteDurationMs = Date.now() + muteDuration;

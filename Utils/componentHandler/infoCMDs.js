@@ -18,12 +18,14 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
   lang.__boundArgs__[0].backupPaths[0] = `events.command.infoCMDs.${entityType}`;
 
-  const
-    embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red }),
-    item = await this.guild[entityType].fetch(id).catch(err => {
-      if (![DiscordAPIErrorCodes.UnknownMember, DiscordAPIErrorCodes.UnknownRole, DiscordAPIErrorCodes.UnknownEmoji].includes(err.code))
-        throw err;
-    });
+  const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
+  let item;
+
+  try { item = await this.guild[entityType].fetch(id); }
+  catch (err) {
+    if (![DiscordAPIErrorCodes.UnknownMember, DiscordAPIErrorCodes.UnknownRole, DiscordAPIErrorCodes.UnknownEmoji].includes(err.code))
+      throw err;
+  }
 
   if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], flags: MessageFlags.Ephemeral });
 

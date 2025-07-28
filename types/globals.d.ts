@@ -15,6 +15,7 @@ type ISODateTime = `${ISODate}T${ISOTime}Z`;
 // #region global
 declare global {
   // #region Buildins
+  /* eslint-disable @typescript-eslint/consistent-type-definitions */
   namespace NodeJS {
     interface Process {
 
@@ -136,6 +137,7 @@ declare global {
     toISOString(): ISODateTime;
   }
 
+  /* eslint-enable @typescript-eslint/consistent-type-definitions */
   // #endregion
 
   // #region custom
@@ -302,12 +304,12 @@ declare global {
   type OptionalMessageProperties<inGuild extends boolean = boolean> = Partial<Message<inGuild>>;
 
   /** interface for an interaction in a guild. */
-  // @ts-expect-error not important due to this being like a type
+  /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
   interface GuildInteraction extends Discord.ChatInputCommandInteraction<'cached'>, OptionalMessageProperties<true> {
   }
 
   /** interface for an interaction in a direct message. */
-  // @ts-expect-error not important due to this being like a type
+  /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
   interface DMInteraction extends Discord.ChatInputCommandInteraction<undefined>, OptionalMessageProperties<false> {
     inGuild(): false;
     inRawGuild(): false;
@@ -324,6 +326,7 @@ declare global {
 }
 
 // #endregion
+/* eslint-disable @typescript-eslint/consistent-type-definitions -- working in lib's style */
 
 // @ts-expect-error // keeping this here for documentation reasons, even tho it doesn't do anything sadly
 declare module 'discord-tictactoe' {

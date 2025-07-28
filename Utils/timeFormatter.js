@@ -7,6 +7,7 @@ const
   minutesInHour = 60,
   hoursInDay = 24,
   daysInWeek = 7,
+  daysInMonthMin = 28,
   daysInMonthAvg = 30,
   daysInMonthMax = 31,
   daysInYear = 365,
@@ -51,7 +52,7 @@ function timestamp(time, code) {
 }
 
 module.exports = {
-  timeFormatter, timestamp,
-  msInSecond, secsInMinute, minutesInHour, hoursInDay, daysInWeek, daysInMonthAvg, daysInMonthMax,
-  daysInYear, monthsInYear, secsInHour, secsInDay, secsInWeek, secsInMonth, secsInYear
+  msInSecond, secsInMinute, minutesInHour, hoursInDay, daysInWeek, daysInMonthMin, daysInMonthAvg, daysInMonthMax,
+  daysInYear, monthsInYear, secsInHour, secsInDay, secsInWeek, secsInMonth, secsInYear, YEAR_STR_LENGTH, DATETIME_STR_LENGTH,
+  timeFormatter, timestamp
 };
