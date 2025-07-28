@@ -37,17 +37,21 @@ const requiredEnv = [
 ];
 
 const overwrites = Object.fromEntries(Object.entries({
-  globals: ['globalThis.sleep', 'globalThis.log', 'globalThis.getEmoji'], // TODO: getEmoji should probably not be global
+  globals: ['globalThis.sleep', 'globalThis.log()', 'globalThis.getEmoji()'], // TODO: getEmoji should probably not be global
   vanilla: [
     parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
-    'Array#random', 'Array#unique', 'Number#limit', 'Number#inRange',
-    'Object#filterEmpty', 'Object#__count__', 'Function#bBind', 'BigInt#toJSON'
+    'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()',
+    'Object#filterEmpty()', 'Object#__count__', 'Function#bBind()', 'BigInt#toJSON()'
   ],
   discordJs: [
-    'BaseInteraction#customReply', 'Message#user', 'Message#customReply', 'Message#runMessages', 'Client#prefixCommands',
-    'Client#slashCommands', 'Client#cooldowns', 'Client#loadEnvAndDB', 'Client#awaitReady', 'Client#defaultSettings',
-    'Client#settings', 'AutocompleteInteraction#focused', 'User#db', 'User#updateDB', 'User#localeCode', 'Guild#db',
-    'Guild#updateDB', 'Guild#localeCode', 'GuildMember#db'
+    'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
+    'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config',
+    'Client#loadEnvAndDB()', 'Client#awaitReady()',
+    'Message#originalContent', 'Message#args', 'Message#commandName', 'Message#user', 'Message#customReply()', 'Message#runMessages',
+    'BaseInteraction#customReply()', 'AutocompleteInteraction#focused',
+    'User#db', 'User#updateDB', 'User#deleteDB', 'User#customName', 'User#customTag', 'User#localeCode',
+    'GuildMember#db', 'GuildMember#customName', 'GuildMember#customTag', 'GuildMember#localeCode',
+    'Guild#db', 'Guild#updateDB()', 'Guild#deleteDB()', 'Guild#localeCode'
   ]
 }).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
 
@@ -279,6 +283,14 @@ Object.defineProperties(GuildMember.prototype, {
   customName: {
     get() { return this.guild.db.customNames?.[this.id] ?? this.displayName; },
     set(val) { void this.guild.updateDB(`customNames.${this.id}`, val); }
+  },
+
+  /** @type {Record<string, (this: GuildMember, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale>} */
+  localeCode: {
+    get() {
+      return this.user.localeCode ?? this.guild.localeCode;
+    },
+    set(val) { void this.user.updateDB('localeCode', val); }
   }
 });
 Object.defineProperties(Guild.prototype, {
