@@ -114,7 +114,7 @@ void (async function main() {
   /** Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution */
   const handlerPromises = [
     ...Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(([,handler]) => handler.call(newClient)),
-    newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add(app.owner.owner?.id ?? app.owner?.id))
+    newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add(app.owner?.owner?.id ?? app.owner?.id))
   ];
 
   /** @type {Client<true>} */
