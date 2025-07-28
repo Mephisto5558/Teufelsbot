@@ -74,6 +74,6 @@ module.exports = {
     // Limits the *displayed* charset length.
     if (charset.length > MAX_DISPLAYED_CHARSET_LEN) charset = charset.slice(0, MAX_DISPLAYED_CHARSET_LEN - suffix.length).join('') + suffix;
 
-    return this.editReply(lang('success', { passwords: passwordList.join('\n'), charset: codeBlock(charset) }));
+    return this.editReply(lang('success', { passwords: passwordList.join('\n'), charset: codeBlock(charset.join('')) }));
   }
 };
