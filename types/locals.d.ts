@@ -95,7 +95,7 @@ type BaseCommand<initialized extends boolean = boolean> = {
   };
 });
 
-interface Config {
+type Config = {
   /** Will always include the bot's user id and the application owner id */
   devIds: Set<Snowflake>;
   website: {
@@ -129,7 +129,7 @@ interface Config {
   replyOnNonBetaCommand: boolean;
   disableWebserver?: boolean;
   enableConsoleFix?: boolean;
-}
+};
 
 type BoundFunction = new (
   this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang

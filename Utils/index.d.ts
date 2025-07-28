@@ -2,7 +2,7 @@ import type {
   DMChannel, GuildChannel, GuildMember, Role, User, Collection, Guild, Snowflake,
   APIAllowedMentions, Message, BaseInteraction, MessageComponentInteraction,
   AutocompleteInteraction, CategoryChannel, GuildTextBasedChannel, GuildChannelManager,
-  Webhook, VoiceState, TimestampStylesString, DateResolvable
+  Webhook, WebhookType, VoiceState, TimestampStylesString, DateResolvable, BaseGuildTextChannel
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
 import type { GiveawaysManager, GiveawayData } from 'discord-giveaways';
@@ -46,17 +46,17 @@ export declare function autocompleteGenerator(
 
 type MaybeWithUndefined<X, T extends boolean> = T extends true ? X : X | undefined;
 export declare namespace BackupSystem {
-  interface Options {
+  type Options = {
     dbName?: string;
     maxGuildBackups?: number;
     maxMessagesPerChannel?: number;
     saveImages?: boolean;
     clearGuildBeforeRestore?: boolean;
-  }
+  };
 
-  interface StatusObject {
+  type StatusObject = {
     status?: string;
-  }
+  };
 
   type Backup = Database['backups'][backupId];
 
@@ -89,10 +89,10 @@ export declare namespace BackupSystem {
       allowedMentions: APIAllowedMentions
     ): ReturnType<GuildChannelManager['create']>;
 
-    loadChannelMessages<T extends Webhook | undefined>(
-      channel: GuildTextBasedChannel, messages: backupChannel['messages'], webhook: T,
+    loadChannelMessages<WEBHOOK = Webhook<WebhookType.Incoming>, T extends WEBHOOK | undefined>(
+      channel: BaseGuildTextChannel, messages: backupChannel['messages'], webhook: T,
       maxMessagesPerChannel: number, allowedMentions: APIAllowedMentions
-    ): Promise<T extends Webhook ? T : undefined>;
+    ): Promise<T extends WEBHOOK ? T : WEBHOOK | undefined>;
   };
 
   /* eslint-disable-next-line @typescript-eslint/no-shadow -- false positive */
@@ -323,7 +323,7 @@ declare namespace TFormatter {
   /* eslint-disable @typescript-eslint/no-magic-numbers */
   const
     msInSecond: 1000, secsInMinute: 60, minutesInHour: 60, hoursInDay: 24,
-    daysInWeek: 7, daysInMonthAvg: 30, daysInMonthMax: 31, daysInYear: 365, monthsInYear: 12,
+    daysInWeek: 7, daysInMonthMin: 28, daysInMonthAvg: 30, daysInMonthMax: 31, daysInYear: 365, monthsInYear: 12,
     secsInHour: number, secsInDay: number, secsInWeek: number, secsInMonth: number, secsInYear: number;
   /* eslint-enable @typescript-eslint/no-magic-numbers */
 }

@@ -18,9 +18,6 @@ function handleError(err) {
 /** @type {import('.').customReply} */
 
 module.exports = async function customReply(options, deleteTime, allowedMentions) {
-  /** @type {Message | undefined} */
-  let msg;
-
   if (typeof options != 'object') options = { content: options };
   else if ('options' in options) ({ options } = options);
 
@@ -40,6 +37,8 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
     delete options.content;
   }
 
+  /** @type {Message | undefined} */
+  let msg;
   if (this instanceof BaseInteraction) {
     try { msg = await (this.replied || this.deferred ? this.editReply(options) : this.reply(options)); }
     catch (err) {

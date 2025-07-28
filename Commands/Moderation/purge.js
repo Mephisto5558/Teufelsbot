@@ -4,6 +4,7 @@ const
   maxPercentage = 100,
   maxMsgsToFetch = 100,
   maxAllowedPurgeAmt = 1000,
+  bulkDeleteSleepTime = 2000,
 
   /**
    * @type {(str: string) => boolean}
@@ -67,7 +68,9 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
   const options = { limit: Math.min(limit, maxMsgsToFetch), before, after };
 
   let
-    lastId,
+    lastId = channel.lastMessageId,
+
+    /** @type {Collection<Snowflake, Message>} */
     collection = new Collection();
 
   while (collection.size < limit) {
@@ -78,7 +81,7 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
 
     /* eslint-disable-next-line unicorn/prefer-spread -- false positive: Collection extends Map, not Array */
     collection = collection.concat(messages);
-    lastId = messages.at(-1).id;
+    lastId = messages.at(-1)?.id;
     options.limit = Math.min(limit - collection.size, maxMsgsToFetch);
   }
 
@@ -140,14 +143,12 @@ module.exports = {
 
       /** @type {import('discord.js').GuildTextBasedChannel} */
       channel = getTargetChannel(this, { returnSelf: true }),
+
+      /** @type {import('./purge').shouldDeleteMsgOptions} */
       options = Object.fromEntries(this.options?.data.map(e => [e.name, e.value]) ?? []);
 
-    let
-      messages,
-      count = 0;
-
     if (!amount) return this.customReply(Number.isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
-    if (options.before != undefined && options.after != undefined) return this.customReply(lang('beforeAndAfter'));
+    if (options.before_message != undefined && options.after_message != undefined) return this.customReply(lang('beforeAndAfter'));
 
     if (this instanceof Message) {
       try { await this.delete(); }
@@ -156,24 +157,28 @@ module.exports = {
       }
     }
 
-    if (filterOptionsExist(options)) {
-      if (
-        options.contains?.includes(options.does_not_contain) || options.does_not_contains?.includes(options.contains)
-        || options.starts_with != undefined && options.does_not_contain == options.not_starts_with
-        || options.ends_with != undefined && options.ends_with == options.not_ends_with
-      ) return this.editReply(lang('paramsExcludeOther'));
+    const exists = filterOptionsExist(options);
+    if (
+      /* eslint-disable-next-line sonarjs/expression-complexity -- clear logic imo */
+      exists && (
+        options.does_not_contain && options.contains?.includes(options.does_not_contain)
+        || options.contains && options.does_not_contain?.includes(options.contains)
+        || options.starts_with && options.starts_with == options.not_starts_with
+        || options.ends_with && options.ends_with == options.not_ends_with
+      )
+    ) return this.editReply(lang('paramsExcludeOther'));
 
-      messages = await fetchMsgs(channel, options.before, options.after, amount);
-    }
-    else messages = await fetchMsgs(channel, undefined, undefined, amount);
+    const messages = (await fetchMsgs(channel, exists ? options.before : undefined, exists ? options.after : undefined, amount))
+      .filter(e => shouldDeleteMsg(e, options))
+      .keys()
+      .toArray();
 
-    messages = [...messages.filter(e => shouldDeleteMsg(e, options)).keys()];
     if (!messages.length) return this.customReply(lang('noneFound'));
 
-    const sleepTime = 2000;
+    let count = 0;
     for (let i = 0; i < messages.length; i += bulkDeleteMaxMessageAmt) {
       count += (await channel.bulkDelete(messages.slice(i, i + bulkDeleteMaxMessageAmt))).size;
-      if (messages[i + bulkDeleteMaxMessageAmt]) await sleep(sleepTime);
+      if (messages[i + bulkDeleteMaxMessageAmt]) await sleep(bulkDeleteSleepTime);
     }
 
     return this.customReply(lang('success', { count, all: messages.length }), msInSecond * 10);

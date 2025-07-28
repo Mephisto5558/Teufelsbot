@@ -68,10 +68,8 @@ module.exports = {
       custom = getOption('json'),
       allowedMentions = { parse: [AllowedMentionsTypes.User] };
 
-    let embed, sentMessage;
-
     try {
-      embed = new EmbedBuilder(custom
+      const embed = new EmbedBuilder(custom
         ? JSON.parse(custom)
         : {
             title: getOption('title'),
@@ -91,15 +89,14 @@ module.exports = {
       if (this.member.permissionsIn(this.channel).has(PermissionFlagsBits.MentionEveryone))
         allowedMentions.parse.push(AllowedMentionsTypes.Role, AllowedMentionsTypes.Everyone);
 
+      const sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed], allowedMentions });
+      await this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(embed.data.filterEmpty()))));
 
-      sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed], allowedMentions });
+      return logSayCommandUse.call(sentMessage, this.member, lang);
     }
     catch (err) {
       if (!(err instanceof DiscordAPIError) && !err.message?.includes('JSON at')) throw err;
       return this.editReply(lang('invalidOption', codeBlock(err.message)));
     }
-
-    await this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(embed.data.filterEmpty()))));
-    return logSayCommandUse.call(sentMessage, this.member, lang);
   }
 };

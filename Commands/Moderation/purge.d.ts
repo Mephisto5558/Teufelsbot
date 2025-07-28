@@ -2,7 +2,7 @@ import type Discord from 'discord.js';
 
 type UserType<User extends Discord.User> = User['bot'] extends true ? 'bot' : 'human';
 
-type shouldDeleteMsgOptions<User extends Discord.User> = {
+export type shouldDeleteMsgOptions<User = Discord.User> = {
   amount: number;
   only_containing?: 'text' | 'embeds' | 'mentions' | 'images' | 'server_ads';
   member?: User;

@@ -1,7 +1,9 @@
 const
   TicTacToe = require('discord-tictactoe'),
   { getTargetMembers, timeFormatter: { secsInMinute }, toMs: { secToMs } } = require('#Utils'),
-  { sendChallengeMention } = require('#Utils/prototypeRegisterer');
+  { sendChallengeMention } = require('#Utils/prototypeRegisterer'),
+
+  againstStatIds = new Map([['win', 'wonAgainst'], ['lose', 'lostAgainst'], ['draw', 'drewAgainst']]);
 
 /**
  * @this {GuildInteraction}
@@ -24,18 +26,11 @@ async function eventCallback([player1, player2], [type1, type2 = type1], lang, g
  * @param {Client['db']} db */
 async function updateStats(firstID, secondID, type, db) {
   const stats = db.get('leaderboards', `TicTacToe.${firstID}`) ?? {};
-  let against;
-
-  switch (type) {
-    case 'win': against = 'wonAgainst'; break;
-    case 'lose': against = 'lostAgainst'; break;
-    case 'draw': against = 'drewAgainst';
-  }
 
   return Promise.all([
     db.update('leaderboards', `TicTacToe.${firstID}.games`, (stats.games ?? 0) + 1),
     db.update('leaderboards', `TicTacToe.${firstID}.${type}s`, (stats[`${type}s`] ?? 0) + 1),
-    db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, (stats[against]?.[secondID] ?? 0) + 1)
+    db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, (stats[againstStatIds.get(type)]?.[secondID] ?? 0) + 1)
   ]);
 }
 

@@ -19,6 +19,7 @@ declare enum LogLevels {
   error = 4
 }
 
+/* eslint-disable-next-line @typescript-eslint/consistent-type-definitions */
 interface Log extends CallableFunction {
   date: `${number}${number}-${number}${number}-${number}${number}${number}${number}`;
   logLevel: keyof typeof LogLevels;
