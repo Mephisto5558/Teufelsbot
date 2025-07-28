@@ -3,7 +3,7 @@ module.exports = function equal(a, b) {
   /* eslint-disable-next-line @typescript-eslint/no-base-to-string -- Intentional for now - */
   if (!a?.toString() && !b?.toString()) return true;
   if (typeof a == 'string' || typeof b == 'string') return a == b;
-  if (a == undefined && !(b?.__count__ ?? 0) || b == undefined && !(a?.__count__ ?? 0)) return true;
+  if (a == undefined && !b?.__count__ || b == undefined && !a?.__count__) return true;
   if (
     /* eslint-disable-next-line sonarjs/expression-complexity -- will be fixed when commands are moved to their own lib */
     !!a != !!b || a.name != b.name || a.description != b.description || a.type != b.type || a.autocomplete != b.autocomplete

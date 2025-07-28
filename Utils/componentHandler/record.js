@@ -31,7 +31,7 @@ module.exports = async function record(lang, mode, requesterId, voiceChannelId, 
       if (this.user.id != requesterId) return;
 
       cache.get(this.guild.id)?.delete(voiceChannelId);
-      if (!(cache.get(this.guild.id)?.size ?? 0)) cache.delete(this.guild.id);
+      if (!cache.get(this.guild.id)?.size) cache.delete(this.guild.id);
 
       return this.message.edit({ content: lang('canceled'), embeds: [], components: [] });
 

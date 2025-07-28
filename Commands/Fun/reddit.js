@@ -13,7 +13,7 @@ const
  * @param {boolean} filterNSFW */
 function fetchPost({ children } = {}, filterNSFW = true) {
   children = children?.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
-  if (!(children?.length ?? 0)) return;
+  if (!children?.length) return;
 
   const
     post = children.random().data,
