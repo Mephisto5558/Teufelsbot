@@ -11,7 +11,7 @@ module.exports = async function interactionCreate() {
   if (this.isMessageComponent()) return componentHandler.call(this, lang);
 
   const command = this.client.slashCommands.get(this.commandName);
-  if (command && this.isAutocomplete()) return this.respond(autocompleteGenerator.call(this, command, locale));
+  if (command && this.isAutocomplete()) return this.respond(autocompleteGenerator.call(this, command, this.focused, locale));
 
   if (this.isCommand()) return commandExecutionWrapper.call(this, command, 'slash', lang);
 };

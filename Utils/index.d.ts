@@ -41,7 +41,8 @@ export declare namespace afk {
 
 export declare function autocompleteGenerator(
   this: AutocompleteInteraction | Message,
-  command: command<'both', boolean, true>, locale: string
+  command: command<'both', boolean, true>,
+  target: { name: string; value: unknown }, locale: string
 ): { name: string | number; value: string | number }[] | undefined;
 
 type MaybeWithUndefined<X, T extends boolean> = T extends true ? X : X | undefined;
