@@ -27,9 +27,9 @@ module.exports = {
     if (Number.isNaN(max) || min == max && min == 0) max = defaultMaxNum;
 
     try {
-      const randomNumber = randomInt(min, max + 1).toLocaleString(lang.__boundArgs__[0].locale);
-      return this.customReply(lang('randomNumber', {
-        randomNumber, min: min.toLocaleString(lang.__boundArgs__[0].locale), max: max.toLocaleString(lang.__boundArgs__[0].locale)
+      return void this.customReply(lang('randomNumber', {
+        randomNumber: lang.formatNumber(randomInt(min, max + 1)),
+        min: lang.formatNumber(min), max: lang.formatNumber(max)
       }));
     }
     catch (err) {

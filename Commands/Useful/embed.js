@@ -92,7 +92,7 @@ module.exports = {
       const sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed], allowedMentions });
       await this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(embed.data.filterEmpty()))));
 
-      return logSayCommandUse.call(sentMessage, this.member, lang);
+      return void logSayCommandUse.call(sentMessage, this.member, lang);
     }
     catch (err) {
       if (!(err instanceof DiscordAPIError) && !err.message?.includes('JSON at')) throw err;

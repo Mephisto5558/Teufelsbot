@@ -22,7 +22,7 @@ module.exports = {
 
     let type = member.user.bot ? 'Bot, ' : '';
 
-    // Force fetch is required to fetch a user banner: https://discord.js.org/docs/packages/discord.js/main/User:Class#banner
+    // force-fetch is required to fetch a user banner: https://discord.js.org/docs/packages/discord.js/main/User:Class#banner
     if (!member.banner && !member.user.banner) await member.fetch(true);
 
     if (member.guild.ownerId == member.id) type += lang('guildOwner');

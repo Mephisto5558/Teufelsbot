@@ -13,7 +13,7 @@ const
  * @param {boolean} filterNSFW */
 function fetchPost({ children } = {}, filterNSFW = true) {
   children = children?.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
-  if (!(children?.length ?? 0)) return;
+  if (!children?.length) return;
 
   const
     post = children.random().data,
@@ -75,7 +75,7 @@ module.exports = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
           },
           follow: 1
-        }).then(res => res.json());
+        }).then(async res => res.json());
       }
       catch (err) {
         if (err.type != 'max-redirect') throw err;

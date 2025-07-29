@@ -109,7 +109,7 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
 
         if (issuesJson.filter(e => e.title == title && e.state == 'open').length) {
           embed.data.description = lang('alreadyReported', hyperlink(lang('link'), issuesJson[0].html_url));
-          return msg.edit({ embeds: [embed], components: [] });
+          return void msg.edit({ embeds: [embed], components: [] });
         }
 
         const
@@ -140,7 +140,7 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
           }
         }
 
-        return msg.edit({
+        return void msg.edit({
           /* eslint-disable-next-line unicorn/no-null -- `null` must be used here, as `undefined` is interpreted as 'Keep current data' */
           embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', hyperlink(lang('link'), json.html_url)))],
           components: []
@@ -158,6 +158,6 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
       if (collected.size) return;
 
       component.components[0].data.disabled = true;
-      return msg.edit({ embeds: [embed], components: [component] });
+      return void msg.edit({ embeds: [embed], components: [component] });
     });
 };

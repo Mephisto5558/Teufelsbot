@@ -72,7 +72,7 @@ module.exports = {
       if (/^\s*[[{]/.test(content)) json = JSON.parse(content);
       else throw new SyntaxError('Invalid JSON format');
 
-      if (!json.__count__) return modalInteraction.editReply(lang('emptyJson'));
+      if (!json.__count__) return void modalInteraction.editReply(lang('emptyJson'));
 
       if (json.description !== undefined) json = { embeds: [json] };
       else if (json.every?.(e => e.description !== undefined)) json = { embeds: json };
