@@ -50,11 +50,9 @@ function checkOptions(command, lang) {
 
     const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]) != undefined);
     if (
-      isValidType(this) && autocompleteIsUsed() && !autocompleteGenerator.call({
-        ...this, client: this.client, guild: this.guild, user: this.user,
-        focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
-      }, command, this.guild?.db.config.lang ?? this.guild?.localeCode)
-        .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
+      isValidType(this) && autocompleteIsUsed() && !autocompleteGenerator.call(
+        this, { name, value: this.options?.get(name).value ?? this.args?.[i] }, command, this.guild?.db.config.lang ?? this.guild?.localeCode
+      ).some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
     ) {
       if (typeof autocompleteOptions != 'function') {
         return ['strictAutocompleteNoMatchWValues', {
