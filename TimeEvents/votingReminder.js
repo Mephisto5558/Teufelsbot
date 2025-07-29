@@ -36,7 +36,7 @@ module.exports = {
 
     log('Started sending voting reminders').debug('Started sending voting reminders');
 
-    for (const result of await Promise.allSettled(users.map(e => this.users.fetch(e[0])))) {
+    for (const result of await Promise.allSettled(users.map(async e => this.users.fetch(e[0])))) {
       if (result.status == 'rejected') continue;
 
       const user = result.value;

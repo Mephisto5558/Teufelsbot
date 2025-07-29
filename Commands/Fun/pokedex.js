@@ -30,7 +30,7 @@ module.exports = {
 
     let res = cache.get(pokemon.toLowerCase());
     if (!res) {
-      try { res = (await fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(e => e.json()))?.[0]; }
+      try { res = (await fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(async e => e.json()))?.[0]; }
       catch (err) {
         if (err.type != 'invalid-json') throw err;
         return msg.edit(lang('invalidJson'));

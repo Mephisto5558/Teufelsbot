@@ -84,7 +84,7 @@ module.exports = {
         for (const btn of component.components) btn.data.disabled = true;
 
         embed.data.description = collected.size ? lang('canceledEmbedDescription') : lang('global.menuTimedOut');
-        return msg.customReply({ embeds: [embed], components: [component] });
+        return void msg.customReply({ embeds: [embed], components: [component] });
       });
   }
 };

@@ -126,7 +126,7 @@ module.exports = {
           try { await access(filePath); }
           catch (err) {
             if (err.code != 'ENOENT') throw err;
-            return msg.edit(lang('invalidPath'));
+            return void msg.edit(lang('invalidPath'));
           }
 
           if (this.args[1]?.startsWith('Commands/')) {
@@ -145,7 +145,7 @@ module.exports = {
         case '*': for (const [, command] of commandList) await reloadCommand.call(this.client, command, reloadedArray); break;
         default: {
           const command = commandList.get(this.args[0].toLowerCase());
-          if (!command) return msg.edit(lang('invalidCommand'));
+          if (!command) return void msg.edit(lang('invalidCommand'));
 
           await reloadCommand.call(this.client, command, reloadedArray);
         }

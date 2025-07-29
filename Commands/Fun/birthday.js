@@ -54,7 +54,7 @@ const birthdayMainFunctions = {
     if (target) {
       embed.data.title = lang('getUser.embedTitle', target.user.customName);
 
-      const birthday = target.user.db.birthday;
+      const { birthday } = target.user.db;
       if (birthday) {
         birthday.setHours(0, 0, 0, 0);
 

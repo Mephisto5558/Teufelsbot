@@ -49,7 +49,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
         Accept: 'application/json'
       },
       signal: timeoutSignal.signal
-    }).then(e => e.json());
+    }).then(async e => e.json());
 
     switch (api.name) {
       case 'jokeAPI': response = res.type == 'twopart' ? `${res.setup}\n\n||${res.delivery}||` : res.joke; break;

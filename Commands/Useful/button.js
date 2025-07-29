@@ -97,13 +97,13 @@ module.exports = {
 
       const components = msg?.components ? [...msg.components] : [];
 
-      if (!(msg?.components.length ?? 0) || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
+      if (!msg?.components.length || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
         components.push(new ActionRowBuilder({ components: [button] }));
 
       await (msg?.edit({ content, components }) ?? this.channel.send({ content, components }));
 
       delete button.data.custom_id;
-      return this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(button.data.filterEmpty()))));
+      return void this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(button.data.filterEmpty()))));
     }
     catch (err) {
       if (!(err instanceof DiscordAPIError) && !err.message?.includes('JSON at')) throw err;

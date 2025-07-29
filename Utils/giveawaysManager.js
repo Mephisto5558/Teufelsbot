@@ -13,7 +13,7 @@ module.exports = class GiveawaysManagerWithOwnDatabase extends GiveawaysManager 
   }
 
   /** @type {import('.').GiveawaysManager['editGiveaway']} */
-  editGiveaway = (...args) => this.saveGiveaway(...args);
+  editGiveaway = async (...args) => this.saveGiveaway(...args);
 
   /** @type {import('.').GiveawaysManager['deleteGiveaway']} */
   async deleteGiveaway(messageId) {

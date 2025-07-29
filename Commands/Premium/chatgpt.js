@@ -29,7 +29,7 @@ async function fetchAPI(lang, deep) {
         { role: 'user', content: this.options?.getString('message', true) ?? this.content }
       ]
     })
-  }).then(e => e.json());
+  }).then(async e => e.json());
 
   if ('error' in res) {
     if (RATE_LIMIT_MSGS.some(e => res.error.message.startsWith(e)))
