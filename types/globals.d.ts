@@ -359,6 +359,12 @@ declare module 'express' {
   }
 }
 
+declare module 'express-session' {
+  interface SessionData {
+    redirectURL: string;
+  }
+}
+
 declare module 'wikijs' {
   // intentional. `Page` in wikijs is defined as something that is not correct. All `Page`es are `RawPages` in code
   /* eslint-disable-next-line @typescript-eslint/no-empty-object-type */

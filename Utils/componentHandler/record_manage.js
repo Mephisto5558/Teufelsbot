@@ -112,7 +112,7 @@ module.exports.recordControls = async function recordControls(lang, mode, voiceC
   const filename = `${this.message.createdTimestamp}_${voiceChannelId}_${membersToRecord.join('_')}`;
 
   if (mode == 'pause') {
-    const deaf = this.guild.members.me.voice.deaf;
+    const { deaf } = this.guild.members.me.voice;
 
     await this.guild.members.me.voice.setDeaf(!deaf, `voice record pause/resume button, member ${this.user.tag}`);
 

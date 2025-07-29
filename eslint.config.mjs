@@ -1,7 +1,7 @@
 import config from '@mephisto5558/eslint-config';
 
 /**
- * @type { import('eslint').Linter.Config[] }
+ * @type {import('eslint').Linter.Config[]}
  * This config lists all rules from every plugin it uses. */
 export default [
   ...config,
@@ -26,6 +26,7 @@ export default [
         PrefixCommand: 'readonly',
         MixedCommand: 'readonly',
         CommandOptions: 'readonly',
+
         // [TYPES] see globals.d.ts
         GenericFunction: 'writable',
         Snowflake: 'writable',
@@ -42,6 +43,19 @@ export default [
         GuildInteraction: 'writable',
         DMInteraction: 'writable'
       }
+    }
+  },
+  {
+    name: 'overwrite:js',
+    files: ['**/*.js'],
+    rules: {
+      // Pain, needs TODO:
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-return': 'off',
+      '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/prefer-readonly-parameter-types': 'off'
     }
   }
 ];

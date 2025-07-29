@@ -1,6 +1,7 @@
 const
   { codeBlock } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter,
+  /* eslint-disable-next-line @typescript-eslint/no-misused-spread -- all simple ascii chars */
   DEFAULT_CHARSET = [...String.raw`abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!?§$%&/\=*'"#*(){}[]`],
   DEFAULT_PASSWORD_LENGTH = 12,
   MAX_PASSWORD_LENGTH = 1750,
@@ -46,10 +47,13 @@ module.exports = {
       exclude = this.options.getString('exclude_chars') ?? '',
       include = this.options.getString('include_chars') ?? '',
       length = this.options.getInteger('length') ?? DEFAULT_PASSWORD_LENGTH,
-      /** @type {`\`\`\`${string}\`\`\``[]} */ passwordList = []; /* eslint-disable-line jsdoc/valid-types -- false positive */
+      /** @type {`\`\`\`${string}\`\`\``[]} */ passwordList = [], /* eslint-disable-line jsdoc/valid-types -- false positive */
+
+      segmenter = new Intl.Segmenter(lang.config.locale, { granularity: 'grapheme' });
 
     // Remove exclude chars and add include chars to the charset
-    let charset = [...DEFAULT_CHARSET.filter(char => !exclude.includes(char)), ...include]
+
+    let charset = [...DEFAULT_CHARSET.filter(char => !exclude.includes(char)), ...[...segmenter.segment(include)].map(e => e.segment)]
       .unique(); // Remove duplicates
 
     if (!charset.length) return this.editReply(lang('charsetEmpty')); // Return if charset is empty
