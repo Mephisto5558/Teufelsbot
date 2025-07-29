@@ -27,17 +27,17 @@ module.exports = {
     if (Number.isNaN(max) || min == max && min == 0) max = defaultMaxNum;
 
     try {
-      const randomNumber = randomInt(min, max + 1).toLocaleString(lang.__boundArgs__[0].locale);
       return this.customReply(lang('randomNumber', {
-        randomNumber, min: min.toLocaleString(lang.__boundArgs__[0].locale), max: max.toLocaleString(lang.__boundArgs__[0].locale)
+        randomNumber: lang.formatNumber(randomInt(min, max + 1)),
+        min: lang.formatNumber(min), max: lang.formatNumber(max)
       }));
     }
     catch (err) {
       if (!(err instanceof RangeError || err.code == 'ERR_INVALID_ARG_TYPE')) throw err;
 
       return this.customReply(lang('outOfRange', {
-        min: inlineCode(Number.MIN_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale)),
-        max: inlineCode(Number.MAX_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale))
+        min: inlineCode(lang.formatNumber(Number.MIN_SAFE_INTEGER)),
+        max: inlineCode(lang.formatNumber(Number.MAX_SAFE_INTEGER))
       }));
     }
   }

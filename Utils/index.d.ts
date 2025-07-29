@@ -203,7 +203,7 @@ export declare function getCommandName(command: command | string): string;
 
 export declare function getCommands(
   this: Client,
-  lang: langUNF
+  lang: lang<true>
 ): {
   category: string;
   subTitle: '';

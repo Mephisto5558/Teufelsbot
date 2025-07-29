@@ -29,9 +29,7 @@ module.exports = async function voiceStateUpdate(newState) {
       timestamp: Date.now(),
       color: GRAY
     }),
-
-    /** @type {lang} */
-    lang = this.client.i18n.__.bBind(this.client.i18n, {
+    lang = this.client.i18n.getTranslator({
       locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['events.logger.voiceStateUpdate']
     }),
     oldChannelField = () => (

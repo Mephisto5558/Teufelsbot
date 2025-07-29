@@ -16,7 +16,7 @@ module.exports = async function logSayCommandUse(member, lang) {
       .missing([PermissionFlagsBits.SendMessages, PermissionFlagsBits.EmbedLinks]).length
   ) return;
 
-  lang.__boundArgs__[0].backupPath[0] = 'events.logger.sayCommandUsed';
+  lang.config.backupPath[0] = 'events.logger.sayCommandUsed';
 
   const
     embed = new EmbedBuilder({

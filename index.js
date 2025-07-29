@@ -71,7 +71,7 @@ async function processMessageEventCallback(handlerPromises, message) {
       }, errorHandler.bind(this)
     ).init(
       {},
-      { commands: getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })) },
+      { commands: getCommands.call(this, this.i18n.getTranslator({ locale: 'en', undefinedNotFound: true })) },
       { votingPath: this.config.website.vote }
     );
   }

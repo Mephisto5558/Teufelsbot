@@ -94,7 +94,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
 
         const subcommand = this.options?.getSubcommandGroup(false) ?? this.options?.getSubcommand(true) ?? this.args[0];
 
-        lang.__boundArgs__[0].backupPath.push(`${lang.__boundArgs__[0].backupPath[0]}.${subcommand.replaceAll(/_./g, e => e[1].toUpperCase())}`);
+        lang.config.backupPath.push(`${lang.config.backupPath[0]}.${subcommand.replaceAll(/_./g, e => e[1].toUpperCase())}`);
         return require(resolve(path, `${subcommand}.js`)).run.call(this, lang, additionalParams, ...args);
       };
     }

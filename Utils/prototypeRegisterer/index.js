@@ -41,7 +41,7 @@ const overwrites = Object.fromEntries(Object.entries({
   vanilla: [
     parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
     'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()',
-    'Object#filterEmpty()', 'Object#__count__', 'Function#bBind()', 'BigInt#toJSON()'
+    'Object#filterEmpty()', 'Object#__count__', 'BigInt#toJSON()'
   ],
   discordJs: [
     'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
@@ -130,19 +130,6 @@ Object.defineProperties(Object.prototype, {
     },
     enumerable: false
   }
-});
-Object.defineProperty(Function.prototype, 'bBind', {
-  /**
-   * @type {global['Function']['prototype']['bBind']}
-   * @this {CallableFunction} */
-  value: function bBind(thisArg, ...args) {
-    const bound = this.bind(thisArg, ...args);
-    bound.__targetFunction__ = this;
-    bound.__boundThis__ = thisArg;
-    bound.__boundArgs__ = args;
-    return bound;
-  },
-  enumerable: false
 });
 Object.defineProperty(BigInt.prototype, 'toJSON', {
   value: function stringify() {

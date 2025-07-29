@@ -27,9 +27,7 @@ module.exports = function messageUpdate(newMsg) {
   ) return;
 
   const
-
-    /** @type {lang} */
-    lang = this.client.i18n.__.bBind(this.client.i18n, {
+    lang = this.client.i18n.getTranslator({
       locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['events.logger.messageUpdate']
     }),
     embed = new EmbedBuilder({

@@ -6,7 +6,7 @@ const
 module.exports = async function sendRPSChallenge(lang, initiator, opponent) {
   opponent ??= this.client.user;
 
-  lang.__boundArgs__[0].backupPath[0] = 'commands.minigames.rps.challenge';
+  lang.config.backupPath[0] = 'commands.minigames.rps.challenge';
 
   if (opponent.bot && opponent.id != this.client.user.id)
     return this.replied ? this.editReply(lang('opponentIsBot')) : this.reply(lang('opponentIsBot'));

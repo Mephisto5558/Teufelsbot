@@ -32,7 +32,7 @@ async function countingHandler(lang) {
   const { lastNumber } = this.guild.db.channelMinigames?.counting?.[this.channel.id] ?? {};
   if (lastNumber == undefined || lastNumber - this.originalContent || Number.isNaN(Number.parseInt(this.originalContent))) return;
 
-  lang.__boundArgs__[0].backupPath[0] = 'commands.minigames.counting.userDeletedMsg';
+  lang.config.backupPath[0] = 'commands.minigames.counting.userDeletedMsg';
   return sendeMinigameDeletedEmbed.call(this, lang, { deletedNum: bold(this.originalContent), nextNum: bold(lastNumber + 1) });
 }
 
@@ -43,7 +43,7 @@ async function wordchainHandler(lang) {
   const { lastWordChar } = this.guild.db.channelMinigames?.wordchain?.[this.channel.id] ?? {};
   if (!lastWordChar || !this.originalContent || !/^\p{L}+$/u.test(this.originalContent)) return;
 
-  lang.__boundArgs__[0].backupPath[0] = 'commands.minigames.wordchain.userDeletedMsg';
+  lang.config.backupPath[0] = 'commands.minigames.wordchain.userDeletedMsg';
   return sendeMinigameDeletedEmbed.call(this, lang, bold(this.originalContent));
 }
 
@@ -51,8 +51,7 @@ async function wordchainHandler(lang) {
 module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.guild || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
 
-  /** @type {lang} */
-  const lang = this.client.i18n.__.bBind(this.client.i18n, {
+  const lang = this.client.i18n.getTranslator({
     locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['commands.minigames.counting.userDeletedMsg']
   });
 
@@ -70,7 +69,7 @@ module.exports = async function messageDelete() {
 
   await sleep(msInSecond); // Make sure the audit log gets created before trying to fetch it
 
-  lang.__boundArgs__[0].backupPath[0] = 'events.logger';
+  lang.config.backupPath[0] = 'events.logger';
 
   const
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageDelete })).entries

@@ -4,7 +4,7 @@ const formatTop = require('./mgStats_formatTop.js');
 module.exports = async function mgStats(lang, game, wMode, settings) {
   if (wMode != 'sort') return;
 
-  lang.__boundArgs__[0].backupPath[0] = 'commands.minigames.mgstats';
+  lang.config.backupPath[0] = 'commands.minigames.mgstats';
 
   const [sort, mode] = this.values[0]?.split('_') ?? [];
   this.message.embeds[0].data.description = formatTop.call(this,

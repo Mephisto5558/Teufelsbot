@@ -13,10 +13,10 @@ module.exports = function formatTop(input, sort, mode, lang, maxLength = message
       case 'draws': data.sort(([, a], [, b]) => b.draws - a.draws || b.wins - a.wins || a.losses - b.losses); break;
       case 'losses': data.sort(([, a], [, b]) => b.losses - a.losses || a.wins - b.wins || b.draws - a.draws); break;
       case 'alphabet_user': data.sort(([a], [b]) => this.guild.members.cache.get(a).user.username.localeCompare(
-        this.guild.members.cache.get(b).user.username, lang.__boundArgs__[0].locale, { sensitivity: 'base' }
+        this.guild.members.cache.get(b).user.username, lang.config.locale, { sensitivity: 'base' }
       )); break;
       case 'alphabet_nick': data.sort(([a], [b]) => this.guild.members.cache.get(a).displayName.localeCompare(
-        this.guild.members.cache.get(b).displayName, lang.__boundArgs__[0].locale, { sensitivity: 'base' }
+        this.guild.members.cache.get(b).displayName, lang.config.locale, { sensitivity: 'base' }
       )); break;
       default: data.sort(([, a], [, b]) => b.wins - a.wins || a.draws - b.draws || a.losses - b.losses);
     }
