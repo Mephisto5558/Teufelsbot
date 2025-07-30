@@ -1,7 +1,8 @@
 const
   {
     EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType,
-    Colors, Message, BaseInteraction, codeBlock, hyperlink, inlineCode
+    CommandInteraction, MessageComponentInteraction, ModalSubmitInteraction,
+    Colors, Message, codeBlock, hyperlink, inlineCode
   } = require('discord.js'),
   fetch = require('node-fetch').default,
   { msInSecond, secsInMinute } = require('./timeFormatter.js'),
@@ -20,7 +21,10 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
       return acc;
     }, {}),
     seen = new Set(),
-    message = Object.values(contextData).find(e => e instanceof Message || e instanceof BaseInteraction);
+
+    /** @type {Message | CommandInteraction | (MessageComponentInteraction | ModalSubmitInteraction) & { commandName: void } | undefined} */
+    message = Object.values(contextData)
+      .find(e => [Message, CommandInteraction, MessageComponentInteraction, ModalSubmitInteraction].some(type => e instanceof type));
 
   /**
    * @param {string} _
@@ -92,7 +96,8 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
             Authorization: `Token ${process.env.githubKey}`,
             'User-Agent': `Bot ${github.repo}`
           },
-          title = `${err.name}: "${err.message}" in ${message.inGuild() ? '' : 'DM '}command "${message.commandName}"`,
+          title = `${err.name}: "${err.message}" in ${message.inGuild() ? '' : 'DM '}`
+            + (message.commandName ? `command "${message.commandName}"` : ''),
           issues = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
             method: 'GET', headers
           }),

@@ -35,10 +35,10 @@ module.exports = {
         fields: [
           [lang('name'), emoji.name],
           [lang('id'), inlineCode(emoji.id)],
-          [lang('guild'), emoji.guild?.name ? `${emoji.guild.name} (${inlineCode(emoji.guild.id)})` : lang('global.unknown')],
+          [lang('guild'), 'guild' in emoji ? `${emoji.guild.name} (${inlineCode(emoji.guild.id)})` : lang('global.unknown')],
           [lang('animated'), lang(`global.${emoji.animated}`)],
           [lang('creator'), (await emoji.fetchAuthor?.())?.username ?? lang('global.unknownUser')],
-          [lang('available'), emoji.available ? lang(`global.${emoji.available}`) : lang('global.unknown')],
+          [lang('available'), 'available' in emoji && emoji.available != undefined ? lang(`global.${emoji.available}`) : lang('global.unknown')],
           [lang('createdAt'), emoji.createdTimestamp ? timestamp(emoji.createdTimestamp) : lang('global.unknown')]
         ].map(([k, v]) => ({ name: k, value: v, inline: true }))
       }),

@@ -46,7 +46,6 @@ declare global {
   }
 
   interface Array<T> {
-
     /**
      * Gets a random array element by generating a cryptographically secure random number using
      * {@link https://nodejs.org/api/crypto.html node:crypto}.

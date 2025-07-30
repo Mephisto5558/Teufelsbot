@@ -13,7 +13,7 @@ const
     .replaceAll('÷', '/')
     .replaceAll('π', '(pi)')
     .replaceAll(/[\u00B2\u00B3\u2074-\u2079]/g, e => superscripts[e])
-    .replaceAll(/√(?<val>\(|\d+)/g, (_, val) => val === '(' ? 'sqrt(' : `sqrt(${val})`);
+    .replaceAll(/√(?<val>\(|\d+)/g, (_, /** @type {string} */ val) => val === '(' ? 'sqrt(' : `sqrt(${val})`);
 
 /** @type {command<'both', false>} */
 module.exports = {

@@ -158,7 +158,7 @@ export declare function checkTargetManageable(
 
 export declare function commandExecutionWrapper(
   this: BaseInteraction | Message,
-  command: command<'both', boolean, true> | undefined, commandType: string, lang: lang
+  command: command<'both', boolean, true> | undefined, commandType: keyof Database['botSettings']['cmdStats'][string], lang: lang
 ): Promise<Message | undefined>;
 
 /** Formats an application command name and id into a command mention. */
@@ -296,15 +296,16 @@ export declare function timeValidator<T extends string | undefined>(
 ): T extends undefined | '' | '-' | '+' ? [] : string[];
 
 export declare namespace configValidator {
+  type validConfigPrimitives = 'object' | 'string' | 'boolean' | 'number';
+  type validConfigEntry = validConfigPrimitives | [validConfigPrimitives] | { [key: string]: validConfigEntry };
+  type validConfig = Record<string, validConfigEntry>;
+
   function setDefaultConfig(): Partial<Client['config']>;
 
   /** @throws {Error} on invalid key or subkey type. */
   function configValidationLoop(
-    obj: Record<string, unknown>, checkObj: Record<string, unknown>, allowNull?: boolean
+    obj: Record<string, unknown>, checkObj: validConfig, allowNull?: boolean
   ): void;
-
-  type validConfigEntry = 'object' | 'string' | 'boolean' | 'number' | { [key: string]: validConfigEntry };
-  const validConfig: Record<string, validConfigEntry>;
 }
 
 export { TFormatter as timeFormatter };

@@ -55,7 +55,8 @@ module.exports = function formatCommand(option, path, id, i18n) {
       if (option.choices.length > choicesMaxAmt)
         throw new Error(`Too many choices (${option.choices.length}) found for option "${option.name}"). Max is ${choicesMaxAmt}.`);
 
-      for (const choice of option.choices) {
+      let /** @type {NonNullable<commandOptions<true>['choices']>[number]} */ choice;
+      for (choice of option.choices) {
         if ('__SCHandlerCustom' in choice) {
           delete choice.__SCHandlerCustom;
           continue;
@@ -106,6 +107,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
 
     if (!option.type) option.type = ApplicationCommandType.ChatInput;
     else if (!(option.type in ApplicationCommandOptionType)) {
+      /* eslint-disable-next-line @typescript-eslint/restrict-template-expressions -- check */
       if (!option.disabled) throw new Error(`Invalid option.type, got "${option.type}" (${id})`);
     }
     else if (!Number.parseInt(option.type) && option.type != 0) option.type = ApplicationCommandType[option.type];

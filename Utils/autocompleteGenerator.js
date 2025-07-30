@@ -1,20 +1,25 @@
-const { autocompleteOptionsMaxAmt } = require('./constants');
+const
+  { AutocompleteInteraction } = require('discord.js'),
+  { autocompleteOptionsMaxAmt } = require('./constants');
 
 /** @type {import('.').autocompleteGenerator} */
 module.exports = function autocompleteGenerator(command, target, locale) {
+  const group = this instanceof AutocompleteInteraction ? this.options.getSubcommandGroup(false) : '';
+  const subcommand = this instanceof AutocompleteInteraction ? this.options.getSubcommand(false) : '';
+
   /** @param {string | number} v */
   const response = v => ({ name: this.client.i18n.__({ locale, undefinedNotFound: true },
     `commands.${command.category}.${command.name}.options.`
-    + (this.options?._group ? this.options._group + '.' : '')
-    + (this.options?._subcommand ? this.options._subcommand + '.' : '')
+    + (group ? `${group}.` : '')
+    + (subcommand ? `${subcommand}.` : '')
     + target.name
     + `.choices.${v}`) ?? v,
   value: v });
 
   /** @type {commandOptions[]} */
   let [...options] = command.options;
-  if (this.options?._group) ({ options } = options.find(e => e.name == this.options._group));
-  if (this.options?._subcommand) ({ options } = options.find(e => e.name == this.options._subcommand));
+  if (group) ({ options } = options.find(e => e.name == group));
+  if (subcommand) ({ options } = options.find(e => e.name == subcommand));
 
   /**
    * @type {{ autocompleteOptions: Exclude<commandOptions['autocompleteOptions'], Function> }}

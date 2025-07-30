@@ -89,6 +89,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
         choices[player] = mode;
 
         if (!choices.player1 || !choices.player2) {
+          /* eslint-disable-next-line @typescript-eslint/restrict-plus-operands -- description will exist */
           this.message.embeds[0].data.description += '\n' + lang('end.chosen', userMention(this.user.id));
           void this.message.edit({ embeds: this.message.embeds });
           await this.guild.updateDB(`minigames.rps.${this.message.id}`, choices);
