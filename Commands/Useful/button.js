@@ -103,7 +103,7 @@ module.exports = {
       await (msg?.edit({ content, components }) ?? this.channel.send({ content, components }));
 
       delete button.data.custom_id;
-      return this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(button.data.filterEmpty()))));
+      return void this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(button.data.filterEmpty()))));
     }
     catch (err) {
       if (!(err instanceof DiscordAPIError) && !err.message?.includes('JSON at')) throw err;

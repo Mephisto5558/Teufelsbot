@@ -32,7 +32,7 @@ module.exports = async function serverbackup(lang, _mode, id, option, clearGuild
       clearGuildBeforeRestore: clearGuildBeforeRestore == 'true'
     });
 
-    return msg.edit({ embeds: [embed.setDescription(lang('success', inlineCode(backup.id)))] });
+    return void msg.edit({ embeds: [embed.setDescription(lang('success', inlineCode(backup.id)))] });
   }
   catch (err) {
     void msg.edit({ embeds: [embed.setDescription(lang('error'))] });

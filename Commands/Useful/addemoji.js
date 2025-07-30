@@ -61,7 +61,7 @@ module.exports = {
     if (!input.startsWith('http')) input = `https://${input}`;
 
     try {
-      if (!await checkUrl(input)) return this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
+      if (!await checkUrl(input)) return void this.editReply({ embeds: [embed.setDescription(lang('notFound'))] });
 
       const emoji = await this.guild.emojis.create({
         name, attachment: input,
