@@ -1,7 +1,7 @@
 import config from '@mephisto5558/eslint-config';
 
 /**
- * @type {import('eslint').Linter.Config[]}
+ * @type {import('@mephisto5558/eslint-config')['default']}
  * This config lists all rules from every plugin it uses. */
 export default [
   ...config,
@@ -43,6 +43,10 @@ export default [
         GuildInteraction: 'writable',
         DMInteraction: 'writable'
       }
+    },
+    rules: {
+      // Pain, needs TODO:
+      '@typescript-eslint/prefer-readonly-parameter-types': 'off'
     }
   },
   {
@@ -54,8 +58,7 @@ export default [
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/no-unsafe-return': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off',
-      '@typescript-eslint/prefer-readonly-parameter-types': 'off'
+      '@typescript-eslint/no-unsafe-call': 'off'
     }
   }
 ];
