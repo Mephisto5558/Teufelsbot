@@ -5,7 +5,7 @@ const
   { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils'),
 
   validImageFormats = ['gif', 'jpeg', 'jpg', 'png', 'svg', 'webp'],
-  urlRegex = new RegExp(String.raw`^(?:https?:\/\/)?(?:w{3}\.)?.*?\.(?:${validImageFormats.join('|')})(?:\?.*)?$`, 'i');
+  urlRegex = new RegExp(String.raw`^(?:https?:\/\/)?(?:www\.)?.*?\.(?:${validImageFormats.join('|')})(?:\?.*)?$`, 'i');
 
 /** @param {string} url @returns {Promise<boolean>} */
 const checkUrl = async url => new Promise((resolve, reject) => {
