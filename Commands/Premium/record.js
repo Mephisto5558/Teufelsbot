@@ -4,7 +4,7 @@ const
   { msInSecond } = require('#Utils').timeFormatter;
 
 // due to VoiceRecords being in .gitignore, we need this check
-access('./VoiceRecords/raw').catch(() => mkdir('./VoiceRecords/raw', { recursive: true }));
+access('./VoiceRecords/raw').catch(async () => mkdir('./VoiceRecords/raw', { recursive: true }));
 
 /** @type {command<'slash'>} */
 module.exports = {

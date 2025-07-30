@@ -75,7 +75,7 @@ module.exports = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
           },
           follow: 1
-        }).then(res => res.json());
+        }).then(async res => res.json());
       }
       catch (err) {
         if (err.type != 'max-redirect') throw err;

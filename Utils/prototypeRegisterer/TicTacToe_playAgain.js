@@ -74,7 +74,7 @@ async function playAgain(interaction, lang) {
 
       for (let i = 0; i < lastRow; i++) for (const button of components[i].components) button.data.disabled = true;
 
-      return interaction.editReply({ components });
+      return void interaction.editReply({ components });
     });
 }
 

@@ -128,6 +128,6 @@ module.exports = async function ban_kick_mute(lang) {
         selectComponent.components[0].data.disabled = true;
         selectComponent.components[0].data.placeholder = lang('global.menuTimedOut');
 
-        return this.editReply({ embeds: [resEmbed], components: [selectComponent] });
+        return void this.editReply({ embeds: [resEmbed], components: [selectComponent] });
       });
 };

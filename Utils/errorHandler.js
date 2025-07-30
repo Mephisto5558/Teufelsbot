@@ -153,6 +153,6 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
       if (collected.size) return;
 
       component.components[0].data.disabled = true;
-      return msg.edit({ embeds: [embed], components: [component] });
+      return void msg.edit({ embeds: [embed], components: [component] });
     });
 };

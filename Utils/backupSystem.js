@@ -51,7 +51,7 @@ class BackupSystem {
   };
 
   /** @type {TBackupSystem['remove']} */
-  remove = backupId => this.db.delete(this.dbName, backupId);
+  remove = async backupId => this.db.delete(this.dbName, backupId);
 
   /** @type {TBackupSystem['create']} */
   create = async (guild, {
@@ -170,7 +170,7 @@ class BackupSystem {
 
       data.channels.others = await Promise.all(channels
         .filter(e => !e.parent && ![ChannelType.GuildCategory, ...Constants.ThreadChannelTypes].includes(e.type))
-        .map(e => utils.fetchTextChannelData(e, saveImages, maxMessagesPerChannel)));
+        .map(async e => utils.fetchTextChannelData(e, saveImages, maxMessagesPerChannel)));
     }
 
 

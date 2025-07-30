@@ -113,7 +113,7 @@ void (async function main() {
 
   /** Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution */
   const handlerPromises = [
-    ...Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(([,handler]) => handler.call(newClient)),
+    ...Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(async ([,handler]) => handler.call(newClient)),
     newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add(app.owner?.owner?.id ?? app.owner?.id))
   ];
 
@@ -151,7 +151,7 @@ void (async function main() {
   }
 
   process
-    .on('unhandledRejection', err => errorHandler.call(client, err))
-    .on('uncaughtExceptionMonitor', err => errorHandler.call(client, err))
-    .on('uncaughtException', err => errorHandler.call(client, err));
+    .on('unhandledRejection', async err => errorHandler.call(client, err))
+    .on('uncaughtExceptionMonitor', async err => errorHandler.call(client, err))
+    .on('uncaughtException', async err => errorHandler.call(client, err));
 })();

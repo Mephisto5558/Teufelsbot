@@ -8,7 +8,7 @@ const
   urlRegex = new RegExp(String.raw`^(?:https?:\/\/)?(?:w{3}\.)?.*?\.(?:${validImageFormats.join('|')})(?:\?.*)?$`, 'i');
 
 /** @param {string} url @returns {Promise<boolean>} */
-const checkUrl = url => new Promise((resolve, reject) => {
+const checkUrl = async url => new Promise((resolve, reject) => {
   const req = (url.startsWith('https') ? https : http)
   /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- status codes 2xx and 3xx */
     .request(url, { method: 'HEAD', timeout: msInSecond * 5 }, res => resolve(res.statusCode.inRange(199, 400)));
