@@ -41,7 +41,7 @@ class BackupSystem {
   }
 
   /** @type {TBackupSystem['get']} */
-  get = (backupId, guildId = '') => this.db.get(this.dbName, `${guildId}${backupId}`);
+  get = (backupId, guildId = '') => this.db.get(this.dbName, `${guildId}_${backupId}`);
 
   /** @type {TBackupSystem['list']} */
   list = guildId => {
@@ -63,7 +63,7 @@ class BackupSystem {
 
     statusObj.status = 'create.settings';
     const data = {
-      id: id ?? guild.id + SnowflakeUtil.generate().toString(),
+      id: id ?? `${guild.id}_${SnowflakeUtil.generate()}`,
       metadata: metadata ?? undefined,
       createdAt: new Date(),
       name: guild.name,
@@ -182,15 +182,16 @@ class BackupSystem {
     }
 
     if (save) {
-      const backups = this.db.get(this.dbName);
-      backups[data.id] = data;
+      await this.db.update(this.dbName, id, data);
 
-      let guildBackups = Object.keys(backups).filter(e => e.startsWith(guild.id));
+      const guildBackups = Object.keys(this.db.get(this.dbName)).filter(e => e.startsWith(guild.id));
       if (guildBackups.length > maxGuildBackups) {
-        guildBackups = guildBackups.toSorted().toReversed().slice(0, maxGuildBackups);
-        for (const backupId of guildBackups) await this.db.delete(this.dbName, backupId);
+        const backupsToDelete = guildBackups
+          .toSorted((a, b) => BigInt(a.split('_')[1]) - BigInt(b.split('_')[1]))
+          .slice(0, guildBackups.length - maxGuildBackups);
+
+        await Promise.allSettled(backupsToDelete.map(async e => this.db.delete(this.dbName, e)));
       }
-      else await this.db.update(this.dbName, data.id, data);
     }
 
     return data;

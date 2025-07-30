@@ -17,7 +17,7 @@ module.exports = {
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescriptionVote', hyperlink(lang('global.here'), `${domain}/${port ? ':' + port : ''}/${vote}`)),
+      description: lang('embedDescriptionVote', hyperlink(lang('global.here'), `${domain}/` + (port ? `:${port}` : '') + `/${vote}`)),
       color: Colors.Blurple
     });
 

@@ -14,9 +14,9 @@ module.exports = {
 
     const embed = new EmbedBuilder({
       description: lang(
-        domain && uptime && !disableWebserver ? 'embedDescription' : 'embedDescriptionNoURL', {
+        domain && uptime && !disableWebserver ? 'embedDescription' : 'embedDescriptionNoURL', domain && uptime && !disableWebserver && {
           time: timeFormatter(Date.now() - process.uptime() * msInSecond, lang).formatted,
-          link: hyperlink(lang('online'), `${domain}${port ? ':' + port : ''}/${uptime}`)
+          link: hyperlink(lang('online'), domain + (port ? `:${port}` : '') + `/${uptime}`)
         }
       ),
       color: Colors.White

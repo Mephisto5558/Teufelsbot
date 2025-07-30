@@ -97,6 +97,7 @@ function createInfoFields(cmd, lang) {
     });
   }
 
+  /** @type {['channel' | 'guild' | 'user', number][]} */
   const cooldowns = Object.entries(cmd.cooldowns ?? {}).filter(([, e]) => !!e);
   if (cooldowns.length) {
     arr.push({

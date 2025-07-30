@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
+
 const
   { readdir } = require('node:fs/promises'),
   { resolve } = require('node:path'),
@@ -16,15 +18,16 @@ module.exports = async function slashCommandHandler() {
 
       const filePath = resolve(file.parentPath, file.name);
 
-      /** @type {Omit<command<string, boolean, true>, 'name' | 'category'> | undefined} */
-      let command;
-      try { command = require(filePath); }
+      /** @type {Omit<command<'slash', boolean, false>, 'name' | 'category'> | undefined} */
+      let commandFile;
+      try { commandFile = require(filePath); }
       catch (err) {
         if (err.code != 'MODULE_NOT_FOUND') throw err;
       }
 
-      if (!command?.slashCommand) continue;
+      if (!commandFile?.slashCommand) continue;
 
+      let command;
       try { command = formatCommand(command, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n); }
       catch (err) {
         if (this.botType == 'dev') throw err;

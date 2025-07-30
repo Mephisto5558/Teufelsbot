@@ -30,8 +30,7 @@ module.exports = {
     guild ??= invite?.guild ?? this.guild;
 
     const
-      isGuild = guild instanceof Guild,
-      channels = isGuild ? [...(await guild.channels.fetch()).values()] : undefined,
+      channels = guild instanceof Guild ? [...(await guild.channels.fetch()).values()] : undefined,
       embed = new EmbedBuilder({
         title: guild.name,
         description: guild.description,
@@ -40,7 +39,7 @@ module.exports = {
         /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 3rd largest resolution */
         image: { url: guild.bannerURL({ size: ALLOWED_SIZES.at(-3) }) },
         fields: [
-          isGuild && { name: lang('members'), value: lang('memberStats', {
+          guild instanceof Guild && { name: lang('members'), value: lang('memberStats', {
             all: inlineCode(guild.memberCount),
             ...Object.fromEntries((await guild.members.fetch())
               .reduce((acc, e) => {
@@ -52,7 +51,7 @@ module.exports = {
           { name: lang('verificationLevel.name'), value: lang(`verificationLevel.${guild.verificationLevel}`), inline: true },
           { name: lang('id'), value: inlineCode(guild.id), inline: true },
           { name: lang('createdAt'), value: timestamp(guild.createdTimestamp), inline: true },
-          ...isGuild
+          ...guild instanceof Guild
             ? [
                 { name: lang('defaultNotifications.name'), value: lang(`defaultNotifications.${guild.defaultMessageNotifications}`), inline: true },
                 { name: lang('owner'), value: userMention(guild.ownerId), inline: true },
@@ -64,14 +63,18 @@ module.exports = {
             : [{ name: lang('partnered'), value: lang(`global.${guild.partnered}`), inline: true }],
           {
             name: lang('boosts.name'), inline: true,
-            value: `${inlineCode(guild.premiumSubscriptionCount)}${guild.premiumTier ? lang('boosts.' + guild.premiumTier) : ''}`
+            value: inlineCode(guild.premiumSubscriptionCount) + (guild instanceof Guild ? lang(`boosts.${guild.premiumTier}`) : '')
           },
           channels && {
             name: lang('channels'), inline: false,
-            value: Object.entries(channels.reduce((acc, e) => e ? { ...acc, [e.type]: (acc[e.type] ?? 0) + 1 } : acc, {}))
+            value: Object.entries(
+              channels.reduce((
+                /** @type {Record<import('discord.js').ChannelType, number | undefined>} */ acc, e
+              ) => e ? { ...acc, [e.type]: (acc[e.type] ?? 0) + 1 } : acc, {})
+            )
               .map((
                 /** @type {[import('discord.js').ChannelType, number]} */ [k, v]
-              ) => `${lang('others.ChannelTypes.plural.' + k)}: ${inlineCode(v)}`)
+              ) => `${lang('others.ChannelTypes.plural.' + k.toString())}: ${inlineCode(v)}`)
               .join(', ')
           }
         ]
@@ -79,7 +82,7 @@ module.exports = {
 
     if (guild.vanityURLCode) {
       embed.data.fields.push({ name: lang('vanityUrl'), value: guild.vanityURLCode, inline: true });
-      if (isGuild) embed.data.fields.push({ name: lang('vanityUrl') + lang('uses'), value: guild.vanityURLUses, inline: true });
+      if (guild instanceof Guild) embed.data.fields.push({ name: lang('vanityUrl') + lang('uses'), value: guild.vanityURLUses, inline: true });
     }
 
     const components = [];
@@ -101,7 +104,7 @@ module.exports = {
       }));
     }
 
-    if (!isGuild) {
+    if (!(guild instanceof Guild)) {
       components.push(new ActionRowBuilder({ components: [new ButtonBuilder({
         label: lang('joinGuild'),
         style: ButtonStyle.Link,

@@ -13,11 +13,11 @@ module.exports = {
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing invite or domain url path in config.json',
 
   async run(lang) {
-    const { domain, port = 0, invite } = this.client.config.website;
+    const { domain = 'missingdomain', port = 0, invite } = this.client.config.website; // TODO
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', hyperlink(lang('global.here'), `${domain}${port ? ':' + port : ''}/${invite}`)),
+      description: lang('embedDescription', hyperlink(lang('global.here'), domain + (port ? `:${port}` : '') + `/${invite}`)),
       color: Colors.Blue
     });
 

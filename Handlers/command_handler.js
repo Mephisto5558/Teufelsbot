@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
 const
   { readdir } = require('node:fs/promises'),
   { resolve } = require('node:path'),
@@ -16,7 +15,7 @@ module.exports = async function commandHandler() {
 
       const filePath = resolve(file.parentPath, file.name);
 
-      /** @type {Omit<command<string, boolean, true>, 'name' | 'category'> | undefined} */
+      /** @type {Omit<command<'prefix', boolean, false>, 'name' | 'category'> | undefined} */
       let commandFile;
       try { commandFile = require(filePath); }
       catch (err) {
@@ -25,6 +24,7 @@ module.exports = async function commandHandler() {
 
       if (!commandFile?.prefixCommand) continue;
 
+      /** @type {command<'prefix', boolean, true>} */
       const command = formatCommand(commandFile, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n);
 
       /* For some reason, this alters the slash command as well.
