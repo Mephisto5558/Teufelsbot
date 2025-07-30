@@ -28,7 +28,7 @@
     "better-ms": "^1.1.7",
     "cron": "^4.3.0",
     "discord-giveaways": "^6.0.1",
-    "discord-tictactoe": "^4.2.0",
+    "discord-tictactoe": "^4.2.1",
     "discord.js": "^14.19.3",
     "fast-average-color-node": "^3.1.0",
     "ffmpeg-static": "^5.2.0",
