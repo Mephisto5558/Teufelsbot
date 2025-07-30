@@ -21,13 +21,14 @@ module.exports = function getCommands(lang) {
     category.list.push({
       commandName: cmd.name,
       commandUsage: (
+        /* eslint-disable-next-line @typescript-eslint/restrict-plus-operands -- will be fixed when commands are moved to their own lib */
         (cmd.slashCommand ? lang('others.getCommands.lookAtOptionDesc') : '')
         + (lang(`commands.${cmd.category}.${cmd.name}.usage.usage`)?.replaceAll(/slash command:/gi, '') ?? '') || lang('others.getCommands.noInfo')
       ).trim().replaceAll('\n', '<br>&nbsp'),
       commandDescription: lang(`commands.${cmd.category}.${cmd.name}.description`) ?? cmd.description,
       commandAlias: (
-        (cmd.aliases?.prefix?.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '')
-        + (cmd.aliases?.slash?.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || lang('global.none')
+        ('prefix' in cmd.aliases && cmd.aliases.prefix.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '')
+        + ('slash' in cmd.aliases && cmd.aliases.slash.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || lang('global.none')
       ).trim().replaceAll('\n', '<br>&nbsp')
     });
 

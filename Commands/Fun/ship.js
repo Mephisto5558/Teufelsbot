@@ -61,11 +61,11 @@ function _testDistribution(runs = 1_000_000) {
 
   console.log(
     'Amount of values:', results
-      .reduce((acc, e) => {
+      .reduce((/** @type {number[]} */ acc, e) => {
         acc[e] = (acc[e] ?? 0) + 1;
         return acc;
       }, Array.from({ length: results.toSorted((a, b) => b - a)[0] }))
-      .map((e, i) => `${i}: ${e ?? 0}`)
+      .map((/** @type {number} */ e, i) => `${i}: ${e}`)
       .join(', ')
   );
   console.log(`Amount of values <=${halfMax}:`, lowResultCount, `${lowResultCount / results.length * logMaxPercentage}%`);

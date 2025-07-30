@@ -45,7 +45,7 @@ module.exports = class Log extends Function {
   error(...str) { return this._log({ file: 'error' }, ...str); }
 
   /** @type {import('.').LogInterface['_logToConsole']} */
-  _logToConsole({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` }, ...str) {
+  _logToConsole({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` } = {}, ...str) {
     const log = console[file];
 
     if (!str.length) log('\n');
@@ -55,13 +55,13 @@ module.exports = class Log extends Function {
   }
 
   /** @type {import('.').LogInterface['_logToFile']} */
-  _logToFile({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` }, ...str) {
+  _logToFile({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` } = {}, ...str) {
     void appendFile(join(this.logFilesDir, `${this.date}_${file}.log`), str.length ? `${prefix}${str.join(' ')}\n` : '\n');
     return this;
   }
 
   /** @type {import('.').LogInterface['_log']} */
-  _log({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` }, ...str) {
+  _log({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` } = {}, ...str) {
     this._logToConsole({ file, type, prefix }, ...str);
     this._logToFile({ file, type, prefix }, ...str);
 

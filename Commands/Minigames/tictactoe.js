@@ -3,7 +3,8 @@ const
   { getTargetMembers, timeFormatter: { secsInMinute }, toMs: { secToMs } } = require('#Utils'),
   { sendChallengeMention } = require('#Utils/prototypeRegisterer'),
 
-  againstStatIds = new Map([['win', 'wonAgainst'], ['lose', 'lostAgainst'], ['draw', 'drewAgainst']]);
+  againstStatIds = Object.freeze({ win: 'wonAgainst', lose: 'lostAgainst', draw: 'drewAgainst' }),
+  typesStatIds = Object.freeze({ win: 'wins', lose: 'losses', draw: 'draws' });
 
 /**
  * @this {GuildInteraction}
@@ -29,8 +30,8 @@ async function updateStats(firstID, secondID, type, db) {
 
   return Promise.all([
     db.update('leaderboards', `TicTacToe.${firstID}.games`, (stats.games ?? 0) + 1),
-    db.update('leaderboards', `TicTacToe.${firstID}.${type}s`, (stats[`${type}s`] ?? 0) + 1),
-    db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, (stats[againstStatIds.get(type)]?.[secondID] ?? 0) + 1)
+    db.update('leaderboards', `TicTacToe.${firstID}.${typesStatIds[type]}`, (stats[typesStatIds[type]] ?? 0) + 1),
+    db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, (stats[againstStatIds[type]]?.[secondID] ?? 0) + 1)
   ]);
 }
 

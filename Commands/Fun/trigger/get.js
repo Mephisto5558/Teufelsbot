@@ -1,6 +1,6 @@
 const
   { EmbedBuilder, Colors, codeBlock, inlineCode, bold } = require('discord.js'),
-  { embedMaxFieldAmt, suffix } = require('#Utils').constants,
+  { embedFieldMaxAmt, suffix } = require('#Utils').constants,
   { triggerQuery, findTriggerId } = require('./_utils');
 
 /** @type {import('.').default} */
@@ -35,9 +35,9 @@ module.exports = {
     else if (this.options.getBoolean('short')) {
       const maxLength = 200;
 
-      embed.data.description = oldData.__count__ > embedMaxFieldAmt ? lang('first25') : ' ';
+      embed.data.description = oldData.__count__ > embedFieldMaxAmt ? lang('first25') : ' ';
       embed.data.fields = Object.entries(oldData)
-        .slice(0, embedMaxFieldAmt + 1)
+        .slice(0, embedFieldMaxAmt + 1)
         .map((/** @type {import('.').triggersArray} */ [id, { trigger, response, wildcard }]) => ({
           name: lang('shortFieldName', id), inline: true,
           value: lang('shortFieldValue', {

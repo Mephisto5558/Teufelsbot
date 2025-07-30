@@ -288,7 +288,8 @@ Object.defineProperties(Guild.prototype, {
   updateDB: {
     /**
      * @type {import('discord.js').Guild['updateDB']}
-     * @this {Guild} */
+     * @this {Guild}
+     * @param {string} key */
     value: async function updateDB(key, value) { return this.client.db.update('guildSettings', `${this.id}${key ? '.' + key : ''}`, value); }
   },
   deleteDB: {
