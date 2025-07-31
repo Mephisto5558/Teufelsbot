@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
+/* eslint-disable @typescript-eslint/no-deprecated, sonarjs/cognitive-complexity, sonarjs/cyclomatic-complexity
+ -- will be fixed when commands are moved to their own lib */
 
 const
   { readdir } = require('node:fs/promises'),

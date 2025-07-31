@@ -88,6 +88,28 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
   return collection;
 }
 
+/**
+ * @this {ThisParameterType<NonNullable<command<'both'>['run']>>}
+ * @param {number | undefined} amount
+ * @param {import('./purge').shouldDeleteMsgOptions} options
+ * @param {boolean} exists */
+function checkParams(amount, options, exists) {
+  if (!amount) return void this.customReply(Number.isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
+  if (options.before_message && options.after_message) return void this.customReply(lang('beforeAndAfter'));
+
+  if (
+  /* eslint-disable-next-line sonarjs/expression-complexity -- clear logic imo */
+    exists && (
+      options.does_not_contain && options.contains?.includes(options.does_not_contain)
+      || options.contains && options.does_not_contain?.includes(options.contains)
+      || options.starts_with && options.starts_with == options.not_starts_with
+      || options.ends_with && options.ends_with == options.not_ends_with
+    )
+  ) return void this.editReply(lang('paramsExcludeOther'));
+
+  return true;
+}
+
 /** @type {command<'both'>} */
 module.exports = {
   aliases: { prefix: ['clear'] },
@@ -147,9 +169,6 @@ module.exports = {
       /** @type {import('./purge').shouldDeleteMsgOptions} */
       options = Object.fromEntries(this.options?.data.map(e => [e.name, e.value]) ?? []);
 
-    if (!amount) return this.customReply(Number.isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
-    if (options.before_message != undefined && options.after_message != undefined) return this.customReply(lang('beforeAndAfter'));
-
     if (this instanceof Message) {
       try { await this.delete(); }
       catch (err) {
@@ -158,15 +177,7 @@ module.exports = {
     }
 
     const exists = filterOptionsExist(options);
-    if (
-      /* eslint-disable-next-line sonarjs/expression-complexity -- clear logic imo */
-      exists && (
-        options.does_not_contain && options.contains?.includes(options.does_not_contain)
-        || options.contains && options.does_not_contain?.includes(options.contains)
-        || options.starts_with && options.starts_with == options.not_starts_with
-        || options.ends_with && options.ends_with == options.not_ends_with
-      )
-    ) return this.editReply(lang('paramsExcludeOther'));
+    if (!checkParams.call(this, amount, options, exists)) return;
 
     const messages = (await fetchMsgs(channel, exists ? options.before : undefined, exists ? options.after : undefined, amount))
       .filter(e => shouldDeleteMsg(e, options))
