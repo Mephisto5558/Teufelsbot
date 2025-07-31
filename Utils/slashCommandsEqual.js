@@ -1,3 +1,5 @@
+/* eslint-disable sonarjs/expression-complexity, sonarjs/cyclomatic-complexity -- will be fixed when commands are moved to their own lib */
+
 /** @type {import('.').slashCommandsEqual} */
 module.exports = function equal(a, b) {
   /* eslint-disable-next-line @typescript-eslint/no-base-to-string -- Intentional for now - */
@@ -5,7 +7,6 @@ module.exports = function equal(a, b) {
   if (typeof a == 'string' || typeof b == 'string') return a == b;
   if (a == undefined && !b?.__count__ || b == undefined && !a?.__count__) return true;
   if (
-    /* eslint-disable-next-line sonarjs/expression-complexity -- will be fixed when commands are moved to their own lib */
     !!a != !!b || a.name != b.name || a.description != b.description || a.type != b.type || a.autocomplete != b.autocomplete
     || a.dmPermission != b.dmPermission || a.value != b.value || (a.options?.length ?? 0) != (b.options?.length ?? 0)
     || (a.channelTypes?.length ?? 0) != (b.channelTypes?.length ?? 0) || (a.choices?.length ?? 0) != (b.choices?.length ?? 0)

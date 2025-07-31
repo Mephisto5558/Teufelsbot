@@ -24,6 +24,32 @@ async function getClient(env, token) {
   return client;
 }
 
+/** @param {Client<true>[]} clients */
+async function syncClientsEmojis(clients) {
+  const allEmojis = new Map(clients.flatMap(e => [...e.application.emojis.cache.entries()]));
+  const allEmojiNames = new Set(allEmojis.keys());
+
+  /** @type {{ client: Client<true>; emoji: import('discord.js').ApplicationEmoji }[]} */
+  const creationActions = clients.flatMap(client => [
+    ...allEmojiNames.difference(new Set(client.application.emojis.cache.keys()))
+  ].map(name => ({ client, emoji: allEmojis.get(name) })));
+
+  for (const { client, emoji } of creationActions) {
+    try {
+      await client.application.emojis.create({
+        name: emoji.name,
+        attachment: emoji.imageURL({ extension: emoji.animated ? 'gif' : undefined })
+      });
+
+      log.debug(`Created emoji "${emoji.name}" on client "${client.application.name}"`);
+    }
+    catch (err) {
+      if (err.code !== DiscordAPIErrorCodes.MaximumNumberOfEmojisReached) throw err;
+      log.error(`Failed to create emoji ${emoji.name} (${emoji.id}) on ${client.botType} client "${client.application.name}":`, err.message);
+    }
+  }
+}
+
 module.exports = {
   time: '00 00 00 * * *',
   startNow: false, // Getting ran even before logging into the client
@@ -54,25 +80,7 @@ module.exports = {
     }, Promise.resolve(this?.isReady() ? [this] : []));
 
     if (clients.length < 2) log('Not enough clients to sync.');
-    else {
-      for (const [name, emoji] of new Map(clients.flatMap(e => e.application.emojis.cache.map(e => [e.name, e])))) {
-        for (const client of clients) {
-          if (client.application.emojis.cache.some(e => e.name == name)) continue;
-
-          try {
-            await client.application.emojis.create({
-              name, attachment: emoji.imageURL({ extension: emoji.animated ? 'gif' : undefined })
-            });
-
-            log.debug(`Created emoji "${name}" on client "${client.application.name}"`);
-          }
-          catch (err) {
-            if (err.code != DiscordAPIErrorCodes.MaximumNumberOfEmojisReached) throw err;
-            log.error(`Failed to create emoji ${emoji.name} (${emoji.id}) on ${client.botType} client "${client.application.name}":`, err.message);
-          }
-        }
-      }
-    }
+    else await syncClientsEmojis(clients);
 
     // Log out of the clients except the original one
     for (const client of clients) if (client != this) void client.destroy();

@@ -6,6 +6,19 @@ const
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers, getAge, permissionTranslator, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
 
+/**
+ * @param {import('discord.js').GuildMember} member
+ * @param {lang} lang */
+function getMemberType(member, lang) {
+  let type = member.user.bot ? 'Bot, ' : '';
+  if (member.guild.ownerId == member.id) type += lang('guildOwner');
+  else if (member.permissions.has(PermissionFlagsBits.Administrator)) type += lang('guildAdmin');
+  else if (member.permissions.has(PermissionFlagsBits.ModerateMembers)) type += lang('guildMod');
+  else type += lang('guildMember');
+
+  return type;
+}
+
 /** @type {command<'both'>} */
 module.exports = {
   aliases: { prefix: ['user-info'] },
@@ -20,15 +33,10 @@ module.exports = {
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
       status = member.presence?.activities.find(e => e.type == ActivityType.Custom && !!e.state);
 
-    let type = member.user.bot ? 'Bot, ' : '';
+    const type = getMemberType(member, lang);
 
     // force-fetch is required to fetch a user banner: https://discord.js.org/docs/packages/discord.js/main/User:Class#banner
     if (!member.banner && !member.user.banner) await member.fetch(true);
-
-    if (member.guild.ownerId == member.id) type += lang('guildOwner');
-    else if (member.permissions.has(PermissionFlagsBits.Administrator)) type += lang('guildAdmin');
-    else if (member.permissions.has(PermissionFlagsBits.ModerateMembers)) type += lang('guildMod');
-    else type += lang('guildMember');
 
     const
       embed = new EmbedBuilder({

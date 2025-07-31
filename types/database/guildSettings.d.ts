@@ -116,8 +116,9 @@ export type guildSettings = Record<guildId, {
   lockedChannels?: Record<channelId, Record<Snowflake, OverwriteType>>;
   minigames?: {
     rps: Record<messageId, {
-      player1?: 'r' | 'p' | 's';
-      player2?: 'r' | 'p' | 's';
+      player1?: 'rock' | 'paper' | 'scissors';
+      player2?: 'rock' | 'paper' | 'scissors';
+      startedAt: number;
     }>;
     [gameName: string]: Record<messageId, unknown>;
   };

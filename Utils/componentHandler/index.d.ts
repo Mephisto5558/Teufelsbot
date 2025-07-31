@@ -125,7 +125,7 @@ declare function rps_sendChallenge(
   initiator: GuildMember, opponent?: GuildMember
 ): Promise<InteractionResponse | Message>;
 
-type PlayOptions = 'rock' | 'paper' | 'scissors';
+export type PlayOptions = NonNullable<NonNullable<Database['guildSettings'][Snowflake]['minigames']>['rps'][Snowflake]['player1']>;
 declare function rps<
   INITIATOR_ID extends Snowflake, MODE extends 'cancel' | 'decline' | 'accept' | 'playAgain' | PlayOptions,
   OPPONENT_ID extends Snowflake
