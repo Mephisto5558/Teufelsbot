@@ -47,6 +47,24 @@ async function wordchainHandler(lang) {
   return sendeMinigameDeletedEmbed.call(this, lang, bold(this.originalContent));
 }
 
+/**
+ * @this {import('discord.js').ClientEvents['messageUpdate'][0]}
+ * @param {import('discord.js').ClientEvents['messageUpdate'][1]} newMsg */
+function shouldRun(newMsg) {
+  const setting = this.guild?.db.config.logger?.messageDelete;
+  if (
+    this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size
+    && this.embeds.length === newMsg.embeds.length
+  ) return;
+
+  if (
+    this.guild.members.me.permissionsIn(setting.channel)
+      .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length
+  ) return;
+
+  return true;
+}
+
 /** @this {import('discord.js').ClientEvents['messageDelete'][0]} */
 module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.guild || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
@@ -58,18 +76,11 @@ module.exports = async function messageDelete() {
   void countingHandler.call(this, lang);
   void wordchainHandler.call(this, lang);
 
-  const setting = this.guild.db.config.logger?.messageDelete;
-  if (!setting?.enabled) return;
-
-  const channelToSend = this.guild.channels.cache.get(setting.channel);
-  if (
-    !channelToSend || this.guild.members.me.permissionsIn(channelToSend)
-      .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length
-  ) return;
-
-  await sleep(msInSecond); // Make sure the audit log gets created before trying to fetch it
+  if (!shouldRun.call(this)) return;
 
   lang.config.backupPath[0] = 'events.logger';
+
+  await sleep(msInSecond); // Make sure the audit log gets created before trying to fetch it
 
   const
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageDelete })).entries
@@ -104,5 +115,5 @@ module.exports = async function messageDelete() {
   if (executor) embed.data.fields.push({ name: lang('executor'), value: `${executor.tag} (${inlineCode(executor.id)})`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('reason'), value: reason, inline: false });
 
-  return channelToSend.send({ embeds: [embed] });
+  return this.guild.channels.cache.get(this.guild.db.config.logger.messageDelete.channel).send({ embeds: [embed] });
 };

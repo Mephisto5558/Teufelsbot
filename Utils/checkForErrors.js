@@ -1,3 +1,5 @@
+/* eslint-disable sonarjs/cyclomatic-complexity, sonarjs/cognitive-complexity -- will be fixed when commands are moved to their own lib */
+
 const
   { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction, inlineCode, MessageFlags } = require('discord.js'),
   /** @type {import('.').autocompleteGenerator} */ autocompleteGenerator = require('./autocompleteGenerator.js'),
@@ -48,7 +50,7 @@ function checkOptions(command, lang) {
       && !channelTypes.includes(this.options?.getChannel(name).type ?? this.mentions.channels.at(i)?.type)
     ) return ['invalidChannelType', name];
 
-    const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]) != undefined);
+    const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]));
     if (
       isValidType(this) && autocompleteIsUsed() && !autocompleteGenerator.call(
         this, { name, value: this.options?.get(name).value ?? this.args?.[i] }, command, this.guild?.db.config.lang ?? this.guild?.localeCode

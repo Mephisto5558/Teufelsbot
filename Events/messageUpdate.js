@@ -9,22 +9,29 @@ const
 /**
  * @this {import('discord.js').ClientEvents['messageUpdate'][0]}
  * @param {import('discord.js').ClientEvents['messageUpdate'][1]} newMsg */
-module.exports = function messageUpdate(newMsg) {
+function shouldRun(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (
     this.client.botType == 'dev' || !this.inGuild() || !setting?.enabled
     || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)
   ) return;
+
   if (
     this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size
     && this.embeds.length === newMsg.embeds.length
   ) return;
 
-  const channelToSend = this.guild.channels.cache.get(setting.channel);
-  if (
-    !channelToSend || this.guild.members.me.permissionsIn(channelToSend)
-      .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length
-  ) return;
+  if (this.guild.members.me.permissionsIn(setting.channel).missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]).length)
+    return;
+
+  return true;
+}
+
+/**
+ * @this {import('discord.js').ClientEvents['messageUpdate'][0]}
+ * @param {import('discord.js').ClientEvents['messageUpdate'][1]} newMsg */
+module.exports = function messageUpdate(newMsg) {
+  if (!shouldRun.call(this, newMsg)) return;
 
   const
     lang = this.client.i18n.getTranslator({
@@ -67,5 +74,5 @@ module.exports = function messageUpdate(newMsg) {
   if (embed.data.fields[2].value.length > embedFieldValueMaxLength)
     embed.data.fields[2].value = embed.data.fields[2].value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
 
-  return channelToSend.send({ embeds: [embed], components: [component] });
+  return this.guild.channels.cache.get(this.guild?.db.config.logger?.messageUpdate.channel).send({ embeds: [embed], components: [component] });
 };

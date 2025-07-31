@@ -74,6 +74,6 @@ function _testDistribution(runs = 1_000_000) {
     results.length - lowResultCount, `${(results.length - lowResultCount) / results.length * logMaxPercentage}%`
   );
   console.log(`Total: ${results.length}`);
-  /* eslint-disable-next-line no-self-compare, sonarjs/no-identical-expressions -- intentional test */
+  /* eslint-disable-next-line sonarjs/no-identical-expressions -- intentional test */
   console.log('Same input has the same result:', calculatePercentage('012345', '012345') == calculatePercentage('012345', '012345'));
 }

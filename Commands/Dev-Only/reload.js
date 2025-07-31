@@ -8,6 +8,77 @@ const
 
 /**
  * @this {Client}
+ * @param {command<'prefix' | 'both', boolean, true>} file
+ * @param {command<'prefix' | 'both', boolean>} command
+ * @param {string[]} reloadedArray */
+function reloadPrefixCommand(file, command, reloadedArray) {
+  file.id = command.id;
+  this.prefixCommands.set(file.name, file);
+  reloadedArray.push(file.name);
+
+  for (const alias of command.aliases?.prefix ?? []) this.prefixCommands.delete(alias);
+  for (const alias of file.aliases?.prefix ?? []) {
+    this.prefixCommands.set(alias, { ...file, aliasOf: file.name });
+    reloadedArray.push(alias);
+  }
+}
+
+/**
+ * @this {Client}
+ * @param {Pick<Partial<command<'slash' | 'both', boolean, true>>, 'id'> & Omit<command<'slash' | 'both', boolean, true>, 'id'>} file
+ * @param {command<'slash' | 'both', boolean>} command
+ * @param {string[]} reloadedArray */
+async function reloadSlashCommand(file, command, reloadedArray) {
+  const equal = slashCommandsEqual(file, command);
+
+  if (equal) file.id = command.id;
+  else {
+    if (command.id) await this.application.commands.delete(command.id);
+    if (file.disabled || this.botType == 'dev' && !file.beta) {
+      file.id = command.id;
+      log(`Skipped/Deleted Disabled Slash Command ${file.name}`);
+    }
+    else {
+      file.id = (await this.application.commands.create(file)).id;
+      log(`Reloaded Slash Command ${file.name}`);
+    }
+  }
+
+  this.slashCommands.delete(command.name);
+  this.slashCommands.set(file.name, file);
+  reloadedArray.push(commandMention(file.name, file.id ?? 0));
+
+  for (const alias of [...file.aliases?.slash ?? [], ...command.aliases?.slash ?? []].unique()) {
+    const { id } = this.slashCommands.get(alias) ?? {};
+    let cmdId = id;
+
+    if (equal) {
+      this.slashCommands.delete(alias);
+      this.slashCommands.set(alias, { ...file, id, aliasOf: file.name });
+    }
+    else {
+      this.slashCommands.delete(alias);
+
+      if (file.disabled || this.botType == 'dev' && !file.beta) {
+        if (id) await this.application.commands.delete(id);
+        cmdId = undefined;
+
+        log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${file.name})`);
+      }
+      else {
+        cmdId = (await this.application.commands.create({ ...file, name: alias })).id;
+        log(`Reloaded Slash Command ${alias} (Alias of ${file.name})`);
+      }
+
+      this.slashCommands.set(alias, { ...file, id: cmdId, aliasOf: file.name });
+    }
+
+    reloadedArray.push(commandMention(alias, cmdId ?? 0));
+  }
+}
+
+/**
+ * @this {Client}
  * @param {command<string, boolean>} command
  * @param {string[]} reloadedArray gets modified and not returned */
 async function reloadCommand(command, reloadedArray) {
@@ -28,67 +99,9 @@ async function reloadCommand(command, reloadedArray) {
   }
 
   this.prefixCommands.delete(command.name);
-  if (file.prefixCommand) {
-    file.id = command.id;
-    this.prefixCommands.set(file.name, file);
-    reloadedArray.push(file.name);
+  if (file.prefixCommand) reloadPrefixCommand.call(this, file, command, reloadedArray);
 
-    for (const alias of command.aliases?.prefix ?? []) this.prefixCommands.delete(alias);
-    for (const alias of file.aliases?.prefix ?? []) {
-      this.prefixCommands.set(alias, { ...file, aliasOf: file.name });
-      reloadedArray.push(alias);
-    }
-  }
-
-  if (file.slashCommand) {
-    const equal = slashCommandsEqual(file, command);
-    if (equal) file.id = command.id;
-    else {
-      if (command.id) await this.application.commands.delete(command.id);
-      if (file.disabled || this.botType == 'dev' && !file.beta) {
-        file.id = command.id;
-        log(`Skipped/Deleted Disabled Slash Command ${file.name}`);
-      }
-      else {
-        file.id = (await this.application.commands.create(file)).id;
-        log(`Reloaded Slash Command ${file.name}`);
-      }
-    }
-
-    this.slashCommands.delete(command.name);
-    this.slashCommands.set(file.name, file);
-    reloadedArray.push(commandMention(file.name, file.id ?? 0));
-
-    /** @type {string} */
-    let alias;
-    for (alias of [...file.aliases?.slash ?? [], ...command.aliases?.slash ?? []].unique()) {
-      const { id } = this.slashCommands.get(alias) ?? {};
-      let cmdId = id;
-
-      if (equal) {
-        this.slashCommands.delete(alias);
-        this.slashCommands.set(alias, { ...file, id, aliasOf: file.name });
-      }
-      else {
-        this.slashCommands.delete(alias);
-
-        if (file.disabled || this.botType == 'dev' && !file.beta) {
-          if (id) await this.application.commands.delete(id);
-          cmdId = undefined;
-
-          log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${file.name})`);
-        }
-        else {
-          cmdId = (await this.application.commands.create({ ...file, name: alias })).id;
-          log(`Reloaded Slash Command ${alias} (Alias of ${file.name})`);
-        }
-
-        this.slashCommands.set(alias, { ...file, id: cmdId, aliasOf: file.name });
-      }
-
-      reloadedArray.push(commandMention(alias, cmdId ?? 0));
-    }
-  }
+  if (file.slashCommand) await reloadSlashCommand.call(this, file, command, reloadedArray);
   else if (!file.slashCommand && command.slashCommand) {
     this.slashCommands.delete(command.name);
     if (command.id) await this.application.commands.delete(command.id);
