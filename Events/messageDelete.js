@@ -47,18 +47,10 @@ async function wordchainHandler(lang) {
   return sendeMinigameDeletedEmbed.call(this, lang, bold(this.originalContent));
 }
 
-/**
- * @this {import('discord.js').ClientEvents['messageUpdate'][0]}
- * @param {import('discord.js').ClientEvents['messageUpdate'][1]} newMsg */
-function shouldRun(newMsg) {
-  const setting = this.guild?.db.config.logger?.messageDelete;
+/** @this {import('discord.js').ClientEvents['messageDelete'][0]} */
+function shouldRun() {
   if (
-    this.originalContent === newMsg.originalContent && this.attachments.size === newMsg.attachments.size
-    && this.embeds.length === newMsg.embeds.length
-  ) return;
-
-  if (
-    this.guild.members.me.permissionsIn(setting.channel)
+    this.guild.members.me.permissionsIn(this.guild?.db.config.logger?.messageDelete.channel)
       .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length
   ) return;
 
