@@ -29,13 +29,13 @@ module.exports = async function slashCommandHandler() {
       if (!commandFile?.slashCommand) continue;
 
       let command;
-      try { command = formatCommand(command, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n); }
+      try { command = formatCommand(commandFile, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n); }
       catch (err) {
         if (this.botType == 'dev') throw err;
-        log.error(`Error on formatting command ${command.name}:\n`, err);
+        log.error(`Error on formatting command ${commandFile.name}:\n`, err);
 
-        command.skip = true;
-        this.slashCommands.set(command.name, command);
+        commandFile.skip = true;
+        this.slashCommands.set(commandFile.name, commandFile);
         continue;
       }
 
