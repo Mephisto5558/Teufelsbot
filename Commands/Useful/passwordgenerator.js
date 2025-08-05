@@ -13,7 +13,7 @@ const
 /**
  * Helper function to prevent `eslint/no-loop-func`
  *
- * Filters the last selected entry out and selects a list entry based on a secure random number generator (RNG).
+ * Filters the last selected entry out and selects a random list entry.
  * RNG defined in Utils/prototypeRegisterer.js.
  * @param {string[]} charset
  * @param {string?} lastRandomChar */
@@ -51,30 +51,30 @@ module.exports = {
 
       segmenter = new Intl.Segmenter(lang.config.locale, { granularity: 'grapheme' });
 
-    // Remove exclude chars and add include chars to the charset
+    // Remove exclude chars and add include chars to the charset.
 
     let charset = [...DEFAULT_CHARSET.filter(char => !exclude.includes(char)), ...[...segmenter.segment(include)].map(e => e.segment)]
-      .unique(); // Remove duplicates
+      .unique(); // Remove duplicates.
 
     if (!charset.length) return this.editReply(lang('charsetEmpty')); // Return if charset is empty
 
-    // Loop over the amount of passwords to be generated, break early if the length of all passwords combined is greater than `MAX_MESSAGE_LENGTH`
+    // Loop over the amount of passwords to be generated, break early if the length of all passwords combined is greater than `MAX_MESSAGE_LENGTH`.
     for (let i = 0; i < count && passwordList.join('\n').length < MAX_MESSAGE_LENGTH; i++) {
       let password = '';
       for (let lastRandomChar, i = 0; i < length; i++) {
-        // Get the random char and escape it so they it doesn't break formatting
+        // Get the random char and escape it so they it doesn't break formatting.
         const randomChar = String.raw({ raw: getRandomChar(charset, lastRandomChar) });
 
-        // Adds one of the chars in the charset to the password
+        // Adds one of the chars in the charset to the password.
         password += randomChar;
-        lastRandomChar = randomChar; // Sets lastRandomChar to the last generated char
+        lastRandomChar = randomChar; // Sets lastRandomChar to the last generated char.
       }
 
-      // Add the password to the password list after wrapping it in a code block
+      // Add the password to the password list after wrapping it in a code block.
       passwordList.push(codeBlock(password).replaceAll('\n', ''));
     }
 
-    // Limits the *displayed* charset length
+    // Limits the *displayed* charset length.
     if (charset.length > MAX_DISPLAYED_CHARSET_LEN) charset = charset.slice(0, MAX_DISPLAYED_CHARSET_LEN - suffix.length).join('') + suffix;
 
     return this.editReply(lang('success', { passwords: passwordList.join('\n'), charset: codeBlock(charset.join('')) }));

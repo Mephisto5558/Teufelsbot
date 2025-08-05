@@ -45,7 +45,7 @@ export default [
       }
     },
     rules: {
-      // Pain, needs TODO:
+      // pain, needs TODO:
       '@typescript-eslint/prefer-readonly-parameter-types': 'off'
     }
   },
@@ -53,7 +53,7 @@ export default [
     name: 'overwrite:js',
     files: ['**/*.js'],
     rules: {
-      // Pain, needs TODO:
+      // pain, needs TODO:
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/no-unsafe-argument': 'off',
       '@typescript-eslint/no-unsafe-member-access': 'off',

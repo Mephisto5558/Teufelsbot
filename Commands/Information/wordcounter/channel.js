@@ -16,7 +16,6 @@ module.exports = {
   }],
 
   async run(lang) {
-    if (!this.inGuild()) return; // Type safeguard
     if (!this.guild.db.wordCounter?.enabled) {
       const command = this.client.slashCommands.get('setup');
       return this.customReply(lang('notEnabled', commandMention(`${command.name} ${this.command.name}`, command.id)));

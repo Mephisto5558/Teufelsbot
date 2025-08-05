@@ -77,7 +77,7 @@ async function processMessageEventCallback(handlerPromises, message) {
   }
 
   handlers.eventHandler.call(this);
-  await events.ready.call(this); // Run due to it not being ran on ready, before the handler is loaded
+  await events.ready.call(this); // run due to it not being ran on ready, before the handler is loaded
 }
 
 /**

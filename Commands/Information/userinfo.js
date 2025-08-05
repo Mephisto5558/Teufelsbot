@@ -35,7 +35,7 @@ module.exports = {
 
     const type = getMemberType(member, lang);
 
-    // Force fetch is required to fetch a user banner: https://discord.js.org/docs/packages/discord.js/main/User:Class#banner
+    // force-fetch is required to fetch a user banner: https://discord.js.org/docs/packages/discord.js/main/User:Class#banner
     if (!member.banner && !member.user.banner) await member.fetch(true);
 
     const
