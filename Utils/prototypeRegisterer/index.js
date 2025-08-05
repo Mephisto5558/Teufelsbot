@@ -205,7 +205,7 @@ Object.defineProperties(Client.prototype, {
   awaitReady: {
     /** @type {Client['awaitReady']} */
     value: async function awaitReady() {
-      return new Promise(res => this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch())));
+      return new Promise(res => void this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch())));
     }
   }
 });

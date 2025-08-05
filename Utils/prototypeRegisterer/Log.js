@@ -14,7 +14,7 @@ const logLevels = {
 
 module.exports = class Log extends Function {
   constructor(logLevel = 'log', logFilesDir = './Logs') {
-    /* eslint-disable-next-line sonarjs/no-async-constructor -- constructor functions cannot be async and we don't want an extra `init` function.
+    /* eslint-disable-next-line custom/no-async-constructor -- constructor functions cannot be async and we don't want an extra `init` function.
     We just hope the system has enough time to create the dir. */
     access(logFilesDir).catch(err => {
       if (err.code != 'ENOENT') throw err;

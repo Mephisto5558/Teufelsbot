@@ -6,7 +6,7 @@
 const
   {
     EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle,
-    DiscordAPIError, GuildEmoji, StringSelectMenuBuilder, MessageFlags
+    DiscordAPIError, StringSelectMenuBuilder, MessageFlags
   } = require('discord.js'),
   { ban_kick_mute } = require('../combinedCommands'),
   { auditLogReasonMaxLength } = require('../constants.js'),
@@ -79,7 +79,7 @@ const
           return this.update({ components });
         }
         case 'addToSelectedGuild':
-          if (!this.isStringSelectMenu() || !(emoji instanceof GuildEmoji)) return; // typeguard
+          if (!this.isStringSelectMenu()) return; // typeguard
 
           for (const guildId of this.values) {
             let

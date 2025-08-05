@@ -27,7 +27,8 @@ module.exports = function getCommands(lang) {
       ).trim().replaceAll('\n', '<br>&nbsp'),
       commandDescription: lang(`commands.${cmd.category}.${cmd.name}.description`) ?? cmd.description,
       commandAlias: (
-        (cmd.aliases && 'prefix' in cmd.aliases  && cmd.aliases.prefix.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '')
+        /* eslint-disable-next-line sonarjs/expression-complexity -- will be fixed when commands are moved to their own lib */
+        (cmd.aliases && 'prefix' in cmd.aliases && cmd.aliases.prefix.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '')
         + (cmd.aliases && 'slash' in cmd.aliases && cmd.aliases.slash.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || lang('global.none')
       ).trim().replaceAll('\n', '<br>&nbsp')
     });
