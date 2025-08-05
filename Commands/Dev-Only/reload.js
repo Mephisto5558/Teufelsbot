@@ -1,4 +1,6 @@
-/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
+/* eslint-disable require-atomic-updates, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-deprecated
+-- will be fixed when commands are moved to their own lib */
+
 const
   { Collection, codeBlock, inlineCode } = require('discord.js'),
   { access } = require('node:fs/promises'),
@@ -34,7 +36,7 @@ async function reloadSlashCommand(file, command, reloadedArray) {
 
   if (equal) file.id = command.id;
   else {
-    if (command.id) await this.application.commands.delete(command.id);
+    if ('id' in command) await this.application.commands.delete(command.id);
     if (file.disabled || this.botType == 'dev' && !file.beta) {
       file.id = command.id;
       log(`Skipped/Deleted Disabled Slash Command ${file.name}`);
@@ -80,7 +82,7 @@ async function reloadSlashCommand(file, command, reloadedArray) {
 
 /**
  * @this {Client}
- * @param {command<string, boolean>} command
+ * @param {command<string, boolean, true>} command
  * @param {string[]} reloadedArray gets modified and not returned */
 async function reloadCommand(command, reloadedArray) {
   /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
@@ -105,7 +107,7 @@ async function reloadCommand(command, reloadedArray) {
   if (file.slashCommand) await reloadSlashCommand.call(this, file, command, reloadedArray);
   else if (!file.slashCommand && command.slashCommand) {
     this.slashCommands.delete(command.name);
-    if (command.id) await this.application.commands.delete(command.id);
+    if ('id' in command) await this.application.commands.delete(command.id);
   }
 }
 

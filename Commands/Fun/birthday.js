@@ -42,7 +42,7 @@ const birthdayMainFunctions = {
 
   get: async function get(lang) {
     const
-      target = getTargetMembers(this, { returnSelf: true }),
+      target = getTargetMembers(this),
       doNotHide = this.options.getBoolean('do_not_hide'),
       embed = new EmbedBuilder({
         color: Colors.Blurple,
@@ -89,7 +89,7 @@ const birthdayMainFunctions = {
             if (birthday && guildMembers.has(k)) acc.push([k, birthday]);
             return acc;
           }, [])
-          .sort(([, a], [, b]) => sortDates(a, b))
+          .toSorted(([, a], [, b]) => sortDates(a, b))
           .slice(0, 10);
 
       embed.data.description = data.length ? '' : lang('getAll.notFound');

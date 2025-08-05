@@ -1,4 +1,6 @@
-/* eslint-disable sonarjs/cognitive-complexity, sonarjs/cyclomatic-complexity  -- will be fixed when commands are moved to their own lib */
+/* eslint-disable sonarjs/cognitive-complexity, custom/cyclomatic-complexity
+-- will be fixed when commands are moved to their own lib */
+
 const
   { readdir } = require('node:fs/promises'),
   { resolve } = require('node:path'),
@@ -26,11 +28,13 @@ module.exports = async function commandHandler() {
       if (!commandFile?.prefixCommand) continue;
 
       /** @type {command<'prefix', boolean, true>} */
-      const command = formatCommand(commandFile, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n);
+      const
+        command = formatCommand(commandFile, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n),
 
-      /* For some reason, this alters the slash command as well.
+        /* For some reason, this alters the slash command as well.
          That's why localizeUsage is only here and not in `Utils/formatSlashCommand.js`. */
-      const usage = localizeUsage(command, `commands.${command.category}.${command.name}`, this.i18n);
+        usage = localizeUsage(command, `commands.${command.category}.${command.name}`, this.i18n);
+
       command.usage = usage[0];
       command.usageLocalizations = usage[1];
 
@@ -57,5 +61,5 @@ module.exports = async function commandHandler() {
 
   log(`Loaded ${enabledCommandCount} Enabled Prefix Commands`);
   if (!this.config.hideDisabledCommandLog) log(`Loaded ${disabledCommandCount} Disabled/Non-Beta Prefix Commands`);
-  console.log(); // Empty line
+  console.log(); // empty line
 };

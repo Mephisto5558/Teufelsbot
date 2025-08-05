@@ -30,7 +30,7 @@ function shouldRun(newMsg) {
 /**
  * @this {import('discord.js').ClientEvents['messageUpdate'][0]}
  * @param {import('discord.js').ClientEvents['messageUpdate'][1]} newMsg */
-module.exports = function messageUpdate(newMsg) {
+module.exports = async function messageUpdate(newMsg) {
   if (!shouldRun.call(this, newMsg)) return;
 
   const
@@ -42,7 +42,10 @@ module.exports = function messageUpdate(newMsg) {
     }),
     embed = new EmbedBuilder({
       author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
-      description: lang('embedDescription', { executor: userMention(newMsg.user.id), channel: newMsg.channel.name }),
+      description: lang('embedDescription', {
+        executor: userMention(newMsg.user.id),
+        channel: 'name' in newMsg.channel ? newMsg.channel.name : newMsg.channelId
+      }),
       fields: [
         { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false },
         { name: lang('oldContent'), value: '', inline: false },
@@ -77,5 +80,5 @@ module.exports = function messageUpdate(newMsg) {
   if (embed.data.fields[2].value.length > embedFieldValueMaxLength)
     embed.data.fields[2].value = embed.data.fields[2].value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
 
-  return this.guild.channels.cache.get(this.guild?.db.config.logger?.messageUpdate.channel).send({ embeds: [embed], components: [component] });
+  return logChannel.send({ embeds: [embed], components: [component] });
 };

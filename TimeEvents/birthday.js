@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, inlineCode } = require('discord.js'),
+  { BaseGuildTextChannel, EmbedBuilder, inlineCode } = require('discord.js'),
   { DiscordAPIErrorCodes } = require('#Utils');
 
 /**
@@ -43,7 +43,10 @@ function createEmbed(type, settings, member, year, defaultSettings) {
 async function getChannel(settings, guild) {
   if (!settings.ch?.channel) return;
 
-  try { return await guild.channels.fetch(settings.ch.channel); }
+  try {
+    const channel = await guild.channels.fetch(settings.ch.channel);
+    return channel instanceof BaseGuildTextChannel ? channel : undefined;
+  }
   catch (err) {
     if (err.code != DiscordAPIErrorCodes.UnknownChannel) throw err;
 
@@ -73,8 +76,7 @@ module.exports = {
       const settings = guild.db.birthday;
       if (!settings?.enable || !settings.ch?.channel && !settings.dm?.enable) continue;
 
-      /** @type {Record<Snowflake, number>} */
-      const birthdayUserList = Object.entries(this.db.get('userSettings')).reduce((acc, [id, e]) => {
+      const birthdayUserList = Object.entries(this.db.get('userSettings')).reduce((/** @type {Record<Snowflake, number>} */ acc, [id, e]) => {
         if (e.birthday?.getMonth() == nowMonth && e.birthday.getDate() == nowDate) acc[id] = e.birthday.getFullYear();
         return acc;
       }, {});
@@ -92,16 +94,15 @@ module.exports = {
           });
         }
 
-        if (settings.dm?.enable) {
-          try {
-            await member.send({
-              content: formatBirthday.call(settings.dm.msg?.content, member, year),
-              embeds: [createEmbed('dm', settings, member, year, this.defaultSettings.birthday)]
-            });
-          }
-          catch (err) {
-            if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
-          }
+        if (!settings.dm?.enable) continue;
+        try {
+          await member.send({
+            content: formatBirthday.call(settings.dm.msg?.content, member, year),
+            embeds: [createEmbed('dm', settings, member, year, this.defaultSettings.birthday)]
+          });
+        }
+        catch (err) {
+          if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
         }
       }
     }

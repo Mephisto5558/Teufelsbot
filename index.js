@@ -7,7 +7,7 @@ const maxStackTraceLimit = 100;
 Error.stackTraceLimit = maxStackTraceLimit;
 
 const
-  { ActivityType, AllowedMentionsTypes, Client, GatewayIntentBits, Partials } = require('discord.js'),
+  { ActivityType, AllowedMentionsTypes, Client, GatewayIntentBits, Partials, Team } = require('discord.js'),
   { WebServer } = require('@mephisto5558/bot-website'),
   {
     GiveawaysManager, configValidator: { configValidationLoop },
@@ -112,13 +112,13 @@ void (async function main() {
   if (newClient.botType != 'dev') newClient.giveawaysManager = new GiveawaysManager(newClient);
 
   /** Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution */
-  const handlerPromises = [
-    ...Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(async ([,handler]) => handler.call(newClient)),
-    newClient.awaitReady().then(app => app.client.config.devIds.add(app.owner?.owner?.id ?? app.owner?.id))
-  ];
+  const
+    handlerPromises = [
+      ...Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(async ([,handler]) => handler.call(newClient)),
+      newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id))
+    ],
 
-  /** @type {Client<true>} */
-  const client = await loginClient.call(newClient, process.env.token);
+    client = await loginClient.call(newClient, process.env.token);
 
   /** @param {string} emoji */
   globalThis.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();

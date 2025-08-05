@@ -1,5 +1,9 @@
 import type Discord from 'discord.js';
-import type { SettingsPaths } from '@mephisto5558/mongoose-db';
+import type LibWebServer, { customPage as LibCustomPage, dashboardSetting as LibDashboardSetting } from '@mephisto5558/bot-website';
+import type { Locale } from '@mephisto5558/i18n';
+import type { DB, SettingsPaths } from '@mephisto5558/mongoose-db';
+import type { NextFunction, Request, Response } from 'express';
+import type { Omit } from './discord.js';
 
 type autocompleteOptions = string | number | { name: string; value: string };
 
@@ -7,6 +11,11 @@ type BaseCommand<initialized extends boolean = boolean> = {
 
   /** Numbers in milliseconds */
   cooldowns?: { guild?: number; channel?: number; user?: number };
+
+  permissions?: {
+    client?: (keyof Discord.PermissionFlags)[];
+    user?: (keyof Discord.PermissionFlags)[];
+  };
 
   /** Makes the command also work in direct messages. */
   dmPermission?: boolean;
@@ -42,7 +51,7 @@ type BaseCommand<initialized extends boolean = boolean> = {
    * Gets set automatically from language files.
    * `undefined` only for an unknown language
    * @see {@link command.description} */
-  descriptionLocalizations: Record<string, BaseCommand<true>['description']>;
+  descriptionLocalizations: Record<Locale, BaseCommand<true>['description']>;
 
   /**
    * Command usage information for the end-user.
@@ -59,11 +68,6 @@ type BaseCommand<initialized extends boolean = boolean> = {
 
   /** Gets set to the lowercase folder name the command is in. */
   category: string;
-
-  permissions?: {
-    client?: Discord.PermissionFlags[];
-    user?: Discord.PermissionFlags[];
-  };
 
   /**
    * **Do not set manually.**
@@ -88,11 +92,6 @@ type BaseCommand<initialized extends boolean = boolean> = {
 
   /** @deprecated Change the directory name to the desired category instead. */
   category?: string;
-
-  permissions?: {
-    client?: (keyof Discord.PermissionFlags)[];
-    user?: (keyof Discord.PermissionFlags)[];
-  };
 });
 
 type Config = {
@@ -131,20 +130,26 @@ type Config = {
   enableConsoleFix?: boolean;
 };
 
-type BoundFunction = new (
+type BoundFunction<isAsync extends boolean = false> = new (
   this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang
-) => FunctionConstructor;
+) => GenericFunction<isAsync extends true ? Promise<unknown> : unknown>;
 
 type FlattenedGuildSettings = SettingsPaths<Database['guildSettings'][Snowflake]>;
 type FlattenedUserSettings = SettingsPaths<Database['userSettings'][Snowflake]>;
 
 export class WebServer extends LibWebServer {
   client: Discord.Client<true>;
+  db: DB<Database>;
 }
 
-export type customPage = Omit<LibCustomPage, 'run'> & {
+export type customPage<RunReqBody = unknown, RunResBody = unknown> = Omit<LibCustomPage, 'run'> & {
   run?: Omit<LibCustomPage['run'], GenericFunction>
-    | ((this: WebServer, ...args: Parameters<LibCustomPage['run']>) => ReturnType<LibCustomPage['run']>);
+    | ((
+      this: WebServer,
+      res: Response<RunResBody | undefined>,
+      req: Request<undefined, undefined, RunReqBody | undefined>,
+      next: NextFunction
+    ) => ReturnType<LibCustomPage['run']>);
 };
 
 export type dashboardSetting = Omit<LibDashboardSetting, 'get' | 'set' | 'type'> & {

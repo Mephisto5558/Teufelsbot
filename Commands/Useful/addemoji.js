@@ -72,8 +72,10 @@ module.exports = {
       embed.data.description = lang('success', { name: bold(emoji.name), emoji });
       if (limitToRoles?.length > 0) embed.data.description += `\n${lang('limitedToRoles', limitToRoles.map(roleMention).join(', '))}`;
     }
-    catch (err) {
-      if (err.message.includes('image[BINARY_TYPE_MAX_SIZE]')) // no check by err.code because it is just 50035 ("Invalid form body")
+    catch (rawErr) {
+      const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
+
+      if (err.code == DiscordAPIErrorCodes.InvalidFormBody && err.message.includes('image[BINARY_TYPE_MAX_SIZE]'))
         embed.data.description = lang('error', codeBlock(lang('tooBig')));
       else if (err.code != DiscordAPIErrorCodes.MaximumNumberOfEmojisReached && err.name != 'AbortError' && err.name != 'ConnectTimeoutError')
         throw err;

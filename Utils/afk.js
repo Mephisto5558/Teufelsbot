@@ -10,10 +10,7 @@ const
 module.exports.nicknamePrefix = nicknamePrefix;
 module.exports.nicknameRegex = nicknameRegex;
 
-/**
- * @type {import('.')['afk']['getAfkStatus']}
- * @this {ThisParameterType<import('.')['afk']['getAfkStatus']>}
- * Here due to `@typescript-eslint/no-invalid-this` */
+/** @type {import('.')['afk']['getAfkStatus']} */
 module.exports.getAfkStatus = async function getAfkStatus(target, lang) {
   const { message, createdAt } = this.guild?.db.afkMessages?.[target.id] ?? ('user' in target ? target.user : target).db.afkMessage ?? {};
   if (!message) return this.customReply(lang('getNoneFound'));
@@ -23,10 +20,7 @@ module.exports.getAfkStatus = async function getAfkStatus(target, lang) {
   }));
 };
 
-/**
- * @type {import('.')['afk']['listAfkStatuses']}
- * @this {ThisParameterType<import('.')['afk']['listAfkStatuses']>}
- * Here due to `@typescript-eslint/no-invalid-this` */
+/** @type {import('.')['afk']['listAfkStatuses']} */
 module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
   const afkMessages = this.guild.members.cache.reduce((acc, e) => {
     const { message, createdAt } = this.guild.db.afkMessages?.[e.user.id] ?? e.user.db.afkMessage ?? {};
@@ -46,11 +40,11 @@ module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
 /**
  * @type {import('.')['afk']['setAfkStatus']}
  * @this {ThisParameterType<import('.')['afk']['setAfkStatus']>}
- * Here due to `@typescript-eslint/no-invalid-this` */
+ * here due to TS not understanding typeguards with generics */
 module.exports.setAfkStatus = async function setAfkStatus(lang, global, message) {
   const
     user = this.member?.user,
-    createdAt = this.createdAt ?? new Date();
+    createdAt = 'createdAt' in this ? this.createdAt : new Date();
   message ||= 'AFK'; /* eslint-disable-line @typescript-eslint/prefer-nullish-coalescing -- message can be an empty string */
 
   await (global || !this.guild
@@ -63,10 +57,7 @@ module.exports.setAfkStatus = async function setAfkStatus(lang, global, message)
   return this.customReply({ content: lang(global || !this.guild ? 'globalSuccess' : 'success', message), allowedMentions: { repliedUser: true } });
 };
 
-/**
- * @type {import('.')['afk']['removeAfkStatus']}
- * @this {ThisParameterType<import('.')['afk']['removeAfkStatus']>}
- * Here due to `@typescript-eslint/no-invalid-this` */
+/** @type {import('.')['afk']['removeAfkStatus']} */
 module.exports.removeAfkStatus = async function removeAfkStatus() {
   if (!this.member || !this.guild) return; // `!this.guild` as typeguard
 
@@ -90,10 +81,7 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
   ) return this.channel.send(`${userMention(this.member.id)}\n${msg}`);
 };
 
-/**
- * @type {import('.')['afk']['sendAfkMessages']}
- * @this {ThisParameterType<import('.')['afk']['sendAfkMessages']>}
- * Here due to `@typescript-eslint/no-invalid-this` */
+/** @type {import('.')['afk']['sendAfkMessages']} */
 module.exports.sendAfkMessages = async function sendAfkMessages() {
   const afkMsgs = this.mentions.members.reduce((acc, e) => {
     const { message, createdAt } = this.guild.db.afkMessages?.[e.user.id] ?? e.user.db.afkMessage ?? {};

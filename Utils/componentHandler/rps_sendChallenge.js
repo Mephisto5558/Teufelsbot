@@ -8,9 +8,8 @@ module.exports = async function sendRPSChallenge(lang, initiator, opponent) {
 
   lang.config.backupPaths[0] = 'commands.minigames.rps.challenge';
 
-  if (opponent.bot && opponent.id != this.client.user.id)
-    return this.replied ? this.editReply(lang('opponentIsBot')) : this.reply(lang('opponentIsBot'));
-  if (opponent.id == initiator.id) return this.replied ? this.editReply(lang('opponentIsSelf')) : this.reply(lang('opponentIsSelf'));
+  if (opponent.bot && opponent.id != this.client.user.id) return this.customReply(lang('opponentIsBot'));
+  if (opponent.id == initiator.id) return this.customReply(lang('opponentIsSelf'));
 
   const
     embed = new EmbedBuilder({
@@ -31,9 +30,8 @@ module.exports = async function sendRPSChallenge(lang, initiator, opponent) {
           style: ButtonStyle.Danger
         })
       ]
-    });
+    }),
 
-  const
     msg = await this.customReply({ content: opponent.bot ? undefined : userMention(opponent.id), embeds: [embed], components: [component] }),
     deleteTime = 5000;
 

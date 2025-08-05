@@ -17,7 +17,7 @@ function manageData(data) {
 
   return Object.entries(data)
     .filter(([key]) => this.guild.members.cache.has(key) || key == 'AI')
-    .sort(([, a], [, b]) => b - a)
+    .toSorted(([, a], [, b]) => b - a)
     .slice(0, TOPLIST_MAX_USERS)
     .map(([key, value]) => '> ' + (key == 'AI' ? key : userMention(key)) + `: ${inlineCode(value)}`)
     .join('\n') || undefined;
@@ -126,7 +126,7 @@ module.exports = {
       else {
         embed.data.description = target.id == this.member.id
           ? lang('youNoGamesPlayed', game)
-          : lang('userNoGamesPlayed', { user: target.username, game });
+          : lang('userNoGamesPlayed', { user: target.displayName, game });
       }
 
       return this.customReply({ embeds: [embed] });
@@ -137,7 +137,7 @@ module.exports = {
     embed.data.title = lang('embedTitleTop10', game);
     embed.data.description = formatTop.call(
       this, Object.entries(data).filter(e => settings == 'all_users' || this.guild.members.cache.has(e[0])),
-      sort, mode, lang, embedDescriptionMaxLength
+      lang, { sort, mode, maxLength: embedDescriptionMaxLength }
     ) ?? lang('noPlayers');
 
     const component = new ActionRowBuilder({

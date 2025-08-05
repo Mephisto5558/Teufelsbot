@@ -19,8 +19,6 @@ module.exports = {
 
   async run(lang) {
     const
-
-      /** @type {import('discord.js').GuildMember?} */
       target = this.options.getMember('target'),
       reason = this.options.getString('reason') ?? lang('noReason');
 

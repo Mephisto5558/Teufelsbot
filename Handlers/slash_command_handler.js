@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-deprecated, sonarjs/cognitive-complexity, sonarjs/cyclomatic-complexity
+/* eslint-disable sonarjs/cognitive-complexity, custom/cyclomatic-complexity, max-depth, @typescript-eslint/no-unsafe-argument
  -- will be fixed when commands are moved to their own lib */
 
 const
@@ -28,14 +28,15 @@ module.exports = async function slashCommandHandler() {
 
       if (!commandFile?.slashCommand) continue;
 
+      /** @type {command<'slash', boolean, true>} */
       let command;
-      try { command = formatCommand(command, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n); }
+      try { command = formatCommand(commandFile, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n); }
       catch (err) {
         if (this.botType == 'dev') throw err;
-        log.error(`Error on formatting command ${command.name}:\n`, err);
+        log.error(`Error on formatting command file ${filePath}:\n`, err);
 
-        command.skip = true;
-        this.slashCommands.set(command.name, command);
+        commandFile.skip = true;
+        this.slashCommands.set(commandFile.name, commandFile);
         continue;
       }
 

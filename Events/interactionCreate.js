@@ -2,7 +2,10 @@ const { autocompleteGenerator, commandExecutionWrapper, componentHandler } = req
 
 /** @this {import('discord.js').ClientEvents['interactionCreate'][0]} */
 module.exports = async function interactionCreate() {
-  if (this.client.settings.blacklist?.includes(this.user.id)) return;
+  if (
+    this.client.settings.blacklist?.includes(this.user.id)
+    || !(this.isCommand() || this.isAutocomplete() || this.isMessageComponent())
+  ) return;
 
   const
     locale = this.inGuild() ? this.guild.db.config.lang ?? this.guild.localeCode : this.user.localeCode,

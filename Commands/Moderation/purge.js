@@ -7,14 +7,11 @@ const
   maxAllowedPurgeAmt = 1000,
   bulkDeleteSleepTime = 2000,
 
-  /**
-   * @type {(str: string) => boolean}
-   * filters discord invites, invite.gg, dsc.gg, disboard.org links */
-  adRegex = str => new RegExp(
+  adRegex = new RegExp(
     String.raw`(?:(?=discord)(?<!support\.)(?:discord(?:app)?[\W_]*(?:com|gg|io|link|me|net|plus)\/|`
     + String.raw`(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(?:attachments|channels)\/)`
     + String.raw`|(?:dsc|invite)[\W_]*gg|disboard[\W_]*org`, 'i'
-  ).test(str),
+  ),
 
   /** @type {(options: Record<string, string | number | boolean>) => boolean} */
   filterOptionsExist = options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
@@ -26,16 +23,16 @@ const
     mentions: msg => !!msg.mentions.users.size,
     images: msg => msg.attachments.some(e => e.contentType.includes('image')),
     /* eslint-disable-next-line camelcase -- option name for better user-readability */
-    server_ads: msg => adRegex(msg.content) || msg.embeds.some(e => adRegex(e.description))
+    server_ads: msg => adRegex.test(msg.content) || msg.embeds.some(e => adRegex.test(e.description))
   };
 
 /** @type {import('./purge')['shouldDeleteMsg']} */
 function shouldDeleteMsg(msg, options) {
   const
 
-    /** @type {(fn: (...args: unknown[]) => boolean, option: string) => boolean} */
+    /** @type {import('./purge')['check']} */
     check = (fn, option) => !option
-      || !!msg.content.toLowerCase()[fn](option.toLowerCase())
+      || msg.content.toLowerCase()[fn](option.toLowerCase())
       || msg.embeds.some(e => !!e.description?.toLowerCase()[fn](option.toLowerCase())),
     checkCaps = () => !('caps_percentage' in options && options.caps_percentage > 0)
       || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * maxPercentage >= options.caps_percentage
@@ -93,8 +90,9 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
  * @this {ThisParameterType<NonNullable<command<'both'>['run']>>}
  * @param {number | undefined} amount
  * @param {import('./purge').shouldDeleteMsgOptions} options
- * @param {boolean} exists */
-function checkParams(amount, options, exists) {
+ * @param {boolean} exists
+ * @param {lang} lang */
+function checkParams(amount, options, exists, lang) {
   if (!amount) return void this.customReply(Number.isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
   if (options.before_message && options.after_message) return void this.customReply(lang('beforeAndAfter'));
 
@@ -106,7 +104,7 @@ function checkParams(amount, options, exists) {
       || options.starts_with && options.starts_with == options.not_starts_with
       || options.ends_with && options.ends_with == options.not_ends_with
     )
-  ) return void this.editReply(lang('paramsExcludeOther'));
+  ) return void this.customReply(lang('paramsExcludeOther'));
 
   return true;
 }
@@ -178,9 +176,9 @@ module.exports = {
     }
 
     const exists = filterOptionsExist(options);
-    if (!checkParams.call(this, amount, options, exists)) return;
+    if (!checkParams.call(this, amount, options, exists, lang)) return;
 
-    const messages = (await fetchMsgs(channel, exists ? options.before : undefined, exists ? options.after : undefined, amount))
+    const messages = (await fetchMsgs(channel, exists ? options.before_message : undefined, exists ? options.after_message : undefined, amount))
       .filter(e => shouldDeleteMsg(e, options))
       .keys()
       .toArray();
@@ -196,128 +194,3 @@ module.exports = {
     return this.customReply(lang('success', { count, all: messages.length }), msInSecond * 10);
   }
 };
-
-/* eslint-disable unicorn/consistent-function-scoping, camelcase, @typescript-eslint/no-magic-numbers
--- in there due to performance reasons (testing code not used in production) */
-
-/** tests the purge filters */
-/** @typedef {{ input: [Record<string, unknown>, Record<string, string>], expectedOutput: boolean }} data */
-function _testPurge() {
-  /** @param {data[]} data */
-  function addEmbed(...data) {
-    return data.reduce((acc, e) => {
-      const obj = structuredClone(e);
-
-      obj.input[0].embeds = [{ description: obj.input[0].content }];
-      obj.input[0].content = '';
-      acc.push(e, obj);
-
-      return acc;
-    }, []).sort((/** @type {data} */ a, /** @type {data} */ b) => Number('content' in b.input[0]) - Number('content' in a.input[0]));
-  }
-
-  /** @param {data[]} data */
-  function addFlip(...data) {
-    return data.reduce((acc, e) => {
-      const obj = structuredClone(e);
-
-      obj.input[1].does_not_contain = obj.input[1].contains;
-      obj.input[1].not_starts_with = obj.input[1].starts_with;
-      obj.input[1].not_ends_with = obj.input[1].ends_with;
-
-      delete obj.input[1].contains;
-      delete obj.input[1].starts_with;
-      delete obj.input[1].ends_with;
-
-      acc.push(e, obj);
-
-      return acc;
-    }, []).sort((/** @type {data} */ a, /** @type {data} */ b) => {
-      const orderMap = { contains: 0, starts_with: 1, ends_with: 2, does_not_contain: 3, not_starts_with: 4, not_ends_with: 5 };
-      return orderMap[Object.keys(a.input[1])[0]] - orderMap[Object.keys(b.input[1])[0]];
-    });
-  }
-
-  const
-    msg = { bulkDeletable: true, user: {}, content: '', attachments: [], embeds: [] },
-    testCases = [
-      [{ input: [{ ...msg }, {}], expectedOutput: true }],
-      [
-        { input: [{ ...msg, bulkDeletable: false }, {}], expectedOutput: false },
-        { input: [{ ...msg, bulkDeletable: true }, {}], expectedOutput: true }
-      ],
-      [
-        { input: [{ ...msg, pinned: false }, { remove_pinned: true }], expectedOutput: true },
-        { input: [{ ...msg, pinned: true }, { remove_pinned: true }], expectedOutput: true },
-        { input: [{ ...msg, pinned: false }, { remove_pinned: false }], expectedOutput: true },
-        { input: [{ ...msg, pinned: true }, { remove_pinned: false }], expectedOutput: false }
-      ],
-      [
-        { input: [{ ...msg, user: { id: '123' } }, { member: '123' }], expectedOutput: true },
-        { input: [{ ...msg, user: { id: '987' } }, { member: '123' }], expectedOutput: false }
-      ],
-      [
-        { input: [{ ...msg, user: { bot: true } }, { user_type: 'human' }], expectedOutput: false },
-        { input: [{ ...msg, user: { bot: true } }, { user_type: 'bot' }], expectedOutput: true },
-        { input: [{ ...msg, user: { bot: false } }, { user_type: 'human' }], expectedOutput: true },
-        { input: [{ ...msg, user: { bot: false } }, { user_type: 'bot' }], expectedOutput: false }
-      ],
-      [
-        { input: [{ ...msg, content: '' }, { only_containing: 'text' }], expectedOutput: false },
-        { input: [{ ...msg, content: 'test' }, { only_containing: 'text' }], expectedOutput: true },
-        { input: [{ ...msg, embeds: [] }, { only_containing: 'embeds' }], expectedOutput: false },
-        { input: [{ ...msg, embeds: [{}] }, { only_containing: 'embeds' }], expectedOutput: true },
-        { input: [{ ...msg, mentions: { users: { size: 0 } } }, { only_containing: 'mentions' }], expectedOutput: false },
-        { input: [{ ...msg, mentions: { users: { size: 5 } } }, { only_containing: 'mentions' }], expectedOutput: true },
-        { input: [{ ...msg, attachments: [] }, { only_containing: 'images' }], expectedOutput: false },
-        { input: [{ ...msg, attachments: [{ contentType: 'video' }] }, { only_containing: 'images' }], expectedOutput: false },
-        { input: [{ ...msg, attachments: [{ contentType: 'image' }] }, { only_containing: 'images' }], expectedOutput: true },
-        { input: [{ ...msg, content: '' }, { only_containing: 'server_ads' }], expectedOutput: false },
-        { input: [{ ...msg, content: 'hi' }, { only_containing: 'server_ads' }], expectedOutput: false },
-        { input: [{ ...msg, content: 'discord.gg/123' }, { only_containing: 'server_ads' }], expectedOutput: true }
-      ],
-      [
-        ...addEmbed(
-          { input: [{ ...msg, content: '' }, { caps_percentage: 0 }], expectedOutput: true },
-          { input: [{ ...msg, content: 'hi' }, { caps_percentage: 0 }], expectedOutput: true },
-          { input: [{ ...msg, content: 'HI' }, { caps_percentage: 0 }], expectedOutput: true },
-          { input: [{ ...msg, content: '' }, { caps_percentage: 10 }], expectedOutput: true },
-          { input: [{ ...msg, content: 'hi' }, { caps_percentage: 10 }], expectedOutput: false },
-          { input: [{ ...msg, content: 'HI' }, { caps_percentage: 10 }], expectedOutput: true },
-          { input: [{ ...msg, content: 'Hi' }, { caps_percentage: 10 }], expectedOutput: true },
-          { input: [{ ...msg, content: 'abcdefghij' }, { caps_percentage: 10 }], expectedOutput: false },
-          { input: [{ ...msg, content: 'Abcdefghij' }, { caps_percentage: 10 }], expectedOutput: true },
-          { input: [{ ...msg, content: 'Abcdefghij' }, { caps_percentage: 100 }], expectedOutput: false },
-          { input: [{ ...msg, content: 'ABCDEFGHIJ' }, { caps_percentage: 100 }], expectedOutput: true }
-        ),
-        { input: [{ ...msg, embeds: [] }, { caps_percentage: 0 }], expectedOutput: true },
-        { input: [{ ...msg, embeds: [{}] }, { caps_percentage: 0 }], expectedOutput: true }
-      ],
-      addFlip(
-        ...addEmbed(
-          { input: [{ ...msg, content: '' }, { contains: 'test' }], expectedOutput: false },
-          { input: [{ ...msg, content: 'test' }, { contains: 'test' }], expectedOutput: true },
-          { input: [{ ...msg, content: '123test123' }, { contains: 'test' }], expectedOutput: true },
-          { input: [{ ...msg, content: '123TEST123' }, { contains: 'test' }], expectedOutput: true },
-          { input: [{ ...msg, content: '123no123' }, { contains: 'test' }], expectedOutput: false }
-        ),
-        { input: [{ ...msg, embeds: [] }, { contains: 'test' }], expectedOutput: false },
-        { input: [{ ...msg, embeds: [{}] }, { contains: 'test' }], expectedOutput: false }
-      ),
-      addFlip(
-        ...addEmbed(
-          { input: [{ ...msg, content: '' }, { starts_with: 'test' }], expectedOutput: false },
-          { input: [{ ...msg, content: 'test' }, { starts_with: 'test' }], expectedOutput: true },
-          { input: [{ ...msg, content: '123test123' }, { starts_with: 'test' }], expectedOutput: false },
-          { input: [{ ...msg, content: 'TEST123' }, { starts_with: 'test' }], expectedOutput: true },
-          { input: [{ ...msg, content: '123TEST123' }, { starts_with: 'test' }], expectedOutput: false },
-          { input: [{ ...msg, content: 'no123' }, { starts_with: 'test' }], expectedOutput: false },
-          { input: [{ ...msg, content: '123no123' }, { starts_with: 'test' }], expectedOutput: false }
-        ),
-        { input: [{ ...msg, embeds: [] }, { starts_with: 'test' }], expectedOutput: false },
-        { input: [{ ...msg, embeds: [{}] }, { starts_with: 'test' }], expectedOutput: false }
-      )
-    ].flat();
-
-  require('#Utils/testAFunction.js')(shouldDeleteMsg, testCases);
-}

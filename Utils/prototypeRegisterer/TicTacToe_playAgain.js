@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: [warn, {allow: [_hoistedOptions]}] */
+
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, userMention } = require('discord.js'),
   { minToMs, secToMs } = require('../toMs'),
@@ -7,10 +9,11 @@ const
 async function sendChallengeMention(msg, userId, lang) {
   await sleep(secToMs(10));
 
+  /** @type {Message & { components: import('discord.js').ActionRow<import('discord.js').ButtonComponent>[] } | undefined} */
   const reply = await msg.fetchReply().catch(() => { /* empty */ });
   // challenge has been accepted - the accept button does not exist
 
-  if (reply?.components[0]?.components?.[0].customId != 'yes') return;
+  if (reply?.components[0]?.components[0]?.customId != 'yes') return;
 
   const mentionMsg = await reply.reply(lang('newChallenge', userMention(userId)));
 
@@ -18,12 +21,12 @@ async function sendChallengeMention(msg, userId, lang) {
   void mentionMsg.delete().catch(() => { /* empty */ });
 }
 
-/**
- * @type {import('.').playAgain}
- * @this {ThisType<import('.').playAgain>} */
+/** @type {import('.').playAgain} */
 async function playAgain(interaction, lang) {
   const
     opponent = interaction.options.getUser('opponent'),
+
+    /** @type {{ components: import('discord.js').ActionRow<import('discord.js').ButtonComponent>[] }} */
     { components } = await interaction.fetchReply(),
     lastRow = 3;
 
@@ -38,12 +41,13 @@ async function playAgain(interaction, lang) {
   }
 
   const collector = (await interaction.editReply({ components })).createMessageComponentCollector({
+    /** @type {(i: import('discord.js').ButtonInteraction<'cached'>) => boolean} */
     filter: i => [interaction.user.id, opponent?.id].includes(i.member.id) && i.customId == 'playAgain',
     max: 1, componentType: ComponentType.Button, time: BUTTON_TIME
   });
 
   collector
-    .on('collect', /** @param {import('discord.js').ButtonInteraction} PAButton */ PAButton => {
+    .on('collect', /** @param {import('discord.js').ButtonInteraction} PAButton */ async PAButton => {
       void PAButton.deferUpdate();
       collector.stop();
 
@@ -57,8 +61,10 @@ async function playAgain(interaction, lang) {
           interaction.options.data[0].user = interaction.user;
           interaction.options.data[0].value = interaction.member.id;
 
+          /* eslint-disable @typescript-eslint/no-unsafe-call -- a hack that is not really doable otherwise */
           interaction.options.resolved.members.set(interaction.member.id, interaction.member);
           interaction.options.resolved.users.set(interaction.member.id, interaction.user);
+          /* eslint-enable @typescript-eslint/no-unsafe-call */
         }
 
         interaction.member = PAButton.member;

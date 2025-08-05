@@ -31,8 +31,8 @@ module.exports = {
 
     const
       bonusEntries = this.options.getString('bonus_entries')?.split(' ').map(e => ({ [e.split(':')[0].replaceAll(/\D/g, '')]: e.split(':')[1] })),
-      requiredRoles = this.options.getString('required_roles')?.replace(/\D/g, '').split(' '),
-      disallowedMembers = this.options.getString('exempt_member')?.replace(/\D/g, '').split(' '),
+      requiredRoles = this.options.getString('required_roles')?.replaceAll(/\D/g, '').split(' '),
+      disallowedMembers = this.options.getString('exempt_member')?.replaceAll(/\D/g, '').split(' '),
       components = [new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('buttonLabel'),

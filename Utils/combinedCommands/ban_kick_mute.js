@@ -15,21 +15,21 @@ module.exports = async function ban_kick_mute(lang) {
   if (this.commandName == 'timeout') this.commandName = 'mute';
   if (!['ban', 'kick', 'mute'].includes(this.commandName)) throw new Error(`"${this.commandName}" is not an accepted commandName.`);
 
+  /** @type {EmbedBuilder & { data: { description: string } }} */
   const resEmbed = new EmbedBuilder({ title: lang('infoEmbedTitle'), color: Colors.Red });
 
   let
     noMsg = false,
-    muteDurationMs, muteDurationRelative,
-
-    /** @type {number} */
-    muteDuration = this.options.getString('duration') ?? 0,
+    /** @type {number | undefined} */ muteDurationMs,
+    /** @type {ReturnType<timestamp>} */ muteDurationRelative,
+    muteDuration = this.options.getString('duration'),
     reason = this.options.getString('reason', true);
 
   if (muteDuration) {
-    muteDuration = getMilliseconds(muteDuration).limit?.({ min: minToMs(1), max: dayToMs(daysInMonthMin) });
-    if (!muteDuration || typeof muteDuration == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
+    muteDurationMs = getMilliseconds(muteDuration)?.limit({ min: minToMs(1), max: dayToMs(daysInMonthMin) });
+    if (!muteDurationMs || typeof muteDurationMs == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
 
-    muteDurationMs = Date.now() + muteDuration;
+    muteDurationMs += Date.now();
     muteDuration = timestamp(muteDurationMs);
     muteDurationRelative = timestamp(muteDurationMs, TimestampStyles.RelativeTime);
   }
@@ -91,7 +91,6 @@ module.exports = async function ban_kick_mute(lang) {
       .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: minToMs(1), filter: i => i.user.id == this.user.id })
       .on('collect', async selectMenu => {
         await selectMenu.deferUpdate();
-        resEmbed.data.description ??= ''; // Only here for type safety, description is garanteed to be a string
 
         for (const [, selectedMember] of selectMenu.members) {
           const err = checkTargetManageable.call(this, selectedMember, lang);

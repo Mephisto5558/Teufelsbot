@@ -15,7 +15,7 @@ module.exports = {
   async run(lang) {
     const
       prefix = this.options.getString('prefix', true),
-      prefixType = `${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`,
+      prefixType = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
       db = this.guild.db.config[prefixType];
 
     if (db.length < 2) await this.guild.deleteDB(`config.${prefixType}`);

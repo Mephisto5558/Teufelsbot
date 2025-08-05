@@ -36,6 +36,8 @@ export type backupChannel = {
     rateLimitPerUser: number;
     messages: backupChannel['messages'];
   }[];
+  bitrate?: number;
+  userLimit?: number;
 };
 
 export type backups = Record<backupId, {
@@ -51,6 +53,9 @@ export type backups = Record<backupId, {
   iconURL: string;
   splashURL: string | null;
   bannerURL: string | null;
+  iconBase64?: Base64String;
+  splashBase64?: Base64String;
+  bannerBase64?: Base64String;
   systemChannel: GuildChannel['name'];
   systemChannelFlags?: number;
   verificationLevel: number;
@@ -65,7 +70,7 @@ export type backups = Record<backupId, {
     channel: string | null;
   };
   members?: {
-    userId: userId;
+    id: userId;
     username: string;
     discriminator: number;
     nickname: string | null;

@@ -15,26 +15,29 @@ function subCommandCooldowns(name, maxDepth = 2) {
   if (depth >= maxDepth || !(this instanceof ChatInputCommandInteraction)) return 0;
 
   let groupOptions;
-  const group = this.options.getSubcommandGroup(false);
+  const
+    cmd = this.client.slashCommands.get(this.commandName),
+    group = this.options.getSubcommandGroup(false);
+
+  if (!cmd) return 0;
+
   if (group && !depth) {
-    groupOptions = this.client.slashCommands.get(this.commandName)?.options
-      ?.find(e => e.name == group && e.type == ApplicationCommandOptionType.SubcommandGroup);
+    groupOptions = cmd.options?.find(e => e.name == group && e.type == ApplicationCommandOptionType.SubcommandGroup);
     if (groupOptions?.cooldowns) return cooldown.call(this, `${name}.${group}`, groupOptions.cooldowns);
   }
 
   const subCmd = this.options.getSubcommand(false);
   if (!subCmd) return 0;
 
-  const { cooldowns } = (groupOptions ?? this).options?.find?.(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand) ?? {};
+  const cooldowns = groupOptions?.options?.find(e => e.name == subCmd && e.type == ApplicationCommandOptionType.Subcommand)?.cooldowns
+    ?? cmd.cooldowns;
+
   if (cooldowns) return cooldown.call(this, group ? `${name}.${group}.${subCmd}` : `${name}.${subCmd}`, cooldowns);
   return 0;
 }
 
 
-/**
- * @type {import('.').cooldowns}
- * @this {ThisParameterType<import('.').cooldowns>}
- * Here due to `@typescript-eslint/no-invalid-this` */
+/** @type {import('.').cooldowns} */
 function cooldown(name, cooldowns = {}) {
   const
     now = Date.now(),

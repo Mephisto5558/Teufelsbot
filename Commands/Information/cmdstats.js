@@ -42,7 +42,7 @@ module.exports = {
 
       if (!command) return this.customReply({ embeds: [embed.setDescription(lang('notFound')).setColor(Colors.Red)] });
 
-      const total = bold(Object.values(cmdStats[command.name] ?? {}).reduce((acc, e) => acc + e, 0));
+      const total = bold(cmdStats[command.name] ? Object.values(cmdStats[command.name]).reduce((acc, e) => acc + (e ?? 0), 0) : 0);
       embed.data.description = lang('embedDescriptionOne', {
         total, command: 'id' in command ? commandMention(command.name, command.id) : inlineCode(command.name),
         slash: bold(cmdStats[command.name]?.slash ?? 0), prefix: bold(cmdStats[command.name]?.prefix ?? 0)
@@ -54,10 +54,10 @@ module.exports = {
         .filter(([k]) => !this.client.config.ownerOnlyFolders.includes(
           (this.client.prefixCommands.get(k) ?? this.client.slashCommands.get(k))?.category
         ))
-        .map(([k, v = {}]) => [k, { total: Object.values(v).reduce((acc, e) => acc + e, 0), slash: bold(v.slash ?? 0), prefix: bold(v.prefix ?? 0) }])
-        .sort(([, a], [, b]) => b.total - a.total)
+        .map(([k, v]) => [k, { total: Object.values(v).reduce((acc, e) => acc + Number(e ?? 0), 0), slash: bold(v.slash), prefix: bold(v.prefix) }])
+        .toSorted(([, a], [, b]) => b.total - a.total)
         .slice(0, 10)
-        .map((/** @type {[string, { total: number, slash: number, prefix: number }]} */ [k, v]) => {
+        .map((/** @type {[string, { total: string, slash: string, prefix: string }]} */ [k, v]) => {
           const id = this.client.application.commands.cache.find(e => e.name == k)?.id;
           return { name: id ? commandMention(k, id) : `/${k}`, value: lang('embedFieldValue', { total: bold(v.total), ...v }), inline: true };
         });

@@ -89,13 +89,14 @@ class BackupSystem {
       bans: [],
       roles: [],
       emojis: [],
-      stickers: []
+      stickers: [],
+      channels: {}
     };
 
     if (backupMembers) {
       statusObj.status = 'create.members';
 
-      (await guild.members.fetch()).map(e => ({
+      data.members = (await guild.members.fetch()).map(e => ({
         id: e.id,
         username: e.user.username,
         tag: e.user.tag,
@@ -116,6 +117,7 @@ class BackupSystem {
     if (!doNotBackup.includes('roles')) {
       statusObj.status = 'create.roles';
 
+      /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
       data.roles = (await guild.roles.fetch()).filter(e => !e.managed).sort((a, b) => b.position - a.position).map(e => ({
         name: e.name,
         colors: e.colors,
@@ -157,9 +159,9 @@ class BackupSystem {
     if (!doNotBackup.includes('channels')) {
       statusObj.status = 'create.channels';
 
+      /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
       const channels = (await guild.channels.fetch()).sort((a, b) => a.position - b.position);
 
-      data.channels = {};
       data.channels.categories = await Promise.all(channels
         .filter(e => e.type == ChannelType.GuildCategory)
         .map(async e => ({
@@ -172,7 +174,6 @@ class BackupSystem {
         .filter(e => !e.parent && ![ChannelType.GuildCategory, ...Constants.ThreadChannelTypes].includes(e.type))
         .map(async e => utils.fetchTextChannelData(e, saveImages, maxMessagesPerChannel)));
     }
-
 
     statusObj.status = 'create.images';
     if (saveImages) {
@@ -206,6 +207,7 @@ class BackupSystem {
     /** @type {NonNullable<Database['backups'][import('#types/db').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
     let data, rulesChannel, publicUpdatesChannel;
 
+    /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
     if (id == undefined) data = this.list(guild.id).sort((a, b) => b.createdAt - a.createdAt).first();
     else data = typeof id == 'string' ? this.get(id) : id;
 
@@ -224,11 +226,11 @@ class BackupSystem {
 
       statusObj.status = 'clear.bans';
       for (const [, { user, reason: banReason }] of await guild.bans.fetch()) {
-        if (!data.bans.some(e => user.id == e.id && banReason == e.reason)) {
-          try { await guild.bans.remove(user.id, reason); }
-          catch (err) {
-            if (!(err instanceof DiscordAPIError)) throw err;
-          }
+        if (data.bans.some(e => user.id == e.id && banReason == e.reason)) continue;
+
+        try { await guild.bans.remove(user.id, reason); }
+        catch (err) {
+          if (!(err instanceof DiscordAPIError)) throw err;
         }
       }
 
@@ -285,8 +287,9 @@ class BackupSystem {
 
     statusObj.status = 'load.roles';
     for (const { isEveryone, name, colors, hoist, permissions, mentionable } of data.roles) {
-      const roleData = { reason, name, colors, hoist, mentionable, permissions: BigInt(permissions) };
-      const roleToEdit = isEveryone ? guild.roles.cache.get(guild.id) : guild.roles.cache.find(e => e.name == name && e.editable);
+      const
+        roleData = { reason, name, colors, hoist, mentionable, permissions: BigInt(permissions) },
+        roleToEdit = isEveryone ? guild.roles.cache.get(guild.id) : guild.roles.cache.find(e => e.name == name && e.editable);
       await (roleToEdit?.edit(roleData) ?? guild.roles.create(roleData));
     }
 
@@ -320,7 +323,7 @@ class BackupSystem {
 
     statusObj.status = 'load.emojis';
     for (const emoji of data.emojis) {
-      try { await guild.emojis.create({ name: emoji.name, attachment: emoji.url ?? utils.loadFromBase64(emoji.base64), reason }); }
+      try { await guild.emojis.create({ name: emoji.name, attachment: 'url' in emoji ? emoji.url : utils.loadFromBase64(emoji.base64), reason }); }
       catch (err) {
         if (err.code != DiscordAPIErrorCodes.MaximumNumberOfEmojisReached) throw err;
         break;
@@ -332,7 +335,7 @@ class BackupSystem {
       try {
         await guild.stickers.create({
           name: sticker.name, description: sticker.description, tags: sticker.tags,
-          file: sticker.url ?? utils.loadFromBase64(sticker.base64), reason
+          file: 'url' in sticker ? sticker.url : utils.loadFromBase64(sticker.base64), reason
         });
       }
       catch (err) {
@@ -354,8 +357,9 @@ class BackupSystem {
 
     if (rulesChannel || publicUpdatesChannel) {
       statusObj.status = 'load.settings';
-      const rChannel = guild.channels.cache.find(e => e.name == data.rulesChannel);
-      const uChannel = guild.channels.cache.find(e => e.name == data.publicUpdatesChannel);
+      const
+        rChannel = guild.channels.cache.find(e => e.name == data.rulesChannel),
+        uChannel = guild.channels.cache.find(e => e.name == data.publicUpdatesChannel);
 
       await guild.edit({
         rulesChannel: rChannel ?? undefined,

@@ -22,7 +22,7 @@ module.exports = {
     strictAutocomplete: true
   }],
 
-  async run() {
+  async run(lang) {
     const
       language = this.options.getString('language', true),
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers -- these are constants */
-module.exports = {
+module.exports = Object.freeze({
   pinnedMessagesMaxAmt: 250, // per channel
   autocompleteOptionsMaxAmt: 25,
   embedTitleMaxLength: 256,
@@ -24,9 +24,9 @@ module.exports = {
   emojiNameMinLength: 2,
   emojiNameMaxLength: 32,
   snowflakeMinLength: 17,
-  snowflakeMaxLength: 19, // No snowflake will be longer than that until 2090 (https://snowsta.mp/?s=9999999999999999999)
+  snowflakeMaxLength: 19, // No snowflake will be longer than that until 2090 (https://snowsta.mp/?s=9999999999999999999).
   bulkDeleteMaxMessageAmt: 100,
   HTTP_STATUS_CLOUDFLARE_BLOCKED: 522, // // https://community.cloudflare.com/t/community-tip-fixing-error-522-connection-timed-out/42325
   JSON_SPACES: 2,
   suffix: '...'
-};
+});

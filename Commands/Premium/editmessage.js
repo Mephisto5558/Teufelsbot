@@ -3,7 +3,7 @@ const
     ActionRowBuilder, Constants, DiscordjsErrorCodes, MessageFlags, ModalBuilder,
     TextInputBuilder, TextInputStyle, codeBlock, hyperlink
   } = require('discord.js'),
-  { DiscordApiErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute }, toMs: { secToMs } } = require('#Utils'),
+  { DiscordAPIErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute }, toMs: { secToMs } } = require('#Utils'),
 
   MODALSUBMIT_TIMEOUT = msInSecond * secsInMinute / 2; // 30s
 
@@ -46,11 +46,13 @@ module.exports = {
       }),
       clear = this.options.getBoolean('remove_attachments');
 
-    /** @type {Message | undefined} */
     let msg, modalInteraction;
-    try { msg = await this.options.getChannel('channel', true).messages.fetch(this.options.getString('message_id', true)); }
+    try {
+      const /** @type {Snowflake} */ msgId = this.options.getString('message_id', true);
+      msg = await this.options.getChannel('channel', true, Constants.GuildTextBasedChannelTypes).messages.fetch(msgId);
+    }
     catch (err) {
-      if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
+      if (err.code != DiscordAPIErrorCodes.UnknownMessage) throw err;
       return this.reply({ content: lang('notFound'), flags: MessageFlags.Ephemeral });
     }
 
@@ -66,29 +68,34 @@ module.exports = {
     await modalInteraction.deferReply({ flags: MessageFlags.Ephemeral });
     const content = modalInteraction.fields.getTextInputValue('newContent_text');
 
-    /** @type {import('discord.js').APIEmbed & { content: string }} */
-    let json = {};
+    let json;
 
     try {
-      if (/^\s*[[{]/.test(content)) json = JSON.parse(content);
-      else throw new SyntaxError('Invalid JSON format');
-
+      json = JSON.parse(content);
+      if (typeof json != 'object' || !json) throw new SyntaxError(`Invalid JSON. Expected object | array, got ${typeof json}`);
       if (!json.__count__) return void modalInteraction.editReply(lang('emptyJson'));
 
-      if (json.description !== undefined) json = { embeds: [json] };
-      else if (json.every?.(e => e.description !== undefined)) json = { embeds: json };
-      json.content.length = messageMaxLength;
+      if ('description' in json) json = { embeds: json };
+      else if (Array.isArray(json)) {
+        if (!json.every(e => 'description' in e)) throw new SyntaxError('Invalid JSON. Expected array of embeds.');
+        json = { embeds: json };
+      }
+
+      if ('content' in json) json.content.length = messageMaxLength;
 
       await msg.edit(clear ? { content: '', embeds: [], attachments: [], files: [], components: [], ...json } : json);
     }
     catch (err) {
-      if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', codeBlock(err.message)));
+      if (!(err instanceof SyntaxError) || err.message.includes('JSON'))
+        return modalInteraction.editReply(lang('error', codeBlock(err.message)));
     }
 
-    if (!json.__count__) {
-      await msg.edit(clear
-        ? { content: content.slice(0, messageMaxLength + 1), embeds: [], attachments: [], files: [], components: [] }
-        : content.slice(0, messageMaxLength));
+    if (!json) {
+      await msg.edit(
+        clear
+          ? { content: content.slice(0, messageMaxLength + 1), embeds: [], attachments: [], files: [], components: [] }
+          : content.slice(0, messageMaxLength)
+      );
     }
 
     return modalInteraction.editReply(lang('success', hyperlink(lang('link'), msg.url)));

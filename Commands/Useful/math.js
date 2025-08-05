@@ -36,6 +36,7 @@ module.exports = {
 
     /** @type {number | mathjs.Unit | undefined} */
     let result;
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- math.js has a to-do to properly type evaluate() */
     try { result = math.evaluate(expression); }
     catch (err) { return this.customReply({ embeds: [embed.setColor(Colors.Red).setDescription(lang('error', codeBlock(err.message)))] }); }
 

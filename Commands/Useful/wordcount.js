@@ -4,10 +4,11 @@ const
 
 /**
  * @param {Client} client
- * @param {{ guildId: Snowflake, channelId: Snowflake, messageId: Snowflake }} reference
- * @returns {Message<true> | undefined} */
+ * @param {import('discord.js').MessageReference} reference */
 function getMessageFromReference(client, reference = {}) {
-  return client.guilds.cache.get(reference.guildId)?.channels.cache.get(reference.channelId)?.messages.cache.get(reference.messageId);
+  /** @type {import('discord.js').GuildTextBasedChannel | undefined} */
+  const channel = client.guilds.cache.get(reference.guildId)?.channels.cache.get(reference.channelId);
+  return channel?.messages.cache.get(reference.messageId);
 }
 
 /** @type {command<'both'>} */

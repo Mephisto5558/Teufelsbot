@@ -26,15 +26,16 @@ async function getClient(env, token) {
 
 /** @param {Client<true>[]} clients */
 async function syncClientsEmojis(clients) {
-  const allEmojis = new Map(clients.flatMap(e => [...e.application.emojis.cache.entries()]));
-  const allEmojiNames = new Set(allEmojis.keys());
-
-  /** @type {{ client: Client<true>; emoji: import('discord.js').ApplicationEmoji }[]} */
-  const creationActions = clients.flatMap(client => [
-    ...allEmojiNames.difference(new Set(client.application.emojis.cache.keys()))
-  ].map(name => ({ client, emoji: allEmojis.get(name) })));
+  const
+    allEmojis = new Map(clients.flatMap(e => [...e.application.emojis.cache.entries()])),
+    allEmojiNames = new Set(allEmojis.keys()),
+    creationActions = clients.flatMap(client => [
+      ...allEmojiNames.difference(new Set(client.application.emojis.cache.keys()))
+    ].map(name => ({ client, emoji: allEmojis.get(name) })));
 
   for (const { client, emoji } of creationActions) {
+    if (!emoji) continue; // typeguard
+
     try {
       await client.application.emojis.create({
         name: emoji.name,
@@ -52,7 +53,7 @@ async function syncClientsEmojis(clients) {
 
 module.exports = {
   time: '00 00 00 * * *',
-  startNow: false, // Getting ran even before logging into the client
+  startNow: false, // getting ran even before logging into the client
 
   /** @this {Client | void} */
   async onTick() {
@@ -82,7 +83,7 @@ module.exports = {
     if (clients.length < 2) log('Not enough clients to sync.');
     else await syncClientsEmojis(clients);
 
-    // Log out of the clients except the original one
+    // log out of all clients except the original one
     for (const client of clients) if (client != this) void client.destroy();
 
     await this?.db.update('botSettings', 'timeEvents.lastEmojiSync', now);

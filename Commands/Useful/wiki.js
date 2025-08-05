@@ -73,8 +73,9 @@ module.exports = {
       .flatMap(e => {
         if (e.length < messageMaxLength) return [e];
 
-        const halfIndex = Math.floor(e.length / 2);
-        const lastIndexBeforeHalf = e.lastIndexOf('.', halfIndex) + 1 || halfIndex;
+        const
+          halfIndex = Math.floor(e.length / 2),
+          lastIndexBeforeHalf = e.lastIndexOf('.', halfIndex) + 1 || halfIndex;
 
         return [e.slice(0, lastIndexBeforeHalf), e.slice(lastIndexBeforeHalf)];
       })
@@ -88,6 +89,7 @@ module.exports = {
       }, ['']);
 
     for (const msg of msgs.slice(0, MAX_MSGS)) await this.customReply(msg);
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- false positive - appears to be to complex for TS to understand(?) */
     if (msgs.length > MAX_MSGS) return this.reply(bold(lang('visitWiki')));
   }
 };

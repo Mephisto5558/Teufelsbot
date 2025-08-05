@@ -1,15 +1,20 @@
+/* eslint-disable-next-line @stylistic/max-len -- cannot really do much about this one */
+/** @typedef {{ description: string, height: string, weight: string, name: string, types: string[], abilities: Record<string, string>, gender?: string[], family: { evolutionLine: string[], evolutionStage: string } }} Pokemon */
+
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, Colors, EmbedBuilder } = require('discord.js'),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
   fetch = require('node-fetch').default,
+
+  /** @type {(pokemon: string) => Promise<Pokemon[] | undefined>} */
+  fetchAPI = async pokemon => fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(async e => e.json()),
 
   INCHES_IN_FEET = 12,
   CENTIMETERS_IN_METER = 100,
   CENTIMETERS_IN_INCH = 2.54,
   KILOGRAMS_IN_POUND = 2.205,
 
-  /* eslint-disable-next-line @stylistic/max-len -- cannot really do much about this one */
-  /** @type {Collection<string, { height: string, weight: string, name: string, types: string[], abilities: Record<string, string>, gender?: string[], family: Record<string, string> }>} */
+  /** @type {Collection<string, Pokemon>} */
   cache = new Collection();
 
 /** @type {command<'both', false>} */
@@ -31,7 +36,7 @@ module.exports = {
 
     let res = cache.get(pokemon.toLowerCase());
     if (!res) {
-      try { res = (await fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(async e => e.json()))?.[0]; }
+      try { res = (await fetchAPI(pokemon))?.[0]; }
       catch (err) {
         if (err.type != 'invalid-json') throw err;
         return msg.edit(lang('invalidJson'));
@@ -71,7 +76,7 @@ module.exports = {
           [lang('heightWeight'), `${res.height}, ${(Number.parseFloat(res.weight) / KILOGRAMS_IN_POUND).toFixed(2)}kg`],
           [lang('evolutionLine'), res.family.evolutionLine.join(', ') + lang('currentStage', res.family.evolutionStage)],
           [lang('gen'), res.gen]
-        ].map(([k, v]) => ({ name: k, value: v, inline: false }))
+        ].map(/** @param {[string, string]} field */ ([k, v]) => ({ name: k, value: v, inline: false }))
       }),
       component = new ActionRowBuilder({
         components: [

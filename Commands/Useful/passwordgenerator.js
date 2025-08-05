@@ -11,7 +11,7 @@ const
   suffix = '...';
 
 /**
- * Helper function to prevent `eslint/no-loop-func`
+ * Helper function to prevent `eslint/no-loop-func`.
  *
  * Filters the last selected entry out and selects a random list entry.
  * RNG defined in Utils/prototypeRegisterer.js.
@@ -56,7 +56,7 @@ module.exports = {
     let charset = [...DEFAULT_CHARSET.filter(char => !exclude.includes(char)), ...[...segmenter.segment(include)].map(e => e.segment)]
       .unique(); // Remove duplicates.
 
-    if (!charset.length) return this.editReply(lang('charsetEmpty')); // Return if charset is empty
+    if (!charset.length) return this.editReply(lang('charsetEmpty')); // return if charset is empty
 
     // Loop over the amount of passwords to be generated, break early if the length of all passwords combined is greater than `MAX_MESSAGE_LENGTH`.
     for (let i = 0; i < count && passwordList.join('\n').length < MAX_MESSAGE_LENGTH; i++) {

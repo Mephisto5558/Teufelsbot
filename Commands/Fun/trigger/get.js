@@ -20,8 +20,10 @@ module.exports = {
     const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Blue });
 
     if (query) {
-      /** @type {import('.').triggersArray} */
-      const [id, { trigger, response, wildcard }] = oldData[findTriggerId(query, oldData)] ?? {};
+      const
+        /** @type {NonNullable<ReturnType<findTriggerId>>} */ id = findTriggerId(query, oldData),
+        { trigger, response, wildcard } = oldData[id] ?? {};
+
       if (!trigger) return this.editReply(lang('notFound'));
 
       const maxLength = 1900;
@@ -38,7 +40,7 @@ module.exports = {
       embed.data.description = oldData.__count__ > embedFieldMaxAmt ? lang('first25') : ' ';
       embed.data.fields = Object.entries(oldData)
         .slice(0, embedFieldMaxAmt + 1)
-        .map((/** @type {import('.').triggersArray} */ [id, { trigger, response, wildcard }]) => ({
+        .map(([id, { trigger, response, wildcard }]) => ({
           name: lang('shortFieldName', id), inline: true,
           value: lang('shortFieldValue', {
             trigger: codeBlock(trigger.length < maxLength ? trigger : trigger.slice(0, maxLength - suffix.length) + suffix),
@@ -53,7 +55,7 @@ module.exports = {
         maxLength = 20;
 
       embed.data.description = Object.entries(oldData)
-        .reduce((acc, /** @type {import('.').triggersArray} */ [id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
+        .reduce((acc, [id, { trigger, response, wildcard }]) => acc.length >= maxDescriptionLength
           ? acc
           : acc + lang('longEmbedDescription', {
             id, wildcard: inlineCode(wildcard),
