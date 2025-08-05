@@ -31,18 +31,16 @@ module.exports = {
         components: [
           new ButtonBuilder({
             label: lang('confirmButtonLabel'),
-            customId: `${getCommand(this.command)}.confirm`,
+            customId: `${getCommand(this.commandName)}.confirm`,
             style: ButtonStyle.Danger
           }),
           new ButtonBuilder({
             label: lang('cancelButtonLabel'),
-            customId: `${getCommand(this.command)}.cancel`,
+            customId: `${getCommand(this.commandName)}.cancel`,
             style: ButtonStyle.Success
           })
         ]
-      });
-
-    const
+      }),
       msg = await this.customReply({ embeds: [embed], components: [component] }),
       collector = msg.createMessageComponentCollector({
         filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: collectorTimeout
@@ -52,7 +50,7 @@ module.exports = {
       .on('collect', async button => {
         const reply = await button.deferReply();
 
-        if (button.customId == `${getCommand(this.command)}.cancel`) {
+        if (button.customId == `${getCommand(this.commandName)}.cancel`) {
           void reply.delete();
           return collector.stop();
         }
@@ -64,7 +62,7 @@ module.exports = {
             image: { url: 'https://i.giphy.com/XUFPGrX5Zis6Y.gif' },
             footer: { text: lang('embedFooterText', this.user.username) }
           }),
-          reason = lang('global.modReason', { command: getCommand(this.command), user: this.user.username }),
+          reason = lang('global.modReason', { command: getCommand(this.commandName), user: this.user.username }),
           cloned = await channel.clone({ reason });
 
 

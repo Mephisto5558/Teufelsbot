@@ -10,17 +10,18 @@ module.exports = {
   dmPermission: true,
 
   async run(lang) {
-    const { website: { domain, port = 0, uptime }, disableWebserver } = this.client.config;
+    const
+      { website: { domain, port = 0, uptime }, disableWebserver } = this.client.config,
 
-    const embed = new EmbedBuilder({
-      description: lang(
-        domain && uptime && !disableWebserver ? 'embedDescription' : 'embedDescriptionNoURL', domain && uptime && !disableWebserver && {
-          time: timeFormatter(Date.now() - process.uptime() * msInSecond, lang).formatted,
-          link: hyperlink(lang('online'), domain + (port ? `:${port}` : '') + `/${uptime}`)
-        }
-      ),
-      color: Colors.White
-    });
+      embed = new EmbedBuilder({
+        description: lang(
+          domain && uptime && !disableWebserver ? 'embedDescription' : 'embedDescriptionNoURL', domain && uptime && !disableWebserver && {
+            time: timeFormatter(Date.now() - process.uptime() * msInSecond, lang).formatted,
+            link: hyperlink(lang('online'), domain + (port ? `:${port}` : '') + `/${uptime}`)
+          }
+        ),
+        color: Colors.White
+      });
 
     return this.customReply({ embeds: [embed] });
   }

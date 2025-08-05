@@ -94,6 +94,8 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
 module.exports.recordControls = async function recordControls(lang, mode, voiceChannelId, isPublic, cache) {
   const
     embed = this.message.embeds[0],
+
+    /** @type {import('discord.js').ActionRow<import('discord.js').ButtonComponent>} */
     buttons = this.message.components[0],
     membersToRecord = cache.get(this.guild.id)?.get(voiceChannelId)?.filter(e => e.allowed)
       .map(e => e.userId);

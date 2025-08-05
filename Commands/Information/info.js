@@ -3,6 +3,7 @@ const
   { msInSecond, timestamp } = require('#Utils').timeFormatter,
   userURL = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
 
+  /** @type {(label: string, url: string, emoji: import('discord.js').ApplicationEmoji) => ButtonBuilder} */
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
 
 /**

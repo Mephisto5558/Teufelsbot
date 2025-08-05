@@ -24,7 +24,8 @@ module.exports = {
 
       await msg.customReply(response);
     }
-    catch (err) {
+    catch (rawErr) {
+      const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
       return msg.customReply(lang('error', { msg: `${lang('finished', codeBlock('sh', this.content))}\n`, name: err.name, err: err.message }));
     }
 

@@ -1,5 +1,7 @@
 const
   { ActivityType, inlineCode } = require('discord.js'),
+
+  /** @type {Record<Lowercase<keyof typeof ActivityType>, ActivityType>} */
   ActivityTypes = Object.fromEntries(Object.entries(ActivityType).map(([k, v]) => [k.toLowerCase(), v]));
 
 /** @type {command<'prefix', false>} */
@@ -17,10 +19,14 @@ module.exports = {
   ],
 
   async run(lang) {
-    const activity = {
-      type: ActivityTypes[this.args[0]?.toLowerCase()],
-      name: this.args.slice(1).join(' ')
-    };
+    const
+
+      /** @type {Lowercase<keyof typeof ActivityType>} */
+      activityType = this.args[0]?.toLowerCase(),
+      activity = {
+        type: ActivityTypes[activityType],
+        name: this.args.slice(1).join(' ')
+      };
 
     if (!activity.name) {
       await this.client.db.delete('botSettings', 'activity');

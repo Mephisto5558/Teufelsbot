@@ -1,4 +1,5 @@
 const
+  { ChatInputCommandInteraction } = require('discord.js'),
   { afk: { nicknamePrefix, getAfkStatus, listAfkStatuses, setAfkStatus }, toMs: { secToMs } } = require('#Utils'),
   maxAllowedAFKMsgLength = 1000;
 
@@ -29,7 +30,7 @@ module.exports = {
   ],
 
   async run(lang) {
-    if (this.options?.getSubcommand() == 'get') {
+    if (this instanceof ChatInputCommandInteraction && this.options.getSubcommand() == 'get') {
       const target = this.inGuild() ? this.options.getMember('target') : this.options.getUser('target') ?? this.user;
       if (target) return getAfkStatus.call(this, target, lang);
 

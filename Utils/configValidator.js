@@ -1,9 +1,9 @@
 const
   { writeFileSync } = require('node:fs'),
   configPath = require('node:path').resolve(process.cwd(), 'config.json'),
-  validConfig = {
+  validConfig = Object.freeze({
     devIds: 'object', // set<string>
-    website: {
+    website: Object.freeze({
       domain: 'string',
       port: 'number',
       dashboard: 'string',
@@ -12,12 +12,12 @@ const
       uptime: 'string',
       vote: 'string',
       todo: 'string'
-    },
-    github: {
+    }),
+    github: Object.freeze({
       repo: 'string',
       userName: 'string',
       repoName: 'string'
-    },
+    }),
     ownerOnlyFolders: ['string'],
     discordInvite: 'string',
     mailAddress: 'string',
@@ -28,10 +28,11 @@ const
     replyOnNonBetaCommand: 'boolean',
     disableWebServer: 'boolean',
     enableConsoleFix: 'boolean'
-  };
+  });
 
 /** @type {import('.').configValidator.configValidationLoop} */
 function configValidationLoop(obj = require(configPath), checkObj = validConfig, allowNull = true) {
+  /* eslint-disable valid-typeof */
   for (const [key, value] of Object.entries(obj)) {
     if (!(key in checkObj)) {
       log.warn(`Unknown key or subkey "${key}" in config.json.`);
@@ -48,6 +49,8 @@ function configValidationLoop(obj = require(configPath), checkObj = validConfig,
 
     if (typeof value == 'object') return configValidationLoop(value, checkObj[key]);
   }
+
+  /* eslint-enable valid-typeof */
 }
 
 /** @type {import('.').configValidator.setDefaultConfig} */

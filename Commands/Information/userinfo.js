@@ -31,9 +31,8 @@ module.exports = {
     const
       member = getTargetMembers(this, { returnSelf: true }),
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
-      status = member.presence?.activities.find(e => e.type == ActivityType.Custom && !!e.state);
-
-    const type = getMemberType(member, lang);
+      status = member.presence?.activities.find(e => e.type == ActivityType.Custom && !!e.state),
+      type = getMemberType(member, lang);
 
     // force-fetch is required to fetch a user banner: https://discord.js.org/docs/packages/discord.js/main/User:Class#banner
     if (!member.banner && !member.user.banner) await member.fetch(true);
@@ -42,7 +41,7 @@ module.exports = {
       embed = new EmbedBuilder({
         title: member.user.tag,
         description: (status ? `${lang('activity.4', status.state)}\n` : '') + (
-          member.presence?.activities.reduce((/** @type {string[]} */ acc, e) => {
+          member.presence?.activities.reduce((acc, e) => {
             if (e.type != ActivityType.Custom) acc.push(lang(`activity.${e.type}`, e.name));
             return acc;
           }, []).unique().join(', ') ?? ''
@@ -95,7 +94,7 @@ module.exports = {
         name: lang('rolesWithPerms'), inline: false,
         value: [...member.roles.cache.values()]
           .filter(e => e.permissions.bitfield != 0 && e.name != '@everyone')
-          .sort((a, b) => b.position - a.position)
+          .toSorted((a, b) => b.position - a.position)
           .join(', ')
       },
       {

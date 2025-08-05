@@ -1,11 +1,15 @@
-/* eslint-disable @typescript-eslint/no-deprecated, sonarjs/cognitive-complexity, sonarjs/cyclomatic-complexity
--- will be fixed when commands are moved to their own lib */
+/* eslint-disable @typescript-eslint/no-deprecated, sonarjs/cognitive-complexity, custom/cyclomatic-complexity,
+   @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access,
+   @typescript-eslint/no-unsafe-argument -- will be fixed when commands are moved to their own lib */
 
 const
   { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, Message, PermissionsBitField } = require('discord.js'),
   { basename, dirname, resolve } = require('node:path'),
   { choiceValueMaxLength, choiceValueMinLength, choicesMaxAmt, descriptionMaxLength } = require('./constants');
 
+/**
+ * @param {string} path
+ * @throws {Error} that is not `MODULE_NOT_FOUND` */
 function getOptionalFile(path) {
   try { return require(path); }
   catch (err) {
@@ -60,7 +64,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
       let /** @type {NonNullable<commandOptions<true>['choices']>[number]} */ choice;
       for (choice of option.choices) {
         if ('__SCHandlerCustom' in choice) {
-          delete choice.__SCHandlerCustom;
+          delete choice.__SCHandlerCustom; /* eslint-disable-line no-underscore-dangle */
           continue;
         }
 
@@ -126,6 +130,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
   if ('channelTypes' in option) {
     option.channelTypes = option.channelTypes.map(e => {
       if (!(e in ChannelType)) throw new Error(`Invalid option.channelType, got ${JSON.stringify(e)} (${id})`);
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- false positive, we guard against `e` not being in `ChannelType`. */
       return Number.isNaN(Number.parseInt(e)) ? ChannelType[e] : Number.parseInt(e);
     });
   }

@@ -2,11 +2,7 @@ const
   { Guild, GuildChannel, bold } = require('discord.js'),
   { constants: { embedFieldMaxAmt }, convertToMedal } = require('#Utils');
 
-/**
- * @typedef {[Guild | GuildChannel | import('discord.js').GuildMember | undefined, number | undefined]} MapFnRet
- * @param {Record<string, unknown>} data
- * @param {number} sliceAmt
- * @param {(data: [string | undefined, number | undefined]) => MapFnRet} mapFn */
+/** @type {import('.')['format']} */
 const format = (data, sliceAmt, mapFn) => Object.entries(data)
   .map(mapFn)
   .filter(([k, v]) => k && v)

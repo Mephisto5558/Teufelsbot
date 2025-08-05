@@ -7,7 +7,7 @@ const
 /**
  * @this {import('discord.js').ClientEvents['messageDeleteBulk'][0]}
  * @param {import('discord.js').ClientEvents['messageDeleteBulk'][1]} channel */
-module.exports = async function messageDeleteBulk(channel) {
+module.exports = async function messageDeleteBulk(channel) { // TODO: maybe move all the log events to `guildAuditLogEntryCreate`
   const setting = channel.guild.db.config.logger?.messageDelete;
 
   if (
@@ -15,18 +15,19 @@ module.exports = async function messageDeleteBulk(channel) {
     || !this.some(e => !e.flags.has(MessageFlags.Ephemeral) && !e.flags.has(MessageFlags.Loading))
   ) return;
 
-  const channelToSend = channel.guild.channels.cache.get(setting.channel);
+  /** @type {import('discord.js').GuildTextBasedChannel | undefined} */
+  const logChannel = channel.guild.channels.cache.get(setting.channel);
   if (
-    !channelToSend || channelToSend.permissionsFor(channel.guild.members.me)
+    !logChannel || logChannel.permissionsFor(channel.guild.members.me)
       .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length
   ) return;
 
-  await sleep(secToMs(1)); // Makes sure the audit log gets created before trying to fetch it
+  await sleep(secToMs(1)); // makes sure the audit log gets created before trying to fetch it
 
   const
     { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageBulkDelete })).entries
       /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
-      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < secToMs(20)) ?? {},
+      .find(e => e.target.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < secToMs(20)) ?? {},
     lang = channel.client.i18n.getTranslator({
       locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPaths: ['events.logger.messageDeleteBulk']
     }),
@@ -45,5 +46,5 @@ module.exports = async function messageDeleteBulk(channel) {
     embed.data.fields.push({ name: lang('events.logger.executor'), value: `${executor.tag} (${inlineCode(executor.id)})`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('events.logger.reason'), value: reason, inline: false });
 
-  return channelToSend.send({ embeds: [embed] });
+  return logChannel.send({ embeds: [embed] });
 };

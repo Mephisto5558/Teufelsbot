@@ -43,14 +43,20 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
     const timeoutSignal = new AbortController();
     setTimeout(() => timeoutSignal.abort(), TIMEOUT);
 
-    /** @type {{ type?: string, joke?: string, setup?: string, delivery?: string }} */
     const res = await fetch(formatAPIUrl(api.url, blacklist, process.env.humorAPIKey, maxLength, type), {
       headers: {
         'User-Agent': `Discord bot (${this.config.github.repo})`,
         Accept: 'application/json'
       },
       signal: timeoutSignal.signal
-    }).then(async e => e.json());
+    }).then(async e => {
+      /** @type {{ type?: string, joke?: string, setup?: string, delivery?: string } | { status: string, code: number, message: string }} */
+      const json = await e.json().catch(() => { /* empty */ });
+      if ('code' in json) throw new FetchError(json.message, undefined, json);
+      if (!e.ok) throw new Error(e);
+
+      return json;
+    });
 
     switch (api.name) {
       case 'jokeAPI': response = res.type == 'twopart' ? `${res.setup}\n\n||${res.delivery}||` : res.joke; break;
@@ -58,11 +64,14 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
       default: response = res.joke; break;
     }
   }
-  catch (err) {
-    if ([HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN, HTTP_STATUS_CLOUDFLARE_BLOCKED].includes(err.status))
-      log.error('joke.js: ', err.response);
-    else if (err instanceof FetchError)
-      log.error(`joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.name} ${err.code ? ', ' + err.code : ''}: ${err.message}`);
+  catch (rawErr) {
+    const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
+    if (err instanceof FetchError) {
+      if ([HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN, HTTP_STATUS_CLOUDFLARE_BLOCKED].includes(err.code))
+        log.error('joke.js: ', err.response);
+      else
+        log.error(`joke.js: ${api?.url ?? JSON.stringify(api)} responded with error ${err.name} ${err.code ? ', ' + err.code : ''}: ${err.message}`);
+    }
     else if (!(err instanceof AbortError)) throw err;
   }
 

@@ -42,11 +42,11 @@ module.exports = async function lock_unlock(lang) {
     if (overwrites.__count__) await this.guild.updateDB(`lockedChannels.${channel.id}`, overwrites);
   }
   else {
-    overwrites = Object.entries(this.guild.db.lockedChannels?.[channel.id] ?? {}).filter(([k, v]) => {
+    overwrites = Object.fromEntries(Object.entries(this.guild.db.lockedChannels?.[channel.id] ?? {}).filter(([k, v]) => {
       if (channel.permissionOverwrites.cache.get(k)?.allow.has(PermissionFlagsBits.SendMessages)) return false;
       if (v == OverwriteType.Role) return roles.get(k).position - this.guild.members.me.roles.highest.position < 0;
       return members.get(k).manageable;
-    });
+    }));
 
     if (!overwrites.length) return msg.edit(lang('notLocked'));
 
@@ -54,7 +54,7 @@ module.exports = async function lock_unlock(lang) {
   }
 
   await channel.send({ embeds: [embed] });
-  for (const [id, type] of Array.isArray(overwrites) ? overwrites : Object.entries(overwrites)) {
+  for (const [id, type] of Object.entries(overwrites)) {
     await channel.permissionOverwrites.edit(id,
       { [PermissionFlagsBits.SendMessages]: this.commandName == 'lock' },
       { type, reason: lang('global.modReason', { command: this.commandName, user: this.user.username }) });

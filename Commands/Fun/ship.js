@@ -28,7 +28,7 @@ module.exports = {
   async run(lang) {
     const [user1, user2] = getTargetMembers(this, [{ targetOptionName: 'user1' }, { targetOptionName: 'user2', returnSelf: true }]);
 
-    if (!user1 || !user2) return this.customReply(lang('global.unknownUser'));
+    if (!user1) return this.customReply(lang('global.unknownUser'));
     return this.customReply(`${user1.customName} :heart: ${user2.customName}: ${calculatePercentage(user1, user2)}%`);
   }
 };
@@ -45,35 +45,4 @@ function calculatePercentage(user1Id, user2Id) {
   ).digest('hex');
 
   return Number.parseInt(combinedHash.slice(0, hashPartLength), 16) % (maxPercentage + 1);
-}
-
-
-function _testDistribution(runs = 1_000_000) {
-  const halfMax = maxPercentage / 2;
-
-  const results = [];
-  for (let i = 0; i < runs; i++) {
-    const percent = calculatePercentage(`12345${i}`, `98765${i + 1}`);
-    results.push(percent);
-  }
-  const lowResultCount = results.filter(e => e <= halfMax).length;
-  const logMaxPercentage = 100;
-
-  console.log(
-    'Amount of values:', results
-      .reduce((/** @type {number[]} */ acc, e) => {
-        acc[e] = (acc[e] ?? 0) + 1;
-        return acc;
-      }, Array.from({ length: results.toSorted((a, b) => b - a)[0] }))
-      .map((/** @type {number} */ e, i) => `${i}: ${e}`)
-      .join(', ')
-  );
-  console.log(`Amount of values <=${halfMax}:`, lowResultCount, `${lowResultCount / results.length * logMaxPercentage}%`);
-  console.log(
-    `Amount of values > ${halfMax}:`,
-    results.length - lowResultCount, `${(results.length - lowResultCount) / results.length * logMaxPercentage}%`
-  );
-  console.log(`Total: ${results.length}`);
-  /* eslint-disable-next-line sonarjs/no-identical-expressions -- intentional test */
-  console.log('Same input has the same result:', calculatePercentage('012345', '012345') == calculatePercentage('012345', '012345'));
 }

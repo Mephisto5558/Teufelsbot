@@ -9,10 +9,10 @@ type data = {
     lang: Parameters<fn>[0],
     options: {
       components: ActionRowBuilder<ButtonBuilder>[];
-      bonusEntries?: Record<string, string>[]; requiredRoles?: string[];
-      disallowedMembers?: string[]; duration?: number;
+      bonusEntries?: Record<Snowflake, string>; requiredRoles?: Snowflake[];
+      disallowedMembers?: Snowflake[]; duration?: number; giveawayId?: Snowflake;
     },
-    ...rest: OmitFirstParameter<fn>
+    ...rest: OmitFirstParameters<fn>
   ): ReturnType<fn>;
 };
 export= data;

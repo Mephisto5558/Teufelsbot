@@ -5,7 +5,10 @@ const
   getCMDs = /** @param {Client} client */ client => [...client.prefixCommands, ...client.slashCommands]
     .filter(([,e]) => !e.aliasOf)
     .map(([e]) => e)
-    .unique();
+    .unique(),
+
+  /** @type {[['role', 'roles'], ['member', 'users'], ['channel', 'channels']]} */
+  types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']];
 
 /** @type {import('.')} */
 module.exports = {
@@ -36,23 +39,24 @@ module.exports = {
 
     if (this.options.getBoolean('get')) {
       /** @type {[[string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]]]} */
-      const fieldList = [['roles', roles], ['channels', channels], ['users', users]];
-      const fields = fieldList.filter(([, e]) => !!e.length).map(([k, v]) => ({
-        name: lang(k),
-        value: v.includes('*')
-          ? lang('list.all')
-          : v.map(/** @param {Snowflake} e */ e => {
-              if (k == 'roles') return roleMention(e);
-              return k == 'channels' ? channelMention(e) : userMention(e);
-            }).join(', '),
-        inline: false
-      }));
+      const
+        fieldList = [['roles', roles], ['channels', channels], ['users', users]],
+        fields = fieldList.filter(([, e]) => !!e.length).map(([k, v]) => ({
+          name: lang(k),
+          value: v.includes('*')
+            ? lang('list.all')
+            : v.map(/** @param {Snowflake} e */ e => {
+                if (k == 'roles') return roleMention(e);
+                return k == 'channels' ? channelMention(e) : userMention(e);
+              }).join(', '),
+          inline: false
+        })),
 
-      const embed = new EmbedBuilder({
-        title: lang('list.embedTitle', command),
-        color: Colors.White,
-        ...fields.length ? { fields } : { description: lang('list.embedDescription') }
-      });
+        embed = new EmbedBuilder({
+          title: lang('list.embedTitle', command),
+          color: Colors.White,
+          ...fields.length ? { fields } : { description: lang('list.embedDescription') }
+        });
 
       return this.editReply({ embeds: [embed] });
     }
@@ -69,12 +73,8 @@ module.exports = {
       }));
     }
 
-    for (const [typeIndex, typeFilter] of ['role', 'member', 'channel'].entries()) {
+    for (const [typeFilter, type] of types) {
       const ids = this.options.data[0].options.filter(e => e.name.includes(typeFilter)).map(e => e.value).unique();
-
-      let type = 'roles';
-      if (typeIndex == 1) type = 'users';
-      else if (typeIndex == 2) type = 'channels';
 
       for (const id of ids) {
         if (commandData[type]?.includes(id)) {

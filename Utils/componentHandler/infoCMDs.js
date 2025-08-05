@@ -1,7 +1,7 @@
 /* eslint camelcase: [error, { allow: [ban_kick_mute] }] */
 /**
- * @typedef {(this: ThisParameterType<import('.').infoCMDs>, embed: EmbedBuilder, mode: string, item: Item) => Promise<unknown>} ManagerFn
- * @template {unknown} Item */
+ * @typedef {(this: ThisParameterType<import('.').infoCMDs>, embed: EmbedBuilder, mode: string, item: Item, lang: lang) => Promise<unknown>} ManagerFn
+ * @template {unknown} [Item=unknown] */
 
 const
   {
@@ -16,9 +16,10 @@ const
 
   MODALSUBMIT_MAXTIME = secToMs(30), /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
+  /** @type {Record<string, ManagerFn>} */
   manageFunctions = {
     /** @type {ManagerFn<import('discord.js').GuildMember>} */
-    async manageMember(embed, mode, member) {
+    async manageMember(embed, mode, member, lang) {
       if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']))
         return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], flags: MessageFlags.Ephemeral });
       const err = checkTargetManageable.call(this, member);
@@ -58,12 +59,12 @@ const
     },
 
     /** @type {ManagerFn<import('discord.js').GuildEmoji>} */
-    async manageEmoji(embed, mode, emoji) {
+    async manageEmoji(embed, mode, emoji, lang) {
       switch (mode) {
         case 'addToGuild': {
           const components = [
             new ActionRowBuilder({
-              components: this.message.components[0].components.filter(e => !e.customId?.includes('addToGuild')).map(e => e.data)
+              components: this.message.components[0].components.filter(e => e.customId != this.customId).map(e => e.data)
             }),
             new ActionRowBuilder({
               components: [new StringSelectMenuBuilder({
@@ -80,7 +81,7 @@ const
           return this.update({ components });
         }
         case 'addToSelectedGuild':
-          if (!this.isStringSelectMenu() || !(emoji instanceof GuildEmoji)) return; // typeguard
+          if (!this.isStringSelectMenu()) return; // typeguard
 
           for (const guildId of this.values) {
             let
@@ -124,7 +125,7 @@ const
     },
 
     /** @type {ManagerFn<import('discord.js').Role>} */
-    async manageRole(embed, mode, role) {
+    async manageRole(embed, mode, role, lang) {
       if (mode != 'delete') return;
 
       if (
@@ -150,13 +151,15 @@ module.exports = async function infoCMDs(lang, id, mode, entityType) {
 
   try { item = await this.guild[entityType].fetch(id); }
   catch (err) {
-    if (![DiscordAPIErrorCodes.UnknownMember, DiscordAPIErrorCodes.UnknownRole, DiscordAPIErrorCodes.UnknownEmoji].includes(err.code))
-      throw err;
+    if (
+      !('code' in err)
+      || ![DiscordAPIErrorCodes.UnknownMember, DiscordAPIErrorCodes.UnknownRole, DiscordAPIErrorCodes.UnknownEmoji].includes(err.code)
+    ) throw err;
   }
 
   if (!item) return this.customReply({ embeds: [embed.setDescription(lang('notFound'))], flags: MessageFlags.Ephemeral });
 
-  await manageFunctions[`manage${entityType.slice(0, -1)}`].call(this, embed, mode, item);
+  await manageFunctions[`manage${entityType.slice(0, -1)}`].call(this, embed, mode, item, lang);
 
   for (const button of this.message.components[0].components) button.data.disabled = true;
   return this.message.edit({ components: this.message.components }).catch(err => {

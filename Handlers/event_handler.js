@@ -5,7 +5,7 @@ const
 /** @this {Client} */
 module.exports = function eventHandler() {
   for (const [name, event] of Object.entries(events)) {
-    if (name == 'interactionCreate') continue; // InteractionCreate gets loaded after all slash commands are registred
+    if (name == 'interactionCreate') continue; // interactionCreate gets loaded after all slash commands are registred
 
     this.on(name, async (...args) => {
       const eventArgs = [...args, this].unique();

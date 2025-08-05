@@ -1,7 +1,8 @@
-/* eslint-disable sonarjs/cyclomatic-complexity, sonarjs/cognitive-complexity -- will be fixed when commands are moved to their own lib */
+/* eslint-disable custom/cyclomatic-complexity, sonarjs/cognitive-complexity, no-underscore-dangle
+-- will be fixed when commands are moved to their own lib */
 
 const
-  { ChannelType, Colors, CommandInteraction, EmbedBuilder, Message, MessageFlags, PermissionFlagsBits, inlineCode } = require('discord.js'),
+  { ChannelType, Colors, CommandInteraction, EmbedBuilder, Message, MessageFlags, PermissionFlagsBits, Role, inlineCode } = require('discord.js'),
   /** @type {import('.').autocompleteGenerator} */ autocompleteGenerator = require('./autocompleteGenerator'),
   /** @type {import('.').commandMention} */ commandMention = require('./commandMention'),
   cooldowns = require('./cooldowns'),
@@ -41,27 +42,33 @@ function checkOptions(command, lang) {
     if (required && !this.options?.get(name) && !this.args?.[i]) {
       return ['paramRequired', {
         option: name,
-        description: descriptionLocalizations?.[lang.__boundArgs__[0].locale]
-          ?? descriptionLocalizations?.[lang.__boundThis__.config.defaultLocale] ?? description
+        description: (lang.config.locale ? descriptionLocalizations?.[lang.config.locale] : undefined)
+          ?? descriptionLocalizations?.[lang.defaultConfig.defaultLocale] ?? description
       }];
     }
 
     if (
       channelTypes && (this.options?.get(name) || this.args?.[i])
-      && !channelTypes.includes(this.options?.getChannel(name).type ?? this.mentions.channels.at(i)?.type)
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
+      -- will be fixed when commands are moved to their own lib */
+      && !channelTypes.includes((this.options?.getChannel(name) ?? this.mentions?.channels.at(i))?.type)
     ) return ['invalidChannelType', name];
 
     const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]));
     if (
       isValidType(this) && autocompleteIsUsed() && !autocompleteGenerator.call(
+        /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unnecessary-condition,
+        @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- false positive/ts bug */
         this, { name, value: this.options?.get(name).value ?? this.args?.[i] }, command, this.guild?.db.config.lang ?? this.guild?.localeCode
+        /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unsafe-call,
+        @typescript-eslint/no-unsafe-member-access -- false positive/ts bug */
       ).some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
     ) {
       if (typeof autocompleteOptions != 'function') {
         return ['strictAutocompleteNoMatchWValues', {
           option: name,
           availableOptions: Array.isArray(autocompleteOptions)
-            ? autocompleteOptions.map(e => e.value ?? e).map(inlineCode).join(', ')
+            ? autocompleteOptions.map(e => ('value' in e ? e.value : e)).map(inlineCode).join(', ')
             : autocompleteOptions
         }];
       }
@@ -79,9 +86,10 @@ function checkOptions(command, lang) {
  * @param {lang} lang
  * @returns {Promise<boolean>} `false` if no permission issues have been found. */
 async function checkPerms(command, lang) {
-  const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user ?? [], PermissionFlagsBits.SendMessages]);
-  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel)
-    .missing([...command.permissions?.client ?? [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
+  const
+    userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user ?? [], PermissionFlagsBits.SendMessages]),
+    botPermsMissing = this.guild.members.me.permissionsIn(this.channel)
+      .missing([...command.permissions?.client ?? [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
 
   if (!botPermsMissing.length && !userPermsMissing.length) return false;
 
@@ -136,11 +144,14 @@ module.exports = async function checkForErrors(command, lang) {
   if (!command.dmPermission && this.channel.type == ChannelType.DM) return ['guildOnly'];
 
   const disabledList = this.guild?.db.config.commands?.[command.aliasOf ?? command.name]?.disabled;
-  if (disabledList && this.member.id != this.guild.ownerId) {
-    if (Object.values(disabledList).some(e => e.includes('*'))) return ['notAllowed.anyone'];
+  if (disabledList && this.member && this.member.id != this.guild.ownerId) {
+    if (Object.values(disabledList).some(e => Array.isArray(e) && e.includes('*'))) return ['notAllowed.anyone'];
     if (disabledList.users?.includes(this.user.id)) return ['notAllowed.user'];
     if (disabledList.channels?.includes(this.channel.id)) return ['notAllowed.channel'];
-    if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return ['notAllowed.role'];
+    if (
+      disabledList.roles && ('cache' in this.member.roles ? this.member.roles.cache : this.member.roles)
+        .some(e => disabledList.roles.includes(e instanceof Role ? e.id : e))
+    ) return ['notAllowed.role'];
   }
 
   if (command.category == 'nsfw' && !this.channel.nsfw) return ['nsfw'];

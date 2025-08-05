@@ -134,10 +134,14 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
         ));
 
         for (const devId of devIds) {
-          try { await (await this.users.fetch(devId)).send({ content: json.html_url, files }); }
+          try { await this.users.send(devId, { content: json.html_url, files }); }
           catch (err) {
-            if (err.code == DiscordAPIErrorCodes.UnknownUser) log.error(`Unknown Dev ID "${devId}"`);
-            else if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
+            if (err.code == DiscordAPIErrorCodes.UnknownUser) {
+              log.error(`Unknown Dev ID "${devId}". Removing from loaded config.`);
+              devIds.delete(devId);
+            }
+            else if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser)
+              log.error(`Failed to send error report to dev ${devId}:`, err);
           }
         }
 

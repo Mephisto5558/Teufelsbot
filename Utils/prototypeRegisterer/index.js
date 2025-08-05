@@ -1,6 +1,8 @@
 /* eslint-disable no-extend-native */
+/* eslint no-underscore-dangle: [warn, {allow: [_patch, __count__, _log]}] */
+
 const
-  { AutocompleteInteraction, BaseInteraction, ButtonBuilder, Client, Collection, Events, Guild, GuildMember, Message, User } = require('discord.js'),
+  { AutocompleteInteraction, BaseInteraction, Client, Collection, Events, Guild, GuildMember, Message, User } = require('discord.js'),
   { randomInt } = require('node:crypto'),
   { readFile } = require('node:fs/promises'),
   { join } = require('node:path'),
@@ -8,7 +10,7 @@ const
   { I18nProvider } = require('@mephisto5558/i18n'),
   { DB } = require('@mephisto5558/mongoose-db'),
   TicTacToe = require('discord-tictactoe'),
-  GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
+  { default: GameBoardButtonBuilder } = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder'),
   { setDefaultConfig } = require('../configValidator'),
   findAllEntries = require('../findAllEntries'),
   Log = require('./Log'),
@@ -27,33 +29,33 @@ module.exports = { Log, _patch, customReply, runMessages, playAgain, sendChallen
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
 
-const config = setDefaultConfig();
-
-const requiredEnv = [
-  'environment',
-  'humorAPIKey', 'rapidAPIKey',
-  'githubKey', 'chatGPTApiKey',
-  'dbdLicense',
-  'dbConnectionStr', 'token', 'secret'
-];
-
-const overwrites = Object.fromEntries(Object.entries({
-  globals: ['globalThis.sleep()', 'globalThis.log()'],
-  vanilla: [
-    parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
-    'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()', 'Object#__count__', 'BigInt#toJSON()'
+const
+  config = setDefaultConfig(),
+  requiredEnv = [
+    'environment',
+    'humorAPIKey', 'rapidAPIKey',
+    'githubKey', 'chatGPTApiKey',
+    'dbdLicense',
+    'dbConnectionStr', 'token', 'secret'
   ],
-  discordJs: [
-    'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
-    'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config',
-    'Client#loadEnvAndDB()', 'Client#awaitReady()',
-    'Message#originalContent', 'Message#args', 'Message#commandName', 'Message#user', 'Message#customReply()', 'Message#runMessages',
-    'BaseInteraction#customReply()', 'AutocompleteInteraction#focused',
-    'User#localeCode', 'User#db', 'User#updateDB()', 'User#deleteDB()',
-    'GuildMember#db', 'GuildMember#localeCode',
-    'Guild#localeCode', 'Guild#db', 'Guild#updateDB()', 'Guild#deleteDB()'
-  ]
-}).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
+
+  overwrites = Object.fromEntries(Object.entries({
+    globals: ['globalThis.sleep()', 'globalThis.log()'],
+    vanilla: [
+      parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
+      'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()', 'Object#__count__', 'BigInt#toJSON()'
+    ],
+    discordJs: [
+      'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
+      'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config',
+      'Client#loadEnvAndDB()', 'Client#awaitReady()',
+      'Message#originalContent', 'Message#args', 'Message#commandName', 'Message#user', 'Message#customReply()', 'Message#runMessages',
+      'BaseInteraction#customReply()', 'AutocompleteInteraction#focused',
+      'User#localeCode', 'User#db', 'User#updateDB()', 'User#deleteDB()',
+      'GuildMember#db', 'GuildMember#localeCode',
+      'Guild#localeCode', 'Guild#db', 'Guild#updateDB()', 'Guild#deleteDB()'
+    ]
+  }).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
 
 if (!config.hideOverwriteWarning) {
   console.warn([
@@ -96,21 +98,15 @@ Object.defineProperties(Number.prototype, {
   },
   inRange: {
     /** @type {global['Number']['prototype']['inRange']} */
-    value: function inRange(min, max) {
-      let minRange, maxRange;
-      if (typeof min == 'object') {
-        maxRange = min.max;
-        minRange = min.min;
-      }
-
-      return Number(this) > (minRange ?? min ?? Number.NEGATIVE_INFINITY) && Number(this) < (maxRange ?? max ?? Number.POSITIVE_INFINITY);
+    value: function inRange(min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY) {
+      return Number(this) > min && Number(this) < max;
     },
     enumerable: false
   }
 });
 Object.defineProperties(Object.prototype, {
-  /** @type {global['Object']['prototype']['filterEmpty']} */
   filterEmpty: {
+    /** @type {global['Object']['prototype']['filterEmpty']} */
     value: function filterEmpty() {
       return Object.entries(this).reduce((acc, [k, v]) => {
         if (!(v === null || (typeof v == 'object' && !v.__count__)))
@@ -124,6 +120,7 @@ Object.defineProperties(Object.prototype, {
     /** @type {global['Object']['prototype']['__count__']} */
     get: function get() {
       let count = 0;
+      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive */
       for (const prop in this) if (Object.hasOwn(this, prop)) count++;
 
       return count;
@@ -132,6 +129,7 @@ Object.defineProperties(Object.prototype, {
   }
 });
 Object.defineProperty(BigInt.prototype, 'toJSON', {
+  /** @this {bigint} */
   value: function stringify() {
     return this.toString();
   },
@@ -159,13 +157,13 @@ Object.defineProperties(Client.prototype, {
   cooldowns: { value: new Map() },
   config: { value: config },
 
-  /** @type {Record<string, (this: Client, val: any) => any>} */
+  /** @type {Record<string, (this: Client, val: unknown) => unknown>} */
   settings: {
     get() { return this.db.get('botSettings'); },
     set(val) { void this.db.set('botSettings', val); }
   },
 
-  /** @type {Record<string, (this: Client, val: any) => any>} */
+  /** @type {Record<string, (this: Client, val: unknown) => unknown>} */
   defaultSettings: {
     get() { return this.db.get('botSettings', 'defaultGuild'); },
     set(val) { void this.db.update('botSettings', 'defaultGuild', val); }
@@ -180,9 +178,14 @@ Object.defineProperties(Client.prototype, {
           Object.assign(process.env, parseEnv(await readFile(`.env.${process.env.environment}`, { encoding: 'utf8' })));
         }
         catch (err) {
-          if (err.code != 'ENOENT')
-            throw new Error(`Missing "env.${process.env.environment}" file. Tried to import based on "environment" env variable in ".env".`);
-          throw err;
+          if (err.code == 'ENOENT') {
+            throw new Error(
+              `Missing "env.${process.env.environment}" file. Tried to import based on "environment" env variable in ".env".`,
+              { cause: err }
+            );
+          }
+
+          throw new Error(`Could not parse "env.${process.env.environment}" file.`, { cause: err });
         }
       }
 
@@ -205,7 +208,7 @@ Object.defineProperties(Client.prototype, {
   awaitReady: {
     /** @type {Client['awaitReady']} */
     value: async function awaitReady() {
-      return new Promise(res => this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch())));
+      return new Promise(res => void this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch())));
     }
   }
 });
@@ -224,7 +227,7 @@ Object.defineProperty(Message.prototype, 'user', {
 });
 Object.assign(Message.prototype, { customReply, runMessages, _patch });
 Object.defineProperties(User.prototype, {
-  /** @type {Record<string, (this: User, val: any) => any>} */
+  /** @type {Record<string, (this: User, val: unknown) => unknown>} */
   db: {
     get() { return this.client.db.get('userSettings', this.id) ?? {}; },
     set(val) { void this.updateDB(undefined, val); }
@@ -242,7 +245,7 @@ Object.defineProperties(User.prototype, {
     }
   },
 
-  /** @type {Record<string, (this: User, val: any) => any>} */
+  /** @type {Record<string, (this: User, val: unknown) => unknown>} */
   customName: {
     get() { return this.db.customName ?? this.displayName; },
     set(val) { void this.updateDB('customName', val); }
@@ -254,19 +257,20 @@ Object.defineProperties(User.prototype, {
       const locale = this.db.localeCode
         ?? Object.values(this.client.db.get('website', 'sessions')).find(e => e.user?.id == this.id)?.user?.locale
         ?? undefined; // website db user locale can be `null`
+
       return locale?.startsWith('en') ? 'en' : locale;
     },
     set(val) { void this.updateDB('localeCode', val); }
   }
 });
 Object.defineProperties(GuildMember.prototype, {
-  /** @type {Record<string, (this: GuildMember, val: any) => any>} */
+  /** @type {Record<string, (this: GuildMember, val: unknown) => unknown>} */
   db: {
     get() { return findAllEntries(this.guild.db, this.id); },
     set() { throw new Error('You cannot set a value to GuildMember#db!'); }
   },
 
-  /** @type {Record<string, (this: GuildMember, val: any) => any>} */
+  /** @type {Record<string, (this: GuildMember, val: unknown) => unknown>} */
   customName: {
     get() { return this.guild.db.customNames?.[this.id] ?? this.displayName; },
     set(val) { void this.guild.updateDB(`customNames.${this.id}`, val); }
@@ -281,7 +285,7 @@ Object.defineProperties(GuildMember.prototype, {
   }
 });
 Object.defineProperties(Guild.prototype, {
-  /** @type {Record<string, (this: Guild, val: any) => any>} */
+  /** @type {Record<string, (this: Guild, val: unknown) => unknown>} */
   db: {
     get() { return this.client.db.get('guildSettings', this.id) ?? {}; },
     set(val) { void this.updateDB(undefined, val); }
@@ -290,7 +294,8 @@ Object.defineProperties(Guild.prototype, {
     /**
      * @type {import('discord.js').Guild['updateDB']}
      * @this {Guild}
-     * @param {string} key */
+     * @param {string} key
+     * @param {unknown} value */
     value: async function updateDB(key, value) { return this.client.db.update('guildSettings', `${this.id}${key ? '.' + key : ''}`, value); }
   },
   deleteDB: {
@@ -313,10 +318,12 @@ Object.defineProperties(Guild.prototype, {
 
 // #region mongoose-db
 Object.defineProperty(DB.prototype, 'generate', {
-  /** @type {import('@mephisto5558/mongoose-db').DB['generate']} */
+  /**
+   * @type {import('@mephisto5558/mongoose-db').DB['generate']}
+   * @this {DB} */
   value: async function generate(overwrite = false) {
     this.saveLog(`generating db files${overwrite ? ', overwriting existing data' : ''}`);
-    await Promise.all(require('../../Templates/db_collections.json').map(({ key, value }) => this.set(key, value, overwrite)));
+    await Promise.all(require('../../Templates/db_collections.json').map(async ({ key, value }) => void await this.set(key, value, overwrite)));
   }
 });
 
@@ -327,25 +334,19 @@ Object.defineProperty(TicTacToe.prototype, 'playAgain', {
   value: playAgain
 });
 
+/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+-- the library does not provide types */
+const originalCreateButton = GameBoardButtonBuilder.prototype.createButton;
 Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
   /**
-   * @param {number} row
-   * @param {number} col */
-  value: function createButton(row, col) {
-    const
-      button = new ButtonBuilder(),
-      buttonIndex = row * this.boardSize + col,
-      buttonData = this.boardData[buttonIndex];
+   * @this {unknown & { buttonLabels: [string, string, string] }}
+   * @param {unknown[]} args */
+  value: function createButton(...args) {
+    this.buttonLabels[0] = '\u200B'; // Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
 
-    // Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
-    if (buttonData === 0) button.setLabel('\u200B');
-    else {
-      if (this.customEmojies) button.setEmoji(this.emojies[buttonData]);
-      else button.setLabel(this.buttonLabels[buttonData - 1]);
-
-      if (this.disableButtonsAfterUsed) button.setDisabled(true);
-    }
-    return button.setCustomId(buttonIndex.toString()).setStyle(this.buttonStyles[buttonData]);
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
+    -- the library does not provide types */
+    return originalCreateButton.call(this, ...args);
   }
 });
 

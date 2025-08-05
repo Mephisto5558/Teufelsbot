@@ -14,7 +14,7 @@ const logLevels = {
 
 module.exports = class Log extends Function {
   constructor(logLevel = 'log', logFilesDir = './Logs') {
-    /* eslint-disable-next-line sonarjs/no-async-constructor -- constructor functions cannot be async and we don't want an extra `init` function.
+    /* eslint-disable-next-line custom/no-async-constructor -- constructor functions cannot be async and we don't want an extra `init` function.
     We just hope the system has enough time to create the dir. */
     access(logFilesDir).catch(err => {
       if (err.code != 'ENOENT') throw err;
@@ -25,11 +25,12 @@ module.exports = class Log extends Function {
     super('...str', 'return this.log(...str)');
 
     /** @type {this} */
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- `this` is `this` */
     const bound = this.bind(this);
 
     /* eslint-disable no-multi-assign -- this just makes more sense. */
     /* Setting it to `this` is required for top-level calls,
-       Setting it to `bound` is required for chained calls */
+       Setting it to `bound` is required for chained calls. */
     this.date = bound.date = new Date().toISOString().split('T')[0];
     this.logLevel = bound.logLevel = logLevel;
     this.logFilesDir = bound.logFilesDir = logFilesDir;
@@ -39,11 +40,11 @@ module.exports = class Log extends Function {
     return bound;
   }
 
-  debug(...str) { return this._log({ file: 'debug' }, ...str); }
-  log(...str) { return this._log({ file: 'log' }, ...str); }
-  info(...str) { return this._log({ file: 'info' }, ...str); }
-  warn(...str) { return this._log({ file: 'warn' }, ...str); }
-  error(...str) { return this._log({ file: 'error' }, ...str); }
+  /** @type {import('.').LogInterface['debug']} */ debug(...str) { return this._log({ file: 'debug' }, ...str); }
+  /** @type {import('.').LogInterface['log']} */ log(...str) { return this._log({ file: 'log' }, ...str); }
+  /** @type {import('.').LogInterface['info']} */ info(...str) { return this._log({ file: 'info' }, ...str); }
+  /** @type {import('.').LogInterface['warn']} */ warn(...str) { return this._log({ file: 'warn' }, ...str); }
+  /** @type {import('.').LogInterface['error']} */ error(...str) { return this._log({ file: 'error' }, ...str); }
 
   /** @type {import('.').LogInterface['_logToConsole']} */
   _logToConsole({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` } = {}, ...str) {

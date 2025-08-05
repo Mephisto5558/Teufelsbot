@@ -21,3 +21,8 @@ export type shouldDeleteMsgOptions<User = Discord.User> = {
 };
 
 export function shouldDeleteMsg<User extends Discord.User>(msg: Message<true>, options: shouldDeleteMsgOptions<User>): boolean;
+
+export function check(
+  fn: { [K in keyof string]: string[K] extends GenericFunction<boolean> ? K : never }[keyof string],
+  option: string
+): boolean;

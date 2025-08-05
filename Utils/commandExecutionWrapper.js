@@ -1,8 +1,6 @@
 const
-  { Colors, EmbedBuilder, MessageFlags } = require('discord.js'),
-
-  /** @type {import('.').checkForErrors} Getting type info while preventing circular import */
-  checkForErrors = require('./checkForErrors'),
+  { ChatInputCommandInteraction, Colors, EmbedBuilder, MessageFlags } = require('discord.js'),
+  /** @type {import('.').checkForErrors} */ checkForErrors = require('./checkForErrors'),
   /** @type {import('.').errorHandler} */ errorHandler = require('./errorHandler');
 
 /** @type {import('.').commandExecutionWrapper} */
@@ -22,8 +20,8 @@ module.exports = async function commandExecutionWrapper(command, commandType, la
 
   log.debug(`Executing ${commandType} command ${commandName}`);
 
-  if (!command.noDefer && this.replied === false)
-    await this.deferReply({ flags: command.ephemeralDefer ? MessageFlags.Ephemeral : undefined }); // `=== false` because of Messages
+  if (!command.noDefer && this instanceof ChatInputCommandInteraction && !this.replied)
+    await this.deferReply({ flags: command.ephemeralDefer ? MessageFlags.Ephemeral : undefined });
 
   try {
     await command.run.call(this, cmdLang);
