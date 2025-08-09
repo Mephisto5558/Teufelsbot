@@ -48,8 +48,7 @@
   },
   "devDependencies": {
     "@mephisto5558/eslint-config": "next",
-    "@types/node": "20.19.0",
-    "eslint": "^9.27.0"
+    "@types/node": "20.19.0"
   },
   "repository": {
     "type": "git",
