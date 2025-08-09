@@ -1,7 +1,7 @@
 import type { ActivityType } from 'discord.js';
 import type { Locale } from '@mephisto5558/i18n';
 
-import type { cmdStats, userId, Embed } from './common';
+import type { Embed, cmdStats, userId } from './common';
 
 export type botSettings = {
   startCount: Record<string, number>;

@@ -1,7 +1,7 @@
 const
   {
-    ActivityType, PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle,
-    ALLOWED_SIZES, TimestampStyles, hyperlink, inlineCode
+    ALLOWED_SIZES, ActionRowBuilder, ActivityType, ButtonBuilder,
+    ButtonStyle, EmbedBuilder, PermissionFlagsBits, TimestampStyles, hyperlink, inlineCode
   } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers, getAge, permissionTranslator, timeFormatter: { msInSecond, timestamp } } = require('#Utils');

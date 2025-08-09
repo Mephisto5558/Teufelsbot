@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { Colors, EmbedBuilder } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter,
   images = [
     '1137786635392651314/backflip-anime.gif', '1137786636017602632/flip-anime.gif', '1137786636659335321/ichigo-mashimaro-backflip.gif',

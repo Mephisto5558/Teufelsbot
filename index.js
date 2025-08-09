@@ -7,14 +7,14 @@ const maxStackTraceLimit = 100;
 Error.stackTraceLimit = maxStackTraceLimit;
 
 const
-  { Client, GatewayIntentBits, AllowedMentionsTypes, Partials, ActivityType } = require('discord.js'),
+  { ActivityType, AllowedMentionsTypes, Client, GatewayIntentBits, Partials } = require('discord.js'),
   { WebServer } = require('@mephisto5558/bot-website'),
-  handlers = require('./Handlers'),
-  events = require('./Events'),
   {
     GiveawaysManager, configValidator: { configValidationLoop },
     gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */
   } = require('#Utils'),
+  events = require('./Events'),
+  handlers = require('./Handlers'),
   /* eslint-disable-next-line custom/unbound-method -- fine here */
   { onTick: syncEmojis } = require('./TimeEvents').syncEmojis,
 

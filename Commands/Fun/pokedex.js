@@ -1,7 +1,8 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection } = require('discord.js'),
-  fetch = require('node-fetch').default,
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, Colors, EmbedBuilder } = require('discord.js'),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
+  fetch = require('node-fetch').default,
+
   INCHES_IN_FEET = 12,
   CENTIMETERS_IN_METER = 100,
   CENTIMETERS_IN_INCH = 2.54,

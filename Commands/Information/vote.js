@@ -1,8 +1,6 @@
 const
-  { EmbedBuilder, Colors, hyperlink } = require('discord.js'),
-
-  /** @type {Client['config']} */
-  { website = {}, disableWebserver } = require(require('node:path').resolve(process.cwd(), 'config.json'));
+  { Colors, EmbedBuilder, hyperlink } = require('discord.js'),
+  { website = {}, disableWebserver } = require('#Utils').getConfig();
 
 /** @type {command<'both', false>} */
 module.exports = {

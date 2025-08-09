@@ -1,7 +1,8 @@
 const
-  { PermissionFlagsBits, VoiceState, TimestampStyles, userMention, inlineCode } = require('discord.js'),
-  { messageMaxLength, memberNameMaxLength } = require('./constants'),
-  { timestamp, timeFormatter } = require('./timeFormatter'),
+  { PermissionFlagsBits, TimestampStyles, VoiceState, inlineCode, userMention } = require('discord.js'),
+  { memberNameMaxLength, messageMaxLength } = require('./constants'),
+  { timeFormatter, timestamp } = require('./timeFormatter'),
+
   nicknamePrefix = '[AFK] ',
   nicknameRegex = /^[AFK] /;
 

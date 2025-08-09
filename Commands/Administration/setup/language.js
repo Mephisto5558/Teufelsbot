@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { Colors, EmbedBuilder } = require('discord.js'),
   { constants: { autocompleteOptionsMaxAmt } } = require('#Utils');
 
 /** @type {import('.')} */

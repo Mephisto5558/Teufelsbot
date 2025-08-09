@@ -1,7 +1,7 @@
-import type { EmbedData, Base64String, GuildChannelType, GuildFeature, GuildChannel, BaseGuildVoiceChannel, Role, RoleColors } from 'discord.js';
+import type { Base64String, BaseGuildVoiceChannel, EmbedData, GuildChannel, GuildChannelType, GuildFeature, Role, RoleColors } from 'discord.js';
 import type { ISODateTime } from '../globals';
 
-import type { userId, backupId, guildId } from './common';
+import type { backupId, guildId, userId } from './common';
 
 export type backupChannel = {
   type: GuildChannelType;

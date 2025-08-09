@@ -1,13 +1,14 @@
 const
   {
-    EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType,
-    CommandInteraction, MessageComponentInteraction, ModalSubmitInteraction,
-    Colors, Message, codeBlock, hyperlink, inlineCode
+    ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle,
+    Colors, CommandInteraction, ComponentType, EmbedBuilder, Message,
+    MessageComponentInteraction, ModalSubmitInteraction, codeBlock, hyperlink, inlineCode
   } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { msInSecond, secsInMinute } = require('./timeFormatter.js'),
   { JSON_SPACES } = require('./constants'),
+  { msInSecond, secsInMinute } = require('./timeFormatter'),
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
+
   cwd = process.cwd();
 
 /** @type {import('.').errorHandler} */

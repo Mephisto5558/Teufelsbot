@@ -1,31 +1,31 @@
 /* eslint camelcase: [error, { allow: [_] }] -- This casing is used to better display the commandName. */
 const
-  { commandQuery, categoryQuery, allQuery, getCommands, getCommandCategories } = require('./help_utils'),
-  { startRecording, recordControls } = require('./record_manage.js'),
-  { hasPerm, createProxy } = require('./serverbackup_utils.js');
+  { allQuery, categoryQuery, commandQuery, getCommandCategories, getCommands } = require('./help_utils'),
+  { recordControls, startRecording } = require('./record_manage'),
+  { createProxy, hasPerm } = require('./serverbackup_utils');
 
 module.exports = {
-  advice: require('./advice.js'),
-  fact: require('./fact.js'),
+  advice: require('./advice'),
+  fact: require('./fact'),
   help_commandQuery: commandQuery,
   help_categoryQuery: categoryQuery,
   help_getCommands: getCommands,
   help_getCommandCategories: getCommandCategories,
   help_allQuery: allQuery,
-  help: require('./help.js'),
-  infoCMDs: require('./infoCMDs.js'),
-  joke: require('./joke.js'),
-  mgStats_formatTop: require('./mgStats_formatTop.js'),
-  mgstats: require('./mgStats.js'),
+  help: require('./help'),
+  infoCMDs: require('./infoCMDs'),
+  joke: require('./joke'),
+  mgStats_formatTop: require('./mgStats_formatTop'),
+  mgstats: require('./mgStats'),
   record_startRecording: startRecording,
   record_recordControls: recordControls,
-  record: require('./record.js'),
-  reddit: require('./reddit.js'),
-  rps_sendChallenge: require('./rps_sendChallenge.js'),
-  rps: require('./rps.js'),
+  record: require('./record'),
+  reddit: require('./reddit'),
+  rps_sendChallenge: require('./rps_sendChallenge'),
+  rps: require('./rps'),
   serverbackup_hasPerm: hasPerm,
   serverbackup_createProxy: createProxy,
-  serverbackup: require('./serverbackup.js'),
-  topic: require('./topic.js'),
-  votingReminder: require('./votingReminder.js')
+  serverbackup: require('./serverbackup'),
+  topic: require('./topic'),
+  votingReminder: require('./votingReminder')
 };

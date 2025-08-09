@@ -1,5 +1,5 @@
 const
-  { bold, Guild, GuildChannel } = require('discord.js'),
+  { Guild, GuildChannel, bold } = require('discord.js'),
   { constants: { embedFieldMaxAmt }, convertToMedal } = require('#Utils');
 
 /**

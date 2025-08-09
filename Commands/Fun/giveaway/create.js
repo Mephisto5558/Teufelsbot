@@ -1,5 +1,5 @@
 const
-  { Constants, roleMention, userMention, bold } = require('discord.js'),
+  { Constants, bold, roleMention, userMention } = require('discord.js'),
   { timeValidator } = require('#Utils');
 
 /** @type {import('.')} */

@@ -5,14 +5,15 @@
 
 const
   {
-    EmbedBuilder, Colors, PermissionFlagsBits, ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle,
-    DiscordAPIError, GuildEmoji, StringSelectMenuBuilder, MessageFlags
+    ActionRowBuilder, Colors, DiscordAPIError, EmbedBuilder, MessageFlags, ModalBuilder,
+    PermissionFlagsBits, StringSelectMenuBuilder, TextInputBuilder, TextInputStyle
   } = require('discord.js'),
+  checkTargetManageable = require('../checkTargetManageable'),
   { ban_kick_mute } = require('../combinedCommands'),
-  { auditLogReasonMaxLength } = require('../constants.js'),
-  { secToMs } = require('../toMs.js'),
-  checkTargetManageable = require('../checkTargetManageable.js'),
+  { auditLogReasonMaxLength } = require('../constants'),
+  { secToMs } = require('../toMs'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
+
   MODALSUBMIT_MAXTIME = secToMs(30), /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
   manageFunctions = {

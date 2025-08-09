@@ -1,9 +1,10 @@
 /** @typedef {import('../../types/database').backupId} backupId */
 
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, PermissionFlagsBits, ButtonBuilder, ButtonStyle, inlineCode } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, PermissionFlagsBits, inlineCode } = require('discord.js'),
   { timeFormatter: { timestamp }, commandMention, toMs: { minToMs } } = require('#Utils'),
-  { serverbackup_hasPerm: hasPerm, serverbackup_createProxy: createProxy } = require('#Utils/componentHandler'),
+  { serverbackup_createProxy: createProxy, serverbackup_hasPerm: hasPerm } = require('#Utils/componentHandler'),
+
   BYTES_IN_KILOBITE = 1024;
 
 /** @param {Database['backups'][backupId]} backup */

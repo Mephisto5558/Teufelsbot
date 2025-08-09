@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, bold } = require('discord.js'),
+  { Colors, EmbedBuilder, bold } = require('discord.js'),
 
   /** @type {import('../../node_modules/wikijs/index')} */
   { default: wikiInit } = require('wikijs'),

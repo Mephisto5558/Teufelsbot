@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, userMention, bold } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, bold, userMention } = require('discord.js'),
   BLUE = 0x2980B9;
 
 /** @type {import('.').rps_sendChallenge} */

@@ -1,6 +1,7 @@
 const
-  { EmbedBuilder, Colors, userMention, bold } = require('discord.js'),
+  { Colors, EmbedBuilder, bold, userMention } = require('discord.js'),
   { getTargetMembers, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, daysInYear, monthsInYear } } = require('#Utils'),
+
   currentYear = new Date().getFullYear(),
   MIN_YEAR = 1900;
 
