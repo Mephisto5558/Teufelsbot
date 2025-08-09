@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, Constants, inlineCode, roleMention, channelMention, userMention, bold } = require('discord.js'),
+  { Colors, Constants, EmbedBuilder, bold, channelMention, inlineCode, roleMention, userMention } = require('discord.js'),
   { commandMention } = require('#Utils'),
 
   getCMDs = /** @param {Client} client */ client => [...client.prefixCommands, ...client.slashCommands]

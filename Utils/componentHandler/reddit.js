@@ -1,5 +1,5 @@
 /** @type {import('..').commandExecutionWrapper} */
-const commandExecutionWrapper = require('../commandExecutionWrapper.js');
+const commandExecutionWrapper = require('../commandExecutionWrapper');
 
 /** @type {import('.').reddit} */
 module.exports = async function reddit(lang, subreddit, type, filterNSFW) {

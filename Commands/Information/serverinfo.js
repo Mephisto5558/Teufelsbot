@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, Guild, ALLOWED_SIZES, userMention, inlineCode } = require('discord.js'),
+  { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, Guild, inlineCode, userMention } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { msInSecond, timestamp } = require('#Utils').timeFormatter;
 

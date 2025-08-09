@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
 const
   { Collection, codeBlock, inlineCode } = require('discord.js'),
-  { resolve, basename, dirname } = require('node:path'),
   { access } = require('node:fs/promises'),
-  { formatCommand, slashCommandsEqual, filename, commandMention } = require('#Utils'),
+  { basename, dirname, resolve } = require('node:path'),
+  { commandMention, filename, formatCommand, slashCommandsEqual } = require('#Utils'),
+
   MAX_COMMANDLIST_LENGTH = 800;
 
 /**

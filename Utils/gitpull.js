@@ -1,5 +1,5 @@
 const
-  /** @type {import('.').shellExec} */ shellExec = require('./shellExec.js'),
+  /** @type {import('.').shellExec} */ shellExec = require('./shellExec'),
   /** @type {Promise<string>} */ origin = shellExec('git status')
     .catch(() => { /** empty */ })
     .then(e => /'(?<branch>.*)'/.exec(e?.stdout.split('\n')[1])?.groups.branch);

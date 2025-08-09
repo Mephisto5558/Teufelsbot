@@ -1,14 +1,14 @@
 import type {
-  DMChannel, GuildChannel, GuildMember, Role, User, Collection, Guild, Snowflake,
-  APIAllowedMentions, Message, BaseInteraction, MessageComponentInteraction,
-  AutocompleteInteraction, CategoryChannel, GuildTextBasedChannel, GuildChannelManager,
-  Webhook, WebhookType, VoiceState, TimestampStylesString, DateResolvable, BaseGuildTextChannel
+  APIAllowedMentions, AutocompleteInteraction, BaseGuildTextChannel, BaseInteraction, CategoryChannel, Collection,
+  DMChannel, DateResolvable, Guild, GuildChannel, GuildChannelManager, GuildMember, GuildTextBasedChannel, Message,
+  MessageComponentInteraction, Role, Snowflake, TimestampStylesString, User, VoiceState, Webhook, WebhookType
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
-import type { GiveawaysManager, GiveawayData } from 'discord-giveaways';
-import type { DB } from '@mephisto5558/mongoose-db';
 import type { I18nProvider } from '@mephisto5558/i18n';
+import type { DB } from '@mephisto5558/mongoose-db';
+import type { GiveawayData, GiveawaysManager } from 'discord-giveaways';
 import type { Database, backupChannel, backupId } from '../types/database';
+import type { Config } from '../types/locals';
 
 export { default as DiscordAPIErrorCodes } from './DiscordAPIErrorCodes.json';
 export { default as prototypeRegisterer } from './prototypeRegisterer';
@@ -216,6 +216,8 @@ export declare function getCommands(
     commandAlias: string;
   }[];
 }[];
+
+export declare function getConfig(): Partial<Config>;
 
 export declare function getDirectories(
   path: string

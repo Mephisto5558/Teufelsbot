@@ -4,9 +4,9 @@ import type Discord from 'discord.js';
 import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
 
-import type locals from './locals';
-import type DBStructure from './database';
 import type { Log } from '../Utils/prototypeRegisterer';
+import type DBStructure from './database';
+import type locals, { commandTypes, defaultCommandType } from './locals';
 
 type ISODate = `${number}${number}${number}${number}-${number}${number}-${number}${number}`;
 type ISOTime = `${number}${number}:${number}${number}:${number}${number}.${number}${number}${number}`;

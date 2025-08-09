@@ -1,9 +1,8 @@
 const
-  { ChannelType, OverwriteType, Constants, GuildFeature, AttachmentBuilder, DiscordAPIError } = require('discord.js'),
+  { AttachmentBuilder, ChannelType, Constants, DiscordAPIError, GuildFeature, OverwriteType } = require('discord.js'),
   fetch = require('node-fetch').default,
+  /** @type {import('.')['DiscordAPIErrorCodes']} */ DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
 
-  /** @type {import('.')['DiscordAPIErrorCodes']} */
-  DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json'),
   maxMessagesPerChannelLimit = 100;
 
 /** @type {import('.').BackupSystem.Utils['fetchToBase64']} */

@@ -1,11 +1,9 @@
 const
-  { EmbedBuilder, Colors, inlineCode, MessageFlags } = require('discord.js'),
-  { msInSecond } = require('./timeFormatter'),
-  cooldowns = require('./cooldowns.js'),
-
-  /** @type {import('.').errorHandler} */
-  errorHandler = require('./errorHandler.js'),
-  handlers = require('./componentHandler/');
+  { Colors, EmbedBuilder, MessageFlags, inlineCode } = require('discord.js'),
+  handlers = require('./componentHandler/'),
+  cooldowns = require('./cooldowns'),
+  /** @type {import('.').errorHandler} */ errorHandler = require('./errorHandler'),
+  { msInSecond } = require('./timeFormatter');
 
 /** @type {import('.').componentHandler} */
 module.exports = async function messageComponentHandler(lang) {

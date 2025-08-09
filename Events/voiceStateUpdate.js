@@ -1,5 +1,5 @@
 const
-  { PermissionFlagsBits, EmbedBuilder, channelMention, userMention, inlineCode } = require('discord.js'),
+  { EmbedBuilder, PermissionFlagsBits, channelMention, inlineCode, userMention } = require('discord.js'),
   { removeAfkStatus, setAfkStatus } = require('#Utils').afk,
   GRAY = 0x36393F;
 

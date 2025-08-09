@@ -4,7 +4,7 @@
 const
   { readdir } = require('node:fs/promises'),
   { resolve } = require('node:path'),
-  { getDirectories, formatCommand, filename, slashCommandsEqual, errorHandler } = require('#Utils');
+  { errorHandler, filename, formatCommand, getDirectories, slashCommandsEqual } = require('#Utils');
 
 /** @this {Client} */
 module.exports = async function slashCommandHandler() {

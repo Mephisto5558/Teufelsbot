@@ -2,7 +2,7 @@
 const
   { readdir } = require('node:fs/promises'),
   { resolve } = require('node:path'),
-  { getDirectories, localizeUsage, formatCommand, filename } = require('#Utils');
+  { filename, formatCommand, getDirectories, localizeUsage } = require('#Utils');
 
 let
   enabledCommandCount = 0,

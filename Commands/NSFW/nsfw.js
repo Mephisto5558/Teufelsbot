@@ -1,8 +1,9 @@
 const
-  { randomInt } = require('node:crypto'),
   { EmbedBuilder } = require('discord.js'),
+  { randomInt } = require('node:crypto'),
   fetch = require('node-fetch').default,
   { msInSecond } = require('#Utils').timeFormatter,
+
   secretChance = 1e4; // 1 in 10_000
 
 /** @type {command<'both'>} */

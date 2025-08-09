@@ -1,5 +1,5 @@
 const
-  { parseEmoji, EmbedBuilder, Colors, codeBlock, roleMention, CDNRoutes, ImageFormat, bold, inlineCode } = require('discord.js'),
+  { CDNRoutes, Colors, EmbedBuilder, ImageFormat, bold, codeBlock, inlineCode, parseEmoji, roleMention } = require('discord.js'),
   http = require('node:http'),
   https = require('node:https'),
   { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils'),

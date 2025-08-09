@@ -1,13 +1,13 @@
 const
   {
-    EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType,
-    PermissionFlagsBits, TimestampStyles, bold, inlineCode
+    ActionRowBuilder, Colors, ComponentType, EmbedBuilder, PermissionFlagsBits,
+    TimestampStyles, UserSelectMenuBuilder, bold, inlineCode
   } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable'),
-  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
-  { secsInDay, timestamp, daysInMonthMin } = require('../timeFormatter'),
-  { dayToMs, minToMs } = require('../toMs.js');
+  { daysInMonthMin, secsInDay, timestamp } = require('../timeFormatter'),
+  { dayToMs, minToMs } = require('../toMs'),
+  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
 /** @type {import('.').ban_kick_mute} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */

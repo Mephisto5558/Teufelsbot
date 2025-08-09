@@ -1,7 +1,7 @@
 const
   {
-    parseEmoji, CDNRoutes, ImageFormat, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle,
-    PermissionFlagsBits, roleMention, inlineCode
+    ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat,
+    PermissionFlagsBits, inlineCode, parseEmoji, roleMention
   } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { timestamp } = require('#Utils').timeFormatter,

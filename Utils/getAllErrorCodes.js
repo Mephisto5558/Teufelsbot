@@ -1,6 +1,6 @@
 const
-  fetch = require('node-fetch').default,
   { writeFile } = require('node:fs/promises'),
+  fetch = require('node-fetch').default,
   { JSON_SPACES } = require('./constants');
 
 /** Writes all error codes to a file */

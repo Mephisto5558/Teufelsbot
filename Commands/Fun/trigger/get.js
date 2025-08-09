@@ -1,7 +1,7 @@
 const
-  { EmbedBuilder, Colors, codeBlock, inlineCode, bold } = require('discord.js'),
+  { Colors, EmbedBuilder, bold, codeBlock, inlineCode } = require('discord.js'),
   { embedFieldMaxAmt, suffix } = require('#Utils').constants,
-  { triggerQuery, findTriggerId } = require('./_utils');
+  { findTriggerId, triggerQuery } = require('./_utils');
 
 /** @type {import('.').default} */
 module.exports = {

@@ -1,6 +1,6 @@
 const
-  { EmbedBuilder, Colors, inlineCode } = require('discord.js'),
-  { hasPerm, createProxy } = require('./serverbackup_utils.js'),
+  { Colors, EmbedBuilder, inlineCode } = require('discord.js'),
+  { createProxy, hasPerm } = require('./serverbackup_utils'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
 /** @type {import('.').serverbackup} */

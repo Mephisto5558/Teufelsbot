@@ -1,4 +1,4 @@
-const { hyperlink, channelLink } = require('discord.js');
+const { channelLink, hyperlink } = require('discord.js');
 
 /** @type {command<'prefix'>} */
 module.exports = {

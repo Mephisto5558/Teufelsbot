@@ -1,4 +1,4 @@
-const { componentHandler, autocompleteGenerator, commandExecutionWrapper } = require('#Utils');
+const { autocompleteGenerator, commandExecutionWrapper, componentHandler } = require('#Utils');
 
 /** @this {import('discord.js').ClientEvents['interactionCreate'][0]} */
 module.exports = async function interactionCreate() {

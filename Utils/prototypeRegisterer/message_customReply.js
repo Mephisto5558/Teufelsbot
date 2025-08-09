@@ -1,5 +1,5 @@
 const
-  { AttachmentBuilder, BaseInteraction, Message, DiscordAPIError } = require('discord.js'),
+  { AttachmentBuilder, BaseInteraction, DiscordAPIError, Message } = require('discord.js'),
   { messageMaxLength } = require('../constants'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 

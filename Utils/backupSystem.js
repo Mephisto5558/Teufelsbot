@@ -1,16 +1,16 @@
 const
   {
-    SnowflakeUtil, GatewayIntentBits, ChannelType, Constants, GuildFeature,
-    StickerType, Collection, DiscordAPIError, GuildVerificationLevel, GuildExplicitContentFilter
+    ChannelType, Collection, Constants, DiscordAPIError, GatewayIntentBits, GuildExplicitContentFilter,
+    GuildFeature, GuildVerificationLevel, SnowflakeUtil, StickerType
   } = require('discord.js'),
 
   /** @type {import('.').BackupSystem['BackupSystem']['utils']} */
-  utils = require('./backupSystem_utils.js'),
+  utils = require('./backupSystem_utils'),
 
-  { secsInMinute } = require('./timeFormatter.js'),
+  { secsInMinute } = require('./timeFormatter'),
 
   /** @type {import('.')['DiscordAPIErrorCodes']} */
-  DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json');
+  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
 
 /**
  * @typedef {import('.').BackupSystem.BackupSystem} TBackupSystem

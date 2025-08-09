@@ -1,10 +1,8 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { Colors, EmbedBuilder } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { timeFormatter: { msInSecond, secsInDay } } = require('#Utils'),
-
-  /** @type {Client['config']} */
-  { github: ghConfig = {} } = require(require('node:path').resolve(process.cwd(), 'config.json')),
+  { timeFormatter: { msInSecond, secsInDay }, getConfig } = require('#Utils'),
+  { github: ghConfig = {} } = getConfig(),
 
   CACHE_TIMEOUT = msInSecond * secsInDay / 2, // 12h
   MAX_COMMIT_LENGTH = 100,

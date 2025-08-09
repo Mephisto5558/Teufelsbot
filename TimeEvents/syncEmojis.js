@@ -1,6 +1,6 @@
 const
   { Client } = require('discord.js'),
-  { readdir, readFile } = require('node:fs/promises'),
+  { readFile, readdir } = require('node:fs/promises'),
   { join } = require('node:path'),
   { parseEnv } = require('node:util'),
   { DiscordAPIErrorCodes } = require('#Utils');

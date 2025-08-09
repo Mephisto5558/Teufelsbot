@@ -1,5 +1,5 @@
 const
-  { PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
   { timeFormatter: { msInSecond } } = require('#Utils');
 

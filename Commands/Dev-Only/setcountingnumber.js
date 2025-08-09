@@ -1,6 +1,6 @@
 const
-  { channelLink, bold } = require('discord.js'),
-  { getTargetChannel, getCommandName } = require('#Utils');
+  { bold, channelLink } = require('discord.js'),
+  { getCommandName, getTargetChannel } = require('#Utils');
 
 /** @type {command<'prefix'>} */
 module.exports = {

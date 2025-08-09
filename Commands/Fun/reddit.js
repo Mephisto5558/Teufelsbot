@@ -1,8 +1,9 @@
 const
-  { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require('discord.js'),
-  fetch = require('node-fetch').default,
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, EmbedBuilder, codeBlock } = require('discord.js'),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
+  fetch = require('node-fetch').default,
   { constants: { embedMaxTitleLength, suffix }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
+
   CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
   maxPercentage = 100,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],

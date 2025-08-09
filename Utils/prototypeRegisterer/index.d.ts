@@ -1,5 +1,5 @@
+import type { CommandInteractionOption, GuildTextBasedChannel, InteractionResponse, MessageMentionOptions, RepliableInteraction } from 'discord.js';
 import type TicTacToe from 'discord-tictactoe';
-import type { GuildTextBasedChannel, InteractionResponse, MessageMentionOptions, RepliableInteraction, CommandInteractionOption } from 'discord.js';
 
 export {
   LogClass as Log,

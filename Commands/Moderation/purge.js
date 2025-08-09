@@ -1,6 +1,7 @@
 const
-  { Message, Constants, Collection } = require('discord.js'),
+  { Collection, Constants, Message } = require('discord.js'),
   { getTargetChannel, DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt } } = require('#Utils'),
+
   maxPercentage = 100,
   maxMsgsToFetch = 100,
   maxAllowedPurgeAmt = 1000,

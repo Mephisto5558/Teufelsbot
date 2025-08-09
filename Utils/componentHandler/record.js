@@ -1,6 +1,6 @@
 const
-  { Collection, GuildMember, inlineCode, MessageFlags } = require('discord.js'),
-  { startRecording, recordControls } = require('./record_manage.js'),
+  { Collection, GuildMember, MessageFlags, inlineCode } = require('discord.js'),
+  { recordControls, startRecording } = require('./record_manage'),
 
   /** @type {Collection<Snowflake, Collection<Snowflake, { userId: Snowflake, allowed: boolean }[]>>} */
   cache = new Collection();
