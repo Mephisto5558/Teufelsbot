@@ -67,6 +67,7 @@ module.exports = {
         child.send('Start WebServer');
         child.disconnect();
 
+        /* eslint-disable unicorn/no-process-exit */
         process.exit(0);
       });
   }

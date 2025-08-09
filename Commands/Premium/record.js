@@ -3,14 +3,30 @@ const
   { access, mkdir } = require('node:fs/promises'),
   { msInSecond } = require('#Utils').timeFormatter;
 
-// due to VoiceRecords being in .gitignore, we need this check
-access('./VoiceRecords/raw').catch(() => mkdir('./VoiceRecords/raw', { recursive: true }));
+function isEncryptionAvailable() {
+  // https://discord.js.org/docs/packages/voice/main
+  if (require('node:crypto').getCiphers().includes('aes-256-gcm')) return true;
+
+  const libraries = ['sodium-native', 'sodium', '@stablelib/xchacha20poly1305', '@noble/ciphers', 'libsodium-wrappers'];
+  for (const lib of libraries) {
+    try { if (require.resolve(lib)) return true; }
+    catch (err) { if (err.code != 'MODULE_NOT_FOUND') throw err; }
+  }
+
+  return false;
+}
+
+// Due to VoiceRecords being in .gitignore, we may need to create it.
+if (isEncryptionAvailable()) access('./VoiceRecords/raw').catch(async () => mkdir('./VoiceRecords/raw', { recursive: true }));
+else log.warn('Missing encryption library for record Command!');
 
 /** @type {command<'slash'>} */
 module.exports = {
   cooldowns: { user: msInSecond * 10 },
   slashCommand: true,
   prefixCommand: false,
+  disabled: !isEncryptionAvailable(),
+  disabledReason: 'No encryption library is installed.',
   options: [
     { name: 'target', type: 'User' },
     {

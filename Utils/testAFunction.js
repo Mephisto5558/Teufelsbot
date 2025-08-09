@@ -6,7 +6,7 @@ module.exports = function testFunction(targetFunction, testCases) {
     const result = targetFunction(...input);
     if (result != expectedOutput) {
       console.log(
-        `Input: "${input instanceof Object ? JSON.stringify(input) : input}" | Expected output: [${expectedOutput}] | Actual output: [${result}]`
+        `Input: "${typeof input == 'object' ? JSON.stringify(input) : input}" | Expected output: [${expectedOutput}] | Actual output: [${result}]`
       );
     }
   }
