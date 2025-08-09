@@ -92,16 +92,15 @@ module.exports = {
           });
         }
 
-        if (settings.dm?.enable) {
-          try {
-            await member.send({
-              content: formatBirthday.call(settings.dm.msg?.content, member, year),
-              embeds: [createEmbed('dm', settings, member, year, this.defaultSettings.birthday)]
-            });
-          }
-          catch (err) {
-            if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
-          }
+        if (!settings.dm?.enable) continue;
+        try {
+          await member.send({
+            content: formatBirthday.call(settings.dm.msg?.content, member, year),
+            embeds: [createEmbed('dm', settings, member, year, this.defaultSettings.birthday)]
+          });
+        }
+        catch (err) {
+          if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
         }
       }
     }
