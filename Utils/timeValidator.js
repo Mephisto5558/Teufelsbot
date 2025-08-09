@@ -35,20 +35,3 @@ function timeValidator(timeStr) {
 }
 
 module.exports = timeValidator;
-
-
-function _testTimevalidator() {
-  const testCases = [
-    { input: '3', expectedOutput: ['3y', '3mth', '3w', '3d', '3h', '3min', '3s', '3ms'] },
-    { input: '3w', expectedOutput: ['3w'] },
-    { input: '3m', expectedOutput: ['3mth', '3min', '3ms'] },
-    { input: '3y2', expectedOutput: ['3y2y', '3y2mth', '3y2w', '3y2d', '3y2h', '3y2min', '3y2s', '3y2ms'] },
-    { input: '3w2y', expectedOutput: ['3w2y'] },
-    { input: '', expectedOutput: [] },
-    { input: 'invalid', expectedOutput: [] },
-    { input: '3p', expectedOutput: [] },
-    { input: '3p2h', expectedOutput: [] }
-  ];
-
-  require('./testAFunction')(timeValidator, testCases);
-}

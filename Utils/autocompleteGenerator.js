@@ -4,17 +4,18 @@ const
 
 /** @type {import('.').autocompleteGenerator} */
 module.exports = function autocompleteGenerator(command, target, locale) {
-  const group = this instanceof AutocompleteInteraction ? this.options.getSubcommandGroup(false) : '';
-  const subcommand = this instanceof AutocompleteInteraction ? this.options.getSubcommand(false) : '';
+  const
+    group = this instanceof AutocompleteInteraction ? this.options.getSubcommandGroup(false) : '',
+    subcommand = this instanceof AutocompleteInteraction ? this.options.getSubcommand(false) : '',
 
-  /** @param {string | number} v */
-  const response = v => ({ name: this.client.i18n.__({ locale, undefinedNotFound: true },
-    `commands.${command.category}.${command.name}.options.`
-    + (group ? `${group}.` : '')
-    + (subcommand ? `${subcommand}.` : '')
-    + target.name
-    + `.choices.${v}`) ?? v,
-  value: v });
+    /** @type {(v: string | number) => import('discord.js').ApplicationCommandOptionChoiceData} */
+    response = v => ({ name: this.client.i18n.__({ locale, undefinedNotFound: true },
+      `commands.${command.category}.${command.name}.options.`
+      + (group ? `${group}.` : '')
+      + (subcommand ? `${subcommand}.` : '')
+      + target.name
+      + `.choices.${v}`) ?? v,
+    value: v });
 
   /** @type {commandOptions[]} */
   let [...options] = command.options;

@@ -21,7 +21,7 @@ module.exports = async function messageDeleteBulk(channel) {
       .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length
   ) return;
 
-  await sleep(secToMs(1)); // Makes sure the audit log gets created before trying to fetch it
+  await sleep(secToMs(1)); // makes sure the audit log gets created before trying to fetch it
 
   const
     { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageBulkDelete })).entries

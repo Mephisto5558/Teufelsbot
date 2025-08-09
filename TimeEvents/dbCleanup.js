@@ -22,7 +22,7 @@ async function backupDBs() {
 }
 
 /**
- * Deletes guilds that the bot was not in for over a year
+ * Deletes guilds that the bot was not in for over a year.
  * @this {Client}
  * @param {Snowflake} guildId
  * @param {Database['guildSettings'][Snowflake] | undefined} db */
@@ -37,7 +37,7 @@ async function cleanupGuildsDB(guildId, db) {
 }
 
 /**
- * Deletes giveaway records that concluded over a month ago
+ * Deletes giveaway records that concluded over a month ago.
  * @this {Client}
  * @param {Snowflake} guildId
  * @param {NonNullable<NonNullable<Database['guildSettings'][Snowflake]>['giveaway']>['giveaways'] | undefined} db */
@@ -51,7 +51,7 @@ function cleanupGiveawaysDB(guildId, db) {
 }
 
 /**
- * Removes all lastMentions data older than one month
+ * Removes all lastMentions data older than one month.
  * @this {Client}
  * @param {Snowflake} guildId
  * @param {NonNullable<Database['guildSettings'][Snowflake]>['lastMentions']} db */
@@ -65,7 +65,7 @@ function cleanupMentionsDB(guildId, db) {
 }
 
 /**
- * Removes all AFK-Messages older than one month
+ * Removes all AFK-Messages older than one month.
  * @this {Client}
  * @param {Snowflake} guildId
  * @param {NonNullable<Database['guildSettings'][Snowflake]>['afkMessages']} db */
@@ -79,7 +79,7 @@ function cleanupAfkMessagesDB(guildId, db) {
 }
 
 /**
- * Removes all AFK-Messages older than one month
+ * Removes all AFK-Messages older than one month.
  * @this {Client}
  * @param {Snowflake} guildId
  * @param {NonNullable<Database['guildSettings'][Snowflake]>['minigames']} db */

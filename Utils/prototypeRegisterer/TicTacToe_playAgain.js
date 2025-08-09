@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: [warn, {allow: [_hoistedOptions]}] */
+
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, userMention } = require('discord.js'),
   { secToMs, minToMs } = require('../toMs.js'),

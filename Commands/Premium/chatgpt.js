@@ -1,13 +1,13 @@
 const
   { Message, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { constants: { messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
+  { constants: { messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
 
-const RATE_LIMIT_MSGS = ['Rate limit reached', 'Too many requests'];
+  RATE_LIMIT_MSGS = ['Rate limit reached', 'Too many requests'],
 
-/** @param {{ type: string, message: string }} err */
-const isUnavailable = err => ['insufficient_quota', 'api_not_ready_or_request_error'].includes(err.type)
-  || err.message.startsWith('That model is currently overloaded');
+  /** @type {(err: { type: string, message: string }) => boolean} */
+  isUnavailable = err => ['insufficient_quota', 'api_not_ready_or_request_error'].includes(err.type)
+    || err.message.startsWith('That model is currently overloaded');
 
 /**
  * @this {Interaction | Message}
@@ -75,9 +75,10 @@ module.exports = {
     return (await this.customReply({ content, components: [component] }, undefined, { repliedUser: true }))
       .createMessageComponentCollector({ componentType: ComponentType.Button, filter: e => e.user.id == this.user.id })
       .on('collect', async e => {
-        const reply = await e.deferReply();
+        const
+          reply = await e.deferReply(),
+          newContent = await fetchAPI.call(this, lang);
 
-        const newContent = await fetchAPI.call(this, lang);
         void e.message.edit(newContent);
         return reply.delete();
       });

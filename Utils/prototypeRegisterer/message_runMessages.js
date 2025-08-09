@@ -104,13 +104,15 @@ async function handleWordchain() {
  * @this {Message<true>}
  * @param {string} cleanMsg */
 async function handleWordcounter(cleanMsg) {
-  /* eslint-disable-next-line regexp/no-super-linear-move -- char amount is limited to 4000 */
-  const wordCount = cleanMsg.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu).length; // Matches letter(s) that can have apostrophes in them
+  const
+    /* eslint-disable-next-line regexp/no-super-linear-move -- char amount is limited to 4000 */
+    wordCount = cleanMsg.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu).length, // Matches letter(s) that can have apostrophes in them
+    dbPromises = [];
 
-  const dbPromises = [];
   if (this.guild.db.wordCounter?.enabled) {
-    const { wordCounter } = this.guild.db;
-    const memberConter = wordCounter.members[this.user.id];
+    const
+      { wordCounter } = this.guild.db,
+      memberConter = wordCounter.members[this.user.id];
 
     dbPromises.push(
       this.guild.updateDB('wordCounter.sum', wordCounter.sum + wordCount),
@@ -124,8 +126,9 @@ async function handleWordcounter(cleanMsg) {
   }
 
   if (this.user.db.wordCounter?.enabled) {
-    const { wordCounter } = this.user.db;
-    const guildCounter = wordCounter.guilds[this.guild.id];
+    const
+      { wordCounter } = this.user.db,
+      guildCounter = wordCounter.guilds[this.guild.id];
 
     dbPromises.push(
       this.user.updateDB('wordCounter.sum', wordCounter.sum + wordCount),

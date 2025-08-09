@@ -285,8 +285,9 @@ class BackupSystem {
 
     statusObj.status = 'load.roles';
     for (const { isEveryone, name, color, hoist, permissions, mentionable } of data.roles) {
-      const roleData = { reason, name, color, hoist, mentionable, permissions: BigInt(permissions) };
-      const roleToEdit = isEveryone ? guild.roles.cache.get(guild.id) : guild.roles.cache.find(e => e.name == name && e.editable);
+      const
+        roleData = { reason, name, color, hoist, mentionable, permissions: BigInt(permissions) },
+        roleToEdit = isEveryone ? guild.roles.cache.get(guild.id) : guild.roles.cache.find(e => e.name == name && e.editable);
       await (roleToEdit?.edit(roleData) ?? guild.roles.create(roleData));
     }
 
@@ -354,8 +355,9 @@ class BackupSystem {
 
     if (rulesChannel || publicUpdatesChannel) {
       statusObj.status = 'load.settings';
-      const rChannel = guild.channels.cache.find(e => e.name == data.rulesChannel);
-      const uChannel = guild.channels.cache.find(e => e.name == data.publicUpdatesChannel);
+      const
+        rChannel = guild.channels.cache.find(e => e.name == data.rulesChannel),
+        uChannel = guild.channels.cache.find(e => e.name == data.publicUpdatesChannel);
 
       await guild.edit({
         rulesChannel: rChannel ?? undefined,

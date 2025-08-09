@@ -72,7 +72,7 @@ module.exports = async function messageDelete() {
 
   lang.config.backupPath[0] = 'events.logger';
 
-  await sleep(msInSecond); // Make sure the audit log gets created before trying to fetch it
+  await sleep(msInSecond); // makes sure the audit log gets created before trying to fetch it
 
   const
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageDelete })).entries
@@ -90,9 +90,9 @@ module.exports = async function messageDelete() {
       ],
       timestamp: Date.now(),
       color: PURPLE
-    });
+    }),
+    field = embed.data.fields.at(-1);
 
-  const field = embed.data.fields.at(-1);
   if (this.originalContent) field.value += `${this.originalContent}\n`;
   if (this.attachments.size) field.value += this.attachments.map(e => hyperlink(e.url, e.name)).join(', ') + '\n';
   if (this.embeds.length) field.value += lang('embeds', this.embeds.length) + '\n';
@@ -101,7 +101,7 @@ module.exports = async function messageDelete() {
   if (!field.value) field.value += lang('unknownContent');
   else if (field.value.length > embedFieldValueMaxLength) field.value = field.value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
 
-  // We don't get the user if the message is not cached
+  // We don't get the user if the message is not cached.
   if (this.user)
     embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (${inlineCode(this.user.id)})`, inline: true });
   if (executor) embed.data.fields.push({ name: lang('executor'), value: `${executor.tag} (${inlineCode(executor.id)})`, inline: false });

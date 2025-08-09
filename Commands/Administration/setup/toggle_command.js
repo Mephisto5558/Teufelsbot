@@ -36,23 +36,24 @@ module.exports = {
 
     if (this.options.getBoolean('get')) {
       /** @type {[[string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]]]} */
-      const fieldList = [['roles', roles], ['channels', channels], ['users', users]];
-      const fields = fieldList.filter(([, e]) => !!e.length).map(([k, v]) => ({
-        name: lang(k),
-        value: v.includes('*')
-          ? lang('list.all')
-          : v.map(/** @param {Snowflake} e */ e => {
-              if (k == 'roles') return roleMention(e);
-              return k == 'channels' ? channelMention(e) : userMention(e);
-            }).join(', '),
-        inline: false
-      }));
+      const
+        fieldList = [['roles', roles], ['channels', channels], ['users', users]],
+        fields = fieldList.filter(([, e]) => !!e.length).map(([k, v]) => ({
+          name: lang(k),
+          value: v.includes('*')
+            ? lang('list.all')
+            : v.map(/** @param {Snowflake} e */ e => {
+                if (k == 'roles') return roleMention(e);
+                return k == 'channels' ? channelMention(e) : userMention(e);
+              }).join(', '),
+          inline: false
+        })),
 
-      const embed = new EmbedBuilder({
-        title: lang('list.embedTitle', command),
-        color: Colors.White,
-        ...fields.length ? { fields } : { description: lang('list.embedDescription') }
-      });
+        embed = new EmbedBuilder({
+          title: lang('list.embedTitle', command),
+          color: Colors.White,
+          ...fields.length ? { fields } : { description: lang('list.embedDescription') }
+        });
 
       return this.editReply({ embeds: [embed] });
     }

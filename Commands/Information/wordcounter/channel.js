@@ -21,9 +21,8 @@ module.exports = {
       return this.customReply(lang('notEnabled', commandMention(`${command.name} ${this.command.name}`, command.id)));
     }
 
-    const channel = this.options.getChannel('channel', false) ?? this.channel;
-
     const
+      channel = this.options.getChannel('channel', false) ?? this.channel,
       embed = new EmbedBuilder({
         title: lang('embedTitle', channel.name),
         description: lang('embedDescription', {

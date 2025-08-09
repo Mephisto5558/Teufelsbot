@@ -18,9 +18,8 @@ let commitsCache;
  * @this {Client}
  * @returns {Promise<string[]>} */
 async function getCommits() {
-  const { github } = this.config;
-
   const
+    { github } = this.config,
     res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/commits?per_page=25`, {
       method: 'GET',
       headers: {
@@ -28,9 +27,7 @@ async function getCommits() {
         'User-Agent': `Bot ${github.repo}`
       }
     }),
-
-    /** @type {{ commit: { message: string } }[]} */
-    json = await res.json();
+    /** @type {{ commit: { message: string } }[]} */ json = await res.json();
 
   if (!res.ok) throw new Error(JSON.stringify(json));
 

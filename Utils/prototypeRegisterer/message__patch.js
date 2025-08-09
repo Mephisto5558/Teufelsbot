@@ -1,4 +1,5 @@
 /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior */
+/* eslint no-underscore-dangle: [warn, {allow: [_patch]}] */
 
 const { userMention } = require('discord.js');
 

@@ -31,9 +31,8 @@ module.exports = async function sendRPSChallenge(lang, initiator, opponent) {
           style: ButtonStyle.Danger
         })
       ]
-    });
+    }),
 
-  const
     msg = await this.customReply({ content: opponent.bot ? undefined : userMention(opponent.id), embeds: [embed], components: [component] }),
     deleteTime = 5000;
 

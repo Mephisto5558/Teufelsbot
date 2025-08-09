@@ -136,10 +136,11 @@ declare global {
   // #endregion
 
   // #region custom
-  const sleep: (ms: number) => Promise<void>;
+  const
+    sleep: (ms: number) => Promise<void>,
 
-  /** Custom logging, including logfiles. */
-  const log: typeof Log;
+    /** Custom logging, including logfiles. */
+    log: typeof Log;
   type log = typeof Log;
 
   /** Get an application Emoji's mention by it's name. */

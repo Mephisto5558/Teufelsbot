@@ -1,4 +1,6 @@
 /* eslint-disable no-extend-native */
+/* eslint no-underscore-dangle: [warn, {allow: [_patch, __count__, _log]}] */
+
 const
   { BaseInteraction, Message, Collection, AutocompleteInteraction, User, Guild, GuildMember, ButtonBuilder, Events, Client } = require('discord.js'),
   TicTacToe = require('discord-tictactoe'),
@@ -26,34 +28,34 @@ module.exports = { Log, _patch, customReply, runMessages, playAgain, sendChallen
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
 
-const config = setDefaultConfig();
-
-const requiredEnv = [
-  'environment',
-  'humorAPIKey', 'rapidAPIKey',
-  'githubKey', 'chatGPTApiKey',
-  'dbdLicense',
-  'dbConnectionStr', 'token', 'secret'
-];
-
-const overwrites = Object.fromEntries(Object.entries({
-  globals: ['globalThis.sleep', 'globalThis.log()', 'globalThis.getEmoji()'], // TODO: getEmoji should probably not be global
-  vanilla: [
-    parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
-    'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()',
-    'Object#filterEmpty()', 'Object#__count__', 'BigInt#toJSON()'
+const
+  config = setDefaultConfig(),
+  requiredEnv = [
+    'environment',
+    'humorAPIKey', 'rapidAPIKey',
+    'githubKey', 'chatGPTApiKey',
+    'dbdLicense',
+    'dbConnectionStr', 'token', 'secret'
   ],
-  discordJs: [
-    'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
-    'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config',
-    'Client#loadEnvAndDB()', 'Client#awaitReady()',
-    'Message#originalContent', 'Message#args', 'Message#commandName', 'Message#user', 'Message#customReply()', 'Message#runMessages',
-    'BaseInteraction#customReply()', 'AutocompleteInteraction#focused',
-    'User#db', 'User#updateDB', 'User#deleteDB', 'User#customName', 'User#customTag', 'User#localeCode',
-    'GuildMember#db', 'GuildMember#customName', 'GuildMember#customTag', 'GuildMember#localeCode',
-    'Guild#db', 'Guild#updateDB()', 'Guild#deleteDB()', 'Guild#localeCode'
-  ]
-}).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
+
+  overwrites = Object.fromEntries(Object.entries({
+    globals: ['globalThis.sleep', 'globalThis.log()', 'globalThis.getEmoji()'], // TODO: getEmoji should probably not be global
+    vanilla: [
+      parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
+      'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()',
+      'Object#filterEmpty()', 'Object#__count__', 'BigInt#toJSON()'
+    ],
+    discordJs: [
+      'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
+      'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config',
+      'Client#loadEnvAndDB()', 'Client#awaitReady()',
+      'Message#originalContent', 'Message#args', 'Message#commandName', 'Message#user', 'Message#customReply()', 'Message#runMessages',
+      'BaseInteraction#customReply()', 'AutocompleteInteraction#focused',
+      'User#db', 'User#updateDB', 'User#deleteDB', 'User#customName', 'User#customTag', 'User#localeCode',
+      'GuildMember#db', 'GuildMember#customName', 'GuildMember#customTag', 'GuildMember#localeCode',
+      'Guild#db', 'Guild#updateDB()', 'Guild#deleteDB()', 'Guild#localeCode'
+    ]
+  }).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
 
 if (!config.hideOverwriteWarning) {
   console.warn([

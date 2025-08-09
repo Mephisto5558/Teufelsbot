@@ -31,9 +31,8 @@ module.exports = {
     const
       member = getTargetMembers(this, { returnSelf: true }),
       birthday = this.client.db.get('userSettings', `${member.id}.birthday`),
-      status = member.presence?.activities.find(e => e.type == ActivityType.Custom && !!e.state);
-
-    const type = getMemberType(member, lang);
+      status = member.presence?.activities.find(e => e.type == ActivityType.Custom && !!e.state),
+      type = getMemberType(member, lang);
 
     // force-fetch is required to fetch a user banner: https://discord.js.org/docs/packages/discord.js/main/User:Class#banner
     if (!member.banner && !member.user.banner) await member.fetch(true);

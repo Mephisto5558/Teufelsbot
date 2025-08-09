@@ -14,8 +14,9 @@ export { default as DiscordAPIErrorCodes } from './DiscordAPIErrorCodes.json';
 export { default as prototypeRegisterer } from './prototypeRegisterer';
 
 export declare namespace afk {
-  const nicknamePrefix: string;
-  const nicknameRegex: RegExp;
+  const
+    nicknamePrefix: string,
+    nicknameRegex: RegExp;
 
   function getAfkStatus(this: Interaction | Message, target: GuildMember | User, lang: lang): Promise<Message>;
   function listAfkStatuses(this: GuildInteraction | Message<true>, lang: lang): Promise<Message>;

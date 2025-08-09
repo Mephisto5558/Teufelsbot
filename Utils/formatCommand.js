@@ -60,7 +60,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
       let /** @type {NonNullable<commandOptions<true>['choices']>[number]} */ choice;
       for (choice of option.choices) {
         if ('__SCHandlerCustom' in choice) {
-          delete choice.__SCHandlerCustom;
+          delete choice.__SCHandlerCustom; /* eslint-disable-line no-underscore-dangle */
           continue;
         }
 

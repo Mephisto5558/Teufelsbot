@@ -73,8 +73,9 @@ module.exports = {
       .flatMap(e => {
         if (e.length < messageMaxLength) return [e];
 
-        const halfIndex = Math.floor(e.length / 2);
-        const lastIndexBeforeHalf = e.lastIndexOf('.', halfIndex) + 1 || halfIndex;
+        const
+          halfIndex = Math.floor(e.length / 2),
+          lastIndexBeforeHalf = e.lastIndexOf('.', halfIndex) + 1 || halfIndex;
 
         return [e.slice(0, lastIndexBeforeHalf), e.slice(lastIndexBeforeHalf)];
       })

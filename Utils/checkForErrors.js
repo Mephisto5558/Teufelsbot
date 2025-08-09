@@ -1,4 +1,5 @@
-/* eslint-disable sonarjs/cyclomatic-complexity, sonarjs/cognitive-complexity -- will be fixed when commands are moved to their own lib */
+/* eslint-disable sonarjs/cyclomatic-complexity, sonarjs/cognitive-complexity, no-underscore-dangle
+-- will be fixed when commands are moved to their own lib */
 
 const
   { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction, inlineCode, MessageFlags } = require('discord.js'),
@@ -78,9 +79,10 @@ function checkOptions(command, lang) {
  * @param {lang} lang
  * @returns {Promise<boolean>} `false` if no permission issues have been found. */
 async function checkPerms(command, lang) {
-  const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user ?? [], PermissionFlagsBits.SendMessages]);
-  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel)
-    .missing([...command.permissions?.client ?? [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
+  const
+    userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user ?? [], PermissionFlagsBits.SendMessages]),
+    botPermsMissing = this.guild.members.me.permissionsIn(this.channel)
+      .missing([...command.permissions?.client ?? [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
 
   if (!botPermsMissing.length && !userPermsMissing.length) return false;
 
