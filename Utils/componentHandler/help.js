@@ -1,4 +1,4 @@
-const utils = require('./help_utils.js');
+const utils = require('./help_utils');
 
 /** @type {import('.').help} */
 module.exports = async function help(lang, type) {

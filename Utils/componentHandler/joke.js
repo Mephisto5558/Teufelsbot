@@ -1,5 +1,5 @@
 /** @type {import('..').commandExecutionWrapper} */
-const commandExecutionWrapper = require('../commandExecutionWrapper.js');
+const commandExecutionWrapper = require('../commandExecutionWrapper');
 
 /** @type {import('.').joke} */
 module.exports = async function joke(lang, api, type, blacklist, maxLength) {

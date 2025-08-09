@@ -1,6 +1,6 @@
 const
-  events = require('../Events'),
-  { errorHandler } = require('#Utils');
+  { errorHandler } = require('#Utils'),
+  events = require('../Events');
 
 /** @this {Client} */
 module.exports = function eventHandler() {

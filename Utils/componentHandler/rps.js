@@ -1,7 +1,8 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, userMention, inlineCode, MessageFlags } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags, inlineCode, userMention } = require('discord.js'),
+  sendChallenge = require('./rps_sendChallenge'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
-  sendChallenge = require('./rps_sendChallenge.js'),
+
   emojis = { rock: '✊', paper: '🤚', scissors: '✌️' },
   winningAgainst = { rock: 'scissors', paper: 'rock', scissors: 'paper' };
 

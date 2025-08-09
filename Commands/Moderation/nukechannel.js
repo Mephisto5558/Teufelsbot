@@ -1,5 +1,5 @@
 const
-  { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, channelMention } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, Constants, EmbedBuilder, channelMention } = require('discord.js'),
   { getTargetChannel, timeFormatter: { msInSecond }, getCommandName } = require('#Utils'),
   collectorTimeout = 3e4;
 

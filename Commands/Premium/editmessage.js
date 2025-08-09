@@ -1,9 +1,10 @@
 const
   {
-    ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, MessageFlags, DiscordjsErrorCodes,
-    Constants, codeBlock, hyperlink
+    ActionRowBuilder, Constants, DiscordjsErrorCodes, MessageFlags, ModalBuilder,
+    TextInputBuilder, TextInputStyle, codeBlock, hyperlink
   } = require('discord.js'),
   { DiscordApiErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute }, toMs: { secToMs } } = require('#Utils'),
+
   MODALSUBMIT_TIMEOUT = msInSecond * secsInMinute / 2; // 30s
 
 /** @type {command<'slash'>} */

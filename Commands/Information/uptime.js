@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, hyperlink } = require('discord.js'),
+  { Colors, EmbedBuilder, hyperlink } = require('discord.js'),
   { timeFormatter, msInSecond } = require('#Utils').timeFormatter;
 
 /** @type {command<'both', false>} */

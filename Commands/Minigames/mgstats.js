@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, Message, ActionRowBuilder, StringSelectMenuBuilder, userMention, inlineCode, bold } = require('discord.js'),
+  { ActionRowBuilder, Colors, EmbedBuilder, Message, StringSelectMenuBuilder, bold, inlineCode, userMention } = require('discord.js'),
   { getTargetMembers, getCommandName, constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
   { mgStats_formatTop: formatTop } = require('#Utils/componentHandler'),
   sortOptions = [

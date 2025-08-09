@@ -1,9 +1,7 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder, codeBlock, inlineCode } = require('discord.js'),
-
-  /** @type {import('..').permissionTranslator} */
-  permissionTranslator = require('../permissionTranslator.js'),
-  { secsInMinute, msInSecond } = require('../timeFormatter');
+  { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, codeBlock, inlineCode } = require('discord.js'),
+  /** @type {import('..').permissionTranslator} */ permissionTranslator = require('../permissionTranslator'),
+  { msInSecond, secsInMinute } = require('../timeFormatter');
 
 /**
  * @type {import('.').help_getCommands}

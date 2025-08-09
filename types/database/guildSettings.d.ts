@@ -1,8 +1,8 @@
 import type { OverwriteType, messageLink } from 'discord.js';
 import type { GiveawayData } from 'discord-giveaways';
 
-import type { guildId, userId, channelId, roleId, messageId, Embed, cmdStats } from './common';
 import type { botSettings } from './botSettings';
+import type { Embed, channelId, cmdStats, guildId, messageId, roleId, userId } from './common';
 
 export type guildSettings = Record<guildId, {
   position: number;

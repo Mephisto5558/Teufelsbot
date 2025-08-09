@@ -1,5 +1,5 @@
 const
-  { Message, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Message } = require('discord.js'),
   fetch = require('node-fetch').default,
   { constants: { messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
 

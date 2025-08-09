@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, codeBlock } = require('discord.js'),
+  { Colors, EmbedBuilder, codeBlock } = require('discord.js'),
   mathjs = require('mathjs'),
   math = mathjs.create(mathjs.all, { number: 'BigNumber' }),
   superscripts = {

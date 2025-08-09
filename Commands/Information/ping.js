@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, TimestampStyles, inlineCode } = require('discord.js'),
+  { Colors, EmbedBuilder, TimestampStyles, inlineCode } = require('discord.js'),
   { timeFormatter: { msInSecond, timestamp }, toMs: { secToMs } } = require('#Utils'),
   maxPercentage = 100,
   embedUpdateMs = secToMs(4); /* eslint-disable-line @typescript-eslint/no-magic-numbers */

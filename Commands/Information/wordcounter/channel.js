@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, time, TimestampStyles, bold, Colors } = require('discord.js'),
+  { Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
   { commandMention } = require('#Utils'),
   { getTopChannelMembers } = require('./_utils');
 

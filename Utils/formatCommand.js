@@ -2,9 +2,9 @@
 -- will be fixed when commands are moved to their own lib */
 
 const
-  { ApplicationCommandType, ApplicationCommandOptionType, PermissionsBitField, ChannelType, Message } = require('discord.js'),
-  { resolve, dirname, basename } = require('node:path'),
-  { choicesMaxAmt, choiceValueMinLength, choiceValueMaxLength, descriptionMaxLength } = require('./constants');
+  { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, Message, PermissionsBitField } = require('discord.js'),
+  { basename, dirname, resolve } = require('node:path'),
+  { choiceValueMaxLength, choiceValueMinLength, choicesMaxAmt, descriptionMaxLength } = require('./constants');
 
 function getOptionalFile(path) {
   try { return require(path); }

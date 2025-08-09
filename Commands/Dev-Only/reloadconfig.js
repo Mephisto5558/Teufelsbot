@@ -1,6 +1,8 @@
 const
+  { resolve } = require('node:path'),
   { setDefaultConfig, configValidationLoop, validConfig } = require('#Utils').configValidator,
-  filePath = require('node:path').resolve(process.cwd(), 'config.json');
+
+  filePath = resolve(process.cwd(), 'config.json');
 
 /** @type {command<'prefix', false>} */
 module.exports = {

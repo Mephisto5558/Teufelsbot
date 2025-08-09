@@ -2,7 +2,7 @@ const
   { hyperlink } = require('discord.js'),
 
   /** @type {Client['config']} */
-  { website = {}, disableWebserver } = require(require('node:path').resolve(process.cwd(), 'config.json'));
+  { website = {}, disableWebserver } = require('#Utils').getConfig();
 
 /** @type {import('.')} */
 module.exports = {

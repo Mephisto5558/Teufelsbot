@@ -1,4 +1,4 @@
-const formatTop = require('./mgStats_formatTop.js');
+const formatTop = require('./mgStats_formatTop');
 
 /** @type {import('.').mgStats} */
 module.exports = async function mgStats(lang, game, wMode, settings) {

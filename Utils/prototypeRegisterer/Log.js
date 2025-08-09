@@ -1,5 +1,5 @@
 const
-  { appendFile, access, mkdir } = require('node:fs/promises'),
+  { access, appendFile, mkdir } = require('node:fs/promises'),
   { join } = require('node:path');
 
 const logLevels = {

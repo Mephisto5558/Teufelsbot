@@ -1,6 +1,6 @@
 const
-  { EmbedBuilder, Colors, inlineCode } = require('discord.js'),
-  { getHashes, createHash } = require('node:crypto'),
+  { Colors, EmbedBuilder, inlineCode } = require('discord.js'),
+  { createHash, getHashes } = require('node:crypto'),
   { constants: { embedDescriptionMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
 
 /** @type {command<'slash', false>} */

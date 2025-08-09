@@ -1,5 +1,5 @@
 const
-  { Constants, EmbedBuilder, Colors, hyperlink, userMention } = require('discord.js'),
+  { Colors, Constants, EmbedBuilder, hyperlink, userMention } = require('discord.js'),
   { getTargetMembers, getTargetChannel, constants: { embedDescriptionMaxLength }, toMs: { secToMs } } = require('#Utils');
 
 /** @type {command<'both'>} */

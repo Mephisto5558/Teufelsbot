@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, ALLOWED_SIZES, bold, hyperlink } = require('discord.js'),
+  { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, bold, hyperlink } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers, timeFormatter: { msInSecond } } = require('#Utils');
 

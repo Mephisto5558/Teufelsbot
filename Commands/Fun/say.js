@@ -1,6 +1,6 @@
 const
-  { Constants, PermissionFlagsBits, Message, AllowedMentionsTypes } = require('discord.js'),
-  { getTargetChannel, logSayCommandUse, constants } = require('#Utils');
+  { AllowedMentionsTypes, Constants, Message, PermissionFlagsBits } = require('discord.js'),
+  { constants, getTargetChannel, logSayCommandUse } = require('#Utils');
 
 /** @type {command<'both'>} */
 module.exports = {

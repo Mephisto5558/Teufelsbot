@@ -1,7 +1,7 @@
 const
   {
-    PermissionFlagsBits, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, TextChannel,
-    userMention, channelMention, inlineCode
+    ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder,
+    PermissionFlagsBits, TextChannel, channelMention, inlineCode, userMention
   } = require('discord.js'),
   GREY = 0x36393F;
 

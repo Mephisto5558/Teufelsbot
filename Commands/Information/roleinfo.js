@@ -1,7 +1,7 @@
 const
   {
-    EmbedBuilder, PermissionFlagsBits, ActionRowBuilder, ButtonBuilder, ButtonStyle,
-    hyperlink, CDNRoutes, ImageFormat, inlineCode
+    ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder,
+    ImageFormat, PermissionFlagsBits, hyperlink, inlineCode
   } = require('discord.js'),
   { permissionTranslator, getTargetRole, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
   ROLE_DISPLAY_THRESHOLD = 16;

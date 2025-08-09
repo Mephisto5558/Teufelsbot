@@ -2,16 +2,17 @@
 -- will be fixed when commands are moved to their own lib */
 
 const
-  { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction, inlineCode, MessageFlags } = require('discord.js'),
-  /** @type {import('.').autocompleteGenerator} */ autocompleteGenerator = require('./autocompleteGenerator.js'),
-  cooldowns = require('./cooldowns.js'),
-  /** @type {import('.').commandMention} */ commandMention = require('./commandMention.js'),
-  /** @type {import('.').permissionTranslator} */ permissionTranslator = require('./permissionTranslator.js'),
+  { ChannelType, Colors, CommandInteraction, EmbedBuilder, Message, MessageFlags, PermissionFlagsBits, inlineCode } = require('discord.js'),
+  /** @type {import('.').autocompleteGenerator} */ autocompleteGenerator = require('./autocompleteGenerator'),
+  /** @type {import('.').commandMention} */ commandMention = require('./commandMention'),
+  cooldowns = require('./cooldowns'),
+  /** @type {import('.').permissionTranslator} */ permissionTranslator = require('./permissionTranslator'),
   /** @type {import('.')['timeFormatter']} */ { msInSecond } = require('./timeFormatter'),
   /** @type {import('.')['DiscordAPIErrorCodes']} */ DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
+
   PERM_ERR_MSG_DELETETIME = msInSecond * 10,
 
-  isValidType =/** @param {Message | import('discord.js').BaseInteraction} type */ type => type instanceof Message || type.isChatInputCommand();
+  isValidType = /** @param {Message | import('discord.js').BaseInteraction} type */ type => type instanceof Message || type.isChatInputCommand();
 
 /**
  * @this {Interaction | Message}

@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
   { msInSecond, timestamp } = require('#Utils').timeFormatter,
   userURL = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
 

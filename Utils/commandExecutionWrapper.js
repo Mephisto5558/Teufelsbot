@@ -1,11 +1,9 @@
 const
-  { EmbedBuilder, Colors, MessageFlags } = require('discord.js'),
+  { Colors, EmbedBuilder, MessageFlags } = require('discord.js'),
 
   /** @type {import('.').checkForErrors} Getting type info while preventing circular import */
-  checkForErrors = require('./checkForErrors.js'),
-
-  /** @type {import('.').errorHandler} */
-  errorHandler = require('./errorHandler.js');
+  checkForErrors = require('./checkForErrors'),
+  /** @type {import('.').errorHandler} */ errorHandler = require('./errorHandler');
 
 /** @type {import('.').commandExecutionWrapper} */
 module.exports = async function commandExecutionWrapper(command, commandType, lang) {

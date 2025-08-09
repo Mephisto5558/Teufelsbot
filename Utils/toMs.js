@@ -1,7 +1,7 @@
 /** @typedef {import('.')['toMs']} toMs */
 
 const
-  { msInSecond, secsInMinute, minutesInHour, hoursInDay, daysInYear } = require('./timeFormatter'),
+  { daysInYear, hoursInDay, minutesInHour, msInSecond, secsInMinute } = require('./timeFormatter'),
 
   /** @type {toMs['secToMs']} */ secToMs = secs => secs * msInSecond,
   /** @type {toMs['minToMs']} */ minToMs = mins => secToMs(mins * secsInMinute),

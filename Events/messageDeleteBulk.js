@@ -1,5 +1,5 @@
 const
-  { MessageFlags, EmbedBuilder, PermissionFlagsBits, AuditLogEvent, userMention, channelMention, inlineCode } = require('discord.js'),
+  { AuditLogEvent, EmbedBuilder, MessageFlags, PermissionFlagsBits, channelMention, inlineCode, userMention } = require('discord.js'),
   { secToMs } = require('#Utils').toMs,
   RED = 0xED498D,
   AUDITLOG_FETCHLIMIT = 6;
