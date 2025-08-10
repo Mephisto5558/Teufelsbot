@@ -46,10 +46,6 @@ export default [
         GuildInteraction: 'writable',
         DMInteraction: 'writable'
       }
-    },
-    rules: {
-      // pain, needs TODO:
-      '@typescript-eslint/prefer-readonly-parameter-types': 'off'
     }
   },
   {
