@@ -1,7 +1,6 @@
 const
   { AttachmentBuilder, ChannelType, Constants, DiscordAPIError, GuildFeature, OverwriteType } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { pinnedMessagesMaxAmt } = require('./constants'),
   /** @type {import('.')['DiscordAPIErrorCodes']} */ DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
 
   maxMessagesPerChannelLimit = 100;
@@ -193,9 +192,11 @@ async function loadChannelMessages(channel, messages, webhook, maxMessagesPerCha
         threadId: channel.isThread() ? channel.id : undefined
       });
 
-      if (msg.pinned && sentMsg.pinnable && (await channel.messages.fetchPinned()).size < pinnedMessagesMaxAmt) await sentMsg.pin();
+      if (msg.pinned && sentMsg.pinnable) await sentMsg.pin();
     }
-    catch (err) { log.error('Backup load error:', err); }
+    catch (err) {
+      if (err.code != DiscordAPIErrorCodes.MaximumNumberOfPinsReachedForTheChannel) log.error('Backup load error:', err);
+    }
   }
 
   return webhook;

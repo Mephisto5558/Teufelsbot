@@ -2,8 +2,8 @@ const
   { ActivityType } = require('discord.js'),
   guildCreate = require('./guildCreate');
 
-/** @this {import('discord.js').ClientEvents['ready'][0]} */
-module.exports = async function ready() {
+/** @this {import('discord.js').ClientEvents['clientReady'][0]} */
+module.exports = async function clientReady() {
   await this.application.emojis.fetch(); // required for global.getEmoji() to work
 
   this.user.setActivity(this.settings.activity ?? { name: '/help', type: ActivityType.Playing });

@@ -8,7 +8,7 @@ const events = {
   messageDelete: require('./messageDelete'),
   messageDeleteBulk: require('./messageDeleteBulk'),
   messageUpdate: require('./messageUpdate'),
-  ready: require('./ready'),
+  clientReady: require('./clientReady'),
   threadCreate: require('./threadCreate'),
   voiceStateUpdate: require('./voiceStateUpdate')
 };

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers -- these are constants */
 module.exports = {
-  pinnedMessagesMaxAmt: 50, // per channel
+  pinnedMessagesMaxAmt: 250, // per channel
   autocompleteOptionsMaxAmt: 25,
   embedTitleMaxLength: 256,
   embedDescriptionMaxLength: 4096,

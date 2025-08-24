@@ -116,9 +116,9 @@ class BackupSystem {
     if (!doNotBackup.includes('roles')) {
       statusObj.status = 'create.roles';
 
-      (await guild.roles.fetch()).filter(e => !e.managed).sort((a, b) => b.position - a.position).map(e => ({
+      data.roles = (await guild.roles.fetch()).filter(e => !e.managed).sort((a, b) => b.position - a.position).map(e => ({
         name: e.name,
-        color: e.color,
+        colors: e.colors,
         hoist: e.hoist,
         permissions: e.permissions.bitfield.toString(),
         mentionable: e.mentionable,
@@ -284,9 +284,9 @@ class BackupSystem {
     }
 
     statusObj.status = 'load.roles';
-    for (const { isEveryone, name, color, hoist, permissions, mentionable } of data.roles) {
+    for (const { isEveryone, name, colors, hoist, permissions, mentionable } of data.roles) {
       const
-        roleData = { reason, name, color, hoist, mentionable, permissions: BigInt(permissions) },
+        roleData = { reason, name, colors, hoist, mentionable, permissions: BigInt(permissions) },
         roleToEdit = isEveryone ? guild.roles.cache.get(guild.id) : guild.roles.cache.find(e => e.name == name && e.editable);
       await (roleToEdit?.edit(roleData) ?? guild.roles.create(roleData));
     }

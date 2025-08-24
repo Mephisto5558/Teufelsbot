@@ -1,4 +1,4 @@
-import type { Base64String, BaseGuildVoiceChannel, EmbedData, GuildChannel, GuildChannelType, GuildFeature, Role } from 'discord.js';
+import type { Base64String, BaseGuildVoiceChannel, EmbedData, GuildChannel, GuildChannelType, GuildFeature, Role, RoleColors } from 'discord.js';
 import type { ISODateTime } from '../globals';
 
 import type { backupId, guildId, userId } from './common';
@@ -80,7 +80,7 @@ export type backups = Record<backupId, {
   }[];
   roles: {
     name: string;
-    color: number;
+    colors: RoleColors;
     hoist: boolean;
     permissions: `${bigint}`;
     mentionable: boolean;
