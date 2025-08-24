@@ -1,7 +1,7 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
   { msInSecond, timestamp } = require('#Utils').timeFormatter,
-  userURL = id => `https://discord.com/users/${id}`,
+  userURL = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
 
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
 
@@ -47,7 +47,7 @@ module.exports = {
     const
       startTime = Date.now() - process.uptime() * msInSecond,
       description
-        = `${lang('dev')}: ${hyperlink('Mephisto5558', userURL('691550551825055775'))}\n` // Please do not change this line
+        = `${lang('dev')}: ${hyperlink('Mephisto5558', userURL('691550551825055775'))}\n` // Please do not change this line.
           + (this.inGuild()
             ? `${lang('shard')}: ${inlineCode(this.guild.shardId)}\n`
             + `${lang('guild')}: ${inlineCode(this.guild.db.position)}\n`
@@ -75,7 +75,7 @@ module.exports = {
       component.components.push(createButton(lang('links.discord'), discordInvite, getEmoji('icon_discord')));
 
     if (!disableWebserver && website.domain) {
-      const domain = website.domain + (website.port ?? 0 ? ':' + website.port : '');
+      const domain = website.domain + (website.port ? `:${website.port}` : '');
       if (website.invite) component.components.push(createButton(lang('links.invite'), `${domain}/${website.invite}`));
       if (website.dashboard) component.components.push(createButton(lang('links.dashboard'), `${domain}/${website.dashboard}`));
       if (website.privacyPolicy) component.components.push(createButton(lang('links.privacyPolicy'), `${domain}/${website.privacyPolicy}`));

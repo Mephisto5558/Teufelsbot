@@ -1,14 +1,14 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, StringSelectMenuBuilder, codeBlock, inlineCode } = require('discord.js'),
-
-  /** @type {import('..').permissionTranslator} */
-  permissionTranslator = require('../permissionTranslator.js'),
-  { secsInMinute, msInSecond } = require('../timeFormatter');
+  { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, codeBlock, inlineCode } = require('discord.js'),
+  /** @type {import('..').permissionTranslator} */ permissionTranslator = require('../permissionTranslator'),
+  { msInSecond, secsInMinute } = require('../timeFormatter');
 
 /**
  * @type {import('.').help_getCommands}
  * @this {ThisParameterType<import('.').help_getCommands>} */ // This is here due to eslint
-function getCommands() { return [...this.client.prefixCommands.values(), ...this.client.slashCommands.values()].unique().filter(e => !!filterCommands.call(this, e)); }
+function getCommands() {
+  return [...this.client.prefixCommands.values(), ...this.client.slashCommands.values()].unique().filter(e => !!filterCommands.call(this, e));
+}
 
 /**
  * @type {import('.').help_getCommandCategories}
@@ -82,11 +82,20 @@ function createInfoFields(cmd, lang) {
   if (cmd.aliases?.prefix?.length) arr.push({ name: lang('one.prefixAlias'), value: cmd.aliases.prefix.map(inlineCode).join(', '), inline: true });
   if (cmd.aliases?.slash?.length) arr.push({ name: lang('one.slashAlias'), value: cmd.aliases.slash.map(inlineCode).join(', '), inline: true });
   if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: inlineCode(cmd.aliasOf), inline: true });
-  if (cmd.permissions?.client?.length > 0)
-    arr.push({ name: lang('one.botPerms'), value: permissionTranslator(cmd.permissions.client, lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', '), inline: false });
-  if (cmd.permissions?.user?.length > 0)
-    arr.push({ name: lang('one.userPerms'), value: permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', '), inline: true });
+  if (cmd.permissions?.client?.length > 0) {
+    arr.push({
+      name: lang('one.botPerms'), inline: false,
+      value: permissionTranslator(cmd.permissions.client, lang.config.locale, this.client.i18n).map(inlineCode).join(', ')
+    });
+  }
+  if (cmd.permissions?.user?.length > 0) {
+    arr.push({
+      name: lang('one.userPerms'), inline: true,
+      value: permissionTranslator(cmd.permissions.user, lang.config.locale, this.client.i18n).map(inlineCode).join(', ')
+    });
+  }
 
+  /** @type {['channel' | 'guild' | 'user', number][]} */
   const cooldowns = Object.entries(cmd.cooldowns ?? {}).filter(([, e]) => !!e);
   if (cooldowns.length) {
     arr.push({
@@ -103,8 +112,8 @@ function createInfoFields(cmd, lang) {
   }
 
   const
-    usage = (cmd.usageLocalizations[lang.__boundArgs__[0].locale]?.usage ?? cmd.usage.usage)?.replaceAll('{prefix}', prefix),
-    examples = (cmd.usageLocalizations[lang.__boundArgs__[0].locale]?.examples ?? cmd.usage.examples)?.replaceAll('{prefix}', prefix);
+    usage = (cmd.usageLocalizations[lang.config.locale]?.usage ?? cmd.usage.usage)?.replaceAll('{prefix}', prefix),
+    examples = (cmd.usageLocalizations[lang.config.locale]?.examples ?? cmd.usage.examples)?.replaceAll('{prefix}', prefix);
 
   if (usage) arr.push({ name: codeBlock(lang('one.usage')), value: usage, inline: true });
   if (examples) arr.push({ name: codeBlock(lang('one.examples')), value: examples, inline: true });
@@ -122,7 +131,8 @@ function filterCommands(cmd) {
 
 /** @type {import('.').help_commandQuery} */
 module.exports.commandQuery = async function commandQuery(lang, query) {
-  if (this.values && !this.values.length) return module.exports.categoryQuery.call(this, lang, this.message.components[0].components[0].data.options.find(e => e.default).value);
+  if (this.values && !this.values.length)
+    return module.exports.categoryQuery.call(this, lang, this.message.components[0].components[0].data.options.find(e => e.default).value);
 
   const command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);
   if (!filterCommands.call(this, command)) {
@@ -135,21 +145,26 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
   }
 
   const
-
-    /** @type {langUNF} */
-    helpLang = this.client.i18n.__.bind(this.client.i18n, {
-      undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang, backupPath: [`commands.${command.category}.${command.name}`]
+    helpLang = this.client.i18n.getTranslator({
+      undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang,
+      backupPath: [`commands.${command.category}.${command.name}`]
     }),
     prefixKey = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
     embed = new EmbedBuilder({
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
       description: helpLang('description') ?? command.description,
       fields: createInfoFields.call(this, command, lang),
-      footer: { text: lang('one.embedFooterText', `"${(this.guild?.db.config[prefixKey] ?? this.client.defaultSettings.config[prefixKey]).map(e => e.prefix).join('", "')}"`) },
+      footer: { text: lang(
+        'one.embedFooterText',
+        `"${(this.guild?.db.config[prefixKey] ?? this.client.defaultSettings.config[prefixKey]).map(e => e.prefix).join('", "')}"`
+      ) },
       color: Colors.Blurple
     });
 
-  return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, command.category)] });
+  return this.customReply({
+    embeds: [embed],
+    components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, command.category)]
+  });
 };
 
 /** @type {import('.').help_categoryQuery} */
@@ -160,9 +175,7 @@ module.exports.categoryQuery = async function categoryQuery(lang, query) {
   }
 
   const
-
-    /** @type {langUNF} */
-    helpLang = this.client.i18n.__.bind(this.client.i18n, {
+    helpLang = this.client.i18n.getTranslator({
       undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang,
       backupPath: [`commands.${query}`]
     }),
@@ -181,7 +194,10 @@ module.exports.categoryQuery = async function categoryQuery(lang, query) {
 
   if (!embed.data.fields.length) embed.data.description = lang('all.notFound');
 
-  return this.customReply({ embeds: [embed], components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, query)] });
+  return this.customReply({
+    embeds: [embed],
+    components: [createCategoryComponent.call(this, lang), createCommandsComponent.call(this, lang, query)]
+  });
 };
 
 /** @type {import('.').help_allQuery} */

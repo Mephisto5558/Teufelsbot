@@ -1,8 +1,10 @@
+/** @typedef {{ commandName: string, commandUsage: string, commandDescription: string, commandAlias: string }[]} commandList */
+
 /** @type {import('.').getCommands} */
 module.exports = function getCommands(lang) {
-  /** @type {{ category: string, subTitle: '', aliasesDisabled: boolean, list: { commandName: string, commandUsage: string, commandDescription: string, commandAlias: string }[] }[]} */
+  /** @type {{ category: string, subTitle: '', aliasesDisabled: boolean, list: commandList }[]} */
   const commandList = [...this.slashCommands.values(), ...this.prefixCommands.values()].unique().reduce((
-    /** @type {{ category: string, subTitle: string, list: Record<string, string>[] }[]} */ acc, cmd
+    /** @type {{ category: string, subTitle: string, list: commandList }[]} */ acc, cmd
   ) => {
     if (this.config.ownerOnlyFolders.includes(cmd.category) || cmd.disabled || cmd.aliasOf) return acc;
 
@@ -19,13 +21,15 @@ module.exports = function getCommands(lang) {
     category.list.push({
       commandName: cmd.name,
       commandUsage: (
+        /* eslint-disable-next-line @typescript-eslint/restrict-plus-operands -- will be fixed when commands are moved to their own lib */
         (cmd.slashCommand ? lang('others.getCommands.lookAtOptionDesc') : '')
         + (lang(`commands.${cmd.category}.${cmd.name}.usage.usage`)?.replaceAll(/slash command:/gi, '') ?? '') || lang('others.getCommands.noInfo')
       ).trim().replaceAll('\n', '<br>&nbsp'),
       commandDescription: lang(`commands.${cmd.category}.${cmd.name}.description`) ?? cmd.description,
       commandAlias: (
-        (cmd.aliases?.prefix?.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '')
-        + (cmd.aliases?.slash?.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || lang('global.none')
+        /* eslint-disable-next-line sonarjs/expression-complexity -- will be fixed when commands are moved to their own lib */
+        (cmd.aliases && 'prefix' in cmd.aliases && cmd.aliases.prefix.length ? `Prefix: ${cmd.aliases.prefix.join(', ')}\n` : '')
+        + (cmd.aliases && 'slash' in cmd.aliases && cmd.aliases.slash.length ? `Slash: ${cmd.aliases.slash.join(', ')}` : '') || lang('global.none')
       ).trim().replaceAll('\n', '<br>&nbsp')
     });
 

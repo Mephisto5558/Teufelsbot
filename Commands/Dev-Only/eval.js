@@ -12,7 +12,7 @@ const
   TIMEOUT_MS = 6e5; // 10min
 
 /** @param {number} ms */
-const timeout = ms => new Promise((_, rej) => setTimeout(rej, ms, 'eval timed out.'));
+const timeout = async ms => new Promise((_, rej) => void setTimeout(rej, ms, 'eval timed out.'));
 
 /** @type {command<'prefix', false>} */
 module.exports = {
@@ -42,7 +42,7 @@ module.exports = {
       /* eslint-disable-next-line no-ex-assign -- valid use case imo */
       if (!(err instanceof Error)) err = new Error(err ?? lang('emptyRejection'));
 
-      return msg.customReply(lang('error', { msg: `${lang('finished', codeBlock('js', this.content))}\n`, name: err.name, err: err.message }));
+      return void msg.customReply(lang('error', { msg: `${lang('finished', codeBlock('js', this.content))}\n`, name: err.name, err: err.message }));
     }
     finally { log.debug(`evaluated command '${this.content}'`); }
   }

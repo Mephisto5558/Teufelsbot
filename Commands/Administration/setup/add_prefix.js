@@ -33,7 +33,12 @@ module.exports = {
       if (!db.length) db.push(prefixInDB);
       await this.guild.updateDB(`config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`, db);
     }
-    else await this.client.db.pushToSet('guildSettings', `${this.guild.id}.config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`, { prefix, caseinsensitive });
+    else {
+      await this.client.db.pushToSet(
+        'guildSettings', `${this.guild.id}.config.${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`,
+        { prefix, caseinsensitive }
+      );
+    }
 
     return this.customReply(lang('saved', inlineCode(prefix)));
   }

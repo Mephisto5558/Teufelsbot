@@ -1,6 +1,8 @@
 const
+  { resolve } = require('node:path'),
   { setDefaultConfig, configValidationLoop, validConfig } = require('#Utils').configValidator,
-  filePath = require('node:path').resolve(process.cwd(), 'config.json');
+
+  filePath = resolve(process.cwd(), 'config.json');
 
 /** @type {command<'prefix', false>} */
 module.exports = {
@@ -19,7 +21,7 @@ module.exports = {
     try { configValidationLoop(config, validConfig, true); }
     catch (err) { return this.customReply(lang('error', err.message)); }
 
-    config.devIds.add(this.client.user.id).add('owner' in this.client.application.owner ? this.client.application.owner.owner.id : this.client.application.owner.id);
+    config.devIds.add(this.client.application.owner.owner?.id ?? this.client.application.owner.id);
     this.client.config = config;
     return this.customReply(lang('success'));
   }

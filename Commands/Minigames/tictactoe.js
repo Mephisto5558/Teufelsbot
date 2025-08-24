@@ -1,7 +1,10 @@
 const
   TicTacToe = require('discord-tictactoe'),
   { getTargetMembers, timeFormatter: { secsInMinute }, toMs: { secToMs } } = require('#Utils'),
-  { sendChallengeMention } = require('#Utils/prototypeRegisterer');
+  { sendChallengeMention } = require('#Utils/prototypeRegisterer'),
+
+  againstStatIds = Object.freeze({ win: 'wonAgainst', lose: 'lostAgainst', draw: 'drewAgainst' }),
+  typesStatIds = Object.freeze({ win: 'wins', lose: 'losses', draw: 'draws' });
 
 /**
  * @this {GuildInteraction}
@@ -24,18 +27,11 @@ async function eventCallback([player1, player2], [type1, type2 = type1], lang, g
  * @param {Client['db']} db */
 async function updateStats(firstID, secondID, type, db) {
   const stats = db.get('leaderboards', `TicTacToe.${firstID}`) ?? {};
-  let against;
-
-  switch (type) {
-    case 'win': against = 'wonAgainst'; break;
-    case 'lose': against = 'lostAgainst'; break;
-    case 'draw': against = 'drewAgainst';
-  }
 
   return Promise.all([
     db.update('leaderboards', `TicTacToe.${firstID}.games`, (stats.games ?? 0) + 1),
-    db.update('leaderboards', `TicTacToe.${firstID}.${type}s`, (stats[`${type}s`] ?? 0) + 1),
-    db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, (stats[against]?.[secondID] ?? 0) + 1)
+    db.update('leaderboards', `TicTacToe.${firstID}.${typesStatIds[type]}`, (stats[typesStatIds[type]] ?? 0) + 1),
+    db.update('leaderboards', `TicTacToe.${firstID}.against.${secondID}`, (stats[againstStatIds[type]]?.[secondID] ?? 0) + 1)
   ]);
 }
 
@@ -53,14 +49,14 @@ module.exports = {
       game = new TicTacToe({
         simultaneousGames: true,
         gameExpireTime: secsInMinute,
-        language: lang.__boundArgs__[0].locale,
+        language: lang.config.locale,
         commandOptionName: gameTarget == this.client.user.id ? 'thisOptionWillNotGetUsed' : 'opponent'
       });
 
     if (gameTarget) void sendChallengeMention(this, gameTarget, lang);
 
-    game.on('win', data => eventCallback.call(this, [data.winner, data.loser], ['win', 'lose'], lang, game));
-    game.on('tie', data => eventCallback.call(this, data.players, ['draw'], lang, game));
+    game.on('win', async data => eventCallback.call(this, [data.winner, data.loser], ['win', 'lose'], lang, game));
+    game.on('tie', async data => eventCallback.call(this, data.players, ['draw'], lang, game));
 
     return game.handleInteraction(this);
   }

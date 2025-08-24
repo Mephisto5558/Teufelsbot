@@ -18,7 +18,9 @@ module.exports = {
       prefixType = `${this.client.botType == 'dev' ? 'betaBotP' : 'p'}refixes`,
       db = this.guild.db.config[prefixType];
 
-    await (db.length < 2 ? this.guild.deleteDB(`config.${prefixType}`) : this.guild.updateDB(`config.${prefixType}`, db.filter(e => e.prefix != prefix)));
+    if (db.length < 2) await this.guild.deleteDB(`config.${prefixType}`);
+    else await this.guild.updateDB(`config.${prefixType}`, db.filter(e => e.prefix != prefix));
+
     return this.customReply(lang('removed', inlineCode(prefix)));
   }
 };

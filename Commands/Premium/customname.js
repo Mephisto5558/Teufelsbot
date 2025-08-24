@@ -48,7 +48,8 @@ module.exports = {
         return this.customReply(lang('clear.success'));
 
       case 'set': {
-        const newName = this.options?.getString('name', true) ?? (this.args[0] == 'set' ? this.args.slice(1) : this.args).join(' ').slice(0, memberNameMaxLength + 1);
+        const newName = this.options?.getString('name', true)
+          ?? (this.args[0] == 'set' ? this.args.slice(1) : this.args).join(' ').slice(0, memberNameMaxLength + 1);
         target.customName = newName;
 
         return this.customReply(newName ? lang('set.success', newName) : lang('clear.success'));

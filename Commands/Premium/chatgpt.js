@@ -1,7 +1,13 @@
 const
-  { Message, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, Message } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { constants: { messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils');
+  { constants: { messageMaxLength }, timeFormatter: { msInSecond } } = require('#Utils'),
+
+  RATE_LIMIT_MSGS = ['Rate limit reached', 'Too many requests'],
+
+  /** @type {(err: { type: string, message: string }) => boolean} */
+  isUnavailable = err => ['insufficient_quota', 'api_not_ready_or_request_error'].includes(err.type)
+    || err.message.startsWith('That model is currently overloaded');
 
 /**
  * @this {Interaction | Message}
@@ -23,11 +29,13 @@ async function fetchAPI(lang, deep) {
         { role: 'user', content: this.options?.getString('message', true) ?? this.content }
       ]
     })
-  }).then(e => e.json());
+  }).then(async e => e.json());
 
   if ('error' in res) {
-    if (['Rate limit reached', 'Too many requests'].some(e => res.error.message.startsWith(e))) return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);
-    if (res.error.type == 'insufficient_quota' || res.error.message.startsWith('That model is currently overloaded') || res.error.type == 'api_not_ready_or_request_error') return lang('notAvailable');
+    if (RATE_LIMIT_MSGS.some(e => res.error.message.startsWith(e)))
+      return deep ? lang('rateLimit') : fetchAPI.call(this, lang, true);
+    if (isUnavailable(res.error))
+      return lang('notAvailable');
   }
 
   if ('choices' in res && res.choices[0].message.content) return res.choices[0].message.content;
@@ -67,9 +75,10 @@ module.exports = {
     return (await this.customReply({ content, components: [component] }, undefined, { repliedUser: true }))
       .createMessageComponentCollector({ componentType: ComponentType.Button, filter: e => e.user.id == this.user.id })
       .on('collect', async e => {
-        const reply = await e.deferReply();
+        const
+          reply = await e.deferReply(),
+          newContent = await fetchAPI.call(this, lang);
 
-        const newContent = await fetchAPI.call(this, lang);
         void e.message.edit(newContent);
         return reply.delete();
       });

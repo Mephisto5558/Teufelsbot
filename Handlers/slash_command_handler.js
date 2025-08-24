@@ -1,7 +1,10 @@
+/* eslint-disable @typescript-eslint/no-deprecated, sonarjs/cognitive-complexity, sonarjs/cyclomatic-complexity, max-depth
+ -- will be fixed when commands are moved to their own lib */
+
 const
   { readdir } = require('node:fs/promises'),
   { resolve } = require('node:path'),
-  { getDirectories, formatCommand, filename, slashCommandsEqual, errorHandler } = require('#Utils');
+  { errorHandler, filename, formatCommand, getDirectories, slashCommandsEqual } = require('#Utils');
 
 /** @this {Client} */
 module.exports = async function slashCommandHandler() {
@@ -16,22 +19,23 @@ module.exports = async function slashCommandHandler() {
 
       const filePath = resolve(file.parentPath, file.name);
 
-      /** @type {Omit<command<string, boolean, true>, 'name' | 'category'> | undefined} */
-      let command;
-      try { command = require(filePath); }
+      /** @type {Omit<command<'slash', boolean, false>, 'name' | 'category'> | undefined} */
+      let commandFile;
+      try { commandFile = require(filePath); }
       catch (err) {
         if (err.code != 'MODULE_NOT_FOUND') throw err;
       }
 
-      if (!command?.slashCommand) continue;
+      if (!commandFile?.slashCommand) continue;
 
-      try { command = formatCommand(command, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n); }
+      let command;
+      try { command = formatCommand(commandFile, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n); }
       catch (err) {
         if (this.botType == 'dev') throw err;
-        log.error(`Error on formatting command ${command.name}:\n`, err);
+        log.error(`Error on formatting command file ${filePath}:\n`, err);
 
-        command.skip = true;
-        this.slashCommands.set(command.name, command);
+        commandFile.skip = true;
+        this.slashCommands.set(commandFile.name, commandFile);
         continue;
       }
 
@@ -75,7 +79,9 @@ module.exports = async function slashCommandHandler() {
       log.error(`Error on registering command ${command.name}:\n`, err);
     }
   }
-  log(`Registered ${registeredCommandCount} Slash Commands`)(`Skipped ${this.slashCommands.filter(e => e.skip && delete e.skip).size} Slash Commands`);
+
+  log(`Registered ${registeredCommandCount} Slash Commands`);
+  log(`Skipped ${this.slashCommands.filter(e => e.skip && delete e.skip).size} Slash Commands`);
 
   let deletedCommandCount = 0;
   for (const [, command] of await applicationCommands) {

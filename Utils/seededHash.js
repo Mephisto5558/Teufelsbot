@@ -16,7 +16,8 @@ module.exports = function cyrb53a(str, seed = 0) {
 
   h1 ^= Math.imul(h1 ^ (h2 >>> 15), 0x73_5A_2D_97);
   h2 ^= Math.imul(h2 ^ (h1 >>> 15), 0xCA_F6_49_A9);
-  h1 ^= h2 >>> 16; h2 ^= h1 >>> 16;
+  h1 ^= h2 >>> 16;
+  h2 ^= h1 >>> 16;
 
   return 2_097_152 * (h2 >>> 0) + (h1 >>> 11);
 };

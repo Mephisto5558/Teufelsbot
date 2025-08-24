@@ -1,1 +1,1 @@
-module.exports = require('./lock.js');
+module.exports = require('./lock');

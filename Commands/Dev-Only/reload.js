@@ -1,10 +1,82 @@
 /* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
 const
   { Collection, codeBlock, inlineCode } = require('discord.js'),
-  { resolve, basename, dirname } = require('node:path'),
   { access } = require('node:fs/promises'),
-  { formatCommand, slashCommandsEqual, filename, commandMention } = require('#Utils'),
+  { basename, dirname, resolve } = require('node:path'),
+  { commandMention, filename, formatCommand, slashCommandsEqual } = require('#Utils'),
+
   MAX_COMMANDLIST_LENGTH = 800;
+
+/**
+ * @this {Client}
+ * @param {command<'prefix' | 'both', boolean, true>} file
+ * @param {command<'prefix' | 'both', boolean>} command
+ * @param {string[]} reloadedArray */
+function reloadPrefixCommand(file, command, reloadedArray) {
+  file.id = command.id;
+  this.prefixCommands.set(file.name, file);
+  reloadedArray.push(file.name);
+
+  for (const alias of command.aliases?.prefix ?? []) this.prefixCommands.delete(alias);
+  for (const alias of file.aliases?.prefix ?? []) {
+    this.prefixCommands.set(alias, { ...file, aliasOf: file.name });
+    reloadedArray.push(alias);
+  }
+}
+
+/**
+ * @this {Client}
+ * @param {Pick<Partial<command<'slash' | 'both', boolean, true>>, 'id'> & Omit<command<'slash' | 'both', boolean, true>, 'id'>} file
+ * @param {command<'slash' | 'both', boolean>} command
+ * @param {string[]} reloadedArray */
+async function reloadSlashCommand(file, command, reloadedArray) {
+  const equal = slashCommandsEqual(file, command);
+
+  if (equal) file.id = command.id;
+  else {
+    if (command.id) await this.application.commands.delete(command.id);
+    if (file.disabled || this.botType == 'dev' && !file.beta) {
+      file.id = command.id;
+      log(`Skipped/Deleted Disabled Slash Command ${file.name}`);
+    }
+    else {
+      file.id = (await this.application.commands.create(file)).id;
+      log(`Reloaded Slash Command ${file.name}`);
+    }
+  }
+
+  this.slashCommands.delete(command.name);
+  this.slashCommands.set(file.name, file);
+  reloadedArray.push(commandMention(file.name, file.id ?? 0));
+
+  for (const alias of [...file.aliases?.slash ?? [], ...command.aliases?.slash ?? []].unique()) {
+    const { id } = this.slashCommands.get(alias) ?? {};
+    let cmdId = id;
+
+    if (equal) {
+      this.slashCommands.delete(alias);
+      this.slashCommands.set(alias, { ...file, id, aliasOf: file.name });
+    }
+    else {
+      this.slashCommands.delete(alias);
+
+      if (file.disabled || this.botType == 'dev' && !file.beta) {
+        if (id) await this.application.commands.delete(id);
+        cmdId = undefined;
+
+        log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${file.name})`);
+      }
+      else {
+        cmdId = (await this.application.commands.create({ ...file, name: alias })).id;
+        log(`Reloaded Slash Command ${alias} (Alias of ${file.name})`);
+      }
+
+      this.slashCommands.set(alias, { ...file, id: cmdId, aliasOf: file.name });
+    }
+
+    reloadedArray.push(commandMention(alias, cmdId ?? 0));
+  }
+}
 
 /**
  * @this {Client}
@@ -28,63 +100,9 @@ async function reloadCommand(command, reloadedArray) {
   }
 
   this.prefixCommands.delete(command.name);
-  if (file.prefixCommand) {
-    file.id = command.id;
-    this.prefixCommands.set(file.name, file);
-    reloadedArray.push(file.name);
+  if (file.prefixCommand) reloadPrefixCommand.call(this, file, command, reloadedArray);
 
-    for (const alias of command.aliases?.prefix ?? []) this.prefixCommands.delete(alias);
-    for (const alias of file.aliases?.prefix ?? []) {
-      this.prefixCommands.set(alias, { ...file, aliasOf: file.name });
-      reloadedArray.push(alias);
-    }
-  }
-
-  if (file.slashCommand) {
-    const equal = slashCommandsEqual(file, command);
-    if (equal) file.id = command.id;
-    else {
-      if (command.id) await this.application.commands.delete(command.id);
-      if (file.disabled || this.botType == 'dev' && !file.beta) {
-        file.id = command.id;
-        log(`Skipped/Deleted Disabled Slash Command ${file.name}`);
-      }
-      else {
-        file.id = (await this.application.commands.create(file)).id;
-        log(`Reloaded Slash Command ${file.name}`);
-      }
-    }
-
-    this.slashCommands.delete(command.name);
-    this.slashCommands.set(file.name, file);
-    reloadedArray.push(commandMention(file.name, file.id ?? 0));
-
-    for (const alias of [...file.aliases?.slash ?? [], ...command.aliases?.slash ?? []].unique()) {
-      const { id } = this.slashCommands.get(alias) ?? {};
-      let cmdId;
-
-      if (equal) {
-        this.slashCommands.delete(alias);
-        this.slashCommands.set(alias, { ...file, id, aliasOf: file.name });
-      }
-      else {
-        this.slashCommands.delete(alias);
-
-        if (file.disabled || this.botType == 'dev' && !file.beta) {
-          if (id) await this.application.commands.delete(id);
-          log(`Skipped/Deleted Disabled Slash Command ${alias} (Alias of ${file.name})`);
-        }
-        else {
-          cmdId = (await this.application.commands.create({ ...file, name: alias })).id;
-          log(`Reloaded Slash Command ${alias} (Alias of ${file.name})`);
-        }
-
-        this.slashCommands.set(alias, { ...file, id: cmdId, aliasOf: file.name });
-      }
-
-      reloadedArray.push(commandMention(alias, cmdId ?? 0));
-    }
-  }
+  if (file.slashCommand) await reloadSlashCommand.call(this, file, command, reloadedArray);
   else if (!file.slashCommand && command.slashCommand) {
     this.slashCommands.delete(command.name);
     if (command.id) await this.application.commands.delete(command.id);
@@ -113,7 +131,7 @@ module.exports = {
       /** @type {(string | undefined)[]} */
       reloadedArray = [];
 
-    let errorOccurred;
+    let errorOccurred = false;
     try {
       switch (this.args[0].toLowerCase()) {
         case 'file': {
@@ -122,7 +140,7 @@ module.exports = {
           try { await access(filePath); }
           catch (err) {
             if (err.code != 'ENOENT') throw err;
-            return msg.edit(lang('invalidPath'));
+            return void msg.edit(lang('invalidPath'));
           }
 
           if (this.args[1]?.startsWith('Commands/')) {
@@ -141,7 +159,7 @@ module.exports = {
         case '*': for (const [, command] of commandList) await reloadCommand.call(this.client, command, reloadedArray); break;
         default: {
           const command = commandList.get(this.args[0].toLowerCase());
-          if (!command) return msg.edit(lang('invalidCommand'));
+          if (!command) return void msg.edit(lang('invalidCommand'));
 
           await reloadCommand.call(this.client, command, reloadedArray);
         }
@@ -157,10 +175,12 @@ module.exports = {
     }
 
     const
-      commands = reloadedArray.filter(Boolean).map(e => e.startsWith('<') ? e : inlineCode(e)).join(', '),
+      commands = reloadedArray.filter(Boolean).map(e => (e.startsWith('<') ? e : inlineCode(e))).join(', '),
       replyText = lang(reloadedArray.length ? 'reloaded' : 'noneReloaded', {
         count: inlineCode(reloadedArray.length),
-        commands: commands.length < MAX_COMMANDLIST_LENGTH ? commands : commands.slice(0, Math.max(0, commands.slice(0, MAX_COMMANDLIST_LENGTH).lastIndexOf('`,') + 1)) + '...'
+        commands: commands.length < MAX_COMMANDLIST_LENGTH
+          ? commands
+          : commands.slice(0, Math.max(0, commands.slice(0, MAX_COMMANDLIST_LENGTH).lastIndexOf('`,') + 1)) + '...'
       });
 
     void (errorOccurred ? msg.reply(replyText) : msg.edit(replyText));

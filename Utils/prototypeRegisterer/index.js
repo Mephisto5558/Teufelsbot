@@ -1,21 +1,24 @@
 /* eslint-disable no-extend-native */
+/* eslint no-underscore-dangle: [warn, {allow: [_patch, __count__, _log]}] */
+
 const
-  { BaseInteraction, Message, Collection, AutocompleteInteraction, User, Guild, GuildMember, ButtonBuilder, Events, Client } = require('discord.js'),
-  TicTacToe = require('discord-tictactoe'),
-  GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
+  { AutocompleteInteraction, BaseInteraction, ButtonBuilder, Client, Collection, Events, Guild, GuildMember, Message, User } = require('discord.js'),
   { randomInt } = require('node:crypto'),
+  { readFile } = require('node:fs/promises'),
   { join } = require('node:path'),
   { parseEnv } = require('node:util'),
-  { readFile } = require('node:fs/promises'),
-  { DB } = require('@mephisto5558/mongoose-db'),
   { I18nProvider } = require('@mephisto5558/i18n'),
-  Log = require('./Log.js'),
-  customReply = require('./message_customReply.js'),
-  { runMessages } = require('./message_runMessages.js'),
-  _patch = require('./message__patch.js'),
-  { playAgain, sendChallengeMention } = require('./TicTacToe_playAgain.js'),
-  findAllEntries = require('../findAllEntries.js'),
-  { setDefaultConfig } = require('../configValidator.js'),
+  { DB } = require('@mephisto5558/mongoose-db'),
+  TicTacToe = require('discord-tictactoe'),
+  GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
+  { setDefaultConfig } = require('../configValidator'),
+  findAllEntries = require('../findAllEntries'),
+  Log = require('./Log'),
+  { playAgain, sendChallengeMention } = require('./TicTacToe_playAgain'),
+  _patch = require('./message__patch'),
+  customReply = require('./message_customReply'),
+  { runMessages } = require('./message_runMessages'),
+
   defaultValueLoggingMaxJSONLength = 100,
 
   parentUptime = Number(process.argv.find(e => e.startsWith('uptime'))?.split('=')[1]) || 0;
@@ -26,27 +29,43 @@ module.exports = { Log, _patch, customReply, runMessages, playAgain, sendChallen
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
 
-const config = setDefaultConfig();
+const
+  config = setDefaultConfig(),
+  requiredEnv = [
+    'environment',
+    'humorAPIKey', 'rapidAPIKey',
+    'githubKey', 'chatGPTApiKey',
+    'dbdLicense',
+    'dbConnectionStr', 'token', 'secret'
+  ],
 
-const requiredEnv = [
-  'environment',
-  'humorAPIKey', 'rapidAPIKey',
-  'githubKey', 'chatGPTApiKey',
-  'dbdLicense',
-  'dbConnectionStr', 'token', 'secret'
-];
+  overwrites = Object.fromEntries(Object.entries({
+    globals: ['globalThis.sleep', 'globalThis.log()', 'globalThis.getEmoji()'], // TODO: getEmoji should probably not be global
+    vanilla: [
+      parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
+      'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()',
+      'Object#filterEmpty()', 'Object#__count__', 'BigInt#toJSON()'
+    ],
+    discordJs: [
+      'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
+      'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config',
+      'Client#loadEnvAndDB()', 'Client#awaitReady()',
+      'Message#originalContent', 'Message#args', 'Message#commandName', 'Message#user', 'Message#customReply()', 'Message#runMessages',
+      'BaseInteraction#customReply()', 'AutocompleteInteraction#focused',
+      'User#db', 'User#updateDB', 'User#deleteDB', 'User#customName', 'User#customTag', 'User#localeCode',
+      'GuildMember#db', 'GuildMember#customName', 'GuildMember#customTag', 'GuildMember#localeCode',
+      'Guild#db', 'Guild#updateDB()', 'Guild#deleteDB()', 'Guild#localeCode'
+    ]
+  }).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
 
 if (!config.hideOverwriteWarning) {
-  console.warn(
-    'Overwriting the following variables and functions (if they exist):'
-    + '\n  Globals:    global.sleep, global.log, global.getEmoji'
-    + `\n  Vanilla:    ${parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime),' : ''} Array#random, Array#unique, `
-    + 'Number#limit, Number#inRange, Object#filterEmpty, Object#__count__, Function#bBind, BigInt#toJSON'
-    + '\n  Discord.js: BaseInteraction#customReply, Message#user, Message#customReply, Message#runMessages, Client#prefixCommands, Client#slashCommands, Client#cooldowns, '
-    + 'Client#loadEnvAndDB, Client#awaitReady, Client#defaultSettings, Client#settings, AutocompleteInteraction#focused, User#db, User#updateDB, User#localeCode, Guild#db, guild#updateDB, '
-    + 'Guild#localeCode, GuildMember#db'
-    + '\n  Modifying Discord.js Message._patch method.'
-  );
+  console.warn([
+    'Overwriting the following variables and functions (if they exist):',
+    `  Globals:    ${overwrites.globals}`,
+    `  Vanilla:    ${overwrites.vanilla}`,
+    `  Discord.js: ${overwrites.discordJs}`,
+    '  Modifying Discord.js Message._patch method.'
+  ].join('\n'));
 }
 
 if (parentUptime) {
@@ -73,7 +92,9 @@ Object.defineProperties(Array.prototype, {
 Object.defineProperties(Number.prototype, {
   limit: {
     /** @type {global['Number']['prototype']['limit']} */
-    value: function limit({ min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY } = {}) { return Math.min(Math.max(Number(this), min), max); },
+    value: function limit({ min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY } = {}) {
+      return Math.min(Math.max(Number(this), min), max);
+    },
     enumerable: false
   },
   inRange: {
@@ -113,19 +134,6 @@ Object.defineProperties(Object.prototype, {
     enumerable: false
   }
 });
-Object.defineProperty(Function.prototype, 'bBind', {
-  /**
-   * @type {global['Function']['prototype']['bBind']}
-   * @this {CallableFunction} */
-  value: function bBind(thisArg, ...args) {
-    const bound = this.bind(thisArg, ...args);
-    bound.__targetFunction__ = this;
-    bound.__boundThis__ = thisArg;
-    bound.__boundArgs__ = args;
-    return bound;
-  },
-  enumerable: false
-});
 Object.defineProperty(BigInt.prototype, 'toJSON', {
   value: function stringify() {
     return this.toString();
@@ -140,7 +148,8 @@ Object.defineProperty(BaseInteraction.prototype, 'customReply', {
   value: customReply
 });
 
-// Note: Classes that re-reference client (e.g. GiveawaysManager, DB) MUST have a valueOf() function to prevent recursive JSON stringify'ing DoS'ing the whole node process
+/* Note: Classes that re-reference client (e.g. GiveawaysManager, DB) MUST have a valueOf() function
+   to prevent recursive JSON stringify'ing DoS'ing the whole node process */
 Object.defineProperties(Client.prototype, {
   prefixCommands: { value: new Collection() },
   slashCommands: { value: new Collection() },
@@ -174,7 +183,8 @@ Object.defineProperties(Client.prototype, {
           Object.assign(process.env, parseEnv(await readFile(`.env.${process.env.environment}`, { encoding: 'utf8' })));
         }
         catch (err) {
-          if (err.code != 'ENOENT') throw new Error(`Missing "env.${process.env.environment}" file. Tried to import based on "environment" env variable in ".env".`);
+          if (err.code != 'ENOENT')
+            throw new Error(`Missing "env.${process.env.environment}" file. Tried to import based on "environment" env variable in ".env".`);
           throw err;
         }
       }
@@ -182,7 +192,10 @@ Object.defineProperties(Client.prototype, {
       const missingEnv = requiredEnv.filter(e => !process.env[e]);
       if (missingEnv.length) throw new Error(`Missing environment variable(s) "${missingEnv.join('", "')}"`);
 
-      const db = await new DB().init(process.env.dbConnectionStr, 'db-collections', defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' }));
+      const db = await new DB().init(
+        process.env.dbConnectionStr, 'db-collections',
+        defaultValueLoggingMaxJSONLength, log._log.bind(log, { file: 'debug', type: 'DB' })
+      );
       if (!db.cache.size) {
         log('Database is empty, generating default data');
         await db.generate();
@@ -195,7 +208,7 @@ Object.defineProperties(Client.prototype, {
   awaitReady: {
     /** @type {Client['awaitReady']} */
     value: async function awaitReady() {
-      return new Promise(res => this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch())));
+      return new Promise(res => void this.once(Events.ClientReady, () => res(this.application.name ? this.application : this.application.fetch())));
     }
   }
 });
@@ -240,9 +253,10 @@ Object.defineProperties(User.prototype, {
 
   /** @type {Record<string, (this: User, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale>} */
   localeCode: {
-    // website db user locale can be `null`
     get() {
-      const locale = this.db.localeCode ?? Object.values(this.client.db.get('website', 'sessions')).find(e => e.user?.id == this.id)?.user?.locale ?? undefined;
+      const locale = this.db.localeCode
+        ?? Object.values(this.client.db.get('website', 'sessions')).find(e => e.user?.id == this.id)?.user?.locale
+        ?? undefined; // website db user locale can be `null`
       return locale?.startsWith('en') ? 'en' : locale;
     },
     set(val) { void this.updateDB('localeCode', val); }
@@ -259,6 +273,14 @@ Object.defineProperties(GuildMember.prototype, {
   customName: {
     get() { return this.guild.db.customNames?.[this.id] ?? this.displayName; },
     set(val) { void this.guild.updateDB(`customNames.${this.id}`, val); }
+  },
+
+  /** @type {Record<string, (this: GuildMember, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale>} */
+  localeCode: {
+    get() {
+      return this.user.localeCode ?? this.guild.localeCode;
+    },
+    set(val) { void this.user.updateDB('localeCode', val); }
   }
 });
 Object.defineProperties(Guild.prototype, {
@@ -270,7 +292,8 @@ Object.defineProperties(Guild.prototype, {
   updateDB: {
     /**
      * @type {import('discord.js').Guild['updateDB']}
-     * @this {Guild} */
+     * @this {Guild}
+     * @param {string} key */
     value: async function updateDB(key, value) { return this.client.db.update('guildSettings', `${this.id}${key ? '.' + key : ''}`, value); }
   },
   deleteDB: {

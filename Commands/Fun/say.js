@@ -1,6 +1,6 @@
 const
-  { Constants, PermissionFlagsBits, Message, AllowedMentionsTypes } = require('discord.js'),
-  { getTargetChannel, logSayCommandUse, constants } = require('#Utils');
+  { AllowedMentionsTypes, Constants, Message, PermissionFlagsBits } = require('discord.js'),
+  { constants, getTargetChannel, logSayCommandUse } = require('#Utils');
 
 /** @type {command<'both'>} */
 module.exports = {
@@ -38,12 +38,16 @@ module.exports = {
       channel = getTargetChannel(this, { returnSelf: true }),
       replyTo = this.options?.getString('reply_to');
 
-    if (!this.member.permissionsIn(channel).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages])) return this.customReply(lang('noPerm'));
+    if (!this.member.permissionsIn(channel).has([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]))
+      return this.customReply(lang('noPerm'));
 
     if (this.member.permissionsIn(channel).has(PermissionFlagsBits.MentionEveryone))
       allowedMentions.parse.push(AllowedMentionsTypes.Role, AllowedMentionsTypes.Everyone);
 
-    const sentMessage = await channel.send({ allowedMentions, content: msg.replaceAll('/n', '\n'), reply: { messageReference: replyTo, failIfNotExists: false } });
+    const sentMessage = await channel.send({
+      allowedMentions, content: msg.replaceAll('/n', '\n'),
+      reply: { messageReference: replyTo, failIfNotExists: false }
+    });
     await (this instanceof Message ? this.react('👍') : this.customReply(lang('global.messageSent')));
 
     return logSayCommandUse.call(sentMessage, this.member, lang);

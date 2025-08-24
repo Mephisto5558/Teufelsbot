@@ -1,5 +1,5 @@
 const
-  { Constants, roleMention, userMention, bold } = require('discord.js'),
+  { Constants, bold, roleMention, userMention } = require('discord.js'),
   { timeValidator } = require('#Utils');
 
 /** @type {import('.')} */
@@ -53,8 +53,10 @@ module.exports = {
         hostedBy: this.user,
         botsCanWin: false,
         bonusEntries: { bonus: member => bonusEntries[member.id] },
-        embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? 0, 16) || (this.guild.db.giveaway?.embedColor ?? defaultSettings.embedColor),
-        embedColorEnd: Number.parseInt(this.options.getString('embed_color_end')?.slice(1) ?? 0, 16) || (this.guild.db.giveaway?.embedColorEnd ?? defaultSettings.embedColorEnd),
+        embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? 0, 16)
+          || (this.guild.db.giveaway?.embedColor ?? defaultSettings.embedColor),
+        embedColorEnd: Number.parseInt(this.options.getString('embed_color_end')?.slice(1) ?? 0, 16)
+          || (this.guild.db.giveaway?.embedColorEnd ?? defaultSettings.embedColorEnd),
         messages: {
           giveaway: bold(lang('newGiveaway')),
           giveawayEnded: bold(lang('giveawayEnded')),
@@ -84,7 +86,7 @@ module.exports = {
       startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
 
     await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions).then(data => {
-      components[0].components[0].data.url = data.messageURL; // Using .then() here to prevent eslint/require-atomic-updates
+      components[0].components[0].data.url = data.messageURL; // using .then() here to prevent `eslint/require-atomic-updates`
     });
 
     return this.editReply({ content: lang('started'), components });

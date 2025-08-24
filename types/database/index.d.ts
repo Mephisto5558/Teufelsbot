@@ -1,11 +1,11 @@
 import type { Database as WebsiteDB } from '@mephisto5558/bot-website/database';
 
-import type { guildId, userId } from './common';
+import type { backups } from './backups';
 import type { botSettings } from './botSettings';
+import type { guildId, userId } from './common';
+import type { guildSettings } from './guildSettings';
 import type { leaderboards } from './leaderboards';
 import type { userSettings } from './userSettings';
-import type { guildSettings } from './guildSettings';
-import type { backups } from './backups';
 
 export type { Database };
 export type { backupId } from './common';

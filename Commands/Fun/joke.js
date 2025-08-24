@@ -1,8 +1,9 @@
 const
-  { default: fetch, AbortError, FetchError } = require('node-fetch'),
-  { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, hyperlink } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, hyperlink } = require('discord.js'),
   { HTTP_STATUS_PAYMENT_REQUIRED, HTTP_STATUS_FORBIDDEN } = require('node:http2').constants,
+  { AbortError, FetchError, default: fetch } = require('node-fetch'),
   { constants: { messageMaxLength, HTTP_STATUS_CLOUDFLARE_BLOCKED }, timeFormatter: { msInSecond } } = require('#Utils'),
+
   TIMEOUT = 2500,
   defaultAPIList = [
     { name: 'jokeAPI', link: 'https://v2.jokeapi.dev', url: 'https://v2.jokeapi.dev/joke/Any?lang=en&blacklist={blacklist}' },
@@ -49,7 +50,7 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
         Accept: 'application/json'
       },
       signal: timeoutSignal.signal
-    }).then(e => e.json());
+    }).then(async e => e.json());
 
     switch (api.name) {
       case 'jokeAPI': response = res.type == 'twopart' ? `${res.setup}\n\n||${res.delivery}||` : res.joke; break;
@@ -105,7 +106,10 @@ module.exports = {
       type = this.options?.getString('type') ?? this.args?.[0],
       blacklist = this.options?.getString('blacklist'),
       maxLength = this.options?.getInteger('max_length'),
-      [joke, api] = await getJoke.call(this.client, apiStr ? [defaultAPIList.find(e => e.name == apiStr)] : defaultAPIList, type, blacklist, maxLength);
+      [joke, api] = await getJoke.call(
+        this.client, apiStr ? [defaultAPIList.find(e => e.name == apiStr)] : defaultAPIList,
+        type, blacklist, maxLength
+      );
 
     if (!joke || !api) return this.customReply(lang('noAPIAvailable'));
 

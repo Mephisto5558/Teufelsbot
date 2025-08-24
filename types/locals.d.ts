@@ -95,8 +95,8 @@ type BaseCommand<initialized extends boolean = boolean> = {
   };
 });
 
-interface Config {
-  /** Will always include the bot's user id and the application owner id */
+type Config = {
+  /** Will always include the application owner (or application team owner if existing) id */
   devIds: Set<Snowflake>;
   website: {
     domain?: string;
@@ -129,10 +129,11 @@ interface Config {
   replyOnNonBetaCommand: boolean;
   disableWebserver?: boolean;
   enableConsoleFix?: boolean;
-}
+};
 
-// @ts-expect-error 2681
-type BoundFunction = new (this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang) => FunctionConstructor;
+type BoundFunction = new (
+  this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang
+) => FunctionConstructor;
 
 type FlattenedGuildSettings = SettingsPaths<Database['guildSettings'][Snowflake]>;
 type FlattenedUserSettings = SettingsPaths<Database['userSettings'][Snowflake]>;

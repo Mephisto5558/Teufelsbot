@@ -1,13 +1,14 @@
 const
-  { EmbedBuilder, bold, time, TimestampStyles, Colors } = require('discord.js'),
+  { Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
   { commandMention } = require('#Utils'),
   { getTopChannels, getTopMembers } = require('./_utils');
 
-/** @type {import('.').default} */
+/** @type {import('.').default<false>} */
 module.exports = {
   options: [{
     name: 'get',
     type: 'Subcommand',
+    dmPermission: true,
     options: [{
       name: 'guild_id',
       type: 'String',

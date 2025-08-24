@@ -1,14 +1,18 @@
+/* eslint-disable sonarjs/cyclomatic-complexity, sonarjs/cognitive-complexity, no-underscore-dangle
+-- will be fixed when commands are moved to their own lib */
+
 const
-  { PermissionFlagsBits, Message, ChannelType, EmbedBuilder, Colors, CommandInteraction, inlineCode, MessageFlags } = require('discord.js'),
-  /** @type {import('.').autocompleteGenerator} */ autocompleteGenerator = require('./autocompleteGenerator.js'),
-  cooldowns = require('./cooldowns.js'),
-  /** @type {import('.').commandMention} */ commandMention = require('./commandMention.js'),
-  /** @type {import('.').permissionTranslator} */ permissionTranslator = require('./permissionTranslator.js'),
+  { ChannelType, Colors, CommandInteraction, EmbedBuilder, Message, MessageFlags, PermissionFlagsBits, inlineCode } = require('discord.js'),
+  /** @type {import('.').autocompleteGenerator} */ autocompleteGenerator = require('./autocompleteGenerator'),
+  /** @type {import('.').commandMention} */ commandMention = require('./commandMention'),
+  cooldowns = require('./cooldowns'),
+  /** @type {import('.').permissionTranslator} */ permissionTranslator = require('./permissionTranslator'),
   /** @type {import('.')['timeFormatter']} */ { msInSecond } = require('./timeFormatter'),
   /** @type {import('.')['DiscordAPIErrorCodes']} */ DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
+
   PERM_ERR_MSG_DELETETIME = msInSecond * 10,
 
-  isValidType =/** @param {Message | import('discord.js').BaseInteraction} type */ type => type instanceof Message || type.isChatInputCommand();
+  isValidType = /** @param {Message | import('discord.js').BaseInteraction} type */ type => type instanceof Message || type.isChatInputCommand();
 
 /**
  * @this {Interaction | Message}
@@ -29,29 +33,37 @@ function checkOptions(command, lang) {
 
   if (!option.options) return;
 
-  for (const [i, { required, name, description, descriptionLocalizations, autocomplete, strictAutocomplete, autocompleteOptions, choices, channelTypes }] of option.options.entries()) {
+  for (const [i, data] of option.options.entries()) {
+    const {
+      required, name, description, descriptionLocalizations, autocomplete,
+      strictAutocomplete, autocompleteOptions, choices, channelTypes
+    } = data;
+
     if (required && !this.options?.get(name) && !this.args?.[i]) {
       return ['paramRequired', {
         option: name,
-        description: descriptionLocalizations?.[lang.__boundArgs__[0].locale] ?? descriptionLocalizations?.[lang.__boundThis__.config.defaultLocale] ?? description
+        description: descriptionLocalizations?.[lang.config.locale]
+          ?? descriptionLocalizations?.[lang.defaultConfig.defaultLocale] ?? description
       }];
     }
 
-    if (channelTypes && (this.options?.get(name) || this.args?.[i]) && !channelTypes.includes(this.options?.getChannel(name).type ?? this.mentions.channels.at(i)?.type))
-      return ['invalidChannelType', name];
-
-    const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]) != undefined);
     if (
-      isValidType(this) && autocompleteIsUsed() && !autocompleteGenerator.call({
-        ...this, client: this.client, guild: this.guild, user: this.user,
-        focused: { name, value: this.options?.get(name).value ?? this.args?.[i] }
-      }, command, this.guild?.db.config.lang ?? this.guild?.localeCode)
-        .some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
+      channelTypes && (this.options?.get(name) || this.args?.[i])
+      && !channelTypes.includes(this.options?.getChannel(name).type ?? this.mentions.channels.at(i)?.type)
+    ) return ['invalidChannelType', name];
+
+    const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]));
+    if (
+      isValidType(this) && autocompleteIsUsed() && !autocompleteGenerator.call(
+        this, { name, value: this.options?.get(name).value ?? this.args?.[i] }, command, this.guild?.db.config.lang ?? this.guild?.localeCode
+      ).some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
     ) {
       if (typeof autocompleteOptions != 'function') {
         return ['strictAutocompleteNoMatchWValues', {
           option: name,
-          availableOptions: Array.isArray(autocompleteOptions) ? autocompleteOptions.map(e => e.value ?? e).map(inlineCode).join(', ') : autocompleteOptions
+          availableOptions: Array.isArray(autocompleteOptions)
+            ? autocompleteOptions.map(e => e.value ?? e).map(inlineCode).join(', ')
+            : autocompleteOptions
         }];
       }
       return ['strictAutocompleteNoMatch', name];
@@ -68,17 +80,19 @@ function checkOptions(command, lang) {
  * @param {lang} lang
  * @returns {Promise<boolean>} `false` if no permission issues have been found. */
 async function checkPerms(command, lang) {
-  const userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user ?? [], PermissionFlagsBits.SendMessages]);
-  const botPermsMissing = this.guild.members.me.permissionsIn(this.channel).missing([...command.permissions?.client ?? [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
+  const
+    userPermsMissing = this.member.permissionsIn(this.channel).missing([...command.permissions?.user ?? [], PermissionFlagsBits.SendMessages]),
+    botPermsMissing = this.guild.members.me.permissionsIn(this.channel)
+      .missing([...command.permissions?.client ?? [], PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages]);
 
   if (!botPermsMissing.length && !userPermsMissing.length) return false;
 
   const embed = new EmbedBuilder({
     title: lang('permissionDenied.embedTitle'),
-    description: lang(
-      `permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`,
-      { permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing, lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', ') }
-    ),
+    description: lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, {
+      permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing,
+        lang.config.locale, this.client.i18n).map(inlineCode).join(', ')
+    }),
     color: Colors.Red
   });
 

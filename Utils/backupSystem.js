@@ -1,16 +1,16 @@
 const
   {
-    SnowflakeUtil, GatewayIntentBits, ChannelType, Constants, GuildFeature,
-    StickerType, Collection, DiscordAPIError, GuildVerificationLevel, GuildExplicitContentFilter
+    ChannelType, Collection, Constants, DiscordAPIError, GatewayIntentBits, GuildExplicitContentFilter,
+    GuildFeature, GuildVerificationLevel, SnowflakeUtil, StickerType
   } = require('discord.js'),
 
   /** @type {import('.').BackupSystem['BackupSystem']['utils']} */
-  utils = require('./backupSystem_utils.js'),
+  utils = require('./backupSystem_utils'),
 
-  { secsInMinute } = require('./timeFormatter.js'),
+  { secsInMinute } = require('./timeFormatter'),
 
   /** @type {import('.')['DiscordAPIErrorCodes']} */
-  DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json');
+  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
 
 /**
  * @typedef {import('.').BackupSystem.BackupSystem} TBackupSystem
@@ -41,7 +41,7 @@ class BackupSystem {
   }
 
   /** @type {TBackupSystem['get']} */
-  get = (backupId, guildId = '') => this.db.get(this.dbName, `${guildId}${backupId}`);
+  get = (backupId, guildId = '') => this.db.get(this.dbName, `${guildId}_${backupId}`);
 
   /** @type {TBackupSystem['list']} */
   list = guildId => {
@@ -51,7 +51,7 @@ class BackupSystem {
   };
 
   /** @type {TBackupSystem['remove']} */
-  remove = backupId => this.db.delete(this.dbName, backupId);
+  remove = async backupId => this.db.delete(this.dbName, backupId);
 
   /** @type {TBackupSystem['create']} */
   create = async (guild, {
@@ -63,7 +63,7 @@ class BackupSystem {
 
     statusObj.status = 'create.settings';
     const data = {
-      id: id ?? guild.id + SnowflakeUtil.generate().toString(),
+      id: id ?? `${guild.id}_${SnowflakeUtil.generate()}`,
       metadata: metadata ?? undefined,
       createdAt: new Date(),
       name: guild.name,
@@ -170,7 +170,7 @@ class BackupSystem {
 
       data.channels.others = await Promise.all(channels
         .filter(e => !e.parent && ![ChannelType.GuildCategory, ...Constants.ThreadChannelTypes].includes(e.type))
-        .map(e => utils.fetchTextChannelData(e, saveImages, maxMessagesPerChannel)));
+        .map(async e => utils.fetchTextChannelData(e, saveImages, maxMessagesPerChannel)));
     }
 
 
@@ -182,15 +182,16 @@ class BackupSystem {
     }
 
     if (save) {
-      const backups = this.db.get(this.dbName);
-      backups[data.id] = data;
+      await this.db.update(this.dbName, id, data);
 
-      let guildBackups = Object.keys(backups).filter(e => e.startsWith(guild.id));
+      const guildBackups = Object.keys(this.db.get(this.dbName)).filter(e => e.startsWith(guild.id));
       if (guildBackups.length > maxGuildBackups) {
-        guildBackups = guildBackups.toSorted().reverse().slice(0, maxGuildBackups);
-        for (const backupId of guildBackups) await this.db.delete(this.dbName, backupId);
+        const backupsToDelete = guildBackups
+          .toSorted((a, b) => BigInt(a.split('_')[1]) - BigInt(b.split('_')[1]))
+          .slice(0, guildBackups.length - maxGuildBackups);
+
+        await Promise.allSettled(backupsToDelete.map(async e => this.db.delete(this.dbName, e)));
       }
-      else await this.db.update(this.dbName, data.id, data);
     }
 
     return data;
@@ -198,7 +199,8 @@ class BackupSystem {
 
   /** @type {TBackupSystem['load']} */
   load = async (id, guild, {
-    statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
+    statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore,
+    maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     allowedMentions = [], reason = 'Backup Feature | Load'
   } = {}) => {
     /** @type {NonNullable<Database['backups'][import('../types/database').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
@@ -211,7 +213,8 @@ class BackupSystem {
       statusObj.status = 'clear.items';
       for (const [, item] of [
         ...await guild.channels.fetch(), ...await guild.emojis.fetch(), ...await guild.stickers.fetch(),
-        ...(await guild.roles.fetch()).filter(e => !e.managed && e.editable && e.id != guild.id && !guild.roles.cache.some(e2 => e2.name == e.name && e2.editable))
+        ...(await guild.roles.fetch())
+          .filter(e => !e.managed && e.editable && e.id != guild.id && !guild.roles.cache.some(e2 => e2.name == e.name && e2.editable))
       ]) {
         try { await item.delete(reason); }
         catch (err) {
@@ -282,8 +285,9 @@ class BackupSystem {
 
     statusObj.status = 'load.roles';
     for (const { isEveryone, name, colors, hoist, permissions, mentionable } of data.roles) {
-      const roleData = { reason, name, colors, hoist, mentionable, permissions: BigInt(permissions) };
-      const roleToEdit = isEveryone ? guild.roles.cache.get(guild.id) : guild.roles.cache.find(e => e.name == name && e.editable);
+      const
+        roleData = { reason, name, colors, hoist, mentionable, permissions: BigInt(permissions) },
+        roleToEdit = isEveryone ? guild.roles.cache.get(guild.id) : guild.roles.cache.find(e => e.name == name && e.editable);
       await (roleToEdit?.edit(roleData) ?? guild.roles.create(roleData));
     }
 
@@ -326,7 +330,12 @@ class BackupSystem {
 
     statusObj.status = 'load.stickers';
     for (const sticker of data.stickers) {
-      try { await guild.stickers.create({ name: sticker.name, description: sticker.description, tags: sticker.tags, file: sticker.url ?? utils.loadFromBase64(sticker.base64), reason }); }
+      try {
+        await guild.stickers.create({
+          name: sticker.name, description: sticker.description, tags: sticker.tags,
+          file: sticker.url ?? utils.loadFromBase64(sticker.base64), reason
+        });
+      }
       catch (err) {
         if (err.code != DiscordAPIErrorCodes.MaximumNumberOfStickersReached) throw err;
         break;
@@ -341,12 +350,14 @@ class BackupSystem {
       }
     }
 
-    if (data.widget.channel) await guild.setWidgetSettings({ enabled: data.widget.enabled, channel: guild.channels.cache.find(e => e.name == data.widget.channel) }, reason);
+    if (data.widget.channel)
+      await guild.setWidgetSettings({ enabled: data.widget.enabled, channel: guild.channels.cache.find(e => e.name == data.widget.channel) }, reason);
 
     if (rulesChannel || publicUpdatesChannel) {
       statusObj.status = 'load.settings';
-      const rChannel = guild.channels.cache.find(e => e.name == data.rulesChannel);
-      const uChannel = guild.channels.cache.find(e => e.name == data.publicUpdatesChannel);
+      const
+        rChannel = guild.channels.cache.find(e => e.name == data.rulesChannel),
+        uChannel = guild.channels.cache.find(e => e.name == data.publicUpdatesChannel);
 
       await guild.edit({
         rulesChannel: rChannel ?? undefined,

@@ -1,5 +1,5 @@
 /* eslint camelcase: [error, {allow: [help_]}] */
-const { help_commandQuery, help_categoryQuery, help_allQuery, help_getCommands, help_getCommandCategories } = require('#Utils/componentHandler');
+const { help_allQuery, help_categoryQuery, help_commandQuery, help_getCommandCategories, help_getCommands } = require('#Utils/componentHandler');
 
 /** @type {command<'both', false>} */
 module.exports = {
@@ -14,7 +14,9 @@ module.exports = {
       name: 'category',
       type: 'String',
       autocompleteOptions() {
-        return help_getCommandCategories.call(this).map(e => ({ name: this.client.i18n.__({ locale: this.locale }, `commands.${e}.categoryName`), value: e }));
+        return help_getCommandCategories.call(this).map(e => ({
+          name: this.client.i18n.__({ locale: this.locale }, `commands.${e}.categoryName`), value: e
+        }));
       },
       strictAutocomplete: true
     },
@@ -28,7 +30,9 @@ module.exports = {
 
   async run(lang) {
     const
-      categoryQuery = (this.options?.getString('category') ?? this.args?.at(module.exports.options.findIndex(e => e.name == 'category')))?.toLowerCase(),
+      categoryQuery = (
+        this.options?.getString('category') ?? this.args?.at(module.exports.options.findIndex(e => e.name == 'category'))
+      )?.toLowerCase(),
       commandQuery = (this.options?.getString('command') ?? this.args?.at(module.exports.options.findIndex(e => e.name == 'command')))?.toLowerCase();
 
     if (commandQuery) return help_commandQuery.call(this, lang, commandQuery);

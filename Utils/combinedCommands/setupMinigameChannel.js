@@ -1,6 +1,6 @@
 const
-  { EmbedBuilder, Colors, channelMention } = require('discord.js'),
-  getTargetChannel = require('../getTargetChannel.js');
+  { Colors, EmbedBuilder, channelMention } = require('discord.js'),
+  getTargetChannel = require('../getTargetChannel');
 
 /** @type {import('.').setupMinigameChannel} */
 module.exports = async function setupMinigameChannel(lang) {

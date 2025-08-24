@@ -1,6 +1,6 @@
 const
-  { PermissionFlagsBits, OverwriteType, EmbedBuilder, Colors } = require('discord.js'),
-  getTargetChannel = require('../getTargetChannel.js');
+  { Colors, EmbedBuilder, OverwriteType, PermissionFlagsBits } = require('discord.js'),
+  getTargetChannel = require('../getTargetChannel');
 
 /** @type {import('.').lock_unlock} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */

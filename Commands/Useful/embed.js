@@ -1,6 +1,6 @@
 const
-  { EmbedBuilder, Colors, PermissionFlagsBits, AllowedMentionsTypes, DiscordAPIError, codeBlock } = require('discord.js'),
-  { logSayCommandUse, constants } = require('#Utils');
+  { AllowedMentionsTypes, Colors, DiscordAPIError, EmbedBuilder, PermissionFlagsBits, codeBlock } = require('discord.js'),
+  { constants, logSayCommandUse } = require('#Utils');
 
 /**
  * @param {Interaction} interaction
@@ -68,38 +68,35 @@ module.exports = {
       custom = getOption('json'),
       allowedMentions = { parse: [AllowedMentionsTypes.User] };
 
-    let embed, sentMessage;
-
     try {
-      embed = new EmbedBuilder(custom
+      const embed = new EmbedBuilder(custom
         ? JSON.parse(custom)
         : {
-          title: getOption('title'),
-          description: getOption('description', true),
-          thumbnail: { url: getOption('thumbnail') },
-          image: { url: getOption('image') },
-          color: (Number.parseInt(getOption('custom_color')?.slice(1) ?? 0, 16) || Colors[getOption('predefined_color')]) ?? 0,
-          footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
-          timestamp: this.options.getBoolean('timestamp') && Date.now(),
-          author: {
-            name: getOption('author_name'),
-            url: getOption('author_url'),
-            iconURL: getOption('author_icon')
-          }
-        });
+            title: getOption('title'),
+            description: getOption('description', true),
+            thumbnail: { url: getOption('thumbnail') },
+            image: { url: getOption('image') },
+            color: (Number.parseInt(getOption('custom_color')?.slice(1) ?? 0, 16) || Colors[getOption('predefined_color')]) ?? 0,
+            footer: { text: getOption('footer_text'), iconURL: getOption('footer_icon') },
+            timestamp: this.options.getBoolean('timestamp') && Date.now(),
+            author: {
+              name: getOption('author_name'),
+              url: getOption('author_url'),
+              iconURL: getOption('author_icon')
+            }
+          });
 
       if (this.member.permissionsIn(this.channel).has(PermissionFlagsBits.MentionEveryone))
         allowedMentions.parse.push(AllowedMentionsTypes.Role, AllowedMentionsTypes.Everyone);
 
+      const sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed], allowedMentions });
+      await this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(embed.data.filterEmpty()))));
 
-      sentMessage = await this.channel.send({ content: getOption('content'), embeds: [embed], allowedMentions });
+      return void logSayCommandUse.call(sentMessage, this.member, lang);
     }
     catch (err) {
       if (!(err instanceof DiscordAPIError) && !err.message?.includes('JSON at')) throw err;
       return this.editReply(lang('invalidOption', codeBlock(err.message)));
     }
-
-    await this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(embed.data.filterEmpty()))));
-    return logSayCommandUse.call(sentMessage, this.member, lang);
   }
 };

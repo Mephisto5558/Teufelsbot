@@ -1,6 +1,6 @@
 const
   { inlineCode } = require('discord.js'),
-  { triggerQuery, findTriggerId } = require('./_utils');
+  { findTriggerId, triggerQuery } = require('./_utils');
 
 /** @type {import('.').default} */
 module.exports = {

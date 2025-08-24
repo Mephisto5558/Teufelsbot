@@ -1,6 +1,8 @@
 const
-  /** @type {import('.').shellExec} */ shellExec = require('./shellExec.js'),
-  /** @type {Promise<string>} */ origin = shellExec('git status').catch(() => { /** empty */ }).then(e => /'(?<branch>.*)'/.exec(e?.stdout.split('\n')[1])?.groups.branch);
+  /** @type {import('.').shellExec} */ shellExec = require('./shellExec'),
+  /** @type {Promise<string>} */ origin = shellExec('git status')
+    .catch(() => { /** empty */ })
+    .then(e => /'(?<branch>.*)'/.exec(e?.stdout.split('\n')[1])?.groups.branch);
 
 /** @type {import('.').gitpull} */
 module.exports = async function gitpull() {
@@ -8,6 +10,7 @@ module.exports = async function gitpull() {
 
   try { data = await shellExec('git pull'); }
   catch (err) {
+    /* eslint-disable-next-line @typescript-eslint/restrict-template-expressions */
     log.error(`GIT PULL\nExec error: ${err.toString()}`);
     return err;
   }

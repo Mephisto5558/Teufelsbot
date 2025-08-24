@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, time, TimestampStyles, bold, Colors } = require('discord.js'),
+  { Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
   { commandMention } = require('#Utils'),
   { getTopChannelMembers } = require('./_utils');
 
@@ -16,15 +16,13 @@ module.exports = {
   }],
 
   async run(lang) {
-    if (!this.inGuild()) return; // Type safeguard
     if (!this.guild.db.wordCounter?.enabled) {
       const command = this.client.slashCommands.get('setup');
       return this.customReply(lang('notEnabled', commandMention(`${command.name} ${this.command.name}`, command.id)));
     }
 
-    const channel = this.options.getChannel('channel', false) ?? this.channel;
-
     const
+      channel = this.options.getChannel('channel', false) ?? this.channel,
       embed = new EmbedBuilder({
         title: lang('embedTitle', channel.name),
         description: lang('embedDescription', {

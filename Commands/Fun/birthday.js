@@ -1,6 +1,7 @@
 const
-  { EmbedBuilder, Colors, userMention, bold } = require('discord.js'),
+  { Colors, EmbedBuilder, bold, userMention } = require('discord.js'),
   { getTargetMembers, getAge, timeFormatter: { msInSecond, secsInDay, daysInMonthMax, daysInYear, monthsInYear } } = require('#Utils'),
+
   currentYear = new Date().getFullYear(),
   MIN_YEAR = 1900;
 
@@ -41,7 +42,7 @@ const birthdayMainFunctions = {
 
   get: async function get(lang) {
     const
-      target = getTargetMembers(this),
+      target = getTargetMembers(this, { returnSelf: true }),
       doNotHide = this.options.getBoolean('do_not_hide'),
       embed = new EmbedBuilder({
         color: Colors.Blurple,
@@ -54,13 +55,14 @@ const birthdayMainFunctions = {
     if (target) {
       embed.data.title = lang('getUser.embedTitle', target.user.customName);
 
-      const birthday = target.user.db.birthday;
+      const { birthday } = target.user.db;
       if (birthday) {
         birthday.setHours(0, 0, 0, 0);
 
         const
           daysUntil = Math.round(
-            Math.abs(new Date().setHours(0, 0, 0, 0) - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1)) / (secsInDay * msInSecond) * 2
+            Math.abs(new Date().setHours(0, 0, 0, 0) - new Date(birthday).setFullYear(sortDates(birthday) < 0 ? currentYear : currentYear + 1))
+            / (secsInDay * msInSecond) * 2
           ) / 2 % daysInYear, // * 2) / 2 rounds it to the nearest .5
           age = getAge(birthday) + (daysUntil > 0 ? 1 : 0);
 

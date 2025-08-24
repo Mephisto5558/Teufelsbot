@@ -1,8 +1,8 @@
 import type { EmbedField, Guild, User } from 'discord.js';
 
-type data = {
+type data<guildOnly extends boolean = true> = {
   options?: commandOptions<false>[];
-  run: NonNullable<command<'slash', false>['run']>;
+  run: NonNullable<command<'slash', guildOnly>['run']>;
 };
 export default data;
 

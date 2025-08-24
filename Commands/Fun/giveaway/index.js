@@ -1,5 +1,5 @@
 const
-  { PermissionFlagsBits, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, PermissionFlagsBits } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
   { timeFormatter: { msInSecond } } = require('#Utils');
 
@@ -21,10 +21,8 @@ module.exports = {
     if (!this.client.giveawaysManager) return this.editReply(lang('managerNotFound'));
 
     const giveawayId = this.options.getString('id');
-    let giveaway;
-
     if (giveawayId) {
-      giveaway = this.client.giveawaysManager.giveaways.find(e => e.guildId == this.guild.id && e.messageId == giveawayId);
+      const giveaway = this.client.giveawaysManager.giveaways.find(e => e.guildId == this.guild.id && e.messageId == giveawayId);
 
       if (!giveaway || giveaway.ended && ['edit', 'end'].includes(this.options.getSubcommand())) return this.editReply(lang('notFound'));
       if (giveaway.hostedBy.id != this.user.id && !this.member.permissions.has(PermissionFlagsBits.Administrator))

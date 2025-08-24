@@ -1,5 +1,5 @@
 const
-  { AttachmentBuilder, BaseInteraction, Message, DiscordAPIError } = require('discord.js'),
+  { AttachmentBuilder, BaseInteraction, DiscordAPIError, Message } = require('discord.js'),
   { messageMaxLength } = require('../constants'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
@@ -18,16 +18,14 @@ function handleError(err) {
 /** @type {import('.').customReply} */
 
 module.exports = async function customReply(options, deleteTime, allowedMentions) {
-  /** @type {Message | undefined} */
-  let msg;
-
   if (typeof options != 'object') options = { content: options };
   else if ('options' in options) ({ options } = options);
 
   options.allowedMentions ??= allowedMentions ?? { repliedUser: false };
 
   if (options.content && options.content.length > messageMaxLength) {
-    const match = /```(?<ext>\n?\w+\n)?(?<code>(?:.|\n)+)```/.exec(options.content); // matches one code block, it's code, and the language (extention) it is in.
+    // matches one code block, it's code, and the language (extention) it is in.
+    const match = /```(?<ext>\n?\w+\n)?(?<code>(?:.|\n)+)```/.exec(options.content);
 
     options.files = [
       ...options.files ?? [],
@@ -39,6 +37,8 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
     delete options.content;
   }
 
+  /** @type {Message | undefined} */
+  let msg;
   if (this instanceof BaseInteraction) {
     try { msg = await (this.replied || this.deferred ? this.editReply(options) : this.reply(options)); }
     catch (err) {

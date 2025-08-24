@@ -1,12 +1,12 @@
 /* eslint-disable sonarjs/no-built-in-override */
 
 import type Discord from 'discord.js';
+import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
-import type { i18nFuncConfig, I18nProvider } from '@mephisto5558/i18n';
 
-import type locals from './locals';
-import type DBStructure from './database';
 import type { Log } from '../Utils/prototypeRegisterer';
+import type DBStructure from './database';
+import type locals from './locals';
 
 type ISODate = `${number}${number}${number}${number}-${number}${number}-${number}${number}`;
 type ISOTime = `${number}${number}:${number}${number}:${number}${number}.${number}${number}${number}`;
@@ -15,6 +15,7 @@ type ISODateTime = `${ISODate}T${ISOTime}Z`;
 // #region global
 declare global {
   // #region Buildins
+  /* eslint-disable @typescript-eslint/consistent-type-definitions */
   namespace NodeJS {
     interface Process {
 
@@ -45,9 +46,10 @@ declare global {
   }
 
   interface Array<T> {
-
     /**
-     * Gets a random array element by generating a cryptographically secure random number using {@link https://nodejs.org/api/crypto.html node:crypto}.
+     * Gets a random array element by generating a cryptographically secure random number using
+     * {@link https://nodejs.org/api/crypto.html node:crypto}.
+     *
      * May return undefined if the array is empty. */
     random(this: T[]): T | undefined;
 
@@ -121,10 +123,6 @@ declare global {
      * @param thisArg The object to be used as the this object. */
     bind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T>;
     bind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): (...args: AX[]) => R;
-
-    /** A wrapper for {@link Function.prototype.bind}. @see {@link bBoundFunction} */
-    bBind<T extends GenericFunction>(this: T, thisArg: ThisParameterType<T>): bBoundFunction<T>;
-    bBind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): bBoundFunction<(this: T, ...args: AX[]) => R>;
   }
 
   interface Date {
@@ -134,13 +132,15 @@ declare global {
     toISOString(): ISODateTime;
   }
 
+  /* eslint-enable @typescript-eslint/consistent-type-definitions */
   // #endregion
 
   // #region custom
-  const sleep: (ms: number) => Promise<void>;
+  const
+    sleep: (ms: number) => Promise<void>,
 
-  /** Custom logging, including logfiles. */
-  const log: typeof Log;
+    /** Custom logging, including logfiles. */
+    log: typeof Log;
   type log = typeof Log;
 
   /** Get an application Emoji's mention by it's name. */
@@ -155,13 +155,7 @@ declare global {
 
   type OmitFirstParameter<T extends GenericFunction> = Parameters<T> extends [unknown, ...infer Rest] ? Rest : never;
 
-  type langBoundArgs = [i18nFuncConfig];
-
-  /** {@link Function.prototype.bBind bBind}ed {@link I18nProvider.__} function */
-  type lang = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string> & { __boundArgs__: langBoundArgs };
-
-  /** same as {@link lang}, but may return `undefined` due to undefinedNotFound being true on the {@link I18nProvider.__ original function}. */
-  type langUNF = bBoundFunction<I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string | undefined> & { __boundArgs__: langBoundArgs };
+  type lang<UNF extends boolean = false, L extends Locale | undefined = Locale> = Translator<UNF, L>;
 
   // #endregion
 
@@ -196,7 +190,10 @@ declare global {
     aliases?: { prefix?: locals.BaseCommand['name'][] };
   };
 
-  type command<commandType extends 'prefix' | 'slash' | 'both' = 'both', guildOnly extends boolean = true, initialized extends boolean = false> = locals.BaseCommand<initialized>
+  type command<
+    commandType extends 'prefix' | 'slash' | 'both' = 'both',
+    guildOnly extends boolean = true, initialized extends boolean = false
+  > = locals.BaseCommand<initialized>
     & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
     & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
     & {
@@ -231,7 +228,9 @@ declare global {
     dmPermission?: boolean;
 
     /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled. */
-    autocompleteOptions?: string | locals.autocompleteOptions[] | ((this: Discord.AutocompleteInteraction) => locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>);
+    autocompleteOptions?: string | locals.autocompleteOptions[] | (
+      (this: Discord.AutocompleteInteraction) => locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>
+    );
 
     /**
      * Return an error message to the user, if their input is not included in {@link commandOptions.autocompleteOptions}.
@@ -282,17 +281,6 @@ declare global {
 
   // #endregion
 
-  type bBoundFunction<OF extends GenericFunction, T extends GenericFunction = OF> = T & {
-    /** The original, unbound function */
-    __targetFunction__: OF;
-
-    /** The context to which the function is bound */
-    __boundThis__: ThisParameterType<T>;
-
-    /** The arguments to which the function is bound */
-    __boundArgs__: Parameters<T>;
-  };
-
   // #region discord.js globals
   type Client<Ready extends boolean = true> = Discord.Client<Ready>;
   type Message<inGuild extends boolean = boolean> = Discord.Message<inGuild>;
@@ -312,12 +300,12 @@ declare global {
   type OptionalMessageProperties<inGuild extends boolean = boolean> = Partial<Message<inGuild>>;
 
   /** interface for an interaction in a guild. */
-  // @ts-expect-error not important due to this being like a type
+  /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
   interface GuildInteraction extends Discord.ChatInputCommandInteraction<'cached'>, OptionalMessageProperties<true> {
   }
 
   /** interface for an interaction in a direct message. */
-  // @ts-expect-error not important due to this being like a type
+  /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
   interface DMInteraction extends Discord.ChatInputCommandInteraction<undefined>, OptionalMessageProperties<false> {
     inGuild(): false;
     inRawGuild(): false;
@@ -334,6 +322,7 @@ declare global {
 }
 
 // #endregion
+/* eslint-disable @typescript-eslint/consistent-type-definitions -- working in lib's style */
 
 // @ts-expect-error // keeping this here for documentation reasons, even tho it doesn't do anything sadly
 declare module 'discord-tictactoe' {
@@ -367,6 +356,12 @@ declare module '@mephisto5558/mongoose-db' {
 declare module 'express' {
   interface Request {
     user?: NonNullable<Database['website']['sessions'][keyof Database['website']['sessions']]>['user'];
+  }
+}
+
+declare module 'express-session' {
+  interface SessionData {
+    redirectURL: string;
   }
 }
 

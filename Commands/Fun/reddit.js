@@ -1,28 +1,33 @@
 const
-  { Collection, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require('discord.js'),
-  fetch = require('node-fetch').default,
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, EmbedBuilder, codeBlock } = require('discord.js'),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
+  fetch = require('node-fetch').default,
   { constants: { embedMaxTitleLength, suffix }, timeFormatter: { msInSecond, secsInMinute } } = require('#Utils'),
+
   CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
   maxPercentage = 100,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
-  /** @type {import('./reddit').Cache} */ cachedSubreddits = new Collection(),
-  fetchPost = (/** @type {import('./reddit').RedditPage} */ { children }, filterNSFW = true) => {
-    children = children.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
-    if (!children.length) return;
+  /** @type {import('./reddit').Cache} */ cachedSubreddits = new Collection();
 
-    const
-      post = children.random().data,
-      imageURL = post.media?.oembed?.thumbnail_url ?? post.url;
+/**
+ * @param {Partial<import('./reddit').RedditPage>} page
+ * @param {boolean} filterNSFW */
+function fetchPost({ children } = {}, filterNSFW = true) {
+  children = children?.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
+  if (!children?.length) return;
 
-    return {
-      ...post,
-      upvoteRatio: `${post.upvote_ratio * maxPercentage}%`,
-      downs: post.downs || Math.round(post.ups / post.upvote_ratio - post.ups), // post.downs is always 0 for some reason
-      permalink: `https://www.reddit.com${post.permalink}`,
-      imageURL: /^https?:\/\//i.test(imageURL) ? imageURL : `https://reddit.com${imageURL}`
-    };
+  const
+    post = children.random().data,
+    imageURL = post.media?.oembed?.thumbnail_url ?? post.url;
+
+  return {
+    ...post,
+    upvoteRatio: `${post.upvote_ratio * maxPercentage}%`,
+    downs: post.downs || Math.round(post.ups / post.upvote_ratio - post.ups), // post.downs is always 0 for some reason
+    permalink: `https://www.reddit.com${post.permalink}`,
+    imageURL: /^https?:\/\//i.test(imageURL) ? imageURL : `https://reddit.com${imageURL}`
   };
+}
 
 /** @type {command<'both', false>} */
 module.exports = {
@@ -44,7 +49,8 @@ module.exports = {
         {
           name: 'subreddit',
           type: 'String',
-          autocompleteOptions() { return (this.focused.value.startsWith('r/') ? this.focused.value.slice(2) : this.focused.value).replaceAll(/\W/g, ''); }
+          /* eslint-disable-next-line sonarjs/anchor-precedence -- intentional; suggested fix triggers different rule */
+          autocompleteOptions() { return this.focused.value.replaceAll(/^r\\|\W/g, ''); }
         },
         { name: 'type', type: 'String' },
         { name: 'filter_nsfw', type: 'Boolean' }
@@ -61,10 +67,8 @@ module.exports = {
     if (subreddit.startsWith('r/')) subreddit = subreddit.slice(2);
     subreddit = subreddit.replaceAll(/\W/g, '');
 
-    let post;
-
-    if (cachedSubreddits.has(`${subreddit}_${type}`)) post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`), filterNSFW);
-    else {
+    let post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`), filterNSFW);
+    if (!post) {
       let /** @type {import('./reddit').RedditResponse | import('./reddit').RedditErrorResponse} */ res;
       try {
         res = await fetch(`https://oauth.reddit.com/r/${subreddit}/${type}.json`, {
@@ -72,7 +76,7 @@ module.exports = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
           },
           follow: 1
-        }).then(res => res.json());
+        }).then(async res => res.json());
       }
       catch (err) {
         if (err.type != 'max-redirect') throw err;

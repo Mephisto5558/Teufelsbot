@@ -1,6 +1,8 @@
+/* eslint no-underscore-dangle: [warn, {allow: [_hoistedOptions]}] */
+
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, userMention } = require('discord.js'),
-  { secToMs, minToMs } = require('../toMs.js'),
+  { minToMs, secToMs } = require('../toMs'),
   BUTTON_TIME = minToMs(15); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
 /** @type {import('.').sendChallengeMention} */
@@ -74,7 +76,7 @@ async function playAgain(interaction, lang) {
 
       for (let i = 0; i < lastRow; i++) for (const button of components[i].components) button.data.disabled = true;
 
-      return interaction.editReply({ components });
+      return void interaction.editReply({ components });
     });
 }
 

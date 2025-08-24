@@ -1,8 +1,11 @@
 const
-  { EmbedBuilder, Colors, Constants, inlineCode, roleMention, channelMention, userMention, bold } = require('discord.js'),
+  { Colors, Constants, EmbedBuilder, bold, channelMention, inlineCode, roleMention, userMention } = require('discord.js'),
   { commandMention } = require('#Utils'),
 
-  getCMDs = /** @param {Client} client */ client => [...client.prefixCommands, ...client.slashCommands].filter(([,e]) => !e.aliasOf).map(([e]) => e).unique();
+  getCMDs = /** @param {Client} client */ client => [...client.prefixCommands, ...client.slashCommands]
+    .filter(([,e]) => !e.aliasOf)
+    .map(([e]) => e)
+    .unique();
 
 /** @type {import('.')} */
 module.exports = {
@@ -33,23 +36,24 @@ module.exports = {
 
     if (this.options.getBoolean('get')) {
       /** @type {[[string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]], [string, (Snowflake | '*')[]]]} */
-      const fieldList = [['roles', roles], ['channels', channels], ['users', users]];
-      const fields = fieldList.filter(([, e]) => !!e.length).map(([k, v]) => ({
-        name: lang(k),
-        value: v.includes('*')
-          ? lang('list.all')
-          : v.map(/** @param {Snowflake} e */ e => {
-            if (k == 'roles') return roleMention(e);
-            return k == 'channels' ? channelMention(e) : userMention(e);
-          }).join(', '),
-        inline: false
-      }));
+      const
+        fieldList = [['roles', roles], ['channels', channels], ['users', users]],
+        fields = fieldList.filter(([, e]) => !!e.length).map(([k, v]) => ({
+          name: lang(k),
+          value: v.includes('*')
+            ? lang('list.all')
+            : v.map(/** @param {Snowflake} e */ e => {
+                if (k == 'roles') return roleMention(e);
+                return k == 'channels' ? channelMention(e) : userMention(e);
+              }).join(', '),
+          inline: false
+        })),
 
-      const embed = new EmbedBuilder({
-        title: lang('list.embedTitle', command),
-        color: Colors.White,
-        ...fields.length ? { fields } : { description: lang('list.embedDescription') }
-      });
+        embed = new EmbedBuilder({
+          title: lang('list.embedTitle', command),
+          color: Colors.White,
+          ...fields.length ? { fields } : { description: lang('list.embedDescription') }
+        });
 
       return this.editReply({ embeds: [embed] });
     }
@@ -59,7 +63,12 @@ module.exports = {
       return this.editReply(lang(users.includes('*') ? 'enabled' : 'disabled', inlineCode(command)));
     }
 
-    if (users.includes('*')) return this.editReply(lang('isDisabled', { command: inlineCode(command), commandMention: commandMention(`${this.commandName} toggle_command`, this.command.id) }));
+    if (users.includes('*')) {
+      return this.editReply(lang('isDisabled', {
+        command: inlineCode(command),
+        commandMention: commandMention(`${this.commandName} toggle_command`, this.command.id)
+      }));
+    }
 
     for (const [typeIndex, typeFilter] of ['role', 'member', 'channel'].entries()) {
       const ids = this.options.data[0].options.filter(e => e.name.includes(typeFilter)).map(e => e.value).unique();

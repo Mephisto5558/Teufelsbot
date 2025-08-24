@@ -1,13 +1,15 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection } = require('discord.js'),
-  fetch = require('node-fetch').default,
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, Colors, EmbedBuilder } = require('discord.js'),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
+  fetch = require('node-fetch').default,
+
   INCHES_IN_FEET = 12,
   CENTIMETERS_IN_METER = 100,
   CENTIMETERS_IN_INCH = 2.54,
   KILOGRAMS_IN_POUND = 2.205,
 
-  /** @type {Collection<string, { height: string, name: string, types: string[], abilities: Record<string, string>, gender?: string[], family: Record<string, string> }>} */
+  /* eslint-disable-next-line @stylistic/max-len -- cannot really do much about this one */
+  /** @type {Collection<string, { height: string, weight: string, name: string, types: string[], abilities: Record<string, string>, gender?: string[], family: Record<string, string> }>} */
   cache = new Collection();
 
 /** @type {command<'both', false>} */
@@ -29,7 +31,7 @@ module.exports = {
 
     let res = cache.get(pokemon.toLowerCase());
     if (!res) {
-      try { res = (await fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(e => e.json()))?.[0]; }
+      try { res = (await fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(async e => e.json()))?.[0]; }
       catch (err) {
         if (err.type != 'invalid-json') throw err;
         return msg.edit(lang('invalidJson'));
@@ -63,13 +65,13 @@ module.exports = {
           iconURL: `https://play.pokemonshowdown.com/sprites/ani/${name}.gif`
         },
         fields: [
-          { name: lang('types'), value: res.types.join(', '), inline: false },
-          { name: lang('abilities'), value: `${res.abilities.normal}${res.abilities.hidden ? ' and ' + res.abilities.hidden : ''}.`, inline: false },
-          { name: lang('genderRatio'), value: res.gender?.join(', ') ?? lang('noGender'), inline: false },
-          { name: lang('heightWeight'), value: `${res.height}, ${(Number.parseFloat(res.weight) / KILOGRAMS_IN_POUND).toFixed(2)}kg`, inline: false },
-          { name: lang('evolutionLine'), value: res.family.evolutionLine.join(', ') + lang('currentStage', res.family.evolutionStage), inline: false },
-          { name: lang('gen'), value: res.gen, inline: false }
-        ]
+          [lang('types'), res.types.join(', ')],
+          [lang('abilities'), `${res.abilities.normal}${res.abilities.hidden ? ' and ' + res.abilities.hidden : ''}.`],
+          [lang('genderRatio'), res.gender?.join(', ') ?? lang('noGender')],
+          [lang('heightWeight'), `${res.height}, ${(Number.parseFloat(res.weight) / KILOGRAMS_IN_POUND).toFixed(2)}kg`],
+          [lang('evolutionLine'), res.family.evolutionLine.join(', ') + lang('currentStage', res.family.evolutionStage)],
+          [lang('gen'), res.gen]
+        ].map(([k, v]) => ({ name: k, value: v, inline: false }))
       }),
       component = new ActionRowBuilder({
         components: [

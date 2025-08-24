@@ -1,13 +1,13 @@
 const
-  { Collection, GuildMember, inlineCode, MessageFlags } = require('discord.js'),
-  { startRecording, recordControls } = require('./record_manage.js'),
+  { Collection, GuildMember, MessageFlags, inlineCode } = require('discord.js'),
+  { recordControls, startRecording } = require('./record_manage'),
 
   /** @type {Collection<Snowflake, Collection<Snowflake, { userId: Snowflake, allowed: boolean }[]>>} */
   cache = new Collection();
 
 /** @type {import('.').record} */
 module.exports = async function record(lang, mode, requesterId, voiceChannelId, isPublic) {
-  lang.__boundArgs__[0].backupPath[0] = 'commands.premium.record';
+  lang.config.backupPath[0] = 'commands.premium.record';
 
   switch (mode) {
     case 'memberAllow':
@@ -31,7 +31,7 @@ module.exports = async function record(lang, mode, requesterId, voiceChannelId, 
       if (this.user.id != requesterId) return;
 
       cache.get(this.guild.id)?.delete(voiceChannelId);
-      if (!(cache.get(this.guild.id)?.size ?? 0)) cache.delete(this.guild.id);
+      if (!cache.get(this.guild.id)?.size) cache.delete(this.guild.id);
 
       return this.message.edit({ content: lang('canceled'), embeds: [], components: [] });
 

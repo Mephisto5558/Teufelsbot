@@ -1,11 +1,11 @@
 const
-  { EmbedBuilder, Colors, inlineCode } = require('discord.js'),
-  { hasPerm, createProxy } = require('./serverbackup_utils.js'),
+  { Colors, EmbedBuilder, inlineCode } = require('discord.js'),
+  { createProxy, hasPerm } = require('./serverbackup_utils'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
 /** @type {import('.').serverbackup} */
 module.exports = async function serverbackup(lang, _mode, id, option, clearGuildBeforeRestore) {
-  lang.__boundArgs__[0].backupPath.push('commands.administration.serverbackup.load');
+  lang.config.backupPath.push('commands.administration.serverbackup.load');
 
   for (const component of this.message.components[0].components) component.data.disabled = true;
   await this.update({ components: this.message.components });
@@ -32,7 +32,7 @@ module.exports = async function serverbackup(lang, _mode, id, option, clearGuild
       clearGuildBeforeRestore: clearGuildBeforeRestore == 'true'
     });
 
-    return msg.edit({ embeds: [embed.setDescription(lang('success', inlineCode(backup.id)))] });
+    return void msg.edit({ embeds: [embed.setDescription(lang('success', inlineCode(backup.id)))] });
   }
   catch (err) {
     void msg.edit({ embeds: [embed.setDescription(lang('error'))] });

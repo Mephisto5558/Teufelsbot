@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, TimestampStyles, inlineCode } = require('discord.js'),
+  { Colors, EmbedBuilder, TimestampStyles, inlineCode } = require('discord.js'),
   { timeFormatter: { msInSecond, timestamp }, toMs: { secToMs } } = require('#Utils'),
   maxPercentage = 100,
   embedUpdateMs = secToMs(4); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
@@ -42,9 +42,9 @@ module.exports = {
         wsPings.push(this.client.ws.ping);
 
         const startMessagePing = performance.now();
-        await msg.edit({ embeds: [embed.setDescription(
-          lang('average.loading', { current: inlineCode(i), target: inlineCode(maxPings), timestamp: timestamp(Date.now() + embedUpdateMs, TimestampStyles.RelativeTime) })
-        )] });
+        await msg.edit({ embeds: [embed.setDescription(lang('average.loading', {
+          current: inlineCode(i), target: inlineCode(maxPings), timestamp: timestamp(Date.now() + embedUpdateMs, TimestampStyles.RelativeTime)
+        }))] });
         msgPings.push(performance.now() - startMessagePing);
       }
 
@@ -54,8 +54,9 @@ module.exports = {
       wsPings.sort((a, b) => a - b);
       msgPings.sort((a, b) => a - b);
 
-      const averageWsPing = Math.round(wsPings.reduce((a, b) => a + b, 0) / maxPings * maxPercentage) / maxPercentage;
-      const averageMsgPing = Math.round(msgPings.reduce((a, b) => a + b, 0) / maxPings * maxPercentage) / maxPercentage;
+      const
+        averageWsPing = Math.round(wsPings.reduce((a, b) => a + b, 0) / maxPings * maxPercentage) / maxPercentage,
+        averageMsgPing = Math.round(msgPings.reduce((a, b) => a + b, 0) / maxPings * maxPercentage) / maxPercentage;
 
       embed.data.description = lang('average.embedDescription', {
         duration,

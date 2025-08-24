@@ -1,8 +1,9 @@
 const
   { bold } = require('discord.js'),
-  cooldowns = require('../cooldowns.js'),
-  { removeAfkStatus, sendAfkMessages } = require('../afk.js'),
-  { secToMs } = require('../toMs.js'),
+  { removeAfkStatus, sendAfkMessages } = require('../afk'),
+  cooldowns = require('../cooldowns'),
+  { secToMs } = require('../toMs'),
+
   MESSAGES_COOLDOWN = secToMs(5), /* eslint-disable-line @typescript-eslint/no-magic-numbers */
   WORDCOUNT_MIN_CHARS = 3;
 
@@ -28,7 +29,10 @@ async function handleCounting() {
       lastAuthor: this.user.id,
       highScore: Math.max(countingData.highScore ?? 0, countingData.lastNumber + 1)
     });
-    await this.guild.updateDB('channelMinigames.countingHighScore', Math.max(this.guild.db.channelMinigames.countingHighScore ?? 0, countingData.lastNumber + 1));
+    await this.guild.updateDB(
+      'channelMinigames.countingHighScore',
+      Math.max(this.guild.db.channelMinigames.countingHighScore ?? 0, countingData.lastNumber + 1)
+    );
 
     return this.react('✅');
   }
@@ -42,7 +46,10 @@ async function handleCounting() {
   return this.reply(
     this.client.i18n.__(
       { locale: this.guild.localeCode }, 'events.message.counting.error',
-      { lastNumber: bold(countingData.lastNumber), channelHighScore: bold(countingData.highScore ?? 0), guildHighscore: bold(this.guild.db.channelMinigames?.countingHighScore ?? 0) }
+      {
+        lastNumber: bold(countingData.lastNumber), channelHighScore: bold(countingData.highScore ?? 0),
+        guildHighscore: bold(this.guild.db.channelMinigames?.countingHighScore ?? 0)
+      }
     )
     + '\n' + bold(this.client.i18n.__(
       { locale: this.guild.localeCode },
@@ -86,7 +93,9 @@ async function handleWordchain() {
   await this.guild.updateDB(`channelMinigames.wordchain.${this.channel.id}`, { chainedWords: 0 });
   if (wordchainData.chainedWords > 1) {
     return this.reply(
-      this.client.i18n.__({ locale: this.guild.localeCode }, 'events.message.wordchain.error', { lastChar: bold(lastWordChar), count: bold(wordchainData.chainedWords) })
+      this.client.i18n.__(
+        { locale: this.guild.localeCode }, 'events.message.wordchain.error', { lastChar: bold(lastWordChar), count: bold(wordchainData.chainedWords) }
+      )
       + '\n' + bold(this.client.i18n.__({ locale: this.guild.localeCode }, msgId))
     );
   }
@@ -96,30 +105,39 @@ async function handleWordchain() {
  * @this {Message<true>}
  * @param {string} cleanMsg */
 async function handleWordcounter(cleanMsg) {
-  /* eslint-disable-next-line regexp/no-super-linear-move -- char amount is limited to 4000 */
-  const wordCount = cleanMsg.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu).length; // Matches letter(s) that can have apostrophes in them
+  const
+    /* eslint-disable-next-line regexp/no-super-linear-move -- char amount is limited to 4000 */
+    wordCount = cleanMsg.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu).length, // Matches letter(s) that can have apostrophes in them
+    dbPromises = [];
 
-  const dbPromises = [];
   if (this.guild.db.wordCounter?.enabled) {
-    const { wordCounter } = this.guild.db;
-    const memberConter = wordCounter.members[this.user.id];
+    const
+      { wordCounter } = this.guild.db,
+      memberConter = wordCounter.members[this.user.id];
 
     dbPromises.push(
       this.guild.updateDB('wordCounter.sum', wordCounter.sum + wordCount),
       this.guild.updateDB(`wordCounter.channels.${this.channel.id}`, (wordCounter.channels[this.channel.id] ?? 0) + wordCount),
       this.guild.updateDB(`wordCounter.members.${this.user.id}.sum`, (memberConter?.sum ?? 0) + wordCount),
-      this.guild.updateDB(`wordCounter.members.${this.user.id}.channels.${this.channel.id}`, (memberConter?.channels[this.channel.id] ?? 0) + wordCount)
+      this.guild.updateDB(
+        `wordCounter.members.${this.user.id}.channels.${this.channel.id}`,
+        (memberConter?.channels[this.channel.id] ?? 0) + wordCount
+      )
     );
   }
 
   if (this.user.db.wordCounter?.enabled) {
-    const { wordCounter } = this.user.db;
-    const guildCounter = wordCounter.guilds[this.guild.id];
+    const
+      { wordCounter } = this.user.db,
+      guildCounter = wordCounter.guilds[this.guild.id];
 
     dbPromises.push(
       this.user.updateDB('wordCounter.sum', wordCounter.sum + wordCount),
       this.user.updateDB(`wordCounter.guilds.${this.guild.id}.sum`, (guildCounter?.sum ?? 0) + wordCount),
-      this.user.updateDB(`wordCounter.guilds.${this.guild.id}.channels.${this.channel.id}`, (guildCounter?.channels[this.channel.id] ?? 0) + wordCount)
+      this.user.updateDB(
+        `wordCounter.guilds.${this.guild.id}.channels.${this.channel.id}`,
+        (guildCounter?.channels[this.channel.id] ?? 0) + wordCount
+      )
     );
   }
 
@@ -138,11 +156,13 @@ function runMessages() {
   if (this.guild.db.triggers) replyToTriggers.call(this);
   if (Number(this.originalContent)) void handleCounting.call(this);
   if (this.originalContent.length > WORDCOUNT_MIN_CHARS) {
-    const cleanMsg = this.content.replaceAll(/<[#/:@t]:?(?:[\s\w]+:)?(?:\w|\d+)>/g, ''); // Removes emoji, timestamp, command, member and channel mentions
+    // Removes emoji, timestamp, command, member and channel mentions
+    const cleanMsg = this.content.replaceAll(/<[#/:@t]:?(?:[\s\w]+:)?(?:\w|\d+)>/g, '');
     if (cleanMsg.length > WORDCOUNT_MIN_CHARS) void handleWordcounter.call(this, cleanMsg);
   }
 
-  // Regex to match any letter from any language (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes)
+  /* Regex to match any letter from any language
+     (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes) */
   else if (/^\p{L}+$/u.test(this.originalContent)) void handleWordchain.call(this);
   if (!this.originalContent.toLowerCase().includes('--afkignore') && !(this.originalContent.startsWith('(') && this.originalContent.endsWith(')')))
     void removeAfkStatus.call(this);

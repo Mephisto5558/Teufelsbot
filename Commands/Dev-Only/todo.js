@@ -1,4 +1,4 @@
-const { hyperlink, channelLink } = require('discord.js');
+const { channelLink, hyperlink } = require('discord.js');
 
 /** @type {command<'prefix'>} */
 module.exports = {
@@ -7,8 +7,9 @@ module.exports = {
   prefixCommand: true,
 
   async run(lang) {
-    const { domain, port = 0, todo, vote } = this.client.config.website;
-    const domainUrl = domain + (port ? ':' + port : '');
+    const
+      { domain = 'missingdomain', port = 0, todo, vote } = this.client.config.website, // TODO
+      domainUrl = domain + (port ? `:${port}` : '');
 
     return this.reply(
       (domain ? hyperlink(lang('list'), `<${domainUrl}/${todo}>`) : '')

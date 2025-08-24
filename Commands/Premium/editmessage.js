@@ -1,6 +1,10 @@
 const
-  { ModalBuilder, ActionRowBuilder, TextInputBuilder, TextInputStyle, Constants, codeBlock, hyperlink, MessageFlags } = require('discord.js'),
+  {
+    ActionRowBuilder, Constants, DiscordjsErrorCodes, MessageFlags, ModalBuilder,
+    TextInputBuilder, TextInputStyle, codeBlock, hyperlink
+  } = require('discord.js'),
   { DiscordApiErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute }, toMs: { secToMs } } = require('#Utils'),
+
   MODALSUBMIT_TIMEOUT = msInSecond * secsInMinute / 2; // 30s
 
 /** @type {command<'slash'>} */
@@ -42,12 +46,11 @@ module.exports = {
       }),
       clear = this.options.getBoolean('remove_attachments');
 
-    /** @type {Message?} */
+    /** @type {Message | undefined} */
     let msg, modalInteraction;
     try { msg = await this.options.getChannel('channel', true).messages.fetch(this.options.getString('message_id', true)); }
     catch (err) {
       if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
-
       return this.reply({ content: lang('notFound'), flags: MessageFlags.Ephemeral });
     }
 
@@ -56,7 +59,7 @@ module.exports = {
 
     void this.showModal(modal);
     try { modalInteraction = await this.awaitModalSubmit({ filter: i => i.customId == 'newContent_modal', time: MODALSUBMIT_TIMEOUT }); }
-    catch (err) { if (err.code != 'InteractionCollectorError') throw err; }
+    catch (err) { if (err.code != DiscordjsErrorCodes.InteractionCollectorError) throw err; }
 
     if (!modalInteraction) return this.reply({ content: lang('global.menuTimedOut'), flags: MessageFlags.Ephemeral });
 
@@ -70,7 +73,7 @@ module.exports = {
       if (/^\s*[[{]/.test(content)) json = JSON.parse(content);
       else throw new SyntaxError('Invalid JSON format');
 
-      if (!json.__count__) return modalInteraction.editReply(lang('emptyJson'));
+      if (!json.__count__) return void modalInteraction.editReply(lang('emptyJson'));
 
       if (json.description !== undefined) json = { embeds: [json] };
       else if (json.every?.(e => e.description !== undefined)) json = { embeds: json };
@@ -82,7 +85,11 @@ module.exports = {
       if (!(err instanceof SyntaxError)) return modalInteraction.editReply(lang('error', codeBlock(err.message)));
     }
 
-    if (!json.__count__) await msg.edit(clear ? { content: content.slice(0, messageMaxLength + 1), embeds: [], attachments: [], files: [], components: [] } : content.slice(0, messageMaxLength));
+    if (!json.__count__) {
+      await msg.edit(clear
+        ? { content: content.slice(0, messageMaxLength + 1), embeds: [], attachments: [], files: [], components: [] }
+        : content.slice(0, messageMaxLength));
+    }
 
     return modalInteraction.editReply(lang('success', hyperlink(lang('link'), msg.url)));
   }

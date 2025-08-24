@@ -1,7 +1,7 @@
-import type { Locale } from '@mephisto5558/i18n';
 import type { Database as WebsiteDB } from '@mephisto5558/bot-website/database';
+import type { Locale } from '@mephisto5558/i18n';
 
-import type { userId, cmdStats, guildId, channelId } from './common';
+import type { channelId, cmdStats, guildId, userId } from './common';
 
 export type userSettings = Record<userId, {
   localeCode?: Locale;

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 console.time('Initializing time');
 console.info('Starting...');
 
@@ -5,11 +7,14 @@ const maxStackTraceLimit = 100;
 Error.stackTraceLimit = maxStackTraceLimit;
 
 const
-  { Client, GatewayIntentBits, AllowedMentionsTypes, Partials, ActivityType } = require('discord.js'),
+  { ActivityType, AllowedMentionsTypes, Client, GatewayIntentBits, Partials } = require('discord.js'),
   { WebServer } = require('@mephisto5558/bot-website'),
-  handlers = require('./Handlers'),
+  {
+    GiveawaysManager, configValidator: { configValidationLoop },
+    gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */
+  } = require('#Utils'),
   events = require('./Events'),
-  { GiveawaysManager, configValidator: { configValidationLoop }, gitpull, errorHandler, getCommands, shellExec /* , BackupSystem */ } = require('#Utils'),
+  handlers = require('./Handlers'),
   /* eslint-disable-next-line custom/unbound-method -- fine here */
   { onTick: syncEmojis } = require('./TimeEvents').syncEmojis,
 
@@ -66,13 +71,13 @@ async function processMessageEventCallback(handlerPromises, message) {
       }, errorHandler.bind(this)
     ).init(
       {},
-      { commands: getCommands.call(this, this.i18n.__.bBind(this.i18n, { locale: 'en', undefinedNotFound: true })) },
+      { commands: getCommands.call(this, this.i18n.getTranslator({ locale: 'en', undefinedNotFound: true })) },
       { votingPath: this.config.website.vote }
     );
   }
 
   handlers.eventHandler.call(this);
-  await events.clientReady.call(this); // Run due to it not being ran on clientReady, before the handler is loaded
+  await events.clientReady.call(this); // run due to it not being ran on clientReady, before the handler is loaded
 }
 
 /**
@@ -107,11 +112,14 @@ void (async function main() {
   if (newClient.botType != 'dev') newClient.giveawaysManager = new GiveawaysManager(newClient);
 
   /** Event handler gets loaded in {@link processMessageEventCallback} after the parent process exited to prevent duplicate code execution */
-  const handlerPromises = Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(([,handler]) => handler.call(newClient));
-  handlerPromises.push(newClient.awaitReady().then(app => app.client.config.devIds.add(app.client.user.id).add('owner' in app.owner ? app.owner.owner.id : app.owner?.id)));
+  const
+    handlerPromises = [
+      ...Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(async ([,handler]) => handler.call(newClient)),
+      newClient.awaitReady().then(app => app.client.config.devIds.add(app.owner?.owner?.id ?? app.owner?.id))
+    ],
 
-  /** @type {Client<true>} */
-  const client = await loginClient.call(newClient, process.env.token);
+    /** @type {Client<true>} */
+    client = await loginClient.call(newClient, process.env.token);
 
   /** @param {string} emoji */
   globalThis.getEmoji = emoji => client.application.emojis.cache.find(e => e.name == emoji)?.toString();
@@ -129,7 +137,10 @@ void (async function main() {
 
   void client.db.update('botSettings', `startCount.${client.botType}`, (client.settings.startCount[client.botType] ?? 0) + 1);
 
-  log(`Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers in ${client.i18n.availableLocales.size} languages.\n`);
+  log(
+    `Ready to serve in ${client.channels.cache.size} channels on ${client.guilds.cache.size} servers `
+    + `in ${client.i18n.availableLocales.size} languages.\n`
+  );
   console.timeEnd('Starting time');
 
   if (client.config.enableConsoleFix) {
@@ -141,7 +152,7 @@ void (async function main() {
   }
 
   process
-    .on('unhandledRejection', err => errorHandler.call(client, err))
-    .on('uncaughtExceptionMonitor', err => errorHandler.call(client, err))
-    .on('uncaughtException', err => errorHandler.call(client, err));
+    .on('unhandledRejection', async err => errorHandler.call(client, err))
+    .on('uncaughtExceptionMonitor', async err => errorHandler.call(client, err))
+    .on('uncaughtException', async err => errorHandler.call(client, err));
 })();

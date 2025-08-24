@@ -1,6 +1,30 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError, codeBlock } = require('discord.js'),
-  { DiscordApiErrorCodes, constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionrowMaxAmt, actionRowMaxButtonAmt }, timeFormatter: { msInSecond } } = require('#Utils');
+  {
+    DiscordApiErrorCodes, timeFormatter: { msInSecond },
+    constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionrowMaxAmt, actionRowMaxButtonAmt }
+  } = require('#Utils');
+
+/**
+ * @this {ThisParameterType<NonNullable<command<'slash'>['run']>>}
+ * @param {Snowflake} msgId */
+async function getEditableMessage(msgId) {
+  let msg;
+
+  try { msg = await this.channel.messages.fetch(msgId); }
+  catch (err) {
+    if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
+    return void this.editReply(lang('msgNotFound'));
+  }
+
+  if (msg.user.id != this.client.user.id) return void this.editReply(lang('botIsNotAuthor'));
+  if (
+    msg.components.length >= messageActionrowMaxAmt && this.options.getBoolean('new_row')
+    || msg.components[messageActionrowMaxAmt - 1].components.length >= actionRowMaxButtonAmt
+  ) return void this.editReply(lang('buttonLimitReached'));
+
+  return msg;
+}
 
 /** @type {command<'slash'>} */
 module.exports = {
@@ -63,42 +87,32 @@ module.exports = {
     if (!label && !emoji) label = '\u200E'; // U+200E (LEFT-TO-RIGHT MARK) is used as invisible text
 
     if (isLink) {
-      if (!/^(?:(?:discord|https?):\/\/)?[\w\-.]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
       if (!url.startsWith('http') && !url.startsWith('discord://')) url = `https://${url}`;
+      if (!/^(?:discord|https?):\/\/[\w\-.]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
     }
 
-    let msg;
-    if (msgId) {
-      try { msg = await this.channel.messages.fetch(msgId); }
-      catch (err) {
-        if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
-        return this.editReply(lang('msgNotFound'));
-      }
-
-      if (msg.user.id != this.client.user.id) return this.editReply(lang('botIsNotAuthor'));
-      if (msg.components.length >= messageActionrowMaxAmt && this.options.getBoolean('new_row') || msg.components[messageActionrowMaxAmt - 1].components.length >= actionRowMaxButtonAmt)
-        return this.editReply(lang('buttonLimitReached'));
-    }
+    const msg = await getEditableMessage.call(this, msgId);
+    if (msgId && !msg) return;
 
     try {
       const button = new ButtonBuilder(custom
         ? JSON.parse(custom)
         : {
-          style: this.options.getNumber('style', true),
-          label, emoji, url
-        });
+            style: this.options.getNumber('style', true),
+            label, emoji, url
+          });
 
       if (!isLink) button.setCustomId(`buttonCommandButton_${Date.now()}`);
 
       const components = msg?.components ? [...msg.components] : [];
 
-      if (!(msg?.components.length ?? 0) || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
+      if (!msg?.components.length || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
         components.push(new ActionRowBuilder({ components: [button] }));
 
       await (msg?.edit({ content, components }) ?? this.channel.send({ content, components }));
 
       delete button.data.custom_id;
-      return this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(button.data.filterEmpty()))));
+      return void this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(button.data.filterEmpty()))));
     }
     catch (err) {
       if (!(err instanceof DiscordAPIError) && !err.message?.includes('JSON at')) throw err;

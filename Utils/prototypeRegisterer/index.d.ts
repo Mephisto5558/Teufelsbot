@@ -1,5 +1,5 @@
+import type { CommandInteractionOption, GuildTextBasedChannel, InteractionResponse, MessageMentionOptions, RepliableInteraction } from 'discord.js';
 import type TicTacToe from 'discord-tictactoe';
-import type { GuildTextBasedChannel, InteractionResponse, MessageMentionOptions, RepliableInteraction, CommandInteractionOption } from 'discord.js';
 
 export {
   LogClass as Log,
@@ -19,6 +19,7 @@ declare enum LogLevels {
   error = 4
 }
 
+/* eslint-disable-next-line @typescript-eslint/consistent-type-definitions */
 interface Log extends CallableFunction {
   date: `${number}${number}-${number}${number}-${number}${number}${number}${number}`;
   logLevel: keyof typeof LogLevels;
@@ -53,7 +54,9 @@ declare function customReply(
   this: RepliableInteraction | Message,
 
   // options: string | InteractionReplyOptions | MessagePayload | MessageEditOptions,
-  options: string | Parameters<RepliableInteraction['reply' | 'editReply' | 'followUp'] | Message['edit' | 'reply'] | GuildTextBasedChannel['send']>['0'],
+  options: string | Parameters<
+    RepliableInteraction['reply' | 'editReply' | 'followUp'] | Message['edit' | 'reply'] | GuildTextBasedChannel['send']
+  >['0'],
   deleteTime?: number,
   allowedMentions?: MessageMentionOptions
 ): Promise<InteractionResponse | Message>;

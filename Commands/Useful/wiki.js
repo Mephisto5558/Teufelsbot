@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, bold } = require('discord.js'),
+  { Colors, EmbedBuilder, bold } = require('discord.js'),
 
   /** @type {import('../../node_modules/wikijs/index')} */
   { default: wikiInit } = require('wikijs'),
@@ -21,8 +21,8 @@ module.exports = {
       query = this.options?.getString('query') ?? this.content,
       message = await this.customReply(lang('global.loading', getEmoji('loading'))),
       headers = { 'User-Agent': 'Discord Bot' + (this.client.config.github.repo ? ` (${this.client.config.github.repo})` : '') },
-      defaultLangWiki = wikiInit({ headers, apiUrl: `https://${this.client.i18n.config.defaultLocale}.wikipedia.org/w/api.php` }),
-      wiki = wikiInit({ headers, apiUrl: `https://${this.guild?.localeCode ?? lang.__boundThis__.config.defaultLocale}.wikipedia.org/w/api.php` }),
+      defaultLangWiki = wikiInit({ headers, apiUrl: `https://${lang.defaultConfig.defaultLocale}.wikipedia.org/w/api.php` }),
+      wiki = wikiInit({ headers, apiUrl: `https://${this.guild?.localeCode ?? lang.defaultConfig.defaultLocale}.wikipedia.org/w/api.php` }),
 
       /** @type {string | undefined} */
       result = query ? (await wiki.search(query, 1)).results[0] ?? (await defaultLangWiki.search(query, 1)).results[0] : (await wiki.random(1))[0];
@@ -73,8 +73,9 @@ module.exports = {
       .flatMap(e => {
         if (e.length < messageMaxLength) return [e];
 
-        const halfIndex = Math.floor(e.length / 2);
-        const lastIndexBeforeHalf = e.lastIndexOf('.', halfIndex) + 1 || halfIndex;
+        const
+          halfIndex = Math.floor(e.length / 2),
+          lastIndexBeforeHalf = e.lastIndexOf('.', halfIndex) + 1 || halfIndex;
 
         return [e.slice(0, lastIndexBeforeHalf), e.slice(lastIndexBeforeHalf)];
       })

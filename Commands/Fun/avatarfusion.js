@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, ImageFormat, ALLOWED_SIZES } = require('discord.js'),
+  { ALLOWED_SIZES, Colors, EmbedBuilder, ImageFormat } = require('discord.js'),
   { Canvas, loadImage } = require('skia-canvas'),
   { getTargetMembers, toMs: { secToMs } } = require('#Utils'),
   IMAGE_SIZE = ALLOWED_SIZES[5]; /* eslint-disable-line @typescript-eslint/no-magic-numbers */
@@ -37,7 +37,11 @@ module.exports = {
     });
 
     if (base.id == overlay.id) {
-      embed.data.image = { url: type == 'server' ? base.displayAvatarURL({ forceStatic: true, size: IMAGE_SIZE }) : base.user.avatarURL({ forceStatic: true, size: IMAGE_SIZE }) };
+      embed.data.image = {
+        url: type == 'server'
+          ? base.displayAvatarURL({ forceStatic: true, size: IMAGE_SIZE })
+          : base.user.avatarURL({ forceStatic: true, size: IMAGE_SIZE })
+      };
       return this.customReply({ embeds: [embed] });
     }
 

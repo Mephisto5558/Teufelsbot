@@ -1,10 +1,8 @@
 const
-  { EmbedBuilder, Colors } = require('discord.js'),
+  { Colors, EmbedBuilder } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { timeFormatter: { msInSecond, secsInDay } } = require('#Utils'),
-
-  /** @type {Client['config']} */
-  { github: ghConfig = {} } = require(require('node:path').resolve(process.cwd(), 'config.json')),
+  { timeFormatter: { msInSecond, secsInDay }, getConfig } = require('#Utils'),
+  { github: ghConfig = {} } = getConfig(),
 
   CACHE_TIMEOUT = msInSecond * secsInDay / 2, // 12h
   MAX_COMMIT_LENGTH = 100,
@@ -18,9 +16,8 @@ let commitsCache;
  * @this {Client}
  * @returns {Promise<string[]>} */
 async function getCommits() {
-  const { github } = this.config;
-
   const
+    { github } = this.config,
     res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/commits?per_page=25`, {
       method: 'GET',
       headers: {
@@ -28,9 +25,7 @@ async function getCommits() {
         'User-Agent': `Bot ${github.repo}`
       }
     }),
-
-    /** @type {{ commit: { message: string } }[]} */
-    json = await res.json();
+    /** @type {{ commit: { message: string } }[]} */ json = await res.json();
 
   if (!res.ok) throw new Error(JSON.stringify(json));
 
@@ -62,7 +57,9 @@ module.exports = {
 
     if (!commitsCache) {
       commitsCache = changelog;
-      setTimeout(() => { commitsCache = undefined; }, CACHE_TIMEOUT);
+      setTimeout(() => {
+        commitsCache = undefined;
+      }, CACHE_TIMEOUT);
     }
 
     return this.customReply({ embeds: [embed] });

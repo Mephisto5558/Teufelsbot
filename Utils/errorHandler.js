@@ -1,9 +1,14 @@
 const
-  { EmbedBuilder, ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle, ComponentType, Colors, Message, BaseInteraction, codeBlock, hyperlink, inlineCode } = require('discord.js'),
+  {
+    ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle,
+    Colors, CommandInteraction, ComponentType, EmbedBuilder, Message,
+    MessageComponentInteraction, ModalSubmitInteraction, codeBlock, hyperlink, inlineCode
+  } = require('discord.js'),
   fetch = require('node-fetch').default,
-  { msInSecond, secsInMinute } = require('./timeFormatter.js'),
   { JSON_SPACES } = require('./constants'),
+  { msInSecond, secsInMinute } = require('./timeFormatter'),
   DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
+
   cwd = process.cwd();
 
 /** @type {import('.').errorHandler} */
@@ -17,7 +22,10 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
       return acc;
     }, {}),
     seen = new Set(),
-    message = Object.values(contextData).find(e => e instanceof Message || e instanceof BaseInteraction);
+
+    /** @type {Message | CommandInteraction | (MessageComponentInteraction | ModalSubmitInteraction) & { commandName: void } | undefined} */
+    message = Object.values(contextData)
+      .find(e => [Message, CommandInteraction, MessageComponentInteraction, ModalSubmitInteraction].some(type => e instanceof type));
 
   /**
    * @param {string} _
@@ -51,13 +59,15 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
 
   if (!message || !lang) return;
 
-  lang.__boundArgs__[0].backupPath[0] = 'others.errorHandler';
+  lang.config.backupPath[0] = 'others.errorHandler';
 
   const
     { aliasOf } = this.slashCommands.get(message.commandName) ?? this.prefixCommands.get(message.commandName) ?? {},
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
-      description: lang('embedDescription', inlineCode(aliasOf ? this.slashCommands.get(aliasOf)?.name ?? this.prefixCommands.get(aliasOf)?.name : message.commandName)),
+      description: lang('embedDescription', inlineCode(aliasOf
+        ? this.slashCommands.get(aliasOf)?.name ?? this.prefixCommands.get(aliasOf)?.name
+        : message.commandName)),
       footer: { text: lang('embedFooterText') },
       color: Colors.DarkRed
     }),
@@ -87,7 +97,8 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
             Authorization: `Token ${process.env.githubKey}`,
             'User-Agent': `Bot ${github.repo}`
           },
-          title = `${err.name}: "${err.message}" in ${message.inGuild() ? '' : 'DM '}command "${message.commandName}"`,
+          title = `${err.name}: "${err.message}" in ${message.inGuild() ? '' : 'DM '}`
+            + (message.commandName ? `command "${message.commandName}"` : ''),
           issues = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
             method: 'GET', headers
           }),
@@ -99,15 +110,16 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
 
         if (issuesJson.filter(e => e.title == title && e.state == 'open').length) {
           embed.data.description = lang('alreadyReported', hyperlink(lang('link'), issuesJson[0].html_url));
-          return msg.edit({ embeds: [embed], components: [] });
+          return void msg.edit({ embeds: [embed], components: [] });
         }
 
         const
           res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/issues`, {
             headers, method: 'POST',
             body: JSON.stringify({
-              title, body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n${err.stack.replaceAll(cwd, '[cwd]')}`,
-              labels: ['bug']
+              title, labels: ['bug'],
+              body: `<h3>Reported by ${button.user.tag} (${button.user.id}) with bot ${button.client.user.id}</h3>\n\n`
+                + err.stack.replaceAll(cwd, '[cwd]')
             })
           }),
 
@@ -116,18 +128,28 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
 
         if (!res.ok) throw new Error(JSON.stringify(json));
 
-        const files = Object.entries(contextData).map(([k, v]) => new AttachmentBuilder(Buffer.from(JSON.stringify(v, stringifyReplacer, JSON_SPACES)), { name: `${k.toLowerCase()}.json` }));
+        const files = Object.entries(contextData).map(([k, v]) => new AttachmentBuilder(
+          Buffer.from(JSON.stringify(v, stringifyReplacer, JSON_SPACES)),
+          { name: `${k.toLowerCase()}.json` }
+        ));
 
         for (const devId of devIds) {
-          try { await (await this.users.fetch(devId)).send({ content: json.html_url, files }); }
+          try { await this.users.send(devId, { content: json.html_url, files }); }
           catch (err) {
-            if (err.code == DiscordAPIErrorCodes.UnknownUser) log.error(`Unknown Dev ID "${devId}"`);
-            else if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
+            if (err.code == DiscordAPIErrorCodes.UnknownUser) {
+              log.error(`Unknown Dev ID "${devId}". Removing from loaded config.`);
+              devIds.delete(devId);
+            }
+            else if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser)
+              log.error(`Failed to send error report to dev ${devId}:`, err);
           }
         }
 
-        /* eslint-disable-next-line unicorn/no-null -- `null` must be used here, as `undefined` is interpreted as 'Keep current data' */
-        return msg.edit({ embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', hyperlink(lang('link'), json.html_url)))], components: [] });
+        return void msg.edit({
+          /* eslint-disable-next-line unicorn/no-null -- `null` must be used here, as `undefined` is interpreted as 'Keep current data' */
+          embeds: [embed.setFooter(null).setDescription(lang('reportSuccess', hyperlink(lang('link'), json.html_url)))],
+          components: []
+        });
       }
       catch (err) {
         log.error('Failed to report an error:', err.stack);
@@ -141,6 +163,6 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
       if (collected.size) return;
 
       component.components[0].data.disabled = true;
-      return msg.edit({ embeds: [embed], components: [component] });
+      return void msg.edit({ embeds: [embed], components: [component] });
     });
 };

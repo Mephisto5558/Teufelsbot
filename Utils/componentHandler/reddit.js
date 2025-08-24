@@ -1,11 +1,13 @@
 /** @type {import('..').commandExecutionWrapper} */
-const commandExecutionWrapper = require('../commandExecutionWrapper.js');
+const commandExecutionWrapper = require('../commandExecutionWrapper');
 
 /** @type {import('.').reddit} */
 module.exports = async function reddit(lang, subreddit, type, filterNSFW) {
   this.options = {
     getBoolean: () => filterNSFW == 'true',
-    getString: str => str == 'type' ? type : subreddit
+
+    /** @type {(str: string) => boolean} */
+    getString: function (str) { return str == 'type' ? type : subreddit; }
   };
 
   await this.update({ components: [] });

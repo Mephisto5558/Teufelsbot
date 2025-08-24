@@ -1,5 +1,5 @@
 const
-  { Constants, EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, channelMention } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, Constants, EmbedBuilder, channelMention } = require('discord.js'),
   { getTargetChannel, timeFormatter: { msInSecond }, getCommandName } = require('#Utils'),
   collectorTimeout = 3e4;
 
@@ -40,11 +40,11 @@ module.exports = {
             style: ButtonStyle.Success
           })
         ]
-      });
-
-    const
+      }),
       msg = await this.customReply({ embeds: [embed], components: [component] }),
-      collector = msg.createMessageComponentCollector({ filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: collectorTimeout });
+      collector = msg.createMessageComponentCollector({
+        filter: i => i.user.id == this.user.id, componentType: ComponentType.Button, max: 1, time: collectorTimeout
+      });
 
     collector
       .on('collect', async button => {
@@ -82,7 +82,7 @@ module.exports = {
         for (const btn of component.components) btn.data.disabled = true;
 
         embed.data.description = collected.size ? lang('canceledEmbedDescription') : lang('global.menuTimedOut');
-        return msg.customReply({ embeds: [embed], components: [component] });
+        return void msg.customReply({ embeds: [embed], components: [component] });
       });
   }
 };

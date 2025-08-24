@@ -1,15 +1,11 @@
 const
-  { ButtonBuilder, ButtonStyle, ActionRowBuilder, Colors, PermissionFlagsBits, DiscordAPIError, channelMention, userMention } = require('discord.js'),
-  { entersState, joinVoiceChannel, VoiceConnectionStatus, EndBehaviorType, getVoiceConnection } = require('@discordjs/voice'),
-  { Decoder } = require('prism-media').opus,
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, DiscordAPIError, PermissionFlagsBits, channelMention, userMention } = require('discord.js'),
   { createWriteStream } = require('node:fs'),
-  { unlink, access, mkdir } = require('node:fs/promises'),
-
-  /** @type {import('..').shellExec} */
-  shellExec = require('../shellExec.js'),
-
-  /** @type {string?} */
-  ffmpeg = require('ffmpeg-static');
+  { access, mkdir, unlink } = require('node:fs/promises'),
+  { EndBehaviorType, VoiceConnectionStatus, entersState, getVoiceConnection, joinVoiceChannel } = require('@discordjs/voice'),
+  /** @type {string?} */ ffmpeg = require('ffmpeg-static'),
+  { Decoder } = require('prism-media').opus,
+  /** @type {import('..').shellExec} */ shellExec = require('../shellExec');
 
 if (!ffmpeg) throw new Error('no ffmpeg');
 
@@ -52,7 +48,9 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   try { await entersState(connection, VoiceConnectionStatus.Ready, connectionTimeout); }
   catch (err) {
     if (!(err instanceof DiscordAPIError)) throw err;
-    console.log('record_manage Util | enterstate error', JSON.stringify(err)); // this is here to get error codes that may happen, to put them in the line above
+
+    // this is here to get error codes that may happen, to add them to the throw condition
+    log.error('record_manage Util | enterState error', JSON.stringify(err));
     embed.data.description = lang('cantConnect');
     return this.message.edit({ embeds: [embed] });
   }
@@ -110,7 +108,7 @@ module.exports.recordControls = async function recordControls(lang, mode, voiceC
   const filename = `${this.message.createdTimestamp}_${voiceChannelId}_${membersToRecord.join('_')}`;
 
   if (mode == 'pause') {
-    const deaf = this.guild.members.me.voice.deaf;
+    const { deaf } = this.guild.members.me.voice;
 
     await this.guild.members.me.voice.setDeaf(!deaf, `voice record pause/resume button, member ${this.user.tag}`);
 

@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, ButtonBuilder, ButtonStyle, MessageFlags } = require('discord.js'),
+  { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, MessageFlags } = require('discord.js'),
   { msInSecond, secsInWeek } = require('#Utils').timeFormatter;
 
 module.exports = {
@@ -15,13 +15,15 @@ module.exports = {
 
     const
       today = new Date().setHours(0, 0, 0),
-      lang = this.i18n.__.bBind(this.i18n, { backupPath: ['others.timeEvents.votingReminder'] }),
+      lang = this.i18n.getTranslator({ backupPath: ['others.timeEvents.votingReminder'] }),
       embed = new EmbedBuilder({ color: Colors.White }),
       component = new ActionRowBuilder({
         components: [
           new ButtonBuilder({
             style: ButtonStyle.Link,
-            url: `${this.config.website.domain}${this.config.website.port ?? 0 ? ':' + this.config.website.port : ''}/${this.config.website.vote}`
+            url: `${this.config.website.domain}${
+              this.config.website.port ? ':' + this.config.website.port.toString() : ''
+            }/${this.config.website.vote}`
           }),
           new ButtonBuilder({
             style: ButtonStyle.Danger,
@@ -29,15 +31,16 @@ module.exports = {
           })
         ]
       }),
-      users = Object.entries(this.db.get('userSettings')).filter(([, e]) => !e.votingReminderDisabled && e.lastVoted > today - msInSecond * secsInWeek * 2);
+      users = Object.entries(this.db.get('userSettings'))
+        .filter(([, e]) => !e.votingReminderDisabled && e.lastVoted > today - msInSecond * secsInWeek * 2);
 
     log('Started sending voting reminders').debug('Started sending voting reminders');
 
-    let /** @type {import('discord.js').User | undefined} */ user; // required for typing
-    for ({ value: user } of await Promise.allSettled(users.map(e => this.users.fetch(e[0])))) {
-      if (!user) continue;
+    for (const result of await Promise.allSettled(users.map(async e => this.users.fetch(e[0])))) {
+      if (result.status == 'rejected') continue;
 
-      lang.__boundArgs__[0].locale = user.localeCode;
+      const user = result.value;
+      lang.config.locale = user.localeCode;
 
       embed.data.title = lang('embedTitle');
       embed.data.description = lang('embedDescription');

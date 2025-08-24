@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, bold, time, TimestampStyles, MessageFlags, Colors } = require('discord.js'),
+  { Colors, EmbedBuilder, MessageFlags, TimestampStyles, bold, time } = require('discord.js'),
   { commandMention } = require('#Utils'),
   { getTopGuilds } = require('./_utils');
 
@@ -19,7 +19,7 @@ module.exports = {
   ],
 
   async run(lang) {
-    lang.__boundArgs__[0].backupPath.push(`${lang.__boundArgs__[0].backupPath.at(-1)}.${this.options.getSubcommand(true)}`);
+    lang.config.backupPath.push(`${lang.config.backupPath.at(-1)}.${this.options.getSubcommand(true)}`);
 
     if (this.options.getSubcommand(true) == 'enable') {
       const enabled = this.options.getBoolean('enabled', true);
@@ -31,8 +31,11 @@ module.exports = {
       return this.customReply(lang('success', lang(`global.${enabled ? 'enabled' : 'disabled'}`)));
     }
 
-    if (!this.user.db.wordCounter?.enabled)
-      return this.customReply(lang('notEnabledUser', commandMention(`${this.command.name} ${this.options.getSubcommandGroup()} enable`, this.command.id)));
+    if (!this.user.db.wordCounter?.enabled) {
+      return this.customReply(lang(
+        'notEnabledUser', commandMention(`${this.command.name} ${this.options.getSubcommandGroup()} enable`, this.command.id)
+      ));
+    }
 
     const
       embed = new EmbedBuilder({

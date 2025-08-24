@@ -2,28 +2,28 @@ import type { Collection } from 'discord.js';
 
 export type Cache = Collection<`${RedditPost['subreddit']}_${string}`, RedditPage>;
 
-export interface RedditResponse {
+export type RedditResponse = {
   kind: 'Listing';
   data: RedditPage;
-}
+};
 
-export interface RedditErrorResponse {
+export type RedditErrorResponse = {
   error: number;
   message: string;
   reason: string;
-}
+};
 
-export interface RedditPage {
+export type RedditPage = {
   after: string | null;
   before: string | null;
   dist: number | null;
   geo_filter: string | null;
   modhash: string | null;
   children: { kind: 't3'; data: RedditPost }[];
-}
+};
 
 /* eslint-disable @typescript-eslint/no-redundant-type-constituents -- not all api response types are known */
-export interface RedditPost<AUTHOR extends string = string, SUBREDDIT extends string = string, POST_ID extends string = string> {
+export type RedditPost<AUTHOR extends string = string, SUBREDDIT extends string = string, POST_ID extends string = string> = {
   all_awardings: unknown[];
   allow_live_comments: boolean;
   approved_at_utc: number | null;
@@ -166,9 +166,9 @@ export interface RedditPost<AUTHOR extends string = string, SUBREDDIT extends st
   view_count: number | null;
   visited: boolean;
   wls: number;
-}
+};
 
-export interface RedditPreviewImage {
+export type RedditPreviewImage = {
   id: string;
   resolutions: (RedditPreviewImage['source'])[];
   source: {
@@ -177,5 +177,5 @@ export interface RedditPreviewImage {
     height: number;
   };
   variants: Record<string, unknown>;
-}
+};
 /* eslint-enable @typescript-eslint/no-redundant-type-constituents */

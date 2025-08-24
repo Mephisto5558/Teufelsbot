@@ -1,21 +1,22 @@
 import type {
-  DMChannel, GuildChannel, GuildMember, Role, User, Collection, Guild, Snowflake,
-  APIAllowedMentions, Message, BaseInteraction, MessageComponentInteraction,
-  AutocompleteInteraction, CategoryChannel, GuildTextBasedChannel, GuildChannelManager,
-  Webhook, VoiceState, TimestampStylesString, DateResolvable
+  APIAllowedMentions, AutocompleteInteraction, BaseGuildTextChannel, BaseInteraction, CategoryChannel, Collection,
+  DMChannel, DateResolvable, Guild, GuildChannel, GuildChannelManager, GuildMember, GuildTextBasedChannel, Message,
+  MessageComponentInteraction, Role, Snowflake, TimestampStylesString, User, VoiceState, Webhook, WebhookType
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
-import type { GiveawaysManager, GiveawayData } from 'discord-giveaways';
-import type { DB } from '@mephisto5558/mongoose-db';
 import type { I18nProvider } from '@mephisto5558/i18n';
+import type { DB } from '@mephisto5558/mongoose-db';
+import type { GiveawayData, GiveawaysManager } from 'discord-giveaways';
 import type { Database, backupChannel, backupId } from '../types/database';
+import type { Config } from '../types/locals';
 
 export { default as DiscordAPIErrorCodes } from './DiscordAPIErrorCodes.json';
 export { default as prototypeRegisterer } from './prototypeRegisterer';
 
 export declare namespace afk {
-  const nicknamePrefix: string;
-  const nicknameRegex: RegExp;
+  const
+    nicknamePrefix: string,
+    nicknameRegex: RegExp;
 
   function getAfkStatus(this: Interaction | Message, target: GuildMember | User, lang: lang): Promise<Message>;
   function listAfkStatuses(this: GuildInteraction | Message<true>, lang: lang): Promise<Message>;
@@ -41,22 +42,23 @@ export declare namespace afk {
 
 export declare function autocompleteGenerator(
   this: AutocompleteInteraction | Message,
-  command: command<'both', boolean, true>, locale: string
+  command: command<'both', boolean, true>,
+  target: { name: string; value: unknown }, locale: string
 ): { name: string | number; value: string | number }[] | undefined;
 
 type MaybeWithUndefined<X, T extends boolean> = T extends true ? X : X | undefined;
 export declare namespace BackupSystem {
-  interface Options {
+  type Options = {
     dbName?: string;
     maxGuildBackups?: number;
     maxMessagesPerChannel?: number;
     saveImages?: boolean;
     clearGuildBeforeRestore?: boolean;
-  }
+  };
 
-  interface StatusObject {
+  type StatusObject = {
     status?: string;
-  }
+  };
 
   type Backup = Database['backups'][backupId];
 
@@ -89,10 +91,10 @@ export declare namespace BackupSystem {
       allowedMentions: APIAllowedMentions
     ): ReturnType<GuildChannelManager['create']>;
 
-    loadChannelMessages<T extends Webhook | undefined>(
-      channel: GuildTextBasedChannel, messages: backupChannel['messages'], webhook: T,
+    loadChannelMessages<WEBHOOK = Webhook<WebhookType.Incoming>, T extends WEBHOOK | undefined>(
+      channel: BaseGuildTextChannel, messages: backupChannel['messages'], webhook: T,
       maxMessagesPerChannel: number, allowedMentions: APIAllowedMentions
-    ): Promise<T extends Webhook ? T : undefined>;
+    ): Promise<T extends WEBHOOK ? T : WEBHOOK | undefined>;
   };
 
   /* eslint-disable-next-line @typescript-eslint/no-shadow -- false positive */
@@ -141,7 +143,9 @@ export declare namespace BackupSystem {
   }
 }
 
-/** @returns The error key and replacement values for `lang()` or `false` if no error. Returns `true` if error happend but has been handled internally. */
+/**
+ * @returns The error key and replacement values for `lang()` or `false` if no error.
+ * Returns `true` if error happend but has been handled internally. */
 export declare function checkForErrors(
   this: BaseInteraction | Message,
   command: command<'both', boolean, true> | undefined, lang: lang
@@ -155,7 +159,7 @@ export declare function checkTargetManageable(
 
 export declare function commandExecutionWrapper(
   this: BaseInteraction | Message,
-  command: command<'both', boolean, true> | undefined, commandType: string, lang: lang
+  command: command<'both', boolean, true> | undefined, commandType: keyof Database['botSettings']['cmdStats'][string], lang: lang
 ): Promise<Message | undefined>;
 
 /** Formats an application command name and id into a command mention. */
@@ -201,7 +205,7 @@ export declare function getCommandName(command: command | string): string;
 
 export declare function getCommands(
   this: Client,
-  lang: langUNF
+  lang: lang<true>
 ): {
   category: string;
   subTitle: '';
@@ -213,6 +217,8 @@ export declare function getCommands(
     commandAlias: string;
   }[];
 }[];
+
+export declare function getConfig(): Partial<Config>;
 
 export declare function getDirectories(
   path: string
@@ -226,7 +232,8 @@ export declare function getTargetChannel<I extends Interaction | Message, T exte
 
 export declare function __getTargetMember<I extends Interaction | Message, T extends boolean>(
   interaction: I,
-  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T }, seenList: Map<Snowflake, I extends GuildInteraction | Message<true> ? GuildMember : User>
+  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T },
+  seenList: Map<Snowflake, I extends GuildInteraction | Message<true> ? GuildMember : User>
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
 
 /** @default targetOptionName = `target${index}` */
@@ -292,15 +299,16 @@ export declare function timeValidator<T extends string | undefined>(
 ): T extends undefined | '' | '-' | '+' ? [] : string[];
 
 export declare namespace configValidator {
+  type validConfigPrimitives = 'object' | 'string' | 'boolean' | 'number';
+  type validConfigEntry = validConfigPrimitives | [validConfigPrimitives] | { [key: string]: validConfigEntry };
+  type validConfig = Record<string, validConfigEntry>;
+
   function setDefaultConfig(): Partial<Client['config']>;
 
   /** @throws {Error} on invalid key or subkey type. */
   function configValidationLoop(
-    obj: Record<string, unknown>, checkObj: Record<string, unknown>, allowNull?: boolean
+    obj: Record<string, unknown>, checkObj: validConfig, allowNull?: boolean
   ): void;
-
-  type validConfigEntry = 'object' | 'string' | 'boolean' | 'number' | { [key: string]: validConfigEntry };
-  const validConfig: Record<string, validConfigEntry>;
 }
 
 export { TFormatter as timeFormatter };
@@ -320,7 +328,7 @@ declare namespace TFormatter {
   /* eslint-disable @typescript-eslint/no-magic-numbers */
   const
     msInSecond: 1000, secsInMinute: 60, minutesInHour: 60, hoursInDay: 24,
-    daysInWeek: 7, daysInMonthAvg: 30, daysInMonthMax: 31, daysInYear: 365, monthsInYear: 12,
+    daysInWeek: 7, daysInMonthMin: 28, daysInMonthAvg: 30, daysInMonthMax: 31, daysInYear: 365, monthsInYear: 12,
     secsInHour: number, secsInDay: number, secsInWeek: number, secsInMonth: number, secsInYear: number;
   /* eslint-enable @typescript-eslint/no-magic-numbers */
 }

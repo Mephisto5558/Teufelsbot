@@ -1,10 +1,13 @@
 const
-  { EmbedBuilder, Colors, ActionRowBuilder, UserSelectMenuBuilder, ComponentType, PermissionFlagsBits, TimestampStyles, bold, inlineCode } = require('discord.js'),
+  {
+    ActionRowBuilder, Colors, ComponentType, EmbedBuilder, PermissionFlagsBits,
+    TimestampStyles, UserSelectMenuBuilder, bold, inlineCode
+  } = require('discord.js'),
   { getMilliseconds } = require('better-ms'),
   checkTargetManageable = require('../checkTargetManageable'),
-  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json'),
-  { secsInDay, timestamp } = require('../timeFormatter'),
-  { dayToMs, minToMs } = require('../toMs.js');
+  { daysInMonthMin, secsInDay, timestamp } = require('../timeFormatter'),
+  { dayToMs, minToMs } = require('../toMs'),
+  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
 /** @type {import('.').ban_kick_mute} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
@@ -15,14 +18,15 @@ module.exports = async function ban_kick_mute(lang) {
   const resEmbed = new EmbedBuilder({ title: lang('infoEmbedTitle'), color: Colors.Red });
 
   let
-    noMsg, muteDurationMs, muteDurationRelative,
+    noMsg = false,
+    muteDurationMs, muteDurationRelative,
 
     /** @type {number} */
     muteDuration = this.options.getString('duration') ?? 0,
     reason = this.options.getString('reason', true);
 
   if (muteDuration) {
-    muteDuration = getMilliseconds(muteDuration).limit?.({ min: minToMs(1), max: dayToMs(28) }); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
+    muteDuration = getMilliseconds(muteDuration).limit?.({ min: minToMs(1), max: dayToMs(daysInMonthMin) });
     if (!muteDuration || typeof muteDuration == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
 
     muteDurationMs = Date.now() + muteDuration;
@@ -60,7 +64,8 @@ module.exports = async function ban_kick_mute(lang) {
     }
 
     if (this.commandName == 'kick') await target.kick(reason);
-    else if (this.commandName == 'ban') await target.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
+    else if (this.commandName == 'ban')
+      await target.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
     else await target.disableCommunicationUntil(muteDurationMs, reason);
 
     resEmbed.data.description += `${lang('success', { user: bold(target.user.tag), muteDuration, muteDurationRelative })}\n`;
@@ -86,10 +91,10 @@ module.exports = async function ban_kick_mute(lang) {
       .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: minToMs(1), filter: i => i.user.id == this.user.id })
       .on('collect', async selectMenu => {
         await selectMenu.deferUpdate();
+        resEmbed.data.description ??= ''; // Only here for type safety, description is garanteed to be a string
 
         for (const [, selectedMember] of selectMenu.members) {
           const err = checkTargetManageable.call(this, selectedMember, lang);
-
           if (err) {
             resEmbed.data.description += `${lang('error', { err: lang(err), user: selectedMember.user.tag })}\n`;
             continue;
@@ -102,7 +107,8 @@ module.exports = async function ban_kick_mute(lang) {
           }
 
           if (this.commandName == 'kick') await selectedMember.kick(reason);
-          else if (this.commandName == 'ban') await selectedMember.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
+          else if (this.commandName == 'ban')
+            await selectedMember.ban({ reason, deleteMessageSeconds: secsInDay * this.options.getNumber('delete_days_of_messages') });
           else await selectedMember.disableCommunicationUntil(muteDurationMs, reason);
 
           resEmbed.data.description += `${lang('success', { user: bold(selectedMember.user.tag), muteDuration, muteDurationRelative })}\n`;
@@ -122,6 +128,6 @@ module.exports = async function ban_kick_mute(lang) {
         selectComponent.components[0].data.disabled = true;
         selectComponent.components[0].data.placeholder = lang('global.menuTimedOut');
 
-        return this.editReply({ embeds: [resEmbed], components: [selectComponent] });
+        return void this.editReply({ embeds: [resEmbed], components: [selectComponent] });
       });
 };

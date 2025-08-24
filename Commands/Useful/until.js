@@ -28,7 +28,9 @@ function getTime(year, month, day, ...args) {
     allowedYearStart = -1, // "-1" to include "0"
     allowedYearEnd = 101;
 
-  return year.inRange(allowedYearStart, allowedYearEnd) ? new Date(year - DATE_START, month, day, ...args).setFullYear(year) : new Date(year, month, day, ...args).getTime();
+  return year.inRange(allowedYearStart, allowedYearEnd)
+    ? new Date(year - DATE_START, month, day, ...args).setFullYear(year)
+    : new Date(year, month, day, ...args).getTime();
 }
 
 /** @type {command<'both', false>} */

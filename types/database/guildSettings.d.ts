@@ -1,8 +1,8 @@
 import type { OverwriteType, messageLink } from 'discord.js';
 import type { GiveawayData } from 'discord-giveaways';
 
-import type { guildId, userId, channelId, roleId, messageId, Embed, cmdStats } from './common';
 import type { botSettings } from './botSettings';
+import type { Embed, channelId, cmdStats, guildId, messageId, roleId, userId } from './common';
 
 export type guildSettings = Record<guildId, {
   position: number;
@@ -116,8 +116,9 @@ export type guildSettings = Record<guildId, {
   lockedChannels?: Record<channelId, Record<Snowflake, OverwriteType>>;
   minigames?: {
     rps: Record<messageId, {
-      player1?: 'r' | 'p' | 's';
-      player2?: 'r' | 'p' | 's';
+      player1?: 'rock' | 'paper' | 'scissors';
+      player2?: 'rock' | 'paper' | 'scissors';
+      startedAt: number;
     }>;
     [gameName: string]: Record<messageId, unknown>;
   };

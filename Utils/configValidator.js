@@ -32,6 +32,7 @@ const
 
 /** @type {import('.').configValidator.configValidationLoop} */
 function configValidationLoop(obj = require(configPath), checkObj = validConfig, allowNull = true) {
+  /* eslint-disable valid-typeof */
   for (const [key, value] of Object.entries(obj)) {
     if (!(key in checkObj)) {
       log.warn(`Unknown key or subkey "${key}" in config.json.`);
@@ -48,6 +49,8 @@ function configValidationLoop(obj = require(configPath), checkObj = validConfig,
 
     if (typeof value == 'object') return configValidationLoop(value, checkObj[key]);
   }
+
+  /* eslint-enable valid-typeof */
 }
 
 /** @type {import('.').configValidator.setDefaultConfig} */

@@ -7,6 +7,7 @@ const
   minutesInHour = 60,
   hoursInDay = 24,
   daysInWeek = 7,
+  daysInMonthMin = 28,
   daysInMonthAvg = 30,
   daysInMonthMax = 31,
   daysInYear = 365,
@@ -35,8 +36,8 @@ function timeFormatter(ms, lang) {
   return {
     negative, total: ms,
     formatted: lang?.(id, { years, months, days, hours, minutes, seconds })
-      ?? `${years.toString().padStart(YEAR_STR_LENGTH, '0')}-${days.toString().padStart(DATETIME_STR_LENGTH, '0')}, `
-      + `${hours.toString().padStart(DATETIME_STR_LENGTH, '0')}:${minutes.toString().padStart(DATETIME_STR_LENGTH, '0')}:${seconds.toString().padStart(DATETIME_STR_LENGTH, '0')}`
+      ?? [years, days].map(e => e.toString().padStart(YEAR_STR_LENGTH, '0')).join('-') + ', '
+      + [hours, minutes, seconds].map(e => e.toString().padStart(DATETIME_STR_LENGTH, '0')).join(':')
   };
 }
 
@@ -51,7 +52,7 @@ function timestamp(time, code) {
 }
 
 module.exports = {
-  timeFormatter, timestamp,
-  msInSecond, secsInMinute, minutesInHour, hoursInDay, daysInWeek, daysInMonthAvg, daysInMonthMax,
-  daysInYear, monthsInYear, secsInHour, secsInDay, secsInWeek, secsInMonth, secsInYear
+  msInSecond, secsInMinute, minutesInHour, hoursInDay, daysInWeek, daysInMonthMin, daysInMonthAvg, daysInMonthMax,
+  daysInYear, monthsInYear, secsInHour, secsInDay, secsInWeek, secsInMonth, secsInYear, YEAR_STR_LENGTH, DATETIME_STR_LENGTH,
+  timeFormatter, timestamp
 };
