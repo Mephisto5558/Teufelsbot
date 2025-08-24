@@ -4,7 +4,6 @@ const
 
   /** @type {import('.')['DiscordAPIErrorCodes']} */
   DiscordAPIErrorCodes = require('../Utils/DiscordAPIErrorCodes.json'),
-  { pinnedMessagesMaxAmt } = require('./constants'),
   maxMessagesPerChannelLimit = 100;
 
 /** @type {import('.').BackupSystem.Utils['fetchToBase64']} */

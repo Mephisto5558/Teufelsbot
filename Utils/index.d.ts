@@ -337,7 +337,7 @@ export declare namespace toMs {
 export declare namespace constants {
   /* eslint-disable @typescript-eslint/no-magic-numbers */
   const
-    pinnedMessagesMaxAmt: 50,
+    pinnedMessagesMaxAmt: 250,
     autocompleteOptionsMaxAmt: 25,
     embedTitleMaxLength: 256,
     embedDescriptionMaxLength: 4096,
