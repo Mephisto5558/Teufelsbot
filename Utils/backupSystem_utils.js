@@ -185,9 +185,11 @@ async function loadChannelMessages(channel, messages, webhook, maxMessagesPerCha
         threadId: channel.isThread() ? channel.id : undefined
       });
 
-      if (msg.pinned && sentMsg.pinnable && (await channel.messages.fetchPinned()).size < pinnedMessagesMaxAmt) await sentMsg.pin();
+      if (msg.pinned && sentMsg.pinnable) await sentMsg.pin();
     }
-    catch (err) { log.error('Backup load error:', err); }
+    catch (err) {
+      if (err.code != DiscordAPIErrorCodes.MaximumNumberOfPinsReachedForTheChannel) log.error('Backup load error:', err);
+    }
   }
 
   return webhook;
