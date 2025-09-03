@@ -101,7 +101,7 @@ module.exports = async function messageDelete() {
   if (!field.value) field.value += lang('unknownContent');
   else if (field.value.length > embedFieldValueMaxLength) field.value = field.value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
 
-  // We don't get the user if the message is not cached.
+  // we don't get the user if the message is not cached
   if (this.user)
     embed.data.fields.push({ name: lang('messageDelete.author'), value: `${this.user.tag} (${inlineCode(this.user.id)})`, inline: true });
   if (executor) embed.data.fields.push({ name: lang('executor'), value: `${executor.tag} (${inlineCode(executor.id)})`, inline: false });

@@ -9,7 +9,7 @@ const
   KILOGRAMS_IN_POUND = 2.205,
 
   /* eslint-disable-next-line @stylistic/max-len -- cannot really do much about this one */
-  /** @type {Collection<string, { height: string, weight: string, name: string, types: string[], abilities: Record<string, string>, gender?: string[], family: Record<string, string> }>} */
+  /** @type {Collection<string, { height: string, weight: string, name: string, types: string[], abilities: Record<string, string>, gender?: string[], family: { evolutionLine: string[] } }>} */
   cache = new Collection();
 
 /** @type {command<'both', false>} */

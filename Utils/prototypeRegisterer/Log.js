@@ -29,7 +29,7 @@ module.exports = class Log extends Function {
 
     /* eslint-disable no-multi-assign -- this just makes more sense. */
     /* Setting it to `this` is required for top-level calls,
-       Setting it to `bound` is required for chained calls */
+       Setting it to `bound` is required for chained calls. */
     this.date = bound.date = new Date().toISOString().split('T')[0];
     this.logLevel = bound.logLevel = logLevel;
     this.logFilesDir = bound.logFilesDir = logFilesDir;

@@ -83,7 +83,7 @@ module.exports = {
     if (clients.length < 2) log('Not enough clients to sync.');
     else await syncClientsEmojis(clients);
 
-    // Log out of the clients except the original one.
+    // log out of all clients except the original one
     for (const client of clients) if (client != this) void client.destroy();
 
     await this?.db.update('botSettings', 'timeEvents.lastEmojiSync', now);

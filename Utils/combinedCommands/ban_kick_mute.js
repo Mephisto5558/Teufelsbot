@@ -15,6 +15,7 @@ module.exports = async function ban_kick_mute(lang) {
   if (this.commandName == 'timeout') this.commandName = 'mute';
   if (!['ban', 'kick', 'mute'].includes(this.commandName)) throw new Error(`"${this.commandName}" is not an accepted commandName.`);
 
+  /** @type {EmbedBuilder & { data: { description: string } }} */
   const resEmbed = new EmbedBuilder({ title: lang('infoEmbedTitle'), color: Colors.Red });
 
   let
@@ -91,7 +92,6 @@ module.exports = async function ban_kick_mute(lang) {
       .createMessageComponentCollector({ componentType: ComponentType.UserSelect, max: 1, time: minToMs(1), filter: i => i.user.id == this.user.id })
       .on('collect', async selectMenu => {
         await selectMenu.deferUpdate();
-        resEmbed.data.description ??= ''; // Only here for type safety, description is garanteed to be a string
 
         for (const [, selectedMember] of selectMenu.members) {
           const err = checkTargetManageable.call(this, selectedMember, lang);

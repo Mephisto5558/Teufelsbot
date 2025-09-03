@@ -3,7 +3,7 @@ const
   fetch = require('node-fetch').default,
   { JSON_SPACES } = require('./constants');
 
-/** Writes all error codes to a file */
+/** Writes all error codes to a file. */
 module.exports = async function fetchAndProcess() {
   const
     res = await fetch('https://gist.githubusercontent.com/Dziurwa14/de2498e5ee28d2089f095aa037957cbb/raw/codes.md').then(async e => e.text()),

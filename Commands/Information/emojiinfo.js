@@ -22,6 +22,8 @@ module.exports = {
   async run(lang) {
     const
       parsedEmoji = parseEmoji(this.options?.getString('emoji', true) ?? this.args[0]),
+
+      /** @type {import('discord.js').GuildEmoji | import('discord.js').PartialEmoji | undefined} */
       emoji = this.client.emojis.cache.get(parsedEmoji?.id ?? emojiURLRegex.exec(this.content)?.groups.id) ?? parsedEmoji;
 
     if (!emoji?.id) return this.customReply(lang('notFound'));
