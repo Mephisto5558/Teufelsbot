@@ -7,14 +7,11 @@ const
   maxAllowedPurgeAmt = 1000,
   bulkDeleteSleepTime = 2000,
 
-  /**
-   * @type {(str: string) => boolean}
-   * filters discord invites, invite.gg, dsc.gg, disboard.org links */
-  adRegex = str => new RegExp(
+  adRegex = new RegExp(
     String.raw`(?:(?=discord)(?<!support\.)(?:discord(?:app)?[\W_]*(?:com|gg|io|link|me|net|plus)\/|`
     + String.raw`(?<=\w\.)\w+\/)(?=.)|watchanimeattheoffice[\W_]*com)(?!\/?(?:attachments|channels)\/)`
     + String.raw`|(?:dsc|invite)[\W_]*gg|disboard[\W_]*org`, 'i'
-  ).test(str),
+  ),
 
   /** @type {(options: Record<string, string | number | boolean>) => boolean} */
   filterOptionsExist = options => Object.keys(options).some(e => e != 'amount' && e != 'channel'),
@@ -26,7 +23,7 @@ const
     mentions: msg => !!msg.mentions.users.size,
     images: msg => msg.attachments.some(e => e.contentType.includes('image')),
     /* eslint-disable-next-line camelcase -- option name for better user-readability */
-    server_ads: msg => adRegex(msg.content) || msg.embeds.some(e => adRegex(e.description))
+    server_ads: msg => adRegex.test(msg.content) || msg.embeds.some(e => adRegex.test(e.description))
   };
 
 /** @type {import('./purge')['shouldDeleteMsg']} */

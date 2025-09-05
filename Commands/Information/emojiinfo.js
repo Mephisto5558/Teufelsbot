@@ -42,7 +42,7 @@ module.exports = {
           [lang('creator'), (await emoji.fetchAuthor?.())?.username ?? lang('global.unknownUser')],
           [lang('available'), 'available' in emoji && emoji.available != undefined ? lang(`global.${emoji.available}`) : lang('global.unknown')],
           [lang('createdAt'), emoji.createdTimestamp ? timestamp(emoji.createdTimestamp) : lang('global.unknown')]
-        ].map(/** @param {[string, string]} obj */ ([k, v]) => ({ name: k, value: v, inline: true }))
+        ].map(/** @param {[string, string]} field */ ([k, v]) => ({ name: k, value: v, inline: true }))
       }),
       component = new ActionRowBuilder({
         components: [

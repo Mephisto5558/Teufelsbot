@@ -5,7 +5,10 @@ const
   getCMDs = /** @param {Client} client */ client => [...client.prefixCommands, ...client.slashCommands]
     .filter(([,e]) => !e.aliasOf)
     .map(([e]) => e)
-    .unique();
+    .unique(),
+
+  /** @type {[['role', 'roles'], ['member', 'users'], ['channel', 'channels']]} */
+  types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']];
 
 /** @type {import('.')} */
 module.exports = {
@@ -70,12 +73,8 @@ module.exports = {
       }));
     }
 
-    for (const [typeIndex, typeFilter] of ['role', 'member', 'channel'].entries()) {
+    for (const [typeFilter, type] of types) {
       const ids = this.options.data[0].options.filter(e => e.name.includes(typeFilter)).map(e => e.value).unique();
-
-      let /** @type {'users' | 'channels' | 'roles'} */ type = 'roles';
-      if (typeIndex == 1) type = 'users';
-      else if (typeIndex == 2) type = 'channels';
 
       for (const id of ids) {
         if (commandData[type]?.includes(id)) {

@@ -51,10 +51,10 @@ export type backups = Record<backupId, {
   locale: string;
   features: GuildFeature[];
   iconURL: string;
-  iconBase64?: Base64String;
   splashURL: string | null;
-  splashBase64?: Base64String;
   bannerURL: string | null;
+  iconBase64?: Base64String;
+  splashBase64?: Base64String;
   bannerBase64?: Base64String;
   systemChannel: GuildChannel['name'];
   systemChannelFlags?: number;

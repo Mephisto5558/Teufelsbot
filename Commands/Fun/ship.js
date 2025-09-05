@@ -28,7 +28,7 @@ module.exports = {
   async run(lang) {
     const [user1, user2] = getTargetMembers(this, [{ targetOptionName: 'user1' }, { targetOptionName: 'user2', returnSelf: true }]);
 
-    if (!user1 || !user2) return this.customReply(lang('global.unknownUser'));
+    if (!user1) return this.customReply(lang('global.unknownUser'));
     return this.customReply(`${user1.customName} :heart: ${user2.customName}: ${calculatePercentage(user1, user2)}%`);
   }
 };

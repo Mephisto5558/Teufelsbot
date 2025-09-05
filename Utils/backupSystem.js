@@ -224,11 +224,11 @@ class BackupSystem {
 
       statusObj.status = 'clear.bans';
       for (const [, { user, reason: banReason }] of await guild.bans.fetch()) {
-        if (!data.bans.some(e => user.id == e.id && banReason == e.reason)) {
-          try { await guild.bans.remove(user.id, reason); }
-          catch (err) {
-            if (!(err instanceof DiscordAPIError)) throw err;
-          }
+        if (data.bans.some(e => user.id == e.id && banReason == e.reason)) continue;
+
+        try { await guild.bans.remove(user.id, reason); }
+        catch (err) {
+          if (!(err instanceof DiscordAPIError)) throw err;
         }
       }
 

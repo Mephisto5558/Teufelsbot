@@ -7,7 +7,7 @@ const
   fetch = require('node-fetch').default,
 
   /** @type {(pokemon: string) => Promise<Pokemon[] | undefined>} */
-  getApi = async pokemon => fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(async e => e.json()),
+  fetchAPI = async pokemon => fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(async e => e.json()),
 
   INCHES_IN_FEET = 12,
   CENTIMETERS_IN_METER = 100,
@@ -36,7 +36,7 @@ module.exports = {
 
     let res = cache.get(pokemon.toLowerCase());
     if (!res) {
-      try { res = (await getApi(pokemon))?.[0]; }
+      try { res = (await fetchAPI(pokemon))?.[0]; }
       catch (err) {
         if (err.type != 'invalid-json') throw err;
         return msg.edit(lang('invalidJson'));
@@ -76,7 +76,7 @@ module.exports = {
           [lang('heightWeight'), `${res.height}, ${(Number.parseFloat(res.weight) / KILOGRAMS_IN_POUND).toFixed(2)}kg`],
           [lang('evolutionLine'), res.family.evolutionLine.join(', ') + lang('currentStage', res.family.evolutionStage)],
           [lang('gen'), res.gen]
-        ].map(/** @param {[string, string]} obj */ ([k, v]) => ({ name: k, value: v, inline: false }))
+        ].map(/** @param {[string, string]} field */ ([k, v]) => ({ name: k, value: v, inline: false }))
       }),
       component = new ActionRowBuilder({
         components: [

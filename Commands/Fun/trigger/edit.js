@@ -8,7 +8,8 @@ module.exports = {
     {
       name: 'query_or_id',
       type: 'String',
-      autocompleteOptions: triggerQuery
+      autocompleteOptions: triggerQuery,
+      required: true
     },
     { name: 'trigger', type: 'String' },
     { name: 'response', type: 'String' },

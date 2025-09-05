@@ -42,7 +42,7 @@ const birthdayMainFunctions = {
 
   get: async function get(lang) {
     const
-      target = getTargetMembers(this, { returnSelf: true }),
+      target = getTargetMembers(this),
       doNotHide = this.options.getBoolean('do_not_hide'),
       embed = new EmbedBuilder({
         color: Colors.Blurple,

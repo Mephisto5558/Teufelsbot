@@ -28,7 +28,7 @@ module.exports = {
       type = (this.options?.getString('avatar_type') ?? 'server') == 'server',
       [base, overlay] = getTargetMembers(this, [{ targetOptionName: 'base' }, { targetOptionName: 'overlay', returnSelf: true }]);
 
-    if (!base || !overlay || base.id == overlay.id) return this.customReply(lang('missingParam'));
+    if (!base || base.id == overlay.id) return this.customReply(lang('missingParam'));
 
     const embed = new EmbedBuilder({
       title: lang('embedTitle', { user1: base.displayName, user2: overlay.displayName }),

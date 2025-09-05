@@ -73,8 +73,7 @@ module.exports = {
       const settings = guild.db.birthday;
       if (!settings?.enable || !settings.ch?.channel && !settings.dm?.enable) continue;
 
-      /** @type {Record<Snowflake, number>} */
-      const birthdayUserList = Object.entries(this.db.get('userSettings')).reduce((acc, [id, e]) => {
+      const birthdayUserList = Object.entries(this.db.get('userSettings')).reduce((/** @type {Record<Snowflake, number>} */ acc, [id, e]) => {
         if (e.birthday?.getMonth() == nowMonth && e.birthday.getDate() == nowDate) acc[id] = e.birthday.getFullYear();
         return acc;
       }, {});

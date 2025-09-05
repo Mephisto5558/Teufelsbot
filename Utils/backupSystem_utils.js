@@ -1,7 +1,10 @@
 const
-  { AttachmentBuilder, ChannelType, Constants, DiscordAPIError, GuildFeature, OverwriteType } = require('discord.js'),
+  {
+    AttachmentBuilder, BaseGuildVoiceChannel, ChannelType, Constants,
+    DiscordAPIError, ForumChannel, GuildFeature, OverwriteType
+  } = require('discord.js'),
   fetch = require('node-fetch').default,
-  /** @type {import('.')['DiscordAPIErrorCodes']} */ DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
+  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
 
   maxMessagesPerChannelLimit = 100;
 
@@ -25,12 +28,12 @@ async function fetchCategoryChildren(category, saveImages, maxMessagesPerChannel
 
       let channelData = { type: child.type, name: child.name, position: child.position, permissions: fetchChannelPermissions(child) };
 
-      if (Constants.VoiceBasedChannelTypes.includes(child.type) && 'bitrate' in child) { // `bitrate` check is just a typeguard
+      if (child instanceof BaseGuildVoiceChannel) {
         channelData.bitrate = child.bitrate;
         channelData.userLimit = child.userLimit;
       }
 
-      if (child.type == ChannelType.GuildForum) {
+      if (child instanceof ForumChannel) {
         channelData = {
           ...channelData,
           nsfw: child.nsfw,

@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-deprecated,
-  sonarjs/cognitive-complexity, sonarjs/cyclomatic-complexity, max-depth
+/* eslint-disable sonarjs/cognitive-complexity, custom/cyclomatic-complexity, max-depth
  -- will be fixed when commands are moved to their own lib */
 
 const
@@ -29,6 +28,7 @@ module.exports = async function slashCommandHandler() {
 
       if (!commandFile?.slashCommand) continue;
 
+      /** @type {command<'slash', boolean, true>} */
       let command;
       try { command = formatCommand(commandFile, filePath, `commands.${subFolder.toLowerCase()}.${filename(file.name)}`, this.i18n); }
       catch (err) {

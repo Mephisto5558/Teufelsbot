@@ -1,5 +1,6 @@
 const
   { codeBlock } = require('discord.js'),
+
   vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
 
   /** @type {import('../../types/locals').BoundFunction} */

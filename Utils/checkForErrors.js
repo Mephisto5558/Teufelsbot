@@ -1,4 +1,4 @@
-/* eslint-disable sonarjs/cyclomatic-complexity, sonarjs/cognitive-complexity, no-underscore-dangle
+/* eslint-disable custom/cyclomatic-complexity, sonarjs/cognitive-complexity, no-underscore-dangle
 -- will be fixed when commands are moved to their own lib */
 
 const

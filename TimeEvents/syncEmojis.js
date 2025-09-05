@@ -29,13 +29,13 @@ async function syncClientsEmojis(clients) {
   const
     allEmojis = new Map(clients.flatMap(e => [...e.application.emojis.cache.entries()])),
     allEmojiNames = new Set(allEmojis.keys()),
-
-    /** @type {{ client: Client<true>; emoji: import('discord.js').ApplicationEmoji }[]} */
     creationActions = clients.flatMap(client => [
       ...allEmojiNames.difference(new Set(client.application.emojis.cache.keys()))
     ].map(name => ({ client, emoji: allEmojis.get(name) })));
 
   for (const { client, emoji } of creationActions) {
+    if (!emoji) continue; // typeguard
+
     try {
       await client.application.emojis.create({
         name: emoji.name,

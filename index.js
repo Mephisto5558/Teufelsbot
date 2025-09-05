@@ -118,7 +118,6 @@ void (async function main() {
       newClient.awaitReady().then(app => app.client.config.devIds.add(app.owner?.owner?.id ?? app.owner?.id))
     ],
 
-    /** @type {Client<true>} */
     client = await loginClient.call(newClient, process.env.token);
 
   /** @param {string} emoji */
