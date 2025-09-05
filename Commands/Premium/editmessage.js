@@ -46,9 +46,11 @@ module.exports = {
       }),
       clear = this.options.getBoolean('remove_attachments');
 
-    /** @type {Message | undefined} */
     let msg, modalInteraction;
-    try { msg = await this.options.getChannel('channel', true).messages.fetch(this.options.getString('message_id', true)); }
+    try {
+      const /** @type {Snowflake} */ msgId = this.options.getString('message_id', true);
+      msg = await this.options.getChannel('channel', true, Constants.GuildTextBasedChannelTypes).messages.fetch(msgId);
+    }
     catch (err) {
       if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
       return this.reply({ content: lang('notFound'), flags: MessageFlags.Ephemeral });

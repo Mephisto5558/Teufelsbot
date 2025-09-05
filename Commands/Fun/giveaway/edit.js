@@ -28,7 +28,7 @@ module.exports = {
     { name: 'bonus_entries', type: 'String' }
   ],
 
-  async run(lang, components, { bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId }) {
+  async run(lang, { components, bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId }) {
     const editOptions = {
       addTime: duration,
       newBonusEntries: {},

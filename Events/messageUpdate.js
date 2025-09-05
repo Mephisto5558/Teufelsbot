@@ -39,7 +39,10 @@ module.exports = function messageUpdate(newMsg) {
     }),
     embed = new EmbedBuilder({
       author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },
-      description: lang('embedDescription', { executor: userMention(newMsg.user.id), channel: newMsg.channel.name }),
+      description: lang('embedDescription', {
+        executor: userMention(newMsg.user.id),
+        channel: 'name' in newMsg.channel ? newMsg.channel.name : newMsg.channelId
+      }),
       fields: [
         { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false },
         { name: lang('oldContent'), value: '', inline: false },

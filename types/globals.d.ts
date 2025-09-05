@@ -3,6 +3,7 @@
 import type Discord from 'discord.js';
 import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
+import type Passport from 'passport-discord';
 
 import type { Log } from '../Utils/prototypeRegisterer';
 import type DBStructure from './database';
@@ -43,6 +44,11 @@ declare global {
       secret: string;
       dbConnectionStr: string;
     }
+
+    interface Require {
+      /* eslint-disable-next-line @typescript-eslint/prefer-function-type -- overwriting only the function signature */
+      (id: string): unknown;
+    }
   }
 
   interface Array<T> {
@@ -55,16 +61,12 @@ declare global {
 
     /** Returns an array with no duplicates by converting it to a `Set` and back to an array. */
     unique(this: T[]): T[];
-
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any -- same as in the original definition */
-    filter(this: T[], predicate: BooleanConstructor, thisArg?: any): (T extends false | 0 | '' | null | undefined ? never : T)[];
   }
 
   interface Number {
     limit(options?: { min?: number; max?: number }): number;
 
     /** @returns If the number is more than `min` and less than `max`. */
-    inRange(options: { min?: number; max?: number }): boolean;
     inRange(min?: number, max?: number): boolean;
   }
 
@@ -77,52 +79,16 @@ declare global {
     filterEmpty(this: object): object;
 
     /** The amount of items in the object. */
-    __count__: number;
+    get __count__(this: object): number;
   }
 
+  // https://github.com/uhyo/better-typescript-lib/issues/56#issuecomment-2580171329
+
+  type KeyToString<K extends PropertyKey> = K extends string ? K : K extends number ? `${K}` : never;
   interface ObjectConstructor {
-    // allows key to be more specific (e.g. Snowflake instead of string)
-    entries<T extends object>(obj: T): ({ [K in keyof T]: [K, T[K]] })[keyof T][];
-
-    keys<T extends object>(obj: T): (keyof T)[];
-  }
-
-  interface Function {
-    // Only typing | Fixes return types | https://github.com/microsoft/TypeScript/blob/c790dc1dc7ff67e619a5a60fc109b7548f171322/src/lib/es5.d.ts#L313
-
-    /**
-     * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
-     * @param thisArg The object to be used as the this object.
-     */
-    apply<T, R>(this: (this: T) => R, thisArg: T): R;
-
-    /**
-     * Calls the function with the specified object as the this value and the elements of specified array as the arguments.
-     * @param thisArg The object to be used as the this object.
-     * @param args An array of argument values to be passed to the function.
-     */
-    apply<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, args: AX[]): R;
-
-    /**
-     * Calls the function with the specified object as the this value and the specified rest arguments as the arguments.
-     * @param thisArg The object to be used as the this object.
-     * @param args Argument values to be passed to the function.
-     */
-    call<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): R;
-
-    /**
-     * Calls the function with the specified object as the this value and the specified rest arguments as the arguments.
-     * @param thisArg The object to be used as the this object.
-     * @param args Argument values to be passed to the function.
-     */
-    call<T, AX>(this: new (...args: AX[]) => T, thisArg: T, ...args: AX[]): void;
-
-    /**
-     * For a given function, creates a bound function that has the same body as the original function.
-     * The this object of the bound function is associated with the specified object, and has the specified initial parameters.
-     * @param thisArg The object to be used as the this object. */
-    bind<T>(this: T, thisArg: ThisParameterType<T>): OmitThisParameter<T>;
-    bind<T, AX, R>(this: (this: T, ...args: AX[]) => R, thisArg: T, ...args: AX[]): (...args: AX[]) => R;
+    keys<K extends PropertyKey, V>(o: [K, V] extends [never, never] ? never : Record<K, V>): KeyToString<K>[];
+    values<K extends PropertyKey, V>(o: [K, V] extends [never, never] ? never : Record<K, V>): V[];
+    entries<K extends PropertyKey, V>(o: [K, V] extends [never, never] ? never : Record<K, V>): [KeyToString<K>, V][];
   }
 
   interface Date {
@@ -302,6 +268,7 @@ declare global {
   /** interface for an interaction in a guild. */
   /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
   interface GuildInteraction extends Discord.ChatInputCommandInteraction<'cached'>, OptionalMessageProperties<true> {
+    channel: Discord.GuildTextBasedChannel | undefined;
   }
 
   /** interface for an interaction in a direct message. */
@@ -316,9 +283,16 @@ declare global {
     commandGuildId: null;
     member: null;
     memberPermissions: null;
+
+    channel: Discord.DMChannel;
   }
 
   // #endregion
+
+  namespace Express {
+    /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
+    interface User extends Discord.APIUser, Passport.Profile {}
+  }
 }
 
 // #endregion
@@ -352,13 +326,6 @@ declare module '@mephisto5558/mongoose-db' {
 }
 
 // #endregion
-
-declare module 'express' {
-  interface Request {
-    user?: NonNullable<Database['website']['sessions'][keyof Database['website']['sessions']]>['user'];
-  }
-}
-
 declare module 'express-session' {
   interface SessionData {
     redirectURL: string;
@@ -376,6 +343,6 @@ declare module 'moment' {
   export function preciseDiff<returnValueObject extends boolean>(
     d1: MomentInput, d2: MomentInput, returnValueObject: returnValueObject
   ): returnValueObject extends true
-    ? { years: number; months: number; days: number; hours: number; minutes: number; firstDateWasLater: boolean }
+    ? { years: number; months: number; days: number; hours: number; minutes: number; seconds: number; firstDateWasLater: boolean }
     : string;
 }

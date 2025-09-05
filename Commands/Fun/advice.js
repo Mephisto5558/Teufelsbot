@@ -1,6 +1,9 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } = require('discord.js'),
-  fetch = require('node-fetch').default;
+  fetch = require('node-fetch').default,
+
+  /** @type {() => Promise<{slip: {advice: string}}>} */
+  getApi = async () => fetch('https://api.adviceslip.com/advice').then(async res => res.json());
 
 /** @type {command<'both', false>} */
 module.exports = {
@@ -12,7 +15,7 @@ module.exports = {
     const
       embed = new EmbedBuilder({
         title: lang('embedTitle'),
-        description: (await fetch('https://api.adviceslip.com/advice').then(async res => res.json())).slip.advice,
+        description: (await getApi()).slip.advice,
         footer: { text: '- https://api.adviceslip.com' }
       }).setColor('Random'),
       component = new ActionRowBuilder({

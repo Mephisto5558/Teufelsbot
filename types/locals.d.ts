@@ -1,4 +1,5 @@
 import type Discord from 'discord.js';
+import type { Locale } from '@mephisto5558/i18n';
 import type { SettingsPaths } from '@mephisto5558/mongoose-db';
 
 type autocompleteOptions = string | number | { name: string; value: string };
@@ -42,7 +43,7 @@ type BaseCommand<initialized extends boolean = boolean> = {
    * Gets set automatically from language files.
    * `undefined` only for an unknown language
    * @see {@link command.description} */
-  descriptionLocalizations: Record<string, BaseCommand<true>['description']>;
+  descriptionLocalizations: Record<Locale, BaseCommand<true>['description']>;
 
   /**
    * Command usage information for the end-user.

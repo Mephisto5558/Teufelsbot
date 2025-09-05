@@ -25,7 +25,7 @@ async function fetchCategoryChildren(category, saveImages, maxMessagesPerChannel
 
       let channelData = { type: child.type, name: child.name, position: child.position, permissions: fetchChannelPermissions(child) };
 
-      if (Constants.VoiceBasedChannelTypes.includes(child.type)) {
+      if (Constants.VoiceBasedChannelTypes.includes(child.type) && 'bitrate' in child) { // `bitrate` check is just a typeguard
         channelData.bitrate = child.bitrate;
         channelData.userLimit = child.userLimit;
       }
@@ -38,8 +38,8 @@ async function fetchCategoryChildren(category, saveImages, maxMessagesPerChannel
           defaultAutoArchiveDuration: child.defaultAutoArchiveDuration,
           defaultForumLayout: child.defaultForumLayout,
           defaultReactionEmoji: child.defaultReactionEmoji.name,
-          defaultSortOrder: category.defaultSortOrder,
-          defaultThreadRateLimitPerUser: category.defaultThreadRateLimitPerUser,
+          defaultSortOrder: child.defaultSortOrder,
+          defaultThreadRateLimitPerUser: child.defaultThreadRateLimitPerUser,
           threads: await fetchChannelThreads(child, saveImages, maxMessagesPerChannel),
           availableTags: child.availableTags.map(e => ({ name: e.name, emoji: e.emoji?.name, moderated: e.moderated }))
         };
@@ -86,10 +86,9 @@ function fetchChannelPermissions(channel) {
 
 /** @type {import('.').BackupSystem.Utils['fetchChannelThreads']} */
 async function fetchChannelThreads(channel, saveImages, maxMessagesPerChannel) {
-  /** @type {import('discord.js').ThreadChannel[] | undefined} */
-  const threads = (await channel.threads?.fetch())?.threads;
+  if (!('threads' in channel)) return [];
 
-  return threads?.map(async e => ({
+  return (await channel.threads.fetch()).threads.map(async e => ({
     type: e.type,
     name: e.name,
     archived: e.archived,
@@ -97,7 +96,7 @@ async function fetchChannelThreads(channel, saveImages, maxMessagesPerChannel) {
     locked: e.locked,
     rateLimitPerUser: e.rateLimitPerUser,
     messages: await fetchChannelMessages(e, saveImages, maxMessagesPerChannel).catch(err => { if (!(err instanceof DiscordAPIError)) throw err; })
-  })) ?? [];
+  }));
 }
 
 /** @type {import('.').BackupSystem.Utils['fetchMessageAttachments']} */
@@ -114,7 +113,7 @@ async function fetchTextChannelData(channel, saveImages, maxMessagesPerChannel) 
     name: channel.name,
     nsfw: channel.nsfw,
     isNews: channel.type == ChannelType.GuildAnnouncement,
-    rateLimitPerUser: channel.type == ChannelType.GuildText ? channel.rateLimitPerUser : undefined,
+    rateLimitPerUser: channel.rateLimitPerUser,
     topic: channel.topic,
     permissions: fetchChannelPermissions(channel),
     messages: await fetchChannelMessages(channel, saveImages, maxMessagesPerChannel).catch(err => {
@@ -142,7 +141,7 @@ async function loadChannel(channel, guild, category, maxMessagesPerChannel, allo
     createOptions.nsfw = channel.nsfw;
     createOptions.rateLimitPerUser = channel.rateLimitPerUser;
   }
-  else if (Constants.VoiceBasedChannelTypes.includes(channel.type)) {
+  else if (Constants.VoiceBasedChannelTypes.includes(channel.type) && 'bitrate' in channel) {
     createOptions.bitrate = Math.min(channel.bitrate, guild.maximumBitrate);
     createOptions.userLimit = channel.userLimit;
   }
@@ -159,6 +158,8 @@ async function loadChannel(channel, guild, category, maxMessagesPerChannel, allo
     }
 
     for (const threadData of channel.threads) {
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      -- this is fine due to `newChannel.type` always being the same type as `channel.type` */
       const thread = await newChannel.threads.create({ name: threadData.name, autoArchiveDuration: threadData.autoArchiveDuration });
       if (webhook) await loadChannelMessages(thread, threadData.messages, webhook, maxMessagesPerChannel, allowedMentions);
     }

@@ -20,17 +20,16 @@ module.exports = async function ban_kick_mute(lang) {
 
   let
     noMsg = false,
-    muteDurationMs, muteDurationRelative,
-
-    /** @type {number} */
-    muteDuration = this.options.getString('duration') ?? 0,
+    muteDurationMs,
+    /** @type {ReturnType<timestamp>} */ muteDurationRelative,
+    muteDuration = this.options.getString('duration'),
     reason = this.options.getString('reason', true);
 
   if (muteDuration) {
-    muteDuration = getMilliseconds(muteDuration).limit?.({ min: minToMs(1), max: dayToMs(daysInMonthMin) });
-    if (!muteDuration || typeof muteDuration == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
+    muteDurationMs = getMilliseconds(muteDuration)?.limit({ min: minToMs(1), max: dayToMs(daysInMonthMin) });
+    if (!muteDurationMs || typeof muteDurationMs == 'string') return this.editReply({ embeds: [resEmbed.setDescription(lang('invalidDuration'))] });
 
-    muteDurationMs = Date.now() + muteDuration;
+    muteDurationMs += Date.now();
     muteDuration = timestamp(muteDurationMs);
     muteDurationRelative = timestamp(muteDurationMs, TimestampStyles.RelativeTime);
   }

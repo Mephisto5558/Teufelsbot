@@ -20,8 +20,10 @@ module.exports = {
     const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Blue });
 
     if (query) {
-      /** @type {import('.').triggersArray} */
-      const [id, { trigger, response, wildcard }] = oldData[findTriggerId(query, oldData)] ?? {};
+      const
+        /** @type {NonNullable<ReturnType<findTriggerId>>} */ id = findTriggerId(query, oldData),
+        { trigger, response, wildcard } = oldData[id] ?? {};
+
       if (!trigger) return this.editReply(lang('notFound'));
 
       const maxLength = 1900;

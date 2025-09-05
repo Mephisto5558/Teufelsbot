@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers -- these are constants */
-module.exports = {
+module.exports = Object.freeze({
   pinnedMessagesMaxAmt: 250, // per channel
   autocompleteOptionsMaxAmt: 25,
   embedTitleMaxLength: 256,
@@ -29,4 +29,4 @@ module.exports = {
   HTTP_STATUS_CLOUDFLARE_BLOCKED: 522, // // https://community.cloudflare.com/t/community-tip-fixing-error-522-connection-timed-out/42325
   JSON_SPACES: 2,
   suffix: '...'
-};
+});

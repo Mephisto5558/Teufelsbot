@@ -2,40 +2,44 @@ const
   { AutocompleteInteraction } = require('discord.js'),
   { autocompleteOptionsMaxAmt } = require('./constants');
 
+/**
+ * @this {ThisParameterType<import('.').autocompleteGenerator>}
+ * @param {unknown} searchValue
+ * @param {lang<true>} lang
+ * @param {commandOptions['autocompleteOptions'] | { name: unknown; value: unknown } | undefined} options */
+function autocompleteFormatter(searchValue, lang, options) {
+  if (!options) return [];
+
+  if (typeof options == 'function') return autocompleteFormatter.call(this, searchValue, lang, options.call(this));
+  if (typeof options == 'string') return [{ name: lang(options) ?? options, value: options }];
+
+  if (Array.isArray(options)) {
+    return options
+      .filter(e => !searchValue || (typeof e == 'object' ? e.value.toLowerCase() : e.toString().toLowerCase()).includes(searchValue.toLowerCase()))
+      .slice(0, autocompleteOptionsMaxAmt)
+      .map(autocompleteFormatter.bind(this, searchValue, lang));
+  }
+
+  if (typeof options == 'object') return [options];
+
+  return [options];
+}
+
 /** @type {import('.').autocompleteGenerator} */
 module.exports = function autocompleteGenerator(command, target, locale) {
   const
-    group = this instanceof AutocompleteInteraction ? this.options.getSubcommandGroup(false) : '',
-    subcommand = this instanceof AutocompleteInteraction ? this.options.getSubcommand(false) : '',
-
-    /** @type {(v: string | number) => import('discord.js').ApplicationCommandOptionChoiceData} */
-    response = v => ({ name: this.client.i18n.__({ locale, undefinedNotFound: true },
-      `commands.${command.category}.${command.name}.options.`
-      + (group ? `${group}.` : '')
-      + (subcommand ? `${subcommand}.` : '')
-      + target.name
-      + `.choices.${v}`) ?? v,
-    value: v });
+    group = this instanceof AutocompleteInteraction ? this.options.getSubcommandGroup(false) : undefined,
+    subcommand = this instanceof AutocompleteInteraction ? this.options.getSubcommand(false) : undefined;
 
   /** @type {commandOptions[]} */
   let [...options] = command.options;
   if (group) ({ options } = options.find(e => e.name == group));
   if (subcommand) ({ options } = options.find(e => e.name == subcommand));
 
-  /**
-   * @type {{ autocompleteOptions: Exclude<commandOptions['autocompleteOptions'], Function> }}
-   * Excludes<> because we call autocompleteOptions below if it is a function */
-  let { autocompleteOptions } = options.find(e => e.name == target.name) ?? {};
-  if (typeof autocompleteOptions == 'function') autocompleteOptions = autocompleteOptions.call(this);
+  const lang = this.client.i18n.getTranslator({
+    locale, undefinedNotFound: true,
+    backupPath: [['commands', command.category, command.name, 'options', group, subcommand, target.name, 'choices'].filter(Boolean).join('.')]
+  });
 
-  if (typeof autocompleteOptions == 'string') return [response(autocompleteOptions)];
-  if (Array.isArray(autocompleteOptions)) {
-    return autocompleteOptions
-      .filter(e => !target.value || (
-        typeof e == 'object' ? e.value.toLowerCase() : e.toString().toLowerCase()
-      ).includes(target.value.toLowerCase()))
-      .slice(0, autocompleteOptionsMaxAmt).map(e => (typeof e == 'object' ? e : response(e)));
-  }
-
-  return [autocompleteOptions];
+  return autocompleteFormatter.call(this, options.find(e => e.name == target.name), target.value, lang);
 };

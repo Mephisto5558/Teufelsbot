@@ -1,15 +1,16 @@
 import type {
-  APIAllowedMentions, AutocompleteInteraction, BaseGuildTextChannel, BaseInteraction, CategoryChannel, Collection,
+  APIAllowedMentions, AnyThreadChannel, AutocompleteInteraction, BaseGuildTextChannel, BaseInteraction, CategoryChannel, Collection,
   DMChannel, DateResolvable, Guild, GuildChannel, GuildChannelManager, GuildMember, GuildTextBasedChannel, Message,
   MessageComponentInteraction, Role, Snowflake, TimestampStylesString, User, VoiceState, Webhook, WebhookType
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
-import type { I18nProvider } from '@mephisto5558/i18n';
+import type { I18nProvider, Locale } from '@mephisto5558/i18n';
 import type { DB } from '@mephisto5558/mongoose-db';
 import type { GiveawayData, GiveawaysManager } from 'discord-giveaways';
 import type { Database, backupChannel, backupId } from '../types/database';
 import type { Config } from '../types/locals';
 
+export { default as constants } from './constants';
 export { default as DiscordAPIErrorCodes } from './DiscordAPIErrorCodes.json';
 export { default as prototypeRegisterer } from './prototypeRegisterer';
 
@@ -43,7 +44,7 @@ export declare namespace afk {
 export declare function autocompleteGenerator(
   this: AutocompleteInteraction | Message,
   command: command<'both', boolean, true>,
-  target: { name: string; value: unknown }, locale: string
+  target: { name: string; value: unknown }, locale: Locale
 ): { name: string | number; value: string | number }[] | undefined;
 
 type MaybeWithUndefined<X, T extends boolean> = T extends true ? X : X | undefined;
@@ -77,13 +78,13 @@ export declare namespace BackupSystem {
     fetchChannelPermissions(channel: GuildChannel): backupChannel['permissions'];
 
     fetchChannelThreads(
-      channel: GuildChannel, saveImages: boolean, maxMessagesPerChannel: number
+      channel: GuildChannel | GuildTextBasedChannel, saveImages: boolean, maxMessagesPerChannel: number
     ): Promise<backupChannel['threads']>;
 
     fetchMessageAttachments(message: Message, saveImages: boolean): Promise<backupChannel['messages'][number]['attachments']>;
 
     fetchTextChannelData(
-      channel: GuildChannel, saveImages: boolean, maxMessagesPerChannel: number
+      channel: BaseGuildTextChannel, saveImages: boolean, maxMessagesPerChannel: number
     ): Promise<backupChannel>;
 
     loadChannel(
@@ -91,8 +92,8 @@ export declare namespace BackupSystem {
       allowedMentions: APIAllowedMentions
     ): ReturnType<GuildChannelManager['create']>;
 
-    loadChannelMessages<WEBHOOK = Webhook<WebhookType.Incoming>, T extends WEBHOOK | undefined>(
-      channel: BaseGuildTextChannel, messages: backupChannel['messages'], webhook: T,
+    loadChannelMessages<WEBHOOK extends Webhook = Webhook<WebhookType.Incoming>, T extends WEBHOOK | undefined>(
+      channel: GuildChannel | AnyThreadChannel, messages: backupChannel['messages'], webhook: T,
       maxMessagesPerChannel: number, allowedMentions: APIAllowedMentions
     ): Promise<T extends WEBHOOK ? T : WEBHOOK | undefined>;
   };
@@ -201,7 +202,7 @@ export declare function getAge(date: Date): number;
 /**
  * Gets the original command name, not the alias name
  * @param command the command object or its name */
-export declare function getCommandName(command: command | string): string;
+export declare function getCommandName(this: Client, command: command | string): string;
 
 export declare function getCommands(
   this: Client,
@@ -339,39 +340,4 @@ export declare namespace toMs {
   function hourToMs(hours: number): number;
   function dayToMs(days: number): number;
   function yearToMs(years: number): number;
-}
-
-
-export declare namespace constants {
-  /* eslint-disable @typescript-eslint/no-magic-numbers */
-  const
-    pinnedMessagesMaxAmt: 250,
-    autocompleteOptionsMaxAmt: 25,
-    embedTitleMaxLength: 256,
-    embedDescriptionMaxLength: 4096,
-    embedFieldMaxAmt: 25,
-    embedFieldValueMaxLength: 1024,
-    messageMaxLength: 2000,
-    memberNameMinLength: 1,
-    memberNameMaxLength: 32,
-    choicesMaxAmt: 25,
-    choiceNameMinLength: 1,
-    choiceNameMaxLength: 100,
-    choiceValueMinLength: 2,
-    choiceValueMaxLength: 100,
-    buttonLabelMaxLength: 80,
-    buttonURLMaxLength: 512,
-    messageActionrowMaxAmt: 5,
-    actionrowButtonMaxAmt: 5,
-    auditLogReasonMaxLength: 400,
-    maxBanMessageDeleteDays: 7,
-    emojiNameMinLength: 2,
-    emojiNameMaxLength: 32,
-    snowflakeMinLength: 17,
-    snowflakeMaxLength: 19,
-    bulkDeleteMaxMessageAmt: 100,
-    HTTP_STATUS_BLOCKED: 522,
-    JSON_SPACES: 2,
-    suffix: '...';
-  /* eslint-enable @typescript-eslint/no-magic-numbers */
 }

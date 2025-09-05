@@ -6,7 +6,7 @@ module.exports = {
     required: true
   }],
 
-  async run(lang, components, { giveawayId }) {
+  async run(lang, { components, giveawayId }) {
     const rerollOptions = {
       messages: {
         congrat: { content: lang('rerollWinners'), components },
@@ -14,9 +14,8 @@ module.exports = {
       }
     };
 
-    await this.client.giveawaysManager.reroll(giveawayId, rerollOptions).then(() => {
-      components[0].components[0].data.url = giveawayId; // using .then() here to prevent `eslint/require-atomic-updates`
-    });
+    await this.client.giveawaysManager.reroll(giveawayId, rerollOptions);
+    components[0].components[0].setURL(giveawayId);
 
     return this.editReply({ content: lang('rerolled'), components });
   }

@@ -1,4 +1,6 @@
-import type { CommandInteractionOption, GuildTextBasedChannel, InteractionResponse, MessageMentionOptions, RepliableInteraction } from 'discord.js';
+import type {
+  CommandInteractionOption, GuildTextBasedChannel, InteractionResponse, MessageMentionOptions, RepliableInteraction, SendableChannels
+} from 'discord.js';
 import type TicTacToe from 'discord-tictactoe';
 
 export {
@@ -51,7 +53,7 @@ declare function _patch(
  * Tries different methods to reply to a message or interaction. If the content is over 2000 chars, will send an attachment instead.
  * @default allowedMentions={repliedUser: false} */
 declare function customReply(
-  this: RepliableInteraction | Message,
+  this: (RepliableInteraction | Message) & { channel: SendableChannels },
 
   // options: string | InteractionReplyOptions | MessagePayload | MessageEditOptions,
   options: string | Parameters<

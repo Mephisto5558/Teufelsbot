@@ -42,7 +42,7 @@ function checkOptions(command, lang) {
     if (required && !this.options?.get(name) && !this.args?.[i]) {
       return ['paramRequired', {
         option: name,
-        description: descriptionLocalizations?.[lang.config.locale]
+        description: (lang.config.locale ? descriptionLocalizations?.[lang.config.locale] : undefined)
           ?? descriptionLocalizations?.[lang.defaultConfig.defaultLocale] ?? description
       }];
     }
@@ -55,7 +55,9 @@ function checkOptions(command, lang) {
     const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]));
     if (
       isValidType(this) && autocompleteIsUsed() && !autocompleteGenerator.call(
+        /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unnecessary-condition -- false positive/ts bug */
         this, { name, value: this.options?.get(name).value ?? this.args?.[i] }, command, this.guild?.db.config.lang ?? this.guild?.localeCode
+        /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive/ts bug */
       ).some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
     ) {
       if (typeof autocompleteOptions != 'function') {

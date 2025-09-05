@@ -1,4 +1,6 @@
-/* eslint-disable @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
+/* eslint-disable require-atomic-updates, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-deprecated
+-- will be fixed when commands are moved to their own lib */
+
 const
   { Collection, codeBlock, inlineCode } = require('discord.js'),
   { access } = require('node:fs/promises'),

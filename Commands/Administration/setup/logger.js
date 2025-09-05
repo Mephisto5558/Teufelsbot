@@ -23,7 +23,8 @@ module.exports = {
     const
       action = this.options.getString('action', true),
       channel = (
-        this.options.getChannel('channel') ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action].channel) ?? this.channel
+        this.options.getChannel('channel', false, Constants.GuildTextBasedChannelTypes)
+        ?? this.guild.channels.cache.get(this.guild.db.config.logger?.[action].channel) ?? this.channel
       )?.id,
       enabled = this.options.getBoolean('enabled') ?? (action == 'all' ? undefined : !this.guild.db.config.logger?.[action].enabled);
 

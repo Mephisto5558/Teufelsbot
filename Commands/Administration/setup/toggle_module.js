@@ -11,7 +11,7 @@ module.exports = {
 
   async run(lang) {
     const
-      module = this.options.getString('module', true),
+      /** @type {'gatekeeper' | 'birthday'} */ module = this.options.getString('module', true),
       setting = this.guild.db[module]?.enable; // TODO: document and probably sth like `this.guild.db.modules[module]` for better typing
 
     await this.guild.updateDB(`${module}.enable`, !setting);

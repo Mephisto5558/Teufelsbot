@@ -126,7 +126,7 @@ module.exports = {
       else {
         embed.data.description = target.id == this.member.id
           ? lang('youNoGamesPlayed', game)
-          : lang('userNoGamesPlayed', { user: target.username, game });
+          : lang('userNoGamesPlayed', { user: target.displayName, game });
       }
 
       return this.customReply({ embeds: [embed] });

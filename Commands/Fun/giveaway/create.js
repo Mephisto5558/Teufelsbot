@@ -85,10 +85,11 @@ module.exports = {
       /** @param {import('discord.js').GuildMember} member */
       startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
 
-    await this.client.giveawaysManager.start(this.options.getChannel('channel') ?? this.channel, startOptions).then(data => {
-      components[0].components[0].data.url = data.messageURL; // using .then() here to prevent `eslint/require-atomic-updates`
-    });
+    const giveaway = await this.client.giveawaysManager.start(
+      this.options.getChannel('channel', false, Constants.GuildTextBasedChannelTypes) ?? this.channel, startOptions
+    );
 
+    components[0].components[0].setURL(giveaway.messageURL);
     return this.editReply({ content: lang('started'), components });
   }
 };

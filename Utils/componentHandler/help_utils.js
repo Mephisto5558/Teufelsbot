@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment -- will be fixed when commands are moved to their own lib */
+
 const
   { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, codeBlock, inlineCode } = require('discord.js'),
   /** @type {import('..').permissionTranslator} */ permissionTranslator = require('../permissionTranslator'),
@@ -16,7 +18,7 @@ function getCommands() {
 function getCommandCategories() { return getCommands.call(this).map(e => e.category).unique(); }
 
 /**
- * @this {Interaction | Message}
+ * @this {Interaction | Message | import('discord.js').SelectMenuInteraction}
  * @param {lang} lang
  * @param {string[]?} commandCategories */
 function createCategoryComponent(lang, commandCategories) {
@@ -70,15 +72,14 @@ function createCommandsComponent(lang, category) {
 
 /**
  * @this {Interaction | Message}
- * @param {command<string, boolean, true> | undefined} cmd
- * @param {lang} lang */
-function createInfoFields(cmd, lang) {
+ * @param {lang} lang
+ * @param {command<'prefix' | 'slash', boolean, true> | undefined} cmd */
+function createInfoFields(lang, cmd = {}) {
   const
     arr = [],
     prefixKey = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
     prefix = this.guild?.db.config[prefixKey]?.[0].prefix ?? this.client.defaultSettings.config[prefixKey][0].prefix;
 
-  cmd ??= {};
   if (cmd.aliases?.prefix?.length) arr.push({ name: lang('one.prefixAlias'), value: cmd.aliases.prefix.map(inlineCode).join(', '), inline: true });
   if (cmd.aliases?.slash?.length) arr.push({ name: lang('one.slashAlias'), value: cmd.aliases.slash.map(inlineCode).join(', '), inline: true });
   if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: inlineCode(cmd.aliasOf), inline: true });
@@ -112,8 +113,8 @@ function createInfoFields(cmd, lang) {
   }
 
   const
-    usage = (cmd.usageLocalizations[lang.config.locale]?.usage ?? cmd.usage.usage)?.replaceAll('{prefix}', prefix),
-    examples = (cmd.usageLocalizations[lang.config.locale]?.examples ?? cmd.usage.examples)?.replaceAll('{prefix}', prefix);
+    usage = (cmd.usageLocalizations[lang.config.locale ?? '']?.usage ?? cmd.usage.usage)?.replaceAll('{prefix}', prefix),
+    examples = (cmd.usageLocalizations[lang.config.locale ?? '']?.examples ?? cmd.usage.examples)?.replaceAll('{prefix}', prefix);
 
   if (usage) arr.push({ name: codeBlock(lang('one.usage')), value: usage, inline: true });
   if (examples) arr.push({ name: codeBlock(lang('one.examples')), value: examples, inline: true });
@@ -153,7 +154,7 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
     embed = new EmbedBuilder({
       title: lang('one.embedTitle', { category: command.category, command: command.name }),
       description: helpLang('description') ?? command.description,
-      fields: createInfoFields.call(this, command, lang),
+      fields: createInfoFields.call(this, lang, command),
       footer: { text: lang(
         'one.embedFooterText',
         `"${(this.guild?.db.config[prefixKey] ?? this.client.defaultSettings.config[prefixKey]).map(e => e.prefix).join('", "')}"`

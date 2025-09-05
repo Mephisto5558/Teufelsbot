@@ -73,7 +73,7 @@ module.exports = {
     for (const [typeIndex, typeFilter] of ['role', 'member', 'channel'].entries()) {
       const ids = this.options.data[0].options.filter(e => e.name.includes(typeFilter)).map(e => e.value).unique();
 
-      let type = 'roles';
+      let /** @type {'users' | 'channels' | 'roles'} */ type = 'roles';
       if (typeIndex == 1) type = 'users';
       else if (typeIndex == 2) type = 'channels';
 

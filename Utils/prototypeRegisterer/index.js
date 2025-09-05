@@ -2,7 +2,7 @@
 /* eslint no-underscore-dangle: [warn, {allow: [_patch, __count__, _log]}] */
 
 const
-  { AutocompleteInteraction, BaseInteraction, ButtonBuilder, Client, Collection, Events, Guild, GuildMember, Message, User } = require('discord.js'),
+  { AutocompleteInteraction, BaseInteraction, Client, Collection, Events, Guild, GuildMember, Message, User } = require('discord.js'),
   { randomInt } = require('node:crypto'),
   { readFile } = require('node:fs/promises'),
   { join } = require('node:path'),
@@ -10,7 +10,7 @@ const
   { I18nProvider } = require('@mephisto5558/i18n'),
   { DB } = require('@mephisto5558/mongoose-db'),
   TicTacToe = require('discord-tictactoe'),
-  GameBoardButtonBuilder = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder').default,
+  { default: GameBoardButtonBuilder } = require('discord-tictactoe/dist/src/bot/builder/GameBoardButtonBuilder'),
   { setDefaultConfig } = require('../configValidator'),
   findAllEntries = require('../findAllEntries'),
   Log = require('./Log'),
@@ -99,21 +99,15 @@ Object.defineProperties(Number.prototype, {
   },
   inRange: {
     /** @type {global['Number']['prototype']['inRange']} */
-    value: function inRange(min, max) {
-      let minRange, maxRange;
-      if (typeof min == 'object') {
-        maxRange = min.max;
-        minRange = min.min;
-      }
-
-      return Number(this) > (minRange ?? min ?? Number.NEGATIVE_INFINITY) && Number(this) < (maxRange ?? max ?? Number.POSITIVE_INFINITY);
+    value: function inRange(min = Number.NEGATIVE_INFINITY, max = Number.POSITIVE_INFINITY) {
+      return Number(this) > min && Number(this) < max;
     },
     enumerable: false
   }
 });
 Object.defineProperties(Object.prototype, {
-  /** @type {global['Object']['prototype']['filterEmpty']} */
   filterEmpty: {
+    /** @type {global['Object']['prototype']['filterEmpty']} */
     value: function filterEmpty() {
       return Object.entries(this).reduce((acc, [k, v]) => {
         if (!(v === null || (typeof v == 'object' && !v.__count__)))
@@ -127,6 +121,7 @@ Object.defineProperties(Object.prototype, {
     /** @type {global['Object']['prototype']['__count__']} */
     get: function get() {
       let count = 0;
+      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive */
       for (const prop in this) if (Object.hasOwn(this, prop)) count++;
 
       return count;
@@ -330,25 +325,12 @@ Object.defineProperty(TicTacToe.prototype, 'playAgain', {
   value: playAgain
 });
 
+/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- the library does not provide types */
+const originalCreateButton = GameBoardButtonBuilder.prototype.createButton;
 Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
-  /**
-   * @param {number} row
-   * @param {number} col */
-  value: function createButton(row, col) {
-    const
-      button = new ButtonBuilder(),
-      buttonIndex = row * this.boardSize + col,
-      buttonData = this.boardData[buttonIndex];
-
-    // Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
-    if (buttonData === 0) button.setLabel('\u200B');
-    else {
-      if (this.customEmojies) button.setEmoji(this.emojies[buttonData]);
-      else button.setLabel(this.buttonLabels[buttonData - 1]);
-
-      if (this.disableButtonsAfterUsed) button.setDisabled(true);
-    }
-    return button.setCustomId(buttonIndex.toString()).setStyle(this.buttonStyles[buttonData]);
+  value: function createButton(...args) {
+    this.buttonLabels[0] = '\u200B'; // Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
+    return originalCreateButton.call(this, ...args);
   }
 });
 

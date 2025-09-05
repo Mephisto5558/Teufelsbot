@@ -321,7 +321,7 @@ class BackupSystem {
 
     statusObj.status = 'load.emojis';
     for (const emoji of data.emojis) {
-      try { await guild.emojis.create({ name: emoji.name, attachment: emoji.url ?? utils.loadFromBase64(emoji.base64), reason }); }
+      try { await guild.emojis.create({ name: emoji.name, attachment: 'url' in emoji ? emoji.url : utils.loadFromBase64(emoji.base64), reason }); }
       catch (err) {
         if (err.code != DiscordAPIErrorCodes.MaximumNumberOfEmojisReached) throw err;
         break;
@@ -333,7 +333,7 @@ class BackupSystem {
       try {
         await guild.stickers.create({
           name: sticker.name, description: sticker.description, tags: sticker.tags,
-          file: sticker.url ?? utils.loadFromBase64(sticker.base64), reason
+          file: 'url' in sticker ? sticker.url : utils.loadFromBase64(sticker.base64), reason
         });
       }
       catch (err) {

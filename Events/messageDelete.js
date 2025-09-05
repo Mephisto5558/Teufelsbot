@@ -59,7 +59,7 @@ function shouldRun() {
 
 /** @this {import('discord.js').ClientEvents['messageDelete'][0]} */
 module.exports = async function messageDelete() {
-  if (this.client.botType == 'dev' || !this.guild || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
+  if (this.client.botType == 'dev' || !this.inGuild() || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
 
   const lang = this.client.i18n.getTranslator({
     locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['commands.minigames.counting.userDeletedMsg']
@@ -82,7 +82,7 @@ module.exports = async function messageDelete() {
       /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- 3rd valid resolution */
       thumbnail: this.member ? { url: this.member.displayAvatarURL({ size: ALLOWED_SIZES[3] }) } : undefined,
       description: lang('messageDelete.embedDescription', {
-        executor: executor ? userMention(executor.id) : lang('someone'), channel: this.channel.name
+        executor: executor ? userMention(executor.id) : lang('someone'), channel: 'name' in this.channel ? this.channel.name : this.channelId
       }),
       fields: [
         { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: true },

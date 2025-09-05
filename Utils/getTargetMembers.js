@@ -11,7 +11,9 @@ const searchCache = (query, filter, cache) => cache.find(e => filter(e) && [
 /** @type {import('.').__getTargetMember} */
 function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList) {
   if (interaction.inGuild()) {
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- ts bug */
     let target = interaction.options?.getMember(targetOptionName)
+      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- ts bug */
       ?? interaction.mentions?.members.at(seenList.length) ?? interaction.mentions?.members.first();
     if (interaction.content) {
       if (!target || seenList.has(target.id)) target = searchCache(interaction.content, e => !seenList.has(e.id), interaction.guild.members.cache);

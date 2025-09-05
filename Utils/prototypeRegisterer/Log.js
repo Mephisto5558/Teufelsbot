@@ -25,6 +25,7 @@ module.exports = class Log extends Function {
     super('...str', 'return this.log(...str)');
 
     /** @type {this} */
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- `this` is `this` */
     const bound = this.bind(this);
 
     /* eslint-disable no-multi-assign -- this just makes more sense. */

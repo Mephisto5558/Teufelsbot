@@ -20,7 +20,7 @@ module.exports = {
 
     const
       id = findTriggerId(query, oldData),
-      /** @type {import('.').triggersArray[1]} */ { trigger, response, wildcard } = query ? oldData[id] : undefined;
+      /** @type {import('.').triggersArray[1]} */ { trigger, response, wildcard } = query && id ? oldData[id] : undefined;
 
     if (!trigger) return this.editReply(lang('notFound'));
 

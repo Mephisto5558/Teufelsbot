@@ -9,6 +9,8 @@ import type { BackupSystem, GiveawaysManager } from '#Utils';
 import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
 import type locals from './locals';
 
+// Source: https://github.com/microsoft/TypeScript/issues/54451#issue-1732749888
+type Omit<T, K extends keyof T> = { [P in keyof T as P extends K ? never : P]: T[P] };
 
 // Source: https://github.com/Mephisto5558/Teufelsbot/blob/21fe71d254beb4d7a2c6f32f1add26947879290b/types/discord.js.d.ts#L11-L20
 /* eslint-disable @typescript-eslint/ban-ts-comment -- depending on the module resolution, one of these might not error out. */

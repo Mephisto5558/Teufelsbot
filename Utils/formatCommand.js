@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-deprecated, sonarjs/cognitive-complexity, sonarjs/cyclomatic-complexity
+/* eslint-disable @typescript-eslint/no-deprecated, sonarjs/cognitive-complexity, sonarjs/cyclomatic-complexity,
+   @typescript-eslint/no-unsafe-assignment
 -- will be fixed when commands are moved to their own lib */
 
 const

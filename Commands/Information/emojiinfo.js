@@ -29,7 +29,7 @@ module.exports = {
     if (!emoji?.id) return this.customReply(lang('notFound'));
 
     const
-      url = emoji.imageURL?.() ?? CDNRoutes.emoji(emoji.id, ImageFormat.WebP) + '?size=2048',
+      url = CDNRoutes.emoji(emoji.id, ImageFormat.WebP) + '?size=2048',
       embed = new EmbedBuilder({
         title: lang('embedTitle', `<:${emoji.name}:${emoji.id}>`),
         color: Number.parseInt((await getAverageColor(url)).hex.slice(1), 16),
@@ -42,7 +42,7 @@ module.exports = {
           [lang('creator'), (await emoji.fetchAuthor?.())?.username ?? lang('global.unknownUser')],
           [lang('available'), 'available' in emoji && emoji.available != undefined ? lang(`global.${emoji.available}`) : lang('global.unknown')],
           [lang('createdAt'), emoji.createdTimestamp ? timestamp(emoji.createdTimestamp) : lang('global.unknown')]
-        ].map(([k, v]) => ({ name: k, value: v, inline: true }))
+        ].map(/** @param {[string, string]} obj */ ([k, v]) => ({ name: k, value: v, inline: true }))
       }),
       component = new ActionRowBuilder({
         components: [
@@ -67,7 +67,7 @@ module.exports = {
       }));
     }
 
-    if (emoji.roles?.cache.size)
+    if ('roles' in emoji && emoji.roles.cache.size)
       embed.data.fields.push({ name: lang('allowedRoles'), value: emoji.roles.cache.map(e => roleMention(e.id)).join(', '), inline: false });
 
     return this.customReply({ embeds: [embed], components: [component] });

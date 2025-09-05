@@ -1,4 +1,6 @@
-/* eslint-disable sonarjs/cognitive-complexity, sonarjs/cyclomatic-complexity  -- will be fixed when commands are moved to their own lib */
+/* eslint-disable sonarjs/cognitive-complexity, sonarjs/cyclomatic-complexity
+-- will be fixed when commands are moved to their own lib */
+
 const
   { readdir } = require('node:fs/promises'),
   { resolve } = require('node:path'),
