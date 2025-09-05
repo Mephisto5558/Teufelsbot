@@ -64,7 +64,7 @@ function checkOptions(command, lang) {
         return ['strictAutocompleteNoMatchWValues', {
           option: name,
           availableOptions: Array.isArray(autocompleteOptions)
-            ? autocompleteOptions.map(e => e.value ?? e).map(inlineCode).join(', ')
+            ? autocompleteOptions.map(e => ('value' in e ? e.value : e)).map(inlineCode).join(', ')
             : autocompleteOptions
         }];
       }
@@ -141,7 +141,7 @@ module.exports = async function checkForErrors(command, lang) {
 
   const disabledList = this.guild?.db.config.commands?.[command.aliasOf ?? command.name]?.disabled;
   if (disabledList && this.member.id != this.guild.ownerId) {
-    if (Object.values(disabledList).some(e => e.includes('*'))) return ['notAllowed.anyone'];
+    if (Object.values(disabledList).some(e => Array.isArray(e) && e.includes('*'))) return ['notAllowed.anyone'];
     if (disabledList.users?.includes(this.user.id)) return ['notAllowed.user'];
     if (disabledList.channels?.includes(this.channel.id)) return ['notAllowed.channel'];
     if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return ['notAllowed.role'];

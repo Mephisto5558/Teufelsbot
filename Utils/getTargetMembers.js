@@ -20,6 +20,7 @@ function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList
       target ??= searchCache(interaction.content, e => !seenList.has(e.id), interaction.client.users.cache);
     }
 
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- ts bug */
     if (target && !seenList.has(target.id)) return target;
     return returnSelf && !seenList.has(interaction.member.id) ? interaction.member : undefined;
   }
@@ -40,7 +41,8 @@ module.exports = function getTargetMembers(interaction, targetSettings) {
   let settings = Array.isArray(targetSettings) ? targetSettings : [targetSettings];
   if (!targetSettings || !settings.length) settings = [{}];
 
-  const members = [...settings.reduce((/** @type {Map} */ acc, { targetOptionName, returnSelf }, i) => {
+  /** @type {ReturnType<getTargetMember>[]} */
+  const members = [...settings.reduce((acc, { targetOptionName, returnSelf }, i) => {
     const member = getTargetMember(interaction, { targetOptionName: targetOptionName ?? `target${i || ''}`, returnSelf }, acc);
     acc.set(member?.id ?? `target${i || ''}`, member);
     return acc;

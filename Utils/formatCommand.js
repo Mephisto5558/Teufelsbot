@@ -99,7 +99,10 @@ module.exports = function formatCommand(option, path, id, i18n) {
         const subcommand = this.options?.getSubcommandGroup(false) ?? this.options?.getSubcommand(true) ?? this.args[0];
 
         lang.config.backupPath.push(`${lang.config.backupPath[0]}.${subcommand.replaceAll(/_./g, e => e[1].toUpperCase())}`);
-        return require(resolve(path, `${subcommand}.js`)).run.call(this, lang, additionalParams, ...args);
+
+        /** @type {command} */
+        const subCommandFile = require(resolve(path, `${subcommand}.js`));
+        return subCommandFile.run.call(this, lang, additionalParams, ...args);
       };
     }
     else if (!option.disabled && !['function', 'async function', 'async run(', 'run('].some(e => String(option.run).startsWith(e)))
@@ -124,6 +127,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
   if ('channelTypes' in option) {
     option.channelTypes = option.channelTypes.map(e => {
       if (!(e in ChannelType)) throw new Error(`Invalid option.channelType, got ${JSON.stringify(e)} (${id})`);
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- false positive, we guard against `e` not being in `ChannelType`. */
       return Number.isNaN(Number.parseInt(e)) ? ChannelType[e] : Number.parseInt(e);
     });
   }

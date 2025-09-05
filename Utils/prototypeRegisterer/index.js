@@ -130,6 +130,7 @@ Object.defineProperties(Object.prototype, {
   }
 });
 Object.defineProperty(BigInt.prototype, 'toJSON', {
+  /** @this {bigint} */
   value: function stringify() {
     return this.toString();
   },
@@ -311,10 +312,12 @@ Object.defineProperties(Guild.prototype, {
 
 // #region mongoose-db
 Object.defineProperty(DB.prototype, 'generate', {
-  /** @type {import('@mephisto5558/mongoose-db').DB['generate']} */
+  /**
+   * @type {import('@mephisto5558/mongoose-db').DB['generate']}
+   * @this {DB} */
   value: async function generate(overwrite = false) {
     this.saveLog(`generating db files${overwrite ? ', overwriting existing data' : ''}`);
-    await Promise.all(require('../../Templates/db_collections.json').map(({ key, value }) => this.set(key, value, overwrite)));
+    await Promise.all(require('../../Templates/db_collections.json').map(async ({ key, value }) => void await this.set(key, value, overwrite)));
   }
 });
 
@@ -330,6 +333,8 @@ const originalCreateButton = GameBoardButtonBuilder.prototype.createButton;
 Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
   value: function createButton(...args) {
     this.buttonLabels[0] = '\u200B'; // Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
+
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- the library does not provide types */
     return originalCreateButton.call(this, ...args);
   }
 });

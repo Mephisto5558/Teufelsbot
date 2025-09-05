@@ -11,7 +11,9 @@ const
 
   TIMEOUT_MS = 6e5; // 10min
 
-/** @param {number} ms */
+/**
+ * @param {number} ms
+ * @returns {Promise<string>} */
 const timeout = async ms => new Promise((_, rej) => void setTimeout(rej, ms, 'eval timed out.'));
 
 /** @type {command<'prefix', false>} */

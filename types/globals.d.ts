@@ -117,7 +117,7 @@ declare global {
   type Database = DBStructure.Database;
 
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any -- used only as generic constraint */
-  type GenericFunction = (...args: any) => any;
+  type GenericFunction<Ret = any> = (...args: any) => Ret;
 
   type OmitFirstParameter<T extends GenericFunction> = Parameters<T> extends [unknown, ...infer Rest] ? Rest : never;
 

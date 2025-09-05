@@ -15,9 +15,10 @@ module.exports = async function messageDeleteBulk(channel) {
     || !this.some(e => !e.flags.has(MessageFlags.Ephemeral) && !e.flags.has(MessageFlags.Loading))
   ) return;
 
-  const channelToSend = channel.guild.channels.cache.get(setting.channel);
+  /** @type {import('discord.js').GuildTextBasedChannel | undefined} */
+  const logChannel = channel.guild.channels.cache.get(setting.channel);
   if (
-    !channelToSend || channelToSend.permissionsFor(channel.guild.members.me)
+    !logChannel || logChannel.permissionsFor(channel.guild.members.me)
       .missing([PermissionFlagsBits.ViewChannel, PermissionFlagsBits.SendMessages, PermissionFlagsBits.ViewAuditLog]).length
   ) return;
 
@@ -45,5 +46,5 @@ module.exports = async function messageDeleteBulk(channel) {
     embed.data.fields.push({ name: lang('events.logger.executor'), value: `${executor.tag} (${inlineCode(executor.id)})`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('events.logger.reason'), value: reason, inline: false });
 
-  return channelToSend.send({ embeds: [embed] });
+  return logChannel.send({ embeds: [embed] });
 };

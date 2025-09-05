@@ -75,6 +75,9 @@ module.exports = async function messageDelete() {
   await sleep(msInSecond); // makes sure the audit log gets created before trying to fetch it
 
   const
+
+    /** @type {import('discord.js').GuildTextBasedChannel} cannot be undefined due to `shouldRun()` */
+    logChannel = this.guild.channels.cache.get(this.guild.db.config.logger.messageDelete.channel),
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageDelete })).entries
       .find(e => (e.target.id == this.user?.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},
     embed = new EmbedBuilder({
@@ -107,5 +110,5 @@ module.exports = async function messageDelete() {
   if (executor) embed.data.fields.push({ name: lang('executor'), value: `${executor.tag} (${inlineCode(executor.id)})`, inline: false });
   if (reason) embed.data.fields.push({ name: lang('reason'), value: reason, inline: false });
 
-  return this.guild.channels.cache.get(this.guild.db.config.logger.messageDelete.channel).send({ embeds: [embed] });
+  return logChannel.send({ embeds: [embed] });
 };

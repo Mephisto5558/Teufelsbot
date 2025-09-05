@@ -30,10 +30,13 @@ function shouldRun(newMsg) {
 /**
  * @this {import('discord.js').ClientEvents['messageUpdate'][0]}
  * @param {import('discord.js').ClientEvents['messageUpdate'][1]} newMsg */
-module.exports = function messageUpdate(newMsg) {
+module.exports = async function messageUpdate(newMsg) {
   if (!shouldRun.call(this, newMsg)) return;
 
   const
+
+    /** @type {import('discord.js').GuildTextBasedChannel} cannot be undefined due to `shouldRun()` */
+    logChannel = this.guild.channels.cache.get(this.guild?.db.config.logger?.messageUpdate.channel),
     lang = this.client.i18n.getTranslator({
       locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['events.logger.messageUpdate']
     }),
@@ -77,5 +80,5 @@ module.exports = function messageUpdate(newMsg) {
   if (embed.data.fields[2].value.length > embedFieldValueMaxLength)
     embed.data.fields[2].value = embed.data.fields[2].value.slice(0, embedFieldValueMaxLength - suffix.length) + suffix;
 
-  return this.guild.channels.cache.get(this.guild?.db.config.logger?.messageUpdate.channel).send({ embeds: [embed], components: [component] });
+  return logChannel.send({ embeds: [embed], components: [component] });
 };

@@ -6,7 +6,8 @@ const
  * @this {ThisParameterType<import('.').autocompleteGenerator>}
  * @param {unknown} searchValue
  * @param {lang<true>} lang
- * @param {commandOptions['autocompleteOptions'] | { name: unknown; value: unknown } | undefined} options */
+ * @param {commandOptions['autocompleteOptions'] | { name: unknown; value: unknown } | undefined} options
+ * @returns {[] | { name: string, value: string | number }[]} */
 function autocompleteFormatter(searchValue, lang, options) {
   if (!options) return [];
 

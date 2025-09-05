@@ -1,6 +1,6 @@
 const
   { Colors, EmbedBuilder, MessageFlags, inlineCode } = require('discord.js'),
-  handlers = require('./componentHandler/'),
+  /** @type {Record<string, GenericFunction<unknown>>} */ handlers = require('./componentHandler/'),
   cooldowns = require('./cooldowns'),
   /** @type {import('.').errorHandler} */ errorHandler = require('./errorHandler'),
   { msInSecond } = require('./timeFormatter');
@@ -25,6 +25,6 @@ module.exports = async function messageComponentHandler(lang) {
     return this.reply({ embeds: [embed], flags: MessageFlags.Ephemeral });
   }
 
-  try { if (handlers[feature]) return await handlers[feature].call(this, lang, id, mode, data, args); }
+  try { if (feature && feature in handlers) return await handlers[feature].call(this, lang, id, mode, data, args); }
   catch (err) { return errorHandler.call(this.client, err, this, lang); }
 };

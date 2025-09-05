@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment -- will be fixed when commands are moved to their own lib */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return
+-- will be fixed when commands are moved to their own lib */
 
 const
   { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, codeBlock, inlineCode } = require('discord.js'),
