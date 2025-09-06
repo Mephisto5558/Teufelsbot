@@ -37,10 +37,7 @@ function subCommandCooldowns(name, maxDepth = 2) {
 }
 
 
-/**
- * @type {import('.').cooldowns}
- * @this {ThisParameterType<import('.').cooldowns>}
- * Here due to `@typescript-eslint/no-invalid-this` */
+/** @type {import('.').cooldowns} */
 function cooldown(name, cooldowns = {}) {
   const
     now = Date.now(),

@@ -20,9 +20,7 @@ async function sendChallengeMention(msg, userId, lang) {
   void mentionMsg.delete().catch(() => { /* empty */ });
 }
 
-/**
- * @type {import('.').playAgain}
- * @this {ThisType<import('.').playAgain>} */
+/** @type {import('.').playAgain} */
 async function playAgain(interaction, lang) {
   const
     opponent = interaction.options.getUser('opponent'),
@@ -45,7 +43,7 @@ async function playAgain(interaction, lang) {
   });
 
   collector
-    .on('collect', /** @param {import('discord.js').ButtonInteraction} PAButton */ PAButton => {
+    .on('collect', /** @param {import('discord.js').ButtonInteraction} PAButton */ async PAButton => {
       void PAButton.deferUpdate();
       collector.stop();
 

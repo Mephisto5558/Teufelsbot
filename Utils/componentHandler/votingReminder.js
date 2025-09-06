@@ -7,17 +7,17 @@ module.exports = async function votingReminder(lang, mode) {
   await this.deferReply({ flags: MessageFlags.Ephemeral });
   await this.user.updateDB('votingReminderDisabled', mode == 'disable');
 
-  /** @type {import('discord.js').APIButtonComponentWithCustomId} */
-  const button = this.message.components[0].components[1].data;
+  /** @type {import('discord.js').ButtonComponent} */
+  const button = this.message.resolveComponent(`votingReminder.${mode}`);
   if (mode == 'disable') {
     button.label = lang('buttonLabelEnable');
     button.style = ButtonStyle.Success;
-    button.custom_id = 'votingReminder.enable'; /* eslint-disable-line camelcase -- nothing I can do about that */
+    button.customId = 'votingReminder.enable';
   }
   else {
     button.label = lang('buttonLabelDisable');
     button.style = ButtonStyle.Danger;
-    button.custom_id = 'votingReminder.disable'; /* eslint-disable-line camelcase -- nothing I can do about that */
+    button.customId = 'votingReminder.disable';
   }
 
   await this.message.edit({ components: this.message.components });

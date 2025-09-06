@@ -144,9 +144,7 @@ async function handleWordcounter(cleanMsg) {
   return Promise.allSettled(dbPromises);
 }
 
-/**
- * @type {import('.').runMessages}
- * @this {ThisParameterType<import('.').runMessages>} */
+/** @type {import('.').runMessages} */
 function runMessages() {
   if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: MESSAGES_COOLDOWN }))
     void this.react('👀');

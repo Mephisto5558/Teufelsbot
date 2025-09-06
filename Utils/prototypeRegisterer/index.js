@@ -179,9 +179,14 @@ Object.defineProperties(Client.prototype, {
           Object.assign(process.env, parseEnv(await readFile(`.env.${process.env.environment}`, { encoding: 'utf8' })));
         }
         catch (err) {
-          if (err.code != 'ENOENT')
-            throw new Error(`Missing "env.${process.env.environment}" file. Tried to import based on "environment" env variable in ".env".`);
-          throw err;
+          if (err.code == 'ENOENT') {
+            throw new Error(
+              `Missing "env.${process.env.environment}" file. Tried to import based on "environment" env variable in ".env".`,
+              { cause: err }
+            );
+          }
+
+          throw new Error(`Could not parse "env.${process.env.environment}" file.`, { cause: err });
         }
       }
 
@@ -253,6 +258,7 @@ Object.defineProperties(User.prototype, {
       const locale = this.db.localeCode
         ?? Object.values(this.client.db.get('website', 'sessions')).find(e => e.user?.id == this.id)?.user?.locale
         ?? undefined; // website db user locale can be `null`
+
       return locale?.startsWith('en') ? 'en' : locale;
     },
     set(val) { void this.updateDB('localeCode', val); }

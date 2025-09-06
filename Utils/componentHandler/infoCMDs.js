@@ -63,7 +63,7 @@ const
         case 'addToGuild': {
           const components = [
             new ActionRowBuilder({
-              components: this.message.components[0].components.filter(e => !e.customId?.includes('addToGuild')).map(e => e.data)
+              components: this.message.components[0].components.filter(e => e.customId != this.customId).map(e => e.data)
             }),
             new ActionRowBuilder({
               components: [new StringSelectMenuBuilder({

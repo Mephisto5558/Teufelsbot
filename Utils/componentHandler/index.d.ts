@@ -1,5 +1,8 @@
 /* eslint camelcase: [error, { allow: [_] }] -- This casing is used to better display the commandName. */
-import type { BaseInteraction, ButtonInteraction, Collection, GuildMember, InteractionResponse, StringSelectMenuInteraction } from 'discord.js';
+import type {
+  ActionRow, BaseInteraction, ButtonComponent, ButtonInteraction, Collection, GuildMember,
+  InteractionResponse, StringSelectMenuComponent, StringSelectMenuInteraction
+} from 'discord.js';
 import type { BackupSystem, commandExecutionWrapper } from '..';
 
 export {
@@ -66,7 +69,12 @@ declare function infoCMDs<
   MODE extends 'kick' | 'ban' | 'delete' | 'addToGuild' | 'addToSelectedGuild',
   ENTITY_TYPE extends 'members' | 'emojis' | 'roles'
 >(
-  this: (GuildButtonInteraction | StringSelectMenuInteraction<'cached'>) & { customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}` },
+  this: (MODE extends 'addToSelectedGuild' ? StringSelectMenuInteraction : GuildButtonInteraction) & {
+    customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}`;
+    message: {
+      components: [ActionRow<MODE extends 'addToSelectedGuild' ? StringSelectMenuComponent : ButtonComponent>];
+    };
+  },
   lang: lang, id: ID, mode: MODE, entityType: ENTITY_TYPE
 ): Promise<Response<true>>;
 
@@ -83,10 +91,16 @@ declare function mgStats_formatTop(
   sort: 'f' | undefined, mode: 'draws' | 'losses' | 'alphabet_user' | 'alphabet_nick' | undefined, lang: lang,
   maxLength?: number
 ): string | undefined;
+
 declare function mgStats<
   GAME extends string, MODE extends 'sort' | undefined, SETTINGS extends 'all_users' | undefined
 >(
-  this: StringSelectMenuInteraction<'cached'> & { customId: `mgstats.${GAME}.${MODE}.${SETTINGS}` },
+  this: StringSelectMenuInteraction<'cached'> & {
+    customId: `mgstats.${GAME}.${MODE}.${SETTINGS}`;
+    message: {
+      components: [ActionRow<StringSelectMenuComponent>];
+    };
+  },
   lang: lang, game: GAME, wMode: MODE, settings: SETTINGS
 ): Promise<MODE extends 'sort' ? InteractionResponse : undefined>;
 
@@ -158,6 +172,11 @@ declare function topic(
 ): ComponentReturnType;
 
 declare function votingReminder<MODE extends 'enable' | 'disable'>(
-  this: ButtonInteraction<'raw'> & { customId: `votingReminder.${MODE}` },
+  this: ButtonInteraction<'raw'> & {
+    customId: `votingReminder.${MODE}`;
+    message: {
+      components: [ActionRow<ButtonComponent>];
+    };
+  },
   lang: lang, mode: MODE
 ): ComponentReturnType;

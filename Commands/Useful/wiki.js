@@ -89,6 +89,7 @@ module.exports = {
       }, ['']);
 
     for (const msg of msgs.slice(0, MAX_MSGS)) await this.customReply(msg);
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- false positive - appears to be to complex for TS to understand(?) */
     if (msgs.length > MAX_MSGS) return this.reply(bold(lang('visitWiki')));
   }
 };

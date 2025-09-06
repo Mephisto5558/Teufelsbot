@@ -6,16 +6,12 @@ const
   /** @type {import('..').permissionTranslator} */ permissionTranslator = require('../permissionTranslator'),
   { msInSecond, secsInMinute } = require('../timeFormatter');
 
-/**
- * @type {import('.').help_getCommands}
- * @this {ThisParameterType<import('.').help_getCommands>} */ // This is here due to eslint.
+/** @type {import('.').help_getCommands} */
 function getCommands() {
   return [...this.client.prefixCommands.values(), ...this.client.slashCommands.values()].unique().filter(e => !!filterCommands.call(this, e));
 }
 
-/**
- * @type {import('.').help_getCommandCategories}
- * @this {ThisParameterType<import('.').help_getCommandCategories>} */ // this is here due to eslint
+/** @type {import('.').help_getCommandCategories} */
 function getCommandCategories() { return getCommands.call(this).map(e => e.category).unique(); }
 
 /**
