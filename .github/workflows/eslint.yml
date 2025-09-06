@@ -26,7 +26,7 @@ jobs:
           node-version-file: package.json
 
       - name: Install ESLint
-        run: npm install eslint @microsoft/eslint-formatter-sarif
+        run: npm install eslint @microsoft/eslint-formatter-sarif https://github.com/Mephisto5558/ESLint-Config
 
       - name: Run ESLint
         run: npx eslint
