@@ -60,7 +60,7 @@ module.exports = {
   }],
 
   async run(lang) {
-    if (this instanceof Message) void this.channel.sendTyping();
+    if (this instanceof Message && 'sendTyping' in this.channel) void this.channel.sendTyping();
 
     const
       content = await fetchAPI.call(this, lang),

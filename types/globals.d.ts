@@ -317,7 +317,7 @@ export declare class TicTacToe extends DiscordTicTacToe {
 
 // #region own libs
 declare module '@mephisto5558/mongoose-db' {
-  interface NoCacheDB {
+  interface DB {
     /**
      * generates required database entries from {@link ./Templates/db_collections.json}.
      * @param overwrite overwrite existing collection, default: `false` */

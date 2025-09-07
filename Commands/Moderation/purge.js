@@ -30,9 +30,9 @@ const
 function shouldDeleteMsg(msg, options) {
   const
 
-    /** @type {(fn: (...args: unknown[]) => boolean, option: string) => boolean} */
+    /** @type {import('./purge')['check']} */
     check = (fn, option) => !option
-      || !!msg.content.toLowerCase()[fn](option.toLowerCase())
+      || msg.content.toLowerCase()[fn](option.toLowerCase())
       || msg.embeds.some(e => !!e.description?.toLowerCase()[fn](option.toLowerCase())),
     checkCaps = () => !('caps_percentage' in options && options.caps_percentage > 0)
       || msg.content.replaceAll(/[^A-Z]/g, '').length / msg.content.length * maxPercentage >= options.caps_percentage
@@ -90,8 +90,9 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
  * @this {ThisParameterType<NonNullable<command<'both'>['run']>>}
  * @param {number | undefined} amount
  * @param {import('./purge').shouldDeleteMsgOptions} options
- * @param {boolean} exists */
-function checkParams(amount, options, exists) {
+ * @param {boolean} exists
+ * @param {lang} lang */
+function checkParams(amount, options, exists, lang) {
   if (!amount) return void this.customReply(Number.isNaN(amount) ? lang('invalidNumber') : lang('noNumber'));
   if (options.before_message && options.after_message) return void this.customReply(lang('beforeAndAfter'));
 
@@ -103,7 +104,7 @@ function checkParams(amount, options, exists) {
       || options.starts_with && options.starts_with == options.not_starts_with
       || options.ends_with && options.ends_with == options.not_ends_with
     )
-  ) return void this.editReply(lang('paramsExcludeOther'));
+  ) return void this.customReply(lang('paramsExcludeOther'));
 
   return true;
 }
@@ -175,7 +176,7 @@ module.exports = {
     }
 
     const exists = filterOptionsExist(options);
-    if (!checkParams.call(this, amount, options, exists)) return;
+    if (!checkParams.call(this, amount, options, exists, lang)) return;
 
     const messages = (await fetchMsgs(channel, exists ? options.before : undefined, exists ? options.after : undefined, amount))
       .filter(e => shouldDeleteMsg(e, options))

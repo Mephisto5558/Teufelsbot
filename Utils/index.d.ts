@@ -1,7 +1,8 @@
 import type {
-  APIAllowedMentions, AnyThreadChannel, AutocompleteInteraction, BaseGuildTextChannel, BaseInteraction, CategoryChannel, Collection,
-  DMChannel, DateResolvable, Guild, GuildChannel, GuildChannelManager, GuildMember, GuildTextBasedChannel, Message,
-  MessageComponentInteraction, Role, Snowflake, TimestampStylesString, User, VoiceState, Webhook, WebhookType
+  APIAllowedMentions, AnyThreadChannel, AutocompleteFocusedOption, AutocompleteInteraction, BaseGuildTextChannel,
+  BaseInteraction, CategoryChannel, Collection, DMChannel, DateResolvable, Guild, GuildChannel, GuildChannelManager,
+  GuildMember, GuildTextBasedChannel, Message, MessageComponentInteraction, Role, Snowflake, TimestampStylesString, User,
+  VoiceState, Webhook, WebhookType
 } from 'discord.js';
 import type { ExecOptions, PromiseWithChild } from 'node:child_process';
 import type { I18nProvider, Locale } from '@mephisto5558/i18n';
@@ -44,7 +45,7 @@ export declare namespace afk {
 export declare function autocompleteGenerator(
   this: AutocompleteInteraction | Message,
   command: command<'both', boolean, true>,
-  target: { name: string; value: unknown }, locale: Locale
+  target: AutocompleteFocusedOption, locale: Locale
 ): { name: string | number; value: string | number }[] | undefined;
 
 type MaybeWithUndefined<X, T extends boolean> = T extends true ? X : X | undefined;
@@ -93,7 +94,7 @@ export declare namespace BackupSystem {
     ): ReturnType<GuildChannelManager['create']>;
 
     loadChannelMessages<WEBHOOK extends Webhook = Webhook<WebhookType.Incoming>, T extends WEBHOOK | undefined>(
-      channel: GuildChannel | AnyThreadChannel, messages: backupChannel['messages'], webhook: T,
+      channel: GuildTextBasedChannel | AnyThreadChannel, messages: backupChannel['messages'], webhook: T,
       maxMessagesPerChannel: number, allowedMentions: APIAllowedMentions
     ): Promise<T extends WEBHOOK ? T : WEBHOOK | undefined>;
   };

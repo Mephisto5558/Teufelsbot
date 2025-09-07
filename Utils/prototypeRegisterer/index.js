@@ -340,7 +340,7 @@ Object.defineProperty(GameBoardButtonBuilder.prototype, 'createButton', {
   value: function createButton(...args) {
     this.buttonLabels[0] = '\u200B'; // Discord does not allow empty strings as label, this is a "ZERO WIDTH SPACE"
 
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-return -- the library does not provide types */
+    /* eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call -- the library does not provide types */
     return originalCreateButton.call(this, ...args);
   }
 });

@@ -92,8 +92,9 @@ module.exports = {
 
       return void logSayCommandUse.call(sentMessage, this.member, lang);
     }
-    catch (err) {
-      if (!(err instanceof DiscordAPIError) && !err.message?.includes('JSON at')) throw err;
+    catch (rawErr) {
+      const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
+      if (!(err instanceof DiscordAPIError) && !err.message.includes('JSON')) throw err;
       return this.editReply(lang('invalidOption', codeBlock(err.message)));
     }
   }

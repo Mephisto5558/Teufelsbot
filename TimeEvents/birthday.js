@@ -1,5 +1,5 @@
 const
-  { EmbedBuilder, inlineCode } = require('discord.js'),
+  { BaseGuildTextChannel, EmbedBuilder, inlineCode } = require('discord.js'),
   { DiscordAPIErrorCodes } = require('#Utils');
 
 /**
@@ -43,7 +43,10 @@ function createEmbed(type, settings, member, year, defaultSettings) {
 async function getChannel(settings, guild) {
   if (!settings.ch?.channel) return;
 
-  try { return await guild.channels.fetch(settings.ch.channel); }
+  try {
+    const channel = await guild.channels.fetch(settings.ch.channel);
+    return channel instanceof BaseGuildTextChannel ? channel : undefined;
+  }
   catch (err) {
     if (err.code != DiscordAPIErrorCodes.UnknownChannel) throw err;
 

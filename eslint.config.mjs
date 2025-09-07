@@ -54,8 +54,7 @@ export default [
     rules: {
       // pain, needs TODO:
       '@typescript-eslint/no-unsafe-argument': 'off',
-      '@typescript-eslint/no-unsafe-member-access': 'off',
-      '@typescript-eslint/no-unsafe-call': 'off'
+      '@typescript-eslint/no-unsafe-member-access': 'off'
     }
   }
 ];

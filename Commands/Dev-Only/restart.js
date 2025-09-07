@@ -7,9 +7,10 @@ let restarting = false;
 
 /**
  * @param {Message} msg
+ * @param {lang} lang
  * @param {Error | number | null} err
  * @param {NodeJS.Signals | undefined} signal */
-async function childErrorHandler(msg, err, signal) {
+async function childErrorHandler(msg, lang, err, signal) {
   restarting = false;
 
   if (err instanceof Error) log.error('Restarting Error: ', err);
@@ -55,8 +56,8 @@ module.exports = {
       );
 
       child
-        .on('error', childErrorHandler.bind(undefined, msg))
-        .on('exit', childErrorHandler.bind(undefined, msg))
+        .on('error', childErrorHandler.bind(undefined, msg, lang))
+        .on('exit', childErrorHandler.bind(undefined, msg, lang))
         .on('message', async message => {
           if (message != 'Finished starting') return;
 

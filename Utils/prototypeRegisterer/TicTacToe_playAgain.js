@@ -57,8 +57,10 @@ async function playAgain(interaction, lang) {
           interaction.options.data[0].user = interaction.user;
           interaction.options.data[0].value = interaction.member.id;
 
+          /* eslint-disable @typescript-eslint/no-unsafe-call -- a hack that is not really doable otherwise */
           interaction.options.resolved.members.set(interaction.member.id, interaction.member);
           interaction.options.resolved.users.set(interaction.member.id, interaction.user);
+          /* eslint-enable @typescript-eslint/no-unsafe-call */
         }
 
         interaction.member = PAButton.member;

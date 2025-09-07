@@ -4,11 +4,11 @@ const
 
 /**
  * @this {ThisParameterType<import('.').autocompleteGenerator>}
- * @param {unknown} searchValue
- * @param {lang<true>} lang
  * @param {commandOptions['autocompleteOptions'] | { name: unknown; value: unknown } | undefined} options
+ * @param {string} searchValue
+ * @param {lang<true>} lang
  * @returns {[] | { name: string, value: string | number }[]} */
-function autocompleteFormatter(searchValue, lang, options) {
+function autocompleteFormatter(options, searchValue, lang) {
   if (!options) return [];
 
   if (typeof options == 'function') return autocompleteFormatter.call(this, searchValue, lang, options.call(this));

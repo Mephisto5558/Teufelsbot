@@ -162,7 +162,7 @@ async function loadChannel(channel, guild, category, maxMessagesPerChannel, allo
     }
 
     for (const threadData of channel.threads) {
-      /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
       -- this is fine due to `newChannel.type` always being the same type as `channel.type` */
       const thread = await newChannel.threads.create({ name: threadData.name, autoArchiveDuration: threadData.autoArchiveDuration });
       if (webhook) await loadChannelMessages(thread, threadData.messages, webhook, maxMessagesPerChannel, allowedMentions);

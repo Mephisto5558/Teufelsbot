@@ -1,5 +1,5 @@
 const
-  { ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError, codeBlock } = require('discord.js'),
+  { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError, codeBlock } = require('discord.js'),
   {
     DiscordApiErrorCodes, timeFormatter: { msInSecond },
     constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionrowMaxAmt, actionRowMaxButtonAmt }
@@ -7,8 +7,9 @@ const
 
 /**
  * @this {ThisParameterType<NonNullable<command<'slash'>['run']>>}
- * @param {Snowflake} msgId */
-async function getEditableMessage(msgId) {
+ * @param {Snowflake} msgId
+ * @param {lang} lang */
+async function getEditableMessage(msgId, lang) {
   let msg;
 
   try { msg = await this.channel.messages.fetch(msgId); }
@@ -24,6 +25,37 @@ async function getEditableMessage(msgId) {
   ) return void this.editReply(lang('buttonLimitReached'));
 
   return msg;
+}
+
+/**
+ * @this {ThisParameterType<NonNullable<command<'slash'>['run']>>}
+ * @param {Message | undefined} msg
+ * @param {string | undefined} url */
+async function sendUpdatedMsg(msg, url) {
+  const
+    custom = this.options.getString('json'),
+    content = this.options.getString('content', false) ?? undefined,
+    emoji = this.options.getString('emoji'),
+    label = this.options.getString('label'),
+
+    button = new ButtonBuilder(custom
+      ? JSON.parse(custom)
+      : {
+          style: this.options.getNumber('style', true),
+          label: label ?? (emoji ? undefined : '\u200E'), emoji, url // U+200E (LEFT-TO-RIGHT MARK) is used as invisible text
+        }),
+    components = msg?.components ? [...msg.components] : [],
+    lastComponent = components.at(-1);
+
+  if (button.data.style == ButtonStyle.Link) button.setCustomId(`buttonCommandButton_${Date.now()}`);
+  if (
+    !msg?.components.length || this.options.getBoolean('new_row')
+    || !(lastComponent instanceof ActionRow) || !lastComponent.components.push(button)
+  ) components.push(new ActionRowBuilder({ components: [button] }));
+
+  await (msg?.edit({ content, components }) ?? this.channel.send({ content, components }));
+
+  return button;
 }
 
 /** @type {command<'slash'>} */
@@ -72,50 +104,34 @@ module.exports = {
 
   async run(lang) {
     const
-      custom = this.options.getString('json'),
-      content = this.options.getString('content') ?? undefined,
       isLink = ButtonStyle[ButtonStyle[this.options.getNumber('style', true)]] == ButtonStyle.Link,
-      emoji = this.options.getString('emoji'),
 
       /** @type {Snowflake | null} */
       msgId = this.options.getString('message_id');
 
-    let
-      url = this.options.getString('url'),
-      label = this.options.getString('label');
-
-    if (!label && !emoji) label = '\u200E'; // U+200E (LEFT-TO-RIGHT MARK) is used as invisible text
+    let url = this.options.getString('url');
 
     if (isLink) {
       if (!url.startsWith('http') && !url.startsWith('discord://')) url = `https://${url}`;
       if (!/^(?:discord|https?):\/\/[\w\-.]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
     }
 
-    const msg = await getEditableMessage.call(this, msgId);
+    const msg = await getEditableMessage.call(this, msgId, lang);
     if (msgId && !msg) return;
 
     try {
-      const button = new ButtonBuilder(custom
-        ? JSON.parse(custom)
-        : {
-            style: this.options.getNumber('style', true),
-            label, emoji, url
-          });
-
-      if (!isLink) button.setCustomId(`buttonCommandButton_${Date.now()}`);
-
-      const components = msg?.components ? [...msg.components] : [];
-
-      if (!msg?.components.length || this.options.getBoolean('new_row') || !components[components.length]?.components.push(button))
-        components.push(new ActionRowBuilder({ components: [button] }));
-
-      await (msg?.edit({ content, components }) ?? this.channel.send({ content, components }));
+      const button = await sendUpdatedMsg.call(this, msg, url);
 
       delete button.data.custom_id;
-      return void this.editReply(custom ? lang('successJSON') : lang('success', codeBlock('json', JSON.stringify(button.data.filterEmpty()))));
+      return void this.editReply(
+        this.options.getString('json')
+          ? lang('successJSON')
+          : lang('success', codeBlock('json', JSON.stringify(button.data.filterEmpty())))
+      );
     }
-    catch (err) {
-      if (!(err instanceof DiscordAPIError) && !err.message?.includes('JSON at')) throw err;
+    catch (rawErr) {
+      const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
+      if (!(err instanceof DiscordAPIError) && !err.message.includes('JSON')) throw err;
       return this.editReply(lang('invalidOption', codeBlock(err.message)));
     }
   }

@@ -9,9 +9,9 @@ module.exports = async function gitpull() {
   let data;
 
   try { data = await shellExec('git pull'); }
-  catch (err) {
-    /* eslint-disable-next-line @typescript-eslint/restrict-template-expressions */
-    log.error(`GIT PULL\nExec error: ${err.toString()}`);
+  catch (rawErr) {
+    const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
+    log.error(`GIT PULL\nExec error: ${err.message}`);
     return err;
   }
 

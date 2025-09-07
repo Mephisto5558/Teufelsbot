@@ -55,9 +55,10 @@ function checkOptions(command, lang) {
     const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]));
     if (
       isValidType(this) && autocompleteIsUsed() && !autocompleteGenerator.call(
-        /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unnecessary-condition -- false positive/ts bug */
+        /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unnecessary-condition,
+        @typescript-eslint/no-unsafe-call -- false positive/ts bug */
         this, { name, value: this.options?.get(name).value ?? this.args?.[i] }, command, this.guild?.db.config.lang ?? this.guild?.localeCode
-        /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- false positive/ts bug */
+        /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unsafe-call -- false positive/ts bug */
       ).some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
     ) {
       if (typeof autocompleteOptions != 'function') {
@@ -140,11 +141,13 @@ module.exports = async function checkForErrors(command, lang) {
   if (!command.dmPermission && this.channel.type == ChannelType.DM) return ['guildOnly'];
 
   const disabledList = this.guild?.db.config.commands?.[command.aliasOf ?? command.name]?.disabled;
-  if (disabledList && this.member.id != this.guild.ownerId) {
+  if (disabledList && this.member && this.member.id != this.guild.ownerId) {
     if (Object.values(disabledList).some(e => Array.isArray(e) && e.includes('*'))) return ['notAllowed.anyone'];
     if (disabledList.users?.includes(this.user.id)) return ['notAllowed.user'];
     if (disabledList.channels?.includes(this.channel.id)) return ['notAllowed.channel'];
-    if (disabledList.roles && this.member.roles.cache.some(e => disabledList.roles.includes(e.id))) return ['notAllowed.role'];
+    if (
+      disabledList.roles && ('cache' in this.member.roles ? this.member.roles.cache : this.member.roles).some(e => disabledList.roles.includes(e.id))
+    ) return ['notAllowed.role'];
   }
 
   if (command.category == 'nsfw' && !this.channel.nsfw) return ['nsfw'];
