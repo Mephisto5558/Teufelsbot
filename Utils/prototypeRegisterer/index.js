@@ -36,20 +36,24 @@ const requiredEnv = [
   'dbConnectionStr', 'token', 'secret'
 ];
 
-const overwrites = Object.fromEntries(Object.entries({
-  globals: ['globalThis.sleep', 'globalThis.log', 'globalThis.getEmoji'], // TODO: getEmoji should probably not be global
-  vanilla: [
-    parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
-    'Array#random', 'Array#unique', 'Number#limit', 'Number#inRange',
-    'Object#filterEmpty', 'Object#__count__', 'Function#bBind', 'BigInt#toJSON'
-  ],
-  discordJs: [
-    'BaseInteraction#customReply', 'Message#user', 'Message#customReply', 'Message#runMessages', 'Client#prefixCommands',
-    'Client#slashCommands', 'Client#cooldowns', 'Client#loadEnvAndDB', 'Client#awaitReady', 'Client#defaultSettings',
-    'Client#settings', 'AutocompleteInteraction#focused', 'User#db', 'User#updateDB', 'User#localeCode', 'Guild#db',
-    'Guild#updateDB', 'Guild#localeCode', 'GuildMember#db'
-  ]
-}).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
+  overwrites = Object.fromEntries(Object.entries({
+    globals: ['globalThis.sleep()', 'globalThis.log()', 'globalThis.getEmoji()'], // TODO: getEmoji should probably not be global
+    vanilla: [
+      parentUptime ? 'process#childUptime, process#uptime (adding parent process uptime)' : undefined,
+      'Array#random()', 'Array#unique()', 'Number#limit()', 'Number#inRange()',
+      'Object#filterEmpty()', 'Object#__count__', 'BigInt#toJSON()'
+    ],
+    discordJs: [
+      'Client#prefixCommands', 'Client#slashCommands', 'Client#backupSystem', 'Client#giveawaysManager', 'Client#webServer',
+      'Client#cooldowns', 'Client#db', 'Client#i18n', 'Client#settings', 'Client#defaultSettings', 'Client#botType', 'Client#config',
+      'Client#loadEnvAndDB()', 'Client#awaitReady()',
+      'Message#originalContent', 'Message#args', 'Message#commandName', 'Message#user', 'Message#customReply()', 'Message#runMessages',
+      'BaseInteraction#customReply()', 'AutocompleteInteraction#focused',
+      'User#localeCode', 'User#db', 'User#updateDB()', 'User#deleteDB()',
+      'GuildMember#db', 'GuildMember#localeCode',
+      'Guild#localeCode', 'Guild#db', 'Guild#updateDB()', 'Guild#deleteDB()'
+    ]
+  }).map(([k, v]) => [k, v.filter(Boolean).join(', ')]));
 
 if (!config.hideOverwriteWarning) {
   console.warn([
@@ -126,19 +130,6 @@ Object.defineProperties(Object.prototype, {
     },
     enumerable: false
   }
-});
-Object.defineProperty(Function.prototype, 'bBind', {
-  /**
-   * @type {global['Function']['prototype']['bBind']}
-   * @this {CallableFunction} */
-  value: function bBind(thisArg, ...args) {
-    const bound = this.bind(thisArg, ...args);
-    bound.__targetFunction__ = this;
-    bound.__boundThis__ = thisArg;
-    bound.__boundArgs__ = args;
-    return bound;
-  },
-  enumerable: false
 });
 Object.defineProperty(BigInt.prototype, 'toJSON', {
   value: function stringify() {

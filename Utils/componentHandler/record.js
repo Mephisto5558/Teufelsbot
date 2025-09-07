@@ -7,7 +7,7 @@ const
 
 /** @type {import('.').record} */
 module.exports = async function record(lang, mode, requesterId, voiceChannelId, isPublic) {
-  lang.__boundArgs__[0].backupPath[0] = 'commands.premium.record';
+  lang.config.backupPaths[0] = 'commands.premium.record';
 
   switch (mode) {
     case 'memberAllow':

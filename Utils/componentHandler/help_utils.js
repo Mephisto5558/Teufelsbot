@@ -87,13 +87,13 @@ function createInfoFields(cmd, lang) {
   if (cmd.permissions?.client?.length > 0) {
     arr.push({
       name: lang('one.botPerms'), inline: false,
-      value: permissionTranslator(cmd.permissions.client, lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', ')
+      value: permissionTranslator(cmd.permissions.client, lang.config.locale, this.client.i18n).map(inlineCode).join(', ')
     });
   }
   if (cmd.permissions?.user?.length > 0) {
     arr.push({
       name: lang('one.userPerms'), inline: true,
-      value: permissionTranslator(cmd.permissions.user, lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', ')
+      value: permissionTranslator(cmd.permissions.user, lang.config.locale, this.client.i18n).map(inlineCode).join(', ')
     });
   }
 
@@ -113,8 +113,8 @@ function createInfoFields(cmd, lang) {
   }
 
   const
-    usage = (cmd.usageLocalizations[lang.__boundArgs__[0].locale]?.usage ?? cmd.usage.usage)?.replaceAll('{prefix}', prefix),
-    examples = (cmd.usageLocalizations[lang.__boundArgs__[0].locale]?.examples ?? cmd.usage.examples)?.replaceAll('{prefix}', prefix);
+    usage = (cmd.usageLocalizations[lang.config.locale ?? '']?.usage ?? cmd.usage.usage)?.replaceAll('{prefix}', prefix),
+    examples = (cmd.usageLocalizations[lang.config.locale ?? '']?.examples ?? cmd.usage.examples)?.replaceAll('{prefix}', prefix);
 
   if (usage) arr.push({ name: codeBlock(lang('one.usage')), value: usage, inline: true });
   if (examples) arr.push({ name: codeBlock(lang('one.examples')), value: examples, inline: true });
@@ -146,11 +146,9 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
   }
 
   const
-
-    /** @type {langUNF} */
-    helpLang = this.client.i18n.__.bind(this.client.i18n, {
+    helpLang = this.client.i18n.getTranslator({
       undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang,
-      backupPath: [`commands.${command.category}.${command.name}`]
+      backupPaths: [`commands.${command.category}.${command.name}`]
     }),
     prefixKey = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
     embed = new EmbedBuilder({
@@ -178,11 +176,9 @@ module.exports.categoryQuery = async function categoryQuery(lang, query) {
   }
 
   const
-
-    /** @type {langUNF} */
-    helpLang = this.client.i18n.__.bind(this.client.i18n, {
+    helpLang = this.client.i18n.getTranslator({
       undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang,
-      backupPath: [`commands.${query}`]
+      backupPaths: [`commands.${query}`]
     }),
     commands = getCommands.call(this),
     embed = new EmbedBuilder({

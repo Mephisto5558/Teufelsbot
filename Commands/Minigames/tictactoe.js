@@ -53,7 +53,7 @@ module.exports = {
       game = new TicTacToe({
         simultaneousGames: true,
         gameExpireTime: secsInMinute,
-        language: lang.__boundArgs__[0].locale,
+        language: lang.config.locale,
         commandOptionName: gameTarget == this.client.user.id ? 'thisOptionWillNotGetUsed' : 'opponent'
       });
 

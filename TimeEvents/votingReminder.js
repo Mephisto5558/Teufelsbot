@@ -15,7 +15,7 @@ module.exports = {
 
     const
       today = new Date().setHours(0, 0, 0),
-      lang = this.i18n.__.bBind(this.i18n, { backupPath: ['others.timeEvents.votingReminder'] }),
+      lang = this.i18n.getTranslator({ backupPaths: ['others.timeEvents.votingReminder'] }),
       embed = new EmbedBuilder({ color: Colors.White }),
       component = new ActionRowBuilder({
         components: [
@@ -38,7 +38,8 @@ module.exports = {
     for ({ value: user } of await Promise.allSettled(users.map(e => this.users.fetch(e[0])))) {
       if (!user) continue;
 
-      lang.__boundArgs__[0].locale = user.localeCode;
+      const user = result.value;
+      lang.config.locale = user.localeCode;
 
       embed.data.title = lang('embedTitle');
       embed.data.description = lang('embedDescription');
