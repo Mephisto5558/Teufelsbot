@@ -116,6 +116,7 @@ class BackupSystem {
     if (!doNotBackup.includes('roles')) {
       statusObj.status = 'create.roles';
 
+      /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
       data.roles = (await guild.roles.fetch()).filter(e => !e.managed).sort((a, b) => b.position - a.position).map(e => ({
         name: e.name,
         colors: e.colors,
@@ -157,6 +158,7 @@ class BackupSystem {
     if (!doNotBackup.includes('channels')) {
       statusObj.status = 'create.channels';
 
+      /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
       const channels = (await guild.channels.fetch()).sort((a, b) => a.position - b.position);
 
       data.channels = {};
@@ -206,6 +208,7 @@ class BackupSystem {
     /** @type {NonNullable<Database['backups'][import('../types/database').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
     let data, rulesChannel, publicUpdatesChannel;
 
+    /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
     if (id == undefined) data = this.list(guild.id).sort((a, b) => b.createdAt - a.createdAt).first();
     else data = typeof id == 'string' ? this.get(id) : id;
 

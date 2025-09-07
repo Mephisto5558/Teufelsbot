@@ -90,7 +90,9 @@ const backupMainFunctions = {
       });
     }
 
-    embed.data.fields = this.client.backupSystem.list(this.guild.id).sort((a, b) => b.createdAt - a.createdAt)
+    embed.data.fields = this.client.backupSystem.list(this.guild.id)
+      /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
+      .sort((a, b) => b.createdAt - a.createdAt)
       .first(10)
       .map(e => ({ name: e.id, value: lang('infos', getData(e)) }));
 

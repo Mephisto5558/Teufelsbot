@@ -17,7 +17,7 @@ function manageData(data) {
 
   return Object.entries(data)
     .filter(([key]) => this.guild.members.cache.has(key) || key == 'AI')
-    .sort(([, a], [, b]) => b - a)
+    .toSorted(([, a], [, b]) => b - a)
     .slice(0, TOPLIST_MAX_USERS)
     .map(([key, value]) => '> ' + (key == 'AI' ? key : userMention(key)) + `: ${inlineCode(value)}`)
     .join('\n') || undefined;

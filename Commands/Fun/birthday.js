@@ -89,7 +89,7 @@ const birthdayMainFunctions = {
             if (birthday && guildMembers.has(k)) acc.push([k, birthday]);
             return acc;
           }, [])
-          .sort(([, a], [, b]) => sortDates(a, b))
+          .toSorted(([, a], [, b]) => sortDates(a, b))
           .slice(0, 10);
 
       embed.data.description = data.length ? '' : lang('getAll.notFound');

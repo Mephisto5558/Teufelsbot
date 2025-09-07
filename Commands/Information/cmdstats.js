@@ -55,7 +55,7 @@ module.exports = {
           (this.client.prefixCommands.get(k) ?? this.client.slashCommands.get(k))?.category
         ))
         .map(([k, v]) => [k, { total: Object.values(v).reduce((acc, e) => acc + Number(e ?? 0), 0), slash: bold(v.slash), prefix: bold(v.prefix) }])
-        .sort(([, a], [, b]) => b.total - a.total)
+        .toSorted(([, a], [, b]) => b.total - a.total)
         .slice(0, 10)
         .map((/** @type {[string, { total: string, slash: string, prefix: string }]} */ [k, v]) => {
           const id = this.client.application.commands.cache.find(e => e.name == k)?.id;

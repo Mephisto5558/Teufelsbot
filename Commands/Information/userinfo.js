@@ -94,7 +94,7 @@ module.exports = {
         name: lang('rolesWithPerms'), inline: false,
         value: [...member.roles.cache.values()]
           .filter(e => e.permissions.bitfield != 0 && e.name != '@everyone')
-          .sort((a, b) => b.position - a.position)
+          .toSorted((a, b) => b.position - a.position)
           .join(', ')
       },
       {

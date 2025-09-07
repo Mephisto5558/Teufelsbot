@@ -21,6 +21,7 @@ function loadFromBase64(base64Str) {
 /** @type {import('.').BackupSystem.Utils['fetchCategoryChildren']} */
 async function fetchCategoryChildren(category, saveImages, maxMessagesPerChannel) {
   return Promise.all(category.children.cache
+    /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
     .sort((a, b) => a.position - b.position)
     .map(async child => {
       if (Constants.TextBasedChannelTypes.includes(child.type) && !Constants.ThreadChannelTypes.includes(child.type))
