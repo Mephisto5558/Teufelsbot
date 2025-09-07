@@ -145,7 +145,7 @@ module.exports.commandQuery = async function commandQuery(lang, query) {
   const
     helpLang = this.client.i18n.getTranslator({
       undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang,
-      backupPath: [`commands.${command.category}.${command.name}`]
+      backupPaths: [`commands.${command.category}.${command.name}`]
     }),
     prefixKey = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
     embed = new EmbedBuilder({
@@ -175,7 +175,7 @@ module.exports.categoryQuery = async function categoryQuery(lang, query) {
   const
     helpLang = this.client.i18n.getTranslator({
       undefinedNotFound: true, locale: this.guild?.localeCode ?? this.client.defaultSettings.config.lang,
-      backupPath: [`commands.${query}`]
+      backupPaths: [`commands.${query}`]
     }),
     commands = getCommands.call(this),
     embed = new EmbedBuilder({

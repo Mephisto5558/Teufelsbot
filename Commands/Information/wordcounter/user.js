@@ -19,7 +19,7 @@ module.exports = {
   ],
 
   async run(lang) {
-    lang.config.backupPath.push(`${lang.config.backupPath.at(-1)}.${this.options.getSubcommand(true)}`);
+    lang.config.backupPaths.push(`${lang.config.backupPaths.at(-1)}.${this.options.getSubcommand(true)}`);
 
     if (this.options.getSubcommand(true) == 'enable') {
       const enabled = this.options.getBoolean('enabled', true);

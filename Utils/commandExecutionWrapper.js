@@ -17,7 +17,7 @@ module.exports = async function commandExecutionWrapper(command, commandType, la
     commandName = command.aliasOf ?? command.name,
 
     cmdLang = this.client.i18n.getTranslator({
-      locale: lang.config.locale, backupPath: command ? [`commands.${command.category}.${commandName}`] : undefined
+      locale: lang.config.locale, backupPaths: command ? [`commands.${command.category}.${commandName}`] : undefined
     });
 
   log.debug(`Executing ${commandType} command ${commandName}`);

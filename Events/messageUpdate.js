@@ -38,7 +38,7 @@ module.exports = async function messageUpdate(newMsg) {
     /** @type {import('discord.js').GuildTextBasedChannel} cannot be undefined due to `shouldRun()` */
     logChannel = this.guild.channels.cache.get(this.guild?.db.config.logger?.messageUpdate.channel),
     lang = this.client.i18n.getTranslator({
-      locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['events.logger.messageUpdate']
+      locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPaths: ['events.logger.messageUpdate']
     }),
     embed = new EmbedBuilder({
       author: { name: newMsg.user.tag, iconURL: newMsg.user.displayAvatarURL() },

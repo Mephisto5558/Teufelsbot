@@ -32,7 +32,7 @@ async function countingHandler(lang) {
   const { lastNumber } = this.guild.db.channelMinigames?.counting?.[this.channel.id] ?? {};
   if (lastNumber == undefined || lastNumber - this.originalContent || Number.isNaN(Number.parseInt(this.originalContent))) return;
 
-  lang.config.backupPath[0] = 'commands.minigames.counting.userDeletedMsg';
+  lang.config.backupPaths[0] = 'commands.minigames.counting.userDeletedMsg';
   return sendeMinigameDeletedEmbed.call(this, lang, { deletedNum: bold(this.originalContent), nextNum: bold(lastNumber + 1) });
 }
 
@@ -43,7 +43,7 @@ async function wordchainHandler(lang) {
   const { lastWordChar } = this.guild.db.channelMinigames?.wordchain?.[this.channel.id] ?? {};
   if (!lastWordChar || !this.originalContent || !/^\p{L}+$/u.test(this.originalContent)) return;
 
-  lang.config.backupPath[0] = 'commands.minigames.wordchain.userDeletedMsg';
+  lang.config.backupPaths[0] = 'commands.minigames.wordchain.userDeletedMsg';
   return sendeMinigameDeletedEmbed.call(this, lang, bold(this.originalContent));
 }
 
@@ -62,7 +62,7 @@ module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.inGuild() || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
 
   const lang = this.client.i18n.getTranslator({
-    locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['commands.minigames.counting.userDeletedMsg']
+    locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPaths: ['commands.minigames.counting.userDeletedMsg']
   });
 
   void countingHandler.call(this, lang);
@@ -70,7 +70,7 @@ module.exports = async function messageDelete() {
 
   if (!shouldRun.call(this)) return;
 
-  lang.config.backupPath[0] = 'events.logger';
+  lang.config.backupPaths[0] = 'events.logger';
 
   await sleep(msInSecond); // makes sure the audit log gets created before trying to fetch it
 

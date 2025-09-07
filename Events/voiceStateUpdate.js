@@ -30,7 +30,7 @@ module.exports = async function voiceStateUpdate(newState) {
       color: GRAY
     }),
     lang = this.client.i18n.getTranslator({
-      locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPath: ['events.logger.voiceStateUpdate']
+      locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPaths: ['events.logger.voiceStateUpdate']
     }),
     oldChannelField = () => (
       { name: lang('oldChannel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false }

@@ -29,7 +29,7 @@ module.exports = async function messageDeleteBulk(channel) {
       /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
       .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < secToMs(20)) ?? {},
     lang = channel.client.i18n.getTranslator({
-      locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPath: ['events.logger.messageDeleteBulk']
+      locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPaths: ['events.logger.messageDeleteBulk']
     }),
     embed = new EmbedBuilder({
       author: executor ? { name: executor.tag, iconURL: executor.displayAvatarURL() } : undefined,

@@ -107,7 +107,7 @@ module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   if (this.user.id != initiatorId && this.user.id != opponentId) return;
   if (mode.length != 1) await this.deferUpdate();
 
-  lang.config.backupPath[0] = 'commands.minigames.rps';
+  lang.config.backupPaths[0] = 'commands.minigames.rps';
 
   let initiator, opponent;
   try {

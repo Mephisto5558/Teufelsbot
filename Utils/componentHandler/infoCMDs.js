@@ -37,7 +37,7 @@ const
         })]
       });
 
-      lang.config.backupPath.push(`commands.moderation.${mode}`);
+      lang.config.backupPaths.push(`commands.moderation.${mode}`);
 
       void this.showModal(modal);
       const submit = await this.awaitModalSubmit({ time: MODALSUBMIT_MAXTIME }).catch(err => {
@@ -143,7 +143,7 @@ const
 module.exports = async function infoCMDs(lang, id, mode, entityType) {
   if (entityType != 'members' && mode != 'addToGuild') await this.deferReply();
 
-  lang.config.backupPath[0] = `events.command.infoCMDs.${entityType}`;
+  lang.config.backupPaths[0] = `events.command.infoCMDs.${entityType}`;
 
   const embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
   let item;

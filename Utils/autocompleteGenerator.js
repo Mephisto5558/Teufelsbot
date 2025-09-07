@@ -39,7 +39,7 @@ module.exports = function autocompleteGenerator(command, target, locale) {
 
   const lang = this.client.i18n.getTranslator({
     locale, undefinedNotFound: true,
-    backupPath: [['commands', command.category, command.name, 'options', group, subcommand, target.name, 'choices'].filter(Boolean).join('.')]
+    backupPaths: [['commands', command.category, command.name, 'options', group, subcommand, target.name, 'choices'].filter(Boolean).join('.')]
   });
 
   return autocompleteFormatter.call(this, options.find(e => e.name == target.name), target.value, lang);
