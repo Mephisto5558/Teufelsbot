@@ -36,8 +36,8 @@ module.exports = {
       if (!(err instanceof RangeError || err.code == 'ERR_INVALID_ARG_TYPE')) throw err;
 
       return this.customReply(lang('outOfRange', {
-        min: inlineCode(Number.MIN_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale)),
-        max: inlineCode(Number.MAX_SAFE_INTEGER.toLocaleString(lang.__boundArgs__[0].locale))
+        min: inlineCode(lang.formatNumber(Number.MIN_SAFE_INTEGER)),
+        max: inlineCode(lang.formatNumber(Number.MAX_SAFE_INTEGER))
       }));
     }
   }

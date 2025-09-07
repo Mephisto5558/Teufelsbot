@@ -94,7 +94,7 @@ module.exports = {
         name: lang('perms'), inline: false,
         value: `${member.permissions.has(PermissionFlagsBits.Administrator)
           ? inlineCode(lang('admin'))
-          : permissionTranslator(member.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', ')
+          : permissionTranslator(member.permissions.toArray(), lang.config.locale, this.client.i18n).map(inlineCode).join(', ')
         } (${member.permissions.toArray().length})`
       }
     );

@@ -1,8 +1,8 @@
 /* eslint-disable sonarjs/no-built-in-override */
 
 import type Discord from 'discord.js';
+import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
-import type { i18nFuncConfig, I18nProvider } from '@mephisto5558/i18n';
 
 import type locals from './locals';
 import type DBStructure from './database';
@@ -157,17 +157,7 @@ declare global {
 
   type OmitFirstParameter<T extends GenericFunction> = Parameters<T> extends [unknown, ...infer Rest] ? Rest : never;
 
-  type langBoundArgs = [i18nFuncConfig];
-
-  /** {@link Function.prototype.bBind bBind}ed {@link I18nProvider.__} function */
-  type lang = bBoundFunction<
-    I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string
-  > & { __boundArgs__: langBoundArgs };
-
-  /** same as {@link lang}, but may return `undefined` due to undefinedNotFound being true on the {@link I18nProvider.__ original function}. */
-  type langUNF = bBoundFunction<
-    I18nProvider['__'], (this: I18nProvider, key: string, replacements?: string | object) => string | undefined
-  > & { __boundArgs__: langBoundArgs };
+  type lang<UNF extends boolean = false, L extends Locale | undefined = Locale> = Translator<UNF, L>;
 
   // #endregion
 
@@ -292,17 +282,6 @@ declare global {
   });
 
   // #endregion
-
-  type bBoundFunction<OF extends GenericFunction, T extends GenericFunction = OF> = T & {
-    /** The original, unbound function */
-    __targetFunction__: OF;
-
-    /** The context to which the function is bound */
-    __boundThis__: ThisParameterType<T>;
-
-    /** The arguments to which the function is bound */
-    __boundArgs__: Parameters<T>;
-  };
 
   // #region discord.js globals
   type Client<Ready extends boolean = true> = Discord.Client<Ready>;

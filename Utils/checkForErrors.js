@@ -88,7 +88,7 @@ async function checkPerms(command, lang) {
     title: lang('permissionDenied.embedTitle'),
     description: lang(`permissionDenied.embedDescription${userPermsMissing.length ? 'User' : 'Bot'}`, {
       permissions: permissionTranslator(botPermsMissing.length ? botPermsMissing : userPermsMissing,
-        lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', ')
+        lang.config.locale, this.client.i18n).map(inlineCode).join(', ')
     }),
     color: Colors.Red
   });

@@ -15,7 +15,7 @@ module.exports = {
     const
       /** @type {string} */ input = this.options?.getString('question', true) ?? this.content,
       now = new Date(),
-      responseList = lang.__boundThis__.array__(...lang.__boundArgs__, 'responseList'); // Not a nice solution but better than before
+      responseList = lang.array__('responseList');
 
     return this.customReply(responseList[
       seededHash(input.toLowerCase(), Number.parseInt(this.user.id)

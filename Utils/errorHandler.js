@@ -54,7 +54,7 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
 
   if (!message || !lang) return;
 
-  lang.__boundArgs__[0].backupPath[0] = 'others.errorHandler';
+  lang.config.backupPaths[0] = 'others.errorHandler';
 
   const
     { aliasOf } = this.slashCommands.get(message.commandName) ?? this.prefixCommands.get(message.commandName) ?? {},

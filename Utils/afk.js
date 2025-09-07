@@ -79,7 +79,7 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
   await this.guild.deleteDB(`afkMessages.${this.member.id}`);
 
   const
-    /** @type {lang} */ lang = this.client.i18n.__.bBind(this.client.i18n, { locale: this.guild.localeCode }),
+    lang = this.client.i18n.getTranslator({ locale: this.guild.localeCode }),
     msg = lang('events.message.afkEnd', { timestamp: timestamp(createdAt), formattedTime: timeFormatter(createdAt, lang).formatted, message });
 
   if ('customReply' in this) return this.customReply(msg);

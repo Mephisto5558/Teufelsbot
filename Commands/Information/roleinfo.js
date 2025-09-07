@@ -39,7 +39,7 @@ module.exports = {
       embed.data.fields.at(-1).value = `${inlineCode(lang('admin'))} (${inlineCode(role.permissions.toArray().length)})`;
     else {
       const
-        perms = permissionTranslator(role.permissions.toArray(), lang.__boundArgs__[0].locale, this.client.i18n).map(inlineCode).join(', '),
+        perms = permissionTranslator(role.permissions.toArray(), lang.config.locale, this.client.i18n).map(inlineCode).join(', '),
         maxLength = 1017,
         suffix = '...';
 
