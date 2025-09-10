@@ -21,6 +21,8 @@ module.exports = {
 
   async run(lang) {
     const
+
+      /** @type {'all' | 'messageDelete' | 'messageUpdate' | 'voiceChannelActivity' | 'sayCommandUsed'} */
       action = this.options.getString('action', true),
       channel = (
         this.options.getChannel('channel', false, Constants.GuildTextBasedChannelTypes)

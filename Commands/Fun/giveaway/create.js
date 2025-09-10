@@ -52,7 +52,10 @@ module.exports = {
         prize: this.options.getString('prize', true),
         hostedBy: this.user,
         botsCanWin: false,
-        bonusEntries: { bonus: member => bonusEntries[member.id] },
+        bonusEntries: {
+          /** @param {import('discord.js').GuildMember} member */
+          bonus: member => bonusEntries[member.id]
+        },
         embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? 0, 16)
           || (this.guild.db.giveaway?.embedColor ?? defaultSettings.embedColor),
         embedColorEnd: Number.parseInt(this.options.getString('embed_color_end')?.slice(1) ?? 0, 16)

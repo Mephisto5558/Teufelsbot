@@ -1,4 +1,5 @@
 const
+  { Team } = require('discord.js'),
   { resolve } = require('node:path'),
   { setDefaultConfig, configValidationLoop, validConfig } = require('#Utils').configValidator,
 
@@ -21,7 +22,7 @@ module.exports = {
     try { configValidationLoop(config, validConfig, true); }
     catch (err) { return this.customReply(lang('error', err.message)); }
 
-    config.devIds.add(this.client.application.owner.owner?.id ?? this.client.application.owner.id);
+    config.devIds.add(this.client.application.owner instanceof Team ? this.client.application.owner.ownerId : this.client.application.owner.id);
     this.client.config = config;
     return this.customReply(lang('success'));
   }

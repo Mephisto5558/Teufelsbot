@@ -82,7 +82,7 @@ async function reloadSlashCommand(file, command, reloadedArray) {
 
 /**
  * @this {Client}
- * @param {command<string, boolean>} command
+ * @param {command<string, boolean, true>} command
  * @param {string[]} reloadedArray gets modified and not returned */
 async function reloadCommand(command, reloadedArray) {
   /* eslint-disable-next-line @typescript-eslint/no-dynamic-delete -- require.cache */
