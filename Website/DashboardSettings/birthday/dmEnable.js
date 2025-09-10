@@ -1,4 +1,4 @@
-/** @type {import('@mephisto5558/bot-website').dashboardSetting} */
+/** @type {import('#types/locals').dashboardSetting} */
 module.exports = {
   id: 'dmEnable',
   name: 'Enable dm messages',

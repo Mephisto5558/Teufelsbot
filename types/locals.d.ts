@@ -137,3 +137,20 @@ type BoundFunction = new (
 
 type FlattenedGuildSettings = SettingsPaths<Database['guildSettings'][Snowflake]>;
 type FlattenedUserSettings = SettingsPaths<Database['userSettings'][Snowflake]>;
+
+export class WebServer extends LibWebServer {
+  client: Discord.Client<true>;
+}
+
+export type customPage = Omit<LibCustomPage, 'run'> & {
+  run?: Omit<LibCustomPage['run'], GenericFunction>
+    | ((this: WebServer, ...args: Parameters<LibCustomPage['run']>) => ReturnType<LibCustomPage['run']>);
+};
+
+export type dashboardSetting = Omit<LibDashboardSetting, 'get' | 'set' | 'type'> & {
+  type: Omit<LibDashboardSetting['type'], GenericFunction>
+    | ((this: WebServer, ...args: Parameters<LibDashboardSetting['type']>) => ReturnType<LibDashboardSetting['type']>);
+
+  get?(this: WebServer, ...args: Parameters<LibDashboardSetting['get']>): ReturnType<LibDashboardSetting['get']>;
+  set?(this: WebServer, ...args: Parameters<LibDashboardSetting['set']>): ReturnType<LibDashboardSetting['set']>;
+};

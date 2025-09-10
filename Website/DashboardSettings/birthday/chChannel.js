@@ -1,6 +1,6 @@
 const { Constants } = require('discord.js');
 
-/** @type {import('@mephisto5558/bot-website').dashboardSetting} */
+/** @type {import('#types/locals').dashboardSetting} */
 module.exports = {
   id: 'chChannel',
   name: 'Channel',

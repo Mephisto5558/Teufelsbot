@@ -1,6 +1,6 @@
 const { HTTP_STATUS_OK } = require('node:http2').constants;
 
-/** @type {import('@mephisto5558/bot-website').customPage} */
+/** @type {import('#types/locals').customPage} */
 module.exports = {
   method: 'POST',
 

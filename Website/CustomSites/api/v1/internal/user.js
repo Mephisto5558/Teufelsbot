@@ -2,7 +2,7 @@ const
   { ALLOWED_SIZES } = require('discord.js'),
   { HTTP_STATUS_FORBIDDEN, HTTP_STATUS_UNAUTHORIZED } = require('node:http2').constants;
 
-/** @type {import('@mephisto5558/bot-website').customPage} */
+/** @type {import('#types/locals').customPage} */
 module.exports = {
   run(res, req) {
     if (this.db.get('botSettings', 'blacklist')?.includes(req.user?.id))
