@@ -1,4 +1,4 @@
-/** @type {import('@mephisto5558/bot-website').customPage} */
+/** @type {import('#types/locals').customPage} */
 module.exports = {
   title: 'Embedbuilder',
 

@@ -1,4 +1,4 @@
-/** @typedef {import('../../types/database').backupId} backupId */
+/** @typedef {import('#types/db').backupId} backupId */
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, PermissionFlagsBits, inlineCode } = require('discord.js'),

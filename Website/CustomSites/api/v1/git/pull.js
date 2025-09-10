@@ -3,7 +3,7 @@ const
   { gitpull } = require('#Utils');
 
 
-/** @type {import('@mephisto5558/bot-website').customPage} */
+/** @type {import('#types/locals').customPage} */
 module.exports = {
   run: async res => res.sendStatus((await gitpull()).message == 'OK' ? HTTP_STATUS_OK : HTTP_STATUS_INTERNAL_SERVER_ERROR)
 };

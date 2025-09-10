@@ -2,11 +2,11 @@ const
   { codeBlock } = require('discord.js'),
   vars = ['__dirname', '__filename', 'exports', 'module', 'require', 'lang'], // these are the function params
 
-  /** @type {import('../../types/locals').BoundFunction} */
+  /** @type {import('#types/locals').BoundFunction} */
   /* eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unsafe-assignment -- It get's used (and filled) later */
   BoundAsyncFunction = async function asyncEval() { }.constructor.bind(undefined, ...vars),
 
-  /** @type {import('../../types/locals').BoundFunction} */
+  /** @type {import('#types/locals').BoundFunction} */
   BoundFunction = Function.bind(undefined, ...vars),
 
   TIMEOUT_MS = 6e5; // 10min
