@@ -205,7 +205,7 @@ class BackupSystem {
     maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
     allowedMentions = [], reason = 'Backup Feature | Load'
   } = {}) => {
-    /** @type {NonNullable<Database['backups'][import('../types/database').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
+    /** @type {NonNullable<Database['backups'][import('#types/db').backupId]>} *//* eslint-disable-line jsdoc/valid-types -- false positive */
     let data, rulesChannel, publicUpdatesChannel;
 
     /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */

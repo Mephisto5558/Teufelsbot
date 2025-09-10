@@ -145,7 +145,10 @@ export type customPage = Omit<LibCustomPage, 'run'> & {
     | ((this: WebServer, ...args: Parameters<LibCustomPage['run']>) => ReturnType<LibCustomPage['run']>);
 };
 
-export type dashboardSetting = Omit<LibDashboardSetting, 'get' | 'set'> & {
+export type dashboardSetting = Omit<LibDashboardSetting, 'get' | 'set' | 'type'> & {
+  type: Omit<LibDashboardSetting['type'], GenericFunction>
+    | ((this: WebServer, ...args: Parameters<LibDashboardSetting['type']>) => ReturnType<LibDashboardSetting['type']>);
+
   get?(this: WebServer, ...args: Parameters<LibDashboardSetting['get']>): ReturnType<LibDashboardSetting['get']>;
   set?(this: WebServer, ...args: Parameters<LibDashboardSetting['set']>): ReturnType<LibDashboardSetting['set']>;
 };

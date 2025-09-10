@@ -28,6 +28,15 @@
       ],
       "#Utils/prototypeRegisterer": [
         "./Utils/prototypeRegisterer/*"
+      ],
+      "#types/*": [
+        "./types/*.d.ts",
+      ],
+      "#types/db": [
+        "./types/database/index.d.ts"
+      ],
+      "#types/db/*": [
+        "./types/database/*.d.ts"
       ]
     }
   },

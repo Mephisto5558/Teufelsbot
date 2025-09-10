@@ -6,7 +6,7 @@ const
 module.exports = async function setupMinigameChannel(lang) {
   const
 
-    /** @type {keyof NonNullable<import('../../types/database/guildSettings').guildSettings[Snowflake]['channelMinigames']>} */
+    /** @type {keyof NonNullable<import('#types/db/guildSettings').guildSettings[Snowflake]['channelMinigames']>} */
     game = this.commandName,
     gameData = this.guild.db.channelMinigames?.[game] ?? {},
 
