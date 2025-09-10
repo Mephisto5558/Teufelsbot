@@ -1,8 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return
+/* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call
 -- will be fixed when commands are moved to their own lib */
 
 const
-  { ActionRowBuilder, ChatInputCommandInteraction, Colors, EmbedBuilder, StringSelectMenuBuilder, codeBlock, inlineCode, ActionRow, StringSelectMenuInteraction } = require('discord.js'),
+  {
+    ActionRowBuilder, ChatInputCommandInteraction, Colors, EmbedBuilder, StringSelectMenuBuilder,
+    StringSelectMenuInteraction, codeBlock, inlineCode
+  } = require('discord.js'),
   /** @type {import('..').permissionTranslator} */ permissionTranslator = require('../permissionTranslator'),
   { msInSecond, secsInMinute } = require('../timeFormatter');
 
@@ -14,7 +17,9 @@ function getCommands() {
 /** @type {import('.').help_getCommandCategories} */
 function getCommandCategories() { return getCommands.call(this).map(e => e.category).unique(); }
 
-/** @this {Interaction | Message | import('discord.js').SelectMenuInteraction} */
+/**
+ * @this {Interaction | Message | import('discord.js').SelectMenuInteraction}
+ * @returns {string | undefined} */
 function getDefaultOption() {
   let defaultOption;
   if (this instanceof ChatInputCommandInteraction) {
@@ -82,15 +87,20 @@ function createCommandsComponent(lang, category) {
 /**
  * @this {Interaction | Message}
  * @param {lang} lang
- * @param {command<'prefix' | 'slash', boolean, true> | undefined} cmd */
+ * @param {command<'prefix' | 'slash' | 'both', boolean, true> | undefined} cmd */
 function createInfoFields(lang, cmd = {}) {
   const
     arr = [],
     prefixKey = this.client.botType == 'dev' ? 'betaBotPrefixes' : 'prefixes',
     prefix = this.guild?.db.config[prefixKey]?.[0].prefix ?? this.client.defaultSettings.config[prefixKey][0].prefix;
 
-  if (cmd.aliases?.prefix?.length) arr.push({ name: lang('one.prefixAlias'), value: cmd.aliases.prefix.map(inlineCode).join(', '), inline: true });
-  if (cmd.aliases?.slash?.length) arr.push({ name: lang('one.slashAlias'), value: cmd.aliases.slash.map(inlineCode).join(', '), inline: true });
+  if ('aliases' in cmd) {
+    if ('prefix' in cmd.aliases && cmd.aliases.prefix.length)
+      arr.push({ name: lang('one.prefixAlias'), value: cmd.aliases.prefix.map(inlineCode).join(', '), inline: true });
+
+    if ('slash' in cmd.aliases && cmd.aliases.slash.length)
+      arr.push({ name: lang('one.slashAlias'), value: cmd.aliases.slash.map(inlineCode).join(', '), inline: true });
+  }
   if (cmd.aliasOf) arr.push({ name: lang('one.aliasOf'), value: inlineCode(cmd.aliasOf), inline: true });
   if (cmd.permissions?.client?.length > 0) {
     arr.push({
