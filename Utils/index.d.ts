@@ -285,9 +285,9 @@ export declare function logSayCommandUse(
   member: GuildMember, lang: lang
 ): Promise<Message<true> | undefined>;
 
-export declare function permissionTranslator<T extends string | string[]>(
-  perms: T, locale: string | undefined, i18n: I18nProvider
-): T;
+export declare function permissionTranslator<T extends string | string[] | undefined>(
+  perms?: T, locale?: Locale, i18n: I18nProvider
+): T extends undefined ? [] : T extends string ? string : string[];
 
 /** https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js */
 export declare function seededHash(str: string, seed?: number): number;

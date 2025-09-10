@@ -2,7 +2,7 @@
 -- will be fixed when commands are moved to their own lib */
 
 const
-  { ActionRowBuilder, Colors, EmbedBuilder, StringSelectMenuBuilder, codeBlock, inlineCode } = require('discord.js'),
+  { ActionRowBuilder, ChatInputCommandInteraction, Colors, EmbedBuilder, StringSelectMenuBuilder, codeBlock, inlineCode, ActionRow, StringSelectMenuInteraction } = require('discord.js'),
   /** @type {import('..').permissionTranslator} */ permissionTranslator = require('../permissionTranslator'),
   { msInSecond, secsInMinute } = require('../timeFormatter');
 
@@ -14,15 +14,27 @@ function getCommands() {
 /** @type {import('.').help_getCommandCategories} */
 function getCommandCategories() { return getCommands.call(this).map(e => e.category).unique(); }
 
+/** @this {Interaction | Message | import('discord.js').SelectMenuInteraction} */
+function getDefaultOption() {
+  let defaultOption;
+  if (this instanceof ChatInputCommandInteraction) {
+    if (!this.options.getString('command')) defaultOption = this.options.getString('category');
+  }
+  else defaultOption = (this.client.prefixCommands.get(this.args[1]) ?? this.client.slashCommands.get(this.args[1]))?.category;
+
+  if (!defaultOption && this instanceof StringSelectMenuInteraction)
+    defaultOption = this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value;
+
+  return defaultOption;
+}
+
 /**
  * @this {Interaction | Message | import('discord.js').SelectMenuInteraction}
  * @param {lang} lang
  * @param {string[]?} commandCategories */
 function createCategoryComponent(lang, commandCategories) {
   commandCategories ??= getCommandCategories.call(this);
-  const defaultOption = (this.options?.getString('command') ? undefined : this.options?.getString('category'))
-    ?? (this.client.prefixCommands.get(this.args?.[1]) ?? this.client.slashCommands.get(this.args?.[1]))?.category
-    ?? (this.values ? this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value : undefined);
+  const defaultOption = getDefaultOption.call(this);
 
   if (this.message?.components.length) {
     if (defaultOption) {

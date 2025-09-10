@@ -1,6 +1,8 @@
 import type Discord from 'discord.js';
+import type LibWebServer, { customPage as LibCustomPage, dashboardSetting as LibDashboardSetting } from '@mephisto5558/bot-website';
 import type { Locale } from '@mephisto5558/i18n';
 import type { SettingsPaths } from '@mephisto5558/mongoose-db';
+import type { Omit } from './discord.js';
 
 type autocompleteOptions = string | number | { name: string; value: string };
 
@@ -8,6 +10,11 @@ type BaseCommand<initialized extends boolean = boolean> = {
 
   /** Numbers in milliseconds */
   cooldowns?: { guild?: number; channel?: number; user?: number };
+
+  permissions?: {
+    client?: (keyof Discord.PermissionFlags)[];
+    user?: (keyof Discord.PermissionFlags)[];
+  };
 
   /** Makes the command also work in direct messages. */
   dmPermission?: boolean;
@@ -61,11 +68,6 @@ type BaseCommand<initialized extends boolean = boolean> = {
   /** Gets set to the lowercase folder name the command is in. */
   category: string;
 
-  permissions?: {
-    client?: Discord.PermissionFlags[];
-    user?: Discord.PermissionFlags[];
-  };
-
   /**
    * **Do not set manually.**
    *
@@ -89,11 +91,6 @@ type BaseCommand<initialized extends boolean = boolean> = {
 
   /** @deprecated Change the directory name to the desired category instead. */
   category?: string;
-
-  permissions?: {
-    client?: (keyof Discord.PermissionFlags)[];
-    user?: (keyof Discord.PermissionFlags)[];
-  };
 });
 
 type Config = {
@@ -138,3 +135,17 @@ type BoundFunction = new (
 
 type FlattenedGuildSettings = SettingsPaths<Database['guildSettings'][Snowflake]>;
 type FlattenedUserSettings = SettingsPaths<Database['userSettings'][Snowflake]>;
+
+export class WebServer extends LibWebServer {
+  client: Discord.Client<true>;
+}
+
+export type customPage = Omit<LibCustomPage, 'run'> & {
+  run?: Omit<LibCustomPage['run'], GenericFunction>
+    | ((this: WebServer, ...args: Parameters<LibCustomPage['run']>) => ReturnType<LibCustomPage['run']>);
+};
+
+export type dashboardSetting = Omit<LibDashboardSetting, 'get' | 'set'> & {
+  get?(this: WebServer, ...args: Parameters<LibDashboardSetting['get']>): ReturnType<LibDashboardSetting['get']>;
+  set?(this: WebServer, ...args: Parameters<LibDashboardSetting['set']>): ReturnType<LibDashboardSetting['set']>;
+};

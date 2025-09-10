@@ -69,7 +69,7 @@ declare function infoCMDs<
   MODE extends 'kick' | 'ban' | 'delete' | 'addToGuild' | 'addToSelectedGuild',
   ENTITY_TYPE extends 'members' | 'emojis' | 'roles'
 >(
-  this: (MODE extends 'addToSelectedGuild' ? StringSelectMenuInteraction : GuildButtonInteraction) & {
+  this: (MODE extends 'addToSelectedGuild' ? StringSelectMenuInteraction<'cached'> : GuildButtonInteraction) & {
     customId: `infoCMDs.${ID}.${MODE}.${ENTITY_TYPE}`;
     message: {
       components: [ActionRow<MODE extends 'addToSelectedGuild' ? StringSelectMenuComponent : ButtonComponent>];

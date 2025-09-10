@@ -1,7 +1,7 @@
 /* eslint camelcase: [error, { allow: [ban_kick_mute] }] */
 /**
  * @typedef {(this: ThisParameterType<import('.').infoCMDs>, embed: EmbedBuilder, mode: string, item: Item, lang: lang) => Promise<unknown>} ManagerFn
- * @template {unknown} Item */
+ * @template {unknown} [Item=unknown] */
 
 const
   {
@@ -16,6 +16,7 @@ const
 
   MODALSUBMIT_MAXTIME = secToMs(30), /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
+  /** @type {Record<string, ManagerFn>} */
   manageFunctions = {
     /** @type {ManagerFn<import('discord.js').GuildMember>} */
     async manageMember(embed, mode, member, lang) {
