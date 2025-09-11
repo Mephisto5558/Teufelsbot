@@ -1,5 +1,5 @@
 const
-  { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, bold, hyperlink } = require('discord.js'),
+  { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, GuildMember, bold, hyperlink } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { getTargetMembers, timeFormatter: { msInSecond } } = require('#Utils');
 
@@ -29,7 +29,7 @@ module.exports = {
       }),
       averageColor = (await getAverageColor(target.displayAvatarURL())).hex,
       embed = new EmbedBuilder({
-        description: bold(lang('embedDescription', target.user?.username ?? target.username)),
+        description: bold(lang('embedDescription', (target instanceof GuildMember ? target.user : target).username)),
         image: { url: avatarURL },
         fields: [{
           name: lang('averageColor'), inline: true,

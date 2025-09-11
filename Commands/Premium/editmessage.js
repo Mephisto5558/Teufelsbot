@@ -3,7 +3,7 @@ const
     ActionRowBuilder, Constants, DiscordjsErrorCodes, MessageFlags, ModalBuilder,
     TextInputBuilder, TextInputStyle, codeBlock, hyperlink
   } = require('discord.js'),
-  { DiscordApiErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute }, toMs: { secToMs } } = require('#Utils'),
+  { DiscordAPIErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute }, toMs: { secToMs } } = require('#Utils'),
 
   MODALSUBMIT_TIMEOUT = msInSecond * secsInMinute / 2; // 30s
 
@@ -52,7 +52,7 @@ module.exports = {
       msg = await this.options.getChannel('channel', true, Constants.GuildTextBasedChannelTypes).messages.fetch(msgId);
     }
     catch (err) {
-      if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
+      if (err.code != DiscordAPIErrorCodes.UnknownMessage) throw err;
       return this.reply({ content: lang('notFound'), flags: MessageFlags.Ephemeral });
     }
 

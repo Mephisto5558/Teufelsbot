@@ -46,7 +46,7 @@ declare function fact(
 ): ComponentReturnType;
 
 declare function help_commandQuery(
-  this: Interaction | Message,
+  this: Interaction | Message | StringSelectMenuInteraction,
   lang: lang, query: string
 ): Promise<Message>;
 declare function help_categoryQuery(

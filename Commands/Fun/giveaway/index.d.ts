@@ -12,7 +12,7 @@ type data = {
       bonusEntries?: Record<Snowflake, string>; requiredRoles?: Snowflake[];
       disallowedMembers?: Snowflake[]; duration?: number;
     },
-    ...rest: OmitFirstParameter<fn>
+    ...rest: OmitFirstParameters<fn>
   ): ReturnType<fn>;
 };
 export= data;

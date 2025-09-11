@@ -1,5 +1,5 @@
-/* eslint-disable sonarjs/expression-complexity, custom/cyclomatic-complexity, @typescript-eslint/no-unsafe-call
--- will be fixed when commands are moved to their own lib */
+/* eslint-disable sonarjs/expression-complexity, custom/cyclomatic-complexity, @typescript-eslint/no-unsafe-call,
+@typescript-eslint/no-unsafe-member-access -- will be fixed when commands are moved to their own lib */
 
 /** @type {import('.').slashCommandsEqual} */
 module.exports = function equal(a, b) {

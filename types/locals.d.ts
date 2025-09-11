@@ -1,7 +1,8 @@
 import type Discord from 'discord.js';
 import type LibWebServer, { customPage as LibCustomPage, dashboardSetting as LibDashboardSetting } from '@mephisto5558/bot-website';
 import type { Locale } from '@mephisto5558/i18n';
-import type { SettingsPaths } from '@mephisto5558/mongoose-db';
+import type { DB, SettingsPaths } from '@mephisto5558/mongoose-db';
+import type { Request, Response } from 'express';
 import type { Omit } from './discord.js';
 
 type autocompleteOptions = string | number | { name: string; value: string };
@@ -138,11 +139,16 @@ type FlattenedUserSettings = SettingsPaths<Database['userSettings'][Snowflake]>;
 
 export class WebServer extends LibWebServer {
   client: Discord.Client<true>;
+  db: DB<Database>;
 }
 
-export type customPage = Omit<LibCustomPage, 'run'> & {
+export type customPage<RunReqBody = unknown, RunResBody = unknown> = Omit<LibCustomPage, 'run'> & {
   run?: Omit<LibCustomPage['run'], GenericFunction>
-    | ((this: WebServer, ...args: Parameters<LibCustomPage['run']>) => ReturnType<LibCustomPage['run']>);
+    | ((
+      this: WebServer,
+      res: Response<RunResBody | undefined>, req: Request<undefined, undefined, RunReqBody | undefined>,
+      ...args: OmitFirstParameters<LibCustomPage['run'], 2>
+    ) => ReturnType<LibCustomPage['run']>);
 };
 
 export type dashboardSetting = Omit<LibDashboardSetting, 'get' | 'set' | 'type'> & {

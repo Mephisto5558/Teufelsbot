@@ -1,7 +1,7 @@
 const
   { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError, codeBlock } = require('discord.js'),
   {
-    DiscordApiErrorCodes, timeFormatter: { msInSecond },
+    DiscordAPIErrorCodes, timeFormatter: { msInSecond },
     constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionrowMaxAmt, actionRowMaxButtonAmt }
   } = require('#Utils');
 
@@ -14,7 +14,7 @@ async function getEditableMessage(msgId, lang) {
 
   try { msg = await this.channel.messages.fetch(msgId); }
   catch (err) {
-    if (err.code != DiscordApiErrorCodes.UnknownMessage) throw err;
+    if (err.code != DiscordAPIErrorCodes.UnknownMessage) throw err;
     return void this.editReply(lang('msgNotFound'));
   }
 

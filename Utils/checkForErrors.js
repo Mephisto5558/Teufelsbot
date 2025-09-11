@@ -49,16 +49,18 @@ function checkOptions(command, lang) {
 
     if (
       channelTypes && (this.options?.get(name) || this.args?.[i])
-      && !channelTypes.includes(this.options?.getChannel(name).type ?? this.mentions.channels.at(i)?.type)
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- will be fixed when commands are moved to their own lib */
+      && !channelTypes.includes((this.options?.getChannel(name) ?? this.mentions?.channels.at(i))?.type)
     ) return ['invalidChannelType', name];
 
     const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]));
     if (
       isValidType(this) && autocompleteIsUsed() && !autocompleteGenerator.call(
         /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unnecessary-condition,
-        @typescript-eslint/no-unsafe-call -- false positive/ts bug */
+        @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- false positive/ts bug */
         this, { name, value: this.options?.get(name).value ?? this.args?.[i] }, command, this.guild?.db.config.lang ?? this.guild?.localeCode
-        /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unsafe-call -- false positive/ts bug */
+        /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unsafe-call,
+        @typescript-eslint/no-unsafe-member-access -- false positive/ts bug */
       ).some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
     ) {
       if (typeof autocompleteOptions != 'function') {

@@ -9,10 +9,11 @@ const
 async function sendChallengeMention(msg, userId, lang) {
   await sleep(secToMs(10));
 
+  /** @type {Message & { components: import('discord.js').ActionRow<import('discord.js').ButtonComponent>[] } | undefined} */
   const reply = await msg.fetchReply().catch(() => { /* empty */ });
   // challenge has been accepted - the accept button does not exist
 
-  if (reply?.components[0]?.components?.[0].customId != 'yes') return;
+  if (reply?.components[0]?.components[0]?.customId != 'yes') return;
 
   const mentionMsg = await reply.reply(lang('newChallenge', userMention(userId)));
 
@@ -24,6 +25,8 @@ async function sendChallengeMention(msg, userId, lang) {
 async function playAgain(interaction, lang) {
   const
     opponent = interaction.options.getUser('opponent'),
+
+    /** @type {{ components: import('discord.js').ActionRow<import('discord.js').ButtonComponent>[] }} */
     { components } = await interaction.fetchReply(),
     lastRow = 3;
 

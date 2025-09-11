@@ -45,7 +45,11 @@ module.exports = {
         && !disallowedMembers.includes(member.id)
       );
     }
-    if (bonusEntries?.length > 0) editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
+
+    if (bonusEntries?.__count__) {
+      /** @param {import('discord.js').GuildMember} member */
+      editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
+    }
 
     const data = await this.client.giveawaysManager.edit(giveawayId, editOptions);
     components[0].components[0].data.url = data.messageURL;

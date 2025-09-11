@@ -7,7 +7,7 @@ const
 /**
  * @this {import('discord.js').ClientEvents['messageDeleteBulk'][0]}
  * @param {import('discord.js').ClientEvents['messageDeleteBulk'][1]} channel */
-module.exports = async function messageDeleteBulk(channel) {
+module.exports = async function messageDeleteBulk(channel) { // TODO: maybe move all the log events to `guildAuditLogEntryCreate`
   const setting = channel.guild.db.config.logger?.messageDelete;
 
   if (
@@ -27,7 +27,7 @@ module.exports = async function messageDeleteBulk(channel) {
   const
     { executor, reason } = (await channel.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageBulkDelete })).entries
       /* eslint-disable-next-line @typescript-eslint/no-magic-numbers */
-      .find(e => e.extra.channel.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < secToMs(20)) ?? {},
+      .find(e => e.target.id == channel.id && e.extra.count == this.size && Date.now() - e.createdTimestamp < secToMs(20)) ?? {},
     lang = channel.client.i18n.getTranslator({
       locale: channel.guild.db.config.lang ?? channel.guild.localeCode, backupPaths: ['events.logger.messageDeleteBulk']
     }),

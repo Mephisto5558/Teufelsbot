@@ -89,7 +89,8 @@ class BackupSystem {
       bans: [],
       roles: [],
       emojis: [],
-      stickers: []
+      stickers: [],
+      channels: {}
     };
 
     if (backupMembers) {
@@ -161,7 +162,6 @@ class BackupSystem {
       /* eslint-disable-next-line unicorn/no-array-sort -- false positive: discord.js Collection instead of Array */
       const channels = (await guild.channels.fetch()).sort((a, b) => a.position - b.position);
 
-      data.channels = {};
       data.channels.categories = await Promise.all(channels
         .filter(e => e.type == ChannelType.GuildCategory)
         .map(async e => ({
@@ -174,7 +174,6 @@ class BackupSystem {
         .filter(e => !e.parent && ![ChannelType.GuildCategory, ...Constants.ThreadChannelTypes].includes(e.type))
         .map(async e => utils.fetchTextChannelData(e, saveImages, maxMessagesPerChannel)));
     }
-
 
     statusObj.status = 'create.images';
     if (saveImages) {

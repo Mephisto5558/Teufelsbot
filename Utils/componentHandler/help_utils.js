@@ -4,7 +4,7 @@
 const
   {
     ActionRowBuilder, ChatInputCommandInteraction, Colors, EmbedBuilder, StringSelectMenuBuilder,
-    StringSelectMenuInteraction, codeBlock, inlineCode
+    StringSelectMenuInteraction, codeBlock, inlineCode, Message
   } = require('discord.js'),
   /** @type {import('..').permissionTranslator} */ permissionTranslator = require('../permissionTranslator'),
   { msInSecond, secsInMinute } = require('../timeFormatter');
@@ -25,9 +25,9 @@ function getDefaultOption() {
   if (this instanceof ChatInputCommandInteraction) {
     if (!this.options.getString('command')) defaultOption = this.options.getString('category');
   }
-  else defaultOption = (this.client.prefixCommands.get(this.args[1]) ?? this.client.slashCommands.get(this.args[1]))?.category;
-
-  if (!defaultOption && this instanceof StringSelectMenuInteraction)
+  else if (this instanceof Message)
+    defaultOption = (this.client.prefixCommands.get(this.args[1]) ?? this.client.slashCommands.get(this.args[1]))?.category;
+  else if (this instanceof StringSelectMenuInteraction)
     defaultOption = this.message.components[0].components[0].options.find(e => e.value === this.values[0])?.value;
 
   return defaultOption;
@@ -151,7 +151,7 @@ function filterCommands(cmd) {
 
 /** @type {import('.').help_commandQuery} */
 module.exports.commandQuery = async function commandQuery(lang, query) {
-  if (this.values && !this.values.length)
+  if ('values' in this && !this.values.length)
     return module.exports.categoryQuery.call(this, lang, this.message.components[0].components[0].data.options.find(e => e.default).value);
 
   const command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);

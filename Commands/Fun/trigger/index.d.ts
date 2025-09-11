@@ -11,7 +11,7 @@ type data = {
       oldData: triggers;
       query: string;
     },
-    ...rest: OmitFirstParameter<fn>
+    ...rest: OmitFirstParameters<fn>
   ): ReturnType<fn>;
 };
 export default data;

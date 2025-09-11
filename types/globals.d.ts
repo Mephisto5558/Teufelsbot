@@ -119,7 +119,9 @@ declare global {
   /* eslint-disable-next-line @typescript-eslint/no-explicit-any -- used only as generic constraint */
   type GenericFunction<Ret = any> = (...args: any) => Ret;
 
-  type OmitFirstParameter<T extends GenericFunction> = Parameters<T> extends [unknown, ...infer Rest] ? Rest : never;
+  type OmitFirstParameters<
+    T extends GenericFunction, N extends number = 1, Acc extends unknown[] = []
+  > = Acc['length'] extends N ? Parameters<T> extends [...Acc, ...infer Rest] ? Rest : never : OmitParameters<T, N, [...Acc, unknown]>;
 
   type lang<UNF extends boolean = false, L extends Locale | undefined = Locale> = Translator<UNF, L>;
 
