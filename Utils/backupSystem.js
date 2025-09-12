@@ -96,7 +96,7 @@ class BackupSystem {
     if (backupMembers) {
       statusObj.status = 'create.members';
 
-      (await guild.members.fetch()).map(e => ({
+      data.members = (await guild.members.fetch()).map(e => ({
         id: e.id,
         username: e.user.username,
         tag: e.user.tag,

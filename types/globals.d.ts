@@ -197,7 +197,7 @@ declare global {
 
     /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled. */
     autocompleteOptions?: string | locals.autocompleteOptions[] | (
-      (this: Discord.AutocompleteInteraction) => locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>
+      (this: Discord.AutocompleteInteraction<'cached'>) => locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>
     );
 
     /**

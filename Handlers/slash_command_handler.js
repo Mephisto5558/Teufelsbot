@@ -1,4 +1,4 @@
-/* eslint-disable sonarjs/cognitive-complexity, custom/cyclomatic-complexity, max-depth
+/* eslint-disable sonarjs/cognitive-complexity, custom/cyclomatic-complexity, max-depth, @typescript-eslint/no-unsafe-argument
  -- will be fixed when commands are moved to their own lib */
 
 const

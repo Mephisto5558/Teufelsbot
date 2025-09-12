@@ -9,7 +9,7 @@ module.exports = async function timeEventsHandler() {
   await this.awaitReady();
 
   for (const [name, job] of Object.entries(jobs)) {
-    void new CronJob(job.time, job.onTick.bind(this), undefined, true, job.timeZone, this, job.startNow, job.utcOffset);
+    void new CronJob(job.time, job.onTick.bind(this), undefined, true, undefined, this, job.startNow);
     log(`Loaded Cron Job ${name}`);
   }
 

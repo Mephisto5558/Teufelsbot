@@ -36,7 +36,7 @@ async function reloadSlashCommand(file, command, reloadedArray) {
 
   if (equal) file.id = command.id;
   else {
-    if (command.id) await this.application.commands.delete(command.id);
+    if ('id' in command) await this.application.commands.delete(command.id);
     if (file.disabled || this.botType == 'dev' && !file.beta) {
       file.id = command.id;
       log(`Skipped/Deleted Disabled Slash Command ${file.name}`);
@@ -107,7 +107,7 @@ async function reloadCommand(command, reloadedArray) {
   if (file.slashCommand) await reloadSlashCommand.call(this, file, command, reloadedArray);
   else if (!file.slashCommand && command.slashCommand) {
     this.slashCommands.delete(command.name);
-    if (command.id) await this.application.commands.delete(command.id);
+    if ('id' in command) await this.application.commands.delete(command.id);
   }
 }
 

@@ -310,7 +310,7 @@ export declare function timeValidator<T extends string | undefined>(
 export declare namespace configValidator {
   type validConfigPrimitives = 'object' | 'string' | 'boolean' | 'number';
   type validConfigEntry = validConfigPrimitives | [validConfigPrimitives] | { [key: string]: validConfigEntry };
-  type validConfig = Record<string, validConfigEntry>;
+  const validConfig: Record<string, validConfigEntry>;
 
   function setDefaultConfig(): Partial<Client['config']>;
 

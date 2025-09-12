@@ -47,13 +47,5 @@ export default [
         DMInteraction: 'writable'
       }
     }
-  },
-  {
-    name: 'overwrite:js',
-    files: ['**/*.js'],
-    rules: {
-      // pain, needs TODO:
-      '@typescript-eslint/no-unsafe-argument': 'off'
-    }
   }
 ];

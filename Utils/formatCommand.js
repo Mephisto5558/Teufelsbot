@@ -7,6 +7,9 @@ const
   { basename, dirname, resolve } = require('node:path'),
   { choiceValueMaxLength, choiceValueMinLength, choicesMaxAmt, descriptionMaxLength } = require('./constants');
 
+/**
+ * @param {string} path
+ * @throws {Error} that is not `MODULE_NOT_FOUND` */
 function getOptionalFile(path) {
   try { return require(path); }
   catch (err) {

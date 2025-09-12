@@ -70,7 +70,7 @@ export type backups = Record<backupId, {
     channel: string | null;
   };
   members?: {
-    userId: userId;
+    id: userId;
     username: string;
     discriminator: number;
     nickname: string | null;

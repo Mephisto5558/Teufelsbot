@@ -1,5 +1,5 @@
 const
-  { Colors, EmbedBuilder, MessageFlags, inlineCode } = require('discord.js'),
+  { Colors, EmbedBuilder, MessageFlags, Role, inlineCode } = require('discord.js'),
   /** @type {Record<string, GenericFunction<unknown>>} */ handlers = require('./componentHandler/'),
   cooldowns = require('./cooldowns'),
   /** @type {import('.').errorHandler} */ errorHandler = require('./errorHandler'),
@@ -18,7 +18,7 @@ module.exports = async function messageComponentHandler(lang) {
   else if (disabledList.channels?.includes(this.channel.id)) err = 'notAllowed.channel';
   else if (
     disabledList.roles && this.member && ('cache' in this.member.roles ? this.member.roles.cache : this.member.roles)
-      .some(e => disabledList.roles.includes(e.id))
+      .some(e => disabledList.roles.includes(e instanceof Role ? e.id : e))
   ) err = 'notAllowed.role';
   else if (command.category == 'nsfw' && !this.channel.nsfw) err = 'nsfw';
   else if (cooldown) err = 'events.interaction.buttonOnCooldown';

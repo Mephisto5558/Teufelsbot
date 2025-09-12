@@ -2,7 +2,7 @@
 -- will be fixed when commands are moved to their own lib */
 
 const
-  { ChannelType, Colors, CommandInteraction, EmbedBuilder, Message, MessageFlags, PermissionFlagsBits, inlineCode } = require('discord.js'),
+  { ChannelType, Colors, CommandInteraction, EmbedBuilder, Message, MessageFlags, PermissionFlagsBits, Role, inlineCode } = require('discord.js'),
   /** @type {import('.').autocompleteGenerator} */ autocompleteGenerator = require('./autocompleteGenerator'),
   /** @type {import('.').commandMention} */ commandMention = require('./commandMention'),
   cooldowns = require('./cooldowns'),
@@ -49,7 +49,8 @@ function checkOptions(command, lang) {
 
     if (
       channelTypes && (this.options?.get(name) || this.args?.[i])
-      /* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- will be fixed when commands are moved to their own lib */
+      /* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-argument
+      -- will be fixed when commands are moved to their own lib */
       && !channelTypes.includes((this.options?.getChannel(name) ?? this.mentions?.channels.at(i))?.type)
     ) return ['invalidChannelType', name];
 
@@ -148,7 +149,8 @@ module.exports = async function checkForErrors(command, lang) {
     if (disabledList.users?.includes(this.user.id)) return ['notAllowed.user'];
     if (disabledList.channels?.includes(this.channel.id)) return ['notAllowed.channel'];
     if (
-      disabledList.roles && ('cache' in this.member.roles ? this.member.roles.cache : this.member.roles).some(e => disabledList.roles.includes(e.id))
+      disabledList.roles && ('cache' in this.member.roles ? this.member.roles.cache : this.member.roles)
+        .some(e => disabledList.roles.includes(e instanceof Role ? e.id : e))
     ) return ['notAllowed.role'];
   }
 

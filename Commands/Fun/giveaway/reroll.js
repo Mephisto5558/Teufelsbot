@@ -14,8 +14,8 @@ module.exports = {
       }
     };
 
+    components[0].components[0].setURL(this.client.giveawaysManager.giveaways.find(e => e.messageId = giveawayId).messageURL);
     await this.client.giveawaysManager.reroll(giveawayId, rerollOptions);
-    components[0].components[0].setURL(giveawayId);
 
     return this.editReply({ content: lang('rerolled'), components });
   }

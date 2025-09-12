@@ -1,5 +1,5 @@
 /* eslint-disable-next-line @stylistic/max-len -- cannot really do much about this one */
-/** @typedef {{ description: string, height: string, weight: string, name: string, types: string[], abilities: Record<string, string>, gender?: string[], family: { evolutionLine: string[] } }} Pokemon */
+/** @typedef {{ description: string, height: string, weight: string, name: string, types: string[], abilities: Record<string, string>, gender?: string[], family: { evolutionLine: string[], evolutionStage: string } }} Pokemon */
 
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, Colors, EmbedBuilder } = require('discord.js'),

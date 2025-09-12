@@ -89,7 +89,7 @@ declare function mgStats_formatTop(
   this: BaseInteraction<'cached'> | Message<true>,
   input: [Snowflake, { draws?: number; wins?: number; losses?: number }][],
   sort: 'f' | undefined, mode: 'draws' | 'losses' | 'alphabet_user' | 'alphabet_nick' | undefined, lang: lang,
-  maxLength?: number
+  maxLength?: number, amt?: number
 ): string | undefined;
 
 declare function mgStats<

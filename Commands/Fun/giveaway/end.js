@@ -7,8 +7,8 @@ module.exports = {
   }],
 
   async run(lang, { components, giveawayId }) {
-    const data = await this.client.giveawaysManager.end(giveawayId);
-    components[0].components[0].setURL(data.messageURL);
+    components[0].components[0].setURL(this.client.giveawaysManager.giveaways.find(e => e.messageId = giveawayId).messageURL);
+    await this.client.giveawaysManager.end(giveawayId);
 
     return this.editReply({ content: lang('ended'), components });
   }

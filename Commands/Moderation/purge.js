@@ -178,7 +178,7 @@ module.exports = {
     const exists = filterOptionsExist(options);
     if (!checkParams.call(this, amount, options, exists, lang)) return;
 
-    const messages = (await fetchMsgs(channel, exists ? options.before : undefined, exists ? options.after : undefined, amount))
+    const messages = (await fetchMsgs(channel, exists ? options.before_message : undefined, exists ? options.after_message : undefined, amount))
       .filter(e => shouldDeleteMsg(e, options))
       .keys()
       .toArray();

@@ -20,7 +20,10 @@ module.exports = {
 
     const config = setDefaultConfig();
     try { configValidationLoop(config, validConfig, true); }
-    catch (err) { return this.customReply(lang('error', err.message)); }
+    catch (rawErr) {
+      const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
+      return this.customReply(lang('error', err.message));
+    }
 
     config.devIds.add(this.client.application.owner instanceof Team ? this.client.application.owner.ownerId : this.client.application.owner.id);
     this.client.config = config;

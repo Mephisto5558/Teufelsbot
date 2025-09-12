@@ -10,7 +10,7 @@ type data = {
     options: {
       components: ActionRowBuilder<ButtonBuilder>[];
       bonusEntries?: Record<Snowflake, string>; requiredRoles?: Snowflake[];
-      disallowedMembers?: Snowflake[]; duration?: number;
+      disallowedMembers?: Snowflake[]; duration?: number; giveawayId?: Snowflake;
     },
     ...rest: OmitFirstParameters<fn>
   ): ReturnType<fn>;
