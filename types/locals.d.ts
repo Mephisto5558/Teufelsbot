@@ -2,7 +2,7 @@ import type Discord from 'discord.js';
 import type LibWebServer, { customPage as LibCustomPage, dashboardSetting as LibDashboardSetting } from '@mephisto5558/bot-website';
 import type { Locale } from '@mephisto5558/i18n';
 import type { DB, SettingsPaths } from '@mephisto5558/mongoose-db';
-import type { Request, Response } from 'express';
+import type { NextFunction, Request, Response } from 'express';
 import type { Omit } from './discord.js';
 
 type autocompleteOptions = string | number | { name: string; value: string };
@@ -146,8 +146,9 @@ export type customPage<RunReqBody = unknown, RunResBody = unknown> = Omit<LibCus
   run?: Omit<LibCustomPage['run'], GenericFunction>
     | ((
       this: WebServer,
-      res: Response<RunResBody | undefined>, req: Request<undefined, undefined, RunReqBody | undefined>,
-      ...args: OmitFirstParameters<LibCustomPage['run'], 2>
+      res: Response<RunResBody | undefined>,
+      req: Request<undefined, undefined, RunReqBody | undefined>,
+      next: NextFunction
     ) => ReturnType<LibCustomPage['run']>);
 };
 

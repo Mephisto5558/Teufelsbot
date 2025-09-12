@@ -3,8 +3,8 @@
 
 const
   {
-    ActionRowBuilder, ChatInputCommandInteraction, Colors, EmbedBuilder, StringSelectMenuBuilder,
-    StringSelectMenuInteraction, codeBlock, inlineCode, Message
+    ActionRowBuilder, ChatInputCommandInteraction, Colors, EmbedBuilder, Message, StringSelectMenuBuilder,
+    StringSelectMenuInteraction, codeBlock, inlineCode
   } = require('discord.js'),
   /** @type {import('..').permissionTranslator} */ permissionTranslator = require('../permissionTranslator'),
   { msInSecond, secsInMinute } = require('../timeFormatter');

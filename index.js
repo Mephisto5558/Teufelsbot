@@ -7,7 +7,7 @@ const maxStackTraceLimit = 100;
 Error.stackTraceLimit = maxStackTraceLimit;
 
 const
-  { ActivityType, AllowedMentionsTypes, Client, GatewayIntentBits, Partials } = require('discord.js'),
+  { ActivityType, AllowedMentionsTypes, Client, GatewayIntentBits, Partials, Team } = require('discord.js'),
   { WebServer } = require('@mephisto5558/bot-website'),
   {
     GiveawaysManager, configValidator: { configValidationLoop },
@@ -115,7 +115,7 @@ void (async function main() {
   const
     handlerPromises = [
       ...Object.entries(handlers).filter(([k]) => k != 'eventHandler').map(async ([,handler]) => handler.call(newClient)),
-      newClient.awaitReady().then(app => app.client.config.devIds.add(app.owner?.owner?.id ?? app.owner?.id))
+      newClient.awaitReady().then(app => app.client.config.devIds.add((app.owner instanceof Team ? app.owner.owner : app.owner)?.id))
     ],
 
     client = await loginClient.call(newClient, process.env.token);
