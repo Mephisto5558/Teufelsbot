@@ -3,7 +3,6 @@
 import type Discord from 'discord.js';
 import type { Locale, Translator } from '@mephisto5558/i18n';
 import type DiscordTicTacToe from 'discord-tictactoe';
-import type Passport from 'passport-discord';
 
 import type { Log } from '../Utils/prototypeRegisterer';
 import type DBStructure from './database';
@@ -290,11 +289,6 @@ declare global {
   }
 
   // #endregion
-
-  namespace Express {
-    /* eslint-disable-next-line @typescript-eslint/consistent-type-definitions -- needs to be an interface */
-    interface User extends Discord.APIUser, Passport.Profile {}
-  }
 }
 
 // #endregion
