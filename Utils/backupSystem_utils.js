@@ -176,8 +176,10 @@ async function loadChannel(channel, guild, category, maxMessagesPerChannel, allo
 async function loadChannelMessages(channel, messages, webhook, maxMessagesPerChannel, allowedMentions) {
   try { webhook ??= await channel.createWebhook({ name: 'MessagesBackup', avatar: channel.client.user.displayAvatarURL() }); }
   catch (err) {
-    if (![DiscordAPIErrorCodes.MaximumNumberOfWebhooksReached, DiscordAPIErrorCodes.MaximumNumberOfWebhooksPerGuildReached].includes(err.code))
-      throw err;
+    if (
+      !(err instanceof DiscordAPIError)
+      || ![DiscordAPIErrorCodes.MaximumNumberOfWebhooksReached, DiscordAPIErrorCodes.MaximumNumberOfWebhooksPerGuildReached].includes(err.code)
+    ) throw err;
   }
 
   if (!webhook) return;

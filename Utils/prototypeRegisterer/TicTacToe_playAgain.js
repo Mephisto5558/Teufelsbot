@@ -41,6 +41,7 @@ async function playAgain(interaction, lang) {
   }
 
   const collector = (await interaction.editReply({ components })).createMessageComponentCollector({
+    /** @type {(i: import('discord.js').ButtonInteraction<'cached'>) => boolean} */
     filter: i => [interaction.user.id, opponent?.id].includes(i.member.id) && i.customId == 'playAgain',
     max: 1, componentType: ComponentType.Button, time: BUTTON_TIME
   });

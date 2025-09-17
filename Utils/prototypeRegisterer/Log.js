@@ -40,11 +40,11 @@ module.exports = class Log extends Function {
     return bound;
   }
 
-  debug(...str) { return this._log({ file: 'debug' }, ...str); }
-  log(...str) { return this._log({ file: 'log' }, ...str); }
-  info(...str) { return this._log({ file: 'info' }, ...str); }
-  warn(...str) { return this._log({ file: 'warn' }, ...str); }
-  error(...str) { return this._log({ file: 'error' }, ...str); }
+  /** @type {import('.').LogInterface['debug']} */ debug(...str) { return this._log({ file: 'debug' }, ...str); }
+  /** @type {import('.').LogInterface['log']} */ log(...str) { return this._log({ file: 'log' }, ...str); }
+  /** @type {import('.').LogInterface['info']} */ info(...str) { return this._log({ file: 'info' }, ...str); }
+  /** @type {import('.').LogInterface['warn']} */ warn(...str) { return this._log({ file: 'warn' }, ...str); }
+  /** @type {import('.').LogInterface['error']} */ error(...str) { return this._log({ file: 'error' }, ...str); }
 
   /** @type {import('.').LogInterface['_logToConsole']} */
   _logToConsole({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` } = {}, ...str) {

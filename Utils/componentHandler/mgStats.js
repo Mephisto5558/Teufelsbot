@@ -11,7 +11,7 @@ module.exports = async function mgStats(lang, game, wMode, settings) {
     Object.entries(
       Object.entries(this.client.db.get('leaderboards')).find(([k]) => k == game)?.[1] ?? []
     ).filter(([e]) => settings == 'all_users' || this.guild.members.cache.has(e)),
-    sort, mode, lang) ?? lang('noWinners');
+    lang, { sort, mode }) ?? lang('noWinners');
 
   delete this.message.components[0].components[0].options.find(e => e.default).default;
   this.message.components[0].components[0].options.find(e => e.value === this.values[0]).default = true;

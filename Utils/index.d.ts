@@ -203,7 +203,7 @@ export declare function getAge(date: Date): number;
 /**
  * Gets the original command name, not the alias name
  * @param command the command object or its name */
-export declare function getCommandName(this: Client, command: command | string): string;
+export declare function getCommandName(this: Client, command: string | { name: string }): string;
 
 export declare function getCommands(
   this: Client,
@@ -316,7 +316,7 @@ export declare namespace configValidator {
 
   /** @throws {Error} on invalid key or subkey type. */
   function configValidationLoop(
-    obj: Record<string, unknown>, checkObj: validConfig, allowNull?: boolean
+    obj: Record<string, unknown>, checkObj: typeof validConfig, allowNull?: boolean
   ): void;
 }
 

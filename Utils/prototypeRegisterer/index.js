@@ -158,13 +158,13 @@ Object.defineProperties(Client.prototype, {
   cooldowns: { value: new Map() },
   config: { value: config },
 
-  /** @type {Record<string, (this: Client, val: any) => any>} */
+  /** @type {Record<string, (this: Client, val: unknown) => unknown>} */
   settings: {
     get() { return this.db.get('botSettings'); },
     set(val) { void this.db.set('botSettings', val); }
   },
 
-  /** @type {Record<string, (this: Client, val: any) => any>} */
+  /** @type {Record<string, (this: Client, val: unknown) => unknown>} */
   defaultSettings: {
     get() { return this.db.get('botSettings', 'defaultGuild'); },
     set(val) { void this.db.update('botSettings', 'defaultGuild', val); }
@@ -228,7 +228,7 @@ Object.defineProperty(Message.prototype, 'user', {
 });
 Object.assign(Message.prototype, { customReply, runMessages, _patch });
 Object.defineProperties(User.prototype, {
-  /** @type {Record<string, (this: User, val: any) => any>} */
+  /** @type {Record<string, (this: User, val: unknown) => unknown>} */
   db: {
     get() { return this.client.db.get('userSettings', this.id) ?? {}; },
     set(val) { void this.updateDB(undefined, val); }
@@ -246,7 +246,7 @@ Object.defineProperties(User.prototype, {
     }
   },
 
-  /** @type {Record<string, (this: User, val: any) => any>} */
+  /** @type {Record<string, (this: User, val: unknown) => unknown>} */
   customName: {
     get() { return this.db.customName ?? this.displayName; },
     set(val) { void this.updateDB('customName', val); }
@@ -265,13 +265,13 @@ Object.defineProperties(User.prototype, {
   }
 });
 Object.defineProperties(GuildMember.prototype, {
-  /** @type {Record<string, (this: GuildMember, val: any) => any>} */
+  /** @type {Record<string, (this: GuildMember, val: unknown) => unknown>} */
   db: {
     get() { return findAllEntries(this.guild.db, this.id); },
     set() { throw new Error('You cannot set a value to GuildMember#db!'); }
   },
 
-  /** @type {Record<string, (this: GuildMember, val: any) => any>} */
+  /** @type {Record<string, (this: GuildMember, val: unknown) => unknown>} */
   customName: {
     get() { return this.guild.db.customNames?.[this.id] ?? this.displayName; },
     set(val) { void this.guild.updateDB(`customNames.${this.id}`, val); }
@@ -286,7 +286,7 @@ Object.defineProperties(GuildMember.prototype, {
   }
 });
 Object.defineProperties(Guild.prototype, {
-  /** @type {Record<string, (this: Guild, val: any) => any>} */
+  /** @type {Record<string, (this: Guild, val: unknown) => unknown>} */
   db: {
     get() { return this.client.db.get('guildSettings', this.id) ?? {}; },
     set(val) { void this.updateDB(undefined, val); }
@@ -295,7 +295,8 @@ Object.defineProperties(Guild.prototype, {
     /**
      * @type {import('discord.js').Guild['updateDB']}
      * @this {Guild}
-     * @param {string} key */
+     * @param {string} key
+     * @param {unknown} value */
     value: async function updateDB(key, value) { return this.client.db.update('guildSettings', `${this.id}${key ? '.' + key : ''}`, value); }
   },
   deleteDB: {

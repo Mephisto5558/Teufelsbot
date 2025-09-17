@@ -13,23 +13,25 @@ const searchCache = (query, filter, cache) => cache.find(e => filter(e) && [
 /** @type {import('.').__getTargetMember} */
 function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList) {
   if (interaction.inGuild()) {
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call -- ts bug */
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call,
+    @typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unsafe-member-access,
+    @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-return -- ts bug */
+
     let target = interaction.options?.getMember(targetOptionName)
-      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- ts bug */
-      ?? interaction.mentions?.members.at(seenList.length) ?? interaction.mentions?.members.first();
+      ?? interaction.mentions?.members.at(seenList.size) ?? interaction.mentions?.members.first();
+
     if (interaction.content) {
-      /* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access -- ts bug */
       if (!target || seenList.has(target.id)) target = searchCache(interaction.content, e => !seenList.has(e.id), interaction.guild.members.cache);
       target ??= searchCache(interaction.content, e => !seenList.has(e.id), interaction.client.users.cache);
     }
 
-    /* eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access -- ts bug */
     if (target && !seenList.has(target.id)) return target;
     return returnSelf && !seenList.has(interaction.member.id) ? interaction.member : undefined;
+    /* eslint-enable */
   }
 
   let target = interaction.options?.getUser(targetOptionName)
-    ?? interaction.mentions?.users.at(seenList.length)
+    ?? interaction.mentions?.users.at(seenList.size)
     ?? interaction.mentions?.users.first();
   if ((!target || seenList.has(target.id)) && interaction.content)
     target = searchCache(interaction.content, e => !seenList.has(e.id), interaction.client.users.cache);
@@ -44,8 +46,8 @@ module.exports = function getTargetMembers(interaction, targetSettings) {
   let settings = Array.isArray(targetSettings) ? targetSettings : [targetSettings];
   if (!targetSettings || !settings.length) settings = [{}];
 
-  /** @type {ReturnType<getTargetMember>[]} */
-  const members = [...settings.reduce((acc, { targetOptionName, returnSelf }, i) => {
+  /** @type {ReturnType<import('.').__getTargetMember>[]} */
+  const members = [...settings.reduce((/** @type {Map<Snowflake, unknown>} */ acc, { targetOptionName, returnSelf }, i) => {
     const member = getTargetMember(interaction, { targetOptionName: targetOptionName ?? `target${i || ''}`, returnSelf }, acc);
     acc.set(member?.id ?? `target${i || ''}`, member);
     return acc;
