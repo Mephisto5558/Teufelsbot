@@ -130,9 +130,9 @@ type Config = {
   enableConsoleFix?: boolean;
 };
 
-type BoundFunction = new (
+type BoundFunction<isAsync extends boolean = false> = new (
   this: Message, __dirname: string, __filename: string, module: NodeJS.Module, exports: NodeJS.Module['exports'], require: NodeJS.Require, lang: lang
-) => FunctionConstructor;
+) => GenericFunction<isAsync extends true ? Promise<unknown> : unknown>;
 
 type FlattenedGuildSettings = SettingsPaths<Database['guildSettings'][Snowflake]>;
 type FlattenedUserSettings = SettingsPaths<Database['userSettings'][Snowflake]>;
