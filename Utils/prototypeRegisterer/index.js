@@ -138,7 +138,38 @@ Object.defineProperty(BigInt.prototype, 'toJSON', {
 
 // #endregion
 
+
 // #region Discord.js
+/** @param {import('discord.js').User | import('discord.js').Guild} class_ */
+function createDbHandlers(class_) {
+  const collection = class_ == User ? 'userSettings' : 'guildSettings';
+
+  return {
+    /** @type {Record<string, (this: import('discord.js').User | import('discord.js').Guild, val: unknown) => unknown>} */
+    db: {
+      get() { return this.client.db.get(collection, this.id) ?? {}; },
+      set(val) { void this.updateDB(undefined, val); }
+    },
+    updateDB: {
+      // note that this type is not quite correct, but `(import('discord.js').User | import('discord.js').Guild)['updateDB'] does not work`
+      /** @type {import('discord.js').User['updateDB']} */
+      value: async function updateDB(key, value) {
+        return this.client.db.update(collection, `${this.id}${key ? '.' + key : ''}`, value);
+      }
+    },
+    deleteDB: {
+      // note that this type is not quite correct, but `(import('discord.js').User | import('discord.js').Guild)['deleteDB'] does not work`
+      /** @type {import('discord.js').Guild['deleteDB']} */
+      value: async function deleteDB(key) {
+        /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
+        if (!key) throw new Error(`Missing key; cannot delete ${this.constructor.name} using this method!`);
+        return this.client.db.delete(collection, `${this.id}.${key}`);
+      }
+    }
+  };
+}
+
+
 Object.defineProperty(BaseInteraction.prototype, 'customReply', {
   value: customReply
 });
@@ -227,23 +258,7 @@ Object.defineProperty(Message.prototype, 'user', {
 });
 Object.assign(Message.prototype, { customReply, runMessages, _patch });
 Object.defineProperties(User.prototype, {
-  /** @type {Record<string, (this: User, val: unknown) => unknown>} */
-  db: {
-    get() { return this.client.db.get('userSettings', this.id) ?? {}; },
-    set(val) { void this.updateDB(undefined, val); }
-  },
-  updateDB: {
-    /** @type {import('discord.js').User['updateDB']} */
-    value: async function updateDB(key, value) { return this.client.db.update('userSettings', `${this.id}${key ? '.' + key : ''}`, value); }
-  },
-  deleteDB: {
-    /** @type {import('discord.js').User['deleteDB']} */
-    value: async function deleteDB(key) {
-      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- just to be safe */
-      if (!key) throw new Error('Missing key; cannot delete user using this method!');
-      return this.client.db.delete('userSettings', `${this.id}.${key}`);
-    }
-  },
+  ...createDbHandlers(User),
 
   /** @type {Record<string, (this: User, val: unknown) => unknown>} */
   customName: {
@@ -285,27 +300,7 @@ Object.defineProperties(GuildMember.prototype, {
   }
 });
 Object.defineProperties(Guild.prototype, {
-  /** @type {Record<string, (this: Guild, val: unknown) => unknown>} */
-  db: {
-    get() { return this.client.db.get('guildSettings', this.id) ?? {}; },
-    set(val) { void this.updateDB(undefined, val); }
-  },
-  updateDB: {
-    /**
-     * @type {import('discord.js').Guild['updateDB']}
-     * @this {Guild}
-     * @param {string} key
-     * @param {unknown} value */
-    value: async function updateDB(key, value) { return this.client.db.update('guildSettings', `${this.id}${key ? '.' + key : ''}`, value); }
-  },
-  deleteDB: {
-    /** @type {import('discord.js').Guild['deleteDB']} */
-    value: async function deleteDB(key) {
-      /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition -- just to be safe */
-      if (!key) throw new Error('Missing key; cannot delete guild using this method!');
-      return this.client.db.delete('guildSettings', `${this.id}.${key}`);
-    }
-  },
+  ...createDbHandlers(Guild),
 
   /** @type {Record<string, (this: Guild, val: import('discord.js').Guild['localeCode']) => import('discord.js').Guild['localeCode']>} */
   localeCode: {
