@@ -3,7 +3,7 @@
 import type Discord from 'discord.js';
 import type { WebServer } from '@mephisto5558/bot-website';
 import type { I18nProvider, Locale as LangLocaleCode } from '@mephisto5558/i18n';
-import type DB from '@mephisto5558/mongoose-db';
+import type DB, { GetValueByKey } from '@mephisto5558/mongoose-db';
 
 import type { BackupSystem, GiveawaysManager } from '#Utils';
 import type { runMessages as TRunMessages } from '#Utils/prototypeRegisterer';
@@ -138,11 +138,11 @@ declare module 'discord.js' {
      * ```js
      * return this.client.db.update('userSettings', `${this.id}.${key}`, value);
      * ``` */
-    updateDB<FDB extends locals.FlattenedUserSettings, K extends keyof FDB & string>(
-      this: User, key: K, value: FDB[K]
-    ): Promise<NonNullable<Database['userSettings']>>;
+    updateDB<K extends locals.FlattenedUserSettings | undefined>(
+      this: User, key: K, value: GetValueByKey<NonNullable<Database['userSettings'][Snowflake]>, K>
+    ): Promise<Database['userSettings']>;
 
-    deleteDB(this: Guild, key: locals.FlattenedUserSettings): ReturnType<DB<Database>['delete']>;
+    deleteDB(this: User, key: locals.FlattenedUserSettings): ReturnType<DB<Database>['delete']>;
 
     customName: string;
     customTag: string;
@@ -176,8 +176,9 @@ declare module 'discord.js' {
      * ```js
      * return this.client.db.update('guildSettings', `${this.id}.${key}`, value);
      * ``` */
-    updateDB<FDB extends locals.FlattenedGuildSettings, K extends keyof FDB>(this: Guild, key: K, value: FDB[K]): Promise<Database['guildSettings']>;
-    updateDB(this: Guild, key: null, value: NonNullable<Database['guildSettings'][Snowflake]>): Promise<Database['guildSettings']>;
+    updateDB<K extends locals.FlattenedGuildSettings | undefined>(
+      this: Guild, key: K, value: GetValueByKey<NonNullable<Database['guildSettings'][Snowflake]>, K>
+    ): Promise<Database['guildSettings']>;
 
     deleteDB(this: Guild, key: locals.FlattenedGuildSettings): ReturnType<DB<Database>['delete']>;
 
