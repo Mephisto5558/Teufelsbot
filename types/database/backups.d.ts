@@ -1,7 +1,10 @@
-import type { Base64String, BaseGuildVoiceChannel, EmbedData, GuildChannel, GuildChannelType, GuildFeature, Role, RoleColors } from 'discord.js';
+import type {
+  Base64String, BaseGuildVoiceChannel, EmbedData, GuildChannel, GuildChannelType, GuildFeature,
+  Role, RoleColors, RouteBases
+} from 'discord.js';
 import type { ISODateTime } from '../globals';
 
-import type { backupId, guildId, userId } from './common';
+import type { backupId, channelId, guildId, messageId, userId } from './common';
 
 export type backupChannel = {
   type: GuildChannelType;
@@ -21,7 +24,7 @@ export type backupChannel = {
     embeds: EmbedData[];
     attachments: {
       name: string;
-      attachment: `https://cdn.discordapp.com/attachments/${Snowflake}/${Snowflake}/${string}` & {} | Base64String;
+      attachment: `${(typeof RouteBases)['cdn']}/attachments/${channelId}/${messageId}/${string}` & {} | Base64String;
     }[];
     pinned: boolean;
     createdAt: ISODateTime;
@@ -94,12 +97,12 @@ export type backups = Record<backupId, {
   }[];
   emojis: ({
     name: string;
-  } & ({ url: `https://cdn.discordapp.com/emojis/${Snowflake}.png` } | { base64: Base64String }))[];
+  } & ({ url: `${(typeof RouteBases)['cdn']}/emojis/${Snowflake}.png` } | { base64: Base64String }))[];
   stickers: ({
     name: string;
     description: string | null;
     tags: string | null;
-  } & ({ url: `https://cdn.discordapp.com/stickers/${Snowflake}.png` } | { base64: Base64String }))[];
+  } & ({ url: `${(typeof RouteBases)['cdn']}/stickers/${Snowflake}.png` } | { base64: Base64String }))[];
   channels: {
     categories: {
       name: string;

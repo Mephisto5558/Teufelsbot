@@ -13,7 +13,7 @@ const
 async function autocompleteFormatter(searchValue, lang, options) {
   if (!options) return [];
 
-  if (typeof options == 'function') return autocompleteFormatter.call(this, searchValue, lang, await options.call(this, searchValue));
+  if (typeof options == 'function') return autocompleteFormatter.call(this, searchValue, lang, await await options.call(this, searchValue));
   if (typeof options == 'string') return [{ name: lang(options) ?? options, value: options }];
 
   if (Array.isArray(options)) {

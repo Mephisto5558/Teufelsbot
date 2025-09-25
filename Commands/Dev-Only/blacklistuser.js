@@ -1,4 +1,6 @@
-const { inlineCode } = require('discord.js');
+const
+  { inlineCode } = require('discord.js'),
+  { getTargetMembers } = require('#Utils');
 
 /** @type {command<'prefix', false>} */
 module.exports = {
@@ -15,7 +17,7 @@ module.exports = {
   beta: true,
 
   async run(lang) {
-    const target = this.args[1] ?? this.args[0];
+    const target = getTargetMembers(this)?.id;
     if (!target) return this.reply(lang('global.unknownUser'));
 
     if (this.args[0] == 'off') {

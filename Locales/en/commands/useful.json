@@ -118,6 +118,7 @@
         "description": "The given options, separated by semicolons."
       }
     },
+    "noChoices": "You need to give me options to pick from!",
     "choice": "I choose \"{choice}\"!",
     "choiceLong": "I chose:\n{choice}"
   },

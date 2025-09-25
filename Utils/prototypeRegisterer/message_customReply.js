@@ -9,7 +9,7 @@ const
  * @throws {DiscordAPIError} if the error is not a DiscordAPIError* */
 function handleError(err) {
   if (!err) return true;
-  if (!(err instanceof DiscordAPIError)) throw err;
+  if (!(err instanceof DiscordAPIError) || err.code == DiscordAPIErrorCodes.InvalidFormBody) throw err;
 
   log.debug(`An error occurred while trying to send a message: ${err.toString()}`);
   return ![DiscordAPIErrorCodes.UnknownInteraction, DiscordAPIErrorCodes.InvalidWebhookTokenProvided].includes(err.code);
@@ -58,6 +58,8 @@ module.exports = async function customReply(options, deleteTime, allowedMentions
     }
   }
 
-  if (msg?.deletable && !Number.isNaN(Number.parseInt(deleteTime))) setTimeout(msg.delete.bind(msg), deleteTime);
+  if (msg?.deletable && !Number.isNaN(Number.parseInt(deleteTime)))
+    setTimeout(async () => msg.delete().catch(() => { /* empty */ }), deleteTime);
+
   return msg;
 };

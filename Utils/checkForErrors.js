@@ -18,8 +18,8 @@ const
  * @this {Interaction | Message}
  * @param {command<'both', boolean, true>} command
  * @param {lang} lang
- * @returns {[string, Record<string, string> | string | undefined] | undefined} */
-function checkOptions(command, lang) {
+ * @returns {Promise<[string, { option: string; description: string }] | [string, { option: string; availableOptions?: string }] | false>} */
+async function checkOptions(command, lang) {
   /** @type {command<'both', boolean, true> | commandOptions<true>} */
   let option = command;
   if (this.options?._group) {
@@ -31,7 +31,7 @@ function checkOptions(command, lang) {
     if (!(option.dmPermission ?? command.dmPermission) && this.channel.type == ChannelType.DM) return ['guildOnly'];
   }
 
-  if (!option.options) return;
+  if (!option.options) return false;
 
   for (const [i, data] of option.options.entries()) {
     const {
@@ -56,13 +56,13 @@ function checkOptions(command, lang) {
 
     const autocompleteIsUsed = () => !!(autocomplete && strictAutocomplete && (this.options?.get(name) ?? this.args?.[i]));
     if (
-      isValidType(this) && autocompleteIsUsed() && !autocompleteGenerator.call(
-        /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unnecessary-condition,
+      isValidType(this) && autocompleteIsUsed() && !(await autocompleteGenerator.call(
+        /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unnecessary-condition,
         @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- false positive/ts bug */
-        this, { name, value: this.options?.get(name).value ?? this.args?.[i] }, command, this.guild?.db.config.lang ?? this.guild?.localeCode
-        /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unsafe-call,
-        @typescript-eslint/no-unsafe-member-access -- false positive/ts bug */
-      ).some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
+        this, command, { name, value: this.options?.get(name).value ?? this.args?.[i] }, this.guild?.db.config.lang ?? this.guild?.localeCode
+      )).some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
+
+    /* eslint-enable */
     ) {
       if (typeof autocompleteOptions != 'function') {
         return ['strictAutocompleteNoMatchWValues', {
@@ -78,6 +78,8 @@ function checkOptions(command, lang) {
     if (this instanceof Message && this.args[i] && choices && !choices.some(e => e.value == this.args[i]))
       return ['strictAutocompleteNoMatchWValues', { option: name, availableOptions: choices.map(e => inlineCode(e.value)).join(', ') }];
   }
+
+  return false;
 }
 
 /**
@@ -157,7 +159,7 @@ module.exports = async function checkForErrors(command, lang) {
   if (command.category == 'nsfw' && !this.channel.nsfw) return ['nsfw'];
 
   if (command.options) {
-    const err = checkOptions.call(this, command, lang);
+    const err = await checkOptions.call(this, command, lang);
     if (err) return err;
   }
 

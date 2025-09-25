@@ -46,7 +46,7 @@ export declare function autocompleteGenerator(
   this: AutocompleteInteraction | Message,
   command: command<'both', boolean, true>,
   target: AutocompleteFocusedOption, locale: Locale
-): { name: string | number; value: string | number }[] | undefined;
+): Promise<{ name: string | number; value: string | number }[] | undefined>;
 
 type MaybeWithUndefined<X, T extends boolean> = T extends true ? X : X | undefined;
 export declare namespace BackupSystem {
@@ -200,10 +200,8 @@ export declare function formatCommand<T extends command | commandOptions<false>>
 
 export declare function getAge(date: Date): number;
 
-/**
- * Gets the original command name, not the alias name
- * @param command the command object or its name */
-export declare function getCommandName(this: Client, command: string | { name: string }): string;
+/** Gets the original command name, not the alias name */
+export declare function getCommandName(this: Client, commandName: string): string;
 
 export declare function getCommands(
   this: Client,
@@ -238,10 +236,18 @@ export declare function __getTargetMember<I extends Interaction | Message, T ext
   seenList: Map<Snowflake, I extends GuildInteraction | Message<true> ? GuildMember : User>
 ): I extends GuildInteraction | Message<true> ? MaybeWithUndefined<GuildMember, T> : MaybeWithUndefined<User, T>;
 
-/** @default targetOptionName = `target${index}` */
+export declare function __getTargetUser<T extends boolean>(
+  interaction: Interaction | Message,
+  { targetOptionName, returnSelf }: { targetOptionName: string; returnSelf?: T },
+  seenList: Map<Snowflake, GuildMember | User>
+): MaybeWithUndefined<User, T>;
+
+/**
+ * Can only return duplicates if `returnSelf` is true for any option.
+ * @default targetOptionName = `target${index}` */
 export declare function getTargetMembers<
   I extends Interaction | Message,
-  const O extends readonly ({ targetOptionName?: string; returnSelf?: boolean })[]
+  O extends readonly ({ targetOptionName?: string; returnSelf?: boolean })[]
 >(interaction: I, options: O): {
   -readonly [K in keyof O]: (I extends GuildInteraction | Message<true> ? GuildMember : User)
     | (O[K]['returnSelf'] extends true ? never : undefined)

@@ -1,5 +1,5 @@
 const
-  { Colors, EmbedBuilder } = require('discord.js'),
+  { Colors, EmbedBuilder, RouteBases } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter,
   images = [
     '1137786635392651314/backflip-anime.gif', '1137786636017602632/flip-anime.gif', '1137786636659335321/ichigo-mashimaro-backflip.gif',
@@ -19,7 +19,7 @@ module.exports = {
     const embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', this.member?.displayName ?? this.user.displayName),
-      image: { url: `https://cdn.discordapp.com/attachments/1137786275701727343/${images.random()}` },
+      image: { url: `${RouteBases.cdn}/attachments/1137786275701727343/${images.random()}` },
       color: Colors.White
     });
 

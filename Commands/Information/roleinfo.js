@@ -1,7 +1,7 @@
 const
   {
     ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder,
-    ImageFormat, PermissionFlagsBits, hyperlink, inlineCode
+    ImageFormat, PermissionFlagsBits, RouteBases, hyperlink, inlineCode
   } = require('discord.js'),
   { permissionTranslator, getTargetRole, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
   ROLE_DISPLAY_THRESHOLD = 16;
@@ -50,8 +50,10 @@ module.exports = {
     }
 
 
-    if (role.icon) embed.data.thumbnail = { url: `https://cdn.discordapp.com${CDNRoutes.roleIcon(role.id, role.icon, ImageFormat.WebP)}?size=80&quality=lossless` };
-    else if (role.colors.primaryColor) embed.data.thumbnail = { url: `https://dummyimage.com/80x80/${role.hexColor.slice(1)}/${role.hexColor.slice(1)}.png` };
+    if (role.icon)
+      embed.data.thumbnail = { url: RouteBases.cdn + CDNRoutes.roleIcon(role.id, role.icon, ImageFormat.WebP) + '?size=80&quality=lossless' };
+    else if (role.colors.primaryColor)
+      embed.data.thumbnail = { url: `https://dummyimage.com/80x80/${role.hexColor.slice(1)}/${role.hexColor.slice(1)}.png` };
 
     const components = this.member.permissions.has(PermissionFlagsBits.ManageRoles) && role.editable
       && (this.member.roles.highest.position > role.position || this.user.id == this.guild.ownerId)

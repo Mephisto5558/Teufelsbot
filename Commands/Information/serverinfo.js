@@ -63,7 +63,8 @@ module.exports = {
             : [{ name: lang('partnered'), value: lang(`global.${guild.partnered}`), inline: true }],
           {
             name: lang('boosts.name'), inline: true,
-            value: inlineCode(guild.premiumSubscriptionCount) + (guild instanceof Guild ? lang(`boosts.${guild.premiumTier}`) : '')
+            value: inlineCode(guild.premiumSubscriptionCount)
+              + (guild instanceof Guild && guild.premiumTier ? lang(`boosts.${guild.premiumTier}`) : '')
           },
           channels && {
             name: lang('channels'), inline: false,

@@ -2,6 +2,7 @@
  -- will be fixed when commands are moved to their own lib */
 
 const
+  { Events } = require('discord.js'),
   { readdir } = require('node:fs/promises'),
   { resolve } = require('node:path'),
   { errorHandler, filename, formatCommand, getDirectories, slashCommandsEqual } = require('#Utils');
@@ -102,7 +103,7 @@ module.exports = async function slashCommandHandler() {
   }
   log(`Deleted ${deletedCommandCount} Slash Commands`);
 
-  this.on('interactionCreate', async interaction => {
+  this.on(Events.InteractionCreate, async interaction => {
     try { await require('../Events').interactionCreate.call(interaction); }
     catch (err) { await errorHandler.call(this, err, interaction); }
   });
