@@ -308,7 +308,7 @@ declare function equal<T extends command<'both', boolean, true> | commandOptions
 ): boolean;
 
 
-/** @param timeStr a time string, @example '3w2d', '5h' */
+/** @example '3w2d', '5h' */
 export declare function timeValidator<T extends string | undefined>(
   timeStr?: T
 ): T extends undefined | '' | '-' | '+' ? [] : string[];
@@ -337,8 +337,9 @@ declare namespace TFormatter {
   };
 
 
-  function timestamp(time: DateResolvable): `<t:${number}>`;
-  function timestamp<T extends TimestampStylesString>(time: DateResolvable, code: T): `<t:${number}:${T}>`;
+  function timestamp<T extends TimestampStylesString | undefined = TimestampStylesString | undefined>(
+    time: DateResolvable, code?: T
+  ): T extends undefined ? `<t:${number}>` : `<t:${number}:${T}>`;
 
   /* eslint-disable @typescript-eslint/no-magic-numbers */
   const

@@ -162,6 +162,7 @@ async function loadChannel(channel, guild, category, maxMessagesPerChannel, allo
     }
 
     for (const threadData of channel.threads) {
+      /** @type {import('discord.js').AnyThreadChannel} */
       /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call,
       @typescript-eslint/no-unsafe-member-access -- this is fine due to `newChannel.type` always being the same type as `channel.type` */
       const thread = await newChannel.threads.create({ name: threadData.name, autoArchiveDuration: threadData.autoArchiveDuration });
@@ -174,6 +175,8 @@ async function loadChannel(channel, guild, category, maxMessagesPerChannel, allo
 
 /** @type {import('.').BackupSystem.Utils['loadChannelMessages']} */
 async function loadChannelMessages(channel, messages, webhook, maxMessagesPerChannel, allowedMentions) {
+  if (!('createWebhook' in channel)) return; // TODO: implement for ThreadChannels and others
+
   try { webhook ??= await channel.createWebhook({ name: 'MessagesBackup', avatar: channel.client.user.displayAvatarURL() }); }
   catch (err) {
     if (
@@ -196,6 +199,8 @@ async function loadChannelMessages(channel, messages, webhook, maxMessagesPerCha
         avatarURL: msg.avatar,
         embeds: msg.embeds,
         files: msg.attachments.map(e => new AttachmentBuilder(e.attachment, { name: e.name })),
+
+        /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- see to-do at start of the function */
         threadId: channel.isThread() ? channel.id : undefined
       });
 

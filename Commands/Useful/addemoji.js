@@ -7,7 +7,7 @@ const
   validImageFormats = ['gif', 'jpeg', 'jpg', 'png', 'svg', 'webp'],
   urlRegex = new RegExp(String.raw`^(?:https?:\/\/)?(?:www\.)?.*?\.(?:${validImageFormats.join('|')})(?:\?.*)?$`, 'i');
 
-/** @param {string} url @returns {Promise<boolean>} */
+/** @type {(url: string) => Promise<boolean>} */
 const checkUrl = async url => new Promise((resolve, reject) => {
   const req = (url.startsWith('https') ? https : http)
   /* eslint-disable-next-line @typescript-eslint/no-magic-numbers -- status codes 2xx and 3xx */

@@ -7,7 +7,7 @@ const
 
 /**
  * @param {Date | number} a
- * @param {Date | number | undefined} b @default Date.now()
+ * @param {Date | number | undefined} b
  * @returns {number} negative if `a > b`, positive if `a < b`, `0` otherwise */
 function sortDates(a, b = Date.now()) {
   const

@@ -17,8 +17,8 @@ module.exports = Object.freeze({
   choiceValueMaxLength: 100,
   buttonLabelMaxLength: 80,
   buttonURLMaxLength: 512,
-  messageActionrowMaxAmt: 5,
-  actionrowButtonMaxAmt: 5,
+  messageActionRowMaxAmt: 5,
+  actionRowButtonMaxAmt: 5,
   auditLogReasonMaxLength: 400, // 512, "by Mod xyz, command xy"
   maxBanMessageDeleteDays: 7,
   emojiNameMinLength: 2,

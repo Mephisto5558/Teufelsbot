@@ -21,7 +21,7 @@ module.exports = async function ban_kick_mute(lang) {
   let
     noMsg = false,
     /** @type {number | undefined} */ muteDurationMs,
-    /** @type {ReturnType<timestamp>} */ muteDurationRelative,
+    /** @type {string | undefined} */ muteDurationRelative,
     muteDuration = this.options.getString('duration'),
     reason = this.options.getString('reason', true);
 

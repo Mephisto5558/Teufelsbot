@@ -1,5 +1,5 @@
 const
-  { Colors, EmbedBuilder, inlineCode } = require('discord.js'),
+  { ButtonComponent, Colors, EmbedBuilder, inlineCode } = require('discord.js'),
   { createProxy, hasPerm } = require('./serverbackup_utils'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
@@ -30,7 +30,7 @@ module.exports = async function serverbackup(lang, _mode, id, option, clearGuild
     return this.message.edit({ embeds: [embed.setColor(Colors.Red).setDescription(lang('enableDMs'))] });
   }
 
-  const statusObj = createProxy.call(this, embed, lang, getEmoji('loading'));
+  const statusObj = createProxy.call(this, embed, lang, this.client.application.getEmoji('loading'));
   try {
     const backup = await this.client.backupSystem.load(id, this.guild, {
       statusObj, reason: lang('global.modReason', { command: `${this.customId.split('.')[0]} load`, user: this.user.tag }),

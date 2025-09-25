@@ -50,7 +50,7 @@ declare function help_commandQuery(
   lang: lang, query: string
 ): Promise<Message>;
 declare function help_categoryQuery(
-  this: Interaction | Message,
+  this: Interaction | Message | StringSelectMenuInteraction,
   lang: lang, query?: string
 ): Promise<Message>;
 declare function help_getCommands(this: Interaction | Message): (command<'prefix', boolean, true> | command<'slash', boolean, true>)[];
