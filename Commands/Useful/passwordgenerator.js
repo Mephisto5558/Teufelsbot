@@ -47,7 +47,7 @@ module.exports = {
       exclude = this.options.getString('exclude_chars') ?? '',
       include = this.options.getString('include_chars') ?? '',
       length = this.options.getInteger('length') ?? DEFAULT_PASSWORD_LENGTH,
-      /** @type {`\`\`\`${string}\`\`\``[]} */ passwordList = [], /* eslint-disable-line jsdoc/valid-types -- false positive */
+      /** @type {`\`\`\`${string}\`\`\``[]} */ passwordList = [],
 
       segmenter = new Intl.Segmenter(lang.config.locale, { granularity: 'grapheme' });
 

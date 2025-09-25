@@ -41,11 +41,7 @@ function timeFormatter(ms, lang) {
   };
 }
 
-/**
- * @type {import('.').timeFormatter['timestamp']}
- * @param {Parameters<import('.').timeFormatter['timestamp']>[0]} time
- * @param {Parameters<import('.').timeFormatter['timestamp']>[1] | undefined} code
- * @returns {`<t:${number}>` | `<t:${number}:${NonNullable<code>}>`} *//* eslint-disable-line jsdoc/valid-types -- false positive */
+/** @type {import('.').timeFormatter['timestamp']} */
 function timestamp(time, code) {
   const date = Math.round(new Date(time).getTime() / msInSecond);
   return code ? `<t:${date}:${code}>` : `<t:${date}>`;

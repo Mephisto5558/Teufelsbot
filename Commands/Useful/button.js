@@ -2,7 +2,7 @@ const
   { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError, codeBlock } = require('discord.js'),
   {
     DiscordAPIErrorCodes, timeFormatter: { msInSecond },
-    constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionrowMaxAmt, actionRowMaxButtonAmt }
+    constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionRowMaxAmt, actionRowButtonMaxAmt }
   } = require('#Utils');
 
 /**
@@ -19,9 +19,12 @@ async function getEditableMessage(msgId, lang) {
   }
 
   if (msg.user.id != this.client.user.id) return void this.editReply(lang('botIsNotAuthor'));
+
+  const lastComponent = msg.components[messageActionRowMaxAmt - 1];
   if (
-    msg.components.length >= messageActionrowMaxAmt && this.options.getBoolean('new_row')
-    || msg.components[messageActionrowMaxAmt - 1].components.length >= actionRowMaxButtonAmt
+    msg.components.length >= messageActionRowMaxAmt && this.options.getBoolean('new_row') || (
+      lastComponent instanceof ActionRow && lastComponent.components.length >= actionRowButtonMaxAmt
+    )
   ) return void this.editReply(lang('buttonLimitReached'));
 
   return msg;
