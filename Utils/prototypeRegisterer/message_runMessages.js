@@ -107,10 +107,10 @@ async function handleWordchain() {
 async function handleWordcounter(cleanMsg) {
   const
     /* eslint-disable-next-line regexp/no-super-linear-move -- char amount is limited to 4000 */
-    wordCount = cleanMsg.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu).length, // Matches letter(s) that can have apostrophes in them
+    wordCount = cleanMsg.match(/\p{L}+['\u2018\u2019\uFF07]?\p{L}+/gu)?.length ?? 0, // Matches letter(s) that can have apostrophes in them
     dbPromises = [];
 
-  if (this.guild.db.wordCounter?.enabled) {
+  if (this.guild.db.wordCounter?.enabled && wordCount) {
     const
       { wordCounter } = this.guild.db,
       memberConter = wordCounter.members[this.user.id];

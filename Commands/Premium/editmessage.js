@@ -1,6 +1,7 @@
 const
   {
-    ActionRowBuilder, Constants, DiscordjsErrorCodes, MessageFlags, ModalBuilder,
+    ActionRowBuilder, Constants,
+    DiscordAPIError, DiscordjsErrorCodes, MessageFlags, ModalBuilder,
     TextInputBuilder, TextInputStyle, codeBlock, hyperlink
   } = require('discord.js'),
   { DiscordAPIErrorCodes, constants: { messageMaxLength }, timeFormatter: { msInSecond, secsInMinute }, toMs: { secToMs } } = require('#Utils'),
@@ -52,7 +53,9 @@ module.exports = {
       msg = await this.options.getChannel('channel', true, Constants.GuildTextBasedChannelTypes).messages.fetch(msgId);
     }
     catch (err) {
-      if (err.code != DiscordAPIErrorCodes.UnknownMessage) throw err;
+      if (!(err instanceof DiscordAPIError) || ![DiscordAPIErrorCodes.UnknownMessage, DiscordAPIErrorCodes.InvalidFormBody].includes(err.code))
+        throw err;
+
       return this.reply({ content: lang('notFound'), flags: MessageFlags.Ephemeral });
     }
 
@@ -63,31 +66,37 @@ module.exports = {
     try { modalInteraction = await this.awaitModalSubmit({ filter: i => i.customId == 'newContent_modal', time: MODALSUBMIT_TIMEOUT }); }
     catch (err) { if (err.code != DiscordjsErrorCodes.InteractionCollectorError) throw err; }
 
-    if (!modalInteraction) return this.reply({ content: lang('global.menuTimedOut'), flags: MessageFlags.Ephemeral });
+    if (!modalInteraction) return this.customReply({ content: lang('global.menuTimedOut'), flags: MessageFlags.Ephemeral });
 
     await modalInteraction.deferReply({ flags: MessageFlags.Ephemeral });
     const content = modalInteraction.fields.getTextInputValue('newContent_text');
 
     let json;
 
-    try {
-      json = JSON.parse(content);
-      if (typeof json != 'object' || !json) throw new SyntaxError(`Invalid JSON. Expected object | array, got ${typeof json}`);
-      if (!json.__count__) return void modalInteraction.editReply(lang('emptyJson'));
+    try { json = JSON.parse(content); }
+    catch { /** empty */ }
 
-      if ('description' in json) json = { embeds: json };
-      else if (Array.isArray(json)) {
-        if (!json.every(e => 'description' in e)) throw new SyntaxError('Invalid JSON. Expected array of embeds.');
-        json = { embeds: json };
+    if (json) {
+      try {
+        if (typeof json != 'object') throw new SyntaxError(`Invalid JSON. Expected object | array, got ${typeof json}`);
+        if (!json.__count__) return void modalInteraction.editReply(lang('emptyJson'));
+
+        if ('description' in json) json = { embeds: [json] };
+        else if (Array.isArray(json)) {
+          if (!json.every(e => 'description' in e)) throw new SyntaxError('Invalid JSON. Expected array of embeds.');
+          json = { embeds: json };
+        }
+
+        if ('content' in json) json.content.length = messageMaxLength;
+
+        await msg.edit(clear ? { content: '', embeds: [], attachments: [], files: [], components: [], ...json } : json);
       }
+      catch (rawErr) {
+        const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
 
-      if ('content' in json) json.content.length = messageMaxLength;
-
-      await msg.edit(clear ? { content: '', embeds: [], attachments: [], files: [], components: [], ...json } : json);
-    }
-    catch (err) {
-      if (!(err instanceof SyntaxError) || err.message.includes('JSON'))
+        if (!(err instanceof DiscordAPIError) && !err.message.includes('JSON')) throw err;
         return modalInteraction.editReply(lang('error', codeBlock(err.message)));
+      }
     }
 
     if (!json) {

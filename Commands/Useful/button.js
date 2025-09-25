@@ -47,7 +47,7 @@ async function sendUpdatedMsg(msg, url) {
     components = msg?.components ? [...msg.components] : [],
     lastComponent = components.at(-1);
 
-  if (button.data.style == ButtonStyle.Link) button.setCustomId(`buttonCommandButton_${Date.now()}`);
+  if (button.data.style != ButtonStyle.Link) button.setCustomId(`buttonCommandButton_${Date.now()}`);
   if (
     !msg?.components.length || this.options.getBoolean('new_row')
     || !(lastComponent instanceof ActionRow) || !lastComponent.components.push(button)
@@ -104,7 +104,8 @@ module.exports = {
 
   async run(lang) {
     const
-      isLink = ButtonStyle[ButtonStyle[this.options.getNumber('style', true)]] == ButtonStyle.Link,
+      style = this.options.getNumber('style'),
+      isLink = style ? ButtonStyle[ButtonStyle[style]] == ButtonStyle.Link : false,
 
       /** @type {Snowflake | null} */
       msgId = this.options.getString('message_id');
@@ -116,8 +117,8 @@ module.exports = {
       if (!/^(?:discord|https?):\/\/[\w\-.]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
     }
 
-    const msg = await getEditableMessage.call(this, msgId, lang);
-    if (msgId && !msg) return;
+    let msg;
+    if (msgId) msg = await getEditableMessage.call(this, msgId, lang);
 
     try {
       const button = await sendUpdatedMsg.call(this, msg, url);

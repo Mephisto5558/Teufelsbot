@@ -94,8 +94,9 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
 
         const
           headers = {
-            Authorization: `Token ${process.env.githubKey}`,
-            'User-Agent': `Bot ${github.repo}`
+            Authorization: `Bearer ${process.env.githubKey}`,
+            'User-Agent': `Bot ${github.repo}`,
+            Accept: 'application/json'
           },
           title = `${err.name}: "${err.message}" in ${message.inGuild() ? '' : 'DM '}`
             + (message.commandName ? `command "${message.commandName}"` : ''),
@@ -108,7 +109,7 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
 
         if (!issues.ok) throw new Error(JSON.stringify(issuesJson));
 
-        if (issuesJson.filter(e => e.title == title && e.state == 'open').length) {
+        if (issuesJson.some(e => e.title == title && e.state == 'open')) {
           embed.data.description = lang('alreadyReported', hyperlink(lang('link'), issuesJson[0].html_url));
           return void msg.edit({ embeds: [embed], components: [] });
         }

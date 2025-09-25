@@ -79,7 +79,7 @@ if (parentUptime) {
 Object.defineProperties(Array.prototype, {
   random: {
     /** @type {global['Array']['prototype']['random']} */
-    value: function random() { return this[randomInt(this.length)]; },
+    value: function random() { return this.length ? this[randomInt(this.length)] : undefined; },
     enumerable: false
   },
   unique: {
@@ -109,7 +109,7 @@ Object.defineProperties(Object.prototype, {
     /** @type {global['Object']['prototype']['filterEmpty']} */
     value: function filterEmpty() {
       return Object.entries(this).reduce((acc, [k, v]) => {
-        if (!(v === null || (typeof v == 'object' && !v.__count__)))
+        if (v !== null && !(typeof v == 'object' && v.__count__))
           acc[k] = v instanceof Object ? v.filterEmpty() : v;
         return acc;
       }, {});

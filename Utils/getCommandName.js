@@ -1,7 +1,7 @@
 /** @type {import('.').getCommandName} */
-module.exports = function getCommandName(command) {
+module.exports = function getCommandName(commandName) {
   const cmd = [...this.slashCommands.values(), ...this.prefixCommands.values()].unique()
-    .find(e => e.name == (command.name ?? command));
+    .find(e => e.name == commandName);
 
   return cmd?.aliasOf ?? cmd?.name;
 };

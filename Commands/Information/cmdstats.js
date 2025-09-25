@@ -36,7 +36,7 @@ module.exports = {
 
     const embed = new EmbedBuilder({ title: lang('embedTitle', target), color: Colors.White });
 
-    if (query) {
+    if (query && query != scope) {
       let command = this.client.slashCommands.get(query) ?? this.client.prefixCommands.get(query);
       if (command?.aliasOf) command = this.client.slashCommands.get(command.aliasOf) ?? this.client.prefixCommands.get(command.aliasOf);
 
@@ -54,7 +54,10 @@ module.exports = {
         .filter(([k]) => !this.client.config.ownerOnlyFolders.includes(
           (this.client.prefixCommands.get(k) ?? this.client.slashCommands.get(k))?.category
         ))
-        .map(([k, v]) => [k, { total: Object.values(v).reduce((acc, e) => acc + Number(e ?? 0), 0), slash: bold(v.slash), prefix: bold(v.prefix) }])
+        .map(([k, v]) => [k, {
+          total: Object.values(v).reduce((acc, e) => acc + Number(e ?? 0), 0),
+          slash: bold(v.slash ?? 0), prefix: bold(v.prefix ?? 0)
+        }])
         .toSorted(([, a], [, b]) => b.total - a.total)
         .slice(0, 10)
         .map((/** @type {[string, { total: string, slash: string, prefix: string }]} */ [k, v]) => {

@@ -21,8 +21,9 @@ async function getCommits() {
     res = await fetch(`https://api.github.com/repos/${github.userName}/${github.repoName}/commits?per_page=25`, {
       method: 'GET',
       headers: {
-        Authorization: `Token ${process.env.githubKey}`,
-        'User-Agent': `Bot ${github.repo}`
+        'User-Agent': `Bot ${github.repo}`,
+        Authorization: `Bearer ${process.env.githubKey}`,
+        Accept: 'application/json'
       }
     }),
     /** @type {{ commit: { message: string } }[]} */ json = await res.json();

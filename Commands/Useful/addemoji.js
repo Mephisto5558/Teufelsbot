@@ -1,5 +1,5 @@
 const
-  { CDNRoutes, Colors, EmbedBuilder, ImageFormat, bold, codeBlock, inlineCode, parseEmoji, roleMention } = require('discord.js'),
+  { CDNRoutes, Colors, EmbedBuilder, ImageFormat, RouteBases, bold, codeBlock, inlineCode, parseEmoji, roleMention } = require('discord.js'),
   http = require('node:http'),
   https = require('node:https'),
   { DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { emojiNameMinLength, emojiNameMaxLength } } = require('#Utils'),
@@ -54,7 +54,7 @@ module.exports = {
       embed = new EmbedBuilder({ title: lang('embedTitle'), color: Colors.Red });
 
     if (this.guild.emojis.cache.has(emoticon.id)) return this.editReply({ embeds: [embed.setDescription(lang('isGuildEmoji'))] });
-    if (emoticon.id) input = `https://cdn.discordapp.com/${CDNRoutes.emoji(emoticon.id, emoticon.animated ? ImageFormat.GIF : ImageFormat.PNG)}`;
+    if (emoticon.id) input = RouteBases.cdn + CDNRoutes.emoji(emoticon.id, emoticon.animated ? ImageFormat.GIF : ImageFormat.PNG);
 
     else if (!urlRegex.test(input))
       return this.editReply({ embeds: [embed.setDescription(lang('invalidUrl', validImageFormats.map(inlineCode).join(', ')))] });

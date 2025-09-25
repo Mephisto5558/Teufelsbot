@@ -1,11 +1,13 @@
 const
   {
     ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat,
-    PermissionFlagsBits, inlineCode, parseEmoji, roleMention
+    PermissionFlagsBits, RouteBases, inlineCode, parseEmoji, roleMention
   } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
   { timestamp } = require('#Utils').timeFormatter,
-  emojiURLRegex = /https:\/\/cdn\.discordapp\.com\/emojis\/(?<id>\d+)/;
+
+  /* eslint-disable-next-line unicorn/prefer-string-raw -- this can be improved using RegExp.escape in Node24 */
+  emojiURLRegex = new RegExp(`${RouteBases.cdn.replaceAll('.', '\\.')}/emojis/(?<id>\\d+)`);
 
 /** @type {command<'both'>} */
 module.exports = {
@@ -29,7 +31,7 @@ module.exports = {
     if (!emoji?.id) return this.customReply(lang('notFound'));
 
     const
-      url = CDNRoutes.emoji(emoji.id, ImageFormat.WebP) + '?size=2048',
+      url = RouteBases.cdn + CDNRoutes.emoji(emoji.id, ImageFormat.WebP) + '?size=2048',
       embed = new EmbedBuilder({
         title: lang('embedTitle', `<:${emoji.name}:${emoji.id}>`),
         color: Number.parseInt((await getAverageColor(url)).hex.slice(1), 16),

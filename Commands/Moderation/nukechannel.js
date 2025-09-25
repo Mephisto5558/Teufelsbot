@@ -18,7 +18,7 @@ module.exports = {
 
   async run(lang) {
     const
-      getCommand = getCommandName.bind(this.client),
+      commandName = getCommandName.call(this.client, this.commandName),
 
       /** @type {Exclude<import('discord.js').GuildTextBasedChannel, import('discord.js').AnyThreadChannel>} */
       channel = getTargetChannel(this, { returnSelf: true }),
@@ -31,12 +31,12 @@ module.exports = {
         components: [
           new ButtonBuilder({
             label: lang('confirmButtonLabel'),
-            customId: `${getCommand(this.commandName)}.confirm`,
+            customId: `${commandName}.confirm`,
             style: ButtonStyle.Danger
           }),
           new ButtonBuilder({
             label: lang('cancelButtonLabel'),
-            customId: `${getCommand(this.commandName)}.cancel`,
+            customId: `${commandName}.cancel`,
             style: ButtonStyle.Success
           })
         ]
@@ -50,7 +50,7 @@ module.exports = {
       .on('collect', async button => {
         const reply = await button.deferReply();
 
-        if (button.customId == `${getCommand(this.commandName)}.cancel`) {
+        if (button.customId == `${commandName}.cancel`) {
           void reply.delete();
           return collector.stop();
         }
@@ -62,9 +62,10 @@ module.exports = {
             image: { url: 'https://i.giphy.com/XUFPGrX5Zis6Y.gif' },
             footer: { text: lang('embedFooterText', this.user.username) }
           }),
-          reason = lang('global.modReason', { command: getCommand(this.commandName), user: this.user.username }),
+          reason = lang('global.modReason', { command: commandName, user: this.user.username }),
           cloned = await channel.clone({ reason });
 
+        await cloned.setPosition(channel.position, { reason }); // cannot be set in channel.clone and is not set automatically
 
         for (const [, webhook] of await channel.fetchWebhooks())
           await webhook.edit({ channel: cloned.id, reason });

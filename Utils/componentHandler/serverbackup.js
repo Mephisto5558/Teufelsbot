@@ -7,6 +7,11 @@ const
 module.exports = async function serverbackup(lang, _mode, id, option, clearGuildBeforeRestore) {
   lang.config.backupPaths.push('commands.administration.serverbackup.load');
 
+  if (!(
+    this.message.components[0] && 'components' in this.message.components[0]
+    && this.message.components[0].components[0] instanceof ButtonComponent
+  )) throw new Error('Unexpected components'); // typeguard
+
   for (const component of this.message.components[0].components) component.data.disabled = true;
   await this.update({ components: this.message.components });
 

@@ -142,7 +142,7 @@ module.exports = {
 
     const component = new ActionRowBuilder({
       components: [new StringSelectMenuBuilder({
-        customId: `${getCommandName.call(this.client, this.command)}.${game}.sort.${settings}`,
+        customId: `${getCommandName.call(this.client, this.commandName)}.${game}.sort.${settings}`,
         options: sortOptions.map(value => ({
           value, label: lang(`options.leaderboard.options.sort.choices.${value}`),
           default: value == (sort ? `${sort}_${mode}` : 'm_wins')
