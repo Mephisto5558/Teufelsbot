@@ -7,7 +7,7 @@ const { GuildMember, userMention } = require('discord.js');
  * @param {import('discord.js').Collection<Snowflake, T>} cache
  * @returns {T | undefined} */
 const searchCache = (query, filter, cache) => cache.find(e => filter(e) && [
-  ...e instanceof GuildMember ? [e.user.username, e.user.globalName, e.nickname] : [e.username, e.globalName], e.id, e.customName
+  ...e instanceof GuildMember ? [e.user.username, e.user.globalName, e.nickname] : [e.username, e.globalName], e.id, e.displayName
 ].some(e => !!e && (query.includes(e) || e.includes(query))));
 
 /** @type {import('.').__getTargetUser} */

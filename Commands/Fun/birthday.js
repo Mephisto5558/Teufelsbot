@@ -53,7 +53,7 @@ const birthdayMainFunctions = {
       });
 
     if (target) {
-      embed.data.title = lang('getUser.embedTitle', target.user.customName);
+      embed.data.title = lang('getUser.embedTitle', target.displayName);
 
       const { birthday } = target.user.db;
       if (birthday) {
@@ -67,14 +67,14 @@ const birthdayMainFunctions = {
           age = getAge(birthday) + (daysUntil > 0 ? 1 : 0);
 
         embed.data.description = lang('getUser.date', {
-          user: target.customName,
+          user: target.displayName,
           month: lang(`months.${birthday.getMonth() + 1}`), day: birthday.getDate(),
           daysUntil: bold(daysUntil)
         });
 
         if (age < currentYear) embed.data.description += `\n${lang('getUser.newAge', bold(age))}`;
       }
-      else embed.data.description = lang('getUser.notFound', target.customName);
+      else embed.data.description = lang('getUser.notFound', target.displayName);
     }
     else {
       embed.data.title = lang('getAll.embedTitle');

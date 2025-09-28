@@ -260,12 +260,6 @@ Object.assign(Message.prototype, { customReply, runMessages, _patch });
 Object.defineProperties(User.prototype, {
   ...createDbHandlers(User),
 
-  /** @type {Record<string, (this: User, val: unknown) => unknown>} */
-  customName: {
-    get() { return this.db.customName ?? this.displayName; },
-    set(val) { void this.updateDB('customName', val); }
-  },
-
   /** @type {Record<string, (this: User, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale>} */
   localeCode: {
     get() {
@@ -283,12 +277,6 @@ Object.defineProperties(GuildMember.prototype, {
   db: {
     get() { return findAllEntries(this.guild.db, this.id); },
     set() { throw new Error('You cannot set a value to GuildMember#db!'); }
-  },
-
-  /** @type {Record<string, (this: GuildMember, val: unknown) => unknown>} */
-  customName: {
-    get() { return this.guild.db.customNames?.[this.id] ?? this.displayName; },
-    set(val) { void this.guild.updateDB(`customNames.${this.id}`, val); }
   },
 
   /** @type {Record<string, (this: GuildMember, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale>} */

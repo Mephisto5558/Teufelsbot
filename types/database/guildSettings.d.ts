@@ -26,7 +26,6 @@ export type guildSettings = Record<guildId, {
       };
     }>;
   };
-  customNames?: Record<userId, string>;
   giveaway?: {
     reaction?: string;
     embedColor?: number;

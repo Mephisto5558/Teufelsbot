@@ -144,9 +144,6 @@ declare module 'discord.js' {
 
     deleteDB(this: User, key: locals.FlattenedUserSettings): ReturnType<DB<Database>['delete']>;
 
-    customName: string;
-    customTag: string;
-
     get localeCode(): LangLocaleCode | undefined;
   }
 
@@ -154,8 +151,6 @@ declare module 'discord.js' {
 
     /** Searches the guildSettings DB recursively for all data of this member across all guilds. */
     get db(): Record<string, unknown> | undefined;
-    customName: string;
-    customTag: string;
 
     /**
      * ```js

@@ -5,7 +5,6 @@ import type { channelId, cmdStats, guildId, userId } from './common';
 
 export type userSettings = Record<userId, {
   localeCode?: Locale;
-  customName?: string;
   afkMessage?: {
     message: string;
     createdAt: Date;
