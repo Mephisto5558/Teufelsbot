@@ -39,7 +39,7 @@ module.exports = {
 
     const
       embed = new EmbedBuilder({
-        title: lang('embedTitle', this.user.customName),
+        title: lang('embedTitle', this.member.displayName),
         thumbnail: { url: this.user.displayAvatarURL() },
         description: lang('embedDescription', {
           enabledAt: time(this.user.db.wordCounter.enabledAt, TimestampStyles.ShortDateTime),

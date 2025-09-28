@@ -20,51 +20,6 @@
     "error": "L'API a répondu par une erreur.",
     "regenerate": "Régénérer la réponse"
   },
-  "customname": {
-    "description": "Définissez un surnom personnalisé et je vous appellerai ainsi.",
-    "options": {
-      "set": {
-        "description": "Changer la façon dont je vous appelle",
-        "options": {
-          "name": {
-            "description": "Comment devrais-je vous appeler ?"
-          },
-          "global": {
-            "description": "Devrais-je vous appeler comme ça sur chaque serveur?"
-          }
-        }
-      },
-      "get": {
-        "description": "Obtenez votre pseudo personnalisé.",
-        "options": {
-          "target": {
-            "description": "Qui est le pseudo personnalisé que vous voulez connaître ?"
-          },
-          "global": {
-            "description": "Devrais-je vous dire votre surnom global ou votre pseudo spécifique à votre guilde?"
-          }
-        }
-      },
-      "clear": {
-        "description": "Supprimez votre pseudo personnalisé.",
-        "options": {
-          "global": {
-            "description": "Devrais-je supprimer votre surnom global ou votre pseudo spécifique à votre guilde?"
-          }
-        }
-      }
-    },
-    "set": {
-      "success": "Je vais vous appeler \"{name}\" à partir de maintenant."
-    },
-    "get": {
-      "successYou": "Vous êtes \"{name}\".",
-      "successOther": "C'est \"{name}\"."
-    },
-    "clear": {
-      "success": "J'ai supprimé votre nom personnalisé."
-    }
-  },
   "editmessage": {
     "description": "Modifier tout message envoyé par le bot",
     "options": {

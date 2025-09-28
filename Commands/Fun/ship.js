@@ -56,6 +56,6 @@ module.exports = {
     const [user1, user2] = getTargetMembers(this, [{ targetOptionName: 'user1' }, { targetOptionName: 'user2', returnSelf: true }]);
 
     if (!user1) return this.customReply(lang('global.unknownUser'));
-    return this.customReply(`${user1.customName} :heart: ${user2.customName}: ${calculatePercentage.call(this, user1, user2)}%`);
+    return this.customReply(`${user1.displayName} :heart: ${user2.displayName}: ${calculatePercentage.call(this, user1, user2)}%`);
   }
 };

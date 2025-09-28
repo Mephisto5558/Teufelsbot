@@ -20,51 +20,6 @@
     "error": "La API respondió con un error.",
     "regenerate": "Regenerar respuesta"
   },
-  "customname": {
-    "description": "Establezca un apodo personalizado y lo llamaré.",
-    "options": {
-      "set": {
-        "description": "Cambia cómo te llamo",
-        "options": {
-          "name": {
-            "description": "¿Cómo debo llamarte?"
-          },
-          "global": {
-            "description": "¿Debería llamarte así en todos los servidores?"
-          }
-        }
-      },
-      "get": {
-        "description": "Obtén tu apodo personalizado.",
-        "options": {
-          "target": {
-            "description": "¿Quién es el apodo personalizado quieres saber?"
-          },
-          "global": {
-            "description": "¿Debo decirle su apodo global o su apodo específico para el gremio?"
-          }
-        }
-      },
-      "clear": {
-        "description": "Elimina tu apodo personalizado.",
-        "options": {
-          "global": {
-            "description": "¿Debo eliminar tu apodo global o el específico de tu gremio?"
-          }
-        }
-      }
-    },
-    "set": {
-      "success": "A partir de ahora te llamaré \"{name}\"."
-    },
-    "get": {
-      "successYou": "Eres \"{name}\".",
-      "successOther": "Eso es \"{name}\"."
-    },
-    "clear": {
-      "success": "He eliminado tu nombre personalizado."
-    }
-  },
   "editmessage": {
     "description": "Editar cualquier mensaje enviado por el bot",
     "options": {
