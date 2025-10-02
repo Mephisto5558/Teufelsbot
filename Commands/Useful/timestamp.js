@@ -13,7 +13,7 @@ module.exports = {
   options: [{
     name: 'time',
     type: 'String',
-    autocompleteOptions() { return timeValidator(this.focused.value); },
+    autocompleteOptions(query) { return timeValidator(query); },
     strictAutocomplete: true
   }],
 

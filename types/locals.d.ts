@@ -7,7 +7,10 @@ import type { Omit } from './discord.js';
 
 type autocompleteOptions = string | number | { name: string; value: string };
 
-type BaseCommand<initialized extends boolean = boolean> = {
+export type commandTypes = 'prefix' | 'slash' | 'both';
+export type defaultCommandType = 'both';
+
+type BaseCommand<initialized extends boolean = boolean, commandType extends commandTypes = defaultCommandType> = {
 
   /** Numbers in milliseconds */
   cooldowns?: { guild?: number; channel?: number; user?: number };
@@ -30,7 +33,7 @@ type BaseCommand<initialized extends boolean = boolean> = {
   disabledReason?: string;
 
   /** Slash command options */
-  options?: commandOptions<initialized>[];
+  options?: commandOptions<initialized, commandType>[];
 }
 & (initialized extends true ? {
 
@@ -40,7 +43,7 @@ type BaseCommand<initialized extends boolean = boolean> = {
   name: string;
 
   /** Currently not used */
-  nameLocalizations?: Record<string, BaseCommand<true>['name']>;
+  nameLocalizations?: Record<string, BaseCommand<true, commandType>['name']>;
 
   /**
    * Gets set automatically from language files.
@@ -51,7 +54,7 @@ type BaseCommand<initialized extends boolean = boolean> = {
    * Gets set automatically from language files.
    * `undefined` only for an unknown language
    * @see {@link command.description} */
-  descriptionLocalizations: Record<Locale, BaseCommand<true>['description']>;
+  descriptionLocalizations: Record<Locale, BaseCommand<true, commandType>['description']>;
 
   /**
    * Command usage information for the end-user.

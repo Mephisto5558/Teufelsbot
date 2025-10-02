@@ -15,7 +15,7 @@ module.exports = {
       type: 'String',
       autocompleteOptions() {
         return help_getCommandCategories.call(this).map(e => ({
-          name: this.client.i18n.__({ locale: this.locale }, `commands.${e}.categoryName`), value: e
+          name: this.client.i18n.__({ locale: 'locale' in this ? this.locale : this.user.localeCode }, `commands.${e}.categoryName`), value: e
         }));
       },
       strictAutocomplete: true

@@ -19,7 +19,7 @@ module.exports = {
       name: 'duration',
       type: 'String',
       required: true,
-      autocompleteOptions() { return timeValidator(this.focused.value); }
+      autocompleteOptions(query) { return timeValidator(query); }
     },
     {
       name: 'winner_count',
