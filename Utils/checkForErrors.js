@@ -59,7 +59,7 @@ async function checkOptions(command, lang) {
       isValidType(this) && autocompleteIsUsed() && !(await autocompleteGenerator.call(
         /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unnecessary-condition,
         @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access -- false positive/ts bug */
-        this, command, { name, value: this.options?.get(name).value ?? this.args?.[i] }, this.guild?.db.config.lang ?? this.guild?.localeCode
+        this, command, { name, value: this.options?.get(name).value ?? this.args?.[i] ?? '' }, this.guild?.db.config.lang ?? this.guild?.localeCode
       )).some(e => (e.toLowerCase?.() ?? e.value.toLowerCase()) === (this.options?.get(name).value ?? this.args?.[i])?.toLowerCase())
 
     /* eslint-enable */

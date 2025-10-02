@@ -50,7 +50,7 @@ module.exports = {
           name: 'subreddit',
           type: 'String',
           /* eslint-disable-next-line sonarjs/anchor-precedence -- intentional; suggested fix triggers different rule */
-          autocompleteOptions() { return this.focused.value.replaceAll(/^r\\|\W/g, ''); }
+          autocompleteOptions(query) { return query.replaceAll(/^r\\|\W/g, ''); }
         },
         { name: 'type', type: 'String' },
         { name: 'filter_nsfw', type: 'Boolean' }

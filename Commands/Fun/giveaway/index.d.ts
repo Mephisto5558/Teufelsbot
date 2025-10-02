@@ -3,7 +3,7 @@ import type { ActionRowBuilder, ButtonBuilder } from 'discord.js';
 type fn = NonNullable<command<'slash'>['run']>;
 
 type data = {
-  options?: commandOptions<false>[];
+  options?: commandOptions<false, 'slash'>[];
   run(
     this: ThisParameterType<fn>,
     lang: Parameters<fn>[0],

@@ -8,12 +8,12 @@ module.exports = {
     name: 'language',
     type: 'String',
     required: true,
-    autocompleteOptions() {
+    autocompleteOptions(query) {
       return [...this.client.i18n.availableLocales.keys()].reduce((acc, locale) => {
         if (acc.length > autocompleteOptionsMaxAmt) return acc;
 
         const name = this.client.i18n.__({ locale, undefinedNotFound: true }, 'global.languageName') ?? locale;
-        if (name.toLowerCase().includes(this.focused.value.toLowerCase()) || locale.toLowerCase().includes(this.focused.value.toLowerCase()))
+        if (name.toLowerCase().includes(query.toLowerCase()) || locale.toLowerCase().includes(query.toLowerCase()))
           acc.push({ name, value: locale });
 
         return acc;

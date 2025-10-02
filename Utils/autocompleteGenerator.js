@@ -1,55 +1,48 @@
-/** @import { autocompleteGenerator } from '.' */
+/** @import { serverbackup } from '.' */
 
 const
-  { BaseInteraction } = require('discord.js'),
-  { autocompleteOptionsMaxAmt } = require('./constants');
+  { ButtonComponent, Colors, EmbedBuilder, inlineCode } = require('discord.js'),
+  { createProxy, hasPerm } = require('./serverbackup_utils'),
+  DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
-/**
- * @this {ThisParameterType<autocompleteGenerator>}
- * @param {string} searchValue
- * @param {lang<true>} lang
- * @param {commandOptions['autocompleteOptions'] | { name: unknown; value: unknown } | undefined} options
- * @returns {Promise<[] | { name: string, value: string | number }[]>} */
-async function autocompleteFormatter(searchValue, lang, options) {
-  if (!options) return [];
+/** @type {serverbackup} */
+module.exports = async function serverbackup(lang, _mode, id, option, clearGuildBeforeRestore) {
+  lang.config.backupPaths.push('commands.administration.serverbackup.load');
 
-  if (typeof options == 'function') return autocompleteFormatter.call(this, searchValue, lang, await await options.call(this, searchValue));
-  if (typeof options == 'string') return [{ name: lang(options) ?? options, value: options }];
+  if (!(
+    this.message.components[0] && 'components' in this.message.components[0]
+    && this.message.components[0].components[0] instanceof ButtonComponent
+  )) throw new Error('Unexpected components'); // typeguard
 
-  if (Array.isArray(options)) {
-    return (await Promise.all(
-      options
-        .filter(e => !searchValue || (typeof e == 'object' ? e.value.toLowerCase() : e.toString().toLowerCase()).includes(searchValue.toLowerCase()))
-        .slice(0, autocompleteOptionsMaxAmt)
-        .map(autocompleteFormatter.bind(this, searchValue, lang))
-    )).flat();
+  for (const component of this.message.components[0].components) component.data.disabled = true;
+  await this.update({ components: this.message.components });
+
+  const embed = EmbedBuilder.from(this.message.embeds[0]);
+
+  if (option == 'cancel') return this.message.edit({ embeds: [embed.setDescription(lang('cancelled'))] });
+  if (!this.client.backupSystem.get(id)) return this.message.edit({ embeds: [embed.setDescription(lang('noneFound'))] });
+  if (!hasPerm.call(this, this.client.backupSystem.get(id))) return this.message.edit({ embeds: [embed.setDescription(lang('noPerm'))] });
+
+  embed.data.color = Colors.White;
+  let msg;
+  try { msg = await this.member.send({ embeds: [embed.setDescription(lang('loadingEmbedDescription'))] }); }
+  catch (err) {
+    if (err.code != DiscordAPIErrorCodes.CannotSendMessagesToThisUser) throw err;
+
+    return this.message.edit({ embeds: [embed.setColor(Colors.Red).setDescription(lang('enableDMs'))] });
   }
 
-  if (typeof options == 'object') return [options];
+  const statusObj = createProxy.call(this, embed, lang, this.client.application.getEmoji('loading'));
+  try {
+    const backup = await this.client.backupSystem.load(id, this.guild, {
+      statusObj, reason: lang('global.modReason', { command: `${this.customId.split('.')[0]} load`, user: this.user.tag }),
+      clearGuildBeforeRestore: clearGuildBeforeRestore == 'true'
+    });
 
-  return [options];
-}
-
-/** @type {autocompleteGenerator} */
-module.exports = async function autocompleteGenerator(command, target, locale) {
-  const
-    group = this instanceof BaseInteraction ? this.options.getSubcommandGroup(false) : undefined,
-    subcommand = this instanceof BaseInteraction ? this.options.getSubcommand(false) : undefined;
-
-  /** @type {commandOptions[]} */
-  let [...options] = command.options;
-  if (group) ({ options } = options.find(e => e.name == group));
-  if (subcommand) ({ options } = options.find(e => e.name == subcommand));
-
-  const lang = this.client.i18n.getTranslator({
-    locale, undefinedNotFound: true,
-    backupPaths: [[
-      'commands', command.category, command.name, 'options',
-      ...group ? [group, 'options'] : [],
-      ...subcommand ? [subcommand, 'options'] : [],
-      target.name, 'choices'
-    ].join('.')]
-  });
-
-  return autocompleteFormatter.call(this, target.value, lang, options.find(e => e.name == target.name)?.autocompleteOptions);
+    return void msg.edit({ embeds: [embed.setDescription(lang('success', inlineCode(backup.id)))] });
+  }
+  catch (err) {
+    void msg.edit({ embeds: [embed.setDescription(lang('error'))] });
+    return log.error('An error occurred while trying to load a backup:', err);
+  }
 };

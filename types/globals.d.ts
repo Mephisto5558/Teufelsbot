@@ -129,7 +129,10 @@ declare global {
   // #endregion
 
   // #region commands
-  type slashCommand<initialized extends boolean = false> = locals.BaseCommand<initialized> & {
+  type slashCommand<
+    initialized extends boolean = false,
+    commandType extends commandTypes = defaultCommandType
+  > = locals.BaseCommand<initialized, commandType> & {
     slashCommand: true;
     aliases?: { slash?: locals.BaseCommand['name'][] };
 
@@ -154,17 +157,20 @@ declare global {
     dmPermission: boolean;
   } : object);
 
-  type prefixCommand<initialized extends boolean = false> = locals.BaseCommand<initialized> & {
+  type prefixCommand<
+    initialized extends boolean = false,
+    commandType extends commandTypes = defaultCommandType
+  > = locals.BaseCommand<initialized, commandType> & {
     prefixCommand: true;
     aliases?: { prefix?: locals.BaseCommand['name'][] };
   };
 
   type command<
-    commandType extends 'prefix' | 'slash' | 'both' = 'both',
+    commandType extends commandTypes = defaultCommandType,
     guildOnly extends boolean = true, initialized extends boolean = false
-  > = locals.BaseCommand<initialized>
-    & (commandType extends 'slash' | 'both' ? slashCommand<initialized> : object)
-    & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized> : object)
+  > = locals.BaseCommand<initialized, commandType>
+    & (commandType extends 'slash' | 'both' ? slashCommand<initialized, commandType> : object)
+    & (commandType extends 'prefix' | 'both' ? prefixCommand<initialized, commandType> : object)
     & {
       /**
        * `undefined` is only allowed if the command has Subcommands or Subcommand groups that have their own files.
@@ -181,11 +187,11 @@ declare global {
       | undefined;
     };
 
-  type commandOptions<initialized extends boolean = boolean> = {
+  type commandOptions<initialized extends boolean = boolean, commandType extends commandTypes = defaultCommandType> = {
     name: string;
 
     /** Numbers in milliseconds */
-    cooldowns?: locals.BaseCommand<initialized>['cooldowns'];
+    cooldowns?: locals.BaseCommand<initialized, commandType>['cooldowns'];
 
     /** If true, the user must provide a value to this option. This is also enforced for prefix commands. */
     required?: boolean;
@@ -198,7 +204,14 @@ declare global {
 
     /** Like choices, but not enforced unless {@link commandOptions.strictAutocomplete} is enabled. */
     autocompleteOptions?: string | locals.autocompleteOptions[] | (
-      (this: Discord.AutocompleteInteraction<'cached'>) => locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>
+      (
+        this: commandType extends 'prefix'
+          ? Discord.Message
+          : commandType extends 'slash'
+            ? Discord.AutocompleteInteraction<'cached'>
+            : Discord.AutocompleteInteraction<'cached'> | Discord.Message,
+        query: string
+      ) => locals.autocompleteOptions[] | Promise<locals.autocompleteOptions>
     );
 
     /**
@@ -206,31 +219,31 @@ declare global {
      * Note that this happens for Messages as well. */
     strictAutocomplete?: boolean;
 
-    options?: commandOptions<initialized>[];
+    options?: commandOptions<initialized, commandType>[];
 
     minValue?: number;
     maxValue?: number;
     minLength?: number;
     maxLength?: number;
   } & (initialized extends true ? {
-    nameLocalizations?: locals.BaseCommand<true>['nameLocalizations'];
+    nameLocalizations?: locals.BaseCommand<true, commandType>['nameLocalizations'];
 
     /**
      * Gets set automatically from language files.
      * @see {@link command.description} */
-    description: locals.BaseCommand<true>['description'];
+    description: locals.BaseCommand<true, commandType>['description'];
 
     /**
      * Gets set automatically from language files.
      * @see {@link command.description} */
-    descriptionLocalizations?: locals.BaseCommand<true>['descriptionLocalizations'];
+    descriptionLocalizations?: locals.BaseCommand<true, commandType>['descriptionLocalizations'];
 
     type: typeof Discord.ApplicationCommandOptionType;
 
     /** Choices the user must choose from. Can not be more then 25. */
     choices?: {
       name: string;
-      nameLocalizations?: locals.BaseCommand<true>['nameLocalizations'];
+      nameLocalizations?: locals.BaseCommand<true, commandType>['nameLocalizations'];
       value: string | number;
     }[];
     autocomplete?: boolean;
@@ -241,7 +254,7 @@ declare global {
     /** Choices the user must choose from. Can not be more then 25. */
     choices?: (string | number | {
       name: string;
-      nameLocalizations?: locals.BaseCommand<true>['nameLocalizations'];
+      nameLocalizations?: locals.BaseCommand<true, commandType>['nameLocalizations'];
       value: string | number;
     })[];
 
