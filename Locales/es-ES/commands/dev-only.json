@@ -97,8 +97,6 @@
   "restart": {
     "description": "Reinicia el bot",
     "alreadyRestarting": "El bot ya está reiniciando, espere a que termine. Mensaje: {url}",
-    "updatingNPM": "{emoji} Reiniciando el bot...\nInstalando paquetes...",
-    "updateNPMError": "❌ El reinicio ha fallado debido a un error de NPM. Revisa la consola para más información.",
     "restarting": "{emoji} Reiniciando el bot...\nIniciando el proceso de node...",
     "restartingError": "❌ El reinicio ha fallado debido a un error de nodo. Revisa la consola para más información.",
     "success": "✅ Reiniciado correctamente."

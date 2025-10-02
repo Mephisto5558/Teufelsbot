@@ -97,8 +97,6 @@
   "restart": {
     "description": "Startet den Bot neu",
     "alreadyRestarting": "Der Bot führt bereits einen Neustart durch. Bitte warte, bis er abgeschlossen ist. Nachricht: {url}",
-    "updatingNPM": "{emoji} Bot wird neu gestartet...\nInstalliere Pakete...",
-    "updateNPMError": "❌ Neustart fehlgeschlagen aufgrund eines NPM-Fehlers. Überprüfe die Konsole für weitere Informationen.",
     "restarting": "{emoji} Bot wird neu gestartet...\nStarte Node-Prozess...",
     "restartingError": "❌ Neustart fehlgeschlagen aufgrund eines Node-Fehlers. Überprüfe die Konsole für weitere Informationen.",
     "success": "✅ Erfolgreich neu gestartet."
@@ -131,7 +129,7 @@
       "examples": "7 #zähl-kanal"
     },
     "invalidNumber": "Die angegebene Zahl ist ungültig!",
-    "unknownChannel": "Die angegebene Kanal-ID wurde in diesem Server nicht gefunden!",
+    "invalidChannel": "Der angegebene Kanal ist kein Counting-Kanal!",
     "success": "Counting für {channel} wurde zu {number} gesetzt."
   },
   "test": {

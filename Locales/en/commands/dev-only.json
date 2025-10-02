@@ -97,8 +97,6 @@
   "restart": {
     "description": "Restarts the bot",
     "alreadyRestarting": "The bot is already performing a restart, please wait for it to finish. Message: {url}",
-    "updatingNPM": "{emoji} Restarting bot...\nInstalling packages...",
-    "updateNPMError": "❌ Restart failed due to an NPM error. Check the console for more information.",
     "restarting": "{emoji} Restarting bot...\nStarting node process...",
     "restartingError": "❌ Restart failed due to a Node error. Check the console for more information.",
     "success": "✅ Successfully restarted."
@@ -131,7 +129,7 @@
       "examples": "7 #counting-channel"
     },
     "invalidNumber": "The provided number is invalid!",
-    "unknownChannel": "The provided channel id has not been found in this guild!",
+    "invalidChannel": "The provided channel is not a counting-channel!",
     "success": "Counting for {channel} has been set to {number}."
   },
   "test": {

@@ -97,8 +97,6 @@
   "restart": {
     "description": "Riavvia il bot",
     "alreadyRestarting": "Il bot sta già effettuando un riavvio, si prega di attendere che finisca. Messaggio: {url}",
-    "updatingNPM": "{emoji} Riavvio bot...\nInstallazione pacchetti...",
-    "updateNPMError": "❌ Riavvio non riuscito a causa di un errore NPM. Controllare la console per ulteriori informazioni.",
     "restarting": "{emoji} Riavvio del bot...\nAvvio del processo node...",
     "restartingError": "❌ Riavvio non riuscito a causa di un errore Nodo. Controllare la console per maggiori informazioni.",
     "success": "✅ Riavviato correttamente."

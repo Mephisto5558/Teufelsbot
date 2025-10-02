@@ -42,6 +42,8 @@ declare global {
       token: string;
       secret: string;
       dbConnectionStr: string;
+      restartServerURL?: `https://${string}/api/client/servers/${string}/power`;
+      restartServerAPIKey?: string;
     }
   }
 

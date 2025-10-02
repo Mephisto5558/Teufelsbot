@@ -1,22 +1,10 @@
 const
-  { spawn } = require('node:child_process'),
-  { shellExec } = require('#Utils'),
+  { HTTP_STATUS_NO_CONTENT } = require('node:http2').constants,
+  fetch = require('node-fetch').default,
+
   getUpdateFunc = /** @param {Message} msg */ msg => (msg.editable && msg.channel.lastMessageId == msg.id ? 'edit' : 'reply');
 
 let restarting = false;
-
-/**
- * @param {Message} msg
- * @param {Error | number | null} err
- * @param {NodeJS.Signals | undefined} signal */
-async function childErrorHandler(msg, err, signal) {
-  restarting = false;
-
-  if (err instanceof Error) log.error('Restarting Error: ', err);
-  else log.error(`Restarting Error: Exit Code ${err ?? 'none'}, signal ${signal}`);
-
-  if (msg.content != lang('restartingError')) return msg[getUpdateFunc(msg)](lang('restartingError'));
-}
 
 /** @type {command<'prefix', false>} */
 module.exports = {
@@ -24,6 +12,8 @@ module.exports = {
   prefixCommand: true,
   dmPermission: true,
   beta: true,
+  disabled: !process.env.restartServerURL || !process.env.restartServerAPIKey,
+  disabledReason: 'Missing restartServerURL or restartServerAPIKey in .env',
 
   async run(lang) {
     if (restarting) return this.reply(lang('alreadyRestarting', restarting));
@@ -33,40 +23,24 @@ module.exports = {
 
     /* eslint-disable-next-line @typescript-eslint/no-this-alias -- This assignment is for mutability, not for context preservation. */
     let msg = this;
-    if (!this.content.toLowerCase().includes('skipnpm')) {
-      log('Installing npm packages...');
-      msg = await this.reply(lang('updatingNPM', getEmoji('loading')));
 
-      try { await shellExec('npm install'); }
-      catch {
-        /* eslint-disable-next-line require-atomic-updates -- false positive: while `restarting` is true, the function cancels early. */
-        restarting = false;
-        return msg[getUpdateFunc(msg)](lang('updateNPMError'));
-      }
-    }
-
-    /* eslint-disable-next-line require-atomic-updates -- Not an issue */
-    msg = await msg[getUpdateFunc(msg)](lang('restarting', getEmoji('loading')));
+    msg = await msg[getUpdateFunc(msg)](lang('restarting', this.client.application.getEmoji('loading')));
 
     try {
-      const child = spawn(
-        process.execPath, ['--inspect', ...process.argv.slice(1), `uptime=${process.uptime()}`],
-        { detached: true, stdio: ['ignore', 'ignore', 'ignore', 'ipc'] }
-      );
+      const res = await fetch(process.env.restartServerURL, {
+        method: 'POST',
+        headers: {
+          // https://pterodactyl-api-docs.netvpx.com/docs/authentication#required-headers
+          Authorization: `Bearer ${process.env.restartServerAPIKey}`,
+          'User-Agent': `Discord Bot ${this.client.application.name ?? ''} (${this.client.config.github.repo ?? ''})`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({ signal: 'restart' })
+      });
 
-      child
-        .on('error', childErrorHandler.bind(undefined, msg))
-        .on('exit', childErrorHandler.bind(undefined, msg))
-        .on('message', async message => {
-          if (message != 'Finished starting') return;
-
-          await msg[getUpdateFunc(msg)](lang('success'));
-
-          child.send('Start WebServer');
-          child.disconnect();
-
-          process.exit(0); /* eslint-disable-line unicorn/no-process-exit */
-        });
+      // https://pterodactyl-api-docs.netvpx.com/docs/api/client/servers#success-response-204
+      if (res.status != HTTP_STATUS_NO_CONTENT) throw new Error(res.text());
     }
     catch (err) {
       restarting = false; /* eslint-disable-line require-atomic-updates -- Not an issue */
@@ -74,5 +48,7 @@ module.exports = {
       log.error('Restarting Error: ', err);
       return msg.content == lang('restartingError') ? undefined : msg[getUpdateFunc(msg)](lang('restartingError'));
     }
+
+    return msg[getUpdateFunc(msg)](lang('success'));
   }
 };
