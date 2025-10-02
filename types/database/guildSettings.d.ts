@@ -16,7 +16,7 @@ export type guildSettings = Record<guildId, {
     logger?: Record<'messageUpdate' | 'messageDelete' | 'voiceChannelActivity' | 'sayCommandUsed' | 'all', {
       channel: channelId;
       enabled: boolean;
-    }>;
+    } | undefined>;
     autopublish?: boolean;
     commands?: Record<string, {
       disabled: {
@@ -44,12 +44,11 @@ export type guildSettings = Record<guildId, {
   }>;
   channelMinigames?: {
     counting?: Record<channelId, {
+      lastNumber: 0;
+      highScore?: number;
+    } | {
       lastNumber: number;
-
-      /** `undefined` only if lastNumber is `0` */
-      lastAuthor?: userId;
-
-      /** The hightest number ever counted in this channel. */
+      lastAuthor: userId;
       highScore?: number;
     }>;
 
@@ -61,10 +60,10 @@ export type guildSettings = Record<guildId, {
       /**
        * There will always be both `lastWord` and `lastAuthor` or none of them present.
        * Will always be a single lowercase character */
-      lastWord?: string;
+      lastWord?: Lowercase<string>;
 
       /** The last word of the message before the `lastWord` */
-      lastWordBefore?: string;
+      lastWordBefore?: Lowercase<string>;
 
       /** There will always be both `lastWordChar` and `lastAuthor` or none of them present. */
       lastAuthor?: userId;

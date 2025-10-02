@@ -1,5 +1,5 @@
 const
-  { ChatInputCommandInteraction, bold } = require('discord.js'),
+  { ChatInputCommandInteraction, SnowflakeUtil, bold } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter;
 
 /**
@@ -27,17 +27,24 @@ module.exports = {
   ],
 
   async run(lang) {
-    const
-      msgId = this.options?.getString('message_id') ?? this.args?.[0],
-      msg = msgId
-        ? await this.channel.messages.fetch(msgId).catch(() => { /* empty */ })
+    let msgId = this.options?.getString('message_id') ?? this.args?.[0];
+    try { SnowflakeUtil.decode(msgId); }
+    catch { msgId = undefined; }
+
+    const msg = msgId
+      ? await this.channel.messages.fetch(msgId).catch(() => { /* empty */ })
         /* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- intentional - `this.content` can be an empty string */
-        : { content: this.options?.getString('message') ?? (this.content || getMessageFromReference(this.client, this.reference)?.content) };
+      : { content: this.options?.getString('message') ?? (this.content || getMessageFromReference(this.client, this.reference)?.content) };
 
     if (!msg) return this.customReply(lang('notFound'));
     if (!msg.content) return this.customReply(lang('noContent'));
 
+    const match = msg.content.match(/[\p{P}\p{Z}]+/gu);
+
     if (msgId && this instanceof ChatInputCommandInteraction) void this.deleteReply();
-    return this.channel.send({ content: lang('words', bold(msg.content.match(/[\p{P}\p{Z}]+/gu)?.length ?? 0)), reply: { messageReference: msgId } });
+    return this.channel.send({
+      content: lang('words', bold(match ? match.length + 1 : 0)),
+      reply: { messageReference: msgId }
+    });
   }
 };

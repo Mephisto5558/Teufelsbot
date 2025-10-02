@@ -50,11 +50,13 @@ async function getJoke(apiList = [], type = '', blacklist = '', maxLength = mess
       },
       signal: timeoutSignal.signal
     }).then(async e => {
-      /** @type {{ type?: string, joke?: string, setup?: string, delivery?: string } | { status: string, code: number, message: string }} */
-      const json = await e.json().catch(() => { /* empty */ });
-      if ('code' in json) throw new FetchError(json.message, undefined, json);
-      if (!e.ok) throw new Error(e);
+      if (!e.ok) throw new Error(await e.text());
 
+      /* eslint-disable-next-line @stylistic/max-len */
+      /** @type {{ type?: string, joke?: string, setup?: string, delivery?: string } | { status: string, code: number, message: string } | undefined} */
+      const json = await e.json().catch(() => { /* empty */ });
+
+      if (json && 'code' in json) throw new FetchError(json.message, undefined, json);
       return json;
     });
 
@@ -130,7 +132,7 @@ module.exports = {
       component = new ActionRowBuilder({
         components: [new ButtonBuilder({
           label: lang('global.anotherone'),
-          customId: `${this.commandName}.${api.name}.${type ?? 'null'}.${blacklist ?? 'null'}.${maxLength ?? 'null'}`,
+          customId: `${this.commandName}.${apiStr ?? 'null'}.${type ?? 'null'}.${blacklist ?? 'null'}.${maxLength ?? 'null'}`,
           style: ButtonStyle.Primary
         })]
       });

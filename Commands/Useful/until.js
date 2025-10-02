@@ -38,6 +38,10 @@ module.exports = {
   slashCommand: true,
   prefixCommand: true,
   dmPermission: true,
+  usage: {
+    usage: '[dd] [MM] [yyyy] [hh] [mm] [ss]',
+    examples: '3 3 2022 7 35 2 (= 2025-03-03 07:35:02)'
+  },
   options: [
     {
       name: 'day',

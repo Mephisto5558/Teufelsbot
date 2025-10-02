@@ -6,7 +6,7 @@ const
 
   CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
   maxPercentage = 100,
-  memeSubreddits = ['funny', 'jokes', 'comedy', 'notfunny', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
+  memeSubreddits = ['funny', 'jokes', 'comedy', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
   /** @type {import('./reddit').Cache} */ cachedSubreddits = new Collection();
 
 /**

@@ -144,7 +144,8 @@ void (async function main() {
 
   if (client.config.enableConsoleFix) {
     process.stdin.on('data', async buffer => {
-      const { stdout, stderr } = await shellExec(buffer.toString().trim());
+      /** @type {{ stdout?: string, stderr?: string }} */
+      const { stdout, stderr } = await shellExec(buffer.toString().trim()).catch(err => ({ stderr: err }));
       if (stdout) console.log(`stdout: ${stdout}`);
       if (stderr) console.log(`stderr: ${stderr}`);
     });

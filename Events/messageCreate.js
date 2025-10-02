@@ -22,9 +22,7 @@ module.exports = async function messageCreate() {
   const
     command = this.client.prefixCommands.get(this.commandName),
     lang = this.client.i18n.getTranslator({
-      locale: this.inGuild()
-        ? this.guild.db.config.lang ?? this.guild.localeCode
-        : this.user.localeCode, backupPaths: ['events.command']
+      locale: this.inGuild() ? this.guild.db.config.lang ?? this.guild.localeCode : this.user.localeCode
     });
 
   return commandExecutionWrapper.call(this, command, 'prefix', lang);

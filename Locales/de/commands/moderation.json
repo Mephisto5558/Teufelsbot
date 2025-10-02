@@ -57,16 +57,16 @@
     },
     "options": {
       "channel": {
-        "description": "Den Kanal, den du locken möchtest"
+        "description": "Den Kanal, den du sperren möchtest"
       },
       "reason": {
-        "description": "Den Grund dafür, den Kanal zu locken"
+        "description": "Den Grund dafür, den Kanal zu sperren"
       }
     },
     "noReason": "Keine Begründung angegeben",
     "embedTitle": "Kanal gesperrt!",
     "embedDescription": "Dieser Kanal wurde gesperrt.\nModerator: {mod}\nBegründung: {reason}",
-    "success": "Der Kanal wurde gelockt."
+    "success": "Der Kanal wurde gesperrt."
   },
   "mute": {
     "description": "Timeouted ein Mitglied für eine bestimmte Zeit (min. 1min).",

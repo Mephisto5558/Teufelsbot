@@ -67,7 +67,7 @@ module.exports = async function errorHandler(err, context = [this], lang = undef
       title: lang('embedTitle'),
       description: lang('embedDescription', inlineCode(aliasOf
         ? this.slashCommands.get(aliasOf)?.name ?? this.prefixCommands.get(aliasOf)?.name
-        : message.commandName)),
+        : message.commandName ?? lang('global.unknown'))),
       footer: { text: lang('embedFooterText') },
       color: Colors.DarkRed
     }),

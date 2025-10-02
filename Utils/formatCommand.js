@@ -83,7 +83,7 @@ module.exports = function formatCommand(option, path, id, i18n) {
         }
 
         if (localizedChoice && localizedChoice.length > choiceValueMinLength)
-          choice.nameLocalizations[locale] = localizedChoice.slice(0, choiceValueMaxLength + 1);
+          choice.nameLocalizations[locale] = localizedChoice.slice(0, choiceValueMaxLength);
         else if (choice.name != choice.value && !option.disabled)
           log.warn(`Missing "${locale}" choice name localization for "${choice.value}" in option "${option.name}" (${id}.choices.${choice.value})`);
       }

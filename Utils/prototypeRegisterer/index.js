@@ -186,7 +186,7 @@ Object.defineProperties(Client.prototype, {
     })
   },
   cooldowns: { value: new Map() },
-  config: { value: config },
+  config: { value: config, writable: true },
 
   /** @type {Record<string, (this: Client, val: unknown) => unknown>} */
   settings: {
@@ -294,6 +294,12 @@ Object.defineProperties(Guild.prototype, {
   localeCode: {
     get() { return this.db.config.lang ?? (this.preferredLocale.startsWith('en') ? 'en' : this.preferredLocale); },
     set(val) { void this.updateDB('config.lang', val); }
+  },
+
+  /** @type {Record<string, (this: Guild, val: unknown) => unknown>} */
+  prefixes: {
+    get() { return this.db.config.prefixes?.[this.client.botType] ?? this.client.prefixes; },
+    set() { throw new Error('You cannot set a value to Guild#prefixes!'); }
   }
 });
 

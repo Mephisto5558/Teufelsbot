@@ -246,7 +246,7 @@
     "invalid": "The selected channel is not a text channel!",
     "noneFound": "I haven't found any mentions.",
     "embedTitle": "Last Ping",
-    "embedDescription": "The last time you were mentioned was {link} from {author}.\n{content}"
+    "embedDescription": "The last time you were mentioned was {link} by {author}.\n{content}"
   },
   "math": {
     "description": "Runs some math",

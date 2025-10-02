@@ -36,6 +36,7 @@ module.exports = {
     if (role.members.size.inRange(0, ROLE_DISPLAY_THRESHOLD))
       embed.data.fields.push({ name: lang('members'), value: [...role.members.values()].join(', '), inline: false });
 
+    embed.data.fields.push({ name: lang('permissions'), inline: false });
     if (role.permissions.has(PermissionFlagsBits.Administrator))
       embed.data.fields.at(-1).value = `${inlineCode(lang('admin'))} (${inlineCode(role.permissions.toArray().length)})`;
     else {
@@ -44,9 +45,10 @@ module.exports = {
         maxLength = 1017,
         suffix = '...';
 
-      embed.data.fields.at(-1).value = '`'
-        + (perms.length < maxLength ? perms : perms.slice(0, perms.slice(0, maxLength - suffix.length).lastIndexOf(',')) + suffix)
-        + `(${inlineCode(role.permissions.toArray().length)})`;
+      embed.data.fields.at(-1).value
+        = (perms.length < maxLength ? perms : perms.slice(0, perms.slice(0, maxLength - suffix.length).lastIndexOf(',')) + suffix)
+          || lang('global.none')
+          + ` (${inlineCode(role.permissions.toArray().length)})`;
     }
 
 

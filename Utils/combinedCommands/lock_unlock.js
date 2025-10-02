@@ -12,7 +12,8 @@ module.exports = async function lock_unlock(lang) {
 
     /** @type {import('discord.js').BaseGuildTextChannel} */
     channel = getTargetChannel(this, { returnSelf: true }),
-    reason = this.options?.getString('reason') ?? this.args?.join(' ') ?? lang('noReason'),
+    /* eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing -- string can be empty */
+    reason = (this.options?.getString('reason') ?? this.args?.join(' ')) || lang('noReason'),
     embed = new EmbedBuilder({
       title: lang('embedTitle'),
       description: lang('embedDescription', { mod: this.user.username, reason }),
@@ -38,8 +39,6 @@ module.exports = async function lock_unlock(lang) {
       this.guild.roles.everyone.editable
       && channel.permissionsFor(this.guild.roles.everyone.id)?.has(PermissionFlagsBits.SendMessages)
     ) overwrites[this.guild.roles.everyone.id] = OverwriteType.Role;
-
-    if (overwrites.__count__) await this.guild.updateDB(`lockedChannels.${channel.id}`, overwrites);
   }
   else {
     overwrites = Object.fromEntries(Object.entries(this.guild.db.lockedChannels?.[channel.id] ?? {}).filter(([k, v]) => {
@@ -49,16 +48,17 @@ module.exports = async function lock_unlock(lang) {
     }));
 
     if (!overwrites.length) return msg.edit(lang('notLocked'));
-
-    await this.guild.deleteDB(`lockedChannels.${channel.id}`);
   }
 
-  await channel.send({ embeds: [embed] });
   for (const [id, type] of Object.entries(overwrites)) {
     await channel.permissionOverwrites.edit(id,
       { [PermissionFlagsBits.SendMessages]: this.commandName == 'lock' },
       { type, reason: lang('global.modReason', { command: this.commandName, user: this.user.username }) });
   }
 
+  if (this.commandName == 'unlock') await this.guild.deleteDB(`lockedChannels.${channel.id}`);
+  else if (overwrites.__count__) await this.guild.updateDB(`lockedChannels.${channel.id}`, overwrites);
+
+  await channel.send({ embeds: [embed] });
   return msg.edit(lang('success'));
 };

@@ -39,7 +39,7 @@ module.exports = {
 
       embed.data.description = oldData.__count__ > embedFieldMaxAmt ? lang('first25') : ' ';
       embed.data.fields = Object.entries(oldData)
-        .slice(0, embedFieldMaxAmt + 1)
+        .slice(0, embedFieldMaxAmt)
         .map(([id, { trigger, response, wildcard }]) => ({
           name: lang('shortFieldName', id), inline: true,
           value: lang('shortFieldValue', {

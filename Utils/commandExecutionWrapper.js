@@ -5,6 +5,8 @@ const
 
 /** @type {import('.').commandExecutionWrapper} */
 module.exports = async function commandExecutionWrapper(command, commandType, lang) {
+  lang.config.backupPaths[0] = 'events.command';
+
   const errorKey = await checkForErrors.call(this, command, lang);
   if (errorKey !== false) {
     if (errorKey === true) return;
@@ -17,6 +19,8 @@ module.exports = async function commandExecutionWrapper(command, commandType, la
     cmdLang = this.client.i18n.getTranslator({
       locale: lang.config.locale, backupPaths: command ? [`commands.${command.category}.${commandName}`] : undefined
     });
+
+  this.commandName ??= commandName; // Is undefined on `MessageComponentInteraction`s
 
   log.debug(`Executing ${commandType} command ${commandName}`);
 

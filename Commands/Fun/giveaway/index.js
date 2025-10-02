@@ -42,10 +42,11 @@ module.exports = {
       })],
       durationUnformatted = this.options.getString('duration') ?? this.options.getString('add_time');
 
-    if (!durationUnformatted) return this.editReply(lang('invalidTime'));
-
-    const duration = getMilliseconds(durationUnformatted);
-    if (duration == undefined) return this.editReply(lang('invalidTime'));
+    let duration;
+    if (durationUnformatted) {
+      duration = getMilliseconds(durationUnformatted);
+      if (duration == undefined) return this.editReply(lang('invalidTime'));
+    }
 
     return { components, bonusEntries, requiredRoles, disallowedMembers, duration, giveawayId };
   }

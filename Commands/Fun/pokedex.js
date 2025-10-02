@@ -6,8 +6,13 @@ const
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
   fetch = require('node-fetch').default,
 
-  /** @type {(pokemon: string) => Promise<Pokemon[] | undefined>} */
-  fetchAPI = async pokemon => fetch(`https://pokeapi.glitch.me/v1/pokemon/${pokemon}`).then(async e => e.json()),
+  /** @type {(client: Client, pokemon: string) => Promise<Pokemon[] | undefined>} */
+  fetchAPI = async (client, pokemon) => fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`, {
+    headers: {
+      'User-Agent': `Discord bot (${client.config.github.repo})`,
+      Accept: 'application/json'
+    }
+  }).then(async e => e.json()),
 
   INCHES_IN_FEET = 12,
   CENTIMETERS_IN_METER = 100,
@@ -23,6 +28,8 @@ module.exports = {
   prefixCommand: true,
   slashCommand: true,
   dmPermission: true,
+  disabled: true,
+  disabledReason: 'This command currently misses an API.',
   options: [{
     name: 'pokémon',
     type: 'String',
@@ -36,7 +43,7 @@ module.exports = {
 
     let res = cache.get(pokemon.toLowerCase());
     if (!res) {
-      try { res = (await fetchAPI(pokemon))?.[0]; }
+      try { res = (await fetchAPI(this.client, pokemon))?.[0]; }
       catch (err) {
         if (err.type != 'invalid-json') throw err;
         return msg.edit(lang('invalidJson'));

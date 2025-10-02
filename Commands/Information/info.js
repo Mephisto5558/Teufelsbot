@@ -1,7 +1,7 @@
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
   { msInSecond, timestamp } = require('#Utils').timeFormatter,
-  userURL = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
+  userLink = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
 
   /** @type {(label: string, url: string, emoji: import('discord.js').ApplicationEmoji) => ButtonBuilder} */
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
@@ -11,16 +11,13 @@ const
  * @param {command} cmd */
 function commandListFilter(cmd) {
   /* eslint-disable-next-line @typescript-eslint/no-deprecated -- will be fixed when commands are moved to their own lib */
-  return !!cmd.aliasOf || this.config.ownerOnlyFolders.includes(cmd.category) || cmd.disabled;
+  return !cmd.aliasOf && !this.config.ownerOnlyFolders.includes(cmd.category) && !cmd.disabled;
 }
 
 /** @param {Client<true>} client */
 function getCommandCount(client) {
   const
-    commands = new Set([
-      ...client.slashCommands.filter(commandListFilter.bind(client)).keys(),
-      ...client.prefixCommands.filter(commandListFilter.bind(client)).keys()
-    ]),
+    commands = new Set([...client.slashCommands.values(), ...client.prefixCommands.values()].filter(commandListFilter.bind(client)).map(e => e.name)),
     count = {
       total: commands.size,
       combined: 0,
@@ -32,7 +29,7 @@ function getCommandCount(client) {
       if (client.prefixCommands.has(command)) count.combined++;
       else count.slash++;
     }
-    else if (client.prefixCommands.has(command)) count.prefix++;
+    else count.prefix++;
   }
 
   return Object.fromEntries(Object.entries(count).map(([k, v]) => [k, inlineCode(v)]));
@@ -48,7 +45,7 @@ module.exports = {
     const
       startTime = Date.now() - process.uptime() * msInSecond,
       description
-        = `${lang('dev')}: ${hyperlink('Mephisto5558', userURL('691550551825055775'))}\n` // Please do not change this line.
+        = `${lang('dev')}: ${hyperlink('Mephisto5558', userLink('691550551825055775'))}\n` // Please do not change this line.
           + (this.inGuild()
             ? `${lang('shard')}: ${inlineCode(this.guild.shardId)}\n`
             + `${lang('guild')}: ${inlineCode(this.guild.db.position)}\n`
@@ -59,8 +56,8 @@ module.exports = {
           + `${lang('starts')}: ${inlineCode(this.client.settings.startCount[this.client.botType])}\n`
           + `${lang('lastStart')}: ${timestamp(startTime)} ${timestamp(startTime, TimestampStyles.RelativeTime)}\n`
           + lang('translation', {
-            de: `${hyperlink('Mephisto5558', userURL('691550551825055775'))} & ${hyperlink('Koikarpfen1907', userURL('636196723852705822'))}`,
-            en: `${hyperlink('Mephisto5558', userURL('691550551825055775'))} & ${hyperlink('PenguinLeo', userURL('740930989798195253'))}`
+            de: `${hyperlink('Mephisto5558', userLink('691550551825055775'))} & ${hyperlink('Koikarpfen1907', userLink('636196723852705822'))}`,
+            en: `${hyperlink('Mephisto5558', userLink('691550551825055775'))} & ${hyperlink('PenguinLeo', userLink('740930989798195253'))}`
           }),
 
       embed = new EmbedBuilder({
