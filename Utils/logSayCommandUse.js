@@ -3,6 +3,7 @@ const
     ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder,
     PermissionFlagsBits, TextChannel, channelMention, inlineCode, userMention
   } = require('discord.js'),
+  { embedFieldValueMaxLength } = require('./constants'),
   GREY = 0x36393F;
 
 /** @type {import('.').logSayCommandUse} */
@@ -19,6 +20,7 @@ module.exports = async function logSayCommandUse(member, lang) {
   lang.config.backupPaths[0] = 'events.logger.sayCommandUsed';
 
   const
+    content = this.content.length > embedFieldValueMaxLength ? this.content.slice(0, embedFieldValueMaxLength - '...'.length) + '...' : this.content,
     embed = new EmbedBuilder({
       author: { name: member.user.tag, iconURL: member.displayAvatarURL() },
       description: lang('embedDescription', { executor: userMention(member.id), channel: this.channel.name }),
@@ -26,7 +28,7 @@ module.exports = async function logSayCommandUse(member, lang) {
         { name: lang('global.channel'), value: `${channelMention(this.channel.id)} (${inlineCode(this.channel.id)})`, inline: false },
         {
           name: lang('content'), inline: false,
-          value: this.content || (this.embeds.length ? lang('events.logger.embeds', this.embeds.length) : lang('global.unknown'))
+          value: content || (this.embeds.length ? lang('events.logger.embeds', this.embeds.length) : lang('global.unknown'))
         },
         { name: lang('author'), value: `${member.user.tag} (${inlineCode(member.id)})`, inline: false }
       ],

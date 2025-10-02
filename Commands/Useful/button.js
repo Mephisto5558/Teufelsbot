@@ -1,5 +1,5 @@
 const
-  { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, DiscordAPIError, codeBlock } = require('discord.js'),
+  { ActionRow, ActionRowBuilder, ButtonBuilder, ButtonStyle, codeBlock } = require('discord.js'),
   {
     DiscordAPIErrorCodes, timeFormatter: { msInSecond },
     constants: { buttonLabelMaxLength, buttonURLMaxLength, messageActionRowMaxAmt, actionRowButtonMaxAmt }
@@ -84,7 +84,7 @@ module.exports = {
         {
           name: 'style',
           type: 'Number',
-          choices: Object.values(ButtonStyle).filter(e => typeof e == 'number'),
+          choices: Object.values(ButtonStyle).filter(e => typeof e == 'number' && e != ButtonStyle.Premium),
           required: true
         },
         { name: 'emoji', type: 'String' },
@@ -120,23 +120,21 @@ module.exports = {
       if (!/^(?:discord|https?):\/\/[\w\-.]+\.[a-z]+/i.test(url)) return this.editReply(lang('invalidURL'));
     }
 
-    let msg;
+    let msg, button;
     if (msgId) msg = await getEditableMessage.call(this, msgId, lang);
 
-    try {
-      const button = await sendUpdatedMsg.call(this, msg, url);
-
-      delete button.data.custom_id;
-      return void this.editReply(
-        this.options.getString('json')
-          ? lang('successJSON')
-          : lang('success', codeBlock('json', JSON.stringify(button.data.filterEmpty())))
-      );
-    }
+    try { button = await sendUpdatedMsg.call(this, msg, url); }
     catch (rawErr) {
       const err = rawErr instanceof Error ? rawErr : new Error(rawErr);
-      if (!(err instanceof DiscordAPIError) && !err.message.includes('JSON')) throw err;
+      if (err instanceof SyntaxError && !err.message.includes('JSON')) throw err;
       return this.editReply(lang('invalidOption', codeBlock(err.message)));
     }
+
+    delete button.data.custom_id;
+    return void this.editReply(
+      this.options.getString('json')
+        ? lang('successJSON')
+        : lang('success', codeBlock('json', JSON.stringify(button.data.filterEmpty())))
+    );
   }
 };

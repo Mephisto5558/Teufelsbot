@@ -59,7 +59,7 @@ module.exports = {
 
           acc.push({ name: k, inline: true, value });
           return acc;
-        }, []).slice(0, embedFieldMaxAmt + 1)
+        }, []).slice(0, embedFieldMaxAmt)
       }),
       maxSummaryLength = 2049;
 

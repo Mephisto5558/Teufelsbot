@@ -68,7 +68,7 @@ async function checkOptions(command, lang) {
         return ['strictAutocompleteNoMatchWValues', {
           option: name,
           availableOptions: Array.isArray(autocompleteOptions)
-            ? autocompleteOptions.map(e => ('value' in e ? e.value : e)).map(inlineCode).join(', ')
+            ? autocompleteOptions.map(e => (typeof e == 'object' ? e.value : e)).map(inlineCode).join(', ')
             : autocompleteOptions
         }];
       }

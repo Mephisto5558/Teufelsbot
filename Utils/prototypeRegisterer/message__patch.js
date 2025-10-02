@@ -1,7 +1,7 @@
 /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior */
 /* eslint no-underscore-dangle: [warn, {allow: [_patch]}] */
 
-const { userMention } = require('discord.js');
+const { Constants, userMention } = require('discord.js');
 
 /** @type {Message['_patch']} */
 /* eslint-disable-next-line custom/unbound-method */
@@ -9,6 +9,9 @@ const originalPatch = require('discord.js').Message.prototype._patch;
 
 /** @type {import('.')._patch} */
 module.exports = function _patch(data, ...rest) {
+  if (!Constants.NonSystemMessageTypes.includes(data.type)) return originalPatch.call(this, data, ...rest);
+
+  let isCommand = false;
   if ('content' in data) {
     this.originalContent = data.content;
 
@@ -28,6 +31,8 @@ module.exports = function _patch(data, ...rest) {
 
     this.args = data.content.slice(prefixLength).trim().split(/\s+/);
     this.commandName = prefixLength ? this.args.shift().toLowerCase() : null;
+
+    if (prefixLength) isCommand = true;
   }
   else {
     this.originalContent ??= null;
@@ -37,5 +42,5 @@ module.exports = function _patch(data, ...rest) {
 
   originalPatch.call(this, data, ...rest);
 
-  if (this.args.length) this.content = this.args.join(' ');
+  if (isCommand) this.content = this.args.join(' ');
 };

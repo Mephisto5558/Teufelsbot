@@ -7,6 +7,8 @@ const
 
 /** @type {import('.').componentHandler} */
 module.exports = async function messageComponentHandler(lang) {
+  lang.config.backupPaths[0] = 'events.command';
+
   const
     [feature, id, mode, data, ...args] = this.customId.split('.'),
     cooldown = cooldowns.call(this, `buttonPressEvent.${this.message.id}`, { user: msInSecond }),

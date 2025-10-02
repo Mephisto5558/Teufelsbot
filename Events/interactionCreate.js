@@ -9,7 +9,7 @@ module.exports = async function interactionCreate() {
 
   const
     locale = this.inGuild() ? this.guild.db.config.lang ?? this.guild.localeCode : this.user.localeCode,
-    lang = this.client.i18n.getTranslator({ locale, backupPaths: ['events.command'] });
+    lang = this.client.i18n.getTranslator({ locale });
 
   if (this.isMessageComponent()) return componentHandler.call(this, lang);
 

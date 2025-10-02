@@ -1,6 +1,6 @@
 import type {
   APIAllowedMentions, AnyThreadChannel, AutocompleteFocusedOption, AutocompleteInteraction, BaseGuildTextChannel,
-  BaseInteraction, CategoryChannel, Collection, DMChannel, DateResolvable, Guild, GuildChannel, GuildChannelManager,
+  BaseInteraction, CategoryChannel, ChatInputCommandInteraction, Collection, DMChannel, DateResolvable, Guild, GuildChannel, GuildChannelManager,
   GuildMember, GuildTextBasedChannel, Message, MessageComponentInteraction, Role, Snowflake, TimestampStylesString, User,
   VoiceState, Webhook, WebhookType
 } from 'discord.js';
@@ -43,7 +43,7 @@ export declare namespace afk {
 }
 
 export declare function autocompleteGenerator(
-  this: AutocompleteInteraction | Message,
+  this: AutocompleteInteraction | ChatInputCommandInteraction | Message,
   command: command<'both', boolean, true>,
   target: AutocompleteFocusedOption, locale: Locale
 ): Promise<{ name: string | number; value: string | number }[] | undefined>;

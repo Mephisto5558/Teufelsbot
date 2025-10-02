@@ -40,14 +40,14 @@ async function handleCounting() {
   void this.react('❌');
   if (!countingData.lastNumber) return;
 
-  await this.guild.deleteDB(`channelMinigames.counting.${this.channel.id}.lastNumber`);
+  await this.guild.updateDB(`channelMinigames.counting.${this.channel.id}.lastNumber`, 0);
   await this.guild.deleteDB(`channelMinigames.counting.${this.channel.id}.lastAuthor`);
 
   return this.reply(
     this.client.i18n.__(
       { locale: this.guild.localeCode }, 'events.message.counting.error',
       {
-        lastNumber: bold(countingData.lastNumber), channelHighScore: bold(countingData.highScore ?? 0),
+        lastNumber: bold(countingData.lastNumber), channelHighscore: bold(countingData.highScore ?? 0),
         guildHighscore: bold(this.guild.db.channelMinigames?.countingHighScore ?? 0)
       }
     )
@@ -94,7 +94,8 @@ async function handleWordchain() {
   if (wordchainData.chainedWords > 1) {
     return this.reply(
       this.client.i18n.__(
-        { locale: this.guild.localeCode }, 'events.message.wordchain.error', { lastChar: bold(lastWordChar), count: bold(wordchainData.chainedWords) }
+        { locale: this.guild.localeCode }, 'events.message.wordchain.error',
+        { lastChar: bold(lastWordChar.toUpperCase()), count: bold(wordchainData.chainedWords) }
       )
       + '\n' + bold(this.client.i18n.__({ locale: this.guild.localeCode }, msgId))
     );
@@ -161,7 +162,7 @@ function runMessages() {
 
   /* Regex to match any letter from any language
      (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions/Unicode_Property_Escapes) */
-  else if (/^\p{L}+$/u.test(this.originalContent)) void handleWordchain.call(this);
+  if (/^\p{L}+$/u.test(this.originalContent)) void handleWordchain.call(this);
   if (!this.originalContent.toLowerCase().includes('--afkignore') && !(this.originalContent.startsWith('(') && this.originalContent.endsWith(')')))
     void removeAfkStatus.call(this);
   if (!cooldowns.call(this, 'afkMsg', { channel: secToMs(10), user: secToMs(10) })) void sendAfkMessages.call(this);

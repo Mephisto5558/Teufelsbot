@@ -102,7 +102,7 @@ module.exports = {
     if (!json) {
       await msg.edit(
         clear
-          ? { content: content.slice(0, messageMaxLength + 1), embeds: [], attachments: [], files: [], components: [] }
+          ? { content: content.slice(0, messageMaxLength), embeds: [], attachments: [], files: [], components: [] }
           : content.slice(0, messageMaxLength)
       );
     }
