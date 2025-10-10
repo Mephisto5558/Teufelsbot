@@ -1,15 +1,19 @@
 /* eslint no-underscore-dangle: [warn, {allow: [_hoistedOptions]}] */
 
+/**
+ * @import { ActionRow, ButtonComponent, ButtonInteraction } from 'discord.js'
+ * @import { sendChallengeMention as sendChallengeMentionT, playAgain as playAgainT } from '.' */
+
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, ComponentType, userMention } = require('discord.js'),
   { minToMs, secToMs } = require('../toMs'),
   BUTTON_TIME = minToMs(15); /* eslint-disable-line @typescript-eslint/no-magic-numbers */
 
-/** @type {import('.').sendChallengeMention} */
+/** @type {sendChallengeMentionT} */
 async function sendChallengeMention(msg, userId, lang) {
   await sleep(secToMs(10));
 
-  /** @type {Message & { components: import('discord.js').ActionRow<import('discord.js').ButtonComponent>[] } | undefined} */
+  /** @type {Message & { components: ActionRow<ButtonComponent>[] } | undefined} */
   const reply = await msg.fetchReply().catch(() => { /* empty */ });
   // challenge has been accepted - the accept button does not exist
 
@@ -21,12 +25,12 @@ async function sendChallengeMention(msg, userId, lang) {
   void mentionMsg.delete().catch(() => { /* empty */ });
 }
 
-/** @type {import('.').playAgain} */
+/** @type {playAgainT} */
 async function playAgain(interaction, lang) {
   const
     opponent = interaction.options.getUser('opponent'),
 
-    /** @type {{ components: import('discord.js').ActionRow<import('discord.js').ButtonComponent>[] }} */
+    /** @type {{ components: ActionRow<ButtonComponent>[] }} */
     { components } = await interaction.fetchReply(),
     lastRow = 3;
 
@@ -41,13 +45,13 @@ async function playAgain(interaction, lang) {
   }
 
   const collector = (await interaction.editReply({ components })).createMessageComponentCollector({
-    /** @type {(i: import('discord.js').ButtonInteraction<'cached'>) => boolean} */
+    /** @type {(i: ButtonInteraction<'cached'>) => boolean} */
     filter: i => [interaction.user.id, opponent?.id].includes(i.member.id) && i.customId == 'playAgain',
     max: 1, componentType: ComponentType.Button, time: BUTTON_TIME
   });
 
   collector
-    .on('collect', /** @param {import('discord.js').ButtonInteraction} PAButton */ async PAButton => {
+    .on('collect', /** @param {ButtonInteraction} PAButton */ async PAButton => {
       void PAButton.deferUpdate();
       collector.stop();
 

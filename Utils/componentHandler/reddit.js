@@ -1,7 +1,8 @@
-/** @type {import('..').commandExecutionWrapper} */
+/** @import { reddit } from '.' */
+
 const commandExecutionWrapper = require('../commandExecutionWrapper');
 
-/** @type {import('.').reddit} */
+/** @type {reddit} */
 module.exports = async function reddit(lang, subreddit, type, filterNSFW) {
   this.options = {
     getBoolean: () => filterNSFW == 'true',

@@ -1,6 +1,8 @@
+/** @import subcommand from '.' */
+
 const { inlineCode } = require('discord.js');
 
-/** @type {import('.').default} */
+/** @type {subcommand} */
 module.exports = {
   options: [{
     name: 'confirmation',

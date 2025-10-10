@@ -1,4 +1,4 @@
-/** @typedef {import('.')['toMs']} toMs */
+/** @import { toMs } from '.' */
 
 const
   { daysInYear, hoursInDay, minutesInHour, msInSecond, secsInMinute } = require('./timeFormatter'),

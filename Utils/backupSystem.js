@@ -1,20 +1,13 @@
+/** @import { BackupSystem, DiscordAPIErrorCodes as DiscordAPIErrorCodesT } from '.' */
+
 const
   {
     ChannelType, Collection, Constants, DiscordAPIError, GatewayIntentBits, GuildExplicitContentFilter,
     GuildFeature, GuildVerificationLevel, SnowflakeUtil, StickerType
   } = require('discord.js'),
-
-  /** @type {import('.').BackupSystem['BackupSystem']['utils']} */
-  utils = require('./backupSystem_utils'),
-
+  /** @type {BackupSystem.Utils} */ utils = require('./backupSystem_utils'),
   { secsInMinute } = require('./timeFormatter'),
-
-  /** @type {import('.')['DiscordAPIErrorCodes']} */
-  DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
-
-/**
- * @typedef {import('.').BackupSystem.BackupSystem} TBackupSystem
- * @typedef {import('.').BackupSystem.Backup} TBackup */
+  /** @type {DiscordAPIErrorCodesT} */ DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json');
 
 class BackupSystem {
   /**
@@ -40,20 +33,20 @@ class BackupSystem {
     };
   }
 
-  /** @type {TBackupSystem['get']} */
+  /** @type {BackupSystem.BackupSystem['get']} */
   get = (backupId, guildId = '') => this.db.get(this.dbName, `${guildId}_${backupId}`);
 
-  /** @type {TBackupSystem['list']} */
+  /** @type {BackupSystem.BackupSystem['list']} */
   list = guildId => {
-    /** @type {Collection<string, TBackup>} */
+    /** @type {Collection<string, BackupSystem.Backup>} */
     const collection = new Collection(Object.entries(this.db.get(this.dbName)));
     return guildId ? collection.filter(e => e.guildId == guildId) : collection;
   };
 
-  /** @type {TBackupSystem['remove']} */
+  /** @type {BackupSystem.BackupSystem['remove']} */
   remove = async backupId => this.db.delete(this.dbName, backupId);
 
-  /** @type {TBackupSystem['create']} */
+  /** @type {BackupSystem.BackupSystem['create']} */
   create = async (guild, {
     statusObj = {}, id, save = true, maxGuildBackups = this.defaultSettings.maxGuildBackups,
     backupMembers = false, maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,
@@ -198,7 +191,7 @@ class BackupSystem {
     return data;
   };
 
-  /** @type {TBackupSystem['load']} */
+  /** @type {BackupSystem.BackupSystem['load']} */
   load = async (id, guild, {
     statusObj, clearGuildBeforeRestore = this.defaultSettings.clearGuildBeforeRestore,
     maxMessagesPerChannel = this.defaultSettings.maxMessagesPerChannel,

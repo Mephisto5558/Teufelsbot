@@ -1,8 +1,10 @@
+/** @import subcommand from '.' */
+
 const
   { inlineCode } = require('discord.js'),
   { findTriggerId, triggerQuery } = require('./_utils');
 
-/** @type {import('.').default} */
+/** @type {subcommand} */
 module.exports = {
   options: [{
     name: 'query_or_id',

@@ -1,3 +1,7 @@
+/**
+ * @import { ButtonInteraction, GuildMember } from 'discord.js'
+ * @import { PlayOptions, rps } from '.' */
+
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags, inlineCode, userMention } = require('discord.js'),
   sendChallenge = require('./rps_sendChallenge'),
@@ -7,9 +11,9 @@ const
   winningAgainst = { rock: 'scissors', paper: 'rock', scissors: 'paper' };
 
 /**
- * @this {import('discord.js').ButtonInteraction<'cached'>}
- * @param {import('discord.js').GuildMember} initiator
- * @param {import('discord.js').GuildMember} opponent
+ * @this {ButtonInteraction<'cached'>}
+ * @param {GuildMember} initiator
+ * @param {GuildMember} opponent
  * @param {lang} lang
  * @returns {Message} */
 function sendGame(initiator, opponent, lang) {
@@ -45,10 +49,10 @@ function sendGame(initiator, opponent, lang) {
 }
 
 /**
- * @this {import('discord.js').ButtonInteraction<'cached'>}
- * @param {import('discord.js').GuildMember} initiator
- * @param {import('discord.js').GuildMember} opponent
- * @param {import('.').PlayOptions} mode
+ * @this {ButtonInteraction<'cached'>}
+ * @param {GuildMember} initiator
+ * @param {GuildMember} opponent
+ * @param {PlayOptions} mode
  * @param {lang} lang */
 async function runGame(initiator, opponent, mode, lang) {
   const choices = opponent.id == this.client.user.id
@@ -74,10 +78,10 @@ async function runGame(initiator, opponent, mode, lang) {
 }
 
 /**
- * @this {import('discord.js').ButtonInteraction<'cached'>}
- * @param {{ player1: import('.').PlayOptions, player2: import('.').PlayOptions }} choices
- * @param {import('discord.js').GuildMember} initiator
- * @param {import('discord.js').GuildMember} opponent
+ * @this {ButtonInteraction<'cached'>}
+ * @param {{ player1: PlayOptions, player2: PlayOptions }} choices
+ * @param {GuildMember} initiator
+ * @param {GuildMember} opponent
  * @param {lang} lang */
 async function endGame(choices, initiator, opponent, lang) {
   await this.guild.deleteDB(`minigames.rps.${this.message.id}`);
@@ -102,7 +106,7 @@ async function endGame(choices, initiator, opponent, lang) {
   return this.message.edit({ embeds: this.message.embeds, components: [component] });
 }
 
-/** @type {import('.').rps} */
+/** @type {rps} */
 module.exports = async function rps(lang, initiatorId, mode, opponentId) {
   if (this.user.id != initiatorId && this.user.id != opponentId) return;
   if (mode.length != 1) await this.deferUpdate();

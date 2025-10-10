@@ -1,4 +1,6 @@
-/** @type {import('#types/locals').dashboardSetting} */
+/** @import { dashboardSetting } from '#types/locals' */
+
+/** @type {dashboardSetting} */
 module.exports = {
   id: 'chMsg',
   name: 'Announcement Message',

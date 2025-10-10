@@ -1,3 +1,5 @@
+/** @import { ClientEvents, GuildTextBasedChannel } from 'discord.js' */
+
 const
   { AuditLogEvent, EmbedBuilder, MessageFlags, PermissionFlagsBits, channelMention, inlineCode, userMention } = require('discord.js'),
   { secToMs } = require('#Utils').toMs,
@@ -5,8 +7,8 @@ const
   AUDITLOG_FETCHLIMIT = 6;
 
 /**
- * @this {import('discord.js').ClientEvents['messageDeleteBulk'][0]}
- * @param {import('discord.js').ClientEvents['messageDeleteBulk'][1]} channel */
+ * @this {ClientEvents['messageDeleteBulk'][0]}
+ * @param {ClientEvents['messageDeleteBulk'][1]} channel */
 module.exports = async function messageDeleteBulk(channel) { // TODO: maybe move all the log events to `guildAuditLogEntryCreate`
   const setting = channel.guild.db.config.logger?.messageDelete;
 
@@ -15,7 +17,7 @@ module.exports = async function messageDeleteBulk(channel) { // TODO: maybe move
     || !this.some(e => !e.flags.has(MessageFlags.Ephemeral) && !e.flags.has(MessageFlags.Loading))
   ) return;
 
-  /** @type {import('discord.js').GuildTextBasedChannel | undefined} */
+  /** @type {GuildTextBasedChannel | undefined} */
   const logChannel = channel.guild.channels.cache.get(setting.channel);
   if (
     !logChannel || logChannel.permissionsFor(channel.guild.members.me)

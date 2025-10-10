@@ -1,3 +1,5 @@
+/** @import { LogInterface } from '.' */
+
 const
   { access, appendFile, mkdir } = require('node:fs/promises'),
   { join } = require('node:path');
@@ -40,13 +42,13 @@ module.exports = class Log extends Function {
     return bound;
   }
 
-  /** @type {import('.').LogInterface['debug']} */ debug(...str) { return this._log({ file: 'debug' }, ...str); }
-  /** @type {import('.').LogInterface['log']} */ log(...str) { return this._log({ file: 'log' }, ...str); }
-  /** @type {import('.').LogInterface['info']} */ info(...str) { return this._log({ file: 'info' }, ...str); }
-  /** @type {import('.').LogInterface['warn']} */ warn(...str) { return this._log({ file: 'warn' }, ...str); }
-  /** @type {import('.').LogInterface['error']} */ error(...str) { return this._log({ file: 'error' }, ...str); }
+  /** @type {LogInterface['debug']} */ debug(...str) { return this._log({ file: 'debug' }, ...str); }
+  /** @type {LogInterface['log']} */ log(...str) { return this._log({ file: 'log' }, ...str); }
+  /** @type {LogInterface['info']} */ info(...str) { return this._log({ file: 'info' }, ...str); }
+  /** @type {LogInterface['warn']} */ warn(...str) { return this._log({ file: 'warn' }, ...str); }
+  /** @type {LogInterface['error']} */ error(...str) { return this._log({ file: 'error' }, ...str); }
 
-  /** @type {import('.').LogInterface['_logToConsole']} */
+  /** @type {LogInterface['_logToConsole']} */
   _logToConsole({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` } = {}, ...str) {
     const log = console[file];
 
@@ -56,13 +58,13 @@ module.exports = class Log extends Function {
     return this;
   }
 
-  /** @type {import('.').LogInterface['_logToFile']} */
+  /** @type {LogInterface['_logToFile']} */
   _logToFile({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` } = {}, ...str) {
     void appendFile(join(this.logFilesDir, `${this.date}_${file}.log`), str.length ? `${prefix}${str.join(' ')}\n` : '\n');
     return this;
   }
 
-  /** @type {import('.').LogInterface['_log']} */
+  /** @type {LogInterface['_log']} */
   _log({ file = 'log', type = 'Bot', prefix = `${new Date().toISOString()} ${type} | ` } = {}, ...str) {
     this._logToConsole({ file, type, prefix }, ...str);
     this._logToFile({ file, type, prefix }, ...str);

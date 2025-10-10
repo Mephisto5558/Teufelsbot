@@ -1,3 +1,5 @@
+/** @import { GuildTextBasedChannel, AnyThreadChannel } from 'discord.js' */
+
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, ComponentType, Constants, EmbedBuilder, channelMention } = require('discord.js'),
   { getTargetChannel, timeFormatter: { msInSecond }, getCommandName } = require('#Utils'),
@@ -20,7 +22,7 @@ module.exports = {
     const
       commandName = getCommandName.call(this.client, this.commandName),
 
-      /** @type {Exclude<import('discord.js').GuildTextBasedChannel, import('discord.js').AnyThreadChannel>} */
+      /** @type {Exclude<GuildTextBasedChannel, AnyThreadChannel>} */
       channel = getTargetChannel(this, { returnSelf: true }),
       embed = new EmbedBuilder({
         title: lang('confirmEmbedTitle'),

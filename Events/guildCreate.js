@@ -1,4 +1,6 @@
-/** @this {import('discord.js').ClientEvents['guildCreate'][0]} */
+/** @import { ClientEvents } from 'discord.js' */
+
+/** @this {ClientEvents['guildCreate'][0]} */
 module.exports = async function guildCreate() {
   log.debug(`Joined new guild: ${this.id}`);
   if (this.client.botType == 'dev') return;

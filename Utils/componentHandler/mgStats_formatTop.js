@@ -1,9 +1,11 @@
+/** @import { mgStats_formatTop } from '.' */
+
 const
   { userMention } = require('discord.js'),
   { messageMaxLength } = require('../constants'),
   convertToMedal = require('../convertToMedal');
 
-/** @type {import('.').mgStats_formatTop} */
+/** @type {mgStats_formatTop} */
 module.exports = function formatTop(input, lang, { sort, mode, maxLength = messageMaxLength, amt = 10 } = {}) {
   /** @type {[Snowflake, { wins: number, draws: number, losses: number }][]} */
   const data = input.map(([id, e]) => [id, { wins: 0, draws: 0, losses: 0, ...e }]);

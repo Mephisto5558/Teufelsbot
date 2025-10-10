@@ -1,10 +1,11 @@
+/** @import { timeValidator } from '.' */
+
 const validItems = ['y', 'mth', 'w', 'd', 'h', 'min', 's', 'ms'];
 
-/**
- * @type {import('.')['timeValidator']}
- * @param {string | undefined} timeStr */ // adding this fixes `char` being `any`
-function timeValidator(timeStr) {
-  if (!timeStr || timeStr == '-' || timeStr == '+') return [];
+/** @type {timeValidator} */
+module.exports = function timeValidator(timeStr) {
+  if (typeof timeStr != 'string' || !timeStr || timeStr == '-' || timeStr == '+')
+    return [];
 
   let
     numberBuffer = '',
@@ -32,6 +33,4 @@ function timeValidator(timeStr) {
     if (unit != unitBuffer && unit.startsWith(unitBuffer)) acc.push(numberBuffer + unit);
     return acc;
   }, []);
-}
-
-module.exports = timeValidator;
+};

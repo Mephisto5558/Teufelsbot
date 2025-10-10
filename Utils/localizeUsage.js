@@ -1,4 +1,6 @@
-/** @type {import('.').localizeUsage} */
+/** @import { localizeUsage } from '.' */
+
+/** @type {localizeUsage} */
 module.exports = function localizeUsage(command, path, i18n) {
   const usageLocalizations = {};
   let usage;

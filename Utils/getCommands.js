@@ -1,10 +1,11 @@
+/** @import { getCommands } from '.' */
+
 /** @typedef {{ commandName: string, commandUsage: string, commandDescription: string, commandAlias: string }[]} commandList */
 
-/** @type {import('.').getCommands} */
+/** @type {getCommands} */
 module.exports = function getCommands(lang) {
-  /** @type {{ category: string, subTitle: '', aliasesDisabled: boolean, list: commandList }[]} */
   const commandList = [...this.slashCommands.values(), ...this.prefixCommands.values()].unique().reduce((
-    /** @type {{ category: string, subTitle: string, list: commandList }[]} */ acc, cmd
+    /** @type {{ category: string, subTitle: '', aliasesDisabled: boolean, list: commandList }[]} */ acc, cmd
   ) => {
     if (this.config.ownerOnlyFolders.includes(cmd.category) || cmd.disabled || cmd.aliasOf) return acc;
 

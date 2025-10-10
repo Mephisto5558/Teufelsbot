@@ -1,3 +1,5 @@
+/** @import { afk } from '.' */
+
 const
   { PermissionFlagsBits, TimestampStyles, VoiceState, inlineCode, userMention } = require('discord.js'),
   { memberNameMaxLength, messageMaxLength } = require('./constants'),
@@ -10,7 +12,7 @@ const
 module.exports.nicknamePrefix = nicknamePrefix;
 module.exports.nicknameRegex = nicknameRegex;
 
-/** @type {import('.')['afk']['getAfkStatus']} */
+/** @type {afk['getAfkStatus']} */
 module.exports.getAfkStatus = async function getAfkStatus(target, lang) {
   const { message, createdAt } = this.guild?.db.afkMessages?.[target.id] ?? ('user' in target ? target.user : target).db.afkMessage ?? {};
   if (!message) return this.customReply(lang('getNoneFound'));
@@ -20,7 +22,7 @@ module.exports.getAfkStatus = async function getAfkStatus(target, lang) {
   }));
 };
 
-/** @type {import('.')['afk']['listAfkStatuses']} */
+/** @type {afk['listAfkStatuses']} */
 module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
   const afkMessages = this.guild.members.cache.reduce((acc, e) => {
     const { message, createdAt } = this.guild.db.afkMessages?.[e.user.id] ?? e.user.db.afkMessage ?? {};
@@ -38,8 +40,8 @@ module.exports.listAfkStatuses = async function listAfkStatuses(lang) {
 };
 
 /**
- * @type {import('.')['afk']['setAfkStatus']}
- * @this {ThisParameterType<import('.')['afk']['setAfkStatus']>}
+ * @type {afk['setAfkStatus']}
+ * @this {ThisParameterType<afk['setAfkStatus']>}
  * here due to TS not understanding typeguards with generics */
 module.exports.setAfkStatus = async function setAfkStatus(lang, global, message) {
   const
@@ -57,7 +59,7 @@ module.exports.setAfkStatus = async function setAfkStatus(lang, global, message)
   return this.customReply({ content: lang(global || !this.guild ? 'globalSuccess' : 'success', message), allowedMentions: { repliedUser: true } });
 };
 
-/** @type {import('.')['afk']['removeAfkStatus']} */
+/** @type {afk['removeAfkStatus']} */
 module.exports.removeAfkStatus = async function removeAfkStatus() {
   if (!this.member || !this.guild) return; // `!this.guild` as typeguard
 
@@ -81,7 +83,7 @@ module.exports.removeAfkStatus = async function removeAfkStatus() {
   ) return this.channel.send(`${userMention(this.member.id)}\n${msg}`);
 };
 
-/** @type {import('.')['afk']['sendAfkMessages']} */
+/** @type {afk['sendAfkMessages']} */
 module.exports.sendAfkMessages = async function sendAfkMessages() {
   const afkMsgs = this.mentions.members.reduce((acc, e) => {
     const { message, createdAt } = this.guild.db.afkMessages?.[e.user.id] ?? e.user.db.afkMessage ?? {};
@@ -103,7 +105,7 @@ module.exports.sendAfkMessages = async function sendAfkMessages() {
   if (afkMsgs.length) return this.customReply({ content: afkMsgs });
 };
 
-/** @type {import('.')['afk']['setAfkPrefix']} */
+/** @type {afk['setAfkPrefix']} */
 async function setAfkPrefix(member, prefix = nicknamePrefix) {
   if (!member.moderatable || member.displayName.length >= memberNameMaxLength - prefix.length || member.nickname?.startsWith(prefix)) return;
 
@@ -111,7 +113,7 @@ async function setAfkPrefix(member, prefix = nicknamePrefix) {
   return true;
 }
 
-/** @type {import('.')['afk']['unsetAfkPrefix']} */
+/** @type {afk['unsetAfkPrefix']} */
 async function unsetAfkPrefix(member, prefix = nicknamePrefix) {
   if (!member.moderatable || !member.nickname?.startsWith(prefix)) return;
 

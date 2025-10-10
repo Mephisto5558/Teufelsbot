@@ -1,5 +1,7 @@
-/** @type {import('.').findAllEntires} */
-function findAllEntries(obj, key, entryList = {}) {
+/** @import { findAllEntries } from '.' */
+
+/** @type {findAllEntries} */
+module.exports = function findAllEntries(obj, key, entryList = {}) {
   const stack = [obj];
   while (stack.length) {
     /** @type {Record<string, unknown>} */
@@ -12,6 +14,4 @@ function findAllEntries(obj, key, entryList = {}) {
   }
 
   return entryList;
-}
-
-module.exports = findAllEntries;
+};

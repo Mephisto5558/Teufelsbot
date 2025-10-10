@@ -1,6 +1,10 @@
+/**
+ * @import { customPage } from '#types/locals'
+ * @import { FeatureRequest } from '@mephisto5558/bot-website' */
+
 const { HTTP_STATUS_OK } = require('node:http2').constants;
 
-/** @type {import('#types/locals').customPage<{ featureId?: import('@mephisto5558/bot-website').FeatureRequest['id'] }>} */
+/** @type {customPage<{ featureId?: FeatureRequest['id'] }>} */
 module.exports = {
   method: 'DELETE',
 

@@ -1,12 +1,14 @@
+/** @import { MessageReference, GuildTextBasedChannel } from 'discord.js' */
+
 const
   { ChatInputCommandInteraction, SnowflakeUtil, bold } = require('discord.js'),
   { msInSecond } = require('#Utils').timeFormatter;
 
 /**
  * @param {Client} client
- * @param {import('discord.js').MessageReference} reference */
+ * @param {MessageReference} reference */
 function getMessageFromReference(client, reference = {}) {
-  /** @type {import('discord.js').GuildTextBasedChannel | undefined} */
+  /** @type {GuildTextBasedChannel | undefined} */
   const channel = client.guilds.cache.get(reference.guildId)?.channels.cache.get(reference.channelId);
   return channel?.messages.cache.get(reference.messageId);
 }

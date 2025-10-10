@@ -1,6 +1,8 @@
+/** @import { customPage } from '#types/locals' */
+
 const { HTTP_STATUS_OK } = require('node:http2').constants;
 
-/** @type {import('#types/locals').customPage<{title?: string, description?: string}>} */
+/** @type {customPage<{ title?: string, description?: string }>} */
 module.exports = {
   method: 'POST',
 

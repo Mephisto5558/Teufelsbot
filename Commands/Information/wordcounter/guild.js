@@ -1,9 +1,11 @@
+/** @import subcommand from '.' */
+
 const
   { Colors, EmbedBuilder, TimestampStyles, bold, time } = require('discord.js'),
   { commandMention } = require('#Utils'),
   { getTopChannels, getTopMembers } = require('./_utils');
 
-/** @type {import('.').default<false>} */
+/** @type {subcommand<false>} */
 module.exports = {
   options: [{
     name: 'get',

@@ -1,8 +1,10 @@
+/** @import subcommand from '.' */
+
 const
   { Colors, EmbedBuilder } = require('discord.js'),
   { constants: { autocompleteOptionsMaxAmt } } = require('#Utils');
 
-/** @type {import('.')} */
+/** @type {subcommand} */
 module.exports = {
   options: [{
     name: 'language',

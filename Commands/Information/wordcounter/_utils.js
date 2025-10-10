@@ -1,8 +1,10 @@
+/** @import subcommand, { format as formatT, getTopGuilds, getTopChannels, getTopMembers, getTopChannelMembers } from '.' */
+
 const
   { Guild, GuildChannel, bold } = require('discord.js'),
   { constants: { embedFieldMaxAmt }, convertToMedal } = require('#Utils');
 
-/** @type {import('.')['format']} */
+/** @type {formatT} */
 const format = (data, sliceAmt, mapFn) => Object.entries(data)
   .map(mapFn)
   .filter(([k, v]) => k && v)
@@ -13,25 +15,25 @@ const format = (data, sliceAmt, mapFn) => Object.entries(data)
     value: bold(v), inline: false
   }));
 
-/** @type {import('.')['getTopGuilds']} */
+/** @type {getTopGuilds} */
 module.exports.getTopGuilds = (user, amt = embedFieldMaxAmt) => format(
   user.db.wordCounter.guilds, amt,
   ([k, v]) => [user.client.guilds.cache.get(k), v.sum]
 );
 
-/** @type {import('.')['getTopChannels']} */
+/** @type {getTopChannels} */
 module.exports.getTopChannels = (guild, amt = embedFieldMaxAmt) => format(
   guild.db.wordCounter.channels, amt,
   ([k, v]) => [guild.channels.cache.get(k), v]
 );
 
-/** @type {import('.')['getTopMembers']} */
+/** @type {getTopMembers} */
 module.exports.getTopMembers = (guild, amt = embedFieldMaxAmt) => format(
   guild.db.wordCounter.members, amt,
   ([k, v]) => [guild.members.cache.get(k), v.sum]
 );
 
-/** @type {import('.')['getTopChannelMembers']} */
+/** @type {getTopChannelMembers} */
 module.exports.getTopChannelMembers = (guild, channelId, amt = embedFieldMaxAmt) => format(
   guild.db.wordCounter.members, amt,
   ([k, v]) => [guild.members.cache.get(k), v.channels[channelId]]

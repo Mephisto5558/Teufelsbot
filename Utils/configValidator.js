@@ -1,3 +1,5 @@
+/** @import { configValidator } from '.' */
+
 const
   { writeFileSync } = require('node:fs'),
   configPath = require('node:path').resolve(process.cwd(), 'config.json'),
@@ -30,7 +32,7 @@ const
     enableConsoleFix: 'boolean'
   });
 
-/** @type {import('.').configValidator.configValidationLoop} */
+/** @type {configValidator.configValidationLoop} */
 function configValidationLoop(obj = require(configPath), checkObj = validConfig, allowNull = true) {
   /* eslint-disable valid-typeof */
   for (const [key, value] of Object.entries(obj)) {
@@ -53,7 +55,7 @@ function configValidationLoop(obj = require(configPath), checkObj = validConfig,
   /* eslint-enable valid-typeof */
 }
 
-/** @type {import('.').configValidator.setDefaultConfig} */
+/** @type {configValidator.setDefaultConfig} */
 function setDefaultConfig() {
   /** @type {Partial<Client['config']>} */
   let config;

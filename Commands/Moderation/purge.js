@@ -1,3 +1,7 @@
+/**
+ * @import { GuildTextBasedChannel } from 'discord.js'
+ * @import purge from './purge' */
+
 const
   { Collection, Constants, Message } = require('discord.js'),
   { getTargetChannel, DiscordAPIErrorCodes, timeFormatter: { msInSecond }, constants: { bulkDeleteMaxMessageAmt } } = require('#Utils'),
@@ -26,11 +30,11 @@ const
     server_ads: msg => adRegex.test(msg.content) || msg.embeds.some(e => adRegex.test(e.description))
   };
 
-/** @type {import('./purge')['shouldDeleteMsg']} */
+/** @type {purge['shouldDeleteMsg']} */
 function shouldDeleteMsg(msg, options) {
   const
 
-    /** @type {import('./purge')['check']} */
+    /** @type {purge['check']} */
     check = (fn, option) => !option
       || msg.content.toLowerCase()[fn](option.toLowerCase())
       || msg.embeds.some(e => !!e.description?.toLowerCase()[fn](option.toLowerCase())),
@@ -89,7 +93,7 @@ async function fetchMsgs(channel, before, after, limit = maxMsgs) {
 /**
  * @this {ThisParameterType<NonNullable<command<'both'>['run']>>}
  * @param {number | undefined} amount
- * @param {import('./purge').shouldDeleteMsgOptions} options
+ * @param {purge.shouldDeleteMsgOptions} options
  * @param {boolean} exists
  * @param {lang} lang */
 function checkParams(amount, options, exists, lang) {
@@ -162,10 +166,10 @@ module.exports = {
     const
       amount = this.options?.getInteger('amount', true) ?? Number.parseInt(this.args[0]).limit({ min: 0, max: maxAllowedPurgeAmt }),
 
-      /** @type {import('discord.js').GuildTextBasedChannel} */
+      /** @type {GuildTextBasedChannel} */
       channel = getTargetChannel(this, { returnSelf: true }),
 
-      /** @type {import('./purge').shouldDeleteMsgOptions} */
+      /** @type {purge.shouldDeleteMsgOptions} */
       options = Object.fromEntries(this.options?.data.map(e => [e.name, e.value]) ?? []);
 
     if (this instanceof Message) {

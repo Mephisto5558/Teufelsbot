@@ -1,10 +1,12 @@
+/** @import subcommand from '.' */
+
 const
   { hyperlink } = require('discord.js'),
 
   /** @type {Client['config']} */
   { website = {}, disableWebserver } = require('#Utils').getConfig();
 
-/** @type {import('.')} */
+/** @type {subcommand} */
 module.exports = {
   disabled: !!disableWebserver || !website.domain, // note that this property does not exist yet for subcommands.
   disabledReason: disableWebserver ? 'The webserver is disabled.' : 'Missing domain url in config.json',

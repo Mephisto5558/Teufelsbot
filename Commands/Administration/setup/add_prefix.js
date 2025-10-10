@@ -1,8 +1,10 @@
+/** @import subcommand from '.' */
+
 const
   { inlineCode } = require('discord.js'),
   MAX_PREFIXES_PER_GUILD = 2;
 
-/** @type {import('.')} */
+/** @type {subcommand} */
 module.exports = {
   options: [
     {

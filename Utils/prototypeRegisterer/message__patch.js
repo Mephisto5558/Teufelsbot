@@ -1,13 +1,15 @@
 /* eslint-disable unicorn/no-null -- Mimicing discord.js behavior */
 /* eslint no-underscore-dangle: [warn, {allow: [_patch]}] */
 
+/** @import { _patch } from '.' */
+
 const { Constants, userMention } = require('discord.js');
 
 /** @type {Message['_patch']} */
 /* eslint-disable-next-line custom/unbound-method */
 const originalPatch = require('discord.js').Message.prototype._patch;
 
-/** @type {import('.')._patch} */
+/** @type {_patch} */
 module.exports = function _patch(data, ...rest) {
   if (!Constants.NonSystemMessageTypes.includes(data.type)) return originalPatch.call(this, data, ...rest);
 

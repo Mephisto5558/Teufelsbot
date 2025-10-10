@@ -1,11 +1,13 @@
+/** @import { componentHandler } from '.' */
+
 const
   { Colors, EmbedBuilder, MessageFlags, Role, inlineCode } = require('discord.js'),
   /** @type {Record<string, GenericFunction<unknown>>} */ handlers = require('./componentHandler/'),
   cooldowns = require('./cooldowns'),
-  /** @type {import('.').errorHandler} */ errorHandler = require('./errorHandler'),
+  errorHandler = require('./errorHandler'),
   { msInSecond } = require('./timeFormatter');
 
-/** @type {import('.').componentHandler} */
+/** @type {componentHandler} */
 module.exports = async function messageComponentHandler(lang) {
   lang.config.backupPaths[0] = 'events.command';
 

@@ -2,6 +2,8 @@
    @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access,
    @typescript-eslint/no-unsafe-argument -- will be fixed when commands are moved to their own lib */
 
+/** @import { formatCommand } from '.' */
+
 const
   { ApplicationCommandOptionType, ApplicationCommandType, ChannelType, Message, PermissionsBitField } = require('discord.js'),
   { basename, dirname, resolve } = require('node:path'),
@@ -18,7 +20,7 @@ function getOptionalFile(path) {
   }
 }
 
-/** @type {import('.').formatCommand} */
+/** @type {formatCommand} */
 module.exports = function formatCommand(option, path, id, i18n) {
   if ('options' in option) {
     // assume it is a dir and is in the top-level or one in (subcommand group)

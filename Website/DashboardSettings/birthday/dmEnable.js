@@ -1,4 +1,6 @@
-/** @type {import('#types/locals').dashboardSetting} */
+/** @import { dashboardSetting } from '#types/locals' */
+
+/** @type {dashboardSetting} */
 module.exports = {
   id: 'dmEnable',
   name: 'Enable dm messages',

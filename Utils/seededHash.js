@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers -- yes magic numbers */
 
+/** @import { seededHash } from '.' */
+
 /**
  * https://github.com/bryc/code/blob/master/jshash/experimental/cyrb53.js
- * @type {import('.').seededHash} */
+ * @type {seededHash} */
 module.exports = function cyrb53a(str, seed = 0) {
   let
     h1 = 0xDE_AD_BE_EF ^ seed,

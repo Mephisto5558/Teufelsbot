@@ -1,3 +1,5 @@
+/** @import { GuildTextBasedChannel } from 'discord.js' */
+
 const
   { Colors, Constants, EmbedBuilder, hyperlink, userMention } = require('discord.js'),
   { getTargetMembers, getTargetChannel, constants: { embedDescriptionMaxLength }, toMs: { secToMs } } = require('#Utils');
@@ -20,7 +22,7 @@ module.exports = {
   async run(lang) {
     const
       target = getTargetMembers(this, { targetOptionName: 'member' }),
-      /** @type {import('discord.js').GuildTextBasedChannel | undefined} */ channel = getTargetChannel(this);
+      /** @type {GuildTextBasedChannel | undefined} */ channel = getTargetChannel(this);
 
     if (target) {
       if (!channel) return this.customReply(lang('memberRequiresChannel'));

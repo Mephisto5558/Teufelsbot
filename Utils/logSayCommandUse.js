@@ -1,3 +1,5 @@
+/** @import { logSayCommandUse } from '.' */
+
 const
   {
     ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder,
@@ -6,7 +8,7 @@ const
   { embedFieldValueMaxLength } = require('./constants'),
   GREY = 0x36393F;
 
-/** @type {import('.').logSayCommandUse} */
+/** @type {logSayCommandUse} */
 module.exports = async function logSayCommandUse(member, lang) {
   const setting = this.guild.db.config.logger?.sayCommandUsed;
   if (this.client.botType == 'dev' || !setting?.enabled) return;

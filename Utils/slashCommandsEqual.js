@@ -1,7 +1,9 @@
 /* eslint-disable sonarjs/expression-complexity, custom/cyclomatic-complexity, @typescript-eslint/no-unsafe-call,
 @typescript-eslint/no-unsafe-member-access -- will be fixed when commands are moved to their own lib */
 
-/** @type {import('.').slashCommandsEqual} */
+/** @import { slashCommandsEqual } from '.' */
+
+/** @type {slashCommandsEqual} */
 module.exports = function equal(a, b) {
   /* eslint-disable-next-line @typescript-eslint/no-base-to-string -- Intentional for now - */
   if (!a?.toString() && !b?.toString()) return true;

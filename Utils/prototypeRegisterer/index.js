@@ -1,6 +1,12 @@
 /* eslint-disable no-extend-native */
 /* eslint no-underscore-dangle: [warn, {allow: [_patch, __count__, _log]}] */
 
+/**
+ * @import { DB as DBT } from '@mephisto5558/mongoose-db'
+ * @import i18n from '@mephisto5558/i18n'
+ * @import { Guild, User, AutocompleteInteraction as AutocompleteInteractionT } from 'discord.js'
+ * @import { LogInterface } from '.' */
+
 const
   { AutocompleteInteraction, BaseInteraction, Client, Collection, Events, Guild, GuildMember, Message, User } = require('discord.js'),
   { randomInt } = require('node:crypto'),
@@ -17,7 +23,7 @@ const
   { playAgain, sendChallengeMention } = require('./TicTacToe_playAgain'),
   _patch = require('./message__patch'),
   customReply = require('./message_customReply'),
-  { runMessages } = require('./message_runMessages'),
+  runMessages = require('./message_runMessages'),
 
   defaultValueLoggingMaxJSONLength = 100,
 
@@ -25,7 +31,7 @@ const
 
 module.exports = { Log, _patch, customReply, runMessages, playAgain, sendChallengeMention };
 
-/** @type {import('.').LogInterface} */
+/** @type {LogInterface} */
 globalThis.log = new Log();
 globalThis.sleep = require('node:util').promisify(setTimeout);
 
@@ -140,26 +146,26 @@ Object.defineProperty(BigInt.prototype, 'toJSON', {
 
 
 // #region Discord.js
-/** @param {import('discord.js').User | import('discord.js').Guild} class_ */
+/** @param {User | Guild} class_ */
 function createDbHandlers(class_) {
   const collection = class_ == User ? 'userSettings' : 'guildSettings';
 
   return {
-    /** @type {Record<string, (this: import('discord.js').User | import('discord.js').Guild, val: unknown) => unknown>} */
+    /** @type {Record<string, (this: User | Guild, val: unknown) => unknown>} */
     db: {
       get() { return this.client.db.get(collection, this.id) ?? {}; },
       set(val) { void this.updateDB(undefined, val); }
     },
     updateDB: {
       // note that this type is not quite correct, but `(import('discord.js').User | import('discord.js').Guild)['updateDB'] does not work`
-      /** @type {import('discord.js').User['updateDB']} */
+      /** @type {User['updateDB']} */
       value: async function updateDB(key, value) {
         return this.client.db.update(collection, `${this.id}${key ? '.' + key : ''}`, value);
       }
     },
     deleteDB: {
       // note that this type is not quite correct, but `(import('discord.js').User | import('discord.js').Guild)['deleteDB'] does not work`
-      /** @type {import('discord.js').Guild['deleteDB']} */
+      /** @type {Guild['deleteDB']} */
       value: async function deleteDB(key) {
         /* eslint-disable-next-line @typescript-eslint/no-unnecessary-condition */
         if (!key) throw new Error(`Missing key; cannot delete ${this.constructor.name} using this method!`);
@@ -248,8 +254,8 @@ Object.defineProperty(AutocompleteInteraction.prototype, 'focused', {
   get() { return this.options.getFocused(true); },
 
   /**
-   * @this {AutocompleteInteraction}
-   * @param {import('discord.js').AutocompleteInteraction['focused']['value']} val */
+   * @this {AutocompleteInteractionT}
+   * @param {AutocompleteInteractionT['focused']['value']} val */
   set(val) { this.options.data.find(e => !!e.focused).value = val; }
 });
 Object.defineProperty(Message.prototype, 'user', {
@@ -260,7 +266,7 @@ Object.assign(Message.prototype, { customReply, runMessages, _patch });
 Object.defineProperties(User.prototype, {
   ...createDbHandlers(User),
 
-  /** @type {Record<string, (this: User, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale>} */
+  /** @type {Record<string, (this: User, val: i18n.Locale) => i18n.Locale>} */
   localeCode: {
     get() {
       const locale = this.db.localeCode
@@ -279,7 +285,7 @@ Object.defineProperties(GuildMember.prototype, {
     set() { throw new Error('You cannot set a value to GuildMember#db!'); }
   },
 
-  /** @type {Record<string, (this: GuildMember, val: import('@mephisto5558/i18n').Locale) => import('@mephisto5558/i18n').Locale>} */
+  /** @type {Record<string, (this: GuildMember, val: i18n.Locale) => i18n.Locale>} */
   localeCode: {
     get() {
       return this.user.localeCode ?? this.guild.localeCode;
@@ -290,7 +296,7 @@ Object.defineProperties(GuildMember.prototype, {
 Object.defineProperties(Guild.prototype, {
   ...createDbHandlers(Guild),
 
-  /** @type {Record<string, (this: Guild, val: import('discord.js').Guild['localeCode']) => import('discord.js').Guild['localeCode']>} */
+  /** @type {Record<string, (this: Guild, val: Guild['localeCode']) => Guild['localeCode']>} */
   localeCode: {
     get() { return this.db.config.lang ?? (this.preferredLocale.startsWith('en') ? 'en' : this.preferredLocale); },
     set(val) { void this.updateDB('config.lang', val); }
@@ -308,8 +314,8 @@ Object.defineProperties(Guild.prototype, {
 // #region mongoose-db
 Object.defineProperty(DB.prototype, 'generate', {
   /**
-   * @type {import('@mephisto5558/mongoose-db').DB['generate']}
-   * @this {DB} */
+   * @type {DBT['generate']}
+   * @this {DBT} */
   value: async function generate(overwrite = false) {
     this.saveLog(`generating db files${overwrite ? ', overwriting existing data' : ''}`);
     await Promise.all(require('../../Templates/db_collections.json').map(async ({ key, value }) => void await this.set(key, value, overwrite)));

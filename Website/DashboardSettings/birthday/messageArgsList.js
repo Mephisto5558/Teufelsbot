@@ -1,6 +1,8 @@
+/** @import { dashboardSetting } from '#types/locals' */
+
 const exampleYear = 2003;
 
-/** @type {import('@#types/locals').dashboardSetting} */
+/** @type {dashboardSetting} */
 module.exports = {
   name: 'Possible Arguments for Messages',
   description: `The following args are possible for the messages:<br>

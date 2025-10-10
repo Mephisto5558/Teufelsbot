@@ -1,3 +1,5 @@
+/** @import { timeFormatter as timeFormatterT } from '.' */
+
 const moment = require('moment');
 void require('moment-precise-range-plugin');
 
@@ -20,7 +22,7 @@ const
   YEAR_STR_LENGTH = 4,
   DATETIME_STR_LENGTH = 2;
 
-/** @type {import('.').timeFormatter['timeFormatter']} */
+/** @type {timeFormatterT['timeFormatter']} */
 function timeFormatter(ms, lang) {
   const { years, months, days, hours, minutes, seconds, firstDateWasLater: negative } = moment.preciseDiff(moment(), moment(ms), true);
 
@@ -41,7 +43,7 @@ function timeFormatter(ms, lang) {
   };
 }
 
-/** @type {import('.').timeFormatter['timestamp']} */
+/** @type {timeFormatterT['timestamp']} */
 function timestamp(time, code) {
   const date = Math.round(new Date(time).getTime() / msInSecond);
   return code ? `<t:${date}:${code}>` : `<t:${date}>`;

@@ -1,18 +1,22 @@
 /* eslint-disable custom/cyclomatic-complexity, sonarjs/cognitive-complexity, no-underscore-dangle
 -- will be fixed when commands are moved to their own lib */
 
+/**
+ * @import { BaseInteraction } from 'discord.js'
+ * @import Utils from '.' */
+
 const
   { ChannelType, Colors, CommandInteraction, EmbedBuilder, Message, MessageFlags, PermissionFlagsBits, Role, inlineCode } = require('discord.js'),
-  /** @type {import('.').autocompleteGenerator} */ autocompleteGenerator = require('./autocompleteGenerator'),
-  /** @type {import('.').commandMention} */ commandMention = require('./commandMention'),
-  cooldowns = require('./cooldowns'),
-  /** @type {import('.').permissionTranslator} */ permissionTranslator = require('./permissionTranslator'),
-  /** @type {import('.')['timeFormatter']} */ { msInSecond } = require('./timeFormatter'),
-  /** @type {import('.')['DiscordAPIErrorCodes']} */ DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
+  /** @type {Utils['autocompleteGenerator']} */ autocompleteGenerator = require('./autocompleteGenerator'),
+  /** @type {Utils['commandMention']} */ commandMention = require('./commandMention'),
+  /** @type {Utils['cooldowns']} */ cooldowns = require('./cooldowns'),
+  /** @type {Utils['permissionTranslator']} */ permissionTranslator = require('./permissionTranslator'),
+  /** @type {Utils['timeFormatter']} */ { msInSecond } = require('./timeFormatter'),
+  /** @type {Utils['DiscordAPIErrorCodes']} */ DiscordAPIErrorCodes = require('./DiscordAPIErrorCodes.json'),
 
   PERM_ERR_MSG_DELETETIME = msInSecond * 10,
 
-  isValidType = /** @param {Message | import('discord.js').BaseInteraction} type */ type => type instanceof Message || type.isChatInputCommand();
+  isValidType = /** @param {Message | BaseInteraction} type */ type => type instanceof Message || type.isChatInputCommand();
 
 /**
  * @this {Interaction | Message}
@@ -120,7 +124,7 @@ async function checkPerms(command, lang) {
   return true;
 }
 
-/** @type {import('.').checkForErrors} */
+/** @type {Utils['checkForErrors']} */
 module.exports = async function checkForErrors(command, lang) {
   if (!command) {
     if (this instanceof Message) {

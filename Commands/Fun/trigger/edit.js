@@ -1,8 +1,10 @@
+/** @import subcommand, { triggersArray } from '.' */
+
 const
   { inlineCode } = require('discord.js'),
   { findTriggerId, triggerQuery } = require('./_utils');
 
-/** @type {import('.').default} */
+/** @type {subcommand} */
 module.exports = {
   options: [
     {
@@ -21,7 +23,7 @@ module.exports = {
 
     const
       id = findTriggerId(query, oldData),
-      /** @type {import('.').triggersArray[1]} */ { trigger, response, wildcard } = query && id ? oldData[id] : undefined;
+      /** @type {triggersArray[1]} */ { trigger, response, wildcard } = query && id ? oldData[id] : undefined;
 
     if (!trigger) return this.editReply(lang('notFound'));
 

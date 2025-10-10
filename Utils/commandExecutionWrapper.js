@@ -1,9 +1,11 @@
+/** @import { commandExecutionWrapper } from '.' */
+
 const
   { ChatInputCommandInteraction, Colors, EmbedBuilder, MessageFlags } = require('discord.js'),
-  /** @type {import('.').checkForErrors} */ checkForErrors = require('./checkForErrors'),
-  /** @type {import('.').errorHandler} */ errorHandler = require('./errorHandler');
+  checkForErrors = require('./checkForErrors'),
+  errorHandler = require('./errorHandler');
 
-/** @type {import('.').commandExecutionWrapper} */
+/** @type {commandExecutionWrapper} */
 module.exports = async function commandExecutionWrapper(command, commandType, lang) {
   lang.config.backupPaths[0] = 'events.command';
 

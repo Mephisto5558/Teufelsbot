@@ -1,3 +1,5 @@
+/** @import { InviteGuild, Invite, ChannelType } from 'discord.js' */
+
 const
   { ALLOWED_SIZES, ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, Guild, inlineCode, userMention } = require('discord.js'),
   { getAverageColor } = require('fast-average-color-node'),
@@ -19,8 +21,8 @@ module.exports = {
     const id = this.options?.getString('guild_id_or_invite') ?? this.args?.[0];
 
     let
-      /** @type {Guild | import('discord.js').InviteGuild | undefined} */ guild,
-      /** @type {import('discord.js').Invite | undefined} */ invite;
+      /** @type {Guild | InviteGuild | undefined} */ guild,
+      /** @type {Invite | undefined} */ invite;
 
     if (id) {
       guild = this.client.guilds.cache.get(id);
@@ -70,11 +72,11 @@ module.exports = {
             name: lang('channels'), inline: false,
             value: Object.entries(
               channels.reduce((
-                /** @type {Record<import('discord.js').ChannelType, number | undefined>} */ acc, e
+                /** @type {Record<ChannelType, number | undefined>} */ acc, e
               ) => e ? { ...acc, [e.type]: (acc[e.type] ?? 0) + 1 } : acc, {})
             )
               .map((
-                /** @type {[import('discord.js').ChannelType, number]} */ [k, v]
+                /** @type {[ChannelType, number]} */ [k, v]
               ) => `${lang('others.ChannelTypes.plural.' + k.toString())}: ${inlineCode(v)}`)
               .join(', ')
           }

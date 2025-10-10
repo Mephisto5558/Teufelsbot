@@ -1,8 +1,8 @@
+/** @import wikijs from '../../node_modules/wikijs/index' */
+
 const
   { Colors, EmbedBuilder, bold } = require('discord.js'),
-
-  /** @type {import('../../node_modules/wikijs/index')} */
-  { default: wikiInit } = require('wikijs'),
+  /** @type {wikijs} */ { default: wikiInit } = require('wikijs'),
   { constants: { embedFieldMaxAmt, messageMaxLength }, timeFormatter: { msInSecond, timestamp } } = require('#Utils'),
   MAX_MSGS = 9;
 

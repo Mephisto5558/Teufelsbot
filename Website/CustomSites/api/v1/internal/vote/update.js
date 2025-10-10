@@ -1,7 +1,10 @@
+/**
+ * @import { customPage } from '#types/locals'
+ * @import { FeatureRequest } from '@mephisto5558/bot-website' */
+
 const { HTTP_STATUS_OK } = require('node:http2').constants;
 
-/** @typedef {import('@mephisto5558/bot-website').FeatureRequest} FeatureRequest */
-/** @type {import('#types/locals').customPage<FeatureRequest | FeatureRequest[]>} */
+/** @type {customPage<FeatureRequest | FeatureRequest[]>} */
 module.exports = {
   method: 'POST',
 

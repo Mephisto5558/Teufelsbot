@@ -1,8 +1,12 @@
+/**
+ * @import { GuildMember } from 'discord.js'
+ * @import subcommand from '.' */
+
 const
   { Constants, bold, roleMention, userMention } = require('discord.js'),
   { timeValidator } = require('#Utils');
 
-/** @type {import('.')} */
+/** @type {subcommand} */
 module.exports = {
   options: [
     {
@@ -53,7 +57,7 @@ module.exports = {
         hostedBy: this.user,
         botsCanWin: false,
         bonusEntries: {
-          /** @param {import('discord.js').GuildMember} member */
+          /** @param {GuildMember} member */
           bonus: member => bonusEntries[member.id]
         },
         embedColor: Number.parseInt(this.options.getString('embed_color')?.slice(1) ?? 0, 16)
@@ -85,7 +89,7 @@ module.exports = {
 
     if (requiredRoles?.length > 0 || disallowedMembers.length > 0)
 
-      /** @param {import('discord.js').GuildMember} member */
+      /** @param {GuildMember} member */
       startOptions.exemptMembers = member => !(member.roles.cache.some(e => requiredRoles?.includes(e.id)) && !disallowedMembers.includes(member.id));
 
     const giveaway = await this.client.giveawaysManager.start(

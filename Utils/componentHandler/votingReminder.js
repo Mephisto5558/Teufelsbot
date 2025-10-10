@@ -1,13 +1,17 @@
+/**
+ * @import { ButtonComponent } from 'discord.js'
+ * @import { votingReminder } from '.' */
+
 const { ButtonStyle, MessageFlags } = require('discord.js');
 
-/** @type {import('.').votingReminder} */
+/** @type {votingReminder} */
 module.exports = async function votingReminder(lang, mode) {
   lang.config.backupPaths[0] = 'others.timeEvents.votingReminder';
 
   await this.deferReply({ flags: MessageFlags.Ephemeral });
   await this.user.updateDB('votingReminderDisabled', mode == 'disable');
 
-  /** @type {import('discord.js').ButtonComponent} */
+  /** @type {ButtonComponent} */
   const button = this.message.resolveComponent(`votingReminder.${mode}`);
   if (mode == 'disable') {
     button.label = lang('buttonLabelEnable');

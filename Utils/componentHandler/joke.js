@@ -1,7 +1,8 @@
-/** @type {import('..').commandExecutionWrapper} */
+/** @import { joke } from '.' */
+
 const commandExecutionWrapper = require('../commandExecutionWrapper');
 
-/** @type {import('.').joke} */
+/** @type {joke} */
 module.exports = async function joke(lang, api, type, blacklist, maxLength) {
   this.options = {
     /** @param {string} str */
