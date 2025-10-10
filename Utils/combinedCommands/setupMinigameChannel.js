@@ -1,16 +1,21 @@
+/**
+ * @import { GuildTextBasedChannel } from 'discord.js'
+ * @import { guildSettings } from '#types/db/guildSettings'
+ * @import { setupMinigameChannel } from '.' */
+
 const
   { Colors, EmbedBuilder, channelMention } = require('discord.js'),
   getTargetChannel = require('../getTargetChannel');
 
-/** @type {import('.').setupMinigameChannel} */
+/** @type {setupMinigameChannel} */
 module.exports = async function setupMinigameChannel(lang) {
   const
 
-    /** @type {keyof NonNullable<import('#types/db/guildSettings').guildSettings[Snowflake]['channelMinigames']>} */
+    /** @type {keyof NonNullable<guildSettings[Snowflake]['channelMinigames']>} */
     game = this.commandName,
     gameData = this.guild.db.channelMinigames?.[game] ?? {},
 
-    /** @type {import('discord.js').GuildTextBasedChannel} */
+    /** @type {GuildTextBasedChannel} */
     channel = getTargetChannel(this, { returnSelf: true });
 
   if (gameData[channel.id]) {

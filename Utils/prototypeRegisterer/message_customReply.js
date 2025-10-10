@@ -1,3 +1,5 @@
+/** @import { customReply } from '.' */
+
 const
   { AttachmentBuilder, BaseInteraction, DiscordAPIError, Message } = require('discord.js'),
   { messageMaxLength } = require('../constants'),
@@ -15,7 +17,7 @@ function handleError(err) {
   return ![DiscordAPIErrorCodes.UnknownInteraction, DiscordAPIErrorCodes.InvalidWebhookTokenProvided].includes(err.code);
 }
 
-/** @type {import('.').customReply} */
+/** @type {customReply} */
 
 module.exports = async function customReply(options, deleteTime, allowedMentions) {
   if (typeof options != 'object') options = { content: options };

@@ -1,8 +1,10 @@
+/** @import { customPage } from '#types/locals' */
+
 const
   { ALLOWED_SIZES } = require('discord.js'),
   { HTTP_STATUS_FORBIDDEN, HTTP_STATUS_UNAUTHORIZED } = require('node:http2').constants;
 
-/** @type {import('#types/locals').customPage} */
+/** @type {customPage} */
 module.exports = {
   run(res, req) {
     if (!req.isAuthenticated())

@@ -1,6 +1,11 @@
 /* eslint camelcase: [error, { allow: [ban_kick_mute] }] */
+
 /**
- * @typedef {(this: ThisParameterType<import('.').infoCMDs>, embed: EmbedBuilder, mode: string, item: Item, lang: lang) => Promise<unknown>} ManagerFn
+ * @import { GuildMember, GuildEmoji, Guild, Role } from 'discord.js'
+ * @import { infoCMDs } from '.' */
+
+/**
+ * @typedef {(this: ThisParameterType<infoCMDs>, embed: EmbedBuilder, mode: string, item: Item, lang: lang) => Promise<unknown>} ManagerFn
  * @template {unknown} [Item=unknown] */
 
 const
@@ -18,7 +23,7 @@ const
 
   /** @type {Record<string, ManagerFn>} */
   manageFunctions = {
-    /** @type {ManagerFn<import('discord.js').GuildMember>} */
+    /** @type {ManagerFn<GuildMember>} */
     async members(embed, mode, member, lang) {
       if (!this.member.permissions.has(PermissionFlagsBits[mode == 'kick' ? 'KickMembers' : 'BanMembers']))
         return this.reply({ embeds: [embed.setDescription(lang('global.noPermUser'))], flags: MessageFlags.Ephemeral });
@@ -58,7 +63,7 @@ const
       await ban_kick_mute.call(this, lang);
     },
 
-    /** @type {ManagerFn<import('discord.js').GuildEmoji>} */
+    /** @type {ManagerFn<GuildEmoji>} */
     async emojis(embed, mode, emoji, lang) {
       switch (mode) {
         case 'addToGuild': {
@@ -85,8 +90,8 @@ const
 
           for (const guildId of this.values) {
             let
-              /** @type {import('discord.js').Guild | undefined} */ guild,
-              /** @type {import('discord.js').GuildMember | undefined} */ guildMember;
+              /** @type {Guild | undefined} */ guild,
+              /** @type {GuildMember | undefined} */ guildMember;
 
             try {
               guild = await this.client.guilds.fetch(guildId);
@@ -124,7 +129,7 @@ const
       }
     },
 
-    /** @type {ManagerFn<import('discord.js').Role>} */
+    /** @type {ManagerFn<Role>} */
     async roles(embed, mode, role, lang) {
       if (mode != 'delete') return;
 
@@ -140,7 +145,7 @@ const
     }
   };
 
-/** @type {import('.').infoCMDs} */
+/** @type {infoCMDs} */
 module.exports = async function infoCMDs(lang, id, mode, entityType) {
   if (entityType != 'members' && mode != 'addToGuild') await this.deferReply();
 

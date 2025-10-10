@@ -189,7 +189,7 @@ export declare function errorHandler(
 
 export declare function filename(path: string): string;
 
-export declare function findAllEntires(
+export declare function findAllEntries(
   obj: Record<string, unknown>, key: string, entryList?: Record<string, unknown>
 ): Record<string, unknown>;
 

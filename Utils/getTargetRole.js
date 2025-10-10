@@ -1,4 +1,6 @@
-/** @type {import('.').getTargetRole} */
+/** @import { getTargetRole } from '.' */
+
+/** @type {getTargetRole} */
 module.exports = function getTargetRole(interaction, { targetOptionName = 'target', returnSelf } = {}) {
   let target = interaction.options?.getRole(targetOptionName) ?? interaction.mentions?.roles.first();
   if (!target && interaction.content)

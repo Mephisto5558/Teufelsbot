@@ -1,3 +1,5 @@
+/** @import { GuildMember } from 'discord.js' */
+
 const
   {
     ALLOWED_SIZES, ActionRowBuilder, ActivityType, ButtonBuilder,
@@ -7,7 +9,7 @@ const
   { getTargetMembers, getAge, permissionTranslator, timeFormatter: { msInSecond, timestamp } } = require('#Utils');
 
 /**
- * @param {import('discord.js').GuildMember} member
+ * @param {GuildMember} member
  * @param {lang} lang */
 function getMemberType(member, lang) {
   let type = member.user.bot ? 'Bot, ' : '';

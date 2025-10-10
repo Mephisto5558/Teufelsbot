@@ -1,4 +1,6 @@
-/** @type {import('.')} */
+/** @import subcommand from '.' */
+
+/** @type {subcommand} */
 module.exports = {
   options: [{
     name: 'id',

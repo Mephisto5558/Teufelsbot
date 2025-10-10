@@ -1,3 +1,5 @@
+/** @import { OmitPartialGroupDMChannel, ClientEvents, GuildTextBasedChannel } from 'discord.js' */
+
 const
   {
     ALLOWED_SIZES, AuditLogEvent, Colors, EmbedBuilder, MessageFlags,
@@ -10,7 +12,7 @@ const
 
 
 /**
- * @this {import('discord.js').OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
+ * @this {OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
  * @param {lang} lang
  * @param {string | Record<string, string>} descriptionData */
 async function sendeMinigameDeletedEmbed(lang, descriptionData) {
@@ -26,7 +28,7 @@ async function sendeMinigameDeletedEmbed(lang, descriptionData) {
 }
 
 /**
- * @this {import('discord.js').OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
+ * @this {OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
  * @param {lang} lang */
 async function countingHandler(lang) {
   const { lastNumber } = this.guild.db.channelMinigames?.counting?.[this.channel.id] ?? {};
@@ -37,7 +39,7 @@ async function countingHandler(lang) {
 }
 
 /**
- * @this {import('discord.js').OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
+ * @this {OmitPartialGroupDMChannel<Message<true> | PartialMessage<true>>}
  * @param {lang} lang */
 async function wordchainHandler(lang) {
   const { lastWordChar } = this.guild.db.channelMinigames?.wordchain?.[this.channel.id] ?? {};
@@ -47,7 +49,7 @@ async function wordchainHandler(lang) {
   return sendeMinigameDeletedEmbed.call(this, lang, bold(this.originalContent));
 }
 
-/** @this {import('discord.js').ClientEvents['messageDelete'][0]} */
+/** @this {ClientEvents['messageDelete'][0]} */
 function shouldRun() {
   if (
     this.guild.members.me.permissionsIn(this.guild?.db.config.logger?.messageDelete.channel)
@@ -57,7 +59,7 @@ function shouldRun() {
   return true;
 }
 
-/** @this {import('discord.js').ClientEvents['messageDelete'][0]} */
+/** @this {ClientEvents['messageDelete'][0]} */
 module.exports = async function messageDelete() {
   if (this.client.botType == 'dev' || !this.inGuild() || this.flags.has(MessageFlags.Ephemeral) || this.flags.has(MessageFlags.Loading)) return;
 
@@ -76,7 +78,7 @@ module.exports = async function messageDelete() {
 
   const
 
-    /** @type {import('discord.js').GuildTextBasedChannel} cannot be undefined due to `shouldRun()` */
+    /** @type {GuildTextBasedChannel} cannot be undefined due to `shouldRun()` */
     logChannel = this.guild.channels.cache.get(this.guild.db.config.logger.messageDelete.channel),
     { executor, reason } = (await this.guild.fetchAuditLogs({ limit: AUDITLOG_FETCHLIMIT, type: AuditLogEvent.MessageDelete })).entries
       .find(e => (e.target.id == this.user?.id) && e.extra.channel.id == this.channel.id && Date.now() - e.createdTimestamp < TWENTY_SEC) ?? {},

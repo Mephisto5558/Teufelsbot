@@ -1,3 +1,5 @@
+/** @import { cooldowns } from '.' */
+
 const
   { ApplicationCommandOptionType, ChatInputCommandInteraction } = require('discord.js'),
   { msInSecond } = require('./timeFormatter');
@@ -37,7 +39,7 @@ function subCommandCooldowns(name, maxDepth = 2) {
 }
 
 
-/** @type {import('.').cooldowns} */
+/** @type {cooldowns} */
 function cooldown(name, cooldowns = {}) {
   const
     now = Date.now(),

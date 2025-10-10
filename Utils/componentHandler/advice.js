@@ -1,7 +1,8 @@
-/** @type {import('..').commandExecutionWrapper} */
+/** @import { advice } from '.' */
+
 const commandExecutionWrapper = require('../commandExecutionWrapper');
 
-/** @type {import('.').advice} */
+/** @type {advice} */
 module.exports = async function advice(lang) {
   await this.update({ components: [] });
   return commandExecutionWrapper.call(this, this.client.slashCommands.get(this.customId), 'component', lang);

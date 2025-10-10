@@ -1,9 +1,11 @@
+/** @import { ApplicationEmoji } from 'discord.js' */
+
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, EmbedBuilder, TimestampStyles, hyperlink, inlineCode } = require('discord.js'),
   { msInSecond, timestamp } = require('#Utils').timeFormatter,
   userLink = /** @param {Snowflake} id */ id => `https://discord.com/users/${id}`,
 
-  /** @type {(label: string, url: string, emoji: import('discord.js').ApplicationEmoji) => ButtonBuilder} */
+  /** @type {(label: string, url: string, emoji: ApplicationEmoji) => ButtonBuilder} */
   createButton = (label, url, emoji) => new ButtonBuilder({ label, url, emoji, style: ButtonStyle.Link });
 
 /**

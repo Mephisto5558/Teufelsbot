@@ -1,3 +1,5 @@
+/** @import subcommand from '.' */
+
 const
   { Colors, Constants, EmbedBuilder, bold, channelMention, inlineCode, roleMention, userMention } = require('discord.js'),
   { commandMention } = require('#Utils'),
@@ -10,7 +12,7 @@ const
   /** @type {[['role', 'roles'], ['member', 'users'], ['channel', 'channels']]} */
   types = [['role', 'roles'], ['member', 'users'], ['channel', 'channels']];
 
-/** @type {import('.')} */
+/** @type {subcommand} */
 module.exports = {
   options: [
     {

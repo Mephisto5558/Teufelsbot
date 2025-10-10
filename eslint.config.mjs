@@ -5,7 +5,7 @@ config.find(e => e.rules && 'no-underscore-dangle' in e.rules)?.rules['no-unders
   ?.push?.('__count__', '_log', '_logToConsole', '_logToFile'); // Object#count, Logger
 
 /**
- * @type {import('eslint').Linter.Config[]}
+ * @type {typeof config}
  * This config lists all rules from every plugin it uses. */
 export default [
   ...config,

@@ -1,6 +1,10 @@
-/** @type {import('.').getTargetChannel} */
+/**
+ * @import { GuildChannel } from 'discord.js'
+ * @import { getTargetChannel } from '.' */
+
+/** @type {getTargetChannel} */
 module.exports = function getTargetChannel(interaction, { targetOptionName = 'channel', returnSelf } = {}) {
-  /** @type {import('discord.js').GuildChannel | undefined} */
+  /** @type {GuildChannel | undefined} */
   /* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment -- will be fixed when commands are moved to their own lib */
   let target = interaction.options?.getChannel(targetOptionName, false) ?? interaction.mentions?.channels.first();
 

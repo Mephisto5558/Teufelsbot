@@ -1,3 +1,5 @@
+/** @import reddit from './reddit' */
+
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Collection, EmbedBuilder, codeBlock } = require('discord.js'),
   { HTTP_STATUS_NOT_FOUND } = require('node:http2').constants,
@@ -7,10 +9,10 @@ const
   CACHE_DELETE_TIME = secsInMinute * 5, /* eslint-disable-line @typescript-eslint/no-magic-numbers -- 5min */
   maxPercentage = 100,
   memeSubreddits = ['funny', 'jokes', 'comedy', 'bonehurtingjuice', 'ComedyCemetery', 'comedyheaven', 'dankmemes', 'meme'],
-  /** @type {import('./reddit').Cache} */ cachedSubreddits = new Collection();
+  /** @type {reddit.Cache} */ cachedSubreddits = new Collection();
 
 /**
- * @param {Partial<import('./reddit').RedditPage>} page
+ * @param {Partial<reddit.RedditPage>} page
  * @param {boolean} filterNSFW */
 function fetchPost({ children } = {}, filterNSFW = true) {
   children = children?.filter(e => !e.data.pinned && !e.data.stickied && (!filterNSFW || !e.data.over_18));
@@ -69,7 +71,7 @@ module.exports = {
 
     let post = fetchPost(cachedSubreddits.get(`${subreddit}_${type}`), filterNSFW);
     if (!post) {
-      let /** @type {import('./reddit').RedditResponse | import('./reddit').RedditErrorResponse} */ res;
+      let /** @type {reddit.RedditResponse | reddit.RedditErrorResponse} */ res;
       try {
         res = await fetch(`https://oauth.reddit.com/r/${subreddit}/${type}.json`, {
           headers: {

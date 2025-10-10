@@ -1,11 +1,11 @@
-/** @import { serverbackup } from '.' */
+/** @import { autocompleteGenerator } from '.' */
 
 const
-  { AutocompleteInteraction } = require('discord.js'),
+  { BaseInteraction } = require('discord.js'),
   { autocompleteOptionsMaxAmt } = require('./constants');
 
 /**
- * @this {ThisParameterType<import('.').autocompleteGenerator>}
+ * @this {ThisParameterType<autocompleteGenerator>}
  * @param {string} searchValue
  * @param {lang<true>} lang
  * @param {commandOptions['autocompleteOptions'] | { name: unknown; value: unknown } | undefined} options
@@ -30,11 +30,11 @@ async function autocompleteFormatter(searchValue, lang, options) {
   return [options];
 }
 
-/** @type {import('.').autocompleteGenerator} */
+/** @type {autocompleteGenerator} */
 module.exports = async function autocompleteGenerator(command, target, locale) {
   const
-    group = this instanceof AutocompleteInteraction ? this.options.getSubcommandGroup(false) : undefined,
-    subcommand = this instanceof AutocompleteInteraction ? this.options.getSubcommand(false) : undefined;
+    group = this instanceof BaseInteraction ? this.options.getSubcommandGroup(false) : undefined,
+    subcommand = this instanceof BaseInteraction ? this.options.getSubcommand(false) : undefined;
 
   /** @type {commandOptions[]} */
   let [...options] = command.options;
@@ -43,7 +43,12 @@ module.exports = async function autocompleteGenerator(command, target, locale) {
 
   const lang = this.client.i18n.getTranslator({
     locale, undefinedNotFound: true,
-    backupPaths: [['commands', command.category, command.name, 'options', group, subcommand, target.name, 'choices'].filter(Boolean).join('.')]
+    backupPaths: [[
+      'commands', command.category, command.name, 'options',
+      ...group ? [group, 'options'] : [],
+      ...subcommand ? [subcommand, 'options'] : [],
+      target.name, 'choices'
+    ].join('.')]
   });
 
   return autocompleteFormatter.call(this, target.value, lang, options.find(e => e.name == target.name)?.autocompleteOptions);

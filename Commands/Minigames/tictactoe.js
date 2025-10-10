@@ -1,3 +1,7 @@
+/**
+ * @import { TicTacToe as TicTacToeT } from '#types/globals'
+ * @import { GuildMember } from 'discord.js' */
+
 const
   TicTacToe = require('discord-tictactoe'),
   { getTargetMembers, timeFormatter: { secsInMinute }, toMs: { secToMs } } = require('#Utils'),
@@ -8,10 +12,10 @@ const
 
 /**
  * @this {GuildInteraction}
- * @param {import('discord.js').GuildMember[]} players
+ * @param {GuildMember[]} players
  * @param {('win' | 'lose' | 'draw')[]} types
  * @param {lang} lang
- * @param {import('#types/globals').TicTacToe} game */
+ * @param {TicTacToeT} game */
 async function eventCallback([player1, player2], [type1, type2 = type1], lang, game) {
   if (player1.id == this.client.user.id || player2.id == this.client.user.id) return;
 

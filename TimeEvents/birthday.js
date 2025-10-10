@@ -1,10 +1,12 @@
+/** @import { GuildMember, Guild } from 'discord.js' */
+
 const
   { BaseGuildTextChannel, EmbedBuilder, inlineCode } = require('discord.js'),
   { DiscordAPIErrorCodes } = require('#Utils');
 
 /**
  * @this {StringConstructor | string | undefined}
- * @param {import('discord.js').GuildMember} member
+ * @param {GuildMember} member
  * @param {number} year */
 function formatBirthday(member, year) {
   return this?.toString().replaceAll('{user.nickname}', member.displayName)
@@ -25,7 +27,7 @@ function formatBirthday(member, year) {
 /**
  * @param {'ch' | 'dm'} type
  * @param {NonNullable<Database['guildSettings'][Snowflake]['birthday']>} settings
- * @param {import('discord.js').GuildMember} member
+ * @param {GuildMember} member
  * @param {number} year
  * @param {Database['botSettings']['defaultGuild']['birthday']} defaultSettings */
 function createEmbed(type, settings, member, year, defaultSettings) {
@@ -39,7 +41,7 @@ function createEmbed(type, settings, member, year, defaultSettings) {
 /**
  * @this {Client}
  * @param {NonNullable<Database['guildSettings'][Snowflake]['birthday']>} settings
- * @param {import('discord.js').Guild} guild */
+ * @param {Guild} guild */
 async function getChannel(settings, guild) {
   if (!settings.ch?.channel) return;
 

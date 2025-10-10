@@ -1,9 +1,11 @@
+/** @import subcommand from '.' */
+
 const
   { Colors, EmbedBuilder, bold, codeBlock, inlineCode } = require('discord.js'),
   { embedFieldMaxAmt, suffix } = require('#Utils').constants,
   { findTriggerId, triggerQuery } = require('./_utils');
 
-/** @type {import('.').default} */
+/** @type {subcommand} */
 module.exports = {
   options: [
     {

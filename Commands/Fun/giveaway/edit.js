@@ -1,7 +1,11 @@
+/**
+ * @import { GuildMember } from 'discord.js'
+ * @import subcommand from '.' */
+
 const
   { timeValidator } = require('#Utils');
 
-/** @type {import('.')} */
+/** @type {subcommand} */
 module.exports = {
   options: [
     {
@@ -39,7 +43,7 @@ module.exports = {
     };
 
     if (requiredRoles?.length > 0 || disallowedMembers.length > 0) {
-    /** @param {import('discord.js').GuildMember} member */
+    /** @param {GuildMember} member */
       editOptions.newExemptMembers = member => !(
         member.roles.cache.some(e => requiredRoles?.includes(e.id))
         && !disallowedMembers.includes(member.id)
@@ -47,7 +51,7 @@ module.exports = {
     }
 
     if (bonusEntries?.__count__) {
-      /** @param {import('discord.js').GuildMember} member */
+      /** @param {GuildMember} member */
       editOptions.newBonusEntries.bonus = member => bonusEntries[member.id];
     }
 

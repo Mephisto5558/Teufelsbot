@@ -1,3 +1,5 @@
+/** @import { GuildTextBasedChannel } from 'discord.js' */
+
 const
   { AllowedMentionsTypes, Constants, Message, PermissionFlagsBits } = require('discord.js'),
   { constants, getTargetChannel, logSayCommandUse } = require('#Utils');
@@ -34,7 +36,7 @@ module.exports = {
       msg = this.options?.getString('msg', true) ?? this.content,
       allowedMentions = { parse: [AllowedMentionsTypes.User] },
 
-      /** @type {import('discord.js').GuildTextBasedChannel} */
+      /** @type {GuildTextBasedChannel} */
       channel = getTargetChannel(this, { returnSelf: true }),
       replyTo = this.options?.getString('reply_to');
 

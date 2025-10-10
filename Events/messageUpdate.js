@@ -1,3 +1,5 @@
+/** @import { ClientEvents, GuildTextBasedChannel } from 'discord.js' */
+
 const
   {
     ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, MessageFlags,
@@ -7,8 +9,8 @@ const
   PINK = 0xE62AED;
 
 /**
- * @this {import('discord.js').ClientEvents['messageUpdate'][0]}
- * @param {import('discord.js').ClientEvents['messageUpdate'][1]} newMsg */
+ * @this {ClientEvents['messageUpdate'][0]}
+ * @param {ClientEvents['messageUpdate'][1]} newMsg */
 function shouldRun(newMsg) {
   const setting = this.guild?.db.config.logger?.messageUpdate;
   if (
@@ -28,14 +30,14 @@ function shouldRun(newMsg) {
 }
 
 /**
- * @this {import('discord.js').ClientEvents['messageUpdate'][0]}
- * @param {import('discord.js').ClientEvents['messageUpdate'][1]} newMsg */
+ * @this {ClientEvents['messageUpdate'][0]}
+ * @param {ClientEvents['messageUpdate'][1]} newMsg */
 module.exports = async function messageUpdate(newMsg) {
   if (!shouldRun.call(this, newMsg)) return;
 
   const
 
-    /** @type {import('discord.js').GuildTextBasedChannel} cannot be undefined due to `shouldRun()` */
+    /** @type {GuildTextBasedChannel} cannot be undefined due to `shouldRun()` */
     logChannel = this.guild.channels.cache.get(this.guild?.db.config.logger?.messageUpdate.channel),
     lang = this.client.i18n.getTranslator({
       locale: this.guild.db.config.lang ?? this.guild.localeCode, backupPaths: ['events.logger.messageUpdate']

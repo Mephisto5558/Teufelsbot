@@ -1,3 +1,5 @@
+/** @import { record } from '.' */
+
 const
   { Collection, GuildMember, MessageFlags, inlineCode } = require('discord.js'),
   { recordControls, startRecording } = require('./record_manage'),
@@ -5,7 +7,7 @@ const
   /** @type {Collection<Snowflake, Collection<Snowflake, { userId: Snowflake, allowed: boolean }[]>>} */
   cache = new Collection();
 
-/** @type {import('.').record} */
+/** @type {record} */
 module.exports = async function record(lang, mode, requesterId, voiceChannelId, isPublic) {
   lang.config.backupPaths[0] = 'commands.premium.record';
 

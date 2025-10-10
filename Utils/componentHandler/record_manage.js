@@ -1,15 +1,19 @@
+/**
+ * @import { ActionRow, ButtonComponent } from 'discord.js'
+ * @import { record_startRecording, record_recordControls } from '.' */
+
 const
   { ActionRowBuilder, ButtonBuilder, ButtonStyle, Colors, DiscordAPIError, PermissionFlagsBits, channelMention, userMention } = require('discord.js'),
   { createWriteStream } = require('node:fs'),
   { access, mkdir, unlink } = require('node:fs/promises'),
   { EndBehaviorType, VoiceConnectionStatus, entersState, getVoiceConnection, joinVoiceChannel } = require('@discordjs/voice'),
-  /** @type {string?} */ ffmpeg = require('ffmpeg-static'),
+  /** @type {string?} */ ffmpegPath = require('ffmpeg-static'),
   { Decoder } = require('prism-media').opus,
-  /** @type {import('..').shellExec} */ shellExec = require('../shellExec');
+  shellExec = require('../shellExec');
 
-if (!ffmpeg) throw new Error('no ffmpeg');
+if (!ffmpegPath) throw new Error('Missing ffmpeg installation');
 
-/** @type {import('.').record_startRecording} */
+/** @type {record_startRecording} */
 module.exports.startRecording = async function startRecording(lang, requesterId, voiceChannelId, isPublic, vcCache) {
   const embed = this.message.embeds[0];
 
@@ -90,12 +94,12 @@ module.exports.startRecording = async function startRecording(lang, requesterId,
   }
 };
 
-/** @type {import('.').record_recordControls} */
+/** @type {record_recordControls} */
 module.exports.recordControls = async function recordControls(lang, mode, voiceChannelId, isPublic, cache) {
   const
     embed = this.message.embeds[0],
 
-    /** @type {import('discord.js').ActionRow<import('discord.js').ButtonComponent>} */
+    /** @type {ActionRow<ButtonComponent>} */
     buttons = this.message.components[0],
     membersToRecord = cache.get(this.guild.id)?.get(voiceChannelId)?.filter(e => e.allowed)
       .map(e => e.userId);
@@ -144,7 +148,7 @@ module.exports.recordControls = async function recordControls(lang, mode, voiceC
     embed.data.description = lang('global.loading', getEmoji('loading'));
     void this.update({ embeds: [embed], components: [] });
 
-    await shellExec(`"${ffmpeg}" -f s16le -ar 48k -ac 2 -i "./VoiceRecords/raw/${filename}.ogg" "./VoiceRecords/${filename}.mp3"`);
+    await shellExec(`"${ffmpegPath}" -f s16le -ar 48k -ac 2 -i "./VoiceRecords/raw/${filename}.ogg" "./VoiceRecords/${filename}.mp3"`);
     await unlink(`./VoiceRecords/raw/${filename}.ogg`);
 
     if (isPublic) {

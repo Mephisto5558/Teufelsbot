@@ -1,3 +1,5 @@
+/** @import { runMessages } from '.' */
+
 const
   { bold } = require('discord.js'),
   { removeAfkStatus, sendAfkMessages } = require('../afk'),
@@ -6,8 +8,6 @@ const
 
   MESSAGES_COOLDOWN = secToMs(5), /* eslint-disable-line @typescript-eslint/no-magic-numbers */
   WORDCOUNT_MIN_CHARS = 3;
-
-module.exports = { runMessages };
 
 /** @this {Message<true>} */
 function replyToTriggers() {
@@ -145,8 +145,8 @@ async function handleWordcounter(cleanMsg) {
   return Promise.allSettled(dbPromises);
 }
 
-/** @type {import('.').runMessages} */
-function runMessages() {
+/** @type {runMessages} */
+module.exports = function runMessages() {
   if (this.originalContent.includes(this.client.user.id) && !cooldowns.call(this, 'botMentionReaction', { user: MESSAGES_COOLDOWN }))
     void this.react('👀');
 
@@ -168,4 +168,4 @@ function runMessages() {
   if (!cooldowns.call(this, 'afkMsg', { channel: secToMs(10), user: secToMs(10) })) void sendAfkMessages.call(this);
 
   return this;
-}
+};

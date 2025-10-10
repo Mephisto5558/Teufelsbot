@@ -1,16 +1,20 @@
+/**
+ * @import { User, Collection } from 'discord.js'
+ * @import { __getTargetUser, __getTargetMember, getTargetMembers as getTargetMembersT } from '.' */
+
 const { GuildMember, userMention } = require('discord.js');
 
 /**
- * @template {GuildMember | import('discord.js').User} T
+ * @template {GuildMember | User} T
  * @param {string} query
  * @param {(e: T) => boolean} filter
- * @param {import('discord.js').Collection<Snowflake, T>} cache
+ * @param {Collection<Snowflake, T>} cache
  * @returns {T | undefined} */
 const searchCache = (query, filter, cache) => cache.find(e => filter(e) && [
   ...e instanceof GuildMember ? [e.user.username, e.user.globalName, e.nickname] : [e.username, e.globalName], e.id, e.displayName
 ].some(e => !!e && (query.includes(e) || e.includes(query))));
 
-/** @type {import('.').__getTargetUser} */
+/** @type {__getTargetUser} */
 function getTargetUser(interaction, { targetOptionName, returnSelf }, seenList) {
   let target = interaction.options?.getUser(targetOptionName)
     ?? interaction.mentions?.users.at(seenList.size)
@@ -31,7 +35,7 @@ function getTargetUser(interaction, { targetOptionName, returnSelf }, seenList) 
   if (returnSelf && !seenList.has(interaction.user.id)) return interaction.user;
 }
 
-/** @type {import('.').__getTargetMember} */
+/** @type {__getTargetMember} */
 function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList) {
   if (interaction.inGuild()) {
     /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call,
@@ -61,13 +65,13 @@ function getTargetMember(interaction, { targetOptionName, returnSelf }, seenList
   return getTargetUser(interaction, { targetOptionName, returnSelf }, seenList);
 }
 
-/** @type {import('.').getTargetMembers} */
+/** @type {getTargetMembersT} */
 module.exports = function getTargetMembers(interaction, targetSettings) {
-  /** @type {NonNullable<Exclude<Parameters<import('.').getTargetMembers>[1], Array>>[] | undefined} */
+  /** @type {NonNullable<Exclude<Parameters<getTargetMembersT>[1], Array>>[] | undefined} */
   let settings = Array.isArray(targetSettings) ? targetSettings : [targetSettings];
   if (!targetSettings || !settings.length) settings = [{}];
 
-  /** @type {ReturnType<import('.').__getTargetMember>[]} */
+  /** @type {ReturnType<__getTargetMember>[]} */
   const members = [...settings.reduce((/** @type {Map<Snowflake, unknown>} */ acc, { targetOptionName, returnSelf }, i) => {
     const
       member = getTargetMember(interaction, { targetOptionName: targetOptionName ?? `target${i || ''}`, returnSelf }, acc),

@@ -1,6 +1,8 @@
+/** @import { help } from '.' */
+
 const utils = require('./help_utils');
 
-/** @type {import('.').help} */
+/** @type {help} */
 module.exports = async function help(lang, type) {
   lang.config.backupPaths[0] = 'commands.information.help';
 

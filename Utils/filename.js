@@ -1,6 +1,8 @@
+/** @import { filename } from '.' */
+
 const { basename, extname } = require('node:path');
 
-/** @type {import('.').filename} */
+/** @type {filename} */
 module.exports = function getFilename(path) {
   return basename(path, extname(path));
 };

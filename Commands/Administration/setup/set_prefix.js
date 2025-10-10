@@ -1,6 +1,8 @@
+/** @import subcommand from '.' */
+
 const addPrefix = require('./add_prefix');
 
-/** @type {import('.')} */
+/** @type {subcommand} */
 module.exports = {
   options: [
     {

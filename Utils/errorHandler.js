@@ -1,3 +1,5 @@
+/** @import { errorHandler } from '.' */
+
 const
   {
     ActionRowBuilder, AttachmentBuilder, ButtonBuilder, ButtonStyle,
@@ -11,7 +13,7 @@ const
 
   cwd = process.cwd();
 
-/** @type {import('.').errorHandler} */
+/** @type {errorHandler} */
 /* eslint-disable-next-line unicorn/no-useless-undefined -- lang is optional and doesn't have a default value. */
 module.exports = async function errorHandler(err, context = [this], lang = undefined) {
   const

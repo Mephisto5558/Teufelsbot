@@ -1,9 +1,11 @@
+/** @import { serverbackup } from '.' */
+
 const
   { ButtonComponent, Colors, EmbedBuilder, inlineCode } = require('discord.js'),
   { createProxy, hasPerm } = require('./serverbackup_utils'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
-/** @type {import('.').serverbackup} */
+/** @type {serverbackup} */
 module.exports = async function serverbackup(lang, _mode, id, option, clearGuildBeforeRestore) {
   lang.config.backupPaths.push('commands.administration.serverbackup.load');
 

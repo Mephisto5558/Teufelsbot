@@ -1,6 +1,8 @@
+/** @import subcommand from '.' */
+
 const backup = new Map(['creator', 'owner', 'creator+owner', 'admins'].map((e, i) => [e, i]));
 
-/** @type {import('.')} */
+/** @type {subcommand} */
 module.exports = {
   options: [{
     name: 'allowed_to_load',

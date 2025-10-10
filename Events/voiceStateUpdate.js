@@ -1,11 +1,13 @@
+/** @import { ClientEvents } from 'discord.js' */
+
 const
   { EmbedBuilder, PermissionFlagsBits, channelMention, inlineCode, userMention } = require('discord.js'),
   { removeAfkStatus, setAfkStatus } = require('#Utils').afk,
   GRAY = 0x36393F;
 
 /**
- * @this {import('discord.js').ClientEvents['voiceStateUpdate'][0]}
- * @param {import('discord.js').ClientEvents['voiceStateUpdate'][1]} newState */
+ * @this {ClientEvents['voiceStateUpdate'][0]}
+ * @param {ClientEvents['voiceStateUpdate'][1]} newState */
 module.exports = async function voiceStateUpdate(newState) {
   if (this.client.botType == 'dev') return;
 

@@ -1,4 +1,6 @@
-/** @type {import('#types/locals').dashboardSetting} */
+/** @import { dashboardSetting } from '#types/locals' */
+
+/** @type {dashboardSetting} */
 module.exports = {
   id: 'autopublish',
   name: 'Auto Publish',

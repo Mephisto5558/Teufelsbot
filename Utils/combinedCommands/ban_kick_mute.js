@@ -1,3 +1,5 @@
+/** @import { ban_kick_mute } from '.' */
+
 const
   {
     ActionRowBuilder, Colors, ComponentType, EmbedBuilder, PermissionFlagsBits,
@@ -9,7 +11,7 @@ const
   { dayToMs, minToMs } = require('../toMs'),
   DiscordAPIErrorCodes = require('../DiscordAPIErrorCodes.json');
 
-/** @type {import('.').ban_kick_mute} */
+/** @type {ban_kick_mute} */
 /* eslint-disable-next-line camelcase -- This casing is used to better display the commandNames. */
 module.exports = async function ban_kick_mute(lang) {
   if (this.commandName == 'timeout') this.commandName = 'mute';

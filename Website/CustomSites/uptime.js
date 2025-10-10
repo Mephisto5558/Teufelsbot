@@ -1,4 +1,6 @@
-/** @type {import('#types/locals').customPage} */
+/** @import { customPage } from '#types/locals' */
+
+/** @type {customPage} */
 module.exports = {
   title: 'Uptime',
 

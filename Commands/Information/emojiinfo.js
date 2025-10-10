@@ -1,3 +1,5 @@
+/** @import { GuildEmoji, PartialEmoji } from 'discord.js' */
+
 const
   {
     ActionRowBuilder, ButtonBuilder, ButtonStyle, CDNRoutes, EmbedBuilder, ImageFormat,
@@ -25,7 +27,7 @@ module.exports = {
     const
       parsedEmoji = parseEmoji(this.options?.getString('emoji', true) ?? this.args[0]),
 
-      /** @type {import('discord.js').GuildEmoji | import('discord.js').PartialEmoji | undefined} */
+      /** @type {GuildEmoji | PartialEmoji | undefined} */
       emoji = this.client.emojis.cache.get(parsedEmoji?.id ?? emojiURLRegex.exec(this.content)?.groups.id) ?? parsedEmoji;
 
     if (!emoji?.id) return this.customReply(lang('notFound'));

@@ -1,8 +1,10 @@
+/** @import subcommand from '.' */
+
 const
   { Constants, channelLink } = require('discord.js'),
   loggerActionTypes = ['messageDelete', 'messageUpdate', 'voiceChannelActivity', 'sayCommandUsed'];
 
-/** @type {import('.')} */
+/** @type {subcommand} */
 module.exports = {
   options: [
     {
