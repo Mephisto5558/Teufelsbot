@@ -1,10 +1,17 @@
 import config from '@mephisto5558/eslint-config';
 
+/* eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access */
+config.find(e => e.rules && 'no-underscore-dangle' in e.rules)?.rules['no-underscore-dangle'][1]?.allow
+  ?.push?.('__count__', '_log', '_logToConsole', '_logToFile'); // Object#count, Logger
+
 /**
  * @type { import('eslint').Linter.Config[] }
  * This config lists all rules from every plugin it uses. */
 export default [
   ...config,
+  {
+    ignores: ['./Locales/!(en|de)/**']
+  },
   {
     name: 'templates',
     files: ['Templates/*.{js,ts}'],
